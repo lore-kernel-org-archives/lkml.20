@@ -1,39 +1,60 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218913B6C17;
-	Sat, 26 Sep 2026 14:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD2033D6ED
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790433934; cv=none; b=NSg5BQ43doaiPHs3EVzPG5D7HgSuN2YJhqMl+wVlYArgESlI1Oi7aChiGSJNzeGdyD73Onhoj9tYgeRv0nCJSdJjqXPlsYHhJRYLjTs9PhXPaxO2jTqI6NnGpAsD5sxRtx+UcbO+jFnt5x8twCTYDyhGXTdpo9Mw1CU5katRy1s=
+	t=1790434026; cv=none; b=SIkQJC21yzJvSK369usnKfOJf6MUkU5cqROaWMwE684KAAyT/yqD8R/GMiRkD719fj3j+OaxRjlHyJ3M8JAQpyGeBxxgRR3BAagcWzi7ZsNWCcVJGueuvEOh4XtyPtEUWnqJYVM+HwAACmSM11TqVXswb1TNHC+qsYlcn9G1rOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790433934; c=relaxed/simple;
-	bh=dmZUngUCVOz2gkdF1xafc2BAzFipK5XtAgENKFzA6dI=;
+	s=arc-20240116; t=1790434026; c=relaxed/simple;
+	bh=sfp2I/Sp3sz65tzvRz7JU8xTG6urfHnHuJFQmAor2Vk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=crtLhQdzHZBkm+Vcmla9asnxrRvwrerU53BTs7LFDbbWuUSh4m5Y2go7dcNJNHykDQUn0/iT262dRmecdXThuaZAKHCx/ZZTH9AzA9lWnm7QzBxvMRsfeG5tX5muI15Q/y8PTtFIFLay4aPjgMz040IUqVXnA/vMrp+nJaGqn44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=SmdpAoZs; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=Ktz618aNIqDo3q8vu39XNIYgpZivNQ9+ecyVvvK73ab981eChbZnnhiWnwRciRrRYi5H2Uy8IUwBFCOZumF256or/loJZ+Lnrat/1j11iuzDSR+sb8nhbAJFT8NNJ5H4Uqajx56DVqmoEJSIuvB8ax/ZAjbjZD62KKvyhzNxK1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UKYHqpcy; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="SmdpAoZs"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C32E653401FA;
-	Sat, 26 Sep 2026 16:45:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790433930;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5Apn2YF5XEj2vUVw6Yx8RwrmsIykiLewffaA3kcaTPY=;
-	b=SmdpAoZs79lrPkVy/0d+Ku1eDb2aVPLHg3M/IWW+9PinutKr4USvtM7HE9Xn4uWEAreLkU
-	GHgQKxpspvwHBLkZJ7BaUDTp1laR0/30vr0PUpFfmqm4Q3cuJFRgLrebS480GZ2cYg+8nP
-	dplAPgHy//yTykZw0X1o8RiWFUVLc8Y=
-Message-ID: <b6628737-6535-42ea-bf8e-93dcaddaeb5c@ixit.cz>
-Date: Sat, 26 Sep 2026 16:45:30 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UKYHqpcy"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QE5lkQ2255700;
+	Sat, 26 Sep 2026 14:46:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=GuVElN
+	NHPxhTvXMJfRPaqVwIwab/ZdlWhq0acISD99k=; b=UKYHqpcyGxl7bkFErh8PYH
+	tEtydmGYRqkiLgud8OZ2Jnt3pMyoKSbHSO/U5NjzC4rwlZeoZEQOU5GVbgnuKQTR
+	JBR0dBz3HgrQhx4xLHCmXklG/Y52AdQ54BMnPWaQVdSOtgGxtzHsIwZzYva0Hzks
+	8qo2aaJzuzMJQHIcJb8kSx34oy6Mno1ehUQALc1f1Hb5U0TISz3VE+7aUpIly37b
+	9ylfkCUpAYERpRw9hxBKZMG86SyL8g2ApESnMXX75I0VGODFzmmyp2VMS2otIZ9m
+	nawCoKShBXQKqBqMDcrtoIF0grVAupc4koPczjQx5d6qMP/bknczlJ16eIoL9i7w
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qqspug-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 26 Sep 2026 14:46:39 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68QDlXeb1378649;
+	Sat, 26 Sep 2026 14:46:38 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gwy27asra-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 26 Sep 2026 14:46:38 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68QEkbN526673740
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 26 Sep 2026 14:46:37 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F2C8B20043;
+	Sat, 26 Sep 2026 14:46:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 811B420040;
+	Sat, 26 Sep 2026 14:46:34 +0000 (GMT)
+Received: from [9.43.82.149] (unknown [9.43.82.149])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 26 Sep 2026 14:46:34 +0000 (GMT)
+Message-ID: <e265fdc8-e224-4815-b94e-9c974210f099@linux.ibm.com>
+Date: Sat, 26 Sep 2026 20:16:33 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,171 +62,199 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/12] usb: typec: qcom: Add gen1 Type-C port support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Alexey Minnekhanov <alexeymin@minlexx.ru>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, mfd@lists.linux.dev
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
- <20260926-typec-v1-6-31adc19f32c6@ixit.cz>
- <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
- <f83b2992-9214-49b7-be3d-28ad435a73c9@ixit.cz>
- <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
+Subject: Re: [PATCH] kho: fix global scratch size calculation
+To: Mike Rapoport <rppt@kernel.org>
+Cc: kexec@lists.infradead.org, Alexander Graf <graf@amazon.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        George Guo
+ <guodongtai@kylinos.cn>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        Pratyush Yadav <pratyush@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
+ <areLMLTC-bO1zcXP@kernel.org>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <areLMLTC-bO1zcXP@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA1OCBTYWx0ZWRfXxvSfSzlMnSzp
+ 4z9xWrA4kTaGa2K1o6Bnlro/QntTS7aro4k2KZlX0qiBEVHMVJyUBTBaidGMVZuiWXkvZlwB0jx
+ gq8LmIZf3qS0WNnXYMxo4ZcCeCnL+pUr9p4HumGdQvNNQB+dVVw0pOizn60xVX62X1iw/K3e2bF
+ 7QHUahmDgVwJcUOCnFUnyDB+gAL/rpiMHZJ58M67bqfTTxn/W2BPAteDgonG2FMgk8ulG5/9vxK
+ 7NoqvkBlP2HW/Z7CSv/jO2sVsCoZo/TjamKX7R8iNiZhI0pcJCflWVwbr2E5+pDI3kTEvhte0az
+ KYcP/ICHovVco+HTNlEWcSuV3qaOIlQF5FPc6Avje7qD7XtTSHIYVwGX/JX2C8A0n/xcN5p8j4x
+ Y1RzFVGnPHliM3xMXcFDJZjQfYtECzBPlj9GbqEzBUUldVXjpk8hf2B9r0an6PKvX7aIa1EcUwo
+ vRo7QPdOeMOn924dUbg==
+X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6ab7dad0 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=vggBfdFIAAAA:8
+ a=Z4Rwk6OoAAAA:8 a=VwQbUJbxAAAA:8 a=7ipKWUHlAAAA:8 a=pGLkceISAAAA:8
+ a=37rDS-QxAAAA:8 a=VnNF1IyMAAAA:8 a=bNo-Hw79ofwCn3g4lxgA:9 a=QEXdDO2ut3YA:10
+ a=HkZW87K1Qel5hWWM3VKY:22 a=gpc5p9EgBqZVLdJeV_V1:22 a=k1Nq6YrhK2t884LQW06G:22
+X-Proofpoint-ORIG-GUID: kzbMAnA0xg_o3d0chYonMeVx77MsnSDA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA1OCBTYWx0ZWRfX1BJ+9hxWRDhF
+ Y0HoeQqKTA9R4NDekMNrioz7bEDZbtzVBlL4vmkbuRkNMM1N8aSznXAhDeb/XvgqvVFpveJfOHR
+ tiuaYFq5NEBnQC0lBcWltAqQFm7q/f8=
+X-Proofpoint-GUID: BDbcgbsLYGFIuH4mxew6Px8aHk3t3IPu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609260058
 
-On 26/09/2026 16:41, Bryan O'Donoghue wrote:
-> On 26/09/2026 15:32, David Heidelberg wrote:
->> On 26/09/2026 16:22, Bryan O'Donoghue wrote:
->>> On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> Add a port backend for the first generation of the Qualcomm PMIC Type-C
->>>> block, found on PM660 and PMI8998.
->>>>
->>>> On gen1 the Type-C CC logic is part of the charger's USBIN peripheral
->>>> (base 0x1300) instead of the standalone Type-C peripheral used by
->>>> PM8150B and later PMICs. All Type-C events (CC state change,
->>>> tCCDebounce done, VBUS change and error) are signalled through a single
->>>> aggregate "type-c-change" interrupt, the handler re-reads TYPEC_STATUS_4
->>>> to find out what changed. The PD PHY is register compatible with PM8150B
->>>> and is reused as is.
->>>>
->>>> Differences to the PM8150B backend:
->>>>   - get_cc() returns -EBUSY until the hardware reports tCCDebounce done,
->>>>     instead of using a software debounce.
->>>>   - As a source, only the default and 1.5A Rp can be advertised, 3.0A
->>>>     requests are advertised as 1.5A.
->>>>   - The PBS workaround of the downstream SMB2 driver (TM_IO_DTEST4_SEL)
->>>>     is applied on every power role change.
->>>>
->>>> VBUS sourcing is optional and only used when the connector provides
->>>> a vbus-supply, as the charger doesn't expose a VBUS regulator yet.
->>>>
->>>> Assisted-by: LLM
->>>> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->>>> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>>   drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
->>>>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |   9 +
->>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 ++++++++++ ++++++ 
->>>> +++++
->>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
->>>>   4 files changed, 630 insertions(+)
->>>>
->>
->> [...]
->>
->>>> +/*
->>>> + * Failure of this workaround write is non-fatal and
->>>> + * we can continue with the role transition.
->>>> + */
->>>> +static void gen1_typec_pbs_wa(struct gen1_typec_port *port, bool sink)
->>>> +{
->>>> +    unsigned int val = sink ? 0 : PBS_CRUDE_SENSOR_ENABLE;
->>>> +    int ret;
->>>> +
->>>> +    ret = regmap_write(port->regmap, port->base +
->>>> +               MISC_BASE_OFFSET + TM_IO_DTEST4_SEL, val);
->>>> +    if (!ret)
->>>> +        return;
->>>
->>> Why would the write fail and why wouldn't that be a critical case if the 
->>> write did fail ?
->>
->> Heya Bryan,
->>
->> thanks a lot for reviewing the series. For the rest notes, I'll incorporate 
->> that and/or think about it later. Here to quickly answer to this note,
->>
->> this one quirk is definitely NOT REQUIRED. Originally, I was testing the 
->> driver without it on sdm845 devices, and everything worked without it just 
->> fine. I ASSUME in some situation or with some devices combination it may come 
->> handy, thus likely if it fails, not much usually happens (and clanker was 
->> suggesting to port this one from downstream, so I did).
->>
->> David
->>
->> [...]
-> 
-> I ran this code though an LLM and it is babbling about the "shape" of things to 
-> hand you LoL.
-> 
-> Anyway the pattern matching part flagged this:
-> 
-> "Write outside the node's reg. base + MISC_BASE_OFFSET + TM_IO_DTEST4_SEL is 
-> 0x16e9, the MISC peripheral. 03 declares reg = <USBIN>, <PDPHY> only."
-> 
-> Worth also verifying.
+Hello Mike,
 
-Yup, I explicitly split the addr into MISC_BASE_OFFSET, as it's pretty much 
-outside of this block range (same reason why I haven't sent the vbus patches for 
-qcom smbx charger).
+On 26/09/26 14:36, Mike Rapoport wrote:
+> Hi Sourabh,
+>
+> On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
+>> KHO calculates the global scratch size based on memblock-reserved kernel
+>> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
+>> this calculation.
+>>
+>> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
+>> counts both:
+>>
+>> - memory reserved for a specific NUMA node
+>> - memory reserved with NUMA_NO_NODE
+>>
+>> KHO needs to distinguish between these two types of reservations.
+>> When calculating the size of global scratch memory, KHO only needs to
+>> account for reservations made with NUMA_NO_NODE. Reservations made for
+>> a specific NUMA node must not be included in the global scratch size.
+>>
+>> Add memblock_reserved_size_nid() to calculate reserved memory for a
+>> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
+>> counts only memory reserved with NUMA_NO_NODE.
+>>
+>> Use the new API for lowmem, global, and per-node KHO scratch size
+>> calculations. For lowmem and global scratch, count only memory
+>> reservations that were made with NUMA_NO_NODE. For per-node scratch,
+>> count only memory reservations that were made with the corresponding
+>> NUMA node ID.
+>>
+>> Remove memblock_reserved_hugetlb_size() since it has the same
+>> implementation as the new API and differs only in the memblock
+>> reservation flag being checked. The new API handles both kernel and
+>> HugeTLB reservations through its reservation type argument.
+>>
+>> Define the new helper as a static function in the KHO implementation,
+>> since it is only used by KHO and has no users outside
+>> kernel/liveupdate/kexec_handover.c.
+>>
+>> On powerpc, the difference can be seen in the scratch_len values
+>> reported by:
+>>
+>> cat /sys/kernel/debug/kho/out/scratch_len
+>>
+>> Before this change, the global scratch allocation was 0x12000000
+>> (288 MB):
+>>
+>> 0x1000000   (16 MB)
+>> 0x12000000  (288 MB)  <- global allocation
+>> 0x5000000   (80 MB)
+>>
+>> After this change, the global scratch allocation is 0xd000000
+>> (208 MB):
+>>
+>> 0x1000000   (16 MB)
+>> 0xd000000   (208 MB)  <- global allocation
+>> 0x5000000   (80 MB)
+>>
+>> The 80 MB difference is the per-node reservation that was previously
+>> being included in the global allocation.
+>>
+>> The same issue also affects lowmem scratch memory, but its impact is
+>> limited because the lowmem scratch memory calculation is restricted to
+>> the first 4G of memory. The changes also cover the lowmem scratch
+>> memory case.
+>>
+>> Cc: Alexander Graf <graf@amazon.com>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: George Guo <guodongtai@kylinos.cn>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> Cc: Pratyush Yadav <pratyush@kernel.org>
+>> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: linux-mm@kvack.org
+>> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>> ---
+>>   include/linux/memblock.h           |  1 -
+>>   kernel/liveupdate/kexec_handover.c | 49 ++++++++++++++++++++++--------
+>>   mm/memblock.c                      | 22 --------------
+>>   3 files changed, 37 insertions(+), 35 deletions(-)
+>>
+>> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+>> index d62db9e776cf..678fe466529a 100644
+>> --- a/include/linux/memblock.h
+>> +++ b/include/linux/memblock.h
+>> @@ -487,7 +487,6 @@ static inline __init_memblock bool memblock_bottom_up(void)
+>>   phys_addr_t memblock_phys_mem_size(void);
+>>   phys_addr_t memblock_reserved_size(void);
+>>   phys_addr_t memblock_reserved_kern_size(phys_addr_t limit, int nid);
+>> -phys_addr_t memblock_reserved_hugetlb_size(phys_addr_t limit, int nid);
+>>   unsigned long memblock_estimated_nr_free_pages(void);
+>>   phys_addr_t memblock_start_of_DRAM(void);
+>>   phys_addr_t memblock_end_of_DRAM(void);
+>> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+>> index 7c4d86daf86d..dc809e1e768c 100644
+>> --- a/kernel/liveupdate/kexec_handover.c
+>> +++ b/kernel/liveupdate/kexec_handover.c
+>> @@ -752,6 +752,31 @@ static int __init kho_parse_scratch_size(char *p)
+>>   }
+>>   early_param("kho_scratch", kho_parse_scratch_size);
+>>   
+>> +static phys_addr_t __init_memblock memblock_reserved_size_nid(phys_addr_t limit, int nid,
+>> +							      enum memblock_flags region_type)
+>> +{
+> Why is this in kexec_handover.c and not in memblock.c?
 
-Maybe Konrad with more insight can tell more about it. In the Type-C submission 
-I can pretty much confidently drop it (if it'll need separate driver) and still 
-assure users get expected functionality.
+I kept it here because KHO is the only user of this. However, I'm happy 
+to move it to
+memblock.c if you think that would be more appropriate.
 
-David
+>> +	struct memblock_region *r;
+>> +	phys_addr_t total = 0;
+>> +
+>> +	for_each_reserved_mem_region(r) {
+>> +		phys_addr_t size = r->size;
+>> +
+>> +		if (r->base > limit)
+>> +			break;
+>> +
+>> +		if (r->base + r->size > limit)
+>> +			size = limit - r->base;
+>> +
+>> +#ifdef CONFIG_NUMA
+>> +		if (nid == memblock_get_region_node(r))
+>> +#endif
+> Do we really need the #ifdef here?
 
-> 
-> ---
-> bod
+Yes, otherwise, if CONFIG_NUMA is not set, the lowmem and global sizes 
+would be 0.
+
+
+- Sourabh Jain
+
+>
+>> +			if (r->flags & region_type)
+>> +				total += size;
+>> +	}
+>> +
+>> +	return total;
+>> +}
+>> +
+>>   static void __init scratch_size_update(void)
+>>   {
+>>   	/*
 
