@@ -1,569 +1,284 @@
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BEB388E7A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA06370AE6;
+	Sat, 26 Sep 2026 20:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790454749; cv=none; b=o3S0sDFMa+LHkrPaTVZe0FQGRbFnE9OQkBIeLNbM/N3YTEi6akSw/Tt3GQTr0N6Db853+cIcZ3tLddleFc163hJWG5TTdxnONQJhUySZ0drwOhZx4875D8+k5kPosn6znCYZAx9ZV0fYU74AO71MNfk+Qw/rxaIa0+hbbboAcCU=
+	t=1790455105; cv=none; b=LthXkj+ahg9sBTZGis7qVPWRyV6DAasGEquiIJLUlthh6UViMQXD7HhHHiZbolA8QEaQSctLujdoE+7XoHZdudZ2U2linkTB78NC0r/gjoMz5La44Douw7qxyd4UAzQo+Q78gor31fRzQipsS1zvsmqc0tFsxZV13UDwiYtdeYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790454749; c=relaxed/simple;
-	bh=aiMJ9XVb/fAOPJP97f8qgEUMoha2rXmlKGPcHFDFMsw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FkFPcERYGdP35KIHLuOS6fFgKdWfPcRR2TQbIu9FqdIYZHcrqaDqPKd/uZizyOSoiZRFLTvp1as/pRsZP6M60n4rPGZLLSjWuTUnlgKKRhkEakA2C/rdMK6aVsmQemk7115uE5pc/KrvVRGIc5lifKxBvqbA1YklNzLp8AkDbBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=IEAK2QaT; arc=none smtp.client-ip=37.27.248.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790455105; c=relaxed/simple;
+	bh=9uzLG2dwIPhVrwOQjPx7RtvcglfC7XPVk3Wlan3aXJs=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RD3WMy6myp/K9f/i+sWDwBDEeAS6ZVubmNv/7iO+9VKpTPo7dWPq/Zi5mmCCZLquiuIpjqnhcyyjveDN7HnVz6OnE7nycScMAlM0BQSMM/m8RZNO/t8whi+gbtzJASaGz1XKgGFsxyDVUWQUY3ou94AzhmpgrDmRE4qzsCd4sE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DqgF4269; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="IEAK2QaT"
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id 7B19442BC5
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:25 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id 3F7893F9A0
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:24 +0300 (EEST)
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 737681FF2E1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:23 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790454743;
-	bh=gi5IaO//agjFluDDPGgEQedzafbz2TDUY5ZwA983V9w=;
-	h=Received:From:Subject:To;
-	b=IEAK2QaT+2PLbupZhIF9iJXOH14kAd+o2YKIdsCU10G/u68GOeQTTfKYP1UMgOAwK
-	 52RD5bR5MM35qhxDi9yy9qJE+WNAGTsEf9QlkpUwOt6WLG+8BkkajYysQ8J1gtvnZe
-	 +sCxwfTp5XjRmOsebUMVcSc6Tt1l9bRkQ/xiQ7Mc3/cejrKFmHbfOPpEKBoJyZ494C
-	 BXsCcVtEG61SFJw2EtjziGiUi/4iSlIpEqrEdWj/EPQCOWoCGEuF5tGsdF7QGEQs5+
-	 LaEn3gEQlN5Zkarodwc8ZwO6l8rpRKNfci8IMBJk/ccyCSuz5o8RMJfPswcc/6s34M
-	 hn3mNtoyFmjyw==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.141) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f13.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2dd88a115ebso10315395ad.2
-        for <linux-kernel@vger.kernel.org>;
- Sat, 26 Sep 2026 13:32:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzT6eRwcUGG9gMWZotidiR7wz08baPlkH+cRufI5tcx0qZGKA3eeMN6qZE9RpgLyrHHgrfgYHPUYX7+Jt8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIl4T0BUoG5kj7vc0SxQu4XcVyGymah5427KBWXVwpGvVX2I6su
-	NqBwNowQWmM3Hqq1TthySbkfD+McMrmCnMi9hK4W+MRcgeG+n9b2gP/CdkmOt2SBjbuA/pDpSlw
-	hp1vbv/6mQ8HFWor3m5/mqEj6YhG02hk=
-X-Received: by 2002:a17:903:8c5:b0:2df:a0f0:6625 with SMTP id
- d9443c01a7336-2dfa0f06cf3mr27418185ad.17.1790454742029; Sat, 26 Sep 2026
- 13:32:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DqgF4269"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=DVAT+OmWQt6d0AfV7ElUmyegv+6RUgxD+bRJERJiAwQ=; b=DqgF4269Q/3a1Apd3oeZrAF5rz
+	dLSo4Q7Amnp1TBnWiBs2B3c4RACpJtUJqHnoEQ7gOwu51daeIWW/KrgBpji17D71aFpL7cvwsKjkl
+	B3oYMc15jR/0EuONY3nIAFw7lZ4/OpZL7n7DtUeJcOX5s1fxWdRm7UcLL1JDZo9Oz0o+Khg3M+/Ey
+	Plyd0NkJj6eyInQBvGl/74KyP88R9YtxpWK2ZWWRK7bIhXvoqjgZnNGE2M6G7IUtqKBD0+LeXy/ZZ
+	vhSPUGEfOfymgNk1Ydt8IpXsDyp2fsB2BBLeJ64JV0mjmjsuNAi3UB42HVQ42NpMorBpFoP/m0gpM
+	5pCLgTVQ==;
+Received: from 54-240-197-224.amazon.com ([54.240.197.224] helo=edge-m3-r2-102.e-iad51.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xAZ9p-00000008yw8-4BJx;
+	Sat, 26 Sep 2026 20:38:06 +0000
+Message-ID: <d1af17dff1d6f181d74edd3b6358398469d61917.camel@infradead.org>
+Subject: Re: [PATCH v4 3/4] pps: Always use ktime_get_snapshot_id() for
+ pps_get_ts()
+From: David Woodhouse <dwmw2@infradead.org>
+To: Rodolfo Giometti <giometti@enneenne.com>, Richard Cochran	
+ <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, John Stultz
+ <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,  Stephen Boyd
+ <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ linux-kernel@vger.kernel.org, 	netdev@vger.kernel.org, Alexander Gordeev
+ <agordeev@linux.ibm.com>
+Date: Sat, 26 Sep 2026 21:38:05 +0100
+In-Reply-To: <920a2d70-c1ec-452b-8fc4-aebf1f6af412@enneenne.com>
+References: <20260829210041.40649-1-dwmw2@infradead.org>
+	 <20260829210041.40649-4-dwmw2@infradead.org>
+	 <920a2d70-c1ec-452b-8fc4-aebf1f6af412@enneenne.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-v7+PFbk4jxC8/Mu5A41r"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-gpd-fan-duo-auto-v2-0-0a2ea41ee3b5@pm.me>
- <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me>
-In-Reply-To: <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sat, 26 Sep 2026 22:32:10 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com>
-X-Gm-Features: AclHuK8q0fQxCqk1qcnBSwPLyStF_AWG-RRmHH1uGcw9vIsjPOLIKoaYK-sljEk
-Message-ID: 
- <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] hwmon: (gpd-fan) Register both fans on the GPD Win
- 5
-To: alexei.solcanu@pm.me
-Cc: Guenter Roeck <linux@roeck-us.net>,
- Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-v7+PFbk4jxC8/Mu5A41r
 Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179045474378.550025.13698639242035381597@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 26 Sept 2026 at 22:12, Alexei Solcanu via B4 Relay
-<devnull+alexei.solcanu.pm.me@kernel.org> wrote:
->
-> From: Alexei Solcanu <alexei.solcanu@pm.me>
->
-> The GPD Win 5 uses gpd_duo_drvdata, which exposes a single fan and pwm
-> channel: pwm1 writes the same duty cycle to both fans, and fan1_input
-> only reads the first fan's RPM.
->
-> The two fans have independent registers. Fan 1 uses duty cycle 0x047A
-> and RPM 0x0478/0x0479, fan 2 uses duty cycle 0x047B and RPM
-> 0x0476/0x0477. A duty cycle of 0 returns that fan to EC control.
->
-> Add separate board data for the Win 5 and register fan1/pwm1 and
-> fan2/pwm2, one channel per fan. Boards with a single fan are unchanged.
->
-> This changes behaviour on the Win 5: pwm1 and pwm1_enable now control
-> only the first fan. The second fan stays under EC control unless pwm2
-> and pwm2_enable are used.
->
-> The GPD Duo keeps a single channel, since it is untested and its
-> second fan's RPM register is unknown.
->
-> Tested on a GPD Win 5 (G1618-05).
->
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Assisted-by: LLM
-> Signed-off-by: Alexei Solcanu <alexei.solcanu@pm.me>
-> ---
->  Documentation/hwmon/gpd-fan.rst |  14 ++--
->  drivers/hwmon/gpd-fan.c         | 146 +++++++++++++++++++++++++++-------------
->  2 files changed, 107 insertions(+), 53 deletions(-)
->
-> diff --git a/Documentation/hwmon/gpd-fan.rst b/Documentation/hwmon/gpd-fan.rst
-> index b27657d3305..6c8569c5f64 100644
-> --- a/Documentation/hwmon/gpd-fan.rst
-> +++ b/Documentation/hwmon/gpd-fan.rst
-> @@ -28,6 +28,7 @@ Currently the driver supports the following handhelds:
->   - GPD Win Max 2 2025 (HX370)
->   - GPD Win 4 (6800U)
->   - GPD Win 4 (7840U)
-> + - GPD Win 5
->   - GPD Micro PC 2
->
->  Module parameters
-> @@ -59,23 +60,26 @@ Sysfs entries
->
->  The following attributes are supported:
->
-> -fan1_input
-> +fan[1-2]_input
->    Read Only. Reads current fan RPM.
->
-> -pwm1_enable
-> +pwm[1-2]_enable
->    Read/Write. Enable manual fan control. Write "0" to disable control and run
->    at full speed. Write "1" to set to manual, write "2" to let the EC control
->    decide fan speed. Read this attribute to see current status.
->
->    NB: In consideration of the safety of the device, when setting to manual mode,
->    the pwm speed will be set to the maximum value (255) by default. You can set
-> -  a different value by writing pwm1 later.
-> +  a different value by writing pwm[1-2] later.
->
-> -pwm1
-> +pwm[1-2]
->    Read/Write. Read this attribute to see current duty cycle in the range
-> -  [0-255]. When pwm1_enable is set to "1" (manual) write any value in the
-> +  [0-255]. When pwm[1-2]_enable is set to "1" (manual) write any value in the
->    range [0-255] to set fan speed.
->
->    NB: Many boards (except listed under wm2 above) don't support reading the
->    current pwm value in auto mode. That will just return EOPNOTSUPP. In manual
->    mode it will always return the real value.
-> +
-> +fan2_input, pwm2_enable and pwm2 only exist on devices with two fans
-> +(GPD Win 5).
-> diff --git a/drivers/hwmon/gpd-fan.c b/drivers/hwmon/gpd-fan.c
-> index b3b75f99f58..e03b0dde66f 100644
-> --- a/drivers/hwmon/gpd-fan.c
-> +++ b/drivers/hwmon/gpd-fan.c
-> @@ -31,6 +31,7 @@ enum gpd_board {
->         win4_6800u,
->         win_max_2,
->         duo,
-> +       win5,
->         mpc2,
->  };
->
-> @@ -40,9 +41,11 @@ enum FAN_PWM_ENABLE {
->         AUTOMATIC       = 2,
->  };
->
-> +#define GPD_MAX_FANS   2
-> +
->  struct gpd_fan_data {
-> -       enum FAN_PWM_ENABLE pwm_enable;
-> -       u8 pwm_value;
-> +       enum FAN_PWM_ENABLE pwm_enable[GPD_MAX_FANS];
-> +       u8 pwm_value[GPD_MAX_FANS];
->         const struct gpd_fan_drvdata *drvdata;
->  };
->
-> @@ -55,6 +58,8 @@ struct gpd_fan_drvdata {
->         const u16 manual_control_enable;
->         const u16 rpm_read;
->         const u16 pwm_write;
-> +       const u16 rpm2_read; // Second fan, 0 if there is none
-> +       const u16 pwm2_write;
->         const u16 pwm_max;
->  };
->
-> @@ -82,6 +87,20 @@ static struct gpd_fan_drvdata gpd_duo_drvdata = {
->         .pwm_max                = 244,
->  };
->
-> +static struct gpd_fan_drvdata gpd_win5_drvdata = {
-> +       .board_name             = "win5",
-> +       .board                  = win5,
-> +
-> +       .addr_port              = 0x4E,
-> +       .data_port              = 0x4F,
-> +       .manual_control_enable  = 0x047A,
-> +       .rpm_read               = 0x0478,
-> +       .pwm_write              = 0x047A,
-> +       .rpm2_read              = 0x0476,
-> +       .pwm2_write             = 0x047B,
-> +       .pwm_max                = 244,
-> +};
-> +
->  static struct gpd_fan_drvdata gpd_win4_drvdata = {
->         .board_name             = "win4",
->         .board                  = win4_6800u,
-> @@ -214,7 +233,7 @@ static const struct dmi_system_id dmi_table[] = {
->                         DMI_MATCH(DMI_SYS_VENDOR, "GPD"),
->                         DMI_MATCH(DMI_PRODUCT_NAME, "G1618-05"),
->                 },
-> -               .driver_data = &gpd_duo_drvdata,
-> +               .driver_data = &gpd_win5_drvdata,
->         },
->         {
->                 // GPD Pocket 4
-> @@ -290,13 +309,29 @@ static void gpd_ecram_write(const struct gpd_fan_drvdata *drvdata, u16 offset, u
->         outb(value, data_port);
->  }
->
-> -static int gpd_generic_read_rpm(struct gpd_fan_data *data)
-> +static int gpd_num_fans(const struct gpd_fan_drvdata *drvdata)
-> +{
-> +       return drvdata->pwm2_write ? 2 : 1;
-> +}
-> +
-> +static u16 gpd_rpm_reg(const struct gpd_fan_drvdata *drvdata, int channel)
-> +{
-> +       return channel ? drvdata->rpm2_read : drvdata->rpm_read;
-> +}
-> +
-> +static u16 gpd_pwm_reg(const struct gpd_fan_drvdata *drvdata, int channel)
-> +{
-> +       return channel ? drvdata->pwm2_write : drvdata->pwm_write;
-> +}
+On Tue, 2026-09-01 at 17:35 +0200, Rodolfo Giometti wrote:
+>=20
+> Separately: are we sure that calling ktime_get_snapshot_id() does not
+> introduce much larger delays than ktime_get_real_ts64()? pps_get_ts()
+> runs in hard IRQ, and in pps-gpio it is the first statement of the
+> handler. Whatever it costs sits between the edge and the timestamp,
+> and that is the one thing PPS has to keep short.
+>=20
+> I would like to see that measured on something other than an x86 VM
+> with a TSC. A small 32-bit ARM board is what I worry about.
 
-in my view adding all these functions is unneeded complexity. There
-should be some simpler ternary way.
+Not 32-bit but I had a Banana Pi R64 lying around (Cortex A53, 12.5MHz
+arch counter) and I bought it a GPS hat.
 
-> +
-> +static int gpd_generic_read_rpm(struct gpd_fan_data *data, int channel)
->  {
->         const struct gpd_fan_drvdata *drvdata = data->drvdata;
-> +       u16 reg = gpd_rpm_reg(drvdata, channel);
->         u8 high, low;
->
-> -       gpd_ecram_read(drvdata, drvdata->rpm_read, &high);
-> -       gpd_ecram_read(drvdata, drvdata->rpm_read + 1, &low);
-> +       gpd_ecram_read(drvdata, reg, &high);
-> +       gpd_ecram_read(drvdata, reg + 1, &low);
->
->         return (u16)high << 8 | low;
->  }
-> @@ -315,18 +350,19 @@ static int gpd_wm2_read_rpm(struct gpd_fan_data *data)
->                         gpd_ecram_write(drvdata, pwm_ctr_offset, 0xB8);
->         }
->
-> -       return gpd_generic_read_rpm(data);
-> +       return gpd_generic_read_rpm(data, 0);
->  }
->
-> -// Read value for fan1_input
-> -static int gpd_read_rpm(struct gpd_fan_data *data)
-> +// Read value for fanN_input
-> +static int gpd_read_rpm(struct gpd_fan_data *data, int channel)
->  {
->         switch (data->drvdata->board) {
->         case win4_6800u:
->         case win_mini:
->         case duo:
-> +       case win5:
->         case mpc2:
-> -               return gpd_generic_read_rpm(data);
-> +               return gpd_generic_read_rpm(data, channel);
->         case win_max_2:
->                 return gpd_wm2_read_rpm(data);
->         }
-> @@ -349,19 +385,20 @@ static int gpd_wm2_read_pwm(struct gpd_fan_data *data)
->         return DIV_ROUND_CLOSEST((var - 1) * 255, (drvdata->pwm_max - 1));
->  }
->
-> -// Read value for pwm1
-> -static int gpd_read_pwm(struct gpd_fan_data *data)
-> +// Read value for pwmN
-> +static int gpd_read_pwm(struct gpd_fan_data *data, int channel)
->  {
->         switch (data->drvdata->board) {
->         case win_mini:
->         case duo:
-> +       case win5:
->         case win4_6800u:
->         case mpc2:
-> -               switch (data->pwm_enable) {
-> +               switch (data->pwm_enable[channel]) {
->                 case DISABLE:
->                         return 255;
->                 case MANUAL:
-> -                       return data->pwm_value;
-> +                       return data->pwm_value[channel];
->                 case AUTOMATIC:
->                         return -EOPNOTSUPP;
->                 }
-> @@ -378,13 +415,13 @@ static inline u8 gpd_cast_pwm_range(const struct gpd_fan_drvdata *drvdata, u8 va
->         return DIV_ROUND_CLOSEST(val * (drvdata->pwm_max - 1), 255) + 1;
->  }
->
-> -static void gpd_generic_write_pwm(struct gpd_fan_data *data, u8 val)
-> +static void gpd_generic_write_pwm(struct gpd_fan_data *data, int channel, u8 val)
->  {
->         const struct gpd_fan_drvdata *drvdata = data->drvdata;
->         u8 pwm_reg;
->
->         pwm_reg = gpd_cast_pwm_range(drvdata, val);
-> -       gpd_ecram_write(drvdata, drvdata->pwm_write, pwm_reg);
-> +       gpd_ecram_write(drvdata, gpd_pwm_reg(drvdata, channel), pwm_reg);
->  }
->
->  static void gpd_duo_write_pwm(struct gpd_fan_data *data, u8 val)
-> @@ -397,10 +434,10 @@ static void gpd_duo_write_pwm(struct gpd_fan_data *data, u8 val)
->         gpd_ecram_write(drvdata, drvdata->pwm_write + 1, pwm_reg);
->  }
->
-> -// Write value for pwm1
-> -static int gpd_write_pwm(struct gpd_fan_data *data, u8 val)
-> +// Write value for pwmN
-> +static int gpd_write_pwm(struct gpd_fan_data *data, int channel, u8 val)
->  {
-> -       if (data->pwm_enable != MANUAL)
-> +       if (data->pwm_enable[channel] != MANUAL)
->                 return -EPERM;
->
->         switch (data->drvdata->board) {
-> @@ -410,25 +447,27 @@ static int gpd_write_pwm(struct gpd_fan_data *data, u8 val)
->         case win_mini:
->         case win4_6800u:
->         case win_max_2:
-> +       case win5:
->         case mpc2:
-> -               gpd_generic_write_pwm(data, val);
-> +               gpd_generic_write_pwm(data, channel, val);
->                 break;
->         }
->
->         return 0;
->  }
->
-> -static void gpd_win_mini_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE pwm_enable)
-> +static void gpd_win_mini_set_pwm_enable(struct gpd_fan_data *data, int channel,
-> +                                       enum FAN_PWM_ENABLE pwm_enable)
->  {
->         switch (pwm_enable) {
->         case DISABLE:
-> -               gpd_generic_write_pwm(data, 255);
-> +               gpd_generic_write_pwm(data, channel, 255);
->                 break;
->         case MANUAL:
-> -               gpd_generic_write_pwm(data, data->pwm_value);
-> +               gpd_generic_write_pwm(data, channel, data->pwm_value[channel]);
->                 break;
->         case AUTOMATIC:
-> -               gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
-> +               gpd_ecram_write(data->drvdata, gpd_pwm_reg(data->drvdata, channel), 0);
->                 break;
->         }
->  }
-> @@ -440,7 +479,7 @@ static void gpd_duo_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
->                 gpd_duo_write_pwm(data, 255);
->                 break;
->         case MANUAL:
-> -               gpd_duo_write_pwm(data, data->pwm_value);
-> +               gpd_duo_write_pwm(data, data->pwm_value[0]);
->                 break;
->         case AUTOMATIC:
->                 gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
-> @@ -455,11 +494,11 @@ static void gpd_wm2_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
->
->         switch (enable) {
->         case DISABLE:
-> -               gpd_generic_write_pwm(data, 255);
-> +               gpd_generic_write_pwm(data, 0, 255);
->                 gpd_ecram_write(drvdata, drvdata->manual_control_enable, 1);
->                 break;
->         case MANUAL:
-> -               gpd_generic_write_pwm(data, data->pwm_value);
-> +               gpd_generic_write_pwm(data, 0, data->pwm_value[0]);
->                 gpd_ecram_write(drvdata, drvdata->manual_control_enable, 1);
->                 break;
->         case AUTOMATIC:
-> @@ -468,19 +507,20 @@ static void gpd_wm2_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
->         }
->  }
->
-> -// Write value for pwm1_enable
-> -static void gpd_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE enable)
-> +// Write value for pwmN_enable
-> +static void gpd_set_pwm_enable(struct gpd_fan_data *data, int channel, enum FAN_PWM_ENABLE enable)
->  {
->         if (enable == MANUAL)
->                 // Set pwm_value to max firstly when switching to manual mode, in
->                 // consideration of device safety.
-> -               data->pwm_value = 255;
-> +               data->pwm_value[channel] = 255;
->
->         switch (data->drvdata->board) {
->         case win_mini:
->         case win4_6800u:
-> +       case win5:
->         case mpc2:
-> -               gpd_win_mini_set_pwm_enable(data, enable);
-> +               gpd_win_mini_set_pwm_enable(data, channel, enable);
->                 break;
->         case duo:
->                 gpd_duo_set_pwm_enable(data, enable);
-> @@ -491,10 +531,15 @@ static void gpd_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE en
->         }
->  }
->
-> -static umode_t gpd_fan_hwmon_is_visible(__always_unused const void *drvdata,
-> +static umode_t gpd_fan_hwmon_is_visible(const void *hwmon_data,
->                                         enum hwmon_sensor_types type, u32 attr,
-> -                                       __always_unused int channel)
-> +                                       int channel)
->  {
-> +       const struct gpd_fan_data *data = hwmon_data;
-> +
-> +       if (channel >= gpd_num_fans(data->drvdata))
-> +               return 0;
-> +
->         if (type == hwmon_fan && attr == hwmon_fan_input) {
->                 return 0444;
->         } else if (type == hwmon_pwm) {
-> @@ -511,14 +556,14 @@ static umode_t gpd_fan_hwmon_is_visible(__always_unused const void *drvdata,
->
->  static int gpd_fan_hwmon_read(struct device *dev,
->                               enum hwmon_sensor_types type, u32 attr,
-> -                             __always_unused int channel, long *val)
-> +                             int channel, long *val)
->  {
->         struct gpd_fan_data *data = dev_get_drvdata(dev);
->         int ret;
->
->         if (type == hwmon_fan) {
->                 if (attr == hwmon_fan_input) {
-> -                       ret = gpd_read_rpm(data);
-> +                       ret = gpd_read_rpm(data, channel);
->
->                         if (ret < 0)
->                                 return ret;
-> @@ -529,10 +574,10 @@ static int gpd_fan_hwmon_read(struct device *dev,
->         } else if (type == hwmon_pwm) {
->                 switch (attr) {
->                 case hwmon_pwm_enable:
-> -                       *val = data->pwm_enable;
-> +                       *val = data->pwm_enable[channel];
->                         return 0;
->                 case hwmon_pwm_input:
-> -                       ret = gpd_read_pwm(data);
-> +                       ret = gpd_read_pwm(data, channel);
->
->                         if (ret < 0)
->                                 return ret;
-> @@ -547,7 +592,7 @@ static int gpd_fan_hwmon_read(struct device *dev,
->
->  static int gpd_fan_hwmon_write(struct device *dev,
->                                enum hwmon_sensor_types type, u32 attr,
-> -                              __always_unused int channel, long val)
-> +                              int channel, long val)
->  {
->         struct gpd_fan_data *data = dev_get_drvdata(dev);
->
-> @@ -557,17 +602,17 @@ static int gpd_fan_hwmon_write(struct device *dev,
->                         if (!in_range(val, 0, 3))
->                                 return -EINVAL;
->
-> -                       data->pwm_enable = val;
-> +                       data->pwm_enable[channel] = val;
->
-> -                       gpd_set_pwm_enable(data, data->pwm_enable);
-> +                       gpd_set_pwm_enable(data, channel, data->pwm_enable[channel]);
->                         return 0;
->                 case hwmon_pwm_input:
->                         if (!in_range(val, 0, 256))
->                                 return -EINVAL;
->
-> -                       data->pwm_value = val;
-> +                       data->pwm_value[channel] = val;
->
-> -                       return gpd_write_pwm(data, val);
-> +                       return gpd_write_pwm(data, channel, val);
->                 }
->         }
->
-> @@ -581,8 +626,9 @@ static const struct hwmon_ops gpd_fan_ops = {
->  };
->
->  static const struct hwmon_channel_info *gpd_fan_hwmon_channel_info[] = {
-> -       HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-> -       HWMON_CHANNEL_INFO(pwm, HWMON_PWM_INPUT | HWMON_PWM_ENABLE),
-> +       HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT, HWMON_F_INPUT),
-> +       HWMON_CHANNEL_INFO(pwm, HWMON_PWM_INPUT | HWMON_PWM_ENABLE,
-> +                          HWMON_PWM_INPUT | HWMON_PWM_ENABLE),
+So yes, the specific code path you're looking at *does* get slightly
+longer (50ns to the counter read instead of 30ns). Some of which is
+easily reclaimable with some optimisations...
 
-Are you sure the correct number of fans are populated for each device
-because of the visible entry? If yes, it is fine for this hunk. If no,
-needs dynamic population for the struct in probe.
+Firstly, why in $DEITY's name does the Arm kernel not set
+CONFIG_ARCH_WANTS_CLOCKSOURCE_READ_INLINE? Setting that and using it
+gains us 7-8ns back in both paths. I can get another 2-3ns back by
+optimising the CLOCK_REALTIME path through ktime_get_snapshot_id() and
+only hitting the case statement for other clock IDs:
 
-You also add a board match for win5, but doesnt the duo have two fans?
-I think we had this discussion last year and I said two fans more
-complexity lets leave it. But if we do it properly this time lets do
-it properly.
+                                    =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+                                    =E2=94=82  ktime_get_   =E2=94=82   kti=
+me_get_    =E2=94=82
+                                    =E2=94=82  real_ts64()  =E2=94=82  snap=
+shot_id()  =E2=94=82
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
+ stock                              =E2=94=82    30.2 ns    =E2=94=82     4=
+9.9 ns     =E2=94=82
+ + arm64 inlined clocksource read   =E2=94=82    23.4 ns    =E2=94=82     4=
+9.9 ns     =E2=94=82
+ + inlined in get_snapshot_id() too =E2=94=82    23.2 ns    =E2=94=82     4=
+1.2 ns     =E2=94=82
+ + CLOCK_REALTIME dispatch bias     =E2=94=82    23.4 ns    =E2=94=82     3=
+8.8 ns     =E2=94=82
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
 
-Verify which duo-like devices implement two fans, it should be all of
-them. I think Cryolitia has a Duo. Win Max 3 according to my GPD
-contact has a duo layout. Unfortunately, I have no users so no DMI. So
-it is at least Duo, Win Max 3, and Win5. Then make it so only these 3
-devices (which should need no separation) report two fans and two fan
-speeds throughout the driver.
+So I'll probably do those things because I've seen them now.
 
-Best,
-Antheas
+However, they are *entirely* in the noise, as there's about 600 ns of
+hardware and 2-4 *microseconds* of software latency before we even get
+there.
 
->         NULL
->  };
->
-> @@ -619,8 +665,10 @@ static void gpd_fan_reset_hardware(void *pdata)
->         struct gpd_fan_data *data = pdata;
->
->         if (data) {
-> -               data->pwm_enable = AUTOMATIC;
-> -               gpd_set_pwm_enable(data, AUTOMATIC);
-> +               for (int i = 0; i < gpd_num_fans(data->drvdata); i++) {
-> +                       data->pwm_enable[i] = AUTOMATIC;
-> +                       gpd_set_pwm_enable(data, i, AUTOMATIC);
-> +               }
->         }
->  }
->
-> @@ -654,8 +702,10 @@ static int gpd_fan_probe(struct platform_device *pdev)
->                 return -EINVAL;
->
->         data->drvdata = match;
-> -       data->pwm_enable = AUTOMATIC;
-> -       data->pwm_value = 255;
-> +       for (int i = 0; i < gpd_num_fans(match); i++) {
-> +               data->pwm_enable[i] = AUTOMATIC;
-> +               data->pwm_value[i] = 255;
-> +       }
->
->         dev_set_drvdata(dev, data);
->
->
-> --
-> 2.55.0
->
->
->
+I was pondering an IRQF_HWTIMESTAMP which would sample the arch-defined
+inline clocksource as early as possible and stash it in the pt_regs, so
+I knocked up a proof of concept which just did that unconditionally in
+kernel_entry in arch/arm64/kernel/entry.S. That's what gives me the
+software latency I cited (~2.1=C2=B5s from that stamp to the GPIO handler).=
+=20
 
+To measure the hardware latency I removed the hat and looped the PPS
+pin back from an output GPIO, then read the counter the instruction
+before the MMIO write to trigger a rising edge. That gave me 0.6=C2=B5s to
+the counter read in entry.S.
+
+ pin edge =E2=86=92 exception entry stamp:   min 0.40=C2=B5s  med 0.64=C2=
+=B5s  p90 0.72=C2=B5s
+ entry stamp =E2=86=92 pps handler:          min 2.08=C2=B5s  med 2.16=C2=
+=B5s  p90 2.56=C2=B5s
+ pin edge =E2=86=92 pps handler (sum):       min 2.72=C2=B5s  med 2.80=C2=
+=B5s  p90 3.12=C2=B5s
+
+The latency is higher from cold with an actual PPS signal, as opposed
+to the warm soak test.
+
+So no, I really don't care about the tiny cost of calling
+ktime_get_snapshot_id() to get a more accurate timestamp; at least that
+cost is *constant* unlike the sawtoothing ntp_error that it eliminates
+from the readings. (Which is actually larger than it should be; I have
+more fixes for ntp_error.)
+
+I'm still interested in the IRQF_HWTIMESTAMP thing. As that sample
+would be taken outside the tkd->seq count we'd need to use something
+like get_system_device_crosststamp() to reliably interpret it, but I'm
+going to have to implement that *anyway*. I want to add support for a
+hardware module which *latches* the counter value on the pulse, instead
+of waiting for the CPU to wake up and do so for itself. One of those
+TimeCard devices with PCIe PTM could do that, for example.
+
+--=-v7+PFbk4jxC8/Mu5A41r
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+goshskBpEz4ZXeDHCyRJ/3AAAAAAAAA=
+
+
+--=-v7+PFbk4jxC8/Mu5A41r--
