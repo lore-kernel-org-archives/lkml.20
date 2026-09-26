@@ -1,155 +1,146 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0280B43B6CE
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56183BCD3D;
+	Sat, 26 Sep 2026 14:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790432905; cv=none; b=a3qWZkkd5QND/L5AkAgUDJmo5XP4w6A9Qp6tPN1yH+2KPGTQq0LQIWgnQol3KQivv51i6bE6IxauTiyL3LkHjuvlfmOVc0Dj26E8xUU+V8HLB5WhGdV7nhFusIQ1mn3RTpGrQEoLjO/Oa5z5OK0MrN7PH28eJheu3jmiRcpK/FI=
+	t=1790432916; cv=none; b=N+lum4fpoIUDPauejY3UU+2Nro8GouRd4Q947aWV7gl47I1HO72xNBOkHTimgWJUjwHTpuGL1q3w5/uRNaHliIq/+wIHMVrhP7Rad/3AU9oQdecA5RAc9HJulzZBFI3wzWCC7z8vKQqcAxafsfwv5EebRAs11tiEmqqYlrbQGHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790432905; c=relaxed/simple;
-	bh=7vUh66oXceOvBZh+BHUwEREpPut071+FDoigXD4wyck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gUkLi+nE15U/7/pqqEFoimtMGH6QhjcBcxGhXX2f4lVmmH9+4wHKBE6YERalHmFwA0V/UcYT/+6CoJPMHnhyYzHRVaKpiH9U1ArHwZrwuk6bWEQU4pP5tBAXu87irSGgFJgLiPDBMh9zLixcRsbS28469myRM7nEkROjCux/nhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EKyalSxv; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790432916; c=relaxed/simple;
+	bh=8xdX0rHz74wq3kSJ194aJzQw2yw0HA/pZj/UE1y2e7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DkQ9Rgtw1HJCRMW0uipzdlcZqeHamE4Svb6/DdTcVp0QnmEw9PQEuDjXyC9/pzgKVXiDZhCqPFFmhO8pHaOWYYuSwaQrdhZbV20u6Oc07cLGRjkCNKs2fFbtiHAXor0OnrL2Uq2TcWCyy3M5ccKfY5sfGiDsNYyd57HTLNJPLlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aBtdPr31; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EKyalSxv"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso2746885e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:28:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790432902; x=1791037702; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kRyn178SjOYN2ExubyMZSe0BAzVjg4ClqLKh84+ypJ8=;
-        b=EKyalSxvq0hBxCCIXaymCWFifaWylDdddOEbRxrZiziaYkZky1xJTW9IL3rbKuo/QB
-         /S2h5nDhk4I9Y0Xf4OwFv3P8bAHzQVaPOyuTqSNe5iM+tBdzn4hK43R2ckKqC40FOY9U
-         VMs59fbopJ9IuxAOv4dTpXeQSKdsWc7AgHKc3wa1ZTwIneNplp5bOBeZmL+keLfLK3+P
-         yWFMbpWx+Zi/CyxScfdOPeHMyJEWF8CpEJQt9J51hjZn2Fk1EF7tk0IRCH+PKci47yzB
-         ve2LhHsK1tNbA4Q48iHI/1+gJ2c/Xqby2UeoSctSgEd8J3MvSvtYq6sQC3E8qm6W9nFk
-         kqmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790432902; x=1791037702;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kRyn178SjOYN2ExubyMZSe0BAzVjg4ClqLKh84+ypJ8=;
-        b=25E/h7iTvwjZ/Z8tddPPhM3CX4P1jQ6Ab+KUS+vkm45LtGUVyFynm6WGnETQ99XmhI
-         BvXya4WIN+NlKHt9CZpLyuxMKrRexQfAGvlVho9djp4X9pE0twf0t+ChaKdMQy143xeI
-         56XsON9aZW5oOcpf+8DqRd7BJqoUzGyHSPwNH+0xWSM2H/fT5qW4+2nNeg0gupnkJRW6
-         hYc9aiCi1NqXAMAK/u18e3/pIEeqnxwfpzMnn6RDFRJZRQx79hhKLiwIxeRy2q6q4Ia3
-         3hP8ORxczGDaLZHt2f3gy5ftt9XFqnFf/QDStTZQOYn8RIZXRD5L73oDC+WUfRfIIAfx
-         yFbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtiLzN4yY6nZwVdPQTBEK9JER5GZYZ6LuxhU96yfZuDJnFsG+uqCHW5azK4wtDm2iJJBSXdtSb9XrkjJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6TJBJiEvmTsTWdUrqrR4Cbjzr96PXexX9XzA+6tuQoMLwTp3h
-	URtMxhr1u3Z2geWclWQ2hXjnHY+eNmyp9ihzy233ejYgbikMoi/qD86aDCGXCqe6TAE=
-X-Gm-Gg: AYBFou0MuEz9xBw0Vh5qkD5M9iGrpybqpXueo/841PwE1AGjWQroyzBRbb7qU6rWtsG
-	QAsTymPFzD7KHPz0YKtBEGhktcp9XeuBm4FXDVLk8DlyO/fPf7DxUB85JOG97ervCbaqRxmPKho
-	xJZ0a8K8b9B/IcUiMuOtPOo7k2NieChO8EWkWL9cc0We+HkofgTvbBDFoDeJfzSaKUlAEqjqaSb
-	Xlzb68NHN4sjhw9HGXCN6q6+/+6BcJh1hRT+KwukQhEE4RUsOF8DpNsViiyIf8HKZ2OZfgepxkF
-	cpHxflL0cxWWvuXG/nJVY3GNCUEH1wTfjq/o8HD4Mqo3UBLMRv+LaoZ2bARmLnRJZ45wLp/9t8h
-	G8E2rtyoeyOL8IaHUb8kPOazYZlCfLnjVLQtizqWrw2ogjwRqKtlDYc3buQ9Ga4tliW9OlQRe65
-	nLXnwCZy7gM8+y9yhC0abZ0SXb+kGZczD+2U8O4bO2YXIger/ljdpff0lpud2BzQE4zICQcH5Yw
-	Mdn4C1cOG54R04DIyYSeQ==
-X-Received: by 2002:a05:600c:4f12:b0:49f:ce78:356b with SMTP id 5b1f17b1804b1-49fe6700d0cmr169059275e9.28.1790432902328;
-        Sat, 26 Sep 2026 07:28:22 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.79.156])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4271sm320463865e9.5.2026.09.26.07.28.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 07:28:21 -0700 (PDT)
-Message-ID: <d2a29116-967b-4ca1-a6de-510d68afec0b@linaro.org>
-Date: Sat, 26 Sep 2026 15:28:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aBtdPr31"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD98A1F000FF;
+	Sat, 26 Sep 2026 14:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790432914;
+	bh=GrtPLSHuGFunnRTeKC4/1IN66fdE0NzWWL3U7Y3AHv4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aBtdPr31z/4GcOnJrdt3AhE2XxsFsQyD7QXH+VW6d6xyIfsz+DlsLlMqtxRYXUtCW
+	 YF6nXiDf2SY5uUdHmLvtbMoi99zYMBCuuJlS7Sq6kOzTVWiYejOtPIW5QAbTepVnnY
+	 bSV1wy+HkDjJpUMwjiHqAnGDfpRbKzNqhMAZ3+3IiegN32oXLJh5EZw3uIluodP5cE
+	 9mPYUYKe+7WYsir25v17JCGAQ10geajRqfdmzqhX7m2Y8oCUonD4lSWm8q72HTHIji
+	 t/mv2DLMA9ZlgVjRQ6qfe0hhgGYvf9qwkbEy5p5QW06W0y/CGQ9q+rKcVaWvDSckgd
+	 TUV2YCHZ7Yhmg==
+Date: Sat, 26 Sep 2026 16:28:15 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v11 1/3] dt-bindings: phy: Add documentation for Airoha
+ AN7581 USB PHY
+Message-ID: <n73mmftx3ur7uw7yybztl2z2z2u6qgoec6mpplp55vbb6mt2fk@ps2grf5tsvpr>
+References: <20260724184523.193661-1-ansuelsmth@gmail.com>
+ <20260724184523.193661-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 08/12] arm64: dts: qcom: pmi8998: Add USB Type-C port
- controller node
-To: david@ixit.cz, Alexey Minnekhanov <alexeymin@minlexx.ru>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, mfd@lists.linux.dev
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
- <20260926-typec-v1-8-31adc19f32c6@ixit.cz>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260926-typec-v1-8-31adc19f32c6@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260724184523.193661-2-ansuelsmth@gmail.com>
 
-On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+On Fri, Jul 24, 2026 at 08:45:20PM +0200, Christian Marangi wrote:
+> Add documentation for Airoha AN7581 USB PHY that describe the USB PHY
+> for the USB controller.
 > 
-> Add the pmi8998 Type-C port controller and PD PHY device node.
+> Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> always supported. The USB 3.0 mode is optional and depends on the Serdes
+> mode currently configured on the system for the relevant USB port.
 > 
-> The Type-C CC logic is at USBIN base 0x1300 and the PD PHY is at 0x1700.
-> The node uses the 'type-c-change' interrupt from the USBIN peripheral
-> for CC state notifications, plus the 8 PD PHY interrupts, including
-> fr-swap.
+> To correctly calibrate, the USB 2.0 port require correct value in
+> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> selecting one of the 4 monitor clock for calibration (internal clock not
+> exposed to the system) but each port have only one of the 4 actually
+> connected in HW hence the correct value needs to be specified in DT
+> based on board and the physical port. Normally it's monitor clock 1 for
+> USB1 and monitor clock 2 for USB2.
 > 
-> The node is disabled by default; individual boards enable it and provide
-> the USB-C connector description with PD capabilities and port graph.
+> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> property is required with the phandle pointing to the correct Serdes port
+> provided by the SCU node. Providing the phys property is optional if USB
+> 3.0 is not used.
 > 
-> Assisted-by: LLM
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->   arch/arm64/boot/dts/qcom/pmi8998.dtsi | 27 +++++++++++++++++++++++++++
->   1 file changed, 27 insertions(+)
+>  .../bindings/phy/airoha,an7581-usb-phy.yaml   | 62 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/pmi8998.dtsi b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-> index cd3f0790fd420..878e577c667d0 100644
-> --- a/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-> @@ -24,16 +24,43 @@ pmi8998_charger: charger@1000 {
->   
->   			io-channels = <&pmi8998_rradc 3>,
->   				      <&pmi8998_rradc 4>;
->   			io-channel-names = "usbin_i", "usbin_v";
->   
->   			status = "disabled";
->   		};
->   
-> +		pmi8998_typec: typec@1300 {
-> +			compatible = "qcom,pmi8998-typec";
-> +			reg = <0x1300>,
-> +			      <0x1700>;
+> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+> new file mode 100644
+> index 000000000000..f42e3d49a61f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+> @@ -0,0 +1,62 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/airoha,an7581-usb-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +			interrupts = <0x2 0x13 0x7 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x0 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x1 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x2 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x3 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x4 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x5 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x6 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x2 0x17 0x7 IRQ_TYPE_EDGE_RISING>;
-> +			interrupt-names = "type-c-change",
-> +					  "sig-tx",
-> +					  "sig-rx",
-> +					  "msg-tx",
-> +					  "msg-rx",
-> +					  "msg-tx-failed",
-> +					  "msg-tx-discarded",
-> +					  "msg-rx-discarded",
-> +					  "fr-swap";
+> +title: Airoha AN7581 SoC USB PHY
 > +
-> +			status = "disabled";
-> +		};
+> +maintainers:
+> +  - Christian Marangi <ansuelsmth@gmail.com>
 > +
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> +description: >
+> +  The Airoha AN7581 SoC USB PHY describes the USB PHY for the USB controller.
+> +
+> +  Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> +  always supported. The USB 3.0 mode is optional and depends on the Serdes
+> +  mode currently configured on the system for the relevant USB port.
+> +
+> +properties:
+> +  compatible:
+> +    const: airoha,an7581-usb-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  airoha,usb2-monitor-clk-sel:
+> +    description: Describe what oscillator across the available 4
+> +      should be selected for USB 2.0 Slew Rate calibration.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [0, 1, 2, 3]
+> +
+> +  phys:
+> +    items:
+> +      - description: phandle to Serdes PHY. Optional if USB 3.0 is not used.
+> +
+> +  '#phy-cells':
+> +    description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> +      as defined in dt-bindings/phy/phy.h.
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - airoha,usb2-monitor-clk-sel
+> +  - '#phy-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/soc/airoha,scu-ssr.h>
 
+Rob's bot triggered compilation error due to this missing header.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
