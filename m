@@ -1,207 +1,132 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2956125B087
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC61D35AC3F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790388537; cv=none; b=jKV2cobUhKxZV/gc6kKs6BZlWz1RXUoHFecFL2sTAPfthr0ozT5sPjpGHmmDg5GHMT6GPr5FP3HLAIcE6ApHBo5MNt8G1vv9vu6/9TzGHuEtqVSREEhD/988OP3zQ5gw07J5egd0NAdUst0PCa9FxMlmULznDjUWDrU/cXTtu+s=
+	t=1790388778; cv=none; b=klJ1xfCvW6Ky1cR0TUlfjJ/U4367rFyTl6+iKVqF9zYW8awi/RYcP44i3D+dZrUcFuvXNkZrtOQZmv7knfLSPuTlBsc9BEZIoAnayLlcvagjbPmDLKDyeCxLB4j28for/2nrZdKAZ3SII+FHzsuONq0xIsGrHJfGiQc7f8XamTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790388537; c=relaxed/simple;
-	bh=Sz3F0/9c/hspLc+ft2ASlOgGf9Cqx1+JIZa5oyLOSZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MYfE5noVbptrr2qt1fsk6sALCMYMl7TDIeAhgB4R6WtFdxWH0UCW6L5J9edBIGjdN+IEQeu2lcBNsHkKyKsef9yX2+/fi5STn2PMeIPQ7fKOS6cOXmaRvb2e5ZCxDzYAgKfhmGsa4NKpS5R7oJrSkdk5hVe0OGDmUKWrZ5AAbm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bvH3Tgyf; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790388778; c=relaxed/simple;
+	bh=D8hznBV3X9vputz0GDesxMtEVSlFLBL/MYWFRs7IiFQ=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=DI7dJ75KedyjR8vdyeVwohj21JtCAkJ5ilqzS3Pcs0OCQpQwdmBAFbQ5LMjHMgMPO60tDUPd/OxT6X3243N1nvsdavJ7+K7TTKvYZ/m46Be/pUiyV4cD7nQ3Oao1RL9RvuPVfK0wA6hHHq60AiGCwO/E+L0jAwkMoMgeKv8RR9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mhayTLBl; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bvH3Tgyf"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso821878a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:08:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790388535; x=1790993335; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zk4olH3xptNmJQK41WU1h1Tdamzx/Da9rId2v3ZsrK4=;
-        b=bvH3TgyfvDOVGLufEeDGZ6TwxoDksEcmNO6H3z/+knVZ7Pl1KIifVeOrEcEjm1kBBX
-         Xg6Z3X145SK6O4YqbHLwsc9o/RmcdcOlChLHQOOk6q7JKVSEiJ11Z+e4fq4FBM/QEpgm
-         w1EH1vxPY7Jy5OJYe059Yh6W9SljnmIqf3tCrRKUBCYvXstSWXq4W44EFIfqhJQQVIqV
-         xOCjdOFw5JGa+bJqwe/xUMmCehrMoBnzP873Szl6EZf460yeczQrem8vNmju00X5MZj9
-         1TiBVwOjmci5jzhUUMkRoVnnjptf4jijCNu0N2e0A3L8Wyk957wbxo0ZMuHuD1JhM06X
-         Sgvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790388535; x=1790993335;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zk4olH3xptNmJQK41WU1h1Tdamzx/Da9rId2v3ZsrK4=;
-        b=T5nFFDhZyqCXnsce4SOVafZqkI++pvPBu1Eq5yXh7WtJeTxlWuyZfpG8eh2yBZIiRv
-         06sqo+/cTHhP63vYIUvlGS8NQgpjRJ4GUzuRNvMzdUaFwGXeheW9wSM2A9pSg3khGONp
-         0g52z+QN8xwue5dacax/DtPK5IJCvcaVAkKetnfAS3NfB0lEdz1EuJgqXZUnMr/rpWwN
-         6xI/cFDRr1/9KoT1xzpDbvf64unhdZtNybbW87kVIc+JNAqcwklNfVvuE68M7kohMVG0
-         /Z8aXiJ/LY0nhhToNx0+TeRFOlipybnfl8DpRstbrIHjWITmBFkxcRQjUZcowrLuFIJd
-         8/mw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1oG5Pw2uQN3673uzG4d3nmj41ERTDYLYtRhwnXGWy8kilXHeTBq2tVO4+8FAtj3idYI8QcZA2PqJtNQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0mGAP4JSbLDILd7ZBbuBj71uIyNYqI8/qHsnZwVWphxKN7KzB
-	OlvvDLETyT5XWHnaTZ4SFkNTpC1DyAwXCUViOZ7JAfdtu300ascsgIJsxGhfv6goxaqxG8tr
-X-Gm-Gg: AYBFou2D0OkUd2P407yKgjDOxxJPqmA2NbiujlGR5vTEYARdoBDu0+5OIDjuiSJ6BF5
-	8YYRkYQQoBoAibh9MR6MlW+Y2wC/BaXf29GN/+BkMTlZBRpcO1RxongY51e3mzI4LEAgPOj6MlU
-	wNcvQJiKx7Lx3dDRkPHljDRVdAOaQ/ob2eZ6sGRgj1fe8NYhH/QB2vC3BZyYBwBBE/q/aa556+i
-	Ae6O7tgSWbS06hZhmBGaN1b17tURjYbxCU9Kc4h0XwcGeIqa7BzA4pn966JsUtF0qpj6H/bJlk+
-	w+HYW1Z0RpuWhXJE3g7ZAUNMHXH9SfFjq4KHj3GdNmdWqf9HnS5hQzmNYxumXCesbLaIGVg/ZyP
-	Jg2MPuGbAkwhPh9ulfWATUarAfku1FZ9O3F5nUe91a+gPwCnEncguHxkVk5pv4OsxxG+Xmuov7g
-	VNxTqhOjT46BU1hhrsbK2yz61axkVUO3QpjEyllKkrfIm08Rw41Lk/7uluEXBi8vszKAere02LH
-	CK44ioOTWqCdrJMsBTHn9kkoRCXEY5cljAxWQKJg9998Xjng9XcxHCuxseCGh+4XKk2sis8yeVE
-	CJq8JgxU0lluk5Jf47I0bEFTuY3vNE3PviFo+h3BWaXXGM/yiwSGPwy+TeTWsPaiaSSIEQ==
-X-Received: by 2002:a17:90b:4403:b0:3a0:cb2a:b501 with SMTP id 98e67ed59e1d1-3a0cb2ab99cmr1819581a91.11.1790388535229;
-        Fri, 25 Sep 2026 19:08:55 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976cacbesm13252595a91.13.2026.09.25.19.08.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 19:08:54 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: jack@suse.cz
-Cc: amir73il@gmail.com,
-	repnop@google.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fanotify: report names longer than NAME_MAX
-Date: Sat, 26 Sep 2026 10:08:51 +0800
-Message-ID: <20260926020851.2938961-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mhayTLBl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790388776; x=1821924776;
+  h=date:from:to:cc:subject:message-id;
+  bh=D8hznBV3X9vputz0GDesxMtEVSlFLBL/MYWFRs7IiFQ=;
+  b=mhayTLBlvyBzNHjUOCMUJQNDYgWxO447jWJ0x8P1f503dhzlN3YFP4tx
+   cHaVu+xvmzzZmJylIdGtXAZoic3Q/UkBwD/xVQI84NuKRl5ZyXr5+xMrk
+   BGkac/0lBoSM1f9Jk9hpd0FGBS8A/fB3AdVmJYfAlqRBv/gZ5o1r+as0g
+   EioEKER/V3QUBFHUhquXHWGmtwHrRHYfrlty8LMoRxSrjnqW2S8AJeZdQ
+   Fz7d9PboldXkqunM4d4Plrrz+3ft1Tx/mxzTA1yazOxwQ2SZwo9nKEwHZ
+   hQzM6Ip/4rHo7FEbYv8fVGHxJuqhQ077GXbqMaESAuwudBENVpJSKF353
+   g==;
+X-CSE-ConnectionGUID: H/2rOPc0Q1WM8bg/4eLy1w==
+X-CSE-MsgGUID: VQYxM5zER6eZz525lZeu4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="90217464"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="90217464"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 19:12:55 -0700
+X-CSE-ConnectionGUID: 1bsXdshRREOVTEPOUUUn7A==
+X-CSE-MsgGUID: fVLyPTw9R9OkJQ6SOK+A2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="312398477"
+Received: from igk-lkp-server01.igk.intel.com (HELO 7278393c7b39) ([10.211.93.152])
+  by orviesa001.jf.intel.com with ESMTP; 25 Sep 2026 19:12:53 -0700
+Received: from kbuild by 7278393c7b39 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAHuD-000000000Ab-2cCl;
+	Sat, 26 Sep 2026 02:12:49 +0000
+Date: Sat, 26 Sep 2026 04:12:04 +0200
+From: kernel test robot <lkp@intel.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/tty/serial/8250/8250_dfl.c:137:1: warning: the frame
+ size of 1040 bytes is larger than 1024 bytes
+Message-ID: <202609260435.D0DdZXo2-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-fanotify keeps the length of a reported name in a u8, so it drops any
-name longer than NAME_MAX and warns:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+commit: d3539347022ad4eeb9dbd29c50bfca17b9d8a146 serial: 8250: Switch to nbcon console, take 2
+date:   8 weeks ago
+config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20260926/202609260435.D0DdZXo2-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260435.D0DdZXo2-lkp@intel.com/reproduce)
 
-  WARNING: fs/notify/fanotify/fanotify.h:217 at fanotify_handle_event+0x2e82/0x39f0
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609260435.D0DdZXo2-lkp@intel.com/
 
-Such names are legitimate on some filesystems.  vfat mounted with utf8
-takes up to 255 UTF-16 characters, which are up to 765 bytes of UTF-8,
-and FUSE accepts names up to PATH_MAX - 1.  readdir() and inotify report
-them in full.  fanotify sends the event without the name, and for
-FAN_RENAME it trips a second warning in copy_fid_info_to_user(), after
-which read() fails with EFAULT and the event is lost.
+All warnings (new ones prefixed by >>):
 
-When syzbot hit this, Jan suggested accommodating names up to PATH_MAX
-[1], the limit readdir() already applies to a name
-(verify_dirent_name()).  Store the name lengths as u16, which keeps
-struct fanotify_info at 8 bytes, and drop without a warning only names
-of PATH_MAX bytes or more, which no path can refer to.  An event with
-such a name can exceed a page, so allocate name events with kvmalloc(),
-as Jan also suggested.  Names up to NAME_MAX are reported exactly as
-before, and the record format is unchanged: an event with a long name is
-just longer.
+   drivers/tty/serial/8250/8250_dfl.c: In function 'dfl_uart_probe':
+>> drivers/tty/serial/8250/8250_dfl.c:137:1: warning: the frame size of 1040 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+     137 | }
+         | ^
+--
+   drivers/tty/serial/8250/8250_of.c: In function 'of_platform_serial_probe':
+>> drivers/tty/serial/8250/8250_of.c:284:1: warning: the frame size of 1040 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+     284 | }
+         | ^
 
-Link: https://lore.kernel.org/all/20241112115059.ecvomkalee5m4i4i@quack3/ [1]
-Fixes: 2d9374f09513 ("fanotify: use macros to get the offset to fanotify_info buffer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
 
-Tested in a VM with KASAN, lockdep and kmemleak: on vfat (utf8), names
-of 258 to 765 bytes now arrive with their name, including FAN_RENAME,
-for root and for an unprivileged watcher; FUSE names up to 4095 bytes
-likewise, also a FAN_RENAME between two of them.  With kvmalloc()'s
-kmalloc() attempt forced to fail, the events arrive intact from vmalloc.
-No warnings.  The LTP fanotify and inotify tests give the same results
-as before (fanotify20 skipped in both).
+vim +137 drivers/tty/serial/8250/8250_dfl.c
 
-5.15.y fails the same way (the same warnings and EFAULT on 5.15.221),
-and the patch applies there and fixes it.
+e34a79d0b320ea Matthew Gerlach 2023-01-15  107  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  108  static int dfl_uart_probe(struct dfl_device *dfl_dev)
+e34a79d0b320ea Matthew Gerlach 2023-01-15  109  {
+e34a79d0b320ea Matthew Gerlach 2023-01-15  110  	struct device *dev = &dfl_dev->dev;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  111  	struct uart_8250_port uart = { };
+e34a79d0b320ea Matthew Gerlach 2023-01-15  112  	struct dfl_uart *dfluart;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  113  	int ret;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  114  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  115  	uart.port.flags = UPF_IOREMAP;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  116  	uart.port.mapbase = dfl_dev->mmio_res.start;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  117  	uart.port.mapsize = resource_size(&dfl_dev->mmio_res);
+e34a79d0b320ea Matthew Gerlach 2023-01-15  118  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  119  	ret = dfl_uart_get_params(dfl_dev, &uart);
+e34a79d0b320ea Matthew Gerlach 2023-01-15  120  	if (ret < 0)
+e34a79d0b320ea Matthew Gerlach 2023-01-15  121  		return dev_err_probe(dev, ret, "failed uart feature walk\n");
+e34a79d0b320ea Matthew Gerlach 2023-01-15  122  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  123  	if (dfl_dev->num_irqs == 1)
+e34a79d0b320ea Matthew Gerlach 2023-01-15  124  		uart.port.irq = dfl_dev->irqs[0];
+e34a79d0b320ea Matthew Gerlach 2023-01-15  125  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  126  	dfluart = devm_kzalloc(dev, sizeof(*dfluart), GFP_KERNEL);
+e34a79d0b320ea Matthew Gerlach 2023-01-15  127  	if (!dfluart)
+e34a79d0b320ea Matthew Gerlach 2023-01-15  128  		return -ENOMEM;
+e34a79d0b320ea Matthew Gerlach 2023-01-15  129  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  130  	dfluart->line = serial8250_register_8250_port(&uart);
+e34a79d0b320ea Matthew Gerlach 2023-01-15  131  	if (dfluart->line < 0)
+e34a79d0b320ea Matthew Gerlach 2023-01-15  132  		return dev_err_probe(dev, dfluart->line, "unable to register 8250 port.\n");
+e34a79d0b320ea Matthew Gerlach 2023-01-15  133  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  134  	dev_set_drvdata(dev, dfluart);
+e34a79d0b320ea Matthew Gerlach 2023-01-15  135  
+e34a79d0b320ea Matthew Gerlach 2023-01-15  136  	return 0;
+e34a79d0b320ea Matthew Gerlach 2023-01-15 @137  }
+e34a79d0b320ea Matthew Gerlach 2023-01-15  138  
 
-Honza, on the msdos report [2] you pointed at the filesystem, and msdos
-now rejects such names (9d7ed813ee5f).  vfat cannot do the same without
-making files that other systems wrote unreachable, and FUSE allows them
-by design.
+:::::: The code at line 137 was first introduced by commit
+:::::: e34a79d0b320ea8248e1ee3482eb5c388a27d303 tty: serial: 8250: add DFL bus driver for Altera 16550.
 
-[2] https://lore.kernel.org/all/3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u4xmaaqibm@qkre7flkhejl/
+:::::: TO: Matthew Gerlach <matthew.gerlach@linux.intel.com>
+:::::: CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
- fs/notify/fanotify/fanotify.c |  4 ++--
- fs/notify/fanotify/fanotify.h | 20 +++++++++++++-------
- 2 files changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/fs/notify/fanotify/fanotify.c b/fs/notify/fanotify/fanotify.c
-index a208a7ec1692..c8289aa8a70a 100644
---- a/fs/notify/fanotify/fanotify.c
-+++ b/fs/notify/fanotify/fanotify.c
-@@ -656,7 +656,7 @@ static struct fanotify_event *fanotify_alloc_name_event(struct inode *dir,
- 		size += FANOTIFY_FH_HDR_LEN + dir2_fh_len;
- 	if (child_fh_len)
- 		size += FANOTIFY_FH_HDR_LEN + child_fh_len;
--	fne = kmalloc(size, gfp);
-+	fne = kvmalloc(size, gfp);
- 	if (!fne)
- 		return NULL;
- 
-@@ -1050,7 +1050,7 @@ static void fanotify_free_fid_event(struct fanotify_event *event)
- 
- static void fanotify_free_name_event(struct fanotify_event *event)
- {
--	kfree(FANOTIFY_NE(event));
-+	kvfree(FANOTIFY_NE(event));
- }
- 
- static void fanotify_free_error_event(struct fsnotify_group *group,
-diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.h
-index 3710543dbf82..4aad60d2aaf5 100644
---- a/fs/notify/fanotify/fanotify.h
-+++ b/fs/notify/fanotify/fanotify.h
-@@ -43,9 +43,16 @@ struct fanotify_info {
- 	u8 dir_fh_totlen;
- 	u8 dir2_fh_totlen;
- 	u8 file_fh_totlen;
--	u8 name_len;
--	u8 name2_len;
--	u8 pad[3];
-+	u8 pad;
-+	/*
-+	 * Deliberately not limited to NAME_MAX: some filesystems return longer
-+	 * names (vfat up to 255 UTF-16 characters, as Windows allows, which is
-+	 * up to 765 bytes of UTF-8; FUSE up to PATH_MAX - 1), and readdir() and
-+	 * inotify report them in full. Only names of PATH_MAX bytes or more,
-+	 * which no path can refer to, are dropped.
-+	 */
-+	u16 name_len;
-+	u16 name2_len;
- 	unsigned char buf[];
- 	/*
- 	 * (struct fanotify_fh) dir_fh starts at buf[0]
-@@ -168,7 +175,7 @@ static inline char *fanotify_info_name2(struct fanotify_info *info)
- static inline void fanotify_info_init(struct fanotify_info *info)
- {
- 	BUILD_BUG_ON(FANOTIFY_FH_HDR_LEN + MAX_HANDLE_SZ > U8_MAX);
--	BUILD_BUG_ON(NAME_MAX > U8_MAX);
-+	BUILD_BUG_ON(PATH_MAX > U16_MAX);
- 
- 	info->dir_fh_totlen = 0;
- 	info->dir2_fh_totlen = 0;
-@@ -214,8 +221,7 @@ static inline void fanotify_info_set_file_fh(struct fanotify_info *info,
- static inline void fanotify_info_copy_name(struct fanotify_info *info,
- 					   const struct qstr *name)
- {
--	if (WARN_ON_ONCE(name->len > NAME_MAX) ||
--	    WARN_ON_ONCE(info->name2_len > 0))
-+	if (name->len >= PATH_MAX || WARN_ON_ONCE(info->name2_len > 0))
- 		return;
- 
- 	info->name_len = name->len;
-@@ -225,7 +231,7 @@ static inline void fanotify_info_copy_name(struct fanotify_info *info,
- static inline void fanotify_info_copy_name2(struct fanotify_info *info,
- 					    const struct qstr *name)
- {
--	if (WARN_ON_ONCE(name->len > NAME_MAX))
-+	if (name->len >= PATH_MAX)
- 		return;
- 
- 	info->name2_len = name->len;
-
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
--- 
-2.55.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
