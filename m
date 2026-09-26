@@ -1,62 +1,64 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B5735E926
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59EE38DC68
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397523; cv=none; b=IpXDv1zAV9PhhZipuAYYDV1eOXun4DQk8Nfxr8D/UrSq2QK60kG+jdjMRyCCAjBhI9ZgtQgnGPskpQXpLTPMbX4dbL+IMId9VEaPxMEcS1LY3zWXIkMkdPQvbGJJsUwmNn5d6Dy2WQbRFFFbhfabud6w0zt33Kbavpp83KRQgEI=
+	t=1790397526; cv=none; b=S6rGLqm2niT3AauxXQ34SNsCr3rzawpxbQ0U4r+6gkcwofWjGhw0cgkhwceoxMdj8NKZhujZlnfsQeiF9Wjz5H2R9wk7ebkGvK+lYsax/hun3LIYd173pYepXMz3z1YbeP6kTsyLd3w8/MxcpU83hh1flelTjEm3Llayt8AtqSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397523; c=relaxed/simple;
-	bh=o96/nTPgLaU3nU2R7/joPhaB9h1p4PmJ1veyXH4bPkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FYT84IATCWnrQlsQ0x78YJAc4iEgVya1BfFBOAHR57rmdbtmnZTe1JZo6V2ztUm4jHP3w3NoedPwTc9U1uFX90S70PWodrkT2cvENY+qWgnCwS8BtasygmKddJs5GO1lCk0ew9L5ENc4fcbhtFeXc2yrhyBUciYSYVaXFvA4Xd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SX2fISSk; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790397526; c=relaxed/simple;
+	bh=ZKthYkVLB0W/m5QNSVt9SMTc5DimJTTdamI23CukwHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=owPuQ8MezOmcexA499PeewGfce/7qThfCAuGRGPooQX1423ZjeEl15oQB7CvXNWcZRHDDYOonQwBNHr7YvyOxeKbtYKCELFRBemMN29kdx0WT2utZvNl5CBO/od4fPukQvwhCSAOSjg6J27CiJlxWu1fzhKVKPkQ+JcbKyLpTBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ajQZ2/3R; arc=none smtp.client-ip=74.125.229.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SX2fISSk"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so1773595eec.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:38:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ajQZ2/3R"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664ef791so864111eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790397521; x=1791002321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iH2mnKMaWDn5GtGVfUjR2kRVjPqFYOwfwYCMea7YYrs=;
-        b=SX2fISSkl6VGjbp7UmGhjvtkz2LO244XoAlujkyc1So9hHXdnoA8X38tYAjUwPvvRV
-         rCko4nWQJEVwprKmR5o3iN6vJuaWKI6S2SVfsFuEJFKR+ru1T0PJvciI/p+4nl1pxWl6
-         F0nFKaEZaTOozI6c8TZru75Z3ZPms352LHK3/paTg+sehUlAQ5nCmUPZ3R3hcjHdZDCh
-         EKlBGcjDDP2tgJE2xBQHA9NrBQi193eZ81xX9G1TeIzXS9F7aDuv9mRwLQrKLaWW9Jna
-         H+g1uv63zxslkrL9rmYjlkcKZGecR+7HUBW+PE9tVItvaxjdDYE5/FekcQMJxXm+jNE4
-         HhAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790397521; x=1791002321;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790397524; x=1791002324; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iH2mnKMaWDn5GtGVfUjR2kRVjPqFYOwfwYCMea7YYrs=;
-        b=T2a9YWoipnuerjnyKFAXV+gw1Po0XUv1KNkeH5rOgkFtiJHVC7Ar9T7Q7/Awa3KvZ6
-         WTwyboIKmeG2Kk8+6C2zwF7t1w1yutxKeSHzm409VUkxil3g6cmzq1/wWye6MtL81II4
-         K92A4oyQfoRq1p+DHTkjQrLd/GniCBAd3C7QL/gAyrNg/bhSam9ETunkqChbFoqidLPO
-         z0geazKL9l/5zpeKF8JhfXAJY5quV6JwEyyg1YjMUULj2tCCQ8VqEccPz98JX/Y+3XfS
-         7PXUX4ActVr6Y4ONnMSH6Z67HCh/MMkdYw+Q7E0H6SoNXGDZ33UlVB14O07+B3UyTHrW
-         kYfQ==
-X-Gm-Message-State: AFuF++kxJSIdaK/lH/YcHd+mKQPHEzZTOImaoqIRdtFXKo2nF+uVLE+X
-	zVFY5w3bGrYHJYeEkANwv/9FnXRtly/cq79EwijoMQJL4f39VBSFje//
-X-Gm-Gg: AYBFou08FgU+iMqeIW9O3NwgoYiLtRPeHXMYBV/VPxjMrBUEVdCl3n1uCfT6MnP14/p
-	fCRzUEWwoR1qye0p8ca1SaN7TaVPJBu1fq7m6Par8NVSdUE16q5J4L4q3U/D74HjFg1Yxh+DENo
-	1p0Z9uSW/adnxf0Z80UEmcRTisIAJ61Ikf9shqNk/8Enn0riEvYr31qzzSpvIVRMkZ5WPFOgCDV
-	4VcIhgxzszEomKX1AtqYjmHJalHCBe41qY0nvP3dI9+5IHcHCjVKn/Y9IQVJo1bHoF1g98iaMw5
-	Xwt/B0NmGPZ7FD57NLw1i/w7pmbO17dWATN9ugNDYmMXXdvtiJiFd1SwNmkLDWe0KtaCnTlNTEr
-	WnyQ1NIEgrjBKWGY+vVNsYeNX3RTOPq1w2Gr6zLMRTBHvNmTSNM+6pVvI3JD8wXl6RcE9r3HthR
-	I826vG4CYzG0Okcgxh2CmqOVaHvfdUG1FzO3g+RGO1g2Ie1tp+OJh1QYdXsqhZT8Eb56UhhBMh6
-	Ln3qw8NQUMgb7WRIpZTn0vYqNYsyjSwkKKgOJWb+A38RIHhRTsk1HfWPKBt1dhsJUjF6bmmxy8g
-	MtrphXQjorkpY5ZmBgjTgyG07DMObS+yeFM6cmqmvucw2k0pVsnYadqP5Rc=
-X-Received: by 2002:a05:7300:ff42:b0:33e:bbcc:eb99 with SMTP id 5a478bee46e88-34270ab2d32mr2087923eec.18.1790397520853;
-        Fri, 25 Sep 2026 21:38:40 -0700 (PDT)
+        bh=POU2be3xOrNpJVPniGd2Zki6uY3mDzNBbyh7LRzbWAs=;
+        b=ajQZ2/3RNxCF6L3Cae4nx4FL2SfAlNODSYeFp8B3HnplXOfMEurxBleClST4+8gMXQ
+         GNWGPmr38lWj2IdYq9ByODEdGw1xazp3bXMR8v/fivH4vSvrh4+zC/mPw3nLpf6JT/IC
+         HuzgBRyQl1Ab0yrIe0P5yPDWgpnIfAwo3kZT4zhrO4VLtWWjQSvHy2NAIIhOC2qI1nHe
+         xPAp3LxcIkYnbrpAJcqEXzbWSc7YCcqp3s/ZtUsrSBtS8j6uuNwdDy+ps4TwB4gCmWho
+         fcnyJRZ9JBFml0kXsycFcXnUhZ04Kd8D34ZwFJrJjaTHnD8Hh8W0cWgvUz+hpoJK/go6
+         c54w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790397524; x=1791002324;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=POU2be3xOrNpJVPniGd2Zki6uY3mDzNBbyh7LRzbWAs=;
+        b=RxQmx/AFjiAAUJaFZglmMB1ViDCxeAmNGvb1mlEC4cgSkeuQ43EHXj6N+HhKAsCmR7
+         szFbxTK2Tb+PD2Oqde1eVe2p0dpOjFV73uHJFSF0lvIdrCGDOotY4VWxPzwzkHrgHBQy
+         DQuTNJ0xoTk5kXIVkC/WtoB/+WmO1/xmNq2G/ekmUnduOwG0GBeHzcUe1hk/VFKMQYAc
+         8d/IZ5jETHZkDVuJPBVQt5iPdAKExi9SLlfx+7ZSeaA3Px/zbkdu4PHhrRfolDLEkmbj
+         Ifw6QvoCgcocIll2G4IsZ30lvuyHAJ+pFJZoOa9UOtUiRAfhwNZU1oJFpRYl/KNQt1hl
+         /BNQ==
+X-Gm-Message-State: AFuF++lAiaCs/3nU5cUaWrdyET+5E2JnVTrsWrv/Z9D/AcNH4KVtbXVV
+	/lzckRNyUZ3qxh+tHf02MeI6bD3tWSZJ+Iy+H8bdBi6wzhAlH9l2Sf1G
+X-Gm-Gg: AYBFou0SVgl93Hx1eJXgTjrgPgtXCwBgW1r2r/jDPwsr8zPalLWrNxVHKshomhuvcgX
+	wPbIkhgRZacHlMuow0tRCWGk0C7FRe9WpTImr0mfWbZu2oGav5C8DIOGx3rcs3Ar1xD8z8jTXzo
+	gvBtAM0Bqb6pPjgnyILJ9n3QDkU4GuOTKljv4IaOu0xJl+mQHBJHoV4EkNyndXavdpk3v8mNozy
+	7toukmIjk4u5405gRpHsFNbfrfbdV67no68JY4xPIVQnWEGK/mTpeAv2bz53TZLf/R4y1UYDrbr
+	pKOuDw9TKZtXQRKz2EgEu2v76Y3jZy+o97nA/ilvRGktU5nDhQJ5THHUjFwIRVJyQ7rwTE95PbE
+	rSEv4/wjaOSdInwV4bvyrUOTET9Qx6MtjZTajRu7ksiTItSs9f3EwzSyqP9wHjTAnk4BNuAXn9i
+	cNCYovyFl2dBG+1ZFdY/MBKi5Ot8Y4oareaYlcd67QyT625moksqlFor0UKjK/DggXdoOIIkfuo
+	zHTDDuPiC+g1F/Dgw7bw+PdJW2cR4NzdTsErhk1v4TQWxN3kGFg77oU7VD5XYsPGNtLoCAfLciu
+	YiGP78KWlzvkJTbWlp8xRbmKoh0g0hSJoGjvn8d2HwtG69hxQch2L0ccDuM=
+X-Received: by 2002:a05:7300:c8cb:b0:33e:d4ae:e10e with SMTP id 5a478bee46e88-342746276b6mr1952224eec.40.1790397523897;
+        Fri, 25 Sep 2026 21:38:43 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343025a591csm2171406eec.12.2026.09.25.21.38.38
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343025a591csm2171406eec.12.2026.09.25.21.38.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 21:38:40 -0700 (PDT)
+        Fri, 25 Sep 2026 21:38:43 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: linux-fsdevel@vger.kernel.org,
 	viro@zeniv.linux.org.uk,
@@ -69,10 +71,12 @@ Cc: linux-kernel@vger.kernel.org,
 	amir73il@gmail.com,
 	ansgar.loesser@kom.tu-darmstadt.de,
 	Matthias Goergens <matthias.goergens@gmail.com>
-Subject: [PATCH v5 0/2] vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag to FIDEDUPERANGE
-Date: Sat, 26 Sep 2026 12:38:34 +0800
-Message-ID: <20260926043836.3301898-1-matthias.goergens@gmail.com>
+Subject: [PATCH v5 1/2] dax: return the comparison error from dax_dedupe_file_range_compare()
+Date: Sat, 26 Sep 2026 12:38:35 +0800
+Message-ID: <20260926043836.3301898-2-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260926043836.3301898-1-matthias.goergens@gmail.com>
+References: <20260926043836.3301898-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,33 +85,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Dedupe tools advance their file offsets by bytes_deduped, but when the
-kernel shortens a request to a block boundary it still reports the
-requested length. Patch 2 adds a flag under which bytes_deduped is what
-the filesystem actually deduplicated. Patch 1 fixes the DAX comparator,
-whose return value would otherwise surface through the flag.
+dax_dedupe_file_range_compare() returns ret, the positive result of the
+last iomap_iter() call, when dax_range_compare_iter() fails. The caller
+treats any non-zero return as the result of the range preparation, and
+xfs_file_remap_range() returns it as the remap result, so a failed
+comparison on a DAX file reports success with a small positive length
+instead of the error.
 
-Amir, thanks for the review; both points are taken in v5.
+Return the error itself.
 
-Changes since v4
-(https://lore.kernel.org/linux-fsdevel/cover.1789653814.git.matthias.goergens@gmail.com/):
-- flags is a plain rename of reserved2, without the union (Amir).
-- Dropped the paragraph about old callers and old kernels (Amir).
-- Documented the flag's effect on bytes_deduped in the UAPI header.
-- Patch 1 unchanged.
+Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ fs/dax.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The fstests test follows as generic/806 v3 in reply to its v2 on the
-fstests list.
-
-Matthias Goergens (2):
-  dax: return the comparison error from dax_dedupe_file_range_compare()
-  vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag to FIDEDUPERANGE
-
- fs/dax.c                |  2 +-
- fs/remap_range.c        |  4 +++-
- include/uapi/linux/fs.h | 11 ++++++++++-
- 3 files changed, 14 insertions(+), 3 deletions(-)
-
+diff --git a/fs/dax.c b/fs/dax.c
+index 1fbba0d21c13..de11bbbb6a38 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -2264,7 +2264,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
+ 		status = dax_range_compare_iter(&src_iter, &dst_iter,
+ 				min(src_iter.len, dst_iter.len), same);
+ 		if (status < 0)
+-			return ret;
++			return status;
+ 		src_iter.status = dst_iter.status = status;
+ 	}
+ 	return ret;
 -- 
 2.55.0
 
