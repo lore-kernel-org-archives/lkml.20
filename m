@@ -1,118 +1,182 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DB128C037;
-	Sat, 26 Sep 2026 15:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C313364E9E
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790437761; cv=none; b=GmT00n0Uy8WT/OpdEtcjCBhbPxrN+6d+KpujI66K0B8npBe64fbr7Dqs7QGqwM8i1hE/GQU52aoviaMs7910jUFe1lUbwJatF0L2R8Zfxp1RMSezmN1RNU7wcTnpQjDl6k7hqt6GBTDhB6BFeStQ2Xas86T2jo8/Xo9Mgr0LPv0=
+	t=1790437766; cv=none; b=MD/rIFxUgOefxFpgl98pUwp8wMH6PK+hTiZS0Svy9X1SRfBriKIX1tw43GF4a5E+ZaajOg2bpm37nlFmlgbouOXWcQzefcAm73H3ZhuW1nM/iAcblE67ovQ6xVqkCl+2YzYb8dhu1iIxR0bd6mloD3DBJZ5SsAizm4iSwR/DRvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790437761; c=relaxed/simple;
-	bh=4J4Kg3YuteD9wiFq70DaqkNxo2XjS26NhrcoO4oCEC0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MDmEvVKv0LHII9IURbSD0lA5Mtnx9N8Ar8UE65aRJqUmOCT3bpbHWf05CeLuZxsUqvobavhwlGTKFNScQT8cMPete4dfqFEY6ai5GYj73LrRU5QCTkfqZoJtSXTUNaV4OJ7uTGxyvgfFjiyqDaRrOUgogJQ8lL4UnEvh0GrecRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aztHeWkv; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790437766; c=relaxed/simple;
+	bh=U0usEgD6eBVSyAl+4wuE0PhgO7aYIcSIWGg7AGP8BEg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=o3rZN5NRkHgMvpjZaq/7LdidugGo+ldl2dw2Jj3WLh+YckK9zOqcICOlhgpw1nXYXRenQza9LNMy4gegqnirFB2y96oFkUVqagLexKtsJpCYZ4I0mf0XYLu5Wff2LqlOCsK/pQ+ZqtZ2+kW7KcOoTWeleweViXX+29mkZ3toENk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sRuhkRGd; arc=none smtp.client-ip=74.125.231.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aztHeWkv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=j2
-	74234qXl6Adx9NrOYpzzR9WSPKXvomignRM47Vgdo=; b=aztHeWkv6gCCyd9w15
-	XuUvdy1SNYmuzbEw+yEhJX/4g6nij3jiPlMfHaS1l7yPiBa19jxkXmAdWuMbJTTH
-	MjebKXhnagdTjP1jk1ASR0C7TZHwLT1wJUoLKdpFbSeKqKr4AW3T8DVkkHg4GLBF
-	LlPvNuGmLEbdk3W89DCSAD5CA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F4pL6bdqlpIIBA--.11355S5;
-	Sat, 26 Sep 2026 23:48:31 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Govindaraj Saminathan <quic_gsamin@quicinc.com>,
-	Ganesh Sesetti <gseset@codeaurora.org>,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 3/5] wifi: ath11k: avoid IDR mutation during vif mgmt TX cleanup
-Date: Sat, 26 Sep 2026 23:48:22 +0800
-Message-Id: <20260926154824.75224-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260926154824.75224-1-yaojiale02@163.com>
-References: <20260926154824.75224-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sRuhkRGd"
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c72bd8a017so1135183eaf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:49:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790437763; x=1791042563; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B0ScVIX3sPn/yQi4OeJT/F76Vd8VPP2euaNmJMN8ERw=;
+        b=sRuhkRGd0u8nkOxa0GXrwphVrHhk1n3TOpBZ8Ki/iyxUfciGgghFsVF6tpv6Ttd7uS
+         ASNaisI4iRsAK26INUqWMlXgR6DQuFiZhjXX0WyulRfkpsjnfZ2/DIdywIgrVZ08XFTD
+         IZmUGtFkkLP9NQODz66uQUePhgLso6vCFuWu67JQ81fgzWZqIGjZHz/2QgYkvFRwvYN/
+         RzXDykVxoV42Mnox1uwvBeIJ56SZLTxa17EnDIjZJFfrTT/LK3n9H4gE/NQZBEXfeB4B
+         yCVpd1ec1iwItV2xGrF1tbdFpRymprAE60ajlhRNx8p5PlIANw5cVjB3hCoZwD79SsCf
+         dOPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790437763; x=1791042563;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B0ScVIX3sPn/yQi4OeJT/F76Vd8VPP2euaNmJMN8ERw=;
+        b=xjlntMczBZWu91kV55EgSSck0uvr+dsw5QVaC3y0VSvvC8/oA9SGKbDjq1eE7qtCx8
+         6v8qRpWon4sEoCkBKRbYDx2S2bXUN3RcEf7tCwpwqii8xtePcbOFMjUPVwVspAvOuAiR
+         uSbFeKV1vEUXiZ0yl7h2pm1PZYVJ1jHfKqRhmNJq6zAYHLdfnTVSvnT9nu4PsAdAWboG
+         YmjItwwO/MGDiT2OJkVKG2NfkpCbfUAOXyZGZZYLuiHJk4LJ2xVEOiX1CKQdCCR7QvDQ
+         sVt6wmZDbOj/+Eahg+/j7anw20zwpiUt9U81NJ6/3mr9AHLbBLSRiGZ0okNmhV4GqPv8
+         uDvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQr61PQbi8C/juKr5L4uGAOnY07CtvEanLoQYvZAcdctgikjh6J0vPBiAuPAJw2polCgh1hlLiPImo/Uk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIg0aSWR500eLa8G2OVkC7fCsuuXmcRPdVl914jsuBVG8Utuur
+	xPL0Mqqbmdp7eAqSeoz6Lw8ej2h95NpysJgSMYNkU1tnPBXXlkBcWRjb
+X-Gm-Gg: AYBFou2EmfwtLwfCJJia2ubLdBRD/9sWaxiOsmm9ftq7ogxUXpPWsTByeV9jo84z+Er
+	o8+D7g0ACM1rUo0fZTHDQuSw14um6c4L36Zmfg9+xwcW+uvwUC3F7CuNKys0ZAzoWupowPHOW7g
+	hqd+t1j/QsbzMmgt/ffp2EjJOgRei+TBS/hL1/j3vxxsp86esKDQ3XR8RnQX7f6frwxMDGbCsG+
+	cmin9yr609vXVKG4H4KYD7LklonfUqj7z6b5Uow8FbHfpXXdELf5jLTHtTej8gSMES9oXbMJXve
+	GldJGiGoIUnhMXeAZjzAwZZ82QxRKZB4ByhAf2FLFH733iFlYrAVJ/0HbpZLNyaSYClFvPwGgIf
+	eEyuQfdun87LO8djuzBsFFF3R5qkpaY6N4Hqffv/MjE7hPX4vIhb1ieudHzJQc6G0v4jmVyg5R3
+	+d6ij6KZG1zo+E+iqQw7oP0ejQP0bDUjhDDzAgJos4nTPIQ0KXdbrzi9DWptggDb/l/F7szif16
+	R8vpuq2HF7l2st/CHLMOvsMhDP4JpC1BM66L5GzvCKcQuMO3+44WEH1yf0iFwaks4OhqCqp5Odq
+	30tVKicI3A/vKWo2iKBTx3DxNpDLWJf0tejzDixbUTxWU60nye7MgHWLdOdAVb+cndxF44rd9gK
+	kHGKZgQUULMUGlln6F+n4
+X-Received: by 2002:a05:6820:1ca6:b0:6d3:402e:1fca with SMTP id 006d021491bc7-6d43ebf0448mr8754440eaf.9.1790437762887;
+        Sat, 26 Sep 2026 08:49:22 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e98b16d4sm5442366a34.26.2026.09.26.08.49.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 08:49:22 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 26 Sep 2026 09:48:57 -0600
+Subject: [PATCH net v4 02/15] net: stmmac: reuse the MDIO reset GPIO on
+ resume
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3F4pL6bdqlpIIBA--.11355S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar4UtFW8Jry7ZryrWFW5trb_yoW8tF4rpF
-	47W342yFy8AF47Xr4rCw4rA3WrXas8K39F9r4DG34rJFnFyF1SgFyFvF1avrWrta18GFy2
-	krWUtr15G34qk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR5rchUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BAXUWq36VC7YQAA3Y
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-submit-stmmac-reset-fixes-v1-v4-2-ec1c0250b3c9@gmail.com>
+References: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+In-Reply-To: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Joakim Zhang <qiangqing.zhang@nxp.com>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, 
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Joao Pinto <Joao.Pinto@synopsys.com>, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>, 
+ Voon Weifeng <weifeng.voon@intel.com>, 
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Simon Horman <horms@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, 
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>, 
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+ Ding Hui <dinghui1111@163.com>, James Hilliard <james.hilliard1@gmail.com>, 
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev
+X-Mailer: b4 0.15.2
 
-ath11k_mac_op_remove_interface() walks txmgmt_idr with idr_for_each(),
-and its callback removes each entry belonging to the interface. Removing
-the current entry can invalidate the radix-tree iterator retained by
-idr_for_each().
+MDIO bus registration acquires the optional snps,reset GPIO through
+devres. A later bus reset must reuse that descriptor: requesting the
+same exclusive GPIO again returns -EBUSY while devres still owns it.
+Cache the successfully acquired descriptor for subsequent resets.
+Propagate acquisition errors without caching an error pointer.
 
-Move the walk into a helper that uses idr_for_each_entry(). It performs a
-fresh lookup for every iteration, so each matching entry can be removed
-through the locked removal helper without retaining iterator state across
-the removal.
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/wireless/ath/ath11k/mac.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 18 ++++++++++++------
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 696f9dd65ad4..07de423086c9 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -6181,16 +6181,18 @@ int ath11k_mac_tx_mgmt_pending_free(int buf_id, void *skb, void *ctx)
- 	return 0;
- }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 7582fca63741..c7c876408d85 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -287,6 +287,7 @@ struct stmmac_priv {
  
--static int ath11k_mac_vif_txmgmt_idr_remove(int buf_id, void *skb, void *ctx)
-+static void ath11k_mac_vif_txmgmt_cleanup(struct ath11k *ar,
-+					  struct ieee80211_vif *vif)
- {
--	struct ieee80211_vif *vif = ctx;
--	struct ath11k_skb_cb *skb_cb = ATH11K_SKB_CB((struct sk_buff *)skb);
--	struct ath11k *ar = skb_cb->ar;
--
--	if (skb_cb->vif == vif)
--		ath11k_mac_tx_mgmt_free(ar, buf_id);
-+	struct ath11k_skb_cb *skb_cb;
-+	struct sk_buff *skb;
-+	int buf_id;
+ 	unsigned int pause_time;
+ 	struct mii_bus *mii;
++	struct gpio_desc *mdio_reset_gpio;
  
--	return 0;
-+	idr_for_each_entry(&ar->txmgmt_idr, skb, buf_id) {
-+		skb_cb = ATH11K_SKB_CB(skb);
-+		if (skb_cb->vif == vif)
-+			ath11k_mac_tx_mgmt_free(ar, buf_id);
-+	}
- }
+ 	struct stmmac_pcs *integrated_pcs;
  
- static int ath11k_mac_mgmt_tx_wmi(struct ath11k *ar, struct ath11k_vif *arvif,
-@@ -7421,8 +7423,7 @@ static void ath11k_mac_op_remove_interface(struct ieee80211_hw *hw,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index afe98ff5bdcb..07d5eab05996 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -386,14 +386,20 @@ int stmmac_mdio_reset(struct mii_bus *bus)
  
- 	ath11k_peer_cleanup(ar, arvif->vdev_id);
+ #ifdef CONFIG_OF
+ 	if (priv->device->of_node) {
+-		struct gpio_desc *reset_gpio;
++		struct gpio_desc *reset_gpio = priv->mdio_reset_gpio;
+ 		u32 delays[3] = { 0, 0, 0 };
  
--	idr_for_each(&ar->txmgmt_idr,
--		     ath11k_mac_vif_txmgmt_idr_remove, vif);
-+	ath11k_mac_vif_txmgmt_cleanup(ar, vif);
+-		reset_gpio = devm_gpiod_get_optional(priv->device,
+-						     "snps,reset",
+-						     GPIOD_OUT_LOW);
+-		if (IS_ERR(reset_gpio))
+-			return PTR_ERR(reset_gpio);
++		/* The bus reset also runs on resume. Devres retains the GPIO
++		 * until unbind, so do not request an already owned line again.
++		 */
++		if (!reset_gpio) {
++			reset_gpio = devm_gpiod_get_optional(priv->device,
++							     "snps,reset",
++							     GPIOD_OUT_LOW);
++			if (IS_ERR(reset_gpio))
++				return PTR_ERR(reset_gpio);
++			priv->mdio_reset_gpio = reset_gpio;
++		}
  
- 	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
- 		spin_lock_bh(&ab->dp.tx_ring[i].tx_idr_lock);
+ 		device_property_read_u32_array(priv->device,
+ 					       "snps,reset-delays-us",
+
 -- 
-2.34.1
+2.53.0
 
