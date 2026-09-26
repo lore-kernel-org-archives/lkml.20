@@ -1,132 +1,159 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76095415B74
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F3128033B;
+	Sat, 26 Sep 2026 12:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790424728; cv=none; b=KAAtKt6mWx+iy9ImPJb0LBwhrRkJRloyH8Jy9o5uTMyQefau3w6hZPwCwt20dSIh7ft20FSO6VnTn75XZQBxTTzS7lqpZp9PIalfo/m2zkwdc1bqNlsUn194htzaChooy6WN7ptXWlhPk8Saxl8lJZl+WAwHBr3sNYEOsuboJkk=
+	t=1790424799; cv=none; b=e6DiDdX7azltfNfehGWEkz3Ha/h70jEFYW5y2KA1bZuh3XOo2rKoArnqH5JnSyFBEMFGtT3t7/yBa/7e1UQbmmg67fdSIQgDBshQ+/TxOd/39lJTkmhungLmNKyTeKaKUL+UTJSDVsZgYewIZINEYTMx489NuSLjkySbJtw9TuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790424728; c=relaxed/simple;
-	bh=4b/AkjhNna1R9Uyl4AgeyjsThwIUEKChAEpbm7uJFzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J87tqX6ljeaxj+oa7X55rW2pDQ2k0BQG8d74PtLgrqc1DIVpFxTvCXAgARnfLepr4lImseX+noHygvq8zdeY9TZTD6cRQeBzM2fJ2ZNg0FzYQAs+iQEX8mK2HFs0fSAtVPIzfElbTnqMjwWw13cXpxud1XHlpBECyrc8PgR2rcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dKEne2CF; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790424799; c=relaxed/simple;
+	bh=BtVpA5GOENXZnZsxuXwBncCs3ISWn7QkCnNFP438S44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NaiAODWZwKQK+nHOxZw7FWTLOrQvURzzvHkUgMH9tA/ojezfBwgG0MtOvF9n5Z4PC0lv75E6IxjAteKMUkOoJNh+sz7aotXDnnKRFkcSQwTBka4ILGGaBm2PGmfbDyPVJ2RLUw9lfdEcgOH+5/5RiiEW7L1EuA3AoNsvpSJiphg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqVt/WH/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dKEne2CF"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dbdcb4f59so39324566b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790424726; x=1791029526; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gL6yGYanOuXOFUt9EY53ACpJvwH+dAQMRzWl6hM5a5w=;
-        b=dKEne2CF4p1WW1W4mmoZRHehjKrPszgzBhubPdal3RyK+PWBq5TUddDjvBUJu5Yudw
-         NShk3AUKbAxrxUgRjiJr/zCpsPNECM5+n0vAEXU1ohnpPL4IBskntmgQhm0rY933T3tk
-         pjk0wseYRZhavQPVOEyZBm0/5g6RJhTNxhtX3uwPAMyTKKcgFP+PXl1uTn8Ojvl1eUwK
-         Ezl79Uulu3ydO9PkU0lbOOhb4s+juMMWQyq+qPkj/sw2tIgSCGsn4LoRDykO3+brQ1TK
-         QJWJ4/haAC+EmeDDsSiCbFTh71oQb9ujOYwdkMr6YayM5+B1VeAieFebbtCSeCgorVFF
-         NDaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790424726; x=1791029526;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gL6yGYanOuXOFUt9EY53ACpJvwH+dAQMRzWl6hM5a5w=;
-        b=amj7S0oPYWoMhWQM1vtZP6hB5Dra1YigcBV48T9U+HUlMoQkq6keFav6QPjDWHosvm
-         hzQwmd2wrbLMlFSAO5+Xfq23zAv6gQ3KrogFNL5ztg8kleKY/qvP2Ol5kaDxYjN3+a8z
-         mTodVUuO4KqMreAMX1IMSV3IBTit07e5zccfQn7yaVD47P/XibpWMs9cFlJ2AwiQA5qN
-         pJ2vk2q4RniOQFjLXyK6az1HCcPpUKrRjLCr+UJxgAzvkvJJgOiHRVa2sqsgMOqb9yi6
-         imkAaRwvYizru5i22xqdD7AtnzF67cxloteBOmH+G3sD0+zo5YkmPEIA8hmr1hdLjzTj
-         8+sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwTamX5tfVzdmvs9GLH/CkJzvVo+vspGL7fWlEvzK4wsPpea3A91qgvNQX0SKTrG8Ejuq9LyWfz0xPNDyg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSN8xENhfMqOeTMgmCi7jXMtZk0TypqqMo8zstWRAUzR0ZvY69
-	wzT/6un5pXGYqnIWfbrchKhzBv4xTK19KrAfopfbNbey5m9J0lAf2HTW
-X-Gm-Gg: AYBFou0pnkRRNSixO1rIMztE+DfKw6POq5CK5x4M0GlDeJZg04OtnDu0EDgqD2fK806
-	YhLfWTpRNEneNutEpZnA/8EYBbGaDYjv6M5g5CUDEQz++i8U8WOrsN/6/w4P7BC6NH9wfbvSg9w
-	xAOY3SAHjvnBkXvg2P+b471w5q7JNz3H4Pj6lYvy6iv+6WjQyMCguVwpEktTgUgesQblj7L5RQI
-	O56qNQy+oQnahuOYNCn4D7+jHcK9njbEqoc/smyhJhS3sPl0UddHC5v1cFJmjxA920NS5eHyjWu
-	GXUUh36thsYidErUA4KB7WDTcwPB463ehoCcv9bjeptVn/82ehuSy1ed6I4hSLoy3QrCt+w0N1w
-	dnt8elIFk/4R52WMDH84f3nN9eGVzNaV36mZIkCFderkvte6ijN0ROxnnR2On8+7LCW9BAajB0r
-	fMddXX+HDQM4rGvW8LVD0Nzrg+xeagVXKGcp5qM+hra+v0RP2TxmDg9Lr4Epicp/hSAHAq9KGOA
-	dax5LHUEXl1Fsnmjdf7UZSmPgw+NmG1+9OVZsnHmWB2
-X-Received: by 2002:a17:906:7946:b0:c26:1648:a06b with SMTP id a640c23a62f3a-c2ac2511a13mr683690866b.38.1790424725612;
-        Sat, 26 Sep 2026 05:12:05 -0700 (PDT)
-Received: from fedora.localnet (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd380646sm49097966b.68.2026.09.26.05.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 05:12:03 -0700 (PDT)
-From: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
-To: Oleksandr Natalenko <oleksandr@natalenko.name>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- Filipe =?UTF-8?B?TGHDrW5z?= <lains@riseup.net>,
- Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
- =?UTF-8?B?R3LDqWdvaXJl?= Stein <greyxor@protonmail.com>,
- Alexey Zagorodnikov <xglooom@gmail.com>,
- Roman Stingler <roman.stingler@gmail.com>,
- Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
- =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
-Date: Sat, 26 Sep 2026 14:12:01 +0200
-Message-ID: <n9DH6GE8RMS3_4u3nLY20A@gmail.com>
-In-Reply-To: <n5eDnakzS0uqjND_OMcM0A@natalenko.name>
-References:
- <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
- <2UD2rmaWS9W0wgq6AdNLxw@gmail.com> <n5eDnakzS0uqjND_OMcM0A@natalenko.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqVt/WH/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308001F000FF;
+	Sat, 26 Sep 2026 12:13:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790424797;
+	bh=1iBLZkIxA8ap1qqaUdvl37Rh8tiElL4QP7IPYChkI5I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqVt/WH/30yxap89q3hdsyv/l61o3KLu/CiWmh2GBWsGOMCAyDd4oeItuV0KhN+p0
+	 8X1zpWVayYa47zet2Ur/sfY1kFJQbab8BoOoxfXHV/YQI1RJpJcGzgkU0qRjc535uU
+	 dggfLeW1RAGQ6iAvuoLIhb9T4V0FhhXIBy9i/I8pCdGeLVYzIySIXLMOZwMi3YRe/f
+	 zKl3WL7aj0w8pTnJ2Nyfs5DX0DqPx3wVLkn3TmGkc+E39Db2pmRZ/OB9D3wxZRvvWf
+	 SDM2RCWwifBB//vbUuDdgvoBbZaeCV/2vJDbDTyZiZ4mMxvo0MoVSBtV+WGkAlY0zm
+	 09Lh/Q+rpzwkA==
+Date: Sat, 26 Sep 2026 17:43:08 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev
+Cc: Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
+	rppt@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <are21BjeS1O3RYE3@sumit-xelite>
+Mail-Followup-To: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
+	Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
+	rppt@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260921110050.3977591-1-vdonnefort@google.com>
+ <arIYtjmSKCs14SqO@sumit-xelite>
+ <arKW_91EeKA-w96m@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <arKW_91EeKA-w96m@willie-the-truck>
 
-Hi!
+Adding Brendan to this thread.
 
-On Saturday, 26 September 2026 13:39:18 Central European Summer Time Oleksandr 
-Natalenko wrote:
+Will,
 
-> 
-> This is touching:
-> 
-> 0000  00 23 e7 90 c5 8d ff ff 43 01 83 03 01 00 2d 00   .#......C.....-.
-> 0010  76 ae b7 6a 00 00 00 00 01 1a 0e 00 00 00 00 00   v..j............
-> 0020  14 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00   ................
-> 0030  01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00   ................
-> 0040  11 02 13 00 00 00 00 00 00 02 00 00 00 00 00 00   ................
-> 0050  00 00 00 00                                       ....
-> 
-> This is untouching:
-> 
-> 0000  00 23 e7 90 c5 8d ff ff 43 01 83 03 01 00 2d 00   .#......C.....-.
-> 0010  79 ae b7 6a 00 00 00 00 5e c1 05 00 00 00 00 00   y..j....^.......
-> 0020  14 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00   ................
-> 0030  01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00   ................
-> 0040  11 02 13 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
-> 0050  00 00 00 00
+Looks like you dropped me from your reply.
 
-Great, thanks! This confirms that touch, but not tap or proximity, comes in on 
-HID++ but not at all on native HID.
-I don't think evdev has a very good output to map it to though, so maybe I'll 
-leave it unmapped for now. BTN_TOUCH combined with some appropriate BTN_TOOL_* 
-for denoting thumbwheel would be a semantic fit, but I think there's a risk 
-that userspace starts to interpret the device as a touchscreen then, if I 
-understand the input event codes documentation correctly:
-https://github.com/torvalds/linux/blob/master/Documentation/input/event-codes.rst
+On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
+>On Tue, Sep 22, 2026 at 11:27:10AM +0530, Sumit Garg wrote:
+>> On Mon, 21 Sep 2026 at 12:00:42 +0100, Vincent Donnefort wrote:
+>> > This series is a follow-up to the discussion that has started here [1].
+>> >
+>> > When memory is lent to the Secure world via FF-A, CPU speculative
+>> > accesses from NS to the lent pages can still occur as long as it retains
+>> > a cacheable mapping to it.
+>> >
+>> > Ideally, lent memory would be "no-map" but that would mean giving up
+>> > MiBs of useful memory, so let's try to do better with the help of a CMA
+>> > pool.
+>> >
+>> > On arm64, modifying the direct map at runtime is generally restricted
+>> > because the linear map defaults to block mapping and splitting blocks at
+>> > runtime may trigger fatal page fault, unless the CPU implements BBML3
+>> > or the entire direct map was mapped at page granularity from boot.
+>> > Forcing last-level mappings system-wide incurs a severe penalty we want
+>> > to avoid. Instead, this series introduces targeted last-level mappings
+>> > for designated memory regions, along with the "arm,ffa-lend-pool" CMA
+>> > driver to manage unmapping and remapping on lend/reclaim transitions:
+>> >
+>> > 1. memblock:
+>> >   - Introduce MEMBLOCK_PTEMAP to force PTE mappings only for a specific region.
+>> >
+>> > 2. set_memory infrastructure:
+>> >   - Introduce can_set_direct_map_range() to check if a specific address
+>> >     range is mapped with last-level entries and can be modified safely.
+>> >   - Introduce __set_direct_map_*() variants that bypass redundant checks
+>> >     when the caller has already validated the range.
+>> >
+>> > 3. "arm,ffa-lend-pool" driver
+>> >   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
+>> >     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
+>> >     when reclaimed (ffa_lend_reclaimed()).
+>> >
+>> > 4. Optee support
+>> >   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
+>> >     both SMC (via DT memory-region phandle) and FF-A (via
+>> >     ffa_lend_pool_attach()) transports.
+>>
+>>
+>> Thanks for your proposal in trying to solve this hard problem of
+>> unmapping pages from kernel linear map. I remember discussing this
+>> problem last year at LPC too.
+>>
+>> Have you had a chance to look at a more generic MM proposal around this
+>> issue here [1]?
+>>
+>> One of the major concern for me with your proposal is tying the
+>> protected memory allocation to fixed sized platform specific pool size
+>> based on DT. Then the cost of granular mappings/unmapping if the
+>> platforms choose to enlarge these pools.
+>>
+>> As you maybe aware one of the major use-cases here for protected DMAbufs
+>> is the secure media pipeline use-case which is memory intensive
+>> workload. IMO, the solution proposed at [1] seems to address it although
+>> people have flagged rough edges there but should be addressable.
+>>
+>> Can you try a port of [1] for arm64 since the author did all the work
+>> with x86 as reference?
+>>
+>> [1] https://lore.kernel.org/all/20260726-page_alloc-unmapped-v3-0-6f5729aa9832@google.com/
+>
+>I spoke to Brendan at LPC (?) last year but this doesn't really work
+>for arm64 because it relies on being able to unmap arbitrary parts of
+>the linear map, which isn't generally possible unless you force pte-level
+>mappings for everything, which is prohibitive for perf/power.
 
-By the way, when Thumbwheel Divertion is on, do you get the regular thumbwheel 
-scroll events on HID++ too? That would be the 81 (native HID) or 83 (HID++) on 
-byte 11 in the hex output :)
+As per the cover letter it's about allocating pages that are not present
+in the direct map. This essentially fits the protected DMABufs use-case
+where we don't want any kernel mapping to exist at any time. Bufers
+allocated from protected DMABufs are only meant to be accessed by the
+TEE implementation or HW accelerators like in the secure media pipeline.
 
-Cheers
-Erik
+>
+>Vincent's series tackles that by using a pool so that only that part of
+>memory requires the pte-level mappings in the linear map. That's the
+>whole point of it, so I don't think it makes sense to drop it in favour
+>of Brendan's approach (which doesn't work).
+>
 
+For protected DMABufs, we even don't require any pte-level mappings in
+linear map. The whole idea of mapping and unmapping is just a bottleneck
+for performance sensitive secure media pipeline use-cases. That's why if
+we can support __GFP_UNMAPPED with the memory allocator on arm64 would
+be the best fit for this use-case.
 
+Now the question is why arm64 can't support __GFP_UNMAPPED similar to
+how Brendan is doing it for x86?
 
-
+-Sumit
