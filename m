@@ -1,64 +1,64 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FB63803CC
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF66380FD8
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790440295; cv=none; b=KIp2Nwv5DhwsdlmJg/3OV6ppM6I84zyp082mjAYOFbcn8Q8OeYqR70WQgC5fqWaR5uovW0Xw2DW9VCrX4dN+OQ+h9/4qBzRLoJ/FADIcj+3xnySSc1OGpfnHT7E5JEpkxu0Fp2LheuWMf169kjkjpdWJ/FBTDN5GDaGPeM0Vqsc=
+	t=1790440303; cv=none; b=WHn7iae0htzaBO901KFuaBalZaZGoOp7GDLBZ/BJs/VMdZQD8lwuxtCu7Dn2eb13ucIhCu8ZX5C/k78YT2WlvotUWhL8MnnMTN7B9dEhe/+pZYcWo+V5oFMsDWVjcqQ1re1o3tES5F0IM4V+/SBdM3H+xvyFXUo2nvD2IWnXddo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790440295; c=relaxed/simple;
-	bh=js86bFRXeGRz01VfgdSLlpFJ18e21n6Navx1JM9ocZ8=;
+	s=arc-20240116; t=1790440303; c=relaxed/simple;
+	bh=H3GXqyRWZmWKxgrex0TsuXWBaW3oWmtAgSFU2n4N7wU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O6HtfQcDQwBPaZolAY9Xmcw3NnMOCO30XMXIGGVsbOathuea3Rjz+Xl4669g+62p+uUjoqDN8k/Lb6y+8WH9bRweE2QJLQcPfazypMS91izb6j3G+OrGZdsz5C6hhvTQTqF1M6MatdY0GnzM+8U9Nw9QX3rY1Z3XU/mSzAxHOy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KHnLYchj; arc=none smtp.client-ip=74.125.230.234
+	 MIME-Version; b=HIw5JXHQ3SNuD2+3Glxol8BSBGzrsSONFgcyR9w+PhvDTxrUlCerOsKyifVKUcS+A036v864JveLOv2S3EFDCroxic+E2k63jgGF6/W8pWC3ChCfrVHl8jaueJ6oKuZ35FlMJxuy4rKjllnGTIin3FOdMO3kS87hKH3guPP4ECA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qp7/6S8u; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KHnLYchj"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93bd580489dso169345585a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:31:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qp7/6S8u"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104e54b1abso23482066d6.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790440291; x=1791045091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790440296; x=1791045096; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ilWbdrK2o5HYjWejTvlhwKOghbkTj1jD2D3PzsAcjlU=;
-        b=KHnLYchjsdCq0u3j3F/YyECNXPI3SMQ9f0NB/yWecDxwejtMxMwj23lqFoOqv9Q/0n
-         dZWIoKi+WPUzxcvInDfgCY14j0BHWdEclDOdIsAeJgB94tRHwpbTVIIodu+8VMFmxwXm
-         pPjZpTNK3zbjzjAJk6Dr6sbZZsSS5IFtITm+ieGPH76dN/V4pToN2dTbgMOCAyW7StbF
-         iWQl8Y+AH/DfZcGyC3QgQtSKmnVdQJh09rlJp+geyoxG0nMKOun8LuFKhC8+HIpi4Kcf
-         S955DpIboEWXURrC0aaRW8Vw9aWv/fUQtkMW/Krmz5mhVRIXXujwxNFc0isWrDpiCYL5
-         D6TA==
+        bh=MSWaUNt8N3BGw3JWkfdkKuhOhB5GPof0nwVAxfKx8+0=;
+        b=qp7/6S8uAdkD6RmSE431P/oqvxIr8gh1366RlyBcG9SCkafUu1S8Gl/voD27NORtsF
+         tT5rEYWcEt02/sl0FLEpLaTn/2UCGPg/NW/hZQ1qm8MSM2oI+0AuMMk+FOQKnxAA18K4
+         oLbNez/xFoHbbQcTvUM0+Lh9TuaRrTZtBK6+wmw22savvr0H1dw4xp9V6VddwZKev4fw
+         OLeBhZhY8jJhox6pRCezTTDn3uSc9wpZ2Zt2zIxULDnF95vGzfvWOu9GyNJllVuCKP5w
+         b2VpgLTp9rpuaadgLCGo1CL1r7h0PnB111aVJ6H5k+DOTt5E//AkLRsvnCnfvLNTxArt
+         dClw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790440291; x=1791045091;
+        d=1e100.net; s=20260707; t=1790440297; x=1791045097;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilWbdrK2o5HYjWejTvlhwKOghbkTj1jD2D3PzsAcjlU=;
-        b=oIXLOoVr7RGoyKI+1cS/ZaSFsFP6KMTK2l34aUfkNcB+4Z55EuK7lgSfzDx3Zljlph
-         uV3kNsJhkFb8bJ48Y02li6QUDoHHuH9xsvtzX/2Vn5CQO3yq782fxdknCdPLxdY1NdvH
-         h4qlSlCDJjqvZtmzKXHVk7vHhSsIfeus/XoZn8eecEfFlXYqFdJwghq+BKt8/C0fJ+Qz
-         tvDQ65I+udnJc4nk8SSjjvros4+khDP1N29oI2T+AUsLwGSl2uu3C8VMO0DIFFI9Ue1Q
-         WsvgWbEDp1eJfzT70XOFxEEL0dP/ZXsjvPg1gYibFNAaUH8CDWyP7UO6PQaWe/qerJnf
-         XSGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzWGgJM0eqq7JTcUW40GVqopKuQ7fXljULM5koSK9uuOF3Sb/QGJXcIEHXzu2YHqXG26EKFNF4DyMJMAg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lleTCc3qm211gCzN0aYmr9uqp5a6yVaVWkzrKNXH6bm56KGhB4
-	86Pi801Y4EpMPK2kIFu8OeZgink6O9m0qUwTTYyR/QXmRB1A4H4SEsMS
-X-Gm-Gg: AYBFou2izNaa7iBaCOpC1jxG8FfVht2cqdcTw0iS8VK2S7Z1Qflm/LmuJuzToh3BKHC
-	tXsL80qeI4hGBj9uZjQxUQ279Lst9XiIrSZNpFAOfwHRNB1ua5VEXBTzhvD/0dHCeh+cUFaZf/v
-	FBtVRxYhYgHAXyH9pZep2Qss0m/B1hVEgUZjSnUxuAwl0NhAaa6k/Lu+a4q+FDJsnvpO/l3ezdy
-	nBrp9L/L03MOoHauZysh+5BTOkEWQCaAQdcJTSTOfejuSuJOYNlDkm0d/nDjTwKKiFkf0cCm8dp
-	lC5dyDl7IlTwPY2K9HQb3UySmk4RYmNlAMkOMMEj6vniJEcDQD/LVRMU0efULUQlJECRE5M2ouQ
-	DzAuONOvTDi2D4l1wdaKPoKUe6ZVFQUNuYnjYO3E9Rw9erp5RYPLw+vC0+MhDxSYqkhY2mcRghb
-	W89qcdvXvmvWv7VCXUjD1D7DuXyB52lHzzO035OC5S1qQ5H50/40IAeUDvLRAu88SF2EqcNp/Lb
-	Yn1+GwyQ80PvpJsHko1BPnKPMqEFB76jHX5szxyatbs0Uk477UyyOMI2N1XW6NwB0F/
-X-Received: by 2002:a05:620a:4111:b0:939:13a7:70f0 with SMTP id af79cd13be357-93c43b7f202mr1155214985a.5.1790440290642;
-        Sat, 26 Sep 2026 09:31:30 -0700 (PDT)
+        bh=MSWaUNt8N3BGw3JWkfdkKuhOhB5GPof0nwVAxfKx8+0=;
+        b=dY456z8ARpTMOnuchiTBwu9QXHcHFP3eGLXVx7/t+dSNwiEHvtwvZ/KlSBEER7xxHg
+         HfLQLuwb6OwSyCpIe9Vx77O6AD/yzaLv+4x9CmNm6USPPP7taZvlg2mOh9Y/Rgj0YxJt
+         aDY+n+uIwIBBCC++Q2rXlYpHy5qk6kkaxvhfq3wo9ujr8PZ6leUnt9bUr7R2opgxP8mP
+         4cNQHTnJn/HhEtmyNFJWSMTFgTH/pTRuIRFccFKY9TD5GCXa4lHI2fLBgPv32SFXlLz4
+         QHN5mOwROK3YBbyclhSHOHOF2HcoU0LOob00iBmTHxJmkTHMYgJThuTAZbl+c/r8qDS4
+         ZoLg==
+X-Forwarded-Encrypted: i=1; AKwUvByboX1IsqwtCR1WB398SrP2LGii+iJ9eSMC/ZbcE21BJtjT9hpw+eFqYra0JN64Jh6wqZjdrz/xQ4NEV9Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mML+1VgFgXvckZ4YIZw7UVNOb5FIW9WsGPk54Wnli+tpPAOkGl
+	wyjnGW0U49BMNleS8imJZGBmQJbDeiD8jN/mdDDfJ2OmMsXYf5jylQ92
+X-Gm-Gg: AYBFou1lh+aLb3ueiSU76aNsTwnSQeD6zz3ztllkn9FxQs+1vBW0iGgWoIB7iOQb5aE
+	BDIbhZvoOkzSRvhHESdsef1eJTSbQtnpjoA/syWCjwYEyJ/oD36CqvntOvKHIEHEGpn8TJ/9Z5S
+	MSZnaNis8fArKv5dG0KobaLZB8xy2/ZP/yfKr+Jm6mgBUbbGRpGBYB20Md16DGGEQOpK8OQevY1
+	8UwcuHSIVQgpF3p6x//wopsJhB2ZP1NNmJo/q80U1rg+eCXFW7BcX3E1lqU23mPD0+5pKDWR8mt
+	XGAL1DkbIDSBEv17kwxyDFHtkmfvHqvXhg2lcB8c5og2tMqxMbX7nybzowLh5WRUKrUGlgJM5jS
+	Lu1UZ9RiPogiwoU7KWPAxN4GCowIVJzpWAEcrfPQyxxT8mSGTSnhDQr8Nb1A9nhQmJ8sEfIYVc7
+	WSucfgxk7iNEwNZaFx0iw5VHliLSSS4GyjsvuM+luPipJM3MgkYOYoQmkV9ji1l+N+YYAWjjB9P
+	quHCfy1n4ujJmamaQ4ydiRlbEQrReQWJi/nwgZkj8Z1PLyI4z85YzSJbA92EqEfMGE=
+X-Received: by 2002:a05:620a:469e:b0:93c:62a9:d5cf with SMTP id af79cd13be357-93c62a9d67bmr260766085a.56.1790440296574;
+        Sat, 26 Sep 2026 09:31:36 -0700 (PDT)
 Received: from localhost.localdomain ([2600:4040:29f7:9600:f571:6178:b590:34a4])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.28
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.34
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 26 Sep 2026 09:31:29 -0700 (PDT)
+        Sat, 26 Sep 2026 09:31:35 -0700 (PDT)
 From: Dillon Amburgey <dillona@gmail.com>
 To: Dave Airlie <airlied@redhat.com>,
 	Gerd Hoffmann <kraxel@redhat.com>
@@ -75,9 +75,9 @@ Cc: Dillon Amburgey <dillona@gmail.com>,
 	christian.koenig@amd.com,
 	krisman@collabora.co.uk,
 	noralf@tronnes.org
-Subject: [PATCH v3 1/5] drm/qxl: unpin the framebuffer when plane preparation fails
-Date: Sat, 26 Sep 2026 12:31:19 -0400
-Message-ID: <20260926163123.39217-2-dillona@gmail.com>
+Subject: [PATCH v3 3/5] drm/qxl: clear the monitor configuration for disabled head zero
+Date: Sat, 26 Sep 2026 12:31:21 -0400
+Message-ID: <20260926163123.39217-4-dillona@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260926163123.39217-1-dillona@gmail.com>
 References: <20260926163123.39217-1-dillona@gmail.com>
@@ -89,32 +89,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qxl_plane_prepare_fb() pins the framebuffer before preparing its GEM
-fences. If GEM preparation fails, the atomic helper cleans up only the
-previously prepared planes, leaving this framebuffer pinned.
+Disabling head zero leaves its previous monitor entry intact because
+the inactive-head path only clears heads with a nonzero index. With
+another head still active, QXL continues publishing the disabled head
+as a visible monitor.
 
-Unpin this plane's framebuffer before returning the preparation error.
+Clear head zero using the same path as the other disabled heads.
 
-Fixes: 6071c4c2a319 ("drm/qxl: add drm_gem_plane_helper_prepare_fb")
+Fixes: a6d3c4d79822 ("qxl: hook monitors_config updates into crtc, not encoder.")
 Assisted-by: LLM sparse
 Signed-off-by: Dillon Amburgey <dillona@gmail.com>
 ---
- drivers/gpu/drm/qxl/qxl_display.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/qxl/qxl_display.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 0719fc6a52d5..1f869734e14d 100644
+index 51087cacff74..05de8dd3144d 100644
 --- a/drivers/gpu/drm/qxl/qxl_display.c
 +++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -887,7 +887,10 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 	if (ret)
- 		return ret;
+@@ -350,16 +350,13 @@ static void qxl_crtc_update_monitors_config(struct drm_crtc *crtc,
+ 			qdev->monitors_config->count = i + 1;
+ 		if (qdev->primary_bo == qdev->dumb_shadow_bo)
+ 			head.x += qdev->dumb_heads[i].x;
+-	} else if (i > 0) {
++	} else {
+ 		head.width = 0;
+ 		head.height = 0;
+ 		head.x = 0;
+ 		head.y = 0;
+ 		if (qdev->monitors_config->count == i + 1)
+ 			qdev->monitors_config->count = i;
+-	} else {
+-		DRM_DEBUG_KMS("inactive head 0, skip (%s)\n", reason);
+-		return;
+ 	}
  
--	return drm_gem_plane_helper_prepare_fb(plane, new_state);
-+	ret = drm_gem_plane_helper_prepare_fb(plane, new_state);
-+	if (ret)
-+		qxl_bo_unpin(user_bo);
-+	return ret;
- }
- 
- static void qxl_plane_cleanup_fb(struct drm_plane *plane,
+ 	if (head.width  == qdev->monitors_config->heads[i].width  &&
