@@ -1,148 +1,148 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEFF30DECC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962572D0C72;
 	Sat, 26 Sep 2026 04:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790398110; cv=none; b=HMWc8hFmOAD/TrkGzI+eGDs3fu0DngJOv+d78ifc1nR6fdbtBvxY39GvPXe918JhKh/Rp+totxCoJPxy1FtMAWHRmSk0TgOXV9XplzyzK0//iWHlrIna5jcra0UwobusmOFZ3VJFgVpQ8YsMS6zCjrk/gjcDU9X9nhj8JTJW+Uk=
+	t=1790398110; cv=none; b=Zv6ifW/43urkquAnhdD7Vxe6MjQ2V1REW/Z5uN/kvBNxnqpvdFl79cteB/ZprCvDWk1wfy48sbwqBmCnCJvm7rXAweAjyI0a8v/LQEQ402De+Myi93TmY37gM8uWAgKwbPBlUqK8TE6THiHm+HSWXNndk5cp9K8RGPbK0FPVUpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790398110; c=relaxed/simple;
-	bh=mBFmU/JfBeilGxJlg+wS32Pxwjct+vp+HXW1w4FjsC8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bJorZuXaZ6cXy/axaEG1vCD/dBfPBotnDPEHjP0IiOaqyD0bjGwZPD6n4eUDMW8ayo84dtJKLO1X1Y0i5mJITsJV9eVeVFjE0JbtTEpFzDmAY5kbpa15uc35PP+WHI1rH6aReiFptrMv35aKWee9COCFRu9YzYaCnp/gG0CoIkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
-	by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
-	Sat, 26 Sep 2026 12:48:07 +0800 (CST)
-Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 26 Sep 2026 12:48:05 +0800
-In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-		 <20260918030125.315978-8-a0987203069@gmail.com>
-		 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-		 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-		 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-		 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
-	 <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	bh=Jh4McRuX8VGkuoqjbR/Q7ARz9onvjFUEMsOtQRDshdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BP2E3w/sw5OJw8zyWlkNd2A4/YRlu0M483N/L3ONcO+inKl57a/oqA9TAQZz+Js0qPNki+VTSzY14rO1te5GSI5nVC0ScZSz1Qn/lMLjN3jYpZgFPvm2BeVKw1NPn0vJIa9QPn6deHYw/MhLkVM30c49IRUCAAw5H53CwaVkDLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NW/TqNAi; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NW/TqNAi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LO
+	G6wlR4WrEhwbx34Joq7X3VgPhzJyeuVOuxLeR/59M=; b=NW/TqNAig5g2+IddH4
+	cJ9atdBZyHPoBhS/olzwA01s1kh5N66yp98ZqD8Gkf4ytG7UN/KJgCKoV+pvDYt3
+	c4co9KFHEIF2158mBFbFlDtBRetR4bM3XNeZCY8/tcEeFiwO2F3yWolG+DYL6G4e
+	rDdwKL64xjbIWntbWQ0CXZj6c=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDHv9dnTrdqpZecAw--.19236S2;
+	Sat, 26 Sep 2026 12:47:36 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: john.johansen@canonical.com,
+	georgia.garcia@canonical.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: ryan.lee@canonical.com,
+	cengiz.can@canonical.com,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH security v1] apparmor: fix a use-after-free in aa_lookupn_ns()
+Date: Sat, 26 Sep 2026 12:47:24 +0800
+Message-ID: <20260926044724.4187-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAAHE0GFTrdqYafICA--.2178S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
-	ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
-	qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU56yI5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHv9dnTrdqpZecAw--.19236S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF1DKw4xuF47KF45GF1DAwb_yoW5tr48pF
+	4fK345CrWkGFy7Zr47W3W3Wr1Y9ayrWr13t393WF4YvFW3Wr48Cr1UtF129ry5CF97AFy0
+	qa12gw4rZFyDXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRW7K3UUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+wg2Gmq3TmjXFwAA3k
 
-=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> >=20
-> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
-=81=93:
-> > > Maybe it's better to just make it the 2nd patch in this patchset,
-> > > just
-> > > after the binding change.
-> > >=20
-> > > Waiting for something into drm-misc-fixes again will need another
-> > > fixes
-> > > pull and another RC back merge, which can consume weeks and miss
-> > > the
-> > > current merging window.
-> > >=20
-> > > In addition, it's possible that `drm/verisilicon: introduce per-
-> > > variant
-> > > hardware ops table` also gets backported for a more clean primary
-> > > plane
-> > > atomic_update disabling fix.
-> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
->=20
-> Should I just apply this revision of patch with this reorder?
+aa_lookupn_ns() takes a reference on the namespace it finds with
+aa_get_ns(),which is kref_get() on the reference count that the
+namespace is released through, without checking whether the namespace
+is still in use.  A concurrent removal of a ":"-prefixed namespace
+looks the same namespace up and only then takes the parent lock to
+remove it, so the last reference can be dropped between the lookup and
+the aa_get_ns() call: the reference count then reports the increment on
+a zero count and the kernel classifies the following use of the object
+as a use-after-free.  A user with CAP_MAC_ADMIN can trigger this by
+writing a ":<name>" removal and a ":<name>/<profile>" removal to
+/sys/kernel/security/apparmor/.remove concurrently.
 
-Oh I think more fixes are coming.
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xc0/0xe0, CPU#6
+Call Trace:
+ <TASK>
+ aa_lookupn_ns+0xa9/0xc0
+ aa_remove_profiles+0x4fb/0x730
+ ? __kvmalloc_node_noprof+0x219/0x5c0
+ ? __pfx_aa_remove_profiles+0x10/0x10
+ ? aa_loaddata_alloc+0x65/0x1f0
+ ? _copy_from_user+0x2d/0x80
+ ? aa_loaddata_alloc+0x111/0x1f0
+ profile_remove+0x2ee/0x4a0
+ vfs_write+0x21e/0xcf0
+ ? rcu_core+0x29c/0x1740
+ ? timerqueue_linked_add+0x1f4/0x3d0
+ ? __pfx_vfs_write+0x10/0x10
+ ? mutex_lock+0x81/0xe0
+ ? __pfx_mutex_lock+0x10/0x10
+ ? __pfx_rcu_core+0x10/0x10
+ ? __pfx_hrtimer_update_next_event+0x10/0x10
+ ? mutex_unlock+0x7b/0xd0
+ ? fdget_pos+0x24d/0x4b0
+ ksys_write+0xf7/0x1c0
+ ? __pfx_ksys_write+0x10/0x10
+ ? restore_fpregs_from_fpstate+0x37/0xc0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-There's one more DC8200-specific problem (which might be problematic on
-DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
-be executed before vs_dc8200_panel_enable_ex, because some timing
-parameters seem to be latched when the value going from 0 to 1, and
-when a stale state is programmed before the driver is loaded (e.g. a
-firmware driving the display) and the timing isn't the same with the
-timing of the first modeset, the modeset will fail.
+Fix by rejecting a namespace whose reference count.
 
-I'm thinking about sending a fix patchset first, which will pick the
-FB_EN fix here, implement a fix for the stale state problem and maybe
-implement fixes for the old state dereference problems for hidden
-planes in their atomic_update callback (although this fix will
-introduce a helper, which will then be moved and renamed in the DC8200
-ops patch).
+Fixes: 3664268f19ea0 ("apparmor: add namespace lookup fns()")
+Signed-off-by: Binbin Deng <18983559317@163.com>
+---
+ security/apparmor/include/policy_ns.h | 16 ++++++++++++++++
+ security/apparmor/policy_ns.c         |  2 +-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-Thanks,
-Icenowy
-
->=20
-> Thanks,
-> Icenowy
->=20
-> > dt-bindings patch, targeting the current vs_primary_plane.c
-> > directly,
-> > so the ops-table patch just carries the already-corrected code
-> > forward
-> > into vs_dc8200.c. Agreed that's faster than round-tripping.
-> >=20
-> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
-> > still
-> > has a real per-variant operation there (clearing FB_EN + commit),
-> > while
-> > DC8000 leaves it NULL and does nothing, so the suffix still
-> > reflects
-> > an actual per-variant difference, not just structure introduced by
-> > the
-> > refactor.
-> >=20
-> > While testing the cursor plane, I found the same class of bug
-> > there:
-> > the disable register write was being triggered from the plane's
-> > atomic_update() invisible-branch using the old plane state to look
-> > up
-> > the CRTC/output, which can be stale or NULL on a plane's very first
-> > commit if it's already invisible then. I've fixed it locally by
-> > having
-> > atomic_update() derive the CRTC/output from the state it already
-> > holds
-> > before checking visibility, instead of falling through to the
-> > old-state-based disable path. Just flagging it here for now -
-> > vs_cursor_plane.c isn't touched by any of my patches.
-> >=20
-> > Thanks.
+diff --git a/security/apparmor/include/policy_ns.h b/security/apparmor/include/policy_ns.h
+index cc6e84151812..4f8359875476 100644
+--- a/security/apparmor/include/policy_ns.h
++++ b/security/apparmor/include/policy_ns.h
+@@ -117,6 +117,22 @@ static inline struct aa_ns *aa_get_ns(struct aa_ns *ns)
+ 	return ns;
+ }
+ 
++/**
++ * aa_get_ns_not0 - increment references count on @ns found via lookup
++ * @ns: namespace to increment reference count of (MAYBE NULL)
++ *
++ * Returns: pointer to @ns, if @ns is NULL returns NULL,
++ *          NULL if @ns is being freed
++ * Requires: @ns must be held with valid refcount when called
++ */
++static inline struct aa_ns *aa_get_ns_not0(struct aa_ns *ns)
++{
++	if (ns && aa_get_profile_not0(ns->unconfined))
++		return ns;
++
++	return NULL;
++}
++
+ /**
+  * aa_put_ns - decrement refcount on @ns
+  * @ns: namespace to put reference of
+diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
+index 5a907a875d8f..ae9168c1a85e 100644
+--- a/security/apparmor/policy_ns.c
++++ b/security/apparmor/policy_ns.c
+@@ -207,7 +207,7 @@ struct aa_ns *aa_lookupn_ns(struct aa_ns *view, const char *name, size_t n)
+ 	struct aa_ns *ns = NULL;
+ 
+ 	rcu_read_lock();
+-	ns = aa_get_ns(__aa_lookupn_ns(view, name, n));
++	ns = aa_get_ns_not0(__aa_lookupn_ns(view, name, n));
+ 	rcu_read_unlock();
+ 
+ 	return ns;
+-- 
+2.43.0
 
