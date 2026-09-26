@@ -1,145 +1,90 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B932C2360
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D91E492D;
+	Sat, 26 Sep 2026 00:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790382423; cv=none; b=aiYykDU6eUol/QB9F12pU4B8qhu4chd9imvwuRRFgqFCopbsc+zpkc+g5/mTO+KSMlWC8m0HnCrvcxSitke+75cUDkGPJ1+FQYMNizfD50sCru2uaCa69FkIBExbv3btSP5ImwlqOFw9Fq23hKZIQwLAGdMuA45B3zmUs6Q6fpk=
+	t=1790382778; cv=none; b=eJaSe/gU9MAmbjMRMYan8C9oDJKvmGxLJEcA7OVTGJq3efB33r5Ghj9Pq8+TZvkkgDcbCVHc2lRbyhqxDnpsu3k51J2qgEHeQDFFZ+/q7te9ypHf1AZoXgopdw/Au4LYn1jH9mUClCw+pXbXftRrSFMoJkFKLinwN2MO3SLfD34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790382423; c=relaxed/simple;
-	bh=eH+CnV08N2fIKSTwegC8XAg8UFfA280SaOjukzHDpMI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=alJgzzM4G0bmVjS7Eaug9ZyTHprB6xdp0gnIdrUTp8FlooL/hzxZUb8X5egg1opEm6IjFPCMZ42dQpZxgJ8+6SK858fZD2BRKnp9ToU5IMXcviU7gkq3yo2pOjats8VZzUMCUCZ9oLrMSBjlOrJ8DwFeamMiCorQpwy9PJvn3A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CrX9TEgn; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790382778; c=relaxed/simple;
+	bh=IYAU/79dGofQylupwjb6P+yrKCCES3qfOsqibcugnRY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JJ5HZYkSyKPVFtp+a2UvOL6eqa+ckFYiL8lWPEjWvq0YtnkpKBYsDfRB12+FTzQ0v639rKXBgLPpPQ118dn9Ou+hFc+xSbUfhAeBvtAF10quU1B1Nb+LLi9uj/8HpZEyQpGFuhJcjps3/a+vpQkloOAYMdyZzUTDmiaxWO5cm+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=4llhjOTl; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CrX9TEgn"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49febbce9afso9046025e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790382420; x=1790987220; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J8AxWCgmThRPp+cgG4iRbScwCflkBmLtbfRDzGlnHd8=;
-        b=CrX9TEgnFHm8a6Bpyep06GMTWqecNes0h1Pbsf29BawjQzA9FFn7V9UAMrsyDYMLwN
-         D2yx6zEwpRDXBbh3p3QCcKwgT+moXe73+fDOq6+zWC5C35FqeIuakuC4gfgHMxWGW2ie
-         DP2DHW2oKzCCiqv2GUm59xXENha0YbBFasl0s1itJI1CMHCnHGFQnaGMxt5F21lMN2mr
-         MDXpj0yHsTLxsqGFecktMvwLpyKBaNNDHZZzC4GvqFag7t42KIdJxsITHwpG5MyJE58n
-         KoC6neHB2rf+KtsfVzyf6rsnetPHfxxV9fYaMbqAYTo1c0qtHCaFDum45pdh2uBU28jN
-         HC1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790382420; x=1790987220;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J8AxWCgmThRPp+cgG4iRbScwCflkBmLtbfRDzGlnHd8=;
-        b=N4voRYWpp4Ds5Nf6pJZI06JCztcJ+NO6RSii3CKOltOgjLt4GgVRWnXz6HG8uvF2fo
-         NNfcSEuKAPMrX+/q/jLEMQnJ5ORED/z1AdEykPyLy2BhoAiT0zfiPc/cpdMxxWydqxje
-         U5kd+Jm6n7kZ4nok5OVrQ29Ui27LSu4U4cVKVpUgNbanYzMdpKyV7Ui6rriAfLP6aBeO
-         By3GuRg0mghIQFQ55pvrvH/GfhuUJDOMk99RvNopkbhuoIAwmvINRrbzVfXxfLObA817
-         6YUyBGS272NzJWqtzztFmV9a2oczz+ou9S9+TczkieP+tDtO8ZzyDC4qczTyxq83UHzS
-         xiGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwF7HVfKluMEP2cUQbcA/HROuTX487iKpLGmtPucycLCdRDdk0FuZm0olThbVW2clREILhJ1SW0pY2Detw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFYmesUxFdvKggEZGOg4vzdsZYYgtqcYmPZHLqJ8Magb0u5TOT
-	9Az4Jd3M+MQKcHz5oJuXb4WEsGO4RcmYL3/BHeqKxHw9fcMLIxnZPSgJ
-X-Gm-Gg: AYBFou2p5so71qKVrnYQwXbJd4kq+A05QpLc9n+z0w79/gjc4IHpYIkRsfMMvlSUM/P
-	XAutK7SZIdrY1nVNyWshcGFuY9NDQgnVWpjRqzmyb9HbQ7i4v3utUJ12F+TiKWAH3MTkX13rHHq
-	Kk8wxQr9fAB2HjRJaRb/Z7bAD5qOL0eEuEcSOCKJZZ2im8pnrlW2cb6VT6gGObiSFt1/AU0RHh4
-	cfx2IJzgmTP05/9wivU8dZVU5Y/tiAdfZX1hMNG60AmyJ5/ckLasmuQ1dk1y0AoCJ3yqZQeg/AF
-	HNwIvgNr3kwR8eym+IcyUKSNkmOOV5WnLfFLtH7ZYKzvJyC+Z/XVmVVIoh5v4gPUw5Bbnwx10Vo
-	L3Am73rUF9hz7YvIg9PRm9nWSJ1Ih1YvdWKFjuvIE0tV4kcT7aboF4LTZffkog241wf+2wJbzug
-	urxr0i/WMA0g9olUH8YsT/NU072Su9pNjNLlSu6Xwn743ixbJlbOCTvBGMtexPbdoJjzpCwQdMI
-	JuCyi3IJa4dlSq5RSu+YJKmj+5y/MpBXXIYCWUbfjqnySh3bCwsJNQ+IVuPeYrPF6KVL9kOPJG+
-	rvIkwC5YDV/sV6WIETK9LXKrPJXayQSfX3OyiiGdIiThWv2JcdTVmQgkLtaoFjxnrl9ndXA0k60
-	lPCnG62Y=
-X-Received: by 2002:a05:600c:3b84:b0:49f:f099:6f98 with SMTP id 5b1f17b1804b1-49ff09970dcmr81426865e9.20.1790382419512;
-        Fri, 25 Sep 2026 17:26:59 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a9e5-4c01-21ce-313a-e569-2df7.310.pool.telefonica.de. [2a02:3100:a9e5:4c01:21ce:313a:e569:2df7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbdfasm89908685e9.14.2026.09.25.17.26.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 17:26:59 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ying Huang <huang.ying.caritas@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] resource, kunit: stop selecting GET_FREE_REGION
-Date: Sat, 26 Sep 2026 02:26:51 +0200
-Message-Id: <20260926002651.87267-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="4llhjOTl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=zLJNeTA1Uv6NYenS6Oz+iqjgR/6nW3LkPlRDEazPsrI=; b=4llhjOTlhoBwPQfjoWbxZIC/sN
+	lO23o2Kt4n5k+dLv2jhIHM2UlwJbHarLKLlvvGIukMlnUgyX9S4iKu37Fqd1mrSrYrY7uJuMAUKP5
+	igifX5qmiaqcQz6WKyrJeRmHHTsjE+5K0Y13N5943OAvUdGUIIXIPwycTOLeDvAY90AuJecShxnfI
+	YQULfELsyxIpdPV4q8OlICa8k1FjQcLDqCH5TDnGYC2BkiuUlwWkhpWZRFHWwPxxG6cXsaRp8WOeq
+	iLOkVptf8SP+YE/E5+/4O1xXsuwzisZbtVG+Aoka+AcQcJNI4wfWApNc5pk7GK1GKtK4IV9Io4cvK
+	O7UhlTAQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xAGLT-0000000EjvH-3r0e;
+	Sat, 26 Sep 2026 00:32:51 +0000
+Message-ID: <01ca174d-f92e-4182-bd4f-f052e444eef9@infradead.org>
+Date: Fri, 25 Sep 2026 17:32:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tty: add break_wait kernel-doc
+To: Johan Hovold <johan@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925094222.18303-1-johan@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260925094222.18303-1-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-RESOURCE_KUNIT_TEST selects GET_FREE_REGION even when no other option
-needs it. Remove the selection to follow the dependency rule in
-Documentation/dev-tools/kunit/style.rst.
 
-Skip resource_test_region_intersects() when GET_FREE_REGION is disabled.
-GET_FREE_REGION has no prompt, so configurations without a production
-consumer cannot enable it. Most configurations will therefore skip this
-case; this is intentional. The union and intersection tests remain
-available.
 
-Since kunit_skip() does not return, the compiler drops the reference to
-the unavailable alloc_free_mem_region(), as in the CONFIG_OF_ADDRESS
-check in drivers/of/of_test.c.
+On 9/25/26 2:42 AM, Johan Hovold wrote:
+> Add the missing kernel-doc description for the new break_wait field in
+> struct tty_struct.
+> 
+> Fixes: c7e9bff9b4b3 ("tty: abort break signalling on hangup")
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> Link: https://lore.kernel.org/20d75a7a-2e7a-484f-a267-c21db82dd922@infradead.org
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-Fixes: 99185c10d5d9 ("resource, kunit: add test case for region_intersects()")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Validation:
-- Clang 22 and GCC 13 ARM builds pass with RESOURCE_KUNIT_TEST=y and =m
-  while GET_FREE_REGION=n. The built-in vmlinux images have no
-  alloc_free_mem_region symbol, and the modules have no undefined
-  reference to it.
-- Clang 22 x86_64 builds and QEMU 11.0.2 runs pass. GET_FREE_REGION=n
-  reports two passes and resource_test_region_intersects as SKIP;
-  DEVICE_PRIVATE=y enables GET_FREE_REGION and reports three passes.
+FWIW. Too late, I suppose:
 
- kernel/resource_kunit.c | 3 +++
- lib/Kconfig.debug       | 1 -
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-diff --git a/kernel/resource_kunit.c b/kernel/resource_kunit.c
-index 42785796f1db..9eeb2b1a85c0 100644
---- a/kernel/resource_kunit.c
-+++ b/kernel/resource_kunit.c
-@@ -225,6 +225,9 @@ static void resource_test_region_intersects(struct kunit *test)
- 	struct resource *parent;
- 	resource_size_t start;
- 
-+	if (!IS_ENABLED(CONFIG_GET_FREE_REGION))
-+		kunit_skip(test, "CONFIG_GET_FREE_REGION is disabled");
-+
- 	/* Find an iomem_resource hole to hold test resources */
- 	parent = alloc_free_mem_region(&iomem_resource, RES_TEST_TOTAL_SIZE, SZ_1M,
- 				       "test resources");
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..e7c5d5b5870f 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2776,7 +2776,6 @@ config RESOURCE_KUNIT_TEST
- 	tristate "KUnit test for resource API" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
- 	default KUNIT_ALL_TESTS
--	select GET_FREE_REGION
- 	help
- 	  This builds the resource API unit test.
- 	  Tests the logic of API provided by resource.c and ioport.h.
+Thanks.
 
-base-commit: aa98230e410f0ed212b6788c46b1e4d49e0ff7ca
+> ---
+>  include/linux/tty.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/linux/tty.h b/include/linux/tty.h
+> index ad4e4a835f90..833bb7b97ceb 100644
+> --- a/include/linux/tty.h
+> +++ b/include/linux/tty.h
+> @@ -168,6 +168,7 @@ struct tty_operations;
+>   * @write_wait: concurrent writers are waiting in this queue until they are
+>   *		allowed to write
+>   * @read_wait: readers wait for data in this queue
+> + * @break_wait: wait queue for timed breaks
+>   * @hangup_work: normally a work to perform a hangup (do_tty_hangup()); while
+>   *		 freeing the tty, (re)used to release_one_tty()
+>   * @disc_data: pointer to @ldisc's private data (e.g. to &struct n_tty_data)
+
 -- 
-2.39.5 (Apple Git-154)
+~Randy
