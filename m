@@ -1,125 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF883876B7;
-	Sat, 26 Sep 2026 03:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790394587; cv=none; b=Xp1HOa9527CAxjwaom4fVndos0Bbi83+NYnUc8i9bcv3F3y+yg3nQxknY4MB9jDhKNcxHGastovU1TNN40gARu7xuU4UjIjYehiehpVckGCKom1aOdHdFiRu8k+wCaxHVCO1zeSonDuwMjGyNw5DeafD8g66Wbz8U9QgtzWwH0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790394587; c=relaxed/simple;
-	bh=uJIOl6MQOMizALJA/WIcN9GH8gvIhPXtISmRXPGsd1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rdxg729CRhOUQJp8Is4WNYIW7NEqExeogaZfO/lnmPadmKC+ZGomkOs6lvJE5A8pfW6gH7ZeMy/I3WYp/XXcmOJw0sQDA+0UAiiB82kUtI8oCjFJWjq7lh4vLf0Stz9CtzGisPJxZwXNvd0rvESh/2eJp8WqGwkspJtaDTpewGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bsCuNaUw; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DE03783D5;
+	Sat, 26 Sep 2026 03:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790394708; cv=pass; b=Zf7/TbINKla8dqul1TPn/OoLAS139//a21tpmRnpoukUg9xAHWICBWyxCJ3CB1x1jUCNKcBobM7Tjy/upmhoODF6tqhoN+DVWp4z2273MSorehZm8/w14X4iijXXwfqAGGqtrt9SmkMBbPY9Ymf1mqFGZ0v4Q6Z3qarovL4X+eA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790394708; c=relaxed/simple;
+	bh=AenLVsR40v/I2V8hU5aFSuC2h6bdaoca/ZaMMLXD7LY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Ap0aFJ3Ec3Dx0kF8xpgNxhsGIlwWC4pfl/SQQTXNrycqHiS8iG7XizbrZ5szqrzOC9JHOtYY+CO5auY9mn46LGr2j3YNpbfWBT2M7Oe10kLKh5x8keP0LkXixXxMmj1uV7HAbODVVxEbXyibZgnynUGGJkuhJM44mjNA4E7oWtY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=X9lR9t+O; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bsCuNaUw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790394584; x=1821930584;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uJIOl6MQOMizALJA/WIcN9GH8gvIhPXtISmRXPGsd1I=;
-  b=bsCuNaUwwv2ukzZR7fZq5+yTE+h+HWYpQcNAAvG9oV0NlsxnRaJJUXVd
-   2cdvLkavP3mVxmkivcaduz40criWNrakQ2bRgxZdMaJMZod6qAqpwgUQD
-   K1SOwUhP01rHvyJGR/3tpV8O6LcAD3m5uVrI+s49nP+bFOc35cEXhGSKu
-   Zp9VD5lNQ8rQJwnamc/jjkHfURDl0Srq2AP1FJUchNHeaRk0SFSGPOmQY
-   igvLiHuytEqQpaKgYmNuDLDt7Ak/c0C5Z9Rh5VWPw5tlL0PY+AxMWpRpH
-   hvU4NPvhD4tt3SBMqcPVm52R8DH2iNFvWJMrGa5mV7oc0rAYl3SZgVjnr
-   g==;
-X-CSE-ConnectionGUID: FtyvQaQ/SOaWgneeN3wmlw==
-X-CSE-MsgGUID: WXFwcbGTSJugH7+r+oquOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="93673369"
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="93673369"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 20:49:43 -0700
-X-CSE-ConnectionGUID: xfxULKiITsaFNtIv+Y5F4w==
-X-CSE-MsgGUID: 2e1oWw1SRGaxCvbsQmRgEQ==
-X-ExtLoop1: 1
-Received: from ranerica-svr.sc.intel.com ([172.25.110.23])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 20:49:43 -0700
-Date: Fri, 25 Sep 2026 20:58:19 -0700
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	ricardo.neri@intel.com
-Subject: Re: [PATCH 0/3] hwmon: (coretemp) Report unreliable temperature
- readings
-Message-ID: <20260926035819.GA27616@ranerica-svr.sc.intel.com>
-References: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
- <46f9f319-de71-412f-a424-6cb801478456@roeck-us.net>
- <20260925182158.GA27122@ranerica-svr.sc.intel.com>
- <254a2bdb-c759-469d-a1bb-c10f476cebe0@roeck-us.net>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="X9lR9t+O"
+ARC-Seal: i=1; a=rsa-sha256; t=1790394679; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hcdUvlqhEAhvRwAd7ZHCQT0gA3kxGMGPiAyYPWNCZ3G8o3ICf6DG8HW4XXQoyinp8Dppzog/zOwvDF3WNpPGwVQonoBsB066ELV/QNiO4yCaU6D0ywjK0pl+B8/W780RbHxzqgwGGBsUlcnlL/WfXgfOjHDi+wRp+25xj8X5SrY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790394679; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fV+OYR1a5s/03fbYdkCOSm1nCeOMl/C4++YXRNfv/rg=; 
+	b=A6Odpcw+ofPIswzOf3mZfaQ1MKlujgpIij6W7tJcCYX18DcMHZ1EHUxISK4UmNiQNnpL8e1TBwT8TLy0Ms2nG30G4EOJwd7Ftf9IrtGu7A/IE6QVtm5ag1/0EdCGEdngAVuZEJ5iMrbUEbeusTrWqFPPL4vZ8+x2ngxs/r6WV1g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790394679;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
+	bh=fV+OYR1a5s/03fbYdkCOSm1nCeOMl/C4++YXRNfv/rg=;
+	b=X9lR9t+OuCotMH0uHQ8o8QJqXn5RtaRSmpncPreAeFoM9AHD8rLb3cP8wrVJvUJD
+	XqKQRx3lZV7yJmrtrWTjxdfdHS/1hcDrSwLiL+xO+jexE/Setw6wvVxawenMaUoITX+
+	4aUUZkQ1K0LFuuxUx2f1bh5SJrP7nKSr0x7xI6rM=
+Received: by smtp.zohomail.com with SMTPS id 1790394677967246.7571969104904;
+	Fri, 25 Sep 2026 20:51:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <254a2bdb-c759-469d-a1bb-c10f476cebe0@roeck-us.net>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 26 Sep 2026 11:51:11 +0800
+Message-Id: <DLOXXXFCEB5G.15XI8896GM7B7@pigmoral.tech>
+Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
+ <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>,
+ "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>, "Andre
+ Przywara" <andre.przywara@arm.com>, <linux-clk@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 7/8] clk: sunxi-ng: a733: Add bus clock gates
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Enzo Adriano" <enzo.adriano.code@gmail.com>, <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20260921-a733-clk-v4-0-9c184ebe9ac1@pigmoral.tech>
+ <20260921-a733-clk-v4-7-9c184ebe9ac1@pigmoral.tech>
+ <20260921200512.3179109-1-enzo.adriano.code@gmail.com>
+ <DLLYUYMR3CZT.17I8APGBH9H8S@pigmoral.tech>
+ <20260926020313.911537-1-enzo.adriano.code@gmail.com>
+In-Reply-To: <20260926020313.911537-1-enzo.adriano.code@gmail.com>
+X-ZohoMailClient: External
 
-On Fri, Sep 25, 2026 at 02:23:49PM -0700, Guenter Roeck wrote:
-> On Fri, Sep 25, 2026 at 11:21:58AM -0700, Ricardo Neri wrote:
-> > On Thu, Sep 24, 2026 at 07:37:18PM -0700, Guenter Roeck wrote:
-> > > On Thu, Sep 24, 2026 at 07:33:19PM -0700, Ricardo Neri wrote:
-> > > > Hi,
-> > > > 
-> > > > Intel CPUs indicate in IA32_[PACKAGE]_THERM_STATUS whether the digital
-> > > > thermal readout they expose is valid. coretemp deliberately ignores that
-> > > > indication, for the reason given in commit bf6ea084ebb5 ("hwmon:
-> > > > (coretemp) Do not return -EAGAIN for low temperatures"): some CPUs clear
-> > > > it while the temperature is too low to be measured, and the value reported
-> > > > in that state is more useful to userspace than an error would be.
-> > > > 
-> > > > The consequence is that userspace cannot distinguish a genuinely low
-> > > > temperature from one the CPU could not measure. This series exposes the
-> > > > indication through the standard hwmon temp%d_fault attribute, leaving
-> > > > temp%d_input exactly as it is.
-> > > > 
-> > > > One user-visible effect is worth mentioning: sensors(1) prints FAULT in
-> > > > place of the temperature when temp%d_fault reads 1. On a CPU that clears
-> > > > the valid bit at low temperature, that core stops showing a number in the
-> > > > default output, although sensors -u and -j still report it, as does
-> > > > anything that reads temp%d_input from sysfs directly. A driver-custom
-> > > > attribute name would avoid this, but would be invisible to generic tools.
-> > > > Reporting the condition through the documented attribute looks like a
-> > > > better option, but please say if you prefer otherwise.
-> > > 
-> > > I think it would be _much_ better to return -ENODATA for invalid readings.
-> > > This isn't really a fault, after all. The sensor is not defective,
-> > > it just can not provide valid data.
-> > > 
-> > > With -ENODATA the sensors command reports N/A for the temperature
-> > > measurement, which I also think would be better than reporting FAULT.
-> > 
-> > Thank you for your feedback and for applying the other two patches!
-> > 
-> > Thank you for your feedback anf for applying the first two patches!
-> > 
-> > Userspace has seen a number in temp%d_input for over 12 years, and with
-> > this change it would get an error on CPUs that clear the valid bit. I can
-> > certainly implement returning -ENODATA; I just want to confirm you don't
-> > see this as an issue for userspace.
-> > 
-> 
-> Userspace should be able to handle error returns. That is not an ABI change.
-> Even if the fault attribute was implemented, trying to read the temperature
-> should still return an error.
+Hi Enzo,
+Thanks for the feedback.
 
-Then it seems that the fault attribute is redundant.
+On Sat Sep 26, 2026 at 10:03 AM CST, Enzo Adriano wrote:
+> Hi Junhui,
+>
+> Thanks for reproducing the ahb-cpus issue. Adding clk_ignore_unused lets
+> the Cubie A7S reach an interactive initramfs shell.
+>
+> I reused the September 21 uninstrumented comparator: v7.3-rc1 plus the
+> four single-divider patches, CCU v4, the seven pinctrl patches, and the
+> minimal test DT, with only ahb_cpus_clk marked CLK_IS_CRITICAL. The Image=
+,
+> DTB and initramfs were byte-identical to that earlier comparator; the
+> only boot-argument change was adding clk_ignore_unused.
 
-> 
-> On the other side, claiming that the sensor is faulty is, in my opinion,
-> just wrong. It is not faulty, it just does not return valid data.
+I tried to reproduce your software stack: v7.3-rc1 plus the four
+single-divider patches, CCU v4 with ahb_cpus_clk marked CLK_IS_CRITICAL,
+the seven pinctrl patches, and a minimal test DT based on my
+understanding of your description. On my Cubie A7A, it completes
+clk_disable_unused() and reaches PID 1 without clk_ignore_unused, so I
+still cannot reproduce the second failure.
 
-I see. I will implement returning -ENODATA and drop the temp%d_fault.
+>
+> Without the flag, that comparator stopped producing serial output at
+> "clk: Disabling unused clocks". With it, the confirmation run recorded:
+>
+>   [    1.263452] clk: Not disabling unused clocks
+>   [    1.292364] Run /bin/sh as init process
+>   [    1.526500] mmc0: new high speed SDXC card at address 544c
+>
+> Commands issued after the shell prompt returned the expected readiness
+> and completion markers. No panic, oops or SError appeared in the capture.
+> The RAM-only run was followed by a guarded 120-second power-off recovery,
+> which restored the vendor kernel and eMMC root.
+>
+> This narrows the second failure to the path bypassed by clk_ignore_unused=
+,
+> but does not identify an individual clock: the flag also bypasses the
+> runtime-PM acquisition and traversal before the per-clock disable calls.
+> I therefore still cannot add a Tested-by for v4 as posted.
 
-Best,
-Ricardo
+Could you share the exact minimal DT used for the test, either by email
+or through a git branch I can access?
+
+Could you also provide some details about the boot firmware you used,
+including where the U-Boot and TF-A images came from and their versions?
+I would like to reproduce the test with the same firmware and rule out
+differences in the boot firmware.
+
+>
+> Assisted-by: Codex:gpt-6
+>
+> Regards,
+> Enzo
+
+--=20
+Best regards,
+Junhui Liu
