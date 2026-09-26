@@ -1,104 +1,136 @@
-Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FC041378D
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4396640680A
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419448; cv=none; b=JKz8As9znaJAFRMsBLslglniHKD7LcPzhRYz0r+VyCFQ0xViSptY++JNXLhKdvIUfmTsIyBA1ZY6mWvbcJwIL8HknNENNZOILODVaZiYbVnHtShsLF4JYbtwH/wmLrSVwjZbgIHLE2UfAdsKSixxtsfdhqFF2VwWrZDhe9/wpUc=
+	t=1790419466; cv=none; b=XYSLPnv0YeILjxc73CS2dE0oFrMV2Wx7bibz4cb7ny38dvUt7C6pYPCy2eFTnWI3O4D7bDa+v5Y9nC+7yBcNQNQOKwIWACqicBBdSAnetGwpHvqI5w0w0tZie1ZsU9kRjSy8zYn4RVnLT6rbo45/n/7KiDJrMgEzhnvrL5CSqNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419448; c=relaxed/simple;
-	bh=MctTYdfGPj00J6w1N5O8ZOZ/SCKIeqWaRzqr1F43zWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U0Yx1eghuJqzWIuStnqsszhhaPXrCeTWVT4aQrztkbPfT1DlRRyVI961DhjrqeWNE8pQ75UJHi7kKS1hJSwyJRciUjmNAsGWJ8MyHzGTbqYqp7VB4b8MnUftveO3ZKfFZze543TFppNDu1gqPVY/fib/RlMr9PndzhvPUYrbxs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qL/OhyO0; arc=none smtp.client-ip=74.125.230.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790419466; c=relaxed/simple;
+	bh=6fpG91MXXQbhpol2AXqdF9dFywJtNWGjaLWU4oYG/WM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B99+L/6Stl9KuedBuu6RF5qZ4ngwKA+1iD7Ev2CfzpnNYVbGwVXiYhMePA2YXfJjf1DLd0pHvyAF9cKFsb7ut66ZGIMUSUdgYnadHAXaRpZUVcnm9qVw0gxhBzYZtIr53s9hsS3zXyQNmie1B72SuwH7maQR7+XvYCGdM19WIqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpPyjpE0; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qL/OhyO0"
-Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-91447a0d24bso1487906d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:43:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpPyjpE0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cf02so881232a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:44:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790419421; x=1791024221; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z53uSMUq2W80HZiwGXPg4CfzzfvAXSACVLwfmhiGvRc=;
-        b=qL/OhyO0UDeziz00j0G366Kb02C7eN5TfR/RBO72sZejsQSCdwPG69FsN1NCoOnS7D
-         ADSYvJKPSCfIGVUag/LhAMPfvcxZBEqa3iJmcww0jy/dk+BQvHCIWfiBON2Q010cp1m4
-         X7xALojr0YtRqI2wnRmEzT8c8qiRdDhtWbf8edoZQjDgyzgbsnBxsHlmwNKrP6OvOn4u
-         3oaBFn7t7FyaQHwFR2zZzf7uDDSZ/drROyQLXZ7Z9KTgHWPfbJI9OJ5Dj3AlHLi8Nhi8
-         +Rc9cexAdUWCRRi/OBgaWZ8nY03nRDI7WsAo+XykjaqIe3nVupulrqbwkW9SuDOMUZXU
-         B2Aw==
+        d=gmail.com; s=20251104; t=1790419447; x=1791024247; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4odAGIPcyvnNWb4sPZdqKZBZfrGmbPznm9W/871R/J8=;
+        b=gpPyjpE0W2/iAPPLe+T0ZBxcdXnLLgAw1ptx2Wd0eimx/Qx+jhrLJA/kIW5WXrtBpw
+         HJ3Z+MKM3PTMOHNdvsKT4CvHd5nsa2IB7/Ro1rtHcoi3CTaLE/JLu1xdTMx1p7lSaliZ
+         rs937LRjezREoomDOuciwdlR2SrefkeBkdyxWPH2GIF7jezpSc4oeL/FWTrpZYM6jwFI
+         jQ4jO2RNovidbMbmE9i9IU2M+E0TYlD6u33L11AjuooVU3IvBFI+WvMY6nhM+8dGq8pR
+         NhFpHgGxptetU7j+vay1tc3dau86ZnSuSoyCQCVH4gnC5zha+iEP2cI3GKO2huFyjAK8
+         K9Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790419421; x=1791024221;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z53uSMUq2W80HZiwGXPg4CfzzfvAXSACVLwfmhiGvRc=;
-        b=DawUZoSYG7tiD14IycAn5GlH2aoPMEcU9Q24KdUJW7JDnwhLrISgy1tvG67hgfwGoJ
-         wrRiz16jRrkDqD0hpJp7O3W7ba24Io4F/N0NJa5VhIOrKlz5JWPoWNxVrQknVaU46VPF
-         pIGyONbZfT6d4oHOV/609wUn2knmxlIMZpkwLBr8OT+exiriBz+ha083wHGM4oPG1IZj
-         zND8hfF68unIcgyWkl/1p00gVRJ+wBqcAScssIQGLsBRvRqpEh0Egqf0A2f3r8GI1t8s
-         wMNpl3apj82XpXSOknbmvPjQlq9PWsfZ/LupgCiMa42LX4+VaaGmnSw8ee/R3qok/jGu
-         i2+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByfNWQIBXucsoUQzntulITg2jchhJzevpmM5PkI3gKmW853G6+1DjN9XW6xIRuw1pqUuVZE+9+tLIsn4/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4SGYCF1rwAcDaUg4okCjwBJQ0FD2GFLBwfN9A5vSwYsbVS7xS
-	43Pw+AkrpHVoLvNbcuDPpc8U3sNYZKRNAuSadOZygBSDAxx7OnvtrgxLrp6xcYO9x3k=
-X-Gm-Gg: AYBFou19vlHu0UNSLQE1L10YaRnKjXhuTtEXB7AYAcwNNBA+PGQaZiFWMPwZ707W0Em
-	rTfPB0LxJq0cCN/hMvm8MO9uOebUaJSmEu3e4/H1MTs9oEHOCEBscWCIe4RB0oTjf1cvzbR0fMi
-	DOjyQUop2rS4U5HdHUxoFUMBA6vJ6O0zh3FJm7XzHSHldbW6LREgamkySYiXrNo70VcMdiN2lyh
-	b6F4ijvBMEmRRH8loOrEZxdT7OYE4zbC59BC+QaMopEMFjk2y5NKgLy143v2yvtKs/CXCEssJpE
-	L2HSqnVN+nPJdYVDM6bOIaDYiRy5pQNw1FuVCkWgPreT0y83wqJytig1TlAjgavT6xKR95sf6h1
-	2/QuQt9HertLKYyBypH6eNo/Uj7jZCyMnKXLvcxJyRKBODfssqATd3I9W3td4ZQPZjQwrRh4p9y
-	3CESPdFsaw9+Y729BP0JfoNKGvt+GviPbIPgB079r4a5cluYlwUWPGEfzdd6yuiiJWBObwU6EiF
-	0mv3LMZXDA0FB9CFi34MeEKEBeUBWVKx+xRIGdU4LmXzN9YIZJOFYI=
-X-Received: by 2002:a05:6214:3b82:b0:914:48c8:6961 with SMTP id 6a1803df08f44-91448c86fb2mr22359076d6.17.1790419421191;
-        Sat, 26 Sep 2026 03:43:41 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e6ccfcsm36688496d6.40.2026.09.26.03.43.40
+        d=1e100.net; s=20260707; t=1790419447; x=1791024247;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4odAGIPcyvnNWb4sPZdqKZBZfrGmbPznm9W/871R/J8=;
+        b=fk9gIF1LhL2Uhu/nI1Lv7tN7+xx4IgEBzgc83bH3Nt/X3j6ooo7gFyf7yDeRVWptLK
+         k3sn6NvCoYPZmUf99iI9jutvtO2Z0SnljMpK6JxTf1ASjG+0NMO2KZeAAb0eJZscxV4t
+         mLbYRQDpPx08cn/hYucFCXyr9jHVrdRDFYfrXqH3VYhHhptPkr3Jh3zr4BB2/qhUrpC6
+         wqvJU4suLV+1GBgliDeLHnfDnPxb+PXVwE5A+MTFc4yhOD141jH/Li991CLq+mfuqSyy
+         fyWOGQXH1tLBMeN+M7dAuoj+HzpsvrqOeVrlgedaJhX8dco4caO/f3yRFX+Ih/yoj0L2
+         ni8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxS4On90MiLLYIVNgRuvz7LZgcGHTI5yiObijJihFpFmAK5eOeayuOAyK8ORWWqr9UKZOm+uT05fmShqpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSB+xZ1+iK0N4j/f48i/bZq4PAOarkkxFgrm0S5Q6dnZcEJHwv
+	86t+9Yr4w3GR45IXEU40AiIr/PKhPQpUog4PiPfGUqcV1RTX/JmaYl3F
+X-Gm-Gg: AYBFou2kB0c8RYLAtxfoixcFfcnxubRfaLV+A3jQP4mY8SeW/x+N2pkXDW7Oz1HXN6E
+	BUNUAq3M4GpJbMjfe6OU5g2C9RhEQ4MR60eWMC2Q+pb+L1zzzYxM1wgNiCmt7bD2nvopQes1wNZ
+	0A+EHo+SRiAHEs3FjAtf1eOV1YDXTPlNRlSPtgFrIDbl3YK9h0o8qyJPgBxbLhvVMSsi0lWGU3B
+	TyWR3TYI5hWsJNoIyTcq32dxltwQf0hlhiRi0LRb2HwJre1FZ1hCSncXVtGIV/qHgVFBV9iFRl/
+	bpWi/2ZIgX3zRyf/mIQPBID+jMFFnhM51juBkYMlxSGYIDwo1b6MMQWdvs/GnS+99AUjKKKT+an
+	2KzX4I9Pd3mImghy0IrxbDoOBnTArAPx6AZhTCKgZSRdBAcst5VafhdH7kb+61/oO999wBVPsCA
+	9giY8yslHIlpMdkWcZEhSZNtg7mhwK2BjnrYHqwIM9JhF8nohUcRG59kudELkuuDdxPCXfLHXW5
+	0GgHeGuFicINedLnRt0jaoooQ37RwXYKw==
+X-Received: by 2002:a17:90b:1f90:b0:39e:6c69:f47b with SMTP id 98e67ed59e1d1-3a098d4085dmr7176558a91.58.1790419446869;
+        Sat, 26 Sep 2026 03:44:06 -0700 (PDT)
+Received: from x1c ([2405:9800:b670:b64b:819f:6ccc:5ca5:5f73])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec711sm15800578a91.6.2026.09.26.03.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 03:43:40 -0700 (PDT)
-Date: Sat, 26 Sep 2026 06:43:38 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/mempolicy: use vm_normal_folio_pmd() in
- queue_folios_pmd()
-Message-ID: <arehr1Z86Vp4gFPa@gourry-fedora-PF4VCD3F>
-References: <20260912034833.2952750-1-gourry@gourry.net>
- <20260912034833.2952750-2-gourry@gourry.net>
- <aqpyp7ouLyxGhJDK@gremlin>
+        Sat, 26 Sep 2026 03:44:06 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Shuah Khan <shuah@kernel.org>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH] KVM: selftests: Verify KVM_MSR_EXIT_REASON_INVAL on reserved EFER write
+Date: Sat, 26 Sep 2026 17:43:55 +0700
+Message-ID: <20260926104355.13697-1-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqpyp7ouLyxGhJDK@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 11:53:58AM +0100, Lorenzo Stoakes (ARM) wrote:
-> It seems that setting ACTION_CONTINUE or not makes no difference.
-> 
-> This is really just a long way of saying maybe you could just do:
-> 
-> 	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-> 	if (!folio)
-> 		return;
-> 
-> ? :)
-> 
+The msr_filter_deny test covers the FILTER and UNKNOWN MSR exit
+reasons, but nothing exercises KVM_MSR_EXIT_REASON_INVAL.
 
-You are correct, I will spin a quick v3
+Have the guest set a reserved bit (bit 63) in EFER while preserving
+the other bits, and verify that the write exits to userspace with
+KVM_MSR_EXIT_REASON_INVAL along with the attempted value.
 
-although this will hurt to rebase the rewrite series on.
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+---
+Tested on Intel Core i5-10210U (VMX). Not tested on AMD.
+---
+ .../selftests/kvm/x86/userspace_msr_exit_test.c      | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-~Gregory
+diff --git a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
+index 2808ce727e5f..7446e1404264 100644
+--- a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
++++ b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
+@@ -309,6 +309,9 @@ static void guest_msr_calls(bool trapped)
+ 	/* Invalid MSR, should always be handled by user space exit */
+ 	GUEST_ASSERT(rdmsr(0xdeadbeef) == 0xdeadbeef);
+ 	wrmsr(0xdeadbeef, 0x1234);
++
++	/* Setting a reserved EFER bit is rejected by KVM, exit with INVAL */
++	wrmsr(MSR_EFER, rdmsr(MSR_EFER) | BIT_ULL(63));
+ }
+ 
+ static void guest_code_filter_deny(void)
+@@ -627,6 +630,13 @@ static void handle_wrmsr(struct kvm_run *run)
+ 		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_UNKNOWN,
+ 			    "deadbeef trap w/o inval fault");
+ 	}
++
++	if (run->msr.index == MSR_EFER) {
++		TEST_ASSERT(run->msr.data & BIT_ULL(63),
++			    "MSR_EFER data missing reserved bit");
++		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_INVAL,
++			    "MSR_EFER trap w/o inval fault");
++	}
+ }
+ 
+ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
+@@ -667,7 +677,7 @@ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
+ 
+ done:
+ 	TEST_ASSERT(msr_reads == 4, "Handled 4 rdmsr in user space");
+-	TEST_ASSERT(msr_writes == 3, "Handled 3 wrmsr in user space");
++	TEST_ASSERT(msr_writes == 5, "Handled 5 wrmsr in user space");
+ }
+ 
+ KVM_ONE_VCPU_TEST(user_msr, msr_permission_bitmap, guest_code_permission_bitmap)
+-- 
+2.53.0
+
