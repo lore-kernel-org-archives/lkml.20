@@ -1,50 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE34380FC1;
-	Sat, 26 Sep 2026 19:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D33D1624DF;
+	Sat, 26 Sep 2026 19:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452351; cv=none; b=ZhXQpNlgMP/r6LNJ1dtSKibEUSAKNMnUzG3WzPgh1kqgduE1SnqCwbCC31+zvCkGqmZoKlkZI5fyh3wO6MI+O6D7THHlHkKg/rlThRb0iVHdAA2yf8SObDOjhosMCOaAI1Vp4m7DGsWS2Sv1BKHUgqPV/ST8quzWCs4pwdWzBUA=
+	t=1790452489; cv=none; b=jB1wP+1IOqiJYAWNhqoqOsPrDUG248q9yMBwhdB54nUUlWGJC+Um0XLgux9E7hdo1SO+hJLvDpF98eHs3W0uIq2KTOpV2NULqMikl/IFyC3bwK3V9s0RADiDCBTjCUyZkH6iE/6RswmPkT6HzS16ID9T6zTWdIAiulNg7/HMoAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452351; c=relaxed/simple;
-	bh=IuPu+yMf9yB+vXg30wMwcp0KVm/4Ai9mZ7o97X7hE34=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=ru8d3eeKbcFhiswmqiUh6LtnAp0lJyvtYusFF+093U5ZSoYMbcCD2+sdlmxOU4Qkq0MH9w99O2rQAl4e5NHWDTrUetEOiSv4BTl4pelIqVGGmXbzwmTKMST074Hj6vkKRVWLBW65vpzoTWj3XAxc+f9i7Y8UfA95xzxjejHOf2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0NE8ouu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790452489; c=relaxed/simple;
+	bh=HMChA79CG3kDNGuFKcfFTG5G16/xttob/WWyetaetWQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=l8NCaZ69JVUeMOJ/CtKg7p9AbIUh85kUbb/l+QbQ1nlZwkVrU6c1xg6cHOZJ5z6V+Z2Hq9CS6uC4MBrJ/uovhUY3vWWLLoJe8kDQaLUo2uQnkhkBCK2BptcsfYt3+Am7g/0+lUKPTv+6w8JdhK6VMNAEXsPi2gUee+G3YKNhAFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=T8NZNVxR; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0NE8ouu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8591F000FF;
-	Sat, 26 Sep 2026 19:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790452349;
-	bh=IuPu+yMf9yB+vXg30wMwcp0KVm/4Ai9mZ7o97X7hE34=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=H0NE8ouun7l/2MoNzAq0KAlU6tpb7pwCarVZU1/wGQz6lncSKl8hVTGFog7frI1Xf
-	 /4odZ70eaTQmCWHf31Nxf2gAcQHUGoga55pkM6bVF0rSVmkGwfVHN0oOZVAw/JgLAQ
-	 sS3T7IoEm+iZkuSLYbgkX01LybnoVob8gFVkoiGDXXyLCPpHuFT9tubcTrLG2ppvMS
-	 E/FWPBfvurloT+nWCLCfqSfmBafgDSHbYDKWXVi8MJgyygKiYrKNpau+r8nJ8YKHsl
-	 WI0cV//ysHeYlESr6Dh0XseOcvP2ulNjkJ6H9YNvFzb4X/qTJ6UITfGfiqXEKtARaA
-	 8kL0YD3UJF+6A==
-Date: Sat, 26 Sep 2026 09:52:28 -1000
-Message-ID: <936f4e6383cdfed5198ac3edba80ae13@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
- sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Add a CID NUMA node lookup
- kfunc
-In-Reply-To: <20260925144604.2451177-1-arighi@nvidia.com>
-References: <20260925144604.2451177-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="T8NZNVxR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
+	s=protonmail3; t=1790452475; x=1790711675;
+	bh=iuAtKAdJbw1UynNjCGQffbyf88eQnJmAQsVIYX+mnDQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=T8NZNVxR3CZCYZhuxzy4Lrk+rZob/5Q/ReF3eoAdsYqaG66zizzZt1uj8VSHzk+vY
+	 FFIJVExhDpOsBGOln4qUG7jyjdnxHaJa7WHD2207U7YeoCDcVNuTDkG4AaRP07rYXF
+	 u5ipAJGkZ85/5khlnJFPNLskhXhBVDZbayVjUqD6DLKV88QehMus31J8FTvpUNb9pG
+	 A1BYfUfmO1FjC72mEHrKh7nqpkqlAa6YbnKXQaR2Z4q4olc+fkboA3b3zX6+9lTgpC
+	 W8sCgjmTM5OCp21oY9qVgbz8qKIu3jmNwvqPRM4f6WGXUZnt5zOUuwh3dtqGrvzTTd
+	 wDSMT4foc7oEw==
+Date: Sat, 26 Sep 2026 19:54:29 +0000
+To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Clover <alex@ironrobin.net>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] Lenovo ThinkPad X13s embedded controller support
+Message-ID: <20260926195415.5995-1-alex@ironrobin.net>
+Feedback-ID: 54785507:user:proton
+X-Pm-Message-ID: dc91b69921042d54af3d6d4de83a07cb30c9c365
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Applied to sched_ext/for-7.4.
+Add support for the embedded controller found in the Lenovo ThinkPad X13s.
 
-Thanks.
+The X13s EC uses an I2C command transport similar to the ThinkPad T14s EC,
+but its event, keyboard backlight, and power-management interfaces differ
+enough to warrant a separate driver.
 
---
-tejun
+The EC event interrupt is provided by GPIO103. GPIO176 is a separate
+host-controlled power-state signal used during low-power transitions. The
+driver follows the EC command and GPIO sequencing described by the X13s
+ACPI DSDT and defers EC event queries during suspend until the I2C
+controller is available again on resume.
+
+This initial series provides EC transport and power-management support,
+wake handling, and keyboard-backlight control. Other EC events have been
+left for follow-up work rather than exposing unverified input mappings.
+
+This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
+
+Development was assisted by an LLM, including analysis of the decompiled
+X13s ACPI DSDT and review of the resulting implementation. The resulting
+behavior was verified against the hardware.
+
+This series is based on Linux v7.3-rc4.
+
+The series has been tested on a Lenovo ThinkPad X13s, including keyboard
+backlight control and firmware-driven brightness changes, s2idle
+suspend/resume, keyboard-backlight state restoration across lid close/open,
+and wake from EC events. The QUP8 pin configuration was also verified on
+hardware, including Linux ownership of GPIO43 and GPIO44 and the expected
+mux, drive-strength, and pull configuration.
+
+The binding passes dt_binding_check. The X13s DTB has also been validated
+against the binding, and the driver builds cleanly with W=3D1.
+
+Changes in v2:
+- Make keyboard-backlight snapshot and EC power-management operations
+  best-effort so EC failures do not prevent system suspend or resume.
+- Save firmware-selected keyboard-backlight brightness in the EC on
+  Fn+Space, following the DSDT's SCMS(0x20) operation.
+- Save software-selected keyboard-backlight brightness in the EC so lid
+  opening does not restore a stale setting.
+- Restore the EC-saved keyboard-backlight brightness on lid open,
+  following the DSDT's SCMS(0x21) operation.
+- Process deferred EC events after the normal resume brightness restore
+  so a lid-open restore takes precedence.
+- Add the QUP8 pinctrl state for GPIO43 and GPIO44 using the configuration
+  observed on the running hardware.
+- Fix the placement and ordering of the i2c8 and EC pinctrl nodes.
+
+Link: https://lore.kernel.org/all/20260925215358.33417-1-alex@ironrobin.net=
+/
+
+Clover (3):
+  dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
+  platform: arm64: Add Lenovo ThinkPad X13s EC driver
+  arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+
