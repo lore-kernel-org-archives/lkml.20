@@ -1,186 +1,298 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2DD45BE3
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790381344; cv=none; b=AC8MvT0bmMk8c/3qOr0+NQXjB01XIVMOkJjjbSIDNnRtQdJA71pO7RUkJs9ylyZ0aOP+vk/ihY8K+3SbLQFnh7ZUHhnZaXpTkZCeDhC6IjKFG/qzAAdr//SA3VN7r8DEQi8aP88AX8lu7ftqx9bWpcocUvqRBlclJlw7Ub00u68=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790381344; c=relaxed/simple;
-	bh=pImOuPqMckVKMPaILETUz1VCf8WYMf3u8DsEjE8GF4g=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=YMRWC4Rr6PrSzUas15YF0IfgCue/jWD42757M07gfftYVkfwCinCQa+KoRKPdGlHRCsKF8Eoa8SJMb9qJR+8zgKnMfZCFI7h78a0aXeFl6zr78DKFh/AjbbcxB23KNjsUejTxHl41W3Aez0HeTnYquSSpRmFUf58qoEjFbNSgeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MDWyLC7/; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9050547073
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790381491; cv=fail; b=JQnf0ajQTU4ydGS5fZ/DD0MirmuDyVqm3WHdeixbJWoSdzBRyo5IxoeaEF4/YTrMlFs7kkxnLDuY2hsphKpN6Qk2LV1A4s52YOCfsNxcA0HnMp6i+YKw3PdK3GTvO2X4RyKucJnZbL+lqLSGy2y98qUIXPQhPh55gIxdHXh7JJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790381491; c=relaxed/simple;
+	bh=chFwT2Gu2S2USqjm3K0b1+EE8HMf34vnvW5Denjgt4U=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=FiP27Z4DUvdkTWKcZAM/50+c92LqCiDC9OOosWuMPor//rlKdJz6InV78TZIP6d1/zwfIL+CFCtWJDRwoq5OLPB8Qs0or8aGUi1udJjhjCIRL6zhH+fgHaKfma1JJNC4PLZdg4n0Vw6mlefaSao6VvJMZyzs91RN9qcMBEc3fFg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a6GvtJP1; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MDWyLC7/"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-34182b58c7eso1028423eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:09:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790381341; x=1790986141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
-        b=MDWyLC7/pChlP8ujc/W/T6a50sFIP/8xF3+BxCilbEWrTOLAz9IFs/XnX02v3sjukF
-         SCpZFcH+G5IKp08A84I6MpOcSeEBeeh3J5sENIobZWlQLKRRyouiOBrlEj2rLGgoNRLg
-         tLltAevpt4QhbrNh/gdMUvDCj8T50Afw5lkGxD8tSlGSPayue4WAIzRP7CaGX34AiF86
-         c+5xMv0h9kup+jTUtGooNqgZ3DBrU6gvbph/WamRu2OlJYHmrKJMzBhq19maRcBq50xw
-         6UQ2VqAj6ikzeRtHZAOZBfhg1k4/gbXdwcnTmGP0j94k1jciZyoVMrQCJnSRBqIIbjFl
-         GZFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790381341; x=1790986141;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
-        b=1AJghX8ZfzRHFA5LhdBi4taJ0bdGDMm8gs6IXzBAI3vDeq0EYrdcHUyL+pi+czlg9J
-         prx87y4zwE/1+0jwq3FHDTA4HUcJFh01kLdue8o12twbdGvb3M/WR7QGiyWHqNhew4ID
-         xRFOhbpYFSsMTVhgx+35FnWfMBkj7L+cwpqf5tTzcDy+Di1cnoA/iyxWKCvJ9g6TM7sK
-         Uy5uYqFbkPTdVYMR1SI099t84MIBcLE6/zaVDy9g0r7PPvFEoK9Kz/T5EjeKrnczI7nd
-         MkxsjHKO/VhNagQJyQOw4bsXFFcPrywO0HWr3t05nZWhMgwiKzFWWPPWz4KVUL/2WzLA
-         zEWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwg5Uxugaa0GGdMDFOsnrgwHN8clKkBdPLbxmcP9CdR8q7nX5iBHU/PaA6rKe0LgeF/MSCwIGVKTj4RWII=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg4bKwDeV7KkVNQkvf3T/jExBJ+uk2/CXV8zRsLnXLXEEBF8Cg
-	ofRCyrDy7vmfWgK0i1Pt7ULXhImz1JswGlIKrPzt2+scZUVaTlr2IVwn
-X-Gm-Gg: AYBFou0dJBvrcQxWr87wDto+iAraVif9iK7Xf4nOqb0ShERIVlQH0+xjyVUpbWStidt
-	1cRznr7jSMt9DPjpmwPH+yHsoHyaoXD47QZ8/SuPh2aIuuJDvZCbbdM4YJCq1RDlZiAAKyVT4zn
-	jNzIHPgqAPwzqq0y35EQatAnp0FVUufvMVuYOL3JB3jp1NFN4JD0uRztdX68mbFBNWVaqUAqP0j
-	rK4XbVAARkzLr7yVG9RWrjeQIx0AHNwVtYbclrOQ/VTzq8kyU3bZsMk5I1QAbiunRNoFkF1D8DQ
-	pUQiaJlgAWXiDRHJliT8JjMWNo2DC4cFtUQpxfo5LdWj/oo5yQdFnwlTFgB2uSYGH1NWWjlSv4o
-	neRPEAMK/HYV+JqMNddWu02YljTFOhIk2gpoRyPaeeJvcCLOtbPE4oLSWHfcb1bqFqvqH5tmc4Z
-	ftqmz5VcCJs63MLFHMwVqhZ8DDtC8jJJcGAry7HobBXZ6T/x65TbPVekR9FgbokBVSKVUSXXcPN
-	GBG44Aq0fCK4Y8LF5zHx7vE4BIc+J3ilG99u1e6Evs/5XgQaqZkic2JACG3eHTI7uiskW+3w1O9
-	UrScNIQMN8seGS4/leWIJL99GmegSZGJ1UbJ
-X-Received: by 2002:a05:701b:4305:b0:144:c12d:c6a3 with SMTP id a92af1059eb24-146d0c5087cmr1404884c88.45.1790381341436;
-        Fri, 25 Sep 2026 17:09:01 -0700 (PDT)
-Received: from [10.156.142.234] ([23.144.160.253])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm8112055c88.15.2026.09.25.17.09.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 17:09:00 -0700 (PDT)
-Message-ID: <40385855-cb42-43b4-bee4-ca8cccbb279b@gmail.com>
-Date: Fri, 25 Sep 2026 17:08:59 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a6GvtJP1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790381489; x=1821917489;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=chFwT2Gu2S2USqjm3K0b1+EE8HMf34vnvW5Denjgt4U=;
+  b=a6GvtJP1nPco5WCl3RNcKsLCnsk2Vhu28D7x3VDTqEfKprdHUHpM9ddr
+   MtC+LNgQj26fYmqgkPiUrFh3aENFiDLkM9M1hGm3K38LonbDAHIvYafYN
+   qjHqiaQAkcXlg+MYX6Dj/nOpzZAMe9LNwHn6gIvcKe2vyBfVKeagxFWHZ
+   8CJH79JSo0WbOYOhz17E5un7DRZ8PJQeygA3wN0BZ+doav4elcgnryjRM
+   FGMTQ3kAh+pFT5100gSkhJiTKpTXitqVfeEbt6yFHXh8IiHOLWBZ4Z85n
+   zD63clLC5J0nJOZFsYwg/b+e0ig+AiTR2+Gm1m0Fieni2e1Ura+YzMFMQ
+   w==;
+X-CSE-ConnectionGUID: uyWFSYDOQQuf82bClELiLA==
+X-CSE-MsgGUID: K9XOnwBlRcSUdeBbprkVBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="101745676"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="101745676"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 17:11:28 -0700
+X-CSE-ConnectionGUID: ibpovdJUSjOybFsL83zTig==
+X-CSE-MsgGUID: 9PwuAEBIT9KxXOQmYXq7vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="273569569"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 17:11:28 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 17:11:27 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 25 Sep 2026 17:11:27 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.65) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 17:11:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yygA+EVUMWQDGYTGtYkYc4fH4w/OMEh8A8bAuRtcfYjfr0ZEM2QLWHGlInmuhoHN9Bal7f0lBAfCri1+qnpd3W2MJUT4hHfxbcqyX2qj+nGIk33Ummw3sjIKuYX8o+xGR2SDaPGoNJVZlciS8dT0mhCd9wrnqL7Amo4n1xsrjlAAE2xnI7jrw28o8ngZINhwKA6NDxkTv9M800m3uh0KdHyYzwzfaErJImjGB9lGjY6bf5qs+gjOgLop0NZV0YXBa7veT7xONXc+tGkcJ8l4sMQKwY2v1LR0h8ZEMmhkrLzrrFfueHGnwTAQfF8cjrgo8qnpU58J7bA+jyHKyHZfig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AlKhZ01Ir8fGDgcEm40NVmEyUfcmssV6Rx4DSxW/eLA=;
+ b=idgUJ0+36AP/bUGWOWmd027Gff9ly7lxrUGOolGxkGTISY1uS5K9ePcEOFB+LoPwkWu1DbNC1BBsjkZ1DxVOPYiU6Xz+sgjNVy/gaxMwQrnsTrlHeLc1UNQBRd9HJgfAUyOFw9C27yFfZh6S6G9veRcNSj8rZ9yKDL+PCqafJFbogejJCFud5RP9UPz3goOrhmvis7v8w9G1+P6Hb7GHelZn9NEmbh9jmH916AEuKIcvj4a8T4oC2Xw0o+50Ts4WxueOcUoU7OkGdpZ4JvzW+zZZQPKYiycwX8eeDyoUNb+tslFaczv5156vjNEBwWE/f7GiMLFwuT3vJH2cGybySQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by LV8PR11MB8485.namprd11.prod.outlook.com (2603:10b6:408:1e6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 00:11:24 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 00:11:24 +0000
+Message-ID: <39627dfb-31dc-4b09-bf35-230e655ece2d@intel.com>
+Date: Fri, 25 Sep 2026 17:11:21 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 06/25] arm,x86,fs/resctrl: Replace architecture
+ resctrl_arch_{alloc,mon}_capable()
+To: "Luck, Tony" <tony.luck@intel.com>
+CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
+	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>,
+	Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260916231320.14502-1-tony.luck@intel.com>
+ <20260916231320.14502-7-tony.luck@intel.com>
+ <d0e563ec-65c4-4a00-bd54-61c30d80890f@intel.com>
+ <arbyVMoQOeCq5F_m@agluck-desk3>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <arbyVMoQOeCq5F_m@agluck-desk3>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0359.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::34) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Kanav Gupta <email.kanavg@gmail.com>
-From: Kanav Gupta <email.kanavg@gmail.com>
-Subject: [PATCH] media: gspca: Fix crash in sonixj driver
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|LV8PR11MB8485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 388feecd-ee8a-4eaf-4f37-08df1b62b365
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|6133799003|11063799006|56012099006|5023799004|4143699003|3023799007|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: aBCYnp0312mjBwrupNCOv422rqkJKRQHCqC9ZW6NIq27QA45tIlT9XD91jc2vuXaCKBuKwj88RBCt9/0EU5D3lGTE7rSwHfIk8/pmKGQe/+Pi4EMUtHDRS6LM9C+5nbK7mzYQCT9XqXHSG8X9iXswZADm6DNcVvTeSAdAT/rXogEqrBn8t3/BdC3tkl1GKLQZE/gynwRixs8IjHBT21Iz1Ui5CW+/iwiYCM40HVPnEwILilb4z0JfQ+vvQEgnlGCGBK25PUyxXQI0BpCp2izN6DmaIfOQFTBzRoH/IeMaYgedqcTBNWPEmeGU2ERGu8W/ahfp/0W4hFPkHgT5fgt1nlqxkNqgehMpNVATYqI5bavomT9p51wqf2W+Qc0/YMlngQLbuRHxCCW0lowF6GJxphJIUQ6A2nVmarQaRw2duAIIX8UIo9VJ24d6EW3lH4OuAcFmK23uK7nphuwMc1Ic3phVLci3bAUfTuyZm0DtzsSjL+Z0LUrM1aaJj8VDnHHGWVIrPcd8bkLL9WYzz/OG2fGfEW5KthbH9M9YzNarE8DJ8CYwpVYeDZrbS7bVGDPMCksJFS9H9da+04QsnSkBUMpTynIWGzQZWsAty5X9tg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(6133799003)(11063799006)(56012099006)(5023799004)(4143699003)(3023799007)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RG9XNHdSMDJsbmpObWFoQ09sTS9yR0xOMHVJVjF1eVNSZmltTTJFdjFtTkh6?=
+ =?utf-8?B?ZGM2ZHd1dUhDQlZiV1lSSUhQRG43MkpBTmpJUVpHWGhGd1VtOHdQOFdSOTVQ?=
+ =?utf-8?B?eDFmUG5WejBJZmZxU1gxRm1lUEZhWVM3c3N0b2FRVkFDRFRJUFY4TVBGVlZF?=
+ =?utf-8?B?LzZCU2loMTUvcGsvRGE1Nm1IQitlYXZnMkhqVXBCdFR5b0RrVUdBSkVEcGpV?=
+ =?utf-8?B?RCtiTXlQU0FzdzBldytmS01UaFI5dzEydmVRYWJmYlphNTZDclBSWWRZK0tU?=
+ =?utf-8?B?MnAwOGR6SWc3S2pvZEVVVEJIc0l1ZitNd1JraWE0empvWnBVdUlwUHc0bytW?=
+ =?utf-8?B?VEQ0aFBwaG9IcFNjcTJTaER4Z2l0bDFnM1Y2KzJrOWdrMnNWRFFQcTQzZDRO?=
+ =?utf-8?B?aGJFNVk3cS9NWTF0Q2JoUFZGd2l1UDVtZXozeE5uWjVCNnU0SDk1MW1pQ3lm?=
+ =?utf-8?B?by96SmNiT0JLTHlLVkJxSENaa1FBZUl2MnJJd2JHZDVIYTZOR0ZSYitOYmJO?=
+ =?utf-8?B?UzRQZ2NkRHFoRERTWkpGVmRmZytuRkxVblp1UnZGcXp4N1RQc2VBUDNGNHVx?=
+ =?utf-8?B?QTluMGJvSlRDandVRHdLNGpoaVRmZXkwNkdmSXV2T29oazhoZVpkNForOHJH?=
+ =?utf-8?B?YXg1R2lYR0JCaVhlaER0blFGWjNLKzkxN0tQR1ZkV0owQ1kyWHg2dVFYbXVx?=
+ =?utf-8?B?OWV6LzV6WjcwN09vQkU4UUM1N052ajJZd1hJRkFBVUlFSnFOaG9Ub3FCdGtV?=
+ =?utf-8?B?RHQ2QXhHUjRSQVNwREJidlpuMzVnN2tnNmVSaUd0di9IRDF4cGE2SENtNHhr?=
+ =?utf-8?B?NC84bS9wMVhRc2JvZDlVY0YyU2hYdmFPN0hRS21xRTBxazZEd3RITldsbFR5?=
+ =?utf-8?B?VXpCVXk3WFhKM3QvR1VMWjZGNWdXYzFvbWV3Mlk1WnZUaTAxSzFJTDRoSDdm?=
+ =?utf-8?B?akt1djZrQStlOFFKOW1JeXhOWmFCQlV5RncvU3E4NFRnK0t2SDJmQnZ6NU5P?=
+ =?utf-8?B?R3I0aGJnd0c4MVR6T3d5c084c0RrR2lyMkEwWCtmNU5lZlJoUkZaaWthbEZQ?=
+ =?utf-8?B?eGp5aWdqRFF1RWpxajI1akc4Rnc5ajlYZmFsQnJneUZFT0o1RWVEMnkxM0VN?=
+ =?utf-8?B?bURkbGRpMHhnYVJ2R2hWamlPWHUzVVNGbHZLRW4vVjNaQUpCSnJVOElLa3Mx?=
+ =?utf-8?B?eG9zQ2pGUFFuaFFteTRWWEp5Rm9FcUJXSUkvQis4UU5LT3VsOVZVWGNkcVRi?=
+ =?utf-8?B?MkhyU3UvUjJLRlNScnJzRVhVZk5HR1ZhVjVFVGtWWElWc1kvWHJPeWhoSmFz?=
+ =?utf-8?B?WWl6MmR0NGx6Z3pxUmQwbWszZXhFZlk1R2RqZ0IzM2lhNU93dUdON3RtcDZm?=
+ =?utf-8?B?MTV1dG9udHplL3NSWnAyYjJ4RzhhQnFlYjBTUGJyOGtZQmhkbHZJWjhhakpN?=
+ =?utf-8?B?TmwvWm1BV2szWndsRUxRNC90Yk1FSUNkUk9xNExJTTlwVlNFMVVPWE9PNTg5?=
+ =?utf-8?B?cGN0djZnTWhDcHF2ZmFIMDZWazhrNVRMOThNT2V2NVRBK0x2ZFUyMEc4Smph?=
+ =?utf-8?B?QU05NmY5SWRSSUgvYjBja1BwLzRxL0xiVEdySTlxZHI3RFF0aVJRT25Vakp3?=
+ =?utf-8?B?NGpPRWhVdEZFRFZJVHFWbVYyMnJRYkEzdXRWUGFOQW50bWZIdk5qZzFmRmk4?=
+ =?utf-8?B?K25PME4vZG9tQnl5ejFmejJ6ZnlzQVVUYUg1QU5kdWcxUEl0UG1zMDVHalZw?=
+ =?utf-8?B?N2pVL24wcGxvWlZXVzM1dnlTYTJ2MGhIL3oyVm9YRFdKUWd1MFVUYXJsRXV0?=
+ =?utf-8?B?OHpqanU0bkVrVHBsWjBUM2JKNlFoc2ZtckdSSG80ZE5zYzRaN0xvNHI0QzNX?=
+ =?utf-8?B?eHltSHBaMEtES0VZVkVtM09zckNsRXFvQW9NME1jY3F1WEJkL2pBc2RTemxR?=
+ =?utf-8?B?SEJTVUNoYmNrM2xUR2pid3Exc29EdFBrT2JKc3hnWXRUL210TkV6M3cwZEd5?=
+ =?utf-8?B?T3ZBazRYc0xQVlA0RHhtajhiUDEyRjF4WWZiTHpiaEdZWkU5L1VOSnpZRFVz?=
+ =?utf-8?B?OHNaRGJzTGtla2xtQ0Rwck4rbE0zVlFXWHgzRGtiaUkwNjl1ZWVKUUZ0U3gr?=
+ =?utf-8?B?T3ZqTGNWT2RyaGM2STRoN1IxZFlVZnFTL0tScTlHRXowU2ZESDIyT1NvOTQx?=
+ =?utf-8?B?K1p2WWhhemNlV0NBbG5Eb0VreGt4d0FGektBT0xyQ1BTT0dBU1FUR04xQzNr?=
+ =?utf-8?B?MlZhb1JKL3lBTE8rNnBPR3R4b3Z3aWxQSUJJVUdraWo1bWFVUDZMdFlvbGlz?=
+ =?utf-8?B?QXg3ekZtRzdQaDRiMFJmMG90Q21uM1BCdzVEODZyRVVDYUYzcEdFQ3lEUkNm?=
+ =?utf-8?Q?ytgjhMHh1BpftMuc=3D?=
+X-Exchange-RoutingPolicyChecked: AJ/pBaNRC6D5d42NkbcCaiR0hhMNqYpJOY20ZegW8m1pRLJXpDGk7e3ZaEHLJeMCvzjmHnsCOA6FMUC6QtHQUtJaW6SWvlaNqwXtF420QF4JWrz4/JeG3lQuVAXq31abckMwUddQAU0SO9ZluDel5nsTz4zRDhv9DIS1VjeN7Z3lDNd+c15tbWdxwSPzBOc0lgavKa7AnK+MEefPWr2WTMtmpuGJm+mmzPYYm9ZclbyM+56UWq3Ekt6Giq0rr8F8VlJ+aeYITa/dGYMy4Bt1FFLBilWxkGgRCs18UWQiljZcgfXA31wLTrtuNtENZqP/rJMkXJ8/yMgoy3ZXFGhTIA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 388feecd-ee8a-4eaf-4f37-08df1b62b365
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 00:11:24.1556
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lyagwDDYiBFK0Zun3jM9xhhsZIes4KeQcKHFoqjc0+XoT+xNh6qOFZBixVC8ByO124ZBMGSIY09QQiwUX0dfm+hsqIWgfL6Nlqg3lXs512I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8485
+X-OriginatorOrg: intel.com
 
-Fix a race condition in the sonixj driver where if the last byte of the
-previous packet was 0xff, but the new packet doesn't start with 0xff00 or
-0xffff, it would subtract -1 from length (effectively +1) and add -1 to
-data (effectively -1) which caused it to read one byte early in
-gspca_frame_add which led to a crash when running memcpy.
+Hi Tony,
 
-Kernel logs of the crash:
+On 9/25/26 3:14 PM, Luck, Tony wrote:
+> On Thu, Sep 24, 2026 at 08:22:47AM -0700, Reinette Chatre wrote:
+>> Hi Tony,
+>>
+>> On 9/16/26 4:13 PM, Tony Luck wrote:
+>>> All the information to determine whether a system is alloc, or mon,
+>>> capable is available to the file system. Architecture helpers are not
+>>
+>> nit: "is alloc, or mon, capable" -> "is capable of allocation or monitoring"?
+>>
+>>> needed.
+>>>
+>>> Define generic resctrl_alloc_capable() and resctrl_mon_capable() and
+>>> replace all architecture versions.
+>>>
+>>> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+>>> Signed-off-by: Tony Luck <tony.luck@intel.com>
+>>> ---
+>>
+>> Please note that the pending RISC-V enabling [1] is not compatible with this
+>> change but there is a change planned that will let resctrl_alloc_capable()
+>> introduced here work on RISC-V also. We need to coordinate these two
+>> series.
+> 
+> The first few patches in this series have relatively simple cleanups
+> suggested. Perhaps when I post v13 you could focus on getting these to
+> the finish line and have Boris consider them for inclusion.
 
-[  344.258380] #PF: supervisor read access in kernel mode
-[  344.258388] #PF: error_code(0x0000) - not-present page
-[  344.258395] PGD 100000067 P4D 100000067 PUD 1002dd067 PMD 10f21a067 PTE 0
-[  344.258413] Oops: Oops: 0000 [#1] SMP NOPTI
-[  344.258425] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.4-arch1-2 #1 PREEMPT(full)  ceab5b7eb60a89a58d616500ee9fef4aad8789ba
-[  344.258440] Hardware name: Dell Inc. Inspiron 16 5625/08HCFW, BIOS 1.23.0 04/22/2025
-[  344.258448] RIP: 0010:memcpy+0xc/0x30
-[  344.258464] Code: 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 48 89 f8 48 89 d1 <f3> a4 e9 98 2d b7 fe 66 90 66 66 2e 0f 1f 84 00 00 00 00 00 90 90
-[  344.258472] RSP: 0018:ffffcde8c0003e08 EFLAGS: 00010286
-[  344.258481] RAX: ffffcde8cb7163e1 RBX: ffff8bf8128bf000 RCX: 0000000000000385
-[  344.258487] RDX: 0000000000000385 RSI: ffffcde8cb78ffff RDI: ffffcde8cb7163e1
-[  344.258492] RBP: ffff8bf82122f000 R08: ffffcde8cb78ffff R09: 0000000000000385
-[  344.258497] R10: ffff8bf8128bf000 R11: fefefefefefefeff R12: ffff8bf8128bf000
-[  344.258503] R13: 0000000000000002 R14: 0000000000000385 R15: ffffcde8cb78ffff
-[  344.258509] FS:  0000000000000000(0000) GS:ffff8bfb7492d000(0000) knlGS:0000000000000000
-[  344.258515] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  344.258521] CR2: ffffcde8cb78ffff CR3: 0000000105e22000 CR4: 0000000000f50ef0
-[  344.258527] PKRU: 55555554
-[  344.258532] Call Trace:
-[  344.258538]  <IRQ>
-[  344.258544]  gspca_frame_add+0xd0/0x290 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
-[  344.258559]  ? __queue_work+0x16c/0x570
-[  344.258573]  ? __pfx_sd_pkt_scan+0x10/0x10 [gspca_sonixj 9778522355db5c2cbeafad6bd503d60db422b3ff]
-[  344.258586]  isoc_irq+0xd2/0x170 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
-[  344.258600]  __usb_hcd_giveback_urb+0xa0/0x120
-[  344.258613]  usb_giveback_urb_bh+0xc0/0x140
-[  344.258625]  process_one_work+0x19f/0x370
-[  344.258636]  bh_worker+0x1d2/0x1f0
-[  344.258644]  ? sched_clock_cpu+0xf/0x1f0
-[  344.258655]  tasklet_hi_action+0x13/0x30
-[  344.258664]  handle_softirqs+0xe8/0x2a0
-[  344.258675]  __irq_exit_rcu+0xb0/0x100
-[  344.258680]  common_interrupt+0x85/0xa0
-[  344.258687]  </IRQ>
-[  344.258690]  <TASK>
-[  344.258693]  asm_common_interrupt+0x26/0x40
-[  344.258699] RIP: 0010:cpuidle_enter_state+0xbb/0x400
-[  344.258704] Code: 00 00 e8 68 b3 e8 fe e8 23 ee ff ff 48 89 c5 0f 1f 44 00 00 31 ff e8 54 3e e6 fe 45 84 ff 0f 85 48 01 00 00 fb 0f 1f 44 00 00 <45> 85 f6 0f 88 9f 01 00 00 44 89 f1 48 2b 2c 24 48 6b d1 68 48 89
-[  344.258708] RSP: 0018:ffffffff89003e18 EFLAGS: 00000246
-[  344.258712] RAX: ffff8bfb7492d000 RBX: 0000000000000003 RCX: 0000000000000000
-[  344.258716] RDX: 0000005027642b7f RSI: fffffffb85bb9d7d RDI: 0000000000000000
-[  344.258719] RBP: 0000005027642b7f R08: ffffffff89219480 R09: 000000000000000f
-[  344.258722] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8bf801221c00
-[  344.258725] R13: ffffffff89219480 R14: 0000000000000003 R15: 0000000000000000
-[  344.258733]  ? cpuidle_enter_state+0xac/0x400
-[  344.258740]  cpuidle_enter+0x31/0x50
-[  344.258748]  do_idle+0x1cc/0x2e0
-[  344.258757]  cpu_startup_entry+0x29/0x30
-[  344.258762]  rest_init+0xcc/0xd0
-[  344.258768]  start_kernel+0xa56/0xa70
-[  344.258778]  x86_64_start_reservations+0x24/0x30
-[  344.258786]  x86_64_start_kernel+0xda/0xe0
-[  344.258792]  common_startup_64+0x13e/0x151
-[  344.258805]  </TASK>
+I was hoping that me rewriting so many changelogs entirely for you would
+already make it clear that I am already trying to get this over the finish
+line. 
 
-Sorry if it isn't perfect, this is my first 
+Alas, me writing the changelogs for you seems to be the wrong strategy because,
+as the new changelog below shows, the points I keep making about changelogs
+appear to end up in /dev/null.
 
-Signed-off-by: Kanav Gupta <email.kanavg@gmail.com>
----
- drivers/media/usb/gspca/sonixj.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+> That would get this change into TIP x86/cache and let the RISC-V
+> folks move forward.
+> 
+> Note there will be one new patch in the initial sequence. The bug
+> fix for is_closid_match() that you suggested I separate out from
+> patch 9.
+> 
+> Draft version of new patch below.
+> 
+>>
+>> | Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+>>
+>> Reinette
+>>
+>> [1] https://lore.kernel.org/lkml/20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org/
+> 
+> -Tony
+> 
+> commit 986bf1a4e789de917e955fe549bdd71e51dc2e48
+> Author: Tony Luck <tony.luck@intel.com>
+> Date:   Thu Sep 24 12:40:41 2026 -0700
+> 
+>     fs/resctrl: Ensure default group reports tasks on monitor-only systems
+>     
+>     Sashiko reported[1]:
 
-diff --git a/drivers/media/usb/gspca/sonixj.c b/drivers/media/usb/gspca/sonixj.c
-index 2e1bd2df8..03f40575a 100644
---- a/drivers/media/usb/gspca/sonixj.c
-+++ b/drivers/media/usb/gspca/sonixj.c
-@@ -2695,18 +2695,19 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
- 	i = sd->short_mark;
- 	if (i != 0) {
- 		sd->short_mark = 0;
--		if (i < 0	/* if 'ff' at end of previous packet */
--		 && data[0] == 0xff
--		 && data[1] == 0x00)
--			goto marker_found;
- 		if (data[0] == 0xff && data[1] == 0xff) {
- 			i = 0;
- 			goto marker_found;
- 		}
--		len -= i;
--		if (len <= 0)
--			return;
--		data += i;
-+		if (i < 0) {	/* if 'ff' at end of previous packet */
-+			if (data[0] == 0xff && data[1] == 0x00)
-+				goto marker_found;
-+		} else {
-+			len -= i;
-+			if (len <= 0)
-+				return;
-+			data += i;
-+		}
- 	}
- 
- 	/* search backwards if there is a marker in the packet */
--- 
-2.47.3
+The custom for this is to use tags. For this patch it would be:	
+	Closes: https://sashiko.dev/#/patchset/20260831174421.13921-1-tony.luck%40intel.com?part=9
+	Reported-by: Sashiko <sashiko-bot@kernel.org>
 
+>     
+>       This is a pre-existing issue, but the resctrl_alloc_capable() check in
+>       is_closid_match() actively breaks the default group on systems that only
+>       support monitoring capabilities.
+>       When a user reads the root /sys/fs/resctrl/tasks file on a system with
+>       monitoring capabilities but no allocation capabilities, the following call
+>       chain occurs:
+>       rdtgroup_tasks_show()
+>         show_rdt_tasks()
+>           is_closid_match()
+>       Since resctrl_alloc_capable() evaluates to false on such systems,
+>       is_closid_match() unconditionally returns false for all tasks. Furthermore,
+>       because the default group has type RDTCTRL_GROUP, is_rmid_match() will also
+>       return false.
+>       This causes the root tasks file to appear completely empty, hiding all tasks
+>       on the system that have not been explicitly moved to a monitoring group.
+
+Please separate paragraphs with empty lines. It is easier to read.
+
+>     
+>     Remove the resctrl_alloc_capable() check from is_closid_match().
+
+This is obvious from the patch. <sigh>. Please do not just verbatim describe the code
+in the changelog.  
+
+Could you instead describe why this check is removed? I understand that the bug
+description already mentions that it "actively breaks the default group" but it
+highlights that this only happens on systems that only support monitoring capabilities.
+
+Could the description of the fix describe *why* removing it is sufficient
+to address the reported issue without breaking anything else?
+
+>     
+>     Fixes: e6b2fac36fcc ("x86/resctrl: Use is_closid_match() in more places")
+>     Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+
+I do not recall suggesting this fix.
+
+>     Signed-off-by: Tony Luck <tony.luck@intel.com>
+>     Link: https://sashiko.dev/#/patchset/20260831174421.13921-1-tony.luck%40intel.com?part=9 # [1]
+>     ---
+>     v13:
+>             New patch (split from patch 9)
+> 
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 5dcbb0a964e8..6733ed174f51 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -685,7 +685,7 @@ static int __rdtgroup_move_task(struct task_struct *tsk,
+>  
+>  static bool is_closid_match(struct task_struct *t, struct rdtgroup *r)
+>  {
+> -	return (resctrl_arch_alloc_capable() && (r->type == RDTCTRL_GROUP) &&
+> +	return (r->type == RDTCTRL_GROUP &&
+>  		resctrl_arch_match_closid(t, r->closid));
+>  }
+>  
+
+Reinette
