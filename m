@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4110386C0A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A069B381B07
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790444010; cv=none; b=jGZWavKjkbdheJp2ZW/0v7r0T36oywj2wt3wzdw7InmfRqpHYrel/yIxDXN47xj10x/x2pi1UftAV/3ZQwYLq8M2Gg/5SnRsYcc/qVPV9ab/VVVfVzjhn2kbk5hGvNJ6te/3wtf4WbsyMY2quwKIbT0ypFrmkEdwEGshA8FopDU=
+	t=1790444017; cv=none; b=Hd1VLlXw6QTN5/6fpLJ9QhWegHhflHqZsQ0rDsfbL2NNwFfK8tsq6gMHJgBAh19eb2iJRY3xUhElOLPNZPJPvAkPY6Qtrbf8AqMKyZJpE1IPSmnmKAVAifkS116UdTmGLarSjdOJzDslEHZCGXPAO2uJZnVlYvEyUeLqnjCo5pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790444010; c=relaxed/simple;
-	bh=homsJuCQjKnZ0xNxouQDRH+hnm4JjTgYjqEZCArzYn8=;
+	s=arc-20240116; t=1790444017; c=relaxed/simple;
+	bh=bG4MyftsdfdbaBykmDiiNfkzsWo9nnA1ngVnb4LMZM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GM692hBNm5QDtGVlRZh1SIfP5RqTa0WCRi3tEuglSN+zgO8aO+SKe4w61pDHCfCQ6lBbmXfUk9qWKie7U6Ye1U4E3PTwpqVVOzexPSeLsuFqg4ieTWauO4jSY9MQwOczYgNEjEGroAw87+QsTUWcC8bjGPss3bOnI65bjc/AQ+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DH8kiDZs; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=a5tG48smf8hjmxoXQFu1fpQAQfPjRWswfIGnv+KnmVvYBrUpRM78mIHRjuF29YoxrcGKGhy+FleQlbU2WOGzQuyo4BnRkc6s1M0GnEaQkwSG1L5Bzc7jH+Ye4+WgqpzYjM8oNvyo3BukjpkSn/6Ne+Lra386+cUQNlduxk29vWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ivEIc817; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DH8kiDZs"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso1431075e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:33:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ivEIc817"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48879d4fd8aso1004030f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:33:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790444005; x=1791048805; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790444007; x=1791048807; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YSUQA8gq1RkCRhOMqlGaEY8nMSV691WlNynGk1mNlWM=;
-        b=DH8kiDZsinWXHkuLDmdFp6BNs2gcCQ3SwEmHQz366D6QpjmhArX04KpKOGHWY5gug8
-         IQW6LSGK+TcWwZxyQ6lhpWhWq8JKLyXxr7SMvBe9ZnxUoFiHSIS3hM8b69QZ+t3LlwKJ
-         37Gz1wYm4t2sKqde82rBY3ayLJ9cP6OGzHyHa38Le5xsfJpNmQgYrsOMZGeINICs88+3
-         FCv7ZQEbRBIc+6c7s/xsQttA2mazzVU/QKZkgFvA7l/ZJ5RsHI/ALG8mhA/CZeE//v4i
-         nOJT9AX+pIjLpcAohRbp5mmX4YCx1SJIoSIYmE+068fUUhGsMF0pQLt5sG7P4Tns7faF
-         c7Uw==
+        bh=iPw5CBxQDFpFXhy4vfMV2uncUCg9SZRmO0QrAN2QOdE=;
+        b=ivEIc817Nrhsx8H6zckRL3AMyp6wCnxfhrQkSLJcJgRgU6q/awHL2kbs/H9giNSkOn
+         aqGAH4w/Kx67BixNnZU4ahXzYlJMZqYoZPxeg+H8oUvBlqR7TUVXI0s1UDp2u5lPSTuO
+         3nAEvmF4uS9+QBd8RikJZylI5a1BnuBDLbeQDIXQb/UECTjKXl0DQGRb4IUbcADjNoA1
+         Rtyz3FSA19TWzoRT23diGMqKBZqsbbHStqhvA1YLvUC5oiAIucjsqh9OAelSVsRYRqhH
+         XaaI2x+fRMZOUGqpbqLZLfqqB7VJzyqN8fRFqtCcLJJcvkgRmEzh9IKo12LA+D1jxk8f
+         ikxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790444005; x=1791048805;
+        d=1e100.net; s=20260707; t=1790444007; x=1791048807;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YSUQA8gq1RkCRhOMqlGaEY8nMSV691WlNynGk1mNlWM=;
-        b=QbmPEePH6JNtLwf88uHlN7gkpln2BDW4GIyJyWcvnBV4eG89v8uUpCH5tgkZ8nQ13o
-         6QqkXzV7bMBiOXLI0gE862WdHwwL70DLfDROJSzdYXgGn1BjVMrfxLXa57ENNvCrKQLB
-         WRsrwVj/R4xuM0sADEENdmbeKjVQmdKfWbDHqI/qd19rEzDjbn1pSlRX3A6wl9CxUU8h
-         wr0OVbA9LHSh467VMC4loPtyk5+z6YFeFNRSgqgbPDfgOnCBTlvcHHl7UcBMxQ+2rkei
-         rF+/glzWq6rnzbK/jEJkJRY7ZdlF9mmyQdbzdDeJ0KljVE2QsvyKahVd2+WnGyKgtcl5
-         xw2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy/bGJk1sF39aRmSnDJ9muJLQO3fWkngMt3RMo05lVv9mmZxaw/pizDLgQKLjnY/j52oGIaSPw+GP7f4Rk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE8WOPO82UVGvZBHreXpc7MjRhdIL2lpVGyPpGFuxaP47jCa/R
-	msFCluCUypu6J60xFLlnhxSrdnugXbPXIx2GF5dmU1CEHTykGJ0VoGkK
-X-Gm-Gg: AYBFou2OffZxTo+OOlxZqMtFDKAvQcMZWy76qi75OxgTmawVD0xCTNXHC5NskFnzmPp
-	GUg6ktN8EizPuIrham3YXqRDwxf44R33gOamR+zWA9aN0ThMExZnUAWwfCr+T3615jKT7wQGa8n
-	gKBBZ0ErLwB/Kq3Jc/N/GUCArXe9x0kxkpFXW185ojLB33oBrgUwYZeBj6OVx33hg7c+5f0EvXl
-	6O/mBb4Kuob9YYAn6+bE+xIupb+X8V2cFbJEL5nyTaYFOMdAPFp4I+aWoGo6W0lxHECtTGDeQ9a
-	lzXW8ILdx6UC6XpoWwACD7DkldS3d2k3oF+UVBnFPftgzUU5Au2TAK6ymbvtOT/ZXKJ3VlSd3F/
-	F1go+sRVPehO0xw4u744DI27JfkBeGmOYyDtk63Q/ovfF6VU1lblvXf1E2mgtUtTjM6QY/nqAbO
-	GeTVfeZf2FxIT0KF0Uva/cwVkVkWd0lme0vLCFmE/7etpbs2VZIQOgV8dCVy4qqFeOANkDnz3Ov
-	ky8oqoffEtRnUsvAYkLzhh3jNU0tD1CDYnQEBN38uem5pq1TRJOmRKj61lkBSdBarw=
-X-Received: by 2002:a05:600d:6409:20b0:49f:f099:6f8c with SMTP id 5b1f17b1804b1-49ff0996fd6mr68193415e9.9.1790444004921;
-        Sat, 26 Sep 2026 10:33:24 -0700 (PDT)
+        bh=iPw5CBxQDFpFXhy4vfMV2uncUCg9SZRmO0QrAN2QOdE=;
+        b=M5lwNgx/BfmPYeRe2GrTlkuEulZNU/K5vl3TGTCPF84t0hVX1lG104k3SiQjmMb3nZ
+         EX7Qn9WKfPp5lopb/ZXta4SbM4sRksXoj5KJ2KIBjRiKmzkKm5jAFyLSTCVgpySQ6/DD
+         rL3jyyZh0Aldlv5Az2CH3d6YBVO3K70HSeD3Sg4UcsqFco8KEV6mAHDQ/yVuHKGq4AuK
+         TVhIkG3wYxc2j+LEXUivvex844hfxH1kIsD4iR7TMs67ot25CuaBg15NqmWkB8QCYONu
+         1nZz4vkP8VsR5ar9ys0zyPRfmVUu1ANeA8xf6qVP4DqEBEn+Fut5SNQkFSNrQzTvUdpe
+         S+Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBy6/nTN+F3jpqIvK8FC0YPEo1GapNlzC7CJZc5edsE0ooS1jdT9EM5CxHfBSfK4PJNAK5xc/Nh27C6oL1U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mILv7l2bZ5J6b98Xmi/iJ1fiZyfrJN0ezRWdGoJ36ukwoJTPlD
+	3s1TQONNtnnPHevxRJcw5vAsVTz8T95ABmPWNIlR7OEEb2/i0X/b/+GT
+X-Gm-Gg: AYBFou0tQKlDcEoNnDE+4IMM+kOYuX1OlG2byqYgKJQ0WJMFf59H+Q7Sdln1LZ6BqSC
+	E8y15y+fjSuaDjywrmZYVVWaLMoxQxZEykOMrMyJAAiLJbKNyFUGQ0U+69FMTR3S5HotwF2vA/h
+	aAMJ4WLFUgaVFzlnJow8PNLUbVL6+WdL/KbND+YqI5nNsfgKhJ+hkcJfXTAPaAjlh3oS6YkYWQ6
+	ZCzny5tgqZ1/2nljvZNB5HrI6S1zJ+2ogMjGDEKc4j4rd3qKQp+6i4w14DnbThl/GX9F4SZvWcO
+	LaYsCiieRt6TEFsuUI4j4sIVd6sA2YmI7/OPlMKfhueNb2RGqEuI4HEv5gtJB9HRifJ8V2SUEWM
+	Y6VhYuGvRL60cYB17TFpEI8dUE2ZvofCAoeFZH1gTGg8U0+tyKPoUJKESGsRmvRc6rB6f4kk2JF
+	PtE1mn1alI6NOr31rnE91kZSxf7S1vvdDODOtoPeexl/lMZhyKLCLHyCEs4qQZYs7QrDnEfxs3v
+	dEA7rEsrdcePpEjC1nSK0mTDxrUOYv/i0e+dm2b/Jnzn4zKq5frFz/XboyxZ1T1hBo=
+X-Received: by 2002:a05:600c:1c1b:b0:49f:bc28:e8b1 with SMTP id 5b1f17b1804b1-49fe66d6c9bmr166175805e9.14.1790444006652;
+        Sat, 26 Sep 2026 10:33:26 -0700 (PDT)
 Received: from moosama76.. ([102.44.245.127])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de4de4sm246200495e9.8.2026.09.26.10.33.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de4de4sm246200495e9.8.2026.09.26.10.33.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 10:33:24 -0700 (PDT)
+        Sat, 26 Sep 2026 10:33:26 -0700 (PDT)
 From: Mohamed Osama <mohamed.osama189110@gmail.com>
 To: ojeda@kernel.org
 Cc: boqun@kernel.org,
@@ -79,9 +79,9 @@ Cc: boqun@kernel.org,
 	linux-serial@vger.kernel.org,
 	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/5] rust: serdev: use DropGuard
-Date: Sat, 26 Sep 2026 20:33:14 +0300
-Message-ID: <20260926173315.56772-5-mohamed.osama189110@gmail.com>
+Subject: [PATCH v3 5/5] rust: sync: lock: use DropGuard
+Date: Sat, 26 Sep 2026 20:33:15 +0300
+Message-ID: <20260926173315.56772-6-mohamed.osama189110@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260926173315.56772-1-mohamed.osama189110@gmail.com>
 References: <20260926173315.56772-1-mohamed.osama189110@gmail.com>
@@ -93,59 +93,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the ScopeGuard usage in the serial device bus implementation
-with DropGuard.
+Replace the ScopeGuard usage in the Rust locking implementation with
+DropGuard.
 
-Use DropGuard::dismiss() when ownership of the private data needs to be
-transferred without running the cleanup callback.
+The guard preserves the existing scope-exit cleanup behavior while using
+the DropGuard API from the Rust kernel memory module.
 
 Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
 ---
- rust/kernel/serdev.rs | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ rust/kernel/sync/lock.rs | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 17ca504b7f8d..dd43b159b461 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -13,6 +13,7 @@
-         to_result,
-         VTABLE_DEFAULT_ERROR, //
-     },
+diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
+index 10b6b5e9b024..15f9cbe76c8d 100644
+--- a/rust/kernel/sync/lock.rs
++++ b/rust/kernel/sync/lock.rs
+@@ -7,8 +7,9 @@
+ 
+ use super::LockClassKey;
+ use crate::{
 +    mem::DropGuard,
-     new_mutex,
-     of,
-     prelude::*,
-@@ -21,10 +22,7 @@
-         Mutex, //
-     },
-     time::Jiffies,
--    types::{
--        Opaque,
--        ScopeGuard, //
--    }, //
-+    types::Opaque, //
+     str::{CStr, CStrExt as _},
+-    types::{NotThreadSafe, Opaque, ScopeGuard},
++    types::{NotThreadSafe, Opaque},
  };
+ use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
+ use pin_init::{pin_data, pin_init, PinInit, Wrapper};
+@@ -242,7 +243,7 @@ pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
+         // SAFETY: The caller owns the lock, so it is safe to unlock it.
+         unsafe { B::unlock(self.lock.state.get(), &self.state) };
  
- use core::{
-@@ -174,7 +172,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
-             }))?;
-             // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-             let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
--            let private_data = ScopeGuard::new_with_data(private_data, |_| {
-+            let private_data = DropGuard::new(private_data, |_| {
-                 // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-                 drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
-             });
-@@ -204,7 +202,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
-             drop(active);
+-        let _relock = ScopeGuard::new(||
++        let _relock = DropGuard::new((), |_|
+                 // SAFETY: The lock was just unlocked above and is being relocked now.
+                 unsafe { B::relock(self.lock.state.get(), &mut self.state) });
  
-             result.map(|()| {
--                private_data.dismiss();
-+                DropGuard::dismiss(private_data);
-                 0
-             })
-         })
 -- 
 2.43.0
 
