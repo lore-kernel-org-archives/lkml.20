@@ -1,73 +1,77 @@
-Received: from mail-pz2-f31.google.com (mail-pz2-f31.google.com [74.125.228.31])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9393009CB
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655A2353A74
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790396654; cv=none; b=TM4Md5Y1C+aJqaxqfKbtCACSxLl38rci8843173Km7mbFjZp51LhQ4w9chU9svfQXx6mzi3UbDOeJB1b8IuJnVfJ7HbxtEcf02mCKhq3L6pPaamJ3CIPg4RucuQeWLXRLEd+ss/XsHjRGfcTzCcVG2S/8Njoo6dblWskTmz5IbU=
+	t=1790396885; cv=none; b=rOjoIsbuSGzIrKuNrcqMaaHPmqwxFVto9YwoLXjtq/QYt23ricTGerh2pdhsOGBtGXwfynt4X/oAPCx+KXaydBuh/2rI5veISwLDjWU6V4sFiWjybAsIugVcCCRAdpoGDHfiuivv0y1BaU2Wn60RhVW5HsBUfU2m/cpgAZnBK1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790396654; c=relaxed/simple;
-	bh=O2/+WEYXzMAVhFRsU4oTF3cfi2iLBRmM9EnhsqAnT80=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HrQvUWDSxyq9D6bRMoZ7VXzNGIHybFddiEEl6lEfeBbjTwJfWX9pRDCoTThyPeG4RzUzTImh65S+DucUVKV2qclS5G+UNdPLTGHK9hYkHkxfemvpU7ZgIW1qU+XOsnGF9mBxDVvdmiqbMecVvr4eD8CUiIqfpHFUVXiw60dnAow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4aXCG/e; arc=none smtp.client-ip=74.125.228.31
+	s=arc-20240116; t=1790396885; c=relaxed/simple;
+	bh=zDWRznreaCj9pwq4xoxCFPqmAgk2FFcPqeo4LAIzOII=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fqPj9ajJdSu4cl5wI+Xtd1KTSDxCYMo3GAj/Vl2LJrcl7wkfn5HADZYKI+09vcUEc+LAYa2Z7Mj9YAXoSeAls3H7uvmeohVzq4AJAOmhhOQQwnyBqfyaLS3oeHhsEuTTmbEb74UglKeOqVD2hSPrZFC8TgxwUt05mW8lurWrYQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDmQtY33; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4aXCG/e"
-Received: by mail-pz2-f31.google.com with SMTP id d2e1a72fcca58-8814e797a5bso127730b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:24:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDmQtY33"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0b6200eb0so1113386a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:28:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790396653; x=1791001453; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790396884; x=1791001684; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qtAmnq7GHFyoC+l0IK8HL+LJqCl6RnngBlg4/6pPAk0=;
-        b=I4aXCG/eR4OwSSar80NU1pv58qwCXMMWTefdI/cO/tw+dY70SsrInEDCfcKWjJj8Vh
-         mswywTbJyaDqLvErhuFjDbHtjOHnBj0YIhq+h/EoDSYryMbWO8h78hjsbdPq2gupvXYX
-         C/i9qaIn6WBg/MMzjAveNNGBtNbJzBLpAgF8bPxPdwGt5aMQKLoltY02QC2RsrbKehxQ
-         wwPrE6hBlQ0/PGrfdJVNr78lA8ZV5ehgcdN611X9dBnE0qPjI64phBgpN/S9bYldp8NL
-         5qt+txF1HYILUD35RF4TExHpeyx1acUOEy2vJkIGjId/BBp2mOlSNovXX/cc8DfB3Dc1
-         YOOA==
+        bh=0jBdH+3CimcIocBItRqRUNlkXd/F1gm5vjU+KHPvU30=;
+        b=kDmQtY33uk1muvuEoQAwaHHWThlOr9705WM1jBXsU6JUWOJyAXN4gVNL/v5ZlGumor
+         ugv/IWgrGCpQhHVWpJF9sVA0Mc1qY2mZJvZMW4s8kubYA6IN2eWBChK9ZnaXQuU7qehe
+         tF5SFShrK+9NYsR4Sh4Iv9WwjH4hTUYjKS6h+MN95Rb6ao+9MD18rUqp7i6vzj3YoX4R
+         WxpEy2+savqk3DSMmzzdV02QKtYHiwZfIsIxubwcA8BTtn22MrJLX4ieGahXncxdoX2w
+         f5fSEJMqMBhV2Awd6z80OUgpXnzz7V5621kESkUGTrMN84OrzcZgEFEppvRecSWFHdGe
+         vrlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790396653; x=1791001453;
+        d=1e100.net; s=20260707; t=1790396884; x=1791001684;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qtAmnq7GHFyoC+l0IK8HL+LJqCl6RnngBlg4/6pPAk0=;
-        b=2OsT4KA7mNOcA/7+X+52CyR7CnuHJyNjIwXc+WFiKXnkvcOZXnSQVqNMfl9LQehcmI
-         3Sa8UBghVjQHiZ0LFQTJcUPnVeEoIOdKpIgfutl+gqvBcaHaW3TcHkGD0hzu/DlfepVp
-         rxfKN3IcA3qiODXV2GLmrO/q9Orv0gkrEKO0VQMwRUz6CYsNY+ETN6U88j6t3Hf+fe8U
-         SSbg62WylW7Z/yal51ifqdD36ZT+e/6jEamU78JbaHc7wdHeLlXuZ+RGhcocszSUSzUc
-         To1yYFNr8SyrhJdfrdnBjU/sPT261ryq1x1xSsC+Xkpg6E9AIj97OdlfPxFZK6WYYXwp
-         oxoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZKkRKaKluMB74MsYcG1zJ/qTLIIfoZifbZ1qDYsatxhXc4OQxSFoaKC/eR1UfmLkwIafdJgttcXGcIKI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kni3xlL3aXPbo4JabRRCrZc58XctL29HfJ8nOlK+34W6itH7XK
-	ibUrO/qC+JCgrR3cpnkou9f5ON1P7iSSexOdLqX+uNWV+NDIThMTjuf4
-X-Gm-Gg: AYBFou2/Si+2MA5JG+PoO8kAKNbSp0QJzMcKj+53fm/xuNMkrxNEG6huefmyhJK48nA
-	1WrTmCb1/8uERe3YGf2vc0yjTG09Bbuoohu5K3/PDKSyNkCgpBK9HlWpVtqHGIYNuQeek8fXoX/
-	Glhfi3CjzRMK3kG1l/fJvr0KDRvP1H5KDq6LWqTBMfWgYXkBpVnWFHGP5dLgEVIVMLF7zBokfVR
-	bLvCwfy+jCwDc5c7CAqNnDarhNCC/iRnrkBebL+gXLtKl7iHa/uqwoeC8wWVpU05wMZqsFGYeOV
-	uxQsGu82BdUoPdN+pe3J+PMgK3sYEbe25p3dAVILPmj9TF0rpHq9hpU3gxMq+hUYFfo7xGf6C4U
-	IjsnND9mxpE8Y1OJPoy1voNvD9oD3JkPs/E7sXtieafXUXfj1iXAw/jvHaosD6gIrnCkAgFd/P+
-	nJ2DyXRk1hxpQ6GjA/tWtJhJkTssqO59OEJj8iiHQTEzAyH7xeLUA7v6bmwThHnkubqfK5VkjPH
-	jjkXU8qt0r8GH6w3ohs7/6k3kgxQ9byTqtPRvxx+iVBXb2tlWB2vFM94LG1ZT1OPkStHaGdiXbZ
-	f5R6d5uEEPYU86qEpER+dJLKzgIWQzM8Rtm9+gJ1ad+eECaFHw==
-X-Received: by 2002:a17:90a:2ce6:b0:3a0:a055:1741 with SMTP id 98e67ed59e1d1-3a0a0552127mr3650622a91.27.1790396652570;
-        Fri, 25 Sep 2026 21:24:12 -0700 (PDT)
+        bh=0jBdH+3CimcIocBItRqRUNlkXd/F1gm5vjU+KHPvU30=;
+        b=nJOLMrJ9Jx4lKm2GDJH+IRuL9h5d+/5Q7+Vza/f0L9NFRll9R+oZfTLP5xYwG6qBeb
+         49h1ieRXCaZT51QTPC+8+JGPCs2BiuuvZJsEgT6vwoB+tegcwsKMJFvmXf5yY1p4rxYy
+         pIrWdMlj2rLz55InD5Ewew5oTTlnO1iH5PfQmvnuLqioreTKmyq4WGxoYrWPwgrbzH6d
+         3uK8dBkVy0OrHDFV9pf1s9Ty2AhspDrXktdNzU/A0KwnFbdW2BDJn7ldZNby8bPWnTmI
+         J0uhXPdPFz0FOpsQ7qZw1TOO2G7eNi5HCurtKSag1UrYZyzJy9F/ODsqF4UwhE0iyuMs
+         1uQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzy+QfWF/6TT85tdSqMYQpVRRSJr5M1CwtfiGfVIjWHG2Kmnxrqe7eWAa55gWgg/syP79CSjPRXwzTi0Tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+g/jnNzys/QYVEG28efdcB2HLz0gWTQtKWoJlcfLx1/jI21us
+	XuTzeoiSdtJWwplb4IhcQzcR2Z1yGa1ge+J40zhNHXozAG66VR4gatmL
+X-Gm-Gg: AYBFou3fonqQA5o0TCdUXM1Yfl1oEoGZYCCNm499y57aZAo0es9XPC3wzYh+vwufcHd
+	Ve/HOHrfBFrxn2Uzz8fbvWjiEdXemGfxqoV59qEjQvuK8zFrgcZUf39t/ed+gG/qt5LxY5Jevk9
+	VePDCoHHAVzBEZdqARtJFKbL4jlDDun1+7CxflD/fz1svB/rtK3jxlcW6jO+2UYml10zH2xkSTe
+	5Yq8mpEL2e8kViFQ7RWQ3w8LaA9P+Oq1OQHMrQCOeycliUgUkMOjGAvjV0T62NzD8KnsDc7IsBW
+	lBmnpUYTFh1Owp+ttSnd55/GCamJc5mnR0DREcJDlNSC5+KaD/adG1PwNtE2Dn1KVWDLNIZYY8A
+	APrRx3LKQkhezufBl9ZIszYH4OxeEmu0ZCV9Rjct7QUmwWojBwJmrL36BIJu4SbW0hV2f6jrPBk
+	A9j7LsxYka27yEs7XRUSakTISwekmymj2898oxGhneJJe+gV0ouZY2IiusTZ7f15GcRIaGtKTbB
+	eRRzuQpKtzEp1mXIktdG3cCsZW7c6AqnERNK5W0K60SHu3BQEiHzg8WoRnV/Og1dWjFiKZEA6Uc
+	2gH6eBVYPvG0X8LrqHQobu5zNylmnOVnepbdyA==
+X-Received: by 2002:a17:90b:2d81:b0:38e:2517:5d1f with SMTP id 98e67ed59e1d1-3a0bb552feamr3228577a91.9.1790396883522;
+        Fri, 25 Sep 2026 21:28:03 -0700 (PDT)
 Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0ca127237sm2005316a91.4.2026.09.25.21.24.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c2e986easm8034535a91.1.2026.09.25.21.27.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 21:24:12 -0700 (PDT)
+        Fri, 25 Sep 2026 21:28:02 -0700 (PDT)
 From: Weigang He <geoffreyhe2@gmail.com>
-To: Antoine Tenart <atenart@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org,
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Weigang He <geoffreyhe2@gmail.com>
-Subject: [PATCH] ARM: alpine: fix device_node refcount leak in alpine_cpu_pm_init()
-Date: Sat, 26 Sep 2026 14:23:32 +1000
-Message-ID: <20260926042332.1633698-1-geoffreyhe2@gmail.com>
+Subject: [PATCH] thermal/drivers/sprd: validate the sensor id from the device tree
+Date: Sat, 26 Sep 2026 14:27:57 +1000
+Message-ID: <20260926042757.2109927-1-geoffreyhe2@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,50 +81,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-of_find_compatible_node() returns the matching device_node with its
-refcount incremented; the caller must drop it with of_node_put().
-alpine_cpu_pm_init() obtains the "al,alpine-cpu-resume" node, maps it
-with of_iomap() and never releases the reference. The function is
-__init and runs once, so this is a one-shot leak of a single refcount
-during boot, with no functional impact.
+sprd_thm_probe() reads each sensor child node's "reg" property into
+sen->id and uses it without validation: to compute the sensor's
+register offsets in sprd_thm_sensor_init(), as the thermal zone id, and
+finally as an index into thm->sensor[], which has SPRD_THM_MAX_SENSOR
+(8) entries:
 
-Drop the reference after of_iomap(), which does not retain it; np is
-not used afterwards.
+	ret = of_property_read_u32(sen_child, "reg", &sen->id);
+	...
+	thm->sensor[sen->id] = sen;
+
+Only the number of sensor nodes is checked against SPRD_THM_MAX_SENSOR.
+A "reg" value of 8 or more, or one that is negative once stored in the
+int sen->id, makes the register offsets point outside the sensor range
+and the final store land outside thm->sensor[], overwriting the fields
+that follow it in struct sprd_thermal_data or other memory.
+
+Reject an out-of-range id right after reading it, before it is used.
+
+This does not address sparse ids, such as a single sensor with id 7:
+they leave holes in thm->sensor[] that the later loops over
+0..nr_sensors-1 dereference. That needs a separate fix.
 
 Found by static analysis tool CodeQL.
 
-Fixes: e9e06f2853dd ("ARM: Alpine: smp support")
+Fixes: 554fdbaf19b1 ("thermal: sprd: Add Spreadtrum thermal driver support")
 Assisted-by: LLM codeql
 Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 ---
 
 Notes:
-    Compile-tested only (ARCH=arm multi_v7_defconfig, W=1). Not tested on
-    hardware; I have no Alpine board.
+    Compile-tested only (ARCH=arm64 allmodconfig, W=1). Not tested on
+    hardware, and there is no reproducer.
     
     The CodeQL query behind this report was synthesized with LLM assistance,
     and the fix and changelog were drafted with LLM assistance; I have
     reviewed them.
 
- arch/arm/mach-alpine/alpine_cpu_pm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/thermal/sprd_thermal.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm/mach-alpine/alpine_cpu_pm.c b/arch/arm/mach-alpine/alpine_cpu_pm.c
-index b48da6f12b6cc..332c3c00d3680 100644
---- a/arch/arm/mach-alpine/alpine_cpu_pm.c
-+++ b/arch/arm/mach-alpine/alpine_cpu_pm.c
-@@ -50,6 +50,7 @@ void __init alpine_cpu_pm_init(void)
+diff --git a/drivers/thermal/sprd_thermal.c b/drivers/thermal/sprd_thermal.c
+index d683fcb0f8ab8..b57277e2eac01 100644
+--- a/drivers/thermal/sprd_thermal.c
++++ b/drivers/thermal/sprd_thermal.c
+@@ -396,6 +396,12 @@ static int sprd_thm_probe(struct platform_device *pdev)
+ 			goto of_put;
+ 		}
  
- 	np = of_find_compatible_node(NULL, NULL, "al,alpine-cpu-resume");
- 	al_cpu_resume_regs = of_iomap(np, 0);
-+	of_node_put(np);
- 
- 	wakeup_supported = !IS_ERR(al_sysfabric) && al_cpu_resume_regs;
- 
++		if (sen->id < 0 || sen->id >= SPRD_THM_MAX_SENSOR) {
++			dev_err(&pdev->dev, "invalid sensor id %d\n", sen->id);
++			ret = -EINVAL;
++			goto of_put;
++		}
++
+ 		ret = sprd_thm_sensor_calibration(sen_child, thm, sen);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "efuse cal analysis failed");
 
 base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 prerequisite-patch-id: c5a3be8688fd8e88a00352acb1374e91fcb52a03
 prerequisite-patch-id: 67693e2c08624df0841619cc085ce9200f4385fc
+prerequisite-patch-id: f3d73f7c19be7e952aa8061303f53f9a08576a88
+prerequisite-patch-id: 541e578709d048f4c8115f1d926be2f2c03ecb0e
+prerequisite-patch-id: f23f8e0693435497645805822d98a92e57fb46f3
+prerequisite-patch-id: eae82895db8ba67018a777a91a283ad6bc4a55b2
 -- 
 2.43.0
 
