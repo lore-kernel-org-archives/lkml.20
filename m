@@ -1,125 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433F644065E;
-	Sat, 26 Sep 2026 12:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B863876A4
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790426992; cv=none; b=n35bRuSIkHpXJgeNlnG/T1W5RKwJyw+fpah78Xj+JdOunjDsb9t4qq6PDhxVWxtLOOb4xSkESgvqXxz3fsGWevhLMEEH3U0bPXl6OJLBrEJFDK5eL5U9GTbY7zPTpbmprzVs78j4ly1HtPD7ujklzPHNZXY8Y4332Qk2Rqb74yE=
+	t=1790427133; cv=none; b=rli5AISlRNxzHSREd6Bp9XKI49YKvICAhHTXIgip9hnzzSOCRTnlWvhiR5HXerKKqOosP+ECvD4FfD4xeZJHVCfcE3/dpIvKRzFsLDcp6hKWi25WwkSfqkBIVYMYDVZ0HJ2D4v1TLkqSaAkKrSBPnWOk6ZaCunMsSH5lWBOursY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790426992; c=relaxed/simple;
-	bh=wJODCO7qLFS406HdWeGWn9AB/r+Nib0na9ZJ01dnJlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I2V22UBxQv1Tp/5E9ibENWhiRa9NYejhpIr1fh8HbRup0FjeA+41HYTmLLV374UdxUvDmNYjsyfGvVFWdidFIsa1r2ToS27YkaIdHeK8lXwZjHxbd43OXop8k/jBXyhMdSwkz/8zeUWXesAfBQeXvbHzZ+RjWpHBy2FSeR6iOpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd5egb/9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790427133; c=relaxed/simple;
+	bh=eTZ5DuYzgMC3w2K2nFxa/0/HtaOZqMC32yW/8AXoJMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bx6DXgGuOlrV4bS66BfjGkEGw+xvN+lLIsESAnvfsny+ud5mbI1JpcM0AioqeP/3MNAKwTiuZGoxVcKapTE0WeSgsAt1WdwCzu5nwdPj2yVOj5CgMd8ovEm2lOyQ0d4JYJVEZ2XLU+O9huoH39ahHbi/3WDngfJCjdqMInmWUZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wc19Rcyr; arc=none smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd5egb/9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DC21F000FF;
-	Sat, 26 Sep 2026 12:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790426987;
-	bh=VcwH+9dD3jn1cikX304Fn2/psmP9ex3vbb4X9xZ4y0w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fd5egb/9VQIjjOqS4QVt0JCgY3CjQEWPCjDbq1JPvTO/u/NWzV+lbMU2GnucpD8Cg
-	 fQBncBItUBiNpft5Xle3TNZkvASdQXwYT782WczpRC4jNHKnURx/VR4lMI4JBZAg4b
-	 za0ej8mPU5YqIeMJVF26LmaALHmhJznID0Q97bqr7HNfNTSy14hNnajBL2yZtPoDr6
-	 ZPeKxz/NhMbw/6kJedmpg94MnX+XYJsijQGDTgqkeXja/IGUPPqM+mRcQX86S0NU8a
-	 AaymHjbxISsM0nBUg8bnqDkatbTzLbXwZiMwQwM34QeqRDonyX/y1rrUsoEZSMn7fp
-	 RycokNiL9jKuw==
-Date: Sat, 26 Sep 2026 13:49:38 +0100
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <20260926124938.GC1486962@ax162>
-References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
- <87zex4ic68.fsf@linux-m68k.org>
- <20260926121927.GA1486962@ax162>
- <are7cfMIHZZn6jLz@zx2c4.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wc19Rcyr"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652e2149aso11585861fa.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:52:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790427128; x=1791031928; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tv2uFM2roW3vT6//4Rn+XK2lNgMX3NDBuOtw2y4SaN4=;
+        b=Wc19RcyrmxoOmI5WjCO03ET8XndOAw6azmvce6s+xkCnSkhiIC6qdVRTrzx4G+utm5
+         58R/9XL2mdjPaTilYqO5RsmfjXBqSsJETMG/pwFnCR4+G434XTh5bfsA93eCTnqZMSlc
+         BjlFmcO5DJkhbuKz0FmZlu5RuxXjH47DrXPfNzZHhyYUrTW/Qa4ODb3kmziQMqlLyB6W
+         8F2gEYbgz7HspwOfqZCgyunYY5UQIQ/BvX66MbLaANPw6KmAflNKK6EbtiFr1O5msqO4
+         ox7iDvSBAAuMlie5ahPL7lb84XGXXgGv31qBjzEp/vbXfRHE/8xYFqHNOXqWYi8WZYoE
+         kHsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790427128; x=1791031928;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tv2uFM2roW3vT6//4Rn+XK2lNgMX3NDBuOtw2y4SaN4=;
+        b=QxxwaXvSvp7Ex50DC3vnQGvFMeL7oi31fp8DJrzgDnIcMOgJjl02YlQtV4seM+G0cP
+         q4kLGx8WJbzgvys6p3KmhhKbnDcPxNdJpWcgkMSfiJatXoK9dlF5qeUH0oU3no/EiUMa
+         +FBO5rpKso5mn9cGXYlmIRaDpuzGDeFNfIRUPioNYY1jCUf2YMOZD5IjK8q+kH2JT3lW
+         81fwNj0pyf1DtxZhsZLGLUU5xSzYzJiSft5JS2PbJ/eIrlKusK5BNYdM+gyIyPEy26sV
+         3EA5IkMIZqBaO6IdeDdCW2YMBna2o0seoRNU6bCkNZMSNt1EZiG3dIZpFWnsOqdAu4IK
+         DXZw==
+X-Forwarded-Encrypted: i=1; AKwUvBw37zIUTPnCmWjRxNXlt1BfKf6HgG9XtIVGXAaz3PvgERNnNjBqQISmERv3uMR/mrZ0J3beJrXcpCsLvCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZLYcEAjibBST0NWZtsywPszxVa74x9RgbbkDRJ46QcihnN2Tu
+	tM0o8J2PeBcrsim7FrA8z9gZcs3HAmRn+9sq5T4Hej7Q9T+i/AWxCnWKFQRHnh9vCyJgcw==
+X-Gm-Gg: AYBFou3GRLPiOovSk/0aBTOMCWYHWwNB47pDj1jYi1oSg+4aLTCkOXiaiS8rFxITTVU
+	wizzE82nRq/smpePlD4ulz1pnVDO/T3+fgjwPQ8othQ6oiwUOxYsEPh1+y2cJWN9rXZo5EEq5VV
+	UBWKOIyKbx2BrwtsRVhFhFyxahULIpjte7ZRjW9MQKot5GAsVwLGPFSdduHCBYz57IfZRmocaqe
+	jnR3DIIwg8sFARa4yJQ0vtQTaYCkvpXNLUl2xy/yJNjjb2AcAd8hpGkeoJqXcb/OY61x227nGst
+	fRPEuGDGLM2mAwA38ixGdckgUtEYR8bycXEgYDqXrTK/mMrY9BSNOAr+f1QP/NvrMqPTMk83uf1
+	+SxYKsIp168ZpvyzFWDHRKQ/i0QtGkBuMHVjY56JV+3KDgOm0mcaou3E/xP2IfYUzR4UOMf53VB
+	tKIz01ZuiDBNkhBbTnwhw1a7BpoyYXJAxj7L5UALCSLqsAWdoSH+mx2BzhIu+8iShkWGwcgVZLT
+	S4yD5S6YwoinIEjKP5H/i4mrIH5I0yktuHX5QvkJo4m6NoogQ==
+X-Received: by 2002:a05:651c:2212:b0:3a6:6282:563e with SMTP id 38308e7fff4ca-3a662825decmr192391fa.4.1790427127350;
+        Sat, 26 Sep 2026 05:52:07 -0700 (PDT)
+Received: from Hedgehog.. (broadband-188-32-185-163.ip.moscow.rt.ru. [188.32.185.163])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64b436408sm13731261fa.3.2026.09.26.05.52.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 05:52:06 -0700 (PDT)
+From: Artem Shelenko <artem.shelenko@gmail.com>
+X-Google-Original-From: Artem Shelenko <Artem.Shelenko@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: rtl8723bs: use unsigned int in HAL interface
+Date: Sat, 26 Sep 2026 15:51:50 +0300
+Message-ID: <20260926125150.161466-1-Artem.Shelenko@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <are7cfMIHZZn6jLz@zx2c4.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 02:32:49PM +0200, Jason A. Donenfeld wrote:
-> On Sat, Sep 26, 2026 at 01:19:27PM +0100, Nathan Chancellor wrote:
-> > On Sat, Sep 26, 2026 at 11:39:43AM +0200, Andreas Schwab wrote:
-> > > On Sep 25 2026, Nathan Chancellor wrote:
-> > > 
-> > > > +#if __has_builtin(__builtin_memset_inline)
-> > > > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
-> > > > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
-> > > > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
-> > > > +#else
-> > > > +static inline void *memset_inline(void *dst, int value, size_t size)
-> > > > +{
-> > > > +	char *d = dst;
-> > > > +
-> > > > +	while (size--)
-> > > > +		*d++ = value;
-> > > > +
-> > > > +	return d;
-> > > > +}
-> > > > +#endif
-> > > > +
-> > > 
-> > > memset actually returns the original pointer, not the incremented one.
-> > > Nothing uses the return value of memset_inline here, but it is
-> > > confusing.
-> > 
-> > Whoops, good catch, I guess my fingers gave up on those last two
-> > characters :) I will fix this for v3 once there has been some time for
-> > further review.
-> 
-> Do we even need to return a value at all? Might as well just make the
-> function two lines:
-> 
-> +       for (char *d = dst; size--;)
-> +               *d++ = value;
+The rtl8723bs TODO asks to convert remaining unusual variable types.
 
-Yeah, good point, no point in returning something that we don't need
-plus this is basically what we had before, just with a different pointer
-type. Thanks for the suggestion.
+Replace uses of the uint typedef with unsigned int in rtw_hal_init()
+and rtw_hal_deinit(), including their local status variables and
+declarations. uint is a typedef for unsigned int, so this does not
+change behavior.
 
-> (Technically that could even be one, but maybe that sort of golf loses
-> clarity. Your choice.)
+Assisted-by: LLM
+Signed-off-by: Artem Shelenko <Artem.Shelenko@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/hal_intf.c     | 8 ++++----
+ drivers/staging/rtl8723bs/include/hal_intf.h | 4 ++--
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-I'll keep it two lines just for the sake of clarity.
+diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
+index 1443875d1..67b21b777 100644
+--- a/drivers/staging/rtl8723bs/hal/hal_intf.c
++++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
+@@ -27,9 +27,9 @@ static void rtw_hal_init_opmode(struct adapter *padapter)
+ 	rtw_setopmode_cmd(padapter, networkType, false);
+ }
+ 
+-uint rtw_hal_init(struct adapter *padapter)
++unsigned int rtw_hal_init(struct adapter *padapter)
+ {
+-	uint status;
++	unsigned int status;
+ 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
+ 
+ 	status = rtl8723bs_hal_init(padapter);
+@@ -54,9 +54,9 @@ uint rtw_hal_init(struct adapter *padapter)
+ 	return status;
+ }
+ 
+-uint rtw_hal_deinit(struct adapter *padapter)
++unsigned int rtw_hal_deinit(struct adapter *padapter)
+ {
+-	uint status = _SUCCESS;
++	unsigned int status = _SUCCESS;
+ 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
+ 
+ 	status = rtl8723bs_hal_deinit(padapter);
+diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
+index 7b6311652..b43a9c86a 100644
+--- a/drivers/staging/rtl8723bs/include/hal_intf.h
++++ b/drivers/staging/rtl8723bs/include/hal_intf.h
+@@ -175,8 +175,8 @@ typedef s32 (*c2h_id_filter)(u8 *c2h_evt);
+ #define	RX_PNOWakeUp			0x55
+ #define	AP_WakeUp			0x66
+ 
+-uint rtw_hal_init(struct adapter *padapter);
+-uint rtw_hal_deinit(struct adapter *padapter);
++unsigned int rtw_hal_init(struct adapter *padapter);
++unsigned int rtw_hal_deinit(struct adapter *padapter);
+ void rtw_hal_stop(struct adapter *padapter);
+ void rtw_hal_set_hwreg(struct adapter *padapter, u8 variable, u8 *val);
+ void rtw_hal_get_hwreg(struct adapter *padapter, u8 variable, u8 *val);
 
+base-commit: 8444548bd905f22093729065408284a6b46f7eee
 -- 
-Cheers,
-Nathan
+2.43.0
+
