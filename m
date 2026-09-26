@@ -1,185 +1,110 @@
-Received: from mail-wr2-f37.google.com (mail-wr2-f37.google.com [74.125.225.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A89C35BDC7
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8F6367B72;
+	Sat, 26 Sep 2026 05:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790401332; cv=none; b=lq/0Xxk/36UYog2jEiw0LaYc4RlEwQMLXwYyZ0aJl2pDAFP6uaJRCzzLtSiUT7fjVgPU74RIoUom1xA6AL2X2GGUrpoM0gAVOHYdAZAZHC583PpGr+7iI/hKC3WghwCWJlC72dkLiH1eYH/tZr+FExL4/8BaDcJEPAQzsh7IjwA=
+	t=1790401351; cv=none; b=fcNwgUnay0jgsyH6nPPA61rrmzloFD1iJhyjGJvgD1vNCgCQTEw2pQzU1jT5pgZgReZWVznP3vFk4aki1Ksn4kv1+bektQF2k7KJA/r5nx5kzGXbFT+8W7Z5EC5xQGPwxVjTBFfQGUtSTVmf/6c3fsnUu8tNWY34bsNYBouUTJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790401332; c=relaxed/simple;
-	bh=ihSErNzL28dopbbYtQk6sfe08O6dP4QtdIBtZVb4Srg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X/egzkj6cMoKqc6jsAPV+hGpmooti3pMsk3axh8QldIPVHFqryDVyzZ84vkfChNrshx8m+YxJZaVF+jab8VzJg94xH+v+nVf3qpy9YoS26Pht8gkoXpNR/e9JG3HUgyelzmaZLeMAUe9oD40e5+my3CXJi6NzSWLV2hNKUHWf3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1tx3DnV; arc=none smtp.client-ip=74.125.225.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790401351; c=relaxed/simple;
+	bh=dZ3lNZ98ohXvLya75m4DQmZEbMsVqt7sY1iKQ2ppqL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pm9+rLNx07AGgcBSVV4R+Q2ADwKCM86yhbtSux3383PK4oHyg0HKPHBEn6aQ3UYkT0CNLldrzZq4iKPkcQJ+aqUi7eZM91QaofmVA1RXPPP5Lh5uj8m+TFHGkpqGbM1AmsTqVIpQ/Vup8FhSklUuJnh/bfieCrzPnRVHU9s3umM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nNAgiwHN; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1tx3DnV"
-Received: by mail-wr2-f37.google.com with SMTP id ffacd0b85a97d-4887840c529so530301f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:42:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790401329; x=1791006129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=poMR+QoD4H3NHZQTFS1CZaPTIlu9qbIcYvmcDeHr1ig=;
-        b=p1tx3DnVVwWjOFwADRo6uLbq1ztMJJ4/vjhUmWOw5FWhkmnAnw8pKPuIaTROtM/6Fe
-         2z+LnIvYoACIncm62wZ4rqxahJ4YHayGVfRgcdfD8pbY//jl4G2NoRtDR3dtmv16OBBc
-         wqtr8F8w60WpxiIztu3q4nYUyWW47BOGTx8g0FVeZz6qQ4VHJKNktPaa6GBLaQ7cSuqX
-         k9XRG5wwzugG67nBG7QnLCvEM8UmY7HrsuhuTr/HvhtRnoUcZ99qpEwca6J+L2DuKEdV
-         LngO1WtQwZD1sqN/mECpXJXw8GL1q8Mj5waqBzuGturUJtxF0lgOXWZKK/BC+uTWEdjX
-         ESKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790401329; x=1791006129;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=poMR+QoD4H3NHZQTFS1CZaPTIlu9qbIcYvmcDeHr1ig=;
-        b=mj1ma2x26FkxV+s5ke27yO9MdUVxWa+M3m9dkEkXVrZmGndYtaMsIU5HrRJ7kgYwjU
-         KgtmloQw9Uq5hjVnTIVUKv0blZKM1peEoEn0q39mvrkdg3mgH1YEGm2T7tMG6OkWdikp
-         JMFt5Zvw13+ZCFL8EmrYdsGetzU/6mqjRddMtuNHDzb24rzgemsDGMwUHZf6kkoxOhZr
-         iJ1K+C6JGMQbvjOwDA0HZ6gWWduBHas0jiCBokHI73bZTsOub93LtasjvGIVTBonzNrr
-         1wGjLpBp4mPN+8iafIxr6jokXATEKgUqCO27rQUYbiQGOtHNaQGqadvgUAP5uYwb1/GS
-         tEdA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZYEPacnddjcyrTFpB1Jd+V8KvZn3j2FTOT9sDqKEU24KEBEMgGim+bLR/ah/x/pJAi12++tTGLnslgCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCKl+ZI5AFp9WarOmZczF/RvcIaCF3wITRXdTNeo9dZDanGKbh
-	leineOgZ+wLcgNj3JmSWUVdehk2ZEFB43/JncuRsPuQIodwKeBBDUaL3
-X-Gm-Gg: AYBFou2yj+zYtDo/EpX5m7NvIcNRwuD0LiTwJmmCuRtKSP/sUW5TBxXAHr8HT4SFV4U
-	lYojEymQXB0GPOxR6XQ/qQJG+HHEgMrEcb7nzcwpD1udCxRSJJ7xiuYeHOGnJE1wBAh0fN54aWR
-	Rk1+IyFNAtBEiGd4BRyOvQEqdmz2rh7H95Vjx6tOa+CmVIqbqNDjYiDSDBM1DFdCxf3jWJrkuJB
-	x1Id3tWwySXyG/9TiDgBoFr1t4P3GHvj8aAutPihiVPT34W7ibJ8RuA2d1yx2CXXOKA91M9Ribk
-	4KKOJlo6StDC8P+PtPH+fwFvoE62QKJFcVQ8o7Lxrl7bAuYTSgDPFHxv0Ax9/SVVMC7Abhf01eX
-	OT6iZL6B2APPZwhtgI1ELIrqM8jAa6Wxd0fJAOYl2PpCnJ4xMR4kP92QudKAc9QUM90Bai7DEHf
-	ToR3uiQtc61yyhjhpARx0EmVqajrSj8gsBxP1c4uRiktsROsdhlrTABZyBx2509ZY4Ojc7xQUX8
-	doiJd3oQFG8xOv9LZUFaPeqvt26NHEXb3HuWSvwh8d2
-X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-49fe66d05d7mr126116765e9.8.1790401328777;
-        Fri, 25 Sep 2026 22:42:08 -0700 (PDT)
-Received: from localhost.suse.org ([37.109.167.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff065873csm104782365e9.2.2026.09.25.22.42.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 22:42:08 -0700 (PDT)
-From: Sebastian Chlad <sebastianchlad@gmail.com>
-X-Google-Original-From: Sebastian Chlad <sebastian.chlad@suse.com>
-To: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Sebastian Chlad <sebastian.chlad@suse.com>,
-	"T . J . Mercier" <tjmercier@google.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests: memcg: Don't hang in the inotify tests without IN_DELETE_SELF
-Date: Sat, 26 Sep 2026 07:42:03 +0200
-Message-ID: <20260926054205.28933-1-sebastian.chlad@suse.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nNAgiwHN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790401348; x=1821937348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dZ3lNZ98ohXvLya75m4DQmZEbMsVqt7sY1iKQ2ppqL8=;
+  b=nNAgiwHNCAD90Q2FmiwtVhPjIM401p+vOr42tkqHJKWMsOdAi+T2Jwo+
+   cVl20yDTz3krsIdLts/SfBo8eQ0KX5+v3gFG71BkYCcID+/nmW29YmNhj
+   RwLakE6aFtxlJFkTb59OUEVrWJNlFRCWghB7phPoe/n8O11At9mmpTpJ8
+   3rJs4un92YxBurHLnIjj9XSA3BI0tqIVP8/4VjEmaWrAqMiRJ6n/D6l3p
+   veNmmIOeiumvNBZM74EfhQTcNcC6JfyofFNga68dFSyU7fBwOrva1v5T+
+   nrVgy4da6rZ4oxyhTWdjM46HL2dCrzDwZWqeP6RJoJNlAnV2vfcR81YAu
+   w==;
+X-CSE-ConnectionGUID: aMTdCMtaTledLSHqnPKy6A==
+X-CSE-MsgGUID: OlhMSD1pTdqc69kJC3hZGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="112968247"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="112968247"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 22:42:28 -0700
+X-CSE-ConnectionGUID: Jfx69RieSL66IMT+9d8hpA==
+X-CSE-MsgGUID: D06XQDR8SfiEYtC0O+iY/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="273719570"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 22:42:24 -0700
+Date: Sat, 26 Sep 2026 07:42:21 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Junjie Cao <junjie.cao@linux.dev>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
+	William Breathitt Gray <wbg@kernel.org>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v1 1/5] gpio: Move Intel GPIO drivers to the dedicated
+ subfolder
+Message-ID: <ardbPbkc5IyZWsZo@black.igk.intel.com>
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+ <20260925160913.1648565-2-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925160913.1648565-2-andriy.shevchenko@linux.intel.com>
 
-test_memcg_inotify_delete_file() and test_memcg_inotify_delete_dir()
-wait for IN_DELETE_SELF with a blocking read() on the inotify fd. On a
-kernel that does not send IN_DELETE_SELF for kernfs files and
-directories, the read() never returns and test_memcontrol hangs until
-it is killed by the kselftest timeout. The remaining tests do not run
-and no result is reported for the inotify tests.
+On Fri, Sep 25, 2026 at 05:57:03PM +0200, Andy Shevchenko wrote:
+> For better maintenance and development experience, move Intel GPIO
+> drivers to the dedicated subfolder. This starts with Intel MID
+> and Elkhart Lake ones that share the same core part.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Wait for the first event with poll() and a timeout. If IN_DELETE_SELF
-does not arrive in time, report it and fail the test instead of
-blocking, so that test_memcontrol completes and the remaining results
-are reported.
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 
-Assisted-by: claude-opus-5-5
-Signed-off-by: Sebastian Chlad <sebastian.chlad@suse.com>
----
- .../selftests/cgroup/test_memcontrol.c        | 27 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 4 deletions(-)
+> ---
+>  MAINTAINERS                                 |  9 ++---
+>  drivers/gpio/Kconfig                        | 31 ++---------------
+>  drivers/gpio/Makefile                       |  5 ++-
+>  drivers/gpio/intel/Kconfig                  | 37 +++++++++++++++++++++
+>  drivers/gpio/intel/Makefile                 |  6 ++++
+>  drivers/gpio/{ => intel}/gpio-elkhartlake.c |  0
+>  drivers/gpio/{ => intel}/gpio-merrifield.c  |  0
+>  drivers/gpio/{ => intel}/gpio-tangier.c     |  0
+>  drivers/gpio/{ => intel}/gpio-tangier.h     |  0
+>  9 files changed, 50 insertions(+), 38 deletions(-)
+>  create mode 100644 drivers/gpio/intel/Kconfig
+>  create mode 100644 drivers/gpio/intel/Makefile
+>  rename drivers/gpio/{ => intel}/gpio-elkhartlake.c (100%)
+>  rename drivers/gpio/{ => intel}/gpio-merrifield.c (100%)
+>  rename drivers/gpio/{ => intel}/gpio-tangier.c (100%)
+>  rename drivers/gpio/{ => intel}/gpio-tangier.h (100%)
 
-diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index 0ed82347044e..c00420acc9a1 100644
---- a/tools/testing/selftests/cgroup/test_memcontrol.c
-+++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -11,6 +11,7 @@
- #include <sys/types.h>
- #include <unistd.h>
- #include <sys/inotify.h>
-+#include <poll.h>
- #include <sys/socket.h>
- #include <sys/wait.h>
- #include <arpa/inet.h>
-@@ -1655,10 +1656,20 @@ static int test_memcg_oom_group_score_events(const char *root)
- 	return ret;
- }
- 
-+#define INOTIFY_TIMEOUT_MS 5000
-+
- static int read_event(int inotify_fd, int expected_event, int expected_wd)
- {
-+	struct pollfd pfd = { .fd = inotify_fd, .events = POLLIN };
- 	struct inotify_event event;
- 	ssize_t len = 0;
-+	int ret;
-+
-+	ret = poll(&pfd, 1, INOTIFY_TIMEOUT_MS);
-+	if (ret == 0)
-+		return -ETIMEDOUT;
-+	if (ret < 0)
-+		return -1;
- 
- 	len = read(inotify_fd, &event, sizeof(event));
- 	if (len < (ssize_t)sizeof(event))
-@@ -1678,7 +1689,7 @@ static int test_memcg_inotify_delete_file(const char *root)
- {
- 	int ret = KSFT_FAIL;
- 	char *memcg = NULL;
--	int fd, wd;
-+	int fd, wd, err;
- 
- 	memcg = cg_name(root, "memcg_test_0");
- 
-@@ -1701,7 +1712,11 @@ static int test_memcg_inotify_delete_file(const char *root)
- 	free(memcg);
- 	memcg = NULL;
- 
--	if (read_event(fd, IN_DELETE_SELF, wd))
-+	err = read_event(fd, IN_DELETE_SELF, wd);
-+	if (err == -ETIMEDOUT)
-+		fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
-+			INOTIFY_TIMEOUT_MS);
-+	if (err)
- 		goto cleanup;
- 
- 	if (read_event(fd, IN_IGNORED, wd))
-@@ -1723,7 +1738,7 @@ static int test_memcg_inotify_delete_dir(const char *root)
- {
- 	int ret = KSFT_FAIL;
- 	char *memcg = NULL;
--	int fd, wd;
-+	int fd, wd, err;
- 
- 	memcg = cg_name(root, "memcg_test_0");
- 
-@@ -1746,7 +1761,11 @@ static int test_memcg_inotify_delete_dir(const char *root)
- 	free(memcg);
- 	memcg = NULL;
- 
--	if (read_event(fd, IN_DELETE_SELF, wd))
-+	err = read_event(fd, IN_DELETE_SELF, wd);
-+	if (err == -ETIMEDOUT)
-+		fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
-+			INOTIFY_TIMEOUT_MS);
-+	if (err)
- 		goto cleanup;
- 
- 	if (read_event(fd, IN_IGNORED, wd))
--- 
-2.51.0
+These are already in good hands but I'd like to be atleast informed
+about these. Although I'm not sure if it's worth a dedicated entry,
+so I'll leave it upto you.
 
+Raag
