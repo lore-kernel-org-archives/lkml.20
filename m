@@ -1,72 +1,146 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECB534CFC5;
-	Sat, 26 Sep 2026 07:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F9934EF1F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790407822; cv=none; b=flQNv/AgMNyId5sUOtFjT6xC6K2LZ+4nQEhQUr401XrsjUKDA2HJIKD2LpM30DFCd0yeT5GufOUSOjE3XudXd6R4PUaKo2Dheh6yZofQKEWGt5SLexARfv/iSZFQYAsrEPeTSlo3sr13Xwli3vy2Gp9VuaBHyToA/aaGG52QY1Q=
+	t=1790407915; cv=none; b=XWo2/YMVKbyCACy1C6Vxy7Ax0mt+b2+94pOGzV5T05lOjXGoHAMzwtwUESQMOxIl1f4gZXFl/4nDktfBIO9Kxd3kw2peKEpqdSFBttpYElsr5fRomBLpyG3bYO4HFbaYEJJ3y9l045LqcCY4NAfnoz8GkX4VXq07C61NUD5s15E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790407822; c=relaxed/simple;
-	bh=hMgD4cND9CJBndYFu6le5SnVC3/bG3HpVvXWc4Crebk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=dGH+3/7IHjwFF+pRaoVhmowXH2beavowFAcsdZogTAviPDgwKgLOqgD9L0usUf7X3ShbvSJsXcpq3nNtFxkWKg/jli8GeAYihhd9le9H6UONP5T+SYVtXV+yKNNiqMbMh1l+0mKrgAGWO5XNuzSHFMmL74XM18eJKI3ChGgVLQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KEXrh/Z7; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790407915; c=relaxed/simple;
+	bh=kzU8QNWm28e2y70xXRJErhWUPUtjovS2IQKpU+gp4tU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QV5C1NO1r8a5TlSH6P7wBAfGIMHGuEYgfEMXYa37D2wLGfcl/SJKf+9BFSgrbK7KZT4eixYsYuNKir/7UBGCz8prSBlMyi3CKqv/+fqIU6kBXF9+RWFjvEKXpw+wf2CglxB0cwb1BVSH7HxC88UUmO6lAjkDN6ymkQllleIIGrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smQxpmTb; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KEXrh/Z7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=hMgD4cND9CJBndYFu6le5SnVC3/bG3HpVvXWc4Crebk=; b=K
-	EXrh/Z7jbQ5QyV+T+eAGsBVK+0+xwpDcKCqaFk4OKq8Pcg8uDRc5Vo0wSflp/Oee
-	HH3SM/Vnts1elGa1ZXlahHezvQittslD1zh0qoo/p/toJzxRcEyK2GfL7f4EgTNf
-	wrv9ooc1gx0SVO4gzph3hF8GDI+9qt3ZdPia2gssH8=
-Date: Sat, 26 Sep 2026 15:29:45 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: liubaolin <liubaolin12138@163.com>
-Cc: "Namjae Jeon" <linkinjeon@kernel.org>,
-	"Sungjong Seo" <sj1557.seo@samsung.com>,
-	"Yuezhang Mo" <yuezhang.mo@sony.com>, "Jan Kara" <jack@suse.com>,
-	"Hyunchul Lee" <hyc.lee@gmail.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>, exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	ntfs@lists.linux.dev
-Subject: Re:Re: [PATCH 2/3] ntfs: drain in-flight DIO before buffered write
- fallback
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <b51a2ffa-5778-4075-a679-84cd3acf419a@163.com>
-References: <20260924110544.601390-1-yaojiale02@163.com>
- <20260924110544.601390-3-yaojiale02@163.com>
- <b51a2ffa-5778-4075-a679-84cd3acf419a@163.com>
-X-NTES-SC: AL_Qu2SAvibuE8j4yacZukdmE8Uges8WcC0svki1YJUc/gEiA305CwnXVJyOEHmy8eeADCmojeSbzhe59xaeahmp2/Ymvt05eKFWO4AJlQkZQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smQxpmTb"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71974de4so922645e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790407912; x=1791012712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RkvDHiMHE95iZAf8lTowG72tJREbCH/YatR07v+AyBo=;
+        b=smQxpmTbpnHEyouNNbn8fPqFph9iroQCrpJ3A+18pARzvTOU07uGilo298BZ8CuxbT
+         CPoTJZWz2J1sLjXC7kWyFcoyWYii0Mu6UsZnaFObQS1dU9kKs6kV+dFRarNQe0Mk7Zwe
+         9X1IGHDBrzhvmP3bYOdwQoH2rO5zEC6IV2oDRVVM1lnKzwv/n6OjqwFLAMoWYVNIShaK
+         1xB7bWc2LFIBKJjRAEkmFjlpN1dpSVd0jQ4GU8jMAyVpUclwW/8tFXnBuKKtJ97vbJzd
+         mkxftbhBGnNDDUn6xMWI0S9hY285thCe1KPeAMfyl4wL11Af3wK+qp/kS+kerhZZnG1K
+         fgZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790407912; x=1791012712;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RkvDHiMHE95iZAf8lTowG72tJREbCH/YatR07v+AyBo=;
+        b=AGg7nEsW/FvkZsgY+HQ/rlK0Z3GjxzDaaPdVz6Y31jCrT1oop9+J/dxxIQWJnrbvKG
+         qetY0OhdaDcUQ3ySVlX7HuoJqUY4G3iy7PO2Sp4oEql06CTiuWFtb/pSdRJF3LmMZPHE
+         cTPWsv6drFQbolNEDdcTvY5IqfJ3AElN4kOxrNT0zV4dHgnphWY5CqHQ9qf1uSxEgFMN
+         cyiZ8oElSEtvmlCJTnqMVXfWz1Otxwgpz9obB/8L1BDOu8QeuJCDv0Xoco15wuNjNkG/
+         bfYW+i8b5CVxk2QO43Migp4r0WzYPK+tBNkjiyucdwVC4SSp2rsit/wVuY9+t2z6rB7o
+         kc2g==
+X-Forwarded-Encrypted: i=1; AKwUvBynEdfLlQxvuesSfAIYPQkwfGwjQFED+ri9NzQuDUcF0tBBrWTlw1R6FVxY5il1brERcignk7OLvZUW/8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9UlIKAhb6ra++3OWvZkRSr3V3S8PB4JM1rNHXqaL/zwh1Q1a8
+	wBlLmOYrP1RKlepW//o4Vg5f5qWSFNMsFYi8VSBsZSsdeufnhRJ/7Ulu
+X-Gm-Gg: AYBFou0947LLbeOZJtJbbJB1IY6e1OuQmXeBAoGQd2ncdD+MLvTCmvoQNeStQQWj9S2
+	6cMm9yuEvaImLnT5S0qMAK3b8LWucUDcAWES0XCRfofNk7E96rpYz59OCnflPxLAQSUbnp7n8yS
+	euhBiJJsBeBVXeMwWTdECIHQb0npz0LzV99JEMuGo6CsxNViwPDK3l0kBz1sWrHNqfSejwj04z2
+	59yDIRYJIzerT2yLFs39Z2USGPDOTHjjQjisAZEoMJ9MnD9FvimrIIHidik3S2j/tQ8PiwtbN0n
+	IlJUGeh3kVXku2Ttk8suLIYOXJJpzt1ypIAcOdRSohpo9v+hJ1ef4r7lfi6PV3spjl6adQoHH+x
+	5sgKpFAPG+VtFNuNKzhVjB0EFtXu6jm+Av5e/9kqs28kKwCgYm6vMAOnX55kVPcjc6hErVXyS2S
+	EKAMvuCOzJPB+b5O0NMhtaV6FsObUq4Ih1auBgqPbJ8nLaStMbqYt/6NVYbdsb36enitupNGKWG
+	/zwxj1aLtzr1sr0hKCUuPUS2A==
+X-Received: by 2002:a05:600c:1c2a:b0:49e:7cc6:ec88 with SMTP id 5b1f17b1804b1-49fedddbad9mr107313315e9.1.1790407911686;
+        Sat, 26 Sep 2026 00:31:51 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349fa1sm18198789f8f.8.2026.09.26.00.31.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 00:31:51 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: sshegde@linux.ibm.com
+Cc: arighi@nvidia.com,
+	chleroy@kernel.org,
+	christian.loehle@arm.com,
+	corbet@lwn.net,
+	dietmar.eggemann@arm.com,
+	frederic@kernel.org,
+	gregkh@linuxfoundation.org,
+	hdanton@sina.com,
+	huschle@linux.ibm.com,
+	iii@linux.ibm.com,
+	jgross@suse.com,
+	juri.lelli@redhat.com,
+	kernellwp@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	maz@kernel.org,
+	meted@linux.ibm.com,
+	mingo@kernel.org,
+	pauld@redhat.com,
+	pbonzini@redhat.com,
+	peterz@infradead.org,
+	rafael@kernel.org,
+	rdunlap@infradead.org,
+	rostedt@goodmis.org,
+	seanjc@google.com,
+	srikar@linux.ibm.com,
+	sunlightlinux@gmail.com,
+	tglx@kernel.org,
+	tj@kernel.org,
+	tommaso.cucinotta@gmail.com,
+	vincent.guittot@linaro.org,
+	vineeth@bitbyteword.org,
+	virtualization@lists.linux.dev,
+	vschneid@redhat.com,
+	ynorov@nvidia.com,
+	yury.norov@gmail.com
+Subject: Re: [PATCH v13 01/13] sched/cputime: Add kcpustat_field_total helper
+Date: Sat, 26 Sep 2026 10:31:46 +0300
+Message-ID: <20260926073147.140907-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909135617.871006-2-sshegde@linux.ibm.com>
+References: <20260909135617.871006-2-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <8700d3f.1059.1a0dc9ebcb3.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cCgvCgD3N+5pdLdq9+pOAA--.9765W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wm-+Wq3dGlpcgAA37
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-SGkgQmFvbGluLCAKQXQgMjAyNi0wOS0yNCAyMDowNDoxNCwgImxpdWJhb2xpbiIgPGxpdWJhb2xp
-bjEyMTM4QDE2My5jb20+IHdyb3RlOgo+SGkgSmlhbGUsCj4gICAgVGhpcyBmYWxsYmFjayBwYXRo
-IGNhbiBzdGlsbCBoYXZlIElPQ0JfTk9XQUlUIHNldCwgYnV0IAo+aW5vZGVfZGlvX3dhaXQoKSBi
-bG9ja3Mgd2hlbiB0aGVyZSBpcyBvdXRzdGFuZGluZyBESU8uIENsZWFyaW5nIAo+SU9DQl9ESVJF
-Q1QgZG9lcyBub3QgY2xlYXIgSU9DQl9OT1dBSVQuCj4KPiAgIEluIGNvbXBhcmlzb24sIGV4dDRf
-YnVmZmVyZWRfd3JpdGVfaXRlcigpIHJlamVjdHMgTk9XQUlUIHJlcXVlc3RzIAo+YmVmb3JlIHJl
-YWNoaW5nIHRoZSB3YWl0Lgo+Cj4gICBDb3VsZCB3ZSBhbHNvIGhhbmRsZSBJT0NCX05PV0FJVCBi
-ZWZvcmUgZW50ZXJpbmcgdGhpcyBwb3RlbnRpYWxseSAKPmJsb2NraW5nIGZhbGxiYWNrPwo+ICAg
-SWYgbm8gYnl0ZXMgaGF2ZSBiZWVuIHdyaXR0ZW4sIHdlIGNhbiByZXR1cm4gLUVBR0FJTjsgaWYg
-c29tZSBESU8gaGFzIAo+YWxyZWFkeSBjb21wbGV0ZWQsIHdlIHNob3VsZCBwcmVzZXJ2ZSB0aGUg
-cG9zaXRpdmUgc2hvcnQtd3JpdGUgcmVzdWx0LgoKVjIgaXMgaGVyZSwgaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvYWxsLzIwMjYwOTI2MDcyNjEyLjMwMjI2ODAtMS15YW9qaWFsZTAyQDE2My5jb20K
-CkppYWxl
+Weekends...
+
+> Provide a new helper function which sums up a given type of cpustat
+> over a specified cpumask.
+
+> This allows the caller's code to be simpler and avoids duplication.
+> For example, subsequent patch in the steal governor use this exact
+> same pattern when calculating steal time.
+
+> @@ -207,16 +207,12 @@ static unsigned long hd_calculate_steal_percentage(void)
+>  {
+>  	unsigned long time_delta, steal_delta, steal, percentage;
+>  	static ktime_t prev;
+> -	int cpus, cpu;
+> +	int cpus;
+>  	ktime_t now;
+>  
+> -	cpus = 0;
+> -	steal = 0;
+>  	percentage = 0;
+> -	for_each_cpu(cpu, &hd_vmvl_cpumask) {
+> -		steal += kcpustat_cpu(cpu).cpustat[CPUTIME_STEAL];
+> -		cpus++;
+> -	}
+> +	steal = kcpustat_field_total(CPUTIME_STEAL, &hd_vmvl_cpumask);
+> +	cpus = cpumask_weight(&hd_vmvl_cpumask);
+
+nit. The cpumask_weight() change is not mentioned in the commit message.
+
+Thanks,
+Kayra :>
