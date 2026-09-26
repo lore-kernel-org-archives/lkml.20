@@ -1,237 +1,98 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499CF35B636;
-	Sat, 26 Sep 2026 13:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3515459ACB
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430626; cv=none; b=oOwqtCI5CuuIduSbhevToDkjQiAYuSoPc5u5AdR2kjLiIUmLN2WTMTNmBGustqVR2O2u+RI7rjWbP11kldcHL8FVJ6SeZtLMAZnSmwKxSjU9wmth29LGXEQ0+Ehqe0JK/3rUeOnzWeFgssh4sPxKtYkvClcrae9cfTC6ZAcZ75E=
+	t=1790430769; cv=none; b=kmBOwdWc9QP4eAy/jA133zWN9Nqq47AuTTak74yqrUEdyVDv+vfApeZUg/G36xgnvz2Z4DBlyi9XJ2BRrl78K51c3EdXAyKeEaeqQY6+eZpDyYj6Rc5u6Aye41WrOtXIOg3OQ3YKbVkOIoe5Tvf87f/jCk4EHWol2LPrN5PkmQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430626; c=relaxed/simple;
-	bh=2WGsOmnxLclI+ygrJvzH6dUPGw5WZKi6FxVFImJV1kQ=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UVb8xVgevFlwF7L9cKdQ+Q0YbVStmpbhFk+FgSY2nlrMrac5gt/RhEQtuJwvjBBVDImQDov5DWh2Uw9CMQ1QDX3NZDxJbEsXp88k1NrpOIYeQKVF26VV+V8V2jvZ1ITBPapguRZ5YMgT0cnzb7hkxMKLmSZVB8ywAqLpdmpM+6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xASnE-000000001eh-3lHX;
-	Sat, 26 Sep 2026 13:50:20 +0000
-Date: Sat, 26 Sep 2026 14:50:17 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH net-next v18 6/6] net: dsa: mxl862xx: document devlink flash
- and info support
-Message-ID: <c555c5507ffce3827917d9fb629b19cf928894cc.1790426599.git.daniel@makrotopia.org>
-References: <cover.1790426599.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1790430769; c=relaxed/simple;
+	bh=nDVeLzpJFTHd5XVtx/oGFPJPrtX7jH3RBOLzMXzveD4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Wt2CvlwLAhGavrkdEH9/PlRiqpNtqaWfvmyAv6GMQfhoTMKENz4dqZIZecNYcPhewgJk+akB26pOLTG01m1298BIwRbOESTRfN4KOsY+9P7W/6uSszPcKlR/wnIQcx/E0+aq+3jvzwBuid1FqLVfwpbhyCa6B3NrV90WK0zaNOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l7FTkFKH; arc=none smtp.client-ip=95.215.58.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l7FTkFKH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nDVeLzpJFTHd5XVtx/oGFPJPrtX7jH3RBOLzMXzveD4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790430761; v=1; x=1791035561;
+ b=l7FTkFKHrmdG97cts+C/0DeNiEjOpp/zCj3Al/QKNhYnGI/uH9iySz54NEjJUDYBXUSzJq9j
+ gXVU+ba3as3YNQIuMe7vUfU2oCyLwf6Dk7eerQTaAb0iAuBWYutlUQtaYiyLNBqmmOAj+WR2nll
+ AN0ZH7qVUVaVkpZ5zjCzHFqc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f7f9435df3e225a9;
+	Sat, 26 Sep 2026 13:52:40 +0000
+X-Mizu-Trace-ID: f7f9435df3e225a9
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1790426599.git.daniel@makrotopia.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 26 Sep 2026 13:52:35 +0000
+Message-Id: <DLPAQECUALBD.2J6OV9FK2MA87@linux.dev>
+Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
+ <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
+ <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
+ <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
+ <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
+ <mason@kernel.org>, <ihor.solodrai@linux.dev>
+Subject: Re: [PATCH bpf v4 2/3] bpf: Skip detached progs in trampoline
+ images that are still in use
+From: "Florent Revest" <florent.revest@linux.dev>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>,
+ <bot+bpf-ci@kernel.org>, <bpf@vger.kernel.org>, <daniel@iogearbox.net>,
+ <andrii@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <20260925100342.481242-3-florent.revest@linux.dev>
+ <6a6d43e6bada7a1433cd525c9ec31780ed9b2401c8834894defdf671601b2f1d@mail.kernel.org> <DLP46AE97EYD.1I2HDPGBR8GME@gmail.com>
+In-Reply-To: <DLP46AE97EYD.1I2HDPGBR8GME@gmail.com>
 
-Describe the devlink info versions and the flash update behaviour,
-including the MCUboot rescue mode recovery, in a dedicated file under
-Documentation/networking/devlink/ and link it from the index. Add the
-new file to the driver's MAINTAINERS entry.
+On Sat Sep 26, 2026 at 8:44 AM UTC, Alexei Starovoitov wrote:
+> On Fri, Sep 25, 2026 at 10:47 AM bot+bpf-ci@kernel.org <bot+bpf-ci@kernel=
+.org> wrote:
+> >> +	/* nops for move_imm+jirl, patched to skip this prog when it is deta=
+ched */
+> >> +	for (i =3D 0; i < LOONGARCH_LONG_JUMP_NINSNS; i++)
+> >> +		emit_insn(ctx, nop);
+> >
+> > Can a task preempted inside the skip sled resume into half of the new j=
+ump
+> > sequence and jump to a garbage address?
+>
+> [...]
+>
+> > Could the LoongArch skip site use a single instruction instead? For
+> > example, a 'b' to the skip target, which is always within the +/-128MB
+> > range of the same image, patched from nop to 'b'. The rest of the sled
+> > would then be unnecessary.
+>
+> Seems like a real bug. Same issue on riscv.
+>
+> ip_after_call was patched in bpf_tramp_image_put() when the image was
+> already unreachable. Now bpf_trampoline_remove_prog() patches cur_image
+> before bpf_trampoline_update() replaces it, so every call of the traced
+> function goes through the sled while it is rewritten. stop_machine
+> doesn't help the task that it preempted in the middle of the sled.
+>
+> Pls fix and respin.
+> Everything else looks good.
 
-Assisted-by: LLM
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v18:
- - the rescue-mode firmware version is reported as running only, and a
-   re-probe that cannot be scheduled is logged on every path and leaves
-   later flashes refused with -EBUSY until a rebind (found by Sashiko AI
-   review)
-v17: no changes
-v16:
- - document that a reboot waits for a running flash and that one
-   requested afterwards is refused, and that a bus error ends the
-   download recovery for good
- - title-case the "Flash Update" heading, as the other devlink driver
-   documents do
- - say that the ports come back down from a flash, that a reprobe which
-   cannot be scheduled needs a rebind, and which of the two recovery
-   failures needs a power cycle and which a rebind (found by Sashiko AI
-   review)
-v15:
- - asic.rev is read from the CHIP ID registers as well, not from one
-   register word shared with asic.id (found by Sashiko AI review)
- - -EIO says the driver gave up on the recovery, which may need a driver
-   rebind rather than a power cycle, and an interrupted opening
-   handshake is reported the same way (found by Sashiko AI review)
-v14: no changes
-v13: no changes
-v12: no changes
-v11: no changes
-v10: document that a switch power cycled on its own needs the driver
-     unbound and rebound before a failed recovery is re-examined
-v9: no changes, picked up Andrew's v5 Reviewed-by
-v8:
- - asic.id and asic.rev are omitted whenever the part number reads
-   zero, not only in MCUboot rescue mode (found by Sashiko AI review)
- - drop the claim that "0.0.0" marks a switch that never ran firmware;
-   rescue mode always reports it (found by Sashiko AI review)
- - document devlink dev flash as the signal that says whether a
-   recovery is still running, including the -EIO it returns once the
-   recovery has failed (found by Sashiko AI review)
-v7: no changes
-v6: no changes
-v5: new patch, splitting the devlink documentation out of the flash
-    update and rescue mode recovery patches so each keeps to code
-    (Jakub Kicinski asked for the documentation)
-
- Documentation/networking/devlink/index.rst    |  1 +
- Documentation/networking/devlink/mxl862xx.rst | 95 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 3 files changed, 97 insertions(+)
- create mode 100644 Documentation/networking/devlink/mxl862xx.rst
-
-diff --git a/Documentation/networking/devlink/index.rst b/Documentation/networking/devlink/index.rst
-index 1af780c811ee..53d3ef16d13f 100644
---- a/Documentation/networking/devlink/index.rst
-+++ b/Documentation/networking/devlink/index.rst
-@@ -95,6 +95,7 @@ parameters, info versions, and other features it supports.
-    mlx5
-    mlxsw
-    mv88e6xxx
-+   mxl862xx
-    netdevsim
-    nfp
-    octeontx2
-diff --git a/Documentation/networking/devlink/mxl862xx.rst b/Documentation/networking/devlink/mxl862xx.rst
-new file mode 100644
-index 000000000000..c2dfc72ef9a4
---- /dev/null
-+++ b/Documentation/networking/devlink/mxl862xx.rst
-@@ -0,0 +1,95 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+========================
-+mxl862xx devlink support
-+========================
-+
-+This document describes the devlink features implemented by the
-+``mxl862xx`` device driver.
-+
-+Info versions
-+=============
-+
-+The ``mxl862xx`` driver reports the following versions
-+
-+.. list-table:: devlink info versions implemented
-+   :widths: 5 5 5 85
-+
-+   * - Name
-+     - Type
-+     - Example
-+     - Description
-+   * - ``asic.id``
-+     - fixed
-+     - 8628
-+     - The chip part number read from the CHIP ID registers. Omitted
-+       when the part number reads as zero, which happens for a switch
-+       sitting in MCUboot rescue mode (the registers need a running
-+       firmware), for an unfused part, and after a failed flash.
-+   * - ``asic.rev``
-+     - fixed
-+     - 0
-+     - The chip version, read from the CHIP ID registers as well. Both
-+       values are published behind the same check, so it is omitted
-+       whenever ``asic.id`` is.
-+   * - ``fw``
-+     - running, stored
-+     - 1.0.70
-+     - Version of the firmware running on the switch, reported as both
-+       running and stored since the switch boots it from its own flash.
-+       It is omitted while no firmware version is known: after a failed
-+       flash, and in MCUboot rescue mode while an interrupted download
-+       is still being recovered in the background. Once the loader is
-+       ready to accept a new image the version appears as "0.0.0",
-+       which no released firmware reports, so version-comparing tools
-+       offer any available release as an upgrade; it is reported as
-+       running only, since the driver cannot tell what the flash holds
-+       while the loader runs. Use ``devlink dev
-+       flash`` to tell a recovering switch from a ready one, see below;
-+       a missing version on its own does not say why.
-+
-+Flash Update
-+============
-+
-+The ``mxl862xx`` driver implements support for ``devlink dev flash``.
-+The signed firmware image is transferred to the switch over the same
-+MDIO bus which is also used to manage the switch, then verified and
-+installed by the MCUboot bootloader running on the switch. All ports
-+of the switch are closed for the duration of the update and the driver
-+reprobes the switch after it has rebooted into the new firmware; they
-+come back registered but down, so userspace brings them up again. A
-+complete flash and reprobe cycle takes about one minute. In the rare
-+case that the reprobe cannot be scheduled at all, the kernel log says
-+so, ``devlink dev flash`` reports that error or the transfer's own if
-+the transfer failed as well, and the driver stays bound to a switch it
-+no longer tracks, refusing further updates with ``-EBUSY``, until it is
-+unbound and rebound. A reboot started
-+while an update is running waits for the transfer to finish, and an
-+update requested after the system has begun shutting down is refused
-+with ``-ENODEV``.
-+
-+A switch stuck in MCUboot rescue mode, e.g. after an interrupted
-+update, is registered without user ports. If the previous download was
-+interrupted mid-transfer the loader is wedged; the driver drains it
-+back to a clean ready state in the background, one byte at a time,
-+which takes tens of minutes for a large image and is reported through
-+the kernel log as it progresses. During that recovery ``devlink dev
-+flash`` returns ``-EBUSY`` with an extack message saying so, and
-+``devlink dev info`` reports no firmware version. Once the loader is
-+ready the firmware version appears and flashing a firmware image
-+through the regular update flow recovers the switch.
-+
-+If the driver gives up on the recovery, ``devlink dev flash`` returns
-+``-EIO`` and says so in its extack message. The drain runs once and is
-+never resumed, so a failed MDIO transaction ends it as well. A loader
-+that stops answering the drain needs a power cycle; a completed drain
-+whose reprobe could not be scheduled, and a drain a bus error cut
-+short, need only a driver rebind. The driver re-examines the switch
-+when it binds and at no other time, so a power cycle on a board where
-+the switch can be cycled on its own still has to be followed by an
-+unbind and rebind for the recovered switch to be recognised.
-+
-+A download interrupted during its opening handshake, before the image
-+header reached the loader, is reported the same way. The loader waits
-+for a header that no later session can supply, so that state needs a
-+power cycle.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6de1ff058db6..cb1dad080f63 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16250,6 +16250,7 @@ M:	Daniel Golle <daniel@makrotopia.org>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/maxlinear,mxl862xx.yaml
-+F:	Documentation/networking/devlink/mxl862xx.rst
- F:	drivers/net/dsa/mxl862xx/
- F:	net/dsa/tag_mxl862xx.c
- 
--- 
-2.55.0
+Ok. In v5, on riscv and loongarch, it will emit single nops at skip sites a=
+nd
+patch them with jal or b instructions. They can always reach their target s=
+ince
+they are in the same image. This requires a new arch_bpf_trampoline_skip() =
+hook
+that defaults to bpf_arch_text_poke() on other archs. I tested it in QEMU.
