@@ -1,133 +1,116 @@
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A847F421221;
-	Sun, 27 Sep 2026 18:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C47F3B388D;
+	Sun, 27 Sep 2026 18:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534852; cv=none; b=Vgm9/qqFhRHmPXdAIo/d+4Fg6cf4lUawWCQV0QgCdW0S38DALF4qaKTvHa/jlTeC1CeKUeKi748DLOh8/GKhB7hIuU7aWDcJ5hvaxhZIkWtImbhSQGV+Ki9sDW7cntx/uLowkSLG39Vq/w6+DQRciNXgusXmVhpNyxQoOogBKOU=
+	t=1790534863; cv=none; b=OYu/b1zSb9OgvPd2Lntzjn3+IFtxZhfZojiVlqCk5Tf2h6BbTzMNlEDcyj1qDZZjaAcbl9UeSeiOWoU82bORPh0QQ+mkd6liS7ONjvaWOLed8/tH3VoBZU22uu4XAjqwEy0t5lwvmAYUpzVvfJaOxTjJoAJ3oyK99+g7JEzeh/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534852; c=relaxed/simple;
-	bh=zdxxVPc9zPMoCgBXm1tiX9b+anurPTRVkpqwZuR+biI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=VCWULS0DX/GOeU2whR536mEixNVeeeSJX/bPF5VchHSnJ1pXZ8hBpw1SUyxheUPMjGbCuZ5CTLjPhnN/7UMLnxqqaC4xaLxrrjIen5TiSfInUGBLzQ5Rl+uXwRi3RiirAP6wKz7HXonYxOlmA4wJUGiQFfdwMIo3yGfg2DfWIAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=YF+ir9Nl; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=YF+ir9Nl; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1790534863; c=relaxed/simple;
+	bh=3pJmv3/3umA7ZkP71xzHvblAqWKINyjEcVMStuRTR70=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f/vuKr+JNm6Xr6c0XwXiBNYXuocmOURKATVe1Zq6V6wVfJqtwT7JOcyOW6Ub5FhRuMobkQPDekfUskaOxf8dgocvnFIMqq0vLwylyo+rOitREx+0rv02puW7CGfdjma0sgnhb8ynTDSDieoOt3XCbnV24JjBdLqcbN6+qBLSR+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiouCllz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="YF+ir9Nl";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="YF+ir9Nl"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id ACD4DA0326;
-	Sun, 27 Sep 2026 20:47:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1790534841; bh=zdxxVPc9zPMoCgBXm1tiX9b+anurPTRVkpqwZuR+biI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=YF+ir9NlSZwLP5wDS6ZpHzltbW0Z7fkn74hobIc28+T5XfVv7+o9sIS8rVNVmc0oi
-	 F0ST08Uyxv7oWwnxLx9X9FyYNS9igxq1T1rMsxBRDtRrSpNd9RaTnJCogGplSuPJTt
-	 N334kuL0b2D9qvV7YoPoDHPAmAOSvNO5FozKK2rBnHt3CI+GiyvJLnpkVz4WLfojSB
-	 hj0M3mIF8Nwy+p8jxgxEMUklzSv+sGjp5JSXqLojufW05csg3oa4OiyVhY2x5dKt4d
-	 01mUHeTVuAzUth7U0KAgQ3b4KWY1WfuMeihatuvhS0CRsPK1MvSu/EDEuPrX1npRzB
-	 TVdlBBTD5JXTA==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id QkHDXpVEv0P8; Sun, 27 Sep 2026 20:47:21 +0200 (CEST)
-Received: from end (lfbn-bor-1-980-210.w90-120.abo.wanadoo.fr [90.120.173.210])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id BF3C8A02D0;
-	Sun, 27 Sep 2026 20:47:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1790534841; bh=zdxxVPc9zPMoCgBXm1tiX9b+anurPTRVkpqwZuR+biI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=YF+ir9NlSZwLP5wDS6ZpHzltbW0Z7fkn74hobIc28+T5XfVv7+o9sIS8rVNVmc0oi
-	 F0ST08Uyxv7oWwnxLx9X9FyYNS9igxq1T1rMsxBRDtRrSpNd9RaTnJCogGplSuPJTt
-	 N334kuL0b2D9qvV7YoPoDHPAmAOSvNO5FozKK2rBnHt3CI+GiyvJLnpkVz4WLfojSB
-	 hj0M3mIF8Nwy+p8jxgxEMUklzSv+sGjp5JSXqLojufW05csg3oa4OiyVhY2x5dKt4d
-	 01mUHeTVuAzUth7U0KAgQ3b4KWY1WfuMeihatuvhS0CRsPK1MvSu/EDEuPrX1npRzB
-	 TVdlBBTD5JXTA==
-Received: from samy by end with local (Exim 4.100.1)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1xAtuB-00000001qD2-3qAf;
-	Sun, 27 Sep 2026 20:47:19 +0200
-Date: Sun, 27 Sep 2026 20:47:19 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
-	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
-	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] printk: nbcon: Introduce Braille helpers
-Message-ID: <arlktxU1LbmmM3TE@end>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Petr Mladek <pmladek@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
-	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
-	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiouCllz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C85C1F000FF;
+	Sun, 27 Sep 2026 18:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790534861;
+	bh=rTGkk6MKJYEzG3GcMmmmeg6WnVpHww0g7NA09ykyC/4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XiouCllzQ8ykayo10Wtw+WZ9XUHvKJYxIdOip1YinuSyngXjM6haeQeLkKxhkYMWh
+	 TEz97N/hVI+VL6sO9QCwcl0Hv2/P2G8FIsgYsoeBBCujZIwMrpMfkogK0OX77JosxG
+	 872EwwComyyYJvmkAxQaDjK2Z1y/jNw6UYUXQltl7Kw4goXb+9PPH7XPg6diolzM8d
+	 CtoHzhvC3dsG1UjptevwG1lfIp7eASokpg+hub9c1h1AawVUeGVtPBxxt8V3bWnZhT
+	 tey8FMJLq52mxDjR4COhdZNzCbsQ94N4WYx4riJmDIgbe9ALxgAoiq9M8NPYxdgko7
+	 h4J6/NSUw0vUA==
+Date: Sun, 27 Sep 2026 19:47:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Cheick Traore <cheick.traore-ext@st.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] iio: adc: stm32: fix minimum sampling time values
+Message-ID: <20260927194734.7bc017a2@jic23-hlaptop>
+In-Reply-To: <20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com>
+References: <20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ld8pp2wq.fsf@jogness.linutronix.de>
- <araWJhKdVZnfCQcg@pathway.suse.cz>
- <877bk9id6f.fsf@jogness.linutronix.de>
- <araJ-EBntyqOGPkT@pathway.suse.cz>
- <87a4p5iejg.fsf@jogness.linutronix.de>
- <araGZN5_ixhM4AXh@pathway.suse.cz>
-Organization: I am not organized
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Thu, 24 Sep 2026 11:53:56 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-Petr Mladek, le ven. 25 sept. 2026 16:34:12 +0200, a ecrit:
-> Well, I guess that the driver was created for a particular Braille
-> device.
-
-Yes. It wouldn't be hard to add more.
-
-> I wonder if there exists Braille devices working with other serial
-> ports which are compatible...
-
-I am not sure what the question is. There are braille devices connected
-through good-old serial port, USB port, bluetooth, etc.
-
-Petr Mladek, le ven. 25 sept. 2026 16:49:28 +0200, a ecrit:
-> On Fri 2026-09-25 16:42:19, John Ogness wrote:
-> > On 2026-09-25, Petr Mladek <pmladek@suse.com> wrote:
-> > > This shows that braille_write() is called form printk() even when
-> > > braille_co is not in console_list. It is called via vt_console_print()
-> > > because the graphical console driver (ttyX) is registered.
-> > 
-> > But isn't that a bug? I thought Braille consoles were not supposed to be
-> > handled by printk(). Even in this new series you added that exact
-> > comment.
+> From: Cheick Traore <cheick.traore-ext@st.com>
 > 
-> I believe that it is not a bug. I understand it the way that the
-> Braille device should show everything that is shown on the virtual
-> terminal. It should show the printk() messages when they are
-> printed there by the related console driver.
+> - On stm32mp15: vddcpu and vddq_ddr are not connected to internal
+> channel, so their sampling time shouldn't be set.
 > 
-> It is just that printk() is only one source of messages shown
-> on the terminal. The vt code maintains what is displayed.
+> - On stm32mp13: vddcpu and vddq_ddr are connected to internal channels
+> and the value for vddcore was not correct. Values from the datasheet
+> are 1us (e.g. 1000ns) for ts_vddcore, ts_vddcpu and ts_vddq_ddr.
+> 
+> Fixes: 7cb2303dd024 ("iio: adc: stm32: manage min sampling time on all internal channels")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Hi Cheick, Fabrice
 
-That is the idea, yes.
+Given we are fairly late in the cycle and that we have Fabrice's
+other series poking at this same driver I've queued this up on
+the testing branch of iio.git rather than taking a (possibly) faster
+path.  That means it will go upstream in the next merge window.
 
-Samuel
+Thanks,
+
+Jonathan
+
+> ---
+>  drivers/iio/adc/stm32-adc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 90f0e257e6d1..b024326775ae 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -2734,7 +2734,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+>  	.set_ovs = stm32h7_adc_set_ovs,
+>  };
+>  
+> -static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
+> +static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800 };
+>  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
+>  
+>  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+> @@ -2756,7 +2756,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+>  	.set_ovs = stm32h7_adc_set_ovs,
+>  };
+>  
+> -static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
+> +static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800 };
+>  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
+>  
+>  static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+> 
+> ---
+> base-commit: 182c47735554925da9605dc9dd90a8c15a1bbae5
+> change-id: 20260924-adc-fix-sampling-526f0f26829b
+> 
+> Best regards,
+> --  
+> Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> 
+
