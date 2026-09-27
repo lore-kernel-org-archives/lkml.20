@@ -1,76 +1,66 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850183BCD17
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB6A3C1963
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790494932; cv=none; b=ivfBH44HZTQak4wtGwDtH8Rp62JrCDPVo2eSCIVNyJl5yuJurMOATVshG27bYegfYhYumJy+ja6UH4LFsIw1OpkIiahfU3WUcIDYmICOrIvYc3ocFNYym/qkFeFjClD1Uxnq8mdeSSn/G5wDw7RWJRp4AeFb9hwV/IhkST7uZG8=
+	t=1790495010; cv=none; b=CW6dKENYwh93QcIedQ80ImrNrJxmOLWqVPvU0IZpwFwPA1r3oclDc1vCcMRo4qXCtPqfsEdCyVlBEkBjigwvmxybujZXKtUvt2Br/HOuADnyz20AjK2LQq4fKTIYpQW0Euz/a9wpa+NyHXsJhhmLesn1gxpPgL1TWXd9Sz4T3eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790494932; c=relaxed/simple;
-	bh=75A9M5TgIoM2gIrevlAnIGQ7eccqokJJNc5o6u/pqks=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=TguwZz0aP83bFZLdIQ0NLunJQZNQncBPJeZqZCFgFF8siQ6lcYQg6iHh529ueFQA1kzKD5k/uRm/Zttcqlc4KPywV2Grk/BvKsYwuCPECKNy2t2pOBsz4cpZ+RjjzLPODD6ydGtKtOJ/gOIgb6iw8pQC/yclBcKFlYzghvjXmPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab4f652f9bso2528791b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:42:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790494924; x=1791099724;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+dLWqk9Lfa1A8/fcjUQdJzQN+AEtevT8Cachr1mDVq0=;
-        b=DFWb4HoJlTH2UjZkMr0kSIKK1UxDinubOo4P2Owol4GrfKML+sv/fRwcq9ZA8bnHiG
-         WMO7gIqRGqBMcunUBj7IXtSMqQ/qkspBjpw7ge2Xx4ejbQM+bxPcJ3YMB7wRMUBEC/R1
-         hiNgmtyfdZmPQg8So4i3yJY88HWBqGzoO/a835VCxvy6XCcRHCGoxWMQ09CNZqgnwsf0
-         /p+bgpZojd8ttkrNeEeCndeGsRSwFUkEKZgWWeh58ce+FXvfnK371C9nJ8CxCDabYo00
-         DiC1f+keHMpG/agov72nR+L3NfMcd+QplDqQtGeWm2K1Hk77YOn4LvHTpDLO8+h/wVJs
-         pytg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjNGVAK/cXpvsHvFnuSTEUxGwmPv8qrOwtTQ65eAC9M/N8KhHbwqMYMZJr5L+RNRECynmTS3XKESLK/gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu/o3Boykuzyjmhd0jTO9eCBrPwRO9JV8EJDJD+q0JjVjZg/v0
-	LJvpXTVDxv8RRkznsaXl47YMycpV0leX4vFE8HFGSe6151S+m3Xb0GHoof3iNtPXKxGqxcPZXet
-	J7u+RbBr6DI31sA7hJgEEIY+vfA2dCXIlNJP2ASmcjh05oep98RpVS9gdDWM=
+	s=arc-20240116; t=1790495010; c=relaxed/simple;
+	bh=5VqsFMT65IEWnR1+qJLlyUWIgF/jp/CBCsk273aWztM=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=ApjT+6O+LX3ucP5Gcp7lChKi3bjCBRwmPa+KkNIIjWX9AdLQkre3lwENlwvOYjC16NZMwfdKhLWWcR/vx/gfsBDVG640eOYW8WaO/zFe9rhRwBcU3HrZaa7HhgMt3nrUVaTBThrb4ub6gHSGTizSv67cKRsUE42ulUKHX8zP2T4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitgur.nu; spf=pass smtp.mailfrom=bitgur.nu; dkim=pass (2048-bit key) header.d=bitgur.nu header.i=@bitgur.nu header.b=Y3E9Ala8; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitgur.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitgur.nu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bitgur.nu header.i=@bitgur.nu header.b="Y3E9Ala8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitgur.nu;
+	s=ds202604; h=Content-Transfer-Encoding:Content-Type:Subject:From:To:
+	MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:
+	Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=HRda/ePnEVmd4eVqjf+HdjLtPkKatpC2rK+855vhQK0=; b=Y3E9Ala8958my2uMASq9S1Rb2c
+	0yEH9cVlrPBAQQ+YNHCN7toukbkTBRyLPd5rTSmeMQP2hlJgRWQpSMYR7+XzZVJRFxN4Q5TvwXZ/E
+	oVUvd5uyEmMbZmn0k8MI+37K6TgsAv0CDkKXdc4FV9pQmHIZDSXb+H03EYXRLTO08qs9u9lUFkJcK
+	rB6AINgnEKcWudiq4vNTBncLK3PpRs6+jJhCxhWlM5V4zXY/ayqnnWTNIigz2jLQ6a80RIYn587cu
+	Ubivsy94DtFQ+VhiTW77vxhbi5pdRaer2Qjwm9zLRjx1JQoNoNYwzglSaEyesKiRysdYof3LiLgLP
+	frNGbdFA==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1xAjXZ-003Yeh-7t
+	for linux-kernel@vger.kernel.org;
+	Sun, 27 Sep 2026 09:43:17 +0200
+Message-ID: <6a943328-d332-41c7-a3e9-bfdc63b2ad1e@bitgur.nu>
+Date: Sun, 27 Sep 2026 09:43:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:308e:b0:4d6:9232:b3bc with SMTP id
- 5614622812f47-4d72cd363ffmr13140368b6e.51.1790494923975; Sun, 27 Sep 2026
- 00:42:03 -0700 (PDT)
-Date: Sun, 27 Sep 2026 00:42:03 -0700
-In-Reply-To: <arjFl-vgg5vz1WWN@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab8c8cb.e548f532.1ca396.0037.GAE@google.com>
-Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
- (2)
-From: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>
-To: azpijr@gmail.com, davem@davemloft.net, dhowells@redhat.com, 
-	edumazet@google.com, horms@kernel.org, kuba@kernel.org, 
-	linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	marc.dionne@auristor.com, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitgur.nu>
+Subject: Fi Wave (following Low-Jitter, Fair Pay Unity)
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Fi is an expression similar to Hac'er.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+As our Kawai Computer Bit says to make ITS,
+( https://bitgur.nu/Bitum_Icon.png )
+so does this, WITH fair pay politics, and possibilities for Fi Wave 
+mascot culture, keeping the relevant developments only, and shedding the 
+negative rep. Bitum ready.
 
-failed to apply patch:
-error: corrupt patch at line 25
+Serenity,
+https://bitgur.nu/
 
 
 
-Tested on:
 
-commit:         a7bfaba4 ipv6: fix prefix route expiry in modify_prefi..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=89001660f14fb7684c83
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=134df2c9580000
 
