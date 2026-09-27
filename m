@@ -1,197 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AB517D6;
-	Sun, 27 Sep 2026 14:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C42B547057;
+	Sun, 27 Sep 2026 14:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521152; cv=none; b=Lf0BGryv9tegkJbXiLZUvXD/xJtP33uONy6HdAihq0/Mh2Udlrro6w8LkZE2nN6gOperaawhFWID9CHEJOFVGQwmxpe2v1/Ym27BqqCfSkcfFcggnb50tsS15UVI3a41yJq6ZkcWx2jl+2aNQMKkOISFw59l7OgXRG0VkS4KDvk=
+	t=1790521192; cv=none; b=WlS9tQ5hll60pz24uK7P/U2reiEVP+1VnCJnVjWPUhtFMQ/qIm9S6eK8Uz8yd8HFmZxtKyiJAK0PBKVq0ndzJqzsnz9aHQemBEWm4rZb3qI7DLjW/Pbzk2LiUDogxhChy5g8FaiLCFKtxVaPgz/GHv17CoyaDsRJDzeFZHluOKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521152; c=relaxed/simple;
-	bh=EK91h4+nbSUJzJ4wvE2ekjRN+wOp9ASEcSAKvnnff9M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CG5tYyupoyCOLXgJfrXW+J1Vxvj5ziG8hNMqphNB1Xec7q+vI8qSk4Fjj9vGv1Gu88ems5ikwCh0OX7/FB/mB3o8wqTwG9XGJB3i2c5LsyV43GSACkltfQtcSWVAg6YHDxlr8PJxy+pi6T5gxWTEiVV/EsdlG8pkFdtNvmX7r2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a74LgzhB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790521192; c=relaxed/simple;
+	bh=JBL/r1ZccMUeV1Qaj2Qx/DS5xAXu6HXhsfFKQ80Ek4k=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=k6yk6GMox2/kY70HFKHCv+QCeCCmwXIRFI2nt972hmyh1jd25tsSIzHqqO8RQ7GUPVUIxH3UKBMqODppSYn3/fYANYpK2Gsjg85FZscnaJ/GaOGXbMLGkuyZOsdkTY42/sisVrP8gxRl4U3l9BVo/ERRnAPZAzpwWojca8ZmgDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjQvu4oL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a74LgzhB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BFCAAC4AF13;
-	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790521151;
-	bh=EK91h4+nbSUJzJ4wvE2ekjRN+wOp9ASEcSAKvnnff9M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=a74LgzhBK16nMykHTODA3nK9CIdcI1mbbU3Bo4brskfKCrU0+lYTKYFdOzQvohmQF
-	 Gb4xCtBLg4N2s6BaHd9z8gLV0lri1B9XKyke3w+wDVr8ZBNWjdutiy2iXRQUHUOHrr
-	 KmYSeMUwKdgtj2Q/53kcM0Ok+l2vF4QbOmsPSYybZhf5rlKV924HumQtaj1uwSFQZL
-	 HZM0gieys3gFlBWKvZDILcrAz2VYHybIKqMfQwUFeDHfPCLPEXlMQoMh8elcJqZLGb
-	 spBQaUsqTpqDPmkv3t/ZXfT6DcPkBJPqyy3yfS0qX8STdZMytyZBwShaJjGtZV8GjQ
-	 kiV5rWFCBu+KQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A027EC9833E;
-	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Sun, 27 Sep 2026 14:59:08 +0000
-Subject: [PATCH v8 2/2] clk: Add gpio-locked clock driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjQvu4oL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12A401F000FF;
+	Sun, 27 Sep 2026 14:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790521190;
+	bh=qfO0cOVHwAD+fvjw1GNXhVW+xDr1dAu1fpPZ7dM/atI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bjQvu4oLu4jhIl/qy5KB/Zm4JMMBILb4e6FUEpvsWoS8twB1+9tXZaDlLdajnkPSv
+	 VgICjVUREo7ZHFvWrZI4gCMfgsCeacLOJVKlxI9+EP8oFCvHWjdURaXGd8xTI3GM82
+	 XUohKYjCaHyrWPJIwMbDSWt5GkSb9Pr2+dVR0SqnikqMWD6IXVTgYx3Ha6mtrk8jCz
+	 Ec9lxw9RZkLOxD7gR6rNz3QtYPLr8ne3DLPZ3e1e2/8+bZhb1GA2/7Ajh58kYd/oL1
+	 anNRgmsWtU0MGchZpdkmq696PVOHwziCLrlv7jVi0ycCuUgqxLPEeNLxOHnbBcFuNO
+	 SJlstnCdMxavQ==
+Subject: Re: [PATCH net v11 04/17] rxrpc: Fix lack of short-send handling in
+ rxrpc_kernel_send_data()
+From: netdev-bot+sashiko@kernel.org
+To: dhowells@redhat.com
+Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
+ qotmddnjs@ajou.ac.kr, stable@vger.kernel.org
+Date: Sun, 27 Sep 2026 14:59:49 +0000
+Message-ID: <179052118957.2160803.647680873992562494@kernel.org>
+In-Reply-To: <20260923133706.1496540-5-dhowells@redhat.com>
+References: <20260923133706.1496540-5-dhowells@redhat.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-feature-clock-guard-v8-2-630938e302a1@bruker.com>
-References: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
-In-Reply-To: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790521150; l=4490;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=TglttEwIz3ODXkAotztS55u/ayrJa2MpduhS8e5wXEc=;
- b=Yei9QWguXHpRaZZWetH+h2A6VG3n8W4Zet/cdl3V4QrbiUCxwdgRmFGQAYx32riGcLCWN3CHt
- vqZ1+WCKC+dANgfxf32Buv5RnHzSojDcLbMBHCkhdw9gpj0NeUwrR4f
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-A gpio-locked clock exposes a clock, which status is determined by a
-GPIO signal. The common use-case is a FPGA-assisted clocking design
-where peripheral clocks are generated by FPGA PLLs that are outside
-CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until the input clock is locked
-and only then initialize dependent peripherals.
+Low priority / nit picks for your consideration:
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
----
- drivers/clk/clk-gpio.c | 50 +++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 47 insertions(+), 3 deletions(-)
+- [Low] The patch adds this sentence to
+  Documentation/networking/rxrpc.rst: rxrpc_kernel_send_data() "returns…
 
-diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
-index 9099c57e2715..db68b8bc44c5 100644
---- a/drivers/clk/clk-gpio.c
-+++ b/drivers/clk/clk-gpio.c
-@@ -138,6 +138,25 @@ static const struct clk_ops clk_gpio_mux_ops = {
- 	.determine_rate = __clk_mux_determine_rate,
- };
- 
-+/* We can't prepare the clock, but the Common Clock Framework calls only
-+ * prepare() not is_prepared(), therefore we fallback on the actuall GPIO value.
-+ * The function clk_sleeping_gpio_gate_is_prepared() returns the raw boolean
-+ * GPIO status (1 if locked, 0 if unlocked), but the prepare callback
-+ * clk_core_prepare() expects 0 for success and non-zero integer for failure.
-+ */
-+static int clk_gpio_locked_prepare(struct clk_hw *hw)
-+{
-+	if (clk_sleeping_gpio_gate_is_prepared(hw))
-+		return 0;
-+
-+	return -EBUSY;
-+}
-+
-+static const struct clk_ops clk_gpio_locked_ops = {
-+	.prepare =	clk_gpio_locked_prepare,
-+	.is_prepared =	clk_sleeping_gpio_gate_is_prepared,
-+};
-+
- static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 					struct gpio_desc *gpiod,
- 					const struct clk_ops *clk_gpio_ops)
-@@ -146,6 +165,7 @@ static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 	struct clk_hw *hw;
- 	struct clk_init_data init = {};
- 	int err;
-+	const char *clk_name;
- 	const struct clk_parent_data gpio_parent_data[] = {
- 		{ .index = 0 },
- 		{ .index = 1 },
-@@ -155,7 +175,11 @@ static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 	if (!clk_gpio)
- 		return ERR_PTR(-ENOMEM);
- 
--	init.name = dev->of_node->name;
-+	err = device_property_read_string(dev, "clock-output-names", &clk_name);
-+	if (err)
-+		clk_name = fwnode_get_name(dev->fwnode);
-+
-+	init.name = clk_name;
- 	init.ops = clk_gpio_ops;
- 	init.parent_data = gpio_parent_data;
- 	init.num_parents = num_parents;
-@@ -192,6 +216,12 @@ static struct clk_hw *clk_hw_register_gpio_mux(struct device *dev,
- 	return clk_register_gpio(dev, 2, gpiod, &clk_gpio_mux_ops);
- }
- 
-+static struct clk_hw *clk_hw_register_gpio_locked(struct device *dev,
-+						  struct gpio_desc *gpiod)
-+{
-+	return clk_register_gpio(dev, 1, gpiod, &clk_gpio_locked_ops);
-+}
-+
- static int gpio_clk_driver_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -201,8 +231,11 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- 	struct gpio_desc *gpiod;
- 	struct clk_hw *hw;
- 	bool is_mux;
-+	bool is_gpio_locked;
-+	enum gpiod_flags gpio_flags;
- 
- 	is_mux = of_device_is_compatible(node, "gpio-mux-clock");
-+	is_gpio_locked = of_device_is_compatible(node, "gpio-locked-clock");
- 
- 	num_parents = of_clk_get_parent_count(node);
- 	if (is_mux && num_parents != 2) {
-@@ -210,14 +243,24 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	gpio_name = is_mux ? "select" : "enable";
--	gpiod = devm_gpiod_get(dev, gpio_name, GPIOD_OUT_LOW);
-+	if (is_mux)
-+		gpio_name = "select";
-+	else if (is_gpio_locked)
-+		gpio_name = "enabled";
-+	else
-+		gpio_name = "enable";
-+
-+	gpio_flags = is_gpio_locked ? GPIOD_IN : GPIOD_OUT_LOW;
-+
-+	gpiod = devm_gpiod_get(dev, gpio_name, gpio_flags);
- 	if (IS_ERR(gpiod))
- 		return dev_err_probe(dev, PTR_ERR(gpiod),
- 				     "Can't get '%s' named GPIO property\n", gpio_name);
- 
- 	if (is_mux)
- 		hw = clk_hw_register_gpio_mux(dev, gpiod);
-+	else if (is_gpio_locked)
-+		hw = clk_hw_register_gpio_locked(dev, gpiod);
- 	else
- 		hw = clk_hw_register_gpio_gate(dev, num_parents, gpiod);
- 	if (IS_ERR(hw))
-@@ -229,6 +272,7 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- static const struct of_device_id gpio_clk_match_table[] = {
- 	{ .compatible = "gpio-mux-clock" },
- 	{ .compatible = "gpio-gate-clock" },
-+	{ .compatible = "gpio-locked-clock" },
- 	{ }
- };
- 
+Pre-existing issues:
+- [Low] Documentation/networking/rxrpc.rst says the msg passed to
+  rxrpc_kernel_send_data() must not carry "any flags other than…
+
+--
+
+rxrpc: Fix lack of short-send handling in rxrpc_kernel_send_data()
+
+This makes rxrpc_kernel_send_data() keep looping after a short send from
+rxrpc_send_data() until the iterator is drained. It also drops the len
+argument and uses the iterator count instead. On success the function now
+returns 0 rather than the amount copied.
+
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
+
+> diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
+> index 8926dab8e2e60..01ad12fdf3058 100644
+> --- a/Documentation/networking/rxrpc.rst
+> +++ b/Documentation/networking/rxrpc.rst
+
+[ ... ]
+
+> @@ -880,13 +879,16 @@ The kernel interface functions are as follows:
+>       MSG_MORE if there will be subsequent data sends for this call.
+>  
+>       The msg must not specify a destination address, control data or any flags
+> -     other than MSG_MORE.  len is the total amount of data to transmit.
+> +     other than MSG_MORE.
+
+[Severity: Low]
+This is a pre-existing issue, and this patch did not introduce it. Is the
+"any flags other than MSG_MORE" restriction still correct? The in-tree
+caller afs_make_call() passes MSG_WAITALL:
+
+fs/afs/rxrpc.c:afs_make_call() {
+    ...
+	msg.msg_flags		= MSG_WAITALL | (call->write_iter ? MSG_MORE : 0);
+    ...
+}
+
+rxrpc_send_data() also acts on both MSG_DONTWAIT and MSG_WAITALL:
+
+net/rxrpc/sendmsg.c:rxrpc_send_data() {
+    ...
+	timeo = sock_sndtimeo(sk, msg->msg_flags & MSG_DONTWAIT);
+    ...
+wait_for_space:
+	ret = -EAGAIN;
+	if (msg->msg_flags & MSG_DONTWAIT)
+		goto maybe_error;
+	...
+	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
+				       msg->msg_flags & MSG_WAITALL);
+    ...
+}
+
+This sentence is already being edited here. Could it be changed to list
+the flags that are actually honoured? The same wording is still present
+at the end of the series.
+
+>  
+>       notify_end_rx can be NULL or it can be used to specify a function to be
+>       called when the call changes state to end the Tx phase.  This function is
+>       called with a spinlock held to prevent the last DATA packet from being
+>       transmitted until the function returns.
+>  
+> +     It returns 0 if all the data is queued and a negative error code on
+> +     failure.
+
+[Severity: Low]
+Is "queued" the right word here? Suppose MSG_MORE is set and the data
+does not exactly fill a txbuf. In that case rxrpc_send_data() leaves the
+partly filled txbuf in call->tx_pending and does not call
+rxrpc_queue_packet():
+
+net/rxrpc/sendmsg.c:rxrpc_send_data() {
+    ...
+		/* add the packet to the send queue if it's now full */
+		if (!txb->space ||
+		    (msg_data_left(msg) == 0 && !more)) {
+			...
+			rxrpc_queue_packet(rx, call, txb, notify_end_tx);
+			call->tx_pending = NULL;
+		}
+    ...
+}
+
+At that point the iterator is empty, so the new loop in
+rxrpc_kernel_send_data() returns 0:
+
+		if (msg_data_left(msg) == 0) {
+			ret = 0;
+			break;
+		}
+
+Two examples of this path are rxperf_process_call() sending ZERO_PAGE
+chunks, and afs_make_call() sending the request header before
+write_iter.
+
+So a return of 0 seems to mean the data was taken from the iterator and
+buffered, not queued in the rxrpc_queue_packet() sense. A later patch in
+the series, "rxrpc: Fix sendmsg length", uses the word "buffered" for
+this same state in this document.
+
+A negative return can also now follow a partial transfer. An earlier pass
+of the loop may consume part of the iterator before a later pass fails.
+Should the documentation say so as well?
 
 -- 
-2.34.1
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923133706.1496540-1-dhowells%40redhat.com
