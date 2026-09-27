@@ -1,85 +1,82 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01924195C8
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A67415F2C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526701; cv=none; b=tsfIcV+T+D9k4xsED1lQWmv39HsXyRfjusDPesyIUtwKGHIO+R4LTWGXb5XhpKuZkA6M6LqQFz9fgVCWpsGcjmsh1/0f9lxq1Jn1B2HAMMG8D/0wPNSwWVG9BFOA7dkJxOOqLqlV0SMY1dpWqAcfXJqyNSUksHvSPZ7hpJ0M/nA=
+	t=1790526778; cv=none; b=pc//aqznz0yM/CRyn4NxDloJEQyS2dsIoMobFLOlyzGa0W2BSZm4YLRYtVjuL8yq0zSSuVF5ZiKOiPmB9uR9TogqLyUBYOxkSRbWxSr2GNc7oFwPoNiMxjx5JNM7neAVMnyKJSjwNB6c5W22JSaol+51UbvTB/E6VvZfkQGJfcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526701; c=relaxed/simple;
-	bh=XHmITKDP9yW62eRsgIDeqzrgIyJ+mbBJdIVl5GgmVRk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DJLjfIvhTZybbTQdwKw9X54DcdpAo3cXQ34ZGR57vaCk/MpvhV4Pqi9WKPz3S9B7REBs3gMOcTt5YOWv776FAZpRznKWEzh33NspxZxamvBcWbY86DR2m2dSXkbKhVNs7xa6FSz5fejopoPg3OenpwbSg/N+U43aLQhaE3F9Zms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p4OGa1Op; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790526778; c=relaxed/simple;
+	bh=nQuhN2l7+/6WRWmQIpvcYbsN03imFt1LfNjrv01xrR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M7LH+93QVbE2BsRP+mbksMbEvHOOzF3umfUW2vtzCXR6ST3ROlWx1ktRlPrHhXaj7CjYktQcvnGGgpYmx6i+pivALF0lYWJajGm4yW2yZT+NfNB+lkbsOqFZi2sgTs2CXKdhaRd+XR9jEF3G6o7DjsWrQdTgNz/6OUl6XknrOS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmZ0/UBP; arc=none smtp.client-ip=74.125.229.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p4OGa1Op"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33bfb26865fso2343736eec.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:31:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmZ0/UBP"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144fa6e60bcso95154c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:32:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790526698; x=1791131498; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eWANYSytLBDdHLqSBUNXSEBTI/4EMCEFOvFKQnoOmao=;
-        b=p4OGa1OpPjgMt85i6q23PJoPREQqCEOzvcMxY5CvyVMytYwPISJEjvz7lV5aFSLnT2
-         xzsGh0EeCsnxXqHDSN3fLi0WcHnx+9DbIJvxle64+BG5oMuyl8OmTXMBpFl86MhyvoF8
-         EsSLUhcoGMyugGrp2eAl/EOysIi32TFk0sEPbBYrQ5fTrjMd8rOGuGKwBwiv8Ko+4jQU
-         YFx93QWbJFPJLtP6omRgV9vxjhr1X3dvbIN1AT0dobFcNUVMxr3gRWtuSvrATA89owuc
-         W4YP6+kcGJuKJbMtY/lsRgP/83DmxQzw2mKm3yxFZJEy+7AscIEqKVnfXbmzyIOxL4Ax
-         ldCw==
+        d=gmail.com; s=20251104; t=1790526776; x=1791131576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WKnlC/CJp+36djLN5FPwvtqOnvSWX1NbVkCP871yhGA=;
+        b=KmZ0/UBPgAE8KKPhbqS1Dt9jwO0uIEh8qXNoLYzh0JMZtKqoZPqBy6+rceZZzasV+K
+         BYMZZzkL2XLxtH+XnzL8I94SXvaMp1+tWUWtkBrnU5tydjhOuQNj8hfV2kgH0FyZ2cvY
+         nkC7t7x99cwXpySiZVnH15yof8NtgkyQ7Ex18x9MOzNpgpDPwTO3v+F3914YqA22ZzAV
+         P9ZePPDkK+XD0GOMxG0/Y3R/WNAtSM/JdylSxRGwT3PDV9+m6sZapBkboRrtbLg2cTaN
+         3WPAZouVVz/Epf2Vuhc+pKzGXsvTQ8MO8ZZYtIanEJ03Zde7GGIK/XfXtCjZ5Cy5JSrI
+         lcSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790526698; x=1791131498;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eWANYSytLBDdHLqSBUNXSEBTI/4EMCEFOvFKQnoOmao=;
-        b=ez4nXFce1xbBurCLDhuMO14IsBxTetFoJl1Ih2PXhzjWpDgo05p8eFzFmYjyur9JCq
-         zktNVdVUnwpsOZ7oDQIIn2AueRF2NWvkP4NdC0zgVE/e+RJJVWqE9uSPuonwHnJPRGJ6
-         LmOh2QuJ9k3qotwixCMFXtNtY6DIiquTqt7zx0X6XarmFGbcGj3GDEo1zlkejGVO8wpI
-         XF8qamNziiJAkV4NaB7Jr097YN3XSeAIZezu0kKW1XNAzJ1KDQdHduYImRKpNKsPySEe
-         ++xrBdkAqF3BAyiTunA+r8OhSTFkWktu1nKUtM1u18L/ggXELmdhFqkQZPOfbV6o8BSD
-         nDDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxqb5PUv+ykQPS37B3d5ckFKO/YAPmYaht8+9ryRJXuj76aykVfdZnSXrVm5IkkEyIiBz4WyREfgLZGl0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxZi+7Lrf+SEGj1832i6bvys985zvja1AbP5TIhB4uJdd9q8uM
-	kivsP1TAfyy6FU47DHwTOw0DwzrXXVfw1cNUUH6OxKs2858E0BnF1VRB
-X-Gm-Gg: AYBFou3iqof77HFl/aPLIwyY6qtMUwVh+mhTxAM+QW2aMmzNREDNrXfXs5KcWLTA8vM
-	MSFguBe9bIDxHaZmyAh6n+d0/ExFKJ6lXKMcmsn2JBJGhzav4CswD5AhQtOtdQ53sP+FRPLMDGd
-	DtZdzhnoqLpOvzAyzQXKXGxXmt+/VTWwB9Cgg48rSPM5Ecutdp1rU0gM0yzpqGY42xLiPp9jxQN
-	1aXbtRvgK2cB/83RGLStYXs/JTvtVOAIIoffcF+tsz+5WSzPVTbbnoIZTRe/MJMBhvn4zVT0Ouv
-	uesd3Do8/mdo3LcxPe/v3xQNQTLXfyVkdH6CWQZr0YXiPv8TFrNS0rLXFR63ty8W+fZ8lQk0u8S
-	0u1NC1oeSiMm1YY7zliNqtk0yg2W4JnPuHc4Qjfs35A0HmotwctJt4eFOfgsM/Wr+u1oBX4XpSZ
-	ehvkLqKsVEffqytKyTj1wUBEftOzBolLuAbD/hKYhYVQ2tIB4Qh253swt2s2FxhhY6SwqOG8vpP
-	EkQaADaTQxk3LqlinRytltErZkRnfd0
-X-Received: by 2002:a05:7301:1f15:b0:340:ef5d:3517 with SMTP id 5a478bee46e88-342711aa737mr7897926eec.15.1790526698421;
-        Sun, 27 Sep 2026 09:31:38 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm22383449eec.27.2026.09.27.09.31.32
+        d=1e100.net; s=20260707; t=1790526776; x=1791131576;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WKnlC/CJp+36djLN5FPwvtqOnvSWX1NbVkCP871yhGA=;
+        b=LWWrJH3CjLPUKSXyVmsBWsaZ+/Uw48bgx+TIgFgesNCw//TvZ390I/QcqOOzcmukd4
+         NFyslChDCcUizt2VkD3zUj1624+6TRVIoSWutlOOAI9Y9+zJgI89ygNDsozzadrVkiWk
+         xf9s8copN8N94OShs3sOkK9X4bFn7CREjcFK1/XsePEhtGSyKg5ZHXNIHXpCKshOenEB
+         +tvYnE3NXUyehkdZyupW4El/UuuFpE1923XRMmR7N0qFbEs4mCQcHWMOWhlNZBhZfE/n
+         eiDeI62XkCAmpewOJeidnb8jq4ZMEeWjTj1B3xVbBhwpP1M/+58TzSlJDBlQ86J6KxeY
+         3RRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwzRh7txqMJU8Htu8y1+i67O8bQd3zU3GK82ZGaLgtanAtbe/rwHMcy/NoL1HLIl1bv1alGLLakw+WNcc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEZ90jOdq/TejyZynNgD8UyNRFo/2d7muka9k/xjzjyFsLmFKC
+	/RgSTsssm+u+tnyJ/mwiq+C3zprrsMFjFBNtcyE2ydaISQ3vVvAvJFTD
+X-Gm-Gg: AYBFou3D6y3BXJUodCXfmHtxLdbIGjKe2t40K5p7Wv5UzAVA/RLU/raucNXykOFm6SN
+	yB/uizDBF5Iet2MEv9JRqXaam61r+hF8rVbg8U2d5scKP7hpm0I1HQ5BispMzUlwmI8n5IVKKfk
+	UV298x708DncOMnrjxsRH672REOY0eBN3j+sVY80EQd2HgH6OsnggwO6PQP5LBhIKKGniu2yIjq
+	nDExpasq4EVAYuvpmrmhcAxm22Nfa7WTYmT0zrbxCGmHyajoddSVMC3O50PjIk2SClukQ9LYm6/
+	Eg+pzJ2PLMK1vMjOFfTr/ojABSG1U/1E2UeeAI3/zyTBE2l5gLaLFRcml4qVfrF7EMvYJUcpvr6
+	+BnOcu79sLLFO52NSTjyZhVJZ7RKijvr96XUWvq9kmzYMqFca5KZHi1LUfi6+slPKYxX5mBgyGq
+	7mRLqDDJXbdy17mQP4mo6O2WHgqt1PNRosuyKGjL6Oh4wTc0YyKZYi3k3G2g7Jd1YuK9+w6Bqm0
+	oQb2qzQWkjxoHmYElHK+o1tTeVFRP9l6JVwRHygkbU+crHA5bHD7kqdNkYxkTdIKivZOEHaGuHB
+	FU2y
+X-Received: by 2002:a05:7022:ea8a:b0:146:ffa9:2117 with SMTP id a92af1059eb24-146ffa92165mr9118845c88.1.1790526775739;
+        Sun, 27 Sep 2026 09:32:55 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acd3d8eesm18140836c88.8.2026.09.27.09.32.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:31:37 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
+        Sun, 27 Sep 2026 09:32:55 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	Simon Horman <horms@kernel.org>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	co+1fe9b56e2c61be5e@bugs.sh,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH 2/2] selftests: tc-testing: cover unset TCP transport header in TBF
-Date: Mon, 28 Sep 2026 00:31:17 +0800
-Message-ID: <20260927163117.746432-3-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260927163117.746432-2-bestswngs@gmail.com>
-References: <20260927163117.746432-2-bestswngs@gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] netfilter: flowtable: flush delete work after final GC
+Date: Mon, 28 Sep 2026 00:32:48 +0800
+Message-ID: <20260927163248.1002656-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,170 +85,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A TCP GSO skb created through TUN can retain an unset transport
-header. Send one such packet through TBF, then send another through
-police and TBF. The police limit makes the vulnerable kernel stop at
-one TBF drop while the fixed kernel reaches two. This checks behavior
-without relying on KASAN or global logs.
+nf_flow_table_free() can return while delete work still holds a pointer to
+the flowtable. Its caller can then free the flowtable before the worker
+accesses it, causing a use-after-free.
 
-Use the existing tc-testing namespace and JSON verification. The
-helper creates the TUN packet, changes the ingress filter, and waits
-for TBF counters.
+nf_flow_offload_del() sets NF_FLOW_HW_DYING only after allocating the work
+item. If this GFP_ATOMIC allocation fails during the first teardown GC
+pass, the flow remains eligible for deletion in the final GC pass inside
+nf_flow_table_offload_flush_cleanup(). That pass runs after the delete
+workqueue has been flushed, so a successful retry queues work which is
+not waited for:
 
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+  teardown worker                         delete worker
+  first GC: work allocation fails
+    NF_FLOW_HW_DYING remains clear
+  flush delete workqueue
+  final GC: allocation succeeds
+    queue FLOW_CLS_DESTROY work
+  destroy rhashtable
+  free flowtable
+                                          access offload->flowtable
+
+Flush the delete workqueue again after the final GC to complete this work
+before the flowtable can be freed. All flows have already been marked for
+teardown, so this GC pass only queues delete work, and the delete worker
+does not queue further offload work.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in flow_offload_work_handler+0xbe8/0xe30
+  Read of size 8 at addr ffff888109c9fd98 by task kworker/u16:3/397
+  Workqueue: nf_ft_offload_del flow_offload_work_handler
+  Call Trace:
+   flow_offload_work_handler+0xbe8/0xe30
+   process_one_work+0x63a/0x1070
+   worker_thread+0x45b/0xd10
+  Allocated by task 87:
+   nf_tables_newflowtable+0x5d0/0x22f0
+   nfnetlink_rcv_batch+0x1396/0x1d00
+  Freed by task 11:
+   kfree+0x131/0x3c0
+   nf_tables_trans_destroy_work+0xb26/0xeb0
+   process_one_work+0x63a/0x1070
+  Last potentially related work creation:
+   __queue_work+0x68e/0x1030
+   flow_offload_del+0x74c/0xad0
+   nf_flow_offload_gc_step+0x264/0x8e0
+   nf_flow_table_gc_run+0xcd/0x150
+   nf_flow_table_offload_flush_cleanup+0x5c/0x70
+   nf_flow_table_free+0x280/0x350
+   nf_tables_flowtable_destroy+0x71/0x270
+
+Fixes: c921ffe85333 ("netfilter: flowtable: Fix flushing of offloaded flows on free")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- tools/testing/selftests/tc-testing/config     |  3 +
- .../tc-testing/tc-tests/qdiscs/tbf.json       | 28 ++++++
- .../testing/selftests/tc-testing/tdc_vnet.py  | 87 +++++++++++++++++++
- 3 files changed, 118 insertions(+)
- create mode 100644 tools/testing/selftests/tc-testing/tdc_vnet.py
+Changes in v2:
+- Rebase onto current mainline; the independently revalidated one-line fix
+  is unchanged from v1.
 
-diff --git a/tools/testing/selftests/tc-testing/config b/tools/testing/selftests/tc-testing/config
-index 0e5618be03359..7d1a140464948 100644
---- a/tools/testing/selftests/tc-testing/config
-+++ b/tools/testing/selftests/tc-testing/config
-@@ -5,6 +5,9 @@
- CONFIG_DUMMY=y
- CONFIG_VETH=y
- CONFIG_IFB=y
-+CONFIG_TUN=y
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_DEBUG_NET=y
+v1: https://lore.kernel.org/r/20260824115829.205118-1-nicoyip.dev@gmail.com/
+
+ net/netfilter/nf_flow_table_offload.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
+index 6757fd89c1f1..728220ba3882 100644
+--- a/net/netfilter/nf_flow_table_offload.c
++++ b/net/netfilter/nf_flow_table_offload.c
+@@ -1172,6 +1172,7 @@ void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtable)
+ 	if (nf_flowtable_hw_offload(flowtable)) {
+ 		flush_workqueue(nf_flow_offload_del_wq);
+ 		nf_flow_table_gc_run(flowtable);
++		flush_workqueue(nf_flow_offload_del_wq);
+ 	}
+ }
  
- #
- # Core Netfilter Configuration
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/tbf.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/tbf.json
-index 547a449100411..ef850a5d28ffe 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/tbf.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/tbf.json
-@@ -189,5 +189,33 @@
-         "teardown": [
-             "$TC qdisc del dev $DUMMY handle 1: root"
-         ]
-+    },
-+    {
-+        "id": "7f31",
-+        "name": "Drop GSO packet with unset transport header",
-+        "category": [
-+            "qdisc",
-+            "tbf"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+            "$IP link set dev $IFB mtu 256",
-+            "$TC qdisc add dev $IFB handle 1: root tbf limit 4096 burst 300 rate 1mbit"
-+        ],
-+        "cmdUnderTest": "python3 ./tdc_vnet.py $IP $TC $IFB",
-+        "expExitCode": "0",
-+        "verifyCmd": "$TC -s -j qdisc show dev $IFB root",
-+        "matchJSON": [
-+            {
-+                "kind": "tbf",
-+                "handle": "1:",
-+                "drops": 2
-+            }
-+        ],
-+        "teardown": [
-+            "$TC qdisc del dev $IFB handle 1: root"
-+        ]
-     }
- ]
-diff --git a/tools/testing/selftests/tc-testing/tdc_vnet.py b/tools/testing/selftests/tc-testing/tdc_vnet.py
-new file mode 100644
-index 0000000000000..bdd663c5795ac
---- /dev/null
-+++ b/tools/testing/selftests/tc-testing/tdc_vnet.py
-@@ -0,0 +1,87 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+
-+"""Exercise TBF and police with a TCP GSO skb lacking a transport header."""
-+
-+import fcntl
-+import json
-+import os
-+import struct
-+import subprocess
-+import sys
-+import time
-+
-+
-+# These architectures use a different _IOW direction encoding.
-+TUNSETIFF = (0x800454ca if os.uname().machine.startswith(
-+    ("alpha", "hppa", "mips", "parisc", "ppc", "sparc")) else 0x400454ca)
-+IFF_TUN = 0x0001
-+IFF_NO_PI = 0x1000
-+IFF_VNET_HDR = 0x4000
-+TUN = "tuntdc0"
-+DEADLINE = time.monotonic() + 18
-+
-+
-+def run(*argv):
-+    remaining = DEADLINE - time.monotonic()
-+    if remaining <= 0:
-+        raise RuntimeError("selftest deadline expired")
-+    return subprocess.check_output(argv, stderr=subprocess.STDOUT,
-+                                   text=True, timeout=min(3, remaining))
-+
-+
-+def tbf_drops(tc, ifb):
-+    qdiscs = json.loads(run(tc, "-s", "-j", "qdisc", "show", "dev", ifb,
-+                           "root"))
-+    return next(qdisc["drops"] for qdisc in qdiscs
-+                if qdisc["kind"] == "tbf" and qdisc["handle"] == "1:")
-+
-+
-+def wait_for_drops(tc, ifb, expected):
-+    deadline = min(DEADLINE, time.monotonic() + 5)
-+    while time.monotonic() < deadline:
-+        if tbf_drops(tc, ifb) >= expected:
-+            return
-+        time.sleep(0.05)
-+    raise RuntimeError(f"TBF did not reach {expected} drops")
-+
-+
-+def main(ip, tc, ifb):
-+    tun = os.open("/dev/net/tun", os.O_RDWR | os.O_CLOEXEC | os.O_NONBLOCK)
-+    try:
-+        ifreq = struct.pack("16sH", TUN.encode(),
-+                            IFF_TUN | IFF_NO_PI | IFF_VNET_HDR)
-+        fcntl.ioctl(tun, TUNSETIFF, ifreq)
-+        run(ip, "link", "set", "dev", TUN, "up")
-+        run(tc, "qdisc", "add", "dev", TUN, "clsact")
-+        run(tc, "filter", "add", "dev", TUN, "ingress", "pref", "1",
-+            "matchall", "action", "mirred", "egress", "redirect",
-+            "dev", ifb)
-+
-+        # GSO without NEEDS_CSUM leaves transport_header unset. IPv4 IHL=0
-+        # prevents the later transport-header probe from filling it in.
-+        packet = struct.pack("=BBHHHH", 0, 1, 0, 8, 0, 0) + b"\x40" + bytes(999)
-+        if os.write(tun, packet) != len(packet):
-+            raise RuntimeError("short TUN write")
-+        wait_for_drops(tc, ifb, 1)
-+
-+        run(tc, "filter", "delete", "dev", TUN, "ingress", "pref", "1")
-+        run(tc, "filter", "add", "dev", TUN, "ingress", "pref", "1",
-+            "matchall", "action", "police", "mtu", "65700",
-+            "conform-exceed", "pipe/drop", "action", "mirred", "egress",
-+            "redirect", "dev", ifb)
-+        if os.write(tun, packet) != len(packet):
-+            raise RuntimeError("short TUN write")
-+        wait_for_drops(tc, ifb, 2)
-+    finally:
-+        os.close(tun)
-+
-+
-+if __name__ == "__main__":
-+    if len(sys.argv) != 4:
-+        sys.exit(f"usage: {sys.argv[0]} IP TC IFB")
-+    try:
-+        main(*sys.argv[1:])
-+    except (OSError, ValueError, RuntimeError, StopIteration,
-+            subprocess.SubprocessError) as error:
-+        sys.exit(f"tdc_vnet: {error}")
 -- 
-2.55.0
-
+2.43.0
