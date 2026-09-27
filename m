@@ -1,240 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE683B585D;
-	Sun, 27 Sep 2026 03:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE2B34CDD
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790479735; cv=none; b=AjQt5bCXNZ0scwSVxn3mloow7bWflajlfmVwws31edRvb0Zm774k94uJM6VttZoYMsZm8MDQlZ0pIwVkjxnxbfvOnnyatlnb4Bqc/U4tR4pdXM6pHaHnoI/MF+HUxuGBFsU2rHEgDzs8BBLH9pnHlUv7ModUKMRk6TxM1Fz+bQQ=
+	t=1790480017; cv=none; b=isT15EJWIlEnn7rrkFAHhuk1uGjHMUjP9AcEqdBaNNX8f2lkjk5NgzaGDzuSHgsQKtV3YRIE0V7fWpfxLec2IidfI7NWzRxvPJh1ZQN/UJB15zmQkpLnrXXaFPCg1XH1xFIAXTGeQ+YuuZ9UGfB7d0ZpJm7qe2kAh3vE7dZojuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790479735; c=relaxed/simple;
-	bh=gsts6d6x1u+7S1ZwEq4vim+z3A0KCbboCnFaPe4oUPw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XetKA8KPuSrykfXgBF0g1BX/S4Oy/LTzVsy/H6Qu95SRhQS0INFUugnzPN2/fWBGqebCHhtELeJSVztNz+ZBfgtTLEAxOYEU64qYT5BwnLCgUH8ujIgFXBPpjpypfdX4rVbxts+kJKrjuV+FULvqx+CmWGx4CQacjZtvbpOkfaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y/AZBRhh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790480017; c=relaxed/simple;
+	bh=e/EAw6/IQ7mM/L+HlUNAqUw/O+rqmMNCqI/jXY+8juE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=De4P1h/ZPDdqguXnTJ3xgmC5E9ldpcgQmNn2VlaMxtRO2RGrvu8xcelEpl9YRatOtHpze2VPB0pbPn/8EhpZgOK8gfakF4F5BcWwNEmXKnLFmnmjp2wKWFvSdATFkKRWspn2c1ehi7RfuCiQgTEFvQRi+qpP/2ex8QiGpUp+lkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXb4UoYg; arc=none smtp.client-ip=74.125.229.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y/AZBRhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC851F00898;
-	Sun, 27 Sep 2026 03:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790479733;
-	bh=T8rpIYRxynmwj+YRABxKQ0KfUWj0r0144BFAQo26olI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Y/AZBRhhh5ofOp6wIPoGangQ/tgm6Xp4WgpEvyZMIrzB09IvsuHzfbLRNkw4+r4ae
-	 KtZdcjgzIMk3ZVcT43g4jcWaaKhE/ylgOB4YW3hiXlUfPwM5BB5CTe+fpJ9+18pbI+
-	 G7obYyL0VlEOE0nCtpOhmNw0WNNTnr51VeqSaoIyVJzg+GfhHerKNtR186mbXH0/H4
-	 473Kv5ekO/MxAdohDugDOnY2jaGJ7tLrbiwW4XZDZZVBRPnoclY7tPSQlHsSQ9Tvmf
-	 Fzrxz5Gl0vN3sjMrZC77Leyopm6EiAIWMat48rOGsyI0774/Ls5SOaHtq2VeaaCp69
-	 0OpV243eC76dA==
-Subject: Re: [PATCH net-next 2/2] net: stmmac: dwmac-socfpga: Add support for
- Agilex5 TSN GMAC with FPGA converter
-From: netdev-bot+sashiko@kernel.org
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dinguyen@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sun, 27 Sep 2026 03:28:52 +0000
-Message-ID: <179047973223.2160803.17475492528833274893@kernel.org>
-In-Reply-To:
- <20260923021823.46649-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References:
- <20260923021823.46649-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXb4UoYg"
+Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so2674420eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:33:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790480015; x=1791084815; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
+        b=HXb4UoYgTzv65eR/Mh/UwUIXQNLl/Jp2uDksCkS7xyxDKfMuJl/rzPZ0sNUYUl/GrR
+         x52j6OfZ7CHs+BLGFNatzEKH4vA2tX1E6l4aLkQ28svOBiaV+JZBd9E5xvaTU98bf8VC
+         DhLu26/NrGQfCOkjV+l0IHZpjO1msx7VPkaR+2ahK4g9yDVAPKGESq5MW1pZMTxqj5Gf
+         p5Kp13xApWn6yRslHtPS8JTMvviiTqr4LJfGtk4LuKhsA7lvbPd3ViqMemxm/JDGF4T3
+         8lvdoiqAdinEloc16BgNs3N7TsuXqLXjzE0rbCYkCkpfr7kZvQlxk80fHATZ4cCaQ+2U
+         CJkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790480015; x=1791084815;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
+        b=xR5Mbt6vNbIBhDXU2/YvW2PAMfQFwDdivhS4ssbpwM7SZBkMR4lJjdUexlXQLfrxZy
+         4S2yOw13+4v4JOqTqMxX851emwt0+50M6EvCAdCxrjbMMEBX2kRn0TAOc9617dkaw7fr
+         gasVFSfbHZGP9/zDo0qS+aN3LZ91EFUyXVE4QCd6iieK4utw8A1xframQX1Az+MeoESn
+         TsTfttT17IF0UXbnZYRFR9/0cZ0qln/JgHXMbFtGOMGoUIThfPqr6/TndXIVBSAu8fA7
+         LLAbaA7NhEXNzSyafwzjAE/i2eBUkAy2aZFwjqVsdUT6PsDh7vInBXxaNOlkIcVKPspr
+         kE6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy8ZNf6xcVRvdJcmNSusC6Gebjr6/kyeDQuVmYT18oNAFfqGcUbZ+mtmm7aSlPtm0PahASJG/MqB7qIbIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQXNp//vayOFRbA+ms2UC3dVAMMNvX6yefYj0Zweo5SQQHYZW5
+	LXtq2M0wpno1qjxbkUWa/sG0M8gsH0t9SNVytYbKFS9np2VbS6LHllR0
+X-Gm-Gg: AYBFou2aCw+v+aD0Kz5HklWfy4ZhGArQyuxT/PTHeP/bYWFG+bcL/SgKQHBAkEehHSO
+	sifiWl+tbHoZCEKaex0DJ1AyAOzbfQwWsq7oMKXikJjSbSsbZpG4KAzzfF7gDcs8iC6gaKgDQfl
+	SDQJRsd55NPTs4p2C5gyRhSrGUXgUpSgnofvWmmTYDdEKzac30ATVXjGyHYz1pmX8h5Jw977i2c
+	v1FE6avFAHm7+jCL53oB9w3k41Oo92SMbIuEAi5gHPNBaCq9G54vsiQukcjsvBYcDqSpCHyPhK/
+	yJme3esAFEpC3teCP9H5dAbYN8EJOiGOtYQy0ws71k9YMSO6xB2HMZAgc3bXRiIC73jygGVrwuj
+	mje2mi9SBfzC3QW0jmunWxQc/D6LPZNn4iv54En/jqDbY76AZKTpO07oftKKDYaBfv0MQ1uIBZK
+	3DzAfP4NG/53PpyvIjn9RVfLW8mPuSGxkLwNSTlLi4hHCFn3sCroegCTu03FzVRJmg3zcjaXEQQ
+	IZLKT3pyMlpKwZHwpalTKpJDkNpW5PP1i0fFGB8+3/eV7GOgH0SXa7Gh0dR97E=
+X-Received: by 2002:a05:7301:fc11:b0:33e:904f:9832 with SMTP id 5a478bee46e88-3426febb10emr4832959eec.8.1790480015308;
+        Sat, 26 Sep 2026 20:33:35 -0700 (PDT)
+Received: from Raccoon ([2409:408d:3296:6184:5a54:7918:9f72:6043])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm18559891eec.27.2026.09.26.20.33.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 20:33:34 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH fixes v3] media: vivid: check for NULL dev in vivid_probe() control setup
+Date: Sun, 27 Sep 2026 09:03:06 +0530
+Message-ID: <20260927033306.14125-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260926084318.12161-1-rokinthanp03@gmail.com>
+References: <20260926084318.12161-1-rokinthanp03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+In vivid_probe(), after creating instances, the driver iterates
+through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
+'Connected To' controls. However, it dereferences dev->has_vid_out
+without verifying that dev is non-NULL.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+If an instance fails during creation, vivid_devs[i] remains NULL,
+causing a general protection fault:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+    Oops: general protection fault
+    KASAN: probably user-memory-access in range
+    [0x0000000000005f38-0x0000000000005f3f]
+    RIP: 0010:vivid_probe+0x579/0x10d0
 
-- [Medium] The DT binding's allOf conditional was not updated for the new
-  compatible.
-- [Medium] socfpga_agilex5_tsn_gmac_setup_plat_dat() rewrites every RGMII
-  variant (rgmii, rgmii-id, rgmii-rxid, rgmii-txid) to…
-- [Low] socfpga_get_plat_phymode() (dwmac-socfpga.c:76-79) now returns
-  dwmac->mac_interface, the MAC-side interface selector, instead of…
+Add NULL pointer checks in both loops in vivid_probe() before accessing
+vivid_devs[i].
 
---
+Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+---
+Changes in v3:
+- Add "fixes" branch prefix to subject and base-commit info targeting
+  media-committers.git fixes branch to satisfy media-ci test-valid-ancestor check.
+- Add Cc: stable@vger.kernel.org for media-patchstyle check.
 
-net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA converter
+Changes in v2:
+- Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
+  remains supported as required by the test-media test suite.
+- Update author name to "Rohinthan P".
 
-This adds an "altr,socfpga-stmmac-agilex5-tsn" compatible for an Agilex5
-board that has an FPGA GMII-to-RGMII converter between gmac1 and its PHY.
-The new setup_plat_dat callback reuses the Agilex5 setup and forces GMII
-for the MAC interface selector. It also rewrites any RGMII phy_interface
-to plain RGMII.
+ drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index 1d7f0a57d2889..0632105b420f1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> @@ -69,12 +69,13 @@ struct socfpga_dwmac {
->  	void __iomem *tse_pcs_base;
->  	void __iomem *sgmii_adapter_base;
->  	bool f2h_ptp_ref_clk;
-> +	phy_interface_t mac_interface;
->  	const struct socfpga_dwmac_ops *ops;
->  };
->  
->  static phy_interface_t socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
->  {
-> -	return dwmac->plat_dat->phy_interface;
-> +	return dwmac->mac_interface;
->  }
-
-[Severity: Low]
-This isn't a bug, but socfpga_get_plat_phymode() now returns the MAC-side
-interface selector, not plat_dat->phy_interface. The comment in
-socfpga_gen10_set_phy_mode() was not changed:
-
-	/* Overwrite val to GMII if splitter core is enabled. The phymode here
-	 * is the actual phy mode on phy hardware, but phy interface from
-	 * EMAC core is GMII.
-	 */
-
-With the TSN ops, phymode is GMII and the PHY hardware runs RGMII, so
-this comment now says the opposite of what happens.
-
-Could the helper be renamed? The comments in socfpga_gen5_set_phy_mode()
-and socfpga_gen10_set_phy_mode() would also need updating to match.
-
-[ ... ]
-
-> @@ -670,10 +673,28 @@ static const struct socfpga_dwmac_ops socfpga_agilex5_ops = {
->  	.setup_plat_dat = socfpga_agilex5_setup_plat_dat,
->  };
->  
-> +static void socfpga_agilex5_tsn_gmac_setup_plat_dat(struct socfpga_dwmac *dwmac)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
-> +
-> +	socfpga_agilex5_setup_plat_dat(dwmac);
-> +
-> +	/* FPGA converter supplies RGMII delays; MAC uses GMII, PHY gets plain RGMII */
-> +	dwmac->mac_interface = PHY_INTERFACE_MODE_GMII;
-> +	if (phy_interface_mode_is_rgmii(plat_dat->phy_interface))
-> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
-> +}
-
-[Severity: Medium]
-Should phy-mode values that this hardware cannot support be rejected here?
-At the moment every RGMII variant is turned into plain RGMII.
-
-The commit message says the FPGA converter provides both the TX and RX
-delays. Under the phy-mode rules in ethernet-controller.yaml, that leaves
-"rgmii-id" as the only consistent DT value. "rgmii" means the PCB already
-provides both delays. "rgmii-txid" and "rgmii-rxid" mean the PCB provides
-one of them. The binding also says:
-
-  # link. Thus the MAC should report a fatal error for any modes which
-  # cannot be supported.
-
-stmmac already has a path for this in stmmac_pltfr_probe():
-
-	if (plat->has_internal_tx_delay || plat->has_internal_rx_delay) {
-		plat->phy_interface =
-			phy_fix_phy_mode_for_mac_delays(plat->phy_interface,
-							plat->has_internal_tx_delay,
-							plat->has_internal_rx_delay);
-		if (plat->phy_interface == PHY_INTERFACE_MODE_NA)
-			return dev_err_probe(&pdev->dev, -EINVAL,
-					     "unsupported phy interface mode\n");
-	}
-
-When both delays are internal, phy_fix_phy_mode_for_mac_delays() converts
-rgmii-id to rgmii. For any other mode it returns PHY_INTERFACE_MODE_NA.
-
-This patch does its own conversion instead. A DT with phy-mode = "rgmii",
-"rgmii-txid" or "rgmii-rxid" then probes with no error. The converter then
-adds its own delay on top of the PCB delay.
-
-The phy-mode enum in altr,socfpga-stmmac.yaml accepts all four RGMII
-variants, so dtbs_check won't catch this either.
-
-Would setting plat_dat->has_internal_tx_delay and has_internal_rx_delay
-work here? That would let stmmac_pltfr_probe() do the conversion and the
-validation.
-
-> +
-> +static const struct socfpga_dwmac_ops socfpga_agilex5_tsn_gmac_ops = {
-> +	.set_phy_mode = socfpga_gen10_set_phy_mode,
-> +	.setup_plat_dat = socfpga_agilex5_tsn_gmac_setup_plat_dat,
-> +};
-> +
->  static const struct of_device_id socfpga_dwmac_match[] = {
->  	{ .compatible = "altr,socfpga-stmmac", .data = &socfpga_gen5_ops },
->  	{ .compatible = "altr,socfpga-stmmac-a10-s10", .data = &socfpga_gen10_ops },
->  	{ .compatible = "altr,socfpga-stmmac-agilex5", .data = &socfpga_agilex5_ops },
-> +	{ .compatible = "altr,socfpga-stmmac-agilex5-tsn", .data = &socfpga_agilex5_tsn_gmac_ops },
-
-[Severity: Medium]
-Does the allOf conditional in the binding also need the new compatible?
-
-In Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml, the if
-block matches only the plain Agilex5 string:
-
-  - if:
-      properties:
-        compatible:
-          contains:
-            const: altr,socfpga-stmmac-agilex5
-    then:
-      properties:
-        interrupts:
-          minItems: 17
-        ...
-        dma-coherent: true
-    else:
-      properties:
-        interrupts:
-          maxItems: 1
-
-        interrupt-names:
-          maxItems: 1
-
-        dma-coherent: false
-
-The earlier binding patch in this series added
-altr,socfpga-stmmac-agilex5-tsn to select and to the compatible enum. It
-also says agilex5 should not be used as a fallback. A node with
-"altr,socfpga-stmmac-agilex5-tsn", "snps,dwxgmac-2.10" therefore gets the
-else constraints.
-
-The driver treats this compatible as full Agilex5 XGMAC hardware. It calls
-socfpga_agilex5_setup_plat_dat(), which sets up the XGMAC core, TSO, TBS
-on TX queues 6/7 and cross-timestamping. The gmac1 node in
-socfpga_agilex5.dtsi, which the TSN board overrides, has 17 interrupts and
-dma-coherent.
-
-Won't dtbs_check reject a correct TSN gmac1 node, and accept one with a
-single interrupt and no dma-coherent? Should the if block match both
-strings, for example:
-
-          contains:
-            enum:
-              - altr,socfpga-stmmac-agilex5
-              - altr,socfpga-stmmac-agilex5-tsn
-
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
-
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+index 62cfb5f..1860ad6 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.c
++++ b/drivers/media/test-drivers/vivid/vivid-core.c
+@@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
+ 	for (int i = 0; i < n_devs; i++) {
+ 		struct vivid_dev *dev = vivid_devs[i];
+ 
++		if (!dev)
++			continue;
+ 		if (!dev->has_vid_out)
+ 			continue;
+ 		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == HDMI) {
+-				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
++				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
+ 				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
+ 			}
+ 		}
+ 		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == SVID) {
+-				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
++				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
+ 				vivid_ctrl_svid_to_output_index[svid_count++] = j;
+ 			}
+ 		}
+@@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
+ 	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
+ 	svid_count = min(svid_count, MAX_MENU_ITEMS);
+ 	for (int i = 0; i < n_devs; i++) {
+-		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
++		struct vivid_dev *dev = vivid_devs[i];
++
++		if (!dev)
++			continue;
++		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
+ 		}
+-		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
++		for (int j = 0; j < dev->num_svid_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
+ 		}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923021823.46649-1-muhammad.nazim.amirul.nazle.asmade%40altera.com
+2.53.0
+
+base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
