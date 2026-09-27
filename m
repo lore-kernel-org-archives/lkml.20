@@ -1,142 +1,212 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C7D3B14D5;
-	Sun, 27 Sep 2026 15:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FC124A078;
+	Sun, 27 Sep 2026 15:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522825; cv=none; b=uknK2QYZOdAGUoAdzp1T5MW6X0z04un3+hbRRzVTgm7Zdum4xs9XUZXD/2QDDHfgx+nQkJGqOE+4pt2u+w9n4ficCzsER5hSWE1R6I2dKH952e4jDYfCd9IL0cMQMNUNAzqc1LZdBjjN5Ic4T7bu/95CI7D9UyFYzQsq6DrOhZk=
+	t=1790522862; cv=none; b=Cd+YtB5P+tMiKWbdtik+48uQA32fnH6pzsGN+AFriTsTXDNOp99F3sF4zoa09z8TDxAzQs2GyDwUMBQtspN6aIxZsoVL4weGovXAU6ySn+xsOoVV1NBCDxtGW6Nar+JZYePkKq4Co2jdeUIbuxAi4PDFtqOEreU4T7y4ZposHzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522825; c=relaxed/simple;
-	bh=ZJif99HrM3tONVAFov7W+Nz1FkXr7HloM1H9lUZ80zI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=SOioAyxCP4tuDsirPkgQRN/3TLGFwCyZxBRnqtyKKNrgupcHxEuDB5Q96ax/IIg9bMfphn/ZoCHzchMF1x7p8aqFamQjz3oDBxFROEn5sv8kM4hkQ4T55xX1895seoH7SrDMcIR3Y4xjlJzSeEVlXYBzwX20ek2l+5OUluK0yZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=gjg9eQOW; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790522862; c=relaxed/simple;
+	bh=ZZctbrUtdp2u1m5vR8OUb3RsnNvd4XESXPNyA9NR6/4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ozPkFoOyFyTBezebjeiSzGmhsqebigwA4iD7dWxIc5fZi5cr3uqmts4Jk8L26/KGIWcq0iB3OYitAfkwjEdad81o8j5a23yIwO0XL99o3seMBXj/ph2lwmnrBNUI3ZnLSZNG4d5/LATR/GZhE6seeouBI0xv/VU+1p2WaYgPcPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ9lOZUi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="gjg9eQOW"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260927152657euoutp01fee60fb85c8f744f5b23de099f9efd5d~ZNwQwVanT0796507965euoutp01Z;
-	Sun, 27 Sep 2026 15:26:57 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260927152657euoutp01fee60fb85c8f744f5b23de099f9efd5d~ZNwQwVanT0796507965euoutp01Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790522818;
-	bh=552yr90urBhvBvN6cAihy9SNDNfGhvxsBdcKYn8Bqkg=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=gjg9eQOWA0CxY3ngNhBHqtz1JM3KKcYnvAXf1eQWIfGbzS+ettayDylBqirZGSDZ0
-	 4/LXiCaTIPkLLVpd5a2xD3aFHM5RQsqbdNfRkqEjajd72YE31sUYSbxWhMeTWRmQ+F
-	 TWdrCd/edX3NzOp1vM2aOWlWptW3UGr6cosY45Yg=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927152656eucas1p1473e0b9575b6efc4ccc01e99783bf8aa~ZNwPrSQNF0222902229eucas1p1j;
-	Sun, 27 Sep 2026 15:26:56 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927152655eusmtip1c51d14fba318ce4acae93d017ad71be3~ZNwOCLRV_3134331343eusmtip1g;
-	Sun, 27 Sep 2026 15:26:55 +0000 (GMT)
-Message-ID: <a74ccc09-ed64-4915-ab85-232c6d953c3d@samsung.com>
-Date: Sun, 27 Sep 2026 17:26:54 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ9lOZUi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21C41F000FF;
+	Sun, 27 Sep 2026 15:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790522861;
+	bh=ogmrucsA1GTOgB+NrmzwiRT9ggqTpVQd1FndsO0P5oI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XJ9lOZUioQgut0C+aOfkbVUFgxqx+RqYjpyXr8Jxy96ecgJqIkV1RCw6UOWab7LNK
+	 npnuMdCqFqPBu9Vdz+Xi44WpWRa/15gSMFKdNf5nOHEdnlGxcLgTLbbcX1v0jddA4n
+	 DTtcwbsgTHAczjpdB+WGatG5qHLVM+mdPShuwxaepAgUI5gwFUtZe9mY5VgWXfjDJz
+	 BtJTkK+/GCWmv31H+SAzM45DBdD1l3UWzQfWq6QdTk5HVxRYyqcgVECZfZiZOFeWGp
+	 N4REtcWRX2FuCnemnQtHe5E7Atjb6TOZh1k3QkQTDEqvZXKoKCywobAYj8fRFS/M3A
+	 Iybgv4QrKdwZA==
+Subject: Re: [PATCH net] net: mana: reserve RX buffer headroom to fix
+ forwarding performance
+From: netdev-bot+sashiko@kernel.org
+To: hamzamahfooz@linux.microsoft.com
+Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, horms@kernel.org,
+ ernis@linux.microsoft.com, dipayanroy@linux.microsoft.com,
+ gargaditya@linux.microsoft.com, jacob.e.keller@intel.com,
+ ssengar@linux.microsoft.com, linux-hyperv@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 27 Sep 2026 15:27:39 +0000
+Message-ID: <179052285930.2160803.11184804113286091670@kernel.org>
+In-Reply-To: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
+References: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/20] dt-bindings: display: verisilicon: Add
- starfive,jh7110-dc8200
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
-	Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen
-	<chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927152656eucas1p1473e0b9575b6efc4ccc01e99783bf8aa
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
-	<1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 · Medium: 0 · Low: 2
 
-On 9/18/26 07:58, Icenowy Zheng wrote:
-> 在 2026-09-15二的 17:32 +0200，Michal Wilczynski写道：
->> The JH7110 embeds a DC8200. The binding requires an SoC specific
->> compatible ahead of the generic one, so add the JH7110 to the enum.
->>
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index
->> 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64
->> 584d959d96d90 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -16,6 +16,7 @@ properties:
->>    compatible:
->>      items:
->>        - enum:
->> +          - starfive,jh7110-dc8200
-> 
-> Note: this binding is being refactored as part of MA35D1 support
-> introduction (this SoC has a single-port DC like a DC8000), after the
-> refactor the binding string might need to appear twice.
-> 
-> Thanks,
-> Icenowy
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Hi,
-Thank you for letting me know. I've found the patchset on the mailing
-list [1]. Will make sure to rebase (and fix) after it gets in
-(presumably before this one although I'm not 100% sure).
+- [High] With XDP attached, the patch sets rxq->headroom to max_t(u32,
+  LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM) in…
+- [Low] mana_set_priv_flags() (mana_ethtool.c) keeps its own copy of the
+  old rule for when one buffer per page is forced anyway: `ndev->mtu +…
+- [Low] The comment above mana_get_rxbuf_cfg() still reads "Get RX
+  buffer's data size, alloc size, XDP headroom based on MTU".
 
-[1] - https://lore.kernel.org/all/20260918030125.315978-2-a0987203069@gmail.com/
+--
 
+net: mana: reserve RX buffer headroom to fix forwarding performance
 
-> 
->>            - thead,th1520-dc8200
->>        - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
->>  
-> 
-> 
+This patch reserves LL_RESERVED_SPACE(ndev) of headroom in MANA RX buffers,
+so forwarded packets no longer have to be reallocated by
+pskb_expand_head() to satisfy skb_cow() in ip_forward(). With XDP attached,
+the headroom is the larger of that value and XDP_PACKET_HEADROOM. The
+frag-vs-single-buffer decision now uses the computed buffer size instead of
+comparing the MTU against PAGE_SIZE / 2.
 
-Best regards,
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 591fb4191d90d..e3f3b33ba9062 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> @@ -758,6 +758,36 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+
+[ ... ]
+
+> +static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
+> +{
+> +	u32 headroom = LL_RESERVED_SPACE(apc->ndev);
+> +
+> +	if (mana_xdp_get(apc))
+> +		return max_t(u32, headroom, XDP_PACKET_HEADROOM);
+
+[Severity: High]
+With XDP attached, can rxq->headroom now be larger than
+XDP_PACKET_HEADROOM while the XDP path still assumes 256?
+
+MANA_HEADROOM is sizeof(struct mana_skb_head), and that size grows with
+MAX_SKB_FRAGS. CONFIG_MAX_SKB_FRAGS can be anywhere from 17 to 45. With
+17 or 18 frags, LL_RESERVED_SPACE(ndev) is 256. With 19 to 45 frags it
+is 272 to 592, and then max_t() returns that value instead of 256.
+
+The NIC writes each frame at va + rxq->headroom in mana_get_rxfrag():
+
+    *da = dma_map_single(dev, va + rxq->headroom, rxq->datasize,
+                         DMA_FROM_DEVICE);
+
+However, mana_run_xdp() in mana_bpf.c still does:
+
+    xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
+
+On XDP_PASS, mana_build_skb() then reserves
+xdp->data - xdp->data_hard_start, which is 256 rather than
+rxq->headroom:
+
+    skb_reserve(skb, xdp->data - xdp->data_hard_start);
+
+In those configs, would the XDP program, the XDP_PASS skb, and the
+XDP_TX/REDIRECT/AF_XDP frames all start (headroom - 256) bytes before
+the real frame? The leading bytes would be stale page_pool contents, and
+the tail of the frame would be cut off.
+
+There is a related question about the MTU limit in include/net/mana/mana.h:
+
+    #define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
+
+This still budgets 256 bytes of headroom, while the XDP branch of
+mana_get_rxbuf_cfg() keeps *alloc_size = PAGE_SIZE. mana_xdp_set() uses
+MANA_XDP_MTU_MAX both for the MTU check and to set max_mtu.
+
+At the largest accepted XDP MTU, does the DMA window now run
+(headroom - 256) bytes into the skb_shared_info area that
+napi_build_skb() initializes afterwards? If so, fixing only the
+xdp_prepare_buff() offset would leave this limit wrong.
+
+Before this patch the XDP headroom was always exactly
+XDP_PACKET_HEADROOM, so these values always matched.
+
+> +
+> +	return headroom;
+> +}
+> +
+> +static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
+> +{
+> +	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
+> +				 mana_get_rxbuf_headroom(apc));
+> +
+> +	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
+> +}
+> +
+>  static bool
+>  mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+>  {
+> @@ -770,11 +800,16 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+>  	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
+>  		return true;
+>  
+> -	/* For xdp and jumbo frames make sure only one packet fits per page. */
+> -	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
+> +	/* For xdp make sure only one packet fits per page. */
+> +	if (mana_xdp_get(apc))
+>  		return true;
+>  
+> -	return false;
+> +	/* Only use the page_pool fragment path when at least two buffers,
+> +	 * including the headroom each of them has to reserve, actually fit
+> +	 * into one page. Otherwise the fragment path degenerates into one
+> +	 * buffer per page while still paying the fragment accounting cost.
+> +	 */
+> +	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
+
+[Severity: Low]
+Should mana_set_priv_flags() in mana_ethtool.c use this same rule? It
+still has its own copy of the old one:
+
+		if (ndev->mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 ||
+		    mana_xdp_get(apc))
+			return 0;
+
+The comment above that check says single-buffer-per-page "is already
+forced regardless of this flag", so the detach/attach cycle can be
+skipped "since nothing changes".
+
+On 4K pages with an MTU of about 1459 to 1714, which includes the default
+1500, the old check is false. The new rule here already forces one buffer
+per page in that range (buf_size is 2112 at MTU 1500).
+
+Toggling the full-page-rx private flag at those MTUs would still run
+mana_pre_alloc_rxbufs(), mana_detach() and mana_attach(), even though the
+RX layout doesn't change. The mismatch only goes this way: a
+reconfiguration that is actually needed is never skipped.
+
+>  }
+>  
+>  /* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
+
+[Severity: Low]
+This isn't a bug, but this comment still describes the headroom output as
+"XDP headroom". After this patch, *headroom is always set from
+mana_get_rxbuf_headroom(). Without XDP, that is LL_RESERVED_SPACE(ndev),
+reserved for the TX-path struct mana_skb_head.
+
+[ ... ]
+
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923144500.4073380-1-hamzamahfooz%40linux.microsoft.com
