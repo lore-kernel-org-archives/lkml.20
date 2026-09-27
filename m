@@ -1,270 +1,144 @@
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880C93B4E94
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271D23B6371
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790476946; cv=none; b=CgRkOcHuRkDaWhWx863nRoszmEd9sjwRxPaJjVTDchTgmn5nTht/RXBgYwOKHn4/IaCSU5E6El6LdrdsN63SlZWe1YFsyWWjGn4Lu77env3BaLit0Ana7Z0us7UE2CJgNrMNkv/vvAoU84Akx7uOMCtUHFPbsBJiyLKam4Vwstk=
+	t=1790477248; cv=none; b=Q7Pnv02i1USlRI5at5aIa0C5VzYIwvK+i3rlCPNXgIb+xOkfwyXBDQ84JFRbt7tlpltPGXpZqg8J5UHay87893qarlXqSZdarqvFmLWtmLvM/bsR3XxI33VEUej+oWJltX/XI7oPSqqdI787AkMXkEMX2ey2WcrNi5lXKh13UpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790476946; c=relaxed/simple;
-	bh=CwNv3PDCpSo/2PKr8cuJGpWe7BPaOvLrDZKrCkc++FU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cj7tJfnHhfCif6aF5kNse3WZ5Sl6fApv4ow1k07xADDLb42Dz0SgIj/q1EJiRIzIdlukPWaqGFSB5ixLruMQ/3amUwiVNVBK5A6Xc2qN9qeLF0to/KHHIXbMhNqObbfdceTpdSrSfh0vdqFTsVx0lHYGOwhlBv8ydbsZo9EX3ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=cIiBsD56; arc=none smtp.client-ip=78.46.171.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790477248; c=relaxed/simple;
+	bh=sw1FsZk3EXWJSZs1rgYit1v3sgrB+52CTgcM/JeRkS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FkbgiNzjiUaN4dZdFfBJGxIC8mJHFWxwW3e5SvHxnqIHN3Wi431+n197QvY34YtpwLo/eu4a0h2++r4LLCQZo3HtBbnH0Why/WIKMhrrkMw7VVBeLkwRDZUglaAElvT+EMNVpo3wetxeonQxZI5OCiFfOSuqn+xaRyrHVXr1oMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NXmw60ZT; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="cIiBsD56"
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id 2F7C2BCFC9
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:42:21 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id 05570BCFC0
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:42:20 +0300 (EEST)
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 6E4241FFB50
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:42:19 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790476939;
-	bh=CwNv3PDCpSo/2PKr8cuJGpWe7BPaOvLrDZKrCkc++FU=;
-	h=Received:From:Subject:To;
-	b=cIiBsD5611vZ5JrRx9Vo7W634DbXvRx0RJGj+LVKfDNvvhBncTFQRa9uFY8G75owB
-	 vNFNXvNnpG5TdY6krdvf4SgtBXdH2GtL30dSdjK1LQa6I1dfCxRfmRX38vKjGHyZ0D
-	 Ao4Lu7giYHe7HkcwADrd6Ny/cPpnR+/KTLfgzkBkIRdpvQ2mkwKnc02S6BWR+3TVS9
-	 lcPLgCiN6XDolrJGz1E9+xbincNQZUXLtrO2tPdFbamNKM2h7204vnMgzAfaQL6G5X
-	 CEON+2uXDpWHCh5PBfdhd3MLrWnJy+HewZb5e9sqN0kWXeftKzdAG6O6+lFDzJglJ7
-	 BNaeErIVMXfkw==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.228.38) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f38.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pz2-f38.google.com with SMTP id
- d2e1a72fcca58-8814e797a5bso290889b3a.0
-        for <linux-kernel@vger.kernel.org>;
- Sat, 26 Sep 2026 19:42:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwG3pX8HF3tyg0Y7oM9bGHZtuIM30vqYzmv6Qi0TPol0LftTLXZNwPj3FxvP7vlSw8XcGwZ1XlysXQEIoA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfaGHW+xyLkKaYFEKHEolg93By059155e6kOjZLVgNJweVSD1P
-	bzLXqFIUrerP7ER8xTGL05xUNN+VL2EBPsKWwO3cymqVVp5azjNf6TeXtV1J/3NNYBir8gjD2yE
-	nX4GOPLqeO9MyYkLUsYNpq3afT+rvVto=
-X-Received: by 2002:a05:6a00:1954:b0:880:fe7b:bc55 with SMTP id
- d2e1a72fcca58-880fe7c018emr2997244b3a.56.1790476937863; Sat, 26 Sep 2026
- 19:42:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NXmw60ZT"
+Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-8167e0d1f90so1323915a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:47:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790477244; x=1791082044; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GBbvPJsBSWZjdVvkKhQVMvVffAad735JPJh2cGJmwo0=;
+        b=NXmw60ZTkPfjTHSYZrdrUztbze+i2DL8ptGE4+KxgnOiIbPFij0M8+LYt+V0S1femP
+         /tPrBLsbArNSZrqykexvoWsY26DIFWYaL75LpIlnYze4pFfH7ebgXX1St69zLkDR/Pk8
+         zw77sIrTOX6klrfopFPEQXpewLIP1Z6z+8au+ChTS2ODwAZzBJdPD62v2h0ZFJsBVctb
+         +lwmksB2ucwrB0oSNvqrD2oMloXSsKdo6d4UrEsCn5VSTq0H1fB+qUznMql3ixyppsMm
+         tGAYBMX+KOXVEnOBNtPVqFAzXElMeFmyiKdgRTbzvzd+vDdoWasCXJcGVKxpdJtK6jh3
+         cHug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790477244; x=1791082044;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GBbvPJsBSWZjdVvkKhQVMvVffAad735JPJh2cGJmwo0=;
+        b=qUCUruOmn7rYglVoxd1XnlhqfK+jYqj5J/APlSb8JOgOBJcJE2FVA0GXKoqauUPrxg
+         OblKsc+tPkZQQkpblSCv2rK3qjgdYf22B64Clabm3zjYyprYZGK74TSa42sgUZBMj/9i
+         AdImKeK7Arg5IkZ5XArGNzQqZxyV/80lIDquzTFcEE3KcRcEWMryNYscKy9zNNm5+u6h
+         0xNYXzjBiXUkBKEfgYYRqbmNx5N/QppdqFUND06qwJIpkA4PI6l82qp9ew+8fmiPPRHc
+         1n2Uaku5RWtvZtelq7lCpGu32O712ZII4DRvG+0GeMUCjQuQMzviDldIQsLuGlkinp9a
+         L0aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxklylDokr6ikvqh/SdDo5RaWKYtsHTd+6bPzfB09xMGaB4IqiptQIfeg3QVkPQ2gRAETCjJWe1DFjmWMk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnYs1vsDNHKXOCgu9T6jwsnhS1BZfnGyKlVnXkJORG4AM9TbWx
+	ZA4b8jwIHXIT/W7lJb/U6pz93+VP1WXWFsC++k6CTDOH7jNBD6s735+i
+X-Gm-Gg: AYBFou3Kzm2XP9a+B4zTxA4dmZT1tyHrIlm26iXr3LY9hSlrN0ns1/MGR5v+NjvguNB
+	dYsPtGfjqZ5+kz5uS2wTLusVTnnfXVE2nI6857ZeKTiCe+RmJJsFa+sZD+OlDGKRZkrNq1YqN5n
+	7tzZyvA7RJLmg+QO13btA33Za9uafOMZbTflBvhjPMbnITKnDIsZC0TPM/iRj1yS7xEF1OaurfY
+	DXETkWv7DywiQJkGVnJb7b5Rg19pzkS112AGffs+UkRpSvKk94hrAc6ZTVSs6UocQJQb8poWxjW
+	6NVWiYdORYMvGBzwhzaryyRpGrKZZSoDJEQBlE+h+izCj6h02faHZFVFTAfFUZ/w9MAIsh1EtXn
+	b2HpiPxIlvAclfLrHdnLylxZ7QvAhSG24krMC1F8dbNt5atMeMYwTcFMq20E4IVmhknnum6RH7B
+	nBZUXH55mpIw64W30+N09OaFaoq084lw78Q6j2TNDdt61PYif2fharVgSJqmsqqhfz5gVqSkJyr
+	B/Rh2h59EAjCzX4QL7fk10/cFTBukn8/BTvaH2LDafAup0wGj4hYXyhuAYVNBNyEa+G0s0loAsw
+	P8CFK0ckjM8Wibc=
+X-Received: by 2002:a05:6830:6686:b0:7f4:edd8:b7eb with SMTP id 46e09a7af769-81780d976d8mr11093358a34.6.1790477243868;
+        Sat, 26 Sep 2026 19:47:23 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e33f6714sm6626099a34.0.2026.09.26.19.47.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 19:47:23 -0700 (PDT)
+Date: Sat, 26 Sep 2026 21:47:17 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com,
+	peterz@infradead.org
+Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
+ inline issue
+Message-ID: <ariDteQPQ7BGtZZW@fedora-laptop>
+References: <20260911154148.644489-1-axboe@kernel.dk>
+ <arfs_kX_gkH1o_S-@fedora-laptop>
+ <0367c089-a2da-42ad-ae9f-fc61dd220d1a@kernel.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
- <arfpV7IXRAHREMzO@laps>
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
- <arhtsrVb82vr6U-p@laps>
-In-Reply-To: <arhtsrVb82vr6U-p@laps>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 27 Sep 2026 04:42:06 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
-X-Gm-Features: AclHuK_psYyUaNN45oZJW2syw4hvksOfPWRWLYazFH1JdDm07FTCr7i1M_cdNyw
-Message-ID: 
- <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-To: Sasha Levin <sashal@kernel.org>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179047693962.1894507.16818258808980396093@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0367c089-a2da-42ad-ae9f-fc61dd220d1a@kernel.dk>
 
-On Sun, 27 Sept 2026 at 03:13, Sasha Levin <sashal@kernel.org> wrote:
->
-> On Sat, Sep 26, 2026 at 07:54:27PM +0200, Antheas Kapenekakis wrote:
-> >> It didn't in my tests either. With AGENTS.md pointing at README, one agent read
-> >> only coding-assistants.rst, and the other read that plus generated-content.rst,
-> >> which coding-assistants.rst references. Neither opened any of README's other
-> >> pointers.
-> >
-> >They usually read it when they need to. I find it is 60% of the time.
-> >Of course, this does not compensate for behavior that should always
-> >apply. Sol 6 also has the annoying habit of modifying readmes
-> >randomly.
->
-> Agreed, and the rules in coding-assistants.rst are the part that should
-> always apply.
->
-> >> >agents.md file before every message. Unsure if it still does, I do not
-> >> >use Claude. agent.md files should be specifically designed for agents
-> >> >and handwritten. Moreover, they usually need to be tuned for the model
-> >> >generation in general, if not the provider and model specifically.
-> >> >Which brings us to 2.
+On Sat, Sep 26, 2026 at 04:06:02PM -0600, Jens Axboe wrote:
+> On 9/26/26 10:04 AM, Ming Lei wrote:
+> > On Fri, Sep 11, 2026 at 09:40:50AM -0600, Jens Axboe wrote:
+> >> Hi,
 > >>
-> >> The rules README points to (DCO, Assisted-by, patch format) are the same for
-> >> every model. Personal and model-specific tuning belongs in a personal file.
-> >> Your sample shows why the shared part should come from the tree: it asks the
-> >> agent to add your Signed-off-by, which coding-assistants.rst says an agent must
-> >> never do.
-> >
-> >You are correct. Agents are tools. All of their outputs are the
-> >responsibility of their users. They cannot apply DCO.
-> >
-> >For me, I make sure to review copyright and test my kernel patches
-> >before sending them or pushing them to a remote. So my agent should
-> >add my sb and the assisted tag otherwise the patches need unnecessary
-> >cleanup. This is my personal preference. The mainline branch should
-> >not poison my agent's context or provide conflicting instructions.
->
-> Your issue is with coding-assistants.rst, which says agents must not add
-> Signed-off-by. AGENTS.md only makes agents see it.
+> > 
+> > ...
+> > 
+> >>
+> >> This is obviously an RFC, in terms of what I'd love people to take a
+> >> closer look at:
+> >>
+> >> - The scheduler hook and the identity move itself, kernel/thread_handoff.c.
+> >>   Is the set of refused states complete enough, and is moving
+> >>   thread group leadership this way (the leader must stay first on
+> >>   ->thread_head, like de_thread() keeps it) acceptable / kosher.
+> >> - The x86 and arm64 register state handling. x86 refuses AMX users,
+> >>   and arm64 refuses SME.
+> >> - Whether anyone relies on a task's user identity staying on one
+> >>   task_struct in ways not covered above in the series.
+> > 
+> > This way may break ublk server given 'task_struct *' can be changed
+> > because the server issues blocking OP(fallocate, ...), then the
+> > `current` check in ublk_dispatch_req() can be hit.
+> 
+> Yep, which is why is isn't enabled there.
 
-I do not have a problem with coding-assistants.rst staying as it is
-now. But it does not make for a good agents.md file. And neither does
-the readme.
+If you mean .blockable isn't set for IORING_OP_URING_CMD, it can't avoid
+this issue, because io->task crosses IORING_OP_URING_CMD, and one
+io-uring(fallocate) changes ublk server's `task_struct *`. It can be
+solved in ublk driver by storing and checking tid.
 
-If the user asks an agent how should I use LLM assistance when
-contributing to the kernel, then the agent will find this file
-correctly and explain the basics to the user. So it works as it is
-supposed to already.
+The usage is similar with prctl(PR_IO_FLUSHER).
 
-> [ ... ]
->
-> >But as far as I know personal snippets are meant to be additive. I do
-> >not think there is a widespread override for agents.md for the default
-> >one. Codex seems to have one but there is only one google result on
-> >it.
->
-> Codex reads AGENTS.override.md in place of AGENTS.md. Claude Code doesn't load
-> AGENTS.md at all when a CLAUDE.md exists, and Gemini reads GEMINI.md unless
-> configured otherwise.
->
-> The agents are designed exactly for this model: the upstream project has it's
-> own AGENT.md which is relevant for the upstream side of things. Downstream is
-> able to modify it as needed, either by carrying an out of tree patch, an
-> override file, or whatever else works for downstream.
->
-> >A large generic readme that offshoots to 30 other readmes is not an
-> >appropriate agents.md file.
-> >Documentation/process/coding-assistants.rst would be a better start
-> >for a symlink but even that is not particularly lean and would likely
-> >degrade modern agents. It still contains offshoots to 4 different
->
-> Changes to coding-assistants.rst itself are fair game as separate patches. This
-> one only gets agents to load what we already ask them to follow. There's no
-> substance here - we're just making dumb machines behave better.
->
-> >readmes, and the "Procedure for finding and fixing bugs" would degrade
-> >most modern models. They are already RL'd to do what they are asked,
-> >and conflicting instructions could lead them to e.g., commit when not
-> >asked to. For example consider:
->
-> [ snip ]
->
-> I get that you have concerns with those docs, so feel free to propose patches
-> for these.
->
-> I do not thing we need a seperate machine-only readable set of docs. If these
-> "agents" can't do better parsing those docs, then we shouldn't bend over and
-> write them their own versions. I'm okay with doing better at pointing to those
-> docs ("RTFM!"), but I don't think that a fork of the docs is sensible.
->
-> If you disagree, feel free to propose changes to coding-assistants.rst, as this
-> is really a doc that gets read mostly by machines.
+> Known gaps are LSM state kept in the task rather than the cred, and
+> PR_SET_IO_FLUSHER. Neither moves, and not moving them can only ever
+> restrict.
 
-I do not disagree or proposed something different. Agents can read
-docs just fine (rst, html, they can even read assembly code assembled
-just fine), and the existing kernel docs are fine for that. But they
-should only read them when they want to or when they are asked to. I
-did not propose rewriting the docs for agents.
+A spare forked before PR_SET_IO_FLUSHER lacks the flags, so the user
+thread loses them after the handoff, for good, since later spares are
+forked from the new task.
 
-I think there might be a misunderstanding with what an agents.md file
-is meant to do. It is meant to be a small file that lists a few
-notable things agents should know about a project. For example, see
-[1][2] I made recently while working on two projects. Most projects
-are limited in scope, and most teams use the same LLM agents more or
-less, so it is easy to make a universal agents.md file that is then
-extended lightly (but mostly not) by individual members.
+> 
+> > Also there is risk in 'task_struct *' keyed bpf task storage.
+> > 
+> > task_work queuing could become tricky too.
+> 
+> Like the above, the series does attempt to handle that.
 
-For the kernel, this is harder to do because how people use the kernel
-varies a lot. Therefore, people should make their own agents.md file.
-Just like we make our own deployment scripts, our own debugging
-scripts, our own patch preparation tools, and set up our own email
-client with custom routing rules (which takes multiple weeks to get
-right, far more than typing out a 50 line md file). Why should the
-kernel make an exception here and say no, this is the agents.md file
-you get and if you don't like it, go figure out how to override it
-with your harness? If the kernel should provide documentation relating
-to how to make an agents.md file with example snippets, this is ok,
-and mirrors how other components such as checkpatch.pl are provided.
+I meant kernel tw uses instead of io-uring's, one example:
 
-An agents.md file is essentially the list of 5-10 things you do not
-want to have to re-explain to the agent every time. That's it.
+With CLOSE + FSYNC in one io_uring_enter(), the CLOSE isn't blocked and its
+CQE is posted before the syscall returns, but ____fput stays queued on the old
+submitter until the FSYNC completes because of handoff, so the app still sees
+the file open.
 
-Yes last year, RAG, context optimization, memory techniques etc etc
-were all the rage, but after the labs started RLing the agents
-aggressively and doing scaled rollouts in VMs all of that has gone
-away. Agents are now designed to discover a codebase in 10-30 seconds
-fresh in every chat, without advanced memory management, do what was
-asked, test it, lint it, and deliver a result.
 
-And modern agents will also write kernel code and compile it and use
-checkpatch and deploy it and write synthetic throwaway tests and
-enable debug fs and sync a partial module so they do not have to
-reboot a device and read /dev/mem directly while creating a kernel
-module without being asked to or with a special AGENTS.md file.
-
-Yesterday/today, I made a USB C controller driver [3] for example and
-it works... Then a Zotac Zone user appeared so I wrote a hwmon driver
-[4] in 5 minutes while the other agents were proding the battery and
-type c of the samsung device (yes, there is also a battery driver).
-And the thing with [4] if you look at it is... it is clean in an
-upstreamable state and only took 4 back and forths... 1 month ago, I
-was annoyed I could not use my 8bitdo controller outside so I just
-ported the SDL protocol from SDL to the kernel enabling IMU and back
-buttons outside of it and Steam [6]. Again 20 minutes. Of course, DCO
-needs care with both [4] and [5], so you see for example [5] says
-"GPL-2.0-only AND Zlib" because it is a mechanic (LLM) conversion from
-SDL and [4] clearly lists and credits the source on the preamble but
-sheds copyright because only registers were referenced. An agent.md
-can't fix that. I had to write those comments and specify those.
-
-But in those, I did not use an agents.md file at all. Therefore, to
-come back to the original discussion, what is the point of creating a
-shared agents.md file? Is it to help experienced kernel developers?
-Because it won't because they do not need one. And if they do, they
-can spend an hour and write one with their particulars. If it is to
-help new contributors, that's fair, but without an optional agents.md
-standard, how do you prevent getting in experienced kernel developer's
-way? And also, how does that agents.md file help those new
-contributors? Because omitting sign-offs is not helpful, they will
-need to add one even if they do not understand what it is, and the
-problem is they do not understand what it is and telling the agent to
-skip it does not solve that.
-
-As I said, both [4] and [5] are derivatives and needed special care in
-the copyright and top text. If I was not careful and added my sign-off
-without the preambles, it would be a copyright
-violation/misattribution. But I had to add that myself, the agent did
-not do it, and me adding my sign-off manually after that would fix
-nothing.
-
-Best,
-Antheas
-
-[1] https://github.com/anatase-org/anatase/blob/master/AGENTS.md
-[2] https://github.com/anatase-org/spaces/blob/master/AGENTS.md
-[3] https://github.com/anatase-org/patchwork/blob/42a339c18111b17bb58ca28cd72fb3eca21cf2ec/drivers/usb/typec/samsung-emuec.c
-[4] https://github.com/anatase-org/patchwork/blob/5f66acf71de3dd59d0b7504a3168d1dde44c5064/drivers/hwmon/zotac-zone-ec.c
-[5] https://github.com/anatase-org/patchwork/blob/04d0b68af73d5e801c97c272ebbbcf5e7ebd9e3a/drivers/hid/hid-8bitdo.c
-
-> --
-> Thanks,
-> Sasha
->
-
+Thanks,
+Ming
