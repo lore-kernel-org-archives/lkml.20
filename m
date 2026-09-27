@@ -1,232 +1,155 @@
-Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bsdsz2.pd.infn.it (bsdsz2.pd.infn.it [192.84.143.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB5C3BADAA
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.127
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D99C2DB7BB
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.84.143.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790503058; cv=none; b=Zh8F84OWiQZnn+k/d0LW+4XsNYJ3LRUGwUirfehEGjhj6+QJlkucuUWIqD0bZVgta+DDLlUF0v+mWZKL5T1tRBM6aZgkPjZYxnfvYHBw0vXdSHePuIOeCppnhUOZH3OpI01H2nL6bJJbbuPwNXM4Jd/qTQ+y1uZzZrdbrJAOrO8=
+	t=1790503350; cv=none; b=E2zsNdQSTpX8KRTGYYYruDEpPB6E88w80qCYcIBhvjuPuUCntqfwVR+rUoDVmzyinIJXYIVK5GPM5DwiuY1NUpf1bcGUrk5h+ZQkwNZL3J/bJYY4ek0p82Kd8C2exEneI2duOD/YZsLz6dOHAkV3AjdS6QOs3q21wbjAjt0Ogdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790503058; c=relaxed/simple;
-	bh=GI1MEE8aUsWOeJABkvxpx7fy2ukekgou3rsJWtL4kBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pX4ntfPP+pe+oOwVp7Ic8tX0pI6NdDi9pPt55ZBkES3PTNQsTWpan5ePMtWO7CYKAZXusmJWqGZFUqmNiMrACnwdbYQyUYda1cUbiaCDyfKu6mPannpFt5cfof4J4KXotIR2SCxhBJQOeCM8+y56p0AXQTAlNqxoWufnBGMPHHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=I8G6+rFF; arc=none smtp.client-ip=91.218.175.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790503350; c=relaxed/simple;
+	bh=HxfMr9LiejgLVI2i3QndhxOxek1Qe9xtk3zFWSfOkco=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=f7pZbB2WbhV3j3bpy9qJ5bpnO78GrkUoGvnIZRnJUFI9K9gYJMtUI4z1Oq3Bx/2UinF7WvYSWdrEeTyZMAR1VSzr67luZH5vFfcS+67DPG5BXvHkR7OYN2gCTxmIzkPMr5dawhaUsKG1o8EmsGoor9Kt/gr3MAnke//qxIzf7B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it; spf=pass smtp.mailfrom=pd.infn.it; dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b=q+3ATSaf; arc=none smtp.client-ip=192.84.143.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pd.infn.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="I8G6+rFF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GI1MEE8aUsWOeJABkvxpx7fy2ukekgou3rsJWtL4kBQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790503053; v=1; x=1791107853;
- b=I8G6+rFFLJmaYHGwyMXt4JcPf5MoxGpRu21p52IqoHEVsG/+1EXshIvTfZa4vOvwp1lFnnbl
- Mg4HJ0OMozym8fPvyeC9Aw1hC5WaB4nPf6U7Fw5JpNHC9QYaLMfsH4Tj2+pz5ZSDkwHm1cKvwTk
- 8EKMda7v2lNzkNsdBJzbXfho=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5d1a45404f19f446;
-	Sun, 27 Sep 2026 09:57:33 +0000
-X-Mizu-Trace-ID: 5d1a45404f19f446
-X-Migadu-Flow: FLOW_OUT
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH v2] cgroup/cpuset: Invalidate remote partition on housekeeping conflict
-Date: Sun, 27 Sep 2026 17:57:21 +0800
-Message-ID: <20260927095722.70660-1-guopeng.zhang@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b="q+3ATSaf"
+Received: from [193.205.57.134] (wlecastellani.pd.infn.it [193.205.57.134])
+	(authenticated bits=0)
+	by bsdsz2.pd.infn.it (8.15.2/8.15.2) with ESMTPSA id 68R9xsof047325
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+	Sun, 27 Sep 2026 12:00:00 +0200 (CEST)
+	(envelope-from lorenzo.castellani@pd.infn.it)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pd.infn.it;
+	s=bsdsz2; t=1790503202;
+	bh=CzUZX/nazn6zAeR2jBTELSD0auTwcsnaVqr7BwlQ3z0=;
+	h=Date:To:Cc:From:Subject;
+	b=q+3ATSaffKZdyMZUMJF7laMPpgEcdPdfW9dSdlqBQToi0JtHyNt2wut6gsaqYkoJs
+	 4x8aKDBBM8Inzoko6YWlXuWcmjEBXVgsf8/sSaDYtCkzGZnixDJCmt+QwK9XAPREAM
+	 OsP94q7DbnznTq8uZYC+Q4wLMT42M1PaWn4BzizQ=
+X-Authentication-Warning: bsdsz2.pd.infn.it: Host wlecastellani.pd.infn.it [193.205.57.134] claimed to be [193.205.57.134]
+Message-ID: <5b2e042a-a4b6-41e1-a779-13a49003fd45@pd.infn.it>
+Date: Sun, 27 Sep 2026 11:59:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: it, en-US
+To: w1@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
+Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+ with multiple bus masters
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2 (bsdsz2.pd.infn.it [192.84.143.16]); Sun, 27 Sep 2026 12:00:00 +0200 (CEST)
+X-Spam-Score: -1.098 () BAYES_00,HELO_MISC_IP,SPF_NEUTRAL
+X-Scanned-By: MIMEDefang 2.83 on 192.84.143.16
 
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+ From 32e145b49cf41ce150a97ce52c63f5aae1bbbea7 Mon Sep 17 00:00:00 2001
+From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
+Date: Tue, 22 Sep 2026 11:12:30 +0200
+Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+  with multiple bus masters
 
-Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
-to a valid remote partition root without touching the partition's own
-control files. The partition then load balances that CPU, silently
-defeating isolcpus=domain for it.
+When multiple 1-Wire bus masters are present in the
+system, the global module-level counter causes the
+therm_bulk_read sysfs attribute to be created only
+for the first master where a bulk-read capable slave
+is discovered. Subsequent bus masters fail to expose
+the attribute because the counter is already non-zero.
 
-This can be reproduced on a 32-CPU system booted with
-isolcpus=domain,4:
+Fix this by replacing the global static counter with
+a per-master helper function that iterates over the
+slaves associated specifically with the given master
+(dev_master->slist). This ensures that each bus
+master independently correctly tracks and exposes the
+therm_bulk_read sysfs attribute when bulk-read
+capable devices are present.
 
-    cd /sys/fs/cgroup
-    echo +cpuset > cgroup.subtree_control
-    mkdir -p A/B
-    echo +cpuset > A/cgroup.subtree_control
-    echo 2-4 > A/cpuset.cpus
-    echo 2-3 > A/cpuset.cpus.exclusive
-    echo 2-4 > A/B/cpuset.cpus
-    echo 2-4 > A/B/cpuset.cpus.exclusive
-    echo root > A/B/cpuset.cpus.partition
-    cat A/B/cpuset.cpus.effective               # 2-3
-    echo 2-4 > A/cpuset.cpus.exclusive
-    cat A/B/cpuset.cpus.partition               # root
-    cat A/B/cpuset.cpus.effective               # 2-4
-
-The last write returns 0 and leaves the hierarchy in this state:
-
-    root (cpuset.cpus.effective=0-1,5-31)
-    |
-    \-- A (member):           cpuset.cpus=2-4
-        |                     cpuset.cpus.exclusive=2-4
-        \-- B (root, remote): cpuset.cpus=2-4
-                              cpuset.cpus.effective=2-4
-
-B is a remote partition: it takes its CPUs directly from the root
-cpuset, and A only passes its exclusive list down. Before the last
-write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
-root cpuset as a boot-isolated CPU. The write widens A's exclusive
-list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
-the grant: B remains a valid root partition, and CPU 4 is still
-listed in cpuset.cpus.isolated while sitting in a load-balanced
-partition.
-
-remote_partition_enable() already rejects such grants through
-prstate_housekeeping_conflict(). remote_cpus_update(), which applies
-ancestor changes to a remote partition, does not.
-
-Both paths also open-code remote partition validation. Move those
-checks into validate_remote_partition(), and check the resulting
-effective exclusive CPU mask for a housekeeping conflict there. The
-existing prs_err path then invalidates the remote partition instead of
-assigning it a boot-isolated CPU.
-
-Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
-Suggested-by: Ridong Chen <ridong.chen@linux.dev>
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Signed-off-by: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
 ---
-Changes since v1:
-- Consolidate remote partition validation in a common helper, as
-  suggested by Ridong.
-- Check housekeeping conflicts against the resulting effective exclusive
-  CPU mask.
-- Rebase onto cgroup/for-7.3-fixes.
+  linux-rpi-6.18.y/drivers/w1/slaves/w1_therm.c | 30 ++++++++++++-------
+  1 file changed, 20 insertions(+), 10 deletions(-)
 
- kernel/cgroup/cpuset.c | 71 +++++++++++++++++++++++++++++-------------
- 1 file changed, 49 insertions(+), 22 deletions(-)
+diff --git a/linux-rpi-6.18.y/drivers/w1/slaves/w1_therm.c 
+b/linux-rpi-6.18.y/drivers/w1/slaves/w1_therm.c
+index 832e3da94..4c8e67ec8 100644
+--- a/linux-rpi-6.18.y/drivers/w1/slaves/w1_therm.c
++++ b/linux-rpi-6.18.y/drivers/w1/slaves/w1_therm.c
+@@ -44,9 +44,6 @@
+  static int w1_strong_pullup = 1;
+  module_param_named(strong_pullup, w1_strong_pullup, int, 0);
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 1fcec89a28b9..5adf47217e59 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1561,6 +1561,45 @@ static inline bool is_local_partition(struct cpuset *cs)
- 	return is_partition_valid(cs) && !is_remote_partition(cs);
- }
- 
-+/**
-+ * validate_remote_partition - Validate a remote partition CPU change
-+ * @cs: cpuset being enabled or updated
-+ * @prs: partition root state to validate
-+ * @excpus: resulting effective exclusive CPU mask
-+ * @addcpus: exclusive CPUs to be added
-+ * @delcpus: exclusive CPUs to be deleted, can be NULL
-+ *
-+ * Return: PERR_NONE if valid, otherwise an appropriate error code
-+ */
-+static enum prs_errcode
-+validate_remote_partition(struct cpuset *cs, int prs,
-+			  struct cpumask *excpus,
-+			  struct cpumask *addcpus,
-+			  struct cpumask *delcpus)
+-/* Counter for devices supporting bulk reading */
+-static u16 bulk_read_device_counter; /* =0 as per C standard */
+-
+  /* This command should be in public header w1.h but is not */
+  #define W1_RECALL_EEPROM    0xB8
+
+@@ -968,6 +965,19 @@ static inline s8 int_to_short(int i)
+
+  /* Interface Functions */
+
++static int w1_therm_count_bulk_read_slaves(struct w1_master *dev_master,
++    struct w1_slave *exclude_sl)
 +{
-+	bool updating = is_remote_partition(cs);
++    struct w1_slave *sl;
++    int count = 0;
 +
-+	if (!capable(CAP_SYS_ADMIN))
-+		return PERR_ACCESS;
-+
-+	if (!updating &&
-+	    (!cpumask_intersects(excpus, cpu_active_mask) ||
-+	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
-+		return PERR_INVCPUS;
-+
-+	if (cpumask_intersects(addcpus, subpartitions_cpus) ||
-+	    (updating &&
-+	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
-+		return PERR_NOCPUS;
-+
-+	if ((prs == PRS_ISOLATED &&
-+	     !isolated_cpus_can_update(addcpus, delcpus)) ||
-+	    prstate_housekeeping_conflict(prs, excpus))
-+		return PERR_HKEEPING;
-+
-+	return PERR_NONE;
++    list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
++        if (sl != exclude_sl && sl->family_data && bulk_read_support(sl))
++            count++;
++    }
++    return count;
 +}
 +
- /*
-  * remote_partition_enable - Enable current cpuset as a remote partition root
-  * @cs: the cpuset to update
-@@ -1574,11 +1613,7 @@ static inline bool is_local_partition(struct cpuset *cs)
- static int remote_partition_enable(struct cpuset *cs, int new_prs,
- 				   struct tmpmasks *tmp)
- {
--	/*
--	 * The user must have sysadmin privilege.
--	 */
--	if (!capable(CAP_SYS_ADMIN))
--		return PERR_ACCESS;
-+	enum prs_errcode err;
- 
- 	/*
- 	 * The requested exclusive_cpus must not be allocated to other
-@@ -1591,15 +1626,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
- 	 * above it or remote partition root underneath it is not allowed.
- 	 */
- 	compute_excpus(cs, tmp->new_cpus);
--	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
--	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
--		return PERR_INVCPUS;
--	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
--		return PERR_NOCPUS;
--	if (((new_prs == PRS_ISOLATED) &&
--	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
--	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
--		return PERR_HKEEPING;
-+	err = validate_remote_partition(cs, new_prs,
-+					tmp->new_cpus, tmp->new_cpus, NULL);
-+	if (err)
-+		return err;
- 
- 	spin_lock_irq(&callback_lock);
- 	partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
-@@ -1672,6 +1702,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
- static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
- 			       struct cpumask *excpus, struct tmpmasks *tmp)
- {
-+	enum prs_errcode err;
- 	bool adding, deleting;
- 	int prs = cs->partition_root_state;
- 
-@@ -1695,14 +1726,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
- 	 */
- 	if (adding) {
- 		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
--		if (!capable(CAP_SYS_ADMIN))
--			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
--		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
--			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
--			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
--		else if ((prs == PRS_ISOLATED) &&
--			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
--			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
-+		err = validate_remote_partition(cs, prs, excpus,
-+						tmp->addmask, tmp->delmask);
-+		if (err)
-+			WRITE_ONCE(cs->prs_err, err);
- 		if (cs->prs_err)
- 			goto invalidate;
- 	}
+  static int w1_therm_add_slave(struct w1_slave *sl)
+  {
+      struct w1_therm_family_converter *sl_family_conv;
+@@ -992,9 +1002,11 @@ static int w1_therm_add_slave(struct w1_slave *sl)
+      if (bulk_read_support(sl)) {
+          /*
+           * add the sys entry to trigger bulk_read
+-         * at master level only the 1st time
++         * at master level only the 1st time on this master
+           */
+-        if (!bulk_read_device_counter) {
++        int bulk_count = w1_therm_count_bulk_read_slaves(sl->master, sl);
++
++        if (!bulk_count) {
+              int err = device_create_file(&sl->master->dev,
+                  &dev_attr_therm_bulk_read);
 
-base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
+@@ -1003,8 +1015,6 @@ static int w1_therm_add_slave(struct w1_slave *sl)
+                  "%s: Device has been added, but bulk read is 
+unavailable. err=%d\n",
+                  __func__, err);
+          }
+-        /* Increment the counter */
+-        bulk_read_device_counter++;
+      }
+
+      /* Getting the power mode of the device {external, parasite} */
+@@ -1040,9 +1050,9 @@ static void w1_therm_remove_slave(struct w1_slave *sl)
+      int refcnt = atomic_sub_return(1, THERM_REFCNT(sl->family_data));
+
+      if (bulk_read_support(sl)) {
+-        bulk_read_device_counter--;
+-        /* Delete the entry if no more device support the feature */
+-        if (!bulk_read_device_counter)
++        int bulk_count = w1_therm_count_bulk_read_slaves(sl->master, sl);
++        /* Delete the entry if no more device support the feature on 
+this master */
++        if (!bulk_count)
+              device_remove_file(&sl->master->dev,
+                  &dev_attr_therm_bulk_read);
+      }
 -- 
 2.43.0
+
 
