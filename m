@@ -1,148 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C6E239068
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE09286A4;
+	Sun, 27 Sep 2026 01:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790473526; cv=none; b=BMsoFg8gAmlZMJu2+e5z3SdP31nL67ChxKmvO3rsZke4XdDbhpf0LPgM3sBdHzTT0QHLiaZcedvOKRE6lZdM4kAToaVollVplzsXryMoBpkmKmrIhwyO+5cVEvhN60L9gFpiQOGE/QRyzqyopdxVwkNWKdYQJE2y+kaRNKNUC7M=
+	t=1790473703; cv=none; b=cFwsopuH25boPkkMf+7pnEpvEbVNjSeDeCCSgeMPd6KUJKe+EDR7/rb07pxexdBmUMkqMBC1aPoYkKsfY+NdYDvy1enpcghsW8DDyMVQ7gdBVxm0RhJUXa6VdhiAJVDl9tfWLEBBvg8sPIKfFSWbD45SRTp1sTxEqnfx3E6qRk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790473526; c=relaxed/simple;
-	bh=ZmshJRVNGhiDD241iabHMvHEahKSg7LVi7ZdIgOie5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CqpLHwAFrHkIkvMdHdHXvvRPHRe1W5/A0y2K1WpYvDou3FGnMgJKGeth4vq7cTf/Gl6GF4ZUJKKa+z4vIUHlNQ7q0uVJAAL+gPWOFxUqP6lYbr0ibbDABWn32hFNS50VTkeukiMIM2810jl3cSDx3RINeTIuV8YcuWaQyUOskGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bCXaFh83; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790473703; c=relaxed/simple;
+	bh=AjF81T39KEvWhZMb55n0e4H+RSfysG7EYcFp/wy6LiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ak0rePyNFY3+v0VGCUV5FTqL0+q6/6QNuEgVSJGjEmyhKF2ZVTrd35yOCqwWOnOILffFin/XseR6LjkMxavf1hpbhSD08ImeuSd6wPjphI1LXwi+aLCfZcMlvg8YH/GegcqKFLnoeINlG5/L7XFvF7Qg0RmCjWLt5ksa5zwaAuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=5utP4Ply; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xGQcNlfW; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bCXaFh83"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790473522;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUoH5rgAH1n+by9vaKnGPJrkH26uAPsRf2XvFcpnSDw=;
-	b=bCXaFh83f/n3GgTwELGGfK5xPbknPT+MU0V9qY2kYRZ/bgEfLBgwRvRZGAhaO9P+H87WQn
-	uhkLBmc8wbHjvfDh5pzN9YmUIZNrl129LkH18Ch9u7fLsR/mU+Wb9+KXrmKlqiaUlU1oHG
-	xbdyOZSP7+7DzK0QbI+sWovN9x1ZKwQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-tMlZC61VNVufI_UeeYlH9w-1; Sat,
- 26 Sep 2026 21:45:16 -0400
-X-MC-Unique: tMlZC61VNVufI_UeeYlH9w-1
-X-Mimecast-MFC-AGG-ID: tMlZC61VNVufI_UeeYlH9w_1790473515
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A1CD1955F7A;
-	Sun, 27 Sep 2026 01:45:14 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D528C180034F;
-	Sun, 27 Sep 2026 01:45:11 +0000 (UTC)
-Message-ID: <b5926447-1b52-4a8b-86d8-8adf40ca5f3f@redhat.com>
-Date: Sat, 26 Sep 2026 21:45:10 -0400
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="5utP4Ply";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xGQcNlfW"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 670391D00073;
+	Sat, 26 Sep 2026 21:48:21 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Sat, 26 Sep 2026 21:48:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1790473701; x=
+	1790560101; bh=PZ4zM8dBttNCoyc/5E3e2jTUTQxLhBIaPaJqr1Ygukg=; b=5
+	utP4Ply1JOzOrvOiE6sKhHPkoNsJolczum3jm3WajnMJz8G8HBvjsjlFsFejHjHO
+	/k03op9OK1yM2ZLLGBgiuGW24VOU22MwW4j0Nygt7IPU1ZfVhTew9HQ5GQnb4tqY
+	BGNFhS/Gs+fMlAQqBlHNTjLqMgkP0pt9TPSkMqXZi0Zg1x2Cz5Im/7YRUjODSTXd
+	TvUNHy2qxqmxRfL8j+sAHv6CxKyYVLMBXBOh+ArPJ3eOM0Qd5YgOk2DBNfbCrMwQ
+	PtiutKYOkpK2Qj4hUu+BE7hMcyOAoYqFTjD8UEcsVdTpq0oN7QetWKkuFAYZeAh8
+	aVO+k8/wWnY1nW1qBI9Ew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790473701; x=1790560101; bh=PZ4zM8dBttNCoyc/5E3e2jTUTQxLhBIaPaJ
+	qr1Ygukg=; b=xGQcNlfW+e2UNSBRVQXWWuy4xlnq75RnegNxxwR/xPLpDZLtqg5
+	ihBjZo4YHLRUNUKy3yT9JCOvmdcnPYXDQkuEkjhwKzDr0dr6IcsdA6kUZzn2YYsd
+	zKdkmOC/uxyvILOernlfmrjrqORjpW2mwx36K4LlnzggE1J7iNArHcXSGNjQ7Hdu
+	pe8I+O+PG7QJxvCBPD+eXn+XOb8PpPhH85lkVJBM9PsTRamptN/4AxRM4IrQ65Xl
+	w09ZgFt5372suwpt06xcsTfIL8Enahjk7qaFA3d+wqMvHzARZ2Y1oJmajEGYFD6B
+	GTiqDtmcGgTHNptelL2Mo5+nuPsCtmFm08A==
+X-ME-Sender: <xms:5XW4apqpyaFXFdqmIjzwW_7MKc9vjEAWdz6wwQ0MKuUK2z2v3fv9fw>
+    <xme:5XW4alvygklJ-p_c0dukwQj4LSPhMdnDOdsf6ilv0wJwTtqpcE4XNnGQNJmLvE70a
+    SQLuOR05PSQ5yH8GPzLXR8yX1SGS8FXUngS-0u28azHbYiyc1_oBUKC>
+X-ME-Received: <xmr:5XW4amFOPbygAaM22IevJd71xZ48NE76yGQKNoJs2G3bN0Yq1f6cpNPlUelDweXmJRCnr9dnX88nG2Ug_p84FsoUPDNYbQ>
+X-ME-Proxy-Cause: dmFkZTEdcxc8kt02CLiTaT/9YI+yINJTzhEM3LUFehMhj4KVXjZyWu3TjzUTW1CM9QpXy+
+    nlPlhwUiBgfOmDPKnL809Dc3tidtL3oBD6XCrMzuBUzsx9HAMCmrGTAghxiJf15DH2QvLB
+    mjRosHRKpFbYyIWZRi5le1IA3/t+mbC5IujIr9RneWhyUB4a6jUhMOE54QRTTIW4pcQ2It
+    PLiB2yGjR7D/RkIt+CDz46TWqg3CZOzdwcQTkwUG75JcxYChZ6D+heEJEGZqvAbbybXVSC
+    vbUm1ovYYUFoknZUu0k0ZBQAme55qZrbZq704VEqlUptRYpQWvhiftOnwvck1v03MerZDv
+    b8O7FOT1cy2Odhanvd3+VFFg/n/hoKSu1RJo0qofjRhpu+yzw6M1OCgmmi/jA+VLHGnGK4
+    knp/NRGJREyErBUHMwtbCWG7sYrLrzOvARsldpYwXQwsHErNXpOenHWiXY0lsOaDKOTnrn
+    2sVVbmH/EGw9FMTBGs3u719CQqzEgTAR+eFL4visOUnoL2AeeVxgv6Nyq1hsuRpFVm79xw
+    sWBcRBjmr/3cFUpVaOBUtNnZ2YzI09jBB43pGkpz3KRnVyFZUo2IUxh/pYNNkI0oYDQrsT
+    mkKi6iMDnSgajqZMirn45W9pAezmXQdvvmoEPvPyRsogQPc4B/km87Qi1TIw
+X-ME-Proxy: <xmx:5XW4amaAWiiWbbw5OLxYzz79AqfGQvnD2fauqwcoZt_6watQiOKr4Q>
+    <xmx:5XW4amUNeeMWdk2g63nBLjrBao8tlH29hkWS9FzLDD55a5YcnSJ_Cg>
+    <xmx:5XW4asmPmADCqOSZAEZjQK88Ejl6Zh85-IIxBdlbfXdQuaB4VDpO0w>
+    <xmx:5XW4ahBdrlWo-BprDfnIkLigUnF8fW9aWbwYblUlGfKA3wNgaOJO8Q>
+    <xmx:5XW4ak4CkVy-D9LWqm9vw0xpw0dc1at1WWXptK02V5Sn9icOxj85A4c_>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 26 Sep 2026 21:48:19 -0400 (EDT)
+Date: Sun, 27 Sep 2026 10:48:17 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	codemender-patching+linux@google.com
+Subject: Re: [PATCH] firewire: core: add __counted_by_ptr to struct fw_packet
+Message-ID: <20260927014817.GB9201@sakamocchi.jp>
+Mail-Followup-To: Bill Wendling <morbo@google.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	codemender-patching+linux@google.com
+References: <20260925210912.113052-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] cgroup/cpuset: prevent activating local partition
- over remote one
-To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
- Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260924042729.1908863-1-benquike@gmail.com>
- <20260924042729.1908863-3-benquike@gmail.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260924042729.1908863-3-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925210912.113052-1-morbo@google.com>
 
-On 9/24/26 12:27 AM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") added a check in update_prstate() to reject
-> creating a top-level local partition whose cs->exclusive_cpus intersects
-> subpartitions_cpus.
->
-> However, if a top-level cgroup A1 has a child A1/A2 enabled as a remote
-> partition on a subset of its exclusive CPUs (X2-3 on A1, CX2-3:P2 on
-> A1/A2), and A1 is then set to "root" (P1, becoming "root invalid" via
-> update_prstate() because its exclusive CPUs intersect subpartitions_cpus)
-> followed by expanding its CPUs to include additional non-remote CPUs
-> (CX1-3), update_cpumask() / update_exclusive_cpumask() calls
-> validate_partition() without going through update_prstate(). Because
-> validate_partition() does not check trialcs->exclusive_cpus against
-> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
-> partition over the existing remote partition A1/A2 and triggers:
->
->    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
->
-> Check trialcs->exclusive_cpus against subpartitions_cpus in
-> validate_partition() when !is_partition_valid(cs), and add a regression
-> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Cc: stable@vger.kernel.org
+On Fri, Sep 25, 2026 at 09:09:12PM +0000, Bill Wendling wrote:
+> In 'struct fw_packet', the 'payload' field points to a buffer of size
+> 'payload_length' bytes. To enable compiler bounds checking (via KASAN
+> and __builtin_dynamic_object_size), add the '__counted_by_ptr' attribute
+> to the 'payload' pointer, associated with the 'payload_length' count.
+> 
+> A thorough analysis of all allocation and initialization points for
+> 'struct fw_packet' was conducted. The pointer and its length are
+> assigned together.
+> 
+> Because the count field is always correctly initialized before the
+> pointer is accessed, the '__counted_by_ptr' attribute is fully safe and
+> will not cause runtime false positives or panics.
+> 
+> Cc: codemender-patching+linux@google.com
 > Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Signed-off-by: Bill Wendling <morbo@google.com>
 > ---
->   kernel/cgroup/cpuset.c                            | 4 ++++
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 6 insertions(+)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7381fa8502e7..7c5b4a8f1f3a 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
-> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->   					  trialcs->effective_xcpus))
->   		return PERR_HKEEPING;
-The code change looks good to me.
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index b732078bf319..4a451350ad84 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -321,6 +321,8 @@ TEST_MATRIX=(
->   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
->   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
->   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
-> +	"   X2-3  CX2-3:P2  .      .  P1:CX1-3   .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
-> +								       A1:P-1|A2:P2 2-3"
->   
+>  include/linux/firewire.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-This test case is problematic as it fails on my test system because of a 
-bug in the SCHED_DEADLINE task shrink test in validate_change() that can 
-be triggered if there are deadline tasks in the system which will fail 
-the test. I am going to post a patch to fix that bug. Can you take out 
-this test case from this patch as I don't want this test to be 
-backported to stable releases? You can send this out as a separate 
-testing patch if you want to.
+Applied to for-next branch.
 
-Cheers,
-Longman
 
->   	# Local partition invalidation tests
->   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
+Thanks
 
+Takashi Sakamoto
