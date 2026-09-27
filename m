@@ -1,76 +1,75 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-dl2-f38.google.com (mail-dl2-f38.google.com [74.125.229.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382CE3A6B99
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04B6370AE6
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506650; cv=none; b=e8ABr19/o1dm1GxeymN/WgxPos0Ry80lcg0JlWV5RWi/uBaTn50Zu29g7cfSz75V1IZ6RkX52Bl+4Z2gvbOw8uV1VTsBX3uTOZAM8sAgBfGIuNwkgSAa1JtMtUMmiGz3BQVcyq7aL5pW/R8JjuobLZ8MevBYbRJwmDuLqLTHz5U=
+	t=1790507099; cv=none; b=r1SzGkMa3JxtkdkJAXRwPSEc9Ocw+zwZaV6sDSd+xebAa9cys+zKAYKtUaWubp9J0PXv7yjlTZc00Sx1bhfXLIc99SYXPPClGuAm2biuFedsQ6SXtQsN4SyWWPYCIhEAhVXadFz7Ms+ZEkUlD5Av3lXJXx5PDufZsLZqe6BI0DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506650; c=relaxed/simple;
-	bh=Y9FffLNiSXHIXGdQDT5BK/jzm2kA9XM4TuzHSNvoE0w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F93Q6Lrryq7drotgXpkpReDiBgdWrIj/SSS1vdc8SboxthYkV1vbYn9kb1znxZeViLL5MbcZUzCbPcywgNmBiq8yQBoxz2welTXIoa6RB19iA5TYXpYIp0HtpFDPvbMCU9Ha8U8i2fSvcEfsXq697hYHM/G19PfxZ/nkIR1+khY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qz1szPOR; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790507099; c=relaxed/simple;
+	bh=KOl8jmrFfl+8h98tuqSGeaJ2dBRItGP32FRNaZsYlgk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kLIaQQb1vbasF+o5OltosC9ueVPBMAF+5slajeC+NZ/uoCg/0jE3FNlPsGTtOH1Ly3w3ZQkN30lHLvp0B8KMj1nPCRxQ+itk8X1+abuUffXWuZyPlDTEAucyuJYCllGslidEyIgAM/YtrB96FHG307p/V7au9SPWeLxrRdNlScM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JqMtaWRM; arc=none smtp.client-ip=74.125.229.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qz1szPOR"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1155316a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JqMtaWRM"
+Received: by mail-dl2-f38.google.com with SMTP id a92af1059eb24-141a5d476aaso63832c88.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:04:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790506643; x=1791111443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iNhuqNyiZflMWMLYzKj40EbjoI3SE3GVYg6+rQBmhgM=;
-        b=qz1szPORzcF+8tZI01I2SGavHly4YTUuizUwcExRGwNYRA3J3pLGzfFcpKhbXwvM0b
-         Sk8WyMppW7mzAmNX+1B424Xu/0p/1rrG+/mKzKyuS3g2mCjo8em+jMyRxnaOdVw1MpLk
-         sJXwe6AGISCkFdHwvQU9as28c4dWzJKURMo4tQIyZZP1TaCE16CFlPUR7JS3sPfBbjEt
-         EFnKfjz1EEE8Q/mH/XhRZDNor57GgPo/JxdjWzEbgSEA8YZGkia/J/dymX/r6SJWLpYE
-         o7vst3iGXB59l1lmnsj9f4PViYgAiyQ5xI87mQfOTisjTGn2POkT4qia2LK5ZoGHlM09
-         5vig==
+        d=gmail.com; s=20251104; t=1790507097; x=1791111897; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z68JCcllfkB9N/J0fAQxTKvHFiY+2t1qnuCG8bIZkkQ=;
+        b=JqMtaWRMIs3SBXcs+mQV+gza8Ks/mkyNOXDQysGx3DTDKA7KwfbWo5+tJISIIifLOv
+         byMvt+euC3GJ0GgRTvlXKHTjt+4d8JPwDBzTu3swUNP8HXRceh2i1OGbCNuFpai16zbD
+         JmihucHoh185egse7a8WP5VCYra1xx7AhIx8PjlrQeO3BC7mqNK1U0Q/mBFy7kde2SW5
+         dyFKOePa5o4P5UGNpe4AB4WpdVRww0F+nP2NYtYmCob79NtV+KhSNQyWQcdV71hnUqLb
+         DxnGB5IfUVAyLx8+LrVdncV9qGxWAzmgRAkjF2I6uis8ZEtRQlu2PiIGyYj2nWLQiS9R
+         D17g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790506643; x=1791111443;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iNhuqNyiZflMWMLYzKj40EbjoI3SE3GVYg6+rQBmhgM=;
-        b=DesAhfq2tdS6rJ0dKNWCg5NKZcAuJm1BmZ43xi3Z8j94VHJQKRE3d954DnuSN6PLhn
-         2qnjn18s1Fqsj3/6/jHHt9UyB/KAKypqJlqX3v8InSEwZmIdRlUum25DwgKBE8vxngys
-         bBHUqwbRfns3m8bsC5TqZYa5xJK5MtjNjBEhXAiBAYF70OYu8Jx0KKrP5FAy36wEVjfP
-         cl3ZZ2XDphz10UIX32ojY1K4zg5NAGXuEZOW1IGlRNzdBWVQLFXyS+CjKnziJ3rhcGqN
-         pmbbYhAPrXlz0WYMTgbeg98y7zfJ9B76AjUJvKmOgG1DEZP05AncWE7dxEYU0n+vvspV
-         o0aA==
-X-Forwarded-Encrypted: i=1; AKwUvByX5juSOb/fa5pJMuu/kr6pkVn7S5XYFoqV4B5n/BHS7mj8zw5/0EfZZ9vBguGrvOzwlDHPpRAhfKCRScQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBRf43JZS/BY60b27AgAolM0TXpaGzKpExB4CSrCvDkY48fQMq
-	yF5hhxv3ipsVocEHRxjVSOb0IzcsUXkgtMc2Se06eepv2uUw4IS1C07q
-X-Gm-Gg: AYBFou3SVMJMlXi/I5nB512sDzyQaNLrfP49xeNcm9l41lf51JlCvp8RjjQU66x6vjR
-	/nvaiHN2xdM+KoPcpWgKzgLQg9bXrm0FbYCsJ0rvBCEcfYDUCOuQyHKxkxn993/cU1GKJaKKAiY
-	/Pdv5bKfhM08S9spWBjxYoxrIl9Kerusodp0MGtaOHA38tBL69u4Gud6AGyAz5kDAkmJQep+bco
-	JcYadWB0mWvBt5E+Gbswa/gfZHySJLR+zrvhNvlaHDWP+kwp+foKi/d20xbwPi5XgHb/baIe11N
-	okndIYgWi56QgV3vo67U1rbYZHFJ/Jq0Hgs+XSg/M7w1z6p3hgv9ctscmxYgwwmjISJyhDHREu4
-	WWUitUU7bEiENmKDMIThcEFCM/zc3hUdaysuTjkwuUyLvRsNKxeVnHA8SR5sm5KB+FhsWdIZv3v
-	FKUAW5q4OS9qfkXCvkP+5SLgUyWcb0PCE5wlkG6R/5l99HE37q7HX0Mm5NJZC/l2MqQZBsgc3u0
-	ON86cQgr2pn03ZhK+vto5a+gBagm8DA1i9TDPZRHeJcqZP01AhBbg4W0iWi/EgKvo6WmXn9ZsJ5
-	YAMuuuAW3MK6xwQJuuk6SpvF1j5S5KTd9clg5iu06gJAOooYXtrXoK5SCAQ=
-X-Received: by 2002:a17:90b:384a:b0:3a0:c156:3f8a with SMTP id 98e67ed59e1d1-3a0c156441fmr5811233a91.56.1790506643527;
-        Sun, 27 Sep 2026 03:57:23 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5220sm14419192a91.16.2026.09.27.03.57.21
+        d=1e100.net; s=20260707; t=1790507097; x=1791111897;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z68JCcllfkB9N/J0fAQxTKvHFiY+2t1qnuCG8bIZkkQ=;
+        b=1JP6W1nWBvpuY5OLuFvDjenWiass7aG4OHgZwjwdJZVtdIRNGGvQf7xAZ7gvEbW928
+         7dC4mnsjoAg/KOjVflZQWgU8FXiOSSzQQTpt4qumxWpSGNoJrYFu6kkpaApT92rjaA0t
+         7EeJ/9HLI4qZ5KL8wGHtPgpknd6jXjqosoEmi91Q87PR1MhBbGIjGhJAiC7S5BDtFhr0
+         BYDzqwkbP3hsq4shKRmIOYBeFGAY5IjrCL9U8cXmtUggqNkYcXuvif3bIFJtlfSVI0CI
+         AA7GZg/FRW0HiMIJRKL5gwJutBUn7ZVUt9y5XiT3UKKtHw8CZgsA6PBkQgp5PglexuGB
+         0T3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwstr4TI48wvfCAmqrFg1aPK7mMWsZMR/SjIgaLPTxoQ/TVOmkp2MCjE0Vm7D09U0+W9fjB86rvPnuVMUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzLIS6FLBaE3J72vYHN343XsSVlhfA7YF+jvD5GSoZx2Tw+0Qf
+	5kMVtztog074r64uYIq3KI0DxKyWaCJjv4+5ym0Enip1/wuGLMQDNsDb
+X-Gm-Gg: AYBFou0nts5f6ME8tS4DIbHZGgk1m4Vm2RZPONy3ACfmGFjxXJ/B+lwIWwjXBTkUzzy
+	dzEl5xMbOCh6In1+ateMxq+zRSWk5eJkBoW+22Q58MsVR/fkFtSbIBrsWUQx4WEA22TviOFdfVX
+	k/mS5SYvm+o//S5+ojdN3EEFsxl7vlxMlxbVb0dGW8MAdqB8mlBN/pOmrwdmrdYefeEPipzJVbT
+	8ICJAZ1d3sYT61y789N+dVaZVGQG6GEkZ7Ar0jp0isMr8NABse7zlEImBei2ToUS0t1BugakIrc
+	Kh64bcVpPBgVMJ4kD/J6udhrL4I9+f5v04uf1BUuZSGeGyfFFDQ36fjIM8SUXIr15uISXtlks98
+	iZpj74NI1PwdeC98/hYwejh45fYbkW9VT1EM9PjzthsEs2Ldnbtt8zsrTvO+LuKGhsnekS+5zMv
+	jYLOGaSQqt9skYyZ2TA0cKzVFFyFhZJY2H3WsQvK42Fg7SftiU66gel6coKz2ZMpilVolh8tToX
+	/GSA23wav9DwecQSmAArwzSIkGdV74F8l8cDYCM5eaK+R0cGVaQYsXuTqiVnxD4ihfsv7IpVY0C
+	WcQa
+X-Received: by 2002:a05:7022:3c0f:b0:13e:5a51:148c with SMTP id a92af1059eb24-146cb31161fmr8647916c88.0.1790507096182;
+        Sun, 27 Sep 2026 04:04:56 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm17970541c88.15.2026.09.27.04.04.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 03:57:23 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] ntfs: do not refuse fallocate() when the MFT zone is empty
-Date: Sun, 27 Sep 2026 18:57:14 +0800
-Message-ID: <77d2e237e1c2ded042f8220350fd92cce5f502e7.1790503811.git.matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790503811.git.matthias.goergens@gmail.com>
-References: <cover.1790503811.git.matthias.goergens@gmail.com>
+        Sun, 27 Sep 2026 04:04:55 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Brian Gix <brian.gix@intel.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_conn: Lock parent access during enhanced SCO setup
+Date: Sun, 27 Sep 2026 19:04:50 +0800
+Message-ID: <20260927110450.3902328-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,39 +78,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_fallocate() fails with -ENOSPC whenever the MFT zone has shrunk to
-nothing.  The cluster allocator gives the MFT zone up when it cannot
-find free clusters elsewhere, and nothing restores it before the next
-mount, so after one such failure every fallocate() on the volume fails
-with ENOSPC, punching holes included, however much space is freed.  The
-allocator failure fixed by the previous patch was enough to get there:
-afterwards a one-cluster fallocate() failed with ENOSPC while 123 MiB of
-the 128 MiB volume were free.
+Bluetooth: hci_conn: Lock parent access during enhanced SCO setup
 
-write() and truncate() do not look at the MFT zone, and
-ntfs_allocate_range() already fails with -ENOSPC when too few clusters
-are free.  Remove the check.
+hci_enhanced_setup_sync() runs on the request workqueue without the
+hci_dev_lock held by its caller when setup was queued. Its CVSD
+capability check and find_next_esco_param() dereference conn->parent
+while the receive workqueue can unlink and release that parent.
 
-Fixes: 9c87959601e8 ("ntfs: update file operations")
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+The following interleaving can cause a use-after-free:
+
+  hci_enhanced_setup_sync()       hci_disconn_complete_evt()
+  load conn->parent
+                                 hci_dev_lock()
+                                 hci_conn_del(ACL parent)
+                                   unlink SCO child
+                                   drop link's parent reference
+                                   clear child->parent
+                                   release ACL parent
+                                     bt_link_release()
+                                       kfree(parent)
+                                 hci_dev_unlock()
+  read parent->features[0][3]
+
+The reference held for the queued SCO child does not keep its ACL parent
+alive after unlinking. Commit 42de40abe25d ("Bluetooth: hci_conn: fix the
+SCO setup context lifetime") protects the child stored in the queued
+context, but leaves these parent accesses unprotected.
+
+With a 40 ms diagnostic delay after loading conn->parent, an instrumented
+kernel based on fd179f8a05be, which already contains 42de40abe25d,
+reported:
+
+  BUG: KASAN: slab-use-after-free in hci_enhanced_setup_sync+0xda5/0xdf0
+  Read of size 1 at addr ffff888102204047 by task kworker/u17:0/93
+  Call Trace:
+   hci_enhanced_setup_sync+0xda5/0xdf0
+   hci_cmd_sync_work+0x13c/0x290
+   process_one_work+0x6b4/0x10e0
+
+  Allocated by task 92:
+   __hci_conn_add+0x304/0x1df0
+   hci_connect_acl+0x349/0x3e0
+   hci_connect_sco+0x3b/0x9a0
+   sco_sock_connect+0x475/0xca0
+
+  Freed by task 94:
+   kfree+0x121/0x3c0
+   bt_link_release+0x79/0xa0
+   device_release+0xc8/0x240
+   kobject_put+0x14d/0x280
+   hci_conn_del+0x524/0xe30
+   hci_disconn_complete_evt+0x403/0x8c0
+   hci_event_packet+0x71b/0xb20
+   hci_rx_work+0x293/0x730
+
+The accessed address is 71 bytes into the freed ACL parent, at its
+features[0][3] byte; the queued SCO child is a different object. The
+diagnostic preserves the loaded parent across the delay, matching the
+unmodified compiled capability check, and does not change the parent
+references or teardown path.
+
+Hold hci_dev_lock() across the codec switch, including every call to
+find_next_esco_param(), and release it on all selection errors. Keep
+configure_datapath_sync() outside the critical section because it waits
+for HCI events. Preserve parameter selection and existing return values.
+
+Fixes: e07a06b4eb41 ("Bluetooth: Convert SCO configure_datapath to hci_sync")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- fs/ntfs/file.c | 3 ---
- 1 file changed, 3 deletions(-)
+ net/bluetooth/hci_conn.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3ec82715a5882..762045d262963 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -1163,9 +1163,6 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 	if (!NVolFreeClusterKnown(vol))
- 		wait_event(vol->free_waitq, NVolFreeClusterKnown(vol));
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index 96195d2fd10f..cf44452e0766 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -302,11 +302,13 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
+ 	cp.tx_bandwidth   = cpu_to_le32(0x00001f40);
+ 	cp.rx_bandwidth   = cpu_to_le32(0x00001f40);
  
--	if ((ni->vol->mft_zone_end - ni->vol->mft_zone_start) == 0)
--		return -ENOSPC;
--
- 	if (NInoNonResident(ni) && !NInoFullyMapped(ni)) {
- 		down_write(&ni->runlist.lock);
- 		err = ntfs_attr_map_whole_runlist(ni);
++	hci_dev_lock(hdev);
++
+ 	switch (conn->codec.id) {
+ 	case BT_CODEC_MSBC:
+ 		if (!find_next_esco_param(conn, esco_param_msbc,
+ 					  ARRAY_SIZE(esco_param_msbc)))
+-			return -EINVAL;
++			goto unlock;
+ 
+ 		param = &esco_param_msbc[conn->attempt - 1];
+ 		cp.tx_coding_format.id = 0x05;
+@@ -332,7 +334,7 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
+ 	case BT_CODEC_TRANSPARENT:
+ 		if (!find_next_esco_param(conn, esco_param_msbc,
+ 					  ARRAY_SIZE(esco_param_msbc)))
+-			return -EINVAL;
++			goto unlock;
+ 
+ 		param = &esco_param_msbc[conn->attempt - 1];
+ 		cp.tx_coding_format.id = 0x03;
+@@ -359,11 +361,11 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
+ 		if (conn->parent && lmp_esco_capable(conn->parent)) {
+ 			if (!find_next_esco_param(conn, esco_param_cvsd,
+ 						  ARRAY_SIZE(esco_param_cvsd)))
+-				return -EINVAL;
++				goto unlock;
+ 			param = &esco_param_cvsd[conn->attempt - 1];
+ 		} else {
+ 			if (conn->attempt > ARRAY_SIZE(sco_param_cvsd))
+-				return -EINVAL;
++				goto unlock;
+ 			param = &sco_param_cvsd[conn->attempt - 1];
+ 		}
+ 		cp.tx_coding_format.id = 2;
+@@ -386,9 +388,11 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
+ 		cp.out_transport_unit_size = 16;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		goto unlock;
+ 	}
+ 
++	hci_dev_unlock(hdev);
++
+ 	cp.retrans_effort = param->retrans_effort;
+ 	cp.pkt_type = __cpu_to_le16(param->pkt_type);
+ 	cp.max_latency = __cpu_to_le16(param->max_latency);
+@@ -397,6 +401,10 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
+ 		return -EIO;
+ 
+ 	return 0;
++
++unlock:
++	hci_dev_unlock(hdev);
++	return -EINVAL;
+ }
+ 
+ static bool hci_setup_sync_conn(struct hci_conn *conn, __u16 handle)
 -- 
-2.55.0
+2.43.0
 
