@@ -1,73 +1,73 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f20.google.com (mail-pj2-f20.google.com [74.125.227.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0EA3B47EF
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814AF1DED42
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790485719; cv=none; b=p7Q4N+gUW5ZhshsMAuyhYowYqs+7r9X/xTP/EmcOP0+VPFCMn2yRsG8PIjGfbvubcBmE2w2gMufTQ/Sc+/BmlQ/nP5UMuuQDdM+fbcWoBqI8hQEtoJ968R0YLSEAYGnLSb+bvF3ECgT/cP/nA7DDqNg3pCmts2iuY/MU/FagNc8=
+	t=1790485721; cv=none; b=Tyi212YzWzO0x/K8v6VCIQ6196KNpPecA+2dnH+bRQY27SIScwnh0cDOTa2XMcjyJMGOUBB7Pgvgw7BfPAmY+WfyLdDTVcgzAVzBJPxQNkmRgNgUDTDNf4dMjT6ErQjm4MKk9eud+ASObRCfXPeQ9pHzR6uXTGHve4v45swZ6Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790485719; c=relaxed/simple;
-	bh=VwFLvYKsJzscPanK7T8iwvb3utgq+eA4nnAP3ul+4TA=;
+	s=arc-20240116; t=1790485721; c=relaxed/simple;
+	bh=RSKYSQGknATRmanyeSKC/NneJ+yhqYyXKCHd4eWGsSo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m8BPcjA7Z8Yn/tLTvUwRB4HKjcLgmLUnuT7RsPvejZRLLVIzblCqW7owUB1krtHRJEaOuZDd2gXqU8/fIznGjcQWgtlpNx4fJhiIGbD4puKXT5iLND0h9eD8zkOClNdgnoyscRgN0fxzlyz+9u/BgTr2/xmsqjlwa1+JynvdaOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DD55ctQF; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=gZsetabxxlCVOcpmkwYj5ec95gewBFChI3xxJ1gQeRpKScY1Un/1hm84NgvsJIw/y8Ty7ECNpxn2qKp5ftl5arOglq1tdnRc7egNcESQulVqVw2v36mtCmViNB2LyzC1GU/y+sdtYZWt1LHGu/oSVuWynY0WN3fQqSCnmFuHAtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJVan8OV; arc=none smtp.client-ip=74.125.227.148
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DD55ctQF"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e44so440206a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:08:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJVan8OV"
+Received: by mail-pj2-f20.google.com with SMTP id d9443c01a7336-2d747ed9866so14690625ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:08:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790485717; x=1791090517; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790485719; x=1791090519; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ed0UOtl4W0jokNIthkI+uQMuk4LnWAdg3ee5pXHMshA=;
-        b=DD55ctQFW4SLSqJ7TT+8hncIu1WEV+PEO06ShGaUEQSqW94VBwaKxxx71Cdo+zopcW
-         ckyir7U35UscXg+3SM42h7UBBvY0Qis/3E4q0acMX8uX1P+nlc7wq1SqsLNcammEgWNE
-         gmwcSRJIBxKvsJvabnSmpOedHause3Sh4Zuw3qXkhha4TefhDZFj55HGKWxkZS2CmxTi
-         JE1ku0x4ZcsWOO02x5VBycwBQtsX1tb+IP+rmzw+2Pm5O6epeIc8RR62Itw3cskpWIcy
-         ldE1no5Ly2arEZ2i2Dm2H0Tf2uMYh5zzyjwZeemrgu8KKGbw+ARU/q89tfDmo7qA0wVC
-         HwQA==
+        bh=aI8Z07ulle1p09D0h3AAhP5cTbAm7LaS+3eeebF14pU=;
+        b=XJVan8OVBT/0WCmHQI9oLP08NtLpXxomW8zV0JSdSJHGmgrpD5ayCQeYaQsBor31md
+         PtBBN73y7eiWLE5QX6u3aCAmVwlDJxMJH9Ds3S09N90dFfW/fKeUtmcDHLtJLR7kt0ZH
+         NvunQDOW1WLoH9NOsFCSfEa3xoJQQfmjCIpLYvTSwnz0QvzJlorAMNTjMFWr5MoRwn4v
+         Fyvh8YpSoqsZ/+MeBe8irbFkweufnqc5sLMMt4wByWaJ65dXrmT5O+gXgj8wDQm5sJ+Q
+         3xVMB46MC6Sa8xCj+N0wSiZGqZlSfkYMA0+eQRZJOQsMkpHuWuHHQ+8YUhMR9cs7YGBb
+         TziQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790485717; x=1791090517;
+        d=1e100.net; s=20260707; t=1790485719; x=1791090519;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ed0UOtl4W0jokNIthkI+uQMuk4LnWAdg3ee5pXHMshA=;
-        b=CEnuGXg2M4tZ6gjWM3zE4+lK3VlHPFOP1ODy6mAeTRH5DN3p/6kTQEH6LAqZOhIotU
-         aDbdNMv4o/lOH3eWJUxHD788INIjJBBX5cH6TrCnRU4gbRGmskUEHdyq+nH5yxV8Z7cR
-         vFXuPraXie8hKCr6ktizwVViP57MaAw/ju3dwsrkR3VhHZp0S7Zc3fT+aKCmOO1xcG2P
-         D3ZorvB26VI18SODXCwrHHje4WsiFq5+CJFd4qJ7tnafo0v1zSG1XL+Am8PKw2x4No7f
-         ubkoyN/h+jKBpXgmLPv3J/6JRrgrEMTaiNMcjX6MyMvMjjzKdtEKd8Ww/0dSpLuLGncw
-         vWyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQAH4p0oA7ewh3c3HaOcSn0Y44ucdyf046gFNtm/Nyrv7hwbAmfLqAaNNUwcWnWdNdEAO2u+vwT5OV1nY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJA6kHNmD7Vt/f9T+tUgfIlZGHo6VeHnDlTmBWLihs6asthYJ5u
-	0Edu12qZK9sXV0oA0KotoX48v9y6+jG90qEDZ+jVezJh3rjM1A/XUchZ
-X-Gm-Gg: AYBFou1PgHBttu0Bgww+egOiYteHDCf4V7BsgokpgKphp/GOJSnH6pjbyRU0sY3tyX1
-	DhWv8v2LMgVzSQxiZNq+ysRZkGx4hL3PDcZPt7uOC4GLkkDqINnKKhXGtwEsVguaXA6kbm6O9xZ
-	P7CME9oXADhPfa7zpHacx0enjFPofupkiyPEatrVup2myIEMF63CBMrMaxono/LJok6pu1l3GA7
-	sKZUa1ygafXgP1u+WOUM63DZUWxRV2W7QB3uEWjwh/FwrjasPHITJo/J8MlajbGrTp/B2sa2Paj
-	P9//KvpmkliUkyVe7fHXlZIn6VFj8KZl2oMVtqThq4xuSZ+8jRNijN7Wblo+BGavXIIkeTYeZHH
-	TMwHv/8EnR5yMLrJjds76kA3vSDe3mIhNFVeTybICj/ijg1QVfteQC6xir2GtSJkP8yeGyo/tDi
-	XDKRHxJEFgkrTZ0SDiN8HKvVtPOZm5fZklif4lRaGFbppExT7WNqYXK/ZmJ/2MeXXQChX8sWqaW
-	ZeTf9mDMV6EniYCp558Pf69oeNv7rd7qgt2jZ4WWq5SkI56HhdH5uDmlyKl0nrLmC+nNi7zyNFu
-	7S/R+7SHauKaVtXQQ03GaT/tQKygxDVZ4DATbxf02Ux+Gpsn12F5e4DDpsE=
-X-Received: by 2002:a17:903:19e3:b0:2dd:c053:d73e with SMTP id d9443c01a7336-2df7dc3880bmr76790815ad.37.1790485716634;
-        Sat, 26 Sep 2026 22:08:36 -0700 (PDT)
+        bh=aI8Z07ulle1p09D0h3AAhP5cTbAm7LaS+3eeebF14pU=;
+        b=c9kj+zqjtUbSJ7kxPawM9jPpTElk9pHoZ09MqIKpP6IajrIRyDPYrG+kYneKLTQKGj
+         dG16CqH/+41oRsKAtC41gxpzobtAV1nu45AMRBxbMjaS8MlHA9uvcBifynPR6jk4AgFb
+         8dmyjMAogantaFwefOwndHPGLeVmzUo61GXL/TLtPQnGWpfszcJieqmavlhV7b1gruOD
+         g1lVwZG9+QH4lOYvhK8vKRDXptR3CU8DbaHdFdWZaqK9YNcO1lpytC4wK5e52nfOhlP+
+         9KelNHnFBNNO+PZTzkAMlg3Ab0gB7SSB/NBiIRJzUeGdH8goisChuRuFBAroOcGqLMRb
+         8PNg==
+X-Forwarded-Encrypted: i=1; AKwUvByJW1YR4uZltYMF7xutB4ZY7LR6UlXbhCuzRTcE8YfAGDrtN+Ha12izejE8kNxI7SrQWGgK1VOim8j/jkQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLocaHFFofmxcVkugKEpxMYxRQvc3RYrEYtFWDzmzKa82qpw13m
+	cFyEmyKderrZjrqLA36wr2oQigSe++fI/Kq9iZYo3Vr++PNa6rTfiR/J
+X-Gm-Gg: AYBFou3Md2HW14JujSVoAC+nHnZoG4hb0L/cxxloGxqlnGA/AHb2/eekRomzh5JGULj
+	9o2Ecl2fLzquJP3hI4VK+OneinGQjbl/T38YR7G2x0cfWwqyHALYFImEc14azz6N70zTMUzA6Ui
+	CSx2/f0NEyrWNE+1hbdB/pvldzObjlWMuVUvskKomyldhp3HJHLCcaR+EphPDx+ysruV4UJqYkX
+	SY3PJZzm8Iy63LLMuil/MzKijhMgswXkrJuUnXzVhNlWdlzfGejHaujZRBrry+uoJGd+JnvYFeA
+	8gEcxdQHffIiwDWsOeaDPOK9oQYHFRCvTYGVCWAvv/1TDA2lPzvUHZ8UHjsvgNfxK8KbsQSsvWr
+	YcpSzGKvkNluQg2p+0C2SnMYcWs0gxTX2SZDbmZVQhfjO2MkfFOYTzq2O8h81k8BpRroImeTGYh
+	i+3Dgy+u+eMWe/lXNWM2htmuwvR02q0BkScrCllYLUj6HTU2Y+Jm8bezdct9mkOGKYipmt8Yai/
+	1t/uHr/JiG0C3hgiOBurZcRiZbc1aPe7irMiRg1yzuF+BsxXAMBJBnvYxxSEJVmQ41fqxX/PFdL
+	GeFL3uIdVZQL88aL4vNNSReSXBRZ17wBYV6mnX4svJXz8yqyiVMivTFeso8=
+X-Received: by 2002:a17:902:c408:b0:2dd:c100:a5e5 with SMTP id d9443c01a7336-2df7dd8bb7cmr80809475ad.57.1790485718739;
+        Sat, 26 Sep 2026 22:08:38 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142969esm26615495ad.45.2026.09.26.22.08.34
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142969esm26615495ad.45.2026.09.26.22.08.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 22:08:36 -0700 (PDT)
+        Sat, 26 Sep 2026 22:08:38 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>,
 	Hyunchul Lee <hyc.lee@gmail.com>
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/6] ntfs: fail the mount when $MFT needs its own extent records
-Date: Sun, 27 Sep 2026 13:08:22 +0800
-Message-ID: <20260927050831.2739166-3-matthias.goergens@gmail.com>
+Subject: [PATCH v2 4/6] ntfs: do not map a vcn as a hole when its runlist lookup failed
+Date: Sun, 27 Sep 2026 13:08:23 +0800
+Message-ID: <20260927050831.2739166-4-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1790417653.git.matthias.goergens@gmail.com>
 References: <arMoap0ZgeORuktT@hyunchul-PC02> <cover.1790417653.git.matthias.goergens@gmail.com>
@@ -79,158 +79,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Mounting a crafted image hangs the mount process forever, unkillable at
-0% CPU.  Only the hung-task detector reports it:
+ntfs_attr_vcn_to_rl() retries ntfs_map_runlist_nolock() for any lcn up
+to LCN_RL_NOT_MAPPED, which includes LCN_ENOENT, but turns a failed
+retry into an error only for LCN_RL_NOT_MAPPED.  For LCN_ENOENT the
+error is dropped and the read path maps the range as a hole.
 
-  INFO: task mount:74 blocked in I/O wait for more than 30 seconds.
+An LCN_ENOENT below allocated_size comes from a base extent with a
+highest_vcn of 0, which ntfs_mapping_pairs_decompress() takes to map the
+whole attribute, so the runlist ends after its last mapping pair.  If
+the pairs end early, the retry finds the same extent and fails with
+-ENOENT.  On a crafted volume with 4 KiB clusters, a 64-cluster file
+whose mapping pairs stop after 16 clusters reads 48 clusters of zeros,
+with no error.
 
-  folio_wait_bit_common      <- waits forever
-  filemap_read_folio
-  map_mft_record_folio
-  map_mft_record
-  ntfs_map_runlist_nolock
-  ntfs_attr_vcn_to_rl
-  __ntfs_read_iomap_begin
-  iomap_read_folio
-  ntfs_read_folio            <- already holds that folio's lock
-  ntfs_read_inode_mount
-  ntfs_fill_super
+The same layout gets a crafted $MFT past the check from "ntfs: fail the
+mount when $MFT needs its own extent records".  With 512-byte clusters
+and $MFT's mapping pairs ending at vcn 4, an unpatched kernel hangs on
+the folio lock reading records 0-3.  With the check alone, the -EIO is
+dropped, records 2 and 3 read as zeros and the mount carries on until
+check_mft_mirror() finds the zeroed record 2.
 
-ntfs_read_inode_mount() assembles $MFT's runlist one $DATA extent at a
-time, hoping, as its comment says, that it never needs a part of $MFT it
-has not decoded yet.  If $MFT's attribute list puts one of its
-attributes or later $DATA extents in an extent record outside the
-runlist decoded so far, reading that record re-enters
-ntfs_map_runlist_nolock() for $MFT.  Depending on the layout, that waits
-on the folio lock it already holds, as above, blocks on $MFT's runlist
-lock, or dereferences NULL in map_extent_mft_record().
+Fail the lookup whenever the retry leaves @vcn unmapped, -ENOENT
+included.  At or beyond allocated_size nothing is mapped, so do not
+retry there: the runlist ends with LCN_ENOENT, or with LCN_RL_NOT_MAPPED
+when only the last extent is mapped, as after a write into it, and with
+clusters smaller than a page every read of a file's last folio looks up
+such vcns.
 
-Mark the volume for the whole $DATA enumeration and have
-ntfs_map_runlist_nolock() refuse $MFT with -EIO while the mark is set.
-The enumeration decodes each extent itself with
-ntfs_mapping_pairs_decompress(), so it does not need that path.
+A failed expansion in ntfs_non_resident_attr_expand() or
+ntfs_attrlist_repack() truncates the runlist under the runlist lock but
+restores allocated_size only after dropping it.  A lookup in between
+would now fail, so restore allocated_size under the lock in both.
 
-A validly placed record can trip the check too.  The driver puts an
-extent record for $MFT's own mapping pairs before the first vcn it
-describes, but with clusters smaller than a page, the folio holding it
-can still run past the decoded runlist.  An unpatched kernel hangs on
-that layout as well; with the check the mount fails.  The check then
-refuses only the folio's tail, so this patch needs "ntfs: do not map an
-unmappable runlist fragment as a hole": without it the tail is
-zero-filled and the mount serves an all-zero mft record.  The mount now
-fails instead of hanging:
+The crafted file now fails from vcn 16 on with -EIO, and the crafted
+volume fails to mount with the check's message.
 
-  ntfs: (device vda): ntfs_map_runlist_nolock(): $MFT needs its own
-    extent records to describe itself; cannot mount.
-
-Tested under qemu with KASAN, PROVE_LOCKING and the hung-task detector
-on ntfs-next, with and without the whole series: six crafted images
-that hang or crash an unpatched kernel fail to mount with the series,
-and nine images that mount without it still mount, three of them with
-the same file listing and contents, among them a volume written by
-ntfs-3g whose $MFT has its $DATA in three extent records.
-
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
- fs/ntfs/attrib.c | 11 +++++++++++
- fs/ntfs/inode.c  |  9 +++++++++
- fs/ntfs/volume.h |  3 +++
- 3 files changed, 23 insertions(+)
+ fs/ntfs/attrib.c   | 38 +++++++++++++++++++++++++++++++-------
+ fs/ntfs/attrlist.c |  8 ++++++--
+ 2 files changed, 37 insertions(+), 9 deletions(-)
 
 diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index a337a3429b401..eab4d8d32132f 100644
+index eab4d8d32132f..30d3d2eb5ef3c 100644
 --- a/fs/ntfs/attrib.c
 +++ b/fs/ntfs/attrib.c
-@@ -103,6 +103,17 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
- 		base_ni = ni;
- 	else
- 		base_ni = ni->ext.base_ntfs_ino;
+@@ -344,6 +344,23 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
+ 		rl++;
+ 	*lcn = ntfs_rl_vcn_to_lcn(rl, vcn);
+ 
 +	/*
-+	 * ntfs_read_inode_mount() builds $MFT's runlist itself, so nothing
-+	 * should reach here for $MFT.  A crafted image can: the read that
-+	 * gets here already holds the $MFT folio lock it would wait on.
++	 * Nothing is mapped at or beyond the allocated size: the runlist ends
++	 * there with LCN_ENOENT, or with LCN_RL_NOT_MAPPED if only a later
++	 * extent has been mapped.  Return that end as it is.  Below the
++	 * allocated size, an unmapped vcn is worth a retry.
 +	 */
-+	if (unlikely(NVolMftBootstrap(ni->vol) &&
-+		     base_ni == NTFS_I(ni->vol->mft_ino))) {
-+		ntfs_error(ni->vol->sb,
-+			   "$MFT needs its own extent records to describe itself; cannot mount.");
-+		return -EIO;
++	if (*lcn <= LCN_RL_NOT_MAPPED && !is_retry) {
++		unsigned long flags;
++		s64 allocated_vcn;
++
++		read_lock_irqsave(&ni->size_lock, flags);
++		allocated_vcn = ntfs_bytes_to_cluster(ni->vol, ni->allocated_size);
++		read_unlock_irqrestore(&ni->size_lock, flags);
++		if (vcn >= allocated_vcn)
++			return rl;
 +	}
- 	if (!ctx) {
- 		ctx_is_temporary = ctx_needs_reset = true;
- 		m = map_mft_record(base_ni);
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 9583b2c6c7a26..a61f1519549cb 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -2080,6 +2080,11 @@ int ntfs_read_inode_mount(struct inode *vi)
- 	/* Now load all attribute extents. */
- 	a = NULL;
- 	next_vcn = last_vcn = highest_vcn = 0;
-+	/*
-+	 * Reading one of $MFT's own extent records in this loop can re-enter
-+	 * ntfs_map_runlist_nolock() for $MFT; see the check there.
-+	 */
-+	NVolSetMftBootstrap(vol);
- 	while (!(err = ntfs_attr_lookup(AT_DATA, NULL, 0, 0, next_vcn, NULL, 0,
- 			ctx))) {
- 		struct runlist_element *nrl;
-@@ -2162,6 +2167,7 @@ int ntfs_read_inode_mount(struct inode *vi)
- 			err = ntfs_read_locked_inode(vi);
- 			if (err) {
- 				ntfs_error(sb, "ntfs_read_inode() of $MFT failed.\n");
-+				NVolClearMftBootstrap(vol);
- 				ntfs_attr_put_search_ctx(ctx);
- 				/* Revert to the safe super operations. */
- 				kfree(m);
-@@ -2195,6 +2201,7 @@ int ntfs_read_inode_mount(struct inode *vi)
- 			goto put_err_out;
- 		}
++
+ 	if (*lcn <= LCN_RL_NOT_MAPPED && is_retry == false) {
+ 		is_retry = true;
+ 		err = ntfs_map_runlist_nolock(ni, vcn, NULL);
+@@ -354,11 +371,14 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
  	}
-+	NVolClearMftBootstrap(vol);
- 	if (err != -ENOENT) {
- 		ntfs_error(sb, "Failed to lookup $MFT/$DATA attribute extent. Run chkdsk.\n");
- 		goto put_err_out;
-@@ -2229,6 +2236,8 @@ int ntfs_read_inode_mount(struct inode *vi)
- put_err_out:
- 	ntfs_attr_put_search_ctx(ctx);
- err_out:
-+	/* Also reached from inside the $DATA loop. */
-+	NVolClearMftBootstrap(vol);
- 	ntfs_error(sb, "Failed. Marking inode as bad.");
- 	kfree(m);
- 	return -1;
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index fdb57279de84c..0473b602084c5 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -194,6 +194,7 @@ struct ntfs_volume {
-  * NV_Discard			Issue discard/TRIM commands for freed clusters.
-  * NV_DisableSparse		Disable creation of sparse regions.
-  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
-+ * NV_MftBootstrap		Mount is still assembling $MFT's own runlist.
-  */
- enum {
- 	NV_Errors,
-@@ -214,6 +215,7 @@ enum {
- 	NV_DisableSparse,
- 	NV_NativeSymlinkRel,
- 	NV_SymlinkNative,
-+	NV_MftBootstrap,
- };
  
- /*
-@@ -253,6 +255,7 @@ DEFINE_NVOL_BIT_OPS(Discard)
- DEFINE_NVOL_BIT_OPS(DisableSparse)
- DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
- DEFINE_NVOL_BIT_OPS(SymlinkNative)
-+DEFINE_NVOL_BIT_OPS(MftBootstrap)
+ 	/*
+-	 * The runlist fragment containing @vcn could not be mapped, e.g.
+-	 * because the extent mft record holding it is corrupt.  Do not hand
+-	 * LCN_RL_NOT_MAPPED back to callers, which would treat it as a hole.
++	 * Neither the runlist nor the retry mapped @vcn, which lies below the
++	 * allocated size, e.g. because the extent mft record holding it is
++	 * corrupt or because the mapping pairs end too soon.
++	 * ntfs_map_runlist_nolock() reports the latter as -ENOENT, as @vcn
++	 * lies past the extent it found.  Callers would treat
++	 * LCN_RL_NOT_MAPPED or LCN_ENOENT here as a hole, so fail instead.
+ 	 */
+-	if (*lcn == LCN_RL_NOT_MAPPED)
++	if (*lcn <= LCN_RL_NOT_MAPPED)
+ 		return ERR_PTR(err == -ENOMEM ? -ENOMEM : -EIO);
  
- static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
- {
+ 	return rl;
+@@ -4703,11 +4723,17 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	if (err2)
+ 		ntfs_debug("Leaking clusters");
+ 
+-	/* Now, truncate the runlist itself. */
++	/*
++	 * Now, truncate the runlist itself.  Restore allocated_size before
++	 * dropping the lock: ntfs_attr_vcn_to_rl() fails a lookup below the
++	 * allocated size that falls past the end of the runlist.
++	 */
+ 	if (ni != locked_ni)
+ 		down_write(&ni->runlist.lock);
+ 	err2 = ntfs_rl_truncate_nolock(vol, &ni->runlist,
+ 			ntfs_bytes_to_cluster(vol, org_alloc_size));
++	if (!err2)
++		ni->allocated_size = org_alloc_size;
+ 	if (ni != locked_ni)
+ 		up_write(&ni->runlist.lock);
+ 	if (err2) {
+@@ -4719,8 +4745,6 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 		ni->runlist.rl = NULL;
+ 		ntfs_error(sb, "Couldn't truncate runlist. Rollback failed");
+ 	} else {
+-		/* Prepare to mapping pairs update. */
+-		ni->allocated_size = org_alloc_size;
+ 		/* Restore mapping pairs. */
+ 		if (ni != locked_ni)
+ 			down_read(&ni->runlist.lock);
+diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+index 1bbd2bc62c582..3660e7fd24b13 100644
+--- a/fs/ntfs/attrlist.c
++++ b/fs/ntfs/attrlist.c
+@@ -168,14 +168,18 @@ static int ntfs_attrlist_repack(struct inode *attr_vi,
+ 	return 0;
+ 
+ restore_old_runlist:
++	/*
++	 * Restore allocated_size before dropping the runlist lock:
++	 * ntfs_attr_vcn_to_rl() fails a lookup below the allocated size that
++	 * falls past the end of the runlist.
++	 */
+ 	down_write(&attr_ni->runlist.lock);
+ 	attr_ni->runlist.rl = old_rl;
+ 	attr_ni->runlist.count = old_rl_count;
+-	up_write(&attr_ni->runlist.lock);
+-
+ 	write_lock_irqsave(&attr_ni->size_lock, flags);
+ 	attr_ni->allocated_size = old_alloc_size;
+ 	write_unlock_irqrestore(&attr_ni->size_lock, flags);
++	up_write(&attr_ni->runlist.lock);
+ 
+ 	restore_err = ntfs_attr_update_mapping_pairs_locked(
+ 			attr_ni, 0, locked_ni);
 -- 
 2.55.0
 
