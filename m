@@ -1,86 +1,75 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4523C197A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B3339BFF8
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510582; cv=none; b=S9NAJ6mYTAlJv1PVSX3LEhFGcnpfP+iKIVg2N883ffnPt7HpbO3JLpSbDPGr0SAjhQdgIcKgUQZQOl8R19K2yFmPTF5ZxWHQMq4/uOgCRdDrMffeHz+AKJDJkFVbwIn32bdBIqkIBVLYaLPRVDRxusho9FmSzgXKf9vTVwBsiWA=
+	t=1790510658; cv=none; b=lZDrn6zgpHKLw3HyFTnp+fNdyNH003kMh4scC1FVvgVcK7TWLFQbTgtLlG291vfrOH9hJHx/jTwSuMEg83UT9WEtbtIXOK38AbBT9KrPn+GQoEqTCx3m8ptAQyr+HqI1S3Y5Teks8EyrqSyV2wBwaeHOqut2iVApDyjjtiVlB7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510582; c=relaxed/simple;
-	bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P2EkTAzJzKCIPu1CzhMOZao/+KrS0CAY0D6wbfALqa3IpzAJgqvZrdVra4aer+8zN1x6KdnMcsSKigBQFQ+ZSsjYch1hGcnHqlQ+fIf5HzV+o3C7Fxo7MzCvx+2kudIn1oPwTO2G5qtxi1pX77rZl0olU0s9N+HQjv3GXoYVR1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eygImu1h; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790510658; c=relaxed/simple;
+	bh=JKbnCaIfmpdVJXM5YFAPNROoauvccZAiwILQlR0vHFw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xcw6RvTF0nu3YjI7K/ZZ/vEsuaoglQcLXvOtlRSHuxrigk+qtnGwmdv+hP3vT8fkAlZE2Uv4/jO0xGxWGsv/r4I9GTEkuUUfBK9WC8EoeAam/Y3nM4/79Czu5ImyWdonltMWjZ+7Y1p5AvoOUAl2BcGRshJNSjdkiC0zlQdE2Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZ3aP91h; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eygImu1h"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso213029f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:03:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZ3aP91h"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so8978415ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:04:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790510579; x=1791115379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
-        b=eygImu1hdlEAduNQFCw3y92qkiLLtoq2AsigeZUWoJP7O2xhLiEoKIQOXpnxtoQdS8
-         OBGYSwa7lIYUhE8g9TYfxBoRTqfZ/CjbRn+1ViTH1QWBwF29vba/pV1YyVU9VrCHrOEu
-         1Y+QLyj+ImXoJi5HYXkssMEF1F5P8IW2eIFKTCmjshq2L6twsI103CSKgDeoGw6BqKDV
-         7T/SdVny/diB/pfnOw2vyVPIryZS15XBqEI8kOVLFz7HrvbGIJ59u/1Jr4Lbaa5XpuJ9
-         mff/pHhr0MKPxm31yu8SfGUIufruRds0onTko9Qfl5LSLlpO3RDuFVM9IcaSCmWYyR5B
-         9R0g==
+        d=gmail.com; s=20251104; t=1790510655; x=1791115455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lY7ubxHQGnEZ+clckpxrjcQkIrKZ8NMO8GGEkfEwk1w=;
+        b=NZ3aP91hkNdOBI/FFC/p2jtev9OaYqtfl4EnBTJcB5QIU01epzAKtOriiNQEa0v220
+         tiAmNkmdYCyUz1si3AAGusoaiSwSPYU8lh7Q238oB4XsHIbH5kvI7x9qBYuthjiw50Wj
+         aXR2tBcc5AI3v049Fj+TPmszbBtm1oUh1mvl7Lr1EzHCun+KxFqNqoucmRCoD2nSV2bT
+         W45Q3xPLpxkua+12LdPT0ZoDUiWhNqM4v1y9hpETyHijJmDB6if0q3oWHa7Nr7/RJRfY
+         UqvpDTNFOxgobYCpDxVpMlLcmeWKDldIjjn7nZT8rfHGGF6st96OFtrsJ23A2tVIQSle
+         jfwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790510579; x=1791115379;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
-        b=A8eXSPj/f6e6y7hyOTWBkKNmnvMgRZdY6ziLMc4ESEh+Lq5n+RlyHgq7l1YcKDUqFa
-         zdJSpwF3fnaGFXT5IAZFQ2TG4An+hrr09WSGNWjbCWyHdLt3abDU8ZnJ4jPp87W3FDIF
-         GHZ8Dw7cB7yj/vK4+eegDfp+T48ooX7bygqZoifn+kY8GcoEy1iw/o21/forBmpLwMct
-         2FpHJkeWq2ggjIBS/zFSf1N+Weslmtgjex3s9I+RYtedscFbt9f65TeB4qouJeAlI1WV
-         6Xsq/NsPoPxJtpi/rVrw26tprj3e5zlMlhBoid7pAu+6F8fQFcUsQk9LrzPuJmCU87Wv
-         hIVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcWnGkrRQJ+ouR5YciK26GKUWvup0JJ7B5ab1yEs5zNERr8Sq9RC6i4AaE3I3wiNsbI1w2E/hBnRjKL4U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITpQV3Wj7IIVxN4ACjlPXIcXPp3oneD5s1tpqbyrWzc8Dg7Zp1
-	+9lIIXbXFxPNGdIQX0YJB6Dr6bSlujC/3XazjBoXs7yPxEUuyE21LSfe
-X-Gm-Gg: AYBFou2qaYoz4pWArHZCeGIq5OyF6ZKpej2RwR0eBu+XaMxRudqKbEbp0KBQHZJacon
-	Uu51FLcWZ3+l/xUSlOPDSH1n8i6YKjPvnxZRnygkQ0B14aF0OH/mPqSstFYa1alJgw1RvVKmtA9
-	yaOzKA6qE5ZQnXSVzZcSneSQOaTu2U2b1n3cCj5GAAy5FLxSbQQfw90EZhaUEVRClDOGmC9o6me
-	HtLZiPAVBXrVZXoVON7SchFYcFY8bufPL04y5cwu42/g9ljkbX4wSJNYNHJ2fU1xvxmJHMV+OpK
-	+3ytwA1oRvAt3E67AlVohRsFNeX8zCc2kC6gyKqyQUv87DGvRdKVLyeO8H19NM5TS+YDdqQApQZ
-	3ZSj2hQIKgLfoy8/1Lp5p0t/zkHvbma/y138IwIOzAjLM2Acs8qrdwigiOTjghn32JbUEDu/iEk
-	fKP9uv0dOFdztfKnRPOlxX9cAzO20eBcvVRj4CtJed/BNBQcX9RsiiRY6WhVwbBJxRuJi5pb1Xp
-	3Vicw7tAYiTGPzsG9JI0sBQHfTzyCpEBdeZQWuQcbogMYgVoZt/EJIeXN+DjwVUTFYEnIOUo+9U
-	Hk0=
-X-Received: by 2002:a05:6000:184f:b0:487:fa3:7630 with SMTP id ffacd0b85a97d-4887acd8844mr13892557f8f.6.1790510579294;
-        Sun, 27 Sep 2026 05:02:59 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B89A9009A7C72AB6C68D3F9.dsl.pool.telekom.hu. [2001:4c4e:1b89:a900:9a7c:72ab:6c68:d3f9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a74538asm19548417f8f.34.2026.09.27.05.02.57
+        d=1e100.net; s=20260707; t=1790510655; x=1791115455;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lY7ubxHQGnEZ+clckpxrjcQkIrKZ8NMO8GGEkfEwk1w=;
+        b=RO5SF/l4JY96KfOyYNMsa0QKQ1c2Rtl26i3UH2SntVvP5M9RZHpntmZ6b/9UhDBvg4
+         S8pLOZsV4M7obqCMS/YYQPNU2aIBC7ymlGSh9ih0wIcPIcl6gyCCMyW6jB+au7o+SllV
+         7MsbKSifAfVfUVivGNqKyniaqa8Fyo/4IOFOdeJyu33eY0YwxLR8gTvmrZ8aLfxD46Bb
+         AOWeJy9XZvh4pH1VzjzfWqv60H57pAcuHgm4aXJa1nJ0NQlm6Wo2y+i8WcoI8sV4scoD
+         bYNpQeDzwJlcBMj/yVjgn37N4kL3wJoISJu5yh7yXCaASttQvvyA8aUfRqdCMXwekkva
+         b2hA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1oTc23FwozenCirYft5auRv5A24X6HBM/mKLn0T7yifvBhwjDuYXwEtL3W6R0hzFbzEYRTNy5ptUBUBo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFw0dELFdh9vr/eCt1awjGKyNRMtNggXb8jLIIX9IKc6JZyCBZ
+	X1dprvQprOyat3NdA6VKJK7Kt720ewKtl1uasCjPgf2eqhbkiffANzvd
+X-Gm-Gg: AYBFou1uqzHwb0J/jWpDpyc6BiDZikjp0d4DTrzrnOnbC/kXxXgH3mJSOsJofIwWqCQ
+	L/Ay7kt9aeYiYpJw+IIzaY3Ji4//IZfsjO2SQ6R2rQgIOSTlEDIPhzukIMei9vbe/M6KLnPMBOC
+	7qaP27B6+bmiJiveS/oIEFdxwQAmBNajaKBSmhP0qwWkb/pVhFs+wyQ8LJXieFJMp8rdWTZMYdE
+	4kaFYO/RchmZFoFXOmaswiIYu1bqHRRqlPCq4ZoU/qQ6Cz2tEy962avDIze/ZM6djk40G18yR6g
+	wG2dCJqlMcH1orPIcqfAaAq2XUDntsBFuH1ZSju/Z4cbuSeNOOqqtvM3Tp1MWcWZE+H1wzIzA9t
+	Oqfj0GX6TGMBy2n6nqzbt04BwNfgYTb6rQ5UtsOCkKr05dwwCopCS0WqEmAfQruQZrbrrjCu+tf
+	iRKIdIDHOvkZmp7uWFHzKEpBsrJHzuDf2Yk5d902M+O24l1IebE0c+aJqtrdPnXYr57f1xWA==
+X-Received: by 2002:a17:903:1b2e:b0:2df:9e2d:862a with SMTP id d9443c01a7336-2df9e2d8d3fmr39841315ad.54.1790510655243;
+        Sun, 27 Sep 2026 05:04:15 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d459:e6::17:243])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913ff040sm27887735ad.32.2026.09.27.05.04.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:02:58 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v16 6/6] usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
-Date: Sun, 27 Sep 2026 14:02:47 +0200
-Message-ID: <20260927120247.9807-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-6-126a2e9133c3@collabora.com>
-References: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com> <20260924-b4-rockchip-dwc3-rockchip-glue-v16-6-126a2e9133c3@collabora.com>
+        Sun, 27 Sep 2026 05:04:14 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Chas Williams <3chas3@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net/atm: fix shift-out-of-bounds in __vcc_connect()/find_ci()
+Date: Sun, 27 Sep 2026 19:04:10 +0700
+Message-ID: <20260927120410.44906-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,61 +78,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sebastian,
+dev->ci_range.vpi_bits and vci_bits are documented (1..8 and 1..16)
+values a driver assigns after atm_dev_register(), with ATM_CI_MAX (-1)
+meaning "no restriction". find_ci() and __vcc_connect() use them
+directly as shift counts (1 << bits, x >> bits) without ever handling
+either the -1 sentinel or the all-zero value the field holds between
+atm_dev_register() making the device visible and the driver actually
+setting ci_range.
 
-I tested gadget mode on the Orange Pi 5 Plus with the same v16
-kernel as in my reply to the cover letter. The board was an ACM
-gadget (configfs) on fc000000.usb, with the Type-C port set to
-port_type=sink for the test, connected with a USB-C to USB-C cable
-to a USB4 port of an x86 host (Ubuntu 24.04, kernel
-7.0.0-30-generic).
+usbatm_atm_init() has exactly that window: it calls atm_dev_register()
+and only afterwards sets ci_range.vpi_bits/vci_bits. A bind() on
+AF_ATMPVC/AF_ATMSVC racing in during that window sees a vci_bits (or
+vpi_bits) value outside the documented range, and the plain shift is
+undefined behaviour, reported by UBSAN as a negative shift exponent.
 
-dwc3 forbids runtime PM by default, and with power/control left at
-"on" the controller never suspends, so the case from the commit
-message does not come up. For the test I set power/control to
-"auto", unplugged the cable, waited until runtime_status was
-"suspended" (about 6 s after the unplug; autosuspend_delay_ms is
-5000), then plugged it back in. I did this 12 times, 2 of them with
-the connector flipped. Each time the controller resumed and the
-host enumerated the gadget again at SuperSpeed; where my script
-timed it, the UDC was "configured" 0.9-1.5 s after the Type-C
-partner appeared. Apart from the message mentioned below, neither
-the board nor the host logged USB, Type-C or PHY warnings or errors.
+Add ci_range_bound(), which turns a vpi_bits/vci_bits value into the
+exclusive upper bound of the VPI/VCI space, treating ATM_CI_MAX and
+any other value outside the documented range as "use the maximum
+range" instead of shifting by it. Use it at every site that currently
+shifts by ci_range.vpi_bits/vci_bits. The __vcc_connect() bounds check
+also gains an explicit vpi/vci < 0 check, since it used to rely on the
+implementation-defined sign-extension of the old ">>" for rejecting
+values other than the ATM_VPI/VCI_ANY/UNSPEC sentinels.
 
-On sashiko's question about the early return [1]: I have ftrace
-output for 6 of the 12 cycles (the trace of the second run was
-lost). usb_udc_vbus_handler() was called 12 times, once on each
-unplug and once on each plug, always from dwc3_rockchip_set_role()
-and never from dwc3_usb3_phy_notify(). The PHY notifier ran only
-inside the runtime suspend and resume, twice each time, never while
-the controller was suspended. In each PRE_RESET
-pm_runtime_get_if_active() took no reference and the VBUS call was
-not reached, so the early return does happen. On each plug the
-resume was started by dwc3_gadget_pullup() from
-usb_gadget_connect_locked(), after the VBUS update from the
-pre_set_role hook, and the gadget reconnected.
-About 50 us later a second resume request came from another worker;
-from the code this looks like the pm_runtime_get_sync() in
-__dwc3_set_mode(). I did not trace that function, so I cannot say
-whether it alone would reconnect the gadget without this patch.
+Reported-by: syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+No C reproducer was attached to the syzbot dashboard for this report,
+so I converted the syz reproducer to C myself with syz-prog2c at the
+syzkaller revision syzbot used, and ran it in QEMU (KVM, x86_64)
+against syzbot's own kernel/config/disk image. It enumerates a fake
+USB device over raw-gadget matching idVendor 0x0572 / idProduct 0xcafe
+(binds drivers/usb/atm/cxacru.c), then races a
+setsockopt(SO_ATMQOS)+bind(AF_ATMPVC) against it:
 
-Not tested: the board without this patch, data transfer (only
-enumeration), sashiko's other three points, system suspend, and a
-host with a dual-role port. On every unplug dwc3 logs "request ...
-was not queued to ep1in", also with runtime PM forbidden; I did not
-look into it.
+  usb 1-1: New USB device found, idVendor=0572, idProduct=cafe
+  ------------[ cut here ]------------
+  UBSAN: shift-out-of-bounds in net/atm/common.c:382:32
+  shift exponent -1 is negative
+   __vcc_connect+0x14b4/0x19c0
+   vcc_connect+0x328/0x8f0
+   pvc_bind+0x272/0x380
+  cxacru 1-1:1.0: send of cm 0x91 failed (-71)
 
-In one of the 12 cycles my script first marked a failure: the
-board's Ethernet link dropped while I handled the cables, and the
-script checks the host over ssh. The host's kernel log shows the
-gadget enumerated normally in that cycle.
+The "send of cm 0x91 failed" line right after the crash confirms the
+bind() really does win the race against cxacru's own device bring-up.
+This reproduced on every run against the unpatched kernel; with this
+patch applied I ran the same reproducer 6 times back to back and saw
+no UBSAN report in any of them. checkpatch.pl is clean on the diff.
 
-An LLM assistant wrote the test script, analysed the logs and the
-ftrace output and drafted this mail. I ran the test on the board
-and did the cable pulls.
+ net/atm/common.c | 31 ++++++++++++++++++++++++-------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+diff --git a/net/atm/common.c b/net/atm/common.c
+index 81195727fa18..bb6bc26eb599 100644
+--- a/net/atm/common.c
++++ b/net/atm/common.c
+@@ -327,6 +327,21 @@ static int check_ci(const struct atm_vcc *vcc, short vpi, int vci)
+ 	return 0;
+ }
+ 
++/*
++ * ci_range.vpi_bits/vci_bits are documented as 1..8 / 1..16, with
++ * ATM_CI_MAX (-1) meaning "no restriction". Neither that sentinel nor
++ * the all-zero value the field holds before a driver's probe has set
++ * it (see the register-before-ci_range-is-set race in usbatm_atm_init())
++ * is a valid shift count, so compute the exclusive upper bound instead
++ * of shifting a VPI/VCI by a possibly negative or out-of-range amount.
++ */
++static int ci_range_bound(signed char bits, int max_bits)
++{
++	if (bits <= 0 || bits > max_bits)
++		return 1 << max_bits;
++	return 1 << bits;
++}
++
+ static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
+ {
+ 	static short p;        /* poor man's per-device cache */
+@@ -342,12 +357,13 @@ static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
+ 	/* last scan may have left values out of bounds for current device */
+ 	if (*vpi != ATM_VPI_ANY)
+ 		p = *vpi;
+-	else if (p >= 1 << vcc->dev->ci_range.vpi_bits)
++	else if (p >= ci_range_bound(vcc->dev->ci_range.vpi_bits, 8))
+ 		p = 0;
+ 	if (*vci != ATM_VCI_ANY)
+ 		c = *vci;
+-	else if (c < ATM_NOT_RSV_VCI || c >= 1 << vcc->dev->ci_range.vci_bits)
+-			c = ATM_NOT_RSV_VCI;
++	else if (c < ATM_NOT_RSV_VCI ||
++		 c >= ci_range_bound(vcc->dev->ci_range.vci_bits, 16))
++		c = ATM_NOT_RSV_VCI;
+ 	old_p = p;
+ 	old_c = c;
+ 	do {
+@@ -358,13 +374,13 @@ static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
+ 		}
+ 		if (*vci == ATM_VCI_ANY) {
+ 			c++;
+-			if (c >= 1 << vcc->dev->ci_range.vci_bits)
++			if (c >= ci_range_bound(vcc->dev->ci_range.vci_bits, 16))
+ 				c = ATM_NOT_RSV_VCI;
+ 		}
+ 		if ((c == ATM_NOT_RSV_VCI || *vci != ATM_VCI_ANY) &&
+ 		    *vpi == ATM_VPI_ANY) {
+ 			p++;
+-			if (p >= 1 << vcc->dev->ci_range.vpi_bits)
++			if (p >= ci_range_bound(vcc->dev->ci_range.vpi_bits, 8))
+ 				p = 0;
+ 		}
+ 	} while (old_p != p || old_c != c);
+@@ -378,8 +394,9 @@ static int __vcc_connect(struct atm_vcc *vcc, struct atm_dev *dev, short vpi,
+ 	int error;
+ 
+ 	if ((vpi != ATM_VPI_UNSPEC && vpi != ATM_VPI_ANY &&
+-	    vpi >> dev->ci_range.vpi_bits) || (vci != ATM_VCI_UNSPEC &&
+-	    vci != ATM_VCI_ANY && vci >> dev->ci_range.vci_bits))
++	    (vpi < 0 || vpi >= ci_range_bound(dev->ci_range.vpi_bits, 8))) ||
++	    (vci != ATM_VCI_UNSPEC && vci != ATM_VCI_ANY &&
++	    (vci < 0 || vci >= ci_range_bound(dev->ci_range.vci_bits, 16))))
+ 		return -EINVAL;
+ 	if (vci > 0 && vci < ATM_NOT_RSV_VCI && !capable(CAP_NET_BIND_SERVICE))
+ 		return -EPERM;
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/all/20260924174014.366B21F000FF@smtp.kernel.org/
-
-Igor
