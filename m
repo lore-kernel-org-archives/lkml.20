@@ -1,83 +1,86 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631833BCD2E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F7C3C3BFA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790495129; cv=none; b=RYF5dbL67GPHxONPfgMQ9Hi60zdArOaqTeVf1vKcgT6Dl8IP4Igoz/pLEGIIaQ7Vwog7gKKYX52ytZ/hDuAkzpv5otYWxDgwtq6RlRbODfohl6Tm0HrMYYQjmQqW7LOXJQiCt1Pxu9RyS8F9JfWKKRhU5n3Qwzht0UL3fcfLHGw=
+	t=1790495133; cv=none; b=g9r1GtHpVzN00+lC3MbYf+Ucvo7kJcoWNO15d1yl+EZ56yjQYy3WEN/oSVtDTtolOdcfn8RcibC3c6dt4KRBxB86yAqtEFuoFq5CTuXYOVhEfc3tDYTRNZjbO/sUaccYK4EodPBUYdvlAmbIu4naQaGEnvG8lZXyop7SeGRXt90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790495129; c=relaxed/simple;
-	bh=UxWpCJoqhhTQa5rxW7JPscFXgH0lLGJqCFFyksNM098=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BSQQJlI04bVE8n/w1FSV1iVTPjPEXa3IBfTVpD8tQVrY6YLixR13ag8G/tBX7uoKAT78cQzsoHsRd5bNlcZTzk/T2CjFvqGycqL1mzrnlR+dLtFEb3j/eQtnlulDaUthMP4S8tffnrIWRDc5G7XnFo81Et3kOYQfeZ078X9HfQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsYYtEcH; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790495133; c=relaxed/simple;
+	bh=175TMyjXYbKvQv+2xfNx1pjOaF88OH/j/aBTVdwcliw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bCj2AXIvSGKq4ZcVEhLvY1DkNBcDbU8MCmjNnqcL1JkGBDmMQ0s3OWqMNs46/MVNROkYaBqIx6+XSaVW9AlYbPDpUCo9NE4Pu3El+S30VR8W9I4LBp+Yq+TiFBmUQyEZF+Ddgrp1HqjOX1AdY4xxfE1m+GuOd4QYP+TUjyktXRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJjKi2hc; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsYYtEcH"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48436686a40so217480f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:45:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJjKi2hc"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-343241d5d34so48828eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:45:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790495126; x=1791099926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gCDVY0S12VqCwjPRazOz0k33aw3HWNfWSo3pYCyR95o=;
-        b=BsYYtEcHOGbYw71jDDDsxX4jm8pfQqMXjK6ZOf5nArfqyO8nwgX90TEGCYv1z9Xmjq
-         PBjeXFOixgDtcql6kscGELlpk7UXMQvEcR/KL3vzsllw99MZztx7IEgI2GqazC2Z6Cfp
-         4aRK3cz8XZXhsXsyv4ukmOFwsRWk4Vzco5VlrTWW+nHT9buo1TGGbKTqQeVpAxoXsAI2
-         k8kdgWWWZzg7wtVl0e1SPT+X3vOqZvjadtey6ifWra7wwHsupeerrCePxu9SEWll4ADg
-         yzM2PYUsgT0Zoq4WMi3+ysthr7oMJyp9C8EcLggWT8vE8ZgMfnuqxZu1LPLjfilHl7LS
-         qblA==
+        d=gmail.com; s=20251104; t=1790495130; x=1791099930; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+hTRes37Q2KgbwIZUkJQo8Y6gN/vVSdb39+kLswqOgc=;
+        b=KJjKi2hcUjp+HPt/aMlZyADyc5W8ychzP9wLrTPZDUXJyAaIi0dHqMc2rMoK5Ohj3f
+         bH2/SeIx93AwLowcMlf2v5a5Md54DclHHHgI0uNI64snrgjoTFSkDsFak9Gk26+Jm///
+         cKWj5FTuXSEsu1+CjksL4+7R/UwP5Vi5S0ZHVyWg0pnNZEkFpeg2hO/qghcTOS2wy5ZZ
+         AEPqN9aCwsRmPwl3azusCSu7+wI7PW6NOiuiq8JFXEwQr/kWX5jq01Xbd9WSb8V37Zwx
+         0r6L95cSHKhGRwIs87gaZ+FuQ8GvfqobKV9uoBHvbHpuipIzzZfh7OsnVdp06Nck0SB5
+         stnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790495126; x=1791099926;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gCDVY0S12VqCwjPRazOz0k33aw3HWNfWSo3pYCyR95o=;
-        b=Yd3angGqXQrMbKlmGa/BCwUwjyGJG37HIbdZNaxe3xCX2CxHrxxZz25S/CGiuT/rqM
-         YicMcOjPG4iXA8RsBqYcDRhADOdgqKFPUS7J+rZD5lSWBuQPA05wJUGXicdpKAXWCZ/E
-         6CQdx2MnKoKqc+Xz6Fo6kTY/SZ1YbyvWHyKNPWHb3HPs6gsP0sRoEeeqHGLi9IyIRLn3
-         sEfZdg46w9pUagVHy+qrHYz7LSrmfu2WIHCnx6z+WGDWNqQ2I9idbvnUmcitr21hfQCe
-         je++kXTgLiSWktYi2txMGzLz6HzT6RAVjjewwAMymLAF/dsnKoWRlshslnpMfLOMcfvu
-         MlMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEzvZLZkNn1EwCfDpsLeSHFq6pnv+I5mAxnK0sNeqISKQ7O2tbGoiYuuMksbK4joXaEirkWTck827vqfU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEKhYmJCoBLca+WdNGm+b6RaBRl0M+npthqTPhaMtMcN84OjHq
-	3CIsnp7UicndvEUyXdHAEV9UkSCTGyxrb6ycmesYfpulikf5sQo47Jls
-X-Gm-Gg: AYBFou2y5iy2vCRBeV6TObApQHWYskodwmA8p46GMQh6lG432luAR+obqatYDB7HDhN
-	bal1X8tApFB8IClbvxaZK0aiONWUADu4aeuRi8XUJVqMZSXGz3Io+NvyjeY78+LHWZsWBGUEB9B
-	5hJNpfGJfxd6DVQqq6KI9F5RzfL2zXqNT7/xHaSMae0IIIRW5qb9MfS6Tp+RYTl/b4RLDSfrINi
-	HymwGqz6Xkak7i8fiZf/S4JlnnBUxt/HpXG335sinnikDgB+OLJQgoA7sGMMiRJlL9RgYPIaP20
-	mR3jBAfV+XfSC2dDsaZVogr99GVwJKGzd/JJz6y10N0My6TZ+7ynDiPccva6jpH3R7xwi2qx/iz
-	dAvzuMpFO2sva8tyuqWyxFBHpSNJDgJBJ+kmrFVUmUWCt9LbHcZ2/Bhflogkq9g5Ur7SmPgBCYm
-	peyUmJ3gXfGBKOS7yssjh1KbWiuye1VJEJ5ulI/rQIIzojsQeeXgVGaxAyVfTqCWn1enliwUCt5
-	IO5xgCYn9uT35hDB6L7
-X-Received: by 2002:a05:6000:2c11:b0:488:7787:4696 with SMTP id ffacd0b85a97d-4887abc29d8mr12240418f8f.5.1790495126398;
-        Sun, 27 Sep 2026 00:45:26 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ef3asm19005883f8f.30.2026.09.27.00.45.24
+        d=1e100.net; s=20260707; t=1790495130; x=1791099930;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+hTRes37Q2KgbwIZUkJQo8Y6gN/vVSdb39+kLswqOgc=;
+        b=Q17TTJUiuK6Jo0mTBYUW8MxYAv8uWxA0fSvvw1P9HPz96swibWOgyg8U7m3P1VK6Rh
+         pSqvcHgAGJp0gd6yG/jZe4l8zYA4gGLcxNNL5BmVdLJFMqq2IrsyCzB7dUkEcho2RI6t
+         QGiqDxmovGg27s4FQXySYUotqgJqo5+ePh4oqEKkfDRnTXwGbfo+v4sTM3z7c1R+8P70
+         HPXcG+QNbMIWuvt0IP69kn9o5oAoiSYEurPVAPrTuo9ogQUzMLOBjktopUz4oez6CkE6
+         qJorFq9q9grOKKCI3ZU+6AOSmXl3eeuhpuYgEX9qJ8Gt3OFLvc3MstYldJ6MMF3YRkqI
+         JLCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvU/vATYpKnzkGzzQeeZpVGUuq6dCMfaoiT9+jxOnNj9G2v8HYbQvwXgyuoi93p8KjIaXpQ5I6xULlnYE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfE3hn5E0g36oCquCsIYARO1NPNJEZOsrHL/xLyZCbo7q6nJ3H
+	+u4lU4Zjq/NPXJQy/XRJilsnwJOOyT/WEsEOGcnrQsPHeo07LCeVFkYH
+X-Gm-Gg: AYBFou0zFT8nbQOCZG1tnB/kyfx6L/jX87EHkXOVyV7/4fecKDJ7RKCKYl3z0MXhTjY
+	cwSYOw93mMrFH7y+PSinK4kDPVNj3/MTkPFB37O1bA1cHFjQav9IJRpqOxtTdWQ1qtLy3nQ6Yko
+	8wcojH74nH4ApoOFow5zSCclHooBZYWE22422RbY4K231ZieRAohNpwFt2wq1eP1z0zar/QMIVk
+	FC0HkfNMJhZG7zixB1UjHYYTnFjXOesTWa1ChqDbaNOqlcOk6DV7XcPaDlkzFQXGSDX7/XWmtxs
+	a12namcTciVQLts9EsF7XFVq2+20p3tgUU+VjjuG87HcsXivvCWk4S2QMIBtwzvWhBjJo+wDTjg
+	CNgELooigDN0qkQNwqyX1b5XRNRKIFOe+5TiCuoV8HzVeF//08kIstfwQ55VAcoN21jpFl9DYhi
+	tQyUFxVgaAxjzh7QVrn3twOshf0ZMzvJ62qyF4a0O2STDTbGxQ8uAF0zTjYjpLAcZD/pKe5oHtM
+	aBvQPyjD1+CfYfjA8Gbek8i/cT+1pLbIx6BPOpE+1qnAfESHujx5S/Yy42tKWdLjtoHLA==
+X-Received: by 2002:a05:693c:2589:b0:340:f698:fd56 with SMTP id 5a478bee46e88-34273249209mr8814184eec.2.1790495129005;
+        Sun, 27 Sep 2026 00:45:29 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145727589sm19752996eec.23.2026.09.27.00.45.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:45:26 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: vincent.guittot@linaro.org
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+        Sun, 27 Sep 2026 00:45:28 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Karsten Graul <kgraul@linux.ibm.com>,
+	Ursula Braun <ubraun@linux.ibm.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	qyousef@layalina.io,
-	rostedt@goodmis.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH 8/8] sched/eevdf: Add min slice check when selecting CPU
-Date: Sun, 27 Sep 2026 10:45:23 +0300
-Message-ID: <20260927074523.14558-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAKfTPtBAhMVa02Z23=nNZkx7Qum0x=U_KDCn=Gr6Pnf-SG4N5Q@mail.gmail.com>
-References: <CAKfTPtBAhMVa02Z23=nNZkx7Qum0x=U_KDCn=Gr6Pnf-SG4N5Q@mail.gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/smc: serialize link group free work scheduling
+Date: Sun, 27 Sep 2026 15:45:20 +0800
+Message-ID: <20260927074520.3694663-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,31 +89,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Vincent,
+smc_lgr_schedule_free_work() checks lgr->freeing without the link group
+list lock held by the teardown paths. A concurrent smc_lgr_free_work()
+can set freeing and cancel the delayed work between that check and
+mod_delayed_work(), leaving a timer pending on a freed link group:
 
-> > > Add a new level for selecting CPU when select_task_rq_fair() fails to find
-> > > an idle CPU. This last level will compare the slice to select a CPU where
-> > > the task could run 1st.
-> > > This helps a waking task to select a CPU where a longer slice runs
-> > > instead of one where a task with the same or shorter slice already runs.
+  CPU 0 (smc_conn_free)            CPU 1 (smc_lgr_free_work)
+  observe lgr->freeing == 0
+                                  set lgr->freeing under lgr_lock
+                                  cancel_delayed_work()
+                                  smc_lgr_free(): drop lgr reference
+  mod_delayed_work()
+  smc_lgr_put(): drop last reference and free lgr
 
-> > > +     if (sched_feat(SIS_UTIL) && sd->shared) {
-> > > +             /*
-> > > +              * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
-> > > +              * the scan when not preferring an idle core.
-> > > +              */
-> > > +             nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
-> > > +             /* overloaded domain is unlikely to have idle cpu/core */
-> > > +             if (nr == 1)
-> > > +                     return -1;
-> > > +     }
+When the timer expires, the timer core accesses the freed memory.
+KASAN reported:
 
-Ain't nr_idle_scan shows load of the system? Even the comment at top talks about
-idle CPU's, but we're not looking for a idle CPU right now.
+  BUG: KASAN: use-after-free in __run_timers+0x86d/0x8d0
+  Write of size 8 at addr ffff8881186902a8 by task swapper/2/0
+  Call Trace:
+   <IRQ>
+   __run_timers+0x86d/0x8d0
+   timer_expire_remote+0xd3/0x120
+   tmigr_handle_remote_up+0x4f4/0xab0
+   __walk_groups_from+0x40/0x150
+   tmigr_handle_remote+0x229/0x2c0
+   run_timer_softirq+0x1f5/0x250
+   handle_softirqs+0x18d/0x5b0
+   </IRQ>
 
-I may be getting something wrong, so please correct me so.
+Hold the existing link group list lock across the freeing check and
+mod_delayed_work(). Rearming then either precedes the freeing transition
+and is caught by the subsequent cancellation, or sees freeing set and
+is skipped. smc_conn_free() retains its link group reference until after
+scheduling, keeping the group alive while acquiring the lock.
 
+Fixes: 8e316b9e7260 ("net/smc: improve link group freeing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/smc/smc_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Thanks,
-Kayra
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 9974149659c2..8feb486ada56 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -80,6 +80,10 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
+ 
+ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ {
++	spinlock_t *lgr_lock; /* protects lgr->freeing */
++
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
+ 	/* client link group creation always follows the server link group
+ 	 * creation. For client use a somewhat higher removal delay time,
+ 	 * otherwise there is a risk of out-of-sync link groups.
+@@ -90,6 +94,7 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ 						SMC_LGR_FREE_DELAY_CLNT :
+ 						SMC_LGR_FREE_DELAY_SERV);
+ 	}
++	spin_unlock_bh(lgr_lock);
+ }
+ 
+ /* Register connection's alert token in our lookup structure.
+-- 
+2.43.0
 
