@@ -1,124 +1,102 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AC23C1097
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A923C10B2
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550438; cv=none; b=Wgy6qmsD/QKkpxXpM1q8irwXIX33QGFrcOdX3nLojDpdGvoX4DutlXilnSCNjlN9UArcMLmKCdmKx7fhuVuD7wnQDFX2w2x3/X/yu+DoTxLsn6P2un9pB4d8FT7LnryDNwPe3cIkCKdnSiVEGFOm+IHIAnwzmNY1FSFoEhgYFMQ=
+	t=1790550450; cv=none; b=TL1z6oIPwYiJo47bVu8vTbG0UQI/kgGC+qZg5K5aRlNoOoETUQbxyrIseicc1XHDB9tTY3AcHyGY3RP3/RxFjIjMdr6RWfujbSZvC/nFA0As8EMvCWD+tQTAG9Q9JJDzMSHqMeXWrmNTkw/NIGGk/CEOfeUthsLNLQa7/hCJfWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550438; c=relaxed/simple;
-	bh=F9Sa7Q15VZJxKT3BZA0gOeZJQMHcfq0klY9AQGiGSOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gGLXmJfFvXiMudYo0/Zk5KW8HaG9WvpeId9Cb4o0RLfZgNpCvTurjL+y5e+2Y+g6UEgAxG8BGw3iACoTV+8Ij/fCMlPGOsYjvINBvW42P5u5+4GG6cjpP3+Z4eUKljxJ1bfcL+8dBP/FZx7lz4pvt5xckQ9PPEOVagOdQKvQATY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q5mvhz4s; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790550450; c=relaxed/simple;
+	bh=6+60PQeTZm0nfrUzmsCc5SiZvJZdAxHUWyJMeoD2aF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zbh/VvOgelkAgOFq3HyD1rYDnfq1nU56DKAc8feC/zVFKesq6V5u2jkPmB4sF251sZSQcU1vVDSZ1sL7bnUJtBwVFnTxDnG29GMWvsLfujlKvrAKjyzu/27zD92PYu/vD+tsx9NkZi1SWXOCK/z8ziTzpnUMjMAZPzRWNMlbsOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=n26gwB0a; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PkNx2HxF; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q5mvhz4s"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso4771665e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790550434; x=1791155234; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/a+F39bGWb4OewkX5Hci6JgQLGfPvrvosBqj3gZjoyM=;
-        b=q5mvhz4sY88KKx91DnEgAULZZt1vBzV/a9AyA0NnAQarsBrPOuffT+OlR9K8M02LtW
-         B2yXi5a82kNnMiTFum85upIioSXCzVEfnuPWV2LCcmBfX/1rbzSCpX550fN/qcYyguVh
-         jwbY39Yw+Wo0kLYRlq9xnV83a6aoeSHYDcLRXkdsCx2boT8wfW+KfEisnoILS1dAz7ey
-         DUgxRJd8GJW/9mzy1mku14P6zG/2u4+jxjsNY8LjRkcOhM+naXLHnu2k/LZfKDZbh+d0
-         xvFrEnLz0shSq+1eeCMBQ1kWx6J/Cu0WYTa92Rc4VRF/UJ2adi2oJqAam2nr+S/PllL4
-         vIBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790550434; x=1791155234;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/a+F39bGWb4OewkX5Hci6JgQLGfPvrvosBqj3gZjoyM=;
-        b=Bt+6YpyE0tkv4KYAZ9VlucarylpwekM9kot3QOhgYbuLEY2904VZERKXo4EsBT/rHY
-         ilUejBDdgeR/jSEh7Jpe/wgRcQNPJ9yWF20kfTpenqYs3o0MusKmpJ8ZR+2neo3Jb9O4
-         cE0dIl5JdgXyk8PhLZUBdaUKvZES7QJoUw9dIR9YpgLdFjrdzrBpOcyJkPSWNhopV6iB
-         RrKkfpTs/NqKgBsHSLXDFaZWGr2NwCPQMnLDV6YKiQiWr8zMV9xlMbhOi5TC1P8WbrUa
-         hCfGED9/tOfofJ8nNIn0dOAMDgDBpw1usAEvCDmKxxmIE7ftVm2OLCghwAAO1BAf5Db7
-         dfvw==
-X-Forwarded-Encrypted: i=1; AKwUvByQKAffuzG3MvkfbcxZJOk8wndFf+/e29gfre8AEzCcP0XlJgi+KJkgFPbW3JjdfYp8pdxoIvhf1u1rH3A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkgyJi8Lxc7hCoUdpMYPT7sBS3cdLrJ+J3OxXzMxy2OjDfKm54
-	X/CF9f/eJMsj1JkSmwxwmiresvZCDfBmxIQiIFFEz//YABFGNgf8fSOr
-X-Gm-Gg: AYBFou0ls27P82G9b/OHFCy2OPhzfyQ7gmu+zDKewbTIiSDJnnvVA4STmy6I3B39EdE
-	kgpPoxAoS5FP/UotXW20hDIKuYWJOTl8YPMffiKXdVfP+ehPoZS+w03prwCtyVamlDv/WujR/y2
-	3DKE4F0jnrGBYaCu8zdge6iek7XN4ATbIv7QVigTxpOXU8cmQOQ5yfsqqiCaxTry0HNmWLGcBYd
-	Eei0HTtFHLpdiA7/e2rpoI03keGEPP7v37w8dgk056XMI+FmdSeBUpB+lIac1b3wFVe8XN8DKy/
-	U2CJrDFo1Wt8qVCu9HojQLCI48p8DJGQ0kircb68u1BYvmJK+uZeald5p3ak/tDAZ6dPWI+b/0M
-	aEKgDmMlOqb8tLthdRObWVXSL5MeM3Vn9ytsKeV9anHqoqSU8H7IIOnp5nEiKde/SJxt3iMIhnE
-	DnR5F+QLbTLxvaiRgR5MWAkdM/LlBpsyMK0Tge1dY7xudDPEaFwSxY4h4/jGtdwj2zJ4JS
-X-Received: by 2002:a05:600c:3148:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-49ffc4fa10bmr80800295e9.7.1790550434194;
-        Sun, 27 Sep 2026 16:07:14 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017998dbsm134269715e9.14.2026.09.27.16.07.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 16:07:13 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH bpf-next] bpf: Skip redundant destroy_if_dynptr_stack_slot calls in check_stack_write_var_off
-Date: Mon, 28 Sep 2026 02:04:28 +0300
-Message-ID: <20260927230511.417420-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="n26gwB0a";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PkNx2HxF"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 117841400021;
+	Sun, 27 Sep 2026 19:07:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Sun, 27 Sep 2026 19:07:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1790550448; x=1790636848; bh=F7fCvE8IXa
+	NegiSh9ckLtZbJqoQBWGpCg6N9ScNLNyA=; b=n26gwB0arJtUBbZakd1p+w+8Xh
+	Ykgm+ft+dCh+vosZLRoP0LwcH8YPZAtsPKJ9btBW951TUBFJAX1rQZ/cZb9xbOfl
+	vZ4+BpAQA+h4nVyxclIX+IZVILJUHHwcaegNpY5sPQr/UDFqFjtqT8em4uUCXsFR
+	Em0kCuKnvFJkC7icLRkmY72eodv7F3BRyScmZjhT9tDIaSJCgCpEqlv788Zsci6t
+	DhdAF9h4Uo1YyOo7hTbqYKEsIDO/SJoglos3SRAG6M7hizN6Y2/xMsef7yk0UKEl
+	b3Ahz0chgYQKZz2Ff1vZE9eOOFIwjUZ4Jy0cfRyc+E2K7bZn0oRHqSanwTRw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790550448; x=1790636848; bh=F7fCvE8IXaNegiSh9ckLtZbJqoQBWGpCg6N
+	9ScNLNyA=; b=PkNx2HxF7WlwzXu8LFp8vEd6592WUv/f15LYsduTCf7AunfABKs
+	ouiXJVm+i6hcgF79zkOARXttW87f1hLmF9RYxsWAbQ7X51oXwsjCgR27YmpP+VL5
+	cOLvTYqDt/3CAHqYGF9tYC1Upz+drgm3G2vYURdIIMcRNt+2dvv7P7ujX05aPLmm
+	1ToO6FwcNNqtkX3rM0aqcdeE+Tjx2QX1nH8XxrN5WrrWG0Opf46+qz5c81OATrJv
+	nbd229fjLN5SQN6HbNFj/8kUuRfKfgS/X7YdwABYbt/WGR6+uxlWhMSEIi9JgNLc
+	yvycmEUTY5WBNWoRu/Br8ymw2mK6JI5eXUQ==
+X-ME-Sender: <xms:r6G5atXytS1pzgxSn79_esuZIB04p-E4-iuXBgLejLsrN1bvduTfIQ>
+    <xme:r6G5argL2qjvrsmYMb44E8CEVIIz8JC4sFv-3Z1-zU1919KLbtDeK09pCifj2pL-Y
+    9wbO4gLxLI93Am_WQDMWRb3oPQ1MdUh1vcjj1V57i6Jv7hraibgIOrZ>
+X-ME-Received: <xmr:r6G5ag_LxBIdwPldHgifgIWgA7p2K7xseijos5V2zDaglXbrSdYvlCchJOHIOj2DPQp5dZmroWmcVOMXkSWwn2bBfAi0cDCpLtywaINB1xPy>
+X-ME-Proxy-Cause: dmFkZTGM/jDG+pZVqVkdwgJjSIFndnxRl3u53vgVM4Mt3d/5Wtl1mvqUc0wObxAb+iZZ5+
+    9REJb3rYMYoaP/3CO9CuoE8aT9Wr0g0lyjSA5iLH8p849EKV80UwFpZ4sGs6JpXYD4oehK
+    mXg7U55smL6R4XFtKRjnv5VLFm4bIetzuyxAbR948SCYZLI0GetNVBHX5jpVl1Artt5m1w
+    pF5fGB1LxvN2YOSN7jrUEAH7N22gxfh3FzN5WQiCHSL/NLuYPmlrGjZlosFiwkXJSq7RBv
+    ulzjpm1Fg07tTmFJFSdvjYjDj9+NzptyVIylcKSleaTn2QP1Ga15OGDbOKtZe5Q7vKQXmX
+    3ahXxBo+dCEi0SrcjtrID0RtKYoxpp3H8/hSc/Bf1DwoI3RGy/qh4ZV98ARjf6kIFVYBJh
+    OYaoc+Pn/H38VH2YaP/UX7nxz/NC7bSW7VbHB+tyFpFXfNhTP6FpyfWfjtDr55RzzYpHAh
+    3n2LjvwMji6RdN+43qTGNu/nZMUCZLwH4ylah18g/nbbxkMWcXe6FQXI6DflwEAKpsVq6b
+    Mlh2yBUlDGZHrtj0hfCHrZCxr8rbB2pZv7bflOrF5LtUm2Kq+pBOFYhmiojmqqF1PKDYUJ
+    C6YFstsZ+Ah6YuWEguQVj3CMuuE7pW54L3LIq+dWqDTTPWXV7PnMDIXPlLkg
+X-ME-Proxy: <xmx:r6G5atDapZ0Ov9BA0y0rSUN0icF_EuLA4lYoItF5lHGIULjcHzQUIQ>
+    <xmx:r6G5alK9iRVhAJ-j2e1Ra5Vn4NUFrnTP2mWt--JtU7dLNV3216hsww>
+    <xmx:r6G5aok_J0E1znf3IU1RyTFZ4jAWXYWGL6nEI_VcvZYJ8NbvJx99Ew>
+    <xmx:r6G5arErlZXLsPx_QMYJ-10WITmZpNQpfBNUcW3vaE_5-NHNfBXcvg>
+    <xmx:sKG5atqLyn2EbKDctjrr9DDVUKuKHajAepTVaUinHbgoN4bk2RRb6qos>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 27 Sep 2026 19:07:26 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] firewire: cdev: replace spin lock with mutex
+Date: Mon, 28 Sep 2026 08:07:22 +0900
+Message-ID: <20260927230724.119305-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-bpf_get_spi() maps 8 consecutive byte offsets to the same slot index.
-When iterating over a variable-offset stack write range byte by byte,
-destroy_if_dynptr_stack_slot() can be called up to 8 times for the same
-slot, even though it operates per-slot.
+Hi,
 
-Skip iterations where the slot index matches the previous byte's slot
-index to avoid the redundant calls.
+All execution paths in the cdev layer now run in process context.
 
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- kernel/bpf/verifier.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+This series replaces the spin lock with mutex to avoid CPU consumption
+while waiting for the lock.
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index fec5a1ae6a4d..0eeb498db9d3 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -3824,9 +3824,13 @@ static int check_stack_write_var_off(struct bpf_verifier_env *env,
- 		writing_zero = true;
 
- 	for (i = min_off; i < max_off; i++) {
--		int spi;
-+		int spi = bpf_get_spi(i);
+Takashi Sakamoto (2):
+  firewire: cdev: use atomic_t for iso_resource_auto todo member
+  firewire: cdev: use mutex for client locking
 
--		spi = bpf_get_spi(i);
-+		/* bpf_get_spi() maps 8 consecutive byte offsets to the same
-+		 * slot index; skip redundant calls for the same slot.
-+		 */
-+		if (i != min_off && spi == bpf_get_spi(i - 1))
-+			continue;
- 		err = destroy_if_dynptr_stack_slot(env, state, spi);
- 		if (err)
- 			return err;
---
-2.55.0
+ drivers/firewire/core-cdev.c | 89 ++++++++++++++++++------------------
+ 1 file changed, 45 insertions(+), 44 deletions(-)
+
+
+base-commit: a781263c292e7bda50812ba2347459e8ce9d778b
+-- 
+2.53.0
 
