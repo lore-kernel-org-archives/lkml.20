@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C94B3F4829
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A093F211A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790516729; cv=none; b=lvxM/B0BzDnUT+IE+2NpM7nl7Fspud61jRtXyttpEPhEpxYCUEr2930muQqg4/ZXMyrio7kujapXWc1Mgk2bMs+goD6zWnGpXga6Q8gar6FFR95PIFTv4H2l9vDdj0Et1Fv7JWuC3kfnZNqrC33Eel7PPKsY6Uv5RNmv45/T3a4=
+	t=1790516734; cv=none; b=JS2M1JjE+bJ5YVhxJhBZ+xgVPhRpLb4tGQuHWjf9pd2SfJ9axwpCHZY+4TUmmEs/gVMJMHeMLLWD8bUSBWepRhiZK3H6z0wz/bjhRK6pVA5SQNQhf3gR4yhczDuIlgqmAlMqf3eaizuAJEB1uoVEb1MsxL9Zj8lzJCM23h5CUo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790516729; c=relaxed/simple;
-	bh=u8zwzfccugVlJHKGDjZ0KB9qOvX6JmClerqHpqbllbQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=H5mvqLaNX2VJQBJfqIUuHHzV7ypDxNsCTYP3lo3HlWbMsz7nWRedTEFVvEHmcnDWYvYKY+HIRzaQBkCE4PzCQWfoyGiDbTME99VbMC45mJiaVzUcF4C3wml4zcTq9Gut1yjys2FCl7R2NJw/Y7VNjwn4pf/KZGtvt/zxyqcPjiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e4nM//s+; arc=none smtp.client-ip=192.198.163.10
+	s=arc-20240116; t=1790516734; c=relaxed/simple;
+	bh=fdwRoRh52B4Kxjdt2akpQ5mB9LQTqJv2qs0DSpkrkwA=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=bRsgc58GRahgWJSZHOMBnBpw8FPM0RGwCo33fO/pWXvi4QfldIuP8CD634zPiy1kejCBF0Zgoh/LHlUD93FYKthmKvFflBV4LF44kaNO3Ac3tn2v3WHcyJCX35s3lFyfmc2lcRiEyvZVt/Xxkg/HWHSTSJ9kDTbLVC66I/9FfB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X5ulYokL; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e4nM//s+"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X5ulYokL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790516726; x=1822052726;
+  t=1790516732; x=1822052732;
   h=date:from:to:cc:subject:message-id;
-  bh=u8zwzfccugVlJHKGDjZ0KB9qOvX6JmClerqHpqbllbQ=;
-  b=e4nM//s+4E1tompXKWsdumj+1J4V6rn+RzhFWop16ufizcYsb5tgSFtf
-   vyKCywSJDV292wj0rOwwWVbunCD/kI7TSUme9e36cHU/z66bcTVY0eA29
-   BBaKbhbTLKJGGCKnBBTc/7d1IWo516uGJzZ+GMrvSO3HuJaAeTm9Kxnlv
-   2YpAFrQc+tSAhTfE4UrT6p7nBALozA0raAjS74voeXjHAscjhd7ctvwGk
-   qvGhxyKR9KcUSajiezcSWq0PegFD8Mq1B7Just6tT9U5nDwkjar99I0Oz
-   YUIkShFUGhEXtB+n80g3UIWi2cSaSZ1dU4b9KL3snXWeR8MrdFUa+vIrI
-   w==;
-X-CSE-ConnectionGUID: vXQBlf+7Qru2U/SKKpB8pg==
-X-CSE-MsgGUID: QNFI64/SRC+sbEl9jF7b+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="102600940"
+  bh=fdwRoRh52B4Kxjdt2akpQ5mB9LQTqJv2qs0DSpkrkwA=;
+  b=X5ulYokLo/eCuWh6g5zedofrjUpKi76WgHYMJoARBgpAa/VQzyTYO687
+   VInhR8sVLtV5R1ggounRruF1JQXonSNJ1h9Pf1zK6hXF4sHKVjECnPAwr
+   Ue3m8c/lvAltmkRgSfn3YLbUVk57RyLThmN8FzVjFQvdPRtImIbAlrYW5
+   6NifIUDoPD51HmHE7N23CR4Lk1yIZMZwmMkAJFRMTGHQ/H5CCzuR2DI58
+   r5zSutrqtWpBr77QinpV6yKRYH/LLKTiKuZxr5MuClIVlTqMPgSJQ60CJ
+   O/Mp2YK8lNN6wgLMalxsrQGHifYSMJOKzNQUkvWhWtQi6xQfgLM5EnKTN
+   Q==;
+X-CSE-ConnectionGUID: 4AgylmzVRPK+yr3I9IZz2Q==
+X-CSE-MsgGUID: EDscv1VKSdWjofQyh5K7hQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="102600944"
 X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="102600940"
+   d="scan'208";a="102600944"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 06:45:25 -0700
-X-CSE-ConnectionGUID: Nsdt3IK9QWOR0Nbrz+hD5Q==
-X-CSE-MsgGUID: 1yavn+uGTWqNgtM+PF1UmA==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 06:45:26 -0700
+X-CSE-ConnectionGUID: u1+NbW9PSxKa/zZDm7gi8Q==
+X-CSE-MsgGUID: qFh5QLGZRL2gPtqYREQLxA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="274937741"
+   d="scan'208";a="274937745"
 Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
   by fmviesa008.fm.intel.com with ESMTP; 27 Sep 2026 06:45:24 -0700
 Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xApBx-00000000MuB-31Nr;
+	id 1xApBx-00000000Mu7-2lYG;
 	Sun, 27 Sep 2026 13:45:21 +0000
-Date: Sun, 27 Sep 2026 21:45:20 +0800
+Date: Sun, 27 Sep 2026 21:44:24 +0800
 From: kernel test robot <lkp@intel.com>
 To: "x86-ml" <x86@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [tip:x86:cache] BUILD SUCCESS
- a17d099481bd11f0911993a8e69992269f92ad12
-Message-ID: <202609272116.4YknfoTh-lkp@intel.com>
+Subject: [tip:sched:core] BUILD SUCCESS
+ 627ea30aca3b309af40cdd07a35eb1027ba4a0bc
+Message-ID: <202609272120.dKDYEuRC-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,10 +59,10 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/cache
-branch HEAD: a17d099481bd11f0911993a8e69992269f92ad12  x86/resctrl: Update documented unit for the "activity" event
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched/core
+branch HEAD: 627ea30aca3b309af40cdd07a35eb1027ba4a0bc  sched/wait: Clarify WF_SYNC wakeup semantics
 
-elapsed time: 1805m
+elapsed time: 1804m
 
 configs tested: 176
 configs skipped: 8
