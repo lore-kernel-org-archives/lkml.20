@@ -1,77 +1,77 @@
-Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE2B34CDD
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80631AA1D5
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790480017; cv=none; b=isT15EJWIlEnn7rrkFAHhuk1uGjHMUjP9AcEqdBaNNX8f2lkjk5NgzaGDzuSHgsQKtV3YRIE0V7fWpfxLec2IidfI7NWzRxvPJh1ZQN/UJB15zmQkpLnrXXaFPCg1XH1xFIAXTGeQ+YuuZ9UGfB7d0ZpJm7qe2kAh3vE7dZojuM=
+	t=1790480631; cv=none; b=XrVJgnUJR4Xloi5un4yJ6uOhWkaCDKTuMC5Kg5RfkEIW2sPu+iCvGkX8I/cavTnddrxcQE318sD+pSyos4y/v36/Zssp+SOs/NrEeUf5rgw/RXi8lr7OlZNOPigvY+EaxpjLOnBbHgn9+UglvXD8eVXy0alpXBe1w3CFdR7d9O4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790480017; c=relaxed/simple;
-	bh=e/EAw6/IQ7mM/L+HlUNAqUw/O+rqmMNCqI/jXY+8juE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=De4P1h/ZPDdqguXnTJ3xgmC5E9ldpcgQmNn2VlaMxtRO2RGrvu8xcelEpl9YRatOtHpze2VPB0pbPn/8EhpZgOK8gfakF4F5BcWwNEmXKnLFmnmjp2wKWFvSdATFkKRWspn2c1ehi7RfuCiQgTEFvQRi+qpP/2ex8QiGpUp+lkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXb4UoYg; arc=none smtp.client-ip=74.125.229.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790480631; c=relaxed/simple;
+	bh=4dMqe55YrHOCAsVGSSWUADtAw5X9S4b68TFLM8vQM98=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e3hPSGW4NebfEJcPeObb8o/t0wcTBmFQQhtB7VuolTExSLkd45u23lNib/8UXJw3eNq6ZtsoGrj874NEvxWmycud0SMwKfmQW7u/GuY/k7o3XeRt7XGkrH8yxgwMAOUkiL+6nDHtDTxwkivu+Glu7LEItzG1o0c9ra44MX71jjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=Hj0aNk/y; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=a44beL4l; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXb4UoYg"
-Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so2674420eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790480015; x=1791084815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
-        b=HXb4UoYgTzv65eR/Mh/UwUIXQNLl/Jp2uDksCkS7xyxDKfMuJl/rzPZ0sNUYUl/GrR
-         x52j6OfZ7CHs+BLGFNatzEKH4vA2tX1E6l4aLkQ28svOBiaV+JZBd9E5xvaTU98bf8VC
-         DhLu26/NrGQfCOkjV+l0IHZpjO1msx7VPkaR+2ahK4g9yDVAPKGESq5MW1pZMTxqj5Gf
-         p5Kp13xApWn6yRslHtPS8JTMvviiTqr4LJfGtk4LuKhsA7lvbPd3ViqMemxm/JDGF4T3
-         8lvdoiqAdinEloc16BgNs3N7TsuXqLXjzE0rbCYkCkpfr7kZvQlxk80fHATZ4cCaQ+2U
-         CJkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790480015; x=1791084815;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
-        b=xR5Mbt6vNbIBhDXU2/YvW2PAMfQFwDdivhS4ssbpwM7SZBkMR4lJjdUexlXQLfrxZy
-         4S2yOw13+4v4JOqTqMxX851emwt0+50M6EvCAdCxrjbMMEBX2kRn0TAOc9617dkaw7fr
-         gasVFSfbHZGP9/zDo0qS+aN3LZ91EFUyXVE4QCd6iieK4utw8A1xframQX1Az+MeoESn
-         TsTfttT17IF0UXbnZYRFR9/0cZ0qln/JgHXMbFtGOMGoUIThfPqr6/TndXIVBSAu8fA7
-         LLAbaA7NhEXNzSyafwzjAE/i2eBUkAy2aZFwjqVsdUT6PsDh7vInBXxaNOlkIcVKPspr
-         kE6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8ZNf6xcVRvdJcmNSusC6Gebjr6/kyeDQuVmYT18oNAFfqGcUbZ+mtmm7aSlPtm0PahASJG/MqB7qIbIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQXNp//vayOFRbA+ms2UC3dVAMMNvX6yefYj0Zweo5SQQHYZW5
-	LXtq2M0wpno1qjxbkUWa/sG0M8gsH0t9SNVytYbKFS9np2VbS6LHllR0
-X-Gm-Gg: AYBFou2aCw+v+aD0Kz5HklWfy4ZhGArQyuxT/PTHeP/bYWFG+bcL/SgKQHBAkEehHSO
-	sifiWl+tbHoZCEKaex0DJ1AyAOzbfQwWsq7oMKXikJjSbSsbZpG4KAzzfF7gDcs8iC6gaKgDQfl
-	SDQJRsd55NPTs4p2C5gyRhSrGUXgUpSgnofvWmmTYDdEKzac30ATVXjGyHYz1pmX8h5Jw977i2c
-	v1FE6avFAHm7+jCL53oB9w3k41Oo92SMbIuEAi5gHPNBaCq9G54vsiQukcjsvBYcDqSpCHyPhK/
-	yJme3esAFEpC3teCP9H5dAbYN8EJOiGOtYQy0ws71k9YMSO6xB2HMZAgc3bXRiIC73jygGVrwuj
-	mje2mi9SBfzC3QW0jmunWxQc/D6LPZNn4iv54En/jqDbY76AZKTpO07oftKKDYaBfv0MQ1uIBZK
-	3DzAfP4NG/53PpyvIjn9RVfLW8mPuSGxkLwNSTlLi4hHCFn3sCroegCTu03FzVRJmg3zcjaXEQQ
-	IZLKT3pyMlpKwZHwpalTKpJDkNpW5PP1i0fFGB8+3/eV7GOgH0SXa7Gh0dR97E=
-X-Received: by 2002:a05:7301:fc11:b0:33e:904f:9832 with SMTP id 5a478bee46e88-3426febb10emr4832959eec.8.1790480015308;
-        Sat, 26 Sep 2026 20:33:35 -0700 (PDT)
-Received: from Raccoon ([2409:408d:3296:6184:5a54:7918:9f72:6043])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm18559891eec.27.2026.09.26.20.33.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 20:33:34 -0700 (PDT)
-From: Rohinthan P <rokinthanp03@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH fixes v3] media: vivid: check for NULL dev in vivid_probe() control setup
-Date: Sun, 27 Sep 2026 09:03:06 +0530
-Message-ID: <20260927033306.14125-1-rokinthanp03@gmail.com>
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="Hj0aNk/y";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="a44beL4l"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D3E8D7A0065;
+	Sat, 26 Sep 2026 23:43:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Sat, 26 Sep 2026 23:43:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1790480627; x=1790567027; bh=4tfOdb0ZBY
+	6Z118i8Qux5oxr9QGxnKjtNuF9FtAYUgA=; b=Hj0aNk/y3Tht/yNrRtUJLGykUX
+	V7EWam6tVKPBafaGXaQOV57LB7z1SVlYMxvSh0dM9uZwyiu0AwMg0yN1J5PsRCMa
+	0X1d5opdHx5mX20vWAcO9v+Marlv7oCkxTWqB6kUdCStmaICywZdaqblPT5jIo3A
+	fzrcQCLVmD7YuStIX6G7SELgTeuQNT3+69QaUSyHQUQ3B4VqdUpV1lLjE3SpoKGR
+	ilmXBzGVGp0hTbsp72RDot/bXu14dVs2SFke5fTlxY5gbhuf88xd2KpSBw570f+2
+	Lp0spiKB8rihv5HcC/dGydIZf/LpLgFlI6ImD+PhFV7V6q86CwAZKkwEft1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790480627; x=1790567027; bh=4tfOdb0ZBY6Z118i8Qux5oxr9QGxnKjtNuF
+	9FtAYUgA=; b=a44beL4li8bgSsF4W1EogVsTEPf2vmcCr7vGdbL/55iGcQfot83
+	TR1H7mQPilkMslt2WNnMDk5LvqnYmjgYuBdODh/8hh5CDtCitk7Kv7X8IdocPKGa
+	+EmcI5PSo6RdMMdq3g2v8d1A/98ZjZKMIIfTyuuzJjdk3KGCeKHyNuPAMYQECXhm
+	8Skmovkr+ZkJ7DwUn4u6E04sYNMEL6e9WgxJDSi9s12OQWBvK1N3zVUpKxJPUwZL
+	ynJ+/xTkPzzXuCv1y2IoR0ShqxtAQt70A71dpsos1i4IBMRG19vi40uMe2kLThFJ
+	C+8KsADNm8c+zkGjuiOM7eBQx7hteRxaiVw==
+X-ME-Sender: <xms:85C4alqknodVdu4Xa5Adh80g4GdsPpIfE8xIwcfjmATZS_M6xF5fuA>
+    <xme:85C4alkfB_0SRijlCTy0S2_J9SOFwMrvp9spxad1WQlBYHgfQE9OMJMJQs-DVzQJA
+    0E_4oXJEHo3u4J2aRUhu1Mv_IfhHqJkc3J40noNx-Lgk97ZGLBL6e1E>
+X-ME-Received: <xmr:85C4apzMBCBh3lvkLeEXg6ygeJ_5d1ktJEtELgoUOdqf_URKH1De9MEZ-tqu39R-tlE-2FbNy6rgqBz9KHwojeseHs1nsQPuxhJIM4nr_zwlhg>
+X-ME-Proxy-Cause: dmFkZTEwRfMz7XJgssz0/DfzsJNIIuG4uLjd+iSPojoUuKAoJrdU9be/TdWKOdEKnTRnoO
+    itD1Alf3kZvL+dWeGWRaYbpnPmktI0LAXNa+xqG/oZmMuM/qfTqn+Y0KiTe85pT7drB4M8
+    ycmOnRBq0ilFe09Ow4zM2F1tALApIhCAvyo9O5wP4OeWQnFgqjB7TfDtu70X2lk4jQAobp
+    KC5RPoL23uu/3tvhjJ4u9joZo4pfUBeLZAeezLjAjqx4TNQ2Iy+m2MAg+h9j7xayDWL4xc
+    X01vsMDv8JEcKVMDzm19/TryUeBBL3b1Q4M55mAzGRKtzK9thIZ8wpNmG72DFgAQC27fiB
+    BE08sAGCEdgZX85mp+e777hLllldGKt0oKO+X0t3JfcLjqWaNwhvYXZ5pl/ZtIx43Ls9A9
+    PBTDK3PvyX+I6lLcLX1yC1fgQZbkNvrEXozJKg3/OubzVU4O+m1TulfVVzFT0zjo7BlbB3
+    dM14MVlHWQduvrjAQXs/Ao3jP66gDrZPe2yGyFWAwH5nl8Q9770JojWE6jqk/xnGOcMY9N
+    DV7M4/bZWkJUUfw8PVjiyneq/obmAOBxHcmwowjAi3RkWQVTiZkJifFTJ61KZrUnWljsoe
+    BqzaZ+yQCqjN/LJE1cuPNn6w+DyoRA0TnARnX6Mz3HI8PFskR0I3hKYdxVzg
+X-ME-Proxy: <xmx:85C4atkxR3eX26x9V-DLlxa5EMBNRhlbkwzoLnF0Ek2nYgh32TvO1A>
+    <xmx:85C4aifiub0Fy7UxqmyXZozJcNSAzsmoDbdpjOqUH0l8HOQ5BW49Kg>
+    <xmx:85C4ajpMGskEGy8e9gt2Gxy-ngL55_djqU9tai9orqjxMqd4zFcJlw>
+    <xmx:85C4ag6ZpAbFjkuu2FbmR6EMKfdyMB9Mfpe4JSGW5UzySNuD_US05Q>
+    <xmx:85C4akc3REKYDbvpeKOsP5zp_nTGLcGGEHbgwkGoEm2PHffdWq1GS1oe>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 26 Sep 2026 23:43:46 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] firewire: cdev: code refactoring
+Date: Sun, 27 Sep 2026 12:43:39 +0900
+Message-ID: <20260927034343.28076-1-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260926084318.12161-1-rokinthanp03@gmail.com>
-References: <20260926084318.12161-1-rokinthanp03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,90 +80,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In vivid_probe(), after creating instances, the driver iterates
-through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
-'Connected To' controls. However, it dereferences dev->has_vid_out
-without verifying that dev is non-NULL.
+Hi,
 
-If an instance fails during creation, vivid_devs[i] remains NULL,
-causing a general protection fault:
+The cdev implementation includes some useless locking, goto, and waking
+up. This series arranges the implementation to remove them.
 
-    Oops: general protection fault
-    KASAN: probably user-memory-access in range
-    [0x0000000000005f38-0x0000000000005f3f]
-    RIP: 0010:vivid_probe+0x579/0x10d0
+Takashi Sakamoto (4):
+  firewire: cdev: remove unnecessary client locking for fw_device
+    members
+  firewire: cdev: wake up client from queue_event() only when any event
+    is available
+  firewire: cdev: use xchg() to exchange pointer value
+  firewire: cdev: refactor event copying to remove goto statement
 
-Add NULL pointer checks in both loops in vivid_probe() before accessing
-vivid_devs[i].
+ drivers/firewire/core-cdev.c | 61 +++++++++++++++---------------------
+ 1 file changed, 26 insertions(+), 35 deletions(-)
 
-Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
-Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
----
-Changes in v3:
-- Add "fixes" branch prefix to subject and base-commit info targeting
-  media-committers.git fixes branch to satisfy media-ci test-valid-ancestor check.
-- Add Cc: stable@vger.kernel.org for media-patchstyle check.
 
-Changes in v2:
-- Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
-  remains supported as required by the test-media test suite.
-- Update author name to "Rohinthan P".
-
- drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-index 62cfb5f..1860ad6 100644
---- a/drivers/media/test-drivers/vivid/vivid-core.c
-+++ b/drivers/media/test-drivers/vivid/vivid-core.c
-@@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
- 	for (int i = 0; i < n_devs; i++) {
- 		struct vivid_dev *dev = vivid_devs[i];
- 
-+		if (!dev)
-+			continue;
- 		if (!dev->has_vid_out)
- 			continue;
- 		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
- 			if (dev->output_type[j] == HDMI) {
--				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
-+				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
- 				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
- 			}
- 		}
- 		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
- 			if (dev->output_type[j] == SVID) {
--				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
-+				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
- 				vivid_ctrl_svid_to_output_index[svid_count++] = j;
- 			}
- 		}
-@@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
- 	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
- 	svid_count = min(svid_count, MAX_MENU_ITEMS);
- 	for (int i = 0; i < n_devs; i++) {
--		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
--			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
-+		struct vivid_dev *dev = vivid_devs[i];
-+
-+		if (!dev)
-+			continue;
-+		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
-+			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
- 
- 			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
- 		}
--		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
--			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
-+		for (int j = 0; j < dev->num_svid_inputs; j++) {
-+			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
- 
- 			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
- 		}
+base-commit: cc43480ac04cf909387d8b722f7491905ef7a7c3
 -- 
 2.53.0
 
-base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
