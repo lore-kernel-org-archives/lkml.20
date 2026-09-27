@@ -1,78 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B433A02B
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFB53403F1;
+	Sun, 27 Sep 2026 14:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790520972; cv=none; b=gJ4+ZSFtEtQ0BzqKEa7xunS5a7Ihdl27KFUAkmHbbdeYY+icAlTqDZ9WrGfOS4Bplch2ZRjm9g0ghDDXqnDFU1L14kgLh3r7RYMBL9NTIT0xecQnkMNv06GhP5TEnHslv/PZUimRHdN93CAkBtkB2SGIawJVnwFKwAzIaYDfFCM=
+	t=1790520971; cv=none; b=Ps4aKCuJRYEpfpKNE3x/uy+POdY0VbyCCWfJDRxwTG0FCpXHjjgKITr5KhH90mq1cC7hyjpxUD+KH28+SJweInqH5KysiFR2qxtIrU0N2dA4OeUVjyJpjJlf1CxjVaQUPkQa3HFQaIgYxy+dP/OjrmMZm96Pj2Yps+raJkx+pLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790520972; c=relaxed/simple;
-	bh=VVtr3IhdbhYdVvUDGu66p5dCWM/2ZkFNvUnI8cu1Txc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bX83hCGr1hmVjelAe4xQlfYXJdN3XteMOZI3O63VoGnKZ5lN6hCngCaMPhlubPXRXlLHSFno9TyaPy5WMaKpNg64ywa7Z3qE5GCOZVTKzJOziAWNi1SNyFoBYuNveybSJxf4ctVUBa+bNfrT/hFuUqR6N2cjqCW52C9bs5sAquk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJWlY62k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790520971; c=relaxed/simple;
+	bh=ZcU40FFHJvRddSme+YyOAgkWxq0a822Pw8UlCWr9AeM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=YT2ni7KOR8mLEqxXNU3Jf6k/P2oLIf4EaAu+0hRDlVDOrr0UrXbou00qnIZA3y0+u06mMWV5ry0fnJtfWDu+70kM4sO4u17UswsBhOEAJdKQfLXjJqesv49GfuLpM1G/ppD6iePuGCN5ZucvZieCAhHDEZouQXGuTuxa1SxSu6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=L8oNUjq+; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJWlY62k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2031F00893;
-	Sun, 27 Sep 2026 14:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790520968;
-	bh=iU5SiVe9iB5i+kPG90oa4hLYEVkiZAW5YzZdAQv2iEI=;
-	h=From:To:Cc:Subject:Date;
-	b=HJWlY62kgaKtabBg26a0ZeZ3VETWppdf2HHOz0t7z0UZ+TCZMUDG6vafOHrErhXDk
-	 SB4xh3w3mgcZx83FwItDL60y6trkhbAK2nZdw8URXz5tpWbMzAlAILaAXlHyg/GYa6
-	 Tmw29e8XfaXVKTEdP75fs34a65pUn5cpjfRog6ghIgT9aZN5ndIKBYPvvcJsJ4Q41s
-	 Y0/3Aqi6Mb/orjhgmrbl4ut3sRew6gWugis5Fl06ajs0BbjGxD6oHkvI8hgHqEbpNJ
-	 07216lHUg4MWog3Gmjr/SvpjvRzskLKFKePL+jWDijVxwV2UvKG0A0Tr6GzpcJt/vd
-	 +z4gRznVRyf7Q==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] drm/radeon: Sun XVR-300 support on sparc64
-Date: Sun, 27 Sep 2026 16:55:03 +0200
-Message-ID: <20260927145505.16883-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="L8oNUjq+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=ZcU40FFHJvRddSme+YyOAgkWxq0a822Pw8UlCWr9AeM=; b=L
+	8oNUjq+tcdWjz7jjBOUBgDNCfP9iWtCFyIENykLxe9fdUnujyw6t7EwpEOPt5foT
+	uYMSOYNz+QXrNKcP0YGhayd9ZVdfl7ljWdXwp52XTkHPPnrBKdzIEac6ni/WDuTv
+	3PRmcTUeqS6m1KiOSydqI1GU9KcySA+xeXnCESRBxE=
+Date: Sun, 27 Sep 2026 22:53:53 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>,
+	"Shenwei Wang" <shenwei.wang@nxp.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Fabio Estevam" <fabio.estevam@freescale.com>, imx@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re:Re: [PATCH 2/7] net: fec: manage the netdev lifetime with devres
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260927143745.GA54546@francesco-nb>
+References: <20260927111005.1035089-1-yaojiale02@163.com>
+ <20260927111005.1035089-3-yaojiale02@163.com>
+ <20260927143745.GA54546@francesco-nb>
+X-NTES-SC: AL_Qu2SAvmZv0Ao5SeaY+kcn08ShO49XMOyvfoi2YFTc+wEtDDx5D0YcXZsLHvo+tO2Bwe2uhyyaypowcFTQZNHZW/RWTL+AessDjTw6V0abg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <6db17bb3.2840.1a0e35bb6ca.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZygvCgD312ABLrlq4EVPAA--.48920W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQGUzmq5LgHgLwAA3l
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-These two patches get radeon KMS working on the Sun XVR-300, a
-FireMV 2200 PCIe (RV370) board, in sparc64 hosts.
-
-Patch 1 fixes an Oops that any posted radeon card on sparc64 hits in
-igp_read_bios_from_vram(), which dereferences an ioremap() cookie to
-check the VBIOS signature. It is tagged for stable.
-
-Patch 2 adds a legacy connector table for the XVR-300, which has no
-COMBIOS for the driver to parse, so both DVI-I outputs are found.
-The XVR-300 needs both.
-
-Tested on a Sun Ultra 45 with an XVR-300.
-
-Changes in v2:
-- Read the signature with readb() before the allocation instead of
-  checking the RAM copy, as radeon_read_bios() does (patch 1).
-
-Imre Kaloz (2):
-  drm/radeon: Read the VRAM VBIOS signature with readb()
-  drm/radeon: add a connector table for the Sun XVR-300
-
- drivers/gpu/drm/radeon/radeon_bios.c    |  6 ++-
- drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
- 3 files changed, 58 insertions(+), 2 deletions(-)
-
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
--- 
-2.47.3
-
+SGkgRnJhbmNlc2NvLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBTb3JyeSBJIG1pc3NlZCB0aGF0
+IKGqIEkndmUgZml4ZWQgdGhlIGVtcHR5CmxpbmVzIGJldHdlZW4gdGhlIHRhZ3MsIGFuZCBhcHBs
+aWVkIHRoZSBzYW1lIHRvIHRoZSBvdGhlciBjb21taXRzLgppbiBodHRwczovL2xvcmUua2VybmVs
+Lm9yZy9hbGwvMjAyNjA5MjcxNDQ3NDEuMTMyMDU1OC0xLXlhb2ppYWxlMDJAMTYzLmNvbS8KCkF0
+IDIwMjYtMDktMjcgMjI6Mzc6NDUsICJGcmFuY2VzY28gRG9sY2luaSIgPGZyYW5jZXNjb0Bkb2xj
+aW5pLml0PiB3cm90ZToKPk9uIFN1biwgU2VwIDI3LCAyMDI2IGF0IDA3OjA5OjU5UE0gKzA4MDAs
+IEppYWxlIFlhbyB3cm90ZToKPj4gZmVjX2Rydl9yZW1vdmUoKSBmcmVlcyB0aGUgbmV0ZGV2IGJl
+Zm9yZSBkZXZyZXMgcmVsZWFzZXMgdGhlIG1hbmFnZWQKPj4gSVJRcyB3aG9zZSBoYW5kbGVycyB1
+c2UgaXQgYXMgdGhlaXIgZGF0YSBwb2ludGVyLiBBIGxhdGUgaW50ZXJydXB0IGNhbgo+PiB0aGVy
+ZWZvcmUgYWNjZXNzIHRoZSBmcmVlZCBuZXRkZXYuCj4+IAo+PiBBbGxvY2F0ZSB0aGUgbmV0ZGV2
+IHdpdGggZGV2cmVzIHNvIHRoYXQgdGhlIGxhdGVyIElSUSByZWdpc3RyYXRpb25zIGFyZQo+PiBy
+ZWxlYXNlZCBmaXJzdCBkdXJpbmcgdGVhcmRvd24uCj4+IAo+PiBGaXhlczogMGQ5YjJhYjFjMzc2
+ICgiZmVjOiBVc2UgZGV2bV9yZXF1ZXN0X2lycSgpIikKPj4gCj5yZW1vdmUgdGhlIGVtcHR5IGxp
+bmUsIHRhZ3Mgc2hvdWxkIGJlIGFsbCB0b2dldGhlciB3aXRob3V0IGFueSBlbXB0eQo+bGluZSBp
+bi1iZXR3ZWVuLiBzYW1lIGFwcGxpZXMgdG8gdGhlIG90aGVyIGNvbW1pdHMuCj4+IENjOiBzdGFi
+bGVAdmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUw
+MkAxNjMuY29tPgo+Cj5GcmFuY2VzY28KCkppYWxl
