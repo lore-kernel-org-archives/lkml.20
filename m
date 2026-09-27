@@ -1,81 +1,78 @@
-Received: from vinatta.cz (vinatta.cz [37.205.8.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E475809;
-	Sun, 27 Sep 2026 17:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.8.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBB241D657;
+	Sun, 27 Sep 2026 17:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790530102; cv=none; b=BAEru8V5xMVtmoQDDFrnBs3h+bNLZM69iphJKVYWfwn7c1T7oRDncbshOKayMHRkjCJq2U4mGgng12zDM6f7CzWJ/lRQt9eipaKxn4tgIlLFX4gsLl+LM8/TmQq8gYqNcXPE0CoXlukEOwk+CyeBXjJj/cfKYA5ID+0/IBPe1zY=
+	t=1790530198; cv=none; b=GhwD8UU9Py8pRJXLGWuD5ydOcFO31PMRjRAu1L6cKTZSh7SSKFeLGZc901Nyhthc20GVKqT69A0DKfb0LfMWIrW1cx9Td3DFDlTLvLRWz1p4uEkxwav04lqhF9tWJaLzGYCgcDO/GXCjEwKExQVCdlo3u1L31P+01LfhcDkkfhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790530102; c=relaxed/simple;
-	bh=7wFClM8+pAQczxdhJUJqKMlAR1HmGxjlTK3IxTJCg2g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:From:
-	 References:In-Reply-To; b=aTTw7RkJslg1SXZVN2787Vp/0xYWCqIhs08aFX7Q9Vs8IirM4/MgQqWCT1AR5Hjn5Uf0HJg45+4ZYQs2gDku99gy4K3l22oFBrbG1b4kkOJfZmXuaZ5DFACwZdAMR3a8PNBNO7etS8ywe/pUYkq3Tt5HdNE14EQk+mF2Gxy60jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz; spf=pass smtp.mailfrom=vinatta.cz; dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b=o/oOCS/A; arc=none smtp.client-ip=37.205.8.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
+	s=arc-20240116; t=1790530198; c=relaxed/simple;
+	bh=SRHg4zsmJJQo6lKwteidddHAzK0QYe9+rvv+8BondyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FDbD7MYwg5rtBW7Fz8tdwkOF3Tw/eCz+4Ept3m5w1uvmDjOxr4IqxoT3igJP+FRv8JFpxTlIdG3z8PxXpLrgQdgeufJlvSAArriCDchwnfcUVp5+Aa3IX2f1r1uE2InrjMk3KlESKM9bC9/Y6X2JYO4H9DzlYQvgIQOh5kdtyyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=gRUK1akE; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b="o/oOCS/A"
-DKIM-Signature: a=rsa-sha256; bh=7wFClM8+pAQczxdhJUJqKMlAR1HmGxjlTK3IxTJCg2g=;
- c=relaxed/relaxed; d=vinatta.cz;
- h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
- i=@vinatta.cz; s=default; t=1790529144; v=1; x=1790961144;
- b=o/oOCS/AFc0OjfWcZe5MxNwXS6fDKe/EMD55e5ERTrXjHgqe6OUKdYWia3HW/I7e0okeLwKn
- ayhBroQ/58yk0do/jUapZ40tqgOdoU1OnLXZXNAVOiVYtGZ1w1KBxcoOiMhmt4XEbPV/O8J7BEF
- 606PN+T8JycaxJ2BKdTJeD38bsTnT3pFAeRXkB6PbjRA7eUhQpyGhjOnk/t5ppT6E2Q6vYj+hAu
- hopCkhFeh0InMztWieMVMG3RNKypEgxs497OW4zpHlwdTgk1Uegtn1TqZJl2fk0A+JGaRbSECKn
- xB8Y6wPms7petV9XW6NabhiQLirznwv9VJOB8nmitke0g==
-Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
- 713fe9e7; Sun, 27 Sep 2026 19:12:24 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="gRUK1akE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lE3RNr5/Rs+CI3bvQqbiqFGMEuhpnn7flupaU84PVaU=; b=gRUK1akEHjqHsOFb8t5dZte90S
+	CNqkkLxtp4KZhxAEl76hS+G5DK1YHgCe6cM48GWfLjgXX766BZc+0v4K+Rq53OZ9uU1JPhR4Lcs/O
+	otRHS/KBzBKLsObNd4HpXr7AHa9jjPemadwf3ugBMX1ALHCGf17VGtuxZZTUnGgA+Q8w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAsh6-007XtF-9C; Sun, 27 Sep 2026 19:29:44 +0200
+Date: Sun, 27 Sep 2026 19:29:44 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Liu Changjie <liucj1228@outlook.com>,
+	Per Larsson <per@palvencia.se>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 4/5] net: phy: maxio: parse and enable PHY
+ clock from generic DT binding
+Message-ID: <8f492255-cc8b-4daa-80d8-016e14a35f1d@lunn.ch>
+References: <20260926225625.25969-1-andre.przywara@arm.com>
+ <20260926225625.25969-5-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 19:12:24 +0200
-Message-Id: <DLQ9LXDE2P29.248MPYCJMT0DL@matfyz.cz>
-Cc: "Francesco Dolcini" <francesco@dolcini.it>, "Johannes Berg"
- <johannes@sipsolutions.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, "Andrew Lunn"
- <andrew@lunn.ch>, "Gregory Clement" <gregory.clement@bootlin.com>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, "Ulf Hansson"
- <ulf.hansson@linaro.org>, "Frank Li" <Frank.Li@nxp.com>,
- <linux-wireless@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mmc@vger.kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng
- Fan" <peng.fan@nxp.com>, <david@ixit.cz>, "Johannes Berg"
- <johannes.berg@intel.com>
-Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
- samsung,coreprimevelte
-To: "Brian Norris" <briannorris@chromium.org>
-From: "Karel Balej" <balejk@matfyz.cz>
-References: <20251026182602.26464-1-balejk@matfyz.cz>
- <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
- <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
- <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz> <afI8y70U7wFT_07h@google.com>
-In-Reply-To: <afI8y70U7wFT_07h@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926225625.25969-5-andre.przywara@arm.com>
 
-Brian,
+>  struct maxio_priv {
+> +	struct clk *clk;
+>  	bool clk_out_125m;
+>  };
+>  
+> @@ -57,6 +59,11 @@ static int maxio_mae0621a_probe(struct phy_device *phydev)
+>  		priv->clk_out_125m = true;
+>  	}
+>  
+> +	/* PHY clock from the generic PHY binding */
+> +	priv->clk = devm_clk_get_optional_enabled(&phydev->mdio.dev, NULL);
+> +	if (IS_ERR(priv->clk))
+> +		return PTR_ERR(priv->clk);
 
-Brian Norris, 2026-04-29T10:15:55-07:00:
->> Brian, what are the options here now? Would it be possible to make an
->> exception and accept the patches without the firmware being in
->> linux-firmware? This is an old device with no mainstream audience so I
->> expect everyone who will want to use it will be able to supply the
->> firmware themselves
-[...]
-> I suppose I'll leave it up to Johannes on this part, and may be willing
-> to retract my NAK [1].
+Since clk is not referenced anywhere after this, there is no need to
+save it in priv.
 
-I have not been able to get a response from Johannes for these last five
-months, despite pinging twice =E2=80=93 is there any chance you might be ab=
-le to
-help with that in any way, please?
-
-Kind regards,
-Karel
+     Andrew
