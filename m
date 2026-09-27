@@ -1,167 +1,178 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1A954706D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF93E2367B5
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790468619; cv=none; b=s8hYc0s/ryh0Cu5Ep/3iwrAC0iWsWbYqoHQ0hAkcAIrGcuJuMBFasxIhH8XSiZZhn6KNHh7gbxyW3wHUV58gDWe3mDmfCIO4ieVLex2MUQxWlwAtaBHXxGF7VHYhaT9S5wARtUoFd/LesKYAkPVN5LPcnntt4X2IrgBIWoTkhqw=
+	t=1790468684; cv=none; b=Ay5Oy5iDxed6Qsitxb2b8jAiYRrZMCeV+0a/7KwYajo4x2NQvhVZR5bxVsNVUhk1Qle9GhcxzhSwHDmgHqdmoRGJam0bTB4DClBFtQVdahmm+mbAlW5DrETVxYsdtO+SdA0S7+lyDoZ10G/hbrw2C0WnH8bWUBgMVm62ujrtPsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790468619; c=relaxed/simple;
-	bh=mL5fXRFBekm9Pv9gIAnk7evSoKQGQY9tyN4XinWWk1A=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=j5/9nMKv4tQQwMAYzm2DoBwHTnW/o4ZJycLWrzTQga3Mpu2847LjlMv7pH8WDEE29B7W7ZZvd1MJqz2W5b8yuRXCk0g1uihsZ/dNX/ZsPYLo7mw7yrZqVhDf/chcSvXd/1N7Gx481YzIc7RJ5Mo32ZOOQwTwvbInJhv0k/ZktLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cq6tsAMG; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790468684; c=relaxed/simple;
+	bh=8Fw2qNNSLeDry4szk2gig5m6yGuj0wWmeEbSqaBSsi8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CkzUPz0+ilBSuU0HeYaRlM/xBoDvMBnAFE3fu+cRGv/QLl8Bc0omMptCbfMm2p59k6sHf/lF2qNSwsvGBef6NMXdGQSlkOBIhTSvbrBnV28fr+UlZ3sjGW4EE6XWT9Cd5uhwKbkfsWV/44OAnXoHi18OJRPh9v224qXUipHS+W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLINiVuB; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cq6tsAMG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790468617; x=1822004617;
-  h=date:from:to:cc:subject:message-id;
-  bh=mL5fXRFBekm9Pv9gIAnk7evSoKQGQY9tyN4XinWWk1A=;
-  b=cq6tsAMG/6rSOPxZXEZ7h2MBPzdf5qI5+9ukxJCC9DUNpXnb1Tl+MGRQ
-   bGmbHtAmtXMkQmEAQIjp+itVTQfjCse/LjbDMzqbjg2keNkbxRdFGNJ7/
-   F9zmYr4v1nxB+u4SA40DtEn1X/ldll0UPZNVupjUlhjq+PqubQFVuH5QK
-   tWhxUfpfzpWK/hFOI7pyXatm4fHyg9OlGgu15zcabJjk8V5YmatQ6tcEJ
-   LplybFEEIuCgyYdP3//4pS5v8MiIJza4SnCShBMizkD2IKUEEkvKPNlx5
-   KBh4sMg9qdQ8Kc5rZKGTYk6QdJpiW2cElcvmGKZNQ2Vv8DrR2yNtqU8VL
-   w==;
-X-CSE-ConnectionGUID: ZggdGLq8RwK8WibTIXuUsA==
-X-CSE-MsgGUID: u1s7erTDQy2svJrGCDqIZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="116740913"
-X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
-   d="scan'208";a="116740913"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 17:23:37 -0700
-X-CSE-ConnectionGUID: 69c5AcvwQiGsw4RGQ4e1zg==
-X-CSE-MsgGUID: LF4wpcBcQdCr7RMmS+UmNA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
-   d="scan'208";a="300956306"
-Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
-  by fmviesa002.fm.intel.com with ESMTP; 26 Sep 2026 17:23:35 -0700
-Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xAcfz-000000000IB-1Dzg;
-	Sun, 27 Sep 2026 00:23:31 +0000
-Date: Sun, 27 Sep 2026 02:23:04 +0200
-From: kernel test robot <lkp@intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Subject: drivers/dma/fsl_raid.c:116:17: sparse: sparse: incorrect
- type in argument 1 (different base types)
-Message-ID: <202609270216.QNnFJc1u-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLINiVuB"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so939191b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:24:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790468682; x=1791073482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1PK0e4PtkqQ5G4jrPyQfHAmFBUAvufJtROUufsHoDiw=;
+        b=rLINiVuBzVPrFieOmINzJr8lqxZmroCDK5Ae9xVPl1RgFQ4FBPzSs5dfhaiZ12+BiR
+         2pKB8yjA/NBYtEUp9Y3m41YC6qUHtZtXm6Fx/aP+2Wn1i8C5A2fXIdbpF9QZN1g1vaY3
+         NDr3cmzcHtc1IMQAnJFarDVnlo0hC9Nao0wXKxaGBY/8RWDGtG424/tImwMxKb9dZnC7
+         MEc9rcVbGClllD03SxHM7VOK18yxOP7m+5Q3JZ3SNV83Swnhd4a8aD2nmQgz8qqUdHO/
+         jJRwlMm79YDCvJzgM1wSmSLeQBrhTlz1vRfGjcaeJjvEsj0dpvsdvOIdw4nwz3Zz/U+V
+         E2pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790468682; x=1791073482;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1PK0e4PtkqQ5G4jrPyQfHAmFBUAvufJtROUufsHoDiw=;
+        b=zqFgT2Y103xRPyJ/GxKWNs5lI5eDPhmC3+tPg85vi5u/F1ZdpU+6bZ0ojK5pVub0HW
+         F55KPzYv4jxCORBtRJaisALOWaRH5Bn7qBU2WNPKQGImfd/IQehizlk1LpsFkPt47xh/
+         C0U3Drl7UK0TitllbxT57Xykk4/wWLFepHtHZdlTiVOYGoecFli6zjvbIRhQ/a6UzpiV
+         SZ21Zv/9jObTmF452vlQLQb0tq3pISstcRhCJoIyzynFPKyHoy1NjpAUz1/QlkpuWDO4
+         XhrMSJ6rdISrMtYd1lfKuzL9UzoiUY7hww/GQi1lCzoaEBpF5SJ5KcVfcp95QAhTxJi9
+         TpyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSqNEPjV7VVaRT3d4FhxYbbGeLUA5uWW/qyHdziQeKxUGR6WE+3ypjc2SdUi/s4tSsOdrcE/xxwcAni8M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDG0cwF7K/wqkKQlvxTH2OfjpF8NaKGghw5YfBzW+Y1uOHia/k
+	ryy/PNPjQEuP7RkqBJJReF5h9R5gA1X991i4iYJq/X32jp7/y03wE+8mPg3gLI1W
+X-Gm-Gg: AYBFou2ZYJWJ5L4UgEGungVl8JjwSNaARUVgJvcD2e0ZnKKBHxNyQHtbkeIlEL/Dc73
+	Lw4bT8rnN1rYae42Qx83N9GgIII7xGsdGQXe5pmu4PmOCAfsDuBMQX2JOKv9J1R5cYNfC4uuq/C
+	CeWmY9f+y4Xi3Bn8pFo1+Y3tIQdMzac0dNNaCD0xqve0XLZWY/ISosqBJ4oK495ecMIWkj4PJfa
+	FIWWWaZ/Z9S6xL2AVtBF6sBkRhPYWRW5Om6KMkkrwSBamNGh40mg4Pr8Wuc7EnlPiAENYFYFnkC
+	gLNbkVrhMd7SOqkyxRpQd5yQYkUBZqujSpRxanAiQ0aICtA4xibRz4BWd1AxPIwgoPGkYxI2KuA
+	VFe8xVen/tcIr6biGSra7xHwWj3FCMzTuaCQ3nWr8C6nT6vWmGZDXHkvVjvmzIt7Kq8ePYjYqSw
+	pgN9T/TOSv95mgd6qQ6j9ZUHHtf6ffFSTGkwWtnxCbAvXW1FOIZTcUxb+1krbShl6m6+xUTGCK0
+	IunyRLIN6NIL4wAr7VOI9FJhrUEjogLAtPjEo0GKUMlxwhK00rTi+XwHcslpw==
+X-Received: by 2002:a05:6300:8053:b0:3de:1b92:a4dd with SMTP id adf61e73a8af0-3de1b92c673mr6070280637.18.1790468682175;
+        Sat, 26 Sep 2026 17:24:42 -0700 (PDT)
+Received: from m-upc-A520M-HDV.flets-east.jp ([2400:2410:3f60:500:78b6:7bf6:b1de:12ef])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78791c680sm2698224a12.16.2026.09.26.17.24.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 17:24:39 -0700 (PDT)
+Sender: Yuyang Huang <uyoko90@gmail.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Nikolaos Gkarlis <nickgarlis@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v8 0/5] rtnetlink: dump link-layer multicast addresses
+Date: Sun, 27 Sep 2026 09:24:22 +0900
+Message-ID: <20260927002427.4519-1-sigefriedhyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fd179f8a05be3ccae366b9b96e176b51fbe54aab
-commit: 68b7fbc235290937e4e2daa097896b6b94618f15 dma: fsl_raid: keep MMIO bases as void __iomem and cast at access
-date:   2 months ago
-config: powerpc-randconfig-r2305-20260926 (https://download.01.org/0day-ci/archive/20260927/202609270216.QNnFJc1u-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609270216.QNnFJc1u-lkp@intel.com/reproduce)
+"ip maddr show" prints link-layer, IPv4 and IPv6 entries. The IPv4 and
+IPv6 ones come over netlink today, with IFA_MC_USERS for the user count.
+The link-layer list, dev->mc, is only exported via /proc/net/dev_mcast,
+so iproute2 and other users still parse procfs for it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 68b7fbc23529 ("dma: fsl_raid: keep MMIO bases as void __iomem and cast at access")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609270216.QNnFJc1u-lkp@intel.com/
+This series adds the AF_PACKET family to RTM_GETMULTICAST so that the
+link-layer multicast addresses are reported the same way. Patch 3 dumps
+dev->mc in the ifaddrmsg format of the IPv4 and IPv6 dumps: IFA_MULTICAST
+carries the address, IFA_MC_USERS the reference count and a new
+IFA_F_GLOBAL flag marks entries added explicitly, the "static" column of
+/proc/net/dev_mcast. ifa_index limits the dump to one device and
+IFA_TARGET_NETNSID selects another netns. Patch 2 adds a generation
+counter for dev->mc changes so a multi-part dump reports
+NLM_F_DUMP_INTR like the IPv4 and IPv6 ones. Patches 1 and 4 update the
+rt-addr spec and patch 5 adds a selftest.
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/dma/fsl_raid.c:116:17: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:116:17: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:116:17: sparse:     got restricted __be32 [noderef] __iomem *
->> drivers/dma/fsl_raid.c:130:34: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:130:34: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:130:34: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:170:17: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:170:17: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:170:17: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:195:34: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:195:34: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:195:34: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:209:36: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:209:36: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:209:36: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:219:42: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:219:42: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:219:42: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:225:26: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:225:26: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
-   drivers/dma/fsl_raid.c:225:26: sparse:     got restricted __be32 [noderef] __iomem *
-   drivers/dma/fsl_raid.c:338:18: sparse: sparse: incompatible types for operation (<=):
-   drivers/dma/fsl_raid.c:338:18: sparse:    struct fsl_re_desc *[assigned] desc
-   drivers/dma/fsl_raid.c:338:18: sparse:    int
-   drivers/dma/fsl_raid.c:462:18: sparse: sparse: incompatible types for operation (<=):
-   drivers/dma/fsl_raid.c:462:18: sparse:    struct fsl_re_desc *[assigned] desc
-   drivers/dma/fsl_raid.c:462:18: sparse:    int
-   drivers/dma/fsl_raid.c:546:18: sparse: sparse: incompatible types for operation (<=):
-   drivers/dma/fsl_raid.c:546:18: sparse:    struct fsl_re_desc *[assigned] desc
-   drivers/dma/fsl_raid.c:546:18: sparse:    int
-   drivers/dma/fsl_raid.c:711:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:713:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:715:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:717:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:719:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:721:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:725:31: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:728:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:734:23: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:773:19: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:776:19: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:778:9: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:778:9: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
-   drivers/dma/fsl_raid.c:778:9: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
+AF_PACKET dumps returned -EOPNOTSUPP before, so iproute2 can keep the
+procfs fallback for older kernels. The iproute2 side is ready and will
+be posted once this is in.
 
-vim +116 drivers/dma/fsl_raid.c
+Changes in v8:
+- Set the owner of every list a device has, not only dev->mc, and
+  check for dev->mc in one place when bumping the counter
+- Add __hw_addr_count_inc/dec/reset() so a change of list->count and
+  the counter bump stay together
 
-ad80da658bbcaa Xuelin Shi 2015-03-03  104  
-ad80da658bbcaa Xuelin Shi 2015-03-03  105  /* Copy descriptor from per chan software queue into hardware job ring */
-ad80da658bbcaa Xuelin Shi 2015-03-03  106  static void fsl_re_issue_pending(struct dma_chan *chan)
-ad80da658bbcaa Xuelin Shi 2015-03-03  107  {
-ad80da658bbcaa Xuelin Shi 2015-03-03  108  	struct fsl_re_chan *re_chan;
-ad80da658bbcaa Xuelin Shi 2015-03-03  109  	int avail;
-ad80da658bbcaa Xuelin Shi 2015-03-03  110  	struct fsl_re_desc *desc, *_desc;
-ad80da658bbcaa Xuelin Shi 2015-03-03  111  	unsigned long flags;
-ad80da658bbcaa Xuelin Shi 2015-03-03  112  
-ad80da658bbcaa Xuelin Shi 2015-03-03  113  	re_chan = container_of(chan, struct fsl_re_chan, chan);
-ad80da658bbcaa Xuelin Shi 2015-03-03  114  
-ad80da658bbcaa Xuelin Shi 2015-03-03  115  	spin_lock_irqsave(&re_chan->desc_lock, flags);
-ad80da658bbcaa Xuelin Shi 2015-03-03 @116  	avail = FSL_RE_SLOT_AVAIL(
-ad80da658bbcaa Xuelin Shi 2015-03-03  117  		in_be32(&re_chan->jrregs->inbring_slot_avail));
-ad80da658bbcaa Xuelin Shi 2015-03-03  118  
-ad80da658bbcaa Xuelin Shi 2015-03-03  119  	list_for_each_entry_safe(desc, _desc, &re_chan->submit_q, node) {
-ad80da658bbcaa Xuelin Shi 2015-03-03  120  		if (!avail)
-ad80da658bbcaa Xuelin Shi 2015-03-03  121  			break;
-ad80da658bbcaa Xuelin Shi 2015-03-03  122  
-ad80da658bbcaa Xuelin Shi 2015-03-03  123  		list_move_tail(&desc->node, &re_chan->active_q);
-ad80da658bbcaa Xuelin Shi 2015-03-03  124  
-ad80da658bbcaa Xuelin Shi 2015-03-03  125  		memcpy(&re_chan->inb_ring_virt_addr[re_chan->inb_count],
-ad80da658bbcaa Xuelin Shi 2015-03-03  126  		       &desc->hwdesc, sizeof(struct fsl_re_hw_desc));
-ad80da658bbcaa Xuelin Shi 2015-03-03  127  
-ad80da658bbcaa Xuelin Shi 2015-03-03  128  		re_chan->inb_count = (re_chan->inb_count + 1) &
-ad80da658bbcaa Xuelin Shi 2015-03-03  129  						FSL_RE_RING_SIZE_MASK;
-ad80da658bbcaa Xuelin Shi 2015-03-03 @130  		out_be32(&re_chan->jrregs->inbring_add_job, FSL_RE_ADD_JOB(1));
-ad80da658bbcaa Xuelin Shi 2015-03-03  131  		avail--;
-ad80da658bbcaa Xuelin Shi 2015-03-03  132  	}
-ad80da658bbcaa Xuelin Shi 2015-03-03  133  	spin_unlock_irqrestore(&re_chan->desc_lock, flags);
-ad80da658bbcaa Xuelin Shi 2015-03-03  134  }
-ad80da658bbcaa Xuelin Shi 2015-03-03  135  
+Changes in v7:
+- Add a per netns generation counter bumped on dev->mc changes and fold
+  it into cb->seq, dev_base_seq alone did not cover the dumped entries
+- Sample cb->seq under the address lock of each device and again when a
+  dump round ends, so the NLMSG_DONE check sees a change too
 
-:::::: The code at line 116 was first introduced by commit
-:::::: ad80da658bbcaaac1d3617ea6cb0f4d5e16da422 dmaengine: Driver support for FSL RaidEngine device.
+Changes in v6:
+- Move the dump to net/core/dev_addr_lists.c next to the dev->mc
+  helpers
+- Stamp cb->seq from dev_base_seq and check dump consistency
+- Let an unexpected dump error propagate instead of skipping
+- Check for an address only present in the peer netns in the
+  target-netnsid selftest, the peer and local ifindex can be equal
+- Document the ifa-index filter and the zero header fields in the spec
 
-:::::: TO: Xuelin Shi <xuelin.shi@freescale.com>
-:::::: CC: Vinod Koul <vinod.koul@intel.com>
+Changes in v5:
+- Filter the target-netnsid selftest dump by ifa-index, a new netns
+  also contains the fallback tunnel devices
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Changes in v4:
+- Reset the resume offset when the device the dump stopped at is gone
+- Use a tracked netns reference (put_net_track)
+- Say ifa-family must be set in the spec doc, drop the AF_UNSPEC remark
+- Close the netlink socket and guard the checks in the selftest
+- Drop the Fixes tag
+
+Changes in v3:
+- Report the static bit as a new IFA_F_GLOBAL flag in IFA_FLAGS
+  instead of IFA_F_PERMANENT
+- Support IFA_TARGET_NETNSID and test it
+- Describe global_use accurately, it is also set by dev_mc_add_excl()
+- Fix the target-netnsid type in the rt-addr spec, as its own patch
+
+Changes in v2:
+- Always validate the request header, not only with strict checking
+- Use a single "with" statement in the selftest (ruff)
+
+Yuyang Huang (5):
+  netlink: specs: rt-addr: fix the type of target-netnsid
+  net: add a generation counter for dev->mc changes
+  net: add AF_PACKET multicast dumps
+  netlink: specs: rt-addr: document AF_PACKET multicast dumps
+  selftests: net: test AF_PACKET multicast dumps
+
+ Documentation/netlink/specs/rt-addr.yaml |  19 +-
+ include/linux/netdevice.h                |   6 +
+ include/net/net_namespace.h              |   1 +
+ include/uapi/linux/if_addr.h             |   1 +
+ net/core/dev_addr_lists.c                | 247 ++++++++++++++++++++++-
+ net/core/rtnetlink.c                     |   2 +
+ tools/testing/selftests/net/rtnetlink.py |  73 ++++++-
+ 7 files changed, 336 insertions(+), 13 deletions(-)
+
+-- 
+2.43.0
+
