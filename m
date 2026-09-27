@@ -1,130 +1,111 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD773B813D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CDB370D6D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790496747; cv=none; b=V0fNZah4nDMtYI1HjZOohghCb3kyBwOMyX/upn/vb2AIcqeuLV4Grw/QVYmU5ier75J2Ag/L8dViIqqB6cLm6qu+kME96LDCy33aAwGYPcqQ/QNoJy+AgS2EzK0ypbIxMAbhwbs3lm6ywnOlt86eqbvb2MzlkMkgyVPHg+FbRsU=
+	t=1790496872; cv=none; b=iH4v+4LMvU20K2n9NvnHbZpZUAluSxZ/4NPEWH3oy+VHHWXX22iGT5vqcEA6E40qvD9ihkz9Hk/ATOJ2KLGNuDnXV23Zs4NbNGyTgJy3i1K8ZSgiolpZJYw5bZDKA8a+u5Put+MEhL8lLqFqml14rNGCZ1WPtOquWta4USlvtLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790496747; c=relaxed/simple;
-	bh=lLMJealxkAdXTURrDg7UpeKv4UMlYxrVStomrTmBkek=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=fjJBGIPgVnbuDWP8ZclIPWBxvltKTVfSNJj8dCZ7y2BVwSxfPu/ORJtjHN8P7qO5Kt3cszS9oZtJMti5nd23XNjzmmk+lN+RM5eN2AP7wZKi3TP+QMK99Tx7U43B5b9HuUg4XtQyWyvnd4UwC+0aaalUbZNJeU96xFVeQoUmgRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab4dd46ddeso2236004b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:12:25 -0700 (PDT)
+	s=arc-20240116; t=1790496872; c=relaxed/simple;
+	bh=dAWVxC/OYmorFhr2s/I59x2nCgD2yGNjyjqnWaTeP4Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Be0F6zggqguaxVBngRGTbBYB9as4r4IcP2lwDUfxxtMi3BbHufhc2EDVOUzSG99iXf4Ce/4ACvBZYyGHYe134ATrEVwLc9ahGOwGO0f9IDLVQO1RnCPW4FrnXigaRaavgNK3AAfFT/7VtbC3+Gp/mDXVEQDt5fRbUX9uxiHI1pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PZH82y6D; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PZH82y6D"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so16430135e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:14:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790496869; x=1791101669; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WQUgiPs4tmKVhr6VI6GahJDVSjaQB4aL5i8OrCuC+Dk=;
+        b=PZH82y6DvgkSX4ofsOuPCPF+u1XuAr+zmB9Skm9LYuKDldlbsjFcKhI81M5+f6k0oD
+         JgarPO1LTxkFjot08UlAG/AvfBZcndOma3KbFhgbkg59MSoX70EqV63f8zSxZw4aDgVB
+         uCJTIk7npqTxWgj9QEkSkVZQHBgrESNoikM0jXSfFbwQTvhFvw3C7Vg9nIp8vKZPnHOq
+         DMuBMUbzeXMJIDv370oz9wh91Pazh/PuungkRdkBNpfe+/fYIjeWPBRLeZnxHA2HM6a/
+         doIo2b3h+u36t/akwCUhubQ7JAA5SZc3fHPAb9mJaxShY3a5tjczyCKmuDNEUstvFofO
+         vdnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790496744; x=1791101544;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=K9X8BY6U+YIcepRPV0MZIBm8qRqdDSo7Q6FIIDDCDBA=;
-        b=f8zjQSP3SrsnOS77nYSVJMYf9GF0WXyUJv1U5JaQk3slRuNxe25vpvg+arnf+XD2bu
-         ajH9MjsBynEQ4CZ7hdtrBhnhO2yVBFvJz7fw0FbQ0U6iuHL2jOi0LNH8xu6vql7/pLXS
-         d+2K89zUNxK8tB7sKPUIz+7A+B5EdmFxyHFWuktWl/luTw882BtNkYzV8cCyecGC3liq
-         +pAX96L+7CVP5dYrwfQKaU81c8BW98pHvDxxZETSHttKqfKoh5RdP4zwkLFo6iRgOI9M
-         bacRiLE9DmCHnQA0xQVQnCvjkDGuhXRTf03nJBw4cfHUpbGwHT4S/v7kV0GjLJf9yVpy
-         FUeA==
-X-Forwarded-Encrypted: i=1; AKwUvByU1eXKHyrH8oYe6Wi3SOtfk93YshuxQ7hocVDquiKSbSRTu2Z30EdGcZXzlqOw8BQesWeVMNoUB/5ZSVc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBxWr7dVjGnCyzWJug5O/6YJI0sG6uNWUjX+KXn9XmpMdDyWbY
-	tuoXcvfr26lt0SLnXbf1BBQVALL7qUis/6F4QeoqX5bnGifgZirUxjf9Sz3NkMrRyb2dO/J2QdQ
-	isCMyi8/lnWZgBMJjQIeAprGvHaNxsXfJ7xtCJPypL6VdLxTVvcTgpu6Z8fA=
+        d=1e100.net; s=20260707; t=1790496869; x=1791101669;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WQUgiPs4tmKVhr6VI6GahJDVSjaQB4aL5i8OrCuC+Dk=;
+        b=Wc2P4HyHBpbkiZrTF8MpRUheHtyU+vY3iwoMnvTVuFrSmfos7oOFerNqwWMYSEBGW8
+         ceF1DsR7Aas0cmKRa06EFTpT0Z93lDQ7c9nOIJHxXn7lFU+FyjBugzNum9VfQQeSVuCc
+         2UxpWFsGyzlWec2IUfFstwwEiM+/P9N8LBHcZ2cznQaSQpt1/Ie7Gjjeuy0dm02IU7i0
+         y5qbE+B2jDcapGtts4VvJa8sXQXxn53hvsxxDm9qiPmIap+5q2zmuy20Hd1PMEYbOQsA
+         DxU1t8FLkTQEL6llUjTalqvyNFCgxJ2DSchVuw6S/DEgGsDYzWXETFXmd/M2b5s8ypmF
+         ro5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxQwAxEQBNP5me4Jqcd3bfNTe6YuKCRu1YR45fFdpvz7T/2lfdDVg2M9Fpde7Z75Xk0i64GYhFmch5hHlA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6jG4sllibiYQPPN37FN0hY0HZ29tV3THLG8bAGZ/N0zVQjM8a
+	akanLlMWgSx+8J1ljgNcKjM1gCSTLDChu0KZHTP6Gq/jh9ADSY7zEbIs
+X-Gm-Gg: AYBFou2dr0S9KtbNZ4yoS55HI5q2J/3ZQI3s+A9vKo45rVyjjN5oIQxftkkdS0tTbuK
+	y7jy65NJ7ugVXyehvvWzpKnCa7inpdLLgmMvswlHWBRIgEdrnvHcDEPyb4ZAAuGeowigTuGT0bX
+	ihHki4rdJrpHRBo53IDJd6CWbUTIzEDqFna4T85zxAFZi9tdguEvfbLZQQYahuoAtkudUB1qzsc
+	gRyab7a2J6TysyE7pBKKp109SSdaHr5L52xbN95OLnJ99QK2aSMBfBquH8ChLc8Y3Oqv9R1SQYt
+	N1ogjBqoJ7u4hVWHrSURDXKYqiOp4n+YmC6EIsodFYSnt49/jHAkNLwyEM2FVQusVBIVrP0Menm
+	83c4fPTGUq4wIy2KPkzE5YYtMWUkWr/8Br/w6g+a7n+T/3VE5a0af2Djt4tCk0CBKFRp/DdCxfS
+	IrDyr69qXeKMbvKbrD3o9A+oor17H0kVj15YApvsBjmdTqiihpf52QuM5b+x0I
+X-Received: by 2002:a05:600c:3486:b0:49f:f9d4:674d with SMTP id 5b1f17b1804b1-49ff9d4695dmr52148935e9.13.1790496868724;
+        Sun, 27 Sep 2026 01:14:28 -0700 (PDT)
+Received: from gmail.com ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00178bebasm42909255e9.11.2026.09.27.01.14.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 01:14:28 -0700 (PDT)
+Date: Sun, 27 Sep 2026 10:14:26 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>
+Cc: davem@davemloft.net, dhowells@redhat.com, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, linux-afs@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, marc.dionne@auristor.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [net?] [afs?] kernel BUG in
+ rxrpc_destroy_all_connections (2)
+Message-ID: <arjO9qbNdbvdi7ao@gmail.com>
+References: <6a73d174.5aeeccc9.207e63.000c.GAE@google.com>
+ <6ab29768.514bccd6.255447.001e.GAE@google.com>
+ <6ab8c8cb.e548f532.1ca396.0037.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:10c6:b0:4d3:6be7:c64a with SMTP id
- 5614622812f47-4dc478167f9mr6530733b6e.0.1790496744441; Sun, 27 Sep 2026
- 01:12:24 -0700 (PDT)
-Date: Sun, 27 Sep 2026 01:12:24 -0700
-In-Reply-To: <6ab7dca9.80e1c6cc.1e8e5f.0046.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab8cfe8.dc2998a4.2261f5.0062.GAE@google.com>
-Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
-From: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
-To: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, miklos@szeredi.hu, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ab8c8cb.e548f532.1ca396.0037.GAE@google.com>
 
-syzbot has found a reproducer for the following issue on:
+I just don't understand why it is failing... :(
 
-HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13490605580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1523f2c9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14385315580000
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git a7bfaba4823e
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c4cebd01ff3c/disk-fd179f8a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/9fd8641fa35c/vmlinux-fd179f8a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c6e8e6332600/bzImage-fd179f8a.xz
+diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
+index 611c790bc6d0..111f0844b0d6 100644
+--- a/net/rxrpc/conn_event.c
++++ b/net/rxrpc/conn_event.c
+@@ -273,6 +273,17 @@ static int rxrpc_process_event(struct rxrpc_connection *conn,
+ 	int ret;
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+-	if (conn->state == RXRPC_CONN_ABORTED)
++	if (conn->state == RXRPC_CONN_ABORTED) {
++		/* A CHALLENGE packet queued for processing carries a ref on the
++		 * connection (see rxrpc_post_challenge()).  That ref has to be
++		 * dropped here because the caller frees the skb as soon as we
++		 * return.
++		 */
++		if (sp->hdr.type == RXRPC_PACKET_TYPE_CHALLENGE &&
++		    sp->chall.conn) {
++			rxrpc_put_connection(conn, rxrpc_conn_put_challenge_input);
++			sp->chall.conn = NULL;
++		}
+ 		return -ECONNABORTED;
++	}
 
-------------[ cut here ]------------
-!ff
-WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline], CPU#0: syz-executor122/5774
-WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227, CPU#0: syz-executor122/5774
-Modules linked in:
-CPU: 0 UID: 0 PID: 5774 Comm: syz-executor122 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:fuse_write_file_get fs/fuse/file.c:2043 [inline]
-RIP: 0010:fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-Code: fe 48 83 3b 00 74 5b e8 e6 f0 6c fe 4c 8b 3c 24 e9 08 0b 00 00 e8 d8 f0 6c fe eb 5c e8 d1 f0 6c fe 4c 89 f7 e8 39 63 8e 08 90 <0f> 0b 90 48 b8 00 00 00 00 00 fc ff df 48 8b 4c 24 58 80 3c 01 00
-RSP: 0018:ffffc90003e172b8 EFLAGS: 00010286
-RAX: 8000000000000000 RBX: ffff88806e4ea880 RCX: ffffffff9a9ec501
-RDX: 0000000000000001 RSI: 0000000000000004 RDI: 00000000ffffffff
-RBP: 0000000000001000 R08: ffff88806e4eae63 R09: 1ffff1100dc9d5cc
-R10: dffffc0000000000 R11: ffffed100dc9d5cd R12: ffff88806e4ead08
-R13: 0000000000001000 R14: ffff88806e4eae60 R15: ffff88806e4ead08
-FS:  00007f6a3f53e6c0(0000) GS:ffff888124cc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000020000000b000 CR3: 0000000078090000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- iomap_writeback_range fs/iomap/buffered-io.c:1896 [inline]
- iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
- fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
- folio_launder mm/truncate.c:612 [inline]
- folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
- invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
- fuse_open+0x5a6/0x770 fs/fuse/file.c:297
- do_dentry_open+0x816/0x1380 fs/open.c:996
- vfs_open+0x3b/0x340 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1443/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f6a3f58fae9
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f6a3f53e1d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f6a3f644b98 RCX: 00007f6a3f58fae9
-RDX: 0000000000000040 RSI: 000020000000c380 RDI: 00000000ffffff9c
-RBP: 00007f6a3f644b90 R08: 31203a6b63617473 R09: 31203a6b63617473
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6a3f6117f4
-R13: 000020000000e3c0 R14: 00002000000062c0 R15: 00007ffe0b2d2af8
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ 	_enter("{%d},{%u,%%%u},", conn->debug_id, sp->hdr.type, sp->hdr.serial);
