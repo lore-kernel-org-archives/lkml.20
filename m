@@ -1,142 +1,174 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1CB3B1EFC
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAB83515DA;
+	Sun, 27 Sep 2026 17:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790530451; cv=none; b=FbvPSxP1XFEQ1oqcYp67Mo54ERssuKIUYq4NMKPvtHuOBVrt1Uv4EOIPJZmnXYANo9XoCFdOlvg5r/f7Gpy+ny7eJ1Jkp6EHdm2hxaFMiRMaxTsqr8dH6WNrd/q/UKQku8QRWxkWA4f9Yq6or7+cGRaexSPZsFbTrAI49Qvd6zo=
+	t=1790530554; cv=none; b=lnRNpGWw64D5lJ0gSeE6szY+HPSbt05eYY4Uygmgliz3fdzjov/XubFzZJjv9E67gR6iSLcYjmeh7kV+NgDuMtViovC6Goc2Nah2wIjHJLRwkyR1GtZl9JUd20XDGn5AJ3cQm20ZhjlKz5+Au8r8gWx2/zRRQO/yC+c8Pbegk5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790530451; c=relaxed/simple;
-	bh=j2J2wAxTXsNGTyd5388EcZwWhFZ3wYnSEUCo7yrCp9U=;
-	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
-	 Cc:In-Reply-To:To; b=DzWyq/6u5bwwvGmsZtysDKf99750qmEcSQ2FvsOQ11ccquvFXxZA1rUU7lZ7Nc1rS+S5Xf+ce3+jwYxv2SaXylGi5cuKEoMyuRTmNKMKKD258VXHelyEAViQsOqhtWR6nIKXbd73KySRyL/Eptz9gIOV2mH7qNHzExUrf5kQZTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net; spf=pass smtp.mailfrom=amacapital.net; dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b=WmzQ6NYk; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	s=arc-20240116; t=1790530554; c=relaxed/simple;
+	bh=eNkFFfz6dc3SZZj9a4N7GcFLV3wHeNJZAOcqq1YjwrI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a13B9G6mCYKLsDSAhSld8PKHJha3kKTTbvuMkDnqaf8BVJgyTVF6H0WAVDgXut9tDdamWZcapESVRTdUJLsiMYOl9d23jiLTkCRhGpo44Vt1jHJvaYDPpB0d9iGPBkBZqbzoi9ajl2BEkwWpiYbSEj4a3vbPbIkid/UUCHDI9hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnE1jXtz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b="WmzQ6NYk"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b36a8d5b5so504217a34.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20251104.gappssmtp.com; s=20251104; t=1790530448; x=1791135248; darn=vger.kernel.org;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MuL0v1f3+J9yyQw0yqK0TvcdFgWSs593LTmvyHRza0g=;
-        b=WmzQ6NYkam5yMDW7bRj4CGT1ZrpCjEHZS1N8Clae2dDKbn75eRImj0Yo8kofaKpocK
-         Y6A55C7nNaTui67pr1OMJbIkgP5Uciihbem9jrIuF5HHoy7Qpc0m2TwtAJnjq3oK58Ph
-         BvbiaM8BHfGKPiXSoSra51LDFJCMKYXyHn1J9fLGHCG4cnS8MVzcYBl63CNlgRZWdZCK
-         MEaIrV5d5kJBiDkcpJmaCPGC0MLMYsYnl5JO6A82I6ED/MSVSMFBHDYF4Xk1pCDnGfpp
-         o4Mb9lKNn8CafXD56eM1x8xIrEN/nPb/aYO/fZ5EKB5mTSqZE00C3XeQ3ugRF8X6sBPN
-         egOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790530448; x=1791135248;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MuL0v1f3+J9yyQw0yqK0TvcdFgWSs593LTmvyHRza0g=;
-        b=B/4dDIBjYnYBPJ9MiwLc8zdTWsNaiRD/bn3OcJRJC3nPK08qkIyDf4fTlszhjdAl0G
-         c7hMl8c0m/QNOILta7ZQdxSQMsssAscHjLGuUvWzxsWRjE25AQfQF4GqIEJVyOhRZr5s
-         UiM6Zp7NmKnvuOWzkk2Lf1lVxxvCGv5J3Te8AlCaFCQwoFOUcK0Gl2I+/iwVvCNSUhQ7
-         VAT8KD/SqTcwCXm5azg3P14DtVxZ7WMBUpGdZj3DPs2J33tyUkhHw7FGJJCy5eawq9zx
-         LuAUwuzgzR1k9ktFikLE7FTOo1NQ/qYPa6oXosjpNE2lsdbie+OWic5NrMDdLGUCb0pn
-         wTtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTfk8C7X8PZ+NfA3ekFIa+FFk23wG1agQFkBSgkAuhQqLgghBqxmpdFI1NG46zq7fHodfR7aaUDXbhvYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwgYwUIdyIfM/KgmTgoRYG/DWhX5zqZH81Ir7quB9Y2wTjgG2J
-	ulwebPB19vuJTq1CezLlAd4DAtZiUg3MtxUm/hORJVgOcdtn0ypZqeFMBe79hzNJOQ==
-X-Gm-Gg: AYBFou0mVczzCHxwMndgdDRwP82Jcy5JHH55xQavIrMQu3KrM3jCme1VX4z2Jt/RZH+
-	BL94dUAEW57wMk6wTOqelkC/+wiXCKTpnRh945UVLlH7JEEpdYRN2rKWrjoBsQC33erfuJZbMhH
-	VKuAXTrommAX2onMpJwMlXWLj6e+yb7RCkR1RBUCf/M5dHdXIV/vQpdDwdkFH0hYjmJ25g2CuIR
-	xfB7gKKZVMN2i8f+5/ncOg0BkAMsANGTOOlAe3MxVhiBaeOjJx4ICTNXR3nh1unoJ7p2qKTwlzJ
-	8e3imAbTjlefD1Oor+f5XDk5WGF59FvzUzGyxiOpU0CcG99vfDnIo2D3TasiYydPsTHxa4jKEis
-	R4MMaIyfJsZejK3FqsGUZ6bxAo7EbG6HggM62qGeZg5sMf7Gb5D9QJGO1qjwh4QlZImIeHwK0Vb
-	Un63LAqkCmCHg43KJ4GWPKDKUNNWvZ5y5rK8JqrP/bK1BhNLCpvIJ9bmzs8Vk01qk8DCkOjzQO8
-	ljEUcQ0dTJMqpzXkWawRB8yzsAVrA==
-X-Received: by 2002:a05:6820:820:b0:6cd:3ffc:64d2 with SMTP id 006d021491bc7-6d5bac3e146mr7371645eaf.77.1790530448403;
-        Sun, 27 Sep 2026 10:34:08 -0700 (PDT)
-Received: from smtpclient.apple ([2600:381:5ba1:a8b2:19d5:7f67:de2b:c3a5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d883394af1sm2755239eaf.13.2026.09.27.10.34.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:34:06 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Andy Lutomirski <luto@amacapital.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnE1jXtz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7AE1F000FF;
+	Sun, 27 Sep 2026 17:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790530553;
+	bh=PAuXAU+9SM44dYTSefN91gN6j1Zwqe0SxuriMvR676Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EnE1jXtzQN/xH49a2VYFtamnP7OUaHDGqpOQdZxKLjp2lRyyB2Un9+SMlw6L8c3jD
+	 ihTlFf51wiJ0ABHq+mFBPXaMIXHZpc1hiftqfsD+Tq0GntnmjDDFhRiS7jLhTCelQG
+	 sdkg8Yu7dVTcAR8sXOHuOeNeYbQNQPRsbFR5So9dOnzpf9B58q3zE/8VEyIcAuhXAk
+	 X+y3cczmXc5+2yQBvSLl0cOJLh3A+f6QpDPIGYbwbiFRmre4+Zw6B1/GExnWhT0FaI
+	 RNgLuZPVw4OMC+eD/ytR02nkLClJCTWr+M64/cwkD+fsPlCLNbWbyve19YTkuOTHUc
+	 yXM92YAo4x9BA==
+Date: Sun, 27 Sep 2026 18:35:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <20260927183546.0260dc19@jic23-hlaptop>
+In-Reply-To: <20260926154118.5471-3-m.abubakar365@yahoo.com>
+References: <20260926154118.5471-1-m.abubakar365@yahoo.com>
+	<20260926154118.5471-3-m.abubakar365@yahoo.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-Date: Sun, 27 Sep 2026 10:33:53 -0700
-Message-Id: <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
- linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Vivi Rodrigo <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Rafael J Wysocki <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org,
- Matthias Goergens <matthias.goergens@gmail.com>
-In-Reply-To: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-X-Mailer: iPhone Mail (23G90)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sat, 26 Sep 2026 20:41:18 +0500
+Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
 
+> Add an IIO driver for the Sensirion SDP31 differential pressure sensor.
+> The device is accessed over I2C and reports differential pressure and
+> temperature. Each measurement is validated using the sensor's CRC-8
+> checksum.
+> 
+> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+> 
+> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Hi. 
 
-> On Sep 25, 2026, at 9:55=E2=80=AFPM, Matthias Goergens <matthias.goergens@=
-gmail.com> wrote:
->=20
-> =EF=BB=BFThis RFC adds offload-only swap areas for deliberate cold-page of=
-fload to
-> backends unsuitable for pressure reclaim. ZFS zvol swap has documented
-> deadlocks under memory pressure [3]; compressed swap is another target
-> because writes may need memory despite free logical slots.
+Given you are going to probably need to changes stuff in the dt binding
+and so do a v4, various comments inline.  Mostly optimization suggestions.
 
-This seems unnecessarily annoying to configure. It seems to me that you=E2=80=
-=99re creating a bizarrely named administrative flag that means, roughly, =E2=
-=80=9Cswapping to this location may allocate memory=E2=80=9D.  Why can=E2=80=
-=99t the kernel figure this out itself?
+Jonathan
 
+>  st_pressure-y := st_pressure_core.o
+> diff --git a/drivers/iio/pressure/sdp31.c b/drivers/iio/pressure/sdp31.c
+> new file mode 100644
+> index 000000000..fd7cac027
+> --- /dev/null
+> +++ b/drivers/iio/pressure/sdp31.c
 
-For that matter, how well does this even work in practice?  If I configure t=
-wo swap devices, one =E2=80=9Coffload-only=E2=80=9D and one conventional, it=
- seems like the relative fullness of the devices will be mostly an accident o=
-f what triggers swap as the system is running. If the conventional swap fill=
-s up, is there a means to proactively empty it?  Under OOM conditions, will a=
-nything preferentially kill tasks that reference memory in conventional swap=
-?
+> +static int sdp31_measure(struct sdp31_data *data, struct sdp31_reading *out)
+> +{
+> +	u8 rx[9];
+> +	int ret;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret = sdp31_send_cmd(data->client, SDP31_CMD_TRIG_DP);
+> +	if (ret)
+> +		return ret;
+> +
+> +	msleep(SDP31_MEAS_DELAY_MS);
+> +
+> +	ret = i2c_master_recv(data->client, rx, sizeof(rx));
 
-Is the locking and recursion structure of the mm code such that we won=E2=80=
-=99t have deadlocks where cgroup triggers swap to an =E2=80=9Coffload-only=E2=
-=80=9D device, which allocates, which causes memory pressure, which then tri=
-es to swap more to conventional swap?  (Maybe this works fine.)
+Given there is only a one time read of scale and that i2c is a rather
+slow bus, can we do a short read when we only want the temperature
+and pressure?  The datasheet mentions Nack + stop is
+sufficient to stop the read out sequence and that is IIRC the
+normal end of an i2c read sequence. So it 'should' be fine to just
+read fewer bytes.
 
-For that matter, if the system is under overall memory pressure, why do you c=
-are what triggered the particular swap operation that is being processed?
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(rx))
+> +		return -EIO;
+> +
+> +	if (sdp31_check_crc(&rx[0]) ||
+> +	    sdp31_check_crc(&rx[3]) ||
+> +	    sdp31_check_crc(&rx[6]))
+> +		return -EIO;
+> +
+> +	out->pressure = (s16)get_unaligned_be16(&rx[0]);
+> +	out->temp = (s16)get_unaligned_be16(&rx[3]);
+> +	out->scale = get_unaligned_be16(&rx[6]);
+> +
+> +	return 0;
+> +}
 
+> +
+> +static int sdp31_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct sdp31_data *data;
+> +	struct sdp31_reading r;
+> +	int ret;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable regulator\n");
+> +
+> +	/* Wait for the sensor to be ready after power-up (datasheet t_PU). */
+> +	msleep(SDP31_POWERUP_TIME_MS);
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +
+> +	ret = devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The CRC table is shared by all instances; initialise it once. */
 
+I would argue that is obvious, so no comment needed.
 
-The remainder of the writeup is IMO somewhat incoherent.  To the extent that=
- AI was used, can you read it and make sure it makes sense?
+> +	DO_ONCE(crc8_populate_msb, sdp31_crc8_table, SDP31_CRC8_POLY);
+> +
+> +	/* Confirm the sensor is present and learn its scale factor. */
 
-And the first few hundred lines of patch I skimmed seem like incomprehensibl=
-e churn.  Adding =E2=80=9Celigible=E2=80=9D to a bunch of calls does nothing=
- to explain what=E2=80=99s going on.
+If you end up with with a specific call to get the scale factor this
+comment will become excessive (see below).
+
+> +	ret = sdp31_measure(data, &r);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read from sensor\n");
+> +	if (!r.scale)
+> +		return dev_err_probe(dev, -EINVAL, "invalid scale factor\n");
+
+See above. This is the only time we actually read the scale - so perhaps
+we can save some traffic on every other access. Most likely that would give
+you a different command for this scale read back.
+
+> +	data->dp_scale = r.scale;
+> +
+> +	indio_dev->name = "sdp31";
+> +	indio_dev->info = &sdp31_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = sdp31_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(sdp31_channels);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
 
