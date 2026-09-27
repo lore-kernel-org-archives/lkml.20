@@ -1,309 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA811531C8;
-	Sun, 27 Sep 2026 05:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EB53B7B83
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790488268; cv=none; b=QM+BTWV4pwGcn7rKJrWuUx02pJih6psrOAJrdFldXz8QALV0S4kZ0msfaM8EGWafvJvpq2vn+TklQHS8gXyWTMVXvEFhyXzWT9p0EmtjiRDnpKJXdMbMIu2DVnWtNnwW6uxn34gaPuLuViN08r6jQWScfQ3UlWspX/TZ7/gSw8Y=
+	t=1790488653; cv=none; b=SiFbJqrlxw+VSLgr5hJmHCHBji9A4gD5re00SVjJn1g0XdJSyd6rdxghQsteH72qIZIUv/ZH5bzXVTStjiQplrILsrYPwPYq8f2NlNrOnkYLaesScPOPNB+3eUH6NfgLtzudUek8kaJrkJf9fRu3jRZaGoymj4BjtH8IIZjCozc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790488268; c=relaxed/simple;
-	bh=cse9LAGl436XF+uVHA01D5Kjv32eh1ys6YTf1AHWtyg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=CmrSjTLCs6m/ZF8pWu2CoerGjmF/EFUzeZwgK0dx76dqTQaqkfxM/Vrj9Lj/P3xyaVHcb0jxvvRGwUZ0szw2G93NeSfJidHWpcv2JGcNwlFWSDhPCGp5mjNbRULt+e/P2dVtuG1PHG2HcID7iyTMGLp98DMxN3tI4dy+pf5ovO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zJtyTOLx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790488653; c=relaxed/simple;
+	bh=ECdwrOZLPkUOYEi3CxYF+G8aKAMwCDUFpNPHlXQV3q4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kvtNz1XXCzly7stRfKcea84mvNbGBRLN2wGdDesKxv17JqXuIezSO+AWmKh/+PrTyUSIyltMI5yhMyxTtEmCbJIXKfXgQZ/7bn2CWS7AG95WhL1yZfoI9IS4VT5fsdrGcRToFK+MzhFnVtQqTLkWp71VfB/Goad3KfkLFDozK24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yl/qUxFa; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zJtyTOLx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AE51F000FF;
-	Sun, 27 Sep 2026 05:51:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yl/qUxFa"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so672299f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790488266;
-	bh=UHrAQJDjpZkXol5VEY6/BSqUifaqAPBbX8o+2SqFxC4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=zJtyTOLx9AzZW4ceULP1f5wpwRT2S4P6gkxVsut8kjkqSTxNh5x6hLRAGKDAfxlbL
-	 DIR4BCawrmMPx/OsYsTVZ+OhvOXxWeI5Rji1wbVfkcaxxSh1vASsLh9BiwnfIegVs+
-	 MySOGQKlazDuj2QhwomrLRpDzb1lF597f+vI6jUw=
-Date: Sat, 26 Sep 2026 22:51:05 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador
- <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
- Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org, Muchun Song
- <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Randy Dunlap
- <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v5 00/12] mm: Switch device DAX to section-based vmemmap
- optimization
-Message-Id: <20260926225105.a56f29d76b2f496c8dc2dac0@linux-foundation.org>
-In-Reply-To: <20260927025441.741633-1-songmuchun@bytedance.com>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1790488650; x=1791093450; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1/dti4dnFF8A+Oe+aVgDqPONYPNqgjuPnqR3/MJboFA=;
+        b=Yl/qUxFa7Tx2nQP2me8C5oI47YhyRa7p5f5n0MpjoEcZ4ynyJt/Jj63B9Jn1QkkPhm
+         HBlSqt24fA57tV8i+/3zidKiOVfaWYHqQhK4vkbsaucscn7UTrQMs5yOZd9UvYL0x5g8
+         uqaKawPj/dohUmnjv9cmaOCY1kdKlDNAgWFpcbt7nYh5RdCUJETb1sAiAFvPFKoWcQyz
+         cLBtkrxPa6kJVpf89GSAlkGLqvCNpZzbLLOMMqBZAC4h9vM/53WaMGoejUuZz6UqrcaH
+         y21IE6L6Ho2KUG42Q5C9P6OlroZHI7QXrHBu9VBUSyNO5bf4JJE+aFJL75Znoulk3hd9
+         yL4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790488650; x=1791093450;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1/dti4dnFF8A+Oe+aVgDqPONYPNqgjuPnqR3/MJboFA=;
+        b=m6lsjM3cDH7Z+xLgittjavM/FhNmEeoK/yS2fo5JZ5NJPSsqvLAC3kvgZ2zQEgmJmg
+         hUW+ZdC8QowvGfbFwrAG94372ypKIXSipDnrd91emouKJTWG7fTee5JhX3LvWaaiv+IY
+         bwlWdkeOKePw7AS8iyMOqXe39RQpzVLfSQPzzl2T8/AJhmMFE+PJUmKzioHFKnKQ6ejc
+         2Gr/SazvcPBJNdqzMkZeubCbE6Ayazmvu1koUVkUvWr+ofVGAiyLnj4wdXJFkEl6+Tm3
+         b+HV6T0KWyASQpfv4tZ9duwenU0/IDiHml+Z9s0KU4wlVug0Kt+UVhV2exgsmNvooybS
+         MB6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxrHyZQdjXlMdedh3kWXrytq7shAHEECR5hfRNF1sbQJVHxB8hfmeb0ZhtMEPv0sMxsSd5wqRhur0QI2w4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK93pJRYH0tkF706JcKH0SmpCNnkwFuDYv0DWheEqgqidtuQ1JF
+	H0D7+l1q+YWwip1yAQzKZzXVaqYx0QkW0JjBt7IzA0pU7ZjK1Ji0TQUJ
+X-Gm-Gg: AYBFou28S4ITMx1yqfMtmV/MEGuW69VpWkJ61HG2KsW0ud7iR78d2ursDtTQSfPf4HZ
+	FhpWCMs00L8N4c4c2aDRy4amvaW+qzFhgtWIDVlZddYrWE13qDVOHYkvtosxPnvFWp34rWg7uXD
+	8mmS9gGOYBJwGTKllJ7vjgR+iLmr7bApQxJsdVF+bwb0SU0xo+DLWTyqibvl+xyyhEK+XSHSZy5
+	BqavZ/KmvfaL0FGt9gb/6/7Ka0JQOxrfh4vbpwGCqf3vsfeUlWbR20K8hNvmj1sOO+fUpdeoejk
+	o2suO63Kya/SHH4Ak4bDLsa77SNnMqqeZUHWVCoFsyGYiM01UjFIVXp2YewXP4/JnWBSrqU+m6J
+	GnYFG1FAOLLHgK0z5PNeGYdQ2krup1t6vA+HeyurJesskGFxaYaFjw/1SgmcDwEo3CKDTU5VcHs
+	5FP33HV4CWxKU9VbbxRWH1l3Op+6lNdxz3g/7DNaZlplnz76//ynffOejzjegi761WJP7hKItoA
+	+3SDFZFqHwUUzVu6uehwoB/TfDWQIIdmV5LkBmb6ViSzw==
+X-Received: by 2002:adf:e198:0:b0:487:146f:7c88 with SMTP id ffacd0b85a97d-4887168d970mr16805103f8f.4.1790488650200;
+        Sat, 26 Sep 2026 22:57:30 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcdbsm17997084f8f.2.2026.09.26.22.57.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 22:57:29 -0700 (PDT)
+Date: Sun, 27 Sep 2026 06:57:28 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jim Cromie <jim.cromie@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kees Cook <kees@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Jiri
+ Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, Petr Mladek
+ <pmladek@suse.com>
+Subject: Re: [PATCH v6 0/3] kallsyms: Accelerate symbol name lookups by ~7x
+Message-ID: <20260927065728.7f159234@pumpkin>
+In-Reply-To: <20260926133859.c8232c439184dfa17472b020@linux-foundation.org>
+References: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
+	<20260926133859.c8232c439184dfa17472b020@linux-foundation.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 27 Sep 2026 10:54:29 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
+On Sat, 26 Sep 2026 13:38:59 -0700
+Andrew Morton <akpm@linux-foundation.org> wrote:
 
-> After the HugeTLB conversion, optimized vmemmap state is described by
-> the memory section and the sparse-vmemmap population path can allocate or
-> reuse shared tail vmemmap pages based on that metadata. Device DAX still
-> uses the older DAX-specific population model, including a separate tail
-> vmemmap page reservation and architecture-specific logic to locate or
-> populate reusable tail pages.
+> On Sat, 26 Sep 2026 13:40:11 -0600 Jim Cromie <jim.cromie@gmail.com> wrote:
 > 
-> This series makes device DAX use the same section-based model. Device DAX
-> records the compound page order from pgmap->vmemmap_shift in section
-> metadata before vmemmap population, uses the common per-zone shared tail
-> vmemmap page, and drops the extra reserved tail page. The powerpc radix
-> path is updated to use the same shared tail-page helper, so the generic
-> and powerpc DAX paths follow the same reservation model.
+> > As measured by kernel/kallsyms_selftest across ~184k symbols,
+> > kallsyms_lookup_names() binary search takes ~6.1 us per lookup due to
+> > two inner-loop costs:  
+> 
+> We don't have a kallsyms maintainer afaik.  Petr is pretty active in
+> there so let's give him a hopeful cc.
+> 
+> > 0. Candidate symbols are fully decompressed into a 512-byte stack buffer
+> >    before calling strcmp(), even though non-matching steps could choose on the
+> >    first differing character (0..N-1).
+> > 
+> > 1. Probes scan sequentially from 256:1 markers in kallsyms_names[],
+> >    decoding an average of 127.5 symbols per probe (~2,170 hops across a
+> >    17-step search).
+> > 
+> > This 3-patch series addresses both:
+> > 
+> > 0. Patch 1 introduces kallsyms_strcmp_symbol() to compare ASCII queries
+> >    against compressed tokens on the fly, bailing out on first mismatch.
+> >    Drops the 512-byte stack buffer and saves ~530 ns.
+> > 
+> > 1. Patch 2 increases marker density from 256:1 to 16:1, cutting average
+> >    scan distance from 127.5 to 7.5 hops and dropping lookup latency from
+> >    6,102 ns to 866 ns for +42.2 KiB of .rodata.
+> > 
+> > 2. Patch 3 inlines and unrolls get_symbol_seq() 24-bit reconstruction.
+> > 
+> > Results (kernel/kallsyms_selftest across ~184k symbols):
+> > - Baseline (256:1):  6,102 ns
+> > - Patch 1 (strcmp):  5,572 ns (-530 ns)
+> > - Patch 2 (16:1):      866 ns (7.0x faster)
+> > - Memory: +42.2 KiB .rodata, 0 bytes dynamic RAM  
+> 
+> Can you better explain the tradeoffs here?  Increased memory use?  If
+> so how much?  Is any change in build time expected?
 
-Thanks, I've updated mm-unstable to this version.
+I've had a thought of a scheme that should give most of the ~19x
+improvement of the original patch without increasing the data size and
+with only a small increase in code size.
+The downside is a slight slow down for sequential access.
 
-Sashiko asked a thing:
-	https://sashiko.dev/#/patchset/20260927025441.741633-1-songmuchun@bytedance.com
+The thing to do is replace the 24bit 'symbol number' in the 'sorted by name'
+list with the offset of the beginning of the name.
+(For very large kernels it may need to be 32bit.)
+The binary search for the symbol name then doesn't need a linear scan
+and also loses one level of indirection.
+You then need to do another binary search over the 'offset of every 256th
+entry' table, followed by a linear search to find the correct address.
 
-> v5:
-> - Move the shared tail-page factoring before introducing
->   CONFIG_VMEMMAP_OPTIMIZATION
-> - Add a new patch to allocate the per-zone shared tail-page array
->   dynamically and fix the RISC-V build failure reported by the kernel
->   test robot
-> - Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX so
->   MSHV_VTL cannot set vmemmap_shift while leaving the optimization
->   disabled (reported by Sashiko)
-> - Move the vmemmap optimization macros and MAX_FOLIO_VMEMMAP_ALIGN from
->   mmzone.h to vmemmap-optimization.h
+For sequential access there is a reasonable chance the next symbol is in
+the same 256 symbol block (in address order), that can be quickly checked.
 
-Here's how v5 altered mm.git:
+I got the code to run in userspace yesterday (with a real kernel symbol
+table), I might look at some changes later today.
 
+David
 
- arch/loongarch/include/asm/pgtable.h |    1 
- arch/riscv/mm/init.c                 |    1 
- include/linux/mm.h                   |    1 
- include/linux/mmzone.h               |   27 +----------------
- include/linux/vmemmap-optimization.h |   29 ++++++++++++++++--
- mm/hugetlb_vmemmap.c                 |    1 
- mm/sparse-vmemmap.c                  |   39 +++++++++++++++++++++----
- 7 files changed, 64 insertions(+), 35 deletions(-)
-
---- a/arch/loongarch/include/asm/pgtable.h~b
-+++ a/arch/loongarch/include/asm/pgtable.h
-@@ -72,6 +72,7 @@
- 
- #include <linux/mm_types.h>
- #include <linux/mmzone.h>
-+#include <linux/vmemmap-optimization.h>
- #include <asm/fixmap.h>
- #include <asm/sparsemem.h>
- 
---- a/arch/riscv/mm/init.c~b
-+++ a/arch/riscv/mm/init.c
-@@ -22,6 +22,7 @@
- #include <linux/hugetlb.h>
- #include <linux/kfence.h>
- #include <linux/execmem.h>
-+#include <linux/vmemmap-optimization.h>
- 
- #include <asm/alternative.h>
- #include <asm/fixmap.h>
---- a/include/linux/mm.h~b
-+++ a/include/linux/mm.h
-@@ -38,6 +38,7 @@
- #include <linux/bitops.h>
- #include <linux/iommu-debug-pagealloc.h>
- #include <linux/kcsan-checks.h>
-+#include <linux/vmemmap-optimization.h>
- 
- struct mempolicy;
- struct anon_vma;
---- a/include/linux/mmzone.h~b
-+++ a/include/linux/mmzone.h
-@@ -96,29 +96,6 @@
- 
- #define MAX_FOLIO_NR_PAGES	(1UL << MAX_FOLIO_ORDER)
- 
--/*
-- * HugeTLB Vmemmap Optimization (HVO) requires struct pages of the head page to
-- * be naturally aligned with regard to the folio size.
-- *
-- * HVO which is only active if the size of struct page is a power of 2.
-- */
--#define MAX_FOLIO_VMEMMAP_ALIGN					\
--	(IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION) &&		\
--	 is_power_of_2(sizeof(struct page)) ?			\
--	 MAX_FOLIO_NR_PAGES * sizeof(struct page) : 0)
--
--/* The number of retained vmemmap pages with HVO enabled. */
--#define VMEMMAP_OPTIMIZATION_PAGES		1
--#define VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES	\
--	(VMEMMAP_OPTIMIZATION_PAGES * PAGE_SIZE / sizeof(struct page))
--#define VMEMMAP_OPTIMIZATION_MIN_ORDER		(ilog2(VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) + 1)
--
--#define __VMEMMAP_OPTIMIZATION_NR_ORDERS	\
--	(MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
--#define VMEMMAP_OPTIMIZATION_NR_ORDERS		\
--	((__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 &&	\
--	  IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION)) ? __VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
--
- enum migratetype {
- 	MIGRATE_UNMOVABLE,
- 	MIGRATE_MOVABLE,
-@@ -1156,8 +1133,8 @@ struct zone {
- 	/* Zone statistics */
- 	atomic_long_t		vm_stat[NR_VM_ZONE_STAT_ITEMS];
- 	atomic_long_t		vm_numa_event[NR_VM_NUMA_EVENT_ITEMS];
--#ifdef CONFIG_SPARSEMEM_VMEMMAP
--	struct page *vmemmap_tails[VMEMMAP_OPTIMIZATION_NR_ORDERS];
-+#ifdef CONFIG_VMEMMAP_OPTIMIZATION
-+	struct page **vmemmap_tails;
- #endif
- } ____cacheline_internodealigned_in_smp;
- 
---- a/include/linux/vmemmap-optimization.h~b
-+++ a/include/linux/vmemmap-optimization.h
-@@ -14,6 +14,23 @@
- #include <linux/mmdebug.h>
- #include <linux/mmzone.h>
- 
-+/*
-+ * HugeTLB Vmemmap Optimization (HVO) requires struct pages of the head page to
-+ * be naturally aligned with regard to the folio size.
-+ *
-+ * HVO which is only active if the size of struct page is a power of 2.
-+ */
-+#define MAX_FOLIO_VMEMMAP_ALIGN					\
-+	(IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION) &&		\
-+	 is_power_of_2(sizeof(struct page)) ?			\
-+	 MAX_FOLIO_NR_PAGES * sizeof(struct page) : 0)
-+
-+/* The number of retained vmemmap pages with HVO enabled. */
-+#define VMEMMAP_OPTIMIZATION_PAGES		1
-+#define VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES	\
-+	(VMEMMAP_OPTIMIZATION_PAGES * PAGE_SIZE / sizeof(struct page))
-+#define VMEMMAP_OPTIMIZATION_MIN_ORDER		(ilog2(VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) + 1)
-+
- #ifdef CONFIG_VMEMMAP_OPTIMIZATION
- static inline unsigned int section_compound_order(const struct mem_section *section)
- {
-@@ -44,6 +61,8 @@ static inline unsigned int pfn_to_sectio
- {
- 	return section_compound_order(__pfn_to_section(pfn));
- }
-+
-+struct page *vmemmap_shared_tail_page(unsigned int order, struct zone *zone);
- #else
- static inline unsigned int section_compound_order(const struct mem_section *section)
- {
-@@ -64,6 +83,12 @@ static inline unsigned int pfn_to_sectio
- {
- 	return 0;
- }
-+
-+static inline struct page *vmemmap_shared_tail_page(unsigned int order,
-+						    struct zone *zone)
-+{
-+	return NULL;
-+}
- #endif /* CONFIG_VMEMMAP_OPTIMIZATION */
- 
- static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
-@@ -87,8 +112,4 @@ static inline bool vmemmap_optimizable_o
- 
- 	return order >= VMEMMAP_OPTIMIZATION_MIN_ORDER;
- }
--
--#ifdef CONFIG_SPARSEMEM_VMEMMAP
--struct page *vmemmap_shared_tail_page(unsigned int order, struct zone *zone);
--#endif /* CONFIG_SPARSEMEM_VMEMMAP */
- #endif /* _LINUX_VMEMMAP_OPTIMIZATION_H */
---- a/mm/hugetlb_vmemmap.c~b
-+++ a/mm/hugetlb_vmemmap.c
-@@ -19,7 +19,6 @@
- 
- #include <asm/tlbflush.h>
- #include "hugetlb_vmemmap.h"
--#include "internal.h"
- 
- /**
-  * struct vmemmap_remap_walk - walk vmemmap page table
---- a/mm/sparse-vmemmap.c~b
-+++ a/mm/sparse-vmemmap.c
-@@ -167,16 +167,44 @@ static void * __meminit vmemmap_alloc_bl
- 	return p;
- }
- 
-+#ifdef CONFIG_VMEMMAP_OPTIMIZATION
-+#define VMEMMAP_OPTIMIZATION_NR_ORDERS	(MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
-+
-+static __ref struct page **vmemmap_tails_alloc(struct zone *zone)
-+{
-+	struct page **pages;
-+	const size_t size = array_size(VMEMMAP_OPTIMIZATION_NR_ORDERS, sizeof(*pages));
-+
-+	pages = slab_is_available() ? kzalloc_objs(*pages, VMEMMAP_OPTIMIZATION_NR_ORDERS) :
-+		memblock_alloc(size, __alignof__(*pages));
-+	if (!pages)
-+		return NULL;
-+
-+	if (cmpxchg(&zone->vmemmap_tails, NULL, pages) != NULL) {
-+		if (slab_is_available())
-+			kfree(pages);
-+		else
-+			memblock_free(pages, size);
-+		pages = READ_ONCE(zone->vmemmap_tails);
-+	}
-+
-+	return pages;
-+}
-+
- struct page __ref *vmemmap_shared_tail_page(unsigned int order, struct zone *zone)
- {
- 	void *addr;
--	struct page *page;
-+	struct page *page, **pages;
- 	const unsigned int idx = order - VMEMMAP_OPTIMIZATION_MIN_ORDER;
- 
--	if (WARN_ON_ONCE(idx >= ARRAY_SIZE(zone->vmemmap_tails)))
-+	if (WARN_ON_ONCE(idx >= VMEMMAP_OPTIMIZATION_NR_ORDERS))
-+		return NULL;
-+
-+	pages = READ_ONCE(zone->vmemmap_tails) ? : vmemmap_tails_alloc(zone);
-+	if (!pages)
- 		return NULL;
- 
--	page = READ_ONCE(zone->vmemmap_tails[idx]);
-+	page = READ_ONCE(pages[idx]);
- 	if (likely(page))
- 		return page;
- 
-@@ -196,16 +224,17 @@ struct page __ref *vmemmap_shared_tail_p
- 	}
- 
- 	page = virt_to_page(addr);
--	if (cmpxchg(&zone->vmemmap_tails[idx], NULL, page) != NULL) {
-+	if (cmpxchg(&pages[idx], NULL, page) != NULL) {
- 		if (slab_is_available())
- 			__free_page(page);
- 		else
- 			memblock_free(addr, PAGE_SIZE);
--		page = READ_ONCE(zone->vmemmap_tails[idx]);
-+		page = READ_ONCE(pages[idx]);
- 	}
- 
- 	return page;
- }
-+#endif
- 
- static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
- 		struct vmem_altmap *altmap, unsigned long flags)
-_
+> 
+> 
+> What isn't addressed in here (afaict) is "who cares".  Is there some
+> workload which is kallsyms-intensive?
+> 
+> This info really should be right in the first para of the [0/N], and in
+> detail.  What benefit does this work offer to our users?  Use cases,
+> example scenarios, etc.
+> 
+> Apologies if I missed this in earlier discussions, but if it was in the
+> [0/N] this wouldn't matter!
 
