@@ -1,167 +1,149 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA41937C109
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550070; cv=pass; b=V2y/sZGXFdEn5APZ0fPrdca3kSoeuhCPMWGpJywXVpJFeEkeRDNRiqBk2SR80wxPtGWyQsbzgy+zw/mh8TU7WO8Juy8SWXDosE/5sLU3/3M1f0/ytMmck50myI5x1IVBOu8Zk+WSj1zMy1GQL1Tsrr9gyucd8CTUIeX+XeUoI2c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550070; c=relaxed/simple;
-	bh=JCpwn/WWICwDSoLBnOOTTp6gTS0SfU3IsgvUz7VJvnI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ayUZihYgfOz+PGWNPaFwN6EfGAfceu90kU50Kwsw4fN9IuyuxK8aQPVLTEEbwcFDJPiUOZ2pl2OX/G8/zD2zhn+jBsFuTePUlAru/WYuEBSoXgcsY4BnWVaY3LOdaVO3wSMDj2jFye9yJRUMq8f7HVDpdtssxW4SE/biIvIzs7U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=InaRM3Pg; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B0C361DAB
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790550267; cv=none; b=X/36Agy8jHWzOktIO6Eg7P2hLhcEkusmhe/poRPIIQJ/f6mFFBe5mz9XQ4J2vfhor+1tVU3F6UpxhL3G8GSyQshsYU9e9PhalfRYDEawspdQnC7oN0veq/0FNAbGSG3nRikBVYxNz1jb3zFN3BcMK0TKYHTnDV6B+iywWf6v2BE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790550267; c=relaxed/simple;
+	bh=x12ekH/eBIO0WyYcyX4isGRnRpm0aA+2CF7L3xA6GEE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AZX7jZf+BSwlJd9johWy53ZoaV+/8cJKGjWNRDczFZxITyYazl3xuqQGLQA1sMNH4tD6q5Z/ebdFkqMWgdzJhmuYOkDtspPvW6YXS14M0XgzbrRcF5sKWiM39WHQ4/ChsKeVL5CponKJierECwqOGYJH1taZzjaRwrBNe47RAks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AdA914TX; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="InaRM3Pg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so6309865e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:01:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790550067; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C+cbUkZvOC0he3kVgbQkaI7HJ+8LTDywdgOVKswaB185lj6u8l98cbqjw5C9yIpWNX
-         1CLkm5DnYuOHxCjr1/LTniVhQxGKy0fcdv2m14jNCtMqXYVjJkUYyUweKmWSP7vXPwEC
-         GG5XUPseHg4avz4VLbPDrEOtLsLR0n1fxeftLLo8LWtzNK9zRYn72moVaSw00m2SqOdu
-         aQZ1b1bL1egcACtpvXPMcGipydjlgjhLw6V+WGxfJyR2yAjfYYt7OqBibotwghvBsYWj
-         eSQ4zX9hUNge+ml77jXeMkx8r8/uimS95Jcmlz0tzC4pReWjCKGMVmHR9s9LH9YhhItk
-         ij1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pC1cDVE6Id7bEPJ+YQ1AhsXzN8ywZhzrUwp85FIkVFE=;
-        fh=isQHQ0uYNGixRae6UKFI/bmeTHKZ6f+R0xIxH7rsr1g=;
-        b=NTuQ8KUF9ZdYHXQzqa5iNdMZtxs/kIaScxvnNqjt2x21f1ZMCzKQb9rFw+tTlQ8Q15
-         YWeFU+0lanV5oY6fXfNdOFCE02kuc8S4N0BrFD4258bQ8pTCwXHVjWxKxkMfMkoIE6Js
-         j8Z9A6tFYqxQ3q2D5pay5FPj+ENBctUR2KJ3mmBu6sjgY/ambAi/AjxotW+6XLsB+9L0
-         0ZLI7CMahcoUTIArrd46awwomkApiRikWx5IjhYItc1WSGfOQyg+z9gkLypP4ZfPcAB8
-         YMuMQD7HqjROuqRiEGl7jVskDsAHuczpGxziW1nciZCjRzXNrfxZx0uwwN9EZ9YAfytO
-         xdiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790550067; x=1791154867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pC1cDVE6Id7bEPJ+YQ1AhsXzN8ywZhzrUwp85FIkVFE=;
-        b=InaRM3PgpHKQsECCIra6A9YmBRSU1CMHlqJyRd8yeerQpCQvd3hxYGeJLq952g7t1l
-         FImRr7qA0/AGrx7QxUnbOU5d+BnBCmYSQDEWuFNqPIHk4mX5he6yGEJjtkkqlgcKoMQm
-         hm4goQmzW42wUPJqgLA9xR9+tJoKcep0QWKiBqTFJYVpgTDFyltqbipx21vYM8cTsDSr
-         xiYygf5JmKi3LurfHIfc7IdCgY1NFg+SvB09aBBFguhRYLgn5GNFCXRHNfmSiQmnsKXD
-         ReVm9SKwMqKcJWhtslwaJlV2MAj6XX8/EKaL7sU3COjGjb59ORyKDIdhKESRex9q91BC
-         HQkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790550067; x=1791154867;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pC1cDVE6Id7bEPJ+YQ1AhsXzN8ywZhzrUwp85FIkVFE=;
-        b=ICtEQ12hRKFlAUfyK1IuUKyX/Yu+yCFsfor59oPfXdQdDihdyyTkuelb6I1IvNYsET
-         XgCaCkKsRYT0jPN1Jz8JMGO4o5JdRiKymLmNzzBQY+yTQKXQlE5pmBYyFSs36Pi+h69A
-         ab+Ha8jRCCtnXRSu879anWBWVjrwExpfXDsepr8dvO/RgD//lJVxkL+Q9heQLGfrIg7n
-         5oU4fjN+J0DiX6gFCug6q3OWAOUf2kQr7AIMwZy6qPT0E/0bZNnzFcJ8MgV3gLsXtw5c
-         THGulQGnQZCWKC/E62OF7yhopEMpD1Ied7TFMwqUxwSpkrSHI7Ad0QNNx1ZiC+VbVCSs
-         EWDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWesTOvfA5cGz54gHmf9AT2SqaWvdzvRbpNcbwb2bsI+t3IfNNdCSIXtf5kR02SpCxQ96tp99G+pDDNWs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNM/pLeiTgbUHjdX0TDQxUXwaxVvTp4b3OuqdeyeNu2crwr3wC
-	zakcBxAY4tUV1gVl4OPF/iUSnx0spHk1CvmkagjPbktFvXGquGaIbRNtDbMyI1S3L9NHY9lDMtb
-	0n49XKtnuRWwyvjg9+NP+HcBxy8dT55U=
-X-Gm-Gg: AYBFou1baGCK19v00ODxBJkLbzHoxVhUpr1jmqjarFvgaKCYPt07QalBTMtqhBfc1dY
-	x6UrYsvPnJg6pWBy7LE1IeiGogw9yGxAYTlJxs7nYpGk/PksGOEpj+a6D9MZnxkOexq6A/0Y0UT
-	uLTo/oybMR7Nxlna+s8lfSW2lVlNcBu08TSNk1BdCxZPusm3ueu7CMAWaLFOevLyXYppDiSP4GW
-	wo2FF7xNSM+/QcL8bqkpOC2j8c9OKnGbP8Za6b9tpTmGC/SN8kQpRemlRs/AqLvbLuy8jEMITvi
-	BctOBDR4tlzQ6is6L0p5kAf7IV7nTV1K8cNfqq7GxYX+UR6qXDQ4Zx+9v1UiG03zq7/xcRZGxyt
-	Pt++Fz6hmZkjaVs/0fGCMy4ctoXpWdAxaEh1bMHDufcN1DAzhBkZ3NJ2Mp0VPkmo3pAyL+CoC6w
-	==
-X-Received: by 2002:a05:600c:4f47:b0:49f:c199:e1e2 with SMTP id
- 5b1f17b1804b1-49ff06ed9c1mr170160015e9.28.1790550066832; Sun, 27 Sep 2026
- 16:01:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AdA914TX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=oP3ORZsEBaRWtddTZKbQNNI2ERTXJdkMdL9QJGqmxio=;
+	b=AdA914TX7EM8Tce8XfbAZ9+Dya8Vjm4RAQgyFXsqrqhzezGzd2QG2MjEQMnx2R
+	KwmJzKuKEBVyHrCTevZbI7J2za4Hs0+GcrVkF+tntu0EPjRASwEsI0r+nGJrXRwI
+	sDg96FhUb3jxgJz0jhf4K5ZZhEGWe6V8PVN330Lm3l6hQ=
+Received: from [IPV6:2409:8949:6ca0:7910:556a:2884:1c35:3923] (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHtLvboLlqcZH6BA--.65284S2;
+	Mon, 28 Sep 2026 07:03:57 +0800 (CST)
+Message-ID: <5443de08-2461-4fea-9eb2-8d53b01d7d14@163.com>
+Date: Mon, 28 Sep 2026 07:03:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-In-Reply-To: <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 28 Sep 2026 00:00:00 +0100
-X-Gm-Features: AclHuK9lqYCvHMC1AiAR3XuaDXFU85jazCSKt890eRq6J5XWeWZVuaVBpqASpBo
-Message-ID: <CA+V-a8vOrmXpr8Nx9aiE-D4axAQNf9oKhSgHaQXqdjE-bWeyNA@mail.gmail.com>
-Subject: Re: [PATCH net v4] net: pcs: rzn1-miic: Clear MIIC protection state
- before unprotect sequence
-To: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] ntfs: do not map an unmappable runlist fragment as
+ a hole
+To: Matthias Goergens <matthias.goergens@gmail.com>,
+ Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <arMoap0ZgeORuktT@hyunchul-PC02>
+ <cover.1790417653.git.matthias.goergens@gmail.com>
+ <20260927050831.2739166-1-matthias.goergens@gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260927050831.2739166-1-matthias.goergens@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHtLvboLlqcZH6BA--.65284S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFykWFy5Cr4Dtw1ftryDAwb_yoW5uw17pa
+	93WrWSk390qr9FvFnFv3Wjvw1fC3s7Ja1Uury2ywnxAwnaqw4SgFyxK34IvF1rJrWxWF18
+	Jr42g3yfAa9rZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h1oM2q5oN33yQAA38
 
-On Thu, Sep 24, 2026 at 11:45=E2=80=AFAM Yoshihisa Yamamoto
-<yoshihisa.yamamoto.xn@renesas.com> wrote:
->
-> On RZ/T2H and RZ/N1D MIIC, writing 0x0000 to the MIIC protection
-> register clears the protection state machine.
->
-> The initial protection state cannot be assumed to be constant,
-> as it may be influenced by previous activity before the driver
-> takes ownership of the hardware.
->
-> Clear the protection state before issuing the unprotect sequence
-> so that register access always starts from a known state, regardless
-> of any previous activity.
->
-> Fixes: 7dc54d3b8d91 ("net: pcs: add Renesas MII converter driver")
-> Signed-off-by: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
+
+
+在 2026/9/27 13:08, Matthias Goergens 写道:
+> When the extent mft record holding part of a file's runlist cannot be
+> read, ntfs_attr_vcn_to_rl() ignores the failed ntfs_map_runlist_nolock()
+> retry and returns with *lcn == LCN_RL_NOT_MAPPED.  The iomap read path
+> only rejects lcn < LCN_ENOENT, so it maps the range as a hole and read()
+> returns zeros with no error.  The first read already does this:
+> ntfs_attr_map_whole_runlist() keeps the fragments it could read,
+> readahead drops its error, and the next lookup finds the unmapped tail.
+> 
+> On a file whose runlist is split between its base record (vcn 0-214) and
+> one extent record (vcn 215-1499), breaking only the extent record's FILE
+> magic makes the kernel log "Failed to map extent mft record", yet read()
+> returns 1285 clusters of zeros for vcn 215-1499.  A damaged attribute
+> list entry, which makes the retry fail with -ENOENT, gives the same
+> zeros.
+> 
+> Return -ENOMEM if the retry ran out of memory and -EIO otherwise.  Both
+> callers already handle an ERR_PTR; other negative lcns, including
+> LCN_ENOENT, are returned as before.  Reads of vcn 215-1499 now fail with
+> -EIO.  An intact volume exercised with buffered, mmap and O_DIRECT I/O,
+> fallocate, truncate, sparse and compressed files behaves as before.
+> 
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 > ---
-> V4:
-> - Clarify commit message
-> - Point Fixes tag to 7dc54d3b8d91, as the issue also affects RZ/N1D
->
-> v3: https://lore.kernel.org/all/TYCPR01MB7481CE8351FDB2CDCA229955A4872@TY=
-CPR01MB7481.jpnprd01.prod.outlook.com
-> - Add Fixes tag
->
-> v2: https://lore.kernel.org/all/TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TY=
-CPR01MB7481.jpnprd01.prod.outlook.com
-> - Fix indentation
->
-> v1: https://lore.kernel.org/all/TYCPR01MB748139F059DF2459B9813416A4B92@TY=
-CPR01MB7481.jpnprd01.prod.outlook.com
->
->  drivers/net/pcs/pcs-rzn1-miic.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Cheers,
-Prabhakar
-
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index 2b72fa98ddf1..279f709c889b 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -270,6 +270,9 @@ static struct miic_port *phylink_pcs_to_miic_port(str=
-uct phylink_pcs *pcs)
->
->  static void miic_unlock_regs(struct miic *miic)
->  {
-> +       /* Clear protection state */
-> +       writel(0x0000, miic->base + MIIC_PRCMD);
+>   fs/ntfs/attrib.c | 13 +++++++++++--
+>   1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 333b3371acb47..a337a3429b401 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -317,7 +317,7 @@ int ntfs_map_runlist(struct ntfs_inode *ni, s64 vcn)
+>   struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64 *lcn)
+>   {
+>   	struct runlist_element *rl = ni->runlist.rl;
+> -	int err;
+> +	int err = 0;
+>   	bool is_retry = false;
+>   
+>   	if (!rl) {
+> @@ -335,12 +335,21 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
+>   
+>   	if (*lcn <= LCN_RL_NOT_MAPPED && is_retry == false) {
+>   		is_retry = true;
+> -		if (!ntfs_map_runlist_nolock(ni, vcn, NULL)) {
+> +		err = ntfs_map_runlist_nolock(ni, vcn, NULL);
+> +		if (!err) {
+>   			rl = ni->runlist.rl;
+>   			goto remap_rl;
+>   		}
+>   	}
+>   
+> +	/*
+> +	 * The runlist fragment containing @vcn could not be mapped, e.g.
+> +	 * because the extent mft record holding it is corrupt.  Do not hand
+> +	 * LCN_RL_NOT_MAPPED back to callers, which would treat it as a hole.
+> +	 */
+> +	if (*lcn == LCN_RL_NOT_MAPPED)
+> +		return ERR_PTR(err == -ENOMEM ? -ENOMEM : -EIO);
 > +
->         /* Unprotect register writes */
->         writel(0x00A5, miic->base + MIIC_PRCMD);
->         writel(0x0001, miic->base + MIIC_PRCMD);
-> --
-> 2.34.1
->
+
+Hi Matthias,
+    This check can reject valid lookups beyond allocated_size.
+    Although patch 4 addresses this, could you move its 
+allocation-boundary check into this patch, before the 
+ntfs_map_runlist_nolock() retry?
+
+   if (*lcn <= LCN_RL_NOT_MAPPED && !is_retry) {
+   	unsigned long flags;
+   	s64 allocated_vcn;
+
+   	read_lock_irqsave(&ni->size_lock, flags);
+   	allocated_vcn = ntfs_bytes_to_cluster(ni->vol, ni->allocated_size);
+   	read_unlock_irqrestore(&ni->size_lock, flags);
+   	if (vcn >= allocated_vcn)
+   		return rl;
+   }
+
+   This would avoid introducing a regression when patch 1 is applied on 
+its own, particularly for stable backports. The remaining changes can 
+stay in patch 4.
+
+Thanks,
+Baolin.
+
+>   	return rl;
+>   }
+>   
+
