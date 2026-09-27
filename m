@@ -1,60 +1,80 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FAF35F162
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A503815DF
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521790; cv=none; b=bygqSLuNY1CE65JIFJsQww0emV4CGtSn+a0nrEokD7NYNxFkr8qajaeiMDgIrl0UuW9iQTo1IlGrp1xO492iOaSjiW9zHMhnR+SgP3HIoBjSEb3jWTZX6R+nCxFegjbbvIaXwotUixkFXNvyNrLFFGJzg7jSog38phs1hRMsRlA=
+	t=1790521863; cv=none; b=ZvUoVi8B9f4ahpwJzdR9tqpaz8x6KMkzyjmEykE6enIELxRUi4MZI50fXin91vSSvnclNZhyWoec1a7tSXByxAEui5FG8/3sMudpNYg+oArpu/Igrgb95vYopGRS1WI682Acm58Lfddbi7GExm3czi5S8/JQIA34Cvo1V0Q2x5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521790; c=relaxed/simple;
-	bh=TtY1udbB9gRXhhoa8lgh2rPwZAXk1yyxXBkV0bDcmsg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=kmurtymjkGpImvC6PDF6tyBMT2t5Zue5H8wn96p63/of+n47r8BgTUJeQhi3bdWiTiTf9Og8BFGaIIhRMR+v0udDBdpPd790X+3CmFxJDHcOKG1Kwlup8IYG7M7EO0R1Ke2N6ky1assJE7OlhluzLecrM/TcSA5AL3xzbqjkSHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fk/Z4QbI; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790521863; c=relaxed/simple;
+	bh=PUxQWVb7GawpwSubmFAbFA2TUxRXX1OHgxmy1E0FpUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I/GzElurBDjYKcbDaM5qqV/qf2KgI5rq3FmjsHD8DzJ39SW4vQ4uT7Rm/GfohWT1rBn7MN3BTGr5cB7bEwKAv4Srk+gId+QOP6pNkY9RVb7ACgt3eRz5DLAnT2EMMT+irNgEezFutJeAeDE3Mj6dPdfFJNTRxk/r6LFXS2S+Qqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QC5+sJK5; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fk/Z4QbI"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260927150946epoutp01ae0a9e12bfb046b6bd48bcf6db0c8de2~ZNhPvgIga1244212442epoutp01S
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:09:46 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260927150946epoutp01ae0a9e12bfb046b6bd48bcf6db0c8de2~ZNhPvgIga1244212442epoutp01S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790521786;
-	bh=nDm4kQwri/+NG+rfAwqmk0AAalnRCMyPs6xBcvSRO3Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fk/Z4QbIy2bY5AYjUxN8iEG0/TDhoO48+8W3UV5ZjhSlx9Jhl79uXmXqSu5juz+6l
-	 Rm13Rg8oryBExvTcAWfKpz8yS3poo8CROpb6yYxkb6QUqMl6ilZmOn6/uNpA2ijXc6
-	 p3/GGNK9iWjg2t66LXZyDITwjD84iNZ4IooAtPgQ=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260927150944epcas5p128db862a275cfc265e892e14263acc1b~ZNhOWY1AI1972919729epcas5p1g;
-	Sun, 27 Sep 2026 15:09:44 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4ht7CC6KQSz6B9m5; Sun, 27 Sep
-	2026 15:09:43 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c~ZNhNKU8Lj1972919729epcas5p1d;
-	Sun, 27 Sep 2026 15:09:43 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927150941epsmtip14d660914bb453957f22c1a66c2850d5e~ZNhLhckoP2148721487epsmtip1Q;
-	Sun, 27 Sep 2026 15:09:41 +0000 (GMT)
-From: Alim Akhtar <alim.akhtar@samsung.com>
-To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org, Alim
-	Akhtar <alim.akhtar@samsung.com>
-Subject: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855
- SoC
-Date: Sun, 27 Sep 2026 20:57:38 +0530
-Message-Id: <20260927152738.3673504-2-alim.akhtar@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QC5+sJK5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1304431f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:11:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790521859; x=1791126659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iq7QY59go/yg3a2RnQSLtv6/NhXKFuv9l2HYC5eUWJQ=;
+        b=QC5+sJK5n18MRSy0gbMYDPh62yU99Jwe1eFfkesLAh6UE77jfibR5+i5hwdWX82xN7
+         lLZfb/qQn738zicqYFtvgrus/dVHHO+pvVWIwOVZ7DcE1tX0uTkL4mwZvXBmK8k78Jqq
+         Dncbfc4O5O/oSu5GqqlLR4lLSJoQWg5BoN44u1z2i+UHQ1D8/DxLZraatSATcGqAZhCK
+         vdPLlxvjS3/3t8xflNHwMuf+mX/GS10pMP5oJHrCZc6uh4cSiIvwX3yDATpjnP4bPsjM
+         WSs3An3MNwHN6KgSq0PEUANDFQmA1/f1lDo2So5ysQyRuE0n7/3m8p6+Pvz/n72gtxLa
+         yJ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790521859; x=1791126659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iq7QY59go/yg3a2RnQSLtv6/NhXKFuv9l2HYC5eUWJQ=;
+        b=WiyP5+dikRzmYzMhclowiRIdRRTfcwbonPm52rRyQinNLMlg+ZncC05eEc7xXj8zp7
+         mHewxmksWHE36MqJ6fqGB6sCDp9wGAabxx4uL/H9zjEeFRkwgE+pq1e9WMrwSm1zd2vO
+         UoSg5Cw+Ee62rr8T3C54dVnn38aCwCZRcJMRGX8svWzqZqky1fZpOCQPqiP9dpNZueFh
+         8zjRIVQ7ncbNLME1Kviwbub00yBcVX5DfCMy5lLtWEjxnpORbApiUYghlO2jW8QIbCi6
+         iBvtypM11rPRAakjN5W5dPIYEhtltCIM6XfnDEKvSPGv6qx7HQrEz/XhdB16UB5PZvPL
+         D+Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9D3URtBdsOMgg0AjjK1uoGZtS4r+IU2bbfpA5Bi3VIdj7ZQXr6DbV0B/jG6nk6/xOD3xx35FXx4rtkrQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsP+87OCFnUeksuEzYgNGxw4eskh1iEEo2fGifVq6Lzyefd/tr
+	bwFpsycIVNvqV5HpwA8/vW1yqWOakE6q5p6/dnpFvB+EL9dtIk/dxrog
+X-Gm-Gg: AYBFou0Ahd5Nna9L5oU4dzmSkMreit/yNnBHMZXYZ7CHFoJi5tbHQuQdULKTZ/usW+9
+	uEHY8lLgSWhZjcs+87v1CNyV8N3dZy36ZcXUBXs/a1UZyk7MI9UKzG9exnNgNwcWrHRi0hP7HOd
+	1YB6MlJP9gnMC8FeBXjJIukQmoScWTAQD+v1MTXXm3UpRk3YwWgf491ufguYDugXI3KFkeJph+/
+	9txjF6aueqRfiQA9rFs7wC8gVbP2EuN0SL1iFxrgVbbXNKb035TQccPqZTBMyJLTqreO242J8h3
+	glN3B2O6xiV5U8cg1TTV3qgqLlj9ivpWcsG55BRomHyl7GbU17lCWpRqCXZUo97iC3JrMTw86M4
+	qiXcaBNjUth0B14hjh+P7AeXcmfdD+ttVI4XJXBKy6KCxU/1DoOAyoFnrU1BwaTqHxtjPFvcixP
+	cP8pdI39BzCc8g6io8uc2JAnMwqUYPEy4kTbOkywwQE8PDoDkWUCDt39XLAEvZOg9HX7NayeQCK
+	1AzDe4wfFqsEhPucG6lHYqFLL4Uv8BXaRO/DkrbTV4=
+X-Received: by 2002:a05:6000:402a:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-4888bc1a693mr4386678f8f.39.1790521859115;
+        Sun, 27 Sep 2026 08:10:59 -0700 (PDT)
+Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm19764208f8f.35.2026.09.27.08.10.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 08:10:58 -0700 (PDT)
+From: Pablo Mazzini <pmazzini@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-sunxi@lists.linux.dev
+Subject: [PATCH v2 00/11] ARM: sunxi: add Allwinner B288 and the PocketBook Verse
+Date: Sun, 27 Sep 2026 16:10:05 +0100
+Message-ID: <20260927151016.186493-1-pmazzini@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,105 +82,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
-References: <20260927152738.3673504-1-alim.akhtar@samsung.com>
-	<CGME20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c@epcas5p1.samsung.com>
 
-Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
-This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
-different then the previously support SoC.
-Reuse the offset as much as from already supported SoC
+The Allwinner B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book
+readers. This series adds the CCU and pin controller drivers, the RTC,
+I2C, MMC and NMI compatibles, the SoC .dtsi, and one board: the
+PocketBook Verse (PB629), a 6" reader.
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
----
+The B288 is closest to the A64: most of its PLLs are bit-identical.
+The clock and pin descriptions come from Allwinner's BSP, cross-checked
+against ccu-sun50i-a64.c. Tested on a PB629, boots to userspace.
 
-*Changes in V2:
-	- Fixed Sashiko review comments
-		- [Low] watchdog: confusing reuse of CLUSTER0 macro for CLUSTER1
-		- [Low] watchdog: space-based alignment for EXYNOS8855_RST_STAT_REG_OFFSET
+Changes since v1:
+  - Add this cover letter.
+  - Drop both new bindings; add the compatibles to the existing
+    allwinner,sun4i-a10-{ccu,pinctrl}.yaml instead.
+  - Rewrite the pinctrl driver in the DT-provided pinmux style.
 
- drivers/watchdog/s3c2410_wdt.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Pablo Mazzini (11):
+  dt-bindings: clock: sun4i-a10-ccu: add Allwinner B288
+  clk: sunxi-ng: add Allwinner B288 CCU driver
+  dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+  pinctrl: sunxi: add Allwinner B288 pin controller driver
+  dt-bindings: rtc: sun6i-a31: add Allwinner B288
+  rtc: sun6i: add Allwinner B288 compatible
+  dt-bindings: i2c: mv64xxx: add Allwinner B288
+  dt-bindings: mmc: sun4i-a10-mmc: add Allwinner B288
+  dt-bindings: interrupt-controller: add Allwinner B288 NMI
+  dt-bindings: arm: sunxi: add PocketBook Verse
+  ARM: sunxi: add B288 and the PocketBook Verse board
 
-diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-index 7053963fb0ac..007c05ed2c7b 100644
---- a/drivers/watchdog/s3c2410_wdt.c
-+++ b/drivers/watchdog/s3c2410_wdt.c
-@@ -58,6 +58,7 @@
- #define S3C2410_WATCHDOG_DEFAULT_TIME	(15)
- 
- #define EXYNOS5_RST_STAT_REG_OFFSET		0x0404
-+#define EXYNOS8855_RST_STAT_REG_OFFSET		0x10
- #define EXYNOS5_WDT_DISABLE_REG_OFFSET		0x0408
- #define EXYNOS5_WDT_MASK_RESET_REG_OFFSET	0x040c
- #define EXYNOS850_CLUSTER0_NONCPU_OUT		0x1220
-@@ -73,6 +74,7 @@
- 
- #define EXYNOS850_CLUSTER0_WDTRESET_BIT		24
- #define EXYNOS850_CLUSTER1_WDTRESET_BIT		23
-+#define EXYNOS8855_CLUSTER1_WDTRESET_BIT	25
- #define EXYNOSAUTOV9_CLUSTER0_WDTRESET_BIT	25
- #define EXYNOSAUTOV9_CLUSTER1_WDTRESET_BIT	24
- #define EXYNOSAUTOV920_CLUSTER0_WDTRESET_BIT	0
-@@ -281,6 +283,26 @@ static const struct s3c2410_wdt_variant drv_data_exynos850_cl1 = {
- 		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_CNT_EN,
- };
- 
-+static const struct s3c2410_wdt_variant drv_data_exynos8855_cl0 = {
-+	.mask_reset_reg = EXYNOS850_CLUSTER0_NONCPU_INT_EN,
-+	.mask_bit = 2,
-+	.mask_reset_inv = true,
-+	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-+	.rst_stat_bit = EXYNOS850_CLUSTER0_WDTRESET_BIT,
-+	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-+		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-+};
-+
-+static const struct s3c2410_wdt_variant drv_data_exynos8855_cl1 = {
-+	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER1_NONCPU_INT_EN,
-+	.mask_bit = 2,
-+	.mask_reset_inv = true,
-+	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-+	.rst_stat_bit = EXYNOS8855_CLUSTER1_WDTRESET_BIT,
-+	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-+		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-+};
-+
- static const struct s3c2410_wdt_variant drv_data_exynos990_cl0 = {
- 	.mask_reset_reg = GS_CLUSTER0_NONCPU_INT_EN,
- 	.mask_bit = 2,
-@@ -400,6 +422,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
- 	  .data = &drv_data_exynos7 },
- 	{ .compatible = "samsung,exynos850-wdt",
- 	  .data = &drv_data_exynos850_cl0 },
-+	{ .compatible = "samsung,exynos8855-wdt",
-+	  .data = &drv_data_exynos8855_cl0 },
- 	{ .compatible = "samsung,exynos990-wdt",
- 	  .data = &drv_data_exynos990_cl0 },
- 	{ .compatible = "samsung,exynosautov9-wdt",
-@@ -723,6 +747,7 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
- 	/* Choose Exynos850/ExynosAutov9 driver data w.r.t. cluster index */
- 	if (variant == &drv_data_exynos850_cl0 ||
- 	    variant == &drv_data_exynosautov9_cl0 ||
-+	    variant == &drv_data_exynos8855_cl0 ||
- 	    variant == &drv_data_gs101_cl0 ||
- 	    variant == &drv_data_exynosautov920_cl0 ||
- 	    variant == &drv_data_exynos990_cl0) {
-@@ -740,6 +765,8 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
- 		case 1:
- 			if (variant == &drv_data_exynos850_cl0)
- 				variant = &drv_data_exynos850_cl1;
-+			else if (variant == &drv_data_exynos8855_cl0)
-+				variant = &drv_data_exynos8855_cl1;
- 			else if (variant == &drv_data_exynosautov9_cl0)
- 				variant = &drv_data_exynosautov9_cl1;
- 			else if (variant == &drv_data_gs101_cl0)
+ .../devicetree/bindings/arm/sunxi.yaml        |   5 +
+ .../clock/allwinner,sun4i-a10-ccu.yaml        |   1 +
+ .../bindings/i2c/marvell,mv64xxx-i2c.yaml     |   1 +
+ .../allwinner,sun7i-a20-sc-nmi.yaml           |   1 +
+ .../bindings/mmc/allwinner,sun4i-a10-mmc.yaml |   2 +
+ .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  |  23 +
+ .../bindings/rtc/allwinner,sun6i-a31-rtc.yaml |   2 +
+ arch/arm/boot/dts/allwinner/Makefile          |   1 +
+ .../allwinner/sun8i-b288-pocketbook-verse.dts | 122 ++++
+ arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 304 ++++++++
+ arch/arm/mach-sunxi/sunxi.c                   |   1 +
+ drivers/clk/sunxi-ng/Kconfig                  |   5 +
+ drivers/clk/sunxi-ng/Makefile                 |   1 +
+ drivers/clk/sunxi-ng/ccu-sun8i-b288.c         | 660 ++++++++++++++++++
+ drivers/clk/sunxi-ng/ccu-sun8i-b288.h         |  10 +
+ drivers/pinctrl/sunxi/Kconfig                 |  10 +
+ drivers/pinctrl/sunxi/Makefile                |   1 +
+ drivers/pinctrl/sunxi/pinctrl-sun8i-b288.c    |  53 ++
+ drivers/rtc/rtc-sun6i.c                       |   1 +
+ include/dt-bindings/clock/sun8i-b288-ccu.h    |  88 +++
+ include/dt-bindings/reset/sun8i-b288-ccu.h    |  45 ++
+ 21 files changed, 1337 insertions(+)
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+ create mode 100644 drivers/clk/sunxi-ng/ccu-sun8i-b288.c
+ create mode 100644 drivers/clk/sunxi-ng/ccu-sun8i-b288.h
+ create mode 100644 drivers/pinctrl/sunxi/pinctrl-sun8i-b288.c
+ create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
+ create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
+
 -- 
-2.34.1
+2.53.0
 
