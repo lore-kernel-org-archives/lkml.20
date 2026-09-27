@@ -1,220 +1,291 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245EF20D4FC
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790545335; cv=pass; b=upfJfpbq7KJ915mMMR/VfBF3Uy3W3iyhppI2Ar+RO3cQv65hXxZwjIesRJaYskUIxLX6YPFtpi4AwqqiyKqZt0f/w3RaR5d40Zc23pKB02mP9x4c+XX/22ZkPjgPhBc1xTnqmGW9AK1NJ4lPerDPWB3ZGpsl+8ATwv5Oo8xMesI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790545335; c=relaxed/simple;
-	bh=6KLzp4oR3l/0CH9JckxArshHxrcKNasTT1KY+THNbnU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oiZEP7OpCIsqJjvdYKkevmchA6zgM0L0JbMK2PNOKCmVhlvuhntt6x0vOAA36NF8aE+Xk/ObO3cL/xqlwFU20ld2ZUrKzpVSsXFxYAWYH2lW0El7Pswo+5U7+EGhBQifeaA0oWw3HPwZj5fUwrF9H5HR7cEKONrE+NgH2LvTH6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r18FnzEo; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ED520D4FC;
+	Sun, 27 Sep 2026 21:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790545388; cv=none; b=qDgT0fGgijxOgWbTXiyoOClX93Vpo0z4l5cDey2LyApXt/XMBQ9L2pI1bjf7aXMUC4jwzyT3TQJD9NMSI2t7gwD8wnF8qxQFSE6viNIK17bBLVTR/ZvUlDEuyNljhVCV9BU0yyz+HMMH99WYrGCiLzGl5LMqteu4LD+U14mHpk4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790545388; c=relaxed/simple;
+	bh=n4DDGAK/8u1AuRg6WBpYGIC5R/YZsN31zuN1oi/vDD8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=KkjobsF6G2sJ21IPLDuaPVMT+Fq4Yt7EShOvP6GgwZuHg5rzrsLJgnbd1DzUQJTcpNNta4lUy3ktAsvW7RCSHqfP79Zp8Vohnd6BYQXSC9GK1FBoUgfEFDkIRJwQ3A/TZbRk9mU84R20dgwc8dxtKHfHBjvMneEtEkyMICo3GxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zz0V6oF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r18FnzEo"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso4348095a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:42:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790545332; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GTiIM4AveF3fzx7RLcJn89GBAQ+Tx6arxTiT45ugplai19BVYU0//LuF3bPOX4vN4X
-         HeJGFQxoR2if5VikmDIiLP8+NXalQVbPOUYR8FiU7d+u8BMUYG3Xj4hcJ64mUU1bqoyJ
-         oLEaBMi4c981DQamnEzX0MEw6EXXWX4LVZ1/Hq90yfVuHJQ7BiAmgc++9j3P388GdXL/
-         6vOJYOpcllNSmc8fJg2KmLwQSdy5FTXBdpVqW6nrgLqdwq2vSYaPUN3Num/C+wj2g7dW
-         l5QxCB4PH9ZeDxooEOHCRYOIT7usBLx/C5bwyFvMwyW82KxFBm8XHc/EgPMekb0W08vx
-         5aJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
-        fh=v8FrDj9aP0f8QFFL6/NGlUI7ETMi3TkAY7O7I5PkpXc=;
-        b=OGz7WgP7k6sBtaud2puYLt3LljqtNuI+xYk52Jhu7x7rrp/Rcb2i5bB9EPo2vERNkR
-         JNqSisKkOp/i8mTE9LTgTWYriNuwesiVQoCnseQCns54lB17wfCwJ9fPJ5dIYFgjI/fA
-         rUuaSHTaepEh8sLpOgYIRbk+JjO/X9xQ/ztVSX8D8zpYJFlU9d7ALuGkvjAw2yYGXHFj
-         78011Z79KJoh2SZwMDZaaC0wkfKrGFgSPNRT2ZLL9DF6LjSE/19NHYudwG7+9VAuzNI8
-         oPezqRM79r8B2bJVWv+btdf380ko2asEXsCXyWMQhpXwnDgAwvMS/4bfqu/+judlLvcG
-         ggVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790545332; x=1791150132; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
-        b=r18FnzEo9akq18gGJQ1VbCBFJ/QctnsGUpC24j68x3PpaKmWnNQNVh19PT2GF/PwEM
-         SAE+l2/XusEJbHb/upQWIcB5eP/p8UISMvwXwuDqCkGPrayoEx4lhJz+71MGUVogJJkW
-         /bqSeNGqHcHEh73vSvFYMt/+uWBifSwJ4fjKJmshex+Dx0+oHhX+DvS1tq+U0st72JQY
-         GrhuaON6n3/6Jjg7gn2lC0Dt28FGJC5JjuJIk0/DoyJayfxz5hOVwLKuHyewIEie2/mC
-         nWmy0JzFDIXmTtbju4vVhXZzvPXKkBHh9NXVWhQz98ovmdjLj1TGN1GToTTx9FAY5MdK
-         bkew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790545332; x=1791150132;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
-        b=Zi0w4q+kkBvuBwHOQVUkn67/RToFVq9H1SSka1JnNambh4cl3rnFIXOAZmlGOrn1HM
-         srcMVzPsZGbYJDiOc4fFVV+zsGtSARa0UVTpM0kJJHlgQZoz3XSvQOaVhUCNEwHkT3RQ
-         2eFXuuClqlkTRvStNwCag7JVMtOPLGid+0Hrd5Ie8DhBVcFi6nmvCzeha4//6WgRzF4l
-         /4iSPkcxF60JjlfG+QYqtltGsl5ZoEnQ9REpz4bfRKCkFKl2t2/joyTv7o8QZq0NTrMQ
-         9GzU+2l+xl4JEXNx/JOFdw8UBNkkawlY0yQqlwVC8HvU4vnpUrWAFdGlVxcI8ZuSqzHK
-         yhvA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp2QHmp/RGV7D+bgp9R4iJw9PeKCrgn+4oniT5rbTLDs7HV76KsRBZo948UNydnHChse01meOpEkYlsvI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKn7UuRu3uOUpgOAFgvERhKUv5lAXPB8NcTjKKFbfYzSS/2UkSh
-	ifACaJyRjnDNpzvOySCp8KgSBX36WD+gJOznFvXbLIJO3KnbCy1X6k4xfo+g5L8zoooqb2bzDn+
-	3bM1wXnjWoe4SGngpo0BY/jL2WkfP77I=
-X-Gm-Gg: AYBFou0HOtgoED4aT2+STvGth3NJ0toSSRb4P0NHRNVWzQZ6rzjihYJvfgWfTVV+o9i
-	0iAEgxpYuRi0pBAWeVBaHRud1+cV4pCJlJLOomGbk9Qoln8l1+dXK+q+Gv13mcg/TLg7JEeBaQg
-	8WGnbMdrldpVtYG7xzSroFmI9iVi4FV83aFILz+4L5pUyCw1l8RRwnsiBGpCKKo9Fbiha/Qnml1
-	wjgQ5Bn+nIjmEg3fjmlr2ZVmnp4QTpHmg9y4JEuFqvkW4eDxMjG0JJ7oiawui7Y7QgKKqT+uLsq
-	6zDUn6eOYU7S/5wCaelC+JbQb+/F9GUt9aBx/wkhQUOKot/r0uvtBmfpdkAVp9HxwTxaguBu8Ww
-	Q04R7vm9CRYv5djHaL5w8Oo2rp7TSi+DqtYnW5UwqeB/YwC0V8ypX
-X-Received: by 2002:aa7:cb47:0:b0:6ab:260:6378 with SMTP id
- 4fb4d7f45d1cf-6ab026076cemr2280176a12.11.1790545332049; Sun, 27 Sep 2026
- 14:42:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zz0V6oF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFAB91F000FF;
+	Sun, 27 Sep 2026 21:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790545386;
+	bh=BVuWMZa259dxnjcZi7fHN6YYW1e8KlsPsvD+/UH+8Z0=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Zz0V6oF+13UMKXCKD2VQoDSn+jsKcMncv5yM40z7aN0c0hlM9Oshflrs1D87phTIv
+	 Vzb0HlMdmMGZl0Oi0hOvHwOsXJj+SIAJ/nNBT9hgOxZr1c9n3jgtOrDXinCh6Mu7do
+	 bAhIBjYSdxz4IVSvlkzT7NuRJ1W7aWTaUZmiowcucuk2bk5+otQJrZpR1Urd6+a5Ex
+	 YDLb/a5zRkMQZo4KsUk7fQtjj06SOIYZKSoEc2CK3bx4PF1Oh2Yfm8bB2gQCRn684k
+	 4dvET8UdWqe09IseB36SdS8wJ2qAiGDFeUkuNOWpCxXQOROGpxGHFTziqtfBuwW3EL
+	 HyB2DV9aolmBQ==
+Content-Type: multipart/mixed; boundary="===============7163960345673193045=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927005821.8369-1-kaloz@kernel.org>
-In-Reply-To: <20260927005821.8369-1-kaloz@kernel.org>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 27 Sep 2026 23:42:00 +0200
-X-Gm-Features: AclHuK9q0tb_hBdeGsUv9gVCeUkhxtwokVdYI1IVMCxdiVUrGe9SugUg-B68nyc
-Message-ID: <CA+=Fv5RrA4iavVf_-0qMst0OKDtCnbB2sbsbjNVnAsRufbboiA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] sparc32: SMP futexes, casa and idiv emulation
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <3e07af39920f472e97ee3cf73eddc49a72a11dffb2e11e9b7c5b7cc1d80affef@mail.kernel.org>
+In-Reply-To: <20260927205501.672807-1-visitorckw@gmail.com>
+References: <20260927205501.672807-1-visitorckw@gmail.com>
+Subject: Re: [PATCH v6] m68k, bpf: Add initial BPF JIT compiler support
+From: bot+bpf-ci@kernel.org
+To: visitorckw@gmail.com,corbet@lwn.net,skhan@linuxfoundation.org,geert@linux-m68k.org,ast@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,memxor@gmail.com,andrii@kernel.org,gerg@linux-m68k.org
+Cc: rdunlap@infradead.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-m68k@lists.linux-m68k.org,bpf@vger.kernel.org,jserv@ccns.ncku.edu.tw,marscheng@google.com,eleanor15x@gmail.com,visitorckw@gmail.com,daniel@thingy.jp,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 27 Sep 2026 21:43:04 +0000 (UTC)
 
-Hi Imre,
+--===============7163960345673193045==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
-:
->
-> sun4m has no compare-and-swap instruction and casa is optional on
-> LEON, so SMP sparc32 has had no futexes, and user code on those CPUs
-> has no CAS to build locks from.
->
-> Patch 1 implements the futex atomic ops in atomic32.c and drops the
-> !(SPARC32 && SMP) dependency of FUTEX. A LEON part that implements
-> casa, found by a boot-time probe, runs casa on the user word; other
-> CPUs take the __atomic_hash spinlocks.
->
-> Patch 2 completes user casa from illegal_instruction on CPUs without
-> it, through patch 1's futex_atomic_cmpxchg_inatomic(), so emulated
-> casa and the futex ops serialize on the same lock. It is atomic
-> against itself and against the futex ops, not against a plain store
-> to the same word, so a C library using it has to do its atomic stores
-> with casa too.
->
-> Patch 3 completes udiv, sdiv and their -cc forms from the same
-> do_illegal_instruction() dispatch: SuperSPARC and SuperSPARC-II trap
-> those when the {Y, rs1} dividend has significant bits above bit 51,
-> which gcc -mcpu=3Dv8 output, including libgcc's __udivdi3, can produce.
-> It shares patch 2's windowed-operand helpers and the dispatch block,
-> which is why it comes last.
->
-> Patch 1 comes first because patch 2 is built on it. On its own it
-> races nothing: without patch 2, user casa on these CPUs is SIGILL.
->
-> Magnus Lindholm has an independent RFC covering the same ground from
-> a different ABI: "[RFC PATCH 0/5] sparc32: kernel assisted
-> compare-and-swap, and futex on SMP" (patchwork sparclinux, Message-Id
-> 20260923201830.865553-1-linmag7@gmail.com), with a companion glibc
-> series (patchwork glibc, Message-Id
-> 20260924064228.867909-1-linmag7@gmail.com). That RFC adds a new
-> software trap, ta 0x11 (trap type 0x91), extending David Miller's
-> 2016 CAS-trap prototype at ta 0x23 rather than completing it, so
-> userspace has to be rebuilt to call it. This series instead
-> completes the casa opcode itself, so a binary already emitting casa
-> (gcc -mcpu=3Dleon3 or -mcpu=3Dv9 output, or a C library that encodes it
-> as a .word) runs unmodified on a CPU without hardware casa, with no
-> new trap number and no libc rebuild. Happy to share the futex and
-> do_illegal_instruction() plumbing with whichever ABI lands.
->
+> diff --git a/arch/m68k/net/bpf_jit_comp.c b/arch/m68k/net/bpf_jit_comp.c
+> new file mode 100644
+> index 000000000000..a04ce91eb8e8
+> --- /dev/null
+> +++ b/arch/m68k/net/bpf_jit_comp.c
 
-For context on the userspace half: the glibc side of this was declined.
-Adhemerval's position is that glibc will not carry arch-specific atomics ag=
-ain,
-and that v8 support should come "first get the support on kernel, then add =
-the
-support on libgcc, and finally on glibc transparently through GCC atomic
-builtins".
+[ ... ]
 
-That goes against my ta 0x11 trap and in favour of completing casa: a new t=
-rap
-number has to be taught to userspace, whereas an emulated casa lets libgcc =
-and
-glibc use plain __atomic builtins with no arch-specific code. Your series l=
-ooks
-like the better fit for what glibc actually asked for. I'm happy to
-drop the trap
-and help with the futex and do_illegal_instruction plumbing instead.
+> +static int jit_atomic32(u32 *ptr, u32 val, int op, u32 cmp)
+> +{
+> +	unsigned long flags;
+> +	u32 old;
+> +
+> +	local_irq_save(flags);
+> +	old = *ptr;
+> +	switch (op) {
+> +	case BPF_ADD:
+> +		*ptr = old + val;
+> +		break;
+> +	case BPF_AND:
+> +		*ptr = old & val;
+> +		break;
+> +	case BPF_OR:
+> +		*ptr = old | val;
+> +		break;
+> +	case BPF_XOR:
+> +		*ptr = old ^ val;
+> +		break;
+> +	case BPF_XCHG:
+> +		*ptr = val;
+> +		break;
+> +	case BPF_CMPXCHG:
+> +		if (old == cmp)
+> +			*ptr = val;
+> +		break;
+> +	}
+> +	local_irq_restore(flags);
+> +
+> +	return old;
+> +}
+
+[ ... ]
+
+> +static void emit_atomic(const struct bpf_insn *insn, struct jit_ctx *ctx)
+> +{
+> +	const s8 *src = bpf_get_reg64_ref(insn->src_reg, tmp2, ctx);
+> +	const s8 *dst = bpf_get_reg64_ref(insn->dst_reg, tmp1, ctx);
+> +
+> +	if (BPF_SIZE(insn->code) == BPF_W) {
+> +		s8 s_lo = bpf_get_reg32(src[1], tmp2[1], ctx);
+> +
+> +		if (insn->imm != BPF_CMPXCHG) {
+> +			if (is_stacked(dst[1])) {
+> +				emit_16(ctx, 0x206e);		/* movea.l d16(%fp), %a0 */
+> +				emit_16(ctx, (u16)STACK_OFFSET(dst[1]));
+> +			} else {
+> +				emit_16(ctx, 0x2040 | dst[1]);	/* movea.l dst, %a0 */
+> +			}
+> +
+> +			emit_16(ctx, 0xd1fc);			/* adda.l #imm, %a0 */
+> +			emit_16(ctx, (u16)((s16)insn->off >> 16));
+> +			emit_16(ctx, (u16)insn->off);
+> +
+> +			if (BPF_OP(insn->code) == BPF_XCHG) {
+> +				emit_16(ctx, 0x4eb9);
+> +				emit_32(ctx, (u32)jit_atomic32);
+> +			} else {
+> +				emit_16(ctx, 0x2f00 | s_lo);
+> +				emit_16(ctx, 0x2f3c);
+> +				emit_32(ctx, insn->imm);
+> +				emit_16(ctx, 0x2f08);
+> +				emit_16(ctx, 0x4eb9);
+> +				emit_32(ctx, (u32)jit_atomic32);
+> +				emit_16(ctx, 0x4fef);
+> +				emit_16(ctx, 12);
+> +			}
+
+[ ... ]
+
+> +	case BPF_STX | BPF_ATOMIC | BPF_W:
+> +	case BPF_STX | BPF_ATOMIC | BPF_DW:
+> +		emit_atomic(insn, ctx);
+> +		break;
+
+Can this code handle 32-bit BPF_LOAD_ACQ and BPF_STORE_REL atomics?
+
+Looking at build_insn(), every BPF_STX | BPF_ATOMIC | BPF_W instruction is
+sent to emit_atomic() without checking insn->imm.
+
+On 32-bit arches, the verifier accepts BPF_W-sized BPF_LOAD_ACQ (0x100)
+and BPF_STORE_REL (0x110). In check_atomic() from kernel/bpf/verifier.c,
+these operations are only rejected when BPF_SIZE is BPF_DW and
+BITS_PER_LONG != 64:
+
+    case BPF_LOAD_ACQ:
+        if (BPF_SIZE(insn->code) == BPF_DW && BITS_PER_LONG != 64) {
+            ...
+            return -EOPNOTSUPP;
+        }
+        return check_atomic_load(env, insn);
+
+For BPF_LOAD_ACQ, emit_atomic() loads %a0 from dst_reg + off and calls
+jit_atomic32(ptr = dst_reg + off, val = src, op = 0x100, cmp). The switch
+in jit_atomic32() has no case for 0x100, so it only runs `old = *ptr;` on
+dst_reg + off.
+
+But dst_reg is the destination register for a load. check_load_mem() in
+the verifier only checks dst_reg with DST_OP_NO_MARK, so it can hold any
+scalar or be uninitialized. The resulting dereference of dst_reg + off
+(instead of src_reg + off) can read from an arbitrary address with no
+exception-table entry.
+
+Also, is_fetch is false (0x100 & BPF_FETCH == 0), so dst_reg is never
+written back. The verifier tracks dst_reg as holding the loaded value, but
+at runtime it keeps its old value.
+
+For BPF_STORE_REL, jit_atomic32() is called with op = 0x110. No case
+matches, so the store is silently dropped.
+
+Other 32-bit JITs (mips32, x86_32, riscv32, parisc32) reject unsupported
+atomic imm values. Could emit_atomic() or build_insn() accept only the
+imm values that jit_atomic32/jit_atomic64 implement and return -EOPNOTSUPP
+for the rest?
+
+[ ... ]
+
+> +static void build_prologue(struct jit_ctx *ctx)
+> +{
+> +	int bpf_stack = MAX_BPF_STACK;
+> +	int total_stack = SCRATCH_SIZE + bpf_stack;
+
+Can this stack reservation overflow the kernel stack?
+
+Every function reserves SCRATCH_SIZE + MAX_BPF_STACK = 96 + 512 = 608
+bytes, plus 16 bytes for d2-d5, 8 bytes for the return address and saved
+%fp, and emit_call() pushes 40 bytes of arguments for each bpf-to-bpf
+call.
+
+That's 632 bytes for the main frame and 672 bytes for each nested subprog
+frame, independent of prog->aux->stack_depth.
+
+The verifier allows MAX_CALL_FRAMES (16) nested frames. For CAP_BPF
+programs, it rounds each frame's stack_depth up to 16, so subprogs with no
+stack use cost nothing against the 512-byte combined limit.
+
+A program with a chain of 16 small static subprogs is therefore accepted
+and uses 632 + 15 * 672 = 10712 bytes of kernel stack on top of the
+caller's stack.
+
+On m68k, THREAD_SIZE is 8KB for every configuration where this JIT is
+enabled, thread_info sits at the base of the stack, and there is no guard
+page. Even 12 levels (632 + 11 * 672 = 8024 bytes) overflow by themselves.
+
+Shallower nesting can overflow when a program runs in softirq on top of an
+already deep stack. Callbacks invoked from helpers such as bpf_loop add a
+C frame plus another full JIT frame per level.
+
+The main entry needs MAX_BPF_STACK because a tail-call target reuses its
+frame. Subprogs can never be tail-call targets, and they cannot issue tail
+calls here because bpf_jit_supports_subprog_tailcalls() is the weak false
+default.
+
+Could subprog frames be sized from the actual stack_depth instead of always
+reserving MAX_BPF_STACK?
+
+[ ... ]
+
+> +	case BPF_JMP | BPF_CALL:
+> +		return emit_call(insn, ctx);
+
+Does this code copy back the callee's R2 for aggregate returns?
+
+For a subprog whose BTF return type is 9-16 bytes,
+bpf_compute_subprog_ret_regs() in kernel/bpf/verifier.c sets
+subprog_info->ret_reg_pair and prog->jit_required.
+
+On exit, prepare_func_exit() copies the callee's R2 state into the caller,
+including pointer types for static subprogs.
+
+In this JIT, BPF R2 is not a machine register. It is a slot at
+STACK_OFFSET() from %fp, so each frame has its own copy.
+
+The callee writes R2 into its own frame, BPF_EXIT runs build_epilogue(),
+and unlk discards that frame. emit_call() only fixes up d0/d1 for R0 and
+never copies R2 back.
+
+The caller's R2 slot keeps its old value (for example the argument it
+passed in).
+
+This creates a verifier/runtime mismatch. For example, after
+'r2 = 0xdeadbeef; call sub' where sub returns {r0, r2 = map_value_ptr},
+the verifier thinks r2 is a PTR_TO_MAP_VALUE in '*(u64 *)(r2 + 0) = x',
+but at run time the store goes to 0xdeadbeef.
+
+Because jit_required is set, there is no interpreter fallback.
+
+Every other JIT that supports BPF_PSEUDO_CALL keeps R2 in a hardware
+register, and arm32/x86_32 reject subprog calls.
+
+Could the callee's R2 be copied into the caller's R2 slot after a
+BPF_PSEUDO_CALL, for example by returning it in d2/d3 or through a scratch
+location?
+
+[ ... ]
+
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+
+Does this code handle the BPF_ST | BPF_NOSPEC instruction?
+
+build_insn() has no 'case BPF_ST | BPF_NOSPEC:', so the speculation
+barrier the verifier inserts falls to the default and returns -EOPNOTSUPP.
+
+m68k does not override bpf_jit_bypass_spec_v1() or v4(), which default to
+false.
+
+For any program loaded without CAP_PERFMON while mitigations are on
+(unprivileged, CAP_BPF-only, or through a BPF token), the verifier emits
+BPF_ST_NOSPEC() for speculative-path sanitation and after stack spills, in
+kernel/bpf/fixups.c:958-962 and 1035-1042.
+
+build_body() then fails and the whole program is not JITed. With
+CONFIG_BPF_JIT_ALWAYS_ON, which this patch makes selectable by adding
+HAVE_EBPF_JIT, and whenever prog->jit_required is set, the load fails with
+-ENOTSUPP instead of falling back to the interpreter.
+
+test_bpf.ko runs as root and so never hits this.
+
+Every other eBPF JIT, including arm32, mips32 and x86_32, handles
+BPF_ST | BPF_NOSPEC as a no-op or a barrier.
+
+Could this case be added, or should bpf_jit_bypass_spec_v1/v4() be
+overridden if m68k does not speculate?
 
 
-> Andreas: do LEON3FT parts want the GRLIB-TN-0010/0011 "nop; .balignl
-> 16" alignment before the casa word here, or is the plain encoding as
-> posted fine for them?
->
-> Notes, not for the log:
->
-> - checkpatch on patch 1: "Lines should not end with a '('" is the
->   __asm__ __volatile__( idiom of uaccess_32.h; the -ENOSYS warning is
->   the futex API's return for an unknown op, as on every architecture.
->   "does MAINTAINERS need updating?" on patches 2 and 3 is covered by
->   the F: arch/sparc/ entry.
-> - On qemu's SS-20 with two SuperSPARCs and the casa emulation alone,
->   futex() returns ENOSYS and musl's mutex, PI mutex and robust mutex
->   tests fail. With patches 1 and 2 they pass, as does a PI lock
->   contended between user casa and FUTEX_LOCK_PI/FUTEX_UNLOCK_PI on
->   both CPUs.
-> - The casa branch of the futex ops has not run on LEON hardware. The
->   probe runs on LEON only; its fixup path, which a LEON without casa
->   takes, has run only in a test kernel that forced the probe on
->   qemu's SS-20.
-> - The divide emulation has run on no CPU that traps it. No sparc32
->   model in qemu raises the trap, and no SuperSPARC or SuperSPARC-II
->   was available for this series; it is exercised only by build and
->   link.
->
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-FWIW, I have access to both SuperSPARC or SuperSPARC-II hardware,
-SS-10 and SS-20. I'd be happy to assist here with testing on real
-hardware.
-
-Magnus
-
-> Imre Kaloz (3):
->   sparc32: support futexes on SMP
->   sparc32: emulate casa on V8 CPUs
->   sparc32: emulate integer divide taken as illegal_instruction
->
->  arch/sparc/include/asm/futex_32.h |   6 +-
->  arch/sparc/kernel/Makefile        |   2 +
->  arch/sparc/kernel/cas_emu_32.c    | 117 +++++++++++++++++++++++++++
->  arch/sparc/kernel/div_emu_32.c    | 127 ++++++++++++++++++++++++++++++
->  arch/sparc/kernel/entry.h         |   2 +
->  arch/sparc/kernel/traps_32.c      |  23 +++++-
->  arch/sparc/kernel/unimp_32.h      |  71 +++++++++++++++++
->  arch/sparc/lib/atomic32.c         | 122 ++++++++++++++++++++++++++++
->  init/Kconfig                      |   1 -
->  9 files changed, Magnus468 insertions(+), 3 deletions(-)
->  create mode 100644 arch/sparc/kernel/cas_emu_32.c
->  create mode 100644 arch/sparc/kernel/div_emu_32.c
->  create mode 100644 arch/sparc/kernel/unimp_32.h
->
->
-> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-> --
-> 2.47.3
->
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36350420232
+--===============7163960345673193045==--
