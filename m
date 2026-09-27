@@ -1,173 +1,135 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD503B6BF1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD80A380FD3
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490293; cv=none; b=Sff7YHPjZHM+/UvBiS+diSR87n0vtwGUmbYlD6OHRNLlIbZ0KK8zEDdQmeTt9LosDJrA/024lK7jokiGYSFszhtcBHvkljl8C4RDIavN7rhN5dZakANwT1D6+/Aabf3+nNoibtCw3uf7FjmPkKjajZmpb243lpXijUI3X2yvU9s=
+	t=1790490680; cv=none; b=ZOgJu0gKLwle63OBTcg4Dq4h5mD8CXSnYhi5hGmMvqEP7yrea04+uvUA99lkIXQ9BcJzFIW2qfUrCtaDQG1dA8F+Jy+w3zztjL8OKttoXQWAWsqUyfLLJQvj8O96eTd5271phnMwTrF+h6E74aWjWpdI8d5ruUz0ViH+dB3lvgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490293; c=relaxed/simple;
-	bh=eT/fj5vZ0Sj0xWvtck5u0p9IG2kOT0o4JMJn6zf0/qU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9hK88DVae2+sj0kye/LnAPC1PibT+GFnODdQ1OQwEati2KPMqTFmMCUm+9LYdJg2pxD3zMxIoMuruJDsS/opAU9a0s9WCBqofWZ0lV5g7qfD5m0BJb5eZ/yUAxvJzN9epOvrFVLPwERLSGrbX+rXFnNXg0BiRsuZKJSpOa21n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FBqWKevv; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790490680; c=relaxed/simple;
+	bh=AFVICFN4chX62VI8nPVeK5uJPzcrbrWeDjC5hZXZc+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dAU8oT/dzwkvyG8q/DhUlRPWooBnKIKW0WLQ/3OyfdhAbrcKzMz+iWa2k5znZdHTxPMOJAHraoHsXBYM0Sgka/Ai57Vg6oc+w1evPSrVyKANKCM/SEoVgP9a3y626gm6V16U0zz1KP0CTUzhCDJR5rI3PW5PFMnOO9dYweDYaYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihFU0X74; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBqWKevv"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e79c06622so185469eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:24:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihFU0X74"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso18882015e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:31:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790490291; x=1791095091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
-        b=FBqWKevvtUd2QdrC97qdrqzsBIb61h0S1+7pNq9x7edXsNUKxvnvhoOusCjDhLUPmz
-         AAW8nV4hay+UuN/6Pcw0fABgsGacFzX44OoeXxvPHRnEbJRcVu8UyphbwqBjhhgJ9/R7
-         mqeQ2CfV4tB9DWQwuN1DSmwnNVx25CBDwhU39r4qUP4BzGC1jjT/bkfIK4qJ3pN0eCXL
-         CoLFnO2wxnuPtfiqPgEkcl0R4KFvEOKFcTxEnVUsHUwUdndlSVNTInYuWptdN+kwE/hN
-         ZjrAFr4vFrHywWVWVht1vs6M3Lj/xE9wZkVPq3g6xAIGMLZ9JM6m6FHpMn10X53Ba2SZ
-         C05Q==
+        d=gmail.com; s=20251104; t=1790490677; x=1791095477; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G98IODEmjwEPHfQZb5jDWlDo2HGYU0z05SG8co7Iw9U=;
+        b=ihFU0X74tUij6HHnWANbCm2IrL6ZXvnx05GenDJYNXJ6srIgqtGGS6CCHBai6S2Buw
+         F/vsGzZJX1a7uIEJDFh2xy2Hti12QQRRwUEFfyigA/RAV83LsmEKG0mLptv15ibd9QXr
+         M0VJSUvq7FzTJTgpX5IWt8oIC4xN24RY4wJa6UXo88a/9cmfgVx8YrccDcALQZlJotiy
+         C5QAe3wcVjMQ96fLJwcY9/KU0QzM+5JVHSlf1iqu+9oq5G7iaMRIB9YmTWUzkCID6gkq
+         5bX4TdYsmhhMDIPryBqNtJI0pZTmBKIiG6BYx1aKQwF5WquhhfaN7F8A3y0Qh7BshjdZ
+         K/Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790490291; x=1791095091;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
-        b=VbdTLBXG6U702+m4ElFWfz7ar/ucBKHz2A0haW/m996zmYkhzXsJieLmww8It3GLee
-         /RlI54IZklx7TNoWNGTLV3PlwoVjO+DYYzBk4HaC6FzhH1V5K5EV6vLgNH6KL+prnegM
-         C6T7WnY0yLwjXnBSX61hAk/gG/oxQ0VL9v+Tmsesrm8G2TN03kBTj7Tm1f9imNnQAVNG
-         2DTA4ULBY/cKh0zqx+fTPQoF2HHWFIAMs1n9weryHwU7BKxu9/p9zXszfsCqfOFnCsDU
-         Hmcp8zP6iMJIbsuejQHZD61S3koEaG05GISYq0ycU/fqY/bq7RSLFZebF8kmRrxBma8W
-         K6Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzit5KfSagXV4XWz3wRzYHCTU3ChI3JYUOPpd5/8wy4YXxAHfGH8YG8sshLuu6IP6CgmNq53iqn51nqd34=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrhenO9Mqns3GN7QRE2B5vDmKOZ6ZMf3cJNR+mPR0foyxO5NJ6
-	25/XTgKTRsH89iTa4SGntEl9BRupAgWZf5rgR+MYbc6jWTaXVsp+difX
-X-Gm-Gg: AYBFou1N9V9337xc9N5jOacUsYZvZHydKiskZni5Cl0uF4kEYriPRvsCnhOovifeWj1
-	ZU+cgbT6tMglvmQWtI2IYKcNkobno07x6i0tT7BC0Y4kaU+hZkX+pGeHqowv0o78BMVphT0nGP8
-	9HJeToe8cBuSbQLRTNgy7OCEhumiIq3kICQ+FWKQ5WYt6JrcldOTw35ZdRW/a7ZMm8fJtqPyU4B
-	pdkxKhZuEgdsM5/nlq8F05eghsVy8W0IV8W1fthEnDYBoRtWc3rLFGFE0k9fQugTRVxsZVbjx94
-	lzNdn0+cwJGY3hFM2rGAz5hb5QFvzgCdUYxW4O4Z2b7NDJv7h3K6/ilWXfCFehUo2HcF5SPjcEu
-	MbI5/dE/izMdZgPYQTZYlpOT3kVgtgMtA4MnL0R5fqtVIWESUW1zrKI/AiqXS+jT8MrU680eSxL
-	rVgSofibaK52OThmKI5ZXaFjx1alSvvDlyFG/B+vwKLhTvUgq/w+J8dtwpA3keHDZRvhNrc1HG2
-	bfJkWEmYvx6AO7F6U0Nuj8MZHHrJ0gUiZfyMScFWrcsyHyoFmYQh+G6ev5ZwYvzLh+jy7apspQp
-	c4xn
-X-Received: by 2002:a05:7300:f64b:b0:33e:4e49:d08d with SMTP id 5a478bee46e88-34272b4bc81mr8484339eec.1.1790490291342;
-        Sat, 26 Sep 2026 23:24:51 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm19056291eec.0.2026.09.26.23.24.47
+        d=1e100.net; s=20260707; t=1790490677; x=1791095477;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G98IODEmjwEPHfQZb5jDWlDo2HGYU0z05SG8co7Iw9U=;
+        b=pXv7KQeh7t1Ifp7DfeS8YSfvSkRfDvu08Zho+Xw3na9PnpV2yl6WinfQrjpJn2gzHi
+         XNPTahIsc1aGEKu31ubNeH9AJAkXCRTWRK7qOwB5HhapcwGhAiifg8GQiuTJwUrtgpuL
+         zc3IRCc5Yhf3f3LUF/ogu2BwWNx7AiPd0Ma176hKCHddAX/CBJ0LOe6LijI3KxdxVOOf
+         F4ZGULgXMwL+o/z4KZiGbenMeD8nYOV3VUy87RugOqyftqCq1wTh+A2thFGSy+QpgDck
+         OT4JlEbXb/qWvmcyzDMDkiCv71DSiBCai/5bEmSfDHlZj2WS13aqL/61tBWQgh+t2Bmz
+         cGOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy1mONmDPLxYzgv5aiOP2ciqTsFOwQvfoFIw/yZbtx/kaXR/mOLYOE5ljWxuJZZT1+0aWEaXrmFWFpmN5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6oeKGgO8iiCniV4elE7oJTroarur77e8+rCHPaM0R8MlGKoxJ
+	g/G4mpvnDtV6Gvy7SiWRVYT80Yt4iwxrVAB/SCSbXytXEdYLbTeXSRfx
+X-Gm-Gg: AYBFou3Xo+sz9X/dAG/V3NQkmFRuQPKIC3h/KNZZt2WabZEbxzvaOFnRVz6As0avECE
+	Ml44JOdrQxQWmlUk5LCAylNZHR7V7VheTlc763m0qNM/ncsrGQas/WL/fODo3xkE4Mpi2KdXRSv
+	EsqMXwB8lIP86T1hI8+psKL2hDYRVkJtEfI/69SQ1c2Jvv9dId5usamoIeqwy8ZpL1FL5yc7Fc8
+	UAHOvME0flLRB0UAlYrVPRirng/PotfzGvKqMHz7KNnGKMf6K43roLM9g2tLHNyCLBvws/csY97
+	ppmuZFJEMhix7tU6b3t+3MRYb6QpuIRQ93U0jq3XtYhIaasm5szQg/JdvLLm0vG3QGTizK9DQxB
+	rTsAGjy6em4LGglqIFoxPrNWigrChAXcquvB+EMO6wms2uX/Gb3gwAuYaE6dvO8zy7IZSkBabTp
+	s+7r/k7AtEFn9iB4N2RO7m6M3V2KANnMaud8nE5Xh40+BIU20peve9BSjwrU9nf9EB9euCJ7O2h
+	4JQIcaG+iJsuYM27GmLl4933WMnHAnXeIo=
+X-Received: by 2002:a05:600c:4f41:b0:49f:fe5a:522f with SMTP id 5b1f17b1804b1-49ffe5a56c9mr49760925e9.23.1790490676934;
+        Sat, 26 Sep 2026 23:31:16 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef6186a6sm142933845e9.4.2026.09.26.23.31.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:24:50 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Hans Schillstrom <hans.schillstrom@ericsson.com>
-Cc: netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ipvs: fix protocol data lifetime during namespace teardown
-Date: Sun, 27 Sep 2026 14:24:35 +0800
-Message-ID: <20260927062435.3690129-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 26 Sep 2026 23:31:16 -0700 (PDT)
+Date: Sun, 27 Sep 2026 07:31:15 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Ridham Khurana <khurana.ridham222@gmail.com>, Guenter Roeck
+ <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christian Lamparter
+ <chunkeey@googlemail.com>, Alexander Sverdlin
+ <alexander.sverdlin@gmail.com>, Nikita Shubin <nikita.shubin@maquefel.me>,
+ Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, Brigham
+ Campbell <me@brighamcampbell.com>, linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+Message-ID: <20260927073115.15110623@pumpkin>
+In-Reply-To: <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
+References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
+	<f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-IPVS frees its per-net protocol data before control cleanup cancels
-defense work and unregisters the sysctl table. A defense worker can load
-a protocol data pointer, then namespace cleanup can unlink and free that
-object before the worker dereferences pd->pp or pd->next. The worker's
-securetcp_lock does not serialize with protocol cleanup. A concurrent
-defense-mode sysctl write can reach the same timeout update path.
+On Fri, 25 Sep 2026 20:03:06 +0200
+Christian Lamparter <chunkeey@gmail.com> wrote:
 
-KASAN reported:
+> Hi,
+> 
+> On 9/24/26 10:53 PM, Ridham Khurana wrote:
+> > temp1_input_show() drops the low bits of the temperature register by
+> > dividing the raw value (raw / 32 on the LM70). These bits are not part
+> > of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+> > return some of them as 1, and the TMP125 fills them with copies of the
+> > temperature LSB. Division rounds toward zero, so a negative temperature
+> > with any of these bits set is reported one LSB too high.
+> > 
+> > For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+> > driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+> > the driver reports as -24750.
+> > 
+> > Use an arithmetic right shift instead, which drops the low bits and
+> > rounds down. tmp421 had a similar problem with negative values, fixed
+> > by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
+> > values").  
+> 
+> For the TMP125 yes:
+> 
+> Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
+> 
+> 
+> > Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+> > Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+> > Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+> > Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+> > ----  
+> I wrote a little test program by hand (see below) and ran it on x64.
+> No idea if different archs behave differently or if
+> a clever unsafe math optimizing compiler flag will
+> convert the  "/ 32" to a " >> 5" but I doubt that...
 
-  BUG: KASAN: slab-use-after-free in ip_vs_protocol_timeout_change
-  Workqueue: events_long defense_work_handler
-  Call Trace:
-   ip_vs_protocol_timeout_change+0x1b4/0x1e0
-   update_defense_level+0x63e/0xd80
-   defense_work_handler+0x1e/0xc0
-  Allocated by task 125:
-   ip_vs_protocol_net_init+0xda/0x2f0
-   __ip_vs_init+0x16b/0x240
-   setup_net+0xfc/0x310
-  Freed by task 12:
-   ip_vs_protocol_net_cleanup+0x1d6/0x2e0
-   __ip_vs_cleanup_batch+0x7d/0x100
-   cleanup_net+0x38c/0x770
+A compiler will convert an unsigned divide to a shift, but can't
+do so for signed divides.
 
-Run control cleanup before protocol cleanup so that defense work and
-active sysctl handlers have finished before their protocol data is freed.
-Initialize protocols before exposing the control interface, and unwind
-in reverse order, to enforce the same lifetime on initialization failure.
-Protocol initialization and exit do not depend on control state.
+But you'll also get flagged because C doesn't define right shifts
+for negative values.
+I think they are actually 'undefined behaviour' (UB) if clang detects
+that your code is UB it silently just stops generating object code.
+	(int)((val + 0x8000u) / 16u - 0x8000)
+might safely generate the correct value.
 
-Fixes: 9330419d9aa4 ("IPVS: netns, use ip_vs_proto_data as param.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/netfilter/ipvs/ip_vs_core.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index fd503f0efb57..8a3c880fdb26 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -2502,12 +2502,12 @@ static int __net_init __ip_vs_init(struct net *net)
- 	if (ip_vs_estimator_net_init(ipvs) < 0)
- 		goto estimator_fail;
- 
--	if (ip_vs_control_net_init(ipvs) < 0)
--		goto control_fail;
--
- 	if (ip_vs_protocol_net_init(ipvs) < 0)
- 		goto protocol_fail;
- 
-+	if (ip_vs_control_net_init(ipvs) < 0)
-+		goto control_fail;
-+
- 	if (ip_vs_app_net_init(ipvs) < 0)
- 		goto app_fail;
- 
-@@ -2527,10 +2527,10 @@ static int __net_init __ip_vs_init(struct net *net)
- conn_fail:
- 	ip_vs_app_net_cleanup(ipvs);
- app_fail:
--	ip_vs_protocol_net_cleanup(ipvs);
--protocol_fail:
- 	ip_vs_control_net_cleanup(ipvs);
- control_fail:
-+	ip_vs_protocol_net_cleanup(ipvs);
-+protocol_fail:
- 	ip_vs_estimator_net_cleanup(ipvs);
- estimator_fail:
- 	net->ipvs = NULL;
-@@ -2547,8 +2547,8 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
- 		ipvs = net_ipvs(net);
- 		ip_vs_conn_net_cleanup(ipvs);
- 		ip_vs_app_net_cleanup(ipvs);
--		ip_vs_protocol_net_cleanup(ipvs);
- 		ip_vs_control_net_cleanup(ipvs);
-+		ip_vs_protocol_net_cleanup(ipvs);
- 		ip_vs_estimator_net_cleanup(ipvs);
- 		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
- 		net->ipvs = NULL;
--- 
-2.43.0
-
+David
