@@ -1,128 +1,157 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB1E3546CA
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC0A42378F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531058; cv=none; b=QTN+Z4NT4sWQX5D9EC77/9q4kOGTlqFKLCqM1dr4VFv4zwZjv3Otn3TUpSu5i8cX18Ofk1dDus55rCN11stc+3d2ra2/05IobjC1fFCUA1WiFhWwK5RmaeC38ttnx/B6S5nPvhZqvLIqMe31O3wrX3C393tSL3GqGDRGNb9KQCc=
+	t=1790531064; cv=none; b=rXQYIERT0sz1zZm+hh7x2DrCHQ8IGFuaiI5k/kCM0v8dHFo6p3qao/Jd/lLfRyXktKDouYXjBzP6NBSBVXTLqdbykjzHJeIhBWk3lWMzzAe8+WDSvdaeUOx2Ljx0UjfvWVxbTp3CQNSlb+U+dfb4biNs2Mw6QlVL5th1EvZEAjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531058; c=relaxed/simple;
-	bh=qoFME3ujxct+hnJQk+U54vJ5l3zfLaE0czQoS1KoMiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NEuJKkS5znKC9PNKybnv4BVTUDMHP8tGw//wupoArLgQISle4Nhbd6ka9TxTacBRAZtD1bJm5suKMRKmBIjOt643o+DUyt3KD6wao+FJwL8UHUn194BH2buG1r8h5vrtZ60Pyt2JE2njwS3uern4mGGMWaunIxRmSjfyhxxBG/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Elcyfoj5; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790531064; c=relaxed/simple;
+	bh=yZcaEjEYSswv0oPohOPwr5uDwkBOr45OOsHi7Uwm8/4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kcSxouUlhbdR7o2pWjIxmEE3tAxcKCnKLS2AJpOXuM8X45zIxuSuzB9rFaUQzRDA4LJj/atwOTXuPG6tRj3fynj/gryoJbphe+SxScl6UemRunznBydbgx48Ru1wNX4IY/rs/tVUZTsFvfu+8PnSo5947fhvsbTL84dJdRaYTdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kum3BEJF; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Elcyfoj5"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso1700190a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:44:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kum3BEJF"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso1825543f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:44:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790531057; x=1791135857; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IbAFUyj3BltCO2hVtF6k3xelf6aUmY0axkJyv2edRTg=;
-        b=Elcyfoj5LAigOJm91BWKaJAioJHKrczFpBWjNZcnfWdQvx7MqavHZCzxDucktbGg7i
-         x1kgbRqJaPWCx2+icCczh84oJaVK8g/0KQAExiNrPRGpEPX10zb20x4p6zg7wwQ2Y5bs
-         XdLw9WdEOSLa6hotKrEOvVnZGYurVNVzgvEyjWAsXTztjqhsNe9o5siJWIOQ4z76Ge+y
-         4elB8sZ44PJavwiPN04kDGICePOUO3TIZDHZKEChHYDkUbcN8UPRwTGyyQ0gDrknbR1W
-         HUieD7g5sT9vdXT4FiMOsuFeEjOo6MMKyqO88jU11Y5vxIjcODPa8aOC0c47E/nRbxP1
-         +7Fg==
+        d=gmail.com; s=20251104; t=1790531059; x=1791135859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aFdg28cjkK57y5Nms1NhKpYwFl6OCJWFse4hVSZd8CY=;
+        b=Kum3BEJFgIbOWzwp925FPwE/kY9fc7mSftd5ckkZpB8lswPjrFyyny5uztIkiJ/5a1
+         ogrQNeeBxWp3h75AQLwM2EhyasJKXVL7+OA+AgZJ+JSdo8YGgc/KHChI3lAz9pO1AxgH
+         YmK04JXHqrmW85KrWfVThT4K0qDzKL8Vkd8GnJ1ohYWCN44K1NgL2aXltQq/7fi1gBwg
+         eJ0GBs7gSRYc8g2y/6/bzNiOliM5jNNDUrDNgwNRj8wXdBVvNzlBVWRxS25XvDiWMBho
+         8k0IrjX/WFRlejS6zxHGSsP/8xnF2NebaR8LNynCkY7ICsJmHW9mySVFTArg0gwXWLgr
+         tlTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790531057; x=1791135857;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IbAFUyj3BltCO2hVtF6k3xelf6aUmY0axkJyv2edRTg=;
-        b=ygkAi6s+5xkcRGCuk8+f4YXdkfTZ36hDNT00pDtsXRvrtjY5n7RWskFNA9Mx6ROqTk
-         tWC8IAtvnZNHzaBuIlEugWiih81+yP22f0QC77qx/69KmWdG6jDOy98sdiskS3vn+OOT
-         dWe7SXejiIn2WOCcuy+esUF1YhHjO8Ait74j8TqCtAvMe4DWyTjx1mPZokSYzcboul/E
-         YCxG2NlJWbo44ou1vkICR4Odhoh6RsRgZaMAR/LOnVJLDgZufbXoGEz0earz8RIG+y/D
-         aCEzZplKSpEAQ96owFrQ1EX/gHX2GRd6Bi6i4zcVRnuSbExxZML2PvotJmmI1jSZPEIv
-         aXoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOs5pDnZ4Q68lYiDZS9QFEXFyKWl7WiXW0a5jMWW9OnVuGorBuI5F7qHCL1OPdl3Q8g4QlHygQq5wb+8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUlP0jEUnkWR1L0bhy42bWLklc7jQnLC6fpZZRNehSzB8J4LFl
-	Z9f0Uma+rwbKdbs31/XJQ/G/6Vm5LxL1bZd2ACewyWA3x+GCAqWUnTVA
-X-Gm-Gg: AYBFou3qQbBuaHgBL0gvog7WX9wfpAJphbfBfPrSjkwAavoTh7ON7n2coa0WonYmtx/
-	9/cLAceUCoeFKaqla3WUsirXie6N2Xag7YZSbrdNCtKR77llL80aza+3tys4V+Nh1lUDhaD5eWS
-	om64HHXP/RX0pILg4EUl9e2QRW8Rx4umtLaNcxjHoD+rSwvyJjWtyc9pjgvFR6kSgvQUoFIo4F+
-	pNfGQHFB9UQ6Lv1Xk6h0T5QwzoCBTrH0/gMrmgktTAlXIQ0KfMpZcaCTB70Zk36ckZGKjjUS0y8
-	cY49MeNRtCSpdqMRDwXCmjcUdo7JOxfuBiV1Fne2yAiMhRbzpXf5+JJs8Ujo5M9RS7ApyGTUQE6
-	aQyuNoU3KPtpvT64OQ3bivajH7m7gqUn1cqnTLWHfyxvUMc8FizNp53X6hUgeXq3hdwfLWZHP4I
-	RZP0nxsycLa74lwI5poQmbyH7DYjzBWPJjw2hXTliBY1m5Qc5C7pw42Kvo/IgvbyxlPL+l5MGy1
-	kiripqNwbFQWuDeLse0R9NYoO9Leb1p/YmJtF6TkREG1WK20QK0LaxjcOGH
-X-Received: by 2002:a17:90b:5846:b0:39e:6c69:9b90 with SMTP id 98e67ed59e1d1-3a099235dfbmr9818678a91.53.1790531056584;
-        Sun, 27 Sep 2026 10:44:16 -0700 (PDT)
-Received: from localhost.localdomain ([211.213.99.203])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e151be04sm9553785a91.9.2026.09.27.10.44.14
+        d=1e100.net; s=20260707; t=1790531059; x=1791135859;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aFdg28cjkK57y5Nms1NhKpYwFl6OCJWFse4hVSZd8CY=;
+        b=M7aW3jJ9pDHOfHe8zRxzk/2ZO7/q4N875JWWSvxICApLUT0Rlrva3HjvVE0LhfEZMR
+         o1RIhP5JYxPwSAucHbHQ8Ce6bQJTMPh9CaY4JzZuL94sSbtxFISBbPv9a2D9SCuWhAZj
+         Eo91nyU3yjuifFcydaBfk1ymmL+/4xjyZ49cMGkVq/MkSjeT5X4WYfAy4yWqcULvhztb
+         o7/yUcyDrRvRLVoa8oy3bCJ0rbJdFYAkLVHOQFxlGoY9lWOw8WaJ56Jw1wLMEeCDfjbW
+         79+fTCLzTNFoA2s4dc/G+DmpooauoXqRu2Z1T7Ynd1ndcYoXsHQOQ1uHfXjqoWhuKPA4
+         EwxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8wlHZ6RyFLbcu9P04l/bTPmK9KCzTUS6S0IkrnbDSq3LRg+jkbCMkSLrGZdObZYGDPGniYvTdKGvqBbs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVUvpOPlv0TUYcl72Crdomf39m5SIe92zokLggeGwAOuNT3TMo
+	KY3hfnd4c5IXGzM4TTbWHKqhVrHH3Y3kYF6Tk9hm010OM/XwNCC+D5t4
+X-Gm-Gg: AYBFou3YGCdde5rkQ0dIOB3MKHlyzIww4XbQ+Xl+N8D0OpKSkiRnqEv+Z43mX6ZQ5mP
+	WN2taj8OG59yeofvU3fq/vpUAwK7Kb7ojPnWF3AsSOAEnk3uKSgJxGNSXunEl2YDcdgmwjoa1yj
+	7A43M/3KsLl5yhDXPDT2yDmpReGQez5eU7/NoaUkzCBS1xgyA0eioJSZIb2GEBFv4BD+nz4N0oa
+	Twlh9rsAokL4ok3DvvCZFri4Up4TDBqhMt8PBU4DkY4BS1X13uwoQMhQC7FVz+dvQBJtyOc7hPj
+	K+oVek10GnBM1foNwXLwV7sa+XGeOtGtC5U4ZL9Tsy+6TxhQsVTbHv6FQwPwgdz9OsVkHP7dYnO
+	h/R3JMKqh7ovQe/8Dkp8kE85ZnKS79hoW2+daav7Nw3sHeJPXDv5q/okXfXI5OWVkVhlwqSEO5H
+	6FzBeKmunN/JqV3VfwIB3JB8gLmWxQt2iWmlfzwCYz5quEmRx8/KNtjgKEn1hTvc+aUzNkhxmqs
+	vc0IP3kmvjkjC++jdmIzI+1pZ78xB7Sgks=
+X-Received: by 2002:a05:6000:3105:b0:488:8192:c768 with SMTP id ffacd0b85a97d-4888192c8f5mr13570954f8f.30.1790531059310;
+        Sun, 27 Sep 2026 10:44:19 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a4e9sm18464590f8f.11.2026.09.27.10.44.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:44:16 -0700 (PDT)
-From: Hyeontaek Lim <jennystr233@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hyeontaek Lim <jennystr233@gmail.com>,
-	syzbot+d164947c037324221043@syzkaller.appspotmail.com
-Subject: [PATCH] kobject_uevent: fix OOB read in kobject_action_type()
-Date: Mon, 28 Sep 2026 02:42:41 +0900
-Message-ID: <20260927174241.36888-1-jennystr233@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        Sun, 27 Sep 2026 10:44:18 -0700 (PDT)
+Date: Sun, 27 Sep 2026 18:44:14 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Demian Shulhan <demyansh@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Eric Biggers
+ <ebiggers@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Marco
+ Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>, David Gow <davidgow@google.com>, Brendan Higgins
+ <brendan.higgins@linux.dev>, Nathan Chancellor <nathan@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kunit-dev@googlegroups.com, netdev@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
+Message-ID: <20260927184414.6c0c8867@pumpkin>
+In-Reply-To: <20260927131838.6774-1-demyansh@gmail.com>
+References: <20260927131838.6774-1-demyansh@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-kobject_action_type() matches a user-supplied action string against
-the short "add"/"remove"/"change"/... literals in kobject_actions[]
-using strncmp() with a length (count_first) derived from the size of
-the user-supplied buffer (up to the first space, or the whole write).
+On Sun, 27 Sep 2026 15:17:56 +0200
+Demian Shulhan <demyansh@gmail.com> wrote:
 
-strncmp() correctly stops comparing as soon as it hits a NUL byte in
-either string, so a caller can make it report a "match" against a
-short literal like "add" by embedding a NUL right after "add" in an
-otherwise much longer buffer (e.g. write "add\0" followed by 391
-bytes of arbitrary padding, with no space, so count_first stays at
-the full write length).
+> arm64 currently uses the generic csum_partial_copy_nocheck(), which
+> performs memcpy() followed by a second pass for csum_partial(). This
+> double pass exerts unnecessary pressure on the L1 cache.
 
-The subsequent bounds check then indexes the matched literal at that
-same, much larger offset:
+Which workload actually needs this?
+Most modern ethernet MAC support checksum setting on transmit and
+checking on receive.
+So the software checksum shouldn't be needed very often.
 
-    if (kobject_actions[action][count_first] != '\0')
+IIRC there is also code to defer UDP checksum validation until the
+copy_to_user().
+I'd bet (a few pints of beer) that the complication this adds isn't
+actually worth while.
+Even Linus can't remember why it was done, my guess is it improved the
+performance of the userspace NFS (over UDP) daemon that would be
+doing 8k UDP send/receive (fragmented by IP).
 
-which reads far past the end of the 4-byte "add" literal, into
-whatever object happens to follow it in .rodata (observed to land
-inside uevent_helper_sysctl_table on the reporter's build).
+There is certainly still code to checksum data during copy_from_user()
+in send().
+Last time I looked I couldn't see why send on TCP sockets didn't go through it.
+On x86 (in particular) copies can be done far faster than ones that
+include a checksum.
 
-Fix this by checking the literal's real length against count_first
-before doing the strncmp()/indexing at all, instead of trusting that
-a strncmp() "match" implies the lengths agree.
+David
 
-Reported-by: syzbot+d164947c037324221043@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d164947c037324221043
-Signed-off-by: Hyeontaek Lim <jennystr233@gmail.com>
----
- lib/kobject_uevent.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> Replace it with a single-pass implementation. The new implementation
+> provides a general-purpose register path for short buffers and atomic
+> contexts, and a kernel-mode NEON path for lengths >= 1024 bytes.
+> 
+> Measured in-kernel on an Ampere Altra (Neoverse-N1):
+> - Scalar path: 1.2x-1.6x faster for lengths < 1024 bytes.
+> - NEON path: 1.2x faster at 1024 bytes, scaling up to 1.6x-1.8x at
+>   4096 bytes.
+> On Apple M-series cores, gains are 1.3-1.7x below 1024 bytes and
+> 1.6-2.4x above. No length or alignment regresses on either
+> microarchitecture.
+> 
+> Patch 1 implements the fused routines and the dispatcher.
+> Patch 2 adds KUnit test coverage for the new API and internal paths.
+> 
+> Tested: in-kernel benchmark module on Neoverse-N1 with both
+> implementations cross-checked (0 mismatches); KUnit suite under QEMU
+> (with/without KASAN, with PREEMPT_RT), exhaustive and random userspace
+> testing of both routines against a naive reference with PROT_NONE guard
+> pages, gcc 13 and clang 18 W=1 builds, checkpatch --strict.
+> 
+> Demian Shulhan (2):
+>   arm64: csum: Add fused copy and Internet checksum
+>   lib/tests: checksum: Add KUnit tests for csum_partial_copy_nocheck()
+> 
+>  arch/arm64/include/asm/checksum.h |   3 +
+>  arch/arm64/lib/Makefile           |   7 +-
+>  arch/arm64/lib/csum-copy-neon.c   | 168 +++++++++++
+>  arch/arm64/lib/csum-copy.c        | 108 +++++++
+>  arch/arm64/lib/csum-copy.h        |  84 ++++++
+>  arch/arm64/lib/csum.c             |  54 ++++
+>  lib/Kconfig.debug                 |  10 +
+>  lib/tests/checksum_kunit.c        | 463 ++++++++++++++++++++++++++++++
+>  8 files changed, 896 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm64/lib/csum-copy-neon.c
+>  create mode 100644 arch/arm64/lib/csum-copy.c
+>  create mode 100644 arch/arm64/lib/csum-copy.h
+> 
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index xxxxxxx..xxxxxxx 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -78,10 +78,11 @@ static int kobject_action_type(const char *buf, size_t count,
- 		count_first = count;
-
- 	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
-+		if (strlen(kobject_actions[action]) != count_first)
-+			continue;
- 		if (strncmp(kobject_actions[action], buf, count_first) != 0)
- 			continue;
--		if (kobject_actions[action][count_first] != '\0')
--			continue;
- 		if (args)
- 			*args = args_start;
- 		*type = action;
