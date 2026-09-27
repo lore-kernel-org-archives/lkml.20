@@ -1,159 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CE83B19DB
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610C441BA7A;
+	Sun, 27 Sep 2026 17:24:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529855; cv=none; b=HIvBa2C//p69s6YmpjaPQ4mA44Dhz37aIYpC780pLs/WN3VX6J6WsG0NkMMVB28sDmKqyyDUp3Be3XMhbHxIHiqCSmMHnO6pH4UQAxK6P0AebccuhBx7OYirzg9fPFASYeL5GpWdk9vxiAfCzpRCjP5f+9AT5JRhw4jcM+6k1e4=
+	t=1790529899; cv=none; b=pbNkdlhEzC3qNOvzrQyuqxzYxp37LvVwpDwfLTACi6W/FKehnrjnbVLkCBgCTxgPXMqxKUUtbPmuI4Kc4Qcq9RMrzpf3MNAF1KQCOZa2DyupBBHD6GWwceaVmv9UJ7s2P/e7JMUBKKfIW+kIIgkvV7pO+Qw+Ls8uDwnTQgxtD3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529855; c=relaxed/simple;
-	bh=MeGrK8YfWvafmUOL0X4RjmHpY1j4mqMYXco+hIrf4tQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qpWBiwCY/PMKZy4zlRtHiLCW+DckSm+biV7SqOAZ8ZNs7tVgBCX4d8TE6poPrUsy7SLkhfriohkGbknmVwV9ndyXlSUV3E7HUGGwuKgXBUwX1urxdkk9PVbHAcNO2k/WcMISSFyobLoSuHchIFKg2UZg5nBzwku1MTzIi5oDT+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAdIBVmZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790529899; c=relaxed/simple;
+	bh=OuN2ndxuCUThwOuzsE/xNgfIKnPGSkYUHA5pIz+BEiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tAt+uTE1bQ7ONHNeu+ggRNnQQy4HxQXRpNVR+IzQoeLWWCKMvUx+b466fZpQKpb0Gq2e54qJoiBHVzHGNMdfeP+0notvnii+oIjEcaj7q/55Gk1ltZuezk83OPFTBIMsT1EatdUBf6DzGtCsqVIjaazPb0b8xBb/kzP38U4mNs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E62jj1dL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAdIBVmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14DE41F00893;
-	Sun, 27 Sep 2026 17:24:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E62jj1dL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9313B1F000FF;
+	Sun, 27 Sep 2026 17:24:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790529854;
-	bh=XAG9Mub6do0/YvxTQaP+O+8WLPpaLUk8c/BmeAvudk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aAdIBVmZ6Q5iiC+LASB41gq5o2ChQlYoUSxgdtzle7GW4AgTp+1+FWXbJl5tGxfxo
-	 +QHoIg/SpsYizAwExWvrLEZQ3xF7OWX6KtG8vVkCBqi58ng/lnLaFncx9BoM5Wn0Ns
-	 CueU7ylwGzIu5bDwml5tCA3W2wtKdnPwGYfNEhQVS1Xvt4ahbXtzmj7+wtZfbqE0ms
-	 0cVbrGdVlo7WXW8Rx3qH2Z1NmfVEfubiKWDv9b+axv1nLkWdSoErxDadmtYgwFq4K3
-	 YyIctoYbNl4iAVIZLXBo42N09M4U7lM+MW2FtUxJLcNpNcGtaR9G/MCCSztwJ6bzWF
-	 II0X/MI+4AeGw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 1703EF40067;
-	Sun, 27 Sep 2026 13:24:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sun, 27 Sep 2026 13:24:13 -0400
-X-ME-Sender: <xms:PVG5ao1rMqG5cpIXbYq2VVYDdx5If-MnjFtFDfHPI1PMiRoQ9n_h-g>
-    <xme:PVG5avF2zDtkJiw8r4r69447DHRTLcWUOdBq0Xw-VJ8KCyjsVf5MxWv6W92u6luXC
-    QFH91-6l-Ui0Bqx7b80cXm8JJpsIujPKshDczpcmcehSGU7kD7CH_A>
-X-ME-Received: <xmr:PVG5ajF72k9PUjFaXEjCS5ZJXu1aJFo_qPIDSaljeI9lWdzp1csW-Qn1z0DL>
-X-ME-Proxy-Cause: dmFkZTEz5mB8zCIAGCXrp7RUiQQUepCvMede+Cw3EQaTvRN4+kzAs2UKWiCyLj5YPSAzxV
-    oorBmKvazoIR2yMYiy8gtEKa6np8jUnVSeTMen12syz7ijzssnssAU34xDELZK4+jRdQ9h
-    tGYvlJ8bwxnjtSoSimkcdgpG3xWUzI7XIn8ssWVRAShtYonCwXbVZsDxyqXor4T5h0vcC8
-    7/KmnXdf9LRpr9Kih1Np+izA8faBt8LrCARacC/2j0DyP4OwGmmZAhXfpAkFIM8Em6HKN/
-    HMkc2OUGVQeOzVy+h+c2bxrL0rmDDhsONNT9/Kwomvp98q+8gg8U17SpzWeiSiiyyA49Ft
-    g1/aCMUFn2pWQhdD2U7AeexX7LTOWBeGq5w3FRXFu5G69As45oZgzb25/4WSDwrx+4/jbj
-    aQQXLsLFnXTv+cZ8EHqPCckIgqd9WV4wTX80EbA09Et/esqi6sdH/5HLEdWF8tLhRUPXKz
-    DKgqsjfVzqmpj5FI0NiDfAMTgJTi441wmzi1wIfH4nSkrCXAtHAeWoKesL3J/6hoGehU+6
-    Eit2dYPHWNaGBmN+lrhCIs5XvZbD0fBIVNL8bZ7K4x8g8YorYEfDzycWSpLaeFECh8pr9j
-    7XoMhr0J/f+jFcrNrCPdjIZeC4hSNO6te3FocHNGshmF50k/tX/Qrwcd+t3w
-X-ME-Proxy: <xmx:PVG5ai5alIyW7n8bNCwLXIBe3sh2HmXYbbH4JIQOy1sdDV6OZvWozQ>
-    <xmx:PVG5aoyOtbH5xpF3Y6yXsf0aQl8kTzd9bLy8Uv_w8EWDszh1IleF5Q>
-    <xmx:PVG5ahMv_KapEYxYcqB7w_es9ekOSv-gV_UnZtOYT3LlcF13hfQJLw>
-    <xmx:PVG5aulMrwwPGoj4riIakcS_n__r7Yc0KCz-DozL6WZfjZtM65ZVQw>
-    <xmx:PVG5amTLKuwCpC_N_PYSeFGk-K68XmK2ezysm2ZY2v5k5nYOpMKfol4M>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 13:24:12 -0400 (EDT)
-Date: Sun, 27 Sep 2026 19:24:11 +0200
-From: Boqun Feng <boqun@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
-	rcu@vger.kernel.org, lkmm@lists.linux.dev
-Subject: Re: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path,
- fallback to overflow list
-Message-ID: <arlROwtdFs3YyUt_@MacBook-0RXW5>
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
- <20260927155134.4740-5-mathieu.desnoyers@efficios.com>
- <arlHFVT5EzcX4d1-@MacBook-0RXW5>
- <5c78c338-1be6-456b-b963-bcfc62748aab@efficios.com>
+	s=k20260515; t=1790529897;
+	bh=oMs/Hq0Db/D1FWahvFRO/BSal8VTgymAtB6OnvGiC7g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=E62jj1dLOaM+q0+QaDU3jofUtuj3XKcdyn9KQ0lbxGXbN1ZIARbg1RGhIMFCJLuYM
+	 NVXFCbRp/vD/I31N65PHTdG0AIMhYFFMNCjs/IGlYiA9rOPixN+kK2+0+wU0JBQhv3
+	 y28n5j8sYxLmSnllLvOnMlxJoCaOFGrtwS8yYsi+EV0qRYJEhWuxxt8Mahb3xURe39
+	 TCrfN6+3Oh+mLb/JzQF534IeF1boNNK8b0Tg1BiQwKGWL9Ehs7j+6Np24xK15GbuyO
+	 qSsnsZwWna6O1tgHamaLfQu3SxsgyGiSfVE+80jYskOIPS0bGxgn2UyBeuRb0J6jZn
+	 fv9ugVvi48qwQ==
+Date: Sun, 27 Sep 2026 18:24:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: pressure: add Sensirion SDP31
+Message-ID: <20260927182452.5755fba7@jic23-hlaptop>
+In-Reply-To: <20260926154118.5471-2-m.abubakar365@yahoo.com>
+References: <20260926154118.5471-1-m.abubakar365@yahoo.com>
+	<20260926154118.5471-2-m.abubakar365@yahoo.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5c78c338-1be6-456b-b963-bcfc62748aab@efficios.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 27, 2026 at 01:15:39PM -0400, Mathieu Desnoyers wrote:
-[...]
-> > > @@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
-> > >   	for_each_possible_cpu(cpu) {
-> > >   		/*
-> > >   		 * Scan CPU slots.
-> > > -		 * Forward progress against recurring wildcards is guaranteed
-> > > -		 * by scanning for one wildcard while new elements use the
-> > > -		 * other wildcard value (1UL vs 2UL).
-> > >   		 * Forward progress against recurring single hazard pointer
-> > >   		 * values is guaranteed by the fact that a hazard pointer
-> > >   		 * is not reclaimed nor reused until the scan for that hazard
-> > >   		 * pointer completes, which prevents a steady flow of readers
-> > >   		 * to acquire that same hazard pointer value.
-> > 
-> > (Not a comment to this patch, but I think it's worth bringing up)
-> > 
-> > I want to point out this is not true for the lockdep use case, because
-> > the we need to protect a hash list deletion there, and we use the
-> > address of the hash bucket there. It's proven fine in practice because
-> > the readers are rare (we only call the reader is_dynamic_key() in
-> > register_lock_class(), that is every time you have a new lock class to
-> > register).
-> > 
-> > Maybe what we want to say here is that "if the users guarantee no steady
-> > flow of the same hazard pointer value, we guarantee forward progress".
-> > Thoughts?
-> 
-> AFAIU, your approach to protect lockdep linked lists is to use the
-> address of the hash bucket to protect the traversal. As this address is
-> invariant (global array item address), that address should be fine
-> to fulfill hazptr requirements, but it has downsides: rather than
-> protecting the specific nodes being retired, the whole hash chain is
-> protected. This means that, as you point out, many readers retiring
-> nodes from a given bucket (except the first node) could end up holding a
-> continuous stream of hazptr for a given hazptr value, preventing
-> progress of hazptr synchronize.
-> 
-> It's also coarser: per-bucket rather than per-node.
-> 
-> Am I missing something here ?
-> 
+On Sat, 26 Sep 2026 20:41:17 +0500
+Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
 
-No, you got it right, but as I said, we can use it in lockdep since the
-readers are relatively rare, so not an issue here.
-
-> One honest question: is this pattern something we expect to
-> see often ? If so, then we may want to introduce a notion of
-
-I honestly don't know. But in my opinion, we'd better focus on finding
-more typical usage of hazptr (i.e. protecting actual object). So ...
-
-> hazptr protection "period" flip (similar to some RCU implementations),
-> where we tag the low bit of the slot pointer (0 vs 1), and alternate
-> between the two periods in synchronize. This would prevent a steady-flow
-> of same-value readers from preventing synchronize forward progress.
+> Add device tree bindings for the Sensirion SDP31 differential pressure
+> sensor, an I2C device that also reports temperature.
 > 
-> Thoughts ?
-> 
+> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+I think you have been missing some replies for some reason.
 
-... I will say let's add it only if we have more users of this pattern.
+See https://lore.kernel.org/all/20260920014032.2cc3c851@jic23-hlaptop/
+Also the reply Krzysztof sent to point out you hadn't addressed all
+the feedback on v1.
 
-Regards,
-Boqun
+If you disagree with any suggestions then reply to that email.
 
-> Thanks,
+Reviewers tend to stop reviewing very quickly if they see that stuff
+they raised in previous versions hasn't been addressed yet.
+
+Jonathan
+
+
+> ---
+>  .../iio/pressure/sensirion,sdp31.yaml         | 41 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 +++
+>  2 files changed, 46 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
 > 
-> Mathieu
-> 
-> > 
-> > The rest looks good to me.
-> > 
-> > Regards,
-> > Boqun
-> > 
-> 
-> 
-> -- 
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> https://www.efficios.com
+> diff --git a/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+> new file mode 100644
+> index 000000000..a98e7c97e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/pressure/sensirion,sdp31.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sensirion SDP31 differential pressure sensor
+> +
+> +maintainers:
+> +  - Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+> +
+> +description: |
+> +  Differential pressure sensor from Sensirion with an I2C interface.
+> +
+> +properties:
+> +  compatible:
+> +    const: sensirion,sdp31
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +      pressure@21 {
+> +        compatible = "sensirion,sdp31";
+> +        reg = <0x21>;
+> +        vdd-supply = <&vdd_3v3>;
+> +      };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 214aeee76..e285147be 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24855,6 +24855,11 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/chemical/sensirion,scd4x.yaml
+>  F:	drivers/iio/chemical/scd4x.c
+>  
+> +SENSIRION SDP31 DIFFERENTIAL PRESSURE SENSOR DRIVER
+> +M:	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+> +
+>  SENSIRION SDP500 DIFFERENTIAL PRESSURE SENSOR DRIVER
+>  M:	Petar Stoykov <petar.stoykov@prodrive-technologies.com>
+>  S:	Maintained
+
