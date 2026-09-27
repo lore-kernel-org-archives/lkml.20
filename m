@@ -1,98 +1,52 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA533C73C1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488673BB673;
+	Sun, 27 Sep 2026 08:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499124; cv=none; b=PlnqHPiaF3jgLdyRXv6OIpW6tncT8pZPrciU5XBPGjqiqCC4ik39/X/L0h14gj9kQ4V4F+eDikJ3b1XX0hY0sGjKLT0+1bs0CQgEUr5sn1qeGiFn7o4zmUIya8hXp/Ag6OxxEapS6YyLIiTsKVL/aSJ3O2jwrxh+aPCMbi03VD4=
+	t=1790499148; cv=none; b=f0k63agg+JAO9qVQxg/1l5iMVylcM556pCanaDW8lL84OMDW0+OMFqS9rFUSdcizpj3F+eko9v/RNMyByhUEi5fuSNfyhYA+rZSua9tgel87gN5LWK1HQwbR7LGSU+VkABKgdJuYA+s7KNe/nY2Lpax9NiubGftrsq2ewJJlz5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499124; c=relaxed/simple;
-	bh=YT6LdJDZcgJoel/pQalUJpytYLyjX43h0qAkBMmzYhg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=beW//nXOjNDYgXo97/BdNm0P0MWK/bYtrCdDVPwjZvIQ+fTB5UU3O6WwmqtKbox7wjVdlIZc8Ein1ScVYaduuZCDlgsbiknt5enDKUjm3FMmBz3VM/6msQKqYlPg2AqWIgNFHNbeyJJQ0tfyBtgqhEknHozTMiuqMb3SH1Vdwe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ososcwGZ; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790499148; c=relaxed/simple;
+	bh=TecmvBNd8yJ1krtCzl4y8PCs81k2pHGHLTSt6ZxyuzQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=gcDD+uejGst9V6UJhkiaXeLij3N+59DyATwJwuls4YL+d82v4EdHGC805GnYqgEH3C8vlmTZtR55EInaK2bHT98kmEDwuBHfGSIlgQx9P4vyg/S//xJktOgN3Ch6cTnwaBVQ0ioZMLSHWFueEpSNdMLOvjHh0bSTLwhrU9gSVx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RJX4r89t; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ososcwGZ"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260927085153euoutp01bfa267ab6ba5a1acd52352409393f905~ZIXT8__EU0533305333euoutp01e
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:51:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260927085153euoutp01bfa267ab6ba5a1acd52352409393f905~ZIXT8__EU0533305333euoutp01e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790499113;
-	bh=TL2WWCHAv5jgtlCzKv1V0I+GLkNMiDKcRehtweoJ4Z8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=ososcwGZ4xfr/2WYXIdWgJ04YNs2w/oxKN8JIrxSP2NhuW0U6MJnH98VoQs6RAdII
-	 buPZaQBZbhpAJyRPOv+MjTWIZJI66GP/mEHV8wYK7ifJtO+Nr6Yz+Kdxw8sZgtttLS
-	 TD2FkrF65rme0ROEVgVLnA7UXseF1oNF4Bbqj+zU=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260927085152eucas1p274e0c4d85641cbbc5e727b4b559d21cf~ZIXS8Kxee1311413114eucas1p2N;
-	Sun, 27 Sep 2026 08:51:52 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927085151eusmtip17821e73d4d34df7984d3e446c0c89c58~ZIXSnxm0o3108831088eusmtip1b;
-	Sun, 27 Sep 2026 08:51:51 +0000 (GMT)
-Message-ID: <9274543d-c569-43a6-888c-9b74d1a8c92a@samsung.com>
-Date: Sun, 27 Sep 2026 10:51:51 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RJX4r89t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=TecmvBNd8yJ1krtCzl4y8PCs81k2pHGHLTSt6ZxyuzQ=; b=R
+	JX4r89tZ6vgqLHLkPm58Cnxb6juftMBxpOnZ/jlJCa+Thsii2OaabY/+X3lOCnKe
+	JYUm317aX6iHJ7xkt25YAbcHPD7QCPjckqYKK4RtS8eTiM01q03FnawCCwQRvFct
+	QN3ceMOcFhOi5z18NQ569+1KTAT1H5u0xeVwxAve0c=
+Date: Sun, 27 Sep 2026 16:52:04 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Guenter Roeck" <linux@roeck-us.net>
+Cc: "Aleksa Savic" <savicaleksa83@gmail.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (gigabyte_waterforce) reject short input reports
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <5b8b6c95-693a-4472-93c4-c54d22280b79@roeck-us.net>
+References: <20260924151133.1233860-1-yaojiale02@163.com>
+ <5b8b6c95-693a-4472-93c4-c54d22280b79@roeck-us.net>
+X-NTES-SC: AL_Qu2SAviStkkp4iaRZOkcn08ShO49XMOyvfoi2YFTc+sEvBLV6y4KRnFjOn7G1NC9FgmWtRGvdzV/wflkUIdSKezsb7zcAXOahCYFYsXe0w==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/bridge: inno-hdmi: reset DDC segment pointer per
- I2C transfer
-To: Dominique Belhachemi <domibel@debian.org>, Andy Yan
-	<andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260528184145.384114-1-domibel@debian.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260927085152eucas1p274e0c4d85641cbbc5e727b4b559d21cf
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260927085152eucas1p274e0c4d85641cbbc5e727b4b559d21cf
-X-EPHeader: CA
-X-CMS-RootMailID: 20260927085152eucas1p274e0c4d85641cbbc5e727b4b559d21cf
-References: <20260528184145.384114-1-domibel@debian.org>
-	<CGME20260927085152eucas1p274e0c4d85641cbbc5e727b4b559d21cf@eucas1p2.samsung.com>
+Message-ID: <563e3463.1869.1a0e21075da.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD3Xxs12bhqikFPAA--.19W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BVMhmq42TVXeAAA3+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-
-On 5/28/26 20:41, Dominique Belhachemi wrote:
-> The segment_addr and ddc_addr fields need to be reset per I2C transfer
-> to avoid stale values. The reset wasn't required on simple displays with
-> only one segment, but modern displays with two or more segments end up
-> with corrupt EDIDs.
-> 
-> This was found on a StarFive VisionFive 2 SBC.
-> 
-> Signed-off-by: Dominique Belhachemi <domibel@debian.org>
-> ---
->  drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-> index 5fa533a4eb342..297be02bbd58d 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -989,6 +989,10 @@ static int inno_hdmi_i2c_xfer(struct i2c_adapter *adap,
->  
->  	mutex_lock(&i2c->lock);
->  
-> +	/* Reset segment_addr and ddc_addr at the start of every I2C transfer */
-> +	i2c->ddc_addr = 0;
-> +	i2c->segment_addr = 0;
-> +
->  	/* Clear the EDID interrupt flag and unmute the interrupt */
->  	hdmi_writeb(hdmi, HDMI_INTERRUPT_MASK1, m_INT_EDID_READY);
->  	hdmi_writeb(hdmi, HDMI_INTERRUPT_STATUS1, m_INT_EDID_READY);
-
-Reviewed-by: Michal Wilczynski <m.wilczynski@samsung.com>
+v2 in: https://lore.kernel.org/all/20260927084959.893708-1-yaojiale02@163.com/
