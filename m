@@ -1,97 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail3-164.sinamail.sina.com.cn (mail3-164.sinamail.sina.com.cn [202.108.3.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE402322A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECD5547046
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790467404; cv=none; b=H0AIfdcia2YRSmcrjwjK/uwB6wsscNcATeG6lb1AGz/M8oEkdifo5AJkDzeeXXqKUZXVMkeJxB5BoHNBfaw9E4FFH9zPbkNqERf2XMjFCExUq6//zz7CGOt7UJIw36LmC+v9HGnrYeIVSogz2f9hrPJvKg8QfBqZ0RrNOFZPJns=
+	t=1790467422; cv=none; b=Z0UfNgz2H8iurmE0kXD5pY74HopKZjT+/dHBcB6RYstQHgEqLvKqQZ/k/z4X9dscGLtfD3sSOk2n9Asq/QpJXEr0ws0v0F8hUtYMACfuzmE2zHgt7aM1mUfxI+zXcUhlRHXJFlGBhItIE9pPtYFud21uZ3xbZ9apnyn78QSQ+Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790467404; c=relaxed/simple;
-	bh=dM60/lQJZNJbWoteFqu6uPH785ljbJ4v68GljKAZeM0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ASb2SS3ecbRsgziF4HXl+Ht4NINdKPo0KY1t/ldaVsqhmLFrDhQ6lnyAmWS3lBcWNfwBoB62gU9ge5H96pr+bLbKZ8vtqIdV0GdVf8dLW5nkFvALi7nGJigiXGrpzQ1EInZw6aoeUOcsYrlUbn1YK3MKXrfHlOCo4u9JNQGVuRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVUWN034; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790467422; c=relaxed/simple;
+	bh=DHoSz/E/5pl7d/NuidhrXo3nEtnqsKS07o28y8ae++o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lOkaNCmxcn14K7jHfzMPkn6XyqIzIdtT8C+Aq6Kmqg8I9uGG5XoZjo6zMVoxzl5q3Z/Bm9V4gMlxZktmNujeECNGlxaTlULjEAnwEzE1FwLhsXpYQn21sJaxgQgJFJIGsFMmeNwNZ6HlqHpVMjqd7CIUk0OwAAygtyR57peMLUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=TT8xTZas; arc=none smtp.client-ip=202.108.3.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVUWN034"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50611F000FF
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790467403;
-	bh=dM60/lQJZNJbWoteFqu6uPH785ljbJ4v68GljKAZeM0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YVUWN034wDMUscEaAm18Jm+pqvD2h3tTVDJJ+3EED6Zg3RfvQI/kCP5npqNTqyG0t
-	 gTF/bVz5XWsG8GhVBTjkAPZEvtRBDYbEQBkVwziUQ4q5IP5UHRUcEQMaxWgGqskN7A
-	 i7OhZvMuOXWrDOo3o3fGeVXykHMeNwnEzK4ZXjZqHR0NPMwHNxMlOZweB1fjG5edb9
-	 yjcOUB6TZwERPkuomHNCBy7iRBKbfRe5984Fo50aqaXddty3u8k0YbrKCYpQTNQOFn
-	 CTP3fv/f6qFQMeslm6HdG5DMTEt+4a1maT5Z4equqZxIBUSIyW//lhbWMIM1dvwqUM
-	 rfIUfE7C9Ghig==
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae359e2c0so2903957a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:03:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJ2np++XDLgm0l2Ye2hDSCWpnXbVfGoV2NEKIQYfRjOoGB5qYXQjDvnYNEYo+aWTfj2Z+Pi9qC2CFm9TY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltKxpLCbmoF1rm41bpMvijb9Q3tvIIpPdz8fsizmhTZy9/wQ4+
-	GitcdG43qmZIsc4qEYQHljGeaP5wR6hvmu3r0EJl1xAU0VNJqmVtmWMpMtdVBmOXXic3TjSES93
-	NdHNomGmAmZnQNjm1qM7fmgt3yb0w3AEaKjJt79QK2w==
-X-Received: by 2002:a17:907:970f:b0:c28:e01d:1d08 with SMTP id
- a640c23a62f3a-c2ac268a3b6mr767904866b.49.1790467402757; Sat, 26 Sep 2026
- 17:03:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="TT8xTZas"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1790467417;
+	bh=t1NV1h1nSPt4cYWoKLftL9MH2NWX+QPNIV0D+GSaeoE=;
+	h=From:Subject:Date:Message-ID;
+	b=TT8xTZas0It64tKtWR2p4aQkcUoMBWNHWIVAfhBDRYZnOqiMKcakWdobCttIzx3Vt
+	 lLZNo51uVkw5etIZHeLqqYsSLJq/unYBAn0Zixp5xTPY92eFMB9ZI7sWjN5uCS8nBZ
+	 +TPciMEUuFxCaeJwXLCBKxgHjs5GO7kQdg41vAD4=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AB85D5200006D2A; Sun, 27 Sep 2026 08:03:33 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 924834456770
+X-SMAIL-UIID: F10C53ADF8B44D0E820DF1EC2C9DBC9C-20260927-080333-1
+From: Hillf Danton <hdanton@sina.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
+Date: Sun, 27 Sep 2026 08:03:21 +0800
+Message-ID: <20260927000323.299-1-hdanton@sina.com>
+In-Reply-To: <20260926162452.136863-1-ngocthang2710.1999@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com> <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
-In-Reply-To: <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 26 Sep 2026 14:03:11 -1000
-X-Gmail-Original-Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
-X-Gm-Features: AclHuK-ZyMX3KOF420HwXlAK4cpZeFQwMK0gQ_EG8K18s67LKRQ8CucrkEWbQU8
-Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
-	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>, 
-	util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 1:32=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+On Sat, 26 Sep 2026 23:24:52 +0700 Nguyen Ngoc Thang wrote:
+> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+> "virtio-gpu-vbufs" for every device and destroys it from
+> virtio_gpu_release(), which only runs once the last drm_device
+> reference is dropped. If a reference outlives the PCI removal (for
+> instance an open /dev/fbN), a rescan probes the device again while the
+> old cache still exists:
+> 
+>   kmem_cache of name 'virtio-gpu-vbufs' already exists
+>   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+>   Call Trace:
+>    virtio_gpu_alloc_vbufs
+>    virtio_gpu_init
+>    virtio_gpu_probe
+>    ...
+>    pci_rescan_bus
+>    rescan_store
+> 
+> kmem_cache_create() then fails and the new device does not probe.
+> 
+> The vbuf size is the same for every device, so create the cache once
+> at module init and destroy it at module exit instead of per device.
 >
-> On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
-> <matthias.goergens@gmail.com> wrote:
-> > The series fixes zram selftest device tracking and error reporting, add=
-s
-> > the swap policy with DRM eligibility checks, and tests routing, working=
-set
-> > activation and retained-entry write refusal. It is based on mm-new at
-> > 995829088503.
->
-> Hi Matthias,
->
-> I can't find mm-new 995829088503 anymore.
->
-> Your patch does not apply cleanly to the current tip of mm-new
-> mm-unstable, or mm-stable branches.
-> Do you have a git repo with your patch applied?
-
-Never mind, I have the conflict resolved on mm-unstable.
-
-Sorry I usually need to have the patch appliable to use my own review scrip=
-ts.
-
-Chris
+What is unclear -- why is kmalloc failing to work in 2026?
