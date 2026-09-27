@@ -1,151 +1,151 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3AC4266B8
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EBD3876A4
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532436; cv=none; b=Qv++MbA51FbKtY7zy1fn4DwQ38FOhlZhyPt5xjO0jYOKByFxyyyO9mtj473hGe5Nnk9LX7inX0drmAXPw3uyvA4fLgWPijmATtALDn9sbbiL/n0hwRF4GxnOJUv61yfn2sIW3NBIngVdWs0YpBTCz5+fvjKk+OJtjCtmffLVenU=
+	t=1790532506; cv=none; b=hMcBklV++lubEaWE9H73L93B0yHj/a4Y7+0vDeTFOmTRXuWn9q3qTAgw7Y8as6+UFx4xBjndv83snWCtSW7l93V56CqINk1juwl7etWIBuqeWyRpUyckR6tseKSHDsfgEbzhF34XzfuroY2Cldky+GBYS9Jxik8fxUfKkc4PzfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532436; c=relaxed/simple;
-	bh=zj0eOVQcMFdCO2F/tmzy6sFvreF12/Rc+8pnjOdEJeU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qQSTDfni1vhEmRkMe8GDzK7W2VOr72RL/nNJru76NPh3YQeCqL8778j03n3+kGpR3cXzGzNHSOIW5XCAzcibZWi9MGonJqUhO1s9kgSzBr/vQx4ZABq0XvfJQ2oKASPl8vB6Si20GxrzWLUl8tL8x82KN+/HR2I3BQ7SOJVFAYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZloloQp4; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790532506; c=relaxed/simple;
+	bh=WMAskwOoSPJaG6PGflXZnl/uFZqcsTJlZwP3XmFA5D4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BPk5Zghorv7jjZ0AizxdbUJiSFu0EIMMDaHs5HOB3BaxV0D6coSmhPVtzifmdM1QnVoZkhfI8XXEJ2B3dfCDsNjuzotmASFoVA5MLEJPPMyMDQk3eSuMIXcUgwEgzw759kInR628rZ3lEgd98jiQeTkSVC+pv5LSMHijMDJ0N+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S95mVt9j; arc=none smtp.client-ip=74.125.228.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZloloQp4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=AmSS20uqjhIkD3uyKwXh/DjkeYw+SDtfXioNX2jb3yg=;
-	b=ZloloQp4Giu/XlqkGSbBYTnacX6UzwoYtTPrs9iB8FYXhw7Zur9xm4rhrpNfzM
-	gBkJfCXt1o7/oJQhHjykCa0ZIpgDWKY7h8NiEUeOQQHpKdi1oRCaacMI85v+AuJh
-	GNi8tNEA047dHWa8yr+vnftLFsw2JNLzssQ7t2sBFF6V0=
-Received: from [IPV6:2409:8949:6ca0:7910:556a:2884:1c35:3923] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5QyW7lqm0URBQ--.45497S2;
-	Mon, 28 Sep 2026 02:06:44 +0800 (CST)
-Message-ID: <80e893c7-5373-4690-ac66-7b5952d7e99d@163.com>
-Date: Mon, 28 Sep 2026 02:06:42 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S95mVt9j"
+Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso3789317a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:08:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790532503; x=1791137303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=okA5mOg4kYRrGG25qz2brfl+VKSTjiCYOxROXsfXqhc=;
+        b=S95mVt9j4fB10/oLUa3cN3JPYI8Tt19qr4dUY4aQmWv5wyabNam5xRFYAOltkwRuQc
+         juIohcLeYyaFXgoIjjQQ03tkFgVibqnHw/hS7bV1doAwCR/gRRbDk0P+nx1h5GDjiq4t
+         qh9e42Fzwr+Lbz59nNgGHs2iHnNHfTOa22up1cFi2/4I7XAC1Grag0mkqNUKdqml6jEo
+         AXZAjnEtgzaHwzZXM8t2QqDvkhgM9lbGTfv686or9I9/v1FFan5AWT6/p5DB149C4QaF
+         sChkuBZ4pXfGKyPTlWFoOqTm4Fk+dcdKkICX3KQWxEQk2AVBRDrBLXKeKUtd2dYVeMqc
+         loCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790532503; x=1791137303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=okA5mOg4kYRrGG25qz2brfl+VKSTjiCYOxROXsfXqhc=;
+        b=PNMFHVgJ1jDK7T3asJK1Ucp7z5+8JtM23D/SuKKI9KOyjWckX1/mqG9OkbLij8eNe/
+         TWPg/Oe88+Gi8GpOywiHeFoUwXKMPVBXK5hyWF6myh0G/evzqPmaZWK/ysaYQ5fnKGzg
+         n2mja5MV17CDN0kNmqI6fu3uFMg0eF4wAyNkUjyXFObnd+BjxXajojEozYXFEy9OGVe2
+         Eg4vCqXIW7t1uW19AJXsc98aUif+jlFiIJyHkC/GEsYuSwVODA9dlq6WZtX8hPfi/ySI
+         Npk2yDSOWJIMxAz1kK1cwyL0MKvi0UV2sK2IYlsT71MFGAAUAPnGIvPXwkuA2iPWLrLN
+         g/Ng==
+X-Forwarded-Encrypted: i=1; AKwUvBxgoFsTbaveBsMh4lV2k4mY1IAm0POmDI3wqghN2KEurCaVqZuh+/6lo0r0pxVXe6KhObo6xvizX1evrUY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCtJDolmenHtW8Mcyj0hTP8tPKoWxwqmtNTd97OvWG9eYmGXKd
+	rbplTXkehgoVwSUI6KUMzcBEFiTvPJ502VJuYPZ0fm2TIFU2A/0YhjhAk96SlO8j
+X-Gm-Gg: AYBFou2gruul9MGGRwHS+jgVgxbbZQB0NLvObBjkO+ppEyNRpScR7DEHHF/geb9ApZA
+	PySv1qDbJ22ld73v/YeGF3BF4AQEYyCkcfPJoTYCffglFpUX+tm/eIe/s3BIlNBaEYdMnZinKr7
+	Hg5VwzdPQUoA7ZoLjMGT1ZVyWGLeF1OFYnTAcDq3VndYuzeaBOXY5bL2zM2txbtBjk15ofbo0Ui
+	ofnAtcFSi5onyNDjnqsNTLhsfFZ2MXd/tNtA9b2t3th2wAenIumF4tQo8rWzawiq3vEOmdgq6O6
+	9K6I575MLEWme9prKh0j5GlmvOPnDpGVXuodGAz4M6t9mRNjvHBkO5supwtMbJWRs4La/7PeMVR
+	VDfXVlOL9K3DXHtAqcg0NFZ69cz5cqSDKisfLBFkKZ+CvNm/qCi1ZIrbyMjhoLwIUql+vSPc5BK
+	D52mcIfxYTC1lFgIN213vhyevVzl9m9jKYkmCLG9C/Kz0thx2y6LNOXZB2tzd6AR2dX5b841y3m
+	lh+gHN1zAsELnOo
+X-Received: by 2002:a17:907:d08:b0:c29:d31f:7d73 with SMTP id a640c23a62f3a-c2ac238632amr981234766b.9.1790532503139;
+        Sun, 27 Sep 2026 11:08:23 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3a0424sm168206666b.70.2026.09.27.11.08.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 11:08:22 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hverkuil+cisco@kernel.org,
+	johan@kernel.org,
+	lgs201920130244@gmail.com,
+	kees@kernel.org,
+	fsimonce@redhat.com,
+	lkundrak@v3.sk,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
+	syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Subject: [PATCH] media: usbtv: fix use-after-free and lockdep panic on unbind
+Date: Sun, 27 Sep 2026 21:07:45 +0300
+Message-ID: <20260927180745.2721-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] ntfs: restart the zone search when the allocation
- hint fails
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <cover.1790503811.git.matthias.goergens@gmail.com>
- <79878c7323e37a500c540b3b140102b73d46bafe.1790503811.git.matthias.goergens@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <79878c7323e37a500c540b3b140102b73d46bafe.1790503811.git.matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3d5QyW7lqm0URBQ--.45497S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCry5Wr1kJFWftrW5ury8Krg_yoW5tr4Dp3
-	92kw4rtrn3Xwn7tF9xJanYq34Y9a18Jr1xCF18Xw1fArn8Arna9Fnxtrs5ZryxCaykWw1Y
-	vr4j9Fy7uF1ava7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRTst2q5WzTGsQAA3F
 
+When a usbtv device is unplugged or unbound, a lockdep panic and
+use-after-free occurs in the driver core.
 
+The sequence of events leading to the crash is:
+1. device_release_driver_internal() acquires dev->mutex.
+2. usbtv_disconnect() is called, which in turn calls usbtv_video_free().
+3. usbtv_video_free() prematurely calls v4l2_device_disconnect() and
+   v4l2_device_put().
+4. This drops the final reference on the parent USB device (intf->dev),
+   triggering synchronous device deletion while the USB core is still
+   holding dev->mutex.
+5. When the core attempts to unlock dev->mutex, it operates on freed
+   memory, causing a lockdep panic.
 
-在 2026/9/27 18:57, Matthias Goergens 写道:
-> When ntfs_cluster_alloc() is given a start_lcn, it first tries the
-> clusters from there on.  If that does not satisfy the request, it moves
-> on to the zone's current position, but keeps the pass, the zone_end and
-> the has_guess state it had.  That loses free clusters in two ways.  If
-> the search had already moved on to pass 2, whose range ends at the hint,
-> it scans only from the zone position to the hint and misses every free
-> cluster between the start of the zone and the zone position.  If no
-> cluster had been tested yet, has_guess is still set, so the cluster at
-> the zone position is tried as if it had been the hint, and when that
-> cluster is in use the rest of the bitmap buffer is skipped.
-> 
-> Both happen when the hint lies at or past the end of the volume, which
-> ntfs_attr_map_cluster() produces when it extrapolates from the last
-> allocated run across a hole.  The allocator then finds nothing, shrinks
-> the MFT zone to nothing trying to satisfy the request, and fails with
-> -ENOSPC.
-> 
-> To reproduce on a 128 MiB volume with 4 KiB clusters, extend two files
-> in turn by one cluster at a time, alternating between fallocate(),
-> write() past EOF and truncate() up, so that the runs of each file are
-> separated by holes.  When the volume is full, truncate both files back
-> to 1 MiB and start again.  During the second round a one-cluster
-> fallocate() fails with ENOSPC while 40 MiB is free.
-> 
-> Start the zone over as if no hint had been given.
-> 
-> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->   fs/ntfs/lcnalloc.c | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-> index 0d6cd08ee2e76..30faf422a5424 100644
-> --- a/fs/ntfs/lcnalloc.c
-> +++ b/fs/ntfs/lcnalloc.c
-> @@ -506,13 +506,25 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
->   		}
->   
->   		if (!used_zone_pos) {
-> +			/*
-> +			 * Leaving @start_lcn for the zone position starts the
-> +			 * zone over as if no hint had been given, even if the
-> +			 * search had already reached pass 2, whose range ends
-> +			 * at @start_lcn.
-> +			 */
->   			used_zone_pos = 1;
-> -			if (search_zone == 1)
-> +			has_guess = 0;
-> +			pass = 1;
+Furthermore, usbtv_disconnect() continues to access usbtv->udev after
+usbtv_video_free() returns, leading to a direct use-after-free.
 
-Hi Matthias,
-   Resetting pass, zone_end and has_guess here fixes the missed free 
-clusters when falling back from the hint to the zone position.
+Fix this by removing the manual v4l2_device_disconnect() and
+v4l2_device_put() calls from usbtv_video_free(). This allows
+usbtv_video_free() to safely unregister the video node without destroying
+the underlying structures. The final v4l2_device_put() at the end of
+usbtv_disconnect() will now correctly trigger usbtv_release()
+asynchronously, safely dropping the parent device reference only after all
+system locks are released.
 
-   However, !used_zone_pos only means that the zone position has not 
-been used yet; it does not mean that no clusters have been allocated.
-   A partial hint allocation can also reach this block at the end of the 
-bitmap buffer. Clearing has_guess then allows a nonadjacent run to be 
-appended even when is_contig is true.
+As a result of this cleanup, the dummy v4l2_device_get() previously used
+to prevent premature deletion in the usbtv_probe() error path is no longer
+needed and has been removed.
 
-   Could we return the existing partial run before resetting the search 
-state, like this?
+Fixes: a3550ea665ac ("[media] usbtv: split core and video implementation")
+Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
+Tested-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+ drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
+ drivers/media/usb/usbtv/usbtv-video.c | 3 ---
+ 2 files changed, 6 deletions(-)
 
-   	if (!used_zone_pos) {
-   		if (is_contig && rlpos)
-   			goto out;
-
-   		used_zone_pos = 1;
-   		has_guess = 0;
-   		pass = 1;
-   		...
-   	}
-
-Thanks,
-Baolin.
-
-> +			if (search_zone == 1) {
->   				zone_start = vol->mft_zone_pos;
-> -			else if (search_zone == 2)
-> +				zone_end = vol->mft_zone_end;
-> +			} else if (search_zone == 2) {
->   				zone_start = vol->data1_zone_pos;
-> -			else
-> +				zone_end = vol->nr_clusters;
-> +			} else {
->   				zone_start = vol->data2_zone_pos;
-> +				zone_end = vol->mft_zone_start;
-> +			}
->   
->   			if (!zone_start || zone_start == vol->mft_zone_start ||
->   			    zone_start == vol->mft_zone_end)
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index 4f10f6613bc4..8a68bc0aa884 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
+ 	return 0;
+ 
+ usbtv_audio_fail:
+-	/* we must not free at this point */
+-	v4l2_device_get(&usbtv->v4l2_dev);
+-	/* this will undo the v4l2_device_get() */
+ 	usbtv_video_free(usbtv);
+ 
+ usbtv_video_fail:
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index 92bc7a2509c3..9e02038c3ff7 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -964,7 +964,4 @@ int usbtv_video_init(struct usbtv *usbtv)
+ void usbtv_video_free(struct usbtv *usbtv)
+ {
+ 	vb2_video_unregister_device(&usbtv->vdev);
+-	v4l2_device_disconnect(&usbtv->v4l2_dev);
+-
+-	v4l2_device_put(&usbtv->v4l2_dev);
+ }
+-- 
+2.47.3
 
