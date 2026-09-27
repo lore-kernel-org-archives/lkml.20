@@ -1,130 +1,164 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811CD3B5314
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790477816; cv=none; b=mUhF2I6pr5Fh3X1a+QcAGQPJMtdSNEqYRg0XhYUeSDj7yb6COjyPK9+h9ha4ipkZn/GfuLSV0A3iuXzmLwBN/UVWosj8JYqIAcEOHNCstqVd+yqmXwOkcVHrbI2jYzWy748/Ilang/D4MqCX8HtBzcCVnt0XHEM/qK3atYNqV3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790477816; c=relaxed/simple;
-	bh=JLLY8202AFqPiR7IQZMFqT+Np/Pbs4qmrHh6nwqETJ0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dCJTSFj4tMq1/AKgkasbZMj6O5PKBs9uBpVv9xcYjuaCiHJNyQLmD82q59R4DfhXwyOx467/b3M9rKSCyjkJVm5kzL654PpWF2Mr6eEEDD3EPrBdIau0sTosKdY1M6UqFCOum/Sq167R8GWQ0v0jKU3jAeBWkVYVPXDLzBRJMAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=yoKSfm/1; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5271228E0F;
+	Sun, 27 Sep 2026 03:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790478130; cv=pass; b=K+B8QKRjTfCdzd++uFdtpn/DkGTebbKV4Z5sDIQaoui3RYnx/M8Or6A8rwy3un+N5IufJWG+DevTBbvmB7H2yCd1ML3/S8RiKCR+OuOuqUKJjo7X91nKWkhBFwVGORGGbBgQP9jpRCwiczhAlsYLOpdE9TwuTWKRohfI0uHsTxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790478130; c=relaxed/simple;
+	bh=M6Al3tJSkYdadZYm5i9oNpl26qO/JcIlQcd0axEW8Uk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=mkuq5PtgeY90bTHOWTias/38gZbjHS1GcZilGQmadrpfGyh1ijlGDnYVm4Pux0g3DxV3OP6h1wyA50bb3DTCwegCNipeJE2m30BYMU561h1VwzLKSBFPgpKH6VA8KyCe0o4hpu8yvjyokKr4mtfymrM5AfTbfKf5EqrWg9EelZs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=WQ7CPJr5; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="yoKSfm/1"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd88a115ebso10873755ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:56:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790477815; x=1791082615; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
-        b=yoKSfm/15VtXpMM9+BHs8gsYgRdp7fwEG7DGqYNixRewKAmjD+qpvwSmp0EN7Imgkd
-         oY3BYVDjMuvkHdv3wVGcCYa1eLytphX1iofvzCFLTe6/xXEBzItwgUbIYD6vwGiTKQvH
-         YsflVsgNZD4ccxI0buRouR+CCUQscg4+bkUJqfwSfemJY4SAQnSId+Ao8TKWQFz+TYx/
-         SPDvXZTvanTWMeaKDza11K4VFayIFhUtvnDrO4OQY6ik3vjL1Yqgwt6ccQgDidztCsL0
-         GYr7N9KVBlSh5/msOduPrHWiBT/w7z072H/4wkcAq6co32A0ghbZwKj14oxSbgajNfXO
-         nJqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790477815; x=1791082615;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
-        b=Gm9oS+Mgucen/CHQd6X6ZiDrDlUoIq7/fauppjj5qUFV/XGIFpbMTESh+cd5pAMkDv
-         xqHVJd6pD02jGGSepvPqjRKp+0UNJOpaQIXXepZJ3a2/X2yvIpC7UoaEXF7id99mX6B+
-         oDjCs+nAfL4PtulvCKeHxhkymwqeb4lPrJYxlriRFJ5DjFEToIPvHRRgHZjGeku84T6f
-         7MZOv0WrnxZU9cxS3FmKgxXTAAxZBKZtQy4VSZw/8lOxbgIS+dRWivermmiT7UZfwn6/
-         RRqZ/JBoH1voVPgYTu73WSegiQZFqSTH1JXRRiIqsldM/nDo/7NgrqrIlDlAgKyOoPSS
-         xTgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXlgza9tA4u5/MFzNWsDhYkBBmRwfygqbzPPCZ0RE6C2C7VMJLVll9AkEAGbyUiT07Vn5QoENlx0uabSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInk35+l70zOtNi1kyjg4U5Qq+VKfvGpmbSVs0pGg8eooIPu3W7
-	6joBoj6wlnwAk8N+RiQUQBajdMBPm9Tp6YrHzilC74tf3zSzK1+0wxvtlyGuJw73iUZr
-X-Gm-Gg: AYBFou3Bg4ApsLIqAO/FlxZc0ds7AABsDkv0Y1dt70Fpk0RPfGodWprEFKfQvewhg9K
-	BJPR64Ou6yXlj5wj7l8Vhz9mAac7oTFdC7CaUwBnuAIb1dkVPgL1Ne1ymwYViJ4A78cM2TdLFFV
-	eeOnYMy7UVuGowgAQN6UOQm/ISVh7/KhfROeK/nUI3DEfr+6yROwuhyHLE6zkAWwtRqe1Bo/3es
-	/XiPW09FxbmknG6dTgZejZZlwC+PPu9VU6cQyQlDphsTZ2WbZnu1rPAIxmDIptFPw0a+G2TwXsZ
-	Pyz21DyXvXASAcNz86DTSQ/olsNRGfo1BDRu3Vjb4LyGjmjAxVbkUilyQergCSDe8QwPgSa2xvp
-	tyUN+pr0e3GKsEuRmVbYbIOjyhrwLTWa9XiCZr/OkZotTjvCpERBk2DOJ84eoNc4jG21jDe9yH7
-	giaXQKp9BQrPPSozmz3dcJb/qq8v4p4dQEi+GCkJTh9mULXsNGcr/vqbpkDgjeiB7EtSWgXwxYz
-	a/7
-X-Received: by 2002:a17:903:984:b0:2dd:c100:4246 with SMTP id d9443c01a7336-2df7e13c585mr80615525ad.42.1790477814644;
-        Sat, 26 Sep 2026 19:56:54 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bfd4sm25512285ad.52.2026.09.26.19.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 19:56:52 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>,
-	Bjorn Andersson <andersson@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Bastian Germann <bage@debian.org>,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	tien.nguyenminh@embeddedlinux.blog
-Subject: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
-Date: Sun, 27 Sep 2026 09:56:26 +0700
-Message-Id: <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="WQ7CPJr5"
+ARC-Seal: i=1; a=rsa-sha256; t=1790478120; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=k2uMdp+EeQmmg+KzzyCZjqBt1dttGGNdcFeq/QGCJs2PEJTW4XGprNNFIUgMY1SY7aG72+9xLK730wgPjOTKNw62B9L7fMYWCMoWQCTYxAZmQjIYJaVtv+525vJKM1vmA5VqRYytJE7RsCl910MF5lNUwmQ5bl5R9lgCibiEdXQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790478120; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uCFcO0wTrMm3SxGJTzduXVXmAZQ1xhvtC793IWYLU2o=; 
+	b=eskzKeUK9N88wEAm/2FKu+z/N0KHQlL8Y1UBEs6U7SQyWmmH/RY9a0eG9NET5+7UGH3XuZPw1KOm4+nMSTFdAR9B+Nfllh2QZXtPYSjxjzuAi5QVFusEdb2ZN4QUbMegITv3j385yLMUWrGGoMRXeHWUlFUVwsTo7maROM5FX58=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790478120;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+	bh=uCFcO0wTrMm3SxGJTzduXVXmAZQ1xhvtC793IWYLU2o=;
+	b=WQ7CPJr5seIIGCzxK0EUncoI5xIZt8J77+l5xr6fE7td+S7GDSDexyFX05400k+I
+	0rs1231ACofkPpZxJsaQVhbWO+/+jZYaoraTT5hNWdBmFpPHk5Ind4k1TOZfYyRq8uN
+	x2mBfVPi49PEFPjRqXBLmc4hD8Q5ooqem+9Fw2APtcu1X0eZCxo2b1oWEVGrlqBcGGW
+	XHE/6hysjxJO+E1JTDcJaliC7KRhn96yrz1RR9u6eVS5haBHyzdyOabj64xG2RiSdMU
+	bQmwrj80tmUyXZYRnmDP6X7KSYh4w6GsaHDR5GPuSsigEQT22O0DRzmZaLxgSPtO86K
+	6AH40CMF8g==
+Received: by smtp.zohomail.com with SMTPS id 1790478118056127.13666599785586;
+	Sat, 26 Sep 2026 20:01:58 -0700 (PDT)
+Date: Sun, 27 Sep 2026 11:01:50 +0800
+From: Rong Zhang <i@rong.moe>
+To: Navon John Lukose <navonjohnlukose@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>
+CC: Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Armin Wolf <W_Armin@gmx.de>, Charles <hanker007@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/9=5D_platform/?=
+ =?US-ASCII?Q?x86=3A_lenovo-wmi-=7Bother=2Ccap?=
+ =?US-ASCII?Q?data=2Chelpers=7D=3A_Improve_robustness_on_buggy_firmware?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20260926210415.3465939-1-navonjohnlukose@gmail.com>
+References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe> <20260926210415.3465939-1-navonjohnlukose@gmail.com>
+Message-ID: <E2EDCF4A-09BB-4FE7-9E67-5086401C0848@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
 
-Add the hardware spinlock of the D1 and T113. It goes in
-sunxi-d1-t113.dtsi rather than sunxi-d1s-t113.dtsi, as the D1s manual
-has no spinlock in its memory map.
+Hi Navon,
 
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
----
- arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Thanks a lot for your test=2E=20
 
-diff --git a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-index 3b077dc086..228cc5c074 100644
---- a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-+++ b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-@@ -11,5 +11,14 @@ dsp_wdt: watchdog@1700400 {
- 			clock-names = "hosc", "losc";
- 			status = "reserved";
- 		};
-+
-+		hwlock: hwlock@3005000 {
-+			compatible = "allwinner,sun20i-d1-hwspinlock",
-+				     "allwinner,sun6i-a31-hwspinlock";
-+			reg = <0x3005000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SPINLOCK>;
-+			resets = <&ccu RST_BUS_SPINLOCK>;
-+			#hwlock-cells = <1>;
-+		};
- 	};
- };
--- 
-2.34.1
 
+=E4=BA=8E 2026=E5=B9=B49=E6=9C=8827=E6=97=A5 GMT+08:00 05:04:15=EF=BC=8CNa=
+von John Lukose <navonjohnlukose@gmail=2Ecom> =E5=86=99=E9=81=93=EF=BC=9A
+> Tested on a Yoga Pro 7 14IAH10 (83KF, BIOS QGCN35WW)=2E Neither mainline
+> nor the series binds here=2E This firmware has no
+> LENOVO_CAPABILITY_DATA_01 in _WDG at all, so no component ever
+> registers for that match and lwmi_om_master_bind() never runs=2E Skippin=
+g
+> the match for GUIDs the firmware doesn't declare fixes it:
+>=20
+> diff --git a/drivers/platform/x86/lenovo/wmi-capdata=2Ec b/drivers/platf=
+orm/x86/lenovo/wmi-capdata=2Ec
+> index 805e36ef7=2E=2Ed64520be1 100644
+> --- a/drivers/platform/x86/lenovo/wmi-capdata=2Ec
+> +++ b/drivers/platform/x86/lenovo/wmi-capdata=2Ec
+> @@ -76,11 +76,13 @@ enum lwmi_cd_type {
+>  #define LWMI_CD_TABLE_ITEM(_type)		\
+>  	[_type] =3D {				\
+>  		=2Ename =3D #_type,			\
+> +		=2Eguid =3D _type##_GUID,		\
+>  		=2Etype =3D _type,			\
+>  	}
+> =20
+>  static const struct lwmi_cd_info {
+>  	const char *name;
+> +	const char *guid;
+>  	enum lwmi_cd_type type;
+>  } lwmi_cd_table[] =3D {
+>  	LWMI_CD_TABLE_ITEM(LENOVO_CAPABILITY_DATA_00),
+> @@ -166,6 +168,14 @@ void lwmi_cd_match_add_all(struct device *master, s=
+truct component_match **match
+>  		if (lwmi_cd_table[i]=2Etype =3D=3D LENOVO_FAN_TEST_DATA)
+>  			continue;
+> =20
+> +		/*
+> +		 * Some firmware does not declare every capdata GUID at all, in
+> +		 * which case no component would ever register for it and the
+> +		 * master could never bind=2E
+> +		 */
+> +		if (!wmi_has_guid(lwmi_cd_table[i]=2Eguid))
+> +			continue;
+
+This was exactly what I did in the earlier revision while I was introducin=
+g the support for capdata00 and capdata_fan=2E
+
+The wmi_has_guid() approach was eventually replaced by the sub-component a=
+pproach, because the use of the former is strongly discouraged=2E
+
+In the next revision I am going to convert capdata01 into a sub-component,=
+ too=2E In this manner some heavy and complex work in the series will becom=
+e needless and can be simplified=2E While the sub-component approach itself=
+ is complex, we've had the infrastructure to make it work=2E Therefore wiri=
+ng it up should be a trivial work=2E
+
+Mark, Derek,
+
+Do you know if there is any way to determine the existence of capdata01 us=
+ing capdata00?=20
+
+> +
+>  		component_match_add(master, matchptr, lwmi_cd_match,
+>  				    (void *)&lwmi_cd_table[i]=2Etype);
+>  		if (IS_ERR(*matchptr))
+> diff --git a/drivers/platform/x86/lenovo/wmi-other=2Ec b/drivers/platfor=
+m/x86/lenovo/wmi-other=2Ec
+> index e6c8f6bcf=2E=2Eb196e9926 100644
+> --- a/drivers/platform/x86/lenovo/wmi-other=2Ec
+> +++ b/drivers/platform/x86/lenovo/wmi-other=2Ec
+> @@ -1704,6 +1704,8 @@ static int lwmi_other_probe(struct wmi_device *wde=
+v, const void *context)
+>  	lwmi_cd_match_add_all(&wdev->dev, &master_match);
+>  	if (IS_ERR(master_match))
+>  		return PTR_ERR(master_match);
+> +	if (!master_match)
+> +		return -ENODEV;
+> =20
+>  	return component_master_add_with_match(&wdev->dev, &lwmi_om_master_ops=
+,
+>  					       master_match);
+>=20
+> With that on top (built out of tree against 7=2E2=2E5), lenovo_wmi_other
+> binds and exposes fan1 and fan4 (min 1500/1800, max 5100/5400, input
+> matching the EC tach fields)=2E fanX_target pins both fans, 0 hands them
+> back to the firmware curve, and out-of-range writes get -EINVAL=2E With
+> the change above:
+>=20
+> Tested-by: Navon John Lukose <navonjohnlukose@gmail=2Ecom>
+
+Good to know fan control works on your device=2E
+
+Thanks,
+Rong
