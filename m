@@ -1,82 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D1D42BE95;
-	Sun, 27 Sep 2026 17:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431D942467C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531502; cv=none; b=GiF4P7I863XASJ1ZZJuwPYYdfY5DIDbt/Err5IrqX0wG5oIGJ6+Gf6wpyHBcJSeYC3LaWnBfnjVFxlD17A+gx4PbZxtDbohrEVTapvpvJcePfDVDF4kBR67Q0QGZTv2xB3FY4x9pDK/eD5gXO7MhZ1XeEeYhOPFkQ2MyfiSpMaY=
+	t=1790531517; cv=none; b=jt98HGU044P0ZoAjcg7qH18RwDAws/Ti2H8U8XW5zFufxclsvbrJWp5bPKHbW9tA3z3ilISnI36umck3x4/iLHnR72Ie0267FHr7ijcQtr/m3bYMSPHrJflrTImE3VcDYWXRQAO15rEbfCQ+r7bZw/F3mhXrmb2rbCcR5K2D7Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531502; c=relaxed/simple;
-	bh=Fg/R832Yu9hm9UhvjRyIMtHy+AIL/iz6wCDb4fRFB4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B4axmfr+tZuoPFB7LD8HuqsO14CZ+j2CXIm8wehKSHAjqqdZtGWsJTrjbrihFdNCecrVuNeirg9IvSvc23B/ZRDmWIZnC9JeFCOKXk2XQ83JQMAFfGFfCIvxHHunpuCBx9H0Ao41Rq3FRxgRQ6vtNnsh6rP1RP2Dnm8rkdX1oi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwtppmP6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790531517; c=relaxed/simple;
+	bh=Cf8NIJkWVY8TWvFnYDbn8a8mY24SXis/B6SkCoozzm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ouf0USQA8OFixdWOSlkHNn7rJZWQb4aTd2uiG0bZd+n9AL6k8nSBXCK2gKnwk0t9ziWgsZmgFXR68/LCPFNXhHtfIiHOddrKlZdCp5MNXdbfxzorajBqJytL/krb9+hyEoU5VbgcGFooV1OjKOlxk3kkDY4wlFaM+VY3sQ/rbTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JcyH570j; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwtppmP6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644501F000FF;
-	Sun, 27 Sep 2026 17:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790531501;
-	bh=X+nDRP/emFRMtv32jkEurvBaO372Vfq1u5C7aL6qs6s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RwtppmP6+lipHJN5l5AG0+XHAblrzGDODnr7nHlYmDDTkheMHWaAaHO4zGVKF2n4t
-	 KO0PO2lz/+GJV86i3nxlxMR5SrTykxzPpykRGIBstMCEu95fe/lkqnJ3H2XbZxKP9Y
-	 ITl7XomOXZqUIboicgXDCWUmhyxIuw3Dc4M/b+oT0QfMVTVC5c7N7uk0qkUO9bGXz8
-	 pnOxqMUj5SWLpPrqxZO8qePkf66I5yGGAEFFT6r8gTCeK1BSUBPkFD/h9BkYkVHKQD
-	 jcOCjGR60W8t2zWhKGh4DqxEwmhcI3J1J0C2/i5uVIbQgjC9V2b07f9U/fx4YxuBr2
-	 3uhjQ2GR6iWqA==
-Date: Sun, 27 Sep 2026 19:51:38 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org, 
-	linux-input@vger.kernel.org
-Subject: Re: [PATCH v3 15/19] dt-bindings: thermal: tsens: Add MSM8952
-Message-ID: <20260927-mole-of-wondrous-feminism-292739@quoll>
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-15-b96fd3fe298b@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JcyH570j"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1158175a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:51:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790531515; x=1791136315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kwmzHbcrjIY/XcCe6sCdMKV/UzCFAPbJtQGnBjUsEZY=;
+        b=JcyH570jH+xEeFFraOE1BtumEhawirZuvYoTPFX30PSG1de+du+ZDgfUTJJNZblFEd
+         lkrrFfdWL+odRidCdJCvgPKKvh8oUQ0HEWuIFj1LYwwFQoeB52B1PHWcg8Rw52eC8QPR
+         zDhs+smv7F3YxhWBo9VpxOojLKP7az4YIzipvqqKPI+sy4S8LQJ+uceoYHwheqLjUpCd
+         Vpv/W5Q0Mbcfacs9zWcpSW43s+Bx/aqY1GTM1NGnUTVAYvAXJn8XsKDgJw+B4VabT2BE
+         mbN0vyvXDNvh3Pz98gzEYhTyqPVScwYkEeQU+pJTh99gZQxJy7J8A2pUM3ZNH3MQUMaZ
+         bv8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790531515; x=1791136315;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kwmzHbcrjIY/XcCe6sCdMKV/UzCFAPbJtQGnBjUsEZY=;
+        b=vhjTZrJ16ZeZSSVDhHSYjCbG7ncZXD2QAzrqbiK+1LduTz7F89E7vc0C8XwWbpHtbH
+         +khvEBsK6JLadF9nYZLRRuuj68IjrC76qLNA7Byn5V59kQwzP+X0GobVcNepIcynFAD7
+         kKr8fL2p1ybmTVQzyk9ROKw8LtdLqgO6HBNzBAuNl3r3LLWvQXGTaNbX2pSvNZOcaQzA
+         qiJCsALUI41H3aRfnHFVN+WOGYfw2N+U4ROaifMPi/Bt6apvLtnB/G6NL1hIISk9DBF3
+         2IVLmDqeGAyFIP5qW0XhxDhyf4Q6ocDWUsZtuZJFhC2t252BglojP+Hx0dPSgdj2S8nr
+         MJ2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxWTFjB+QRItvQGHstkDgBMWQImUKWfE6EpUrYAp33yjII1x2/frXJyQozoI6VRI69J4H98zg4XiuD+DCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo5WhWh03nihwqJwFoe7kh3Rzfl/6ho11qmQ7hZ2zBolxXGQiv
+	zvD78BHypvwm79cMP4JPh8Q+jWsnAtZPoAID5AZuRXtq00OEKQfcSiGs
+X-Gm-Gg: AYBFou0AcGT/p16eaJRXG0/PnkoXkasHwolL+CGi9i2IT5thVETGgz/1HznVpl3x6Y0
+	ZGipPXoucChGUU/ZY3V3Q/9wj5P+oDL5ofsuHhZGq9A3hxS7etF4icfSq5C8hnHIJfiBaxwOnNc
+	CpGBY7Dbr5Pod+pYGz5Q56hsU6S2MAYIZUFb3bcaJM19yW7ULQlXjZbUT3jYzt7JRb2wC35/8iM
+	gIX3PoUBmXKZSPFdm/g2DLXzkeknechWQtvip0whqkhNGzLS4+wisvP4DWeal5/4WU3I2PaPdqr
+	9ZDfrN+8gukDSGsW8ayUiSfo3iKFZgWPWK7SvWWzRjy/5DKzsHBDf/ESHUqUF49xk0JDXL2kyCA
+	W5Mo+dXtBFwtNi4IYRfJ6X/6QV7ooknbn+L8F8+aNf3i9lBbxVjVb/jsJBo+VWSdO41SHcV9his
+	Pl0rPskQ/hg/0++ew34QN+fRLh4tW46lrRF9hWc5spO96NKXfUbuInE9q0ePLgZB15NLf0Z/86r
+	bwnJgJk+x4=
+X-Received: by 2002:a17:90b:440c:b0:3a0:c8e6:ab30 with SMTP id 98e67ed59e1d1-3a0c8e6b9b6mr5659510a91.59.1790531515391;
+        Sun, 27 Sep 2026 10:51:55 -0700 (PDT)
+Received: from celestia ([2402:1980:867:387a:70b:38f1:a1dd:9303])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e54sm15597784a91.5.2026.09.27.10.51.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 10:51:54 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Liew Rui Yan <aethernet65535@gmail.com>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] mm/damon/tests/core-kunit: add test for unconditionally skipping the last region
+Date: Mon, 28 Sep 2026 01:51:43 +0800
+Message-ID: <20260927175159.60703-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-msm8952-initial-support-v3-15-b96fd3fe298b@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 09:19:06PM +0300, Muzaffer Kadir wrote:
-> Add compatible string for tsens block found in MSM8952.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Commit b3723b596b54 ("mm/damon/core: fix unconditionally skip last
+region") fixed a minor bug.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Add a KUnit test case to cover this behavior and prevent regressions in
+the future.
 
-Best regards,
-Krzysztof
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+---
+
+Changes from v2:
+- v2: https://lore.kernel.org/damon/20260925045350.66595-1-aethernet65535@gmail.com
+- Change the commit message, mention the fix rather than the original
+  bug.
+
+Changes from v1 RESEND:
+- v1 RESEND: https://lore.kernel.org/damon/20260919080453.628679-1-aethernet65535@gmail.com
+- Drop braces for single line, as suggested [1] in coding-style.
+- Set min_region_sz initial value to power-of-2 value, '1'.
+- [1] https://docs.kernel.org/process/coding-style.html#placing-braces-and-spaces
+
+Changes from v1:
+- v1: https://lore.kernel.org/damon/20260831113735.3349-1-aethernet65535@gmail.com
+- Resend since the dependent patch is merged into mm-new, that would
+  help us getting AI review help.
+
+---
+ mm/damon/tests/core-kunit.h | 42 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 4a536d41cdb2..f4237436e1b4 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -1632,6 +1632,47 @@ static void damon_test_rand(struct kunit *test)
+ 	}
+ }
+ 
++static void damon_test_last_region_quota_reset(struct kunit *test)
++{
++	struct damos s = {0};
++	struct damon_target *t;
++	struct damon_region *r1, *r2;
++	unsigned long min_region_sz = 1;
++	bool skipped;
++
++	t = damon_new_target();
++	if (!t)
++		kunit_skip(test, "target alloc fail");
++
++	r1 = damon_new_region(0, 100);
++	if (!r1) {
++		damon_free_target(t);
++		kunit_skip(test, "region 1 alloc fail");
++	}
++	damon_add_region(r1, t);
++
++	r2 = damon_new_region(100, 200);
++	if (!r2) {
++		damon_free_target(t);
++		kunit_skip(test, "region 2 alloc fail");
++	}
++	damon_add_region(r2, t);
++
++	s.quota.charge_target_from = t;
++	s.quota.charge_addr_from = r1->ar.end;
++
++	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
++
++	/* 'r2' is not processed, it should not skip */
++	KUNIT_EXPECT_EQ(test, skipped, false);
++
++	/* 'r2' is last region, it should reset charge_{target,addr}_from */
++	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
++	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
++
++	damon_free_target(t);
++}
++
+ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_target),
+ 	KUNIT_CASE(damon_test_regions),
+@@ -1664,6 +1705,7 @@ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_is_last_region),
+ 	KUNIT_CASE(damon_test_walk_control_obsolete),
+ 	KUNIT_CASE(damon_test_rand),
++	KUNIT_CASE(damon_test_last_region_quota_reset),
+ 	{},
+ };
+ 
+-- 
+2.55.0
 
