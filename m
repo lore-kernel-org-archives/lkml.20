@@ -1,233 +1,184 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11F62D0C89
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790497949; cv=pass; b=h+YYiWVkugUHIQhLqo4l0KoH+cSabH4IBHL8YEasHHUBgZwh4mVnDy97pdOo6ChLs2WcQZtPGs/Qzgn5u4R+wMZWBedxus/DooSj839JwyTdKhlsjO68H4TuiqpOb8gZ+JdENcqWV9uu8MgODuj34jZ1LiQBr6JsVuQwYuUMycQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790497949; c=relaxed/simple;
-	bh=Op4TF923PZN2pA1cGRLIOtwN+qOzyRIs41ZrhN5aXbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gtmSeJJq+vwzbKrKvdOYrM62kfuf0pDFks+ud9QYrPAgX4hYWt94+du/H+w8mXh/n2u2C6gY8bHYCHPwUdR/jk3TvrNi8JJZWpM1Lg0ZpzkAHzmq9n7BlLnyX1diUMLiW4OEQJ1agWq/m95JbViJJaAXSLs8apBMvoKuaE5Kaxs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QbHon6ck; arc=pass smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662B83BA22C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790498441; cv=none; b=cjrx7WYOWoy6sXzR5m8xxeG/7qs3wpLL20wPImjvOuiaGSvFyBuBLsGVT0Zjr42Hd/daEip3+NwrB0b0gvgifGiSuXCD2Hn+dhYNYIlLlrggpONHIu+4olmGZgyleP6sIeN44VYVjcZ+mf7JeOGe2wBIYLmfjXHppZoT5MTNm4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790498441; c=relaxed/simple;
+	bh=E7JEhW3K/4jheKK7XYSrmJv6OJRhgoWWWDlla6d2uEg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=tlqBXwgQ5AVTjuR1y4ElRGxn+NkyRyFu/OcsYbO44+ulQwHqv0aJjOLioZR0sSz830anvXXQ4rHmVn4wQ3iXLLVmEGrZo07TL17x85mC3A2MH2WDftk/1g7reRofaWOQYo5zwa7ob/mCSAMdfasVB+Db6g5YYC1bDsruqBIe4D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aEgYD23v; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hZX+YdPA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QbHon6ck"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf2dd01d2so225613a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:32:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790497946; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lnCVy3RDfk/C2TFgrmAVXkXNC6RUfrPBVnzD9aT4M8QO81XgxE3HoOLmM6xGsVPNY9
-         M1bGNJR7yM3yuhbTo+tND76bkSKY/QjSeHFO3gIyzKMgje4OPhSZvBq7/sgQX2jXkVO/
-         n5CG07zQD61TkH2gU+21qLtrwLxg5NLqacTA7WBqEbeJhkJQiSqb8WY66kpOLDYlThSf
-         DYoyFezC2BNyMuApG/HdQnSIrK9MsHiGHJTDlaiiqn/pI7ZUBkiE2BCtppfnj6BqKjUQ
-         1Cn0Rdxyt7huR/rXgx/7RBx8FABFzUFsRPweZDUDHYLhQfa3Fsh98WXFeqd/goXeusKn
-         G82Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        fh=SZUUUmjq9UKdqy+wJujvth1w30fW9Emze0L0U4hjfJo=;
-        b=AueZlL4KohdY/DcwFng9EfHF2ZkjpxI5G5uU04/6qUDZwTFJGOPgh0u1nDBdxAYfTy
-         JYVF+/IL4CIgpUkbwQMu5GRMO7wJNQXz9NznSH+xbm0/UIkc+bWCnXi2j77yXruV+vS9
-         B26QkG3SfQAL80isSx8w84Xzj9wBwiGcHZyM/+jKlQJbt+7lRnx2LUr2Rg1BXc+j0aQ9
-         GBgUq8YjUJWSAXoeHUPEt5+4Nj022hid6pMANzGG/G8U4YqPDiMyUQl4LmoQB13oXiTe
-         QGFTpJpIR9AHWpaCJ47RVWA3U06JY6KhE64ewGL2X1wdpv34cyKeMazUqvAtBPS8fM27
-         xNRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aEgYD23v";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hZX+YdPA"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QMEXWU1511013
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:40:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6XqMK/ERmVKwK7Drj00ei20mLMHsujEDPrurnafjbjA=; b=aEgYD23veb6enSsJ
+	Uf2ZFzLb39vz6dtSjbphEotJ+nZLaktoxTICwM28dXDXY9MAQiTiGuFiVB0/p62+
+	JLq+hZ8MnLOPZ9qViGTOBiOi4nk7obS6KVdzxUJ8+O3aDk6n0IlF4LftnbpuJSHS
+	FH9UFm+Oxj1Lo3q3HH+abTgJg3nj7lVNHkluv3J+2VnQFvIL+Ztd4stXoM+rbcJN
+	bDBjwypkAd1uInB5aAB4NQ5itEcc+gRqYmB/cImzJGRW8qMXpy7YwHIJeBmktH39
+	bDWvVzQEJem49K8I8tHm4cBMgw0W2pj+rbG5Z4XpxqJiVXmKwp9oJP/Wm/IzWlJ5
+	6vquuQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx5mwan0e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:40:38 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a01d1d1b6so391597985a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:40:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790497946; x=1791102746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        b=QbHon6ckRYMsI0mEyPG+ga7CzGgVyF9FopesfeHbDuuo+B0mBPtvABUOKpz8hHrE/Z
-         22qbB19tDzgvAnm3sk92uOWUYPgEbSUNzUxoqRXAmK4x9BREZPTpQGoTxabyAaHVV9r6
-         D1HVvCn3Wo3+faeCDEjgnnAyB5ZqCHA7UCom950omUPhW8ngruBHY4wTXlORoOg4IL97
-         1z7sWPwwKcZ/m818pdG1nOc+4URg5oLu1wbC/cCrxPhy0Qd8BKth+H+rUdtyspPDT8fY
-         UQpMFhN8nJSWBDrpSvdW3V5a7HOLYqLxRdRgyZNxvkOrKCwmQ6UiO4MFYFyRmcfUEkR1
-         YKNw==
+        d=oss.qualcomm.com; s=google; t=1790498438; x=1791103238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6XqMK/ERmVKwK7Drj00ei20mLMHsujEDPrurnafjbjA=;
+        b=hZX+YdPATe0E1HERCAL1KtwpU4v96oLFtrG6f89XBC0eUDCtIJvNazyeqI2Kp4GMrH
+         MtWHOMZLxg/UQ5+QKklA0oA+83danupLF2T/G+aOv/rawwt5uXEh+Qq4PJrwfxLlHq8c
+         1qWFiIq6Ee3ajNdketQwxzJp0afyvpd4Blqm/Qv4kudJloBH5z3gwjzhGG1A1hgSo/5/
+         sRhVOUijrVUFizAmRXNPETfP5BzSyCWnSYc6D7BdPQT4cDbrhRGgs5SYgQJPNAteejb1
+         j3uQr+vcfncERAaxq8Ss9f4ferJ4suQQaY05mWY97zE4NLi2LZ8CyZkZyM+uwbR7Tmdk
+         UtRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790497946; x=1791102746;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        b=Yj54plmYmyhUn4s0MtsprnUYCvDE5uQkLFIISWXHgxbk3YAcrWFY73VGNe/O+N3Yic
-         qphyzANzGWAq4N8WrNMQYrztYIaTzeaOio66t879pzpiH2I8kso4qFXDuIdEL3Hn0znK
-         Rfpu3lXTaPnv7dQ6jh05Wz7/WR5/Lpv2CCQDMaUgr7XMqecXkZATw/fyY8+0vhJ0/SH5
-         ddHqYR+C8xbZ2g1cw7cMwtDvyNVTb6xiJnH0J52rcMvgvlZYWyZR2a0QKhiR0cskejRy
-         jB+zQm+IePBLK0EDYyKGbaL3+CY9CIgibYJWO2AuQZj98U2kP0LfSoT7PZz7tAXBoapJ
-         aG7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ7lozlz+6RcNIR191MKSuVRW5+/hgKRa4jtm2YHRt4Z8ugmkCki15naRj1ZvdtkulzykOytyXrrZgfTk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCQvMcjxrcVmTuYpC6lYtE0L6WlSArjZCBDuGMRtVjJUnH+pNx
-	Z8rMzXZeYqgY8Bs5zs61yf8Ynq7Dgh7YcgBgyyd/YTAJSxCHx8nVSq9H9ntgzTyZm1hnggDXcBk
-	yJTjtib0bKKfQfIoNOM4Z2hx9IoKstMzTdHD2dv3Y8qQ6
-X-Gm-Gg: AYBFou2XvM7GjFRpaAW+PlSBmUgZ/IaP/crdXBRwww6FDuP0n1kihPQanh6Qr+Ghlkt
-	NFisJw+gCbc8bv5SePmyYbZpyzFy7LxnLM5qi6m/m/w+OHIwXehrnIgn31KNuwYdh1+NLwLNtIf
-	ckHOzJbFZEzVrujxw4IsbsnfHC3ESfOFJVxq48aIljyt2asttge+EX8fGc9IGOtB7exWLidB7ES
-	HSo3367ER1p5+i21b268wx9t2GD0azf5gqtj9K1hobX1L+1rn/gLuwEtTk42XjBxhd9enCt5XyA
-	LDi4QyVco9s5oUl9o7lYrJ/LgjHmHGLNOSniyc+imhkXgCsYenGsL6EgcQa7F3q86vk4J+Dv3KB
-	mZrRyskxOB6ny+B3frYKpDw==
-X-Received: by 2002:a05:6402:50c6:b0:6aa:f240:241 with SMTP id
- 4fb4d7f45d1cf-6aaf24004c5mr4822258a12.0.1790497945733; Sun, 27 Sep 2026
- 01:32:25 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790498438; x=1791103238;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6XqMK/ERmVKwK7Drj00ei20mLMHsujEDPrurnafjbjA=;
+        b=GSbo5VdJ8SG+GGAnB4M/M479Q/ma4sHJQSCaSaGubSHXkvbnnb8dj5NaqBLTQmmx5L
+         yaCMZFR9ODRiXLlFDWbiwM7efjGh1yA3ThFSDh/pdBcenCHYxatoO9FVU3kMfXYrEkw3
+         KQ6qbgDhLW0J/h9A9qsoYWZJOq/n9Fw91L2hjlK8/cObCTRE051jBpVAqOXDCpZGpbYl
+         r3E3hLr7aVM6ZbhGnPIyDX12N9MMTZNttCASzfsXFaCBPqnmSpEJ0j15cfRMHZ431LB1
+         YkIQmeysHshNx3k+zNc2+Dag7kxNAUbDegszgbn0uM86i9e80xby4r27aNou/xjDhCVG
+         C3SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzT1Ka/V5Wgy4glXPrH4/oDDmGUleXfNuolsauv3GpYcjpl3c3vrpinSrnsrhykfsHB/BKHeWyp/i5P/Bg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqfHDFMEPaNSA7SBlnfIrZWHZDfJk6Fspoth9jCIRQMQGIYgrA
+	LE3T9Eamm2jyDUfygtk2tgzhK9yRHHaJNfkWjhZAVO2xcSjWe6Hde0S4s1wsGZhZJWgbfbiiMcm
+	q7B7LcCOO8j8w1eD0WX/paCVbMPy9JzpGEhpaHlGgJFmgpD1XRHOPZpbPDg4bUYN9ZgE=
+X-Gm-Gg: AYBFou14WGvQTaPWuJHjRCm2abRg4tIokYwly6M3y6M1kFN2BMMiWKp71raqLuIOuqU
+	ullncUOJaNJFo65C3wPi5+ol0QrLMqy4POi8xPpiTBqWNOtZQAGGrokfd2BJ0xdhD69zNXm/sMI
+	BYQqvynYzr/Kjx1cP2w3QrLaexhbfPj452ddjn/tQvkSIHI8VqEsv7egvWlm5eijEhH7V/FqC6b
+	QkKoDMPg3nOXaTx5PZhjnCP1D+Ky2YE0s6i5fQnMtSr5Yst9LUkaUvuTk7geU6tW7QaJIsFOZXo
+	wEKvCubSyft/qPZbJJGdUJ61WFSWALlvxjTA4cZBwkWicvpPCqV1yj3Ooat95D3V4TN9AXM9xDP
+	uKjipSG49SW972042LhCc1JSoNgRoAxo1byIwYEZX0bF8PbLM643SBYewpaE6SZ+Yo1Oat9WHCQ
+	aVWd6CwPCX5dCZd/OLxQcJBqJ3rtMZubDBhoIEWjj/8+QmQJOuRDfvEIFjOpmL0HYusQ==
+X-Received: by 2002:a05:620a:7010:b0:939:f522:b2f7 with SMTP id af79cd13be357-93c43cd31b9mr1423864385a.33.1790498438397;
+        Sun, 27 Sep 2026 01:40:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:7010:b0:939:f522:b2f7 with SMTP id af79cd13be357-93c43cd31b9mr1423859585a.33.1790498437693;
+        Sun, 27 Sep 2026 01:40:37 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dd8badsm2910285a12.22.2026.09.27.01.40.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 01:40:35 -0700 (PDT)
+Message-ID: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+Date: Sun, 27 Sep 2026 10:40:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926172600.2394088-1-nicoyip.dev@gmail.com> <179049714090.25414.9706892666916736240.b4-review@b4>
-In-Reply-To: <179049714090.25414.9706892666916736240.b4-review@b4>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sun, 27 Sep 2026 16:32:14 +0800
-X-Gm-Features: AclHuK-VVl8oMxw1DKEDd6CYLQdS-fllp6XQOLEY4IQxZkl62p2gPbF455zhrGI
-Message-ID: <CAAo+4rXRTJz0wh=Xjv3ME8kfBsdgDC4q-n=M0-Z+uuOWik8fOg@mail.gmail.com>
-Subject: Re: [PATCH net] batman-adv: Close OGM aggregation before transmission
-To: Sven Eckelmann <sven@narfation.org>
-Cc: Marek Lindner <marek.lindner@mailbox.org>, Simon Wunderlich <sw@simonwunderlich.de>, 
-	Antonio Quartulli <antonio@mandelbit.com>, b.a.t.m.a.n@lists.open-mesh.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API
+ devices
+To: Liviu Nicoara <lnicoara@thinkoid.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+ <20260925164054.25831-1-lnicoara@thinkoid.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260925164054.25831-1-lnicoara@thinkoid.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: SE7rWOfJinQaL8atduUmgZcgjVRqn_yP
+X-Authority-Analysis: v=2.4 cv=QvPLTlyd c=1 sm=1 tr=0 ts=6ab8d686 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8
+ a=KOsBq0R2AAAA:8 a=Nv_Mk3N-tBtoCUosGXcA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=p7IlednmDx7li90OXeev:22
+X-Proofpoint-ORIG-GUID: SE7rWOfJinQaL8atduUmgZcgjVRqn_yP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDAzNCBTYWx0ZWRfX7ZBo2gJw6LGV
+ KOzocBhnoiMRLHM/6sr0yZaYpN2pM43vAkOG5eFlh6EdnSk8MUkPMUkKCysEpT6ueZeAwlBQngr
+ qI3sVJ/gu6AC72z2hHnE0O+f5f3aHLf8o+apGxNgAi571mvnH/+bIX53HNzjNGO4Yb9sk8F8WVd
+ rz3rtiaHoDTPHuefEUwhjoQ9wzgfNFDMoKr3QiHLDWptQP/3J+Poni2PoJ0JRHuA/la4hb9/3Ys
+ NkvFYpoLgCcaKUsnnech1CUZoGwwC7KC6G4tYBQVt18hsLpu4fh5CTPaKfGi6HPUyles7uwVBb/
+ S7EmObKxXi4KV/+OXp3NKlKtPUFdaQ2bCCUR2VevYpG7cjlyQnEvef2j2D8Ry9t5CNsoX3MaVcl
+ M5P7lx4M1am2yoXBMHgN+jxw6g+84yCA7uBLrrw64w1suOBgqX92afz3nwp02zICd8V6fWXsomN
+ KOg2hLULoeVO/D87Cpw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDAzNCBTYWx0ZWRfX0xy1BoTZM/b5
+ ObT+rVeUCGvF143RyDbSoviNJ10ciG+yyUiWnqeTAyxyB8hJEPS0varYfIIeArTR2qdzp7CL+46
+ PeRGO/NOWElkTD2LaoRFqgiq3pq02W4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270034
 
-Thanks for the quick review.
+Hi,
 
-On Sun, Sep 27, 2026 at 4:19=E2=80=AFPM Sven Eckelmann <sven@narfation.org>=
- wrote:
->
-> Thanks for the fix.
->
-> Please don't submit batman-adv changes to netdev directly. And please sen=
-d the
-> patch also to the person which introduced the problem. You can use tools =
-like
-> `b4 prep --auto-to-cc` or just the underlying ./scripts/get_maintainer.pl
->
->     $ b4 mbox 20260926172600.2394088-1-nicoyip.dev@gmail.com
->     $ ./scripts/get_maintainer.pl 20260926172600.2394088-1-nicoyip.dev@gm=
-ail.com.mbx
->     Marek Lindner <marek.lindner@mailbox.org> (maintainer:BATMAN ADVANCED=
-)
->     Simon Wunderlich <sw@simonwunderlich.de> (maintainer:BATMAN ADVANCED,=
-blamed_fixes:1/1=3D100%)
->     Antonio Quartulli <antonio@mandelbit.com> (maintainer:BATMAN ADVANCED=
-)
->     Sven Eckelmann <sven@narfation.org> (maintainer:BATMAN ADVANCED,blame=
-d_fixes:1/1=3D100%)
->     "Linus L=C3=BCssing" <linus.luessing@c0d3.blue> (blamed_fixes:1/1=3D1=
-00%)
->     b.a.t.m.a.n@lists.open-mesh.org (moderated list:BATMAN ADVANCED)
->     linux-kernel@vger.kernel.org (open list)
->
-> This change should not go directly to net.git. The target tree must be
-> batadv.git
+On 25-Sep-26 18:40, Liviu Nicoara wrote:
+> On Fri, 18 Sep 2026 14:56:40 +0100, Bryan O'Donoghue wrote:
+>> In the first instance the code will try to use the new PHY interface. If no
+>> PHYs are present in the DT then the legacy method will be attempted.
+> 
+> Tested on a Dell XPS 13 9345 (X1E80100, OV02C10 on CSIPHY4, two
+> lanes), with this series, the CSI2 PHY driver v18 and patches 1-4 of
+> the x1e camera DT v7, on 7.2.6, plus a board DT for the 9345 (to be
+> posted). CAMSS picks up CSIPHY4 through the PHY API, and the sensor
+> streams at 30 fps through libcamera's software ISP and into a browser.
+> 
+> Tested-by: Liviu Nicoara <lnicoara@thinkoid.org> # Dell XPS 13 9345
 
-No problem, I will send the v2 to batadv.
+Thank you for testing.
 
->
->     $ ./scripts/get_maintainer.pl --scm 20260926172600.2394088-1-nicoyip.=
-dev@gmail.com.mbx
->     [...]
->     git https://git.open-mesh.org/batadv.git
->     git git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
->
-> The last tree is irrelevant for you because it is really unlikely that Li=
-nus
-> Torvalds will apply your patch directly.
->
-> > The OGM send worker leaves its forwarding packet on forw_bat_list until
-> > after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_loc=
-k,
-> > but emission reads and clones the packet without that lock.
-> >
-> > CPU 0 can therefore start emitting a queued packet while CPU 1 takes th=
-e
-> > list lock, finds the same packet and appends another OGM. The sender ca=
-n
-> > observe the new packet length before the corresponding direct-link flag
-> > is set, or clone the skb while its length and payload are being updated=
-.
-> > This can transmit an OGM with incorrect flags or inconsistent data.
-> >
-> > KCSAN reported:
-> >
-> >   BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_out=
-standing_bat_ogm_packet
-> >   write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-> >   read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-> >   value changed: 0x00c0 -> 0x00d8
->
-> Is there a reproducer and where can I find it?
+It would be great if you can post your DT bits for this upstream soon,
+then we can add them to:
 
-I will prepare one and send it right away. The KCSAN was triggered
-with a kernel-side delay() instrumentation.
+https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
 
-> > Set num_packets to BATADV_MAX_AGGREGATION_PACKETS under the list lock
-> > before emission. This waits for any ongoing append and makes the existi=
-ng
-> > aggregation limit check reject further appends before inspecting mutabl=
-e
-> > OGM flags. Emission walks packet_len rather than num_packets, so the
-> > queued contents are still sent normally. Keep the packet on the list so
-> > interface purging can still wait for the worker and retain its existing
-> > ownership of the packet when freeing it.
->
-> I might be wrong but this reads a little bit like it was written by an LL=
-M. If
-> this is the case, please think about following the annotation style descr=
-ibed
-> in https://docs.kernel.org/process/coding-assistants.html
+and more people can test.
 
-Yes, it was generated with gpt-6-Astra, and I will add the missing tag
-on v2 following the doc.
+Regards,
 
-> > Backports before Linux 6.15 need count-handling adaptation.
->
-> This is wrong. You are depending on 434becf57bdc ("batman-adv: Limit numb=
-er of
-> aggregated packets directly") and not the counting adaption. Of course, f=
-or
-> 4.10.x-6.14.x, you also need to change the BATADV_MAX_AGGREGATION_PACKETS=
- to
-> BITS_PER_TYPE(forw_packet->direct_link_flags)
-> And it doesn't belong in the commit message (like this). Please annotate =
-the
-> dependencies as described in
-> https://docs.kernel.org/process/stable-kernel-rules.html#stable-kernel-ru=
-les
->
-> > Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface=
- removal")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> >
-> > diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-> > index 53fbdbbe8f4f7..59847299a1237 100644
-> > --- a/net/batman-adv/bat_iv_ogm.c
-> > +++ b/net/batman-adv/bat_iv_ogm.c
-> > @@ -1909,6 +1909,10 @@ static void batadv_iv_send_outstanding_bat_ogm_p=
-acket(struct work_struct *work)
-> >               goto out;
-> >       }
-> >
-> > +     spin_lock_bh(&bat_priv->forw_bat_list_lock);
-> > +     forw_packet->num_packets =3D BATADV_MAX_AGGREGATION_PACKETS;
-> > +     spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-> > +
->
-> Can you add a small comment above like "mark aggregate as full before for=
-cing
-> emit" (or something similar).
+Hans
 
-No problem, the commit message and the comment will be adjusted accordingly=
-.
 
-> --
-> Sven Eckelmann <sven@narfation.org>
