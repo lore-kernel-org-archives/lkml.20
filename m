@@ -1,274 +1,220 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E993CB569
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5D03BED1E;
+	Sun, 27 Sep 2026 21:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546057; cv=none; b=uyeqq6q+EOeW4wdRG46lBV0DTkhRFk9tcT77fUR5Cg9bUlcBhpr4NGtha+Wh/5MFSPwqCUCPojkofC49b5XjGjGQtpRLKkyPMVh8kKKYId8w8RekkW3RgEMDIaspJ2+HSdScmZoDB8zpu0l8K/LXnM+FMWVcyFspjg9CG3h7+nU=
+	t=1790546246; cv=none; b=rB1xyvfTwg0W9e5MOgx+JR2/3P8Gn3W7G3ZT2itq2jhcYzimeZd3039JIPKJDabyDbdpMamyQi1mdqrAkKhq5YOT1OwLv2jRr1/UUKRjv6l+UwefxPzFp6F7tb3h6/NSUN8XYca8ISqpu5t6aLuSk94QZ2mApqFVvCKnt6DLqnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546057; c=relaxed/simple;
-	bh=Lfxdl5FHI9p0iRHS5UbPOIM60iTEgOcCPeyqVKZDtdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXCaquCGPE1rkIe1tTcYKwx+O44rcL7N7VNdI8ij9kcRMA9vFLVsdm0H9/Ieg7GMFABz56TTK0k/rkZ0M5qPotRhf/nowW5chbMkyvZzPKXZzLbDl/40sNSeV+f5yzoKkEWsSzPqZFOw0wsnlJr4Zi81Bdk+7kLp71fFO2loBBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phOgc6Eo; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790546246; c=relaxed/simple;
+	bh=gjsPGw0v61pNjtznZU41kSL2ybUnUytR1SocOznKS7I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=de9oDuz0qA1HQi/arzq/qk8QwDFsCBcAFVL6XD7akvhSYlftA4ol2nThyqcKzFQqHQXCxhCf8qeFZ2jbnKTxA7rRoOsfmuMe83VSn8KaaU8bdQnA9XvKBaadi9IV9mTZM3xt8nl9aF17jJJIgWP1nCanP1mow3KdfDKW7pSHvww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=VpMvaEDh; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phOgc6Eo"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so6172365e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:54:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790546050; x=1791150850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O/WHvsIO5Y+Y96SRnZS9/e4Q5LXfwyvIQtvUTuw0f7U=;
-        b=phOgc6EoAdIzvaqg5iPhsxSotT4GCXZNVdTdGB7TBEt5XvbagQ8Y1Di995i7LWbDpo
-         7hWffigVb2hQHRKQbv7MiO2w5D1IeYRpoqs/YFuAs/zISdEVLlVmw3rIghY2MsdthXRI
-         7OH/CnV14wwlURKBo6iHiZNS5lsT6J5bMcy6nsXWCjMTAxhc2DBgBIx75CEun1Ivta4+
-         DBtmgl+O7BRe7QemYZ/I74cp/KqQt1DOIWypSTpS+0l63m3KNhS52JrIOsttPeqMmiGS
-         KB4+7xoe++dD81PJF+4LVDqX8N+FrA8qPD7n3fwSxm6TFYTTc+35kR54FQCs7VAQ+kUc
-         p90g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790546050; x=1791150850;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O/WHvsIO5Y+Y96SRnZS9/e4Q5LXfwyvIQtvUTuw0f7U=;
-        b=LPU3mbdc5WPSAn0RjA6CDLNNd/Hg1U+pl0jfKnm9DHAsPsbC5jMC2wNKvuc31z9Id0
-         sSRe5+G0SSuS/W8y4bvWuuebmwXAIWiAopqHyblhnEyp0GhH6SbwL4KihUAc20FEt6gn
-         iCa67hkbfaQkKkj7QbOIBbsZvApZW1SYRiR15ZML2oYlDy/5Et0hpqyxxMJD5FmR91mp
-         NRTehh0VPuHhqCD0S15I7osQZPBQnI20JJ9iyRcUG7V3cJBPipWKQCNpay0Z38GiECRa
-         QjYUOIf3f41JJ46YqYZl8fjoJN9Z/vsW4oHfrh4FX77rIaUQ/9lM9ZIvEMfsqYTZY1y1
-         /EZA==
-X-Forwarded-Encrypted: i=1; AKwUvByFSp2TmoChkO2jR8ok3Daxc84qfiPf8q0f9AjLoEwPZXb4VmGI13DFB9rCeee5zhzMe9YcSCAVswMU1Nk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuMGY9qgJ5EMHZjmO8PsTOLQh6mjbPojIHqkplG71pBJEsi5/S
-	WsdPRj749s6OD+cRKEB04gdhvhF0MMU3pY9sY8lR95HQEF5C/h6Iq1Wc
-X-Gm-Gg: AYBFou21bLLgUixXqUnAWmJyWurXtf+C8KxJBY8fdfqD8YVVFkwAwBauFyxlu16FBUa
-	jqrHu5T63LfPd5oS729BO9lfUaDj08M5lWjfVlMzWRci+SI7+mBn5hg+sP0NqM2658dfA6peTX2
-	P+sW7GUvSGmjbSoKVDbe/7yBEIDZFsTRra7biWsJm+HmR2YMzir1BoJzUZ1ZywltHFNmI/Jacb+
-	MdDwaSpmeWWq/UOyqmaKFuocl7bVPhviDZ15UltgDkVCgPb/RTXKNqB43R58HH0lycOHnZA/ghd
-	tdIFB/HsKQyt2CgYAtMqYDgeWr8IUOzztpvObqM6pwFjyUO3gCF5zl+A+B2rCfCYzBwnSmEXi3A
-	U4V2LdAubeFoxjSHHDLtJ3/zOZU4WQRS/ir1c674uPiNIEodTzzM9uRW6RoG0mZfLgToD4XmPUp
-	UYqs0KFskmwW2jgUWpi2R8snIXfo3pe9MVfCrw946vHdQ1E5GJCc8L/lRG8jeObUu+IQGghZHXH
-	A==
-X-Received: by 2002:a05:600c:3ba9:b0:49f:fe48:d177 with SMTP id 5b1f17b1804b1-49ffe48d294mr86161315e9.32.1790546049505;
-        Sun, 27 Sep 2026 14:54:09 -0700 (PDT)
-Received: from kali ([169.224.126.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.54.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 14:54:09 -0700 (PDT)
-From: Ali Firas <alishmery18@gmail.com>
-To: netdev@vger.kernel.org,
-	idosch@nvidia.com
-Cc: kuba@kernel.org,
-	pabeni@redhat.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org,
-	razor@blackwall.org,
-	roopa@nvidia.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ali Firas <alishmery18@gmail.com>
-Subject: [PATCH net-next v3 6/6] selftests: net: test the vxlan vnifilter request limit and dump replay
-Date: Mon, 28 Sep 2026 00:52:09 +0300
-Message-ID: <20260927215209.2581830-7-alishmery18@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927215209.2581830-1-alishmery18@gmail.com>
-References: <20260927215209.2581830-1-alishmery18@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="VpMvaEDh"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 592845340CBA;
+	Sun, 27 Sep 2026 23:57:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790546241;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=tkpOoNdgsacFYhfHGzgH1uTh0Zi2/gzwLjiI3UWJu4A=;
+	b=VpMvaEDhW9vWTof2qXe6PNMSAm59ZHCCxUaCWael77Fm/9qGaAS8ROcVaGoJBofuMJ/NXq
+	tl4Y/FDaeL7WAjs4WPkWautAM2SqBiv3WWTm0ZWE/19q1BDFwOPMh1wWcU4V6yQ3Cpn5vh
+	5uWMyjThxQwLox7Ij+ejsqIvYLpSEF8=
+Message-ID: <d6dd3ff8-a728-43ab-9ce3-874bf2a2a457@ixit.cz>
+Date: Sun, 27 Sep 2026 23:57:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] power: supply: bq27xxx: detect bq27541 behind bq27411
+ compatible
+To: rinat.muhamedgaliev@gmail.com, linux-pm@vger.kernel.org
+Cc: pali@kernel.org, sre@kernel.org, afd@ti.com,
+ konrad.dybcio@oss.qualcomm.com, krzk@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928-master-v4-1-052c73ec1767@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260928-master-v4-1-052c73ec1767@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Extend the vnifilter tests for the request-size limit, the 24-bit VNI
-range, and the dump/replay round trip the limit requires.
+On 27/09/2026 23:17, Rinat Muhamedgaliev via B4 Relay wrote:
+> From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+> 
+> OnePlus 6 and 6T replacement battery packs may contain either a bq27411 or a bq27541 fuel gauge at I2C address 0x55. The device tree currently identifies the gauge as bq27411, but a bq27541 uses a different register map and then reports invalid battery values.
+> 
+> Read the DeviceType control subcommand when probing a bq27411. Keep the existing profile for DeviceType 0x0421, but select the bq27541 profile for DeviceType 0x0541. This retains the established DT ABI and supports replacement packs without introducing a generic compatible.
+> 
+> Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of charge, and temperature were reported correctly. Testing on hardware with DeviceType 0x0421 would be appreciated.
+> 
+> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+> ---
+> OnePlus 6 and 6T replacement battery packs can contain either a bq27411 or a
+> bq27541 fuel gauge. The latter requires a different register map and produces
+> invalid battery readings when interpreted as a bq27411.
+> 
+> v4 drops the proposed generic DT compatible and DTS changes. The I2C driver
+> instead reads DeviceType while probing the existing bq27411 compatible, and
+> selects the bq27541 profile if the device reports 0x0541.
+> 
+> The bq27541 path was tested on a OnePlus 6T. Testing on an OnePlus 6 or 6T
+> whose fuel gauge reports DeviceType 0x0421 (bq27411) would be appreciated.
+> 
+> Changes in v4:
+> - Drop the generic compatible and binding update.
+> - Keep the established OnePlus DTS unchanged.
+> - Detect bq27541 from DeviceType in the bq27411 probe path.
+> - Send as a new thread.
+> ---
+>   drivers/power/supply/bq27xxx_battery_i2c.c | 37 ++++++++++++++++++++++++++++++
+>   1 file changed, 37 insertions(+)
+> 
+> diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
+> index 94b00bb89c17..732164423423 100644
+> --- a/drivers/power/supply/bq27xxx_battery_i2c.c
+> +++ b/drivers/power/supply/bq27xxx_battery_i2c.c
+> @@ -16,6 +16,11 @@
+>   static DEFINE_IDR(battery_id);
+>   static DEFINE_MUTEX(battery_mutex);
+>   
+> +#define BQ27XXX_REG_CTRL		0x00
+> +#define BQ27XXX_DEVICE_TYPE		0x0001
+> +#define BQ27411_DEVICE_TYPE		0x0421
+> +#define BQ27541_DEVICE_TYPE		0x0541
+> +
+>   static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
+>   {
+>   	struct bq27xxx_device_info *di = data;
+> @@ -136,6 +141,32 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
+>   	return 0;
+>   }
+>   
+> +static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
+> +{
+> +	int ret;
+> +
+> +	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
+> +			    false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	switch (ret) {
+> +	case BQ27411_DEVICE_TYPE:
+> +		return 0;
+> +	case BQ27541_DEVICE_TYPE:
+> +		dev_warn(di->dev, "detected bq27541 instead of bq27411\n");
 
-The API test gains: the largest accepted add and one VNI past it; a
-rejected oversized add and a rejected multi-entry add whose entries are
-each under the limit but sum over it, each checked to install nothing
-(the range is asserted absent first, since vxlan_vni_add() folds an
-existing VNI into the update path and would return 0 either way). The cap
-is symmetric, so it also checks a maximum-size delete accepted and a
-max+1 delete rejected, with every VNI in the max+1 range installed first
-so the refusal can only come from the cap; a within-cap delete of a
-never-installed range, which must fail on the missing VNI; an inverted
-range accepted as a no-op; and the 24-bit bound exercised through END,
-not only START.
+For extend-ability, I would not hardcode the name but print the chip originally 
+supplied.
 
-bridge(8) places one VXLAN_VNIFILTER_ENTRY per comma-separated item into
-a single message, so the multi-entry case is reachable without a
-hand-built netlink message.
+> +		di->chip = BQ27541;
+> +		return 0;
+> +	default:
+> +		dev_err(di->dev, "unsupported device type 0x%04x\n", ret);
 
-vxlan_vnifilter_dump_replay() builds a contiguous run twice the limit
-from two requests, then replays every range the dump reports into a
-second device and requires all to be accepted and the two dumps to
-match. Without the dump clamp the run dumps as one over-limit entry that
-replay rejects; with it the run dumps as limit-sized entries that
-replay.
+I would change wording to "unrecognized" here.
 
-vxlan_vnifilter_api() had no teardown of its own device and namespace;
-add veth-host and the test netns to cleanup(), which runs on EXIT, so a
-failing case does not leave them or its entries behind.
+> +		return -ENODEV;
+> +	}
+> +}
+> +
+>   static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
+>   				     const struct i2c_device_id *id)
+>   {
+> @@ -169,6 +200,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
+>   	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
+>   	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
+>   
+> +	if (di->chip == BQ27411) {
+> +		ret = bq27xxx_battery_i2c_check_device_type(di);
+> +		if (ret)
+> +			goto err_failed;
 
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Assisted-by: LLM
-Signed-off-by: Ali Firas <alishmery18@gmail.com>
----
+my few cents here is that until now we ignored mismatch, which may led to people 
+defining wrong compatible (and maybe some chips partly worked with different 
+compatible?) and now we would hard-fail.
 
-Notes:
-    v3: was 5/5. Add the request-limit, 24-bit-range, symmetric-delete and dump/replay cases; give the test its own netns teardown.
+I would say warning from the bq27xxx_battery_i2c_check_device_type is good 
+enough, but lets hear what maintainers thinks :)
 
- .../selftests/net/test_vxlan_vnifiltering.sh  | 114 +++++++++++++++++-
- 1 file changed, 113 insertions(+), 1 deletion(-)
+David
 
-diff --git a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-index 8deacc565afa..f48bc861bb88 100755
---- a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-+++ b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-@@ -84,6 +84,7 @@ ret=0
- # all tests in this script. Can be overridden with -t option
- TESTS="
- 	vxlan_vnifilter_api
-+	vxlan_vnifilter_dump_replay
- 	vxlan_vnifilter_datapath
- 	vxlan_vnifilter_datapath_pervni
- 	vxlan_vnifilter_datapath_mgroup
-@@ -163,8 +164,9 @@ check_vm_connectivity() {
- cleanup() {
- 	ip link del veth-hv-1 2>/dev/null || true
- 	ip link del vethhv-11 vethhv-12 vethhv-21 vethhv-22 2>/dev/null || true
-+	ip link del veth-host 2>/dev/null || true
- 
--	cleanup_ns $hv_1 $hv_2 $vm_11 $vm_21 $vm_12 $vm_22 $vm_31 $vm_32
-+	cleanup_ns $hv_1 $hv_2 $vm_11 $vm_21 $vm_12 $vm_22 $vm_31 $vm_32 $testns
- }
- 
- trap cleanup EXIT
-@@ -371,6 +373,116 @@ vxlan_vnifilter_api()
- 	# change vxlan vnifilter flag
- 	run_cmd "ip -netns $testns link set dev vxlan-ext1 type vxlan external novnifilter"
- 	log_test $? 2 "Cannot unset vnifilter flag on a device"
-+
-+	# A single request may add at most 4096 VNIs. bridge(8) puts one
-+	# VXLAN_VNIFILTER_ENTRY per comma-separated item into a single message,
-+	# so both the single-entry and the multi-entry paths are reachable here.
-+
-+	# The largest accepted add, and one VNI more rejected.
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 10000-14095"
-+	log_test $? 0 "Add a request of the maximum VNI count"
-+
-+	# The rejected oversized add must install nothing. Assert the range is
-+	# absent first: vxlan_vni_add() folds an already-present VNI into the
-+	# update path and returns 0, so a later probe cannot tell "installed
-+	# nothing" from "installed part" unless it started absent.
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 20000"
-+	log_test $? 1 "VNI 20000 absent before the oversized add"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 20000-24096"
-+	log_test $? 255 "Cannot add a request over the maximum VNI count"
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 20000"
-+	log_test $? 1 "The rejected oversized add installed nothing"
-+
-+	# Two entries each under the limit but summing over it: the per-message
-+	# total is what is bounded, not the span of one entry. This is the shape
-+	# a per-entry check would have let through.
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 30000"
-+	log_test $? 1 "VNI 30000 absent before the oversized multi-entry add"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 30000-32047,32048-34097"
-+	log_test $? 255 "Cannot add a multi-entry request summing over the maximum"
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 30000"
-+	log_test $? 1 "The rejected multi-entry add installed nothing"
-+
-+	# The cap is symmetric: a delete may touch at most the maximum too.
-+	# Install a maximum-size range and the VNI past it, so the max+1 delete
-+	# below has every VNI present and can only be refused by the cap, not by
-+	# a missing VNI.
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 40000-44095"
-+	log_test $? 0 "Populate a maximum-size range to delete"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 44096"
-+	log_test $? 0 "Add the VNI past the maximum range"
-+	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 40000-44096"
-+	log_test $? 255 "Cannot delete a request over the maximum VNI count"
-+	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 40000-44095"
-+	log_test $? 0 "Delete a request of the maximum VNI count"
-+	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 44096"
-+	log_test $? 0 "Delete the VNI past the maximum range"
-+
-+	# A within-cap delete of a never-installed range reaches the handler and
-+	# fails there on the missing VNI, not on the cap.
-+	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 50000-50010"
-+	log_test $? 255 "Cannot delete a range that was never installed"
-+
-+	# A start above the end selects nothing and is accepted as a no-op.
-+	# Use a VNI no earlier case installs, so the absence check is meaningful.
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 55000"
-+	log_test $? 1 "VNI 55000 absent before the inverted range"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 55000-50000"
-+	log_test $? 0 "An inverted range is accepted as a no-op"
-+	run_cmd "bridge -netns $testns vni show dev vxlan-ext1 | grep -qw 55000"
-+	log_test $? 1 "The inverted range installed nothing"
-+
-+	# The VXLAN header carries 24 bits. The bound is on both endpoints, so a
-+	# range whose END alone leaves the space is rejected too.
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 16777215"
-+	log_test $? 0 "Add the highest VNI the header can carry"
-+	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 16777215"
-+	log_test $? 0 "Delete the highest VNI the header can carry"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 16777215-16777216"
-+	log_test $? 255 "Cannot add a range whose END leaves the 24-bit space"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 100-4294967295"
-+	log_test $? 255 "Cannot add a range whose END wraps past the 24-bit space"
-+}
-+
-+# A device may hold a contiguous run longer than one request's limit, built
-+# from several requests. The dump coalesces it, so the dump must break the run
-+# into entries each no larger than the limit, or the configuration it reports
-+# cannot be replayed. Install such a run, then feed every range the dump
-+# reports back into a second device and require all to be accepted.
-+vxlan_vnifilter_dump_replay()
-+{
-+	local opts="external vnifilter local 172.16.0.1 dev veth-testns"
-+	local range rc=0 src_ranges dst_ranges
-+
-+	cleanup_vnifilter_api &>/dev/null
-+	setup_vnifilter_api
-+
-+	# The destination is on a different dstport so re-adding the same VNIs
-+	# does not collide with the source under vxlan_vni_in_use().
-+	run_cmd "ip -netns $testns link add vxlan-src type vxlan $opts dstport 4789"
-+	log_test $? 0 "dump/replay: create source device"
-+	run_cmd "ip -netns $testns link add vxlan-dst type vxlan $opts dstport 4790"
-+	log_test $? 0 "dump/replay: create destination device"
-+
-+	# 8192 contiguous VNIs sharing the default remote: one run, twice the
-+	# limit, installed in two accepted requests.
-+	run_cmd "bridge -netns $testns vni add dev vxlan-src vni 10000-14095"
-+	run_cmd "bridge -netns $testns vni add dev vxlan-src vni 14096-18191"
-+	log_test $? 0 "dump/replay: populate a run larger than the limit"
-+
-+	for range in $(bridge -netns $testns vni show dev vxlan-src | \
-+		       grep -oE '[0-9]+-[0-9]+|[0-9]{2,}'); do
-+		bridge -netns $testns vni add dev vxlan-dst vni "$range" \
-+			2>/dev/null || rc=$?
-+	done
-+	log_test $rc 0 "dump/replay: every dumped entry is accepted on replay"
-+
-+	src_ranges=$(bridge -netns $testns vni show dev vxlan-src | \
-+		     grep -oE '[0-9]+-[0-9]+|[0-9]{2,}' | sort)
-+	dst_ranges=$(bridge -netns $testns vni show dev vxlan-dst | \
-+		     grep -oE '[0-9]+-[0-9]+|[0-9]{2,}' | sort)
-+	[ -n "$src_ranges" ] && [ "$src_ranges" = "$dst_ranges" ]
-+	log_test $? 0 "dump/replay: source and destination dump the same ranges"
- }
- 
- # Sanity test vnifilter datapath
--- 
-2.53.0
+> +	}
+> +
+>   	ret = bq27xxx_battery_setup(di);
+>   	if (ret)
+>   		goto err_failed;
+> 
+> ---
+> base-commit: 830b3c68c1fb1e9176028d02ef86f3cf76aa2476
+> change-id: 20260927-master-bd0afd9696ef
+> 
+> Best regards,
+> --
+> Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+> 
+> 
 
