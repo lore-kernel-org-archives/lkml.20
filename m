@@ -1,75 +1,38 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E33A37E5E1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881ED36F906;
+	Sun, 27 Sep 2026 06:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790488807; cv=none; b=uZwcZUIj3cydKw/+nkedzreUN+OsS4sjxipH9UJSKjVxNWp5TalhqK37MSvqohHZ9AGMIA/BbZuOegwAUtKZwFq6HqGQIEw1Tiv1LdVe70hyyf33jKcf2v7nvxtyECGR/XKDk6l3mCJmI8EZKQYwHdeJPTAfBQRjthGm8xswFM8=
+	t=1790488872; cv=none; b=fwTe7uTts91chdBpNpsuewx7jlMpRp7T87NZHjmK52hIaccGtFZTXcYfWaDtAPjknKI3mM6BbyY3CNC9WxOcjCH3IbQMXmEbgFDMjtIDmczwJGloOJ/0QqZeaycykrfwqZ28y0chJ5kc97I04QUZnl/gThMkjtoOo10x4uT/7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790488807; c=relaxed/simple;
-	bh=uav7FpdcMvoPqAG2gm25FMa/ksIC4Z/tBnVXRFPwCpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cbyf0tqKJLbCQm2vimf1XTgZ0mndeD4cyCPzZ5MxeHdpAv7VZgGSZ8q3FDTA1EUwoOl8yHtDA0h3iD+uTaj5SGOiUzApn/Fq0z1HaU+t+q0nZCzBBHgw8fZGqLeMd8HfRSJJly2/c35nT6iEH9KG8RACQzLrjFz0zjIkP26OT0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OyZ45tRV; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OyZ45tRV"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so1741956c88.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790488806; x=1791093606; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gr7sKNDFLbCxJHInGWFYwlfKrCf9Hw79pJZTHn3AM4g=;
-        b=OyZ45tRVDBcdD7hgU3xinj2wrLWKbz7i/swgT0vz6VdxyCujChQndhhgV1r+PnEYKd
-         7wEIhh5BH6jzoLP2iK/Dt76Y4jJTIvPW0nGkOKjy/sAYXw1bS9RVj0YrMzzWc1OkMhQj
-         UreO76kNpW4I6AdBDSE+c+P1NMUEhtUt5sERJTk+z/kRMwxUQqWCK3ogqg9BvIGRQLTF
-         0F8ExhD2XhpxXnrA6BCFJhWGZq3dEOqSDeAs1X4YxZiEeJDdYwhUA2a6dugVmTnGHXA4
-         ysEDGIMCSOwjUCG4qyGiURdQybfm7KxjOKZLpUyT7i/aBEwFoB4kg62ofTeeD0AMQcjA
-         W1yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790488806; x=1791093606;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gr7sKNDFLbCxJHInGWFYwlfKrCf9Hw79pJZTHn3AM4g=;
-        b=HoZAPNds6lcLjGVtY9kJlcN70IjlcfhuPpygJdYuNYk0OaJv5BT6gAOX07Av/ykjn3
-         3UwKCmmSEdjqC6J6dp+fXGXgUzU3xTTtUsSdxxW0Q0ks7J9EP+Qtuw6YnYjNUAYanyXT
-         CfblfxmzvH/h6n7nM8FR8bTfVUumj4tGwoxIvHlRhX5YkX8DSxJxiSVLVy4AbR4n6wiv
-         hjaXP/lIH52XS7zEud6c1zhA4IFxwIwrFHaoGTLDggY1zm5KZr75JkzPBvQICmcRVvHD
-         BeP08wzqcyjBYJLRqLUDE3JjxZOMZrmFWYkFATiEIVURLwoEC+lX0p83Iv0ZjlAX8PkJ
-         ZdHg==
-X-Gm-Message-State: AFuF++mokuDHkHsJJH7OT1Q+iEWTcwqli+BjjYCi0vsuF1yiJiu92Q7J
-	Wn9A/Uvsgxd9GZ7KNfbhgSm0CYyQm16ubBFXwIRd0CAgs51F60mUTm6g
-X-Gm-Gg: AYBFou2xCjiJZGJzWrZvnfXSPlXUo01/wqMJnrSbAuAmIJfCYfWMBbQW1nHRsGF0IJb
-	0un+runsL/3VjeugQvCYH14PUgtGrjLvbnXpK8KfS7g68VF7eU0XWkLKS36e2s9M2n4pm90LMsC
-	yroNCewe2gsljVQIOvnK7vc6J+Zbwn+qwv0ajHxSQRF1TvvOy9eFewZhaMfIC8D+8FNPr0G6+Ex
-	TGENBzn1JTTNp9YPFd+MAU/88EG1EYaDd0H6kKVVGT3wJmNK7wJWQRymEQnyTBVqT+AcXb4zYKy
-	+NXRATBOVcSHsm5j+fDDWFXgoRwMUkvdK5iJOWXjOhtDV56Gz+qzCaDtVjMZLpJsxBw5NRkfbPp
-	E+B5xGHFhxzluD/5C8pg2oNvIozc68VfTp7WXUv5ogXg1M145ImCopli3GR3bZLvxq8yljwUMWF
-	vPubzBctw+0pVZZjCrNCJ4hMy3popWBS+jnE+yL+knQCjDyHHD5DZRv3w0JDNSz9b4Yjl/Flj4K
-	qLXtmJ5krvzSYS7Upx+yPN+CmB6
-X-Received: by 2002:a05:7022:43a9:b0:143:4710:a869 with SMTP id a92af1059eb24-146cdfbecc6mr8275381c88.2.1790488805361;
-        Sat, 26 Sep 2026 23:00:05 -0700 (PDT)
-Received: from homik.search.charter.net ([2603:8002:ad40:56f0:be8c:736b:d7b9:ea97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c166cfsm17500013eec.28.2026.09.26.23.00.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:00:04 -0700 (PDT)
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-To: abbotti@mev.co.uk,
-	hsweeten@visionengravers.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	morbo@google.com,
-	kees@kernel.org,
-	justinstitt@google.com,
-	codemender-patching+linux@google.com,
-	Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Subject: [PATCH] comedi: comedi_bond: Refactor strlcat() to seq_buf in do_dev_config()
-Date: Sat, 26 Sep 2026 23:00:00 -0700
-Message-ID: <20260927060000.518354-1-nikitash.mariiaw@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1790488872; c=relaxed/simple;
+	bh=oQxe6umVUJbikpUv/f8hHxreXu4kY1/eFn7bii5vHQA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Tm2aGOj3k6bGOHiLTkOovXLdQgqIimkoqWnH5qNOlA8Y8SGatZsUCzV+NyleqnDwT5KO0vvYWYhW4wdg7+BjT7JspHJ+i0cwdYQomMq+62TVSOVBLjnuX3lbLr52JaMP6eziDqgs+xK5YZtDK2v6wdJ1B02ZDjoFZzUWo0PPAhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3NHwUsbhqLpU9AQ--.13599S3;
+	Sun, 27 Sep 2026 14:00:54 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCH3nwUsbhqcp0NAA--.11892S2;
+	Sun, 27 Sep 2026 14:00:52 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	broonie@kernel.org,
+	zhao.xicheng@vivo.com,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v4] tty: serial: max3100: shut down timer before freeing port
+Date: Sun, 27 Sep 2026 05:59:57 +0000
+Message-Id: <20260927055957.561030-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026092346-sizzling-dallying-a3c1@gregkh>
+References: <2026092346-sizzling-dallying-a3c1@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,80 +40,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH3nwUsbhqcp0NAA--.11892S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?EZDsSAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhm3j5bhF2Nn1BrV1PeMo1kyTuVQxMtiELFgkQ9fhJq+H2ID
+	iyHaSQzY+6oFgUCRQwep9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxur4xXryfuryxArykWryUurX_yoWrXw4fpF
+	sakws8tFWrKr42kF9xtw47XF1rWa1rJw47Gr1Ig3yYkw15AryYg3WIkayjkayrCFykXFsr
+	AFZYq398AryqyFbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-From: Bill Wendling <morbo@google.com>
+max3100_shutdown() stops the polling timer but returns early during
+system suspend. If the SPI device is unbound before resume, the serial
+core does not call max3100_shutdown() again, so max3100_remove() frees
+the port while the timer remains armed. max3100_timeout() may then
+access the freed port and re-arm the timer.
 
-do_dev_config() builds a space-separated list of bonded devices in
-devpriv->name by formatting each "minor:subdev " pair into a temporary
-stack buffer with snprintf() and appending it with strlcat() in a loop.
+Add final timer teardown to max3100_remove() and use
+timer_shutdown_sync() to prevent a racing callback from re-arming it.
+Also free the IRQ and destroy the workqueue there before freeing the
+port. Keep timer_delete_sync() in max3100_shutdown() so that a
+subsequent open() can re-arm the timer.
 
-In preparation for removing the deprecated strlcat() API[1], use struct
-seq_buf and seq_buf_printf() to format each entry directly into
-devpriv->name. This avoids repeated rescanning of devpriv->name and
-eliminates the temporary buffer.
+The workqueue is created before request_irq() and destroyed on both
+request_irq() failure and normal shutdown. Its presence at remove thus
+identifies the IRQ left registered when suspend bypasses shutdown.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
-Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Free the IRQ before destroying the workqueue, in both
+max3100_shutdown() and max3100_remove(), and cancel the pending work
+in between. free_irq() waits for a running interrupt handler to
+finish and no new handler can start afterwards, so a racing handler
+cannot queue work on a workqueue that is being destroyed; the
+force_end_work check in max3100_dowork() only narrows that window, as
+a handler delayed between the check and queue_work() could still run
+after the teardown has cleared the workqueue pointer. Cancelling the
+work also keeps destroy_workqueue() from waiting on a queued work item
+in case remove() ever runs while the freezable workqueue is still
+frozen, e.g. device removal during the resume window, before
+workqueues are thawed.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 7831d56b0a35 ("tty: MAX3100")
+Cc: stable@vger.kernel.org # 6.2+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/comedi/drivers/comedi_bond.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+Changes since v3:
+  - Free the IRQ before destroying the workqueue in both
+    max3100_shutdown() and max3100_remove(), and cancel the pending
+    work in between. This closes a race where an interrupt handler
+    that already passed the force_end_work check in max3100_dowork()
+    could queue work on a cleared or destroyed workqueue pointer. It
+    also keeps destroy_workqueue() from waiting on a queued work item
+    should remove() ever run while the freezable workqueue is still
+    frozen, e.g. device removal during the resume window, before
+    workqueues are thawed.
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-index 8e10ecab4f0d..a10cfbd04c72 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -39,6 +39,7 @@
+No MAX3100 hardware was available for this change: verified by
+inspection and compilation only.
+
+v1: https://lore.kernel.org/all/20260721035631.3186613-1-fanwu01@zju.edu.cn/
+v2: https://lore.kernel.org/all/20260801061208.356142-1-fanwu01@zju.edu.cn/
+v3: https://lore.kernel.org/all/20260805004039.382698-1-fanwu01@zju.edu.cn/
+---
+ drivers/tty/serial/max3100.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
+index 44b745fa26c6..e8027c09c619 100644
+--- a/drivers/tty/serial/max3100.c
++++ b/drivers/tty/serial/max3100.c
+@@ -535,11 +535,11 @@ static void max3100_shutdown(struct uart_port *port)
+ 	timer_delete_sync(&s->timer);
  
- #include <linux/module.h>
- #include <linux/string.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <linux/comedi.h>
- #include <linux/comedi/comedilib.h>
-@@ -170,10 +171,11 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- {
- 	struct comedi_bond_private *devpriv = dev->private;
- 	DECLARE_BITMAP(devs_opened, COMEDI_NUM_BOARD_MINORS);
-+	struct seq_buf s;
- 	int i;
- 
- 	memset(&devs_opened, 0, sizeof(devs_opened));
--	devpriv->name[0] = 0;
-+	seq_buf_init(&s, devpriv->name, sizeof(devpriv->name));
- 	/*
- 	 * Loop through all comedi devices specified on the command-line,
- 	 * building our device list.
-@@ -250,15 +252,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 			}
- 			devpriv->devs = devs;
- 			devpriv->devs[devpriv->ndevs++] = bdev;
--			{
--				/* Append dev:subdev to devpriv->name */
--				char buf[20];
--
--				snprintf(buf, sizeof(buf), "%u:%u ",
--					 bdev->minor, bdev->subdev);
--				strlcat(devpriv->name, buf,
--					sizeof(devpriv->name));
--			}
-+
-+			/* Append dev:subdev to devpriv->name */
-+			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
- 		}
+ 	if (s->workqueue) {
++		free_irq(port->irq, s);
++		cancel_work_sync(&s->work);
+ 		destroy_workqueue(s->workqueue);
+ 		s->workqueue = NULL;
  	}
+-	if (port->irq)
+-		free_irq(port->irq, s);
  
-@@ -267,6 +263,8 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 		return -EINVAL;
- 	}
- 
-+	seq_buf_str(&s);
+ 	/* set shutdown mode to save power */
+ 	max3100_sr(s, MAX3100_WC | MAX3100_SHDN, &rx);
+@@ -752,6 +752,15 @@ static void max3100_remove(struct spi_device *spi)
+ 		if (max3100s[i] == s) {
+ 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
+ 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
 +
- 	return 0;
- }
- 
++			s->force_end_work = 1;
++			timer_shutdown_sync(&s->timer);
++			if (s->workqueue) {
++				free_irq(s->port.irq, s);
++				cancel_work_sync(&s->work);
++				destroy_workqueue(s->workqueue);
++				s->workqueue = NULL;
++			}
+ 			kfree(max3100s[i]);
+ 			max3100s[i] = NULL;
+ 			break;
 -- 
-2.43.0
+2.34.1
 
