@@ -1,80 +1,117 @@
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359B1434E35
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9282143498D;
+	Sun, 27 Sep 2026 18:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534279; cv=none; b=njPZODGgIqR2vIjLiokX/NwL6RF4ctUHn90tCy5IXm4Hm37aIx1+GDLL4qFr2czkZFaTr9bdl1OtLBJCQuxSV1hsjqV3RialMu6XGSIwG9ttNTwvfTFjgysovzrwvy+orDAQtTOUUHO6NKEqGj8U1laYr3rvce1a+VjzAM1/6F8=
+	t=1790534325; cv=none; b=ayNFUX3EZt1bDlCzofMN0HjxBa4vyB1ndUCS0oi24pOgJI/BnXhR3Bm1XKHMYQ1W2/4/6DdZhdyAw7zb8XyShBUpbCNhRGTovbCive9kiVpi48cQp5om5OcaD7D2UUOUfdATIKGZBZ6MYh3Ww7+USIhQ2UiogYcp8511D0uNPCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534279; c=relaxed/simple;
-	bh=UNFThLNzlgQn3xGsJH+W8fOTAc4yA9tzNHzeyyZNtG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k0K//W4/AWqnxMYdaRv4cP1sbpAoCl0FdhelKQiTcLrhOGfRCoSZM5TG3IxPlfK78vZcJ3CSem/MSFRByBWHYEyNzOLgvsylNJW/+j/i47X96hp0WOtvrmTV4/itOBNQ3L825lKD7SI9UT4QNJQi2eCVYZ+qIGw50pCgkGX7zo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=CJJnVOGl; arc=none smtp.client-ip=185.70.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
+	s=arc-20240116; t=1790534325; c=relaxed/simple;
+	bh=7VwCPJXIl1DZREwzaocu6/b4CQstVLqSAsqnBIXaTRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fS2YmmE9X9lkSQlD1ULgfiT4pgig7MtLuRbintyy8FSPYtllUhVHi2u/e1sgaMR6G7WzE7KqoLArcHPOKWNZTZvqw3c7sIv9bHVaBaNxQn6nxSSfsmEJxMbZ0kaUqjB3gxxzRUazMAwyFWuFNrJG36F6K3IrnzIYFBSRI72Dfz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0oiBAMYk; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="CJJnVOGl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
-	s=protonmail2; t=1790534255; x=1790793455;
-	bh=4tZj5Jn525QkA17zwkfjXmztpwCqZhcxjdiG+hyLmBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=CJJnVOGl2MLTBW2Ba4MEsSzCifGfbExR6XI2L40tpufHiu3h/nEZojTeSjqoJvkpN
-	 A+1hNzzPc5qdQnf8dxVdjZqByBtvmpEcEfK2xH8f/xuZFY5pO3HKGeuzcm2Xo7bUBc
-	 Gf5SZv8LjnQPU7B9SXI2ErDd4LOnCF9f/GagZK3ZqM9A4O906nClWvfw8ZrwaqtDlZ
-	 5kR10u2/aXeqSYJvcE+fQgTBr6ml6nN1LMpWTZgyDHnQiYrS7XYTOwH591EjpkkEF8
-	 ZSk/6lUbhSKipPo7sJBoTmeWrHiKbBmlNQWrfJZ5uUw/Kv4D34G2jevG/XTEfSwPAh
-	 AhkTjI+gEqUmw==
-X-Pm-Submission-Id: 4htCq020Mwz1DFG2
-From: Vas Zayarskiy <contact@vasily.cc>
-To: linux@roeck-us.net,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	Jack Doan <me@jackdoan.com>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: [PATCH v4 2/5] hwmon: (aquacomputer_d5next) Expire the initial sensor cache
-Date: Sun, 27 Sep 2026 21:37:20 +0300
-Message-ID: <20260927183723.4078226-3-contact@vasily.cc>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260927183723.4078226-1-contact@vasily.cc>
-References: <20260927183723.4078226-1-contact@vasily.cc>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0oiBAMYk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=OTg5xcZvym53tCIzrtP6CDECKJFSHZAlLWkULrpXCH8=; b=0oiBAMYkUpxDpPZiBC5aRxT1KT
+	QdsVejldkNSEec1pcnbnkqlW0QhHbBGLMxjtKVvmrMCBlci/vGZXskccemr3jUa7DnQ/oMBgL7ywt
+	Vs6SRsyqlujyyKUSwJ0kvI069xqlMUlLb7TSSV69XfGTkdXXI8rV+Aa4aarvRE+afAt0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAtlj-007YLY-Rt; Sun, 27 Sep 2026 20:38:35 +0200
+Date: Sun, 27 Sep 2026 20:38:35 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	olteanv@gmail.com, Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
+	f.fainelli@gmail.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v11 4/4] net: phy: restore the interrupt when the
+ generic bind cycle fails
+Message-ID: <b1bd8944-2a0a-4140-ace0-0bc9a771c33f@lunn.ch>
+References: <20260926235024.705646-1-f@lex.la>
+ <20260926235024.705646-5-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926235024.705646-5-f@lex.la>
 
-The initial update timestamp makes the cache expire at the current
-jiffy. Since aqc_read() uses time_after(), a read in that same jiffy can
-expose zero-initialized data or skip the first legacy report request.
 
-Initialize the timestamp one tick earlier so the cache starts expired
-for every supported device.
+On Sun, Sep 27, 2026 at 02:50:24AM +0300, Aleksei Sviridkin wrote:
+> phy_attach_direct() binds the generic driver by hand, and the probe it
+> calls is phy_probe(), which replaces phydev->irq with PHY_POLL before
+> either point the hand-bind can fail at. That failure unwinds on a label
+> of its own, which does not go through phy_detach(), so the substitution
+> outlives a bind cycle that never completed and a later attach finds a
+> PHY that can only be polled. Found on a Keenetic KN-1012 while placing
+> the restore of the previous patch, as the other exit of the same bind
+> cycle.
+> 
+> Save phydev->irq on entry and put it back on that label. The unwind runs
+> inside the call that made the substitution, so the value from before it
+> is known exactly. The bus table the previous patch reads from would be
+> wrong here twice over: it does not hold a PHY_MAC_INTERRUPT that a MAC
+> wrote into phydev->irq alone, and the label is also reached when a
+> second attach of an attached PHY fails its bind, where the field is
+> live.
+> 
+> The store is not ordered against a concurrent bind: this unwind, like
+> the hand-bind it undoes, runs without the device lock that
+> device_bind_driver() asks its callers to hold.
+> 
+> Fixes: 6d9f66ac7fec ("net: phy: Fix PHY module checks and NULL deref in phy_attach_direct()")
+> Assisted-by: LLM
+> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+> ---
+> 
+> Notes:
+>     Both points the hand-bind can fail at are reachable. phy_probe() reaches
+>     genphy_read_abilities() through genphy_driver's .get_features, and that
+>     returns the error from phy_read(phydev, MII_BMSR); device_bind_driver()
+>     returns whatever driver_sysfs_add() got, from either of its two
+>     sysfs_create_link() calls or from the coredump attribute.
+>     
+>     A failed genphy bind leaves the device with no driver bound at all, so the
+>     next driver to arrive binds directly and never goes through phy_detach().
+>     That is why patch 3 cannot cover this path, and why the Fixes: tag here is
+>     6d9f66ac7fec rather than the one patch 3 carries. That commit did not
+>     introduce the lost number - the substitution is far older - it created this
+>     second exit from the bind cycle, splitting the failure off the label that
+>     calls phy_detach(). Before it, patch 3 alone would have covered this, so
+>     that is where the backport range for this one starts.
+>     
+>     Exercised on the board described in patch 3, with a debug-only module
+>     parameter that fails the hand-bound generic probe once for one MDIO
+>     address. The connect then ends in -EIO rather than the -EINVAL of the
+>     validation path, so the unwind takes the label this patch touches.
+>     Measured again for this version, since the value now comes from the
+>     local: two images of the distribution's 6.18.52 kernel differing only
+>     by this patch, injected failure at 2.0 s, real driver bound at 6.4 s.
+>     phydev->irq afterwards reads -1 with patch 3 alone and 15 with this
+>     one; the three switch ports read 79, 80 and 81 in both.
+>     
+>     One difference between the injector and a real failure, since it does not
+>     affect what was measured but should not be implied away: a genuine error
+>     inside phy_probe() leaves through its out: label, which re-asserts the PHY
+>     reset before returning, while the injector returns earlier than that.
+>     Neither path touches phydev->irq.
 
-Assisted-by: LLM sparse
-Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
----
- drivers/hwmon/aquacomputer_d5next.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Again, way too much text.
 
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index 9178ac4cb..b58f5b5c9 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -1531,7 +1531,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	priv->hdev = hdev;
- 	hid_set_drvdata(hdev, priv);
- 
--	priv->updated = jiffies - STATUS_UPDATE_INTERVAL;
-+	priv->updated = jiffies - STATUS_UPDATE_INTERVAL - 1;
- 
- 	ret = hid_parse(hdev);
- 	if (ret)
+	Andrew
