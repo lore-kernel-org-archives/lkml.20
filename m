@@ -1,135 +1,307 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD80A380FD3
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFA537E5D4
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490680; cv=none; b=ZOgJu0gKLwle63OBTcg4Dq4h5mD8CXSnYhi5hGmMvqEP7yrea04+uvUA99lkIXQ9BcJzFIW2qfUrCtaDQG1dA8F+Jy+w3zztjL8OKttoXQWAWsqUyfLLJQvj8O96eTd5271phnMwTrF+h6E74aWjWpdI8d5ruUz0ViH+dB3lvgw=
+	t=1790490717; cv=none; b=guqA/a2LPMxoRYnEoS+BeHAc7NNPTB+2gbcBEOYphndMii99N2MBH6kpiEPNbDaxaeCH2mMmdyDamxUvyt5ISlECB+fDRks/eapo3Mq8s1FLV+TrDLCPtOgngRBfaRb8B4Y5OG53xcjnWmLGBVfnj9rMWVqKYOV26NpS9wPH9wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490680; c=relaxed/simple;
-	bh=AFVICFN4chX62VI8nPVeK5uJPzcrbrWeDjC5hZXZc+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dAU8oT/dzwkvyG8q/DhUlRPWooBnKIKW0WLQ/3OyfdhAbrcKzMz+iWa2k5znZdHTxPMOJAHraoHsXBYM0Sgka/Ai57Vg6oc+w1evPSrVyKANKCM/SEoVgP9a3y626gm6V16U0zz1KP0CTUzhCDJR5rI3PW5PFMnOO9dYweDYaYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihFU0X74; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790490717; c=relaxed/simple;
+	bh=vtNPIYhScpsR4YZxlcRVKHjWbp5bx3kM23+yYBCdUTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ACttPivm+sxV+SwCqWyGnAmY/nsIIhyTUNjPMxU+2UARcqabQXvlC+9/Dz4DMYXItm4KDltHm1WF9TLbjli0ZibbIexiKgWIx1Do/kXYfQUEAHa29SjdJ99TziJxhmWxMlmbCJ5oGvpa9W+af3r08+jJNitv/OBtdihbYfrQDvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJCT1aLP; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihFU0X74"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso18882015e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:31:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJCT1aLP"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so986327b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:31:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790490677; x=1791095477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G98IODEmjwEPHfQZb5jDWlDo2HGYU0z05SG8co7Iw9U=;
-        b=ihFU0X74tUij6HHnWANbCm2IrL6ZXvnx05GenDJYNXJ6srIgqtGGS6CCHBai6S2Buw
-         F/vsGzZJX1a7uIEJDFh2xy2Hti12QQRRwUEFfyigA/RAV83LsmEKG0mLptv15ibd9QXr
-         M0VJSUvq7FzTJTgpX5IWt8oIC4xN24RY4wJa6UXo88a/9cmfgVx8YrccDcALQZlJotiy
-         C5QAe3wcVjMQ96fLJwcY9/KU0QzM+5JVHSlf1iqu+9oq5G7iaMRIB9YmTWUzkCID6gkq
-         5bX4TdYsmhhMDIPryBqNtJI0pZTmBKIiG6BYx1aKQwF5WquhhfaN7F8A3y0Qh7BshjdZ
-         K/Hw==
+        d=gmail.com; s=20251104; t=1790490715; x=1791095515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LvdoT+4B+s9J9ndPoCUfTNkadsVmUKhDZhjNaBl2CAA=;
+        b=pJCT1aLPCovooVNNNatPt4BhsykGJz2BLHIIx17fwFNe3MY1Wx8nZGtBVgBE5F4Lhc
+         rC0nFhvkTQGxqNkcww8jZapqxiYYNJBTFvkb8SIic8fu8msOdxaHnB6NcePXEB/fPkNO
+         ntgSyjL3TFaRGGSNHmi68YVqDg/odOmMcpSNPSafDirF3tHN1+alidEqghZbeKBZGPPF
+         Tfvp58+uZz6vp3qOYLcELfHUAgTKfaZhJNAzgeSzOlr3f8YeGWdUF69NNzt7yubLCG9p
+         NHbDyn15hALiVhY77zJNr3OmdPWZXZKtATQqEckj8sZ7gsni76/HMJ0OfEJzVoB1I/ef
+         lQEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790490677; x=1791095477;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G98IODEmjwEPHfQZb5jDWlDo2HGYU0z05SG8co7Iw9U=;
-        b=pXv7KQeh7t1Ifp7DfeS8YSfvSkRfDvu08Zho+Xw3na9PnpV2yl6WinfQrjpJn2gzHi
-         XNPTahIsc1aGEKu31ubNeH9AJAkXCRTWRK7qOwB5HhapcwGhAiifg8GQiuTJwUrtgpuL
-         zc3IRCc5Yhf3f3LUF/ogu2BwWNx7AiPd0Ma176hKCHddAX/CBJ0LOe6LijI3KxdxVOOf
-         F4ZGULgXMwL+o/z4KZiGbenMeD8nYOV3VUy87RugOqyftqCq1wTh+A2thFGSy+QpgDck
-         OT4JlEbXb/qWvmcyzDMDkiCv71DSiBCai/5bEmSfDHlZj2WS13aqL/61tBWQgh+t2Bmz
-         cGOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1mONmDPLxYzgv5aiOP2ciqTsFOwQvfoFIw/yZbtx/kaXR/mOLYOE5ljWxuJZZT1+0aWEaXrmFWFpmN5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6oeKGgO8iiCniV4elE7oJTroarur77e8+rCHPaM0R8MlGKoxJ
-	g/G4mpvnDtV6Gvy7SiWRVYT80Yt4iwxrVAB/SCSbXytXEdYLbTeXSRfx
-X-Gm-Gg: AYBFou3Xo+sz9X/dAG/V3NQkmFRuQPKIC3h/KNZZt2WabZEbxzvaOFnRVz6As0avECE
-	Ml44JOdrQxQWmlUk5LCAylNZHR7V7VheTlc763m0qNM/ncsrGQas/WL/fODo3xkE4Mpi2KdXRSv
-	EsqMXwB8lIP86T1hI8+psKL2hDYRVkJtEfI/69SQ1c2Jvv9dId5usamoIeqwy8ZpL1FL5yc7Fc8
-	UAHOvME0flLRB0UAlYrVPRirng/PotfzGvKqMHz7KNnGKMf6K43roLM9g2tLHNyCLBvws/csY97
-	ppmuZFJEMhix7tU6b3t+3MRYb6QpuIRQ93U0jq3XtYhIaasm5szQg/JdvLLm0vG3QGTizK9DQxB
-	rTsAGjy6em4LGglqIFoxPrNWigrChAXcquvB+EMO6wms2uX/Gb3gwAuYaE6dvO8zy7IZSkBabTp
-	s+7r/k7AtEFn9iB4N2RO7m6M3V2KANnMaud8nE5Xh40+BIU20peve9BSjwrU9nf9EB9euCJ7O2h
-	4JQIcaG+iJsuYM27GmLl4933WMnHAnXeIo=
-X-Received: by 2002:a05:600c:4f41:b0:49f:fe5a:522f with SMTP id 5b1f17b1804b1-49ffe5a56c9mr49760925e9.23.1790490676934;
-        Sat, 26 Sep 2026 23:31:16 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef6186a6sm142933845e9.4.2026.09.26.23.31.16
+        d=1e100.net; s=20260707; t=1790490715; x=1791095515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LvdoT+4B+s9J9ndPoCUfTNkadsVmUKhDZhjNaBl2CAA=;
+        b=lI6YrcsQ5wg4MQ1PwqjKxpwVRCHjr0PEyLsA1Xq8GkCethh7u8sAx3bqaEek9BKjOy
+         b7c+0tTob3gl01yP8Yr62CqATJPh1PTA35Rgog8GO92noEQDOEBjPQPAXRyYQUdQ6BSM
+         bFbKQBaIY7uSQ55p7l2I3bS8pLdMZf94EbSf1XjPdClmdZIPRhJ+l655qhW/5inu8B9D
+         wsuCjwirUOsNpnePBVXuWiEBrtJvSdPI9Pq2aAATf6wot5v52QhOi9aP5JrK5vZMRM9N
+         QZ9g44DZbBNxErltJNTKlk6G8BpGxJ9fJCVp+tf48Y9oVzHi/vWUGunubpdghl0B89YE
+         oIWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzC2j4Y0o/xfs5a+n0Tfyh1RLW69NtoPBNVdYtVB/GT9U+WCJyeTAJYGhPKySdFaz3wvrSIyIMoKiy14zw=@vger.kernel.org
+X-Gm-Message-State: AFuF++moYqyjH14MFKhsDIwRe5y/RZhBJNKOo9mQdhKgTGUWrl5Cc6u0
+	UAAujMJLKZcsKkkjBoRm/q3Khr+8lqbMCIdyGb3sw29KUqEKnGLGEeiRcVrqWE4x10Pzlw==
+X-Gm-Gg: AYBFou0N3Z/vRLHA3lNoLT4ZTMNl8m0q69mm5FbIyT4fBHZRza6nbf2Jz67rNwwGTsq
+	/lPJkUSYMUb+eK/YWpZex9UNAbl3KjHEIbutwhJu9v86apCTfy5VADDAu1k7C6QWIRzmHHrEdqT
+	/lYZGiRc8L/Fy7dkc1Dr3xk79As5mfb/Fylcb2r8dm/HPcMwCJeq/ihC1L74Vy8tBDZ7IzLzIMJ
+	tAb1El57P5SaNsm6xmLXKfIS/Cj5EDbxojZqAHsZjPoXqTsF+SpCgWkHKiOmGXjJMyyV4+IjTOF
+	fWB4zRL6UiCgf2AmxRuntyc+pprlTkl6dhF/w0ZFLSCOWMMRgU4ehgyFx8efVEGE6UeLDAnilBJ
+	kQvMo+p0rPhIj/0wljrOYy7pdM2svPyTLTrb7NQC/iY7OmYcqH12RWaIqXcrPBcyFU3UMVcI8UI
+	CwynWk1O0UFfhYMv2gCxMJdQWRN9KNN7Hp80WSM3AMZx9CjN4sXCmIBoJmPbONSznWNx8XbbXb3
+	A2vuGQJphMpUvx5GYKbGpmpK9i2vZk2CTp4MCzHq82FkZcEGt0RVfuosTzk70xxmng48pe5SOF8
+	peHP8hogDSN0qyvqXhuDFL+BHV+E3hnMt51dGh+bEBgJlyiK6bvE/QKnBgg=
+X-Received: by 2002:a05:6a00:7585:b0:87f:dcc3:62f with SMTP id d2e1a72fcca58-87fdcc35542mr4470794b3a.60.1790490714783;
+        Sat, 26 Sep 2026 23:31:54 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf85551sm2732199b3a.40.2026.09.26.23.31.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:31:16 -0700 (PDT)
-Date: Sun, 27 Sep 2026 07:31:15 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Christian Lamparter <chunkeey@gmail.com>
-Cc: Ridham Khurana <khurana.ridham222@gmail.com>, Guenter Roeck
- <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christian Lamparter
- <chunkeey@googlemail.com>, Alexander Sverdlin
- <alexander.sverdlin@gmail.com>, Nikita Shubin <nikita.shubin@maquefel.me>,
- Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, Brigham
- Campbell <me@brighamcampbell.com>, linux-kernel-mentees@lists.linux.dev
-Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
-Message-ID: <20260927073115.15110623@pumpkin>
-In-Reply-To: <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
-References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
-	<f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Sat, 26 Sep 2026 23:31:54 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ntfs: hold the runlist lock while expanding a non-resident attribute
+Date: Sun, 27 Sep 2026 14:31:49 +0800
+Message-ID: <20260927063149.3356920-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026 20:03:06 +0200
-Christian Lamparter <chunkeey@gmail.com> wrote:
+ntfs_non_resident_attr_expand() changes ni->runlist.rl while it
+allocates clusters: ntfs_attr_map_whole_runlist(), the compressed
+branch's ntfs_rl_realloc() and ntfs_runlists_merge() can each kvfree()
+the old array.  Unless the caller already holds ni->runlist.lock, none
+of this happens under it; only the rollback takes it.  Callers without
+it include the write path, fallocate, ntfs_inode_attr_pwrite() and
+ntfs_resident_attr_resize().
 
-> Hi,
-> 
-> On 9/24/26 10:53 PM, Ridham Khurana wrote:
-> > temp1_input_show() drops the low bits of the temperature register by
-> > dividing the raw value (raw / 32 on the LM70). These bits are not part
-> > of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
-> > return some of them as 1, and the TMP125 fills them with copies of the
-> > temperature LSB. Division rounds toward zero, so a negative temperature
-> > with any of these bits set is reported one LSB too high.
-> > 
-> > For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
-> > driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
-> > the driver reports as -24750.
-> > 
-> > Use an arithmetic right shift instead, which drops the low bits and
-> > rounds down. tmp421 had a similar problem with negative values, fixed
-> > by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
-> > values").  
-> 
-> For the TMP125 yes:
-> 
-> Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
-> 
-> 
-> > Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
-> > Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
-> > Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
-> > Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
-> > ----  
-> I wrote a little test program by hand (see below) and ran it on x64.
-> No idea if different archs behave differently or if
-> a clever unsafe math optimizing compiler flag will
-> convert the  "/ 32" to a " >> 5" but I doubt that...
+Those callers hold mrec_lock, and the write path also inode_lock, but
+the iomap read side takes neither: FIEMAP, page faults, readahead and
+splice read reach ntfs_read_iomap_begin_non_resident(), which takes only
+ni->runlist.lock.  A FIEMAP running while write(2) extends the same file
+can walk the array that ntfs_runlists_merge() has just freed:
 
-A compiler will convert an unsigned divide to a shift, but can't
-do so for signed divides.
+  BUG: KASAN: slab-use-after-free in ntfs_attr_vcn_to_rl+0x19b/0x200
 
-But you'll also get flagged because C doesn't define right shifts
-for negative values.
-I think they are actually 'undefined behaviour' (UB) if clang detects
-that your code is UB it silently just stops generating object code.
-	(int)((val + 0x8000u) / 16u - 0x8000)
-might safely generate the correct value.
+A reader that finds a vcn unmapped in the stale array also maps it from
+disk into the runlist the writer is changing, which shows up as "Run
+lists overlap. Cannot merge!".
 
-David
+Take ni->runlist.lock for writing around the part of the expansion that
+changes the runlist and allocated_size, up to and including the mapping
+pairs update, as ntfs_non_resident_attr_shrink() does since commit
+91709ba5d6d7 ("ntfs: protect runlist updates with the runlist lock"),
+and hold it throughout the rollback, where ntfs_cluster_free() requires
+it.  The lock nests inside mrec_lock, as on the truncate-up path, which
+already calls this function with the runlist lock held.
+
+For an $ATTRIBUTE_LIST whose lock the caller does not hold, drop the
+lock again before the mapping pairs update: that update can resize the
+same list through ntfs_attrlist_update_locked(), which returns -ENOSPC
+when told that the list's lock is held.  Holding it there made punching
+holes into a large fragmented file fail with -ENOSPC.
+
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+A reproducer that extends two files with interleaved clusters while
+FIEMAP loops over them hits the KASAN report above within two seconds in
+each of three runs; with this patch, three 60-second runs are clean.  I
+can send it privately if you want it.
+
+Also tested in a VM with KASAN, lockdep and the hung task detector:
+writes past EOF, fallocate, truncate-up, sparse and compressed files,
+growing xattrs, directories and a non-resident attribute list, with
+FIEMAP after each step.  Output matches the unpatched kernel, and
+lockdep reports nothing.
+
+ fs/ntfs/attrib.c | 72 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 51 insertions(+), 21 deletions(-)
+
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index 333b3371acb47..a07acef3a03e8 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -4453,6 +4453,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	struct ntfs_inode *base_ni;
+ 	struct super_block *sb = ni->vol->sb;
+ 	size_t new_rl_count;
++	bool runlist_locked = locked_ni == ni;
+ 
+ 	ntfs_debug("Inode 0x%llx, attr 0x%x, new size %lld old size %lld\n",
+ 			(unsigned long long)ni->mft_no, ni->type,
+@@ -4494,10 +4495,17 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	 * clusters if there is a change.
+ 	 */
+ 	if (ntfs_bytes_to_cluster(vol, ni->allocated_size) < first_free_vcn) {
++		/*
++		 * The runlist array is replaced below.  Readers such as the
++		 * iomap read path hold only the runlist lock, not mrec_lock.
++		 */
++		if (!runlist_locked)
++			down_write(&ni->runlist.lock);
++
+ 		err = ntfs_attr_map_whole_runlist(ni);
+ 		if (err) {
+ 			ntfs_error(sb, "ntfs_attr_map_whole_runlist failed");
+-			return err;
++			goto unlock_runlist;
+ 		}
+ 
+ 		/*
+@@ -4522,7 +4530,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 						last + more_entries + 1);
+ 				if (IS_ERR(rl)) {
+ 					err = -ENOMEM;
+-					goto put_err_out;
++					goto unlock_runlist;
+ 				}
+ 
+ 				alloc_size = ni->allocated_size;
+@@ -4547,7 +4555,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 				rl = kmalloc(sizeof(struct runlist_element) * 2, GFP_NOFS);
+ 				if (!rl) {
+ 					err = -ENOMEM;
+-					goto put_err_out;
++					goto unlock_runlist;
+ 				}
+ 
+ 				rl[0].vcn = ntfs_bytes_to_cluster(vol, ni->allocated_size);
+@@ -4594,7 +4602,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 				ntfs_debug("Cluster allocation failed (%lld)",
+ 						(long long)first_free_vcn -
+ 						ntfs_bytes_to_cluster(vol, ni->allocated_size));
+-				return PTR_ERR(rl);
++				err = PTR_ERR(rl);
++				goto unlock_runlist;
+ 			}
+ 			/*
+ 			 * A contiguous ATTRIBUTE_LIST allocation keeps its mapping
+@@ -4618,8 +4627,10 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 								ni->allocated_size),
+ 						lcn_seek_from, DATA_ZONE, false,
+ 						false, false);
+-				if (IS_ERR(rl))
+-					return PTR_ERR(rl);
++				if (IS_ERR(rl)) {
++					err = PTR_ERR(rl);
++					goto unlock_runlist;
++				}
+ 			}
+ 		}
+ 
+@@ -4631,7 +4642,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 				ntfs_error(sb, "Run list merge failed");
+ 				ntfs_cluster_free_from_rl(vol, rl);
+ 				kvfree(rl);
+-				return -EIO;
++				err = -EIO;
++				goto unlock_runlist;
+ 			}
+ 			ni->runlist.rl = rln;
+ 			ni->runlist.count = new_rl_count;
+@@ -4639,11 +4651,28 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 
+ 		/* Prepare to mapping pairs update. */
+ 		ni->allocated_size = ntfs_cluster_to_bytes(vol, first_free_vcn);
+-		err = ntfs_attr_update_mapping_pairs_locked(
+-				ni, 0, locked_ni);
+-		if (err) {
+-			ntfs_debug("Mapping pairs update failed");
+-			goto rollback;
++		if (ni->type == AT_ATTRIBUTE_LIST && !runlist_locked) {
++			/*
++			 * Making room for the list's mapping pairs can resize
++			 * this attribute list again through
++			 * ntfs_attrlist_update_locked(), which takes its
++			 * runlist lock.
++			 */
++			up_write(&ni->runlist.lock);
++			err = ntfs_attr_update_mapping_pairs_locked(ni, 0,
++								    locked_ni);
++			if (err) {
++				ntfs_debug("Mapping pairs update failed");
++				goto rollback;
++			}
++		} else {
++			err = ntfs_attr_update_mapping_pairs_locked(ni, 0, ni);
++			if (err) {
++				ntfs_debug("Mapping pairs update failed");
++				goto rollback_locked;
++			}
++			if (!runlist_locked)
++				up_write(&ni->runlist.lock);
+ 		}
+ 	}
+ 
+@@ -4677,6 +4706,9 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	ntfs_attr_put_search_ctx(ctx);
+ 	return 0;
+ rollback:
++	if (!runlist_locked)
++		down_write(&ni->runlist.lock);
++rollback_locked:
+ 	/* Free allocated clusters. */
+ 	err2 = ntfs_cluster_free(ni, ntfs_bytes_to_cluster(vol, org_alloc_size),
+ 				-1, ctx);
+@@ -4684,12 +4716,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 		ntfs_debug("Leaking clusters");
+ 
+ 	/* Now, truncate the runlist itself. */
+-	if (ni != locked_ni)
+-		down_write(&ni->runlist.lock);
+ 	err2 = ntfs_rl_truncate_nolock(vol, &ni->runlist,
+ 			ntfs_bytes_to_cluster(vol, org_alloc_size));
+-	if (ni != locked_ni)
+-		up_write(&ni->runlist.lock);
+ 	if (err2) {
+ 		/*
+ 		 * Failed to truncate the runlist, so just throw it away, it
+@@ -4702,12 +4730,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 		/* Prepare to mapping pairs update. */
+ 		ni->allocated_size = org_alloc_size;
+ 		/* Restore mapping pairs. */
+-		if (ni != locked_ni)
+-			down_read(&ni->runlist.lock);
+-		if (__ntfs_attr_update_mapping_pairs(ni, 0, locked_ni, true))
++		if (__ntfs_attr_update_mapping_pairs(ni, 0, ni, true))
+ 			ntfs_error(sb, "Failed to restore old mapping pairs");
+-		if (ni != locked_ni)
+-			up_read(&ni->runlist.lock);
+ 
+ 		if (NInoSparse(ni) || NInoCompressed(ni)) {
+ 			ni->itype.compressed.size =  org_compressed_size;
+@@ -4715,6 +4739,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 		} else
+ 			VFS_I(base_ni)->i_blocks = ni->allocated_size >> 9;
+ 	}
++	if (!runlist_locked)
++		up_write(&ni->runlist.lock);
+ 	if (ctx)
+ 		ntfs_attr_put_search_ctx(ctx);
+ 	return err;
+@@ -4722,6 +4748,10 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	if (ctx)
+ 		ntfs_attr_put_search_ctx(ctx);
+ 	return err;
++unlock_runlist:
++	if (!runlist_locked)
++		up_write(&ni->runlist.lock);
++	return err;
+ }
+ 
+ /*
+
+base-commit: 259abb551e2944998cad4214c201954ab1ac5c8d
+-- 
+2.55.0
+
