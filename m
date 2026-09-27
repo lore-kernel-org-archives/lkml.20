@@ -1,247 +1,125 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521683E9F9E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10BA3B6C0C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550452; cv=none; b=bkeExYvoe9Wq/BQZVMwFK3yBuKUev7KAyK2b+nheBsaXdK656ONBA9tWuAOZwC56FUox5QYy4Bm7wZbDKd2L4/+YpP3w41nJ7ojeA6EnWo6uWiE9Jquve2oOOA4V1GB0UsJ9UNOxRs3JtmJmN3Udiji0Kb+a5eJ8xTtmeVqU8fA=
+	t=1790550523; cv=none; b=LIoFxb9JnBAT+FENjDo+FfGbzb2fb3nvUFtuotJ9RmYHQpmTIlzaOg9jBIIdlmGlXrhQTL/8uIT1K5Mtd0QBh6JkPU9rXPW1bnsVA3aQTifCICgxY7ZlGufr7M/KS7UHY/SBB6ifrqAcdD70J8P6ij3vnMDOGuzfOVEH69D46po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550452; c=relaxed/simple;
-	bh=e9NPQNAAXYJj3KNp+Mrw0GH/m5KXohN0TuJ3luwYyl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r6Dl4mHx5DmcpDhLKXg6/KSIrFKoql4f9CuP7dv7pOKaHVeonFt8XjFcEVI/o46JPrdUR5zSXCzHIW01jLtDGqDjjfnW2zW/56LrTz0dnfLFlQQGggWBgY4Xcs4u6tVwsCJQkFaluLjhJOltD3B0CY3zOHyoLJPu+YzCx+GN7Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=ExVc4Vj8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wtD71ngd; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790550523; c=relaxed/simple;
+	bh=xkSLCh845EsJhrdCyhg70nL7NkB5a8zwpqs11NLsxss=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pb1emGMDWZODyMN6i1lY5TcfDdRxemydddEMxPwS/7IcAmxYlrMRHwex8hQ8iOlvuw7M9Lbn3JSaC9llPDN+cT+kfUC7nkqieR1QSwy4hiIaXrBWwd5WFnQJAGmBy00KDzy07slw6vUJF1xfmuBVgDMZ3QPCruXYK/pqx/abVbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D4UphsD2; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="ExVc4Vj8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wtD71ngd"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 74B921400080;
-	Sun, 27 Sep 2026 19:07:30 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 27 Sep 2026 19:07:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790550450; x=
-	1790636850; bh=HCKSZKFblj8iSAarGW+e5QMXqxcdtKbUP6H18iZNEWs=; b=E
-	xVc4Vj8bpNc0YFZIC0poAFetLuUhe8fQdnOcDk2poU3AJHK26FbroWoIwo1NlJz1
-	aWDQLu7Ghasudz2vvV38WFTSIKgAFrEAAnBquGL/V6ATI/ezlHKEb4bGaxBborTH
-	xjH3dwy5rVYes56guSMs2aA4MufYL4w3aGBSGZ/ToQDVd7ErvKDpPEBdHyrHC0PE
-	r+PBB2wncHr7yb7fpHv5b9s8k90wI0ODCgqjGLkOliZzLO5qUY4Ix9v+vosTb250
-	dcZgJN5ALvto1HWPeWYvGbXOh2pbprEE0Jxu6hzk1w9iu9IK/lXO+2ICRVUVo1PJ
-	f7wgm++Bin7rUwegmvQow==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790550450; x=1790636850; bh=H
-	CKSZKFblj8iSAarGW+e5QMXqxcdtKbUP6H18iZNEWs=; b=wtD71ngdqmnWWqQBE
-	yTuWjFpqoeOyvx/VopunW9Ljq+oemE9YGhHf/7IZxBa3MXgGqFsKHhA+WRIxJpI4
-	tDaFHPynzUNj3TmmhVR2NZhTE2rqSn1tEvMVNpgOc3bcOSFSW9jSCUfHyaB0+FZd
-	oBDoUtUQi1cty7rF7V3ALLYxVmTsv1RduAcc3Z9zEf5eKCc+3VsEG+UAxtIUPsbF
-	MsnGTNtxlHdLx00cHIGb6xLq1PDSsDNUktWt9891alU2K5OMFSFXmMRHhKMdEivw
-	fmHbHx9KzQT/77UTkVWmTpLnaGHhMc+nh0vlGJAjO28S19qTGlstgUkbFXOuya4s
-	4dcow==
-X-ME-Sender: <xms:sqG5aglUkT9ptjogszvCsJHL77k4feHANO8wv1vUm5cu7Oouo_lLtw>
-    <xme:sqG5atwmhxCqApwU2gL4E23IYzNR4gyFwLUGqmHSSd6QYwrIkNIlcfJlgj5BC3HaE
-    FEwMsvUautMB0au7aFuCgaZtRht7P2dTe5XFfpAmXWurtyHBKRI6_7_>
-X-ME-Received: <xmr:sqG5amOxC_uQHfjQUpNEuTZC4-H_3QZSUUUCAm1qAnJjH05boqKJVUkzt1Q-BO7c6j-0tOeJe16tf6Hhe4sM8j2P8K699-9rB0xl4mwpEKm1>
-X-ME-Proxy-Cause: dmFkZTG0L7pGOMwThUUE2TF4c1w16xmRNamFalWL0BhmYUnywREWYkkYDKQFv4mf4VRjJL
-    2PFE03XHALcvai+0tJySFL+Qo2BufO/3Wx6b0h77OkfE5v4U6HeusRClajG8Vr/chzh+P/
-    sng3BoyYK82xK6BbmS1fwwqrHDR90iDK0D7zhYHiSvNbU3KoiS7wBjcp6O8PuTkO13+eVK
-    KKRQfK5FMcTA+TQfmNhnaElKF6p7hooxtHuF9E6GsjMnGMKqQ0YZK8kzVR5WUcrhv2yOYz
-    ybEMk9rrANwx7k9pEFTaq0mAxIp35ID8lT8QRBxX5WHzyWdS2rAQeMC2+2TRLe3deFsuIq
-    siMOu+eXdHeLzgHxo2rGzBeBEUh6wK05sF4Xhk7NKxfvhemRcLQySlb3bFGAQn15dzpKc8
-    STsHVUM5Qrm+Nxm88fgOPSVh3DioLHQdzNtIMQQuReBfkFQ3VRS37GSNgiWRDrHZoGEvYX
-    Hbi6v1VGUbj1WUOvCSTc48di9N2WIv25hlNPVDnFOFRTi33UmL2VPJTfDanE7NVvUyjBRy
-    gQwCifwGif1SkNJl0khoWOIPTbKHbGLnhYVtZ/QPpE5GbW54JblvCwuoEB9OAXVyJ0d4Li
-    fSxscDkibtPiI/sV7bLvsv4gOIVwkGi4DwnMavhIrocQwdJvHVfjUdKfs2mQ
-X-ME-Proxy: <xmx:sqG5apRkNWQpACNJAP2pI3LCs4kgTKx6uQFbh0KSTQbRU7UkExVdrw>
-    <xmx:sqG5asZ9HY91IvcjRi24Jl9GvfBY57Swfv3LyfG4bbMKgvp26FPUaQ>
-    <xmx:sqG5au1o6MYDt1Dn2BRtfrU_FuyjBl1RrLVReng7emiTV4-uV3NltQ>
-    <xmx:sqG5akWjM_RXkJfik2G0VsHmT4XDOpyi8-DHEgcQJxOfDtDdgSef6g>
-    <xmx:sqG5aq5FYT_pLw9CFo1_RDAQyOtK5YPkvJNTLnBYfAR32UmMrz_Eacv6>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 19:07:29 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] firewire: cdev: use mutex for client locking
-Date: Mon, 28 Sep 2026 08:07:24 +0900
-Message-ID: <20260927230724.119305-3-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927230724.119305-1-o-takashi@sakamocchi.jp>
-References: <20260927230724.119305-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D4UphsD2"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so1378099f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790550520; x=1791155320; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HKp73jGG5LTsQWZvXwxxCZVQVZBAoFZGjXIJpSRfgkI=;
+        b=D4UphsD2ivi88C+drIBgNdYkbpymwEOoohShRjWjN0yQdRRXqh/O+Nb1iT3d5d7IE5
+         nSUj8LmBoPjMmMKIygFa1jfVxBL7csun+pbSVIgdch++/6W+8E6wLC78jF/SLxJDB10x
+         sd+nfgA8xfQaa7bssu6+eThl1N2UEIVS9BNZLz5HeXJOnEs8huvRW7lSBxsw+O1SzuOn
+         U/in9C7BdkuWs0xIcRBH93M/9oj7XvX6nG6luctLdMTbf2/tNZSiVObF803kVx3HMnsa
+         WfxFZJ0iKAsxLmHMSL5OmLwzaroe01pgq+H/Bw3zCbApuEFHYHHRBQE4DiLkAsFEJBn3
+         JK8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790550520; x=1791155320;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HKp73jGG5LTsQWZvXwxxCZVQVZBAoFZGjXIJpSRfgkI=;
+        b=B6I6nYXaKNqw5Rn19z2RPsN8FJ0iWGFkJwP+ckL05fsdtgeYWMgokTzsOCDoUtkt5L
+         x9bpJQIKSQFNItAvqBP7saExeRVvjQnKNPv0CDYcMd2+p7h6LG6yUEgYjgvTYUjzluho
+         kzuOkBouS0Ki4/IZDas/pqDdbqnGbqoB+aUqUdJ0qa5az9nD4yA6f2n5E0lOcFqtUtOy
+         nSdJwSkUegmMRPvkPGrklw9P3zC0qAz8yqdRmC/C5763ws355bvol0fAywAxZog5lN4+
+         q33sWD71qoiIoCvLAyoEn1euCX2d1EN6ySXr3UYalF3QTRqtvRFXkr+oY1F2NHPPae5k
+         k6hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzT1kvh87NQ0ZtyrQ4jb6WH5nja45+V2zf8UIj7+w+oq31CJbF0G96qnFRdlrvIDG2jJUAXreM/sxComrE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnuDSQZJK530P6OOjalMN4/PSyG+8Ry6AagIYIRMRIQgkvP2eS
+	dDlHHSpZGVTHUF4aAvrOIrK11JRsvAqnKWOL617khJQHUlYg4EuDGEfX
+X-Gm-Gg: AYBFou0SNwp3uT2ikoG/GZwaI17Jf0EGOjxQ0wdhz9dyUk50dvi8Cx7mf77kDkwSKvD
+	7vkBrmNpbtD1vqar3pJnttqAhF1hygCO1hOQVdlsj/E04WEEXvlnFetocVNyC/py4F7r8xJAwuT
+	rze/bTYpoHk8QBwrNoC9qzDbv2lc71Ezbmsb106cwOP6xQRMe1jsvA9+1W2a0FNGyY0A+o/YqHc
+	QCVd8FFldaAzc96fa/k+skFRk8i8GURS2AtnI0wlE8esew72Je/+vtlIdlPl5Aa0qcMKPW6HdQU
+	5D3e7h3sYyMaW9WyWGYlnFgysW0wY8pfMGVwCc6f30zL6rH3FV4x/ZE1CBiIlcfbbLzAkARJnox
+	uViVg/Ud3noy0U8XYLdaFCy8uysZmIMTMCWgRE5+0ewowH4dfhMxv8SIezmw1p3SBPv5bxPnA00
+	al/OUBwd6+eDLQaxV9tx4JqHTD9XqReCS4tfkQ0mH1jagfuPAxeYPUohVnWqKlq7JgJGyXW1cpH
+	5yT0tU=
+X-Received: by 2002:a05:600c:8718:b0:49c:fc6c:be08 with SMTP id 5b1f17b1804b1-49ff06f8316mr132620435e9.31.1790550520067;
+        Sun, 27 Sep 2026 16:08:40 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018f0e79sm145623205e9.7.2026.09.27.16.08.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 16:08:39 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Cc: john.fastabend@gmail.com,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH bpf-next] bpf: Fix bpf_loop() depth check to use 32-bit max for nr_loops
+Date: Mon, 28 Sep 2026 02:07:26 +0300
+Message-ID: <20260927230822.417683-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All execution paths in the cdev layer now run in process context.
+bpf_loop() takes a u32 nr_loops argument. At runtime, nr_loops is
+passed as a u32 via the BPF_CALL_4 signature:
 
-Use a mutex instead of a spinlock for client-level locking.
+    BPF_CALL_4(bpf_loop, u32, nr_loops, ...)
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+However, the verifier compares callback_depth (u32) against
+reg_umax(), which returns the 64-bit upper bound of R1. If the upper
+32 bits of R1 are set, reg_umax() can be U64_MAX, causing the depth
+check to remain ineffective and triggering excessive
+push_callback_call() invocations until the complexity limit is hit.
+
+Use reg_u32_max() instead, matching the 32-bit range actually used by
+bpf_loop() and avoiding unnecessary state exploration when R1 has a
+large 64-bit range.
+
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
 ---
- drivers/firewire/core-cdev.c | 54 ++++++++++++++++++++----------------
- 1 file changed, 30 insertions(+), 24 deletions(-)
+ kernel/bpf/verifier.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index d4c72cd20069..9c204bd7af74 100644
---- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -54,7 +54,7 @@ struct client {
- 	u32 version;
- 	struct fw_device *device;
- 
--	spinlock_t lock;
-+	struct mutex mutex;
- 	bool in_shutdown;
- 	struct xarray resource_xa;
- 	struct list_head event_list;
-@@ -315,7 +315,7 @@ static int fw_device_op_open(struct inode *inode, struct file *file)
- 	}
- 
- 	client->device = device;
--	spin_lock_init(&client->lock);
-+	mutex_init(&client->mutex);
- 	xa_init_flags(&client->resource_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH);
- 	INIT_LIST_HEAD(&client->event_list);
- 	init_waitqueue_head(&client->wait);
-@@ -338,7 +338,7 @@ static void queue_event(struct client *client, struct event *event,
- 	event->v[1].data = data1;
- 	event->v[1].size = size1;
- 
--	scoped_guard(spinlock_irqsave, &client->lock) {
-+	scoped_guard(mutex, &client->mutex) {
- 		if (client->in_shutdown) {
- 			kfree(event);
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 0eeb498db9d3..8d8923ad5094 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -12184,7 +12184,7 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 		err = mark_chain_precision(env, BPF_REG_1);
+ 		if (err)
+ 			return err;
+-		if (cur_func(env)->callback_depth < reg_umax(&regs[BPF_REG_1])) {
++		if (cur_func(env)->callback_depth < reg_u32_max(&regs[BPF_REG_1])) {
+ 			err = push_callback_call(env, insn, insn_idx, meta.subprogno,
+ 						 set_loop_callback_state);
  		} else {
-@@ -355,25 +355,31 @@ static ssize_t dequeue_event(struct client *client, char __user *buffer, size_t
- 
- 	// After the following block, the event pointer above is guaranteed to have a correct value.
- 	{
--		spin_lock_irq(&client->lock);
-+		mutex_lock(&client->mutex);
- 
--		int ret = wait_event_interruptible_lock_irq(client->wait,
-+		// This could be replaced with wait_var_event_any_lock() if poll_wait() alternative
-+		// would be introduced.
-+		int ret = ___wait_event(client->wait,
- 			!list_empty(&client->event_list) || fw_device_is_shutdown(client->device),
--			client->lock);
-+			TASK_INTERRUPTIBLE, 0, 0,
-+			mutex_unlock(&client->mutex);
-+			schedule();
-+			mutex_lock(&client->mutex)
-+		);
- 		if (ret < 0) {
--			spin_unlock_irq(&client->lock);
-+			mutex_unlock(&client->mutex);
- 			return ret;
- 		}
- 
- 		if (fw_device_is_shutdown(client->device)) {
--			spin_unlock_irq(&client->lock);
-+			mutex_unlock(&client->mutex);
- 			return -ENODEV;
- 		}
- 
- 		event = list_first_entry(&client->event_list, struct event, link);
- 		list_del(&event->link);
- 
--		spin_unlock_irq(&client->lock);
-+		mutex_unlock(&client->mutex);
- 	}
- 
- 	ssize_t ret = 0;
-@@ -451,11 +457,11 @@ static void queue_bus_reset_event(struct client *client)
- 	queue_event(client, &e->event,
- 		    &e->reset, sizeof(e->reset), NULL, 0);
- 
--	guard(spinlock_irq)(&client->lock);
--
--	xa_for_each(&client->resource_xa, index, resource) {
--		if (is_iso_resource_auto(resource))
--			schedule_iso_resource_auto(to_iso_resource_auto(resource), 0);
-+	scoped_guard(mutex, &client->mutex) {
-+		xa_for_each(&client->resource_xa, index, resource) {
-+			if (is_iso_resource_auto(resource))
-+				schedule_iso_resource_auto(to_iso_resource_auto(resource), 0);
-+		}
- 	}
- }
- 
-@@ -546,7 +552,7 @@ static int ioctl_get_info(struct client *client, union ioctl_arg *arg)
- static int add_client_resource(struct client *client, struct client_resource *resource,
- 			       client_resource_release_fn_t release)
- {
--	scoped_guard(spinlock_irqsave, &client->lock) {
-+	scoped_guard(mutex, &client->mutex) {
- 		u32 index;
- 		int ret;
- 
-@@ -572,7 +578,7 @@ static int release_client_resource(struct client *client, u32 handle,
- 	unsigned long index = handle;
- 	struct client_resource *resource;
- 
--	scoped_guard(spinlock_irq, &client->lock) {
-+	scoped_guard(mutex, &client->mutex) {
- 		if (client->in_shutdown)
- 			return -EINVAL;
- 
-@@ -605,7 +611,7 @@ static void complete_transaction(struct fw_card *card, int rcode, u32 request_ts
- 	struct client *client = e->client;
- 	unsigned long index = e->r.resource.handle;
- 
--	scoped_guard(spinlock_irqsave, &client->lock) {
-+	scoped_guard(mutex, &client->mutex) {
- 		xa_erase(&client->resource_xa, index);
- 		if (client->in_shutdown)
- 			wake_up(&client->tx_flush_wait);
-@@ -1387,7 +1393,7 @@ static void iso_resource_auto_work(struct work_struct *work)
- 		if (!success) {
- 			// Allocation or reallocation failure?  Pull this resource out of the
- 			// xarray and prepare for deletion, unless the client is shutting down.
--			scoped_guard(spinlock_irq,  &client->lock) {
-+			scoped_guard(mutex,  &client->mutex) {
- 				if (!client->in_shutdown && xa_erase(&client->resource_xa, index)) {
- 					// For the incrementation by add_client_resource().
- 					client_put(client);
-@@ -1907,11 +1913,11 @@ static bool has_outbound_transactions(struct client *client)
- 	struct client_resource *resource;
- 	unsigned long index;
- 
--	guard(spinlock_irq)(&client->lock);
--
--	xa_for_each(&client->resource_xa, index, resource) {
--		if (is_outbound_transaction_resource(resource))
--			return true;
-+	scoped_guard(mutex, &client->mutex) {
-+		xa_for_each(&client->resource_xa, index, resource) {
-+			if (is_outbound_transaction_resource(resource))
-+				return true;
-+		}
- 	}
- 
- 	return false;
-@@ -1938,7 +1944,7 @@ static int fw_device_op_release(struct inode *inode, struct file *file)
- 		fw_iso_buffer_destroy(&client->buffer, client->device->card);
- 
- 	// Freeze client->resource_xa and client->event_list.
--	scoped_guard(spinlock_irq, &client->lock)
-+	scoped_guard(mutex, &client->mutex)
- 		client->in_shutdown = true;
- 
- 	wait_event(client->tx_flush_wait, !has_outbound_transactions(client));
--- 
-2.53.0
+--
+2.55.0
 
