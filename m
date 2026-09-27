@@ -1,152 +1,199 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38E2374E6D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC8437C930;
+	Sun, 27 Sep 2026 06:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790489149; cv=none; b=CudFozVcuYSaay51lJyraq3/YU9qQAl1DYrhHJgh9QSeWuvKDa+rFGOs+odNZZEQxLfCzYYWyQUgfo66fnjcZDJjOytCTYjpG2aXxBmEFCkPI3SokLtwVEza4ClZv7LckI4Vi6AnHWrySYGvoHmu4zNM6FmTNBPNa1Ntv7S/HX8=
+	t=1790489188; cv=none; b=mHhi7cSRWqr0SAdmlinxdESKz5b0GvHCKNpRfvBfXFndbPaCreMB2wtEaByKVobfLFx27szxQ3cBSLm9BLEkWnpZIRuF9mwgYiaKXKUYoHZ5Ep77fsUehGOjvimzlErnRMwv5CE+Qqv1gE4uNB4WYNO3PxommwgSQJ5vqCSLWfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790489149; c=relaxed/simple;
-	bh=gg1fTloAjx85KyDcaj3H4GjUAHYKAPVTPeTCe6G8rzs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fPoEyq5iH2HgHzgH24Zp/CTlUZ+fNiK2Wxm6xl50tY17bh3SH9lQbW8bhel4ZAOMK+TzSkAenYdo0OierLvgSAFLZK/LudRZPt3iVJLRnCJ+/Cpbfql4H6B2WQlKA83Oi/h/etWd1zG18aOHAr5V4btiy75l4cx3Q7AKtnfi27k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kVHhFSVv; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790489188; c=relaxed/simple;
+	bh=vqluyjUDjjPS1d26/NhrEmw/bt+QWJPFTpoCkzCn/B0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Y/W64R/lsY5WnuLMKhwnxXyeiyrXySf0OghzVSn/yjoVu5VXcsNNhekgxif6o+v70/WVnXSAzmHR0LoorRde7ahZytHEwTRqSIIIAMt11Eq1ij/22gmmoQdzaas0yZNckYQ/nzzDs75FPPyKMBnngXRzflKLd6heVEqwOlMLiI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSIkkNix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVHhFSVv"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0f64df6a6so227121a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:05:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790489147; x=1791093947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XzS8pDscla2FyBguyotkXaPJuuUXNofAIDN+EtvzBco=;
-        b=kVHhFSVv6wYeAf6LQqvBAuwH5nglVKb6QaFHxGhLHHP8e92X5oZkXE45zJdEFAebuN
-         BriubbE76Kwo6nRcQXw6l7f9ZzbVjyvpqADdf0oFPEZhdoNdfCehPT2oL9N11hrBp0jd
-         QCZJNr641/b7DD5yZtiguTT5emWc2hoCQVxuLc9zFhfadRD5LoxTwUh8/Oab5yPDFWU3
-         /taijnHNGm8gkmDAxHOuNARcAYnl0WJvWc6v7AulFD9er1tnxGOdMmPZoglJXNkziXv6
-         AN4U8GQgeHQewSPeR7VyFrqBJ+h/XL+mfWL1mO08wbWUdELkomgXvsueIuyVYKUQh0Zr
-         TgEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790489147; x=1791093947;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XzS8pDscla2FyBguyotkXaPJuuUXNofAIDN+EtvzBco=;
-        b=KjEk4x7qfuF520zpcd0rN6TyiKKgczG0kDCkgZN7sDu+U+nW/+o8d3NRzI6M/WZgn3
-         LSI5KjBwuAECD6UCFZNOqx0XYkOtDGUWBwlG6/0Mgkvw4/oGahMqbWAH+EMUY+fR2okP
-         /oRAWOcL/JPzTOcai8BR5VWEjhgOWHcj/ss2SKWh2vusu80YkDFTafVnSUr9SunsQpKf
-         CJedhkhbtFoDvJoZWIn07VdluBLB7HdF6gASrT5rnRASqXLxEdwEjarGb3uIBd35H3yF
-         vt/IDJ7lSk+6f8IK1MxB/eIAwlAXMV7M4mgVtqCm4jAH2CRkNqKqRjyFMrCHodS41B4/
-         ZdAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAVaWkkUH5rQGhs7K7wVFLnAIv6DTgO4D9EuZwlRFlwaZ3t/MoVvRdzM2nW0yZSvJJmgtFUmUriOnYLG4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcThUNbWaLOC5MGjIUumCspurUW29afGx07hiWRB38zj2M7WFO
-	QiZnJNxzfSxPj0i5IzXLqHQwCEFbEhngaam0/e9/X4ZCQ1OYpqv5j5Ny
-X-Gm-Gg: AYBFou09Ze3M4f40nig22NNVGw4FGE5HwsS0rXzyZVgVas3MxZCxMYyadaJA5a5WXsD
-	lIRzFY85iQFCNlO4nMswQI9zEUsPWOgeVbEPFFNN6DJxdjzNkh2XodENl5ZN36jS0tveN/186Jl
-	sz3P0jksVNFQMs73kx+zUNcBJKRI+ilumb+123xGMNjYYcjvy+kaTG7e+zvnEf70p0VwBhGIZif
-	upFp3s3+duA1AHlwrGL/eyb9/4X0/+daxBHHqe5+FFcjBP+5wdBHSnlyvZ/zaCrsPKzd9a+lpL7
-	gGBeHSALBhV78japV4az/nhnrNr3ncz/uui8bvghFH2/RGIm7ll+nXPAwrYj8fyyXSXVKwHXEZw
-	lBrEe0iu1F55FmcwoMhhjQcIyxR2xCYqhJmoBll+AAsHPKbkXmQ9A3Ap2GIDMNeLILlnjnPuMK4
-	s5L4zHTQuJCwJweNQ/Tzh3JZZfRckTXb9Kx7w5CsNIUKoXmS2wXVNEQXxw1qROmIDNXOCKtBGnX
-	nfegOiLsornqbLj
-X-Received: by 2002:a17:90a:ce:b0:3a0:4146:2955 with SMTP id 98e67ed59e1d1-3a0bb6596f3mr3436071a91.61.1790489146838;
-        Sat, 26 Sep 2026 23:05:46 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976ca5f9sm20181545a91.14.2026.09.26.23.05.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:05:46 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Phillip Lougher <phillip@squashfs.org.uk>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+65b1e2d8f2d618a93e96@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] squashfs: fix leaked page locks when page actor allocation fails
-Date: Sun, 27 Sep 2026 13:05:41 +0700
-Message-ID: <20260927060541.45780-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSIkkNix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D941F000FF;
+	Sun, 27 Sep 2026 06:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790489186;
+	bh=CeOOtOyN4WzxpSwJoycJ9k8ofbO1qBAtgd/EJRBu2+8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nSIkkNixML1XwG8cKWIMg4emdCF5TVXn8CaEoW2QgC4tKDFn01pj7dsezR+8nxGfU
+	 +ulvN8aALtMumdKqyIC+9XMw/epENCWz2JDXYOCOhtfrqqVah97Zn/y/mDuujNl1H1
+	 nto5c90nVZXH0GVpsf1ce1y7n04ZDGQefTxgO8QPXTuqVcElVZB2tDes3zEHbS1fi2
+	 WxxC57965auxEEJqmjZWfksNtbPshEQEuopJldIQDQSh3rUir1EmdaXmt6JjpkvBbr
+	 2Vy3z9rQT8Mzw0rIoTE/P0RYc1W1AytYHx+sjJReLuAr43euORsLYqRnXdRVzL3RTt
+	 Lw3LYoTUJDlmw==
+Subject: Re: [PATCH net v2 1/2] net: dsa: mt7530: use consistent egress tag
+ for trapped link-local frames
+From: netdev-bot+sashiko@kernel.org
+To: gongtao0607@gmail.com
+Cc: netdev@vger.kernel.org, chester.a.unal@arinc9.com, daniel@makrotopia.org,
+ andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, lorenzo@kernel.org,
+ arinc.unal@arinc9.com, florian.fainelli@broadcom.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, lorenzo.bianconi@oss.qualcomm.com
+Date: Sun, 27 Sep 2026 06:06:25 +0000
+Message-ID: <179048918513.2160803.6391099514443466480@kernel.org>
+In-Reply-To: <20260923055103.949540-2-gongtao0607@gmail.com>
+References: <20260923055103.949540-2-gongtao0607@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Phillip,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-syzbot reports a hang in evict() during umount of a squashfs mount
-(INFO: task hung in evict (2)):
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-  https://syzkaller.appspot.com/bug?extid=65b1e2d8f2d618a93e96
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Root cause: squashfs_readpage_block() grabs and locks the sibling pages
-of the block with grab_cache_page_nowait(), and only afterwards allocates
-the page actor.  If squashfs_page_actor_init_special() fails, the code
-does "goto out", which only kfree()s the page array. The locked, referenced
-sibling pages are never unlocked or put. A later truncate_inode_pages_range()
-from evict() blocks on the leaked folio lock forever.
+- [Medium] The commit message's justification is contradicted by code
+  already in the tree.
+- [Medium] Setting BPC, RGAC1 and RGAC2 EG_TAG to
+  MT7530_VLAN_EG_CONSISTENT in mt753x_trap_frames() probably breaks…
 
-The ordering was introduced by f268eedddf35 ("squashfs: extend "page actor"
-to handle missing pages"); before it the actor was allocated first.
+--
 
-Fix: use "goto mark_errored", which already unlocks and puts every page
-except the target page (owned by the caller, which unlocks it via
-folio_end_read()). res is still -ENOMEM at that point.
+net: dsa: mt7530: use consistent egress tag for trapped link-local frames
 
-Testing: QEMU (KVM, KASAN, lockdep, IMA tcb policy) running the syzbot C
-reproducer, with fail-nth swept over 1..400 in openat().  The failslab
-hit lands in squashfs_page_actor_init_special() from
-squashfs_readpage_block() via ima_calc_file_hash().
-  - before: hung task in evict()/truncate_inode_pages_range() after ~12s,
-    same trace as the syzbot report
-  - after: 170s of runs, 174 injected failures at that site, no hang
+This commit changes the EG_TAG attribute for trapped link-local frames in
+the BPC, RGAC1 and RGAC2 registers from MT7530_VLAN_EG_DISABLED to
+MT7530_VLAN_EG_CONSISTENT. The goal is to keep untagged BPDUs from
+reaching the CPU with the PVID tag stacked on when a VLAN-aware bridge is
+in use, while still preserving the VLAN tags of frames that arrive tagged.
 
-The patch is below / attached.
+> Because BPDUs arrive at the CPU with a VLAN tag (EtherType 0x8100
+> at offset 12 instead of 802.3 length <= 1500), userspace STP daemons
+> (such as ustpd) and the kernel bridge drop or ignore them, breaking
+> STP convergence.
 
------ patch -----
-From f686b39f997dc20222f455c5ac6421f6a5d6c8d8 Mon Sep 17 00:00:00 2001
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Date: Sun, 27 Sep 2026 12:40:12 +0700
-Subject: [PATCH] squashfs: fix leaked page locks when page actor allocation
- fails
+[Severity: Medium]
 
-squashfs_readpage_block() grabs and locks the sibling pages of the
-target block before it allocates the page actor.  If that allocation
-fails it jumps to "out", which only frees the page array, so the locked
-pages are never unlocked or released.
+Can this failure happen on the current tree? Both mt7530_setup() and
+mt7531_setup_common() already set:
 
-A later truncate_inode_pages_range() on the inode, e.g. from evict() at
-umount, then waits forever on the leaked folio lock and the task hangs.
+	ds->untag_vlan_aware_bridge_pvid = true;
 
-Go through mark_errored instead, which unlocks and puts every page
-except the target, which the caller handles.
+That line came from commit 4cb3cd670b2a ("net: dsa: mt7530: untag
+VLAN-aware bridge PVID"). It was part of the same series as 3ac85bcfd404
+and handles this same hardware behaviour.
 
-Fixes: f268eedddf35 ("squashfs: extend "page actor" to handle missing pages")
-Reported-by: syzbot+65b1e2d8f2d618a93e96@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=65b1e2d8f2d618a93e96
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- fs/squashfs/file_direct.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+With the flag set, every received frame goes through the software untag
+path, including trapped link-local frames:
 
-diff --git a/fs/squashfs/file_direct.c b/fs/squashfs/file_direct.c
-index 2c3e809d6891..177357443543 100644
---- a/fs/squashfs/file_direct.c
-+++ b/fs/squashfs/file_direct.c
-@@ -70,7 +70,7 @@ int squashfs_readpage_block(struct folio *folio, u64 block, int bsize,
- 	actor = squashfs_page_actor_init_special(msblk, page, pages, expected,
- 						start_index << PAGE_SHIFT);
- 	if (actor == NULL)
--		goto out;
-+		goto mark_errored;
- 
- 	/* Decompress directly into the page cache buffers */
- 	res = squashfs_read_data(inode->i_sb, block, bsize, NULL, actor);
+dsa_switch_rcv()
+  dsa_software_vlan_untag()
+    dsa_software_untag_vlan_aware_bridge()
+
+The PVID tag is then cleared here:
+
+net/dsa/tag.h:dsa_software_untag_vlan_aware_bridge() {
+    ...
+	if (vid == pvid && skb->vlan_proto == htons(proto))
+		__vlan_hwaccel_clear_tag(skb);
+}
+
+The kernel-doc for that helper says it exists because "Software like
+STP/PTP may not" handle tagged packets.
+
+The VID that the switch inserts is the bridge port PVID.
+mt7530_port_vlan_add() stores vlan->vid in priv->ports[port].pvid, and
+mt7530_port_set_vlan_aware() programs G0_PORT_VID(priv->ports[port].pvid).
+An untagged BPDU stacked with the PVID tag should therefore reach
+br_handle_frame(), and packet sockets on the user port, untagged.
+
+Which condition stops this untagging for trapped frames? If the breakage
+was seen on a backport that has 3ac85bcfd404 but not 4cb3cd670b2a, or with
+an 802.1ad bridge, could the commit message say so? As written, it isn't
+clear whether the STP breakage exists on mainline at all, and that affects
+the Fixes: tag and stable backports.
+
+> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+> index 3e61eb3c2b1e2..20bb07fac0f7b 100644
+> --- a/drivers/net/dsa/mt7530.c
+> +++ b/drivers/net/dsa/mt7530.c
+> @@ -1309,39 +1309,39 @@ static void
+>  mt753x_trap_frames(struct mt7530_priv *priv)
+>  {
+
+[ ... ]
+
+>  	mt7530_rmw(priv, MT753X_BPC,
+>  		   PAE_BPDU_FR | PAE_EG_TAG_MASK | PAE_PORT_FW_MASK |
+>  			   BPDU_EG_TAG_MASK | BPDU_PORT_FW_MASK,
+> -		   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+> +		   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+>  			   PAE_PORT_FW(TO_CPU_FW_CPU_ONLY) |
+> -			   BPDU_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+> +			   BPDU_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+>  			   TO_CPU_FW_CPU_ONLY);
+
+[Severity: Medium]
+
+Does this bring back the problem that 3ac85bcfd404 fixed? That problem
+was VLAN-tagged link-local frames (STP, LLDP, PTP, as exercised by the
+local_termination selftest) arriving on VLAN-aware user ports.
+
+Commit e8bf353577f3 ("net: dsa: mt7530: fix link-local frames that ingress
+vlan filtering ports") says the per-frame EG_TAG in BPC, RGAC1 and RGAC2
+takes priority over the VLAN table. It describes CONSISTENT like this:
+
+    CONSISTENT means frames egress exactly as they ingress. [...]
+    Although link-local frames are not supposed to be transmitted
+    VLAN-tagged, if they are done so, when egressing through a CPU
+    port, the special tag field will be broken.
+
+Its captures show that stack mode keeps a separate 802.1Q header after
+the special tag. Tagged mode instead merges the TCI into the special tag,
+with no 0x8100 TPID:
+
+    stacked: 0001 0000 8100 0001
+    tagged:  0001 0001 0026 4242
+
+For these frames, CONSISTENT now overrides the stack rule that
+mt7530_hw_vlan_add() sets for the CPU port:
+
+	val = MT7530_VLAN_EGRESS_STACK;
+
+mt7530_port_set_vlan_aware() configures VLAN-aware user ports with
+VLAN_ATTR(MT7530_VLAN_USER), so the switch parses their ingress tags. A
+tagged BPDU, LLDP or PTP frame received on such a port would then leave
+the CPU port in the merged tagged format.
+
+mtk_tag_rcv() always strips MTK_HDR_LEN bytes as a separate special tag:
+
+	skb_pull_rcsum(skb, MTK_HDR_LEN);
+
+	dsa_strip_etype_header(skb, MTK_HDR_LEN);
+
+Wouldn't that discard the VLAN TCI and deliver the frame to the base user
+netdev instead of the VLAN upper?
+
+The commit message says "VLAN-tagged frames preserve their original VLAN
+tag". Is there a capture or datasheet reference showing that CONSISTENT
+gives the stacked format at the CPU port, unlike what e8bf353577f3
+observed?
+
+The next patch in the series, "net: dsa: mt7530: trap frames to conduit in
+MFC on EN7581 and AN7583", does not touch mt753x_trap_frames(). If this is
+a problem, it is still there at the end of the series.
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923055103.949540-1-gongtao0607%40gmail.com
