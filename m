@@ -1,65 +1,65 @@
-Received: from mail-pj2-f20.google.com (mail-pj2-f20.google.com [74.125.227.148])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3461F24DCF6
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3292367B5
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790468692; cv=none; b=FI8/+XLvyR7aSEnNYHyUXMtUhiZwv5H+OaCqaahVK77dMXkSCne2z8HL+bmwz3nWlSvZVfvuOuCWD4L6atNlhmgbuL0dYSTj5iXaQZqvPyom7WMvfvAn2MXvZn5DhyxH+3r7vm3Jf8MsL8O7ESkcfHV3RiNti/XgkY8fuJCc6EE=
+	t=1790468698; cv=none; b=UUqLgvaLwQ/WIlN5meiCwCFsGOOIp73AepHom0eny4+YHoBc7X3DxyAPNb8jjubQ7LsUtCgTLQqYpp79sBqNy9JC3DIhQJwW8F79idVIBCJNgE5/sYJEds//LCXWq0ctKC4IEpamAAXnh/vcy8vNM6bPfPsGWMqHHW7MfkgAcMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790468692; c=relaxed/simple;
-	bh=J8Mf3HYZaTmZYQFkYELALEytTws8uvz/goY09yFk2pM=;
+	s=arc-20240116; t=1790468698; c=relaxed/simple;
+	bh=uIYCR949bmIVasLC/3K/hACHN1prTGKRkXxg+ZmBrnA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h24015njcGoSay66lbPYT6/U1OHYQBaJpn0IP9lCQgi2O+mQa8PNktboVe2eQCLFwLK83PF4BaqE+pgrPIptThqsehXciRsiJq+34K3cLqKXN8+RSl6sb9QXIYpQnYZJEjaO1P5oxojTAp1mUaDFyam48iEJc8RLfInsEkA37uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFdf/JV7; arc=none smtp.client-ip=74.125.227.148
+	 MIME-Version; b=gF6D476W8Q3c2RhL3JJO/aA9pfk9HolvPjdpCtJeM1rTEJmQUmwgYxx/mRS07IEMntHQfU8v0rcbypn2JqiYTz452QGsrXDBfoUiLz6OJOl+1tFnAay0DBK8ox0vPto3fN2oXHsnsfQm8y3t3X+AhPKCXhPsv1/W38ujkTRVFyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rt+cVNqP; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFdf/JV7"
-Received: by mail-pj2-f20.google.com with SMTP id d9443c01a7336-2d747ed9866so13975815ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rt+cVNqP"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so939232b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790468689; x=1791073489; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790468696; x=1791073496; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pGK4SZ365cD9EYRGUuPJEEEIN0V6+rF/hbiJa0/JQok=;
-        b=CFdf/JV7+jF+CBKIz7FEXWGpUX9VGYxIbzZ/OlilwhqDFv9pF6RMhlq1h8k9NRk4XG
-         TRPrKKSN3JVKFma9E5pSpvwXD1WwMgcE31oFjMStyH3YK/+nUn11GM60ty7VH/IJV3y3
-         6SsTN4ppBhkCVzOxS8EY1qH4KoYb7OTpIq50WYtHRF4bWu6lPE81hLCkRoGTpOi09PFC
-         Mvq7g+Ph0qGlqTjfLdUTgdKGmAtvAToNffpVsTKPNh7xU/4dxpoNsUTeJ+Wimc0ZvIrX
-         iclIQFQ8FjgWn8NKoDCJn3y+q1LKZOAgVbSx5hbdmKcceQp/t5XA0SmxfxirIa/63oIq
-         KWWg==
+        bh=LvN9VPqrOGUGshtYxdc+YFqVlRUz1wazj1d3gn6P2Xw=;
+        b=Rt+cVNqP3P0cQuY3rdr9NI8VlDQqTnfHczIj0GzZL5JajE1c2Thu7F3nitw2SQdJSm
+         UwwQo4196JECaAHqVHGHj8rfs/5ckBHBb+y2pL8LcJZn96t9jpoP7oD8Ea/C194X+IGc
+         dAUGHsgOdu9A7RMN2wiMrjIneeApKouvuCYwAkOWjOy3VhO2LfgDxxuXSO05ZbnXzORL
+         08+/iD6wT/rbJwMrqSaoyKWdOXXqbN0LL3ERS7fhpApfwv4zNriKgvM+rWNPyF0vUGrp
+         jKkRjp6f08Tus9oJbqD7ryU6uimNkSQfJrKp6l/L/xDDXUzA1tbZcgOqSGKzKV1G36MK
+         9Izw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790468689; x=1791073489;
+        d=1e100.net; s=20260707; t=1790468696; x=1791073496;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pGK4SZ365cD9EYRGUuPJEEEIN0V6+rF/hbiJa0/JQok=;
-        b=TfNfywIWlYI//QmV5sP8oXHzKrSoZYvExvTmsEsTzJ/3zZnJC/z1aljvfXhowCjcXi
-         mjfj+q0Fheme8GUe5uutyHH0TrloW5uz4eEhVC7h/13lxMAkS3/9n9vrnId5kgeVIgzy
-         QQnyzH1Zv9MFGzSwj5bNoR/R3lYdpE6qyTWHHOYyTCvHeoPem0iF3G+o807+JozxveMf
-         xeZIomd1cES0mztWDc4KcvZhD/MiVfT9jnz+0EBYncVClX2Xb6uGhi5kJ0qZh19rsnOe
-         qWZi5Of85oqNNVFhIqlCZx+2Zp0IAFL9a1rgjib9j03oU0kkCTaOefStzrYrHhw5uIO9
-         odlg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/u8f8XGdOyb1/eUU7GIKI+UJZLVVc7J1rHO40OMl22lRvfCMELpn7P9Fgnzsay18R+DR8/twnZtIuSA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDeBqhNTHg8oCXpCVq3TbnwiC/bX0SnMMaJcQ4W2TexQyw59UK
-	1BDOPZjtXuJDEYJ/tJnsm9gRKKKQgKKa/5s63ZTOBMfUfzjDS8vDJp/z
-X-Gm-Gg: AYBFou2s9YbY7IB0BcpqYZa8sAwYtGbjnSwzAyLT2hi4zuCiYJOA9SIyuzz8Eo4+FKL
-	eZ68csKwTcRZj2gtx/7hDewvJN/DiBzP7p2vfEmdzETrlyyVVXT52d7i5uCNJCe8yXLGatyaYi9
-	1Cg760/8k/WmSPZJjFE/0ObnT9QzkvEfzx3mdhifSJSybQPN83t6j6K1wyRm2/sh+zm1yEXWc1Z
-	eiE0/X06c155P5swGep/TvxTSqKRsMoVabi0QYS6+KpwOvlpSDLYha+sUGVBOAUV/+5Cdi9J2+E
-	x1svZkd0L5gqN0SndvqHiF0gsgNuT738waMpliQkqBda0MfdJD9IRrDEK4ZmOXxnJ/a0CaOWktz
-	k0WX/IGQ5Y+iD6iKvwLMhB/hLC5qGUPg8P9/KKexQ+DRLq4741vYPUgZbDWmnz/ACZR6YzwNqwU
-	hEAoDcDK3lQ6HP3yXuVq7IHLtZE3SgNOKlOKwbBEdOhh3d5JA8eG06jhVp3UtfhKvrhj1UyljKH
-	fnxyd5Mnv0foEn0Der78l0Lq6XKlmrvPIjNBlu0Yh7n1AHNOIhRq0VXcPv5
-X-Received: by 2002:a17:90b:2645:b0:39e:6c68:c77a with SMTP id 98e67ed59e1d1-3a098e05151mr8205483a91.48.1790468689284;
-        Sat, 26 Sep 2026 17:24:49 -0700 (PDT)
+        bh=LvN9VPqrOGUGshtYxdc+YFqVlRUz1wazj1d3gn6P2Xw=;
+        b=fj34OQAe7QkvzDFDunws6i6luly+MX09Kp0gIbRKoa2+kFERF3fkcvP3/hmy5QalBQ
+         CKL05RXs+ebG37Gq214ltZTj+sA26srjck8UA1UNJSyWWpYW1NVC/1pVPl0jJs+zQ0ja
+         3l9A4Z/WBGJg9rWD72oYJj+vD7BltStQ4038K+WXqi51/fIE63UGa7o3Ua4MUAV3L5Db
+         a1YXrXvGPTTcob9W48Iv/EpELwuHDDhKzYnGViwQtpWCApbzVZR1hIkhPGzN/ZDHSMW+
+         lozAv38eEv0PeXFiwSVt9Szp7fmqj9un1wnl02FeunLDYJk99aC8Jfzx0VHAslcSEyzN
+         DPjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbe4bInBaGZ2eQEbju+XZwcLbkbyiVFk+QQwDYEsgHRTuvIJFll45r5gK0F3DzvJp4iwsMtFnakEXb8Tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvJiciEviljKsLSYwawj7O3bHgsPCAaAh2hEtTf8yI8n1hWc16
+	ExrwonGhUuqE4caHVs+w4wyiZlrufmE3SDLn+KNiuWUqOc/W2rg+Kn2h
+X-Gm-Gg: AYBFou2xRTjGN0AHI8jgXFhHNFyx2kXoy+WA3hPn9CJRVUV2UGu/l8Y5ASedma2jcbO
+	TRtPp6dnbg6Ty+d9Cqs10XrYWei4bejUeGpX1Hr5gMz63hsI2z+5JG3stg+4zPRaHJs2N/UK5Lb
+	3eg6iSiKY0XTMsKlEA9Mb7xk5NMFTG5ps10Yn+/KPAbrgCvNzZ1UcHfEDUpqgz7e5mlBkVJ0u6J
+	c6Fhdy5eFifWiWTFGtMIRxd46RchawXXuzqOX2840j81jd/GpQPXypPlA+zqp9JOdrBbLSiO/+M
+	2B7abCeuttO6GodBadxPm0WM0jiJ04pQU+nEWoQVZGLp/74velaaRXQ3lJ+R8YT271Y1tWc6oBH
+	GJi4eYbbf/QltbuKDzRfMk/uvrR5GopeAYdcu5KsMkVcW5xD5NqP08xCXlIilDlRkPLjtiJmmQf
+	EVERPDpuZ9+pK40SDh/ZyU2t54hBfiPVjgWQfj6CSpXUQx/Muwe50h3BW4efkQzZo4dLw0Oh//Z
+	9m30cr13At7uVWUnlaSBil9QWeBLGCvJTB5L563KSWiD4RGToGZixJX40Bu
+X-Received: by 2002:a05:6a20:2d08:b0:3dd:a197:7361 with SMTP id adf61e73a8af0-3de0e8967f4mr9327637637.58.1790468696226;
+        Sat, 26 Sep 2026 17:24:56 -0700 (PDT)
 Received: from m-upc-A520M-HDV.flets-east.jp ([2400:2410:3f60:500:78b6:7bf6:b1de:12ef])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78791c680sm2698224a12.16.2026.09.26.17.24.42
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78791c680sm2698224a12.16.2026.09.26.17.24.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 17:24:48 -0700 (PDT)
+        Sat, 26 Sep 2026 17:24:55 -0700 (PDT)
 Sender: Yuyang Huang <uyoko90@gmail.com>
 From: Yuyang Huang <sigefriedhyy@gmail.com>
 To: Yuyang Huang <sigefriedhyy@gmail.com>
@@ -84,9 +84,9 @@ Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v8 1/5] netlink: specs: rt-addr: fix the type of target-netnsid
-Date: Sun, 27 Sep 2026 09:24:23 +0900
-Message-ID: <20260927002427.4519-2-sigefriedhyy@gmail.com>
+Subject: [PATCH net-next v8 2/5] net: add a generation counter for dev->mc changes
+Date: Sun, 27 Sep 2026 09:24:24 +0900
+Message-ID: <20260927002427.4519-3-sigefriedhyy@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260927002427.4519-1-sigefriedhyy@gmail.com>
 References: <20260927002427.4519-1-sigefriedhyy@gmail.com>
@@ -98,28 +98,214 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kernel parses IFA_TARGET_NETNSID as NLA_S32 and rt-link.yaml
-declares its target-netnsid as s32, but rt-addr.yaml has it as binary.
+A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
+entries added or removed between two dump rounds can be skipped or
+repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
+stamping cb->seq from a per netns generation counter combined with
+dev_base_seq, see inet_base_seq().
+
+Add the equivalent for the device multicast lists: a per netns counter
+bumped whenever an entry is added to or removed from any dev->mc. The
+list helpers do not know which device a list belongs to, so give
+netdev_hw_addr_list an owner, set for the lists of a device and NULL
+for snapshots and other standalone lists, and change list->count
+through helpers that bump the counter of dev_net(owner) when the list
+is dev->mc. That covers the dev_mc_* helpers, both lists of a sync,
+the hardware sync helpers drivers call from their rx mode callbacks or
+their own workers and the reconciliation after an asynchronous rx mode
+update. It is atomic since the writers only hold the address lock of
+their own device.
+
+Used by the following patch for the AF_PACKET multicast dump.
 
 Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 ---
- Documentation/netlink/specs/rt-addr.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/netdevice.h   |  5 ++++
+ include/net/net_namespace.h |  1 +
+ net/core/dev_addr_lists.c   | 52 +++++++++++++++++++++++++++++++------
+ 3 files changed, 50 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/netlink/specs/rt-addr.yaml b/Documentation/netlink/specs/rt-addr.yaml
-index 0ecbd24c890c..17ead2203451 100644
---- a/Documentation/netlink/specs/rt-addr.yaml
-+++ b/Documentation/netlink/specs/rt-addr.yaml
-@@ -119,7 +119,7 @@ attribute-sets:
-         type: u32
-       -
-         name: target-netnsid
--        type: binary
-+        type: s32
-       -
-         name: proto
-         type: u8
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index d037faff7c44..69d1cde0a38a 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -256,6 +256,11 @@ struct netdev_hw_addr_list {
+ 
+ 	/* Auxiliary tree for faster lookup on addition and deletion */
+ 	struct rb_root		tree;
++
++	/* The device a list belongs to, NULL for snapshots and other
++	 * standalone lists
++	 */
++	struct net_device	*owner;
+ };
+ 
+ #define netdev_hw_addr_list_count(l) ((l)->count)
+diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
+index 46b4c67e2966..d8c681ab5c74 100644
+--- a/include/net/net_namespace.h
++++ b/include/net/net_namespace.h
+@@ -71,6 +71,7 @@ struct net {
+ 	spinlock_t		rules_mod_lock;
+ 
+ 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
++	atomic_t		dev_mc_genid;	/* bumped on dev->mc changes */
+ 	u32			ifindex;
+ 
+ 	spinlock_t		nsid_lock;
+diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
+index 08528ca0a8b3..c941c3ec1007 100644
+--- a/net/core/dev_addr_lists.c
++++ b/net/core/dev_addr_lists.c
+@@ -16,6 +16,37 @@
+ 
+ #include "dev.h"
+ 
++/* Only dev->mc is tracked, RTM_GETMULTICAST dumps use the netns generation
++ * counter to detect changes between dump rounds.
++ */
++static void __hw_addr_changed(struct netdev_hw_addr_list *list)
++{
++	struct net_device *dev = list->owner;
++
++	if (dev && list == &dev->mc)
++		atomic_inc(&dev_net(dev)->dev_mc_genid);
++}
++
++static void __hw_addr_count_inc(struct netdev_hw_addr_list *list)
++{
++	list->count++;
++	__hw_addr_changed(list);
++}
++
++static void __hw_addr_count_dec(struct netdev_hw_addr_list *list)
++{
++	list->count--;
++	__hw_addr_changed(list);
++}
++
++static void __hw_addr_count_reset(struct netdev_hw_addr_list *list)
++{
++	if (!list->count)
++		return;
++	list->count = 0;
++	__hw_addr_changed(list);
++}
++
+ /*
+  * General list handling functions
+  */
+@@ -125,7 +156,7 @@ static int __hw_addr_add_ex(struct netdev_hw_addr_list *list,
+ 	rb_insert_color(&ha->node, &list->tree);
+ 
+ 	list_add_tail_rcu(&ha->list, &list->list);
+-	list->count++;
++	__hw_addr_count_inc(list);
+ 
+ 	return 0;
+ }
+@@ -161,7 +192,7 @@ static int __hw_addr_del_entry(struct netdev_hw_addr_list *list,
+ 
+ 	list_del_rcu(&ha->list);
+ 	kfree_rcu(ha, rcu_head);
+-	list->count--;
++	__hw_addr_count_dec(list);
+ 	return 0;
+ }
+ 
+@@ -492,7 +523,7 @@ void __hw_addr_flush(struct netdev_hw_addr_list *list)
+ 		list_del_rcu(&ha->list);
+ 		kfree_rcu(ha, rcu_head);
+ 	}
+-	list->count = 0;
++	__hw_addr_count_reset(list);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(__hw_addr_flush);
+ 
+@@ -501,6 +532,7 @@ void __hw_addr_init(struct netdev_hw_addr_list *list)
+ 	INIT_LIST_HEAD(&list->list);
+ 	list->count = 0;
+ 	list->tree = RB_ROOT;
++	list->owner = NULL;
+ }
+ EXPORT_SYMBOL(__hw_addr_init);
+ 
+@@ -536,7 +568,7 @@ int __hw_addr_list_snapshot(struct netdev_hw_addr_list *snap,
+ 			entry = list_first_entry(&cache->list,
+ 						 struct netdev_hw_addr, list);
+ 			list_del(&entry->list);
+-			cache->count--;
++			__hw_addr_count_dec(cache);
+ 			memcpy(entry->addr, ha->addr, addr_len);
+ 			entry->type = ha->type;
+ 			entry->global_use = false;
+@@ -554,7 +586,7 @@ int __hw_addr_list_snapshot(struct netdev_hw_addr_list *snap,
+ 
+ 		list_add_tail(&entry->list, &snap->list);
+ 		__hw_addr_insert(snap, entry, addr_len);
+-		snap->count++;
++		__hw_addr_count_inc(snap);
+ 	}
+ 
+ 	return 0;
+@@ -604,14 +636,14 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
+ 			if (delta > 0) {
+ 				rb_erase(&ref_ha->node, &ref->tree);
+ 				list_del(&ref_ha->list);
+-				ref->count--;
++				__hw_addr_count_dec(ref);
+ 				ref_ha->sync_cnt = delta;
+ 				ref_ha->refcount = delta;
+ 				list_add_tail_rcu(&ref_ha->list,
+ 						  &real_list->list);
+ 				__hw_addr_insert(real_list, ref_ha,
+ 						 addr_len);
+-				real_list->count++;
++				__hw_addr_count_inc(real_list);
+ 			}
+ 			continue;
+ 		}
+@@ -622,7 +654,7 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
+ 			rb_erase(&real_ha->node, &real_list->tree);
+ 			list_del_rcu(&real_ha->list);
+ 			kfree_rcu(real_ha, rcu_head);
+-			real_list->count--;
++			__hw_addr_count_dec(real_list);
+ 		}
+ 	}
+ 
+@@ -685,6 +717,7 @@ int dev_addr_init(struct net_device *dev)
+ 	/* rtnl_mutex must be held here */
+ 
+ 	__hw_addr_init(&dev->dev_addrs);
++	dev->dev_addrs.owner = dev;
+ 	memset(addr, 0, sizeof(addr));
+ 	err = __hw_addr_add(&dev->dev_addrs, addr, sizeof(addr),
+ 			    NETDEV_HW_ADDR_T_LAN);
+@@ -962,6 +995,7 @@ EXPORT_SYMBOL(dev_uc_flush);
+ void dev_uc_init(struct net_device *dev)
+ {
+ 	__hw_addr_init(&dev->uc);
++	dev->uc.owner = dev;
+ }
+ EXPORT_SYMBOL(dev_uc_init);
+ 
+@@ -1177,6 +1211,7 @@ EXPORT_SYMBOL(dev_mc_flush);
+ void dev_mc_init(struct net_device *dev)
+ {
+ 	__hw_addr_init(&dev->mc);
++	dev->mc.owner = dev;
+ }
+ EXPORT_SYMBOL(dev_mc_init);
+ 
+@@ -1348,6 +1383,7 @@ static void netif_rx_mode_retry(struct timer_list *t)
+ void netif_rx_mode_init(struct net_device *dev)
+ {
+ 	__hw_addr_init(&dev->rx_mode_addr_cache);
++	dev->rx_mode_addr_cache.owner = dev;
+ 	timer_setup(&dev->rx_mode_retry_timer, netif_rx_mode_retry, 0);
+ }
+ 
 -- 
 2.43.0
 
