@@ -1,81 +1,81 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3293A1687
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10EB269D18
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790482321; cv=none; b=q7aQ9S3dI/w2G99SiCTsurdmmGePBLXCEK5SRzadXtGRwCs5LeKxKaN0n7i8D+DnLjG+JxZb+dwzxQ2N+fUjBeE6KFWdnAg0bk5fqs5vklU+9oDWt4F7JXUvUFMZwzy9DmJqF1ZeRg56dllszoP9+O9WO/ziqcZ1Tild70a3xsI=
+	t=1790482845; cv=none; b=FKgAsrbacNwCXlwt8/DUWuG3KT4MEnxV2qJwaXM6bH15d2eFAV59dEOtineXp2uVJWMOr7dGqEMS37uSI/Xo/ya+zQ1eYTyRDovo0hSYmKSzUb2XSAFUIybrCLINCR28TCLladUM1Zp02je+JEeq8jbtsYGBO1uBm1lKD0yHNMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790482321; c=relaxed/simple;
-	bh=HXf56oErQjQG65q13Yi3D6/ymaSMnfZ0TRs868zw6dI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NwrR+FEbv5vB+nf61M8G4/cbnoXYqofl5yKHn/y/2C/D7AECRuGF/WLx8ID5nheb7bVfQsYVRSwXe30QVgzDFAnkYVR7z9hm0nd4mr0J2uRxIm2DLpOY1FGTfZvfG+XXMHS5SGGFewZHDfkjZ0aq95WuCzYlOmG3bcrgthfIZQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jv1FSGnJ; arc=none smtp.client-ip=74.125.227.169
+	s=arc-20240116; t=1790482845; c=relaxed/simple;
+	bh=8dqQXg3QV+LIvbqmAhbrfa3IV7zf9uH2hdEdQDihmPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=maKq5ULBK+P62dhqxDVhHF614KJxHsxQp3Kw6YS6taxDdPigYQ9ijJ8P2XF69issf/5FyWNlrIc807c7OojaExyAY94I+WTFXvfKLaH75rYxAUWV/D5cllffDJxHR9peNUpExirXA5vWzmKCSKMNfXXFTbkPheHQB/yFjw3yejA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcrBSGOb; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jv1FSGnJ"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df958a8272so7403655ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:11:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcrBSGOb"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so786311a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:20:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790482319; x=1791087119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YxqqTfPgcHP/3UHVQZ7AF9YfTUK4AxdRSJHHLinpKho=;
-        b=jv1FSGnJlCYeY2be6O2/+m/tRzCawJZHqRX0Yoqz1+4vbwoBqTaXTpqZBl7HTmw4Nm
-         lnkA5NOKfE2Y+Z02MujdEOzb01Hg+xuQPuSMIAttFi5REt5ADZ6d9OgJwo3gZGO4I4Hh
-         49XSohY7CmaEd0LUJwuavlAC0Pg4QdMg6qlnCdb+GYgSDeZ/O7jqRbLtimWgn9ImBmZs
-         n+v+d+66dQZwAth+0fI1uSvqzC7gfY9eB2lqjK1ySLYBfLjvDXSAW2Wbm81+Tqjfw/yf
-         sCFyL85JUPHoxRnSy84rJJjqmCiD0JCBoxGDRjrDB48T31GBh1N6oDRvKGETR6gNljBc
-         gTZQ==
+        d=gmail.com; s=20251104; t=1790482842; x=1791087642; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eDCmetS7q26pDTAMQ+r7lMzCxwM1hYCU7lPFcoUtvfY=;
+        b=YcrBSGObuff8p7Rw/gB+AXWJ3yC0Madcjlv5OlKVlC2Tio0hHkfmNaQavh0b0Lp4Pk
+         a7ahVfvozey7aoCMksKc2/l95EwRS0LEXcSLwUMp1vqX5ysdl/aqLxq3XO6m94/bM4pm
+         EwYXKzU0dau61rKFganGhBlDB1uQO/aFUAVkinK1uEhoD39lGaeXCCmXHMalf75o0KVe
+         4PMrTmT3oCMT0TjmsEWCUTiBYKPTUKuOk928H5/+VwOr8oxc29Halaj5IOdgCrjHfC9A
+         ICdaDpov707J7+VP1phyM5E1DV353fHyXFIsbDifhOSoGmSIleGygN4CbWtOyiZqfJi5
+         O4Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790482319; x=1791087119;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YxqqTfPgcHP/3UHVQZ7AF9YfTUK4AxdRSJHHLinpKho=;
-        b=Gj7SzMdOoNvfzeoREXUvFppsMPrtgsq0Ms8G57NUaW1xGN6pOtT/z5C7kKCo2QmQzi
-         dEA5Dh9nR49KAi5zARRLVTOFcRIKkZ6/Cfe8kN0wVL6T+bMmxF266Ek/xG1ydUEJ7IaD
-         qqHtHtmbBPwFgpalLosBvkHf6gG1LZ27aVXz4Qw4ytPc8nqLzaOvrqXTB1yHdu2j/u9K
-         cMZs7DJFAVnOjptn01uw316MAg1zWP5Asijtp7ljK/R6oDH9DhE1dVJTcUAEyqxhv4tu
-         AKRPEIM0d0CKH3H3iPBLuFD6CdoXmIlT+k3msTrjYrwd04CvbRodmAUuVnNMhzppj0YN
-         AjTA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4/4LiLqkVXzoCpn/MJvp9nTNxw2/ZSklaabK6r7Sp1x0TVpw3bcuLGzI5UDJbIjEMbpD0smDViVg+y24=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ38wWA9vIMm1GaNvX9XKUl+BWBJLbKc7U8Z4lrPWKNYOpKNPij
-	SRcLnfWoMI9ijAEMSDgVglWoq0VuWtPj8vq5482J79aj6gW/69TjvQ57
-X-Gm-Gg: AYBFou04LgZV0YGzznEsXpIO+FmVqZB7Z+l119CRGxpEGQ4oVHKehJ8FyuNYpQDNRS8
-	/nLZf5BRk5l1vEmUzV5t4nSWmb0JYyNd2iPGPPhz8/3lMkat2RMYeyniX7tT7hJy8Fj5qMDsYCa
-	idmKUTt6ck2jMDUg0TO5jGVrVVXpQ6HRiCyZw3lWDMZLs4qRtlk6y9gZdIiu2BO9O2H7qUESVy/
-	q47suDPy8ye2WDH0ZCU60tRNUXcCKTIvG98SJMaxSuy1zWK/6UFUlZHMjx2/W1LVOrlyj10FshF
-	HGvqlaeQCAJeu2l1UsM4Xr/JwuSS0mpKSfmX1wrSSK/jOx7rNhyiD851bRSfyf/D8Fe0H8HMIcv
-	6Pn60Thcy9u1hEllJXQ0pe5+TrGimxLuEXKxY0/PcDuHpjdsGeDeILieGGAI0NgHbzce15uyU8Y
-	x1sjc3CuhCQkbhgMQvZ/KGMPhmtA9EgVno5LorlvO5JC14Rqx/SGm5k4QelNrYP5uS2yVUrFu0h
-	xqMIsUbjR7HtucWn0j3/bWNehA3eFb9AQ==
-X-Received: by 2002:a17:90b:4b0a:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-3a0985eb6c7mr8588729a91.24.1790482319266;
-        Sat, 26 Sep 2026 21:11:59 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4f6345fsm5542732a91.1.2026.09.26.21.11.56
+        d=1e100.net; s=20260707; t=1790482842; x=1791087642;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eDCmetS7q26pDTAMQ+r7lMzCxwM1hYCU7lPFcoUtvfY=;
+        b=OQpxnWd/OI0a9cnLT/Od6e3nfYvZX+8hL5AkXGMxhNlAauD6I3MgYMARbSXOr5Ydqf
+         tGYNKTOE3NyOD3Tp/B4iOQ3sXvGDk7jP5e+WHwZJlhUDNdo7KOYzgAZDiGoC8+ciFV9p
+         4ls/oqLN6SuuCgQYwx8280UqEh58DZWe2B6KuzgSjGz5OC5QxQhGd1oG1yD64R5tljOn
+         la+PGvtYgN62gw6+QD7DGqoNfehIFAqHRuUmMCb/8T2m+w6O19sHdWs+Qy35ekH14I1q
+         gnE6k4nDIFkvG7qEueoJz7pe7VhKzbNJqRd9Q0aG/8EeDNtH/sFHX+2Q1GgKp2Geish6
+         +nTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4UwZPcwsuJVPB2I8btTp4bbRwZkev+hYZ8Mn/ZjK46bLSurLMwCxclr0L7J6HZD0OXzgd16R6DE8waUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMOklByGpJZDKjuaE9eKDmE58pBGk/7irnfTvwPHvjZE9rbQGo
+	3jEN1TEnnWWJ8rYUF/xJx0viG4LkZ2RQLCYzSzSFwHjQQdwOFWD6K0m4
+X-Gm-Gg: AYBFou00daGdlHtv5KNIDW9XibCi/8emvE3M22GGwnFF72/3FpvH642pvigOo+IQVIk
+	wmk0+n6B2B22mreC1URZRWDVulKEdOPKV9NHJkYxhQ56+nYJuY7NaimnRV3zEp/daiQfjmWXxS/
+	/QczgshMI890ceQgOEIIwPvqArRIPLmJ9CW2zC1eo6DwhBdkiiecSnw02341Z3msj2Wdrxia+Bk
+	dsh7BFU82tpOVPK02Gr2Fg2tvhYRCdi5sxUdOhyZ/8jwqhjU41MSGDgO/VFKxS30mTvLBHrplb6
+	iJ1v6TL8dip6u3dfNQ78gqAkxefG4Qdpn9OBBPGV92mavYnD40AsFClmFOnZ+HyC7kBPVVgEWrb
+	ich/hnamuT4VhDGWWXYH73H9wwx5kMo3Gy5mHw4hlhEV5/lKHLAq7xtmE4AMGX1P0udqGVeu6rj
+	SNNHHwEojkG38TMA6W7KaxjJ+p2tMBIKk1mqUGudnWkfMQffiYGwVlPTXyPN6ToESgQ/0xWfPXE
+	QhWxhVo5rvp3Jek
+X-Received: by 2002:a17:90a:dfcc:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3a0cca04bf4mr2596078a91.7.1790482841989;
+        Sat, 26 Sep 2026 21:20:41 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4f6345fsm5558223a91.1.2026.09.26.21.20.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 21:11:58 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: ping.cheng@wacom.com,
-	jason.gerecke@wacom.com,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
+        Sat, 26 Sep 2026 21:20:41 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Hillf Danton <hdanton@sina.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 5/5] HID: wacom: check the input devices in the Bamboo handlers
-Date: Sun, 27 Sep 2026 13:11:38 +0900
-Message-ID: <20260927041138.4112920-6-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
-References: <579o8so3-09o3-o312-4sq0-0qp6n672q46p@xreary.bet>
- <20260927041138.4112920-1-jinmo44.yang@gmail.com>
+	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Subject: [PATCH v2] drm/virtio: drop the dedicated vbuf kmem_cache
+Date: Sun, 27 Sep 2026 11:20:35 +0700
+Message-ID: <20260927042035.19956-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,134 +84,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-wacom_bpt_touch() takes both touch_input and pad_input, and
-wacom_bpt3_touch_msg() and wacom_bpt3_button_msg() take touch_input and
-pad_input respectively, none of them checked. An interface that declares
-only pen usages leaves touch_input and pad_input NULL on a fully
-successful probe, and wacom_bpt_irq() still dispatches to these
-handlers.
+virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+"virtio-gpu-vbufs" for every device and destroys it from
+virtio_gpu_release(), which only runs once the last drm_device
+reference is dropped. If a reference outlives the PCI removal (for
+instance an open /dev/fbN), a rescan probes the device again while the
+old cache still exists:
 
-Four locations fault, each reproduced on linux-next 20260925 (x86_64,
-KASAN) from one /dev/uhid device plus a single UHID_INPUT2 write:
+  kmem_cache of name 'virtio-gpu-vbufs' already exists
+  WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+  Call Trace:
+   virtio_gpu_alloc_vbufs
+   virtio_gpu_init
+   virtio_gpu_probe
+   ...
+   pci_rescan_bus
+   rescan_store
 
-  wacom_wac.c:3100  wacom_bpt_touch         touch_input
-  wacom_wac.c:3117  wacom_bpt_touch         pad_input
-  wacom_wac.c:3130  wacom_bpt3_touch_msg    touch_input
-  wacom_wac.c:3178  wacom_bpt3_button_msg   pad_input
+kmem_cache_create() then fails and the new device does not probe.
 
-for example, with vendor 0x056a product 0x00D4 (BAMBOO_PEN), a pen-only
-descriptor and report id 2:
+A vbuf is 216 bytes and lands in kmalloc-256 anyway, so the dedicated
+cache buys nothing. Use kzalloc()/kfree() and drop the per-device cache.
 
-  BUG: KASAN: null-ptr-deref in input_event+0x44/0xb0
-  Read of size 8 at addr 0000000000000028
-   wacom_wac_irq+0x8185/0xb3f0
-   wacom_raw_event+0x68f/0xb60
-   __hid_input_report+0x398/0x4d0
-   uhid_char_write+0xa99/0xfc0
-
-wacom_bpt_touch() serves touch and pad in one report, so its two blocks
-are guarded separately - an interface with a pad but no touch must keep
-delivering pad events. In wacom_bpt3_touch_msg() the slot lookup moves
-below the check because it dereferences the input device itself.
-
-The touch block of wacom_bpt_touch() is reindented into the new
-conditional; git diff -w shows no change there beyond the two style
-fixes checkpatch asks for on the lines that move.
-
-Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
-Fixes: 3116871f4273 ("Input: wacom - split out the pad device for Bamboos")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/hid/wacom_wac.c | 56 +++++++++++++++++++++++++----------------
- 1 file changed, 34 insertions(+), 22 deletions(-)
+v2: (Hillf Danton) drop the dedicated cache and use kzalloc()/kfree()
+    instead of sharing one cache across devices.
+    v1: https://lore.kernel.org/r/20260926162452.136863-1-ngocthang2710.1999@gmail.com
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index 11544adb74f5..dac67885f81e 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3118,31 +3118,36 @@ static int wacom_bpt_touch(struct wacom_wac *wacom)
- 	if (data[0] != 0x02)
- 	    return 0;
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  3 ---
+ drivers/gpu/drm/virtio/virtgpu_kms.c |  8 --------
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++--------------------
+ 3 files changed, 3 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 9df4c7117341..2639d9ec0470 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -261,7 +261,6 @@ struct virtio_gpu_device {
+ 	struct virtio_gpu_queue ctrlq;
+ 	struct virtio_gpu_queue cursorq;
+ 	bool vqs_released;
+-	struct kmem_cache *vbufs;
  
--	for (i = 0; i < 2; i++) {
--		int offset = (data[1] & 0x80) ? (8 * i) : (9 * i);
--		bool touch = report_touch_events(wacom)
--			   && (data[offset + 3] & 0x80);
--
--		input_mt_slot(input, i);
--		input_mt_report_slot_state(input, MT_TOOL_FINGER, touch);
--		if (touch) {
--			int x = get_unaligned_be16(&data[offset + 3]) & 0x7ff;
--			int y = get_unaligned_be16(&data[offset + 5]) & 0x7ff;
--			if (features->quirks & WACOM_QUIRK_BBTOUCH_LOWRES) {
--				x <<= 5;
--				y <<= 5;
-+	if (input) {
-+		for (i = 0; i < 2; i++) {
-+			int offset = (data[1] & 0x80) ? (8 * i) : (9 * i);
-+			bool touch = report_touch_events(wacom) &&
-+				     (data[offset + 3] & 0x80);
-+
-+			input_mt_slot(input, i);
-+			input_mt_report_slot_state(input, MT_TOOL_FINGER, touch);
-+			if (touch) {
-+				int x = get_unaligned_be16(&data[offset + 3]) & 0x7ff;
-+				int y = get_unaligned_be16(&data[offset + 5]) & 0x7ff;
-+
-+				if (features->quirks & WACOM_QUIRK_BBTOUCH_LOWRES) {
-+					x <<= 5;
-+					y <<= 5;
-+				}
-+				input_report_abs(input, ABS_MT_POSITION_X, x);
-+				input_report_abs(input, ABS_MT_POSITION_Y, y);
- 			}
--			input_report_abs(input, ABS_MT_POSITION_X, x);
--			input_report_abs(input, ABS_MT_POSITION_Y, y);
- 		}
+ 	atomic_t pending_commands;
+ 
+@@ -361,8 +360,6 @@ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
+ void virtio_gpu_array_put_free_work(struct work_struct *work);
+ 
+ /* virtgpu_vq.c */
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
+ 				    struct virtio_gpu_object *bo,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 1d4d3bf46a20..047b591b5da2 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -264,11 +264,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 		DRM_ERROR("failed to find virt queues\n");
+ 		goto err_vqs;
+ 	}
+-	ret = virtio_gpu_alloc_vbufs(vgdev);
+-	if (ret) {
+-		DRM_ERROR("failed to alloc vbufs\n");
+-		goto err_vbufs;
 -	}
  
--	input_mt_sync_frame(input);
-+		input_mt_sync_frame(input);
-+	}
- 
--	input_report_key(pad_input, BTN_LEFT, (data[1] & 0x08) != 0);
--	input_report_key(pad_input, BTN_FORWARD, (data[1] & 0x04) != 0);
--	input_report_key(pad_input, BTN_BACK, (data[1] & 0x02) != 0);
--	input_report_key(pad_input, BTN_RIGHT, (data[1] & 0x01) != 0);
-+	if (pad_input) {
-+		input_report_key(pad_input, BTN_LEFT, (data[1] & 0x08) != 0);
-+		input_report_key(pad_input, BTN_FORWARD, (data[1] & 0x04) != 0);
-+		input_report_key(pad_input, BTN_BACK, (data[1] & 0x02) != 0);
-+		input_report_key(pad_input, BTN_RIGHT, (data[1] & 0x01) != 0);
-+	}
- 	wacom->shared->touch_down = wacom_wac_finger_count_touches(wacom);
- 
- 	return 1;
-@@ -3153,8 +3158,12 @@ static void wacom_bpt3_touch_msg(struct wacom_wac *wacom, unsigned char *data)
- 	struct wacom_features *features = &wacom->features;
- 	struct input_dev *input = wacom->touch_input;
- 	bool touch = data[1] & 0x80;
--	int slot = input_mt_get_slot_by_key(input, data[0]);
-+	int slot;
- 
-+	if (!input)
-+		return;
-+
-+	slot = input_mt_get_slot_by_key(input, data[0]);
- 	if (slot < 0)
+ 	/* get display info */
+ 	virtio_cread_le(vgdev->vdev, struct virtio_gpu_config,
+@@ -324,8 +319,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 	virtio_reset_device(vgdev->vdev);
+ 	virtio_gpu_modeset_fini(vgdev);
+ err_scanouts:
+-	virtio_gpu_free_vbufs(vgdev);
+-err_vbufs:
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+ err_vqs:
+ 	dev->dev_private = NULL;
+@@ -365,7 +358,6 @@ void virtio_gpu_release(struct drm_device *dev)
  		return;
  
-@@ -3196,6 +3205,9 @@ static void wacom_bpt3_button_msg(struct wacom_wac *wacom, unsigned char *data)
- 	struct input_dev *input = wacom->pad_input;
- 	struct wacom_features *features = &wacom->features;
+ 	virtio_gpu_modeset_fini(vgdev);
+-	virtio_gpu_free_vbufs(vgdev);
+ 	virtio_gpu_cleanup_cap_cache(vgdev);
  
-+	if (!input)
-+		return;
-+
- 	if (features->type == INTUOSHT || features->type == INTUOSHT2) {
- 		input_report_key(input, BTN_LEFT, (data[1] & 0x02) != 0);
- 		input_report_key(input, BTN_BACK, (data[1] & 0x08) != 0);
+ 	if (vgdev->has_host_visible)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index c02c03c10d92..5eb78d69f561 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -70,30 +70,13 @@ void virtio_gpu_cursor_ack(struct virtqueue *vq)
+ 	schedule_work(&vgdev->cursorq.dequeue_work);
+ }
+ 
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev)
+-{
+-	vgdev->vbufs = kmem_cache_create("virtio-gpu-vbufs",
+-					 VBUFFER_SIZE,
+-					 __alignof__(struct virtio_gpu_vbuffer),
+-					 0, NULL);
+-	if (!vgdev->vbufs)
+-		return -ENOMEM;
+-	return 0;
+-}
+-
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
+-{
+-	kmem_cache_destroy(vgdev->vbufs);
+-	vgdev->vbufs = NULL;
+-}
+-
+ /* For drm_panic */
+ static struct virtio_gpu_vbuffer*
+ virtio_gpu_panic_get_vbuf(struct virtio_gpu_device *vgdev, int size)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_ATOMIC);
++	vbuf = kzalloc(VBUFFER_SIZE, GFP_ATOMIC);
+ 
+ 	vbuf->buf = (void *)vbuf + sizeof(*vbuf);
+ 	vbuf->size = size;
+@@ -110,7 +93,7 @@ virtio_gpu_get_vbuf(struct virtio_gpu_device *vgdev,
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_KERNEL | __GFP_NOFAIL);
++	vbuf = kzalloc(VBUFFER_SIZE, GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	BUG_ON(size > MAX_INLINE_CMD_SIZE ||
+ 	       size < sizeof(struct virtio_gpu_ctrl_hdr));
+@@ -205,7 +188,7 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	if (vbuf->resp_size > MAX_INLINE_RESP_SIZE)
+ 		kfree(vbuf->resp_buf);
+ 	kvfree(vbuf->data_buf);
+-	kmem_cache_free(vgdev->vbufs, vbuf);
++	kfree(vbuf);
+ }
+ 
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
 -- 
-2.53.0
+2.43.0
 
