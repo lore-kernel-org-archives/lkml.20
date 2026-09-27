@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A7E283FC4;
-	Sun, 27 Sep 2026 10:57:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105043D3D0C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506622; cv=none; b=Rcm5nZuJveEvI9eUtrXyPk9rUL+UzRYpqu0Qf9Emi5oOHn3ztn5Q2i0BXkekASt8K4xnZuFf6nO/tVAgCbga5OQagVoWlQGnMDtgD3pn6awF1Uf5nH3jYtv+qM1c9ZdvI4ayrxFOH4vBowuevkifn1ivp8vKf3O7C6CPnsXDGxM=
+	t=1790506624; cv=none; b=jJIMJ0Udv7V3YraJHMpDOIVqP4Bv15Z/LeK72mgJ2II49V0IRULsgQk41A0R0xOItRlz8m0W7f2uJTz6Z1I3Hb3XFGioWL2siLh7J15CRYLAFG+eKIbXZssB5e0HGo+aD0nSkpA+q2WQ9I6WwzQNOg32/m8TxQFayaYhaCAVzoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506622; c=relaxed/simple;
-	bh=oUx02XbGljNjw77nl9Gkgq1I6b3LdixOYecjijGSLIc=;
+	s=arc-20240116; t=1790506624; c=relaxed/simple;
+	bh=/xNgx0C5Qk+rmHpba0lVw4kEWTvc+zDwxQimGQD1Z24=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Az402qoeBA4UPdN3NkDG+lteqS1MYxJkZbDdZKJhM7H9evZIbcdm+qrpe1xNuYW+Kw0Yb4uGlWHQpgT0/WJ0xct9FzEQ8BeoTdpkIYL6l9uFaJh5mqlCPa11lcmW/gTis6OOp4M+XM2cTqNKH6fwGrd+IEEZ2ttWRXxlmlbZdqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+f4gLSs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=og9HNVSSPxoQ7/AMXbSa5J+VN+b/AJfkeKcBPw60nZMaasiuIJfnKnihVfx6+Q2B9FE+Nj2xTzXE1s3/QqtRO92bOuzk4v9ILVo6x3N5WvDaLgRlbStKXN6C8+jVzfjyaNcM+ap+1/Mwxyujv3B7YcsDzDV/x4ChwbLp28zeO64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UtjjsSSr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+f4gLSs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61121F00893;
-	Sun, 27 Sep 2026 10:56:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UtjjsSSr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C1F1F000FF;
+	Sun, 27 Sep 2026 10:57:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790506620;
-	bh=o+ilA+uiXo3fEvOMt/RW1tqOfV75NJRUJnmzfGk27BU=;
+	s=k20260515; t=1790506622;
+	bh=7hec+lMEDGI9y3jbHt6Y6kArMIsxA69vRhR2rOPeIFE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I+f4gLSsGPgtaHDq/bsXRsOy/6uaJW0CJ/N532wUt+z2DU2ZUlDARz5+s1/P3ACGs
-	 f1pVVjkUq5Z5fZDx1YMGHnBSk1t+YsILrD822jJ2t2PdD3d7+3GlKfynJLiSx7+PTs
-	 /MlfZP5AZQAmckRquaLBi0a7FesVnjK/lUdEvdO5zNBBQ2cXLEUqKOFctaFu8y2TuO
-	 MmVRpEGc47V+3mJL6ixSR2vvW0QPF7BdMZOdiHUE4F7S9s397qHb+VaDOXTb6AOF/9
-	 b4Nh/wguDQER1rYEcSLkPU2Hgx4LnQEy8iI1vbeLxG0rqvT+keCU5U0HypKxVJQRby
-	 gn9w6TYdWVXKw==
+	b=UtjjsSSrWF+TFt54/0px6YzSyUYzlv91ip/Lcs/KQAoOamZa5b/L9bVLQr1c49pr6
+	 rZs4OMKT/daTgTbfTNw1O9OOYTok6mhb9QMqKwRJkiyCwrGaeY2p9A7BDpOqn8avNF
+	 3TP1auOS0UIXwjNVcGySRRnQGMJMgawY5M/zIAOgCmnhwJ1Bt7k37sKB9d+LAkdn0Z
+	 NDATEzOnvjtacpBm4OrfYt3I3wPneZcPuTpKUZT0UImruFzyG4vY1Me9Bv0gDjBBmV
+	 kDq88JrH5NETzKs4MczRZfcEJemq9gWx+kNPnBOGmMjtD5pKV1+f6629p/jwNuZ1Y0
+	 bEEYriCG4ctiQ==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Alex Deucher <alexander.deucher@amd.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -33,11 +33,10 @@ Cc: David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/radeon: Check the VBIOS signature after copying it from VRAM
-Date: Sun, 27 Sep 2026 12:55:54 +0200
-Message-ID: <20260927105555.8771-2-kaloz@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] drm/radeon: add a connector table for the Sun XVR-300
+Date: Sun, 27 Sep 2026 12:55:55 +0200
+Message-ID: <20260927105555.8771-3-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260927105555.8771-1-kaloz@kernel.org>
 References: <20260927105555.8771-1-kaloz@kernel.org>
@@ -49,47 +48,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On sparc64 a plain load through an ioremap() cookie is not a valid
-access and faults; igp_read_bios_from_vram() does exactly that to check
-the VBIOS signature, so radeon KMS never gets past this BIOS-fetch
-attempt. Check the memcpy_fromio() copy instead, matching the file's
-other paths.
+The Sun XVR-300 is a FireMV 2200 PCIe (RV370) board with an
+FCode-only Open Firmware ROM and no COMBIOS to parse, so the
+generic connector table leaves both DVI-I outputs undetected. Both
+XVR-300 SKUs report device ID 5b64 with an ATI subsystem ID rather
+than Sun's, so match the OF node name prefix instead. The table
+comes from the board's FCode.
 
-Fixes: b442962a9e82 ("drm/radeon/kms: add support for "Surround View"")
-Cc: stable@vger.kernel.org
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_bios.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
+ 2 files changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index 8595f4c6e2e5..a8367e481182 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -63,10 +63,6 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
- 		return false;
+diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
+index b3e7a747f11e..096f953c67be 100644
+--- a/drivers/gpu/drm/radeon/radeon_combios.c
++++ b/drivers/gpu/drm/radeon/radeon_combios.c
+@@ -25,6 +25,7 @@
+  *          Alex Deucher
+  */
+ 
++#include <linux/of.h>
+ #include <linux/pci.h>
+ 
+ #include <drm/drm_device.h>
+@@ -1512,6 +1513,14 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
+ 			rdev->mode_info.connector_table = CT_RN50_POWER;
+ 		else
+ #endif
++		if (of_node_name_prefix(rdev->pdev->dev.of_node, "SUNW,XVR-300"))
++			/* FireMV 2200 PCIe with FCode-only ROM, no COMBIOS
++			 * to parse; both XVR-300 SKUs share device ID 5b64
++			 * with an ATI subsystem ID, so match the OF node
++			 * name instead.
++			 */
++			rdev->mode_info.connector_table = CT_SUN_XVR300;
++		else
+ 			rdev->mode_info.connector_table = CT_GENERIC;
  	}
  
--	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
--		iounmap(bios);
--		return false;
--	}
- 	rdev->bios = kmalloc(size, GFP_KERNEL);
- 	if (rdev->bios == NULL) {
- 		iounmap(bios);
-@@ -74,6 +70,12 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
- 	}
- 	memcpy_fromio(rdev->bios, bios, size);
- 	iounmap(bios);
-+
-+	if (size == 0 || rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa) {
-+		kfree(rdev->bios);
-+		rdev->bios = NULL;
-+		return false;
-+	}
- 	return true;
- }
+@@ -2187,6 +2196,48 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
+ 					    CONNECTOR_OBJECT_ID_SVIDEO,
+ 					    &hpd);
+ 		break;
++	case CT_SUN_XVR300:
++		DRM_INFO("Connector Table: %d (sun xvr-300)\n",
++			 rdev->mode_info.connector_table);
++		/* DVI-I - internal tmds, tv dac */
++		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_DVI, 0, 0);
++		hpd.hpd = RADEON_HPD_1;
++		radeon_add_legacy_encoder(dev,
++					  radeon_get_encoder_enum(dev,
++								ATOM_DEVICE_DFP1_SUPPORT,
++								0),
++					  ATOM_DEVICE_DFP1_SUPPORT);
++		radeon_add_legacy_encoder(dev,
++					  radeon_get_encoder_enum(dev,
++								ATOM_DEVICE_CRT2_SUPPORT,
++								2),
++					  ATOM_DEVICE_CRT2_SUPPORT);
++		radeon_add_legacy_connector(dev, 0,
++					    ATOM_DEVICE_DFP1_SUPPORT |
++					    ATOM_DEVICE_CRT2_SUPPORT,
++					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
++					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
++					    &hpd);
++		/* DVI-I - sil164 dvo, primary dac */
++		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_VGA, 0, 0);
++		hpd.hpd = RADEON_HPD_2;
++		radeon_add_legacy_encoder(dev,
++					  radeon_get_encoder_enum(dev,
++								ATOM_DEVICE_DFP2_SUPPORT,
++								0),
++					  ATOM_DEVICE_DFP2_SUPPORT);
++		radeon_add_legacy_encoder(dev,
++					  radeon_get_encoder_enum(dev,
++								ATOM_DEVICE_CRT1_SUPPORT,
++								1),
++					  ATOM_DEVICE_CRT1_SUPPORT);
++		radeon_add_legacy_connector(dev, 1,
++					    ATOM_DEVICE_DFP2_SUPPORT |
++					    ATOM_DEVICE_CRT1_SUPPORT,
++					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
++					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
++					    &hpd);
++		break;
+ 	default:
+ 		DRM_INFO("Connector table: %d (invalid)\n",
+ 			 rdev->mode_info.connector_table);
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 031a3bf6fe0a..6a16d821915d 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -226,7 +226,8 @@ enum radeon_connector_table {
+ 	CT_MAC_X800,
+ 	CT_MAC_G5_9600,
+ 	CT_SAM440EP,
+-	CT_MAC_G4_SILVER
++	CT_MAC_G4_SILVER,
++	CT_SUN_XVR300
+ };
  
+ enum radeon_dvo_chip {
 -- 
 2.47.3
 
