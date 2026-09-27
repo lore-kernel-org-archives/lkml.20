@@ -1,72 +1,86 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-dy2-f22.google.com (mail-dy2-f22.google.com [74.125.229.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFA537E5D4
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775D82E612E
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490717; cv=none; b=guqA/a2LPMxoRYnEoS+BeHAc7NNPTB+2gbcBEOYphndMii99N2MBH6kpiEPNbDaxaeCH2mMmdyDamxUvyt5ISlECB+fDRks/eapo3Mq8s1FLV+TrDLCPtOgngRBfaRb8B4Y5OG53xcjnWmLGBVfnj9rMWVqKYOV26NpS9wPH9wU=
+	t=1790490999; cv=none; b=UFyzg7qpZS24BEsFc6b48KXbnf6WgLprse5/8N1Ie6lB5yeuPtG8MG/fM+eH9HEgh4bNFAKObhMKTCbx1AuL4owLCfAti09Vza150Hnjj4493zN0FpfNK6tvLm/ns3bK3K1H/PV3Or4TeqAm0Qd8eEWLtEOGGTblfh8z9ErDG64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490717; c=relaxed/simple;
-	bh=vtNPIYhScpsR4YZxlcRVKHjWbp5bx3kM23+yYBCdUTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ACttPivm+sxV+SwCqWyGnAmY/nsIIhyTUNjPMxU+2UARcqabQXvlC+9/Dz4DMYXItm4KDltHm1WF9TLbjli0ZibbIexiKgWIx1Do/kXYfQUEAHa29SjdJ99TziJxhmWxMlmbCJ5oGvpa9W+af3r08+jJNitv/OBtdihbYfrQDvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJCT1aLP; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1790490999; c=relaxed/simple;
+	bh=wHQdLfMMd82uicydTDyrDjeBvqpPgK25O3f2d1+2qK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rts/c3oEH4cZNDADEY93YQRIMwEt0G3tNOv5X5oduZ9A9U9WLJJFDVruAf42sYMuvxa3JaadMS+GMY9UDlkYUCgefxVQZdh36ygGHM9NNm6iqMPSmNG8A0pFYOJTeL5qMAMvo3uKPPeblm3TJtj9wIxAHzRYrCXTzA9UOjEt2is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhXSM44g; arc=none smtp.client-ip=74.125.229.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJCT1aLP"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so986327b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhXSM44g"
+Received: by mail-dy2-f22.google.com with SMTP id 5a478bee46e88-342c08bf64dso85039eec.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790490715; x=1791095515; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790490996; x=1791095796; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LvdoT+4B+s9J9ndPoCUfTNkadsVmUKhDZhjNaBl2CAA=;
-        b=pJCT1aLPCovooVNNNatPt4BhsykGJz2BLHIIx17fwFNe3MY1Wx8nZGtBVgBE5F4Lhc
-         rC0nFhvkTQGxqNkcww8jZapqxiYYNJBTFvkb8SIic8fu8msOdxaHnB6NcePXEB/fPkNO
-         ntgSyjL3TFaRGGSNHmi68YVqDg/odOmMcpSNPSafDirF3tHN1+alidEqghZbeKBZGPPF
-         Tfvp58+uZz6vp3qOYLcELfHUAgTKfaZhJNAzgeSzOlr3f8YeGWdUF69NNzt7yubLCG9p
-         NHbDyn15hALiVhY77zJNr3OmdPWZXZKtATQqEckj8sZ7gsni76/HMJ0OfEJzVoB1I/ef
-         lQEg==
+        bh=iv9eqmZTsPYq8IkzTlxVg3AoSoWr/86gQvKT1wTesaU=;
+        b=mhXSM44gXIaTlG1EH6MlohpI2K43fIzKNMhLNCvGTGXvvdDQJwTAxnzQ4npeYeYBH6
+         P4IIwbuln7p5yGLbsLkKUveu+Dt4tp7XJDSit5ScuA4D3Ns1o9HQoD4fWpBH+Y1ov96I
+         nK+pJOKRAtiZbERf8WMbKWuiUL8Kq2Ln3oD4UL8NzjNerIko9JBKVW4rT8LOOxTdSE/l
+         b0OxExWhhsTS7jj37Yplh592cRtnB2u36lGmoy7KnF/zX76U3ZNBloR+aKbtjTV62ziF
+         m1MKYahkTjXREnh0gqT4pctTEVppo3BT78AqiOlUepG2D/2kBymG+NSZcqyX80aDEv3z
+         Bt/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790490715; x=1791095515;
+        d=1e100.net; s=20260707; t=1790490996; x=1791095796;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LvdoT+4B+s9J9ndPoCUfTNkadsVmUKhDZhjNaBl2CAA=;
-        b=lI6YrcsQ5wg4MQ1PwqjKxpwVRCHjr0PEyLsA1Xq8GkCethh7u8sAx3bqaEek9BKjOy
-         b7c+0tTob3gl01yP8Yr62CqATJPh1PTA35Rgog8GO92noEQDOEBjPQPAXRyYQUdQ6BSM
-         bFbKQBaIY7uSQ55p7l2I3bS8pLdMZf94EbSf1XjPdClmdZIPRhJ+l655qhW/5inu8B9D
-         wsuCjwirUOsNpnePBVXuWiEBrtJvSdPI9Pq2aAATf6wot5v52QhOi9aP5JrK5vZMRM9N
-         QZ9g44DZbBNxErltJNTKlk6G8BpGxJ9fJCVp+tf48Y9oVzHi/vWUGunubpdghl0B89YE
-         oIWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzC2j4Y0o/xfs5a+n0Tfyh1RLW69NtoPBNVdYtVB/GT9U+WCJyeTAJYGhPKySdFaz3wvrSIyIMoKiy14zw=@vger.kernel.org
-X-Gm-Message-State: AFuF++moYqyjH14MFKhsDIwRe5y/RZhBJNKOo9mQdhKgTGUWrl5Cc6u0
-	UAAujMJLKZcsKkkjBoRm/q3Khr+8lqbMCIdyGb3sw29KUqEKnGLGEeiRcVrqWE4x10Pzlw==
-X-Gm-Gg: AYBFou0N3Z/vRLHA3lNoLT4ZTMNl8m0q69mm5FbIyT4fBHZRza6nbf2Jz67rNwwGTsq
-	/lPJkUSYMUb+eK/YWpZex9UNAbl3KjHEIbutwhJu9v86apCTfy5VADDAu1k7C6QWIRzmHHrEdqT
-	/lYZGiRc8L/Fy7dkc1Dr3xk79As5mfb/Fylcb2r8dm/HPcMwCJeq/ihC1L74Vy8tBDZ7IzLzIMJ
-	tAb1El57P5SaNsm6xmLXKfIS/Cj5EDbxojZqAHsZjPoXqTsF+SpCgWkHKiOmGXjJMyyV4+IjTOF
-	fWB4zRL6UiCgf2AmxRuntyc+pprlTkl6dhF/w0ZFLSCOWMMRgU4ehgyFx8efVEGE6UeLDAnilBJ
-	kQvMo+p0rPhIj/0wljrOYy7pdM2svPyTLTrb7NQC/iY7OmYcqH12RWaIqXcrPBcyFU3UMVcI8UI
-	CwynWk1O0UFfhYMv2gCxMJdQWRN9KNN7Hp80WSM3AMZx9CjN4sXCmIBoJmPbONSznWNx8XbbXb3
-	A2vuGQJphMpUvx5GYKbGpmpK9i2vZk2CTp4MCzHq82FkZcEGt0RVfuosTzk70xxmng48pe5SOF8
-	peHP8hogDSN0qyvqXhuDFL+BHV+E3hnMt51dGh+bEBgJlyiK6bvE/QKnBgg=
-X-Received: by 2002:a05:6a00:7585:b0:87f:dcc3:62f with SMTP id d2e1a72fcca58-87fdcc35542mr4470794b3a.60.1790490714783;
-        Sat, 26 Sep 2026 23:31:54 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf85551sm2732199b3a.40.2026.09.26.23.31.52
+        bh=iv9eqmZTsPYq8IkzTlxVg3AoSoWr/86gQvKT1wTesaU=;
+        b=o9sW7bb20oVJz3NuRYYdJF/Nqf8y90+F7OAff1B7WBsgn9YPEXl0YwJaYZeFHpOId2
+         Lswgg8uiLTbye0oC0sRnxH2G/D4lwNtnKQ/ytfX8A3lyFewB9dSh3dfGGiLakNAKrUlM
+         kzGVUVUqnYFWTo8OfSqAex2MqIeSqk4Xbcxhxc5pY5os/xy58nydzTaV3XQge9/CfN7W
+         ckaq+/1jRIcYU9thkRDaMEar4QHGzJ06LvFoNpYt5ssz0nIoxQQOFOdDo8PQZxhkVCBI
+         anq/ExdY1uCZhH/OdF6n995tmKYDGHtHhVWU6GRyjbpcVqkZK3NxzDSfuL0Np9g8Mhxg
+         iv4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxFIm+AeX1Eiw8KcL/t4sa3moiRHwX5Q43v6tgWmhRPXzUYZrO88pTz72BQtZjHM0SGUweM0/2ocl4nOY8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFcLWA7NFDgB4Kzl1Qho4HaQOE9CJamWiRJGDlltnhSaHb4dFH
+	mZ+2cjKlI2Rk5/w/Ovt+7u8GsqcXSakHERMMzFAf0fyUy4jcCWwDILMb
+X-Gm-Gg: AYBFou3vq5ynghlkbCtxORFT8EwflWW3MB8llZ1ZevnWIB/9uXcT+i4Ddi6ECURN27e
+	Zu4ijtjc2K89MHPQtnvZP5HzBYAsOuvLZ9goljtGM5FEmRNEfqnZeNRgaZeWmp0qJzRb2b3W7cq
+	b4rwG72OlzsVx+BAoF1T2dbxseuDBug5DMXLMhigbuXpyJ+5NeUIQDHWYQzIz4R6Cdhe648pCz4
+	TCTpD4KLcbN9QjxCfYprIouNXokFq+ZN2oR1OkUl9hBkxAiUHeQXOkMzoDxBWmErSawcNmsqdBH
+	MP7sgh0L8q2lATkJ51287c8GpZbTNr1PNhXz8fIZdodd2ybOKpivuahN7IVtK+XgS2zIUYgSd5b
+	EGSWOpwvjUhxVv4hEaxas629/P6rVHLFKAsmPXYLqEs2AYIwFGjvFX3aKuvkYdo53NfTQghf65I
+	NB2G2qOFYbUtRgHGw+MrG3VDEQCBwZ/z3MLdJEUSsw+re34hGQYRi4Vw9RIsCbQ4hVe7uW6NLKe
+	4NjTWt04FUapY7GdRaTFsyk9KnkVlBdcWtsqIU1OKgI3tXdnK4BFXSbrZdv9em6mxsVCw==
+X-Received: by 2002:a05:7300:de0b:b0:341:f4d6:d9a5 with SMTP id 5a478bee46e88-3427169be76mr8420545eec.1.1790490995482;
+        Sat, 26 Sep 2026 23:36:35 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm22047516eec.15.2026.09.26.23.36.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:31:54 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ntfs: hold the runlist lock while expanding a non-resident attribute
-Date: Sun, 27 Sep 2026 14:31:49 +0800
-Message-ID: <20260927063149.3356920-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sat, 26 Sep 2026 23:36:34 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ursula Braun <ubraun@linux.ibm.com>,
+	Karsten Graul <kgraul@linux.ibm.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/smc: Serialize early link group cleanup with termination
+Date: Sun, 27 Sep 2026 14:36:07 +0800
+Message-ID: <20260927063607.3691520-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,233 +89,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_non_resident_attr_expand() changes ni->runlist.rl while it
-allocates clusters: ntfs_attr_map_whole_runlist(), the compressed
-branch's ntfs_rl_realloc() and ntfs_runlists_merge() can each kvfree()
-the old array.  Unless the caller already holds ni->runlist.lock, none
-of this happens under it; only the rollback takes it.  Callers without
-it include the write path, fallocate, ntfs_inode_attr_pwrite() and
-ntfs_resident_attr_resize().
+smc_lgr_cleanup_early() calls __smc_lgr_terminate() without checking or
+setting lgr->freeing. A concurrent smc_lgr_terminate_sched() can claim
+freeing and queue terminate_work before early cleanup takes lgr_lock.
+Early cleanup still enters __smc_lgr_terminate(), where both callers can
+observe lgr->terminating clear before either sets it. Both then tear down
+the same link group, causing use-after-free and duplicate resource release.
 
-Those callers hold mrec_lock, and the write path also inode_lock, but
-the iomap read side takes neither: FIEMAP, page faults, readahead and
-splice read reach ntfs_read_iomap_begin_non_resident(), which takes only
-ni->runlist.lock.  A FIEMAP running while write(2) extends the same file
-can walk the array that ntfs_runlists_merge() has just freed:
+KASAN reported:
 
-  BUG: KASAN: slab-use-after-free in ntfs_attr_vcn_to_rl+0x19b/0x200
+  BUG: KASAN: use-after-free in __smc_lgr_terminate+0x393/0x3a0
+  Write of size 1 at addr ffff8880bf2c0300 by task poc/106
+  Call Trace:
+   __smc_lgr_terminate+0x393/0x3a0
+   __smc_connect+0x2e3d/0x4930
+   smc_connect+0x42c/0x580
+   __sys_connect+0xfc/0x130
+   __x64_sys_connect+0x6d/0xb0
 
-A reader that finds a vcn unmapped in the stale array also maps it from
-disk into the runlist the writer is changing, which shows up as "Run
-lists overlap. Cannot merge!".
+Claim lgr->freeing under lgr_lock in early cleanup, as the other teardown
+paths already do, and leave cleanup to the existing owner when it is set.
+This also prevents early cleanup from racing with the delayed free worker
+or removing a group from a device teardown's private list.
 
-Take ni->runlist.lock for writing around the part of the expansion that
-changes the runlist and allocated_size, up to and including the mapping
-pairs update, as ntfs_non_resident_attr_shrink() does since commit
-91709ba5d6d7 ("ntfs: protect runlist updates with the runlist lock"),
-and hold it throughout the rollback, where ntfs_cluster_free() requires
-it.  The lock nests inside mrec_lock, as on the truncate-up path, which
-already calls this function with the runlist lock held.
+Keep a link group reference across smc_conn_free() and early cleanup in
+smc_conn_abort(). Once the connection is unregistered, a termination worker
+can finish without taking its socket lock. The extra reference keeps the
+group alive until early cleanup has checked teardown ownership.
 
-For an $ATTRIBUTE_LIST whose lock the caller does not hold, drop the
-lock again before the mapping pairs update: that update can resize the
-same list through ntfs_attrlist_update_locked(), which returns -ENOSPC
-when told that the list's lock is held.  Holding it there made punching
-holes into a large fragmented file fail with -ENOSPC.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
-A reproducer that extends two files with interleaved clusters while
-FIEMAP loops over them hits the KASAN report above within two seconds in
-each of three runs; with this patch, three 60-second runs are clean.  I
-can send it privately if you want it.
+ net/smc/af_smc.c   | 8 ++++++--
+ net/smc/smc_core.c | 5 +++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-Also tested in a VM with KASAN, lockdep and the hung task detector:
-writes past EOF, fallocate, truncate-up, sparse and compressed files,
-growing xattrs, directories and a non-resident attribute list, with
-FIEMAP after each step.  Output matches the unpatched kernel, and
-lockdep reports nothing.
-
- fs/ntfs/attrib.c | 72 ++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 21 deletions(-)
-
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 333b3371acb47..a07acef3a03e8 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -4453,6 +4453,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 	struct ntfs_inode *base_ni;
- 	struct super_block *sb = ni->vol->sb;
- 	size_t new_rl_count;
-+	bool runlist_locked = locked_ni == ni;
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index e9f93b3ab435..97b0a0b51066 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+ 	struct smc_link_group *lgr = conn->lgr;
+ 	bool lgr_valid = false;
  
- 	ntfs_debug("Inode 0x%llx, attr 0x%x, new size %lld old size %lld\n",
- 			(unsigned long long)ni->mft_no, ni->type,
-@@ -4494,10 +4495,17 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 	 * clusters if there is a change.
- 	 */
- 	if (ntfs_bytes_to_cluster(vol, ni->allocated_size) < first_free_vcn) {
-+		/*
-+		 * The runlist array is replaced below.  Readers such as the
-+		 * iomap read path hold only the runlist lock, not mrec_lock.
-+		 */
-+		if (!runlist_locked)
-+			down_write(&ni->runlist.lock);
-+
- 		err = ntfs_attr_map_whole_runlist(ni);
- 		if (err) {
- 			ntfs_error(sb, "ntfs_attr_map_whole_runlist failed");
--			return err;
-+			goto unlock_runlist;
- 		}
+-	if (smc_conn_lgr_valid(conn))
++	if (local_first && smc_conn_lgr_valid(conn)) {
+ 		lgr_valid = true;
++		smc_lgr_hold(lgr);
++	}
  
- 		/*
-@@ -4522,7 +4530,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 						last + more_entries + 1);
- 				if (IS_ERR(rl)) {
- 					err = -ENOMEM;
--					goto put_err_out;
-+					goto unlock_runlist;
- 				}
- 
- 				alloc_size = ni->allocated_size;
-@@ -4547,7 +4555,7 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 				rl = kmalloc(sizeof(struct runlist_element) * 2, GFP_NOFS);
- 				if (!rl) {
- 					err = -ENOMEM;
--					goto put_err_out;
-+					goto unlock_runlist;
- 				}
- 
- 				rl[0].vcn = ntfs_bytes_to_cluster(vol, ni->allocated_size);
-@@ -4594,7 +4602,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 				ntfs_debug("Cluster allocation failed (%lld)",
- 						(long long)first_free_vcn -
- 						ntfs_bytes_to_cluster(vol, ni->allocated_size));
--				return PTR_ERR(rl);
-+				err = PTR_ERR(rl);
-+				goto unlock_runlist;
- 			}
- 			/*
- 			 * A contiguous ATTRIBUTE_LIST allocation keeps its mapping
-@@ -4618,8 +4627,10 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 								ni->allocated_size),
- 						lcn_seek_from, DATA_ZONE, false,
- 						false, false);
--				if (IS_ERR(rl))
--					return PTR_ERR(rl);
-+				if (IS_ERR(rl)) {
-+					err = PTR_ERR(rl);
-+					goto unlock_runlist;
-+				}
- 			}
- 		}
- 
-@@ -4631,7 +4642,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 				ntfs_error(sb, "Run list merge failed");
- 				ntfs_cluster_free_from_rl(vol, rl);
- 				kvfree(rl);
--				return -EIO;
-+				err = -EIO;
-+				goto unlock_runlist;
- 			}
- 			ni->runlist.rl = rln;
- 			ni->runlist.count = new_rl_count;
-@@ -4639,11 +4651,28 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 
- 		/* Prepare to mapping pairs update. */
- 		ni->allocated_size = ntfs_cluster_to_bytes(vol, first_free_vcn);
--		err = ntfs_attr_update_mapping_pairs_locked(
--				ni, 0, locked_ni);
--		if (err) {
--			ntfs_debug("Mapping pairs update failed");
--			goto rollback;
-+		if (ni->type == AT_ATTRIBUTE_LIST && !runlist_locked) {
-+			/*
-+			 * Making room for the list's mapping pairs can resize
-+			 * this attribute list again through
-+			 * ntfs_attrlist_update_locked(), which takes its
-+			 * runlist lock.
-+			 */
-+			up_write(&ni->runlist.lock);
-+			err = ntfs_attr_update_mapping_pairs_locked(ni, 0,
-+								    locked_ni);
-+			if (err) {
-+				ntfs_debug("Mapping pairs update failed");
-+				goto rollback;
-+			}
-+		} else {
-+			err = ntfs_attr_update_mapping_pairs_locked(ni, 0, ni);
-+			if (err) {
-+				ntfs_debug("Mapping pairs update failed");
-+				goto rollback_locked;
-+			}
-+			if (!runlist_locked)
-+				up_write(&ni->runlist.lock);
- 		}
- 	}
- 
-@@ -4677,6 +4706,9 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 	ntfs_attr_put_search_ctx(ctx);
- 	return 0;
- rollback:
-+	if (!runlist_locked)
-+		down_write(&ni->runlist.lock);
-+rollback_locked:
- 	/* Free allocated clusters. */
- 	err2 = ntfs_cluster_free(ni, ntfs_bytes_to_cluster(vol, org_alloc_size),
- 				-1, ctx);
-@@ -4684,12 +4716,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 		ntfs_debug("Leaking clusters");
- 
- 	/* Now, truncate the runlist itself. */
--	if (ni != locked_ni)
--		down_write(&ni->runlist.lock);
- 	err2 = ntfs_rl_truncate_nolock(vol, &ni->runlist,
- 			ntfs_bytes_to_cluster(vol, org_alloc_size));
--	if (ni != locked_ni)
--		up_write(&ni->runlist.lock);
- 	if (err2) {
- 		/*
- 		 * Failed to truncate the runlist, so just throw it away, it
-@@ -4702,12 +4730,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 		/* Prepare to mapping pairs update. */
- 		ni->allocated_size = org_alloc_size;
- 		/* Restore mapping pairs. */
--		if (ni != locked_ni)
--			down_read(&ni->runlist.lock);
--		if (__ntfs_attr_update_mapping_pairs(ni, 0, locked_ni, true))
-+		if (__ntfs_attr_update_mapping_pairs(ni, 0, ni, true))
- 			ntfs_error(sb, "Failed to restore old mapping pairs");
--		if (ni != locked_ni)
--			up_read(&ni->runlist.lock);
- 
- 		if (NInoSparse(ni) || NInoCompressed(ni)) {
- 			ni->itype.compressed.size =  org_compressed_size;
-@@ -4715,6 +4739,8 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 		} else
- 			VFS_I(base_ni)->i_blocks = ni->allocated_size >> 9;
- 	}
-+	if (!runlist_locked)
-+		up_write(&ni->runlist.lock);
- 	if (ctx)
- 		ntfs_attr_put_search_ctx(ctx);
- 	return err;
-@@ -4722,6 +4748,10 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
- 	if (ctx)
- 		ntfs_attr_put_search_ctx(ctx);
- 	return err;
-+unlock_runlist:
-+	if (!runlist_locked)
-+		up_write(&ni->runlist.lock);
-+	return err;
+ 	smc_conn_free(conn);
+-	if (local_first && lgr_valid)
++	if (lgr_valid) {
+ 		smc_lgr_cleanup_early(lgr);
++		smc_lgr_put(lgr);
++	}
  }
  
- /*
-
-base-commit: 259abb551e2944998cad4214c201954ab1ac5c8d
+ /* check if there is a rdma device available for this connection. */
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 9974149659c2..b166a379753c 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -688,6 +688,11 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+ 
+ 	smc_lgr_list_head(lgr, &lgr_lock);
+ 	spin_lock_bh(lgr_lock);
++	if (lgr->freeing) {
++		spin_unlock_bh(lgr_lock);
++		return;
++	}
++	lgr->freeing = 1;
+ 	/* do not use this link group for new connections */
+ 	if (!list_empty(&lgr->list))
+ 		list_del_init(&lgr->list);
 -- 
-2.55.0
+2.43.0
 
