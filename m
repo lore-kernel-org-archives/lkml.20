@@ -1,129 +1,125 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0314337E5E1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562D239EF3F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790552237; cv=none; b=KVMlLzaZKcSUIP+HXOf08skTXsjMxFpfccqCBnxeOUvflD1aL883q8WFyKvRAcwMFAqtFo+lOHnbv9eSJ0Sm9l1fShMlgW0POfMgig5brSUjxZ1UawstBKrrlS8fMUUugOubhJ+PBQD//N246fXu5Xu2czfhxy77oBtopiZxduU=
+	t=1790552655; cv=none; b=EgEddCljII/2NUWnJw5d/4/2P6Izei7cKETfEXpcwEx8xm0gpgHnPvoInVo3xL6mKYRyw44K+sUInp7Mr850CFzKWbwsPQ3A/cXpRbR8nZFkNjEFuKHzx6aaF7OSbg+h0eQzUWarvlUCfQr6DwNemcG7HwrpxsihxyarN+5ZiKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790552237; c=relaxed/simple;
-	bh=vMx2OEAWQB1yWyZ78d+EHmuyKxCDM2aewJvKv9yR0Bc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pxhmiv4bZumd0WdJaD7k/Dm3Yj2b7W7/F7LE1FM2OQ+l1peRD1sNfYZcOx4eFv6J7fWn8tJvp9oVNtISk2SF5gcFvbmXdQRDyCS5NcU+Cqw15rdT2auszHophT33yvFvCD5rNQRH7gSTPqyoapA6j7ypTay5btzHXmGaoDKSYyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RhLXHVA0; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790552655; c=relaxed/simple;
+	bh=Iw5uXV2RPPaOzfgwc/i+P7SjdRTEqKv1d6S6g5Cinp8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tITzJyYvLFqBsaWeh4VTV69lrYIFbJD5AmJwcZKKKKdBOWgCbyxtTiPS/EiQ6n1Qm6+e8bWCYs0wmt/tgflev68YmaRHuFgUewQzEnPsBoc+EPF27BKL25aFoNQmKx9vo5YnxovGnRjf4cHPzu+TKWR8KKbkiN/Mg1eOOgA3Mfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GvEbz79C; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RhLXHVA0"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so5938065e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790552234; x=1791157034; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eeI+lVedHv94sduKpny4VEBPiP55GfeWt60bzHlR0o4=;
-        b=RhLXHVA0T++C62hPZh+4Oi5oEkOYn8+Kv4cGKaHiFaM8imGcAzHRqQts/jyW8vCqqI
-         AKyCkzrLs2q2VRtukZvTL4yZJIJyMRdodAedIqK6qzQIqV1ExAUMJaeJl68gxXi/oYQl
-         MIbFdwk1uGzp+DtZ2gILMX31NRQ0bAQ76FpJtsCTbeNNlIZeH8KUTh8KJaPgKLtzZW+P
-         F7QaJ66MkkibGG/BGjET3/3INANaxlZaCvdfdQ5z7ctYXhKI4rkXFXHvnNItDeyHbsV4
-         emU87Hovfm/w0wHk/xYBPukdfKsyUk9DC35DOxRrLjWiC7U1GZcwcMZFASjbLcsIYolZ
-         u8TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790552234; x=1791157034;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eeI+lVedHv94sduKpny4VEBPiP55GfeWt60bzHlR0o4=;
-        b=bUNbRbofiRmXX7FGro13x2N/ShQxNL8MGs9WJXBX0fb6mQooS745E6bG2Cy1NuTRJA
-         7AjxuUTUC2YEKzb2HnxYXu4tAq3DGd6aAaUiFSlYC6tHeYaB3z9/FcWMBNT6mWbonLeP
-         5R40SdXEbFNtw98L0hJMsNpdsc4fynTwXSBtxgkRTIUcALHR2qz0VzzUhjYP/XFHTOaz
-         RRmQhIvtouTJ+hfDTqJjqdUOuYVqvx1Rpqb1hkFSzbbxZo9tl8OgQoHeXu26NSBuRIWE
-         joCeSxKm6VSWee5nkYyxWRhfH31HTXauy0bNyqsQr0erhs1v0sicI8HYIOT0T21s4pdE
-         UqPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGsnxQZSre2kSQUJZvOPvk33wk90VqxHnOA2apkiqe8QrNYMLRis1n1lJyI37w29B/LEI0ovl6Xb70IuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrPam+KYUxlVEh5xbctxd10nx95Ti5nOVPtTzZRO1grRnlR8hz
-	P/0wR7Ee3UD5o55xYiAAcWOElhMss6/mkm+k7iCZj0+xq8mtfRJeF/LD
-X-Gm-Gg: AYBFou0obtP3jv38cmdEJgtUwOjSHs3Jtm3cZRrrLFmgNcbJ3FWpDrj+dMlCxU2DjZr
-	iivuURSVNIYB7GKCHrdCaVvstlrxYsUlUzF0NYXc54xWsXHgn7DuvNzvvUIad8ToBPN34vCx5kZ
-	8DxEgj46BgnXl6nuh9nqjSez1wym6foaeUxTy4E1lKeuYrCEVDPtEj7q7xVQI5FIRZeuMvfSI/n
-	qXt2JTAUwbFS7MYEiI/MO7lo3jq8Gxtw1noYzzuCFAb68aoL7nqaWpCJN9n/bdkvJSDOdsPZn8L
-	qYw6jsUfA5DRilH8gCe1Fw2i12iFhOdvyseL5rgsN4j1SC5TceEit5J6yc21d4nJN4yc2v73buS
-	E9tc1AwdUGqzYtcKMXwaYHxuvyKVIzBkF1SIvD49d5vdyzFUuykljV3xc20iRTaoMU4PpWvGUGy
-	zxkwMyrU44K4r/8GSEbTzkRQlGbmJcKnDutt+0xautAaq+yW7Pi2CztQr56/ym+EIIzAX/
-X-Received: by 2002:a05:600c:4505:b0:49f:f922:1dc1 with SMTP id 5b1f17b1804b1-49ff9221e35mr84930855e9.28.1790552234070;
-        Sun, 27 Sep 2026 16:37:14 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ffabc3f33sm135335115e9.4.2026.09.27.16.37.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 16:37:12 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH bpf-next v2] bpf: Skip redundant destroy_if_dynptr_stack_slot calls in check_stack_write_var_off
-Date: Mon, 28 Sep 2026 02:35:59 +0300
-Message-ID: <20260927233653.424163-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GvEbz79C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790552652;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aecDMSjhtbDX6tqMHICAMcY6aRfKnInfXugkr1qVLzo=;
+	b=GvEbz79CUvM7AXiFIgEyoMLPJQMQ3q7IVFJ/96dR9ypYGhBsZXQDXNZbQWaiyzzov6j/X5
+	L+aaUjF5goudKKG/KvrgKQzOMHSpNoep6/G3htktDAJRpxRZy7O8ulk7JMTaRdmwZqHvNU
+	mdcMXT4hrUdq2pyr8tqbN/GYUeZsF+s=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-596--pPqdBVRMgaUegqMqO_Cww-1; Sun,
+ 27 Sep 2026 19:44:08 -0400
+X-MC-Unique: -pPqdBVRMgaUegqMqO_Cww-1
+X-Mimecast-MFC-AGG-ID: -pPqdBVRMgaUegqMqO_Cww_1790552647
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2901D1955E99;
+	Sun, 27 Sep 2026 23:44:06 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8A42A19560AB;
+	Sun, 27 Sep 2026 23:44:03 +0000 (UTC)
+Message-ID: <90088ec5-41a6-4034-a0fd-aaafebfe1083@redhat.com>
+Date: Sun, 27 Sep 2026 19:44:02 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] cgroup/cpuset: check sibling effective_xcpus in
+ cpus_excl_conflict()
+To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260924042729.1908863-1-benquike@gmail.com>
+ <20260924042729.1908863-4-benquike@gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260924042729.1908863-4-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-bpf_get_spi() maps 8 consecutive byte offsets to the same slot index.
-When iterating over a variable-offset stack write range byte by byte,
-destroy_if_dynptr_stack_slot() can be called up to 8 times for the same
-slot, even though it operates per-slot.
-
-Skip iterations where the slot index matches the previous byte's slot
-index to avoid the redundant calls.
-
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
-Changes in v2:
-  - Fix multi-line comment style: move opening /* to its own line.
-    Reported by Sashiko AI review.
-
- kernel/bpf/verifier.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index fec5a1ae6a4d..6bc5bc56f0d3 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -3824,9 +3824,14 @@ static int check_stack_write_var_off(struct bpf_verifier_env *env,
- 		writing_zero = true;
-
- 	for (i = min_off; i < max_off; i++) {
--		int spi;
-+		int spi = bpf_get_spi(i);
-
--		spi = bpf_get_spi(i);
-+		/*
-+		 * bpf_get_spi() maps 8 consecutive byte offsets to the same
-+		 * slot index; skip redundant calls for the same slot.
-+		 */
-+		if (i != min_off && spi == bpf_get_spi(i - 1))
-+			continue;
- 		err = destroy_if_dynptr_stack_slot(env, state, spi);
- 		if (err)
- 			return err;
---
-2.55.0
+On 9/24/26 12:27 AM, Hui Peng wrote:
+> In cpus_excl_conflict(), when a valid local partition A1 uses implicit
+> exclusive CPUs (cpuset.cpus set without cpuset.cpus.exclusive, so
+> sibling->exclusive_cpus is empty while sibling->effective_xcpus is
+> populated), a sibling cgroup B1 can still set cpuset.cpus.exclusive on
+> the same CPUs because cpus_excl_conflict() only checks
+> sibling->exclusive_cpus.
+>
+> Fall back to sibling->effective_xcpus in cpus_excl_conflict() when
+> sibling->exclusive_cpus is empty, and add a regression test case to
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Fixes: 2a3602030d80 ("cgroup/cpuset: Don't invalidate sibling partitions on cpuset.cpus conflict")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+>   kernel/cgroup/cpuset.c                            | 5 ++++-
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 1 +
+>   2 files changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7c5b4a8f1f3a..f46a51f07938 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
+>   		return true;
+>   
+>   	/* Exclusive_cpus cannot intersect */
+> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
+> +	return cpumask_intersects(trial->exclusive_cpus,
+> +				  cpumask_empty(sibling->exclusive_cpus)
+> +				  ? sibling->effective_xcpus
+> +				  : sibling->exclusive_cpus);
+>   }
+>   
+>   static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index f4d1822d4e21..f62155cf6162 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -445,6 +445,7 @@ TEST_MATRIX=(
+>   
+>   	# Changes to cpuset.cpus.exclusive that violate exclusivity rule is rejected
+>   	"   C0-3     .      .    C4-5   X0-3     .      .     X3-5   1 A1:0-3|B1:4-5"
+> +	"  C0-3:P1   .      .    C4-5     .      .      .     X3-5   1 A1:0-3|B1:4-5 A1:P1|B1:P0"
+>   
+>   	# cpuset.cpus.exclusive cannot be set to a superset of sibling's cpuset.cpus
+>   	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
+Reviewed-by: Waiman Long <longman@redhat.com>
 
