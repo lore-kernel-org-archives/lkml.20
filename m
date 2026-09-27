@@ -1,135 +1,121 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEF03C1D6E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA22A3C1F26;
+	Sun, 27 Sep 2026 20:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541801; cv=none; b=KtqYlksP+0C5J9OMTDO7DXgs5U9r5jfGrUdCTxcXz9wlarZ6X+OD6/EDBM/yo3vfDIrDW5Z7JJ9XB2ta7nACbt9aPZuv0PHCpMR30ZR+iu+QaZkDBMeGwD2PZFWh9okYac8Ip38C9+jhaFrW8zYNoj7ky3Zn63Xwkhf5YPxtkfs=
+	t=1790541814; cv=none; b=I1TdCN3osotm1LBauzbsMjOAFGiPJ3Hs8WjZR4KyjPNy2pew1nMuQDFwjLWtZlkfxpkzndKY87bHDpx9p4BGbXs7x96rV+AD7ELCZuh//2WIavPHxOHjDiFP6YuLpsKMbXhKPb8Z2RoCZzVApCObCAkrAoASOEJ6GVhQJBJmoIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541801; c=relaxed/simple;
-	bh=cjV4NaIZQhTz58n8weFbuvPw7BYuUNcYI7Q+DnPUu54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fg2RcokGPTZblWjYlimKRO71wDBLicf9xuapACa5DkTQ3OXpT/zQW2TwSJP4MHKCXzIXM1bY/L92EjIPbYo30TMfiRC0oIHiJrdSTmS+PqudFaSY2oVZdestH2KpVh+H4vcpQljmPNoV5Ei/Lg4vhBVjPDI/+1Marb5ciatRnfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tMbgvzrj; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790541814; c=relaxed/simple;
+	bh=9bgdlnSaamC/eFsrabIbD1GD59yd6zdbuE85m+b0K3I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dq/WxsFhiU2hxwMrMeOVrHeTQqaT3lLY9xFfJFzkUZ7XCW9rlgHnf42XPAS8fOt/sgZMw/+c6zV5k5UJNTfEe+vZZ5VKaWhB8UFueKTx/mAu36Gxq9VieCHCSUSANxMNTch9e6AuaubXzE4C7scOJySho19RBGBZTfhS7wQJwO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xOU9TuzV; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tMbgvzrj"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so10454465ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:43:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790541799; x=1791146599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YfUIOw0LZDaV+qpARbEy58798D+e2vA00v6oms+VU5w=;
-        b=tMbgvzrjyASjoCvjCcMmnp0uGm/QCHXhSkaNYD1pOQ9kLi3J6aiOqGKgdRKaeOMLWU
-         wvPzaRKOfnJCtw/UJHb8a30IBhxgBZ8bz2DuLNEJZzPVHxMCR4KeL8h5iEs/uYvG37gA
-         WLFFH3nHBRLi6fs5BtOC60Gqpj22vhqt4Y5sj7ltHA1Vvbj5eMXtEriz3f97ArMbgHFM
-         hEQmX1s/qToo+cBb9YeYDGfjRdjpTj4g+9QDiYIXpWJg7o6NH9bqCBUryFiywOmsFXFH
-         81DQo0d3yHPp8Mg+9a9ybL5WKdXysfMp9WmbbsTVylWms6bMGgSDwC/LhAUwG8QF+/0e
-         ddZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790541799; x=1791146599;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YfUIOw0LZDaV+qpARbEy58798D+e2vA00v6oms+VU5w=;
-        b=Bpod5dM4AJpBEhu/TIST5+24ckONaixC4U/I/xg0+HdTTKZGUG19OTAFjy3aYHQtur
-         FZH1mUHFIl+X26G1gWaLhY6G+kxyGRAfnLPq3uAeSLuYwbjvQnyfBJ8462c8Wou5G96B
-         +v2sVN61oUlJrhIJ7PSCGfW5/4XtAf6E1v4ZnX5/S2zWV+8+AWZ1NsuFCOASA6w778sj
-         yjNk3FAkgJmD5wPs4LybkNqtxhvrbMZ0jSBMF/mETqUO7bsiAcMLs8kUadoxdGe8g8nI
-         hKCvW91ZtG5NUZAM+wJS0zm90SCrujUHypfPO0tsstbSUN1lPTHl/nveALGDeDX2jqep
-         IN5w==
-X-Forwarded-Encrypted: i=1; AKwUvBy0Z6pp60EHfY1jxdEoF+Y8Qj4qrAj/exIw3xWbtI4AMDMzMDgYZvCQmKJ9tQDxP0nGbkjUZrIsE/tqAo8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrsXlZUG/UDySFypPvtZaiFyTHYYkqUhNRQv2GpthPiWczrY9b
-	aDLsnNQcwstxgstWL7EcSW/L+N3q9eD9URaCjhGxhHOqizWJmYo71S2S
-X-Gm-Gg: AYBFou3OoNtcm3TMf8Szb2KY3UVYBSTF8KohIXue01sncmDEQcAMlg0HO0qyWS9qZiX
-	pAkhglLkgoSftO48Cgs25tWj7WUMnUmikSTVHD5t+SXe8zP/kk0RR9hdtSvqvHBuJla5+Wc1O0T
-	e87ny8nzPPwWAllVXbZzBfEVs+/MLYZk4yMSp/B3h3Ju6HU3rLIPnVTB4g/CTpALZeW7EZ7piZ3
-	RYabfxYJmT/cV3578Q1Xq9EoRTxBWgJ7EzqVJKqYHWKiiveSkCb6gsfCvXRFr5LvhlYXi3r/ycO
-	qxRdgz41jlXW3hQYW0j1H0TIy373H5Neu8mDI+K5O/Q3JBe8z7GA9uiZQCeNW39UPbOB1fTkum5
-	1CHyb7uvlcMlzXlEJTCpG/frRSwB/F56pXUwxcRByjxR7pVluX2ySJgJ5pCQnmzZ8l42amXRCjl
-	QozuFYDEUdNUIs+uEgxqFFrqt1SaEwVOHJCsVquE97PKz5/Rn37yy7qA3sjCR2tvE69Lw82Svkk
-	EtPA/zkM5qfB9Dojk5KrSYMgVTH6nXKY2cftCpom6u3WTwzc/flCcamHzk2Mr0of3saexPkQUsQ
-	11k02EjALIZ1HDzM9INrCpcMIvqs6W4A0RiXmglLpeYtydLw
-X-Received: by 2002:a17:90a:d44e:b0:3a0:bfa4:b966 with SMTP id 98e67ed59e1d1-3a0bfa4e2c5mr5503688a91.61.1790541799021;
-        Sun, 27 Sep 2026 13:43:19 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976ca5f9sm23288711a91.14.2026.09.27.13.43.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:43:18 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-serial@vger.kernel.org
-Cc: Timur Tabi <timur@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE QUICC ENGINE UCC UART DRIVER),
-	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
-Subject: [PATCH v2] serial: ucc_uart: Use platform IRQ helper
-Date: Sun, 27 Sep 2026 13:43:17 -0700
-Message-ID: <20260927204317.21546-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xOU9TuzV"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4htGcD2VBWzKnyV;
+	Sun, 27 Sep 2026 22:43:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790541804;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qgP2hH4FH45gCFDYZrV9ICqUEu5AepbG2+NwURF5zYk=;
+	b=xOU9TuzVCcx62FO4BBbsB6PwL8wr4CmYW8Xebnk66tMcN7fMhhpX6jsTltx2AfKHNOdcsm
+	grODoe+hh2m6nBtbRW0nhzl1Ia1V9agTsvHYsE9sHuT7u2PM1aCLLiyeZKthMcjY/1+FKD
+	z9s9DWeWEQaVlfH0I2DD08Ie4It3Y9XkL5awecGeZevdIWtlobuQgA5jvH4JHTaMfkA304
+	LLwYvG7upKutDsaGlwBA4oDVguys6oaBheaBEzdHrw0Vo4yvnl5QermkWObfjFqeLKLAzB
+	5P8/T4VTMKl0AZtPxsB3bjNesMq6U2JXgsDCIHepz1iSRscP/YZBn/2JeHhKpw==
+Message-ID: <2c140ff6-52ee-4c47-8f31-f3173b086095@mailbox.org>
+Date: Sun, 27 Sep 2026 22:43:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 05/11] PCI: rcar-gen4: Split reusable hardware
+ initialization
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-6-den@valinux.co.jp>
+ <e99b8b02-861e-4980-b7a0-f0075640589d@mailbox.org>
+ <76sb4yufhu7erlpt5ndlas4aegasxeqpiz6l7vvdwxyjzbgb2m@rgabcdixifw4>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <76sb4yufhu7erlpt5ndlas4aegasxeqpiz6l7vvdwxyjzbgb2m@rgabcdixifw4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: u5hxbbm1f5j6mq1ryc7rzgoj7oyuhxsd
+X-MBO-RS-ID: 38f0909ae112767b9c8
 
-Avoid calling irq_dispose_mapping() by letting the platform_device
-machinery handle it. Also enable possibility of handling -EPROBE_DEFER
-and other errors. Handle before any allocation or anything to avoid
-dealing with gotos.
+On 9/23/26 5:24 PM, Koichiro Den wrote:
+> On Tue, Sep 22, 2026 at 11:15:48PM +0200, Marek Vasut wrote:
+>> On 9/18/26 5:20 AM, Koichiro Den wrote:
+>>
+>> [...]
+>>
+>>> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+>>> @@ -178,23 +178,18 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+>>>    	u32 val;
+>>>    	int ret;
+>>> -	ret = clk_bulk_prepare_enable(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+>>> -	if (ret) {
+>>> -		dev_err(dw->dev, "Enabling core clocks failed\n");
+>>> +	ret = reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+>>> +	if (ret)
+>>>    		return ret;
+>>> -	}
+>>> -	if (!reset_control_status(dw->core_rsts[DW_PCIE_PWR_RST].rstc)) {
+>>> -		reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+>>> -		/*
+>>> -		 * R-Car V4H Reference Manual R19UH0186EJ0130 Rev.1.30 Apr.
+>>> -		 * 21, 2025 page 585 Figure 9.3.2 Software Reset flow (B)
+>>> -		 * indicates that for peripherals in HSC domain, after
+>>> -		 * reset has been asserted by writing a matching reset bit
+>>> -		 * into register SRCR, it is mandatory to wait 1ms.
+>>> -		 */
+>>> -		fsleep(1000);
+>>> -	}
+>>> +	/*
+>>> +	 * R-Car V4H Reference Manual R19UH0186EJ0130 Rev.1.30 Apr.
+>>> +	 * 21, 2025 page 585 Figure 9.3.2 Software Reset flow (B)
+>>> +	 * indicates that for peripherals in HSC domain, after
+>>> +	 * reset has been asserted by writing a matching reset bit
+>>> +	 * into register SRCR, it is mandatory to wait 1ms.
+>>> +	 */
+>>> +	fsleep(1000);
+>>
+>> This fsleep here should only happen if the reset wasn't asserted before.
+>> Is removal of reset_control_status() correct ?
+> 
+> You're right. Looking at the code again, adding the recovery path doesn't at all
+> justify removing the reset_control_status() check. I'll fix it and restore that
+> condition.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: move platform_get_irq() earlier.
- drivers/tty/serial/ucc_uart.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+Thank you !
 
-diff --git a/drivers/tty/serial/ucc_uart.c b/drivers/tty/serial/ucc_uart.c
-index 6b7dcbbacd13..96e3c9534de7 100644
---- a/drivers/tty/serial/ucc_uart.c
-+++ b/drivers/tty/serial/ucc_uart.c
-@@ -26,7 +26,6 @@
- #include <linux/io.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/of_irq.h>
- #include <linux/dma-mapping.h>
- 
- #include <soc/fsl/qe/ucc_slow.h>
-@@ -1238,8 +1237,13 @@ static int ucc_uart_probe(struct platform_device *ofdev)
- 	struct uart_qe_port *qe_port = NULL;
- 	struct resource res;
- 	u32 val;
-+	int irq;
- 	int ret;
- 
-+	irq = platform_get_irq(ofdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
- 	/*
- 	 * Determine if we need Soft-UART mode
- 	 */
-@@ -1338,13 +1342,7 @@ static int ucc_uart_probe(struct platform_device *ofdev)
- 		goto out_free;
- 	}
- 
--	qe_port->port.irq = irq_of_parse_and_map(np, 0);
--	if (qe_port->port.irq == 0) {
--		dev_err(&ofdev->dev, "could not map IRQ for UCC%u\n",
--		       qe_port->ucc_num + 1);
--		ret = -EINVAL;
--		goto out_free;
--	}
-+	qe_port->port.irq = irq;
- 
- 	/*
- 	 * Newer device trees have an "fsl,qe" compatible property for the QE
 -- 
-2.55.0
-
+Best regards,
+Marek Vasut
