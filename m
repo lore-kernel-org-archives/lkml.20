@@ -1,139 +1,133 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E62353A6F
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BD0353A6F;
+	Sun, 27 Sep 2026 07:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790493207; cv=none; b=XRyP5/DzPXYiIGbApYdFuCdVnN2i/NU7l0WsDFFkUwjlaoLfpCSdGN+Z9KPuhNfB1UTL9C0BMVcFAoIXSXmKeWqJe45O24NN+iCy3VBwoKhPk9LbOv+m14fLgRG0vr184ReGDgI2bEH61a+zFlduAk6TtqqE1SmWGZgZ8b6Zt3k=
+	t=1790493274; cv=none; b=gD5AFSpWEPPHVWsg4WUB/AtWlBcIiic5BIkHMwXsvvH21Hurx0HODV/XXoLAO96yaeUhMDovD2FkBVkUPxmEgVGTqrQoD1fDETws9iNzq0US5HCD2P2gInPhln3jI2T85SUiNWSGbYR1fKvrUKQtKPnNqYQ0xhNEZHnSCWUu214=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790493207; c=relaxed/simple;
-	bh=xg9lHnytUzsMhYvQw2F+l2AVinsLb0BZEX6RnZbrPP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bs34oFx540J+fOfXtugPAaH4tU0IaVY3LYVEYdmARd3tyEILNgaVZAzOZSCXNIo4rHyrhWGG7Dgb5+YLjdQkji/Q5Goa9HJFDwHpYD70f1EOpPweT/Eh9Ut1HLPoPpNdV5JdCzMpYgpov7QsbnjJDQpid2fd2FbMpfFs+luVMTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GB04Ulte; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790493274; c=relaxed/simple;
+	bh=z47sgdTt5Rm4c6HV1ia4nSXFg0gUlUXEcznkll0hE1o=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Tpzf9uL27sPXtvQOApkvlxSNXsJIFZui1c1lbaGLFm6aJybWRfakYSEqM5Y2nBqytJWcM0VkXU3/kJN5Don5nuX2beo8HgnIt1uvgYRCU4Ry0mKwHs84cj8n+8yFYelus8sjl6PSSn5tGlAs9ll79POtqzbFVt0/vYOAQaEMgrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=Oz9T66fd; arc=none smtp.client-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GB04Ulte"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso2733355e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:13:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="Oz9T66fd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790493204; x=1791098004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DPJRgPFxwFWO+Our8bBm+hypHKB1wwy793XTUIl22u8=;
-        b=GB04UlteI5u9iYGkvsWHJ37XWB5bbdBhO8hI0/Te2q9PldPVZiyAYsE/zu45LQ53qy
-         u6BrEy0JhKjtuH1M5zNuroQMOblXAo5qk5/n2IBbhSEYPpX6EsmBbw1i+8jgLPQaG0yl
-         z7j4DROmtwUw35HwKfKITUqOJOYRPckF6aJxsGup+iWiUAr2JN0LZ2YIzyp1MHXLEQcY
-         V0EPCH8Sg7bwvQrFNwZ8JSN4iCFwygMqObC/368E2H84ImEyKXzrWEla74gxlGAlQZ2L
-         gyy5Q6u15yU1WiTlH/4xVU/DwqkLmait+mRv+xNrF0UvS7IAersz3SgCb1myS4NIGEbd
-         /sBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790493204; x=1791098004;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DPJRgPFxwFWO+Our8bBm+hypHKB1wwy793XTUIl22u8=;
-        b=N43D+K1r5b8sHLx7tV8ytBOoxGYKTmNsEwzjHsih7lCfW84s/j1H20lz0DBsioCpin
-         3s0D3KPiIqHNleICUCQGCuEM8vBiwIA/VowC2IGHPSA92DbxY4bDQC6nZAbTasktan39
-         b2ty1DuL0RtDQEDfcDWiKeY2lj+MTSNEW8eSMC1PNHsbwuUE0wpeMVFZCpeZF4VeglrK
-         Wd43B5LH1WpIRDr10IG/s9niCiYXtWnziN04NcjfMPFUaoSbEflI+muPQO5GeCEOzpWm
-         E0eGFqCuuEoem2osFwwrj+2jCrd4HJBQ+4pN9T3EZLIhT1jr+vUXcn6tGJJEGvXK/buZ
-         3W3A==
-X-Gm-Message-State: AFuF++nf1F1GobwX0YXOelMzuT+BmA+HP1J66bhMZE5ZbVHFRtCXruQc
-	VMb/wbW/SWBLTQnjEEKnrP5Z8h7boS2Gajyi1nEYVWjFOfdBjAPoCNXF
-X-Gm-Gg: AYBFou1krdrFEz/Ya2JtROFhIFPk6ajH6yM29omVo585wV1MvAwIe7pGPpc9brfiaqQ
-	OZHZJ/9hUmzi6aAUgSEV9ULC2nsdV0D5MhgkqDHmTpxkZNKbWIEbgJ618w77M+5V93WlNocHHOI
-	nYe/y03BJANcEs41cpcnVCYCjxwNcRZFWPcUCG3LsGN6NlO0t3kFBAYfMZL9KfL3Uzq6qpLS2v3
-	MrAZQupgp/Vocm6mpml4Tu+qBJdvKnaChpaNlQpkSBXUBHEc7AdC50a1bfxTK3wXzWzqkvnU3o2
-	+LjfAMMXwyB0FmzBC9VyEweP3MGD+S/pdwsGBgrjOULj9sxKMM1heOYZlYLNhvVNE24eDcrGj59
-	VK2nxOQaxCVfcSwGlMO51rWCq0M/BHolTX4dYF3S7VR4Dg4SGRFklrtfm4UTmMfhEZPL8A1VNdt
-	W9KPttHT/qO1fxPkv0DWojKS5+z47hcBMTzyodX1oGZK+zzVD26QidwXhfbXdeVJGlPryF54F4Q
-	ENA8tewlNnJCxhp57NqC4gIc0mt/dpflFU=
-X-Received: by 2002:a05:600c:1385:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-49fe66fa5c2mr173695665e9.24.1790493203588;
-        Sun, 27 Sep 2026 00:13:23 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018f3e68sm35402675e9.9.2026.09.27.00.13.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:13:23 -0700 (PDT)
-Date: Sun, 27 Sep 2026 08:13:22 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: iamzayn19 <iamzayn19@gmail.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scripts: bloat-o-meter: avoid shell for nm invocation
-Message-ID: <20260927081322.26a44ce0@pumpkin>
-In-Reply-To: <20260927053441.86594-1-iamzayn19@gmail.com>
-References: <20260927053441.86594-1-iamzayn19@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790493273; x=1822029273;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7NMfIvtSlpQ1JWoomArH41D9xfcx2X7ulkXMwX9356U=;
+  b=Oz9T66fdezkYAGpVh61AC+OnX6IWdpPr34oup7+moXr2xjCMpUSg3d0z
+   pC2sAXzIVgTiODwL/oFsWNmSwCwqmxoHPoU0/h/TokIVGVEyky4lJ4COF
+   T3/s3muv+A7zHCBo7GuPfQpwRQSC5ifdDv04ZL+GDde5+Z4qhL4JW/y91
+   9gRASfg2+jAzLRWtoJci3AE2GVC4pJ5fYeiqsKO4/fTCuJJj8CQZeV5vI
+   Q06fK0QQiGQYKSdxpu3BfVM2SMc8l8SML40OWgD9F2sQ/Nndk5Eo5b7Mw
+   zvkgjepA4NBsirTHwa9gon3tYv7pGBubEnT+jeK6tkA0SNsD8xETL49LN
+   w==;
+X-CSE-ConnectionGUID: 8Vc8U/C7SvCkbE8HLn3E9A==
+X-CSE-MsgGUID: PPX/BI8tRTSejTCQ14RsZA==
+X-IronPort-AV: E=Sophos;i="6.27,125,1787011200"; 
+   d="scan'208";a="29649944"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 07:14:30 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:26131]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.13.104:2525] with esmtp (Farcaster)
+ id eca6073f-5c51-494b-92df-c2cacb58eaa3; Sun, 27 Sep 2026 07:14:30 +0000 (UTC)
+X-Farcaster-Flow-ID: eca6073f-5c51-494b-92df-c2cacb58eaa3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sun, 27 Sep 2026 07:14:30 +0000
+Received: from dev-dsk-lravich-1b-7405803b.eu-west-1.amazon.com (10.13.225.95)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sun, 27 Sep 2026 07:14:28 +0000
+From: Leonid Ravich <lravich@amazon.com>
+To: Christoph Hellwig <hch@infradead.org>
+CC: Herbert Xu <herbert@gondor.apana.org.au>, <linux-crypto@vger.kernel.org>,
+	<dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<davem@davemloft.net>, <ebiggers@kernel.org>, <agk@redhat.com>,
+	<snitzer@kernel.org>, <mpatocka@redhat.com>, <bmarzins@redhat.com>
+Subject: Re: [PATCH v6 0/6] crypto: skcipher - multi-data-unit request splitting
+Date: Sun, 27 Sep 2026 07:14:14 +0000
+Message-ID: <20260927071422.12143-1-lravich@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <arY6lzQtvVzUGngU@infradead.org>
+References: <20260924075846.28203-1-lravich@amazon.com> <arY6lzQtvVzUGngU@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sun, 27 Sep 2026 10:34:41 +0500
-iamzayn19 <iamzayn19@gmail.com> wrote:
+On Fri, Sep 25, 2026 at 02:10:47AM -0700, Christoph Hellwig wrote:
+> On Thu, Sep 24, 2026 at 07:58:40AM +0000, Leonid Ravich wrote:
+> > * No throughput *win* is claimed for software AES.  The win is for
+> >   accelerators that amortise setup across units; the software split
+> >   exists so the interface works on every existing skcipher today and
+> >   goes quiet as algorithms gain CRYPTO_ALG_REQ_SEG.
+>
+> So what is the use case?  So far all crypto driver we've seen have
+> shown to be slower than cpu.  Which one are you using that isn't?
 
-> bloat-o-meter builds the nm command with string formatting and then
-> executes it through the shell. Object file paths containing spaces are
-> split before nm sees them, so the comparison silently reports empty
-> results for those files.
+The engine we use is out of tree, but it is not a special case.  It
+is an SoC-integrated, DMA-driven, asynchronous xts(aes) engine of the
+same class as caam, ccree, qce, hisilicon sec2, inside-secure and the
+Marvell CPT drivers already in the tree.  Like those, it pays a fixed
+cost per request (descriptor setup, doorbell, completion) that
+dm-crypt's one-request-per-sector pattern multiplies by the number of
+sectors.  So the problem is common to the whole class, not specific to
+our hardware.
 
-Where are pathnames with spaces coming from?
-Make doesn't support them.
-Even some windows build environments don't support them.
+You are right that such engines are generally not faster than the CPU
+in raw throughput, and I am not claiming ours is.  What they give is
+offload: when dm-crypt batches a bio into a single request, the engine
+does the work that the CPU would otherwise do.  In our measurements
+that cuts CPU utilisation by roughly 20-40% for the same I/O.  On
+systems with few or small cores, those cycles are worth more than
+peak throughput.  Without batching the per-sector request overhead
+eats that gain, which is why the series targets the request pattern
+rather than the cipher.
 
-David
+> And if you have a genuinely useful one, should we have a proper
+> interface to it that doesn't pay the scatterlist overhead to start
+> with?
 
-> 
-> Invoke nm with subprocess argv instead. This preserves paths as single
-> arguments and avoids shell interpretation of filenames and tool prefixes.
-> 
-> Assisted-by: LLM
-> Signed-off-by: iamzayn19 <iamzayn19@gmail.com>
-> ---
->  scripts/bloat-o-meter | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/scripts/bloat-o-meter b/scripts/bloat-o-meter
-> index 5868a8b..72edbb7 100755
-> --- a/scripts/bloat-o-meter
-> +++ b/scripts/bloat-o-meter
-> @@ -7,7 +7,7 @@
->  # This software may be used and distributed according to the terms
->  # of the GNU General Public License, incorporated herein by reference.
->  
-> -import sys, os, re, argparse
-> +import argparse, re, subprocess
->  from signal import signal, SIGPIPE, SIG_DFL
->  
->  signal(SIGPIPE, SIG_DFL)
-> @@ -31,8 +31,11 @@ def getsizes(file, format):
->      if args.prefix:
->          nm = "{}nm".format(args.prefix)
->  
-> -    with os.popen("{} --size-sort {}".format(nm, file)) as f:
-> -        for line in f:
-> +    with subprocess.Popen([nm, "--size-sort", file], stdout=subprocess.PIPE,
-> +                          text=True) as f:
-> +        if f.stdout is None:
-> +            return sym
-> +        for line in f.stdout:
->              if line.startswith("\n") or ":" in line:
->                  continue
->              size, type, name = line.split()
-> @@ -49,6 +52,7 @@ def getsizes(file, format):
->                  # statics and some other optimizations adds random .NUMBER
->                  name = re_NUMBER.sub('', name)
->                  sym[name] = sym.get(name, 0) + int(size, 16)
-> +        f.wait()
->      return sym
->  
->  def calc(oldfile, newfile, format):
+For a DMA engine the scatterlist is not overhead: it is what the
+hardware consumes.  The per-sector cost it pays is the per-request
+cost, and unit_size is what removes it.
 
+For the software path, v6 follows what Herbert suggested in the v4
+thread [1]: the per-unit loop moves from the caller into the Crypto
+API, and it can then move further down into each algorithm, so the
+per-unit calls become direct calls and only the single call into the
+API stays indirect.  That can improve on the status quo rather than
+just match it.  v6 is the first step (the mid-layer split);
+per-algorithm native splitting via CRYPTO_ALG_REQ_SEG is the next.
+
+The interface is also deliberately the one being introduced for acomp
+in the batching series [2]: the same unit_size field and setter
+semantics, and the same CRYPTO_ALG_REQ_SEG bit (patch 2 here is Herbert's
+patch from that series).  skcipher and acomp would share one model for
+multi-unit requests, with a native path for hardware and a mid-layer
+fallback for everything else, rather than skcipher growing a separate
+interface.
+
+If you had a different shape in mind for the hardware path, I would
+rather build that than guess.
+
+[1] https://lore.kernel.org/linux-block/ajDNT5jVGgRtiNH6@gondor.apana.org.au/
+[2] https://lore.kernel.org/all/20260125033537.334628-15-kanchana.p.sridhar@intel.com/
+
+Thanks,
+Leonid
