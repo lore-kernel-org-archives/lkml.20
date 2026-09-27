@@ -1,35 +1,76 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C667D547062;
-	Sun, 27 Sep 2026 13:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF952353A6F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790517206; cv=none; b=XIDVzsq5E/cIGmKW3IbZ79FXbV8c65xelupNcqo6TQ8ZfKvEBBIb2f4BdbngFhTyXgVT8k8wqhkfpJLxoSrKi+mvcnRzpsBcx2KTrMl/arQUJziFFQaeUWVmHumTlra0cHc8iKaUgRWxPj6VXe8daxSbLgr3Xaj/wT5wVGz7N7M=
+	t=1790517259; cv=none; b=XLPUAaiBxCHJQM90Uy7X4TDbhh+Y1MhFikcmmIIxbrW5t5IkaQKnzWHhw26QZJcAJao0ZHkEuWAUJXy3jBLjqdXGF1UmgZI/o/f+sgQqSmGjGovoerFSgcqd8F9xKmt+8nPH3tmCqvUTy6DrTeDeQQkSx+V8ZYcLdeXO+S/0MmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790517206; c=relaxed/simple;
-	bh=PEdLkGmGzmkZmUOxVDlg1LzDU+XcMBt+whu+M214eZc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YKScpTRJjTmO3aq97CjzgU326y6cnLcBbIQJahd+KjY4A/jelhyiaXIzMGrQgNCFC1jcgmrTcDFAdSVlKdZDY96Mg9HoF21C8uaak00WIAzGyKITdcXJ9Pyko4hs+A5ek+IAHTYtHNjXWe5jux5ukacPVZw5kcjymt/eGBZKnE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bVi84cED; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790517259; c=relaxed/simple;
+	bh=PM8dkF+8etKed18lFD/2Y9REotHc2O/UVajZjOn2QyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T1t2tVR9zB2YSQy7sgTGKePNQv+4CILsG/2jybP757BDsSWh8tKM1tYAy44PpTHmHICCnvGvN9i9c2D8jzuDi+m+v7q4PrPN60Y+QK8v1jfdn3jervHokUjPIhGL2UvkTfDiOM33MbLWnzQOqpiIYZTPr3/H//7z/9mq2dqzAaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bQP83zJb; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bVi84cED"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3d5f309;
-	Sun, 27 Sep 2026 21:53:08 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: ymfpci: avoid changing control access under spinlock
-Date: Sun, 27 Sep 2026 21:53:01 +0800
-Message-Id: <20260927135301.777475-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bQP83zJb"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144fa6e60bcso90215c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790517257; x=1791122057; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ew/cE3p4ZACR2ABiKyvZI7K2codxGXMvh85xvLtScaU=;
+        b=bQP83zJbvaHRkpOsgalkPL0RtTKuzVo9zZ6I4TMt4XnLdggSZQ1Q9qCqgaVW3Pvzra
+         PzB8Zv++CIWn7gk4LZFDoaY1fcGgdMU8fpGVsQEBdUs4qGuiwzfoSanfNEhju/BG4LYu
+         ezEc2R9KMXdHzfRRsZujNO1VluNgeeU4R72jQjA93ojagmjnnVO3zliMcAz21N3QtHIx
+         7DyXmb1NQKxayxGXrQw+OzXIMRmNTgkTEAKGqXTkWCzYeeMb4KkmAeUvME6Jd0EBqAaX
+         BpXsMJi5aoZQo4kiWQKaYQqn4dsqJQlWym2sQy+w+q0hl8IEbAh3asvnAxJY3QaL8wqy
+         Yw/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790517257; x=1791122057;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ew/cE3p4ZACR2ABiKyvZI7K2codxGXMvh85xvLtScaU=;
+        b=IBpa3XvxVyiQHRdEOWhi00aOEdAXLMEvJ9EvCO2BeMpn12nvUkYWNtkTp9T7quzWgm
+         +6dlEz82s5s/SouJMnO7AaHT6++IrjpTzjgb7mRuSQsEYiBHVRR7qFhBQtKJZHJb9E6/
+         H4O6BI0B6AYSYdVcqYcn41x5Cxyv6+Uxfeh82OLcoWHXXsQ5Knnnk/zEdEFj2BqI+l5i
+         /wLVsWsZCnBlcUn2+NHlVBQFvRQqY3r8XYL6Ot6UOk7npr7VEc++V7UnOj0TRX7MICb/
+         ZABdLLxSVoUB/OULKv+uzsS0gEKPoZbqMH+G4QoCnd9kjwLoidj5QMJU/e4LXLnD7E4w
+         zgCA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6tBA6OoOWbv2c5KSVbtYiIDIXeHmXOu5WZMuyEnAq/asVbEc5NePGVmwpHOamoCIrkdCz4XfgFLq8hH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lU8XzaYFgbJY3QNXFK8oUXnDFXnHBM+POB90yiHOG4+6NeLXFy
+	dC9kxMLPlX2a2eoGhfuzYMBBXT4Mk4L1kGjkBojfB+xfzJejI3Wc6JUA
+X-Gm-Gg: AYBFou0yzjoqkzcfKATdNx3Zkm+r9y2qEDlWILZUETxU9d7pOfS0RpUsmD/LlN8t+Vd
+	gR8xs2nC0JW7FP0Jq8D6mvJtowdq0JPAToBkRh1/7nuQdzHelXkNXCTeK1fyZcgYFf991HTxIR3
+	s1be+4IG/5SDv82HT6YIBPtkgFtomsiyNOLGq3oVl8QkgiuSlSYAdc/929IZTcT2m8QG3gDniGt
+	FlzRp3SUUjyORX2hqtuaZoqoD7yY08X8PeMPKGq5cdlVi2BAZDefxS4VmqwOfTKYES1SPg/25ub
+	4qaWA0YzFAfxoSmDZKMb480SxBWBLdJxhdmGaXNh6fQLNpFliq4DQsvFoPO0MTQh6iI2C61le0n
+	Mv3oeB9vVF6CiCkMcNlRmyJkQcq9+kvmXGmfeGef/84a0rla/y8YCyqkNo3RrNESgpBLT71Vlkr
+	lQQBFJBXYx2Lw0fUhy8r/2Y9nr53trgMOpIDmJ0HA8nIe8tsmdXiP6cdIoUFWXpoxKen7wrnWSY
+	WIpuFet1StGYIGEAk1etgkQsbEN3NyaCkwIFjOeTjMGDXuQZ2FwG68yq/zEipcCNoqztXwQ30AQ
+	+VN4
+X-Received: by 2002:a05:701b:4508:20b0:144:ff51:2d73 with SMTP id a92af1059eb24-146cfbd49d8mr9558498c88.2.1790517256737;
+        Sun, 27 Sep 2026 06:54:16 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad4028a9sm16386411c88.11.2026.09.27.06.54.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 06:54:16 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH net-next v2] net: pktgen: return bool from __pktgen_NN_threads()
+Date: Sun, 27 Sep 2026 21:54:05 +0800
+Message-ID: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,203 +78,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e324184303a1kunm753548831bafbd
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSElNVhpOH0JJSxlDSx9LH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=bVi84cEDE97+GqhYabqH/GqfFmfOCi68zFdu3jjfd5m20433li8uw0FQEpOe1KyXYJU2zeCzzVkV1xLHT5/8FZNPBXq2tDE13hZDqKqqgkje3eAfKOeEaXjazWNUC0FetIWetviBaZFCbWXVvfY8CsZY16XdK8v34NkPo3LaTJg=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=oA/XgZoI69gAgyLVWxAdBN+Po2if3pb0qbtkrAEiKY4=;
-	h=date:mime-version:subject:message-id:from;
 
-The YMFPCI playback trigger changes a mixer control's access flags while
-holding reg_lock. Direct access changes are not serialized with the control
-core, and snd_ctl_activate_id() cannot be called under the spinlock because
-it may sleep.
+Callers of __pktgen_NN_threads() only check whether a pktgen_dev was
+found. Returning the pointer exposes it outside the helper even though
+neither caller uses the object itself.
 
-Track the desired control state under reg_lock and update it from a work
-item. Use a generation counter to serialize prepare with a pending stop.
-Cancel the work before the PCM private data is released.
+Return bool instead and keep the pktgen_dev pointer internal to the
+helper.
 
-Assisted-by: LLM
-Fixes: 177a7cdbd1d8 ("[ALSA] ymfpci: fix volume handling of the 44.1 kHz slot")
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- sound/pci/ymfpci/ymfpci.h      |  4 ++
- sound/pci/ymfpci/ymfpci_main.c | 69 ++++++++++++++++++++++++++--------
- 2 files changed, 57 insertions(+), 16 deletions(-)
+Changes in v2:
+- Rebase directly onto the current net-next tree, independently of the
+  deferred RCU lifetime fix.
+- Update the commit message for the current helper implementation.
 
-diff --git a/sound/pci/ymfpci/ymfpci.h b/sound/pci/ymfpci/ymfpci.h
-index a408785cf..33c7d4327 100644
---- a/sound/pci/ymfpci/ymfpci.h
-+++ b/sound/pci/ymfpci/ymfpci.h
-@@ -12,6 +12,7 @@
- #include <sound/ac97_codec.h>
- #include <sound/timer.h>
- #include <linux/gameport.h>
-+#include <linux/workqueue.h>
+Link: https://lore.kernel.org/netdev/20260825185313.239861-1-nicoyip.dev@gmail.com/ [v1]
+---
+ net/core/pktgen.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 7f81aed46672..a89cb0760821 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -2024,11 +2024,11 @@ static const struct proc_ops pktgen_thread_proc_ops = {
+ };
+ 
+ /* Think find or remove for NN */
+-static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+-					      const char *ifname, int remove)
++static bool __pktgen_NN_threads(const struct pktgen_net *pn,
++				const char *ifname, int remove)
+ {
+ 	struct pktgen_thread *t;
+-	struct pktgen_dev *pkt_dev = NULL;
++	struct pktgen_dev *pkt_dev;
+ 	bool exact = (remove == FIND);
+ 
+ 	list_for_each_entry(t, &pn->pktgen_threads, th_list) {
+@@ -2038,10 +2038,10 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+ 				pkt_dev->removal_mark = 1;
+ 				t->control |= T_REMDEV;
+ 			}
+-			break;
++			return true;
+ 		}
+ 	}
+-	return pkt_dev;
++	return false;
+ }
  
  /*
-  *  Direct registers
-@@ -260,6 +261,9 @@ struct snd_ymfpci_pcm {
- 	             output_rear: 1,
- 	             swap_rear: 1;
- 	unsigned int update_pcm_vol;
-+	struct work_struct control_work;
-+	unsigned int control_generation;
-+	bool control_active;
- 	u32 period_size;		/* cached from runtime->period_size */
- 	u32 buffer_size;		/* cached from runtime->buffer_size */
- 	u32 period_pos;
-diff --git a/sound/pci/ymfpci/ymfpci_main.c b/sound/pci/ymfpci/ymfpci_main.c
-index 2ccb976e6..e5c0fb78e 100644
---- a/sound/pci/ymfpci/ymfpci_main.c
-+++ b/sound/pci/ymfpci/ymfpci_main.c
-@@ -355,12 +355,52 @@ static void snd_ymfpci_pcm_capture_interrupt(struct snd_pcm_substream *substream
- 	}
- }
- 
-+static void snd_ymfpci_pcm_control_work(struct work_struct *work)
-+{
-+	struct snd_ymfpci_pcm *ypcm = container_of(work, struct snd_ymfpci_pcm,
-+							  control_work);
-+	struct snd_ymfpci *chip = ypcm->chip;
-+	struct snd_kcontrol *kctl;
-+	unsigned int generation;
-+	bool active;
-+
-+	kctl = chip->pcm_mixer[ypcm->substream->number].ctl;
-+	if (!kctl)
-+		return;
-+
-+	for (;;) {
-+		scoped_guard(spinlock_irq, &chip->reg_lock) {
-+			active = ypcm->control_active;
-+			generation = ypcm->control_generation;
-+		}
-+		snd_ctl_activate_id(chip->card, &kctl->id, active);
-+		scoped_guard(spinlock_irq, &chip->reg_lock) {
-+			if (generation == ypcm->control_generation)
-+				return;
-+		}
-+	}
-+}
-+
-+static void snd_ymfpci_pcm_set_control_active(struct snd_ymfpci_pcm *ypcm,
-+					      bool active)
-+{
-+	struct snd_ymfpci *chip = ypcm->chip;
-+	struct snd_kcontrol *kctl;
-+
-+	scoped_guard(spinlock_irq, &chip->reg_lock) {
-+		ypcm->control_active = active;
-+		ypcm->control_generation++;
-+	}
-+	kctl = chip->pcm_mixer[ypcm->substream->number].ctl;
-+	if (kctl)
-+		snd_ctl_activate_id(chip->card, &kctl->id, active);
-+}
-+
- static int snd_ymfpci_playback_trigger(struct snd_pcm_substream *substream,
- 				       int cmd)
+@@ -2049,7 +2049,6 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+  */
+ static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
  {
- 	struct snd_ymfpci *chip = snd_pcm_substream_chip(substream);
- 	struct snd_ymfpci_pcm *ypcm = substream->runtime->private_data;
--	struct snd_kcontrol *kctl = NULL;
- 	int result = 0;
+-	struct pktgen_dev *pkt_dev = NULL;
+ 	const int max_tries = 10, msec_per_try = 125;
+ 	int i = 0;
  
- 	guard(spinlock)(&chip->reg_lock);
-@@ -377,8 +417,9 @@ static int snd_ymfpci_playback_trigger(struct snd_pcm_substream *substream,
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		if (substream->pcm == chip->pcm && !ypcm->use_441_slot) {
--			kctl = chip->pcm_mixer[substream->number].ctl;
--			kctl->vd[0].access |= SNDRV_CTL_ELEM_ACCESS_INACTIVE;
-+			ypcm->control_active = false;
-+			ypcm->control_generation++;
-+			schedule_work(&ypcm->control_work);
- 		}
- 		fallthrough;
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-@@ -391,8 +432,6 @@ static int snd_ymfpci_playback_trigger(struct snd_pcm_substream *substream,
- 	default:
- 		return -EINVAL;
+@@ -2058,8 +2057,7 @@ static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
+ 
+ 	while (1) {
+ 
+-		pkt_dev = __pktgen_NN_threads(pn, ifname, REMOVE);
+-		if (pkt_dev == NULL)
++		if (!__pktgen_NN_threads(pn, ifname, REMOVE))
+ 			break;	/* success */
+ 
+ 		mutex_unlock(&pktgen_thread_lock);
+@@ -3835,8 +3833,7 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+ 
+ 	/* We don't allow a device to be on several threads */
+ 
+-	pkt_dev = __pktgen_NN_threads(t->net, ifname, FIND);
+-	if (pkt_dev) {
++	if (__pktgen_NN_threads(t->net, ifname, FIND)) {
+ 		pr_err("ERROR: interface already used\n");
+ 		return -EBUSY;
  	}
--	if (kctl)
--		snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_INFO, &kctl->id);
- 	return result;
- }
- static int snd_ymfpci_capture_trigger(struct snd_pcm_substream *substream,
-@@ -636,7 +675,6 @@ static int snd_ymfpci_playback_prepare(struct snd_pcm_substream *substream)
- 	struct snd_ymfpci *chip = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_ymfpci_pcm *ypcm = runtime->private_data;
--	struct snd_kcontrol *kctl;
- 	unsigned int nvoice;
- 
- 	ypcm->period_size = runtime->period_size;
-@@ -648,9 +686,7 @@ static int snd_ymfpci_playback_prepare(struct snd_pcm_substream *substream)
- 					  substream->pcm == chip->pcm);
- 
- 	if (substream->pcm == chip->pcm && !ypcm->use_441_slot) {
--		kctl = chip->pcm_mixer[substream->number].ctl;
--		kctl->vd[0].access &= ~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--		snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_INFO, &kctl->id);
-+		snd_ymfpci_pcm_set_control_active(ypcm, true);
- 	}
- 	return 0;
- }
-@@ -843,7 +879,10 @@ static const struct snd_pcm_hardware snd_ymfpci_capture =
- 
- static void snd_ymfpci_pcm_free_substream(struct snd_pcm_runtime *runtime)
- {
--	kfree(runtime->private_data);
-+	struct snd_ymfpci_pcm *ypcm = runtime->private_data;
-+
-+	cancel_work_sync(&ypcm->control_work);
-+	kfree(ypcm);
- }
- 
- static int snd_ymfpci_playback_open_1(struct snd_pcm_substream *substream)
-@@ -870,6 +909,7 @@ static int snd_ymfpci_playback_open_1(struct snd_pcm_substream *substream)
- 	ypcm->chip = chip;
- 	ypcm->type = PLAYBACK_VOICE;
- 	ypcm->substream = substream;
-+	INIT_WORK(&ypcm->control_work, snd_ymfpci_pcm_control_work);
- 	runtime->private_data = ypcm;
- 	runtime->private_free = snd_ymfpci_pcm_free_substream;
- 	return 0;
-@@ -945,9 +985,7 @@ static int snd_ymfpci_playback_spdif_open(struct snd_pcm_substream *substream)
- 		chip->spdif_opened++;
- 	}
- 
--	chip->spdif_pcm_ctl->vd[0].access &= ~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--	snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_VALUE |
--		       SNDRV_CTL_EVENT_MASK_INFO, &chip->spdif_pcm_ctl->id);
-+	snd_ctl_activate_id(chip->card, &chip->spdif_pcm_ctl->id, 1);
- 	return 0;
- }
- 
-@@ -997,6 +1035,7 @@ static int snd_ymfpci_capture_open(struct snd_pcm_substream *substream,
- 	ypcm->type = capture_bank_number + CAPTURE_REC;
- 	ypcm->substream = substream;	
- 	ypcm->capture_bank_number = capture_bank_number;
-+	INIT_WORK(&ypcm->control_work, snd_ymfpci_pcm_control_work);
- 	chip->capture_substream[capture_bank_number] = substream;
- 	runtime->private_data = ypcm;
- 	runtime->private_free = snd_ymfpci_pcm_free_substream;
-@@ -1044,9 +1083,7 @@ static int snd_ymfpci_playback_spdif_close(struct snd_pcm_substream *substream)
- 				  snd_ymfpci_readw(chip, YDSXGR_SPDIFOUTCTRL) & ~2);
- 		snd_ymfpci_writew(chip, YDSXGR_SPDIFOUTSTATUS, chip->spdif_bits);
- 	}
--	chip->spdif_pcm_ctl->vd[0].access |= SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--	snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_VALUE |
--		       SNDRV_CTL_EVENT_MASK_INFO, &chip->spdif_pcm_ctl->id);
-+	snd_ctl_activate_id(chip->card, &chip->spdif_pcm_ctl->id, 0);
- 	return snd_ymfpci_playback_close_1(substream);
- }
- 
 -- 
-2.34.1
+2.43.0
