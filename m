@@ -1,85 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A34742467E;
-	Sun, 27 Sep 2026 17:49:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0542E22B5;
+	Sun, 27 Sep 2026 17:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531362; cv=none; b=G0IpzI9AWfMweGiDEcTYfz83K+plH0Ti980KPGisNvA06vDQOa5dQcZBgE0yND1P6EaiFqpcawbi0X/gnXidtgWFFSvvd14paiPNxoLciLHW9Ka27NuRjYIxyhyHsFqWcqqvwJh6rldYTHR98wzqPi2CU0/0npWXOG0QiPx0GOE=
+	t=1790531372; cv=none; b=IU0r38EI+Nd4IimaKSzLHQTbwR3JD2FRpGHNqYOJMc2241sc/UIGjPi+0/C6I6lX3Hy7CX8dpRYvWoI+P6gB0Hbtqzj/AuC1L8HAc1otwDboLLXP70o34ww/Ielf9HqDMXX4JagpLzs+MXjzod9RKQe/geRRGsB2SRHxWC/coo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531362; c=relaxed/simple;
-	bh=1L9Z3hbqVn+D2cizRj59VVQzxw9Qok8mONPdXNYE2Vc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h3I2r8+au5jmzeI72qT6zNU+qdNgpu4MfcAA68xPrGSxNyYODQip6NqscCsQHcsudRPdQ1DLzzmOP7AQAhERkWNXhj4r8dqr4d5JW69pl8OFYJauUgdMLgTenTaUOvqpGmWDUsu70C7UHDL5gEpkQpCTSMPK1BEd8O9Q9Lq2qX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPaqY9eM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790531372; c=relaxed/simple;
+	bh=JmH6ynSVla384YYdBPmjN+u5U/j2CRGFnFL5O+k4U40=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cinyACQ800sC0YfusDdRp2uhLfNhQm9FIrLLJ+U84sIYuxOFukT7uTMb6hVfA5gBwsIGZ4EjhvzSwK/m0B2NViRu6gmKgHACG+z6BOUSVNaHrE43hD0iVVEPSZFyJBIubZvhUYOPU/tiUKUDcvS96VzK/ABzCeDv0l94DuJcZsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYZG62gi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPaqY9eM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF35D1F000FF;
-	Sun, 27 Sep 2026 17:49:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYZG62gi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAE21F000FF;
+	Sun, 27 Sep 2026 17:49:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790531360;
-	bh=DUr0/JNZSocbRtbwQblNOwCc1O5vVz+cA+7//sagOdk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iPaqY9eMdOvTgZoDl/zxCB6swaJIf2Zy0v+wzDuoI9myzucZUGnB06IRodCLo37v1
-	 6uDeu3cpAfjvGz6TOjkd00zuXYHrJkox50awzWqmxqt5vlXLqdU5585h2q43YvNoUA
-	 +a1Kp00foOkQZc7TB00V+N0pyLhCvgqUqpo014rKdgTlVtKMhYJtGIbxh80cLq4GAx
-	 +RDrAPx6lPJnxSpf5d9kzJL//N41yreLPs5BN3nfmS0e7EUTzceijqxD9d0Rx/0UUt
-	 zCBAIlvPA1Tu5xDZOZlGwE2wgzWC53ezsh2VFvUpMpoMhaw8bZJnVh9mXL9VBJf9kw
-	 a3exNrZCM8guQ==
-Date: Sun, 27 Sep 2026 19:49:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org, 
-	linux-input@vger.kernel.org
-Subject: Re: [PATCH v3 08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952
- IOMMU to SMMUv2 compatibles
-Message-ID: <20260927-wonderful-vermilion-crocodile-afacec@quoll>
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+	s=k20260515; t=1790531370;
+	bh=vep0rxIRKoNxiLFQDPN+hgCPxdJunk6/QndDTJ30FU8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mYZG62gi1MfOQjlEtabjcLxsCKlJIcb7RbmgT2+zjFK+BXH6zgV9pfl38PmGrQwWn
+	 qHVgKBkIxWqyAHMxfinPzhMLEZLdtNmx5ZUROy2ss2l6fF1wPIau2XlaMyQaGN11no
+	 AgcKvsLndaDRc+6rDrlkSGtBbiS5paXG+dmu5PGMty8B2SwStzpWyFrTJN3ASxUAT2
+	 YQxkfqzhLnJzC+NRIWy6JSR9g60OOdBY7acEcbR5x5q3DUHkOthK7h3isyW98RehJm
+	 de+CWyPIwhOP1YpWBdG1DKOCvhD/Nmo8iaKGw/v+78D9UmiAiTj7jR893zCv44EuWL
+	 aBdvfXbC8oKjA==
+Date: Sun, 27 Sep 2026 18:49:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Alisa-Dariana Roman <alisa.roman@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Ramona Bolboaca <ramona.bolboaca@analog.com>, Marcus Folkesson
+ <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Kurt Borja <kuurtb@gmail.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, David Jander <david@protonic.nl>, Danilo
+ Krummrich <dakr@kernel.org>, Linus Walleij <linusw@kernel.org>, Dmitry
+ Torokhov <dmitry.torokhov@gmail.com>, Bartosz Golaszewski
+ <bartosz.golaszewski@oss.qualcomm.com>, Guillaume Stols
+ <gstols@baylibre.com>, Jonathan Santos <Jonathan.Santos@analog.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Oleksij Rempel
+ <o.rempel@pengutronix.de>, linux-iio@vger.kernel.org, linux@analog.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/9] iio: adc: reject SPI devices without match data
+Message-ID: <20260927184923.4362386e@jic23-hlaptop>
+In-Reply-To: <20260925125754.2162337-1-yaojiale02@163.com>
+References: <20260925125754.2162337-1-yaojiale02@163.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 09:18:59PM +0300, Muzaffer Kadir wrote:
-> Add MSM8952 compatible string with "qcom,msm-iommu-v2" as fallback
-> for the MSM8952 IOMMU which is compatible with Qualcomm's secure
-> fw "SMMU v2" implementation.
+On Fri, 25 Sep 2026 20:57:38 +0800
+Jiale Yao <yaojiale02@163.com> wrote:
+
+> SPI driver_override can bind a device to a driver without a matching
+> firmware entry or SPI device ID. In that case,
+> spi_get_device_match_data() returns NULL.
 > 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/iommu/qcom,iommu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> These nine ADC probe paths assume that the returned chip information is
+> present and later dereference it. Reject devices without match data before
+> the pointer is used, following the handling added to the AD5686 bus
+> frontends by commit 572a00852635 ("iio: dac: ad5686: missing NULL check on
+> match data").
+> 
+> The ADC128S052 and ADS7950 probes also dereference spi_get_device_id() to
+> obtain the IIO device name. Use the always available SPI modalias instead,
+> so the override path does not depend on a matching SPI ID.
+> 
+> Each patch fixes one driver and can be applied independently.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Whilst I'd have loved to just set the flag that the series Uwe
+links to adds, that's not available yet so for now indeed
+these are all valid fixes.  I'm not going to rush them in.
+Applied to the testing branch of iio.git which means next merge
+window most likely.
 
-Best regards,
-Krzysztof
+Thanks,
+
+Jonathan
+
+> 
+> Jiale Yao (9):
+>   iio: adc: ad7192: reject devices without match data
+>   iio: adc: ad7606: reject devices without match data
+>   iio: adc: ad7768-1: reject devices without match data
+>   iio: adc: max11205: reject devices without match data
+>   iio: adc: mcp3911: reject devices without match data
+>   iio: adc: ti-adc128s052: validate SPI match data
+>   iio: adc: ti-ads1018: reject devices without match data
+>   iio: adc: ti-ads131m02: reject devices without match data
+>   iio: adc: ti-ads7950: validate SPI match data
+> 
+>  drivers/iio/adc/ad7192.c        | 3 +++
+>  drivers/iio/adc/ad7606_spi.c    | 6 +++++-
+>  drivers/iio/adc/ad7768-1.c      | 3 +++
+>  drivers/iio/adc/max11205.c      | 2 ++
+>  drivers/iio/adc/mcp3911.c       | 2 ++
+>  drivers/iio/adc/ti-adc128s052.c | 8 +++++---
+>  drivers/iio/adc/ti-ads1018.c    | 3 +++
+>  drivers/iio/adc/ti-ads131m02.c  | 2 ++
+>  drivers/iio/adc/ti-ads7950.c    | 4 +++-
+>  9 files changed, 28 insertions(+), 5 deletions(-)
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
 
