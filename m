@@ -1,121 +1,55 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6134F3563E1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27803BB69D;
+	Sun, 27 Sep 2026 08:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790497744; cv=none; b=NKk6t5PObithVMnKsroi1bTnAr6ytXj/6jWnJKKtJMcPWI/n+RQ+g99lNOAYnAT/9K9o4IuJ/RViqIpLO1OrxsqC2j4vQLkgcqFY726EqW+GTcbv5Td1G8pB0M86nHDvzAVbnSNf1WW/3MVk6AmTBRfCEdf4w5LTKj8sm9UGtNQ=
+	t=1790497858; cv=none; b=W8NW6V830G+BFs3DSAWRLqnFd71aaUIStQeiRUou/CP4PBkBWcLFqo4uDXqBcWxhfb6yN/osMdfG+eqUweUgT01jLEQx1e0jztGsZlU1MAiZj/cmyjP/CcgoHiky7bRCRyaP4q2wCHmGr8jv3fc4Qu9gCfFBnoj2g/lwFUkNCHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790497744; c=relaxed/simple;
-	bh=5J/wLB1+LRP5/omLkXxmg34WIC7l6MT45U8sOJ8r4gQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=nnbNGjitT5OwwQQNXyEbELoFM5KLuP0yyGH3rKIiBUq+ULp6sUnuxuZAMWpoTa5eLfZhCJ/wJYW3Sl6aVPlaaTw4s/8KTv1pTDypXN1ux/B7fFl+UDM0X7AxIrilwhrKesgZj9Ebn+KW0HHxELuTrRGqojk2tKZtyqy1B83irAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-804e73b36eeso3216995a34.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:29:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790497742; x=1791102542;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Xb0U4y4WdgYCeZKVxlGgjl5e3S7LrU0XCMC1dQKLZj4=;
-        b=c+h8afjF/txonitWEAsa/O7c3WXT00IMBtscCre0uElVYCm3rnxh5kcoU6XW5afEPk
-         +1cl+jVJac41zSnXwqnDGDM6bviw6FkZq7eZDS69z0x3Mqqrv/n30SvrCpYR6LByFSwD
-         U0FN6ihWYE7Zb5tyJEmjTU44aOwSocSg3du2FLbCeJ9VYHw4E/1hkXKn1YPGT18uoOwH
-         /BWXigxxxBbAN6MrUeTkk3dPWnjzVUxP/oYlqCe3HKVL9HT60yijUBxCZDNTTxJOSQ9+
-         Ascliw3KJy9+BYPCQu3uigZRZ0bABqlqs4PN6W8cpzAuBD4Fz73uZz2nu8L4lMQTnHLk
-         WYYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEfgRERkjPPtXsaN6m97fHWNt66cfwoKk7Xpg8aROFTqjNsiWrbsBrJmGFQyYdV+Mk3WD8O44YFC8dZY0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHcs/FdqtlUqDk3kmvAwH1917D8NDmN9lZXcdXbmkKOpd1wpYq
-	5Hlo4s87/tYB+udExD5+rNmLsGPK+mUBg1wlamB+s0OuiYKz4X9fFC8s/Gdw3CIBINVILB7oqsg
-	xZHt3nvPgKdpdw2GeH4ouplqC+6OrCtizYnaE62vngQ/EQPtiOXh6nbGd4+M=
+	s=arc-20240116; t=1790497858; c=relaxed/simple;
+	bh=ZIIWhWtXgK2vRTc9yqj9mZOd+EC5bbVuW130IRoAZok=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Ghf0xiK8ldcLs2cbM2RK7lAh3ZJD+iOLksiEOmSW+nDg6g1spYT59dcOUjLYVOb5AyxrYBxGe9G0zNXL3bqOi4pC1qlexnYBlcGvtfmMhKNHSX3GNH4J3LXmJo7Qq4GbgOdW2aZDygHMKnB0+fRxvN7419aFLXyCTNbOkWl+83s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TcS8IOx2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TcS8IOx2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA361F000FF;
+	Sun, 27 Sep 2026 08:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790497847;
+	bh=MewKg+UfOgWhxI1k4meQ2yNRCVFKSIE/+JvCf/+QUmc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TcS8IOx2FyBYMmrefAXyVv1l0tb6HWLOOx7BTWoXXkKNl/lfQfbPVNjEy1BhZVUGX
+	 nkp/ZXnKkOUCJNBPR45kMqliXXMf4lWmxO82ZyTO0xHj1ZkZOgL46fElbCfDu0wLpl
+	 pzzh3diGU5HopM22IpASnXyZbk5dBltSPVH5Q8Afl1vOILB1uQ9voF5DnMBplOrJ/C
+	 1+kr7PfZCkHkqQ2YfwFlDou5oSgfcRD+Oo9pfaJCVZHOVnvOiwbdZvfzzQJTYHq8wR
+	 oJjOyn+AU5i09byCsMi6gJHzq1Pv8JvmJrJTVhdBZ+Y+kuHZbAO57DbmwE2UXtLg4U
+	 ZkDUoP2zqWoRA==
+Date: Sat, 26 Sep 2026 22:30:46 -1000
+Message-ID: <42a21c8fdeb903d8511a279b5cf2e242@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] workqueue: Fix NULL current_pwq deref in flush dependency
+ check
+In-Reply-To: <20260925-wq_flush_dep_fix-v1-1-fc5a9de31828@oss.qualcomm.com>
+References: <20260925-wq_flush_dep_fix-v1-1-fc5a9de31828@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14ce:b0:4c7:30a6:97b9 with SMTP id
- 5614622812f47-4d72aa5bb67mr10195684b6e.38.1790497742233; Sun, 27 Sep 2026
- 01:29:02 -0700 (PDT)
-Date: Sun, 27 Sep 2026 01:29:02 -0700
-In-Reply-To: <arjO9qbNdbvdi7ao@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab8d3ce.dc2998a4.2261f5.0063.GAE@google.com>
-Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
- (2)
-From: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>
-To: azpijr@gmail.com, davem@davemloft.net, dhowells@redhat.com, 
-	edumazet@google.com, horms@kernel.org, kuba@kernel.org, 
-	linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	marc.dionne@auristor.com, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Applied to wq/for-7.3-fixes.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-kernel BUG in rxrpc_destroy_all_connections
+- is_chained_work() has the same problem. It dereferences
+  worker->current_pwq after checking only worker. It is only reached when
+  queueing on a draining or destroying workqueue, but a kworker outside a
+  work item would crash there the same way. Can you send a fix for that
+  one too?
 
-bond0 (unregistering): (slave bond_slave_1): Releasing backup interface
-bond0 (unregistering): Released all slaves
-rxrpc: Assertion failed
-------------[ cut here ]------------
-kernel BUG at net/rxrpc/conn_object.c:488!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 2 UID: 0 PID: 13 Comm: kworker/u32:1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: netns cleanup_net
-RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x14 net/rxrpc/conn_object.c:488
-Code: ff 90 0f 0b e8 6e 97 99 00 48 c7 c7 20 73 5d 8d e8 72 be af ff 90 0f 0b e8 5a 97 99 00 48 c7 c7 20 73 5d 8d e8 5e be af ff 90 <0f> 0b e8 46 97 99 00 49 63 d6 48 83 ce ff 48 c7 c7 40 02 01 91 e8
-RSP: 0018:ffffc90000107970 EFLAGS: 00010286
-RAX: 0000000000000017 RBX: ffff888053d70000 RCX: 0000000000000000
-RDX: 0000000000000017 RSI: ffffffff81ea1579 RDI: fffff52000020f1f
-RBP: ffff888053d70064 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000000 R11: 0000000000000001 R12: 1ffff92000020f30
-R13: ffff888053d70078 R14: ffff888053d70088 R15: ffff888053d70088
-FS:  0000000000000000(0000) GS:ffff8880d5d52000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005562f0adc000 CR3: 000000002d8eb000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- rxrpc_exit_net+0x7b/0xc0 net/rxrpc/net_ns.c:113
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
- cleanup_net+0x499/0x920 net/core/net_namespace.c:706
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x14 net/rxrpc/conn_object.c:488
-Code: ff 90 0f 0b e8 6e 97 99 00 48 c7 c7 20 73 5d 8d e8 72 be af ff 90 0f 0b e8 5a 97 99 00 48 c7 c7 20 73 5d 8d e8 5e be af ff 90 <0f> 0b e8 46 97 99 00 49 63 d6 48 83 ce ff 48 c7 c7 40 02 01 91 e8
-RSP: 0018:ffffc90000107970 EFLAGS: 00010286
-RAX: 0000000000000017 RBX: ffff888053d70000 RCX: 0000000000000000
-RDX: 0000000000000017 RSI: ffffffff81ea1579 RDI: fffff52000020f1f
-RBP: ffff888053d70064 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000000 R11: 0000000000000001 R12: 1ffff92000020f30
-R13: ffff888053d70078 R14: ffff888053d70088 R15: ffff888053d70088
-FS:  0000000000000000(0000) GS:ffff8880d5d52000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005562f0adc000 CR3: 000000002d8eb000 CR4: 0000000000352ef0
+Thanks.
 
-
-Tested on:
-
-commit:         a7bfaba4 ipv6: fix prefix route expiry in modify_prefi..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16e8fd25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=89001660f14fb7684c83
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=159dda05580000
-
+--
+tejun
