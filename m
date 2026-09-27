@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652C43CBE95
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D5E399CF0
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790496275; cv=none; b=YKVfQNX0vK9KlxpOn7QJHIbR0Gxp7RbXyQ8n6tF9Jo2SFdlsvfDDC38RkpGO4i8d7KpWHHIvkINpwR7afH0+bCcBEYjHrPMtW0d8VT3GLL9efT+i+lc5rNFmhyNCPAQze5Oe2Aa8QMP9mKzXg/5w+qOKNxgPYdhwHdnld+g2wbg=
+	t=1790496288; cv=none; b=eiAnncmFnXP+ebNO9u3xl0P6NDIupuT2MLzGjw9Jq8EpllwpqE32BWGVkyAAEXYObexxoHWpw73d010+21KAJ1OIXjTIt/L81m+ih72cF8dlZI/4bCDKf2PQ/Xl5ymIXadT2LRvIj6pKqb6viMQrjnVO3egUTiHs4Q70zJDWnOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790496275; c=relaxed/simple;
-	bh=v3GleeYe1rddJF6BGLIJVQY7ekgO93naMaMI8Z5Tdus=;
+	s=arc-20240116; t=1790496288; c=relaxed/simple;
+	bh=Pidziwczjfm6ZNqwejbLvVCJCgAz1frDce3lVzzn0so=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wioo19CmN2mg8e1Xz/hEbUW+cLVvODmhvlSpd8x1fb/D4kZoWAOL/pUzAhsnwqaBx9VEZre321VwJ+Q+rCEesV8EXib/ut2xhKWytdqoCmx2DnACz4wct/y8X72+dADNbqWt8saEE8Z0AZ5i4t1lWX52pM2ma7/LYqBPSDY2qMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lF9HEhsd; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=gGT+euffciAfSUgFcRWbkdTstbfNaeWCw7R+WprVmNATq7v0kvGRRCcWuGnWX27ALbm4S/SKxOdAezn5giNpbnaXw+U9x5lSgmQOIuYAzqAa8rFhF1cf2YTwq2doi0ETVKvjdVI6M1pjwWSXtWjLyUVMIEqCgwufKDiNbh4fbDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TBKgDfTZ; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lF9HEhsd"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TBKgDfTZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9T
-	Sl8VVYUNaAg7ltY34P28jHY2YR8qDkzjpgdOr5h2M=; b=lF9HEhsd1HDUc9iUTO
-	ezcZPmn86QMnJ0mwZf69mIDENVDVrsVNLyqVkP84ZSy/S+ofSK5fsEp0Kiw2AjvS
-	WGX2PB43bC6/TIMMJ2Nd/MWZH/wj4Ji+bQPCaj4YAcNqfI2IJa2QkKsdNnZXui7p
-	bIOhtg+wzryTcsR/6g4lQreKc=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=mN
+	q/B0et8AUHiJqoIE6D5XrJSJuOL+T6JswtFxmavVw=; b=TBKgDfTZAtx8AKtTmE
+	0zlqIhBmOBZjEh+J+2I3EAtDkvbJER19AGElMjRlNguf2Ua17bbZ8LJKP9cZ72io
+	/5nYga9i5cORN3m93sVaRjIwOAS8f4SJNqIjSxRuiuzNtpP0uUw6G7ko/kNT1L8s
+	BSN/c5tnfeo5dIyCiZNJAAsLA=
 Received: from czl-pc (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBXrkXNzbhqECuNBg--.31472S4;
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBXrkXNzbhqECuNBg--.31472S5;
 	Sun, 27 Sep 2026 16:03:27 +0800 (CST)
 From: Chi Zhiling <chizhiling@163.com>
 To: exfat@lists.linux.dev,
@@ -36,9 +36,9 @@ Cc: Yuezhang.Mo@sony.com,
 	liubaolin12138@163.com,
 	sj1557.seo@samsung.com,
 	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH v1 2/5] exfat: dirty all new pages when extending valid_size
-Date: Sun, 27 Sep 2026 16:03:01 +0800
-Message-ID: <20260927080305.831641-3-chizhiling@163.com>
+Subject: [PATCH v1 3/5] exfat: hold the invalidate lock while truncating
+Date: Sun, 27 Sep 2026 16:03:02 +0800
+Message-ID: <20260927080305.831641-4-chizhiling@163.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260927080305.831641-1-chizhiling@163.com>
 References: <20260927080305.831641-1-chizhiling@163.com>
@@ -49,137 +49,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBXrkXNzbhqECuNBg--.31472S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxur43CF47KF18Cw1fCr15Jwb_yoW5try5pr
-	W3Kr9xGrWDX34DuF1fXr18Zr1F93s3Wa18AFyxXwn3ZF98AryUKr17K3W0vFy5trW7AFy0
-	gF1Yyry8uF1UXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2xRhUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+A9vDWq4zc+LpgAA3o
+X-CM-TRANSID:PygvCgBXrkXNzbhqECuNBg--.31472S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WrW5Jr15Zw18WFW3Wr47twb_yoW8WF1rpr
+	W5Ga95Kw48X3yDWr18u3W8Za1Y93WIgrW7u3sYvasFvr95J34aqF15trWxKa13tws5uw4Y
+	qFs8XFZrury7G3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jgcTPUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3BBwDmq4zdC+oAAA3j
 
 From: Chi Zhiling <chizhiling@kylinos.cn>
 
-In the current code, exfat_zero_new_range() does not mark non-uptodate
-pages as dirty, which may cause some blocks within a page to not be
-written back.
+truncate_setsize() ends in truncate_inode_pages(), which is documented
+as being "Called under (and serialised by) inode->i_rwsem and
+mapping->invalidate_lock".
 
-This commit no longer checks each block in a non-uptodate page
-individually. Instead, it reads the entire page back into the cache and
-then writes it back as a whole. This allows concurrent writes and zeroing
-operations to be synchronized using the folio lock.
+Hold invalidate_lock while executing truncate_setsize() to ensure that
+truncate and mmap writes are mutually exclusive. This can simplify the
+handling in exfat_page_mkwrite().
 
 Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
 ---
- fs/exfat/file.c | 89 ++++++++-----------------------------------------
- 1 file changed, 13 insertions(+), 76 deletions(-)
+ fs/exfat/file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index b30aec858da6..e7225f548189 100644
+index e7225f548189..e1394c5b016a 100644
 --- a/fs/exfat/file.c
 +++ b/fs/exfat/file.c
-@@ -662,90 +662,27 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
- static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
- {
- 	struct address_space *mapping = inode->i_mapping;
--	unsigned int blocksize = i_blocksize(inode);
--	loff_t pos = start;
--	int err;
-+	loff_t next, pos = start;
-+	struct folio *folio;
-+	pgoff_t index;
+@@ -413,6 +413,7 @@ int exfat_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 * about to be freed.
+ 		 */
+ 		inode_dio_wait(inode);
++		filemap_invalidate_lock(inode->i_mapping);
+ 		truncate_setsize(inode, attr->ia_size);
  
- 	while (pos < end) {
--		loff_t next = min_t(loff_t,
--				round_down(pos, PAGE_SIZE) + PAGE_SIZE, end);
--		struct folio *folio;
--		loff_t bpos;
--
--		folio = filemap_get_folio(mapping, pos >> PAGE_SHIFT);
--		if (IS_ERR(folio)) {
--			err = iomap_zero_range(inode, pos, next - pos, NULL,
--					       &exfat_iomap_ops, NULL, NULL);
--			if (err < 0)
--				return err;
--			pos = next;
--			continue;
--		}
-+		index = pos >> PAGE_SHIFT;
-+		next = min_t(loff_t, (index + 1) << PAGE_SHIFT, end);
+ 		/*
+@@ -420,6 +421,7 @@ int exfat_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 * is already written by it, so mark_inode_dirty() is unneeded.
+ 		 */
+ 		exfat_truncate(inode);
++		filemap_invalidate_unlock(inode->i_mapping);
+ 	} else
+ 		mark_inode_dirty(inode);
  
--		if (folio_test_uptodate(folio)) {
--			folio_lock(folio);
--			if (folio->mapping == mapping)
--				folio_mark_dirty(folio);
--			folio_unlock(folio);
--			folio_put(folio);
--			pos = next;
--			continue;
--		}
-+		balance_dirty_pages_ratelimited(mapping);
+@@ -721,8 +723,10 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ 		ret = exfat_zero_new_range(inode, gap_start, new_valid_size);
+ 		filemap_invalidate_unlock(inode->i_mapping);
+ 		if (ret) {
++			filemap_invalidate_lock(inode->i_mapping);
+ 			truncate_setsize(inode, old_valid_size);
+ 			exfat_truncate(inode);
++			filemap_invalidate_unlock(inode->i_mapping);
+ 			return ret;
+ 		}
  
--		/*
--		 * Zero not-uptodate block runs. iomap_zero_range() requires an
--		 * unlocked folio, so recheck ->mapping after each call.
--		 */
--		folio_lock(folio);
--		bpos = pos;
--		while (bpos < next) {
--			loff_t rstart, rend;
--
--			if (folio->mapping != mapping) {
--				folio_unlock(folio);
--				err = iomap_zero_range(inode, bpos, next - bpos,
--						NULL, &exfat_iomap_ops, NULL, NULL);
--				if (err < 0) {
--					folio_put(folio);
--					return err;
--				}
--				folio_lock(folio);
--				break;
--			}
--
--			if (iomap_is_partially_uptodate(folio,
--					offset_in_folio(folio, bpos), blocksize)) {
--				bpos += blocksize;
--				continue;
--			}
-+		folio = read_mapping_folio(mapping, index, NULL);
-+		if (IS_ERR(folio))
-+			return PTR_ERR(folio);
- 
--			rstart = bpos;
--			rend = min_t(loff_t, bpos + blocksize, next);
--			while (rend < next &&
--			       !iomap_is_partially_uptodate(folio,
--					offset_in_folio(folio, rend), blocksize))
--				rend = min_t(loff_t, rend + blocksize, next);
--
--			folio_unlock(folio);
--			err = iomap_zero_range(inode, rstart, rend - rstart,
--					NULL, &exfat_iomap_ops, NULL, NULL);
--			if (err < 0) {
--				folio_put(folio);
--				return err;
--			}
--			folio_lock(folio);
--			bpos = rend;
--		}
--
--		/*
--		 * Dirty only a fully uptodate folio. Dirtying a partial folio could
--		 * write uninitialised cache contents over valid on-disk blocks.
--		 */
--		if (folio->mapping == mapping && folio_test_uptodate(folio))
-+		folio_lock(folio);
-+		if (folio->mapping == mapping) {
- 			folio_mark_dirty(folio);
-+			pos = next;
-+		}
- 		folio_unlock(folio);
- 		folio_put(folio);
--		pos = next;
- 	}
- 
- 	return 0;
 -- 
 2.53.0
 
