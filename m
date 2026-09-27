@@ -1,75 +1,75 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C9E298CC4
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F48D35AC07
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790486248; cv=none; b=i+jZOZl/7ombgyLeT2zSTVUEw3AP+5O3BKLD26Wuoz61yjo+qBeEjCLLhSPdFL2q9PeXJbvCOiFRUURHIvkKkbMn9F45KTv0Osim48om3WJkxcYCVAIjrWapZBxxQcECFLDRLapmzYdrF+rJov57baKOsVgmguoiVVKpFbDH9BU=
+	t=1790486256; cv=none; b=V9zIL3UcFSGK8O7va0KTfZDwk9Q9lO9267xUbGN5VDy4a28FVFsF8qNS/MDU7uk/O9zj+Qd67QyLTMj4jvR8f/018w1ysYLL+HVD79tWluddtKnF3FkniBxfoO1KG78EkMfqdI42hw0s2lj4pTBM0jww7rw9q5BZhrGuBpQi8Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790486248; c=relaxed/simple;
-	bh=nWYyEn3FlxnbDE5hfPTdOkEDIO47hQrt3IWc+5iB0G0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=euplXO7ZORnHxe7O6p7/kURdeW3gjvJhhmFu5RvfcEYFSff82EfPvUxmWwTE2+N1H2yp2dfADBT+AeLCfXfcOkDHpOGDKIPdOlxO6UXyIVSrnOHjScQIgE7C4O8UmgiMo4IxPB0zyOSgJ2Glo3pJjnbEwBjn6QO0uJtbmHKJKUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pc15xYtH; arc=none smtp.client-ip=74.125.229.171
+	s=arc-20240116; t=1790486256; c=relaxed/simple;
+	bh=bQMwWM6/AZ89zp7CCDYwtmkkCqgqc1BuIJtcVMvLioA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YbfP67fVblBKm6f/StueY8Me2sl3b9C6USinVABCt6U8xUnrVXnDlj0LrBwHaLJ605Sr5nN71SCJvh2IdDXcDmMKneAZtN6o95990Zx5CGf6sFm0bDd19iaxvaGiLv+1IjJQgxRyEeMf0+FGSGHhRmyBgmZXpjrAC2qCwmJpUyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYrZuUBy; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pc15xYtH"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so1735071c88.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:17:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYrZuUBy"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c11ef641aso2476259eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:17:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790486244; x=1791091044; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790486253; x=1791091053; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fYllJEMjqSI9dmThGcCAG+WXxe2fhi4B+5VSXcbhrlk=;
-        b=pc15xYtHMkXyln8PLqM50TBJpeK8NQI1vbmHUZ9vKdY6G7P3LJhAUzrEh6D+kSplJR
-         NQMgfhFab+awep1voN/hVZ4/Q84K6oj9yAi8neT/i4kLyZ0lKeU16uInYmxRC35duhgL
-         ULAW5+Jro6HaqHslL5V/sUPyPQ4kuOPL6gfrurocq7LhFul6eaYf5g3fKavmp7SsHjco
-         +XGQ4me41b1WTZIgKyqG3+r37W+AeVspTyv62+t9XHFVudBZL58kE4KwzJwGo9a0k1kn
-         VXaB+01nzQXdATLH2OJ61uZSyH+RsBuKacuUpqkKMQAvcp39CDEpquRv/6zuw2ctiZRn
-         RIlw==
+        bh=j+qmirMlaROvYJ+1n7dY0Ko2fZrBnqEhZBiYJG8nwEk=;
+        b=AYrZuUByDcGntwb8H2fqUGlDiWsFSxg/fYoS6nxlZ1DbxlPs1L+mrCO8AMXRcQCS6I
+         Y1gxLXkBIWx8dz50343c2ig4XGScL5D3ffY/HA71U3+Z6zKrxBefCyDQy0UssHokcg7D
+         P81A6oBOVBhA435mAsIfM+MVdIdKBEge5XOck5Obhu/PRTbTUAiIyTOm/6Ol3FsWqVGP
+         ub8DAKtU/eur1U4Kx2b+46jl8eTtWCDVv5Qa2vFnzXfWcskAptZ0oH3SRgEBApGzVerd
+         54+K5pL04jMnFuG9YAa1GhQ8564aIcKRpSy7m6Q0JKrwozTMvdVYahUXGBzXGb7kNtM1
+         zmHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790486244; x=1791091044;
+        d=1e100.net; s=20260707; t=1790486253; x=1791091053;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fYllJEMjqSI9dmThGcCAG+WXxe2fhi4B+5VSXcbhrlk=;
-        b=lzmv+WnxattJrd/nJ+N41KghUoOPpvRkS0MAF0TgtIaE90Vaj4krtjT0OKER77kOQY
-         q8I5TZiTBOTp3wmMqJHlCnB9x5Pp1/yUvRYaUQpe2nqfHe2/WZXqdptrPu7/7/+4xeah
-         /5MN/Yz0Gs8fVGawZPmq+q61G1cT5aqPZEhUoPbFMQUi+s4s+BkYopKZ7RqltV1xgATw
-         DJcobZ4CtEd6hvHqMLFshYrHGnYccKv07yRpb9/sGUl1jyzpXIe+7Am/fP8BjI5r0SN8
-         dcrI79xX5MzEtk4gw49MKVQCCqevsRQew407XPznsWUlNWSeQdvn+45Nmq0fe9mcaFQL
-         5erw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgSr4quRfY0MgtLZLMO47xMteQdp9+f9wg7O6Cl9BKHC/7Z4xdQ7h79NyWpl2eVLuL18rurXMKv7aWYu8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKjpQxoOWf23Aq6TuriNz+ClDE37wAV5L1UhSiRhnzBEujsHqu
-	QI7OpDsvh/T6YW42z1nE9YmR9T29L/6WclwsWJrTMmvdytsG2cc0WFVd
-X-Gm-Gg: AYBFou2JQutYmH2Nbn06VNdQo1ldk4VzSav337zcfde2+KzYLg3lD5JcuMwjKiSoORG
-	HarJrr1y5Yo9Dn7L6sdkYZh/u/DSJ91jSHoCyW+oSYYoc50kWamLmXXMgYRIpSjEz5qH/1O1vxG
-	ywq3fMOLJJ7SYmo7Dtw+w65YCrmsm2BU/Vv2uGNa4yV90nxyB1MR7up9ehPeHgA/CCXOB8bEWbE
-	O01/6CdU0bTB4p4QTFovkp5/5wouRwlB1jEy3NsScnahO4D+sj3yATZP/9XkMsK07jr5LZLHla3
-	9RRoZukFtIhPjP1yOBSSfbp/QEX81GCv6yD6mA2MIhIB9HOkveRua4bb1Ng5ZUDr3rjlgroFeb1
-	7kpMOlcOOUyaXGcfYqp4hme+6FRMA/f4lt6nWOHIzjV84naNl6AoAeXSrtA6qsTNduxit9QxU5S
-	lNv2enh2DEs6c2Bga2cL5uUgZJv9xrYiI3cESHNpRqlxDgtxRhI9wbF69PQEPQw2luLAQSUJ6y2
-	XRncWyNlSxkxylcpxzShSJXLNFjO0yvryKdumDUBsDgixTpvsMHucHo5oHMTXOHXCljPWWUmDun
-	hzKNgCol5Cb/4AKc0hKfMBHi45WRR5R7sC4zxXkhnm77zcUYEZqtQFEZNdBguQdTK8H760Onjw=
+        bh=j+qmirMlaROvYJ+1n7dY0Ko2fZrBnqEhZBiYJG8nwEk=;
+        b=RpmRvrkL6CAQ2j5R81LTjOlINFyRTSlbhF8VoOZJBhYjdzAcv+m7M6QhbkJstnulyU
+         x+b/RetobNI/vKwqgNOxYQqRC152dMSp6k/QdZsxbMTGkV+fGbYdoH7W/LvPioI08roT
+         4GpWdYMmfjCIVqLtMbkNO0Iy3rcUzHZh1WOzPLIAvuvq+C/GjO8dfqy3oqI3CQsiqXpX
+         cjhZcKSIM2e0cglbmYupJNWL2RVI69IxfkG5zGcJb4rWuR5lBbfXtWvIBAPPbcYHL/xT
+         p0jYseFitNVFMoSJs4EqWWH8e2LOQAK/J0gF0/tzhQI+4oX8yMSXxsyP71DEoQYZpBqO
+         ANNg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+2NL6oB+48IzsHLt7GQC2FwdUfYbItuFgtl+zUKSnl/WuMKvfHMH8aRkinCkMtV7Vzut2HgqUK+xRzo0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhMewNEnCwyn7zon3lmH9PvcWOzN8FZtCxLd0lpRgoCaWLGBDu
+	8HxZWI9WaLsScqg/EtHyYLFbVWpuMZhBlI3U+f8jrIQ8Ewq9JSaaonym
+X-Gm-Gg: AYBFou0c4otCh+vSVsV2WgEzLAjyMoHiHNT14H01+GD99alYGoOlGezb5GZPyIaWK4d
+	jk3RLVZhA5OeBJ0KcNOXrmJenwvK16cCeZninTj92bBFSwXbcu0gGqXgqXocbj9SmIXsMmA30zM
+	RTr+lb/VsFep2Nsw808mpx/lBfunQ8JGbmg7UphAj8PnIQV+KwABBE5GG+B6KB5nprrpDdDgLoO
+	sV4d19JYJHMbS//x2OWmRAyjnd+uWilXWP+wRBAqprE958BmJ7EPBlcndEyV3cnb4B1OjhQqmAV
+	QGPNEVfQ3bRPyx7/LtbyAO3HH17J3yg3naLm6daYNjFQokqQFqFTpwX+J+K4UAutiWWYeB3Z8P3
+	C5e6EMT521+hKM4qCE2W9J0foRX/akjVqSOpppv04AzIkcb0edrTh+kbivcYSrgXA4dXnB88chV
+	YdZ/IyAn1bLf0XhEd9o3zF+hN+/ZD/B7Ld7hkeuzxLTnNfhAtYJr7OuNM4RuJ6YkByvh+8Auc/B
+	+UMAu70oLYsW1ee03wY/AxlBl1s9YwSvddNSo7g4hnUkXDgMc/0cScB3lEaWblVEKdCOu3m5Pfb
+	aUzqd/Mb8tDv/Be3pG912gZYpg2aPV3t9GUk5qv3F7tmX73oCwFwY0YjFCrbxly661QROcQ/zw=
 	=
-X-Received: by 2002:a05:693c:824c:b0:346:7c2c:1d0c with SMTP id 5a478bee46e88-3467c2c2549mr424577eec.17.1790486243877;
-        Sat, 26 Sep 2026 22:17:23 -0700 (PDT)
+X-Received: by 2002:a05:7301:db8b:b0:33b:fe7b:460e with SMTP id 5a478bee46e88-3426febc80fmr5822057eec.7.1790486253039;
+        Sat, 26 Sep 2026 22:17:33 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.116.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341459234a1sm18410338eec.24.2026.09.26.22.17.20
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm20713863eec.6.2026.09.26.22.17.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 26 Sep 2026 22:17:23 -0700 (PDT)
+        Sat, 26 Sep 2026 22:17:32 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
-To: "Martin K . Petersen" <mkp@kernel.org>
-Cc: Mike Christie <michael.christie@oracle.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>,
+	Thomas Maarseveen <maarseveent@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: target: rd: Check the return value of match_int()
-Date: Sun, 27 Sep 2026 10:47:17 +0530
-Message-ID: <20260927051717.71269-1-jain.sm@gmail.com>
+Subject: [PATCH 0/2] errseq: fix lost writeback errors in errseq_check_and_advance()
+Date: Sun, 27 Sep 2026 10:47:24 +0530
+Message-ID: <20260927051726.71337-1-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,136 +79,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rd_set_configfs_dev_params() ignores the return value of match_int()
-for the rd_pages=, rd_nullio= and rd_dummy= options and then uses 'arg'
-anyway.
+errseq_check_and_advance() advances the caller's cursor to the value it
+tried to store even when its cmpxchg() failed. If errseq_set() stored a
+different errno in the meantime, the cursor holds a value that was
+never in the errseq_t. errseq_set() does not bump the counter while the
+current error is unseen, so recording the first errno again recreates
+exactly that value, and once another subscriber has marked it seen, the
+cursor's next check returns 0. For fsync() (file->f_wb_err) and
+syncfs() (sb->s_wb_err) this means that a writeback error recorded
+after the previous call returned is not reported. The race is rare: it
+needs two different errnos, an error recorded while the check runs, and
+a second subscriber consuming the value. There is no user report; it
+was found with a model checker.
 
-match_token() only matches these options if the value is a number with
-nothing after it, but match_int() can still fail with -ERANGE: when the
-value is 24 characters or longer, on any architecture, and on 64-bit for
-most values outside the range of an int.  'arg' is then not written.  It
-still holds the value parsed for an earlier option in the same write, or
-is uninitialized if no number was parsed yet.  The write succeeds, and
-for rd_pages= that value becomes the page count and RDF_HAS_PAGE_COUNT
-is set.  On 64-bit, for example, "rd_nullio=1,rd_pages=4294967296"
-configures a one page device, and "rd_pages=4294967296" alone uses an
-uninitialized page count (0 with CONFIG_INIT_STACK_ALL_ZERO, which is
-only rejected when the device is enabled).  A stale 1 also turns on
-RDF_NULLIO or RDF_DUMMY for an invalid rd_nullio= or rd_dummy= value.
+Patch 1 retries with the value found when the cmpxchg() fails, so the
+cursor is only ever advanced to a value that was stored with
+ERRSEQ_SEEN set. Patch 2 adds a KUnit case that races errseq_set()
+against errseq_check_and_advance() on two CPUs.
 
-Return the error from match_int(), as the fileio and pscsi backends do
-for their match_int() options.  As there, options that come before the
-invalid one in the same write have already been applied.
+Two behaviour changes are visible to callers, both intended. When a
+writer wins the race, the call now returns the newer errno (still "the
+latest error", as documented). And when two threads race on the same
+unserialised cursor (syncfs() does not lock f_sb_err), the loser may
+now return 0 where both used to return the error, so each open file
+description gets one report.
 
-Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
-Assisted-by: LLM
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
----
-This patch was prepared with Claude Code (Anthropic), model Claude Opus 5.5
-(claude-opus-5-5): the analysis, the fix, the changelog and the throwaway
-test described below. The trailer only says "Assisted-by: LLM", as
-Documentation/process/coding-assistants.rst describes.
+Dependencies: patch 1 applies to mainline (fd179f8a05be) on its own and
+carries Cc: stable. Patch 2 extends the errseq KUnit suite from commit
+b52f5c1605f2 ("lib/tests: add KUnit tests for errseq"), which is only
+in mm-nonmm-unstable, so the series is based on mm-nonmm-unstable
+(e8d6475e77a7). Patch 1 could go through mm-hotfixes and patch 2
+through mm-nonmm-unstable.
 
-Earlier attempts at this fix were not merged:
-https://lore.kernel.org/r/1528779148-42485-1-git-send-email-jiazhouyang09@gmail.com
-https://lore.kernel.org/r/20190112053159.99406-1-kjlu@umn.edu
-This version follows the review comments there: it returns the error
-from match_int() instead of -EINVAL, does not leak 'orig', covers
-rd_nullio= (and rd_dummy=, added later), and goes through a single exit
-path as the fileio backend does.  James Bottomley suggested
-ignoring an invalid option instead of failing the write; I went with
-returning the error so that a mistyped size is not silently replaced by
-a stale or uninitialized one, but ignoring it (a 'break' instead of
-'goto out') would also fix the bug.
+The bug was found with a TLA+ model of lib/errseq.c checked with TLC.
+The patches were prepared with Claude Code (Anthropic), model Claude
+Opus 5.5 (claude-opus-5-5).
 
-Dependencies: none. The patch is correct on its own on current mainline.
-It is related to "lib: parser: reject out-of-range values in
-match_number()", sent to Andrew Morton:
-https://lore.kernel.org/r/20260926012718.15675-1-jain.sm@gmail.com
-With that patch, out-of-range values also fail on 32-bit (today they
-wrap there, for example rd_pages=4294967296 gives 0 pages), and this
-patch then turns that failure into an error instead of a stale value.
+Tested:
+- KUnit on UML x86_64 (kunitconfig with CONFIG_ERRSEQ_KUNIT_TEST=y,
+  CONFIG_SMP=y and CONFIG_NR_CPUS=8, run with --kernel_args seccomp=on
+  --kernel_args ncpus=4). Without patch 1 the new case loses the error
+  in 21,957 to 116,003 of 2,000,000 rounds (1-6% over 8 runs,
+  depending on host load), in 44,886 with ncpus=2, and in 30,353 on
+  UML i386 with ncpus=4. With patch 1 it loses none (8 runs with 4
+  CPUs, 1 with 2 CPUs, 1 on i386). All other errseq cases pass. On a
+  single CPU the new case is skipped.
+- A userspace replay of the unmodified lib/errseq.c, with a hook before
+  the cmpxchg() standing in for the other CPU, loses the error every
+  time.
+- TLC: the current code violates "an error recorded after a check
+  returned is reported by the next check"; with patch 1 the property
+  holds exhaustively for 2 subscribers x 3 checks and either 1 writer
+  x 4 errors (1,364,445 distinct states) or 2 writers x 2 errors
+  (141,055,253 distinct states).
+- W=1 builds of lib/errseq.o and lib/tests/errseq_kunit.o for UML
+  x86_64 and i386 without warnings, and checkpatch --strict.
 
-Testing done:
-- W=1 build of drivers/target/target_core_rd.o with allmodconfig for
-  x86_64 and i386: no warnings.
-- A throwaway KUnit test (not part of this patch) called
-  rd_set_configfs_dev_params() under UML (x86_64 and i386 subarch).
-  Without the patch, on x86_64:
-  "rd_nullio=1,rd_pages=4294967296" returns success with 1 page and
-  RDF_HAS_PAGE_COUNT set; "rd_pages=4294967296" gives 0 pages with
-  CONFIG_INIT_STACK_ALL_ZERO and 0xfefefefe pages with
-  CONFIG_INIT_STACK_ALL_PATTERN; a 24-character rd_nullio= or rd_dummy=
-  value of 0 after "rd_pages=1" sets RDF_NULLIO or RDF_DUMMY (also on
-  i386).  With the patch all of these writes fail with -ERANGE, and valid
-  values (rd_pages=8, rd_pages=0x10, "rd_pages=8,rd_nullio=1,rd_dummy=1",
-  rd_pages=2147483647) are unchanged, on x86_64 and i386.
+Not tested: fsync() or syncfs() on a real failing device, weakly
+ordered hardware (the model is sequentially consistent; the fix adds no
+ordering requirement beyond cmpxchg()), and architectures other than
+UML x86_64 and i386.
 
-Not tested: writing to the configfs control file of a real rd_mcp device
-with targetcli, and enabling such a device.
+Shashank Mohan Jain (2):
+  errseq: don't let errseq_check_and_advance() hide later errors
+  lib/tests: errseq: add a concurrent check_and_advance test
 
-Not changed: a negative rd_pages= value still parses and becomes a huge
-u32 page count, as before.
+ lib/errseq.c             |  29 +++++++----
+ lib/tests/errseq_kunit.c | 110 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 123 insertions(+), 16 deletions(-)
 
- drivers/target/target_core_rd.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/target/target_core_rd.c b/drivers/target/target_core_rd.c
-index 092d9fe0d4e3..32762199e742 100644
---- a/drivers/target/target_core_rd.c
-+++ b/drivers/target/target_core_rd.c
-@@ -545,7 +545,7 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
- 	struct rd_dev *rd_dev = RD_DEV(dev);
- 	char *orig, *ptr, *opts;
- 	substring_t args[MAX_OPT_ARGS];
--	int arg, token;
-+	int ret = 0, arg, token;
- 
- 	opts = kstrdup(page, GFP_KERNEL);
- 	if (!opts)
-@@ -560,14 +560,18 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
- 		token = match_token(ptr, tokens, args);
- 		switch (token) {
- 		case Opt_rd_pages:
--			match_int(args, &arg);
-+			ret = match_int(args, &arg);
-+			if (ret)
-+				goto out;
- 			rd_dev->rd_page_count = arg;
- 			pr_debug("RAMDISK: Referencing Page"
- 				" Count: %u\n", rd_dev->rd_page_count);
- 			rd_dev->rd_flags |= RDF_HAS_PAGE_COUNT;
- 			break;
- 		case Opt_rd_nullio:
--			match_int(args, &arg);
-+			ret = match_int(args, &arg);
-+			if (ret)
-+				goto out;
- 			if (arg != 1)
- 				break;
- 
-@@ -575,7 +579,9 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
- 			rd_dev->rd_flags |= RDF_NULLIO;
- 			break;
- 		case Opt_rd_dummy:
--			match_int(args, &arg);
-+			ret = match_int(args, &arg);
-+			if (ret)
-+				goto out;
- 			if (arg != 1)
- 				break;
- 
-@@ -587,8 +593,9 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
- 		}
- 	}
- 
-+out:
- 	kfree(orig);
--	return count;
-+	return (!ret) ? count : ret;
- }
- 
- static ssize_t rd_show_configfs_dev_params(struct se_device *dev, char *b)
+base-commit: e8d6475e77a75b7a84e42c9d23e238e002f2758f
 -- 
 2.43.0
 
