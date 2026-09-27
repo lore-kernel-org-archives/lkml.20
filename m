@@ -1,271 +1,431 @@
-Received: from mail-pj2-f15.google.com (mail-pj2-f15.google.com [74.125.227.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D48C3AA1BB
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451A431E83B
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790523023; cv=none; b=rwWry7zZ3WGCcz9wML0x3HTzvIErEPYdrb3uk3QngxRWBNg/V2KZnFRXenX/XWZ2ARopHURHfdEgPoTsyw28z5E682ZZvnl0AnMTdbdrvxvGrchz3tFuZN5IntlqK4zBjLoTHe0q6WVv41BSDgs3FktT+GAeQAc7nSHrTzG42yg=
+	t=1790523123; cv=none; b=n3FkVxdsoTT4QrNgEzzkCRuxjlWT3IJteTLbRQ+LcKL3RfMlztwO7dBMvbft3cHwIj7jsPXo7cC0vzDwFXGSYTvWne+k0Egxn4JRL1+fS5zQXLHlbsGZtCd/1QD7rwpD459aG6U76A5yizs9fes+TVzEX5jInX5rJ6lYSE/UGe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790523023; c=relaxed/simple;
-	bh=a0rewO12vdtnPhBBS/nIg+3RPM7hKRWtmasS1tiBbUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j6Kkg/61zQIbMVOn3FXsCeY+7/x8XHZ3QzBgaxzF1JjwLPeI96mpH81VeAk4JI5i4JmMmWHh+O9v7O39dKDnAN//h2PbL6dl+Zwbpd8j8TTDR0N3kycQKNz7xHm3xArtIh/pZouK+//0G4hHdu88f0WanE84IVxXyv9xiwMVdjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmZyox2N; arc=none smtp.client-ip=74.125.227.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790523123; c=relaxed/simple;
+	bh=cAI4grjwLOIe/dpBrGVYGklNtZOwir4iXihLzkWBmYQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W1+tEhz7b258IPR+ffVdRCVhTkwgifqBfuWt/gcdRFrgf6r22NBRsdr0w6z3W5PBIwCyDa0ZaYnZ5dHZ4a3KbISCZ8QUrL3bEuPK9p89M7Xpx52rBuvAFofqFTmPQU4K6+s9kW8LcxsL/xuhbjgaqR4qdDWiPmQsXws6nU8yR1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdK+JITG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmZyox2N"
-Received: by mail-pj2-f15.google.com with SMTP id d9443c01a7336-2d747f01363so13412285ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:30:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790523021; x=1791127821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
-        b=DmZyox2NU3Yyz8znjAW7WTerIVEzDDHVS+0fB5Z8qiDGC4xJfhTqMXRM5PdAFWmN83
-         0q+aZmoJmoIChZyDitjpR4X9jHY8eYuCEzeSwY7QntCw1GEZvBgBWNrJtkHcRllnDW5m
-         uqo01dZAA/M8L/1q1KTZydQ9STXAc531ciL3L0qPWo3RcLehDQFn5LAxDtIGQw1TF0a5
-         mex4zMgOQCkaLXC80+rFnHp1kjA8FQlyl6i+k7VeZ4QQC5O2aFWZKFT6PpEgtVGvIZR2
-         c0Dqnd85okZhVmQQdHjCGk1UQrH9eUdMTp6VfpkV0Ro4vHphsFtTzp0t5ZEkYtE4bQ2b
-         DEaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790523021; x=1791127821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
-        b=Zrcgbih8vHxV24eVWJhOtvtyXyUxGQ06Mv/SkJX1VPkuE/ET5cbY2GpwOyDz0qY7L9
-         XgzbPVstzPs8gCkMcwH6BfRp1hNmZSOw78H8US0pEw/sdev09jZz9ybU45WZsd6q9/dR
-         xozXQNxPDI5JPrxflDxzPph0eKRjK+qIbmm31OWpPH3gFE0v+OwSU5cRhIlRzqfRRtD9
-         grrqC1MWAp6EoRNF1G7goHZ8YZOR2T6OVr2aj7sWBrQU+T3IqCGfh/MmbVMPs8lr8qMY
-         nSyAnqTyMr5XuNh8+4UgOCYNzuCVx/9hUuCo1OPqsUF8sliKGcxhUlyMW1WqjJLcxZGe
-         EE7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxD4kVXTUpIEYDO6CpldYoAEnioCStT1ulRvArSiIks5+iMe/p1kz3baO6clLxQ+uA80VdCPAsXrXEmNcU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoabnQDRGhh0xyEzWeccC+1DoXe61rQvmtOAQ3hXbXmmll7Mq0
-	H9DeK7KYQ8QCjOz+nrwt+KzMD203FeUts3/M3UEg2Y9bwmU/yh5KI7EB
-X-Gm-Gg: AYBFou24da6VuYB77d9k3UFJSDgKj8GNvg589gaLwCE1PgettJ8na+d2viUJ80K3jSI
-	9Nz34CsNYaX6m1oJhJjH2wpDy+nuiaqI0aexLfBIt1cfBMZD9aUYdikI179bgnzQ9ZP4gBE6IdE
-	9W3sxNtHklVj5lTkuQ0G+cKZgCqxb5SeK6Vm+AMnTyxWrQjHCt67nAno9Menl5i49PIWlavi/y+
-	Bc7ervVqv+zFxzR3yha5UMn7hJrY+8FCLfYSCDpAJ5haPhJFZ+nno2pEve/Bb4bpjd+HHOtYHo/
-	H7neV0lIUhmQy+I/KoSzEEpCEZKkQfJ/I7imw7MvwDQI2dW+aFlk83blu27uS16YVXuHUBbxuHz
-	BzvtIN2FNrkdFw2UBbgiC9+sN/743X3pt9I1tZBVV3Pf0PCJWYq4Ao8DJnaLIeUTQ25p55wv7xU
-	a/4kjASzMFgjY3NFqPfkD4FvZDQZoKrVKNS0YKEFgvRXGwHlqX5w2W0sSYva17RjbP1yeonqJnW
-	Kj6/Vza3Ac8ul2V4SNoOuc=
-X-Received: by 2002:a17:903:1a43:b0:2df:ab36:f15f with SMTP id d9443c01a7336-2dfab36f4femr28967115ad.43.1790523020553;
-        Sun, 27 Sep 2026 08:30:20 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b00dsm30373515ad.49.2026.09.27.08.30.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:30:18 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: david@readahead.eu,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: wiimote: initialise rumble_worker once per device
-Date: Mon, 28 Sep 2026 00:30:14 +0900
-Message-ID: <20260927153014.1395106-1-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdK+JITG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACC91F0089A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:32:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790523120;
+	bh=i+XtjOEr25mKpcBS2dPaibacr4BPHuZTb9SBTDpfO60=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GdK+JITG7Mg196rmB/7a+z9a7RugSE40/BPKA3onhtDTymB/ywYrL6hlDZtvyNMW2
+	 h5m06xWIeyORV9rq6z2O1AZNghz3dNCsWzd4Z0DZ7WGCpiBaZzJfExTMhbjdiHAwGZ
+	 4ArS7ztRlNEiYbLySSe9k7cbq8vDFQPCdqpcKUWzt63vZ+EBE7JRBNtlbo3Wt4gQGg
+	 rDwJK9MSI6If1jWOWQP7G730iayWfQNlGHEOqvrNLjmMwNaYSh0VyKGaJReO1pDlIh
+	 jvvAd9/AcHMB81PAEgVjMswGkdX1uNNs4zN/v9iZiOVfLUkTkpFUqfpk4t0a9/hT0Z
+	 qs74qguxuUQJA==
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc79c0d2bbbso444850a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:32:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwxOP7loqJac/b6EgLDt12eUa4WrCIH24iJdI84XIvpn/Ye7FfXfiOtJ5E9l1njX8iYhQR2YmjI5ILSdL8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2RHlA06+oeGLrgL+E6JWiRQ658VUZ9agUyq3mj0MhvzfaKnIi
+	9DrW0xzJhp6AJa6jOheNdret/ty2vj2kAoYAKlbx++Crx9Ln27KYviEtyR2EnLVVVuZbg3b9yCT
+	W3Y6828fBUULw86m2QNUH8TitTu+yFDk=
+X-Received: by 2002:a05:6300:44:b0:3dd:85a9:55ac with SMTP id
+ adf61e73a8af0-3de26db6d92mr6968432637.37.1790523120448; Sun, 27 Sep 2026
+ 08:32:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922095816.1191799-1-ruanjinjie@huawei.com>
+ <arK0cT7CGb3Khy69@hallyn.com> <7f0c935f-2c3f-4511-924f-822c3acf93da@huawei.com>
+ <arZ0TfXSLjmDtyRy@hallyn.com> <CACmP8UL0SEZxMn4XkByVPtKbRuc_mWQLafwgPZ_=dOFUzo5HKQ@mail.gmail.com>
+ <araIUXjOOQ9KuXki@hallyn.com>
+In-Reply-To: <araIUXjOOQ9KuXki@hallyn.com>
+From: "Andrew G. Morgan" <morgan@kernel.org>
+Date: Sun, 27 Sep 2026 08:31:49 -0700
+X-Gmail-Original-Message-ID: <CACmP8ULzE-m2d+76AdyQ7nsVj=t6kWvyed05KCc2=99EOr+6Yw@mail.gmail.com>
+X-Gm-Features: AclHuK-g5jLY9vtCYryLzo9EQRYbXMxOCc23AgY8CTsQL90wFe8oridMtYkpiFU
+Message-ID: <CACmP8ULzE-m2d+76AdyQ7nsVj=t6kWvyed05KCc2=99EOr+6Yw@mail.gmail.com>
+Subject: Re: [RFC PATCH] security: Allow dropping bounding set process-wide
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, paul@paul-moore.com, jmorris@namei.org, 
+	pjw@kernel.org, tglx@kernel.org, peterz@infradead.org, debug@rivosinc.com, 
+	broonie@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wdata->rumble_worker is a single work_struct in struct wiimote_data, but
-two different modules called INIT_WORK() on it:
+My point is as follows.
 
-  wiimod_rumble_probe()  devtype module, once per device
-  wiimod_pro_probe()     extension module, once per extension hotplug
+- Let's say proc p1 contains threads t1, t2, t3.
+- Both t1 and t2 call this new system call at the same time with
+different target states.
+- All while t3 is calling clone (creating t4 at some point).
 
-These have independent lifetimes.  The devtype module is loaded once by
-wiimote_modules_load() and stays until wiimote_destroy(), while the
-extension module is loaded and unloaded any number of times by
-wiimote_ext_load() / wiimote_ext_unload().  wiimote_ext_load() calls the
-extension probe with no lock and no cancel_work_sync(), and for the
-common EXT_NONE -> EXT_PRO_CONTROLLER transition the preceding
-wiimote_ext_unload() is a no-op because wiimod_ext_table[] maps both
-EXT_NONE and EXT_UNKNOWN to wiimod_dummy, which has no .remove.
+Without serialization, what state results? The state t1 wants or the
+state t2 wants? If a loop around is included for t4, what happens if
+t1, having set its own thread state and "returned" immediately calls
+this syscall again? What state will the threads end up with?
 
-So nothing stops the force-feedback path, which is still live in the
-base module, from having queued the work already:
+Serialization, for me, is that one of t1 and t2 wins the first race,
+and its will is enforced on every thread (including t4) before t2's
+intent can take effect. That intent may, indeed, not be attainable, if
+t1 has denied something t2 wants and that attempt should fail.
 
-	/* wiimod_rumble_play() */
-	wdata->state.cache_rumble = value;
-	schedule_work(&wdata->rumble_worker);
+Cheers
 
-INIT_WORK() on a queued work item is memory corruption.  __INIT_WORK()
-does
+Andrew
 
-	(_work)->data = (atomic_long_t) WORK_DATA_INIT();
-	INIT_LIST_HEAD(&(_work)->entry);
-
-which clears the pool reference and the PENDING bit, and re-points
-->entry at itself while the item is still linked into the worker pool
-list, leaving its neighbours pointing at a node that has left the list.
-
-Note that CONFIG_DEBUG_OBJECTS_WORK hides the impact rather than just
-reporting it: work_fixup_init() calls cancel_work_sync() for the caller,
-so a debug kernel prints a warning and then repairs the state.  That is
-the kernel stating what the driver should have done.  Production kernels
-have no such repair.
-
-Initialise the work once in wiimote_create(), which is where the object
-that contains it is created and which already initialises
-wdata->queue.worker, wdata->init_worker and wdata->timer, and drop both
-module-level INIT_WORK() calls.  wiimote_create() runs as the first
-statement of wiimote_hid_probe(), before hid_parse() and hid_hw_start(),
-so it strictly precedes the existence of any input device and therefore
-of any path that could queue the work.
-
-This does not affect the deadlock fix in commit f50f9aabf32d ("HID:
-wiimote: fix FF deadlock").  That fix is the offload itself - caching
-the value and deferring to a worker instead of taking state.lock inside
-the FF callback - and this patch leaves wiimod_rumble_play(),
-wiimod_rumble_worker() and state.cache_rumble untouched.  Only the
-placement of the initialisation changes.
-
-The two halves come from different actors, and both are available on a
-stock Android phone without root.  The extension hotplug half needs only
-/dev/uhid, which is group 3011 and held by the shell.  The shell cannot
-write to an evdev node - SELinux grants it read access only - so the
-force-feedback half comes from an ordinary app calling
-InputDevice.getVibrator().vibrate(), which reaches EVIOCSFF through
-system_server; VIBRATE is a normal permission and is granted
-automatically.  A paired Bluetooth HID device can supply the hotplug
-half instead of /dev/uhid.
-
-The ordering matters: the device has to be created without an extension
-so that the devtype resolves to a GEN10/GEN20 that includes
-WIIMOD_RUMBLE, because WIIMOTE_DEV_PRO_CONTROLLER does not, and the
-extension has to be plugged afterwards.
-
-Measured before the change:
-
-  Pixel 11, stock Android 17 user build, SELinux enforcing, no KASAN and
-  no DEBUG_OBJECTS at runtime, kernel 6.12.81: reboots with
-  ro.boot.bootreason=kernel_panic one to two seconds after the two paths
-  start overlapping.
-
-    Unable to handle kernel NULL pointer dereference at virtual address
-      0000000000000008
-    CPU: 5 Comm: kworker/5:4
-    Workqueue:  wiimod_rumble_worker (events)
-    pc : process_scheduled_works+0xd4/0x810
-    Kernel panic - not syncing: Oops: Fatal exception
-
-  The empty workqueue name in that line is itself the corruption:
-  print_worker_info() reads wq->name with copy_from_kernel_nofault() and
-  it failed, while another CPU in the same dump shows the normal form,
-  "Workqueue: events wiimote_init_worker" - the task that called
-  wiimod_pro_probe().
-
-  x86_64 with CONFIG_KASAN_GENERIC and CONFIG_DEBUG_OBJECTS_WORK both
-  enabled, 15 s in: KASAN says nothing, because INIT_WORK() writes to a
-  valid field of a live object, and DEBUG_OBJECTS_WORK reports
-
-    ODEBUG: init active (active state 0) object type: work_struct
-      hint: wiimod_rumble_worker+0x0/0x70
-    WARNING: lib/debugobjects.c:629 at debug_print_object
-    Workqueue: events wiimote_init_worker
-     __debug_object_init+0x1ff/0x3b0
-     __init_work+0x51/0x60
-     wiimod_pro_probe+0x28/0xba0
-     wiimote_init_worker.cold+0xb6a/0xe88
-
-After the change the same reproducer drives 36774 extension hotplugs and
-612156 force-feedback plays in 60 s on that x86_64 kernel with no ODEBUG,
-WARNING or KASAN output, and the rumble reports still arrive, so the
-force-feedback path is unaffected.
-
-Fixes: f50f9aabf32d ("HID: wiimote: fix FF deadlock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
----
-Notes for reviewers, not for the commit message:
-
- - base-commit below is the public next-20260925 tag, but the three files
-   touched are byte-identical in linux-next, hid/for-next, hid/master and
-   hid/for-7.4/*, and the patch applies to all of them unchanged, so pick
-   whichever tree suits.
-
- - It conflicts textually with the pending series "[PATCH v4 0/4] HID:
-   wiimote: new LED behavior on connect + scoped_guards" from Rafael Passos
-   (<20260817213840.1053216-1-rafael@rcpassos.me>), whose 4/4 rewrites
-   wiimote_create() and drops the call. Happy to rebase on top of that if it
-   goes in first; I kept this one standalone because it is a stable
-   candidate and that series is a refactor.
-
- - The reproducer is a reactive /dev/uhid wiimote emulator, plus a
-   reflection-only dex run through app_process to drive the force-feedback
-   half on Android. I can post either if that would help.
-
- drivers/hid/hid-wiimote-core.c    | 1 +
- drivers/hid/hid-wiimote-modules.c | 5 +----
- drivers/hid/hid-wiimote.h         | 1 +
- 3 files changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hid/hid-wiimote-core.c b/drivers/hid/hid-wiimote-core.c
-index 63c4fa8fbb9b..1946c23867c8 100644
---- a/drivers/hid/hid-wiimote-core.c
-+++ b/drivers/hid/hid-wiimote-core.c
-@@ -1754,6 +1754,7 @@ static struct wiimote_data *wiimote_create(struct hid_device *hdev)
- 	wdata->state.cmd_battery = 0xff;
- 
- 	INIT_WORK(&wdata->init_worker, wiimote_init_worker);
-+	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
- 	timer_setup(&wdata->timer, wiimote_init_timeout, 0);
- 
- 	return wdata;
-diff --git a/drivers/hid/hid-wiimote-modules.c b/drivers/hid/hid-wiimote-modules.c
-index dccb78bb3afd..c5b48065638e 100644
---- a/drivers/hid/hid-wiimote-modules.c
-+++ b/drivers/hid/hid-wiimote-modules.c
-@@ -117,7 +117,7 @@ static const struct wiimod_ops wiimod_keys = {
-  */
- 
- /* used by wiimod_rumble and wiipro_rumble */
--static void wiimod_rumble_worker(struct work_struct *work)
-+void wiimod_rumble_worker(struct work_struct *work)
- {
- 	struct wiimote_data *wdata = container_of(work, struct wiimote_data,
- 						  rumble_worker);
-@@ -155,8 +155,6 @@ static int wiimod_rumble_play(struct input_dev *dev, void *data,
- static int wiimod_rumble_probe(const struct wiimod_ops *ops,
- 			       struct wiimote_data *wdata)
- {
--	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
--
- 	set_bit(FF_RUMBLE, wdata->input->ffbit);
- 	if (input_ff_create_memless(wdata->input, NULL, wiimod_rumble_play))
- 		return -ENOMEM;
-@@ -1865,7 +1863,6 @@ static int wiimod_pro_probe(const struct wiimod_ops *ops,
- 	int ret, i;
- 	unsigned long flags;
- 
--	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
- 	wdata->state.calib_pro_sticks[0] = 0;
- 	wdata->state.calib_pro_sticks[1] = 0;
- 	wdata->state.calib_pro_sticks[2] = 0;
-diff --git a/drivers/hid/hid-wiimote.h b/drivers/hid/hid-wiimote.h
-index 9c12f63f6dd2..c63cd0a68e0c 100644
---- a/drivers/hid/hid-wiimote.h
-+++ b/drivers/hid/hid-wiimote.h
-@@ -262,6 +262,7 @@ enum wiiproto_reqs {
- #define dev_to_wii(pdev) hid_get_drvdata(to_hid_device(pdev))
- 
- void __wiimote_schedule(struct wiimote_data *wdata);
-+void wiimod_rumble_worker(struct work_struct *work);
- 
- extern void wiiproto_req_drm(struct wiimote_data *wdata, __u8 drm);
- extern void wiiproto_req_rumble(struct wiimote_data *wdata, __u8 rumble);
-
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
--- 
-2.53.0
-
+On Fri, Sep 25, 2026 at 7:42=E2=80=AFAM Serge E. Hallyn <serge@hallyn.com> =
+wrote:
+>
+> Also (not sure whether this is what Andrew is referring to here), in your
+> code below, what keeps one thread from doing a clone in between the
+> task harvesting loop and the task_work_add() loop?  It seems like you'd
+> need to do another loop after to make sure you didn't miss any new
+> tasks?
+>
+> And of course we'd need a more robust solution to
+>
+> > > > >> +          /* Out of memory: bounding set drop failed silently f=
+or this thread. */
+>
+> -serge
+>
+> On Fri, Sep 25, 2026 at 07:28:08AM -0700, Andrew G. Morgan wrote:
+> > I don't see a race condition in the (*cap.IAB).Set() code. The
+> > semantics of this sort of thing can't be allowed to include a race;
+> > otherwise, back-to-back calls to this "system call" might generate
+> > divergent thread state. How you do that without some serialization
+> > isn't clear to me.
+> >
+> > Cheers
+> >
+> > Andrew
+> >
+> > On Fri, Sep 25, 2026 at 6:17=E2=80=AFAM Serge E. Hallyn <serge@hallyn.c=
+om> wrote:
+> > >
+> > > On Thu, Sep 24, 2026 at 04:05:59PM +0800, Jinjie Ruan wrote:
+> > > >
+> > > >
+> > > > =E5=9C=A8 2026/9/23 1:01, Serge E. Hallyn =E5=86=99=E9=81=93:
+> > > > > On Tue, Sep 22, 2026 at 05:58:16PM +0800, Jinjie Ruan wrote:
+> > > > >> The capability bounding set is per-thread: PR_CAPBSET_DROP only =
+affects
+> > > > >> the calling thread, since its bounding set lives in the per-task=
+ struct
+> > > > >> cred.  User space that wants to drop capabilities for a whole pr=
+ocess
+> > > > >> must therefore invoke PR_CAPBSET_DROP once per capability per th=
+read,
+> > > > >> which on a many-threaded process is expensive, and from a Go run=
+time
+> > > > >> requires stopping the world and signalling every thread.
+> > > > >>
+> > > > >> Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
+> > > > >> capabilities, given as a 64-bit mask in arg2 (low 32 bits) and a=
+rg3
+> > > > >> (high 32 bits), from the bounding set of every thread of the cal=
+ling
+> > > > >> thread group in a single call.
+> > > > >>
+> > > > >> The calling thread drops the capabilities synchronously, last; e=
+very
+> > > > >> sibling that still holds any of them is asked to drop them throu=
+gh a
+> > > > >> task_work item, so that it applies the drop in its own context. =
+ This
+> > > > >> avoids racing with a sibling's concurrent credential updates suc=
+h as
+> > > > >> setuid() or capset().  The call does not wait for the siblings: =
+a
+> > > > >> sibling may be parked in a wait that is not woken by TIF_NOTIFY_=
+SIGNAL
+> > > > >> (e.g. futex), so waiting could block for an unbounded time.  Thi=
+s is
+> > > > >> still safe, because TIF_NOTIFY_SIGNAL is handled on the way out =
+to user
+> > > > >> mode, so a sibling applies the drop before executing any further
+> > > > >> userspace code.  It does not synchronize against a sibling that =
+is
+> > > > >> concurrently creating threads, so callers must keep the thread g=
+roup
+> > > > >> quiescent while dropping.
+> > > > >>
+> > > > >> Measured with gVisor's "bounding set trimmed" boot phase on an a=
+rm64 KVM
+> > > > >> guest (medians over repeated boots):
+> > > > >>   - 8 vCPUs:  ~1.6ms  -> ~0.10ms
+> > > > >>   - 32 vCPUs: ~3.5ms  -> ~0.11ms
+> > > > >>   - 64 vCPUs: ~10.1ms -> ~0.1-0.6ms
+> > > > >>   - cost goes from O(capabilities * threads) stop-the-world prct=
+ls to a
+> > > > >>     single thread-group walk.
+> > > > >
+> > > > > That is impressive, but please do detail the specific use case wh=
+ere
+> > > > > you need to drop from the bounding set after the go scheduler has=
+ started.
+> > > > > I can imagine some cases where you need to do some early setup an=
+d then
+> > > > > want to drop privileges, but you could also do that by re-exec'in=
+g, so
+> > > > > I'd like to hear specifics.
+> > > >
+> > > > Hi Serge,
+> > > >
+> > > > Thanks for the review.
+> > > >
+> > > > The use case is gVisor's sentry: a long-lived, pure-Go process that
+> > > > starts a sandbox per container/pod. The final capability set depend=
+s on
+> > > > the spec, the platform (ptrace requires CAP_SYS_PTRACE),
+> > > > directfs/networking, and the capabilities granted to the runtime's =
+user
+> > > > namespace.
+> > > >
+> > > > It is therefore only known after the runtime and gVisor's own threa=
+ds
+> > > > are already up =E2=80=94 the trim happens multi-threaded. We do hav=
+e a re-exec
+> > > > path, but it re-loads a ~100 MB binary and re-runs Go init, so we o=
+nly
+> > > > take it when forced.
+> > > >
+> > > > >
+> > > > > This makes me nervous, reminding me of the 'sendmail capabilities=
+ bug'.
+> > > > > If some program specifically locks down one thread, I could imagi=
+ne the
+> > > > > locked down thread forcing wrong behavior from the privileged thr=
+eads
+> > > > > by calling this.
+> > > >
+> > > > Fair concern. This new prcoess-wide drop is also a drop =E2=80=94 i=
+t only
+> > > > removes capabilities from all threads, and requires CAP_SETPCAP. Bu=
+t it
+> > >
+> > > Good point, CAP_SETPCAP requirement might mitigate my concern.  I'll =
+look
+> > > at this a bit more, thanks.
+> > >
+> > > > must actually reach every thread, so the thread-creation race still
+> > > > needs to be addressed.
+> > > >
+> > > > >
+> > > > >>
+> > > > >> Cc: Serge Hallyn <serge@hallyn.com>
+> > > > >> Cc: Paul Moore <paul@paul-moore.com>
+> > > > >> Cc: James Morris <jmorris@namei.org>
+> > > > >> Cc: Paul Walmsley <pjw@kernel.org>
+> > > > >> Cc: Thomas Gleixner <tglx@kernel.org>
+> > > > >> Cc: Zong Li <zong.li@sifive.com>
+> > > > >> Cc: Deepak Gupta <debug@rivosinc.com>
+> > > > >> Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+> > > > >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> > > > >> ---
+> > > > >>  include/uapi/linux/prctl.h |   1 +
+> > > > >>  security/commoncap.c       | 129 ++++++++++++++++++++++++++++++=
++++++++
+> > > > >>  2 files changed, 130 insertions(+)
+> > > > >>
+> > > > >> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prc=
+tl.h
+> > > > >> index b6ec6f693719..750a7824d3bc 100644
+> > > > >> --- a/include/uapi/linux/prctl.h
+> > > > >> +++ b/include/uapi/linux/prctl.h
+> > > > >> @@ -70,6 +70,7 @@
+> > > > >>  /* Get/set the capability bounding set (as per security/commonc=
+ap.c) */
+> > > > >>  #define PR_CAPBSET_READ 23
+> > > > >>  #define PR_CAPBSET_DROP 24
+> > > > >> +#define PR_CAPBSET_DROP_MASK 83
+> > > > >>
+> > > > >>  /* Get/set the process' ability to use the timestamp counter in=
+struction */
+> > > > >>  #define PR_GET_TSC 25
+> > > > >> diff --git a/security/commoncap.c b/security/commoncap.c
+> > > > >> index 3399535808fe..ae7ce50a8151 100644
+> > > > >> --- a/security/commoncap.c
+> > > > >> +++ b/security/commoncap.c
+> > > > >> @@ -19,7 +19,14 @@
+> > > > >>  #include <linux/hugetlb.h>
+> > > > >>  #include <linux/mount.h>
+> > > > >>  #include <linux/sched.h>
+> > > > >> +#include <linux/cred.h>
+> > > > >> +#include <linux/rcupdate.h>
+> > > > >> +#include <linux/sched/signal.h>
+> > > > >> +#include <linux/sched/task.h>
+> > > > >> +#include <linux/slab.h>
+> > > > >> +#include <linux/task_work.h>
+> > > > >>  #include <linux/prctl.h>
+> > > > >> +#include <linux/printk.h>
+> > > > >>  #include <linux/securebits.h>
+> > > > >>  #include <linux/user_namespace.h>
+> > > > >>  #include <linux/binfmts.h>
+> > > > >> @@ -1283,6 +1290,123 @@ static int cap_prctl_drop(unsigned long =
+cap)
+> > > > >>    return commit_creds(new);
+> > > > >>  }
+> > > > >>
+> > > > >> +/*
+> > > > >> + * Structure used to queue process-wide bounding set drops via =
+task_work.
+> > > > >> + */
+> > > > >> +struct cap_bset_drop_work {
+> > > > >> +  struct callback_head work;
+> > > > >> +  struct task_struct *task;
+> > > > >> +  kernel_cap_t mask;
+> > > > >> +  struct cap_bset_drop_work *next;
+> > > > >> +};
+> > > > >> +
+> > > > >> +static void cap_bset_drop_work_fn(struct callback_head *work)
+> > > > >> +{
+> > > > >> +  struct cap_bset_drop_work *w =3D container_of(work, struct ca=
+p_bset_drop_work, work);
+> > > > >> +  struct cred *new =3D prepare_creds();
+> > > > >> +
+> > > > >> +  if (!new) {
+> > > > >> +          /* Out of memory: bounding set drop failed silently f=
+or this thread. */
+> > > > >> +          pr_warn_ratelimited("capability bounding set drop fai=
+led for pid %d (%s)\n",
+> > > > >> +                              task_pid_nr(current), current->co=
+mm);
+> > > > >> +          goto out;
+> > > > >> +  }
+> > > > >> +
+> > > > >> +  new->cap_bset =3D cap_drop(new->cap_bset, w->mask);
+> > > > >> +  commit_creds(new);
+> > > > >> +
+> > > > >> +out:
+> > > > >> +  put_task_struct(w->task);
+> > > > >> +  kfree(w);
+> > > > >> +}
+> > > > >> +
+> > > > >> +/*
+> > > > >> + * cap_bset_drop_process - Drop capabilities from all threads i=
+n the group.
+> > > > >> + * @mask: Mask of capabilities to drop from the bounding set.
+> > > > >> + *
+> > > > >> + * Drops @mask from the calling thread synchronously, and queue=
+s a task_work
+> > > > >> + * item for each sibling thread to safely apply the drop in its=
+ own context.
+> > > > >> + *
+> > > > >> + * The caller must hold CAP_SETPCAP. Thread group must be quies=
+cent to avoid
+> > > > >> + * racing with concurrent thread creation.
+> > > > >> + *
+> > > > >> + * Returns 0 on success, or -ENOMEM if allocations fail (all-or=
+-nothing).
+> > > > >> + */
+> > > > >> +static int cap_bset_drop_process(kernel_cap_t mask)
+> > > > >> +{
+> > > > >> +  struct cap_bset_drop_work *list =3D NULL, *w, *next;
+> > > > >> +  struct task_struct *thread;
+> > > > >> +  struct cred *new =3D NULL;
+> > > > >> +  int ret =3D 0;
+> > > > >> +
+> > > > >> +  rcu_read_lock();
+> > > > >> +  for_each_thread(current, thread) {
+> > > > >> +          const struct cred *cred;
+> > > > >> +
+> > > > >> +          if (thread =3D=3D current || (thread->flags & PF_EXIT=
+ING))
+> > > > >> +                  continue;
+> > > > >> +
+> > > > >> +          cred =3D __task_cred(thread);
+> > > > >> +          if (cap_isclear(cap_intersect(cred->cap_bset, mask)))
+> > > > >> +                  continue;
+> > > > >> +
+> > > > >> +          w =3D kmalloc_obj(*w, GFP_ATOMIC);
+> > > > >> +          if (!w) {
+> > > > >> +                  ret =3D -ENOMEM;
+> > > > >> +                  break;
+> > > > >> +          }
+> > > > >> +
+> > > > >> +          w->task =3D get_task_struct(thread);
+> > > > >> +          w->mask =3D mask;
+> > > > >> +          w->next =3D list;
+> > > > >> +          list =3D w;
+> > > > >> +  }
+> > > > >> +  rcu_read_unlock();
+> > > > >> +
+> > > > >> +  if (!ret) {
+> > > > >> +          new =3D prepare_creds();
+> > > > >> +          if (!new)
+> > > > >> +                  ret =3D -ENOMEM;
+> > > > >> +  }
+> > > > >> +
+> > > > >> +  if (ret) {
+> > > > >> +          while (list) {
+> > > > >> +                  next =3D list->next;
+> > > > >> +                  put_task_struct(list->task);
+> > > > >> +                  kfree(list);
+> > > > >> +                  list =3D next;
+> > > > >> +          }
+> > > > >> +          return ret;
+> > > > >> +  }
+> > > > >> +
+> > > > >> +  for (w =3D list; w; w =3D next) {
+> > > > >> +          next =3D w->next;
+> > > > >> +          init_task_work(&w->work, cap_bset_drop_work_fn);
+> > > > >> +          if (task_work_add(w->task, &w->work, TWA_SIGNAL)) {
+> > > > >> +                  put_task_struct(w->task);
+> > > > >> +                  kfree(w);
+> > > > >> +          }
+> > > > >> +  }
+> > > > >> +
+> > > > >> +  new->cap_bset =3D cap_drop(new->cap_bset, mask);
+> > > > >> +  commit_creds(new);
+> > > > >> +
+> > > > >> +  return 0;
+> > > > >> +}
+> > > > >> +
+> > > > >> +static int cap_prctl_drop_mask(unsigned long low, unsigned long=
+ high)
+> > > > >> +{
+> > > > >> +  kernel_cap_t mask =3D mk_kernel_cap((u32)low, (u32)high);
+> > > > >> +
+> > > > >> +  if (cap_isclear(mask))
+> > > > >> +          return 0;
+> > > > >> +
+> > > > >> +  if (!ns_capable(current_user_ns(), CAP_SETPCAP))
+> > > > >> +          return -EPERM;
+> > > > >> +
+> > > > >> +  return cap_bset_drop_process(mask);
+> > > > >> +}
+> > > > >> +
+> > > > >>  /**
+> > > > >>   * cap_task_prctl - Implement process control functions for thi=
+s security module
+> > > > >>   * @option: The process control function requested
+> > > > >> @@ -1313,6 +1437,11 @@ int cap_task_prctl(int option, unsigned l=
+ong arg2, unsigned long arg3,
+> > > > >>    case PR_CAPBSET_DROP:
+> > > > >>            return cap_prctl_drop(arg2);
+> > > > >>
+> > > > >> +  case PR_CAPBSET_DROP_MASK:
+> > > > >> +          if (arg4 || arg5)
+> > > > >> +                  return -EINVAL;
+> > > > >> +          return cap_prctl_drop_mask(arg2, arg3);
+> > > > >> +
+> > > > >>    /*
+> > > > >>     * The next four prctl's remain to assist with transitioning =
+a
+> > > > >>     * system from legacy UID=3D0 based privilege (when filesyste=
+m
+> > > > >> --
+> > > > >> 2.34.1
+> > > >
+> > > > --
+> > > > Best regards,
+> > > > Jinjie
