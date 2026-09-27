@@ -1,65 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5083E7BC4
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F253EFFC9
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790513203; cv=none; b=W/VhPcfrGD6GCnaQ57cCROmsdQzhN6rrysd86QcI1/r/C6aO8uXtgVdqHM9Fuoh2wdbm2OFVBrmWsLnLPluI6BzAk8FIk6vrstnxLYCRD6QIZ+geqxUp16nK4YL7kV4hT/eTBhpGxkD3PkgFNOkVB6Hpw4rojgKC0usAVK5gwLU=
+	t=1790513208; cv=none; b=IZWDeytWrFNX4StjUNI6RvjW9VIvw7cismswGd0yd29xpkpNkXfomz8+fQZPBDd+5wM+dZmXQzZky8SGIC9KDxiYenMsthw7cJdeG6HcYGGG/7+U1eqmI1eJz+yOlvZvTy9O3m5WTt1s4NTfvXz7KfDtWUshbdvERg59U/LtZFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790513203; c=relaxed/simple;
-	bh=5T+a23aIGmK2iqABM7bsnn+JBjwEBOQqZO+RU3YCAIs=;
+	s=arc-20240116; t=1790513208; c=relaxed/simple;
+	bh=xGk9jTRysFq1xMJGgvf4PgE7aL4WLroGrjc8dG5KjBE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TYOmCwlaCoPCaculgj8B4UW9efnJujGUk5RcXe6Mkvl5uWy5/e/T2H3QyDr4WeCIztlFF3YQ8QhoLi/qPkgDDTadl67RhLcmZlErRz6cC8mj3PT3pdEseFS3UsQwTv3zpMi8HPuj4ZKexJvAF9thCzPTLJKHZFXUaw80RocLn/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QVMk8HLh; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=Wv6yFbzJQyYQ51kuWcDKJP0pUl1fPyPVWXEu/0t8Z4yB9aQLIC7uQKnuHN+yCI3gxIn71eXkmHmQvU4vmP3u0A8RGRUHIjl2rNq5Of9RnnfqfzAsBs5s9ayTT2y20Tc0apTOfL7oyJAs1N1SvQbj0B9aJ7q11ImVd9LPmfaLmAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jltdipnv; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QVMk8HLh"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso8696385e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:46:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jltdipnv"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so788116f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:46:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790513197; x=1791117997; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790513202; x=1791118002; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YshmIf8br7QZ8gBxtu/Vo13g09V/Sk1mprmtIBCHo2o=;
-        b=QVMk8HLhJkoGlvjM1+CL0xPLSAHlQlhhLu0zcACJ3H1J8nliHJ6pgtPD8OVnvfa788
-         bDao1vT5By0Y0LpmBY6pPjGhwTQ8F1MF+LmK0Z6iMxKi9EOJ4O/EMlY6ouE5PekHxGb9
-         /PXwsqWfnZfh2RxeZfOQNlxriyyTHi8SK5kFf8UmRTaDlfMLZLlbepbwCNjrNIOJ1YgU
-         SnGtgnAw6/TVGhdWJBk8Cueq17wTFjhN8hNu0tIYSNAtjax1lQpBWy6V5PEa81oBYMcD
-         tzV4Y1uw5ZpH9oTSk6dec/GJcXt72NqdIqY3AEQHLY/Zpl/mjUugq/9p1tJ/caG9uDuc
-         vdyQ==
+        bh=jQEEneNhkSGMagWc44r//3s8R86QBncqDPoJlJvrhsg=;
+        b=jltdipnvL15arRenwNcJjr/Wk5tPVL0R/MRjdf1axiqCpfmhwO3bqbA5hbJFSRwTqE
+         jSiJXCdwb1yzhM/mHEntOuXy9PGmg+DpXXHvVBmAXnh+B/KIMhjko9QKkHka472AOder
+         sA4dql9uQlLdAzHI3wngwk3YQQNb8ll3EbU/MmwvLD+g1Se17tESmMv+1w47vqJPML7j
+         I3/aEaDGNaQjLRsPn3ifesUwAG31xWl37+20sdb5o9MHnxQJrTIyosAVIQPSbxTGUQJe
+         jVQEzTdml/21MVAEF+7VUxW9My2b47Z+Eu7L9FnCG7RZyiHajpraEnis1kygljIF1Iqx
+         vqEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790513197; x=1791117997;
+        d=1e100.net; s=20260707; t=1790513202; x=1791118002;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YshmIf8br7QZ8gBxtu/Vo13g09V/Sk1mprmtIBCHo2o=;
-        b=D8HUUV3KY5ENZNMaK3R90ijBI1zTxzx56xfK+H3kWvA75oiY4ugYL3hjx90xPcMGyK
-         6gi+BqrSTBsjpCMz6/HC6mlpbOVvV5J/bAOimP9ni6Lros5AEsu6+SUdgotW/ymF0B9F
-         6bI9SIi7kGUah3TmJnIFyvIDy9R3rqx10bCHTKaPxEQ/g8vVYVyA74iLT1IY8Npg5csV
-         8Xk37nxt6oXtkuKtHjIG0lx4tRoIxsuv3hYSQABACZPsB+dUibt2CBQlUqsSFcGSoHE9
-         3+5SFumj5CP1pTAqkELg5clE6RuWvfFCL5NMikc1MQ7oaxW0Mupudo2WoVtZMaPvwxgL
-         oI5A==
-X-Forwarded-Encrypted: i=1; AKwUvByPzuN84I6E+i6zITBN7xQZUGxsgtH2T60wL6oiXYlUwOho79cbproizUyX0XBrInTKH0MDjvv8jmUCMJQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhuzOJ/a7zXuEzJFIYHJmxFf0Ex45k5/j6/86Z5sMwHMiNKWxE
-	T9UrNMoVL1d26j5ThFBpMCweCJXd2X72OcMzZ8/8R+SzlzP7J5fSsM8j
-X-Gm-Gg: AYBFou33JMmBQZ/SMcrjMIFm/al8InmiXpnUsUJdvdeRHvyLtNRwuB8Lt+KUFPFQr+k
-	zQfUp0Clbj7jLbycE6O6mIAjZ+oyxXOxIg+Izrh3Elo+Hs3afGpAAbEp+MPxTXoOPtisaqeT6+d
-	P+ek9CYDikrFh+d7IuiuXpZg+eTSN04ttcEmJhN8LX5A6+t83TQqiywRp1OmiqWvFN3V9dJlqRD
-	3CtHDaSlParOaB2X03Qi78Bo9aQHsG4ee0bVj44U2mO7pr2548+mXhkN0oevSmgE1ubZP58DOGf
-	X6SbJZxkazJQsLWBea517g3owwfMWXlJWlu2DszH7IfoCij0yZs1T+GA6lV4j0FMvuSoP+7TFdG
-	gGsoRlS2ju6udglyHba3k//HorIv54xWlx9F3L/15gfxw0p4bifc64VZhPXaJRijjd3Pgui+gzZ
-	VYWdB9kil8o6dqjA+U0Pq8fowsTID58Lb9WCXlNbgN4Gzd90ks1SppzEgP+LuZcjznlyXNN0/cM
-	iv3BLk/m7oUngEG8YLezs3bmHuK4aNg5KZ6dGLmbwnUPBDHNzQrLQgBq9OJdqiAKDQoXQsC6g5d
-	KwhTkpYoR4CLFSndBrASxQ==
-X-Received: by 2002:a05:600c:4ecc:b0:4a0:174:579e with SMTP id 5b1f17b1804b1-4a001745829mr23006575e9.28.1790513197048;
-        Sun, 27 Sep 2026 05:46:37 -0700 (PDT)
+        bh=jQEEneNhkSGMagWc44r//3s8R86QBncqDPoJlJvrhsg=;
+        b=0wETuse2Cy2a7beiBSOFGPTwFpQTRAWg0VkfEjryNlHiAcUZNuESC30qwKDuWiXDCz
+         /PnnziYbcsBbv/P/1TYL1+ayaRuX9XJF/wRlj+1VK41dEVAAJNNs3+yipYX+JA0ZUU1R
+         igsj1Mg+isdtt8j/youw38W1p7+SkHIK2rkvTfTn2t6bMbKict2sIoMicf7try5Aqwl5
+         bphl8Z1brFo+BqTqEl4Iw3oGGEiIlV4Z+w3nERP8+SFPrnIoZqA/zp+iY2c2gGedV2o6
+         YgvWpJK00JO2J3l+vOdBrIDmrHlFJJTABJBB7o1J98kuskMvDqsDb1s2t/8r89+lX8tw
+         pb0g==
+X-Forwarded-Encrypted: i=1; AKwUvBx7oL/oQgEYjqDVGrLsKMoiCimU+2Wz0yWJbZ5pIp3gkrKscNo5U1E6+AM5pLiJLSAi603BYhvGHR0Bf4M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKdQSISdon30TuyzFMANYd+If+sx7kL6JN/l0qsjHxBW6x5NCF
+	ahg03tpVUyanc/kQDfmVSyR8ZjySptnI3kl1Z687bBg5q8IEQC8ET6BT
+X-Gm-Gg: AYBFou1rCIEIwbC1OLdDQxEm1voDWYOSiwCGpV/XohPvN1DpSm62UlY5ZNIIanue1Ld
+	YXN9SPgE1BaH6g+xBBGPT800laaTCMK0Gwr0qKLgits1XoVtgACrkhdK8aajyXxdNVxIIjnG5Tl
+	9qMNfmaU1uHdR7qaeOmNFXYKXw7XVNq/s+len4vEqTqhnkKa7+HG/OvhWrWdx7u+sSUOU+6oTfE
+	cnLsDeXDZPbutrOu9aP0xkLgtGI0tiAJQo0ZKMACvw2clB0p5VJcctzbcYb5b6qiAwrKp81X9yA
+	7vJEf9Xx7VQfxPCL5DqFhQWb/4oLgtBAuy+fteUu66r7R1DLIDw2wr2QRXQTQRAn1vP6l9ALWC3
+	8QQ5EGcebJnrb8xsIuaSG0RcfIATWG7P1UjjHsgLuVkBS/zvxKlFPMybQ/o6l+SAR97+7Y9FuIk
+	Pwk5iA1B3ult+K4LGrdvZVXhCDSPhT8sJhEy2XZE5waT+HXf92MW77iUeo2UhNhWpKYtfY7Qamk
+	hbVnXHPckXFXMT928gGAB1cfe26PvhbU1boqs3fVPGTA2eMYpBNhAy1ON+LPVwRL7k7+ZWKEXlZ
+	/AP9tuD2abHIra4M8H0s0A==
+X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-49fe66d05d7mr172482935e9.8.1790513201680;
+        Sun, 27 Sep 2026 05:46:41 -0700 (PDT)
 Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm148440605e9.4.2026.09.27.05.46.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm148440605e9.4.2026.09.27.05.46.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:46:36 -0700 (PDT)
+        Sun, 27 Sep 2026 05:46:41 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: Frank Li <Frank.Li@nxp.com>,
@@ -94,9 +94,9 @@ Cc: pierluigi.p@variscite.com,
 	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Stefan Eichenberger <eichest@gmail.com>,
 	netdev@vger.kernel.org
-Subject: [PATCH v3 03/12] dt-bindings: net: micrel: Fix RMII clock select property type
-Date: Sun, 27 Sep 2026 14:46:18 +0200
-Message-ID: <2596c9e2fd59d04abb2eb4f4abb98767d2d2ebdb.1790512621.git.stefano.r@variscite.com>
+Subject: [PATCH v3 05/12] ARM: dts: imx6ul: Add Variscite audio codec files
+Date: Sun, 27 Sep 2026 14:46:20 +0200
+Message-ID: <d82767680658b3d9452b72578aa68ad681318870.1790512621.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790512621.git.stefano.r@variscite.com>
 References: <cover.1790512621.git.stefano.r@variscite.com>
@@ -110,72 +110,217 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Radaelli <stefano.r@variscite.com>
 
-The binding describes micrel,rmii-reference-clock-select-25-mhz as a
-boolean. dt-schema requires properties ending in -mhz to contain an
-unsigned integer value. A bare property therefore produces a
-property-units.yaml type warning.
+Add shared WM8904 and WM8731 audio option DTSI files for
+VAR-SOM-6UL and DART-6UL. Keep the codec, SAI2 setup and pinctrl
+out of the module base so each board selects its fitted codec.
 
-Describe 25 MHz selection as <1> and keep the property restricted to
-KSZ8021, KSZ8031, KSZ8081 and KSZ8091 PHYs, which have the RMII
-reference clock select bit. The driver checks only for the property
-presence, so this does not change runtime behavior.
+The DART-6UL WM8904 wrapper adds the microphone routes to IN2L,
+IN2R and MICBIAS. Both modules use the same WM8731 description.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- .../devicetree/bindings/net/micrel.yaml       | 27 ++++++++++++++-----
- 1 file changed, 20 insertions(+), 7 deletions(-)
+v1->v2:
+ - Share the WM8904 description with a DART-specific microphone
+   routing wrapper, and consolidate the identical WM8731 files.
 
-diff --git a/Documentation/devicetree/bindings/net/micrel.yaml b/Documentation/devicetree/bindings/net/micrel.yaml
-index 6fa568057b92..a1f876dc00de 100644
---- a/Documentation/devicetree/bindings/net/micrel.yaml
-+++ b/Documentation/devicetree/bindings/net/micrel.yaml
-@@ -63,6 +63,14 @@ properties:
-     minimum: 0
-     maximum: 3
- 
-+  micrel,rmii-reference-clock-select-25-mhz:
-+    enum: [ 1 ]
-+    description: |
-+      RMII Reference Clock Select bit selects 25 MHz mode.
+ .../imx/imx6ul-imx6ull-var-dart-wm8904.dtsi   | 17 ++++
+ .../nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi    | 71 ++++++++++++++++
+ .../nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi    | 85 +++++++++++++++++++
+ 3 files changed, 173 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wm8904.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wm8904.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wm8904.dtsi
+new file mode 100644
+index 000000000000..236022f3da10
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wm8904.dtsi
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
++ */
 +
-+      Setting the RMII Reference Clock Select bit enables 25 MHz rather
-+      than 50 MHz clock mode.
++#include "imx6ul-imx6ull-var-wm8904.dtsi"
 +
- allOf:
-   - $ref: ethernet-phy.yaml#
-   - if:
-@@ -90,6 +98,18 @@ allOf:
-     then:
-       properties:
-         micrel,led-mode: false
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - ethernet-phy-id0022.1555
-+                - ethernet-phy-id0022.1556
-+                - ethernet-phy-id0022.1560
-+    then:
-+      properties:
-+        micrel,rmii-reference-clock-select-25-mhz: false
-   - if:
-       properties:
-         compatible:
-@@ -105,13 +125,6 @@ allOf:
-           description:
-             The RMII reference input clock. Used to determine the XI input
-             clock.
--        micrel,rmii-reference-clock-select-25-mhz:
--          type: boolean
--          description: |
--            RMII Reference Clock Select bit selects 25 MHz mode
--
--            Setting the RMII Reference Clock Select bit enables 25 MHz rather
--            than 50 MHz clock mode.
- 
- dependentRequired:
-   micrel,rmii-reference-clock-select-25-mhz: [ clock-names ]
++&sound_wm8904 {
++	simple-audio-card,routing =
++		"Headphone Jack", "HPOUTL",
++		"Headphone Jack", "HPOUTR",
++		"IN1L", "Line In Jack",
++		"IN1R", "Line In Jack",
++		"IN2L", "Microphone Jack",
++		"IN2R", "Microphone Jack",
++		"Microphone Jack", "MICBIAS";
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi
+new file mode 100644
+index 000000000000..7d74fc3b7014
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
++ */
++
++/ {
++	sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,bitclock-master = <&sound_master>;
++		simple-audio-card,format = "i2s";
++		simple-audio-card,frame-master = <&sound_master>;
++		simple-audio-card,name = "wm8731audio";
++		simple-audio-card,routing =
++			"Headphone Jack", "RHPOUT",
++			"Headphone Jack", "LHPOUT",
++			"LLINEIN", "Line Jack",
++			"RLINEIN", "Line Jack",
++			"MICIN", "Mic Bias",
++			"Mic Bias", "Mic Jack";
++		simple-audio-card,widgets =
++			"Headphone", "Headphone Jack",
++			"Line", "Line Jack",
++			"Microphone", "Mic Jack";
++
++		sound_master: simple-audio-card,cpu {
++			sound-dai = <&sai2>;
++		};
++
++		simple-audio-card,codec {
++			sound-dai = <&codec>;
++			system-clock-frequency = <12288000>;
++		};
++	};
++};
++
++&i2c2 {
++	codec: audio-codec@1a {
++		compatible = "wlf,wm8731";
++		reg = <0x1a>;
++		#sound-dai-cells = <0>;
++		clocks = <&clks IMX6UL_CLK_SAI2>;
++		clock-names = "mclk";
++		AVDD-supply = <&reg_3p3v>;
++		DBVDD-supply = <&reg_3p3v>;
++		DCVDD-supply = <&reg_3p3v>;
++		HPVDD-supply = <&reg_3p3v>;
++	};
++};
++
++&sai2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_sai2>;
++	assigned-clocks = <&clks IMX6UL_CLK_SAI2_SEL>,
++			  <&clks IMX6UL_CLK_SAI2>;
++	assigned-clock-parents = <&clks IMX6UL_CLK_PLL4_AUDIO_DIV>;
++	assigned-clock-rates = <0>, <12288000>;
++	fsl,sai-mclk-direction-output;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_sai2: sai2-grp {
++		fsl,pins = <
++			MX6UL_PAD_JTAG_TDI__SAI2_TX_BCLK	0x17088
++			MX6UL_PAD_JTAG_TDO__SAI2_TX_SYNC	0x17088
++			MX6UL_PAD_JTAG_TRST_B__SAI2_TX_DATA	0x11088
++			MX6UL_PAD_JTAG_TCK__SAI2_RX_DATA	0x11088
++			MX6UL_PAD_JTAG_TMS__SAI2_MCLK		0x17088
++		>;
++	};
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi
+new file mode 100644
+index 000000000000..dd5f6e4edad5
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
++ */
++
++/ {
++	sound_wm8904: sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,bitclock-master = <&sound_master>;
++		simple-audio-card,format = "i2s";
++		simple-audio-card,frame-master = <&sound_master>;
++		simple-audio-card,name = "wm8904audio";
++		simple-audio-card,routing =
++			"Headphone Jack", "HPOUTL",
++			"Headphone Jack", "HPOUTR",
++			"IN1L", "Line In Jack",
++			"IN1R", "Line In Jack";
++		simple-audio-card,widgets =
++			"Microphone", "Microphone Jack",
++			"Headphone", "Headphone Jack",
++			"Line", "Line In Jack";
++		simple-audio-card,mclk-fs = <256>;
++
++		simple-audio-card,cpu {
++			sound-dai = <&sai2>;
++		};
++
++		sound_master: simple-audio-card,codec {
++			sound-dai = <&codec>;
++		};
++	};
++};
++
++&i2c2 {
++	codec: audio-codec@1a {
++		compatible = "wlf,wm8904";
++		reg = <0x1a>;
++		#sound-dai-cells = <0>;
++		clocks = <&clks IMX6UL_CLK_SAI2>;
++		clock-names = "mclk";
++		AVDD-supply = <&reg_3p3v>;
++		CPVDD-supply = <&reg_3p3v>;
++		DBVDD-supply = <&reg_3p3v>;
++		DCVDD-supply = <&reg_3p3v>;
++		MICVDD-supply = <&reg_3p3v>;
++		wlf,drc-cfg-names = "default", "peaklimiter", "tradition",
++				    "soft", "music";
++		/*
++		 * Config registers per name, respectively:
++		 * KNEE_IP = 0,   KNEE_OP = 0,     HI_COMP = 1,   LO_COMP = 1
++		 * KNEE_IP = -24, KNEE_OP = -6,    HI_COMP = 1/4, LO_COMP = 1
++		 * KNEE_IP = -42, KNEE_OP = -3,    HI_COMP = 0,   LO_COMP = 1
++		 * KNEE_IP = -45, KNEE_OP = -9,    HI_COMP = 1/8, LO_COMP = 1
++		 * KNEE_IP = -30, KNEE_OP = -10.5, HI_COMP = 1/4, LO_COMP = 1
++		 */
++		wlf,drc-cfg-regs = /bits/ 16 <0x01af 0x3248 0x0000 0x0000>,
++				   /bits/ 16 <0x04af 0x324b 0x0010 0x0408>,
++				   /bits/ 16 <0x04af 0x324b 0x0028 0x0704>,
++				   /bits/ 16 <0x04af 0x324b 0x0018 0x078c>,
++				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
++	};
++};
++
++&sai2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_sai2>;
++	assigned-clocks = <&clks IMX6UL_CLK_SAI2_SEL>,
++			  <&clks IMX6UL_CLK_SAI2>;
++	assigned-clock-parents = <&clks IMX6UL_CLK_PLL4_AUDIO_DIV>;
++	assigned-clock-rates = <0>, <11565177>;
++	fsl,sai-mclk-direction-output;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_sai2: sai2-grp {
++		fsl,pins = <
++			MX6UL_PAD_JTAG_TDI__SAI2_TX_BCLK	0x17088
++			MX6UL_PAD_JTAG_TDO__SAI2_TX_SYNC	0x17088
++			MX6UL_PAD_JTAG_TRST_B__SAI2_TX_DATA	0x11088
++			MX6UL_PAD_JTAG_TCK__SAI2_RX_DATA	0x11088
++			MX6UL_PAD_JTAG_TMS__SAI2_MCLK		0x17088
++		>;
++	};
++};
 -- 
 2.47.3
