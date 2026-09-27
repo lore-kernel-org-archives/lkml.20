@@ -1,97 +1,249 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901CD335067
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DF133F8AD
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522426; cv=none; b=rMnqmfQ0iZJ2xRl57nVOLtQ6bX6MVBDsEjHD9O4TH+REd7q/LjtMgTleDriZoFcVCrdLjHOYGU9tN8sEK1V+Akpl4VAHy33tv0CJXv0jtCBHG+firyUkWc/U2blZ9YGWrERdBp6FmJkzbTz7CHp5TFDFymkhGFcn/9gOS2rstbk=
+	t=1790522430; cv=none; b=ZfybicpHxa504GN7VL/NbBtdmRk1pj4dwMAh+EQg66+lUErkOZIo3NcGeWSToQmrBSAFnW/A1Dduos8BKVxZHOs7QGHlK7Fkss5zM1s1ggNXElIQYGQtO1i8Oc6OnthuKKnu5H/UM4zzLBS61T8j9nKIP1rMwmFwRNCyC1fqRxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522426; c=relaxed/simple;
-	bh=bbcYtrsZdgAJBd7s23kX2yvcRrKr+oIlf6xIFrThP+4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=DdCC950vD1AIpFKLm9aUC2C2skcmTqrqJGl9C4jGBTuM4ec1/m+CNX7mHVA6niH1EuY/niKCTzsgQRBdsUPPbF0sPtHHUsESfgxB/uXj6zgIAYpmfr3XAACyCccOggsRMK13Ia85oOVekTeVSjMjESH7aNtBf7L+n0VRylt0D0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-80621874eb7so3513070a34.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:20:24 -0700 (PDT)
+	s=arc-20240116; t=1790522430; c=relaxed/simple;
+	bh=GeiIu1Yqh7lpEKhjAIcHg3YuaBifRy+znuqW15vVmqc=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Xlk8bfYri1Xoe0KIMlWy4SASXvQ/5Sbinz5ql+Ax9eOgQVTbYQHFtQRWJBhbzIgbf5ZCvEmjoWv6ksPC+rukB85GZwRoZ/WmiUr8Ub569Fr/RzQtuvcsaP20gVa8tl+x1FL2WeGVCd+aGjdoqSYXIXCm+FRdjb4WxH7uVhqPxAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DP/4UFe9; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DP/4UFe9"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488780459e2so2277053f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:20:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790522427; x=1791127227; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I6Oh5NOkCSZ/PYd9yjxpFMmwfnk0bVhRF+OLfOHHDi8=;
+        b=DP/4UFe9QznWQMJtSMROh1dkaYeyfacw1RPKdLSX3WI2VSvGOqB4iQC/gE2bdOzgvY
+         Rencoh8+sOORs89tXZvHc4ynTdxsdoUnAdECdO5SqqL0oGoLz6f7wAs6rHIsQIsjFpQD
+         B+6pH0sJaDVVZ3eBtpbNE+PWDQwcLcAWL9vplWjI2Xio2dq64W2DPMCIqhzpNSf8miS1
+         DqzWZr8x/X1MxL3HZd2Uln4cYTFO6mib9n3G/ecd+KMenj3IOpD7OU96OUHYxSKgRgyQ
+         cHyB07eff3915wpM1cfNlN7jpNlkB36GegaDUSofR79BKrsVULzUlv+g/mXbKlETWpWM
+         TveA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790522423; x=1791127223;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uOe7dzjhv5AxrhP8S7fKSgBVobFx9NWFYPd+qsm7hHA=;
-        b=lxnnSBH7XPJmVMLAUva5KJgYbHfJp5pc0eCgX9YmEJsi51WMf+QPEUDh1jpnTXKK7T
-         zJStK3Uo4BQMpo7dDrI3UlrzJgziCONIr0fvCUKIvsZbi850BcCUXKNGHMN5q+RUJDWL
-         s6UcTqDB8emNCvqPBH31sMTO2G9apoh8dVCR2L/g0vKqMoNu26k860mhhSmmoGlabCgF
-         iX12UITVEogaWHCc1Zzyn920X62pj6i6vnQBSIXedmnwA4zSHudYcbfWgimVYYnTQwR8
-         0MrZM06ut4/eg1KM6d1mNNCMZ6HRF/UgUhjI9GBuL9zobXz3HLZ0jFgDlPiLGCubbzoD
-         te2g==
-X-Gm-Message-State: AFuF++k3yT7vWwOoiFYfKsk1+hnmlDf2Y6uTmUZiSoNSAAHdzxYmfIEi
-	ZMLyB5Y/C7eoZMbToPzc0v6LO1KYVf0iSvMyHYh+wD66wXbaqgnW6wY+8JVB3/LSjMRdLHFUPq5
-	l56BTqLuapMaxXcDE0GPsEPFlcnAxyJqG0+KD0RE05Iqm+0A8aXTBQu4ojUw=
+        d=1e100.net; s=20260707; t=1790522427; x=1791127227;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I6Oh5NOkCSZ/PYd9yjxpFMmwfnk0bVhRF+OLfOHHDi8=;
+        b=Q+DvmVPrp8WRFMp5mblfHTGBfXOcVVwB8T0lhBUgFBZ6N1LDQ0FPmGAXwLymgbZj/z
+         Jj+UvjfTVBWgaMu7sUzI/M9pZ5gO7T4+SQRqYx5UcsYVgmbt06NerD8ZqYXxnwlpOY1a
+         dODkR18tjS2DWENJFu8jDz3FNuoTaDZjPZHdx0SELdex/Q9HaR15YjWpw0G5wCjd3oNJ
+         XhNUwCNganedYssuyDWbxsk5cKEqcLYgmOKvh+M/8sKBsZ3D3J8lQ3s1LLH2wJc0jDmL
+         zuSEtD+5lCVWUjSdx3sIkoy+BNUpHX+KIyeyYPqZtak/pax/jQRCXDUXhX/qrJCYJs3y
+         lk6A==
+X-Forwarded-Encrypted: i=1; AKwUvByXVRkbMkJuDv1smu+pJl7lS1COFmwEHM17NjyeaFI6InGjFzUjcoZbfmXyqvLssQeqSoBr3VSUvccXzTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nc7GgvMZ8ULVYC8soxMZcHALf1RX4jNHifbo5fM/JLj3Aii7vb
+	0FOGnoG0MiMHbAkl0Mzy35rtqMY3mXWuXnNSEvVPfTg/yZyKVi85fa+T
+X-Gm-Gg: AYBFou2A+YsV3VJuZap/e29akPNDR0lyp8U/8JOXG5YwBuIoqbpeUIFXeLwMMTcajdA
+	sIhPbdiuAd4WCSoVC52u3/61Oe9Ok/eZBIm7koQXppKutkBPg2Nnrrwi5XSzXLPZhT17N1A6bvD
+	kvhOGNJZl2fUjGGKTzNt+gnptIY0YfbNY1AZaBKisbhLEXo3s47OF2AjVnDwtT8CRuIMQj1VHOt
+	wWsfsdQEeuXmb3DcNke7YztGik3IlT2oy+9vpnDaqHwaZWJ6OVMMHe4WTZWHzLj45hlaVfeb5IX
+	6yylXXX+Ss53vYfhuTXC+hD9NF3FrGaThaZ/TsoDhIKPekgmj132gr19YwcmHWldhDEWvF+VKcw
+	NjdiBMlfv6mifjwdp5YOXQiVm3AVRqmlQp2W5OULKpljbq/EWIaFBnWNvJMJgtinGF5yd3V1gU6
+	h+ChHpSWB+61NOBnvI+TWK7H4TYktNChA8PvlZbEkfX8DeZ5GRR1mrQW1p9mrn6skDdD+Ri+Z+6
+	maIGg==
+X-Received: by 2002:a05:600c:45d5:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49fe6707ba7mr197864835e9.29.1790522427115;
+        Sun, 27 Sep 2026 08:20:27 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355c65sm21105179f8f.19.2026.09.27.08.20.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 08:20:24 -0700 (PDT)
+Message-ID: <5fcc0373-b1b5-4a21-8e24-09b23e0077fb@gmail.com>
+Date: Sun, 27 Sep 2026 18:20:21 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:23ce:b0:4bd:c8be:1e00 with SMTP id
- 5614622812f47-4d72e16b0a6mr11612158b6e.13.1790522423505; Sun, 27 Sep 2026
- 08:20:23 -0700 (PDT)
-Date: Sun, 27 Sep 2026 08:20:23 -0700
-In-Reply-To: <6ab90c6b.dc2998a4.2261f5.0067.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab93437.80e1c6cc.1e8e5f.005f.GAE@google.com>
-Subject: Forwarded: [PATCH] Removing double device_put that causes UAF...
-From: syzbot <syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH v4 1/6] wifi: rtw88: 8723b: add the RTL8723B register
+ definitions
+To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michael Straube <straube.linux@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>
+References: <20260923213557.186205-1-luka.gejak@linux.dev>
+ <20260923213557.186205-2-luka.gejak@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20260923213557.186205-2-luka.gejak@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 24/09/2026 00:35, Luka Gejak wrote:
+> Add the register offsets and bit definitions the RTL8723B driver uses:
+> the power and system function bits, the BT antenna and efuse control
+> registers, the packet lifetime and MAC ID drop registers, the FPGA0
+> HSSI and RF switch control registers, and the RFE antenna path
+> registers.
+> 
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> ---
+>  drivers/net/wireless/realtek/rtw88/reg.h | 35 ++++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
+> index 0b9ba6f37680..3bbcb1591e6f 100644
+> --- a/drivers/net/wireless/realtek/rtw88/reg.h
+> +++ b/drivers/net/wireless/realtek/rtw88/reg.h
+> @@ -8,7 +8,9 @@
+>  #define REG_SYS_FUNC_EN		0x0002
+>  #define BIT_FEN_EN_25_1		BIT(13)
+>  #define BIT_FEN_ELDR		BIT(12)
+> +#define BIT_FEN_PPLL		BIT(7)
+>  #define BIT_FEN_PCIEA		BIT(6)
+> +#define BIT_FEN_DIO_PCIE	BIT(5)
+>  #define BIT_FEN_CPUEN		BIT(2)
+>  #define BIT_FEN_USBA		BIT(2)
+>  #define BIT_FEN_BB_GLB_RST	BIT(1)
+> @@ -19,6 +21,7 @@
+>  #define BIT_PFM_WOWL		BIT(3)
+>  #define BIT_APFM_OFFMAC		BIT(9)
+>  #define REG_APS_FSMCO		0x0004
+> +#define BIT_EN_PDN		BIT(4)
+>  #define APS_FSMCO_MAC_ENABLE	BIT(8)
+>  #define APS_FSMCO_MAC_OFF	BIT(9)
+>  #define APS_FSMCO_HW_POWERDOWN	BIT(15)
+> @@ -67,6 +70,9 @@
+>  #define BIT_SHIFT_LDO25_VOLTAGE	4
+>  #define BIT_LDO25_EN		BIT(7)
+>  
+> +#define REG_PWR_DATA		0x0038
+> +#define BIT_EEPRPAD_RFE_CTRL_EN	BIT(11)
+> +
+>  #define REG_ACLK_MON		0x3e
+>  
+>  #define REG_GPIO_MUXCFG		0x0040
+> @@ -105,6 +111,11 @@
+>  #define BIT_BTGP_SPI_EN		BIT(20)
+>  #define BIT_LED1DIS		BIT(15)
+>  #define BIT_SW_DPDT_SEL_DATA	BIT(0)
+> +#define REG_BT_ANT_SEL_8723B	0x0067
 
-***
+I think there is no need to add the _8723B suffix to these
+names.
 
-Subject: [PATCH] Removing double device_put that causes UAF...
-Author: nsvatoslav515@gmail.com
+> +/* 0x006b is the high byte of the 16 bit register at 0x006a. */
+> +#define REG_BT_EFUSE_CTRL_8723B	0x006b
+> +#define BIT_BT_PWR_CUT		BIT(6)
+> +#define BIT_BT_OUT_ISO		BIT(7)
+>  #define REG_WL_BT_PWR_CTRL	0x0068
+>  #define BIT_BT_FUNC_EN		BIT(18)
+>  #define BIT_BT_DIG_CLK_EN	BIT(8)
+> @@ -301,6 +312,8 @@
+>  #define REG_HMEBOX3		0x01DC
+>  #define REG_LLT_INIT		0x01E0
+>  #define BIT_LLT_WRITE_ACCESS	BIT(30)
+> +#define REG_RFK_FW_ACK_8723B	0x01E7
+> +#define BIT_RFK_FW_ACK_8723B	BIT(0)
+>  #define REG_HMEBOX0_EX		0x01F0
+>  #define REG_HMEBOX1_EX		0x01F4
+>  #define REG_HMEBOX2_EX		0x01F8
+> @@ -429,6 +442,8 @@
+>  #define REG_ARFRH5		0x04A8
+>  #define REG_SW_AMPDU_BURST_MODE_CTRL 0x04BC
+>  #define BIT_PRE_TX_CMD		BIT(6)
+> +#define REG_PKT_VO_VI_LIFE_TIME	0x04C0
+> +#define REG_PKT_BE_BK_LIFE_TIME	0x04C2
+>  #define REG_QUEUE_CTRL		0x04C6
+>  #define BIT_PTA_WL_TX_EN	BIT(4)
+>  #define BIT_PTA_EDCCA_EN	BIT(5)
+> @@ -437,6 +452,8 @@
+>  #define REG_PROT_MODE_CTRL	0x04C8
+>  #define REG_MAX_AGGR_NUM	0x04CA
+>  #define REG_BAR_MODE_CTRL	0x04CC
+> +#define REG_MACID_PKT_DROP0	0x04D0
+> +#define REG_MACID_PKT_SLEEP	0x04D4
+>  #define REG_PRECNT_CTRL		0x04E5
+>  #define BIT_BTCCA_CTRL		(BIT(0) | BIT(1))
+>  #define BIT_EN_PRECNT		BIT(11)
+> @@ -497,6 +514,8 @@
+>  #define REG_TIMER0_SRC_SEL	0x05B4
+>  #define BIT_TSFT_SEL_TIMER0	(BIT(4) | BIT(5) | BIT(6))
+>  
+> +#define REG_BWOPMODE		0x0603
+> +#define BIT_BWOPMODE_20MHZ	BIT(2)
+>  #define REG_TCR			0x0604
+>  #define BIT_PWRMGT_HWDATA_EN	BIT(7)
+>  #define BIT_TCR_UPDATE_TIMIE	BIT(5)
+> @@ -520,6 +539,7 @@
+>  #define BIT_UC_MD_EN		BIT(16)
+>  #define BIT_RXSK_PERPKT		BIT(15)
+>  #define BIT_HTC_LOC_CTRL	BIT(14)
+> +#define BIT_AMF			BIT(13)
+>  #define BIT_RPFM_CAM_ENABLE	BIT(12)
+>  #define BIT_TA_BCN		BIT(11)
+>  #define BIT_RCR_ADF		BIT(11)
+> @@ -546,6 +566,7 @@
+>  #define REG_ACKTO		0x0640
+>  #define REG_EIFS		0x0642
+>  #define REG_NAV_CTRL		0x0650
+> +#define REG_NAV_UPPER		0x0652
+>  #define REG_WMAC_TRXPTCL_CTL	0x0668
+>  #define BIT_RFMOD		(BIT(7) | BIT(8))
+>  #define BIT_RFMOD_80M		BIT(8)
+> @@ -581,6 +602,7 @@
+>  #define REG_BT_COEX_V2		0x0762
+>  #define BIT_GNT_BT_POLARITY	BIT(12)
+>  #define BIT_LTE_COEX_EN		BIT(7)
+> +#define REG_BT_CONTROL_8723B	0x0764
+>  #define REG_GNT_BT		0x0765
+>  #define BIT_PTA_SW_CTL		GENMASK(4, 3)
+>  #define REG_BT_COEX_ENH_INTR_CTRL	0x76E
+> @@ -606,12 +628,20 @@
+>  #define BIT_RX_PSEL_RST		(BIT(28) | BIT(29))
+>  #define REG_TXPSEL		0x080C
+>  #define REG_RX_GAIN_EN		0x081c
+> +#define REG_FPGA0_XA_HSSI_PARM2	0x0824
+> +#define HSSI_3WIRE_ADDR_LEN	0x400
+> +#define HSSI_3WIRE_DATA_LEN	0x800
+>  #define REG_CCASEL		0x082C
+> +#define REG_FPGA0_XB_HSSI_PARM2	0x082C
+>  #define REG_PDMFTH		0x0830
+>  #define REG_BWINDICATION	0x0834
+>  #define REG_CCA2ND		0x0838
+>  #define REG_L1PKTH		0x0848
+>  #define REG_CLKTRK		0x0860
+> +#define REG_FPGA0_XA_RF_INT_OE	0x0860
+> +#define REG_FPGA0_XB_RF_INT_OE	0x0864
+> +#define REG_FPGA0_XA_RF_SW_CTRL	0x0870
+> +#define RFSI_RFENV		0x10
+>  #define REG_CSI_MASK_SETTING1	0x0874
+>  #define REG_NBI_SETTING		0x087c
+>  #define BIT_NBI_ENABLE		BIT(13)
+> @@ -630,6 +660,10 @@
+>  #define REG_PSD			0x0910
+>  #define BIT_PSD_INI		GENMASK(23, 22)
+>  #define REG_SINGLE_TONE_CONT_TX	0x0914
+> +#define REG_RFE_CTRL_ANTA_SRC	0x0930
+> +#define REG_RFE_CTRL_ANT_SW	0x0944
+> +#define BIT_RFE_CTRL_ANT_SW_SEL	GENMASK(1, 0)
+> +#define BIT_BT_SEL_BY_WIFI_8723B	BIT(5)
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git fe2ec83746e5
+This bit belongs under REG_BT_ANT_SEL_8723B.
 
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
- drivers/media/usb/usbtv/usbtv-video.c | 3 ---
- 2 files changed, 6 deletions(-)
-
-diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 4f10f6613bc4..8a68bc0aa884 100644
---- a/drivers/media/usb/usbtv/usbtv-core.c
-+++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
- 	return 0;
- 
- usbtv_audio_fail:
--	/* we must not free at this point */
--	v4l2_device_get(&usbtv->v4l2_dev);
--	/* this will undo the v4l2_device_get() */
- 	usbtv_video_free(usbtv);
- 
- usbtv_video_fail:
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 92bc7a2509c3..9e02038c3ff7 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -964,7 +964,4 @@ int usbtv_video_init(struct usbtv *usbtv)
- void usbtv_video_free(struct usbtv *usbtv)
- {
- 	vb2_video_unregister_device(&usbtv->vdev);
--	v4l2_device_disconnect(&usbtv->v4l2_dev);
--
--	v4l2_device_put(&usbtv->v4l2_dev);
- }
--- 
-2.47.3
+>  #define REG_AGC_TABLE		0x0958
+>  #define REG_RFE_CTRL_E		0x0974
+>  #define REG_2ND_CCA_CTRL	0x0976
+> @@ -683,6 +717,7 @@
+>  #define REG_RX_IQC_AB_A		0x0c10
+>  #define REG_RX_IQC_CD_A		0x0c14
+>  #define REG_TXSCALE_A		0x0c1c
+> +#define REG_B_RXIQI		0x0c1c
+>  #define BB_SWING_MASK		GENMASK(31, 21)
+>  #define REG_TX_AGC_A_CCK_11_CCK_1		0xc20
+>  #define REG_TX_AGC_A_OFDM18_OFDM6		0xc24
 
