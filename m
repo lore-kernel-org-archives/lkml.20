@@ -1,82 +1,74 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AF51AC44D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A36F195B1A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790484255; cv=none; b=m/nC4lcpMwwCZ5nqMnxsVpcPhGos8UKg6kh4bIgskhyJXbr/ndNUeI67JKjPOgRjAG0D6hxzjo0Td2N3f3i9WmCJPVweSNV5DqXZvObA56SqxY9gzr9JXPb8O/J20Qsb1CAC5ArXGgw9NHEgNwPtLhufOuNUTQlmD4ptaKIaYZ4=
+	t=1790484355; cv=none; b=mxBmxZ6JKADwZZ1PflNw9ssQsTTJCyN9DObxbW2ysaNDjPaRJkQYJPTWwxxEoaMBs9pd/CHZ1YxNNhGB3VnPn+aNS6qBA/P2NU+tP2HG7tTms5JpL1ShJDaK073egSP24wJF+y3RAwlSrc8V2PDBOLkcjoezQ2uyDeD7b2UJbi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790484255; c=relaxed/simple;
-	bh=pEpb/7b1npE8UaAyMe8RYIY2gKmnOhxz8xT+IV/yTYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jqqPptSoDvZCQuqsJPNh0xIwt+7NXWe5wc3qrL7dbv6BXf3nbf8vK+6mYGTdYn3iL8LvcJOejvRLUyYwJxc4wxs7RIY6CWYoxxOZTiwtBAssKAGhJq9R2FIfcilIckQPbOAa1Sf22zOGnfbfIb+iXN3SalkrdCgsbo1oX/3nfOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=IqdMBzn5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DSTnChm+; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790484355; c=relaxed/simple;
+	bh=lwbuO94m1Y7nNgaCvIakrp+Jlj/Ls07Kcmk7d5tERa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GWvR9g4toHU7MFn5+xa6BPZSpNyTe0tB6ZXDq1YiPsHLsr+SZq7zcL/ziYT4BSYrvk+5DsSZhl9a9HckMaq4p0XDuQiZ66n3A6p1OOetKBDc8IBkxTwzjeEG9EnKI79SzSq4F1Q6+GrsLQ7ob4eZVPOQGL4ZVcrJ+HPmK6vDUD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXFRQ4JV; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="IqdMBzn5";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DSTnChm+"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id 12FBE1D00081;
-	Sun, 27 Sep 2026 00:44:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Sun, 27 Sep 2026 00:44:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790484252; x=
-	1790570652; bh=PCEYsGjEADD2SDgkfRS+qckzWpF9ZFbDiZkdpId5h2E=; b=I
-	qdMBzn5MvWNbsWwxd0+XcdNS+c6K67GIk+lM5sWKQTfTyhnh52TnUm3HdfDJQnp9
-	shv7BNquXGP9ZdaCCVpE7IgbFRoXOe7dMEFCZ2sZxjJtOimVuTelyfwVWdfo8OQo
-	pXPD0gXIAFJvNMiZZhQLNCDMLEaWOiSFaV1sKjKX2BoK5qS/1BuMH+I068qkE+W1
-	VRF1Nk5xDSfgIwa5KCa+4sC0ePrs8S2H9tddMPFJB8ZoGgtCtXfxOkcXsts3YbFA
-	oPTbAzDmgTKI8/ty3a/IoJ0HiquyF6dkt2TFP9kM1aikH3jjuJz7V3jIFQprIcxL
-	MX6bQDF/ZkBSLJ22gzUiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790484252; x=1790570652; bh=P
-	CEYsGjEADD2SDgkfRS+qckzWpF9ZFbDiZkdpId5h2E=; b=DSTnChm+V1eGXJZDC
-	gftywfiQHYUG7LL30sjBoz+mc+LIICabCy8KqTBweSXgx9spdMW6tdp2F3zIVTMh
-	CUo/oBkUVIxLSzAeVjh27wX5fOb+ZUNoB98zmFHPCLJCt+rUF0wTO/fdr45cMvxG
-	6pFRqZ63P5888UL/V32iOeqWVCRlxJFwUKe4dTStiDTrs04Iuyj2mDqGaC02VpWE
-	vfTdAjPvTQEhdMQZWHKxS1tED3QyG8iorpoIufJvi5ZZZg0GGI3YJeQOs9XVwAau
-	2EF6Qh+jjfyHUIAVJZ6H0zDNW677yBCw+BgKN5tDCYlK9yEG2qoA9itLakN5DxpD
-	J7W7w==
-X-ME-Sender: <xms:HJ-4aoQ3rPZ355nw8V9VD_frqvHMNseri-Qa6TLPKH7hIkI4wdCGjA>
-    <xme:HJ-4ajuEvo4HeDoaqmLBt8ksFJJJYGC4n-WsDjLHNIoTcyYIQ9eyab3MACgO4ETB9
-    ecp4QWhf-w-9ADnjiJHg22Hfqt2Rw2YToUStOSXPkX206Oba87MNgan>
-X-ME-Received: <xmr:HJ-4atbMFexmQWO7zxCKlkXoWM1tcm5cytrADPNtP4BDqOwXUlXK3GELiUHHGhNoOekta9R-J4_AQyhYGLs-ElJFNcmYNRjqWQ4r-kU2H7d_jQ>
-X-ME-Proxy-Cause: dmFkZTEnlIJ2mn+EkWbNnwf1fHveJ2wzKokm+zLmsGVU9hPfRZjH9y2xwzjljRNVRnOJnL
-    9l0YotNdNVkKsujYo1vwEF3gssM7TP2tsbvagwR0DQLnE5kO+imWpB6feprhg2gqzt4TaC
-    2AsGV93vOOH9CCt6zI8lgPBEZKGUsu/HTR2HQH9aSC7os0XYr7wWoYhz0mB6/qvOBmgXFd
-    NQ3YXFB+frqabGD+NiScWd+GEiOv0wWKOy8CxQMxtdZXCHcffKPyFrQKDsXdhmqv++NLBK
-    4pD3KgmemG/iMaBchgnKzoNkyMrRzez7RFFziAdtspBHKnSJuh4PW0bkFgbyCT/c49KbC/
-    P/GPDCNdgH/+sGIaLe10c44gDalgtBosH4WxkOb1xEdiKMGKUFJWYyWC8sOFmUP/mGFB1I
-    l7lR0E4M6tczCRxPr28KsxW8ptMjibsmSjVDf+auHmcK+s4C56rspVLLYT7FBif5aDRI18
-    cCkEIWNxtiYtPMZQ+pl8o87Q4zqLl9dWgC5NhZEnoF6pPG5CQkpUgV+ej3qprOgSt/L5+P
-    WcB4+TkGeQ0g3XBIkWINoewYBwLQ0UoWHsLpdCMX5NAEjqHnR9JQRvyw4hatKWEzFcxmb5
-    WP4ykonUarOodjNojpFDx5P0jRf1oN4zdXMShcH4AwbvlV8lWJWAi7IFo3mg
-X-ME-Proxy: <xmx:HJ-4aotmMCIaXd4oApQEPZtGFMN-JvwGYTml_Aol-3_FEVyZ379Ljw>
-    <xmx:HJ-4avE9dfgIqPVhLNVLSRxFuSYAq9fTl606Wa_yiHZlBN96t0RIGA>
-    <xmx:HJ-4ajzdj-m0io_HXAa9wVwKqUoNgPSHKxZoMk0OMULtuRpHyt5sdg>
-    <xmx:HJ-4augi0-KoQu2jNapWpXC9T4fGY-2oJGHZFuelVLB506W4hT7QJQ>
-    <xmx:HJ-4akGXIWWt8LR8A95xbPaVQFBhLECwQ7MExYCQiy8yZz9fSf51tgIx>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 00:44:11 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] firewire: core: remove unnecessary branch for timestamping when cancelling transaction request packets
-Date: Sun, 27 Sep 2026 13:44:06 +0900
-Message-ID: <20260927044407.65497-2-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927044407.65497-1-o-takashi@sakamocchi.jp>
-References: <20260927044407.65497-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXFRQ4JV"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1175753a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790484353; x=1791089153; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
+        b=nXFRQ4JV4vIkc+BBIZ0Qz8+T9fNbi/b3nFYdqeYNasbq9grXxnsliYgd17j+vxpE4V
+         gmomqKxIOZX1bptZBPJPWiQi4yJJl/UFnbQjhVWJJNqcI/JCOJ8bt5xRLWqziQNtUfgn
+         /p0Za51WPxJELYhk99i8OGCBGcrzS3ACywXTPMjvKylMOmxZWn+fphCUdVWCJwyNZbWz
+         3I6XiFe4FfYojHyQHslkk0N/s4gRR9vvvqQvN2PgoooYNEcejac4KqprW3Jej4P+wEe5
+         tcqJWiOwsflWNcwLrIeY66Gvx9yqP29fwjux6JXnKKiI/5m9f/B6JfYMehSOJU2VsvBp
+         4U4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790484353; x=1791089153;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
+        b=kEWT4qLMRoy+hus8Wt4QyIVU1XZBGvvWr54DC3TsLaHF8I1yLwRwT3BU8L0YHxBHYT
+         cD/dLo3iraYGdfLsi0OOepwac36aXjgnIKDbmILNHh4MRvGY42VN1C2Xrh1h5A8CY1tv
+         RTrdb5duaTAmGGbTrgyKIcd8rXBovqdeWxzxYEC6N7j6kXXPVgDrubd4WjHD3AKNMdJl
+         VFaPYJTFcd4tG9Is6LeeqAz1KbireSjizKOX30gRUELQqBpedXC6wkIqu2Hya+Qf0MDB
+         7ilpTbEZw24lKbbtW06Jqf8DAC+aZkDUVKlGzD2u9kF85fKwLNEVZ8lwTLcOj74E7y5x
+         V4iw==
+X-Forwarded-Encrypted: i=1; AKwUvBydTl/pRRpOn/n+vLhDpcgsGSkcvabOXyE55ApygDQkF/JnFhkmLARH4GAfeldEzwP1iU9wzsf5mT9sOAk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9XRLEzQ0tetCQzVL6KxNqxQtqgsFQqgWZxgOEEsNf2inSNbGJ
+	5/XSeNOoj0oZa8xdL7ln+I8Tu2gufYukc5BjnQclFUcrImQV/WOrGpXZ
+X-Gm-Gg: AYBFou3sx0iSJgCM5obGPDskdJ/W9r0wYN/Alwb/c/VALpb7E/YXk38HvkVEZvtDgbd
+	/XX0lk8gnwu1lZBiTN6+v55ndSeEM+72GzicqGy4WFI8ZzaCeuM70AUKKqCM7RcmS58RbM2aVMH
+	F49ba+8PCjESr5nb9olnYJv1067fEeCONtym+lshwGniAnTmm3hZs2QET+Lt+gbGaNqQaR6jL+G
+	BCxH9wRoIPA4dGQUXdx63ssvhynobpYO2RFO8qkpcRopl35oJiR5tJqk415QChnDY7qloSQwF57
+	sLVVZKCLWd6MpCghHJ7RlgUiYztvVU8fZP2YhIXbspVCZOmjL5gnHUSpB7kbLnqpnwoeoVavPKu
+	S1am43Y0yi2cVSXtEULoQSklIacLqzoq9EHlccif18xd6ZCPk7OUh3Q7uW6EgzeM5ffSO6kmhCj
+	ALMdMsSf1+MzBLz+sGUDZEXGenJEoeVw+q7zZ5u7CVb3uGVQaH9tFDIy2StLRraYrEqkcfO7g1a
+	WEDJNiFZNE98Rfw0A==
+X-Received: by 2002:a17:90a:dfcd:b0:3a0:631a:ba6b with SMTP id 98e67ed59e1d1-3a098db9593mr7472762a91.33.1790484353317;
+        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm10628448a91.7.2026.09.26.21.45.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Palosaari <crope@iki.fi>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvb-usb-v2: set active_fe before the demux goes live
+Date: Sun, 27 Sep 2026 11:45:47 +0700
+Message-ID: <20260927044547.26979-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,50 +77,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When fw_card_driver.cancel_packet() returns a non-zero value, the request
-subaction of the transaction has already finished. It means that the
-packet for the request subaction has already received an ack code and a
-timestamp, so there is no need to check them.
+dvb_usbv2_adapter_dvb_init() registers the demux devices before
+dvb_usbv2_adapter_frontend_init() runs. Only the latter set
+adap->active_fe to -1, so until then it holds the kzalloc'ed 0 while
+adap->fe[0] is still NULL.
 
-Remove the unnecessary branch for the ack code and timestamp.
+A process that opens the demux and starts a filter in that window, which
+lasts as long as frontend_attach() takes, gets past the active_fe == -1
+check in dvb_usb_start_feed() and passes the NULL adap->fe[0] to
+streaming_ctrl() (or get_stream_config()). mxl111sf_ep6_streaming_ctrl()
+then dereferences it:
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061
+  KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
+  RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0
+   dvb_usb_start_feed+0x57a/0xc70
+   dmx_ts_feed_start_filtering+0x129/0x220
+   dvb_dmxdev_filter_start+0x434/0x10d0
+   dvb_demux_do_ioctl+0x48b/0x540
+
+Initialise active_fe to -1 before the demux is registered so early
+feeds fail with -EINVAL.
+
+Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
+Fixes: ad6b9e517b39 ("[media] dvb_usb_v2: move from dvb-usb to dvb-usb-v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/firewire/core-transaction.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index 8ef04d84011b..1e4c104c7e91 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -135,21 +135,16 @@ int fw_cancel_transaction(struct fw_card *card,
- 	if (card->driver->cancel_packet(card, &transaction->packet) == 0)
- 		return 0;
+diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+index bd86d250433d..557451b541e6 100644
+--- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
++++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
+ 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
  
-+	u32 curr_cycle_time = 0;
+ 	memset(adap->fe, 0, sizeof(adap->fe));
+-	adap->active_fe = -1;
+ 
+ 	if (d->props->frontend_attach) {
+ 		ret = d->props->frontend_attach(adap);
+@@ -795,6 +794,9 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
+ 			adap->max_feed_count = adap->props->pid_filter_count;
+ 		}
+ 
++		/* demux is live before frontends attach: no feed until then */
++		adap->active_fe = -1;
 +
-+	// Timestamping on behalf of hardware.
-+	(void)fw_card_read_cycle_time(card, &curr_cycle_time);
-+	tstamp = cycle_time_to_ohci_tstamp(curr_cycle_time);
-+
- 	/*
- 	 * If the request packet has already been sent, we need to see
- 	 * if the transaction is still pending and remove it in that case.
- 	 */
--
--	if (transaction->packet.ack == 0) {
--		// The timestamp is reused since it was just read now.
--		tstamp = transaction->packet.timestamp;
--	} else {
--		u32 curr_cycle_time = 0;
--
--		(void)fw_card_read_cycle_time(card, &curr_cycle_time);
--		tstamp = cycle_time_to_ohci_tstamp(curr_cycle_time);
--	}
--
- 	return close_transaction(transaction, card, RCODE_CANCELLED, tstamp);
- }
- EXPORT_SYMBOL(fw_cancel_transaction);
+ 		ret = dvb_usbv2_adapter_stream_init(adap);
+ 		if (ret)
+ 			goto err;
 -- 
-2.53.0
+2.43.0
 
