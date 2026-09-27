@@ -1,213 +1,175 @@
-Received: from lgeamrelo12.lge.com (lgeamrelo12.lge.com [156.147.23.52])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF84A95E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.23.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728B021A42D;
+	Sun, 27 Sep 2026 14:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519587; cv=none; b=Fq13xkGGrOnuWlmn83vPcOQnBFmAslSgOADfz8slyjtRwZVXsGi+Vp4zuPLoz+cMo4eg18NpuZGE7GCSXsDGndTJ6IiQdrl0gzTBNc29vFMKFw4K+dlswT0iJFhVS8EpvQQOFuFVaRLpazP5+WBOEtMXDGv0i2YlyKKXkb368Pc=
+	t=1790519670; cv=none; b=eeA9mrmnVqtfAOzll5CrhDBrgRW29hKlYak7rUKYO2rM8YlXoYfzaaSP9cwxeGXYkY06bKCsXSkKT5l5fQ9DSTP7FjWWG5QEJgdOr6eVDv8SmG0eCwLVizVRxTjoHilFE1uf+O1CJ1BIoCYe997UzixYkn6AI/ar80EN9b0q41g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790519587; c=relaxed/simple;
-	bh=oNae0jPMs84rqZGQvCI76mNOSR1C+hlJOxxxt90FaX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CCpyX+c4O29AK6pnsC3fOI5aJUvt/BAoThN/foM15UHAH4yqdU7+KbD2EUnPK7QJw9Wl+p883UrNB+4I8h0Jv7pJ4eNNLD1s5UmFYlnn7+dm8CpOLFzfNJ0OkaEOTV9W7NZPiL1WczZOg2dTa4tPHbHDWmBK7PVpQ2RkfErE04o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.23.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo01.lge.com) (156.147.1.125)
-	by 156.147.23.52 with ESMTP; 27 Sep 2026 23:03:00 +0900
-X-Original-SENDERIP: 156.147.1.125
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.beeworker.bee-live.svc.cluster.local) (10.159.39.43)
-	by 156.147.1.125 with ESMTP; 27 Sep 2026 23:03:00 +0900
-X-Original-SENDERIP: 10.159.39.43
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Date: Sun, 27 Sep 2026 23:03:00 +0900
-From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: pavel@kernel.org, lenb@kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PM: hibernate: exclude unusable free pages from image
- preallocation
-Message-ID: <ako2gojuxas6p7lxa5rehn36ofswmq2cicyzq7i2l7nzjty6sp@yg4ukrvlsknl>
-References: <20260921101446.1193565-1-trieu2.huynh@lge.com>
- <CAJZ5v0iViUTTPBpfi10uHptoc98DbC_H2GP9BBuqNHA2d9vQkw@mail.gmail.com>
+	s=arc-20240116; t=1790519670; c=relaxed/simple;
+	bh=ztJhP76JayIyO0vestWNJjdUJp+q5q9ZNKkeqnfojU0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=sa2fSokMmm+RYg9SFicWxXGhMzY6YlahZO2+gTwHWyfOJjHG1Il6a6Ob+GGHvfgkIhAt4WcQ/shkxsZTD7/M3i8IKE95Tiog0wij6yD4dKhPEIpDvNh48tYDxiNd7aTnfd8qOGoCXjEXmLYms7braL+jBEplv48w/I4CodXojgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=TRXtbZOB; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="TRXtbZOB"
+Message-ID: <80268113-e85f-410d-880d-84598d3b39ca@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1790519659;
+	bh=ztJhP76JayIyO0vestWNJjdUJp+q5q9ZNKkeqnfojU0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=TRXtbZOBVpquhw7aODGwXsianL++tf49/r+mxiGRB52OrT7mzX3oCYHo3lGvJc0yE
+	 CACasfZmg9DjFEWdXlSk7o3LoQpM3oeILuMZwzyLCo368JV2ulEp8NFXwpmPG61WYQ
+	 n0mdxnWO8uJLB+//9dIdHpSfMjZVq8N1ISvz1FgE=
+Date: Sun, 27 Sep 2026 16:33:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0iViUTTPBpfi10uHptoc98DbC_H2GP9BBuqNHA2d9vQkw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird Beta
+From: linux-kernel-dev@aliel.fr
+Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: amlogic: Add core clock for T7
+To: Conor Dooley <conor@kernel.org>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org
+References: <20260925-add-t7-sys-pwm-clk-v2-0-f23a22b71a5c@aliel.fr>
+ <20260925-add-t7-sys-pwm-clk-v2-1-f23a22b71a5c@aliel.fr>
+ <20260925-facial-follow-032de22361c1@spud>
+ <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
+ <20260926-landless-prowess-df404db4d910@spud>
+Content-Language: en-US
+In-Reply-To: <20260926-landless-prowess-df404db4d910@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 09:56:01PM +0200, Rafael J. Wysocki (Intel) wrote:
->On Mon, Sep 21, 2026 at 12:14 PM Nhat-Trieu Huynh-Pham
-><trieu2.huynh@lge.com> wrote:
+On 9/26/26 8:06 PM, Conor Dooley wrote:
+> On Sat, Sep 26, 2026 at 11:43:20AM +0200, linux-kernel-dev@aliel.fr wrote:
+>> On 9/25/26 6:41 PM, Conor Dooley wrote:
+>>> On Fri, Sep 25, 2026 at 05:13:28PM +0200, Ronald Claveau via B4 Relay wrote:
+>>>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>>>
+>>>> The T7, A1, C3, and S4 PWM controllers have a system clock in
+>>>> addition to the two input clocks of channels A and B.
+>>>>
+>>>> The channel clocks are acquired by index in the pwm driver,
+>>>> where the core clock is fetched by name, with optional get
+>>>> which is silent when not provided.
+>>>>
+>>>> Require clock-names and minimum 3 items for T7, where the
+>>>> PWM devices do not work without all 3 clocks.
+>>>>
+>>>> Add an example showing T7 usage with its fallback to
+>>>> amlogic,meson-s4-pwm.
+>>>>
+>>>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>>> ---
+>>>>  .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 33 ++++++++++++++++++++--
+>>>>  1 file changed, 31 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+>>>> index c337d85da40f1..59320f288552b 100644
+>>>> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+>>>> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+>>>> @@ -62,7 +62,7 @@ properties:
+>>>>  
+>>>>    clock-names:
+>>>>      minItems: 1
+>>>> -    maxItems: 2
+>>>> +    maxItems: 3
+>>>>  
+>>>>    power-domains:
+>>>>      maxItems: 1
+>>>> @@ -140,13 +140,34 @@ allOf:
+>>>>      then:
+>>>>        properties:
+>>>>          clocks:
+>>>> +          minItems: 2
+>>>>            items:
+>>>>              - description: input clock of PWM channel A
+>>>>              - description: input clock of PWM channel B
+>>>> -        clock-names: false
+>>>> +            - description: gate clock for the PWM controller
+>>>> +        clock-names:
+>>>> +          minItems: 2
+>>>> +          items:
+>>>> +            - const: channel-a
+>>>> +            - const: channel-b
+>>>> +            - const: core
+>>>>        required:
+>>>>          - clocks
+>>>>  
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: amlogic,t7-pwm
+>>>
+>>> Shouldn't this (based on your reply on the previous version) be s4?
+>>>
 >>
->> hibernate_preallocate_memory() derives the number of page frames to
->> preallocate for the image from the per-zone NR_FREE_PAGES counters.
->> Those counters count every free pageblock regardless of its migratetype,
->> including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
->> free from the buddy allocator's point of view, but they cannot be used
->> by the order-0, non-movable, non-reserve GFP_KERNEL allocations with
->> which the image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
+>> The change above is for S4 and SOCs which fallback to S4. It allows the
+>> third clock but let the schema validation compatible with two clocks
+>> existing DTS. Here for the T7, I add requirement for the exact 3 clocks.
 >>
->> (*) Reported free vs usable free:
->>
->> The mm subsystem already accounts for this in
->> __zone_watermark_unusable_free(). For order-0 GFP_KERNEL neither
->> ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the
->> high-order atomic reserve and the free CMA pages from the free count before
->> checking the watermarks. The hibernation preallocation, however, computes
->> its target from the unadjusted NR_FREE_PAGES value, so it asks for about
->> half of the unusable pages more than the allocator can deliver. On arm64
->> (no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
->> hence even a small shortfall aborts hibernation, see [3] for example.
->>
->> (*) Why those pages are not usable by GFP_KERNEL:
->>
->> (**) CMA is reserved for movable allocations, so GFP_KERNEL has no
->> ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free
->> CMA pages are therefore never handed to these allocations.
->>
->> (**) The high-order atomic reserve is only handed out to atomic, order > 0,
->> __GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
->> These pages can be unreserved under memory pressure, but only all but one
->> pageblock per zone and only after an allocation has already failed,
->> so counting them as available still overestimates what the preallocation
->> can obtain without failing first. Excluding them is conservative.
->>
->> (*) Consequence of not excluding the unusable pages:
->>
->> With M = managed, S = saveable, F = free, U = highatomic + CMA and
->> R = reclaimable, count = S + F - totalreserve and alloc is about
->> count / 2, while the allocator can actually provide about (F - U) + R
->> pages. The shortfall is therefore inflated by exactly U compared with
->> the usable memory.
->>
->> From, with U = 11430 unusable free pages (5120 highatomic + 6310
->> CMA), the preallocation target is inflated by about U / 2 = 5715 pages,
->> while the allocator ends up 1247 pages short and hibernation is aborted
->> even though the system is able to create the image.
->>
->> (*) What changes after excluding the unusable pages:
->>
->> Subtract U from the per-zone free accounting used to compute count and
->> avail_normal. Then count' = count - U and, since max_size is roughly
->> count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
->> max_size' remains well above minimum_image_size() in practice, so the
->> resulting image is effectively unchanged while hibernation no longer
->> aborts unnecessarily.
->>
->> Testing
->> =======
->> (*) SA6155P running on AAOS with S2D feature
->> (*) backport locally on GKI 6.1
->>
->> References
->> ==========
->> [1]
->> commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
->> [2]
->> commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
->> [3] Example of an abort:
->>     Mem-Info:
->>      free:344621 free_pcp:931 free_cma:6310
->>     DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
->>     Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
->>     PM: hibernation: Image allocation is 1247 pages short
->>
->> Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
->
->Please see Sashiko's feedback on this:
->
->https://sashiko.dev/#/patchset/20260921101446.1193565-1-trieu2.huynh%40lge.com
->
->and let me know what you think.
-Hi Rafel, thank you so much for the point.
-I'd like to address the concerns, see below:
->
->Thanks!
->
->> ---
->>  kernel/power/snapshot.c | 25 +++++++++++++++++++++++--
->>  1 file changed, 23 insertions(+), 2 deletions(-)
->>
->> diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
->> index b209712cb2c3..fd6164aea272 100644
->> --- a/kernel/power/snapshot.c
->> +++ b/kernel/power/snapshot.c
->> @@ -1867,11 +1867,32 @@ int hibernate_preallocate_memory(void)
->>         highmem = save_highmem;
->>         size = 0;
->>         for_each_populated_zone(zone) {
->> +               unsigned long free, unusable;
->> +
->>                 size += snapshot_additional_pages(zone);
->> +
->> +               /*
->> +                * Pages reserved for high-order atomic allocations
->> +                * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
->> +                * the order-0 non-movable GFP_KERNEL allocations that
->> +                * preallocate the image, so do not count them as available.
->> +                * This mirrors __zone_watermark_unusable_free().
->> +                */
->> +               free = zone_page_state(zone, NR_FREE_PAGES);
->> +               unusable = zone->nr_reserved_highatomic;
-(1) Sashiko review:
-"Does this incorrectly use the total highatomic reserve capacity instead
-of just the free pages within the reserve?
-Since zone_page_state(zone, NR_FREE_PAGES) only counts pages that are actually
-free, using zone->nr_reserved_highatomic (which tracks the total capacity
-of highatomic pageblocks, including already-allocated pages) effectively
-includes allocated highatomic pages in the unusable count."
+>> Do you recommend to require the 3 clocks for all S4 and S4 fallback, and
+>> update the associated dtsi files ?
+> 
+> Yes, I think so. Sounds to me like they only work because of the
+> CLK_IGNORE_UNUSED set in their clock controller drivers, so the correct
+> thing to do is make them all require the third clock.
+> 
 
-d'oh, I was misread that I developed and tested this change on a
-6.1-based tree, where struct zone only has nr_reserved_highatomic and
-__zone_watermark_unusable_free() still uses it; nr_free_highatomic was
-introduced later by [1]. It should be changed to:
+Great, Thank you for your feedback, I sent a V3 matching this.
 
-unusable = READ_ONCE(zone->nr_free_highatomic)
+>>
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          minItems: 3
+>>>> +        clock-names:
+>>>> +          minItems: 3
+>>>> +      required:
+>>>> +        - clock-names
+>>>> +
+>>>>    - if:
+>>>>        properties:
+>>>>          compatible:
+>>>> @@ -182,3 +203,11 @@ examples:
+>>>>        clocks = <&pwm_src_a>, <&pwm_src_b>;
+>>>>        #pwm-cells = <3>;
+>>>>      };
+>>>> +  - |
+>>>> +    pwm@60000 {
+>>>> +      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
+>>>> +      reg = <0x60000 0x24>;
+>>>> +      clocks = <&channel_a>, <&channel_b>, <&core>;
+>>>> +      clock-names = "channel-a", "channel-b", "core";
+>>>> +      #pwm-cells = <3>;
+>>>> +    };
+>>>>
+>>>> -- 
+>>>> 2.49.0
+>>>>
+>>>>
+>>
+>>
+>> -- 
+>> Best regards,
+>> Ronald
 
->> +#ifdef CONFIG_CMA
->> +               unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
->> +#endif
->> +               /*
->> +                * nr_reserved_highatomic counts whole reserved pageblocks,
->> +                * so it can exceed the actual free pages.
->> +                */
->> +               unusable = min(unusable, free);
->> +
->>                 if (is_highmem(zone))
->> -                       highmem += zone_page_state(zone, NR_FREE_PAGES);
->> +                       highmem += free - unusable;
->>                 else
->> -                       count += zone_page_state(zone, NR_FREE_PAGES);
-(2) Sashiko review:
-"Could this subtraction of the inflated unusable count underestimate the
-usable free memory?
-If so, this might cause the preallocation phase in
-hibernate_preallocate_memory() to allocate fewer pages than it optimally
-could, resulting in an unnecessarily larger hibernation image."
 
-Yes, that is the other half of the same problem. Subtracting an inflated
-value makes count and avail_normal smaller than the memory that is
-actually usable, so preallocate_image_memory() stops early and the image
-ends up larger than necessary. The same change fixes it as point #1: with
-nr_free_highatomic the value subtracted is exactly the amount the
-allocator cannot hand out, so the estimate is no longer inflated.
->> +                       count += free - unusable;
->>         }
->>         avail_normal = count;
->>         count += highmem;
->> --
->> 2.43.0
->> 
-I'll submit v2 accordingly if there's no further concern.
-
-[1] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
-
-BRs,
+-- 
+Best regards,
+Ronald
