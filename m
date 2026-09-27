@@ -1,93 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8A33CAE74
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A2A3BB125;
+	Sun, 27 Sep 2026 09:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499956; cv=none; b=JKvaxJk+4dMFURlTb9R1h8BzZ2zP4ewwIlHsCVfUvogWGmDz/uGfypwV0q0uaNbx71/BRqfpfUkk+tcMPSF3rWdGwA7a2NJ2dODMT7iQsRVvpOgbGkeV20ab8gEkMAAXJRYDciUXRE8An5gfhU6lfzOT+Z8K1ejwXkPBD593bOo=
+	t=1790500028; cv=none; b=FXyQ2mwsotzbkae8T59C6mb1fBQvwfFod3FVlmyesfxSx2opMSyGfKzrLsOBDqKv5n6jB7bv/ow5s5Ye/mDhBzVXKy+9yqwCV/5fWYjDm5a8/iVwGcNNQNz3rs/QpRmzL1T+ES3oybFhHLO0yvy1MqvYzrHThYaJio9NTQ4S1oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499956; c=relaxed/simple;
-	bh=Fqj3j+eDeNTJEbTlJvXs9gtTHN/wPlb/grwNyEpL5tM=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=XvnapPMJN1nt3tH2e0MD0mheL1RCT821ujnS06Zk0bhhFXt7llUXoERWMloyl1rj9jDG2qL0YWQKufM1E9HpWsfWhcRk4tpayP5fiKp/IWdSwtnWR3uLvYsmauYsndsh1/ZhCC4CQzz+Ff6HAHEgJpDz5rq+7uRA+nN3mEfHL6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OoLsytgO; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790500028; c=relaxed/simple;
+	bh=NWGvL/lXMPh0PceKlE1xP1i1u+INZhX/XA1FYQZebsw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=uzWet10G02otw8vxBCTKH4zCGdUFRXds4P2GPdD3MWreWflgoZsTDtln7SDsLKGgMG+ovJdvDbETEha+1ulojDLzdBer8VWCqbyrNGJxB0UTOvD934epzrYnTbVENkqvIydZhLnqJO0NvfBowD6FAkDGleMocb63nFdkwXg4KK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HC6KpbBb; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OoLsytgO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790499955; x=1822035955;
-  h=date:from:to:cc:subject:message-id;
-  bh=Fqj3j+eDeNTJEbTlJvXs9gtTHN/wPlb/grwNyEpL5tM=;
-  b=OoLsytgOW2LoAS4VCDH0mUBmTk+fGw5q/FHO8qUkdWrTpv/x9fQbWvhY
-   wWun3wgQuF/Xh8M6YIy5Flc2FeYvLm++NEK2Cc0v++NCjbBGRJ4q1cVnE
-   TgqLyy9quQwHD6zY08dsd1h3Ag76a7r+nJqWU6FgQUfriPyOeZimrnic0
-   iZr0rRgv0KUyhKBW73R6p0dYXqIyJu2TSmATBuBYW7R/fxD4cMhU7VQrA
-   WJEMjff4QGjCguFUgUeXTbLI23Kpc5m+nmGUo5Zm69piQ5mFuYt/wZgot
-   TsE3BIlsbVGYQ4oxCiymiPKoHIhPyhX7BR2oJtcCERGeXauEkYn38pN28
-   g==;
-X-CSE-ConnectionGUID: 5kUB3SfWTMyu/xwFL0q05A==
-X-CSE-MsgGUID: EdbZIOrORymrV6auU2TcXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="107604201"
-X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="107604201"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 02:05:54 -0700
-X-CSE-ConnectionGUID: h4rPzDNuTryCYJIayttvcQ==
-X-CSE-MsgGUID: WrlXIi7jRgGUVBSuVBVpDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="274290012"
-Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
-  by fmviesa007.fm.intel.com with ESMTP; 27 Sep 2026 02:05:52 -0700
-Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xAkpS-000000000WF-0Ko9;
-	Sun, 27 Sep 2026 09:05:50 +0000
-Date: Sun, 27 Sep 2026 11:05:44 +0200
-From: kernel test robot <lkp@intel.com>
-To: Masahiro Yamada <masahiroy@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>,
- Alexey Gladkov <legion@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Subject: xtensa-linux-objcopy: stNM3Sx7: warning: allocated section
- `.DebugInterruptVector.text' not in segment
-Message-ID: <202609271017.LT1Q3K8p-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HC6KpbBb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=NWGvL/lXMPh0PceKlE1xP1i1u+INZhX/XA1FYQZebsw=; b=H
+	C6KpbBbih+W68yAmTg/X0x9XDXlmP4T6Lb9fyGRMX7Uci1k6VFiWzbkM28Uc+A31
+	MOD3fMXohaImCi0czP29AztgFf5CxoNkfF2eKXGHKk//EOKJN+1INtJeyidREglM
+	uQIVoADbIKsimjLmUFzrLLVo23FJ4Lizm31QH7bIcg=
+Date: Sun, 27 Sep 2026 17:06:38 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Guenter Roeck" <linux@roeck-us.net>
+Cc: "Aleksa Savic" <savicaleksa83@gmail.com>, "Jack Doan" <me@jackdoan.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re:Re: [PATCH] hwmon: (aquacomputer_d5next) reject short status
+ reports
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <7b40ae2e-57d8-44f7-9791-ac65a3e97290@roeck-us.net>
+References: <20260924151121.1233666-1-yaojiale02@163.com>
+ <7b40ae2e-57d8-44f7-9791-ac65a3e97290@roeck-us.net>
+X-NTES-SC: AL_Qu2SAviStkEi7iWQZukcn08ShO49XMOyvfoi2YFTc+sEvBLV6y4KRnFjOn7G1NC9FgmWtRGvdzV/wflkUIdS9rVxXV0M5bguUmuO27mBdw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <7bdec27c.1969.1a0e21dcb7f.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD3HySe3Lhq+kJPAA--.25W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7x4nYWq43J58ZAAA3-
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi Masahiro,
-
-FYI, the error/warning still remains.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fd179f8a05be3ccae366b9b96e176b51fbe54aab
-commit: 3e86e4d74c0490e5fc5a7f8de8f29e7579c9ffe5 kbuild: keep .modinfo section in vmlinux.unstripped
-date:   1 year ago
-config: xtensa-randconfig-r2202-20260927 (https://download.01.org/0day-ci/archive/20260927/202609271017.LT1Q3K8p-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 14.3.0
-smatch: v0.5.0-9187-g5189e3fb
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609271017.LT1Q3K8p-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609271017.LT1Q3K8p-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   xtensa-linux-objcopy: vmlinux: section `.WindowVectors.text' can't be allocated in segment 1
-   LOAD: .rodata __param __modver __ex_table .notes .data .init.text .init.data .init.rodata .data..percpu .dummy .WindowVectors.text
-   xtensa-linux-objcopy: vmlinux: section `.DebugInterruptVector.text' can't be allocated in segment 3
-   LOAD: .WindowVectors.text .DebugInterruptVector.text
->> xtensa-linux-objcopy: stNM3Sx7: warning: allocated section `.DebugInterruptVector.text' not in segment
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+QXQgMjAyNi0wOS0yNSAwMDowNToxOSwgIkd1ZW50ZXIgUm9lY2siIDxsaW51eEByb2Vjay11cy5u
+ZXQ+IHdyb3RlOgo+T24gVGh1LCBTZXAgMjQsIDIwMjYgYXQgMTE6MTE6MjFQTSArMDgwMCwgSmlh
+bGUgWWFvIHdyb3RlOgo+PiBUaGUgSElEIGRyaXZlciByYXdfZXZlbnQgY2FsbGJhY2sgcnVucyBi
+ZWZvcmUgSElEIGNvcmUgdmFsaWRhdGVzIHRoZQo+PiByZWNlaXZlZCByZXBvcnQgbGVuZ3RoLiAg
+YXFjX3Jhd19ldmVudCgpIHJlYWRzIGRldmljZS1zcGVjaWZpYyBzdGF0dXMKPj4gZmllbGRzIGF0
+IGZpeGVkIG9mZnNldHMsIGluY2x1ZGluZyBtdWx0aS1ieXRlIHZhbHVlcywgd2l0aG91dCBjaGVj
+a2luZwo+PiB0aGF0IHRoZSByZWNlaXZlZCBidWZmZXIgY29udGFpbnMgdGhlIGNvbXBsZXRlIHJl
+cG9ydC4gIEEgdHJ1bmNhdGVkIHN0YXR1cwo+PiByZXBvcnQgY2FuIHRoZXJlZm9yZSBjYXVzZSBv
+dXQtb2YtYm91bmRzIHJlYWRzIGFuZCB1cGRhdGUgaHdtb24gc3RhdGUgd2l0aAo+PiBkYXRhIGJl
+eW9uZCB0aGUgcmVjZWl2ZWQgcmVwb3J0Lgo+PiAKPj4gUmVqZWN0IHN0YXR1cyByZXBvcnRzIHNo
+b3J0ZXIgdGhhbiB0aGUgbGVuZ3RoIGRlcml2ZWQgZnJvbSB0aGVpciByZXBvcnQKPj4gZGVzY3Jp
+cHRvciBiZWZvcmUgYWNjZXNzaW5nIGFueSBmaWVsZHMuICBDb21taXQgNDc2NjliZWM0NGZlICgi
+SElEOiBhc3VzOgo+PiByZWZhY3RvciB0aGUgdHdvIHdvcmtxdWV1ZXMgYW5kIGluaXQgc2VxdWVu
+Y2UiKSBhZGRlZCBlcXVpdmFsZW50IHJhdy1ldmVudAo+PiBsZW5ndGggdmFsaWRhdGlvbiB0byBo
+aWQtYXN1cy4KPj4gCj4+IEZpeGVzOiAwZTM1ZjYzZjdmNGUgKCJod21vbjogYWRkIGRyaXZlciBm
+b3IgQXF1YWNvbXB1dGVyIEQ1IE5leHQiKQo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+
+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+
+ICBkcml2ZXJzL2h3bW9uL2FxdWFjb21wdXRlcl9kNW5leHQuYyB8IDIgKysKPj4gIDEgZmlsZSBj
+aGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPj4gCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3bW9u
+L2FxdWFjb21wdXRlcl9kNW5leHQuYyBiL2RyaXZlcnMvaHdtb24vYXF1YWNvbXB1dGVyX2Q1bmV4
+dC5jCj4+IGluZGV4IDFjYTcwZTcyNjI5OC4uMWViYzhiYzRjMDkwIDEwMDY0NAo+PiAtLS0gYS9k
+cml2ZXJzL2h3bW9uL2FxdWFjb21wdXRlcl9kNW5leHQuYwo+PiArKysgYi9kcml2ZXJzL2h3bW9u
+L2FxdWFjb21wdXRlcl9kNW5leHQuYwo+PiBAQCAtMTMzMSw2ICsxMzMxLDggQEAgc3RhdGljIGlu
+dCBhcWNfcmF3X2V2ZW50KHN0cnVjdCBoaWRfZGV2aWNlICpoZGV2LCBzdHJ1Y3QgaGlkX3JlcG9y
+dCAqcmVwb3J0LCB1OAo+PiAgCj4+ICAJaWYgKHJlcG9ydC0+aWQgIT0gU1RBVFVTX1JFUE9SVF9J
+RCkKPj4gIAkJcmV0dXJuIDA7Cj4+ICsJaWYgKHNpemUgPCBoaWRfcmVwb3J0X2xlbihyZXBvcnQp
+KQo+PiArCQlyZXR1cm4gMDsKPgo+VGhhdCBkb2Vzbid0IGVuc3VyZSB0aGF0IHRoZSByZXBvcnQg
+aXMgbm90IGF0IGxlYXN0IGFzIGxvbmcgYXMgYWNjZXNzZWQKPmxhdGVyIGluIHRoZSBmdW5jdGlv
+biwgYW5kIHRodXMgZG9lcyBub3QgZml4IGFueXRoaW5nLiBUaGUgc2FtZSBhcHBsaWVzCj50byB0
+aGUgb3RoZXIgcGF0Y2guCj4KPkEgcHJvcGVyIGZpeCB3b3VsZCBiZSB0byBlbnN1cmUgdGhhdCBz
+aXplIGlzIGF0IGxlYXN0IGFzIGxvbmcgYXMgYWNjZXNzZWQKPmluIHRoZSBmdW5jdGlvbi4gaGlk
+X3JlcG9ydF9sZW4oKSBkb2VzIG5vdCBhbmQgY2FuIG5vdCBrbm93IHRoYXQgdmFsdWUuCj5JdCBp
+cyBwdXJlbHkgZHJpdmVyIHNwZWNpZmljLgoKSSB0cmllZCB0byBmaW5kIGEgY2xlYW5lciB3YXkg
+dG8gZGVyaXZlIHRoZSBhY3R1YWwgcmVxdWlyZWQgbGVuZ3RoLCBidXQgaXQgc2VlbXMKdGhpcyBp
+cyBlbnRpcmVseSBkcml2ZXItc3BlY2lmaWMuIEknbGwgcmVwbGFjZSB0aGlzIHdpdGggYW4gZXhw
+bGljaXQgbWluaW11bS1sZW5ndGgKdGFibGUgZm9yIHRoZSBzdXBwb3J0ZWQgbGF5b3V0cywganVz
+dCBsaWtlOgotLS0KKy8qIE1pbmltdW0gc2l6ZSByZXF1aXJlZCBmb3IgYWxsIGZpZWxkcyByZWFk
+IGJ5IGFxY19yYXdfZXZlbnQoKS4gKi8KK3N0YXRpYyBjb25zdCB1MTYgYXFjX21pbl9zdGF0dXNf
+cmVwb3J0X3NpemVbXSA9IHsKKwlbZDVuZXh0XSA9IEQ1TkVYVF9QVU1QX09GRlNFVCArIEFRQ19G
+QU5fU1BFRURfT0ZGU0VUICsgc2l6ZW9mKHUxNiksCisJW2ZhcmJ3ZXJrXSA9IEZBUkJXRVJLX1NF
+TlNPUl9TVEFSVCArIEZBUkJXRVJLX05VTV9TRU5TT1JTICogQVFDX1NFTlNPUl9TSVpFLAorCVtm
+YXJid2VyazM2MF0gPSBGQVJCV0VSSzM2MF9WSVJUVUFMX1NFTlNPUlNfU1RBUlQgKworCQkJRkFS
+QldFUkszNjBfTlVNX1ZJUlRVQUxfU0VOU09SUyAqIEFRQ19TRU5TT1JfU0laRSwKKwlbb2N0b10g
+PSAweGQ4ICsgQVFDX0ZBTl9TUEVFRF9PRkZTRVQgKyBzaXplb2YodTE2KSwKKwlbcXVhZHJvXSA9
+IDB4OTcgKyBBUUNfRkFOX1NQRUVEX09GRlNFVCArIHNpemVvZih1MTYpLAorCVtoaWdoZmxvd25l
+eHRdID0gSElHSEZMT1dORVhUXzVWX1ZPTFRBR0VfVVNCICsgc2l6ZW9mKHUxNiksCisJW2FxdWFl
+cm9dID0gMHgxOGIgKyBBUVVBRVJPX0ZBTl9QT1dFUl9PRkZTRVQgKyBzaXplb2YodTE2KSwKKwlb
+YXF1YXN0cmVhbXVsdF0gPSBBUVVBU1RSRUFNVUxUX1BSRVNTVVJFX09GRlNFVCArIHNpemVvZih1
+MTYpLAorCVtsZWFrc2hpZWxkXSA9IExFQUtTSElFTERfUkVTRVJWT0lSX1ZPTFVNRSArIHNpemVv
+Zih1MTYpLAorCVtoaWdoZmxvd10gPSAwLAorfTsKKwotLS0KQnV0IGl0J3Mgc28gdWxneSwgdGhh
+dCdzIG9rPyBvciBhbnkgb3RoZXIgc3VnZ2VzdGlvbi4KCj4KPkFsc28sIHRoZSBjb2RlIGFkZGVk
+IGluIGNvbW1pdCA0NzY2OWJlYzQ0ZmUgaXM6Cj4KPiAgICAgICAgaWYgKHNpemUgPCAyKSB7Cj4g
+ICAgICAgICAgICAgICAgaGlkX2RiZyhoZGV2LCAiVW5leHBlY3RlZCBrZXlib2FyZCByZXBvcnQg
+c2l6ZSAlZFxuIiwgc2l6ZSk7Cj4gICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgIH0K
+Pgo+d2hpY2ggbWFrZXMgc2Vuc2UgYmVjYXVzZSBhc3VzX3Jhd19ldmVudCgpIG5ldmVyIGFjY2Vz
+c2VzIG1vcmUgdGhhbiB0d28gYnl0ZXMKPmluIHRoZSByZXBvcnQuIFRoZSBzdGF0ZW1lbnQgIkNv
+bW1pdCA0NzY2OWJlYzQ0ZmUgKCJISUQ6IGFzdXM6IHJlZmFjdG9yIHRoZSB0d28KPndvcmtxdWV1
+ZXMgYW5kIGluaXQgc2VxdWVuY2UiKSBhZGRlZCBlcXVpdmFsZW50IHJhdy1ldmVudCBsZW5ndGgg
+dmFsaWRhdGlvbgo+dG8gaGlkLWFzdXMiIGlzIGVpdGhlciBoYWxsdWNpbmF0ZWQgb3IgaW50ZW50
+aW9uYWxseSBtaXNsZWFkaW5nLgo+Cj5HdWVudGVyCg==
