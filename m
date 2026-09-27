@@ -1,216 +1,176 @@
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586DE377AAC
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431713CB2EA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790502315; cv=none; b=KS47bJnqIxUKvn0vasVZd2tdl8Jb9QQ1WZveUMQCrLCkSAvwG6L4BkMazAJW5ElQiykQZgk20nkUdMPVQ+Dg2T9zHfzKOPU55o6kNxSIu0CST6+jlNt7wKBvOLbZ5e3zSzMt8/10jG9whKWdC6YH1hMT6XMM8u64mc3IdKSnVD4=
+	t=1790502503; cv=none; b=a9VniPWvZ4qlwTPJ+0T1z+0hepyIpUc+HrWxv67a9ycPec8A1tu7IllOSAaVwBvZRM0ORPpvSP8rQz5fON2oYqGKfx8EUx6toaTiYnAgUpD/AOAWXoc7KSExghjKvYg1PbOzYpAQx6+c5ME5cywHMT5dx6DZMiP1H0WeCoNClGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790502315; c=relaxed/simple;
-	bh=pY1XQhJJOEcteSkOyW3vQfcMoKas/e3uBPOyzw3CmAE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=d6LDaIq6n3F7dSGYgH82Fli+JWR3EuvS/3JhqEi3grEP8LQhGil5KCm+C4O69TUT7GxnMPKxmvw9tdofq9DMHAdZNHB3Os4uxgXFX+zcM5bhbq1saiLugWoFtg6E3dV4MezoRKXoDOBmJMgK2yjYrdoRMKiYSef/xNyWoPjkTZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=NDp/jtIr; arc=none smtp.client-ip=192.134.164.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1790502503; c=relaxed/simple;
+	bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oA9wrlWavBbccQ88jiVs/NLtjkCwvmT5ASnqrXwxgRNRrd0jhBeT0NAiNf+OXJHa7JUrMrVxkBO0SEOQ7VcBsdJAXsFlEIZLWvo0Xm43zsZwmklx/zyEUVow3yLurPUwx27MZuMGYgATM01hQQC2PIsBJXTH0hbMtthgtZByxZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gGmnowq3; arc=none smtp.client-ip=91.218.175.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="NDp/jtIr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=+WZh0bb5NmAt10ymsdHTt1ccdu2nJSsz3CMDIj2iZIg=;
-  b=NDp/jtIrIPNffYX+aWUI7eNdgUV53EWNSCmyfjNU8i9mNfSID/S4s30v
-   9CpTHEG5urx1TSskxE9HQKf94YlJ3kWvb0MZLou+7Ruh98+e/zeSjHqKB
-   mvke7UBLkkR0jXQNJxFIKJ0daYF3opq8xId7HbkaA0nR6XziOexC2pRdW
-   g=;
-X-CSE-ConnectionGUID: lu/urvJ4RFetAVR7Z3J3XA==
-X-CSE-MsgGUID: Dncj5/fgS+COWeoMAM9T3Q==
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,126,1787004000"; 
-   d="scan'208";a="158108361"
-Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 11:44:00 +0200
-Date: Sun, 27 Sep 2026 11:43:59 +0200 (CEST)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Ella Ma <alansnape3058@gmail.com>
-cc: nicolas.palix@imag.fr, linux-kernel@vger.kernel.org, cocci@inria.fr
-Subject: Re: [PATCH v2] coccinelle: free: add a checker for `__cleanup(kfree)`
- usage
-In-Reply-To: <20260924162522.912050-1-alansnape3058@gmail.com>
-Message-ID: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr>
-References: <20260831134336.45540-1-alansnape3058@gmail.com> <20260924162522.912050-1-alansnape3058@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gGmnowq3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790502497; v=1; x=1791107297;
+ b=gGmnowq3wfjygxut6JzuCkT1+itiNZ0Pm4dny//0BIfVzrE01qKftU+OzyyKQQTCQXPjjQ0F
+ gAo9W94skVSOmbU/oRqWh7Ga0kifPThO88WT1yIQgcZM1SCayY18pwyU+N74ZOjVLAS3W6TU+d4
+ tIzJsZ7CR/axRDojYaApeuLY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 75e904128475050b;
+	Sun, 27 Sep 2026 09:48:07 +0000
+X-Mizu-Trace-ID: 75e904128475050b
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+To: hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	vivek.kasireddy@intel.com
+Cc: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hongfu Li <lihongfu@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] mm/memfd: fix hugetlb reservation accounting in error paths
+Date: Sun, 27 Sep 2026 17:47:57 +0800
+Message-ID: <20260927094757.31665-1-hongfu.li@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
+From: Hongfu Li <lihongfu@kylinos.cn>
 
+If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
+a concurrent fault has already instantiated the folio in the page cache,
+and the reservation now belongs to that folio. Calling
+hugetlb_unreserve_pages() in that case incorrectly removes the region
+backing the cached folio and releases one reservation more than it
+should, leaving that folio in the page cache with no region recording it.
 
-On Thu, 24 Sep 2026, Ella Ma wrote:
+That leaves resv_huge_pages one page short until that folio is removed
+from the page cache, so available_huge_pages() reports a page that is
+not actually free and the pool can grant one reservation more than it
+can back. Applications using hugetlb memfds can then fail to allocate
+or fault in a page they already reserved. They see -ENOMEM or -ENOSPC
+from the allocation or fault path even though the reservation and
+HugePages_Free still look healthy.
 
-> Using __cleanup(kfree) will pass the stack address of the annotated
-> local variable to kfree functions. This will lead to invalid
-> deallocation issues. Inspired by CVE-2026-45959 and similar bugs
-> recently detected.
+So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
+error-path unreserve completes to make the reserve, allocate and
+instantiate steps atomic against concurrent faults. With the mutex held
+from the start, a concurrent fault can no longer consume the reservation
+between reserve and allocate/instantiate. If a fault completed before the
+mutex was taken, it has already added the region for that index, so
+hugetlb_reserve_pages() returns 0 and the error path leaves the region in
+place.
 
-Thanks for the semantic patch.
-I think it would be good for the error reports to be more explicit about
-what the issue is, ie the relationship to the presence of absence of
-DEFINE_FREE.  Otherwise, it is hard to completely understand the problem
-without looking at the comments in the semantic patch.
+Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+---
+v3:
+- Update commit message to describe the accounting damage and its
+  user-visible effect; no code changes.
+- Add Cc: stable@vger.kernel.org.
+v2:
+- Take the hugetlb fault mutex before hugetlb_reserve_pages() and hold
+  it until the error-path unreserve completes.
+- Update commit message
+- Link to v1: https://lore.kernel.org/all/20260831090631.29227-1-hongfu.li@linux.dev/
+---
+ mm/memfd.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-julia
+diff --git a/mm/memfd.c b/mm/memfd.c
+index c708d92533f4..0f6fff004f5e 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 		struct hstate *h = hstate_file(memfd);
+ 		int err = -ENOMEM;
+ 		long nr_resv;
++		u32 hash;
+ 
+ 		gfp_mask = htlb_alloc_mask(h);
+ 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+ 		idx >>= huge_page_order(h);
+ 
++		/*
++		 * Serialize hugepage allocation and instantiation to prevent
++		 * races with concurrent allocations, as required by all other
++		 * callers of hugetlb_add_to_page_cache().
++		 */
++		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
++		mutex_lock(&hugetlb_fault_mutex_table[hash]);
++
+ 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
+-		if (nr_resv < 0)
+-			return ERR_PTR(nr_resv);
++		if (nr_resv < 0) {
++			err = nr_resv;
++			goto out_unlock;
++		}
+ 
+ 		folio = alloc_hugetlb_folio_reserve(h,
+ 						    numa_node_id(),
+ 						    NULL,
+ 						    gfp_mask);
+ 		if (folio) {
+-			u32 hash;
+-
+ 			/*
+ 			 * Zero the folio to prevent information leaks to userspace.
+ 			 * Use folio_zero_user() which is optimized for huge/gigantic
+@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 			 */
+ 			__folio_mark_uptodate(folio);
+ 
+-			/*
+-			 * Serialize hugepage allocation and instantiation to prevent
+-			 * races with concurrent allocations, as required by all other
+-			 * callers of hugetlb_add_to_page_cache().
+-			 */
+-			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+-			mutex_lock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			err = hugetlb_add_to_page_cache(folio,
+ 							memfd->f_mapping,
+ 							idx);
+-
+-			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			if (err) {
+ 				folio_put(folio);
+ 				goto err_unresv;
+@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 
+ 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
+ 			folio_unlock(folio);
++			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 			return folio;
+ 		}
+ err_unresv:
+ 		if (nr_resv > 0)
+ 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
++out_unlock:
++		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 		return ERR_PTR(err);
+ 	}
+ #endif
+-- 
+2.54.0
 
->
-> Signed-off-by: Ella Ma <alansnape3058@gmail.com>
-> ---
->
-> Changes in v2:
-> - Add virtual rules `report` and `org` as suggested by Sashiko
-> - Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
-> - Add `free_percpu` to rule `free`
-> - Add `kfree_const` to rule `cleanup`
->
-> Currently, the five functions in the `free` rule are all the functions
-> of `void (*)(const? void *)` type with a `DEFINE_FREE` definition in the
-> code base. So I adopted all of them.
-> Function `kfree_const` is added as it is of the kfree family and used
-> more frequently than other kfree-family functions (even more frequently
-> than some of those having a `DEFINE_FREE` definition).
-> https://elixir.bootlin.com/linux/v7.3-rc3/A/ident/kfree_const
-> (found in 64 files in v7.3-rc3).
->
-> This cocci script can report the bug fixed in
-> https://lore.kernel.org/lkml/20260617142632.3298984-1-vulab@iscas.ac.cn/
->
->  scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
->  1 file changed, 112 insertions(+)
->  create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
->
-> diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
-> new file mode 100644
-> index 000000000000..63216ec5d865
-> --- /dev/null
-> +++ b/scripts/coccinelle/free/cleanup-free.cocci
-> @@ -0,0 +1,112 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +///
-> +/// Find __cleanup(kfree)
-> +/// Using __cleanup(kfree) will pass the stack address of the annotated
-> +/// local variable to kfree, causing an invalid free.
-> +/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
-> +/// Such usage is impossible to be correct.
-> +///
-> +// Confidence: High
-> +// Copyright: (C) 2026 Ella Ma
-> +// Options: --no-includes --include-headers
-> +
-> +virtual report
-> +virtual org
-> +
-> +// Suggesting using __free for the functions with a DEFINE_FREE definition.
-> +// Update this list when new DEFINE_FREE definitions are added.
-> +@free@
-> +attribute name __cleanup;
-> +symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
-> +type T;
-> +identifier v, n;
-> +position p;
-> +@@
-> +
-> +(
-> +  T v __cleanup@p(
-> +(
-> +  n
-> +&
-> +(
-> +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-> +)
-> +)
-> +  );
-> +|
-> +  T v __cleanup@p(
-> +(
-> +  n
-> +&
-> +(
-> +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-> +)
-> +)
-> +  ) = ...;
-> +)
-> +
-> +@script:python depends on report@
-> +p << free.p;
-> +n << free.n;
-> +@@
-> +
-> +coccilib.report.print_report(
-> +  p[0], f"ERROR: found `__cleanup({n})', do you mean `__free({n})'?")
-> +
-> +@script:python depends on org@
-> +p << free.p;
-> +n << free.n;
-> +@@
-> +
-> +coccilib.org.print_todo(
-> +  p[0], f"ERROR: found `__cleanup({n})', do you mean `__free({n})'?")
-> +
-> +
-> +// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
-> +// The following list only contains frequently used functions. Supplement it if
-> +// necessary.
-> +@cleanup@
-> +attribute name __cleanup;
-> +symbol vfree, vfree_atomic, kfree_const;
-> +type T;
-> +identifier v, n;
-> +position p;
-> +@@
-> +
-> +(
-> +  T v __cleanup@p(
-> +(
-> +  n
-> +&
-> +(
-> +  vfree \| vfree_atomic \| kfree_const
-> +)
-> +)
-> +  );
-> +|
-> +  T v __cleanup@p(
-> +(
-> +  n
-> +&
-> +(
-> +  vfree \| vfree_atomic \| kfree_const
-> +)
-> +)
-> +  ) = ...;
-> +)
-> +
-> +@script:python depends on report@
-> +p << cleanup.p;
-> +n << cleanup.n;
-> +@@
-> +
-> +coccilib.report.print_report(
-> +  p[0], f"ERROR: `__cleanup({n})' will free the annotated variable, rather than its pointee")
-> +
-> +@script:python depends on org@
-> +p << cleanup.p;
-> +n << cleanup.n;
-> +@@
-> +
-> +coccilib.org.print_todo(
-> +  p[0], f"ERROR: `__cleanup({n})' will free the annotated variable, rather than its pointee")
-> --
-> 2.34.1
->
->
