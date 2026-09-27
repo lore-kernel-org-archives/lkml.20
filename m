@@ -1,138 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3EC33939D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD503B6BF1
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490207; cv=none; b=T5ixBS2zzCXtgOA8mVYZ+iVsfMwOu1zCZpBteEOJ/qR4UbcKUeS51Cx9FFJ0oPkUBDI6yqBJatyttYd5KeWEx5E2ZxC80q79HucPh+06FXP3Gydmwjfy7fPa+Tv9FQh5PO6qHOu6tmDmhmUjIR0oKQmHrWc37TXmcQrBg0jA8AI=
+	t=1790490293; cv=none; b=Sff7YHPjZHM+/UvBiS+diSR87n0vtwGUmbYlD6OHRNLlIbZ0KK8zEDdQmeTt9LosDJrA/024lK7jokiGYSFszhtcBHvkljl8C4RDIavN7rhN5dZakANwT1D6+/Aabf3+nNoibtCw3uf7FjmPkKjajZmpb243lpXijUI3X2yvU9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490207; c=relaxed/simple;
-	bh=abQ20sTrkthDKubL8xH9f1qWTFEmLog2Xb7FTeV5HhQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hm72dLbb18xvNHNJCynJTo+zBGJPxhDN22WQAFGhpkYRwDlAW+G83XxprPnP//BxRiGJ7BM/x1LmAK/kwVwyoUmvqsnefv/UsW1yg82NIc2hxHr86/rMKJeN3avdUEcWp5BNcNzoHAmHTIbk7ILKR4b27kKZFKqY2zmDJSuicro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgjDRlH+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790490293; c=relaxed/simple;
+	bh=eT/fj5vZ0Sj0xWvtck5u0p9IG2kOT0o4JMJn6zf0/qU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9hK88DVae2+sj0kye/LnAPC1PibT+GFnODdQ1OQwEati2KPMqTFmMCUm+9LYdJg2pxD3zMxIoMuruJDsS/opAU9a0s9WCBqofWZ0lV5g7qfD5m0BJb5eZ/yUAxvJzN9epOvrFVLPwERLSGrbX+rXFnNXg0BiRsuZKJSpOa21n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FBqWKevv; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgjDRlH+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9E91F008BF
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790490206;
-	bh=abQ20sTrkthDKubL8xH9f1qWTFEmLog2Xb7FTeV5HhQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MgjDRlH+sYmzPaCjMSbcE3B7aimF1q17Fn2czcyRyuRVJvOzNSF8TW+yv5wT+RqVw
-	 +as3k2Liyt0WODzu2xA+ywYIuPUStXP1ftIHnpEO1ihWgyMUvRrTaDEy83uwIWflSE
-	 yazikBOTHeYgknkYOEjPgxXexwFhLUtOFJiSQRg1QmO6RDSWDco07eJ6BtSvuapDfP
-	 ZTSKUxftQ5D/UMB4DkBvI0EEoXYn0mvU2SQpYmZgggkdd+IQcjPDDHKhwkVKv2RgNY
-	 PLcnJUUbx+/g9aIvUufLV3c0kyfnzvA/9tirNo/F0zZ1+IdGDBo/f9wnneb7cwi0Pu
-	 ErqEqM5pQjFlg==
-Received: by mail-ej2-f17.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so310506566b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:23:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxAPyTKgU6SC7wTmi02xqOn9yhqhmEDsa57lLo/SJBNiflm1LtAe1WX6+pW2lQ8IdUxO7Pgt3vmTUiLGKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuLHYwzo/4bbEH39aVzme5Q9KgIKFiKXYusKrspJvQbgWZRDU9
-	F/XQDQ84Twe1NqCR1jxojlNTUqUtGSqwfwRCto7k1ybyo1AcZL9dSpGTbAyYzJkDYqrkxgyk2Nd
-	suk4daeNifs00BCbqpIpa5eZGE7aL1K0Gs7aW3WnI0w==
-X-Received: by 2002:a17:907:d408:b0:c29:3821:ae6c with SMTP id
- a640c23a62f3a-c2ac2606943mr866958866b.37.1790490204956; Sat, 26 Sep 2026
- 23:23:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBqWKevv"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e79c06622so185469eec.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:24:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790490291; x=1791095091; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
+        b=FBqWKevvtUd2QdrC97qdrqzsBIb61h0S1+7pNq9x7edXsNUKxvnvhoOusCjDhLUPmz
+         AAW8nV4hay+UuN/6Pcw0fABgsGacFzX44OoeXxvPHRnEbJRcVu8UyphbwqBjhhgJ9/R7
+         mqeQ2CfV4tB9DWQwuN1DSmwnNVx25CBDwhU39r4qUP4BzGC1jjT/bkfIK4qJ3pN0eCXL
+         CoLFnO2wxnuPtfiqPgEkcl0R4KFvEOKFcTxEnVUsHUwUdndlSVNTInYuWptdN+kwE/hN
+         ZjrAFr4vFrHywWVWVht1vs6M3Lj/xE9wZkVPq3g6xAIGMLZ9JM6m6FHpMn10X53Ba2SZ
+         C05Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790490291; x=1791095091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
+        b=VbdTLBXG6U702+m4ElFWfz7ar/ucBKHz2A0haW/m996zmYkhzXsJieLmww8It3GLee
+         /RlI54IZklx7TNoWNGTLV3PlwoVjO+DYYzBk4HaC6FzhH1V5K5EV6vLgNH6KL+prnegM
+         C6T7WnY0yLwjXnBSX61hAk/gG/oxQ0VL9v+Tmsesrm8G2TN03kBTj7Tm1f9imNnQAVNG
+         2DTA4ULBY/cKh0zqx+fTPQoF2HHWFIAMs1n9weryHwU7BKxu9/p9zXszfsCqfOFnCsDU
+         Hmcp8zP6iMJIbsuejQHZD61S3koEaG05GISYq0ycU/fqY/bq7RSLFZebF8kmRrxBma8W
+         K6Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBzit5KfSagXV4XWz3wRzYHCTU3ChI3JYUOPpd5/8wy4YXxAHfGH8YG8sshLuu6IP6CgmNq53iqn51nqd34=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrhenO9Mqns3GN7QRE2B5vDmKOZ6ZMf3cJNR+mPR0foyxO5NJ6
+	25/XTgKTRsH89iTa4SGntEl9BRupAgWZf5rgR+MYbc6jWTaXVsp+difX
+X-Gm-Gg: AYBFou1N9V9337xc9N5jOacUsYZvZHydKiskZni5Cl0uF4kEYriPRvsCnhOovifeWj1
+	ZU+cgbT6tMglvmQWtI2IYKcNkobno07x6i0tT7BC0Y4kaU+hZkX+pGeHqowv0o78BMVphT0nGP8
+	9HJeToe8cBuSbQLRTNgy7OCEhumiIq3kICQ+FWKQ5WYt6JrcldOTw35ZdRW/a7ZMm8fJtqPyU4B
+	pdkxKhZuEgdsM5/nlq8F05eghsVy8W0IV8W1fthEnDYBoRtWc3rLFGFE0k9fQugTRVxsZVbjx94
+	lzNdn0+cwJGY3hFM2rGAz5hb5QFvzgCdUYxW4O4Z2b7NDJv7h3K6/ilWXfCFehUo2HcF5SPjcEu
+	MbI5/dE/izMdZgPYQTZYlpOT3kVgtgMtA4MnL0R5fqtVIWESUW1zrKI/AiqXS+jT8MrU680eSxL
+	rVgSofibaK52OThmKI5ZXaFjx1alSvvDlyFG/B+vwKLhTvUgq/w+J8dtwpA3keHDZRvhNrc1HG2
+	bfJkWEmYvx6AO7F6U0Nuj8MZHHrJ0gUiZfyMScFWrcsyHyoFmYQh+G6ev5ZwYvzLh+jy7apspQp
+	c4xn
+X-Received: by 2002:a05:7300:f64b:b0:33e:4e49:d08d with SMTP id 5a478bee46e88-34272b4bc81mr8484339eec.1.1790490291342;
+        Sat, 26 Sep 2026 23:24:51 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm19056291eec.0.2026.09.26.23.24.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 23:24:50 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Simon Horman <horms@verge.net.au>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Hans Schillstrom <hans.schillstrom@ericsson.com>
+Cc: netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipvs: fix protocol data lifetime during namespace teardown
+Date: Sun, 27 Sep 2026 14:24:35 +0800
+Message-ID: <20260927062435.3690129-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arUcil9kxUPiymXI@KASONG-MC4> <araWKyJ5MENBwXCL@cmpxchg.org>
- <CACePvbV0Z3OhxkEn-MiMrxpSmtbt1YwCt2N2_ZW3jbdh87jgFA@mail.gmail.com> <9499bc084e30df4d10bc069ed26d576e4dd3de80.camel@surriel.com>
-In-Reply-To: <9499bc084e30df4d10bc069ed26d576e4dd3de80.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 26 Sep 2026 20:23:13 -1000
-X-Gmail-Original-Message-ID: <CACePvbWdJSUDuEbR2FXczbeWwvxP86WDGHTL-eO0A8WwMDoNRQ@mail.gmail.com>
-X-Gm-Features: AclHuK9XVPbdEdRuFYnT3RhuHd6CxK6iuGG39DZDVhwy7Jj_A42gkqdamTqXRIk
-Message-ID: <CACePvbWdJSUDuEbR2FXczbeWwvxP86WDGHTL-eO0A8WwMDoNRQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 2:59=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Sat, 2026-09-26 at 11:27 -1000, Chris Li wrote:
-> > On Fri, Sep 25, 2026 at 5:41=E2=80=AFAM Johannes Weiner <hannes@cmpxchg=
-.org>
-> > wrote:
-> >
-> > >
-> > > (2) The use case we have. Use memory.swap.max to divide a finite
-> > > space
-> > > in storage. We only have so much space on disk, and we need to
-> > > manage
-> > > fair access. Note that this isn't about speed. We have a mix of
-> > > containers where some use writeback and others do not. The ones who
-> > > write back to the swapfile need to be able to get their fair share
-> > > -
-> > > not more, not less. Including something that doesn't actually
-> > > consume
-> >
-> > Just want to make sure I understand correctly. Do you mean the fair
-> > share of compressed memory used in the zswap case?
-> >
-> Compressed zswap memory is already accounted for
-> under cgroup.memory.max.
+IPVS frees its per-net protocol data before control cleanup cancels
+defense work and unregisters the sysctl table. A defense worker can load
+a protocol data pointer, then namespace cleanup can unlink and free that
+object before the worker dereferences pd->pp or pd->next. The worker's
+securetcp_lock does not serialize with protocol cleanup. A concurrent
+defense-mode sysctl write can reach the same timeout update path.
 
-Ack.
+KASAN reported:
 
->
-> Compressed zswap memory sits under memory.max
-> together with anonymous, file, and slab cache
-> memory.
+  BUG: KASAN: slab-use-after-free in ip_vs_protocol_timeout_change
+  Workqueue: events_long defense_work_handler
+  Call Trace:
+   ip_vs_protocol_timeout_change+0x1b4/0x1e0
+   update_defense_level+0x63e/0xd80
+   defense_work_handler+0x1e/0xc0
+  Allocated by task 125:
+   ip_vs_protocol_net_init+0xda/0x2f0
+   __ip_vs_init+0x16b/0x240
+   setup_net+0xfc/0x310
+  Freed by task 12:
+   ip_vs_protocol_net_cleanup+0x1d6/0x2e0
+   __ip_vs_cleanup_batch+0x7d/0x100
+   cleanup_net+0x38c/0x770
 
-I understand that.
+Run control cleanup before protocol cleanup so that defense work and
+active sysctl handlers have finished before their protocol data is freed.
+Initialize protocols before exposing the control interface, and unwind
+in reverse order, to enforce the same lifetime on initialization failure.
+Protocol initialization and exit do not depend on control state.
 
+Fixes: 9330419d9aa4 ("IPVS: netns, use ip_vs_proto_data as param.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/netfilter/ipvs/ip_vs_core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> We do not need or want another limit there,
-> though I understand other people do.
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index fd503f0efb57..8a3c880fdb26 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -2502,12 +2502,12 @@ static int __net_init __ip_vs_init(struct net *net)
+ 	if (ip_vs_estimator_net_init(ipvs) < 0)
+ 		goto estimator_fail;
+ 
+-	if (ip_vs_control_net_init(ipvs) < 0)
+-		goto control_fail;
+-
+ 	if (ip_vs_protocol_net_init(ipvs) < 0)
+ 		goto protocol_fail;
+ 
++	if (ip_vs_control_net_init(ipvs) < 0)
++		goto control_fail;
++
+ 	if (ip_vs_app_net_init(ipvs) < 0)
+ 		goto app_fail;
+ 
+@@ -2527,10 +2527,10 @@ static int __net_init __ip_vs_init(struct net *net)
+ conn_fail:
+ 	ip_vs_app_net_cleanup(ipvs);
+ app_fail:
+-	ip_vs_protocol_net_cleanup(ipvs);
+-protocol_fail:
+ 	ip_vs_control_net_cleanup(ipvs);
+ control_fail:
++	ip_vs_protocol_net_cleanup(ipvs);
++protocol_fail:
+ 	ip_vs_estimator_net_cleanup(ipvs);
+ estimator_fail:
+ 	net->ipvs = NULL;
+@@ -2547,8 +2547,8 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
+ 		ipvs = net_ipvs(net);
+ 		ip_vs_conn_net_cleanup(ipvs);
+ 		ip_vs_app_net_cleanup(ipvs);
+-		ip_vs_protocol_net_cleanup(ipvs);
+ 		ip_vs_control_net_cleanup(ipvs);
++		ip_vs_protocol_net_cleanup(ipvs);
+ 		ip_vs_estimator_net_cleanup(ipvs);
+ 		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
+ 		net->ipvs = NULL;
+-- 
+2.43.0
 
-Ack.
-
-> The fair resource use from memory.swap.max
-> is to control how much of the fixed swap file
-> (or swap partition) space each cgroup gets.
-
-That is the part I am not sure I understand correctly. Fair in what
-sense? Using the swap file proportional to the memory limit of the
-cgroup? Do you have an example of perfectly fair swap file usage for a
-cgroup with an 8G memory limit versus one with a 1G limit?
-
-Sorry I am a bit slow grasping what exactly the fair behavior is.
-
-Chris
