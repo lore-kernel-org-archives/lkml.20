@@ -1,183 +1,158 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54ADA41685A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EB83B2FD9;
+	Sun, 27 Sep 2026 16:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526940; cv=none; b=FWsbeAc73fSLVYBXMwxzvmaOW1JUv8OVIv5bcueF/12+BbNmXv9x6Y7EOg/PrppysL8jc7a7m9EVf1XI1bl2oy42wXOrRx7WhblbPu1gNb2LfHIVxZUxJKvn+Gty9Pj2zn2CT2IQk9z762BxHEo6dVzKnMAG+RCUw+v9LNdet6I=
+	t=1790526945; cv=none; b=ARDw5JT2FD6MLfpCUgfdGpJkjmueFMGSNBWbP1CId7LREPe+vsiXESNcKnlIrSeG1u8Fh5zzvTGh9PgCJqaRsVaXLKDRxUJZS4o8P96vaTAsloLDRf0qKXqlvAnTYM7GQfUpRwZBKXHZZMvJZn3uW0kGMUEiBu7bcDQRyAAPukQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526940; c=relaxed/simple;
-	bh=S97lL+9pPSlX5wdeSNlv78Gy5Xt1sEbTvjWxKwZzps8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jviCs7iS5JJhyuA9psY/l2goyRXMAjs2p5ruVgDBPMfRcACkpUVX7qMHdEe6EhlK3tU7KhNizo4RvPPcCDCS5qZj05ii1nlG85lq2NMbeEVcM/T6KcamXRF+0IwskJ5o+zrxLu9gdKCy4Uinm4HcBE3LtuOA3cymosEmeRe4ODg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fAnpO6QM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790526945; c=relaxed/simple;
+	bh=Bh4eqpjlXYZJnktfb6bIA8/7sjOl3WFlNWua6nYXIIg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BNa2s6FRy8upKhDiUoU6Y1k9EKcPt+4u1kUCzb3o1Ews8ADcT6VSc+wihoMg6Vf1vdmUt/K+sxEuWnba6rDVyzOe8PdAPUXrd7gtRTTRNyR5s9MNreFD2SNHL7LHi7fCF1Tr4RiyuOQ2Dx9sHBjlLYSpE4+8vlLTw2ktf5q5zKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6wNIx6G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fAnpO6QM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790526938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e5ftaFFAyb5ZySR/27tFb3IEQcSk3v/RRPx8tLZjgw4=;
-	b=fAnpO6QMPvva8KKMFSLeJKq/EOAbt5hvh8r/88FdKdvAXVx6vgLUP4LLK4YPqXNa/y9CjB
-	otUsWllGLvs2uYTvZng8923IjoKrgAV4N/1li1Ja16/S8Kir2Ex3RpKa+KpaKrMI0RbKb7
-	86aGa/MO1xrm75463slpNhT6cGuah+g=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-172-B29aoKonMmGA0HBGNig9TA-1; Sun,
- 27 Sep 2026 12:35:34 -0400
-X-MC-Unique: B29aoKonMmGA0HBGNig9TA-1
-X-Mimecast-MFC-AGG-ID: B29aoKonMmGA0HBGNig9TA_1790526933
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E4A151955F21;
-	Sun, 27 Sep 2026 16:35:32 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1186F418;
-	Sun, 27 Sep 2026 16:35:30 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next 2/2] cgroup/cpuset: Remove CS_CPU_EXCLUSIVE handling code from v2
-Date: Sun, 27 Sep 2026 12:34:54 -0400
-Message-ID: <20260927163454.345463-3-longman@redhat.com>
-In-Reply-To: <20260927163454.345463-1-longman@redhat.com>
-References: <20260927163454.345463-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6wNIx6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DD4BBC2BCF4;
+	Sun, 27 Sep 2026 16:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790526944;
+	bh=Bh4eqpjlXYZJnktfb6bIA8/7sjOl3WFlNWua6nYXIIg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Z6wNIx6G+1IzwqCf1wmwRPHE2Iu4/T73fG+VYOwC+FKMcmT3CHZE4ZZDSOBco0SKi
+	 vSbqU9+TDDIGPZt7slABHtS9FKERqYubrfExFPpCLKuEE0KgizfUG0NRkxf+531wGu
+	 lrmaPWGQUHgYCkyKfjQxS3TH+04Mt6Bm7twvzMzZX3XaZ7gzHh+NbBwKe/NCgVLZ2p
+	 RuRCQNHdR5gxuX+8RgwvCFsV6tJhtbE5zE/QZ37ITrlKOTmj3kZEAqu8KefP75uMqH
+	 CpolIcqcOSBZlO30zjkobRxRdD5coqSbKJiUzRtevOlL4N0oQ+C7NDOTWWE9i4Achz
+	 ZlqgNwr78ebxw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B43BBC9832F;
+	Sun, 27 Sep 2026 16:35:44 +0000 (UTC)
+From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
+Date: Sun, 27 Sep 2026 10:35:45 -0600
+Subject: [PATCH v2] usb: gadget: u_serial: fix NULL deref in gs_close()
+ after failed open
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-u_serial-gs-close-null-v2-1-bdedf57fe96f@gotenna.com>
+X-B4-Tracking: v=1; b=H4sIAOBFuWoC/4WNQQ6DIBREr2L+ur8Bag121Xs0pkH9IgmFBpS0M
+ dy96AU6uzfJm9kgUjAU4VZtECiZaLwrIE4VDLNymtCMhUEw0bCWM1yfu6Es6oiD9ZHQrdaikkz
+ Vl6aEJBT5HWgyn2P40RWeTVx8+B4/ie/t38nEkWOrriRr2fNx6u/aL+ScOg/+BV3O+QcaJtuEv
+ gAAAA==
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kuen-Han Tsai <khtsai@google.com>, 
+ Prashanth K <prashanth.k@oss.qualcomm.com>, stable@vger.kernel.org, 
+ Brian Ellis <brianellis@gotenna.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790526944; l=3198;
+ i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
+ bh=zsIlMAuOeo/QnHXqKOHJz0TaS0Y3etnOytR55Awk234=;
+ b=UbZHsXI/07D4SVkdfqO4AceRih61lDgprVhAzuVohFqBwIu/HErZdHfTUTj+AcSf+1L7324TZ
+ ePzkmRDf0ZDCzp6lQvskMcXKgpTsdt6TaA2MpIAiJB0E2nXHjR9DCJH
+X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
+ pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
+X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
+ auth_id=1022
+X-Original-From: Brian Ellis <brianellis@gotenna.com>
+Reply-To: brianellis@gotenna.com
 
-With the move of is_cpu_exclusive() DEADLINE shrink test into
-cpuset1_validate_change() in the previous patch, there is no need to
-have the CS_CPU_EXCLUSIVE flag set on valid partition root anymore.
-Remove update_partition_exclusive_flag() and other CS_CPU_EXCLUSIVE
-flag handling code in cpuset.c.
+From: Brian Ellis <brianellis@gotenna.com>
 
-Signed-off-by: Waiman Long <longman@redhat.com>
+gs_close() dereferences tty->driver_data without checking it:
+
+	struct gs_port *port = tty->driver_data;
+	struct gserial	*gser;
+
+	spin_lock_irq(&port->port_lock);
+
+but gs_open() assigns tty->driver_data only after two error returns:
+
+	if (!port) {
+		status = -ENODEV;
+		goto out;
+	}
+	...
+		status = kfifo_alloc(&port->port_write_buf,
+				     WRITE_BUF_SIZE, GFP_KERNEL);
+		if (status) {
+			...
+			goto out;
+		}
+	...
+	tty->driver_data = port;
+
+and when ->open() returns an error the tty core calls ->close() anyway:
+
+	if (tty->ops->open)
+		retval = tty->ops->open(tty, filp);
+	...
+	if (retval) {
+		tty_debug_hangup(tty, "open error %d, releasing\n", retval);
+		tty_unlock(tty); /* need to call tty_release without BTM */
+		tty_release(inode, filp);
+
+So opening /dev/ttyGS<n> for a port that has already been freed, or when
+the write-buffer allocation fails, oopses in gs_close().
+
+This is not the situation commit ffd603f21423 ("usb: gadget: u_serial: Add
+null pointer check in gs_start_io") was reverted for. That check was
+redundant because gs_start_io()'s callers are required to hold port_lock
+with port.tty and port_usb non-NULL, and the dereference it hid was a race.
+Here the NULL is not a race: the tty core deliberately calls ->close() for
+an ->open() that failed, as its own debug message says, so driver_data is
+legitimately unset on that path and every tty driver has to tolerate it.
+
+Fixes: c1dca562be8a ("usb gadget: split out serial core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Brian Ellis <brianellis@gotenna.com>
 ---
- kernel/cgroup/cpuset.c | 52 ++++--------------------------------------
- 1 file changed, 4 insertions(+), 48 deletions(-)
+Found on a downstream 6.6-adi BSP kernel, then confirmed present in usb-linus
+by inspection: gs_close() still dereferences tty->driver_data unguarded, and
+gs_open() still assigns it only after its error returns.
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 5639c486c967..b07a7e8cef16 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1166,25 +1166,6 @@ enum partition_cmd {
- static void update_sibling_cpumasks(struct cpuset *parent, struct cpuset *cs,
- 				    struct tmpmasks *tmp);
+Compile-tested against usb-linus with allmodconfig (CONFIG_USB_U_SERIAL=m).
+Not boot-tested on mainline: the board it was found on needs a vendor BSP
+device tree to boot, so the argument here is from source, with both halves
+quoted in the commit message.
+---
+Changes in v2:
+- Remove the comment above the check, rather than reword it as Prashanth
+  suggested. The commit message already explains the path that leaves
+  tty->driver_data NULL, so the comment only restated it. Happy to add a
+  reworded one instead if that is preferred.
+- Link to v1: https://lore.kernel.org/r/20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com
+---
+ drivers/usb/gadget/function/u_serial.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc66..892d2673e 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -695,6 +695,9 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	struct gs_port *port = tty->driver_data;
+ 	struct gserial	*gser;
  
--/*
-- * Update partition exclusive flag
-- *
-- * Return: 0 if successful, an error code otherwise
-- */
--static int update_partition_exclusive_flag(struct cpuset *cs, int new_prs)
--{
--	bool exclusive = (new_prs > PRS_MEMBER);
--
--	if (exclusive && !is_cpu_exclusive(cs)) {
--		if (cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 1))
--			return PERR_NOTEXCL;
--	} else if (!exclusive && is_cpu_exclusive(cs)) {
--		/* Turning off CS_CPU_EXCLUSIVE will not return error */
--		cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 0);
--	}
--	return 0;
--}
--
- /*
-  * Update partition load balance flag and/or rebuild sched domain
-  *
-@@ -1240,11 +1221,9 @@ static void reset_partition_data(struct cpuset *cs)
- 
- 	lockdep_assert_held(&callback_lock);
- 
--	if (cpumask_empty(cs->exclusive_cpus)) {
-+	if (cpumask_empty(cs->exclusive_cpus))
- 		cpumask_clear(cs->effective_xcpus);
--		if (is_cpu_exclusive(cs))
--			clear_bit(CS_CPU_EXCLUSIVE, &cs->flags);
--	}
++	if (!port)
++		return;
 +
- 	if (!cpumask_and(cs->effective_cpus, parent->effective_cpus, cs->cpus_allowed))
- 		cpumask_copy(cs->effective_cpus, parent->effective_cpus);
- }
-@@ -2020,19 +1999,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	if (!adding && !deleting && (new_prs == old_prs))
- 		return 0;
+ 	spin_lock_irq(&port->port_lock);
  
--	/*
--	 * Transitioning between invalid to valid or vice versa may require
--	 * changing CS_CPU_EXCLUSIVE. In the case of partcmd_update,
--	 * validate_change() has already been successfully called and
--	 * CPU lists in cs haven't been updated yet. So defer it to later.
--	 */
--	if ((old_prs != new_prs) && (cmd != partcmd_update))  {
--		int err = update_partition_exclusive_flag(cs, new_prs);
--
--		if (err)
--			return err;
--	}
--
- 	/*
- 	 * Change the parent's effective_cpus & effective_xcpus (top cpuset
- 	 * only).
-@@ -2055,9 +2021,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 
- 	spin_unlock_irq(&callback_lock);
- 
--	if ((old_prs != new_prs) && (cmd == partcmd_update))
--		update_partition_exclusive_flag(cs, new_prs);
--
- 	if (adding || deleting) {
- 		cpuset_update_tasks_cpumask(parent, tmp->addmask);
- 		update_sibling_cpumasks(parent, cs, tmp);
-@@ -2934,10 +2897,6 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	if (alloc_tmpmasks(&tmpmask))
- 		return -ENOMEM;
- 
--	err = update_partition_exclusive_flag(cs, new_prs);
--	if (err)
--		goto out;
--
- 	if (!old_prs) {
- 		/*
- 		 * cpus_allowed and exclusive_cpus cannot be both empty.
-@@ -3001,13 +2960,10 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	}
- out:
- 	/*
--	 * Make partition invalid & disable CS_CPU_EXCLUSIVE if an error
--	 * happens.
-+	 * Make partition invalid if an error happens.
- 	 */
--	if (err) {
-+	if (err)
- 		new_prs = -new_prs;
--		update_partition_exclusive_flag(cs, new_prs);
--	}
- 
- 	spin_lock_irq(&callback_lock);
- 	cs->partition_root_state = new_prs;
+ 	if (port->port.count != 1) {
+
+---
+base-commit: be4219dd98608736e13e0b790ef742b76a13254d
+change-id: 20260910-u_serial-gs-close-null-a80a436666e8
+
+Best regards,
 -- 
-2.55.0
+Brian Ellis <brianellis@gotenna.com>
+
 
