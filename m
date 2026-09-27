@@ -1,99 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic312-24.consmr.mail.ne1.yahoo.com (sonic312-24.consmr.mail.ne1.yahoo.com [66.163.191.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808EE3B7776;
-	Sun, 27 Sep 2026 18:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9451F30F95C
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790535481; cv=none; b=tdAnBWY79gba6tx9wfZxq99atDLGUP41GmlPaeLvjkDGABpfa99jDPtNqGuX6G13wBtIlmBJHpW0UUAkZMu4xjxrMBHHEXPridps6NodMf3AJ/pE/edW8vuYYoGZepp3fO6jcoekpe9Nijt9Z+LfGblQoM7hQNBD1l7U3phEDGA=
+	t=1790535517; cv=none; b=cWxtsxRSRocgx+vExGsC4pGILgx4zfrYBn8LjXl9KKv2kaIule8SiMwS+VUDyX2FseMql5GIk2RBOgP9wKIUKTxuq8t09YYAJlTtOZCVdSiPZ0LJr59LjE8hGeGvkNzTbGdu6QqejNHHYxhIcrPkQsZmB5LflQvPJMishkvkbmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790535481; c=relaxed/simple;
-	bh=4ZQnLYNZ+MDkwxQHtM0/LJpwMTeZ07hysuaoYVqSn2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XtsORKOysg+g5K689db/t5gWnGT31fuIT28CHTpb4Anm2l5Dhc9cXlWs39n/ioe8K01L1BXT2BWupLcGT9terCgg86Ebti9y8+Cd+2si+m5th60nCy+QzFjwB0gK7j9LmriPiG23UWfsLGHPsVDFaU/iNdUwfmMd1n/Ue79WMs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYSYylrn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790535517; c=relaxed/simple;
+	bh=ViNBLSklZPQRM0ds8F+WFFkGEzCtYSc+f0YcLyNmEi8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GDv3xc26jnYxPXrWsSsP+CnJXmwXH8r9rh0E3+Qt0qRSW+nMeSF0yAGkmJCbffksZEtGqqQTbKpGusdW3gftSjVt4nGBGlc4jY4mm7U7+MH8hc1Im0yqiB6OLW/1ltSXetUzvMbUhXf1LMOGOkT1QH14tHijh5xFkA9QXCC5jHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=JOqOrHXf; arc=none smtp.client-ip=66.163.191.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYSYylrn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117261F000FF;
-	Sun, 27 Sep 2026 18:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790535480;
-	bh=sBCRchsp1sI03Um1rqvmQqGg1HFVn6OU3UOiqPFqQvc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CYSYylrnQBbvqDP1Ohbo7pOzh7ldRMiIiuzY7lH7ltD3BZBygrRIPavnJZKMWTeAp
-	 HNgjmomDh54IocKkHvRtXClN/puPkQkltlkHSnWByL3IZM1HixHkA7+InOUE0mZ9AZ
-	 x8UeJtGevKQbV7baTntZjfzSMqHihJ8M222HGCBjVNlFsudJOAVa+GjfozDRo0Porl
-	 KAZINSynBWQa4SvgkrLun0Cg4K/vjOZjd9kHTVeCmV6qc+IMI6r5lWSdzDkYzxN9bp
-	 BQH6Wtj5nM218LfyKOhMmxQ7XBiFjIulJwPh7Jr994MWfcxdjmB4C5Ydl5rxQ9fjbq
-	 twlDpd+GJ1BRg==
-Date: Sun, 27 Sep 2026 19:57:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 02/14] iio: adc: stm32-adc: core: manage clock
- prescaler diversity
-Message-ID: <20260927195753.307af72f@jic23-hlaptop>
-In-Reply-To: <20260923-adc-stm32mp25-v1-v2-2-46bc019537c6@foss.st.com>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
-	<20260923-adc-stm32mp25-v1-v2-2-46bc019537c6@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="JOqOrHXf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790535514; bh=l53zxW3mCIqtbpXnl7Mu35EpsHI8eZf/mbtge73hUQ0=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JOqOrHXfj0F1OzeqZFOS4xzA9qofrqASEIiNzaBVLWpIqQqMvPNNj4Fk484L+gUCqbRnq+Mpl+vv7fyz20yI4rYyE+9txLEdCnGxkVB+eHQ4DgDYRkfDBMhoT6EWe+A8k5QX80VHgtRsQztHSRLZXYGvuvkPzKbiXUPvkZNG3FP/5vz1DK6a5TQsoLUKoN6/zzIpJMaFDLGnRMfp+P33RAUgp+DswhqI5UxuWP/m/jv3GHtD3fJiQi4dtK/adnVNvPrlFKEv0PGdESssiHp6FecQodKv96bu5A2PsHWFhWhs+L6+C5PUB+SRyUsubP4bmvCksX+U0LcvGj272guiFw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790535514; bh=NsIUmwuSQ6R4yOPm4z78ysN1H0rJ8wpey0TNsc9xovT=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=NJbexy80zNqDiaqv+WyS/uZ/gV7lNr/zOJfVA1ppcApgYNQb79tYzUvCDBLa7cG+XBWW3yS7uvgU7miCcUR1yMbIOEwr/gghrdHiXG4LjK9nDiSwdTn+hA2Tm9mFKCf0JjsMf3eEFKV7lHXYQGqvKROENIepwYZHppVB0BT+VaJ28o1hmThFpqHwS72YAryiS0/sAiIebegW2rP2+tpXBT0P8VCSfNHjhSinpEmwfND0SIA8VKSZb9/XlgsYoX7O6it81ENjyUnTGnKZUNfeaJJyhnUBOPNMRZOhoFubxZDpQ+QNVCA76fwgBt1x4b3jfNGG1YjCIx727cLlUZ2O7w==
+X-YMail-OSG: xYfplhkVM1mxsvHTHnldBsjV5XavcaBdPHT1GJ2Ol3vK9gkxkGo0g4hB.NDegvm
+ 5hd_zqVT4QaPNftYeeQiWGRA4yAcNwMBbDHn48trJobpstiLB0R47gZUSSz_yu3sOEMjqUCW.qa_
+ qqlsPtKAyF3M_k3IjnG6VBRtCk4WeKHijHBUzwsZ6RfZp.iZcmzHadi_ncpcYQov6nvboO5JkJRe
+ P0vvoIkR_DJJEXP3pDH.ZD9BcMIDoHtKM0Yt7dvbhnsGSCJ5_ypb9Phx8MZy9XNBIx_kLXhL2we0
+ bIJNFD7Q4xebDRNoPxQBHG0Kbr.RcuLWU.lh99vEsjAS_lQMd3UIurswkvWtfKbt1LH._DrP161v
+ TBak4yaHdodQBvyx7PaBSxlyubMnRTLNtHTb1TAPNxasVgxajpNoR3ImJYGhkr.0n28RLZGiuAKv
+ bQLU7sTeR8cD_Iv8D7reiU.ATrCA2Ory0dsne6Pe3psz6pY4ADLfopziTw.cZI0Aie4JQFxGyT7f
+ IByZ7JN_FBkoKon1FKO0sS3.V6ns4WgTZVGM9cTJrOm7_vOlQwj.Is30rn72BQGQqhDevGbOGez7
+ .BcfC5UaF3jh6IQLf4hM1VoJzpzoIkuT.drKmgYYwqOyICax9qWdbCfvDmuSE44Z7jODjwiFfaNK
+ hinamxHTQfVNzeMd069.ar4aW8jpJZlQT.WyoO7E2dXr06csWNAWhLTRyKy3jN9HvnT1JaNTj7U1
+ 8ypMEUmk_FtyKqqix09us..u3kuAPrRGJqR8Y6PutU2_YlqH4SIUCVh97dWB5oXqfEKFGuX.8p6p
+ k4GnW.Q.OBrNttRVxKuIsaDEOqoyJmRm7j8bSe1Cku17oPGHlZJeZxgKm_jjGyWjo_Mqy.iQhA8l
+ d_ekzgqa4WPUSyP3XNH3LSGmqGNfFuA8xXIbEe5R0AFgxKI6YZ7JMywQd_iQXySTL1PxfQIm_toh
+ .xODmeDsTvWT5.hkwWnN8CqRZ6aZc4Y0iCvuZY5N3hmg8LYekKnGjCiH7h0dJT2oLNRUewth9VrN
+ LUNfpHx4_a2RAmhIaOYOWZkvO2pnlKbzcia0gG3S7UbKr.QMcuXuPB73JKW5umQ6Hl3zf32jfQUj
+ t3JKt.E._WSJgv0Mm1vat6BXP.t8aQZ.qjvvt5NZruMkaelFynIa.lqoTm1Pf2YG81AuDDW3Q7OQ
+ mtmTXrndBWOh_x5SIthDwqWZwoejqjFu7sWVJnWBJGKBJzlfxQppmoEgIPMskE.kHCGUPV2ZVGeG
+ S1Vw3719I7mYyIFf3741VxwC2JTcuGe2IjWoJvImfQBw4g5w3vKRIdS43yxf.w4gHvZzAOYLqvhP
+ CbZMTQ6lBrC.ySyAEkWxxhlgcrSvI7qZSyFwFyT0bhpqyiVRsz6DL31stge.mjJbgxuZEPvizkEZ
+ w2GN8fSZuSadDRd5L1w.PvrgQEOqj9w3f4iasXib_AEJQPFmCzbRDN0g58tv8wydUEWvftGOoWf7
+ txhy8pJnTX2KUZ89UskIPoxxunRobgC1R7XS7bHXcCj_uaY2QcNHocNr.Tntzsk4yS64c1o3N7pg
+ 4eMN9NkSbBkmy5y8Cdr1rsUV27qyaKlP_rIbzlaYv2m6mx.JxIrIueeS3mBxsUyZfdYwSQaD3pcE
+ DmIpZU3dh_D8Pu6e9g.aYrcqVCQrRNqbVikCBBQwzrjVGwp3sxIDKIjOchb_dA4Pmt9_ZRObyyGV
+ _yiG5kVvXOxRGz6UcBt.TIMGQu2h17dDBTf.P36wP8VpoBK9bpkpjX4ovuxK73HwRsL4VsQAJwdU
+ khd14r_cFYzk1aX8AHJ6gfoYVd8VyntZxDwdsizc5Sj8u5J1.mNMKzJvRl.d_GD1vaxaV7doOrS_
+ vbERA.ALYoOVo1gxtcTjr_O6vGSHFKSaeZ_RHOsWeIykL.yBFhWqOUVSU.A5x6ylwQOO1uZDtQs_
+ 1meFtHEJbf143t9XsjDsJryvqO_xJXEfQqQ0QRE.wiUegWWCsQ2vImCOwuAwrsG.kAhbjkWcMAkU
+ 9kJKh0g6AA5uf.P987afPHAULaOCV4u04ZLMjJXL7I3w1LXoKDkecKP1oYVvXDadabXRK3yur.Wx
+ Pd.OoQmG0DeLWV5iSk1aNC8yUMMu6uQDUtFSYEoFH84soV_hn28w720tfnnXyA7Ds_xtsAcx17xP
+ tniO0MEmRWIiwSfN3gXkqEJ3iUD3vvFJN8s5zCcPMfaJRiaORPKOjPkEhX9aVck.DoGtypYInsXh
+ U6dUnbb6LBtNpUFSRzBfsdIH5iaptiQpTrlU416sFeJL7oHdAZ.nLk7naEuD1Xp5fojFz89AhzT9
+ xUbfYQy.G7Oc34GM-
+X-Sonic-MF: <userm57@yahoo.com>
+X-Sonic-ID: f88932c3-cdf9-4ed3-b867-a233ce767963
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ne1.yahoo.com with HTTP; Sun, 27 Sep 2026 18:58:34 +0000
+Received: by hermes--production-ne1-6dbcb84f44-dbq4q (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 5fc8a42aabb9384b77faa8729bc76f6a;
+          Sun, 27 Sep 2026 18:27:09 +0000 (UTC)
+Message-ID: <392982a8-f62b-41e2-9b2b-7b5b54ad7839@yahoo.com>
+Date: Sun, 27 Sep 2026 12:27:08 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] block/swim: Minor fixes
+To: Finn Thain <fthain@linux-m68k.org>, Jens Axboe <axboe@kernel.dk>
+Cc: Laurent Vivier <laurent@vivier.eu>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Joshua Thompson
+ <funaho@jurai.org>, linux-block@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+References: <cover.1790408363.git.fthain@linux-m68k.org>
+Content-Language: en-US
+From: "Stanley J. Johnson" <userm57@yahoo.com>
+In-Reply-To: <cover.1790408363.git.fthain@linux-m68k.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26577 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Wed, 23 Sep 2026 17:39:05 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+Tested-by: Stan Johnson <userm57@yahoo.com>
 
-> Make the clock prescaler selection configurable, to prepare stm32mp2
-> support.
-> Reuse existing stm32f4_adc_clk_sel(). Rename it so it's no longer
-> specific to stm32f4. Add configuration data to handle upcoming
-> differences on:
-> - registers and bits
-> - division ratio
-> No functional change intended.
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Hi Fabrice,
+This patch series was successfully tested on a Mac IIci and a PowerBook 
+Wallstreet (G3 Series).
 
-One small suggestion to use field_prep() rather than having
-to carry the shift around.
->  
-> -	priv->common.rate = rate / stm32f4_pclk_div[i];
-> -	val = readl_relaxed(priv->common.base + STM32F4_ADC_CCR);
-> -	val &= ~STM32F4_ADC_ADCPRE_MASK;
-> -	val |= i << STM32F4_ADC_ADCPRE_SHIFT;
-> -	writel_relaxed(val, priv->common.base + STM32F4_ADC_CCR);
-> +	priv->common.rate = rate / priv->cfg->presc[i];
-> +	val = readl_relaxed(priv->common.base + priv->cfg->regs->ccr);
-> +	val &= ~priv->cfg->regs->presc_msk;
-> +	val |= i << priv->cfg->regs->presc_shift;
-
-I think this isn't a particularly hot path, so we can use
-field_prep()  (the lower case one doesn't mind non const masks)
-
-The we don't need to store the shift as well as the mask.
-
-Maybe it is worth thinking about adding a field_modify() similar
-to FIELD_MODIFY(). Perhaps that's not a thing to do in this patch set
-though.
-
-> +	writel_relaxed(val, priv->common.base + priv->cfg->regs->ccr);
->  
->  	dev_dbg(&pdev->dev, "Using analog clock source at %ld kHz\n",
->  		priv->common.rate / 1000);
-
-> 
-
+On 9/26/26 1:39 AM, Finn Thain wrote:
+> Two old bugs were reported to me by Stan Johnson while he was testing
+> my recent patch series, "[PATCH v3] block/swim: Fixes and improvements".
+> The following patches fix those bugs.
+>
+> ---
+>
+> Finn Thain (2):
+>    swim: Return -EROFS when opened with BLK_OPEN_WRITE flag
+>    swim: Fix FDEJECT ioctl for exclusive open
+>
+>   drivers/block/swim.c  | 5 +++--
+>   drivers/block/swim3.c | 2 +-
+>   2 files changed, 4 insertions(+), 3 deletions(-)
+>
