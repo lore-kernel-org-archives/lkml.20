@@ -1,64 +1,81 @@
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BD0353A6F;
-	Sun, 27 Sep 2026 07:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876BD34CFA7
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790493274; cv=none; b=gD5AFSpWEPPHVWsg4WUB/AtWlBcIiic5BIkHMwXsvvH21Hurx0HODV/XXoLAO96yaeUhMDovD2FkBVkUPxmEgVGTqrQoD1fDETws9iNzq0US5HCD2P2gInPhln3jI2T85SUiNWSGbYR1fKvrUKQtKPnNqYQ0xhNEZHnSCWUu214=
+	t=1790493339; cv=none; b=KAGP+zl6Gp8GiCIxawTREIWk86viWLmbV+HBkzezpqxEVI93of1l7G3KF9dy0OClzSNOdzSRtcV6Djjp3QZe2TZWpc7iAUqvOdXXhOUEHAX8ySCwhN0pCvMDYeM/6AvM4E90KdEvcbF1M5VWLF+XkbZK3HrciUzoHvLHFkVSUn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790493274; c=relaxed/simple;
-	bh=z47sgdTt5Rm4c6HV1ia4nSXFg0gUlUXEcznkll0hE1o=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Tpzf9uL27sPXtvQOApkvlxSNXsJIFZui1c1lbaGLFm6aJybWRfakYSEqM5Y2nBqytJWcM0VkXU3/kJN5Don5nuX2beo8HgnIt1uvgYRCU4Ry0mKwHs84cj8n+8yFYelus8sjl6PSSn5tGlAs9ll79POtqzbFVt0/vYOAQaEMgrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=Oz9T66fd; arc=none smtp.client-ip=35.155.198.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790493339; c=relaxed/simple;
+	bh=rnRLEgdA/1s1yycmRgso3T2+f+ZYJNQr7hOt/feO4pc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y7Jtjgkhp7nkxxYITYkBQE1W0GMTJ0pEpW0zpBBW5IDbZw0XEzmvnJ5WOfuH9VJpTP9pZX46v65OUQwnqg5HU4UP6nInyjgYz3p2OcueT7unT6HVDdn6Zqc74vj2xIo8g50OLBD9UJGu0Y87yvIXfYprqkWHxtiL6nQbdFb7K4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MArZXFSd; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="Oz9T66fd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MArZXFSd"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3427977d677so145480eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790493273; x=1822029273;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=7NMfIvtSlpQ1JWoomArH41D9xfcx2X7ulkXMwX9356U=;
-  b=Oz9T66fdezkYAGpVh61AC+OnX6IWdpPr34oup7+moXr2xjCMpUSg3d0z
-   pC2sAXzIVgTiODwL/oFsWNmSwCwqmxoHPoU0/h/TokIVGVEyky4lJ4COF
-   T3/s3muv+A7zHCBo7GuPfQpwRQSC5ifdDv04ZL+GDde5+Z4qhL4JW/y91
-   9gRASfg2+jAzLRWtoJci3AE2GVC4pJ5fYeiqsKO4/fTCuJJj8CQZeV5vI
-   Q06fK0QQiGQYKSdxpu3BfVM2SMc8l8SML40OWgD9F2sQ/Nndk5Eo5b7Mw
-   zvkgjepA4NBsirTHwa9gon3tYv7pGBubEnT+jeK6tkA0SNsD8xETL49LN
-   w==;
-X-CSE-ConnectionGUID: 8Vc8U/C7SvCkbE8HLn3E9A==
-X-CSE-MsgGUID: PPX/BI8tRTSejTCQ14RsZA==
-X-IronPort-AV: E=Sophos;i="6.27,125,1787011200"; 
-   d="scan'208";a="29649944"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 07:14:30 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:26131]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.13.104:2525] with esmtp (Farcaster)
- id eca6073f-5c51-494b-92df-c2cacb58eaa3; Sun, 27 Sep 2026 07:14:30 +0000 (UTC)
-X-Farcaster-Flow-ID: eca6073f-5c51-494b-92df-c2cacb58eaa3
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sun, 27 Sep 2026 07:14:30 +0000
-Received: from dev-dsk-lravich-1b-7405803b.eu-west-1.amazon.com (10.13.225.95)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sun, 27 Sep 2026 07:14:28 +0000
-From: Leonid Ravich <lravich@amazon.com>
-To: Christoph Hellwig <hch@infradead.org>
-CC: Herbert Xu <herbert@gondor.apana.org.au>, <linux-crypto@vger.kernel.org>,
-	<dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<davem@davemloft.net>, <ebiggers@kernel.org>, <agk@redhat.com>,
-	<snitzer@kernel.org>, <mpatocka@redhat.com>, <bmarzins@redhat.com>
-Subject: Re: [PATCH v6 0/6] crypto: skcipher - multi-data-unit request splitting
-Date: Sun, 27 Sep 2026 07:14:14 +0000
-Message-ID: <20260927071422.12143-1-lravich@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <arY6lzQtvVzUGngU@infradead.org>
-References: <20260924075846.28203-1-lravich@amazon.com> <arY6lzQtvVzUGngU@infradead.org>
+        d=gmail.com; s=20251104; t=1790493337; x=1791098137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QYM2plEZ7R9S62P1nYdznZP0BSc2LbAGxEIGE61a82Q=;
+        b=MArZXFSdcLpj258o7hIWFACjqoPgIPWicBhrkHUfGJX7NqavbOWPxhWoCEd7dUWRsb
+         NUR/fturKbAkT8IAH0nilHxuchUdBsDbpVFuLapj/w6VMdUrAT+WB0EfI65cxLot7OnD
+         i1WMC1iOjczOfhazwflPGZkJ/XAMSYooAgRNOEPrFXrZZgYO9C+8iLtgb4+SZ6VGxPo7
+         1N2gJpmXWim2H3EeUFtC3CMNkd2JktQJhrs5KudM7geZAQg220dWSdXGDuSxt1y2GoBt
+         rk8MukUqqHUEewXuAUPAW4Ja5mbOUvaPs35/2Nca0LyGPJEKn1fd26YrjF4egc8duet5
+         h0sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790493337; x=1791098137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QYM2plEZ7R9S62P1nYdznZP0BSc2LbAGxEIGE61a82Q=;
+        b=v8mYwtgeFGwTvlWqyu1u3+IGJRTE4fFZxYGNjE+MAWDEJ+RrSoXYlKb2JcmMd6FYHD
+         By+FULQ5elPCxvEQ7yP8esryRefyqho9BKqnT6neLFwKtqQXFd4Ipru6DcZrOS3knHyx
+         0NkWsA+RBiiSyn1QV44BROa1gczPLip2UjAvmIG5LEwP2t+2BpNMC4VB6hXwJVrFR1n4
+         et+Jghc+szt5M9fVRBYeju/3QX2VdK4d+0FB6MGur45aGUj8qmrE6/u61OmlfgfHJ4rT
+         GUCEhmbCQVKTm0kAmbeY+JRJra39XZL4RyjfgFAoXMSlGq55YFIqeFL4agrYRU9PCM71
+         nWHw==
+X-Forwarded-Encrypted: i=1; AKwUvByaoYEzz13JqDG3IZ/4X2Dd4y+5CjNjkSL2VJO9BQAxZJlRdfMs8S1TK16L4EiCoYFkxgdl4UCaDRyGUac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgDXX5IXZYZNUj3WvZWw0E9GO6BSqaIEQZPHMTzYMB9CWx3oxY
+	hA0wiFrxmfyH6+DQwezZ8z98hMCuaf1TCJcuPZkxHv+671AIAP7uEq9Y
+X-Gm-Gg: AYBFou0+K09Wspy3kPPX4zD+Wyk26WLxYPIuFYBe1loehOALf5a/IImXmiZrUgaxv/w
+	2DewC7+F19zcL2laB3j1dIYBHxNwC+wV4fVsndjqLVqmHtje6ZIu1//h6/OfA4cL6fLs9FRW+YT
+	+QkI27aNTJxq0owojjx54E+q7rx5PUn+1aKLw46gFyR40pKSrV17iB+mvY0hKdba9yo+DSflScm
+	HR8pfyibW0iRnHt7jnsHMnNaoe3oLjWfIqVVqf8wc6mKnl4aNKwozsp3BWN8pbpLFedIcdbQFXH
+	nOcU8JIdLf3nRyI2q9lnUEJm8eG7d97Q7nmpaZTP/rKRYsozmdN5+aeq6oV4FPFsrO3b5u292OJ
+	f1wYCorhi5QDsFkjxwK5NJ+KW2PCP1pVBV0oGy1JmtqU2Y8vL7abkRY6O8HeoiTMn+2TzBUBX6S
+	1NSzHkiCH6DiehhredhIefU0El0xMnbMmAyPkSlisTZ7aj1fQCqbY6iwjGs0LP2Avab/clH7kL5
+	lGHyblztLgMzKgiGyH9eSrTD4iTjT0pN6r9sDayGXtT8EMKNz2QEcfZMUNxm9+bQYyMYw==
+X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id 5a478bee46e88-3427179721dmr7795597eec.1.1790493336434;
+        Sun, 27 Sep 2026 00:15:36 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144b4ae50sm19610096eec.17.2026.09.27.00.15.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 00:15:35 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] netfilter: nf_tables: serialize offload stats with callback unbind
+Date: Sun, 27 Sep 2026 15:15:20 +0800
+Message-ID: <20260927071520.3693598-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,68 +83,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Fri, Sep 25, 2026 at 02:10:47AM -0700, Christoph Hellwig wrote:
-> On Thu, Sep 24, 2026 at 07:58:40AM +0000, Leonid Ravich wrote:
-> > * No throughput *win* is claimed for software AES.  The win is for
-> >   accelerators that amortise setup across units; the software split
-> >   exists so the interface works on every existing skcipher today and
-> >   goes quiet as algorithms gain CRYPTO_ALG_REQ_SEG.
->
-> So what is the use case?  So far all crypto driver we've seen have
-> shown to be slower than cpu.  Which one are you using that isn't?
+Rule GET and dump requests collect hardware statistics under RCU without
+holding commit_mutex. Callback unbind removes entries from the base
+chain's flow_block.cb_list and frees them immediately while holding
+commit_mutex, so RCU does not protect the statistics iterator.
 
-The engine we use is out of tree, but it is not a special case.  It
-is an SoC-integrated, DMA-driven, asynchronous xts(aes) engine of the
-same class as caam, ccree, qce, hisilicon sec2, inside-secure and the
-Marvell CPT drivers already in the tree.  Like those, it pays a fixed
-cost per request (descriptor setup, doorbell, completion) that
-dm-crypt's one-request-per-sector pattern multiplies by the number of
-sectors.  So the problem is common to the whole class, not specific to
-our hardware.
+For example, a rule dump can load a block_cb in nft_setup_cb_call(),
+then a concurrent transaction can unbind the chain and free that callback
+in nft_flow_offload_unbind(). When the dump resumes, it dereferences the
+freed block_cb to invoke its callback.
 
-You are right that such engines are generally not faster than the CPU
-in raw throughput, and I am not claiming ours is.  What they give is
-offload: when dm-crypt batches a bio into a single request, the engine
-does the work that the CPU would otherwise do.  In our measurements
-that cuts CPU utilisation by roughly 20-40% for the same I/O.  On
-systems with few or small cores, those cycles are worth more than
-peak throughput.  Without batching the per-sector request overhead
-eats that gain, which is why the series targets the request pattern
-rather than the cipher.
+KASAN reported:
 
-> And if you have a genuinely useful one, should we have a proper
-> interface to it that doesn't pay the scatterlist overhead to start
-> with?
+  BUG: KASAN: slab-use-after-free in nft_setup_cb_call.constprop.0+0x19d/0x200
+  Read of size 8 at addr ffff88810a64d420 by task poc/87
+  Call Trace:
+   nft_setup_cb_call.constprop.0+0x19d/0x200
+   nft_flow_offload_cmd+0x23b/0x480
+   nft_flow_rule_stats+0x89/0x1d0
+   nf_tables_fill_rule_info+0x689/0x8e0
+   __nf_tables_dump_rules+0x256/0x940
+   nf_tables_dump_rules+0x762/0x9f0
+   netlink_dump+0x489/0x1140
+  Allocated by task 86:
+   flow_block_cb_setup_simple+0x443/0x820
+   nft_block_offload_cmd+0x154/0x1e0
+   nft_flow_block_chain+0xf9/0x420
+   nft_flow_rule_offload_commit+0x448/0x5b0
+  Freed by task 88:
+   kfree+0x131/0x3c0
+   nft_flow_offload_unbind+0x29c/0x400
+   nft_block_offload_cmd+0x166/0x1e0
+   nft_flow_block_chain+0xf9/0x420
+   nft_flow_rule_offload_commit+0x18d/0x5b0
 
-For a DMA engine the scatterlist is not overhead: it is what the
-hardware consumes.  The per-sector cost it pays is the per-request
-cost, and unit_size is what removes it.
+Use mutex_trylock() to serialize read-side hardware statistics refresh
+with callback unbind. A blocking acquisition would sleep under RCU and
+reintroduce the commit_mutex -> nfnl_subsys_ipset -> nlk_cb_mutex ->
+commit_mutex lock dependency previously removed from reset dumps.
 
-For the software path, v6 follows what Herbert suggested in the v4
-thread [1]: the per-unit loop moves from the caller into the Crypto
-API, and it can then move further down into each algorithm, so the
-per-unit calls become direct calls and only the single call into the
-API stays indirect.  That can improve on the status quo rather than
-just match it.  v6 is the first step (the mid-layer split);
-per-algorithm native splitting via CRYPTO_ALG_REQ_SEG is the next.
+On contention, skip the hardware refresh and retain the cached counters,
+as when the existing best-effort statistics request fails. Pass the
+caller's lock state so transaction notifications continue to refresh
+statistics under the mutex they already hold. Release an acquired mutex
+before dumping expressions, leaving rule lookup and callback order intact.
 
-The interface is also deliberately the one being introduced for acomp
-in the batching series [2]: the same unit_size field and setter
-semantics, and the same CRYPTO_ALG_REQ_SEG bit (patch 2 here is Herbert's
-patch from that series).  skcipher and acomp would share one model for
-multi-unit requests, with a native path for hardware and a mid-layer
-fallback for everything else, rather than skcipher growing a separate
-interface.
+Fixes: b72920f6e4a9 ("netfilter: nftables: counter hardware offload support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/netfilter/nf_tables_api.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-If you had a different shape in mind for the hardware path, I would
-rather build that than guess.
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index b59628e6240c..f234dc3f8d1e 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -3780,7 +3780,7 @@ static int nf_tables_fill_rule_info(struct sk_buff *skb, struct net *net,
+ 				    const struct nft_table *table,
+ 				    const struct nft_chain *chain,
+ 				    const struct nft_rule *rule, u64 handle,
+-				    bool reset)
++				    bool reset, bool commit_locked)
+ {
+ 	struct nlmsghdr *nlh;
+ 	const struct nft_expr *expr, *next;
+@@ -3806,8 +3806,15 @@ static int nf_tables_fill_rule_info(struct sk_buff *skb, struct net *net,
+ 			goto nla_put_failure;
+ 	}
+ 
+-	if (chain->flags & NFT_CHAIN_HW_OFFLOAD)
+-		nft_flow_rule_stats(chain, rule);
++	if (chain->flags & NFT_CHAIN_HW_OFFLOAD) {
++		struct nftables_pernet *nft_net = nft_pernet(net);
++
++		if (commit_locked || mutex_trylock(&nft_net->commit_mutex)) {
++			nft_flow_rule_stats(chain, rule);
++			if (!commit_locked)
++				mutex_unlock(&nft_net->commit_mutex);
++		}
++	}
+ 
+ 	list = nla_nest_start_noflag(skb, NFTA_RULE_EXPRESSIONS);
+ 	if (list == NULL)
+@@ -3864,7 +3871,7 @@ static void nf_tables_rule_notify(const struct nft_ctx *ctx,
+ 
+ 	err = nf_tables_fill_rule_info(skb, ctx->net, ctx->portid, ctx->seq,
+ 				       event, flags, ctx->family, ctx->table,
+-				       ctx->chain, rule, handle, false);
++				       ctx->chain, rule, handle, false, true);
+ 	if (err < 0) {
+ 		kfree_skb(skb);
+ 		goto err;
+@@ -3924,7 +3931,8 @@ static int __nf_tables_dump_rules(struct sk_buff *skb,
+ 					NFT_MSG_NEWRULE,
+ 					NLM_F_MULTI | NLM_F_APPEND,
+ 					table->family,
+-					table, chain, rule, handle, ctx->reset) < 0) {
++					table, chain, rule, handle,
++					ctx->reset, false) < 0) {
+ 			ret = 1;
+ 			break;
+ 		}
+@@ -4072,7 +4080,7 @@ nf_tables_getrule_single(u32 portid, const struct nfnl_info *info,
+ 
+ 	err = nf_tables_fill_rule_info(skb2, net, portid,
+ 				       info->nlh->nlmsg_seq, NFT_MSG_NEWRULE, 0,
+-				       family, table, chain, rule, 0, reset);
++				       family, table, chain, rule, 0, reset, false);
+ 	if (err < 0) {
+ 		kfree_skb(skb2);
+ 		return ERR_PTR(err);
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/linux-block/ajDNT5jVGgRtiNH6@gondor.apana.org.au/
-[2] https://lore.kernel.org/all/20260125033537.334628-15-kanchana.p.sridhar@intel.com/
-
-Thanks,
-Leonid
