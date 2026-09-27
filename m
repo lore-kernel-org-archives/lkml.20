@@ -1,75 +1,207 @@
-Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch [79.135.106.109])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BC7175A92;
-	Sun, 27 Sep 2026 03:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E125399364
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790481241; cv=none; b=nPje3KFr8D1qfH/CN3iMbImPQOXbb0s1ZBcW1qZ6DS6nUH6kXuIjlr4CXvHmuJbJz9mqiK/hBf8unl5WNX/aDdRt/k5pToWYLFdoJm8vMt1LSi63esb13qqPiSovb65EqjVxKWnLgyLDp5hd8afXPR+4WgIU/pA7e/O2riLxNdw=
+	t=1790481261; cv=none; b=rPcS+oQo3nCz/X77F7L7vpCRN7qzzC6uxLBr1R8KgaBlaEr+aI7ckks+7yBHFjt7vH6VmnvaU/aeHjZ8srsnZtypyD1k2+OgrocCMnZWtKIofxtX6QEBSI8/xP9pCyvUdIsi1P2fMmDZU9OVS4UnyJaL3XZk5G1wspCKW3QtG8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790481241; c=relaxed/simple;
-	bh=72jOmKJsKtZbMfexR6DU2MSAN3lb/BvgsBkTbYP0Jow=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HKgmkkDOS2ot4fiir6l5AFwNN4Cy3kCWOdS5jVG1j07ZZU1QvueFytgVE3a27lMfexN4KLbaj1n6hR0gnge7nqo3wDkdZxZwuuRczPtpIj4hfDdYbQlRGLICDsTJkkpI0V8bU5FFpuweN245sYoHkhvYacCkNHXWJfEmPLbenzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BUuAj1lg; arc=none smtp.client-ip=79.135.106.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790481261; c=relaxed/simple;
+	bh=HBMrCmfyLRkn72Zc1YBPchN1HtvbA66vn+t8ej3QZnk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ANA5lqb0UdMSlAEnH/kFxY1sxMILZkv2/hpAdlQrQS7B7E11ZwBnRSgjFN1nCJa2jompXG6ULhQQTgm5Uv6TIDOPrcVw9qiHybMcZXAT0d/fEpsay1BiUovMzq/c7WHsVFlq0UQijrrzD2zuh/JeqFydpA8yahS5Vxb/KWZzhYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UWXN9HOr; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BUuAj1lg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790480887; x=1790740087;
-	bh=2n7v/f900ujYlkPeMFvncKXsx01rexWG+WoC8pk4+js=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=BUuAj1lgFGUnkpYeDBk0B5qaCypJk7m+iRRthctsXUPOhcEx20nFxompc4oPawyR0
-	 4I7PIiNFMHGpPKt/6cMwCRntk28dxo1zxdw9hTmfpjAa8TDaH0RwdKzyv1I3ciJj9P
-	 7wxRvOZ4Z8AxEGWwAi3/fZa+3Wq5I/Wp35f7BrXhYHAfIp/jyvhIfIRcTNban+zq8Z
-	 qYVd0ZI04ykGpbOsp6WqrUcYalse+aoXK04NUd5MgKrVdWJ63MDy3BpBBWLq0+w4pl
-	 XfZJieSOtkpeE9moC3vZc+3Yj04v5VHk/puYbey/OHGVyYP7Kafl9JxKsG5PYFkgeU
-	 HiR1JCNyFD9+w==
-Date: Sun, 27 Sep 2026 03:48:01 +0000
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev
-Subject: Re: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
-Message-ID: <AA1gQ_nENEVHK1oebVbNS1EUMIkabrgIPTl649QGQZvq_1LAMw5msh-2bmJt1DbB6K09JX1xc_VN0retl7XFImBTbpm81ucumJM_nzVKfYI=@pm.me>
-In-Reply-To: <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
-References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net> <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f3ec71461e33f107fcfa8c1f6b9d2d515788ab04
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UWXN9HOr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790481258; x=1822017258;
+  h=date:from:to:cc:subject:message-id;
+  bh=HBMrCmfyLRkn72Zc1YBPchN1HtvbA66vn+t8ej3QZnk=;
+  b=UWXN9HOrBtyX/8SJMnN1IU1n85HJygey9Z3cv7HhxikWbgGFaByb2/wz
+   cJF3xsJegyaq0e2sYf1WrKjaDIU4whRvXWESLKkA6hlnKetmybQ9XH2X3
+   ER8cCsrcyzHoaPGoX7Y9V1sFQrejhFSDta6d77OhgwJXaEONMiHLmdYzS
+   QgZiCAdmArf1vjl6jEiwUT2qJiL1xfdY8s9T811iWW0gnTjxzAMgC22Yv
+   IIVilSj5osPTpEbFfO8l7d3XXePxylbtQ3TirrzhHuV9w0JAk+lSDp07p
+   yDIfBjEgkfm8XS/Che1DeJxKNBx/+qcPnjGICVC7rICZjRd4tYmslSXwi
+   w==;
+X-CSE-ConnectionGUID: hfKSh2s9RRybYtv+CyVCpA==
+X-CSE-MsgGUID: LjdOZhjISHSLiDJyudSyVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="108705853"
+X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
+   d="scan'208";a="108705853"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 20:54:17 -0700
+X-CSE-ConnectionGUID: qCnYkZWIT72awc47WClnQg==
+X-CSE-MsgGUID: LphVB5tLSOGp5FWsjgsBVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
+   d="scan'208";a="274244925"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 26 Sep 2026 20:54:15 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAfxs-00000000MOP-2GoI;
+	Sun, 27 Sep 2026 03:54:12 +0000
+Date: Sun, 27 Sep 2026 11:53:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: drivers/gpu/drm/bridge/ssd2825.c:484:13: warning: stack
+ frame size (20088) exceeds limit (8192) in 'ssd2825_bridge_atomic_pre_enable'
+Message-ID: <202609271111.XAPJ85Dc-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, August 11th, 2026 at 6:04 PM, Jorijn van der Graaf <jorijnvdgra=
-af@catcrafts.net> wrote:
+Hi Svyatoslav,
 
-> +=09nfc@27 {
-> +=09=09compatible =3D "samsung,s3nrn4v";
-> +=09=09reg =3D <0x27>;
-> +
-> +=09=09interrupts-extended =3D <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
-> +=09=09en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
-> +=09=09wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
-> +=09=09clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
-> +
-> +=09=09pvdd-supply =3D <&vreg_l20b>;
+FYI, the error/warning still remains.
 
-Looking at schematic, think this should be L7B? L20B is used for SIMVDD1_EX=
-T.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+commit: 55023abe6a2921a8916b623c24208e1971b88729 drm: bridge: Add support for Solomon SSD2825 RGB/DSI bridge
+date:   1 year, 2 months ago
+config: x86_64-randconfig-1007-20260927 (https://download.01.org/0day-ci/archive/20260927/202609271111.XAPJ85Dc-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609271111.XAPJ85Dc-lkp@intel.com/reproduce)
 
-> +
-> +=09=09pinctrl-0 =3D <&nfc_default>;
-> +=09=09pinctrl-names =3D "default";
-> +=09};
->  };
->=20
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 55023abe6a29 ("drm: bridge: Add support for Solomon SSD2825 RGB/DSI bridge")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609271111.XAPJ85Dc-lkp@intel.com/
 
-Thanks,
-Alex
+All warnings (new ones prefixed by >>):
+
+   In file included from <built-in>:3:
+   In file included from include/linux/compiler_types.h:171:
+   include/linux/compiler-clang.h:28:9: warning: '__SANITIZE_ADDRESS__' macro redefined [-Wmacro-redefined]
+      28 | #define __SANITIZE_ADDRESS__
+         |         ^
+   <built-in>:353:9: note: previous definition is here
+     353 | #define __SANITIZE_ADDRESS__ 1
+         |         ^
+>> drivers/gpu/drm/bridge/ssd2825.c:484:13: warning: stack frame size (20088) exceeds limit (8192) in 'ssd2825_bridge_atomic_pre_enable' [-Wframe-larger-than]
+     484 | static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+         |             ^
+   2 warnings generated.
+
+
+vim +/ssd2825_bridge_atomic_pre_enable +484 drivers/gpu/drm/bridge/ssd2825.c
+
+   483	
+ > 484	static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+   485						     struct drm_atomic_state *state)
+   486	{
+   487		struct ssd2825_priv *priv = bridge_to_ssd2825(bridge);
+   488		struct mipi_dsi_device *dsi_dev = priv->output.dev;
+   489		const struct drm_crtc_state *crtc_state;
+   490		const struct drm_display_mode *mode;
+   491		struct drm_connector *connector;
+   492		struct drm_crtc *crtc;
+   493		u32 input_bus_flags = bridge->timings->input_bus_flags;
+   494		u16 flags = 0, config;
+   495		u8 pixel_format;
+   496		int ret;
+   497	
+   498		/* Power Sequence */
+   499		ret = clk_prepare_enable(priv->tx_clk);
+   500		if (ret)
+   501			dev_err(priv->dev, "error enabling tx_clk (%d)\n", ret);
+   502	
+   503		ret = regulator_bulk_enable(ARRAY_SIZE(ssd2825_supplies), priv->supplies);
+   504		if (ret)
+   505			dev_err(priv->dev, "error enabling regulators (%d)\n", ret);
+   506	
+   507		usleep_range(1000, 2000);
+   508	
+   509		ssd2825_hw_reset(priv);
+   510	
+   511		/* Perform SW reset */
+   512		ssd2825_write_reg(priv, SSD2825_OPERATION_CTRL_REG, 0x0100);
+   513	
+   514		/* Set pixel format */
+   515		switch (dsi_dev->format) {
+   516		case MIPI_DSI_FMT_RGB565:
+   517			pixel_format = 0x00;
+   518			break;
+   519		case MIPI_DSI_FMT_RGB666_PACKED:
+   520			pixel_format = 0x01;
+   521			break;
+   522		case MIPI_DSI_FMT_RGB666:
+   523			pixel_format = 0x02;
+   524			break;
+   525		case MIPI_DSI_FMT_RGB888:
+   526		default:
+   527			pixel_format = 0x03;
+   528			break;
+   529		}
+   530	
+   531		connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+   532		crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
+   533		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+   534		mode = &crtc_state->adjusted_mode;
+   535	
+   536		/* Set panel timings */
+   537		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_1,
+   538				  ((mode->vtotal - mode->vsync_end) << 8) |
+   539				  (mode->htotal - mode->hsync_end));
+   540		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_2,
+   541				  ((mode->vtotal - mode->vsync_start) << 8) |
+   542				  (mode->htotal - mode->hsync_start));
+   543		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_3,
+   544				  ((mode->vsync_start - mode->vdisplay) << 8) |
+   545				  (mode->hsync_start - mode->hdisplay));
+   546		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_4, mode->hdisplay);
+   547		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_5, mode->vdisplay);
+   548	
+   549		if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+   550			flags |= SSD2825_HSYNC_HIGH;
+   551	
+   552		if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+   553			flags |= SSD2825_VSYNC_HIGH;
+   554	
+   555		if (dsi_dev->mode_flags & MIPI_DSI_MODE_VIDEO)
+   556			flags |= SSD2825_NON_BURST_EV;
+   557	
+   558		if (input_bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
+   559			flags |= SSD2825_PCKL_HIGH;
+   560	
+   561		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_6, flags | pixel_format);
+   562		ssd2825_write_reg(priv, SSD2825_LANE_CONFIGURATION_REG, dsi_dev->lanes - 1);
+   563		ssd2825_write_reg(priv, SSD2825_TEST_REG, 0x0004);
+   564	
+   565		/* Call PLL configuration */
+   566		ssd2825_setup_pll(priv, mode);
+   567	
+   568		usleep_range(10000, 11000);
+   569	
+   570		config = SSD2825_CONF_REG_HS | SSD2825_CONF_REG_CKE | SSD2825_CONF_REG_DCS |
+   571			 SSD2825_CONF_REG_ECD | SSD2825_CONF_REG_EOT;
+   572	
+   573		if (dsi_dev->mode_flags & MIPI_DSI_MODE_LPM)
+   574			config &= ~SSD2825_CONF_REG_HS;
+   575	
+   576		if (dsi_dev->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+   577			config &= ~SSD2825_CONF_REG_EOT;
+   578	
+   579		/* Initial DSI configuration register set */
+   580		ssd2825_write_reg(priv, SSD2825_CONFIGURATION_REG, config);
+   581		ssd2825_write_reg(priv, SSD2825_VC_CTRL_REG, 0);
+   582	
+   583		if (priv->output.panel)
+   584			drm_panel_enable(priv->output.panel);
+   585	}
+   586	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
