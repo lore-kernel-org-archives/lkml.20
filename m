@@ -1,238 +1,94 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E1037E5E1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B731D432D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790540980; cv=none; b=slLmDS6SbItFVmnbnGXx00K2un4RW/0sgjvvinEJb/PVwPQbhWHMlFlntS3Rs+A5aFZ4VtKHroO8k+rXHgVVIhzYcVP9BKXlOACZy9i8jVpd6sfI5gwzyG4YPcTEkTfSspsdnWjaPxHRUjFJ1QLb42vP7Fn4nk+37lw/ICqLDPE=
+	t=1790541031; cv=none; b=oCzhVH1DEBMaDn/t+pQcyEMent/xO1sya2Ovmj0cwARdeJWBimGGgn62FwGrOOuwfPN4X8EIEJMDhIxIkE0xO0N23AY5NeBqBU3Sau4f5Q4dtSDOc8EBCa0uyIo71baxqePFyU044AXCYcTMQGuP/rqFVO9OP+OPV7EG1VIyyQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790540980; c=relaxed/simple;
-	bh=CCSZzO/knQUMn7bP6cifPp5sPoP3MnpUcM2KLsQ4hTU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E6Y0xfbdoY+evGX8GalfO0Gxfa1J0ltuleAZg8QdsWqvlud9muGo5+irMS+cq6fE79ntw+JW5KIkOp/Azcjd2dYs/u+IV80APpkPlWukUrsheER6V3rhy/LbyYTfcidfT4K8KLjraL335RCPR6hSAMPyZUaI7uy0CtWB1wBSFYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qa1A5lL/; arc=none smtp.client-ip=74.125.226.235
+	s=arc-20240116; t=1790541031; c=relaxed/simple;
+	bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
+	h=Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DeFC6bS93UQyGLKOVs/IKtpRpIaT4x8ney02VZmXG0vOdVVjAj1RL2f3YccM+i8E9wEP2c6bMQCFkPebRyFl66y5GoUnT1JLsvanEPFI1TZLED8ZFnbJvmi7YyZ6xomR/ckHZQETZBozC98NZge+OBsljud0K4tc23NS4E5sRHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b9ucReUc; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qa1A5lL/"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-985369a13bbso625479241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:29:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b9ucReUc"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d942de6574so8593895ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:30:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790540978; x=1791145778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nl+pDpZ/zHEX5u9H3JLRFmOZ4xMUKm7NbKCyuVe6wcs=;
-        b=Qa1A5lL/bFiKN6iaDGTe4r6KxGww6TpfZj/cQ5DziMUclzHIYKW5Tna/LeokUljeov
-         +r2+AYsRsRjnL3HHvBqrtyYPh7nw+8PJDhneztbPEvCOeg+K0koKayfTG+aqST2U04ws
-         a1V3s5qTGY8kDwUf/4bFA92hIb7vYv0U4bIMUiCRgqAjifsRW9CDYj/2NYdoEYsy88KC
-         6Rx98QOxBUkEbWVZZglVfbgnXni+L7XYj2Ps9xcni7QyCQZPY8FDafTSiyGbvEhtzspe
-         qDO1RJcWykkwmy80527eLyWCFrAry86DE5/S6HfVZmJwSBS6Yb0ZtcsMAMdzjfPVL0Ol
-         Xzkw==
+        d=gmail.com; s=20251104; t=1790541029; x=1791145829; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
+        b=b9ucReUcDIya6bQw6V4oVEg6bRPhSeLInafTUD7xwvhYYNxmzhKY/nzih7TQDWiBPZ
+         kODrJyOqsTFD7iPi/YfhUX1Yky1T5x/Sy/b8d6af8m63SRL3m5zEv+h88vVrUh86tUXS
+         vevQ+RpBJyG10dHKoHBdHnOhGeXXMDAjfx5qR/vCL5WednhhiFlIZ2IjgHPSgScTAn1+
+         /vqU5X+NBppFws+YNHotHhchtCqIzM6IFwsA8o6a5LE2YVdhCXCKo55lwjAYBiXimBbC
+         iEZLZ7GHg37INfdr2qAnh80eKDGItcLSjL4C/1iuRaTEK+KR4InI/MRY0sm5xRLDDgze
+         I+Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790540978; x=1791145778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nl+pDpZ/zHEX5u9H3JLRFmOZ4xMUKm7NbKCyuVe6wcs=;
-        b=QPXESsBwVK4GqVVXvUptEikh0jVeWmCJZkcc0CAz0tKwUnzxJJd8nP3WHGPiW6LJhA
-         Z75n9EJ9zwEzCqLIsRsFM3YTUln8cgVQvnD5g6mq6/VsqM30VEg0wxS0ZD5eNGT0tuer
-         EVOCnvO0+l8Q8iCIXwAQomw1UakM8NT7d7NK88kwXkoGEnl1i0Lywrjck/Tj3Z1KJ39T
-         YrlBs2GzlpM6iP6nSw2QQ/HEkVO3l1uOICkLR1AUwIZsjOw2hQK9n1zJh2gtp73LwmyM
-         Nn/Y1xtlIQ55trlKEo+gCQsv5tK4muvLI52KNuB9lHkeNdTREhNLr/mxw+XqSh0sj4K8
-         T2Ig==
-X-Forwarded-Encrypted: i=1; AKwUvByO14ZN7MhqrGFhBCkZ6p42aDxAsOX3y7fau0i8aq/Fodt/j7RP1TSUMQLo4ZuuZevE1l8W+Fbg+O7hJ1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMZgLJyjMKeB1PqyLoArg4IZNK/MVyJxfqg+ty1VUzeLsTBLXs
-	dcUv/LWkWtwz5Q5XRS9wtF9t1klam8rQmf3wEzujAmetJ3eO9SHNgvl4
-X-Gm-Gg: AYBFou28cFWMp2roLBze8bZQAJ5EgEWC2hHgmBrh5eDTvmp1zOiPp0RcXy8RzFtNCcy
-	Go5OodBuPAf6GEw3TEfhzRXkuozLZG/DsXERhHYQDO73bDDG7uDnRub8+OCwgjlC8BvaqLedgRx
-	Ijp+S0EhP2VMwOrO2/aROHp9P0ta/KRroH81NDaxvki7doF1e1KTHiEx1YsxCOsgKksKbCld5Fg
-	4/mG90MY4/1qEgMf3h7ox9Cecug2zPQgmZ8WHm0zxczaNIl+bjoYlxvY+K3ERpivYT3AJVuFGhq
-	fB35+eCwlBXV8DGl1OT7aXs1Dr5s17nBKTyX0QJHX0k40zTfKsWiappDbPbAGstukN7AMa+F/ri
-	TKfuePtzby4lNOf7QYvZfyXvd2oVEYmeCL/QMu0e8cMlRsl9LBUEuz7201Fv7pU/UCWzOUYwtJN
-	nSbTAhOTzN6Uh477kTU57AoLb6yZ7JE8epzjmLeLYQPd9sWFZCApNA36Cra8F7/Jg=
-X-Received: by 2002:a05:6102:3f47:b0:798:24e8:23f4 with SMTP id ada2fe7eead31-7af1cfa46e2mr3382979137.7.1790540977704;
-        Sun, 27 Sep 2026 13:29:37 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b9af306sm6791391137.9.2026.09.27.13.29.34
+        d=1e100.net; s=20260707; t=1790541029; x=1791145829;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
+        b=vYFhZB5L9uHX9iujBWIxm72GcVxEcROI5J8XfZR4JU0vkUn44lSQnBJP0lcZ5eQ8Aw
+         C57+JkQz7HtusrwlyxRkO8jQQPSTMikDSxg51CTGrPNwDHBC1pRi3HX4RUC/JhZPUrCJ
+         XmBnO38T5WLEbuHOiT3x3XBwiDBeciNjYPHgdRstCoLV99zkMEW5RUxn7/K0mQenP7t+
+         2J61LbSLfpXzuvRv2rjomUG+xo/xMzXDwCprkJv43AtcYQPFSoR9kaLcVcNQ03MdwZKJ
+         /+OFv2ro+yHBcpydbd7JVX9iMJkJ/NX+PeClHAs4SN/6xCfdgLhyO9JREDJh6dadjdC+
+         y/NA==
+X-Forwarded-Encrypted: i=1; AKwUvBzau/SyHHQCpu3f2G9ulDgHQTn7UNEccWTIXNRS06SZBID+vdUts9edcQde1MLsH7E5um5ZntPA46wVqFw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM0w8khdmly44MIEzOTFk2fxFdrtRfehjDgQwj7wel5Mi/aQto
+	2nDaH/nUpUeEKsIwJVL0z0pRAps7faX9hx1A9wqFH04hxzxBWjIGrtus
+X-Gm-Gg: AYBFou1TqH8mTIMjvCsFzGAupj767Dco4xEG516aaqwuUtGGOWD8ABBqFSnZOR2V+LX
+	67ld6lcLjr9g5N858KP1VhST6h1mtHyd5H14wKk3RgXqpf93RAaE+cN9OUuEQkc36RJc4SDez6Q
+	8Yu7FG3HQ+wWXKy8Fib7XmJJkYh2Y1IlOUZEtWHP0VN8mS/HrHh04zcg3sAfAAr3UGUU4D8+UEw
+	PuGbMhA36Pc12YvFeHSswv6VQJcUTpFdZqpYkkvJgdgIKLxTIw5l8MqIbEi12qko6WJeurP5/1l
+	q7pLMlqqrsLJ+pSPieWBYu3Y3WwI3DTjFPmMO1CmmdWJaazEcgFbkMTWzVN6WcPDXREAKu8js1S
+	qeU/0Pc5Keh3AiKnnVlTEVqQrq/7CrBLLGxbD79Rc4l8WDnl5R5mXz9wgILYB+6lPK9b1ruX6S1
+	YVKcbiLhf4G8l5rwMcZJNURgzI3lay5n0KycdfehM3uEktFg==
+X-Received: by 2002:a17:90b:384b:b0:3a0:c360:a562 with SMTP id 98e67ed59e1d1-3a0c360bd58mr5153407a91.14.1790541029308;
+        Sun, 27 Sep 2026 13:30:29 -0700 (PDT)
+Received: from [127.0.1.1] ([2401:1fe0:5::3b7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b898cabesm16824473a91.0.2026.09.27.13.30.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:29:37 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: johan@kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: Re: [PATCH v2 0/2] debugfs: fix UAF and double-free in debugfs_str read/write
-Date: Sun, 27 Sep 2026 17:29:27 -0300
-Message-ID: <20260927202927.2059816-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092726-posh-handyman-43a0@gregkh>
-References: <2026092726-posh-handyman-43a0@gregkh>
+        Sun, 27 Sep 2026 13:30:28 -0700 (PDT)
+Message-ID: <6ab97ce4.a24da115.4bfe6.0f74@mx.google.com>
+Date: Sun, 27 Sep 2026 13:30:28 -0700 (PDT)
+From: Zhenyan Wang <maximwang110@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: Christian Brauner <brauner@kernel.org>, ntfs3@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zhenyan Wang <maximwang110@gmail.com>
+Subject: Re: [PATCH 0/2] fs/ntfs3: fixes for directory permission and symlink
+ consistency
+In-Reply-To: <20260927180359.3867508-1-maximwang110@gmail.com>
+References: <20260927180359.3867508-1-maximwang110@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 06:34:44PM +0200, Greg Kroah-Hartman wrote:
-> No LLM was used to generate the patch?
-> Again, no LLM for all of this?
+After analysis, I found that Patch 2 introduces a regression. The
+readlink function treats backslashes in symlinks as literal characters
+but they're path separators on Windows so symlinks created under
+Windows cannot be traversed.
 
-I did use Claude Code during the process, but I want to be precise
-about how. It did not find the bug, produce the analysis, or generate
-the patch for me. sashiko.dev originally pointed out the missing RCU
-protection on the read side. I then manually traced the pointer
-lifetime and the write path, where I found the concurrent-writer double-free.
-I used Claude Code only as an additional reviewer for spelling and grammar,
-minor rewording, formatting, and as a sanity check for obvious mistakes.
-I wrote the patch and changelog myself, and the technical analysis,
-implementation, KASAN testing, reproducer, and verification were all done by me.
-Given that limited use, would you still prefer that I add an Assisted-by
-tag for the LLM in the next revision? I want to make sure I disclose the
-tooling correctly without attributing technical work that it did not actually contribute.
+There is a partial way to fix. Since symlinks created under Windows
+wouldn't contain '/', in the readlink function, we may only convert
+symlinks without '/' to cover all Windows-created symlinks while
+keeping some of Linux-created symlinks shaped like 'a\b/c' unchanged.
+But the 'a\b' problem is back again - it isn't fixed because we cannot
+distinguish it from Windows-created ones.
 
-My background is security research -- I spend most of my time auditing
-code for memory safety issues and race conditions, among other things,
-which is how I ended up looking at this code after sashiko flagged the
-missing RCU protection.
-
-> I'd like to see the userspace test scripts for this...
-
-Sure. Below is the reproducer I used.
-
-Result without fix: ~3900 "BUG: KASAN: double-free in
-debugfs_write_file_str" on 7.3-rc4.
-Result with fix: 0 reports.
-
-In-tree callers of debugfs_create_str() with writable files
-(vulnerable to the double-free):
-
-  drivers/interconnect/debugfs-client.c:165  src_node (0600)
-  drivers/interconnect/debugfs-client.c:166  dst_node (0600)
-  drivers/soundwire/debugfs.c:361            firmware_file (0200)
-
-Read-only callers (drivers/opp, sound/soc/sof, arm_scmi, i915) are
-exposed to the read-path UAF but not the double-free.
-
-== debugfs_race.c (kernel module) ==
-
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/module.h>
-#include <linux/debugfs.h>
-#include <linux/slab.h>
-
-static struct dentry *dir;
-static char *test_str;
-
-static int __init race_init(void)
-{
-	test_str = kstrdup("initial_value_1234567890", GFP_KERNEL);
-	if (!test_str)
-		return -ENOMEM;
-	dir = debugfs_create_dir("str_race", NULL);
-	debugfs_create_str("test", 0666, dir, &test_str);
-	pr_info("debugfs_race: /sys/kernel/debug/str_race/test created\n");
-	return 0;
-}
-
-static void __exit race_exit(void)
-{
-	debugfs_remove_recursive(dir);
-	kfree(test_str);
-}
-
-module_init(race_init);
-module_exit(race_exit);
-MODULE_LICENSE("GPL");
-
-== poc.c (userspace reproducer, gcc -O2 -pthread -o poc poc.c) ==
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sched.h>
-
-#define PATH "/sys/kernel/debug/str_race/test"
-#define ITERS 5000
-
-static volatile int go;
-
-static void *reader_fn(void *arg)
-{
-	char buf[512];
-	int fd = open(PATH, O_RDONLY);
-	if (fd < 0) return NULL;
-	while (!go) sched_yield();
-	for (int i = 0; i < ITERS; i++) {
-		lseek(fd, 0, SEEK_SET);
-		read(fd, buf, sizeof(buf));
-	}
-	close(fd);
-	return NULL;
-}
-
-static void *writer_fn(void *arg)
-{
-	int fd = open(PATH, O_WRONLY);
-	if (fd < 0) return NULL;
-	while (!go) sched_yield();
-	for (int i = 0; i < ITERS; i++) {
-		lseek(fd, 0, SEEK_SET);
-		write(fd, "AAAAAAAAAAAAAAAA", 16);
-	}
-	close(fd);
-	return NULL;
-}
-
-int main(void)
-{
-	pthread_t t[16];
-	int i, n;
-
-	if (access(PATH, F_OK) != 0) {
-		fprintf(stderr, "Load debugfs_race.ko first.\n");
-		return 1;
-	}
-
-	/* readers vs writers */
-	go = 0; n = 0;
-	for (i = 0; i < 4; i++) pthread_create(&t[n++], NULL, reader_fn, NULL);
-	for (i = 0; i < 4; i++) pthread_create(&t[n++], NULL, writer_fn, NULL);
-	go = 1;
-	for (i = 0; i < n; i++) pthread_join(t[i], NULL);
-
-	/* writers vs writers */
-	go = 0; n = 0;
-	for (i = 0; i < 8; i++) pthread_create(&t[n++], NULL, writer_fn, NULL);
-	go = 1;
-	for (i = 0; i < n; i++) pthread_join(t[i], NULL);
-
-	printf("Done. Check: dmesg | grep KASAN\n");
-	return 0;
-}
-
-== Makefile ==
-
-KDIR ?= /lib/modules/$(shell uname -r)/build
-obj-m += debugfs_race.o
-all: modules poc
-modules:
-	$(MAKE) -C $(KDIR) M=$(CURDIR) modules
-poc: poc.c
-	gcc -O2 -pthread -o poc poc.c
-clean:
-	$(MAKE) -C $(KDIR) M=$(CURDIR) clean
-	rm -f poc
-
-thanks,
-Aldo
+So I'm dropping Patch 2/2. Patch 1/2 is unaffected.
