@@ -1,212 +1,103 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783883B3C17;
-	Sun, 27 Sep 2026 16:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2461D31E832;
+	Sun, 27 Sep 2026 16:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790524902; cv=none; b=QNtPMfRcEzSCOP+iyyeBPSmRIvBxMY626NVbOJ0m//lh7329m04Fqmwl5iz6ZisAQd8I48LImrwwYpCZoke4gYmu/DKZkpYxZaMweAzgUt1IuaKH7WQ0EQIb5cHCtlUQzfXyxTn5l7jPXdKTCvNqIC0t/eQMY7H3/GoadKI6K+Y=
+	t=1790524956; cv=none; b=ulx0+F5j3JuNLmY//iZ/J2VfTFcgY7fl4tlh9pr6EU22hZ55VOhU1HPN3tcUKWWS/LnDaNicXZOqlPZa6gRk/dGmWADZl0RwswSkxQPUPf50Zoq46gx0ZiO6gtHkxaWPJCUN/9B0ABDbEv2fhKEQW/X5Nw5EU58qFoPeqaYIPD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790524902; c=relaxed/simple;
-	bh=QKjyFzQFESEOV87npH/ZVOVFrduCd1HjBLpLmsLFlfg=;
+	s=arc-20240116; t=1790524956; c=relaxed/simple;
+	bh=CTavZ99JhSancwAsfzE/DN+VXQbwpmkhXZpVZJuivRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=smztxdwis91jJq51F6479mGimJSq0/9kYb+BnYlxR5kLKxPliYXIs9vdxfzgSUIxjq8Hxx07nufCcHmAWT+ThYQzfcweqiS4OfKjwqd0onhNQRGiToEH01Dg3fooSLD5gy9Ys0Akx/T0q8PyEi1nD8/DXYXTkUGYZjWK7PA4b7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=j1KOMry9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iVFRWIFr; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=drWgOX0ec6azbBqtsMOXZ/8Ba8kLVqdmAZbNBKxKpDtx0n1M1fxVBACy83FYHr0zhNq0DNZXH53UfzRRd0ia4VgSotqjJ4Vxis/dlfN3NpVszctfvKVRUO2gfPsOdqeIp8b7WpfWGmlSVBDGX+b4eAPIUUdy/Jo37qjSPf4RJbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SYcXrqzi; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="j1KOMry9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iVFRWIFr"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 01A407A0060;
-	Sun, 27 Sep 2026 12:01:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 27 Sep 2026 12:01:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790524898;
-	 x=1790611298; bh=0zuplpuVZWgGMTC2nxNOGM1NvWiIFzH5W1G4banFKks=; b=
-	j1KOMry99UyfgtbkGpL1IGgnZ98yaE23BgbyfzfKGd9C268jAZwH8eqLbVG9gKV+
-	Ab4Vz0+Sj6EUFGa3wFKqJ+evOqiu6Wv4W+5xoVeny84pL+4JQkwxMynvm/sSVYqq
-	VuplKz6jRUxjoJ3irmFhg50OKkSx+r+iL6+d21D5tqr4dY9itGHfirwejAR3ZA0G
-	cBiNJYqoHZbkAzpNWrqpd7F1m6QW8zUS182bpjZoDnBnJmoDSEsWQtiLSnbKhhok
-	IcMJyV74w2beM+Z87Im5/oTxxW1Y0lc201ASgQO/iefwhhkNeils0KpQZieah0h2
-	1q96bxapxXWwD0NlYZpb1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790524898; x=
-	1790611298; bh=0zuplpuVZWgGMTC2nxNOGM1NvWiIFzH5W1G4banFKks=; b=i
-	VFRWIFrwDwWEm685MPHyxGtxTvUP99hWilFE9zq6tDopw/KoWMnW9BBZyMzLWyok
-	2zs2dL+Lc8kyh/njlCCnPejuHIlQO8D5NFtzmKHOuXN+cybc5Ed3TMlP/jWCMqkM
-	5lo9oIPSeTvh1s6ZaHzHqX0wFTdySKDPJxTS1UOtS+2cuhH8d4ntgOuPZPSHc9ze
-	2cArI3eLWbpXro9Z291Ctj4xF/mO53DjDH79FXIFspUKCn5oUecXvEBsQOxw47aT
-	u+6qI4ebMAMZg4aRqIPE4EJaoSfgSsMu7bmN+SlJfFP+esDX+H6YvyK35eHAuRWe
-	177fE4iV1jPkz/955MSZw==
-X-ME-Sender: <xms:4T25ao_D2fDoBqKdxmynf9sLPNH9b3Ue13AjYWFdNYllgmlzjfMlZg>
-    <xme:4T25aonI6ZbwZZG46vmi7DJNJchOBFYqCNa8O8t_PuMUtvVBzgAouRPHtSLjla6ZS
-    NmDXkzd7IZIVeJTG6HJqtWdQiAjTq3cMLfMfP4PijHKQS8ozwnaCxEt>
-X-ME-Received: <xmr:4T25atbXtKuIWwVuE26dddPlknNKtVsGXxBXpOh_LDVE4qI8GOaVDzwvja1Z8Kt_6DVZBbObzZqK4f8z5DBxb2tIqVLpOa8>
-X-ME-Proxy-Cause: dmFkZTGabjLNdShx2e8Je0zOPYz8yhq6splHMkyFigOoSkm3a9NK72vVEfV9d0NtrGX8pc
-    LOnq7UniaR7T0J5IVm+7GSEBSoQJGlrVGFlm19mH1TATVrAM401h2zssX57D9IvE31ik0e
-    /v4bO+MzgdmMmMQPSl0wekbUJlSDB+pHwKXRvpOaKjJAZ7TCGiHpiPtx6ulk+hXbq3rIxd
-    tPYZLxI8op2eFnvZ9dJ5E0kBP87TqAAEOnuAmxbHMuVjQu9mvvXEySY+NhoBYaGrY8rJqN
-    n4Re6gTxhnWiOB24QwkGcBuKDCYFdsUwkadsMEj4tpTa54at2Y88H5g/bkdo9yf8GPQrGX
-    25WXpS0efwRLNMZua7fTevwuWmxVfE/4fDyU3R/Pnh85h2ZLMVUecCea17nsRYYOWqTZj4
-    0N/2x/E2iS6mt0FW43LPagr1crXkbqzGqMje/bIUucRG6zqytyJngw0LNwU6gcVyQ7ILjQ
-    1EFWItccgIVgJ+v/xOhg8rMo3CglW/eiMBKpKAAHYRM0Pdqf+3Jt5L//G+bfiVnvdggPkc
-    sGlymBJpBAIpUdSRgpLzzf/TGr6GBVtkOnPigfc8V4aisOoOsHbzXPAB3qlm5HhM/pKyxj
-    96gGLuZf8w6KSG0PLIfCBYiyK6b+VMrjzMJW5aKXqDJn/c9LBlvbH0rSkCjw
-X-ME-Proxy: <xmx:4T25agOygzcovoxr9Dh1lFPzuAWeIUyjQyh7YtVnGvlBDVxTkg3sAQ>
-    <xmx:4T25ale7S4m_ENvPataRznOML0DZeJ7iCQUO69y906_uH1lSFN5mBw>
-    <xmx:4T25auEJvxup5nxclTiA49IscZYveZAfyMTdcahvdJjdP0q03XQoiQ>
-    <xmx:4T25aoumCX4y33fgxe8K6Z2nYpj9XVsaCg9jHatEuY84ANX9A30CAg>
-    <xmx:4j25arw-F_DCeoTpZmtqaUp3QTBnrAnoxwtl1PpuFW-HfgLZGg0imp9->
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 12:01:37 -0400 (EDT)
-Date: Sun, 27 Sep 2026 18:01:34 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Paul Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>,
-	Mitsuhiro Kimura <mitsuhiro.kimura.kc@renesas.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>, netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-Message-ID: <20260927160134.GI1099675@ragnatech.se>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SYcXrqzi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790524954; x=1822060954;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CTavZ99JhSancwAsfzE/DN+VXQbwpmkhXZpVZJuivRE=;
+  b=SYcXrqziPMGcNFCC4eVnHfFtTZuIVP9DVeGJpJluFiBqVZy1sQM6BD0N
+   sdcOKoohQh6EwdG9ysiAbb2KYHLwstGlkvuoHoQ0W/SJRq4OjeiDQW6K5
+   s1H/ITO70wfiagP6oNfeetogYK7Lo4vlbaXqF6O/TXXjWljb6PhIGpCuM
+   l4YNLr/ofd0CR9N6TCQPPBt8ZP0wL74jxY4hS0eUee1u9FntCGgjSDk+0
+   dywclp/LFJwZagkbNrOj/j/boMkVFRg3HC0eEswHk2LkL7Ut1njYGyDLN
+   vFi4eDNybxaPh3bR/kDqsOaR28SdgZ6dXePUwywBN4jYoxTGlgao7QPps
+   g==;
+X-CSE-ConnectionGUID: NSGXhuqPRZKlxUymqkrNeQ==
+X-CSE-MsgGUID: xbOGoNjHSo2wKcH1ic/j4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101898215"
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="101898215"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 09:02:33 -0700
+X-CSE-ConnectionGUID: nLEMoT7ET6CiSvxDhsc62g==
+X-CSE-MsgGUID: XdM9XDKSSPyCk3+TQ0yBlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="274358961"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 27 Sep 2026 09:02:31 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xArKe-00000000Mzp-0QOT;
+	Sun, 27 Sep 2026 16:02:28 +0000
+Date: Mon, 28 Sep 2026 00:01:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Abhishek Bapat <abhishekbapat@google.com>,
+	Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Abhishek Bapat <abhishekbapat@google.com>
+Subject: Re: [PATCH 4/4] alloc_tag: add a test for trace state toggle and
+ filtering
+Message-ID: <202609272338.hVBNO626-lkp@intel.com>
+References: <988dddb203416668a10bc9c5e6157a78615d2ed2.1790025465.git.abhishekbapat@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260927144741.1320558-7-yaojiale02@163.com>
+In-Reply-To: <988dddb203416668a10bc9c5e6157a78615d2ed2.1790025465.git.abhishekbapat@google.com>
 
-Hi Jiale,
+Hi Abhishek,
 
-On 2026-09-27 22:47:39 +0800, Jiale Yao wrote:
-> ravb_remove() frees the netdev before devres releases the managed IRQs.
-> The handlers use the netdev as their data pointer, so an interrupt during
-> that window can access freed memory. Probe error paths have the same
-> ordering problem.
-> 
-> The remove callback also returns when runtime resume fails. That leaves
-> the netdev registered while the driver core still releases its managed
-> resources. A running interface already holds a runtime PM reference, so
-> the extra get cannot invoke a failing resume. A resume failure therefore
-> occurs while the interface is down and ndo_stop() will not be called.
-> 
-> Place the IRQ resources in a dedicated devres group and release it before
-> freeing the netdev. Continue unregistering and freeing software resources
-> when runtime resume fails, but skip the unmatched runtime PM put.
+kernel test robot noticed the following build warnings:
 
-Would it not make more sens to rework the driver to allocate the ndev 
-using devm too instead of adding a complex devres group? AFIK 
-s/alloc_etherdev_mqs/devm_alloc_etherdev_mqs/ would allocate the ndev 
-with devm too?
+[auto build test WARNING on 8d61431ed2607386b427752505379536eb634ce8]
 
-> 
-> Fixes: c156633f1353 ("Renesas Ethernet AVB driver proper")
-> Fixes: 48f894ab07c4 ("net: ravb: Add runtime PM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/net/ethernet/renesas/ravb_main.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index ea1c7e536791..a25f5ac7062f 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -2963,28 +2963,35 @@ static int ravb_probe(struct platform_device *pdev)
->  		priv->num_rx_ring[RAVB_NC] = NC_RX_RING_SIZE;
->  	}
->  
-> +	if (!devres_open_group(&pdev->dev, priv, GFP_KERNEL)) {
-> +		error = -ENOMEM;
-> +		goto out_reset_assert;
-> +	}
-> +
->  	error = ravb_setup_irqs(priv);
->  	if (error)
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
-> +
-> +	devres_close_group(&pdev->dev, priv);
->  
->  	priv->clk = devm_clk_get(&pdev->dev, NULL);
->  	if (IS_ERR(priv->clk)) {
->  		error = PTR_ERR(priv->clk);
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
->  	}
->  
->  	if (info->gptp_ref_clk) {
->  		priv->gptp_clk = devm_clk_get(&pdev->dev, "gptp");
->  		if (IS_ERR(priv->gptp_clk)) {
->  			error = PTR_ERR(priv->gptp_clk);
-> -			goto out_reset_assert;
-> +			goto out_release_irqs;
->  		}
->  	}
->  
->  	priv->refclk = devm_clk_get_optional(&pdev->dev, "refclk");
->  	if (IS_ERR(priv->refclk)) {
->  		error = PTR_ERR(priv->refclk);
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
->  	}
->  	clk_prepare(priv->refclk);
->  
-> @@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  	clk_unprepare(priv->refclk);
-> +out_release_irqs:
-> +	devres_release_group(&pdev->dev, priv);
->  out_reset_assert:
->  	reset_control_assert(rstc);
->  out_free_netdev:
-> @@ -3141,9 +3150,10 @@ static void ravb_remove(struct platform_device *pdev)
->  
->  	error = pm_runtime_resume_and_get(dev);
->  	if (error < 0)
-> -		return;
-> +		dev_warn(dev, "failed to resume device: %d\n", error);
->  
->  	unregister_netdev(ndev);
-> +	devres_release_group(dev, priv);
->  	if (info->nc_queues)
->  		netif_napi_del(&priv->napi[RAVB_NC]);
->  	netif_napi_del(&priv->napi[RAVB_BE]);
-> @@ -3153,7 +3163,8 @@ static void ravb_remove(struct platform_device *pdev)
->  	dma_free_coherent(ndev->dev.parent, priv->desc_bat_size, priv->desc_bat,
->  			  priv->desc_bat_dma);
->  
-> -	pm_runtime_put_sync_suspend(&pdev->dev);
-> +	if (error >= 0)
-> +		pm_runtime_put_sync_suspend(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_dont_use_autosuspend(dev);
->  	clk_unprepare(priv->refclk);
-> -- 
-> 2.34.1
-> 
+url:    https://github.com/intel-lab-lkp/linux/commits/Abhishek-Bapat/alloc_tag-Add-trace-events-for-tracing-allocations/20260921-212638
+base:   8d61431ed2607386b427752505379536eb634ce8
+patch link:    https://lore.kernel.org/r/988dddb203416668a10bc9c5e6157a78615d2ed2.1790025465.git.abhishekbapat%40google.com
+patch subject: [PATCH 4/4] alloc_tag: add a test for trace state toggle and filtering
+config: xtensa-randconfig-1001-20260927 (https://download.01.org/0day-ci/archive/20260927/202609272338.hVBNO626-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609272338.hVBNO626-lkp@intel.com/reproduce)
 
--- 
-Kind Regards,
-Niklas Söderlund
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609272338.hVBNO626-lkp@intel.com/
+
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
+
+>> WARNING: modpost: vmlinux: section mismatch in reference: alloc_tag_trace_hit+0x28 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: run_tracer_selftest+0x250 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
