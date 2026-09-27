@@ -1,124 +1,139 @@
-Received: from mail-vs2-f26.google.com (mail-vs2-f26.google.com [74.125.227.26])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F7134DCCD
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35DA3B14C3
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541096; cv=none; b=NHWgHEkFHUnUDARCMh2xTqoYQTt9KHgIRxj5yPdvzx/1MzUVUj3HL8++tou6jVqADrvkAtyuXruUMy0HHFgKgGlAlnxM21JH7TlA5FGe9OykkIpv0RNycllkteHc+oaUmrCDRuWrzghrdjDEvE0QqvkE7WrXevZw762aiFgbYnQ=
+	t=1790541136; cv=none; b=llQHBmnsrT+paesDA6BaidE0gKdVVvLIkSVAGYzivbrksoYGZ3RZZKTDkDRCLrlMxKcd8lfNHye6sNCfFCq9f/qqCBdAjBTnvbK/OdHDA5F2UnD9J9/ELiWBUlw7UUeva2xMLfLiFFfNlnVQD+A8DfaoBbRHkbd4ytJpPmjy+ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541096; c=relaxed/simple;
-	bh=ECmiUnCsuf0PP00J9EUGstc34FNcT446eF3bYmlaxYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NmqkW8QMwHTJKZSagxe/ZRathqSj9c9MSFE7nr8Mlm+8nQS+xBm1LL2cBVw7TEYtzq96SpCvuCL4ji8+lrtioeFQOw5+/mYEiTjpg/5rBQWO/9W5AW7Mptz1Gzqb+azQI+0+n78CYb1yqiz2Dc+vLGNdgeEEzXyel4DgFpuHgDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ejo0Nd8v; arc=none smtp.client-ip=74.125.227.26
+	s=arc-20240116; t=1790541136; c=relaxed/simple;
+	bh=eAw4W6QjTTBXa5GbZrpw+yuYiwhLLXyJOTNrJ0+leFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qN6289fmtbA800dldkwcn5kLIfd8pnWN+OF8D0gu/hBTW1T0+34dUt5hH3Q1ckSpKyI96iMtHvy5+1OaQNW3FRuksUjofDPevBv5L8KhfHzv0DgjsyVPYn8l+wIfh5zx2eCQn553jQUkFj3ktcjbZ9CM6hX1ytyKM8fV/BJPNzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSad5ng0; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ejo0Nd8v"
-Received: by mail-vs2-f26.google.com with SMTP id 71dfb90a1353d-5c67e529da9so708053e0c.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:31:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSad5ng0"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0aa9d356eso1919264a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:32:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790541094; x=1791145894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Kdmoy3jfQwTDOQRMgPKKjPEVV/7jynijwAv/AC0y/g=;
-        b=ejo0Nd8vrfYyvQblTil0BstYx261CRb+jG81/UKhP3T6sut+b7yWhwFoUVcX15ER0n
-         TYT+MCniXAyUI4LaBzRTsMSJwnatR7QgEfK1RMrh3jlEaE33dJ8iI3w4szBpEsM39Z0G
-         iPjYwnRHBuQobFsl8HTEz5CmwV6y0zCqMANcqnNN+qzuO6b5l0YKDJykXz9dE/Xiu1yL
-         yHC9kFf8KgD9aBgg0jyWP2sGgmYKKU55V0GIQZw2Ogq5uFBteENJLZQWC2lt4/KjliNe
-         NpOmA5pg9OLNP0kda9QJzU4Hir3s2AXQyfglLn5KY3nEgcvMx7tnv0CW2GQ2ItxboksL
-         hCxg==
+        d=gmail.com; s=20251104; t=1790541134; x=1791145934; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eAO6WabpD+y/dCbAwrQTwRbR2CnZ9OTMQukOdgoZcZI=;
+        b=jSad5ng0H1Fl2tyE/JiK6+/lazD/g/aum/ZC6XGhUyuJp5qqSDbMSkMxjf8pkZ9FsW
+         3zTSWZEH71KuvA/QxXY2/3yHkt/QUE9EWiO48Hcliw3W7b+4aiD02yeIOZ4X7BdBBNy+
+         Ut0N07t4FUZ5Us0oNeoGgOnWxpLs2GVZxA0POo6hyvnzJVSCsBKVqKkShtZd7zxgyKPP
+         jMzICjGD7FgyX5PW7pn+mPCvvlE2YYzWfPLtgJ63Ui3X/C03d5wG0iKUgxzT7vxLBU+v
+         BDNUg3vel8ztmzSzoLA/AfTmUbHrLoj+5eEnIT37tfMFE99w0Qe7fBsSLlpWC3ZHVQo1
+         6hcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790541094; x=1791145894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Kdmoy3jfQwTDOQRMgPKKjPEVV/7jynijwAv/AC0y/g=;
-        b=Hb+JfYwshtJwNO5MYHxNIpAymAnzk2rUWIZtUzwqcTINXX8p4AMx6Cxy6dUexjLsiT
-         KOPhSvUXyKp1lZo2TWxd0qVuRtIt/ZNuds47Mftpv7EZNgeYBr7omC8pXBKVrKW0FJl9
-         PzsMNgLd8GfOqx1e4gPfvqLTzpmelljQtYBpCGHNSceMm/MUexjrLEngonp6V3WZtyaf
-         VoztsH4cb9530nK3CvwoOk6w5H+kRRcMtVGqyOVHdjJEQnvxeYzSrvMZ5WmYd2equVpl
-         7EmFNwLjt8y9ZaDrzmkkKfN7K5QwFPG5Q6of2KL8g97H6N3puHIMKYZ2ms12tYgqupBp
-         RwrA==
-X-Forwarded-Encrypted: i=1; AKwUvBybi9BfqN/utUhiH9U1B2xcvmO3YyupDP48cUxPYQ5S/VOWmtmFVX3Ot/3RrJ59XjfI3R658nQSrhbXnkc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGCzmgLuWEJSLc3Eja3B/yGT9lim/Hmiu9WAtBJaeOhUio3RXO
-	oU8isEtSAT5Yy2ASaRmyTfbNIO9PpozpOh8gYHjbzimjDMiqaZqylmDt
-X-Gm-Gg: AYBFou3NNVZxnVwRGt31DcAu+EvPTdd9sOFGgqIjEZ21f/YJVv9pcZu23qL7oUKqm5v
-	Wpq96mqL0xjO6m3gthFyt2TXii/SkfprHkVHquRWjJwgt2tYigtMD8mcOb7h3+3GkbQfyWMLU0k
-	VgHem/EMU8/rCu/pdVw5ObJAIergW+TgEgQxPAQFvvnfj9J+FWvszo+c/ky4k7rrZpzzGAlIQpu
-	74LihIUxzyzdfCD5HER0rutfI+WttNNVBsaIwGPAVlFvvFyO8HCUc8yu2+Xx3ZRsoFoTfaK+n4w
-	eBB4BcI8hIH6oYcWxuviP1xkJEV467ZaoTsALx0TWE+PkA+GYrXjQqX93EAMraKjm79gx6N9Q/I
-	u2GTGCG+hxVj8OBnsxay0FZilbdZQ3+IhciTLBZaBmosM3MBxbddga8ZvzM0D132cC7kENrafKa
-	PfysmnBU+kd4POfq9SoEB+TK4G3HwyY2/6S5HtreuZe6cF6W/OYvycItQoSJ2QZWg=
-X-Received: by 2002:a05:6122:3d10:b0:5c9:a618:bbf7 with SMTP id 71dfb90a1353d-5cb0c628f53mr4928551e0c.23.1790541094465;
-        Sun, 27 Sep 2026 13:31:34 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde4f99222sm6419782e0c.4.2026.09.27.13.31.30
+        d=1e100.net; s=20260707; t=1790541134; x=1791145934;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eAO6WabpD+y/dCbAwrQTwRbR2CnZ9OTMQukOdgoZcZI=;
+        b=TQlI8UKt8ZTsIidoAr5VpY3b9Uay3n0B+r8VkDU5mbnmjtLBS3I5JTQWS8rp9riiUh
+         +E8NDZfPav/8b0Xsw5sMObMkwFAkUwRiK7W4XdkaGv5g1ctWFnoGkbQxLnUAa5DYYAw1
+         J0Qmn50siSmk4tTGvSibdwRy9Kl31oLwqbba5Puu68iSgyzUo2WvsNlNGhCmr/8EJKCj
+         xZLjjk65E7SknbRFSiF2BJuVt9IrpXhFr2MIrrBqTsQgMGedTwFPSD8hl5ydgxSFK8+1
+         BbUT1KxXeiyPSQWRSBrjcWqPOJ9NfM8OCeT5pOvgVx26GolTklS+HiPjSR0VE7oqOx6Z
+         CYZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfBClMtEHgjWNx9kZLVLBLaRtAi7evHtUVL6YraMKRStsu+4ISeIF6B2NHWGoyT4IGQ1tg5cNIO1Pazzw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLw3sVmEclt5DZ7cj17UGcrKpFvJyP+nN7QxC8aSz18fph+G5jz
+	kKQrUYGwyClX3qbA060ACke5ViDi7hGvAlH7iQHR5117VhGEzt85fXh0
+X-Gm-Gg: AYBFou3HsV8fr7bU6qhy9a8ww9ZLnqIljbURSreKBAn3E6te3HdP9CHDJgH9r+lwjlW
+	w4eFUgdV50fA7QVaeLNOAKmCtuwuK7LViFV+LTU5+7ezTX5B63vpfQM51FfHch1nJiCPfuQ9q65
+	GWbDW8K9+Ar2RmVG37yq+cuzJuL7eiPsIeUL3y3XOE89ZcWfzwYc3gvLxvOYvT/rmGTggjw7jNi
+	Wn+1dto/Dia3XhPFW1NyZJiObWzgB9ZPJSt9QIs9KT7prqrRImhHsUnt+F0c/7uoT0Wz+bRUDRx
+	Vd+zqqtnE4ZtvZ5SIYR2n5Q3jLDrCuNQ3Yg/6UniHNrDB95fU1cu4L0NRN2OQT5IMiYSlTtTip3
+	MOgGbCNbz3oGFC7Rv6N6tDlq6XIleWOf9bwos23Zove3XDHGmYBlMTLWbeICnPEP45pVelSM/Et
+	3InezPBsBL3pyrA+6cOeOTBfL3q5RWLBrUaNnhtChLCOiRf3NIlB7ymZEUe+jsLYuet9uon54=
+X-Received: by 2002:a17:90b:574d:b0:3a0:2900:f584 with SMTP id 98e67ed59e1d1-3a099230a7fmr10493566a91.46.1790541133971;
+        Sun, 27 Sep 2026 13:32:13 -0700 (PDT)
+Received: from google.com ([118.150.148.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99dcd78sm16818220a91.15.2026.09.27.13.32.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:31:33 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: johan@kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: Re: [PATCH v4 1/2] debugfs: fix use-after-free in debugfs_read_file_str()
-Date: Sun, 27 Sep 2026 17:31:24 -0300
-Message-ID: <20260927203124.2060754-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092720-sandblast-heroism-30c8@gregkh>
-References: <2026092720-sandblast-heroism-30c8@gregkh>
+        Sun, 27 Sep 2026 13:32:13 -0700 (PDT)
+Date: Mon, 28 Sep 2026 04:32:07 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: ast@kernel.org, Greg Ungerer <gerg@polyxeno.com>, daniel@iogearbox.net,
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+	jserv@ccns.ncku.edu.tw, marscheng@google.com, eleanor15x@gmail.com,
+	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	bpf@vger.kernel.org, Daniel Palmer <daniel@thingy.jp>
+Subject: Re: [PATCH bpf-next v5] m68k, bpf: Add initial BPF JIT compiler
+ support
+Message-ID: <arl9R1pfMU1k7-Ur@google.com>
+References: <20260823163812.3024812-1-visitorckw@gmail.com>
+ <f89b4e87-12fb-45ae-a2a1-12ebcc483326@polyxeno.com>
+ <CAMuHMdX6rtJDZUqhLf+-U=9=yTkhJtYUU_Ru1GE=7o0qXu+d6Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdX6rtJDZUqhLf+-U=9=yTkhJtYUU_Ru1GE=7o0qXu+d6Q@mail.gmail.com>
 
-On Sun, Sep 27, 2026 at 06:37:40PM +0200, Greg Kroah-Hartman wrote:
-> Please don't use a LLM to write a changelog text without crediting it :(
+On Sun, Sep 27, 2026 at 04:03:15PM +0200, Geert Uytterhoeven wrote:
+> Hi Kuan-Wei,
+> 
+> On Fri, 28 Aug 2026 at 12:50, Greg Ungerer <gerg@polyxeno.com> wrote:
+> > On 24/8/26 02:38, Kuan-Wei Chiu wrote:
+> > > Add a BPF JIT compiler for the m68k architecture.
+> > >
+> > > The JIT generates m68k machine code targeting m68020+ processors and
+> > > coldfire parts with an mmu (ISA_B/ISA_C). It excludes plain 68000/68010
+> > > and non-mmu coldfire processors, as it relies on 32-bit branch
+> > > displacements (b<cc>.l) to handle large bpf programs.
+> > >
+> > > Tested with the test_bpf.ko:
+> > > test_bpf: Summary: 1061 PASSED, 0 FAILED, [1049/1049 JIT'ed]
+> > > test_bpf: test_tail_calls: Summary: 10 PASSED, 0 FAILED, [10/10 JIT'ed]
+> > >
+> > > Tested-by: Daniel Palmer <daniel@thingy.jp>
+> > > Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+> 
+> Thanks for your (impressive) patch!
+> 
+> > From here it is really up to Geert now if and when he will pick this up.
+> > I am happy with this patch in its current form.
+> 
+> Who am I to block this feature? ;-)
+> 
+> > > --- a/arch/m68k/Kconfig
+> > > +++ b/arch/m68k/Kconfig
+> > > @@ -8,6 +8,7 @@ config M68K
+> > >       select ARCH_HAS_CPU_FINALIZE_INIT if MMU
+> > >       select ARCH_HAS_CURRENT_STACK_POINTER
+> > >       select ARCH_HAS_DMA_PREP_COHERENT if M68K_NONCOHERENT_DMA && !COLDFIRE
+> > > +     select HAVE_EBPF_JIT if MMU
+> 
+> Pleave move this to the other "select HAVE_*" lines below, to preserve
+> sort order.
 
-To clarify, I did use Claude Code during the process, but only as an
-additional reviewer for spelling and grammar, minor rewording, formatting,
-and as a sanity check for obvious mistakes.
-I wrote the patch and changelog myself, and the technical analysis,
-implementation, KASAN testing, reproducer, and verification were all done
-by me.
-I should have been clearer about that when you asked earlier, apologies.
-Given that limited use, would you still prefer that I add an Assisted-by
-tag for the LLM in v5?
+Ack. Will fix in the next version.
 
-My background is security research -- I spend most of my time auditing
-code for memory safety issues and race conditions, among other things,
-which is how I ended up looking at this code after sashiko flagged the
-missing RCU protection.
+> 
+> > >       select ARCH_HAS_SYNC_DMA_FOR_DEVICE if M68K_NONCOHERENT_DMA
+> > >       select ARCH_HAVE_NMI_SAFE_CMPXCHG if RMW_INSNS
+> > >       select ARCH_MIGHT_HAVE_PC_PARPORT if ISA
+> 
+> I think you should also update
+> Documentation/features/core/eBPF-JIT/arch-support.txt.
+> 
+I wasn't aware of this doc.
+Will update it and send out v6 shortly.
 
-> This is probably not right, don't do loops like this.  Either fail or
-> succeed, don't loop.
-
-Agreed.  I'll follow Danilo's guidance from [1] and keep the
-implementation simple -- single allocation with GFP_NOWAIT, no retry.
-
-> Again, let's see the real use case here, what is hitting this in
-> userspace today and what debugfs kernel files are causing it?
-
-The writable callers in mainline are:
-
-  drivers/interconnect/debugfs-client.c  src_node/dst_node (0600)
-  drivers/soundwire/debugfs.c            firmware_file (0200)
-
-I am not aware of this being hit in the field.  The race exists
-because the write path uses synchronize_rcu() + kfree() but the
-read path does not hold rcu_read_lock().
-
-[1] https://lore.kernel.org/driver-core/DLPDB44JJRGJ.3K6JNS746M7QC@kernel.org/
-
-thanks,
-Aldo
+Regards,
+Kuan-Wei
