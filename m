@@ -1,91 +1,122 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1A53A2556
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B862C35893;
+	Sun, 27 Sep 2026 09:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790501343; cv=none; b=NiqTUjJqDsw/097wZPdcz5xA/mN1joncoH9SU8WcFpFfs4boSKexQhL6t40caZIYqiTguK1iSdinBz8xzxB6XoBcws+4NGnj3qQ6WTVh3RDd8F1PMt6vJTsGf2EfGUghaQIwo0vWwzisiRh58k4YqcL6ipEePYsHCFRMAiY779Q=
+	t=1790501804; cv=none; b=kIbhYSokJilpLY0G9vDyiV8M3yiDZAn6ApO8yixS5/ZspFpjfHm78RUTBlMRes7xHzmE85fV4gFnDABMi5gIJw3DdtfU4N71y5utxdXwEPjolFQ5u39mTBEbndlcqMJ0oImv/Efl3cs2O7UWSvPrLD7f4s8Otw1C8ApOaVOfZyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790501343; c=relaxed/simple;
-	bh=4x8l5gtCNjd3MzbigudBvHHGyNlD8SUXdmY1T/ORuAc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OY7SaRqX0S2mlziXzYMgJKG8iPU7GJrVzzqecny+uGO9P4AC1QcnmEibcGoCk6Gk7be3KYjH81sYf7lJs2TvmF1Xk5eurkPsu3RlgmVBK3QsFDDBdLW9RelQjYbeLQw8llyECSuL4aL58uu8TERFDKDHeNwv67HEnkOr1dht+PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso1461328241.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:29:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790501340; x=1791106140;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=csdD6jxORMZoat82NKXRRvNrkjCWmWkfxNOA751RjhY=;
-        b=J9UAx8MhKltZEHmgPR3+zkeP1QnHCxlWlLFgDsDXst8IN7uHynoZui15lCAE4nEFrb
-         2S+/SFzVhXAqcDjq6Bc693BU/OFAmEip9K3HekpoeDsqqIX7ufmBiIeaJ0b/KHyKfyt3
-         cmLCz5NqMJUuNhPEiALh/ABI43ppgOnmxjjgcGRQ5e1paemGIOuqDwtAvhAn06qTQwKV
-         uSB8+v36hTCuLTe+zNVPXwvfMKvIS6OEXdvei/pFCHyhiL8JwtCZ5kPXDLYkmo0fplam
-         yVB7cSAXYFDxScGucGsxJTYqAYxnlYg/Y2CtuMZ8GKM7GMLCgsRzdIJyV5dwH0u5E2EU
-         Bu3Q==
-X-Gm-Message-State: AFq9FYJ+SS8UEwO6xTcambANymnPcyokmq8s4356pUKGUw6KYyEgnpCh
-	7eMCbeebsiB6Mbe3XCQR0JZMbhQ9SILxwOerROUx1UpxQYXMNxYTGNvF6beQndc5
-X-Gm-Gg: AYBFou023f/SX2JQs4wqhwQ+UhCqrgzEQXsUJ+SyHJ4yvkC9Hzo5YVyBwm6cSFgm2Vj
-	6IM8B9ETd39vyXS4zpPaSRWX1a64P6fGOxOyzcWhP9Xvw1q2Ksh7rnPMxkrQf7f9X7LUM2h9gKF
-	pKzMNL2BpnXSgVLrEMNkMsYBMZQe+f8jdKlU/pTkgJRIp1RL9jkTPNTHzx00OxSRl/hmXt1aTVV
-	mMOsoTiJ3Hde+UM5ZZEgiYT+NzsbOMPMaGDP0j6tuL7Tak6w7K8n9xK0+8DTWEmM38zq/PWqXig
-	sGMOvRpRTwqlGFhbweAvDg9rTkH9P8zuCoZDBGKkdFytwe4uoDWadoRPqwCGPN8NuIy0K+AsC28
-	uQHHSIAOzAI3zTOiC6fMYqHzI96tbmEj17cBZfRbQsyG+gQiAxpZCQJl9wGdB9jJJpcyyjI555B
-	wrqhZ9/7J11DF3sTGEFGO+3eJoeADjK5PSGiolhD7gDUFTukXLVa3sM818bdMI9/OL44fUTLfP0
-	LwBAdkSgTx4PIcKRVNjh39v0Etpi8Zezsr1bQ==
-X-Received: by 2002:a05:6102:6883:b0:7a1:f7d2:e820 with SMTP id ada2fe7eead31-7af1ecf1913mr3984428137.25.1790501339789;
-        Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b5736ccsm5002724137.6.2026.09.27.02.28.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso1461326241.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:2d04:b0:7a1:f7d2:e824 with SMTP id
- ada2fe7eead31-7af1edec5famr4750030137.29.1790501339370; Sun, 27 Sep 2026
- 02:28:59 -0700 (PDT)
+	s=arc-20240116; t=1790501804; c=relaxed/simple;
+	bh=877P9thvOC69SC6aZ03dphdj1j4Lx1k1zv5MCStgjoo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jfSdtdkk7QkKNLnhNhbLbDaUlwq2cgM/7afLJNvfK9r1MrIMfpIDZ3k3N7MTXG0+9m7MJw1doFg4LRmdwpPmwq+1jvQ5YGFGJZaPu6K4lQ04JREyl51cxsKhseAAi7c7UzPHc/Q3/BcVg8S/qsLQXEeasC2YIuWH59EJ3rJEDLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=iXBc85xq; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=EbMRPnu3; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="iXBc85xq";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="EbMRPnu3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790501800;
+	bh=877P9thvOC69SC6aZ03dphdj1j4Lx1k1zv5MCStgjoo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iXBc85xqWXpbWp6MgmYRlrz8rE7UmfTnKr6c5CHUARTj3Y0jiCsGXmAP/YBMLenHj
+	 mzW1T0UXPQ/bChxELNOKSd91ZM8mZ/JXQ52nFzlhimRAr7uMd7GU5GfROcJ/ypOCG3
+	 0st+AJz0tftsUHMNShxnItkDhG86oaQcQiPZw8aqce7Vb9XHgk4l7EWm1Tx8VaYqHm
+	 63xsJWiWVx07/nPg6t37u2t/PaKTDL3//g4H4bGc5rCRXNYryqUqxh2iNQQ/EwoX43
+	 uKJwZWobLG0dTlD0pXYUy2yF8W8iVhhUbpwwr28Hu+emyannIY8zZpmjFttESVb7s1
+	 grCHEyt+c4HCA==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id EC23541312; Sun, 27 Sep 2026 09:36:40 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790501799;
+	bh=877P9thvOC69SC6aZ03dphdj1j4Lx1k1zv5MCStgjoo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EbMRPnu33v5foiBwAQ7D/WiaWYx1t58rtzU+F/iHC/mNPUzL1GI2RYwZBvmGu1AQR
+	 Qa5I0entFrc7KX59fvyOc+6+pIemS26e32hxbHYFM9lPzASeDLjM9yLtS4EDynT2Ar
+	 T5C7jVeEKNv1ZkjmuWFdQMUmhHd8elILVauSoLEIZoUVRI5NuUrUluZ+bo+k3EqxeU
+	 99GRoqLpzkhP+SwInERCBLjTkf8mRRhnPiLTG9ojKDZLPj2jkXVyF6OSyuSyMWMHOW
+	 OrMHFnRDBAPWT6+PJUyaqLpCixbcEcUcztr1iBhGRHlq3vHF3m/5pUl2tAPVm67Pd9
+	 dx3ISnbslgH3Q==
+Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 880DB412CD;
+	Sun, 27 Sep 2026 09:36:39 +0000 (UTC)
+Message-ID: <c85b5623-a8c7-437d-8d75-14e59b20b1c5@birger-koblitz.de>
+Date: Sun, 27 Sep 2026 11:36:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918141926.3023230-1-peng.fan@oss.nxp.com>
-In-Reply-To: <20260918141926.3023230-1-peng.fan@oss.nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 27 Sep 2026 11:28:48 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWMrBStfd8QAi4U2iZ99y=mDJOUhB58XJ9yaz0v8r4bKw@mail.gmail.com>
-X-Gm-Features: AclHuK_FNakOvnI35QAAk4owW-nxtMw0s1-lNczNFg7HJNVICSo26yhinb-7UTo
-Message-ID: <CAMuHMdWMrBStfd8QAi4U2iZ99y=mDJOUhB58XJ9yaz0v8r4bKw@mail.gmail.com>
-Subject: Re: [PATCH] zorro: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
-	linux-m68k@lists.linux-m68k.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 11/15] ax88179_178a: Add Suspend/resume
+ support for AX88179A/772D/279
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neuromoments@gmail.com
+References: <20260916-ax88179a-v12-11-60c04c9924a2@birger-koblitz.de>
+ <178968030357.22033.18257401689515949008@kernel.org>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <178968030357.22033.18257401689515949008@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sept 2026 at 16:21, Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+On 17/09/2026 11:25 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 9 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 2 · Medium: 4 · Low: 3
+> 
+> - [High] ax88179a_suspend() (drivers/net/usb/ax88179a_devices.c:170-172)
+>    calls usbnet_suspend(intf, message) but discards its return value and…
+Fixed by moving usbnet_suspend() before the WoL configuration, and
+unwinding phylink_suspend() if usbnet_suspend has failed.
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-i.e. will queue in the m68k tree for v7.4.
+> - [High] ax88179a_resume() (drivers/net/usb/ax88179a_devices.c:210-214)
+>    and ax88179a_suspend() (:138-142) call rtnl_lock() from inside the…
+Will fix by using the same strategy as asix_devices.c and holding a
+runtime-PM active usage ref in ax88179a_bind().
 
-Gr{oetje,eeting}s,
+> - [Medium] The new WoL programming in ax88179a_suspend()
+>    (drivers/net/usb/ax88179a_devices.c:146-152) performs a purely…
+Will fix by clearing the bits before they are conditionally set:
+tmp &= ~(AX_MONITOR_MODE_RWLC | AX_MONITOR_MODE_RWMP);
+When wolopts == 0, the arming bits do not matter, because the PHY is not
+put into a monitoring mode, they do not need to be cleared. Note that
+the firmware clears these bits after wakeup.
 
-                        Geert
+> - [Medium] The new PM callbacks consume the results of ax88179_read_cmd()
+>    without checking the status, and for one-byte reads the destination is…Will fix by initializing tmp8 before the reads in both the suspend and
+resume callbacks. In resume read status is also explicitly checked. For
+suspend it is not clear whether to abort suspend just because the WoL
+programming does not work justifies aborting suspend. Since tmp8 is
+initialized, no garbage from the stack is written.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> - [Medium] ax88179a_stop() (drivers/net/usb/ax88179a_devices.c:1163-1165)
+>    sets 'reg8 = 0;' and then calls ax88179_read_cmd(dev,…
+Duplicate of a previous bug, fixed by correcting to ax88179_read_cmd()
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> - [Medium] The new ax88179a_resume() calls ax88179a_reset()
+>    (drivers/net/usb/ax88179a_devices.c:208), which unconditionally…
+Will fix by conditionally setting AX_RX_CTL_PRO flag of data->rxctl
+in ax88179a_reset().
+
+> - [Low] The comment added in ax88179a_reset()
+>    (drivers/net/usb/ax88179a_devices.c:1140-1142) claims that when the…
+Will fix typo in comment: ax88179_reset() -> ax88179a_reset()
+
+> - [Low] The comment added in ax88179a_resume()
+>    (drivers/net/usb/ax88179a_devices.c:201-203) says 'PHY-power is re-…
+Will fix by changing wording of comment.
+
+> - [Low] The new PM callbacks issue a chain of vendor control transfers
+>    whose results are all discarded and then report success.
+
+Duplicate of above, handled there.
+
