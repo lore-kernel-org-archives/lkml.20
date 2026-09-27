@@ -1,187 +1,248 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBC53909A8
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C363D3B14AD
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522357; cv=none; b=AwtaluUYq4s8edtDVl75GiE7USZVWCdq2chxG1FdLXAFvjRwNEZM3zaIOcRLc7ipLgKqz2QTGYCaGj5CorGDLMjqjJhaXGdCWpR05fMt9ksRz2Jn4FG2jxPevXw95ucj+4caPL+GcVANKhbHwE8PQn9aomVWer+OVA4CHn7FyCY=
+	t=1790522367; cv=none; b=qNzGcfK0IKkYar/wI8OPqYVuw0gB50t6AcQN5VCejBu7zOoo0nwQCJoXu82Qou0NW0pRqyXUQs19OO+d6pl+K8gONI1irxXl6yMYPv7jst6wN/ZQousORRpSq/kxRooQ0ws/nDKgiwfDsfV5qNjSV8u9TwjaIWRfG/Dl0+ItAkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522357; c=relaxed/simple;
-	bh=8si9RZxezPar4+TwY5ISb2I2gRWg47WZ34xPxIIrTrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZhlLNI9oC4o8qazHVjM9eHCp8EAeeVA/Vanvd5L7CKaVcFrTItSxHeXyngLU2zJFY/+Ym7h8/SZl4+En9RC+3sY0u8qC+wdulOkEEn9BxZbM0U9/iwFCxUxvwuayZCfOWaRBhDug/lW8yGj7IpAfK8KEqPCr/PKGpryFkmAGLao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com; spf=none smtp.mailfrom=adrianschlegel.com; dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b=H4E+dBi1; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=adrianschlegel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b="H4E+dBi1"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1025084f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=adrianschlegel-com.20251104.gappssmtp.com; s=20251104; t=1790522354; x=1791127154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NKtijRIiV6/KSSi0SUtLMopEk8t2rvtSuKt4edIOUPc=;
-        b=H4E+dBi1EuT7BBjl+lEoMEJgP/ZeqtdfMikDTALt+0aBw0br2d4vBL6MWDNS0L9awh
-         jCNNSrMN1c3LcP7ZORkiam6PTaeic7qs/+3AVpqcAIPQxIiqAAPsYr1WLxzVexkwq1Ut
-         yhbjS9B7qHGU1PjG2LSkbLHdsGhcQMhS0PZLk5h2CeobCEL0JSezOn5MO3np2BDVTK79
-         hx0JpirrVSx3RvqK5pHRebfxz7lT9PWFfQ0w/ovllqTJwijpkVz9mmL/5/wZH7eaHSxn
-         d06Y54eMjndq9fyLoAMKHymv5QfLqilYXpB93wPSjrSDHdtzIe3MZ3yb8wMPBtWt3/vx
-         /JGA==
+	s=arc-20240116; t=1790522367; c=relaxed/simple;
+	bh=IcGYiHdGfHAakSGNBy8LgEwmCRWVVJjlwkaCFyvcSgA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=VCll5YLQv77esNXxpht53LRyLjrd5cCjbTYRkpLYj1x1Uli93hL5Ga2L5Hp1ByFgYKafk5ciBNBeTrNTRoZFbevei/xJiquzVL0+ePUvo26mdQaU1z35ThnrEVaU0uDsKPiyONAeEzyHRe0vGORGE/yMywHulr6OwNW+V0JMQGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28d7ffab1so4012117b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:19:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790522354; x=1791127154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NKtijRIiV6/KSSi0SUtLMopEk8t2rvtSuKt4edIOUPc=;
-        b=mbHbvfSM9r0HTm+28WxLOjmK2Gjgxcg1qn9sCPmFpeQ03KGhhzvpoIB3XBgBFQnlYD
-         vLIsSVYUxPNm0tzf3/beivQ+tuQQFwBHkZAcCXRO3hrc2kgRAjIdKQHME46GZn9YSTCR
-         u9xoCI8sUo5Fhl2xO+Hh9T3WLLcCev+cb4EBg0edR/ytKEgL3a1yGOkqVfP5HftTLC9s
-         tjlLQPcsDRykKwtRk/+XtFvLu3aVRNqeznTnyYllfziFz+DHY4wUr4l/romB5Wv/4UGs
-         M0o0JOV0ZXr5myqD1lwewqL5JFz7otbm2DK3rcfUdWSsVLuPLHDKo1G7xFAQnWXTyXkb
-         X7Ow==
-X-Forwarded-Encrypted: i=1; AKwUvByJPyXpfZa01rzlVc9oFcD6Rk3MKbm52g+3WSeBPMCUjulP4I6gQOcmO8byu3Z5gebpBHAxW0mkA+TJfG8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLu7DHCXQ5Zv5NWrGCDuVzCHrGRoP8a5sKW32zwEKflJ0oE8XGW
-	Eb8SmNxWB5aYqlZSZhV9qnwIda/1K3u4D8M7szD8e3II4HyUWTqtJAXs2YZX1RemwQ==
-X-Gm-Gg: AYBFou29cTs1GFDW5yEkLFzadr6s7Q+P2frWNEvH7wUli5mef0veEEoedo/SycMuz7n
-	SP55lglZeeBRnv6Hzra1nVp0vBmKRUjVM1bCO/ulj9lVr6dyu7qhbNmfbf8A8TNNuBugOJWrO68
-	WlJI4oi8+WIdPUavn+MJDVgjXG/ZYx9iRi79QSAMKjhXzpJ3gcpUhu/cBy7+WWHEJMd0omLkYUN
-	LgJRExRiScAST8OR0jxbvFegz5w2f3DbuuNAv4fcJFvey81Py0iA2ylQg2NOGcspqSI9bAhLkbm
-	UoiidZN8iur0P5Feh4Npc4XOmUvdNMCkghkYE37DTxKplmMVvSN0U837G1AZEzncRFiUrTb4HBO
-	WkEqIvS8WO+P4qRtdbgW75pZaoo5x7xvR9gibFXOC/ToPjC4snL1zFaQPWEnxkMypbyht2Jjvtw
-	Ih+6e212UglxwTRl7sfY46RQQcWSHMJCN5AOKzzYehn8jezsCEWgLDXce02JTOII2d44l/rD20Q
-	ncPpBI9KYDxlMRmP0rl3cxZntSN0c1VMFdBsQci9w==
-X-Received: by 2002:a05:6000:490d:b0:488:845b:4bc with SMTP id ffacd0b85a97d-488845b065amr8917944f8f.11.1790522353472;
-        Sun, 27 Sep 2026 08:19:13 -0700 (PDT)
-Received: from Adrian-Arch ([2a02:168:96c6:1:452b:38d5:263b:6319])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6470b7sm21231770f8f.27.2026.09.27.08.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:19:12 -0700 (PDT)
-From: Adrian Schlegel <me@adrianschlegel.com>
-To: Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>
-Cc: linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adrian Schlegel <me@adrianschlegel.com>
-Subject: [PATCH] RAS/CEC: Only count corrected DRAM errors on Intel
-Date: Sun, 27 Sep 2026 17:19:04 +0200
-Message-ID: <20260927151904.30524-1-me@adrianschlegel.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790522364; x=1791127164;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3Ei5dNIIKR4rC7Cm5c+B+fnAtoZCP/bdgTGVjZs7GWQ=;
+        b=FvCOTElf5yDIajYKNjGUY+lU+9LDcqLekHk18dVfQlPV6weCVQq4rKfqbyW3jdXKdC
+         V+nVoq9gDisnu+JRd7SncXz344VcCGoNSP75NIc15ej/1kI7kpuM7bGMRENk/9BFd3YY
+         I54dNE7juvE6muSs5NE7cpRUIc5aTiEKySVJB1bjsQYLTX1e74OBT38Rkg0tNBn4AnlX
+         SNeZgiJPnWl9MryZSTAGcFtugdYa7OhWp8wg9GKKArUlYXyVY/QpH6mJZICmO6aJSuoZ
+         N+jpTvRX6ZJ8/y1j0Ck5Eq0hDYtFBZ2GRdgzstIuFMMTSEMxNn+eNHC4BpIImuj0HPfm
+         f+0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxtFdhTa6YFFeSbYcejPvVyOenbQ9xKDxSGKbm5xTgqjRnBZV9EHm4v2XDU5Y/HQ9XWyvl2Q7U0wnNGcpI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE4DwBO08aA6ghWKxoVM6TMPVcHY6nXHFGJNHU0R3lPPn//nak
+	udWTulufGsxZXjF/3ddmyfVVqMr6Qa1jEpmIjOa9zShHtDxZ9++uQF/osCZoG5a/+hr3Z3BMm8n
+	J2riOESaspKwkXNASROX+b4+O1WCz2zUZIcoLWxVQF/WgkPyNkmXjb5bLJlg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:2219:b0:4ca:9850:4dd8 with SMTP id
+ 5614622812f47-4d72a34ca3dmr9034358b6e.10.1790522364646; Sun, 27 Sep 2026
+ 08:19:24 -0700 (PDT)
+Date: Sun, 27 Sep 2026 08:19:24 -0700
+In-Reply-To: <6a73d1a8.b50370da.49fe0.0009.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab933fc.80e1c6cc.1e8e5f.005e.GAE@google.com>
+Subject: Re: [syzbot] [kernfs?] possible deadlock in autofs_notify_daemon (3)
+From: syzbot <syzbot+2b1c8c58f62458852a54@syzkaller.appspotmail.com>
+To: autofs@vger.kernel.org, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, raven@themaw.net, 
+	syzkaller-bugs@googlegroups.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-cec_notifier() is meant to consume only correctable DRAM errors, as its
-comment says, but it relies on mce_is_memory_error() for that. On Intel
-and Zhaoxin, mce_is_memory_error() also accepts cache hierarchy errors
-(MCACOD 000F 0001 RRRR TTLL) and generic cache hierarchy errors
-(000F 0000 0000 11LL). That check was added in fa92c5869426 ("x86, mce:
-Support memory error recovery for both UCNA and Deferred error in
-machine_check_poll") for uncorrected errors, where a cache error with a
-valid address can point at poisoned memory.
+syzbot has found a reproducer for the following issue on:
 
-For corrected errors this does not hold. A corrected cache hierarchy
-error means a bit flipped in the cache and was fixed there. The reported
-address only names the line that happened to be cached. Counting these
-in the CEC makes it soft-offline healthy DRAM pages, and with the Intel
-action threshold of 2 from d25c6948a6aa ("RAS/CEC: Reduce offline page
-threshold for Intel systems"), two such errors on the same page are
-enough.
+HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=12416605580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=2b1c8c58f62458852a54
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15870ac9580000
 
-This was observed on an i9-9900K without ECC memory and with a faulty
-core. Bank 3 on CPU 1 reports thousands of corrected cache errors
-(MCACOD 0x0135, 0x0151, 0x0179, ...) with addresses spread over the
-whole physical address space. Within one hour the CEC made 502
-soft-offline attempts on 159 distinct pages. 453 failed because the
-page was in kernel use, the others took healthy pages offline:
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+2b1c8c58f62458852a54@syzkaller.appspotmail.com
 
-  RAS: Soft-offlining pfn: 0x100250
-  mce: [Hardware Error]: TSC c43a09e330 ADDR 1002504c0 MISC 2514285
-  Memory failure: 0x100250: unhandlable page.
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor419/5954 is trying to acquire lock:
+ffff8880349c0938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_write fs/autofs/waitq.c:55 [inline]
+ffff8880349c0938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
 
-  RAS: Soft-offlining pfn: 0x24f6c8
-  mce: [Hardware Error]: CPU 1: Machine Check: 0 Bank 3: cc5ffdc000100151
-  mce: [Hardware Error]: TSC 21903b589a2 ADDR 24f6c85c0 MISC 2516485
+but task is already holding lock:
+ffff888037e1c880 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
 
-This affects any Intel system with CONFIG_RAS_CEC=y and a core that
-repeatedly reports corrected cache errors, with or without ECC memory:
-healthy RAM is lost until reboot and HardwareCorrupted keeps growing,
-pages that cannot be offlined are retried over and over because the CEC
-drops the element after each attempt, and the messages point at failing
-DRAM while the defect is in the CPU.
+which lock already depends on the new lock.
 
-AMD already restricts this to DRAM ECC errors since c6708d50f166
-("x86/MCE: Report only DRAM ECC as memory errors on AMD systems"). Do
-the equivalent for Intel and Zhaoxin, limited to the CEC.
 
-Add a helper cec_is_dram_error() to drivers/ras/cec.c and use it in
-cec_notifier() instead of mce_is_memory_error(). On Intel and Zhaoxin
-it only accepts memory controller errors, i.e. MCACOD matching
-000F 0000 1MMM CCCC, which is the first of the three checks in
-mce_is_memory_error(): (status & 0xef80) == BIT(7). For all other
-vendors it falls back to mce_is_memory_error(), so AMD and Hygon behave
-as before.
+the existing dependency chain (in reverse order) is:
 
-Corrected cache hierarchy errors are no longer counted by the CEC.
-cec_notifier() returns NOTIFY_DONE for them, so they still reach the
-default notifier and are logged as before. mce_is_memory_error() itself
-is left unchanged because other users, like the nfit driver, rely on it
-for uncorrected errors. The action threshold and the handling of
-uncorrected errors are not touched.
+-> #2 (&of->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+       iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Tested with mce-inject (sw) in a VM with an Intel CPU model. A corrected
-cache error (status 0xcc5ffc0000100179) is no longer counted and its
-page stays online. A corrected memory controller error (status
-0x8c0000000000009f) is still counted and its page soft-offlined.
+-> #1 (&pipe->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
+       anon_pipe_write+0x164/0x1b50 fs/pipe.c:534
+       __kernel_write_iter+0x6bb/0x930 fs/read_write.c:621
+       __kernel_write+0xf6/0x140 fs/read_write.c:641
+       autofs_write fs/autofs/waitq.c:57 [inline]
+       autofs_notify_daemon+0x50d/0xd90 fs/autofs/waitq.c:164
+       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+       follow_automount fs/namei.c:1565 [inline]
+       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+       traverse_mounts fs/namei.c:1647 [inline]
+       handle_mounts fs/namei.c:1749 [inline]
+       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+       step_into fs/namei.c:2152 [inline]
+       walk_component fs/namei.c:2288 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x58b/0xc40 fs/namei.c:2813
+       filename_lookup+0x202/0x590 fs/namei.c:2842
+       vfs_statx+0xff/0x3f0 fs/stat.c:353
+       vfs_fstatat+0x77/0xe0 fs/stat.c:373
+       __do_sys_newfstatat+0x9d/0x120 fs/stat.c:538
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Fixes: 011d82611172 ("RAS: Add a Corrected Errors Collector")
-Signed-off-by: Adrian Schlegel <me@adrianschlegel.com>
+-> #0 (&sbi->pipe_mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       autofs_write fs/autofs/waitq.c:55 [inline]
+       autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
+       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+       follow_automount fs/namei.c:1565 [inline]
+       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+       traverse_mounts fs/namei.c:1647 [inline]
+       handle_mounts fs/namei.c:1749 [inline]
+       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+       step_into fs/namei.c:2152 [inline]
+       walk_component fs/namei.c:2288 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x58b/0xc40 fs/namei.c:2813
+       filename_lookup+0x202/0x590 fs/namei.c:2842
+       kern_path+0x37/0x50 fs/namei.c:3036
+       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+       resume_store+0x1d6/0x460 kernel/power/hibernate.c:1280
+       kobj_attr_store+0x58/0x80 lib/kobject.c:842
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &sbi->pipe_mutex --> &pipe->mutex --> &of->mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&of->mutex);
+                               lock(&pipe->mutex);
+                               lock(&of->mutex);
+  lock(&sbi->pipe_mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor419/5954: 4, last CPU#0:
+ #0: ffff88807a6735f0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
+ #1: ffff888037bc2460 (sb_writers#8){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
+ #2: ffff888037e1c880 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+ #3: ffff888020adbe18 (kn->active#59){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #3: ffff888020adbe18 (kn->active#59){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x332/0x5f0 fs/kernfs/file.c:337
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5954 Comm: syz-executor419 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ autofs_write fs/autofs/waitq.c:55 [inline]
+ autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
+ autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+ autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+ autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+ follow_automount fs/namei.c:1565 [inline]
+ __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+ traverse_mounts fs/namei.c:1647 [inline]
+ handle_mounts fs/namei.c:1749 [inline]
+ step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+ step_into fs/namei.c:2152 [inline]
+ walk_component fs/namei.c:2288 [inline]
+ lookup_last fs/namei.c:2789 [inline]
+ path_lookupat+0x58b/0xc40 fs/namei.c:2813
+ filename_lookup+0x202/0x590 fs/namei.c:2842
+ kern_path+0x37/0x50 fs/namei.c:3036
+ lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+ resume_store+0x1d6/0x460 kernel/power/hibernate.c:1280
+ kobj_attr_store+0x58/0x80 lib/kobject.c:842
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fab79cd6b77
+Code: 48 89 fa 4c 89 df e8 98 1e 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffcb4ea4ee0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055556184c400 RCX: 00007fab79cd6b77
+RDX: 0000000000000016 RSI: 00007fab79d14c00 RDI: 0000000000000005
+RBP: 0000000000001733 R08: 0000000000000000 R09: 0000000000000000
+
+
 ---
- drivers/ras/cec.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ras/cec.c b/drivers/ras/cec.c
-index 15f7f043c..aa3fa633a 100644
---- a/drivers/ras/cec.c
-+++ b/drivers/ras/cec.c
-@@ -531,6 +531,24 @@ static int __init create_debugfs_nodes(void)
- 	return 1;
- }
- 
-+/*
-+ * Only corrected errors reported by the memory controller say something about
-+ * the health of a DRAM page. Corrected cache hierarchy errors originate in the
-+ * cache itself, their address only names the line that happened to be cached.
-+ */
-+static bool cec_is_dram_error(struct mce *m)
-+{
-+	switch (m->cpuvendor) {
-+	case X86_VENDOR_INTEL:
-+	case X86_VENDOR_ZHAOXIN:
-+		/* Memory controller errors: MCACOD 000F 0000 1MMM CCCC */
-+		return (m->status & 0xef80) == BIT(7);
-+
-+	default:
-+		return mce_is_memory_error(m);
-+	}
-+}
-+
- static int cec_notifier(struct notifier_block *nb, unsigned long val,
- 			void *data)
- {
-@@ -540,7 +558,7 @@ static int cec_notifier(struct notifier_block *nb, unsigned long val,
- 		return NOTIFY_DONE;
- 
- 	/* We eat only correctable DRAM errors with usable addresses. */
--	if (mce_is_memory_error(m) &&
-+	if (cec_is_dram_error(m) &&
- 	    mce_is_correctable(m)  &&
- 	    mce_usable_address(m)) {
- 		if (!cec_add_elem(m->addr >> PAGE_SHIFT)) {
--- 
-2.55.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
