@@ -1,75 +1,49 @@
-Received: from mail-dl2-f38.google.com (mail-dl2-f38.google.com [74.125.229.166])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04B6370AE6
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB503BBFDB;
+	Sun, 27 Sep 2026 11:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790507099; cv=none; b=r1SzGkMa3JxtkdkJAXRwPSEc9Ocw+zwZaV6sDSd+xebAa9cys+zKAYKtUaWubp9J0PXv7yjlTZc00Sx1bhfXLIc99SYXPPClGuAm2biuFedsQ6SXtQsN4SyWWPYCIhEAhVXadFz7Ms+ZEkUlD5Av3lXJXx5PDufZsLZqe6BI0DY=
+	t=1790507140; cv=none; b=CdHLz+ALcanqms7nCuIJEVfP7fW7Lwu4nXkJFNcXgmH0T2IDTB8t8SktbQcOWgJxZrCCaETMoDpRusjIklclvkkmIlP8z23dvvDAbPAO3IOgeuht92nrkgs3mS+9zn+66/CS2xl3NeRu1BJsUs0gnhXDgKhM/Ft4rTrtnmI+9IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790507099; c=relaxed/simple;
-	bh=KOl8jmrFfl+8h98tuqSGeaJ2dBRItGP32FRNaZsYlgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kLIaQQb1vbasF+o5OltosC9ueVPBMAF+5slajeC+NZ/uoCg/0jE3FNlPsGTtOH1Ly3w3ZQkN30lHLvp0B8KMj1nPCRxQ+itk8X1+abuUffXWuZyPlDTEAucyuJYCllGslidEyIgAM/YtrB96FHG307p/V7au9SPWeLxrRdNlScM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JqMtaWRM; arc=none smtp.client-ip=74.125.229.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790507140; c=relaxed/simple;
+	bh=poN08yvDAAhf9UIIBErMuSeGn9BQ3mes0TMpLzvmJoY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OIqR3+EnPIPVhLNRUA6Q847BWpTeVlY7yrqlxPQuxEW99s8qdqo7dzfxdwP/EY4MbTZvTsBfDfdwcUFqWBmZ7pL7rya6mbzUj2cpqj2MJRxLQZGAFopXayl/bTEk9E8whErmQwapc3bCQd4K/yOD6EyOrqfmeF3NISv6jFPGE14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=OUQR4V4D; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JqMtaWRM"
-Received: by mail-dl2-f38.google.com with SMTP id a92af1059eb24-141a5d476aaso63832c88.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790507097; x=1791111897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z68JCcllfkB9N/J0fAQxTKvHFiY+2t1qnuCG8bIZkkQ=;
-        b=JqMtaWRMIs3SBXcs+mQV+gza8Ks/mkyNOXDQysGx3DTDKA7KwfbWo5+tJISIIifLOv
-         byMvt+euC3GJ0GgRTvlXKHTjt+4d8JPwDBzTu3swUNP8HXRceh2i1OGbCNuFpai16zbD
-         JmihucHoh185egse7a8WP5VCYra1xx7AhIx8PjlrQeO3BC7mqNK1U0Q/mBFy7kde2SW5
-         dyFKOePa5o4P5UGNpe4AB4WpdVRww0F+nP2NYtYmCob79NtV+KhSNQyWQcdV71hnUqLb
-         DxnGB5IfUVAyLx8+LrVdncV9qGxWAzmgRAkjF2I6uis8ZEtRQlu2PiIGyYj2nWLQiS9R
-         D17g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790507097; x=1791111897;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z68JCcllfkB9N/J0fAQxTKvHFiY+2t1qnuCG8bIZkkQ=;
-        b=1JP6W1nWBvpuY5OLuFvDjenWiass7aG4OHgZwjwdJZVtdIRNGGvQf7xAZ7gvEbW928
-         7dC4mnsjoAg/KOjVflZQWgU8FXiOSSzQQTpt4qumxWpSGNoJrYFu6kkpaApT92rjaA0t
-         7EeJ/9HLI4qZ5KL8wGHtPgpknd6jXjqosoEmi91Q87PR1MhBbGIjGhJAiC7S5BDtFhr0
-         BYDzqwkbP3hsq4shKRmIOYBeFGAY5IjrCL9U8cXmtUggqNkYcXuvif3bIFJtlfSVI0CI
-         AA7GZg/FRW0HiMIJRKL5gwJutBUn7ZVUt9y5XiT3UKKtHw8CZgsA6PBkQgp5PglexuGB
-         0T3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwstr4TI48wvfCAmqrFg1aPK7mMWsZMR/SjIgaLPTxoQ/TVOmkp2MCjE0Vm7D09U0+W9fjB86rvPnuVMUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzLIS6FLBaE3J72vYHN343XsSVlhfA7YF+jvD5GSoZx2Tw+0Qf
-	5kMVtztog074r64uYIq3KI0DxKyWaCJjv4+5ym0Enip1/wuGLMQDNsDb
-X-Gm-Gg: AYBFou0nts5f6ME8tS4DIbHZGgk1m4Vm2RZPONy3ACfmGFjxXJ/B+lwIWwjXBTkUzzy
-	dzEl5xMbOCh6In1+ateMxq+zRSWk5eJkBoW+22Q58MsVR/fkFtSbIBrsWUQx4WEA22TviOFdfVX
-	k/mS5SYvm+o//S5+ojdN3EEFsxl7vlxMlxbVb0dGW8MAdqB8mlBN/pOmrwdmrdYefeEPipzJVbT
-	8ICJAZ1d3sYT61y789N+dVaZVGQG6GEkZ7Ar0jp0isMr8NABse7zlEImBei2ToUS0t1BugakIrc
-	Kh64bcVpPBgVMJ4kD/J6udhrL4I9+f5v04uf1BUuZSGeGyfFFDQ36fjIM8SUXIr15uISXtlks98
-	iZpj74NI1PwdeC98/hYwejh45fYbkW9VT1EM9PjzthsEs2Ldnbtt8zsrTvO+LuKGhsnekS+5zMv
-	jYLOGaSQqt9skYyZ2TA0cKzVFFyFhZJY2H3WsQvK42Fg7SftiU66gel6coKz2ZMpilVolh8tToX
-	/GSA23wav9DwecQSmAArwzSIkGdV74F8l8cDYCM5eaK+R0cGVaQYsXuTqiVnxD4ihfsv7IpVY0C
-	WcQa
-X-Received: by 2002:a05:7022:3c0f:b0:13e:5a51:148c with SMTP id a92af1059eb24-146cb31161fmr8647916c88.0.1790507096182;
-        Sun, 27 Sep 2026 04:04:56 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm17970541c88.15.2026.09.27.04.04.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 04:04:55 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Brian Gix <brian.gix@intel.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_conn: Lock parent access during enhanced SCO setup
-Date: Sun, 27 Sep 2026 19:04:50 +0800
-Message-ID: <20260927110450.3902328-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="OUQR4V4D"
+Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 33D2C20291;
+	Sun, 27 Sep 2026 13:05:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790507127;
+	bh=gpaaXjdlXODSgCKCY/4Mr6bPE7Uezooe0w7R1BnxDYc=; h=From:To:Subject;
+	b=OUQR4V4Dgked0gsUKk2lTLiP/OFrWmTognhjNjGPkQN7Q0U81msgw6Z2L3G3v0u5D
+	 9Zhuid7q420dPOHY8rW/jmfULmWMHAHtusQ4sqqtuwSr5JpDkqJS0yt7Tn9EwD43Z/
+	 jN4GvEgPBVv5OrDzRwyI9T1Yu9B26BUY6rocTxtsSmtRm43RJlpdrxJTqJkr5MBaRU
+	 IH6qB4a3sqdybDm/aQgQEOY6GVj0JQ0ozrY4HK4Gf8XOL+S4mi/ZS5dChXZmwHPqZj
+	 HD1SOso/JHWard5UrvZndRexk5sLynf4eAyhajvaG20sXEMAfJHL01c9AbnlE9Zey7
+	 rgQgeXMYKUWOA==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: freescale: imx8mm-verdin: add gpio-line-name for CTRL_SLEEP_MOCI#
+Date: Sun, 27 Sep 2026 13:05:07 +0200
+Message-ID: <20260927110508.60922-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,145 +52,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bluetooth: hci_conn: Lock parent access during enhanced SCO setup
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-hci_enhanced_setup_sync() runs on the request workqueue without the
-hci_dev_lock held by its caller when setup was queued. Its CVSD
-capability check and find_next_esco_param() dereference conn->parent
-while the receive workqueue can unlink and release that parent.
+Verdin CTRL_SLEEP_MOCI# (SODIMM 256, GPIO5_IO1) is the only SODIMM signal
+of the module without a gpio-line-names entry. Verdin iMX8M Plus, AM62,
+AM62P and iMX95 all label it SODIMM_256, do the same here.
 
-The following interleaving can cause a use-after-free:
-
-  hci_enhanced_setup_sync()       hci_disconn_complete_evt()
-  load conn->parent
-                                 hci_dev_lock()
-                                 hci_conn_del(ACL parent)
-                                   unlink SCO child
-                                   drop link's parent reference
-                                   clear child->parent
-                                   release ACL parent
-                                     bt_link_release()
-                                       kfree(parent)
-                                 hci_dev_unlock()
-  read parent->features[0][3]
-
-The reference held for the queued SCO child does not keep its ACL parent
-alive after unlinking. Commit 42de40abe25d ("Bluetooth: hci_conn: fix the
-SCO setup context lifetime") protects the child stored in the queued
-context, but leaves these parent accesses unprotected.
-
-With a 40 ms diagnostic delay after loading conn->parent, an instrumented
-kernel based on fd179f8a05be, which already contains 42de40abe25d,
-reported:
-
-  BUG: KASAN: slab-use-after-free in hci_enhanced_setup_sync+0xda5/0xdf0
-  Read of size 1 at addr ffff888102204047 by task kworker/u17:0/93
-  Call Trace:
-   hci_enhanced_setup_sync+0xda5/0xdf0
-   hci_cmd_sync_work+0x13c/0x290
-   process_one_work+0x6b4/0x10e0
-
-  Allocated by task 92:
-   __hci_conn_add+0x304/0x1df0
-   hci_connect_acl+0x349/0x3e0
-   hci_connect_sco+0x3b/0x9a0
-   sco_sock_connect+0x475/0xca0
-
-  Freed by task 94:
-   kfree+0x121/0x3c0
-   bt_link_release+0x79/0xa0
-   device_release+0xc8/0x240
-   kobject_put+0x14d/0x280
-   hci_conn_del+0x524/0xe30
-   hci_disconn_complete_evt+0x403/0x8c0
-   hci_event_packet+0x71b/0xb20
-   hci_rx_work+0x293/0x730
-
-The accessed address is 71 bytes into the freed ACL parent, at its
-features[0][3] byte; the queued SCO child is a different object. The
-diagnostic preserves the loaded parent across the delay, matching the
-unmodified compiled capability check, and does not change the parent
-references or teardown path.
-
-Hold hci_dev_lock() across the codec switch, including every call to
-find_next_esco_param(), and release it on all selection errors. Keep
-configure_datapath_sync() outside the critical section because it waits
-for HCI events. Preserve parameter selection and existing return values.
-
-Fixes: e07a06b4eb41 ("Bluetooth: Convert SCO configure_datapath to hci_sync")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- net/bluetooth/hci_conn.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 96195d2fd10f..cf44452e0766 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -302,11 +302,13 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 	cp.tx_bandwidth   = cpu_to_le32(0x00001f40);
- 	cp.rx_bandwidth   = cpu_to_le32(0x00001f40);
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+index ac450fc6cbfb..4f64c5da8d15 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+@@ -353,7 +353,7 @@ &gpio2 {
  
-+	hci_dev_lock(hdev);
-+
- 	switch (conn->codec.id) {
- 	case BT_CODEC_MSBC:
- 		if (!find_next_esco_param(conn, esco_param_msbc,
- 					  ARRAY_SIZE(esco_param_msbc)))
--			return -EINVAL;
-+			goto unlock;
- 
- 		param = &esco_param_msbc[conn->attempt - 1];
- 		cp.tx_coding_format.id = 0x05;
-@@ -332,7 +334,7 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 	case BT_CODEC_TRANSPARENT:
- 		if (!find_next_esco_param(conn, esco_param_msbc,
- 					  ARRAY_SIZE(esco_param_msbc)))
--			return -EINVAL;
-+			goto unlock;
- 
- 		param = &esco_param_msbc[conn->attempt - 1];
- 		cp.tx_coding_format.id = 0x03;
-@@ -359,11 +361,11 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		if (conn->parent && lmp_esco_capable(conn->parent)) {
- 			if (!find_next_esco_param(conn, esco_param_cvsd,
- 						  ARRAY_SIZE(esco_param_cvsd)))
--				return -EINVAL;
-+				goto unlock;
- 			param = &esco_param_cvsd[conn->attempt - 1];
- 		} else {
- 			if (conn->attempt > ARRAY_SIZE(sco_param_cvsd))
--				return -EINVAL;
-+				goto unlock;
- 			param = &sco_param_cvsd[conn->attempt - 1];
- 		}
- 		cp.tx_coding_format.id = 2;
-@@ -386,9 +388,11 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		cp.out_transport_unit_size = 16;
- 		break;
- 	default:
--		return -EINVAL;
-+		goto unlock;
- 	}
- 
-+	hci_dev_unlock(hdev);
-+
- 	cp.retrans_effort = param->retrans_effort;
- 	cp.pkt_type = __cpu_to_le16(param->pkt_type);
- 	cp.max_latency = __cpu_to_le16(param->max_latency);
-@@ -397,6 +401,10 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		return -EIO;
- 
- 	return 0;
-+
-+unlock:
-+	hci_dev_unlock(hdev);
-+	return -EINVAL;
- }
- 
- static bool hci_setup_sync_conn(struct hci_conn *conn, __u16 handle)
+ &gpio5 {
+ 	gpio-line-names = "SODIMM_131",
+-			  "",
++			  "SODIMM_256",
+ 			  "SODIMM_91",
+ 			  "SODIMM_16",
+ 			  "SODIMM_15",
 -- 
-2.43.0
+2.47.3
 
