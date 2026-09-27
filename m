@@ -1,91 +1,91 @@
 Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9025A4A21;
-	Sun, 27 Sep 2026 05:20:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C1354707C;
+	Sun, 27 Sep 2026 05:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790486458; cv=fail; b=dueBzPU3R6khrFD10IyXa8VPDa6NtJopUkDP82eJDDVeCcN8SiI46T0tBrLHNRT/90QlhBVodLQ38gUpANBGNau2q4yPMJSXP2jWJd1v5fx3GuyvOchI8yENpwy4J4ef/3TvaIDjdg2HAaaFgTSVWFEHWmx95+PoDrxTiF3pnVo=
+	t=1790486685; cv=fail; b=IHcRWkfyj2J6TymEGYQvQ3LdlyY0Rsb5mh+3x34J8GgEXelS2ctsJyFEAplaOrLq9Kf+PA2XQeJzoLP9oLU2GgIw2xAvU5kuiuIAhDCgUSSkK6pEEKkdYLt2bdIW0VbWZfQYfdIqr+3WqEfuwmEamsY7Q2hykuHENRumPkqgJko=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790486458; c=relaxed/simple;
-	bh=PBz184/v+//uHUpOzBlzCD0Qk0+tyJo3vcb8nYqdf1M=;
+	s=arc-20240116; t=1790486685; c=relaxed/simple;
+	bh=a7Jumk5E7usiZ+n10xaqjbGUukSDe/YOK1CEsos4V4A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=fcLOnykHRTQ8MhLEJ/PcU04Ttbg2KLnF+OtFuj2tKShtvzyXVKFDFWkNlQTwh2R5izsomZWLPfSWNps3l20WKT1+9YEB5gwGCV1zwp+g3XD2AqzZonSgXgQzXSyB5P6FIYb61Qs1TDW1XFnNwTOWrTrRcgv9qy2u0lQ1Ks2p5nI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=mp0B+Ve+; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=OpuFZgvA; arc=fail smtp.client-ip=148.163.150.75
+	 In-Reply-To:Content-Type; b=rFL8KCIJNEGpZ5boqwXCvVT8cx+jht7lUY7mtFTWUf9AIIVk8ivX6xvBLchnFgqpQ51CZDkRRRBvOvEUSzIGP1lcJukJWJ+9VPmP6vfGyCqdfjZwgBoThgjcYN6yFPSFj9JJFx4YZJlEebo75+iN7sVMjna9ut6aVmrMhyLbDio=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=HuSPBejw; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=WVfc3zBK; arc=fail smtp.client-ip=148.163.150.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="mp0B+Ve+";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OpuFZgvA"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="HuSPBejw";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="WVfc3zBK"
 Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68QH0WHg2071887;
-	Sun, 27 Sep 2026 00:20:43 -0500
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68QH0cWi2071943;
+	Sun, 27 Sep 2026 00:24:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=ESKq2eYsstwpev0zrtBPK9qr5NOqWQS0YuXfqeHdl
-	ks=; b=mp0B+Ve+K8fNrsBb1EK6QorS/m9MDroazvRqtckKga+mNpr6xhLO5dWno
-	xTBoFK0GzxLbebi/iAAT7GXxN1PUskV8Lv60PFGPLtdWxodjH4YGV7ruMb0kQiEN
-	aEOa+0piK9L9irMcVYLXTmMoB3vIUtz573HiVNJPi5JTD0dEVROcuEInlaMIkbDI
-	/17tWTOiftKoH+U118cglnz1I3zrark4OOBWVLco7vx8K6OCGxum5T4zu153/hQ0
-	yIIqdxiMXhUvMMi/FH7xcLUv0Mj/1YS0xepAn2EzgAU6pZu3dSrhgaeQbniSOkqK
-	72q08hrdEmmYIY1UUUBp4ori6IoVg==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011004.outbound.protection.outlook.com [40.93.194.4])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gx0agnjx4-1
+	proofpoint-05-2026; bh=DJH23R3uiEcXpgXbXjuy1rlwTqfEdV/9zsCh1m+V9
+	l4=; b=HuSPBejwuPGwgdx4UwCXAVWsPWpCGtIKDB1ejSsNOb3xzToghgStvB5VG
+	et2eRNb4dC/IcOkRnWxPsHGuyqg7hWousqcDJ4w6JYAlt49mX293BvYN65QHTJwG
+	bkhguxkHmxrUS82tlx9ndmpu3/WwRQE/a8ki/G+K/laC8KF+287Hqj/XGJalBn9l
+	EZmBjwzgYcz6rUsQt13FaC8TVgM8Oq5JK8JaewXP4rVLUXXFVjcVwYrnQKoNdAiE
+	k3Jwittf6R0wtY1GudNYCFW4HQAuO2f6/rVULzr9UFU56QL3LS7O/Yz9FIkkk20l
+	Ui2lcW/tYCjl2gTSL5MYCj5FtNNRg==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gx0agnk6j-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 27 Sep 2026 00:20:43 -0500 (CDT)
+	Sun, 27 Sep 2026 00:24:28 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EnF6DLMcus4trSgq9qESXtLB/g2iCuyaQxbq9ywhxjjF0rKKpC54Fg8pNlaNEy5Z2+PwuTUbKakYXO97k2ckpxyl2dpEQZlnastryxaO75rDpfij6a/wtvtfFI6UbQgL+vWvSnvfhXOS0vAwNQXJGBSdflLOBDRqxd91aQBMqZ7NNa7mA7Mmnaf+46R0PNl4wgkx0wtUNSEXTivd9hi2E/TiICtp594gWokVMSIqSFWEFLJ2jTbFXxHKsuubZjSbbSL24/04TeeDd8jmroCf8AroRc/V43wJMzPlVQdEg+ytgF+iDNl/7Q23wTc+1tkc0KcUVXkYUwp+ILmaHHvQng==
+ b=OEowcDkZXicBjMlFRUGKZjlOaFRm1ozi5/fSRC8/STKab3T4rED7Qim/tLcIc369helqk14P6MzReJq+pXHW/9Or7zzojQAO3HAXJG6r2YhyWT6RfSbqcHevsbrYbcubi9py2WtC8F36rMIqx/D8jpmdc/JvpW3VtmmYd9ZUEd/ucVT+WivymjBlCt5h8RR7WSL9rJN+vO02Ep3jjIlBmQapO2A6ALo5owDUFWHjTlFEDxM8lj55advRp/nL5Tf4gpy/h7PspMVZOHpCri79OYhp3dDE1V7BJDLU372ShDFLZ54BRtjahk0nqsKYafw8YQzFwZDByr7zVsxibQzkUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ESKq2eYsstwpev0zrtBPK9qr5NOqWQS0YuXfqeHdlks=;
- b=sjgvKE4QI+GSFIZKN0onI4bl//3F8yedO1qLhYWS31DJGCgMua51i6FR8NiajX1ZHmSK3OI62V++pRD5koK+Hj8fZTdwKaJtWdoeyOMWQNgwPVV5j1YPPvWgHIkq7yuNH8M4+q1B7VCp0nokrGufUajx2teTt2vRwQi3KC1TJkmXT5eQ7eajkYeno8LZBRbsPUA5/hX7deIvMr8tMKwaIa8HJ29rZL85JNg+MEBx1AjbzTD9epwJr68EBK6rfq5sn89vfwk+cIFdZyjCxKOPZbU7YOKe2MyZ2JHaw6KGD01DLzeKUML6XQdvTCmfMYiWpdfqWrLO4Mm2qqgxAszcRQ==
+ bh=DJH23R3uiEcXpgXbXjuy1rlwTqfEdV/9zsCh1m+V9l4=;
+ b=ZRqlsUO/VH8kTY3ohj1lhf+EtoKywUbcp0mX/abJY3bqsAKhWZQBaC9pJPPmNCoPFKS8KZIVFKpJcMt1Er9K/6Pzbi1L86/Y32CzaRdn5NFmUjhoKKQWC5/phCHxbptJcggTwTD+GptgV2jMjGrRy12Ssb+cUcXl9t5uTE2FDP7l/JGN4jPIiNr0RMelX+82dtgse06vcI1HHhLQUoB4MPmsGFQ6zwKyM9f3b0HAR/1SCJDZ+Kc8RdSTY9GdHhDmtG16v69oIKzMHiSel5Uw4TRPQlayahL52TWBu0Qr0XdkvjXTm3a3KGujKC+b0Kv9h2ZjsCUcidUi2IGSRXrW0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=nxp.com smtp.mailfrom=ti.com; dmarc=pass
+ 198.47.21.194) smtp.rcpttodomain=nxp.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
  (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ESKq2eYsstwpev0zrtBPK9qr5NOqWQS0YuXfqeHdlks=;
- b=OpuFZgvAn87HuUPdMY8vcevnCCSQqlzT+2wnKcdM2krkJJxRyc3vz8bSN7QxStHoz3hDT/WwneJ6Ux0ml1NxayG7UtGyLrucrukasDyzesuY5suWfyxFFDz2Q1bc/keHmmf7wE0TkqURWja9iUaRBurXp7iwbkiGuiigF+fCJQM=
-Received: from MW4P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::12)
- by DS0PR10MB7066.namprd10.prod.outlook.com (2603:10b6:8:140::17) with
+ bh=DJH23R3uiEcXpgXbXjuy1rlwTqfEdV/9zsCh1m+V9l4=;
+ b=WVfc3zBKLQbS4Z+fQrfBlH8mRhqItHVYbcH+yKEF6I70R7Q+6pFNq4Bew7AdQTFBYcbLTjpYa41bZuEaEHiyjqRCvq3CvGWypa8ahOMnOdBUJS7H1ufYW85G/+JawyhorLUT0bZkrTuxkJ9hgRlFaa2FjT5E3kyKD8GcPm+saNw=
+Received: from CH0PR03CA0052.namprd03.prod.outlook.com (2603:10b6:610:b3::27)
+ by CH4PR10MB8228.namprd10.prod.outlook.com (2603:10b6:610:1f6::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Sun, 27 Sep
- 2026 05:20:39 +0000
-Received: from CO1PEPF00012E82.namprd03.prod.outlook.com
- (2603:10b6:303:8b:cafe::3b) by MW4P221CA0007.outlook.office365.com
- (2603:10b6:303:8b::12) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 05:24:23 +0000
+Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
+ (2603:10b6:610:b3:cafe::9e) by CH0PR03CA0052.outlook.office365.com
+ (2603:10b6:610:b3::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Sun,
- 27 Sep 2026 05:20:39 +0000
+ 27 Sep 2026 05:24:23 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CO1PEPF00012E82.mail.protection.outlook.com (10.167.249.57) with Microsoft
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sun, 27 Sep 2026 05:20:38 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Sun, 27 Sep 2026 05:24:21 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 00:20:36 -0500
-Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 00:24:00 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 00:20:36 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 00:24:00 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 27 Sep 2026 00:20:36 -0500
+ Transport; Sun, 27 Sep 2026 00:24:00 -0500
 Received: from [10.24.52.125] (ws.dhcp.ti.com [10.24.52.125])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68R5KUNI1590486;
-	Sun, 27 Sep 2026 00:20:31 -0500
-Message-ID: <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
-Date: Sun, 27 Sep 2026 10:50:30 +0530
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68R5NsNR1594042;
+	Sun, 27 Sep 2026 00:23:55 -0500
+Message-ID: <9d947c6f-b112-441f-9d24-14b36462dbfa@ti.com>
+Date: Sun, 27 Sep 2026 10:53:54 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,7 +93,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/8] media: cadence: csi2rx: Add RAW10 RGBIr formats
+Subject: Re: [RFC PATCH 7/8] arm64: dts: ti: k3-am62a7: FPDLink overlays for
+ LI OV2312
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
@@ -105,61 +106,61 @@ CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <devarsht@ti.com>, <y-abhilashchandra@ti.com>,
         <mirela.rabulea@nxp.com>
 References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-5-r-donadkar@ti.com>
- <20260926145242.GD764757@killaraus.ideasonboard.com>
+ <20260925133001.2780868-8-r-donadkar@ti.com>
+ <20260926145715.GF764757@killaraus.ideasonboard.com>
 Content-Language: en-US
 From: Rishikesh Donadkar <r-donadkar@ti.com>
-In-Reply-To: <20260926145242.GD764757@killaraus.ideasonboard.com>
+In-Reply-To: <20260926145715.GF764757@killaraus.ideasonboard.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E82:EE_|DS0PR10MB7066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7071a50f-8505-45e0-5185-08df1c571167
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|CH4PR10MB8228:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef5423e4-9e49-4b04-948c-08df1c579656
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|82310400026|376014|36860700016|13003099007|10067099003|4143699003|22082099003|56012099006|18002099003;
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|23010399003|1800799024|10067099003|5023799004|3023799007|56012099006|18002099003|22082099003|4143699003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	Y36HNc441VZElAaNe/J/L6HckXrXqFlWvTPv0OlUNrdbjQNlTW8wbD6onyLZDeHQHyanWmebDc8VWRUqatqgCQz2stYqrJAnSC6hjpEabRVrlSW/HqIiNsLjNaqHIVY1H523a8XTFZ6HSFngc5jTy0wgzRzIqj9/XOZvTKvd0KynYKiUg7kldiZz65snTesiDHUw2Rz4B0hfJgEEj6he+a/5tXGHAVb/xdSGkzUV+nfch4Q0T+ZqGU1rwuErvof412r2zPbDE6ODmXa8IqmQzlVvi5pXU4bdha2+2qEEcAI1qcki6Vz/cDhyak2D7CjKjYKtVvwHlkucZ6jBMN/Nf4PdUcuPzKU3M5mpnVpToNGJ8DkShFPRm8pAwpb6HgFccvUDYSEuoPbq2zLy580uCOyvKPknGtdhtvgvbfuHZY1sYTlpi5Ct4VDouMc6ZpoNM3J4fUt4CEOGucpWxNBTf52p0Pxiy/1I5agSkeMVglJMigbbJn1rAKbq+9vrpN7F8JP9jg5q+s58qnpc2geJYjpBXDJe8wXLfkgIE0Y+ZMo/CszRJeGxlWnXMDOThlQ74+IcQ4/aODKHSzxeorphMRWIEXUK56Mgwb21K4VY9QkleXUBWGmn4yFBL53W5yv8XsonG2I9o8l7DUKxHnk2pjsT+NgAD/9dsmPM1VF80wkAyKaEZIpNcB4HiYtzsjkPf3bfYArIKleeo7CnOypBgg==
+	LM6kWf9s2vhKZluY6a9ga77mRkANR2MyB/139dGPDYHIqtYHojU3z5Rgi+V5LZ8rCHXbXsRZ4KEcWXscJYn/ORU17LEAhjAIYRY9vtYDfrTA+ibaTJEqlKtrcnoi/SB+s2gYmbuCs94Tv6qsRCFGnm1vMVBkV84i8ufoJXBesrYGuQl85VS/DX93un3fPLCDgg3tgxHjNLl6vtsL4v1JeQS23Cc/TwCAskOUvqTYbRt0fyB+t5s3PZ29Es5Mk5kuDKtNLJACZKVieZMK53sPcYmad3YwLSWVK+ZmLfx1yUcTy4K+Xq9VwAJNAYncgx+58gSmqr9DZ4ofHggEYfbveIJTwYINpgMnVsHtkFqXoJPCWRWP2RqfYJr6vb0xjmXMy6VxJw0xnhFgQHvhXk12Ok8OAZbGbnMue9Abzad2yeNPnN4kgfGCHVl2XIzAeqGYdZm+0dafVaWzAgdXcfGSV2VT20RC4qjMihymfxQno/3aUxhP5ZTz4sh0caMzNS+1+B5e0N7EdKJjTexdhM9iBYjGnjzMEbrjoXX2bSUR88z+2g6YS83ve0/5NL1H8O/JpuTyG8/lzxmrlit+5/uhbT8lqA5elaS33uCqhzPwuITCEfaIUAyW5lMgULMIU2pGPMD47XnuaDOBnwEjbvNKaA==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(82310400026)(376014)(36860700016)(13003099007)(10067099003)(4143699003)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(23010399003)(1800799024)(10067099003)(5023799004)(3023799007)(56012099006)(18002099003)(22082099003)(4143699003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	jgWHIUdSagDZcHwNFLNCbxz85alWc89Z2SQAqM1tgtTOwtZrfIYvLdSnL6F4Oq/RqHzhVMr+Cluc7J5POHilV9qKfgf9Uh7QHW+OKpm9zTimQb9GADJQbkLopDgNe+Q2kyml/qq8SGldkp7NqavnW/pPLohbu+0g3ifBPhFuxDVC4wMI+3hWciZNl683igMGK+4nhWY++/HzQ/55f3YS7V08ly62L8Lp9HugadjQH7tPbbD1Hr/GH9tG3OkX5puY5EX1KuG75Fi+wiiFEvmvm9Obi+F7LyMhwF0QIztgwqQ9OeDVuCzK9H89sJ37Z7beygkFM87LbABtVH4nZtyz+uIgUbQeyRIrzdOHi5RqnZYuNElrYeJ3zR5xSXwBWBvSgsJ4jxuNxHjHuyFk44j6Bkl0IhTqX0zCtU89s+Vp5A4RbdfOcoTciIltQYvMzZFR
+	lLzHGmeWspsYJxZ+BTjvQ/ZRXw1tTQjjpZ4kPc2+lxf+4k9fAmRUrmoMdNQ4D3Dcqhpinn2ETvv9kQK4XnAi6mChn95qn4WS20mw1bUGHqMOi+8OQ7INqNIgm2mNdYkHZG6U+73Nd/3YRVwqH1MgYeme6zAMGVn6hpzD7H6qFFb1Re2m8S7OKwMtpVv6AlIi1s3Cnvb1c64A1hsGTBKPOfa24RiPXdQJ4Ruacz1UP2PzQbeLE+GB5DMdZ4mrgPh+5fzGEYG/x+fmaSQegm+4GsZQbfGJfovuGzk1BRBTAsi4gEL2hsQ8Z4elXtlLtQnp08BXosoljOQLIvACDn/X3/dk3ZXb8hJ3IwWE9jfPwH/XUcfR2PNgqf5vmG2fiwx0v3zgxJpgIma5Z2MgbNG9cbdv5Q9oVo6piQgebNxruCNn15WGTQh7Tmsi6wggitu6
 X-Exchange-RoutingPolicyChecked:
-	V/2X94npQpZXNx89y2Ew7OPMZwFJR2lSC+1frp8A6zdwr95xTbhqmDIr4gzmm/0X94/EH6R4/PcAFWM9H0kw0XwZXQ72UL9RfbVUrwL2EAEUvlIQ7kupB/Ca2GLjH9VBvN1RL4wKerj9UTjmTx89i8f9lPpFmGyfs+6nECOHyt+tFGXp1b6RABi29Cb9RDcEV0zpctysm/TcfWtB/aUpkqIWJ8wwWZeBudKHaaqBni10UzDAZ6SDslPmIsyxd1U1Zmu1Sm6Zz6E3iMSOfLavoJBmOdcdOtG9vgRZ9082s8Wjj7gTLexEetPCTfvviuFWhyU1YrD0cckPPWWkT6+meQ==
+	3gmVoRpcj/Olqc2HDqYccgp9I81hTi6KQcDUHYls5wrhsMwZndCYNHVIG+S2vqEZeeb0Ssc8EehNNIPJdAHfkxO8GGbhaj7qzzSLyDF6Md3Isx3VoPXCocRLF8xDXruFYRb8d/pzuvWJoFEKpdjpfw2Gv2/gLMQROpjYKUTDWt7nvqAmdtx/cTwNC1AK8E0shbNZJ6ebREpcyHx0F2GdkF2rUO6RcksbtisIB414LSQppY5+XZeIgNKdZTJul6J8UfmQ34tdwefyNuhCsvIYD3wHbHDbYg7xXJziIJFmfoEdQRZ6sej4BZ5h1QNXPvDi9Z/Zbjr+Gj5YofRmKtJoJg==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 05:20:38.8334
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 05:24:21.8977
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7071a50f-8505-45e0-5185-08df1c571167
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef5423e4-9e49-4b04-948c-08df1c579656
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E82.namprd03.prod.outlook.com
+	CH1PEPF0000A348.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7066
-X-Proofpoint-ORIG-GUID: uJqjNr-06XrZGCw9t-SMl1quZE9FFdUa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDAyMSBTYWx0ZWRfX7nN2pPvWzVnb
- 6TddUTFId1RYi80CuovA2MPvWQ0x5uC2yAKjuptbuNDsPV611sD8q9Q28ruKewksOv8JwdGEjeK
- X8nUzWPv0HT/BXzTG3Z9wOtYQv1GF4d1WN6qm3Mzyav/hUlO2TXmn7SWkiaRhB+JXEEwLUkQtXy
- 4NMGJL3YWnDFTU7gEOauYHT+cmtFqus1LDj9PY+Vz/03dsJOn5HEl7w5g3Ums7mmLzR61YEnMub
- WoRnBowmWuI1V0Y2M4GDVUMux6VtKKw94tctV8M7fPkDqsjn1fHAs/xvxiEK9Idb3Q5IJwlcfBz
- 8ENdCKRMJBRA63cV4Weo56Q2ZpboLH5a1rn4XM3w7YX+r7Luk+pRXBk8QRnNaT175+x5vVZvxfj
- j82JW7+aTrJpXCyEhQtEByPnXKSyPDBh4DteSGDvegfGZ9ba5993lWvsrYZdOH+cRhntw2BreDi
- 5Asvet0Dh06fA1qbfYw==
-X-Authority-Analysis: v=2.4 cv=dYcVTnXe c=1 sm=1 tr=0 ts=6ab8a7ab cx=c_pps
- a=FYRcjPsbj8Vbl0y3HSZiwA==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8228
+X-Proofpoint-ORIG-GUID: jC-dI34jMXVfPXjz1q8KUeA49TwC3HEf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDAyMSBTYWx0ZWRfX+0hrxS3S7qjO
+ ZaFST1xic6ATa9jI3ve2Y1v2OxiQ7ef/E+trwWNNB+ctjZ1r14le6BBqth0+LCrmimKkDDn5HPb
+ Zk0ZQx4pvx4cuWU+U6AGfDPtxF6PLfXU7/PYt2awh5fVIDHlT7BJ64pAH+kzgrANqz/crxqevMO
+ Z/OpI2i9P0mj6wgUFLgY90P1LPUT9/tUaNn3xaRbLPcDUfI5+Rf4Gr24M1UGgsYv8wbmIWtm5PV
+ 2Ar/RkSzZvEiqBumPZwq1m4111F7t1J2nJhVstc1oWnfMQo7IaQz0dk6IH1K9rQ8lPFHSEw5FtF
+ UXh4LNw0AqRwka8ZaMFkjciMHUUNELNNQwRXHe1e+MC7HswKLFHyvmtxS5awpPxmIlI2D6fG+X0
+ e06JRzOh9lEvr7ZTpK9Z7aDZMr96TyHcGAmXJsMqB/tSllrV/gW2M1i+xf8j4o7rzp3pemYV2Xf
+ TQZno9fewrXjKeg3DmA==
+X-Authority-Analysis: v=2.4 cv=dYcVTnXe c=1 sm=1 tr=0 ts=6ab8a88c cx=c_pps
+ a=J0oTDZHsw5jmD/+vARdUUA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=xq3W2uTSAAAA:8
- a=sozttTNsAAAA:8 a=iSLACsKqq3SO5U7miusA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=P5L7wpMTXyg1GfFA3Gwx:22
-X-Proofpoint-GUID: uJqjNr-06XrZGCw9t-SMl1quZE9FFdUa
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDAyMSBTYWx0ZWRfX92nWPvbxGb5Z
- I9UhluNfas9/W32Z4wQICTW290JlzSXlyYRhI2vh84NfzbZtAunWHJA525mZAZ1BaA27L8QroPp
- Jy+mU9rnHI5C9onEGSaa5Dpnf+ChWLY=
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=BIeaPEhIAAAA:8 a=P-IC7800AAAA:8 a=sozttTNsAAAA:8
+ a=XIoLjVCwWtJ1T7_h64wA:9 a=QEXdDO2ut3YA:10 a=xdwx0GSDnVkbZ8IFV8PL:22
+ a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-GUID: jC-dI34jMXVfPXjz1q8KUeA49TwC3HEf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDAyMSBTYWx0ZWRfX3mVQjvxrdn/6
+ 6syd4JhHEKR/794hfrtdMekc43P7BOdiE5KsXG4wW4s9jvVoRxqyjvBs/vBFDUxu75IPNhpOcik
+ FPBNVhCmzw2ndwNjcFIqamrQQEbu9DE=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
@@ -172,53 +173,436 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 
 
 
-On 26/09/26 20:22, Laurent Pinchart wrote:
-> On Fri, Sep 25, 2026 at 06:59:57PM +0530, Rishikesh Donadkar wrote:
+On 26/09/26 20:27, Laurent Pinchart wrote:
+> On Fri, Sep 25, 2026 at 07:00:00PM +0530, Rishikesh Donadkar wrote:
 >> From: Jai Luthra <j-luthra@ti.com>
 >>
->> Add 10-bit RGBIr formats to the table to allow capturing them.
+>> OV2312 is a raw (4x4 RGB-IR bayer) sensor, the LI-OV2312-FPDLinkIII-110H
+>> module [1] packages it with an FPDLink-III serializer (DS90UB953) for
+>> use with sensor fusion setups using FPDLink-III deserializer boards.
 >>
+>> Link: https://www.leopardimaging.com/product/autonomous-camera/ti-fpdlinkiii-cameras/li-ov2312-fpdlinkiii/li-ov2312-fpdlinkiii-110h/ [1]
 >> Signed-off-by: Jai Luthra <j-luthra@ti.com>
 >> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
 >> ---
->>   drivers/media/platform/cadence/cdns-csi2rx.c | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
->> index de7cce76397a..8ed730452d3c 100644
->> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
->> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
->> @@ -173,6 +173,14 @@ static const struct csi2rx_fmt formats[] = {
->>   	{ .code	= MEDIA_BUS_FMT_RGB565_1X16,  .bpp = 16, .max_pixels = 1, },
->>   	{ .code	= MEDIA_BUS_FMT_RGB888_1X24,  .bpp = 24, .max_pixels = 1, },
->>   	{ .code	= MEDIA_BUS_FMT_BGR888_1X24,  .bpp = 24, .max_pixels = 1, },
->> +	{ .code	= MEDIA_BUS_FMT_SRGGI10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SGRIG10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SBGGI10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SGBIG10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SGIRG10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SIGGR10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SGIBG10_1X10, .bpp = 10, .max_pixels = 2 },
->> +	{ .code	= MEDIA_BUS_FMT_SIGGB10_1X10, .bpp = 10, .max_pixels = 2 },
+>>   arch/arm64/boot/dts/ti/Makefile               |  6 ++
+>>   .../boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso    | 89 +++++++++++++++++++
+>>   .../boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso    | 89 +++++++++++++++++++
+>>   .../boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso    | 89 +++++++++++++++++++
+>>   .../boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso    | 89 +++++++++++++++++++
 > 
-> Raw formats will allow supporting all possible CFA patterns without
-> having to extend each driver every time a new pattern is added.
+> This seems to be a very strong candidate for the new DT addons
+> (https://bootlin.com/blog/device-tree-addons-describing-non-discoverable-addon-boards-and-connectors/).
+> It would help getting this feature merged if you could give it a try.
 
-Yes, makes sense !
-
-I noticed that patches for RAW format support are present here
-
-https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata
-
-Is there a plan to merge these into media tree in the near future?
-If they are still under review and need more time to get merged, I’ll 
-plan to cherry-pick them and rebase my work on top of them.
+I would love to give it a try. However, I am quite occupied right now, I 
+won't be able to start on it immediately, but I can revisit this as soon 
+as my schedule clears up.
 
 Regards,
 Rishikesh
 > 
->>   };
+>>   5 files changed, 362 insertions(+)
+>>   create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
+>>   create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
+>>   create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
+>>   create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
+>>
+>> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+>> index 795978e962ee..8d608e244087 100644
+>> --- a/arch/arm64/boot/dts/ti/Makefile
+>> +++ b/arch/arm64/boot/dts/ti/Makefile
+>> @@ -508,5 +508,11 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+>>   	k3-j784s4-evm-usb0-type-a.dtb \
+>>   	k3-j784s4-evm-usxgmii-exp1-exp2.dtb
 >>   
->>   static void csi2rx_configure_error_irq_mask(void __iomem *base,
+>> +# FPDLink Sensors
+>> +dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-ov2312-0-0.dtbo \
+>> +			 k3-fpdlink-ov2312-0-1.dtbo \
+>> +			 k3-fpdlink-ov2312-0-2.dtbo \
+>> +			 k3-fpdlink-ov2312-0-3.dtbo
+>> +
+>>   # Enable support for device-tree overlays
+>>   DTC_FLAGS := -@
+>> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
+>> new file mode 100644
+>> index 000000000000..0829f01a0f90
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
+>> @@ -0,0 +1,89 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * IMX390 FPD-Link 3 Camera Module
+>> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&deserializer_0_ports {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	/* FPDLink RX 0 */
+>> +	port@0 {
+>> +		reg = <0>;
+>> +
+>> +		ub960_fpd3_1_in: endpoint {
+>> +			remote-endpoint = <&ub953_1_out>;
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&deserializer_0_links {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	link@0 {
+>> +		reg = <0>;
+>> +		i2c-alias = <0x44>;
+>> +
+>> +		ti,rx-mode = <3>;
+>> +
+>> +		serializer: serializer {
+>> +			compatible = "ti,ds90ub953-q1";
+>> +			gpio-controller;
+>> +			#gpio-cells = <2>;
+>> +
+>> +			#clock-cells = <0>;
+>> +
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +					ub953_1_in: endpoint {
+>> +						data-lanes = <1 2>;
+>> +						/*clock-noncontinuous;*/
+>> +						remote-endpoint = <&sensor_1_out>;
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+>> +
+>> +					ub953_1_out: endpoint {
+>> +						remote-endpoint = <&ub960_fpd3_1_in>;
+>> +					};
+>> +				};
+>> +			};
+>> +
+>> +			i2c {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				sensor@60 {
+>> +					compatible = "ovti,ov2312";
+>> +					reg = <0x60>;
+>> +
+>> +					clocks = <&serializer>;
+>> +					clock-names = "xvclk";
+>> +					assigned-clocks = <&serializer>;
+>> +					assigned-clock-rates = <24000000>;
+>> +
+>> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
+>> +
+>> +					port {
+>> +						sensor_1_out: endpoint {
+>> +							remote-endpoint = <&ub953_1_in>;
+>> +						};
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +	};
+>> +};
+>> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
+>> new file mode 100644
+>> index 000000000000..06cba8c7397f
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
+>> @@ -0,0 +1,89 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * IMX390 FPD-Link 3 Camera Module
+>> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&deserializer_0_ports {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	/* FPDLink RX 1 */
+>> +	port@1 {
+>> +		reg = <1>;
+>> +
+>> +		ub960_fpd3_1_in: endpoint {
+>> +			remote-endpoint = <&ub953_1_out>;
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&deserializer_0_links {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	link@1 {
+>> +		reg = <1>;
+>> +		i2c-alias = <0x45>;
+>> +
+>> +		ti,rx-mode = <3>;
+>> +
+>> +		serializer: serializer {
+>> +			compatible = "ti,ds90ub953-q1";
+>> +			gpio-controller;
+>> +			#gpio-cells = <2>;
+>> +
+>> +			#clock-cells = <0>;
+>> +
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +					ub953_1_in: endpoint {
+>> +						data-lanes = <1 2>;
+>> +						/*clock-noncontinuous;*/
+>> +						remote-endpoint = <&sensor_1_out>;
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+>> +
+>> +					ub953_1_out: endpoint {
+>> +						remote-endpoint = <&ub960_fpd3_1_in>;
+>> +					};
+>> +				};
+>> +			};
+>> +
+>> +			i2c {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				sensor@60 {
+>> +					compatible = "ovti,ov2312";
+>> +					reg = <0x60>;
+>> +
+>> +					clocks = <&serializer>;
+>> +					clock-names = "xvclk";
+>> +					assigned-clocks = <&serializer>;
+>> +					assigned-clock-rates = <24000000>;
+>> +
+>> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
+>> +
+>> +					port {
+>> +						sensor_1_out: endpoint {
+>> +							remote-endpoint = <&ub953_1_in>;
+>> +						};
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +	};
+>> +};
+>> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
+>> new file mode 100644
+>> index 000000000000..7d377dbe5bbf
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
+>> @@ -0,0 +1,89 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * IMX390 FPD-Link 3 Camera Module
+>> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&deserializer_0_ports {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	/* FPDLink RX 2 */
+>> +	port@2 {
+>> +		reg = <2>;
+>> +
+>> +		ub960_fpd3_1_in: endpoint {
+>> +			remote-endpoint = <&ub953_1_out>;
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&deserializer_0_links {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	link@2 {
+>> +		reg = <2>;
+>> +		i2c-alias = <0x46>;
+>> +
+>> +		ti,rx-mode = <3>;
+>> +
+>> +		serializer: serializer {
+>> +			compatible = "ti,ds90ub953-q1";
+>> +			gpio-controller;
+>> +			#gpio-cells = <2>;
+>> +
+>> +			#clock-cells = <0>;
+>> +
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +					ub953_1_in: endpoint {
+>> +						data-lanes = <1 2>;
+>> +						/*clock-noncontinuous;*/
+>> +						remote-endpoint = <&sensor_1_out>;
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+>> +
+>> +					ub953_1_out: endpoint {
+>> +						remote-endpoint = <&ub960_fpd3_1_in>;
+>> +					};
+>> +				};
+>> +			};
+>> +
+>> +			i2c {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				sensor@60 {
+>> +					compatible = "ovti,ov2312";
+>> +					reg = <0x60>;
+>> +
+>> +					clocks = <&serializer>;
+>> +					clock-names = "xvclk";
+>> +					assigned-clocks = <&serializer>;
+>> +					assigned-clock-rates = <24000000>;
+>> +
+>> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
+>> +
+>> +					port {
+>> +						sensor_1_out: endpoint {
+>> +							remote-endpoint = <&ub953_1_in>;
+>> +						};
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +	};
+>> +};
+>> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
+>> new file mode 100644
+>> index 000000000000..f74bff5f12b0
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
+>> @@ -0,0 +1,89 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * IMX390 FPD-Link 3 Camera Module
+>> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&deserializer_0_ports {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	/* FPDLink RX 3 */
+>> +	port@3 {
+>> +		reg = <3>;
+>> +
+>> +		ub960_fpd3_1_in: endpoint {
+>> +			remote-endpoint = <&ub953_1_out>;
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&deserializer_0_links {
+>> +	#address-cells = <1>;
+>> +	#size-cells = <0>;
+>> +
+>> +	link@3 {
+>> +		reg = <3>;
+>> +		i2c-alias = <0x47>;
+>> +
+>> +		ti,rx-mode = <3>;
+>> +
+>> +		serializer: serializer {
+>> +			compatible = "ti,ds90ub953-q1";
+>> +			gpio-controller;
+>> +			#gpio-cells = <2>;
+>> +
+>> +			#clock-cells = <0>;
+>> +
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +					ub953_1_in: endpoint {
+>> +						data-lanes = <1 2>;
+>> +						/*clock-noncontinuous;*/
+>> +						remote-endpoint = <&sensor_1_out>;
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+>> +
+>> +					ub953_1_out: endpoint {
+>> +						remote-endpoint = <&ub960_fpd3_1_in>;
+>> +					};
+>> +				};
+>> +			};
+>> +
+>> +			i2c {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				sensor@60 {
+>> +					compatible = "ovti,ov2312";
+>> +					reg = <0x60>;
+>> +
+>> +					clocks = <&serializer>;
+>> +					clock-names = "xvclk";
+>> +					assigned-clocks = <&serializer>;
+>> +					assigned-clock-rates = <24000000>;
+>> +
+>> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
+>> +
+>> +					port {
+>> +						sensor_1_out: endpoint {
+>> +							remote-endpoint = <&ub953_1_in>;
+>> +						};
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +	};
+>> +};
 > 
 
