@@ -1,114 +1,112 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B8D394788
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF21B39FCCA;
+	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790514547; cv=none; b=n+PTA3Jp+AauvgWwfdEg2Rty2gXLZ+vBVkYVMznhF6v/57eSEqX7ydfNVpcbMgCyX0659iNIytSz4hrJujiV9oy9bxmsPsDGWKZT49Zd3fgXqT5wZDR6Bh7hS3bwcR3UEzyg6EmaGbpxPVx17lA55QEazHmsVo4wZ+Ms0bFo+qU=
+	t=1790514567; cv=none; b=Jw7nNuwGzjIfxpRyAur17u8L07MjerPUxbDCHi/TjXuirBIZSxaLEC3FCbWzlE6/97C4PO31/+X0X3Barc5IENX3h7BBVs7MKBzDEYJfrN/61SQyFacUgv20jS+UqIE7lBS3IACK7zwjJ0eEghiNrh5NyoitK7O65B8iUU6IEmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790514547; c=relaxed/simple;
-	bh=p8cuTqB63Yb52it0uQ1rI/16o4t7JWON0vFkBE7SYyU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xeousrjs2e5P2vhEJV0FsERRJXgGU8DTLPi3hS/zXBdlJrWD67QmOoxuxaPrSFZWHZpYtfscrW9tVrt75Dq9k9K1zqazipQJLWdlm0KmU0oIrI2U1BMoRNuZRrYtvZX8dV9LrVc+ittcPnYCDsQN8U+L53wpR4kff20LOee4wXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=I0EJGoaX; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1790514567; c=relaxed/simple;
+	bh=wrP5f8Z4+HrY7KIFgp5WycR+TSTJDE9xIQ5JyoQB5NQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tZCnCSIfozIqPdquJ6dkX9nsYe6cIKlPXB4ZcwO0S34BQe6NZhnWm5j5tRyA+r0oKqbjhItPe8YoojtmhYOwzTKJD2PNGNTYdVmKxCjfWBzbVlXugQaNGwaZyiak0feaTQ+4all8k8LywfC5yMBPSxlAqmjRWry7SyDqSlPgYJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qmKJYmx2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="I0EJGoaX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=p8cuTqB63Yb52it0uQ1rI/16o4t7JWON0vFkBE7SYyU=; b=I0EJGo
-	aXQeaHIsce+0XKsVJZATDIl5O/bQqt+cvO/3jkNeh8StPEWJzCHbdvUs6KCbPRB0ndYxgBBoSwEta
-	i1Vtcy2Cdeb7hV/9xlXwXadRqjYQFUtl41PMZ8N6oq16mbJCFJH4ABHd4w+IkjCKUgNV3nHod5H4P
-	s1pzK8lbK0+8WD1i4MvBKA+dqk9K/eCqgTj92D3GhcIze1ixWEMiFmYXKjJh5qdx6fSH6q32lJb77
-	7CiUhRlcXnxT8eaRmac36+qwFaF7hGLd98EFfstlgBFLHNoDPTUXvcb7RNRM2tuqUJFgYq5o564Mj
-	c3sRMir7urgYsvg+dCy3dMeW+D2Q==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xAocX-00000008JaD-33OC;
-	Sun, 27 Sep 2026 13:08:45 +0000
-Message-ID: <ad2b5eaf6ec0d238ef42d4791e3754b73cb540ed.camel@surriel.com>
-Subject: Re: [PATCH v2] tick/nohz: Avoid unused timekeeping_max_deferment()
- calls
-From: Rik van Riel <riel@surriel.com>
-To: Usama Arif <usama.arif@linux.dev>, anna-maria@linutronix.de, 
-	frederic@kernel.org, linux-kernel@vger.kernel.org, mingo@kernel.org, 
-	tglx@kernel.org
-Cc: hannes@cmpxchg.org, shakeel.butt@linux.dev
-Date: Sun, 27 Sep 2026 09:08:45 -0400
-In-Reply-To: <20260918133408.2834751-1-usama.arif@linux.dev>
-References: <20260918133408.2834751-1-usama.arif@linux.dev>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qmKJYmx2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FFD1C4AF17;
+	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790514567;
+	bh=wrP5f8Z4+HrY7KIFgp5WycR+TSTJDE9xIQ5JyoQB5NQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qmKJYmx2YpqQ2SAh1M9dlt+/jecLfKf/rct9NwRlONamqoBH/A9WXt0iH2l7IVmJg
+	 8iLGvotKpXGqDcLytEze3oDID1KTa5JQ/Xmy/1+sctQAHr+obIXXyQokHE4+kfCMkA
+	 pVdZMi1Lohej4VLreH1g+EMJTbPUWMWgxOL2+yDcwEWYTm2FmjCzuaebixlyfcOAQ7
+	 ftwD3rRwO6PRv7eNdn5DZwlbE8wJIhSL24IOD7W2uuzLpZ+FLVFRxTqBT8aHDfez5Z
+	 Mr8wRTPaSZifNkKqiSYH+lPRCqQmLJ4B+Hxh0tVtAkxM3/4VHQUEnlxvEn6dshzYqH
+	 MqC+sMLQANkYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66532C9833E;
+	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
+From: Daniel Drake via B4 Relay <devnull+dan.reactivated.net@kernel.org>
+Date: Sun, 27 Sep 2026 14:09:02 +0100
+Subject: [PATCH v7 3/6] dt-bindings: display: brcm,bcm2835-hvs: Document
+ iommus property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-bcm2712-iommu-submit-v7-3-dfa2b975cbc9@reactivated.net>
+References: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
+In-Reply-To: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Daniel Drake <dan@reactivated.net>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=914; i=dan@reactivated.net;
+ h=from:subject:message-id;
+ bh=jvJtzPewMxeDZpE90O4lOLjfTo2HtXAHbTAGkD5tWH0=;
+ b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquRWEkcJdsNIqcX6vaW1rQNFgVdhf6QsR8c3Sj
+ KJCQ6/02dyJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarkVhAAKCRDD5o+xUxRH
+ u1/zD/9yzR0tMdVnQFUov9zJvP4J1F0UT7anXVClYkLytUL1oL/htyvpcPApxhQQ/Ai0sN51GQI
+ JRpfyCItHz1PypKQGNfrvKWVg39fGGMMJpaYIfiERtaXHYD/rp2XiPPpjfp5N+QDS66UN16TjfL
+ 9kzNW5Ap51sD3ysqJvYmf/z/1LfLgv2H7z39x5sZy25+l5MPWaGiJjUFEajiovxFQRqeAZZ5UIx
+ SSu955o1VwTjbzYgU4oAD5NdvQ9UiyhLIBV8lRSzuezVznLtKhRYO7bQiUVr1oAjf9mfPcWE3t+
+ rW8xXN0wrh3PyKG8WFvuO+x7Yg2eYOpr+4pQU+aBD+Q1Vc0wxVS2bOdPg6jEWCdxvYlbWsPQmgL
+ 3JPjun3puwVAu5ytD/yF1uLgenJswWymM5q7ZjtievXk+W27ETu1AdZ1ZZt96apfuXy4V1juX38
+ TN6oddMc28hBa1uw3IoYGqG4F4WaGAwLI23jWDsY8i2BFyjfSlpkB7GW7pVBznq/UP2rCKddAWG
+ S3CfOUoIDIXRMBoHq+mVES/JqGC828Z74vsMvU8K+L5eRgQ2wp7XCpsKbxPPYtRak6ju70twY1u
+ YENtf0k0qB/D4wt8C15XybD3Ocl0nZ+Tj4f5JEwnBde2CZ2nlZsu3bjwikcUtY+QX4rqinGKb7B
+ qZE7pYYsvrVnKvA==
+X-Developer-Key: i=dan@reactivated.net; a=openpgp;
+ fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
+X-Endpoint-Received: by B4 Relay for dan@reactivated.net/default with
+ auth_id=1070
+X-Original-From: Daniel Drake <dan@reactivated.net>
+Reply-To: dan@reactivated.net
 
-On Fri, 2026-09-18 at 06:34 -0700, Usama Arif wrote:
-> tick_nohz_next_event() limits a CPU's sleep interval to the maximum
-> deferment supported by the current clocksource when that CPU owns the
-> do_timer() duty. If the duty is unassigned, the limit also applies
-> when
-> the CPU's TS_FLAG_DO_TIMER_LAST flag is set.
->=20
-> After the early timer checks, the function currently reads the
-> maximum
-> deferment unconditionally. It then replaces the result with KTIME_MAX
-> unless one of the two conditions above applies.
->=20
-> timekeeping_max_deferment() performs a seqcount-protected read of the
-> shared timekeeper and follows its clocksource pointer. Check the
-> do_timer
-> state first and avoid this work when the result would be discarded.
-> This
-> leaves the resulting expiry unchanged and reduces accesses to
-> timekeeper
-> data that is modified regularly.
->=20
-> On x86-64 this removes 18-20 dynamically executed instructions,
-> including
-> the call, from the common non-owner path when the seqcount does not
-> retry.
->=20
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+From: Daniel Drake <dan@reactivated.net>
 
-The changelog confused me a little at first, but after
-reading through the code it all made sense.
+On BCM2712, the Hardware Video Scaler (HVS) is connected behind an IOMMU.
+Add the optional iommus property to allow describing this connection.
 
-Reviewed-by: Rik van Riel <riel@surriel.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Daniel Drake <dan@reactivated.net>
+---
+ Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
---=20
-All Rights Reversed.
+diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
+index 9aca38a58a16..8f8aae9f3788 100644
+--- a/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
++++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
+@@ -35,6 +35,9 @@ properties:
+     minItems: 1
+     maxItems: 2
+ 
++  iommus:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
+
+-- 
+2.55.0
+
+
