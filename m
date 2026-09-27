@@ -1,327 +1,95 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AC833DEE9;
-	Sun, 27 Sep 2026 16:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B933B3884;
+	Sun, 27 Sep 2026 16:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526858; cv=none; b=hDJ4qGiPW/R6QgX2yYXGWa5XW4yKZUVObquAGHpcAiPfWkmVjYHL1QklQFe9Ze4S2S5kUGmVhZPYD9uVeAI9cNRPl9RiDw6CNYdCCZRk2bd78l7k9vgbgzHvGa3DcBKwsXxRU1y2v4SVIdBrnne+Pgm15chs7y7iWcBVe/vKqn0=
+	t=1790526889; cv=none; b=GGAekZriQKLCpH5K+Eqej0AEdVnQrmOzUqcerlaZkVH4XmCuQKJdc43cr3nwAD3FD2PDE37/Ar5eGfa0gM+yW0sQLfkIVUp8EtZotUP41h4esKkRgzBlWoPF0dHM4LjD3a0C/keQ7zC2HstHiHIlorgJVtOoWthHNFatmBR/jig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526858; c=relaxed/simple;
-	bh=pVhV0s5xSaqfi7ZpJcnxlNbFvnolA3fpIcpgj1k/dVA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=LpIT0NoXN1fGLnkIXRvZRRmLQaGXu9DiAMuNoqKDYoKVH6SCpSFfMZAluBsS156ZAlZOPa/gMVVWme5SFDcW4MeldsbP+GVXyu2wt4NWB19NzFDMHHgNepGiPt9hZQVcqM2w8b0XenNeGxDJ6IIOoE1FKmaPg6VpkpsPBs+kyUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ZtjRGBAl; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=m/8ZWVZs; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790526889; c=relaxed/simple;
+	bh=EzanT5WuC5b1cQCPU+KgB8dZunKNYgr9kBynhOZ6FfY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sphWLLAymifWLeupxr0NZBP+bNAfaMzpRAZSjlDPHiKPRkHy3p5eT/FPoiyjG3iFHtsHLe/SG4+4MbIGMuu9Ex7myZq8Q46jE0ppjOPwWQLop3Ml8QiG4Q5mlVY1ZlV0qsDPLqXq0jvr/QHmkHBOqRP1Axe8bLeNrfmv5Y0E1rU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BXGWVGjj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ZtjRGBAl";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="m/8ZWVZs"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790526840; bh=KcI1YG6y7h4/QlDbPjAqJIr
-	5IQhsXAKX8fFu5YaAnC4=; b=ZtjRGBAl1N+5g5Y/brPE0eKl/4pLRE23RfFqabLEiNJa+ia23+
-	j50r8soN+ZJQKjHLaKumw42DilZ5cvJuAgJMk20V63oUEtUGz9/8RjFbcXrAupcAs3e1S5j+U1g
-	8DssHab49sRlLLD7uJyln3EYQkEpo++39qvaR+lSfC5GhKT8yigoQpSbrjPEOw+p2nrfvbzPWNs
-	+0QIk5oO6V6/mlLVQWipxDC/hBZlerhT93QOqUattXRPHS8SwI055fsI3tJMa+7vPRE4m28m+JD
-	TeKTM1r1j5JMmGgYhk6GW+BQqAFUobZX2Ef1W/JxGI19aTwp3NNwjK4/MW/u7cW8XQg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790526840; bh=KcI1YG6y7h4/QlDbPjAqJIr
-	5IQhsXAKX8fFu5YaAnC4=; b=m/8ZWVZsVicYufl1mdaHDFgo/jOn6WalbnDj748R7Vj5u14OaC
-	0YL+pzGAKmuHSrvqiotL4/moKX/L7Y6WnFDA==;
-Date: Sun, 27 Sep 2026 17:33:59 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Paul E . McKenney" <paulmck@kernel.org>
-CC: linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, rcu@vger.kernel.org, lkmm@lists.linux.dev
-Subject: Re: [PATCH hazptr 0/4] Hazard pointer updates
-In-Reply-To: <89cecc9c-f29b-46d1-804d-c87171a445f0@efficios.com>
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com> <EAE9B584-7CEC-46AA-AC8F-A06F11073763@mainlining.org> <89cecc9c-f29b-46d1-804d-c87171a445f0@efficios.com>
-Message-ID: <1357947A-5850-4F73-B22E-2AE8B5CAABE2@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BXGWVGjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0811F000FF;
+	Sun, 27 Sep 2026 16:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790526888;
+	bh=SOlu8u4sOWw1bl8aquiV+FQdZDJl1sJTiY0bcwBI7vA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BXGWVGjjOADCch8vlIv9WKIC8sIUSwRgP5J6C7cH3PNB6Q3+2eewuksxcWqmNamwT
+	 zKgGbnGh7F5brrULap3pwGdJW/5nVOCnlJPm4+3LZx3+9voKVTnX4WM13L5ezdy3SU
+	 qbWJre9M+DJ2O+cq+hXI6D+Jys8nVZn6V3W8YbQ4=
+Date: Sun, 27 Sep 2026 18:34:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: rafael@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] debugfs: fix UAF and double-free in debugfs_str
+ read/write
+Message-ID: <2026092726-posh-handyman-43a0@gregkh>
+References: <2026092647-ebony-unlatch-d3d0@gregkh>
+ <20260926134726.1063068-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926134726.1063068-1-qwe.aldo@gmail.com>
 
-On 27 September 2026 17:27:33 BST, Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->On 2026-09-27 12:07, Bradley Morgan wrote:
->> On 27 September 2026 16:51:27 BST, Mathieu Desnoyers
->> <mathieu.desnoyers@efficios.com> wrote:
->>> Hi Paul,
->>> 
->>> This series applies on top of "hazptr: handle NULL address in
->>> hazptr_detach" you have in your rcu dev tree.
->>> 
->>> This first patch addresses a race identified by Boqun Feng in the
->>> two-phase wildcard scheme.
->>> 
->>> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
->>> Those were discussed at length in a prior version of hazard pointer
->>> patches.
->>> 
->>> Patch 4 introduces a "try acquire" helper to allow the fast path
->>> to not rely on wildcards, while keeping the wildcard forward
->>> progress guarantees in the acquire slow path, used on fast path
->>> failure.
->> 
->> Hi, here is a hazptr perf test on powerpc
->> 
->> REAL kill_fasync(), ns per call, best of 3, 100k calls:
->> (stock = rwlock walk, conv = hazptr walk, same v3 tree ± the conversion)
->> 
->>    shape          stock    conv     delta
->>    1 node,  1 walker     59      59     +0.0%   (singleton: identical)
->>    16 nodes, 1 walker   539     539     +0.0%   (uncontended: identical)
->>    16 nodes, 4 walkers  509     134    -73.7%   ← rwlock readers contend
->>    16 nodes, 8 walkers  313     113    -63.9%   ← same list, 8 cpus
->>    64 nodes, 1 walker  1979    2039     +3.0%   (pure walk: hazptr tax)
->>    64 nodes, 4 walkers 1914     509    -73.4%
->>    64 nodes, 8 walkers 1015     382    -62.4%
->> 
->> Its SLOWER than rcu, but beats rwlock
->
->Two feedback points:
->
->1) The comparison I think Boqun cares mostly about is with expedited
->   RCU grace periods, this is where we suspect there is a significant
->   benefit to using hazptr rather than RCU to eliminate those IPIs
->   on synchronize.
->
->   It's good to know that it performs better than rwlock (albeit it's
->   not surprising).
->
->2) I'm concerned about what looks like a use of hazptr to protect linked
->   lists elements in your benchmark (did I miss anything ?).
->
->   RCU read-side critical sections protect all elements of a linked list
->   naturally, but hazptr requires more care. See this comment above
->   hazptr_acquire:
->
-> * This protection is unconditional, and has limitations similar to
-> * that of unconditional reference-counter acquisition.  In particular,
-> * although holding a hazard pointer prevents a hazard-pointer-protected
-> * object from being freed, it does not prevent that object from being
-> * removed from a linked data structure, and does not prevent other
-> * hazard-pointer-protected objects referenced by this object from being
-> * both removed and freed.  At which point, invoking hazptr_acquire()
-> * on these dangling pointers would be a bug.  On the other hand, use of
-> * hazptr_acquire() is safe for immortal pointers to objects that do not
-> * themselves contain pointers to hazard-pointer-protected objects.
-> * Other (more complex) use cases are also possible.
->
->Does the pointer you protect qualify as an "immortal" pointer, or it's
->a linked list "next" pointer ?
->
+On Sat, Sep 26, 2026 at 10:47:26AM -0300, Aldo Ariel Panzardo wrote:
+> On Sat, Sep 26, 2026 at 08:53:06AM +0200, Greg Kroah-Hartman wrote:
+> > Did you forget an Assisted-by: tag here?
+> 
+> Yes, apologies.  Both patches now carry:
+> 
+>   Assisted-by: sashiko.dev <sashiko-bot@kernel.org>
 
-Hmm. Do you have a idea on what you could metaphorically convert, with a
-core subsystem? 
+No LLM was used to generate the patch?
 
-I'll give anything you want me to do a try
+> > And how was this found and tested?
+> 
+> sashiko.dev flagged that the write path uses rcu_assign_pointer() /
+> synchronize_rcu() / kfree() but the read path dereferences the same
+> pointer without rcu_read_lock().  I then manually reviewed the write
+> path and found the second issue: no mutual exclusion between concurrent
+> writers, leading to a double-free of `old`.
+> 
+> Tested on QEMU/KVM with CONFIG_KASAN=y.  The double-free in the write
+> path reproduces immediately (~3900 KASAN reports in a single run with 8
+> concurrent writers):
+> 
+>   BUG: KASAN: double-free in debugfs_write_file_str+0x194/0x200
+> 
+> Full splat is included in patch 2/2.
+> 
+> The read-path UAF has a narrower race window (just a couple of
+> instructions between pointer load and strlen()) and did not trigger in
+> KASAN testing, but it is structurally obvious: the write path calls
+> synchronize_rcu() + kfree(old) and the read path does not hold
+> rcu_read_lock().
+> 
+> > And what kernel was tested, debugfs strings were changed a bunch in 7.1,
+> > what bug report are you working off of here?
+> 
+> Verified against torvalds/linux master at v7.3-rc4 (commit
+> 6812ce4e4379, 2026-09-26).  Both bugs are present in the current code
+> at debugfs_read_file_str() and debugfs_write_file_str() in
+> fs/debugfs/file.c.
+> 
+> This is not from a bug report.  It was found by sashiko.dev reviewing
+> an adjacent patch and I verified it independently.
 
->Thanks,
->
->Mathieu
->
->> 
->> SIGIO delivery, plain mode, 8 ptys 1 listener each (identical harness):
->> 
->>    BASELINE (rwlock)     472/s
->>    CONVERTED v4 (hazptr) 452/s   ← singleton fast path: gap 12% → 4%
->> 
->> With a few changes, it was 12% slower than rcu before.
->> 
->> Do you want those changes?
->> 
->> My idea is, we find something that would put use to hazptr, here is what
->I
->> tried
->> 
->> 
->> diff --git a/fs/fcntl.c b/fs/fcntl.c
->> index c158f082f1da..bb04076ff6d9 100644
->> --- a/fs/fcntl.c
->> +++ b/fs/fcntl.c
->> @@ -17,6 +17,7 @@
->>   #include <linux/slab.h>
->>   #include <linux/module.h>
->>   #include <linux/pipe_fs_i.h>
->> +#include <linux/hazptr.h>
->>   #include <linux/security.h>
->>   #include <linux/ptrace.h>
->>   #include <linux/signal.h>
->> @@ -1009,15 +1010,20 @@ int fasync_remove_entry(struct file *filp,
->struct fasync_struct **fapp)
->>   		if (fa->fa_file != filp)
->>   			continue;
->>   -		write_lock_irq(&fa->fa_lock);
->> +		/*
->> +		 * Make the file invisible to the walk before unlinking,
->> +		 * then wait for any in-flight send_sigio() to be done with
->> +		 * the node before freeing it.  The walk holds a hazard
->> +		 * pointer to this node, so it cannot already be freed.
->> +		 */
->>   		fa->fa_file = NULL;
->> -		write_unlock_irq(&fa->fa_lock);
->> -
->>   		*fp = fa->fa_next;
->> -		kfree_rcu(fa, fa_rcu);
->> +		spin_unlock(&fasync_lock);
->> +		spin_unlock(&filp->f_lock);
->> +		hazptr_synchronize(fa);
->> +		fasync_free(fa);
->>   		filp->f_flags &= ~FASYNC;
->> -		result = 1;
->> -		break;
->> +		return 1;
->>   	}
->>   	spin_unlock(&fasync_lock);
->>   	spin_unlock(&filp->f_lock);
->> @@ -1056,13 +1062,10 @@ struct fasync_struct *fasync_insert_entry(int
->fd, struct file *filp, struct fasy
->>   		if (fa->fa_file != filp)
->>   			continue;
->>   -		write_lock_irq(&fa->fa_lock);
->> -		fa->fa_fd = fd;
->> -		write_unlock_irq(&fa->fa_lock);
->> +		WRITE_ONCE(fa->fa_fd, fd);
->>   		goto out;
->>   	}
->>   -	rwlock_init(&new->fa_lock);
->>   	new->magic = FASYNC_MAGIC;
->>   	new->fa_file = filp;
->>   	new->fa_fd = fd;
->> @@ -1121,44 +1124,51 @@ EXPORT_SYMBOL(fasync_helper);
->>   /*
->>    * rcu_read_lock() is held
->>    */
->> -static void kill_fasync_rcu(struct fasync_struct *fa, int sig, int
->band)
->> +void kill_fasync(struct fasync_struct **fp, int sig, int band)
->>   {
->> +	struct hazptr_ctx cur, nxt;
->> +	struct fasync_struct *fa;
->> +
->> +	/* First a quick test without locking: usually
->> +	 * the list is empty.
->> +	 */
->> +	fa = READ_ONCE(*fp);
->> +	if (!fa)
->> +		return;
->> +
->> +	/*
->> +	 * Hand-over-hand with two ping-ponged contexts: the next node
->> +	 * must be acquired before the current one is released, but a
->> +	 * hazptr_ctx may only front one live slot at a time.
->> +	 */
->> +	cur = (struct hazptr_ctx){ };
->> +	nxt = (struct hazptr_ctx){ };
->> +	fa = hazptr_acquire(&cur, (void * const *)fp);
->>   	while (fa) {
->> -		struct fown_struct *fown;
->> -		unsigned long flags;
->> +		struct fasync_struct *next;
->>     		if (fa->magic != FASYNC_MAGIC) {
->>   			printk(KERN_ERR "kill_fasync: bad magic number in "
->>   			       "fasync_struct!\n");
->> -			return;
->> +			break;
->>   		}
->> -		read_lock_irqsave(&fa->fa_lock, flags);
->> +
->>   		if (fa->fa_file) {
->> -			fown = file_f_owner(fa->fa_file);
->> -			if (!fown)
->> -				goto next;
->> -			/* Don't send SIGURG to processes which have not set a
->> -			   queued signum: SIGURG has its own default signalling
->> -			   mechanism. */
->> -			if (!(sig == SIGURG && fown->signum == 0))
->> +			struct fown_struct *fown = file_f_owner(fa->fa_file);
->> +
->> +			if (fown &&
->> +			    /* Don't send SIGURG to processes which have not set a
->> +			       queued signum: SIGURG has its own default signalling
->> +			       mechanism. */
->> +			    !(sig == SIGURG && fown->signum == 0))
->>   				send_sigio(fown, fa->fa_fd, band);
->>   		}
->> -next:
->> -		read_unlock_irqrestore(&fa->fa_lock, flags);
->> -		fa = rcu_dereference(fa->fa_next);
->> -	}
->> -}
->> -
->> -void kill_fasync(struct fasync_struct **fp, int sig, int band)
->> -{
->> -	/* First a quick test without locking: usually
->> -	 * the list is empty.
->> -	 */
->> -	if (*fp) {
->> -		rcu_read_lock();
->> -		kill_fasync_rcu(rcu_dereference(*fp), sig, band);
->> -		rcu_read_unlock();
->> +		next = hazptr_acquire(&nxt, (void * const *)&fa->fa_next);
->> +		hazptr_release(&cur, fa);
->> +		swap(cur, nxt);
->> +		fa = next;
->>   	}
->> +	hazptr_release(&cur, fa);
->>   }
->>   EXPORT_SYMBOL(kill_fasync);
->>   diff --git a/include/linux/fs.h b/include/linux/fs.h
->> index f9d1e05e8ae6..852f1b8c00af 100644
->> --- a/include/linux/fs.h
->> +++ b/include/linux/fs.h
->> @@ -1365,7 +1365,6 @@ static inline struct dentry *file_dentry(const
->struct file *file)
->>   }
->>     struct fasync_struct {
->> -	rwlock_t		fa_lock;
->>   	int			magic;
->>   	int			fa_fd;
->>   	struct fasync_struct	*fa_next; /* singly linked list */
->> 
->> 
->> Anything I did wrong? No?
->> 
->> 
->>> 
->>> Thanks,
->>> 
->>> Mathieu
->>> 
->>> Mathieu Desnoyers (4):
->>>   hazptr: Fix two-phase hazptr_synchronize race with detach
->>>   compiler.h: Introduce ptr_eq() to preserve address dependency
->>>   Documentation: RCU: Refer to ptr_eq()
->>>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
->>> 
->>> Cc: Paul E. McKenney <paulmck@kernel.org>
->>> Cc: Boqun Feng <boqun@kernel.org>
->>> Cc: Bradley Morgan <brads@mainlining.org>
->>> Cc: Gary Guo <gary@garyguo.net>
->>> Cc: <rcu@vger.kernel.org>
->>> Cc: <lkmm@lists.linux.dev>
->>> 
->>> Documentation/RCU/rcu_dereference.rst |  38 +++++++-
->>> include/linux/compiler.h              |  63 ++++++++++++
->>> include/linux/hazptr.h                |  47 +++++----
->>> kernel/hazptr.c                       | 135 +++++++++++++++-----------
->>> 4 files changed, 203 insertions(+), 80 deletions(-)
->>> 
->>> 
->> 
->> --- Thanks!
->> "I'm not a very positive person" - Linus torvalds
->
->
->
+Again, no LLM for all of this?
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+I'd like to see the userspace test scripts for this...
+
+thanks,
+
+greg k-h
