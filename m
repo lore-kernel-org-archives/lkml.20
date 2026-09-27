@@ -1,690 +1,328 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4EC31328E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F32E1FECCD
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790483585; cv=none; b=UVPpiYY2mgMhQAmXHgs8U4BwXaCM5vur8dQ6Pw2tnKHDKYEIqIyWgtFWtUg2lsttFGXshEXiZNSWZGjh2S6JF9XTz9ndQ5QTZ0+x0P48A5VkSIon2osqoHj+f5nJe1w0CSzsrsqrvX94UIWm+XsTWYqHSFMaW9OVB0nGn44Sk4U=
+	t=1790483816; cv=none; b=q8MyuYbNEze4tw9Qnx+W/UBSo9fTXh7BFXMWQA/gTEh8h9ygW3AwesXJV9zTLhB7TeOVf/Colh3TJYbE1FW719VMB15el3SAxi8QryC3aViOiYybuf6kqbugfcW3mZ0EsMS2YvGQJjPofPeNGRFdAhAPzBsILPDYQL2fzvTIGNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790483585; c=relaxed/simple;
-	bh=xsqrqLWroDkt+w1dqsgyfN6gAao12TVQ/8rQ99qoPcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nfVQh5P7iui68n2Eicy/8IPjgga43inVrZ1z18YmT93+uRKhZ8NSPbav3W1kkUXFiPyOUHqXV/4zxTvcaQfiQDXCuRtAigo9FdC2yYjjVPo62L6byBDRCU1kA578rS+lU0B+tVKizgRBsQoxlwHELzURCJF1N3HciMdDFD8ItnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=RIg+98Mx; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790483816; c=relaxed/simple;
+	bh=IceE4e/RLvwU0VGaJlE66jbhYKSpqTO1ckygmdlKcrE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=WUfVQ7iUu1u/boqSKzdmO+trC5zFzOOStWmGQOBz1eg+j9lYUpfm211ZVK1iqOhdNSzTz81MUQYyIdVKieWX3iXj6XTYfH1bBQFChAPNbgEy/7ar1Y0u/a+qyWpteTjTvXlEOf7liRB/+Eam7sqyGpdcxOU29yne63dB8h1SO28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QBRVzqxH; arc=none smtp.client-ip=95.215.58.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="RIg+98Mx"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc794a06e5fso788702a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:33:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790483583; x=1791088383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IZ59yV8zdea81Xxgtr1IK2wKbEz0g8t+HVq9txC7QJA=;
-        b=RIg+98MxKtMuT31Vml/K2w4cJhnogjSktF9rKyob/QbfdT343GyNxkeSTo+vayTNcq
-         aeODI/7YJqBHxwrqf499glU2mjjHoyZ+fIOR+jQ2H88wws9G8OKpuzc1tVtFpxexloIv
-         bz9rRqiNW+EPDECziwGpSZy3ZUL49NdgevmKYgjeLKnEsdd+qJOoZAzsIDSongFKmEKw
-         0SnG+71H+3l78g6ZrNCVUY1dn+bBm1va14JSH+Q3cpLymyxlIx9X8ZM/h2NWTIRMYduV
-         qTHmV2KPYJPLsoof/eF1qZWpv13NAzNeqXQgdk/Cf+hXOnFaW6mbeQI4mfH13sBRtLoJ
-         lArQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790483583; x=1791088383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IZ59yV8zdea81Xxgtr1IK2wKbEz0g8t+HVq9txC7QJA=;
-        b=UG9ADdm+JVHZt5naNYyPWBr9hlRQ00r6Axy5Dqn6Z6MQMJO2G4ZXcRlKXiFQNXt0S2
-         +NvQBfvXR3d/jSKGSMJYLHSo6OeFzVdh5qUfB4vj4H2sxTr/clKu8jViq6fpyF5rasf0
-         qr8lepsVnrTxWk+sP0AhL7hvdmMdXnR9CbEqXiSDpNPHUNSLjuUDXGeUoEs58WxkuK7U
-         7spdIAVgoepAbm/sz1EV8uWF9r8JB3BeIqj5reOyEhsXLeEKo/lOWHU8SWykertiPEDY
-         dLwkNq5J0B7OxCWX2V/FHhLbXQNzAXjCuknKlYBkaH6yVb4hOgz+Uz4b+GW1pY8sR/nR
-         90CA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhudi/0SA9eiNdnqK0mJxK8ITeTLa5Z9HiiN2hXyTRkF23AbCADqcnTqVbtn1go5m93BKJXU1rT2QDmy4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhMAPfC3Xj47KXOdGu+vo2XAdeafdFukvhvo34KH581gkqNiPk
-	bUOcYUmOsv04qswdolPjr3WycHEuP46VXtLck9RQdfUYNY/H9Lqm+b8g1ZlqF3k7DU8m
-X-Gm-Gg: AYBFou3l+GSBug9MqQbQaolT7mICL5Jn8btUfiz1tJXPK/+NXa9fcEWdS/0UTdlgHBJ
-	Fy3tFmgUu5vvCNStknk2n5UlhZADKMIFl2XCqP57KBFWFRprPZybCscV4hVvp4Toco1rNJY0ASi
-	UkYHy2bPGgg+edUffgi2xYBSxaX1RiS8CH/Z0UEqt/7qnkLaRrlU66OqQLVzaVjSlCKX/V6+Jik
-	D56Ky6GwvvIPsKF24YzHws3fMT3mFX6NSr2x+xV0nAE2ITgaImao7LcYRp5pt7NGyqbZGjV2lV9
-	78Oyatz/MEAZFAT5Sk9CJJfAQgUPs4ezQ4P49MeltP/W0dht+/dGaNJh9R0eNThMGgd2VduQLZP
-	8EhxaThb04SYDkqUIHDK/Taa+NdaNA0QkZMPAkkNKOiyl2GjVHJX+H0vkTwvgUcNoDw65AJAqnv
-	1BOBGSlm6cT/+HG+4jaeCk/vLcCpvqIwYJXAYHPCxdDkId637uM6JxOk0TsUBLHBIGrO5R13sm+
-	1EjaN2HfDCJPebj3lD6OjAkhVKbJQ==
-X-Received: by 2002:a17:90b:548c:b0:39e:6c6a:656c with SMTP id 98e67ed59e1d1-3a0bb63224amr4948403a91.47.1790483582796;
-        Sat, 26 Sep 2026 21:33:02 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e05d674dsm2795629a91.4.2026.09.26.21.32.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 21:33:02 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: coreteam@netfilter.org,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zihanx@nebusec.ai,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v4 1/1] netfilter: x_tables: avoid holding mutex over faultable user copies
-Date: Sun, 27 Sep 2026 04:31:39 +0000
-Message-ID: <8e83886fd57c91bc2aede89ec7a10392be7bcaef.1790439054.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790439054.git.zihanx@nebusec.ai>
-References: <cover.1790439054.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QBRVzqxH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IceE4e/RLvwU0VGaJlE66jbhYKSpqTO1ckygmdlKcrE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790483812; v=1; x=1791088612;
+ b=QBRVzqxHLh8BFjRVPlNnXTPSs9MopLL0sYT3b2GMKDdIQUb43NA7Cuiv6HNDAm5Z30o8Dhug
+ Izbh6l8PiMHgSQGGzVJjXnvcYYScziszMLShd2vflN1uSegQs7kVk04d0pUMLLvClw9kVjhkv8i
+ FvBGO9/sBDS83XreDqbCmSC4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 232d4b177b281d97;
+	Sun, 27 Sep 2026 04:36:52 +0000
+X-Mizu-Trace-ID: 232d4b177b281d97
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3] mm/hugetlb: fix overbroad MMU notifiers for unshared
+ PMDs
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <83eefc56-cdb3-4e9b-9a2c-13819493afaa@bytedance.com>
+Date: Sun, 27 Sep 2026 12:36:36 +0800
+Cc: linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ aiqi.i7@bytedance.com,
+ akpm@linux-foundation.org,
+ david@kernel.org,
+ osalvador@suse.de
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <34FA9F7E-F38A-4CF6-B994-83B75E6E4CBF@linux.dev>
+References: <20260924082004.82450-1-lizhe.67@bytedance.com>
+ <76ee3d7a-cee9-4ff3-9d4c-068a46883e30@linux.dev>
+ <83eefc56-cdb3-4e9b-9a2c-13819493afaa@bytedance.com>
+To: Li Zhe <lizhe.67@bytedance.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-The legacy IPv4, IPv6 and ARP table GET_INFO and GET_ENTRIES paths hold
-the per-family xtables mutexes while copying table data to userspace. A
-faultable destination may sleep indefinitely while the mutex is held,
-blocking unrelated table and registry operations.
 
-Disable page faults while each locked user copy runs. For GET_ENTRIES,
-validate the table and requested size while holding the table mutex, then
-release it before faulting in the output range. Reacquire the mutex and
-revalidate the table and size before the nofault copy. If a nofault copy
-fails, fault the range outside the lock and retry the operation up to three
-times after the initial attempt. A failed fault-in returns -EFAULT;
-repeated nofault failures are limited to four attempts in total and then
-return -EFAULT. This avoids discarding a locked counter snapshot on the
-common first fault. Move GET_INFO's fixed-size copy outside the table locks
-and apply the same fault-safe handling to the IPv4/IPv6 compat GET_ENTRIES
-paths.
 
-The ebtables GET paths use a separate ebt_mutex and are outside this
-IPv4/IPv6/ARP series.
+> On Sep 24, 2026, at 19:20, Li Zhe <lizhe.67@bytedance.com> wrote:
+>=20
+> On 9/24/26 5:51 PM, Muchun Song wrote:
+>>=20
+>>=20
+>> On 2026/9/24 16:20, Li Zhe wrote:
+>>> Hugetlb currently expands MMU notifier ranges to PUD boundaries =
+whenever
+>>> PMD sharing is possible. That is only needed when huge_pmd_unshare()
+>>> actually detaches a shared PMD page table, because clearing the PUD
+>>> invalidates the whole PUD-sized virtual address range.
+>>>=20
+>>> For hugetlbfs hole punch, and similarly for other hugetlb unmap =
+paths,
+>>> a shared mapping can pass the "PMD sharing is possible" range test =
+in
+>>> adjust_range_if_pmd_sharing_possible() even when the hugetlbfs file =
+does
+>>> not currently have any shared PMD page tables. KVM then receives a =
+1G
+>>> invalidation for a 2M operation and zaps unrelated secondary =
+mappings,
+>>> so the guest has to fault them back in.
+>>>=20
+>>> Avoid this by tracking active PMD-sharing attachments per hugetlbfs
+>>> inode. The count is incremented only after huge_pmd_share() =
+successfully
+>>> installs a shared PMD table, and decremented when =
+__huge_pmd_unshare()
+>>> actually detaches one. Since huge_pmd_share() can run concurrently =
+under
+>>> i_mmap_lock_read(), use atomic operations for the count. A zero =
+count is
+>>> used to skip the conservative notifier range expansion only after
+>>> excluding concurrent PMD sharing with the mapping write lock.
+>>>=20
+>>> On a Redis-in-VM workload that punches cold 2M hugetlb pages, this =
+patch
+>>> improves P99 QPS stability while punching pages, reducing the QPS
+>>> degradation ratio from 7.09% to 1.45%.
+>>>=20
+>>> Reported-by: aiqi.i7 <aiqi.i7@bytedance.com>
+>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>>> ---
+>>> v2:=20
+>>> =
+https://lore.kernel.org/all/20260922090749.24905-1-lizhe.67@bytedance.com/=
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v4:
-  - Keep the source diff unchanged from v3 while rebasing it onto refreshed
-    nf.git main at 9c572a83037a ("net/sched: fix potential stack infoleak in
-    em_text_dump()").
-  - Replace the detailed v3 cover text with a concise summary and add the v3
-    link:
-    https://lore.kernel.org/all/cover.1789885804.git.zihanx@nebusec.ai/
-changes in v3:
-  - Validate the table and requested size before fault-in, then revalidate
-    both after lock reacquisition in native and IPv4/IPv6 compat GET_ENTRIES.
-  - Make retry semantics explicit: one initial nofault attempt followed by
-    at most three retries. Keep fault-in and retry decisions outside family
-    mutexes; failed fault-in and exhausted retries return -EFAULT.
-  - Keep the fixed-size GET_INFO copy outside table locks and brace compat
-    lookup error arms.
-  - Clarify ARP-only runtime coverage, privilege scope, helper build,
-    holder/waiter evidence, QEMU configuration, and the NOT RUN
-    crash-log status.
-  - Regenerate the numbered patch and cover with LF line endings; use the
-    standard 0001-*.patch filename.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1788961415.git.zihanx@nebusec.ai/
-changes in v2:
-  - Rebase onto current nf.git after 0bd7ed1a3263c
-    ("netfilter: arp_tables: remove the 32bit compat interface").
-    ARP GET_INFO and GET_ENTRIES use native paths only; IPv4 and IPv6
-    retain compat handling.
-  - Drop hung_task_panic and the 10-second hung_task timeout from the
-    reproducer, as pointed out by Pablo Neira Ayuso; observe holder/waiter
-    wchan instead.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1788244146.git.zihanx@nebusec.ai/
+>>> v1:=20
+>>> =
+https://lore.kernel.org/all/20260831091023.66581-1-lizhe.67@bytedance.com/=
 
- net/ipv4/netfilter/arp_tables.c | 49 ++++++++++++++++---
- net/ipv4/netfilter/ip_tables.c  | 87 +++++++++++++++++++++++++++++----
- net/ipv6/netfilter/ip6_tables.c | 87 +++++++++++++++++++++++++++++----
- 3 files changed, 197 insertions(+), 26 deletions(-)
+>>>=20
+>>> ChangeLogs:
+>>> v2->v3:
+>>> - Rework the sticky state based on Andrew's feedback: use a =
+per-inode
+>>>    counter of active PMD-sharing attachments, so files can return to =
+the
+>>>    no-active-sharing state after PMD sharing ends.
+>>>=20
+>>> v1->v2:
+>>> - Rework the implementation based on David's suggestion: remember
+>>>    whether PMD sharing ever happened for a hugetlbfs file, and skip =
+the
+>>>    conservative notifier range expansion while it has not. This =
+avoids
+>>>    the per-unmap page-table walk.
+>>>=20
+>>>   fs/hugetlbfs/inode.c    |  1 +
+>>>   include/linux/hugetlb.h | 43 =
++++++++++++++++++++++++++++++++++++++++++
+>>>   mm/hugetlb.c            | 13 ++++++++++---
+>>>   3 files changed, 54 insertions(+), 3 deletions(-)
+>>>=20
+>>> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+>>> index 7611a8470ea26..78e27ce0a6f63 100644
+>>> --- a/fs/hugetlbfs/inode.c
+>>> +++ b/fs/hugetlbfs/inode.c
+>>> @@ -921,6 +921,7 @@ static struct inode *hugetlbfs_get_inode(struct=20=
 
-diff --git a/net/ipv4/netfilter/arp_tables.c b/net/ipv4/netfilter/arp_tables.c
-index db307fa49..a857e67f9 100644
---- a/net/ipv4/netfilter/arp_tables.c
-+++ b/net/ipv4/netfilter/arp_tables.c
-@@ -23,6 +23,7 @@
- #include <linux/init.h>
- #include <linux/mutex.h>
- #include <linux/err.h>
-+#include <linux/pagemap.h>
- #include <net/sock.h>
- #include <linux/uaccess.h>
- 
-@@ -695,6 +696,7 @@ static int copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -719,12 +721,14 @@ static int copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct arpt_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -738,7 +742,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	name[XT_TABLE_MAXNAMELEN-1] = '\0';
- 	t = xt_request_find_table_lock(net, NFPROTO_ARP, name);
- 	if (!IS_ERR(t)) {
--		struct arpt_getinfo info;
- 		const struct xt_table_info *private = t->private;
- 
- 		memset(&info, 0, sizeof(info));
-@@ -751,15 +754,14 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strscpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 		xt_table_unlock(t);
- 		module_put(t->me);
- 	} else
- 		ret = PTR_ERR(t);
- 
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -769,6 +771,7 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
- 	int ret;
- 	struct arpt_get_entries get;
- 	struct xt_table *t;
-+	unsigned int retries = 0;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -779,21 +782,51 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+retry:
-+	t = xt_find_table_lock(net, NFPROTO_ARP, get.name);
-+	if (IS_ERR(t)) {
-+		ret = PTR_ERR(t);
-+		goto out;
-+	}
-+
-+	if (get.size != t->private->size) {
-+		ret = -EAGAIN;
-+		module_put(t->me);
-+		xt_table_unlock(t);
-+		goto out;
-+	}
-+
-+	module_put(t->me);
-+	xt_table_unlock(t);
-+
-+	/* Fault in only after validating the table and requested size. */
-+	if (fault_in_safe_writeable((char __user *)uptr->entrytable,
-+				    get.size))
-+		return -EFAULT;
-+
- 	t = xt_find_table_lock(net, NFPROTO_ARP, get.name);
- 	if (!IS_ERR(t)) {
- 		const struct xt_table_info *private = t->private;
- 
--		if (get.size == private->size)
-+		if (get.size != private->size) {
-+			ret = -EAGAIN;
-+		} else {
- 			ret = copy_entries_to_user(private->size,
- 						   t, uptr->entrytable);
--		else
--			ret = -EAGAIN;
-+		}
- 
- 		module_put(t->me);
- 		xt_table_unlock(t);
- 	} else
- 		ret = PTR_ERR(t);
- 
-+out:
-+	/* Allow three retries after the initial nofault copy. */
-+	if (ret == -EFAULT && retries < 3) {
-+		retries++;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
-index 809441ced..90f4a263d 100644
---- a/net/ipv4/netfilter/ip_tables.c
-+++ b/net/ipv4/netfilter/ip_tables.c
-@@ -21,6 +21,7 @@
- #include <linux/proc_fs.h>
- #include <linux/err.h>
- #include <linux/cpumask.h>
-+#include <linux/pagemap.h>
- 
- #include <linux/netfilter/x_tables.h>
- #include <linux/netfilter_ipv4/ip_tables.h>
-@@ -824,6 +825,7 @@ copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -861,6 +863,7 @@ copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -943,6 +946,7 @@ static int compat_table_info(const struct xt_table_info *info,
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct ipt_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -960,7 +964,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- #endif
- 	t = xt_request_find_table_lock(net, AF_INET, name);
- 	if (!IS_ERR(t)) {
--		struct ipt_getinfo info;
- 		const struct xt_table_info *private = t->private;
- #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
- 		struct xt_table_info tmp;
-@@ -981,10 +984,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strscpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 
- 		xt_table_unlock(t);
- 		module_put(t->me);
-@@ -994,6 +994,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	if (in_compat_syscall())
- 		xt_compat_unlock(AF_INET);
- #endif
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -1004,6 +1006,7 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
- 	int ret;
- 	struct ipt_get_entries get;
- 	struct xt_table *t;
-+	unsigned int retries = 0;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1013,20 +1016,50 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
- 		return -EINVAL;
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+retry:
-+	t = xt_find_table_lock(net, AF_INET, get.name);
-+	if (IS_ERR(t)) {
-+		ret = PTR_ERR(t);
-+		goto out;
-+	}
-+
-+	if (get.size != t->private->size) {
-+		ret = -EAGAIN;
-+		module_put(t->me);
-+		xt_table_unlock(t);
-+		goto out;
-+	}
-+
-+	module_put(t->me);
-+	xt_table_unlock(t);
-+
-+	/* Fault in only after validating the table and requested size. */
-+	if (fault_in_safe_writeable((char __user *)uptr->entrytable,
-+				    get.size))
-+		return -EFAULT;
-+
- 	t = xt_find_table_lock(net, AF_INET, get.name);
- 	if (!IS_ERR(t)) {
- 		const struct xt_table_info *private = t->private;
--		if (get.size == private->size)
-+		if (get.size != private->size) {
-+			ret = -EAGAIN;
-+		} else {
- 			ret = copy_entries_to_user(private->size,
- 						   t, uptr->entrytable);
--		else
--			ret = -EAGAIN;
-+		}
- 
- 		module_put(t->me);
- 		xt_table_unlock(t);
- 	} else
- 		ret = PTR_ERR(t);
- 
-+out:
-+	/* Allow three retries after the initial nofault copy. */
-+	if (ret == -EFAULT && retries < 3) {
-+		retries++;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1561,12 +1594,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
- 
- 	pos = userptr;
- 	size = total_size;
-+	pagefault_disable();
- 	xt_entry_foreach(iter, private->entries, total_size) {
- 		ret = compat_copy_entry_to_user(iter, &pos,
- 						&size, counters, i++);
- 		if (ret != 0)
- 			break;
- 	}
-+	pagefault_enable();
- 
- 	vfree(counters);
- 	return ret;
-@@ -1579,6 +1614,7 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 	int ret;
- 	struct compat_ipt_get_entries get;
- 	struct xt_table *t;
-+	unsigned int retries = 0;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1591,6 +1627,32 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+retry:
-+	xt_compat_lock(AF_INET);
-+	t = xt_find_table_lock(net, AF_INET, get.name);
-+	if (!IS_ERR(t)) {
-+		const struct xt_table_info *private = t->private;
-+		struct xt_table_info info;
-+
-+		ret = compat_table_info(private, &info);
-+		if (!ret && get.size != info.size)
-+			ret = -EAGAIN;
-+
-+		xt_compat_flush_offsets(AF_INET);
-+		module_put(t->me);
-+		xt_table_unlock(t);
-+	} else {
-+		ret = PTR_ERR(t);
-+	}
-+	xt_compat_unlock(AF_INET);
-+	if (ret)
-+		goto out;
-+
-+	/* Fault in only after validating the table and requested size. */
-+	if (fault_in_safe_writeable((char __user *)uptr->entrytable,
-+				    get.size))
-+		return -EFAULT;
-+
- 	xt_compat_lock(AF_INET);
- 	t = xt_find_table_lock(net, AF_INET, get.name);
- 	if (!IS_ERR(t)) {
-@@ -1606,10 +1668,17 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 		xt_compat_flush_offsets(AF_INET);
- 		module_put(t->me);
- 		xt_table_unlock(t);
--	} else
-+	} else {
- 		ret = PTR_ERR(t);
-+	}
- 
- 	xt_compat_unlock(AF_INET);
-+out:
-+	/* Allow three retries after the initial nofault copy. */
-+	if (ret == -EFAULT && retries < 3) {
-+		retries++;
-+		goto retry;
-+	}
- 	return ret;
- }
- #endif
-diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
-index 313c4aac3..a737c5b37 100644
---- a/net/ipv6/netfilter/ip6_tables.c
-+++ b/net/ipv6/netfilter/ip6_tables.c
-@@ -25,6 +25,7 @@
- #include <linux/proc_fs.h>
- #include <linux/err.h>
- #include <linux/cpumask.h>
-+#include <linux/pagemap.h>
- 
- #include <linux/netfilter_ipv6/ip6_tables.h>
- #include <linux/netfilter/x_tables.h>
-@@ -845,6 +846,7 @@ copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -882,6 +884,7 @@ copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -964,6 +967,7 @@ static int compat_table_info(const struct xt_table_info *info,
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct ip6t_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -981,7 +985,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- #endif
- 	t = xt_request_find_table_lock(net, AF_INET6, name);
- 	if (!IS_ERR(t)) {
--		struct ip6t_getinfo info;
- 		const struct xt_table_info *private = t->private;
- #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
- 		struct xt_table_info tmp;
-@@ -1002,10 +1005,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strcpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 
- 		xt_table_unlock(t);
- 		module_put(t->me);
-@@ -1015,6 +1015,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	if (in_compat_syscall())
- 		xt_compat_unlock(AF_INET6);
- #endif
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -1025,6 +1027,7 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
- 	int ret;
- 	struct ip6t_get_entries get;
- 	struct xt_table *t;
-+	unsigned int retries = 0;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1035,20 +1038,50 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+retry:
-+	t = xt_find_table_lock(net, AF_INET6, get.name);
-+	if (IS_ERR(t)) {
-+		ret = PTR_ERR(t);
-+		goto out;
-+	}
-+
-+	if (get.size != t->private->size) {
-+		ret = -EAGAIN;
-+		module_put(t->me);
-+		xt_table_unlock(t);
-+		goto out;
-+	}
-+
-+	module_put(t->me);
-+	xt_table_unlock(t);
-+
-+	/* Fault in only after validating the table and requested size. */
-+	if (fault_in_safe_writeable((char __user *)uptr->entrytable,
-+				    get.size))
-+		return -EFAULT;
-+
- 	t = xt_find_table_lock(net, AF_INET6, get.name);
- 	if (!IS_ERR(t)) {
- 		struct xt_table_info *private = t->private;
--		if (get.size == private->size)
-+		if (get.size != private->size) {
-+			ret = -EAGAIN;
-+		} else {
- 			ret = copy_entries_to_user(private->size,
- 						   t, uptr->entrytable);
--		else
--			ret = -EAGAIN;
-+		}
- 
- 		module_put(t->me);
- 		xt_table_unlock(t);
- 	} else
- 		ret = PTR_ERR(t);
- 
-+out:
-+	/* Allow three retries after the initial nofault copy. */
-+	if (ret == -EFAULT && retries < 3) {
-+		retries++;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1575,12 +1608,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
- 
- 	pos = userptr;
- 	size = total_size;
-+	pagefault_disable();
- 	xt_entry_foreach(iter, private->entries, total_size) {
- 		ret = compat_copy_entry_to_user(iter, &pos,
- 						&size, counters, i++);
- 		if (ret != 0)
- 			break;
- 	}
-+	pagefault_enable();
- 
- 	vfree(counters);
- 	return ret;
-@@ -1593,6 +1628,7 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 	int ret;
- 	struct compat_ip6t_get_entries get;
- 	struct xt_table *t;
-+	unsigned int retries = 0;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1605,6 +1641,32 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+retry:
-+	xt_compat_lock(AF_INET6);
-+	t = xt_find_table_lock(net, AF_INET6, get.name);
-+	if (!IS_ERR(t)) {
-+		const struct xt_table_info *private = t->private;
-+		struct xt_table_info info;
-+
-+		ret = compat_table_info(private, &info);
-+		if (!ret && get.size != info.size)
-+			ret = -EAGAIN;
-+
-+		xt_compat_flush_offsets(AF_INET6);
-+		module_put(t->me);
-+		xt_table_unlock(t);
-+	} else {
-+		ret = PTR_ERR(t);
-+	}
-+	xt_compat_unlock(AF_INET6);
-+	if (ret)
-+		goto out;
-+
-+	/* Fault in only after validating the table and requested size. */
-+	if (fault_in_safe_writeable((char __user *)uptr->entrytable,
-+				    get.size))
-+		return -EFAULT;
-+
- 	xt_compat_lock(AF_INET6);
- 	t = xt_find_table_lock(net, AF_INET6, get.name);
- 	if (!IS_ERR(t)) {
-@@ -1620,10 +1682,17 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 		xt_compat_flush_offsets(AF_INET6);
- 		module_put(t->me);
- 		xt_table_unlock(t);
--	} else
-+	} else {
- 		ret = PTR_ERR(t);
-+	}
- 
- 	xt_compat_unlock(AF_INET6);
-+out:
-+	/* Allow three retries after the initial nofault copy. */
-+	if (ret == -EFAULT && retries < 3) {
-+		retries++;
-+		goto retry;
-+	}
- 	return ret;
- }
- #endif
--- 
-2.43.0
+>>> super_block *sb,
+>>>           simple_inode_init_ts(inode);
+>>>           info->resv_map =3D resv_map;
+>>>           info->seals =3D F_SEAL_SEAL;
+>>> +        hugetlbfs_pmd_sharing_init(inode);
+>>>           switch (mode & S_IFMT) {
+>>>           default:
+>>>               init_special_inode(inode, mode, dev);
+>>> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+>>> index 16c4c4caa126c..6b4f92b7f7ae4 100644
+>>> --- a/include/linux/hugetlb.h
+>>> +++ b/include/linux/hugetlb.h
+>>> @@ -12,6 +12,7 @@
+>>>   #include <linux/page_ref.h>
+>>>   #include <linux/list.h>
+>>>   #include <linux/kref.h>
+>>> +#include <linux/atomic.h>
+>>>   #include <linux/pgtable.h>
+>>>   #include <linux/gfp.h>
+>>>   #include <linux/userfaultfd_k.h>
+>>> @@ -509,6 +510,9 @@ struct hugetlbfs_inode_info {
+>>>       struct inode vfs_inode;
+>>>       struct resv_map *resv_map;
+>>>       unsigned int seals;
+>>> +#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+>>> +    atomic_t pmd_sharing_count;
+>>> +#endif
+>>>   };
+>>>     static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct=20
+>>> inode *inode)
+>>> @@ -516,6 +520,45 @@ static inline struct hugetlbfs_inode_info=20
+>>> *HUGETLBFS_I(struct inode *inode)
+>>>       return container_of(inode, struct hugetlbfs_inode_info,=20
+>>> vfs_inode);
+>>>   }
+>>>   +#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+>>> +static inline void hugetlbfs_pmd_sharing_init(struct inode *inode)
+>>> +{
+>>> +    atomic_set(&HUGETLBFS_I(inode)->pmd_sharing_count, 0);
+>>> +}
+>>> +
+>>> +static inline void hugetlbfs_pmd_sharing_inc(struct inode *inode)
+>>> +{
+>>> +    atomic_inc(&HUGETLBFS_I(inode)->pmd_sharing_count);
+>>> +}
+>>> +
+>>> +static inline void hugetlbfs_pmd_sharing_dec(struct inode *inode)
+>>> +{
+>>> +    atomic_dec(&HUGETLBFS_I(inode)->pmd_sharing_count);
+>>> +}
+>>> +
+>>> +/*
+>>> + * A 32-bit counter can theoretically wrap, but doing so would =
+require
+>>> + * billions of active PMD-sharing attachments to the same inode and=20=
+
+>>> is not
+>>> + * expected in practice. Treat any non-zero value as active so a=20
+>>> wrapped
+>>> + * negative value still takes the conservative notifier range.
+>>> + */
+>>> +static inline bool hugetlbfs_pmd_sharing_active(struct inode =
+*inode)
+>>> +{
+>>> +    return atomic_read(&HUGETLBFS_I(inode)->pmd_sharing_count) !=3D =
+0;
+>>=20
+>> Testing for non zero covers the negative half of the cycle,
+>> but the 2^32nd increment changes the value back to zero.
+>>=20
+>> The inode-wide total is not bounded by PID_MAX_LIMIT because
+>> one mm can have an attachment in every PUD-sized part of a
+>> large mapping.  For example, a 4-level x86 mm has about
+>> 131,000 user PUD slots.  Roughly 32,769 child mms can therefore
+>> create more than 2^32 attachments by faulting one address in
+>> each PUD of a single large inherited MAP_SHARED hugetlb VMA.
+>> This also does not require one backing huge page per
+>> attachment: huge_pte_alloc() installs or shares the PMD table
+>> before hugetlb_no_page() attempts to obtain the huge page.
+>>=20
+>> At the zero value, an unmap can take i_mmap_rwsem for write,
+>> observe no active sharing, and issue only the original narrow
+>> notifier.  Its subsequent __huge_pmd_unshare() can still
+>> clear a PUD and decrement the counter from zero to -1, leaving
+>> the rest of the PUD-sized invalidation unreported.
+>>=20
+>> Could this use a 64-bit or saturating counter so an active
+>> count can never be mistaken for zero?
+>>=20
+>> Therefore, I recommend using atomic64_t.
+>>=20
+>> Thanks,
+>> Muchun
+>=20
+>=20
+> Thanks for the detailed explanation.
+>=20
+> I did consider that such an extreme case could theoretically cause a
+> problem, but I expected it to be practically unreachable. But since we
+> can cover this corner case simply by using atomic64_t, that is =
+definitely
+> better.
+>=20
+> I will switch the counter to atomic64_t in v4 and drop the 32-bit wrap
+> comment.
+
+Another option would be use refcount infrastructure since it already
+consider the 32-bit wrap issue itself.
+
+>=20
+> Thanks,
+> Zhe
+>=20
+>>=20
+>>> +}
+>>> +#else
+>>> +static inline void hugetlbfs_pmd_sharing_init(struct inode *inode) =
+{}
+>>> +
+>>> +static inline void hugetlbfs_pmd_sharing_inc(struct inode *inode) =
+{}
+>>> +
+>>> +static inline void hugetlbfs_pmd_sharing_dec(struct inode *inode) =
+{}
+>>> +
+>>> +static inline bool hugetlbfs_pmd_sharing_active(struct inode =
+*inode)
+>>> +{
+>>> +    return false;
+>>> +}
+>>> +#endif
+>>> +
+>>>   extern const struct vm_operations_struct hugetlb_vm_ops;
+>>>   struct file *hugetlb_file_setup(const char *name, size_t size,=20
+>>> vma_flags_t acct,
+>>>                   int creat_flags, int page_size_log);
+>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>> index 4f6f58bf3db6c..cb27c06d1f7a7 100644
+>>> --- a/mm/hugetlb.c
+>>> +++ b/mm/hugetlb.c
+>>> @@ -5361,10 +5361,12 @@ void __hugetlb_zap_begin(struct=20
+>>> vm_area_struct *vma,
+>>>       if (!vma->vm_file)    /* hugetlbfs_file_mmap error */
+>>>           return;
+>>>   -    adjust_range_if_pmd_sharing_possible(vma, start, end);
+>>>       hugetlb_vma_lock_write(vma);
+>>> -    if (vma->vm_file)
+>>> +    if (vma->vm_file) {
+>>>           i_mmap_lock_write(vma->vm_file->f_mapping);
+>>> +        if (hugetlbfs_pmd_sharing_active(file_inode(vma->vm_file)))
+>>> +            adjust_range_if_pmd_sharing_possible(vma, start, end);
+>>> +    }
+>>>   }
+>>>     void __hugetlb_zap_end(struct vm_area_struct *vma,
+>>> @@ -5403,7 +5405,10 @@ void unmap_hugepage_range(struct=20
+>>> vm_area_struct *vma, unsigned long start,
+>>>         mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, =
+vma->vm_mm,
+>>>                   start, end);
+>>> -    adjust_range_if_pmd_sharing_possible(vma, &range.start,=20
+>>> &range.end);
+>>> +    i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+>>> +    if (hugetlbfs_pmd_sharing_active(file_inode(vma->vm_file)))
+>>> +        adjust_range_if_pmd_sharing_possible(vma, &range.start,
+>>> +                             &range.end);
+>>>       mmu_notifier_invalidate_range_start(&range);
+>>>       tlb_gather_mmu(&tlb, vma->vm_mm);
+>>>   @@ -7006,6 +7011,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm,=20=
+
+>>> struct vm_area_struct *vma,
+>>>       if (pud_none(*pud)) {
+>>>           pud_populate(mm, pud,
+>>>                   (pmd_t *)((unsigned long)spte & PAGE_MASK));
+>>> +        hugetlbfs_pmd_sharing_inc(file_inode(vma->vm_file));
+>>>           mm_inc_nr_pmds(mm);
+>>>       } else {
+>>>           ptdesc_pmd_pts_dec(virt_to_ptdesc(spte));
+>>> @@ -7037,6 +7043,7 @@ static int __huge_pmd_unshare(struct =
+mmu_gather=20
+>>> *tlb,
+>>>       pud_clear(pud);
+>>>         tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
+>>> +    hugetlbfs_pmd_sharing_dec(file_inode(vma->vm_file));
+>>>         mm_dec_nr_pmds(mm);
+>>>       return 1;
+
 
