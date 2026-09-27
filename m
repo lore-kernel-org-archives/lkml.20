@@ -1,329 +1,224 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BFD3F105F
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:29:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252CF3EFD1F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790515767; cv=none; b=Dksl+JYFE1maVW/8laXxB+aXSnD9o7lHdt4f9f8Nu9rMXIYwZUvDl0gNQlhT/8NgjNc2frjq/JrQPrOShTPjex25QWC+aqhu2hnib1YbPRHDkTTXAkp8o5u1/+1BXQz0w06cuPObyNlyps7AMo3Lt6ZoEZuKiaXR1fT4pccDte0=
+	t=1790515798; cv=none; b=N5tpVht8k23TPbx65DHqJtDoLmShsgDMoGILYzBBXlVc0YWFy7MnUpacoCv/N7M5cOh4GOHS1sN+XlpfKQ+sV+3o+Vg9ct5SKDLY/OOCnNDDIFR2ogT66WdQicqGkqATJn7ShN0pbb3ypqXqHgw90oeM6SCz2OgikAwb3D1D4JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790515767; c=relaxed/simple;
-	bh=xZjVjFUsRAoAyEig84ujyLNULbs3BHWp05sZ+Ix3PEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YFZKzplHGd67/pDj/f9yWz95hEnb0cUCj+S0ovSyROYQX3/8LsRbZSgt7EcEC3FPQRoXG/NK58hM/0yQ+1Qs7w23rzSfAl+F/P8Ky+LAlJRTEOVfk665N85Nf80CMY7zhygKdvsRiVHVxCHfwWACHGYmuAeiEs0B38QNOC77LDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZTbefoD; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790515798; c=relaxed/simple;
+	bh=CSXU+uGibWfyJfAVlk6Ie8rPbDeL9xwULj92S6z2pSk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tK7tz/i2IKuKp1vT15HqZkgPXdOAzo8LRAtdY8oIWBNq8KfA60F4gpNuPKWH7uzz3xRwhb2BFVB3zLf+ZvwT2qoVRlJ0HTgClvcGrfOdxHstQvAD27yOqI/og9glR/XOLJ1l79cUB83CEU+507wUoeNjNnMWkjNRZ4heJX+wvRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XX26TeO3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XHmHjSn1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZTbefoD"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a856865so1008937b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:29:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XX26TeO3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XHmHjSn1"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QMftv71566098
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:29:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=TQFlpRLe6U7SwfWR6ZtQDf
+	0jbMJGb6d6UWV3uD3alro=; b=XX26TeO31zf9K27bapuA4NRLfAYK04W2O1yZjA
+	4UKGUSCiigYJZI8whtADSY5W0+LnAU0wP931TOcxourtrfO3oyXUDGHNU0OYwiIY
+	uwrQbGk9bMx4lF3pQZuXk4lcOaE/l2/nD7J+SgR5ZC4aaLYldjRpZOjwwurFQBkh
+	vu7pexqS582JrZJ4tXJVEPyLIOTa5fYu0ZBTXSPlJLbbEVU2l8WVlXGyK/uqgLuI
+	Quivklsaf5NmR6SXJqZFFzMYUYKPxg9XLfmmJ4bYPEGKK8gq+Gc7buiPvkjj6P+q
+	ltJP12meqrH4GVFEoT+cGFX6F6i5FbqrTGk3uJccR0XcKINg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx5mwb1p0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:29:54 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ae8e7e546so468362885a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790515765; x=1791120565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QjnjoNM8uOqXSXpGRfVdaY1vT+2XluyhaDrsPcm/knA=;
-        b=CZTbefoDUl0E86VehgMJw/XZynaE1LXuJcmWZfUCLj7Kgwi+Gc+AXC0fgrbRhJi2sp
-         rUBOy8NVws25o2S4VuibXNgC7GeZy6sx3dmk+5KlszGPZx7t+RBN1B9a4qOIf9NpvDFm
-         MFC1I0+6SrQi9bb3G9KPUVKOPsE3awLADrX2g54UQSZHmio7Rs6dO30isTsaLerJI11g
-         1fb7T/IpcX18H6kxReZ/EQNrcktYhGMcMAt77TD/9CUmwazLgjGAInZjMYdnyhUGTVRL
-         +bS0PG1PENtpL4aoX+/2A4fuWCVIJGNxIQWNqIss6BvzhzLrxXfEroe7XvWsd4BQ+F/P
-         btNQ==
+        d=oss.qualcomm.com; s=google; t=1790515794; x=1791120594; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TQFlpRLe6U7SwfWR6ZtQDf0jbMJGb6d6UWV3uD3alro=;
+        b=XHmHjSn1lPihpG2oDNF0IUcFe3b1k/cQaxjmK2iWFiyNlUOC7xpQrTMHU5lfNogjqH
+         mPRuC9d8l+8n58qy+Zhv3mlDO3SqQdPMNJTfZdoAFR2C0dufmyHst6cLknpOwcCVPBYq
+         zUwdnA95sZiwLJtPvff1x0vZV86aP1QUR8dZrIqHpNB9d8Yw4litSnepQj8zq3K1F1E6
+         URcq8hoEW8flH5/Jy7cgt9pzetLYn93xgTgjlJHq8QQPUqDJBLHnvvdklc2/0FZFEoxy
+         rec1ynvk4OSS5aB3R5zWXoSE6D/Bp2vTyRfVPRDsafg6WlFu/mSjEmGXNK3/8t93bfOn
+         nVDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790515765; x=1791120565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QjnjoNM8uOqXSXpGRfVdaY1vT+2XluyhaDrsPcm/knA=;
-        b=B5HCTHnDGtF79z4vsPjOvJ9nHzvOYKTux8qC3wNCoWGUke/mZegpCYfj4FkQN0Dvb1
-         V+Yyb6ViFoEaau/KuFA9AjDblmluKNH6sUHtrfW6Wfdl+J9pJ1dBKSX0uIy2ydptU6/m
-         cU1vzsZzlfCYBI4jE4N88P9ZV33iW+YYFBN9ZfnUc4IerbwY6XNiY0bKS5qizI87Z/lg
-         FrQMgP27/FjznToj7ntlP3n/AIh2rx14tTT3SJ5N/cz2QU4nKNvdoxx5ZgkVc+1IbKNQ
-         gJGIZHLuac7OxNvL5ArskGYLGqDmV4aePU/ybMLhBVjVRAmS64Ll6PveBK72lqqAbCAy
-         CTcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwhcOZerPMoXMdL0Ve5DO+Qfw65gNrpYnMx6pFjPRszzXalIpHpznSuBrpQJ9h1bczl5WXmrEKYREMDyR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/CDmmm1t91MAo32hkl5lSs53Lc9df803Sa9wEYhuM+JWiyw3w
-	ytrPnJBkXv1HkvID9CQJCGVdMZTI+Fh1IKGAwfSGqCPLb8BTSM+Q/JnB
-X-Gm-Gg: AYBFou25pI6vCR0x0wxP86eSQJByKjO0inlRKxoyYgI1F6XulvtQOdq7Gzv+FphvofZ
-	ScFwYkD7I3iLJmgsrt17Kyvz/NS+hKRSsnN2h9G36wRF+YYwvkaehECqfS5m9tR8nOegL6aCUGi
-	IACNwzW442/T3FgrKX9Ol5wsBW6llDaB0DchZm91a6EeHXhP3CI8Mg4Wdj1/UQoNvCy60W3SrP7
-	9CfipigwShMPIHzLcXlfXcWkZuyH/aEzRVHQyWoZjJJXdIn3A/PprQiWd28t0MO1+JjHSlT5zmb
-	MCockUB/g9MEPjMLfw52GGAxlC/LOPU9dKouei0UoL+ITMJPZw+GzHWUqpL/3qOgGqZBXVnMb+k
-	WItmaI2+KtvDddogWXU+vwO/5EMmJuVL+DzXl7imkzyVa78d7vSGrL+iiq9IlFWO7vjw80y7l7r
-	sZpJ9YLvE5yzX8L5b7Nz66psqUdHxfD4JjIZ2CSiOOvbPr8zm1M05VTqjDU1uqZ3bYlb0sLyXzJ
-	uPSe3QAOIiOB6hILgqGeQkGAZ53btI9ZGa7J6JmMDcOdy7+fA==
-X-Received: by 2002:a05:6a00:390b:b0:874:705d:f659 with SMTP id d2e1a72fcca58-87e9b3b6543mr7973250b3a.39.1790515765121;
-        Sun, 27 Sep 2026 06:29:25 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:b0c3:3f9c:4dbd:e098])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb57a5a6sm2985845b3a.47.2026.09.27.06.29.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 06:29:24 -0700 (PDT)
-From: Yuchao Zhang <ndaugoing@gmail.com>
-To: Simon Horman <horms@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH v3] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
-Date: Sun, 27 Sep 2026 21:29:14 +0800
-Message-ID: <20260927132914.24648-1-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20260707; t=1790515794; x=1791120594;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TQFlpRLe6U7SwfWR6ZtQDf0jbMJGb6d6UWV3uD3alro=;
+        b=iK3hbVAbyhYNdWaiRaEfLyUl66XtAkheC8mjFowvh5YJm/lSckY9wpeT2SI0xBgUIo
+         RVcVHh7viCptaNKPv3GWRlqKGNAN42mI6ejDdATOEhBURl89o/bYx7J+rdee15KW3Eju
+         EUN+RoYz+RoiU7Dk5O9EzafYpEe0EW99q8QtZXL9MSApUzTXtpESKCY2139YWXo/Nj2y
+         SNBOiQuHZu4Jo5P0jh+DS1In4MHQFYtB/XipP629rWHaYFWVFsQjfQuRBu+PpiMNOeR8
+         Jcp8TGJYB1FjCBkyXF+Yi1+pFicJC4xtlRJzoC69P6Vw6NG/D1NjHk4v4yapfv4IGwP0
+         YgSA==
+X-Forwarded-Encrypted: i=1; AKwUvByFyQ39vJR9s6FRjVJEM++cLpBYEowjpqEsi9stpyAIbgo5csIyOPIAwIXWOxdRTaU3Vl2JlbLUFxPy5ys=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntIW03ZPp2ql2RAeTiSn7hJv8B9gXX8cJJiMMfoLf8NCo0KwX2
+	+LCqCXI/qB3wbSZVUql4Dmr6yxLQ4XeXusQaKTd7UlIimSqRK3vS6m8mUkavk19YcKUvIAOMV3W
+	0HuBdu8siLaRtmDVViVnuuje/0giHPmxznf4uM7XiVs4blqUr+d27fpkvCkT2ksDXTLY=
+X-Gm-Gg: AYBFou0EAQYUDXejbCjQi73SLktv/GPA4tb3W0ZnbUqgHarbWOLTwVyIfOdPgraQSpO
+	4lbHQ+q6nhpY3sqB6GAQnyFRoj5WVeiCI2ByVc0fY+DewmW0XLmZ4PjehyI/kpWn1k7n5DD1VKC
+	gWTlt1RtY72atNSkVx1RYKWJ5RTKAHQRUmGUKcl+duuvINx5+4RV7AazafglFtgkzQCh5RfBtxn
+	+/k7OCT/jb8We4zc/jkJJL5BjbA9U7DdV1IEY7BZuaPRqUani9YQnKt4Sigism+TirLl18YA4Rl
+	cza+ZCW4Bk0P5YBBYHoJoIx2aK3IQnSc7/0VKswFc7ubbRGo7J6kXZAXQjbPG2pa378obKyiRLf
+	ghB8n5pDKfGeKIQKv4nuaCIEmJL25JOMe+4q/SnyQiZp30VcvCBVw6NqCWsxZOmWVmjtUpBpKp/
+	XPv4qpJfqXaggizMId6MH6Qa2K3ELEdOAfb4Ih102Tk/sM9PSeuEc=
+X-Received: by 2002:a05:620a:1b81:b0:93c:65e3:dfae with SMTP id af79cd13be357-93c65e3e490mr629249485a.50.1790515794065;
+        Sun, 27 Sep 2026 06:29:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b81:b0:93c:65e3:dfae with SMTP id af79cd13be357-93c65e3e490mr629245885a.50.1790515793577;
+        Sun, 27 Sep 2026 06:29:53 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5c1f:3897:a4a1:99e1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00179c729sm94636745e9.15.2026.09.27.06.29.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 06:29:52 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v5 0/5] i2c: qcom-cci: Enforce the required CCI clock rate
+Date: Sun, 27 Sep 2026 15:29:49 +0200
+Message-Id: <20260927-cci-clk-fix-v5-0-4cd498559ae5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE4auWoC/3XPTQrCMBAF4KuUrI3k16SuvIe4iOnEBm2jjRZFe
+ ndHN7ZSNwPvwXzwniRDFyGTdfEkHfQxx9Ri0IuC+Nq1B6CxwkwEEytmBKfeR+pPRxrinQbgSu+
+ F88EZgh/nDrD+aNsd5jrma+oeH7zn73be6TllVIMDYw1jlbOblPPycnMnn5pmiYe8uV6MCTMlB
+ BJeltoGYfdM6T+EHBPllJBIBOmN5BXX5Qr+EOpLWPYzRCEBvLI4QitgfIYYhuEFVPZV+HYBAAA
+ =
+X-Change-ID: 20260721-cci-clk-fix-fe145b2acfa7
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Luca Weiss <luca@lucaweiss.eu>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org,
+        konradybcio@kernel.org, stephan.gerhold@linaro.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: mpnZct_AQh79kNsoszUK_mzrheyatIXu
+X-Authority-Analysis: v=2.4 cv=QvPLTlyd c=1 sm=1 tr=0 ts=6ab91a52 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=CakdkRaH-b5KpuXxX4YA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: mpnZct_AQh79kNsoszUK_mzrheyatIXu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA1MyBTYWx0ZWRfX3Nbdkv4ws275
+ D7DAZLtx8bpBUnvuY9Vpvvnm7CT24pmTGN5l6pIH9KWnoXtX3gdXtmv6L4pk2Ku6NsvLk1gRnrB
+ ozxHL0MoC5WuYEPI31rfYKijYrl4h1RqAA6XFx3nhYl7VLuEQp6n0229auI3LsUzco5nQm2GrVH
+ smHv6qaxxmabd9xy+DzTwjZXLJVzs5f/bgct0arkVGw1gAy1ccsNVqq/3S6CXsVFHLzYn5DyDfU
+ HUCbxqx9wVf+nFru4Lr9mimhvwSTD+3fv+1GBmzgiNKVc/AXL081tlpIHWBsWVgGsAGdky/BMTa
+ cDecohvzHrzOg8v1RKLMTUIGakk5W6Qd+VxqjDSomKiOjGcT7ylK5EOuW6ioIX6cIeZET/r0ebs
+ o7pcaOEJ+ljVAL18adJUuAVZVW/xyjq2+r8jQaUju2iaQWLpob4ta+YXK/yKCYtkZVdgQ3MXEaR
+ ZEIBwVhJlj8hzmH75lw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA1MyBTYWx0ZWRfXyCbbcRr6NEeX
+ 2COMjtNZqlqZ4xxX5GF1zxQhGTr+UgLQdbqY7pMRwSBAhOmed7SmU7WxA3ECg3eIW0mtYhqK6KS
+ 2z3NAZwl9Z7OCpMLFr/STuUy2Wibl68=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270053
 
-Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
-received, it updates ndev->nci_ver, ndev->manufact_id, and
-ndev->manufact_specific_info, and calls nci_req_complete(ndev,
-NCI_STATUS_OK) to finish the pending reset request.
+The CCI hw_params timing values (thigh, tlow, etc.) are expressed in
+clock ticks and are only valid at the specific CCI clock rate they were
+calibrated for. Running at the wrong rate causes incorrect I2C timings
+that may violate the I2C specification. Today the rate is left to the DT
+(assigned-clock-rates) or the bootloader, which is fragile: the driver
+owns the hw_params and should own the clock rate too.
 
-However, unlike other notification handlers in ntf.c (which validate
-ndev->state before completing requests), nci_core_reset_ntf_packet()
-does not check whether a core reset request is actually pending.
-If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
-command times out or from a misbehaving NFCC), it unconditionally:
-1. Completes whatever request is currently in-flight (such as CORE_INIT,
-   RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
-   state desynchronization.
-2. Overwrites ndev->nci_ver and manufacturer info. Because
-   ndev->nci_ver is used as a selector for subsequent packet formats
-   and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
-   unexpectedly modifying it can cause protocol format confusion.
+- Move the msm8953 to reusing the common v2 config.
+- Turn the timing table into a two-dimensional [mode][rate]
+- Add the 19.2 MHz Standard/Fast timing sets for the v2 CCI
+- Promote v2 to the generic common table for all revisions
+- Actively enforce the required rate.
 
-A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
-delayed response packet can prematurely complete an unrelated in-flight
-request.
+This ordering also addresses Vladimir's point that the clock rate is a
+property of the mode/timing settings rather than of the CCI revision.
+the per-mode [mode][rate] table lands first, and rate enforcement is
+built on top of it.
 
-Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
-by the core layer when a reset command is actively awaiting them:
-- Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
-- In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
-  is not set. If set, atomically clear the flag and complete the request
-  on failure or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
-- In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
-  completion, cancellation, or timeout.
-- In nci_core_reset_ntf_packet(), fail any in-flight reset request if the
-  controller reports an unrecoverable error (0x00), and only process
-  command-triggered notifications (0x02). Non-command triggers (e.g.
-  power-on 0x01 or proprietary triggers) and unexpected notifications
-  return 0 without modifying core state, ensuring driver-specific
-  notification handlers (such as fdp firmware patch handling) still
-  receive them.
-- In nci_core_reset_ntf_packet(), support notifications shorter than 9
-  bytes (e.g. NCI 2.0 frames with manufacturer_specific_len == 0),
-  validating the fixed header length and safely bounding
-  manufact_specific_info reads.
+Patches 2/5 and 4/5 are the result of discussions with Vladimir and
+some code sharing. I would expect him to add a Co-developed-by and
+corresponding Signed-off-by tag if he agrees that the submitted
+implementation still matches his original intent.
 
-Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
-v3:
- - In nci_core_reset_ntf_packet(), do not reject notifications shorter than
-   9 bytes with -EINVAL; instead allow valid short frames (e.g. 2-byte NCI 1.x
-   or 5-byte NCI 2.0 with manufacturer_specific_len == 0), safely cap field
-   reads, and return 0 so driver-registered hooks (such as fdp firmware
-   patching) are not skipped (per Sashiko AI).
- - Fix trigger semantics: in NCI, CORE_RESET_CMD trigger is 0x02
-   (NCI_RESET_TRIGGER_RESET_CMD). If controller reports an unrecoverable error
-   (0x00, NCI_RESET_TRIGGER_ERROR) while reset is pending, fail the request
-   instead of completing with OK; ignore power-on (0x01) and proprietary
-   triggers at core layer (per Sashiko AI).
- - In nci_core_reset_rsp_packet(), use test_and_clear_bit(NCI_RESET_PENDING)
-   upon completing the request to consume the flag atomically (per Sashiko AI).
- - Link to v2: https://lore.kernel.org/netdev/20260922102144.39689-1-ndaugoing@gmail.com/
+Changes in v5:
+- Check the rate returned by cci_get_required_rate() and pass it
+  out via a pointer. Never call dev_pm_opp_set_rate(0) anymore,
+  error out (-EOPNOTSUPP) when no rate fits all masters.
+  (Konrad)
+- Set the CCI rate once at probe, drop the set_rate from
+  cci_resume_runtime() and the set_rate(0) from
+  cci_suspend_runtime(). (Konrad)
+- Declare the loop iterators in the for() headers. (Konrad)
+- Crop the now-redundant hw_params[].thigh check in cci_get_hw_params(),
+  cci_get_required_rate() already rejects rates lacking a valid timing
+  set for an active master's mode. (Vladimir)
+- 'v2' is an arbitrary name, not realy hw revision, mention it. (Konrad)
+- Collect Reviewed-by tags on patches 1-4. (Konrad, Vladimir)
+- Link to v4: https://lore.kernel.org/r/20260801-cci-clk-fix-v4-0-e1d80da54e01@oss.qualcomm.com
 
-v2:
- - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
-   instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
-   patching) per Simon Horman.
- - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
-   while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
-   on NCI_RESET_PENDING alone.
- - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
-   unrelated requests on unexpected responses.
- - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
-   for NCI 1.x handling.
- - Link to v1: https://lore.kernel.org/netdev/20260918013337.82214-1-ndaugoing@gmail.com/
+Changes in v4:
+- Rebase on andy/i2c/i2-next (527dd7fb6209) (Andy)
+- Add 'select PM_OPP' to i2c qcom cci Kconfig (Andy)
+- Link to v3: https://lore.kernel.org/r/20260729-cci-clk-fix-v3-0-f3c731d1596e@oss.qualcomm.com
 
- include/net/nfc/nci.h      |  5 ++++
- include/net/nfc/nci_core.h |  1 +
- net/nfc/nci/core.c         |  3 +++
- net/nfc/nci/ntf.c          | 48 +++++++++++++++++++++++++++++++++-----
- net/nfc/nci/rsp.c          | 30 ++++++++++++++++++------
- 5 files changed, 74 insertions(+), 13 deletions(-)
+Changes in v3:
+- Reorder the series so per-mode clock support comes before rate
+  enforcement. Introduce a [rate][mode] timing table and select the row
+  matching the running clock rate. (Vladimir)
+- The per-mode patch only validates the running rate (error out on a
+  missing entry), the following patches enforce it.
+- Split the addition of the v2 19.2 MHz Standard/Fast timings into its
+  own patch, keeping the [rate][mode] conversion a pure refactor.
+- Drop the "Revert ... Remove unused struct member cci_clk_rate" patch:
+  the per-mode [mode][rate] table replaces cci_clk_rate entirely.
+- Introduce a common params table (revision agnostic) (Vladimir)
+- Link to v2: https://lore.kernel.org/r/20260727-cci-clk-fix-v2-0-c3958f28b045@oss.qualcomm.com
 
-diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
-index 09efcaed7c3f..2ac45adba088 100644
---- a/include/net/nfc/nci.h
-+++ b/include/net/nfc/nci.h
-@@ -140,6 +140,11 @@
- #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
- #define NCI_RESET_TYPE_RESET_CONFIG				0x01
- 
-+/* NCI Reset Triggers */
-+#define NCI_RESET_TRIGGER_ERROR					0x00
-+#define NCI_RESET_TRIGGER_POWER_ON				0x01
-+#define NCI_RESET_TRIGGER_RESET_CMD				0x02
-+
- /* NCI Static RF connection ID */
- #define NCI_STATIC_RF_CONN_ID					0x00
- 
-diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
-index 664d5058e66e..504ea91ddf27 100644
---- a/include/net/nfc/nci_core.h
-+++ b/include/net/nfc/nci_core.h
-@@ -31,6 +31,7 @@ enum nci_flag {
- 	NCI_DATA_EXCHANGE,
- 	NCI_DATA_EXCHANGE_TO,
- 	NCI_UNREG,
-+	NCI_RESET_PENDING,
- };
- 
- /* NCI device states */
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 5f46c4b5720f..5a90591cd9af 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
- 	}
- 
- 	ndev->req_status = ndev->req_result = 0;
-+	clear_bit(NCI_RESET_PENDING, &ndev->flags);
- 
- 	return rc;
- }
-@@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
- {
- 	struct nci_core_reset_cmd cmd;
- 
-+	set_bit(NCI_RESET_PENDING, &ndev->flags);
-+
- 	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
- 	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
- }
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index f5c9a8ab7ec1..81ba6011c027 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -30,21 +30,57 @@
- static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
- 				     const struct sk_buff *skb)
- {
--	/* Handle NCI 2.x core reset notification */
- 	const struct nci_core_reset_ntf *ntf;
- 
--	if (skb->len < sizeof(struct nci_core_reset_ntf))
--		return -EINVAL;
-+	/*
-+	 * Return 0 on short or unhandled packets so driver-specific
-+	 * notification hooks (such as fdp firmware patching) can still run.
-+	 */
-+	if (skb->len < 2)
-+		return 0;
- 
--	ntf = (struct nci_core_reset_ntf *)skb->data;
-+	ntf = (const struct nci_core_reset_ntf *)skb->data;
-+
-+	/*
-+	 * If the controller reports an unrecoverable error while a reset is
-+	 * pending, fail the in-flight reset request.
-+	 */
-+	if (ntf->reset_trigger == NCI_RESET_TRIGGER_ERROR) {
-+		if (test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags))
-+			nci_req_complete(ndev, NCI_STATUS_FAILED);
-+		return 0;
-+	}
-+
-+	/*
-+	 * Only CORE_RESET_CMD-triggered notifications (0x02) complete a
-+	 * pending reset request in NCI 2.0. Power-on (0x01) and proprietary
-+	 * triggers (>= 0xA0) must not update core protocol state.
-+	 */
-+	if (ntf->reset_trigger != NCI_RESET_TRIGGER_RESET_CMD)
-+		return 0;
-+
-+	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
-+		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
-+		return 0;
-+	}
-+
-+	if (skb->len < offsetofend(struct nci_core_reset_ntf,
-+				   manufacturer_specific_len)) {
-+		nci_req_complete(ndev, NCI_STATUS_FAILED);
-+		return 0;
-+	}
- 
- 	ndev->nci_ver = ntf->nci_ver;
- 	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
- 		 ntf->nci_ver, ntf->config_status);
- 
- 	ndev->manufact_id = ntf->manufact_id;
--	ndev->manufact_specific_info =
--		__le32_to_cpu(ntf->manufact_specific_info);
-+	if (ntf->manufacturer_specific_len >= sizeof(__le32) &&
-+	    skb->len >= sizeof(struct nci_core_reset_ntf))
-+		ndev->manufact_specific_info =
-+			__le32_to_cpu(ntf->manufact_specific_info);
-+	else
-+		ndev->manufact_specific_info = 0;
- 
- 	nci_req_complete(ndev, NCI_STATUS_OK);
- 
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index b0ab4f5acbce..7a3c6bc1a0da 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -32,16 +32,32 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
- 
- 	pr_debug("status 0x%x\n", rsp->status);
- 
--	/* Handle NCI 1.x ver */
--	if (skb->len != 1) {
--		if (rsp->status == NCI_STATUS_OK) {
--			ndev->nci_ver = rsp->nci_ver;
--			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
--				 rsp->nci_ver, rsp->config_status);
--		}
-+	/*
-+	 * If no reset request is pending, ignore unexpected responses to avoid
-+	 * prematurely completing an unrelated request.
-+	 */
-+	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
-+		return;
-+
-+	if (rsp->status != NCI_STATUS_OK) {
-+		if (test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags))
-+			nci_req_complete(ndev, rsp->status);
-+		return;
-+	}
-+
-+	/* Handle NCI 1.x ver: completed by RSP */
-+	if (skb->len >= sizeof(*rsp)) {
-+		if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags))
-+			return;
-+
-+		ndev->nci_ver = rsp->nci_ver;
-+		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-+			 rsp->nci_ver, rsp->config_status);
- 
- 		nci_req_complete(ndev, rsp->status);
- 	}
-+
-+	/* NCI 2.x ver: status is OK, wait for CORE_RESET_NTF to complete */
- }
- 
- static u8 nci_core_init_rsp_packet_v1(struct nci_dev *ndev,
+Changes in v2:
+- Instead of adding a 19.2 MHz cci_clk_rate for msm8953, switch it to
+  the v2 config (37.5 MHz). The msm8953 table was internally
+  inconsistent (Standard/Fast for 19.2 MHz, Fast+ for 37.5 MHz), so a
+  single rate could not satisfy all modes. msm8953 is the same HW
+  version as msm8996/sdm630, which already use v2. (Vladimir)
+- Remove the msm8953 fix tag (Vladimir)
+- Apply the rate via the OPP framework instead of a bare clk_set_rate(),
+  managing the vote across runtime PM. (Konrad)
+- Link to v1: https://lore.kernel.org/r/20260721-cci-clk-fix-v1-0-5eae78700da8@oss.qualcomm.com
+
+---
+Loic Poulain (5):
+      i2c: qcom-cci: Switch msm8953 to the CCI v2 timing/rate config
+      i2c: qcom-cci: Support per-mode CCI clock rates
+      i2c: qcom-cci: Add 19.2 MHz timings for the v2 CCI
+      i2c: qcom-cci: Share the timing table across CCI revisions
+      i2c: qcom-cci: Enforce the required CCI clock rate
+
+ drivers/i2c/busses/Kconfig        |   1 +
+ drivers/i2c/busses/i2c-qcom-cci.c | 332 ++++++++++++++++++++++----------------
+ 2 files changed, 195 insertions(+), 138 deletions(-)
+---
+base-commit: 527dd7fb6209857f8ff4426055b3a418e60faa8b
+change-id: 20260721-cci-clk-fix-fe145b2acfa7
+
+Best regards,
 -- 
-2.53.0
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
