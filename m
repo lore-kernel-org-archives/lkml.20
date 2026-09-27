@@ -1,82 +1,93 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A863C1F4B;
-	Sun, 27 Sep 2026 09:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8A33CAE74
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499929; cv=none; b=RDOtLaj+dGMJpFEYLI8tCpdCY88JMzoJZa8w0yRI5VQGveBYy3sa+P0fRWzlU1FuDWG8Ec1Kq93QXnq7XySJkEerAWYutPjfaFhtpiwydzWCpBl8Adg0S8+uHgseL7L522q+wjV40U3HvvlyryuiHs2HlvXnAaJG+Tr9LqOMqDM=
+	t=1790499956; cv=none; b=JKvaxJk+4dMFURlTb9R1h8BzZ2zP4ewwIlHsCVfUvogWGmDz/uGfypwV0q0uaNbx71/BRqfpfUkk+tcMPSF3rWdGwA7a2NJ2dODMT7iQsRVvpOgbGkeV20ab8gEkMAAXJRYDciUXRE8An5gfhU6lfzOT+Z8K1ejwXkPBD593bOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499929; c=relaxed/simple;
-	bh=FGYMbX4aa+5+V2NKYcq8D599UYU0Bll/uezqGx2FBiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oy5kOAcnMMXjYGD2t7M8ByXzxbMbIF8MKpQgQPo2lB8X4o/4DE/6dvNvK/UUyI54HAyK8lJRrxti5v+ODdNSRMf1acJPw9pbVEYWCgv/XaQh/+YaIQGXX//ukm3zelt6mG2BZIW0KmyS+KCFkQuOok9sDUkURGdMD5PIVjLX7jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=07Gvuvem; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Wl8ZqoFE; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1790499956; c=relaxed/simple;
+	bh=Fqj3j+eDeNTJEbTlJvXs9gtTHN/wPlb/grwNyEpL5tM=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=XvnapPMJN1nt3tH2e0MD0mheL1RCT821ujnS06Zk0bhhFXt7llUXoERWMloyl1rj9jDG2qL0YWQKufM1E9HpWsfWhcRk4tpayP5fiKp/IWdSwtnWR3uLvYsmauYsndsh1/ZhCC4CQzz+Ff6HAHEgJpDz5rq+7uRA+nN3mEfHL6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OoLsytgO; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="07Gvuvem";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Wl8ZqoFE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790499926;
-	bh=FGYMbX4aa+5+V2NKYcq8D599UYU0Bll/uezqGx2FBiE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=07Gvuvem+irQmsR5FkKNn+LU8uZoVMUpWTT35IRsWrm2REh9DpK2O9vB2HRCDz+eI
-	 XI5cSZGB6JKCVU4+6mPiOyXE4wT1LZNFO0UuINQ6wBk00oJzLYSFgszVcvC7UPtBrG
-	 xRo2hWtfB5PV7/WrCE0Ci9x600kIYRcOn4hgxcRU1BUn2FaUPfY67r87sdZyN9E+w1
-	 WNuI72SBbXwQ1VuFYsNPzqtMqD3tjUKsSApJAz5yUAM7d2oM9RLJFZ8qeY0pW5F+OY
-	 axfU/BK9qi6/N+Pki0QFNh+v1oC3293fv6DI6ixaXnE/rAhrzQKXVKNaoqeOnIziCX
-	 TXhK0D8LwSGQA==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 08CF0412E8; Sun, 27 Sep 2026 09:05:26 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790499925;
-	bh=FGYMbX4aa+5+V2NKYcq8D599UYU0Bll/uezqGx2FBiE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Wl8ZqoFE9EcAajBTlniaU6VeOtrNSDBBfwxwceYsb8+CLCJKcB9NZUkaZJYcgnYxe
-	 OB7bHku+nPfuINtk7lSyQ6bPI8SW98qhWB0rIYiRBT1I79fjriw8TCgbWDQ1og3uJH
-	 n1KIXdG/Kx5r0Q7Fiacqnl2xd7FUihTgV6OlnOxFzMqelDj2VBs46lZkhmt6xZyqVr
-	 +YCnMx3lY/CdOTQlluz/G0Nd1DzmmTfV7GY2azKetPrs/qo6KApsRVFMDXk06ZuMWP
-	 VzFuGJaZxOMES2FLkV18MHK3PRFJ/OL4becR5sf2ZS0X/skADiDWHnTIHwlY8wAHTr
-	 WrsZX+qh4tNGQ==
-Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 5F3C0412E0;
-	Sun, 27 Sep 2026 09:05:25 +0000 (UTC)
-Message-ID: <a347428a-980e-45ef-b478-df25db63f1bf@birger-koblitz.de>
-Date: Sun, 27 Sep 2026 11:05:25 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OoLsytgO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790499955; x=1822035955;
+  h=date:from:to:cc:subject:message-id;
+  bh=Fqj3j+eDeNTJEbTlJvXs9gtTHN/wPlb/grwNyEpL5tM=;
+  b=OoLsytgOW2LoAS4VCDH0mUBmTk+fGw5q/FHO8qUkdWrTpv/x9fQbWvhY
+   wWun3wgQuF/Xh8M6YIy5Flc2FeYvLm++NEK2Cc0v++NCjbBGRJ4q1cVnE
+   TgqLyy9quQwHD6zY08dsd1h3Ag76a7r+nJqWU6FgQUfriPyOeZimrnic0
+   iZr0rRgv0KUyhKBW73R6p0dYXqIyJu2TSmATBuBYW7R/fxD4cMhU7VQrA
+   WJEMjff4QGjCguFUgUeXTbLI23Kpc5m+nmGUo5Zm69piQ5mFuYt/wZgot
+   TsE3BIlsbVGYQ4oxCiymiPKoHIhPyhX7BR2oJtcCERGeXauEkYn38pN28
+   g==;
+X-CSE-ConnectionGUID: 5kUB3SfWTMyu/xwFL0q05A==
+X-CSE-MsgGUID: EdbZIOrORymrV6auU2TcXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="107604201"
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="107604201"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 02:05:54 -0700
+X-CSE-ConnectionGUID: h4rPzDNuTryCYJIayttvcQ==
+X-CSE-MsgGUID: WrlXIi7jRgGUVBSuVBVpDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="274290012"
+Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
+  by fmviesa007.fm.intel.com with ESMTP; 27 Sep 2026 02:05:52 -0700
+Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAkpS-000000000WF-0Ko9;
+	Sun, 27 Sep 2026 09:05:50 +0000
+Date: Sun, 27 Sep 2026 11:05:44 +0200
+From: kernel test robot <lkp@intel.com>
+To: Masahiro Yamada <masahiroy@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Alexey Gladkov <legion@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Subject: xtensa-linux-objcopy: stNM3Sx7: warning: allocated section
+ `.DebugInterruptVector.text' not in segment
+Message-ID: <202609271017.LT1Q3K8p-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 03/15] ax88179_178a: Fix endianness of pause
- watermark register
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, neuromoments@gmail.com
-References: <20260916-ax88179a-v12-3-60c04c9924a2@birger-koblitz.de>
- <178968029284.22033.9805083282551581110@kernel.org>
-From: Birger Koblitz <mail@birger-koblitz.de>
-Content-Language: en-US
-In-Reply-To: <178968029284.22033.9805083282551581110@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Hi Masahiro,
 
+FYI, the error/warning still remains.
 
-On 17/09/2026 11:24 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> - [Medium] Commit subject/message mismatch: the patch is titled
->    "ax88179_178a: Fix endianness of pause watermark register" but…
-The patch does what it is supposed to do, it is needed when 16-bit 
-access is done in later patches.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fd179f8a05be3ccae366b9b96e176b51fbe54aab
+commit: 3e86e4d74c0490e5fc5a7f8de8f29e7579c9ffe5 kbuild: keep .modinfo section in vmlinux.unstripped
+date:   1 year ago
+config: xtensa-randconfig-r2202-20260927 (https://download.01.org/0day-ci/archive/20260927/202609271017.LT1Q3K8p-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 14.3.0
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609271017.LT1Q3K8p-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609271017.LT1Q3K8p-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   xtensa-linux-objcopy: vmlinux: section `.WindowVectors.text' can't be allocated in segment 1
+   LOAD: .rodata __param __modver __ex_table .notes .data .init.text .init.data .init.rodata .data..percpu .dummy .WindowVectors.text
+   xtensa-linux-objcopy: vmlinux: section `.DebugInterruptVector.text' can't be allocated in segment 3
+   LOAD: .WindowVectors.text .DebugInterruptVector.text
+>> xtensa-linux-objcopy: stNM3Sx7: warning: allocated section `.DebugInterruptVector.text' not in segment
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
