@@ -1,108 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140B83E5EF8;
-	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1A83D9524
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519353; cv=none; b=EY+fqcta8OzmBipkhH2gyHZgtLMAyGUDFvI52qH2UEnxXIkHppaZ/1VItSQO8c5O/wOLGefRtQM4eKfJlBB4G5o1vRFrWnkJvk22JFB7xP0sCKXmMm5ngEWYbx3wgQpF/zCP3TWRQKvT0ztvL2qw/OImZo7uS6Si0uPWJaMhc9I=
+	t=1790519353; cv=none; b=Rp4qWcnWG2eFoRpCy+HvxAEC6+s5Ko4t9Qp4xj4SCgqZe1kyU3RpvL1mz2Yo1IDZJOiCStU/PBSy/TVEO76lPUiLuEp7hMHKvIacEkccuohWyWGq6Lfg43mLjbiyG6M5hURWK1GA2ue0r4dopRaI8d0glYCCsrLw+BPQaZ/AfOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790519353; c=relaxed/simple;
-	bh=C204W/yB+PghlPEk0hny36BOqfLvlmVXE04baWTGylE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mD6+CWtljjG3cgzsVM+vvf6DoK3gSBTrhJnhedXhjvEnNI0LvWv9TKIzMW1bxyZkKmJ6Pz3A5paa8ewVJ2rZzOwQyPinht0wqlbUpvQi+1ET8pEDTvPCq6CMtV/tE3kfhXzVLdX5t+qqmB7PXdFgAZqG0A0nuTfIiuzeZLTlw8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHFXhe0p; arc=none smtp.client-ip=10.30.226.201
+	bh=8arve+O6eaBkODv2dOHlZqdr6v/gEaXBSqvvyU+Tc8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FFOStKaM8lKVKtecSmkwv1McORzf8Lx2gC/nCaD06wbsc49cUa4NlHJ/58RCoEBvresu70Lb9OHHqMeFeH8VciY+USzsGEZDFM+IAgHHsoGbGdg6WhLSRs1C06tWLe8OlQ64WM8k5NhmBogvDW91phD71AOjFg8uXR4VF1nMhC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJBNFZd4; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHFXhe0p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BDB1FC4AF16;
-	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790519352;
-	bh=C204W/yB+PghlPEk0hny36BOqfLvlmVXE04baWTGylE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VHFXhe0pIkf44+OLRN2RfOr/mC7yAOH4TPymHU9o2Nd+1gTq75cl/C/F6qC/HJ93a
-	 vZfh9m1d5EnG4Ji7Z8wrClscZGDEdjVASjAskQLkSVZ5dp/VguZMIQJJSaO7Ei44qC
-	 tuH8QJDhva5NSvTj82lB2Tvj/MhbWX59z/mzrXLMUjWHbWUq5TiiJMpgXVzGJ4Hb2Z
-	 3KeECwi2TPrCHRY0w7OWiNT0AdSrqVvUA38fkfg3B/jo46WIBBnJ9XpMv9uIhJFWDn
-	 XQKTLoCVFQfvtDu30TY579GNCJ8AWPwuQ2hHAn5pTuhAPBviLkTr7dsrAuSYj09fEL
-	 bIJndrtRxXaWA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5780C9832F;
-	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Sun, 27 Sep 2026 16:28:16 +0200
-Subject: [PATCH v3 2/3] pwm: meson: Add optional core clock for S4 PWM
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJBNFZd4"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so16612025e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:29:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790519350; x=1791124150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m4ebhT5QYUpz7TFUlBXCRNqm87/Ue9x2YV0hzJwFSF8=;
+        b=OJBNFZd4doQI8IVGKo1kq0sQydLWWePGwuGIoaMYWOx22OS+INeOSBpj/QNOFQebvf
+         UfqZSN5tSxABREgl56RAa8le382wM2R+mTFTk3vpu/VAsbxz2hghgVEi/6QftRWkCCd4
+         kE9VpfsPPIZI5v90oGjxPMhA7apqQGquC+6BnNYeL+H6PdOVtTrfKWuYMx9PEWedHFy9
+         EX3egtSCJ9sBXpuwtV0tSntopVlaOcG5VtL4Gv9hEkLAx+LFoTovhnDQ41cz6PY3rX7Z
+         wJSCY6UewjLz7jCFn3ZJuroUqb4B5Ri1ajyQNajjedlQCH/f4RGdZwTZspYdlhiQDfg5
+         UWTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790519350; x=1791124150;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m4ebhT5QYUpz7TFUlBXCRNqm87/Ue9x2YV0hzJwFSF8=;
+        b=LH9GduAHzI6Ouxyp/9LIUHXrYObWfiYjZUqrfXhoBR5Fsr4g/TFY4JHoSfnyGE5/4X
+         1b2CK7H6exZ79RbRzh32XLT46NGOHVyiq8WMsnajmbiMPVxDtYxJMb5YG4jqi5Przcap
+         840b+bqbfYqY+D54E2/2fhlLw+ch+NMI853HEBoLtLlagt/8Xek94KD5iefeWpQP2NO7
+         3Hwvwo85SNfCWLFCwcLok8a0b7Ki6N4bSp7n/6bEoIaBBUnQvajrSxgVWImCajDT1ach
+         ilUBl6Ep5KjXz84T9+yDEPrMCHW4j/sIa39fJMQtMIBlG66WZrfG1IjtkjIqk7fwwR0H
+         KBBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9WtZtOu5ZqsdrTOFOSKqzFxOeiIDQqgTAFMW0PtEGw0nlICHcK+vZ6kHAzccqsW0EEE+76899J+tNFGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ6PeX1M7s3MWjjF9x6UjTnXsKtuJz0Ds+VAej2huvkHTT/Vx9
+	FSMy2c8T2mGmT75Dsv3Ewa8RKKom5K9dwzrPAXUTKL+Ewt03usEsByQ=
+X-Gm-Gg: AYBFou0wYuzigUajK8aDTwPI1FIgTiMvcOiDQZkmFmmdzIgZ6uf4KimSPR4BB5Jo+DS
+	XEWCSIwV2StxBbub/3kGhoxxjJ9VFxY8z5Ip3sR2DOJP6dtOC1EQrkYNtjyi+03FXX0kjVVgnW3
+	qfs2UujpfaHuSPEZRJh0K1fscAekcd7jDe3qcqL+TPGsnHrkSp8pzTZt0j4RdugCdc5xtEyT/C7
+	giu04X+2LYOzm5S754jiARWajDoXFJHyP+ArHCd2cWp1LSvpygwS0ch/OB0fW4i8NKRs9H3BA48
+	hMZEfDb+QrqFILO01FDssKlyoyXsNly8F3pN0cLNWxNTh0ipG1AQ2o04eLzKtQGmIFVGcSj6DeK
+	QIYsP0sRHIo5JHYDA+R9t/oYNvBKj+PEDLsQczC5W/PAdszNQRG8RP7FuRsTZZyldfqsDLQEL5y
+	AtvWDxugCw1Rk3ajafidY1vdPXrR8pDRGr0nJB+DIy+KdnRSdVahHJOu0F+uRzRafAinrol4cgD
+	HO0euk3/00wnIdm9+XNE8qktk91AYhtQlXfeC+AmyIcgSTN9oo=
+X-Received: by 2002:a05:600c:6290:b0:49e:799a:8969 with SMTP id 5b1f17b1804b1-49fe6707bb7mr206961305e9.30.1790519349715;
+        Sun, 27 Sep 2026 07:29:09 -0700 (PDT)
+Received: from localhost.localdomain ([31.223.26.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a76fsm21796928f8f.7.2026.09.27.07.29.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 07:29:09 -0700 (PDT)
+From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>
+Cc: Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Pekka Paalanen <ppaalanen@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+Subject: [PATCH 2/2] x86/mm/kmmio: Remove misleading ERR_PTR() cast
+Date: Sun, 27 Sep 2026 17:25:41 +0300
+Message-ID: <20260927142816.15099-3-habilerenturker@hotmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260927142816.15099-1-habilerenturker@hotmail.com>
+References: <20260927142816.15099-1-habilerenturker@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-add-t7-sys-pwm-clk-v3-2-18d66abea4d1@aliel.fr>
-References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
-In-Reply-To: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1224;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=38T10zBYHuRS2HPS8ZW7iUWdDAPvTmkAaZ2SgSI77jU=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZODa3lGz+sF/pdpSvCfHdB+5qmNToMZSlScyu3LbXbE
- hK1hflTRykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjARmxBGhpcaOmHzJELMLu+U
- 509/bCIwdeHJyrLTfE8i016tPvL+53VGhj2lfXL/1C+0hyTv/nUoX0uYycVwc6G2Cvvx3zs3Xe8
- 5xwoA
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Same issue as the hw_breakpoint fix: arg->err holds the address of the
+DR6 value, not an error pointer.
 
-On some SoCs (e.g. T7), the PWM controller has a system clock that must
-be enabled to access its registers, in addition to the per-channel
-input clocks.
+The ERR_PTR() cast is misleading and triggers a false positive from Smatch:
 
-Get and enable it with devm_clk_get_optional_enabled() using the
-"core" name. The clock is optional, so existing SoCs and device trees
-that do not provide it keep working unchanged.
+        arch/x86/mm/kmmio.c:596 kmmio_die_notifier() error:
+        'dr6_p' dereferencing possible ERR_PTR()
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+While touching this line, also fix the "unsigned long*" spacing to
+match kernel coding style.
+
+No functional change.
+
+Signed-off-by: Habil Eren Türker <habilerenturker@hotmail.com>
 ---
- drivers/pwm/pwm-meson.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/x86/mm/kmmio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-index 20e6cd07127c4..5ab07322e8d15 100644
---- a/drivers/pwm/pwm-meson.c
-+++ b/drivers/pwm/pwm-meson.c
-@@ -508,8 +508,13 @@ static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
- 	struct device *dev = pwmchip_parent(chip);
- 	struct device_node *np = dev->of_node;
- 	struct meson_pwm *meson = to_meson_pwm(chip);
-+	struct clk *core_clk;
- 	int i, ret;
+diff --git a/arch/x86/mm/kmmio.c b/arch/x86/mm/kmmio.c
+index 6ac981cec..88fb7af35 100644
+--- a/arch/x86/mm/kmmio.c
++++ b/arch/x86/mm/kmmio.c
+@@ -591,7 +591,7 @@ static int
+ kmmio_die_notifier(struct notifier_block *nb, unsigned long val, void *args)
+ {
+ 	struct die_args *arg = args;
+-	unsigned long* dr6_p = (unsigned long *)ERR_PTR(arg->err);
++	unsigned long *dr6_p = (unsigned long *)arg->err;
  
-+	core_clk = devm_clk_get_optional_enabled(dev, "core");
-+	if (IS_ERR(core_clk))
-+		return dev_err_probe(dev, PTR_ERR(core_clk), "Failed to get core clock\n");
-+
- 	for (i = 0; i < MESON_NUM_PWMS; i++) {
- 		meson->channels[i].clk = of_clk_get(np, i);
- 		if (IS_ERR(meson->channels[i].clk))
-
+ 	if (val == DIE_DEBUG && (*dr6_p & DR_STEP))
+ 		if (post_kmmio_handler(*dr6_p, arg->regs) == 1) {
 -- 
-2.49.0
-
+2.47.3
 
