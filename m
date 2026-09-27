@@ -1,468 +1,123 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9AF3C1D61;
-	Sun, 27 Sep 2026 08:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2F53C1D61;
+	Sun, 27 Sep 2026 08:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790497236; cv=none; b=Qk3Tt78lU0iVKciNEXMXr280eji6kKogUjzfG2K4PnNV8yhOkyIz2aCkO6xvMVaFyID0uk9MNbALB7cL3jCPSL1C7YinyLpV/JhUlCNGUHiOI56dOzJeDdn5QgEEjHtk9w4CkYobbfavw5WnQN/QqXxNMmoD6l9p1dYiD4Dyszk=
+	t=1790497281; cv=none; b=LLNd0IHjr/BW6OX15KFsHzs8hgWrXTP5pqMIQ7sMkLZpjKhU0sN21gJy60xRHi35cWDCfoH9GvGtZnieT6CNdaovqFT/XxE9CxloG/yaEduOcudgBJgnOGvX1gBFRZ+Ztvv7psDuAmKEAWlTFNsqxxdqkSERe1UtuVUoVIP6hgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790497236; c=relaxed/simple;
-	bh=PJzqsvxIq3NGKNk203hKX+rbCG2NvovDhRMpAD6sP9E=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Q0RJ4Jl3Qp+QyNTRdOn284lnADxhDX9yqxv3nesa1sTEnaBdi7FJJg4TKhL1Z0CrHyRSenjXhVWeqVuF3Stp9Hi9bGFNdr7TSE8APS5k7h1qRq3CHwH6ER/xkbBDqfcFGD9EB6TGJTDnEZrP6S0NcB/Tw9B80ml6DG0OZSUeYDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=c1QQWV0Y; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790497281; c=relaxed/simple;
+	bh=AIH3t5odWzXpYxLCsh3QJaVSHP6c8pjKBIOjj8LD4a8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AOpZTq72d6bFlbNNtaUjTX5W2IUyjRVKfgTQ+nfSbWFVtcH6Hrcm5a4QqI8E2EAhLUiL157eJ6mLK25HMg22gtPzFW5Y62hQoYIbmyYiKzKnvmDHs3PE6DcSLgoKXViTMy4XSvljk+/WrX51JrduvgHQU+lV2DdfZQQv3hgzJEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=2N8Bp1OW; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=h7fOisxU; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="c1QQWV0Y"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3a443fe;
-	Sun, 27 Sep 2026 16:20:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Breno Leitao <leitao@debian.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	Lee Duncan <lduncan@suse.com>,
-	Hannes Reinecke <hare@suse.com>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v7 4/4] scsi: target: pin db_root for metadata writes
-Date: Sun, 27 Sep 2026 16:20:11 +0800
-Message-Id: <20260927082011.638723-5-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
-References: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="2N8Bp1OW";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="h7fOisxU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790497277;
+	bh=AIH3t5odWzXpYxLCsh3QJaVSHP6c8pjKBIOjj8LD4a8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=2N8Bp1OWkyq+Havj5OFVf8cGsW28gEu5o0186brEdJ953C0LmY7NyGujG4rTkjzN6
+	 vBzhdbGefjQH8GkwPf+osNMMhSdjEbzKnW5x3cLrv5x7HPvFUFO4Y0FT8Ameh0CvNS
+	 0arfiekiN3D4wxSBNpauwws5DlZaXpGCZVtVSPXMQUwwi4Ff6y/Z1PFL+WK8LA8XQL
+	 b6a1oTn+j4oxfv3nTev3+9UIfySC0aTaD48W+X4e5M0gbN2Jzc+HGfyct/GoTduj2w
+	 R4WFP2FztIdP6xwz80k/izqdOLbxmOICxFoHMqfJFUNeKXTbPWqUC1loeGSF8J674K
+	 XB18NOm6vO0kQ==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id BB160412D3; Sun, 27 Sep 2026 08:21:17 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790497275;
+	bh=AIH3t5odWzXpYxLCsh3QJaVSHP6c8pjKBIOjj8LD4a8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h7fOisxUnY7APmemGX+FfOWka5UDYD8PUUCaJelK9LCk3jyDH01L1XBYBi7A320Dn
+	 tqz0EK6ALQXw4CiGZC3nCn/awZ23YqMxT18JOPJ567E09KSfwgHOoaC+Xpx0iDdnra
+	 ukunxkl6KujkQIua0qHQFfHaMcY3mOH16GYGSnWmJskfRcvJLP8px3+WPrITlAOqe9
+	 m4BZhqsT7A4oXlkKB5gHj/Cj7giPMeZ8VX9AadNB+dr3E1Wi5LnkBYkDtHkrWTVbx6
+	 NSjsIldH+xc05gLsf43Lmrmo8uppEu0k+kOkCLqARYO4L38hageyI0/pgCXV7yjhqD
+	 od2Hs7GcXB5EA==
+Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 24D23412D3;
+	Sun, 27 Sep 2026 08:21:15 +0000 (UTC)
+Message-ID: <ce5a6051-4bde-46a9-b0a1-30d98e66aef8@birger-koblitz.de>
+Date: Sun, 27 Sep 2026 10:20:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e1f3871c03a1kunm12f6b69c1ac34c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0JIVkNPH0pIS0tCGEJLSFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=c1QQWV0YJyNZyPcOzwVo1x6jXiWdb+JFv+cyQzYhQiWT2mM4BRDQfG3nyM+65E0OsLj/ezOv5cx7y59pOD3CAcUBpwaXlpNxCysH1K7ZMyX+bDQdCvs93iSAzaJH5GRWkkyHi5m3B1ZtI0Vh/1SOdSitNazuhFOOm0qGRGkUQHg=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=JEB7g1R4O8vv9+70KUQg9jDc93lN6kuadHZo3AOtcrA=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 06/15] ax88179_178a: Add HW support for
+ AX179A-based chips
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
+References: <20260916-ax88179a-v12-0-60c04c9924a2@birger-koblitz.de>
+ <20260916-ax88179a-v12-6-60c04c9924a2@birger-koblitz.de>
+ <20260919151247.1a340644@kernel.org>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <20260919151247.1a340644@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ALUA and persistent reservation metadata files are derived from the
-configurable db_root string and opened with filp_open().  If db_root
-points at configfs, a metadata update from a configfs store callback can
-re-enter configfs while the callback still holds frag_sem.
+On 20/09/2026 12:12 am, Jakub Kicinski wrote:
+> On Wed, 16 Sep 2026 05:24:05 +0200 Birger Koblitz wrote:
+> 
+>> +	/* Stop RX/TX for link configuration */
+>> +	tmp16 = AX_RX_CTL_STOP;
+>> +	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_RX_CTL, 2, 2, &tmp16);
+> 
+> don't you want to add a wrapper for the commands?
+> To write a cmd from a literal/immediate value?
+> Something like:
+> 
+> 	ax88179_cmd_imm(dev, AX_ACCESS_MAC, AX_RX_CTL, AX_RX_CTL_STOP,
+> 	2);
+> 
+> It'd save you all the temp buffers, which TBH I'm not sure are fully
+> correct since you cast u8 buf to a pointer which may need alignment.
+> 
+Will do, great suggestion!
+I added ax88179_write_u16() and ax88179_write_u8() which indeed 
+eliminate many of the temporary variables.
 
-A one-time pathname check can also be bypassed by retargeting a symlink.
-Resolve db_root once and retain the resulting path while target devices
-use it.  Use configfs_open_root() both to reject configfs roots and to
-open metadata files relative to the pinned root.
 
-Protect db_root and db_root_path with a dedicated mutex while metadata
-paths are opened or the configured root is replaced.  Return an error if
-target devices appear before a validated root can be published.
+>> +	tmp8 = 0;
+>> +	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_MAC_PATH, 1, 1, &tmp8);
+>> +
+>> +	tmp8 = 0xa5;
+>> +	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_MAC_CDC_DELAY_TX, 1, 1, &tmp8);
+> 
+> Please wrap at 80 chars if it doesn't impact readability.
+Doing so as part of the introduction of the new write functions.
 
-Resolve a new root outside target_devices_lock and recheck the device count
-before publishing it, so the path walk does not occur under that lock.
 
-Fixes: fdddf932269a ("target: use new "dbroot" target attribute")
-Link: https://lore.kernel.org/r/20260818051442.1523210-1-runyu.xiao@seu.edu.cn
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/target/target_core_alua.c     |  42 ++++----
- drivers/target/target_core_configfs.c | 142 +++++++++++++++++++++-----
- drivers/target/target_core_internal.h |   5 +
- drivers/target/target_core_pr.c       |  19 ++--
- 4 files changed, 153 insertions(+), 55 deletions(-)
-
-diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
-index 140154d93c430..c39e57c1ebf9e 100644
---- a/drivers/target/target_core_alua.c
-+++ b/drivers/target/target_core_alua.c
-@@ -18,7 +18,6 @@
- #include <linux/fcntl.h>
- #include <linux/file.h>
- #include <linux/fs.h>
--#include <linux/fs_struct.h>
- #include <linux/kthread.h>
- #include <scsi/scsi_proto.h>
- #include <linux/unaligned.h>
-@@ -862,15 +861,18 @@ static int core_alua_write_tpg_metadata(
- 	loff_t pos = 0;
- 	int ret;
- 
--	if (tsk_is_kthread(current)) {
--		scoped_with_init_fs()
--			file = filp_open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
--	} else {
--		file = filp_open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
-+	mutex_lock(&db_root_lock);
-+	if (!db_root_path.dentry) {
-+		mutex_unlock(&db_root_lock);
-+		pr_err("db_root is not initialized for ALUA metadata path: %s\n",
-+		       path);
-+		return -ENODEV;
- 	}
--
-+	file = configfs_open_root(&db_root_path, path,
-+				  O_RDWR | O_CREAT | O_TRUNC, 0600);
-+	mutex_unlock(&db_root_lock);
- 	if (IS_ERR(file)) {
--		pr_err("filp_open(%s) for ALUA metadata failed\n", path);
-+		pr_err("configfs_open_root(%s) for ALUA metadata failed\n", path);
- 		return -ENODEV;
- 	}
- 	ret = kernel_write(file, md_buf, md_buf_len, &pos);
-@@ -905,9 +907,9 @@ static int core_alua_update_tpg_primary_metadata(
- 			tg_pt_gp->tg_pt_gp_alua_access_status);
- 
- 	rc = -ENOMEM;
--	path = kasprintf(GFP_KERNEL, "%s/alua/tpgs_%s/%s", db_root,
--			&wwn->unit_serial[0],
--			config_item_name(&tg_pt_gp->tg_pt_gp_group.cg_item));
-+	path = kasprintf(GFP_KERNEL, "alua/tpgs_%s/%s",
-+			 &wwn->unit_serial[0],
-+			 config_item_name(&tg_pt_gp->tg_pt_gp_group.cg_item));
- 	if (path) {
- 		rc = core_alua_write_tpg_metadata(path, md_buf, len);
- 		kfree(path);
-@@ -1196,16 +1198,16 @@ static int core_alua_update_tpg_secondary_metadata(struct se_lun *lun)
- 			lun->lun_tg_pt_secondary_stat);
- 
- 	if (se_tpg->se_tpg_tfo->tpg_get_tag != NULL) {
--		path = kasprintf(GFP_KERNEL, "%s/alua/%s/%s+%hu/lun_%llu",
--				db_root, se_tpg->se_tpg_tfo->fabric_name,
--				se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
--				se_tpg->se_tpg_tfo->tpg_get_tag(se_tpg),
--				lun->unpacked_lun);
-+		path = kasprintf(GFP_KERNEL, "alua/%s/%s+%hu/lun_%llu",
-+				 se_tpg->se_tpg_tfo->fabric_name,
-+				 se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
-+				 se_tpg->se_tpg_tfo->tpg_get_tag(se_tpg),
-+				 lun->unpacked_lun);
- 	} else {
--		path = kasprintf(GFP_KERNEL, "%s/alua/%s/%s/lun_%llu",
--				db_root, se_tpg->se_tpg_tfo->fabric_name,
--				se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
--				lun->unpacked_lun);
-+		path = kasprintf(GFP_KERNEL, "alua/%s/%s/lun_%llu",
-+				 se_tpg->se_tpg_tfo->fabric_name,
-+				 se_tpg->se_tpg_tfo->tpg_get_wwn(se_tpg),
-+				 lun->unpacked_lun);
- 	}
- 	if (!path) {
- 		rc = -ENOMEM;
-diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
-index 2b19a956007b7..31cd1ed42b135 100644
---- a/drivers/target/target_core_configfs.c
-+++ b/drivers/target/target_core_configfs.c
-@@ -96,57 +96,126 @@ static ssize_t target_core_item_version_show(struct config_item *item,
- CONFIGFS_ATTR_RO(target_core_item_, version);
- 
- char db_root[DB_ROOT_LEN] = DB_ROOT_DEFAULT;
--static char db_root_stage[DB_ROOT_LEN];
-+struct path db_root_path;
-+/* Protect db_root and db_root_path. */
-+DEFINE_MUTEX(db_root_lock);
-+
-+static int target_validate_db_root(const char *path_str, struct path *path)
-+{
-+	struct file *file;
-+	int ret;
-+
-+	ret = kern_path(path_str, LOOKUP_FOLLOW | LOOKUP_DIRECTORY, path);
-+	if (ret) {
-+		pr_err("db_root: cannot open: %s\n", path_str);
-+		if (ret == -ENOTDIR)
-+			pr_err("db_root: not a directory: %s\n", path_str);
-+		return ret;
-+	}
-+
-+	file = configfs_open_root(path, "", O_RDONLY, 0);
-+	if (IS_ERR(file)) {
-+		ret = PTR_ERR(file);
-+		path_put(path);
-+		*path = (struct path){};
-+		if (ret != -EINVAL)
-+			return ret;
-+
-+		pr_err("db_root: configfs is not a valid target database root: %s\n",
-+		       path_str);
-+		return -EINVAL;
-+	}
-+
-+	path_put(path);
-+	*path = file->f_path;
-+	path_get(path);
-+	fput(file);
-+
-+	return 0;
-+}
- 
- static ssize_t target_core_item_dbroot_show(struct config_item *item,
- 					    char *page)
- {
--	return sprintf(page, "%s\n", db_root);
-+	ssize_t ret;
-+
-+	mutex_lock(&db_root_lock);
-+	ret = sprintf(page, "%s\n", db_root);
-+	mutex_unlock(&db_root_lock);
-+
-+	return ret;
- }
- 
- static ssize_t target_core_item_dbroot_store(struct config_item *item,
- 					const char *page, size_t count)
- {
-+	char *db_root_stage;
- 	ssize_t read_bytes;
- 	ssize_t r = -EINVAL;
- 	struct path path = {};
-+	struct path old_path = {};
-+	bool have_old_path = false;
- 
- 	mutex_lock(&target_devices_lock);
- 	if (target_devices) {
- 		pr_err("db_root: cannot be changed because it's in use\n");
--		goto unlock;
-+		mutex_unlock(&target_devices_lock);
-+		return r;
- 	}
-+	mutex_unlock(&target_devices_lock);
- 
- 	if (count > (DB_ROOT_LEN - 1)) {
- 		pr_err("db_root: count %d exceeds DB_ROOT_LEN-1: %u\n",
- 		       (int)count, DB_ROOT_LEN - 1);
--		goto unlock;
-+		return r;
- 	}
- 
-+	db_root_stage = kmalloc(DB_ROOT_LEN, GFP_KERNEL);
-+	if (!db_root_stage)
-+		return -ENOMEM;
-+
- 	read_bytes = scnprintf(db_root_stage, DB_ROOT_LEN, "%s", page);
- 	if (!read_bytes)
--		goto unlock;
-+		goto free_stage;
- 
- 	if (db_root_stage[read_bytes - 1] == '\n')
- 		db_root_stage[read_bytes - 1] = '\0';
- 
- 	/* validate new db root before accepting it */
--	r = kern_path(db_root_stage, LOOKUP_FOLLOW | LOOKUP_DIRECTORY, &path);
--	if (r) {
--		pr_err("db_root: cannot open: %s\n", db_root_stage);
--		if (r == -ENOTDIR)
--			pr_err("db_root: not a directory: %s\n", db_root_stage);
--		goto unlock;
-+	r = target_validate_db_root(db_root_stage, &path);
-+	if (r)
-+		goto free_stage;
-+
-+	mutex_lock(&target_devices_lock);
-+	if (target_devices) {
-+		pr_err("db_root: cannot be changed because it's in use\n");
-+		r = -EINVAL;
-+		goto unlock_put;
- 	}
--	path_put(&path);
- 
-+	mutex_lock(&db_root_lock);
-+	have_old_path = db_root_path.dentry;
-+	if (have_old_path)
-+		old_path = db_root_path;
-+	db_root_path = path;
-+	path = (struct path){};
- 	strscpy(db_root, db_root_stage);
- 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
-+	mutex_unlock(&db_root_lock);
- 
- 	r = read_bytes;
- 
--unlock:
-+unlock_put:
- 	mutex_unlock(&target_devices_lock);
-+	if (path.dentry)
-+		path_put(&path);
-+	if (have_old_path)
-+		path_put(&old_path);
-+	kfree(db_root_stage);
-+	return r;
-+
-+free_stage:
-+	kfree(db_root_stage);
- 	return r;
- }
- 
-@@ -3722,23 +3791,37 @@ void target_setup_backend_cits(struct target_backend *tb)
- 
- static void target_init_dbroot(void)
- {
--	struct file *fp;
-+	const char *db_root_stage;
-+	struct path path = {};
-+	int ret;
- 
--	snprintf(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
--	fp = filp_open(db_root_stage, O_RDONLY, 0);
--	if (IS_ERR(fp)) {
--		pr_err("db_root: cannot open: %s\n", db_root_stage);
--		return;
--	}
--	if (!S_ISDIR(file_inode(fp)->i_mode)) {
--		filp_close(fp, NULL);
--		pr_err("db_root: not a valid directory: %s\n", db_root_stage);
--		return;
-+	db_root_stage = DB_ROOT_PREFERRED;
-+	ret = target_validate_db_root(db_root_stage, &path);
-+	if (ret) {
-+		db_root_stage = DB_ROOT_DEFAULT;
-+		ret = target_validate_db_root(db_root_stage, &path);
-+		if (ret)
-+			return;
- 	}
--	filp_close(fp, NULL);
- 
-+	mutex_lock(&db_root_lock);
-+	db_root_path = path;
- 	strscpy(db_root, db_root_stage);
- 	pr_debug("Target_Core_ConfigFS: db_root set to %s\n", db_root);
-+	mutex_unlock(&db_root_lock);
-+}
-+
-+static void target_release_db_root(void)
-+{
-+	struct path path;
-+
-+	mutex_lock(&db_root_lock);
-+	path = db_root_path;
-+	db_root_path = (struct path){};
-+	mutex_unlock(&db_root_lock);
-+
-+	if (path.dentry)
-+		path_put(&path);
- }
- 
- static int __init target_core_init_configfs(void)
-@@ -3797,6 +3880,10 @@ static int __init target_core_init_configfs(void)
- 	/*
- 	 * Register the target_core_mod subsystem with configfs.
- 	 */
-+	/* Resolve db_root before making the configfs attributes visible. */
-+	scoped_with_kernel_creds()
-+		target_init_dbroot();
-+
- 	ret = configfs_register_subsystem(subsys);
- 	if (ret < 0) {
- 		pr_err("Error %d while registering subsystem %s\n",
-@@ -3821,9 +3908,6 @@ static int __init target_core_init_configfs(void)
- 	if (ret < 0)
- 		goto out;
- 
--	scoped_with_kernel_creds()
--		target_init_dbroot();
--
- 	return 0;
- 
- out:
-@@ -3832,6 +3916,7 @@ static int __init target_core_init_configfs(void)
- 	core_dev_release_virtual_lun0();
- 	rd_module_exit();
- out_global:
-+	target_release_db_root();
- 	if (default_lu_gp) {
- 		core_alua_free_lu_gp(default_lu_gp);
- 		default_lu_gp = NULL;
-@@ -3861,6 +3946,7 @@ static void __exit target_core_exit_configfs(void)
- 	core_dev_release_virtual_lun0();
- 	rd_module_exit();
- 	target_xcopy_release_pt();
-+	target_release_db_root();
- 	release_se_kmem_caches();
- }
- 
-diff --git a/drivers/target/target_core_internal.h b/drivers/target/target_core_internal.h
-index f0886ea290345..502788ba732dd 100644
---- a/drivers/target/target_core_internal.h
-+++ b/drivers/target/target_core_internal.h
-@@ -4,6 +4,7 @@
- 
- #include <linux/configfs.h>
- #include <linux/list.h>
-+#include <linux/mutex.h>
- #include <linux/types.h>
- #include <target/target_core_base.h>
- 
-@@ -171,6 +172,10 @@ extern struct se_portal_group xcopy_pt_tpg;
- #define	DB_ROOT_DEFAULT		"/var/target"
- #define	DB_ROOT_PREFERRED	"/etc/target"
- 
-+struct path;
-+
- extern char db_root[];
-+extern struct path db_root_path;
-+extern struct mutex db_root_lock;
- 
- #endif /* TARGET_CORE_INTERNAL_H */
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index 25b1bcacc0c8f..36d20732382f1 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -18,7 +18,6 @@
- #include <linux/file.h>
- #include <linux/fcntl.h>
- #include <linux/fs.h>
--#include <linux/fs_struct.h>
- #include <scsi/scsi_proto.h>
- #include <linux/unaligned.h>
- 
-@@ -1965,16 +1964,22 @@ static int __core_scsi3_write_aptpl_to_file(
- 	int ret;
- 	loff_t pos = 0;
- 
--	path = kasprintf(GFP_KERNEL, "%s/pr/aptpl_%s", db_root,
--			&wwn->unit_serial[0]);
-+	path = kasprintf(GFP_KERNEL, "pr/aptpl_%s", &wwn->unit_serial[0]);
- 	if (!path)
- 		return -ENOMEM;
- 
--	scoped_with_init_fs()
--		file = filp_open(path, flags, 0600);
-+	mutex_lock(&db_root_lock);
-+	if (!db_root_path.dentry) {
-+		mutex_unlock(&db_root_lock);
-+		pr_err("db_root is not initialized for APTPL metadata path: %s\n",
-+		       path);
-+		kfree(path);
-+		return -ENODEV;
-+	}
-+	file = configfs_open_root(&db_root_path, path, flags, 0600);
-+	mutex_unlock(&db_root_lock);
- 	if (IS_ERR(file)) {
--		pr_err("filp_open(%s) for APTPL metadata"
--			" failed\n", path);
-+		pr_err("configfs_open_root(%s) for APTPL metadata failed\n", path);
- 		kfree(path);
- 		return PTR_ERR(file);
- 	}
--- 
-2.34.1
+> 
+>> +	/* Check these packets */
+>> +	hdr_off = (rx_hdr & AX179A_RX_DH_DESC_OFFSET_MASK) >> AX179A_RX_DH_DESC_OFFSET_SHIFT;
+>> +	pkt_cnt = rx_hdr & AX179A_RX_DH_PKT_CNT_MASK;
+> 
+> Please define shifted masks and use FIELD_GET() FIELD_PREP()
+> Sometimes your masks are shifted sometimes not, makes the code harder
+> to follow. Not to mention that this is much shorter:
+> 
+> 	hdr_off = FILED_GET(AX179A_RX_DH_DESC_OFFSET, rx_hdr);
+> 
+> 
+>> +	/* TSO MSS */
+>> +	tx_desc |= ((u64)(skb_shinfo(skb)->gso_size & AX179A_TX_DESC_MSS_MASK)) <<
+>> +		   AX179A_TX_DESC_MSS_SHIFT;
+> 
+> (eg. this mask is not shifted)
+Done in next revision.
 
