@@ -1,63 +1,65 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4288C3C141A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:03:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C9A3CC310
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790496214; cv=none; b=g4QC0P0UJhcXoT6woVwt57kfqbseylvS+/FJOPyzz7m99VZ0FhCI3OBwi0S8/8Sxvcv6fJBIwg/Hl2scsXAuYrYsjvgGMMlB6bortzudAe7hk21oLEKQcUl3z60LtQG6ED7JpGEo9QqbKVtbtin0NxxulTcxGGJArDvQBzG4cpo=
+	t=1790496217; cv=none; b=q23MtnRx2xdfl+zz5JJwmFZOs+t4v1J648HfVZUeBjmCgCWg38PuoVURJ5KrPRiMVsm60rMI5+Q9zlLUGTz8YOpoxCFdrwPZhiq6pUxHM5KqsHHWEzYhLye+ezHqelvmynYGHsxtC7MmR0FcHjvUIA8Vuo3iFQvWpNPhytc3w/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790496214; c=relaxed/simple;
-	bh=4ZZ2di/+pb9o/IsfYKwMlhKyrT2armIhgZm0R4Ikzdw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=smC7mGptH8MnsVW1wyRbC5X+Dxs/mkrafL667sYIchdccdMvY5UYJfn97/FeJfqlX6wPeDARwktQzw+y2nZf3HS6w60Yz4GCJO/B9kuiujiDm96wAhT7cgLitkTO72QOeJ1V0EVzNlphN/ykF1YqR1ZTnjE1o4WN72crVD3/yGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MxdPVjRh; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790496217; c=relaxed/simple;
+	bh=5JYRdb5CubIKord83n51B6HshJXJEfaqJZWg8t5lUxk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uMjOo2LxUmDjEwc8ZSHqOB4q6O7/fGFrYi6geaQD9s+BPt1JCHT3mUVEN4HWrdsPkcWikf+2YuG/7zYU6bQMk0AZbzyI88t5BSFKq/wRgKGlL8wxCJvD0UVDAyXv3sw0SSc+uRFjTx0nPNaXQs3UMN8Ofp+tVbyPHHaEtu4ZBVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PiGTFctV; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MxdPVjRh"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso19218915e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:03:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PiGTFctV"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so24178805e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:03:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790496209; x=1791101009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kH5LGmE2trMrU+13M5071tiqEPhiiJkpOWdRzaL+Evo=;
-        b=MxdPVjRhx1bG53C8o+0v578W8o5VGZxw0QOvOS5pp+rixDlwPvSaadkHoI2LC4xIkk
-         Iefm5zeamoWMyNp48SfXe3Em84asi/7sjMoxQb6VTHioT/mvyFyQIDtNivLRA2Ye1lak
-         9269+/ycYsYnmKAkCF2pwWSlz9z+IkrOwS9eNjXF9yQ8jknfnhFfCpxg7Uz3PSmEPV+N
-         pGw9W0of08qlbtwFW1cANpDsC2g45xUaDEDq9gtgGvbiKitIvHI8EWyOzhrq8TFNQapw
-         stPB8iDfDfkrWJUhVTwHpLXqQ22VwZLnq2UcZc8kjasaxnnZHQcys3mutkT6qwjUTGxj
-         QsgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790496209; x=1791101009;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=baylibre.com; s=google; t=1790496213; x=1791101013; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kH5LGmE2trMrU+13M5071tiqEPhiiJkpOWdRzaL+Evo=;
-        b=vVqvosaLUzZvF8XgwL7zy+GN2uHdr3PMhoO9k3Gh+faxe8FSrGVbLJ1OdCqx3O7avv
-         IXXV39xcABIuwsyu420ehgYDj/YKVZsQZ7GZMW1lxthBX0IpTuUQ46GTdxiEu7Pgarup
-         HP5TTuHAZ4nd84xi3WcyMfn3baO83FqNTgoJv/gKWc7eF9sjhmd8rxG7C8+00lDawB1y
-         YnEk3iDzSYXu5VX9CnxYe+0fgIcHA7AHFQKlAX+dutPeYc8V7DVqFDziAp8O4uONrZOf
-         ImZYkyvKcG7QYit8D+0r7EEXJV9FPpolUU3Doe1c37s8T0Q4AeYBAEtSNN9nTNwYLjeg
-         0GWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWFAxEO+wb+zdfSQYHriGk5yViOVCpodPpN7ti0KfNeXjEPatFeYlMUS27FoaoKjGD6yhRf/HM7FcCdWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6pNLyOv/wc9Ixv4sDRBfIR8z9dACjQPdHvl2cB5QYvjaiAbmm
-	0D79C8Rv4EMp+PbpQzKy2CyarwD7AbHbmJesw5WsKvS8HyBEtoH6ENHv09G/Fb8jGtg=
-X-Gm-Gg: AYBFou3oNJ/R32bEZejj1L98IYOjeD2Ng0hc0xqSSqcmCsqgFdHwDrlZDsJymwwLzxi
-	M2YCSQAfTNSnAouIdVUsTJqeLwH8V8ca43rUOGeCMHi5yx0BgvVlFt5nJ4BEy/lb8vzB9y0MO8c
-	ysNaIFH/y/vVzRYMZg4VkuLH1u2czxAy8SJMtVGpakQG8nI0UviBHQ/bf1PEBm69BdsTEVBxcI9
-	cZUucdcvhzWTOp95WFx5pOMkjyAtv1E+Dm9hQ/fcqMusb8O6PU/DGbUctspKLG/zdW2PgG55UGm
-	n5B0h6DQvJHu1wtW3YIVRmBNvmw4DWfsO3e1OzyLf/rQVN2vhry8Pqd/1l+s5PRUs+bilYn+2te
-	VZ0O8kRe9iDGuBhpIyQYGHSIMl5I4/SZO3LTgFnkw7Pcfd8wbDXIsxLRDiGZslfWV7BrD/io75a
-	ztqI6ulnEX7B1XtVOB4g1DE82sBccEfiBQjy0TUf3+eabm1Sq+HzE0fwN9Dq2geugPFxSUVye/m
-	+Pc
-X-Received: by 2002:a05:600c:4e49:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-49fe66d456cmr171785125e9.9.1790496209196;
-        Sun, 27 Sep 2026 01:03:29 -0700 (PDT)
+        bh=6hBW+H2pM5yXqy13aycas8629K/W3qz4NR3q6Vfp4ik=;
+        b=PiGTFctVabEddRVuH7EdE9aohoKBoxDHfKwJWFYgd25O1N0skT82mIfzNF1+fVmm3U
+         Fhbzs+cRi3GZ/KCcsbbMAqoUJ9uI1aNH94NiIC2TadQ3lN5d2SPxckVKiRa/5a1Stido
+         Yd81ShMoOZkgHQl/2szvzgepkr2q87dONYHp7OT8RmCncgCZkxq6goV3bZCEJ3F9XrgX
+         UUkufrEsSIUA8FeBxwTH/ok8E3yBPbZUM0ty5EHjL8YkN9d2xQ6T8crJOamfkcAQBqDT
+         EvkuGHLZRXiO1Sd12f16FPWusxilojH6hJNK741yBMaJkYcCXftfpC2Gh7MQU/28HRE7
+         PGVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790496213; x=1791101013;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6hBW+H2pM5yXqy13aycas8629K/W3qz4NR3q6Vfp4ik=;
+        b=CeEPVHrJV3jV4r2Jr4aTLSqeIr9S8qzU50+pgPi75fAub712ha5sSuFEmRMlKywlH6
+         Mo1aqtnDvvOpFN7Jn2LwhmAvW0GUVql9Am+xLpDB48lyWnHflxbnJUGu69p9iFZtYmIm
+         mhCUFwti8JwuBbw61ldDdKUAuxvlCBR7zymDr+waFJLGIgtvOHhfwrfx4rsNulyg+0+c
+         MlcNmHS1mCdkl0jbdco9OsdpNbg6bKeLuFsM4k8rZaEcuqeVRXuAwjb943kDO9PC7DZT
+         sdGpuxGCFzexamuw9xTccBSX3RQ7phYHbvyCjqACmT4bpmGlE0HDYKFRAw+Dfk/I/2Q3
+         IgEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzd9U813BlnI9TmYkkPTdNVT9/SAgPtB+ABjb25RNx5YXbAeBRr1WRAFi6Qs+ZG3YAQdgVdamlYQ7Lgwcw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkaV1Aj4yRm8YiIsWmIUOEIqdRAgBZYiVMmSN+/xlh2wnRQG0Y
+	GTX30ABPNtRjhJ103J+A577gpL6NmQABacXyVbJ6z4eUF5QdUgb2eN7nzTJUoD6FWpc=
+X-Gm-Gg: AYBFou2SH4pDGhZAnWLH1dIlRF8rJq2pTYOU4x9h1aog66cDjqDhUHSq8LCs9ol6hVX
+	A/Dp+z80GFSH16hnteWhVQOXinIs1B1aBJLaigGrxZEMfCToEMZpEeyjs60xZnAGYQUo1M6KZKG
+	nzvytiDK0TKZyygZYGF+up8XimVrgDDZ1A7tqLLybm6y1VCyjveT1hRh19xdonKF/p0XWQbBgIa
+	mQKsqDfQsGJXKM2RKhIu1z+qvJMyt+3pyrVDlComSYNquNHeWRIBuHKYFd/wdFzuqCb1BKY1ZXH
+	xGCWH/9sqNN5AxyDUDtFy9EYgAGPillEBMNLGOTtSsnR3pPsH8zNxYAT0Sv2wLUN9E8F7k9ZJfC
+	nkEOAzCS/5H8Bkw+N6naOWWHPFQ0Yc1QL5Y+sFJ7QGkoY01eFM51opiLOObqlRnwO5mSQ03hWRV
+	5MWFkuiHRYFpuCzRmfVKxWYsulA+8br6kvnTT0uaIekwzF9oy6hiHJHA0cYJ43bi3gGmm+JT+eB
+	nBm
+X-Received: by 2002:a05:600c:8b34:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a000b647f1mr21695095e9.0.1790496212803;
+        Sun, 27 Sep 2026 01:03:32 -0700 (PDT)
 Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a00179c729sm63585265e9.15.2026.09.27.01.03.26
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fef4fc959sm168298325e9.2.2026.09.27.01.03.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 01:03:27 -0700 (PDT)
+        Sun, 27 Sep 2026 01:03:32 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Johan Hovold <johan@kernel.org>,
@@ -70,10 +72,12 @@ Cc: Johan Hovold <johan@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	driver-core@lists.linux.dev,
 	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
-Date: Sun, 27 Sep 2026 10:03:13 +0200
-Message-ID: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v2 1/2] docs: admin-guide: Handle TAINT_FORCED_BIND when parsing /proc/sys/kernel/tainted
+Date: Sun, 27 Sep 2026 10:03:14 +0200
+Message-ID:  <4f89ceaf98172dbfb788832ad3204c8739653b31.1790495516.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
+References: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,43 +85,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1283; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=4ZZ2di/+pb9o/IsfYKwMlhKyrT2armIhgZm0R4Ikzdw=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBquM3DZpAEY/1qXSx1yNsHVv4KnRSueYBYOf66H f4NSu623b6JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCarjNwwAKCRCPgPtYfRL+ TmedB/wIL1pKq46pdok16UqLQfrrEc06L1+RBQndLWnrZ8UNQ/TmrVWJXZrAgdr3BPlQiu/LT8s y/6xrF/vMS/zFp7qIdnb8anTH6ixuPChaSqKC2DnX1jqkKcfFMjACp0TnAX4n8Mx91T02TysHdv 8mOCkg7/3j54MfdaS65xcMfplJNqO2KTkpp5fpgvVRquIjDU+FKDtMn2osdxaTOZvRV02pJ0TIx SOhppFGxQvDqR6bHtQvBxon93JPG/CL7EcgYBG23tMtfwTeLg0LC38uF1il7sIUrDM+fpjX1Wqn Wise8We5/fL1fQsQECI75oj/miYcTq7DLgPuqKXYJg/QSkub
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1456; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=5JYRdb5CubIKord83n51B6HshJXJEfaqJZWg8t5lUxk=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBquM3G+ZFB5imtmjExFcjHBB3VSXhHLpkWC9Tvz 53VfMyUYnuJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCarjNxgAKCRCPgPtYfRL+ TuTOB/sHd2uUsDvxA87zU7ZGmE50LoJsMNGwmO1PGLn/QY+HoFqdCO7ZPk+vSUIZbJnipa/8TNp ZZQxbZ3SqpGrJX5vJcs8g9cUNmz/WVjEHHenTEPMzqq437IsNUOZOzvfAQMINbzHsBcxRsK8SJM 6Ht/z3nX6+63uD+cUOCnYt15ZZtsElFXcSVRRBXCMpX2BvPHDBakZvAq23b9tqHzDuEJv+LFQCW CE6C1XbKcireXUkoPgQz8M7Z/cMlzA/vTSbz0AaaHCZUruIVofHd46aAMAlAO/iJpi0HI6i0Wjt jf9JesveFpqosl5yyGQPcbBXqJV/jtBAqg3EM8lq55jKMleJ
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
+tainted-kernels.rst contains a small script to check which taint bits
+are set in /proc/sys/kernel/tainted. Add one more loop iteration to also
+handle the newly added TAINT_FORCED_BIND bit.
+
+Also simplify by starting the loop at 0 and save substracting 1 for each
+usage of the loop counter.
+
+Fixes: fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when userspace manually messes with devices and drivers")
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
 Hello,
 
-the changes since (implicit) v1 that is available at
-https://lore.kernel.org/driver-core/20260925182041.1025371-2-u.kleine-koenig@baylibre.com
-
- - new patch fixing an already existing tiny issue that Sashiko found
- - Fix a build failure that I found before sending v1, but failed to
-   squash into the patch
- - Added review tags by Bradley Morgan and Armin Wolf
-
-IMHO this taint is superior to TAINT_FORCED_BIND, but I hesitate to drop
-the forced-bind one. On the other hand it might be better to drop it now
-(before hitting a mainline release) to not burn the used letter to
-indicate that taint?!
+feel free to squash this into fcbfaffee51a without author attribution if
+that is considered a good idea.
 
 Best regards
 Uwe
 
-Uwe Kleine-König (2):
-  docs: admin-guide: Handle TAINT_FORCED_BIND when parsing
-    /proc/sys/kernel/tainted
-  Add TAINT_DRIVER_OVERRIDE for usage of driver_override
+ Documentation/admin-guide/tainted-kernels.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- Documentation/admin-guide/tainted-kernels.rst | 6 +++++-
- drivers/base/bus.c                            | 1 +
- include/linux/panic.h                         | 3 ++-
- include/trace/events/module.h                 | 3 ++-
- kernel/panic.c                                | 3 ++-
- tools/debugging/kernel-chktaint               | 8 ++++++++
- 6 files changed, 20 insertions(+), 4 deletions(-)
-
-
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+index abbf5e3dd749..a208811ad525 100644
+--- a/Documentation/admin-guide/tainted-kernels.rst
++++ b/Documentation/admin-guide/tainted-kernels.rst
+@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+ script, but if you need something quick you can use this shell command to check
+ which bits are set::
+ 
+-	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
++	$ for i in $(seq 0 20); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i&1));done
+ 
+ Table for decoding tainted state
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- 
 2.47.3
 
