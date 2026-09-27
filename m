@@ -1,100 +1,106 @@
-Received: from sonic312-24.consmr.mail.ne1.yahoo.com (sonic312-24.consmr.mail.ne1.yahoo.com [66.163.191.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9451F30F95C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5904B2C21E6;
+	Sun, 27 Sep 2026 19:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790535517; cv=none; b=cWxtsxRSRocgx+vExGsC4pGILgx4zfrYBn8LjXl9KKv2kaIule8SiMwS+VUDyX2FseMql5GIk2RBOgP9wKIUKTxuq8t09YYAJlTtOZCVdSiPZ0LJr59LjE8hGeGvkNzTbGdu6QqejNHHYxhIcrPkQsZmB5LflQvPJMishkvkbmY=
+	t=1790535746; cv=none; b=uP11WtOLDZcGNdF4E5MQGH1l0k8EL9k554htHb6MeOvIxXq93P+hdvruWPrXZSMMm8zMlhYdcmjw+I9RpdNYkbn1p+ZQzB4Pb3/Y5VPHBWYtbaFUqE5Y7FyFf49l7RbUCX2cQj6EeTcrf/yTyzjVa0+DwHivn/idTqPrTeEKnEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790535517; c=relaxed/simple;
-	bh=ViNBLSklZPQRM0ds8F+WFFkGEzCtYSc+f0YcLyNmEi8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GDv3xc26jnYxPXrWsSsP+CnJXmwXH8r9rh0E3+Qt0qRSW+nMeSF0yAGkmJCbffksZEtGqqQTbKpGusdW3gftSjVt4nGBGlc4jY4mm7U7+MH8hc1Im0yqiB6OLW/1ltSXetUzvMbUhXf1LMOGOkT1QH14tHijh5xFkA9QXCC5jHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=JOqOrHXf; arc=none smtp.client-ip=66.163.191.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1790535746; c=relaxed/simple;
+	bh=bmZUXxIZqy0apceeyZkO/5n1tNNDoZ4axqt4nUT1I9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gN/69XhpgYtIGwfTOmkwZlEb6wZ3wiFpl9RzyFs3CPF5s/+VgxTc9GvspIxGr4HymZ3DiM3o709Aw9TiDVu+m18D+Nz90ufeJ6rPtiqx56CNOBrrF5OYaUNeftDskgocMFQSoq1FOQ050ubPedSu3mDo96qRSH1gCEHAmsSNEFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GXE3mkqR; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="JOqOrHXf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790535514; bh=l53zxW3mCIqtbpXnl7Mu35EpsHI8eZf/mbtge73hUQ0=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JOqOrHXfj0F1OzeqZFOS4xzA9qofrqASEIiNzaBVLWpIqQqMvPNNj4Fk484L+gUCqbRnq+Mpl+vv7fyz20yI4rYyE+9txLEdCnGxkVB+eHQ4DgDYRkfDBMhoT6EWe+A8k5QX80VHgtRsQztHSRLZXYGvuvkPzKbiXUPvkZNG3FP/5vz1DK6a5TQsoLUKoN6/zzIpJMaFDLGnRMfp+P33RAUgp+DswhqI5UxuWP/m/jv3GHtD3fJiQi4dtK/adnVNvPrlFKEv0PGdESssiHp6FecQodKv96bu5A2PsHWFhWhs+L6+C5PUB+SRyUsubP4bmvCksX+U0LcvGj272guiFw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790535514; bh=NsIUmwuSQ6R4yOPm4z78ysN1H0rJ8wpey0TNsc9xovT=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=NJbexy80zNqDiaqv+WyS/uZ/gV7lNr/zOJfVA1ppcApgYNQb79tYzUvCDBLa7cG+XBWW3yS7uvgU7miCcUR1yMbIOEwr/gghrdHiXG4LjK9nDiSwdTn+hA2Tm9mFKCf0JjsMf3eEFKV7lHXYQGqvKROENIepwYZHppVB0BT+VaJ28o1hmThFpqHwS72YAryiS0/sAiIebegW2rP2+tpXBT0P8VCSfNHjhSinpEmwfND0SIA8VKSZb9/XlgsYoX7O6it81ENjyUnTGnKZUNfeaJJyhnUBOPNMRZOhoFubxZDpQ+QNVCA76fwgBt1x4b3jfNGG1YjCIx727cLlUZ2O7w==
-X-YMail-OSG: xYfplhkVM1mxsvHTHnldBsjV5XavcaBdPHT1GJ2Ol3vK9gkxkGo0g4hB.NDegvm
- 5hd_zqVT4QaPNftYeeQiWGRA4yAcNwMBbDHn48trJobpstiLB0R47gZUSSz_yu3sOEMjqUCW.qa_
- qqlsPtKAyF3M_k3IjnG6VBRtCk4WeKHijHBUzwsZ6RfZp.iZcmzHadi_ncpcYQov6nvboO5JkJRe
- P0vvoIkR_DJJEXP3pDH.ZD9BcMIDoHtKM0Yt7dvbhnsGSCJ5_ypb9Phx8MZy9XNBIx_kLXhL2we0
- bIJNFD7Q4xebDRNoPxQBHG0Kbr.RcuLWU.lh99vEsjAS_lQMd3UIurswkvWtfKbt1LH._DrP161v
- TBak4yaHdodQBvyx7PaBSxlyubMnRTLNtHTb1TAPNxasVgxajpNoR3ImJYGhkr.0n28RLZGiuAKv
- bQLU7sTeR8cD_Iv8D7reiU.ATrCA2Ory0dsne6Pe3psz6pY4ADLfopziTw.cZI0Aie4JQFxGyT7f
- IByZ7JN_FBkoKon1FKO0sS3.V6ns4WgTZVGM9cTJrOm7_vOlQwj.Is30rn72BQGQqhDevGbOGez7
- .BcfC5UaF3jh6IQLf4hM1VoJzpzoIkuT.drKmgYYwqOyICax9qWdbCfvDmuSE44Z7jODjwiFfaNK
- hinamxHTQfVNzeMd069.ar4aW8jpJZlQT.WyoO7E2dXr06csWNAWhLTRyKy3jN9HvnT1JaNTj7U1
- 8ypMEUmk_FtyKqqix09us..u3kuAPrRGJqR8Y6PutU2_YlqH4SIUCVh97dWB5oXqfEKFGuX.8p6p
- k4GnW.Q.OBrNttRVxKuIsaDEOqoyJmRm7j8bSe1Cku17oPGHlZJeZxgKm_jjGyWjo_Mqy.iQhA8l
- d_ekzgqa4WPUSyP3XNH3LSGmqGNfFuA8xXIbEe5R0AFgxKI6YZ7JMywQd_iQXySTL1PxfQIm_toh
- .xODmeDsTvWT5.hkwWnN8CqRZ6aZc4Y0iCvuZY5N3hmg8LYekKnGjCiH7h0dJT2oLNRUewth9VrN
- LUNfpHx4_a2RAmhIaOYOWZkvO2pnlKbzcia0gG3S7UbKr.QMcuXuPB73JKW5umQ6Hl3zf32jfQUj
- t3JKt.E._WSJgv0Mm1vat6BXP.t8aQZ.qjvvt5NZruMkaelFynIa.lqoTm1Pf2YG81AuDDW3Q7OQ
- mtmTXrndBWOh_x5SIthDwqWZwoejqjFu7sWVJnWBJGKBJzlfxQppmoEgIPMskE.kHCGUPV2ZVGeG
- S1Vw3719I7mYyIFf3741VxwC2JTcuGe2IjWoJvImfQBw4g5w3vKRIdS43yxf.w4gHvZzAOYLqvhP
- CbZMTQ6lBrC.ySyAEkWxxhlgcrSvI7qZSyFwFyT0bhpqyiVRsz6DL31stge.mjJbgxuZEPvizkEZ
- w2GN8fSZuSadDRd5L1w.PvrgQEOqj9w3f4iasXib_AEJQPFmCzbRDN0g58tv8wydUEWvftGOoWf7
- txhy8pJnTX2KUZ89UskIPoxxunRobgC1R7XS7bHXcCj_uaY2QcNHocNr.Tntzsk4yS64c1o3N7pg
- 4eMN9NkSbBkmy5y8Cdr1rsUV27qyaKlP_rIbzlaYv2m6mx.JxIrIueeS3mBxsUyZfdYwSQaD3pcE
- DmIpZU3dh_D8Pu6e9g.aYrcqVCQrRNqbVikCBBQwzrjVGwp3sxIDKIjOchb_dA4Pmt9_ZRObyyGV
- _yiG5kVvXOxRGz6UcBt.TIMGQu2h17dDBTf.P36wP8VpoBK9bpkpjX4ovuxK73HwRsL4VsQAJwdU
- khd14r_cFYzk1aX8AHJ6gfoYVd8VyntZxDwdsizc5Sj8u5J1.mNMKzJvRl.d_GD1vaxaV7doOrS_
- vbERA.ALYoOVo1gxtcTjr_O6vGSHFKSaeZ_RHOsWeIykL.yBFhWqOUVSU.A5x6ylwQOO1uZDtQs_
- 1meFtHEJbf143t9XsjDsJryvqO_xJXEfQqQ0QRE.wiUegWWCsQ2vImCOwuAwrsG.kAhbjkWcMAkU
- 9kJKh0g6AA5uf.P987afPHAULaOCV4u04ZLMjJXL7I3w1LXoKDkecKP1oYVvXDadabXRK3yur.Wx
- Pd.OoQmG0DeLWV5iSk1aNC8yUMMu6uQDUtFSYEoFH84soV_hn28w720tfnnXyA7Ds_xtsAcx17xP
- tniO0MEmRWIiwSfN3gXkqEJ3iUD3vvFJN8s5zCcPMfaJRiaORPKOjPkEhX9aVck.DoGtypYInsXh
- U6dUnbb6LBtNpUFSRzBfsdIH5iaptiQpTrlU416sFeJL7oHdAZ.nLk7naEuD1Xp5fojFz89AhzT9
- xUbfYQy.G7Oc34GM-
-X-Sonic-MF: <userm57@yahoo.com>
-X-Sonic-ID: f88932c3-cdf9-4ed3-b867-a233ce767963
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ne1.yahoo.com with HTTP; Sun, 27 Sep 2026 18:58:34 +0000
-Received: by hermes--production-ne1-6dbcb84f44-dbq4q (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 5fc8a42aabb9384b77faa8729bc76f6a;
-          Sun, 27 Sep 2026 18:27:09 +0000 (UTC)
-Message-ID: <392982a8-f62b-41e2-9b2b-7b5b54ad7839@yahoo.com>
-Date: Sun, 27 Sep 2026 12:27:08 -0600
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GXE3mkqR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=UQrtppGpAREwEBox3klCIQcjsYbUf0EeTuSwQEhRl+0=; b=GXE3mkqRY/t8zgm8M7PViX9qlw
+	2P5+5y4FfOjpjW3YAfRO/RNQR2B+mjHhHaLVo3V2PgXSwur4ZbiWg79L3t/UZde82dIYBCQgljmVE
+	MS+vGcDHhJ/arNtWKId8I4qV50ynJtihdgrIfdpN+Ohg7VE/tKgxabpA7UB6mN3tPwX8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAu8X-007YUJ-0o; Sun, 27 Sep 2026 21:02:09 +0200
+Date: Sun, 27 Sep 2026 21:02:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 8/9] net: dsa: mt7530: generalize and move
+ common function to lib module
+Message-ID: <cd200dee-1bde-4cc2-a296-c93d704cb906@lunn.ch>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-9-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] block/swim: Minor fixes
-To: Finn Thain <fthain@linux-m68k.org>, Jens Axboe <axboe@kernel.dk>
-Cc: Laurent Vivier <laurent@vivier.eu>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Joshua Thompson
- <funaho@jurai.org>, linux-block@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-References: <cover.1790408363.git.fthain@linux-m68k.org>
-Content-Language: en-US
-From: "Stanley J. Johnson" <userm57@yahoo.com>
-In-Reply-To: <cover.1790408363.git.fthain@linux-m68k.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26577 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925182435.21207-9-ansuelsmth@gmail.com>
 
-Tested-by: Stan Johnson <userm57@yahoo.com>
-
-This patch series was successfully tested on a Mac IIci and a PowerBook 
-Wallstreet (G3 Series).
-
-On 9/26/26 1:39 AM, Finn Thain wrote:
-> Two old bugs were reported to me by Stan Johnson while he was testing
-> my recent patch series, "[PATCH v3] block/swim: Fixes and improvements".
-> The following patches fix those bugs.
->
+On Fri, Sep 25, 2026 at 08:24:30PM +0200, Christian Marangi wrote:
+> In preparation of support of DSA Switch from Airoha, create a mt7530
+> library module and move there all the common function.
+> 
+> Function are generalized to use the reg_field regmap API but still apply
+> the same exact logic. Every function is renamed to mt7530_lib prefix to
+> better identify it.
+> 
+> Minimum modification are needed to the register header and common enum and
+> macro are moved to the mt7530 library header to permit reuse.
+> 
+> A library struct is introduced with everything required for the common
+> functions.
+> 
+> The generalization and the introduction of reg_field regmap API have the
+> side effect of permitting to clean the mirror functions that required
+> special handling for MT7530 and MT7531 based switch that had different
+> registers. This is done by declaring a common MT7530 reg_field and a
+> specific one in the Switch match table.
+> 
+> No behaviour change is expected by this change as it's just a code move and
+> reimplementation.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 > ---
->
-> Finn Thain (2):
->    swim: Return -EROFS when opened with BLK_OPEN_WRITE flag
->    swim: Fix FDEJECT ioctl for exclusive open
->
->   drivers/block/swim.c  | 5 +++--
->   drivers/block/swim3.c | 2 +-
->   2 files changed, 4 insertions(+), 3 deletions(-)
->
+>  drivers/net/dsa/Kconfig       |    4 +
+>  drivers/net/dsa/Makefile      |    1 +
+>  drivers/net/dsa/mt7530-lib.c  | 1128 +++++++++++++++++++++++++++
+>  drivers/net/dsa/mt7530-lib.h  |  391 ++++++++++
+>  drivers/net/dsa/mt7530-mdio.c |    4 +
+>  drivers/net/dsa/mt7530-mmio.c |    4 +
+>  drivers/net/dsa/mt7530.c      | 1368 ++++++++-------------------------
+>  drivers/net/dsa/mt7530.h      |  256 ++----
+
+The number of mt* file keep going up. Is it time to move it into a
+subdirectory?
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
