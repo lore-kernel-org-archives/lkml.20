@@ -1,124 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A93BE17D;
-	Sun, 27 Sep 2026 12:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06213C9895
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790511907; cv=none; b=EcEpBrMQMPc77N+q1DmYameCTQqSxEBAeOrlF3QZ1St4IuHIwLV3kFG6iztuqgaawAIVt55cWQzmDFK0EkXHovD0G0CfcGOcS/2/lE/eZbykT0+LYXRkPUFpFZ88OAsN9mK+i+rboBKXZYIKj8Bv+CCRJeH3btdZRCqruh8bSsw=
+	t=1790512001; cv=none; b=VIfj1/h+Ty+0+LTNvfunoRz17HnPo5dn03AKIemhoolRWk7yXLTYV1qxbsBOA//Pi8CPp4vEtNBsmvFomJ9oTzhYC8rMRhOJ4A6KslLOX3saZtH5UW1Xcsrmt/5Yr+zmvBhUy7ekC7GJ3ZLpmBEp1UPpXkQPAoyKmt/6B1CFzgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790511907; c=relaxed/simple;
-	bh=kKFsmDtE7IWmUq7SNnTfR0mTvUaq6kPbmgcf0aPvZ8c=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=c5kYp3djcYERZpmsPXNI9Ng08tQEdMLMgODyTSvHc6FeGhc2DoAerQq2VJAa02+MBoatjfpSOLB7n0RaOmqBAJkLd7GQXofXdYxBL75SB0Yq3mfLGGeLZyxT4OMXc3RVOk1OsumWnUnNzOgimkNYn/nwj0+XW2vYCtAT8tBivsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CG1WIzN4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CG1WIzN4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ECD21F000FF;
-	Sun, 27 Sep 2026 12:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790511905;
-	bh=P+NipuqQkuCS9MH+5kBtkFCHseN5UDLBNuO8qD87n6k=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=CG1WIzN4huTUPod30NAXzBZn1rf+q72ZPod8MC+wGKVFx0mRCkF2HxW5ed89z6G8w
-	 NLoIqwT15WzWhH3dDuZ1r1PiMq9SFC/lfXqShjySKKqhBcGFOEHiECXTQN9gDV8B7d
-	 Ju/gWjjsKBDB43tuL1xGsnKTcc+K1pNyxEpcmBxhfxysxxZrmSmRJs/elJZepgww/B
-	 hN+SzVZEfzUh5Sdma9smqRCxocAFsu9wV0df/W6AEwjhOF07B0RHgoS56Ho9cRk6bv
-	 LW/fijZAHYsOOS9uHbyZ9Eip6fM/KnBRBbL77uKMrKN2xIo8OlT4xi3Abmr+SdA7FC
-	 am0qLOGO0AaFg==
+	s=arc-20240116; t=1790512001; c=relaxed/simple;
+	bh=oNop5lBDeiAxiJltt4clkQ90VfgPeUptu2EMaN8H1Qk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jd0albFYumgVq7QYLh9X+B2XdEgW1fne8CFmlmNGIfHFsUiHjcHnnCHk0Ee8WTX0wjjTm1sROAaPK0OraTcLBnFzVnoDYVylhY63zGltnPE5HsglhgjabjU/0OUNOKHkMSePeyyz8QcRGuRxJ0thqxXmV9NJQBhAY6HnslCUGgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982dd15d169so1377636241.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:26:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790511998; x=1791116798;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rItpLa2n9MiIOqmyRK+ap1Hs0buU9Shrp4pBeop1lGE=;
+        b=zlnV9J9mVevy6QRwy8+i6lSZADTa6yQ1ZfkWh8ipUnyJ4ts8NN2xACjmENZ6Uns7d5
+         SDK247I1A48R9xuJaJm36SDgUekGY7lDseNMB6fhilQqt/v+GHy/1aJ0fMOwV8Mk7h+1
+         QkSEohRqdrYA4WhUziEC9lskpz2ihiboVcaSjYfbKAmft2BHuaPGfmfEeg7VoVS45Ce9
+         rSxPlrBUXvYp+vH9WIDLN7PSJBmf1S+QQ0kdqjMLkccqqd0HKhKVo2gz3WSQPNFLokfk
+         D9vstDPkPB/xVJEEFIjDMsx/exVE8QV84wl+GiVqVX3wD816RkosKKZ9zU/9qre/zBYd
+         parw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBEqpQtkMEQAgdwZSAVXriQ9xl8epeIYnSGyYXm3onpkHVVXjUxTF0/csvJaKx+VPaVlCoX5vQ0KhYh9c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFJVEeaNzo8VSL/a17juQwJjIHEt2+ENDVRrqsLPJAxlAlb3t7
+	7EHXjNvnoAy2zfH6Yy994GjYRrUgELuIlJp5ulvy83JnF+4niPmkp6HJ3yYF9k2U
+X-Gm-Gg: AYBFou3GXGIIc/kpZoDcmTTMfEkn208CAvvz1SFDEEqaRvLCNA/MIxVIxzTTWGWHMUG
+	baCgStxjyHGD7xcOF0jvvGqz1RHX9tSTrq7bOl1L9lK7nefzRjkscrGo763IjdVMvT/Nq/hR93A
+	DOyDkoAQVcKyTaxwlLCqqJwi6qKsruWpp3IBrLhvzBFmAVRw5Aqds7uv5Kaxth5CNwfJCxfpr9/
+	EKuU5KRe37qHPbrFwrifJ5gB4TmSSzvxgBZ6CMRn1MT0rCE897a5iDbx8EvrODzIjTkqCTpzewR
+	FkB8YR0IaNf0nKGHJFJj0K0qX7K2veH5K1OzCYLLEWo3Hj1Yp5kIhJIOQ25C+BCvYXpIiXRp0vZ
+	j36Hij4cF8cLmCuwOYQxit1b0v8PMHjHokIF4IQCNFyyUvj7+mxNV5ZLv1xbJ5O5TDLmEliiMMM
+	ZLVdUv2l8pNhdiHuem8Co4lUJAtEy/aBdbMeHNYbllKE71WTx4KH73q2b4v3QA6hBxdeor8Y8Ae
+	mBIiY4Zyz1P8rClEFZav5sHgH9rDAHNvXKIdwI9jxLGtMTd
+X-Received: by 2002:a05:6102:162b:b0:7a4:fb71:25d1 with SMTP id ada2fe7eead31-7af1b96d484mr4562941137.7.1790511998578;
+        Sun, 27 Sep 2026 05:26:38 -0700 (PDT)
+Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com. [74.125.226.234])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889b0b8e62sm2538155241.8.2026.09.27.05.26.37
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 05:26:37 -0700 (PDT)
+Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-988a071feabso122480241.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:26:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzeN8s/LkLdXEpx+Dxpuv2iMHXNyN+EZzhOBz52QWJUpB8QikUncatnimqp3lw2NaqG99r54WgCLWvxi0s=@vger.kernel.org
+X-Received: by 2002:a05:6102:534a:b0:7a0:f7cc:5045 with SMTP id
+ ada2fe7eead31-7af1be75fa3mr4441712137.9.1790511996983; Sun, 27 Sep 2026
+ 05:26:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 14:25:01 +0200
-Message-Id: <DLQ3HW61LAW1.FLV9E4Z9B5S@kernel.org>
-Subject: Re: [PATCH v6 00/13] gpu: nova: Export parameters from nova-core to
- nova-drm
-Cc: <rust-for-linux@vger.kernel.org>, "nova-gpu" <nova-gpu@lists.linux.dev>,
- "M Henning" <mhenning@darkrefraction.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Alexandre
- Courbot" <acourbot@nvidia.com>, "Benno Lossin" <lossin@kernel.org>, "Gary
- Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260909064506.910162-1-apopple@nvidia.com>
- <20260927121736.1186364-1-dakr@kernel.org>
-In-Reply-To: <20260927121736.1186364-1-dakr@kernel.org>
+MIME-Version: 1.0
+References: <20260731094402.741645-3-thorsten.blum@linux.dev>
+In-Reply-To: <20260731094402.741645-3-thorsten.blum@linux.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 27 Sep 2026 14:26:25 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXfst6urDAoSKQgbjB0j0vU7c0v=WM-gOe93iBEb0Li=w@mail.gmail.com>
+X-Gm-Features: AclHuK-UFiGOvR6vAhEVwRBFXl5YC0sr-Pa_dOlgtOwpSCPiLeaSpNnlvcyuv28
+Message-ID: <CAMuHMdXfst6urDAoSKQgbjB0j0vU7c0v=WM-gOe93iBEb0Li=w@mail.gmail.com>
+Subject: Re: [PATCH 1/2] m68k/serial: Use generic BASE_BAUD in asm/serial.h
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org, 
+	"open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun Sep 27, 2026 at 2:17 PM CEST, Danilo Krummrich wrote:
-> On Wed,  9 Sep 2026 16:44:53 +1000, Alistair Popple wrote:
->> [PATCH v6 00/13] gpu: nova: Export parameters from nova-core to nova-drm
+On Fri, 31 Jul 2026 at 11:44, Thorsten Blum <thorsten.blum@linux.dev> wrote:
+> Include asm-generic/serial.h and use the generic BASE_BAUD definition
+> instead of redefining it.
 >
-> Applied, thanks!
->
->   Branch: drm-rust-next
->   Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
->
-> [1/13] rust: auxiliary: let registration_data_with() closures return cova=
-riant sub-fields
->       commit: 4075acc9d489
-> [2/13] gpu: nova-core: Add public driver API to nova-core
->       commit: 6e70b1719991
->
->       [ Rebase and use pin_chain() for Gpu::run_selftests(). - Danilo ]
->
-> [3/13] drm: nova: Add DRM registration data
->       commit: ecedc604e0aa
-> [4/13] drm: nova: Add GPU architecture enum to nova-drm UAPI
->       commit: 342aaa7bb3cc
-> [5/13] drm: nova: Add chipid enum to nova-drm UAPI
->       commit: a1678ed1f8a3
-> [6/13] rust: uaccess: add UserSliceWriter::write_truncated()
->       commit: b40f5ed85c5f
->
->       [ Inline write_slice_partial() and use it to simplify write_truncat=
-ed().
->         - Danilo ]
->
-> [7/13] drm: nova: Add an info ioctl
->       commit: ce6e59897ba5
->
->       [ Avoid 'as' casts (add From<Chipset> for u32, From<Architecture> f=
-or
->         u32 and use IntoSafeCast, IntoSafeCastArch); improve / simplify a=
- few
->         comments. - Danilo ]
->
-> [8/13] drm: nova: Add usable VRAM size to GPU info
->       commit: d9886a1a06cd
-> [9/13] drm: nova: Use nova-core to read VRAM_BAR_SIZE parameter
->       commit: 7edc491f6fca
-> [10/13] drm: nova: Expose a render node
->       commit: 843bb3ccde8e
-> [11/13] drm: nova: Report GPU name in GPU info
->       commit: 391cc215d22c
->
->       [ Use ..pin_init::zeroed() instead of ..default::Default(). - Danil=
-o ]
->
-> [12/13] drm: nova: Report GPU short name in GPU info
->       commit: e6d9c5b08c23
-> [13/13] drm: nova: Report GPU GID in GPU info
->       commit: 10a6623a24a8
->
-> The patches will appear in the next linux-next integration (typically wit=
-hin 24
-> hours on weekdays).
->
-> The patches are queued up for the upcoming merge window for the next majo=
-r
-> kernel release.
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-Alistair, I've also updated and merged your drm-test changes. I've also add=
-ed a
-patch for a Chipset type with strum [1] (it would be nice to have something
-similar in the kernel as well).
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-[1] https://docs.rs/strum/latest/strum/
+> --- a/arch/m68k/include/asm/serial.h
+> +++ b/arch/m68k/include/asm/serial.h
+> @@ -7,15 +7,7 @@
+>   *
+>   */
+>
+> -
+> -/*
+> - * This assumes you have a 1.8432 MHz clock for your UART.
+> - *
+> - * It'd be nice if someone built a serial card with a 24.576 MHz
+> - * clock, since the 16550A is capable of handling a top speed of 1.5
+> - * megabits/second; but this requires the faster clock.
+> - */
+> -#define BASE_BAUD ( 1843200 / 16 )
+> +#include <asm-generic/serial.h>
+>
+>  /* Standard COM flags (except for COM4, because of the 8514 problem) */
+>  #ifdef CONFIG_SERIAL_8250_DETECT_IRQ
+
+It would be good if this BASE_BAUD 8250-ism could be removed from
+drivers/tty/serial/earlycon.c.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
