@@ -1,74 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504DD23C8AE;
-	Sun, 27 Sep 2026 17:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB1E3546CA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790530831; cv=none; b=kXp0B24KjpE4q1Gxry+9Yeil3XbntNiyqsQ0D2DxZGuUjfKsK5oc50t9lmlHs/TfKdLYZ1+9qqCOXeH4M42El+3r7WD62j4n+F97QAh6KOeCg4udOtp0S/hEtSKRz5oxZDy1T7+GRXtcvZopECGlASc89cx7BBYjgqQkKsukFX4=
+	t=1790531058; cv=none; b=QTN+Z4NT4sWQX5D9EC77/9q4kOGTlqFKLCqM1dr4VFv4zwZjv3Otn3TUpSu5i8cX18Ofk1dDus55rCN11stc+3d2ra2/05IobjC1fFCUA1WiFhWwK5RmaeC38ttnx/B6S5nPvhZqvLIqMe31O3wrX3C393tSL3GqGDRGNb9KQCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790530831; c=relaxed/simple;
-	bh=yEFV3lkIaPKi7zVGKiJPo1Sjy0OlfxaF4BS2U1sBqUU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U2eMoouuyyu01LLi7IekxFbJulSePyp32L0cELAfWc2Epk2ckLl1D5QZaA9JnTdJ6sH+XBkUh2aqTXYr4NeayURmdG+h3iWII/g/h7HL3Ai+S/IvcyWtby5qxdaevvO8vk7Xdxy3OMBpVVF7prkttAF9r/JL6+PsIUnQG4qraS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1QS/gdz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790531058; c=relaxed/simple;
+	bh=qoFME3ujxct+hnJQk+U54vJ5l3zfLaE0czQoS1KoMiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NEuJKkS5znKC9PNKybnv4BVTUDMHP8tGw//wupoArLgQISle4Nhbd6ka9TxTacBRAZtD1bJm5suKMRKmBIjOt643o+DUyt3KD6wao+FJwL8UHUn194BH2buG1r8h5vrtZ60Pyt2JE2njwS3uern4mGGMWaunIxRmSjfyhxxBG/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Elcyfoj5; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1QS/gdz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1651F000FF;
-	Sun, 27 Sep 2026 17:40:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790530829;
-	bh=rRicdbRpdSMevJVjz0k9ySyuClDHkZPdx7+N/XrY8Xk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A1QS/gdz5FrsJEDgePvIQvIDiUwOEyInkviYgzx/9+hBfEeEc8pymb8o+pJY1M8oh
-	 8L0mn5VXjz0rWJz5/UwLUUXb/SOl5vHH5zt5WYu/qCbnMy1hN7ZYmhzLxASav1oooc
-	 NSaiVY0Hmd3Fkm59yFY62+rHFC+ItPVWukVFAtNZROFPRdjIebaAGK3tCpAzVq2Ltt
-	 Tc3WZ+BzimCSWOaWfZBaGrAi+1srwhejw8DkcioK7Jg8VteKRiy/vEC7GBIDRwI3Zv
-	 ULcVnZ1fJawAVCzy9KKccZM+cgPp7qHitVH/Le98PXnIaXD1P4Ii525hrYXoh1W58g
-	 DucM6bhq1+FWQ==
-Date: Sun, 27 Sep 2026 19:40:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Emil Renner Berthing <kernel@esmil.dk>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org, netdev@vger.kernel.org, 
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v4 17/22] dt-bindings: clock: Add StarFive JHB100
- Peripheral-2 clock and reset generator
-Message-ID: <20260927-wild-modest-goat-b79b3c@quoll>
-References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
- <20260920120044.194901-18-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Elcyfoj5"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso1700190a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:44:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790531057; x=1791135857; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IbAFUyj3BltCO2hVtF6k3xelf6aUmY0axkJyv2edRTg=;
+        b=Elcyfoj5LAigOJm91BWKaJAioJHKrczFpBWjNZcnfWdQvx7MqavHZCzxDucktbGg7i
+         x1kgbRqJaPWCx2+icCczh84oJaVK8g/0KQAExiNrPRGpEPX10zb20x4p6zg7wwQ2Y5bs
+         XdLw9WdEOSLa6hotKrEOvVnZGYurVNVzgvEyjWAsXTztjqhsNe9o5siJWIOQ4z76Ge+y
+         4elB8sZ44PJavwiPN04kDGICePOUO3TIZDHZKEChHYDkUbcN8UPRwTGyyQ0gDrknbR1W
+         HUieD7g5sT9vdXT4FiMOsuFeEjOo6MMKyqO88jU11Y5vxIjcODPa8aOC0c47E/nRbxP1
+         +7Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790531057; x=1791135857;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IbAFUyj3BltCO2hVtF6k3xelf6aUmY0axkJyv2edRTg=;
+        b=ygkAi6s+5xkcRGCuk8+f4YXdkfTZ36hDNT00pDtsXRvrtjY5n7RWskFNA9Mx6ROqTk
+         tWC8IAtvnZNHzaBuIlEugWiih81+yP22f0QC77qx/69KmWdG6jDOy98sdiskS3vn+OOT
+         dWe7SXejiIn2WOCcuy+esUF1YhHjO8Ait74j8TqCtAvMe4DWyTjx1mPZokSYzcboul/E
+         YCxG2NlJWbo44ou1vkICR4Odhoh6RsRgZaMAR/LOnVJLDgZufbXoGEz0earz8RIG+y/D
+         aCEzZplKSpEAQ96owFrQ1EX/gHX2GRd6Bi6i4zcVRnuSbExxZML2PvotJmmI1jSZPEIv
+         aXoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdOs5pDnZ4Q68lYiDZS9QFEXFyKWl7WiXW0a5jMWW9OnVuGorBuI5F7qHCL1OPdl3Q8g4QlHygQq5wb+8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUlP0jEUnkWR1L0bhy42bWLklc7jQnLC6fpZZRNehSzB8J4LFl
+	Z9f0Uma+rwbKdbs31/XJQ/G/6Vm5LxL1bZd2ACewyWA3x+GCAqWUnTVA
+X-Gm-Gg: AYBFou3qQbBuaHgBL0gvog7WX9wfpAJphbfBfPrSjkwAavoTh7ON7n2coa0WonYmtx/
+	9/cLAceUCoeFKaqla3WUsirXie6N2Xag7YZSbrdNCtKR77llL80aza+3tys4V+Nh1lUDhaD5eWS
+	om64HHXP/RX0pILg4EUl9e2QRW8Rx4umtLaNcxjHoD+rSwvyJjWtyc9pjgvFR6kSgvQUoFIo4F+
+	pNfGQHFB9UQ6Lv1Xk6h0T5QwzoCBTrH0/gMrmgktTAlXIQ0KfMpZcaCTB70Zk36ckZGKjjUS0y8
+	cY49MeNRtCSpdqMRDwXCmjcUdo7JOxfuBiV1Fne2yAiMhRbzpXf5+JJs8Ujo5M9RS7ApyGTUQE6
+	aQyuNoU3KPtpvT64OQ3bivajH7m7gqUn1cqnTLWHfyxvUMc8FizNp53X6hUgeXq3hdwfLWZHP4I
+	RZP0nxsycLa74lwI5poQmbyH7DYjzBWPJjw2hXTliBY1m5Qc5C7pw42Kvo/IgvbyxlPL+l5MGy1
+	kiripqNwbFQWuDeLse0R9NYoO9Leb1p/YmJtF6TkREG1WK20QK0LaxjcOGH
+X-Received: by 2002:a17:90b:5846:b0:39e:6c69:9b90 with SMTP id 98e67ed59e1d1-3a099235dfbmr9818678a91.53.1790531056584;
+        Sun, 27 Sep 2026 10:44:16 -0700 (PDT)
+Received: from localhost.localdomain ([211.213.99.203])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e151be04sm9553785a91.9.2026.09.27.10.44.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 10:44:16 -0700 (PDT)
+From: Hyeontaek Lim <jennystr233@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hyeontaek Lim <jennystr233@gmail.com>,
+	syzbot+d164947c037324221043@syzkaller.appspotmail.com
+Subject: [PATCH] kobject_uevent: fix OOB read in kobject_action_type()
+Date: Mon, 28 Sep 2026 02:42:41 +0900
+Message-ID: <20260927174241.36888-1-jennystr233@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920120044.194901-18-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 05:00:39AM -0700, Changhuang Liang wrote:
-> Add bindings for the Peripheral-2 clock and reset generator (PER2CRG)
-> on the JHB100 RISC-V SoC by StarFive Ltd.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../clock/starfive,jhb100-per2crg.yaml        | 76 +++++++++++++++++++
->  .../dt-bindings/clock/starfive,jhb100-crg.h   | 57 ++++++++++++++
->  .../dt-bindings/reset/starfive,jhb100-crg.h   | 17 +++++
->  3 files changed, 150 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
+kobject_action_type() matches a user-supplied action string against
+the short "add"/"remove"/"change"/... literals in kobject_actions[]
+using strncmp() with a length (count_first) derived from the size of
+the user-supplied buffer (up to the first space, or the whole write).
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+strncmp() correctly stops comparing as soon as it hits a NUL byte in
+either string, so a caller can make it report a "match" against a
+short literal like "add" by embedding a NUL right after "add" in an
+otherwise much longer buffer (e.g. write "add\0" followed by 391
+bytes of arbitrary padding, with no space, so count_first stays at
+the full write length).
 
-Best regards,
-Krzysztof
+The subsequent bounds check then indexes the matched literal at that
+same, much larger offset:
 
+    if (kobject_actions[action][count_first] != '\0')
+
+which reads far past the end of the 4-byte "add" literal, into
+whatever object happens to follow it in .rodata (observed to land
+inside uevent_helper_sysctl_table on the reporter's build).
+
+Fix this by checking the literal's real length against count_first
+before doing the strncmp()/indexing at all, instead of trusting that
+a strncmp() "match" implies the lengths agree.
+
+Reported-by: syzbot+d164947c037324221043@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d164947c037324221043
+Signed-off-by: Hyeontaek Lim <jennystr233@gmail.com>
+---
+ lib/kobject_uevent.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
+index xxxxxxx..xxxxxxx 100644
+--- a/lib/kobject_uevent.c
++++ b/lib/kobject_uevent.c
+@@ -78,10 +78,11 @@ static int kobject_action_type(const char *buf, size_t count,
+ 		count_first = count;
+
+ 	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
++		if (strlen(kobject_actions[action]) != count_first)
++			continue;
+ 		if (strncmp(kobject_actions[action], buf, count_first) != 0)
+ 			continue;
+-		if (kobject_actions[action][count_first] != '\0')
+-			continue;
+ 		if (args)
+ 			*args = args_start;
+ 		*type = action;
