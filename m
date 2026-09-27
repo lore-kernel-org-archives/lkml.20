@@ -1,109 +1,127 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E7531F98D;
-	Sun, 27 Sep 2026 19:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F9635A39D;
+	Sun, 27 Sep 2026 20:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790539112; cv=none; b=XU7uA3oxJ/6BYS8oi8KiI5vikFOHPlsCDvOq5q1cZk7m2DdVNWeOsLAEgXLZniB04O35oNF16S14QHtFJ62IbAvJNPNmbZrB+cTr5pMJ5fYkHqmtcrK8nX6AlUsgMj9zcafTGyVRGbybAOwT/C0YalaKE6ck6XW+m/BSSvZ07bU=
+	t=1790539207; cv=none; b=iy26daYA2b70DDnXokLGqhxf8hVxHIUyyhzIU1KlBJmZFE6Zum3heF574OFaXw7/z9sjnvmGDuv66KAsd1Pah1zX/yb9H73zQbhYoyendTl6xfi17f9h3o+URUapu9wiqi+QLfCQUvDwSv8Iz5L6fCmff6VlWKw6xCqETgrHVcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790539112; c=relaxed/simple;
-	bh=7VCFpXN7cYc8sdLGYAvNE0FP5Hzr0vRjjO5R9rfGcGg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MSpTaSlY+2zbFUUC3OpI54c5hytf4kgjoGNozmeFBlA2PoxQsb3UkWvMSJd5Z5lpM1mPdJ4smP04qSm8JDqCwIzhMp6rVzINT2ImbTCqezU1KkiAr/4sonWRj7wvbidAYcbOu72S7QAAgL/xbiTh03XCxkxfWioCO6qyTDMOI5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=c1lkDCFX; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790539207; c=relaxed/simple;
+	bh=I5GmwhcR9dEV4MtTDUzhSc57TT6erNzKqlpqSHAuWLc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=POlZLTwHUHyDIevwa5nn4+Yk6C4Zsqhgzrmx1DCiFKYO9zqvvgN+BgnG4Cazr4XonKMgbgJWRJ6+r5Owfk1OS+aJbbgwArIGNwRmNcqsISuAHtVPxpN3HxKsmi3sTTbHw+eIul6TLpopSx3juj4LmwFwRS6BNvq0hgRYnQLg4GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OTBZXL7R; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="c1lkDCFX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=VmUTXC2IsZgXuwZJ1u8D9MwDqxE4b1ifYD3+hAizTzI=; t=1790539108;
-	x=1791143908; b=c1lkDCFXsffOLI3g7o3FiVdIPSiG4WY6UxEadveeBskXOdT87dTJnDySbvvFW
-	v8/b9XIbk3JD7TPxGBwR2+yokt/YiYjdLf4XjxA2P69VXDsk7OittJoncXaPHVcdbP/BphrpVaKjM
-	yunIFb1iED69FiMeR0nFHseQSRoSjjd11cwitC0GcaLRaf++F5zJT52sI2QPC+8SwUkBy/SoVrOWA
-	hEH+UocAfnMaqT3WZqwVs7AVKJcb0W1axkFHME9flPdSsVwn5v1fMtjK6BmSdETNODbq6fvqb1h2q
-	z1RyMig84McOs7I2bypEatNJHcGcVDUYhzZUoIqL7CEGsJFDJA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xAv0s-000000007mQ-0FSZ; Sun, 27 Sep 2026 21:58:18 +0200
-Received: from dynamic-077-183-200-086.77.183.pool.telefonica.de ([77.183.200.86] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xAv0r-00000002K6W-3UOQ; Sun, 27 Sep 2026 21:58:17 +0200
-Message-ID: <416ab0edeb42d71f78ab5481cb54f8ce0995d3c3.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>, 	linux-sh@vger.kernel.org, Muchun Song
- <muchun.song@linux.dev>, Oscar Salvador	 <osalvador@suse.de>, David
- Hildenbrand <david@kernel.org>, Andrew Morton	 <akpm@linux-foundation.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Date: Sun, 27 Sep 2026 21:58:17 +0200
-In-Reply-To: <arlhcX870kV0DBO2@gmail.com>
-References: <20260926183904.76186-1-kmehltretter@gmail.com>
-	 <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
-	 <arlhcX870kV0DBO2@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OTBZXL7R"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4htFf44GRbzMlrg;
+	Sun, 27 Sep 2026 21:59:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790539196;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S3GpgvsWKyshpzVFnG9ZkXrNBlSawI5/txD9KcqJ8SE=;
+	b=OTBZXL7RH1YysOqlopuUr0xIA2u7qMmsR/0tKJ+kMyAcD0f6d7sr0fC1Z6QRG0MHp7rYZO
+	twUpIDxcEmHqFl0Q81wRXsgBKiJ0eFjBbHyekHA/ab86c1y+Hc8K70FI8NsUPDJR/CIdL1
+	GBuOB5s+hbzVOXVU+CFP8kiwP4rGa8vnRTmSgdNtrajCq0aJdYSjBEMLtufZkzLjGWqZFw
+	+Pud2xcM59cXqdshafivTLeKyC+3ZzFMNoblLeNJprKyv9PorbPGP2vo19cnk8LUHR6eHw
+	tIJYjH9sQJbpdVweCLmj1AxLNz7+UDtVj4OkFrhBMR7dopc0AdE5qYRJCiyb6w==
+Message-ID: <badcd2d5-7d61-426a-86d6-000043a6aa93@mailbox.org>
+Date: Sun, 27 Sep 2026 21:59:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-3-den@valinux.co.jp>
+ <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
+ <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: nypqomd6k5cuq5i8h1cykuee7hg4apcs
+X-MBO-RS-ID: 46d6c11dbd740c7fa7f
 
-Hi Karl,
+On 9/23/26 4:56 PM, Koichiro Den wrote:
 
-On Sun, 2026-09-27 at 20:35 +0200, Karl Mehltretter wrote:
-> On Sat, Sep 26, 2026 at 08:43:45PM +0100, John Paul Adrian Glaubitz wrote=
-:
-> > Thanks for the patch! This should definitely be tested on real hardware
-> > and I think it's a good reason to test this on my SH7785LCR which would=
-n't
-> > boot on anything newer than 6.5.0.
-> >=20
->=20
-> Testing with real hardware is very cool! Maybe I will get some SH
-> hardware myself one day. For now you've motivated me to do a QEMU SuperH
-> fork with more features, with a lot of help from my LLM agent:
->=20
-> https://github.com/kmehltretter82/qemu-superh
+Hello Den-san,
 
-Thanks, appreciate the patches. I'll try to look at these patches tomorrow.
+>>> @@ -298,7 +285,6 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>>>    static const struct dw_pcie_ops dw_pcie_ops = {
+>>>    	.start_link = rcar_gen4_pcie_start_link,
+>>>    	.stop_link = rcar_gen4_pcie_stop_link,
+>>> -	.link_up = rcar_gen4_pcie_link_up,
+>>>    };
+>>>    static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
+>>
+>> Can we include some form of the draft patch below, so the S4 Reference
+>> Manual rev.1.40 , page 1564 , Figure 104.5 Initial Setting of PCIEC ,
+>> bottommost diamond in the figure (smlh_link_up and rdlh_link_up = 1 test),
+>> would still be fulfilled, and the initialization code in the driver would
+>> not diverge from the initialization sequence listed in the reference manual
+>> ? What do you think ?
+> 
+> If always relying on the PORT_DEBUG1 check instead of the SMLH/RDLH check does
+> not introduce any regressions, I'd personally prefer to keep patch 2 as-is
+> because it keeps the code simpler. We could just add a comment noting that this
+> link-up check diverges from Figure 104.5.
 
-Since I am reviewing them in detail, it can take me a few hours to properly
-review them. Usually, I'm also asking Geert to have a look at them as well
-since he is a far more experienced kernel developer than I am.
+I think the SMLH/RDLH does behave slightly differently, because those 
+SMLH/RDLH bits are set and latched in, and they have to be explicitly 
+cleared. The DEBUG1 bits report the current state of the link, which 
+might (?) be susceptible to bouncing (link going out and down in a short 
+window, but ultimately being up) ? I am not entirely sure whether that 
+might pose a problem or not.
 
-> I will send some bug fix patches based on it soon, hopefully also fixing
-> your 6.5 problem. I believe it is an old heap overflow in the SH intc
-> code that only started to crash when sh7785lcr_defconfig switched from
-> SLAB to SLUB in 6.5.
+> That said, I agree that in general we should follow the R-Car reference manual
+> where possible, and your draft makes sense for that purpose. If we go that way,
+> I have one question: would we need a polling loop with a timeout
+> (PCIE_LINK_WAIT_MAX_RETRIES * PCIE_LINK_WAIT_SLEEP_MS) in
+> rcar_gen4_pcie_start_link(), similar to dw_pcie_wait_for_link()?
 
-Great, I'll give that patch a try tomorrow when I'm back home. Would be
-great to unbreak my favorite SH board.
+This is a good point, and I think we probably shouldn't do it this way, 
+because we can reuse the DWC core code for that purpose.
 
-Btw, feel free to join us in #linux-sh on Libera IRC and/or on Discord:
+How about extending the .link_up callback, and check both the SMLH/RDLH 
+bits there (to fulfill the datasheet compliance, dw_pcie_start_link() is 
+always followed by dw_pcie_wait_for_link() which calls the .link_up() 
+callback) and the DEBUG1 bits (to make sure we check the current state 
+of the link) ?
 
-https://discord.gg/WhtqXkYys
+That should cover all our concerns (datasheet compliance, DEBUG1 current 
+state of link check, polling), shouldn't it ?
 
-Adrian
+> P.S. I'll rebase v2 onto the latest pci/controller/dwc-rcar-gen4.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Thank you, and I apologize for the inconvenience.
+
+-- 
+Best regards,
+Marek Vasut
