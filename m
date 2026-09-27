@@ -1,138 +1,114 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CAF41DEC9
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76C63C98BF;
+	Sun, 27 Sep 2026 17:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531929; cv=none; b=Or53U+7LNJFCwwx6oZc3gjMSs9VUUUvtwa1prQ0eT/4yURHgobO9595TGjnA3qIJxukGkYMVe+JZV6oCR7q7/RYkJFfdszGV1zoclOfrAymtRb4BVJHlZfTgJQS+t8PSbmjSEwvAs7ysIX7ZI5w3khJYnJm0eJxkuCt8nyumWEc=
+	t=1790531978; cv=none; b=c6uK4yjBmP4cOuisp6Sj6f/GBOnttWjdlVtN5uVaAEM6/AsjCmyYf8waHdgWiVxAfrh0ybSAWkpJ3N7Kf+pOINVnqy0t8F34elOgY63UH0Wz8NyW69tIWuFpOWWeFiFSqKI8/G4H9F4+bFMZtFUQH8QJc3bC80adanpqGtzJ1xI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531929; c=relaxed/simple;
-	bh=zS6CsMifRo7Y+93FevFU/x5sVefk8DP6M/APkxquCjs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=ByBQSAYKbMn1rDadTlph00I1eZB/cHgiyZHfXxH0TVFumHxnVP7blnvh0SeveBm0geHCRpFyTGGX83QpMbWiSEtkY+DGLHWA9Sg0TUtr8Gq+QglMb63QcVj99u73urKEJLZesyn0KAChsKapVnchdK85IP2s8SFoGQ138dS0Ag4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=N8T4eBLd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XgFpz+8O; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790531978; c=relaxed/simple;
+	bh=PTJwNzxHC0JLHfX1M87bJjL/C6AQFfuultpt+k6kcRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dbuRcVZMajn+uM0JLQAp96r5zzuFB0CQFkECcInx1vwMj+8/UfiH1oHLUKsp3MJuBCIkxdFYBCY83iLn+xKrDEFNL3Y3fEuVDwgY2Dr5d53kuoy76/3PeWO/9aHRu/ySEPfUESIR20+10Xpe3xK7RnPMPII4EA/QMgA+TuZjWU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bj5TF79i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="N8T4eBLd";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XgFpz+8O"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790531920; bh=7tZh29+XtORnnHdPjkFoVfZ
-	ABSiJvgcRl960NDIgoCw=; b=N8T4eBLdhO7nFXSDvE6iiHlw8wpUXy/XC6+kSOawtR1ZjI4HC0
-	svVERHKmevM5usHczIB3So1bHMzH/aDotZLminxLP0g2TsDxn9R4UW8Xr2lN4jwPplxUBXTyTti
-	mkd/2ywozriM2hywSbztBs1ydmfxmaD4uEsu0dS0RknWY8ubOkksU8bsxezdQMrfsRp7dq939Jo
-	pjHUy5t6IqIZ5gMqI0Rm41YtLdGJL21CTPwTb159ZNAnfR14DZurp6QBK4eo8ENQH+OIHK4+Pxh
-	rY9hTIQJ0KypMVmNZ3nA1y3umpIq6LmxCIv5bV8UZIP/XZwNnrZ+gnBm0UYsNnjURQw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790531920; bh=7tZh29+XtORnnHdPjkFoVfZ
-	ABSiJvgcRl960NDIgoCw=; b=XgFpz+8OXx+sJ/QwcJsc45YkLQj8EUagaSvB1cj8f82PHpW55M
-	3XAiFLAkd3OP7wkTvP+5OTYlJC1155Yr02Dw==;
-Date: Sun, 27 Sep 2026 18:58:39 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: cui.tao@linux.dev
-CC: Liam.Howlett@oracle.com, akpm@linux-foundation.org, brauner@kernel.org,
- cuitao@kylinos.cn, jack@suse.cz, legion@kernel.org,
- linux-kernel@vger.kernel.org, mge@meta.com, ptikhomirov@virtuozzo.com
-Subject: Re: [PATCH] fork: fix active reference underflow on unshare() failure
-In-Reply-To: <20260927095450.3017586-1-cui.tao@linux.dev>
-Message-ID: <59245E44-CC27-4FE4-A5DC-15791314FE3B@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bj5TF79i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D701F000FF;
+	Sun, 27 Sep 2026 17:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790531976;
+	bh=jKX1hNu8JN77nrUnKVqFivHurfvZIBwO7xuCL/DDob0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Bj5TF79i2FGenm6oaBgqo6f68Umjy/5ukQxDwghivvCmZpNKpQ5E7j6Q4um66B1Qr
+	 4fDJDdurAxNwavieugnwrHaxwvVFyAieJBZID99jJQ6y584fKAq1RJk9402fv64JDq
+	 EV5GHSDkriWItMAGvoCkCgUkIBGlwU6X+GyIJUAZiZY23ayMgU7cRLsQQoZnm6F3PS
+	 Hp1DhkZqbR5SbjsLS9HgWFTPFI7x/DN4yBp5bp2N50ig7ca6ryCIePoXoKCynj+5eu
+	 W/+YbhIOkC1OhYIp3rbda+wnDQ8JrmcXNjJRIuchbsQiD3OKwgvmPeekokXWiIEVMP
+	 0dwHFZRJpOoag==
+Date: Sun, 27 Sep 2026 18:59:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: nuno.sa@analog.com, Michael.Hennerich@analog.com, dlechner@baylibre.com,
+ andy@kernel.org, linux@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Robert Budai <robert.budai@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Dragos Bogdan
+ <dragos.bogdan@analog.com>
+Subject: Re: [RFC PATCH] iio: adis_buffer: fix buffer ordering for IIO core
+ demultiplexing
+Message-ID: <20260927185929.70635769@jic23-hlaptop>
+In-Reply-To: <20260925110239.59320-1-shehryar.amd@gmail.com>
+References: <20260925110239.59320-1-shehryar.amd@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 27 September 2026 10:54:50 BST, Tao Cui <cui.tao@linux.dev> wrote:
->From: Tao Cui <cuitao@kylinos.cn>
->
->When set_cred_ucounts() fails in ksys_unshare() the new nsproxy is
->released with put_nsproxy().  But the nsproxy has not been installed
->at this point; it is only marked as active once
->switch_task_namespaces() installs it, which happens after all failure
->points.  Dropping the last reference therefore deactivates it and
->puts the active reference of every namespace it points to: for
->namespaces created by this unshare() call the active count underflows
->to -1, and for namespaces carried over from the caller a live active
->reference of the still-running task is dropped, which makes them
->disappear from nsfs file handles and listns and causes a cascading
->underflow at task exit.
->
->Use nsproxy_free() on this error path, which drops the regular
->references without touching the active ones, like the setns() failure
->paths already do; see commit cefd55bd2159 ("nsproxy: fix
->free_nsproxy() and simplify create_new_namespaces()").
->
->Fixes: a98621a0f187a ("unshare: fix nsproxy leak in ksys_unshare() on set_cred_ucounts() failure")
->Link: https://lore.kernel.org/r/20251118064552.936962-1-ptikhomirov@virtuozzo.com
->Link: https://lore.kernel.org/r/20260213193959.2556730-1-mge@meta.com
+On Fri, 25 Sep 2026 16:02:39 +0500
+Shehryar Ahmad <shehryar.amd@gmail.com> wrote:
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
-
-Splat:
-
-WARNING: kernel/nscommon.c:171 at __ns_ref_active_put (VFS_WARN_ON_ONCE, active < 0)
-  NIP:  __ns_ref_active_put+0x11c
-  LR:   nsproxy_ns_active_put+0x30
-  Call Trace: deactivate_nsproxy+0x24 <- ksys_unshare+0x528
-followed by a second WARNING at put_mnt_ns (ns_common.h:78)
-
-
-
-
->Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->---
-> include/linux/nsproxy.h | 1 +
-> kernel/fork.c           | 2 +-
-> kernel/nsproxy.c        | 2 +-
-> 3 files changed, 3 insertions(+), 2 deletions(-)
->
->diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
->index 5a67648721c7d..dc2447f5f0924 100644
->--- a/include/linux/nsproxy.h
->+++ b/include/linux/nsproxy.h
->@@ -100,6 +100,7 @@ void exit_cred_namespaces(struct task_struct *tsk);
-> void switch_task_namespaces(struct task_struct *tsk, struct nsproxy
-> *new);
-> int exec_task_namespaces(void);
-> void deactivate_nsproxy(struct nsproxy *ns);
->+void nsproxy_free(struct nsproxy *ns);
-> int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
-> 	struct cred *, struct fs_struct *);
-> int __init nsproxy_cache_init(void);
->diff --git a/kernel/fork.c b/kernel/fork.c
->index d458d85d7a656..11e16554daa61 100644
->--- a/kernel/fork.c
->+++ b/kernel/fork.c
->@@ -3324,7 +3324,7 @@ int ksys_unshare(unsigned long unshare_flags)
+> Hi Jonathan,
 > 
-> bad_unshare_cleanup_nsproxy:
-> 	if (new_nsproxy)
->-		put_nsproxy(new_nsproxy);
->+		nsproxy_free(new_nsproxy);
-> bad_unshare_cleanup_cred:
-> 	if (new_cred)
-> 		put_cred(new_cred);
->diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
->index 0f1b208d8eeff..454427b09ed97 100644
->--- a/kernel/nsproxy.c
->+++ b/kernel/nsproxy.c
->@@ -61,7 +61,7 @@ static inline struct nsproxy *create_nsproxy(void)
-> 	return nsproxy;
-> }
+> After issue raised by Sashiko in adis16203 graduation series [1], looking at
+> other drivers if they might have same issue. It appears that the root
+> cause is in adis_buffer.c itself. The library constructs the SPI
+> transaction in channel array order while IIO core demultiplexes in
+> scan_index order.
 > 
->-static inline void nsproxy_free(struct nsproxy *ns)
->+void nsproxy_free(struct nsproxy *ns)
-> {
-> 	put_mnt_ns(ns->mnt_ns);
-> 	put_uts_ns(ns->uts_ns);
->
+> adis16209 and adis16260 have the same mismatched ordering that
+> adis16201/16203 had.
+> 
+> Rather than reordering channel arrays in affected driver,
+> would it be sensible to make adis_update_scan_mode() iterate
+> in scan_index order instead of channel array order?
+> 
+> Would this be the right approach, or is there something I'm missing?
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+It is definitely plausible.  For this I'd need some input from someone
+who can actually test some of these parts.
+
+Nuno, you are listed as library maintainer - so can you get someone to
+look at this please. +CC various other folk from maintainers or who have worked
+in this area in last few years.
+
+Otherwise, just a comment to use a Link tag for cross references.
+
+Thanks,
+
+Jonathan
+
+
+> 
+> [1]: https://lore.kernel.org/all/20260914015321.7a660ab5@jic23-hlaptop/
+> 
+Link: https://lore.kernel.org/all/20260914015321.7a660ab5@jic23-hlaptop/ #[1]
+> Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
+> ---
+>  drivers/iio/imu/adis_buffer.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/adis_buffer.c b/drivers/iio/imu/adis_buffer.c
+> index 501da4eae..45200b753 100644
+> --- a/drivers/iio/imu/adis_buffer.c
+> +++ b/drivers/iio/imu/adis_buffer.c
+> @@ -110,10 +110,10 @@ int adis_update_scan_mode(struct iio_dev *indio_dev,
+>  		spi_message_add_tail(&adis->xfer[j], &adis->msg);
+>  	}
+>  
+> -	chan = indio_dev->channels;
+> -	for (i = 0; i < indio_dev->num_channels; i++, chan++) {
+> -		if (!test_bit(chan->scan_index, scan_mask))
+> -			continue;
+> +	for_each_set_bit(i, scan_mask, iio_get_masklength(indio_dev)) {
+> +		chan = iio_find_channel_from_si(indio_dev, i);
+> +		if (!chan)
+> +			return -EINVAL;
+>  		if (chan->scan_type.storagebits == 32)
+>  			*tx++ = cpu_to_be16((chan->address + 2) << 8);
+>  		*tx++ = cpu_to_be16(chan->address << 8);
+
