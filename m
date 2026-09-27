@@ -1,170 +1,116 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333F73C09E7
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631833BCD2E
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790495018; cv=none; b=b01wdHrooaDQ/csMpCPU/oAKy+ORT1Ic/C1Ms2MNzeuCZxfGGBg6KL5Xl82HfqmgMrnxjgrACmUxFZOqGvfe9fAl/+Qo1idxpJ8I6jr4F4POZm5URedo1lVybOCUniYz44J0DYs0xNfDO5Lmh8Nzey34G9DpNW4W94tcCLMk5J4=
+	t=1790495129; cv=none; b=RYF5dbL67GPHxONPfgMQ9Hi60zdArOaqTeVf1vKcgT6Dl8IP4Igoz/pLEGIIaQ7Vwog7gKKYX52ytZ/hDuAkzpv5otYWxDgwtq6RlRbODfohl6Tm0HrMYYQjmQqW7LOXJQiCt1Pxu9RyS8F9JfWKKRhU5n3Qwzht0UL3fcfLHGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790495018; c=relaxed/simple;
-	bh=ZbJO8Gtrr3QowEw+MFdg2SPLU/ydrrRt2AYrsm/huDQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OXjoFCA2vS6ZPCNE2TVtlElqXWb8AZXQKD69/o/7So5t6yjkvzChFhFtZBaOu4Tq9hc/jPCNlhB+wAmPTDnX78L3wxuLvq6ggzbkuTD9sbu08O7/lWy43ci1MU2ek28loqTJtvuh5iSWf+0bx/MJcf9PBo4EMR7uLPAYo5lwUJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech; spf=pass smtp.mailfrom=lolli.tech; dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b=ZkSjVc6J; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=OIKR+Ycz; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lolli.tech
+	s=arc-20240116; t=1790495129; c=relaxed/simple;
+	bh=UxWpCJoqhhTQa5rxW7JPscFXgH0lLGJqCFFyksNM098=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BSQQJlI04bVE8n/w1FSV1iVTPjPEXa3IBfTVpD8tQVrY6YLixR13ag8G/tBX7uoKAT78cQzsoHsRd5bNlcZTzk/T2CjFvqGycqL1mzrnlR+dLtFEb3j/eQtnlulDaUthMP4S8tffnrIWRDc5G7XnFo81Et3kOYQfeZ078X9HfQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsYYtEcH; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b="ZkSjVc6J";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="OIKR+Ycz"
-DKIM-Signature: a=rsa-sha256; b=ZkSjVc6JvujELKTTw8Rg505Q85zmMnPqB6GGGRZnZ6Rz4u2Gh/vUaRWBrizCO0NOCvKTf/3Ews8Y7ByeGH23NoM+1lhaW4wtJJ1U0uoXJ5TYwbk0BWOMTIU/cBg4QT+QCIoC+ydXFUZCMi07eAiw1UXH9B673oZuOoKiy0DpmajQbtN/49WUT2HiEBEEjjpJ9yMM7VXPF0J2QcHOHgxF2Esm9jGJtRZ35UG8o1Wzj/bqK/74qNPzNyzX94aOKYR6b0W6wxWLRO6rcZcbfSOMPEEMzhy9JGHU/CxBtbFd2P4VbMvwIAzzRlWxwrpEqbH7Jhq86tu5yIVgnij4MWFkag==; s=purelymail3; d=lolli.tech; v=1; bh=ZbJO8Gtrr3QowEw+MFdg2SPLU/ydrrRt2AYrsm/huDQ=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=OIKR+Yczu5cgkTudlEkr7RCHcU5fOL0v+kFFZRWRW5/ocNhJC6rRhP9TTnxTFDZnT0IbwEGgIVIHOXl7Sfx7qS7kpDzO0R3Th8D2WmUvZTka04YkfJ3hia6xsfmUXO82ehvtx/dTLIXJPeotqSceth5EaPZpONblmf1DLzsEUDWD2/fS68cMqKZK9UAu5a+lYvjNW0UJzBWUR5V6VJeVSlqHPnAY3ePzJcGXCLnS2SvpWczhilAW41pMJuBZFJajApSxWyQKtGDNmIzt68j6pe7pH6KSDZiLnQ1zKMuEzsOldqHZzND9YWa1PTNrKBVA8etGEWT/h9iFn4eKjv1O0g==; s=purelymail3; d=purelymail.com; v=1; bh=ZbJO8Gtrr3QowEw+MFdg2SPLU/ydrrRt2AYrsm/huDQ=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1437734:55302:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1801541329;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sun, 27 Sep 2026 07:43:08 +0000 (UTC)
-From: lollipopkit <a@lolli.tech>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	io-uring@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsYYtEcH"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48436686a40so217480f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:45:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790495126; x=1791099926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gCDVY0S12VqCwjPRazOz0k33aw3HWNfWSo3pYCyR95o=;
+        b=BsYYtEcHOGbYw71jDDDsxX4jm8pfQqMXjK6ZOf5nArfqyO8nwgX90TEGCYv1z9Xmjq
+         PBjeXFOixgDtcql6kscGELlpk7UXMQvEcR/KL3vzsllw99MZztx7IEgI2GqazC2Z6Cfp
+         4aRK3cz8XZXhsXsyv4ukmOFwsRWk4Vzco5VlrTWW+nHT9buo1TGGbKTqQeVpAxoXsAI2
+         k8kdgWWWZzg7wtVl0e1SPT+X3vOqZvjadtey6ifWra7wwHsupeerrCePxu9SEWll4ADg
+         yzM2PYUsgT0Zoq4WMi3+ysthr7oMJyp9C8EcLggWT8vE8ZgMfnuqxZu1LPLjfilHl7LS
+         qblA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790495126; x=1791099926;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gCDVY0S12VqCwjPRazOz0k33aw3HWNfWSo3pYCyR95o=;
+        b=Yd3angGqXQrMbKlmGa/BCwUwjyGJG37HIbdZNaxe3xCX2CxHrxxZz25S/CGiuT/rqM
+         YicMcOjPG4iXA8RsBqYcDRhADOdgqKFPUS7J+rZD5lSWBuQPA05wJUGXicdpKAXWCZ/E
+         6CQdx2MnKoKqc+Xz6Fo6kTY/SZ1YbyvWHyKNPWHb3HPs6gsP0sRoEeeqHGLi9IyIRLn3
+         sEfZdg46w9pUagVHy+qrHYz7LSrmfu2WIHCnx6z+WGDWNqQ2I9idbvnUmcitr21hfQCe
+         je++kXTgLiSWktYi2txMGzLz6HzT6RAVjjewwAMymLAF/dsnKoWRlshslnpMfLOMcfvu
+         MlMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEzvZLZkNn1EwCfDpsLeSHFq6pnv+I5mAxnK0sNeqISKQ7O2tbGoiYuuMksbK4joXaEirkWTck827vqfU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEKhYmJCoBLca+WdNGm+b6RaBRl0M+npthqTPhaMtMcN84OjHq
+	3CIsnp7UicndvEUyXdHAEV9UkSCTGyxrb6ycmesYfpulikf5sQo47Jls
+X-Gm-Gg: AYBFou2y5iy2vCRBeV6TObApQHWYskodwmA8p46GMQh6lG432luAR+obqatYDB7HDhN
+	bal1X8tApFB8IClbvxaZK0aiONWUADu4aeuRi8XUJVqMZSXGz3Io+NvyjeY78+LHWZsWBGUEB9B
+	5hJNpfGJfxd6DVQqq6KI9F5RzfL2zXqNT7/xHaSMae0IIIRW5qb9MfS6Tp+RYTl/b4RLDSfrINi
+	HymwGqz6Xkak7i8fiZf/S4JlnnBUxt/HpXG335sinnikDgB+OLJQgoA7sGMMiRJlL9RgYPIaP20
+	mR3jBAfV+XfSC2dDsaZVogr99GVwJKGzd/JJz6y10N0My6TZ+7ynDiPccva6jpH3R7xwi2qx/iz
+	dAvzuMpFO2sva8tyuqWyxFBHpSNJDgJBJ+kmrFVUmUWCt9LbHcZ2/Bhflogkq9g5Ur7SmPgBCYm
+	peyUmJ3gXfGBKOS7yssjh1KbWiuye1VJEJ5ulI/rQIIzojsQeeXgVGaxAyVfTqCWn1enliwUCt5
+	IO5xgCYn9uT35hDB6L7
+X-Received: by 2002:a05:6000:2c11:b0:488:7787:4696 with SMTP id ffacd0b85a97d-4887abc29d8mr12240418f8f.5.1790495126398;
+        Sun, 27 Sep 2026 00:45:26 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ef3asm19005883f8f.30.2026.09.27.00.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 00:45:26 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: vincent.guittot@linaro.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org,
-	lollipopkit <a@lolli.tech>,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/cmd_net: end TX_TIMESTAMP multishot when the CQ is full
-Date: Sun, 27 Sep 2026 15:42:06 +0800
-Message-ID: <20260927074206.65427-1-a@lolli.tech>
-X-Mailer: git-send-email 2.54.0
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	qyousef@layalina.io,
+	rostedt@goodmis.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH 8/8] sched/eevdf: Add min slice check when selecting CPU
+Date: Sun, 27 Sep 2026 10:45:23 +0300
+Message-ID: <20260927074523.14558-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAKfTPtBAhMVa02Z23=nNZkx7Qum0x=U_KDCn=Gr6Pnf-SG4N5Q@mail.gmail.com>
+References: <CAKfTPtBAhMVa02Z23=nNZkx7Qum0x=U_KDCn=Gr6Pnf-SG4N5Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SOCKET_URING_OP_TX_TIMESTAMP arms an EPOLLERR apoll multishot and, on
-each error queue edge, posts one 32 byte aux CQE per timestamp skb. Aux
-CQEs have no overflow backing, so io_uring_cmd_post_mshot_cqe32() fails
-once the CQ ring is full. The loop then stops, splices the unprocessed
-skbs back onto sk_error_queue and returns -EAGAIN.
+Hi Vincent,
 
--EAGAIN is IOU_RETRY, so the request goes idle until the next poll
-event. io_arm_apoll() forces EPOLLET and draining the CQ does not re-run
-the command, so the spliced-back timestamps stay queued until an
-unrelated later timestamp produces a new edge.
+> > > Add a new level for selecting CPU when select_task_rq_fair() fails to find
+> > > an idle CPU. This last level will compare the slice to select a CPU where
+> > > the task could run 1st.
+> > > This helps a waking task to select a CPU where a longer slice runs
+> > > instead of one where a task with the same or shorter slice already runs.
 
-End the multishot when a CQE cannot be posted, as multishot poll and
-recv already do. There is no partial result to report, so complete with
--ENOBUFS: no CQ space is left for the timestamp CQEs. This command does
-not use provided buffers, so the value cannot be confused with a buffer
-ring running empty. The terminal CQE still reaches userspace because
-request completions can go to the overflow list. The application sees a
-CQE without IORING_CQE_F_MORE, which it already has to handle, and the
-first issue of the re-armed request delivers the queued timestamps.
+> > > +     if (sched_feat(SIS_UTIL) && sd->shared) {
+> > > +             /*
+> > > +              * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
+> > > +              * the scan when not preferring an idle core.
+> > > +              */
+> > > +             nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
+> > > +             /* overloaded domain is unlikely to have idle cpu/core */
+> > > +             if (nr == 1)
+> > > +                     return -1;
+> > > +     }
 
-A timestamp that cannot be extracted keeps its current behaviour.
+Ain't nr_idle_scan shows load of the system? Even the comment at top talks about
+idle CPU's, but we're not looking for a idle CPU right now.
 
-This was found with LLM assistance while reviewing io_uring multishot
-handlers for the pattern behind a RECV_ZC stall reported earlier (see
-Link), and confirmed with a reproducer on v7.3-rc2 and an A/B run of
-this patch.
+I may be getting something wrong, so please correct me so.
 
-Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
-Link: https://lore.kernel.org/all/010001a0cd914529-23df2f94-bbe0-49cd-ae5d-=
-05922356fa12-000000@email.amazonses.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-sol
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: lollipopkit <a@lolli.tech>
----
-Reproduction and validation (measured on this revision):
-- Loopback, one process, software timestamps, CQE32 ring with 16 CQ
-  entries, a burst of 200 SO_TIMESTAMPING sends. The filling edge
-  delivers exactly 16 CQEs. With no further sends nothing more arrives,
-  although the application drains the ring and keeps entering io_uring;
-  more timestamped sends release them.
-  A burst smaller than the ring leaves nothing over and does not stall.
-- A/B in a KVM guest on axboe/io_uring-7.3 (a3bdf68feecc) + this patch,
-  with the new return behind a test-only runtime switch so both arms run
-  the same binary, 10 runs per arm, identical numbers on every run:
-    switch off (upstream behaviour): 10/10 stalled, 184 timestamps left
-      queued, no terminal CQE
-    switch on (this patch): 10/10 terminal CQE with res -ENOBUFS; after
-      re-arming, the queued timestamps were delivered
 
- io_uring/cmd_net.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-index 7cd411fc4f33..90d4ec7cc761 100644
---- a/io_uring/cmd_net.c
-+++ b/io_uring/cmd_net.c
-@@ -69,8 +69,8 @@ static inline int io_uring_cmd_setsockopt(struct socket *=
-sock,
- =09=09=09=09  optlen);
- }
-=20
--static bool io_process_timestamp_skb(struct io_uring_cmd *cmd, struct sock=
- *sk,
--=09=09=09=09     struct sk_buff *skb, unsigned issue_flags)
-+static int io_process_timestamp_skb(struct io_uring_cmd *cmd, struct sock =
-*sk,
-+=09=09=09=09    struct sk_buff *skb, unsigned int issue_flags)
- {
- =09struct sock_exterr_skb *serr =3D SKB_EXT_ERR(skb);
- =09struct io_uring_cqe cqe[2];
-@@ -83,7 +83,7 @@ static bool io_process_timestamp_skb(struct io_uring_cmd =
-*cmd, struct sock *sk,
-=20
- =09ret =3D skb_get_tx_timestamp(skb, sk, &ts);
- =09if (ret < 0)
--=09=09return false;
-+=09=09return ret;
-=20
- =09tskey =3D serr->ee.ee_data;
- =09tstype =3D serr->ee.ee_info;
-@@ -98,7 +98,9 @@ static bool io_process_timestamp_skb(struct io_uring_cmd =
-*cmd, struct sock *sk,
- =09iots =3D (struct io_timespec *)&cqe[1];
- =09iots->tv_sec =3D ts.tv_sec;
- =09iots->tv_nsec =3D ts.tv_nsec;
--=09return io_uring_cmd_post_mshot_cqe32(cmd, issue_flags, cqe);
-+=09if (!io_uring_cmd_post_mshot_cqe32(cmd, issue_flags, cqe))
-+=09=09return -ENOBUFS;
-+=09return 0;
- }
-=20
- static int io_uring_cmd_timestamp(struct socket *sock,
-@@ -135,7 +137,8 @@ static int io_uring_cmd_timestamp(struct socket *sock,
- =09=09skb =3D skb_peek(&list);
- =09=09if (!skb)
- =09=09=09break;
--=09=09if (!io_process_timestamp_skb(cmd, sk, skb, issue_flags))
-+=09=09ret =3D io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-+=09=09if (ret)
- =09=09=09break;
- =09=09__skb_dequeue(&list);
- =09=09consume_skb(skb);
-@@ -145,6 +148,12 @@ static int io_uring_cmd_timestamp(struct socket *sock,
- =09=09scoped_guard(spinlock_irqsave, &q->lock)
- =09=09=09skb_queue_splice(&list, q);
- =09}
-+=09/*
-+=09 * Aux CQEs cannot overflow and the poll is edge triggered, so nothing
-+=09 * re-runs the command once the CQ drains. End the multishot instead.
-+=09 */
-+=09if (ret =3D=3D -ENOBUFS)
-+=09=09return -ENOBUFS;
- =09return -EAGAIN;
- }
-=20
-
-base-commit: a3bdf68feecc57af5c11fb599f860ac9790ffad9
---=20
-2.54.0
+Thanks,
+Kayra
 
