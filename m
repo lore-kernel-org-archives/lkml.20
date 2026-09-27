@@ -1,150 +1,130 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4B73B894B
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790504637; cv=none; b=qBkulNm6KvoT1vUWzY5FcSZPoFnueVcr+Nn4mdcDL1A44yjY2jap8GDeXfcxcZh7zb8X/R/EqN+vW01TyxB7OLYRRZ9ZcARaFjbdu6rw8uvSsYE512EGQhjpzxBTV8JXIbu2fHTTmImjnktvdFjSsDz6RApabw3t5MHWD7pVHg8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790504637; c=relaxed/simple;
-	bh=I7kaAu/4eA0cThMSG4dsamA2BFZWxgGAFc7EUQzYftM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tHxRcOQ6c6+488WxpLVJiG6EyvgjO8qcZ4VJvvWdgQkP7VFs8LvkiUYDI216w9JK8GgY1Wg9ZCmwRhetpbcw6mRZtJ4TpY2SZhr0iD95GlGtf6CmLDWsCSfWVhJEJGCf6Gxop0vt9nfoAcmssmt4sFoKf+bFwkkVAhSa4wy4DZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ej9DPg6V; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C2228505E
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790505138; cv=pass; b=HxiqIggTkbiIgvBcpcrmOMCxUixeIIQWKc/WLO9nEUyWrhxE7vwU0hh82ckOvw3F+FQuaUOftCWvFSvvhcHmN5sxSs/4ujrrA4+lsPz42SKYwc4Rivf3hKQG+iJhcKdTLUUblE6X6GpNytd4Szc9/0LL8pJGZXge5Gj2rztL3Jk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790505138; c=relaxed/simple;
+	bh=SHQk7gkbO2ea5uysrJ1Kbk5JIPAf5arZPkM7Am5MOaI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W+4xTAJJ/Y29YuOeVBPy7I6/bPjuA0n/jF84UyNuoVaDjjXj59ufmz2K3SBdGcYR0Sukz1BWcPv8g7q4gODPM5TUc4KaTs1gQ/4ymPumNdwhMgRIPVv2Bj+PgBB8iMtGVnBvRitiDpd/imw/tspLY/dITMnjo62QfrMyW/yDv+c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XR8V/29B; arc=pass smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ej9DPg6V"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144fa6e60bcso83577c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XR8V/29B"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so46912eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:32:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790505136; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Gl7Xr6CeLo+C+nG/bzuHO+24dOELYVPSyZ2Di38Ex/iMpNjP0+whi3TZ6WChIxBFPU
+         oLLM30F+WmEOUQM3mEstk/FQRk5tTAWPq1j3JpK058pxzYksWwtDHU2zhzgCJaMw6hZx
+         41nceJHoUtLo7NZNrb5kUNQgC/FUZVoJTnVy3I9Bo4LIVo+vPUoqnGryJS2yby64QElk
+         VDpBFCg3zozaTSWeO9lSRph7sP2N9buqmmGEOoOwxe6w2s2fPPD3vEnAL84LhOw/YtN+
+         7WssX12yTp/aB6IOJHXhMQSRvObAHdkVbtuEKuJr3KIHZlF+FkvWokJblS1bjTfDZtr6
+         xNOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
+        fh=khcb14i6ukm5itDMebnFyBUcVUR1xO+QNLXmQM5H6bo=;
+        b=YAsjbP0SW4Mdv7lfYfqtSE8EfNay8XeVhFbp71z3WyzdB7/wJFk7czlrT2YYqYVF/P
+         GLrGd68MAZBobCK22K0Nu7tJ1WWuxCWg+bXsqpsZPN+mC386RakkoZAnJ5wFFcD8x1Fz
+         GU7sjNBtzu+LjanhggWmyEX6LDeJHrhoQg6clRzygSLwSS2IEEEqbI8AoxRPQ5yp3Azl
+         o2jB3bdMMes47n5iDZ4th7evssXcSlX4tyfPTw1MoD5j+Z7jBnzp3NHNSjdG37d+909I
+         ZjptkY6CH1OxoYUEc+l0w4ZOveMuvb1UkCV0zQ25Hk1Yq44f3MclxlzKnLvXC5U49QIb
+         GcoA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790504635; x=1791109435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+X90FvGp/WYOP/YNaRkMNyUQUW0Xnu+e4bt1heZW4K4=;
-        b=Ej9DPg6VHqYRjvEuI7jEEX7enmqXobY3dz5AE8Pr7S5xCVujMDrEc8S1M40vRTdo+a
-         OZf3dFytPLrpWDxTSQGjqbdR38VbfUlI+VYhGtjtzztm56cBRboNsKqu/3lUR26QuKUE
-         FN+Ixg4qn43gzlPrSLkDtPj73zMo2klU1LeJkPPLZ4PwJQUzzCX1FDglHMK2xXlVUCci
-         JmZyhn/z8XFjI+JMhOVBw2cEhmTYAONGK9yxJ834ClRTjx63VuAO6B3JmCTclZEXb8Ot
-         udyU0VLrQF3CXCnkCeqD+4oHWzd9gdloBaRuvpUAxW3pBw/oukeoIGv1f4iF6lsRwXd8
-         +Mqg==
+        d=gmail.com; s=20251104; t=1790505136; x=1791109936; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
+        b=XR8V/29B9a9xrBzbZ9Z07pBSu8kygEYk1F4B9tNxOY8Um5rhoyAAZfXwJWiVfVGDP3
+         kunng5LM1yHVR4lJUZyrlKIJCz01Cup3XyedgCw3yctV9GEi77nhq9zUVuWuaSiJyrB0
+         hjddBEWyARrol16/uAZZBTifM0nxlZdiQ/xBdRR350jXv1kWqSRohsiz/8O9cZhLtg2Q
+         EHh6O9zKit6cagm43HuArIxUJLC/nSrHHBq4VOb7/QPNA2/1hP+QXycnwEAlhRrV0VEu
+         MFC9vgc8kfQblA35P7MZeN78MeM8QTd98+bU4ooxF6Jnhk0SiyiXjyqzcF4P5jQwjNqT
+         oczw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790504635; x=1791109435;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+X90FvGp/WYOP/YNaRkMNyUQUW0Xnu+e4bt1heZW4K4=;
-        b=mmLCnsP1awv0e87u29WvPFcPETXaRqOl7hxPNv0P+GmbMlESvW/5toCdy9TjI7wAAY
-         E5pGBqKKQGEyZAGGOUpWTWeva+8EhIRCXNQlN2lar5gKb9Us5Ts5WSZfPP1BpcR1JRRw
-         yGjkTLhv2FlAKAFBo1FC266I3LHZ5D9fMqhSJrdw27CabFpqVkIUif834zOO7rful4Ak
-         GVV1Rdk2g3UtTou7stBJ04WXaxI7nthSxj2OfI8AQidF7zy5uYngnnQDQoXh97KxYPky
-         Y5VV1cnEmMSuvHlslvbQcLnONHb/ZgIEE/l5uAQuv16PRPXAPHZgRnkS5kdCJS42oGbk
-         fW+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwt038KqITLAGlzpRU/jdygBtalu0Pf22efb+04UqcrVoLMBhU/MVX6fzpgE9aDUUkohDmifbKiEhSfm4E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4GXeKkvC3ZIP1G87LI3ZNI7xUuNmuJXH964fMWB9qq7TYXxGi
-	0szJD5In7LWZUpwZauNlE6HeuUxSOAv3d6ELb7JrRvLY5zy+edCCyNGd
-X-Gm-Gg: AYBFou1WSyyEbn+kds+Mpckq0gK/IlgBWExz7tQ/cRQSYhjNaxkUbDjUe6DUPbFXRwm
-	bFN3T5YK9wHzd5XQBV2rPUp8AD9HJtHAkpOCPvITrUB06JqI6GcQERu6gAT6ZHXAx4JcBGrigs+
-	DtaJSekABRY8T0AAgvheCodwrr/ZuoGreQby22pM6ZUTuVSE2rRmaGS0TbtgYnmI0cb+PfNArfd
-	T6+AIplrY9eMn/2Kjwk8R9J5ufnaJ2mGO0vFeqkqY3XQgi10pS2/QOo9dXGYqlKHRTgWsSaW4lt
-	oXZhBvzwab3GUa703QD6mt0mcGhV344qcBOvD6m7XRAEAyncZtpdy5f8odSxB0YXulpmMlPQ7jz
-	cGFInQF+aTZ9VWOf5nerWtknlMDQiRFTZf6fFlEY3GR+YR09QzvQUng+Lqf3M54KedPlhtiSRqp
-	08g7VVrQ3tVnqRNd1pN1qttlyz/b3H9AQ1VBCIYepvsMIwZpbnFkv7Hfos1HYLclwVB8iX4pCuh
-	+E/QMaRFISl/2SxqUL/Gm3SyOM4BnL2ktbU2xendf5GFEoApO+VWi1WsFbW6WMmlBaumg==
-X-Received: by 2002:a05:701b:4508:20b0:144:ff51:2d73 with SMTP id a92af1059eb24-146cfbd49d8mr8784075c88.2.1790504634664;
-        Sun, 27 Sep 2026 03:23:54 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm17093142c88.0.2026.09.27.03.23.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 03:23:54 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marek Lindner <marek.lindner@mailbox.org>,
-	Simon Wunderlich <sw@simonwunderlich.de>,
-	Antonio Quartulli <antonio@mandelbit.com>,
-	Sven Eckelmann <sven@narfation.org>
-Cc: b.a.t.m.a.n@lists.open-mesh.org,
-	=?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@c0d3.blue>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] batman-adv: Close OGM aggregation before transmission
-Date: Sun, 27 Sep 2026 18:23:42 +0800
-Message-ID: <20260927102342.3813222-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790505136; x=1791109936;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
+        b=xFrWHfL6h687XK48zrgWHdzFtn2XnLRBJJ4nU3vjz6OcXvPxMlJ5Ku7RwBA2kPvM3L
+         vgET9xsKOx8b9et0dQGFwUrrdxgiq/mXbbCeESu47P/TmF52tKdW5fG/KN6iMLZyOb9f
+         17okDNcqpjAMXTb6YemZuNSHazsPZH/tQFLRwSXewSmlghsJRJMQcL6bNlyrxt6DOrPg
+         LSQgOelX2eCwAAvBirjfPVZj8/vLafeCMjVEaJBJCGLmXKehzwWgTgQ1n+Yqkg4ABirJ
+         FkVtSez4ljyyKdRfUZV96IW8hOzIym4UIHfvYSHo6KaZCkq3ZF71tj/HB1K+C9b+ov/N
+         zAOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBziXvGfatYxKIfI5r5G8P430rqJRAon+i0h3NM2J9COyOjZz22CYT1r1evzojtW+Ch2EZApHHkFXjnTcB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBdLLdQ0qJddP3lb/BHcseXOtCWnvefqO1v6l21KdJOIfNX2yu
+	Iw/RBU9OKJBkBPqPTyaCAwbfc//NME2JcMa53h4FJLPbbEe2BVu3fH3S+X7LXNmOR64Bj4mRpoR
+	fATBToLI671Rv/43Ih932u2xh5j4tKDw=
+X-Gm-Gg: AYBFou08o9ksVP7/R1L43NnVjV6NnuVnV39TrA3FdKBU6KqSrrUuv0YxV/p9HoJZmP+
+	W97F2U30EwgXs3jZ5E95V4JftKTLASWROP6iZ9fTkDHja9XkUZRd7EpZMUscqBV6EK8Y9fyVF+9
+	aWCRM9580t8ZlGN7W/zWKp+bDrZBPiQiLDISiUU0lRXgk+4fQuQHzJqBs9839y9lqQOkbqTf4R1
+	kaWfZCPb+gxYhTUQsEa4L00AGH4GebVnmOjSsmbfBmlQSRJkph/DfWgbvy32LK+uwDcTXnuehJS
+	hj/xeHUoB8nwPi/qpazT242G312E+eE8PFZ2rU3AZBrRhFXHvc68bAXJHHLy2awt/iku8S3ltR4
+	3jgD2oQtsCt9uaZw3DtUKG4ny0NiAwz40oJlnsBO82nW6XepWgEb8AkIlM437QEi9i569fuM5cJ
+	O0843+hRTtRHaAjmFd9Nx4OuYJfGNeMbfOOJoeKa7Z/wyb5HI8FgJ4LXe9pRnXSXjZb/pVQ6YL
+X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id
+ 5a478bee46e88-3427179721dmr8395927eec.1.1790505136091; Sun, 27 Sep 2026
+ 03:32:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909064506.910162-1-apopple@nvidia.com> <20260909064506.910162-7-apopple@nvidia.com>
+In-Reply-To: <20260909064506.910162-7-apopple@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 27 Sep 2026 12:32:02 +0200
+X-Gm-Features: AclHuK8iLs1xJry90CQ3QvtDKTbcAUCAThEBu2i1dWjYp5xrWZkI9Bh3mU59r6M
+Message-ID: <CANiq72nFAbA_uEuUfWvdeMQeYJ+uMcAn7z-FWcQOPUcbX9CkZA@mail.gmail.com>
+Subject: Re: [PATCH v6 06/13] rust: uaccess: add UserSliceWriter::write_truncated()
+To: Alistair Popple <apopple@nvidia.com>
+Cc: rust-for-linux@vger.kernel.org, nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The OGM send worker leaves its forwarding packet on forw_bat_list until
-after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
-but emission reads and clones the packet without that lock.
+On Wed, Sep 9, 2026 at 8:52=E2=80=AFAM Alistair Popple <apopple@nvidia.com>=
+ wrote:
+>
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
 
-CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
-list lock, finds the same packet and appends another OGM. The sender can
-observe the new packet length before the corresponding direct-link flag
-is set, or clone the skb while its length and payload are being updated.
-This can transmit an OGM with incorrect flags or inconsistent data.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-KCSAN reported:
+Nit: if the suggestion happened in public, then a Link tag after it
+would be nice.
 
-  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
-  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-  value changed: 0x00c0 -> 0x00d8
+> +    pub fn write_truncated<T: AsBytes>(&mut self, value: &T) -> Result<u=
+size> {
+> +        let len =3D self.length.min(size_of::<T>());
+> +        self.write_slice(&value.as_bytes()[..len])?;
+> +        Ok(len)
+> +    }
 
-Mark the aggregate as full under forw_bat_list_lock before emission. This
-waits for any ongoing append and prevents further aggregation. Emission
-uses packet_len to walk the OGMs, so all queued packets are still sent.
-Keep the packet on the list so interface purging can find the worker,
-wait for it to finish and free the packet.
+This could reuse `write_slice_partial()`, though it would need
+`#[inline]` to make it generate the same code (but we may want to do
+that anyway).
 
-Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Rebase on batadv/net and route the patch to the batman-adv maintainers
-  and mailing list, including the introducing author.
-- Add a comment marking the aggregate as full before emission.
-- Drop the stable-backport request and defer backport consideration
-  pending maintainer assessment of practical impact.
-- Add Assisted-by: GPT-6-Astra.
+Thanks!
 
-This revision is based on batadv.git, branch batadv/net.
-
-The reproducer archive, batman-ogm-aggregation-race-reproducer.tar.gz,
-was sent in a separate reply to this discussion. It contains the PoC,
-prebuilt kernels, build scripts, configs and QEMU launcher. Reproduction
-uses KCSAN and a conditional kernel-side mdelay(), capped at 50 ms, before
-appending the ninth OGM. On Linux master fd179f8a05be, the vulnerable run
-reported the target race; the fixed control reported none. Both runs
-completed 240 cycles. These are instrumented runs.
-
-The v2 batman-adv subsystem build and git diff --check passed. The code
-change relative to v1 is the comment above the existing locking fix.
- net/batman-adv/bat_iv_ogm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index d8a6a0f64ce2..084970404d3e 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1909,6 +1909,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
- 		goto out;
- 	}
- 
-+	/* Mark aggregate as full before forcing emit. */
-+	spin_lock_bh(&bat_priv->forw_bat_list_lock);
-+	forw_packet->num_packets = BATADV_MAX_AGGREGATION_PACKETS;
-+	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-+
- 	batadv_iv_ogm_emit(forw_packet);
- 
- 	/* we have to have at least one packet in the queue to determine the
-
-base-commit: abfe281aeab4d26b8e262ca9efc979a92c494aed
--- 
-2.43.0
-
+Cheers,
+Miguel
