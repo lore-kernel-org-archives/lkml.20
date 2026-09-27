@@ -1,135 +1,263 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A36F195B1A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D31D195B1A;
+	Sun, 27 Sep 2026 04:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790484355; cv=none; b=mxBmxZ6JKADwZZ1PflNw9ssQsTTJCyN9DObxbW2ysaNDjPaRJkQYJPTWwxxEoaMBs9pd/CHZ1YxNNhGB3VnPn+aNS6qBA/P2NU+tP2HG7tTms5JpL1ShJDaK073egSP24wJF+y3RAwlSrc8V2PDBOLkcjoezQ2uyDeD7b2UJbi0=
+	t=1790484380; cv=none; b=R642lqO95hg3zPH34Jc9WegfqKKMokcgny6/xF3JA9AgxwtF2FJPAjqNiBHHhSvfttUQh7mVzMmyroe8ty/D6ostg1nKyZh7012QdAY8AgiJYgXV9dE6xO2LNwIIHMhSGG2M3DNZLAyfovNdeO8uR1mKOfVukBLs/+orTdDMjb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790484355; c=relaxed/simple;
-	bh=lwbuO94m1Y7nNgaCvIakrp+Jlj/Ls07Kcmk7d5tERa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GWvR9g4toHU7MFn5+xa6BPZSpNyTe0tB6ZXDq1YiPsHLsr+SZq7zcL/ziYT4BSYrvk+5DsSZhl9a9HckMaq4p0XDuQiZ66n3A6p1OOetKBDc8IBkxTwzjeEG9EnKI79SzSq4F1Q6+GrsLQ7ob4eZVPOQGL4ZVcrJ+HPmK6vDUD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXFRQ4JV; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790484380; c=relaxed/simple;
+	bh=HuMrWG010LH6weZEuJign7rHyJ6jfgcrIyx9DzKbLgc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nvXktStlQPm85P2hwoFoPOi/leOk1TlFLFwtm2xeB6t4WqSQDFnJfdFFnEGyPH2HPQKkpXmk//O9xL5SNHo6Kof/83vGLwrMhXGBWm+G9uLHgrwSox6uZ9/AoUE5L9sU9YSajDiSl3orMki7tETCCkWILcMgf5U1O2my+OQBQuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xq8pzCJ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXFRQ4JV"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1175753a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790484353; x=1791089153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
-        b=nXFRQ4JV4vIkc+BBIZ0Qz8+T9fNbi/b3nFYdqeYNasbq9grXxnsliYgd17j+vxpE4V
-         gmomqKxIOZX1bptZBPJPWiQi4yJJl/UFnbQjhVWJJNqcI/JCOJ8bt5xRLWqziQNtUfgn
-         /p0Za51WPxJELYhk99i8OGCBGcrzS3ACywXTPMjvKylMOmxZWn+fphCUdVWCJwyNZbWz
-         3I6XiFe4FfYojHyQHslkk0N/s4gRR9vvvqQvN2PgoooYNEcejac4KqprW3Jej4P+wEe5
-         tcqJWiOwsflWNcwLrIeY66Gvx9yqP29fwjux6JXnKKiI/5m9f/B6JfYMehSOJU2VsvBp
-         4U4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790484353; x=1791089153;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
-        b=kEWT4qLMRoy+hus8Wt4QyIVU1XZBGvvWr54DC3TsLaHF8I1yLwRwT3BU8L0YHxBHYT
-         cD/dLo3iraYGdfLsi0OOepwac36aXjgnIKDbmILNHh4MRvGY42VN1C2Xrh1h5A8CY1tv
-         RTrdb5duaTAmGGbTrgyKIcd8rXBovqdeWxzxYEC6N7j6kXXPVgDrubd4WjHD3AKNMdJl
-         VFaPYJTFcd4tG9Is6LeeqAz1KbireSjizKOX30gRUELQqBpedXC6wkIqu2Hya+Qf0MDB
-         7ilpTbEZw24lKbbtW06Jqf8DAC+aZkDUVKlGzD2u9kF85fKwLNEVZ8lwTLcOj74E7y5x
-         V4iw==
-X-Forwarded-Encrypted: i=1; AKwUvBydTl/pRRpOn/n+vLhDpcgsGSkcvabOXyE55ApygDQkF/JnFhkmLARH4GAfeldEzwP1iU9wzsf5mT9sOAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9XRLEzQ0tetCQzVL6KxNqxQtqgsFQqgWZxgOEEsNf2inSNbGJ
-	5/XSeNOoj0oZa8xdL7ln+I8Tu2gufYukc5BjnQclFUcrImQV/WOrGpXZ
-X-Gm-Gg: AYBFou3sx0iSJgCM5obGPDskdJ/W9r0wYN/Alwb/c/VALpb7E/YXk38HvkVEZvtDgbd
-	/XX0lk8gnwu1lZBiTN6+v55ndSeEM+72GzicqGy4WFI8ZzaCeuM70AUKKqCM7RcmS58RbM2aVMH
-	F49ba+8PCjESr5nb9olnYJv1067fEeCONtym+lshwGniAnTmm3hZs2QET+Lt+gbGaNqQaR6jL+G
-	BCxH9wRoIPA4dGQUXdx63ssvhynobpYO2RFO8qkpcRopl35oJiR5tJqk415QChnDY7qloSQwF57
-	sLVVZKCLWd6MpCghHJ7RlgUiYztvVU8fZP2YhIXbspVCZOmjL5gnHUSpB7kbLnqpnwoeoVavPKu
-	S1am43Y0yi2cVSXtEULoQSklIacLqzoq9EHlccif18xd6ZCPk7OUh3Q7uW6EgzeM5ffSO6kmhCj
-	ALMdMsSf1+MzBLz+sGUDZEXGenJEoeVw+q7zZ5u7CVb3uGVQaH9tFDIy2StLRraYrEqkcfO7g1a
-	WEDJNiFZNE98Rfw0A==
-X-Received: by 2002:a17:90a:dfcd:b0:3a0:631a:ba6b with SMTP id 98e67ed59e1d1-3a098db9593mr7472762a91.33.1790484353317;
-        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm10628448a91.7.2026.09.26.21.45.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Palosaari <crope@iki.fi>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-usb-v2: set active_fe before the demux goes live
-Date: Sun, 27 Sep 2026 11:45:47 +0700
-Message-ID: <20260927044547.26979-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xq8pzCJ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013AB1F000FF;
+	Sun, 27 Sep 2026 04:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790484378;
+	bh=uH6TWvsGqmkBlRUesjBNUW1cWqlY4EwvCspgLp7JLvw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Xq8pzCJ6fQhJBlQFwZtOPcAxd6FY4mDljatBCFNad//QGrJa1JTmMPj+pO3USZXHO
+	 a0mVYDA6LAjZ/t2HDqrp3+fgAwoCcYmPSQVvNiyTOw/Fhsw2RTXBfOsP8K8ubEaMH4
+	 1BwLezYRD8QHhekOVGo51KLGd/WNbzH3UZxeumLm7i4NnC3aEcvtoiQaRXhDpXng30
+	 KUFjl8L2IZ6BilzJ0ntaL60JqbOxWQPIZVkIQrrFsqj/UIIVj02dmqt7UO7rV2gxP8
+	 a7rsvuGggm3w4ttgU43UDuOa5y3D6UY24l9tHgf9uL1JKY3s3lnzqPBmFkXNXHBXZR
+	 60uKZPaxjuBhQ==
+Subject: Re: [PATCH v2 net-next] octeontx2-af: add tracepoints for NPC MCAM
+ entry programming
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com, sumang@marvell.com
+Date: Sun, 27 Sep 2026 04:46:17 +0000
+Message-ID: <179048437748.2160803.288999340916708222@kernel.org>
+In-Reply-To: <20260923034858.1764461-1-rkannoth@marvell.com>
+References: <20260923034858.1764461-1-rkannoth@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-dvb_usbv2_adapter_dvb_init() registers the demux devices before
-dvb_usbv2_adapter_frontend_init() runs. Only the latter set
-adap->active_fe to -1, so until then it holds the kzalloc'ed 0 while
-adap->fe[0] is still NULL.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-A process that opens the demux and starts a filter in that window, which
-lasts as long as frontend_attach() takes, gets past the active_fe == -1
-check in dvb_usb_start_feed() and passes the NULL adap->fe[0] to
-streaming_ctrl() (or get_stream_config()). mxl111sf_ep6_streaming_ctrl()
-then dereferences it:
+Critical: 0 · High: 1 · Medium: 1 · Low: 3
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061
-  KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-  RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0
-   dvb_usb_start_feed+0x57a/0xc70
-   dmx_ts_feed_start_filtering+0x129/0x220
-   dvb_dmxdev_filter_start+0x434/0x10d0
-   dvb_demux_do_ioctl+0x48b/0x540
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Initialise active_fe to -1 before the demux is registered so early
-feeds fail with -EINVAL.
+- [High] In rvu_mbox_handler_npc_cn20k_mcam_alloc_and_write_entry()
+  (drivers/net/ethernet/marvell/octeontx2/af/cn20k/npc.c), the patch…
+- [Medium] The commit message says the events are emitted from 'the
+  legacy and CN20K NPC alloc, config, read, and shift paths'.
+- [Low] The otx2_npc_cam event (rvu_trace.h) defines and prints its
+  payload as w0_cam0/w0_cam1/w1_cam0/w1_cam1 and has no word-offset…
+- [Low] In the submitted patch, the 'v1 -> v2' changelog begins with a
+  '---' separator, and both Signed-off-by tags (Suman Ghosh, Ratheesh…
+- [Low] On CN20K, npc_cn20k_ref_idx_alloc() replaces the physical indices
+  in the returned mcam_idx list with virtual indices ('Return vidx to…
 
-Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
-Fixes: ad6b9e517b39 ("[media] dvb_usb_v2: move from dvb-usb to dvb-usb-v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+--
 
-diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-index bd86d250433d..557451b541e6 100644
---- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-+++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
- 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
- 
- 	memset(adap->fe, 0, sizeof(adap->fe));
--	adap->active_fe = -1;
- 
- 	if (d->props->frontend_attach) {
- 		ret = d->props->frontend_attach(adap);
-@@ -795,6 +794,9 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
- 			adap->max_feed_count = adap->props->pid_filter_count;
- 		}
- 
-+		/* demux is live before frontends attach: no feed until then */
-+		adap->active_fe = -1;
-+
- 		ret = dvb_usbv2_adapter_stream_init(adap);
- 		if (ret)
- 			goto err;
+octeontx2-af: add tracepoints for NPC MCAM entry programming
+
+This commit adds five ftrace events to the octeontx2 AF driver:
+otx2_npc_mcam_alloc_entries, otx2_npc_mcam_copy,
+otx2_npc_enable_mcam_entry, otx2_npc_cam and otx2_npc_action. They are
+emitted from the legacy and CN20K NPC MCAM alloc, config, read, enable
+and copy paths. The commit also zero-initializes the
+npc_mcam_alloc_entry_req used by the two alloc-and-write mailbox handlers.
+
+> Add ftrace events for MCAM allocation, CAM keyword writes, action/tag
+> programming, enable/disable, and entry copies. Emit them from the legacy
+> and CN20K NPC alloc, config, read, and shift paths so mailbox-driven
+> rule changes can be correlated with the programmed MCAM state.
+
+[Severity: Medium]
+Is the CN20K coverage described here complete?
+
+The copy and enable events are emitted only from the generic wrappers
+npc_copy_mcam_entry() and npc_enable_mcam_entry() in rvu_npc.c. The
+cam/action read events come only from the legacy npc_read_mcam_entry().
+Several CN20K paths call the raw helpers directly.
+
+npc_defrag_move_vdx_to_free() in cn20k/npc.c:
+
+    if (npc_cn20k_enable_mcam_entry(rvu, blkaddr, old_midx, false)) {
+    ...
+    if (npc_cn20k_copy_mcam_entry(rvu, blkaddr, old_midx, new_midx)) {
+    ...
+    if (npc_cn20k_enable_mcam_entry(rvu, blkaddr, new_midx, true)) {
+
+A defrag move therefore leaves no otx2_npc_mcam_copy or
+otx2_npc_enable_mcam_entry record. The trace still shows the rule at
+old_midx, but the hardware now holds it at new_midx.
+
+npc_cn20k_config_mcam_entry() does its disable-before-update and its
+final enable through npc_cn20k_enable_mcam_entry(). So it emits no
+enable/disable events, unlike the legacy npc_config_mcam_entry().
+
+npc_cn20k_dft_rules_free() disables default entries through
+npc_cn20k_enable_mcam_entry() without a trace.
+
+npc_cn20k_read_mcam_entry() is not instrumented at all. Its callers are
+rvu_mbox_handler_npc_cn20k_mcam_read_entry(),
+rvu_mbox_handler_npc_cn20k_read_base_steer_rule() and
+npc_update_dmac_value().
+
+The v2 changelog also says otx2_npc_mcam_copy was added "to cover MCAM
+entry shifts". Should these CN20K paths be traced too, or should the
+commit message be narrowed?
+
+[Severity: Low]
+This isn't a bug, but the applied commit has no Signed-off-by tags.
+
+In the submitted patch, the "v1 -> v2" changelog begins with a "---"
+separator. Both Signed-off-by lines (Suman Ghosh, Ratheesh Kannoth) come
+after it, so git am drops them along with the changelog.
+
+Could the Signed-off-by lines go above the first "---", with the version
+changelog after it?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/cn20k/npc.c b/drivers/net/ethernet/marvell/octeontx2/af/cn20k/npc.c
+> index 7c829b1da3e52..0b485728f3990 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/cn20k/npc.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/cn20k/npc.c
+
+[ ... ]
+
+> @@ -1018,43 +1021,46 @@ static void npc_cn20k_config_kw_x2(struct rvu *rvu, struct npc_mcam *mcam,
+
+[ ... ]
+
+> -	npc_cn20k_get_keyword(entry, kw + 3, &cam0, &cam1);
+> +	npc_cn20k_get_keyword(entry, kw + 3, &w3_cam0, &w3_cam1);
+>  	rvu_write64(rvu, blkaddr,
+>  		    NPC_AF_CN20K_MCAMEX_BANKX_CAMX_W3_EXT(index, bank, 1),
+> -		    cam1);
+> +		    w3_cam1);
+>  	rvu_write64(rvu, blkaddr,
+>  		    NPC_AF_CN20K_MCAMEX_BANKX_CAMX_W3_EXT(index, bank, 0),
+> -		    cam0);
+> +		    w3_cam0);
+> +
+> +	trace_otx2_npc_cam(actindex, bank, w0_cam0, w0_cam1, w1_cam0, w1_cam1);
+> +	trace_otx2_npc_cam(actindex, bank, w2_cam0, w2_cam1, w3_cam0, w3_cam1);
+
+[Severity: Low]
+The otx2_npc_cam event labels its payload as w0_cam0/w0_cam1/w1_cam0/
+w1_cam1 and has no word-offset field. Won't the second call here print
+the W2/W3 CAM values under the "w0_cam0 ... w1_cam1" labels, with the
+same mcam_index and bank as the first record?
+
+For X4 entries, npc_cn20k_config_kw_x4() emits four of these records per
+entry. The only way to tell the W0/W1 records from the W2/W3 records is
+emission order.
+
+Would a word index field, or a separate event for W2/W3, make these
+records unambiguous?
+
+[ ... ]
+
+> @@ -1434,7 +1445,7 @@ int rvu_mbox_handler_npc_cn20k_mcam_alloc_and_write_entry(struct rvu *rvu,
+>  {
+>  	struct rvu_pfvf *pfvf = rvu_get_pfvf(rvu, req->hdr.pcifunc);
+>  	struct npc_mcam_free_entry_req free_req = { 0 };
+> -	struct npc_mcam_alloc_entry_req entry_req;
+> +	struct npc_mcam_alloc_entry_req entry_req = { 0 };
+
+[Severity: High]
+With entry_req now zeroed, can NPC_CN20K_MCAM_ALLOC_AND_WRITE_ENTRY ever
+succeed on CN20K?
+
+The handler sets hdr.pcifunc, contig, ref_prio, ref_entry, count and
+virt, but never entry_req.kw_type. So kw_type is always 0, which is
+NPC_MCAM_KEY_X1 / NPC_MCAM_KEY_DYN.
+
+rvu_mbox_handler_npc_mcam_alloc_entry() passes req through unchanged,
+and npc_mcam_alloc_entries() rejects it on CN20K:
+
+rvu_mbox_handler_npc_cn20k_mcam_alloc_and_write_entry()
+  rvu_mbox_handler_npc_mcam_alloc_entry()
+    npc_mcam_alloc_entries()
+	/* Only x2 or x4 key types are accepted */
+	if (req->kw_type != NPC_MCAM_KEY_X2 && req->kw_type != NPC_MCAM_KEY_X4)
+		return NPC_MCAM_INVALID_REQ;
+
+Before this patch, kw_type was uninitialized stack, so the outcome
+depended on whatever happened to be there. Now every request fails with
+NPC_MCAM_INVALID_REQ before any entry is allocated or programmed.
+
+The missing kw_type assignment is older than this patch. However, the
+v2 change to zero the struct is what makes the failure deterministic.
+
+Should entry_req.kw_type be set here instead, for example from
+req->req_kw_type or from the profile key type?
+
+The legacy rvu_mbox_handler_npc_mcam_alloc_and_write_entry() in
+rvu_npc.c got the same "= { 0 }" change and also never sets kw_type. It
+would fail the same way if reached on CN20K silicon.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
+> index 4cd0fc4b0d203..ea1c5d7f10076 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
+> @@ -159,6 +159,120 @@ TRACE_EVENT(otx2_parse_dump,
+>  		      __entry->w3, __entry->w4, __entry->w5)
+>  );
+>  
+> +TRACE_EVENT(otx2_npc_mcam_alloc_entries,
+
+[ ... ]
+
+> +	    TP_fast_assign(__entry->pcifunc = pcifunc;
+> +			   __entry->contig = req->contig;
+> +			   __entry->ref_prio = req->ref_prio;
+> +			   __entry->ref_entry = req->ref_entry;
+> +			   __entry->req_count = req->count;
+> +			   __entry->kw_type = req->kw_type;
+> +			   __entry->virt = req->virt;
+> +			   __entry->start_mcam_idx = req->contig ? rsp->entry :
+> +				(rsp->count ? rsp->entry_list[0] :
+> +				 NPC_MCAM_ENTRY_INVALID);
+
+[Severity: Low]
+On CN20K, can rsp->entry_list[0] be a virtual index here rather than a
+physical MCAM index?
+
+npc_cn20k_ref_idx_alloc() returns vidx values when defrag_candidate
+(!ref_valid && !contig && virt) is true:
+
+	/* Return vidx to caller */
+	mcam_idx[i] = vidx;
+
+npc_mcam_alloc_entries() converts these with npc_cn20k_vidx2idx() for
+its own bookkeeping, but it passes the unconverted rsp to
+trace_otx2_npc_mcam_alloc_entries(). In that case rsp_start_mcam_idx
+holds a vidx.
+
+Meanwhile otx2_npc_cam, otx2_npc_action, otx2_npc_mcam_copy and
+otx2_npc_enable_mcam_entry all record physical indices. No event records
+the vidx to physical mapping.
+
+Could the event record the physical index, or both, so the alloc record
+can be matched to the later programming records?
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923034858.1764461-1-rkannoth%40marvell.com
