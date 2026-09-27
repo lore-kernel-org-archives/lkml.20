@@ -1,127 +1,136 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F9635A39D;
-	Sun, 27 Sep 2026 20:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EF6377A83;
+	Sun, 27 Sep 2026 20:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790539207; cv=none; b=iy26daYA2b70DDnXokLGqhxf8hVxHIUyyhzIU1KlBJmZFE6Zum3heF574OFaXw7/z9sjnvmGDuv66KAsd1Pah1zX/yb9H73zQbhYoyendTl6xfi17f9h3o+URUapu9wiqi+QLfCQUvDwSv8Iz5L6fCmff6VlWKw6xCqETgrHVcg=
+	t=1790539222; cv=none; b=IyPvwlzaDHFCKGEqjk2dK1eN1WGo3iv0m9KQO7jXPTBFpRncgf7NyU+kOZatv4XWu7ZqJpLBJUikBlXqA2i4yv4RzhOHDebojo665cryTkkUFSdPzkCGb97fhEXH5y0/E7CmhqTi9ChNkMA4eSSUWpiaU80si6kTMEXZm4C6rsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790539207; c=relaxed/simple;
-	bh=I5GmwhcR9dEV4MtTDUzhSc57TT6erNzKqlpqSHAuWLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=POlZLTwHUHyDIevwa5nn4+Yk6C4Zsqhgzrmx1DCiFKYO9zqvvgN+BgnG4Cazr4XonKMgbgJWRJ6+r5Owfk1OS+aJbbgwArIGNwRmNcqsISuAHtVPxpN3HxKsmi3sTTbHw+eIul6TLpopSx3juj4LmwFwRS6BNvq0hgRYnQLg4GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OTBZXL7R; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790539222; c=relaxed/simple;
+	bh=SeLQSuQGwU9qsys0t0pYmDOpg2+fG+NoUyO9dpYvIBU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=YEzpiD5hOej+G9CC7PefTRxJfSMLGrMlj8Fr8PY94D3SV/JwiTfvsY1t4cX6PRjRVlj5+aGRapUavhbzFkTzGeUsedTJd+FIx7MU/cuXJN7Ag25GO+Z6UpAfi3PZuSBW+LrdOFkqM8/+/UDwg4ZpYdpNoayF6+nceSPvtFhBkVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Ly5VTmK9; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KqcH46cf; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OTBZXL7R"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4htFf44GRbzMlrg;
-	Sun, 27 Sep 2026 21:59:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790539196;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S3GpgvsWKyshpzVFnG9ZkXrNBlSawI5/txD9KcqJ8SE=;
-	b=OTBZXL7RH1YysOqlopuUr0xIA2u7qMmsR/0tKJ+kMyAcD0f6d7sr0fC1Z6QRG0MHp7rYZO
-	twUpIDxcEmHqFl0Q81wRXsgBKiJ0eFjBbHyekHA/ab86c1y+Hc8K70FI8NsUPDJR/CIdL1
-	GBuOB5s+hbzVOXVU+CFP8kiwP4rGa8vnRTmSgdNtrajCq0aJdYSjBEMLtufZkzLjGWqZFw
-	+Pud2xcM59cXqdshafivTLeKyC+3ZzFMNoblLeNJprKyv9PorbPGP2vo19cnk8LUHR6eHw
-	tIJYjH9sQJbpdVweCLmj1AxLNz7+UDtVj4OkFrhBMR7dopc0AdE5qYRJCiyb6w==
-Message-ID: <badcd2d5-7d61-426a-86d6-000043a6aa93@mailbox.org>
-Date: Sun, 27 Sep 2026 21:59:50 +0200
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Ly5VTmK9";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KqcH46cf"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790539207; bh=EWRD9Z8tz8/kpl/2wpMTdBB
+	fWlCLUqMDxxOx7tDpxME=; b=Ly5VTmK9EBVV2x+YmeIAf2sdf4u7VIf8kk5LTeiUr5uX6MIuIA
+	/ydpjk5sYOXB+6SWjBXO+FAaIFFm7GFGDiQSbbOFiE1rXXv8YvHj5hlU8op2ACo/QT+WJlzAlhW
+	AM+Ze2xxo//eXbbNRddyTO8sM7Rgabq9DzRA1YJ9Q7pPel23km2EAuao4A9NaeH14ADC2nS5S3q
+	P5vq1bW5dObjWD0bGxAjM/WEYcG1Ud72DJVkXbFuoHLG9VyJOU0AatMnoGNGAIuUzNxndJOIncm
+	i9VSMd5ZqguL39keUBO5NMok779mgESzKwGMVLA8FhGQDPnf3ekrFJS61+nv70FZcEA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790539207; bh=EWRD9Z8tz8/kpl/2wpMTdBB
+	fWlCLUqMDxxOx7tDpxME=; b=KqcH46cfSCtarNybUafavHnVd7XP3v/Z6osk4Znk+MtouN7ABM
+	IorbIz08mba34TNJ+D/oeS9gx1FkrpOiDMCQ==;
+Date: Sun, 27 Sep 2026 21:00:07 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: kunwu.chan@gmail.com
+CC: boqun@kernel.org, dave@stgolabs.net, frederic@kernel.org,
+ jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ neeraj.upadhyay@kernel.org, paulmck@kernel.org, qiang.zhang@linux.dev,
+ rcu@vger.kernel.org, rostedt@goodmis.org, urezki@gmail.com
+Subject: Re: [PATCH] rcuscale: add srcu_atomic scale type
+In-Reply-To: <20260927100359.3903688-1-kunwu.chan@gmail.com>
+Message-ID: <A425E486-AAE4-4A48-89CA-959A28094A51@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260918032038.2216471-1-den@valinux.co.jp>
- <20260918032038.2216471-3-den@valinux.co.jp>
- <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
- <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: nypqomd6k5cuq5i8h1cykuee7hg4apcs
-X-MBO-RS-ID: 46d6c11dbd740c7fa7f
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 9/23/26 4:56 PM, Koichiro Den wrote:
+On 27 September 2026 11:03:59 BST, Kunwu Chan <kunwu.chan@gmail.com> wrote:
+>Add support for scaling atomic SRCU grace periods using
+>srcu_read_lock_atomic()/srcu_read_unlock_atomic() and
+>synchronize_srcu_atomic().
+>
 
-Hello Den-san,
+Ummm. Ok then!
 
->>> @@ -298,7 +285,6 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->>>    static const struct dw_pcie_ops dw_pcie_ops = {
->>>    	.start_link = rcar_gen4_pcie_start_link,
->>>    	.stop_link = rcar_gen4_pcie_stop_link,
->>> -	.link_up = rcar_gen4_pcie_link_up,
->>>    };
->>>    static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
->>
->> Can we include some form of the draft patch below, so the S4 Reference
->> Manual rev.1.40 , page 1564 , Figure 104.5 Initial Setting of PCIEC ,
->> bottommost diamond in the figure (smlh_link_up and rdlh_link_up = 1 test),
->> would still be fulfilled, and the initialization code in the driver would
->> not diverge from the initialization sequence listed in the reference manual
->> ? What do you think ?
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+>Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+>---
+> kernel/rcu/rcuscale.c | 47 ++++++++++++++++++++++++++++++++++++++++++-
+> 1 file changed, 46 insertions(+), 1 deletion(-)
+>
+>diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
+>index 5aca31c3c01d..86f1a912ebee 100644
+>--- a/kernel/rcu/rcuscale.c
+>+++ b/kernel/rcu/rcuscale.c
+>@@ -264,6 +264,51 @@ static struct rcu_scale_ops srcu_ops = {
+> 	.name		= "srcu"
+> };
 > 
-> If always relying on the PORT_DEBUG1 check instead of the SMLH/RDLH check does
-> not introduce any regressions, I'd personally prefer to keep patch 2 as-is
-> because it keeps the code simpler. We could just add a comment noting that this
-> link-up check diverges from Figure 104.5.
+>+static struct srcu_struct srcu_atomic_ctlp;
+>+
+>+static int srcu_scale_atomic_read_lock(void)
+>+{
+>+	return srcu_read_lock_atomic(&srcu_atomic_ctlp);
+>+}
+>+
+>+static void srcu_scale_atomic_read_unlock(int idx)
+>+{
+>+	srcu_read_unlock_atomic(&srcu_atomic_ctlp, idx);
+>+}
+>+
+>+static void srcu_scale_atomic_synchronize(void)
+>+{
+>+	synchronize_srcu_atomic(&srcu_atomic_ctlp);
+>+}
+>+
+>+static void srcu_atomic_scale_init(void)
+>+{
+>+	init_srcu_struct_atomic(&srcu_atomic_ctlp);
+>+}
+>+
+>+static void srcu_atomic_scale_cleanup(void)
+>+{
+>+	cleanup_srcu_struct(&srcu_atomic_ctlp);
+>+}
+>+
+>+static unsigned long srcu_atomic_scale_completed(void)
+>+{
+>+	return srcu_batches_completed(&srcu_atomic_ctlp);
+>+}
+>+
+>+static struct rcu_scale_ops srcu_atomic_ops = {
+>+	.ptype		= SRCU_FLAVOR,
+>+	.init		= srcu_atomic_scale_init,
+>+	.cleanup	= srcu_atomic_scale_cleanup,
+>+	.readlock	= srcu_scale_atomic_read_lock,
+>+	.readunlock	= srcu_scale_atomic_read_unlock,
+>+	.get_gp_seq	= srcu_atomic_scale_completed,
+>+	.gp_diff	= rcu_seq_diff,
+>+	.exp_completed	= srcu_atomic_scale_completed,
+>+	.sync		= srcu_scale_atomic_synchronize,
+>+	.name		= "srcu_atomic"
+>+};
+>+
+> static struct srcu_struct srcud;
+> 
+> static void srcu_sync_scale_init(void)
+>@@ -1176,7 +1221,7 @@ rcu_scale_init(void)
+> 	long i;
+> 	long j;
+> 	static struct rcu_scale_ops *scale_ops[] = {
+>-		&rcu_ops, &srcu_ops, &srcud_ops,
+>+		&rcu_ops, &srcu_ops, &srcu_atomic_ops, &srcud_ops,
+> 		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
+> 		HAZPTR_SCALE_OPS
+> 	};
+>
 
-I think the SMLH/RDLH does behave slightly differently, because those 
-SMLH/RDLH bits are set and latched in, and they have to be explicitly 
-cleared. The DEBUG1 bits report the current state of the link, which 
-might (?) be susceptible to bouncing (link going out and down in a short 
-window, but ultimately being up) ? I am not entirely sure whether that 
-might pose a problem or not.
-
-> That said, I agree that in general we should follow the R-Car reference manual
-> where possible, and your draft makes sense for that purpose. If we go that way,
-> I have one question: would we need a polling loop with a timeout
-> (PCIE_LINK_WAIT_MAX_RETRIES * PCIE_LINK_WAIT_SLEEP_MS) in
-> rcar_gen4_pcie_start_link(), similar to dw_pcie_wait_for_link()?
-
-This is a good point, and I think we probably shouldn't do it this way, 
-because we can reuse the DWC core code for that purpose.
-
-How about extending the .link_up callback, and check both the SMLH/RDLH 
-bits there (to fulfill the datasheet compliance, dw_pcie_start_link() is 
-always followed by dw_pcie_wait_for_link() which calls the .link_up() 
-callback) and the DEBUG1 bits (to make sure we check the current state 
-of the link) ?
-
-That should cover all our concerns (datasheet compliance, DEBUG1 current 
-state of link check, polling), shouldn't it ?
-
-> P.S. I'll rebase v2 onto the latest pci/controller/dwc-rcar-gen4.
-
-Thank you, and I apologize for the inconvenience.
-
--- 
-Best regards,
-Marek Vasut
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
