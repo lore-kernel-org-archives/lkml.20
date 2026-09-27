@@ -1,65 +1,65 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA7F345CC9
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4523C197A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:03:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510561; cv=none; b=FSOuCKxwi/abHfFcvLQLS6dqDwvgk9BMCRYUUtVYTX6NQDvJoMHSRG2BEu726vZVLKvDx1Z+KnkoSOd0N3xEeGlZPazZMWglwEYYtdYTSm0ze22ATM+d9SUOoXyayx6RYSjbnNIK8eV/24uDHmNJUlDLsIvQQuOqWyDnPGx/44I=
+	t=1790510582; cv=none; b=S9NAJ6mYTAlJv1PVSX3LEhFGcnpfP+iKIVg2N883ffnPt7HpbO3JLpSbDPGr0SAjhQdgIcKgUQZQOl8R19K2yFmPTF5ZxWHQMq4/uOgCRdDrMffeHz+AKJDJkFVbwIn32bdBIqkIBVLYaLPRVDRxusho9FmSzgXKf9vTVwBsiWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510561; c=relaxed/simple;
-	bh=Z9paiwYidXUiqezPHTXQfCz85MHxLktOuWNdhVGUFAY=;
+	s=arc-20240116; t=1790510582; c=relaxed/simple;
+	bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ND1A3UwiKqST5KqrT0wal9Ia43xfzpWKil0sBy3esE/9BFnPQWLA7gszJmHh30Srcxw9AlJerGiiVCB63MXBVrHxdVvjKh9Fv6sXvlORHuFBE9sf/uCaM8UvjSUZkfDBQmojRXiOALEq/cQAUwUxfnJwqnyQFQZ5YZ4oN5Ztk70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPg4cJSF; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=P2EkTAzJzKCIPu1CzhMOZao/+KrS0CAY0D6wbfALqa3IpzAJgqvZrdVra4aer+8zN1x6KdnMcsSKigBQFQ+ZSsjYch1hGcnHqlQ+fIf5HzV+o3C7Fxo7MzCvx+2kudIn1oPwTO2G5qtxi1pX77rZl0olU0s9N+HQjv3GXoYVR1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eygImu1h; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPg4cJSF"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso213004f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:02:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eygImu1h"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso213029f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:03:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790510558; x=1791115358; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790510579; x=1791115379; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=01429hMeoTXrkDg6gix/EcLJWWvM5W0z994eSFJkqXY=;
-        b=ZPg4cJSFoAdxoDJNYLMrL5o4NDZGspi31Ah7F4mI1DWPRxj9DEPS9BcZwEXxcClWPc
-         2OJ7TjxEORAM2pvsBKC0LrjH1rg4Korl/jhc6CFVRtOA+9wDyd1VvMkfwMr/dvYF4CHc
-         hkkGUX0cp5aLdFUXsO5dDNywOQFs7iIQfj7KvqMrSkc7VgKnp+qkJHAIijrQKJVoMYSV
-         epVLNsSjq+4pS5CSoEsihfx0Ok4RzluVUpFDDrNtKzmysf2RNHy3bQym8l7tiZuyysFx
-         Z+CJNVGgMKkCS5TGuD93CdBg7t2D0qjHgLaHcFrp1jymh1mW6Lt/LOLVYCYbfpw1aLyf
-         HsTA==
+        bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
+        b=eygImu1hdlEAduNQFCw3y92qkiLLtoq2AsigeZUWoJP7O2xhLiEoKIQOXpnxtoQdS8
+         OBGYSwa7lIYUhE8g9TYfxBoRTqfZ/CjbRn+1ViTH1QWBwF29vba/pV1YyVU9VrCHrOEu
+         1Y+QLyj+ImXoJi5HYXkssMEF1F5P8IW2eIFKTCmjshq2L6twsI103CSKgDeoGw6BqKDV
+         7T/SdVny/diB/pfnOw2vyVPIryZS15XBqEI8kOVLFz7HrvbGIJ59u/1Jr4Lbaa5XpuJ9
+         mff/pHhr0MKPxm31yu8SfGUIufruRds0onTko9Qfl5LSLlpO3RDuFVM9IcaSCmWYyR5B
+         9R0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790510558; x=1791115358;
+        d=1e100.net; s=20260707; t=1790510579; x=1791115379;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=01429hMeoTXrkDg6gix/EcLJWWvM5W0z994eSFJkqXY=;
-        b=pwBSJA8iBc0aPeGfKI1S2Vl8M9zYiABpjOVaUPuJaMyGQwSA0yi9bKcbj8HoJOpk+J
-         03QHYJTn869nVylYYUhmw4UYMOZD10ur1Hmj0cYlLgZWR7l51NvAH9V5+SyiajGciP0d
-         1FRnttkVdfiFLXMFiajwxWcOa2FRCMFc4F9SfwhkvjDV0CxwjmDEBKQbe6/w287S0HRX
-         9bGdVQu2im+KX7hxYmVF10ONVasD5uo0A5dd7/0nQX+Mv8p5RePzHopkM6p3zkHhXeDw
-         LKcU9rik3mCJK/mn85r7ZZVkyFcOZthY2GJoOPBhBpJ2ck3BXWB986xG4D/CS/Zr9VGl
-         q/Yg==
-X-Forwarded-Encrypted: i=1; AKwUvByHTY1bt1tHng37giZWdxoqYcsPGfQw73ZrkzkmKhd1Njdwx0Q0q8lUn3/P4nL/T7sGu2LFmasPmOKkkwA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeAVPVcJ4LNNT8jO/ScTbFcEF/CjIA2xQ5y4Nu2LApQQRKpzdE
-	KDn6m1sKeqchNT64oskiRk0vu/LGXHZjaSgGhneIHinzxs1ux8VClmGy
-X-Gm-Gg: AYBFou144EjGLWdyRbtAgfoS+rjZwxv0FfgDEwtQeULL6T4s9lURo6XMRaIPwA08Jt/
-	pph9+vMo0XzLwf4NPIv7Bxjl3pNJZcKAy2nmPpx/N38kEYEP+H0ZxBIHAQL4RVkmHx//O7Lj+52
-	Rpetp82UWkkhG7vb/XelvQ9tt6CgaZFhnJvwB0dmUZfz1swo1++1uBhm/pLvMMihhhSdq/dsD2J
-	GkUyeEjKavJZsQLWKPoQQBWEnlWkkHdR8szloTFM3mr6v+kfkgjdbCYj+MWKYEGlcc+2h6UzF/L
-	cW71coVoCUmBCyR690DOis0QxkMG1I1OsK5bwPUD0ywka3Qt3+wSJt0U8oBporpeDIpHyEOlefn
-	aY7pFQ835mWhpiKus/3p7PUbSpVbnybZ7juC4ohFjSDVmwWPgrT53/vjT+pzwwR4h6e5MxDbcFO
-	eWKKymELBJvhLUCCkyZiuF/9FHpR+KNGDN5/IjOQAWsXMlYoRJ0kSxhyXUJaGDsMSooq2BMz5qu
-	uK2ZT53xZFxBC0BrJwNiDPj/B6xrQ/4XY0rWHcQnuZVFApcoQWiOhuLTUSkk9EQ54iQfiXT504g
-	imo=
-X-Received: by 2002:a05:6000:481e:b0:485:8df0:dca with SMTP id ffacd0b85a97d-4887abb09d2mr14521475f8f.3.1790510558071;
-        Sun, 27 Sep 2026 05:02:38 -0700 (PDT)
+        bh=Z+V9unX6aBDFJuuH1gIxp0fin+EUilc5XMo2mblqJ30=;
+        b=A8eXSPj/f6e6y7hyOTWBkKNmnvMgRZdY6ziLMc4ESEh+Lq5n+RlyHgq7l1YcKDUqFa
+         zdJSpwF3fnaGFXT5IAZFQ2TG4An+hrr09WSGNWjbCWyHdLt3abDU8ZnJ4jPp87W3FDIF
+         GHZ8Dw7cB7yj/vK4+eegDfp+T48ooX7bygqZoifn+kY8GcoEy1iw/o21/forBmpLwMct
+         2FpHJkeWq2ggjIBS/zFSf1N+Weslmtgjex3s9I+RYtedscFbt9f65TeB4qouJeAlI1WV
+         6Xsq/NsPoPxJtpi/rVrw26tprj3e5zlMlhBoid7pAu+6F8fQFcUsQk9LrzPuJmCU87Wv
+         hIVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcWnGkrRQJ+ouR5YciK26GKUWvup0JJ7B5ab1yEs5zNERr8Sq9RC6i4AaE3I3wiNsbI1w2E/hBnRjKL4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITpQV3Wj7IIVxN4ACjlPXIcXPp3oneD5s1tpqbyrWzc8Dg7Zp1
+	+9lIIXbXFxPNGdIQX0YJB6Dr6bSlujC/3XazjBoXs7yPxEUuyE21LSfe
+X-Gm-Gg: AYBFou2qaYoz4pWArHZCeGIq5OyF6ZKpej2RwR0eBu+XaMxRudqKbEbp0KBQHZJacon
+	Uu51FLcWZ3+l/xUSlOPDSH1n8i6YKjPvnxZRnygkQ0B14aF0OH/mPqSstFYa1alJgw1RvVKmtA9
+	yaOzKA6qE5ZQnXSVzZcSneSQOaTu2U2b1n3cCj5GAAy5FLxSbQQfw90EZhaUEVRClDOGmC9o6me
+	HtLZiPAVBXrVZXoVON7SchFYcFY8bufPL04y5cwu42/g9ljkbX4wSJNYNHJ2fU1xvxmJHMV+OpK
+	+3ytwA1oRvAt3E67AlVohRsFNeX8zCc2kC6gyKqyQUv87DGvRdKVLyeO8H19NM5TS+YDdqQApQZ
+	3ZSj2hQIKgLfoy8/1Lp5p0t/zkHvbma/y138IwIOzAjLM2Acs8qrdwigiOTjghn32JbUEDu/iEk
+	fKP9uv0dOFdztfKnRPOlxX9cAzO20eBcvVRj4CtJed/BNBQcX9RsiiRY6WhVwbBJxRuJi5pb1Xp
+	3Vicw7tAYiTGPzsG9JI0sBQHfTzyCpEBdeZQWuQcbogMYgVoZt/EJIeXN+DjwVUTFYEnIOUo+9U
+	Hk0=
+X-Received: by 2002:a05:6000:184f:b0:487:fa3:7630 with SMTP id ffacd0b85a97d-4887acd8844mr13892557f8f.6.1790510579294;
+        Sun, 27 Sep 2026 05:02:59 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B89A9009A7C72AB6C68D3F9.dsl.pool.telekom.hu. [2001:4c4e:1b89:a900:9a7c:72ab:6c68:d3f9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6456f8sm19655495f8f.26.2026.09.27.05.02.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a74538asm19548417f8f.34.2026.09.27.05.02.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:02:37 -0700 (PDT)
+        Sun, 27 Sep 2026 05:02:58 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Igor Paunovic <royalnet026@gmail.com>,
@@ -69,19 +69,18 @@ Cc: Igor Paunovic <royalnet026@gmail.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Manivannan Sadhasivam <mani@kernel.org>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
 	linux-kernel@vger.kernel.org,
 	linux-usb@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-phy@lists.infradead.org,
 	kernel@collabora.com
-Subject: Re: [PATCH v16 0/6] usb: dwc3: introduce Rockchip glue driver
-Date: Sun, 27 Sep 2026 14:02:29 +0200
-Message-ID: <20260927120229.9664-1-royalnet026@gmail.com>
+Subject: Re: [PATCH v16 6/6] usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
+Date: Sun, 27 Sep 2026 14:02:47 +0200
+Message-ID: <20260927120247.9807-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com>
-References: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com>
+In-Reply-To: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-6-126a2e9133c3@collabora.com>
+References: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com> <20260924-b4-rockchip-dwc3-rockchip-glue-v16-6-126a2e9133c3@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,61 +91,59 @@ Content-Transfer-Encoding: 8bit
 
 Hi Sebastian,
 
-My tags on 1/6-4/6 are from v14. Since then 2/6 changed its PM ops
-(v15 and v16) and 4/6 gained the two tracepoint exports, so I re-ran
-my tests on v16. The tags still stand, and 5/6 plus the Kconfig line
-in 6/6 fix the build failure I reported on v15 5/5 (posted as v1)
-[1].
+I tested gadget mode on the Orange Pi 5 Plus with the same v16
+kernel as in my reply to the cover letter. The board was an ACM
+gadget (configfs) on fc000000.usb, with the Type-C port set to
+port_type=sink for the test, connected with a USB-C to USB-C cable
+to a USB4 port of an x86 host (Ubuntu 24.04, kernel
+7.0.0-30-generic).
 
-I tested on an Orange Pi 5 Plus with the same base and the same
-local DT as my v14 report [2] (rockchip-devel at ea51774c5c42,
-7.2-rc7). The v14 glue patches were replaced by v16 2/6, 4/6, 5/6
-and 6/6; 1/6 and 3/6 have the same patch-id as in v14, so they
-stayed. The glue is built in, with PM and USB_GADGET enabled.
+dwc3 forbids runtime PM by default, and with power/control left at
+"on" the controller never suspends, so the case from the commit
+message does not come up. For the test I set power/control to
+"auto", unplugged the cable, waited until runtime_status was
+"suspended" (about 6 s after the unplug; autosuspend_delay_ms is
+5000), then plugged it back in. I did this 12 times, 2 of them with
+the connector flipped. Each time the controller resumed and the
+host enumerated the gadget again at SuperSpeed; where my script
+timed it, the UDC was "configured" 0.9-1.5 s after the Type-C
+partner appeared. Apart from the message mentioned below, neither
+the board nor the host logged USB, Type-C or PHY warnings or errors.
 
-The sink is different this time: a Dell 2408WFP at 1920x1200 on a
-USB-C to DP cable, not the Epico converter into the Samsung 4K120
-from [2]. This cable also has a GsCooLink chip (VID 0x3679), and its
-DPCD (1.2, HBR2 x4) is newer than the 2009 monitor, so the link
-partner is most likely that chip, not the monitor.
+On sashiko's question about the early return [1]: I have ftrace
+output for 6 of the 12 cycles (the trace of the second run was
+lost). usb_udc_vbus_handler() was called 12 times, once on each
+unplug and once on each plug, always from dwc3_rockchip_set_role()
+and never from dwc3_usb3_phy_notify(). The PHY notifier ran only
+inside the runtime suspend and resume, twice each time, never while
+the controller was suspended. In each PRE_RESET
+pm_runtime_get_if_active() took no reference and the VBUS call was
+not reached, so the early return does happen. On each plug the
+resume was started by dwc3_gadget_pullup() from
+usb_gadget_connect_locked(), after the VBUS update from the
+pre_set_role hook, and the gadget reconnected.
+About 50 us later a second resume request came from another worker;
+from the code this looks like the pm_runtime_get_sync() in
+__dwc3_set_mode(). I did not trace that function, so I cannot say
+whether it alone would reconnect the gadget without this patch.
 
-I ran the same test on my daily kernel (v14 glue, plus a locally
-patched tcpm module) and on the v16 kernel. Both gave the same
-result:
-- dwc3-rockchip bound to fc000000.usb and fc400000.usb
-- DP alt mode active (svid ff01), link trained at HBR2 x4
-- cable unplug/replug, and replug with the connector flipped
-  (port0 orientation changed in sysfs): DP-1 connected again about
-  2 s after each replug
-- the xHCI on fc000000.usb went away on each unplug and came back on
-  each replug, and the cable's billboard device enumerated again
-- no messages from dwc3, dwc3-rockchip or the usbdp PHY
+Not tested: the board without this patch, data transfer (only
+enumeration), sashiko's other three points, system suspend, and a
+host with a dual-role port. On every unplug dwc3 logs "request ...
+was not queued to ep1in", also with runtime PM forbidden; I did not
+look into it.
 
-With this config, none of the v14 to v16 changes alter what runs on
-the board. So this run confirms v16 on hardware, but it cannot tell
-v16 from v14.
+In one of the 12 cycles my script first marked a failure: the
+board's Ethernet link dropped while I handled the cables, and the
+script checks the host over ssh. The host's kernel log shows the
+gadget enumerated normally in that cycle.
 
-Build test on v7.3-rc1, arm64 allnoconfig plus a fragment, gcc 13.3.
-Host-only dwc3 with USB_GADGET unset now builds, with the glue built
-in and as a module. USB_GADGET=m with the glue built in can no
-longer be selected. Without the two tracepoint exports in 4/6, the
-v14 modpost error comes back, so they are still needed. All builds
-that passed had no warnings. They all had PM_SLEEP disabled (PM
-itself cannot be, ARCH_ROCKCHIP selects it), so they also built the
-new PM ops in 2/6 without sleep support.
+An LLM assistant wrote the test script, analysed the logs and the
+ftrace output and drafted this mail. I ran the test on the board
+and did the cable pulls.
 
-Gadget mode (6/6) I tested separately; the results and my tag are
-in my reply to 6/6. Not tested: system suspend/resume, a 4K/HDR sink
-on USB-C this time, and USB devices in host mode on the USB-C port
-other than the cable's own billboard. 5/6 was only build-tested. I
-am not adding any tags to 1/6-5/6 here.
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 
-An LLM assistant built the v16 test kernel (reverting the three
-changed v14 glue commits and applying v16), wrote and ran the build
-test, wrote the board test script, compared the logs and drafted
-this mail. I ran the board test and did the cable pulls and flips.
-
-[1] https://lore.kernel.org/all/20260918091032.15593-1-royalnet026@gmail.com/
-[2] https://lore.kernel.org/all/20260815121608.64818-1-royalnet026@gmail.com/
+[1] https://lore.kernel.org/all/20260924174014.366B21F000FF@smtp.kernel.org/
 
 Igor
