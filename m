@@ -1,16 +1,16 @@
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E85395266
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:50:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CF63C1095
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:50:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553028; cv=none; b=HTX0pIwj1hF3gnLUIZ9j0IHS0c+0opQdQwH5exOvMdRI+I/5H27J+rTdsv+9ivmv5ty56MzOJ7BJQps0mZaNyivrNtEiCRNyfyZn4MIq/lmUtyswJy2rRCF1NTHBg+0kljh+YGcdMdiLLYZVczYLKBmtvcaHou+xSQl2eHxkbPs=
+	t=1790553035; cv=none; b=ECtVwLmVrbwp9w2LPDucdfuFGIPF2tAHiPrP4kx21KXspstGyKmtYZ1q2mCkdhsM9gfoeEWOYV2o9t4v8gBDXjcSnwnJRiWfYBjmeECuE1LXN+Xr6IgWN85fmCtp6DKtqTDi7vvJzJkbLmErY+asZQfEQc+rY/UC0kF+z5j3UvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553028; c=relaxed/simple;
-	bh=PnyZ1oa3E3lMFr34tL3AJQkZsV4IKpd/NKaIu8555h8=;
+	s=arc-20240116; t=1790553035; c=relaxed/simple;
+	bh=Ej7kuPe9/8O51NY2gVLHh6U6ivarENoIWhtxFHlDD5Y=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Omjt/YZ+h39R8dCvcpbzldDj37eBSDVDFhbj5j1xNuzQqDPwm1w01J9rHe17VUq9Khv7mss2Q239OxYjh0MGgL70ZppyIdlMK2L9hxl7Mb5cZPOrzY+r6F3v+wYYx+1JHlDNInupuQgXUs3BXgtdyxlFmsVpkAAzOP9gxe7Q4rw=
+	 Content-Type:Content-Disposition:In-Reply-To; b=QNyBacevOLVNJzHG/FfjSqLSuKuyZBWgWkHsNFOe7JhiUM3dkXUpLHxWb7EbEKamF//S86USZj78hF9TRA4xh/Xw1QVTGdXdbHHgCERUPRhTdo9Td8javTaGLEUjDNsnjYI2txc9suUYyjHb4B8npLQwa5pABGyR8tRevXoxNXE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
@@ -18,9 +18,9 @@ Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xAydR-000000000of-39hZ;
-	Sun, 27 Sep 2026 23:50:21 +0000
-Date: Mon, 28 Sep 2026 00:50:18 +0100
+	id 1xAydZ-000000000pM-0CxF;
+	Sun, 27 Sep 2026 23:50:29 +0000
+Date: Mon, 28 Sep 2026 00:50:25 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -41,9 +41,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v8 06/14] drm/bridge: it6505: bail out of the IRQ handler
- when status reads fail
-Message-ID: <2e003c2e6fdb56d03c3a6effdf090079afb2ffaf.1790552614.git.daniel@makrotopia.org>
+Subject: [PATCH v8 07/14] drm/bridge: it6505: avoid division by zero in pixel
+ clock calculation
+Message-ID: <4316fa443587b7778d4f135d8656511a11233d87.1790552614.git.daniel@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -55,11 +55,10 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1790552614.git.daniel@makrotopia.org>
 
-When reading the interrupt status registers fails, the negative error
-codes end up in int_status[], where it6505_test_bit() sees almost all
-bits set: every interrupt sub-handler runs on garbage and the error
-values are even written back to the status registers. Return IRQ_NONE
-instead.
+it6505_calc_video_info() checks the sum of the three pixel clock
+counter samples for zero before dividing it by 3, so sums of 1 or 2
+truncate to 0 and the following pixel clock calculation divides by
+zero. Divide first and check the result.
 
 Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
@@ -72,24 +71,27 @@ v6: no changes
 
 v5: new patch
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6505.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 6fd8f5ba9acca..f249520ebd41d 100644
+index f249520ebd41d..cf2cd59625d57 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -2714,6 +2714,11 @@ static irqreturn_t it6505_int_threaded_handler(int unused, void *data)
- 	int_status[1] = it6505_read(it6505, INT_STATUS_02);
- 	int_status[2] = it6505_read(it6505, INT_STATUS_03);
+@@ -751,12 +751,13 @@ static void it6505_calc_video_info(struct it6505 *it6505)
+ 		sum += rddata;
+ 	}
  
-+	if (int_status[0] < 0 || int_status[1] < 0 || int_status[2] < 0) {
-+		pm_runtime_put_sync(dev);
-+		return IRQ_NONE;
-+	}
++	sum /= 3;
 +
- 	it6505_write(it6505, INT_STATUS_01, int_status[0]);
- 	it6505_write(it6505, INT_STATUS_02, int_status[1]);
- 	it6505_write(it6505, INT_STATUS_03, int_status[2]);
+ 	if (sum == 0) {
+ 		DRM_DEV_DEBUG_DRIVER(dev, "calc video timing error");
+ 		return;
+ 	}
+ 
+-	sum /= 3;
+ 	pclk = 13500 * 2048 / sum;
+ 	it6505->video_info.clock = pclk;
+ 	it6505->video_info.hdisplay = hdew;
 -- 
 2.55.0
