@@ -1,303 +1,140 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F45E3C09F4
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3143A383A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790540104; cv=none; b=Hb66KDU5H+vjLD4vX6bwu5hal+N/5eGbMCERoTgR5y6iIczyq7c89fKxgWWTIrW4axuy5wU5nDnTvE/W1V7C89rkgVuKXJ/KNNWJjoFLkoCJoVFYXQ60PZF/GW0tminP0Tyn/QcQcgSiXGgPDV0K+3IOtBcmuuvOxFsACzVDHdg=
+	t=1790540198; cv=none; b=Bki4wWaK9QTz3QSqI1US6YfbIjTquiRosQCUHYj9WmGjS8ZVTkvNcH6LQMIsKj3/Y2d1Ip8XylETUy0WtGtaCbuEobpkKHLDXQJSzA3/J6Q0bsdcOlY6Zz9wf1p5yhYU9EDGtkZjs2Eex9z3kqqc+6CTo6EjV41DTsbMze2vvis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790540104; c=relaxed/simple;
-	bh=nf0EyPFH35tSBIK5oZ5/jJ+smy+BLU/nT0Pmxgc+7L8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YaJ5v2GHUXRnUE57rgDBzaorxcI89mRdX6Vj0IB1VLq/mPKEv61A8wh+V4Z8eCmlmJGaHOvazaJYrtlVv5aPz+aEIc/6GFK6Z1nStAI83dGD4s4dG+E+wD+4S0BAr9j/u2EuIv2d8S/JEdRDN1AJSKXXdryey2UPd2NJnAbBzgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PWiirBX3; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790540198; c=relaxed/simple;
+	bh=pASQnnah6qpEkll7hASjhVPduYNJH3VS2SghHlNMldc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uUG8s/9w+KDGlAZ/gwAcjo7tbfaYtv5Cxkzm1PBiHLxfh6HnhJ0CaRxx7QLQxbu3j6jZJDxfhf6QZVhqXw3XmBmn5p6FD1r0WS8xVDKWEDJoNKMz3EAaG+U6KYrmrykjCT16lw+7r8f1ehRf6ncWzNUyopK1BQD/Sw0HsEC3mHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o8DOe8BY; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PWiirBX3"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso16917685e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:15:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o8DOe8BY"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887635e952so1010216f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:16:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790540099; x=1791144899; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cTauSR6H/8NKinLJSb31gMD112liycecOTxKay+MW1Y=;
-        b=PWiirBX342u1ZovQjBXnxAxNygoidv4AR3BeYr/KQEeCwesTtovhBbL5oAGX06wueM
-         KB0b4qAWv3tXUrSISOzj8KhKRoSyQnVOKhVlJOqbsHyB8FA2boS33y8M9f6EZEuJHrEB
-         nfHvT2TvWi3x3ybCNaTiBPuV4Wu8tSFQ/L8wYdC5j4q/uaE1K0flkgg3xhtE+WqGqMuo
-         fzmUTIJPlmh48Mlq0hSJODtyuDKnKLx5i0WZxOtIHNWPOAKYqoA4Y2jNrtpvr2R6ouGi
-         vzqRS1p6Y4Y/ALhuwZNHfkl6DRY7fpZ89nus3tcOHh7UK8J8uraVmMavhkqHDPmSLc8L
-         jMHA==
+        d=gmail.com; s=20251104; t=1790540195; x=1791144995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oTKQmNoTgBMDEzYMx5qmHNQJ06sX9XG0dAtMeqIwPbE=;
+        b=o8DOe8BY9uBt2gl0Dntq5uNOuThOjqP47wkuBRi1E0QdfZuwTDhisPp+2g6M2ISlSn
+         zXxlWiObT2PZxRtrwvGaff5ZP/8GnhGqK8Hy348ziKJXNJJ9DH0wW4LuWEKmfj4UYzpL
+         tY6idbNvAHNMGNjoZN6NAEmy4rUQHIfltzsBVkoKBALEVyMZrgps8wurIekV5BsKLuXC
+         X/vwbwfiFnm8pUeeT3jqwEvHzr2hHDlpP+Z56EeCuh+V+apfTzlAuBRYcIfKX3NI1roc
+         zxZrvRj0VxkgbbnBn/0MbBPvEF4R0wNmhnM+64g4dblMCw8O7p34bySI0B8Sg3kedTPV
+         Bgmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790540099; x=1791144899;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cTauSR6H/8NKinLJSb31gMD112liycecOTxKay+MW1Y=;
-        b=JDTgTDG9EmzEy9JeoUYU86gsDUUnRyyb2yEhktabMoYmwlJDBKvi5VzOaOSFvuEFFE
-         M2vIE/TRSI81bCXQD8QUd4yjXOBybPw+jvPgxVb4wf/eV86cONIm2mS2G9B84nofacTC
-         00A5JdqGISN39NeXdACjC3ufwz/24jvXFgjZLyrRuuI8XhItN3eFyK+ihOBEB0xRzKtH
-         phulKWkaGZPZxPuaJ3/dYyDBuIK5Kf1DUGYl3p2KVqd4zp0SEa+Bt5X74o5cnC8HdNly
-         QwkJAeBrEDfSyNxpXRf6VjpHN/2B11czb9ydrA7owdpOrx0CgkBhvIik9kkbizqc4C+U
-         OhLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFF6kLuHFtUVSb5u+wXH0ZTMpotuN8Tj8ZMViHaiZPGrj4rOa9MQCymxB3opPgsx5zs1yeeEqwE9rO6Ro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTY3hCQFuS+gx0LwKT24X9B+v3HmgSE7fit/k0aEiayGP7m2CX
-	CkMjx5jO4PfaoH7NSEGVs5ID23mzzaQRPGGGLS5Pw/yhR8jVEkF0HQ4G
-X-Gm-Gg: AYBFou3Z0dHMPhi+GA2bHst1LpJeV9EMLhDRRvSnJurQsIIQ4crZsWJYHVw9HoAEM1O
-	m3GVDzUVIfjnnh3S4EQJRlaRISiJoWduFD/s3MLjfADy5S/BVWKsdMspuQe0xBWHHQDPwvthJXq
-	ZNOYFuC3REfNbFb30Y4PyRstyws67FBNgDhJQpDqkUHgMBbzJBRIlqOdo83LNVeMODPA8JbN/27
-	KYjvQ3dZW6xnPX1ccMOHC4ucj+NSlnS0mp350phSjMsc8uQJ9hB7O7nLGSoZ+dZJ6STQOmYkX0e
-	uVu6Us1uxtxKnTBYszpMY/IqUO1MdqCjAMKS2s5NGpEPXFzaWzgU+mRF+Dxx++pWxv0uOA2qOUj
-	WW1j00dgQf0t2G6Na/B1Dg1VZQWANQAiqrlfLWC1tq+WV5hOgKufpuy4Dp7nXK/56wMEzQBG3zS
-	hdBDHeKkMAveVZgjWGnaZEIK7wVT04gadtxUC9nkgYCnxFhTW+KXWuR29uJfu3XiNE3o+gzUn+/
-	gFN3jdq
-X-Received: by 2002:a05:6000:2893:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-488719756c5mr18798018f8f.49.1790540099202;
-        Sun, 27 Sep 2026 13:14:59 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.96.148])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a570sm21781514f8f.13.2026.09.27.13.14.54
+        d=1e100.net; s=20260707; t=1790540195; x=1791144995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oTKQmNoTgBMDEzYMx5qmHNQJ06sX9XG0dAtMeqIwPbE=;
+        b=MoQVi6BkgDuQ7hB3wnHtwanZRgvW04F9tSsGg4qbQSlzHCFhns4Rr6+Uw2G1BM1+C5
+         dYWP+f7WaNB6nBD+NUA2heXGdYI2kav2qWhCBvrp5xk6n/uOXbLD96lWHGLYDmLPjXNB
+         QybWXrIUfheDTmPsAFFIn0hlGinzgNCrTBx6fi4ccni1dBhSI9tjY1LsVGBm4oNC/7BJ
+         eoTFUiCQQ9Y/mKQFf1CYsBcz9LnEFDekzLrI7C8P++9ZzUByTVNkFIjqPPi55sHcXLMv
+         uihNfwOyNmH6rixtzfqgLdrvUNKErjC+pbkfqtLPrTroYwFJAq+iQlgegw1AZZ6BbKHn
+         6mvA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2BDstgAClzmq/Dh8GVADT+afDBPcqzpiVF2p4GKyt6SXTKqveve2KiO7IedO9erNFqEkzurry4Hl2XaY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjZVasnc8SlRFQ9EWpu9iYxdu5bc5BngmUwDBhi36hVAUZOL5L
+	MBaACLHWpMXivlNTk7YtlWjGV+NvO0soRtreNNHh8pp1HIg6Ay3wyRHP
+X-Gm-Gg: AYBFou0JXcJ8XNtsgwzxWQFGo96I7gOyRLgxwtXgyOo0ZvAw2hSP4YjNek5ejdViNTb
+	a1h7Sj5Cz1ngdNW2ha0RzOKwevAE2aXq+aNFTl5EdkuCaTuQ+j7pfS/Z9xRVZRjGjo1kVJl1+qI
+	O+HrQqfaECO8BJNoKvFgGt2tDRRzIZGXgbxsqdSjtNJ0Gvj+87s3TtdGCFdEGHvVfKcnRFRMvK5
+	LXw0Y4rGm/RhntsPDJ6SygUusSiId5BSGQzwoty6I+nR+mKDuvLxy2u7X2svygJ2BDfMC5/DEXT
+	7FB3CN3W6gjuOCI9YbDQ45qKPY1FcrkZziwbAXccWO10p48bzLg14OueSJ1fN8QCK/DDTopowL6
+	S7rB5Bmmf9rdQONowtjgmjobwH5Rq6SZRtASnXswLp0zvw0o5AfpmmeQQbbWbPrsN8t5dYss8+5
+	jMcHqKA+IkE2dw/wgNa0w5zkxn91Px5Suf+3gUT1UslxBZwr2hsgBr+/2C1bYM/Qc2QGEWx0j1c
+	wk03OYbF4zlop77VS8ej7Zl4bS4+ej5jrb83kSvy9dJpssT+mU9Wj5oBQ5gPgF68DO4Qg==
+X-Received: by 2002:a05:6000:41f2:b0:488:8023:6e0d with SMTP id ffacd0b85a97d-48880236fbbmr15002623f8f.2.1790540194615;
+        Sun, 27 Sep 2026 13:16:34 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ed6esm24576000f8f.29.2026.09.27.13.16.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:14:58 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Sun, 27 Sep 2026 23:13:41 +0300
-Subject: [PATCH v13 13/13] ARM: dts: zte: Declare zx297520v3 CRM device
- nodes
+        Sun, 27 Sep 2026 13:16:34 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH 1/2] media: ipu6: Fix ipu7 firmware context leak on stream start
+Date: Sun, 27 Sep 2026 21:16:30 +0100
+Message-ID: <20260927201631.153126-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260927-zx29clk-v13-13-70d8f673386c@gmail.com>
-References: <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
-In-Reply-To: <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5992;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=nf0EyPFH35tSBIK5oZ5/jJ+smy+BLU/nT0Pmxgc+7L8=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBquXj1qMOhF4nhM5GAH4C4zIE2KCnpV3p7yPYxy
- HsWLuBVq++JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarl49RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiJNaRAAi92rO1TFDPk6AfkbezqImo7QQMmSE6G
- xzjgXmYfqzaDzA2JJ2MEt5ITYiH4sslWTHYOvxV8iBS0oaH8J4O5H6+xcPniz3W+snQvwwuz+Yt
- lJqDvK1FyY3Hw/TjoVzVYp+dI1DBj7J9iWFfcy62abwG2+FdE4877GYT88X4gM8LqUZ6goT9y4c
- SFMG3ERQS+PZeBNqDTU3xVZlm46MD6LGvThLvfsEOu6Lr/NKGn5Q4lufzGqnegL5evrbyBrVQWy
- Ggro6IegTW6hARhscDuM5zFxFCeX44v7fJwUFLf/MWk2Q7DVUbkhxtpyyqWWYnCuswA0jilu3XW
- Gh5vHFd1V9VnC7/l9vWCi56t7nnoQpKSfnYoR2q3EeJ1pn4+kO20uIWoy/q044FLzTrLsuM/Jc2
- +oLuGv/kJ0UWvzASZhsQkA9UFeDQ5JIRbKOj2/fFHtMjGAiHztjkrdV/n/UpThoNPHsEG38+Pg/
- SkknToYjaa9dUutBVehuE35RlMFKpxXyUHlvaCqLszJ+p3hC4kj3827Hs13LMFJa+QfqkLLcrjG
- 0NcahDzzscsP7c/wSY9/uiLJtg8PsXGjzck854E9fxdxsZvKWAVQQ4GWnQYzi5kVWqlj2ZX4w1c
- l/+S4y5w44rxz8Nd4u4tem251TqfpZuBDEvKzJOadl8pAcn1W8jk=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-This patch adds DT nodes for the main clock and reset controllers on the
-zx297520v3 board. It replaces the temporary placeholder UART clocks with
-the proper clocks exported by topcrm and lspcrm.
+ipu7_fw_isys_init() runs on every first stream start, but allocates the
+firmware context and queue configs with devm and never frees them, so
+each STREAMON/STREAMOFF cycle leaks them. Use kzalloc and free them in
+ipu7_fw_isys_cleanup().
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+Fixes: 9ab793dbc176 ("media: ipu6: Add ipu7 fw isys ops")
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-Version 11: Improved the above the line commit description, removing
-references to "previous patches" that won't make sense when reading it
-in the kernel commit log.
-
-Version 10: Fix issues with dt-check-style --mode=strict in newly added
-code, but left issues in existing nodes alone.
-
-Version 9:
-Sort new nodes by mmio address
-rename syscon-reboot to "reboot"
-adjust to changes in bindings
-
-Version 7:
-Add phy nodes to topcrm
-Remove syscon from matrixclk again
-Adapt remove now-removed extra clk inputs from matrix
-Add reset to LSP
-osc26m -> clock-26m for the fixed rate clocks, likewise for 32k
-
-Version 6:
-Add syscon to matrixclk
-
-Version 5:
-Re-name from *clk to *crm
-Add the syscon-reboot node here because the binding requires it
-Re-add accidentally dropped uart2 IRQ
----
- arch/arm/boot/dts/zte/zx297520v3.dtsi | 101 ++++++++++++++++++++++++++++++----
- 1 file changed, 89 insertions(+), 12 deletions(-)
-
-diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-index a16c30a164bb..ebac3cd137df 100644
---- a/arch/arm/boot/dts/zte/zx297520v3.dtsi
-+++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-@@ -3,12 +3,26 @@
-  * Copyright (c) 2026 Stefan Dösinger <stefandoesinger@gmail.com>
-  */
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+index aee9227fd66c..19e063b22a15 100644
+--- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+@@ -34,6 +34,8 @@ static void ipu7_fw_isys_cleanup(struct ipu6_isys *isys)
+ 	}
  
-+#include <dt-bindings/clock/zte,zx297520v3-clk.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/zte,zx297520v3-reset.h>
+ 	isys->fwctx = NULL;
++	kfree(fwctx->queue_configs);
++	kfree(fwctx);
+ }
  
- / {
- 	#address-cells = <1>;
- 	#size-cells = <1>;
+ static int ipu7_fw_isys_open(struct ipu6_isys *isys)
+@@ -67,8 +69,7 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 	int ret;
  
-+	osc26m: clock-26m {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <26000000>;
-+	};
-+
-+	osc32k: clock-32k {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
-+
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-@@ -20,15 +34,6 @@ cpu@0 {
- 		};
- 	};
+ 	/* Allocate and init firmware context. */
+-	fwctx = devm_kzalloc(dev, sizeof(struct ipu7_fw_com_context),
+-			     GFP_KERNEL);
++	fwctx = kzalloc_obj(*fwctx);
+ 	if (!fwctx)
+ 		return -ENOMEM;
  
--	/* Base bus clock and default for the UART. It will be replaced once a clock driver has
--	 * been added.
--	 */
--	uartclk: uartclk-26000000 {
--		#clock-cells = <0>;
--		compatible = "fixed-clock";
--		clock-frequency = <26000000>;
--	};
--
- 	timer {
- 		compatible = "arm,armv7-timer";
- 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-@@ -75,18 +80,87 @@ uart0: serial@131000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x00131000 0x1000>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&topcrm ZX297520V3_UART0_WCLK>,
-+				 <&topcrm ZX297520V3_UART0_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&topcrm ZX297520V3_UART0_RESET>;
-+
- 			status = "disabled";
- 		};
+@@ -76,10 +77,9 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 	fwctx->num_output_queues = IPU7_INSYS_MAX_OUTPUT_QUEUES;
+ 	num_queues = fwctx->num_input_queues + fwctx->num_output_queues;
  
-+		topcrm: clock-controller@13b000 {
-+			compatible = "zte,zx297520v3-topcrm", "syscon";
-+			reg = <0x0013b000 0x400>;
-+			#clock-cells = <1>;
-+			clocks = <&osc26m>, <&osc32k>;
-+			clock-names = "osc26m", "osc32k";
-+			interrupts = <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 43 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "usb-up", "usb-down",
-+					  "hsic-up", "hsic-down";
-+			#phy-cells = <1>;
-+			#reset-cells = <1>;
-+
-+			reboot {
-+				compatible = "syscon-reboot";
-+				mask = <0x1>;
-+				offset = <0x0>;
-+				value = <0x1>;
-+			};
-+		};
-+
-+		matrixcrm: clock-controller@1306000 {
-+			compatible = "zte,zx297520v3-matrixcrm";
-+			reg = <0x01306000 0x400>;
-+			#clock-cells = <1>;
-+			clocks = <&osc26m>, <&osc32k>,
-+				 <&topcrm ZX297520V3_AHB_PCLK>,
-+				 <&topcrm ZX297520V3_MPLL>,
-+				 <&topcrm ZX297520V3_MPLL_D5>,
-+				 <&topcrm ZX297520V3_DPLL>,
-+				 <&topcrm ZX297520V3_GPLL>,
-+				 <&topcrm ZX297520V3_GPLL_D2>,
-+				 <&topcrm ZX297520V3_GATED_OSC26M>;
-+			clock-names = "osc26m", "osc32k", "ahb", "mpll",
-+				      "mpll-d5", "dpll", "gpll", "gpll-d2",
-+				      "wclk-osc26m";
-+			#hwlock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		lspcrm: clock-controller@1400000 {
-+			compatible = "zte,zx297520v3-lspcrm";
-+			reg = <0x01400000 0x100>;
-+			#clock-cells = <1>;
-+			clocks = <&matrixcrm ZX297520V3_LSP_MPLL_D5_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D4_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D6_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D8_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D12_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC26M_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC32K_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_PCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_TDM_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_DPLL_D4_WCLK>;
-+			clock-names = "mpll-d5", "mpll-d4", "mpll-d6",
-+				      "mpll-d8", "mpll-d12", "osc26m", "osc32k",
-+				      "pclk", "tdm-wclk", "dpll-d4";
-+			#reset-cells = <1>;
-+			resets = <&matrixcrm ZX297520V3_LSP_RESET>;
-+		};
-+
- 		uart1: serial@1408000 {
- 			compatible = "arm,pl011", "arm,primecell";
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x01408000 0x1000>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART1_WCLK>,
-+				 <&lspcrm ZX297520V3_UART1_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART1_RESET>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -95,8 +169,11 @@ uart2: serial@140d000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x0140d000 0x1000>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART2_WCLK>,
-+				 <&lspcrm ZX297520V3_UART2_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART2_RESET>;
-+
- 			status = "disabled";
- 		};
- 	};
-
+-	queue_configs = devm_kcalloc(dev, num_queues, sizeof(*queue_configs),
+-				     GFP_KERNEL);
++	queue_configs = kzalloc_objs(*queue_configs, num_queues);
+ 	if (!queue_configs) {
+-		ipu7_fw_isys_cleanup(isys);
++		kfree(fwctx);
+ 		return -ENOMEM;
+ 	}
+ 	fwctx->fw_entry = adev->fw_entry;
+@@ -111,7 +111,8 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 				   &fw_config_dma_addr, GFP_KERNEL, 0);
+ 	if (!fw_config) {
+ 		dev_err(dev, "Failed to allocate isys subsys config.\n");
+-		ipu7_fw_isys_cleanup(isys);
++		kfree(queue_configs);
++		kfree(fwctx);
+ 		return -ENOMEM;
+ 	}
+ 	fwctx->fw_config = fw_config;
 -- 
 2.55.0
 
