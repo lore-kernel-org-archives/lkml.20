@@ -1,38 +1,40 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD00C280035;
-	Sun, 27 Sep 2026 00:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25FE846A;
+	Sun, 27 Sep 2026 00:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790469600; cv=none; b=Y5F5TQEW51Mmz7I3Ye6Th+HLcnoW0WQQxUOrSzMGoBTiZvelMapxKl/WWUboOc88LThMZhrfxVR/l0h7avn0jYMhM8o1pKfZVdJS2EjdpxYLU9jt+FyLl+BoNUdwNV1LHrDTuHnlrsGJO+B63JUgx/X9opAtbt2nLUl8L7qK6eg=
+	t=1790470654; cv=none; b=D8d99eMFIXBuOa5w+guphAOOJ6XBlKCdZRlxbTK/4AHjM5fpbM9RTl3zrF+4F03C1kYZhIAO90fIZOLBMgIanGbG4N+X/fT1oQOx/ShkOH3JE/YAtzWI5/r9jqdqbJMPOaNCe0GR3VHckWwz5LbpgECSW5EHZzUxNoTsFw+Oz80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790469600; c=relaxed/simple;
-	bh=GCzP6euvKpSYuYQThYgcbJ04uTy/NJFMXHRYs7e/a1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WADT/1+LebACT1NYE1pBML9bW1RdKE+BePWCgJPYpCj6SpTieUl5Wy/4k/9sOlZd1sX8lQyQnu4gN7ZAyLx06XGBMZ55j8ZLTyfFCuZ9OGUhf1xb7HruS8BqYefrMA7HDV/zcElyRBpcei/mILhfpj3vJ79RcjT3PVHNDHocDBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Brvy0TWM; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790470654; c=relaxed/simple;
+	bh=kWIOhGRUlAQyfvB6LGJ7tanRtsf+WUVQo1enbwMxuLw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F5nF/nu12ApivQ5SxDdZNYQTGVEfhs9GhSO1fqyTpYoLvNME6EfV3jpfUOg5RlH+40trOOeudKvMotsvW/7NXTVbs/xZSI78ycEDOPoXk7hLXStMGKQi0M18FQN3ycb/iyTkWmKA3omdimyGioSrbDiPM6kiCFdXj/YlV5w4r2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFvrXsK4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Brvy0TWM"
-Received: from seu.edu.cn (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f364003f;
-	Sun, 27 Sep 2026 08:39:52 +0800 (GMT+08:00)
-From: Slavin Liu <bolin.liu@seu.edu.cn>
-To: vkoul@kernel.org
-Cc: Frank.Li@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFvrXsK4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19A51F000FF;
+	Sun, 27 Sep 2026 00:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790470653;
+	bh=mlGblNF0KjkLghO+zmfgnegg8eN2gwMPX91bcyPsmTw=;
+	h=From:To:Cc:Subject:Date;
+	b=BFvrXsK4Z2evgqJht13bk8twZr1rA0W6y6Yaj44gk28lZyGl0o8dM3b5S3YtNlIZO
+	 knkE1+eFF4LZz0OKFCTu57sY7YDLFZ66brfNeEEiMkgSlqeuTW0fXMyrPqo4NIxJy0
+	 2cEv1Hq+MtNqi4xsqMjNkDIqi/QZUaXZX1kzGrWynoipmap3GGaYp8fSr+9dbPX/OW
+	 fFETXxYRJmchojdxtrMcryp8iABdQFNRJskE740OCGbnbCP8cTZnEYnCViv800SUnA
+	 V5zSw/KKRU8PZTO4dOxNhjEsSBCiZtm7oEDeNu0rERl5d7Dku1IYwTqSYYXeT3e8sg
+	 rjZX0B6Vm/HLA==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Andreas Larsson <andreas@gaisler.com>,
+	sparclinux@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
 	linux-kernel@vger.kernel.org,
-	bolin.liu@seu.edu.cn
-Subject: [PATCH 1/2] dmaengine: sun6i: Fix use-after-free in slave sg LLI error cleanup
-Date: Sun, 27 Sep 2026 08:39:50 +0800
-Message-Id: <20260927003951.11210-1-bolin.liu@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org
+Subject: [PATCH] math-emu: fix wrong word index in _FP_FRAC_CLZ_4
+Date: Sun, 27 Sep 2026 02:56:30 +0200
+Message-ID: <20260927005630.8202-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,56 +42,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e04dd51403a1kunm4a399e5a199cc7
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhpMVk9LGhgeSkkdSB9NQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Brvy0TWMlY4NSwnTMHliFyYzDnDuLaujYzQdtIlfTpcArAwP+aDFVpeDSoLCV8fTtJmFYS5BK0SMFRe/s4EnHabAeRUjiMGATmVZ3JtbkVAFRc/YG45+dVd68Yt3PmyMIs4C5bLBhWpwxam39Xte9r9vAoOUvcGwtKIlCGb3IvQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=EPZVT0iLAUIySdD3wN4FpEinf/bsqEsqXSgFqjUbfTg=;
-	h=date:mime-version:subject:message-id:from;
 
-sun6i_dma_prep_slave_sg() chains one pool-allocated LLI per
-scatterlist entry.  When a later dma_pool_alloc() fails (GFP_NOWAIT,
-so it does not wait for reclaim, making failure realistic under memory
-pressure), the err_lli_free path walks the chain to free what was
-built: the loop body hands the current LLI back to the pool with
-dma_pool_free(), and the for-loop increment then reads
-v_lli->p_lli_next and v_lli->v_lli_next from the memory that was just
-freed and may already have been reallocated.
+_FP_FRAC_CLZ_4 picks a word by testing X##_f[3], X##_f[2] and X##_f[1]
+in turn and counts the leading zeros of the first non-zero one. The
+X##_f[1] branch passes X##_f[2] to __FP_CLZ, a word already known to be
+zero, so the result is 3 * _FP_W_TYPE_SIZE - 1 whatever X##_f[1] holds.
 
-Cache both next fields of the current LLI before freeing it.
+Normalizing a quad then shifts by up to a word too much whenever the
+leading set bit falls in word 1. sparc traps every quad operation to
+do_mathemu(), so hex floats parsed by strtod() and scanf() in ordinary
+user code come back wrong.
 
-Fixes: 4fbd804e009a ("dmaengine: sun6i: Fix memory leaks")
-Assisted-by: LLM
-Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
+With this, the affected float-parse tests pass on a SPARCstation 20.
+The wrong index has been there since 2.1.97.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- drivers/dma/sun6i-dma.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index 7704b016aed8..025a43d0298d 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -790,9 +790,14 @@ static struct dma_async_tx_descriptor *sun6i_dma_prep_slave_sg(
- 	return vchan_tx_prep(&vchan->vc, &txd->vd, flags);
- 
- err_lli_free:
--	for (p_lli = txd->p_lli, v_lli = txd->v_lli; v_lli;
--	     p_lli = v_lli->p_lli_next, v_lli = v_lli->v_lli_next)
-+	for (p_lli = txd->p_lli, v_lli = txd->v_lli; v_lli;) {
-+		dma_addr_t next_p_lli = v_lli->p_lli_next;
-+		struct sun6i_dma_lli *next_v_lli = v_lli->v_lli_next;
-+
- 		dma_pool_free(sdev->pool, v_lli, p_lli);
-+		p_lli = next_p_lli;
-+		v_lli = next_v_lli;
-+	}
- 	kfree(txd);
- 	return NULL;
- }
+Notes:
+    - _FP_FRAC_CLZ_4 is the generic 4-word helper in include/math-emu/op-4.h,
+      which is why LKML is on Cc.
+    - The checkpatch error "space required after that ','" is the
+      surrounding soft-fp idiom: every neighbouring line in op-4.h is
+      written __FP_CLZ(R,X##_f[N]).
+    - No Fixes: tag: this has been broken since 2.1.97, before the git
+      history. checkpatch asks for one to go with the stable@ Cc, but
+      there is no commit to name.
+
+ include/math-emu/op-4.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/math-emu/op-4.h b/include/math-emu/op-4.h
+index ba226f8237a6..429c8f5cbf8a 100644
+--- a/include/math-emu/op-4.h
++++ b/include/math-emu/op-4.h
+@@ -170,7 +170,7 @@
+     }					\
+     else if (X##_f[1])			\
+     {					\
+-	__FP_CLZ(R,X##_f[2]);		\
++	__FP_CLZ(R,X##_f[1]);		\
+ 	R += _FP_W_TYPE_SIZE*2;		\
+     }					\
+     else				\
+
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
 -- 
-2.34.1
+2.47.3
 
