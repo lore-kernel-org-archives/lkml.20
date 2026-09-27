@@ -1,264 +1,116 @@
-Received: from out12-174.antispamcloud.com (out12-174.antispamcloud.com [185.201.16.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12AF3B9931
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.16.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AC73B9931
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541295; cv=none; b=qkfsfXcDvHSNbQgv49knN4RcBesUf+I65qEFtf0tmfPTWJkUh8wNcu3wqnQUqAxfRk3lXaLGHxBIwVFbDzwEsPrUJNy+BlhEq2CGrvgC45eLGFLjMl+iueS/87uieyBbKhbD2lehMr55P6OOdFr5PO3ZYYbuQ8a7iktnjz5YpHg=
+	t=1790541305; cv=none; b=LY4KThwPdVQUkWyH2xwcbgb+f1i8M2LpaaOYGV2EqKYKi59YgXZnAJmaelWqWMQhf1AmXL5TtVuqU0btU4xGdg4Qgk2aq2ZZjJ6j4YIITEWkSRFVccy1FP1eiM+7NVNyW42yOXMA32r6lCImwwd/ynf/yG8hfPNAdSsmfESZ1lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541295; c=relaxed/simple;
-	bh=xsHe8rDyTpbHhOP6MTP7JPbUKGLGUm5eujXlLIRhsMU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cf5Ieh5piMsL4ax0UfGwNNmmnCc0+tkaAYJOmbXyzgjGkiBUx19rAm558erNNH4SxTd80f69d13ibho29l3VavkQ3fL8sPs1VJsfxD/6OvADas14tVYztPc+0EE7eJGmYfHI2nBmS/uXL+KpaKE15+Q6Emae2tixEUL8vekh1Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=kMIe1YC3; arc=none smtp.client-ip=185.201.16.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1790541305; c=relaxed/simple;
+	bh=3bIzl9Orz+VX8c43Yu1CKKnUt+5gibYznMOCZRoI80w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GoBsCsS7oUDPAiHDGW7iLwdU/BOhpdG3uCtRxHeuj3XAFrHECePvH0/lZLeK/ApGC0cfJUd5g6FnOGmilxmPrBamfjNqZR4ak6h1xcvGWV6eIzkqpJP8s9OHeOWIZjEa6O9P49hcXIH13GOUHGpsLQObdDUZrLPgssLSUkobR+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoVQZniU; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="kMIe1YC3"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx321.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1xAud9-006i4J-Br; Sun, 27 Sep 2026 21:33:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:Message-Id:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=eYn3yUQGUXnIYiDWdziiC+KrDZkUHHUq1uCuWFnAodI=; b=kMIe1YC3zf16GpJHHEoe5K07tr
-	xaMinBv1gwcpHOKMQkhN4k56bDcGIs1nqIg3L93QY9dMoZpgZlGPYhuhnoP8GXhugL3F0GekUuZMp
-	i0XNKpssSTEIMLjVr9w1gkeym1Oap66+IImlP7ymfKfZ1KXKTV1xpd4HanVTksd5xmIWp5CXNpF7j
-	ZtAo0RD7Qa4GrpJ9DotQJ6aBFBOxqRE7M4sJT5BQqCQ8W0DQpRyYMvRZn9xifm7D3938DleKn+tpf
-	GGV9Vm2Yi0U+0KLcyo5DPDLYb1mSyhHFmUhUJd4oa/+tSJtNrHhSdaGWObAxxEiqxpUydKoEcBgnj
-	fDcpfmrw==;
-Received: from [188.251.249.2] (port=58472 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <dan@reactivated.net>)
-	id 1xAud3-0000000GfmQ-2TT0;
-	Sun, 27 Sep 2026 19:33:41 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Sun, 27 Sep 2026 20:33:01 +0100
-Subject: [PATCH] drm/vc4: Set DRM DMA device directly from HVS and V3D
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoVQZniU"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bd71827eso1265722a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790541303; x=1791146103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+5sot5gf02iW9KatLlMM7GFUIn+IJuBNvzHGlsRj0G4=;
+        b=WoVQZniUiYchS5zR0gwiWbRdhd9PoI4CiG5iCuczHs4ldignNhEFTIvWEAC0sot3MS
+         ZpQMxNYlA+Lfph6DvpvI8EKc3RnQ2GsrrXyx5OwWT7zgtvxz0C6NULwueJ7Tz36iacY1
+         uqFVvl6cbwsL7YnIQ1zM35kjwLbwmCUfkBiZtzgVLYtTk9/512UW2tjD+W2ULrpsgUCX
+         B/RzdZixxh5YItyIUwnVCrV60ZmVob7/zH7k1FHSk0mZFdLAxy4BbNO4mbGsvWSZwtsZ
+         oTfW3jyN2KqXFaNjSaAZzYXCCmzhpuB/wxAtbimNKJTVCm1RRWQQzGnLrNkp5M4pPS1g
+         z+1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790541303; x=1791146103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+5sot5gf02iW9KatLlMM7GFUIn+IJuBNvzHGlsRj0G4=;
+        b=nz381EaR6Chm0aWs2MzZhGTm0gfsbWX1qiMv55loOCDyY37jf9aQN6OR6zxFBQB4nL
+         31g3KypevlkLktBkfF991WlrnkiYlh1wSVjaqQdLgHYilUoF+cvT2ONzKGLDnGIvePWT
+         OwLikCnZuZreVvDH1aw0oNrHUAgIReqlynrYCMklTu+pYqmo6/SiWXYQw0gwFtA32D5G
+         OsYAFUFP4/WeX0PB94TrVoayTC9ZdjYhCK5BAImD5yQvV3ltgFaeO6rxXQBQ8P0cYGW6
+         Bkft5MIScTgGjOq/Cd4s6yht1NJJd6ovXPakOaRS+XKC6u0hI/6X/nkexpS8MjyJk/eG
+         CppA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAc7zeRsK9LUM9gChCbsFBBnRARLJ377FH1sK76TKlBjv8OeqjuOqQjf4gDc1Y8ubP3nZif+NO9r4mjVQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkEHt8FoS2E9wRAu//pWxKS+M7XZHwl6ZGY5tMF1lC5Oijf+0z
+	il8jQJqg0LA1kiWYNdGynoSPmTl+CrCWb/FNRUFjjyoc2Y8kNaiNQsOI
+X-Gm-Gg: AYBFou1rjEQ2C+b2zPc8h9A9cknaL7MTHxMZvVlZMeWEGJKRataeN+NLIXmzOv4aNDo
+	SZqerUFyuvpJlj2/ha14bWimro46gw8KKiL2P1YTO7wqvGE6QhPk1N8NB/XZj/HtlDDvetZf4CC
+	yjoHs44M7Rxi/Vv5tDo01T49l/2ikz1vyOWikRHU09s00vkuDDRJ4eVIGcAePYwLOQTF8fqJVcc
+	h4V8au48JLPejH2aDDFW1oSGFaEAdCCa/XB4UliaNMeF9ZYobYRV1kseW/iHgotRoq1fH3ZJkQO
+	JByUudnW2L0SSGtLAkid+falk4Dl726csVH7c5f6Da0hmwlOYLcGfx6F6Kwq8bsD2bnFlqsAi0Q
+	kjdSli33RGGEfhJt9mJsdi4VE0RftOXqRJFk2bEVqF6ak76bkQV2mpYMyNUZAE3jyjccXBzC32C
+	yHU3/cJK/SQRXK8m0TkBqaOx8H39aMAoS9HgpCe4rUPfNgOmI4+CXJzj5Gdu1PT6TLQFwOkif4/
+	x9bnPt4hkYBQDGRkAlVkV0/zoTHqDRZpRk3zQ4aUmHiXUZd0ypnr2hlz89/PmQG5QMpmxlHom71
+	VOluRMUn3RsRTF4fxmnbRLXHwIp7NIyMAxfyVS1DhWggcfno
+X-Received: by 2002:a17:90b:53c3:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3a09896a5a5mr9550874a91.47.1790541303373;
+        Sun, 27 Sep 2026 13:35:03 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09773e7c3sm22752416a91.17.2026.09.27.13.35.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 13:35:02 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-serial@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
+Subject: [PATCH] tty: serial: mpc52xx_uart: move static declarations up.
+Date: Sun, 27 Sep 2026 13:35:01 -0700
+Message-ID: <20260927203501.14105-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MuwqAMAwAf6VkNhAztOiviENto2bwQQsilP67x
- fHg7gpkSSoZRlMgyaNZr7NB3xkIuz83QY2NgYktDewwpgPj4TE2OQgyurAQ+dUx2QFadidZ9f2
- X01zrB0ZakfNiAAAA
-X-Change-ID: 20260927-drm-dma-device-2-7cb00af72069
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Daniel Drake <dan@reactivated.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5087; i=dan@reactivated.net;
- h=from:subject:message-id; bh=xsHe8rDyTpbHhOP6MTP7JPbUKGLGUm5eujXlLIRhsMU=;
- b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquW+S/luswFlO3g0gETB4ea7gCB8sOyNf6UY8h
- hvEnJt1lkCJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarlvkgAKCRDD5o+xUxRH
- u9EiD/0Z+vPS4fkcJqEDP3owzTvQZxVv72AttdZggD5/6TW5J6Q3FThmTUUH5iqaWjoHivzRnUa
- WE4gs1cDA0T39XSRghYykx2GRxh1QsTTkk7RsibP57ZbMAvLGkab4oJpGKjKgdeMnS+YyleD5PW
- svnF9FuUlamIfG27jzg64H182RysSRCxWPp1U22bfT7Kp3Z9VxpVviAtKZgVyia3nc+A/WB5HiS
- +C60O8YM4HukRWzducWS1RjCtRY6PiST3OQQ9m9WZedGjpZCBambIt2EwlM0QTsKCQ3KZQY3aeM
- zlWukTl+r+mS0UD55zHax2RrdIqvmhACqRI4kYcGrz5U9clqvxeCdZK/Cg2ZLNcWYN1LFtDFCGt
- ZKM2ZIeWzWToAeHY536bbqt4KG0o64uvf8U7rt8fU2YUxXQQAReOvspNTptJ+Enaqn6IoRlzWyh
- 8BK7aYzuz+D4MiIFGpEvj864bO75kubDvG3IciZM/RXKvWhjVBGDlVquaYRGV8F4tpnQk3pd/iA
- VeSbBmF7hN3XsrKMaqGsEsDRxEckn3SBmT4fzWhAp2BrI7y2upn1x1mYtxrxLGCZsVm0dMUEYK0
- lkeOPuM5W6dacShIo1YpkEn3LPa35HKMPDWBzkly+skXWPIX1A4Q+BI2Qnj+075/RoGnFLFUaHS
- 1l92MXeHiktZuuQ==
-X-Developer-Key: i=dan@reactivated.net; a=openpgp;
- fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (1.32201094524e-05)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuXaJbTqORSf8QPiiM91bDATa8pwdu0nlUtr
- v9yIzvpSsyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIPVMT93NoonounRkNyQ2LDLGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhb7ubyJcscJCC/8jhyq4eIIJWBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyrUaAnpoZ
- /2xtMtxefNLu7JERMeTgzFM97lqhSb1E3HMfLhaNlCBHzdFUdSuISaD+qfPp90TT+Pu+PDzsy9Db
- OpdwaC8qXZJdLAQDkwdJb5PTjlyEp834Uy5Cj2c5xTC3gJSz3Pb41oMWxWVAbzvbVkuf+eM3l5KP
- nbp/eQthjVO27qEN0i3uPdiiOcxb1W5yo97g3BbiTfWFUNY9PPQFifTCzuiwroezwaLJe7DuyROO
- r+K2JQ/RNOlnkgfwIFDd3XNhc7IqYUIgVggaPkXaIHzSipCF/9owBYArmW2JA+qetIPamnBS2qPX
- 0YW4FkjLRw0lRJ7b6p62pxxRod1wrBC/x3Ws3N9QKU7baUkidxrLn2JFvTwxw2rUoW840DiKE00o
- 4HcXiVlmqq7rjtmnPPvgN0j5Zjdo7lug1QoDSvrYNiHnrwo3MxFvlFv7ce8Spf+GMZJk67EtLxTr
- EHBFDDaVxo8uvMBjbuQvf6VNVyYoAi8Uc2oZx8hUUuy5epJAJTBivmuTWFpVYNhpSn7kRHMcN6qo
- XPjenLhIOF1oeRb/UAjtSdLUCm4oBscLM8kn2urBX6LyohhIXmM/9zzJ6C1JFZpT4XAXptlUCUDa
- dEg8fvDJlqs+4uVSxCZaxD168J7ArISHgc1ouiDb0lGY3htzeHnKxaPb82JYf6EvQqPTPpuFqUUQ
- z+mM8JAD4ECWUEmmlTt39YF6tMVf4ZbCsLPTDm9x1wcjenLcvy0+pYBTkP/qV+1a5UVM8nkKOUP3
- aKRYvBPrgzKAmkPQnJU9b1J75UPCuRu+8KylPX+NAXplE8tcUX6kZr3+Ob4JcQTWeXW8oEyu47TQ
- DqTi6GKwcPGM2dTl3QCYaxBp/L42XX16l+mke5pNa7TIOj7iFBj9MkiPhSHaQZlugDaDyn+fTA7j
- SeBK0owOZo/nKKA2Y8v1MU62oe4qNRYfW7XcddzgZJ0Q4x+0GOxZvoENDONKwfMsKvKUfj3CUGQZ
- VNqeRfoLADSib5OZB5Y+uxAGfYgWMkiPhSHaQZlugDaDyn+fTEvwYiZNmk2q0LoKDU23xXc=
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+Content-Transfer-Encoding: 8bit
 
-vc4 uses of_dma_configure() during bind to set the DMA configuration of
-the drm device by borrowing the configuration of one of its component
-devices.
+Avoid a compilation error so that they're not used before being
+declared.
 
-This violates driver model expectations that IOMMU probing and domain
-attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
-Get DT/ACPI parsing into the proper probe path").
-
-With the introduction of the bcm2712-iommu driver behind the vc4 hvs
-device, a warning is triggered:
-
-    vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
-
-Instead of configuring the virtual aggregate device, adopt the pattern
-used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
-register themselves as the device to use for DRM allocations via
-drm_dev_set_dma_dev(), provided a DMA device has not already been
-assigned.
-
-HVS will typically bind first and claim the DMA device. The gen6 36-bit
-DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
-older generations, vc4's v3d component continues to be available as a
-fallback, and the default platform bus 32-bit DMA mask is retained.
-
-Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
-Signed-off-by: Daniel Drake <dan@reactivated.net>
+Fixes: 4d105880666a ("tty: serial: mpc52xx_uart: add bounds check for psc_num array index")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609260356.tJWbd1WU-lkp@intel.com/
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/vc4/vc4_drv.c | 27 ---------------------------
- drivers/gpu/drm/vc4/vc4_hvs.c | 14 ++++++++++++++
- drivers/gpu/drm/vc4/vc4_v3d.c |  8 ++++++++
- 3 files changed, 22 insertions(+), 27 deletions(-)
+ drivers/tty/serial/mpc52xx_uart.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 616caf9d9915..62f1a5731e33 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -273,16 +273,6 @@ static void vc4_component_unbind_all(void *ptr)
- 	component_unbind_all(vc4->dev, &vc4->base);
+diff --git a/drivers/tty/serial/mpc52xx_uart.c b/drivers/tty/serial/mpc52xx_uart.c
+index b566206f42a2..472ec39caf27 100644
+--- a/drivers/tty/serial/mpc52xx_uart.c
++++ b/drivers/tty/serial/mpc52xx_uart.c
+@@ -634,6 +634,9 @@ static void __exit mpc512x_psc_fifoc_uninit(void)
+ 	}
  }
  
--static const struct of_device_id vc4_dma_range_matches[] = {
--	{ .compatible = "brcm,bcm2711-hvs" },
--	{ .compatible = "brcm,bcm2712-hvs" },
--	{ .compatible = "brcm,bcm2835-hvs" },
--	{ .compatible = "brcm,bcm2835-v3d" },
--	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
--	{}
--};
--
- static int vc4_drm_bind(struct device *dev)
++static struct clk *psc_mclk_clk[MPC52xx_PSC_MAXNUM];
++static struct clk *psc_ipg_clk[MPC52xx_PSC_MAXNUM];
++
+ /* 512x specific interrupt handler. The caller holds the port lock */
+ static irqreturn_t mpc512x_psc_handle_irq(struct uart_port *port)
  {
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -295,8 +285,6 @@ static int vc4_drm_bind(struct device *dev)
- 	enum vc4_gen gen;
- 	int ret = 0;
+@@ -654,9 +657,6 @@ static irqreturn_t mpc512x_psc_handle_irq(struct uart_port *port)
+ 	return IRQ_NONE;
+ }
  
--	dev->coherent_dma_mask = DMA_BIT_MASK(32);
+-static struct clk *psc_mclk_clk[MPC52xx_PSC_MAXNUM];
+-static struct clk *psc_ipg_clk[MPC52xx_PSC_MAXNUM];
 -
- 	gen = (enum vc4_gen)of_device_get_match_data(dev);
- 
- 	if (gen > VC4_GEN_4)
-@@ -304,21 +292,6 @@ static int vc4_drm_bind(struct device *dev)
- 	else
- 		driver = &vc4_drm_driver;
- 
--	if (gen >= VC4_GEN_6_C)
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
--	else
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
--
--	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
--					       NULL);
--	if (node) {
--		ret = of_dma_configure(dev, node, true);
--		of_node_put(node);
--
--		if (ret)
--			return ret;
--	}
--
- 	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
- 	if (IS_ERR(vc4))
- 		return PTR_ERR(vc4);
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index e715147d091c..305770c87dcf 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -22,6 +22,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/component.h>
-+#include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
- 	}
- 
-+	if (vc4->gen >= VC4_GEN_6_C) {
-+		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/*
-+	 * Use the HVS as the DRM device's DMA controller for buffer
-+	 * allocations if one has not already been configured.
-+	 */
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	if (vc4->gen >= VC4_GEN_5) {
- 		struct rpi_firmware *firmware;
- 		struct device_node *node;
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index f32410420d3e..1f76d4850122 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
-+#include <drm/drm_drv.h>
- #include <drm/drm_print.h>
- 
- #include "vc4_drv.h"
-@@ -443,6 +444,13 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
- 	vc4->v3d = v3d;
- 	v3d->vc4 = vc4;
- 
-+	/*
-+	 * In headless setups where HVS is absent, use V3D as the fallback
-+	 * DMA controller for buffer allocations.
-+	 */
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	v3d->clk = devm_clk_get_optional(dev, NULL);
- 	if (IS_ERR(v3d->clk))
- 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
-
----
-base-commit: 16130ac7861fbbaef5564463a9f6be230e00fb24
-change-id: 20260927-drm-dma-device-2-7cb00af72069
-
-Best regards,
+ /* called from within the .request_port() callback (allocation) */
+ static int mpc512x_psc_alloc_clock(struct uart_port *port)
+ {
 -- 
-Daniel Drake <dan@reactivated.net>
+2.55.0
 
