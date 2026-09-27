@@ -1,86 +1,94 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8343EE1EA
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051C43CCFC3
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790514441; cv=none; b=C+n0HQb63e/wBo44AOnUqFkIDQ5o+mmB009ynsSi7cspF7N4THDjpvnPugx3g3NzesP/mRzt+w8iP1sXGbdCOonZaSeXWlwrHojb6NKuD+ZhddT6mcZJPk5NR3tBf+ZCNYKxgmXTCuCxXUBXbloYwqHDQ3pA1OS3pLfoU9ulcXU=
+	t=1790514468; cv=none; b=djdu0ScXmkFMv9JnNIqoQI7PBnBjtm8YZ1vi5YShpdgg/tE/zhWD9D5MBVP4V7egT03bv7sl3X1Z/J6P0zR4GS6QfXteH2L5MXrdi1hrud3DpsI64v++Wkoce7/UOiKW/M2Hplvpzq9+KeMzE/ND3JbjJvfeDhJp9hw68jlD3dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790514441; c=relaxed/simple;
-	bh=h7EyZ6ondBhsjAzfJeVCoPSevYU5WBM/L8a3d5KYL50=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JjSJxfWisPNQ+9ubyJFym71LSawi03yTksKpLnS0UNRLV+bJsgOOITHlOnNHdu1rov6znK2k+CT5uAhyq+fq5cGL61ls84sZXriJO2ZECb2lz//k9xioeTXWrKRNMBB5oL9YlQN+oEnBDdXJ6o7lfF18lz2KXbO9qphwdawl5J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qM5qjiAF; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qM5qjiAF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=nJprDaPp0Q7y0vJ393VOXwCA6lIV5UlOiphyQi69t00=;
-	b=qM5qjiAFNKajjJAoDRQU+xvEzzKcXmuk92m6WVJJGj0aXrST7u8sacouFpm2Rb
-	51h1qBphu92Li/LWqGqO6uPjYuBEJlSh3Gk1ym3eY79OINyfdPXwqtg9hUGmpmZl
-	8ZeObspz2pFzs6qcaYynSwqPo5sq3EsSeEsx5SxX8JtoI=
-Received: from [IPV6:2409:8949:6ca0:7910:556a:2884:1c35:3923] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDnT631FLlqApXoBA--.11086S2;
-	Sun, 27 Sep 2026 21:07:02 +0800 (CST)
-Message-ID: <46ec6087-6509-4ba2-a98b-807dfec5f5c0@163.com>
-Date: Sun, 27 Sep 2026 21:07:01 +0800
+	s=arc-20240116; t=1790514468; c=relaxed/simple;
+	bh=1uiG0hCYE+z7l383p+gzPYX4rP0Xm59TyzGU+LUo/go=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QUVVj6LQR/xj+hhN9xY2nXscyIRzRc4JhAZBnJD31/OctbfqLrQFzm1s01w76K8/EMMFKZAX66GDZn8D5BdzE1Fe4Xc74C21Km2p7lHk6CuX9Vpgt6x6WdxKno/FHboCADaSMv6VAIY4ywxAxvsmR4teSP4a6kQQVssue8HkKVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so4253979b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:07:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790514466; x=1791119266;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=k/J+DlpS5Ec8nlKW9XpExUuS4z2T3hRM8foEp6+Ax6s=;
+        b=sr0FOKtrEMKhIEv5DkKAU6S1FaOVRGzZ+frcS0dfOklakC6clozRiS9sH+1o+4REey
+         iBx+pT9VlDbWfeAVaNnNIzD3kSb3Wl2fEIA8lHe0Mv4dlFl74wsM8jknRYKOB1LV9s+9
+         dPcPFkSHPILTkkqfZ/3G9DNv1yJJykdEbqzWHPpYXY/glBZY6QQxcShap/UaOlNvKg7B
+         PgsAFis41Pyf8Oxjhrsvg7Ge1lJJNqIoXiorx8/7HPPeURtHzfaOo/1D3wN1CZmsUWm+
+         6p/ayNbqaeqmcvZzsB96cDv1YCXF4U5uCivW4AFRCU2oRQVBe163+RdffCLmzPZOKN86
+         7ZRQ==
+X-Gm-Message-State: AFuF++lmVqku3buWYDH4FVChvYpWQ7UCoAPmTL+5BaDW/X614q8TOBiI
+	0Da+LPPl+xuCZUSh8W3LeHowwz+qfcjuTndbV6VGdpN9rRjZL2Ac1+HEBZgWxO34bIa0swW9utW
+	WPduVa7ABnUFa5PMpeRCBu5ARoy47JBCWY8qvGXzJP6vKttmff9H0T6+7E9Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] ntfs: fix the undo path of $MFT data extension
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260927105706.3111333-1-matthias.goergens@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260927105706.3111333-1-matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnT631FLlqApXoBA--.11086S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7JrWxJr43Ww43XFWDJFyfXrb_yoW8Jry8p3
-	9Iy3s8Kr1qqwn2g3ZIya18Kr1Sga1fAw45Grn3Xw1xCr98JFyvqr10kF1Yg3W8trWxGay7
-	JrnrJ347uFWDAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uzc_hUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhZLFmq5FPbb7wAA3M
+X-Received: by 2002:a05:6808:3c48:b0:4d6:90f4:48ab with SMTP id
+ 5614622812f47-4d72e66505dmr10526667b6e.45.1790514465937; Sun, 27 Sep 2026
+ 06:07:45 -0700 (PDT)
+Date: Sun, 27 Sep 2026 06:07:45 -0700
+In-Reply-To: <6ab10ffa.a6af0033.177e91.0014.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab91521.80e1c6cc.1e8e5f.0059.GAE@google.com>
+Subject: Forwarded: [PATCH] Test for a forgotten shrink_stripes in the grow_stripes.
+From: syzbot <syzbot+6a132745caefcf42cb0d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
+***
 
-在 2026/9/27 18:57, Matthias Goergens 写道:
-> These fix two bugs in the undo path of
-> ntfs_mft_data_extend_allocation_nolock().  Patch 1 makes the $MFT
-> runlist locking there consistent: a map_mft_record() failure leaks the
-> lock, a lookup failure in restore_undo_alloc releases it without holding
-> it, and the clusters are freed and the runlist truncated without it.
-> Patch 2 fixes a use-after-free of a pointer into the runlist across the
-> truncation.
-> 
-> Both paths only run when something fails while $MFT grows, so I tested
-> them in QEMU by forcing each failure once with a debug patch.  The
-> debug patch, the test scripts and the images are at
-> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-27-ntfs-mft-extend-undo
-> 
-> Thanks,
-> Matthias
-> 
-> Matthias Goergens (2):
->    ntfs: balance the $MFT runlist lock in data extension error paths
->    ntfs: do not use a stale runlist pointer when undoing $MFT extension
-> 
->   fs/ntfs/mft.c | 63 +++++++++++++++++++++++++++++++++++++++++++--------
->   1 file changed, 53 insertions(+), 10 deletions(-)
-> 
-> 
-> base-commit: 259abb551e2944998cad4214c201954ab1ac5c8d
+Subject: [PATCH] Test for a forgotten shrink_stripes in the grow_stripes.
+Author: nsvatoslav515@gmail.com
 
-The series looks good to me.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 6812ce4e4379
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+ drivers/md/raid5.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index b91545ce090d..326409ca0cfb 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
++/// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * raid5.c : Multiple Devices driver for Linux
+  *	   Copyright (C) 1996, 1997 Ingo Molnar, Miguel de Icaza, Gadi Oxman
+@@ -2441,9 +2441,12 @@ static int grow_stripes(struct r5conf *conf, int num)
+ 	conf->pool_size = devs;
+ 	while (num--)
+ 		if (!grow_one_stripe(conf, GFP_KERNEL))
+-			return 1;
++			goto err;
+ 
+ 	return 0;
++err:
++	shrink_stripes(conf);
++	return 1;
+ }
+ 
+ /**
+-- 
+2.47.3
 
