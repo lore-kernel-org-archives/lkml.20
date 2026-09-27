@@ -1,163 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9493BF660;
-	Sun, 27 Sep 2026 20:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B5837F8AF
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790542658; cv=none; b=o3n7X0sGyVjzmp9Dh45aQT2RrelHMFLWvIBArdQXhxprfTcWKgpvigUWmsMkrbgShmQjQtY3TVNH1F2yJGCy3/J/hTuG/WrZc1AUW7eWdSSmWU14gAd0hWKqNJpQj/oZuh/6CsgRQEtPHtNaWL08BKP9eKvbm5dE1NkBZrtZjUg=
+	t=1790542813; cv=none; b=PLdrRwpuHD+hj065s9kBP1ubJ0sAQ2i662WAlU65grJHnmbE2vMOdEoqxrJrf62PChbXkGkGkuTls2EyU/+yVqFJI8eYGNfIgysgR3SoAUtDHTE5mQSN926uUIrHMvSQvYw+jf4h0HhBg3jLsA5VEeV5CVO6hkx7RUzQBxf7HO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790542658; c=relaxed/simple;
-	bh=RleQXdpB5ZueJ69MezIw7yL8mGr2Pe7FgscAEcaANko=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d5pVYwM2VCiY80YPHv/G80aVjo85QRRgePig10ibEjpMezMntYr9EGzAOrtkk8VFVKjTYxCpFD6tWbxPjkUhrDDa0QaeQ5NNfj0l9DUJWHhJM/SX1MVaBtjbSVQy1Enl60V/ZGSX1gzJsu8MTLVgIAMcwT3Sf58rOv9GTayj9ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aB1wPB6D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790542813; c=relaxed/simple;
+	bh=G2oUcl4PFuECTL7Wrpefi90ylipzCMBA/vio+TVO4HQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=qJUKuP+JTW40YhkDz/2JbvbMIWPLu4Ieb+x4+rHmVCbSdv+Ykr/8bUCpnUh48/LvYo+iW/H4M27ULijieH8Ff8CGbfAOu7mt1wRDLVUpn5fTFNCrpXYe958FCBg27g+BQASXWrzbvOmkbEf9VcW/Myz0YYyokgoFPhKPvlxsL6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=mvIk9pMc; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aB1wPB6D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAB41F000FF;
-	Sun, 27 Sep 2026 20:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790542657;
-	bh=I28jh/biD+MEPD2Y9VJQxbmMBNAfGj6du8SxptmJs8k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aB1wPB6DFtaSl6hQFueqgccOIDlqpF6JUlUl/M9juCS9lXa7hwz+bq3QCNEi6EFcR
-	 dTv4pS6CNhAHvbF2FLtbzW2baGfkQQEX+MEGLvBckWqbPfQ0v3Fe2xrtyxyoLxZ4ED
-	 jwnC39VhnxD1C1D4ZtZIpRnKdfKxHSufC4OrVRU3tGXOs/kQJnJECWiFl/Fqve4YT4
-	 9KlpZx6lh+a21owVMqTfNtlgw11MFaSuG3o49qHBMMEB9Uwuo0kC3JQQyfBLgst+TM
-	 5aNhyXkKWLr7Rg/JH8lRynrqm2UhIwLBSmUDJDOns3kO3JUfrcDspV3uGuLc9XnhaK
-	 8FHjxwYpzuoWw==
-Date: Sun, 27 Sep 2026 21:57:31 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Sanjay Chitroda via B4 Relay
- <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Cc: sanjayembeddedse@gmail.com, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Jiri Kosina <jikos@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, Benjamin Tissoires
- <bentiss@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, Zhang Lixu
- <lixu.zhang@intel.com>
-Subject: Re: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
-Message-ID: <20260927215731.59fdb69b@jic23-hlaptop>
-In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
-References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="mvIk9pMc"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so7889595e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:00:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1790542809; x=1791147609; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
+        b=mvIk9pMcmF/eoSKyOQNUNXVRwuDcWeZMzIBthXsDBkf+q+dEkzkyD8+ch2buQsB0/T
+         owvU5qY5AobLL5aHYwK58mA/NA2iPOddJOprjf/tVVN5gryy5yBCAOWtkxgPbP4ZnWSZ
+         pb0NiEitsJt0Q7WUtLr/PR7ymVOWL1qQ5SZtvL92oruXlrRNaPc5npWURrKpfGS6bT0J
+         wqf4MnTSmZtz2fjVkLl67Yjf/lRhpS9dfQZNXtpafrBCD5r0mS/Lcv7FbL6ONrk6bfh+
+         ZqczdNFyfdYyn/pzVTYxPDjCj4lbwU2HNxrDCQd3iV6MUkRoUJdFeRfDlImDItCmFN5K
+         2mrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790542809; x=1791147609;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
+        b=rkGs0bZ6QMwgovfjKfqP4RXFcGA7amMzPrlGiIZzHeMelWg3QpNX7sYCaDzTPqEQtS
+         firDE4+ph/o7e+Ec0xdiFpfTUN9IivqaYCWtsKL70I7ScLV+5rR52opn5aG26XeQidoN
+         0rLDVGDCvD0ol2QP/7UAKMWBRH9KfkZoc/SryUc0Ss6SdObUNR51J1Hfx/zVEzWshw9I
+         n97CdmaH8FEelwMmv/RPTQQJv64NQq+ywAT+fgsYD++LKZ53O+OvTp0kB/UKyL4tZXam
+         caHAX/aWf4ey3GFtLgvUpafghTkme4UaJGNX2/ZjU5nInsMOhAhS4k4rcs2NITDwPkfi
+         1srA==
+X-Gm-Message-State: AFuF++mCGOyXC3JEw5RaQSHBRng1KN442OSM508aaDHJmj0B1T83yW2G
+	uYAkMXXlgTQFioxxdKGGVREBJT/NpvURry4wbrCB1j8RHvIj/1h8EbkAPcGXY8HjnSLKBOHCq5D
+	DhhLK
+X-Gm-Gg: AYBFou2cCiZPHotntrO1INOFh+KjRWUi+engE7NKiowJmgfquaa6XvgIJ0hvlPZZWZX
+	Guyk8At1SOzN1PKAVKDUFpSyWP1a+Jz2Usb2wpyeouWfIP9tI5heT2jNrsac2kNXpsk6DfU7G/H
+	w6+kZ+LdWx1ESgMnr3kHzHtZ4dPLRqUGiMsky1QTIAA99MMXSUqgjUGh5h6lGJSUKF7DbvJHmjG
+	jssj8CKrMa2GBQJyPI7yBTomDQ/KVO1DQIOR6/2PrV94Qqt9CWHi78Hl1lefU1ZuPe4rQIgwFvy
+	cr5H5q5EVJ8CLns4thk7JgcFDvFI07bDo8TJVWvKo0t5OGm2SHG8mQmX5VhOR2QyXyo5uaLa1NH
+	pTAYa0m7NNwit+tYe0pB8wbG96rH5lpbgGXAV14Nautb9JVcvW4U8mTue9PvwwO61o66WEU+K7b
+	WRs+3X++WOpg1kH64jBrSPHO/HZWlJ2dXjT93w0gATTwONVrAXgil0bnwfH42XM+FtnOjgd/g=
+X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fe66c8288mr201327785e9.4.1790542809339;
+        Sun, 27 Sep 2026 14:00:09 -0700 (PDT)
+Received: from localhost ([62.217.52.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee6ced69sm146468965e9.0.2026.09.27.14.00.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 14:00:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 27 Sep 2026 23:00:07 +0200
+Message-Id: <DLQEGA48W7X8.21N6R6EPU8C@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 
-On Sat, 19 Sep 2026 16:06:23 +0530
-Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org> wrote:
+Hi erebion,
 
-> Following feedback from reviewers and Srinivas, v4 series was split
-> into two additional sub-series to perform cleanup and preparatory work
-> before adding devm support:
-> - HID: iio: warning clean up and prefer kernel coding style
->   https://lore.kernel.org/all/20260707-15-jun-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/
-> - HID: iio: basic clean up for usage_id
->   https://lore.kernel.org/all/20260610-6-june-hid-iio-correct-usage-id-v2-0-c3c5f0720493@gmail.com/
-> 
-> Both series have been merged into IIO tree. This series introduces
-> device-managed APIs and converts HID IIO sensor drivers to use the new
-> devm-managed resources.
-> 
-> checkpatch reports a "suspect code indent" warning on the DEFINE_FREE()
-> declaration, but this appears to be a false positive caused by the macro
-> expansion. The code builds cleanly.
-If possible, Zhang Lixu, would you mind retesting this full set?
+On Sat Sep 26, 2026 at 4:00 PM CEST, erebion wrote:
+> Add a node for the camera flash LED found on the Xperia 10 III
+>
 
-I think the more recent changes in this are unlikely to cause problems
-but would also prefer to have some more tags on this in general before
-I pick it up, so if Srinivas or anyone else has time to take a look
-that would be great.
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
 
-Thanks
-
-Jonathan
-
-> 
-> Changes in v6:
-> - Following input from Andy rectify kernel-doc for return
-> - With input from Jonathan used devres framework implemetation with
->   cleanup helpder to reduce complexity and resource allocation.
-> - Link to v5: https://patch.msgid.link/20260806-28-apr-iio-redundant-argument-v5-temp-v5-0-f1f92c1d830f@gmail.com
-> Changes in v5:
-> - With input from Jonathan, convert all HID IIO drivers to use
->   fully devm instead of partial or specific API; this is potential
->   goal and validation on that will reduce multiple validation cycle.
-> - Rebase changes on latest iio/testing tree and resolve merge conflict
-> - Resolve mail client issue as v4 series was splitted into sub-series
-> - Link to v5: https://lore.kernel.org/all/20260524192059.1193716-1-sanjayembedded@gmail.com/
-> Changes in v4:
-> - Extend the series to cover remaining HID IIO drivers with devm API usage
-> - Reorder patches to place cleanup and warning fix at beginning and,
->   devm-related changes toward the end based on feedback from David
-> - v3 series -> https://lore.kernel.org/all/20260509101040.791404-1-sanjayembedded@gmail.com/
-> Changes in v3:
-> - Added cleanup and prepratory changes before adding devm_ API
->   conversion based on self review: 0002, 0004, 0006, 0007 and 0008
-> - Address andy's review comment on commit message and coding style
-> - v2 series -> https://lore.kernel.org/all/20260429175918.2541914-1-sanjayembedded@gmail.com/
-> Changes in v2:
-> - Following input from Jonathan and Andy, squash initial patch v1
->   series in single change as individual change should not break anything
-> - Add devm API support and two driver using the same
-> - v1 series -> https://lore.kernel.org/all/20260428071613.1134053-1-sanjayembedded@gmail.com/
-> 
-> Testing:
->   - Compiled with W=1 for each patch in series
-> PS:
-> - Sashiko reported an issue in a different driver and noted that it is not
->   introduced by this series. I have taken this feedback into account and
->   will address the actual issue in a separate series focus on that driver.
-> - Following input from Jonathan, will prepare followup series for
->   HID IIO drivers to consistency support for logs in probe() path
-> 
+> Signed-off-by: erebion <erebion@erebion.eu>
 > ---
-> Sanjay Chitroda (14):
->       iio: hid-sensors: remove unused iio_dev argument
->       iio: hid-sensors: introduce device managed API
->       HID: hid-sensor-hub: introduce device managed API
->       iio: gyro: hid-sensor-gyro-3d: convert probe and teardown to devm-managed resources
->       iio: accel: hid-sensor-accel-3d: convert probe and teardown to devm-managed resources
->       iio: humidity: hid-sensor-humidity: convert probe and teardown to devm-managed resources
->       iio: light: hid-sensor-prox: convert probe and teardown to devm-managed resources
->       iio: light: hid-sensor-als: convert probe and teardown to devm-managed resources
->       iio: magnetometer: hid-sensor-magn-3d: convert probe and teardown to devm-managed resources
->       iio: orientation: hid-sensor-incl-3d: convert probe and teardown to devm-managed resources
->       iio: orientation: hid-sensor-rotation: convert probe and teardown to devm-managed resources
->       iio: position: hid-sensor-custom-intel-hinge: convert probe and teardown to devm-managed resources
->       iio: pressure: hid-sensor-press: convert probe and teardown to devm-managed resources
->       iio: temperature: hid-sensor-temperature: convert probe and teardown to devm-managed resources
-> 
->  drivers/hid/hid-sensor-hub.c                       | 35 ++++++++++++++++++
->  drivers/iio/accel/hid-sensor-accel-3d.c            | 40 +++++----------------
->  .../iio/common/hid-sensors/hid-sensor-trigger.c    | 21 +++++++++--
->  .../iio/common/hid-sensors/hid-sensor-trigger.h    |  5 +--
->  drivers/iio/gyro/hid-sensor-gyro-3d.c              | 41 +++++----------------
->  drivers/iio/humidity/hid-sensor-humidity.c         | 38 +++++---------------
->  drivers/iio/light/hid-sensor-als.c                 | 39 +++++---------------
->  drivers/iio/light/hid-sensor-prox.c                | 40 +++++----------------
->  drivers/iio/magnetometer/hid-sensor-magn-3d.c      | 41 +++++----------------
->  drivers/iio/orientation/hid-sensor-incl-3d.c       | 42 +++++-----------------
->  drivers/iio/orientation/hid-sensor-rotation.c      | 40 +++++----------------
->  .../iio/position/hid-sensor-custom-intel-hinge.c   | 38 ++++----------------
->  drivers/iio/pressure/hid-sensor-press.c            | 41 +++++----------------
->  drivers/iio/temperature/hid-sensor-temperature.c   | 39 +++++---------------
->  include/linux/hid-sensor-hub.h                     | 26 ++++++++++++++
->  15 files changed, 175 insertions(+), 351 deletions(-)
-> ---
-> base-commit: 9c464e7473f762cee4c031a09da04f65a1c65d49
-> change-id: 20260603-28-apr-iio-redundant-argument-v5-temp-4e49eed863af
-> 
-> Best regards,
-> --  
-> Sanjay Chitroda <sanjayembeddedse@gmail.com>
-> 
-> 
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++=
+++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 6e2bbf4f060ac..79aa2521aed40 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,9 +4,11 @@
+>   */
+>  /dts-v1/;
+> =20
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include "sm6350.dtsi"
+> +#include "pm6150l.dtsi"
+>  #include "pm6350.dtsi"
+> =20
+>  / {
+> @@ -302,6 +304,19 @@ touchscreen@48 {
+>  	};
+>  };
+> =20
+> +&pm6150l_flash {
+> +	status =3D "okay";
+> +
+> +	led-0 {
+> +		function =3D LED_FUNCTION_FLASH;
+> +		color =3D <LED_COLOR_ID_WHITE>;
+> +		led-sources =3D <1>;
+> +		led-max-microamp =3D <180000>;
+> +		flash-max-microamp =3D <1000000>;
+> +		flash-max-timeout-us =3D <1280000>;
+> +	};
+> +};
+> +
+>  &pm6350_gpios {
+>  	vol_down_n: vol-down-n-state {
+>  		pins =3D "gpio2";
+
 
