@@ -1,70 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F1A175A8D;
-	Sun, 27 Sep 2026 17:20:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F67341CB2E;
+	Sun, 27 Sep 2026 17:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529638; cv=none; b=Ko6Nv1Swm2OAhz0i44yngSBPWmGto/S0bGjRAv2hRChR/o+TUFbIpvfjSZ70wjclQ95twRGy7Bg6eNdYmo7zSEswDaUM7ak4T47eeDtmBn6X1ACygs6YgcTI/0/BNEAJ6y3wjvmh4EDDsGFnNYMEmojbE+oOA7l1s6NL6aY2ofg=
+	t=1790529673; cv=none; b=p+gXGd2xLdRqBMd1SHf3dfx5KRJek402L3lulDlPFZCF6+NP3vWyP/8oQC6J5M3VZBSPNKTnOcrRg8h38CxoGMUG5UVpG30ksUGNUhxX0P4DxWXue95JXRitF20reaIHWR8x7cN5/rKGiRQGZ3HqJvu9TrSN3RZMG9fehieAi54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529638; c=relaxed/simple;
-	bh=u5/wDkmjLQblmCApcNDp5j71D8QW3Rp1zyX8ySE2wk8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d9O8cUBKh+fCWiL8owEDvZSjrEuePNnbzyUoGD+x5DhflamDhKdqJBhXkZdZ6LSnw9QOTLAkQhb/GAbBbjkrrK2o5qsZWhLXxxiyonykIWw0ggxmCblehcFXjsFS8/6gFt9qXGYUYjdel3/CVDLc4UdzdX7whZ2V5Y7MCFORN/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H35YaXF0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790529673; c=relaxed/simple;
+	bh=QnZY/A0Z/m7D6LYP8zYoDCU2wPHkBbrq9onZ540cNyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tJZWXxBhQZRKR1EGrpFp8oZvHm0i6eHymd/8Fu8jhPfF4MlJdd8pimKS6UKSlctmnhGgPnwiCtfq6rcERX3dqWbrfX/CF6hX/XutVZXIj2CNPVyNKqMjHsBK9WNHRLpumP8o2TzBiKCpRhaaihNC9FfIKi+flTP1iU/rCM2PPyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv4Ciah3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H35YaXF0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3701F000FF;
-	Sun, 27 Sep 2026 17:20:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv4Ciah3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E4B91F000FF;
+	Sun, 27 Sep 2026 17:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790529637;
-	bh=uqM2/RhHyVMNSnI3o/wEgW+aZX/6c3k3HHCtJRj7/PU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=H35YaXF0NJ6e31pYQMK9Z0MB81nez7defH9Y7Ukyr9hB/ACjbsDYBZ3iNxoionO5l
-	 8rGLQPpahjXtJ24IA+m9K1tbjLXF0tL0FFnJnjynUrfS6+QlCaZmEozfb7FL4u4Yfu
-	 8AIi6k2JZ0vixKzeuE+090pDV0K7uVG9Bu+aAttxPwLUkMzE5S1rDhuXqXO7w3/X/7
-	 h+L7kTO54onK93BlihgaAjXEmVWugtacJY5Ts2VLSCzpDTreJrKONpooADMJKTFC+o
-	 XeuVbega939AQek+QR5qBhm7cMjwhJlLlIOvgaHS7WbOyqu52EV3sXmPXaxELAXKdB
-	 Hq6RWNZgd1D5Q==
-Date: Sun, 27 Sep 2026 18:20:31 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jiale Yao <yaojiale02@163.com>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Siratul Islam <email@sirat.me>, Maxwell Doose <maxwell@maxwelld.cc>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: kmx61: reject duplicate event disable
-Message-ID: <20260927182031.6d490331@jic23-hlaptop>
-In-Reply-To: <araCxIGnZK0zuUSS@ashevche-desk.local>
-References: <20260925141006.2255067-1-yaojiale02@163.com>
-	<araCxIGnZK0zuUSS@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790529670;
+	bh=zXqUbjdOufaZZQextakeQb2Z5JBuQMYWladdr+ali/w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Kv4Ciah3L22Uss08I5HK1yZxgQdSkGpIFtTlQRs6hXzis0XJBvt9UxutHNVmrjRjX
+	 OL4ymEmiEYwJnR0feXI4zQkZPgvo5s6dC8KrYbZAa/hesbo7wCd9wGfjf++Rta6XJw
+	 Qr9XkMuXEOFYSLx6hGpoPyLaFu9uHgBTv/Qvycn1+LfWZWZELOXuQHWWTmqCkW3cpG
+	 AnZNFzx+i90+SmD9l8thursk3KI9r4s1sYc4H8fbB0fdDFKg0cHVuVR6kmdOoRlt0Q
+	 qd7zJL1MdZP3mS10Vv1+39BV9k/761GXrF/ygl36B0l9RPiLeJRQ19tw+COy1XQFSL
+	 t222swtk+cXNg==
+Message-ID: <fc7b99d8-f737-4dac-adfc-ccb9b12e30d7@kernel.org>
+Date: Sun, 27 Sep 2026 19:21:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: embedded-controller: Add Lenovo
+ ThinkPad X13s EC
+To: Clover <alex@ironrobin.net>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Steev Klimaszewski <threeway@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260926195415.5995-1-alex@ironrobin.net>
+ <20260926195415.5995-2-alex@ironrobin.net>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260926195415.5995-2-alex@ironrobin.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 25 Sep 2026 17:18:44 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-
-> On Fri, Sep 25, 2026 at 10:10:05PM +0800, Jiale Yao wrote:
-> > The IIO core does not filter duplicate writes to the event enable
-> > attribute. kmx61_write_event_config() already ignores repeated enable
-> > requests, but a repeated disable request still calls
-> > kmx61_set_power_state(data, false, KMX61_ACC), dropping a runtime PM
-> > reference that was not acquired for this request. This can underflow the
-> > runtime PM usage count and trigger a "Runtime PM usage count underflow"
-> > warning.
-> > 
-> > Return early when the requested state already matches ev_enable_state.  
+On 26/09/2026 21:54, Clover wrote:
+> Add a standalone binding for the embedded controller in the Lenovo
+> ThinkPad X13s. Although its I2C command transport resembles that of the
+> T14s EC, its keyboard-backlight, event and power-management interfaces
+> differ.
 > 
-> Same comments as per previous patches of the same topic.
+> Describe the event interrupt and the separate host-controlled power-state
+> signal, which is high during normal operation and low in the low-power
+> state. Require this GPIO and allow wakeup-source to describe wake
+> capability.
 > 
-Fixes tag needed.
+> Assisted-by: LLM
+> Signed-off-by: Clover <alex@ironrobin.net>
 
+Please use real and known identity. See submitting patches.
+
+> 
+
+
+
+Best regards,
+Krzysztof
