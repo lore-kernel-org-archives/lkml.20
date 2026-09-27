@@ -1,48 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295A53B14D3;
-	Sun, 27 Sep 2026 18:11:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A193BC68D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532720; cv=none; b=c9aaTBqjBWDGFY3QgwvVXVnlq3qZyvvFNngfnUvP7UV4FiwFYbUbqeCmj3MCZWE358TnEafGCL27EK4Ay4pEyxeqIUoU/zSD5qHJGSzxIk8g3HQqrrZOOH7b5lXPfB8ArEDVudwZc75Q+WbtOb3KYq6lFHm5gRiPPSN3/TXijJ4=
+	t=1790532710; cv=none; b=mC4WPd7nwptB+DRa7pSSZ8+0UaQ6o2OMmKAwas8L3C9V8CsARsDOctG8DXaL5mkftAG30V62sQzJXAJSAYap1Hv5+R4THU73/XoMn9HFcPkJHONcPJHjg3YUp3u4yKONv8GYRlx5l/63iZxQr7NtuScz0xBCUoGtuijDQTdjH7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532720; c=relaxed/simple;
-	bh=2Esxm5IQ/OaMm9xYfs2PBn6j7bmVrN1jXWogkX7iQ7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sb9CYhTHMzau5Cz7NSfwXbTEXli8ENvpy/0Mb/hRX1KfKuAODM5ajU6Yvc7nvMoRKZ8Fsp3xIH9lhat6mjtdGIcy2zhaGH4VJMpNxmo6cLCcGYFzvCaF5n4TzhvmOb6BXp8323Lgs+QM5ROn5rPSj/vBkxkYr6BE9B9JdncD/RY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXrTLxm2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790532710; c=relaxed/simple;
+	bh=MsjhdNHNUOPcQ10FOtPouiKOZQKjr6aJbDQVX6QUNAw=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jpex1x0sVy7g1VOZKGa1phWbCHiaVbZIIU1WnBVaXyo8ELthQ6+MF6wMckg9OJvaVMuPBQjQ3VBZRrGUdtF7HhcD7TpEJ86DUgye7U4KQ15Dk6XXjjJwQ3/83Pcss6PQrk337yZYtjFIFUfUOsK0zZj2FkmR4HVoGPG9Enpjcug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=zj5cByW8; arc=none smtp.client-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXrTLxm2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3B81F000FF;
-	Sun, 27 Sep 2026 18:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790532718;
-	bh=NpTnnXBBOYDdRey2JbY5SApjxruDOBTL3cw3NiGbLS0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MXrTLxm2iD5iUcGuNQarAdR69HxqBdTbYBf0GB/v85NSJmdeyxlmXehnwNa2wed7L
-	 ECEppyxLtm2oU4Blt1CnNWAGPlVHOmwC7CJbSNpuoKA3t5qxUUO206NiBvHxsYRnxW
-	 X/P++D6WmOtjSoDBMf3Uhefy3tpkRHjJ+RezYIm29zB9SCdmO7gV1CmMMWu0pvQLKD
-	 raVmZhdobc2Tf3axav1FcXMKqUtKr7Eo9gUCqc350B74CU1sCWcKw5mTrmvX4SzP3x
-	 iwBhOA8XS/aabQk5ZwIRtBK4EfAGbxMWCpHth0aoqekiy4ogiovzDeI57OnjNNSxY3
-	 qyo+IisrxCVbg==
-Date: Sun, 27 Sep 2026 20:11:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Jagadeesh Kona <quic_jkona@quicinc.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: clock: qcom: Add Maili camera clock
- controllers
-Message-ID: <20260927-slim-tunneling-seagull-eeb3e6@quoll>
-References: <20260922-maili_camcc-v4-0-87704b664dde@oss.qualcomm.com>
- <20260922-maili_camcc-v4-1-87704b664dde@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="zj5cByW8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1790532695; x=1790791895;
+	bh=PW3qafb7hPoN12TvjOZ5TmRg4ziVC/vRpHNV2IFX1ZE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=zj5cByW89kw3MtjACGq6C9IDrNSf0X/PiwvD8l6tNlS3JJZunZ6gW6GKgmB2qWvyn
+	 MuS59oHxqMMspdUYV/27hHn95/RfE62IzFXtec5WYi5FkTPYJt2zLiOuMvLGGrFL+D
+	 f8urS7TMOw6p5djSRNkdCy5WGK6HZCvaIzs7gOHkuoNPeTL1VAcs1PUVmWxmLJS4O5
+	 kvxRN1ZyzMkK6e6UpqP0nJTch0y2odQpoParYC4Czq3aMn5c+dKkhljD7YZSKQMXha
+	 KO8CtjuKXogNacrtqSBFTtYp02WesFK352mhVR5ZtV6Qk0efllZ1nTLV72VNUU46ky
+	 aVu4NcXZy1Ayg==
+Date: Sun, 27 Sep 2026 18:11:31 +0000
+To: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Lorenzo Delgado <lnsdev@proton.me>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
+Subject: [PATCH v4 0/2] rust: io: convert ResourceSize into a transparent newtype
+Message-ID: <20260927-resource-size-newtype-v4-0-447a08af23fb@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: 30c9204b4ec447a9bb7a0d0613384c97637b5e06
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,22 +41,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922-maili_camcc-v4-1-87704b664dde@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 09:26:37AM +0530, Jagadeesh Kona wrote:
-> Maili camcc is a derivative of Hawi camcc with minor changes, and
-> hence reuses the Hawi camcc driver. Maili cambistmclkcc is the same
-> as Kaanapali cambistmclkcc and falls back to it. Add the compatibles
-> for the camera clock controllers on the Qualcomm Maili SoC.
-> 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+This turns ResourceSize from a type alias into a #[repr(transparent)]
+newtype, so that every conversion at the FFI boundary is explicit.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The first patch changes SGEntry::dma_len() to return u32. The length of
+a DMA segment is an unsigned int on the C side, so it was never a
+ResourceSize. Doing that first means the newtype patch no longer has to
+touch tyr or nova-core.
+
+Note that Alexandre's nova_num series [1] rewrites the dma_len() line in
+nova-core's gsp.rs to usize::from_safe_cast_arch(), which takes a u64.
+With patch 1 applied, that line needs usize::from_safe_cast() instead,
+and the FromSafeCastArch import goes away. The two series apply on top
+of each other without conflicts, so this only shows up as a build
+error. I can rebase on top of nova_num if it lands first.
+
+[1] https://lore.kernel.org/r/20260828-nova_num-v1-0-e21f17ba4127@nvidia.co=
+m
+
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+---
+Changes in v4:
+- New patch 1: return u32 from SGEntry::dma_len(), as suggested by
+  Danilo.
+- Patch 2 no longer touches scatterlist.rs, tyr or nova-core.
+- Drop FromSafeCastArch<ResourceSize> for usize. Its only user was the
+  dma_len() conversion in nova-core.
+- Link to v3: https://patch.msgid.link/20260920-resource-size-newtype-v3-1-=
+9451444e83bb@proton.me
+
+Changes in v3:
+- Rebase on rust-next (v7.3-rc4).
+- Implement FromSafeCastArch<ResourceSize> for usize in the kernel
+  crate, next to the type, now that the lossless casts live in
+  kernel::num::casts. Drop the impl from nova-core's num.rs, and switch
+  gsp.rs to usize::from_safe_cast_arch(), the same line the nova-core
+  conversion to kernel::num uses.
+- Convert the dma_len() user in tyr, added since v2. Without it, tyr
+  fails to build on 32-bit ARM without LPAE.
+- Link to v2: https://lore.kernel.org/r/20260719200945.687904-1-lnsdev@prot=
+on.me
+- Link to v1: https://lore.kernel.org/r/20260712113602.389060-1-lnsdev@prot=
+on.me
+
+---
+Lorenzo Delgado (2):
+      rust: scatterlist: return u32 from SGEntry::dma_len()
+      rust: io: convert ResourceSize into a transparent newtype
+
+ drivers/gpu/drm/tyr/vm.rs  |  1 -
+ rust/kernel/io.rs          | 74 ++++++++++++++++++++++++++++++++++++++++++=
+----
+ rust/kernel/io/resource.rs |  6 ++--
+ rust/kernel/scatterlist.rs |  9 ++----
+ 4 files changed, 75 insertions(+), 15 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260920-resource-size-newtype-63a82d4f2cdb
 
 Best regards,
-Krzysztof
+-- =20
+Lorenzo Delgado <lnsdev@proton.me>
+
 
