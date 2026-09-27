@@ -1,152 +1,87 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDEA3A1684
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8216B4137AE;
+	Sun, 27 Sep 2026 17:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531726; cv=none; b=mdJUee8LkGUaP9K3PlZGeyw8XWh33ItWgrgbNf17dJ6R3YrScJOuYcvdWLujQyowPikvCr/q37u23nZPjuUxmrqheDl4XGhsTwn0T38k2Il49Zs07yC2xW2nK2sYTqNH0L+3KCP6EtCV3Uxh7pigoC+Yo94kaVketABF6m2tnk4=
+	t=1790531740; cv=none; b=sy85vkBUGtMhJOj94zqmFqpqyg22yZOPIW7OdIA/mqlDIbFsTiD76dpzfywAvl9faAh0FvE4y5FVAT4W7DkwGd22vbveLsLGqESyBI26ht22S7CVPhkj6HFBWTbOulj9lJHbMWQEXHmVDE/tTpPukEeywncog5vb2RuM8IaoT5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531726; c=relaxed/simple;
-	bh=s6FZYmulgvomkdY9Fcfdj3azSZv7XguaNTjdt7XQ080=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pqe18cxkBQnGCiaDFRl2I+VgA3dDEIvGGwXe7D3DbF0VGvlc61u3CgEoT5sI3MpABr5T4+Ay4Nc/LE8umW/5JnUhkIh3KMxLhpXIJSWriL3ihRccDTgZQb/ToFXT2pc6B4YwYZ+pNeO65L6Brq7kSlP9+yKEEHfsgHFZX1WzW0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIyidMYx; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790531740; c=relaxed/simple;
+	bh=HJpSBegpXdPBTGaMIIMQxnOXULmZcvJrgHqxUltWPMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ha6Vt8VXaKOvEPR9lx18cvaEPps9n6Xi0fuCrNZHuvj7uUQTLJofx3mBlpcsV7xOczeom1KP3risknuSVeriv/A0CVO/X/t+yGwoqGWOnNe4vlWWGtRf8mSLeHYgrb2E8+/ftW5qXlYhua9csF2ML8m5A4VSykT5zLhHuCg64fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hEp60/fn; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIyidMYx"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so775768f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:55:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790531723; x=1791136523; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nKitTAlwTBExXI+cI2+8578Ap+v+wKyXIoUr5i+JPl8=;
-        b=qIyidMYxGa5GI2DCovSSGiYtkNlwmLmPZVoPMRV8/8HA9hSHYE6Myqe1TlRkKa5C2P
-         P48CbrZ3euJKTmo8k3c4ljO4/tIJXoSKK2DI9DSMcGOouEccutJ2GeH46xNDu9vAAAbF
-         Cmw8PJ5haznHdC2abLVYgfBlhY/qDt9cSNBWlmvdH+6y2Z1paE6RpgiUCwvX0HjBZvZJ
-         9AFiSdYnMbGDPiB4A8e/tVSHpHKz/tMKBUdFwtZZH1nx41qLwihQncd25CaenUHBAtv0
-         Ad77awKe8O21KBLMiLR+CfzCNoUyf20d5LDV1vA2c42P/tGBbMZJ14ueJZ8e2bNca21n
-         sMqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790531723; x=1791136523;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nKitTAlwTBExXI+cI2+8578Ap+v+wKyXIoUr5i+JPl8=;
-        b=dG+xYzLMd80KQWtay3iR3Y2NB5zPAOH6QuMjSFxsM40+X/XhduFTbwENahe/gHRbpY
-         teOZWP8WieZ+Fb76R62k1sUwxqugVVB7JxdK/y0YHRomAClcgrgffBzv8dNDz12DpFD1
-         gyaiYqyaisn+2RoGPTNknMUtFIL//HGVQf9OucMLucLTr8jX/Xi00q0kmi2LHNzxlG8M
-         UWajvh+yl9CEdGzZlZuyltXtCbm4Qoa5NzQMikoW9KNZbxvUS5sh9iiunXR9bIv1fC6C
-         ST5NOgu8u4jsO1MwtqUYir/pdej/thFpdPXmngEWUKgeqPqbdeG5KUlytFFwyoAHzo8X
-         EVyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzh4Ns+fopUhaFs+SNaxuMjG041vhzH1u5YOy++N8QSrxbrjXh9PN6gewSHV/kGlYEkyqz4O937mGFUJQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8a434j7+A63fGIVUNLvE2W/B0eMGPC6IDzF6LHu8DpDE5vRCJ
-	aSVSklAjOuov1OnhjE3bYniJ7ZhJnWDD+Xi0kxptpbrm5weG5J8H7Gd2
-X-Gm-Gg: AYBFou0HzrnCWDWpXWCtCXEThPD55aP7Lh5l9/F4IE/Jylrx/uUHOjQhyZ7apmwgu+L
-	huyGQ+XHxwvU69YWNCj9yDkllPNnxrrIgbAA7PNSE3A4+Ev8muFZSH0YE/ERTialmu8/h3y+/iD
-	L6NBquc3VVlVT4Fs3W8JWE7QoJPQy6GDcL/buTxaBqk7C/+rAkKgwTixG3QnHvsrBRays8A2dXH
-	jtwajvy5qYWMvB6uKAalpEf6uDZqPqS1bHuFrGV+uZ1A8r0tIrB+6ZzHYbc+HE/3PXoxaptq3xs
-	xPIe2ZIYq8sKKlxZrjpHEp1fQglR9gXpCtuf4kaNpDk5oG4tiYoBCw5+iYCO4gIjqBWfwGzw+3L
-	fXmHMRpyrwuuTa/9d9Ldhf5/cjDEu4NJHaPf/o8sACdDc8FNCb522omEqj+6YvWfnGY9ulsB/XL
-	7vZOtQrnZN0sM6MlM2Frpxsx8qLQgD4cs/wZDakbdu1nM4nJvcD63ioc8/+eesZX7DZGxA2WYWB
-	MNemDvh+XJLHNJoKafYyWJZKqqh4UU6YuLwcEx4jRLaaIQuy2HNmxvv03reHEBWgFBkzQGn0neS
-	/FEHXeM5AaZgvTNkHTVVQm4rynTLbMP5tCykLnFkUTSUXmGELM3p8j+Ke20WBui9yaTdDCViAYL
-	SK+KIUlMNZG8/pKJwUcP+o3U/HU04nRo=
-X-Received: by 2002:a05:6000:468c:b0:488:76f5:c7d with SMTP id ffacd0b85a97d-48876f50d2bmr11484821f8f.6.1790531722779;
-        Sun, 27 Sep 2026 10:55:22 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm22726735f8f.4.2026.09.27.10.55.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:55:22 -0700 (PDT)
-Date: Sun, 27 Sep 2026 19:55:19 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, Eugen Hristev
- <ehristev@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
-Message-ID: <20260927195519.76c2885b@systembl0wer>
-In-Reply-To: <20260917041128.6d10a2f6@jic23-hlaptop>
-References: <20260914113422.1689331-1-lgs201920130244@gmail.com>
-	<20260914145339.00002f0b@gmail.com>
-	<20260917041128.6d10a2f6@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hEp60/fn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=XN3adG8n48aXlFD1oGyPwbYbvAFkDP/CnzFiAMWmyQ4=; b=hEp60/fnREcY6JQT7sBraSKoyp
+	FrNRR2k2n55oXex+eD3KgkOyCycM0kBHzK4jAnF0ybvsKFaZVCrFN20fsfaMcUllSvx8k3zUzZ6La
+	DRVU8leSB/IKcQq4+c5FAtfDDK7tKiZAaB5Woc8H1uOWNSzGqdEUEWZP5P1BpVeX00mE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAt5z-007Y7E-CH; Sun, 27 Sep 2026 19:55:27 +0200
+Date: Sun, 27 Sep 2026 19:55:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Sagi Maimon <maimon.sagi@gmail.com>
+Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com,
+	michal.simek@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux@armlinux.org.uk, vadim.fedorenko@linux.dev
+Subject: Re: [PATCH net-next 1/2] net: axienet: use device_property and
+ fwnode APIs for probe-time config
+Message-ID: <6ab4896c-c4d0-499b-befe-045cafa8e470@lunn.ch>
+References: <20260927073843.346910-1-maimon.sagi@gmail.com>
+ <20260927073843.346910-2-maimon.sagi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927073843.346910-2-maimon.sagi@gmail.com>
 
-On Thu, 17 Sep 2026 04:11:28 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+> -	lp->switch_x_sgmii = of_property_read_bool(pdev->dev.of_node,
+> -						   "xlnx,switch-x-sgmii");
+> +	lp->switch_x_sgmii = device_property_read_bool(&pdev->dev,
+> +						       "xlnx,switch-x-sgmii");
 
-> On Mon, 14 Sep 2026 14:53:39 +0200
-> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> 
-> > On Mon, 14 Sep 2026 19:34:22 +0800
-> > Guangshuo Li <lgs201920130244@gmail.com> wrote:
-> >   
-> > > at91_adc_probe() enables runtime PM autosuspend with
-> > > pm_runtime_use_autosuspend(). The probe error path correctly undoes
-> > > this setting with pm_runtime_dont_use_autosuspend(), but the normal
-> > > remove path only disables runtime PM.
-> > > 
-> > > The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-> > > with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-> > > was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-> > > set therefore leaves the runtime PM state incompletely cleaned up after
-> > > the driver is unbound.
-> > > 
-> > > Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-> > > path.
-> > > 
-> > > This issue was found by manual code inspection.
-> > > 
-> > > Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > ---
-> > >  drivers/iio/adc/at91-sama5d2_adc.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > > 
-> > > diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
-> > > index e8a5285bb6d4..e68632e628c7 100644
-> > > --- a/drivers/iio/adc/at91-sama5d2_adc.c
-> > > +++ b/drivers/iio/adc/at91-sama5d2_adc.c
-> > > @@ -2487,6 +2487,7 @@ static void at91_adc_remove(struct platform_device *pdev)
-> > >  
-> > >  	pm_runtime_disable(st->dev);
-> > >  	pm_runtime_set_suspended(st->dev);
-> > > +	pm_runtime_dont_use_autosuspend(st->dev);
-> > >  	clk_disable_unprepare(st->per_clk);
-> > >  
-> > >  	regulator_disable(st->vref);    
-> > 
-> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>  
-> Applied.
-> 
-> Please make sure to take into account both Joshua and Krzystof's
-> feedback that multiple near identical changes to drivers in the
-> same subsystem should be in a series.
-> 
+What version of the core is being used:
 
-FYI, patches like these will become redundant as I have a patch adding
-this to pm_runtime_reinit() so driver core calls this automatically on
-unbind queued for 7.4 [1].
+6c8f06bb2e5147b2c25bdd726365df8416c13987
+Author: Robert Hancock <robert.hancock@calian.com>
+Date:   Fri Feb 12 18:23:56 2021 -0600
 
-[1] https://lore.kernel.org/all/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com/
+    net: axienet: Support dynamic switching between 1000BaseX and SGMII
+    
+    Newer versions of the Xilinx AXI Ethernet core (specifically version 7.2 or
+    later) allow the core to be configured with a PHY interface mode of "Both",
+    allowing either 1000BaseX or SGMII modes to be selected at runtime. Add
+    support for this in the driver to allow better support for applications
+    which can use both fiber and copper SFP modules.
 
--- 
-Kind regards,
-Joshua Crofts
+If this property is not needed, please leave it as OF only.
+
+>  
+>  	/* Start with the proprietary, and broken phy_type */
+> -	ret = of_property_read_u32(pdev->dev.of_node, "xlnx,phy-type", &value);
+> +	ret = device_property_read_u32(&pdev->dev, "xlnx,phy-type", &value);
+
+  xlnx,phy-type:
+    description:
+      Do not use, but still accepted in preference to phy-mode.
+    deprecated: true
+
+This property is deprecated. So it should remain an OF property and
+not get expanded in scope.
+
+	Andrew
