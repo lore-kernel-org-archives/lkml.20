@@ -1,119 +1,132 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B9E2E92B3
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884152E92B3;
+	Sun, 27 Sep 2026 20:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790542350; cv=none; b=fo+AyzkSZ377OMigJtXWXJoUbA0b4cTuVS2MaVqauj0IseDdrThOMnaxGSsNw7PR7UKuRM49xxfmTvixiSQJgcKAUVTGZ0cxTXR9M0UQU3UjYRQfagounMz5Sig/wBKEVhSUkgp62g01kVjS51P3jfLSQ+079t2i3INY/J44w64=
+	t=1790542370; cv=none; b=ouhsNZ/V69brFwxKYtH8vcm5MKANgY09WmMH99pOu45l4W4olPMHHchpiJ4kI+N5KxBo5/XSrFbxq0GA+B5m6OcvtNrLtRhZl4UdwK9Y20pV6dAKecFHN7yZ20eEm7JHi4QJHdvQFhHeCAB+qCLQQTPfm9T2NA2sQ3K0LQzrKeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790542350; c=relaxed/simple;
-	bh=t6xMn2L9d8s2ZCbQSuTC15GbJiy2EoeNXqPok1pTSm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yv0lujzo0q8G4n7ZibNZIocD3nDwtRXWTFd7iKeGJ1j8q0UXaMBs00DTtn3yfF4YQYi201WejbxWOlvqPzr1qtjjE6wi/VpkGqE3gMLIg7maqk2EixoIjiaObFSXKCc1zwrozo2XZJUgmjkEXVcV8Us04xYoDNcKFeDVNTtM94A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZT056UXK; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790542370; c=relaxed/simple;
+	bh=/wxo6BQ8EBNCBri0xZn30BsV++ph7F/QEAsePT+eoUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yae3yLyIHMVFFwOm2vGuslsq04uacFwGJFoX/gEekKbO7Y1WJa+qEn7tr6JPCvpzQjUt9V45XjVC38Gru8hiqMyLuGYv90rAnsKVgZjq/tqki1bNnvBFU74dBdlixnVifpZzdXGa8TC6daDnn3F/tbPPQ/Y1R/j0o6ylN6sxVP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGncMucp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZT056UXK"
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c5818c4a4so123052485a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:52:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790542348; x=1791147148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HnxJD5ci4IByxWX6EfsPiJVcCaBAaDyK9ZZdVOk4Rrc=;
-        b=ZT056UXK6hCtnkIHLujja5X/VtVxGv9NcumFDxrZPTw3hHlGcE96x828Dkf9Fzrz3M
-         jI7Qarz0VtgGd0Qn5m+ldpEhiOGulCL9PrIwREQrtbQUwYBqMAR+AXkH4SJ8kD9eSAZx
-         Mv6t6nxe5oCIeglmxDkaa4sdfUPuLdelvP3usbzEtp9oG8jNW8wqhGKNIMloLSgfWgfx
-         qR5Rf09BNVtnrMtnpEmwXS498XJtZDiI/ZpDPGjILj8CM5+SSxsZ49CdkK4722qnmaFh
-         p8oEkiDiyEcTPXB9TfnRihcOT5cHibOoFxDSSYxjRcedaKnDSoHY/YPrCsNtpeFtJr/I
-         b2Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790542348; x=1791147148;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HnxJD5ci4IByxWX6EfsPiJVcCaBAaDyK9ZZdVOk4Rrc=;
-        b=NL90TALWZsNjTdPhpyeHIomcm7RT+0UFiGO43cABWbRHf+FWbkGPGABPESKLjhKyLL
-         hmUOLHtsL+S1Uh2STzoWxaFj1cYIAUsU8aYsrXW8byVWLkREe+1ACvYSrNgmdWzklfik
-         4UJuDiwbZGVJNnbzeLv1HIBHrf1E1p8KWDvXuMu+uCL1OKcGtf4ho3gIenVZfeJRsSes
-         u0LYDDRaZzzqjlBpUDpsDHMXgKX9pZ6SeEuNx/5tmzemhWTuDiGloWnLMLQs3mqmBoqp
-         NltLREp8b5OQPudhlzFWAdHMpryNYfNPTYABmdToHchtqnKkyaKPx+63/r1W3FCKdpo2
-         Dtcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLeC0fb5IeDzYlgKXZQC34AmeU6XVncBGU8i+U+pax2PFBkIvFNZwO+EeacOfBtSam9f0UNSeZKKqdmRM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+wXI+KDysbuB86MM9ppthcikSntS42wUZ6HSwUzA0eeNaMGNk
-	YNMcCO2O6jUFZ1ps/mJhWrKGcdJMo0FvMg4vm2oPj5TK2ppF1Q/ZPwXH
-X-Gm-Gg: AYBFou0qSDfD2KIkXInejogEIOcoz45h04DlqraAgbQPGmQBG0mILtoDdUORFYxTNI5
-	NsFg+vF3e4SzOsmTNqlLfCVcYTD/qiAV9Z4FivfeYfsfrPcgV/gHVaZk2xD8jTTDY1P9cbCKKsp
-	VF4Q3gOgzETtmYQgCnuQqfo0xQ8ZUjLZ/8KITPt/MjotYXk4o292Kre8aypDVRnHJdxSwGjpEYB
-	988vELX/VWBnC5Jrh3smVn1wp44HNhLsMjts5DwImNX7bivvNGMsolMdHDlEVWTrN8/Joy42VVa
-	l5F0/ouuuz31mk1DvT1PTCpYX6rfs4ALkuG+KniVZX4jC1561Y7FOJf3s22IUHptLOdW6jSXKRn
-	tjaub+t22yhb+Ystp5j9bO5QHvmsWaC+PFqLbB/kSFVOOwik9BFmrRzeZT6rkH+0vUOo6BO0tn4
-	rThMlqV/OuFt1paSgyZCW99CdD5zHkOAYrr48kC8wFIDsrpoFXQ+/x9UXtVknhFe9DRELt8lQJH
-	TRMUH2DmsTBehvWwicZqRPFF1s1tBFATYvVVVyjpscsfHbOLCC4vfCh9Idt0gidC2SPuuxVIPGj
-	gwrzyBuHt51Xgyjuf+680BZP/g2/KnzMEKDfZM+uwuZFrRRe
-X-Received: by 2002:a05:620a:bd4:b0:939:57ca:7e06 with SMTP id af79cd13be357-93c43c306f6mr1758205385a.9.1790542347934;
-        Sun, 27 Sep 2026 13:52:27 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c6a38594esm267970885a.35.2026.09.27.13.52.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:52:27 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] dmaengine: fsl_raid: use !desc for NULL check
-Date: Sun, 27 Sep 2026 13:52:24 -0700
-Message-ID: <20260927205224.29640-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGncMucp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DDE1F000FF;
+	Sun, 27 Sep 2026 20:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790542369;
+	bh=jXagDIFXWv/uhGdO81MZzXdQUPJiXRgFrH0SRQIbHWk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jGncMucpdrRzio9cqFSlo8N9VAnxGx2xb0ZywfRwPcLSfF7CHpdWXV+2HGWQ7QBjh
+	 Bzn/JvrFBDkwtlDh0XQyWa9w7MDdQ7+4TpzKk5ZB4o/I5I3t8B/vTLpTLHmJMSgw08
+	 YSHLG/dAVFTnLpFl2EBm7JzdQn2G5HpIWydaPjx8lil0jJ50tzmlmqwZ4zbRmSj3Dr
+	 W1vgtJmEdmrn5/+l8LtQX8CX3gq/yP0v/BUDEQJnBJlw4eIEbJlV1FpuLceusoeIro
+	 ijOeaJGcLjldp7vLAQP4MY6bvKCv0mq58QvZzqTES31Du3WOV0AO7Djs+2HTKjXowy
+	 6ny812JD5CbhQ==
+Date: Sun, 27 Sep 2026 21:52:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Cc: Arka Mondal <arka@arkamondal.net>, Nuno =?UTF-8?B?U8Oh?= 
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, arkamondalofficial@gmail.com
+Subject: Re: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range,
+ offset and 4-20 mA
+Message-ID: <20260927215246.3e9c57b9@jic23-hlaptop>
+In-Reply-To: <20260920194107.12173789@jic23-hlaptop>
+References: <20260918122032.134947-1-arka@arkamondal.net>
+	<5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
+	<20260920194107.12173789@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-<= 0 is flagged by sparse as being used for integer, not pointer
-comparison. Fix the warning.
+On Sun, 20 Sep 2026 19:41:07 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/dma/fsl_raid.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> On Fri, 18 Sep 2026 16:22:27 +0100
+> Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+>=20
+> > On Fri, 2026-09-18 at 21:20 +0900, Arka Mondal wrote: =20
+> > > The first attempt to send this series on 2026-09-18 was rejected by
+> > > the kernel.org mail servers, so it did not reach the lists. The patch=
+es
+> > > are unchanged.
+> > >=20
+> > > This series fixes four bugs in the AD5758 driver, all present since
+> > > commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
+> > > takes two patches, one for the binding and one for the driver.
+> > >=20
+> > > Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
+> > > it no longer shares a cacheline with other driver state. The 2022
+> > > conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
+> > > ____cacheline_aligned markings, and this driver had none.
+> > >=20
+> > > Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
+> > > gives full-scale output.
+> > >=20
+> > > Patch 3 fixes the offset for every range that does not start at 0.
+> > > The +-20 mA range reports -32 instead of -32768.
+> > >=20
+> > > Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
+> > > driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
+> > > (Rev. B, Table 32) and the original text binding say range code 1010
+> > > is 4 mA to 20 mA. The old value is still accepted: the binding marks
+> > > it deprecated and the driver maps it to the corrected range, so
+> > > existing device trees keep working.
+> > >=20
+> > > Compile tested only; no relevant hardware available. The binding was
+> > > checked with make dt_binding_check and with test device trees:
+> > > <4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
+> > >=20
+> > > Arka Mondal (5):
+> > > =C2=A0 iio: dac: ad5758: Fix alignment for DMA safety
+> > > =C2=A0 iio: dac: ad5758: Reject out-of-range raw values
+> > > =C2=A0 iio: dac: ad5758: Fix the offset calculation
+> > > =C2=A0 dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA curre=
+nt range
+> > > =C2=A0 iio: dac: ad5758: Fix the 4 mA to 20 mA current range
+> > >=20
+> > > =C2=A0.../bindings/iio/dac/adi,ad5758.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
+> > > =C2=A0drivers/iio/dac/ad5758.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 18 ++++++++++++++----
+> > > =C2=A02 files changed, 18 insertions(+), 4 deletions(-)
+> > >=20
+> > >=20
+> > > base-commit: 08df884136f1c1197bab2a27814404fd329d9aac   =20
+> >=20
+> > LGTM,
+> >=20
+> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
+> Other than the one thing on the dt-binding that is more policy than anyth=
+ing
+> else these all look good to me.  I'll wait for that to resolve though bef=
+ore
+> picking these up.
+>=20
+Occurred to me that I might as well queue up patches 1-3 whilst we
+wait for dt review.  So done that.
+Thanks,
 
-diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-index 9cc289f7129e..8e7026682d0a 100644
---- a/drivers/dma/fsl_raid.c
-+++ b/drivers/dma/fsl_raid.c
-@@ -346,7 +346,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_genq(
- 	}
- 
- 	desc = fsl_re_chan_alloc_desc(re_chan, flags);
--	if (desc <= 0)
-+	if (!desc)
- 		return NULL;
- 
- 	if (scf && (flags & DMA_PREP_CONTINUE)) {
-@@ -470,7 +470,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_pq(
- 		src_cnt += 3;
- 
- 	desc = fsl_re_chan_alloc_desc(re_chan, flags);
--	if (desc <= 0)
-+	if (!desc)
- 		return NULL;
- 
- 	/* Filling GenQQ CDB */
-@@ -554,7 +554,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_memcpy(
- 	}
- 
- 	desc = fsl_re_chan_alloc_desc(re_chan, flags);
--	if (desc <= 0)
-+	if (!desc)
- 		return NULL;
- 
- 	/* Filling move CDB */
--- 
-2.55.0
+Jonathan
+
+> Thanks,
+>=20
+> Jonathan
+>=20
+>=20
 
