@@ -1,155 +1,237 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384953E866B;
-	Sun, 27 Sep 2026 11:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674B837DE8D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790509303; cv=none; b=LpMdhWd00KjWcAcBk6lT8sggSDqFEk5WkPpP4vtUhUoedz7r8JqlhqwP8JWmzTbVODFnsSBCTpD4Hvh5+sRyUEqFrKCBUSKaKmsWuALyNeiIbGkQdgvM3aWiYyONEogUVfVBc8iR9rgaWVR+StZyW9CT/4KgXedajjQm7zkD60w=
+	t=1790509480; cv=none; b=X/rzek8CSz0BTkbXlNhTKHky7G9IpfnhD8LgMKgaJ6Iq87meEcdmVTCGZ7NoPOaFSr38S6rNwyrIxJBqhppX30w27Y8QHgX3AL5FfgVx+X0lgzX0wTx503dn8f4RegSLcg8AZpK6pY3f69Lhgz8gx0ptVkFaY5qiGB2sXTIq6G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790509303; c=relaxed/simple;
-	bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ClF6CqeuhSKK3Nf1L1h9g5c85eEtGwDSW8I/rTw3KpjxE4PzmEhSmDw6RVZOOlNDCdKqvgV/NF1hTe/kIueF/FUiUAl9cQLnM9rW2xwISgswDfINxYIMgSSZtrS2Fo9GdDx7GjfIMG7lX99FzR4MgoZS2zYX9LYAY+e41I09exw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rebJmHN5; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790509480; c=relaxed/simple;
+	bh=hf0wX8L+LlOnBK/0W9a1hoHrZm6rTBLmfL8ZB2OOX60=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FvhaQ90KK9qBjY2OyZLxN5NKJ+cdx211LZg4Wl/NRKCm7tUp2WlNgBybnTjYOrZl/nl/7WNHdTpH1aTL3jbpf0ebncn7uaJ4SU1UckGMvAMN25c0oHVDhoczkueGQzXWcrGjjjRtlIbrwBU0w6+hd0fjIujWF1xCsD0tApcj8BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GxdalUWk; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rebJmHN5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790509234;
-	bh=4Pto2CbMqgiSHY+cyI/cnRJeRvRyAB0n5HA+ns2H17E=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=rebJmHN5uQP4JJaB4cyYOCq/eDoSU5n6vlmzMOccD0c7o5g8YuQBFlUcTMdUhmsjH
-	 GwYtO/18+mUXW8d679eA6KqzjGI/rKyMQQFAX3OmA7y9KNmEBTNpsTotDRNgp3Vh6U
-	 uYhreHEYUYZ4rdVvC+2V14L54+Ln+ny9LJQoF5xA=
-X-QQ-mid: esmtpgz12t1790509228te9948562
-X-QQ-Originating-IP: r25/DGgcZLhsdAlFJldW8RJWICJZh9QRUXi5zwK8x0s=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 27 Sep 2026 19:40:26 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17715700320622488950
-EX-QQ-RecipientCnt: 20
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Sun, 27 Sep 2026 19:40:09 +0800
-Subject: [PATCH v3 7/8] riscv: dts: spacemit: enable USB2.0 controllers on
- OrangePi RV2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GxdalUWk"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ff2313so137637266b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790509476; x=1791114276; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kX6+iIntdcgKoHvnXvTvQFxv7ZWuRjd/+5VmFDIp/gY=;
+        b=GxdalUWkBw7Y8/6w4QLEKPLA8Deq6SPAHHy5QGWsHiHbruosurjFfP0EpHjgRGy+ru
+         TvPI7p20h+TNKAy3OuP0JPmjZTvLZ6kxgTPuHfvVq8Rzv5DymwYht9sVtMS+XACLrP4t
+         x6xTSn8x7Qa5CwlBijdENpxRSE4raF0UqzmSDWmczrBql/ZEdEuLwDNWLQqAhTrV0B0Y
+         rMyO5Z73lx9gzlANOhZwtqQT1fahjI+ITRkPkFSUB22FnEMuqlTkqyZRl789oWbwK6fY
+         iGm9ap6nCp+6wlmgo9uBeu6eh1j1KmCFR2VXjYrSOCaAs/2PnMuDAuGyMIirUlsz5Y6l
+         SHMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790509476; x=1791114276;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kX6+iIntdcgKoHvnXvTvQFxv7ZWuRjd/+5VmFDIp/gY=;
+        b=xCcXd5e8O81V+4Am3lND9eEzKfQCquU9vIG/aMnPhePSoNhrZvq9j9TIrcKj7Fnwj/
+         /n6fDFuzfYNFeH60qRLNXZ5DNJgbNCBFIba+yvgle5NFksuX6+5NtoDNRAgnB4ofbOs+
+         rZt7ny0cxH5ro/ViYN7/gaq+o5SzgwkhD1Uy3uCoekco1ilMs2Et9b6RpuaZlA74zHQr
+         pCPyW7lBQUZzGUlIsbMzFCWW54MidKJlEplbnvERTo37UHAe7KXAuj3+QZzFhF1e2KOY
+         llVaQ1HFASnw6jQX0h3eZwCxyNPGIYhXiWHMIt0X+/A0AUU1sf/WcorH0v4gdip6GtNG
+         1GQg==
+X-Forwarded-Encrypted: i=1; AKwUvByQyIVmEI3Q40+W5NNcCbAC9QiRmQIeevzPPMSn7EwLkSOAR/vUHJna7AWbGHIyxdFVL6yTXHFU+NX7NN8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcEGAlNTOJHhMwwkcNDNYgSpQx7IWnVZeHt7Hixf2Aha2qlAFf
+	MHPLIj89ZBu2mRnx/oNItmZfBXvNDNcOTMVmLrLsK92F+F5/ucvz0dCN
+X-Gm-Gg: AYBFou0xoedNmdahFV6ZG9Erb0YBMirU9rsEDo3nuH0/It8GAvNvJvnQiH2IvLSP3yP
+	LX9ff1Fg03efV6F8QhAhfv0e8Wk0uzW0VrTP4nQO7uo4GYjI9+ei49UWpLz/DptfCwEVmC+NSq+
+	5Ut+Y4kHAqsYT1cPCwpcnHVCH5NtgsqPnZBcReDNOJlIqfwA6EQLRzwg+bipsZBbqbfrcPGAYVV
+	j6bp3HkQ1odlFQh+Zg/9U9HHDycYY4go7kwBBiHyh5MR1fyQG0cnA6aPkaHUbTb34chjnuE8Ywu
+	OvNtZOmx9vD/gZtIUMKRbDa1nLF85F1goK5syGEEmlrgQPH8us6xB8LEjGYaDG1dObEqBPA/PXW
+	/zlkGCh0Po9BA6TzYUdNMuvVLemxZfVa425G8PQonLLbdUCS3nfNFi0pctNak2hcEALCi+T1Ifz
+	IDPRIA8yKCbz17DXtez/F/I/iEuqpNsuHfGzbP9jfpR8ZaahdIsvarDbrmB3tQL4drwU1Pi49SU
+	1w5bHV5TzRVtxkvJ42Nk8CHro3DMYMQqwNNWdVV3SuOwnIJOJ3L/6gK6ZnFGxNSM6U1/kJpkRML
+	Tcd93nv/Fd8=
+X-Received: by 2002:a17:906:628b:b0:c26:3377:752b with SMTP id a640c23a62f3a-c2ac21fa2bemr891918966b.3.1790509476432;
+        Sun, 27 Sep 2026 04:44:36 -0700 (PDT)
+Received: from localhost.localdomain (84-216-182-59.customers.ownit.se. [84.216.182.59])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae7356d1csm338411266b.18.2026.09.27.04.44.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 04:44:36 -0700 (PDT)
+From: Pooyan Azad <pooyan.azadparvar@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	Herlangga Maulani <w1zardsec@proton.me>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Input: raydium_i2c_ts - validate report parameters
+Date: Sun, 27 Sep 2026 13:44:25 +0200
+Message-ID: <20260927114425.442803-1-pooyan.azadparvar@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-b4-spacemit-k1-usb2-v3-7-ce7095896039@linux.spacemit.com>
-References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
-In-Reply-To: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790509204; l=1524;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
- b=vjmJummGTgJqMbkiLLzIwEHbZtZoKeHrFRjQUTy2+XzOmgNle7iGdbZqZWcckge73W6WIM8eO
- xS8NM2IhcODAorfXXSISZM5xNELT60xGOXXa27f2RLjHiIoBR7Oy45C
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NR3PJyWXADsZH3TVTw4by9Q01diIFFQhdDTk1/TN7TvVsVmsxrcEVP8+
-	DsJTue6N49SgsNIVbb14QpmglHFJrKxs7h7jer3BMGTcr2E7aArroGrTkf+8UirVoOuK+jK
-	zOLAYb27Xll1Ie6JSvxQws/sqkPs6RELNxtRofOP+rQXKeGI3IwYLzzfnZoKVXCS2xpjVN9
-	ezSVfloVmMpp3J1DbP9GQG9Ga5tJn0TP/tyQYvEKlrQhaTUE9SFV3qbi/tOCLcZRoIXB/Zl
-	glybj1FpG8yjNCBVVfPq4nxx0NyDS4wWU49Gw3ne67fgDWIT0B4PND3ScPaRLK9CGwRZEFY
-	3DZL9boQmTjOL2Ks4Xkwj7iAeWZWw74CTJ2BpE1zhfGJ5WeupVZO1CCklOf6LkBKW8bJjLc
-	uVw71qyvT7pksipL3Ds/51xnlUBcf6cIT23YxMB+pPWmd6TBPCsSf07HCcabfR38nPbwolR
-	caR2ApgyIK0bDVsCq942Y292TQxjMR8APTaFWkztgTRn0OCQ2/JGdTe44jDuRwbTGpC5sdv
-	eCKqNXkGb0o2CmHeCoLp2xwXDcPp5ZXnfzODPxoATmSesZ7O3nwBQrZ2X9y6kGYHez/mPFu
-	MkssY4P8An2Ha5YKlN8mNL7UEreW6WQl9AHZGnuDzCyDiwg8GJivY+hXh042lgbtHk3//Ks
-	rDZo2tnU+yUaOYemMrmd/VJPdKhKd29jyizLgpmBP2GsVrhFviVw+jopIDL5OyRItqEP7J5
-	7JPvbvCrWo6AS8JYaZ9qtODTSgbOLa4bTsDdCpDe9RN8330BdOaXGN14LVdw+No36s+wRWT
-	5ede/eZDV2sb85R19IkakasmdzDmGeV36eaLsnjL+LOS0DQhltwsQiXZ8TY8Qu5jVvc0LNw
-	5kjYozVpQY04tHe+NQfl9Rnq9n6+lgJFkEWLA6nCoMjr+5rM/TokveoNk5z8iTm9oMvpK0x
-	EjX9JMQ7pbkQbZgdA5tiozooLDo2myiERlYD8Ir7AQjskb6C3k1OuTouKC57KlVU0tfpZQ+
-	dJBNdNB5N5lGGRDOOSzUOooX80L3hIZGio5GzNMG4SEmAYYhQ+pSPzCpxG0hJhRfxQQAzP0
-	+asLgmHUrHKAQc6kJyqRfQT/5NGw4TZYr0u7FrSofYt6Qwb1+QfRpFyHEaX+/5I4w0YZCa2
-	4gv+CgySOf9daSQPRsFkrQiuxHA1X5oTvZ1NtxiRLf746eM=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-On OrangePi RV2, usb2_0 is connected to a Type-A connector at host
-mode, its vbus output is controlled by gpio 126. And the usb2_1 is
-connected to the USB2.0 connector pins onboard.
+The controller supplies packet and per-contact sizes used to allocate and
+parse touch reports. The driver trusts these values without validation.
 
-Tested-by: Ze Huang <huang.ze@linux.dev>
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+A packet size smaller than the two-byte checksum makes report_size wrap,
+allowing the IRQ handler to read beyond the report buffer. A zero or
+undersized contact size can cause a divide by zero or make the contact
+parser read beyond a record.
+
+Validate both sizes before publishing them, and reject reports that
+describe more contacts than the input device has slots.
+
+Allocate the report buffer once valid main firmware information is
+available, and resize it if a firmware update changes the packet size.
+This also handles devices that probe in bootloader mode, where the packet
+size is not known yet.
+
+Finally, return main firmware query failures from initialization so probe
+and firmware update do not continue with invalid report parameters. Keep
+bootloader HWID query failures non-fatal so the recovery interface remains
+available.
+
+Fixes: 48a2b783483b ("Input: add Raydium I2C touchscreen driver")
+Link: https://lore.kernel.org/all/20260728135127.48971-1-meatuni001@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Pooyan Azad <pooyan.azadparvar@gmail.com>
 ---
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 28 ++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+This partially overlaps Muhammad Bilal's earlier patch linked above. That
+patch propagates both main and bootloader query errors. This version keeps
+bootloader HWID errors non-fatal so recovery remains available, and moves
+report-buffer allocation into the main query path so size changes can be
+handled safely.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index b907a1396b21..32d1aafc88f7 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -64,6 +64,16 @@ vcc5v0_usb30: regulator-vcc5v0-usb30 {
- 		vin-supply = <&vcc_5v0>;
- 	};
- 
-+	vcc5v0_usb20: regulator-vcc5v0-usb20 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio K1_GPIO(126) GPIO_ACTIVE_HIGH>;
-+		regulator-name = "vcc5v0_usb20";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc_5v0>;
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -341,10 +351,28 @@ &uart0 {
- 	status = "okay";
- };
- 
-+&usbphy0 {
-+	status = "okay";
-+};
-+
-+&usbphy1 {
-+	status = "okay";
-+};
-+
- &usbphy2 {
- 	status = "okay";
- };
- 
-+&usb2_0 {
-+	vbus-supply = <&vcc5v0_usb20>;
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usb2_1 {
-+	status = "okay";
-+};
-+
- &usb_dwc3 {
- 	dr_mode = "host";
- 	#address-cells = <1>;
+Compile-tested with:
 
+  make O=/tmp/raydium-build W=1 -j$(nproc) \
+    drivers/input/touchscreen/raydium_i2c_ts.o
+
+ drivers/input/touchscreen/raydium_i2c_ts.c | 64 +++++++++++++---------
+ 1 file changed, 39 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/input/touchscreen/raydium_i2c_ts.c b/drivers/input/touchscreen/raydium_i2c_ts.c
+index 0256055abcef..1d7f53d0b9fe 100644
+--- a/drivers/input/touchscreen/raydium_i2c_ts.c
++++ b/drivers/input/touchscreen/raydium_i2c_ts.c
+@@ -64,6 +64,7 @@
+ #define RM_CONTACT_PRESSURE_POS	5
+ #define RM_CONTACT_WIDTH_X_POS	6
+ #define RM_CONTACT_WIDTH_Y_POS	7
++#define RM_MIN_CONTACT_SIZE	(RM_CONTACT_WIDTH_Y_POS + 1)
+ 
+ /* Bootloader relative info */
+ #define RM_BL_WRT_CMD_SIZE	3	/* bl flash wrt cmd size */
+@@ -331,7 +332,10 @@ static int raydium_i2c_query_ts_info(struct raydium_data *ts)
+ {
+ 	struct i2c_client *client = ts->client;
+ 	struct raydium_data_info data_info;
++	struct raydium_info info;
+ 	__le32 query_bank_addr;
++	u8 *report_data;
++	u8 report_size;
+ 
+ 	int error, retry_cnt;
+ 
+@@ -341,26 +345,22 @@ static int raydium_i2c_query_ts_info(struct raydium_data *ts)
+ 		if (error)
+ 			continue;
+ 
+-		/*
+-		 * Warn user if we already allocated memory for reports and
+-		 * then the size changed (due to firmware update?) and keep
+-		 * old size instead.
+-		 */
+-		if (ts->report_data && ts->pkg_size != data_info.pkg_size) {
+-			dev_warn(&client->dev,
+-				 "report size changes, was: %d, new: %d\n",
+-				 ts->pkg_size, data_info.pkg_size);
+-		} else {
+-			ts->pkg_size = data_info.pkg_size;
+-			ts->report_size = ts->pkg_size - RM_PACKET_CRC_SIZE;
++		if (data_info.pkg_size < RM_PACKET_CRC_SIZE) {
++			dev_err(&client->dev,
++				"invalid report sizes: packet=%u contact=%u\n",
++				data_info.pkg_size, data_info.tp_info_size);
++			return -EINVAL;
+ 		}
+ 
+-		ts->contact_size = data_info.tp_info_size;
+-		ts->data_bank_addr = le32_to_cpu(data_info.data_bank_addr);
+-
+-		dev_dbg(&client->dev,
+-			"data_bank_addr: %#08x, report_size: %d, contact_size: %d\n",
+-			ts->data_bank_addr, ts->report_size, ts->contact_size);
++		report_size = data_info.pkg_size - RM_PACKET_CRC_SIZE;
++		if (data_info.tp_info_size < RM_MIN_CONTACT_SIZE ||
++		    data_info.tp_info_size > report_size ||
++		    report_size / data_info.tp_info_size > RM_MAX_TOUCH_NUM) {
++			dev_err(&client->dev,
++				"invalid report sizes: packet=%u contact=%u\n",
++				data_info.pkg_size, data_info.tp_info_size);
++			return -EINVAL;
++		}
+ 
+ 		error = raydium_i2c_read(client, RM_CMD_QUERY_BANK,
+ 					 &query_bank_addr,
+@@ -369,10 +369,29 @@ static int raydium_i2c_query_ts_info(struct raydium_data *ts)
+ 			continue;
+ 
+ 		error = raydium_i2c_read(client, le32_to_cpu(query_bank_addr),
+-					 &ts->info, sizeof(ts->info));
++					 &info, sizeof(info));
+ 		if (error)
+ 			continue;
+ 
++		if (!ts->report_data || ts->pkg_size != data_info.pkg_size) {
++			report_data = devm_krealloc(&client->dev, ts->report_data,
++						    data_info.pkg_size, GFP_KERNEL);
++			if (!report_data)
++				return -ENOMEM;
++
++			ts->report_data = report_data;
++		}
++
++		ts->pkg_size = data_info.pkg_size;
++		ts->report_size = report_size;
++		ts->contact_size = data_info.tp_info_size;
++		ts->data_bank_addr = le32_to_cpu(data_info.data_bank_addr);
++		ts->info = info;
++
++		dev_dbg(&client->dev,
++			"data_bank_addr: %#08x, report_size: %d, contact_size: %d\n",
++			ts->data_bank_addr, ts->report_size, ts->contact_size);
++
+ 		return 0;
+ 	}
+ 
+@@ -428,7 +447,7 @@ static int raydium_i2c_initialize(struct raydium_data *ts)
+ 	if (ts->boot_mode == RAYDIUM_TS_BLDR)
+ 		raydium_i2c_query_ts_bootloader_info(ts);
+ 	else
+-		raydium_i2c_query_ts_info(ts);
++		error = raydium_i2c_query_ts_info(ts);
+ 
+ 	return error;
+ }
+@@ -1116,11 +1135,6 @@ static int raydium_i2c_probe(struct i2c_client *client)
+ 		return error;
+ 	}
+ 
+-	ts->report_data = devm_kmalloc(&client->dev,
+-				       ts->pkg_size, GFP_KERNEL);
+-	if (!ts->report_data)
+-		return -ENOMEM;
+-
+ 	ts->input = devm_input_allocate_device(&client->dev);
+ 	if (!ts->input) {
+ 		dev_err(&client->dev, "Failed to allocate input device\n");
 -- 
-2.34.1
-
+2.43.0
