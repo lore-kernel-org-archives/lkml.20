@@ -1,65 +1,65 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E597A414A1E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9973F3260
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790528125; cv=none; b=QVsiJ8eE0uq8e6/4+tnvGKMMBD8uDE06RMcJK/1xwABhJi6/YclQbtNjJx/oprGaY7VGJsV7KxVymBYUgMNW5IZcBBZaOSatKrkcIb0YXZgynjDKz11QIoGJdMnIZOf2RkPlqTXekgUR7jLeFJGMTQsixuZmhydBUZj5DVoko8c=
+	t=1790528131; cv=none; b=SRcpaS5UOS3e6LmxdwRlu1X+q9CP5g9Tv3U7u1IyaSJXhjw+6cGaQ9TvPNmm1kvRBPtNHxk3kqi1TDiyrGuqJ3IO3/yD0ZPgMcnpVVIxgfqpcW+Z4z+LLC0ueQzd/g8vE/EI0JeOVZsbk802BffmWGpkMwDAcKqLGVf0Z8zkgUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790528125; c=relaxed/simple;
-	bh=cA8/DvTbO0ExzpBzzco0L48mFYDdMD6XjFWWGSpnSpA=;
+	s=arc-20240116; t=1790528131; c=relaxed/simple;
+	bh=/lIKUXJLz2UQHUvF+Hmo7XzpSNQsesH7USAI7l2sM+g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a5ueQwkNoyed3yfD7AKQg0G+RizKTfPoxS7SxAo4JRZ7WlfNabYZ5Ljx9tsUs42t2x1kdiHEePs32aWQOKOtEM57MISBm5EZgUSPVkVrpTA/MeGm/N3PrpD6EOhQW/NJ7fq28ipf78b9A8DMsMmwZapfHiA73kvxjzJoQMjxa5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XxG7uswb; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=AlN5viurdnnBgDGe7VJS/oYnF6qYZ7bnnXfTAXa0yD/LA4XsoCWsYu0mJYpy9sYf5oKQvYiTkD3jjmgYxUN0FLPZ7btmwtIfZAuhjZYDLUiP/xyiCt/XNHEmBqpA9Y98w2lLUMoDIV7kjHHxF73B06oUrR8oQ3/O9GlgXN6iqsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ArXt0ZFf; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XxG7uswb"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so12542745e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:55:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ArXt0ZFf"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso13412815e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:55:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790528122; x=1791132922; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790528128; x=1791132928; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NTuSGrduqyu3DK4wAPJF2MCmGI7vblXuBOgLU0bscZM=;
-        b=XxG7uswbxJu5C8n4x5Xl6aVafRRlup+6UCx6FgPpRrRa0prTvjlGVgPzf0fY9Kcvp9
-         MDgJmPCVJClSE/rrrU+teVccPIAdnWJa39PrHYVbUc7TQUslx6X0TYNN3Yf423EuD/ly
-         X2v2bLUREsNNpI8GpTb7nt4jTWvp++b8pSrecPkfZ8yb06UQFCexVu60FvkHpu1MCkAc
-         ZMuaxv78h+MgLk4IYaNeinSnmbsfhxgOkdQFF/gZNRfi6s0GOhnGUOtsZw3F4GbSbjg7
-         zLLCaWhcfRNIF4/J6QEuBSUHnm6PFBZKnOp5BFjCwTInZOGnFw7+oFG/INZmWzvcizGJ
-         FAEQ==
+        bh=ym1diEOibk5xps77zZysxQ1bh4AhoR+8AInugu/q9zA=;
+        b=ArXt0ZFfndHw5l6w43PdZolyc3ctkZna2wcdEjysFNa4jIqcDpWvNyF43lUNgim7xF
+         6eEIl8xHm0/ayAYbX3uJyhtThuDYIoCamJ63Sh4u89Ie92nKRbZ6RiJo+ucet5793cCD
+         n7T3TYRdoTr+JPLY13NDTalZjYakwK3YNOGJUOojhxI0n+h3vOx1fhPRcHfCKO5Opi/f
+         LK+xZsM0GqfULegWnAJrhWaWddQE1ximQSzcdSnG7eid/6nS7MQ/x4yW8gKLXDQ4pSkH
+         sXRfsRNr8/uc2Qi19WdXBqB+NeFsAJmOrt4r8XMp75F8UW1R7CX3xGy/03I0Y98ptNkP
+         AWMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790528122; x=1791132922;
+        d=1e100.net; s=20260707; t=1790528128; x=1791132928;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NTuSGrduqyu3DK4wAPJF2MCmGI7vblXuBOgLU0bscZM=;
-        b=KEIlhVBAa+UwAi3WD6Mh1ng/WzOI4OYWqurI9klbIaVJX4sg2wYXX4yI/FeNhOH244
-         OY1JlEW+S/S4YEY706HopcXQ0v0UyNNzwkry+uTldB6HuXvjr9Jx9UlLnV44kznGzIsa
-         1FHHxn8fBQxJ9dPCUeGs5i4cC7tiXawkCEh/MEQjdPkjw/xuA0rqDX145IUT1okUTqAG
-         cBr/WOAoX4Vh0uD6VCDPfjFMccbYLtYRNl6AoNrklXk5o+5ubYh5W7O9aD5rsGnldtCa
-         Dx818U0Nkph+nfMM+nUhOKf8lGTUMa6mP79NRqqPgp2K6r9HVMDxnMHZLVJ2fPZRrFbI
-         KLcA==
-X-Forwarded-Encrypted: i=1; AKwUvBz+5mPI5sysC6s9aBXumO3A94ZR5yfKqV86nFdGFZEUZuIeqzBxPCNmM8tKLUNBGthpR25lgTlv+asxeDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaFsHCA16IjfdQfNHKwCPypjAp/0VEA+cHMDTYIvGsMHWwqjlp
-	O/n7yicb8UM6pRFmMhqZL5hOthC6weVEQtTJKlfR9+UaEg3ToapQHQ9C
-X-Gm-Gg: AYBFou33CkrEZxmjdMp00oUrcW1pYUqruz89h50ujsJPRBQN9oznTReyh2m/IMt+lIO
-	yfrx+KXMaqTer91bJiI+2TnCgU5kILcPX5JbFZRuCDqaovSZnB3hcHq/yLHGveHBQKC2Tz7CuEn
-	gU4uPj863rPPVMGq2Hs91oiMNjcrgA1Dqm72RoFHEw3u7qscl7JTVKAaI6g1yWK6ofjLj2kZKNu
-	HfD2m2/hc+m1tb42EZ1hjJxeBDvsocIhyJLtwogO5Rgp4EpOmNV4CsRPbim8UPCBAR4GfVptz0N
-	LkWz3DoFvl2PXqQMpJQt9eTYNOgZ3MwToXFB/rxFM7C7D13CLhrGRqPFpJ5z9lAAaoUktn+vim9
-	4iIPYtJ9APXuz54SRcufWg2OLrmr4rGCsq1eeAATw9Ab/5lA4HbQted//SqBJGK6j4zJtMz+bMM
-	UUP8YCzXx4jkxqdB/DSuCjt3gc3dK58AlRjbCIvtJv1xndNfcltBpcZMSCghbuPRzlC7llVe2vC
-	az6Bn+tWGPTLJ4uz2im1VzsWmHsE4x6vUGpkQQUVeoWMv9ahjGaWH1Du7+BxRulYNl/KNHPVmfS
-	Vw==
-X-Received: by 2002:a05:600c:34d4:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49fe66d07c9mr170308515e9.12.1790528121995;
-        Sun, 27 Sep 2026 09:55:21 -0700 (PDT)
+        bh=ym1diEOibk5xps77zZysxQ1bh4AhoR+8AInugu/q9zA=;
+        b=QdbnQBXRt8pDkV2HQPW3AByO/73m6fptILYc4qSY6b9xjNb6CNv+poKnRYV3WVg4B1
+         P3H5GRvDqrjpZDF+jlDuNouSgT5DMuCB9cxWsqv9yU/4cv6M4QjK3BbngXlEpxb2xZcW
+         qKSH/ttD/ZCCnLLe+W9QI2oYsnomey4CRgcf7w1pn8imhVff1jneIIiDSDTJ1JNCHfIN
+         hOjuFkX5naiXpaOJ/ykJ3IHHutlw5ZAowkwNGSby14bbh8dBYJXBMQB9BLqz5WnUKsMr
+         W1FGNBqPs9mTrwC9k2aqJa7CdqjB2MQtqERcV1NSxnIp9aaimR/cA7y3DLRU0mj4TEZL
+         uf7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzqZ/ObC88ZlWwId7dtqb+G27j5+FgYlOZOFuAI7LH33eb1TdnodMLxf0+zl6t3xySKGcUcsPZogHiB1dg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcBImJRcTq8qVZgQIq4rgTHf98uYUUL1HgwJqwzeSVMFJGP5nr
+	mF5UPY0rzPKT6/5GxJH7rl+DyvRehBPZS6Q0QaqUE1UibsBJBbTSDu8J
+X-Gm-Gg: AYBFou14djnuWqmGQcX854iwGaJUHyxNUQjWFBM1r/7M1Fd1MA4O2rg2YIFuk2+RYth
+	/0CtTApEAXflbGwJIhTB43W2PmS1tM8lKaPUlL1prmrNQ6LiRg7F73pNyN17irb2sTpyTzU2V3W
+	6e0kLh6m3WZIm4GegDJG3kkj14PFluTy9MBdfE/SxOdh0Oti7rr55vYgFAVwr2e2YMWwV8s43iu
+	5KB7sUK/ID3qY5gsE2R0ScQOScOzjRRQS9wo2h3Y1UXQu97lYJA9oosaEWFQWYkBUFfXg1ngsFM
+	Thq8fulNNQb3p5FUSbqfC30zyOzhP4gTK2JlEA6NDfomyOyBdmjUk3dS4H92IUteCiyibvpI8v2
+	pCdMee60i/CMqv0EfCHHmAeplrX/TaFfTlU7TC6SUkdvE2Qo3BZegJEVYxtuUTJ/DiDWtsCICf9
+	osQ7dMCPC1s8DFesm8v2AwoUBpMjX0ktks4XBvslnUtJnn3fce4V8CaFvhnmWIvNryFB9pzHaE+
+	qcNlQ3/LqGd5fnQI9ZLzcfxuh0EzfOmFxI+Ln0C/w8eLngK9pI1jQ1zzDwMZOIVrG6bAJRCJctF
+	eg==
+X-Received: by 2002:a05:600c:1c21:b0:4a0:2dd:7573 with SMTP id 5b1f17b1804b1-4a002dd77demr29968615e9.33.1790528127654;
+        Sun, 27 Sep 2026 09:55:27 -0700 (PDT)
 Received: from f3a6eae2255e.fritz.box (dynamic-002-214-014-217.2.214.pool.telefonica.de. [2.214.14.217])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00178bebasm76167695e9.11.2026.09.27.09.55.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00178bebasm76167695e9.11.2026.09.27.09.55.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:55:21 -0700 (PDT)
+        Sun, 27 Sep 2026 09:55:27 -0700 (PDT)
 From: Abhin Parekadan Jose <abhinjoses@gmail.com>
 To: Bjorn Helgaas <bhelgaas@google.com>,
 	Lukas Wunner <lukas@wunner.de>,
@@ -73,9 +73,9 @@ Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	Abhin Parekadan Jose <abhinjoses@gmail.com>
-Subject: [PATCH RFC v2 3/5] PCI/DPC: Add pci_dpc_wait_recovery()
-Date: Sun, 27 Sep 2026 16:54:56 +0000
-Message-ID: <20260927165459.829900-4-abhinjoses@gmail.com>
+Subject: [PATCH RFC v2 4/5] PCI: pciehp: Report surprise removal from pciehp_isr()
+Date: Sun, 27 Sep 2026 16:54:57 +0000
+Message-ID: <20260927165459.829900-5-abhinjoses@gmail.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20260927165459.829900-1-abhinjoses@gmail.com>
 References: <20260927165459.829900-1-abhinjoses@gmail.com>
@@ -87,131 +87,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pci_dpc_recovered() awaits completion of DPC recovery and then tells
-whether DPC recovered successfully, using test_and_clear_bit() on
-PCI_DPC_RECOVERED. The answer is one-shot: only the first caller sees
-true.
+A surprise removal during a safe removal cannot be reported: the
+removal blocks waiting on a device interrupt or status read, and the
+single-threaded IRQ thread is itself executing that removal, so it
+cannot report that the device is gone. The removal hangs.
 
-Split pci_dpc_recovered() into:
+The hardirq handler pciehp_isr() still runs while the IRQ thread is
+blocked, so it can report the disconnect. However, pciehp_ist()
+deliberately ignores link and presence changes caused by a Secondary
+Bus Reset or Downstream Port Containment, where the device is only
+temporarily inaccessible. Distinguishing those normally requires
+waiting for the SBR or DPC to conclude, which takes seconds and is not
+possible in hardirq context.
 
- - pci_dpc_hp_sync_supported(), the check whether hotplug can
-   synchronize with DPC at all.
- - dpc_wait_completed(), the wait for recovery with its 4 second
-   timeout;
- - the final test_and_clear_bit().
+Schedule a work item from pciehp_isr() when a PDC or DLLSC event
+arrives and neither Presence Detect State nor Data Link Layer Link
+Active indicates that a card is present.
+This provides us a pathway to wait/block/sleep as we will not be
+in pciehp_isr().
 
-Add pci_dpc_wait_recovery(), which does the check and the wait but
-leaves PCI_DPC_RECOVERED alone. No functional change intended.
+In pciehp_disconnect_work(), wait for the DPC recovery or SBR to complete
+before checking presence and not consume the link change flags, so that
+pciehp_ist() can still see them and ignore the link change if it was
+caused by a DPC or SBR. Even after the DPC or SBR has completed, if the
+device is really gone then pciehp_disconnect_work() will see that and
+report the surprise removal. Like pciehp_ist(), it holds a runtime PM
+reference on the port and checks presence under reset_lock, since a
+slot reset may make Presence Detect State and Link Active flap.
 
+Link: https://lore.kernel.org/all/aHlZE18kPuHuDtTT@wunner.de/
 Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
 Assisted-by: LLM
----
- drivers/pci/pci.h      |  2 ++
- drivers/pci/pcie/dpc.c | 54 ++++++++++++++++++++++++++++++++----------
- 2 files changed, 44 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 2e113806f9f95..ad98e2d9289ea 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -940,12 +940,14 @@ void pci_restore_dpc_state(struct pci_dev *dev);
- void pci_dpc_init(struct pci_dev *pdev);
- void dpc_process_error(struct pci_dev *pdev);
- pci_ers_result_t dpc_reset_link(struct pci_dev *pdev);
-+void pci_dpc_wait_recovery(struct pci_dev *pdev);
- bool pci_dpc_recovered(struct pci_dev *pdev);
- unsigned int dpc_tlp_log_len(struct pci_dev *dev);
- #else
- static inline void pci_save_dpc_state(struct pci_dev *dev) { }
- static inline void pci_restore_dpc_state(struct pci_dev *dev) { }
- static inline void pci_dpc_init(struct pci_dev *pdev) { }
-+static inline void pci_dpc_wait_recovery(struct pci_dev *pdev) { }
- static inline bool pci_dpc_recovered(struct pci_dev *pdev) { return false; }
- #endif
+---
+Changes since RFC v1:
+- Drop schedule_notification_work(). pci_dev_set_disconnected() schedules
+  the driver's disconnect_work again, as in patch 1, for all callers, and
+  pciehp_disconnect_work() calls it through pci_walk_bus(). (Michael)
+- Return early from pciehp_disconnect_work() if pending_events is zero.
+  pciehp_ist() has then already taken the events and handles them itself.
+  (Sashiko)
+- Treat a read error of the presence check as "not present", both when
+  scheduling the work in pciehp_isr() and when checking presence in
+  pciehp_disconnect_work(). (Sashiko)
+- Check presence with pciehp_card_present_or_link_active(), as
+  pciehp_ist() does, so that a port with Presence Detect State hardwired
+  to zero is not mistaken for an empty slot.
+- In pciehp_isr(), check presence before dropping the runtime PM
+  reference on the port's parent.  In pciehp_disconnect_work(), take a
+  runtime PM reference and check presence under reset_lock.
+- Don't call the spurious link change test from pciehp_disconnect_work().
+  It consumes the one-shot flags PCI_DPC_RECOVERED and PCI_LINK_CHANGED,
+  so pciehp_ist() could miss them and tear down a device that was only
+  reset. Await DPC recovery and Secondary Bus Reset with the new
+  pci_dpc_wait_recovery() and pci_hp_wait_link_change() (patches 2 and 3)
+  instead, without consuming the flags. pciehp_is_spurious_link_change()
+  is dropped and pciehp_ist() is unchanged. (Sashiko)
+
+RFC v1: https://lore.kernel.org/all/20260905183905.997833-3-abhinjoses@gmail.com/
+Michael's review: https://lore.kernel.org/all/20260912115420-mutt-send-email-mst@kernel.org/
+Sashiko review: https://lore.kernel.org/all/20260905185217.E9BC21F00A3A@smtp.kernel.org/
+---
+ drivers/pci/hotplug/pciehp.h     |  1 +
+ drivers/pci/hotplug/pciehp_hpc.c | 67 ++++++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
+
+diff --git a/drivers/pci/hotplug/pciehp.h b/drivers/pci/hotplug/pciehp.h
+index debc79b0adfb2..c8ceb9320e2e9 100644
+--- a/drivers/pci/hotplug/pciehp.h
++++ b/drivers/pci/hotplug/pciehp.h
+@@ -116,6 +116,7 @@ struct controller {
+ 	unsigned int ist_running;
+ 	int request_result;
+ 	wait_queue_head_t requester;
++	struct work_struct disconnect_work;
+ };
  
-diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
-index 2b779bd1d861b..a6438a7e3d9c7 100644
---- a/drivers/pci/pcie/dpc.c
-+++ b/drivers/pci/pcie/dpc.c
-@@ -92,15 +92,7 @@ static bool dpc_completed(struct pci_dev *pdev)
- 	return true;
+ /**
+diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
+index 4c62140a3cb44..470cc16d4a828 100644
+--- a/drivers/pci/hotplug/pciehp_hpc.c
++++ b/drivers/pci/hotplug/pciehp_hpc.c
+@@ -620,12 +620,64 @@ static void pciehp_ignore_link_change(struct controller *ctrl,
+ 	up_read(&ctrl->reset_lock);
  }
  
--/**
-- * pci_dpc_recovered - whether DPC triggered and has recovered successfully
-- * @pdev: PCI device
-- *
-- * Return true if DPC was triggered for @pdev and has recovered successfully.
-- * Wait for recovery if it hasn't completed yet.  Called from the PCIe hotplug
-- * driver to recognize and ignore Link Down/Up events caused by DPC.
-- */
--bool pci_dpc_recovered(struct pci_dev *pdev)
-+static bool pci_dpc_hp_sync_supported(struct pci_dev *pdev)
++/*
++ * Workaround to not wait in the isr.
++ */
++static void pciehp_disconnect_work(struct work_struct *work)
++{
++	struct pci_bus *bus;
++	struct controller *ctrl = container_of(work, struct controller,
++					       disconnect_work);
++	struct pci_dev *pdev = ctrl_dev(ctrl);
++	u32 events;
++	int present;
++
++	events = atomic_read(&ctrl->pending_events);
++
++	/*
++	 * Zero means pciehp_ist() has already consumed the events with
++	 * atomic_xchg() and is handling them itself, with the full event
++	 * mask available for the spurious link change test.  Leave it to
++	 * the IRQ thread: acting here would override its decision, and a
++	 * zero carries no information about the device.
++	 *
++	 * The events only stay pending for us when the IRQ thread is
++	 * blocked and cannot drain them, e.g. in pciehp_unconfigure_device()
++	 * during a safe removal.  That is the case this work item exists
++	 * for.
++	 */
++	if (!events)
++		return;
++
++	pci_config_pm_runtime_get(pdev);
++
++	/* Wait for DPC recovery or a SBR to complete */
++	pci_dpc_wait_recovery(pdev);
++	pci_hp_wait_link_change(pdev);
++
++	/* Presence Detect State and Link Active may flap during a slot reset */
++	down_read_nested(&ctrl->reset_lock, ctrl->depth);
++	present = pciehp_card_present_or_link_active(ctrl);
++	up_read(&ctrl->reset_lock);
++
++	pci_config_pm_runtime_put(pdev);
++
++	bus = ctrl->pcie->port->subordinate;
++
++	/* The card may have returned */
++	if (!bus || present > 0)
++		return;
++
++	pci_walk_bus(bus, pci_dev_set_disconnected, NULL);
++}
++
+ static irqreturn_t pciehp_isr(int irq, void *dev_id)
  {
- 	struct pci_host_bridge *host;
- 
-@@ -108,13 +100,18 @@ bool pci_dpc_recovered(struct pci_dev *pdev)
- 		return false;
+ 	struct controller *ctrl = (struct controller *)dev_id;
+ 	struct pci_dev *pdev = ctrl_dev(ctrl);
+ 	struct device *parent = pdev->dev.parent;
+ 	u16 status, events = 0;
++	int present = 1;
  
  	/*
--	 * Synchronization between hotplug and DPC is not supported
--	 * if DPC is owned by firmware and EDR is not enabled.
--	 */
-+	* Synchronization between hotplug and DPC is only supported if DPC is owned
-+	* by the OS, or by firmware with EDR enabled.
-+	*/
- 	host = pci_find_host_bridge(pdev->bus);
- 	if (!host->native_dpc && !IS_ENABLED(CONFIG_PCIE_EDR))
- 		return false;
+ 	 * Interrupts only occur in D3hot or shallower and only if enabled
+@@ -697,6 +749,14 @@ static irqreturn_t pciehp_isr(int irq, void *dev_id)
+ 	}
  
-+	return true;
-+}
+ 	ctrl_dbg(ctrl, "pending interrupts %#06x from Slot Status\n", events);
 +
-+static void dpc_wait_completed(struct pci_dev *pdev)
-+{
- 	/*
- 	 * Need a timeout in case DPC never completes due to failure of
- 	 * dpc_wait_rp_inactive().  The spec doesn't mandate a time limit,
-@@ -122,6 +119,39 @@ bool pci_dpc_recovered(struct pci_dev *pdev)
- 	 */
- 	wait_event_timeout(dpc_completed_waitqueue, dpc_completed(pdev),
- 			   msecs_to_jiffies(4000));
-+}
++	/*
++	 * Check presence while the port is kept accessible.  This may race
++	 * with a slot reset, so pciehp_disconnect_work() checks again.
++	 */
++	if (events & (PCI_EXP_SLTSTA_PDC | PCI_EXP_SLTSTA_DLLSC))
++		present = pciehp_card_present_or_link_active(ctrl);
 +
-+/**
-+ * pci_dpc_wait_recovery - await completion of DPC recovery
-+ * @pdev: PCI device
-+ *
-+ * Wait for recovery if DPC was triggered for @pdev and recovery hasn't
-+ * completed yet.  Unlike pci_dpc_recovered(), leave the record of a
-+ * successful recovery in place.  Called from the PCIe hotplug driver where
-+ * it needs the link to have settled, but not the cause of a link change.
-+ * Nothing is awaited if synchronization between hotplug and DPC is not
-+ * supported for @pdev.
-+ */
-+void pci_dpc_wait_recovery(struct pci_dev *pdev)
-+{
-+	if (pci_dpc_hp_sync_supported(pdev))
-+		dpc_wait_completed(pdev);
-+}
-+
-+/**
-+ * pci_dpc_recovered - whether DPC triggered and has recovered successfully
-+ * @pdev: PCI device
-+ *
-+ * Return true if DPC was triggered for @pdev and has recovered successfully.
-+ * Wait for recovery if it hasn't completed yet.  Called from the PCIe hotplug
-+ * driver to recognize and ignore Link Down/Up events caused by DPC.
-+ */
-+bool pci_dpc_recovered(struct pci_dev *pdev)
-+{
-+	if (!pci_dpc_hp_sync_supported(pdev))
-+		return false;
-+
-+	dpc_wait_completed(pdev);
+ 	if (parent)
+ 		pm_runtime_put(parent);
  
- 	return test_and_clear_bit(PCI_DPC_RECOVERED, &pdev->priv_flags);
+@@ -722,6 +782,11 @@ static irqreturn_t pciehp_isr(int irq, void *dev_id)
+ 
+ 	/* Save pending events for consumption by IRQ thread. */
+ 	atomic_or(events, &ctrl->pending_events);
++
++	/* The card may be gone, let process context decide */
++	if (present <= 0)
++		schedule_work(&ctrl->disconnect_work);
++
+ 	return IRQ_WAKE_THREAD;
  }
+ 
+@@ -1036,6 +1101,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+ 	init_waitqueue_head(&ctrl->requester);
+ 	init_waitqueue_head(&ctrl->queue);
+ 	INIT_DELAYED_WORK(&ctrl->button_work, pciehp_queue_pushbutton_work);
++	INIT_WORK(&ctrl->disconnect_work, pciehp_disconnect_work);
+ 	dbg_ctrl(ctrl);
+ 
+ 	down_read(&pci_bus_sem);
+@@ -1096,6 +1162,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+ void pciehp_release_ctrl(struct controller *ctrl)
+ {
+ 	cancel_delayed_work_sync(&ctrl->button_work);
++	cancel_work_sync(&ctrl->disconnect_work);
+ 	kfree(ctrl);
+ }
+ 
 -- 
 2.51.1
 
