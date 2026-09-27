@@ -1,76 +1,76 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B8E3BB132
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9161D3D524F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506639; cv=none; b=I6ey2iFR7TxGRRdbfKzeSHSWeCY1cJtr1AAcl23B5W0A/Sk1gDnM4c6C+pFNlqwX6zDjtXMpVR3x4p07sV64pdU4RxdMg3Eci7L1Gn0O/s7+jFRspTasoW7xZY9VR4iGrMQVgKev6ibLD+C8eP1FKKxXl1fcmkL4MGZZfcpYcHU=
+	t=1790506648; cv=none; b=Fho6Xi0ziVdxXsKi0zaVYLQKpKF39kNGaWk4+H6X6P/UZmrsI1z376hrns/mI8moWv2cqBtk+ycowjiTZejTFH4q+aZATV9wv64Ljszfixzl77YdgFd9RDR0xlTcPBPsJ9HZl3ZQfcrWNzEyhMhUf2S5ghpVR2fUleTWIdjExUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506639; c=relaxed/simple;
-	bh=TMXpwMrgBc0WthLXYnkP/QxmhL5jxeiWxjSvV6naBUE=;
+	s=arc-20240116; t=1790506648; c=relaxed/simple;
+	bh=eNwhT3ZGqjB2HEC8B6HN9G+Zq0SEoGTqMnOPNZ4zWJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hCWCWdB0iAYPgKtrlXoFmchQ000GUoNPgjdsGxqT0gK458Hst78xiPpqjeIMy4NAyVa4RlKjtZQxfrArX2ExPbd2H+9nOQs5q3q+1w4AlIQa23I2sKds5y1hEIOOu1CdDBUYO4OXMjs8fXkbHCHaXNaZhOmC73EXakTkkaD371E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/xF3HJM; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=fuEuf1toxlpqKjA1GEeYXnnGw6yqwIC+Rcm71LhgRDQVK7t2WO10uNdPKjfeTRXA+sy4GQNYbdzziumtD/dCggUamsx/v+NWb/lzc7xPSaOb3c1ooOcWTxVlnJfN46o5xALWX4D7CsQp17pAxqZ4jKVFyx2iE07PzvHueDGx7xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNsWKm/a; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/xF3HJM"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so18762685ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNsWKm/a"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0b6200eb0so1630733a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790506634; x=1791111434; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790506642; x=1791111442; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xSjyGs9dHuPWxLkKlfnkoqKEvH9ZWWVKxeYf0xIQxxU=;
-        b=D/xF3HJMuGGIE0HDKvhkTBWU4bdOV2JDvw7VZ2rHnUnt4TrnmLUS8uPGX4gS7euK9/
-         6WXHkFSwN5ghYxjtANuimS4Uau2jBZUaWWCldghhCkvPMIQJxMPJtP2MdIPou3YzXHdA
-         MJnJt3TsMtRRz6Ua5M5q/HkZ+meDjVXwneeBpCNfxo9HrpqvRO+x4gniRGbQBCKvBIfA
-         m/ww/dJdpXqvjqRMCYG7FGW9nQ9BwnJ2f3tDDmKj6UwrqJrdu6oJk7iBZjSCOiAAmcZi
-         KzV4X669PQD6KjTjdLwL52eZUIZYni7u3V6TxzedSdaV3cRNmwZx8mhO1bxLYROj9UtF
-         Llwg==
+        bh=+ZGzG0bURFDXcZw30n7m4Md6MGV3VzuOyyLqAT8l4iw=;
+        b=bNsWKm/a6NZTXpJRxyydE5LQfLaEuvvSrhel58zmBZGW38QaoR2mS8ZW6q6xqwgvpg
+         Ww+gmHpvbyxepXRwQwgwWGdi0tsbEAIcVPaxAVpYrp5Ww/g79oStKymo+AkjROvp6L5O
+         DesG8xZFLG+IEWP0rqwNDjxiAVEouhizVAOOg8iDC9BIZr03bwftXA2C3e44vaBq4g/3
+         LMP5znpVZaszIuK0bKPB9ZAY2xCM3Dd23yPc8Gg9kcOXiiPBE5e6jabifbEVMdYBTVWd
+         9KaZLmncCI6mqggZRVjOVDyXWVBzhcsntnuFy+UwaToWC1CgcYkhAU9QKDtu/2bh/hVe
+         2Xyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790506634; x=1791111434;
+        d=1e100.net; s=20260707; t=1790506642; x=1791111442;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xSjyGs9dHuPWxLkKlfnkoqKEvH9ZWWVKxeYf0xIQxxU=;
-        b=GYcgrvbE7sxlxnW0kOmz6j8Vv3y+992We2EeTvEN2Ms60PrltkQHpgDmJKwYzZOId5
-         0fNupi92VInxhMS2f4CqadkRYNoSfErLatzPV1mDINz19ySaVuADMgnEwIA3PRCILXY4
-         6OEYYoWqGyrkWD1O/PuGoQxsAWeETM32+yZBrAl/ZLTL5BVoqtCEbgCUWaxIog3NISpC
-         YCjfiIgvBLjd26y7nF2gfH6ybZQa0hqgiP6Q3A4IphT+7dARVYTlmSUAvciaSSYATL7c
-         aligrBodur3RKp4STS4H55i7u/ogq+xupnyJUhE1f0FP+2fD9CjWSAS2AjXPdZMBprHU
-         LxCg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0bcdLuPw/5h0ROQH7VAAghx26QcvUzKSw2096K88Omda8JxM03u2kTQv5Mns0SZr/a9pl5WomwSydDtM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy4N96jp4rc96iUha3ASxBgSVNnj4QS057JgtPNFNtsogev9mZ
-	8yBDT2aWA3WUd4TCxKyOTvcsqcTbKwk/1bLuma0DegfjtKlC4JsSnr65
-X-Gm-Gg: AYBFou1h0zpM2EQbWrAUMH1fm/VIL9o9oOVEEy5IAOosR2jjXsag2cdpMitFXm5Vo5B
-	xY1veoVtgZl5PDgP7YjnK1RlorxVEOYS6k1Gl1Z9urmqXkXQ95aCji/8VH7vh5XpMbWXs/XU7nT
-	6nZ5vrfHJPEjfb6e8uH81In85fvnqiSAqOjK7mTChVkVH4yHidR+ZuBsteWTI9QG3/0U97Ebt9O
-	NNXBluALYtEylg9+RqyFIHvNwNlQLSEdcJMNVrUKQJan/FWsuL8TDiux2lB8xYIirbCUGkO7bAc
-	sahBg/4C9WJwmLPYBmQNOEg3M9f4hzrmsqgeCrOhQyo3BBHNXbeuwLBm/+0ZgePXwH6plz40Sf5
-	OV+v3nuOmVuCWd4vfw6yQRaB+kzLyNU2OoqedMLuv3NIm6oArJbVNknhpn124qB/CqCfnpOkMB6
-	6ACj27hp/QyJTYLTTZenSOOPLuDE4WeFHbuHrAiqfGhOXO/VpKeYfpa0txx102inmpBwuAamQQ/
-	O0uCHpUnrSU651kkpv9sFt1n7brpe4RBSv7fu19jvO7n9sSIQe/K6CFJ1fqUsR74sudhnEcnYjX
-	gXS7dgRAXldrSrOFC9k9PsWbupSrgLKdTelR8g2XOKXdlhnfjbHxJE8DTG8=
-X-Received: by 2002:a17:903:4684:b0:2dd:ad74:ac81 with SMTP id d9443c01a7336-2df94b948b3mr51119405ad.28.1790506634463;
-        Sun, 27 Sep 2026 03:57:14 -0700 (PDT)
+        bh=+ZGzG0bURFDXcZw30n7m4Md6MGV3VzuOyyLqAT8l4iw=;
+        b=Z1bI5ApMrQaeI4AucvDSGbrYn915F/Lo+s6NVtApT1vV1HhAZPpD7C6uccdUM7NSed
+         DLLEqH3uTuMn7BONlwcQMRrNcVb1yd5rdt41UY7txyewxfvVVNQ9n9dCW44VDJW4wVYL
+         rzqC5lTI4wCN2Mxi5/ezeSw1mj21X2AURdD5CGo1SrEEBXyy0V93wS1Kom4LEENWFfU5
+         2j0eF+Po6coiLrzTHpCbGFG42JMkqhB3lEMd60fyXO7fo/hmXGvNdUyNzCQCEgSEnp0C
+         XBeFiVBLUq1yfcqM0976bgJFq5lNRQD+ClugD7pCxqz9LyAUM9ztwmStNuQb5sdPQp5U
+         N24w==
+X-Forwarded-Encrypted: i=1; AKwUvBxTgdI1Ap5mTG4T87RVf+gqXUmdn4hy3wiXMc7P/JETNb5ucoQUW1Z7HQvZlkbmRthkfnj2eIQSQD9eQu0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHKfd8vKStmsqVR2oMRqM5NpWwrrlz7+TPSHKSu5lMsVxAq7Du
+	/DJXcgA/l4agCpho6+zy06Pde7QdWV4LzQdKAmb1yx2c3KPnjU5b8BrUMAmc3MkJLcyzPQ==
+X-Gm-Gg: AYBFou3nmhMqEJ0QLdyL2HVGleLCoEM+0BNWFTKDWJZ0GD4DCMqBbDzkLvyeFt0IJLd
+	Qu3Napt010Sj/PX3iyCP8kOcDC2bITKAMLwcU4+ZGqfLMqUS58jvJJuo7LjJ0F4zcS0Vmwr3yNT
+	56OlO1XjnbeJmbPGjfhaH5EY1jUi1lTfcPZX56pdOsH9ZoXz63xp4Z9p+rRQkZk2z+TZ7TSEMwA
+	mzPv/slZSxFQx5wpej5zRQdlb5LPa5yyZk4FraEn7pcIiWa2EtvsZ07OmM40di4L0yzuMhCr4Kl
+	4rJhmeP3BGrgvMfAcuZf9AYvIsflPeayP6slfx5133TBWiejj1wjpNt+lwOQAwV1f376i2FZwHR
+	EzJIxUx30e41ngI6jwzoV3kuNLRRH6I42H5eMRed5u3Rl/67cd2k/P/6+Jw/1wnkoVqN6c95pjC
+	DgmcyuT319VAo32+2WjlyMYQdJsw4cOvCR8ffkBlmB8PQs/MSVfZr9xGsvBP+TOI/jns55wViNs
+	/bAl8QBOBvwKilCQevsyIHGGNa4Hfpetrn381v0Z3rVoAMJqzvX/jME++T1/SwftecbQf/9OGYX
+	6Xe9CKveY6baxaCfG772JtjoOXDjMOiiNK7N2gIivwdhnm0fKZUmygAwsz0=
+X-Received: by 2002:a17:90b:4c41:b0:3a0:2ffd:1a51 with SMTP id 98e67ed59e1d1-3a0bb553257mr5933522a91.10.1790506641575;
+        Sun, 27 Sep 2026 03:57:21 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91442ef4sm28521145ad.55.2026.09.27.03.57.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5220sm14419192a91.16.2026.09.27.03.57.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 03:57:13 -0700 (PDT)
+        Sun, 27 Sep 2026 03:57:21 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>,
 	Hyunchul Lee <hyc.lee@gmail.com>
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ntfs: do not use a stale runlist pointer when undoing $MFT extension
-Date: Sun, 27 Sep 2026 18:57:06 +0800
-Message-ID: <20260927105706.3111333-3-matthias.goergens@gmail.com>
+Subject: [PATCH 2/3] ntfs: restart the zone search when the allocation hint fails
+Date: Sun, 27 Sep 2026 18:57:13 +0800
+Message-ID: <79878c7323e37a500c540b3b140102b73d46bafe.1790503811.git.matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260927105706.3111333-1-matthias.goergens@gmail.com>
-References: <20260927105706.3111333-1-matthias.goergens@gmail.com>
+In-Reply-To: <cover.1790503811.git.matthias.goergens@gmail.com>
+References: <cover.1790503811.git.matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,52 +79,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When ntfs_mft_data_extend_allocation_nolock() fails after it has
-rebuilt the mapping pairs of the last $MFT data extent, undo_alloc
-truncates the runlist and then rebuilds the old mapping pairs from rl2,
-a pointer into the runlist taken before the truncation.
-ntfs_rl_truncate_nolock() can reallocate the runlist, and KASAN then
-reports a use-after-free in ntfs_mapping_pairs_build().
+When ntfs_cluster_alloc() is given a start_lcn, it first tries the
+clusters from there on.  If that does not satisfy the request, it moves
+on to the zone's current position, but keeps the pass, the zone_end and
+the has_guess state it had.  That loses free clusters in two ways.  If
+the search had already moved on to pass 2, whose range ends at the hint,
+it scans only from the zone position to the hint and misses every free
+cluster between the start of the zone and the zone position.  If no
+cluster had been tested yet, has_guess is still set, so the cluster at
+the zone position is tried as if it had been the hint, and when that
+cluster is in use the rest of the bitmap buffer is skipped.
 
-Pass the start of the runlist instead, and hold the runlist lock for
-reading while the mapping pairs are built from it.
-ntfs_mapping_pairs_build() skips to the element containing the first
-vcn by itself.
+Both happen when the hint lies at or past the end of the volume, which
+ntfs_attr_map_cluster() produces when it extrapolates from the last
+allocated run across a hole.  The allocator then finds nothing, shrinks
+the MFT zone to nothing trying to satisfy the request, and fails with
+-ENOSPC.
 
-Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-Cc: stable@vger.kernel.org
+To reproduce on a 128 MiB volume with 4 KiB clusters, extend two files
+in turn by one cluster at a time, alternating between fallocate(),
+write() past EOF and truncate() up, so that the runs of each file are
+separated by holes.  When the volume is full, truncate both files back
+to 1 MiB and start again.  During the second round a one-cluster
+fallocate() fails with ENOSPC while 40 MiB is free.
+
+Start the zone over as if no hint had been given.
+
+Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
 Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
-A forced lookup failure of the first $MFT data extent, on a volume
-whose $MFT has several extents, gives the KASAN report before this
-patch and nothing after it.
+ fs/ntfs/lcnalloc.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
- fs/ntfs/mft.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 58676042444b6..5831ea7600315 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -2081,11 +2081,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	if (ctx) {
- 		a = ctx->attr;
- 		if (mp_rebuilt && !IS_ERR(ctx->mrec)) {
--			if (ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
-+			int err;
-+
-+			down_read(&mft_ni->runlist.lock);
-+			err = ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
- 				a->data.non_resident.mapping_pairs_offset),
- 				old_alen - le16_to_cpu(
- 					a->data.non_resident.mapping_pairs_offset),
--				rl2, ll, -1, NULL, NULL, NULL)) {
-+				mft_ni->runlist.rl, ll, -1, NULL, NULL, NULL);
-+			up_read(&mft_ni->runlist.lock);
-+			if (err) {
- 				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
- 				NVolSetErrors(vol);
- 			}
+diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
+index 0d6cd08ee2e76..30faf422a5424 100644
+--- a/fs/ntfs/lcnalloc.c
++++ b/fs/ntfs/lcnalloc.c
+@@ -506,13 +506,25 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
+ 		}
+ 
+ 		if (!used_zone_pos) {
++			/*
++			 * Leaving @start_lcn for the zone position starts the
++			 * zone over as if no hint had been given, even if the
++			 * search had already reached pass 2, whose range ends
++			 * at @start_lcn.
++			 */
+ 			used_zone_pos = 1;
+-			if (search_zone == 1)
++			has_guess = 0;
++			pass = 1;
++			if (search_zone == 1) {
+ 				zone_start = vol->mft_zone_pos;
+-			else if (search_zone == 2)
++				zone_end = vol->mft_zone_end;
++			} else if (search_zone == 2) {
+ 				zone_start = vol->data1_zone_pos;
+-			else
++				zone_end = vol->nr_clusters;
++			} else {
+ 				zone_start = vol->data2_zone_pos;
++				zone_end = vol->mft_zone_start;
++			}
+ 
+ 			if (!zone_start || zone_start == vol->mft_zone_start ||
+ 			    zone_start == vol->mft_zone_end)
 -- 
 2.55.0
 
