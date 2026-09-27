@@ -1,122 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE1A22A4E1
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29095353A6F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790495947; cv=none; b=bLoedmr9EtPYzlhm3d9rWB70bboYA0KE+oAqkAHNDz4JPb/JkCzaBHqwz9fHnRkpn0DGAzb/GlFzz9//igjbg82Iiy84LJz7a08DOWfhQl9kCLX2p881rYPcO2GYr644u+Cu6y5X5IXYeVFXC3H5UaYOecT7oQ1+9n/EKL/XoAc=
+	t=1790496068; cv=none; b=XVzLoq9Gb65Yy+Re7oWwmgJwzYcl9iqXP9wDsSmudMsIYmO7JREtrdZmnddF9tWME9RtJ1TRV4qrKrlCI2cUyeTPfPv9sX0FORM6u7kuqv5zp7gvTu3P9k1YpgCXt3MmWp7TeoJMwuQ/LR/G2OIvRK20YXm4qv6/5khK2drAARM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790495947; c=relaxed/simple;
-	bh=lcTHQXcWb3yUwgYQL6SoP+V/S8Tkv9igIw4KHLXhkZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=UbXsSAZ6BwIsvxz1c/Mdu8uHNrjsOpu5oMY0mPuFhzXjwMrkiCifQ5UPV/H146rY/zbwu4u66bB7S5s3y7o5qoNQJzULROevQc6mkBzPfHImQnklmFPehwjWZEGqUPpkcvCSW/x9P7x70U6jM4Z4s0FrvwsHxvUkG2/b5lbnLhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3A++rHc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790496068; c=relaxed/simple;
+	bh=9XCqskVhO3CB34b1th/1rPV3GJRFNpe/Okejb4tbSlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U8vpNfzHNg52jRUnq/3dmQfleC4DOXQSdMfrJtPbBlkDbk45wNRy84STS3N1IYgFyzUpKB8PwlFbxAZ1ECdKEpw2telBnbCYbggaQV3D/ujCapGw/5sLw5gmTarhNJeFd5BVr4iVLuzLpULH2iB6QVxvUAxgxBTGKIq66kvks+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=KkRlh6TA; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3A++rHc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91E51F000FF;
-	Sun, 27 Sep 2026 07:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790495945;
-	bh=22F+LgdFmUCPf3vHQYUTlRByNYtmziVwY4fwqIdBEjE=;
-	h=Date:From:To:Cc:Subject;
-	b=I3A++rHcyh7nY8G5RNqYNLx+rBiibpqxpN0vnBUEXygVS5v035oq4V9F8SwfKCv87
-	 jVo+1VgW70hDgtW2B/6uCpbxGz6LQBbgHJoNvqfoazHv/IzUY61KhXm6cHI9bahBZw
-	 LT/vwbfM3tImYvRzPOZtUPOuKGE3xHFAcM/Hj7+8rXzr7i7EvqOd7s2fDyTJ9c9UON
-	 TrBeZ/cr7YMHD5HSdBIy1H7RBrQ3qQGm0qXefFdbB57joCQ1PntyVOjSTILcMfC0Z3
-	 NHBHkG/WRRbV3OsvwkDq/1VY3Dun+6UKEHMDxgAhwugMgP9kZirlzLkq8TBDW4PzwY
-	 5BNe7RZxNHSlw==
-Date: Sun, 27 Sep 2026 09:59:00 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: [GIT PULL] perf events fixes
-Message-ID: <arjMxNosOxpWmNNh@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="KkRlh6TA"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3A0EF40E015B;
+	Sun, 27 Sep 2026 08:01:02 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WQ3X4IOCnIX2; Sun, 27 Sep 2026 08:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790496051; bh=AC6BqwzXto9LrQtXsvELdecEAzGDZtQnIZ1HjWSIiiM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KkRlh6TAephr5aWMu866yr8t1s878wmjMIA8ZcGJUDR/04j+YKz1Rnw0fTuGiGE0b
+	 jMD/r3NJSAWv9EnQSIAPHuD7isXSOfQSO98sDk0pA6TY6lbXW7p20bSqWj60UBRl2p
+	 fcvj5z15L8YZ96fyZvorCdy6PEN6tjxjHKqhdpx2kjjAf1bFr8LlCt+ARiPKk7lAO5
+	 /OKkHmGzgK9A8IAg3R3Crb2J30emTt71u+enUsvPGJrhxUIaMTiuhK032Amtjjb1ao
+	 tpgLCCXP8pN8wuKxLjaXyV0CP3pk3XBn0+cvC7j6+IlJt72fXkxo9s83mZoyg4WLoR
+	 MB5cAel9g0WK397LpWArZnOMlncCBhge+m4Yus0O7V4LYkLPOeye7f1E5V452VpXGm
+	 GHssJ2QJeVs7EtoNE0dxBW8G472cxot5o9mHzcM2teyTVUuL32HSb/sQYxloMR6Rrk
+	 hwzdg/ukC1pOvP2ahbfsk1XfEGfijSlAolw9jKKooIcVgnqco7UuQiFz+DXedrNUto
+	 2V12ks0vu3YzSkpzLUUxO7CCI3ni6FjMYcgJBud3msBU/qRCS6v//PRuRio+a33sfO
+	 IaEeOWBbtDSlaLniDXqiHwN3sipZI0/HIn+DWzXalQoFtxt6JJNzhzZVgKdkIrqz0l
+	 efbA7EjFfI9ajhfhCGtYKXwc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E620C40E01ED;
+	Sun, 27 Sep 2026 08:00:35 +0000 (UTC)
+Date: Sun, 27 Sep 2026 01:00:31 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Mouse Zhang <zhangzihao@hieco.com.cn>
+Cc: puwen@hygon.cn, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	wyes.karny@amd.com, peterz@infradead.org,
+	linux-kernel@vger.kernel.org, tingyin.duan@gmail.com,
+	xinruizhu75@gamil.com, shenxiaochen@open-hieco.net,
+	fuhao@open-hieco.net, jianyong.wu@outlook.com
+Subject: Re: [PATCH] x86/cpu/hygon: Prefer HLT over MWAIT for C1 idle when
+ SMT is enabled
+Message-ID: <20260927080031.GCarjNHwUinwNBqN0h@fat_crate.local>
+References: <20260820015746.1715315-1-zhangzihao@hieco.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+In-Reply-To: <20260820015746.1715315-1-zhangzihao@hieco.com.cn>
 
-Linus,
+On Thu, Aug 20, 2026 at 09:57:46AM +0800, Mouse Zhang wrote:
+> In init_hygon(), set boot_option_idle_override to IDLE_NOMWAIT when no
+> explicit idle= option was given and SMT is enabled, so that the default
+> C1 idle uses HLT instead of MWAIT. This keeps
+> prefer_mwait_c1_over_halt() vendor-neutral while encoding the
+> Hygon-specific policy in its own init path.
+> 
+> On Hygon processors with SMT (2 or 4 threads per core) enabled,
+> entering C1 with MWAIT causes a significant single-thread performance
+> loss compared to HLT when the sibling thread is also in C1. When the
+> sibling thread is in C2, it enters that state via IOPORT, which is
+> independent of HLT and MWAIT, so performance is unaffected.
+> 
+> Hygon and AMD use different hardware implementations for MWAIT C1, and
+> HLT performs better than MWAIT on Hygon platforms when SMT is enabled.
+> 
+> On a Hygon family 18h model 7h system with SMT2 enabled, the
+> single-core UnixBench results show HLT outperforming MWAIT by 14.53%,
+> and the single-core SPEC CPU 2017 results show improvements of 12.68%
+> (intrate) and 19.73% (fprate).
+> 
+> Commit aebef63cf7ff ("x86: Remove vendor checks from
+> prefer_mwait_c1_over_halt"), merged in v6.0-rc1, removed the vendor
+> check that previously made Hygon use HLT, so Hygon adopted MWAIT and
+> hit the performance regression described above. Restore the pre-v6.0
+> default to avoid the regression.
+> 
+> Fixes: aebef63cf7ff ("x86: Remove vendor checks from prefer_mwait_c1_over_halt")
+> Signed-off-by: Mouse Zhang <zhangzihao@hieco.com.cn>
+> ---
+>  arch/x86/kernel/cpu/hygon.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 
-Please pull the latest perf/urgent Git tree from:
+Sashiko has comments:
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-09-27
+https://sashiko.dev/#/patchset/20260820015746.1715315-1-zhangzihao%40hieco.com.cn
 
-for you to fetch changes up to 24b620729e53d978b3e425f55bc66efd3bab1f59:
+Please address them: if valid, fix them, if not, explain why they don't need
+to be fixed.
 
-Perf events fixes:
+Thx.
 
- - Fixes for KVM guest PEBS virtualization (Sean Christopherson)
+-- 
+Regards/Gruss,
+    Boris.
 
- - Fixes for various Intel PMUs related to PEBS data-source
-   (Dapeng Mi)
-
- - Fix Intel Panther Cove event scheduling constraints (Dapeng Mi)
-
- - Fix Intel DMR/NVL OMR extra registers event scheduling (Dapeng Mi)
-
- - Rename two confusingly named PMU attributes (Dapeng Mi)
-
- - Fix a refcount leak in attach_perf_ctx_data() (Namhyung Kim)
-
- - Fix NULL pointer dereference crash in __perf_pmu_sched_task()
-   (Puranjay Mohan)
-
- - Fix CPU-wide event scheduling (Puranjay Mohan)
-
- - Fix x86 LBR branch entry generation (Puranjay Mohan)
-
- Thanks,
-
-	Ingo
-
------------------->
-Dapeng Mi (12):
-      perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification
-      perf/x86/intel: Fix CMT PEBS load/store direction for latency events, to fix sample classification
-      perf/x86/intel: Fix DKT PEBS load/store direction for latency events, to fix sample classification
-      perf/x86/intel: Update arw_latency_data() mem-op direction handling
-      perf/x86/intel: Remove incorrect LionCove PEBS data-source constraints
-      perf/x86/intel: Remove incorrect Panther Cove PEBS data-source constraints
-      perf/x86/intel: Fix Panther Cove PEBS data-source snoop states
-      perf/x86/intel: Delete dead NVL PEBS data-source initcall
-      perf/x86/intel: Constrain Panther Cove UOPS_DISPATCHED events to PMCs 0-3
-      perf/x86/intel: Fix precise OMR event scheduling for DMR/NVL
-      perf/x86/intel: Rename DMR offcore_rsp attribute to offmodule_rsp
-      perf/x86/intel: Rename NVL offcore_rsp attribute to offmodule_rsp
-
-Namhyung Kim (1):
-      perf/core: Fix a refcount leak in attach_perf_ctx_data()
-
-Puranjay Mohan (3):
-      perf/core: Fix NULL pmu_ctx passed to pmu->sched_task()
-      perf/core: Run sched_task() for PMUs with only CPU-wide events
-      perf/core: Fill branch entries with a single assignment
-
-Sean Christopherson (4):
-      perf/x86/intel: Ensure KVM guest PEBS path doesn't set unwanted PERF_GLOBAL_CTRL bits
-      perf/x86/intel: Don't write PEBS_ENABLED on host<=>guest xfers if CPU has PEBS isolation, to fix stuck PEBS_ENABLED
-      perf/x86/intel: Don't pointlessly context switch DS_AREA (and PEBS config) if PEBS is unused
-      perf/x86/intel: Make @data a mandatory param for intel_guest_get_msrs()
-
-
- arch/x86/events/amd/brs.c    |   9 ++-
- arch/x86/events/amd/lbr.c    |  16 +++---
- arch/x86/events/intel/core.c | 131 +++++++++++++++++++++++++++++++++----------
- arch/x86/events/intel/ds.c   |  74 +++++++++++-------------
- arch/x86/events/intel/lbr.c  |  65 +++++++++++----------
- arch/x86/events/perf_event.h |   4 --
- drivers/perf/arm_brbe.c      |   2 +-
- include/linux/perf_event.h   |  17 ------
- kernel/events/core.c         |  17 ++++--
- 9 files changed, 196 insertions(+), 139 deletions(-)
+https://people.kernel.org/tglx/notes-about-netiquette
