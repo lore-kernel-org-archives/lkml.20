@@ -1,125 +1,128 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06274119E3
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529051; cv=pass; b=hH424GiRwr9v33/eEZpIOB815Z032Z9fA5FEbeo/ilfLVNc9Zh0OSehH8SkshiuEQbqXqnmP9GqVLAbtKvsgWc+3oREV438falRCgM0BSkFPXgwoG7dJjuZCXJjPPRQH+N04Hsm5XWQrXQT3yAO9CSwVlwkC0Gxpb/XASzL5x2c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529051; c=relaxed/simple;
-	bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qeDprkUkXNxdAt0kJERdakcJINXL1iA//UMS9l8+vjkbcX0BTFaFOlK3NN1b5vSvm2ViumjRaMe/M8xwuVAHDiSiaSzRB+ruUjnHm3otzokyRu5iilGR2QJxotaRlEuLEvKqJevcB7LcPA5HmeHWIRqMaSKj+YVsMa6DsvFPBNo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mjYrV562; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAFE37C926;
+	Sun, 27 Sep 2026 17:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790529082; cv=none; b=BxvS9skLBi7xeYCiSL0WhDJvvrbsjY0EGtqNfouJ4k8ITl/zoe/CHoRGQIyDuO8ZB2gEoEhUDw7YHoJ1r+nH9XHld5Fycc3IhdTnat1Vz5/fogIrVX1GkLE5twQiQSZJZCYTWa1vwcx7Ym13JF7FaEU3eabIITHeMx7z1yJtmJ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790529082; c=relaxed/simple;
+	bh=Z+hfxocGGae1Sm1BeCS76gsysY0NtlZY5CQbiBlA/Ww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UtYChvnYAwDr7TlofonPtrtNyKT4GSZh3VcUCV+CcNy4LXeYFVcuFHv2TG86hPyj2xmZIU0lQtz8w7vB9qDOd3TY06Er8mKfpIqwIRbtcsoR41lNUyvCcD2dvsD4X25GEKhoeKLCxX67MLxpRcRRlZTefXAjdFD9/AboXnM/pGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgXFVKbT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mjYrV562"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb769ca17so21210251cf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:10:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790529049; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bU1jy0xq85En+k9hYFtMAwbBXHIj4lUBm7aR7b58GA0MBjOkJFl4wIO9exZ4GuSN9z
-         BqfjbcKrCzbPNXxXKJwTTmFDFRxS2Vgk0SZMfprtG//OA9LKtWk3pYAc25bWHF/uVRcA
-         rbwVoKKsNrxSNRplSFW7bE1B0SEecdndZ4DtGESD/8vD7iAnjXXyN5PFsz7yq+7YVJIP
-         giJ8q8Z16RaDRFUFvv2PRGWqmLbp4ivd61OAajWcVt81HCwPlKhiF3WbQPQ6/St1y6du
-         fKyZ3283z5fbyMWf9n7Bpt97Bmtvl6V/VuY89YL8lLA/SPYJ9hIZcsSA4j7jQqUigXtK
-         0swg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        fh=laDzAhizmfu6KHLOBOM3GrTlXtqZhKwZJzH1yh60PGg=;
-        b=Mrtieze8TYrqlD9blcI9+ZoyBL1/XaFIj9utkMHiuyIWkljCyHHbwq7Yd4JMbOk/mG
-         9+PBQM/ApRHuUkZSBFQkEaN6eJpxpCGzbTaUQa/3t9EyCBJCm6lyG1mvTBTyoUof0ZLV
-         yjurW9tAkOZckXtavUxFLlNsgtfZMUJq0OwUjsuxpbppxcSYtroJ+FIittzCHJwJ+Ssi
-         y5UTl7KEIJNa26KWfYJ5ZiSNJIjdSNchdJXZ+1aop49ETTf5iq9ae2p3E93Nxayx8Rnv
-         kSuBrMBZh7M+4DC5N7T/Wo29L8Lw1/PaweLW+YL6uY/A4uCtDpzPJZU9fhFgMv9qjxiW
-         /0TQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790529049; x=1791133849; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        b=mjYrV562TasJbRzRBYNqKC29SivwNhKDbxhj8AoHA2aSdNv6ISMmbfirO2kXhJKL7W
-         aGEwcRZjVs2DINpoalIM15LpsqiJUzRmZpd6ulR4TYWF0/i1Q/ORxuHe9aSGrmGq2y6j
-         +eznTl45kUfeKbiDC77TCXGz4rMAPmPj7a1aiFdteZQusu7fDZzskU1UBTr9CX2446P5
-         emkugc5TJRPHYB7VDj7sKxybbe5+pivYaeWaH8VRPXd5VGI1+E2OxFaQs9ocsEwGVee9
-         sw63SsjTbrp2VvrKiHftS7AofETr1d+kE9yWGCQhF73wbvnc9g14Q3T8D6KLATNqIovy
-         DbXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790529049; x=1791133849;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        b=DQ8FjkdocHKj5CPL1lbyQXQmmL5yABQvOONHGkUR/zIKJ4mT07vbJ7fwLcc2m3JsN4
-         IkKloDwGDKlre6eLvul2qX+Cj2V7Dy0YTTte0ZUj6+7CK3eONAXQufNQZ+C2txtnDzcv
-         YYRUw1ewkAd3BCASx8WBvJ1mLIHdzVOwSPExfc8MvuPi212EBXaWKDNNCuUslBh3IeVf
-         Ae9kkQPf9s1JYGgwDBIJIj6wkqx+JGlt4b/pPbo69vs3WL2a9LymbL3Rsuoeib3QCbBh
-         u0XWsFaFKt/aPiZjjk4s8pPMkb/pCUPkIqrx0bGGjY1VwNSjMdmI0lB80LQfy8d/7R7+
-         1Qvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvyFsI+vPNQ+9qL0r5W0+7oOnM3x80VNyh6bY0g/utSbaw9PVJuW413zB94frnSKTK7b2ZEB0ZehzSitI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIADDQee6F4LeR7KeF/ds8VMMgqP/lIC98xqUOIR67oiszBhbv
-	2rgp32nQNPpc5PT1IuImxqVgBKUI9wL0OZLmJj3G3JatIGELYT9VxRwfmJOKfFegluxdKUPzNgY
-	MRzMLZMhEM0GXdNxXKhlQrTCAGRjtM4S6kn2XGNHeKfFAk3foRd7UB/fVB+E=
-X-Gm-Gg: AYBFou2ieTyhDqhChw1nUBq3imbu3kUvK7xuT49XcvWmmnVhsnpHpoTo57eKT+jz/l6
-	2nwiPJD4v8ulKhwKoR3xcQw/Xb5vyv8ZQ54hq4hePfJ0+oqwLIdfLSMtzC1+uLs6d+vKv0f+kZ+
-	HvaI1ETxZEOeXNzhAtzHrY9Gv1OYICIIWoKw+hSgIbbrWYG/HTC8yZW6aOhglZmaSmgUlWgVMnK
-	H9KMUnz3+pGpFDiWLyR+kEd9SCjGYfab4ooykA2VS2eiZy5VwMEKJxcOphnid2SjMOs3zrTG6Ci
-	on165zRLk393OqXhxpUFj5Gflkl/aCuGFLU/G+9e4mOvlUkXof5+eNpELgvKq7Sch65/hikfQfK
-	KOo6Y1SU9aeiYqbWwoX+Q2RFRKUEGggz9TqrM1EUHPwnlUbtW93m/GlQlVI6rj7Je5vY6
-X-Received: by 2002:a05:622a:6f16:20b0:533:3868:1f6d with SMTP id
- d75a77b69052e-53338682227mr27382171cf.59.1790529048151; Sun, 27 Sep 2026
- 10:10:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgXFVKbT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5061F000FF;
+	Sun, 27 Sep 2026 17:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790529081;
+	bh=HMHjOtBobVS8CaY6HykD9+IH9k3hBKLUQhoPP98UUjc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SgXFVKbT0MkKLU1DXNTloBPjM1Rn2uPdSswUDRGsiYgi0LnSmrCFg9ED6wx1HscLh
+	 Q2529458T8Hjrf1+rMF0L8pRGRkXqsuP02adTJ5hL5ohUNtuI5cpqrilFyLAivLq/X
+	 qO7yklE7X0PDXUk/VGdkPq52Ek4ChkXfL8BbqA1X8cK8G9MM9Ns1kTb17XvL6yJz6+
+	 9mIB7ahgiA4nPuFjfkv7U4guj32ViC1kFscaTOX3hTFZ2+gVyuPFo+Vxs3nJbzXOf4
+	 yLj3cPmZNYmUqL4ivgyIGR86JyqXELaBb0DUNCYSHv8EUeAv/1X88b2SFLC/yN+5mF
+	 VNV8BeXnjzq+w==
+Message-ID: <4cc0ca7d-82ae-493d-ac15-478cdd8f0e08@kernel.org>
+Date: Sun, 27 Sep 2026 19:11:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927163117.746432-2-bestswngs@gmail.com>
-In-Reply-To: <20260927163117.746432-2-bestswngs@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Sun, 27 Sep 2026 19:10:36 +0200
-X-Gm-Features: AclHuK-wtOUaURDTxb0s4NuF5eW9fAjvgRkV0CtGV9tL1ejWVBuFWcDjyUMkjB4
-Message-ID: <CANn89i+monpTo=bjqnHRhuGaCkfHe9BJNhJncjK+vUq0YKAAag@mail.gmail.com>
-Subject: Re: [PATCH 1/2] net: gso: validate TCP headers before segment length checks
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, Shuah Khan <shuah@kernel.org>, 
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Xiang Mei <xmei5@asu.edu>, co+1fe9b56e2c61be5e@bugs.sh, 
-	stable@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+To: Alim Akhtar <alim.akhtar@samsung.com>, peter.griffin@linaro.org,
+ robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org
+References: <CGME20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb@epcas5p3.samsung.com>
+ <20260927152738.3673504-1-alim.akhtar@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 27, 2026 at 6:31=E2=80=AFPM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> skb_gso_transport_seglen() derives the TCP header length with
-> tcp_hdrlen() or inner_tcp_hdrlen(). Both helpers dereference transport
-> header metadata without validating it first.
->
-> A TUN user can supply a TCP GSO packet without NEEDS_CSUM and with an
-> invalid IP header. The skb remains GSO while transport_header keeps the
-> unset sentinel. TBF and police can then reach the length validator and
-> read tcp->doff outside the skb head.
+On 27/09/2026 17:27, Alim Akhtar wrote:
+> Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+> watchdog device tree binding documentation. The Exynos8855 watchdog
+> nodes use two clocks (bus clock and source clock), require
+> samsung,cluster-index and samsung,syscon-phandle properties, similar
+> to Exynos850 watchdog implementation.
+> 
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> ---
+> * Changes in V2:
+>  - Fixed Sashiko review comment
+> 	- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle description 
+> 
+>  Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> index a32c47831577..3f8c3e56ea07 100644
+> --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - samsung,exynos5515-wdt
+>            - samsung,exynos7-wdt                   # for Exynos7
+>            - samsung,exynos850-wdt                 # for Exynos850
+> +          - samsung,exynos8855-wdt                # for Exynos8855
 
-Do you realize this leaves non-TCP GSO broken with unset transport_header ?
 
-Please fix tun instead of adding numerous workarounds in our fast paths.
+Just drop the comment like we did for 5515.
 
-__virtio_net_hdr_to_skb() needs hardening instead.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-virtio_net/tun/af_packet MUST not feed 'gso' packets without transport
-header being set,
-among other things.
-
-pw-bot: rejected
+Best regards,
+Krzysztof
