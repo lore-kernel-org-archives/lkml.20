@@ -1,170 +1,199 @@
-Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dog.elm.relay.mailchannels.net (dog.elm.relay.mailchannels.net [23.83.212.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19CC2AF00
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550952; cv=pass; b=uIP2C7XQ2nz1Mr7uza4FWizrta3LSDdS9Cmopeue+mjZsAjXjukWVZRPXStkGASxThlqpxHcvKr53uX6MuyaRTLI5ymognkkYs44CDtvx0jAUat2zPlWS6S0ayDsP/W9TRgtYGCVtbmQCj8sbBUgpn1b+mCNg5o1ukXEvVY7p88=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550952; c=relaxed/simple;
-	bh=Ou3b3cWlbHbJ+7kgTjQuk4/2d8eoHkAAMLMLbj2Apo4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J8Tk4jMOfgOHbiRicSUQ5xdLbgQwUKBdqSSGlR+qnjgC1LTNf/1xxz/q6vOaSIzjIN6PxZzZyyLkakNACudmTTRCyGEE3z7I4PR5FmQ57+u6dpLna4S6mS27ijNCYJXWQV6bh0EGBXmCsRnmS+yLcDLB3ecnU+snmGnU7CM0D18=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+PqK2M3; arc=pass smtp.client-ip=74.125.227.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D66D2FE56A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.212.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790551308; cv=none; b=Vgwt9457CnFk8KWsM1Vz53Bt3uHQgF3d6UZyzWb4TG1e79QyWXKglTk7kvCUhsB+D5zJHfEsomVQD534mbiqqT2QrNOZw/2JkLg9o48emoZBbGO+rI0uCP8MkBrZ5oM1WqV6VnYtSVcfQgYgQOv6jSRHgexpRmLlq1a5o0svV0c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790551308; c=relaxed/simple;
+	bh=mUu0/DBtr8kVBFjAigknAdGULEkAk97/SoYRyGISW38=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E9DQBvWniEblpme0iTnadMOiM6cdkODkuQLcJW0WIKOBxUDtPaox3J4GZlGiq9OhgIgeqUiriH77aqcb6WavKtfJB5ftTihDdsjEamTLybQI2kgiOPmaaQH9CNNESKh6xQgrxXhDVNMttwiZrXjThzWgU9PErloOJe17JPVuD2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=p6j5AQQo; arc=none smtp.client-ip=23.83.212.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+PqK2M3"
-Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5ccfbaf6da8so571065e0c.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:15:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790550950; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FMmOwUlHTn02P6+Fxu5jAPFZmj6XfcSj2v9VrE7AEVCHNSkPx5MtrIBLDNTNS36fkR
-         VKefaSjur1SPl/Eyf8FgxaaiCf4Mtf/ZL412zgY0aWtvdi3TiaUNqeAm4kXwBjgS8Lxu
-         yL2KTnLMG4fCMpESAZj4Lcg+0IRrwZYV+kIm8lL3DAJaxyh+wQhotap+SF4u6YUyPgOt
-         NNIwJKaEry8yWFBJmUU3BZyqx9YlkWE4BPMfcaB5dXQ97goy+4ZwmNkEz4ineDJ5hpkU
-         5+vhnk31DhrPL7N3Igv89lNKb3Am+lwE/+uVhtR9UWH2fEk4JqdMX6F/QmDilGqcbp+h
-         Nb8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ou3b3cWlbHbJ+7kgTjQuk4/2d8eoHkAAMLMLbj2Apo4=;
-        fh=E1SyJ8LsCD/Ebu9ylDeb5myuDApJhW7JcnJAfRkYo6Q=;
-        b=ZaaCPxrYqyWLBojt8dzYNqKK8ZAvb4FMR1Rf0A8By/VaQIYZySv7L+PqHozi4GXv5X
-         Xns+HMZwbCk3CFxvFvJMZ2I6nZOVkgFRn5y9wvCOVBKyxKwvoWiGu6BdSWvrcgr4bpzq
-         SalMMId5eO3cIdwrRwkgo7FDtBu87YQoPEAqjR6QUwmpvSCAl3VW2z58ajrbESkgUdEK
-         pa8x0DRLfaipyUBxQdqovLhPmH9kg1MYONYuCzVd6bhAOSSQ18Ph8DDA4rxTlrmouaks
-         f58qNzc0JicY4W2Hhx3RMnPuUCy/80lo4Vwwa5Oj+8gNTlFHUvDlHdE/8CKWMZqk1NEF
-         yPvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790550950; x=1791155750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ou3b3cWlbHbJ+7kgTjQuk4/2d8eoHkAAMLMLbj2Apo4=;
-        b=T+PqK2M3lz6/GTLTbfZ+wf3aH0CDX+6TeFjym9+zJKGpyXZBxlmBOEa+bHdSrN+L6L
-         BncmTDBzL/9lC4Xq4JftFpOBn6xfR1/LHL6L5gYkF6VoEtTAYYVQpTghOM6I4tcbtKar
-         oIcmUwPU3BmUtsKWo+aCKFc2Y8jdJBNNr5iABZ6lFf9QVCKtC13Lk8vgNU9OsSQpygb0
-         uYMd9wcsSuEnwRkV6OB7JdMHqA3/Vd2Bm1OgR75maAc6Vv9X3KdObSIWTvc8RXmLgoOn
-         ehx1VXnA2MTpbY1aXfrL11rTOH8IGNB9cOz63EOKNIRzunvpE7Jj1JbiZqQcONtUpp6s
-         e1Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790550950; x=1791155750;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ou3b3cWlbHbJ+7kgTjQuk4/2d8eoHkAAMLMLbj2Apo4=;
-        b=qZsP+yksXAZgMh/4HvssgfIw7X59WjiyDpS3yfvYMUe/M6w8DeFqSV4AMsLsYMGP6X
-         6FLhhnPddhiWFgQP8nCdtaAmwGXIQ5aEoYhEcqWV6thxjAX2w7WoXi78mfa0A+UF7VXV
-         JXvHNYSkdyTYmAM2+m3k3JX0VjCtss02eMg7tObE41qG2U4JobCwmyWna2Xw1I7jHPs6
-         kYwInUxESFl6tOcCXhWydAGhkTUll8Okj2ir/AYCyiD8Bom5Olu+56+rsV0HjhLgL9lq
-         HLJQqqgVJRwvEcg9cXr3WzTkQ7lLUYf/ABLVebU+5VXtkPX1eVgUj+TpeM4VBwVeyk2a
-         yNyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwK/eguNuP6pj99uPA9kZBu+7LtA4ZaKq/HmabU68XA2/01rjPiisVUxd6AFVbDhqTUizCqJE6m8kiMAtk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmRDfzSJhdcVaxcwgMB7N6kuk2w+kFUw3wSlzhsNni2iIRpgno
-	98rkwu2un2fOjhLVsS6RUQBjAorEutkCFeidBq20KWCnRuR+B9CNM/9110BhyePFUPEb6aTOIGh
-	MpvV8m3RrBBZ/aR6EEiYgKA/2ulvrW4Y=
-X-Gm-Gg: AYBFou2ti6nwM/rAACuOCWTVKr3PtxMpiP70rBvMl5rCaPLtcMZzn5kT0j/KBprj0G3
-	TNpXtJwTvVRixfWV9Ba14iE+TJCn1YAyDFlFCPKJIwg3BXnkcMxOy2ARvZ96EGqyLBR0GYlmwio
-	LyIpUWvEyAlIdyPZlhepB7sFipAVRCjFPQ5lh62ZWVZGmtfYBXkfrnkjLv/M1XRj1rUVbf4CB1m
-	QqRxoK94ComD36CqlWBwOgkWAlY8V3v8dKTX94DgHFmxpVwMVrINJF2LgMpjMLH//sVDH7eAl7T
-	oeoFk0EggGpxeCXXZzoJv3Pri5EZo7vDOp2qjpP94KzPLyv6ZPNZuUOZSMDgnC0OveD38eQ3XiS
-	Zr7URIAWcGgdir6PDPSuTrDzBGYxyaKpL4Ir6gImepkMkmT4wiO8IV3nFSJzvjJQTb3T9oJ0xVC
-	vPL3uaFJcM9B8EWRYCWruUaI9vnE8v5NiC1jxPyNnOBIoo
-X-Received: by 2002:a05:6102:1627:b0:7a5:673f:9a37 with SMTP id
- ada2fe7eead31-7af1eef5929mr3482037137.15.1790550949793; Sun, 27 Sep 2026
- 16:15:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="p6j5AQQo"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 02DC47A04F3;
+	Sun, 27 Sep 2026 23:21:41 +0000 (UTC)
+Received: from pdx1-sub0-mail-a257.dreamhost.com (100-96-11-224.trex-nlb.outbound.svc.cluster.local [100.96.11.224])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 5627A7A1F7C;
+	Sun, 27 Sep 2026 23:21:36 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Wiry-Chief: 41dddb1b6fc693b1_1790551300781_4061377477
+X-MC-Loop-Signature: 1790551300781:2423337548
+X-MC-Ingress-Time: 1790551300781
+Received: from pdx1-sub0-mail-a257.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.11.224 (trex/8.0.2);
+	Sun, 27 Sep 2026 23:21:40 +0000
+Received: from offworld (unknown [172.58.116.59])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a257.dreamhost.com (Postfix) with ESMTPSA id 4htL6j5995z104l;
+	Sun, 27 Sep 2026 16:21:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1790551296;
+	bh=SwQbYI+bY99g1ejEPX/a+Ge6mlBgGLkJ4XTFloG11TU=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=p6j5AQQoTAl8TyeHmGBrv2YM0bPu6H+StLIwctD/vIjwYiSb42R592+joK0nxu6AM
+	 EOJR0qlV+n/6qaLGP5z+3HT1aGKis5bYz92NORjbsvFbY1m3Gi950JrqDM4RMDDHii
+	 /L+mgEQZlNAK0bEw65bJ1OTeqoc09dp2cs45IbQW2MAnlcNwyTeHTzn/Huqi9lPqwK
+	 6j2yi0CnX448/5EdNKGPuM/MW2fXTqBRq+/nQLodmFFXikbAP8EFCzZJgy04WXdhXg
+	 87uVIlmGqC2Xw5EoBS1hBELXVXwQM6/XL/0zMFvjruvmnWLu4nJYU2njoeIKM8wuhs
+	 GyQyMHiHmTx5g==
+Date: Sun, 27 Sep 2026 16:21:30 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Bharata B Rao <bharata@amd.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, Jonathan.Cameron@huawei.com,
+	dave.hansen@intel.com, gourry@gourry.net,
+	mgorman@techsingularity.net, mingo@redhat.com, peterz@infradead.org,
+	raghavendra.kt@amd.com, riel@surriel.com, rientjes@google.com,
+	sj@kernel.org, weixugc@google.com, willy@infradead.org,
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, nifan.cxl@gmail.com,
+	xuezhengchu@huawei.com, yiannis@zptcorp.com,
+	akpm@linux-foundation.org, david@kernel.org, byungchul@sk.com,
+	kinseyho@google.com, yuanchu@google.com, balbirs@nvidia.com,
+	alok.rathore@samsung.com, shivankg@amd.com, donettom@linux.ibm.com
+Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
+Message-ID: <20260927232130.smxstw7f474k2qcl@offworld>
+References: <20260911210859.1359875-1-joshua.hahnjy@gmail.com>
+ <f871efd2-06b4-493f-87cc-919b6e0945c0@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
- <20260927151043.7c8dfb36@kernel.org>
-In-Reply-To: <20260927151043.7c8dfb36@kernel.org>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 27 Sep 2026 17:15:38 -0600
-X-Gm-Features: AclHuK_THxkPfcffLWRyKYWHUWs5mZ9sx2wsFti5QobsyH-hd7-eV_3I5VuXwpA
-Message-ID: <CADvTj4pZpJBAa99F322jBetg96axu_Dbv-iKAWwhOUqe==EE1A@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 00/19] net: stmmac: preserve datapath state
- across MTU and resume failures
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christian Marangi <ansuelsmth@gmail.com>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Huacai Chen <chenhuacai@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Serge Semin <fancer.lancer@gmail.com>, Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Joao Pinto <Joao.Pinto@synopsys.com>, 
-	Vladimir Oltean <vladimir.oltean@nxp.com>, Ong Boon Leong <boon.leong.ong@intel.com>, 
-	Voon Weifeng <weifeng.voon@intel.com>, "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
-	Linus Walleij <linusw@kernel.org>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Simon Horman <horms@kernel.org>, 
-	=?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>, Yao Zi <me@ziyao.cc>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
-	"Alastair D'Silva" <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
-	ZhaoJinming <zhaojinming@uniontech.com>, 
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, Ding Hui <dinghui1111@163.com>, 
-	Linkui Xiao <xiaolinkui@kylinos.cn>, Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, Rayagond Kokatanur <rayagond@vayavyalabs.com>, 
-	Ding Hui <dinghui@lixiang.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <f871efd2-06b4-493f-87cc-919b6e0945c0@amd.com>
+User-Agent: NeoMutt/20220429
 
-On Sun, Sep 27, 2026 at 4:10=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
+On Wed, 16 Sep 2026, Bharata B Rao wrote:
+
+>On 12-Sep-26 2:38 AM, Joshua Hahn wrote:
+>> - I also found a bug where the kmigrated thread isn't created for nodes
+>>   that are onlined later after boot, like CXL nodes that get onlined
+>>   with memory later on. I've been using a small hack commit in
+>>   pghot_memhp_callback that just checks for the MEM_ONLINE case and
+>>   spawns a kmigrated thread.
 >
-> On Sun, 27 Sep 2026 15:59:35 -0600 James Hilliard wrote:
-> > Keep the stmmac datapath coherent after failed MTU changes or hardware
-> > resume without changing the interface's administrative state. Retain th=
-e
-> > working MTU configuration for rollback, and allow ordinary down/up
-> > recovery when hardware cannot be restored.
->
-> Please read:
-> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
->
-> The limit is 15 patches per tree, you have 22 outstanding to
-> net-next right now.
+>I will take care of this scenario (CXL node online after boot) in my next posting.
 
-Oh, I had bundled some prerequisite patches to avoid breaking the review
-bot since my fix for prerequisite handling for the review bot doesn't appea=
-r
-to be live quite yet(it was merged but the live server looks to be on an ol=
-der
-tag still).
+I was also running into this for chmu integration. I have been carrying the
+below in my own testing, fwiw.
 
-https://github.com/sashiko-dev/sashiko/pull/389
+Thanks,
+Davidlohr
 
-That just got merged so that shouldn't be an issue going forwards as I
-assume it should go live soon.
+-------------8<------------------------------------------
+diff --git a/mm/pghot.c b/mm/pghot.c
+index c7f523a61683..2f1e16e5091d 100644
+--- a/mm/pghot.c
++++ b/mm/pghot.c
+@@ -602,6 +609,18 @@ static int kmigrated_run(int nid)
+  	return 0;
+  }
+  
++static void kmigrated_stop(int nid)
++{
++	pg_data_t *pgdat = NODE_DATA(nid);
++	struct task_struct *t;
++
++	t = pgdat->kmigrated;
++	if (t) {
++		kthread_stop(t);
++		pgdat->kmigrated = NULL;
++	}
++}
++
+  static void pghot_free_hot_map(struct mem_section *ms)
+  {
+  	struct pghot_hot_map *hot_map;
+@@ -707,6 +726,58 @@ static struct notifier_block pghot_mem_notifier = {
+  	.priority = DEFAULT_CALLBACK_PRI,
+  };
+  
++/*
++ * The first memory block of a node is onlined before the node gets
++ * assigned to a memory tier (memory tiers react to
++ * NODE_ADDED_FIRST_MEMORY at MEMTIER_HOTPLUG_PRI), so at
++ * MEM_GOING_ONLINE time for that block node_is_toptier() still
++ * returns true and pghot_online_sec_hotmap() skips it. Backfill the
++ * hot maps once the node tier is known.
++ */
++static void pghot_alloc_node_hotmaps(int nid)
++{
++	unsigned long section_nr, s_begin, start_pfn;
++	struct mem_section *ms;
++	struct page *page;
++
++	s_begin = next_present_section_nr(-1);
++	for_each_present_section_nr(s_begin, section_nr) {
++		ms = __nr_to_section(section_nr);
++		start_pfn = section_nr_to_pfn(section_nr);
++
++		page = pfn_to_online_page(start_pfn);
++		if (!page || page_to_nid(page) != nid)
++			continue;
++
++		if (rcu_access_pointer(ms->hot_map))
++			continue;
++
++		if (pghot_alloc_hot_map(ms, nid))
++			pr_warn("pghot: no hot map for section %lu on node %d\n",
++				section_nr, nid);
++	}
++}
++
++static int pghot_node_callback(struct notifier_block *self,
++			       unsigned long action, void *arg)
++{
++	struct node_notify *nn = arg;
++
++	switch (action) {
++	case NODE_ADDED_FIRST_MEMORY:
++		if (node_is_toptier(nn->nid))
++			break;
++		pghot_alloc_node_hotmaps(nn->nid);
++		kmigrated_run(nn->nid);
++		break;
++	case NODE_REMOVED_LAST_MEMORY:
++		kmigrated_stop(nn->nid);
++		break;
++	}
++
++	return NOTIFY_OK;
++}
++
+  static void pghot_destroy_hot_map(void)
+  {
+  	unsigned long section_nr, s_begin;
+@@ -891,6 +962,11 @@ static int __init pghot_init(void)
+  		if (ret)
+  			goto out_stop_kthread;
+  	}
++
++	ret = hotplug_node_notifier(pghot_node_callback, 0);
++	if (ret)
++		goto out_stop_kthread;
++
+  	pghot_sysctl_init();
+  	pghot_debug_init();
+  	pghot_src_enabled_init();
+-- 
+2.39.5
 
-This was originally on the net tree but I had switched to net-next since
-some additional prerequisite commits were only in net-next and I was
-trying to avoid conflicts or having to bundle the patches to avoid breaking
-the review bot.
-
-https://lore.kernel.org/all/8ed1298a-4c29-4db3-b76e-c8d34f91b4c9@bootlin.co=
-m/
-
-I guess I could move this back to net and specify the prerequisites with b4
-metadata. It isn't entirely clear to me which branch is appropriate for thi=
-s
-however.
