@@ -1,79 +1,49 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86483B3895
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD68731E857;
+	Sun, 27 Sep 2026 15:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790524317; cv=none; b=JTjAw6IUP3Eo0jVh750S6yDgEOzRN6woydaOqIVCvmNeU7tYP+so3e1hROEYTwcYtxHutL7hUrB72k7Eutr4gD4EKo5Yp1CFI0KRSRG+FV36wkZ2DXexrNQhWEBHg+DlLnXSJiJNFl4f8DqeQQP/YYZcn32/GFggWAkEZZ3oWrU=
+	t=1790524323; cv=none; b=jtebBA8EpHcNiyw5gRj4k09cOhhFVAGSeHJs1yDYjnxOD53u6IY/lRAlWPSSniWAAivSc5h1XJZgh3N+P1bMh1EF4BbdbrJVPJMrVCbc/XoQDQDkBXQFCSz9tAhijOgHIEvYJukds8EpKxIZdyy3A75obfaHXvjltI6wNBx5Kck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790524317; c=relaxed/simple;
-	bh=WO3e2dAPCPDJj1H3hgMeqWQVcfphj8Iotq8V+3nAnAo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iwMqHKHgKGZoHQ3PX9pjSz/9LbpTE5db+rzvWDqmP3XZoLU+KLXUYW7C0TDxSnzG4bwaSS1IdkgMwWorZkbFFytzo18lJnkghpw474AjWhWydB6swSTroBkpmh3aMmGqDafQG5OOT/KBBN+M32brM8ZnixeghHjxS0wUIQ19C9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pZc639Nq; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790524323; c=relaxed/simple;
+	bh=hA0P3QXG4vIUQALa5dP18gAvwez1VjTIFyHeDe3I9TA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XjU7KJ0nf+iFSXd/uhm1V3+BNaRLIJOFH2Pcngfw5TM0xeiF9Nl/CAgWjRKh0WZq1K9kcxnxV4jMUgX1D8d3cbTOrRlwTQBIONvmODxtqAM9qYaKFme+Y4VfcVnMc6qsRoCDNY0JA6lRjW83Ns27CYmdqUUKPNnviXvBLigR7QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=t0FgCivd; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pZc639Nq"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so315130966b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:51:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790524310; x=1791129110; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GKLDYDc3mePfDnzMg61PcdHyuIyXuIN6+B/oZsoaduw=;
-        b=pZc639Nq52ZJPeF3aLBEl3F35m2KgmpE69jI7bV2dmRGD1z+HGO/0UpWREVRZTpnVg
-         EQdOA4Hzse/piKpwhRoaS9BJWLU9Cu71NkVGXUhxv24hCqbMNFxIbPOo52Bp3vBYF2UG
-         Tl/9Y+7o1kCCnTJLtNZX7qOyx23OBY5mEtuLtDsWdgyU0zr9jEXKNAl4ZnMz+KKoARkv
-         Tsg4ATer+q5mhH2RAWYPl2GK9QfMG59O6PMSpjdMKtURFGk5z7WJk4XZA+0Kr7mqWZ8S
-         XSxpzc61Dna3erDu8iLMMnLbx6MM7fVO84hfP5t4i0fWP0xT9YqYuQ2RYL0FY+Go6Q/S
-         WZ9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790524310; x=1791129110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GKLDYDc3mePfDnzMg61PcdHyuIyXuIN6+B/oZsoaduw=;
-        b=SCFA1uBNUkHnX7Lk2jrJtefhpnCa0O41YsBqtDo2CE9382taNHmi7tIeCZl7StFe2M
-         fDQR2O18vhzc/haXjWWflfKiN53U25+kVSp4+z6J7b5OLUGsDlLA8/PKFyvSJk7SZ7VY
-         z1xkJxrT5S4v1lTrsIW+btzoXQPqmQR2+eam5gjiib7dFTMXHR85lAbu0+HC7lMN7DuM
-         ZCiW4+Q+GfAWjQlMjG7DfmpnZJphacLTtEtcJq8jZJQ6aItmV6OaDsMWffK8plgWbCCq
-         W4LntTPrWojM9QUgp17uH6PkAjcru9ujbPu4APLFPOiJP63SxAc1rpMBZsnhgr1jhnpW
-         r4TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUNDmrwSoNJ/oxzEnkAZXHHAQsR5+PdGLKoCz2aCwoG+fvrg0biTLNXVFgjRoznV3K0RbMq5U2NeZ892k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kq+zB30nzoEtzZgffTrIM6PWga9U5mEqy1UV2PXIBwDB9Vqi5c
-	g/dZkas1O2PS8qem495VE92uL462Z0nVEzs8FEenwFwuizTFfkJNPtC+
-X-Gm-Gg: AYBFou3+3Q+Zr6uFJ+7YzRYydjIUMNUbnHHs6CrcMD1odBR0Vy7PH7WiZ4UfvjQR0J4
-	8TAiHd9lXOsVjqPgqLt8Ce7gPDhsvOurZ3jTjAYfk6Xu0qVbGrYcoMg8b+mfUag2DBpE7ndlkQl
-	AaCvRKiFwpPu75MrdU+Er/C5meiQ84i5dIt3AK5aO1ry8hONliLYpDoS209RQY2bzyplTQwryaL
-	3vQTj3Plci41KZjn00gjNwASHrl9WVoClGPSdM1vIT+2jS2HUJKCz0Oe19ff/19wMc+pKHjGzrS
-	sGg5dkFoEkgfBgnBKSL7ARotBeFXdoibm0JogFJCJPgazV3CeImAVTduyz1po2xMR6fdlr7lYjj
-	T1BXCtkMHUynUkN4J2unI4li0uavjfOvkrp7g84zovOFD+5h+nhju19NX7Z+Yve8SSdvKXQAgId
-	1Luvs7simlQuC89GSk+egbCzKLHJ1oUzKTUt0krZ9zigztoadqCSanfbZEV6iInEhtjr9rG9xLS
-	BFYzLRxtEftUXYnsfaPaWWetqLWJKppN1afEN5E9snP4jf7FQW95Pro
-X-Received: by 2002:a17:907:3d08:b0:c25:2a78:15ed with SMTP id a640c23a62f3a-c2ac22db502mr895963766b.6.1790524309994;
-        Sun, 27 Sep 2026 08:51:49 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:aa1:165c:44c1:e5d5:dfb4:8450:1cdb])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3a0424sm158684066b.70.2026.09.27.08.51.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:51:49 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	George Moussalem <george.moussalem@outlook.com>,
-	Ziyang Huang <hzyitc@outlook.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: phy: qcom: at803x: Fix IPQ5018 short-cable DAC values
-Date: Sun, 27 Sep 2026 17:51:36 +0200
-Message-ID: <20260927155136.2489-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.45.2.windows.1
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="t0FgCivd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1790524309;
+	bh=oBXpuKfAKM6qngbSZJkmYnuEFIrisykwM4g9m2Jhhyo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=t0FgCivdUd/ZN6DEej4+TouomfjWWzJHcZvgRbEL+hG+CpJR5bARBkkji106Vrvcd
+	 NYHorOhxDclufSZcXzbEd/AMg//kiFQolPUS21Ca0AnNW4T6h2U+FNR3w4v6SSIGRn
+	 0Qwfia/S72MD87hSGm2NRzVpSlWHMC1uO0ETnCEF67J7JPursUVaMlwVJCI0C6ERBs
+	 IxkfPu4LDMeo3OeQVX6fXiFiJm9eHwhES3JHSQzBVfKe3fBWnGkxk8d6zBgV2WwiRm
+	 o10GzXdY0KMNn77VXY8G7twbmBi084eizTj95sZOhvMtXrgVKJr1d90hgi8WsxbGMC
+	 81OWQU5J42YBQ==
+Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4ht87n3GvQzhGx;
+	Sun, 27 Sep 2026 11:51:49 -0400 (EDT)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Gary Guo <gary@garyguo.net>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev
+Subject: [PATCH hazptr 1/4] hazptr: Fix two-phase hazptr_synchronize race with detach
+Date: Sun, 27 Sep 2026 11:51:28 -0400
+Message-ID: <20260927155134.4740-2-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,62 +52,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When "qcom,dac-preset-short-cable" is set, ipq5018_config_init()
-programs the MDAC (MMD1 0x8100) and EDAC (debug 0x4380) fields. Both
-fields occupy bits 15:8 (IPQ5018_PHY_DAC_MASK), but the value 0x10 is
-passed unshifted as the set argument of phy_modify_mmd() and
-at803x_debug_reg_mask(). Neither helper shifts or masks that argument,
-so both fields are cleared to 0x00 instead of being set to 0x10, and
-bit 4 of the low byte, which is outside the field, is set.
+Boqun Feng pointed out that a detach happening concurrently with
+hazptr_synchronize can miss a slot. Indeed, scanning the per-CPU
+slots needs to be done *before* scanning the overflow lists. Fix the
+implementation accordingly.
 
-Use FIELD_PREP() to place the value in the field. This matches the
-vendor SDK, which clears bits 15:8 and ORs in the value shifted left
-by 8.
-
-On a Redmi AX5400 board, where the IPQ5018 internal PHY connects to a
-QCA8337 switch PHY without a cable, MDAC and EDAC read 0x6868 and
-0x7800 before the write. With this change they read back 0x1068 and
-0x1000, with the low byte preserved. Without it, the same writes would
-leave 0x0078 and 0x0010.
-
-No in-tree DTS sets this property yet, but it is documented in
-qca,ar803x.yaml and used by several IPQ5018 boards in OpenWrt.
-
-Fixes: d46502279a11 ("net: phy: qcom: at803x: Add Qualcomm IPQ5018 Internal PHY support")
-Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
-Assisted-by: LLM
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reported-by: Boqun Feng <boqun@kernel.org>
+Cc: Paul E. McKenney <paulmck@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>
+Cc: Gary Guo <gary@garyguo.net>
+Cc: <rcu@vger.kernel.org>
+Cc: <lkmm@lists.linux.dev>
 ---
-Testing: the register read-back above is from six boots of the Redmi
-AX5400 running OpenWrt's Linux 6.18.52 kernel with this change
-backported. On net, this was build-tested for arm64 (defconfig, W=1)
-without new warnings; the generated code of ipq5018_config_init()
-differs only in the two immediates (0x10 -> 0x1000).
+Changes since v0:
+- Load the new overflow list phase word in "hazptr_chain_backup_slot".
+- Rename the lock to hazptr_phase_lock to make it clear that it
+  protects both the wildcard and the overflow list phases.
+---
+ kernel/hazptr.c | 50 +++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 40 insertions(+), 10 deletions(-)
 
- drivers/net/phy/qcom/at803x.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
-index 6872dbf7785..cacbadf1f48 100644
---- a/drivers/net/phy/qcom/at803x.c
-+++ b/drivers/net/phy/qcom/at803x.c
-@@ -1051,11 +1051,15 @@ static int ipq5018_config_init(struct phy_device *phydev)
- 	if (priv->set_short_cable_dac) {
- 		/* setting MDAC (Multi-level Digital-to-Analog Converter) in MMD1 */
- 		phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, IPQ5018_PHY_MMD1_MDAC,
--			       IPQ5018_PHY_DAC_MASK, IPQ5018_PHY_MMD1_MDAC_VAL);
-+			       IPQ5018_PHY_DAC_MASK,
-+			       FIELD_PREP(IPQ5018_PHY_DAC_MASK,
-+					  IPQ5018_PHY_MMD1_MDAC_VAL));
+diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+index d3d1050d92cf..13faa5ba7677 100644
+--- a/kernel/hazptr.c
++++ b/kernel/hazptr.c
+@@ -13,6 +13,8 @@
+ #include <linux/list.h>
+ #include <linux/export.h>
  
- 		/* setting EDAC (Error-detection and Correction) in debug register */
- 		at803x_debug_reg_mask(phydev, IPQ5018_PHY_DEBUG_EDAC,
--				      IPQ5018_PHY_DAC_MASK, IPQ5018_PHY_DEBUG_EDAC_VAL);
-+				      IPQ5018_PHY_DAC_MASK,
-+				      FIELD_PREP(IPQ5018_PHY_DAC_MASK,
-+						 IPQ5018_PHY_DEBUG_EDAC_VAL));
- 	}
++static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
++
+ /*
+  * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
+  * hazptr_synchronize forward progress even with a steady stream of readers.
+@@ -20,10 +22,12 @@
+  * This also affects the overflow list selection: the current list used by
+  * readers is array[(unsigned long) hazptr_wildcard - 1].
+  */
+-static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
+ void *hazptr_wildcard = (void *) 1UL;
+ EXPORT_SYMBOL_GPL(hazptr_wildcard);
  
- 	return 0;
++/* The current overflow list phase. */
++static unsigned int hazptr_overflow_list_phase;
++
+ struct hazptr_overflow_list {
+ 	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
+ 	struct hlist_head head;		/* Overflow list head. */
+@@ -53,6 +57,12 @@ void *flip_wildcard(void *wildcard)
+ 	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
+ }
+ 
++static
++unsigned int flip_list_phase(unsigned int phase)
++{
++	return 1 - phase;
++}
++
+ static
+ bool is_wildcard(void *addr)
+ {
+@@ -178,15 +188,12 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+ }
+ 
+ static
+-void hazptr_scan_period(void *addr, void *scan_wildcard)
++void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+ {
+-	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
+ 	int cpu;
+ 
+ 	/* Scan all CPUs slots. */
+ 	for_each_possible_cpu(cpu) {
+-		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+-
+ 		/*
+ 		 * Scan CPU slots.
+ 		 * Forward progress against recurring wildcards is guaranteed
+@@ -199,6 +206,17 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
+ 		 * to acquire that same hazard pointer value.
+ 		 */
+ 		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
++	}
++}
++
++static
++void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
++{
++	int cpu;
++
++	/* Scan all CPUs overflow lists. */
++	for_each_possible_cpu(cpu) {
++		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+ 
+ 		/*
+ 		 * Scan backup slots in percpu overflow lists.
+@@ -218,6 +236,7 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
+  */
+ void hazptr_synchronize(void *addr)
+ {
++	unsigned int scan_list_phase;
+ 	void *scan_wildcard;
+ 
+ 	/*
+@@ -235,18 +254,29 @@ void hazptr_synchronize(void *addr)
+ 	/* Memory ordering: Store A before Load B. */
+ 	smp_mb();
+ 
+-	guard(mutex)(&hazptr_wildcard_lock);
++	guard(mutex)(&hazptr_phase_lock);
++
++	/* Scan per-CPU slots. */
+ 	scan_wildcard = flip_wildcard(hazptr_wildcard);
+-	hazptr_scan_period(addr, scan_wildcard);
+-	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
+-	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
++	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
++	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
++	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
++
++	/*
++	 * Scan overflow lists *after* scanning per-CPU slots. See
++	 * hazptr_promote_to_backup_slot() for scan ordering requirement.
++	 */
++	scan_list_phase = flip_list_phase(hazptr_overflow_list_phase);
++	hazptr_scan_overflow_list_period(addr, scan_list_phase);
++	WRITE_ONCE(hazptr_overflow_list_phase, scan_list_phase);	/* Flip the current list phase. */
++	hazptr_scan_overflow_list_period(addr, flip_list_phase(scan_list_phase));
+ }
+ EXPORT_SYMBOL_GPL(hazptr_synchronize);
+ 
+ struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
+ {
+ 	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
+-	unsigned int list_idx = (unsigned long) READ_ONCE(hazptr_wildcard) - 1;
++	unsigned int list_idx = READ_ONCE(hazptr_overflow_list_phase);
+ 	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
+ 	struct hazptr_slot *slot = &ctx->backup_slot.slot;
+ 
 -- 
 2.43.0
 
