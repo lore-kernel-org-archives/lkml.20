@@ -1,72 +1,76 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95763C0624
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B8E3BB132
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506645; cv=none; b=RXuj8Nx+m0EZ62XdLNQyK4/RR4MzZsrrwvD7MnePzdH+xCF99q55nnbBg3etKzf6vsSol4afC82t3hhghsZCLQdvlpTuevDodP3B2Qnxd0bdxK2yYexbv3VuwhlffFQha2K0JWMMxL9jngKWtVXVRH13Ly1QHbDBhELTIHPJ3IY=
+	t=1790506639; cv=none; b=I6ey2iFR7TxGRRdbfKzeSHSWeCY1cJtr1AAcl23B5W0A/Sk1gDnM4c6C+pFNlqwX6zDjtXMpVR3x4p07sV64pdU4RxdMg3Eci7L1Gn0O/s7+jFRspTasoW7xZY9VR4iGrMQVgKev6ibLD+C8eP1FKKxXl1fcmkL4MGZZfcpYcHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506645; c=relaxed/simple;
-	bh=DsQkDRygvNose/dVmRGPOcE9DsBWB+hc9M+JrQpVR8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BtKUeTqma7bbn6mjrGDDDE8ftdycu+auSfj7gI3KGBctZ5clE/pQoat2EhVc3il7ikezKiOTEqANEK4kueCRIyQUG7AG26fU6aLhZEmYEu9Fzr8vbayrKad5CKBxjmz3E7TKvV3pABgTRjA9z2DvmWBxjW1Hg9uOdEIwkLjxvT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KhNXFNGG; arc=none smtp.client-ip=74.125.228.42
+	s=arc-20240116; t=1790506639; c=relaxed/simple;
+	bh=TMXpwMrgBc0WthLXYnkP/QxmhL5jxeiWxjSvV6naBUE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hCWCWdB0iAYPgKtrlXoFmchQ000GUoNPgjdsGxqT0gK458Hst78xiPpqjeIMy4NAyVa4RlKjtZQxfrArX2ExPbd2H+9nOQs5q3q+1w4AlIQa23I2sKds5y1hEIOOu1CdDBUYO4OXMjs8fXkbHCHaXNaZhOmC73EXakTkkaD371E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/xF3HJM; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KhNXFNGG"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso1375204a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/xF3HJM"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so18762685ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790506638; x=1791111438; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/hdn6ZIYyqC193Cf5yEWH5VZfboJGstvpfi9see9V8c=;
-        b=KhNXFNGG5JEuNGcsw8OkL9qyNvp8hbgRxWjU0ciNbYhOKUZ+DGzYJQTRhrPJE73zyl
-         VSVZzdkz3g5tHSZ/RWgLdW9IiTogbdpDn5Db7lZT3xNL2Qc1vhJtUVumArsEb4yxoZ7E
-         guhWnqG57Nlxc8rsPuaIlx5VE3VTllIcirdHoKEMfRUK+bM5pGGy6o9p70KcJ9f6KZSO
-         Nv8Vf0bz9MgLUtEwKbNXw1UDVo4WEA5X0iSVTZit/SQdNAKp7BFFa/VDGn/5phTRAQNW
-         mmNNmwNUDqNaLMhv5hZpoVBVgioQEg06IPbIO5YzPSQpftWYHn1DyULBD/rWxEDNLgY1
-         GpCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790506638; x=1791111438;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790506634; x=1791111434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/hdn6ZIYyqC193Cf5yEWH5VZfboJGstvpfi9see9V8c=;
-        b=L8Hd0cVCtRWCazMH+q64uuWNCPd3yt7TGtAl3JLb1R7oyuOl/bOYzjUJ6vfzVfNxE0
-         v9HTPa+qHhWDQ45HXG2zDL5gVlIhCLYosTjEK1PCr6rrHQBOB8H9zkZVNKuxXFRNwoJT
-         jRIk8UrfA5O4RfXsPoIMe17xCvZUvivBFdvpq9rj/knTIOmcRVfQmxqMf0xxy7oTXfhK
-         +FV4OFYTjgVnMJJv8zlDewyC0W2Q0oADrxwRpc8TKyRgN3PDqMyKjDa1FfV2/D5+OzN/
-         WPfKa1WHk7iovx/RGUrzr50vYnUouU0H7lnHA00AZ4BcTh+JG04TijQfQz3Q5REjBZ1A
-         Wexg==
-X-Forwarded-Encrypted: i=1; AKwUvBzo4jYZ+KpQfbmSXVgE91NtmyyPDYVY/IINZGqlB0gmb9+JYdaZ6u3BUSopIwyvR7I+zOq16ow51bm+hzo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzUMfs2huMp0XX/JVmdHmU/FpzVBvIqhevS1nI/vQin23KnYjy
-	tZNOuUMZNloGnIwchTqm/oVEeo02LDsEf1Hvsoea9KWVEbXl+DjEJ1GB
-X-Gm-Gg: AYBFou3De5lt5l3YLcpRWBJ2qDwf3bIt0jAgLakQFiBaqTsfsC1XEJC2Dfdrs5I81OF
-	tXimdK1gm63Sbjsip80ZgYe9YwjhhPsdFiw442Nbtoc6WWDDSv5PsJVhU5MMzZ+DztzG9ea34iK
-	3KRw/KW2rK2fGhHX+lb/M2C+Q4NIprQiOQEA8YLbEvAKvYJwiagK8e6ZlTwkiaVWL764QZPgy8J
-	F9FcrNQIKLA5guvQvGEsY1F5r9gJ4JEhU213fLrwjd/vnCjbJ0/wWRln5rQzL+qGcwHmHBZhqFK
-	9MJ4k9jetgHoGHS2BSVNoTXW95zgsnNqMzTwKr3Sm/6HyJyx3RCVEbWKPvhApD4YDGCvAoR3Li6
-	RwTR5aiBmG0YNZJPfPjSbk5ZeH/fQvmJiw091aBfWpwU/66DPK447rF2MsPEcYwx1kgLYVdHZiI
-	4Omw7o52/12qI94WlI3y86C60uSopAoO5oeulNReXp5tjwNQPbpC3+RmZeto5XYvd1b3k8YiP7L
-	KTrhHKU7Y0OPtnWy4ssemebPpNxhA7Ae6sneG6QrwhMye1AStthLyifHQOV6cJRS4l9ii50jQVu
-	vU9ygtTqSp1c6kVgkMHJGxWUD42pEijyX3KM7cvqKATth96H7nqBQm/uUIw=
-X-Received: by 2002:a17:90b:4acf:b0:3a0:f2c8:9ad6 with SMTP id 98e67ed59e1d1-3a0f2c89d98mr2256325a91.64.1790506637645;
-        Sun, 27 Sep 2026 03:57:17 -0700 (PDT)
+        bh=xSjyGs9dHuPWxLkKlfnkoqKEvH9ZWWVKxeYf0xIQxxU=;
+        b=D/xF3HJMuGGIE0HDKvhkTBWU4bdOV2JDvw7VZ2rHnUnt4TrnmLUS8uPGX4gS7euK9/
+         6WXHkFSwN5ghYxjtANuimS4Uau2jBZUaWWCldghhCkvPMIQJxMPJtP2MdIPou3YzXHdA
+         MJnJt3TsMtRRz6Ua5M5q/HkZ+meDjVXwneeBpCNfxo9HrpqvRO+x4gniRGbQBCKvBIfA
+         m/ww/dJdpXqvjqRMCYG7FGW9nQ9BwnJ2f3tDDmKj6UwrqJrdu6oJk7iBZjSCOiAAmcZi
+         KzV4X669PQD6KjTjdLwL52eZUIZYni7u3V6TxzedSdaV3cRNmwZx8mhO1bxLYROj9UtF
+         Llwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790506634; x=1791111434;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xSjyGs9dHuPWxLkKlfnkoqKEvH9ZWWVKxeYf0xIQxxU=;
+        b=GYcgrvbE7sxlxnW0kOmz6j8Vv3y+992We2EeTvEN2Ms60PrltkQHpgDmJKwYzZOId5
+         0fNupi92VInxhMS2f4CqadkRYNoSfErLatzPV1mDINz19ySaVuADMgnEwIA3PRCILXY4
+         6OEYYoWqGyrkWD1O/PuGoQxsAWeETM32+yZBrAl/ZLTL5BVoqtCEbgCUWaxIog3NISpC
+         YCjfiIgvBLjd26y7nF2gfH6ybZQa0hqgiP6Q3A4IphT+7dARVYTlmSUAvciaSSYATL7c
+         aligrBodur3RKp4STS4H55i7u/ogq+xupnyJUhE1f0FP+2fD9CjWSAS2AjXPdZMBprHU
+         LxCg==
+X-Forwarded-Encrypted: i=1; AKwUvBx0bcdLuPw/5h0ROQH7VAAghx26QcvUzKSw2096K88Omda8JxM03u2kTQv5Mns0SZr/a9pl5WomwSydDtM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKy4N96jp4rc96iUha3ASxBgSVNnj4QS057JgtPNFNtsogev9mZ
+	8yBDT2aWA3WUd4TCxKyOTvcsqcTbKwk/1bLuma0DegfjtKlC4JsSnr65
+X-Gm-Gg: AYBFou1h0zpM2EQbWrAUMH1fm/VIL9o9oOVEEy5IAOosR2jjXsag2cdpMitFXm5Vo5B
+	xY1veoVtgZl5PDgP7YjnK1RlorxVEOYS6k1Gl1Z9urmqXkXQ95aCji/8VH7vh5XpMbWXs/XU7nT
+	6nZ5vrfHJPEjfb6e8uH81In85fvnqiSAqOjK7mTChVkVH4yHidR+ZuBsteWTI9QG3/0U97Ebt9O
+	NNXBluALYtEylg9+RqyFIHvNwNlQLSEdcJMNVrUKQJan/FWsuL8TDiux2lB8xYIirbCUGkO7bAc
+	sahBg/4C9WJwmLPYBmQNOEg3M9f4hzrmsqgeCrOhQyo3BBHNXbeuwLBm/+0ZgePXwH6plz40Sf5
+	OV+v3nuOmVuCWd4vfw6yQRaB+kzLyNU2OoqedMLuv3NIm6oArJbVNknhpn124qB/CqCfnpOkMB6
+	6ACj27hp/QyJTYLTTZenSOOPLuDE4WeFHbuHrAiqfGhOXO/VpKeYfpa0txx102inmpBwuAamQQ/
+	O0uCHpUnrSU651kkpv9sFt1n7brpe4RBSv7fu19jvO7n9sSIQe/K6CFJ1fqUsR74sudhnEcnYjX
+	gXS7dgRAXldrSrOFC9k9PsWbupSrgLKdTelR8g2XOKXdlhnfjbHxJE8DTG8=
+X-Received: by 2002:a17:903:4684:b0:2dd:ad74:ac81 with SMTP id d9443c01a7336-2df94b948b3mr51119405ad.28.1790506634463;
+        Sun, 27 Sep 2026 03:57:14 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5220sm14419192a91.16.2026.09.27.03.57.16
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91442ef4sm28521145ad.55.2026.09.27.03.57.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 03:57:17 -0700 (PDT)
+        Sun, 27 Sep 2026 03:57:13 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>,
 	Hyunchul Lee <hyc.lee@gmail.com>
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] ntfs: fix spurious EIO and ENOSPC on nearly full volumes
-Date: Sun, 27 Sep 2026 18:57:11 +0800
-Message-ID: <cover.1790503811.git.matthias.goergens@gmail.com>
+Subject: [PATCH 2/2] ntfs: do not use a stale runlist pointer when undoing $MFT extension
+Date: Sun, 27 Sep 2026 18:57:06 +0800
+Message-ID: <20260927105706.3111333-3-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260927105706.3111333-1-matthias.goergens@gmail.com>
+References: <20260927105706.3111333-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,28 +79,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix three errors returned while free space is left.  Patch 1
-fixes file creation failing with EIO on a nearly full volume; it now
-goes on until the volume is full and then fails with ENOSPC.  Patch 2
-fixes the cluster allocator missing free clusters when its start hint
-lies at or past the end of the volume, which empties the MFT zone, and
-patch 3 removes the fallocate() check that then fails every later call.
-Together the two bugs make fallocate() refuse space that is free until
-the next mount.  Reproducers, run with KASAN and lockdep:
-https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-27-ntfs-nearfull
+When ntfs_mft_data_extend_allocation_nolock() fails after it has
+rebuilt the mapping pairs of the last $MFT data extent, undo_alloc
+truncates the runlist and then rebuilds the old mapping pairs from rl2,
+a pointer into the runlist taken before the truncation.
+ntfs_rl_truncate_nolock() can reallocate the runlist, and KASAN then
+reports a use-after-free in ntfs_mapping_pairs_build().
 
-Matthias Goergens (3):
-  ntfs: set the attribute list size before reserving space for it
-  ntfs: restart the zone search when the allocation hint fails
-  ntfs: do not refuse fallocate() when the MFT zone is empty
+Pass the start of the runlist instead, and hold the runlist lock for
+reading while the mapping pairs are built from it.
+ntfs_mapping_pairs_build() skips to the element containing the first
+vcn by itself.
 
- fs/ntfs/attrlist.c |  5 +++--
- fs/ntfs/file.c     |  3 ---
- fs/ntfs/lcnalloc.c | 18 +++++++++++++++---
- 3 files changed, 18 insertions(+), 8 deletions(-)
+Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+A forced lookup failure of the first $MFT data extent, on a volume
+whose $MFT has several extents, gives the KASAN report before this
+patch and nothing after it.
 
-base-commit: 259abb551e2944998cad4214c201954ab1ac5c8d
+ fs/ntfs/mft.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 58676042444b6..5831ea7600315 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -2081,11 +2081,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	if (ctx) {
+ 		a = ctx->attr;
+ 		if (mp_rebuilt && !IS_ERR(ctx->mrec)) {
+-			if (ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
++			int err;
++
++			down_read(&mft_ni->runlist.lock);
++			err = ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
+ 				a->data.non_resident.mapping_pairs_offset),
+ 				old_alen - le16_to_cpu(
+ 					a->data.non_resident.mapping_pairs_offset),
+-				rl2, ll, -1, NULL, NULL, NULL)) {
++				mft_ni->runlist.rl, ll, -1, NULL, NULL, NULL);
++			up_read(&mft_ni->runlist.lock);
++			if (err) {
+ 				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
+ 				NVolSetErrors(vol);
+ 			}
 -- 
 2.55.0
 
