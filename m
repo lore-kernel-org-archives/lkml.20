@@ -1,173 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7751737F727;
-	Sun, 27 Sep 2026 19:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83708429008
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790536152; cv=none; b=YXhzDVpyXSxcS8rlF3LQrsVC8kSWQK1DmNzG4CR53FgDJYHNwJoLcR1xt8nZGyjdOv40ucmlkzOd3NQP3KgH5UFN99EyMkdOH1CeMDF+u1ABQj8VTZzIc69EeTSEHvSsfa2XMRUMPGtWXKTg5sPjGoB0QiGe0xDx/8lvu0LVc9c=
+	t=1790536172; cv=none; b=jCTe4PzFqdy15RwHnL1qgVRhB+Do5B5XYHwg2wf3RCCPLwZ3n2gX1zWl0P6uGeW3Zp7mGfJBd5bc/GfhZtd26XCKV95B6M2mjNVzR7j6R0ZHmIuiGFBLtio6eLcrqyXWV8y47Xd7ua2I5ScrgkU9AaWiz0MYnBXcSi70a8KuzGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790536152; c=relaxed/simple;
-	bh=ItZujjTeA728okR6dKC5Osjt2t1l8+dt1J4wA05YTY4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fsKFZoAzeKqbFwDW8OQP87Ynrxc3TeDXgqq+qj5sCxy0WnDUlWdvyJgWIDs/cIglApSHJSRZQbsNWrSdcfY9+ZNRpH6uLfw3t1jhcj+ujKGW1OrNZtZ0o7AOb06d39iR+6udJ/DUq3FKmpCL8I2+Ts68A59FUDbqxrwgkxZ3peY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHpoMYpK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790536172; c=relaxed/simple;
+	bh=/Ncv4pmHB2k5k4a6mo3lzenG6x84qqCfM0wTLNgXudw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=n7W/MTEGZAFr4kELm5UFvH0g6hTA7G+2AQwY5QNLPLPNb3ObW46hZ77ltz9/UihZek/HRqHO6vuB8Cn7EZNFW/A3xVDAAc/TbAocyQot7gGFA7JgxT90wuZNsBdGtLklEXYx5McWXYy0SVztVyPDsN9VRGObS7PI41iaQrtLpvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7WKBKll; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHpoMYpK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C86B1F000FF;
-	Sun, 27 Sep 2026 19:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790536149;
-	bh=KMa9tBdZVLWsNziVeV70/J2p5vkOfGneyxSXxXGmYm4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DHpoMYpKilyRFauno66aCwPvTbj8xnytT5fgsskzWT+2v3C3dwL+QdKnfaWBjk7W6
-	 yMjGkYt7w+lJA2YP+oc+2XPKh51SP2T8eadfi+Ev0FZqroQdqOGGBgoKi4e83+zNWo
-	 UowSSR1LjuuW7wh/VrGR02YXxHDQi4aZDqm/AkflDlCvXNuJZeFk/XCcn3kyDLhMme
-	 MFr/ZKEIrkNvWbX4zM7GRCk2+YA3/OIA563abuOHnI2g6VPkJgQMhjkZQhJqsVZiA0
-	 K9HzwCMX6fZTBZ58Z1fr0vtkbTYjyYyO6pLOmb4RJVQSyrZ8jCZISV9KENPQr2UIcZ
-	 STr6Fk1lCMiMQ==
-Date: Sun, 27 Sep 2026 20:09:05 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: Fan Wu <fanwu01@zju.edu.cn>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Song Li
- <songl@zju.edu.cn>
-Subject: Re: [PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-Message-ID: <20260927200905.1cebc335@jic23-hlaptop>
-In-Reply-To: <arTioh-Dax9Ogizj@nsa>
-References: <20260923094807.503690-1-fanwu01@zju.edu.cn>
-	<arTioh-Dax9Ogizj@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7WKBKll"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso1699879b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:09:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790536171; x=1791140971; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OPb2gJjQHkq+JlwtbOznBiTNAc1qQBhHXizpCBFuJII=;
+        b=N7WKBKll8PWhnGQ1FyXM1gC3akstDhXuQvYgtpMaF1ek2oO1W1j0eSc9bEi4miPqa8
+         VSUsm97a3IZLk8yS2LoHAA7TRKip3Zn8kvwHFYVZucb46fYp7+PPIGL4AGgpF9ek2E3O
+         oAAYh93be1C8yuOqHPDBYnjzkRj2KmmVA1VXkCByWjwJ3vqJ7oxPIx6UoIJGjlh7seP9
+         7UKb0fH1/zYaKWK4PHUDiw1L3Tg8Xvrg2/y3069ttozpaF0Q43EnexupM4tvYJ/Ig4b8
+         xHE6U03/kLQWaM6z9vPGew6OXTHrDIvpum86R46o2DbbDcO+3b35xibdQ0q4kuDr/87/
+         uMtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790536171; x=1791140971;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OPb2gJjQHkq+JlwtbOznBiTNAc1qQBhHXizpCBFuJII=;
+        b=qc3gWcQJxM7vogK0//ONz9JN3bUkSDCnyVbDsCy0Erah/t46CGpRZ2WIh7P71SX0Se
+         tQmJ7zmnBaoySFOS+OkLgAlYOZBx5xAekb0e+8wGKsk/vCbM4SV/7kLeRLb/uMJcyuOd
+         0z1/Wj+AoqHeVrzL0JxTlvppa02Rqsj7KaPjX1N+CaVCuDQaRJmy4HTgfOawNfPe+AI0
+         hU6m/fzMIfkAeoEeXvR/ULhHv55RPUoRnmKOgcXNIWUqM+UsXF6K8b4T28YbECMPqhj7
+         OkjRp20NN11rFaR5DeqvsZtpuCLcQjjcnCTBGhg8NOdWyE/PBfug8663k77QKeCKqK0K
+         17HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwU9rZvVPu1BM+BAmMuoK1xD/4famAA3+nTMbfy0h7i5pt+WHd8HO05fC2bPMS1HAZ06rJgsFKfylEwNM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhBMk27g66/2Jcx5hoeir9gajmOgEvwUn6d3SMT+B/Dy/GCCjO
+	YvJ1hJ0BmDMWUTJmTTf4Tebvb8KcvYZAAgLiX5i1dh8nhD6hwnYBYJmN
+X-Gm-Gg: AYBFou2CB5HvKpLyAjDhrDyD3I9kmH4pCRDXO2c2c6/6mWkiZpIPNwsW0EgVPIiUfPv
+	u9t99neBUALS3mlAiZYm5qbBlp/ZJRc3rZh8z8ZBN7nn+UIq6fspShDN0w+UBUrvCWXhd3AgVZZ
+	C0f19fAuXdpBDT40ydmw2B9w+WPW8jvEGo+TKTUaRlAwtfAsPzxmexmrNof+fk8s3S+HNapTU4g
+	Nnfx48iK9/QDg1dq65zFtcQsn8cpRZGCLLgG4+Nz1aCiovDU9A5QGt5AqFpzVUFk0SaD8qRTJEP
+	BPlWf8J9/xyPxdzwKnQil0S8VfarURvpzubN9nUFl6qNsoyP+liPk2IwktzdlsKKHGss/Nta8sT
+	ywaTkli/k4hrkbQk2x6N1Nh7B2CUdskfwbWFkg+3hynVfceyuqtCIFA7xCyL6cTVyzmwqkYjECS
+	rKppUoSDUV+OaUHpRv/ce14laVoXxoF6dYBZZfIOPGquQcX7iM1jGZq2JlCibCMmM4iquRwoiqn
+	UMu3bsvyijUXbNddmQrbRZsXYZr7y9fsj2B1+AhmtJaRMrnvYjoA1w8WQUP6IrNZcYiGB0c5Q==
+X-Received: by 2002:a05:6a00:2347:b0:881:e266:c3f1 with SMTP id d2e1a72fcca58-881e266c8fdmr2589039b3a.21.1790536170813;
+        Sun, 27 Sep 2026 12:09:30 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:6651:2efb:bfb:bd73])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb385ed8sm3204478b3a.45.2026.09.27.12.09.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 12:09:29 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	hemendranaik@gmail.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	tahiliani@nitk.edu.in,
+	vishy0777@gmail.com
+Subject: Re: [PATCH net-next v8 2/3] selftests: tc-testing: add fq_pie per-flow class stats test
+Date: Mon, 28 Sep 2026 00:39:15 +0530
+Message-Id: <20260927190915.12527-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <179028364138.2160803.8521628163584007831@kernel.org>
+References: <179028364138.2160803.8521628163584007831@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 09:45:07 +0100
-Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
+Thank you for the review. Our response to the low-severity comment is inline below.
 
-> On Wed, Sep 23, 2026 at 09:48:07AM +0000, Fan Wu wrote:
-> > ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-> > devm_krealloc() at runtime, so its devres entry sits after all
-> > probe-time entries of the driver. devm resources are released in
-> > reverse allocation order, which means unbind frees samples_buf before
-> > iio_device_unregister() disables the buffers and detaches the trigger
-> > pollfunc. The data ready IRQ is still enabled at that point, so
-> > ad_sd_trigger_handler() can still run and memcpy() incoming samples
-> > into the freed samples_buf.
-> >=20
-> > Fix this by preallocating the buffer in
-> > devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-> > the IRQ are set up, so it is freed only after iio_device_unregister()
-> > has drained the trigger handler via free_irq(). Size it for the worst
-> > case of all sequencer slots being active; ad_sd_validate_scan_mask()
-> > already caps the number of active channels at num_slots.
-> >=20
-> > This issue was found by an in-house static analysis tool.
-> >=20
-> > Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
-> > Cc: stable@vger.kernel.org
-> > Co-developed-by: Song Li <songl@zju.edu.cn>
-> > Signed-off-by: Song Li <songl@zju.edu.cn>
-> > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> > --- =20
->=20
-> Makes sense to me! One minor nit Jonathan might be ale to tweak when
-> applying. With that:
-Applied to the fixes-togreg branch of iio.git and tweaked as suggested.
+> [Severity: Low]
+> This is a robustness point, not a bug. fq_pie_walk() in
+> net/sched/sch_fq_pie.c only dumps flows that have a non-empty flowchain:
+>
+>     if (list_empty(&q->flows[i].flowchain)) {
+>         arg->count++;
+>         continue;
+>     }
+>
+> That makes this ping the only thing that gets class 2:1 into the output.
+>
+> In the standard tdc setup this works. nsPlugin runs the command inside
+> the namespace, dummy is NOARP, and the 98-byte frame fits under tbf's
+> max_size of 100.
+>
+> If ping is missing, or doesn't accept -i 0.001 / -W 0.01, the "|| true"
+> and the redirect hide the error. The test then fails as a regex mismatch
+> in the verify stage, not as a setup error.
+>
+> Should this step be allowed to fail visibly? The same pattern is already
+> used elsewhere in tc-testing (infra/qdiscs.json), so it may be fine as is.
 
-Thanks,
+Keeping it as is. tc-tests/infra/qdiscs.json (test ca5e, "Check class
+delete notification for ffff:") already uses the identical pattern:
 
-Jonathan
+    "ping -c1 -W0.01 -I $DUMMY 10.10.10.1 || true",
+
+as a setup step whose only job is to push a packet through the qdisc,
+with the same silent-failure trade-off described above. 83c0 follows
+existing practice here rather than introducing a new one.
 
 
->=20
-> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
->=20
-> >  drivers/iio/adc/ad_sigma_delta.c | 32 +++++++++++++++++++-------------
-> >  1 file changed, 19 insertions(+), 13 deletions(-)
-> >=20
-> > diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigm=
-a_delta.c
-> > index 1b41029..4f982c6 100644
-> > --- a/drivers/iio/adc/ad_sigma_delta.c
-> > +++ b/drivers/iio/adc/ad_sigma_delta.c
-> > @@ -498,7 +498,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *=
-indio_dev)
-> >  	const struct iio_scan_type *scan_type =3D &indio_dev->channels[0].sca=
-n_type;
-> >  	struct spi_transfer *xfer =3D sigma_delta->sample_xfer;
-> >  	unsigned int i, slot, channel;
-> > -	u8 *samples_buf;
-> >  	int ret;
-> > =20
-> >  	if (sigma_delta->num_slots =3D=3D 1) {
-> > @@ -530,7 +529,7 @@ static int ad_sd_buffer_postenable(struct iio_dev *=
-indio_dev)
-> >  		xfer[1].bits_per_word =3D scan_type->realbits;
-> >  		xfer[1].len =3D spi_bpw_to_bytes(scan_type->realbits);
-> >  	} else {
-> > -		unsigned int samples_buf_size, scan_size;
-> > +		unsigned int scan_size;
-> > =20
-> >  		if (sigma_delta->active_slots > 1) {
-> >  			ret =3D ad_sigma_delta_append_status(sigma_delta, true);
-> > @@ -538,17 +537,6 @@ static int ad_sd_buffer_postenable(struct iio_dev =
-*indio_dev)
-> >  				return ret;
-> >  		}
-> > =20
-> > -		samples_buf_size =3D
-> > -			ALIGN(slot * BITS_TO_BYTES(scan_type->storagebits),
-> > -			      sizeof(s64));
-> > -		samples_buf_size +=3D sizeof(s64);
-> > -		samples_buf =3D devm_krealloc(&sigma_delta->spi->dev,
-> > -					    sigma_delta->samples_buf,
-> > -					    samples_buf_size, GFP_KERNEL);
-> > -		if (!samples_buf)
-> > -			return -ENOMEM;
-> > -
-> > -		sigma_delta->samples_buf =3D samples_buf;
-> >  		scan_size =3D BITS_TO_BYTES(scan_type->realbits + scan_type->shift);
-> >  		/* For 24-bit data, there is an extra byte of padding. */
-> >  		xfer[1].rx_buf =3D &sigma_delta->rx_buf[scan_size =3D=3D 3 ? 1 : 0];
-> > @@ -855,6 +843,24 @@ int devm_ad_sd_setup_buffer_and_trigger(struct dev=
-ice *dev, struct iio_dev *indi
-> > =20
-> >  		indio_dev->setup_ops =3D &ad_sd_buffer_setup_ops;
-> >  	} else {
-> > +		const struct iio_scan_type *scan_type =3D
-> > +			&indio_dev->channels[0].scan_type;
-> > +		unsigned int samples_buf_size;
-> > +
-> > +		/*
-> > +		 * Worst-case size: all sequencer slots can be active, capped
-> > +		 * at num_slots by ad_sd_validate_scan_mask().
-> > +		 */
-> > +		samples_buf_size =3D
-> > +			ALIGN(sigma_delta->num_slots *
-> > +			      BITS_TO_BYTES(scan_type->storagebits),
-> > +			      sizeof(s64));
-> > +		samples_buf_size +=3D sizeof(s64);
-> > +		sigma_delta->samples_buf =3D
-> > +			devm_kzalloc(dev, samples_buf_size, GFP_KERNEL); =20
->=20
-> Why the line break for devm_kzalloc(). Keep it in the same line please.
-> Tbh same for for the ALIGN() call but at least that one is coherent with
-> the original code.
->=20
-> - Nuno S=C3=A1
->=20
-> > +		if (!sigma_delta->samples_buf)
-> > +			return -ENOMEM;
-> > +
-> >  		ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
-> >  						      &iio_pollfunc_store_time,
-> >  						      &ad_sd_trigger_handler,
-> >  =20
-
+Regards,
+Hemendra
