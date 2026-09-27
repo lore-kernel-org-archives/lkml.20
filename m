@@ -1,96 +1,67 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D54296BB8
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99011239068;
+	Sun, 27 Sep 2026 14:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518918; cv=none; b=JeVRIQCbSyFsHw4VHUeNssz95Y/bxFqMrCGMBV1Rj1Vm8HbLfls73CiuWu89CMhCKfciUC/nMZCcReO8zrZ0z9NqeLILQLDNh4lo7mRE7B8e2zFkGZfU1PS/9bYV5FpZ+P8xN96cZN9QbtkDXYARRDwJjs/71aQZOLwRSnl6gQE=
+	t=1790519062; cv=none; b=DFCxsKTWrrOWq8Z+ECb54KyRaqh2XPbMTtVrrFGXfW1sJtjy2zGAFWLBtaU8JaUsaoywa4hr8kd8h4IuCmj0cxwr2jceemzkSNDlmMjsT/YYlVjM3FgAEnMFLZmpdVz7+RxuIZbSOZNJoAqafMUEkeKs4KFbr1M5tnRuaVmM8MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518918; c=relaxed/simple;
-	bh=vauxrNzLOMIwiO1Re8IpcmC+EwRk4l4mAhXEDHqwD7A=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=s8m9l4UMsd+8Udf8EknGSuk2xK7J9oBTZxgM7wMKldpZc1DJtzgOYsWEUjea5z+GJ31H+tZmlU8s/Id4prM6ILgd8gj5WFZSpGA6TBhthVJRhDq1phFNuaS9axvaSjtgeBBMILrNtyDF3ftdcTP4cM8OphejyeyH6XZFkUXZDps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b26d8d2498so3968542b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:21:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790518916; x=1791123716;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=W4BdoBHm3KTHNIpzLOAflXes9mBs9wwl1foWRCp3lxc=;
-        b=CgF0jOnuqRgGs3smRvWxVmYG4mjh9UI/G5Cv6zOdje2hGm6wvLFCooN99+yUoRGEWj
-         Ph8FYQX+e78rydROZCyZVvE167kD0jY5n44bEghN2U6KigR1BSoZwpW/aG9Joc0DGwYW
-         dzxd4L6beNugnXvOCTn6vw7cizrG0RlfpSaD2G2bRfTx1M0ySF9QuoMJCrlIKfNz5txA
-         R6k/WDf5Mm597zyV1/mSGV0YUszY2qlDo/iMoQePjZPO7vdrOKcV4Wr51MBx/BPZ9MTM
-         cmHOdka6A9wcXEPF/Dg0d7UN6/Eu5DrDzqVA7x5t3uLQIjzv20RK2GhGgpsbyzjuCykD
-         3+Mg==
-X-Gm-Message-State: AFuF++nC1accsbqalTsjZ31RSM4m+l+EA3IPOBgU84PjUzxSwcpeV7qm
-	dx48p0AkbAn0lcZJTcyEt9o5gQofEGK8ZobFXVK6KTiRvhm/m1UCM7Cqtzqz8KfyzC1AueajL6v
-	fnMcr6dVeJioqsvbr724M4f3MV5FV9aiG51jS919X7JxQkqtmH5DT8COm0DY=
+	s=arc-20240116; t=1790519062; c=relaxed/simple;
+	bh=IcSoJAc0uoXmVc71gAWhHhASwCqv+rTsfRuOofentWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WcQbwNVPM15jcayDUqlW2N5y54taxGPJkh3SdDBWIE/Pz/0k3BwVCJPK8YhnLlsCnQb//Gq74IsHbxtW3aXhNNNr+RcsP0Yg9JWWOsXfQ0tyw360CHzvhy52pEyjLKHn3nvDTAZNuvMltVGGtjv9nix/vvcnMQEReppvX2lqRWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=W4nLojvQ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="W4nLojvQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=GA2hUrkc8lTsQl4rvBCkFKw6kYz45j+l21TDu9L0Rrs=; b=W4nLojvQs+45Ob+mTiX/lLCQAq
+	d1J5oNSeCbaCPuh0wGe7a7yYo69Te23ay1cE1rdfvr4HjB8RK9VAP+HEk0BWeBiVzO3vBTrg6hB5S
+	YOnCN3Bq4rOoEXR3AhstwQUfL4RcWe0oPyoU5IBox04Syf3/XUlnFN1EkuzTJj3SDWuI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xApnX-007WMS-O9; Sun, 27 Sep 2026 16:24:11 +0200
+Date: Sun, 27 Sep 2026 16:24:11 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, neuromoments@gmail.com
+Subject: Re: [PATCH net-next v12 09/15] ax88179_178a: Add VLAN offload
+ support for AX88179A
+Message-ID: <f27b2a1c-afb7-48db-9682-acf6c0a83479@lunn.ch>
+References: <20260916-ax88179a-v12-9-60c04c9924a2@birger-koblitz.de>
+ <178968030096.22033.824447734953057557@kernel.org>
+ <289700c4-8569-4160-97c5-2fc37a901a9d@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1493:b0:4b9:e5fa:8905 with SMTP id
- 5614622812f47-4d72cd363f4mr10356207b6e.24.1790518916288; Sun, 27 Sep 2026
- 07:21:56 -0700 (PDT)
-Date: Sun, 27 Sep 2026 07:21:56 -0700
-In-Reply-To: <6ab90c6b.dc2998a4.2261f5.0067.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab92684.80e1c6cc.1e8e5f.005c.GAE@google.com>
-Subject: Forwarded: [PATCH] Removing double device_put that causes UAF.
-From: syzbot <syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <289700c4-8569-4160-97c5-2fc37a901a9d@birger-koblitz.de>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+> You ask: On a busy bus, or when a transfer stalls and hits the timeout, this
+> blocks
+>   all other network configuration in the system for a long time.  Could the
+>   clear be limited to rows actually in use, batched, or moved out of the
+> RTNL
+>   section?
 
-***
+How long does this typically take?
 
-Subject: [PATCH] Removing double device_put that causes UAF.
-Author: nsvatoslav515@gmail.com
+And what is the worst case, if the device is hot-unplugged?
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git fe2ec83746e5
+If these values are small, i don't think it is an issue.
 
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
- drivers/media/usb/usbtv/usbtv-video.c | 2 --
- 2 files changed, 5 deletions(-)
-
-diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 4f10f6613bc4..8a68bc0aa884 100644
---- a/drivers/media/usb/usbtv/usbtv-core.c
-+++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
- 	return 0;
- 
- usbtv_audio_fail:
--	/* we must not free at this point */
--	v4l2_device_get(&usbtv->v4l2_dev);
--	/* this will undo the v4l2_device_get() */
- 	usbtv_video_free(usbtv);
- 
- usbtv_video_fail:
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 92bc7a2509c3..e2d015483081 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -965,6 +965,4 @@ void usbtv_video_free(struct usbtv *usbtv)
- {
- 	vb2_video_unregister_device(&usbtv->vdev);
- 	v4l2_device_disconnect(&usbtv->v4l2_dev);
--
--	v4l2_device_put(&usbtv->v4l2_dev);
- }
--- 
-2.47.3
-
+   Andrew
