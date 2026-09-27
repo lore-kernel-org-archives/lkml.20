@@ -1,135 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC722AF00;
-	Sun, 27 Sep 2026 01:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA5F632
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790471606; cv=none; b=PS9C3YB4gje1izVLpy9jov5WZDFuTZQUZg8p1829L93MIrS3PrIB7nxExyAxF0JhwrlDFz3HwlgvTleGCHjA53ZzxJDGAAV3RlJpgUDb/Zesu1Q7D6GXU3foODhW0hflR6vq3yGdSLLCwP5b3EgFhJim/kHhzKvkmeo1+sxdJ/Q=
+	t=1790471862; cv=none; b=Whs0aykWoCubsRIgwzmrti2DHKVouCRrmxpiVcqovQwA2uJZ3JgW1D1Y442WYehYi7NW3eeUI0Cy41yUH8KDCkl/En+E3RisjzAjOPVB4sJmfJDJeM16KBdEff77rA1wwNc87CLOo43g9Wa48JoqiN/5fdSYHiM/hn7dgs/n+Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790471606; c=relaxed/simple;
-	bh=LhbT1u6bt5c64FMxcf1q/vAN2f64Gv1HxhFxf6T9SuU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Igu6I/tsSZsWjzWHDQVonQ/O8ntBnMMsSA5GrXKoG/DinFdsU5fj/SZJSfy7ZJO8q6xMNoAgOywuhZyQLkfF5hc3wRnxJsP+VzBvOAp1ALEUvXXPdoTmhIWcNVFo1wjm3rh1wKd1zZapwYtm9+UpVphr5tjxD78naQE3cIBuVmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g2V/wHGl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790471862; c=relaxed/simple;
+	bh=ePnRvq3UMM+sa2D8dc9jnBVFW8hpD++8XhlbdDDl/iI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RcJxqJ9XVvY60XcxJqOYsqj/I2Z1h1Lcekv6yC5uKCLek0b2iT9fIRMjzqHEPuXXWIZC0lvOV7HUA/7O9bK6eEPRywkAOpfyX+IMrl+bJqmox5CH949hYuhJPIaIgUg/XFV1XKNQEAE3jKMYRqLrWKgeOaXk7BBKWmt1PIlbI6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYTlfjRU; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g2V/wHGl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215D71F000FF;
-	Sun, 27 Sep 2026 01:13:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790471604;
-	bh=sz0mKDv766sz3dqn6sz5UmjEeYOx+tbMFYwvUYW26t8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g2V/wHGlVQGw4PkED6b3jTzCgfnEwtumIhmnwTYeSfpALaz6FlD7e4AvkenmwXbpH
-	 jkA6k2/12/b8K9V2OgFhuWlSbD07HWPcPXBUOoWT4rNXzgeikYOEmGvUO91VA17hNK
-	 LSl1lSfncHZHhIfMiaIKClJlJ2vYF0a4owg4lO5gH90r+WBg+Q5tUDNc+VjmylX9O/
-	 L8h3udTSIckmVbaIAyrgpLTe3iDmnQCPgmdd6C9FRSEINoi6xzQwA2v02kjf9x+zGs
-	 dIdsKOc8ghTInUzI0HRNvBal74FocSrf6U7nzJ0W1pxfvrWKosU2ERDLKwMKth4pxC
-	 xXo4GZjiNZzYg==
-Date: Sat, 26 Sep 2026 21:13:22 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-Message-ID: <arhtsrVb82vr6U-p@laps>
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
- <arfpV7IXRAHREMzO@laps>
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYTlfjRU"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c72bfe7so530067241.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:17:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790471860; x=1791076660; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AZj1MR82XkpbobvFczq8ok2+SpPrjJF23vq7+BjVWUU=;
+        b=cYTlfjRUYpaCSOcVVHHijmkPbxz+uraer8Tlf9XhQtkCKbGz3X2IPDlm9nP4KpG5R3
+         +BtV+DLRr/G4ToU0aKgvS7HGPnRqyCprIWCPhvesHmCE3zeGy3F/aBbBCXKJJjxqxjJP
+         10N607Ig6S6vBwzy4fY5T9a0480km6I1gQ38oS62QxWtJLOecLL/5zgzAcbC34lUHeyW
+         jekp8X/2LAennQFJxv5jPbAaqVtPscLkVHEcO9M598LyX0Kp8iX8DrrQnjiy1BXWFkRY
+         7dR8FqaTDANQIRTxFZsspcv3kIZFCCqeVNakeIzbrPFRYBUBNYqrcdcWfnlC+h2boyCg
+         6G9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790471860; x=1791076660;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AZj1MR82XkpbobvFczq8ok2+SpPrjJF23vq7+BjVWUU=;
+        b=t0arnPkvCXgIbDbDnxucHzv2XONXis4CAxVq+tFf/CB5JO8D5cI3yGzYnBCEu0E8vF
+         rljRXj37whDPg4C9h6OmeC9uT8iRQwlUJ8Kg8MBdDJyK/VhqVavvvQ42A1iOVMZClDsP
+         0s5o3eywBvV42KIy1ClD76TV9OC7iRZXOCPhkXldrIy6qBdNfcMuq15aGPrgkh1F1eRS
+         YXhR3eMDD1Riui68g7tzgcwBzBEhNzPErITHBz7AkTriNSOaO8baGcAEKVFWvGVTP2TX
+         Yh/+x70Yrm5X+0rQKzTKTPWXrbOm0H5Htv+Dwx7Yjg7R6kyEd5/wtq8YLLCSZhSwaMrk
+         MEgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+fd3/sfPjJEuU/7dLtFsp/hVWdE4Adg8f8puwcmJADwfOz5i2stZftFoHrTM/WO2Ziie8TDMT+rm30R0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMuT/UxN+eU+MKOTjGkzPwS+3DNO/asH18C4ucsfUpEtsyGdKI
+	FvXTGjLX7Mrz5qLDczEbDm5xeP/iSF+19dyEb6Y6hvbuIaDiKk5rTzRBUYEo7Q==
+X-Gm-Gg: AYBFou1/n1y9QIUrS0/QNDWSt0HClAoRoCvhhjHsVJ5inlUVa2/Zs7JfPWM45dw/eOV
+	+pqM0l47+eHcaqfZrsFBw8VxjUGBFP9eCPJZsjOnvGm3p5rIzE4YrDnIU8jai3UvzmpTv6K1ubQ
+	cbm5u6jOjichFmT5ihOZk1RJ8IN8xsNaSZ2pgQx7/xJ2FcoXHDmDZR9b8LwLzjY7bJk0ucPlNFD
+	/6Cmb6oEKNbaiMKCvUKuJ0/hrWx/iRhofJ7UboK1oOYMmNJT7qb7mZLCUU0Pjnv0/ACUfpyqMjJ
+	71DaTb33ynlmXI6VmYqzmUihnNJOBU2FXH6sa5qcLUgsgFcIXUWAH7wAzrLbJf5Vc4MFi4V36XN
+	BMd9fJJCBjJcIuWVMfS0moVtxxAaK1bblEJDhbsy6hOb8MDHj0/N57hHyrLpalQ98NhyywBrLoN
+	G7Ku776rrLQcb6hafOHUd5LP8wxnxuO+SGYwqWZI25I9FRPLxy4oxWvXTj
+X-Received: by 2002:a05:6102:4429:b0:7a2:2a4c:606a with SMTP id ada2fe7eead31-7b1c5536ae3mr1905560137.15.1790471859988;
+        Sat, 26 Sep 2026 18:17:39 -0700 (PDT)
+Received: from [127.0.1.1] ([2804:14d:78b3:5cda::1002])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889b1d413asm820433241.10.2026.09.26.18.17.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 18:17:38 -0700 (PDT)
+From: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
+Subject: [PATCH 0/4] staging: rtl8723bs: refactor
+ PHY_ConvertTxPowerLimitToPowerIndex()
+Date: Sat, 26 Sep 2026 22:12:23 -0300
+Message-Id: <20260926-rtl8723bs-tx-pwr-limit-v1-0-989dcbc113fd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHdtuGoC/x3MTQqEMAxA4atI1gbaCKPxKuLCOlED/pGWGUG8+
+ 5RZfov3bohiKhHa4gaTj0Y99gxfFjAuwz4L6jsbyNHLMRFaWpuaqhAxXXh+DVfdNCEPnkPgiZ0
+ XyPFpMun1H3f98/wA7wwFz2gAAAA=
+X-Change-ID: 20260922-rtl8723bs-tx-pwr-limit-9a19bb9f901e
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Leonardo Martins Martins <dev.lmmrtns@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790471854; l=1530;
+ i=dev.lmmrtns@gmail.com; s=20260813; h=from:subject:message-id;
+ bh=ePnRvq3UMM+sa2D8dc9jnBVFW8hpD++8XhlbdDDl/iI=;
+ b=Jks1UthAo6nYxCSO90vZ/xP1AGslNfQhYyvU2ijEGDp9kIDJXEydZf3QI+/KSukdZMwZ/gIce
+ AAWx3Jo0pGjD+A+My/G0eWKFkYr7vZ4//EOTxclpNQlmUcFOlALKXqf
+X-Developer-Key: i=dev.lmmrtns@gmail.com; a=ed25519;
+ pk=dOFSCpUL7hbyVftAaUGDebsgsSl9Uk/Tx0Aqpd4Bcng=
 
-On Sat, Sep 26, 2026 at 07:54:27PM +0200, Antheas Kapenekakis wrote:
->> It didn't in my tests either. With AGENTS.md pointing at README, one agent read
->> only coding-assistants.rst, and the other read that plus generated-content.rst,
->> which coding-assistants.rst references. Neither opened any of README's other
->> pointers.
->
->They usually read it when they need to. I find it is 60% of the time.
->Of course, this does not compensate for behavior that should always
->apply. Sol 6 also has the annoying habit of modifying readmes
->randomly.
+The function PHY_ConvertTxPowerLimitToPowerIndex() has several style
+problems, such as mixed-case names, deeply nested code, and redundant
+bounds checking.
 
-Agreed, and the rules in coding-assistants.rst are the part that should
-always apply.
+Patches 1 and 2 rename mixed-case names that are on the same scope as
+this function, struct fields such as TxPwrLimit_2_4G were left as is.
+Patch 3 removes redundant parts of the code, and patch 4 solves the
+nesting issue by extracting the inner loop into an auxiliary function
+like it is done in rtw_phy_tx_power_limit_config(), at
+drivers/net/wireless/realtek/rtw88/phy.c
 
->> >agents.md file before every message. Unsure if it still does, I do not
->> >use Claude. agent.md files should be specifically designed for agents
->> >and handwritten. Moreover, they usually need to be tuned for the model
->> >generation in general, if not the provider and model specifically.
->> >Which brings us to 2.
->>
->> The rules README points to (DCO, Assisted-by, patch format) are the same for
->> every model. Personal and model-specific tuning belongs in a personal file.
->> Your sample shows why the shared part should come from the tree: it asks the
->> agent to add your Signed-off-by, which coding-assistants.rst says an agent must
->> never do.
->
->You are correct. Agents are tools. All of their outputs are the
->responsibility of their users. They cannot apply DCO.
->
->For me, I make sure to review copyright and test my kernel patches
->before sending them or pushing them to a remote. So my agent should
->add my sb and the assisted tag otherwise the patches need unnecessary
->cleanup. This is my personal preference. The mainline branch should
->not poison my agent's context or provide conflicting instructions.
+Checkpatch issues a few warnings and checks for deep nesting and long
+lines, but these are solved by the last patch.
 
-Your issue is with coding-assistants.rst, which says agents must not add
-Signed-off-by. AGENTS.md only makes agents see it.
+Compile tested only.
 
-[ ... ]
+Signed-off-by: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
+---
+Leonardo Martins Martins (4):
+      staging: rtl8723bs: rename PHY_ConvertTxPowerLimitToPowerIndex()
+      staging: rtl8723bs: rename local vars in phy_tx_power_limit_to_index()
+      staging: rtl8723bs: access TxPowerByRateBase2_4G directly
+      staging: rtl8723bs: extract inner loop in phy_tx_power_limit_to_index()
 
->But as far as I know personal snippets are meant to be additive. I do
->not think there is a widespread override for agents.md for the default
->one. Codex seems to have one but there is only one google result on
->it.
+ drivers/staging/rtl8723bs/hal/hal_com_phycfg.c     | 88 ++++++++--------------
+ drivers/staging/rtl8723bs/hal/rtl8723b_phycfg.c    |  2 +-
+ drivers/staging/rtl8723bs/include/hal_com_phycfg.h |  5 +-
+ 3 files changed, 32 insertions(+), 63 deletions(-)
+---
+base-commit: 8444548bd905f22093729065408284a6b46f7eee
+change-id: 20260922-rtl8723bs-tx-pwr-limit-9a19bb9f901e
 
-Codex reads AGENTS.override.md in place of AGENTS.md. Claude Code doesn't load
-AGENTS.md at all when a CLAUDE.md exists, and Gemini reads GEMINI.md unless
-configured otherwise.
-
-The agents are designed exactly for this model: the upstream project has it's
-own AGENT.md which is relevant for the upstream side of things. Downstream is
-able to modify it as needed, either by carrying an out of tree patch, an
-override file, or whatever else works for downstream.
-
->A large generic readme that offshoots to 30 other readmes is not an
->appropriate agents.md file.
->Documentation/process/coding-assistants.rst would be a better start
->for a symlink but even that is not particularly lean and would likely
->degrade modern agents. It still contains offshoots to 4 different
-
-Changes to coding-assistants.rst itself are fair game as separate patches. This
-one only gets agents to load what we already ask them to follow. There's no
-substance here - we're just making dumb machines behave better.
-
->readmes, and the "Procedure for finding and fixing bugs" would degrade
->most modern models. They are already RL'd to do what they are asked,
->and conflicting instructions could lead them to e.g., commit when not
->asked to. For example consider:
-
-[ snip ]
-
-I get that you have concerns with those docs, so feel free to propose patches
-for these.
-
-I do not thing we need a seperate machine-only readable set of docs. If these
-"agents" can't do better parsing those docs, then we shouldn't bend over and
-write them their own versions. I'm okay with doing better at pointing to those
-docs ("RTFM!"), but I don't think that a fork of the docs is sensible.
-
-If you disagree, feel free to propose changes to coding-assistants.rst, as this
-is really a doc that gets read mostly by machines.
-
+Best regards,
 -- 
-Thanks,
-Sasha
+Leonardo Martins Martins <dev.lmmrtns@gmail.com>
+
