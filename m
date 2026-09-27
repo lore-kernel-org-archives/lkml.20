@@ -1,120 +1,115 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D55838736C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D501D3C1092
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790508188; cv=none; b=o/JyS4maLMpKOrYAdhLeAXwhRHi6SABXil+8wL3iCfbi+S/yeKvW+3fhZpWFi5DgW15C5tJorgMo0ZlmmsU0EgFcYq1xCRSgSD6nBi6dXjKhZ81sRSEy0vRWhkn0ZsWUGfNedz62r1cBrl1d6EOWewRAgu7CAmDj9TbRrcIqljQ=
+	t=1790508443; cv=none; b=u4jlAJSsQrv0plpMntSTGl6uBcSr+gaInt5Pma7GeGSH5GsS6upOYKqF6L60qJ82oaLPQAQdN5UYaNfQ7AV1n0eH7XaB32EKBYsPs6qhmAbg6VY0a9Qb1DJ8SeKFTd7b5LyFNqcuHhP1EGuhLNYATh3iaQfwP9K+/IWSzedq4jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790508188; c=relaxed/simple;
-	bh=kbyKVp5Zvp47iaRL8DmcBVN3hbrse/nRZjYGIVn7x7I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=oi6oa/kzGg0rj0xSYSZq7qnp9FEXjDpSsQBRb0sdtBc1v3TEEvbj7kZa/4ULLHyOHtnOPN2eI3JzdjP3NuX30KxaWIVx9dpWgQTCxgUZ0bh7ybUjEObotgy2RilwSvAYjE6sH8fCN2YkyBF/dqrFQomgJPmvwL7oC1oCOb4HFls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so4116248b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:23:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790508185; x=1791112985;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NAmk3GpEoBd0TS7zXqhccr2MGvUT0tGsCjyzRRE3oSI=;
-        b=A2eGyWOkZ1QTGtnygRw3ydLKDmKxP/O78256eBK2rS7GAKhaEutTAMNXh34MlvP1QH
-         7Xle6NzeKxEfrbG7QvwJR1kOkxmf1Suzz4Os8bT/tfVDBQs2tFLE7XL+ud4t2Sp/5x+n
-         mnwMmYshLDMC+XzA6w+FhAO+j57r0JIgE0Mv+7aYkJx70H2PyynPLijB0W/l+kIacxqo
-         ZEhGXxoEScFIH0PPv3vBvYin5P17VvnaLxuIwU/nKsDXUry0nbtn8KhP3gnEqqw1NqqA
-         QXdFrmkvkbQCda+67lgbACCjY0w95lzrH9HRwEE+I2QfI/0ClJH+8lN8zkB0ZAeu72ZL
-         0V7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy//o51NAo0+OMmHSj6+0RK4QHAaOn7l4jywC5wapOKM7mrFX38POU7HuZfH3QWynZEenMmjkB0Zkux454=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJZpccwJjimUQRWxTKtExBJrz41MUv+/0c14aMw+2aDNeFHS+b
-	9eIVz35GfLvedacM4lQylCFYxWfStzb1377fS+7ncTxeefAMYjfkFrQ2ONTohilRhGfK5B8pQh4
-	7UnQSNoDnUDLLU6RRgfBRjYa98vBRqRHx7h6mHeYEXmPPeZyBzduQzc7UKXE=
+	s=arc-20240116; t=1790508443; c=relaxed/simple;
+	bh=/jd6LhjvZzB3GrpgY3GTZItiW0r9hx23Ea5i9/zjsnk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z0cHx1Dnp8BnZarPXRqvMRSZSkHCFCgD7ikB1d9fn+wcL/myWMFID5yDS2nySlq2F9YJWx9NWx8o7WztqXtmbnOGwo9L997S6Pey9HVZedd6gNeEkrg87a8CayBoJLCnJoIWNI2IU5f5HM4rYbaJ8APPdWcMN406dRUH7w6Onnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=FDKqYl2m; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="FDKqYl2m"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id C6D21240104
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:27:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1790508433;
+	bh=HWuajKBzp5P29va8dZADm3KIQPoT99vey4Xoq4mmV6I=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=FDKqYl2m9mgBMrcaQyDOw6uuRDzKZaAbEYIcvYmyKRN8YMH8VxaNmWINo/KxF4E1c
+	 jMolL98c40uz3uSA4R4YSar3nduTbBbjC9kwaUSYbxoHImr+1iHiZTW0sYlHctmmYZ
+	 38YwBJLxkKbdWsaTAGC3jjwobkf6wLXX6W9Jlv7Y3HRFOlVfYptrux0AEi7fRLCXsm
+	 N02+RP1BSxYzaiXS5J6KutQ1fPOFVLB2wSHjkFNNFmX5Ma+ywTH2ihEI6DzxKz+X91
+	 Ob/MCPng6t1dlgrNewOcUTxgGVh30PlDy/sIFtmcxizn2NZsmY8m8DnAc8U8fCzVQm
+	 Oi0BPfG1QDPqw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4ht2GN34T4z9rxB;
+	Sun, 27 Sep 2026 13:27:08 +0200 (CEST)
+Date: Sun, 27 Sep 2026 11:27:12 +0000
+From: Wilken Gottwalt <wilken.gottwalt@posteo.net>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Bjorn Andersson <andersson@kernel.org>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
+ Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Andre
+ Przywara <andre.przywara@arm.com>, Bastian Germann <bage@debian.org>,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware
+ spinlock
+Message-ID: <20260927132707.5f484946@posteo.net>
+In-Reply-To: <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
+References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	<20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:30aa:b0:4c6:eddf:ca6f with SMTP id
- 5614622812f47-4d728922debmr13681154b6e.12.1790508185524; Sun, 27 Sep 2026
- 04:23:05 -0700 (PDT)
-Date: Sun, 27 Sep 2026 04:23:05 -0700
-In-Reply-To: <arj4xgLi_4YZl929@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab8fc99.dc2998a4.2261f5.0065.GAE@google.com>
-Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
- (2)
-From: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>
-To: azpijr@gmail.com, davem@davemloft.net, dhowells@redhat.com, 
-	edumazet@google.com, horms@kernel.org, kuba@kernel.org, 
-	linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	marc.dionne@auristor.com, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Sun, 27 Sep 2026 09:56:26 +0700
+Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-kernel BUG in rxrpc_destroy_all_connections
+> Add the hardware spinlock of the D1 and T113. It goes in
+> sunxi-d1-t113.dtsi rather than sunxi-d1s-t113.dtsi, as the D1s manual
+> has no spinlock in its memory map.
+> 
+> Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+> ---
+>  arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
+> b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi index 3b077dc086..228cc5c074 100644
+> --- a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
+> +++ b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
+> @@ -11,5 +11,14 @@ dsp_wdt: watchdog@1700400 {
+>  			clock-names = "hosc", "losc";
+>  			status = "reserved";
+>  		};
+> +
+> +		hwlock: hwlock@3005000 {
+> +			compatible = "allwinner,sun20i-d1-hwspinlock",
+> +				     "allwinner,sun6i-a31-hwspinlock";
+> +			reg = <0x3005000 0x1000>;
+> +			clocks = <&ccu CLK_BUS_SPINLOCK>;
+> +			resets = <&ccu RST_BUS_SPINLOCK>;
+> +			#hwlock-cells = <1>;
+> +		};
+>  	};
+>  };
 
-rxrpc: AF_RXRPC: proc conn 560 cid f29e6b44 state 7 ref 1 act 0 flags 2 cache_empty 1 calls 0000000000000000 0000000000000000 0000000000000000 0000000000000000 bundle ffff88802ce96b00
-rxrpc: Assertion failed
-------------[ cut here ]------------
-kernel BUG at net/rxrpc/conn_object.c:504!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 1 UID: 0 PID: 5781 Comm: kworker/u32:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: netns cleanup_net
-RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x34f net/rxrpc/conn_object.c:504
-Code: ff 90 0f 0b e8 6e a7 99 00 48 c7 c7 20 73 5d 8d e8 72 be af ff 90 0f 0b e8 5a a7 99 00 48 c7 c7 20 73 5d 8d e8 5e be af ff 90 <0f> 0b e8 46 a7 99 00 48 c7 c7 a0 77 5d 8d e8 4a be af ff 4c 89 e7
-RSP: 0018:ffffc90003be7928 EFLAGS: 00010286
-RAX: 0000000000000017 RBX: ffff888036dd4000 RCX: 0000000000000000
-RDX: 0000000000000017 RSI: ffffffff81ea2579 RDI: fffff5200077cf16
-RBP: ffff888036dd4064 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000000 R11: 0000000000000001 R12: ffff888036dd4098
-R13: ffff888036dd3e70 R14: ffff888036dd4078 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff8880d5c52000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f67bacc6e9c CR3: 000000002647e000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- rxrpc_exit_net+0x7b/0xc0 net/rxrpc/net_ns.c:113
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
- cleanup_net+0x499/0x920 net/core/net_namespace.c:706
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x34f net/rxrpc/conn_object.c:504
-Code: ff 90 0f 0b e8 6e a7 99 00 48 c7 c7 20 73 5d 8d e8 72 be af ff 90 0f 0b e8 5a a7 99 00 48 c7 c7 20 73 5d 8d e8 5e be af ff 90 <0f> 0b e8 46 a7 99 00 48 c7 c7 a0 77 5d 8d e8 4a be af ff 4c 89 e7
-RSP: 0018:ffffc90003be7928 EFLAGS: 00010286
-RAX: 0000000000000017 RBX: ffff888036dd4000 RCX: 0000000000000000
-RDX: 0000000000000017 RSI: ffffffff81ea2579 RDI: fffff5200077cf16
-RBP: ffff888036dd4064 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000000 R11: 0000000000000001 R12: ffff888036dd4098
-R13: ffff888036dd3e70 R14: ffff888036dd4078 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff8880d5c52000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f67bacc6e9c CR3: 000000002647e000 CR4: 0000000000352ef0
+Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
+the driver in the sun6i_hwspinlock_ids struct, drop
+"allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
+file accordingly? Hmm, there are actually a lot more devices, which support that
+spinlock (H2, H2+, H3, H5, H6...). A31 was the first one introducing that IP
+core, but newer reference manuals removed the spinlock section completely.
+There it is an unnamed 4k block in the memory map.
 
+Bjorn, what do you think? Just stay with the "allwinner,sun6i-a31-hwspinlock"
+string or add all the possible combinations like
+"allwinner,sun8i-h2-plus-hwspinlock" or "allwinner,sun8i-a83t-hwspinlock".
+I mean, it is just a naming game and there are 10+ SoCs supporting this
+spinlock register file.
 
-Tested on:
+Oh, and I may be able to test it against the D1, I own a Sipeed Nezha. Though,
+setting that one up for kernel + FreeRTOS testing is really, uhm, annoying.
 
-commit:         a7bfaba4 ipv6: fix prefix route expiry in modify_prefi..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17888605580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=89001660f14fb7684c83
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=12908605580000
-
+greetings,
+Wilken
