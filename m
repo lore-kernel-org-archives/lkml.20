@@ -1,183 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA96C34F247;
-	Sun, 27 Sep 2026 18:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BE634F247
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534098; cv=none; b=VraifzOiyTZqLUUIg5/rYWyzedPhtkWxeABlOwkKEJzkAxFfFXgJChMNZM3MHEKSeFh8E0se1zg4GKC5RwtLp7qVvpgalQzDgxj6z8Yd1MrEsmTlpbo6Xx/LITnLBpKsmRr5VEd9J2zmFXxzWDsqzdan+tApRTsO+gr0oeEHHAs=
+	t=1790534122; cv=none; b=u3JNg/hmnpkpk6E0Jq1FdR4XfG8FH9eEaJYWyW76m6e0Q1rTp+IT/vVcQC+LdLU2TD8EPjw0YBjgFgZDVt9QVHXip5v2QnBXU+q3WY/TUxWJ8PXpkCOJYnH90Il0Tr5GAthHwMLzFcJ6ueOvhH9LmGU30a0Y2LvTvEtezxFiAGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534098; c=relaxed/simple;
-	bh=LvcS0JKXC46z1TSbO+BXmr/cZWADTy03GpGh/3hkxtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EccE0JoRGRuWXqwewMpASgM7U9OR6+V2kLswU04G0/Wf+HznxONG+/XXNu9smHvNzjfBQRMxwr1eIXihgw5jHx3L/tAomPrhKehOSlBQ1kD9+7M7EKLZ5BshURr65Z3qi3kksvU9GBzNz2V+dYAfkzRGcwQaiLUi0vVc7SXfz48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nE9p8kr+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790534122; c=relaxed/simple;
+	bh=EXX7jqvZYLnEQMm8FZbzal6MRrKj4Q6wzO3n8gCmvYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6OlYhT1dHuxw0lyXTjhzUYT88xiVuviLRL+oyNvpqIXWJkoJUOKnWa23VKIZpzL2qoo+EXY0hhRuG/r3mQmhiJ7Rbpcwljh5Lo0wBKGaGs8FJYzWW2U566Q3VVVCYQJkg1kSBEeuP8/LoxVJqoE6SeEotXwggU4FkT7Wc5LhfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jaf/9ODd; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nE9p8kr+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867161F000FF;
-	Sun, 27 Sep 2026 18:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790534096;
-	bh=am9VniJEmyfGzsG1gWjCA6fA1rdIrRtt9qLvlf27FLM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nE9p8kr+m4dQ5zmeOECIJZtZqIhhi5dcDPcwBXnneNJMBc+IzAlEJk0VlP79WNsl3
-	 0CzkD2hNvCn2kPLgQYQdKlsLnzJNSJF8aT5jFk/26oPKqjQJOsUmmO6RPA3r+RVYEc
-	 ds1nD1X8JHZ6xXE2Ng1eiw+cazwuIVLItV3BWU230qlryvHpXWySGfVPxP0WClBgt6
-	 EdW92prej5oSbG55TiSRjeBG1Mu5265ytQMOWXME1mVAQjcDenA3wpL5uYETjC0XM0
-	 lQcw2QSt2L7d0Uh4q2OTmedWt0hp87DS7vF21wYMKnrqFF4FAbjByMKOUxhm65QHkT
-	 GKMkX+5+vSBwg==
-Date: Sun, 27 Sep 2026 19:34:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v8 3/5] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
-Message-ID: <20260927193450.733ea26a@jic23-hlaptop>
-In-Reply-To: <20260924-mcp47feb02_refactor-v8-3-17dc2ce3485e@microchip.com>
-References: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
-	<20260924-mcp47feb02_refactor-v8-3-17dc2ce3485e@microchip.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jaf/9ODd"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so1556180f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:35:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790534119; x=1791138919; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d3btJEsbUCZDnVE9CRXhr6o73+2IGPLa/zULNpIdkJ4=;
+        b=Jaf/9ODd+5ToflEFjmTC7DjCtFGBQXtdJlQKT5EIoQXbZvZMbij7Mrl4emaIuhJfLM
+         CeJqNoiH2nQY2LOnsqg8mt83NK/vZBLeP6Jyav3809orvMkfURhphdIvJyJviSHdAj14
+         jKeuG9uEOrvStAe9J7rdV4ystmNUvw+OHWefw9m3dbDwM0N17KT3xnagNjFCBvv4KZAu
+         Ep8l7HcDc3KcxPdXGitSHJGlKXtZ5NdH/7akZ3xa1lOllw2PMynr3HB12T3Db+dbI8oX
+         QUQ1PKNpbQSF5cJ1BUB12rz8kmhz/BaQ6g8ZnAe3opclAuLbzJDncI2U5wWr69BdzHdM
+         FkDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790534119; x=1791138919;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d3btJEsbUCZDnVE9CRXhr6o73+2IGPLa/zULNpIdkJ4=;
+        b=rY0VvrbOsJ3na3S7tSCalvDgulzoP+2Rs+o3H1NTCZD7Bf8X+KwsszG98p9NbhGI9W
+         +0TfNbA0C1gwaHOdOdWCozwhl5nLMYe9zHfEq37mwJlXiCTOQFBpfBBBXGO8hgZEG3PF
+         qNAlRNy5DkxYlPqPkUWbYkYFIzkYx3e5c3LclyeP+nkQeUN6k5Ig52/jvA4YIGoIindv
+         JAflZap9TPT5HF91W1nOjgdTw0syYhj3gzisKodEnK7DJd3cWHy/sWY4pg9bxu2coPkV
+         2/6NdDisq6FWBFWQW04lV5qsBftEvIHI92fg8oUYj5DQUbqBsr+JXC2LfJzgbrX3lUvd
+         L73g==
+X-Forwarded-Encrypted: i=1; AKwUvBz89XR7oPJehT0Ptakluj70yli7gpQlRoB19QtxNvnHpCmW1tr2FxySIuGzhhDiW62zJTyZ2GuRRtwkoes=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLdpUXvUQqoFN/rhqvQuNbhZKPWKe7z8XHcLfFskNK+j+VBQtv
+	cAlYaRu3YCc+3P49w1Lre8iYmIW5dqpB13qXW1/1hi4SP17q+mrSX6rk
+X-Gm-Gg: AYBFou1ZiFSgHRDHIxUkVmUxtYXsTU/iXm0GOiZoYMc5ONiYitga29T/HIC1gMdv1u7
+	lb2t0q7li8CAYFYbgHm9Iy1EgkzU2CrrDA8RTDpwGKbGZJ3zufyjwU1bZLTUPE1NPq7RsOdSSTF
+	lesM8S5e6TjR0vB3aQNcu1zbCsO79QsOwh/RvWjbR0AEdCqRbMk3oJXxgHStM/Wn4WXnHzXOrTX
+	476lzVjrYal0P4wVKt87pJ1D6BanaPUyxtwXxyQnZeAVrWi/4gqjTmT1j7x9seBXUPZaqQMg8Sp
+	8eq690Z3Oa3W2xMVuRaGbKVFnn6s9Bqug0Fu56dJKzMC/qUGZFf+gRwhD4whE5Dps5zxlwlxS4f
+	s6MdYDgyiog9lS7w2tnp0a+Mo+oISj/VcXuweRgyUyaFSaDLYkvaqCBgBJPsX3hE94R1LeoiSHs
+	onB4kh8G1lCs28qa9FII0s8Vscot1e3YIyecGhjxAWhCp3Z6TJsEa6XV2gJeWIXyFDHR0SOsVvI
+	JDGw1TkgcmuVTxVa5Iw8VRxJbVuifdWdQZgQDbhUPPeYzl2ahKibY9sDv3WiaXAS3ZWhikWLF1L
+	l5we9bSTA6cQ4TaC3yRh5Lpc8wBZnT7BV1A5lA8kJeVpOBo6usM8HmWwj+1EanCs57RxHKFGHDd
+	ddjU=
+X-Received: by 2002:a05:6000:490b:b0:487:27f6:a4ce with SMTP id ffacd0b85a97d-488828c8ad6mr10111964f8f.30.1790534118745;
+        Sun, 27 Sep 2026 11:35:18 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2e6-5301-2072-0420-f831-ed4e.310.pool.telefonica.de. [2a02:3100:b2e6:5301:2072:420:f831:ed4e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-489bd7b1df0sm1001928f8f.31.2026.09.27.11.35.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 11:35:18 -0700 (PDT)
+Date: Sun, 27 Sep 2026 20:35:16 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
+Message-ID: <arlhcX870kV0DBO2@gmail.com>
+References: <20260926183904.76186-1-kmehltretter@gmail.com>
+ <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
 
-On Thu, 24 Sep 2026 15:59:21 +0300
-Ariana Lazar <ariana.lazar@microchip.com> wrote:
-
-> Prepare the driver for the bus-specific code by refactoring into separate
-> files. The renamed file will contain the common DAC functionality shared by
-> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
-> driver was refactored into two modules: mcp47feb02-core.c and
-> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
-> DAC family on top of the current implementation.
+On Sat, Sep 26, 2026 at 08:43:45PM +0100, John Paul Adrian Glaubitz wrote:
+> Thanks for the patch! This should definitely be tested on real hardware
+> and I think it's a good reason to test this on my SH7785LCR which wouldn't
+> boot on anything newer than 6.5.0.
 > 
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
-> ---
->  MAINTAINERS                                        |   2 +-
->  drivers/iio/dac/Kconfig                            |   9 +-
->  drivers/iio/dac/Makefile                           |   3 +-
->  .../iio/dac/{mcp47feb02.c => mcp47feb02-core.c}    | 322 ++-------------------
->  drivers/iio/dac/mcp47feb02-i2c.c                   | 145 ++++++++++
->  drivers/iio/dac/mcp47feb02.h                       |  43 +++
->  6 files changed, 219 insertions(+), 305 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2e98d052fbdcf43f70376fdb3a553e97bf91dc82..ecc22d1149d19ae7798ebd54c52b1b2486d1f9f1 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16352,7 +16352,7 @@ M:	Ariana Lazar <ariana.lazar@microchip.com>
->  L:	linux-iio@vger.kernel.org
->  S:	Supported
->  F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-> -F:	drivers/iio/dac/mcp47feb02.c
-> +F:	drivers/iio/dac/mcp47feb02*
->  
->  MCP4821 DAC DRIVER
->  M:	Anshul Dalal <anshulusr@gmail.com>
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index b6c8873c68c54d13f80ea7116bee1ac00f374574..8121a71945f63a23b35fcab010fda1d03d0afba0 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -611,9 +611,13 @@ config MCP47A1
->  	  will be called mcp47a1.
->  
->  config MCP47FEB02
-> -	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
-> +	tristate
-> +
-> +config MCP47FEB02_I2C
-> +	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 I2C DAC driver"
->  	depends on I2C
->  	select REGMAP_I2C
-> +	select MCP47FEB02
->  	help
->  	  Say yes here if you want to build the driver for the Microchip:
->  	  - 8-bit DAC:
-> @@ -629,7 +633,8 @@ config MCP47FEB02
->  	  (DAC) with I2C interface.
->  
->  	  To compile this driver as a module, choose M here: the module
-> -	  will be called mcp47feb02.
-> +	  will be called mcp47feb02_i2c and you will also get
-> +	  mcp47feb02_core for the core module.
->  
->  config MCP4821
->  	tristate "MCP4801/02/11/12/21/22 DAC driver"
-> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-> index 8dc644522b1e52152abacc32cacb6ee90881ef9a..4394278d9fd874b94ae2d680378fb3b043ac8672 100644
-> --- a/drivers/iio/dac/Makefile
-> +++ b/drivers/iio/dac/Makefile
-> @@ -57,7 +57,8 @@ obj-$(CONFIG_MCF54415_DAC) += mcf54415_dac.o
->  obj-$(CONFIG_MCP4725) += mcp4725.o
->  obj-$(CONFIG_MCP4728) += mcp4728.o
->  obj-$(CONFIG_MCP47A1) += mcp47a1.o
-> -obj-$(CONFIG_MCP47FEB02) += mcp47feb02.o
-> +obj-$(CONFIG_MCP47FEB02) += mcp47feb02-core.o
-> +obj-$(CONFIG_MCP47FEB02_I2C) += mcp47feb02-i2c.o
->  obj-$(CONFIG_MCP4821) += mcp4821.o
->  obj-$(CONFIG_MCP4922) += mcp4922.o
->  obj-$(CONFIG_STM32_DAC_CORE) += stm32-dac-core.o
-> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02-core.c
-> similarity index 73%
-> rename from drivers/iio/dac/mcp47feb02.c
-> rename to drivers/iio/dac/mcp47feb02-core.c
-> index 8f8a67919cc2ecdb203ad350174bac2be1a307dc..29d69cb2f68b5d7c6a615481bb1045aed468e9cf 100644
-> --- a/drivers/iio/dac/mcp47feb02.c
-> +++ b/drivers/iio/dac/mcp47feb02-core.c
-> @@ -1,8 +1,8 @@
->  // SPDX-License-Identifier: GPL-2.0+
->  /*
-> - * IIO driver for MCP47FEB02 Multi-Channel DAC with I2C interface
-> + * IIO driver for MCP47FEB02 Multi-Channel DAC with I2C and SPI interface
->   *
-> - * Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries
-> + * Copyright (C) 2025-2026 Microchip Technology Inc. and its subsidiaries
->   *
->   * Author: Ariana Lazar <ariana.lazar@microchip.com>
->   *
-> @@ -16,7 +16,6 @@
->  #include <linux/bitfield.h>
->  #include <linux/delay.h>
->  #include <linux/err.h>
-> -#include <linux/i2c.h>
->  #include <linux/iio/iio.h>
->  #include <linux/iio/sysfs.h>
->  #include <linux/kstrtox.h>
-> @@ -29,6 +28,8 @@
->  #include <linux/types.h>
->  #include <linux/units.h>
->  
-> +#include "mcp47feb02.h"
-> +
->  /* Register addresses must be left shifted with 3 positions in order to append command mask */
->  #define MCP47FEB02_DAC0_REG_ADDR			0x00
->  #define MCP47FEB02_VREF_REG_ADDR			0x40
-> @@ -82,220 +83,12 @@ enum mcp47feb02_gain_bit_mode {
->  	MCP47FEB02_GAIN_BIT_X2 = 1,
->  };
->  
-> -static const char * const mcp47feb02_powerdown_modes[] = {
-> +const char * const mcp47feb02_powerdown_modes[] = {
 
-Why is this change here?  Whilst you add the extern to the
-header, I'm not seeing it used outside of this file.
+Hi Adrian,
 
+Testing with real hardware is very cool! Maybe I will get some SH
+hardware myself one day. For now you've motivated me to do a QEMU SuperH
+fork with more features, with a lot of help from my LLM agent:
 
->  	"1kohm_to_gnd",
->  	"100kohm_to_gnd",
->  	"open_circuit",
->  };
+https://github.com/kmehltretter82/qemu-superh
 
-Thanks,
+I will send some bug fix patches based on it soon, hopefully also fixing
+your 6.5 problem. I believe it is an old heap overflow in the SH intc
+code that only started to crash when sh7785lcr_defconfig switched from
+SLAB to SLUB in 6.5.
 
-Jonathan
-
+Karl
