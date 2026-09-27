@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EAA4399F4;
-	Sun, 27 Sep 2026 22:44:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F33843CED8;
+	Sun, 27 Sep 2026 22:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790549084; cv=none; b=CZfPfEvwPVhTRy8O7WqgpUm+ModoG41RiADPQQYT2beyGAlrPBYuFFtbf84BmBcDLF176e09xJ3sxBBTGcDYVK813kl30+L/kSfm0imaGqfzuF3fYyw/RCCruGkGN4L4AhUyvl13pg6Q+idwz4EwEaBYxsu+09+IUxaBXkw2Pb4=
+	t=1790549086; cv=none; b=GbCAXXm++tDc5xloHRXpcTE0P24IelVXexzTHWQssOiMldzAV2c4VxfNlQd6R+m8nqO0n3MtCQe9dH/zO+hrHQ7x8fOCK8eijpBunsiNzVfEVd3PWO1ARMHr/pDaks7Gh8NBGXSfUKzLFP0MttasG8h02MYMbnCL548klrVt+dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790549084; c=relaxed/simple;
-	bh=tCAhSPWXWVdDYSdqyob4oXo+OKBp96QW2gwDVNE4OM4=;
+	s=arc-20240116; t=1790549086; c=relaxed/simple;
+	bh=B+mwQYqKjF75Q0gTL6eJAUQkaNTPmI7AOu2dDHaXFSc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ty0sREmjnQlSWXOjsINTLMQHuwEAcmu39lf7phRuJQia2XTIShK67OSsgEladigQ3ZMafKNeN1cgRTGuzPj0qfj8JP1G8NrY22RIH2hYr08kgO5pgFlqOmXsgSrtvtjT1N3S5fo2p8BreHMpsk+uPxC3t2uq2aGWPDJSDqb5LOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Me4aWMxt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WXs0YpuoJ/13l5Pqk5VrwciMepBT736DiY1J0eopszSxrocBBO9WhwCgykM8GOC1a3AemxfUapi6j03NrYz/ncr5KKVl9dIoEF4cdkcKdc1LcoJydobQ4HhcGmO5vShRkadInG7IWqAWJrYPTjaFtoZpARbZn5OfB0Zp+FLPXzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKJaEc9a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Me4aWMxt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536D31F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKJaEc9a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24411F0089C;
 	Sun, 27 Sep 2026 22:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790549082;
-	bh=trGDHp5IrjB5alsshq4M7E3oVO/jNxZ4nrWKJ0pDLt8=;
+	s=k20260515; t=1790549083;
+	bh=94rcIlv3vZyLxuX81C0MdHB/b/LSKu6DIYJXRb0ypv8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Me4aWMxtc61TTaU/Itvug7OVnwfNmSr103MFKOtpcFuSIAgTpMPVqx25mblQGcXR7
-	 hwyowdROUdwkaOWWyTTm6N6XgG7cPMvH5wyaLns5ASn5FrnmMDrku0Nv8tH+Tqtvb+
-	 RZqKKf2iQ6JjRrZHlUhos4Dl4v0x0WJqU+BLMOKJt3973r6dxATED7PdLjop1UYOs6
-	 M5paNUw+GkFbSAJJYBHxEFAEnb45oOw0Lp2nswcDwCysPtjhnZqSI3UE7X9AR227rz
-	 kz36bTatvTq56DmpAyofQujC8bL/3WFmMLnrg+8iikEqQWuIpyBQgwJ8V+yNmmGjZf
-	 +8Zj7kIBO3KAA==
+	b=fKJaEc9a+/XIo2bZ/ciYEkYsQrap3qkmX6HmNeZCbcki6l3w9HCuffJdoFM8EDnRU
+	 3+tJ1cNdTb6PsLSz9o65jVy1mdykSth8DIK/cjgypYmMZxqJ0ABZFXTDcjunkeU8Ey
+	 v2DVMn2JHpg4SV2uTgY79bF5O5MtSIlMgl8ujKYZdNR49WsH8nAZzSPhu3tXIB6lD8
+	 BQzVZNoox6Ez/4TeC4ghuho3v1fSbPo+Mtd/LmaSq6LrgfblsmdFHPdbZ0By6VGXVf
+	 PR60bVUpl0DBLQ9FXPPZIewKmZsgDZzhJQ9wV71v8oGtGqu2uRDWZ2hr4s9s7CaTfL
+	 BEWLIX6ujneHA==
 From: Eric Biggers <ebiggers@kernel.org>
 To: linux-crypto@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -35,9 +35,9 @@ Cc: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
 	linux-riscv@lists.infradead.org,
 	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH v2 10/20] crypto: x86/aes-cbc - Remove superseded CBC skciphers
-Date: Sun, 27 Sep 2026 15:43:01 -0700
-Message-ID: <20260927224418.109759-11-ebiggers@kernel.org>
+Subject: [PATCH v2 11/20] crypto: x86/aes-ctr - Remove superseded CTR skcipher
+Date: Sun, 27 Sep 2026 15:43:02 -0700
+Message-ID: <20260927224418.109759-12-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260927224418.109759-1-ebiggers@kernel.org>
 References: <20260927224418.109759-1-ebiggers@kernel.org>
@@ -49,526 +49,256 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that the AES-CBC (and AES-CBC-CTS) library functions are optimized
-with dedicated AES-NI code and exposed via the skcipher API via
-crypto/aes.c, the similar implementation in aesni-intel is redundant.
-Remove it.
+Now that the crypto library's AES-CTR support is optimized with AES-NI
+(without AVX), the similar code in aesni-intel is redundant.  Remove it.
+
+This only affects the non-AVX implementation ("ctr-aes-aesni"), not
+aes-ctr-avx-x86_64.S which is handled later.
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- arch/x86/crypto/Kconfig            |   4 +-
- arch/x86/crypto/aesni-intel_asm.S  | 255 -----------------------------
- arch/x86/crypto/aesni-intel_glue.c | 195 ----------------------
- 3 files changed, 2 insertions(+), 452 deletions(-)
+ arch/x86/crypto/aesni-intel_asm.S  | 125 -----------------------------
+ arch/x86/crypto/aesni-intel_glue.c |  54 -------------
+ 2 files changed, 179 deletions(-)
 
-diff --git a/arch/x86/crypto/Kconfig b/arch/x86/crypto/Kconfig
-index f7c4243dd187..79e610b5e5bc 100644
---- a/arch/x86/crypto/Kconfig
-+++ b/arch/x86/crypto/Kconfig
-@@ -3,7 +3,7 @@
- menu "Accelerated Cryptographic Algorithms for CPU (x86)"
- 
- config CRYPTO_AES_NI_INTEL
--	tristate "Ciphers: AES, modes: CBC, CTS, CTR, XCTR, XTS, GCM (AES-NI/VAES)"
-+	tristate "Ciphers: AES, modes: CTR, XCTR, XTS, GCM (AES-NI/VAES)"
- 	depends on 64BIT
- 	select CRYPTO_AEAD
- 	select CRYPTO_LIB_AES
-@@ -11,7 +11,7 @@ config CRYPTO_AES_NI_INTEL
- 	select CRYPTO_SKCIPHER
- 	help
- 	  AEAD cipher: AES with GCM
--	  Length-preserving ciphers: AES with CBC, CTS, CTR, XCTR, XTS
-+	  Length-preserving ciphers: AES with CTR, XCTR, XTS
- 
- 	  Architecture: x86_64 using:
- 	  - AES-NI (AES new instructions)
 diff --git a/arch/x86/crypto/aesni-intel_asm.S b/arch/x86/crypto/aesni-intel_asm.S
-index db7f259ee8ab..16c406781b24 100644
+index 16c406781b24..c4d54c4a2c23 100644
 --- a/arch/x86/crypto/aesni-intel_asm.S
 +++ b/arch/x86/crypto/aesni-intel_asm.S
-@@ -601,261 +601,6 @@ SYM_FUNC_START_LOCAL(_aesni_dec4)
- 	RET
- SYM_FUNC_END(_aesni_dec4)
+@@ -33,10 +33,6 @@
+ #define KEY	%xmm2
+ #define IV	%xmm3
  
+-#define BSWAP_MASK %xmm10
+-#define CTR	%xmm11
+-#define INC	%xmm12
+-
+ #define GF128MUL_MASK %xmm7
+ 
+ #ifdef __x86_64__
+@@ -51,7 +47,6 @@
+ #define T1	%r10
+ #define TKEYP	T1
+ #define T2	%r11
+-#define TCTR_LOW T2
+ #else
+ #define AREG	%eax
+ #define KEYP	%edi
+@@ -610,128 +605,8 @@ SYM_FUNC_END(_aesni_dec4)
+ 	.byte		0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+ 	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+ 	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+-#ifdef __x86_64__
+-.Lbswap_mask:
+-	.byte 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+-#endif
+ .popsection
+ 
+-#ifdef __x86_64__
 -/*
-- * void aesni_cbc_enc(struct crypto_aes_ctx *ctx, const u8 *dst, u8 *src,
-- *		      size_t len, u8 *iv)
+- * _aesni_inc_init:	internal ABI
+- *	setup registers used by _aesni_inc
+- * input:
+- *	IV
+- * output:
+- *	CTR:	== IV, in little endian
+- *	TCTR_LOW: == lower qword of CTR
+- *	INC:	== 1, in little endian
+- *	BSWAP_MASK == endian swapping mask
 - */
--SYM_FUNC_START(aesni_cbc_enc)
--	FRAME_BEGIN
--#ifndef __x86_64__
--	pushl IVP
--	pushl LEN
--	pushl KEYP
--	pushl KLEN
--	movl (FRAME_OFFSET+20)(%esp), KEYP	# ctx
--	movl (FRAME_OFFSET+24)(%esp), OUTP	# dst
--	movl (FRAME_OFFSET+28)(%esp), INP	# src
--	movl (FRAME_OFFSET+32)(%esp), LEN	# len
--	movl (FRAME_OFFSET+36)(%esp), IVP	# iv
--#endif
--	cmp $16, LEN
--	jb .Lcbc_enc_ret
--	mov 480(KEYP), KLEN
--	movups (IVP), STATE	# load iv as initial state
--.align 4
--.Lcbc_enc_loop:
--	movups (INP), IN	# load input
--	pxor IN, STATE
--	call _aesni_enc1
--	movups STATE, (OUTP)	# store output
--	sub $16, LEN
--	add $16, INP
--	add $16, OUTP
--	cmp $16, LEN
--	jge .Lcbc_enc_loop
--	movups STATE, (IVP)
--.Lcbc_enc_ret:
--#ifndef __x86_64__
--	popl KLEN
--	popl KEYP
--	popl LEN
--	popl IVP
--#endif
--	FRAME_END
+-SYM_FUNC_START_LOCAL(_aesni_inc_init)
+-	movaps .Lbswap_mask(%rip), BSWAP_MASK
+-	movaps IV, CTR
+-	pshufb BSWAP_MASK, CTR
+-	mov $1, TCTR_LOW
+-	movq TCTR_LOW, INC
+-	movq CTR, TCTR_LOW
 -	RET
--SYM_FUNC_END(aesni_cbc_enc)
+-SYM_FUNC_END(_aesni_inc_init)
 -
 -/*
-- * void aesni_cbc_dec(struct crypto_aes_ctx *ctx, const u8 *dst, u8 *src,
+- * _aesni_inc:		internal ABI
+- *	Increase IV by 1, IV is in big endian
+- * input:
+- *	IV
+- *	CTR:	== IV, in little endian
+- *	TCTR_LOW: == lower qword of CTR
+- *	INC:	== 1, in little endian
+- *	BSWAP_MASK == endian swapping mask
+- * output:
+- *	IV:	Increase by 1
+- * changed:
+- *	CTR:	== output IV, in little endian
+- *	TCTR_LOW: == lower qword of CTR
+- */
+-SYM_FUNC_START_LOCAL(_aesni_inc)
+-	paddq INC, CTR
+-	add $1, TCTR_LOW
+-	jnc .Linc_low
+-	pslldq $8, INC
+-	paddq INC, CTR
+-	psrldq $8, INC
+-.Linc_low:
+-	movaps CTR, IV
+-	pshufb BSWAP_MASK, IV
+-	RET
+-SYM_FUNC_END(_aesni_inc)
+-
+-/*
+- * void aesni_ctr_enc(struct crypto_aes_ctx *ctx, const u8 *dst, u8 *src,
 - *		      size_t len, u8 *iv)
 - */
--SYM_FUNC_START(aesni_cbc_dec)
+-SYM_FUNC_START(aesni_ctr_enc)
+-	ANNOTATE_NOENDBR
 -	FRAME_BEGIN
--#ifndef __x86_64__
--	pushl IVP
--	pushl LEN
--	pushl KEYP
--	pushl KLEN
--	movl (FRAME_OFFSET+20)(%esp), KEYP	# ctx
--	movl (FRAME_OFFSET+24)(%esp), OUTP	# dst
--	movl (FRAME_OFFSET+28)(%esp), INP	# src
--	movl (FRAME_OFFSET+32)(%esp), LEN	# len
--	movl (FRAME_OFFSET+36)(%esp), IVP	# iv
--#endif
 -	cmp $16, LEN
--	jb .Lcbc_dec_just_ret
+-	jb .Lctr_enc_just_ret
 -	mov 480(KEYP), KLEN
--	add $240, KEYP
 -	movups (IVP), IV
+-	call _aesni_inc_init
 -	cmp $64, LEN
--	jb .Lcbc_dec_loop1
+-	jb .Lctr_enc_loop1
 -.align 4
--.Lcbc_dec_loop4:
+-.Lctr_enc_loop4:
+-	movaps IV, STATE1
+-	call _aesni_inc
 -	movups (INP), IN1
--	movaps IN1, STATE1
+-	movaps IV, STATE2
+-	call _aesni_inc
 -	movups 0x10(INP), IN2
--	movaps IN2, STATE2
--#ifdef __x86_64__
+-	movaps IV, STATE3
+-	call _aesni_inc
 -	movups 0x20(INP), IN3
--	movaps IN3, STATE3
+-	movaps IV, STATE4
+-	call _aesni_inc
 -	movups 0x30(INP), IN4
--	movaps IN4, STATE4
--#else
--	movups 0x20(INP), IN1
--	movaps IN1, STATE3
--	movups 0x30(INP), IN2
--	movaps IN2, STATE4
--#endif
--	call _aesni_dec4
--	pxor IV, STATE1
--#ifdef __x86_64__
--	pxor IN1, STATE2
--	pxor IN2, STATE3
--	pxor IN3, STATE4
--	movaps IN4, IV
--#else
--	pxor IN1, STATE4
--	movaps IN2, IV
--	movups (INP), IN1
--	pxor IN1, STATE2
--	movups 0x10(INP), IN2
--	pxor IN2, STATE3
--#endif
+-	call _aesni_enc4
+-	pxor IN1, STATE1
 -	movups STATE1, (OUTP)
+-	pxor IN2, STATE2
 -	movups STATE2, 0x10(OUTP)
+-	pxor IN3, STATE3
 -	movups STATE3, 0x20(OUTP)
+-	pxor IN4, STATE4
 -	movups STATE4, 0x30(OUTP)
 -	sub $64, LEN
 -	add $64, INP
 -	add $64, OUTP
 -	cmp $64, LEN
--	jge .Lcbc_dec_loop4
+-	jge .Lctr_enc_loop4
 -	cmp $16, LEN
--	jb .Lcbc_dec_ret
+-	jb .Lctr_enc_ret
 -.align 4
--.Lcbc_dec_loop1:
+-.Lctr_enc_loop1:
+-	movaps IV, STATE
+-	call _aesni_inc
 -	movups (INP), IN
--	movaps IN, STATE
--	call _aesni_dec1
--	pxor IV, STATE
+-	call _aesni_enc1
+-	pxor IN, STATE
 -	movups STATE, (OUTP)
--	movaps IN, IV
 -	sub $16, LEN
 -	add $16, INP
 -	add $16, OUTP
 -	cmp $16, LEN
--	jge .Lcbc_dec_loop1
--.Lcbc_dec_ret:
+-	jge .Lctr_enc_loop1
+-.Lctr_enc_ret:
 -	movups IV, (IVP)
--.Lcbc_dec_just_ret:
--#ifndef __x86_64__
--	popl KLEN
--	popl KEYP
--	popl LEN
--	popl IVP
--#endif
+-.Lctr_enc_just_ret:
 -	FRAME_END
 -	RET
--SYM_FUNC_END(aesni_cbc_dec)
+-SYM_FUNC_END(aesni_ctr_enc)
 -
--/*
-- * void aesni_cts_cbc_enc(struct crypto_aes_ctx *ctx, const u8 *dst, u8 *src,
-- *			  size_t len, u8 *iv)
-- */
--SYM_FUNC_START(aesni_cts_cbc_enc)
--	FRAME_BEGIN
--#ifndef __x86_64__
--	pushl IVP
--	pushl LEN
--	pushl KEYP
--	pushl KLEN
--	movl (FRAME_OFFSET+20)(%esp), KEYP	# ctx
--	movl (FRAME_OFFSET+24)(%esp), OUTP	# dst
--	movl (FRAME_OFFSET+28)(%esp), INP	# src
--	movl (FRAME_OFFSET+32)(%esp), LEN	# len
--	movl (FRAME_OFFSET+36)(%esp), IVP	# iv
--	lea .Lcts_permute_table, T1
--#else
--	lea .Lcts_permute_table(%rip), T1
 -#endif
--	mov 480(KEYP), KLEN
--	movups (IVP), STATE
--	sub $16, LEN
--	mov T1, IVP
--	add $32, IVP
--	add LEN, T1
--	sub LEN, IVP
--	movups (T1), %xmm4
--	movups (IVP), %xmm5
 -
--	movups (INP), IN1
--	add LEN, INP
--	movups (INP), IN2
--
--	pxor IN1, STATE
--	call _aesni_enc1
--
--	pshufb %xmm5, IN2
--	pxor STATE, IN2
--	pshufb %xmm4, STATE
--	add OUTP, LEN
--	movups STATE, (LEN)
--
--	movaps IN2, STATE
--	call _aesni_enc1
--	movups STATE, (OUTP)
--
--#ifndef __x86_64__
--	popl KLEN
--	popl KEYP
--	popl LEN
--	popl IVP
--#endif
--	FRAME_END
--	RET
--SYM_FUNC_END(aesni_cts_cbc_enc)
--
--/*
-- * void aesni_cts_cbc_dec(struct crypto_aes_ctx *ctx, const u8 *dst, u8 *src,
-- *			  size_t len, u8 *iv)
-- */
--SYM_FUNC_START(aesni_cts_cbc_dec)
--	FRAME_BEGIN
--#ifndef __x86_64__
--	pushl IVP
--	pushl LEN
--	pushl KEYP
--	pushl KLEN
--	movl (FRAME_OFFSET+20)(%esp), KEYP	# ctx
--	movl (FRAME_OFFSET+24)(%esp), OUTP	# dst
--	movl (FRAME_OFFSET+28)(%esp), INP	# src
--	movl (FRAME_OFFSET+32)(%esp), LEN	# len
--	movl (FRAME_OFFSET+36)(%esp), IVP	# iv
--	lea .Lcts_permute_table, T1
--#else
--	lea .Lcts_permute_table(%rip), T1
--#endif
--	mov 480(KEYP), KLEN
--	add $240, KEYP
--	movups (IVP), IV
--	sub $16, LEN
--	mov T1, IVP
--	add $32, IVP
--	add LEN, T1
--	sub LEN, IVP
--	movups (T1), %xmm4
--
--	movups (INP), STATE
--	add LEN, INP
--	movups (INP), IN1
--
--	call _aesni_dec1
--	movaps STATE, IN2
--	pshufb %xmm4, STATE
--	pxor IN1, STATE
--
--	add OUTP, LEN
--	movups STATE, (LEN)
--
--	movups (IVP), %xmm0
--	pshufb %xmm0, IN1
--	pblendvb IN2, IN1
--	movaps IN1, STATE
--	call _aesni_dec1
--
--	pxor IV, STATE
--	movups STATE, (OUTP)
--
--#ifndef __x86_64__
--	popl KLEN
--	popl KEYP
--	popl LEN
--	popl IVP
--#endif
--	FRAME_END
--	RET
--SYM_FUNC_END(aesni_cts_cbc_dec)
--
- .pushsection .rodata
+ .section	.rodata.cst16.gf128mul_x_ble_mask, "aM", @progbits, 16
  .align 16
- .Lcts_permute_table:
+ .Lgf128mul_x_ble_mask:
 diff --git a/arch/x86/crypto/aesni-intel_glue.c b/arch/x86/crypto/aesni-intel_glue.c
-index c37976d06f45..3fd76dd82e1b 100644
+index 3fd76dd82e1b..d2e5a88b409c 100644
 --- a/arch/x86/crypto/aesni-intel_glue.c
 +++ b/arch/x86/crypto/aesni-intel_glue.c
-@@ -61,14 +61,6 @@ static inline void *aes_align_addr(void *addr)
- asmlinkage void aesni_set_key(struct crypto_aes_ctx *ctx, const u8 *in_key,
- 			      unsigned int key_len);
- asmlinkage void aesni_enc(const void *ctx, u8 *out, const u8 *in);
--asmlinkage void aesni_cbc_enc(struct crypto_aes_ctx *ctx, u8 *out,
--			      const u8 *in, unsigned int len, u8 *iv);
--asmlinkage void aesni_cbc_dec(struct crypto_aes_ctx *ctx, u8 *out,
--			      const u8 *in, unsigned int len, u8 *iv);
--asmlinkage void aesni_cts_cbc_enc(struct crypto_aes_ctx *ctx, u8 *out,
--				  const u8 *in, unsigned int len, u8 *iv);
--asmlinkage void aesni_cts_cbc_dec(struct crypto_aes_ctx *ctx, u8 *out,
--				  const u8 *in, unsigned int len, u8 *iv);
+@@ -41,7 +41,6 @@
  
- asmlinkage void aesni_xts_enc(const struct crypto_aes_ctx *ctx, u8 *out,
+ #define AESNI_ALIGN	16
+ #define AESNI_ALIGN_ATTR __attribute__ ((__aligned__(AESNI_ALIGN)))
+-#define AES_BLOCK_MASK	(~(AES_BLOCK_SIZE - 1))
+ #define AESNI_ALIGN_EXTRA ((AESNI_ALIGN - 1) & ~(CRYPTO_MINALIGN - 1))
+ #define CRYPTO_AES_CTX_SIZE (sizeof(struct crypto_aes_ctx) + AESNI_ALIGN_EXTRA)
+ #define XTS_AES_CTX_SIZE (sizeof(struct aesni_xts_ctx) + AESNI_ALIGN_EXTRA)
+@@ -68,9 +67,6 @@ asmlinkage void aesni_xts_enc(const struct crypto_aes_ctx *ctx, u8 *out,
+ asmlinkage void aesni_xts_dec(const struct crypto_aes_ctx *ctx, u8 *out,
  			      const u8 *in, unsigned int len, u8 *iv);
-@@ -113,162 +105,6 @@ static int aesni_skcipher_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 
+-asmlinkage void aesni_ctr_enc(struct crypto_aes_ctx *ctx, u8 *out,
+-			      const u8 *in, unsigned int len, u8 *iv);
+-
+ static inline struct crypto_aes_ctx *aes_ctx(void *raw_ctx)
+ {
+ 	return aes_align_addr(raw_ctx);
+@@ -105,40 +101,6 @@ static int aesni_skcipher_setkey(struct crypto_skcipher *tfm, const u8 *key,
  	return aes_set_key_common(aes_ctx(crypto_skcipher_ctx(tfm)), key, len);
  }
  
--static int cbc_encrypt(struct skcipher_request *req)
+-/* This is the non-AVX version. */
+-static int ctr_crypt_aesni(struct skcipher_request *req)
 -{
 -	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 -	struct crypto_aes_ctx *ctx = aes_ctx(crypto_skcipher_ctx(tfm));
+-	u8 keystream[AES_BLOCK_SIZE];
 -	struct skcipher_walk walk;
 -	unsigned int nbytes;
 -	int err;
 -
 -	err = skcipher_walk_virt(&walk, req, false);
 -
--	while ((nbytes = walk.nbytes)) {
+-	while ((nbytes = walk.nbytes) > 0) {
 -		kernel_fpu_begin();
--		aesni_cbc_enc(ctx, walk.dst.virt.addr, walk.src.virt.addr,
--			      nbytes & AES_BLOCK_MASK, walk.iv);
+-		if (nbytes & AES_BLOCK_MASK)
+-			aesni_ctr_enc(ctx, walk.dst.virt.addr,
+-				      walk.src.virt.addr,
+-				      nbytes & AES_BLOCK_MASK, walk.iv);
+-		nbytes &= ~AES_BLOCK_MASK;
+-
+-		if (walk.nbytes == walk.total && nbytes > 0) {
+-			aesni_enc(ctx, keystream, walk.iv);
+-			crypto_xor_cpy(walk.dst.virt.addr + walk.nbytes - nbytes,
+-				       walk.src.virt.addr + walk.nbytes - nbytes,
+-				       keystream, nbytes);
+-			crypto_inc(walk.iv, AES_BLOCK_SIZE);
+-			nbytes = 0;
+-		}
 -		kernel_fpu_end();
--		nbytes &= AES_BLOCK_SIZE - 1;
 -		err = skcipher_walk_done(&walk, nbytes);
 -	}
--
 -	return err;
 -}
 -
--static int cbc_decrypt(struct skcipher_request *req)
--{
--	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
--	struct crypto_aes_ctx *ctx = aes_ctx(crypto_skcipher_ctx(tfm));
--	struct skcipher_walk walk;
--	unsigned int nbytes;
--	int err;
--
--	err = skcipher_walk_virt(&walk, req, false);
--
--	while ((nbytes = walk.nbytes)) {
--		kernel_fpu_begin();
--		aesni_cbc_dec(ctx, walk.dst.virt.addr, walk.src.virt.addr,
--			      nbytes & AES_BLOCK_MASK, walk.iv);
--		kernel_fpu_end();
--		nbytes &= AES_BLOCK_SIZE - 1;
--		err = skcipher_walk_done(&walk, nbytes);
--	}
--
--	return err;
--}
--
--static int cts_cbc_encrypt(struct skcipher_request *req)
--{
--	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
--	struct crypto_aes_ctx *ctx = aes_ctx(crypto_skcipher_ctx(tfm));
--	int cbc_blocks = DIV_ROUND_UP(req->cryptlen, AES_BLOCK_SIZE) - 2;
--	struct scatterlist *src = req->src, *dst = req->dst;
--	struct scatterlist sg_src[2], sg_dst[2];
--	struct skcipher_request subreq;
--	struct skcipher_walk walk;
--	int err;
--
--	skcipher_request_set_tfm(&subreq, tfm);
--	skcipher_request_set_callback(&subreq, skcipher_request_flags(req),
--				      NULL, NULL);
--
--	if (req->cryptlen <= AES_BLOCK_SIZE) {
--		if (req->cryptlen < AES_BLOCK_SIZE)
--			return -EINVAL;
--		cbc_blocks = 1;
--	}
--
--	if (cbc_blocks > 0) {
--		skcipher_request_set_crypt(&subreq, req->src, req->dst,
--					   cbc_blocks * AES_BLOCK_SIZE,
--					   req->iv);
--
--		err = cbc_encrypt(&subreq);
--		if (err)
--			return err;
--
--		if (req->cryptlen == AES_BLOCK_SIZE)
--			return 0;
--
--		dst = src = scatterwalk_ffwd(sg_src, req->src, subreq.cryptlen);
--		if (req->dst != req->src)
--			dst = scatterwalk_ffwd(sg_dst, req->dst,
--					       subreq.cryptlen);
--	}
--
--	/* handle ciphertext stealing */
--	skcipher_request_set_crypt(&subreq, src, dst,
--				   req->cryptlen - cbc_blocks * AES_BLOCK_SIZE,
--				   req->iv);
--
--	err = skcipher_walk_virt(&walk, &subreq, false);
--	if (err)
--		return err;
--
--	kernel_fpu_begin();
--	aesni_cts_cbc_enc(ctx, walk.dst.virt.addr, walk.src.virt.addr,
--			  walk.nbytes, walk.iv);
--	kernel_fpu_end();
--
--	return skcipher_walk_done(&walk, 0);
--}
--
--static int cts_cbc_decrypt(struct skcipher_request *req)
--{
--	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
--	struct crypto_aes_ctx *ctx = aes_ctx(crypto_skcipher_ctx(tfm));
--	int cbc_blocks = DIV_ROUND_UP(req->cryptlen, AES_BLOCK_SIZE) - 2;
--	struct scatterlist *src = req->src, *dst = req->dst;
--	struct scatterlist sg_src[2], sg_dst[2];
--	struct skcipher_request subreq;
--	struct skcipher_walk walk;
--	int err;
--
--	skcipher_request_set_tfm(&subreq, tfm);
--	skcipher_request_set_callback(&subreq, skcipher_request_flags(req),
--				      NULL, NULL);
--
--	if (req->cryptlen <= AES_BLOCK_SIZE) {
--		if (req->cryptlen < AES_BLOCK_SIZE)
--			return -EINVAL;
--		cbc_blocks = 1;
--	}
--
--	if (cbc_blocks > 0) {
--		skcipher_request_set_crypt(&subreq, req->src, req->dst,
--					   cbc_blocks * AES_BLOCK_SIZE,
--					   req->iv);
--
--		err = cbc_decrypt(&subreq);
--		if (err)
--			return err;
--
--		if (req->cryptlen == AES_BLOCK_SIZE)
--			return 0;
--
--		dst = src = scatterwalk_ffwd(sg_src, req->src, subreq.cryptlen);
--		if (req->dst != req->src)
--			dst = scatterwalk_ffwd(sg_dst, req->dst,
--					       subreq.cryptlen);
--	}
--
--	/* handle ciphertext stealing */
--	skcipher_request_set_crypt(&subreq, src, dst,
--				   req->cryptlen - cbc_blocks * AES_BLOCK_SIZE,
--				   req->iv);
--
--	err = skcipher_walk_virt(&walk, &subreq, false);
--	if (err)
--		return err;
--
--	kernel_fpu_begin();
--	aesni_cts_cbc_dec(ctx, walk.dst.virt.addr, walk.src.virt.addr,
--			  walk.nbytes, walk.iv);
--	kernel_fpu_end();
--
--	return skcipher_walk_done(&walk, 0);
--}
--
- /* This is the non-AVX version. */
- static int ctr_crypt_aesni(struct skcipher_request *req)
+ static int xts_setkey_aesni(struct crypto_skcipher *tfm, const u8 *key,
+ 			    unsigned int keylen)
  {
-@@ -460,37 +296,6 @@ static int xts_decrypt_aesni(struct skcipher_request *req)
+@@ -296,22 +258,6 @@ static int xts_decrypt_aesni(struct skcipher_request *req)
  
  static struct skcipher_alg aesni_skciphers[] = {
  	{
 -		.base = {
--			.cra_name		= "cbc(aes)",
--			.cra_driver_name	= "cbc-aes-aesni",
+-			.cra_name		= "ctr(aes)",
+-			.cra_driver_name	= "ctr-aes-aesni",
 -			.cra_priority		= 400,
--			.cra_blocksize		= AES_BLOCK_SIZE,
+-			.cra_blocksize		= 1,
 -			.cra_ctxsize		= CRYPTO_AES_CTX_SIZE,
 -			.cra_module		= THIS_MODULE,
 -		},
 -		.min_keysize	= AES_MIN_KEY_SIZE,
 -		.max_keysize	= AES_MAX_KEY_SIZE,
 -		.ivsize		= AES_BLOCK_SIZE,
+-		.chunksize	= AES_BLOCK_SIZE,
 -		.setkey		= aesni_skcipher_setkey,
--		.encrypt	= cbc_encrypt,
--		.decrypt	= cbc_decrypt,
--	}, {
--		.base = {
--			.cra_name		= "cts(cbc(aes))",
--			.cra_driver_name	= "cts-cbc-aes-aesni",
--			.cra_priority		= 400,
--			.cra_blocksize		= AES_BLOCK_SIZE,
--			.cra_ctxsize		= CRYPTO_AES_CTX_SIZE,
--			.cra_module		= THIS_MODULE,
--		},
--		.min_keysize	= AES_MIN_KEY_SIZE,
--		.max_keysize	= AES_MAX_KEY_SIZE,
--		.ivsize		= AES_BLOCK_SIZE,
--		.walksize	= 2 * AES_BLOCK_SIZE,
--		.setkey		= aesni_skcipher_setkey,
--		.encrypt	= cts_cbc_encrypt,
--		.decrypt	= cts_cbc_decrypt,
+-		.encrypt	= ctr_crypt_aesni,
+-		.decrypt	= ctr_crypt_aesni,
 -	}, {
  		.base = {
- 			.cra_name		= "ctr(aes)",
- 			.cra_driver_name	= "ctr-aes-aesni",
+ 			.cra_name		= "xts(aes)",
+ 			.cra_driver_name	= "xts-aes-aesni",
 -- 
 2.55.0
 
