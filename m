@@ -1,41 +1,41 @@
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6253E763E;
-	Sun, 27 Sep 2026 11:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384953E866B;
+	Sun, 27 Sep 2026 11:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790509296; cv=none; b=KRhbtTVcN38qwvI8k5fFIro0JH3DOl1dcm2PAq9Ibbl1gVKRQKaI7ymet/gk/Ffm6Ur70+mpJl2E2U/5WDL0pEgtl/1EokR1jZioysuUR4dlhO3GR8bjfRrDAkroAGGCxzBllh566A4DxPmSOWG2OjvM5u9dtONDbFT+Gy7WS8g=
+	t=1790509303; cv=none; b=LpMdhWd00KjWcAcBk6lT8sggSDqFEk5WkPpP4vtUhUoedz7r8JqlhqwP8JWmzTbVODFnsSBCTpD4Hvh5+sRyUEqFrKCBUSKaKmsWuALyNeiIbGkQdgvM3aWiYyONEogUVfVBc8iR9rgaWVR+StZyW9CT/4KgXedajjQm7zkD60w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790509296; c=relaxed/simple;
-	bh=WJNNnhw9SuOyDD7KBWJGiFYtMqM0pzOrzncQjG5c4MQ=;
+	s=arc-20240116; t=1790509303; c=relaxed/simple;
+	bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=joub6Pq27eoSgrSfJrleHSZQWBGyudP7zXkKzDXSIANbj51wm8XPNv+LOOuabirz62lzWglkQ6ZbJwAxTLuB4ucNzQDM/j+X/VPmC8l99pQ27IAi4TQ7iXjwzEiUJy+RAcbHVMW5zV2ejhiTv/M0xHtBjSM8lZwQJFOYJUBJkl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=W0h71WfZ; arc=none smtp.client-ip=43.154.197.177
+	 In-Reply-To:To:Cc; b=ClF6CqeuhSKK3Nf1L1h9g5c85eEtGwDSW8I/rTw3KpjxE4PzmEhSmDw6RVZOOlNDCdKqvgV/NF1hTe/kIueF/FUiUAl9cQLnM9rW2xwISgswDfINxYIMgSSZtrS2Fo9GdDx7GjfIMG7lX99FzR4MgoZS2zYX9LYAY+e41I09exw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rebJmHN5; arc=none smtp.client-ip=54.243.244.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="W0h71WfZ"
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rebJmHN5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790509219;
-	bh=TLRLqjW1x8YTY/0T2XY9umcE5tW8ef7Jls03MhaHegg=;
+	s=mxsw2412; t=1790509234;
+	bh=4Pto2CbMqgiSHY+cyI/cnRJeRvRyAB0n5HA+ns2H17E=;
 	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=W0h71WfZZP0yYYNQMPuE67yMbNhDdOjzkMVSKbA3Tx2OdVwRZASdvJAjdyh+Nwdy9
-	 bXWimKMC8XR+TVYHkJHAIGFffo2hSHGDa3hyknBMgy2p2Nob+oS2i6Rb+aTdWIaZQT
-	 t6wtdKWrSlfwunnPiLm1S9I4+r47AeFt580OR6Do=
-X-QQ-mid: esmtpgz12t1790509213ta39046d4
-X-QQ-Originating-IP: 9hALGiLvHSuvbVXipsKriok703XlNQG1hITgQW7rk5s=
+	b=rebJmHN5uQP4JJaB4cyYOCq/eDoSU5n6vlmzMOccD0c7o5g8YuQBFlUcTMdUhmsjH
+	 GwYtO/18+mUXW8d679eA6KqzjGI/rKyMQQFAX3OmA7y9KNmEBTNpsTotDRNgp3Vh6U
+	 uYhreHEYUYZ4rdVvC+2V14L54+Ln+ny9LJQoF5xA=
+X-QQ-mid: esmtpgz12t1790509228te9948562
+X-QQ-Originating-IP: r25/DGgcZLhsdAlFJldW8RJWICJZh9QRUXi5zwK8x0s=
 Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 27 Sep 2026 19:40:11 +0800 (CST)
+	id ; Sun, 27 Sep 2026 19:40:26 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8910793222094051143
+X-BIZMAIL-ID: 17715700320622488950
 EX-QQ-RecipientCnt: 20
 From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Sun, 27 Sep 2026 19:40:04 +0800
-Subject: [PATCH v3 2/8] usb: chipidea: usb2: use
- devm_clk_get_optional_enabled()
+Date: Sun, 27 Sep 2026 19:40:09 +0800
+Subject: [PATCH v3 7/8] riscv: dts: spacemit: enable USB2.0 controllers on
+ OrangePi RV2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-b4-spacemit-k1-usb2-v3-2-ce7095896039@linux.spacemit.com>
+Message-Id: <20260927-b4-spacemit-k1-usb2-v3-7-ce7095896039@linux.spacemit.com>
 References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
 In-Reply-To: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -59,113 +59,96 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
  Ze Huang <huang.ze@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790509204; l=2369;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790509204; l=1524;
  i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=WJNNnhw9SuOyDD7KBWJGiFYtMqM0pzOrzncQjG5c4MQ=;
- b=O92PxZDVCZ1CDvpckysjDnLMdoWeHS+9gv7qZm9VSc8AUUqMsojaeWKyx2GKvtu6aR+NKyWxL
- FqFeNOVNAr5CUYlsca5uUUyZtYjdCLQGNljtrcPOQqfRg16FloLoEnW
+ bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
+ b=vjmJummGTgJqMbkiLLzIwEHbZtZoKeHrFRjQUTy2+XzOmgNle7iGdbZqZWcckge73W6WIM8eO
+ xS8NM2IhcODAorfXXSISZM5xNELT60xGOXXa27f2RLjHiIoBR7Oy45C
 X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
  pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MlGdF4rLL5pYaw/yb96KBC8qfbPO+mscC0MqA8/s5sKyTki3/min2pqr
-	KbkXr3hC7Z1nlFeaUR3mlTa6iBLej8xWZpeRmfRS3kvtjxdki51z/btQxGsgdgKX0AufD48
-	X+AYZ8wIJ1HRPCtSKOQ+DTCYtRacnsvwkpsQM+RoPaOFGjpWp4ncyeoyplPFaq1CePtKCjD
-	s1oB16zHldQe0n+f2gzOt8LqQN/kInzyurX3fZ2/YxOw2W1WAzOeswAIfSimHsunK14G9Y+
-	znnR8tD8j244heaKDpzqzE/v+18cYOec/HAPTmSP+IfUzXk5UUmh3IJ1MKHeMEhibhGq0lw
-	4FF1+gwwxw0QAoVj5OsN8b4OhANpnpbQ7y7ZO0ZelVG+LkXpBpvLrUpY02M9pkvz4b5rVf5
-	GKI4OxJy1CCAV/C901BlT3MaIJiTTAlyJP9BDqgSX6ITeFDhUPB+RpRMHQ/5j94tg9IgWYo
-	1+TB6ur3HxisrUj10Y2XPCcBj2Rkb5DZGTSIhk0g/LjZJn++rClVx2Pp7of2NNNd9TJsHDQ
-	b726KfWdw3HIIBd1dE2J+Mzw/WYhlCdr1ZPE7Jum0PrzDJz8Fu9ncc16Ms8veIOV9W8q/TZ
-	UJ9i+oA9MffjlUyvOYvij2SWdQ7C1+fQ5vKwg3zUmZZ6Q9qRccJb9zV68PooP0RleuuM3Zp
-	vw3GB1CIUSLDQuxbfhdLPkRiK9T1qaOqKagBlPSZfc8eE8AvAmEL6rJ1BO69RzZmTCKG3xt
-	R0mAYwNCQNImwo0EKfBgSJAOFzzjwsD48ItLidtCPSgRLtR5q7WXrrYtOdaC9liBJYSW+P/
-	jzZL6OwF18AVVMQyN1/XYUFwauMkLZTGQy9RP9N3iJJVnjcHzMyYNdLr17T7+PhL1uzefED
-	6WblJUjzdH7fWm5OIyP6n303PiOD+021s/zuA4fXIluxDn5Q+dRNG7DRL5aIj8+s1ltbzZJ
-	qpM3mv6kweGkaij6N1EKpppskIK0pbYXhDW0SOkG23Q9yy59W9pxZZoUF4L4/oPU34NQW5i
-	dLxFa5gVNqzBb0aKZYoPe6uLGWMFTckfgSCLK5G5dSpjkn1l4t8rvzAC99g+CDA0RDoM5zo
-	AN2ncprqRWd+wwEVhBilArZ4ke+rsBMBp3f+5xvbEzGBTvzUal4L1rxrvyUXvOzGIdB9O4t
-	YLm8PtXbjReoXmo=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: NR3PJyWXADsZH3TVTw4by9Q01diIFFQhdDTk1/TN7TvVsVmsxrcEVP8+
+	DsJTue6N49SgsNIVbb14QpmglHFJrKxs7h7jer3BMGTcr2E7aArroGrTkf+8UirVoOuK+jK
+	zOLAYb27Xll1Ie6JSvxQws/sqkPs6RELNxtRofOP+rQXKeGI3IwYLzzfnZoKVXCS2xpjVN9
+	ezSVfloVmMpp3J1DbP9GQG9Ga5tJn0TP/tyQYvEKlrQhaTUE9SFV3qbi/tOCLcZRoIXB/Zl
+	glybj1FpG8yjNCBVVfPq4nxx0NyDS4wWU49Gw3ne67fgDWIT0B4PND3ScPaRLK9CGwRZEFY
+	3DZL9boQmTjOL2Ks4Xkwj7iAeWZWw74CTJ2BpE1zhfGJ5WeupVZO1CCklOf6LkBKW8bJjLc
+	uVw71qyvT7pksipL3Ds/51xnlUBcf6cIT23YxMB+pPWmd6TBPCsSf07HCcabfR38nPbwolR
+	caR2ApgyIK0bDVsCq942Y292TQxjMR8APTaFWkztgTRn0OCQ2/JGdTe44jDuRwbTGpC5sdv
+	eCKqNXkGb0o2CmHeCoLp2xwXDcPp5ZXnfzODPxoATmSesZ7O3nwBQrZ2X9y6kGYHez/mPFu
+	MkssY4P8An2Ha5YKlN8mNL7UEreW6WQl9AHZGnuDzCyDiwg8GJivY+hXh042lgbtHk3//Ks
+	rDZo2tnU+yUaOYemMrmd/VJPdKhKd29jyizLgpmBP2GsVrhFviVw+jopIDL5OyRItqEP7J5
+	7JPvbvCrWo6AS8JYaZ9qtODTSgbOLa4bTsDdCpDe9RN8330BdOaXGN14LVdw+No36s+wRWT
+	5ede/eZDV2sb85R19IkakasmdzDmGeV36eaLsnjL+LOS0DQhltwsQiXZ8TY8Qu5jVvc0LNw
+	5kjYozVpQY04tHe+NQfl9Rnq9n6+lgJFkEWLA6nCoMjr+5rM/TokveoNk5z8iTm9oMvpK0x
+	EjX9JMQ7pbkQbZgdA5tiozooLDo2myiERlYD8Ir7AQjskb6C3k1OuTouKC57KlVU0tfpZQ+
+	dJBNdNB5N5lGGRDOOSzUOooX80L3hIZGio5GzNMG4SEmAYYhQ+pSPzCpxG0hJhRfxQQAzP0
+	+asLgmHUrHKAQc6kJyqRfQT/5NGw4TZYr0u7FrSofYt6Qwb1+QfRpFyHEaX+/5I4w0YZCa2
+	4gv+CgySOf9daSQPRsFkrQiuxHA1X5oTvZ1NtxiRLf746eM=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
-Convert devm_clk_get_optional() and clk_prepare_enable() into a single
-call devm_clk_get_optional_enabled().
+On OrangePi RV2, usb2_0 is connected to a Type-A connector at host
+mode, its vbus output is controlled by gpio 126. And the usb2_1 is
+connected to the USB2.0 connector pins onboard.
 
 Tested-by: Ze Huang <huang.ze@linux.dev>
 Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
 ---
- drivers/usb/chipidea/ci_hdrc_usb2.c | 22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 28 ++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci_hdrc_usb2.c
-index 8ffa1e95d8e8..9cef902f36b3 100644
---- a/drivers/usb/chipidea/ci_hdrc_usb2.c
-+++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-@@ -20,7 +20,6 @@
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index b907a1396b21..32d1aafc88f7 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -64,6 +64,16 @@ vcc5v0_usb30: regulator-vcc5v0-usb30 {
+ 		vin-supply = <&vcc_5v0>;
+ 	};
  
- struct ci_hdrc_usb2_priv {
- 	struct platform_device	*ci_pdev;
--	struct clk		*clk;
++	vcc5v0_usb20: regulator-vcc5v0-usb20 {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpios = <&gpio K1_GPIO(126) GPIO_ACTIVE_HIGH>;
++		regulator-name = "vcc5v0_usb20";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&vcc_5v0>;
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -341,10 +351,28 @@ &uart0 {
+ 	status = "okay";
  };
  
- static const struct ci_hdrc_platform_data ci_default_pdata = {
-@@ -52,6 +51,7 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 	struct ci_hdrc_usb2_priv *priv;
- 	struct ci_hdrc_platform_data *ci_pdata = dev_get_platdata(dev);
- 	const struct ci_hdrc_platform_data *data;
-+	struct clk *clk;
- 	int ret;
++&usbphy0 {
++	status = "okay";
++};
++
++&usbphy1 {
++	status = "okay";
++};
++
+ &usbphy2 {
+ 	status = "okay";
+ };
  
- 	if (!ci_pdata) {
-@@ -70,15 +70,10 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
--	priv->clk = devm_clk_get_optional(dev, NULL);
--	if (IS_ERR(priv->clk))
--		return PTR_ERR(priv->clk);
--
--	ret = clk_prepare_enable(priv->clk);
--	if (ret) {
--		dev_err(dev, "failed to enable the clock: %d\n", ret);
--		return ret;
--	}
-+	clk = devm_clk_get_optional_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get or enable the clock\n");
- 
- 	ci_pdata->name = dev_name(dev);
- 
-@@ -90,7 +85,7 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 			dev_err(dev,
- 				"failed to register ci_hdrc platform device: %d\n",
- 				ret);
--		goto clk_err;
-+		return ret;
- 	}
- 
- 	platform_set_drvdata(pdev, priv);
-@@ -99,10 +94,6 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 	pm_runtime_enable(dev);
- 
- 	return 0;
--
--clk_err:
--	clk_disable_unprepare(priv->clk);
--	return ret;
- }
- 
- static void ci_hdrc_usb2_remove(struct platform_device *pdev)
-@@ -111,7 +102,6 @@ static void ci_hdrc_usb2_remove(struct platform_device *pdev)
- 
- 	pm_runtime_disable(&pdev->dev);
- 	ci_hdrc_remove_device(priv->ci_pdev);
--	clk_disable_unprepare(priv->clk);
- }
- 
- static struct platform_driver ci_hdrc_usb2_driver = {
++&usb2_0 {
++	vbus-supply = <&vcc5v0_usb20>;
++	dr_mode = "host";
++	status = "okay";
++};
++
++&usb2_1 {
++	status = "okay";
++};
++
+ &usb_dwc3 {
+ 	dr_mode = "host";
+ 	#address-cells = <1>;
 
 -- 
 2.34.1
