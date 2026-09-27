@@ -1,116 +1,112 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AC73B9931
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8349218E025;
+	Sun, 27 Sep 2026 20:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541305; cv=none; b=LY4KThwPdVQUkWyH2xwcbgb+f1i8M2LpaaOYGV2EqKYKi59YgXZnAJmaelWqWMQhf1AmXL5TtVuqU0btU4xGdg4Qgk2aq2ZZjJ6j4YIITEWkSRFVccy1FP1eiM+7NVNyW42yOXMA32r6lCImwwd/ynf/yG8hfPNAdSsmfESZ1lk=
+	t=1790541676; cv=none; b=mXeGiWUXp31Tg7Yp0QYZTFvS0an3PlYtXP64L5HfLOLTfi59iFIsToX8FyVL7enr/kGOzPcM4n1NTC2PxHeCBOqsfLXhnnoVDD8d1uPrtqc001dq/KstVUxjN2s9QJacHdU2gFhnnpIP+vjr+QzbHTIW0p95csoLr/2TvONOckY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541305; c=relaxed/simple;
-	bh=3bIzl9Orz+VX8c43Yu1CKKnUt+5gibYznMOCZRoI80w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GoBsCsS7oUDPAiHDGW7iLwdU/BOhpdG3uCtRxHeuj3XAFrHECePvH0/lZLeK/ApGC0cfJUd5g6FnOGmilxmPrBamfjNqZR4ak6h1xcvGWV6eIzkqpJP8s9OHeOWIZjEa6O9P49hcXIH13GOUHGpsLQObdDUZrLPgssLSUkobR+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoVQZniU; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790541676; c=relaxed/simple;
+	bh=IZx0c5YL4BHjcA0kGkmqaKl9y+gkwGc5SNdMF/976Po=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=NC2wWxcxtL8m8H9vqWQfj6RL714A4Bb9aL5VMrpvwrWp87G/SM9KG5agzdHNBvf2Ufm63MxjLRAreUZksZwt6HeClkuUALkx5uSqTnmnSQCGAaknLtDjXWK/oyhjSEdgkmDxRplK6gtlOxcm3uJ6zxDHjpE7PqrLeBEn90WsSQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TuTmdGnt reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoVQZniU"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bd71827eso1265722a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790541303; x=1791146103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+5sot5gf02iW9KatLlMM7GFUIn+IJuBNvzHGlsRj0G4=;
-        b=WoVQZniUiYchS5zR0gwiWbRdhd9PoI4CiG5iCuczHs4ldignNhEFTIvWEAC0sot3MS
-         ZpQMxNYlA+Lfph6DvpvI8EKc3RnQ2GsrrXyx5OwWT7zgtvxz0C6NULwueJ7Tz36iacY1
-         uqFVvl6cbwsL7YnIQ1zM35kjwLbwmCUfkBiZtzgVLYtTk9/512UW2tjD+W2ULrpsgUCX
-         B/RzdZixxh5YItyIUwnVCrV60ZmVob7/zH7k1FHSk0mZFdLAxy4BbNO4mbGsvWSZwtsZ
-         oTfW3jyN2KqXFaNjSaAZzYXCCmzhpuB/wxAtbimNKJTVCm1RRWQQzGnLrNkp5M4pPS1g
-         z+1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790541303; x=1791146103;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+5sot5gf02iW9KatLlMM7GFUIn+IJuBNvzHGlsRj0G4=;
-        b=nz381EaR6Chm0aWs2MzZhGTm0gfsbWX1qiMv55loOCDyY37jf9aQN6OR6zxFBQB4nL
-         31g3KypevlkLktBkfF991WlrnkiYlh1wSVjaqQdLgHYilUoF+cvT2ONzKGLDnGIvePWT
-         OwLikCnZuZreVvDH1aw0oNrHUAgIReqlynrYCMklTu+pYqmo6/SiWXYQw0gwFtA32D5G
-         OsYAFUFP4/WeX0PB94TrVoayTC9ZdjYhCK5BAImD5yQvV3ltgFaeO6rxXQBQ8P0cYGW6
-         Bkft5MIScTgGjOq/Cd4s6yht1NJJd6ovXPakOaRS+XKC6u0hI/6X/nkexpS8MjyJk/eG
-         CppA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAc7zeRsK9LUM9gChCbsFBBnRARLJ377FH1sK76TKlBjv8OeqjuOqQjf4gDc1Y8ubP3nZif+NO9r4mjVQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkEHt8FoS2E9wRAu//pWxKS+M7XZHwl6ZGY5tMF1lC5Oijf+0z
-	il8jQJqg0LA1kiWYNdGynoSPmTl+CrCWb/FNRUFjjyoc2Y8kNaiNQsOI
-X-Gm-Gg: AYBFou1rjEQ2C+b2zPc8h9A9cknaL7MTHxMZvVlZMeWEGJKRataeN+NLIXmzOv4aNDo
-	SZqerUFyuvpJlj2/ha14bWimro46gw8KKiL2P1YTO7wqvGE6QhPk1N8NB/XZj/HtlDDvetZf4CC
-	yjoHs44M7Rxi/Vv5tDo01T49l/2ikz1vyOWikRHU09s00vkuDDRJ4eVIGcAePYwLOQTF8fqJVcc
-	h4V8au48JLPejH2aDDFW1oSGFaEAdCCa/XB4UliaNMeF9ZYobYRV1kseW/iHgotRoq1fH3ZJkQO
-	JByUudnW2L0SSGtLAkid+falk4Dl726csVH7c5f6Da0hmwlOYLcGfx6F6Kwq8bsD2bnFlqsAi0Q
-	kjdSli33RGGEfhJt9mJsdi4VE0RftOXqRJFk2bEVqF6ak76bkQV2mpYMyNUZAE3jyjccXBzC32C
-	yHU3/cJK/SQRXK8m0TkBqaOx8H39aMAoS9HgpCe4rUPfNgOmI4+CXJzj5Gdu1PT6TLQFwOkif4/
-	x9bnPt4hkYBQDGRkAlVkV0/zoTHqDRZpRk3zQ4aUmHiXUZd0ypnr2hlz89/PmQG5QMpmxlHom71
-	VOluRMUn3RsRTF4fxmnbRLXHwIp7NIyMAxfyVS1DhWggcfno
-X-Received: by 2002:a17:90b:53c3:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3a09896a5a5mr9550874a91.47.1790541303373;
-        Sun, 27 Sep 2026 13:35:03 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09773e7c3sm22752416a91.17.2026.09.27.13.35.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:35:02 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-serial@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
-Subject: [PATCH] tty: serial: mpc52xx_uart: move static declarations up.
-Date: Sun, 27 Sep 2026 13:35:01 -0700
-Message-ID: <20260927203501.14105-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TuTmdGnt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C091F000FF;
+	Sun, 27 Sep 2026 20:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790541675;
+	bh=vLO37l59WyVXOc1GaSGyfri+C0pwbOWgxmIfm+nlpBs=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=TuTmdGnt2aTd7EYBIGzQPK6hgv2mwZj/e+iMLaZQhl+kbqjNk+Gn0JGXGu+zgmfyt
+	 x+Jeaumu4xurUfC51qiVkNk0aZqWfE6CifBVSz0/DVzlYQAmvmm3NBDuVE8n/xtFeN
+	 /T62KvCuyw7jcMax/bVpfRf7QBJnNqHjfoKjCz1UuB6bWyLjvMjJmDUFCT9aw1ttAd
+	 nReKDQGOh6/xSa+g0Xh/CaBwmnUWNv9LiHwGPUx39dhZZG3dK6Yzs4TcoD96N7bqud
+	 7Ar3WdLf7zr4A7TmUGMUZPzNmmmQZiAt4yLw5kf/7+H14P9PFbPxJ9MmSslmJB0L8d
+	 STXnJylkLfaIQ==
+Content-Type: multipart/mixed; boundary="===============7476743973010168723=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <9d932a22ca908da9378ea281633ddb749453911ac6ae7a27a09e376f9ad02ff7@mail.kernel.org>
+In-Reply-To: <20260926135605.1217928-2-florent.revest@linux.dev>
+References: <20260926135605.1217928-2-florent.revest@linux.dev>
+Subject: Re: [PATCH bpf v5 1/3] bpf: Wait for an RCU tasks grace period before freeing trampoline progs
+From: bot+bpf-ci@kernel.org
+To: florent.revest@linux.dev,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
+Cc: florent.revest@linux.dev,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,kpsingh@kernel.org,john.fastabend@gmail.com,leon.hwang@linux.dev,zirajs7@gmail.com,rhkrqnwk98@gmail.com,puranjay@kernel.org,xukuohai@huaweicloud.com,iii@linux.ibm.com,hbathini@linux.ibm.com,chleroy@kernel.org,naveen@kernel.org,bjorn@kernel.org,pulehui@huawei.com,yangtiezhu@loongson.cn,hengqi.chen@gmail.com,linux-kernel@vger.kernel.org,aou@eecs.berkeley.edu,agordeev@linux.ibm.com,alex@ghiti.fr,bp@alien8.de,catalin.marinas@arm.com,borntraeger@linux.ibm.com,dave.hansen@linux.intel.com,emil@etsalapatis.com,hca@linux.ibm.com,hpa@zytor.com,chenhuacai@kernel.org,ihor.solodrai@linux.dev,mingo@redhat.com,linux-arm-kernel@lists.infradead.org,linux-kselftest@vger.kernel.org,linuxppc-dev@lists.ozlabs.org,linux-riscv@lists.infradead.org,linux-s390@vger.kernel.org,loongarch@lists.linux.dev,maddy@linux.ibm.com,mark.rutland@arm.com,mpe@ellerman.id.au,npiggin@g
+ mail.com,palmer@dabbelt.com,paulmck@kernel.org,pjw@kernel.org,ritesh.list@gmail.com,sshegde@linux.ibm.com,shuah@kernel.org,svens@linux.ibm.com,tglx@kernel.org,gor@linux.ibm.com,kernel@xen0n.name,will@kernel.org,x86@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 27 Sep 2026 20:41:12 +0000 (UTC)
 
-Avoid a compilation error so that they're not used before being
-declared.
+--===============7476743973010168723==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: 4d105880666a ("tty: serial: mpc52xx_uart: add bounds check for psc_num array index")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609260356.tJWbd1WU-lkp@intel.com/
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> bpf: Wait for an RCU tasks grace period before freeing trampoline progs
+>
+> When a prog is detached from a trampoline, it is freed after an RCU
+> grace period, or an RCU tasks trace one if it is sleepable. This covers
+> the tasks that are running the prog, since the prog's enter helper takes
+> the matching read lock before the prog is called. On a preemptible
+> kernel, it doesn't cover a task that was preempted in the trampoline
+> just before the enter helper. That task holds no lock yet, and it calls
+> the prog after it was freed:
+>
+>   BUG: KASAN: vmalloc-out-of-bounds in __bpf_prog_enter_recur+0x3a5/0x3f0
+>   Read of size 8 at addr ffffc90000055040 by task candidate/110
+>   CPU: 1 UID: 0 PID: 110 Comm: candidate Not tainted 7.3.0-rc2-00014-g15071f2a1263-dirty #2 PREEMPT(full)
+>   Call Trace:
+>    <TASK>
+>    __bpf_prog_enter_recur+0x3a5/0x3f0
+>    bpf_trampoline_6442509193+0x37/0xf1
+>    __x64_sys_futex+0x9/0x410
+>    do_syscall_64+0xb0/0x530
+>    ...
+>
+> Wait for an RCU tasks grace period before the existing one when freeing
+> a prog that was linked to a trampoline. An RCU tasks grace period only
+> ends once the tasks that were preempted have run again, and
+> bpf_tramp_image_put() already relies on it to free the image. It doesn't
+> wait for tasks that sleep in the trampoline, the next commit takes care
+> of those.
+>
+> Only progs that were linked to a trampoline can be called this way, so
+> bpf_trampoline_add_prog() marks them and other progs are still freed as
+> before.
+>
+> Fixes: e21aa341785c ("bpf: Fix fexit trampoline.")
+
+Is this the right Fixes: target?
+
+The race being closed here (a task preempted inside the trampoline image
+before __bpf_prog_enter*() takes its RCU read lock, while the prog is freed
+after only a regular RCU or RCU tasks trace grace period) appears to predate
+e21aa341785c.
+
+In fec56f5890d9 ("bpf: Introduce BPF trampoline") bpf_trampoline_update()
+switched images with no tasks RCU wait, and __bpf_prog_put_noref() freed the
+prog with a plain call_rcu(&prog->aux->rcu, __bpf_prog_put_rcu).
+
+Just before e21aa341785c, the synchronize_rcu_mult(call_rcu_tasks,
+call_rcu_tasks_trace) in bpf_trampoline_update() ran before
+arch_prepare_bpf_trampoline() rather than after the new image was installed,
+and the total == 0 unregister_fentry() path had no wait at all, so a task
+preempted in the old image could already reach a freed prog.
+
+Would Fixes: fec56f5890d9 ("bpf: Introduce BPF trampoline") be more
+accurate, so that stable trees without e21aa341785c also pick this up? The
+follow-up 49ca60187380 in this series uses the same tag.
+
+
 ---
- drivers/tty/serial/mpc52xx_uart.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/tty/serial/mpc52xx_uart.c b/drivers/tty/serial/mpc52xx_uart.c
-index b566206f42a2..472ec39caf27 100644
---- a/drivers/tty/serial/mpc52xx_uart.c
-+++ b/drivers/tty/serial/mpc52xx_uart.c
-@@ -634,6 +634,9 @@ static void __exit mpc512x_psc_fifoc_uninit(void)
- 	}
- }
- 
-+static struct clk *psc_mclk_clk[MPC52xx_PSC_MAXNUM];
-+static struct clk *psc_ipg_clk[MPC52xx_PSC_MAXNUM];
-+
- /* 512x specific interrupt handler. The caller holds the port lock */
- static irqreturn_t mpc512x_psc_handle_irq(struct uart_port *port)
- {
-@@ -654,9 +657,6 @@ static irqreturn_t mpc512x_psc_handle_irq(struct uart_port *port)
- 	return IRQ_NONE;
- }
- 
--static struct clk *psc_mclk_clk[MPC52xx_PSC_MAXNUM];
--static struct clk *psc_ipg_clk[MPC52xx_PSC_MAXNUM];
--
- /* called from within the .request_port() callback (allocation) */
- static int mpc512x_psc_alloc_clock(struct uart_port *port)
- {
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36346518503
+--===============7476743973010168723==--
