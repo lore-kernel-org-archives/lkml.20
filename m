@@ -1,73 +1,44 @@
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-172.mail.aliyun.com (out28-172.mail.aliyun.com [115.124.28.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A152DA74C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE293E121A;
+	Sun, 27 Sep 2026 11:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510200; cv=none; b=GG1zpu/OSWqgei6amNBidav3ss/7lcMdatcefrw9NRvLYv7gzGGXxJexOMTo/UJ38eFexusE+WchkM/LEDII4UCs2NfXhgKNGUo7hns2ktKPWK5ud0N+rBT1j5sILtKPT7gK2FK+6GrleZBJnBsL/Ym6WeGwn3kbcLNGFRSebbA=
+	t=1790510394; cv=none; b=QljxlL+zyhTySm7CBrpo+II1WBK1SgpDNUEhPkwitYXQkzU1eH8gSq3JiVGUSs/8Km8laC4TbrJJsp3ZLaY0/ZxIS6zp7efVyRVE/+fsZu8lSjTFlR4dERNdtH07Yldl/Q6u0iFnRFkEsiY3ZoHSWP2bJtbDtHAtXeiWv89L8KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510200; c=relaxed/simple;
-	bh=l6K/sFQv3ASRbSDCtexMzkpOqNFTR/2cH63ptPimFf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bUjPZ+6WkbwZ+PLwIzkv5ybE6jjU+uTVpfuGwmETISWgqkDYdpesJoSKHWHmiar09G4wy9kQ0cy6HvjE9l3PhmgrolVCQC0POoP+0TGVwTvsFdpO2ZrP5kcgrsQbzl932f3ejwWB+o0xgyuMqmPtxUkbubJwkEU7IyUvQecLEWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMPwLFFK; arc=none smtp.client-ip=74.125.225.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790510394; c=relaxed/simple;
+	bh=fTkVwd2Y7QM/AiOJV9TQhYvcq5o2fo81OnE8HK9d50A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V3+CRmqrzWmt+RYhRWdd/fk155J3+0Df/SGvlEXxwRNVEBkBvkc5agSguMYaevkr91D86Kbg8oZ9Hnu3oMmCSeFSxf1SZKPGjt6avwCUtMob6pGf4cIbUkgH12bEr1IEYEjl/dOszLT/kmuuGap68cnchfkMpuPG2tFVSvlQgHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Gv5HSU3I; arc=none smtp.client-ip=115.124.28.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMPwLFFK"
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6eb11e9cso11269485e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:56:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790510196; x=1791114996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=msADhsoRTGj1IyLzsyfhlBSSlDWgsH8eeKkmP39j+1U=;
-        b=gMPwLFFKSRIzpRhyLea1d22A5fof9BcM1j2MHW55Wm17/qvxSHat/jXmuYvWNwluHa
-         QChFb5tq1L8OCfymfu+1KyyffrQlY/WMiPEWhg4fd7hLgaEBoFIfdDNPoUaPBAkB9RCd
-         RwuHoFLEiv2e11M18nmYxBfhs++ZMTwi3KQvPBVovIX48JZUgD+MDL7tuCdwCOJBeU1L
-         S34cMhIRwnjFY11KXz7gawn3YwrmI43FuNchTe29BeCtjZskCw/EpG/MtaZRrDbTuJ6F
-         5xTTteFxtHBI4rcjoxN1G2v/MDxIw4aO47OQ6P8qfSzspHReDjg1Kxb+FJS1ZQec1erY
-         Te5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790510196; x=1791114996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=msADhsoRTGj1IyLzsyfhlBSSlDWgsH8eeKkmP39j+1U=;
-        b=oLr0KzrDxYQvFDzYsba6FogkX/7YN5jPws3zfWdRkmYFvLMyXjj8j5UONk5rY41Duo
-         46b0ap+s9mX3WnXWacJb01bzxZKTnNMkx3Pk7LGH5cDFhjKjs91fGxZJ535iFpsaZn0D
-         QXDqyWkuGKztiRKt3PIURj3ahA76BdQ6FJJDr1leF1194xgCQYKihWVRw2kH26c+HXpE
-         NQm6GJaY3XLzmJIinLixr9muoq5pbkNNZkzK2b5JRzmjL6VaT1ywHsc27vxjdAts6dOK
-         Lt1ZzDFOp4EXTjVrg6YaV5ok5jBlcgbpojGvdTV5hMWHDpdHli7GKzYknluHtyEQIv03
-         Qlkw==
-X-Forwarded-Encrypted: i=1; AKwUvBw633Fbr1eKh1rKzoAWhqWTfSvLrqYU5MtFPNZiaEobJnGe5TA1a0S8FGiuLlo4yC+DtM62NiFPzzML5oA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTerS/Tae4H0Z/tSCXdgaXG6lw/uN1x+ZR1+8FJB1ox9q0kjjD
-	vKdgjzaFm/8+rf/QFQS2Pms+qIPsvH4kGIZW+L/bjKE5BA27IXhAv1mk
-X-Gm-Gg: AYBFou2EE+wRiFqQ/1Sd/Rmt7penyFev6qovS2JE4TR5mLhp5HYpyhntgKWup0+a+qg
-	KIVLvrvlU2/0SYEf5rbYmyRn5KCcOEF0marf15MvoDgdD5jjwdmwLoXxdkSUHFwMHge2pIxUvqB
-	+8fMSZDUlOChY6ksu1l2/8nYY17BgFBS60b8GqiO7a2iajdjuSFQlqGIYn3BIqMvykHurcxXNCd
-	a6fwVt+3jwcIJIKiFb88EtrAxFl1782N0pam8FTWmpdeVkBBP/ZcBuojEn8458PnqC2b2QwR1dZ
-	+zeq3ZenO6IIhR6MD66Typg43kZHGd8y++kjcyXT9i+o3Hsh/YjW4GZKyEDA0b64YcU0n5q33cI
-	ylq1ylILkilsQcSEldLgKQdw0Q1xfQb0lQSuZGaPjqVxjxRL/JD6A6dVv17itxsCURKZwSR3ILl
-	dUtc70Wq5KfF008Jap0nVfy/aqoy9jxdq3T04HdjyliRTpgS8HgpmNBG6csWMwsX6lCGlUCUxTn
-	hKveUcGKQ+C6MjoEslmuAMUiw==
-X-Received: by 2002:a05:6000:4684:b0:488:764c:7a17 with SMTP id ffacd0b85a97d-488764c80c7mr11867759f8f.1.1790510196208;
-        Sun, 27 Sep 2026 04:56:36 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.192.148])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ed6esm21926084f8f.29.2026.09.27.04.56.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 04:56:35 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Bernard Metzler <bernard.metzler@linux.dev>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Gv5HSU3I"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790510381; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=PBee7+V8zEKXVMTs+wwTx5B3tNdbnkyFJUEXDrj7INg=;
+	b=Gv5HSU3IhInWGbue91hfEVJJdSoKH0s+8pyXQ13fYiY8/WUeAWAtA8wa+DvCh+fA1qgD77uAGCs+wh+o4fzABWURAxVpHdJWkRoYgIKlAup07DTLkYupVF0iKH7U3BGh+LFXLoGX+7sTniToS5CxiliENwSTsgUO5vnugXmDGHc=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438608|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0132348-0.00388059-0.982885;FP=10282059465953380003|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jP8tcBj_1790510380;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jP8tcBj_1790510380 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 27 Sep 2026 19:59:41 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: netdev@vger.kernel.org
+Cc: david@ixit.cz,
+	horms@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH] RDMA/siw: Fix length of first chunk in siw_try_1seg()
-Date: Sun, 27 Sep 2026 14:53:51 +0300
-Message-ID: <20260927115351.12245-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org
+Subject: [PATCH net v3] nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
+Date: Sun, 27 Sep 2026 19:59:40 +0800
+Message-ID: <20260927115940.3817019-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,34 +47,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a short-single SGE payload crosses a page boundary, siw_try_1seg()
-computes the length of the first chunk as the amount that spills into
-the second page instead of the amount left in the first page
+nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
+fragment size.  When that value is zero, frag_len is always zero and
+total_len never decreases.  The loop then allocates skbs without bound:
+none of them are freed inside the loop, they accumulate on frags_q, and
+there is no cond_resched() in the loop body.  A single sendmsg() can
+therefore consume all allocatable memory, and on CONFIG_PREEMPT_NONE it
+occupies the CPU long enough to trip the softlockup watchdog:
 
-	part = bytes - (PAGE_SIZE - off);
+  watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
+  Workqueue: events rawsock_tx_work [nfc]
+  Call Trace:
+   nci_send_data+0x1ca/0x6b0 [nci]
+   nci_transceive+0xbb/0x170 [nci]
+   rawsock_tx_work+0xb5/0x1a0 [nfc]
 
-Use the remaining length of the first page as the first chunk.
+max_pkt_payload_len comes straight from controller-supplied fields with
+no check for zero, and it is read several times along the TX path while
+the rx workqueue can update it without any lock held against this path.
 
-Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
-Assisted-by: LLM
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+Take a single READ_ONCE() snapshot of the limit in nci_send_data(),
+reject a zero limit there, and pass the snapshot down to
+nci_queue_tx_data_frags().  The fragmentation decision and the
+fragmentation loop then consume the same value, so the loop cannot spin
+on a limit that differs from the one just validated, and no plain read
+of the field is left in nci_send_data() or nci_queue_tx_data_frags().
+
+Rejecting the zero limit at the entry of the TX data path covers the RF
+connection as well: ndev->rf_conn_info is allocated with devm_kzalloc(),
+so its max_pkt_payload_len is zero from the moment the object exists and
+only becomes usable when an activation notification assigns a
+controller-supplied value.  Checking where the value is consumed catches
+every producer of a zero limit -- the initial state, the notification,
+and any future writer.
+
+The two producers of the field are annotated with WRITE_ONCE() to match
+the snapshot read; the remaining plain accesses on the HCI path are
+untouched here, since nci_hci_send_data() loops over a different
+conn_info instance (ndev->hci_dev->conn_info) and needs its own fix,
+which is sent separately.
+
+The "failed to fragment tx data packet" print sits on a data path driven
+by controller/remote data and can fire on every transmit once
+fragmentation keeps failing.  Rate-limit it so a misbehaving controller
+cannot flood the log.  Note that with the zero-limit rejection moved into
+nci_send_data(), a rejected zero limit returns before this print, so the
+per-sendmsg flood does not occur through that path.
+
+No legitimate configuration is affected: where the NCI spec does mandate
+a zero Max Data Packet Payload Size -- the NFCEE Direct RF Interface --
+nci_rf_intf_activated_ntf_packet() takes the "goto listen" shortcut,
+bypassing the assignment entirely.
+
+While at it, drop the conn_info lookup in nci_queue_tx_data_frags():
+the caller has already validated the connection, the function now takes
+everything it needs as arguments, and the lookup was the only use of
+conn_info left in it.
+
+Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/infiniband/sw/siw/siw_qp_tx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+  - Snapshot max_pkt_payload_len once in nci_send_data() with
+    READ_ONCE() and pass it down to nci_queue_tx_data_frags(), as
+    suggested by Simon Horman, so the fragmentation decision and the
+    fragmentation loop consume the same value and no plain read of the
+    field remains on this path (review:
+    https://lore.kernel.org/netdev/20260925155040.GP13925@horms.kernel.org/)
+  - Move the zero-limit rejection from nci_queue_tx_data_frags() into
+    nci_send_data(), so the check runs on the same snapshot the loop
+    consumes; this also means a rejected zero limit returns before the
+    "failed to fragment" print rather than triggering it per sendmsg
+  - Annotate the two producers of the field (RF activation NTF and
+    CORE_CONN_CREATE_RSP) with WRITE_ONCE() to match the snapshot read
+  - Drop the now-redundant conn_info lookup in nci_queue_tx_data_frags();
+    the caller already validated the connection
+  - Rate-limit the "failed to fragment tx data packet" print, which sits
+    on a data path driven by remote data, as discussed in the review of
+    the v2 series
+  - Keep the v1/v2 subject so the revision is tracked as the same fix
 
-diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
-index f7dd32c6e5ba..54c9d97015e8 100644
---- a/drivers/infiniband/sw/siw/siw_qp_tx.c
-+++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
-@@ -85,7 +85,7 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx, void *paddr)
- 			if (likely(PAGE_SIZE - off >= bytes)) {
- 				memcpy(paddr, buffer + off, bytes);
- 			} else {
--				unsigned long part = bytes - (PAGE_SIZE - off);
-+				unsigned long part = PAGE_SIZE - off;
+Changes in v2:
+  - READ_ONCE() snapshot of max_pkt_payload_len in
+    nci_queue_tx_data_frags(): with the check and the loop reading the
+    field independently, a store from the rx workqueue in between
+    could let the loop spin on a value the check had just rejected
+---
+ net/nfc/nci/data.c | 34 ++++++++++++++++++++--------------
+ net/nfc/nci/ntf.c  |  3 ++-
+ net/nfc/nci/rsp.c  |  3 ++-
+ 3 files changed, 24 insertions(+), 16 deletions(-)
+
+diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
+index 4253edea5..935e1fe61 100644
+--- a/net/nfc/nci/data.c
++++ b/net/nfc/nci/data.c
+@@ -95,9 +95,9 @@ int nci_conn_max_data_pkt_payload_size(struct nci_dev *ndev, __u8 conn_id)
+ EXPORT_SYMBOL(nci_conn_max_data_pkt_payload_size);
  
- 				memcpy(paddr, buffer + off, part);
- 				kunmap_local(buffer);
+ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
+-				   __u8 conn_id,
+-				   struct sk_buff *skb) {
+-	const struct nci_conn_info *conn_info;
++				   __u8 conn_id, struct sk_buff *skb,
++				   u8 max_pkt_payload_len)
++{
+ 	int total_len = skb->len;
+ 	const unsigned char *data = skb->data;
+ 	unsigned long flags;
+@@ -108,17 +108,10 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
+ 
+ 	pr_debug("conn_id 0x%x, total_len %d\n", conn_id, total_len);
+ 
+-	conn_info = nci_get_conn_info_by_conn_id(ndev, conn_id);
+-	if (!conn_info) {
+-		rc = -EPROTO;
+-		goto exit;
+-	}
+-
+ 	__skb_queue_head_init(&frags_q);
+ 
+ 	while (total_len) {
+-		frag_len =
+-			min_t(int, total_len, conn_info->max_pkt_payload_len);
++		frag_len = min_t(int, total_len, max_pkt_payload_len);
+ 
+ 		skb_frag = nci_skb_alloc(ndev,
+ 					 (NCI_DATA_HDR_SIZE + frag_len),
+@@ -171,6 +164,7 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
+ int nci_send_data(struct nci_dev *ndev, __u8 conn_id, struct sk_buff *skb)
+ {
+ 	const struct nci_conn_info *conn_info;
++	u8 max_pkt_payload_len;
+ 	int rc = 0;
+ 
+ 	pr_debug("conn_id 0x%x, plen %d\n", conn_id, skb->len);
+@@ -181,17 +175,29 @@ int nci_send_data(struct nci_dev *ndev, __u8 conn_id, struct sk_buff *skb)
+ 		goto free_exit;
+ 	}
+ 
++	/* The rx workqueue updates the limit concurrently: snapshot it
++	 * once and drive both the fragmentation decision and the
++	 * fragmentation loop from the same value.
++	 */
++	max_pkt_payload_len = READ_ONCE(conn_info->max_pkt_payload_len);
++
++	if (!max_pkt_payload_len) {
++		rc = -EPROTO;
++		goto free_exit;
++	}
++
+ 	/* check if the packet need to be fragmented */
+-	if (skb->len <= conn_info->max_pkt_payload_len) {
++	if (skb->len <= max_pkt_payload_len) {
+ 		/* no need to fragment packet */
+ 		nci_push_data_hdr(ndev, conn_id, skb, NCI_PBF_LAST);
+ 
+ 		skb_queue_tail(&ndev->tx_q, skb);
+ 	} else {
+ 		/* fragment packet and queue the fragments */
+-		rc = nci_queue_tx_data_frags(ndev, conn_id, skb);
++		rc = nci_queue_tx_data_frags(ndev, conn_id, skb,
++					     max_pkt_payload_len);
+ 		if (rc) {
+-			pr_err("failed to fragment tx data packet\n");
++			pr_err_ratelimited("failed to fragment tx data packet\n");
+ 			goto free_exit;
+ 		}
+ 	}
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index f5c9a8ab7..c818c09f3 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -856,7 +856,8 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 		if (!conn_info)
+ 			return 0;
+ 
+-		conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
++		WRITE_ONCE(conn_info->max_pkt_payload_len,
++			   ntf.max_data_pkt_payload_size);
+ 		conn_info->initial_num_credits = ntf.initial_num_credits;
+ 
+ 		/* set the available credits to initial value */
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index b0ab4f5ac..c0c689526 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -345,7 +345,8 @@ static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
+ 			ndev->hci_dev->conn_info = conn_info;
+ 
+ 		conn_info->conn_id = rsp->conn_id;
+-		conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
++		WRITE_ONCE(conn_info->max_pkt_payload_len,
++			   rsp->max_ctrl_pkt_payload_len);
+ 		atomic_set(&conn_info->credits_cnt, rsp->credits_cnt);
+ 	}
+ 
 -- 
-2.53.0
+2.50.1
 
