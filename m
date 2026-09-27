@@ -1,177 +1,415 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587FF3C1963;
-	Sun, 27 Sep 2026 22:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A9644AB99
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546431; cv=none; b=eiKrRZbSE5a7G+UFpxlp1axotVHr5ccKI8dt+wi1KxJ/L91mFn5+rfD58oHw976tZ5sMSIyD2C2nEbDCCvViivM0PH12kA9U1leUL7+r9Ngptu2efuZbr68hw9qG2u+JDKvzE/zPKSue9FRSQVovX/wMkd3Nye+k62mEUVoylOc=
+	t=1790546432; cv=none; b=Nscg8m+/iwgxFWip0Yxz6JFUcOX+LsFYWpw8ehv6VZ6jenhdyzbOQJzVpCi2fSEcZOfPg9pjonHheEDhLkFWdQC+7DwVJUW5+7tx2s2wTKSybicAUpjlsPU2JaNh2C8ktuuirQmjtNCNFKV2zubIH4iW4Z/q2OxHselYMTIB/dA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546431; c=relaxed/simple;
-	bh=PuwVL9Bavt7Mga9nKspVu8azcUW/tQQWNs4VzKq/TW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qSbaPILl7/pgt+D4xRq3pexpaNvgBUvuGMkJ2LKalI2lgzWsGznfVuFT0plcHYd+Xl4PY74L7vTtk8hRmbmlIJagNzFsyHdt2DzJWBmK1V5CbpQoNwAeZuBik9TZye1oxpNCLrRti9YyJxgxdFAy/N04wUkxunPLha+9g7W4EZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZzS2zSb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790546432; c=relaxed/simple;
+	bh=e8Ab0vluYWvd/r+l2hGFayg0mumuN73e2IRX1RnFQco=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MixOOn94fHYi29snXN9L1J9RzKBJVi4rwaXBqtPCB6sNWvDe6SyExo7IlPURmGr/lAe3RA5d/MdxBFScMNYFsITXV403IMdDF4HhPVYN3CFByG3CMqKXA0DMR7tcm38aeyMW1dtGaJtPQw21T3JXdtMCOAeq7kzNmRlrPYsi4pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CG08PVIo; arc=none smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZzS2zSb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E131F0089D;
-	Sun, 27 Sep 2026 22:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790546425;
-	bh=MefXymOHLZsBxXcXnx29cV/krbl0X0uyYXLfDMcg98I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nZzS2zSb3zHwXSpC/H72emFe1TsO0BWe/sCaVXSjMMdv9EF2b2P2N0+Co4+8JOovy
-	 KUzpe+b9yVHMZpuEZ3CxWZYiQXIE8v8eJHuO1Jmf1Ztyj/fZHKFUO7yjR6Wr0bsVuk
-	 /3xLBB+Z95+S9WdntJiaw1Oz7HwVJYzbSTiHVW5ZfxmRwUw88mJaGhS2j3wU/yub1A
-	 h+Q7owPBVpmppeHzfSZ/+6YJJhXVU1BsM33XXyuJVlCMM15FUmlJ5RQ/ixlaNK4uKr
-	 hsbT62HEbVUQnBsVxKZegbWXYsIdEPnYEs3hWB5kqlaLvC+Wruvg/VGqS6n3iCYIPx
-	 IbK30CiHegbvg==
-Received: by pali.im (Postfix)
-	id B99A2AB8; Mon, 28 Sep 2026 00:00:26 +0200 (CEST)
-Date: Mon, 28 Sep 2026 00:00:26 +0200
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Cc: linux-pm@vger.kernel.org, sre@kernel.org, afd@ti.com,
-	konrad.dybcio@oss.qualcomm.com, david@ixit.cz, krzk@kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] power: supply: bq27xxx: detect bq27541 behind bq27411
- compatible
-Message-ID: <20260927220026.hxwnm6mbfs7s7swu@pali>
-References: <20260928-master-v4-1-052c73ec1767@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CG08PVIo"
+Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d817a94747so321833eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:00:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790546423; x=1791151223; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AO44ZR+1vB6Jmo6A0lloXr+b5M9npc7CCaZmTVxm41A=;
+        b=CG08PVIoRTGvmcnktHMbhLBzuoqi8DqDmajYzq2YcfnUlzYEoj0U9NVAQWXevvnAsm
+         +Gl+BixHfCz9ULFKwPvfYmFMixFalOgkyxmJNDenyV2uUNMR1+ziHw2dL1GzxG3uR+7O
+         MbU9j9Grh+YyDYZQ/K/WjjroOs87S4wCcDu0ZX4+Ptlzcn3Ayrnab4ogtX8cVEO5SAJ6
+         VX8NGiwJq/twD6IIa2BYE6tTCXLb4ObcDvFVSUcI4J80TINuJo4M4ev0x3u9wUv4Uyc6
+         0H9gjdVGIEYKqF85eItYgoONmxvpid8b8ZczJQOqKeknYTVjFmYPf7wbKWG25Qd0ZR52
+         gszQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790546423; x=1791151223;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AO44ZR+1vB6Jmo6A0lloXr+b5M9npc7CCaZmTVxm41A=;
+        b=cdGmR4dvAdhj+G3gAdCwQGaPVctisMStAJzd+KnxK8YMYdPJdd2weCiJUSNj4fj+8W
+         BjEsDTtJe7wHg0BHxVjkMmqBFpAW49ZuKpxM2GqdaRXB/7WY314luynVS7cIz3IAD+FJ
+         7gonmTd17gXmIuXF2BEs2KsRdPEfKcw5veahiclZBJ1Yqd2hhHS866DhtiwGton0+5//
+         rMr+mwAJty4+RRPR8OIXa6fCgkbz6MWEyF+KFngFlSIKJhj+0+IjA7idnWjIs9gDL85S
+         ymoW5VJUsuAWfewmsOhDp3jHDG9qjpVIXDd+Q3TfzK5udDvgmv6tXDsCJJMhP6I0F1iF
+         BL8A==
+X-Forwarded-Encrypted: i=1; AKwUvByEe/WF9Vj6goFGJaL/7QoXXp9kGVdygOzdMkPFRxQksqAfVn11MFQ7u9iUt+eILKcrfMHa91g3IbuDt9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhCJRUbjYPiRAhKHuvsEM03liqIx7MQrk47ADSj2fw38Ed+nRW
+	Q7g4+eSZhmj0I17OR24ci3rwB6Hpf/ELyjuphDik9JK0rfLZHpc6ZAZW
+X-Gm-Gg: AYBFou0GvpPtYTCXuxTm+cI5+KVbZ8K1YHflwLereq6FdJzB7fiMJ0lNjScjXii83wI
+	7Tthtn75M1Wokl6SCNWqbBix7fUBbHAoeNl2sAPbgHoWu/DeS377lhy0X/nEJn+8wKCvj8ngMvc
+	kHZSh6xFNxjluG8dSH16sya5RDx04R5NUzFmiicTUSDd2X1Ilvf+vhbVim8123PGQr8jAUcoB4z
+	O8sY8omI1lmoZm0rsMaJxqYRY7STYREzxlbWKKveISEVnC3eQ35qdgYjdIMfnkEwKZs+bfeTJMk
+	eYTcDpa+1kxl/QdOUY31gVoI8tUEoW/D6XCSLpSVpti6MkWS+Rq3upHZjEruVxx9tmQZHKp3o9G
+	DDf1RPYyY3IFTWPGGC1XMTa0A80WFCrBB8Xhkj7LMak0AbKwHnViobPKHjsAF3F9oHJ5lKQwGTh
+	SyfOy5wNU1A2rtt9OoUwhQaRhrORpV1JKRrRcrU0vX1dIvXNCQ1sQ0+fzEFh9WT5qhWxepL9uWc
+	Xo7HmHbus49JjS+XKfU91bb3zU/A1Sd1sGLv2JszsrATt6VoSeDizSxGMCl3SB9w49xlpPEdlzy
+	ZitmF4BcRalJms21FDPfyDPavPWJB04WGSsqJ0pyfrrs3oBBhkfV3T7l7HmhZYFXp4w7tkaTyey
+	nMVPqpchWChsTDghnzcTl
+X-Received: by 2002:a05:6820:827:b0:6b3:f4b8:bb86 with SMTP id 006d021491bc7-6d43f4bd3c4mr10875034eaf.22.1790546423202;
+        Sun, 27 Sep 2026 15:00:23 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81b3de6f7e1sm4874147a34.22.2026.09.27.15.00.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 15:00:22 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 27 Sep 2026 15:59:49 -0600
+Subject: [PATCH net-next v5 14/19] net: stmmac: use the tracked datapath
+ restart for XSK pool changes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-master-v4-1-052c73ec1767@gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-submit-stmmac-reset-fixes-v1-v5-14-feec6c14dd06@gmail.com>
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, 
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Joao Pinto <Joao.Pinto@synopsys.com>, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>, 
+ Voon Weifeng <weifeng.voon@intel.com>, 
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Simon Horman <horms@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>, 
+ Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, 
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>, 
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+ Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>, 
+ Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Monday 28 September 2026 00:17:17 Rinat Muhamedgaliev via B4 Relay wrote:
-> From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> 
-> OnePlus 6 and 6T replacement battery packs may contain either a bq27411 or a bq27541 fuel gauge at I2C address 0x55. The device tree currently identifies the gauge as bq27411, but a bq27541 uses a different register map and then reports invalid battery values.
-> 
-> Read the DeviceType control subcommand when probing a bq27411. Keep the existing profile for DeviceType 0x0421, but select the bq27541 profile for DeviceType 0x0541. This retains the established DT ABI and supports replacement packs without introducing a generic compatible.
+Replace the void per-queue enable helpers with the tracked XDP restart.
+Pause all queues and MAC link resolution while the pool bitmap and rings
+change, leaving the PHY running through phylink replay.
 
-Hello! I have not read the previous versions of the patch or its
-discussion. But I have two points which could useful for future.
+Unwind a failed pool attachment without leaving NAPI over missing
+buffers. Pool removal must complete even if ordinary-ring rebuilding
+fails, after retiring all references to the departing pool. Preserve TBS
+configuration and return a detached interface to the ordinary down/up
+recovery path.
 
-In a past I was solving similar problem (there are more possible
-endpoint types in DT and hardcoding any of them cause replugging
-issues). And the solution was to "improve" bootloader to load the DTB
-file (from the storage) and then on-the-fly in RAM modify it to contains
-current configuration of endpoint device. This allowed to boot new
-kernel, and also old kernel without any modification of kernel or DTB
-file. So it retained the established DT ABI for kernel too.
+Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |   5 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 116 +++-------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c  |  44 ++++----
+ 3 files changed, 32 insertions(+), 133 deletions(-)
 
-If there are more requests for these replugging support in bq27xxx, what
-about improving the whole bq27xxx driver to do autodetection of any
-plugged battery and take any explicit device tree identifier as a
-generic? If I remember correctly, it is not possible detect the whole
-type, but at least something is possible. This could solve this problem
-too, but would require some larger rewrite of driver. And it would make
-sense only if there are more requests for such functionality. I agree
-that it would probably do not make sense for one device.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 6927afd01175..38370f2cbe87 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -473,11 +473,6 @@ static inline bool stmmac_tc_active(struct stmmac_priv *priv)
+ 	       netif_device_present(priv->dev) && !priv->hw_unavailable;
+ }
+ 
+-void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue);
+-int stmmac_xsk_wakeup(struct net_device *dev, u32 queue, u32 flags);
+ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
+ 					   ktime_t current_time,
+ 					   u64 cycle_time);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index ad5ed2c95af7..95757f3cbc64 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2318,6 +2318,7 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
+ 
+ 	kfree(tx_q->tx_skbuff);
+ 	tx_q->tx_skbuff = NULL;
++	tx_q->xsk_pool = NULL;
+ }
+ 
+ static void free_dma_tx_desc_resources(struct stmmac_priv *priv,
+@@ -2830,6 +2831,12 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 	bool work_done = true;
+ 	u32 tx_set_ic_bit = 0;
+ 
++	/* Nothing can be submitted while the link is down. Let NAPI complete;
++	 * userspace can retry ndo_xsk_wakeup() once carrier has returned.
++	 */
++	if (!netif_carrier_ok(priv->dev))
++		return true;
++
+ 	/* Avoids TX time-out as we are sharing with slow path */
+ 	txq_trans_cond_update(nq);
+ 
+@@ -2844,8 +2851,7 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		/* We are sharing with slow path and stop XSK TX desc submission when
+ 		 * available TX ring is less than threshold.
+ 		 */
+-		if (unlikely(stmmac_tx_avail(priv, queue) < STMMAC_TX_XSK_AVAIL) ||
+-		    !netif_carrier_ok(priv->dev)) {
++		if (unlikely(stmmac_tx_avail(priv, queue) < STMMAC_TX_XSK_AVAIL)) {
+ 			work_done = false;
+ 			break;
+ 		}
+@@ -7450,107 +7456,6 @@ static int stmmac_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
+ }
+ 
+-void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_disable_dma_irq(priv, priv->ioaddr, queue, 1, 0);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-
+-	stmmac_stop_rx_dma(priv, queue);
+-	__free_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-}
+-
+-void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_rx_queue *rx_q = &priv->dma_conf->rx_queue[queue];
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-	int ret;
+-
+-	ret = __alloc_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-	if (ret) {
+-		netdev_err(priv->dev, "Failed to alloc RX desc.\n");
+-		return;
+-	}
+-
+-	ret = __init_dma_rx_desc_rings(priv, priv->dma_conf, queue, GFP_KERNEL);
+-	if (ret) {
+-		__free_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-		netdev_err(priv->dev, "Failed to init RX desc.\n");
+-		return;
+-	}
+-
+-	stmmac_reset_rx_queue(priv, queue);
+-	stmmac_clear_rx_descriptors(priv, priv->dma_conf, queue);
+-
+-	stmmac_init_rx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    rx_q->dma_rx_phy, queue);
+-
+-	stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue, rx_q->buf_alloc_num);
+-
+-	stmmac_set_queue_rx_buf_size(priv, rx_q, queue);
+-
+-	stmmac_start_rx_dma(priv, queue);
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_enable_dma_irq(priv, priv->ioaddr, queue, 1, 0);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-}
+-
+-void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_disable_dma_irq(priv, priv->ioaddr, queue, 0, 1);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-
+-	stmmac_stop_tx_dma(priv, queue);
+-	__free_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-}
+-
+-void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_tx_queue *tx_q = &priv->dma_conf->tx_queue[queue];
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-	int ret;
+-
+-	ret = __alloc_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-	if (ret) {
+-		netdev_err(priv->dev, "Failed to alloc TX desc.\n");
+-		return;
+-	}
+-
+-	ret = __init_dma_tx_desc_rings(priv,  priv->dma_conf, queue);
+-	if (ret) {
+-		__free_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-		netdev_err(priv->dev, "Failed to init TX desc.\n");
+-		return;
+-	}
+-
+-	stmmac_reset_tx_queue(priv, queue);
+-	stmmac_clear_tx_descriptors(priv, priv->dma_conf, queue);
+-
+-	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    tx_q->dma_tx_phy, queue);
+-
+-	if (tx_q->tbs & STMMAC_TBS_AVAIL)
+-		stmmac_enable_tbs(priv, priv->ioaddr, 1, queue);
+-
+-	stmmac_set_queue_tx_tail_ptr(priv, tx_q, queue, 0);
+-
+-	stmmac_start_tx_dma(priv, queue);
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_enable_dma_irq(priv, priv->ioaddr, queue, 0, 1);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-}
+-
+ void stmmac_xdp_release(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+@@ -7650,6 +7555,9 @@ int stmmac_xdp_open(struct net_device *dev)
+ 
+ 		stmmac_set_queue_tx_tail_ptr(priv, tx_q, chan, 0);
+ 
++		if (tx_q->tbs & STMMAC_TBS_AVAIL)
++			stmmac_enable_tbs(priv, priv->ioaddr, 1, chan);
++
+ 		hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	}
+ 
+@@ -7687,7 +7595,7 @@ int stmmac_xdp_open(struct net_device *dev)
+ 	return ret;
+ }
+ 
+-int stmmac_xsk_wakeup(struct net_device *dev, u32 queue, u32 flags)
++static int stmmac_xsk_wakeup(struct net_device *dev, u32 queue, u32 flags)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	struct stmmac_channel *ch;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+index 7ecb7addd2ea..907ac49a1b76 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+@@ -9,7 +9,6 @@
+ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 				  struct xsk_buff_pool *pool, u16 queue)
+ {
+-	struct stmmac_channel *ch = &priv->channel[queue];
+ 	bool need_update;
+ 	u32 frame_size;
+ 	int err;
+@@ -34,23 +33,23 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
+ 		      stmmac_xdp_is_enabled(priv);
+ 
+-	if (need_update) {
+-		napi_disable(&ch->rx_napi);
+-		napi_disable(&ch->tx_napi);
+-		stmmac_disable_rx_queue(priv, queue);
+-		stmmac_disable_tx_queue(priv, queue);
+-	}
++	if (need_update)
++		stmmac_xdp_release(priv->dev);
+ 
+ 	set_bit(queue, priv->af_xdp_zc_qps);
+ 
+ 	if (need_update) {
+-		stmmac_enable_rx_queue(priv, queue);
+-		stmmac_enable_tx_queue(priv, queue);
+-		napi_enable(&ch->rxtx_napi);
+-
+-		err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
+-		if (err)
++		err = stmmac_xdp_open(priv->dev);
++		if (err) {
++			clear_bit(queue, priv->af_xdp_zc_qps);
++			xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
++			netdev_err(priv->dev, "failed reopening after XSK pool attach: %pe; interface remains detached\n",
++				   ERR_PTR(err));
+ 			return err;
++		}
++
++		/* The pool is installed even if link resolution is still pending. */
++		napi_schedule(&priv->channel[queue].rxtx_napi);
+ 	}
+ 
+ 	return 0;
+@@ -58,9 +57,9 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 
+ static int stmmac_xdp_disable_pool(struct stmmac_priv *priv, u16 queue)
+ {
+-	struct stmmac_channel *ch = &priv->channel[queue];
+ 	struct xsk_buff_pool *pool;
+ 	bool need_update;
++	int err;
+ 
+ 	if (queue >= priv->plat->rx_queues_to_use ||
+ 	    queue >= priv->plat->tx_queues_to_use)
+@@ -73,24 +72,21 @@ static int stmmac_xdp_disable_pool(struct stmmac_priv *priv, u16 queue)
+ 	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
+ 		      stmmac_xdp_is_enabled(priv);
+ 
+-	if (need_update) {
+-		napi_disable(&ch->rxtx_napi);
+-		stmmac_disable_rx_queue(priv, queue);
+-		stmmac_disable_tx_queue(priv, queue);
+-		synchronize_rcu();
+-	}
++	if (need_update)
++		stmmac_xdp_release(priv->dev);
+ 
+ 	xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
+ 
+ 	clear_bit(queue, priv->af_xdp_zc_qps);
+ 
+ 	if (need_update) {
+-		stmmac_enable_rx_queue(priv, queue);
+-		stmmac_enable_tx_queue(priv, queue);
+-		napi_enable(&ch->rx_napi);
+-		napi_enable(&ch->tx_napi);
++		err = stmmac_xdp_open(priv->dev);
++		if (err)
++			netdev_err(priv->dev, "failed reopening after XSK pool removal: %pe; interface remains detached\n",
++				   ERR_PTR(err));
+ 	}
+ 
++	/* Socket teardown must be able to unmap and free the removed pool. */
+ 	return 0;
+ }
+ 
 
-I'm not opposing the change, I'm just writing ideas for future, maybe
-they could be useful for some future decisions...
+-- 
+2.53.0
 
-> Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of charge, and temperature were reported correctly. Testing on hardware with DeviceType 0x0421 would be appreciated.
-> 
-> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> ---
-> OnePlus 6 and 6T replacement battery packs can contain either a bq27411 or a
-> bq27541 fuel gauge. The latter requires a different register map and produces
-> invalid battery readings when interpreted as a bq27411.
-> 
-> v4 drops the proposed generic DT compatible and DTS changes. The I2C driver
-> instead reads DeviceType while probing the existing bq27411 compatible, and
-> selects the bq27541 profile if the device reports 0x0541.
-> 
-> The bq27541 path was tested on a OnePlus 6T. Testing on an OnePlus 6 or 6T
-> whose fuel gauge reports DeviceType 0x0421 (bq27411) would be appreciated.
-> 
-> Changes in v4:
-> - Drop the generic compatible and binding update.
-> - Keep the established OnePlus DTS unchanged.
-> - Detect bq27541 from DeviceType in the bq27411 probe path.
-> - Send as a new thread.
-> ---
->  drivers/power/supply/bq27xxx_battery_i2c.c | 37 ++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-> index 94b00bb89c17..732164423423 100644
-> --- a/drivers/power/supply/bq27xxx_battery_i2c.c
-> +++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-> @@ -16,6 +16,11 @@
->  static DEFINE_IDR(battery_id);
->  static DEFINE_MUTEX(battery_mutex);
->  
-> +#define BQ27XXX_REG_CTRL		0x00
-> +#define BQ27XXX_DEVICE_TYPE		0x0001
-> +#define BQ27411_DEVICE_TYPE		0x0421
-> +#define BQ27541_DEVICE_TYPE		0x0541
-> +
->  static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
->  {
->  	struct bq27xxx_device_info *di = data;
-> @@ -136,6 +141,32 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
->  	return 0;
->  }
->  
-> +static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
-> +{
-> +	int ret;
-> +
-> +	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
-> +			    false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	switch (ret) {
-> +	case BQ27411_DEVICE_TYPE:
-> +		return 0;
-> +	case BQ27541_DEVICE_TYPE:
-> +		dev_warn(di->dev, "detected bq27541 instead of bq27411\n");
-> +		di->chip = BQ27541;
-> +		return 0;
-> +	default:
-> +		dev_err(di->dev, "unsupported device type 0x%04x\n", ret);
-> +		return -ENODEV;
-> +	}
-> +}
-> +
->  static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->  				     const struct i2c_device_id *id)
->  {
-> @@ -169,6 +200,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->  	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
->  	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
->  
-> +	if (di->chip == BQ27411) {
-> +		ret = bq27xxx_battery_i2c_check_device_type(di);
-> +		if (ret)
-> +			goto err_failed;
-> +	}
-> +
->  	ret = bq27xxx_battery_setup(di);
->  	if (ret)
->  		goto err_failed;
-> 
-> ---
-> base-commit: 830b3c68c1fb1e9176028d02ef86f3cf76aa2476
-> change-id: 20260927-master-bd0afd9696ef
-> 
-> Best regards,
-> --  
-> Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> 
-> 
