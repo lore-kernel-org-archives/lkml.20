@@ -1,112 +1,138 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BDC3EEAF2
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531906; cv=pass; b=fki85TedNtpqe2aDXsNWBI0VDTNYg7a322K6VbiAoX+rtgrEI9Zg38ybU8Gwsh8OZF94/9l9Y7URHu9B0qeEU7kjB+DO14mOnBA31YkC5q0PYScg56x05P9QpBj+Tye894PgE5EnfrhVK7DiP1k6epmJwT1C7G2HMKa7fjMS5ZY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531906; c=relaxed/simple;
-	bh=58tJxFbKkk1sOLpFFVR1wuJU8CunIqKhr3qdPmvFPJM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OEbV7kUUzUd//T1R9iAwpD4ngCP77+BL0LcAq1b6B5TauMeexG6LolcF2Z+O03mmoLPk9iMRPsZC2EtOoVUwQhAgufqSp5NCSWLZALSvqLEJfrJgvc/VJXwBBh0j03a7jui46X3QuLwC4dwuWjQZ0CiVKRCvTZduHyl9E4MImRM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dyACfRHq; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CAF41DEC9
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790531929; cv=none; b=Or53U+7LNJFCwwx6oZc3gjMSs9VUUUvtwa1prQ0eT/4yURHgobO9595TGjnA3qIJxukGkYMVe+JZV6oCR7q7/RYkJFfdszGV1zoclOfrAymtRb4BVJHlZfTgJQS+t8PSbmjSEwvAs7ysIX7ZI5w3khJYnJm0eJxkuCt8nyumWEc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790531929; c=relaxed/simple;
+	bh=zS6CsMifRo7Y+93FevFU/x5sVefk8DP6M/APkxquCjs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=ByBQSAYKbMn1rDadTlph00I1eZB/cHgiyZHfXxH0TVFumHxnVP7blnvh0SeveBm0geHCRpFyTGGX83QpMbWiSEtkY+DGLHWA9Sg0TUtr8Gq+QglMb63QcVj99u73urKEJLZesyn0KAChsKapVnchdK85IP2s8SFoGQ138dS0Ag4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=N8T4eBLd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XgFpz+8O; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dyACfRHq"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso11978045e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:58:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790531903; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iu4RCiVJf8b5RIoqTlulEpgDtwYQZc78OdpcghrdcT/+XDpiuQFM20ZLjaMqiuXdtS
-         fpJYvjhrI63kNuAu//OCnL2oyq5IMg0SS0VxS5IandrxgkLaEeeMZ69WmVlpE4oOZiDM
-         vqO8KQaK0sHhsXvDzI/Kz8E54ecELyP82sYc3EGjdcvfzVx9dftO9zxdzOieiw4RRzWQ
-         VWCFE1MGydtxl+Nl677c2jQjJj6LIE5qkMqI9ZonJHHb+ceiaxmukTusbEDaa0fejyB4
-         DQgByXXlhGVAIxC8FTaTjYaJfYSVQiGAUqhphTfTtfYG/b46cQCUH3JErSLEnaG3ZM0q
-         h88Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=58tJxFbKkk1sOLpFFVR1wuJU8CunIqKhr3qdPmvFPJM=;
-        fh=0+V/a7y8RJjHy3E1qC8BagZX5wlKQRV9wcmYEQucBm0=;
-        b=G4MQhcL1n32u/1/06En89FyD5xKpuNwVo62f4ZDZcvHFJOtVHdPf/T9UuIqVUyrHV1
-         dvYtf5FIUqBpz+qJWaa4JvYCFKuWVIbtBOcwZ8m7BxFZgsUwLtX+C09HNcevSDv2CtGi
-         2D8Ng9Lhk6RAY1Pl2OayQ2hY7roaXHd5aOP1Gxow7r6cgbFlDapY/5XsOivQ0x0Wxt3U
-         r8xPYE6SwxaGWUNX5XLszmPsqvtxPKdcmqbRgD6T5LftpFnOnpZNHRbYvN+teST/jtjo
-         DOMBeUlRCu8Fn07qSPLvx8zxmd3YOku9TkL0pOgnbn4XbJiGSr8Zw7bts4EZG5IYYM/f
-         1hCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790531903; x=1791136703; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=58tJxFbKkk1sOLpFFVR1wuJU8CunIqKhr3qdPmvFPJM=;
-        b=dyACfRHqswA25Mqq2a05IftLMvPfwMdQB/ifFWZL4xPxiwI7dXyQX8yjygE0rRq+JM
-         6lHc3Jsv4ymUSDl1cNDAnh+WThV+htWVitQQuzz6dn5ndbL699sw20iyYk6sZt19k93u
-         sIo4W6T9s06bExNpZUNIupxwWTBnW6l8B2ZQNa474gYC6xiJ8uNXwMaPOHN7j/h649DI
-         l3Uf2POvxdipnHDTTcLjWoVZTR2EojaXHDa4rKQgocqzQJ1Ws/Ftkm8UQBL7g5YQkb4p
-         3NSwY4V3X6s+lgSQ5Wjf4J47Oq9t7An7OEy1ChE+lIKT8kOVj6FaFHoYr+s+6EozyE4d
-         jzKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790531903; x=1791136703;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=58tJxFbKkk1sOLpFFVR1wuJU8CunIqKhr3qdPmvFPJM=;
-        b=sDmUfeNfKxZFf/OTZCGk1nmTgRFnHp7WnPZY82hYnjHYgmMta7OPTI9mpBd026fNhU
-         eIP6+JipK9hFoNosU9Dza1fugvBqT4rtMqbgdpo//vv69StEnl4s5czfugPAQkNC21yO
-         avY2D6qSnjkqGfWldf2G3C/VzXy36koKuHH+t7wyt3TqLawZIwAg/JDsk8zuBx3aE3Sh
-         WPpWpZlJZ0f1loBahE+OmNJRIm22OoRPIgjn+G6H581LtnG5BUYjlpf3doZoaX8fcVID
-         7glDdc1CTsOqVOtJxEz2PKIYHIZIE9TEtrW1xayxEdZVQzrDd7LQrcQxEuaYSy+Vjubv
-         nJag==
-X-Forwarded-Encrypted: i=1; AKwUvBzRHYuJTdUUiJfvZKAgQIL/eF7cVaQjgtl2smh4Y3G/o+x9kqUQFdKLCQOZhCdpX8Vx/qzMmr8e6+oCc18=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAM3cl0URolvN/2ZBtVA1MQhoOMXlXrGsPKvNAOFm2l8YGnLk9
-	aHISFYunJhAGPvv+sw0BEn2U53Tm2HfM1rOncrFFsW6a/kDuPPirxvcipBsL9PE68Fm+nYSL1JO
-	Z/ykaWaR+GcOzjDqeRX46f255iyAAKp4=
-X-Gm-Gg: AYBFou2t7pNJs9BlgMyTbICsAj0ZVf2AGkJxkTTOEkzR04e/3YS/CkzjTBSqartA1+k
-	NkYPZNgf5tDDPXVWPEMQM/DcE8TAS+pm3+pCl52rjFXRPVMUxviEk03qmVfilNIXixhfgGPyeoB
-	WJWLCLIv1ghaHbGJBs9IYXTExskozfFZTVwFhKDevf7gz+Pz4ncBarHv8xC1dGR8SIVTO0KQQV/
-	jMHP5MU5lpMjBa89RHq3mX05A9/91CYYNloByKiHqOT9Cmo3zLYtzsUR4vO3NlVZA8PJZ2eCqeW
-	K0Ba8HB7f3GWyoDJbDPQgy19rEPQ20dCEyN8FxG8TSbElr/kL96cAfnWSlfmiKERoqrPAehFJig
-	Z05pC+ezUhaQ=
-X-Received: by 2002:a05:600c:a4c:b0:49c:fa20:cc08 with SMTP id
- 5b1f17b1804b1-49fe67060cemr197513905e9.31.1790531902934; Sun, 27 Sep 2026
- 10:58:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="N8T4eBLd";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XgFpz+8O"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790531920; bh=7tZh29+XtORnnHdPjkFoVfZ
+	ABSiJvgcRl960NDIgoCw=; b=N8T4eBLdhO7nFXSDvE6iiHlw8wpUXy/XC6+kSOawtR1ZjI4HC0
+	svVERHKmevM5usHczIB3So1bHMzH/aDotZLminxLP0g2TsDxn9R4UW8Xr2lN4jwPplxUBXTyTti
+	mkd/2ywozriM2hywSbztBs1ydmfxmaD4uEsu0dS0RknWY8ubOkksU8bsxezdQMrfsRp7dq939Jo
+	pjHUy5t6IqIZ5gMqI0Rm41YtLdGJL21CTPwTb159ZNAnfR14DZurp6QBK4eo8ENQH+OIHK4+Pxh
+	rY9hTIQJ0KypMVmNZ3nA1y3umpIq6LmxCIv5bV8UZIP/XZwNnrZ+gnBm0UYsNnjURQw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790531920; bh=7tZh29+XtORnnHdPjkFoVfZ
+	ABSiJvgcRl960NDIgoCw=; b=XgFpz+8OXx+sJ/QwcJsc45YkLQj8EUagaSvB1cj8f82PHpW55M
+	3XAiFLAkd3OP7wkTvP+5OTYlJC1155Yr02Dw==;
+Date: Sun, 27 Sep 2026 18:58:39 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: cui.tao@linux.dev
+CC: Liam.Howlett@oracle.com, akpm@linux-foundation.org, brauner@kernel.org,
+ cuitao@kylinos.cn, jack@suse.cz, legion@kernel.org,
+ linux-kernel@vger.kernel.org, mge@meta.com, ptikhomirov@virtuozzo.com
+Subject: Re: [PATCH] fork: fix active reference underflow on unshare() failure
+In-Reply-To: <20260927095450.3017586-1-cui.tao@linux.dev>
+Message-ID: <59245E44-CC27-4FE4-A5DC-15791314FE3B@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927114425.442803-1-pooyan.azadparvar@gmail.com> <CADqcGB=Jfg-=UoTnFJRv=+=RoKX4LhCz7sr4TVPS7F4_xG=WhA@mail.gmail.com>
-In-Reply-To: <CADqcGB=Jfg-=UoTnFJRv=+=RoKX4LhCz7sr4TVPS7F4_xG=WhA@mail.gmail.com>
-From: Pooyan Azadparvar <pooyan.azadparvar@gmail.com>
-Date: Sun, 27 Sep 2026 19:58:11 +0200
-X-Gm-Features: AclHuK87o0NFVmvvliTRvyOdHaWVG3mXQo78bllcHq76p8p2EN535aWHnrz1FBI
-Message-ID: <CANC3H+J9oRGP142sBL6BXzaiMsw_phQJZqDDAEgU6u3s4Dt21w@mail.gmail.com>
-Subject: Re: [PATCH] Input: raydium_i2c_ts - validate report parameters
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Herlangga Maulani <w1zardsec@proton.me>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Muhammad,
+On 27 September 2026 10:54:50 BST, Tao Cui <cui.tao@linux.dev> wrote:
+>From: Tao Cui <cuitao@kylinos.cn>
+>
+>When set_cred_ucounts() fails in ksys_unshare() the new nsproxy is
+>released with put_nsproxy().  But the nsproxy has not been installed
+>at this point; it is only marked as active once
+>switch_task_namespaces() installs it, which happens after all failure
+>points.  Dropping the last reference therefore deactivates it and
+>puts the active reference of every namespace it points to: for
+>namespaces created by this unshare() call the active count underflows
+>to -1, and for namespaces carried over from the caller a live active
+>reference of the still-running task is dropped, which makes them
+>disappear from nsfs file handles and listns and causes a cascading
+>underflow at task exit.
+>
+>Use nsproxy_free() on this error path, which drops the regular
+>references without touching the active ones, like the setns() failure
+>paths already do; see commit cefd55bd2159 ("nsproxy: fix
+>free_nsproxy() and simplify create_new_namespaces()").
+>
+>Fixes: a98621a0f187a ("unshare: fix nsproxy leak in ksys_unshare() on set_cred_ucounts() failure")
+>Link: https://lore.kernel.org/r/20251118064552.936962-1-ptikhomirov@virtuozzo.com
+>Link: https://lore.kernel.org/r/20260213193959.2556730-1-mge@meta.com
 
-Thanks for the review.
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-There is no per-packet touch count in the IRQ path; it uses
-report_size / contact_size. Those values are validated by the query,
-including the RM_MAX_TOUCH_NUM limit.
+Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
 
-The resize is safe too: query happens before requesting the IRQ at
-probe, or with the IRQ disabled during firmware update/resume.
-disable_irq() waits for a running threaded handler to finish.
+Splat:
 
-Thanks,
-Pooyan
+WARNING: kernel/nscommon.c:171 at __ns_ref_active_put (VFS_WARN_ON_ONCE, active < 0)
+  NIP:  __ns_ref_active_put+0x11c
+  LR:   nsproxy_ns_active_put+0x30
+  Call Trace: deactivate_nsproxy+0x24 <- ksys_unshare+0x528
+followed by a second WARNING at put_mnt_ns (ns_common.h:78)
+
+
+
+
+>Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>---
+> include/linux/nsproxy.h | 1 +
+> kernel/fork.c           | 2 +-
+> kernel/nsproxy.c        | 2 +-
+> 3 files changed, 3 insertions(+), 2 deletions(-)
+>
+>diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
+>index 5a67648721c7d..dc2447f5f0924 100644
+>--- a/include/linux/nsproxy.h
+>+++ b/include/linux/nsproxy.h
+>@@ -100,6 +100,7 @@ void exit_cred_namespaces(struct task_struct *tsk);
+> void switch_task_namespaces(struct task_struct *tsk, struct nsproxy
+> *new);
+> int exec_task_namespaces(void);
+> void deactivate_nsproxy(struct nsproxy *ns);
+>+void nsproxy_free(struct nsproxy *ns);
+> int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
+> 	struct cred *, struct fs_struct *);
+> int __init nsproxy_cache_init(void);
+>diff --git a/kernel/fork.c b/kernel/fork.c
+>index d458d85d7a656..11e16554daa61 100644
+>--- a/kernel/fork.c
+>+++ b/kernel/fork.c
+>@@ -3324,7 +3324,7 @@ int ksys_unshare(unsigned long unshare_flags)
+> 
+> bad_unshare_cleanup_nsproxy:
+> 	if (new_nsproxy)
+>-		put_nsproxy(new_nsproxy);
+>+		nsproxy_free(new_nsproxy);
+> bad_unshare_cleanup_cred:
+> 	if (new_cred)
+> 		put_cred(new_cred);
+>diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+>index 0f1b208d8eeff..454427b09ed97 100644
+>--- a/kernel/nsproxy.c
+>+++ b/kernel/nsproxy.c
+>@@ -61,7 +61,7 @@ static inline struct nsproxy *create_nsproxy(void)
+> 	return nsproxy;
+> }
+> 
+>-static inline void nsproxy_free(struct nsproxy *ns)
+>+void nsproxy_free(struct nsproxy *ns)
+> {
+> 	put_mnt_ns(ns->mnt_ns);
+> 	put_uts_ns(ns->uts_ns);
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
