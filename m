@@ -1,144 +1,100 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2A539A7F2;
-	Sun, 27 Sep 2026 12:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98D63E4C94;
+	Sun, 27 Sep 2026 12:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510742; cv=none; b=QxNdoBWPzb+WvQ2plwjinC6DrAk4lFUo+xfnfjeMYQLkEXY6KpgeipzSbCYpSofmL/QmlKfL2x2/gGEUa0jG4kdauwysr4BCcyA+LOAoXr7y9aJr9okhtWhby+s1Zj3Um+K2V62XHy7zdUYVHUpEBNB76rtP2jhGqwyJIoATEQs=
+	t=1790510746; cv=none; b=uk4IjODY/JJe1Ga+CR6LQ0TT2JwBVyLOFGSX+fwuKVgx+yf/IG0juEymxUyVm3DmwmyMTWm0mJZYENb0RSawvzxmSve75SohCsfLw9t2DothW+ktaU8byyHPJgEZ8d6HyM0yAN2Rg6+yKY4DqzxUPgu7bhZYYgaf3pasDdpZ/i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510742; c=relaxed/simple;
-	bh=AHoenpyp6OwVJ8IheVHLHeaV0N4IaRBKsv41zFzi8iY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=HJW9axixqxCtWqi4ut9p3xoUO9n0ZAGSiG0E4RIB16XAz13fzTWqnSDlGmXYyQ8mVpF/ve2grvclWsJeiAo99J5dnVtR3Slc38xCW0sHObzkugZUMscdYscFbzON2ffq8OzeCBqlTkZpYnyet9bCr1C4tNF3l8rkrbKOPxhPx9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=GfNjHoD7; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790510746; c=relaxed/simple;
+	bh=t2Ayh/V3yOhaCco/Ksb2VKM78F5vRUyfVCyVZgO+tDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZ/rTLS/E+tpGYEaPSCa974zFiQhlrSrp+bN97p6xejHmETEM4X31T5UjwQQ9RxSQTyFx7msVpB2OGEc5uzT6sxaJrN9NrvKZeeZ4rAxMnYXmIPs3M74mlQju308stjq/fSgPnxhqzt0DFJH/S3Mehhv4jIqkoKdA0njuMiEdHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2qtEcqk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="GfNjHoD7"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260927120537euoutp019c6217f2f172d5798b71ccad819cde66~ZLAeRpbfb0961109611euoutp01G;
-	Sun, 27 Sep 2026 12:05:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260927120537euoutp019c6217f2f172d5798b71ccad819cde66~ZLAeRpbfb0961109611euoutp01G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790510737;
-	bh=XG8+gWff0Kb6xp+rIzHqMb+FVejaqE783kZJda9sveQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=GfNjHoD7g834Dcl8ZapG6XaA2n8JLOknTzlw7hqfOTAo9LAYC2MsOnIIDyjT8ZLP2
-	 l5hKnOlzHW9ec1yco0+wCoH4olnd4//rBjjAIeXDtkaOcBZYd7z4B8k29ZiShT270L
-	 oFgdZaGafVbmpg9ZujF/q9SlESV9rt/e7uROppyI=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260927120537eucas1p2940a6c268f23ab72fb7eb581fe0bfee8~ZLAd4yZaM2953129531eucas1p2J;
-	Sun, 27 Sep 2026 12:05:37 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260927120535eusmtip28a1a6cb637e2a20e2b9abd75be01ad38~ZLAbod2Iw3245532455eusmtip2F;
-	Sun, 27 Sep 2026 12:05:34 +0000 (GMT)
-Message-ID: <4b1d51e9-1d83-4ad7-ac60-36de54e57bc2@samsung.com>
-Date: Sun, 27 Sep 2026 14:05:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2qtEcqk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2FE1F000FF;
+	Sun, 27 Sep 2026 12:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790510744;
+	bh=DtftUOhUj36KHzHH8SjyqQEupBI7pETe4V3hNrol9A4=;
+	h=From:To:Cc:Subject:Date;
+	b=e2qtEcqkmjVz8dCb2K5NGSGGje+z1wYZys269NNmJz+GX8OOSLHIb/gBF786OB+ou
+	 uB4Ay9iv28YlY/f/vngo3LVs4D6ZDDX7Jc5E7FaKlwMmBKMd1WyyhMIZ4GnpGvGcx1
+	 3Gxsp8fwjQYTs1GLfjs79kDdjcLSGrumVshL7ru3CS3i8KWOl1+DjpuoQr7R/WBNy+
+	 VLnh7HuMWmeh5D8otkf/iXa3esRr7CXIfK4Epa2Tx2YrkjSeyi4qI9nlKX+hRigzw8
+	 P7hnRcogkia6O0rfZB6TmRfr60HLdk+6iRckpaDyzyQgZ2XxsBE6psKs5dvvfpaISd
+	 bnTLXf+R94ORA==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v4 0/7] snapshot_set_swap_area() unpins the previously selected swap device and
+Date: Sun, 27 Sep 2026 05:05:24 -0700
+Message-ID: <20260927120533.50484-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/20] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Dominique Belhachemi <domibel@debian.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927120537eucas1p2940a6c268f23ab72fb7eb581fe0bfee8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153246eucas1p289987fd8757c89ff865c99b6465708a8
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153246eucas1p289987fd8757c89ff865c99b6465708a8
-References: <CGME20260915153246eucas1p289987fd8757c89ff865c99b6465708a8@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-	<CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
 
-Hi Dominique,
+Add repin_hibernation_swap_type(), which looks up the new device, clears
+the old SWP_HIBERNATION flag and sets the new one under a single swap_lock
+acquisition.  The same-device case is short- circuited so userspace can
+re-select the same swap area without tripping WARN_ON_ONCE and -EBUSY. 
+Switch snapshot_set_swap_area() to the new helper.
 
-On 9/26/26 05:31, Dominique Belhachemi wrote:
-> On Tue, Sep 15, 2026 at 11:32 AM Michal Wilczynski
-> <m.wilczynski@samsung.com> wrote:
->>
->> +static int starfive_hdmi_phy_probe(struct platform_device *pdev)
->> +{
->> +       ret = clk_set_rate(inno->phyclk, 297000000);
->> +       if (ret) {
->> +               dev_err(dev, "Failed to set default rate: %d\n", ret);
->> +               goto err_del_clk_provider;
->> +       }
-> 
-> Hi Michal,
-> 
-> Can we drop these 5 lines?
-> When my 4K monitor comes up in mode (3840x2160@30, 297 MHz) the screen
-> stays blank.
-> 
-> When the first real modeset requests a mode whose pixel clock is also 297 MHz,
-> clk_set_rate(hdmi_pclk, 297000000) then sees cur == want and does nothing.
-> So the pre-PLL is never actually programmed.
-> 
-> Without these 5 lines inno->pixclock stays 0,
-> so the first modeset's clk_set_rate() always runs .set_rate() for real.
-> 
-> Together with my forgotten fix from May we can have working 4K@30 on the VF2.
-> https://lore.kernel.org/all/20260528184145.384114-1-domibel@debian.org/
+A failed lookup now preserves the previous pin instead of dropping it, so
+a bad SNAPSHOT_SET_SWAP_AREA leaves the prior selection intact.  The open
+and release paths keep using pin_hibernation_swap_type() and
+unpin_hibernation_swap_type().
 
-Yeah, these lines are a problem in another way too. Marek Szyprowski
-reported that v4 hangs when everything is built as modules, which
-is what made me look at them.
+The race was identified during AI-assisted review of the SWP_HIBERNATION
+pinning series.
 
-The write lands in registers gated by the controller's system clock,
-inside PD_VOUT and the PHY holds neither - it cannot hold that clock
-without creating a probe cycle with voutcrg. His config is as follows:
-CONFIG_CLK_STARFIVE_JH7110_VOUT=y with the vout subsystem, hdmi
-subsystem, controller and phy all as modules so voutcrg is up long
-before the PHY arrives from userspace. If nothing is holding hdmi_tx_sys
-by then - clk_disable_unused() gates it at late_initcall_sync  and the
-write wedges the bus. I could not reproduce his exact failure, but could
-reproduce this with fw_devlink=off hopefully this is fixing his issue as
-well.
+SJ Park (7):
+  mm/damon/core: introduce damos_quota_goal->complement
+  mm/damon/core: add complement argument to damos_new_quota_goal()
+  mm/damon/sysfs-schemes: support quota goal complement flag
+  mm/damon/tests/core-kunit: test quota_goal->complement commit
+  Docs/mm/damon/design: document damos quota goal complement flag
+  Docs/admin-guide/mm/damon/usage: update for quota goal complement file
+  Docs/ABI/damon: update for quota goal metric complement sysfs file
 
-Anyway this code will be removed in v5.
+ .../ABI/testing/sysfs-kernel-mm-damon         |  6 ++++
+ Documentation/admin-guide/mm/damon/usage.rst  | 15 +++++----
+ Documentation/mm/damon/design.rst             | 15 ++++++---
+ include/linux/damon.h                         |  4 ++-
+ mm/damon/core.c                               | 33 ++++++++++++++++---
+ mm/damon/lru_sort.c                           |  5 +--
+ mm/damon/reclaim.c                            |  5 +--
+ mm/damon/sysfs-schemes.c                      | 30 +++++++++++++++++
+ mm/damon/tests/core-kunit.h                   |  3 ++
+ samples/damon/mtier.c                         |  2 +-
+ 10 files changed, 97 insertions(+), 21 deletions(-)
 
-> 
-> Best
-> -Dominique
-> 
 
-Best regards,
+base-commit: 1c2b8d2725f84b43fabe3b3e9628c91db8ca6c65
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.47.3
