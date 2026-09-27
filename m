@@ -1,119 +1,124 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A88C3B6C0C;
-	Sun, 27 Sep 2026 23:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AC23C1097
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550387; cv=none; b=iGn89DQ59bmZqiXh5WT6v/tksieLCeUCt4Xf5eCh4xeN0wi3+MjpWIMIT1ABEz+RvZz50cGFvgdTP8e0I5vqP+JO4RfELyDcdJU/XAzzctmpqnnyDP7KLIhf8BPF8Jz6Yth3Bs8LmLBznoFa6n1jRN6qvdnO8VuSj9aiP/fWYY4=
+	t=1790550438; cv=none; b=Wgy6qmsD/QKkpxXpM1q8irwXIX33QGFrcOdX3nLojDpdGvoX4DutlXilnSCNjlN9UArcMLmKCdmKx7fhuVuD7wnQDFX2w2x3/X/yu+DoTxLsn6P2un9pB4d8FT7LnryDNwPe3cIkCKdnSiVEGFOm+IHIAnwzmNY1FSFoEhgYFMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550387; c=relaxed/simple;
-	bh=sbWEO3tCfIIZAeFxVODMNPro7RKgKx0L0O7xOufHVJI=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=rXswu8Cw0k41a7mcRw0oMWnQ7VTK1G0w0iKyKJQKp6n3efHh+fjphI9FZNU+XjW22TGYw8HjArj1gzi8YJHh5XArHdjyMcuYSl2e7KRbcAO5Vf2jXgUhjxjbQoj93qQ8fQqccf6fLt+Ex6rFfXbG7kUZNbv6v2B7rlcs6xPsiqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CmTmlMMN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hfVbm+Gp; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790550438; c=relaxed/simple;
+	bh=F9Sa7Q15VZJxKT3BZA0gOeZJQMHcfq0klY9AQGiGSOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gGLXmJfFvXiMudYo0/Zk5KW8HaG9WvpeId9Cb4o0RLfZgNpCvTurjL+y5e+2Y+g6UEgAxG8BGw3iACoTV+8Ij/fCMlPGOsYjvINBvW42P5u5+4GG6cjpP3+Z4eUKljxJ1bfcL+8dBP/FZx7lz4pvt5xckQ9PPEOVagOdQKvQATY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q5mvhz4s; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CmTmlMMN";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hfVbm+Gp"
-Date: Sun, 27 Sep 2026 23:06:14 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790550376;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tu83UTVyoMud/HdL8ZOtTlk3Ss+xiFiQxSNdzm3tIN8=;
-	b=CmTmlMMNZEAQSVkHQ4CO7dQ15IJ7AgCBtvLsedJV72S0M+sgRCKP3bWGlppZ3RFMry0nlI
-	38Ke9w0LIRKdI94Bq37qwUd+q7VK0k2K8keqGQrxPm7sSkPnF8WmLl9VYqtSt001QoFXK9
-	8BJ8BlI6TVhp9ecyPJC/aPDNRmPPblfP0xuEPWjDTeGPdMXMl7GR5VP0IwntIzEVhTd8px
-	kfzNXzPxkLtA0fbVxCh+/o/L/ITGkixOn4DEE7QvV0FAFKBrzbRK0oFy+ZI7zEw3bpqSBP
-	OMsPoXGWJB08rKFAJpdsbYLsOEc7Y4FfJ5gM7YY4Uwpdf6jqggsGck72jSLdgA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790550376;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tu83UTVyoMud/HdL8ZOtTlk3Ss+xiFiQxSNdzm3tIN8=;
-	b=hfVbm+GpRSPQEQyFb4inqhNcSDF8/F13DnI88y/2KSSQj+HqmzxAW/rw0weitH4JxSOAOt
-	HKBKQ7d1RoCWvkAA==
-From: "tip-bot2 for Christophe JAILLET" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cleanups] x86/cpu: Constify struct x86_cpu_id
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: =?utf-8?q?=3Cf08d3a0e7aefe3bad66251927cbd03b8cbf9df73=2E1786311?=
- =?utf-8?q?119=2Egit=2Echristophe=2Ejaillet=40wanadoo=2Efr=3E?=
-References: =?utf-8?q?=3Cf08d3a0e7aefe3bad66251927cbd03b8cbf9df73=2E17863111?=
- =?utf-8?q?19=2Egit=2Echristophe=2Ejaillet=40wanadoo=2Efr=3E?=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q5mvhz4s"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso4771665e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790550434; x=1791155234; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/a+F39bGWb4OewkX5Hci6JgQLGfPvrvosBqj3gZjoyM=;
+        b=q5mvhz4sY88KKx91DnEgAULZZt1vBzV/a9AyA0NnAQarsBrPOuffT+OlR9K8M02LtW
+         B2yXi5a82kNnMiTFum85upIioSXCzVEfnuPWV2LCcmBfX/1rbzSCpX550fN/qcYyguVh
+         jwbY39Yw+Wo0kLYRlq9xnV83a6aoeSHYDcLRXkdsCx2boT8wfW+KfEisnoILS1dAz7ey
+         DUgxRJd8GJW/9mzy1mku14P6zG/2u4+jxjsNY8LjRkcOhM+naXLHnu2k/LZfKDZbh+d0
+         xvFrEnLz0shSq+1eeCMBQ1kWx6J/Cu0WYTa92Rc4VRF/UJ2adi2oJqAam2nr+S/PllL4
+         vIBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790550434; x=1791155234;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/a+F39bGWb4OewkX5Hci6JgQLGfPvrvosBqj3gZjoyM=;
+        b=Bt+6YpyE0tkv4KYAZ9VlucarylpwekM9kot3QOhgYbuLEY2904VZERKXo4EsBT/rHY
+         ilUejBDdgeR/jSEh7Jpe/wgRcQNPJ9yWF20kfTpenqYs3o0MusKmpJ8ZR+2neo3Jb9O4
+         cE0dIl5JdgXyk8PhLZUBdaUKvZES7QJoUw9dIR9YpgLdFjrdzrBpOcyJkPSWNhopV6iB
+         RrKkfpTs/NqKgBsHSLXDFaZWGr2NwCPQMnLDV6YKiQiWr8zMV9xlMbhOi5TC1P8WbrUa
+         hCfGED9/tOfofJ8nNIn0dOAMDgDBpw1usAEvCDmKxxmIE7ftVm2OLCghwAAO1BAf5Db7
+         dfvw==
+X-Forwarded-Encrypted: i=1; AKwUvByQKAffuzG3MvkfbcxZJOk8wndFf+/e29gfre8AEzCcP0XlJgi+KJkgFPbW3JjdfYp8pdxoIvhf1u1rH3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkgyJi8Lxc7hCoUdpMYPT7sBS3cdLrJ+J3OxXzMxy2OjDfKm54
+	X/CF9f/eJMsj1JkSmwxwmiresvZCDfBmxIQiIFFEz//YABFGNgf8fSOr
+X-Gm-Gg: AYBFou0ls27P82G9b/OHFCy2OPhzfyQ7gmu+zDKewbTIiSDJnnvVA4STmy6I3B39EdE
+	kgpPoxAoS5FP/UotXW20hDIKuYWJOTl8YPMffiKXdVfP+ehPoZS+w03prwCtyVamlDv/WujR/y2
+	3DKE4F0jnrGBYaCu8zdge6iek7XN4ATbIv7QVigTxpOXU8cmQOQ5yfsqqiCaxTry0HNmWLGcBYd
+	Eei0HTtFHLpdiA7/e2rpoI03keGEPP7v37w8dgk056XMI+FmdSeBUpB+lIac1b3wFVe8XN8DKy/
+	U2CJrDFo1Wt8qVCu9HojQLCI48p8DJGQ0kircb68u1BYvmJK+uZeald5p3ak/tDAZ6dPWI+b/0M
+	aEKgDmMlOqb8tLthdRObWVXSL5MeM3Vn9ytsKeV9anHqoqSU8H7IIOnp5nEiKde/SJxt3iMIhnE
+	DnR5F+QLbTLxvaiRgR5MWAkdM/LlBpsyMK0Tge1dY7xudDPEaFwSxY4h4/jGtdwj2zJ4JS
+X-Received: by 2002:a05:600c:3148:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-49ffc4fa10bmr80800295e9.7.1790550434194;
+        Sun, 27 Sep 2026 16:07:14 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017998dbsm134269715e9.14.2026.09.27.16.07.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 16:07:13 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Cc: john.fastabend@gmail.com,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH bpf-next] bpf: Skip redundant destroy_if_dynptr_stack_slot calls in check_stack_write_var_off
+Date: Mon, 28 Sep 2026 02:04:28 +0300
+Message-ID: <20260927230511.417420-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179055037498.3910103.12743835080284440637.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/cleanups branch of tip:
+bpf_get_spi() maps 8 consecutive byte offsets to the same slot index.
+When iterating over a variable-offset stack write range byte by byte,
+destroy_if_dynptr_stack_slot() can be called up to 8 times for the same
+slot, even though it operates per-slot.
 
-Commit-ID:     c7243accb48a7987b2e80751f712c3f4fe2b3714
-Gitweb:        https://git.kernel.org/tip/c7243accb48a7987b2e80751f712c3f4fe2=
-b3714
-Author:        Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-AuthorDate:    Sun, 09 Aug 2026 23:32:25 +02:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 27 Sep 2026 15:50:03 -07:00
+Skip iterations where the slot index matches the previous byte's slot
+index to avoid the redundant calls.
 
-x86/cpu: Constify struct x86_cpu_id
-
-'struct x86_cpu_id' is not modified in this compilation unit.
-
-Constifying this structure moves some data to a read-only section, so
-increases overall security.
-
-It is only used in cpu_has_old_microcode() which is an __init function.  So,
-using __initconst is safe and will save about 6 kB of memory at runtime.
-
-On a x86_64, with allmodconfig:
-
-   text	   data	    bss	    dec	    hex	filename
-  55725	  28774	    512	  85011	  14c13	arch/x86/kernel/cpu/common.o.before
-  61464	  22918	    512	  84894	  14b9e	arch/x86/kernel/cpu/common.o.after
-
-  [ bp: Massage commit message. ]
-
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/f08d3a0e7aefe3bad66251927cbd03b8cbf9df73.17863=
-11119.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
 ---
- arch/x86/kernel/cpu/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/bpf/verifier.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index c735282..593ca8c 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -1427,7 +1427,7 @@ static bool __init vulnerable_to_its(u64 x86_arch_cap_m=
-sr)
- 	return false;
- }
-=20
--static struct x86_cpu_id cpu_latest_microcode[] =3D {
-+static const struct x86_cpu_id cpu_latest_microcode[] __initconst =3D {
- #include "microcode/intel-ucode-defs.h"
- 	{}
- };
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index fec5a1ae6a4d..0eeb498db9d3 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -3824,9 +3824,13 @@ static int check_stack_write_var_off(struct bpf_verifier_env *env,
+ 		writing_zero = true;
+
+ 	for (i = min_off; i < max_off; i++) {
+-		int spi;
++		int spi = bpf_get_spi(i);
+
+-		spi = bpf_get_spi(i);
++		/* bpf_get_spi() maps 8 consecutive byte offsets to the same
++		 * slot index; skip redundant calls for the same slot.
++		 */
++		if (i != min_off && spi == bpf_get_spi(i - 1))
++			continue;
+ 		err = destroy_if_dynptr_stack_slot(env, state, spi);
+ 		if (err)
+ 			return err;
+--
+2.55.0
+
