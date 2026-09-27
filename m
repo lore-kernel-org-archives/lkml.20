@@ -1,139 +1,264 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out12-174.antispamcloud.com (out12-174.antispamcloud.com [185.201.16.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35DA3B14C3
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12AF3B9931
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.16.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541136; cv=none; b=llQHBmnsrT+paesDA6BaidE0gKdVVvLIkSVAGYzivbrksoYGZ3RZZKTDkDRCLrlMxKcd8lfNHye6sNCfFCq9f/qqCBdAjBTnvbK/OdHDA5F2UnD9J9/ELiWBUlw7UUeva2xMLfLiFFfNlnVQD+A8DfaoBbRHkbd4ytJpPmjy+ig=
+	t=1790541295; cv=none; b=qkfsfXcDvHSNbQgv49knN4RcBesUf+I65qEFtf0tmfPTWJkUh8wNcu3wqnQUqAxfRk3lXaLGHxBIwVFbDzwEsPrUJNy+BlhEq2CGrvgC45eLGFLjMl+iueS/87uieyBbKhbD2lehMr55P6OOdFr5PO3ZYYbuQ8a7iktnjz5YpHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541136; c=relaxed/simple;
-	bh=eAw4W6QjTTBXa5GbZrpw+yuYiwhLLXyJOTNrJ0+leFk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qN6289fmtbA800dldkwcn5kLIfd8pnWN+OF8D0gu/hBTW1T0+34dUt5hH3Q1ckSpKyI96iMtHvy5+1OaQNW3FRuksUjofDPevBv5L8KhfHzv0DgjsyVPYn8l+wIfh5zx2eCQn553jQUkFj3ktcjbZ9CM6hX1ytyKM8fV/BJPNzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSad5ng0; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790541295; c=relaxed/simple;
+	bh=xsHe8rDyTpbHhOP6MTP7JPbUKGLGUm5eujXlLIRhsMU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cf5Ieh5piMsL4ax0UfGwNNmmnCc0+tkaAYJOmbXyzgjGkiBUx19rAm558erNNH4SxTd80f69d13ibho29l3VavkQ3fL8sPs1VJsfxD/6OvADas14tVYztPc+0EE7eJGmYfHI2nBmS/uXL+KpaKE15+Q6Emae2tixEUL8vekh1Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=kMIe1YC3; arc=none smtp.client-ip=185.201.16.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSad5ng0"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0aa9d356eso1919264a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:32:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790541134; x=1791145934; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eAO6WabpD+y/dCbAwrQTwRbR2CnZ9OTMQukOdgoZcZI=;
-        b=jSad5ng0H1Fl2tyE/JiK6+/lazD/g/aum/ZC6XGhUyuJp5qqSDbMSkMxjf8pkZ9FsW
-         3zTSWZEH71KuvA/QxXY2/3yHkt/QUE9EWiO48Hcliw3W7b+4aiD02yeIOZ4X7BdBBNy+
-         Ut0N07t4FUZ5Us0oNeoGgOnWxpLs2GVZxA0POo6hyvnzJVSCsBKVqKkShtZd7zxgyKPP
-         jMzICjGD7FgyX5PW7pn+mPCvvlE2YYzWfPLtgJ63Ui3X/C03d5wG0iKUgxzT7vxLBU+v
-         BDNUg3vel8ztmzSzoLA/AfTmUbHrLoj+5eEnIT37tfMFE99w0Qe7fBsSLlpWC3ZHVQo1
-         6hcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790541134; x=1791145934;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eAO6WabpD+y/dCbAwrQTwRbR2CnZ9OTMQukOdgoZcZI=;
-        b=TQlI8UKt8ZTsIidoAr5VpY3b9Uay3n0B+r8VkDU5mbnmjtLBS3I5JTQWS8rp9riiUh
-         +E8NDZfPav/8b0Xsw5sMObMkwFAkUwRiK7W4XdkaGv5g1ctWFnoGkbQxLnUAa5DYYAw1
-         J0Qmn50siSmk4tTGvSibdwRy9Kl31oLwqbba5Puu68iSgyzUo2WvsNlNGhCmr/8EJKCj
-         xZLjjk65E7SknbRFSiF2BJuVt9IrpXhFr2MIrrBqTsQgMGedTwFPSD8hl5ydgxSFK8+1
-         BbUT1KxXeiyPSQWRSBrjcWqPOJ9NfM8OCeT5pOvgVx26GolTklS+HiPjSR0VE7oqOx6Z
-         CYZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfBClMtEHgjWNx9kZLVLBLaRtAi7evHtUVL6YraMKRStsu+4ISeIF6B2NHWGoyT4IGQ1tg5cNIO1Pazzw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw3sVmEclt5DZ7cj17UGcrKpFvJyP+nN7QxC8aSz18fph+G5jz
-	kKQrUYGwyClX3qbA060ACke5ViDi7hGvAlH7iQHR5117VhGEzt85fXh0
-X-Gm-Gg: AYBFou3HsV8fr7bU6qhy9a8ww9ZLnqIljbURSreKBAn3E6te3HdP9CHDJgH9r+lwjlW
-	w4eFUgdV50fA7QVaeLNOAKmCtuwuK7LViFV+LTU5+7ezTX5B63vpfQM51FfHch1nJiCPfuQ9q65
-	GWbDW8K9+Ar2RmVG37yq+cuzJuL7eiPsIeUL3y3XOE89ZcWfzwYc3gvLxvOYvT/rmGTggjw7jNi
-	Wn+1dto/Dia3XhPFW1NyZJiObWzgB9ZPJSt9QIs9KT7prqrRImhHsUnt+F0c/7uoT0Wz+bRUDRx
-	Vd+zqqtnE4ZtvZ5SIYR2n5Q3jLDrCuNQ3Yg/6UniHNrDB95fU1cu4L0NRN2OQT5IMiYSlTtTip3
-	MOgGbCNbz3oGFC7Rv6N6tDlq6XIleWOf9bwos23Zove3XDHGmYBlMTLWbeICnPEP45pVelSM/Et
-	3InezPBsBL3pyrA+6cOeOTBfL3q5RWLBrUaNnhtChLCOiRf3NIlB7ymZEUe+jsLYuet9uon54=
-X-Received: by 2002:a17:90b:574d:b0:3a0:2900:f584 with SMTP id 98e67ed59e1d1-3a099230a7fmr10493566a91.46.1790541133971;
-        Sun, 27 Sep 2026 13:32:13 -0700 (PDT)
-Received: from google.com ([118.150.148.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99dcd78sm16818220a91.15.2026.09.27.13.32.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:32:13 -0700 (PDT)
-Date: Mon, 28 Sep 2026 04:32:07 +0800
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: ast@kernel.org, Greg Ungerer <gerg@polyxeno.com>, daniel@iogearbox.net,
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
-	jserv@ccns.ncku.edu.tw, marscheng@google.com, eleanor15x@gmail.com,
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	bpf@vger.kernel.org, Daniel Palmer <daniel@thingy.jp>
-Subject: Re: [PATCH bpf-next v5] m68k, bpf: Add initial BPF JIT compiler
- support
-Message-ID: <arl9R1pfMU1k7-Ur@google.com>
-References: <20260823163812.3024812-1-visitorckw@gmail.com>
- <f89b4e87-12fb-45ae-a2a1-12ebcc483326@polyxeno.com>
- <CAMuHMdX6rtJDZUqhLf+-U=9=yTkhJtYUU_Ru1GE=7o0qXu+d6Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="kMIe1YC3"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx321.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1xAud9-006i4J-Br; Sun, 27 Sep 2026 21:33:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Cc:To:Message-Id:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=eYn3yUQGUXnIYiDWdziiC+KrDZkUHHUq1uCuWFnAodI=; b=kMIe1YC3zf16GpJHHEoe5K07tr
+	xaMinBv1gwcpHOKMQkhN4k56bDcGIs1nqIg3L93QY9dMoZpgZlGPYhuhnoP8GXhugL3F0GekUuZMp
+	i0XNKpssSTEIMLjVr9w1gkeym1Oap66+IImlP7ymfKfZ1KXKTV1xpd4HanVTksd5xmIWp5CXNpF7j
+	ZtAo0RD7Qa4GrpJ9DotQJ6aBFBOxqRE7M4sJT5BQqCQ8W0DQpRyYMvRZn9xifm7D3938DleKn+tpf
+	GGV9Vm2Yi0U+0KLcyo5DPDLYb1mSyhHFmUhUJd4oa/+tSJtNrHhSdaGWObAxxEiqxpUydKoEcBgnj
+	fDcpfmrw==;
+Received: from [188.251.249.2] (port=58472 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <dan@reactivated.net>)
+	id 1xAud3-0000000GfmQ-2TT0;
+	Sun, 27 Sep 2026 19:33:41 +0000
+From: Daniel Drake <dan@reactivated.net>
+Date: Sun, 27 Sep 2026 20:33:01 +0100
+Subject: [PATCH] drm/vc4: Set DRM DMA device directly from HVS and V3D
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdX6rtJDZUqhLf+-U=9=yTkhJtYUU_Ru1GE=7o0qXu+d6Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MuwqAMAwAf6VkNhAztOiviENto2bwQQsilP67x
+ fHg7gpkSSoZRlMgyaNZr7NB3xkIuz83QY2NgYktDewwpgPj4TE2OQgyurAQ+dUx2QFadidZ9f2
+ X01zrB0ZakfNiAAAA
+X-Change-ID: 20260927-drm-dma-device-2-7cb00af72069
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Daniel Drake <dan@reactivated.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5087; i=dan@reactivated.net;
+ h=from:subject:message-id; bh=xsHe8rDyTpbHhOP6MTP7JPbUKGLGUm5eujXlLIRhsMU=;
+ b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquW+S/luswFlO3g0gETB4ea7gCB8sOyNf6UY8h
+ hvEnJt1lkCJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarlvkgAKCRDD5o+xUxRH
+ u9EiD/0Z+vPS4fkcJqEDP3owzTvQZxVv72AttdZggD5/6TW5J6Q3FThmTUUH5iqaWjoHivzRnUa
+ WE4gs1cDA0T39XSRghYykx2GRxh1QsTTkk7RsibP57ZbMAvLGkab4oJpGKjKgdeMnS+YyleD5PW
+ svnF9FuUlamIfG27jzg64H182RysSRCxWPp1U22bfT7Kp3Z9VxpVviAtKZgVyia3nc+A/WB5HiS
+ +C60O8YM4HukRWzducWS1RjCtRY6PiST3OQQ9m9WZedGjpZCBambIt2EwlM0QTsKCQ3KZQY3aeM
+ zlWukTl+r+mS0UD55zHax2RrdIqvmhACqRI4kYcGrz5U9clqvxeCdZK/Cg2ZLNcWYN1LFtDFCGt
+ ZKM2ZIeWzWToAeHY536bbqt4KG0o64uvf8U7rt8fU2YUxXQQAReOvspNTptJ+Enaqn6IoRlzWyh
+ 8BK7aYzuz+D4MiIFGpEvj864bO75kubDvG3IciZM/RXKvWhjVBGDlVquaYRGV8F4tpnQk3pd/iA
+ VeSbBmF7hN3XsrKMaqGsEsDRxEckn3SBmT4fzWhAp2BrI7y2upn1x1mYtxrxLGCZsVm0dMUEYK0
+ lkeOPuM5W6dacShIo1YpkEn3LPa35HKMPDWBzkly+skXWPIX1A4Q+BI2Qnj+075/RoGnFLFUaHS
+ 1l92MXeHiktZuuQ==
+X-Developer-Key: i=dan@reactivated.net; a=openpgp;
+ fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: SB/global_tokens (1.32201094524e-05)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuXaJbTqORSf8QPiiM91bDATa8pwdu0nlUtr
+ v9yIzvpSsyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVIPVMT93NoonounRkNyQ2LDLGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhb7ubyJcscJCC/8jhyq4eIIJWBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
+ j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyrUaAnpoZ
+ /2xtMtxefNLu7JERMeTgzFM97lqhSb1E3HMfLhaNlCBHzdFUdSuISaD+qfPp90TT+Pu+PDzsy9Db
+ OpdwaC8qXZJdLAQDkwdJb5PTjlyEp834Uy5Cj2c5xTC3gJSz3Pb41oMWxWVAbzvbVkuf+eM3l5KP
+ nbp/eQthjVO27qEN0i3uPdiiOcxb1W5yo97g3BbiTfWFUNY9PPQFifTCzuiwroezwaLJe7DuyROO
+ r+K2JQ/RNOlnkgfwIFDd3XNhc7IqYUIgVggaPkXaIHzSipCF/9owBYArmW2JA+qetIPamnBS2qPX
+ 0YW4FkjLRw0lRJ7b6p62pxxRod1wrBC/x3Ws3N9QKU7baUkidxrLn2JFvTwxw2rUoW840DiKE00o
+ 4HcXiVlmqq7rjtmnPPvgN0j5Zjdo7lug1QoDSvrYNiHnrwo3MxFvlFv7ce8Spf+GMZJk67EtLxTr
+ EHBFDDaVxo8uvMBjbuQvf6VNVyYoAi8Uc2oZx8hUUuy5epJAJTBivmuTWFpVYNhpSn7kRHMcN6qo
+ XPjenLhIOF1oeRb/UAjtSdLUCm4oBscLM8kn2urBX6LyohhIXmM/9zzJ6C1JFZpT4XAXptlUCUDa
+ dEg8fvDJlqs+4uVSxCZaxD168J7ArISHgc1ouiDb0lGY3htzeHnKxaPb82JYf6EvQqPTPpuFqUUQ
+ z+mM8JAD4ECWUEmmlTt39YF6tMVf4ZbCsLPTDm9x1wcjenLcvy0+pYBTkP/qV+1a5UVM8nkKOUP3
+ aKRYvBPrgzKAmkPQnJU9b1J75UPCuRu+8KylPX+NAXplE8tcUX6kZr3+Ob4JcQTWeXW8oEyu47TQ
+ DqTi6GKwcPGM2dTl3QCYaxBp/L42XX16l+mke5pNa7TIOj7iFBj9MkiPhSHaQZlugDaDyn+fTA7j
+ SeBK0owOZo/nKKA2Y8v1MU62oe4qNRYfW7XcddzgZJ0Q4x+0GOxZvoENDONKwfMsKvKUfj3CUGQZ
+ VNqeRfoLADSib5OZB5Y+uxAGfYgWMkiPhSHaQZlugDaDyn+fTEvwYiZNmk2q0LoKDU23xXc=
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-On Sun, Sep 27, 2026 at 04:03:15PM +0200, Geert Uytterhoeven wrote:
-> Hi Kuan-Wei,
-> 
-> On Fri, 28 Aug 2026 at 12:50, Greg Ungerer <gerg@polyxeno.com> wrote:
-> > On 24/8/26 02:38, Kuan-Wei Chiu wrote:
-> > > Add a BPF JIT compiler for the m68k architecture.
-> > >
-> > > The JIT generates m68k machine code targeting m68020+ processors and
-> > > coldfire parts with an mmu (ISA_B/ISA_C). It excludes plain 68000/68010
-> > > and non-mmu coldfire processors, as it relies on 32-bit branch
-> > > displacements (b<cc>.l) to handle large bpf programs.
-> > >
-> > > Tested with the test_bpf.ko:
-> > > test_bpf: Summary: 1061 PASSED, 0 FAILED, [1049/1049 JIT'ed]
-> > > test_bpf: test_tail_calls: Summary: 10 PASSED, 0 FAILED, [10/10 JIT'ed]
-> > >
-> > > Tested-by: Daniel Palmer <daniel@thingy.jp>
-> > > Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-> 
-> Thanks for your (impressive) patch!
-> 
-> > From here it is really up to Geert now if and when he will pick this up.
-> > I am happy with this patch in its current form.
-> 
-> Who am I to block this feature? ;-)
-> 
-> > > --- a/arch/m68k/Kconfig
-> > > +++ b/arch/m68k/Kconfig
-> > > @@ -8,6 +8,7 @@ config M68K
-> > >       select ARCH_HAS_CPU_FINALIZE_INIT if MMU
-> > >       select ARCH_HAS_CURRENT_STACK_POINTER
-> > >       select ARCH_HAS_DMA_PREP_COHERENT if M68K_NONCOHERENT_DMA && !COLDFIRE
-> > > +     select HAVE_EBPF_JIT if MMU
-> 
-> Pleave move this to the other "select HAVE_*" lines below, to preserve
-> sort order.
+vc4 uses of_dma_configure() during bind to set the DMA configuration of
+the drm device by borrowing the configuration of one of its component
+devices.
 
-Ack. Will fix in the next version.
+This violates driver model expectations that IOMMU probing and domain
+attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
+Get DT/ACPI parsing into the proper probe path").
 
-> 
-> > >       select ARCH_HAS_SYNC_DMA_FOR_DEVICE if M68K_NONCOHERENT_DMA
-> > >       select ARCH_HAVE_NMI_SAFE_CMPXCHG if RMW_INSNS
-> > >       select ARCH_MIGHT_HAVE_PC_PARPORT if ISA
-> 
-> I think you should also update
-> Documentation/features/core/eBPF-JIT/arch-support.txt.
-> 
-I wasn't aware of this doc.
-Will update it and send out v6 shortly.
+With the introduction of the bcm2712-iommu driver behind the vc4 hvs
+device, a warning is triggered:
 
-Regards,
-Kuan-Wei
+    vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
+
+Instead of configuring the virtual aggregate device, adopt the pattern
+used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
+register themselves as the device to use for DRM allocations via
+drm_dev_set_dma_dev(), provided a DMA device has not already been
+assigned.
+
+HVS will typically bind first and claim the DMA device. The gen6 36-bit
+DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
+older generations, vc4's v3d component continues to be available as a
+fallback, and the default platform bus 32-bit DMA mask is retained.
+
+Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
+Signed-off-by: Daniel Drake <dan@reactivated.net>
+---
+ drivers/gpu/drm/vc4/vc4_drv.c | 27 ---------------------------
+ drivers/gpu/drm/vc4/vc4_hvs.c | 14 ++++++++++++++
+ drivers/gpu/drm/vc4/vc4_v3d.c |  8 ++++++++
+ 3 files changed, 22 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+index 616caf9d9915..62f1a5731e33 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.c
++++ b/drivers/gpu/drm/vc4/vc4_drv.c
+@@ -273,16 +273,6 @@ static void vc4_component_unbind_all(void *ptr)
+ 	component_unbind_all(vc4->dev, &vc4->base);
+ }
+ 
+-static const struct of_device_id vc4_dma_range_matches[] = {
+-	{ .compatible = "brcm,bcm2711-hvs" },
+-	{ .compatible = "brcm,bcm2712-hvs" },
+-	{ .compatible = "brcm,bcm2835-hvs" },
+-	{ .compatible = "brcm,bcm2835-v3d" },
+-	{ .compatible = "brcm,cygnus-v3d" },
+-	{ .compatible = "brcm,vc4-v3d" },
+-	{}
+-};
+-
+ static int vc4_drm_bind(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+@@ -295,8 +285,6 @@ static int vc4_drm_bind(struct device *dev)
+ 	enum vc4_gen gen;
+ 	int ret = 0;
+ 
+-	dev->coherent_dma_mask = DMA_BIT_MASK(32);
+-
+ 	gen = (enum vc4_gen)of_device_get_match_data(dev);
+ 
+ 	if (gen > VC4_GEN_4)
+@@ -304,21 +292,6 @@ static int vc4_drm_bind(struct device *dev)
+ 	else
+ 		driver = &vc4_drm_driver;
+ 
+-	if (gen >= VC4_GEN_6_C)
+-		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
+-	else
+-		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+-
+-	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
+-					       NULL);
+-	if (node) {
+-		ret = of_dma_configure(dev, node, true);
+-		of_node_put(node);
+-
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
+ 	if (IS_ERR(vc4))
+ 		return PTR_ERR(vc4);
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index e715147d091c..305770c87dcf 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -22,6 +22,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
++#include <linux/dma-mapping.h>
+ #include <linux/platform_device.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+@@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
+ 	}
+ 
++	if (vc4->gen >= VC4_GEN_6_C) {
++		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
++		if (ret)
++			return ret;
++	}
++
++	/*
++	 * Use the HVS as the DRM device's DMA controller for buffer
++	 * allocations if one has not already been configured.
++	 */
++	if (drm_dev_dma_dev(drm) == drm->dev)
++		drm_dev_set_dma_dev(drm, dev);
++
+ 	if (vc4->gen >= VC4_GEN_5) {
+ 		struct rpi_firmware *firmware;
+ 		struct device_node *node;
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..1f76d4850122 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -10,6 +10,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ 
++#include <drm/drm_drv.h>
+ #include <drm/drm_print.h>
+ 
+ #include "vc4_drv.h"
+@@ -443,6 +444,13 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
+ 	vc4->v3d = v3d;
+ 	v3d->vc4 = vc4;
+ 
++	/*
++	 * In headless setups where HVS is absent, use V3D as the fallback
++	 * DMA controller for buffer allocations.
++	 */
++	if (drm_dev_dma_dev(drm) == drm->dev)
++		drm_dev_set_dma_dev(drm, dev);
++
+ 	v3d->clk = devm_clk_get_optional(dev, NULL);
+ 	if (IS_ERR(v3d->clk))
+ 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
+
+---
+base-commit: 16130ac7861fbbaef5564463a9f6be230e00fb24
+change-id: 20260927-drm-dma-device-2-7cb00af72069
+
+Best regards,
+-- 
+Daniel Drake <dan@reactivated.net>
+
