@@ -1,221 +1,100 @@
-Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E782F532F;
-	Sun, 27 Sep 2026 22:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DED92F532F;
+	Sun, 27 Sep 2026 22:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790549641; cv=none; b=JWyubjgMT9CF1DAsjCQzlPyz6XnrN0ig0e7xL/eBbR+ld/iHwqf4xoLYkqEn/j23C/GUkdfoziYvgSNu7L9zAXPVnwSXUQEJfs6LFb5f8NfyldXceBcjxV3muUCdNdUlQ8s1ANXKxT+r89jCqF7LVW7V4fABUMPPxENPINIbS7g=
+	t=1790549721; cv=none; b=p4vmPqswoSRq/kTmpyhsmxgjRRqD+/vNi4+RRRAS4W659wpEt1r4XbgMm+ZJ4WwTRdyjieDG62D98akB2e0v2/z19DoAttAMfZTCW5NUL/avQMGWDTC/disdNLBZqc2Dil6vE1QMIC7iuCSizt9/WJHjddl62DQpIgUIOTG41Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790549641; c=relaxed/simple;
-	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lujh6DGJD09q1B3ff4zuXczW+Feoyu75KGzVEUsD8cyu0ZoK/XoFAeGaq4InekaARYci93+/9V0mDgmzama9RlZ/Hj1YE2wubTONM+d4SGskl7lwafbs6W2HWbZt8r/WDhS1yHTcCBhJxOya1E+v8FkymKnVhVSfcj/wWP38Bnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de; spf=pass smtp.mailfrom=matt3o12.de; dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b=QPxsBAyX; arc=none smtp.client-ip=91.216.248.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
+	s=arc-20240116; t=1790549721; c=relaxed/simple;
+	bh=mC6/VZlfYhtXcePRRuT2KfGvn5KsIYXCXji30sfsqL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fy71Qd5qsEsd7sdzMRnYXenuZZAE1V3WxuLhHwytMKuAE3QF+3zkXdLvOdF/ucbDFczfWxUD0Bcjf1Mo6ErB5zLbxpUGj8OG0qKWrp9shJUBtAnLWGcHTlIA/aagiXjImN/UbMD4KzlmSO3uARW7VL7CHueuRX49itydyOwAQgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eIGI0kb8; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b="QPxsBAyX"
-From: Matteo Kloiber <kernel@matt3o12.de>
-X-Lima-ML-UUID: 7b21bed0-f515-40d2-8fad-e214b5c9faf0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
-	s=securedbylima-20230709; t=1790549158;
-	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QPxsBAyXObGEqRuVtVwk+kG/MmUHlCLH7ftmtL5BWr2j8oaZf0M4V9Q3kIBZ9zV+2
-	 uylOzjCrgcHThRhe5hs4jq2HvGiNof6YkMwPPkWx3ToNAJplgp+cp0SpLJ0eZShIhP
-	 cL9aqqpJMKK1jiCRLqPoDgiKaEH3N2yN8bY7vVrd8qp8ScHRVQw3QGZxZ9UKv/+oAR
-	 xLVSKeXX1+T/jtMI9IQloUVQvaHzI/703WAmDE/7Jdc8d2wO5bvZAMStVQq6a1vbR5
-	 RNVGTGvhjnpL8x33L1GqLVpWnHzdQflfLmVHlzU0CgiRtDVX2EmxDPhXofOm2Jdl3V
-	 I/ygm44GFUvqA==
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	aliceryhl@google.com,
-	ojeda@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	abdiel.janulgue@gmail.com,
-	daniel.almeida@collabora.com,
-	a.hindborg@kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment size
-Date: Mon, 28 Sep 2026 00:44:43 +0200
-Message-ID: <20260927224446.1053037-1-kernel@matt3o12.de>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
-References: <20260831233215.287881-1-kernel@matt3o12.de> <20260831233215.287881-3-kernel@matt3o12.de> <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com> <20260913210806.125589-1-kernel@matt3o12.de> <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com> <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org> <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net> <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com> <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net> <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org> <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eIGI0kb8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=fonZKBEVnLUi3nmIxkkXaoCZILdYms0d8ZYuqeeaJBg=; b=eIGI0kb8JoQ6f59QATnKY4VWTy
+	KlWA18PX6hX10BKhOmxNq0tGi3u1aRfvl4+RCRxnypG+Q3zub+tAGfPLahvJ7UxrqebG6Hw87AV+5
+	pjJ5wII77N8SG6ISTZur4tDlzHyQJG/AruwRnBvYUL5h5vM1R4LIVih5MQuljHXPOD6svEMX0vt5w
+	fN1uh3q8xkndWOy2mJeEInuuRC2htXs6SWKt9eP27BmPHjB6Elzy1vZxpqCT0Gl7etIkQcBpxUbK4
+	n8v611VA11zwhLqKPmNANUdBBOafXd7NBkYlngO75KzUN/H3oVubmt74amemlxLWMaFpHJpsXr2/5
+	Lk6vs5tg==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xAxlt-000000025TY-0cPK;
+	Sun, 27 Sep 2026 22:55:01 +0000
+Date: Sun, 27 Sep 2026 23:55:01 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Hongru Zhang <zhanghongru06@gmail.com>, akpm@linux-foundation.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, baohua@kernel.org,
+	surenb@google.com, david@kernel.org, liam@infradead.org,
+	mhocko@suse.com, rppt@kernel.org, shakeel.butt@linux.dev,
+	vbabka@kernel.org, zhaonanzhe@xiaomi.com, linux@armlinux.org.uk,
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org, chenhuacai@kernel.org,
+	kernel@xen0n.name, loongarch@lists.linux.dev, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+	linuxppc-dev@lists.ozlabs.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
+	gerald.schaefer@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+	borntraeger@linux.ibm.com, svens@linux.ibm.com,
+	linux-s390@vger.kernel.org, dave.hansen@linux.intel.com,
+	luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+	Hongru Zhang <zhanghongru@xiaomi.com>
+Subject: Re: [PATCH v6] mm: retry page faults once under the per-VMA lock
+Message-ID: <armexcXDiG8ryZd6@casper.infradead.org>
+References: <20260911025613.1220845-1-zhanghongru@xiaomi.com>
+ <arFYRAa-i7CIwmHL@gremlin>
+ <arF-E3Nsw9ZliH0t@casper.infradead.org>
+ <arI_w2wTfA00Mgy9@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arI_w2wTfA00Mgy9@gremlin>
 
-First of all, thanks for merging my first two patches and sorry about my late reply.
+On Tue, Sep 22, 2026 at 09:55:23AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 21, 2026 at 07:57:23PM +0100, Matthew Wilcox wrote:
+> > more to say on this in two weeks at Plumbers.
+> 
+> I look forward to it :)
 
-What I think Alex meant and what I agree with is that the new API should focus on
-making semantic bugs harder, not to necessarily make it easier to write safer
-drivers. That being said, I think we can do both with this change.
+So while doing my slides, I realised that what we need to avoid doing
+is (a) sleeping while holding the mmap_lock (b) returning RETRY while
+holding the VMA lock
 
-The key change here is that we introduce a structure that defines dma
-parameters for a device. This structure deliberately has no default
-implementation and new fields should be added even if they require changes for
-all dma drivers.
+And that turns out to be as simple as this patch:
 
-```
-pub struct Params {
-    pub streaming_mask: DmaMask,
-    pub coherent_mask: DmaMask,
-    pub max_seg_size: NonZeroU32,
-}
-```
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index dd09c438fa23..94ed2333f8d8 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -723,6 +723,8 @@ enum {
+  */
+ static inline bool fault_flag_allow_retry_first(enum fault_flag flags)
+ {
++	if (flags & FAULT_FLAG_VMA_LOCK)
++		return false;
+ 	return (flags & FAULT_FLAG_ALLOW_RETRY) &&
+ 	    (!(flags & FAULT_FLAG_TRIED));
+ }
 
-Suppose, we didn't have `max_seg_size` before and only discovered it later. We
-would add it and the compiler would guide us to any drivers that will need to
-consider an appropriate value for `max_seg_size`.
+OK, this is a hack.  The function is spectacularly badly named, and
+needs to be renamed before a patch can go upstream.  But this should
+fix the contention on mmap_lock.
 
-If rust was bigger in the kernel, this could be quite a bit of work, requiring
-coordination with other maintainers, but I would call this a feature because it
-actually requires everyone to at least consider what the right value is instead
-of forgetting to set it.
-
-The same is also true for new drivers. Authors do not have to be omniscient of
-all dma related settings and instead just fill out the struct and already have
-some important ones set.
-
-If a parameter is only important for some drivers but those drivers should not
-forget it, we could make it an Option so that drivers that really don't need
-a parameter can set it to `None`, but they had to think about it at least.
-
-I think, instead of discussing different possibilities, it might be easier to
-discuss code directly. Taking Alex's example, I went ahead and wrote a small
-LLM assisted PoC. I'm happy to share it here or in another thread, but here are
-the main changes:
-
-1. The PCI and platform probe callbacks receive a unique setup token:
-
-```rust
-    fn probe<'bound>(
-        dev: &'bound Device<device::Core<'_>>,
-        dma: dma::Setup<'bound>,
-        id_info: Option<&'bound Self::IdInfo>,
-    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-```
-
-The bus driver creates this token and drivers cannot obtain another one from
-the device. 
-
-2. `setup.configure(params)` consumes the token, applies the parameters through
-   the C DMA setters, and returns a `dma::Handle<'bound>` on success.  This
-   combines the setters and `finish()` from Alex's outline into one call.
-
-```
-pub fn configure(self, params: Params) -> Result<Handle<'bound>> {
-    let dev = self.dev.as_raw();
-
-    // SAFETY: `dev` is valid and its DMA parameters are initialized by the bus. The `Setup`
-    // invariants exclude concurrent DMA operations and other parameter setters. Consuming
-    // the unique token prevents reconfiguration after a handle has been issued.
-    unsafe {
-        to_result(bindings::dma_set_mask(dev, params.streaming_mask.value()))?;
-        to_result(bindings::dma_set_coherent_mask(dev, params.coherent_mask.value()))?;
-        bindings::dma_set_max_seg_size(dev, params.max_seg_size.get());
-    }
-
-    Ok(Handle { dev: self.dev })
-}
-```
-
-3. The handle contains a bound device reference and is copyable, but provides
-   no way to reconfigure DMA:
-
-```rust
-#[derive(Clone, Copy)]
-pub struct Handle<'bound> {
-  dev: &'bound device::Device<Bound>,
-}
-```
-
-4. Allocation and mapping APIs now require a Handle. 
-
-For example, scatter list now takes:
-
-```
-pub fn new<'a>(
-  dma: dma::Handle<'a>,
-  pages: P,
-  dir: dma::DataDirection,
-  flags: alloc::Flags,
-) -> impl PinInit<Self, Error> + 'a {
-```
-
-The PoC uses Handle for coherent allocations, owned scatterlists, and DRM
-scatterlist mappings.
-
-5. Each pci/platform driver that uses DMA configures its own `Params`. Let's
-   look at `samples/rust/rust_dma.rs`:
-
-```rust
-fn probe<'bound>(
-    pdev: &'bound pci::Device<Core<'_>>,
-    setup: dma::Setup<'bound>,
-    _info: Option<&'bound Self::IdInfo>,
-) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-    pin_init::pin_init_scope(move || {
-        dev_info!(pdev, "Probe DMA test driver.\n");
-
-        let mask = DmaMask::new::<64>();
-
-        let dma = setup.configure(dma::Params {
-            streaming_mask: mask,
-            coherent_mask: mask,
-            max_seg_size: const { NonZeroU32::new(u32::SZ_64K).unwrap() },
-        })?;
-
-        let ca: Coherent<'_, [MyStruct]> =
-            Coherent::zeroed_slice(dma, TEST_VALUES.len(), GFP_KERNEL)?;
-
-        for (i, value) in TEST_VALUES.into_iter().enumerate() {
-            io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
-        }
-
-        let size = 4 * page::PAGE_SIZE;
-        let pages = VVec::with_capacity(size, GFP_KERNEL)?;
-
-        let sgt = SGTable::new(dma, pages, DataDirection::ToDevice, GFP_KERNEL);
-
-        Ok(try_pin_init!(Self::Data {
-            pdev,
-            ca,
-            sgt <- sgt,
-        }))
-    })
-}
-```
-
-What I am not 100% sure about is how we should handle drivers that don't use
-dma. Currently I just discarded the setup token like suggested, for example
-`samples/rust/rust_driver_auxiliary.rs`:
-
-```rust
-impl pci::Driver for ParentDriver {
-  fn probe<'bound>(
-    pdev: &'bound pci::Device<Core<'_>>,
-    _dma: kernel::dma::Setup<'bound>,
-    _info: Option<&'bound Self::IdInfo>,
-  ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound { ... }
-}
-```
-
-But maybe it would make sense to introduce a C API such as: `debug_no_dma` and
-have the bus call it unless configure was called first. This would then trigger
-a debug warning if a marked rust device calls any C APIs that use DMA
-regardless. But this could also very well be a worthwhile follow up.
+Could somebody try it?  I've verified it boots and runs some userspace
+fine, but I don't have the workload to test the contention.
