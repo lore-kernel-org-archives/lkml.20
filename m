@@ -1,40 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2113BFE4C;
-	Sun, 27 Sep 2026 08:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BF6846A;
+	Sun, 27 Sep 2026 08:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499028; cv=none; b=hc2xv3b7LUq5iOHtc4YlOZ5cxGJNt+JWs7RdH0s7Pa2pXSOGq29Ewipv2FTSubeu8ONHLJomG8fQ1RytJe3mXOL+aAwgRdSqgdFlqUfUiucqcRDyFYL2nubyquVeyOhgK/b7vrQ3dMGWTh0tT7Lk+oWuIN7uUD0vsR2Qn2DRs+I=
+	t=1790499095; cv=none; b=WR7aWqX3vTgLG6MhUy9G3/VnxoaUJCa9HR+8f5jsIKYikPz+ZV1K0IxsK47X6ceUovU7S35xsE/QSpqFRsLXY1jy83H8bPu207QlAvmnuj6DgWMviNk0Q1RbMKJ22O8VH4W8vFVBDoRj+9QqiNUAY2YrumkbDB9NXp2nQaIqbEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499028; c=relaxed/simple;
-	bh=5LaDpU6fGaHrV0IgPjndRA812opNzIdESMeFYj+vRmA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ydgcum8tujLakId68IukxkFAPabbguOpIAIAqdek5xj8BJ3ICBvaXo4yJV3luyw5SDYF5JhiTWLusYwIQLfkOwXzFVK2qPB0pND9QeB8ujMk/2XqyBYrYMMa4HIdO6iXT2rZ+RuPa624/+SqhbCmdO3bkrwGY4wS1kPLM60ykVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G/KdE+us; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790499095; c=relaxed/simple;
+	bh=Gaj7XqWXEUTvTZ2pwxNkw/M2q/QXDbU6QM4uoIcSnyM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ELEW26O7uu1Bvg/IwUx3Olo8YZ/HSf3KzzwkQRTrFyFZTAJ8m7MkXILBlCydZSc9zawsjKR+YHF/ewNGCC/XMmZaCSYP3ZwL3vbiWXLy1JgOT5pM8CdYld21hwKiXciFxKLt6YFWUjjyjpvULvtDj1U0/GzpKUkafkGgHa4ja64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwix4i4W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G/KdE+us"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=DA
-	c3cvfHFxzrBCC2xcvA8V34m/HXJuo5iD2TpyT7ixg=; b=G/KdE+usNp/AfgATcD
-	fKfjsU1+dS+JCzQe8PTOrtP9qq4ZTFUJ9cjEgQu/StFadIfjl6ZXlogp4M5CWjC7
-	4hOW0jfUeVx1llB1hTxjF1Avo1lVU+a2hHG7I5LiAwIcYUsCXdHFZEDo3DNsAalo
-	8Kf8DW8DHNtS+VlkaITo9eXeQ=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD339y52Lhqbg8gBA--.18321S2;
-	Sun, 27 Sep 2026 16:50:02 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Aleksa Savic <savicaleksa83@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] hwmon: (gigabyte_waterforce) reject short input reports
-Date: Sun, 27 Sep 2026 16:49:59 +0800
-Message-Id: <20260927084959.893708-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwix4i4W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0871F000FF;
+	Sun, 27 Sep 2026 08:51:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790499094;
+	bh=Gkq2TAehQkWrC1lsDaHNR2t/+poWofOsdUGZ4N/x/iM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Zwix4i4W1D6eEI5TVOeTmse+b839RviPXvE+wC26ru4pY26vGh9IvXoofxTrWvEFU
+	 iiIqUZ97X3DmQ9Llk7g8IaRZeyEeqDXbJImpX3WqKP7Tgv7PJJdZI8HobbZCQMvCfw
+	 wk6+XH6ZA2BeovyoSIg5at1Ov+kHGluIYtwcGgAHzUTRwZP6dZhbxpfvjl3ah/OQOe
+	 Tp412R3nZ+0jcird7WnfvWgr1OqJcbJvLo3x9aN3Bc3LEA6CwSJBNP5gpHw2ZtuNm7
+	 JvUJlERTFWLwK1IeaSfSrF5RPaWcH9DC6KFqNui+3ZB2B9o7k37hyQWakf+nxRdBes
+	 NnTBf/Nh5noWg==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2] mm/damon/tests/core-kunit: add test for unconditionally skipping the last region
+Date: Sun, 27 Sep 2026 01:51:27 -0700
+Message-ID: <20260927085128.41506-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260926210737.8837-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,62 +46,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD339y52Lhqbg8gBA--.18321S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUCF4UCr18JFW7Kr1UAwb_yoW8uF47pF
-	W5AFsxKr45tF4fXr4DJa1Uua45WF1rJrW3Wry0ka9YvFyYkrW5WryIkrn0gws8WrWrKanI
-	gw48tr1fKFWDtF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi8wI3UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhotZ2q42LqxugAA3l
 
-The HID raw_event callback runs before HID core validates the received
-report length. waterforce_raw_event() reads command bytes and then accesses
-fixed offsets for firmware or status data without any length checks. A
-truncated report can therefore cause out-of-bounds reads and update hwmon
-state with unrelated data.
+On Sun, 27 Sep 2026 05:07:09 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-Require every report to contain the firmware response fields, which also
-covers both command bytes. After identifying a status response, require
-the byte at the highest status offset before accessing its payload.
+[...]
+> Okay, I will change the commit message in the next revision.
+> 
+>     Commit b3723b596b54 ("mm/damon/core: fix unconditionally skip last
+>     region") fixed a minor bug.
+> 
+>     Add a KUnit test case to cover this behavior and prevent regressions
+>     in the future.
 
-Fixes: 42ac68e3d4ba ("hwmon: Add driver for Gigabyte AORUS Waterforce AIO coolers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
+Sounds good, looking forward to the next version of the patch!
 
-Notes (update-waterforce-v2):
-    Changes in v2:
-    - Fold the command-byte and firmware-response checks into one minimum
-      length check, as suggested by Guenter Roeck.
-    - Drop the inaccurate hid-asus comparison from the commit message.
 
- drivers/hwmon/gigabyte_waterforce.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks,
+SJ
 
-diff --git a/drivers/hwmon/gigabyte_waterforce.c b/drivers/hwmon/gigabyte_waterforce.c
-index 4eea05f8b569..f4d0376dd68e 100644
---- a/drivers/hwmon/gigabyte_waterforce.c
-+++ b/drivers/hwmon/gigabyte_waterforce.c
-@@ -257,6 +257,9 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
- {
- 	struct waterforce_data *priv = hid_get_drvdata(hdev);
- 
-+	if (size <= FIRMWARE_VER_START_OFFSET_2)
-+		return 0;
-+
- 	if (data[0] == get_firmware_ver_cmd[0] && data[1] == get_firmware_ver_cmd[1]) {
- 		/* Received a firmware version report */
- 		priv->firmware_version =
-@@ -269,6 +272,8 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
- 
- 	if (data[0] != get_status_cmd[0] || data[1] != get_status_cmd[1])
- 		return 0;
-+	if (size <= WATERFORCE_TEMP_SENSOR)
-+		return 0;
- 
- 	priv->temp_input[0] = data[WATERFORCE_TEMP_SENSOR] * 1000;
- 	priv->speed_input[0] = get_unaligned_le16(data + WATERFORCE_FAN_SPEED);
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.34.1
-
+[...]
