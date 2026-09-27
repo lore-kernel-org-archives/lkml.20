@@ -1,161 +1,135 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5D3345CBC;
-	Sun, 27 Sep 2026 18:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E893B388D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532821; cv=none; b=fZJCBtWMnvQhLmRUB6sUFzmycJ/XwabjeTscrIf4n9RGUoI37A5BoadYEDpWqKHXu36Q54I5ePk2vYb3ES3NmdMdzAPFGs/GpUWLRAAjR913m4KXqe3CYyvFK0PFHLDVcDTT/zG/Dl/Bq2MupX9aaVDXBJZdoV3Xb0yBgnmKuzI=
+	t=1790532833; cv=none; b=VtJBbzBrl3GbmCDd7sl3DgwU95e45dtIq0Jpv7pG5c9iXRci6NLbjfQHTCIexpMd/p3ROAFjgMgdRzfjq3x2pXoyEkN2Zq0LfbctuqEGS/eGS+sElrPaL6+x19aQVqSkLn/cmllPyRvodAzfGRRoXu2M/gxGw/GSzVbXkVwhq8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532821; c=relaxed/simple;
-	bh=0P7tqyZTwzBwbJvaiPJZX0pDFmwUCv9lhS7oxqr+H94=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WOrIGpWqnRt1RMVuMpPI4ACBe44eR7m217Oh1ziR4k9yNZ8COEeGWnkeCb2V7EZzhl1VD6w2jkHwj9L2rR0T3MaugjBnBkeI1PUVKDo4ACR1CMrTsCEyYgItvB4OKhWTAxYd5UgGX0V9dep/FBSipu8fjefTi9JmspRciai36M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=PdcFTXwt; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1790532833; c=relaxed/simple;
+	bh=3oTqZsbJwBRoOJpwLKg7GnbiVVZPitNE8J6RjqQk/4U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aXDCjqY8kFoVEDa+55Hi6JHguyGaQBy7a/gFjbddms6nTC0IC7yeLS/7vVbUZlUIbzU7TqljMXXv2hGW/X0OJTLsD8zLaKSU4YPVLgOXF52fwlIjABtRQYyzG90ohJQnx6xzW8kFuqRAovpTdYa0ail4kAzJimU62uS6ORJXubU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JF9gFlGp; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="PdcFTXwt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=0P7tqyZTwzBwbJvaiPJZX0pDFmwUCv9lhS7oxqr+H94=; b=PdcFTX
-	wtM8Csj5/XVIZsrFPtA4zd1u+xYyJHfmIQC/uIRk6E0k0jIBe6GvUDGczEER32hmLzbPxNu3jnzgh
-	lET5XamdnQ2iNW1x32dwQKM3W1G419i/YjEy17UQ7/VhUmRlxn3mGUUQu5MrvQM1mJzyo0EewUfFo
-	AvzDic+FDT22YdHnN2iy7rhbE7TeSJ2x0DilMe9DDOSrEEqISYiuje9ZgS8MmXwJ9dWpayLgIP/qb
-	nd17GKQbn2xQVNwLFhmmtPY6L+gUh94Qe654vFjeBreAnefoqaC+8r+2UeLDsYLbBukf/Y016IQHP
-	f1jBwy1IlQVgGqzs+OMu1vr4pBmQ==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xAtMD-00000009nLA-2XiP;
-	Sun, 27 Sep 2026 18:12:13 +0000
-Message-ID: <1739d52dcdebdc589826990ef2938b58b1055e18.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Shakeel
- Butt <shakeel.butt@linux.dev>,  Kairui Song <kasong@tencent.com>, Michal
- Hocko <mhocko@kernel.org>, Roman Gushchin	 <roman.gushchin@linux.dev>,
- Yosry Ahmed <yosry@kernel.org>, David Hildenbrand	 <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Kemeng Shi	
- <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, YoungJun Park	
- <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	
- <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen	
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
- <weixugc@google.com>, Gregory Price <gourry@gourry.net>, Wenchao Hao	
- <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins	
- <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo	
- <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, Shuah
- Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, Meta
- kernel team	 <kernel-team@meta.com>, Linux Memory Management List
- <linux-mm@kvack.org>,  Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Joshua Hahn	 <joshua.hahnjy@gmail.com>
-Date: Sun, 27 Sep 2026 14:12:13 -0400
-In-Reply-To: <CACePvbWf8ocrfTpEpQ6==cr1=KTzo4Ar+-Zxt89=sxt02Z8uBg@mail.gmail.com>
-References: <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
-	 <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
-	 <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
-	 <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
-	 <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
-	 <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
-	 <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
-	 <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
-	 <arUcil9kxUPiymXI@KASONG-MC4> <araWKyJ5MENBwXCL@cmpxchg.org>
-	 <CACePvbV0Z3OhxkEn-MiMrxpSmtbt1YwCt2N2_ZW3jbdh87jgFA@mail.gmail.com>
-	 <9499bc084e30df4d10bc069ed26d576e4dd3de80.camel@surriel.com>
-	 <CACePvbWdJSUDuEbR2FXczbeWwvxP86WDGHTL-eO0A8WwMDoNRQ@mail.gmail.com>
-	 <b792823cce613ce756227a3b60cc245b0316a800.camel@surriel.com>
-	 <CACePvbWf8ocrfTpEpQ6==cr1=KTzo4Ar+-Zxt89=sxt02Z8uBg@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JF9gFlGp"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso17352665e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:13:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790532830; x=1791137630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yF3ar6bs1d3X9n2jCLXGnKhuTUv7JBFcQdF8WKwyH2w=;
+        b=JF9gFlGpgwPJb82PVdfCZRfJ3WDPJZTdO4VhQ/I64R3nqQyNoHTIU/TUvxW944Tf8G
+         gdtXvAsgkx1kTuIVShCwvkuPvzbySf8OqLTsXMNY8ttU574BLotez4mM77FWagv5ESm5
+         a+XMKtIaOTAqqTavfP8qSxxjUWqJ4gzn/O/Mp3TJ4Q1zh1A8XnhxAE4ZKuwruXtxztmV
+         K3hl9eRg0uWIoQWI1HE6DwZUIACZdUpZjrtxuQ1slvCzwz06+ek0JEwyg77OXAadJg9B
+         ZewnVUsTsGUQcRjvbLKi/3vDn5Ak9EnuGPoNpx+JVtKMw0OqK/cWttbkbSl6ijFROE/+
+         IUVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790532830; x=1791137630;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yF3ar6bs1d3X9n2jCLXGnKhuTUv7JBFcQdF8WKwyH2w=;
+        b=P5GeK8VQSSUXqPtkAI908lGIFWpySXlzcYZEEdoGti/yX7WecIPFb60CXLFwFmn7zv
+         kMpcsjHFb2qPxi2/3b7JsCVFpGMupw8DlZvp28xbhRRfWHU70lCHbJiClKK3rvZTF8WS
+         IJ9gmTOcXwDUQ9nHov/qmb5lEc0ZjmkHVa5BiTYebiM6kw2mTeHjK25ibAhjlRIy1wOg
+         e75cquw0dRZ3wuEx212i60hw2EhrCLFHmDP5T4+NWmVMmESNouuND9C4Ft8EKtLECUY5
+         k1dJ+/HyYtIfqZPFV2ImHRGtyxg9+SiTG4vOrnqNDOQHUw9JrPPa9wGJQb3bN2qM6fMD
+         XCOw==
+X-Forwarded-Encrypted: i=1; AKwUvByERSw09A1a/kcaQMCh+NWBhQtfsLE3K8fwO26qau9JFFCxdZtAFnM45M0CTYw+w2gbpnw+8LIa99dnSNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9eRB2aiEUsZDqDCWPpwXGcgwz8BcbfuSoA1bCfSav4yAhEVN8
+	gfTBx6nrr/oq7TBPXZOHcA54GGL05JHzTi6hQWop8eDiRac9hsX49Ae7
+X-Gm-Gg: AYBFou2DQNKHsX5FBSxLXiBmaQvonea+7EbrTyJ6cErJNdTBoNhUuV/e4HDQkOfQ/xm
+	IFRCy8WZLLojaJrYqgohYsoIy3guZaNJyL2vKF/+3ZjstDrMVnRfLSVJHRpESM8oe5jB/hvb+O3
+	Ib3b5X2SBuZ7MiDBOaei2JwvrcKw4rJdqQQmFd6VpdsRBA8vbL97r8/uxy58qYEoDll9nOytghl
+	035kMiXkgGAZS3zH+ed0we9lP62YZ3XcLYGHy6vLZ+87DVZ7Vme0DbGc/A39iwbv90a4i+577Wn
+	FaTALYnr7PPe0DnfDOw17Wf755KqMq3FfORH3y64ExFEnkIyWVhuBdXFuXKv3fSFMCRfVhObm77
+	Uf9cbe7Zp3igJRj2WPfK7+1JrhjQ6NoFapE6EMASRbb7lrD32YNmJsq2kwwyUPS//3PuNye+w7o
+	/Bg6ygSiz4x90xRQ5CH7Pr8rAy2/6RHonKJXSnaLg8ZG54CwS4lhPdg+1Ddznw3UEJJHjuUsWsE
+	QgeOU03V622ceE7cPbgfDqjHj5qsPCLRnLqSgRLhYFicnFA70M7h/qIHFlVAk04QDZ1JytIg/H+
+	uMxEXdzLOWZeoDZLH2ocGx4DykLiFot1W2jb7e+zDs7Eya01
+X-Received: by 2002:a05:600c:1d06:b0:49e:69ff:c6b1 with SMTP id 5b1f17b1804b1-49fe7bcc25dmr179111265e9.31.1790532830326;
+        Sun, 27 Sep 2026 11:13:50 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff141948dsm89612395e9.1.2026.09.27.11.13.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 11:13:49 -0700 (PDT)
+Message-ID: <e6421d43-3388-4e02-aece-42fb7034746f@gmail.com>
+Date: Sun, 27 Sep 2026 19:13:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/3] net: devmem: use memory provider helpers for
+ net_iovs
+To: Stanislav Fomichev <sdf.kernel@gmail.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, axboe@kernel.dk, sdf@fomichev.me,
+ bobbyeshleman@meta.com, almasrymina@google.com, kaiyuanz@google.com,
+ linux-kernel@vger.kernel.org, io-uring@vger.kernel.org
+References: <20260922204348.717198-1-sdf@fomichev.me>
+ <20260922204348.717198-3-sdf@fomichev.me>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260922204348.717198-3-sdf@fomichev.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-09-27 at 06:17 -1000, Chris Li wrote:
-> On Sun, Sep 27, 2026 at 2:29=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> wrote:
-> >=20
-> > On Sat, 2026-09-26 at 20:23 -1000, Chris Li wrote:
-> > >=20
-> > > That is the part I am not sure I understand correctly. Fair in
-> > > what
-> > > sense? Using the swap file proportional to the memory limit of
-> > > the
-> > > cgroup? Do you have an example of perfectly fair swap file usage
-> > > for
-> > > a
-> > > cgroup with an 8G memory limit versus one with a 1G limit?
-> > >=20
-> > > Sorry I am a bit slow grasping what exactly the fair behavior is.
-> >=20
-> > Say we have a 64GB swap file, and several
-> > cgroups on the system, applications A & B,
-> > and system.slice.
-> >=20
-> > We might give system.slice a 10GB memory.swap.max,
-> > and each application a 25GB memory.swap.max.
-> >=20
-> > This way a memory leak in application B
-> > does not result in application A being
-> > unable to run.
->=20
-> Thanks for the explanation. To me, this is just standard
-> memory.swap.max limit behavior. I was thinking there was some new
-> concept of the fairness I haven't grasp..Thanks for the=C2=A0
-> clarification
-> anyway.
->=20
-The only real change we are looking for is
-that once zswap no longer automatically takes
-up real swap space, the zswap use is no longer
-counted under memory.swap.max
+On 9/22/26 21:43, Stanislav Fomichev wrote:
+> Use public memory-provider helpers for DMA address storage and page-pool
+> association instead of open-coding page_pool state and accounting.
+> 
+> Zero the net_iov array because net_mp_niov_set_page_pool() ORs
+> PP_SIGNATURE into pp_magic. Reject DMA addresses that cannot be
+> represented in net_iov metadata.
 
-Only the data written out from zswap to
-physical swap would count toward memory.swap.max.
+Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
 
-That way both of the fixed size resources are
-counted according to their own limits:
-- memory.swap.max limits physical swap use
-- memory.max limits anon + file + slab + zswap
+> @@ -247,7 +245,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>   			goto err_unmap;
+>   		}
+>   	}
+> -	binding->area.niovs = kvmalloc_objs(*binding->area.niovs,
+> +	binding->area.niovs = kvzalloc_objs(*binding->area.niovs,
+>   					    binding->area.num_niovs);
+>   	if (!binding->area.niovs) {
+>   		err = -ENOMEM;
+> @@ -274,8 +272,12 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>   		for (i = 0; i < nr_niovs; i++, niov_idx++) {
+>   			niov = &binding->area.niovs[niov_idx];
+>   			net_iov_init(niov, &binding->area, NET_IOV_DMABUF);
+> -			page_pool_set_dma_addr_netmem(net_iov_to_netmem(niov),
+> -						      dma_addr);
+> +			if (net_mp_niov_set_dma_addr(niov, dma_addr)) {
 
---=20
-All Rights Reversed.
+I'd do this chunk as a separate patch with stable+fix tags to
+keep it minimal and help backporting, e.g.
+
+if (page_pool_set_dma_addr_netmem())
+	// fail;
+
+Looks like the bot was saying the same (with an extra wall of text),
+but I guess it depends on whether you need it backported.
+
+> +				err = -EFAULT;
+> +				NL_SET_ERR_MSG(extack,
+> +					       "dmabuf DMA address cannot be represented");
+> +				goto err_free_niovs;
+> +			}
+>   			if (direction == DMA_TO_DEVICE)
+>   				binding->tx_vec[niov_idx] = niov;
+-- 
+Pavel Begunkov
+
