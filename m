@@ -1,45 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105043D3D0C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A73D1D5174
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506624; cv=none; b=jJIMJ0Udv7V3YraJHMpDOIVqP4Bv15Z/LeK72mgJ2II49V0IRULsgQk41A0R0xOItRlz8m0W7f2uJTz6Z1I3Hb3XFGioWL2siLh7J15CRYLAFG+eKIbXZssB5e0HGo+aD0nSkpA+q2WQ9I6WwzQNOg32/m8TxQFayaYhaCAVzoo=
+	t=1790506633; cv=none; b=eNVYg3AlrV5u7TTe18VhjvhpHnS8Si38j4oyhrRJNElLm2djHB8KM8sq4kGtw0lRJu7DwHGAa1Tm0MtrouB/tiAexFL22b8EDvjQkGiAg/J7IcZu/u9DLymFK5f6lvaAkXGv4RUaHpRdZ32kW3kwX+nHqoqr2y+6hfO/Sawjo84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506624; c=relaxed/simple;
-	bh=/xNgx0C5Qk+rmHpba0lVw4kEWTvc+zDwxQimGQD1Z24=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=og9HNVSSPxoQ7/AMXbSa5J+VN+b/AJfkeKcBPw60nZMaasiuIJfnKnihVfx6+Q2B9FE+Nj2xTzXE1s3/QqtRO92bOuzk4v9ILVo6x3N5WvDaLgRlbStKXN6C8+jVzfjyaNcM+ap+1/Mwxyujv3B7YcsDzDV/x4ChwbLp28zeO64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UtjjsSSr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790506633; c=relaxed/simple;
+	bh=SPjFaC6/RkWLmnwuGm8C3v7Hw0AwEyc/tT1MEMTXidA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZOVlHKOKGf5E3zHvCSV0lH0qXolOqWns/8SdsT7aHOu2Wmr0q0DETS+EW3+qLwaKLYS0xaeVWZW3Hmlf7KoI2jXq8cAkyl66CfReAKnJXh4bCfaxkIFai8/cdvl+9PrH76jdJImWRldmrM3F4Ssg5JrMCLaulgT3GtZ8AmOTD0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XfChARLd; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UtjjsSSr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C1F1F000FF;
-	Sun, 27 Sep 2026 10:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790506622;
-	bh=7hec+lMEDGI9y3jbHt6Y6kArMIsxA69vRhR2rOPeIFE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UtjjsSSrWF+TFt54/0px6YzSyUYzlv91ip/Lcs/KQAoOamZa5b/L9bVLQr1c49pr6
-	 rZs4OMKT/daTgTbfTNw1O9OOYTok6mhb9QMqKwRJkiyCwrGaeY2p9A7BDpOqn8avNF
-	 3TP1auOS0UIXwjNVcGySRRnQGMJMgawY5M/zIAOgCmnhwJ1Bt7k37sKB9d+LAkdn0Z
-	 NDATEzOnvjtacpBm4OrfYt3I3wPneZcPuTpKUZT0UImruFzyG4vY1Me9Bv0gDjBBmV
-	 kDq88JrH5NETzKs4MczRZfcEJemq9gWx+kNPnBOGmMjtD5pKV1+f6629p/jwNuZ1Y0
-	 bEEYriCG4ctiQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XfChARLd"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ec6188so9326785ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790506630; x=1791111430; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d+R/aN0NQXpZlislYam6PzD5CESdwdMKZwsMqtHvKmk=;
+        b=XfChARLdgSLn0r9WM98WQnpr0t39MFrMtheOahgUbP/Kqe0xajG1UKWiqdVGZs1PRo
+         fRDHUZmKkTzEggCB4Ei4c7SnGK3OGvv9A9EJAPwLRJ3sYjvlEFcLfNXrDfaIGVRttmnv
+         I2u1/xgsQdkfTjE6vuW40gggnilwLsYU33L+EERoKxq2bRxXmMFq31csY5z/MmfWYuqb
+         1jRD7E5tnVbd1PeX3X8JjbViVBp2PSKsdDy8gFHtfFgGbJQQkoY4nVnsU/DfV83QOQWI
+         aEFYWW6IJhDe5CYpoe0qWieAq0J147aYVfA53xgXgCDJq7Bjs3pUsbQMxS9CF5F/z/Yu
+         huIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790506630; x=1791111430;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d+R/aN0NQXpZlislYam6PzD5CESdwdMKZwsMqtHvKmk=;
+        b=ZSQYNJB2keFSkEH4LAPcnxFf8MVu0W3V6W/5vgGeYQ9F1OrJ0ZeLxmXcjkjdQAynEl
+         J/TH83tEwk6hQaCBb+a3KlgCQ21dQWG60sbcqku7bJaeIAL/prNoffoRLrGIP1QzPWxA
+         bnywW07RkoVBTMDZ0gTaU9lmiv9Gz4QEm6FI+1/T7hTk3NMKPpaYqTVG2j5ePzdiTquC
+         J0xfwoY3JTcM1/NjZoj5bBgMTENddUb8ovbjJhHt/XCxC4GxLoxlzbUtJEzE81tX5LUA
+         YCU5Ap8spn0SRVwnbJmDZEYGtyiY4G+xRc5PQzKO2y8UqqgIgLM9oC7ldyNA5nwLJFNq
+         4mfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJsL+RKE2MyCKB3iJUJO3l7kUJNX2VZ8DdZhiH+L9OEC7leCDLDrs/UulxvZbru6QaO+RQlOzN1Of+NcM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpTIYskKls1AE3qmFNnL7YBIGjw/Mv/WOQFyNnzs2SMtTjMnft
+	XLwpd9uQAkCXtFQbfL/3oJAva7c1hwpJAc2WPhP9iyCYUvctsyuDRoF2LBF8T34OCOyJzg==
+X-Gm-Gg: AYBFou24whPCcu5PgGd87dsv2he1DIS4uIoyyNfkEEPiXM06Y/hhB3Ld/fWh6kdFvOS
+	Nmdo6P5fOeBGRytCnfeFC0kQnOFgKrdwJ60ovHN+ui1wt84+NKFERjdIUrflkhTF73ijZP9qg3E
+	m5IKri9vKfddbb1eqD1UTIZqc78798tiL0r3fDCtTWFe3OgoibC5ILNa8Gl7CDdIyGEJXbNXHEh
+	GHmqs6NphTz6VdDD2POknVk2CWmM6mOkqFfbTpIlgQs+3vK6yu9uhZelbO6VyF1AsESELfO3pZR
+	ZqArqPKS36KIH/WmPTaQ9RiDw25EHc/sLj1IzYLO1FNDZzfDT0mk1dlbGzvGxx4YS7wapk09pez
+	YohhLjzrrGKPKuiuUHDN4tUCvAet1soQ/xDb+UJIb1+cGxujTiu2liq3jNlK3dBVv4s2/kA6d+I
+	1sfuqfHMi+0Qh36suwMmDDwMCnpTsYmQgLirmOAfGQ6A6P2wxyfV4F4LRGjTjV6jPldozwKAd2y
+	ptN5kzxZZJjj91UIYFDTJuRC/Rd+UdRDV7cdhYPvv3I+iNshPiaxZhgkpbszTy+pU0WBs04TMS5
+	VrO2m/yMKoAmA3ROQNciL3y8Ba94y07glm47DYLRZubH7SmBJdZCXAVPUH8=
+X-Received: by 2002:a17:903:a90:b0:2db:331b:e187 with SMTP id d9443c01a7336-2df7dd748a5mr79579255ad.8.1790506630003;
+        Sun, 27 Sep 2026 03:57:10 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91442ef4sm28521145ad.55.2026.09.27.03.57.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 03:57:09 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/radeon: add a connector table for the Sun XVR-300
-Date: Sun, 27 Sep 2026 12:55:55 +0200
-Message-ID: <20260927105555.8771-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927105555.8771-1-kaloz@kernel.org>
-References: <20260927105555.8771-1-kaloz@kernel.org>
+Subject: [PATCH 0/2] ntfs: fix the undo path of $MFT data extension
+Date: Sun, 27 Sep 2026 18:57:04 +0800
+Message-ID: <20260927105706.3111333-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,109 +75,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Sun XVR-300 is a FireMV 2200 PCIe (RV370) board with an
-FCode-only Open Firmware ROM and no COMBIOS to parse, so the
-generic connector table leaves both DVI-I outputs undetected. Both
-XVR-300 SKUs report device ID 5b64 with an ATI subsystem ID rather
-than Sun's, so match the OF node name prefix instead. The table
-comes from the board's FCode.
+These fix two bugs in the undo path of
+ntfs_mft_data_extend_allocation_nolock().  Patch 1 makes the $MFT
+runlist locking there consistent: a map_mft_record() failure leaks the
+lock, a lookup failure in restore_undo_alloc releases it without holding
+it, and the clusters are freed and the runlist truncated without it.
+Patch 2 fixes a use-after-free of a pointer into the runlist across the
+truncation.
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
- 2 files changed, 53 insertions(+), 1 deletion(-)
+Both paths only run when something fails while $MFT grows, so I tested
+them in QEMU by forcing each failure once with a debug patch.  The
+debug patch, the test scripts and the images are at
+https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-27-ntfs-mft-extend-undo
 
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index b3e7a747f11e..096f953c67be 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -25,6 +25,7 @@
-  *          Alex Deucher
-  */
- 
-+#include <linux/of.h>
- #include <linux/pci.h>
- 
- #include <drm/drm_device.h>
-@@ -1512,6 +1513,14 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 			rdev->mode_info.connector_table = CT_RN50_POWER;
- 		else
- #endif
-+		if (of_node_name_prefix(rdev->pdev->dev.of_node, "SUNW,XVR-300"))
-+			/* FireMV 2200 PCIe with FCode-only ROM, no COMBIOS
-+			 * to parse; both XVR-300 SKUs share device ID 5b64
-+			 * with an ATI subsystem ID, so match the OF node
-+			 * name instead.
-+			 */
-+			rdev->mode_info.connector_table = CT_SUN_XVR300;
-+		else
- 			rdev->mode_info.connector_table = CT_GENERIC;
- 	}
- 
-@@ -2187,6 +2196,48 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 					    CONNECTOR_OBJECT_ID_SVIDEO,
- 					    &hpd);
- 		break;
-+	case CT_SUN_XVR300:
-+		DRM_INFO("Connector Table: %d (sun xvr-300)\n",
-+			 rdev->mode_info.connector_table);
-+		/* DVI-I - internal tmds, tv dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_DVI, 0, 0);
-+		hpd.hpd = RADEON_HPD_1;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP1_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP1_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT2_SUPPORT,
-+								2),
-+					  ATOM_DEVICE_CRT2_SUPPORT);
-+		radeon_add_legacy_connector(dev, 0,
-+					    ATOM_DEVICE_DFP1_SUPPORT |
-+					    ATOM_DEVICE_CRT2_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		/* DVI-I - sil164 dvo, primary dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_VGA, 0, 0);
-+		hpd.hpd = RADEON_HPD_2;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP2_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP2_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT1_SUPPORT,
-+								1),
-+					  ATOM_DEVICE_CRT1_SUPPORT);
-+		radeon_add_legacy_connector(dev, 1,
-+					    ATOM_DEVICE_DFP2_SUPPORT |
-+					    ATOM_DEVICE_CRT1_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		break;
- 	default:
- 		DRM_INFO("Connector table: %d (invalid)\n",
- 			 rdev->mode_info.connector_table);
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 031a3bf6fe0a..6a16d821915d 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -226,7 +226,8 @@ enum radeon_connector_table {
- 	CT_MAC_X800,
- 	CT_MAC_G5_9600,
- 	CT_SAM440EP,
--	CT_MAC_G4_SILVER
-+	CT_MAC_G4_SILVER,
-+	CT_SUN_XVR300
- };
- 
- enum radeon_dvo_chip {
+Thanks,
+Matthias
+
+Matthias Goergens (2):
+  ntfs: balance the $MFT runlist lock in data extension error paths
+  ntfs: do not use a stale runlist pointer when undoing $MFT extension
+
+ fs/ntfs/mft.c | 63 +++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 53 insertions(+), 10 deletions(-)
+
+
+base-commit: 259abb551e2944998cad4214c201954ab1ac5c8d
 -- 
-2.47.3
+2.55.0
 
