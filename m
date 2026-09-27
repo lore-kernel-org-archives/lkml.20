@@ -1,48 +1,48 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A3532E141;
-	Sun, 27 Sep 2026 15:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C713B38B5;
+	Sun, 27 Sep 2026 15:51:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790524326; cv=none; b=Lp/xuXGuIJ7YkHkg8lVYF6yq8c3wNVNRz5ziaYnVMDVoVb/eIv4Ka6XBHhILtfDPMMIiynbRrhC6XTFqCDWfTntRULMGLRarRD8pAuJLXhmFzSVYwhFegHPYsiJf6xE4LpGhvLi+Xcm0kH8keawnqg8ZY9jnKwhiJIXgbk7Sc+I=
+	t=1790524324; cv=none; b=OG8dz6xvCM+r4PY1okTMSHYupIo6DSYBpsEeT/e0I1uPOc3Jbhh0xxrnGR3D2u5XWpbKQS2w1JB9TY79iMz85ckn1jwsoC8dGXSY9ZlaszDJKL2lgYiqqri/0f18XunId8F5Gxq4CGgLvesHaJIjHvtiSBnaLeBMC9jVe4FjvHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790524326; c=relaxed/simple;
-	bh=qkDnRaqd/9JlIYr7Azgc2RsUjiCp8PBKmzRkhgfJ8MY=;
+	s=arc-20240116; t=1790524324; c=relaxed/simple;
+	bh=5k5pyln1qvBoHHcFnrp7Br7iLO4KbmwH1xjkVMxxL0k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iSw2x8dyvneSzSh/S3BvX4H04reMj2T1p1Q5/SWiHAtQF91DX0m83x5BizxsGztxjMsZ3fHDANFtSFOjTG/U4TYitetIZ0CeqC9UGi+57NqxTAE8uQUp/oczXNLWm4C6F9kRf26U+DUl3bXYp44EHV63xBU+XqPahBWTulIETbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=wCEMVHDl; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=jCkLv5xfa6UGYywm5IUhfVRX8EkVTYyCFTAdBu9zuKp+RPX0xLsLRpmlu0UMOt4Sp7tIDMsfFfiVK68Z5wn/oByKty3PZIgNQ0GReGA9iXQK+DngNXSLUCzgsulKJoAO8aFROH2HFrULGx9zib0z5cQ4uEhtVOZImtJKQ4XP3yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=Kqoo/x0g; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="wCEMVHDl"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="Kqoo/x0g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1790524309;
-	bh=LbCPjRPiehEgYsY0LkPAes0gDEo2YYOkyfyk4XJZWkk=;
+	bh=XJZtRM91aHOzDwlGhUn7K80dltrSbiTp//FJp6Ow9Ys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wCEMVHDlweoSmmOHKAQYYmzKsJiAUEPYfaQlVtcVzqs6FqO1kpxtsyI0zyw557FQK
-	 Qmd2ExybNHV8uZqs4X/OV9IIQZquC0TxowYydwZGp1vHpsNcY9AHjhjXn9kdfp83Ma
-	 SCLl2inf69bbqXHH7JUDxmO/EfNS9TiRwElm/8eBN7lGltxPLRlF5iLsgGuFb35qF4
-	 XsNKhQicROmq2Pyigp4oDddRQbGB0tCgTj7nypCoBW+1J7NolaXV7SKU1fNwk98f+f
-	 LBXEV+vUyhyZL1FFF5i1ayu4FaN+NsNLwqH8ddFfJjwrNuyx3W90FyYoyOi4XkDJWf
-	 t5p4u9vGpuoTw==
+	b=Kqoo/x0gU6cfO/dozoCRndXnjMUQnvEWJJqFnRL1KdacbB59t9bFJQG+UrLMt9tht
+	 JQanVvci7golgHlE/4H1F11J8dkXRmYG4XDEpC1otXSWcNaErQEtJwaeBd6mhKlUYd
+	 U/cut1gZY/CaDNZMmfIj/C7f35+t0E3/qeiRiCfMAjr0BI3Tx2YDfBIcxJbgyXCXka
+	 U44m3Z5cb2VK15CWDdBSrLC2egudDHuOJlGE3cGylihTjJkXeWL9eQA0PIT2kaYuoa
+	 9A/Nr9p9y0kIJk+Lb3Xo4zcgkUaj854GniG3SpgzjdfY+H/E31k0oQfKD+WEU7QrFE
+	 UB7zoVT5J5Yzw==
 Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4ht87n5L08zhH0;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4ht87n48FjzhGy;
 	Sun, 27 Sep 2026 11:51:49 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: "Paul E . McKenney" <paulmck@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
 	Joel Fernandes <joel@joelfernandes.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
 	Will Deacon <will@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
 	John Stultz <jstultz@google.com>,
 	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
 	Frederic Weisbecker <frederic@kernel.org>,
 	Josh Triplett <josh@joshtriplett.org>,
 	Uladzislau Rezki <urezki@gmail.com>,
@@ -63,9 +63,9 @@ Cc: linux-kernel@vger.kernel.org,
 	lkmm@lists.linux.dev,
 	Nikita Popov <github@npopov.com>,
 	llvm@lists.linux.dev
-Subject: [PATCH hazptr 3/4] Documentation: RCU: Refer to ptr_eq()
-Date: Sun, 27 Sep 2026 11:51:30 -0400
-Message-ID: <20260927155134.4740-4-mathieu.desnoyers@efficios.com>
+Subject: [PATCH hazptr 2/4] compiler.h: Introduce ptr_eq() to preserve address dependency
+Date: Sun, 27 Sep 2026 11:51:29 -0400
+Message-ID: <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
 References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
@@ -77,16 +77,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refer to ptr_eq() in the rcu_dereference() documentation.
+Compiler CSE and SSA GVN optimizations can cause the address dependency
+of addresses returned by rcu_dereference to be lost when comparing those
+pointers with either constants or previously loaded pointers.
 
-ptr_eq() is a mechanism that preserves address dependencies when
-comparing pointers, and should be favored when comparing a pointer
-obtained from rcu_dereference() against another pointer.
+Introduce ptr_eq() to compare two addresses while preserving the address
+dependencies for later use of the address. It should be used when
+comparing an address returned by rcu_dereference().
 
+This is needed to prevent the compiler CSE and SSA GVN optimizations
+from using @a (or @b) in places where the source refers to @b (or @a)
+based on the fact that after the comparison, the two are known to be
+equal, which does not preserve address dependencies and allows the
+following misordering speculations:
+
+- If @b is a constant, the compiler can issue the loads which depend
+  on @a before loading @a.
+- If @b is a register populated by a prior load, weakly-ordered
+  CPUs can speculate loads which depend on @a before loading @a.
+
+The same logic applies with @a and @b swapped.
+
+Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+Suggested-by: Boqun Feng <boqun.feng@gmail.com>
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-Acked-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Boqun Feng <boqun.feng@gmail.com>
 Reviewed-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+Tested-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+Acked-by: "Paul E. McKenney" <paulmck@kernel.org>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: "Paul E. McKenney" <paulmck@kernel.org>
@@ -120,78 +139,86 @@ Cc: lkmm@lists.linux.dev
 Cc: Nikita Popov <github@npopov.com>
 Cc: llvm@lists.linux.dev
 ---
-Changes since v1:
-- Include feedback from Paul E. McKenney.
-
 Changes since v0:
 - Include feedback from Alan Stern.
 ---
- Documentation/RCU/rcu_dereference.rst | 38 +++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 5 deletions(-)
+ include/linux/compiler.h | 63 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-diff --git a/Documentation/RCU/rcu_dereference.rst b/Documentation/RCU/rcu_dereference.rst
-index 5bc3785ebfc2..85b5f79ebf14 100644
---- a/Documentation/RCU/rcu_dereference.rst
-+++ b/Documentation/RCU/rcu_dereference.rst
-@@ -104,11 +104,12 @@ readers working properly:
- 	after such branches, but can speculate loads, which can again
- 	result in misordering bugs.
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 70cb31d60538..0a8c8e53cdad 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -166,6 +166,69 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ 	__PASTE(name,						\
+ 	__PASTE(_, __COUNTER__)))
  
---	Be very careful about comparing pointers obtained from
--	rcu_dereference() against non-NULL values.  As Linus Torvalds
--	explained, if the two pointers are equal, the compiler could
--	substitute the pointer you are comparing against for the pointer
--	obtained from rcu_dereference().  For example::
-+-	Use operations that preserve address dependencies (such as
-+	"ptr_eq()") to compare pointers obtained from rcu_dereference()
-+	against non-NULL pointers. As Linus Torvalds explained, if the
-+	two pointers are equal, the compiler could substitute the
-+	pointer you are comparing against for the pointer obtained from
-+	rcu_dereference().  For example::
- 
- 		p = rcu_dereference(gp);
- 		if (p == &default_struct)
-@@ -125,6 +126,29 @@ readers working properly:
- 	On ARM and Power hardware, the load from "default_struct.a"
- 	can now be speculated, such that it might happen before the
- 	rcu_dereference().  This could result in bugs due to misordering.
-+	Performing the comparison with "ptr_eq()" ensures the compiler
-+	does not perform such transformation.
++/*
++ * Compare two addresses while preserving the address dependencies for
++ * later use of the address. It should be used when comparing an address
++ * returned by rcu_dereference().
++ *
++ * This is needed to prevent the compiler CSE and SSA GVN optimizations
++ * from using @a (or @b) in places where the source refers to @b (or @a)
++ * based on the fact that after the comparison, the two are known to be
++ * equal, which does not preserve address dependencies and allows the
++ * following misordering speculations:
++ *
++ * - If @b is a constant, the compiler can issue the loads which depend
++ *   on @a before loading @a.
++ * - If @b is a register populated by a prior load, weakly-ordered
++ *   CPUs can speculate loads which depend on @a before loading @a.
++ *
++ * The same logic applies with @a and @b swapped.
++ *
++ * Return value: true if pointers are equal, false otherwise.
++ *
++ * The compiler barrier() is ineffective at fixing this issue. It does
++ * not prevent the compiler CSE from losing the address dependency:
++ *
++ * int fct_2_volatile_barriers(void)
++ * {
++ *     int *a, *b;
++ *
++ *     do {
++ *         a = READ_ONCE(p);
++ *         asm volatile ("" : : : "memory");
++ *         b = READ_ONCE(p);
++ *     } while (a != b);
++ *     asm volatile ("" : : : "memory");  <-- barrier()
++ *     return *b;
++ * }
++ *
++ * With gcc 14.2 (arm64):
++ *
++ * fct_2_volatile_barriers:
++ *         adrp    x0, .LANCHOR0
++ *         add     x0, x0, :lo12:.LANCHOR0
++ * .L2:
++ *         ldr     x1, [x0]  <-- x1 populated by first load.
++ *         ldr     x2, [x0]
++ *         cmp     x1, x2
++ *         bne     .L2
++ *         ldr     w0, [x1]  <-- x1 is used for access which should depend on b.
++ *         ret
++ *
++ * On weakly-ordered architectures, this lets CPU speculation use the
++ * result from the first load to speculate "ldr w0, [x1]" before
++ * "ldr x2, [x0]".
++ * Based on the RCU documentation, the control dependency does not
++ * prevent the CPU from speculating loads.
++ */
++static __always_inline
++int ptr_eq(const volatile void *a, const volatile void *b)
++{
++	OPTIMIZER_HIDE_VAR(a);
++	OPTIMIZER_HIDE_VAR(b);
++	return a == b;
++}
 +
-+	If the comparison is against another pointer, the compiler is
-+	allowed to use either pointer for the following accesses, which
-+	loses the address dependency and allows weakly-ordered
-+	architectures such as ARM and PowerPC to speculate the
-+	address-dependent load before rcu_dereference().  For example::
-+
-+		p1 = READ_ONCE(gp);
-+		p2 = rcu_dereference(gp);
-+		if (p1 == p2)  /* BUGGY!!! */
-+			do_default(p2->a);
-+
-+	The compiler can use p1->a rather than p2->a, destroying the
-+	address dependency.  Performing the comparison with "ptr_eq()"
-+	ensures the compiler preserves the address dependencies.
-+	Corrected code::
-+
-+		p1 = READ_ONCE(gp);
-+		p2 = rcu_dereference(gp);
-+		if (ptr_eq(p1, p2))
-+			do_default(p2->a);
- 
- 	However, comparisons are OK in the following cases:
- 
-@@ -204,6 +228,10 @@ readers working properly:
- 		comparison will provide exactly the information that the
- 		compiler needs to deduce the value of the pointer.
- 
-+	When in doubt, use operations that preserve address dependencies
-+	(such as "ptr_eq()") to compare pointers obtained from
-+	rcu_dereference() against non-NULL pointers.
-+
- -	Disable any value-speculation optimizations that your compiler
- 	might provide, especially if you are making use of feedback-based
- 	optimizations that take data collected from prior runs.  Such
+ /**
+  * data_race - mark an expression as containing intentional data races
+  *
 -- 
 2.43.0
 
