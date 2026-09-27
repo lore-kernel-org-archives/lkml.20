@@ -1,130 +1,219 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C2228505E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790505138; cv=pass; b=HxiqIggTkbiIgvBcpcrmOMCxUixeIIQWKc/WLO9nEUyWrhxE7vwU0hh82ckOvw3F+FQuaUOftCWvFSvvhcHmN5sxSs/4ujrrA4+lsPz42SKYwc4Rivf3hKQG+iJhcKdTLUUblE6X6GpNytd4Szc9/0LL8pJGZXge5Gj2rztL3Jk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790505138; c=relaxed/simple;
-	bh=SHQk7gkbO2ea5uysrJ1Kbk5JIPAf5arZPkM7Am5MOaI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W+4xTAJJ/Y29YuOeVBPy7I6/bPjuA0n/jF84UyNuoVaDjjXj59ufmz2K3SBdGcYR0Sukz1BWcPv8g7q4gODPM5TUc4KaTs1gQ/4ymPumNdwhMgRIPVv2Bj+PgBB8iMtGVnBvRitiDpd/imw/tspLY/dITMnjo62QfrMyW/yDv+c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XR8V/29B; arc=pass smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DCE28505E
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790505158; cv=none; b=RQuTf9E+4BVqddFu07P60wjc23W9rY7Z6G4XjI94s8zFymiwvZTM2VK0bpdm4Ndd7b6ElnqiNaVKVTeqx48/vFwSSkamWLm8i8bu8/VoCdfHwVN0lhZc3PN11AgUIA8283MlAl3CcmaMV0dut7MXd1xMs3VR6Qtf8+q2Mf0enFU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790505158; c=relaxed/simple;
+	bh=VADAQDY3LuFUiFZ861zgafnVfH1m3pFcM9dQhwGfLg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IsMqQtKil7R4IEuDiS9w4yZoSWhrRmH21MVcRO6W67R46Zl5QeYbboU9gmid1TiXxIIqw5K91xxjxGUat22GgQ+hztWlH0GbLVUPS5j5wpJRZd10b1vgWxUglSQpxR2OtzwVLhjaanIICNBVB7uIslKxS7wGU78IxWvd26fsH+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phLgZl76; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XR8V/29B"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so46912eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:32:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790505136; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gl7Xr6CeLo+C+nG/bzuHO+24dOELYVPSyZ2Di38Ex/iMpNjP0+whi3TZ6WChIxBFPU
-         oLLM30F+WmEOUQM3mEstk/FQRk5tTAWPq1j3JpK058pxzYksWwtDHU2zhzgCJaMw6hZx
-         41nceJHoUtLo7NZNrb5kUNQgC/FUZVoJTnVy3I9Bo4LIVo+vPUoqnGryJS2yby64QElk
-         VDpBFCg3zozaTSWeO9lSRph7sP2N9buqmmGEOoOwxe6w2s2fPPD3vEnAL84LhOw/YtN+
-         7WssX12yTp/aB6IOJHXhMQSRvObAHdkVbtuEKuJr3KIHZlF+FkvWokJblS1bjTfDZtr6
-         xNOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
-        fh=khcb14i6ukm5itDMebnFyBUcVUR1xO+QNLXmQM5H6bo=;
-        b=YAsjbP0SW4Mdv7lfYfqtSE8EfNay8XeVhFbp71z3WyzdB7/wJFk7czlrT2YYqYVF/P
-         GLrGd68MAZBobCK22K0Nu7tJ1WWuxCWg+bXsqpsZPN+mC386RakkoZAnJ5wFFcD8x1Fz
-         GU7sjNBtzu+LjanhggWmyEX6LDeJHrhoQg6clRzygSLwSS2IEEEqbI8AoxRPQ5yp3Azl
-         o2jB3bdMMes47n5iDZ4th7evssXcSlX4tyfPTw1MoD5j+Z7jBnzp3NHNSjdG37d+909I
-         ZjptkY6CH1OxoYUEc+l0w4ZOveMuvb1UkCV0zQ25Hk1Yq44f3MclxlzKnLvXC5U49QIb
-         GcoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phLgZl76"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso5735755e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:32:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790505136; x=1791109936; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
-        b=XR8V/29B9a9xrBzbZ9Z07pBSu8kygEYk1F4B9tNxOY8Um5rhoyAAZfXwJWiVfVGDP3
-         kunng5LM1yHVR4lJUZyrlKIJCz01Cup3XyedgCw3yctV9GEi77nhq9zUVuWuaSiJyrB0
-         hjddBEWyARrol16/uAZZBTifM0nxlZdiQ/xBdRR350jXv1kWqSRohsiz/8O9cZhLtg2Q
-         EHh6O9zKit6cagm43HuArIxUJLC/nSrHHBq4VOb7/QPNA2/1hP+QXycnwEAlhRrV0VEu
-         MFC9vgc8kfQblA35P7MZeN78MeM8QTd98+bU4ooxF6Jnhk0SiyiXjyqzcF4P5jQwjNqT
-         oczw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790505136; x=1791109936;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790505155; x=1791109955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T0IBN3YB7gkpyxIrrQJOq1rE0sGtI266Z+5OM5H2e1o=;
-        b=xFrWHfL6h687XK48zrgWHdzFtn2XnLRBJJ4nU3vjz6OcXvPxMlJ5Ku7RwBA2kPvM3L
-         vgET9xsKOx8b9et0dQGFwUrrdxgiq/mXbbCeESu47P/TmF52tKdW5fG/KN6iMLZyOb9f
-         17okDNcqpjAMXTb6YemZuNSHazsPZH/tQFLRwSXewSmlghsJRJMQcL6bNlyrxt6DOrPg
-         LSQgOelX2eCwAAvBirjfPVZj8/vLafeCMjVEaJBJCGLmXKehzwWgTgQ1n+Yqkg4ABirJ
-         FkVtSez4ljyyKdRfUZV96IW8hOzIym4UIHfvYSHo6KaZCkq3ZF71tj/HB1K+C9b+ov/N
-         zAOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziXvGfatYxKIfI5r5G8P430rqJRAon+i0h3NM2J9COyOjZz22CYT1r1evzojtW+Ch2EZApHHkFXjnTcB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBdLLdQ0qJddP3lb/BHcseXOtCWnvefqO1v6l21KdJOIfNX2yu
-	Iw/RBU9OKJBkBPqPTyaCAwbfc//NME2JcMa53h4FJLPbbEe2BVu3fH3S+X7LXNmOR64Bj4mRpoR
-	fATBToLI671Rv/43Ih932u2xh5j4tKDw=
-X-Gm-Gg: AYBFou08o9ksVP7/R1L43NnVjV6NnuVnV39TrA3FdKBU6KqSrrUuv0YxV/p9HoJZmP+
-	W97F2U30EwgXs3jZ5E95V4JftKTLASWROP6iZ9fTkDHja9XkUZRd7EpZMUscqBV6EK8Y9fyVF+9
-	aWCRM9580t8ZlGN7W/zWKp+bDrZBPiQiLDISiUU0lRXgk+4fQuQHzJqBs9839y9lqQOkbqTf4R1
-	kaWfZCPb+gxYhTUQsEa4L00AGH4GebVnmOjSsmbfBmlQSRJkph/DfWgbvy32LK+uwDcTXnuehJS
-	hj/xeHUoB8nwPi/qpazT242G312E+eE8PFZ2rU3AZBrRhFXHvc68bAXJHHLy2awt/iku8S3ltR4
-	3jgD2oQtsCt9uaZw3DtUKG4ny0NiAwz40oJlnsBO82nW6XepWgEb8AkIlM437QEi9i569fuM5cJ
-	O0843+hRTtRHaAjmFd9Nx4OuYJfGNeMbfOOJoeKa7Z/wyb5HI8FgJ4LXe9pRnXSXjZb/pVQ6YL
-X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id
- 5a478bee46e88-3427179721dmr8395927eec.1.1790505136091; Sun, 27 Sep 2026
- 03:32:16 -0700 (PDT)
+        bh=45tBD3kZBcNwqDCe4McFRRFSHceImT3aj0kJG1xkuLo=;
+        b=phLgZl76tRFWgJMDMvkblerRj/O/iXqN5RPWVcLZVcO94oHdlw+4jtwU50lQ5pm/R4
+         89oBbh392Aq6JQbO5LT3b3ZKbKA/r/WlO1IGIMtx7pX8tmlNbEmUhp+Dot8dUVsOCWGF
+         eDK/1rt25b3L4q+gkwjiFsD6RgSZhDj0AM07KP5dIY1VtcQu7LK40IZOuhnp3Rke78iW
+         iI6d2RQ1QWmvAVb1+D0gqlDxL8F6FvqGdNhYtPBYa36Nwgs1lBCrLSrvczUIN/mGO1ww
+         3ChcZP9SIHEUbv8jb+vMsNM5msvlnRxY1FEyRf4rT5SZFLO3HHDD//G72WmuANz5zac5
+         861w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790505155; x=1791109955;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=45tBD3kZBcNwqDCe4McFRRFSHceImT3aj0kJG1xkuLo=;
+        b=nuLv5l/9cJfvyB6Z3Px+rjMFLqh7dXiWEF9uptb6DORyWromavM6Vcw1WOVz2vOVu2
+         XrlxeQ7zKFYUahC3qKhdN0MiDW9PE+5dQncAtoYMI8qKlxbC0Cor/Rm02MF/3Wdrb4C7
+         cf4db/nqh6Y3T9kkG+gch2Dd6GxSRMGFWy0A1O7DHAFCV7Kz0+7hbAzUEef3P0fjOJmJ
+         Qanzv1/Q6C0T7lkFxwygMzn/IhmFOAglW7GBtv+9el7z51UsvrJcg6tiwKh7mp0IUdKo
+         ZqMoy9u3zJwdCKd/UpgLDBuyuaL1tjCEHICBTyCmOvHqzy2o0HUiPr6n+0xmJo817DbJ
+         YR0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwH0dPGsMHgpJKFxk9XOok72Vbmpa6EPS9BKpUT+74MrFaliNsfgcjmSWvoLlZScOjnm4oD+Z4KB6APbU0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxvucJhyKU8bRvR/+npzN0o/EUjdo7XB1ldzUm0ehUF3aFOOLz
+	m0vhd0ZgrawwTWgESqQ0ipevkdCaMyRK2MHnFQenLnvsZdXgFYuDMhLs
+X-Gm-Gg: AYBFou3tRvoItl1BZ4rpxbwjaiLiyO+WYXgK/24OGGn6L+Z9E6OeMNJL84BujY6dbx9
+	EZtNGxn7R8vylXLZSPrdSkSGNylCVuUgevF873ONLdyjawafB/9U7peivOVT+PMBvtbdCbRMnXR
+	D7XBuqtbeucFt5fUPIhIS3IJZvQQC77+tQqLq1C5Rio8SQUg3CjuT2l8GpAeUo3QEWYVvBqRpAY
+	AulCMlGFs6p4aBIEbCyKQ3lHfu3R1LCWRsnVw0G5fHHHuKyXWtMTdsV3otWXJ3ZFxFZiC9hxXbR
+	G2/lcP5Jx9lQLRAyjzoYRoV2ddAeDyjCJOzTbB68eO1aFEMwccRtULodtbU7AhK1ewQYSINw5wP
+	DnVMHLK66XfZesmSswLRLPumnVWa56vLLWRo+xD/SJ2GmHJ+1GjHShgAVvDHJQcS1FPkpwJLhTo
+	CpiH8ewhh/IyVcZnxi7wCHuqthc3B3QR1APt9oPJlNpE4hFR6AYFKDnrfqI3E/Wkn7crCn69GIN
+	ijjPh+dxHWMRX0eVOkYOVjNv7CzuCd/9qpDPuOyx9986fmEKJHeDcxIupHV0A==
+X-Received: by 2002:a05:600c:a00e:b0:49e:6865:904e with SMTP id 5b1f17b1804b1-49fe66f176dmr201357565e9.12.1790505155186;
+        Sun, 27 Sep 2026 03:32:35 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2 (212.pool95-21-2.static.orange.es. [95.21.2.212])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ffd137346sm79586805e9.1.2026.09.27.03.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 03:32:34 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>
+Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v6] Memory leak error in qxl unbind
+Date: Sun, 27 Sep 2026 12:32:27 +0200
+Message-ID: <20260927103231.47692-1-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909064506.910162-1-apopple@nvidia.com> <20260909064506.910162-7-apopple@nvidia.com>
-In-Reply-To: <20260909064506.910162-7-apopple@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 27 Sep 2026 12:32:02 +0200
-X-Gm-Features: AclHuK8iLs1xJry90CQ3QvtDKTbcAUCAThEBu2i1dWjYp5xrWZkI9Bh3mU59r6M
-Message-ID: <CANiq72nFAbA_uEuUfWvdeMQeYJ+uMcAn7z-FWcQOPUcbX9CkZA@mail.gmail.com>
-Subject: Re: [PATCH v6 06/13] rust: uaccess: add UserSliceWriter::write_truncated()
-To: Alistair Popple <apopple@nvidia.com>
-Cc: rust-for-linux@vger.kernel.org, nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 8:52=E2=80=AFAM Alistair Popple <apopple@nvidia.com>=
- wrote:
->
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+I discovered an OOM after run the script below
+(I updated it and added udevadm settle to allow the cache to
+recover):
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+i=0;\
+while [ 1 -eq 1 ]; do\
+    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
+    if (($i%1000==0)); then\
+        echo loops=$i; free;\
+        grep nr_free_pages /proc/vmstat;\
+        grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
+        sync; echo 3 > /proc/sys/vm/drop_caches;\
+        echo 1 > /proc/sys/vm/compact_memory;\
+        echo "running udevadm settle;";\
+        udevadm settle;\
+        free;\
+        grep nr_free_pages /proc/vmstat;\
+        grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
+        uptime;\
+    fi;\
+    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
+done
 
-Nit: if the suggestion happened in public, then a Link tag after it
-would be nice.
+ttm_pool_mgr_fini() does not destroy the list lru leaving memory leak.
 
-> +    pub fn write_truncated<T: AsBytes>(&mut self, value: &T) -> Result<u=
-size> {
-> +        let len =3D self.length.min(size_of::<T>());
-> +        self.write_slice(&value.as_bytes()[..len])?;
-> +        Ok(len)
-> +    }
+Fix: Add list_lru_destroy() after ttm_pool_type_fini().
 
-This could reuse `write_slice_partial()`, though it would need
-`#[inline]` to make it generate the same code (but we may want to do
-that anyway).
+This patch depends on patch ("[PATCH v4] drm/qxl: fix use-after-free in
+qxl_irq_handler on PCI"), link [1] below.
 
-Thanks!
+Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
+Assisted-by: https://claude.ai:Sonnet 5
+Assisted-by: https://gemini.google.com:3.6 Flash
+Link: https://lore.kernel.org/virtualization/
+20260927101026.45411-1-megia.oscar@gmail.com/ [1]
+Link: https://lore.kernel.org/dri-devel/
+20260731053047.24503-1-megia.oscar@gmail.com/ [2]
+Cc: <stable@vger.kernel.org> # 7.1.0
+Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+---
+Changes in v2:
+ - Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return.
+   If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
+   returns -ENOMEM with pool types already initialized (64 list_lru_init
+   calls done). ttm_global_init ignored this and returned 0, leaving orphaned
+   pool types with a NULL mm_shrinker.
 
-Cheers,
-Miguel
+   Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
+   refcount + debugfs.
+
+ - Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
+   If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
+   the function returned -ENOMEM without undoing them. With Bug 1 now
+   triggering proper error handling, this undo is necessary.
+
+   Fix: err_shrinker: label that finalizes + destroys all 64 pool types
+   before returning.
+
+Changes in v3:
+ - Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
+   causes a deterministic NULL pointer dereference in the newly added
+   error path."
+   Now check list_lru_init return value in ttm_pool_type_init() and
+   returns error if any.
+
+ - Solved pre-existing issues reported by kernel test robot:
+   - [High] `ttm_pool_type_init()` ignores the return value of
+     `list_lru_init()`, leading to a NULL pointer dereference
+     if allocation fails.
+
+     Fix: get return value from list_lru_init and return error if any.
+
+   - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty,
+     causing memory corruption and crashes during module unload
+     if triggered.
+
+     Fix: Check if shrinker_list is empty and return 0 if it is empty.
+
+Changes in v4:
+ - removed check return value in ttm_pool_mgr_init, now in new patch
+   ("[PATCH] ttm: Add error handling for ttm_pool_mgr_init()")
+   link [2] above.
+ - Fixed check empty shrinker_list.
+ - Check return value from ttm_pool_type_init.
+ - Move up shrinker_alloc.
+ - Deleted dput(backup_fault_inject.dname);
+ - Fixed issue [High] The patch introduces a use-after-free race condition
+   between `ttm_pool_type_fini()` and the active memory shrinker
+   `ttm_pool_shrink()` by calling `list_lru_destroy()` prematurely as
+   reported by kernel test robot.
+
+ Fix: separate ttm_pool_type_fini and list_lru_destroy. Then, add
+ ttm_pool_synchronize_shrinkers between them.
+
+Changes in v5:
+ - In ttm_pool_init() return int and check return value from
+   ttm_pool_type_init and propagate error. Free pt and pg->pages
+   if returns error.
+ - In ttm_pool_mgr_init() free previous ttm_pool_type_init() if returns
+   error.
+ - In ttm_global_init() check return value from ttm_pool_mgr_init() and
+   propagate.
+
+Changes in v6:
+ - Add list_lru_destroy in ttm_pool_mgr_fini to avoid memory leak.
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 278bbe7a11ad..09fdfe45e39f 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1453,6 +1453,18 @@ void ttm_pool_mgr_fini(void)
+ 		ttm_pool_type_fini(&global_dma32_uncached[i]);
+ 	}
+ 
++	/* We removed the pool types from the LRU, but we need to also make sure
++	 * that no shrinker is concurrently freeing pages from the pool.
++	 */
++	ttm_pool_synchronize_shrinkers();
++
++	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
++		list_lru_destroy(&global_write_combined[i].pages);
++		list_lru_destroy(&global_uncached[i].pages);
++		list_lru_destroy(&global_dma32_write_combined[i].pages);
++		list_lru_destroy(&global_dma32_uncached[i].pages);
++	}
++
+ 	shrinker_free(mm_shrinker);
+ 	WARN_ON(!list_empty(&shrinker_list));
+ }
+-- 
+2.55.0
+
