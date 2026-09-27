@@ -1,144 +1,216 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271D23B6371
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F842197A7D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790477248; cv=none; b=Q7Pnv02i1USlRI5at5aIa0C5VzYIwvK+i3rlCPNXgIb+xOkfwyXBDQ84JFRbt7tlpltPGXpZqg8J5UHay87893qarlXqSZdarqvFmLWtmLvM/bsR3XxI33VEUej+oWJltX/XI7oPSqqdI787AkMXkEMX2ey2WcrNi5lXKh13UpI=
+	t=1790477692; cv=none; b=udQnvOAqnSGaRnYOJxUkisdIYJQrzMyTPRXDZSVYWYWoqcZxhf7gv1WIhs9zkWYgM9y0kybmqTzuG++XPsrdM3THwy5WrA1H0L9btHPyQXAV4EkwFrVxJyvkjGd2+0P9dEE7T4jRuvNo+akx2UukxB+WxLv+2y7x1gIjUNJTKQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790477248; c=relaxed/simple;
-	bh=sw1FsZk3EXWJSZs1rgYit1v3sgrB+52CTgcM/JeRkS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FkbgiNzjiUaN4dZdFfBJGxIC8mJHFWxwW3e5SvHxnqIHN3Wi431+n197QvY34YtpwLo/eu4a0h2++r4LLCQZo3HtBbnH0Why/WIKMhrrkMw7VVBeLkwRDZUglaAElvT+EMNVpo3wetxeonQxZI5OCiFfOSuqn+xaRyrHVXr1oMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NXmw60ZT; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790477692; c=relaxed/simple;
+	bh=5TEuyBQLdHYZldY8L4cBn/RktSyzBo/ghBKSuRswM4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Brw9eJS9pml1E4jPFcXIE0u10FZ75ftqoQZDBM8GDVpdty0rzfeDUnESCAl+p2MLU+1tTJpvR+oazmXoLDWvn7GLYhnc/GOzOv5Do9y6L2vj7bTMO8vj6iD1Lx39kI0RMGnOn113ZF8MFF3a0GuRJx/Pz5fYZkjfs3xnEqdDD0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JY0hRCEg; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NXmw60ZT"
-Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-8167e0d1f90so1323915a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:47:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JY0hRCEg"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so1070845a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:54:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790477244; x=1791082044; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GBbvPJsBSWZjdVvkKhQVMvVffAad735JPJh2cGJmwo0=;
-        b=NXmw60ZTkPfjTHSYZrdrUztbze+i2DL8ptGE4+KxgnOiIbPFij0M8+LYt+V0S1femP
-         /tPrBLsbArNSZrqykexvoWsY26DIFWYaL75LpIlnYze4pFfH7ebgXX1St69zLkDR/Pk8
-         zw77sIrTOX6klrfopFPEQXpewLIP1Z6z+8au+ChTS2ODwAZzBJdPD62v2h0ZFJsBVctb
-         +lwmksB2ucwrB0oSNvqrD2oMloXSsKdo6d4UrEsCn5VSTq0H1fB+qUznMql3ixyppsMm
-         tGAYBMX+KOXVEnOBNtPVqFAzXElMeFmyiKdgRTbzvzd+vDdoWasCXJcGVKxpdJtK6jh3
-         cHug==
+        d=bytedance.com; s=google; t=1790477690; x=1791082490; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YdCenWsLNM4fgmWyqHdVLEa8fbYRLFc5Vlv8cacB468=;
+        b=JY0hRCEgUZRTO+eWaor1D5Sb3yxewm8Bw/aIKRRTg6mFr70OpUG0jLcB4hoHMFyUQl
+         bO7wh+fwgBzkiaXG2z7DdKYHlVMhKY3D6fSE4yJZ4vr0QHQcEtxo6YUiMkQYLyewdKp9
+         G1qzyx247gNuQC8x1EM4JjwQ6jvgx4kYb0SZf3N1BS6A4I8kYEeLW+2Gd3rcEYaOebkI
+         OhylBm9LcC4/G+W0GczaWUubAUCCiOvRO21sAfw0vlhfTSPkr2Duzbrh1m5wDrzy7ZAp
+         QbCPJAY4sz7fMUwlCKAvrAJhZpKyat44Z6PDzz5Q294NKwSRvuiadJrrqkdUNBnz7VN8
+         T90g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790477244; x=1791082044;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GBbvPJsBSWZjdVvkKhQVMvVffAad735JPJh2cGJmwo0=;
-        b=qUCUruOmn7rYglVoxd1XnlhqfK+jYqj5J/APlSb8JOgOBJcJE2FVA0GXKoqauUPrxg
-         OblKsc+tPkZQQkpblSCv2rK3qjgdYf22B64Clabm3zjYyprYZGK74TSa42sgUZBMj/9i
-         AdImKeK7Arg5IkZ5XArGNzQqZxyV/80lIDquzTFcEE3KcRcEWMryNYscKy9zNNm5+u6h
-         0xNYXzjBiXUkBKEfgYYRqbmNx5N/QppdqFUND06qwJIpkA4PI6l82qp9ew+8fmiPPRHc
-         1n2Uaku5RWtvZtelq7lCpGu32O712ZII4DRvG+0GeMUCjQuQMzviDldIQsLuGlkinp9a
-         L0aA==
-X-Forwarded-Encrypted: i=1; AKwUvBxklylDokr6ikvqh/SdDo5RaWKYtsHTd+6bPzfB09xMGaB4IqiptQIfeg3QVkPQ2gRAETCjJWe1DFjmWMk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnYs1vsDNHKXOCgu9T6jwsnhS1BZfnGyKlVnXkJORG4AM9TbWx
-	ZA4b8jwIHXIT/W7lJb/U6pz93+VP1WXWFsC++k6CTDOH7jNBD6s735+i
-X-Gm-Gg: AYBFou3Kzm2XP9a+B4zTxA4dmZT1tyHrIlm26iXr3LY9hSlrN0ns1/MGR5v+NjvguNB
-	dYsPtGfjqZ5+kz5uS2wTLusVTnnfXVE2nI6857ZeKTiCe+RmJJsFa+sZD+OlDGKRZkrNq1YqN5n
-	7tzZyvA7RJLmg+QO13btA33Za9uafOMZbTflBvhjPMbnITKnDIsZC0TPM/iRj1yS7xEF1OaurfY
-	DXETkWv7DywiQJkGVnJb7b5Rg19pzkS112AGffs+UkRpSvKk94hrAc6ZTVSs6UocQJQb8poWxjW
-	6NVWiYdORYMvGBzwhzaryyRpGrKZZSoDJEQBlE+h+izCj6h02faHZFVFTAfFUZ/w9MAIsh1EtXn
-	b2HpiPxIlvAclfLrHdnLylxZ7QvAhSG24krMC1F8dbNt5atMeMYwTcFMq20E4IVmhknnum6RH7B
-	nBZUXH55mpIw64W30+N09OaFaoq084lw78Q6j2TNDdt61PYif2fharVgSJqmsqqhfz5gVqSkJyr
-	B/Rh2h59EAjCzX4QL7fk10/cFTBukn8/BTvaH2LDafAup0wGj4hYXyhuAYVNBNyEa+G0s0loAsw
-	P8CFK0ckjM8Wibc=
-X-Received: by 2002:a05:6830:6686:b0:7f4:edd8:b7eb with SMTP id 46e09a7af769-81780d976d8mr11093358a34.6.1790477243868;
-        Sat, 26 Sep 2026 19:47:23 -0700 (PDT)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e33f6714sm6626099a34.0.2026.09.26.19.47.20
+        d=1e100.net; s=20260707; t=1790477690; x=1791082490;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YdCenWsLNM4fgmWyqHdVLEa8fbYRLFc5Vlv8cacB468=;
+        b=T+0PySgp2zmK3l4cjEcRLXNNH6FbFqTdW+ySIKOFS0wxIlJtk4x9zgeI9ESYj2dWnU
+         402UDLaMswrRKFTsTDxIzwBIWQJTLLFT7JKsBQIJPX/DkMs0ebaq+g6DwZFIdJ4ji6Lj
+         O+IpV+tEzSLOf9lae81qjILaLJd+z9dohIrkk4OUhv4euUrh9DoTMgUfrJqzafL8yxmV
+         zK88E27Yb1ZPNn2+Oe+j5xS/QF+XLVkLs8j2lnM1/VFkgnZaLyzSroAH5/ma2XdzoDMP
+         O3hLgKFd8E9/Tbya+siRd5cs8uq0IJNlDnmsLBTvp0a/zpcuWp3xcxesmflGRvid6cpO
+         Qq6w==
+X-Forwarded-Encrypted: i=1; AKwUvBw9mnTMUCJXlF2OpsoVWAz/J7kygPk0h9iarhIikPzZKm78HpaFQX32fCwQA271l6Ykrn2tE9VojXs5J3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3UEKJflHrYUQlH+XSfYOhl3O6svTLxvCBThMr9kbIFqz7a3J4
+	UXQQccwWO43lSYXh3o6rajRLSSdAtE9LGFvSa4xmo/Hr/jKnrPtoXGwWRpiEp6tfmgA=
+X-Gm-Gg: AYBFou0NdFGzrOR8Nl3PCLMPd2YbdyMgKcQmabA1XpG/hzrVqSCnkbZwnf5F1IPl/JD
+	NHjf6h8xgwQQhUSTuDXYJa3PEDYpoCghex3Ti8oiZ9SC1GcPpZnWM5+ul0u9rzwUf5vjNHJnFoH
+	nWb4YlDjJdeBhSlW4IDzR0+wf1PZ6uOPLQ0UhdZ9oAIm6/jhJd/SPWHItaOZ4lGYWA7GHkGr54R
+	q9ekraXLDPaeKpYCTNQXJMDZBXieQJMxQKzwKDOVI4oINRpAg15w1UsUhZ5jDgb3m8Joqw7CUDU
+	try37UBEQimo3DX/jnsEHhYJOZBJjmCqhl+sAN/x8/kwctukIISXjWIhf6fu3MaCpIer4XS9qTF
+	Hn8YVIincR4/If5uWVHH3YVAL3dJYUvJVqVFR3bfcCNDCPaYdDC4B3EGKJNLH6lcJA52dr2X9UA
+	GOPUKlZSFkZKFywroCpeaPVePgOx1kIEqo3lfEne0jsExCX0uQki1UHqyMBFqHXulqLHhZj+LjI
+	9YDYJCJoEYWhrVisy7Z
+X-Received: by 2002:a17:90b:1652:b0:3a0:9640:8043 with SMTP id 98e67ed59e1d1-3a098ccdd41mr8412652a91.15.1790477689681;
+        Sat, 26 Sep 2026 19:54:49 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.102])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm13461377a91.1.2026.09.26.19.54.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 19:47:23 -0700 (PDT)
-Date: Sat, 26 Sep 2026 21:47:17 -0500
-From: Ming Lei <tom.leiming@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com,
-	peterz@infradead.org
-Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
- inline issue
-Message-ID: <ariDteQPQ7BGtZZW@fedora-laptop>
-References: <20260911154148.644489-1-axboe@kernel.dk>
- <arfs_kX_gkH1o_S-@fedora-laptop>
- <0367c089-a2da-42ad-ae9f-fc61dd220d1a@kernel.dk>
+        Sat, 26 Sep 2026 19:54:48 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v5 00/12] mm: Switch device DAX to section-based vmemmap optimization
+Date: Sun, 27 Sep 2026 10:54:29 +0800
+Message-ID: <20260927025441.741633-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0367c089-a2da-42ad-ae9f-fc61dd220d1a@kernel.dk>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 04:06:02PM -0600, Jens Axboe wrote:
-> On 9/26/26 10:04 AM, Ming Lei wrote:
-> > On Fri, Sep 11, 2026 at 09:40:50AM -0600, Jens Axboe wrote:
-> >> Hi,
-> >>
-> > 
-> > ...
-> > 
-> >>
-> >> This is obviously an RFC, in terms of what I'd love people to take a
-> >> closer look at:
-> >>
-> >> - The scheduler hook and the identity move itself, kernel/thread_handoff.c.
-> >>   Is the set of refused states complete enough, and is moving
-> >>   thread group leadership this way (the leader must stay first on
-> >>   ->thread_head, like de_thread() keeps it) acceptable / kosher.
-> >> - The x86 and arm64 register state handling. x86 refuses AMX users,
-> >>   and arm64 refuses SME.
-> >> - Whether anyone relies on a task's user identity staying on one
-> >>   task_struct in ways not covered above in the series.
-> > 
-> > This way may break ublk server given 'task_struct *' can be changed
-> > because the server issues blocking OP(fallocate, ...), then the
-> > `current` check in ublk_dispatch_req() can be hit.
-> 
-> Yep, which is why is isn't enabled there.
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: switching device DAX to the section-based
+sparse-vmemmap optimization infrastructure introduced for HugeTLB.
 
-If you mean .blockable isn't set for IORING_OP_URING_CMD, it can't avoid
-this issue, because io->task crosses IORING_OP_URING_CMD, and one
-io-uring(fallocate) changes ublk server's `task_struct *`. It can be
-solved in ublk driver by storing and checking tid.
+After the HugeTLB conversion, optimized vmemmap state is described by
+the memory section and the sparse-vmemmap population path can allocate or
+reuse shared tail vmemmap pages based on that metadata. Device DAX still
+uses the older DAX-specific population model, including a separate tail
+vmemmap page reservation and architecture-specific logic to locate or
+populate reusable tail pages.
 
-The usage is similar with prctl(PR_IO_FLUSHER).
+This series makes device DAX use the same section-based model. Device DAX
+records the compound page order from pgmap->vmemmap_shift in section
+metadata before vmemmap population, uses the common per-zone shared tail
+vmemmap page, and drops the extra reserved tail page. The powerpc radix
+path is updated to use the same shared tail-page helper, so the generic
+and powerpc DAX paths follow the same reservation model.
 
-> Known gaps are LSM state kept in the task rather than the cred, and
-> PR_SET_IO_FLUSHER. Neither moves, and not moving them can only ever
-> restrict.
+The first patches prepare the shared infrastructure by factoring out
+shared tail-page allocation, allocating the per-zone shared tail-page
+array dynamically, and introducing a generic
+CONFIG_VMEMMAP_OPTIMIZATION symbol.
 
-A spare forked before PR_SET_IO_FLUSHER lacks the flags, so the user
-thread loses them after the handoff, for good, since later spares are
-forked from the new task.
+The middle patches move device DAX onto that infrastructure by recording
+the device DAX compound page order in memory-section metadata, using that
+metadata to back generic device DAX mappings with the common per-zone
+shared tail page, exposing the shared helpers so the powerpc radix path
+can use the same model, and dropping the extra DAX-only tail page
+reservation and the now-unused section accounting arguments.
 
-> 
-> > Also there is risk in 'task_struct *' keyed bpf task storage.
-> > 
-> > task_work queuing could become tricky too.
-> 
-> Like the above, the series does attempt to handle that.
+The final patch updates the documentation for the new DAX layout.
 
-I meant kernel tw uses instead of io-uring's, one example:
+This is intended to be the third smaller step toward the broader HVO
+generalization. The wider HVO consolidation between HugeTLB and device
+DAX is left for follow-up series.
 
-With CLOSE + FSYNC in one io_uring_enter(), the CLOSE isn't blocked and its
-CQE is posted before the syscall returns, but ____fput stays queued on the old
-submitter until the FSYNC completes because of handoff, so the app still sees
-the file open.
+[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
+
+v5:
+- Move the shared tail-page factoring before introducing
+  CONFIG_VMEMMAP_OPTIMIZATION
+- Add a new patch to allocate the per-zone shared tail-page array
+  dynamically and fix the RISC-V build failure reported by the kernel
+  test robot
+- Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX so
+  MSHV_VTL cannot set vmemmap_shift while leaving the optimization
+  disabled (reported by Sashiko)
+- Move the vmemmap optimization macros and MAX_FOLIO_VMEMMAP_ALIGN from
+  mmzone.h to vmemmap-optimization.h
+
+v4: https://lore.kernel.org/all/20260916064341.1825793-1-songmuchun@bytedance.com/
+- Rename CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION to
+  CONFIG_VMEMMAP_OPTIMIZATION (suggested by Mike Rapoport)
+- Collect Acked-by tags from Mike Rapoport
+
+v3: https://lore.kernel.org/all/20260911050228.58884-1-songmuchun@bytedance.com/
+- Use EOPNOTSUPP for partial additions to sections that already use
+  optimized vmemmap mappings
+- Move device_zone() after NODE_DATA() to fix non-NUMA builds
+- Collect Acked-by tags from David Hildenbrand and Qi Zheng
+- Rebase onto mm/mm-new
+
+v2: https://lore.kernel.org/all/20260908030335.96549-1-songmuchun@bytedance.com/
+- Add a missing SPARSEMEM_VMEMMAP dependency (suggested by Qi Zheng,
+  reported by Sashiko)
+- Add an explicit ZONE_DEVICE dependency for DEV_DAX
+- Add missing dependencies to the new public header
+- Explain why optimized and ordinary layouts cannot share a section
+  (suggested by Qi Zheng)
+- Explain why sharing tail vmemmap pages is safe for DEV-DAX (suggested
+  by Qi Zheng)
+- Clarify the removal of duplicated 4K PUD calculations from the docs
+  (reported by Sashiko)
+- Collect Acked-by tags from Qi Zheng
+
+v1: https://lore.kernel.org/all/20260831075342.57563-1-songmuchun@bytedance.com/
+
+Muchun Song (12):
+  mm/sparse-vmemmap: factor out shared vmemmap tail page allocation
+  mm/sparse-vmemmap: allocate shared tail page array dynamically
+  mm/sparse-vmemmap: introduce CONFIG_VMEMMAP_OPTIMIZATION
+  mm/sparse-vmemmap: open-code init_compound_tail()
+  mm/sparse-vmemmap: prepare DAX vmemmap population for compound page
+    orders
+  mm/sparse-vmemmap: set compound page order for device DAX
+  mm/sparse-vmemmap: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: move vmemmap optimization helpers to a public
+    header
+  powerpc/mm: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: drop the extra tail page from device DAX
+    reservation
+  mm/sparse-vmemmap: drop unused section_nr_vmemmap_pages() arguments
+  Documentation/mm: update DAX vmemmap deduplication docs
+
+ Documentation/arch/powerpc/vmemmap_dedup.rst  |  90 ++------
+ Documentation/mm/vmemmap_dedup.rst            |  32 +--
+ MAINTAINERS                                   |   1 +
+ arch/loongarch/include/asm/pgtable.h          |   1 +
+ arch/powerpc/mm/book3s64/radix_pgtable.c      | 124 +----------
+ arch/riscv/mm/init.c                          |   1 +
+ arch/x86/entry/vdso/vdso32/fake_32bit_build.h |   2 +-
+ fs/Kconfig                                    |   1 +
+ include/linux/mm.h                            |   7 +-
+ include/linux/mmzone.h                        |  38 ++--
+ include/linux/page-flags.h                    |   5 +-
+ include/linux/vmemmap-optimization.h          | 115 ++++++++++
+ mm/Kconfig                                    |   5 +
+ mm/hugetlb.c                                  |   2 +-
+ mm/hugetlb_vmemmap.c                          |  31 +--
+ mm/internal.h                                 |   9 -
+ mm/memory_hotplug.c                           |   6 +-
+ mm/mm_init.c                                  |  17 +-
+ mm/sparse-vmemmap.c                           | 209 +++++++++---------
+ mm/sparse.c                                   |   3 +-
+ mm/sparse.h                                   |  81 +------
+ 21 files changed, 299 insertions(+), 481 deletions(-)
+ create mode 100644 include/linux/vmemmap-optimization.h
 
 
-Thanks,
-Ming
+base-commit: 92068d3f6a4274d952441ba8f46221c3c03787dd
+-- 
+2.54.0
+
