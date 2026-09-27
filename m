@@ -1,99 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76AD3DD85E;
-	Sun, 27 Sep 2026 23:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CCA423A79
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553327; cv=none; b=ZCEr7Hq7Mu5faBSjHSL2hNKxfB4v1cA4UT/Biqg3mtX/QP4S8vXl5JxT3RgUZSyW14CGT3mI2kuZPMuQZWaplSQBdd06TaXV4IMviSOtlBz63nVuZP1qUXu5UmDdneAhPCFdoXlJBIgBizXS8pYjcNjkT3mOgYiuVkwWx/cVAvY=
+	t=1790553464; cv=none; b=Akf3NtUTHADgOqmEapiF8KQyGCQJ2EB9iXcl0XT70LfoPmCxg5RWhRm/O9E76hEDsdbInvSnGWRCNLa71SQbbuJv261ghn50kobWzydgWqX2xdJb9nL+/naEhWOR+6mC9v8rFeU1Fmf6wNKHmTKHyXvxrRD5nHUs5VMJlUYXcqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553327; c=relaxed/simple;
-	bh=E1uHkH2WiXAgc7R6ZJWhqM8g4LhOU/R6TmwrsAaFi1A=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=cyCe7JU+TAK7q9dSTG2KJCY6AfZ4aYWtSG8nH9X7uXmUB1BVamwioO9mtAhukeqricE+n4GeqIeyNZFm7UUTsmTBxj2YaP3q13yr/GdojVKZBabF0+CVEXjBVSSobar2RTwJzSKQGeMD1HR1c9IOe9zEd6dlRmJy8Yil2zoPVrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUJro4Nh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790553464; c=relaxed/simple;
+	bh=mEHiS5SvMXbrnxlzmCfYyk9kbhmV1UyR7+SzycBCwLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STih8yHSEndrxr3K8jMTf50S1iwTmY9DyxcehSNiAEls8A0YwIWTuMXJskdvDaZZ23grpJDMH4i6vN6uMd0NPDombH8MKWrjCJAI3dxPGeuZsOccN7JezRnkeSw14R/NOgHHL7NLCDE2/9PkmgfK6lMofkwGYptY0M64q6pWetg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=MPVY45qv; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUJro4Nh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F2E1F000FF;
-	Sun, 27 Sep 2026 23:55:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790553326;
-	bh=E1uHkH2WiXAgc7R6ZJWhqM8g4LhOU/R6TmwrsAaFi1A=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=LUJro4NhDYoubaTMJs/UR6RAZuKOwvse2Ggt/Gi6Al4srnY7ueUZHS/Knh2DB/Dvw
-	 Nos9dO+6FBRkgde4ctUrcQ6Cg6ydaQpyg5hIjEUXK2IfTrGyfkLMfj5Bg3UekV3yWw
-	 vTzdo0zvMff1g3qns/pyBZvK8J+RnqoRlDo8XevuiVYnhnWUSH2PazbN3Og6mkWUHd
-	 5UMOjxAPZXRrfKTnTzCQcZC0Ka/vfeUsztG/LMMWoqPf3DYn6OoWdLSB6JVEH8trMZ
-	 99ZPw/4BIADnsDjAU9QzllMvbaedkQp5jpzMNFUROzCfMDqrrIks1OzKY882ucNuH2
-	 c+FifocUaNEvA==
-Content-Type: multipart/mixed; boundary="===============6793949663222856225=="
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="MPVY45qv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so4550455e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:57:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1790553459; x=1791158259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TlHPB1uz/oxBV+2XbguSNvsGzmXWhY1StfXAGE9Vfsg=;
+        b=MPVY45qvzufiDLmW5msUC77ZTRTCXjMOIUtArXrTjNLUDIp4LfaUjP8pw+LMw0YM6h
+         sM9q4shNpnVa2wXo3d0BEKMQDL7X0t4hJn+I69UgtuqYrWC6Cg8drS0Y1Tdr+aBNRaYu
+         fY73VngtIc9/MowLpbGbq4iUR8IMiqNjVqPKWPQ2X9icE4bx3MMI9MfYV/bc5GDDa8O5
+         c4S5GkGcX+D4J2Es7xObZGJYeaGAubAEh0SCFHKQQjMvrkfzyh27zKn2KjkqQQRd5Xhw
+         ennEajIYm8oacA1hY/RVRerejBj1IO9PHBc4X0jPZHsf2GyAtYKv5yW+nxZ03NJJg01+
+         WLiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790553459; x=1791158259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TlHPB1uz/oxBV+2XbguSNvsGzmXWhY1StfXAGE9Vfsg=;
+        b=ClZiZZEAvr8NvA2uMTjyGA2i0KUD+86zMLi3H6A3/Ie1YU9X3Ey2/tqUG/R170lwW5
+         fd4rD40qQHVl9JgzAWJKC8eDLpeXLjJzbukF1wxAPOcB5Iho2Rl5lpSrdAJynxPM21aq
+         81yGMou0CR6gELdd/S5lJD2haxl22TZWEnMYuWtJK2GdAT9zSXuiQrllXenutujAH9vb
+         ugjqO8yDxnN+Kr282NEXwy0C+V9RerqiBlLgynNX2SXmG1STHg3E5sJndvxuL1n8uRqS
+         u6kXjj8xZzxQ4N0YQbKMGnx2c9riv3US8O4HMQqAJGyEKOFRNwxclcyzBeBmy5rNUmv1
+         fE1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBywgcZACtw2CV2kpxCRB8sF18ZtXwQbv3t55U+ENcysPVebok8aUzhm7xf7F1FFoPTDgS7wTE/hzjwchC8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAWnhH9HniV9lWsuwQKpzzicU4K69Z7srRAl4wVIYZLbM5edrL
+	ugmIWk7DhMEEre9GD6wB36GIgGgUWe5StkqLdpcWAKPSXwkYEY46EcWj52HvGJ8o5tw=
+X-Gm-Gg: AYBFou0Qz0ibbyV0ZtZQdJ4CO3NONopq6QRWvqy/POKegRjWmusTEXNY+htyc+/WjOb
+	vXgupGuITdhSINKx7DIW1kCcJ6M1oy53rMjv9M5VGMd3izm/h30o+GHOwZUxcS3C3mQ/OXSNPdT
+	ExfrXbpAvgKDRh6p5anrCh6jub2u8wpq0Sp3sy1Ung/7RrWqbo5qbFfmkM37p8jeov8xB/wYZf7
+	jAf0R21FYjhmw4eMOCONNuR4xM+U9bRDv9+NLqkF/nI9+fdwsgaWRDXawq7nguiXhnGI3uapVno
+	CoBM/g6TiGVJm2jJ0yi7XCSQedLVycN37qSQCbH983n+CUORYOSfL8RcL2ORucZer9lpNFAby+e
+	c1iWYgHza8R35M9+sFq3MV5AMsL2So7272HvydzfSzeCbJ3tohXgwz6kLpET9QpDfLWWWafz4tm
+	pMA4QWOeRAwtrpHo70dLgZS44phXl8wEVV3u7Bb1Kr0mEDQXip4jQ=
+X-Received: by 2002:a05:600c:4705:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fe66d03b6mr203820505e9.5.1790553459532;
+        Sun, 27 Sep 2026 16:57:39 -0700 (PDT)
+Received: from remote-01 ([84.17.55.134])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017998dbsm137971495e9.14.2026.09.27.16.57.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 16:57:39 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	olteanv@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	steve.glendinning@shawell.net,
+	f.fainelli@gmail.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [PATCH net v12 0/4] net: phy: keep a PHY interrupt across a generic bind cycle
+Date: Mon, 28 Sep 2026 02:57:29 +0300
+Message-ID: <20260927235733.2619081-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <02e24e11e7c406888fd5751a1f7341fdb6271ed894d8a5f7946092e97d610339@mail.kernel.org>
-In-Reply-To: <20260927230822.417683-1-omermetekaya0@gmail.com>
-References: <20260927230822.417683-1-omermetekaya0@gmail.com>
-Subject: Re: [PATCH bpf-next] bpf: Fix bpf_loop() depth check to use 32-bit max for nr_loops
-From: bot+bpf-ci@kernel.org
-To: omermetekaya0@gmail.com,ast@kernel.org,daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,omermetekaya0@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sun, 27 Sep 2026 23:55:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============6793949663222856225==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+On a Keenetic KN-1012 the EN8811H PHY behind lan4 has its driver as a
+module on the root filesystem, so it binds to the generic driver first.
+phy_probe() replaces its interrupt with PHY_POLL, and nothing puts it
+back when the real driver takes over, so the PHY is polled for the rest
+of the uptime.
 
-PiBicGY6IEZpeCBicGZfbG9vcCgpIGRlcHRoIGNoZWNrIHRvIHVzZSAzMi1iaXQgbWF4IGZvciBu
-cl9sb29wcwo+Cj4gYnBmX2xvb3AoKSB0YWtlcyBhIHUzMiBucl9sb29wcyBhcmd1bWVudC4gQXQg
-cnVudGltZSwgbnJfbG9vcHMgaXMKPiBwYXNzZWQgYXMgYSB1MzIgdmlhIHRoZSBCUEZfQ0FMTF80
-IHNpZ25hdHVyZToKPgo+ICAgICBCUEZfQ0FMTF80KGJwZl9sb29wLCB1MzIsIG5yX2xvb3BzLCAu
-Li4pCj4KPiBIb3dldmVyLCB0aGUgdmVyaWZpZXIgY29tcGFyZXMgY2FsbGJhY2tfZGVwdGggKHUz
-MikgYWdhaW5zdAo+IHJlZ191bWF4KCksIHdoaWNoIHJldHVybnMgdGhlIDY0LWJpdCB1cHBlciBi
-b3VuZCBvZiBSMS4gSWYgdGhlIHVwcGVyCj4gMzIgYml0cyBvZiBSMSBhcmUgc2V0LCByZWdfdW1h
-eCgpIGNhbiBiZSBVNjRfTUFYLCBjYXVzaW5nIHRoZSBkZXB0aAo+IGNoZWNrIHRvIHJlbWFpbiBp
-bmVmZmVjdGl2ZSBhbmQgdHJpZ2dlcmluZyBleGNlc3NpdmUKPiBwdXNoX2NhbGxiYWNrX2NhbGwo
-KSBpbnZvY2F0aW9ucyB1bnRpbCB0aGUgY29tcGxleGl0eSBsaW1pdCBpcyBoaXQuCj4KPiBVc2Ug
-cmVnX3UzMl9tYXgoKSBpbnN0ZWFkLCBtYXRjaGluZyB0aGUgMzItYml0IHJhbmdlIGFjdHVhbGx5
-IHVzZWQgYnkKPiBicGZfbG9vcCgpIGFuZCBhdm9pZGluZyB1bm5lY2Vzc2FyeSBzdGF0ZSBleHBs
-b3JhdGlvbiB3aGVuIFIxIGhhcyBhCj4gbGFyZ2UgNjQtYml0IHJhbmdlLgo+Cj4gU2lnbmVkLW9m
-Zi1ieTogw5ZtZXIgTWV0ZSBLYXlhIDxvbWVybWV0ZWtheWEwQGdtYWlsLmNvbT4KClRoZSBjaGFu
-Z2Vsb2cganVzdGlmaWVzIHRoZSBzd2l0Y2ggdG8gcmVnX3UzMl9tYXgoKSBieSBzYXlpbmcgdGhl
-IHJ1bnRpbWUKb25seSBldmVyIHVzZXMgdGhlIGxvdyAzMiBiaXRzIG9mIFIxICgibnJfbG9vcHMg
-aXMgcGFzc2VkIGFzIGEgdTMyIHZpYSB0aGUKQlBGX0NBTExfNCBzaWduYXR1cmUiLCAibWF0Y2hp
-bmcgdGhlIDMyLWJpdCByYW5nZSBhY3R1YWxseSB1c2VkIGJ5CmJwZl9sb29wKCkiKS4KClRoYXQg
-aG9sZHMgZm9yIHRoZSBvdXQtb2YtbGluZSBoZWxwZXIgaW4ga2VybmVsL2JwZi9icGZfaXRlci5j
-LCBidXQgbm90CmZvciB0aGUgaW5saW5lZCB2YXJpYW50LiBXaGVuIGxvb3BfaW5saW5lX3N0YXRl
-LmZpdF9mb3JfaW5saW5lIGlzIHNldAooZmxhZ3Mga25vd24gemVybyBhbmQgYSBzaW5nbGUgY2Fs
-bGJhY2sgc3VicHJvZyksIHdoaWNoIGlzIHRoZSBjb21tb24gY2FzZSwKYnBmX29wdGltaXplX2Jw
-Zl9sb29wKCkgcmVwbGFjZXMgdGhlIGNhbGwgd2l0aCBpbmxpbmVfYnBmX2xvb3AoKSBpbgprZXJu
-ZWwvYnBmL2ZpeHVwcy5jLiBUaGF0IGNvZGUgd29ya3Mgb24gdGhlIGZ1bGwgNjQtYml0IFIxOgoK
-ICAgIGluc25fYnVmW2NudCsrXSA9IEJQRl9KTVBfSU1NKEJQRl9KTEUsIEJQRl9SRUdfMSwgQlBG
-X01BWF9MT09QUywgMik7CiAgICBpbnNuX2J1ZltjbnQrK10gPSBCUEZfTU9WMzJfSU1NKEJQRl9S
-RUdfMCwgLUUyQklHKTsKICAgIC4uLgogICAgaW5zbl9idWZbY250KytdID0gQlBGX01PVjY0X1JF
-RyhyZWdfbG9vcF9tYXgsIEJQRl9SRUdfMSk7CiAgICAuLi4KICAgIGluc25fYnVmW2NudCsrXSA9
-IEJQRl9KTVBfUkVHKEJQRl9KR0UsIHJlZ19sb29wX2NudCwgcmVnX2xvb3BfbWF4LCA1KTsKCkZv
-ciBleGFtcGxlLCBSMSA9IDB4MTAwMDAwMDA1IHJ1bnMgdGhlIGNhbGxiYWNrIDUgdGltZXMgdGhy
-b3VnaCB0aGUgaGVscGVyCmJ1dCByZXR1cm5zIC1FMkJJRyB3aXRoIHplcm8gaXRlcmF0aW9ucyB3
-aGVuIGlubGluZWQuCgpUaGUgcGF0Y2ggaXMgc3RpbGwgc291bmQgZm9yIGJvdGggdmFyaWFudHMu
-IEFueSBSMSB3aXRoIHVwcGVyIGJpdHMgc2V0CmZhaWxzIHRoZSA2NC1iaXQgUjEgPD0gQlBGX01B
-WF9MT09QUyBjaGVjayBpbiB0aGUgaW5saW5lZCBjb2RlLCBhbmQgYW55IFIxCnRoYXQgcGFzc2Vz
-IGl0IGVxdWFscyAodTMyKVIxIDw9IGNudW0zMl91bWF4KHIzMikuIEhvd2V2ZXIsIHRoZSBjaGFu
-Z2Vsb2cKZG9lcyBub3QgbWFrZSB0aGF0IGFyZ3VtZW50LCBhbmQgaXRzIHdvcmRpbmcgaW1wbGll
-cyB0aGVyZSBpcyBhIHNpbmdsZQozMi1iaXQgcnVudGltZSBzZW1hbnRpYy4KCkZvciBhIGNoYW5n
-ZSB0aGF0IHJlZHVjZXMgaG93IG1hbnkgY2FsbGJhY2sgaXRlcmF0aW9ucyB0aGUgdmVyaWZpZXIK
-c2ltdWxhdGVzLCB0aGUgc291bmRuZXNzIGFyZ3VtZW50IGZvciB0aGUgaW5saW5lZCBwYXRoIHNo
-b3VsZCBiZSBpbiB0aGUKY29tbWl0IG1lc3NhZ2UuIEEgc2VsZnRlc3Qgd2hlcmUgUjEgaGFzIHVu
-a25vd24gdXBwZXIgMzIgYml0cyBhbmQgYm91bmRlZApsb3cgMzIgYml0cyB3b3VsZCBhbHNvIGhl
-bHAsIGZvciBleGFtcGxlIGEgSk1QMzIgYm91bmQgb24gYSA2NC1iaXQgdmFsdWUuCgpDb3VsZCB0
-aGUgY2hhbmdlbG9nIGJlIHVwZGF0ZWQgdG8gY292ZXIgdGhlIGlubGluZWQgYnBmX2xvb3AoKSBj
-YXNlPwoKCi0tLQpBSSByZXZpZXdlZCB5b3VyIHBhdGNoLiBQbGVhc2UgZml4IHRoZSBidWcgb3Ig
-ZW1haWwgcmVwbHkgd2h5IGl0J3Mgbm90IGEgYnVnLgpTZWU6IGh0dHBzOi8vZ2l0aHViLmNvbS9r
-ZXJuZWwtcGF0Y2hlcy92bXRlc3QvYmxvYi9tYXN0ZXIvY2kvY2xhdWRlL1JFQURNRS5tZAoKQ0kg
-cnVuIHN1bW1hcnk6IGh0dHBzOi8vZ2l0aHViLmNvbS9rZXJuZWwtcGF0Y2hlcy9icGYvYWN0aW9u
-cy9ydW5zLzM2MzU4NjkwMzI2
+Patches 1 and 2 put the lan78xx and smsc95xx PHY interrupts into the
+MDIO bus table, so there is a number to restore for them too. Patch 3
+restores the interrupt from that table in phy_detach(). Patch 4
+restores it when the generic bind fails inside phy_attach_direct().
 
---===============6793949663222856225==--
+Not covered: a driver without interrupt support that is bound or
+unbound through sysfs still leaves PHY_POLL behind. Removing the
+substitution from phy_probe() would fix that too, and belongs in
+net-next.
+
+Patches 1 and 2 are compile-tested only; a Tested-by from someone with
+a LAN78xx or LAN95xx device would help. Patch 4 touches lines that
+patch 2 of the attach guard series [2] also changes, so whichever lands
+second needs a trivial rebase.
+
+Other drivers that write phydev->irq outside the bus table, checked
+against net/main:
+ - ixp4xx_eth, ax88796c and emac-mac force PHY_POLL themselves, and
+   none of them attaches again after a detach without forcing it again.
+ - stmmac and mlxbf_gige already write mdiobus->irq[] as well.
+ - bcmasp and genet (for an internal PHY) and tsnep set
+   PHY_MAC_INTERRUPT again after each connect, so a restore that
+   overwrote it does not last. icplus sets it on every status read.
+ - ucc_geth only reads the field.
+
+The full changelog up to v11 is in the v11 cover [1].
+
+Changes since v11 [1]:
+ - Shorter commit messages for patches 3 and 4, and a shorter cover.
+   No code change.
+ - Reviewed-by from Andrew on patches 1 and 2.
+
+[1] https://lore.kernel.org/r/20260926235024.705646-1-f@lex.la/
+[2] https://lore.kernel.org/r/20260924215951.2127682-1-f@lex.la/
+
+Aleksei Sviridkin (4):
+  net: usb: lan78xx: register the PHY interrupt with the MDIO bus
+  net: usb: smsc95xx: register the PHY interrupt with the MDIO bus
+  net: phy: take the interrupt back from the bus on detach
+  net: phy: restore the interrupt when the generic bind cycle fails
+
+ drivers/net/phy/phy_device.c |  4 ++++
+ drivers/net/usb/lan78xx.c    | 12 +++++-------
+ drivers/net/usb/smsc95xx.c   |  6 ++++--
+ 3 files changed, 13 insertions(+), 9 deletions(-)
+
+
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+-- 
+2.53.0
+
