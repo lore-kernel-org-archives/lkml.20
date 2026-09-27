@@ -1,193 +1,182 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF07F3B7B79
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA433B9D81
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790491247; cv=none; b=M0eMWuNEKL902mK7gCrI9W50IcOXGZ0NcscG6zboGioZuAAfhrZp/RmNoWOXftfQsgFwHu6N5PMn3Oh6fIF8bapzwy2ska7gm5ug2s/pHfCWhzbzW2iI6PrvU3elUXxUHCavkKMA87U9XViCRWhE1kpW30ptpoiBppa77iCDra0=
+	t=1790491336; cv=none; b=Gck1eWND9PJ+UrkIqhPTs8Qo8m9t34MBBZAXr0OUC6v4jQ6VBDYdNLPJoDhv7YjQ6k9Yis1XyAqSYzYqkLCCfJSwfIDIHt1YxBYlvkSZieCyAoakQuZ8dhY6N8JBd01VPuzN/wPB8tT8cHOqyg8icQKBHZICOfBR+1jdf/+qUqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790491247; c=relaxed/simple;
-	bh=Bc7rp4L028Tl9EXyqCmfTpsUXQ/jC2GtMhU6BV2AJx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AnKLsYOBmVYUf5sE2aq9PqLOQOSLGs1ac8LgQmfqGcfqs0+f2OGK3AxQ/c/sEwZKbhu/Z+WXz7Pi4N/mNga1EZRpQktdDgFTG1qfhf4s/Ngxc2YESEXykbvJ6nFzqgzLBghG43UDki+SL+VvKRwhmY2Xot7D1uFUsYxG1V8U+sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P9jtlfch; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790491336; c=relaxed/simple;
+	bh=NbYcvNxyS1M3EnUfN203T1BQ2U8g5FoakSyHhsLQDko=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TyXu4MLhbsYNCMrphTaElc2qFZoI89rlgUT9ksl4xL2gEBt+U0C1NLL4MSvVRt5vewQSgThIRgewSBQcFNebNhgy0ZZEyCBv65F8sCzHSucyFWcD22XB54sVp92IFPLsYyVF6fhj0nAWO2O1OpG5QX0Z376zhQVjylvKJBVa1h8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8sEfPVY; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P9jtlfch"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-344213c95bdso18934eec.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:40:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8sEfPVY"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso7330075e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:42:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790491245; x=1791096045; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wSDCh9Q3eDQkB1vLD3xC3Yg4S14N+M5xHShZ9jLMyTA=;
-        b=P9jtlfchoHij9jns25gXzP5CPKFFVGqISsk6J8BiucI6ZDqnWGy9LM6+pbqQjnSwdp
-         hsGc3ybZspU/BvEW/Tt7+NS2s+jkOxSbXiyCTEScvpSbuUvnv6gLcxJe6Am1nGJy/erE
-         9bJdNRUNFLzF52m/ssSOc5jzrRaOl+GGsz9+X/5idanEWlSPQVPDzrYMzAKZn4uO7+Je
-         56uSwyGZK+3z9zUi/KIwOVkA/PWsm+Z01W0soSx15RpTHPkhBJj2wbv8Vk1Q0eDfnDAg
-         BjyY9y4bvp/IHeOM46GiEUIwtjsrFUuVKe61g3S8W4wBVPq3tYWVXodP/v/pazOyEjpC
-         1khA==
+        d=gmail.com; s=20251104; t=1790491331; x=1791096131; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BAKBnzLmCCesYaECKziOir8dgFXqR4aUrCK6q2PlUyI=;
+        b=F8sEfPVYOCPy0itgdP3IiNdxf2CjfLU8xnaoqc3i9+xBfOtOAIh5aGxwZqQE5KQ3/D
+         R/p832HJQUaksjWNOOzGI0j3hiirZFR2PEAWMuXgGMV3aN3wICkGFvtP9Cu/Xhf2L9ir
+         c9O8E7kHDzAnpBRf1oumdCNsngra6EkKX58vP3jotEiCEfMRlSb1ZsK5viuC6cm9qx8A
+         DR0jnEU+nvTg1tkF59quFNJIeTt+6X59oOI8aFBJLR9kOktmmLCdyhgXKUKTNCO7kMF6
+         3yFRftcrnaRn62++Gx1Pq/rRUJDkNED+cYosWuAFan6hnAcEQULUxseZTTExrr8qjysv
+         2+/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790491245; x=1791096045;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wSDCh9Q3eDQkB1vLD3xC3Yg4S14N+M5xHShZ9jLMyTA=;
-        b=2tG6Dc0SEz7HICXKUKpNkxqcXOLDoTuj1eblhV1v/Rv5t0D/xWd7U9nffpE2+PqST4
-         YjVP0xEHAD0drbYwFFwaOmSsn5Iyd25+m3gGyFsDuPEm8upTyaR6xfl4Q5KKMp9zqL0V
-         N99dYZblogEDSiO9b5CHCqSddO/prXZ+AzNzXDZa0+1K+UyAKUhbNuV+45Cnw9AGBaM+
-         oTuM/izHzCSRK2OERe9aYIgDH6IAufAq6XdKLkFNLp31w5H1WFjYsUEmQsUWKPiye1/8
-         b8FvomOPB24PuGn2tpnsg/M9pB5FLTMFS3a2QUFl1OlvxT7PwEaJ2LgOaF/IIYZiVdfM
-         Zw6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwFxnoW8orhsIW+fEOf0BD2P7wccMhlV29qcdt/I8dtFAK+9NXDZCFW95+Rx+j+pFCjmjFiQUzvYOw/O1c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0lmA+BfwTGXRsd5lYR5jz/M2zfPpCroqyTUYCASrwUQz2xZR7
-	96Ltyv5N80o9xt7pHKv+86W4f3ciRS/8nuWtVQV/mn/xfoW0ypdrVBxI
-X-Gm-Gg: AYBFou2Gw7I/EBBv/KNLO2FRe2OE7Ls/r9iFmcdcvGF0TiwCph0Sl3NLmsrFphNp30Q
-	OmqpavEsbAHmrf1sPHmdnY4empOlD+aUa/TciEypOyPBn+4PmXGgMoLgainwcKqoIZ/r4KAZlys
-	ZYCZq0KJFV5oLp+E8f0ugIzcLllJCtGZaYemZFWYQCoRwz2WYxG8bHTLvPBIZp22hz8hzP/OJTK
-	toJb+htzHGUX62Vnz1Unygi9GEcVPnqvZgwSFY9Cnd2Y18ecmdCOdr4VhBrfPYoda26Q2RlcqKO
-	U74MIGxyYzX0sQkvlE1Qf5YzrNGsGN9w2lgWcVn5EyHE41Q3JMrtS3K77//CsYVJVb1gore/qjO
-	/MS2AmD4LFwHgJTRBkrm6ExP39DzIFQL565RIj/JtJdJWwYbT60PTnSpAsjYklM/wEEhSMnQSpO
-	wW9riuGN+5yD4oKTd/amq5XiWkccHMK6xG/k5esuFAUIwEIKELi8Wvhntqubk3dz31SJ+AyBJJM
-	0E1X+TKLPfeVGzPrmwTlCGRPV4aFJKDrdi9BkWQR219kLXZuNhg3WCYsL15JLq8CpcWvxGshvXl
-	8i2/
-X-Received: by 2002:a05:7301:4d08:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-343fdea25bemr3651955eec.2.1790491243693;
-        Sat, 26 Sep 2026 23:40:43 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414504fae2sm19985283eec.20.2026.09.26.23.40.40
+        d=1e100.net; s=20260707; t=1790491331; x=1791096131;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BAKBnzLmCCesYaECKziOir8dgFXqR4aUrCK6q2PlUyI=;
+        b=zq72vo+bf0p/e9dLMdFFsKzw9X6rVElD7UJnsA5LZXiKiqP7KlKwa7TaugQtuJqGR1
+         B0mGdiqI3ojjqCz67mMN8mbQHxWE7kTJvaJDfPNKXqkjYBx408nNzRFj90ZGOZDcvo2L
+         cgAB7q3NnsPhgWBWvaBcwf4eB+bqYM9T9iekg0/qHj7KUr0KOlKJ5IFH39THhdbiXU5M
+         kcQ5osN9X8kXRK7ZrSqX7z2gsbi8eIe4gXSKn4Tg3domJFWAn/sLOK/O1Tj4TbajZzKj
+         Svxei+kPBNjIFjHSFp9XmBnpYQhxnBHCe0F3Ejf2P3PEa9MaFR9Jx7DCgB9U7rIX8sQd
+         MjGw==
+X-Forwarded-Encrypted: i=1; AKwUvBws8r/8QuKeCdoI7VtDL2TXwskm1wqxdp8NIi9QL6h7q4XDsgz776elaOVMWvqPAMuJDTXjrY5RvmIG2i0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgyGWDOA/iqU8fwaFh9Gkii9Pnl60Vdupv+5BTTqgsw/cPQcWS
+	kU7NTdNqrmpk+vzPHGOpHW3nIqXAySKxlDN4/jbnwrInZkGasqLt6hk+
+X-Gm-Gg: AYBFou0rKJt30mjjCl7GRKM8dD0XOB5TotPYPSS28pSehJB3wm9VP4+JmKFe3xCunZs
+	1uBSeK9KJOx4MezPbfVkS5A/FElQBbaGIZHq7bD2JPJLBETlGX94R4TCaHxVPF+DPSem1XFi06K
+	U/Shh8JjZqWTeU203ZhUPTc6+AzCmFMhbud4Uj0QDBlQskrI3kwR3HCNrkm/FyRFdNayJRGTczi
+	muwS/oHVY4JqTaXcTlzXKQAX8G5PbRHdHezZZFLYVC2yzBAVvVhBJ06bUiaJ1JR16Ve/TYvDzET
+	FZ9t75L8TJ9SU4YxkN4h78fkJ/kfznNQMYfyJ1pdGsT5ZIurOU/01hUwl9q2LeFabkn2J/sPoQs
+	V2fhMsBHg4iebChMNYGd9K1G3wcMmW3dcT2iXfUELJ3vldcNg5Nav5Qdic4GiXPLnKf6qmtLuC0
+	h+5AE9yIPIKZoW/4ICij9I7cSuG3Vav1haBjZcwH6N7UKM86sIfvScFYDI5LILS15/6LopV8FZq
+	pS4DqtnE1l2P6kZLMHQxEOfkpZUWe5Qh/M=
+X-Received: by 2002:a05:600c:46d4:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49fe6e35833mr171739985e9.6.1790491331541;
+        Sat, 26 Sep 2026 23:42:11 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcc4sm19337580f8f.1.2026.09.26.23.42.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:40:43 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Jon Maloy <jmaloy@redhat.com>,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ying Xue <ying.xue@windriver.com>,
-	GhantaKrishnamurthy MohanKrishna <mohan.krishna.ghanta.krishnamurthy@ericsson.com>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tipc: hold a reference to nodes found by link name
-Date: Sun, 27 Sep 2026 14:40:36 +0800
-Message-ID: <20260927064036.3691962-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 26 Sep 2026 23:42:11 -0700 (PDT)
+Date: Sun, 27 Sep 2026 07:42:10 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Guo Ren <guoren@kernel.org>
+Cc: Marco Elver <elver@google.com>, linux-csky@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH] csky: Implement _THIS_IP_ using inline asm
+Message-ID: <20260927074210.7495123a@pumpkin>
+In-Reply-To: <CAJF2gTRr2pouJoj=NtofkCW1OgU08Jqoh2B8Guu=FheJMzEGyg@mail.gmail.com>
+References: <20260925115128.362186-1-elver@google.com>
+	<CAJF2gTRr2pouJoj=NtofkCW1OgU08Jqoh2B8Guu=FheJMzEGyg@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-tipc_node_find_by_name() returns a node after dropping its RCU read lock
-without taking a reference. The LINK_SET, LINK_GET and LINK_RESET_STATS
-handlers then lock and access the node, racing with timer-driven cleanup
-of a down peer. Generic netlink serialization does not exclude the node
-timer.
+On Sun, 27 Sep 2026 10:15:11 +0800
+Guo Ren <guoren@kernel.org> wrote:
 
-The following interleaving can leave a handler using a freed node:
+> On Fri, Sep 25, 2026 at 7:51=E2=80=AFPM Marco Elver <elver@google.com> wr=
+ote:
+> >
+> > Both GCC [1] and Clang [2] consider the generic version of _THIS_IP_ to
+> > be broken:
+> >
+> >         #define _THIS_IP_  ({ __label__ __here; __here: (unsigned long)=
+&&__here; })
+> >
+> > In particular, the address of a label is only expected to be used with a
+> > computed goto.
+> >
+> > While the generic version more or less works today, it is known to be
+> > brittle and may break with current and future optimizations. For
+> > example, Clang -O2 always returns 1 when this function is inlined:
+> >
+> >         static inline unsigned long get_ip(void)
+> >         { return ({ __label__ __here; __here: (unsigned long)&&__here; =
+}); }
+> >
+> > Fix it by overriding _THIS_IP_ in <asm/linkage.h> (which is included by
+> > <linux/instruction_pointer.h>) using an architecture-specific inline asm
+> > version.
+> >
+> > This also fixes this GCC ICE [3]:
+> >
+> > sound/core/oss/mixer_oss.c: In function 'snd_mixer_oss_proc_write':
+> > sound/core/oss/mixer_oss.c:1202:1: error: could not split insn
+> >  1202 | }
+> >       | ^
+> > (insn 183 400 184 (set (reg:SI 0 a0 [orig:307 _55 ] [307])
+> >         (xor:SI (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
+> >             (const:SI (plus:SI (symbol_ref:SI ("*.LANCHOR0") [flags 0x1=
+82])
+> >                     (const_int 132 [0x84]))))) "include/linux/slab.h":7=
+59:52 288 {cskyv2_xorsi3}
+> >      (expr_list:REG_DEAD (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [=
+308])
+> >         (nil)))
+> > during RTL pass: final
+> > sound/core/oss/mixer_oss.c:1202:1: internal compiler error: in final_sc=
+an_insn_1, at final.cc:2813
+> > 0x779b51e2a1c9 __libc_start_call_main
+> >         ../sysdeps/nptl/libc_start_call_main.h:58
+> > 0x779b51e2a28a __libc_start_main_impl
+> >         ../csu/libc-start.c:360
+> >
+> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D120071 [1]
+> > Link: https://github.com/llvm/llvm-project/issues/138272 [2]
+> > Link: https://lore.kernel.org/all/6106aefa-47c7-4bda-a51f-8a2fba3bf715@=
+roeck-us.net/ [3]
+> > Tested-by: Guenter Roeck <linux@roeck-us.net>
+> > Signed-off-by: Marco Elver <elver@google.com>
+> > ---
+> >  arch/csky/include/asm/linkage.h | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >  create mode 100644 arch/csky/include/asm/linkage.h
+> >
+> > diff --git a/arch/csky/include/asm/linkage.h b/arch/csky/include/asm/li=
+nkage.h
+> > new file mode 100644
+> > index 000000000000..04afd3583e25
+> > --- /dev/null
+> > +++ b/arch/csky/include/asm/linkage.h
+> > @@ -0,0 +1,7 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +#ifndef __ASM_CSKY_LINKAGE_H
+> > +#define __ASM_CSKY_LINKAGE_H
+> > +
+> > +#define _THIS_IP_ ({ unsigned long __ip; asm volatile("grs %0, ." : "=
+=3Dr" (__ip)); __ip; }) =20
+>=20
+> Yes, this is the right fix.
 
-  CPU 0: find the node under RCU and release the node read lock
-  CPU 1: tipc_node_timeout() clears the links and unlinks the down node
-  CPU 1: drop the list and timer references, queuing tipc_node_free()
-  CPU 0: leave the RCU read-side critical section
-  CPU 1: complete the grace period and free the node
-  CPU 0: acquire the node lock through the stale pointer
+Possibly "grs %0, 0" would be less obtuse.
+I think "grs reg, label" is documented as being "grs reg, (label - .) >> 1".
+The doc I found has some strange translations in it, grs is "Generate sign".
 
-LINK_SET also uses the node's media address after releasing the node
-lock, when passing queued packets to tipc_bearer_xmit().
+David
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in _raw_read_lock_bh+0x1d/0x40
-  Write of size 4 at addr ffff888112723808 by task poc/87
-  Call Trace:
-   _raw_read_lock_bh+0x1d/0x40
-   tipc_nl_node_set_link+0x30e/0x680
-   genl_family_rcv_msg_doit+0x1e0/0x2c0
-   genl_rcv_msg+0x419/0x6d0
-   netlink_rcv_skb+0x11f/0x350
-  Allocated by task 28:
-   tipc_node_create+0x9c1/0x1fa0
-   tipc_node_check_dest+0x121/0x11e0
-   tipc_disc_rcv+0xdbf/0x1430
-  Freed by task 87:
-   kfree+0x149/0x330
-   rcu_core+0x50a/0x1850
-  Last potentially related work creation:
-   __call_rcu_common.constprop.0+0x71/0xa10
-   tipc_node_timeout+0xb1b/0xe70
-
-Acquire a reference to the selected node with kref_get_unless_zero()
-before leaving RCU, returning NULL if the node has already been released.
-Release that reference on every caller exit after the last node access,
-including transmission in LINK_SET. Keep the existing link lookup order
-and locking so concurrent link removal still takes the existing error
-paths.
-
-Fixes: 6a939f365bdb ("tipc: Auto removal of peer down node instance")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/tipc/node.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/tipc/node.c b/net/tipc/node.c
-index bd91378b7540..2726bee3bb40 100644
---- a/net/tipc/node.c
-+++ b/net/tipc/node.c
-@@ -2424,6 +2424,8 @@ static struct tipc_node *tipc_node_find_by_name(struct net *net,
- 		if (found_node)
- 			break;
- 	}
-+	if (found_node && !kref_get_unless_zero(&found_node->kref))
-+		found_node = NULL;
- 	rcu_read_unlock();
- 
- 	return found_node;
-@@ -2507,6 +2509,7 @@ int tipc_nl_node_set_link(struct sk_buff *skb, struct genl_info *info)
- 	tipc_node_read_unlock(node);
- 	tipc_bearer_xmit(net, bearer_id, &xmitq, &node->links[bearer_id].maddr,
- 			 NULL);
-+	tipc_node_put(node);
- 	return res;
- }
- 
-@@ -2558,12 +2561,14 @@ int tipc_nl_node_get_link(struct sk_buff *skb, struct genl_info *info)
- 		link = node->links[bearer_id].link;
- 		if (!link) {
- 			tipc_node_read_unlock(node);
-+			tipc_node_put(node);
- 			err = -EINVAL;
- 			goto err_free;
- 		}
- 
- 		err = __tipc_nl_add_link(net, &msg, link, 0);
- 		tipc_node_read_unlock(node);
-+		tipc_node_put(node);
- 		if (err)
- 			goto err_free;
- 	}
-@@ -2634,11 +2639,13 @@ int tipc_nl_node_reset_link_stats(struct sk_buff *skb, struct genl_info *info)
- 	if (!link) {
- 		spin_unlock_bh(&le->lock);
- 		tipc_node_read_unlock(node);
-+		tipc_node_put(node);
- 		return -EINVAL;
- 	}
- 	tipc_link_reset_stats(link);
- 	spin_unlock_bh(&le->lock);
- 	tipc_node_read_unlock(node);
-+	tipc_node_put(node);
- 	return 0;
- }
- 
--- 
-2.43.0
+>=20
+> csky has always used the generic label-address _THIS_IP_.  That is
+> brittle, and on csky the compiler now crashes when that address is
+> folded into an immediate.  `grs rz, .` materializes the current
+> instruction address, so it is the correct replacement.
+>=20
+> Acked-by: GUO Ren (XuanTie) <guoren@kernel.org>
+>=20
+>=20
+> > +
+> > +#endif /* __ASM_CSKY_LINKAGE_H */
+> > --
+> > 2.56.0.rc1.315.gc6ed9934b7-goog
+> > =20
+>=20
+>=20
 
