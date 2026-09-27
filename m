@@ -1,32 +1,29 @@
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F173EDE59
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B92237E5D0
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790514290; cv=none; b=FM0o2JvEbb+aKWsLSe8jio5MrWTLQfYlejBQewwXMtER7TwLroM6kayIWSef5/Kiik8ZuADCCYyBMlZ0r/vpg0MgKv4sY6ba97YTu7GLYTjRQlYycZYVTLILPZSWO8nKOjbdxQZOsOLqF0+N1aWkNy5piDL7IJkmUucwR8NW93M=
+	t=1790514324; cv=none; b=SuMa5ihxHRuET7Jee7cfdVent7dBszcC8iG8qdaB4rprLQUu9hK2ZhfCGmg1MZ7bWSIYIOVUTAB2j8fxqWEbYxDqGvWCEeJmPziJIweW64N+DWHvi+H7AFpK2Z4fQ3hOqXWo22GfJClksAJybg214TnzRHGap2ofoltyRFNGkjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790514290; c=relaxed/simple;
-	bh=Ehjd7KQKYoiFG5GALnCvhpmMeeHIzSqeA0pg7VzK/nU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YC7ZNdEHkp2jW6kbZNiseelBmYQ6OSLkgalhrqF50BEXHnUCgyMaEtXzgvXvCzz5Lu2toOczpvKVrJ3r6KvlT9p2HxV+iLc9c2YAmXxaZHtwJwj2mIFQurvysO0ul/MEi5nlj3Wqf6I1oqwYyeTxIhGb9zbDHchm6jZcj73mQb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Kk/tGJM0; arc=none smtp.client-ip=117.135.210.2
+	s=arc-20240116; t=1790514324; c=relaxed/simple;
+	bh=28+YZo/XmVy3fRF3zKr/BYguA0KLZnlApveULGmwDog=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=G9WYvqU+PJ5XbUaSmX7oqApaYGPBIYPnLOqfqPMhlcVVK8q+ADkrozbjdIwXg04+F1z4Rg9+nIMPnhWf55JUepriJxi0szgKgIibM2vTdLkqHPIqOEF2+wQkztJnZb859eaf8qca8Mbb1tHEhzh/tetoWRVJYUSB+tiRlARZFKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hweTVajr; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Kk/tGJM0"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hweTVajr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=XxGyb9O2fOMBR42nQtG9tBy2Uuj5p7qZcZrUukCdB/s=;
-	b=Kk/tGJM0FiCjxAJ4pULro1ibWb00/kLQk6FrmXRaktwmqk7nIBLtltrqw198Y4
-	yFt8Db3uXeOMWUBL1eW+EQmifrFY7Bq2d4tGm3e4EN/rtjeTwm8z5V4TlUGMAUj5
-	J7px6Xv9qGfwYu0aTby2sa/EkppjWxOkK9726m3YfOyO4=
-Received: from [IPV6:2409:8949:6ca0:7910:556a:2884:1c35:3923] (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB3pURaFLlqOTOvBg--.35076S2;
-	Sun, 27 Sep 2026 21:04:27 +0800 (CST)
-Message-ID: <fa59fd96-5aac-48c1-b949-ea6b6b858cc3@163.com>
-Date: Sun, 27 Sep 2026 21:04:26 +0800
+	Content-Type; bh=42DMKxIAPoMuDerQkwnMYkPlNRutMUE8w4801xKA6Kc=;
+	b=hweTVajrofIo90OREoqTUE3MHJ6ngspImj8wA+9LjOUuya7zii80Lv+aiFXO1z
+	qqwt89kpoVu2PXDp4mIicroY7eJ0P2qLDZk5Kescg6aflAgHvPmVg/wC1Xfnx4sI
+	IwPBA2jdF6X6V7w+TPfqyjz/Emoq57knXXdOkZqISumEs=
+Message-ID: <9e6e7f65-33b3-4bf2-9254-011b5e1faaa9@163.com>
+Date: Sun, 27 Sep 2026 21:04:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,77 +31,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ntfs: do not use a stale runlist pointer when undoing
- $MFT extension
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260927105706.3111333-1-matthias.goergens@gmail.com>
- <20260927105706.3111333-3-matthias.goergens@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260927105706.3111333-3-matthias.goergens@gmail.com>
+Subject: Re: [PATCH v2 3/3] exfat: drain in-flight DIO before buffered write
+ fallback
+To: Jiale Yao <yaojiale02@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260926072612.3022680-1-yaojiale02@163.com>
+ <20260926072612.3022680-4-yaojiale02@163.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20260926072612.3022680-4-yaojiale02@163.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB3pURaFLlqOTOvBg--.35076S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWrXw4kJryUZr18tw13urg_yoW8Zw1fp3
-	45ArsFk3s0qr9FqasFga1Ykr1rCwn3t3yUAr1xA3Za9rZxWw18K3W3KF4Y93WIyrW8Jr17
-	CFs5A3y7Ca90vrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U7nY7UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhsk7mq5FFvNqAAA3q
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3L056FLlqMOuYBA--.1878S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr4rCF1UAFykAryxKFW8Xrb_yoWfZwb_Ga
+	92yrsrX3Wjg3WrJw4xCryFyrn7Ka18uas3Zws3Aw1ag3W7W395AFsrurn7Cayjg3ZFkrn3
+	Cws3Xw1Uta4kGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1Za9DUUUUU==
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9xosyWq5FHr+DAAA3H
 
+On 9/26/26 3:26 PM, Jiale Yao wrote:
+> diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+> index a2a9ee1a2004..cf5ccbd54823 100644
+> --- a/fs/exfat/file.c
+> +++ b/fs/exfat/file.c
+> @@ -807,6 +807,12 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+>   
+>   	iocb->ki_flags &= ~IOCB_DIRECT;
+>   
+> +	/*
+> +	 * Prevent concurrent direct I/O and buffered I/O to the same file
+> +	 * range. Wait for in-flight DIO to finish before dirtying pages.
+> +	 */
+> +	inode_dio_wait(file_inode(iocb->ki_filp));
 
+This change is correct, but the comment is not accurate because the 
+function you modified is not part of the buffered I/O path in exFAT.
 
-在 2026/9/27 18:57, Matthias Goergens 写道:
-> When ntfs_mft_data_extend_allocation_nolock() fails after it has
-> rebuilt the mapping pairs of the last $MFT data extent, undo_alloc
-> truncates the runlist and then rebuilds the old mapping pairs from rl2,
-> a pointer into the runlist taken before the truncation.
-> ntfs_rl_truncate_nolock() can reallocate the runlist, and KASAN then
-> reports a use-after-free in ntfs_mapping_pairs_build().
-> 
-> Pass the start of the runlist instead, and hold the runlist lock for
-> reading while the mapping pairs are built from it.
-> ntfs_mapping_pairs_build() skips to the element containing the first
-> vcn by itself.
-> 
-> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> A forced lookup failure of the first $MFT data extent, on a volume
-> whose $MFT has several extents, gives the KASAN report before this
-> patch and nothing after it.
-> 
->   fs/ntfs/mft.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 58676042444b6..5831ea7600315 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -2081,11 +2081,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
->   	if (ctx) {
->   		a = ctx->attr;
->   		if (mp_rebuilt && !IS_ERR(ctx->mrec)) {
-> -			if (ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
-> +			int err;
+You can add inode_dio_wait() to both exfat_file_write_iter() and 
+exfat_fallback_buffered_write(), and move the comment to 
+exfat_file_write_iter().
+
 > +
-> +			down_read(&mft_ni->runlist.lock);
-> +			err = ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
->   				a->data.non_resident.mapping_pairs_offset),
->   				old_alen - le16_to_cpu(
->   					a->data.non_resident.mapping_pairs_offset),
-> -				rl2, ll, -1, NULL, NULL, NULL)) {
-> +				mft_ni->runlist.rl, ll, -1, NULL, NULL, NULL);
-> +			up_read(&mft_ni->runlist.lock);
-> +			if (err) {
->   				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
->   				NVolSetErrors(vol);
->   			}
-
-
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+>   	written = iomap_file_buffered_write(iocb, from, &exfat_write_iomap_ops,
+>   			NULL, NULL);
+>   	if (written < 0)
 
