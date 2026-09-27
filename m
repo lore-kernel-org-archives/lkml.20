@@ -1,64 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621FC41379F;
-	Sun, 27 Sep 2026 16:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B22041A55D;
+	Sun, 27 Sep 2026 16:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790527123; cv=none; b=rOoWzI3t0hu1CTc+xVo+lMK9FrS8rZ9YZ+X2eXI+1qKbbOveReRMuAnF2O/uhjnT29kWbraJB0+n3pPHdvg2M2xB00mArsAcuB//opnfXeJ4Lhmx3iG6jvVOSbzRljy25X+WSML2BqrXMziyXBONKm5GebMTYKgxqSb72OG1Geg=
+	t=1790527180; cv=none; b=uGS4VJYILNBk6cFvm/+zGsuWp8XTuLTs0IXb8xRiTPGWw7vYYbgSYRZC0ZhPv1hJHv9/r73giwD2o3hzqWcxwWgPleRSEOEAonYityminphIzIIt7KOfF3tDkeoQ2EZ2900BnLG8YU1JjPSUYYJDAs4One8RioRqurh/GMDs4/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790527123; c=relaxed/simple;
-	bh=IJfHHMiuyoZKFm+V6ewC7tMlRpd+jb26tx/Of+xsr2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gn19oGUoXSl3my4tDeUXvDhN1t7o2BqMmrDrFb3R6XhIjqVjdEz5UE67nYSSV+978rwKHe3qO8qDYWk8KNsL5f/yJCAxjATbd5G+dTKK/BXSpnfeQHAgUhAAaTZfDOzvM3+5/JfC+bfdNGCXeqqVnRZPkOY02LGMiaZh/oqChA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vVJ+zoTA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790527180; c=relaxed/simple;
+	bh=FhQzjK+6z6ZIUkFNOPKFSAT+3V/h1heXwjRcjUeTUH0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j5hnBnhTi4dalEeqedlCufrzO2S3cRHoVIb0arhtGYqGcCPQ0NuZRdKHtF7edKR0MPDI2Nh+qlgV7rFjh+8k249+Gn6BcLO8vQ5BZMMh/FS6Dafp3GVLj9pwuSjPhYn3GEJtuClFmuYtHP1Y7EU/R7suOJN7GRs1I08nrxIRinY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DiskZ7hW; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vVJ+zoTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588F01F000FF;
-	Sun, 27 Sep 2026 16:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790527121;
-	bh=OZ5f9P+WqmVxDw2Rol7zbW+rThp0cvMFk1DIpBtalso=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=vVJ+zoTA3+cpb/opmSfaw/7UpXRZp6AYTn+Pthe7VA5C/zLoaNp2Ol689qzgpwCch
-	 YZCX5BxPKQEW89TDMCI5Sd7ITd7Tszl8qdJIUTyCTQTd4H2SYR2EVn6XLbLzK80wCr
-	 itY9HysZLCSYfI91sEOQQESywvlP0T0m55q+VfJ0=
-Date: Sun, 27 Sep 2026 18:38:39 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Kingz Tuffa <ak416_kingz@yahoo.com>
-Cc: "greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>,
-	"linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: greybus uart patch.
-Message-ID: <2026092732-aroma-murmuring-006c@gregkh>
-References: <378088904.1527494.1790495800044.ref@mail.yahoo.com>
- <378088904.1527494.1790495800044@mail.yahoo.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DiskZ7hW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=SpN6W4lEFND+VB5enmbsYW3nADzfTCDefHGu6aNuhLI=; b=DiskZ7hWcTpUGtBR+tqkbK0ts1
+	wJKx0tOjugHbL2qFHlP1MVHuvHstCvHwOnRSKgjaZn6h955HQ/gFjeZv59EHMfJjZXhdGoZW74NX5
+	x0GVkbo+uHOfuo89K0DvDQKerl5RCEnij76Cp5t7u5lgPxYDm+uVlQsqmTMna6PaZQORd/UrqGEgG
+	CSgPZeCMpfwb6mWFaFFmT13baDfzLZV3uXzeeKKA7yC6oIndMxgv4GorxglzHfpSeghhlY8nZd0yU
+	ZbcVZOXxPg5NMTP+pdNnfkpYhtCVfSm0TlwPBSiVdf4yzuUGRvmrjLjX4FfPkd0gE6XKzaADONxHl
+	fnCqNjxg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xAruS-0000000GblG-3LYl;
+	Sun, 27 Sep 2026 16:39:28 +0000
+Message-ID: <ff6eb658-3930-47d5-9d5d-3e9460d7c0d3@infradead.org>
+Date: Sun, 27 Sep 2026 09:39:22 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <378088904.1527494.1790495800044@mail.yahoo.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] docs: admin-guide: Handle TAINT_FORCED_BIND when
+ parsing /proc/sys/kernel/tainted
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+ Bradley Morgan <brads@mainlining.org>, Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org
+References: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
+ <4f89ceaf98172dbfb788832ad3204c8739653b31.1790495516.git.u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <4f89ceaf98172dbfb788832ad3204c8739653b31.1790495516.git.u.kleine-koenig@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 07:56:40AM +0000, Kingz Tuffa wrote:
->  From: =3D?utf-8?q?Roberts=3D20Bric=3DC4=3DABtis?=3D <ak416_kingz@yahoo.c=
-om> Date: Sun, 27 Sep 2026 10:48:38 +0000 Subject: [PATCH] staging: greybus=
-: uart: fix alignment to match open parenthesis MIME-Version: 1.0 Content-T=
-ype: text/plain; charset=3Dutf-8 Content-Transfer-Encoding: 8bit Clean up t=
-he coding style in uart.c by aligning the arguments of wait_for_completion_=
-timeout() properly. Signed-off-by: Roberts Bric=C4=ABtis <ak416_kingz@yahoo=
-=2Ecom> --- drivers/staging/greybus/uart.c | 2 +- 1 file changed, 1 inserti=
-on(+), 1 deletion(-) diff --git a/drivers/staging/greybus/uart.c b/drivers/=
-staging/greybus/uart.c index 24b4dab069c3..3d5ff4f65555 100644 --- a/driver=
-s/staging/greybus/uart.c +++ b/drivers/staging/greybus/uart.c @@ -318,7 +31=
-8,7 @@ static int gb_uart_wait_for_all_credits(struct gb_tty *gb_tty) retur=
-n 0; ret =3D wait_for_completion_timeout(&gb_tty->credits_complete, - msecs=
-_to_jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC)); + msecs_to_jiffies(GB_UART_=
-CREDIT_WAIT_TIMEOUT_MSEC)); if (!ret) { dev_err(&gb_tty->gbphy_dev->dev, "t=
-ime out waiting for credits\n"); -- 2.55.0=20
 
-Something went really wrong :(
+
+On 9/27/26 1:03 AM, Uwe Kleine-König wrote:
+> tainted-kernels.rst contains a small script to check which taint bits
+> are set in /proc/sys/kernel/tainted. Add one more loop iteration to also
+> handle the newly added TAINT_FORCED_BIND bit.
+> 
+> Also simplify by starting the loop at 0 and save substracting 1 for each
+> usage of the loop counter.
+> 
+> Fixes: fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when userspace manually messes with devices and drivers")
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+
+thanks.
+
+> ---
+> Hello,
+> 
+> feel free to squash this into fcbfaffee51a without author attribution if
+> that is considered a good idea.
+> 
+> Best regards
+> Uwe
+> 
+>  Documentation/admin-guide/tainted-kernels.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+> index abbf5e3dd749..a208811ad525 100644
+> --- a/Documentation/admin-guide/tainted-kernels.rst
+> +++ b/Documentation/admin-guide/tainted-kernels.rst
+> @@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+>  script, but if you need something quick you can use this shell command to check
+>  which bits are set::
+>  
+> -	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
+> +	$ for i in $(seq 0 20); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i&1));done
+>  
+>  Table for decoding tainted state
+>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- 
+~Randy
