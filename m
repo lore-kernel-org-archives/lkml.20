@@ -1,78 +1,47 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BE634F247
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598062EACEF;
+	Sun, 27 Sep 2026 18:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534122; cv=none; b=u3JNg/hmnpkpk6E0Jq1FdR4XfG8FH9eEaJYWyW76m6e0Q1rTp+IT/vVcQC+LdLU2TD8EPjw0YBjgFgZDVt9QVHXip5v2QnBXU+q3WY/TUxWJ8PXpkCOJYnH90Il0Tr5GAthHwMLzFcJ6ueOvhH9LmGU30a0Y2LvTvEtezxFiAGo=
+	t=1790534138; cv=none; b=n+3dMe3Pj/VYPbCpWQGKp2E0nnsawVfKnJZRWHQHf929NFe9vA2wu0LCFUYLtnMHrfypoJjUnuB8Sx5OE5GjjxTyL8g2xRhgS6hzWAZhaoy+UfSzibrYe+U5BnAYsEXKVH61OHkXbp24tIDSrdRP9w0mqFN8xlj/RESeOVWf9hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534122; c=relaxed/simple;
-	bh=EXX7jqvZYLnEQMm8FZbzal6MRrKj4Q6wzO3n8gCmvYE=;
+	s=arc-20240116; t=1790534138; c=relaxed/simple;
+	bh=EKJrUg+UmlsM08FVZABKDpnglp3VdDMuZdnnztJ1mgk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p6OlYhT1dHuxw0lyXTjhzUYT88xiVuviLRL+oyNvpqIXWJkoJUOKnWa23VKIZpzL2qoo+EXY0hhRuG/r3mQmhiJ7Rbpcwljh5Lo0wBKGaGs8FJYzWW2U566Q3VVVCYQJkg1kSBEeuP8/LoxVJqoE6SeEotXwggU4FkT7Wc5LhfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jaf/9ODd; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=r3Fp18MBf4Dcy9mV0ZrdmIj5MNvmabbZNnClBt/7h1IwBS4R7DZJNt2fGg13KbXP6ORqlbTUyM1e0Cfa2D98n6CFmNPz8UuTR6JpS16zDUaEbs4Wf18G9XOsyJpZ/+ObL9tRSZOQyeWliHo9Wp7RHApfLM53n+KV/xhfKg1tnT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SsIjXod2; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jaf/9ODd"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so1556180f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 11:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790534119; x=1791138919; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d3btJEsbUCZDnVE9CRXhr6o73+2IGPLa/zULNpIdkJ4=;
-        b=Jaf/9ODd+5ToflEFjmTC7DjCtFGBQXtdJlQKT5EIoQXbZvZMbij7Mrl4emaIuhJfLM
-         CeJqNoiH2nQY2LOnsqg8mt83NK/vZBLeP6Jyav3809orvMkfURhphdIvJyJviSHdAj14
-         jKeuG9uEOrvStAe9J7rdV4ystmNUvw+OHWefw9m3dbDwM0N17KT3xnagNjFCBvv4KZAu
-         Ep8l7HcDc3KcxPdXGitSHJGlKXtZ5NdH/7akZ3xa1lOllw2PMynr3HB12T3Db+dbI8oX
-         QUQ1PKNpbQSF5cJ1BUB12rz8kmhz/BaQ6g8ZnAe3opclAuLbzJDncI2U5wWr69BdzHdM
-         FkDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790534119; x=1791138919;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d3btJEsbUCZDnVE9CRXhr6o73+2IGPLa/zULNpIdkJ4=;
-        b=rY0VvrbOsJ3na3S7tSCalvDgulzoP+2Rs+o3H1NTCZD7Bf8X+KwsszG98p9NbhGI9W
-         +0TfNbA0C1gwaHOdOdWCozwhl5nLMYe9zHfEq37mwJlXiCTOQFBpfBBBXGO8hgZEG3PF
-         qNAlRNy5DkxYlPqPkUWbYkYFIzkYx3e5c3LclyeP+nkQeUN6k5Ig52/jvA4YIGoIindv
-         JAflZap9TPT5HF91W1nOjgdTw0syYhj3gzisKodEnK7DJd3cWHy/sWY4pg9bxu2coPkV
-         2/6NdDisq6FWBFWQW04lV5qsBftEvIHI92fg8oUYj5DQUbqBsr+JXC2LfJzgbrX3lUvd
-         L73g==
-X-Forwarded-Encrypted: i=1; AKwUvBz89XR7oPJehT0Ptakluj70yli7gpQlRoB19QtxNvnHpCmW1tr2FxySIuGzhhDiW62zJTyZ2GuRRtwkoes=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLdpUXvUQqoFN/rhqvQuNbhZKPWKe7z8XHcLfFskNK+j+VBQtv
-	cAlYaRu3YCc+3P49w1Lre8iYmIW5dqpB13qXW1/1hi4SP17q+mrSX6rk
-X-Gm-Gg: AYBFou1ZiFSgHRDHIxUkVmUxtYXsTU/iXm0GOiZoYMc5ONiYitga29T/HIC1gMdv1u7
-	lb2t0q7li8CAYFYbgHm9Iy1EgkzU2CrrDA8RTDpwGKbGZJ3zufyjwU1bZLTUPE1NPq7RsOdSSTF
-	lesM8S5e6TjR0vB3aQNcu1zbCsO79QsOwh/RvWjbR0AEdCqRbMk3oJXxgHStM/Wn4WXnHzXOrTX
-	476lzVjrYal0P4wVKt87pJ1D6BanaPUyxtwXxyQnZeAVrWi/4gqjTmT1j7x9seBXUPZaqQMg8Sp
-	8eq690Z3Oa3W2xMVuRaGbKVFnn6s9Bqug0Fu56dJKzMC/qUGZFf+gRwhD4whE5Dps5zxlwlxS4f
-	s6MdYDgyiog9lS7w2tnp0a+Mo+oISj/VcXuweRgyUyaFSaDLYkvaqCBgBJPsX3hE94R1LeoiSHs
-	onB4kh8G1lCs28qa9FII0s8Vscot1e3YIyecGhjxAWhCp3Z6TJsEa6XV2gJeWIXyFDHR0SOsVvI
-	JDGw1TkgcmuVTxVa5Iw8VRxJbVuifdWdQZgQDbhUPPeYzl2ahKibY9sDv3WiaXAS3ZWhikWLF1L
-	l5we9bSTA6cQ4TaC3yRh5Lpc8wBZnT7BV1A5lA8kJeVpOBo6usM8HmWwj+1EanCs57RxHKFGHDd
-	ddjU=
-X-Received: by 2002:a05:6000:490b:b0:487:27f6:a4ce with SMTP id ffacd0b85a97d-488828c8ad6mr10111964f8f.30.1790534118745;
-        Sun, 27 Sep 2026 11:35:18 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2e6-5301-2072-0420-f831-ed4e.310.pool.telefonica.de. [2a02:3100:b2e6:5301:2072:420:f831:ed4e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-489bd7b1df0sm1001928f8f.31.2026.09.27.11.35.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 11:35:18 -0700 (PDT)
-Date: Sun, 27 Sep 2026 20:35:16 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
-Message-ID: <arlhcX870kV0DBO2@gmail.com>
-References: <20260926183904.76186-1-kmehltretter@gmail.com>
- <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SsIjXod2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=h1xRcw77CYaaidslrjZ6JCK1D3osdSyeMuCv+HAXjrQ=; b=SsIjXod2BPvTJr9B3RVB9q7oxk
+	A5MdliWdu0FF329b9X37jb/Ynw74kOUOutf/w26n9gPMqxXK8kwfuQD/WWtPPYT5/l7IBzgSzBrer
+	vzvehos9UhQsofk5PvJSO7dPlB5Kp9im7g9QTJUVJVGdEcCLxx3YFF8dYy0VzDQ/3kTc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAtig-007YJx-V7; Sun, 27 Sep 2026 20:35:26 +0200
+Date: Sun, 27 Sep 2026 20:35:26 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	olteanv@gmail.com, Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
+	f.fainelli@gmail.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v11 3/4] net: phy: take the interrupt back from the
+ bus on detach
+Message-ID: <bfc2a494-b5a5-4a0b-bde6-ece2f83f522d@lunn.ch>
+References: <20260926235024.705646-1-f@lex.la>
+ <20260926235024.705646-4-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,25 +50,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
+In-Reply-To: <20260926235024.705646-4-f@lex.la>
 
-On Sat, Sep 26, 2026 at 08:43:45PM +0100, John Paul Adrian Glaubitz wrote:
-> Thanks for the patch! This should definitely be tested on real hardware
-> and I think it's a good reason to test this on my SH7785LCR which wouldn't
-> boot on anything newer than 6.5.0.
+On Sun, Sep 27, 2026 at 02:50:23AM +0300, Aleksei Sviridkin wrote:
+> A PHY whose own driver is a module on a filesystem that is not mounted
+> when the MAC probes gets the generic driver first. phy_probe() replaces
+> phydev->irq with PHY_POLL because that driver has no interrupt support,
+> nothing puts it back, and the PHY polls for the rest of the uptime once
+> its real driver takes over. That is where a Keenetic KN-1012 stands,
+> with an Airoha EN8811H behind an MT7531 port and its driver on the root
+> filesystem: the devicetree interrupt of the PHY maps to irq 15, and once
+> the real driver has taken over the field reads -1.
 > 
+> Take the number back in phy_detach(), from mdiobus->irq[], which is
+> where phy_device_create() seeded phydev->irq from and where the bus that
+> described the interrupt still holds it. Only under is_genphy_driven,
+> since that is the substitution being undone: elsewhere the field belongs
+> to whoever wrote it, a MAC installing PHY_MAC_INTERRUPT writes
+> phydev->irq alone, and a phy_request_interrupt() that failed leaves
+> PHY_POLL there while the bus table still holds the number that could not
+> be requested. Under the generic driver a PHY_MAC_INTERRUPT written into
+> phydev->irq alone is still replaced; bcmasp, genet and tsnep, the MACs
+> that write it that way, write it again after each connect.
+> 
+> Do it before device_release_driver() rather than after. That call
+> returns with the mdio device bindable and the device lock dropped, so
+> from then on a phy_probe() on another CPU is the other writer of this
+> field; before it, the generic driver is bound and the driver core turns
+> such a probe away with -EBUSY. That is ordering, not exclusion: nothing
+> on this side holds the device lock. Nor does the ordering hold after a
+> sysfs unbind of the generic driver under a consumer, which leaves
+> is_genphy_driven set with no driver bound, so the store can race or
+> follow the probe of a driver that binds meanwhile. The next
+> phy_attach_direct() applies the substitution again for whichever driver
+> it finds bound, so the number its callers request still matches that
+> driver.
+> 
+> Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
+> Assisted-by: LLM
+> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+> ---
+> 
+> Notes:
+>     Found and measured on a Keenetic KN-1012 (MT7981B, MT7531 switch) with an
+>     Airoha EN8811H behind lan4, whose interrupt the devicetree describes and
+>     whose driver is a module.
+>     
+>     The one condition arranged for the run is that the PHY driver module loads
+>     after the root filesystem rather than from the early boot list this
+>     distribution normally puts it in. The distribution's own late-PHY handling
+>     was also removed, that being the one patch which could have changed the
+>     outcome; upstream has nothing like it. The kernel is still a distribution
+>     one and its remaining patches to phylink and phy_device do run on these
+>     paths - none of them writes phydev->irq.
+>     
+>     DSA then sets the port up at 1.87 s, the generic driver is bound by hand,
+>     phy_probe() replaces the interrupt with PHY_POLL, and phylink rejects
+>     2500base-x against it:
+>     
+>       lan4 (uninitialized): validation of 2500base-x ... failed: -EINVAL
+>       lan4 (uninitialized): failed to connect to PHY: -EINVAL
+>     
+>     The real driver arrives between 13.4 and 13.6 s depending on the boot, and
+>     binds. phydev->irq then reads -1 without this patch and 15 with it, 15
+>     being what the devicetree gave that PHY. The three switch ports alongside
+>     read 79, 80 and 81 in both runs, so the reading distinguishes rather than
+>     printing one answer. The field has no sysfs attribute of its own, so it was
+>     read with a debug-only module parameter that walks the MDIO bus and prints
+>     it.
+>     
+>     The reading predates the is_genphy_driven guard the store now sits
+>     under, which should not be implied away. On the measured path the flag
+>     is set: phylink_fwnode_phy_connect(), which DSA reaches through
+>     phylink_of_phy_connect() for this port, calls phy_detach() from its own
+>     failure check, and the three writes of that flag are all in
+>     phy_device.c, none of them between the hand-bind and that call. So the
+>     guard passes and the store is the one the reading came from. Its other
+>     side, a detach with a real driver bound, was not measured.
 
-Hi Adrian,
+This is still way too much text, which no human is going to read it.
 
-Testing with real hardware is very cool! Maybe I will get some SH
-hardware myself one day. For now you've motivated me to do a QEMU SuperH
-fork with more features, with a lot of help from my LLM agent:
+I actually suggest you write this by hand. If you cannot do that, you
+don't understand the code sufficiently to actually submit it with your
+Signed-of-by.
 
-https://github.com/kmehltretter82/qemu-superh
+    Andrew
 
-I will send some bug fix patches based on it soon, hopefully also fixing
-your 6.5 problem. I believe it is an old heap overflow in the SH intc
-code that only started to crash when sh7785lcr_defconfig switched from
-SLAB to SLUB in 6.5.
-
-Karl
+---
+pw-bot: cr
