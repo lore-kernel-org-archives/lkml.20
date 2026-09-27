@@ -1,111 +1,140 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8503BF684;
-	Sun, 27 Sep 2026 14:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6098938F633
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518759; cv=none; b=a3yUi+XsyYl5hAxqW+TVUzNGZKHZFP0MsAHS3ZrR0UqCCFsUR4PSuTut2FKXGNcrRRkx6XYzHLV1ML+n8nb87tJVX1bkt2mdfFQAH7cawTEDgoxVBIuY/uncMxmqkS1nkbIUP/Lz+UfQbEtZuC4iWJ1c7XTBNB8taYrgo/9WDSA=
+	t=1790518851; cv=none; b=HmRthtSGTOWlOi9xjXcw4urOH4PfM4elf6dBgDOpD2E63c0bQOgXhSfnpwHv2tmHtXJm95jnkmw2vs+PXcL3FtBsADm0ca6+uYwYLz1rpPl0BVCpfFHhia54NGfi22yiWo8jLWuMBiA+AwnqSEE0DC2C6CbwuBtSp7AGtyJpPho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518759; c=relaxed/simple;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V3AsI6ZrtAkt+KgwdZcbMIpNRrvbm3/jHbG30NW8/gCFX7BV+jouqIT0C5rvYyzDNSBbzM1tSi91BPGvSCnExCGI/1jxpGQICWomM7cdqCFCJVZD22dfn9hzI0sRPyTOIblW2wRs3IcqTtcqCVfdPRJn/MhCVn4XmUsA65Cb3uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tmX4gfNu; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790518851; c=relaxed/simple;
+	bh=rewYJ804mTzQ60NoVNjxyHcEpuHioue73AiOm0aU4D4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nlJQypOaI2cv5ZpGldRL5lflcvSVqtiuiIUyAAfSbe7cqjh86bSG4FMlLIH3sFKX5oTBh6Z7d2Ow+HB16kmuCavGAnDI7IVFJLEUHZPK8SploQAeN5adAf+S/2fbVbB7R1Bl12fPW4+Fj/7/ChopX1IqOlynUTeaXdB6yG0g+Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HiZVZYJX; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tmX4gfNu"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3CA75FBE;
-	Sun, 27 Sep 2026 16:17:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790518644;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tmX4gfNuT1kMtkv1BJjzUol4CGIpJX8+OyjH+SP2ichnX7Ziz3RLC7YjAbSCkKoi/
-	 w7U536Qw7zDaZwUjagSV0ECUl4S5c56QTZMxVKTwZ17IZ4ky7TsMUK1lBbpbMTsQy2
-	 sVn+m52iSpsMceuB5mLlunK1n/GBAoa2tqgB7SK4=
-Date: Sun, 27 Sep 2026 17:19:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com,
-	mripard@kernel.org, jai.luthra@linux.dev,
-	jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com
-Subject: Re: [RFC PATCH 4/8] media: cadence: csi2rx: Add RAW10 RGBIr formats
-Message-ID: <20260927141912.GA4406@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-5-r-donadkar@ti.com>
- <20260926145242.GD764757@killaraus.ideasonboard.com>
- <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HiZVZYJX"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a156f4so1207295eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790518849; x=1791123649; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QuFiE8Sn5ZCiAo2F3P+hWDb2ouMekTqqlvB4M0L/MQ8=;
+        b=HiZVZYJXNFvEUFnGqmna20rmJwC9EhanTDGZOYOp21a57gwfBiM1R30OzwL01Wr+r8
+         fLV3ZESNzy+6LtaILsb3zqrMNlQ+jxn70MfnxrgJLJVDK1rVPb+9qLkwVQTSvVCME7Ae
+         akOM5VdfxMcyYbSRKeJXzU7vzTaDsllYoBItS4w0Kjlaof8zoe+RuIH7uGlWOodRxGUn
+         jAStjmjKwcZ49njgPihE7oTOStxrUrQOFkJRon+CoIhu/ZTY/2hCSxthMSq8CAryMvFM
+         wK4BycH3aZF4m/ewt3waW30jhWfhgmsrU6LuzIHVLXI7CUgOfL3LSC+h1urWFRd5jRlk
+         Y3UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790518849; x=1791123649;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QuFiE8Sn5ZCiAo2F3P+hWDb2ouMekTqqlvB4M0L/MQ8=;
+        b=IU+yhClujcJHCivk+DrWCbY98uB0aSg6iuQXUUO10bw3zjOhwhhcEtQcxXDj7MHg3/
+         SggtY3RgIAO1EoR20toxrwsPIKXJHO8lncIAhH+f2MdunvHmqz1XweYMKs7bqeEtQLqb
+         p86LX14QSd3dFhOxTEBEIyLsf34nbD+A83vNnhJ05AMfF2onYPpPVzAlZwF3lU/3VWT7
+         FGW7B44DEh7MjtWUhIwFeLyxO99GdLsCif5rGl0W3xDXn+A8mjtCvjS6NF8twCCWD5AW
+         pplX85/eJRdeH8QVYgM6UXH7uJQiBmlLykv5x9J3jlGorJRdTjkzQ/w9UGeM9VyR3sid
+         6NRA==
+X-Forwarded-Encrypted: i=1; AKwUvByvxEnCHw8PMQyRL7XouWK9K90q0qOMn7BOkyGDFy0xwyC62qviERnCQu4Caypwkyq5Y9DvH0QhtdnkiZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKENYQHkZo+TZCRjnrCiNsAuAWG6FJaaXoGuK+OKN0YP2aDwVK
+	dLlKmpowvfzi2CLxUS1yGBjS2nQhww4Gqtkl8/nVAvaCxtjoq5dv1oXk
+X-Gm-Gg: AYBFou0wgLHsVuGHFTFlwmZQPfwxrUxdQo9GQT3w1G35wvTcIqejrigumFwfUCj4kYZ
+	tK441IkZpv+XRSxGn+J+7b62v7yzqYiDtTQj5w/414iIwBkP3Al6YnvAnbNUXa5JlCqDgatBpTK
+	VCf3+qQBpaaoQErdGar0UC9jjBeRHSMnK2lF7b8t+HKx1TOwrNcYpreieLbB5kBLwQzdUX/f8PL
+	D2f9ZIcj52y9Dg+Y7Eq+O+PprDQEmSUfh2TWJWMunynTSBn5Z2qo9itQvdZiqNPrJaheVtbbOl2
+	Ua+dT5t7T4U8GL3yJAWbqf7WCMtEh4ZObXoCf7BPwKuiR5oZ82HQk9ogr8XFMHOgYfHHE79XDdZ
+	KMJfm5Cid3dEHQlFCZx7rQFPlaOMNBNZTFKy7CTJRJ3y9fZwhqYEEdZlKZQbm18+hO/DCx1E/uf
+	Xd/vnEeChQoyhKFvspP/PTQf9jSIB63rGw1irHgShKCd9M5qqjtHEj5WJqbicPONstdMD7s4CX6
+	9W91ssM/d+w6BBvliFyl2DtUU0RjH8X
+X-Received: by 2002:a05:693c:87d6:10b0:346:7c2c:1d23 with SMTP id 5a478bee46e88-3467c2c2597mr1464216eec.13.1790518849337;
+        Sun, 27 Sep 2026 07:20:49 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414504fae2sm22534911eec.20.2026.09.27.07.20.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 07:20:48 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: drbd-dev@lists.linbit.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+4618907cccdeffa@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drbd: keep discarded packet size unsigned
+Date: Sun, 27 Sep 2026 22:20:34 +0800
+Message-ID: <20260927142033.297349-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
 
-On Sun, Sep 27, 2026 at 10:50:30AM +0530, Rishikesh Donadkar wrote:
-> On 26/09/26 20:22, Laurent Pinchart wrote:
-> > On Fri, Sep 25, 2026 at 06:59:57PM +0530, Rishikesh Donadkar wrote:
-> >> From: Jai Luthra <j-luthra@ti.com>
-> >>
-> >> Add 10-bit RGBIr formats to the table to allow capturing them.
-> >>
-> >> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> >> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> >> ---
-> >>   drivers/media/platform/cadence/cdns-csi2rx.c | 8 ++++++++
-> >>   1 file changed, 8 insertions(+)
-> >>
-> >> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> index de7cce76397a..8ed730452d3c 100644
-> >> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> @@ -173,6 +173,14 @@ static const struct csi2rx_fmt formats[] = {
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB565_1X16,  .bpp = 16, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_BGR888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >> +	{ .code	= MEDIA_BUS_FMT_SRGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGRIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SBGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGBIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIRG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGR10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIBG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGB10_1X10, .bpp = 10, .max_pixels = 2 },
-> > 
-> > Raw formats will allow supporting all possible CFA patterns without
-> > having to extend each driver every time a new pattern is added.
-> 
-> Yes, makes sense !
-> 
-> I noticed that patches for RAW format support are present here
-> 
-> https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata
-> 
-> Is there a plan to merge these into media tree in the near future?
-> If they are still under review and need more time to get merged, I’ll 
-> plan to cherry-pick them and rebase my work on top of them.
+Packet lengths are decoded into an unsigned int, but
+ignore_remaining_packet() stores pi->size in an int.  Values above
+INT_MAX therefore become negative; min_t(int, ...) preserves the negative
+value and drbd_recv() converts it to size_t, allowing the receive to
+overrun the 4 KiB rbuf.
 
-Jai is working on the userspace implementation in libcamera to test out
-the API. Once that completes, we'll update the API is issues are found,
-and then merge it.
+Keep the remaining size unsigned and clamp it as an unsigned value so that
+each receive is bounded by DRBD_SOCKET_BUFFER_SIZE.
 
-> >>   };
-> >>   
-> >>   static void csi2rx_configure_error_irq_mask(void __iomem *base,
+A KASAN reproducer reported:
 
+  BUG: KASAN: slab-out-of-bounds in _copy_to_iter
+  Write of size 32672 at addr ffff888027129000 by task drbd_r_r0/5002
+  Call Trace:
+   _copy_to_iter lib/iov_iter.c:197
+   simple_copy_to_iter net/core/datagram.c:521
+   __skb_datagram_iter net/core/datagram.c:435
+   skb_copy_datagram_iter net/core/datagram.c:537
+   tcp_recvmsg_locked net/ipv4/tcp.c:2846
+   tcp_recvmsg net/ipv4/tcp.c:2949
+   inet_recvmsg net/ipv4/af_inet.c:896
+   sock_recvmsg net/socket.c:1159
+   drbd_recv_short drivers/block/drbd/drbd_receiver.c:322
+   drbd_recv drivers/block/drbd/drbd_receiver.c:331
+   config_unknown_volume drivers/block/drbd/drbd_receiver.c:3624
+   receive_SyncParam drivers/block/drbd/drbd_receiver.c:3671
+   drbd_receiver drivers/block/drbd/drbd_receiver.c:5366
+
+Fixes: 4a76b1612f35 ("drbd: Map from (connection, volume number) to device in the receive handlers")
+Cc: stable@vger.kernel.org
+Reported-by: <co+4618907cccdeffa@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ drivers/block/drbd/drbd_receiver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 58b95bf4bdca6..3fb73fbfd5f27 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -3616,10 +3616,10 @@ static struct crypto_shash *drbd_crypto_alloc_digest_safe(
+ static int ignore_remaining_packet(struct drbd_connection *connection, struct packet_info *pi)
+ {
+ 	void *buffer = connection->data.rbuf;
+-	int size = pi->size;
++	unsigned int size = pi->size;
+ 
+ 	while (size) {
+-		int s = min_t(int, size, DRBD_SOCKET_BUFFER_SIZE);
++		int s = min_t(unsigned int, size, DRBD_SOCKET_BUFFER_SIZE);
+ 		s = drbd_recv(connection, buffer, s);
+ 		if (s <= 0) {
+ 			if (s < 0)
 -- 
-Regards,
+2.55.0
 
-Laurent Pinchart
