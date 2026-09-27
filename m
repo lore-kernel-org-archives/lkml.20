@@ -1,156 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBFE3403FF
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B7124A078;
+	Sun, 27 Sep 2026 14:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790520979; cv=none; b=DutG9z4Vtf8bVDY+ePDn/mohHNAtOnV9xfDEm33O/HTlf/Wu265VJs0XXN6DsJ76Zj6NClOtXQ6hhgQu/p9Tmq1300aVMvkqdsT5x/ck+NuncgLgOXL+K+uotm3mJmBSufYN2QNM85eAJFgMO91CxokQzm5v7RKdQh59O5R/ob0=
+	t=1790521152; cv=none; b=oF1MWWu5WLTYyzUabrLafI5yT8e3YphPNKq0K/K5iBWSxjyNBZJCdOk0wwIEcH6Cf+WY+h16VErTpyZd2QL/3OaRrBv0jxeZcHtTCchEGB8VOBSb3m3KWTAZmpySdpMPgSN+QpnMx0XYUPWrp5UDoLGPoKdojnCzzBNqp620r5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790520979; c=relaxed/simple;
-	bh=/xNgx0C5Qk+rmHpba0lVw4kEWTvc+zDwxQimGQD1Z24=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gho9eLKTOHrclqR8WOjQ/AmsQyP0Ze0OGIqs0NLdNuspTnsys9y0ta2zE+RAC4TT9esqI8cREuexb1YfDKbXf/oPiLhqcJDqU63pcGdmkk55T0Wm5gkutfhUApINUR75SnQY42r8jwz7/z8ukt0gxuHcTVr/+O+Jrv3uHMwB63w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdnpxniR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790521152; c=relaxed/simple;
+	bh=4CdjaMnnxCi+iJoCysxPTH8MIfqmdKCJy6QHstiA5VM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Eex80Tla6kiBMZn4xftg9LCrrSJ3Q28xJlFLKVGpBpnum4selGMdwoWtE7j7B030xp1MATMzAczKmRYannWtMmMM83qCZqyjmOUs3+xGEdhjVArAWMtbDukvZztVXxB4hsb6iIECH4GJi/xmnQYdDtO427J+dJzrmJ1Th5k04Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JiPxr1St; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdnpxniR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B1E1F00898;
-	Sun, 27 Sep 2026 14:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790520973;
-	bh=7hec+lMEDGI9y3jbHt6Y6kArMIsxA69vRhR2rOPeIFE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GdnpxniRetXiiu8jkoo5xJyvtcw9DCqCS0bEyP0L/Pt8ovxQBnAA1J1pgRvP63LfW
-	 pS1SD3HE5FL93AQ4vZI2ErNa8kF5EA85rFYVGt3L12JGVyCrg/gkhEFEO1deAGElCv
-	 nUXXPkBzq8vblxzGu8wWXaMqWI9pKytmw1wL19qdBDXx4Wo2LCntAfzYhMJqfhLzBm
-	 vojFrm+RLVR/wZuTL+46Kbmh488A+fxSVCX6+OVQK+8X4Mfsoh+cEiMjZZj7+ogcOT
-	 Vg8gLgy/2xyG8DoErWvWtHNtyG8tNwuC6kFDy5y4yg59f5olNTRWsrOLsCacm4cMo1
-	 0k9o6A/fXuNUA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] drm/radeon: add a connector table for the Sun XVR-300
-Date: Sun, 27 Sep 2026 16:55:05 +0200
-Message-ID: <20260927145505.16883-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927145505.16883-1-kaloz@kernel.org>
-References: <20260927145505.16883-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JiPxr1St"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B0BD8C2BCF4;
+	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790521151;
+	bh=4CdjaMnnxCi+iJoCysxPTH8MIfqmdKCJy6QHstiA5VM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JiPxr1StrUJfuGMHbqxCY2OaYSuSjI1PCWFWuw2fA1qVBRMPG0q/Ty6mR4IlzLYKy
+	 NE3oTTuyOMY1t9cgfvHTFS8Ja0AtxRZeoYG7ozWRnVBfgPIfcPKXerOvT+ISv9tIlO
+	 0Q13KFmjaXpaExOxCGLRWLyw+t9eI0KJDVpv6SaKwrTms2iDA/BZ1YFeX+9pwo+0Jp
+	 cDej4YdHv/o7/pU5wkAGsGCL3zTTWYYN9LQv7VhvVjWm+a8vT6jVMPuGxJAtgWYnMu
+	 mfC/B4EmpGbHWGDJopujvz5Gggm4dBJFlQGTpM8iR4l0Lc1MFA5EvF10XxuaTKpdM5
+	 XYZ0um8pksj+A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 906EEC9832F;
+	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Date: Sun, 27 Sep 2026 14:59:07 +0000
+Subject: [PATCH v8 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
+ compatible string
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-feature-clock-guard-v8-1-630938e302a1@bruker.com>
+References: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
+In-Reply-To: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790521150; l=2141;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=T/neAsVK3rkcpUxN8yoWulkpuO6b91ByHi9mx326cdY=;
+ b=bwz+I4X4pa883WWftCeffgFoMJ8Xyp9Q6sIWvL73by2MM9eCj3GTQfD/lx4sCs8+ZjMyKtsWD
+ QUyVSqISiUKAHzteKxqyAKAPq80L58pd7O/DUYzdvLK0TAk6cGLKkQX
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-The Sun XVR-300 is a FireMV 2200 PCIe (RV370) board with an
-FCode-only Open Firmware ROM and no COMBIOS to parse, so the
-generic connector table leaves both DVI-I outputs undetected. Both
-XVR-300 SKUs report device ID 5b64 with an ATI subsystem ID rather
-than Sun's, so match the OF node name prefix instead. The table
-comes from the board's FCode.
+From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+Extend the binding to be used also for gpio-locked-fixed-clock.
+A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
+availability depends on one or more GPIO lock-status signals.
+
+Some hardware designs provide fixed-frequency clocks generated outside
+software control, such as by FPGA-resident PLLs. While the clock rate is
+fixed, a separate GPIO signal indicates whether the clock source is
+locked and producing a valid output.
+
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 ---
- drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
- 2 files changed, 53 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 ++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index b3e7a747f11e..096f953c67be 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -25,6 +25,7 @@
-  *          Alex Deucher
-  */
+diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+index d09d0e3f0c6e..1ad87c8b36b9 100644
+--- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
++++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+@@ -11,7 +11,9 @@ maintainers:
  
-+#include <linux/of.h>
- #include <linux/pci.h>
+ properties:
+   compatible:
+-    const: gpio-gate-clock
++    enum:
++      - gpio-gate-clock
++      - gpio-locked-clock
  
- #include <drm/drm_device.h>
-@@ -1512,6 +1513,14 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 			rdev->mode_info.connector_table = CT_RN50_POWER;
- 		else
- #endif
-+		if (of_node_name_prefix(rdev->pdev->dev.of_node, "SUNW,XVR-300"))
-+			/* FireMV 2200 PCIe with FCode-only ROM, no COMBIOS
-+			 * to parse; both XVR-300 SKUs share device ID 5b64
-+			 * with an ATI subsystem ID, so match the OF node
-+			 * name instead.
-+			 */
-+			rdev->mode_info.connector_table = CT_SUN_XVR300;
-+		else
- 			rdev->mode_info.connector_table = CT_GENERIC;
- 	}
+   clocks:
+     maxItems: 1
+@@ -23,10 +25,29 @@ properties:
+     description: GPIO reference for enabling and disabling the clock.
+     maxItems: 1
  
-@@ -2187,6 +2196,48 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 					    CONNECTOR_OBJECT_ID_SVIDEO,
- 					    &hpd);
- 		break;
-+	case CT_SUN_XVR300:
-+		DRM_INFO("Connector Table: %d (sun xvr-300)\n",
-+			 rdev->mode_info.connector_table);
-+		/* DVI-I - internal tmds, tv dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_DVI, 0, 0);
-+		hpd.hpd = RADEON_HPD_1;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP1_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP1_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT2_SUPPORT,
-+								2),
-+					  ATOM_DEVICE_CRT2_SUPPORT);
-+		radeon_add_legacy_connector(dev, 0,
-+					    ATOM_DEVICE_DFP1_SUPPORT |
-+					    ATOM_DEVICE_CRT2_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		/* DVI-I - sil164 dvo, primary dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_VGA, 0, 0);
-+		hpd.hpd = RADEON_HPD_2;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP2_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP2_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT1_SUPPORT,
-+								1),
-+					  ATOM_DEVICE_CRT1_SUPPORT);
-+		radeon_add_legacy_connector(dev, 1,
-+					    ATOM_DEVICE_DFP2_SUPPORT |
-+					    ATOM_DEVICE_CRT1_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		break;
- 	default:
- 		DRM_INFO("Connector table: %d (invalid)\n",
- 			 rdev->mode_info.connector_table);
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 031a3bf6fe0a..6a16d821915d 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -226,7 +226,8 @@ enum radeon_connector_table {
- 	CT_MAC_X800,
- 	CT_MAC_G5_9600,
- 	CT_SAM440EP,
--	CT_MAC_G4_SILVER
-+	CT_MAC_G4_SILVER,
-+	CT_SUN_XVR300
- };
++  enabled-gpios:
++    description: GPIO that indicates whether the clock is enabled or disabled.
++    maxItems: 1
++
+ required:
+   - compatible
+   - '#clock-cells'
+-  - enable-gpios
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: gpio-gate-clock
++    then:
++      required:
++        - enable-gpios
++  - if:
++      properties:
++        compatible:
++          const: gpio-locked-clock
++    then:
++      required:
++        - enabled-gpios
  
- enum radeon_dvo_chip {
+ additionalProperties: false
+ 
+@@ -40,3 +61,10 @@ examples:
+         #clock-cells = <0>;
+         enable-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
+     };
++
++    clk_gpio_locked {
++        compatible = "gpio-locked-clock";
++        #clock-cells = <0>;
++        clocks = <&pll>;
++        enabled-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
++    };
+
 -- 
-2.47.3
+2.34.1
+
 
