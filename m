@@ -1,84 +1,39 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC8054704C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997DE3EC816
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790512527; cv=none; b=mJlI2/DaFOKJoZ5tksnvUoTBhMK658iWEu/okWTY9bJ/Ly5jo6n0hElg0vC6M+N98hUbmu5Wc2a9n5HGDhwlVshksy9qpzPruUept7Q3qAS1eOCiFjT4kWA84FWmRCeOnofNRvjmB6zIY8znKwBm7UhvJvxfoCPBM6HT5eFpVos=
+	t=1790512539; cv=none; b=f5TNxbGa+3YK1gnQd0NuImmigO4zBEkhfxUwJvrd/TXIX6nOhq3DO0xuUg/XOLTEwxS87OnCzO42BN91GcD0ctBrH/oTqdSC5BD0C/WlRCipbEMUc2KKN6nYMIQOlzxS61Q4xTmHp3P65FtNfGuK3KKwYvkvUejgi+bl/9xS6lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790512527; c=relaxed/simple;
-	bh=fY7oMhBwAUeGe047Z0HOyz8XxMIIoEysscoAJzxQvRE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z65HisXHddNmXd7w6mFVNAz6ahCiX5b8DyQopufNiXDzoTvmv6zWofwtPjUkLQzbY1nY0GVpm2HTDI3LXohRe/CyGPC1RGsujEOUE7MPB44Tcg9bdZ9JhO/YEcWoIeLjIGKvUOuytegZPdtjRGcEEgMCCXl4W0orbxBQMHqluZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCaUOyy1; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790512539; c=relaxed/simple;
+	bh=wa4jj6x/0TOPi8zyhbCImj35uz6YAizmR+rXe/IRWRE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S/tTdPA4xZPNwaXvRVDaDLbr9jPDkdbjd8k9IFY5GRInc+js8Dap/THg9H/K6h4iywYLXTQD7dvitOYKWPwPAglVK2ZOgK0HWRVIv/uNGe43AQ4OAuV+PIbRcN9wPExfcJX5cRxvfgf2465aRCYxESJ2tX60BzKrGw5+ovMm2bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TN9jFV50; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCaUOyy1"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7c6dbc60so1097245e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:35:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790512524; x=1791117324; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kf/Q8MYoHp4U3NxSvVmt8RabsHm5In2Q3M6sgi6XDNY=;
-        b=iCaUOyy1WY1+Pdumhsahzo6h7aPBD33iGgHz1mftp3f49FP7iUji0Xu9b58FrydplT
-         wJ23SPeG2FWhjSEqrs1JS7fNdtRKQgrVq0ZBs4T97sfA1zM9kqKyBaf9nHByZy2hM1yL
-         fLmqZPEaQArIOH8ZLYGu0HpUUIvuWrPmqSw1/Cwtuo4GnILU5j8JRDJAB1hRGF2/bX+0
-         7JjaM2nchDHlw0qPnh/552cRLedyDU0Na9LWoDBoEBZuvyQFbRFRx5Rs3RCtbfZp0jSX
-         ybgz8NJlTDaWfJDhAP+TDOneD7ePWLlGiJQxtq9Kvs7BYOukldJF3QziLbyaXoBTSIRZ
-         7/wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790512524; x=1791117324;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kf/Q8MYoHp4U3NxSvVmt8RabsHm5In2Q3M6sgi6XDNY=;
-        b=b+3JtLTKHMhVub/5nskYRDBNMy4v51AEhfh5lL/M//z5FdRn7UCPcOqbOqUWtokS92
-         j/qW5PVnajwUG4oAMrjr2V66bzpKXv/EQJBXO8xtj4Hg65pbd/1Hu2m3nE8d6sHBb8Yg
-         8bnhyeb9EhONt6UDcpKDKbtEJTbJX9cuJ6Xu6ICF9xphn5wmpVlSXcl+TY2SKMk5MLnu
-         4r3uRxFlperqqNRa+wGHCXwySDMNkw5ZUyW53nmmsQ1vic2BzQ+hdDDkW2Qf+H4IEBIB
-         /XX/UTOuonxbD4IxSq5+AZwitCepb53sQKQdFMDKeiwKXdyvxCrrbqieOy6FJUAAKxYg
-         ffyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlBuJKKHzKlySxkhNKFGTz6tY05O3fSJhnosK6vB3eIAhgqH/N2/fkIoMYm10MrniJMi4Q7Bus46vGYNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx97iwtXTBgmDGtpV/hdXcGaaxctXKwcU2XA/+aGr67mk0s+3X
-	hlpCkDTeSZaVlgbTc7pzVyniM32BNwBRFzZmVOTP35ofQw3memr9aHyO
-X-Gm-Gg: AYBFou31690EtJ6pW16PgPhRrYu9FYl5nwhfPmd3Wic+dKSnDsOs5uqxNQ3XGh1wYEQ
-	6nZnFvB/8TPFRgF24jxV2sV4GwlNKxOkk053ccRHREqdTMr0JchdP2YBUn1J24DXaGFQq9rAUFd
-	mARbgT6Mt7OUGebuh+n22mUFe1yBopnxXyuiHLUsQsVT2tLHr31DQOjoLgb3G1IM6S99WFeTIJp
-	k35dgoLqM9ItbjL1OtqjLvq/hA0uTJUFX/FtVX8uXu9xvp4JSI/1D5/8peVKkBDkfP7vzY3YnOF
-	Lftn4fHGkYFAB9pERlLfE9j28hwmPFr0R3s1oqjuriH76JvZOmj9w2QLggJOjLxaxiGC6Y+3/q9
-	gr24bT0XeLMW0K6hAkcC3KcsbWoPNl8rgygIXDNh5l+AncDk4RPDpkcoW8EsEHFTDGQV3zZLFCE
-	ihZ+0VJXtkJBUT9QfLzj0H9LfGXko9Cqh39GaxmygqrCWRrP0zojylzpsOGk3V92JvVYc4wl1KT
-	wVwvp/rVI8HLg5xsuH6
-X-Received: by 2002:a05:600d:b:b0:4a0:1a3:bf6 with SMTP id 5b1f17b1804b1-4a001a30da8mr18991825e9.0.1790512523852;
-        Sun, 27 Sep 2026 05:35:23 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001771ce3sm58790835e9.7.2026.09.27.05.35.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:35:23 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Wei Yang <albinwyang@tencent.com>,
-	linux-kernel@vger.kernel.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: [PATCH 3/3] sched/fair: Remove unused autogroup.h include
-Date: Sun, 27 Sep 2026 15:35:07 +0300
-Message-ID: <20260927123507.39074-4-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927123507.39074-1-kayracizmeci@gmail.com>
-References: <20260927123507.39074-1-kayracizmeci@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TN9jFV50"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=C/
+	tLW01LeYXAugZju/lcjvCpP70zL/B8XlUzHfj3iiw=; b=TN9jFV50OdMI2+6FJ+
+	X7ZjwQfEaoPAJK/ABDEHBVOqQ9CADZ7bjkaCn5LpxQh4Wu+HlAuzNlX5Arl3NY2+
+	zIO/ZlB4fCyOJEOYPK4OKDDaRbnLPnOC80a70h0m9P65+VoMu3zqQ9mfcB3h65W3
+	oaNsuwK11To+On6M5lDMTyxBM=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDn73h8DblqcPZ3BA--.19430S2;
+	Sun, 27 Sep 2026 20:35:08 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Michael Hennerich <michael.hennerich@analog.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] misc: ad525x_dpot: drop redundant drvdata check
+Date: Sun, 27 Sep 2026 20:35:06 +0800
+Message-Id: <20260927123507.1219495-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,26 +41,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDn73h8DblqcPZ3BA--.19430S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr15Xw47CFykZFyUKr17KFg_yoWkGwb_u3
+	4rurZ7Jw1UGwn8Kw129r4YvrW2gan7WryrGws7KrZxAry7Cry8Xr1kXrs8Z3WDu3yIyFn8
+	Gw1jvrW09wnFqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRtwIDUUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7x1rpWq5DX1UcQAA36
 
-autogroup.h is included to fair.c, but not used, remove it.
+ad525x_group is registered through the I2C and SPI drivers' dev_groups.
+The driver core creates those groups only after probe succeeds and removes
+them before invoking the driver's remove callback.  ad_dpot_probe() sets
+the driver data before returning successfully, so ad525x_is_visible()
+cannot legitimately observe a NULL value.
 
-Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Drop the redundant check instead of silently hiding every attribute if
+the driver lifecycle invariant is ever broken.
+
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- kernel/sched/fair.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/misc/ad525x_dpot.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ddf993a46e3d..051e93b495d5 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -59,7 +59,6 @@
+diff --git a/drivers/misc/ad525x_dpot.c b/drivers/misc/ad525x_dpot.c
+index a4e22fd4a107..28db4d8ee504 100644
+--- a/drivers/misc/ad525x_dpot.c
++++ b/drivers/misc/ad525x_dpot.c
+@@ -699,9 +699,6 @@ static umode_t ad525x_is_visible(struct kobject *kobj, struct attribute *attr,
+ 	struct dpot_data *data = dev_get_drvdata(dev);
+ 	int rdac;
  
- #include "sched.h"
- #include "stats.h"
--#include "autogroup.h"
- 
- /*
-  * The initial- and re-scaling of tunables is configurable
+-	if (!data)
+-		return 0;
+-
+ 	rdac = ad525x_attr_index(attr, dpot_attrib_wipers);
+ 	if (rdac >= 0)
+ 		return data->wipers & BIT(rdac) ? attr->mode : 0;
 -- 
-2.53.0
+2.34.1
 
