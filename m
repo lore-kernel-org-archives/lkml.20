@@ -1,248 +1,232 @@
-Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020138.outbound.protection.outlook.com [52.101.189.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDA83290B7;
-	Sun, 27 Sep 2026 17:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.189.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790530620; cv=fail; b=JrXaCCqe/HIJvVof+hFMeP/j8h4ghjg6pdn7Wi+yM0WcHgEx0huE1wB+mOfR/wtgz8BSqckCqadeBALFm4SSrwVmuOCkkRPr+zp3104TBnxsV+zjTmDQ5q/g1JaJ5I2zHNkDvLXh+bCoYwS8paDeDCutR2mI4WmKRXQMWrDBUfs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790530620; c=relaxed/simple;
-	bh=QQ0MAiu+jgP14JE9mhKf7NDqiOo8ZTpmpsA/1sVe3Jw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=GfciItvFZr8zgzGn140Y6Svww+g87d/hsAOxZKop4Dgf5708LHwGF5iTB3Vapy9Ce8u9rrHavWVW0X1/QaJeV45TEVXY2UhTDhEf+rIS/jMjSLVIShcvPPIMckc4Lh7Wxv6mwBuC7Fk5Bn5hyucPVA2VzUicOwcDuiQ41du/Luk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=JSBvfxqY; arc=fail smtp.client-ip=52.101.189.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD940413791
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790530678; cv=none; b=XsofeXw14kLaw0ia0JCTfLhItOGPcNqY9TZkeuyJzQpmliGVT5pOjM4EnbcdhSsSBIveQFPcwBUN8uQUicaD3UtO6VOcmnyCYs/6JSlsrdlvJcjTBBn9B1q3H6d3JaJgJh2E+Xp2CzYzMtMJXYTPO5qBE3nBgtnVIjcsaYTRu1A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790530678; c=relaxed/simple;
+	bh=3YJRpn+TF61Mt/LuWP9OS3ycCUwZEuhQMMCJvy4rGKc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rlulPpq5dZf3guxLFrYILVLrwQfUlPM6AmxpwtnofNqv38Yl/Z6fbDOEO3CruxdxCDvcycK1IQP6Mqppn1PXBWSFCUOPKOD3n6zJPnFGLBNpkaAfOgU3QVm4N5pCN220X/bqbAD+cNwWekcqoE8/nLZxAsMc1u2NT5gxX97MpHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjV+uLbd; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="JSBvfxqY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mn84pPd4WYizAKXs5saAJAD4wjmuWLT2iVk9ws2squI0Zh//I17vhxq9vADWXQI0AGvqIWcF5smSxIc7F7kDFR/Jqm7xTTqIQTrN3fYJKgW0Pw3Ep81HzbVsMLEZoeYkKk3nDssGk4LnEOb9T6PsfujEUqwaPcG7s214n8ad9ttvz3cKkqxXwZjklYg12HOGbmkJrSO4JoyudFlmsEU5DM3VcOBEWnSiZnb8CLsGiOM20BDPUq/z4D/azrKxH46iXR926VFQXfKX9WLuq9Zu1Kt75PYuIBuf9988QAAZEAAJNUtcaQAVHVRuYyH3LoV9vrJRbGXIZ5HBW9IVAE7qAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kedXLENgEvlN/J+9rIEYBIuPQ8Ieu1VnMditzOF5J6o=;
- b=ESnpG/nbuskdHSdPME7hQr+Soid65UqGOouF33I6cY/XdTNoN3euJ7Mup3EJ9U2va0R8tevw+45szLvfq1NQfLCOL/DwBCqR4ZyZHTlkUQyiX1MF4ogGqRrSJ5CKitgci2Lii8rk4XLkyJ6G8kKOR4Yo9pTEQYdkyGQmKAMe2lA5e/GMjjQ/pdAhirs98D+H/v+Pt9NOjr9NDwiEmj0ftyy9oazw58TACPWH1WaDa+BHCD3zutn6IC3PukWn0v5TcCy/pkzPGe7BXlnq7p576NQ0/XvkRk9ehlr31jMGgpxp/MK7uySkI3VLmWFWCv1CzFIbY8gNhmGFi5IUMzvckA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kedXLENgEvlN/J+9rIEYBIuPQ8Ieu1VnMditzOF5J6o=;
- b=JSBvfxqYDxA9HtHDyUxuockJLaUvypWxIcGxyaUBklNd3Cx/EmngNmPyXhqKAk7bfNmJUI1NtQ7lCXm0eREVWJRv/JBXXo8/pUuMNInvo5+CYr73JAPREilxRRbawzPei8TqPD8XR7vHK7VVfR+o0VEHHIY2/NtOrkRa/GxdtIlZINz5y8QzS3ciTwR5G++loTbcTxqAjSOyLCkjyXUvvo804Z9PM9ORD/HxVGmvcKjylrE1ZgYHz09TEpR9PPBFZ7XfWQXZF16VUXITgAASiv8E3Fun1+KtP+9okm8qsW3yiUvUz7xYfe9y0Jy49XSF7mTRau+V51nXXrUYSuEzXA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT1PPF7200E28CA.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b08::54a) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sun, 27 Sep
- 2026 17:36:55 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0451.022; Sun, 27 Sep 2026
- 17:36:55 +0000
-Message-ID: <e26f28e9-e83c-4b39-85f5-928a8097019f@efficios.com>
-Date: Sun, 27 Sep 2026 13:36:54 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path,
- fallback to overflow list
-To: Boqun Feng <boqun@kernel.org>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
- Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
- rcu@vger.kernel.org, lkmm@lists.linux.dev, Lian Wang <lianux.mm@gmail.com>,
- Kunwu Chan <kunwu.chan@gmail.com>
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
- <20260927155134.4740-5-mathieu.desnoyers@efficios.com>
- <arlHFVT5EzcX4d1-@MacBook-0RXW5>
- <5c78c338-1be6-456b-b963-bcfc62748aab@efficios.com>
- <arlROwtdFs3YyUt_@MacBook-0RXW5>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <arlROwtdFs3YyUt_@MacBook-0RXW5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0078.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::12) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjV+uLbd"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885a1480a2so1258908f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:37:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790530675; x=1791135475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A+X+36lYCWsGvVjpUJyj7CQ4ulusicBQjGYVS+SYOwQ=;
+        b=GjV+uLbdJCqOCbNRnh27HOWvbL4RIK15C3sY7CjZv7+aqyK7PVXV8fvOziruUIqu8v
+         XjkJ5xdNiB+7KhYivKgcHsvxPgzehyICWYFvWecHILhrl3LYbZEwT2x3krejwWKSXZQU
+         1nBdBY79pR4jPxXQs8nhPuwo1KBHVUAU+rhDxNzmKcrr80ZIc/phK/wncR3llFjQ+P6T
+         0X0hHFjLbW6Dm1l8l5uopR5uHfwWaafdS32S4KV2ge8EbvMjMGM+9XVUPJjT2AH6DauX
+         W2kZUol1RDsMsV7by/nmHDXPofJIoAnh/ftuZpwBojIVXvr0teoafFz+uZzm4DXLQpWP
+         ablA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790530675; x=1791135475;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A+X+36lYCWsGvVjpUJyj7CQ4ulusicBQjGYVS+SYOwQ=;
+        b=WBIqhtKk77r2YSxck4dr7p+eNut1fHkJfNtO6OY3QazmjLLIbpoByFJOkCF1+SglET
+         yShiAdwTWbyMtnnqDsan191BjoKWF4ExPa0udFM7LviPo33tMnwuGoZMuDDNqsFqRW9y
+         6CDKKJL7M3INgqA7579TWTQXXpb978quf9OjbTtT2S6n3c38PAeF7eVHhkLtarQ5kSCQ
+         rzhLj5GliNQ58PH9KsVGTzDss7To97VJa/KP/Al7lBUbfYjuNvReuAFB+tHQjRbV/EXZ
+         4S9MyRXQLJtXh3NEg9zqBO55b3M0WHGZndDUCVdcYwyE6JcaEHvlOC1Z+Gn77Ah6ujBv
+         IuEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKZb+U1WuOZpR1VjIVImAHvOBxRZMYWyCZSNdHrduPWtT3v7VsAhbAZgFDq714EQdMX8BdsUlLSCLAVdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInrMORNe2Kc2XJNqaDD+8Bx1/pIPReCDzsfbQfsarD4VuryaT3
+	Yg+KxS/oP5Z0u5qImt+eJF5N9Jx6QRcCv6QD63lvx6minbQYfEuqATPq
+X-Gm-Gg: AYBFou01V1uFodSAleWeVgrmb3di8VpRla4e4fzqM5jsPfPFC94J9A5CYoUh7NLlGKn
+	0qq59Vrcdn8SlhWqZ28dld3lZlYTKaawL2MMn17FrY5P0F1LNXUiqaS4MZhk5fmgEELwVNZ1tEG
+	gfa3M8INZp03rqn6i+C9B+URSl8SiWmxjBU00bYr7XqnVL2e/lylN5mpTD1grCEJ3FNs/dxmJs3
+	vCN4+nS/6SU4X1/ojE9trufQ3G487m9nJ7+zeL49XUCCeaG2bSzSw4xbrHDYm1EGpkRX6XiyQnw
+	lE1rdmUEXwf79lbxOrKzEzma/sd8DjliOwrAn7aqzWKKnHBemQhSRH/FqAo4K6WsK+LlwL3hT/e
+	FJEZ+BGJ8IOMcAFHz4XWsWiXZPDTdcsYA2AmuLQuiCxk564Zs+93sJ/RUlrHU2JAx8vpiF9yVNg
+	LNmi9qm5pgPKmc8WgCnc16pzaoXnpO64HilCDZ2TdfHr5Bd298cexH5ihQbWQYzOHp7OFMKp3XU
+	8RuIg==
+X-Received: by 2002:a05:6000:40dd:b0:488:8109:fe01 with SMTP id ffacd0b85a97d-488810a006bmr15018232f8f.46.1790530674966;
+        Sun, 27 Sep 2026 10:37:54 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm21034900f8f.21.2026.09.27.10.37.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 10:37:53 -0700 (PDT)
+Message-ID: <62a91a6c-f18f-4f74-a4a8-90a15489ac26@gmail.com>
+Date: Sun, 27 Sep 2026 20:37:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT1PPF7200E28CA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13b789eb-6075-4d78-e494-08df1cbdecab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|1800799024|366016|10067099003|18002099003|22082099003|4143699003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	lxoM4iCjEGkWJ1ntSKlmpgC85BqPCJVyG6uYMG4rXKoseQZ6KtmYF5OzR+hdkRe9Rx5hyEyK71splSa43Dy1VMD8Q13QQYVsa32l6hHHhQPXPCFBhmNChoaVE5eov+2wxbtNtrxqgm2mV/gf6TOt9b4s/prMGkdSjKY7AsXic2nHQinwb/bDAokXqIKtI+8mNlVrpVVa5sgwQYoFK64wKCVlBwEJj96tnJ0fz6WvB7B2oxr+8nUlrmq1b/T8A3TmFuWsPFzA8Bu5xfP46GTgVKViOzbnyhh4Mgfb32xavVY/MhNh4OBZr+RJ6ilfd1XzESVXF1c1VVpe20MezKrd0hxOntlvglStiLhUGrxlc/nd9GmFOzlksUB8EXThgjXY+PWgNBOh8xd5tBn0RGJsbQwED/vtF8s/0I4rbf2dbJwQb7hthGj00J6fvY0PojBfl4FbnXyVvV4cGTEtojDK1uHW0C6yPXwoHh/nrDAuWuMAJy9fMwDSbyA/sNfEipyFtxQU68mHhBLKwcxWrrTJgyWpyAHAa0W64b00dBO8ahyekIrMB5Cv7xrtQPxTHY8d16M8x7IDrIW7OT6eW1Ma1RdEWFEfz/hr/llPatz0/i4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(4143699003)(56012099006)(13003099007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TEhLNHNUWEQxdUNpTzlmSE9IcW0rd1hQMWFDTkxpZ1d6WHduUXppR1ptSG5Q?=
- =?utf-8?B?Z0pRb0ZiS3lzY2pZQkxPTTArb3Vrd3Vjb3VXSkpNR2xIRFZxSjhYYWdUNGt5?=
- =?utf-8?B?ZjJxOU5zaVZvaStYRU9kU0ZwSzgwV2dOQ3oxR3dqMEJtTWdiWlExUDdBNWw3?=
- =?utf-8?B?S01DV1hGSUViT3g2NkI5b29yRUQwYlZrcUNQSGpjNitSTGt1dUZJVmRGUEZN?=
- =?utf-8?B?K1Y0MnV1QVIzRTV6NVhKcllwd1d3anh0ajBYR1l2d0ZqV0dJTlVtNUdVbWll?=
- =?utf-8?B?OXR6MDYrMTAwdWZZbHFuWXhvYXU0SFZRNDZueWFaREdtZnBEQzRzYW94bC83?=
- =?utf-8?B?L1U1VDJHdWVXTFFLdHFMV1hGQ2JrU09sNm5lRHZMa2llRC9CY2pydzNlbTE1?=
- =?utf-8?B?Y0Q5di91R0RyUUp1REdaTVJzWU1OTFZVNG5LSndDV1pXTE4yUE9ZYk54aDFN?=
- =?utf-8?B?b3REK1ZWUjUrcC9nZXBmcGJhYUQwMm1qcjRPZkdGMnBBYkd2NVFkamVNRW5E?=
- =?utf-8?B?dytCVmM3NTlIblhCdUF2Qkg5eG8ydmlFdnVWOGNZY3ZCcmhtRFRxTEdLRFkx?=
- =?utf-8?B?akFWKytEWnNzVmVDaFFGKzR1ZTFFdCtLK1JCbHlDQk42SVhwRmVtTHNhWmhT?=
- =?utf-8?B?SUcycEVCRDJ4dEJudXdUbDRTSjFHNlk4dTg5SXNoREV6SDFBUjM4eE1QUmhQ?=
- =?utf-8?B?amtPSjRGR1F5ekRLSWIzRHM2ai9KRGN6VVVZVitzcXpqNUw4dWZoTmZXOS9I?=
- =?utf-8?B?MnJ1cHg3cDI1WldibjlPSTVpRlJ0bHQ5YnpnTi9adFNaNmNvdExyRXRHcFVu?=
- =?utf-8?B?MTk3OGdJMW16QjFRVktNM3hpNFZabHVnaSs4N2NFVjFqanY5ZmlqV0YrTlNq?=
- =?utf-8?B?aGFqSW9wWXpKSEs3MWU4MTczdGpYRHh1Z0lnckk0bkR4TUJMdXR1MEZablht?=
- =?utf-8?B?TjdBNER1OXgyRnJGMFJRSUFzeVc2OEVBd3pmVFdHa1hnbDVPaDJoUC9rV0pi?=
- =?utf-8?B?dHpaR3pqd0VORU8yZzRKM0x1VlEwMnBqeTZsWVNtWDBuaVFoQkNxOUJjWU11?=
- =?utf-8?B?NTJEeUQ2VUV6ZE1CVXViVFZvY1FqcDhJeWVIUVFhSGpqTEVxTi9hTG9XWi9t?=
- =?utf-8?B?UGtaU1BQWDdUK29IQXJCbVd6OFFjUHVIVnNNZTljV3I0NjlyYWRtVEU1OG9h?=
- =?utf-8?B?SlkrRTZqTnFaZmR2VFplNDdnbGtsL1dZYTJhOEFwbng3K3lrZUs0RnBrZGp6?=
- =?utf-8?B?c2tkMURyU0NwMVQ2cHBJdFRXZXIzQllNbksvZHZnSVBnKzQ4RjhTL0NNclBa?=
- =?utf-8?B?VlRYTk1NekxiNTc1OHVFdXBCQmgwRmlGODlLU1cydHN5VkdrUCtVY0lqWkZJ?=
- =?utf-8?B?Wkx0SlhlNXh3TVlGeUswLzVVYkhQb25nS0ErRTRkV2llcFVxd3AyWlZyK2Vv?=
- =?utf-8?B?Y3dLZG43SDJMQzNZL0RUOFI3Y2ZaaDBJMnVoeXZjcVp3WFhQUHBlV2JSNnJ2?=
- =?utf-8?B?RCsxdnQwd1ZZZU1qelBJNjl4Ukx1Zlk3ek1pZG5qMGcyZU13SXNJUnpZOHBY?=
- =?utf-8?B?ZHEvdTVOWDZGYU0yempXaUV3WFFVaDdtUTJHbFJVRmJSTlQyRjEzaGxhMW5Z?=
- =?utf-8?B?YTc1MTk4Q21OT0c4MElRZWsyVU9Td1Q4TXpUeDZQUXJrNm1zaTNKeHEwQVJp?=
- =?utf-8?B?cEl5SDdkeGNCQis4ZW9STUxyVWYzZ1RIK01hU2FOd3Q0cHZINGxPRkcxMWNt?=
- =?utf-8?B?Zk91bUs2SFJxQVo0aDdFNHF6N3N6MjN1THJ0eWRvM0ZKZUNleGhqWUdqRTNn?=
- =?utf-8?B?TWIxVmduMUhDN1BNQXNiMzh4ZEdUd0VmVHdiUG5YL0VnT3B4WFA3MkZ1bXZY?=
- =?utf-8?B?aXRIc29PRllNbnRJRzFRejhvSnRqdEN2V0ttbks0QnROTWNZL1RRVjJaZkYv?=
- =?utf-8?B?bU9MdWtDczN4LzU1cG9lYVpBVHR2TmFVbldXWG9HZzEvam1NeCttZ1pQekZu?=
- =?utf-8?B?NTdDK2lRajBRQmg4QXVDZGZPS09Bdzc4RktCeTdSL0RZZmxZVjVBcm5GQks5?=
- =?utf-8?B?WW1jR1Q4emNQOGxOYmtKdGd6WE1kT1RuMzN5WlFtcmFaRlorL2dDZUVwQmg3?=
- =?utf-8?B?YUxJSFErV3UweUNyMG9yTUpLZGNCMGlMY25OREdEWkJOOTNOOWpNZHJlS3dE?=
- =?utf-8?B?aDFSazhYZzNzTExIbE50SWlLUjhkNE1iNU95OCtMZldLVm9OV0NXSFRud2RM?=
- =?utf-8?B?cFg5SnlzUkx2b1gzYnp1ODJjbkM1eTRaVFVveXlGNzdwR3Mvai9GaUl4MzdZ?=
- =?utf-8?B?cW1UK1FoY0h6MXUvVGxUZ3VRTE1xNmJycTVDeTJwUHF2VFVVNVQ3L2NzMWh3?=
- =?utf-8?Q?sm8MBN8jSeB637lDoDt6Zjz8b1Nr7eVrk32RahqEvfMCj?=
-X-MS-Exchange-AntiSpam-MessageData-1: Jdrb4oOxuoyshX80gF6OYEcBKyT7HVT4BCs=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13b789eb-6075-4d78-e494-08df1cbdecab
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 17:36:55.5680
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EyhwZmg0Gntd5L+QadBPGpKufkK/x8Fdr3Y3/zUKtdxoiAu2wOubeMx4eDEBzfxYhFEJCHGLxNy7Q0CspBnHHavtuOoyWfpSYGFsWA5wMqg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT1PPF7200E28CA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
+To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Michael Straube <straube.linux@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-4-luka.gejak@linux.dev>
+ <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
+ <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-27 13:24, Boqun Feng wrote:
-> On Sun, Sep 27, 2026 at 01:15:39PM -0400, Mathieu Desnoyers wrote:
-> [...]
->>>> @@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
->>>>    	for_each_possible_cpu(cpu) {
->>>>    		/*
->>>>    		 * Scan CPU slots.
->>>> -		 * Forward progress against recurring wildcards is guaranteed
->>>> -		 * by scanning for one wildcard while new elements use the
->>>> -		 * other wildcard value (1UL vs 2UL).
->>>>    		 * Forward progress against recurring single hazard pointer
->>>>    		 * values is guaranteed by the fact that a hazard pointer
->>>>    		 * is not reclaimed nor reused until the scan for that hazard
->>>>    		 * pointer completes, which prevents a steady flow of readers
->>>>    		 * to acquire that same hazard pointer value.
+On 24/09/2026 00:50, Luka Gejak wrote:
+> On Wed Sep 23, 2026 at 10:30 AM CEST, Ping-Ke Shih wrote:
+>> Luka Gejak <luka.gejak@linux.dev> wrote:
+>>> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, the
+>>> power sequences, the efuse layout, the RF and IQ calibration, and the
+>>> chip specific coexistence handling.
 >>>
->>> (Not a comment to this patch, but I think it's worth bringing up)
->>>
->>> I want to point out this is not true for the lockdep use case, because
->>> the we need to protect a hash list deletion there, and we use the
->>> address of the hash bucket there. It's proven fine in practice because
->>> the readers are rare (we only call the reader is_dynamic_key() in
->>> register_lock_class(), that is every time you have a new lock class to
->>> register).
->>>
->>> Maybe what we want to say here is that "if the users guarantee no steady
->>> flow of the same hazard pointer value, we guarantee forward progress".
->>> Thoughts?
->>
->> AFAIU, your approach to protect lockdep linked lists is to use the
->> address of the hash bucket to protect the traversal. As this address is
->> invariant (global array item address), that address should be fine
->> to fulfill hazptr requirements, but it has downsides: rather than
->> protecting the specific nodes being retired, the whole hash chain is
->> protected. This means that, as you point out, many readers retiring
->> nodes from a given bucket (except the first node) could end up holding a
->> continuous stream of hazptr for a given hazptr value, preventing
->> progress of hazptr synchronize.
->>
->> It's also coarser: per-bucket rather than per-node.
->>
->> Am I missing something here ?
->>
 > 
-> No, you got it right, but as I said, we can use it in lockdep since the
-> readers are relatively rare, so not an issue here.
+> Thanks for the review. Everything that could be turned into a change is
+> in v4, and six of your points are worth an answer as much as a change,
+> so here they are.
 > 
->> One honest question: is this pattern something we expect to
->> see often ? If so, then we may want to introduce a notion of
+>>> +#include <linux/unaligned.h>
+>>> +#include "main.h"
+>>> +#include "coex.h"
+>> [...]
+>>> +#include "tx.h"
+>>
+>> In increasing alphabet order.
 > 
-> I honestly don't know. But in my opinion, we'd better focus on finding
-> more typical usage of hazptr (i.e. protecting actual object). So ...
+> The list is already in increasing alphabetical order after main.h, and
+> main.h cannot be sorted into place. The other rtw88 headers have no
+> includes of their own and are written expecting main.h to be first: it is
+> what brings in struct rtw_dev and even BIT() and GENMASK(). With mac.h
+> ahead of main.h the build stops after 179 error lines, the first of them
 > 
->> hazptr protection "period" flip (similar to some RCU implementations),
->> where we tag the low bit of the slot pointer (0 vs 1), and alternate
->> between the two periods in synchronize. This would prevent a steady-flow
->> of same-value readers from preventing synchronize forward progress.
->>
->> Thoughts ?
->>
+>   'struct rtw_dev' declared inside parameter list will not be visible
+>   outside of this definition or declaration
+>   implicit declaration of function 'GENMASK'
+>   passing argument 1 of 'rtw_set_channel_mac' from incompatible pointer
+>   type
 > 
-> ... I will say let's add it only if we have more users of this pattern.
+> I tried the sort and reverted it. A strict order needs main.h added to
+> those headers first. I can send that as a separate patch ahead of this
+> series, but I would rather not fold a shared header change into the chip
+> driver.
 > 
-
-I am concerned about this because many uses of RCU in the Linux
-kernel protects linked list traversals. Turning a RCU-protected list
-traversal into a hazptr protected traversal is not as simple as
-acquiring each hazptr hand in hand.
-
-Your own use-case for lockdep is indeed a linked list traversal,
-and you need to use a work-around: protect the address of the
-hash bucket head.
-
-I'm just wondering if this work-around will end up being the
-"blessed" way for protecting linked list traversals with hazptr,
-or whether we should consider alternatives ?
-
-This ties into finding additional usage for hazptr, because linked
-lists are so prevalent in the kernel.
-
-Thanks,
-
-Mathieu
-
-> Regards,
-> Boqun
+>>> +#define MASK_NETTYPE   0x30000
+>>> +#define _NETTYPE(x)    (((x) & 0x3) << 16)
+>>> +#define NT_LINK_AP     0x2
+>>
+>> The PORT_SET_NET_TYPE in rtw_vif_port_config() does similar thing
+>> relying on static const struct rtw_vif_port rtw_vif_port[].
+>>
+>> Is that not suitable for RTL8723B? If so, should the common flow
+>> avoid RTL8723B?
 > 
->> Thanks,
+> It is suitable, and the common flow does not need to avoid RTL8723B.
+> PORT_SET_NET_TYPE writes the same field with the same value:
+> rtw_vif_port[0].net_type is address 0x0100 with mask 0x30000, which is
+> REG_CR bits 17:16, and rtwvif->net_type is RTW_NET_MGD_LINKED, 2, the
+> value NT_LINK_AP carried.
+> 
+> Only the timing differs, and there the common flow is the better one.
+> rtw_ops_add_interface() sets net_type from the interface type,
+> RTW_NET_NO_LINK for a station, and the association path moves it to
+> RTW_NET_MGD_LINKED, writing REG_CR after both. The chip local call ran
+> during mac_init and forced the linked value before there was a link,
+> and the core's write replaced it a moment later in any case.
+> 
+> So v4 drops rtw8723b_init_network_type() with MASK_NETTYPE, _NETTYPE()
+> and NT_LINK_AP, and the chip relies on rtw_vif_port[] like the others.
+> No other rtw88 chip defines a net type value of its own.
+> 
+>>> +       /* Override the default rcr filter for 8723B */
+>>> +       rtwdev->hal.rcr = WLAN_RCR_CFG;
 >>
->> Mathieu
->>
->>>
->>> The rest looks good to me.
->>>
->>> Regards,
->>> Boqun
->>>
->>
->>
->> -- 
->> Mathieu Desnoyers
->> EfficiOS Inc.
->> https://www.efficios.com
+>> Why? The default value doesn't work to RTL8723B?
+> 
+> Two things say it does not.
+> 
+> hal.rcr is not only written at init. fw.c clears and restores
+> BIT_CBSSID_BCN in it around the beacon filter, and mac80211.c toggles
+> BIT_AM, so whatever is left there has to keep those bits.
 
+I don't understand the conclusion...
 
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+> 
+> And this is not a private filter. It is the RCR that rtw8723x_mac_init()
+> writes for the whole 8723x family, 0x700060ce, with BIT_APP_FCS added.
+> The generic default is a different set: it has BIT_PKTCTL_DLEN and lacks
+> BIT_CBSSID_DATA, BIT_CBSSID_BCN and BIT_AMF, so it drops exactly the bits
+> fw.c manipulates on this chip.
+
+That's fine. The value written by rtw8723x_mac_init() gets overwritten
+with the default value from rtw_core_init().
+
+> 
+> BIT_APP_FCS has to be set because rtw88 advertises RX_INCLUDES_FCS for
+> every chip and the shared 8723x value has bit 31 clear; without it
+> mac80211 trims four bytes of real frame data. v4 says this at the
+> assignment.
+> 
+>>> +       rtw8723b_init_adaptive_ctrl(rtwdev);
+>>> +       rtw8723b_init_edca(rtwdev);
+>>> +       rtw8723b_init_retry_function(rtwdev);
+>>
+>> So RTL8723B is very different from existing chips?
+> 
+> No, and the siblings write the same registers with the same values.
+> 
+> rtw8703b_phy_set_param() writes REG_SPEC_SIFS, REG_MAC_SPEC_SIFS, REG_SIFS
+> and REG_SIFS + 2 with the same 0x100a, ACKTO is 0x40 in both, and
+> REG_RETRY_LIMIT uses the same 0x3030 in both. Its four EDCA registers are
+> the same magnitudes as here:
+> 
+>   8703b  0x002FA226 VO  0x005EA324 VI  0x005EA42B BE  0x0000A44F BK
+>   8723b  0x002FA226 VO  0x005EA324 VI  0x005EA42B BE  0x0000A44F BK
+> 
+> rtw88xxa.c writes REG_RRSR with the same 0xfffff / 0xffff1 pair used here,
+> and REG_RESP_SIFS_CCK and REG_RESP_SIFS_OFDM are the pair that only this
+> chip and 8822c write. So I read the three helpers as the family pattern
+> rather than as something chip specific. Say the word if you would rather
+> have them inlined into rtw8723b_phy_set_param() the way 8703b has them;
+> that is a smaller diff.
+> 
+>>> +static bool rtw8723b_sdio_needs_rx_path_fix(struct rtw_dev *rtwdev)
+>>
+>> What does it mean?
+>>
+>> In many places using this function are not RX path.
+> 
+> Right, the name hid what it is, and it is a test the preparation series
+> already provides. The function gates the SDIO only register work: the PAD
+> mux restore in post_enable_flow, the path control save and restore around
+> IQK, and the trailing re-assert in set_channel. v4 drops the local helper
+> and calls rtw_is_8723bs() at those seven places, which is what rx.c, tx.c
+> and sdio.c already use.
+> 
+> One more, where the review asked for a change that was already there.
+> The declarations in rtw8723b_reassert_rx_path() that you marked for
+> reverse X'mas order are already longest first, three u32 lines followed
+> by two u8 lines, and they are the same in the sent v3 and in v4. If you
+> had a different order in mind, tell me which and I will apply it.
+> 
+> I re-ran the hardware validation on this exact tip after these changes.
+> The suite and the soak both pass: association, WPA2, DHCP, throughput,
+> latency, scans under traffic, 20/20 reload/reassociate, link cycles and
+> reconnects, with no error, TX-report, H2C, LPS or lockdep lines in dmesg,
+> and no regression against the branch that was validated before.
+> 
+> Best regards,
+> Luka Gejak
+
