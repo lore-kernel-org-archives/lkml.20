@@ -1,192 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406583822B5;
-	Sun, 27 Sep 2026 10:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761F53BB9E0
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790503665; cv=none; b=G0SsH9ZjkLA/9Ws5f46T/grgREnmpoEycjB6xaaDmNF6om9aCIElpHaL5BCSJ+1iCAboUE9ZHTSDiR2tB850cS6VS4Kzo6dpvazSvdZBIoRD8XIgfEuhXSF69ATnW7ExTvryoKzSX8oqBdFISzUPwG5kHR+QyPRG12zVkAKiIJE=
+	t=1790503858; cv=none; b=J8RDhBmZJxVB88DxrSE/DQNyqX9eT3h6g9Bd/xouPRcMrbzC7Mcf4fATckoTDC+ZkwnfeXJjNcOwfKYJW1soM9T5UdUBKqQB2NJffLb5as8g+j3y6ZGwuv1QsJuq/pBkRH7vaXXV/2zvSqJVXK9CNMmhq3XgMkz6Eo0VbzG4b28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790503665; c=relaxed/simple;
-	bh=RBY2+fL6gAX3s7cYcgt5LZZHy9u+gMh4SGgm5fF+CF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lx/zFjXLzBiASmSGiCG6vHTcDo9UsklzN68McAEWSD4FMuVg28+k5ibX0l865RJX75Vhpot0PxnjbFKY3Mb9pZw1a2kSWn8eGR4JrlQsbYW3FOnX6C4x8LYTSWiTNlkvsGxIhrJjwV7B/spYTkywhhh0ibsnD0F+qVtgeY/MJr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+uofu54; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790503858; c=relaxed/simple;
+	bh=fSmSskI8VE/EVxV1z56H9ldUZamb/IQToTx09gb86c4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=og0ihxngm65vuplLZ/wD2SMwmp7o70oqkyJRA+eY+8V69Qxm79eEFBgj6vCL/p4lDvjzMHniiZ7jCl/3Jgl9bCKUThtJ+OpXK63cHzktc4WpRIv9mi0dkrSvrQjge2jKmL1/j7AgadK2zDAQNJCRx5THDGLN0HE8z8g6qyqUpK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h8apSUo7; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+uofu54"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA981F000FF;
-	Sun, 27 Sep 2026 10:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790503663;
-	bh=JuZOxs2OpoBI5rzRL1beL1MIyy2hTjmekiMckgAHHy8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F+uofu54BG5L8tXHCE/wnnDzKdehh4xf+m6+WeRrUt7Y+w8QlFMNsGAQn7i71OtXy
-	 WkwTHFQrdLJK4uK8g+vDtyftK7ZjdKcwov7wNUqMwXFSKnwp4atdjQoMt7ZxbwI9vp
-	 8QE8zr6XaKqGRKuJlZ6hagSxdqjqhPdnQmIfWOT+0xPNMIiPi0jO4H48FcIrzeKreE
-	 ChG8M/dwDpvVcGsDQ6eKMmcdJBXKzvh8C0Hv/ujykz+fs6zE2u77DffvkyUMVWCKz0
-	 98l+1QrkeiLq5DfffYT6Kp+zDDQlSCKaeW9gn87+JxDjStDtyTYAIY6V+b1Uf0g66a
-	 8kED/Lj+463BQ==
-From: SJ Park <sj@kernel.org>
-To: Enze Li <lienze@kylinos.cn>
-Cc: SJ Park <sj@kernel.org>,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h8apSUo7"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so12485055e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:10:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790503855; x=1791108655; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bxkdMpW5uls3bj2hzuo50IQLuq2BV88+7Gd3LoVozGo=;
+        b=h8apSUo7n/XdoEHqZ6hcHPhmv453Oq1bHosXcXW21PoTrFVsnmGcVoPe3LjYJWWNXr
+         dDLASL/iHJSnr/yC82DnxH1BZeH0eZxErl96pOQ5J3AMkSwY7kPD7tApBhQGrivQxCcf
+         0l/mm0y2bZlB8QnLMg7BWAtHtUbqRDwop4rBJkA9nBXbMr71AhyNaOCTLmPKHwS7oepT
+         K3FPTWqwsI/nb7nPfRWRXPeRWhRI4fwtyKTSH1wr5y2Fb4EFpjcYftwWsskgXMaPJWZ8
+         5PfTjQuEVEPyGYNZwrzetLU3uteDj5ee6I6QdjcVEdR0DsRz6VStSd0iyf+ulDTmOM3Z
+         9sVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790503855; x=1791108655;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bxkdMpW5uls3bj2hzuo50IQLuq2BV88+7Gd3LoVozGo=;
+        b=vlOaIgdObLL8hGJqmqw5JMUzsqBut/VlWpg1TjBsabhUQDCDr8F737V0V3Z9scFUSo
+         di8MfJ+HkBci7qHkDaJMz6CJMrgfUpW1s2g5kZ/8UqKqZgSWMwxhIuHCvYor4DjLsmhd
+         cR6N+Q3bgrXiKGGmx+cnhCvyejcfHaJXQgj8sKc+d5IGu6RJX0xkpUf76obBDnauRdye
+         gTeZJLDMc+Kj8WRvr+IPtGW1HKlovOXLDq+ar6cHJOwzFPJj1oWNiOnzv1sjMae8WX5Y
+         75fRHuv4vZvIGA9zKM3i5xkunhNIG185jIauGDc6oOsaipfSs1jltc+7ciCGe2xJ8mQi
+         +/gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIhUG3tGAXiHuAEiL08c4ZuCn+Em84U+PpPPoY9HLAYepIcCD6/IGubGdl8sr2uHVqJNEI5jLuG+dwHTE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nz7IrrKpmmZrNmFCQzsd3AuDl66rDIO7O4FsujYI1Bi8EWb2hc
+	2k3nLPOvXiH1TjxuOQhh1f+i4jrOhKK/mcSNuT0LxJjos9/Rk728GJnu
+X-Gm-Gg: AYBFou3RN1u2pyx7gBhLFLfIBWLe0XLI/Q6jpl6gttVZAtB4eKpQVTZlDXQsavenFb2
+	2+cziTP3Vu8o8joTd7UOL6JF5UWHJRgxnSCjzYFG4MGK2a8qXnrkciQyQgt152HdMbJBPcRACH+
+	1sThDw+q9g+gGZF6mMI/joVkrKxJIGkfvWqz009/S7RLGcMAbR92i6PjO3jXsCOg4RTIdExmeTp
+	vk/Otd6pnkpJ0HzkU0KM/y8rKf+rC9uF4q75yIV8qWO/Rh1rT7927Z2fSGqUrHea12wb1IqDzY1
+	SfBMu2Lc5nBTMEncY1eMbNICqLeZOYLgZT4Q8GFRjuo2mcPX7Hv3pK/uPrp9g7AW5rj7AHPHAR+
+	6F1TP8r2LHRChi+7/YEO8mXdfjzJNKgIheIXVeIS17yEgXlkntPIKPujrNGmrRnvbEWnhWPvxk1
+	xgd4R52dwPPu3GtzdRi87cNlVgJalxyTG0Ucvr1EyvNa8e8qXwZh2FbY89xq5siPksvi6of9pn4
+	czhX7f3EQ6kFB2JpnPOMbLpkQBWBF0j0YdDcV+IpzBiKL6hiEYo0HHTvNWKJwrNrzxCRgs+
+X-Received: by 2002:a05:600c:1391:b0:49f:c18a:61c8 with SMTP id 5b1f17b1804b1-49fe66ff2c3mr187004185e9.29.1790503854348;
+        Sun, 27 Sep 2026 03:10:54 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2 (212.pool95-21-2.static.orange.es. [95.21.2.212])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff285550asm125782045e9.3.2026.09.27.03.10.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 03:10:53 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>
+Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	enze.li@gmx.com
-Subject: Re: [RFC PATCH 0/4] rust: damon: a first small step, plus a Rust prcl sample
-Date: Sun, 27 Sep 2026 03:07:35 -0700
-Message-ID: <20260927100735.41931-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927072812.2393456-1-lienze@kylinos.cn>
-References: 
+	linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v4] drm/qxl: fix use-after-free in qxl_irq_handler on PCI
+Date: Sun, 27 Sep 2026 12:10:08 +0200
+Message-ID: <20260927101026.45411-1-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Enze,
+Executing below script:
 
-On Sun, 27 Sep 2026 15:28:08 +0800 Enze Li <lienze@kylinos.cn> wrote:
+i=0;\
+while [ 1 -eq 1 ]; do\
+  i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
+  if (($i%1000==0)); then\
+      echo loops=$i; free;\
+      grep nr_free_pages /proc/vmstat;\
+      grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
+      sync; echo 3 > /proc/sys/vm/drop_caches;\
+      echo 1 > /proc/sys/vm/compact_memory;\
+      udevadm settle;\
+      free;\
+      grep nr_free_pages /proc/vmstat;\
+      grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
+      uptime;\
+  fi;\
+  echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
+done
 
-> Hi SJ, hi all,
-> 
-> Almost a year ago, right after a memory-leak fix discussion on this list, I
-> asked whether introducing Rust for some DAMON modules could be worth
-> exploring as a proactive measure.  SJ's answer was positive: he was open to
-> Rust adoption in DAMON, both in kernel and user space, and even mentioned
-> he had been wanting to write a Rust sample DAMON module himself since LPC,
-> but had not found the time yet [1].
-> 
-> So, here is my attempt at making that start happen.  This RFC is
-> intentionally small: it adds just enough Rust support for DAMON to port the
-> proactive reclamation sample (prcl.c), and nothing more.
+After a few seconds, it reports:
 
-Thank you for this patch series!  Yes, I'm interested in Rust, though I didn't
-have sufficient time to dig in yet.  I'm planning to attend Rust for Linux
-training day [1] on next Sunday.
+==================================================================
+BUG: KASAN: slab-use-after-free in qxl_irq_handler+0x269/0x2b0
+Read of size 8 at addr ffff888001c6cd48 by task swapper/0/0
 
-TLDR: I feel like we might need to wait or focus on module parameter support in
-Rust, ongoing DAMON extension works before adopting Rust in DAMON.  Also, I'd
-suggest starting with wsse, which is simpler.
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
+     7.1.0-10963-g1a3746ccbb0a #31 PREEMPT(lazy)
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009),
+               BIOS Arch Linux 1.17.0-2-2 04/01/2014
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0x4d/0x70
+ print_report+0x14b/0x4b0
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? profile_tick+0x56/0x90
+ ? tick_nohz_handler+0x23c/0x5c0
+ kasan_report+0x117/0x140
+ ? qxl_irq_handler+0x269/0x2b0
+ ? qxl_irq_handler+0x269/0x2b0
+ ? __pfx_qxl_irq_handler+0x10/0x10
+ qxl_irq_handler+0x269/0x2b0
+ ? __pfx_qxl_irq_handler+0x10/0x10
+ ? __pfx_qxl_irq_handler+0x10/0x10
+ __handle_irq_event_percpu+0x116/0x450
+ ? __pfx__raw_spin_lock+0x10/0x10
+ handle_irq_event+0xa6/0x1c0
+ handle_fasteoi_irq+0x271/0xb10
+ ? __pfx_handle_fasteoi_irq+0x10/0x10
+ __common_interrupt+0x60/0x130
+ common_interrupt+0x7a/0x90
+ </IRQ>
+ <TASK>
+  asm_common_interrupt+0x26/0x40
+ RIP: 0010:pv_native_safe_halt+0xf/0x20
+ Code: 42 de 00 c3 cc cc cc cc 0f 1f 00 90 90 90 90 90 90 90 90 90
+       90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d a3 cf 20 00
+       fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90
+       90 90 90 90 90
+ RSP: 0018:ffffffffb8207e48 EFLAGS: 00000206
+ RAX: ffff8880b296f000 RBX: ffffffffb82146c0 RCX: 0000000000000001
+ RDX: 0000000000000001 RSI: 0000000000000004 RDI: 0000000000067a04
+ RBP: fffffbfff70428d8 R08: ffffffffb7247e1d R09: 1ffff1100d846202
+ R10: ffffed100d846203 R11: ffffed100d846203 R12: 0000000000000000
+ R13: 0000000000000000 R14: 1ffffffff7040fcd R15: dffffc0000000000
+  ? ct_kernel_exit.constprop.0+0x9d/0xc0
+  default_idle+0x9/0x10
+  default_idle_call+0x37/0x60
+  do_idle+0x3a8/0x5d0
+  ? __pfx___schedule+0x10/0x10
+  ? __pfx_do_idle+0x10/0x10
+  cpu_startup_entry+0x4e/0x60
+  rest_init+0x11a/0x120
+  start_kernel+0x382/0x390
+  x86_64_start_reservations+0x24/0x30
+  x86_64_start_kernel+0xd6/0xe0
+  common_startup_64+0x13e/0x158
+  </TASK>
 
-> 
-> The series has four patches:
-> 
->   1. Generate Rust bindings for include/linux/damon.h.
->   2. Add thin safe wrappers in a new rust::kernel::damon module: contexts,
->      targets, access patterns, quotas, watermarks, schemes, plus
->      start/stop.  Everything FFI-related is confined to the wrappers, with
->      the usual SAFETY comments; error codes are returned as kernel::Result.
->   3. Add samples/damon/rust_prcl.rs, a Rust port of prcl.c.  It watches the
->      virtual address space of a target process and pages out cold regions
->      with the DAMOS_PAGEOUT action, same access-pattern filter as the C
->      version.
+The qxl_pci_remove() function does not call free_irq(), allowing the IRQ
+handler to fire after the device has been torn down, accessing freed
+memory (qdev->ram_header, qdev->io_base).
 
-I'd suggest starting from porting wsse, because it is simplest.  By scoping
-down to it, you could drop the wrappers for DAMOS.
+Added Disable the device from generating IRQs, Release the IRQ
+at the start of qxl_pci_remove() to ensure no IRQs fire
+after teardown begins.
 
->   4. Add a MAINTAINERS entry for the two new files.
-> 
-> Two differences from the C sample are worth noting.
-> 
-> First, the control interface.  The C prcl sample is driven through
-> runtime-writable module parameters (target_pid and enabled, the latter via
-> module_param_cb), neither of which Rust can express yet -- its module
-> parameters are load-time only and do not show up under /sys/module/, and
-> there is no general sysfs abstraction in mainline or the RfL rust-next
-> tree.  The debugfs abstraction, however, already provides the safe
-> read/write wrappers we need, so the Rust sample exposes the same two knobs
-> under /sys/kernel/debug/rust_prcl/.  This is a temporary detour, not a
-> design preference: the sample will be switched over to match the C
-> interface once Rust supports sysfs-backed module parameters.
+Assisted-by: OpenCode:1.17.13-Big Pickle/DeepSeek V4 Flash
+Fixes: 48bd85808443 ("drm/qxl: Convert to Linux IRQ interfaces")
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+---
+Changes in v2:
+  - Updated qxl_ttm_init to add ttm_device_fini on error in
+    qxl_ttm_init_mem_type.
 
-Do we have a timeline for module parameters support in Rust?  I'd prefer to
-avoid use of debugfs and directly start with sysfs.
+Changes in v3:
+  - Added free_irq on qxl_probe unload.
+  - Set to NULL after free on qxl_device_fini and
+    added idr_destroy on release_idr and surf_id_idr.
+  - Free client_monitors_config.
 
-> 
-> Second, the functional scope.  The C sample also repeatedly reports the
-> estimated working set size via a repeating damon_call() callback.  This
-> initial Rust version covers only the core monitoring/reclamation path
-> (context, target, PAGEOUT scheme, start/stop); wss reporting needs safe
-> wrappers for damon_call() and region iteration, which will come in a
-> follow-up series that also makes the Rust sample's output match the C
-> one's.
+Changes in v4:
+  - Delete all code unnecessary. Leave only code to fix the BUG.
+---
+ drivers/gpu/drm/qxl/qxl_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-As I abovely mentioned, I'd prefer porting wsse first, and later extend to
-DAMOS-based samples like prcl and mtier.
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 1e6a2392d7c6..54c1b8a3c723 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -155,6 +155,9 @@ qxl_pci_remove(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 
++	disable_irq(pdev->irq);
++	free_irq(pdev->irq, dev);
++
+ 	drm_kms_helper_poll_fini(dev);
+ 	drm_dev_unregister(dev);
+ 	drm_atomic_helper_shutdown(dev);
+-- 
+2.55.0
 
-> 
-> A quick word on the longer-term plan, so the design discussion here can
-> happen with the destination in mind:
-> 
->   - Over roughly the next year, I would like to port the other two DAMON
->     samples (wsse and mtier) to Rust as well, and let the DAMON Rust
->     compatibility layer grow together with them, wrapping only what real
->     in-tree users need.
->   - Once that layer has matured, I would be happy to try Rust for the
->     production modules - damon/reclaim, damon/lru_sort and damon/stat.
->     That is a much bigger step, of course, and it only happens if SJ is
->     comfortable with it.  Consider it a willingness statement, not a
->     promise.
-
-I think that's a good plan.  However, I'd like to call out we will also need to
-make each step with good and sufficient discussions.  That is, for each step,
-we will discuss if the previous step change was helpful and therefore make
-sense to proceed to the next step.  If the conclusion is oppostie, we could
-even revert the previous changes.  It would be great if we could make it driven
-by data.
-
-> 
-> Regarding the MAINTAINERS patch: I listed myself for the new files, but did
-> not add SJ as a reviewer yet, since he mentioned limited bandwidth for Rust
-> work in that earlier discussion.  The existing DAMON entry already covers
-> samples/damon/, so the sample reaches him regardless; adding him to the
-> RUST [DAMON] entry would only additionally route future changes to
-> rust/kernel/damon.rs his way.  Happy to add the R: line if he wants it, or
-> leave it out if he prefers.
-
-I think I should at least review the patches.  Also I feel I am responsible to
-the maintenance of the code.
-
-We are extending DAMON to work for not only data access but general data
-attributes.  I'm also planning to refactor DAMON API quite a lot in near
-future.  Some interfaces will be added and removed.  DAMON API callers
-including sample modules would also need to be changed a lot.  If we make the
-Rust sample module with the current API, we may need to make changes not only
-in C but also Rust parts.  I concern if it can introduce more breakages that
-require unnecessarily long time to fix.  Among all, my lack of Rust
-understanding is a big concern.
-
-I understand this patch series is a kind of experiment rather than for a real
-use case that has a hard deadline.  If I'm not incorrect, I feel like this
-might not be the best time to start the experiment.  Could we wait until
-fundamental parts including module parameters support in Rust and ongoing DAMON
-reconstruction, or my learning of Rust are done and stabilized?
-
-I may missing many things.  I might simply rejecting this great opportunity
-only due to my laziness.  Please push back if you find so.
-
-[1] https://lore.kernel.org/all/rust-at-lpc2026@google.com/
-
-
-Thanks,
-SJ
-
-[...]
