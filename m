@@ -1,129 +1,113 @@
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5EB3F7895
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308BC253951
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519088; cv=none; b=YETZGIJ13ye0zdvSzXgfJ23573DIsN04FFWNKmA5vqn74a4xUfDn/lXM5WeeWaUThH1rhH4SSRIg01oP+95vOgPdYZ0R2FkYYgfDOLEPWdwrKVkzT4xac0yjnplwAFREwVaP9gLO5hQhU5Al8U1JgHaVwEczAK5KLnJr+CXX0vE=
+	t=1790519333; cv=none; b=Tm9WhnrGWok9ngIqMyxlbWWGbhTFKtPhctSSru7yM8MMappcXQ3tAPFPLV8Xo4LoVa6w+M24zrcglH5TPuQJfcOIFxrFqCgFeLixy8V+axMLoayGFUw3RLZbFwvJ3SvX7vK/E2UfHTUTUtH9LgIH/iimYeYxtNr9DX72fB2CrAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790519088; c=relaxed/simple;
-	bh=1B7kYapCZpPFtgUkVhWVPxakfdU8+qYYCL4ZQ9DMlQs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HV3lc/1O8dXW248pvoYG0FkEctsdmMt9efPd5ATrqnWKYwgGO4K151O52SN5cRXF5feZ5O3zwFU73hBdvnwHVGqJ9C0ZL54s9mDIZJBDdbxWHXEf7UpNsmQbXG1orRPPiz9IWUDRHWgGfPe29Bag+btQf6hFT7OZL+mpkhyGrOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LARR76NI; arc=none smtp.client-ip=74.125.227.128
+	s=arc-20240116; t=1790519333; c=relaxed/simple;
+	bh=s/FuFyjO+EzGfxQUYOBTR8TNUQtpUSnZ4NKn5wAORUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FTfrNas0AYj3gLPBSASXhgK9t6ZtTCHnm1wG60wJBUR/7ZpaqztiUGqXzJxRZMGgaY5duIToMVTBhyATXOYmlT9gHbvy/NzpklE5vfO8fP81sScFublT30WOfziQJ7WFcRYTUWKXo/A9iyRJq46GgU1JwL9Z3i6fj0es389v5z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UIkUCFez; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LARR76NI"
-Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-39e0e245eadso914580a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:24:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UIkUCFez"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso11547225e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:28:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790519086; x=1791123886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KoReSBu918TC7LfxH4R53EGW5VKxOHQwVKQfiuCg6QE=;
-        b=LARR76NIMKliW+yUa2MyOaK8oRYVWAkZPm2i+R7j4X4LMZ4kFCxO6EY994tiaMQOkE
-         p7flM/DSgQU4OqZ0nIoMd+IjrwxvajwzTeR56LKp0+/AUgOw/4Rs5/JA0dozTDYHply6
-         NbRl+G1iqio/lznxdP2zLBRf4uVWcY2blr7OI+IUw7R3GCsryblTDaQESFyEB4nE2Bis
-         Xu+c7DkM2nOd6XK3eBk2VB5uCao4t1QFnpkbUKaaN0x9uvwb7/OSTantAavb8UMiVPEA
-         S7hhdK9AoLVkMlUL9YluFN6CDUTNfNlqYBVkwGSw4FRW20NA4xySSLXlBbpRdNFOvwsc
-         kOJg==
+        d=gmail.com; s=20251104; t=1790519330; x=1791124130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i2/yZb7IeEEdrOmMuM/wlsM68A9x3sDEUKZr2wAwesY=;
+        b=UIkUCFez35/ueazMpQ/Xb2LmbacQoupFKaHZvkmm23DL73aln3ckttC04onon9o/2j
+         QE3iSfDV6cYJcIzYJJfMMFbxCTYE1ZOqqWIwDkjYt70eCLMbFxHi7fx7cwkqTktJPYCG
+         BHBwz4yYtiTK6/8NS5JzN6ZXoAOG1yYH2yfU029OeMTykjQ3A212nIDBckh3q4WGocaN
+         ooO7X+UB7RWQqNyabi6sm5QfW4tkb1/F/b3yjhO+dOvOtAPXm5js0x57siRN7c6TusL5
+         A0W67st7IAwtuTYL4FnsPT0Dd8V6m2QjuJ7mQ/BoqudpOoZ+RZrFHIpWWDPX8g9qlxzG
+         EBcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790519086; x=1791123886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KoReSBu918TC7LfxH4R53EGW5VKxOHQwVKQfiuCg6QE=;
-        b=FkVab4jv3h7y1DQ8/AgNaIBmcbDu7Gn/pmxLUSsPKy0njxFo6G6ArnuT82dMgaR8G+
-         4BnnmWhquYYXB4gMkg9wQkQ/EutVNDxkoM/CpeCfowvGDT/+Wz+h6O+e7HWkiWUxhq0Y
-         KyL9kcr2U6gc47YS1UTpwnXrp43hLKhp3Q9j+L23I12Dm/2K9kuPihF1nZ36HCiMfwvN
-         3tC/OnLh67XT/HXjyFCq5lPq9QYgazsaWpTM/gbPuiBKu97pnwgcq6TLMZjhzcHa1XFq
-         3KqMx8ySj8rOg7iIjPHrvtH+H5SxoXy8gAToHBOXB7A2kYwQi+Fe7mHSoXv4rPRdKxDn
-         S7ug==
-X-Forwarded-Encrypted: i=1; AKwUvBy65LAhajUzp7xfUbWsSeavLczLPPefi9/HoGyWrztlYtCpgtIVsmDYxQAyE7OiQlbnWD4k/PcQvXz9Kec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKs8YyESnpW/5Gp4hOjJxXnx/CI/fJlJXa+Mqa4RYDnAC5YPWDi
-	y0mgI22fp5Nvyy0EnnsRngqQCoPpJ9I4aSo7M9kD0bPfe4urT+mJ59Ah
-X-Gm-Gg: AYBFou1LJcBsd5JNPdl71gHYgebQXwXhlzVbTaH29eVPsmIoYJjf16JUk1+ZVC+TeEb
-	wGda4GyjtH58zmFviy3mAiBd7LUCT6iA+0LtEH7KGv2GZB5WJtPq1uR+reZlewupMS5BCXxZL2+
-	cca/jhLpKzG+hWS1iX9oR/X4oPPULskeGOa7deNWcU4YGODJcCzm5GiAlevQPlQMi4MQtLXnv1/
-	ULzpRBY/iZAk7N6gKplKAN5M/AyadK36ownQWURw8nL0fpLuqbs4E8r5/M6Ty6HQRounsU1YKyv
-	hC32lmY6nixYJyg51klYCd2XeSf+ASj9ImjIXWhIHB6bN5TTYs0kLNfVI6P2CzxBFZ0uV/ux+97
-	KhaIPDNxcQiwWSvM6mdvw3f+YecMWQCucW/muGXn7vZssY5Zi4z6hNIyG8xeMNO5rkTttXu7uQj
-	oTiac6h4lmBEeVpk0XsxnTCl3SzMF78jURbLV0/WWtqfOiiib1JFhYhpOfpMAw3HLLZV5xXpfXY
-	g33xcKbMw==
-X-Received: by 2002:a17:90b:2247:b0:3a0:ca03:3e1f with SMTP id 98e67ed59e1d1-3a0ca03447amr4203206a91.32.1790519085824;
-        Sun, 27 Sep 2026 07:24:45 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.lan ([47.82.103.134])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9892dbfsm15424701a91.11.2026.09.27.07.24.41
+        d=1e100.net; s=20260707; t=1790519330; x=1791124130;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i2/yZb7IeEEdrOmMuM/wlsM68A9x3sDEUKZr2wAwesY=;
+        b=f/+f6uPivCBwvNj0MnR9bvW4rZ6oXHhyIsi2QVz87ze+2+vQqL0IYTNxVG4wqs4I2x
+         0HN6oYO4OU2EtUd5oGAwMq9azz1gqfQSR1gVzmZ4sDsvttNlZ0l6PgfLWLjAZI2Xndo6
+         KdVvynmKEfALv/9sxzF6rn85MUh/WY2T0Ni4d9Jx1Og3R+x0q28hgHqBC2E0CL1bomwm
+         KOggKijhPLoVbSWcH17bVrt0sa+UioxOzRPuxozOg1JiovYX+kaABPXUcDKb2EFb/Gfa
+         SKVvYDvuww0YDRFTRvObQwcaRc5INOjbjA0zK3u9vssOcbqE+fSeaUpZNGpTUhyzEo3P
+         48xQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNSHwm4q0rCZnwJlYu6LdVsOxmbS9vxak67W6bTb3MNgZLKdWPVer/uDvtP3ijVoqKluAdLfsx5GZ6hyQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++loL+UTPlJOySbVQnMMK1M4vSeuUQGb/CryA5BX7INp8zPGea/k
+	bB1rqCpV/LU5V9D2XwDIBKo6PuOBgTpoAxf+9l7bPI1JMCkspk9rdOA=
+X-Gm-Gg: AYBFou086XBFShhl+psAT6oA37EuIo6CdWyLn37iMuNQ6+RGfWDVTlBQicjvHHX7ZJU
+	rlg5vlDHDjxMRbjZqLtG7Oy1ntVHJ7hOJYzvzRL4lpmt6mu6lQqxXHGaiuaIk7GIRa6xb1xlF1v
+	C2UktVt865Q8nWN78Bf2eR6+adKLs5B3R+Bb1Aw4ycOwybghFC403rTiWP5yKxvhZGvf8JE6Fkm
+	53Wb8ltJv23bRYKycA9lZlqGfb+DNG+yVFv1vLXDwKeAuRmLEjx/PNKgdsEhDhxxHdZQqMIP6O5
+	8yT5YfmVJ3RqPBIsRZEe0WP3lzkZPr7PXdg0yx7O0oKONNlO5AAvML23TH7VrtqcQNfcZs9BMwE
+	PqAyIRAyvoXFrzzkhSW0NceHqK8dBTSADcS+zAJfpri4nPktvX6QVpZYFLt9fqRoi9aOZJjcRxV
+	47XKl4Ln6zMu6KiMeXcFcb3lu7rgns5j5p1mjsjfr40rZJAHUW2XLuZhAJ5Fh2FUtg/Oj30aX2v
+	0ChTKnLXJN3ldOQCDcKKWXanKjIiLnYIpJUOKRi9FgefwaDk2k=
+X-Received: by 2002:a05:600d:8643:10b0:49f:bb8a:b4ce with SMTP id 5b1f17b1804b1-49fe67bc26fmr136581125e9.28.1790519330022;
+        Sun, 27 Sep 2026 07:28:50 -0700 (PDT)
+Received: from localhost.localdomain ([31.223.26.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a76fsm21796928f8f.7.2026.09.27.07.28.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 07:24:45 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org,
+        Sun, 27 Sep 2026 07:28:49 -0700 (PDT)
+From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>
+Cc: Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Pekka Paalanen <ppaalanen@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	co+7aebac19e62711ff@bugs.sh,
-	Boyan Liu <yymhvert@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nfsd: Fix out-of-bounds read in clientstr_hashval()
-Date: Sun, 27 Sep 2026 22:23:19 +0800
-Message-ID: <20260927142319.12054-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	nouveau@lists.freedesktop.org,
+	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+Subject: [PATCH 0/2] x86: Remove misleading ERR_PTR() casts
+Date: Sun, 27 Sep 2026 17:25:39 +0300
+Message-ID: <20260927142816.15099-1-habilerenturker@hotmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-clientstr_hashval() always hashes 8 bytes of the client name, but
-since commit 6b1891052a3f ("nfsd: make nfs4_client_reclaim use an
-xdr_netobj instead of a fixed char array") the name is a
-kmemdup()'d xdr_netobj of arbitrary length. A 1-7 byte ownerid is
-legal, so the hash reads past the allocation:
+Two places use `ERR_PTR()` as a plain cast to convert a long containing
+an address into a pointer. This is misleading because ERR_PTR() is
+reserved for error pointers, and it produces false positives from
+Smatch:
 
-    BUG: KASAN: slab-out-of-bounds in nfsd4_find_reclaim_client
-    Read of size 1 at addr ffff888010acf1a1 by task nfsd/141
-    Call Trace:
-     kasan_report (mm/kasan/report.c:595)
-     nfsd4_find_reclaim_client (fs/nfsd/nfs4state.c:1622)
-     nfsd4_reclaim_complete (fs/nfsd/nfs4state.c:5286)
-     nfsd4_proc_compound (fs/nfsd/nfs4proc.c:3313)
-     nfsd_dispatch (fs/nfsd/nfssvc.c:1038)
-     svc_process_common (net/sunrpc/svc.c:1527)
-     svc_process (net/sunrpc/svc.c:1682)
-     svc_recv (net/sunrpc/svc_xprt.c:886)
-     nfsd (fs/nfsd/nfssvc.c:919)
+        arch/x86/kernel/hw_breakpoint.c:521 hw_breakpoint_handler() 
+        error: 'dr6_p' dereferencing possible ERR_PTR()
 
-The hash only selects a bucket; compare_blob() does the real
-comparison. Hash the actual length, like ownerstr_hashval() does.
+        arch/x86/mm/kmmio.c:596 kmmio_die_notifier() 
+        error: 'dr6_p' dereferencing possible ERR_PTR()
 
-Fixes: 6b1891052a3f ("nfsd: make nfs4_client_reclaim use an xdr_netobj instead of a fixed char array")
-Cc: stable@vger.kernel.org
-Reported-by: co+7aebac19e62711ff@bugs.sh
-Signed-off-by: Boyan Liu <yymhvert@gmail.com>
----
- fs/nfsd/nfs4state.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Both are pure readability fixes with no functional change.
 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 18e17232c..6c50286fa 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1619,7 +1619,7 @@ static unsigned int clientid_hashval(u32 id)
- 
- static unsigned int clientstr_hashval(struct xdr_netobj name)
- {
--	return opaque_hashval(name.data, 8) & CLIENT_HASH_MASK;
-+	return opaque_hashval(name.data, name.len) & CLIENT_HASH_MASK;
- }
- 
- /*
+Habil Eren Türker (2):
+  x86/hw_breakpoint: Remove misleading ERR_PTR() cast
+  x86/mm/kmmio: Remove misleading ERR_PTR() cast
+
+ arch/x86/kernel/hw_breakpoint.c | 2 +-
+ arch/x86/mm/kmmio.c             | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 -- 
-2.43.0
+2.47.3
 
