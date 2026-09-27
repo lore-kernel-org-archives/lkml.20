@@ -1,111 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569153B774D;
-	Sun, 27 Sep 2026 09:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1A53A2556
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790501210; cv=none; b=reCSQXY/FMRYWrpqyROpa8mJDArhzWiP7A7PHlVO7koguXo5lr0wxCpBEwuwCfjgtRlv1sTpZBAEazVlkZOTSSh1Re+aIKBrMfDwtlUJ0KgrRyS1zCJjnnDExyXJPMxJWU1KN+oZR9g8SI8SVi95r73BWVJwND5VOinf1X46BSM=
+	t=1790501343; cv=none; b=NiqTUjJqDsw/097wZPdcz5xA/mN1joncoH9SU8WcFpFfs4boSKexQhL6t40caZIYqiTguK1iSdinBz8xzxB6XoBcws+4NGnj3qQ6WTVh3RDd8F1PMt6vJTsGf2EfGUghaQIwo0vWwzisiRh58k4YqcL6ipEePYsHCFRMAiY779Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790501210; c=relaxed/simple;
-	bh=BO3QlRhpnfqxiDO44avy+RfuhNMwFFPndng/0/616TM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TXnqGLp+alLTW4kEiRYPT4NT4ww8tbhTvgqY0pOfqAEwxbPxdg82oLMRkQEjJr6rR6tBresK1talILpBJaPDQFDEOWxv5cHoD+v1PA0evHqzmIPzfxo8tflZerzslQ+iFdnxlugtC76csdk5AsR6rV7IL1j7A45zSVfE/k3x9RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nahUchTv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nahUchTv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E07901F000FF;
-	Sun, 27 Sep 2026 09:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790501208;
-	bh=3onWVfvrHSYSeqY8OGyYXzuHU2DeYUoxFP2LAD1MXJA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nahUchTvDhWpdqx0fKMdmnMg8P1zwnwqPQ4MN2q4WiuMkzK4PNA4ndLQdkxZqtwH7
-	 ohUW54YcrMQwDWq7cDYlUo21+zhoYMdjuOT66WHZxCJM2WnoI2uLdS6ntKf8Yw6bO3
-	 RRWxM3n2xkS5qQZvXv4uSDsHo+F/Ho6Wh5hl4exfF8tY/tnjq/Qlsk5pX3yP4mVZWU
-	 PjuC9TIEqAoRE5Tu7V4Ul+zXJHL8BxXIggtZZWj2e58QR9HKjxasdgX5wZJ34Joke6
-	 /Fig+uZrfMoIKjOAnvWi4HTG/OM63RQhX84Wb43BNG2aH9+6K5VN9/Vfzf4fkX4k7l
-	 ueSWVq1IOg/yA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xAl9i-0000000DxKg-2ofv;
-	Sun, 27 Sep 2026 09:26:46 +0000
-Date: Sun, 27 Sep 2026 10:29:54 +0100
-Message-ID: <87v77r2ga5.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
-In-Reply-To: <f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
-	<20260924135201.850038-3-suzuki.poulose@arm.com>
-	<arZQCiF3iqp9eCsy@arm.com>
-	<f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=arc-20240116; t=1790501343; c=relaxed/simple;
+	bh=4x8l5gtCNjd3MzbigudBvHHGyNlD8SUXdmY1T/ORuAc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OY7SaRqX0S2mlziXzYMgJKG8iPU7GJrVzzqecny+uGO9P4AC1QcnmEibcGoCk6Gk7be3KYjH81sYf7lJs2TvmF1Xk5eurkPsu3RlgmVBK3QsFDDBdLW9RelQjYbeLQw8llyECSuL4aL58uu8TERFDKDHeNwv67HEnkOr1dht+PA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso1461328241.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:29:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790501340; x=1791106140;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=csdD6jxORMZoat82NKXRRvNrkjCWmWkfxNOA751RjhY=;
+        b=J9UAx8MhKltZEHmgPR3+zkeP1QnHCxlWlLFgDsDXst8IN7uHynoZui15lCAE4nEFrb
+         2S+/SFzVhXAqcDjq6Bc693BU/OFAmEip9K3HekpoeDsqqIX7ufmBiIeaJ0b/KHyKfyt3
+         cmLCz5NqMJUuNhPEiALh/ABI43ppgOnmxjjgcGRQ5e1paemGIOuqDwtAvhAn06qTQwKV
+         uSB8+v36hTCuLTe+zNVPXwvfMKvIS6OEXdvei/pFCHyhiL8JwtCZ5kPXDLYkmo0fplam
+         yVB7cSAXYFDxScGucGsxJTYqAYxnlYg/Y2CtuMZ8GKM7GMLCgsRzdIJyV5dwH0u5E2EU
+         Bu3Q==
+X-Gm-Message-State: AFq9FYJ+SS8UEwO6xTcambANymnPcyokmq8s4356pUKGUw6KYyEgnpCh
+	7eMCbeebsiB6Mbe3XCQR0JZMbhQ9SILxwOerROUx1UpxQYXMNxYTGNvF6beQndc5
+X-Gm-Gg: AYBFou023f/SX2JQs4wqhwQ+UhCqrgzEQXsUJ+SyHJ4yvkC9Hzo5YVyBwm6cSFgm2Vj
+	6IM8B9ETd39vyXS4zpPaSRWX1a64P6fGOxOyzcWhP9Xvw1q2Ksh7rnPMxkrQf7f9X7LUM2h9gKF
+	pKzMNL2BpnXSgVLrEMNkMsYBMZQe+f8jdKlU/pTkgJRIp1RL9jkTPNTHzx00OxSRl/hmXt1aTVV
+	mMOsoTiJ3Hde+UM5ZZEgiYT+NzsbOMPMaGDP0j6tuL7Tak6w7K8n9xK0+8DTWEmM38zq/PWqXig
+	sGMOvRpRTwqlGFhbweAvDg9rTkH9P8zuCoZDBGKkdFytwe4uoDWadoRPqwCGPN8NuIy0K+AsC28
+	uQHHSIAOzAI3zTOiC6fMYqHzI96tbmEj17cBZfRbQsyG+gQiAxpZCQJl9wGdB9jJJpcyyjI555B
+	wrqhZ9/7J11DF3sTGEFGO+3eJoeADjK5PSGiolhD7gDUFTukXLVa3sM818bdMI9/OL44fUTLfP0
+	LwBAdkSgTx4PIcKRVNjh39v0Etpi8Zezsr1bQ==
+X-Received: by 2002:a05:6102:6883:b0:7a1:f7d2:e820 with SMTP id ada2fe7eead31-7af1ecf1913mr3984428137.25.1790501339789;
+        Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b5736ccsm5002724137.6.2026.09.27.02.28.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso1461326241.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:28:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:2d04:b0:7a1:f7d2:e824 with SMTP id
+ ada2fe7eead31-7af1edec5famr4750030137.29.1790501339370; Sun, 27 Sep 2026
+ 02:28:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, catalin.marinas@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+References: <20260918141926.3023230-1-peng.fan@oss.nxp.com>
+In-Reply-To: <20260918141926.3023230-1-peng.fan@oss.nxp.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 27 Sep 2026 11:28:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWMrBStfd8QAi4U2iZ99y=mDJOUhB58XJ9yaz0v8r4bKw@mail.gmail.com>
+X-Gm-Features: AclHuK_FNakOvnI35QAAk4owW-nxtMw0s1-lNczNFg7HJNVICSo26yhinb-7UTo
+Message-ID: <CAMuHMdWMrBStfd8QAi4U2iZ99y=mDJOUhB58XJ9yaz0v8r4bKw@mail.gmail.com>
+Subject: Re: [PATCH] zorro: use assign_bit() where applicable
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
+	linux-m68k@lists.linux-m68k.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 25 Sep 2026 16:23:49 +0100,
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
-> On 25/09/2026 11:42, Catalin Marinas wrote:
-> > On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
-> >> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> >> index 32102c3912fa7..e8b29983b0021 100644
-> >> --- a/arch/arm64/kernel/cpufeature.c
-> >> +++ b/arch/arm64/kernel/cpufeature.c
-> >> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
-> >>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
-> >>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
-> >>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
-> >> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
-> > 
-> > I think we end up exposing this to (any) guest unless we mask it out in
-> > sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
-> 
-> Valid point. I personally don't think this matters. The FEAT_RME alone
-> is not useful or harmful. I could mask it in KVM as a safe bet.
+On Fri, 18 Sept 2026 at 16:21, Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-Is there *any* case where the guest (realm or not) should know it is
-running on RME enabled HW? I can perfectly imagine that someone would
-implement something looking like CCA on non-RME systems.
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+i.e. will queue in the m68k tree for v7.4.
 
-	M.
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Jazz isn't dead. It just smells funny.
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
