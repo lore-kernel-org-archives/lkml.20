@@ -1,118 +1,98 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25D43B71C9;
-	Sun, 27 Sep 2026 09:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F093B774D;
+	Sun, 27 Sep 2026 09:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790501912; cv=none; b=H6i0zSGKe/HVLb8n2BGA0yfzerHGGOv3WuxKMyyYBCKDj3i2xL1OjlpAeCEJ1jWTUvBGAcv6xcpU6/MgrecrIcntJmu0UpObjG5RJ0H6oVBeXvIA10EXQNzVpB06TyJ+5xEM/PjcRXMH2AAZZzraU+E9vmL0AjbwmEe5dcvBfVY=
+	t=1790501931; cv=none; b=KIX+v7hEREWpH7/sFN6BHOO3W0Sx2QD6s4u0muaNpEPwDLaNAlIjGN3h3XlaQwGHGqNmqscZcFHd3gyVYVmw5eZGqHg/RgSewhnalh0beexrNmhluVGGacewuEfNeAU/9kStiScBzSge0Os8OCtCXtHlx69Es+jpcpfvwufDuio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790501912; c=relaxed/simple;
-	bh=2l4Hi3y9o3HxQSFPtHdBa11ZZwacjHWpt7g2c4kS1sQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=agCMcbEmTpz/bDIc8e4Jg0X6cy4X/YRa3qtqecCDnralAjAK0S9D2fPxHlStdKw8Jid1CcU0UAhClgKqjcKQVGN0GMnHDYtZKwg1Vg0sHcmEgwIHPj5vrlFtOSuV1rsVlllpMjDEs0RGYSqzPDj7IQLccGXSoCDeFSJmLh2fg5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ZUb0TGbf; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790501931; c=relaxed/simple;
+	bh=F3WsatFd/Z0FgAALy7M1C0ndZ/KjYxk1HyNY/5VVCl4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cw+GyD3SMccCGo3wxi2lc0uL1kiF4kjNdUzE24n0V6/ukKOo9eSELXODTdyZlSIe3pPSle8FLreRBuLtL1+/54n/iH/dQl9xNVvefjURBlx0W7bOIFYL7wqjGzrkLVPyVpzwma7BndUsm9L4IZz+b+cwlw1kOI6foMjO7EP9KVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=CQcaAWYU; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=OHhqxYTR; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ZUb0TGbf"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3b6cf2d;
-	Sun, 27 Sep 2026 17:38:14 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] ALSA: mpu401: shut down timer before freeing MPU
-Date: Sun, 27 Sep 2026 17:38:09 +0800
-Message-Id: <20260927093809.681726-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="CQcaAWYU";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="OHhqxYTR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790501928;
+	bh=F3WsatFd/Z0FgAALy7M1C0ndZ/KjYxk1HyNY/5VVCl4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CQcaAWYU2bY1IgE3oufo2MNQXedoRgBbnWgk4c4V27epOPJzxoWldiWO1WJHdIr1o
+	 rJk1xWX8CXKRGwXDJiQXXw0bjGa6I1TZREFZItKoom2NEnrr7FZPRwlZHC+PwAYXbg
+	 wZOc/LUOZW7t55fYGl7/gvKrh3sVrbjx3onL5jO7TK9I5ZH3IB0TXjSIPONB16An9n
+	 qz2YVS+3SwvVhu2R8ImX8UY9j4K4b4qi6szl5atLh4cg2wgGqAQDsK3ZO3I+4m7NTF
+	 tUXpaPoUVru07Bul0IZz37z7+AOz5NkTnkA0TdqoOn8xqHrD2dnMqOWTRJEOxHR3zw
+	 0NudZD5Fo3fZw==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id B75F5412EA; Sun, 27 Sep 2026 09:38:48 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790501925;
+	bh=F3WsatFd/Z0FgAALy7M1C0ndZ/KjYxk1HyNY/5VVCl4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OHhqxYTRW+5iwI6gkLlnZlKFcaPw3w5U+R1wEC43xn0ydlBY0vCgCJ34YF1vGz6mc
+	 aHZ2T03WQx3QpoTFQlvRZqrur1KokfvCITrLRnX80Ey0gaIUAQ/pQBSl609x3lJVzV
+	 MNCffphCLll0X5q+/TUs8HyoPMl2MboayCf2j4Cfkt8nCBnN0qUuHmFNw3Pc/l3VIy
+	 of0aIYesPle4jMzDTB8uatGwuFE6AVqMaxyUeZgA0ev2A20o0UYx/9W0Vo4VmemwEJ
+	 aW+eKq6qnNGl8zduLvVYUPnNxT/KkTPYmohMwI4HoSR9dbklVWA0Lzi5NVMWLebOCS
+	 Mvl0228vSAEBQ==
+Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 4E959412CD;
+	Sun, 27 Sep 2026 09:38:45 +0000 (UTC)
+Message-ID: <05963f11-9312-49b9-bea5-3ee0ac3ba613@birger-koblitz.de>
+Date: Sun, 27 Sep 2026 11:38:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 13/15] ax88179_178a: Update driver name and
+ information
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neuromoments@gmail.com
+References: <20260916-ax88179a-v12-13-60c04c9924a2@birger-koblitz.de>
+ <178968030633.22033.16665978438548871360@kernel.org>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <178968030633.22033.16665978438548871360@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e23ab9d103a1kunm5d6e184b1af966
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEJOVkMaT08YTU5KGEIaTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ZUb0TGbfGnyLDTmBtkeUjihSrTN/Iuujf7EX2knV3k9p8iWF2LAuVvnwhxEZrlFYO5tS+uJ39S64hTq5luMeoBMhScH3nbRoUB+qK85kWCQfECGu9Vxa7ReiBLpiFYTxybcFr+4P8EKuawGUPCfXgU2THpx2CCu2Me0+kcTuOv8=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=HOPBJDR0pukmgoFg4cqmMdY+N2Zflb5+jqfGmgNcjZk=;
-	h=date:mime-version:subject:message-id:from;
 
-When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-input and output with a timer. During raw-MIDI teardown, the timer callback
-can already be running when snd_mpu401_uart_remove_timer() clears the last
-mode bit and calls timer_delete(). That API neither waits for a running
-callback nor prevents it from rearming the timer, and free_irq() does not
-synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-mpu while the timer callback still uses it.
+On 17/09/2026 11:25 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider:
+> 
+> Critical: 1 · High: 0 · Medium: 1 · Low: 3
+> 
+> - [Critical] usb: net: sysfs ABI and module name breakage for ax88179
+Fixed by adding MODULE_ALIAS(ax88179_178a);
 
-Initialize the timer once when the MPU object is created and only rearm it
-while a timer mode is active. Shut it down synchronously after freeing the
-IRQ so an in-flight callback completes before mpu and its resources are
-released.
+> - [Medium] Undisclosed Kconfig symbol rename leaves two in-tree
+>    defconfigs orphaned.
+Fixed by changing defconfigs, Kconfig symbol name change mentioned in
+in commit.
 
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+> - [Low] FALSE POSITIVE (retained only per validation policy): the concern
+>    claims `select AX88796B_PHY` is bogus because the synthetic PHY IDs…
+N/A
 
-diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
-index 6de03d72a908..fcf2b686f9f5 100644
---- a/sound/drivers/mpu401/mpu401_uart.c
-+++ b/sound/drivers/mpu401/mpu401_uart.c
-@@ -155,20 +155,20 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
- 
- 	scoped_guard(spinlock_irqsave, &mpu->timer_lock) {
- 		/*mpu->mode |= MPU401_MODE_TIMER;*/
--		mod_timer(&mpu->timer,  1 + jiffies);
-+		if (mpu->timer_invoked)
-+			mod_timer(&mpu->timer,  1 + jiffies);
- 	}
- 	if (mpu->rmidi)
- 		_snd_mpu401_uart_interrupt(mpu);
- }
- 
- /*
-- * initialize the timer callback if not programmed yet
-+ * arm the timer if it is not already active
-  */
- static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
- {
- 	guard(spinlock_irqsave)(&mpu->timer_lock);
- 	if (mpu->timer_invoked == 0) {
--		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 		mod_timer(&mpu->timer, 1 + jiffies);
- 	} 
- 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
-@@ -474,6 +474,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
- 	struct snd_mpu401 *mpu = rmidi->private_data;
- 	if (mpu->irq >= 0)
- 		free_irq(mpu->irq, (void *) mpu);
-+	timer_shutdown_sync(&mpu->timer);
- 	release_and_free_resource(mpu->res);
- 	kfree(mpu);
- }
-@@ -528,6 +529,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
- 	spin_lock_init(&mpu->input_lock);
- 	spin_lock_init(&mpu->output_lock);
- 	spin_lock_init(&mpu->timer_lock);
-+	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 	mpu->hardware = hardware;
- 	mpu->irq = -1;
- 	mpu->rmidi = rmidi;
---
-2.34.1
+> - [Low] The Kconfig prompt/help and MODULE_DESCRIPTION updated by this
+>    patch still describe the module as Gigabit-only while the device list…
+Will adapt description.
+
+> - [Low] Firmware-version producer/consumer mismatch: ax88179a_bind()
+>    (drivers/net/usb/ax88179a_devices.c:761-766) reads only three bytes…
+
+Duplicate issue, fixed before.
+
+
