@@ -1,124 +1,116 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50CD253951;
-	Sun, 27 Sep 2026 12:17:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B176C37205D;
+	Sun, 27 Sep 2026 12:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790511446; cv=none; b=JOdF9xLv6I2tce434Aem7ZBXTd5z2K2W2QaI4EexM7n+LZJT0bvo0rkZoSa74DfWTUuupfI9/rs1Gsl9K35+JRmuHPC/0c0imQ5HNFw3+424lPyI066+QYeyD9plg2JCGyBsbYYVuiuf2j5FCz/hj57HaZkBgjktMzp6L+NK/LA=
+	t=1790511466; cv=none; b=MQOdWoxYjVuCV4sgKc/wVUMyTqut4zMlihmDGCMoHR0chsMWA9VBjqjoSUnXr9soyepUiv1CQU0I4iKouORkEcRyXi2B2+mest0EQkf/YBDYjApmSN9BpKSEWz0wp2/BmO951DSf6t+qsBDpS5JnXWzxEE1jSkubPP6mJwLBsg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790511446; c=relaxed/simple;
-	bh=AX/ZM91BFcVMd5CY4hI27RCqlFArX80vk0q4irK3OB4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rw2ZVbBZcBARQ7NMu2l7u5PVmhmQFtLXh+beuoYs7Ukcvv9esKxQQMkFwci7nXNhe7sTmUOu4J00JqUYiyPPlpL1jAJ181+Mcd33gl3d2jDUAuxxoF5fzIymOpUpNx1ZE0MK9RzjZPhsXmk/w0k8EQTasKoT2HPpP2wftrltEwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=LAx1bGWt; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790511466; c=relaxed/simple;
+	bh=PTRkkTXVxGJMzXmJlF9dD6sdt47tb5xMSdRJShSdzSg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mTQ30hZHKX45OBr+AaFBfGlIf68P1j9oSa1W2jG6e+PVc4ewKoyWMsgJEPU0OrSrufwM/JiPs/sT7rILfAQRPuocqI60y2TDK/U/vnngcs6v+roOoaqAYUuMECOaUloky7HN6ha7yPjRdHlONk8aWMthXZJ/d/BW7NsQtMgB69A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLk5Bag7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="LAx1bGWt"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3c87f3c;
-	Sun, 27 Sep 2026 20:17:15 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Clemens Ladisch <clemens@ladisch.de>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: oxygen: use helper to activate the SPDIF PCM control
-Date: Sun, 27 Sep 2026 20:17:09 +0800
-Message-Id: <20260927121709.742840-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLk5Bag7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DB61F000FF;
+	Sun, 27 Sep 2026 12:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790511465;
+	bh=xqUE0FvGfdn5OiuSuPy19yIzKGKDP88UyxFWANSnq/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MLk5Bag7wHxI3dJM0t9PJz4F2e+NVdZV19mbINhhK/kYuSHzH8BZpwDk/Y5tIER/S
+	 m1HVieCPTX9A2AKHOD8e4jww1HoI6EZyrYi322EcvBOd27x3rnjVoIih0akEhB+7mK
+	 ZM6+riKOQOfyiqOdw/0T/lSGmJTZrOW/F2dh1mJgfdDEw2zjhbXW5HRp8hWReRRbaM
+	 qYo+NsR0jM2hxy8HtMPVPne+DHMoaGlXXwVjD0zSRKV8H95r0h19CZAIyqOfKrAwod
+	 h/BnSAGuqayDQP1P4fDQWbZpQrjbYKDtW/sPbtJGlE9DgLP3kWw51v5NHGdVXSCOSM
+	 g7qh83mw1jupw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: rust-for-linux@vger.kernel.org,
+	nova-gpu <nova-gpu@lists.linux.dev>,
+	M Henning <mhenning@darkrefraction.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	David Airlie <airlied@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v6 00/13] gpu: nova: Export parameters from nova-core to nova-drm
+Date: Sun, 27 Sep 2026 14:17:36 +0200
+Message-ID: <20260927121736.1186364-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909064506.910162-1-apopple@nvidia.com>
+References: <20260909064506.910162-1-apopple@nvidia.com>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e2cc4d4103a1kunm59a59c561b6ab4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQkMYVhhIT01OQktLQkNJGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=LAx1bGWtndAn2K5kdy7u+95E7ujDDXRUOyKIuOhvaPATl7TTq6aNTofZfHXkUX7JG4r9rGt521M5W4/ek3ZS8kE+pWGaQM1QTcxy2MnVGBsSf9+L8tqEDyCI5v6d0gjBnph5u3jib7T6ilRzM/42mCY05hQkEzWIEIc5AjpY1sY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=TtvCN9ckUAnBUljenKww0+9IfDhRwP4ovyNfGTvLwzs=;
-	h=date:mime-version:subject:message-id:from;
 
-oxygen_open() and oxygen_close() modify the SPDIF PCM control access
-flags while holding chip->mutex. Direct access changes bypass the control
-core locking and notification path.
+On Wed,  9 Sep 2026 16:44:53 +1000, Alistair Popple wrote:
+> [PATCH v6 00/13] gpu: nova: Export parameters from nova-core to nova-drm
 
-Move the access transition outside the driver mutex and use
-snd_ctl_activate_id(), which serializes the control update with the control
-core.
+Applied, thanks!
 
-Fixes: d0ce9946c52e ("[ALSA] add CMI8788 driver")
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- sound/pci/oxygen/oxygen_pcm.c | 37 +++++++++++++++--------------------
- 1 file changed, 16 insertions(+), 21 deletions(-)
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-diff --git a/sound/pci/oxygen/oxygen_pcm.c b/sound/pci/oxygen/oxygen_pcm.c
-index b71635601..75efbf59a 100644
---- a/sound/pci/oxygen/oxygen_pcm.c
-+++ b/sound/pci/oxygen/oxygen_pcm.c
-@@ -171,16 +171,14 @@ static int oxygen_open(struct snd_pcm_substream *substream,
- 	snd_pcm_set_sync(substream);
- 	chip->streams[channel] = substream;
- 
--	guard(mutex)(&chip->mutex);
--	chip->pcm_active |= 1 << channel;
--	if (channel == PCM_SPDIF) {
--		chip->spdif_pcm_bits = chip->spdif_bits;
--		chip->controls[CONTROL_SPDIF_PCM]->vd[0].access &=
--			~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--		snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_VALUE |
--			       SNDRV_CTL_EVENT_MASK_INFO,
--			       &chip->controls[CONTROL_SPDIF_PCM]->id);
-+	scoped_guard(mutex, &chip->mutex) {
-+		chip->pcm_active |= 1 << channel;
-+		if (channel == PCM_SPDIF)
-+			chip->spdif_pcm_bits = chip->spdif_bits;
- 	}
-+	if (channel == PCM_SPDIF)
-+		snd_ctl_activate_id(chip->card,
-+				    &chip->controls[CONTROL_SPDIF_PCM]->id, 1);
- 
- 	return 0;
- }
-@@ -220,19 +218,16 @@ static int oxygen_close(struct snd_pcm_substream *substream)
- 	struct oxygen *chip = snd_pcm_substream_chip(substream);
- 	unsigned int channel = oxygen_substream_channel(substream);
- 
--	guard(mutex)(&chip->mutex);
--	chip->pcm_active &= ~(1 << channel);
--	if (channel == PCM_SPDIF) {
--		chip->controls[CONTROL_SPDIF_PCM]->vd[0].access |=
--			SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--		snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_VALUE |
--			       SNDRV_CTL_EVENT_MASK_INFO,
--			       &chip->controls[CONTROL_SPDIF_PCM]->id);
--	}
--	if (channel == PCM_SPDIF || channel == PCM_MULTICH)
--		oxygen_update_spdif_source(chip);
-+	scoped_guard(mutex, &chip->mutex) {
-+		chip->pcm_active &= ~(1 << channel);
-+		if (channel == PCM_SPDIF || channel == PCM_MULTICH)
-+			oxygen_update_spdif_source(chip);
- 
--	chip->streams[channel] = NULL;
-+		chip->streams[channel] = NULL;
-+	}
-+	if (channel == PCM_SPDIF)
-+		snd_ctl_activate_id(chip->card,
-+				    &chip->controls[CONTROL_SPDIF_PCM]->id, 0);
- 	return 0;
- }
- 
--- 
-2.34.1
+[1/13] rust: auxiliary: let registration_data_with() closures return covariant sub-fields
+      commit: 4075acc9d489
+[2/13] gpu: nova-core: Add public driver API to nova-core
+      commit: 6e70b1719991
+
+      [ Rebase and use pin_chain() for Gpu::run_selftests(). - Danilo ]
+
+[3/13] drm: nova: Add DRM registration data
+      commit: ecedc604e0aa
+[4/13] drm: nova: Add GPU architecture enum to nova-drm UAPI
+      commit: 342aaa7bb3cc
+[5/13] drm: nova: Add chipid enum to nova-drm UAPI
+      commit: a1678ed1f8a3
+[6/13] rust: uaccess: add UserSliceWriter::write_truncated()
+      commit: b40f5ed85c5f
+
+      [ Inline write_slice_partial() and use it to simplify write_truncated().
+        - Danilo ]
+
+[7/13] drm: nova: Add an info ioctl
+      commit: ce6e59897ba5
+
+      [ Avoid 'as' casts (add From<Chipset> for u32, From<Architecture> for
+        u32 and use IntoSafeCast, IntoSafeCastArch); improve / simplify a few
+        comments. - Danilo ]
+
+[8/13] drm: nova: Add usable VRAM size to GPU info
+      commit: d9886a1a06cd
+[9/13] drm: nova: Use nova-core to read VRAM_BAR_SIZE parameter
+      commit: 7edc491f6fca
+[10/13] drm: nova: Expose a render node
+      commit: 843bb3ccde8e
+[11/13] drm: nova: Report GPU name in GPU info
+      commit: 391cc215d22c
+
+      [ Use ..pin_init::zeroed() instead of ..default::Default(). - Danilo ]
+
+[12/13] drm: nova: Report GPU short name in GPU info
+      commit: e6d9c5b08c23
+[13/13] drm: nova: Report GPU GID in GPU info
+      commit: 10a6623a24a8
+
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
