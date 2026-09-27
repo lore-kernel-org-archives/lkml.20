@@ -1,88 +1,130 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114B3C108E;
-	Sun, 27 Sep 2026 08:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD773B813D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790496737; cv=none; b=dfe75tppn5u8fWAzQLP0CNZL5wcqyYvW7uerfGDYp0tKZtbXAsT5r5bKZ0jQ7Rxb44K+92PVjU7VQOrRITm+S9MeTxR6IcwPPEyP0WfbCdBIP5d/QBKR6UAF2mpyEO4mglc4VwWd8NM/LNDRWj18ZQ+fRE3HNKUPG+5pBKZSRnM=
+	t=1790496747; cv=none; b=V0fNZah4nDMtYI1HjZOohghCb3kyBwOMyX/upn/vb2AIcqeuLV4Grw/QVYmU5ier75J2Ag/L8dViIqqB6cLm6qu+kME96LDCy33aAwGYPcqQ/QNoJy+AgS2EzK0ypbIxMAbhwbs3lm6ywnOlt86eqbvb2MzlkMkgyVPHg+FbRsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790496737; c=relaxed/simple;
-	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RhgRAjREPO6Y7NRlJ1HfbvKE+X57+3ONTrmBjCfDUshs377F2UNbjrAoof5uk7Qj7RWB2aTCHCZnsw/gdLLYB7nPf9AHg8zxp5q3sclo8iyAv8fFZH9ENarAmnUNlNC6q3jDi99JGqiziiIpN1KfN5/d1M0Vd6LvAUbd/kZW2TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HTp2pM3y; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HTp2pM3y"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM24mPz6Jr9;
-	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1790496727;
-	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HTp2pM3yGps1DzctLYKb2geTD1okMCfIvwUQqe5/a01SjzD4Dlw1DEkBikoSIumf0
-	 ksHJcCxqIvnurWqLIt7j3ZbuN7XdCEwoKJgFFYftPBnYYiNXoIg8gHbE6jsAKtHcfH
-	 wkKJ6wWq+bHX3curcBLW3eKDjNZfsdejS8uNa060uwtyq47afr5nbIyRkfC067UZnw
-	 t/ZVHjkge6J/VKN+lJE+CBExcxEiyQxUt2HFKRs8QCaHNHxdu3NGTgwZK6VAQOnMqF
-	 HIOkA+0BwhwQq4lBipPJl6z6q0nWYGosw5qkykVC9RAImsW2/CFbqNxCwUX/jnNjla
-	 LWbWhDE3d384w==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM1NgWz4xsg;
-	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hsxxL5gccz8svk;
-	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 220295F94C;
-	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <b37bba19-22db-4097-925a-192dcf9a49b7@leemhuis.info>
-Date: Sun, 27 Sep 2026 10:12:04 +0200
+	s=arc-20240116; t=1790496747; c=relaxed/simple;
+	bh=lLMJealxkAdXTURrDg7UpeKv4UMlYxrVStomrTmBkek=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=fjJBGIPgVnbuDWP8ZclIPWBxvltKTVfSNJj8dCZ7y2BVwSxfPu/ORJtjHN8P7qO5Kt3cszS9oZtJMti5nd23XNjzmmk+lN+RM5eN2AP7wZKi3TP+QMK99Tx7U43B5b9HuUg4XtQyWyvnd4UwC+0aaalUbZNJeU96xFVeQoUmgRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab4dd46ddeso2236004b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:12:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790496744; x=1791101544;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K9X8BY6U+YIcepRPV0MZIBm8qRqdDSo7Q6FIIDDCDBA=;
+        b=f8zjQSP3SrsnOS77nYSVJMYf9GF0WXyUJv1U5JaQk3slRuNxe25vpvg+arnf+XD2bu
+         ajH9MjsBynEQ4CZ7hdtrBhnhO2yVBFvJz7fw0FbQ0U6iuHL2jOi0LNH8xu6vql7/pLXS
+         d+2K89zUNxK8tB7sKPUIz+7A+B5EdmFxyHFWuktWl/luTw882BtNkYzV8cCyecGC3liq
+         +pAX96L+7CVP5dYrwfQKaU81c8BW98pHvDxxZETSHttKqfKoh5RdP4zwkLFo6iRgOI9M
+         bacRiLE9DmCHnQA0xQVQnCvjkDGuhXRTf03nJBw4cfHUpbGwHT4S/v7kV0GjLJf9yVpy
+         FUeA==
+X-Forwarded-Encrypted: i=1; AKwUvByU1eXKHyrH8oYe6Wi3SOtfk93YshuxQ7hocVDquiKSbSRTu2Z30EdGcZXzlqOw8BQesWeVMNoUB/5ZSVc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBxWr7dVjGnCyzWJug5O/6YJI0sG6uNWUjX+KXn9XmpMdDyWbY
+	tuoXcvfr26lt0SLnXbf1BBQVALL7qUis/6F4QeoqX5bnGifgZirUxjf9Sz3NkMrRyb2dO/J2QdQ
+	isCMyi8/lnWZgBMJjQIeAprGvHaNxsXfJ7xtCJPypL6VdLxTVvcTgpu6Z8fA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Bluetooth: ASUS USB-BT540 (0b05:1bef) fails after
- BTUSB_REALTEK quirk
-To: Niko <unknown@niemelat.fi>, linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179049672644.3690133.11772297743812531246@mxe9fb.netcup.net>
-X-NC-CID: oPA8YS2oaqPINzkjgaiPsmDXKpssukyVvLrDG8NbGzu8vGZdSoM=
+X-Received: by 2002:a05:6808:10c6:b0:4d3:6be7:c64a with SMTP id
+ 5614622812f47-4dc478167f9mr6530733b6e.0.1790496744441; Sun, 27 Sep 2026
+ 01:12:24 -0700 (PDT)
+Date: Sun, 27 Sep 2026 01:12:24 -0700
+In-Reply-To: <6ab7dca9.80e1c6cc.1e8e5f.0046.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab8cfe8.dc2998a4.2261f5.0062.GAE@google.com>
+Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
+From: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
+To: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, miklos@szeredi.hu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/26/26 10:49, Niko wrote:
-> 
-> I would like to report a regression affecting an ASUS USB-BT540 Bluetooth
-> adapter (USB ID 0b05:1bef).
-> 
-> The regression appears to be caused by commit:
-> 
-> 980084de4d9b25193398d89a1c0430ba3501b683
-> Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU
-> 
-> which adds BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH for this USB ID.
-> [...]
->   Raspberry Pi kernel: 6.18.50+rpt-rpi-v8
-From reading
-https://lore.kernel.org/all/daily-reply-0016-re-btusb-rtl8761cuv-regression@kernel.org/
-I suspect that latest upstream fixed this already. Please report back if
-not. Ciao, Thorsten
+syzbot has found a reproducer for the following issue on:
 
+HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=13490605580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1523f2c9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14385315580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c4cebd01ff3c/disk-fd179f8a.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9fd8641fa35c/vmlinux-fd179f8a.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c6e8e6332600/bzImage-fd179f8a.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!ff
+WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline], CPU#0: syz-executor122/5774
+WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227, CPU#0: syz-executor122/5774
+Modules linked in:
+CPU: 0 UID: 0 PID: 5774 Comm: syz-executor122 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:fuse_write_file_get fs/fuse/file.c:2043 [inline]
+RIP: 0010:fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
+Code: fe 48 83 3b 00 74 5b e8 e6 f0 6c fe 4c 8b 3c 24 e9 08 0b 00 00 e8 d8 f0 6c fe eb 5c e8 d1 f0 6c fe 4c 89 f7 e8 39 63 8e 08 90 <0f> 0b 90 48 b8 00 00 00 00 00 fc ff df 48 8b 4c 24 58 80 3c 01 00
+RSP: 0018:ffffc90003e172b8 EFLAGS: 00010286
+RAX: 8000000000000000 RBX: ffff88806e4ea880 RCX: ffffffff9a9ec501
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: 00000000ffffffff
+RBP: 0000000000001000 R08: ffff88806e4eae63 R09: 1ffff1100dc9d5cc
+R10: dffffc0000000000 R11: ffffed100dc9d5cd R12: ffff88806e4ead08
+R13: 0000000000001000 R14: ffff88806e4eae60 R15: ffff88806e4ead08
+FS:  00007f6a3f53e6c0(0000) GS:ffff888124cc8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000020000000b000 CR3: 0000000078090000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ iomap_writeback_range fs/iomap/buffered-io.c:1896 [inline]
+ iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
+ fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
+ folio_launder mm/truncate.c:612 [inline]
+ folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
+ invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
+ fuse_open+0x5a6/0x770 fs/fuse/file.c:297
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f6a3f58fae9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f6a3f53e1d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f6a3f644b98 RCX: 00007f6a3f58fae9
+RDX: 0000000000000040 RSI: 000020000000c380 RDI: 00000000ffffff9c
+RBP: 00007f6a3f644b90 R08: 31203a6b63617473 R09: 31203a6b63617473
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6a3f6117f4
+R13: 000020000000e3c0 R14: 00002000000062c0 R15: 00007ffe0b2d2af8
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
