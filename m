@@ -1,348 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from lgeamrelo12.lge.com (lgeamrelo12.lge.com [156.147.23.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EA925FA29;
-	Sun, 27 Sep 2026 14:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF84A95E
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.23.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519353; cv=none; b=BVK9LJ6VpN5kIDV/dsMJrAqNieorzwgmjJnC8NWDEcQtZyaCyZjgDdfbYBCDHu002LpUS/bhyUfKuOp0uSr6iFylykSLG/3GjVEqNOpCG4Nwk3BSPFUtZDtmxr2XNDO13FL+Zo7g9yD3qsDjhnhp7ulLWmAevNGI1Cgs/H6KxRE=
+	t=1790519587; cv=none; b=Fq13xkGGrOnuWlmn83vPcOQnBFmAslSgOADfz8slyjtRwZVXsGi+Vp4zuPLoz+cMo4eg18NpuZGE7GCSXsDGndTJ6IiQdrl0gzTBNc29vFMKFw4K+dlswT0iJFhVS8EpvQQOFuFVaRLpazP5+WBOEtMXDGv0i2YlyKKXkb368Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790519353; c=relaxed/simple;
-	bh=g3hAkf9W/vr7BpQ8UYXpH31/lviipldJ9tzwqwC/8dQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iOLVku2/STtWLf1rnSnMIac8+1mH+YClV++GJbi/4UD3+zlk+Bn5MeV+qvVQg/+q41cZNPzgkLw5OBJC7jIrJMlvpe4klH5JGcMpCTBv8oWgQS77LdTrU7w+0pwFrI5XXwWZjl+jMR3sp1u6Dk/5+hE2iJ9dBN4Kty+4aVByTm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPAKn4kV; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPAKn4kV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CDB3DC4AF1B;
-	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790519352;
-	bh=g3hAkf9W/vr7BpQ8UYXpH31/lviipldJ9tzwqwC/8dQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=fPAKn4kV3aszA+bfPH35ayVW9Hn4yCSItgVzD6n03vRHV1sP1EWfHczPiFKyn1Mmn
-	 RBdTkDeI9iLIa77SO2fzSz/lnAkMtYDoKyNCEFkPwNIaL/OOivbQrVIvfsdevEd2sC
-	 cES78jCkdWSYxLeVEmJQkK4FIu3cXGAr+WZ2FgBrPW5/KtoQDlTVwOz7D+t6shvkjZ
-	 nYUEFzOK4J9+kd8u9uC0aDZboJMwwhRE1GTv4/bUk5g8Y753PesOYH7da9d8lsZvo0
-	 k2T9hsgFJD/aatk5j8nssXlUnHXvg2tSALjhKLQy4g/0+GwxkgWBlVsoQDBbFrus0M
-	 o3ppyld4ydjjQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B694BCA5FA1;
-	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Sun, 27 Sep 2026 16:28:17 +0200
-Subject: [PATCH v3 3/3] arm64: dts: amlogic: a1-c3-s4-t7: Add core clock to
- PWM controller nodes
+	s=arc-20240116; t=1790519587; c=relaxed/simple;
+	bh=oNae0jPMs84rqZGQvCI76mNOSR1C+hlJOxxxt90FaX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CCpyX+c4O29AK6pnsC3fOI5aJUvt/BAoThN/foM15UHAH4yqdU7+KbD2EUnPK7QJw9Wl+p883UrNB+4I8h0Jv7pJ4eNNLD1s5UmFYlnn7+dm8CpOLFzfNJ0OkaEOTV9W7NZPiL1WczZOg2dTa4tPHbHDWmBK7PVpQ2RkfErE04o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.23.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
+Received: from unknown (HELO lgeamrelo01.lge.com) (156.147.1.125)
+	by 156.147.23.52 with ESMTP; 27 Sep 2026 23:03:00 +0900
+X-Original-SENDERIP: 156.147.1.125
+X-Original-MAILFROM: trieu2.huynh@lge.com
+Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.beeworker.bee-live.svc.cluster.local) (10.159.39.43)
+	by 156.147.1.125 with ESMTP; 27 Sep 2026 23:03:00 +0900
+X-Original-SENDERIP: 10.159.39.43
+X-Original-MAILFROM: trieu2.huynh@lge.com
+Date: Sun, 27 Sep 2026 23:03:00 +0900
+From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: pavel@kernel.org, lenb@kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PM: hibernate: exclude unusable free pages from image
+ preallocation
+Message-ID: <ako2gojuxas6p7lxa5rehn36ofswmq2cicyzq7i2l7nzjty6sp@yg4ukrvlsknl>
+References: <20260921101446.1193565-1-trieu2.huynh@lge.com>
+ <CAJZ5v0iViUTTPBpfi10uHptoc98DbC_H2GP9BBuqNHA2d9vQkw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-add-t7-sys-pwm-clk-v3-3-18d66abea4d1@aliel.fr>
-References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
-In-Reply-To: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10330;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=C3NO3PtCg00JImmbX1tfG8UCVQEaYYnaSJ0e3MaOdYs=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZODYNjV2Jnf1i+IOqT5uab5r0uj+9fYI098UVL3J/96
- ivf+V57OkpZGMS4GGTFFFn651qeeHf56Jmve9RTYOawMoEMYeDiFICJTApn+M2SfOn2uhnhtavm
- bgq1atT9NO28EHNi9T7Z1UHrzi1lDH7DyPDu3ifxW4y/XP9s3aJ+54LO/tUKErNlgng6Tp7b/oh
- rtREXAA==
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0iViUTTPBpfi10uHptoc98DbC_H2GP9BBuqNHA2d9vQkw@mail.gmail.com>
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On Fri, Sep 25, 2026 at 09:56:01PM +0200, Rafael J. Wysocki (Intel) wrote:
+>On Mon, Sep 21, 2026 at 12:14 PM Nhat-Trieu Huynh-Pham
+><trieu2.huynh@lge.com> wrote:
+>>
+>> hibernate_preallocate_memory() derives the number of page frames to
+>> preallocate for the image from the per-zone NR_FREE_PAGES counters.
+>> Those counters count every free pageblock regardless of its migratetype,
+>> including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
+>> free from the buddy allocator's point of view, but they cannot be used
+>> by the order-0, non-movable, non-reserve GFP_KERNEL allocations with
+>> which the image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
+>>
+>> (*) Reported free vs usable free:
+>>
+>> The mm subsystem already accounts for this in
+>> __zone_watermark_unusable_free(). For order-0 GFP_KERNEL neither
+>> ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the
+>> high-order atomic reserve and the free CMA pages from the free count before
+>> checking the watermarks. The hibernation preallocation, however, computes
+>> its target from the unadjusted NR_FREE_PAGES value, so it asks for about
+>> half of the unusable pages more than the allocator can deliver. On arm64
+>> (no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
+>> hence even a small shortfall aborts hibernation, see [3] for example.
+>>
+>> (*) Why those pages are not usable by GFP_KERNEL:
+>>
+>> (**) CMA is reserved for movable allocations, so GFP_KERNEL has no
+>> ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free
+>> CMA pages are therefore never handed to these allocations.
+>>
+>> (**) The high-order atomic reserve is only handed out to atomic, order > 0,
+>> __GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
+>> These pages can be unreserved under memory pressure, but only all but one
+>> pageblock per zone and only after an allocation has already failed,
+>> so counting them as available still overestimates what the preallocation
+>> can obtain without failing first. Excluding them is conservative.
+>>
+>> (*) Consequence of not excluding the unusable pages:
+>>
+>> With M = managed, S = saveable, F = free, U = highatomic + CMA and
+>> R = reclaimable, count = S + F - totalreserve and alloc is about
+>> count / 2, while the allocator can actually provide about (F - U) + R
+>> pages. The shortfall is therefore inflated by exactly U compared with
+>> the usable memory.
+>>
+>> From, with U = 11430 unusable free pages (5120 highatomic + 6310
+>> CMA), the preallocation target is inflated by about U / 2 = 5715 pages,
+>> while the allocator ends up 1247 pages short and hibernation is aborted
+>> even though the system is able to create the image.
+>>
+>> (*) What changes after excluding the unusable pages:
+>>
+>> Subtract U from the per-zone free accounting used to compute count and
+>> avail_normal. Then count' = count - U and, since max_size is roughly
+>> count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
+>> max_size' remains well above minimum_image_size() in practice, so the
+>> resulting image is effectively unchanged while hibernation no longer
+>> aborts unnecessarily.
+>>
+>> Testing
+>> =======
+>> (*) SA6155P running on AAOS with S2D feature
+>> (*) backport locally on GKI 6.1
+>>
+>> References
+>> ==========
+>> [1]
+>> commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
+>> [2]
+>> commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
+>> [3] Example of an abort:
+>>     Mem-Info:
+>>      free:344621 free_pcp:931 free_cma:6310
+>>     DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
+>>     Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
+>>     PM: hibernation: Image allocation is 1247 pages short
+>>
+>> Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+>
+>Please see Sashiko's feedback on this:
+>
+>https://sashiko.dev/#/patchset/20260921101446.1193565-1-trieu2.huynh%40lge.com
+>
+>and let me know what you think.
+Hi Rafel, thank you so much for the point.
+I'd like to address the concerns, see below:
+>
+>Thanks!
+>
+>> ---
+>>  kernel/power/snapshot.c | 25 +++++++++++++++++++++++--
+>>  1 file changed, 23 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
+>> index b209712cb2c3..fd6164aea272 100644
+>> --- a/kernel/power/snapshot.c
+>> +++ b/kernel/power/snapshot.c
+>> @@ -1867,11 +1867,32 @@ int hibernate_preallocate_memory(void)
+>>         highmem = save_highmem;
+>>         size = 0;
+>>         for_each_populated_zone(zone) {
+>> +               unsigned long free, unusable;
+>> +
+>>                 size += snapshot_additional_pages(zone);
+>> +
+>> +               /*
+>> +                * Pages reserved for high-order atomic allocations
+>> +                * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
+>> +                * the order-0 non-movable GFP_KERNEL allocations that
+>> +                * preallocate the image, so do not count them as available.
+>> +                * This mirrors __zone_watermark_unusable_free().
+>> +                */
+>> +               free = zone_page_state(zone, NR_FREE_PAGES);
+>> +               unusable = zone->nr_reserved_highatomic;
+(1) Sashiko review:
+"Does this incorrectly use the total highatomic reserve capacity instead
+of just the free pages within the reserve?
+Since zone_page_state(zone, NR_FREE_PAGES) only counts pages that are actually
+free, using zone->nr_reserved_highatomic (which tracks the total capacity
+of highatomic pageblocks, including already-allocated pages) effectively
+includes allocated highatomic pages in the unusable count."
 
-Describe the system clock of each PWM controller as a third clock,
-and add the clock-names property expected by the updated binding:
-"channel-a", "channel-b" and "core".
+d'oh, I was misread that I developed and tested this change on a
+6.1-based tree, where struct zone only has nr_reserved_highatomic and
+__zone_watermark_unusable_free() still uses it; nr_free_highatomic was
+introduced later by [1]. It should be changed to:
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi | 28 +++++++++++++++++++++-------
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 28 +++++++++++++++++++++-------
- arch/arm64/boot/dts/amlogic/meson-a1.dtsi   | 12 +++++++++---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi   | 20 +++++++++++++++-----
- 4 files changed, 66 insertions(+), 22 deletions(-)
+unusable = READ_ONCE(zone->nr_free_highatomic)
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-index 4e6757a57fb9a..a27e9bba22e5d 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-@@ -824,7 +824,9 @@ pwm_mn: pwm@54000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x54000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_M>,
--					 <&clkc_periphs CLKID_PWM_N>;
-+					 <&clkc_periphs CLKID_PWM_N>,
-+					 <&clkc_periphs CLKID_SYS_PWM_MN>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -843,7 +845,9 @@ pwm_ab: pwm@58000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -853,7 +857,9 @@ pwm_cd: pwm@5a000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -863,7 +869,9 @@ pwm_ef: pwm@5c000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -873,7 +881,9 @@ pwm_gh: pwm@5e000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_G>,
--					 <&clkc_periphs CLKID_PWM_H>;
-+					 <&clkc_periphs CLKID_PWM_H>,
-+					 <&clkc_periphs CLKID_SYS_PWM_GH>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -883,7 +893,9 @@ pwm_ij: pwm@60000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_I>,
--					 <&clkc_periphs CLKID_PWM_J>;
-+					 <&clkc_periphs CLKID_PWM_J>,
-+					 <&clkc_periphs CLKID_SYS_PWM_IJ>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -893,7 +905,9 @@ pwm_kl: pwm@62000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x62000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_K>,
--					 <&clkc_periphs CLKID_PWM_L>;
-+					 <&clkc_periphs CLKID_PWM_L>,
-+					 <&clkc_periphs CLKID_SYS_PWM_KL>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 8f3f1c0579a0f..8a148af5ed442 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -692,7 +692,9 @@ pwm_ao_ef: pwm@30000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x30000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_E>,
--					 <&clkc_periphs CLKID_PWM_AO_F>;
-+					 <&clkc_periphs CLKID_PWM_AO_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_EF>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -701,7 +703,9 @@ pwm_ao_gh: pwm@32000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x32000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_G>,
--					 <&clkc_periphs CLKID_PWM_AO_H>;
-+					 <&clkc_periphs CLKID_PWM_AO_H>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_GH>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -715,7 +719,9 @@ pwm_ab: pwm@58000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -724,7 +730,9 @@ pwm_cd: pwm@5a000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -733,7 +741,9 @@ pwm_ef: pwm@5c000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -742,7 +752,9 @@ pwm_ao_ab: pwm@5e000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_A>,
--					 <&clkc_periphs CLKID_PWM_AO_B>;
-+					 <&clkc_periphs CLKID_PWM_AO_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_AB>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -751,7 +763,9 @@ pwm_ao_cd: pwm@60000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_C>,
--					 <&clkc_periphs CLKID_PWM_AO_D>;
-+					 <&clkc_periphs CLKID_PWM_AO_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_CD>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-index 6f6a6145cba12..b9761893c666d 100644
---- a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-@@ -544,7 +544,9 @@ pwm_ab: pwm@2400 {
- 				reg = <0x0 0x2400 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-@@ -555,7 +557,9 @@ pwm_cd: pwm@2800 {
- 				reg = <0x0 0x2800 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-@@ -655,7 +659,9 @@ pwm_ef: pwm@5400 {
- 				reg = <0x0 0x5400 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 2a6fbd5308362..ca9abbf857178 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -685,7 +685,9 @@ pwm_ab: pwm@58000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -694,7 +696,9 @@ pwm_cd: pwm@5a000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -703,7 +707,9 @@ pwm_ef: pwm@5c000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -712,7 +718,9 @@ pwm_gh: pwm@5e000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_G>,
--					 <&clkc_periphs CLKID_PWM_H>;
-+					 <&clkc_periphs CLKID_PWM_H>,
-+					 <&clkc_periphs CLKID_PWM_GH>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -721,7 +729,9 @@ pwm_ij: pwm@60000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_I>,
--					 <&clkc_periphs CLKID_PWM_J>;
-+					 <&clkc_periphs CLKID_PWM_J>,
-+					 <&clkc_periphs CLKID_PWM_IJ>;
-+				clock-names = "channel-a", "channel-b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
+>> +#ifdef CONFIG_CMA
+>> +               unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
+>> +#endif
+>> +               /*
+>> +                * nr_reserved_highatomic counts whole reserved pageblocks,
+>> +                * so it can exceed the actual free pages.
+>> +                */
+>> +               unusable = min(unusable, free);
+>> +
+>>                 if (is_highmem(zone))
+>> -                       highmem += zone_page_state(zone, NR_FREE_PAGES);
+>> +                       highmem += free - unusable;
+>>                 else
+>> -                       count += zone_page_state(zone, NR_FREE_PAGES);
+(2) Sashiko review:
+"Could this subtraction of the inflated unusable count underestimate the
+usable free memory?
+If so, this might cause the preallocation phase in
+hibernate_preallocate_memory() to allocate fewer pages than it optimally
+could, resulting in an unnecessarily larger hibernation image."
 
--- 
-2.49.0
+Yes, that is the other half of the same problem. Subtracting an inflated
+value makes count and avail_normal smaller than the memory that is
+actually usable, so preallocate_image_memory() stops early and the image
+ends up larger than necessary. The same change fixes it as point #1: with
+nr_free_highatomic the value subtracted is exactly the amount the
+allocator cannot hand out, so the estimate is no longer inflated.
+>> +                       count += free - unusable;
+>>         }
+>>         avail_normal = count;
+>>         count += highmem;
+>> --
+>> 2.43.0
+>> 
+I'll submit v2 accordingly if there's no further concern.
 
+[1] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
 
+BRs,
