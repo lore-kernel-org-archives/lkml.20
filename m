@@ -1,132 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884152E92B3;
-	Sun, 27 Sep 2026 20:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12C33BE650;
+	Sun, 27 Sep 2026 20:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790542370; cv=none; b=ouhsNZ/V69brFwxKYtH8vcm5MKANgY09WmMH99pOu45l4W4olPMHHchpiJ4kI+N5KxBo5/XSrFbxq0GA+B5m6OcvtNrLtRhZl4UdwK9Y20pV6dAKecFHN7yZ20eEm7JHi4QJHdvQFhHeCAB+qCLQQTPfm9T2NA2sQ3K0LQzrKeo=
+	t=1790542482; cv=none; b=t6ceOdJz8RpVs+0O+WbY/xQCKZhqoBsuj4RBhnAQfend1Huj2OY0k0BCzEqU7YwsopYZBxlotiX4dLR+cLqF36+0/MkaAqtWys8xgNEkSgb+CI1MnpEc6M957x/LmIOZa2aIPCr55hKIJJL+OgGnCfUUYUR8WEHB/x6Gtx/Whds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790542370; c=relaxed/simple;
-	bh=/wxo6BQ8EBNCBri0xZn30BsV++ph7F/QEAsePT+eoUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yae3yLyIHMVFFwOm2vGuslsq04uacFwGJFoX/gEekKbO7Y1WJa+qEn7tr6JPCvpzQjUt9V45XjVC38Gru8hiqMyLuGYv90rAnsKVgZjq/tqki1bNnvBFU74dBdlixnVifpZzdXGa8TC6daDnn3F/tbPPQ/Y1R/j0o6ylN6sxVP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGncMucp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790542482; c=relaxed/simple;
+	bh=U3EfVxxdtcPFUFIB5Q/ewTULVlR4LEoHRJwGIWgsTCs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kxiFKwmo2j+rGsDXO76tY4Gqeod6nATBEi8+tIe8yxkeidBGMMPSW1vLzljsCG5x0+41A22uFRIr7N7cRPSlwlD77ee2sgoo2wCKL6IhS+bvIhAIY8TpjGbIYxWb7w2d5vN1lFEaF2yLlEUnEHTsxXRhdD2yAcAeBWkiM7TR8Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=i6dKcdAM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGncMucp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DDE1F000FF;
-	Sun, 27 Sep 2026 20:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790542369;
-	bh=jXagDIFXWv/uhGdO81MZzXdQUPJiXRgFrH0SRQIbHWk=;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="i6dKcdAM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112A81F000FF;
+	Sun, 27 Sep 2026 20:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790542480;
+	bh=wezweqQqot1s/EhJa+Q8aOJlMWPiVKjcS+oT7p1UAYs=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jGncMucpdrRzio9cqFSlo8N9VAnxGx2xb0ZywfRwPcLSfF7CHpdWXV+2HGWQ7QBjh
-	 Bzn/JvrFBDkwtlDh0XQyWa9w7MDdQ7+4TpzKk5ZB4o/I5I3t8B/vTLpTLHmJMSgw08
-	 YSHLG/dAVFTnLpFl2EBm7JzdQn2G5HpIWydaPjx8lil0jJ50tzmlmqwZ4zbRmSj3Dr
-	 W1vgtJmEdmrn5/+l8LtQX8CX3gq/yP0v/BUDEQJnBJlw4eIEbJlV1FpuLceusoeIro
-	 ijOeaJGcLjldp7vLAQP4MY6bvKCv0mq58QvZzqTES31Du3WOV0AO7Djs+2HTKjXowy
-	 6ny812JD5CbhQ==
-Date: Sun, 27 Sep 2026 21:52:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: Arka Mondal <arka@arkamondal.net>, Nuno =?UTF-8?B?U8Oh?= 
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, arkamondalofficial@gmail.com
-Subject: Re: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range,
- offset and 4-20 mA
-Message-ID: <20260927215246.3e9c57b9@jic23-hlaptop>
-In-Reply-To: <20260920194107.12173789@jic23-hlaptop>
-References: <20260918122032.134947-1-arka@arkamondal.net>
-	<5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
-	<20260920194107.12173789@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=i6dKcdAMiqAgmpOl0EbfWmlKPvQQ/8TRbP8UEKnJN4TGjxlCgajWk7053GgOcx/Fu
+	 IMdCKOG7soO6PIDFHc79lxiu0GVPJ8hlOBUzRUtQ8ArJu4Js62nF6CY+lxUQXQPGbs
+	 fbbAW0/NLNvVPW5GDG5BEkcqH+Djx8Ji/1m+Wwng=
+Date: Sun, 27 Sep 2026 13:54:39 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: rppt@kernel.org, peterx@redhat.com, surenb@google.com,
+ aarcange@redhat.com, david@kernel.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, mhocko@suse.com, shuah@kernel.org, kirill@shutemov.name,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-Id: <20260927135439.094d75bc42414879a6e21c79@linux-foundation.org>
+In-Reply-To: <20260926124145.2878520-2-donggeunyoo.kernel@gmail.com>
+References: <20260926124145.2878520-1-donggeunyoo.kernel@gmail.com>
+	<20260926124145.2878520-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 20 Sep 2026 19:41:07 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sat, 26 Sep 2026 21:41:44 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
-> On Fri, 18 Sep 2026 16:22:27 +0100
-> Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
->=20
-> > On Fri, 2026-09-18 at 21:20 +0900, Arka Mondal wrote: =20
-> > > The first attempt to send this series on 2026-09-18 was rejected by
-> > > the kernel.org mail servers, so it did not reach the lists. The patch=
-es
-> > > are unchanged.
-> > >=20
-> > > This series fixes four bugs in the AD5758 driver, all present since
-> > > commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
-> > > takes two patches, one for the binding and one for the driver.
-> > >=20
-> > > Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
-> > > it no longer shares a cacheline with other driver state. The 2022
-> > > conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
-> > > ____cacheline_aligned markings, and this driver had none.
-> > >=20
-> > > Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
-> > > gives full-scale output.
-> > >=20
-> > > Patch 3 fixes the offset for every range that does not start at 0.
-> > > The +-20 mA range reports -32 instead of -32768.
-> > >=20
-> > > Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
-> > > driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
-> > > (Rev. B, Table 32) and the original text binding say range code 1010
-> > > is 4 mA to 20 mA. The old value is still accepted: the binding marks
-> > > it deprecated and the driver maps it to the corrected range, so
-> > > existing device trees keep working.
-> > >=20
-> > > Compile tested only; no relevant hardware available. The binding was
-> > > checked with make dt_binding_check and with test device trees:
-> > > <4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
-> > >=20
-> > > Arka Mondal (5):
-> > > =C2=A0 iio: dac: ad5758: Fix alignment for DMA safety
-> > > =C2=A0 iio: dac: ad5758: Reject out-of-range raw values
-> > > =C2=A0 iio: dac: ad5758: Fix the offset calculation
-> > > =C2=A0 dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA curre=
-nt range
-> > > =C2=A0 iio: dac: ad5758: Fix the 4 mA to 20 mA current range
-> > >=20
-> > > =C2=A0.../bindings/iio/dac/adi,ad5758.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
-> > > =C2=A0drivers/iio/dac/ad5758.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 18 ++++++++++++++----
-> > > =C2=A02 files changed, 18 insertions(+), 4 deletions(-)
-> > >=20
-> > >=20
-> > > base-commit: 08df884136f1c1197bab2a27814404fd329d9aac   =20
-> >=20
-> > LGTM,
-> >=20
-> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
-> Other than the one thing on the dt-binding that is more policy than anyth=
-ing
-> else these all look good to me.  I'll wait for that to resolve though bef=
-ore
-> picking these up.
->=20
-Occurred to me that I might as well queue up patches 1-3 whilst we
-wait for dt review.  So done that.
-Thanks,
+> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> destination unchanged, so a uffd bit set on a write-protected or
+> RWP-protected source lands in a destination VMA that was never
+> registered for either.  Nothing clears it there, and userspace sees:
+> 
+>  - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
+>    while it is swapped out and after it is faulted back in.
+>  - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
+>    collapse scan bails on a swap entry with the uffd bit set.
+>  - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
+>    do_swap_page() carries the bit into the present PTE and, since the
+>    destination isn't WP-registered, also makes it writable:
+> 
+>    WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
+>    Call Trace:
+>     set_ptes+0x67/0xc0
+>     do_swap_page+0x990/0xfe0
+>     __handle_mm_fault+0x7d0/0xeb0
+>     handle_mm_fault+0x9c/0x250
+>     do_user_addr_fault+0x207/0x650
+>     exc_page_fault+0x65/0x150
+>     asm_exc_page_fault+0x26/0x30
+> 
+> Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into
+> one that isn't, on a page that is swapped out at the time.  It hasn't
+> been seen in practice.
+> 
+> A resident page doesn't carry the bit, because move_present_ptes() builds
+> the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
+> swap entry as well, then re-arm it if the destination is RWP-registered.
+> 
+> The WP case has been there since v6.8, where UFFDIO_MOVE was added.
 
-Jonathan
+Thanks.  This is triggerable by unprivileged userspace, so can
+reviewers please prioritize.
 
-> Thanks,
->=20
-> Jonathan
->=20
->=20
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Cc: <stable@vger.kernel.org>
 
+This should be whizzed into 7.3-rcX pretty promptly.
+
+It's not really appropriate to give the selftest such treatment - I'm
+never really sure how to handle that.  I guess I'll keep things as you
+presented them - both for current -rc, [1/2] gets backported, [2/2]
+does not.
+
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+>  	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
+>  	if (pgtable_supports_soft_dirty())
+>  		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
+> +	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+>  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+>  	if (userfaultfd_rwp(dst_vma))
+>  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+> -- 
+> 2.53.0
