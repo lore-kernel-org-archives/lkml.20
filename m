@@ -1,140 +1,112 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598062EACEF;
-	Sun, 27 Sep 2026 18:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204C543078B;
+	Sun, 27 Sep 2026 18:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534138; cv=none; b=n+3dMe3Pj/VYPbCpWQGKp2E0nnsawVfKnJZRWHQHf929NFe9vA2wu0LCFUYLtnMHrfypoJjUnuB8Sx5OE5GjjxTyL8g2xRhgS6hzWAZhaoy+UfSzibrYe+U5BnAYsEXKVH61OHkXbp24tIDSrdRP9w0mqFN8xlj/RESeOVWf9hg=
+	t=1790534265; cv=none; b=cgGR/uVsMiSJ7musNUSARfs6Z8Zta7c0qyVfeB7LOcKjA9pqQ8EWgv2bF3H4XrjHnfo+t9/hD09HyoEL6PZ9ZsR+wwAxKEfdW4Xdd5BOILlwTM+wyS+MU1xnWk1g8wU1EGzoOSvubPSKi+0qGsccVm7fvp8Br9XlusiofAM0FxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534138; c=relaxed/simple;
-	bh=EKJrUg+UmlsM08FVZABKDpnglp3VdDMuZdnnztJ1mgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r3Fp18MBf4Dcy9mV0ZrdmIj5MNvmabbZNnClBt/7h1IwBS4R7DZJNt2fGg13KbXP6ORqlbTUyM1e0Cfa2D98n6CFmNPz8UuTR6JpS16zDUaEbs4Wf18G9XOsyJpZ/+ObL9tRSZOQyeWliHo9Wp7RHApfLM53n+KV/xhfKg1tnT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SsIjXod2; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790534265; c=relaxed/simple;
+	bh=+SzNif70qE9WRlzB0/sLIUts33w6w9XQ0QdBUjA5N+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SSJB5CE6y/ED66qYAS9nTF6ALeoCeoVvETwN7wE+RD7C59iWqqLYR071GN66iLLCkMeIBbSmX+S9P0b+/F2LvegidsqNhvd/rLkN6sCmcQmK5ZkW5TD3KujFG9oMi10voKmVg5oioyhKU2zcDDrW7GknB/pMNafgTvWW8dvGdlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=lZ6JiTH1; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SsIjXod2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=h1xRcw77CYaaidslrjZ6JCK1D3osdSyeMuCv+HAXjrQ=; b=SsIjXod2BPvTJr9B3RVB9q7oxk
-	A5MdliWdu0FF329b9X37jb/Ynw74kOUOutf/w26n9gPMqxXK8kwfuQD/WWtPPYT5/l7IBzgSzBrer
-	vzvehos9UhQsofk5PvJSO7dPlB5Kp9im7g9QTJUVJVGdEcCLxx3YFF8dYy0VzDQ/3kTc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAtig-007YJx-V7; Sun, 27 Sep 2026 20:35:26 +0200
-Date: Sun, 27 Sep 2026 20:35:26 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	olteanv@gmail.com, Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
-	f.fainelli@gmail.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v11 3/4] net: phy: take the interrupt back from the
- bus on detach
-Message-ID: <bfc2a494-b5a5-4a0b-bde6-ece2f83f522d@lunn.ch>
-References: <20260926235024.705646-1-f@lex.la>
- <20260926235024.705646-4-f@lex.la>
+	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="lZ6JiTH1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
+	s=protonmail2; t=1790534253; x=1790793453;
+	bh=/JZjuA7Gay/H6k9tLxvbNGqDH2HHf+NplZp9w1gF9Y8=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=lZ6JiTH1Jm8FR0lXZRYJJ2/kZkB1usgkSM9AQLU9sMKS4r2ztVHi5OUcZ9vQLCZAq
+	 cP44/e0erz+X3vgv/uXYZgqHOxyOO2+6RVEHNSNKiro9dzXqxs+lYJkOGV+hDzguCd
+	 Ur0DK8ma8SLSoETtAgOV6afKTjQX+PAooqvVifTlw48PiCHh87o0H3qU9z5uJt/HZ4
+	 hNd4/qx34LH6fiRcrIQklxkaQIapkgAuKfgbgrGS0wgjN4YPrf223ddSYRUGfETTuM
+	 aFoFUoclpUTIT1OkaV+KHjngBa+HP4S6HDmLtPyGLGUtBG3Zb+CcX2NxIxgacUgKKh
+	 +WpTdyieSnIBQ==
+X-Pm-Submission-Id: 4htCpw74spz1DF4X
+From: Vas Zayarskiy <contact@vasily.cc>
+To: linux@roeck-us.net,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH v4 0/5] hwmon: AMPINEL telemetry support and shared fixes
+Date: Sun, 27 Sep 2026 21:37:18 +0300
+Message-ID: <20260927183723.4078226-1-contact@vasily.cc>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926235024.705646-4-f@lex.la>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 02:50:23AM +0300, Aleksei Sviridkin wrote:
-> A PHY whose own driver is a module on a filesystem that is not mounted
-> when the MAC probes gets the generic driver first. phy_probe() replaces
-> phydev->irq with PHY_POLL because that driver has no interrupt support,
-> nothing puts it back, and the PHY polls for the rest of the uptime once
-> its real driver takes over. That is where a Keenetic KN-1012 stands,
-> with an Airoha EN8811H behind an MT7531 port and its driver on the root
-> filesystem: the devicetree interrupt of the PHY maps to irq 15, and once
-> the real driver has taken over the field reads -1.
-> 
-> Take the number back in phy_detach(), from mdiobus->irq[], which is
-> where phy_device_create() seeded phydev->irq from and where the bus that
-> described the interrupt still holds it. Only under is_genphy_driven,
-> since that is the substitution being undone: elsewhere the field belongs
-> to whoever wrote it, a MAC installing PHY_MAC_INTERRUPT writes
-> phydev->irq alone, and a phy_request_interrupt() that failed leaves
-> PHY_POLL there while the bus table still holds the number that could not
-> be requested. Under the generic driver a PHY_MAC_INTERRUPT written into
-> phydev->irq alone is still replaced; bcmasp, genet and tsnep, the MACs
-> that write it that way, write it again after each connect.
-> 
-> Do it before device_release_driver() rather than after. That call
-> returns with the mdio device bindable and the device lock dropped, so
-> from then on a phy_probe() on another CPU is the other writer of this
-> field; before it, the generic driver is bound and the driver core turns
-> such a probe away with -EBUSY. That is ordering, not exclusion: nothing
-> on this side holds the device lock. Nor does the ordering hold after a
-> sysfs unbind of the generic driver under a consumer, which leaves
-> is_genphy_driven set with no driver bound, so the store can race or
-> follow the probe of a driver that binds meanwhile. The next
-> phy_attach_direct() applies the substitution again for whichever driver
-> it finds bound, so the number its callers request still matches that
-> driver.
-> 
-> Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
-> 
-> Notes:
->     Found and measured on a Keenetic KN-1012 (MT7981B, MT7531 switch) with an
->     Airoha EN8811H behind lan4, whose interrupt the devicetree describes and
->     whose driver is a module.
->     
->     The one condition arranged for the run is that the PHY driver module loads
->     after the root filesystem rather than from the early boot list this
->     distribution normally puts it in. The distribution's own late-PHY handling
->     was also removed, that being the one patch which could have changed the
->     outcome; upstream has nothing like it. The kernel is still a distribution
->     one and its remaining patches to phylink and phy_device do run on these
->     paths - none of them writes phydev->irq.
->     
->     DSA then sets the port up at 1.87 s, the generic driver is bound by hand,
->     phy_probe() replaces the interrupt with PHY_POLL, and phylink rejects
->     2500base-x against it:
->     
->       lan4 (uninitialized): validation of 2500base-x ... failed: -EINVAL
->       lan4 (uninitialized): failed to connect to PHY: -EINVAL
->     
->     The real driver arrives between 13.4 and 13.6 s depending on the boot, and
->     binds. phydev->irq then reads -1 without this patch and 15 with it, 15
->     being what the devicetree gave that PHY. The three switch ports alongside
->     read 79, 80 and 81 in both runs, so the reading distinguishes rather than
->     printing one answer. The field has no sysfs attribute of its own, so it was
->     read with a debug-only module parameter that walks the MDIO bus and prints
->     it.
->     
->     The reading predates the is_genphy_driven guard the store now sits
->     under, which should not be implied away. On the measured path the flag
->     is set: phylink_fwnode_phy_connect(), which DSA reaches through
->     phylink_of_phy_connect() for this port, calls phy_detach() from its own
->     failure check, and the three writes of that flag are all in
->     phy_device.c, none of them between the hand-bind and that call. So the
->     guard passes and the store is the one the reading came from. Its other
->     side, a detach with a real driver bound, was not measured.
+This revision limits AMPINEL support to read-only telemetry. It drops the
+hid-generic change and the hwmon match callback, so the series no longer
+needs a HID change. The separate keyboard interface is deliberately
+unsupported and remains unbound with the default driver selection.
 
-This is still way too much text, which no human is going to read it.
+Changes since v3:
+- Select the telemetry interface in the existing probe switch using its
+  vendor collection and input report layout. Reject the keyboard there,
+  following the Aquaero and Leakshield approach. Remove the USB parent
+  cast, USB header dependency and interface-number check.
+- Split shared report type/length validation and unknown firmware-version
+  handling into their own patches. Check received status reports against
+  the HID descriptor length for all devices using the raw-event path.
+- Add the missing trailing comma and correct the -ENODATA and unit
+  conversion wording in the numeric-fix commit message.
+- Rebase onto hwmon-next 9edd5ab2656f (7.3-rc4). The relevant driver and
+  HID matching code are unchanged from the previous base.
 
-I actually suggest you write this by hand. If you cannot do that, you
-don't understand the code sufficiently to actually submit it with your
-Signed-of-by.
+The earlier probe-time callback concern was resolved in review: HID core
+blocks callbacks throughout probe unless hid_device_io_start() is called.
+This driver does not call it, so no initialization-race fix is included.
 
-    Andrew
+Validation of this revision:
+- The changed hwmon object builds on x86_64 and i386 with W=1 and Sparse.
+- All 995 previously captured reports pass the actual C parser/read replay
+  with ASan/UBSan, including simulated 32-bit long clamping.
+- Shared regression cases cover invalid report types and lengths, power
+  and current conversion, unavailable readings, startup expiry and unknown
+  firmware offsets. Removing the new shared validation fails the tests.
+- A userspace harness exercises the actual stock HID matching and probe
+  selection/error unwind: telemetry is accepted and the keyboard rejected.
+  This is not a live kernel binding test.
+- All seven Python tests pass; the updated RST renders without warnings.
 
----
-pw-bot: cr
+V3 was tested on physical AMPINEL hardware across loading, reload,
+suspend/resume and reboot. The telemetry decoding is unchanged here, but
+this exact revision has not been loaded on hardware. Validation of the
+other Aquacomputer models remains synthetic. Channel labels follow report
+order; alarm reporting and protection configuration are not supported.
+
+AI assistance: Codex assisted with implementation, tests and submission
+text; Sparse was used for static analysis.
+
+V3: https://lore.kernel.org/linux-hwmon/20260914233728.22725-1-contact@vasily.cc/
+Review: https://lore.kernel.org/linux-hwmon/a968a02f-c513-42f0-993f-ede4f785025c@roeck-us.net/
+Probe clarification: https://lore.kernel.org/linux-hwmon/d45d4de8-6925-40ad-a5b7-b8cef6356175@roeck-us.net/
+
+Vas Zayarskiy (5):
+  hwmon: (aquacomputer_d5next) Avoid truncating scaled sensor readings
+  hwmon: (aquacomputer_d5next) Expire the initial sensor cache
+  hwmon: (aquacomputer_d5next) Validate incoming status reports
+  hwmon: (aquacomputer_d5next) Skip unknown firmware version offsets
+  hwmon: (aquacomputer_d5next) Add AMPINEL telemetry support
+
+ Documentation/hwmon/aquacomputer_d5next.rst |  13 +++
+ drivers/hwmon/Kconfig                       |   4 +-
+ drivers/hwmon/aquacomputer_d5next.c         | 101 ++++++++++++++++++--
+ 3 files changed, 106 insertions(+), 12 deletions(-)
+
+
+base-commit: 9edd5ab2656f040d726b5388f49ceac10bb2944f
