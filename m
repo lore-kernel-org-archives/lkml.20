@@ -1,142 +1,75 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch [79.135.106.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA15331A66
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BC7175A92;
+	Sun, 27 Sep 2026 03:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.109
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790480636; cv=none; b=O94EYTzQf+H0Y+hSqTBfqbcRIwLmWmm5PoR3GYnn0cFw0WVnKDnJlp5O7An/PXSf6XPPrFdLjX08E0wU5dsVy/c1n7If27VT/WuOzoZs2CJ43CMpLEyJEvrR7X58t1nMs3rOYsK98YepZ/p+8wtzNIl9CPHNazed4X4AjFWyATk=
+	t=1790481241; cv=none; b=nPje3KFr8D1qfH/CN3iMbImPQOXbb0s1ZBcW1qZ6DS6nUH6kXuIjlr4CXvHmuJbJz9mqiK/hBf8unl5WNX/aDdRt/k5pToWYLFdoJm8vMt1LSi63esb13qqPiSovb65EqjVxKWnLgyLDp5hd8afXPR+4WgIU/pA7e/O2riLxNdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790480636; c=relaxed/simple;
-	bh=yjAyVFIWbLy6B446CpxAwXfdace4B+KIl16N1YcItJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Em9R3RZHlP8ZIb6TtL5n0TYSnxiz+zIGd46+aTPNW7m9OqRfdUVe0KhcWlN/YcRFobEQD9z0zBf1PW5rpSi3tQNxs+tSNuAM0S8tXXflc9Wo4oY1iGMviAM27bqHZm7VEfqzddh+0VtryAs7J208GpEzorEEK9LhBWuVwTf/g1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=GHFlCEYl; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mWKuhjoG; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790481241; c=relaxed/simple;
+	bh=72jOmKJsKtZbMfexR6DU2MSAN3lb/BvgsBkTbYP0Jow=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HKgmkkDOS2ot4fiir6l5AFwNN4Cy3kCWOdS5jVG1j07ZZU1QvueFytgVE3a27lMfexN4KLbaj1n6hR0gnge7nqo3wDkdZxZwuuRczPtpIj4hfDdYbQlRGLICDsTJkkpI0V8bU5FFpuweN245sYoHkhvYacCkNHXWJfEmPLbenzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BUuAj1lg; arc=none smtp.client-ip=79.135.106.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="GHFlCEYl";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mWKuhjoG"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 91B101D00065;
-	Sat, 26 Sep 2026 23:43:53 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sat, 26 Sep 2026 23:43:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790480633; x=
-	1790567033; bh=s6wZLQlYTsc94WcJ2WglzCAi+tDC5b5Bl9a6t57xmm0=; b=G
-	HFlCEYlOuhrarItJmhPDHGpwtaDAxcYNLjhPUXOMa1//lrZiEKUBXzpzMNCTfEN+
-	/x23jjrFvckDNm/VpAyQ/JAxXsBIgFzoXu6vl1bsueCbAZmxlvWNuXUNIA/cBQ4d
-	7gdHfULvZkYYBM8NsFAqVLFoP7VQc4Xze35IuRCEHJM7KsVXCyzBxzZ2f/zPLCN8
-	tJnxP9zNLa+ww1UCMxpDMWqqCZmh4XnT4IUYGnXbMZjJluKVBE3hpAtYFFtt9fdE
-	yLHeZUytATPsop2H0Zro2uWuYEkB+QHMmZ2jGQcLrNHXy6Y7/QZiNtps6rEqEqLI
-	d1sT7vyRVgLuoK5g7jDZg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790480633; x=1790567033; bh=s
-	6wZLQlYTsc94WcJ2WglzCAi+tDC5b5Bl9a6t57xmm0=; b=mWKuhjoGC5NiXoU+/
-	1QthFLyhyNpBD/8EGITLUGYUUOKvS7gJP9Cw3iUiBdTCD56ZGy5CHNfsmADpM8Ye
-	eS1/bGxWi1WWbqr1jtV5YmbD7WNXSEqtKvqwJzPTVIb7P1doLPYahwE/MSQb/c9z
-	QE7wlxxc64Yik0C1dXD5c3RAfS11XxcoajNsErow2F9QTe4o6mPexK8IB9/gE/lO
-	TuVdaDGqZE+GgDMnp4Y+ujUq0HH41X1pY1j4OpCNrIWqtn0vmWZMilOMBpJ/q/IM
-	qBkAVEUjRB/KgzaOtpjPnxnvZ6zR7/VhlYZ3TAXh4tmwYB6OMpqgHsqKBZTutCfi
-	QkbDQ==
-X-ME-Sender: <xms:-ZC4anZQqoWWLvty3WVndziv49-hsMj8Hy1ZHeHdPFAYmSTkyZ0IcA>
-    <xme:-ZC4akWPcJYelQEqaCpTpdvXlD7KzQcGy-65Rvx6DyqCCmvqonqRGVo-lHJTBSuTL
-    lrtvsLw8DlQMBSeEGGxlaT1tNkq0fbc-JBk2lIQOe49hzXU8EPWrxLH>
-X-ME-Received: <xmr:-ZC4ahh8BwKvhqqUk4R6_fvOWdyhTa3k3AJuvzsUedneOOHNZwI0fXg0WDKvMIs64PHnz3HebyEuGL5HIx8ixOr23my9Oy34mr7OM10thPXuvw>
-X-ME-Proxy-Cause: dmFkZTG4lT+eM/OUaCtoOYl/DyUmH6k9tq2VXzXC6mU+ZYl7CZZM+W0Br08Wif/3GBhDGp
-    Em4hgAA9CUxyaNCqjaf/KtpIj1FEra4TRF29/NV/1S/y8EdHxPX88wYIaOiyDaa9NsBS5F
-    +kvM1s44usrbRXVosvr7ETxX9g93L4NxUaiU6cXY08Lahq8sSjR6uinvDlZx12z/3pYizG
-    V9zoLoiI3hYwl80Vv2me32vNfTt8/rRjnCTmT0nnPtU/WmBF9G8s8gMxryfkaCaDrerzaa
-    bG5jinsMyQMBeDmNJGPF/S+Q9VsUgSIiUjYX/kygT771dTS82A003V47AUYrh8PeGKXPEH
-    6Hh2efz3/lrSaKmaRXNO6nmdM8ZpFsVh4+6wxe3nrOCGhdt0jzFn1J9pfbXqieP74RJPmb
-    DGyd3TOKvjhcM9xFJK0tTOunrQ70UAuhAXL7t7x6jtErMI/zq3R8ADjIWsr8dkOPPeh/AH
-    2XfFyMGtIbzCDtOjyoJNxsKSmNJ9Tk5ryuGjjJ0gUeed7tpIdn3J19SBz4hAEmBqqk85f4
-    +F5wwYawpwAATORduxMvIZ9ZsmtGbsjWBIOGDJ9pkMeCQG/FIo87Xo7SgsNggVJm6tdvsB
-    V80wayZc/ILrv6UaPzwoX9HVcLh1rrgPhHM62uXLpWdzrXAdXeOGx1hzEbqQ
-X-ME-Proxy: <xmx:-ZC4aqVRZWrj63zX2pH7WSurwvJigo6clLj0hMZ5Ew2KwqylEuRLtw>
-    <xmx:-ZC4agO0LoqwvElPMWbrF2w1utEQUfrrHFTNMS3OgHvCKl0JxmVwtQ>
-    <xmx:-ZC4auZOMwrxx0ndqszSt2ehO8Kjp8XhVytaUkgN4dFBzz9DY-KCHQ>
-    <xmx:-ZC4akpEQdXh9srWc21kFlYnREapTenuqpemr1govZs2e5o5kZ5Mjw>
-    <xmx:-ZC4akORpeCN4XyxFnkuHti_kDHYs1ML6xygYM3Kve9LRs_2XB73fipG>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 26 Sep 2026 23:43:52 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] firewire: cdev: refactor event copying to remove goto statement
-Date: Sun, 27 Sep 2026 12:43:43 +0900
-Message-ID: <20260927034343.28076-5-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927034343.28076-1-o-takashi@sakamocchi.jp>
-References: <20260927034343.28076-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BUuAj1lg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790480887; x=1790740087;
+	bh=2n7v/f900ujYlkPeMFvncKXsx01rexWG+WoC8pk4+js=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=BUuAj1lgFGUnkpYeDBk0B5qaCypJk7m+iRRthctsXUPOhcEx20nFxompc4oPawyR0
+	 4I7PIiNFMHGpPKt/6cMwCRntk28dxo1zxdw9hTmfpjAa8TDaH0RwdKzyv1I3ciJj9P
+	 7wxRvOZ4Z8AxEGWwAi3/fZa+3Wq5I/Wp35f7BrXhYHAfIp/jyvhIfIRcTNban+zq8Z
+	 qYVd0ZI04ykGpbOsp6WqrUcYalse+aoXK04NUd5MgKrVdWJ63MDy3BpBBWLq0+w4pl
+	 XfZJieSOtkpeE9moC3vZc+3Yj04v5VHk/puYbey/OHGVyYP7Kafl9JxKsG5PYFkgeU
+	 HiR1JCNyFD9+w==
+Date: Sun, 27 Sep 2026 03:48:01 +0000
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev
+Subject: Re: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+Message-ID: <AA1gQ_nENEVHK1oebVbNS1EUMIkabrgIPTl649QGQZvq_1LAMw5msh-2bmJt1DbB6K09JX1xc_VN0retl7XFImBTbpm81ucumJM_nzVKfYI=@pm.me>
+In-Reply-To: <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
+References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net> <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: f3ec71461e33f107fcfa8c1f6b9d2d515788ab04
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Arrange the local variables to avoid a goto statement when copying events
-to the userspace buffer.
+On Tuesday, August 11th, 2026 at 6:04 PM, Jorijn van der Graaf <jorijnvdgra=
+af@catcrafts.net> wrote:
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/core-cdev.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+> +=09nfc@27 {
+> +=09=09compatible =3D "samsung,s3nrn4v";
+> +=09=09reg =3D <0x27>;
+> +
+> +=09=09interrupts-extended =3D <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
+> +=09=09en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
+> +=09=09wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
+> +=09=09clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
+> +
+> +=09=09pvdd-supply =3D <&vreg_l20b>;
 
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 73a940d40b39..e017086ff641 100644
---- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -348,12 +348,9 @@ static void queue_event(struct client *client, struct event *event,
- 	}
- }
- 
--static int dequeue_event(struct client *client,
--			 char __user *buffer, size_t count)
-+static ssize_t dequeue_event(struct client *client, char __user *buffer, size_t count)
- {
- 	struct event *event;
--	size_t size, total;
--	int i, ret;
- 
- 	// After the following block, the event pointer above is guaranteed to have a correct value.
- 	{
-@@ -378,18 +375,17 @@ static int dequeue_event(struct client *client,
- 		spin_unlock_irq(&client->lock);
- 	}
- 
--	total = 0;
--	for (i = 0; i < ARRAY_SIZE(event->v) && total < count; i++) {
--		size = min(event->v[i].size, count - total);
--		if (copy_to_user(buffer + total, event->v[i].data, size)) {
-+	ssize_t ret = 0;
-+
-+	for (int i = 0; i < ARRAY_SIZE(event->v) && ret < count; i++) {
-+		size_t size = min(event->v[i].size, count - ret);
-+		if (copy_to_user(buffer + ret, event->v[i].data, size)) {
- 			ret = -EFAULT;
--			goto out;
-+			break;
- 		}
--		total += size;
-+		ret += size;
- 	}
--	ret = total;
- 
-- out:
- 	kfree(event);
- 
- 	return ret;
--- 
-2.53.0
+Looking at schematic, think this should be L7B? L20B is used for SIMVDD1_EX=
+T.
 
+> +
+> +=09=09pinctrl-0 =3D <&nfc_default>;
+> +=09=09pinctrl-names =3D "default";
+> +=09};
+>  };
+>=20
+
+Thanks,
+Alex
