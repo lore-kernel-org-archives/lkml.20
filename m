@@ -1,63 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEB743FD06
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D352643CE71;
+	Sun, 27 Sep 2026 19:54:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790538569; cv=none; b=Wpw8WCRXUA81mPZVC+8AIRM/dsDZQuuWzNsjDxR10Jlpl2u7Ro10a41PjDg2EW5ptqpYB+lvn84tdlbBHs+SV9HXWivyPsHKUFlMZLMW8h2I2bbXVsTphYkqtKDJLsLOPQTVqitYUTpVXl5xQsA0WOQOksHfXV/tom550FMKYDo=
+	t=1790538895; cv=none; b=AK0WAMAuxeEYtc2GEPG5sSKwAAe4LR+9WyiGYAjeOzmSWJ5vD+15wh565mbZARmEbT9Z2XHH/c/uDwIWPqvI56WavUmtZayXVtkeGrm81AjEhLMK/9LjBii5ax7SL6YgSNF9XqGAYldBJbFiLump/yQdiyzIMOs8p7VLDfahwjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790538569; c=relaxed/simple;
-	bh=SwQXcyDbK5EjRS+UT1y7C4IZABfDh80U/5yXb0mZP64=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=mH9p8LZNGCXhWAW1vb+A4uc4yoWTPyd7TFfMh9JN0K1UWVzzivLB961W2ssbjFwmJpFm3t6amQUTCdWRr6DoU0UrcU3ytka/iPoTQZMm4HYhypXWk7Q6zEIbySbnrXwInblksDXci9DKM6xupSBOagCLADXpuEJvucYxlKTFDsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ge6hRSdI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790538895; c=relaxed/simple;
+	bh=LhI68KTLydITauvcFqK2EZYAkeR4lJMuUQpic5g/8a8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=XMr8Tz9nc4QzSZuXcaKeTuSgeWawEHhZoxA4dQaISI+E/qzS8thL4GHNDNJfZvDkz+Y6YkjFpVRCp9Pd4L0GF91nhL/A4QtssG5lSoiPu/ngBNvozDG63GpG7+0Qizh/JREjDWFH3rW5rBLYg/bVpPXFKfJ8/z2GjeZfRI8Atu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yX64huLr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ge6hRSdI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730EF1F000FF;
-	Sun, 27 Sep 2026 19:49:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790538563;
-	bh=7N+SgkBy4uEaPxi7y1vIc35B2BOTBTFODpFF65R0iJ0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=ge6hRSdIc0cCPD3hU8xmgNglUHHPQ2Tz/4xGRoM6jVrj2LkFjo5CqXj2XxcuIt7k6
-	 wYj7fNrC0s/GGJK9AzKvewc194+Z7Xw8fnIExyfIDim4AnppKWmB72muMKUZohuWdf
-	 DK3SElO/2pMZLeztQpcW8yE+gN4QYVBousnT8R+tAR4HMHLmWwVfaPIhYSLhJdemyq
-	 2/sSEdnRISwm/TJX+tg9oczpNTTtbFIjZF5XeR6uk7+pheri1ETN24fH3VqPEso54h
-	 B72TZKw7pGC60rFhWaoIhv+XLQH8A+fv0WI7zaU0gmwXA/21eLc5whM121xaRboVFo
-	 DivljoI54aYAA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569DF380AA5F;
-	Sun, 27 Sep 2026 19:48:10 +0000 (UTC)
-Subject: Re: [GIT PULL] x86 fixes
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <arjPJsw8xyBRB0Tj@gmail.com>
-References: <arjPJsw8xyBRB0Tj@gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <arjPJsw8xyBRB0Tj@gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-09-27
-X-PR-Tracked-Commit-Id: b8d1d5b63a8ef532038eebd9d97d406860385668
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: efb44d93a620c294c049db37c810c8ab7ee1122d
-Message-Id: <179053848904.2777566.7294818202817097711.pr-tracker-bot@kernel.org>
-Date: Sun, 27 Sep 2026 19:48:09 +0000
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>, Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yX64huLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFAEC1F000FF;
+	Sun, 27 Sep 2026 19:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790538893;
+	bh=syrXrC34qOwYKtXT+0y34VtSNtk9nNOuE8xaaaEO4v8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=yX64huLrYBvawjHjNMziGPcDF408jVy97eCQhDGEdK9ruUIWtHuIYsE+mhNMfqt18
+	 Nqxac4sU4f16KAf+zoUW04JYqXg33sc2tfOTTb0EWu8wdgVWka3mOOBCFT22odBp06
+	 Fd3pMy/8/YX3DJSXlv/le88Lqf3alNmdUMlUep3Y=
+Date: Sun, 27 Sep 2026 12:54:52 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>, David Hildenbrand
+ <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Madhavan Srinivasan
+ <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Jonathan
+ Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org, Lorenzo Stoakes
+ <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>, Qi Zheng
+ <qi.zheng@linux.dev>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
+ <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Lance Yang
+ <lance.yang@linux.dev>
+Subject: Re: [PATCH v5 00/12] mm: Switch device DAX to section-based vmemmap
+ optimization
+Message-Id: <20260927125452.0c1ec382905482841a4faef7@linux-foundation.org>
+In-Reply-To: <FB00943F-8DB1-4BEE-BF37-701785DE2DDE@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+	<20260926225105.a56f29d76b2f496c8dc2dac0@linux-foundation.org>
+	<FB00943F-8DB1-4BEE-BF37-701785DE2DDE@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Sun, 27 Sep 2026 10:09:10 +0200:
+On Sun, 27 Sep 2026 18:51:15 +0800 Muchun Song <muchun.song@linux.dev> wrote:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-09-27
+> 
+> 
+> > On Sep 27, 2026, at 13:51, Andrew Morton <akpm@linux-foundation.org> wrote:
+> > 
+> > On Sun, 27 Sep 2026 10:54:29 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
+> > 
+> >> After the HugeTLB conversion, optimized vmemmap state is described by
+> >> the memory section and the sparse-vmemmap population path can allocate or
+> >> reuse shared tail vmemmap pages based on that metadata. Device DAX still
+> >> uses the older DAX-specific population model, including a separate tail
+> >> vmemmap page reservation and architecture-specific logic to locate or
+> >> populate reusable tail pages.
+> >> 
+> >> This series makes device DAX use the same section-based model. Device DAX
+> >> records the compound page order from pgmap->vmemmap_shift in section
+> >> metadata before vmemmap population, uses the common per-zone shared tail
+> >> vmemmap page, and drops the extra reserved tail page. The powerpc radix
+> >> path is updated to use the same shared tail-page helper, so the generic
+> >> and powerpc DAX paths follow the same reservation model.
+> > 
+> > Thanks, I've updated mm-unstable to this version.
+> 
+> Thanks.
+> 
+> > 
+> > Sashiko asked a thing:
+> > https://sashiko.dev/#/patchset/20260927025441.741633-1-songmuchun@bytedance.com
+> 
+> Sashiko said page->refcount can overflow by incrementing it over 2.14 billion
+> times when mapping more than **524 TB** of DEV-DAX memory on a single NUMA
+> node, where the pages share the same node, order, and zone.
+> 
+> I am not aware of any practical hardware configuration approaching this
+> topology today.
+> 
+> Handling that theoretical limit would add non-trivial lifetime or
+> architecture-specific teardown complexity. Without a concrete hardware
+> requirement, I prefer not to over-engineer the current series. We can revisit
+> it when such a system or use case becomes realistic.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/efb44d93a620c294c049db37c810c8ab7ee1122d
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+OK.  Presumably it would be cheap to add a check for this craziness and
+return ENOSOMETHING?
