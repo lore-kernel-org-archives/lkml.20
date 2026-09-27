@@ -1,116 +1,220 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BDB35B636
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790544944; cv=none; b=HjRfgk9+KHDmjkZoMFYOS6hyfWGJuBuug/yYxitxHRrqYkK8tLG9kBr83QOE4OBUI18HCdzD1AV0FNQhibVQodB8R9PKOP3pHT6TKS0k8Tg/AvutmyyJgC3OSZI8jfeL8NhhZF6srjkxrg8dpR4SzR0MZomw9pPCJzh+tQJro+0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790544944; c=relaxed/simple;
-	bh=kNXLRQ4KxcKgSSIc8oLHK8bxZeaP2Chi8O1a8a0k6TQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oYIJOpD6Ho9vBZkyorfur00ezswgeioPAa8OrBwxVXbKtmLZu8fJy8m656oAmMU/XHJkHEmIzCZsclcshqwZHdnTZLP2FbsFmq6YjtF1AYMII4dd253jiPVcggLRFR9B5nUri4P3EhWXRRJiWRUHykHqmhDnFe3vGWP/ECzL4nE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLtCanNo; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245EF20D4FC
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790545335; cv=pass; b=upfJfpbq7KJ915mMMR/VfBF3Uy3W3iyhppI2Ar+RO3cQv65hXxZwjIesRJaYskUIxLX6YPFtpi4AwqqiyKqZt0f/w3RaR5d40Zc23pKB02mP9x4c+XX/22ZkPjgPhBc1xTnqmGW9AK1NJ4lPerDPWB3ZGpsl+8ATwv5Oo8xMesI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790545335; c=relaxed/simple;
+	bh=6KLzp4oR3l/0CH9JckxArshHxrcKNasTT1KY+THNbnU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oiZEP7OpCIsqJjvdYKkevmchA6zgM0L0JbMK2PNOKCmVhlvuhntt6x0vOAA36NF8aE+Xk/ObO3cL/xqlwFU20ld2ZUrKzpVSsXFxYAWYH2lW0El7Pswo+5U7+EGhBQifeaA0oWw3HPwZj5fUwrF9H5HR7cEKONrE+NgH2LvTH6A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r18FnzEo; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLtCanNo"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7b3311c9bso151235a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:35:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r18FnzEo"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso4348095a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:42:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790545332; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GTiIM4AveF3fzx7RLcJn89GBAQ+Tx6arxTiT45ugplai19BVYU0//LuF3bPOX4vN4X
+         HeJGFQxoR2if5VikmDIiLP8+NXalQVbPOUYR8FiU7d+u8BMUYG3Xj4hcJ64mUU1bqoyJ
+         oLEaBMi4c981DQamnEzX0MEw6EXXWX4LVZ1/Hq90yfVuHJQ7BiAmgc++9j3P388GdXL/
+         6vOJYOpcllNSmc8fJg2KmLwQSdy5FTXBdpVqW6nrgLqdwq2vSYaPUN3Num/C+wj2g7dW
+         l5QxCB4PH9ZeDxooEOHCRYOIT7usBLx/C5bwyFvMwyW82KxFBm8XHc/EgPMekb0W08vx
+         5aJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
+        fh=v8FrDj9aP0f8QFFL6/NGlUI7ETMi3TkAY7O7I5PkpXc=;
+        b=OGz7WgP7k6sBtaud2puYLt3LljqtNuI+xYk52Jhu7x7rrp/Rcb2i5bB9EPo2vERNkR
+         JNqSisKkOp/i8mTE9LTgTWYriNuwesiVQoCnseQCns54lB17wfCwJ9fPJ5dIYFgjI/fA
+         rUuaSHTaepEh8sLpOgYIRbk+JjO/X9xQ/ztVSX8D8zpYJFlU9d7ALuGkvjAw2yYGXHFj
+         78011Z79KJoh2SZwMDZaaC0wkfKrGFgSPNRT2ZLL9DF6LjSE/19NHYudwG7+9VAuzNI8
+         oPezqRM79r8B2bJVWv+btdf380ko2asEXsCXyWMQhpXwnDgAwvMS/4bfqu/+judlLvcG
+         ggVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790544943; x=1791149743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AHG5gy18gjuCwzJfjLviwlZCw2IziSSdFW1ln1v/Sk8=;
-        b=NLtCanNoEZ/7pC4V8rJqiVnzlNupa3pm8mgsm/JEFeXP8PdeznKl8XuDqz/0Pt+Okc
-         88n8HJla2og3QzlKlHc/hOok497KWsm7OA5qGPaDODlb3qF1cuhBpG9YvY0ZLHtpzFdR
-         VlPVolPxjL7I8W2/vFUV1d+JrdIx8FB4b6BdDDLAiQuB0Pw80/ttUWZ9S1qNPUXcbr81
-         +3/NQxbCK5d3DlA3x3KpejQ0CAqobVq7jAOvkdTVcr9OBdA5HVMAAGhEZ+POaVbUZg0B
-         upy+tqsUpYANYIgEXjSmPGQ293CSRRxA7jMXwbYq6drvMGM+Y0mgV1kZ+KsDvzmxy+a/
-         eiOQ==
+        d=gmail.com; s=20251104; t=1790545332; x=1791150132; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
+        b=r18FnzEo9akq18gGJQ1VbCBFJ/QctnsGUpC24j68x3PpaKmWnNQNVh19PT2GF/PwEM
+         SAE+l2/XusEJbHb/upQWIcB5eP/p8UISMvwXwuDqCkGPrayoEx4lhJz+71MGUVogJJkW
+         /bqSeNGqHcHEh73vSvFYMt/+uWBifSwJ4fjKJmshex+Dx0+oHhX+DvS1tq+U0st72JQY
+         GrhuaON6n3/6Jjg7gn2lC0Dt28FGJC5JjuJIk0/DoyJayfxz5hOVwLKuHyewIEie2/mC
+         nWmy0JzFDIXmTtbju4vVhXZzvPXKkBHh9NXVWhQz98ovmdjLj1TGN1GToTTx9FAY5MdK
+         bkew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790544943; x=1791149743;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AHG5gy18gjuCwzJfjLviwlZCw2IziSSdFW1ln1v/Sk8=;
-        b=FD5V+njKpRgqLCVyRHICGMhR9M2LBwbG1YDDswl4uWsMfrXAoA3e2tha72niB4SjAl
-         T5dut9ls3pX3ywV4QHir8nbkqm1oLS4NevFiuVAv5bqqwfrIOp2iJ13oEupYvgxQ1ZVM
-         cI7u6gW+MKd/2eNcwABVb/NnJJeWXckhmNNUzewuMjltwUxigRdfn6W25KT5srH/JaYc
-         eiA1ytAOZ9E0m2AplJu7RjvlL35M2xjivBRMjWXz9PFW7+dOGOH8DB83sscquvtmALa5
-         suIr2ZdqcOYZBe3tAbB/MQAO1iKBT6Bn7grb0acmLOUv8xfhHpC9u7LEefive/ZF4tVi
-         h9GA==
-X-Forwarded-Encrypted: i=1; AKwUvBxc/FbIv6OmF1sijEZ58u/IkcoUMgemctccUDjb6agNCjdsXK1nmuyLE9a1DaSMk7jzFEaqr3tZ4lUtoqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJx/qCx234x9Wcc0qtNWTW3D1FcNY8LWM7RPA2keIGYIWf+1+1
-	6BzUvD/e8+NEUKFOHDmR/DgykkJMH5XId/Ne/OQI6JtfRJTyJxnAugnt
-X-Gm-Gg: AYBFou0fAtc0SEZQ/fyJxMBCBD3H2nnUjvrf6fabX7UuTEN69xq+PXenXch/CzhNPmp
-	12amcAM6vcRMNmjrTdvFO1gt/of05hX+hU+rWpL+6FoZnzku9ZO7KMW13dkYSvPC8uNtjYFcpLY
-	bhoheFHG08TLNR3GhaIDh4iMw0KZje6KnbJsf06757Rz3r8hG910dSWtdIibhb8XO1F76FL2t3M
-	7UIWRtLABhcgJ2bPebEoRKz3nbB8VdR0NqxqFGLrvAD7iRTo9rKS7YxjrCOZITCCdXYNAsXeClQ
-	0NoTOPxvuMYGSE8zJbmuuzVoHx3qfm0cTBYrscEYEto6IV6D92XXC0E1Ro/CBfzu5Db3vcJR75X
-	b7p8KbUAbphI3ge8gH4fObeR2WIs1em92bbA/0u1VB/+lsfC9PvKhEI0R9WezWYIgcD3yLwXGB8
-	OY6b96Q9NwEhFGMlh5cnprgeAf4YNcXycU92k9/ZRf4XJ1a1sFgSlCCZlYlEZmeGPl245s1wx8L
-	XSC5ct6S3zen88p99Zz/AgvXbKkJ/QVTL95jp1jjIVwdjMSf2LsquL4DdyCdWmjVR9i2WNPnoUA
-	sB8lQkks4nsbHy0Ev88cG56G5x5ctmMCVZqU0sH1RxTmGt/v
-X-Received: by 2002:a17:90a:ec83:b0:39e:21a7:5dff with SMTP id 98e67ed59e1d1-3a098d453aamr8865147a91.11.1790544942679;
-        Sun, 27 Sep 2026 14:35:42 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976cacbesm22806038a91.13.2026.09.27.14.35.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 14:35:42 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] powerpc: dts: eiger: add placeholder reg to ndfc node
-Date: Sun, 27 Sep 2026 14:35:40 -0700
-Message-ID: <20260927213540.132854-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790545332; x=1791150132;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mfU1Wi4HmVw8v1AgLudBUPHtwS3RGGdUlRGpJlo9EKg=;
+        b=Zi0w4q+kkBvuBwHOQVUkn67/RToFVq9H1SSka1JnNambh4cl3rnFIXOAZmlGOrn1HM
+         srcMVzPsZGbYJDiOc4fFVV+zsGtSARa0UVTpM0kJJHlgQZoz3XSvQOaVhUCNEwHkT3RQ
+         2eFXuuClqlkTRvStNwCag7JVMtOPLGid+0Hrd5Ie8DhBVcFi6nmvCzeha4//6WgRzF4l
+         /4iSPkcxF60JjlfG+QYqtltGsl5ZoEnQ9REpz4bfRKCkFKl2t2/joyTv7o8QZq0NTrMQ
+         9GzU+2l+xl4JEXNx/JOFdw8UBNkkawlY0yQqlwVC8HvU4vnpUrWAFdGlVxcI8ZuSqzHK
+         yhvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwp2QHmp/RGV7D+bgp9R4iJw9PeKCrgn+4oniT5rbTLDs7HV76KsRBZo948UNydnHChse01meOpEkYlsvI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKn7UuRu3uOUpgOAFgvERhKUv5lAXPB8NcTjKKFbfYzSS/2UkSh
+	ifACaJyRjnDNpzvOySCp8KgSBX36WD+gJOznFvXbLIJO3KnbCy1X6k4xfo+g5L8zoooqb2bzDn+
+	3bM1wXnjWoe4SGngpo0BY/jL2WkfP77I=
+X-Gm-Gg: AYBFou0HOtgoED4aT2+STvGth3NJ0toSSRb4P0NHRNVWzQZ6rzjihYJvfgWfTVV+o9i
+	0iAEgxpYuRi0pBAWeVBaHRud1+cV4pCJlJLOomGbk9Qoln8l1+dXK+q+Gv13mcg/TLg7JEeBaQg
+	8WGnbMdrldpVtYG7xzSroFmI9iVi4FV83aFILz+4L5pUyCw1l8RRwnsiBGpCKKo9Fbiha/Qnml1
+	wjgQ5Bn+nIjmEg3fjmlr2ZVmnp4QTpHmg9y4JEuFqvkW4eDxMjG0JJ7oiawui7Y7QgKKqT+uLsq
+	6zDUn6eOYU7S/5wCaelC+JbQb+/F9GUt9aBx/wkhQUOKot/r0uvtBmfpdkAVp9HxwTxaguBu8Ww
+	Q04R7vm9CRYv5djHaL5w8Oo2rp7TSi+DqtYnW5UwqeB/YwC0V8ypX
+X-Received: by 2002:aa7:cb47:0:b0:6ab:260:6378 with SMTP id
+ 4fb4d7f45d1cf-6ab026076cemr2280176a12.11.1790545332049; Sun, 27 Sep 2026
+ 14:42:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260927005821.8369-1-kaloz@kernel.org>
+In-Reply-To: <20260927005821.8369-1-kaloz@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 27 Sep 2026 23:42:00 +0200
+X-Gm-Features: AclHuK9q0tb_hBdeGsUv9gVCeUkhxtwokVdYI1IVMCxdiVUrGe9SugUg-B68nyc
+Message-ID: <CA+=Fv5RrA4iavVf_-0qMst0OKDtCnbB2sbsbjNVnAsRufbboiA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] sparc32: SMP futexes, casa and idiv emulation
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The ndfc node of eiger.dts has no reg property, U-Boot fills it in at
-runtime.  The new IBM NDFC binding makes it required, so dtbs_check
-now reports
+Hi Imre,
 
-  ndfc@1,0 (ibm,ndfc): 'reg' is a required property
+On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
+:
+>
+> sun4m has no compare-and-swap instruction and casa is optional on
+> LEON, so SMP sparc32 has had no futexes, and user code on those CPUs
+> has no CAS to build locks from.
+>
+> Patch 1 implements the futex atomic ops in atomic32.c and drops the
+> !(SPARC32 && SMP) dependency of FUTEX. A LEON part that implements
+> casa, found by a boot-time probe, runs casa on the user word; other
+> CPUs take the __atomic_hash spinlocks.
+>
+> Patch 2 completes user casa from illegal_instruction on CPUs without
+> it, through patch 1's futex_atomic_cmpxchg_inatomic(), so emulated
+> casa and the futex ops serialize on the same lock. It is atomic
+> against itself and against the futex ops, not against a plain store
+> to the same word, so a C library using it has to do its atomic stores
+> with casa too.
+>
+> Patch 3 completes udiv, sdiv and their -cc forms from the same
+> do_illegal_instruction() dispatch: SuperSPARC and SuperSPARC-II trap
+> those when the {Y, rs1} dividend has significant bits above bit 51,
+> which gcc -mcpu=3Dv8 output, including libgcc's __udivdi3, can produce.
+> It shares patch 2's windowed-operand helpers and the dispatch block,
+> which is why it comes last.
+>
+> Patch 1 comes first because patch 2 is built on it. On its own it
+> races nothing: without patch 2, user casa on these CPUs is SIGILL.
+>
+> Magnus Lindholm has an independent RFC covering the same ground from
+> a different ABI: "[RFC PATCH 0/5] sparc32: kernel assisted
+> compare-and-swap, and futex on SMP" (patchwork sparclinux, Message-Id
+> 20260923201830.865553-1-linmag7@gmail.com), with a companion glibc
+> series (patchwork glibc, Message-Id
+> 20260924064228.867909-1-linmag7@gmail.com). That RFC adds a new
+> software trap, ta 0x11 (trap type 0x91), extending David Miller's
+> 2016 CAS-trap prototype at ta 0x23 rather than completing it, so
+> userspace has to be rebuilt to call it. This series instead
+> completes the casa opcode itself, so a binary already emitting casa
+> (gcc -mcpu=3Dleon3 or -mcpu=3Dv9 output, or a C library that encodes it
+> as a .word) runs unmodified on a CPU without hardware casa, with no
+> new trap number and no libc rebuild. Happy to share the futex and
+> do_illegal_instruction() plumbing with whichever ABI lands.
+>
 
-Add a zeroed placeholder, as the nor_flash@0,0 node in the same file
-already does.
+For context on the userspace half: the glibc side of this was declined.
+Adhemerval's position is that glibc will not carry arch-specific atomics ag=
+ain,
+and that v8 support should come "first get the support on kernel, then add =
+the
+support on libgcc, and finally on glibc transparently through GCC atomic
+builtins".
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/powerpc/boot/dts/eiger.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That goes against my ta 0x11 trap and in favour of completing casa: a new t=
+rap
+number has to be taught to userspace, whereas an emulated casa lets libgcc =
+and
+glibc use plain __atomic builtins with no arch-specific code. Your series l=
+ooks
+like the better fit for what glibc actually asked for. I'm happy to
+drop the trap
+and help with the futex and do_illegal_instruction plumbing instead.
 
-diff --git a/arch/powerpc/boot/dts/eiger.dts b/arch/powerpc/boot/dts/eiger.dts
-index dc4d74c523ec..7260cdde281a 100644
---- a/arch/powerpc/boot/dts/eiger.dts
-+++ b/arch/powerpc/boot/dts/eiger.dts
-@@ -196,7 +196,7 @@ partition@3fa0000 {
- 
- 				ndfc@1,0 {
- 					compatible = "ibm,ndfc";
--					/* reg property is supplied by U-boot */
-+					reg = <0x00000000 0x00000000 0x00000000>; /* Filled in by U-Boot */
- 					ccr = <0x00003000>;
- 					bank-settings = <0x80002222>;
- 					#address-cells = <1>;
--- 
-2.55.0
 
+> Andreas: do LEON3FT parts want the GRLIB-TN-0010/0011 "nop; .balignl
+> 16" alignment before the casa word here, or is the plain encoding as
+> posted fine for them?
+>
+> Notes, not for the log:
+>
+> - checkpatch on patch 1: "Lines should not end with a '('" is the
+>   __asm__ __volatile__( idiom of uaccess_32.h; the -ENOSYS warning is
+>   the futex API's return for an unknown op, as on every architecture.
+>   "does MAINTAINERS need updating?" on patches 2 and 3 is covered by
+>   the F: arch/sparc/ entry.
+> - On qemu's SS-20 with two SuperSPARCs and the casa emulation alone,
+>   futex() returns ENOSYS and musl's mutex, PI mutex and robust mutex
+>   tests fail. With patches 1 and 2 they pass, as does a PI lock
+>   contended between user casa and FUTEX_LOCK_PI/FUTEX_UNLOCK_PI on
+>   both CPUs.
+> - The casa branch of the futex ops has not run on LEON hardware. The
+>   probe runs on LEON only; its fixup path, which a LEON without casa
+>   takes, has run only in a test kernel that forced the probe on
+>   qemu's SS-20.
+> - The divide emulation has run on no CPU that traps it. No sparc32
+>   model in qemu raises the trap, and no SuperSPARC or SuperSPARC-II
+>   was available for this series; it is exercised only by build and
+>   link.
+>
+
+FWIW, I have access to both SuperSPARC or SuperSPARC-II hardware,
+SS-10 and SS-20. I'd be happy to assist here with testing on real
+hardware.
+
+Magnus
+
+> Imre Kaloz (3):
+>   sparc32: support futexes on SMP
+>   sparc32: emulate casa on V8 CPUs
+>   sparc32: emulate integer divide taken as illegal_instruction
+>
+>  arch/sparc/include/asm/futex_32.h |   6 +-
+>  arch/sparc/kernel/Makefile        |   2 +
+>  arch/sparc/kernel/cas_emu_32.c    | 117 +++++++++++++++++++++++++++
+>  arch/sparc/kernel/div_emu_32.c    | 127 ++++++++++++++++++++++++++++++
+>  arch/sparc/kernel/entry.h         |   2 +
+>  arch/sparc/kernel/traps_32.c      |  23 +++++-
+>  arch/sparc/kernel/unimp_32.h      |  71 +++++++++++++++++
+>  arch/sparc/lib/atomic32.c         | 122 ++++++++++++++++++++++++++++
+>  init/Kconfig                      |   1 -
+>  9 files changed, Magnus468 insertions(+), 3 deletions(-)
+>  create mode 100644 arch/sparc/kernel/cas_emu_32.c
+>  create mode 100644 arch/sparc/kernel/div_emu_32.c
+>  create mode 100644 arch/sparc/kernel/unimp_32.h
+>
+>
+> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+> --
+> 2.47.3
+>
