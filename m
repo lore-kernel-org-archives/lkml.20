@@ -1,163 +1,172 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF952353A6F
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7FE3F076F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790517259; cv=none; b=XLPUAaiBxCHJQM90Uy7X4TDbhh+Y1MhFikcmmIIxbrW5t5IkaQKnzWHhw26QZJcAJao0ZHkEuWAUJXy3jBLjqdXGF1UmgZI/o/f+sgQqSmGjGovoerFSgcqd8F9xKmt+8nPH3tmCqvUTy6DrTeDeQQkSx+V8ZYcLdeXO+S/0MmM=
+	t=1790517274; cv=none; b=WEGqKV+CgGpb6KJSvfd4s1iz+kHmXQIFQowvlIC74NRq+NNLC7OV8Xl57oSSJmTfE/KBi6UYpYRVKA9Ib41aIDkDuXUVbNu2Nv7Tf+LAP4D3OF2tzoavLiBEQ+m0sIS+lGyD1RnRl+YQ8TsJui7Q6oPImowyyvGQlH0sQrDbKQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790517259; c=relaxed/simple;
-	bh=PM8dkF+8etKed18lFD/2Y9REotHc2O/UVajZjOn2QyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T1t2tVR9zB2YSQy7sgTGKePNQv+4CILsG/2jybP757BDsSWh8tKM1tYAy44PpTHmHICCnvGvN9i9c2D8jzuDi+m+v7q4PrPN60Y+QK8v1jfdn3jervHokUjPIhGL2UvkTfDiOM33MbLWnzQOqpiIYZTPr3/H//7z/9mq2dqzAaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bQP83zJb; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790517274; c=relaxed/simple;
+	bh=t6Kx8ZzDKvbf9IjPHXQZzbC69wBFQI6yCYoXIfiT3WQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AxKxOLqZhfqAlhEOkAEfIONlLl286ILCrTvaUNbepRtdzddaXKSAiSJ9F0P9BZzo0jKOK22ghHkHSCakl+jSwsIWiEaQ0cQIjMgQe1BCZcqpblN4M500vDVs0auKyEYPT/3ShUbhY6d1jV7cZsT+MpBSaNysWxTmHcVDzdEuiPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ryge/iV4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X4sUylk3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bQP83zJb"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144fa6e60bcso90215c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ryge/iV4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X4sUylk3"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68R1mfQu1937555
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RsQD/KnjrsgzCX35hm6YWUaXBoN7K3xyctZ2lbnLToU=; b=Ryge/iV4dQd81gUJ
+	Ax+mZ+mkmy2WIdZBE0CzyBx0sinSTKkh/lA1HjumqtOSNOM68b3lz4/K4n9A/hVd
+	yp8EVfueK56ZJsW+GAiMWn2RkppmqYQQ96OMJ+gLs9Js6gXnXv2tOU1zw3c2+bve
+	P4EIX6TJsPiQcMaq1sbs4N5zntgrnT+vltVpKuwyQ/QA42WUWgkWTpIBKh5NIzat
+	BIEGgtLSw5amoMxgDUd9LB0UClHAhKSP4BG5/NNzQwr+AbfeztYmuoU1SrrHJEP5
+	AFzAhJFKY3QgXeZz5dtpB/5hLgzOdOfSUO7gvN+tJUdQc1i1KC6y0L+cLS0b7L9b
+	8k4/2A==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx5mwb2qp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:32 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-342a0e1d8c4so1770965eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790517257; x=1791122057; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ew/cE3p4ZACR2ABiKyvZI7K2codxGXMvh85xvLtScaU=;
-        b=bQP83zJbvaHRkpOsgalkPL0RtTKuzVo9zZ6I4TMt4XnLdggSZQ1Q9qCqgaVW3Pvzra
-         PzB8Zv++CIWn7gk4LZFDoaY1fcGgdMU8fpGVsQEBdUs4qGuiwzfoSanfNEhju/BG4LYu
-         ezEc2R9KMXdHzfRRsZujNO1VluNgeeU4R72jQjA93ojagmjnnVO3zliMcAz21N3QtHIx
-         7DyXmb1NQKxayxGXrQw+OzXIMRmNTgkTEAKGqXTkWCzYeeMb4KkmAeUvME6Jd0EBqAaX
-         BpXsMJi5aoZQo4kiWQKaYQqn4dsqJQlWym2sQy+w+q0hl8IEbAh3asvnAxJY3QaL8wqy
-         Yw/Q==
+        d=oss.qualcomm.com; s=google; t=1790517271; x=1791122071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RsQD/KnjrsgzCX35hm6YWUaXBoN7K3xyctZ2lbnLToU=;
+        b=X4sUylk3OWD5/3KNlR07+8ZDpGYN7MnCrMiHIreYshg7ebmzH7onbQ6dDwwRCbDS9W
+         EcWVVwVkb7D1CyuXTi9u2dszxDvRkJgqUMYaPRgbb1NgxSIfjmYiPT0mbcpqc88cvHT4
+         nrkize+B11JduvMAwasHU4gkFSUb4joPQpgiqPnLHJSpTBPlVC4//hcujb6OhpUsuw4x
+         tVeHL78u+Jmlc6a9GyY5yzo5SByWVMjR0WLJGLB6hUbGZcxk1nR0wGjpZ7fgKYrCngWe
+         S1QJBjMJ9gpbqT094jNZBZCB/9Cd6ieMtm8ZedaEvI5dVPUZJlo+BQsXh2gAcvol0oV9
+         fk0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790517257; x=1791122057;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790517271; x=1791122071;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ew/cE3p4ZACR2ABiKyvZI7K2codxGXMvh85xvLtScaU=;
-        b=IBpa3XvxVyiQHRdEOWhi00aOEdAXLMEvJ9EvCO2BeMpn12nvUkYWNtkTp9T7quzWgm
-         +6dlEz82s5s/SouJMnO7AaHT6++IrjpTzjgb7mRuSQsEYiBHVRR7qFhBQtKJZHJb9E6/
-         H4O6BI0B6AYSYdVcqYcn41x5Cxyv6+Uxfeh82OLcoWHXXsQ5Knnnk/zEdEFj2BqI+l5i
-         /wLVsWsZCnBlcUn2+NHlVBQFvRQqY3r8XYL6Ot6UOk7npr7VEc++V7UnOj0TRX7MICb/
-         ZABdLLxSVoUB/OULKv+uzsS0gEKPoZbqMH+G4QoCnd9kjwLoidj5QMJU/e4LXLnD7E4w
-         zgCA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6tBA6OoOWbv2c5KSVbtYiIDIXeHmXOu5WZMuyEnAq/asVbEc5NePGVmwpHOamoCIrkdCz4XfgFLq8hH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lU8XzaYFgbJY3QNXFK8oUXnDFXnHBM+POB90yiHOG4+6NeLXFy
-	dC9kxMLPlX2a2eoGhfuzYMBBXT4Mk4L1kGjkBojfB+xfzJejI3Wc6JUA
-X-Gm-Gg: AYBFou0yzjoqkzcfKATdNx3Zkm+r9y2qEDlWILZUETxU9d7pOfS0RpUsmD/LlN8t+Vd
-	gR8xs2nC0JW7FP0Jq8D6mvJtowdq0JPAToBkRh1/7nuQdzHelXkNXCTeK1fyZcgYFf991HTxIR3
-	s1be+4IG/5SDv82HT6YIBPtkgFtomsiyNOLGq3oVl8QkgiuSlSYAdc/929IZTcT2m8QG3gDniGt
-	FlzRp3SUUjyORX2hqtuaZoqoD7yY08X8PeMPKGq5cdlVi2BAZDefxS4VmqwOfTKYES1SPg/25ub
-	4qaWA0YzFAfxoSmDZKMb480SxBWBLdJxhdmGaXNh6fQLNpFliq4DQsvFoPO0MTQh6iI2C61le0n
-	Mv3oeB9vVF6CiCkMcNlRmyJkQcq9+kvmXGmfeGef/84a0rla/y8YCyqkNo3RrNESgpBLT71Vlkr
-	lQQBFJBXYx2Lw0fUhy8r/2Y9nr53trgMOpIDmJ0HA8nIe8tsmdXiP6cdIoUFWXpoxKen7wrnWSY
-	WIpuFet1StGYIGEAk1etgkQsbEN3NyaCkwIFjOeTjMGDXuQZ2FwG68yq/zEipcCNoqztXwQ30AQ
-	+VN4
-X-Received: by 2002:a05:701b:4508:20b0:144:ff51:2d73 with SMTP id a92af1059eb24-146cfbd49d8mr9558498c88.2.1790517256737;
-        Sun, 27 Sep 2026 06:54:16 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad4028a9sm16386411c88.11.2026.09.27.06.54.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 06:54:16 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH net-next v2] net: pktgen: return bool from __pktgen_NN_threads()
-Date: Sun, 27 Sep 2026 21:54:05 +0800
-Message-ID: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=RsQD/KnjrsgzCX35hm6YWUaXBoN7K3xyctZ2lbnLToU=;
+        b=e6mUbjIkniSmrPRJjlYwWX8BLIvLwP/r12UEOpDdXRnTjouY9arzj2jntECC2Zth2g
+         /9jV3iC/VN5dkYFreoiCpbskdZA4fzd2lsm41jRNBRs3RAQUlrBOgytIbJ0D8xAh/Z7g
+         Xjfka//rgpK0RhUXUAE+yS0DPWYWtPRb63eioIclNomu3nx0+wxxXugcJLngqOcVeCRo
+         6DFYG9UVy0xmC6Y7tWxAwZhINH4JyZDOdRPD6pf7Yw6ZcXTqkpUsJCZW6ww49UVcG38j
+         O6gqfbEzxbpMp2/8B0w+cLDx7eCBXOV0AY8NEvBtQy84g8Sye9eVXnVOtlI694iIGkeQ
+         /KBA==
+X-Forwarded-Encrypted: i=1; AKwUvByal0VUYK8l4TOqUX2LebBwS7wp+Fggkaplcvf5OaZEyW6gtXi3Jcw5QDBSAuedBtrr94v2IAQ+uBO5Pto=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4RAjoLeuHl4Amo3j2J2LG5UTA/GcGftlkJgGqgyizesI6/ExV
+	/OaYChY1HjcI+IG8rVwCsailqwc1eZBglzkuQeS6anCe19zUFDk/cBxc4F1nqZQm+q68ro+eQS7
+	Iho0xkR/OR7uUcnWInYuIhIGt+HMmj/vpqLp8Wp/UEK9ibpBxFWLpGVsQct+ku7Ko8pA=
+X-Gm-Gg: AYBFou3ps95tHbD6S+LxD93arDiVu82R3y1rtImV5SbaHUhW6c7clAvs3uWhkKJNVor
+	tQo5LkTVNMDRG6A6WPJU7wi+/m/RSMN5kJgY6fITU1EaOAVYCqOgUXWAcD/eTGPZlQcAHtvnhf6
+	tfW5Qt2r25kyP4olIRmZCwR1RudCVhz+4Y8y+mR1JW13uvttMyKg3wMciy3HoMLmq5vt62DqUbL
+	jN2Z2LUsKzoWwHr5ulcKjSl5vc5p+6Mxhb+2kKBpPHC7v2KJu1nVKR/qSuw9mFZ8KCcMA1gT/ba
+	AHVC3MDbuGKnsIG4GXInS3uHLcpbFiHuHK00/lnYDPXAT0qkjxsxxs9GI6sZPJlIcgwYoU5psiv
+	HwA0cezeGWBiBP5MuKYD+EFzXsSliVgA3tcdSzq0mCkc=
+X-Received: by 2002:a05:7301:dd8f:b0:340:9d9f:a5c with SMTP id 5a478bee46e88-34273550304mr5496870eec.36.1790517271191;
+        Sun, 27 Sep 2026 06:54:31 -0700 (PDT)
+X-Received: by 2002:a05:7301:dd8f:b0:340:9d9f:a5c with SMTP id 5a478bee46e88-34273550304mr5496842eec.36.1790517270590;
+        Sun, 27 Sep 2026 06:54:30 -0700 (PDT)
+Received: from [192.168.1.8] ([122.164.80.202])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c17074sm20103595eec.26.2026.09.27.06.54.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 06:54:30 -0700 (PDT)
+Message-ID: <e21cfbe5-4a4c-4373-af69-33d9b74ac944@oss.qualcomm.com>
+Date: Sun, 27 Sep 2026 19:24:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: ipq5018: add label to PCIe1 port node
+To: george.moussalem@outlook.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260927-ipq5018-pcie1-label-v1-1-41f7d42f9a7b@outlook.com>
+Content-Language: en-US
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <20260927-ipq5018-pcie1-label-v1-1-41f7d42f9a7b@outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: hU8xSr7MVmOMMkY2aICuJmtyd0ElqmJS
+X-Authority-Analysis: v=2.4 cv=QvPLTlyd c=1 sm=1 tr=0 ts=6ab92018 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=M4XmOyF+KGVEWXraXaCqgQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=UqCG9HQmAAAA:8 a=O2R4rtJ4rcfsn_qeZX4A:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: hU8xSr7MVmOMMkY2aICuJmtyd0ElqmJS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA1NSBTYWx0ZWRfXzHJWv89QmLHQ
+ RMjyzERDdacybQ6oP8AAkT87huLfKVo+KgyZdmhhriIwKsXlXv+TRbaLU1SY9MdW57nuPDgD17H
+ 1QFlIjncr0/nmVoTVKo2JoCa12fFJOBN3MMpqz4hazeka8KorBLOWQBGuGsFvDlOtvaoQiDedM+
+ ufIN3h9obaKOTaHcT/Y0wNlg7B55Q78LCZKxnD9Jc9y/7JQNT9c6E1T528GIxfO0gFgQ7Z31BMm
+ VIp7QPlUQPmWaDw4nDCcnBa0kCtE78ylpm0m1EvSknT7C2r6JH/kdo4kKSIQDiC7WV3ckgOlMVw
+ 80wiNJoxtx0ZTVKeG7KMBHyafjkyW1DWfMTK89vqOTZ6p8wHTioa6bp4DOb7Tw4P01+8oi04TOa
+ n9QvFZdj/c2mcrQz58FExm6XjpFY1c4yogn+gzmMcpDrM6juj1WHrN7hTFnnroQMSgOsmetAFeb
+ SUgWYGcB3hVXIl7NEbg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA1NSBTYWx0ZWRfX57Br4hOSy0SL
+ 47ySAZSGB8/PD8c5CzESjkR4JqHcC2R5EEFj7TTSj9qdbH8rOgHyN8ulrPmXdLJCsGLMT/2HfwP
+ AsACabK3W07IGdMw4457ZvHppyOVzgQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270055
 
-Callers of __pktgen_NN_threads() only check whether a pktgen_dev was
-found. Returning the pointer exposes it outside the helper even though
-neither caller uses the object itself.
 
-Return bool instead and keep the pktgen_dev pointer internal to the
-helper.
+On 9/27/2026 10:12 AM, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+>
+> Commit a95758e9718a ("arm64: dts: qcom: ipq5018: move PCIe phys and
+> PERST# to port node") added a label to the PCIe0 port node but not to
+> that of PCIe1. Boards that have a device connected over PCIe1 need to
+> reference the port node in the board dts files, so add a label for it.
+>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>   arch/arm64/boot/dts/qcom/ipq5018.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+> index fe1ed240de59..2f3bcfa888a9 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+> @@ -838,7 +838,7 @@ pcie1: pcie@80000000 {
+>   
+>   			status = "disabled";
+>   
+> -			pcie@0 {
+> +			pcie1_port0: pcie@0 {
 
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Rebase directly onto the current net-next tree, independently of the
-  deferred RCU lifetime fix.
-- Update the commit message for the current helper implementation.
+Although the PCIe1 node currently has a label, unused labels are 
+generally discouraged. I couldn't find any upstream references to the 
+PCIe1 label. Could you please add the label together with its 
+corresponding users?
 
-Link: https://lore.kernel.org/netdev/20260825185313.239861-1-nicoyip.dev@gmail.com/ [v1]
----
- net/core/pktgen.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
-
-diff --git a/net/core/pktgen.c b/net/core/pktgen.c
-index 7f81aed46672..a89cb0760821 100644
---- a/net/core/pktgen.c
-+++ b/net/core/pktgen.c
-@@ -2024,11 +2024,11 @@ static const struct proc_ops pktgen_thread_proc_ops = {
- };
- 
- /* Think find or remove for NN */
--static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
--					      const char *ifname, int remove)
-+static bool __pktgen_NN_threads(const struct pktgen_net *pn,
-+				const char *ifname, int remove)
- {
- 	struct pktgen_thread *t;
--	struct pktgen_dev *pkt_dev = NULL;
-+	struct pktgen_dev *pkt_dev;
- 	bool exact = (remove == FIND);
- 
- 	list_for_each_entry(t, &pn->pktgen_threads, th_list) {
-@@ -2038,10 +2038,10 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
- 				pkt_dev->removal_mark = 1;
- 				t->control |= T_REMDEV;
- 			}
--			break;
-+			return true;
- 		}
- 	}
--	return pkt_dev;
-+	return false;
- }
- 
- /*
-@@ -2049,7 +2049,6 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
-  */
- static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
- {
--	struct pktgen_dev *pkt_dev = NULL;
- 	const int max_tries = 10, msec_per_try = 125;
- 	int i = 0;
- 
-@@ -2058,8 +2057,7 @@ static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
- 
- 	while (1) {
- 
--		pkt_dev = __pktgen_NN_threads(pn, ifname, REMOVE);
--		if (pkt_dev == NULL)
-+		if (!__pktgen_NN_threads(pn, ifname, REMOVE))
- 			break;	/* success */
- 
- 		mutex_unlock(&pktgen_thread_lock);
-@@ -3835,8 +3833,7 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
- 
- 	/* We don't allow a device to be on several threads */
- 
--	pkt_dev = __pktgen_NN_threads(t->net, ifname, FIND);
--	if (pkt_dev) {
-+	if (__pktgen_NN_threads(t->net, ifname, FIND)) {
- 		pr_err("ERROR: interface already used\n");
- 		return -EBUSY;
- 	}
--- 
-2.43.0
+>   				device_type = "pci";
+>   				reg = <0x0 0x0 0x0 0x0 0x0>;
+>   				bus-range = <0x01 0xff>;
+>
+> ---
+> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+> change-id: 20260927-ipq5018-pcie1-label-d7d405caf28f
+>
+> Best regards,
