@@ -1,78 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12379421221;
-	Sun, 27 Sep 2026 18:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409E33590AE;
+	Sun, 27 Sep 2026 18:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534934; cv=none; b=Ill9ELuFkJ2twoqkQPJEpmfKyP0v9nWyE46qwCCew06Zerb+EOK3pYZpcPhnEdiwq5XJKPGVeqwcrOIn2ylJzrjJQlSnGhX4TpjUWZ++JRpR+rKjjo9kvKH5Sozz2cLOMwQyRbeJuygQ5uZ5H+1zCwVAFkVX8CTfBeAjszUqY7A=
+	t=1790535006; cv=none; b=eSfJjtTIxGFnkjpBveejbwMVBe9k6kPznQ1X71NWZk99L8vdq54wtR1udh3uloGfYrsEvh5G+ZgkZt9F4ML9Z5CmXzTvMMzj7GbGJjkMleQxmxPzdierQPM2MxtoJKpCH1HqtDTmLlBSMRZx4ZlwMnc01sHv7bMZzeiNOgxdeKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534934; c=relaxed/simple;
-	bh=wSJKKlH4f3dFd85YH8R1fHaQ0lnRdwCe30jznCU79xI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DvpoWRjAcu5M1fTwa6P8yRWWBtaF5mj7lf6ZCaQuhNvfaHaN5KT3XA78Igms1eE1o8KFzZ1nQnTBDK2uWtMhqcnNRxN1MpCOmUf6XIk3znfGAyO9pYjeGsRdGG6s0CEBSHrMQh5uf7wSoCDVHXbS4+zRNui7dZoqN2KfIlgPc+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R903sp2D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790535006; c=relaxed/simple;
+	bh=ZDe/vfYFr60ID6CUjRuDiDx+zIYLf7EWijGTxdOmaI4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RvXO5VuXU6RFLK6vEKtLUsCWL3H6xugC/MUJvdnwonUtT5DzmuRXgN+ODamJNLCcv2AThFvVuVOhCyvs8LfU5bC8w7j51dT7r0ny1SmwE5cZQtiVvM+GplB/l1GRRJEPr2yzVd7/zziUaa4yWYQ5APeoJ+JKstM7VJzz2luolIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=h9OMYNe7; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R903sp2D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60B11F000FF;
-	Sun, 27 Sep 2026 18:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790534932;
-	bh=VBjGAd9X/zAnWgHj13H/8QzSsE5H8RY6xaFmtpBOQ14=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R903sp2DwAooZXScU8nDNt2rZ6n5SKZwuomCde+rCXiNdSivYiQQSmUaBegEgKWM7
-	 V/J9929eKN3iZUeLwJK5H5i930pifBHDkv1hcjc8CeQyioyFrMZIPQ91skE5pP1ftD
-	 aJKAHo7rxqwuTMP3mmp2JCPlzvnHy4I5YfjIoT6eCsRVUJOVGShEC6AK1hNTML50aG
-	 RytM6ZdvdvAnM3uP3krBA0MpwMp5TZlBpAF5QCvcs1qNkoF4VJn2615yQIg5I651Yw
-	 kSn8oqipNfeI6Ru1WbzBfmMxq9qXgeFLXW73oboNRL+Q8V/6CbzPKu6H6IhADi92Qt
-	 hiSgrNTwZPArg==
-Date: Sun, 27 Sep 2026 19:48:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: iio: Add dedicated CM32181 schema
-Message-ID: <20260927194846.51b62d34@jic23-hlaptop>
-In-Reply-To: <20260924090617.00007d47@gmail.com>
-References: <20260923191616.2217203-1-robh@kernel.org>
-	<20260924090617.00007d47@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="h9OMYNe7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Xkk0G43Izi62IE63Oro94rMuWBFwgmiIIxcAiWI1GAs=; b=h9OMYNe7Ltfvsdqcsk/z4jwILI
+	7CCnze8Cq85kzyOo59dfzepQXnK6B8VKa9SuKf3NBWGQQth+0WXGcxVd8KzGqtDT7t+ro7lBD5oCy
+	WjJb3dKWnPPHmhJLuEcpZ0mRB6pRqJWyNsglgP6Gvr8GJVWY2ahIoOmuqziSj3T89cy0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAtwd-007YOY-TK; Sun, 27 Sep 2026 20:49:51 +0200
+Date: Sun, 27 Sep 2026 20:49:51 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 6/9] net: dsa: tag_mtk: add Airoha variant
+ usage of this TAG
+Message-ID: <0ab0b856-3397-4e59-9008-a3b4d8fb4d48@lunn.ch>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-7-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925182435.21207-7-ansuelsmth@gmail.com>
 
-On Thu, 24 Sep 2026 09:06:17 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-
-> On Wed, 23 Sep 2026 14:16:15 -0500
-> "Rob Herring (Arm)" <robh@kernel.org> wrote:
+On Fri, Sep 25, 2026 at 08:24:28PM +0200, Christian Marangi wrote:
+> Add variant of the MTK TAG for Airoha Switch and comments about difference
+> between Airoha AN8855 and Mediatek tag bitmap.
 > 
-> > Add a dedicated Capella CM32181 ambient light sensor schema. The device
-> > has optional vdd-supply and interrupt properties, so it no longer fits
-> > in trivial-devices. Include both optional properties in the binding
-> > example.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > ---
-> > v2:
-> >  - use additionalProperties instead of unevaluatedProperties
-> > ---  
+> Airoha AN8855 doesn't support controlling SA learning and Leaky VLAN
+> from tag. Although these bits are not used (and even not defined for
+> Leaky VLAN), it's worth to add comments for these difference to prevent
+> any kind of regression in the future if ever these bits will be used.
 > 
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Rework the makefile, config and tag driver to better report to
+> external tool (like libpcap) the usage of this variant with a dedicated
+> "Airoha" name.
 > 
-Applied to the testing branch of iio.git.
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-Thanks,
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Jonathan
-
+    Andrew
