@@ -1,176 +1,162 @@
-Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431713CB2EA
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484463C09F7;
+	Sun, 27 Sep 2026 09:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790502503; cv=none; b=a9VniPWvZ4qlwTPJ+0T1z+0hepyIpUc+HrWxv67a9ycPec8A1tu7IllOSAaVwBvZRM0ORPpvSP8rQz5fON2oYqGKfx8EUx6toaTiYnAgUpD/AOAWXoc7KSExghjKvYg1PbOzYpAQx6+c5ME5cywHMT5dx6DZMiP1H0WeCoNClGo=
+	t=1790502538; cv=none; b=ucTSZtwFSyX2dmEBabjl/2W82MJVKE/zqBaLmbAG1Diig1+9iP7BOKK2SR6OFXKYb92og6PgynGU12BJH34Q3UGUGEhoB+MmVpndZIzBoY79iKa6RSEx3zMtx0/C9k7h0u+Fl5c8uTHWODaX+/TszfYu/Ps83yB07JD8pC2zJ+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790502503; c=relaxed/simple;
-	bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oA9wrlWavBbccQ88jiVs/NLtjkCwvmT5ASnqrXwxgRNRrd0jhBeT0NAiNf+OXJHa7JUrMrVxkBO0SEOQ7VcBsdJAXsFlEIZLWvo0Xm43zsZwmklx/zyEUVow3yLurPUwx27MZuMGYgATM01hQQC2PIsBJXTH0hbMtthgtZByxZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gGmnowq3; arc=none smtp.client-ip=91.218.175.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790502538; c=relaxed/simple;
+	bh=0N09YfjQnytfrMmqji3ExZ4+D2Biz5G2uK3SgMkwFnI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ukCvYm99I4LAuwgpazA2JH58UvIva5ShaDSV6Ctkpz+D+rQetHkPmxJgpyr7BqeqHxN/2MR5diwHOHj5I67kvYgg6qHKJYxLql3DLDxh8RjwgGkkrGORFgRxVSCOnvZupUcJDdZyzgdUCjG+UPyvcuaEs0c8pCTCEeQ6Ptz3zz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JaHG2EPc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gGmnowq3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790502497; v=1; x=1791107297;
- b=gGmnowq3wfjygxut6JzuCkT1+itiNZ0Pm4dny//0BIfVzrE01qKftU+OzyyKQQTCQXPjjQ0F
- gAo9W94skVSOmbU/oRqWh7Ga0kifPThO88WT1yIQgcZM1SCayY18pwyU+N74ZOjVLAS3W6TU+d4
- tIzJsZ7CR/axRDojYaApeuLY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 75e904128475050b;
-	Sun, 27 Sep 2026 09:48:07 +0000
-X-Mizu-Trace-ID: 75e904128475050b
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	vivek.kasireddy@intel.com
-Cc: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Hongfu Li <lihongfu@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm/memfd: fix hugetlb reservation accounting in error paths
-Date: Sun, 27 Sep 2026 17:47:57 +0800
-Message-ID: <20260927094757.31665-1-hongfu.li@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JaHG2EPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 97ABFC2BCB3;
+	Sun, 27 Sep 2026 09:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790502537;
+	bh=0N09YfjQnytfrMmqji3ExZ4+D2Biz5G2uK3SgMkwFnI=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=JaHG2EPc2JDja1JrDblw01EeC6ifrHk4Qe6H+OIqITBVjCASUWn3wPXXsaFpAAi8g
+	 rSYedDMguEc9sEtUagUtu4wf0NHfFJc94fIs07m9U+LGqJw0X713yP/AW5arCOqsPM
+	 NLdMSHcIf6cj9ltm0inIta+dD0PqbYZOXtwWqGs6XmXX+FYqZdj1hRuRHUFzlLWmQ8
+	 43VBMyYqicixTRfVWjHSyergkX6QRUkeIsXh7JmaYbWXpZh2gE2KTXtUPiGGxNUh+G
+	 X/EVkwHw4i27rU6TTjACnfkd9NngtZ83ghCzkkR+VpaLY161lKlUdrMmUOLX2cMiJW
+	 T8xk6upSCGzjg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BFB3C9832F;
+	Sun, 27 Sep 2026 09:48:57 +0000 (UTC)
+From: Henrik Ma Johansson via B4 Relay <devnull+dahankzter.gmail.com@kernel.org>
+Subject: [PATCH RFC] io_uring: add IORING_OP_COPY_FILE_RANGE
+Date: Sun, 27 Sep 2026 11:48:56 +0200
+Message-Id: <20260927-cfr-rfc-v1-0-5b9ddbe0490f@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNz3eS0It2itGRd41RDY7PE5MQ0M5NUJaDqgqLUtMwKsEnRSkFuzkq
+ xEMHi0qSs1OQSkBlKtbUAphQPf3AAAAA=
+X-Change-ID: 20260927-cfr-rfc-3e136acaf64e
+To: Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Henrik Ma Johansson <dahankzter@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4464;
+ i=dahankzter@gmail.com; h=from:subject:message-id;
+ bh=0N09YfjQnytfrMmqji3ExZ4+D2Biz5G2uK3SgMkwFnI=;
+ b=owGbwMvMwCXG83nVLZlv8sKMp9WSGLJ2POt4o3KH8QV/mvbRZTFcFw6aCWq6XFtS69Ancfv2h
+ 4iHi67XdZSyMIhxMciKKbJcqnFdeI7hRq5jyocEmDmsTCBDGLg4BWAi/cYM/93M/p6NSuZmWRvu
+ wHSkLmUe9zunf81fmoTmbIuSZFaaLMLwP1/voLGa6OIfj60OcpUkMHTdMlqxkS+tb7OM1yfWPVP
+ msQIA
+X-Developer-Key: i=dahankzter@gmail.com; a=openpgp;
+ fpr=D27C45A1CE00D86D4164F0600CF3AADA1CF61F13
+X-Endpoint-Received: by B4 Relay for dahankzter@gmail.com/default with
+ auth_id=1067
+X-Original-From: Henrik Ma Johansson <dahankzter@gmail.com>
+Reply-To: dahankzter@gmail.com
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+Hi,
 
-If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
-a concurrent fault has already instantiated the folio in the page cache,
-and the reservation now belongs to that folio. Calling
-hugetlb_unreserve_pages() in that case incorrectly removes the region
-backing the cached folio and releases one reservation more than it
-should, leaving that folio in the page cache with no region recording it.
+This adds IORING_OP_COPY_FILE_RANGE, a thin io_uring front end for
+vfs_copy_file_range(). A liburing helper, man page and test follow
+separately.
 
-That leaves resv_huge_pages one page short until that folio is removed
-from the page cache, so available_huge_pages() reports a page that is
-not actually free and the pool can grant one reservation more than it
-can back. Applications using hugetlb memfds can then fail to allocate
-or fault in a page they already reserved. They see -ENOMEM or -ENOSPC
-from the allocation or fault path even though the reservation and
-HugePages_Free still look healthy.
+Why not splice: copy_file_range lets the filesystem choose how to copy.
+XFS and Btrfs share extents (reflink); NFS, CIFS and Ceph copy server
+side. IORING_OP_SPLICE needs a pipe on one end, so today's io_uring
+alternative is two linked splices through a pipe, which always moves
+every byte. It has been asked for in liburing issues #831 and #1383.
 
-So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
-error-path unreserve completes to make the reserve, allocate and
-instantiate steps atomic against concurrent faults. With the mutex held
-from the start, a concurrent fault can no longer consume the reservation
-between reserve and allocate/instantiate. If a fault completed before the
-mutex was taken, it has already added the region for that index, so
-hugetlb_reserve_pages() returns 0 and the error path leaves the region in
-place.
+4 GiB copy + fsync, virtme-ng guest (relative numbers only):
 
-Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+                  this op            two linked splices
+  xfs             0.010 s, 0 MiB     3.17 s, 4+ GiB written
+  btrfs           0.010 s, 0 MiB     2.29 s, 4.0 GiB written
+  ext4            3.27 s             3.22 s   (no reflink; both copy)
+
+On loopback NFSv4.2 the copies show up as nfsd COPY operations.
+
+Semantics are the syscall's: the SQE is packed like splice, -1 offsets
+use and advance f_pos, and all checks are vfs_copy_file_range()'s, so
+there are no fs/ changes. The length is clamped to MAX_RW_COUNT since
+cqe->res is 32 bits.
+
+There's no nonblocking path, so it's always punted to io-wq, like
+splice, fallocate and ftruncate. This is not a throughput win: for
+cheap reflinks it is 1.6x (xfs) and 1.2x (btrfs) slower than a
+synchronous call in my runs, because of the punt.
+
+The point is what the punt buys a userspace runtime. Thread-per-core
+runtimes (I'm working on glommio) keep a per-shard blocking thread for
+syscalls the ring can't express, and copy_file_range is one of the last
+runtime-internal users of it, so user work queues behind runtime copies.
+Modelling that with 30 queued 16 MiB copies and a probe task:
+
+                  probe wait, p50     p90
+  thread pool     51-83 ms            52-87 ms
+  this op         28-40 us            45 us - 0.6 ms
+
+Userspace could split its queues instead (Seastar did), but on the ring
+the copy also links with open/fsync/close, completes on the same CQ,
+works with fixed files and can be cancelled: queued copies get
+-ECANCELED, a running byte copy stops early with a short count. One
+caveat: io-wq workers inherit a pinned submitter's CPU mask, which shows
+up as ~3 ms tails, so pinned runtimes want IORING_REGISTER_IOWQ_AFF.
+
+Questions I'd like opinions on:
+
+ 1. Should a short copy break an IOSQE_IO_LINK chain (as read/write/
+    splice do, and as this patch does), or only errors? EOF on the
+    source gives a short count in normal use.
+ 2. audit_skip: set as for the other data transfer ops, since the
+    syscall is in no audit class. Right for an op that can allocate
+    blocks?
+ 3. How should this fit with the thread identity handoff RFC? The issue
+    path works inline or from io-wq unchanged; cheap reflinks look like
+    a good fit for blocking inline issue, long byte copies less so.
+ 4. Only -ERESTARTSYS is mapped to -EINTR (as in net.c). Would you
+    rather reuse rw.c's io_fixup_restart_res()?
+
+Testing: the liburing test passes on xfs, btrfs, ext4, tmpfs and
+NFSv4.2, on release and KASAN+lockdep kernels, and checks error parity
+with copy_file_range(2). No new failures in the liburing suite. Base:
+for-7.4/io_uring at 8dc68de64261.
+
+AI assistance (Documentation/process/generated-content.rst): the patch,
+test, man page, benchmarks and this letter were drafted with an LLM
+(Claude) in a long interactive session: prior-art research, design,
+implementation, and running the tests and benchmarks above. I reviewed
+all of it, and I'm responsible for it.
+
+This is my first time submitting a patch to the kernel and while I have
+been coding a long time this is still a major milestone. I got the idea
+to implement copy_file_range when I was working on glommio that uses
+io_uring heavily. We are currently using a thread pool for this and it
+works but it kept nagging me in the back of my head until finally I
+decided to give it a try.
+
 ---
-v3:
-- Update commit message to describe the accounting damage and its
-  user-visible effect; no code changes.
-- Add Cc: stable@vger.kernel.org.
-v2:
-- Take the hugetlb fault mutex before hugetlb_reserve_pages() and hold
-  it until the error-path unreserve completes.
-- Update commit message
-- Link to v1: https://lore.kernel.org/all/20260831090631.29227-1-hongfu.li@linux.dev/
----
- mm/memfd.c | 31 ++++++++++++++++---------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+Henrik Ma Johansson (1):
+      io_uring: add support for copy_file_range
 
-diff --git a/mm/memfd.c b/mm/memfd.c
-index c708d92533f4..0f6fff004f5e 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 		struct hstate *h = hstate_file(memfd);
- 		int err = -ENOMEM;
- 		long nr_resv;
-+		u32 hash;
- 
- 		gfp_mask = htlb_alloc_mask(h);
- 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
- 		idx >>= huge_page_order(h);
- 
-+		/*
-+		 * Serialize hugepage allocation and instantiation to prevent
-+		 * races with concurrent allocations, as required by all other
-+		 * callers of hugetlb_add_to_page_cache().
-+		 */
-+		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
-+		mutex_lock(&hugetlb_fault_mutex_table[hash]);
-+
- 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
--		if (nr_resv < 0)
--			return ERR_PTR(nr_resv);
-+		if (nr_resv < 0) {
-+			err = nr_resv;
-+			goto out_unlock;
-+		}
- 
- 		folio = alloc_hugetlb_folio_reserve(h,
- 						    numa_node_id(),
- 						    NULL,
- 						    gfp_mask);
- 		if (folio) {
--			u32 hash;
--
- 			/*
- 			 * Zero the folio to prevent information leaks to userspace.
- 			 * Use folio_zero_user() which is optimized for huge/gigantic
-@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 			 */
- 			__folio_mark_uptodate(folio);
- 
--			/*
--			 * Serialize hugepage allocation and instantiation to prevent
--			 * races with concurrent allocations, as required by all other
--			 * callers of hugetlb_add_to_page_cache().
--			 */
--			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
--			mutex_lock(&hugetlb_fault_mutex_table[hash]);
--
- 			err = hugetlb_add_to_page_cache(folio,
- 							memfd->f_mapping,
- 							idx);
--
--			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
--
- 			if (err) {
- 				folio_put(folio);
- 				goto err_unresv;
-@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 
- 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
- 			folio_unlock(folio);
-+			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 			return folio;
- 		}
- err_unresv:
- 		if (nr_resv > 0)
- 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
-+out_unlock:
-+		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 		return ERR_PTR(err);
- 	}
- #endif
--- 
-2.54.0
+ include/uapi/linux/io_uring.h |  1 +
+ io_uring/opdef.c              | 11 ++++++++
+ io_uring/splice.c             | 58 +++++++++++++++++++++++++++++++++++++++++++
+ io_uring/splice.h             |  3 +++
+ 4 files changed, 73 insertions(+)
+---
+base-commit: 8dc68de64261e599631aa7ed6cdf3aec07c7ae3d
+change-id: 20260927-cfr-rfc-3e136acaf64e
+
+Best regards,
+--  
+Henrik Ma Johansson <dahankzter@gmail.com>
+
 
