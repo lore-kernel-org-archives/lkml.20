@@ -1,107 +1,143 @@
-Received: from mail-wr2-f41.google.com (mail-wr2-f41.google.com [74.125.225.105])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6183B2D38
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EB83B2FFB
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790528647; cv=none; b=fOZgGKIStTtwHW3OHegCeG8pP8R9O5dFF+A15zil8AJ33NNBXPEAHtuhcuIIgKCimBadtC+wf8eyl1DzUVPP+9UJ7dfdUWwB/KIZZLmlMQh5xNZQGcoA48UkGYcTob4EFEWmQ47K1cho7B4jvrAjIvDYMNWn/56nO6/3mbSt1Cg=
+	t=1790528693; cv=none; b=UoT6NaZG16CFbA7hIpWy5OQlu55kk3qJ2uWJhzqX5wlNijsFUpdcyuH+NNLAYr4yw1MaqrAbZbYjhwDE5A7etTY9qCLWpf2GTPcYxCX1HGvji8YdLRsKZRVmuuQ2jdnMIXeBqb8GIwguI30x55ZyYXhrIy2J3UwtjRWE7Kyn4kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790528647; c=relaxed/simple;
-	bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LEmA7eplbJoDSTja3x//HNBnrWkDKc2uVfGHumy53wBS0dfF0BTUq/nz4bMjt2Notq4Fym0OiwtZnEKqvByyRRVLi9EPMKNT0RszhReIh+RfDxeD1jdLaAmx4kteooMidZrTdxpttm7teuegz2Um21S7h9zfjrohGOHiUm7ILhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QMAzyjFG; arc=none smtp.client-ip=74.125.225.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790528693; c=relaxed/simple;
+	bh=umRg6sHE8xI2v8/ZCPno6hVT+lkxJZtpfs6Jv9z2WGc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WYiNPiFruveeNEomMKiYUE7tLbHBizkw2JQtlsLPPIQxjrIfrpTo+VbLnf4lbr/e/NrkX3C8yGD0i8SGDbDalk33hWeejw/mpqfGmBePltPOAGkc9qrdLhFV945eZMXdwJjZ23hGuwBfVNamf41AvQ93jfN8l/n8nM8kaeMOyt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpNpPbyN; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QMAzyjFG"
-Received: by mail-wr2-f41.google.com with SMTP id ffacd0b85a97d-4834977ae75so1310395f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:04:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpNpPbyN"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so12027915e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 10:04:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790528644; x=1791133444; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-        b=QMAzyjFGYmH6eBp9DRTy7oT/AGz0zCjmD0Fd7vN5Fj7kyVxUWqiADC+taJnhsnFxke
-         i4ZWqwWKbn/JMmmy3yk5EWbnYAJr+hgy71HpWxX2DzRQG76OU5Y5J222/53MyRUioq7p
-         S7BtI8WtnBtrL8VSRw0kjpB7RedIEwm/poA5fXgMXGEasPDnLoSFahdXOpNjH28bTfEK
-         z33KuvAg5PhLn4QGL00fWijwfbZ6xep4vmygQArOz2uRLy67VBgIE8szc4iEexVGx3zG
-         yxEo0v2QSiXkurY2Bgj5FXP3hAyK7yO/WLMEl2ZPcWFY7Yuzi61mjdsNRQKl7F9Mhcp0
-         6Zfw==
+        d=gmail.com; s=20251104; t=1790528689; x=1791133489; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XYOA6wzNnhspYLPBWaqZitj5w8g5poC+csBPNVU7geQ=;
+        b=FpNpPbyNtgIlkiRspvNsikihdo8f9cmp59oqH3NMQHDbbNkZlRlxYfK7+xaPu1rJva
+         sNkjrGpOvOdXBjNuW3xLP5Qx+KW8tOazwPyiaKSBN4gOhjNk0YTJn/bkekBKHSmzoOj4
+         GpZOH87x+BrMERvjXyNlaIc0aLYMAXeA5vB+UySaVcbUtgLWeEzemxITsP/4kCeE1EaG
+         M34K1o/FEVB5uNzBFvWTxscs2yXdPliDmASAQ7Fdz6gxZvEzTVLSdnBl13plk9vI7spg
+         eKZGkRlDmY1I8/aAuoK17A6TSThJv1q/TWl52rX1wq9nYKDtuTHZ0WTCYGSe8PvQ3b84
+         8s6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790528644; x=1791133444;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-        b=hYpfMUrQ3fh9CINgzB14ZptuxOGrNegWbnZ2Ee2e25JljmlgD4S4fFJtKTffmetdFb
-         9AfC2pEVux+n37sFxBeVm6yFlnBcXjVj99gO+EBg2r6DlOqLnqHeAq8V2qqAaz3+jWJY
-         jtLDMoPMEUK7gN3JcKXNXV92RdpFnkuq+BGSEl8NCI18aGHxDwYhQAzb+HPREBuBK5fW
-         tpw8gP6bXyxX/4QWIHJOw1DcYUPxdLBQt6YUu2QvnuZllqhfF9SowsyIydGwRkXHvB89
-         LTDI0sQBB5z2PutXUrJDgJu90iAL9t7lDooZQF7SovjBG8zmNGg9AB0qZk/OHERLv+95
-         ghFw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1ARM7504kxjj/Qdb8IHcmCCjgHGFpDcibSXvPFaxMI2tLMi++WwMtdkMCosCEFuvGys9XPxaL3ONuc64=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLO+Vimn/Zu7kw57CI+SX8nJpVA4DCtXz+ZH0q+BmHDZ6BIZMP
-	+eoFWVbxd4Qn7pkU+5xcTK1fmZ6RI6rsWZ7JnCuJ8JAORENi2lOSGS8xFbCPv6HUw04=
-X-Gm-Gg: AYBFou2nHC608Jn6cHmJOdxIIdOF08cFaR9lJkOZhNFLe3xtKRBPwB0bi+q+kPV5sHH
-	VQsV5/92b3Mj9jjbdCN9yM28I0AAGn7vRVTeG6d9oPG5+0D+Um2gLLi2Ms196XfYL6E4U6M/Ext
-	X+oF1c5PhaXBWMYCP+a90E3qzlxP6g+reytTBfqzTaASzwooDWS3CLnh/XJjwBLHkeE0cv1mUp6
-	cF0qCBW6UPUBE/5tKv5jP40Thr/QkouQBPZUdXQ49JVmOWthvhqF7AA+m3/gsCnWHL3GOKgIuBu
-	Csj3H0m1MNAZ/Tu4p6qU/jg/tZtKA4a3U1j3v62xYQLVUsljOjDj/16xQsdkVTvMTEzJ9rK37Oc
-	6oXAya2gOuqpqt62taD0+3Wb3my5bUJQKJZiinZoji3JHdq2Z96WZRP7rcU2GCjGCeElhe0/H+C
-	J0acGwNlpLPuF1v3XJAojmHtPUEZDb3AJiBCDMprgFV3EmocHuG0dLm2lAefHVX0lJ9bofUDz+j
-	SW8gR7IMXUR9moppw==
-X-Received: by 2002:a05:600c:3b05:b0:4a0:321:6ddd with SMTP id 5b1f17b1804b1-4a003217170mr23998885e9.34.1790528642770;
-        Sun, 27 Sep 2026 10:04:02 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b9aesm19992213f8f.5.2026.09.27.10.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:04:02 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
- <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
- <miquel.raynal@bootlin.com>, Jacky Huang <ychuang570808@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] clk: nuvoton: ma35d1: Add missing WDT/WWDT
- parent clocks
-In-Reply-To: <20260925-perso-ma35d1-upstream-clk-v4-4-f3697553391f@bootlin.com>
-References: <20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com>
- <20260925-perso-ma35d1-upstream-clk-v4-4-f3697553391f@bootlin.com>
-Date: Sun, 27 Sep 2026 19:04:01 +0200
-Message-ID: <1jbj9iaany.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1790528689; x=1791133489;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XYOA6wzNnhspYLPBWaqZitj5w8g5poC+csBPNVU7geQ=;
+        b=adxBdfH7chgudIFLn79h1c6k0OVEm47RtUadnfHA1/xxYDFGM4aq8nQwJVTaQH27JE
+         o4W7MtzsqvsU/g9Rkqn0pjiRYiOTFwhQTXVQmZVaaBj8t9Y7HJNBGgrNy8ACo5TxethW
+         NDWTJZgvpdYaGo8MZ+o7nQkO6Qi3MzzkYbNe4ixqu2huzpUwGv1aL4QzZL2Rmue23W7V
+         U38Tf/vNQ3ErDxSda3SqIHVn5YtpiXX5RntCzxik0qbLqigKTVHB4G4ea1Ipofe67SrX
+         H98SKEYci8q4Mq+MS4iNrJBHIKmELMFU/LgfYiQvqqWEPM11/Hcd75SKhPG42WNu/ML6
+         V7fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiy3Lzse3ARFXr9xQMkYLsbjlghPGrpQ6TLTuLmFSiWWWvfeXoRMRYaMYuL6u3sDJA3mbRSR8Ebe9821Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lo6xntnDvZXa4/9odW5WoQC8Z+DIPR/Clv+E2DTKMIM4Kce/Uz
+	SYpkvFY7XfD3hqNCAhRE5sLclZnKz8cW06EUzck6ypFnbnOQgaDkLiaR
+X-Gm-Gg: AYBFou11J0nvfiHWzfxZL+8HoJx6+DIKtvdLr9FjXl3y+fiREYmden7RhRcCn2dMXqf
+	J1uoABKKhBSf56ejXAr9BpACSOxiU4QxIM/Yt0EkEKg5owDuoymdHhDi42CsLBkrIZ89hnntFyA
+	QD6AK76R4Y0IgAt+JV5xADhHNRmYdqom8GiUm40CoS+JH9fDa2gQBMN6DVaH2/JZxIpjZoWDZcK
+	r9YMLuFKLpurZVFiAXbTbw69PNmv/PXdo8n2y2fEan/KlISLfVplGdjIhV/E0T1zDzv9USfflBx
+	+1hXkqgZVJKyAliPlHYLnsBUKgM1vN8SFei/pLb60CSS+IBPqsvPYC4VnHNWbSotDO1r/HCXKGW
+	ytbQPv77gTejmJluEYjDoxwa9Hr9+XOVYR9qp8OMPfv2J8YgBdkciAdM/j/gRYEWYZ3mZqnoni1
+	PHtqA/6zG3PO2N6xvbYYqXeHjmcUzPaFyJnTmFfJXJJHD9RzwEavJise/P+i7F64z7PJNUTP/6H
+	au4FxTJ9CRY6QyqhHyy/OJngb745/UJeqW/VTiMApKk9dwNm8M816oCYRRCP5oTVi1PDOCP2Zx/
+	bydINsgoxpv+X8MXI7YB/37Jzb5L0rZJWAtCZlLSOD27Byjl1YxlOzPrWopUGHOr9Gy5jMY9eXW
+	SLl0lFLQZNwo=
+X-Received: by 2002:a05:600c:3b98:b0:49f:ce78:3564 with SMTP id 5b1f17b1804b1-49fe66f187cmr214606745e9.21.1790528688718;
+        Sun, 27 Sep 2026 10:04:48 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2e6-5301-2072-0420-f831-ed4e.310.pool.telefonica.de. [2a02:3100:b2e6:5301:2072:420:f831:ed4e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef5f876esm149241385e9.2.2026.09.27.10.04.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 27 Sep 2026 10:04:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Zhao Li <enderaoelyther@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] mm: hugetlb: Fix subpool usage leak on allocation failure
+Date: Sun, 27 Sep 2026 19:04:26 +0200
+Message-Id: <20260927170426.2467-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260916-hugetlb-subpool-always-track-used-v3-3-38aae9b5ccdd@google.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com> <20260916-hugetlb-subpool-always-track-used-v3-3-38aae9b5ccdd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On ven. 25 sept. 2026 at 17:10, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+On Wed, 16 Sep 2026 16:39:03 -0700, Ackerley Tng wrote:
+>  out_subpool_put:
+> +	if (map_chg) {
+> +		long gbl_resv_put = hugepage_subpool_put_pages(spool, 1);
+> +
+> +		hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
+>  	}
 
-> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-> possible parents, but the driver never registers the corresponding
-> clocks, so these parents could never be used.
->
-> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-> and pclk4 and expose them through the clock provider.
->
-> Reported-by: Jacky Huang <ychuang570808@gmail.com>
-> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+I reproduced the same fallible-positive-adjustment problem in this
+calculation.
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+The complete subpool put is locally correct, but it can expose capacity
+which another operation consumes before this call tries to restore the
+corresponding global reservation. A positive hugetlb_acct_memory() can
+then fail with -ENOMEM, and its return value is ignored.
+
+I tested the exact patch prefixes on v7.3-rc3 in x86-64 QEMU with 2 MiB
+huge pages, at both one and four vCPUs. A default-off test hook enforced
+this ordering:
+
+1. A shared MAP_NORESERVE fault acquires one page from a four-page
+   minimum subpool while the global pool has no spare capacity.
+2. Folio allocation fails.
+3. Before rollback, an existing reservation is released and a competing
+   reservation consumes that newly available capacity.
+4. The subpool put restores the local minimum state, but its required +1
+   global correction fails with -ENOMEM.
+
+Both CPU counts produced the same result:
+
+  Source state  Cleanup result  After file removal / after unmount
+  ------------  --------------  ---------------------------------
+  v7.3-rc3      old cleanup     4 / 0
+  patches 1-2   old local leak  3 / 3
+  patches 1-3   +1, -ENOMEM     3 / ULONG_MAX
+  patches 1-4   +1, -ENOMEM     3 / ULONG_MAX
+
+The expected values are 4 after file removal and 0 after unmount. Patch 3
+removes the local usage leak, but the failed positive correction replaces
+it with globally unbacked subpool reservations and the unmount underflow.
+Patch 4 does not cover this earlier allocation-failure path.
+
+As in the reservation case, the base remains balanced in this controlled
+interleaving. Patch 1 makes the path observable on the minimum-only mount,
+and patch 3 changes the local leak into globally unbacked reservations.
+
+As for 2/4, I think the subpool get must remain provisional until the
+allocation commits or aborts.
+
+A LLM agent helped me with the tests.
+
+Thanks,
+Karl
