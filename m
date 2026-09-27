@@ -1,328 +1,101 @@
-Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F32E1FECCD
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 04:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAF3350298;
+	Sun, 27 Sep 2026 04:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790483816; cv=none; b=q8MyuYbNEze4tw9Qnx+W/UBSo9fTXh7BFXMWQA/gTEh8h9ygW3AwesXJV9zTLhB7TeOVf/Colh3TJYbE1FW719VMB15el3SAxi8QryC3aViOiYybuf6kqbugfcW3mZ0EsMS2YvGQJjPofPeNGRFdAhAPzBsILPDYQL2fzvTIGNI=
+	t=1790484178; cv=none; b=PBfNFVL4hHLLLBwDbS7jrLGjWyL/FN+4fdubIIPWHOlqzcFZ8O5t85aSF4vS0CRhhiqZhu4rVkAsdAajFKjynz17YUgVWePqr2N6vTaY2Ezlqo7Xl7nvqMDM7JQ9x2Ihua17yU3XdoaiVGcDpw2CuncLR5491hA+rvLZzcVjdFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790483816; c=relaxed/simple;
-	bh=IceE4e/RLvwU0VGaJlE66jbhYKSpqTO1ckygmdlKcrE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=WUfVQ7iUu1u/boqSKzdmO+trC5zFzOOStWmGQOBz1eg+j9lYUpfm211ZVK1iqOhdNSzTz81MUQYyIdVKieWX3iXj6XTYfH1bBQFChAPNbgEy/7ar1Y0u/a+qyWpteTjTvXlEOf7liRB/+Eam7sqyGpdcxOU29yne63dB8h1SO28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QBRVzqxH; arc=none smtp.client-ip=95.215.58.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790484178; c=relaxed/simple;
+	bh=ASiXaQu8+yanGWTTKywMV7+FoCiKv/sW41WRXNkKl0c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=N21wPF7tntlGE8zljp/7n261E+yZAe8KJO2nnAMRV6yfheIPv0ASdoJOJ3vFcdWqwLTt58uZPy1H+LnvfNF8OqMoXAxHkGB4iqvzUJFNNEBH9qkdcA/wSybHKp6vopk5+CuWuZWoyLeT//FgvSV0eLfoULJAPrwQXS7cpIzF1PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFipiwzn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QBRVzqxH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IceE4e/RLvwU0VGaJlE66jbhYKSpqTO1ckygmdlKcrE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790483812; v=1; x=1791088612;
- b=QBRVzqxHLh8BFjRVPlNnXTPSs9MopLL0sYT3b2GMKDdIQUb43NA7Cuiv6HNDAm5Z30o8Dhug
- Izbh6l8PiMHgSQGGzVJjXnvcYYScziszMLShd2vflN1uSegQs7kVk04d0pUMLLvClw9kVjhkv8i
- FvBGO9/sBDS83XreDqbCmSC4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 232d4b177b281d97;
-	Sun, 27 Sep 2026 04:36:52 +0000
-X-Mizu-Trace-ID: 232d4b177b281d97
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFipiwzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2027CC2BCB3;
+	Sun, 27 Sep 2026 04:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790484178;
+	bh=ASiXaQu8+yanGWTTKywMV7+FoCiKv/sW41WRXNkKl0c=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZFipiwzn7JqrhDz/7I3wrsc+BxAzBWdA9ac3khUR8yZ2NX3H4QaXQuORn7a/JFQK6
+	 Na2FxXhCSUp6nFCy0S0IzEdpSk2keHFE/lg9ebqJR1ldXunCmaC6/rzr4a8NbvekZK
+	 fB9WH6JID9VAA8jWsb5uMJUc2nrvin+2WPIxc+UugA9exYLrgaN+ntI+OqEC3mT7xG
+	 ibpVd61IQP95wKgw4fhq8WZSLfvuRDvqS1VY7cW0PWs6kyK9AKN/QaHeTjVy0D8BQ4
+	 0r6N8zHOAwSsfsSvDIlgB1sRJGb7/WnVk8Kg4etucFF24+2kDpTSUbiTlLwzlQc63B
+	 +Cm9ev098Pkuw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8B36C9832F;
+	Sun, 27 Sep 2026 04:42:57 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Sun, 27 Sep 2026 08:42:56 +0400
+Subject: [PATCH] arm64: dts: qcom: ipq5018: add label to PCIe1 port node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v3] mm/hugetlb: fix overbroad MMU notifiers for unshared
- PMDs
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <83eefc56-cdb3-4e9b-9a2c-13819493afaa@bytedance.com>
-Date: Sun, 27 Sep 2026 12:36:36 +0800
-Cc: linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- aiqi.i7@bytedance.com,
- akpm@linux-foundation.org,
- david@kernel.org,
- osalvador@suse.de
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <34FA9F7E-F38A-4CF6-B994-83B75E6E4CBF@linux.dev>
-References: <20260924082004.82450-1-lizhe.67@bytedance.com>
- <76ee3d7a-cee9-4ff3-9d4c-068a46883e30@linux.dev>
- <83eefc56-cdb3-4e9b-9a2c-13819493afaa@bytedance.com>
-To: Li Zhe <lizhe.67@bytedance.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-ipq5018-pcie1-label-v1-1-41f7d42f9a7b@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQqayuEi1MxxqIMoUIwrsnL
+ d/i/xcSRaYEY/VCpJsTn0eBrCuwmzlWQnbFoITqxKA0crhaIXsMlknibhba0WnXiNYar3oPpQy
+ RPD//dZpz/gASTcSSZQAAAA==
+X-Change-ID: 20260927-ipq5018-pcie1-label-d7d405caf28f
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790484176; l=1071;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=HNZl3Aso7KY3/rmD1u9y6FFgvwtYVcoDQZoiHKmM2AM=;
+ b=ikHgmUVE3MQ8T0uEHdvr3Kvn0mVtTALISk/rbJhf/noKsJdYIT+aTLveg+c7YpC0WCtwDBT3Y
+ Cw0+cUSG4rRCfBAzuhSK2CIXSPiLW/giSbVojs0RGj03x5CmcRoQlSI
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
+From: George Moussalem <george.moussalem@outlook.com>
 
+Commit a95758e9718a ("arm64: dts: qcom: ipq5018: move PCIe phys and
+PERST# to port node") added a label to the PCIe0 port node but not to
+that of PCIe1. Boards that have a device connected over PCIe1 need to
+reference the port node in the board dts files, so add a label for it.
 
-> On Sep 24, 2026, at 19:20, Li Zhe <lizhe.67@bytedance.com> wrote:
->=20
-> On 9/24/26 5:51 PM, Muchun Song wrote:
->>=20
->>=20
->> On 2026/9/24 16:20, Li Zhe wrote:
->>> Hugetlb currently expands MMU notifier ranges to PUD boundaries =
-whenever
->>> PMD sharing is possible. That is only needed when huge_pmd_unshare()
->>> actually detaches a shared PMD page table, because clearing the PUD
->>> invalidates the whole PUD-sized virtual address range.
->>>=20
->>> For hugetlbfs hole punch, and similarly for other hugetlb unmap =
-paths,
->>> a shared mapping can pass the "PMD sharing is possible" range test =
-in
->>> adjust_range_if_pmd_sharing_possible() even when the hugetlbfs file =
-does
->>> not currently have any shared PMD page tables. KVM then receives a =
-1G
->>> invalidation for a 2M operation and zaps unrelated secondary =
-mappings,
->>> so the guest has to fault them back in.
->>>=20
->>> Avoid this by tracking active PMD-sharing attachments per hugetlbfs
->>> inode. The count is incremented only after huge_pmd_share() =
-successfully
->>> installs a shared PMD table, and decremented when =
-__huge_pmd_unshare()
->>> actually detaches one. Since huge_pmd_share() can run concurrently =
-under
->>> i_mmap_lock_read(), use atomic operations for the count. A zero =
-count is
->>> used to skip the conservative notifier range expansion only after
->>> excluding concurrent PMD sharing with the mapping write lock.
->>>=20
->>> On a Redis-in-VM workload that punches cold 2M hugetlb pages, this =
-patch
->>> improves P99 QPS stability while punching pages, reducing the QPS
->>> degradation ratio from 7.09% to 1.45%.
->>>=20
->>> Reported-by: aiqi.i7 <aiqi.i7@bytedance.com>
->>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->>> ---
->>> v2:=20
->>> =
-https://lore.kernel.org/all/20260922090749.24905-1-lizhe.67@bytedance.com/=
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ arch/arm64/boot/dts/qcom/ipq5018.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->>> v1:=20
->>> =
-https://lore.kernel.org/all/20260831091023.66581-1-lizhe.67@bytedance.com/=
+diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+index fe1ed240de59..2f3bcfa888a9 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+@@ -838,7 +838,7 @@ pcie1: pcie@80000000 {
+ 
+ 			status = "disabled";
+ 
+-			pcie@0 {
++			pcie1_port0: pcie@0 {
+ 				device_type = "pci";
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
 
->>>=20
->>> ChangeLogs:
->>> v2->v3:
->>> - Rework the sticky state based on Andrew's feedback: use a =
-per-inode
->>>    counter of active PMD-sharing attachments, so files can return to =
-the
->>>    no-active-sharing state after PMD sharing ends.
->>>=20
->>> v1->v2:
->>> - Rework the implementation based on David's suggestion: remember
->>>    whether PMD sharing ever happened for a hugetlbfs file, and skip =
-the
->>>    conservative notifier range expansion while it has not. This =
-avoids
->>>    the per-unmap page-table walk.
->>>=20
->>>   fs/hugetlbfs/inode.c    |  1 +
->>>   include/linux/hugetlb.h | 43 =
-+++++++++++++++++++++++++++++++++++++++++
->>>   mm/hugetlb.c            | 13 ++++++++++---
->>>   3 files changed, 54 insertions(+), 3 deletions(-)
->>>=20
->>> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
->>> index 7611a8470ea26..78e27ce0a6f63 100644
->>> --- a/fs/hugetlbfs/inode.c
->>> +++ b/fs/hugetlbfs/inode.c
->>> @@ -921,6 +921,7 @@ static struct inode *hugetlbfs_get_inode(struct=20=
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260927-ipq5018-pcie1-label-d7d405caf28f
 
->>> super_block *sb,
->>>           simple_inode_init_ts(inode);
->>>           info->resv_map =3D resv_map;
->>>           info->seals =3D F_SEAL_SEAL;
->>> +        hugetlbfs_pmd_sharing_init(inode);
->>>           switch (mode & S_IFMT) {
->>>           default:
->>>               init_special_inode(inode, mode, dev);
->>> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
->>> index 16c4c4caa126c..6b4f92b7f7ae4 100644
->>> --- a/include/linux/hugetlb.h
->>> +++ b/include/linux/hugetlb.h
->>> @@ -12,6 +12,7 @@
->>>   #include <linux/page_ref.h>
->>>   #include <linux/list.h>
->>>   #include <linux/kref.h>
->>> +#include <linux/atomic.h>
->>>   #include <linux/pgtable.h>
->>>   #include <linux/gfp.h>
->>>   #include <linux/userfaultfd_k.h>
->>> @@ -509,6 +510,9 @@ struct hugetlbfs_inode_info {
->>>       struct inode vfs_inode;
->>>       struct resv_map *resv_map;
->>>       unsigned int seals;
->>> +#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
->>> +    atomic_t pmd_sharing_count;
->>> +#endif
->>>   };
->>>     static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct=20
->>> inode *inode)
->>> @@ -516,6 +520,45 @@ static inline struct hugetlbfs_inode_info=20
->>> *HUGETLBFS_I(struct inode *inode)
->>>       return container_of(inode, struct hugetlbfs_inode_info,=20
->>> vfs_inode);
->>>   }
->>>   +#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
->>> +static inline void hugetlbfs_pmd_sharing_init(struct inode *inode)
->>> +{
->>> +    atomic_set(&HUGETLBFS_I(inode)->pmd_sharing_count, 0);
->>> +}
->>> +
->>> +static inline void hugetlbfs_pmd_sharing_inc(struct inode *inode)
->>> +{
->>> +    atomic_inc(&HUGETLBFS_I(inode)->pmd_sharing_count);
->>> +}
->>> +
->>> +static inline void hugetlbfs_pmd_sharing_dec(struct inode *inode)
->>> +{
->>> +    atomic_dec(&HUGETLBFS_I(inode)->pmd_sharing_count);
->>> +}
->>> +
->>> +/*
->>> + * A 32-bit counter can theoretically wrap, but doing so would =
-require
->>> + * billions of active PMD-sharing attachments to the same inode and=20=
-
->>> is not
->>> + * expected in practice. Treat any non-zero value as active so a=20
->>> wrapped
->>> + * negative value still takes the conservative notifier range.
->>> + */
->>> +static inline bool hugetlbfs_pmd_sharing_active(struct inode =
-*inode)
->>> +{
->>> +    return atomic_read(&HUGETLBFS_I(inode)->pmd_sharing_count) !=3D =
-0;
->>=20
->> Testing for non zero covers the negative half of the cycle,
->> but the 2^32nd increment changes the value back to zero.
->>=20
->> The inode-wide total is not bounded by PID_MAX_LIMIT because
->> one mm can have an attachment in every PUD-sized part of a
->> large mapping.  For example, a 4-level x86 mm has about
->> 131,000 user PUD slots.  Roughly 32,769 child mms can therefore
->> create more than 2^32 attachments by faulting one address in
->> each PUD of a single large inherited MAP_SHARED hugetlb VMA.
->> This also does not require one backing huge page per
->> attachment: huge_pte_alloc() installs or shares the PMD table
->> before hugetlb_no_page() attempts to obtain the huge page.
->>=20
->> At the zero value, an unmap can take i_mmap_rwsem for write,
->> observe no active sharing, and issue only the original narrow
->> notifier.  Its subsequent __huge_pmd_unshare() can still
->> clear a PUD and decrement the counter from zero to -1, leaving
->> the rest of the PUD-sized invalidation unreported.
->>=20
->> Could this use a 64-bit or saturating counter so an active
->> count can never be mistaken for zero?
->>=20
->> Therefore, I recommend using atomic64_t.
->>=20
->> Thanks,
->> Muchun
->=20
->=20
-> Thanks for the detailed explanation.
->=20
-> I did consider that such an extreme case could theoretically cause a
-> problem, but I expected it to be practically unreachable. But since we
-> can cover this corner case simply by using atomic64_t, that is =
-definitely
-> better.
->=20
-> I will switch the counter to atomic64_t in v4 and drop the 32-bit wrap
-> comment.
-
-Another option would be use refcount infrastructure since it already
-consider the 32-bit wrap issue itself.
-
->=20
-> Thanks,
-> Zhe
->=20
->>=20
->>> +}
->>> +#else
->>> +static inline void hugetlbfs_pmd_sharing_init(struct inode *inode) =
-{}
->>> +
->>> +static inline void hugetlbfs_pmd_sharing_inc(struct inode *inode) =
-{}
->>> +
->>> +static inline void hugetlbfs_pmd_sharing_dec(struct inode *inode) =
-{}
->>> +
->>> +static inline bool hugetlbfs_pmd_sharing_active(struct inode =
-*inode)
->>> +{
->>> +    return false;
->>> +}
->>> +#endif
->>> +
->>>   extern const struct vm_operations_struct hugetlb_vm_ops;
->>>   struct file *hugetlb_file_setup(const char *name, size_t size,=20
->>> vma_flags_t acct,
->>>                   int creat_flags, int page_size_log);
->>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->>> index 4f6f58bf3db6c..cb27c06d1f7a7 100644
->>> --- a/mm/hugetlb.c
->>> +++ b/mm/hugetlb.c
->>> @@ -5361,10 +5361,12 @@ void __hugetlb_zap_begin(struct=20
->>> vm_area_struct *vma,
->>>       if (!vma->vm_file)    /* hugetlbfs_file_mmap error */
->>>           return;
->>>   -    adjust_range_if_pmd_sharing_possible(vma, start, end);
->>>       hugetlb_vma_lock_write(vma);
->>> -    if (vma->vm_file)
->>> +    if (vma->vm_file) {
->>>           i_mmap_lock_write(vma->vm_file->f_mapping);
->>> +        if (hugetlbfs_pmd_sharing_active(file_inode(vma->vm_file)))
->>> +            adjust_range_if_pmd_sharing_possible(vma, start, end);
->>> +    }
->>>   }
->>>     void __hugetlb_zap_end(struct vm_area_struct *vma,
->>> @@ -5403,7 +5405,10 @@ void unmap_hugepage_range(struct=20
->>> vm_area_struct *vma, unsigned long start,
->>>         mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, =
-vma->vm_mm,
->>>                   start, end);
->>> -    adjust_range_if_pmd_sharing_possible(vma, &range.start,=20
->>> &range.end);
->>> +    i_mmap_assert_write_locked(vma->vm_file->f_mapping);
->>> +    if (hugetlbfs_pmd_sharing_active(file_inode(vma->vm_file)))
->>> +        adjust_range_if_pmd_sharing_possible(vma, &range.start,
->>> +                             &range.end);
->>>       mmu_notifier_invalidate_range_start(&range);
->>>       tlb_gather_mmu(&tlb, vma->vm_mm);
->>>   @@ -7006,6 +7011,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm,=20=
-
->>> struct vm_area_struct *vma,
->>>       if (pud_none(*pud)) {
->>>           pud_populate(mm, pud,
->>>                   (pmd_t *)((unsigned long)spte & PAGE_MASK));
->>> +        hugetlbfs_pmd_sharing_inc(file_inode(vma->vm_file));
->>>           mm_inc_nr_pmds(mm);
->>>       } else {
->>>           ptdesc_pmd_pts_dec(virt_to_ptdesc(spte));
->>> @@ -7037,6 +7043,7 @@ static int __huge_pmd_unshare(struct =
-mmu_gather=20
->>> *tlb,
->>>       pud_clear(pud);
->>>         tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
->>> +    hugetlbfs_pmd_sharing_dec(file_inode(vma->vm_file));
->>>         mm_dec_nr_pmds(mm);
->>>       return 1;
+Best regards,
+-- 
+George Moussalem <george.moussalem@outlook.com>
 
 
