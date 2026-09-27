@@ -1,53 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4E43BBFBA;
-	Sun, 27 Sep 2026 16:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60B525FA29;
+	Sun, 27 Sep 2026 16:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790525767; cv=none; b=e/xYgE3GP5wdv35SwXBPG9p/PMO1mQmN9oq/rXT8fSO/vYUgXi2g0KJrOWXkAI/LyyLi2lRhbCv9J1PmRFKWuN0DMDU0ZdzEJWxhvL7x8r9bJ3bJPbKJPa5WZ+F+0mEWcaizbgyvkdeOe8DzxPq/Kmbk1klb+VOQXfzMaqzErSk=
+	t=1790525822; cv=none; b=fHQ46fgLO7mQqeZnzhewe8ZvBJImDG3iVgbH9kPjR1R3CZe9gNh7qfM2D3COmGJOFktnOzTYW6MtLfwYlxpNfVZaZcuDUE5C4PBtcXpX3rfj7v6A3YNOibbM0R64N3wGJUqEi500LwKNlu1T70WXXbBzbnY3Ht2R9vGUvkX+HiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790525767; c=relaxed/simple;
-	bh=9ASjQxg4NczP2C91oIxms44WsTCstJd1/KF1Cts008A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h6v7gB/ji6vxOMcAxVUXmLvoRoYwfWfcTcodwEVqsEoE0VqTp7GdxRjc4aPAFjY8K8VF0haCA2fjAIxtfTompu9k5I4ECSpQ3AmH3JZupbRePQlyCXAGbRLaxmeaC2arfrbe/udAZCS/k81t/X6jdbBv/FhgccV7R/c8FmEnDkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzZ3rIWi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790525822; c=relaxed/simple;
+	bh=7Oymxgl3G1RSRBegvwb878wRTaguTlFQt/CQQly8Fzc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PyUoAbRbX39o43f5Xdr+r6oYmkXQZyayBWQYZRFH5ZLd9uV6ahGcbe1RJrdvV9Y0UV3RrBVsHPHzXhbgIwvjMAo+S+QUNohr2OQEzMqfF2taSKUyt0F3jsZ5yHhomf1mXMk0lUzM2rW/HLDGnpEPZXNZ3/ED8h4SK1E3NOcqne8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSBqmlCh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzZ3rIWi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDDD61F000FF;
-	Sun, 27 Sep 2026 16:16:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSBqmlCh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F91A1F000FF;
+	Sun, 27 Sep 2026 16:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790525765;
-	bh=3adEtc4xOPxd1JaicuETuvUs/uY97IjCeup573MIdrk=;
+	s=k20260515; t=1790525821;
+	bh=wvz35V0KcKH7pOO5J/njM+N7JbUckkdSga1rrtpfn4I=;
 	h=From:To:Cc:Subject:Date;
-	b=jzZ3rIWim1fWVek/Bac0fgqQKNgqm4W7UFXEwgACbvi/rWb6cpT+OtVskY293oPml
-	 Caf/KwHr0kjhJNu5zWd8tmJR4Dp4hUFLZsj860KMY7wqYluRYwpNSDM9yFWCXkwajn
-	 kd0fuyYE2P97bM5JZb9toUvoE0nSp2dnpmol/QFXdtndEbTxWcqk3oBELuQBAU30LD
-	 8L5PouM2no4oSIi15G2jtmdsO3irGvXah52gJYrsB791tXitNvjus2fJJuVy66tEZs
-	 9wqeQEJwp4gEWUsOqmJxz4GsL87mszcKFU1Y92zMz+DEXIsVXW5sDC7Ghvpzveg2A5
-	 gRuq+hOW4209Q==
+	b=kSBqmlChNQnZq6/3ZjoBhWBgeJ2W9JFn6xS/qHLKlSX0xTtpAQNYAh8jGModVq57a
+	 N4/3Uucc0euODru08bS3oSwdOffO6CoVrQknSl3s9Ly69KUjC24YQChVeVudltRpx5
+	 OU4zEtxI6IPoYkl3VQJfXxp/7Z3dTaBBdZI2K5/tzT6r9jGO4YfGpLBXVCI9AQWgl+
+	 SSPPpWnppFiYQYmDKclkV/oo9tyn+W0eh98oI2qrp1+GiuLBCVU0AdMjZFvB2W8DI1
+	 d8G8unJjGNDzGqTn/CTT8+8T70XWTLH9v0T1LewBeHsfjeIO0PEX5to+5uwmXMmoa4
+	 K2YHLSr8c1+Gg==
 From: Sasha Levin <sashal@kernel.org>
-To: Austin Zheng <austin.zheng@amd.com>,
-	Jun Lei <jun.lei@amd.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Alex Hung <alex.hung@amd.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Jiri Pirko <jiri@resnulli.us>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH] drm/amd/display: Fix sanitizer check for the DML frame size limit
-Date: Sun, 27 Sep 2026 12:16:01 -0400
-Message-ID: <20260927161601.1183525-1-sashal@kernel.org>
+	linux-rdma@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] RDMA/selftests: Fix the kernel config fragment
+Date: Sun, 27 Sep 2026 12:16:54 -0400
+Message-ID: <20260927161655.1184153-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -57,67 +48,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Building x86_64 allmodconfig with clang fails:
+The config fragment lists bare option names with no values:
 
-  .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:10491:13:
-  error: stack frame size (3128) exceeds limit (3072) in
-  'dml_core_mode_programming' [-Werror,-Wframe-larger-than]
+  CONFIG_TUN
+  CONFIG_VETH
+  CONFIG_DUMMY
+  CONFIG_NET_NS
+  CONFIG_RDMA_RXE
 
-That config enables both KASAN and UBSAN, and should get the 4096
-byte limit meant for clang COMPILE_TEST sanitizer builds. The check
-in the dml and dml2_0 Makefiles concatenates the three symbols with
-no separator:
+which is not valid Kconfig syntax. When the fragment is merged, for
+example by "make kselftest-merge" or by CI systems, the lines are
+rejected:
 
-  ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
+  .config:5514:warning: unexpected data: CONFIG_TUN
+  .config:5515:warning: unexpected data: CONFIG_VETH
+  .config:5516:warning: unexpected data: CONFIG_DUMMY
 
-KASAN and KCSAN cannot be enabled together, so before UBSAN was
-added the string was at most "y". UBSAN can be enabled alongside
-either of them, and with both set the string becomes "yy",
-$(filter y,yy) is empty, and the build falls through to the
-non-sanitizer limit of 3072. Adding UBSAN to the check therefore
-lowered the limit for the most heavily instrumented builds instead
-of raising it.
+and none of the options gets enabled, so the rxe tests skip or fail
+for lack of the modules they load.
 
-Separate the symbols with spaces so that $(filter) sees individual
-words, and test for a non-empty result. Only the configs with two
-sanitizers enabled change behaviour.
+Give each option a value. The scripts load and unload tun, veth,
+dummy and rdma_rxe with modprobe, so build those as modules.
+RDMA_RXE also depends on INFINIBAND, and rxe_rping_between_netns.sh
+runs rping, which needs the RDMA CM userspace interface provided by
+INFINIBAND_USER_ACCESS, so add both.
 
-Found by KernelCI builds of the linus-next tree.
+Found by KernelCI kselftest builds.
 
-Fixes: ebf8b0fd8508 ("drm/amd/display: Relax DML frame limit with UBSAN")
+Fixes: e01027cab38a ("RDMA/rxe: Add testcase for net namespace rxe")
+Fixes: ecdcc8a455b7 ("RDMA/selftests: Add rxe_netns_names test")
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/Makefile    | 2 +-
- drivers/gpu/drm/amd/display/dc/dml2_0/Makefile | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/selftests/rdma/config | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 91465ac05c971..eb4ce5b1ecfbb 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -29,7 +29,7 @@ dml_ccflags := $(CC_FLAGS_FPU)
- dml_rcflags := $(CC_FLAGS_NO_FPU)
- 
- ifneq ($(CONFIG_FRAME_WARN),0)
--    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-+    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
-         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-             frame_warn_limit := 4096
-         else
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-index e8bd061be05c1..2181079c89d0e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-@@ -28,7 +28,7 @@ dml2_ccflags := $(CC_FLAGS_FPU)
- dml2_rcflags := $(CC_FLAGS_NO_FPU)
- 
- ifneq ($(CONFIG_FRAME_WARN),0)
--    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-+    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
-         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-             frame_warn_limit := 4096
-         else
+diff --git a/tools/testing/selftests/rdma/config b/tools/testing/selftests/rdma/config
+index e1ff54ec0f579..1be43c4274bb8 100644
+--- a/tools/testing/selftests/rdma/config
++++ b/tools/testing/selftests/rdma/config
+@@ -1,5 +1,7 @@
+-CONFIG_TUN
+-CONFIG_VETH
+-CONFIG_DUMMY
+-CONFIG_NET_NS
+-CONFIG_RDMA_RXE
++CONFIG_TUN=m
++CONFIG_VETH=m
++CONFIG_DUMMY=m
++CONFIG_NET_NS=y
++CONFIG_INFINIBAND=m
++CONFIG_INFINIBAND_USER_ACCESS=m
++CONFIG_RDMA_RXE=m
 -- 
 2.53.0
 
