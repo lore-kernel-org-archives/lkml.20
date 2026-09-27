@@ -1,140 +1,202 @@
-Received: from mail-wr2-f24.google.com (mail-wr2-f24.google.com [74.125.225.88])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4987A3BB102
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.88
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790493890; cv=none; b=s+ZBk/takzRwN8pzw+WN4ews0h4Dm38LnCr3VaR2/a1wY7QIZ9dPwRK9HYctHotKRYwlUGZUseV6Jr24VUDZSRA77nJKzKh/6/ZE4UcF83KvMMPUqWdQATQPIQUQgbuW2LQAN35t5Lr/FO/IcKmhgHT3kTfpu0UtpLXfFRX3tg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790493890; c=relaxed/simple;
-	bh=xW52c19N5B0HvZg2cdXK0xUYydDV2eqSHfBDqEmAAMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iEeJH8KSrhroKKlS+VQpCUwv63ktOVwCqeye7HTrdNmR/3eefviZOOreXc16n/Ac2rNOjvPg2hSSPUK2TCUnegRRFDeJu2NoZjepqh4uhPym7+/eLSA7jIWJogkYDobV8nDdZMpBEZVWuw7irYuUh5olotlNIl8wp2JPbvw+Ipo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQ55nWSK; arc=none smtp.client-ip=74.125.225.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDF43BB669
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790494049; cv=pass; b=CIOie6MMnkFDOXqzI82QczQ2HFN9V94aHLBskPqIYMzdoJ979SRizA9W0wO+fGqEd2rFto/zAdkhouS/KI1HfOYZ77Ph1u0PlFvJxcpm+f6081qd2O4Yn8pXfY7yjbdGq8IctO5HR3w/8R9WM5IZtiHQ52GHSuCMj8O9VDiikLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790494049; c=relaxed/simple;
+	bh=08YlvvKTuuhXI9bTdUpQ2WLGjZPd4IBv+KACV3DWHbg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=upVJErFOC0lQwWAqRnS9e42dPbfV2pSp6a1f6V2AXfiSxhqabGElVCJwOq8HIyMawQesfWqT7ytzAyMsksdECQRlW+n1WyS+JX1cVTQwZcB6M4gwTBziGGY/T1zPXXYOqKAT46Y16wD8NCcyB+cS+wAfPbXnNuyrgP9SpEG96dk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z1/echsb; arc=pass smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQ55nWSK"
-Received: by mail-wr2-f24.google.com with SMTP id ffacd0b85a97d-482f63546c3so1648196f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z1/echsb"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso3805700a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:27:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790494044; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nydRiQMbAzHHufckmVtHcaOOyhDJN94n4PvmrANEhhE8Q1Sw0Tnjr5ccVp7qqAZo2C
+         FgCv12zOeJBv36xTTnJjeUTsHIyYYpo4KdDejYGOKuUKHr/6sRi1KA3bpd5l2DiqNZv8
+         nmTW7lInAaliLWoemrYYh/EmP5TK1UIhrpFFf3ElIuXIO2gy0HTh2pcLG7VA2X5+V8NZ
+         BAzwP8f6OcmjlhuFtqWAkuEPX/4TPMu5/MYs3U+sh73N70yTfUTlnXYc4Gv3ZUgN7Bet
+         70c8i/0IwRkq0kJPiJolIBphXRSMxherJLzjEWeUD/YWYIXO1l9RlsHb0WOd08+RejX2
+         q9cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=r2dA4rveDo/qwHzdV4fULmqnRkPVTOlAOyvtUxne+BI=;
+        fh=OEVEGJKy9L3Dbu6PwiH2gIMgpuJ6LMgHOd8SWT/aDlQ=;
+        b=E6NltrtBfe2XQtjSW5MZE0ivBt79XL1jbwOG+YqAVHEMZX75/Uu8hUXekWK2m0BgG1
+         uGvfXuz/shW/CKkwrdi8M00qqximrDh+r9MG695P2pfvUmjNDgclMYeaP6b/npJVmMbh
+         ajSx9GP08mpCwyVufPG3CVHNtERy5c4C473qKYv5vC/X5wguexVyppWZiVvoOY9RxQMp
+         rhpO0pjnS4IR96uw26kKYVK7zruIDCpIxo5xxljjoA7OBJwaz4bXjMtoTqvBUjoQq4nP
+         eXYUMjO+iLs60u0nnpcGL0R+IadeRn6nlXnG6gMdYCt6gM/qgj1bkcoZdmv75/MmMZHJ
+         1BNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790493887; x=1791098687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790494044; x=1791098844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wPh+dtt+m4rUtWUI4XkAPhzEPZyJ9dGfUwWmb4GXO8Y=;
-        b=BQ55nWSKrpTHmUm0z1gVVbtsBydrsfEvgK/o8R8bIbln5o09Tlu2GaHL4VXYaaUvIM
-         6iZmTztkrytjpnGxjvL3YbyzGuj97FrVPAwJjz5wvL0k0h6BzGIG16+N8dq228IijuZ4
-         dZMfOX6T47i9g9DDqN3HDUYePe3sbu3//Orx7oG7MAmXT4kAkOYRGDhYJGKAIEa6DX4/
-         QmPvBimoCLyQFosA3IZ02Z1Pc+EJGQlpPxFod7/5MW+XLPz1moNpS+PY8Kd0fGsxgd8x
-         uUjLz3EtPo0mMWqB54glEFxh+ZNEUzPfa7+xVnZccmYMw3whaBDiKGK3sT9QqC7OIYNn
-         gbbA==
+        bh=r2dA4rveDo/qwHzdV4fULmqnRkPVTOlAOyvtUxne+BI=;
+        b=Z1/echsbyMPd0CB9aI55LHMADPFBj9dl6MzKL0ccG5XLsCtaMMucvL0H9f0//GcHa0
+         TyDZ/vLX0VW4xf3WZP5wMdJy6PkDUG1y2jOAfqpBzj155U+1EqclLFcjXxNYct0WZwDz
+         zKXYfoialvMjWX/lUyoFhVjxX+mNvORtGLmzOOXMEE+L55VYVF2iDmqGnnpfd4q+TlVC
+         jY37dKFGcWf8JGIdGrvqNFc9/hvE0i9RKfC0RqdkX1wvsxCqOVZGQV8vbv+g4T3CHgqB
+         kJBW+xEpI5WDCQ11Xu8VPKQSF8TZl49OsEE7h0lzs+h6JSOKZL3Tj6UrYKsKKFMhFC91
+         xYBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790493887; x=1791098687;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790494044; x=1791098844;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wPh+dtt+m4rUtWUI4XkAPhzEPZyJ9dGfUwWmb4GXO8Y=;
-        b=rz3YWjJpJEAoDSFhZkuWvujNszJuo6thuPrnivH6N8hUmqPZi/zWjBZf7zUR21yKh6
-         13QvV0fgf+kvR1YwgXhTVCOobEMAVRSPhEHD8rkB7kFY+Yq4c9Ij227Jx3Reispl5B+1
-         vQOFdky8lZ3A8wRhqMnWlYUEgTwd8Bmd1EUd0CXhJke3HoJdpsI523K31G8IIBqU+WBI
-         xVVyYxaOGU40nl+iNhjcpqH9O84uNRrMmnFQynjiDV++f0HI8eipr2rO3K6J29neYtAq
-         OCMBqSmVVb7rEr6aXd8bhQoXmQGpHAqEQXlcXDLpjJ1Kg3xPCtqK74F1a4Jp3rtjL16O
-         4bRQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjlpd/oPL4yT5fW/BIWQHpr3V/U1iqXFnBOZB2o1yOTpdUL3RmHjdb8rb7MzC0NRrlkcj3CqA5i0rIAZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj8lcMEzHxJ9ITZjmNxkRiD4T77+eXyakAPhHlrpbocc63HYXu
-	whkQFC8IyLnmO9HYG4M2/J9Iet/HZQsUDFmlabCkIsOyevewz6kz1DA=
-X-Gm-Gg: AYBFou1Hvf/iGA3Ua+UygFjV6drRAWCglFuVZyC//hTXQcP0ix3O3POrS41UoV96Plj
-	8xwQATnq2A1ugS0boOEWq6TCsG0ff1NFXXWisUHeKMWbjXYs7gAvDhyiM7FrJrYLMw3dLCE+w/2
-	vC/wznGPC8apZeeDeNJbYU+jUFdDGvL2mLDeXxZcPsNvopPGA2ZZH498wibrXc3BRNdCxEegtct
-	rXs5pbh6hArfbi+kStMgAJdWXvPOxcZAkI+zU5CraxZZARL2eq1A7cQkTHg2UXBJYSIME5pzYCW
-	6MwUcvpTiw6Alg2hNT6k4oGjqCX974Vd/O1x5b7Q+WNr88D5Nt/vDwDuDoj34TH8weFqIFms8zV
-	QH3B7giOf++9JSeJk1J0sw/tnZVszknc1TlDLe6p/JVMrXeMWOTlPx56yCAzPSXzLeZ5tSQfgI4
-	gwKOBTV4Pfzlqgw8pRb1zWsIfSkefSffzEbif9bLhG510bVg+tsB9X9MIBOg0HM00YxM8N+ztcT
-	VzLAInSDPWoURnbr3ShjMjPJ8+exsJMEMQMJ7Cs9iNb96Y=
-X-Received: by 2002:a05:6000:60b:b0:487:c99:8bec with SMTP id ffacd0b85a97d-488717147f1mr17887685f8f.3.1790493887392;
-        Sun, 27 Sep 2026 00:24:47 -0700 (PDT)
-Received: from localhost.localdomain ([31.223.3.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a74538asm18263754f8f.34.2026.09.27.00.24.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:24:47 -0700 (PDT)
-From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
-To: corbet@lwn.net,
-	clemens@ladisch.de,
-	tglx@kernel.org
-Cc: anna-maria@linutronix.de,
-	frederic@kernel.org,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
-Subject: [PATCH v3 2/2] docs: timers: hpet: Document userspace API and ioctl commands
-Date: Sun, 27 Sep 2026 10:23:16 +0300
-Message-ID: <20260927072425.7892-3-habilerenturker@hotmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927072425.7892-1-habilerenturker@hotmail.com>
-References: <87jyo74rbv.fsf@trenco.lwn.net>
- <20260927072425.7892-1-habilerenturker@hotmail.com>
+        bh=r2dA4rveDo/qwHzdV4fULmqnRkPVTOlAOyvtUxne+BI=;
+        b=QdL8lRRfUwmFadydVkaJyUElxL09o0du0R57sqqgfvhTBYyKgGP4owPVws5/bcvLAw
+         vAoweL4qFD6XVE79fPtsUTuUJNeA7w6m+ztG4vtRq/PEaG5Qz8CvUABv1rEzB1L1kDgG
+         pjPZztx12NPoByXyl7Xb+0xz6/2El7jTKCoMvjbaGeMvqu37PyMXi5/9pJKO+Fhy2l0i
+         XlWlAGf/MPuUakE/y8qWyLmx4SH7CpHbx//7BWs8kZtZbhXfH9F4t4e0EcNeZ/Bqnqr2
+         QYRZ7wq7iAxjWuqCQ+OtP2JXr1fNQ+VBOUNE5ol79GMGDFnmprU9YRN+NHdAaCdZzikp
+         KqpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxO0uxXVp6h9Lf3D8Kqhaj2CQTpGVSoy2MldS7zjA2fX68tRnNtjKPaWsLkGo/XBp5xEja3ToLAbXMoDac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIruPa5Vyq08s+3G7md5HD599h7pf0IlVbjvB8yyDaJzsbO5ZYw
+	z5G4Xsbtmcv3CGUEhNvHg4KrPk2nlbYnG/eIi+PhA1GaEwRgV+F1q4HSk2W04FmxfRK6RAxoOtV
+	WQ3EzwBzwU9aaD+Jh+ZXw4ml/IWUXIK4=
+X-Gm-Gg: AYBFou3Hyxkvu2kVOzOL4xVCJNGFiTxBM61KxxC4BSMmHT/mMoiald/cp/Azeso7J3e
+	fRsDjWz290aQW1nDjm5KA66HxwIUMPgEvaFD5X2WcE3XethF2mTr644qNBrsilIl3VAcR6Q/R65
+	hqWzDHR2klum65QK9Nm73MZFntjnsFjFQc4lAhfsXsK7FVVQpqBrboTiUOSCPQ075CA0zS5dxL8
+	1mr6IKCLAxOdSg4D2bWwjTLfULpjfXdR5TD1zuSWesjzVzx5RLIolZkyF64e03eA3AkkCB8OjoS
+	RMox/DdMyoT1g8vFuZkQlAqZ1QJpPIO0U9anPME8Rciflj37rtV2bc4D
+X-Received: by 2002:aa7:d9cd:0:b0:6aa:ff32:55ad with SMTP id
+ 4fb4d7f45d1cf-6aaff325ad6mr2463712a12.19.1790494043761; Sun, 27 Sep 2026
+ 00:27:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260926043836.3301898-1-matthias.goergens@gmail.com> <20260926043836.3301898-3-matthias.goergens@gmail.com>
+In-Reply-To: <20260926043836.3301898-3-matthias.goergens@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sun, 27 Sep 2026 09:27:12 +0200
+X-Gm-Features: AclHuK9WcN0QE-CMoABg-3S0S9ooiM3h6-ZB760atxT6Z4stK_0t8ClGGX6L1CA
+Message-ID: <CAOQ4uxhCZGqu4C_wonPZq_AC7qr=qS3_Y9kA+W1feahYBBOYPA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag to FIDEDUPERANGE
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	jack@suse.cz, linux-kernel@vger.kernel.org, hch@infradead.org, 
+	djwong@kernel.org, david@fromorbit.com, ansgar.loesser@kom.tu-darmstadt.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a dedicated 'Userspace API and ioctl Commands' section to clearly
-document the supported ioctl interfaces extrapolated from
-include/uapi/linux/hpet.h, including the layout of struct hpet_info.
+On Sat, Sep 26, 2026 at 6:38=E2=80=AFAM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
+>
+> Deduplication tools such as duperemove, bees and rmlint advance their
+> file offsets by the bytes_deduped the kernel returns for each
+> FIDEDUPERANGE call.
+>
+> vfs_dedupe_file_range() passes REMAP_FILE_CAN_SHORTEN, so
+> generic_remap_checks() may round the length down to a block multiple,
+> but the ioctl still reports the requested length in bytes_deduped. The
+> caller cannot tell that the tail of its request was left alone: rmlint
+> 2.10.3 on btrfs (4 KiB blocks) deduping a 100000-byte file against a
+> 250000-byte file with the same prefix is told bytes_deduped=3D100000
+> with status SAME while only 98304 bytes were actually shared; its loop
+> ends and it reports the pair fully deduplicated. duperemove and bees
+> advance the same way, and jdupes advances by its own requested length
+> without reading the field; all of them skip such a tail.
+>
+> Add FILE_DEDUPE_RANGE_REPORT_PROGRESS for file_dedupe_range.flags:
+> with it, bytes_deduped is the length the filesystem actually
+> deduplicated when status is FILE_DEDUPE_RANGE_SAME, and 0 on
+> FILE_DEDUPE_RANGE_DIFFERS or error. Callers advance by it as today,
+> but must treat 0 as "stop or subdivide", not retry unchanged. One
+> cause of SAME with 0 is a sub-block request that does not end at both
+> files' EOF, which the generic range preparation shortens to nothing.
+> On DIFFERS there is no sound progress or mismatch offset to report, so
+> 0 leaves subdividing to the caller, as rmlint already does.
+>
+> The default cannot change: commit 4a57a8400075 ("vf/remap: return the
+> amount of bytes actually deduplicated") did exactly that and was
+> reverted the next day; among deployed callers, duperemove re-queues a
+> request while its status is 0 and would re-issue the same sub-block
+> request forever.
+>
+> Without the flag nothing changes.
+>
+> Suggested-by: Darrick J. Wong <djwong@kernel.org>
+> Link: https://lore.kernel.org/linux-fsdevel/20260805071414.3414870-1-matt=
+hias.goergens@gmail.com/
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 
-Assisted-by: Google Gemini
-Signed-off-by: Habil Eren Türker <habilerenturker@hotmail.com>
----
- Documentation/timers/hpet.rst | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
-
-diff --git a/Documentation/timers/hpet.rst b/Documentation/timers/hpet.rst
-index 8bb51d971..007e906ae 100644
---- a/Documentation/timers/hpet.rst
-+++ b/Documentation/timers/hpet.rst
-@@ -28,3 +28,32 @@ initialization.  An example of this initialization can be found in
- The driver provides a userspace API which resembles the API found in the
- RTC driver framework.  An example user space program is provided in
- ``samples/timers/hpet_example.c``
-+
-+Userspace API and ioctl Commands
-+================================
-+
-+* ``HPET_IE_ON`` / ``HPET_IE_OFF``
-+  Enables or disables the interrupt generation for the timer channel.
-+
-+* ``HPET_INFO``
-+  It is used to query the capabilities and current status of the HPET. 
-+  When the ioctl call is made, the kernel populates the ``struct hpet_info`` 
-+  structure and returns it to userspace:
-+
-+  .. code-block:: c
-+
-+     struct hpet_info {
-+         unsigned long hi_ireqfreq;	/* Hz */
-+         unsigned long hi_flags;	/* information */
-+         unsigned short hi_hpet;
-+         unsigned short hi_timer;
-+     };
-+
-+* ``HPET_EPI`` / ``HPET_DPI``
-+  Enables or disables periodic interrupts. When activated, the timer 
-+  triggers continuously at the specified frequency.
-+
-+* ``HPET_IRQFREQ``
-+  Sets the interrupt frequency for the periodic timer. This request 
-+  takes an unsigned long argument specifying the desired frequency in Hz.
-+
--- 
-2.47.3
-
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> ---
+>  fs/remap_range.c        |  4 +++-
+>  include/uapi/linux/fs.h | 11 ++++++++++-
+>  2 files changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/remap_range.c b/fs/remap_range.c
+> index 26afbbbfb10c..63f1b6f90c16 100644
+> --- a/fs/remap_range.c
+> +++ b/fs/remap_range.c
+> @@ -503,7 +503,7 @@ int vfs_dedupe_file_range(struct file *file, struct f=
+ile_dedupe_range *same)
+>         if (!(file->f_mode & FMODE_READ))
+>                 return -EINVAL;
+>
+> -       if (same->reserved1 || same->reserved2)
+> +       if (same->reserved1 || (same->flags & ~FILE_DEDUPE_RANGE_REPORT_P=
+ROGRESS))
+>                 return -EINVAL;
+>
+>         off =3D same->src_offset;
+> @@ -555,6 +555,8 @@ int vfs_dedupe_file_range(struct file *file, struct f=
+ile_dedupe_range *same)
+>                         info->status =3D FILE_DEDUPE_RANGE_DIFFERS;
+>                 else if (deduped < 0)
+>                         info->status =3D deduped;
+> +               else if (same->flags & FILE_DEDUPE_RANGE_REPORT_PROGRESS)
+> +                       info->bytes_deduped =3D deduped;
+>                 else
+>                         info->bytes_deduped =3D len;
+>
+> diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
+> index 34c6f219462a..c61bc98909cc 100644
+> --- a/include/uapi/linux/fs.h
+> +++ b/include/uapi/linux/fs.h
+> @@ -178,13 +178,22 @@ struct file_dedupe_range_info {
+>         __u32 reserved;         /* must be zero */
+>  };
+>
+> +/* flags for struct file_dedupe_range */
+> +/*
+> + * Without this flag, bytes_deduped is the requested length on success,
+> + * even if the filesystem deduplicated fewer bytes (e.g. after shortenin=
+g
+> + * the request to a block boundary).  With this flag, bytes_deduped is
+> + * the number of bytes actually deduplicated.
+> + */
+> +#define FILE_DEDUPE_RANGE_REPORT_PROGRESS (1U << 0)
+> +
+>  /* from struct btrfs_ioctl_file_extent_same_args */
+>  struct file_dedupe_range {
+>         __u64 src_offset;       /* in - start of extent in source */
+>         __u64 src_length;       /* in - length of extent */
+>         __u16 dest_count;       /* in - total elements in info array */
+>         __u16 reserved1;        /* must be zero */
+> -       __u32 reserved2;        /* must be zero */
+> +       __u32 flags;            /* in - FILE_DEDUPE_RANGE_* flags */
+>         struct file_dedupe_range_info info[];
+>  };
+>
+> --
+> 2.55.0
+>
