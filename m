@@ -1,78 +1,77 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7B32F7F01
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:53:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2852FD1CA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:54:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790520838; cv=none; b=AG0Go0fOEcUgqn+oPaJANhjORw6RU5DBqx0o6kwLypV1uuoH3WTlk2v783W6vk8YyEzVXxn2lvi5n2+l7tfHPA9t7I/3FKW+BDKkjId+tRfb96FZK93k5WzCHf3enj0vXA/dtP5snf3KTOXyrdrd11EXE43Sp80RJyIbuU4vBA4=
+	t=1790520879; cv=none; b=slXaV1TZSyr4KPOCyeV90Fsp3qAvTFz3cNMUr6qOFzWeIC14+HOyhGkOrn1caP1jICRWpptWVHTq8I4RrA6hkq/sjKyu3PI3gKPdxs9DmwRc5JD32fRWYvQKLkcG5qSDvlXI/gB+HXycDBgofUrRo4AJukXi54zMwgWrAx9X42M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790520838; c=relaxed/simple;
-	bh=GMgd5qcIkGfHM0R2f0/vM75cGwqO1/hpBlPHt5/oXCQ=;
+	s=arc-20240116; t=1790520879; c=relaxed/simple;
+	bh=yKI5V/O0xPS9DO8JxOaTTj+A0oMs8grfiPaICIe2IbI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LJ5flOkaGpkZz5h8pJziJrO4PeL8HVcZFKWVjtcsjyEcIdKGYLnW7Lhh9WwFYoz6pWH8v9NmyQVwJ1v42GXR9e570CUbaXrGWPtZ2SG+OfjR4pmtUBAZYNgw2IqejfFS7i64nGeUXWQjZaNwYCl7GAsWyKU/mx6W3fpf5U1Lw84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sw2gH9jg; arc=none smtp.client-ip=74.125.225.140
+	 Content-Type:Content-Disposition:In-Reply-To; b=musTQru+3Acn0+bRVvKYIWn8H1poAoMrZ8BVSgSxK8/i/ffP9s5jx9Nf0b7BNzaGJWXBra3k5UX/GoKhWXwE9lAWxLL3JIuENQXR08tyTCsUysiUgaY9iy0iXG2d1GZ/cGE8LnwOnyW86Zd7lBa5U2eTUcOZwevwi4IkvHHVQ7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nNpfihw9; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sw2gH9jg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so26196755e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:53:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nNpfihw9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so4146785e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:54:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790520835; x=1791125635; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790520876; x=1791125676; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=47QCiiWBjYaD7BMaolGfIqq4ppH5IxXyHRYQ4qkMx6Q=;
-        b=sw2gH9jg+yxNTjEJZTUfJIk/nd55SkbP6OSAnnXp1+N8CmmWxvV94X/Mt+ARFRNBNk
-         qWp1z8ZMmquXN7Q53GPH2XBRadMtI+Q9wRkkXarsBha3cbpT9AHjeY6k+AZnxgR5/LLp
-         owknND5DJs/GHYNpEktw7E9bixBozIVNb1+KqkC1H87dwwfCiYkF/zzdqBbQK34+idXf
-         UrjoUpyb0OMntqMnPfcev6gCwgAiy7jIr7pkFBNHcKxtP4GFigQitBU4XtC8J398eNXh
-         CuMlji4rtpQXtvuD+bLDZhuUL7O419NiK6DV8mz1zDW/PJATjXDOavjkyCsh1G6vr1t6
-         yfjQ==
+        bh=ktsh/JgcSNmnNKAcVLzISoygMwOgNOsVbgbRCXSNX9I=;
+        b=nNpfihw9oeOfJKV/D+DG9dcYWpMKwPIJ4sA4ZQPPjJA3fcxX/9V2R8orn6HAwf/UkY
+         2zCPnMNHez4OlcDGBjNhWD/sbRGjkPOUjttoS61evAoZn8mUKm+TajSo/LmprAL/bUEf
+         JeFospjGCDqN9InDGBO+geUQwHpO4qmRu9E8v4+9Gw+mt461bLCPCaf2zmx3cou+g+8f
+         w/uEN7G53HL5f1Kh+oDvd0d/Mu0coFLjSG/BieZHwx6mDdkVZW+RhQMPUgkFe0GONF7s
+         hwGiyRVWrywJ98xS1+6M1VoFZaNjeSUzu3iMtKZZYqn7OoqrN183+wqjVvt5Q+u/Uvx+
+         0KjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790520835; x=1791125635;
+        d=1e100.net; s=20260707; t=1790520876; x=1791125676;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=47QCiiWBjYaD7BMaolGfIqq4ppH5IxXyHRYQ4qkMx6Q=;
-        b=2z0dHkhSrKL/RxTRFYoAJWvm1tjM3niU6jn4WUM/gqeg1a/3ysmMK0/T7aRckqscVB
-         9Za5YjtwufOCTXkQKmd44EWZl1y8PmWHnW4FE1UxaI3fqMHyb0nGnK9P/G5bnunZWLlj
-         4ZxFMCjElNJJgFi6mLEeQXW46b71/PiABTU7CiQSs6DazH4Xn7AyHQDf3GPBUsY6dZQr
-         zpUXLOyp/hiCOpCpVLSxEAqcypNJ/zeKTPkyrKy8oLr13eTcDIZYAKjH/QNYZ67wtrrJ
-         XZbskMNor2NqYBV++hCT5VwBZh6bT/IgrVhpGttnlRB//izXHsD5Rh8rDXUK5kfmjjc7
-         a4ww==
-X-Forwarded-Encrypted: i=1; AKwUvBzttPmvcgOBnqH4b4YTquZG2dza8TnhXgwJgUK2dodLmL9dbojPl68F1FNCTyn+p67q1d9tzYma/PjX0+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFcyGaKGgi/ktkdXgDaXaVILIuaGzOkIV3zQJpRcmuZbnSCsTj
-	1rB2xTAhgFjvV7QgFMsX3PJXHDpv5KmDFYg9Sc+9MBWblOL+LB7m1anP
-X-Gm-Gg: AYBFou0APxfrI8vQJER2e5SlZ69Wws+kZ8rP4QORrjnPLkxlDpQTxKxPJEJL5kY4Tgh
-	d6H20cIM+VrK2AD+E1GecZ1Qq7vekY4t90KUBebiDE8nnTgKrMvf9ojeLeOJYHnmR39YHpiZOCx
-	XYyoWe9JccblBWJ8zntrc2iidRtUPsqMmSVbVrC/P9amqMP0u0sU2/IGW8E9XpjW9Mr7yPs2BHx
-	zf2BY54peTX6rTeOTsSKVIHjyWitgFKwDJQXOC3Z2NEOP1GXF2Qd23wYNbC7TjPIMeIqhUabTtT
-	N8heeZrgMn5D6LjgU3UB02O4bF4ei0PJkLkKeJKfMAy0hPsmQ7aojsKXHypPiG/k6lT47EZ13eu
-	0p/BFyn8awuDtqPfU7P8PFj8Q+aVMhSfhj2OR0KIJE+b2OFpdatiVNYkAoZFwX6s4xBsH/SfcVZ
-	flzOffEHB7rBfaIDtfrLYvDFtIL/rdzmZkWAPY6JKjh49k98I61yNfXxe0QET5xPt4o+mUpw==
-X-Received: by 2002:a05:600c:1912:b0:49c:fc6e:8cb1 with SMTP id 5b1f17b1804b1-49fe66d811dmr186291185e9.21.1790520834817;
-        Sun, 27 Sep 2026 07:53:54 -0700 (PDT)
-Received: from gmail.com ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017656cesm60949975e9.3.2026.09.27.07.53.52
+        bh=ktsh/JgcSNmnNKAcVLzISoygMwOgNOsVbgbRCXSNX9I=;
+        b=QXeKhcqfjRRorXtDrEpaBDwz2P76H3c0ukDb7r7t0WksF9zs4L7vaevOmHVZk98phC
+         hNDm5Iv5nhgK54NVBod18FpQOpPuYzd8owQOtKQfVH9zh7R1X0qQ5acCUvgec7F9TDC2
+         34FP3uxo0OchU8sEjs3l3PxsYjVoLjFTepHqsnL93QCyTmpMcSWzgeCI0y1NM3IF3DAD
+         EHAVcRaBJhce1FYMh+GofE7axSHh4IEqc9jPrU9K3zlcqqrAc2hIOmS8kR9AV6lpM5Kn
+         1divivFJ3OGquqO87hO5yw66/BBRkM5qy4kMyn6PmlcxEHjpK7laVbKoxTujaIaOw0pa
+         DbTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrmQOSUvfoco+TDtu3+35y1pUCyrrnFPMxAG04mGXzhRBI/LFDON/f1ocUZuCuwH8SgzzHW9sV2xyX184=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLSESUStjONWqyLLLFHPRmsIzwK7jZo8tWBFI0Gy28RUe0iWHg
+	X6XeZc8UY1buJOldwfVkQoWA9ZdZSWElpxwQksvBkmiM3P1QdTZ0y33j
+X-Gm-Gg: AYBFou3cRVK2zk4oYDdy1gblS+esPL8yRQcOXc1Zg7jmlW8/PyNlz2LtnPm9eCxLNlD
+	UcGRD29bNZSLP8SX/Ty3noYnfrj0dh+LPLt+oS8tAb1L7+Dp8QCopnLrJ11+nXj3yO2Ai5Fy5LL
+	JESQ35R8hcyJ+29tMijnO1eBrcy92lvpEalVuBogZPQ9B0gKnwOrdMUccUGjIhKQ6zjYRV92WTX
+	4PpARqXE8FPOvqzJTgEkloZa/aDTbQe/c+KZm4Yao7HFOmkIwdB83DQUo7VqUqIkSlM7VJgWGtJ
+	70dHtfMhKNlczZkujRJONBWq+o7jxxAg0l3EY9XbPpaZGZRmOM9JcutyxrqdKzMQmVr7X9V2LME
+	uFoOyLBVfQWDBthtOmR6aH1t79AjrkrQw7AaLGj6+c7SObkYrfDlvx6HoZwdxJBskuixQmiJmDH
+	QJtLF72DvlchrlfClr4VX7fm2I65LOJTJAYENuNPJBq148dEyzSpKuNiKKalSzhc5rw/k2T/+y9
+	Q42kWU=
+X-Received: by 2002:a05:600d:486:20b0:49f:e8bf:221a with SMTP id 5b1f17b1804b1-49fe8bf24fbmr135716955e9.22.1790520875905;
+        Sun, 27 Sep 2026 07:54:35 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018dd0ffsm69292305e9.2.2026.09.27.07.54.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 07:53:54 -0700 (PDT)
-Date: Sun, 27 Sep 2026 16:53:51 +0200
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP
- self-merge
-Message-ID: <arktxLzohm0cb1ch@gmail.com>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
- <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
+        Sun, 27 Sep 2026 07:54:35 -0700 (PDT)
+Date: Sun, 27 Sep 2026 17:54:30 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: pc@manguebit.org, linkinjeon@kernel.org, ronniesahlberg@gmail.com,
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com,
+	dhowells@redhat.com, stfrench@microsoft.com,
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kernel test robot <lkp@intel.com>, Luxing Yin <root@tr0jan.top>
+Subject: Re: [PATCH] smb: client: avoid NULL resp_iov dereference
+Message-ID: <arkuJtmhKDAFnzTl@stanley.mountain>
+References: <20260926132208.23360-1-zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,61 +80,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
+In-Reply-To: <20260926132208.23360-1-zihanx@nebusec.ai>
 
-On Sun, Sep 20, 2026 at 03:13:10PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-> operations that keep the original VMA in place.
->
-> Historically this has led to a lot of bugs where non-obvious interactions
-> occur between existing mremap() operations and the original VMA.
->
-> Fix another of these - self-merge.
->
-> Self-merge occurs when a VMA is moved in front of or behind itself and the
-> attributes of the VMA permit such a merge.
->
-> Practically this can only happen for unfaulted anonymous VMAs due to the
-> page offset equality requirement for merge:
->
->                            |------------|
->                            |            |
->                            |            v
->         |...........||-----------||...........|
->         |           || unfaulted ||           |
->         |...........||-----------||...........|
->               ^            |
->               |            |
->               |------------|
->
-> This becomes problematic if the VMA is configured by the user to
-> mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-> set.
->
-> MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-> for the destination VMA.
->
-> Self-merge makes this impossible (there is only one VMA) and incorrectly
-> clears the destination VMA's mlock flags.
->
-> This causes a leak in mm->locked_vm as clearing this flag does not
-> decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-> is not decremented on unmap.
->
-> Resolve this by simply disallowing a self-merge in this case - the source
-> and destination VMAs are kept distinct and then are able to have distinct
-> mlock() flags.
->
-> Update dontunmap_complete() to make the now-redundant self-merge check a
-> VM_WARN_ON_ONCE() instead to guard against future regressions.
->
-> Also update the VMA userland tests to reflect the change.
->
+On Sat, Sep 26, 2026 at 01:22:08PM +0000, Zihan Xi wrote:
+> compound_send_recv() only populates response vectors when resp_iov is
+> non-NULL. The final pre-authentication hash update nevertheless
+> dereferences resp_iov[0] whenever all compound requests complete.
+> 
+> Guard the update with resp_iov to match the response-buffer handling and
+> avoid a NULL pointer dereference on callers that do not request response
+> vectors.
+> 
+> Fixes: 62432a3f5145 ("cifs: Clean up some places where an extra kvec[] was required for rfc1002")
+> Cc: stable@vger.kernel.org
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/all/202609241449.HlHmnZFZ-lkp@intel.com/
 
-LGTM.
+Originally the idea was that I would review these and filter out
+the false positives, but these days people use lei to read email so
+they recieve the unfiltered warnings.  The zero day bot should
+probably put a "Unfiltered warning" note at the top to let people
+know the warning hasn't been reviewed.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+regards,
+dan carpenter
 
---
-cheers,
-jose a. p-a
+
