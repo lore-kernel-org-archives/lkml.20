@@ -1,90 +1,82 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A5018D62A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC65305683;
+	Sun, 27 Sep 2026 20:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790539854; cv=none; b=W7ZIslFB3k6R06W6U7hczm1z3tU+1IYX/tmD+aeUWAC5QF3BbgjwrBI0Oi/TF48OrJAyiqPnZQrXjxWMxyNkgAmqljoDjZEVXrgb0JGqs9vEY+C4eLoAKNbKGbGxc2RWegqA5AUnTPYD3Rf4ZMTyGvWojoCT/qXKiqLckJ/UQw0=
+	t=1790539923; cv=none; b=UAaEUqfNApe6uchWbQU9F0epzNxEHya31R/tfbX11bgzwV7OwMBDsoQ44D3J5tmBuTtt4/c83YotQqddoA8au0GnoKoWgh7BA3rps1/tmcoMle2inFr21satSdlIDKuZzJXu+bzn4B425J3AZqs7dWEe6QXM9bSnfzXizJco3uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790539854; c=relaxed/simple;
-	bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C6AWtCE9eeNX7zvSlOtcgtevLARk0vZGt5PHD3bZwCIsPnihCdV2zsqWzdmo02rfCKq0iA5E3MmCldrlxIwapgKgz11/fkdZyzfKkUXUEFwPbeLvyGc3lLgM51Ea8cnj0OMj2FnBF7YVPJLkNJCZtoKR5Yg96XSXRGF/bwyIB7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gii5ibXB; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790539923; c=relaxed/simple;
+	bh=zqIKR3F//r3JMt3kkMtU9SZml/sFwQlmFzrsxDh2Nkk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=uJr4PcRA1HKHg8zVmz9Cme3v6DCaPnxdA91dyN7ADuQsYP482LGaYghO7Cm3BCTul/ralrJEK6PM83hqExwXZuzZNV7LmA0uZIxZCttpBGKs3TVMk61bakNLMbAmyjwSgCsrdzhs6kbtoIDxBWqQmTyqLYVxbv0fIYzPBp7O/h0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dBpbPeGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gii5ibXB"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0d31bda43so1053442a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:10:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dBpbPeGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D145A1F000FF;
+	Sun, 27 Sep 2026 20:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790539852; x=1791144652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
-        b=gii5ibXBpyZBJ2bcqly6aeiJ2et/6M7GESKSIvioii8WTM/pHZugMGgsNbsWegbX+o
-         N+/Q7WhZbKokZCjUBdVbc7G0PbWnJEtOzz9sf4E3ESfGhUy2ELqebyKZpoBbutcT9Dfn
-         a0Z88btcv3I5sU22Dzvvk0PVmfI9rrtPtbO8HF7UqXv0x50mR4TI6izsFebzDdBe2+SX
-         9mJrx2iM418l4DOqVTUqbSscyzVDXo87Zi5bxh8ebNCOufQPKND+aWhuwqrpweiEWXka
-         xnjAhSa8WraUMZfaakAi1nk5wIii39Rxz+RF3OI79LUxqM+K14Ap1R5xa74kLTqYU5WJ
-         zy1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790539852; x=1791144652;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
-        b=Y5f8slEO4L7l/sxu/CetSDD7muCg3qnogI0TO46BrBD9w3XlY5ejALEAHXtXjq22Ca
-         8r0hEjkXecfycaq8sJhCcNlJL8+hzJ8Pc7oW1XIbtgRuJy8LnAYCsUomhUzdJFhalIfP
-         vtPnywE3eaFwux8tpavJUmnDCl9ufzmXbVE0Sp/eI57PoVvsTPEV9NcT9qAz9ULsvz+M
-         PXZ9h+uHkS0r7t5//vK8fJEOiSTgBkLrBOVf0NbKmCmut4S2hV44WhCJi9KitVfA9fnM
-         y0lJz2NoG6oYObeKa2m/2JCGjWUOwfYbtrpR/4cbEZbGublWqkrPUgCXh/XJ7r2nziZw
-         Q5Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNQQa6AMnJWIA3eOun+zTzyHEpfMpYCjr1hfs1xZEYCxfdBXC4Lt5tKer9yIiQTESNeuMglq/DYdeipsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0AJ7jQ74Lso7xW7o6c8LhnIPD4HECI71i6BnUtzc4bO+0zIaR
-	T7pFURu62y+sQ8POQVgt4GUVrsAHfwejiLJIUtWwwxGMhSsTzl5I+COP
-X-Gm-Gg: AYBFou1c1Cg3wvoD+VDKj5kjxsk3uvjaijZlDsfigFVEqg7iX+jtDYzA9QWYLrp0gSZ
-	w2GJIdetOX1uxYk9/ecp19CKfWGVj2ipCjBbGL2rStMJpH85Q1iGIH8tXDf42gN1Id5MiC0OARz
-	CoHWqVHS2LiokPYGHpquly9lON/5p+qYZ+pzCceJ0A8KLFwX0kbmfIM8uj9f53YqoQG8GvGsgHW
-	yYdWWs19t8obI2ianh2hx8uN4fMG+mHMKd5tVWX1pp1vTIYiwMkxW1EdngYYLKYPH4QQFreo80j
-	us4IKbApPYnF9k0WODArUa0a4N+EyyCYv+GQOBdkMIvCCyE/tTUECxzOJIxJ0peAb0m2dcTdCMB
-	MIaMv7RBVM5s+HuievhoTnOhVziuMjpIvJX9z13hpcBEbtZDkhNn/TfvS651nm8oiHkMlR9KevC
-	uMA5kjFbxeBo4mgJHluvbVZ9/hHO1DHLKXHl0NMTtmeoHO1VQGc1dubTx78BCtXNk=
-X-Received: by 2002:a17:90a:d883:b0:3a0:2900:f577 with SMTP id 98e67ed59e1d1-3a098dff5b4mr8692462a91.51.1790539852500;
-        Sun, 27 Sep 2026 13:10:52 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b498fb12sm6710494a91.0.2026.09.27.13.10.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:10:51 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: davem@davemloft.net
-Cc: edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	nicoyip.dev@gmail.com,
-	willemb@google.com,
-	alice.kernel@fastmail.im,
-	rdunlap@infradead.org,
-	marsy12010123@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>
-Subject: Re: [PATCH net-next v2] net: pktgen: return bool from __pktgen_NN_threads()
-Date: Sun, 27 Sep 2026 14:10:45 -0600
-Message-ID: <20260927201045.241108-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
-References: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
+	d=linux-foundation.org; s=korg; t=1790539922;
+	bh=zw6LphimU2j7rCWjyCWC5xM3gVDLoCW+f86+35F4nME=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dBpbPeGSTDE2LuiAUazsZ/tDuOBNiiEpN43Jy1m3MTjNiOKGPVgE71zF+8OPv0BTZ
+	 nITFr2+WuzZvnTCyi5MO5ay+FthcZpnR3ha0cVrvtSDBkJvuDBx+sSl7aR8NHYDv6D
+	 I3okQEEKN3W3jDjlb2CahR9TUccyAPgnEo53J8Y0=
+Date: Sun, 27 Sep 2026 13:12:01 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Carlos Llamas <cmllamas@google.com>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan
+ <shuah@kernel.org>, kernel-team@android.com, linux-kernel@vger.kernel.org,
+ "open list:MEMORY MANAGEMENT - MISC" <linux-mm@kvack.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH] selftests/mm: cleanup -Wformat issues in hugetlb-mmap
+Message-Id: <20260927131201.dfeeade5504b9fb707ad1e54@linux-foundation.org>
+In-Reply-To: <20260927162419.820609-1-cmllamas@google.com>
+References: <20260927162419.820609-1-cmllamas@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Ivy Lopez <skunkolee@gmail.com>
+On Sun, 27 Sep 2026 16:24:18 +0000 Carlos Llamas <cmllamas@google.com> wrote:
+
+> Commit ae571cd6015c ("selftests/mm: hugetlb-mmap: add setup of HugeTLB
+> pages") and commit 9c5a65f374f8 ("selftests/mm: merge map_hugetlb into
+> hugepage-mmap") added logs of 'hugepage_size' which has a size_t type.
+> However, the incorrect format specifier '%lu' was used which triggers
+> -Wformat warnings when building for 32-bit:
+> 
+>   hugetlb-mmap.c:125:55: warning: format specifies type 'unsigned long'
+>   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
+>     125 | ksft_print_msg("Default size hugepages (%lu kB)\n", hugepage_size >> 10);
+>         |                                         ~~~         ^~~~~~~~~~~~~~~~~~~
+>         |                                         %zu
+> 
+>   hugetlb-mmap.c:134:47: warning: format specifies type 'unsigned long'
+>   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
+>     134 | ksft_exit_skip("Not enough %lu Kb pages\n", hugepage_size >> 10);
+>         |                            ~~~              ^~~~~~~~~~~~~~~~~~~
+>         |                            %zu
+> 
+> Fix this by switching to the expected '%zu' format specifier.
+
+Thanks.
+
+> 
+> Note that I intentionally skipped the 'Fixes:' tag as I've been
+> previously suggested _not_ to use it for kselftest patches. However, I
+> can certainly add one if someone prefers it that way. Thanks!
+
+I added cc:stable.  It's not good and it's worse with -Werror.  mm
+selftests don't presently use -Werror, but quite a few other parts of
+selftests do this.
 
