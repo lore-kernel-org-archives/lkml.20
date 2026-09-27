@@ -1,229 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022B31C2AA;
-	Sun, 27 Sep 2026 08:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33B2280CFB
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499190; cv=none; b=GtTw33XP0nJXLXq0hch7tIm9Qw0bgzgnqnm2KnmKa9H6ezmPkp5LBcezgKCjIM95FAZbCyASO7uVdXD//5lqvnNdjVPVOqVRh0F/t2zWPMGeNiT+6c/0tweVJ8dk8rLUKlYnfI23QS1bAaENclJZJl9daLJ70aHTbrSxWR+clI0=
+	t=1790499416; cv=none; b=WNNwciSNYK4ajYzzDnweozheZWLro/G/anGD4eZYgDytAjAuFSmuSEPz4LuCCuViL3MPgez5aBiQ/IkW/Bh2YKkD2JKidvhJBDUirVWdiMUu7gUdX4GnkVl5rZuzLqCjn509OdMTn64ZrdioFuA7Lbgfs+20OB3NEknpmCH2Edw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499190; c=relaxed/simple;
-	bh=RE5KvbNOR9F0lWLBYDA0FTuNjPviqAarJIiKS/ogrWU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vB8qDyOSMfoLotH6XU+/uNNa+8J3gkvNdBLATJGlvEqAFhdE+wZExn9aI5bBT09TKNnBWJgbNkpyh4W4KqaSfkVRJ0bTo2pVmMoNcQs2RWf1LwDOQA8GHsFk6aAiZo1vqKVhTRRo5ZAOwyu0LJn9DEoApNKdjw4NGgTxxddpPI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/sdtxTh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790499416; c=relaxed/simple;
+	bh=na7MnqEQJuC8olHclKKsjrvhEuivz8p97wbWlBBlwDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G3lHhYK8eCe1wCId05MOESxJw897fwzRLMzrx9LSQea3sUTysW/IcNpqg5r8fMqqwV5FWYh40XPzQMwVjoCTHqz96RdGOrdio+tbiw0kCNdOlOutsmNp+pIDUQSZjR6Yj9JTMDCGY6R8St2OnSimQ5tFgueJHnbht1/XWpFibXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9O4Segi; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/sdtxTh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0DD1F000FF;
-	Sun, 27 Sep 2026 08:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790499188;
-	bh=7DC87U949zK80OM5Df9MdhIZs83b7YvzK4d7Tw6CCSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h/sdtxTh8F2j6QM5LHTfmplsdInxTA/lOzRky8R36ylNbdq1mOOa2IPGlvTfrsxmw
-	 RDZOFE0izjskJ+Y31hoBlkJnKku/jilhvTZe/RXZP2Pmh9X8V3fLcXUQF9xbdSvNXk
-	 +dpzidlLEMKqk3vyegpQMQfs8a+9Scp6I52v9h9/3lKiqKTBnCCnktsDcRA5C6jwjo
-	 bhZ97943qPyrMX2fZeSEAenH6AHwGsUP1X0FwJu3DXT7gRa6bLZiYVxj2arnC4YeLm
-	 UC5RBthhItidF4xbGddXxLXVyXqEWNg2u0oI30ZJKsjMNjQVqOAIjfJA8UR6s48zBt
-	 sAIV03KUOKP7g==
-Date: Sun, 27 Sep 2026 09:53:04 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: ginger.jzllee@gmail.com, saeedm@nvidia.com, leon@kernel.org,
-	tariqt@nvidia.com, mbloch@nvidia.com, netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kuba@kernel.org
-Subject: Re: [PATCH net] net/mlx5: HV VHCA: Fix the agent registration race
-Message-ID: <20260927085304.GD13925@horms.kernel.org>
-References: <20260922074246.20411-1-ginger.jzllee@gmail.com>
- <179032217859.2160803.16820194707566685207@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9O4Segi"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-882c2bcef77so194840b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790499414; x=1791104214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5txqVmu2LVZOtoXfw0E2UO1BnJaAiJFq4i/7tF5xvb4=;
+        b=S9O4Segi3CMI6CxH8R+FDXEyfH6QjfDsITpeJjCGj0hFD7tVBJMJPgoglgLnWcH5qA
+         DWVCuvwYqHWgXjlNb1EdLj2CJ/1LIMKq+EG41VIaNbaFNY1V6MsGC4S6e8kRGPEZmwhJ
+         Ija4FWTUWX3iNshqck7dOHnQgihqxKHS8iMSiVfV77gwO0uDi6JCrW6eDbPsIr98qkJr
+         jXxBrFc/788T53gpnJfiTbxNtkR1eKV3tQQpAK3GaLNv9RXv5qRJDf2tXier5KtDZz5b
+         Y1liBJz4cA5Me/u+JFhzY8hyKX5bbM9r/syv5P8w08lQuJ+tkcgt/mi8ujDDD/VcPZ7Q
+         YYfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790499414; x=1791104214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5txqVmu2LVZOtoXfw0E2UO1BnJaAiJFq4i/7tF5xvb4=;
+        b=TuRD/e8VhaROIOgKL9To/sHFpVQi/b3O1Z3iB7C3AtbudUwhu88WAkvsuWaGX/ocaO
+         /m+9YXfH7dGKH06EXcB4eqW7C5CLW4YO6awmqvnRJbgQlKhi3IVX/j0BlT9eskHqz5vj
+         gkpez91c+r58+cmyzVF4QZG/X8KmU3B7ZLDgQYrwma1krKOtIt0kTitxtaQm/J71cEAO
+         AcvK4o9zwNh3f3iWkHg7QFjiEaVmy9RUpP+3PSKWoiMuzygWItSBSqXg9YaVTUrXYQ5A
+         hLBQNrU7bDrnhSga+4AJhLKnrV5WpW/7QxqrJzvPfTTlGG0B2KP0W/Vc0zR9jQAWgpBc
+         ePDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzim43pSPUyN2Vm0O7grAs1ihmD15s+dDekWOd2MQXkSUpVSZXvswZFelbjuYD7yWjqYJfk80ZkGrH1zSk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGk/1zWd2w7BMo5VQhYMV1F0sDPq7oP6BlpP9nXv8iFJFXG4r8
+	+YZBmol3wkp6moqOtPgxLMGF/2UKqwqQH+iTTUm0z3+KUgdXCIZUgC4x
+X-Gm-Gg: AYBFou1Ra8wOyReQWNvXLR21QBkMjlJhbMgBW4tO0pFO6CYJ+2ljC1uuXkk/r3rWT9t
+	4IfLJr9EwumtpYf2pM0pWWLGS9gZZSZwtUC94crEWRgcFW4Om5Pblziv49i/yg9sdkhP41pLVse
+	Z8NXFgj6ynaACsa0f7eShpBFtoiy+H41kyEhDDlnKDire8R+tHiqtsPwela3xDfm0+IVYnKf88t
+	n68vJsvheJFTH/XFMmBkQ8HeFrifFOEa/rI4m3qht4vhY1TKh0ah+eAfcncPVVNbPtM9QF9C4bz
+	jlwo3qoGR5kL41OBWnel1+6MGnzY21lojnXXeQVn/lk75EFjBwzFtuHSWKtCFSGexgZu7VYIOw/
+	uUffkJ8yvCFkfCnItZ/R/Vfn+gWRNOUMUFpXUpBN72neXp1mTm8xm5Mj9u/oU3szF5i1EY/XpMs
+	cKPPBZip2YoWE9bOom/A8dXTo1doHK8RIA0JB+gavjTEJ6OJ/9IqvOpW20PuwK3Sj/2duLbKPrv
+	PUqvpNCfxCK4HgKFz3M6qayJ7Bl3Qhke1E2yzGg7LgF6Q==
+X-Received: by 2002:a05:6a00:408f:b0:882:98e8:5202 with SMTP id d2e1a72fcca58-88298e855ecmr1090552b3a.54.1790499414186;
+        Sun, 27 Sep 2026 01:56:54 -0700 (PDT)
+Received: from archlinux ([157.48.21.227])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea19800esm2795783b3a.10.2026.09.27.01.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 01:56:53 -0700 (PDT)
+From: Suryansh Singh <technosfan14@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	krishna.chomal108@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Suryansh Singh <technosfan14@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Define known Victus S driver data
+Date: Sun, 27 Sep 2026 14:25:39 +0530
+Message-ID: <20260927085539.96791-1-technosfan14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179032217859.2160803.16820194707566685207@kernel.org>
 
-On Fri, Sep 25, 2026 at 07:42:58AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+Currently, Victus S thermal parameters use the Unknown Offset for TP
+(Thermal Profile) from the EC offsets enum, even though there is a
+Victus S EC Offset in the same enum.
 
-With a view to move things along, I took a look a this.
+This was done so because the EC layout is highly
+variable across this lineup of laptops. The only place where the 0x59
+offset is used is the driver data for Omen V1 models, despite it being
+labelled as the Victus S TP offset. The name clearly doesn't relate
+to the use case.
 
-> - [Medium] The patch's second hunk does not achieve its stated purpose
->   and leaves the lock coverage of…
-> 
-> --
-> 
-> net/mlx5: HV VHCA: Fix the agent registration race
-> 
-> This keeps agents_lock held across the duplicate-type check, the agent
-> allocation and the publish into hv_vhca->agents[] in
-> mlx5_hv_vhca_agent_create(), so two concurrent create calls for the same
-> type can no longer both pass the check.  It also wraps the read of
-> hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] in mlx5_hv_vhca_cleanup()
-> with agents_lock.
-> 
-> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-> > index 4c4cf6da519fa..eac8afdfc67a3 100644
-> > --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-> > @@ -228,7 +228,10 @@ void mlx5_hv_vhca_cleanup(struct mlx5_hv_vhca *hv_vhca)
-> >  	if (!hv_vhca)
-> >  		return;
-> >  
-> > +	mutex_lock(&hv_vhca->agents_lock);
-> >  	agent = hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL];
-> > +	mutex_unlock(&hv_vhca->agents_lock);
-> > +
-> >  	if (agent)
-> >  		mlx5_hv_vhca_control_agent_destroy(agent);
-> 
-> [Severity: Medium]
-> What does this new critical section in mlx5_hv_vhca_cleanup() actually
-> protect?  The lock is dropped immediately after the load, and the pointer
-> is consumed afterwards:
-> 
-> 	mutex_lock(&hv_vhca->agents_lock);
-> 	agent = hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL];
-> 	mutex_unlock(&hv_vhca->agents_lock);
-> 
-> 	if (agent)
-> 		mlx5_hv_vhca_control_agent_destroy(agent);
-> 
-> So the only guarantee gained over the previous code is a non-torn load of
-> an aligned pointer, which a plain load already provides.  Nothing is
-> serialized against the destroy itself.  Extending the lock over the call
-> is not an option either, since mlx5_hv_vhca_agent_destroy() takes
-> agents_lock itself and that would self-deadlock.
-> 
-> The changelog says:
-> 
->     While at it, read hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] under
->     the lock in mlx5_hv_vhca_cleanup() as well, since that slot is
->     written under the lock.
-> 
-> Is that accurate?  mlx5_hv_vhca_init() still stores to the same slot with
-> no lock held:
-> 
-> 	agent = mlx5_hv_vhca_control_agent_create(hv_vhca);
-> 	if (IS_ERR_OR_NULL(agent)) {
-> 		mlx5_hv_unregister_invalidate(hv_vhca->dev);
-> 		return;
-> 	}
-> 
-> 	hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] = agent;
-> 
-> That store is now fully redundant with the locked publish that
-> mlx5_hv_vhca_agent_create() already performs:
-> 
-> 	hv_vhca->agents[type] = agent;
-> 	mutex_unlock(&hv_vhca->agents_lock);
-> 
-> and it contradicts the field's own contract:
-> 
-> 	struct mutex                agents_lock; /* Protect agents array */
-> 
-> Can it also race with the locked reader?  mlx5_hv_register_invalidate()
-> has already run by that point, and mlx5_hv_vhca_agent_create() queues
-> work before returning to init:
-> 
-> mlx5_hv_vhca_agent_create()
->   mlx5_hv_vhca_agents_update()
->     mlx5_hv_vhca_invalidate()
->       queue_work(hv_vhca->work_queue, &work->invalidate_work);
-> 
-> while the worker reads the array under the mutex:
-> 
-> 	mutex_lock(&hv_vhca->agents_lock);
-> 	for (i = 0; i < MLX5_HV_VHCA_AGENT_MAX; i++) {
-> 		struct mlx5_hv_vhca_agent *agent = hv_vhca->agents[i];
-> 
-> Since the value stored by init() is identical to the one already
-> published under the lock, the practical effect today looks like a benign
-> data race that KCSAN would flag rather than a functional failure.  Would
-> it be cleaner to drop the unlocked assignment in mlx5_hv_vhca_init()
-> instead, so agents[] has exactly one locked writer per slot, drop the
-> no-op lock/unlock in mlx5_hv_vhca_cleanup(), and adjust the changelog
-> wording accordingly?
+However, after some downstream searching, I have found that there is
+a Victus S board which does have the expected EC layout corresponding to
+the very Victus S offset itself.
 
-This analysis appears to be correct to me.
-For this issue I believe you can just drop the assignment
-in mlx5_hv_vhca_init().
+Add known board parameters for the Victus S models to correctly map
+the found board (8C99) and any others in the future.
 
-But I believe there is another issue in your patch, which is
-that it extends the mutex critical section in mlx5_hv_vhca_agent_create()
-to cover kzalloc_obj, which may sleep.
+Link: https://github.com/yunusemreyl/omen-space/commit/f32a76386592d1a604e574c693b323d15e978089
+Signed-off-by: Suryansh Singh <technosfan14@gmail.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-I think the correct approach here is to:
-1. Speculatively create the agent object outside the critical section
-2. Try to install the agent inside the critical section
-3. Free the agent, if that fails, outside the critical section
-
-IOW, move the type check and assignment to the same critical section,
-after allocating agent.
-
-I came up with this (compile tested only!)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-index 4c4cf6da519f..e07c2bdcc12a 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-@@ -216,8 +216,6 @@ void mlx5_hv_vhca_init(struct mlx5_hv_vhca *hv_vhca)
- 		mlx5_hv_unregister_invalidate(hv_vhca->dev);
- 		return;
- 	}
--
--	hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] = agent;
- }
- 
- void mlx5_hv_vhca_cleanup(struct mlx5_hv_vhca *hv_vhca)
-@@ -265,13 +263,6 @@ mlx5_hv_vhca_agent_create(struct mlx5_hv_vhca *hv_vhca,
- 	if (type >= MLX5_HV_VHCA_AGENT_MAX)
- 		return ERR_PTR(-EINVAL);
- 
--	mutex_lock(&hv_vhca->agents_lock);
--	if (hv_vhca->agents[type]) {
--		mutex_unlock(&hv_vhca->agents_lock);
--		return ERR_PTR(-EINVAL);
--	}
--	mutex_unlock(&hv_vhca->agents_lock);
--
- 	agent = kzalloc_obj(*agent);
- 	if (!agent)
- 		return ERR_PTR(-ENOMEM);
-@@ -287,12 +278,19 @@ mlx5_hv_vhca_agent_create(struct mlx5_hv_vhca *hv_vhca,
- 		WRITE_ONCE(*ctx_update, agent);
- 
- 	mutex_lock(&hv_vhca->agents_lock);
-+	if (hv_vhca->agents[type])
-+		goto err_unlock_and_free;
- 	hv_vhca->agents[type] = agent;
- 	mutex_unlock(&hv_vhca->agents_lock);
- 
- 	mlx5_hv_vhca_agents_update(hv_vhca);
- 
- 	return agent;
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 7ab81ce5f8d4..6486e0ef8753 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -121,6 +121,13 @@ static const struct thermal_profile_params victus_s_thermal_params = {
+ 	.ec_tp_offset	= HP_EC_OFFSET_UNKNOWN,
+ };
 +
-+err_unlock_and_free:
-+	mutex_unlock(&hv_vhca->agents_lock);
-+	kfree(agent);
-+	return ERR_PTR(-EINVAL);
- }
- 
- void mlx5_hv_vhca_agent_destroy(struct mlx5_hv_vhca_agent *agent)
++static const struct thermal_profile_params victus_s_known_thermal_params = {
++	.performance  = HP_VICTUS_S_THERMAL_PROFILE_PERFORMANCE,
++	.balanced     = HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
++	.low_power    = HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
++	.ec_tp_offset = HP_VICTUS_S_EC_THERMAL_PROFILE_OFFSET,
++};
++
+ static const struct thermal_profile_params omen_v1_thermal_params = {
+ 	.performance	= HP_OMEN_V1_THERMAL_PROFILE_PERFORMANCE,
+ 	.balanced	= HP_OMEN_V1_THERMAL_PROFILE_DEFAULT,
+@@ -164,6 +171,11 @@ static const struct hp_wmi_board_params victus_s_board_params = {
+ 	.fan_profile		= &victus_s_fan_profile_params,
+ };
++
++static const struct hp_wmi_board_params victus_s_known_board_params = {
++	.thermal_profile	= &victus_s_known_thermal_params,
++	.fan_profile		= &victus_s_fan_profile_params,
++};
++
+ static const struct hp_wmi_board_params omen_v1_board_params = {
+ 	.thermal_profile	= &omen_v1_thermal_params,
+ 	.fan_profile		= &victus_s_fan_profile_params,
+@@ -316,7 +328,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8C99") },
+-		.driver_data = (void *)&victus_s_board_params,
++		.driver_data = (void *)&victus_s_known_board_params,
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8C9C") },
+---
+2.55.0
 
--- 
-pw-bot: changes-requested
