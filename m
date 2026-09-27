@@ -1,132 +1,143 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E814A38236E
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6532D8762
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790492043; cv=none; b=OKOcm3OrST+X6HiEjBwPnMVcmOXmjft/klvHulc5K4EJhzsqy6MFidtWcCes1yzMBPnha24bjyJH3nJT4rf0bmU+eoqqfkaLwpXGE01FkQFTc46hWPUo/bbKsHdDCHV4GOxuul8sIgJu9S74XAsxYkTbKVnVY6vjOzSBDwYcjdY=
+	t=1790492433; cv=none; b=TPwoZ7RZUxQbBgcgFdCSk0ygm/VmrN+beFgfTXWVKMRO10XQ2hftS72Q1GIGti/k966a8idJ2E3ZaBYOpHXZbvveQqi8XDYfKZ/+MjNGSSH9jO5cJuJMNATW4lQXDqwodR6uZVlmWWE96X2k5BL+lsim51VPhSLd4ZSfhWgPOzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790492043; c=relaxed/simple;
-	bh=Rp2X+dx5hQ3lt91Pr5vYcPaasxyyoToGNSTmo5cX7rE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PW+XP5ObK7pC57keX4aecBD+6WyRofU+peVMZkgINQi9OJexAA65vm2w1FygQ2bak81sMuaLud4JZ1AZI/q09P6lg/FzCiJIZI6Ix629q8puu20Rs8aqh7E4InVf8QedowxTfqYwDKA6w/G7nE7vs0oyvZ4o34437TYaZSOQVxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVmgCx8I; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVmgCx8I"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b021dbso533339f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:54:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790492040; x=1791096840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=blA64iov7PIlD+oGU3ZepcahACLOoCoJ8JGCVHSsjCo=;
-        b=GVmgCx8IWI7BJwAGDmQqubdboZkfj9rKj+kWI/YizjieVCyI5F5r/LcTUzaBK8LZuv
-         +Jkv0NEwqONlns2PLh9jel/dshFd7vQ3RpakjyBu3MoUQRlVB+nr+sC+uMspPrjWWKkW
-         uV5T6rwrrco27Ro2bnNZsHhwFawMMdF5Umg5uNAwvO3hGeLH4cex/Im5CqxwTXwYjgyc
-         uiJgyeZeqfUo0oJe5XNNpUBWoKwR/48ydQHVoUNCCoZmg5hJ9dI74lBlIa74TNmtAe4W
-         kkVzpoiX9s39fxRLBfFgor7wv7C7CNutbf3mEqzOWYX1GomXigv0TmSTPlCT64V4Q/DA
-         iTHQ==
+	s=arc-20240116; t=1790492433; c=relaxed/simple;
+	bh=FDbLY9xZ/PprTNFG3kLlO/youPJ9mHtVdlc49nSnBk8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=i7FZFYQPZLINTBzfFf60rtIk88b+RW/nyVdJmvf55GhLzEZAO3nd8Av8uAK6HKCy6AC5Obc7QA1rG7XZ+IZy2VStBbsMqW6YEX2hOmOkoIQl2sGw8aAKyx2eLHkVEasKxDNmCjHxpDvSAOwX7Dl70ewyI0qTnBFrmwpRHabmsYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab8b4887d4so2109406b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:00:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790492040; x=1791096840;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790492431; x=1791097231;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=blA64iov7PIlD+oGU3ZepcahACLOoCoJ8JGCVHSsjCo=;
-        b=NozkZNYFTpOT2XWaGOXqQ15cc/Gj5N/wH0DxL/baBMdJ0u8WsrIlOIbcHVfd3bH4pD
-         w1unFakwfyLviE5NywUJ2N2NJRByv5/9ktPeyXANZyg7L5RapYwQJp5KRIb2T5QjnYvr
-         /EpRbaafkeziKUMgluZ1a7o1TrYNR2aDgJw4mPxNXDlqx8n7BEDoBOnq/RylSfI6yPjg
-         ZkXMUKjy9o+5th9npvTT7OOAK5uZYPIE63EbLdb4SV+JOKrKD2lSfECGgNEjKEOtATbQ
-         dbiZcRQCpo5DrSXVcW9PGim6VirBfYtonmZIdQnuT8X/wPO43rgo19gX3+QuG+SlL2xl
-         zhcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYxxWZkMbAo6BJuyZo34FYyhv2UZdZuOkiIdOap9VtS901sUlNa0Flx/WuSdJ3TMB7rA9JBY0dtcyoFbc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSia6LSrn1B67QZ/UudAcJibdRyp04xnJ5qLPSEHLHIZApApxH
-	ucTtEeFCh/9ma9Asf4hEiC7nFYF5zeIRdqQgafZApdCTrTUGKt2iaYJN
-X-Gm-Gg: AYBFou0za8ZKLaxBnlwpEOkil4QxGyDgMBbUEMZvhyFfOhwwh8IjI5r42AhoC4a8VtK
-	6cAv1sex79YK7FxvViqVM2ZD44IwpxRKGfo0SWPc2Dm+h81wgT7ARPYOQQRHGwDQgDbDT096dCz
-	7gSv9/dty76Q4aaTw+MUCKZ0RWbR3L6bX7Wk6efend2GX5REA2n2tkJMmGWJ1/JNfAZBxRrbk/s
-	2REBoA0NaSCRVZpKLU7+WqkZphamdb53ONlry1/Cen3/H9YKRYM3ZmsA/wvQHBk9CZtz3BG+bY5
-	W0rjhdaEdOvznG4XScbzTF7W+yXQDx0rNqSYPLIoDtzT7dPov8irqppAg/gQIEpt7kmkEDtRlrG
-	HeT9SZJ9lb61SGpzLdP4NA76KLuqTK5w9AIZ377pmg3iaNOuFi2etP3okBcxnG1old+H5ALUybd
-	4uFBuclLk9ryaaX7oM+t1C3/i4/EDP56yIZJX1DRZ5XFIrEZRyhbcUzW6fZmT6pu1CYnZwDTSs7
-	fpVVUqJji6kFFGK6hz5s4MD1eq+27QpOkg0QN8OluE/YQ==
-X-Received: by 2002:a05:6000:2504:b0:487:1256:ab80 with SMTP id ffacd0b85a97d-48871878daemr18432269f8f.57.1790492040099;
-        Sat, 26 Sep 2026 23:54:00 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349a0esm26432209f8f.10.2026.09.26.23.53.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:53:59 -0700 (PDT)
-Date: Sun, 27 Sep 2026 07:53:58 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Breno Leitao <leitao@debian.org>, David Ahern <dsahern@kernel.org>, Ido
- Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei
- Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John
- Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH net-next 1/6] ipv6: reject a negative optlen in
- do_ipv6_getsockopt()
-Message-ID: <20260927075358.129e5f65@pumpkin>
-In-Reply-To: <arbE6i8JZrOs-DO9@devvm7509.cco0.facebook.com>
-References: <20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org>
-	<20260925-sockopt_expand_out_v2-v1-1-c3ef2e3bb5c0@debian.org>
-	<arbE6i8JZrOs-DO9@devvm7509.cco0.facebook.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=yUswOB5ysKHOA7slc8X+DxW5CuxTPJYetOfkipRfRMc=;
+        b=EDcUMAxXBdUB6SxebOvOhgu+cbRImwjM/UkngKriAb72thEWvlUQauDauh6rzWYP23
+         afxYK2UT5/TvLronWCM1znHPbHrjk7GWQewRi1dKvWdPhrW5X2TOQHHz+2NW/UqF0ii8
+         BI07IRUCRymH3q+kCL2zS/A7aACbEqCJqlLR+FICKQGognTKy6RSdxnq3M8onR/pZXL5
+         SPRxQWZfKpRifyVfxWtoT1JzaTtOJIddqO48uPj5U5hb14QGtSUY8JPXLWsVr9aYAhlb
+         9AksnlXh7/i9z1NHIUaNld/jCfgzeFjSCj9pAFEnDsbVnD1NAApAkU/UadZQKwtbS18/
+         t9bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJQO+9Cfv8yZ0peKsp5jZSr69NgxL4ibLkMtgd6I70IoiExc7eOWKx7rjLQi2XCXmh/2kzap7k+TGg8OQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcNnqn0yFoh2EvJ57fd3SS83lNecyMwrjRMCNstFLQZJ4SrrYy
+	zh/DtklL65NDcorzTn6tUiDnJuvVhB2ZJQlDjuBUBjjBK9MHpKkRYUgyf+a2AQJN6NbgbbZ0TUa
+	XT/YJ+92Sw0IBVp3Irqh0TqGVpvHgGX4totC2nBXsyL9BnYdr1tP8gpgnZHw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1599:b0:4cb:d056:b14f with SMTP id
+ 5614622812f47-4dc57e2b419mr6325207b6e.1.1790492430728; Sun, 27 Sep 2026
+ 00:00:30 -0700 (PDT)
+Date: Sun, 27 Sep 2026 00:00:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab8bf0e.80e1c6cc.1e8e5f.0053.GAE@google.com>
+Subject: [syzbot] [f2fs?] kernel BUG in f2fs_write_end_bio
+From: syzbot <syzbot+eae639926b1c1ac725d5@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 25 Sep 2026 12:02:22 -0700
-Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+Hello,
 
-> On 09/25, Breno Leitao wrote:
-> > IPv4's do_ip_getsockopt() rejects a negative optlen right after reading
-> > it. do_ipv6_getsockopt() never has, and nothing downstream treats it as
-> > an error either: len is an int, but every consumer compares it unsigned,
-> > so -1 behaves as a huge value and each site clamps to its own reply
-> > size.
-> > 
-> > 	len = min_t(unsigned int, sizeof(int), len);
-> > 
-> > So getsockopt(fd, SOL_IPV6, IPV6_TCLASS, buf, &len) with len set to -1
-> > answers 4 bytes and reports 4, rather than failing.
-> > 
-> > This is a bug ready to bite us in the near future, let's get this fixed.
-> > 
-> > I've found this because testing the rest of the patch was returning
-> > inconsistency when optlen = -1.  
-> 
-> If I can do getsockopt with len=-1 today and get 4 bytes back, isn't
-> that a uapi and we are gonna break someone?
-> 
+syzbot found the following issue on:
 
-Treating negative values as 4 goes way back into the pre-historic annals,
-And I agree that there could be code out there that fails to set a value
-so passes 'dirty stack' and it always works because it never passed 0..3.
+HEAD commit:    fe2ec83746e5 Merge tag 'hid-for-linus-2026092202' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13ba8d25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
+dashboard link: https://syzkaller.appspot.com/bug?extid=eae639926b1c1ac725d5
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-I suspect all the per-protocol code ought to be passed an unsigned 'len'
-(and return back a possibly modified value for the wrapper code to give
-to the user).
-Then you have somewhere:
-	/* Historic bug compatibility */
-	ulen = len >= 0 ? len : 4;
+Unfortunately, I don't have any reproducer for this issue yet.
 
-David
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-fe2ec837.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/64158d6729cc/vmlinux-fe2ec837.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/4e2043b7fc3f/bzImage-fe2ec837.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+eae639926b1c1ac725d5@syzkaller.appspotmail.com
+
+F2FS-fs (loop0): inconsistent node block, node_type:0, nid:3, node_footer[nid:0,ino:0,ofs:0,cpver:0,blkaddr:0]
+------------[ cut here ]------------
+kernel BUG at fs/f2fs/data.c:365!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 1055 Comm: kworker/u4:9 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: loop0 loop_workfn
+RIP: 0010:f2fs_write_end_bio+0x167d/0x16e0 fs/f2fs/data.c:365
+Code: 67 5f 8c e8 75 15 c1 fc 90 0f 0b e8 1d e0 60 fd 48 8b 7c 24 08 48 c7 c6 20 67 5f 8c e8 5c 15 c1 fc 90 0f 0b e8 04 e0 60 fd 90 <0f> 0b e8 fc df 60 fd 48 8b 7c 24 08 48 c7 c6 20 67 5f 8c e8 3b 15
+RSP: 0018:ffffc9000527f490 EFLAGS: 00010293
+RAX: ffffffff84670d0c RBX: 0000000000000003 RCX: ffff888036980000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: ffffea00010bb900 R08: ffffffff907a767f R09: 1ffffffff20f4ecf
+R10: dffffc0000000000 R11: fffffbfff20f4ed0 R12: ffffea00010bb8c0
+R13: dffffc0000000000 R14: 0000000000001000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff88808c2c0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcdf33c4d10 CR3: 000000003b2bb000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ blk_update_request+0x57b/0xe50 block/blk-mq.c:1016
+ blk_mq_end_request+0x3e/0x70 block/blk-mq.c:1147
+ lo_rw_aio_complete drivers/block/loop.c:338 [inline]
+ lo_rw_aio+0xcd4/0xf20 drivers/block/loop.c:406
+ do_req_filebacked drivers/block/loop.c:430 [inline]
+ loop_handle_cmd drivers/block/loop.c:1949 [inline]
+ loop_process_work+0x621/0x11c0 drivers/block/loop.c:1984
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:f2fs_write_end_bio+0x167d/0x16e0 fs/f2fs/data.c:365
+Code: 67 5f 8c e8 75 15 c1 fc 90 0f 0b e8 1d e0 60 fd 48 8b 7c 24 08 48 c7 c6 20 67 5f 8c e8 5c 15 c1 fc 90 0f 0b e8 04 e0 60 fd 90 <0f> 0b e8 fc df 60 fd 48 8b 7c 24 08 48 c7 c6 20 67 5f 8c e8 3b 15
+RSP: 0018:ffffc9000527f490 EFLAGS: 00010293
+RAX: ffffffff84670d0c RBX: 0000000000000003 RCX: ffff888036980000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: ffffea00010bb900 R08: ffffffff907a767f R09: 1ffffffff20f4ecf
+R10: dffffc0000000000 R11: fffffbfff20f4ed0 R12: ffffea00010bb8c0
+R13: dffffc0000000000 R14: 0000000000001000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff88808c2c0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcdf33c4d10 CR3: 000000001f6d9000 CR4: 0000000000352ef0
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
