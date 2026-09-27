@@ -1,110 +1,146 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889DE3D3CED
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05968EADC;
+	Sun, 27 Sep 2026 22:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790548481; cv=none; b=WU0Ix+bE2pWCrlKokIKqwmKkV+FPDB2tw0064FXq7l4nL551dRlxZqhMakxO8jS1Wg+2mXPFSXOvRIfix30PMG0qWh4o9r4F8QfzpBiWGQZitHPBW+LRz3c0u3RY4HxA8uCBOxLuV+UucFS9MQDlnWMyRRx5qoFYZunHN7fkAT4=
+	t=1790548673; cv=none; b=TbHyBaJGxVnGarDnnCzD3Lk1IHH7Z6WVS8aKrQu3KoSsX9sHBrdrdG8692ucGkDgeR+pcECaue5dKnHTKNW3SpNRpHAL0RoYAPXC615lQnW96GN7IpB1YDlCguolqVg9es8zLf0rSgXCODyMfxdnSKHSvSVlOV6iWimdP2kUwmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790548481; c=relaxed/simple;
-	bh=oschAN2lEnq8fNXOBOQSsNZIzFqKsnR3kjdIZzoSwbE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MjK8W8Th9AI6nSN6NJ88YdXEP9ctHvgVXSc+ewfnyXITT8UMkLJmLDgV30lYAp+uHtnz9jM7aciRFKdiSOqU0WL7Bpjd/memdBwNjfVXwpSCVqq0xBxcTUSresAFWXNSj59Eg66jqmahryBvcTQdw91DgDJAiWs+TXH5SGOBcm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=zxqOYY2l; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pA/c2cU7; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790548673; c=relaxed/simple;
+	bh=N67NUZKb1HwXZygj5d6vUkNwwcymjhaIuEZz990ku2M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U1feoYHLVdbW7ZA0MUvj5MI0uZuZkA3dj6elX8Kx2BVGBCulXj7Qn7sTJ91cWpoE2tYrah6bNfKJR8fzbYfdYwvmiXu0aMq8PQaNyctwXdmjTlC9YRUCAmlHeSJxUke64xIU80l7DaGI+jY5LfBENblMOlK+OkMmGY3tBo15oJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DplMAnkY; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="zxqOYY2l";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pA/c2cU7"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 948101400017;
-	Sun, 27 Sep 2026 18:34:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Sun, 27 Sep 2026 18:34:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790548478; x=
-	1790634878; bh=kXdCDsj7PCz9tBxPu0AxVk59x671emrRsxu29Q8opC4=; b=z
-	xqOYY2ld82imEa9qKNkbo1EPuz+ckfixBKhchxFDvDrKNxOuP3da0uRwuRuAb15p
-	Fwa4iuXtBdQmU4a7iM3N+V+6xshR93s7CxQ5QrHFtZvz5t8rMKCg4zIspyJuYhTz
-	/6LwdVETtBTAuDAnzu1Q1A/4Mj/aAEvmRn8OIvLiblYjmug38e/qmCc6pnw/eoAM
-	Bd4ut0tJrOHPkps3d2t0TZofwXbGziTNwRPW3Zw/M4tBq8WJjCot8zYr4CLzAnfc
-	rPdaW3qKod2DRvvZ1LaK9T/pE6CzRTSTIc0l10UyBes7X/dZSMcVGjx5xtTWXJzT
-	Mg2DB5mRcEWpgArxvTJGg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790548478; x=1790634878; bh=kXdCDsj7PCz9tBxPu0AxVk59x671emrRsxu
-	29Q8opC4=; b=pA/c2cU7QhchvxTqUFTDOcnn6u47pQU/ZS2qVDTXU60Hk8+omaq
-	OK47eY5JcptMgzUddmIH5edQgQDakK37R/CguCNB/8GL0IFLz6YHTdovvX9jD5d6
-	3xoGRSbGIwQ90RxEeJ04hCE/6xVRKTJoQ+VdoEd2rzBg75GIndQshih8+GjXDlcx
-	1NKJxIjsAYR7AYjLrjhx8IiDg9CnPzsT3NWD9rXJuJKIxOYjYW9OPkYjPeeupd9o
-	N4/mwU6WOXWpCza38JeZq/3DcloXAM31ylIXHtUSfqOm2gaiDiPMxxyoH+Eb0jjx
-	PM3RiPbaly0YFQFL0PXTJMXduyp96FcsBzA==
-X-ME-Sender: <xms:_pm5aoM-K4LLWQRyoltvtGox22A7eY1DFBI9m4Oq1gc4PtzHfkaIgQ>
-    <xme:_pm5as6YMakoRYg0tF1HcWLmC5OJs466EP1j8vOQHQhkNWr6Kn_BWUsrm0desJ3O_
-    2u_6eW8tYLSB95LNdinNo6iEI_Uy-aC-CXfpQv6YZSc1Yv1px6izB3Alw>
-X-ME-Received: <xmr:_pm5am2hFQWDRnPwo36RJbGfPZAO0WWLlZfn2-DGyTPEYwoskva0jX9awEndfe86WCCQ8REoCzgpjTZncr76kOWcmpRK>
-X-ME-Proxy-Cause: dmFkZTEeNb0L0+0CDhiH92gfRMPGOjy+7Cf6o9i219ed9wCywrMiwE/J0pp107zGJluIe8
-    KxartfzhswGn4WDM4NQzgJTyy5+J4rbUqF4uFGfh+LdNrSdSuZRIntAizuTBa0ari08iG9
-    XLj+ESSAF7+hQsbr5nG1qnM6lqWKCCE4mizHHEUr11+GMUmhEIGIUMGJe8KL566m7Kx59/
-    eeXQfGMaaWqktwUdlgNm2moyHkq8S6B1VGbE/A4rkpZ7cvb8RYlKJHsKE+bW0ZaamO34/m
-    P5aq0CGaIcG6eT6mpeKFTVACQUFy50MknndeoxByFTjhwp/liPMH4DHcPQUZngp70jztL/
-    Q1Z+GwJacaR5Z/YV4LppV94uruFUNmurB0ZidB+YCt+kacjbM/1zVDY4X1Is30ioGizv9s
-    /7USFhreq0Ar2RjAS09fFkK1rlHoS4PFrF1rj2u+pjNwFh3lY7udearPDeIWkaa4KPH+0r
-    ytU/GPK+vqz6/NH1DcJG2I2xJU7eqiciW3W36oTo0oUsY2wU93CuQFZNyLmp1FWOxu8ejW
-    EyjwkP+blCIgbuWak40cmlOKZ8l7T6hFhvExBZfP75ByJBcER/O1uOPKZjsxVxIRIEC8e4
-    jQVSjzx7mBL2nU6G4pVv4IWCMZZ0UsyMag0ApSeFNyIckHqvElvgnTxNXGiA
-X-ME-Proxy: <xmx:_pm5ataUUY1sqFDaDQWF2COQC_thObB1SPGESwMYK-hyaYW2x4tEOA>
-    <xmx:_pm5auBVURx8QzlWABf3U_r92HbHLbMab6hTpBpWwegyngIyxLeQDw>
-    <xmx:_pm5av_HGj5Re2-WV3YDa4hQyXoUN41l9P3VWjQFSvEzEf6TUNg8GQ>
-    <xmx:_pm5au9JqDYTYkSTo8hPD8X2bdM0vOu7N86nM11IieQi2hqldtr6VA>
-    <xmx:_pm5anjTEYC_8uV38mDzub1Zxmz9PCEI3s0mhAUUEcaYPIzAD448meGu>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 18:34:37 -0400 (EDT)
-Date: Mon, 28 Sep 2026 07:34:35 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] firewire: core/ohci: misc fixes for transaction
- cancellation
-Message-ID: <20260927223435.GB90046@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20260927044407.65497-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DplMAnkY"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4htK8C6rvwzKp3c;
+	Mon, 28 Sep 2026 00:37:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790548668;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H6/mirp4Bz9bB7BY3nprZ6AZkmHJzy7o7ZyVgN0DDnk=;
+	b=DplMAnkYLUJkFWf2zKvWscayxHIfIB1ByGo1yiYRDfGdQFaYqmAf7JlyuHq+R6HJm03kry
+	rdRR7mIJsHQTrmXJPYjhQA1PuVUD0FmI+OCnRp6i+/5vcGDcas7RbRvKyRzJOJtgp6Rk9t
+	O/DBmOxaNZzabHt/CTZEdZcmU13DhV66SnSwXIfDKZN5gmEZPbocpzosuB7YmdA40Ijx/r
+	j5A8tBBV9Rg5+c0bzuXT7hc5Fp2Y81EWpO2sZIAuCKNMRAHwtWE0Yb4fmV9bYFOAMrvAxi
+	d5e5IHaDdTVRsTswcSwo5v3vrU4O3wQIH6vTodiItFERtTUvIketDn6WWN5TRg==
+Message-ID: <e70e5f17-35aa-429e-905f-a1990d549126@mailbox.org>
+Date: Mon, 28 Sep 2026 00:37:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927044407.65497-1-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 07/11] PCI: rcar-gen4: Recover the Root Port on link down
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-8-den@valinux.co.jp>
+ <e9a60e4a-95ac-4e49-a16d-a8eca2196d4a@mailbox.org>
+ <jbekhkl7ywblowemhmm4nhzzvg6bk6vpfciaebwvxe7nitfisc@3hbnpq6uz2rw>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <jbekhkl7ywblowemhmm4nhzzvg6bk6vpfciaebwvxe7nitfisc@3hbnpq6uz2rw>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: or9mykabccwaz1959ynoid6wt8wg5tsd
+X-MBO-RS-ID: e086b13419eefc83387
 
-On Sun, Sep 27, 2026 at 01:44:05PM +0900, Takashi Sakamoto wrote:
-> Hi,
+On 9/24/26 6:15 PM, Koichiro Den wrote:
+> On Tue, Sep 22, 2026 at 11:44:02PM +0200, Marek Vasut wrote:
+>> On 9/18/26 5:20 AM, Koichiro Den wrote:
+>>> On R-Car, intreq_pcim_sub carries both the integrated MSI receiver and
+>>> the controller's reset requests (smlh_req_rst_not, link_req_rst_not), so
+>>> the generic DesignWare chained handler reads the MSI status from DBI as
+>>> soon as the link goes down. On R-Car S4 that is a hazard: DBI accesses
+>>> issued within a few hundred microseconds of an unexpected link down do
+>>> not complete and hang the host. In testing, the first Root Port config
+>>> read after powering off the link partner hung unless delayed by ~300 us.
+>>
+>> Out of curiosity, do they trigger SError, and does the firmware (TFA)
+>> trap/fix those up in EL3?
 > 
-> This series includes the misc fixes for the transaction cancellation.
+> I haven't confirmed whether those DBI accesses trigger an SError.
+> The BL31 on the Spider I'm using should be based on rcar-s4_v2.5 [1] from the
+> Spider BSP (as I haven't updated it). I just checked that this version also sets
+> HANDLE_EA_EL3_FIRST=1, plus plat_ea_handler() is empty. So IIUC an SError would
+> be taken to EL3
+
+Yes.
+
+> , and the normal path would return to the kernel without fixing
+> the underlying error.
+
+That is correct.
+
+R-Car Gen3 does PCIe link error fixup in TFA, it looks this way:
+
+https://github.com/ARM-software/arm-trusted-firmware/commit/0969397f295621aa26b3d14b76dd397d22be58bf
+
+> And, regardless of whether it's a synchronous abort or an SError:
+> - There was no crash report (via report_unhandled_exception) on the console.
+> - Once that DBI access in the small window hangs, it never recovers,
+>    whereas adding udelay(300) before the access avoids the hang. So I
+>    doubt it's just retrying the same access after a transient synchronous
+>    abort as well (though I can't rule it out).
+
+( It just crossed my mind, this sounds similar to 0056d29f8c1b ("PCI: 
+rcar-gen4: Assure reset occurs before DBI access") )
+
+> [1] https://github.com/renesas-rcar/arm-trusted-firmware/tree/rcar-s4_v2.5
 > 
-> Takashi Sakamoto (2):
->   firewire: ohci: remove unnecessary branch for timestamping when
->     cancelling transaction request packets
->   firewire: ohci: run work immediately when re-enabled in packet
->     cancellation
+>>
+>>> Use the pre-MSI callback to check the APP reset status before DBI is
+>>> touched. When a reset request is latched, mask the sources, ack the
+>>> request and schedule recovery work. The work calls
+>>> pci_host_handle_link_down(), which runs the AER-style recovery and
+>>> resets the controller through reset_root_port(). If the reset fails, the
+>>> sources stay masked so nothing touches the unrecovered controller.
+>>>
+>>> Only unmasked status bits are handled and pending latches are cleared
+>>> when re-arming, so requests recorded during probe or the reset itself do
+>>> not trigger another recovery. Teardown only disables link-down
+>>> detection: MSI delivery has to keep working while devices are removed.
+>>>
+>>> When iMSI-RX is not used (external MSI controller or pci=nomsi), the
+>>> DesignWare core does not request intreq_pcim_sub, so request it in the
+>>> driver.
+>>
+>> Would it make sense to request the line unconditionally, to simplify the
+>> driver(s) ?
 > 
->  drivers/firewire/core-transaction.c | 17 ++++++-----------
->  drivers/firewire/ohci.c             |  2 +-
->  2 files changed, 7 insertions(+), 12 deletions(-)
+> Yes. The pcie-rcar-gen4 can set pp->msi_irq[0] = -ENODEV just like spear13xx,
+> dra7xx and keembay for the same reason. That also removes the need for adding
+> .pre_msi_irq addition in patch 4. Some other adjustments might be needed, but I
+> believe that is the right and clean direction. I will respin with that in mind.
+> 
+> Thanks for the review, that helps a lot!
 
-Applied to for-next branch.
+Likewise, thank you for your help !
 
-
-Regards
-
-Takashi Sakamoto
+-- 
+Best regards,
+Marek Vasut
