@@ -1,90 +1,111 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42B93B774D;
-	Sun, 27 Sep 2026 09:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569153B774D;
+	Sun, 27 Sep 2026 09:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790501162; cv=none; b=kUJw7VNE3Xk6oArt6knByXkKnRKLVqZR6XlJngchyoaQOP/rCaywzq5T7fLtfFVCfQnJqvSml7xnrqVWAKQrR3m7qRJDt0SME6ckZsPqUMAzD7BWLfU9VDy88/Gu9199B5scIzvFm2xOknIsPO6E1mPbMpIX7qvDblIBvhLSuAg=
+	t=1790501210; cv=none; b=reCSQXY/FMRYWrpqyROpa8mJDArhzWiP7A7PHlVO7koguXo5lr0wxCpBEwuwCfjgtRlv1sTpZBAEazVlkZOTSSh1Re+aIKBrMfDwtlUJ0KgrRyS1zCJjnnDExyXJPMxJWU1KN+oZR9g8SI8SVi95r73BWVJwND5VOinf1X46BSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790501162; c=relaxed/simple;
-	bh=Kx0cPmdEpQwL8E+BtXJYrrzBqddWCvdrz/u3bHFg6Vw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r5TdIUJmeQ9kv7qgcuHillpmhW8KDbWAHYPk64b/iRUFXxSJd74CPTwm30vDt5UMuPsjIUPg7GFl98+KyT3ffRUixKYC54iRmWD67Q3OM/nmSiTvGnZnW3hR8GWcHJf5xbDiBzxgzbOQwqCdlklSmCP7Z75SirrkzuR5W2Pwm94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=WqtWp7yo; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=LiJ3p6N+; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1790501210; c=relaxed/simple;
+	bh=BO3QlRhpnfqxiDO44avy+RfuhNMwFFPndng/0/616TM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TXnqGLp+alLTW4kEiRYPT4NT4ww8tbhTvgqY0pOfqAEwxbPxdg82oLMRkQEjJr6rR6tBresK1talILpBJaPDQFDEOWxv5cHoD+v1PA0evHqzmIPzfxo8tflZerzslQ+iFdnxlugtC76csdk5AsR6rV7IL1j7A45zSVfE/k3x9RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nahUchTv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="WqtWp7yo";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="LiJ3p6N+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790501160;
-	bh=Kx0cPmdEpQwL8E+BtXJYrrzBqddWCvdrz/u3bHFg6Vw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WqtWp7yoXNwfVnvaElW3XMidZH35d39jdcSm4yfozq25htcmYGendhPBdrG0i3XQO
-	 j9E17FkbdSscjUlLV150Obg9+Xxmcb1HDSxuf30+y/nQDDStevuBRsELvIXjcn+NpV
-	 v9U2UaiN9WvHh0uxH5m/Fzy0i3vXaG7cXCYRwmFwOF88XhXRqzpROqh9qT+dKZYV3P
-	 Zw/QRGLTnhLgiHnZ+jG1EmQRpNbLb+1XEN3krDhBGZrvkPldvd/HVaHmgAk6xRDVyN
-	 e0P7aQeMHrCZGaaeW9f8DsOZptO1p9Ho9jf0USsn+80Jfl4LYbA8Gy6Z1IFXSPeDDm
-	 4zeC4zo+zxylQ==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 01D8741307; Sun, 27 Sep 2026 09:26:00 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790501159;
-	bh=Kx0cPmdEpQwL8E+BtXJYrrzBqddWCvdrz/u3bHFg6Vw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LiJ3p6N+bfSWkMb3i8+dT93P5LUPcHpKJrAN11xdXZYyVJKrPFso3YZB+ZTw0NK0v
-	 adjLo362jtjDyX8ptGZMqiUN5699PLCGcYh89RUC4dia+o5+Y8Z3TwCVX9EjWfJTiY
-	 kea8WKUEdkgpTlNK9mxo0Vj57JqVNOhrmm++A2Pj+i6Egxd9mLEgPUgNGST3dBgM9d
-	 3IRX3e+YcG32Wkoq6bH+CzXsCJHCTCYSkY0QKF6RPdBIH1WVzTpDt6LkGpijCFw1O5
-	 hp68E6FZTV5/Quk2zG0FLE2ZgXzV00Z49sGezdHkEMb27R0DM7G+hALF2bQKtUofZl
-	 JBDfgHyG/MkJw==
-Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 306D1412E0;
-	Sun, 27 Sep 2026 09:25:59 +0000 (UTC)
-Message-ID: <4f7ae990-7413-4847-ba15-627f09383647@birger-koblitz.de>
-Date: Sun, 27 Sep 2026 11:25:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nahUchTv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E07901F000FF;
+	Sun, 27 Sep 2026 09:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790501208;
+	bh=3onWVfvrHSYSeqY8OGyYXzuHU2DeYUoxFP2LAD1MXJA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nahUchTvDhWpdqx0fKMdmnMg8P1zwnwqPQ4MN2q4WiuMkzK4PNA4ndLQdkxZqtwH7
+	 ohUW54YcrMQwDWq7cDYlUo21+zhoYMdjuOT66WHZxCJM2WnoI2uLdS6ntKf8Yw6bO3
+	 RRWxM3n2xkS5qQZvXv4uSDsHo+F/Ho6Wh5hl4exfF8tY/tnjq/Qlsk5pX3yP4mVZWU
+	 PjuC9TIEqAoRE5Tu7V4Ul+zXJHL8BxXIggtZZWj2e58QR9HKjxasdgX5wZJ34Joke6
+	 /Fig+uZrfMoIKjOAnvWi4HTG/OM63RQhX84Wb43BNG2aH9+6K5VN9/Vfzf4fkX4k7l
+	 ueSWVq1IOg/yA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xAl9i-0000000DxKg-2ofv;
+	Sun, 27 Sep 2026 09:26:46 +0000
+Date: Sun, 27 Sep 2026 10:29:54 +0100
+Message-ID: <87v77r2ga5.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	will@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
+In-Reply-To: <f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+	<20260924135201.850038-3-suzuki.poulose@arm.com>
+	<arZQCiF3iqp9eCsy@arm.com>
+	<f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 10/15] ax88179_178a: Add AX179A/AX279
- multicast configuration
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, neuromoments@gmail.com
-References: <20260916-ax88179a-v12-10-60c04c9924a2@birger-koblitz.de>
- <178968030235.22033.16475533840382469089@kernel.org>
-From: Birger Koblitz <mail@birger-koblitz.de>
-Content-Language: en-US
-In-Reply-To: <178968030235.22033.16475533840382469089@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, catalin.marinas@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 17/09/2026 11:25 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
+On Fri, 25 Sep 2026 16:23:49 +0100,
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 > 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
+> On 25/09/2026 11:42, Catalin Marinas wrote:
+> > On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
+> >> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> >> index 32102c3912fa7..e8b29983b0021 100644
+> >> --- a/arch/arm64/kernel/cpufeature.c
+> >> +++ b/arch/arm64/kernel/cpufeature.c
+> >> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
+> >>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+> >>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
+> >>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
+> >> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
+> > 
+> > I think we end up exposing this to (any) guest unless we mask it out in
+> > sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
 > 
-> - [High] ax88179_set_multicast() (drivers/net/usb/ax88179_lib.c:305) now
->    only sets AX_RX_CTL_IPE when data->ip_align is non-zero (line 314).
-Fixed by moving setting ax179_data->ip_align = 1 in ax88179_bind() 
-already in a previous patch where ip_align is first introduced.
+> Valid point. I personally don't think this matters. The FEAT_RME alone
+> is not useful or harmful. I could mask it in KVM as a safe bet.
 
-> - [Medium] Registering ax88179_set_multicast() as .ndo_set_rx_mode for
->    the AX88179A family (drivers/net/usb/ax88179a_devices.c:618) creates a…
+Is there *any* case where the guest (realm or not) should know it is
+running on RME enabled HW? I can perfectly imagine that someone would
+implement something looking like CCA on non-RME systems.
 
-Will not fix. I extensively tested this and could not trigger the race.
-Switching multicast/promiscous modes is a rare operation in reality,
-so the likelyhood of hitting this is extremely small, and in any case this
-will heal itself on link changes or if the user repeats the operation.
-The existing driver had the same pattern for > 10 years without issues.
+	M.
 
-
+-- 
+Jazz isn't dead. It just smells funny.
