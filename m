@@ -1,283 +1,156 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318833B813D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35DD3502A7;
+	Sun, 27 Sep 2026 12:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510977; cv=none; b=t0BowLi6vNOzLkhH3acyQPZnPlbEKce5gvEiPk/uHsDRutmStVyHL/SSqFvfEW+nDuL+lHIIKBhr5BKQFA5K26v9dfFGhB2IlEG59ETlBUtZMX2G3074S7ajS6cbx/yroX9eNT2113giRuDgC6qXk05rEspjLgZBsVA67cqpoeo=
+	t=1790511054; cv=none; b=oO+MHhfchl7qOhd3OaoaqLoe3U9krRAU0Z0scgfHiPsjLMtqwMtDAdj9xbmF/4Y5PqPyJZAc61ABEiQb1ifKixs+MKQp4y0xjpttdYNgePO2jTz6GsI1gE9zUuH9CN91yRMt5S0K4z245jB3NIo+Es8O0oXGtWjJof+ooZ0BpJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510977; c=relaxed/simple;
-	bh=tCyaVRK+OMgeWNDYxyRY3jzF8TBkGr6Wl3eti3U+l8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pThmU4i7Dkz1rDKxU1KG1L0BJkgtXwzSP2Umt1vQt//WcRpwHr6Y80qqWMxcX28KiWaTYXdPXQJMv0clvqvsZ4lp37msAiMAdjuU76PnElH/EBPxEjnnHnaXyfnnpcuUwf7uQjoDWUJNRxIbuGnna2+VSNEGCP8N1sCPDqKopNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMPwQIml; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790511054; c=relaxed/simple;
+	bh=2sPiSOQCyrAQETQfEjJGSVZdtZCpPUJAVgRoeb95QUw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hl/0/3AaWUnMl+sFWwhfjBMMjh1EqKaX6vilQiuB6AFxPtXW8HyVHXuAwdl7msjauSNULCFxOQVfvLBtsqwLLSuohxgom2UCAoX76jBHzdkBhB4eEWNFbhyD4Lr4UYp/EwpaC3WafVyNfVB3+J3VJQrJ7K/ldoNe7UC/Wn3F8U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzQp5yCe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMPwQIml"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09fcso8990561cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790510973; x=1791115773; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eVdh45ZUj7FnpRC6Q2Foio9VZd4+GVrW1sEPilA+/sQ=;
-        b=SMPwQImlTE6MckWtM8J5Ul6KlXDx+WmV4vDJd2su6jFd60mLmMe5lqpleYpfp7kBrY
-         O94z9XwU3myA5a+1j2LXSLGsGQL30EFTHUhbdeCsdfrSatfmGjBlLKnKyZKbHX2r+1+u
-         d2nF8v8DL+quEeiG2LcrVmBNpOXahpJ+rDytaVI/xXuu9LxOvNiPzvZfJlev/LkM2cI0
-         TlilGyqmK7OntqAxSFHjJ6thyJwFB0y7RdA+H6g2kqRBLWejW4bigZ95qTylP4r8fthG
-         CJBKpyBPxo0TafT6QLjR+43gIRqOA+SGQzLsZYO1OvXHHIR6/cdQyY6l0ix0m1n9SXkT
-         DYEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790510973; x=1791115773;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eVdh45ZUj7FnpRC6Q2Foio9VZd4+GVrW1sEPilA+/sQ=;
-        b=w+MTjTh3TF+fnq91Rns8hKbXizElyQ86tytmX12HDdA2pdL56OfOGS9df555gCG/tf
-         7zDDa+yGUHOrJ5sA1WUlzkhRX4Tanti6YwUpkwDM7Jvvxd7AzdSMXqvRO38lJzQpi6pi
-         0exlSeAU6Z3SYL0sz0Andp+PAbpJ6PuGjAc3yj5aEwn9K/VZkwE2HNehRiaMD7fyn17+
-         NNUGTTHtQzaFGCXtIDx0k0RW47uCOHmJxPvh2HIMQBJNT4BFOF5nQXKVM6zjO+5TrxoG
-         Z75xpyXrG6rXkWgssQpmEEnA7wGdMQS3OzOvJnxreB9SdsRXjQjMDF1d7B1IRwBOoqKN
-         +Jyg==
-X-Forwarded-Encrypted: i=1; AKwUvBzwbPRSdwKH8vU4vdjvCedjStdSvSifjQYQc5f7lXsay2YqLhwWeG2FH37Ngnt3BrG+16mTn9LqXpOcMZM=@vger.kernel.org
-X-Gm-Message-State: AFuF++neCmSSE80cMpiSrgWDe5oFawQAX8e1kxKQrXjpqIjiUmTw+Z2z
-	XnHH6kWesTbcBMASDNfgs/WuoSsZpiQ0NTfUD26So4gEpWaEROBx8qCv
-X-Gm-Gg: AYBFou3lr1wJ+MRHQb4xb0BQlQJw65lwGF9Kg54Vq3gPdA403Jsov1nTMtC2Op9tycz
-	taiQ5YKUnjupbgzdLAcCAfDX4PNFg/gVYoIzLuLM6ff3dvOM72FgdWjjNtBSonBFg6XQMKp5G68
-	JQFu5zQtOkLawbCB1tygJVQLkW8d1kCx1MAfIKsiiI9QtlEgCYyRJXAm5a4MDEpXHEWVj8rHBIJ
-	aiEOWWqafa/SJUmA4tB3Y0si0M3QJsU32VDrXsXeUFE/9fZ9MJothwK3hpVZHHVYdbrNPb6vxVe
-	KyBxIVMRsVoKsnbKSwC+jY4ETwCycop0FtFWWY4ymp0mStz6Pjc3mIkMoxamqAvNbfUAFXXwJ/v
-	xVLvZwm4VX8YKutIMqjeQ5n5st0yPvUowLSFNtSWCt+HZVCZOs2ck7RGcdtYgTMzuvJ2NIVgfp5
-	HH9TV0+1XO14toBJBJCQgGqf5zFM6SSk52tAgOPpXy7Y35HOT8D2dP+v1M1iGSYRasWmkZn8Ksb
-	HZo7y9bU9Aq5fGIelKDuV949rzJFe6MLbm9bs8IcsgSgoso6kMCLFbmxCt6cvZDJw==
-X-Received: by 2002:a05:622a:8d01:b0:533:3436:9734 with SMTP id d75a77b69052e-53334369b1amr41246811cf.28.1790510972666;
-        Sun, 27 Sep 2026 05:09:32 -0700 (PDT)
-Received: from Z-System.tailddad04.ts.net (c-68-83-199-219.hsd1.mi.comcast.net. [68.83.199.219])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533222585a1sm39538581cf.11.2026.09.27.05.09.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:09:31 -0700 (PDT)
-From: Zac Lanzon <lanzonza@gmail.com>
-To: linux-hwmon@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	Edward Blair <edward.blair@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zac Lanzon <lanzonza@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] hwmon: (asus_rog_ryujin) Fix pump control source on the Ryujin III
-Date: Sun, 27 Sep 2026 08:09:26 -0400
-Message-ID: <20260927120927.72810-2-lanzonza@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927120927.72810-1-lanzonza@gmail.com>
-References: <20260927120927.72810-1-lanzonza@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzQp5yCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 40B16C2BCB3;
+	Sun, 27 Sep 2026 12:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790511054;
+	bh=2sPiSOQCyrAQETQfEjJGSVZdtZCpPUJAVgRoeb95QUw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=TzQp5yCe2vbYYOmckq5HBrH98wj6csRiwXkE/b4aSqvAPz0LwU3znrEv570DeHJch
+	 trY//UU4JVo8D0r6cqnCftyu5+9QJPHdSeBH3rk+ONNZr44iSpxnEVq+GNRMnqddYr
+	 RKLKjqJfzF0JaOdPhIvIFMFKfAByOiJP+BiBYt7sW+2+bo5FJLrtd3dNBug99FUG3j
+	 ymD5WNxjd4AtSECnZawE5WJA9GC8vfE8ohTnLa0zKvC61Itk0KQkHD5oH6oc/tBuuS
+	 7RWlzJfrIfem4Ys0ldgIR5Jq5Eh8KpWCTkYbldbjRb3+dQZFfSgt4qIvCet4ZYJR1k
+	 4T9P5cRtzzc0Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20BDEC98324;
+	Sun, 27 Sep 2026 12:10:54 +0000 (UTC)
+From: Shunsuke Nagashima via B4 Relay <devnull+shunsuke.nagashi.ma@kernel.org>
+Date: Sun, 27 Sep 2026 21:10:53 +0900
+Subject: [PATCH ath-next] wifi: ath10k: fix status of bundled mgmt tx
+ completions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-ath10k-bundle-status-v1-1-a1eea048ada9@nagashi.ma>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf2Xk2UDTyab+iuyh3aKLSpUmlcHYv
+ 1v18TjuVlDOwgqnZoXMb1F5pgq0a2CcQ7oyylQZvPOdO/oeg83k7hhLmh6MasGKot8TtUR97A4
+ t1PSV+SLLb3uGWmDixWD4Gy3xxqN9r7BtH49IqaaCAAAA
+X-Change-ID: 20260927-ath10k-bundle-status-24113117b683
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org, 
+ ath10k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Shunsuke Nagashima <shunsuke@nagashi.ma>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790511053; l=4037;
+ i=shunsuke@nagashi.ma; s=20260927; h=from:subject:message-id;
+ bh=QVBqzIPmQp3OWeyU/QcVzxRKR56mMIsg5DYITxXG7a0=;
+ b=Xh9i1dtS2Uvv2kkPH5bVj24nVno/K5pjBuHO5R5bjTsNGn3jtXkxMz5Ub6h8qHADFnMhUw8tt
+ gtPPLvNDl8gABQCrDEXZowB+aHiKTWfUjrIxiX/hSsVvGcS1LYXmIfm
+X-Developer-Key: i=shunsuke@nagashi.ma; a=ed25519;
+ pk=5WP8Bzifiy3DFoCeQ1lLy2osPmlNAkq71Un7ly9lbpk=
+X-Endpoint-Received: by B4 Relay for shunsuke@nagashi.ma/20260927 with
+ auth_id=1069
+X-Original-From: Shunsuke Nagashima <shunsuke@nagashi.ma>
+Reply-To: shunsuke@nagashi.ma
 
-The RYUJIN III pump has a 4-pin cable for a motherboard fan header in
-addition to USB. Byte 2 of the set cooler duty command selects the pump
-control source: 0 hands the pump to its internal controller, which
-follows the PWM of the header its 4-pin cable is plugged into, and 1
-makes it follow the pump duty in byte 3. Byte 3 of the cooler duty
-report returns the current source.
+From: Shunsuke Nagashima <shunsuke@nagashi.ma>
 
-The driver fills byte 2 with duty_channel, which is 1 for the RYUJIN
-III, and a pwm2 write re-sends the reported pump duty with the new fan
-duty. So writing only the internal fan duty takes the pump away from
-its internal controller.
+ath10k_wmi_event_mgmt_tx_bundle_compl() takes the completion status of
+each report from desc_ids[i] instead of status[i]. Any non-zero status
+is handled as "not acked", so a bundled report is marked as acked if
+and only if its descriptor id is 0, whatever status the firmware
+returned.
 
-Measured on a RYUJIN III 360 (firmware AURJ2-S750-0108) with the pump
-cable on AIO_PUMP and the header PWM set through nct6775, after loading
-the driver with the pump on its internal controller (pump rpm):
+The bundle handler read status[i] when it was added in
+commit cc123fac978f ("ath10k: Handle bundled tx completion for
+management frames"). The commit named in the Fixes tag replaced it
+with desc_ids[i].
 
-                                   header 50%   header 80%   source
-  no write yet                        2160         3090         0
-  pwm2 = 40%, before this patch       1740         1740         1
-  pwm2 = 40%, with this patch         2130         3090         0
+Seen on WCN3990 in station mode with a WPA3-SAE AP. This firmware
+advertises mgmt-tx-by-reference and completes some management frames
+in bundles. A debug build printed status[] for each bundled report and
+could switch between the old and the fixed line. A sniffer watched the
+AP channel. The firmware status[] matched the capture in all 39
+bundled reports (15 with the old line, 24 with the fixed one): the 30
+frames with status[] 1 were never seen on that channel, and the 9
+frames with status[] 0 were acked.
 
-Send the reported source with pwm2 writes. The fan duty applies with
-either source (40%: 1545 to 1590 rpm, 30%: 870 rpm). A pwm2 write sent
-right after a pwm1 write that took the pump over, before the report
-could show the change, left the pump on USB and applied its fan duty
-(2 of 2 trials, and 7 of 7 with raw commands up to 0.9 s after).
+With the old line, 6 of the 15 reports gave mac80211 the wrong ack
+result:
 
-pwm1 writes keep selecting source 1. The cooler reports the pump duty of
-the last write, whichever source it selected, and 40% after power-on.
-Byte 9 of the status report follows the duty the pump runs at. Measured
-from power-on (PSU switched off) once per driver, with the header at
-100%:
+ - 4 frames that were never seen on the air were reported as acked.
+   Each report arrived after mac80211 had already timed out the
+   authentication, so they had no visible effect in these runs.
+ - 2 SAE commit frames that were acked on the air were reported as not
+   acked. They were the second and third of three tries. mac80211 gave
+   up on the authentication 239 us after the last report, although the
+   AP's SAE replies came about 5 to 8 ms later, so that connection
+   attempt failed.
 
-                                  before this patch   with this patch
-                                  source duty  rpm    source duty  rpm
-  no write yet                       0    100  3570      0    100  3570
-  pwm2 = 40%                         1    100  3570      0    100  3570
-  pwm1 = 40%, the reported duty      1    100  3570      1     40  1710
-  pwm1 = 60%                         1     60  2430
-  pwm1 = 40%                         1     40  1725
+Take the status from status[i].
 
-So a pwm1 write of the reported duty did not reach the pump, while
-other duties applied in one write, also when taking the pump from its
-internal controller (60%: 2460 rpm). When a pwm1 write requests the
-reported duty, write a duty 1% away first (below at 100%), then the
-requested one. Sent back to back, the two writes left the pump at the
-requested duty in all 19 trials, 9 with raw commands and 10 through
-this driver.
+Tested-on: WCN3990 hw1.0 SNOC WLAN.HL.2.0.c10-00459-QCAHLSWMTPLZ-1
 
-Tested on the RYUJIN III 360 only. The EXTREME, EVA and WHITE EDITION
-use the same rog_ryujin_iii_info and send the same command, and Edward
-Blair's analysis of the WHITE EDITION firmware shows the same pump
-control source. The RYUJIN II, whose duty_channel is 0, is unchanged.
-
-Fixes: cd258aca0dc4 ("hwmon: (asus_rog_ryujin) Add ROG Ryujin III support")
-Closes: https://github.com/aleksamagicka/asus_rog_ryujin-hwmon/issues/12
-Suggested-by: Edward Blair <edward.blair@gmail.com>
+Fixes: 4b816f170b1f ("ath10k: add support for ack rssi value of management tx packets")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
+Assisted-by: LLM sparse
+Signed-off-by: Shunsuke Nagashima <shunsuke@nagashi.ma>
 ---
- Documentation/hwmon/asus_rog_ryujin.rst |  6 +++
- drivers/hwmon/asus_rog_ryujin.c         | 54 ++++++++++++++++++++++++-
- 2 files changed, 59 insertions(+), 1 deletion(-)
+Tested on a comma four (WCN3990) with a v7.2-based kernel
+(7.2.0-vamos-7626c37). It also carries three out-of-tree ath10k
+patches (MAC address, in-order rx A-MSDU, SET_KEY wait); none of
+them touch wmi.c or wmi-tlv.c.
 
-diff --git a/Documentation/hwmon/asus_rog_ryujin.rst b/Documentation/hwmon/asus_rog_ryujin.rst
-index 3ebab230e8c..fe072e94d87 100644
---- a/Documentation/hwmon/asus_rog_ryujin.rst
-+++ b/Documentation/hwmon/asus_rog_ryujin.rst
-@@ -34,6 +34,12 @@ Usage notes
- As these are USB HIDs, the driver can be loaded automatically by the kernel and
- supports hot swapping.
+- Debug build that prints status[] per bundled report and can switch
+  between the old and the fixed line, with a sniffer on the AP
+  channel: 6 connect/reconnect runs (5 WPA3-SAE, 1 WPA2-PSK),
+  39 bundled reports.
+- Build with only this patch: 6 connect/reconnect runs (5 WPA3-SAE,
+  1 WPA2-PSK), no debug output. No warnings, no firmware crashes.
+  One first connect failed and one reconnect was slow, for a
+  different reason that was also seen with the old line: the AP did
+  not ack, and the firmware held back some Auth frames.
+
+Not tested: status 2 or 3 inside a bundle (only 0 and 1 were seen),
+AP mode, other chips and firmware versions.
+
+I worked on this with Claude (claude-opus-5-5) and Codex
+(gpt-6-astra). They helped go through the logs and sniffer captures,
+write the debug build, and write the English of this changelog. I ran
+the tests on the device and reviewed the change myself.
+---
+ drivers/net/wireless/ath/ath10k/wmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/ath10k/wmi.c b/drivers/net/wireless/ath/ath10k/wmi.c
+index e57588c19..67be6e817 100644
+--- a/drivers/net/wireless/ath/ath10k/wmi.c
++++ b/drivers/net/wireless/ath/ath10k/wmi.c
+@@ -2512,7 +2512,7 @@ int ath10k_wmi_event_mgmt_tx_bundle_compl(struct ath10k *ar, struct sk_buff *skb
+ 	for (i = 0; i < num_reports; i++) {
+ 		memset(&param, 0, sizeof(struct mgmt_tx_compl_params));
+ 		param.desc_id = __le32_to_cpu(arg.desc_ids[i]);
+-		param.status = __le32_to_cpu(arg.desc_ids[i]);
++		param.status = __le32_to_cpu(arg.status[i]);
  
-+The pump of the RYUJIN III also has a 4-pin cable for a motherboard fan header.
-+The cooler either hands the pump to its internal controller, which follows the
-+PWM of the header its 4-pin cable is plugged into, or runs it at the pump duty
-+set over USB. Writing pwm1 selects the duty set over USB. Writing pwm2 sets
-+only the internal fan duty and leaves the pump control as it is.
-+
- Sysfs entries
- -------------
- 
-diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
-index 5ced69e94ea..ba188e86793 100644
---- a/drivers/hwmon/asus_rog_ryujin.c
-+++ b/drivers/hwmon/asus_rog_ryujin.c
-@@ -50,6 +50,7 @@ static const struct rog_ryujin_device_info rog_ryujin_iii_info = {
- #define MAX_REPORT_LENGTH	65
- 
- /* Cooler duty report offsets */
-+#define RYUJIN_PUMP_SOURCE		3
- #define RYUJIN_PUMP_DUTY		4
- #define RYUJIN_INTERNAL_FAN_DUTY	5
- 
-@@ -70,10 +71,15 @@ static const u8 get_cooler_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x9A };
- static const u8 get_controller_speed_cmd[] = { RYUJIN_CMD_PREFIX, 0xA0 };
- static const u8 get_controller_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0xA1 };
- 
-+#define RYUJIN_SET_COOLER_CHANNEL_OFFSET	2
- #define RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET	3
- #define RYUJIN_SET_COOLER_FAN_DUTY_OFFSET	4
- static const u8 set_cooler_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x1A, 0x00, 0x00, 0x00 };
- 
-+/* Pump control sources in the set cooler duty command and the cooler duty report */
-+#define RYUJIN_SOURCE_HEADER	0
-+#define RYUJIN_SOURCE_USB	1
-+
- #define RYUJIN_SET_CONTROLLER_FAN_DUTY_OFFSET	4
- static const u8 set_controller_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x21, 0x00, 0x00, 0x00 };
- 
-@@ -117,6 +123,7 @@ struct rog_ryujin_data {
- 	s32 temp_input[1];
- 	u16 speed_input[6];	/* Pump, internal fan and four controller fan speeds in RPM */
- 	u8 duty_input[3];	/* Pump, internal fan and controller fan duty in PWM */
-+	u8 pump_source;		/* Pump control source from the cooler duty report */
- 
- 	u8 *buffer;
- 	unsigned long updated;	/* jiffies */
-@@ -306,6 +313,44 @@ static int rog_ryujin_read_string(struct device *dev, enum hwmon_sensor_types ty
- 	return 0;
- }
- 
-+/*
-+ * On devices with a non-zero duty_channel (the RYUJIN III), the channel byte of
-+ * the set cooler duty command selects the pump control source.
-+ * RYUJIN_SOURCE_HEADER hands the pump to its internal controller, which follows
-+ * the PWM of the header its 4-pin cable is plugged into. RYUJIN_SOURCE_USB
-+ * makes the pump follow the pump duty in the command. The cooler duty report
-+ * returns the current source.
-+ *
-+ * A fan duty write sends the reported source back, so that it leaves the pump
-+ * control source as it is. A pump duty write selects USB. The cooler does not
-+ * pass on a pump duty equal to the one it reports, and after power-on it
-+ * reports 40% while a pump handed over at that duty runs at full speed. So
-+ * when a pump duty write asks for the reported duty, write a duty 1% away
-+ * first.
-+ */
-+static int rog_ryujin_select_pump_source(struct rog_ryujin_data *priv, u8 *set_cmd,
-+					 int channel)
-+{
-+	u8 duty = set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET];
-+	int ret;
-+
-+	if (channel == 1) {
-+		set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = priv->pump_source;
-+		return 0;
-+	}
-+
-+	set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = RYUJIN_SOURCE_USB;
-+
-+	if (duty != rog_ryujin_pwm_to_percent(priv->duty_input[0]))
-+		return 0;
-+
-+	set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET] = duty < 100 ? duty + 1 : duty - 1;
-+	ret = rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
-+	set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET] = duty;
-+
-+	return ret;
-+}
-+
- static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel, int val)
- {
- 	u8 set_cmd[SET_CMD_LENGTH];
-@@ -323,7 +368,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
- 			return ret;
- 
- 		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
--		set_cmd[2] = priv->info->duty_channel;
-+		set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = priv->info->duty_channel;
- 
- 		/* Cooler duties are set as 0-100% */
- 		val = rog_ryujin_pwm_to_percent(val);
-@@ -340,6 +385,12 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
- 			set_cmd[RYUJIN_SET_COOLER_FAN_DUTY_OFFSET] = val;
- 		}
- 
-+		if (priv->info->duty_channel) {
-+			ret = rog_ryujin_select_pump_source(priv, set_cmd, channel);
-+			if (ret < 0)
-+				return ret;
-+		}
-+
- 		return rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
- 	} else {
- 		/*
-@@ -482,6 +533,7 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
- 			goto unlock;
- 		}
- read_cooler_duty:
-+		priv->pump_source = data[RYUJIN_PUMP_SOURCE];
- 		priv->duty_input[0] = rog_ryujin_percent_to_pwm(data[RYUJIN_PUMP_DUTY]);
- 		priv->duty_input[1] = rog_ryujin_percent_to_pwm(data[RYUJIN_INTERNAL_FAN_DUTY]);
- 
--- 
-2.53.0
+ 		if (test_bit(WMI_SERVICE_TX_DATA_ACK_RSSI, ar->wmi.svc_map))
+ 			param.ack_rssi = __le32_to_cpu(arg.ack_rssi[i]);
+
+---
+base-commit: 753baa59527f8e606c49eac25692b8b08918a3a9
+change-id: 20260927-ath10k-bundle-status-24113117b683
+
+Best regards,
+--  
+Shunsuke Nagashima <shunsuke@nagashi.ma>
+
 
