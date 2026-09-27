@@ -1,94 +1,124 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-vs2-f26.google.com (mail-vs2-f26.google.com [74.125.227.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B731D432D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F7134DCCD
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790541031; cv=none; b=oCzhVH1DEBMaDn/t+pQcyEMent/xO1sya2Ovmj0cwARdeJWBimGGgn62FwGrOOuwfPN4X8EIEJMDhIxIkE0xO0N23AY5NeBqBU3Sau4f5Q4dtSDOc8EBCa0uyIo71baxqePFyU044AXCYcTMQGuP/rqFVO9OP+OPV7EG1VIyyQ8=
+	t=1790541096; cv=none; b=NHWgHEkFHUnUDARCMh2xTqoYQTt9KHgIRxj5yPdvzx/1MzUVUj3HL8++tou6jVqADrvkAtyuXruUMy0HHFgKgGlAlnxM21JH7TlA5FGe9OykkIpv0RNycllkteHc+oaUmrCDRuWrzghrdjDEvE0QqvkE7WrXevZw762aiFgbYnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790541031; c=relaxed/simple;
-	bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
-	h=Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DeFC6bS93UQyGLKOVs/IKtpRpIaT4x8ney02VZmXG0vOdVVjAj1RL2f3YccM+i8E9wEP2c6bMQCFkPebRyFl66y5GoUnT1JLsvanEPFI1TZLED8ZFnbJvmi7YyZ6xomR/ckHZQETZBozC98NZge+OBsljud0K4tc23NS4E5sRHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b9ucReUc; arc=none smtp.client-ip=74.125.227.133
+	s=arc-20240116; t=1790541096; c=relaxed/simple;
+	bh=ECmiUnCsuf0PP00J9EUGstc34FNcT446eF3bYmlaxYM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NmqkW8QMwHTJKZSagxe/ZRathqSj9c9MSFE7nr8Mlm+8nQS+xBm1LL2cBVw7TEYtzq96SpCvuCL4ji8+lrtioeFQOw5+/mYEiTjpg/5rBQWO/9W5AW7Mptz1Gzqb+azQI+0+n78CYb1yqiz2Dc+vLGNdgeEEzXyel4DgFpuHgDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ejo0Nd8v; arc=none smtp.client-ip=74.125.227.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b9ucReUc"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d942de6574so8593895ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:30:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ejo0Nd8v"
+Received: by mail-vs2-f26.google.com with SMTP id 71dfb90a1353d-5c67e529da9so708053e0c.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:31:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790541029; x=1791145829; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
-        b=b9ucReUcDIya6bQw6V4oVEg6bRPhSeLInafTUD7xwvhYYNxmzhKY/nzih7TQDWiBPZ
-         kODrJyOqsTFD7iPi/YfhUX1Yky1T5x/Sy/b8d6af8m63SRL3m5zEv+h88vVrUh86tUXS
-         vevQ+RpBJyG10dHKoHBdHnOhGeXXMDAjfx5qR/vCL5WednhhiFlIZ2IjgHPSgScTAn1+
-         /vqU5X+NBppFws+YNHotHhchtCqIzM6IFwsA8o6a5LE2YVdhCXCKo55lwjAYBiXimBbC
-         iEZLZ7GHg37INfdr2qAnh80eKDGItcLSjL4C/1iuRaTEK+KR4InI/MRY0sm5xRLDDgze
-         I+Mg==
+        d=gmail.com; s=20251104; t=1790541094; x=1791145894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+Kdmoy3jfQwTDOQRMgPKKjPEVV/7jynijwAv/AC0y/g=;
+        b=ejo0Nd8vrfYyvQblTil0BstYx261CRb+jG81/UKhP3T6sut+b7yWhwFoUVcX15ER0n
+         TYT+MCniXAyUI4LaBzRTsMSJwnatR7QgEfK1RMrh3jlEaE33dJ8iI3w4szBpEsM39Z0G
+         iPjYwnRHBuQobFsl8HTEz5CmwV6y0zCqMANcqnNN+qzuO6b5l0YKDJykXz9dE/Xiu1yL
+         yHC9kFf8KgD9aBgg0jyWP2sGgmYKKU55V0GIQZw2Ogq5uFBteENJLZQWC2lt4/KjliNe
+         NpOmA5pg9OLNP0kda9QJzU4Hir3s2AXQyfglLn5KY3nEgcvMx7tnv0CW2GQ2ItxboksL
+         hCxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790541029; x=1791145829;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o6cflNN+5uNq6lgPY1cP17X/raP7e0k7d2gKzGJf18I=;
-        b=vYFhZB5L9uHX9iujBWIxm72GcVxEcROI5J8XfZR4JU0vkUn44lSQnBJP0lcZ5eQ8Aw
-         C57+JkQz7HtusrwlyxRkO8jQQPSTMikDSxg51CTGrPNwDHBC1pRi3HX4RUC/JhZPUrCJ
-         XmBnO38T5WLEbuHOiT3x3XBwiDBeciNjYPHgdRstCoLV99zkMEW5RUxn7/K0mQenP7t+
-         2J61LbSLfpXzuvRv2rjomUG+xo/xMzXDwCprkJv43AtcYQPFSoR9kaLcVcNQ03MdwZKJ
-         /+OFv2ro+yHBcpydbd7JVX9iMJkJ/NX+PeClHAs4SN/6xCfdgLhyO9JREDJh6dadjdC+
-         y/NA==
-X-Forwarded-Encrypted: i=1; AKwUvBzau/SyHHQCpu3f2G9ulDgHQTn7UNEccWTIXNRS06SZBID+vdUts9edcQde1MLsH7E5um5ZntPA46wVqFw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLM0w8khdmly44MIEzOTFk2fxFdrtRfehjDgQwj7wel5Mi/aQto
-	2nDaH/nUpUeEKsIwJVL0z0pRAps7faX9hx1A9wqFH04hxzxBWjIGrtus
-X-Gm-Gg: AYBFou1TqH8mTIMjvCsFzGAupj767Dco4xEG516aaqwuUtGGOWD8ABBqFSnZOR2V+LX
-	67ld6lcLjr9g5N858KP1VhST6h1mtHyd5H14wKk3RgXqpf93RAaE+cN9OUuEQkc36RJc4SDez6Q
-	8Yu7FG3HQ+wWXKy8Fib7XmJJkYh2Y1IlOUZEtWHP0VN8mS/HrHh04zcg3sAfAAr3UGUU4D8+UEw
-	PuGbMhA36Pc12YvFeHSswv6VQJcUTpFdZqpYkkvJgdgIKLxTIw5l8MqIbEi12qko6WJeurP5/1l
-	q7pLMlqqrsLJ+pSPieWBYu3Y3WwI3DTjFPmMO1CmmdWJaazEcgFbkMTWzVN6WcPDXREAKu8js1S
-	qeU/0Pc5Keh3AiKnnVlTEVqQrq/7CrBLLGxbD79Rc4l8WDnl5R5mXz9wgILYB+6lPK9b1ruX6S1
-	YVKcbiLhf4G8l5rwMcZJNURgzI3lay5n0KycdfehM3uEktFg==
-X-Received: by 2002:a17:90b:384b:b0:3a0:c360:a562 with SMTP id 98e67ed59e1d1-3a0c360bd58mr5153407a91.14.1790541029308;
-        Sun, 27 Sep 2026 13:30:29 -0700 (PDT)
-Received: from [127.0.1.1] ([2401:1fe0:5::3b7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b898cabesm16824473a91.0.2026.09.27.13.30.26
+        d=1e100.net; s=20260707; t=1790541094; x=1791145894;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+Kdmoy3jfQwTDOQRMgPKKjPEVV/7jynijwAv/AC0y/g=;
+        b=Hb+JfYwshtJwNO5MYHxNIpAymAnzk2rUWIZtUzwqcTINXX8p4AMx6Cxy6dUexjLsiT
+         KOPhSvUXyKp1lZo2TWxd0qVuRtIt/ZNuds47Mftpv7EZNgeYBr7omC8pXBKVrKW0FJl9
+         PzsMNgLd8GfOqx1e4gPfvqLTzpmelljQtYBpCGHNSceMm/MUexjrLEngonp6V3WZtyaf
+         VoztsH4cb9530nK3CvwoOk6w5H+kRRcMtVGqyOVHdjJEQnvxeYzSrvMZ5WmYd2equVpl
+         7EmFNwLjt8y9ZaDrzmkkKfN7K5QwFPG5Q6of2KL8g97H6N3puHIMKYZ2ms12tYgqupBp
+         RwrA==
+X-Forwarded-Encrypted: i=1; AKwUvBybi9BfqN/utUhiH9U1B2xcvmO3YyupDP48cUxPYQ5S/VOWmtmFVX3Ot/3RrJ59XjfI3R658nQSrhbXnkc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGCzmgLuWEJSLc3Eja3B/yGT9lim/Hmiu9WAtBJaeOhUio3RXO
+	oU8isEtSAT5Yy2ASaRmyTfbNIO9PpozpOh8gYHjbzimjDMiqaZqylmDt
+X-Gm-Gg: AYBFou3NNVZxnVwRGt31DcAu+EvPTdd9sOFGgqIjEZ21f/YJVv9pcZu23qL7oUKqm5v
+	Wpq96mqL0xjO6m3gthFyt2TXii/SkfprHkVHquRWjJwgt2tYigtMD8mcOb7h3+3GkbQfyWMLU0k
+	VgHem/EMU8/rCu/pdVw5ObJAIergW+TgEgQxPAQFvvnfj9J+FWvszo+c/ky4k7rrZpzzGAlIQpu
+	74LihIUxzyzdfCD5HER0rutfI+WttNNVBsaIwGPAVlFvvFyO8HCUc8yu2+Xx3ZRsoFoTfaK+n4w
+	eBB4BcI8hIH6oYcWxuviP1xkJEV467ZaoTsALx0TWE+PkA+GYrXjQqX93EAMraKjm79gx6N9Q/I
+	u2GTGCG+hxVj8OBnsxay0FZilbdZQ3+IhciTLBZaBmosM3MBxbddga8ZvzM0D132cC7kENrafKa
+	PfysmnBU+kd4POfq9SoEB+TK4G3HwyY2/6S5HtreuZe6cF6W/OYvycItQoSJ2QZWg=
+X-Received: by 2002:a05:6122:3d10:b0:5c9:a618:bbf7 with SMTP id 71dfb90a1353d-5cb0c628f53mr4928551e0c.23.1790541094465;
+        Sun, 27 Sep 2026 13:31:34 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde4f99222sm6419782e0c.4.2026.09.27.13.31.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:30:28 -0700 (PDT)
-Message-ID: <6ab97ce4.a24da115.4bfe6.0f74@mx.google.com>
-Date: Sun, 27 Sep 2026 13:30:28 -0700 (PDT)
-From: Zhenyan Wang <maximwang110@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: Christian Brauner <brauner@kernel.org>, ntfs3@lists.linux.dev,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zhenyan Wang <maximwang110@gmail.com>
-Subject: Re: [PATCH 0/2] fs/ntfs3: fixes for directory permission and symlink
- consistency
-In-Reply-To: <20260927180359.3867508-1-maximwang110@gmail.com>
-References: <20260927180359.3867508-1-maximwang110@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        Sun, 27 Sep 2026 13:31:33 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org
+Cc: johan@kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH v4 1/2] debugfs: fix use-after-free in debugfs_read_file_str()
+Date: Sun, 27 Sep 2026 17:31:24 -0300
+Message-ID: <20260927203124.2060754-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092720-sandblast-heroism-30c8@gregkh>
+References: <2026092720-sandblast-heroism-30c8@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-After analysis, I found that Patch 2 introduces a regression. The
-readlink function treats backslashes in symlinks as literal characters
-but they're path separators on Windows so symlinks created under
-Windows cannot be traversed.
+On Sun, Sep 27, 2026 at 06:37:40PM +0200, Greg Kroah-Hartman wrote:
+> Please don't use a LLM to write a changelog text without crediting it :(
 
-There is a partial way to fix. Since symlinks created under Windows
-wouldn't contain '/', in the readlink function, we may only convert
-symlinks without '/' to cover all Windows-created symlinks while
-keeping some of Linux-created symlinks shaped like 'a\b/c' unchanged.
-But the 'a\b' problem is back again - it isn't fixed because we cannot
-distinguish it from Windows-created ones.
+To clarify, I did use Claude Code during the process, but only as an
+additional reviewer for spelling and grammar, minor rewording, formatting,
+and as a sanity check for obvious mistakes.
+I wrote the patch and changelog myself, and the technical analysis,
+implementation, KASAN testing, reproducer, and verification were all done
+by me.
+I should have been clearer about that when you asked earlier, apologies.
+Given that limited use, would you still prefer that I add an Assisted-by
+tag for the LLM in v5?
 
-So I'm dropping Patch 2/2. Patch 1/2 is unaffected.
+My background is security research -- I spend most of my time auditing
+code for memory safety issues and race conditions, among other things,
+which is how I ended up looking at this code after sashiko flagged the
+missing RCU protection.
+
+> This is probably not right, don't do loops like this.  Either fail or
+> succeed, don't loop.
+
+Agreed.  I'll follow Danilo's guidance from [1] and keep the
+implementation simple -- single allocation with GFP_NOWAIT, no retry.
+
+> Again, let's see the real use case here, what is hitting this in
+> userspace today and what debugfs kernel files are causing it?
+
+The writable callers in mainline are:
+
+  drivers/interconnect/debugfs-client.c  src_node/dst_node (0600)
+  drivers/soundwire/debugfs.c            firmware_file (0200)
+
+I am not aware of this being hit in the field.  The race exists
+because the write path uses synchronize_rcu() + kfree() but the
+read path does not hold rcu_read_lock().
+
+[1] https://lore.kernel.org/driver-core/DLPDB44JJRGJ.3K6JNS746M7QC@kernel.org/
+
+thanks,
+Aldo
