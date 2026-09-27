@@ -1,95 +1,108 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94292F3614;
-	Sun, 27 Sep 2026 09:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814ED397943
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790500830; cv=none; b=YgCl5jRPnsn77YhbRuY7rQyYTK/y+kpdCxPHNvaWPNRdqWeJL582tGGq89zIM0+iOeMtVvivCPw+bkNWtsUUavBLAxeKRnWLEKwiGo1nzgzfIdNdDOCsuF6Sm+FmjdX857GyGYUQWYuhCl5CI2BL8yWxQ70AZHIIRJbo/A0WiXc=
+	t=1790500849; cv=none; b=VdRDQm/D+SSMo7oFmTikRBg3UIQ5NFbEzs8V/ukDXChLskWBB2V2iqjDeoTJUR1L0t6JDcGikaPIFnMS0pxs4Nb9WHdZ05n4+2oOhERrUL9yQwHuSO20zCwWt0TKG6b0cmNywLwy2mrL6DY38D8mzkynVx98swrjX1cUFogNp8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790500830; c=relaxed/simple;
-	bh=fa2rmoi63w+g+kYJBp2yUyWM2MM4yVhuvkElmM2otPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=guVsBA/5T7q0nsAA5Snlm/oxw39PDe09wSY8/1tBPMgylUQpFXThioKlDV82DHsZXRX9+zNqHQXwpKhoxi6tccrVcdH6zUTL73mK8vKF3QSAfSfS//UCssN/AcD4aoBuk8XeA/OeqtiRXPWXVfm7AxhWmNuJhVZncN+1sADpuGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=V/Pw2dC0; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Hip7iab4; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1790500849; c=relaxed/simple;
+	bh=GSpv/BD8k2BmlNcy3i0DNPlkp1F/wMCDedi0Jb3Un78=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JaDxNT4v5FYYb4kRqpmhg1PVjPWBMUvyky9SnLJWJKXFq9XjXwLoqf73ma3foLrtih5TpSDmT9hRU2PVZHqPNe9IhvSCzvSfLIINEPj95Pp/uOcQ1yW7y1tAZBRnFugygPIrlIdn0E1gRnRZmU6EmYRoiv4q1gMpY1mnxBLVLdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hr5lpLoP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="V/Pw2dC0";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Hip7iab4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790500828;
-	bh=fa2rmoi63w+g+kYJBp2yUyWM2MM4yVhuvkElmM2otPs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=V/Pw2dC05QydmFeTTrFmCBDVikmUQSapOXXsuohKPHkuGFhyWmBQkaUT3MmbgHNMi
-	 zAF4N01iK0qIYumUrnzXEwvxMAsUafqH6K4XFoFlRb4oMIAPi4k2SlVsdLU67zqANA
-	 QTqnM9lsP//DKeLpHbM2NcUUZZgD4p0qlJESoJSq4ROf4NA5/dXCcBKWkTMQWoaxeG
-	 XYjrM2QBEaPnXdPBZ16xfzbrgjwaPyIDab4jJRxeuUbm+gjQufKYY2FDT5UbDZvKmK
-	 l4l3kcqMlaywtd6EEkCYxaHvXFT7cKG5mA7FEQ6b4cFQ3ft47ZJcn8JFYBtE8sj0Db
-	 VbO/9W7LCgPFA==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 067154130C; Sun, 27 Sep 2026 09:20:28 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790500825;
-	bh=fa2rmoi63w+g+kYJBp2yUyWM2MM4yVhuvkElmM2otPs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Hip7iab4kmxw/48sEziGskVRB544+DmaQt4aR/LvbrcGOWGtOm9387XCEarNwPLOW
-	 EtDkStLiU7d0bO2eTOkVr/9/xRyzfWn6saX7shoXVFaN/6gkQ2rif6ilLwvoX4Vwrz
-	 tvr0aKGCEKSwOcTxIllGDXRIV4H0Do48A/O0xnNeejT4AHhJeY2+ECh4FEVXYFkyGd
-	 eSm3YRmyD/IvrJaadRjYgOn4OI2KjYyjfRMI1FTDpbEGSVZfYt2BdI9V1SxW/+RpXR
-	 sv+IssedZPD16ejOluvHDOFRWNJBSBPnrjPtRZEB4KhK0Ki2gMUCjOuYPXfU43/+iT
-	 yb2HBwo3SDXZg==
-Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id AB607412E0;
-	Sun, 27 Sep 2026 09:20:25 +0000 (UTC)
-Message-ID: <40645ef3-af51-4471-ad75-51e43033d8ea@birger-koblitz.de>
-Date: Sun, 27 Sep 2026 11:20:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hr5lpLoP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166131F000FF;
+	Sun, 27 Sep 2026 09:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790500848;
+	bh=OsH0bMd9YqMqOaabYQzUoiaMXLlzQlFvj2cX0wC1/+Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Hr5lpLoPzc59zoryjKROdhXjYHWA4R0M67tQHgwK4+X0Jx9hx8jrXGzlRcRW8KhZ5
+	 dIeNgku4gtK7xMYcB2PLGUScclpIW+/pmZY6DieO3ev3s4BrdXvMN7knY0S+w7vieB
+	 gNbXA0Svof0Jm3ZabLmd6xj/ePJo6XyhuKXHYgz9jIPUFSJ6KfR6XqtjfjukSXOOCd
+	 Jmoe1MXOwsOKkFo5ZIEnN80aUjOPcKRC2ufGVjLZLzKYtER6nFyTu2afyV5WXRrVe3
+	 E4IEAz20A2nR1ZXtWBIvVT7nGoiIJaTc4ZnftGIBnZxK8dfP9c24Fn0bjIjEGRNwKg
+	 rzmIW2Qvw/v7g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xAl3u-0000000DxF3-0hn6;
+	Sun, 27 Sep 2026 09:20:46 +0000
+Date: Sun, 27 Sep 2026 10:23:53 +0100
+Message-ID: <87wls72gk6.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	James Morse <james.morse@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] irqchip/gic-v3: Memory-safety fixes on the probe paths
+In-Reply-To: <20260925085000.753400-1-fuad.tabba@linux.dev>
+References: <20260925085000.753400-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 07/15] ax88179_178a: Add EEE configuration
- support for AX88179A MACs
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, neuromoments@gmail.com
-References: <20260916-ax88179a-v12-7-60c04c9924a2@birger-koblitz.de>
- <178968029831.22033.7070310020914026845@kernel.org>
-From: Birger Koblitz <mail@birger-koblitz.de>
-Content-Language: en-US
-In-Reply-To: <178968029831.22033.7070310020914026845@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, james.morse@arm.com, will@kernel.org, tabba@google.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 17/09/2026 11:24 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider:
+On Fri, 25 Sep 2026 09:49:57 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 3
+> Hi folks,
 > 
-> - [Medium] The AX179A EEE control register (AX_GPHY_CTL /
->    AX_GPHY_EEE_CTRL) is never forced to a known state, while the driver…
-Added setting of AX_GPHY_EEE_CTRL to disabled in ax88179a_reset(),
-consistent with phylink default.
+> Changes since v1 [1]:
+>   - Patch 3 marks the skipped CPU in broken_rdists, so it's kept
+>     offline. (Marc, sashiko)
+> 
+> Three probe-time bugs in the GICv3 drivers. The kernel keeps running
+> after each of them, so the memory involved is live rather than on the
+> way to a reset.
+> 
+> The first two free memory an enabled ITS still points at. Boot carries
+> on because its_init() discards a failed probe and gic_init_bases()
+> discards what its_init() returns. The third is a write past the end of
+> redist_regs[] for an enabled GICC with a zero GICR base, on a MADT with
+> no GICR entries. fa2dabe57220e's commit message says such tables exist,
+> and I haven't seen one.
+> 
+> Based on Linux 7.3-rc4 (93f51579e7df2).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260924161514.1112730-1-fuad.tabba@linux.dev/
+> 
+> Fuad Tabba (3):
+>   irqchip/gic-v3-its: Don't free a vPE table shared with another ITS
+>   irqchip/gic-v3-its: Don't free the tables of an enabled ITS
+>   irqchip/gic-v3: Don't register a redistributor that was never counted
+> 
+>  drivers/irqchip/irq-gic-v3-its.c | 16 +++++++++++-----
+>  drivers/irqchip/irq-gic-v3.c     | 11 +++++++++++
+>  2 files changed, 22 insertions(+), 5 deletions(-)
+> 
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
 
-> - [Low] In this patch alone, ax88179a_phylink_mac_ops gains
->    .mac_enable_tx_lpi/.mac_disable_tx_lpi while ax88179a_phylink_setup()…
-Not relevant as further functionality added in later parts of the series.
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
-> - [Low] The changelog of "ax88179_178a: Add EEE configuration support for
->    AX88179A MACs" ends with the truncated/incorrect sentence "Add support…
-Commit message fixed.
+	M.
 
-> - [Low] At this commit, ax88179a_ethtool_ops
->    (drivers/net/usb/ax88179a_devices.c:209) has no .get_eee/.set_eee…
-
-Not relevant since the further functions are added in later parts of the
-series.
-
-
+-- 
+Jazz isn't dead. It just smells funny.
