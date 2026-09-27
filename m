@@ -1,135 +1,241 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4B21B192;
-	Sun, 27 Sep 2026 01:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA6821B192;
+	Sun, 27 Sep 2026 01:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790473775; cv=none; b=ktT4f+MfA9fEKVReP5DMaQED9JTXbt/omC1yq54m4FwLyZAXE8fUpXt91zYw06FlIfZk9Fx28JvK7pMWVdx3ZS0oLt4zpkprS6sl9iIYnxPi5+DNhxdVnnyxRvNZgd11S9cjgjIxTP118fsseQM0h+CTbqDKywmH/hs51qQXrhM=
+	t=1790474359; cv=none; b=ZTClAK0cgEOYSahDMGjyLYIwt2I3piRCQPxHffeprSS91V94uK9ovga9SL2Z2HQCEBL+/ko54TIliqyGHzwxKVdoQl7li8jFc5DIRFFF4i+jyEbbRZP6SlFg4qSaITtO8ulxZ2eE6bAEBBwibCjDQORl+a0LfeF/P+FK1ofxV7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790473775; c=relaxed/simple;
-	bh=J2EjSK4GYCP9UonLY0FnYK7LFQsBJBbcc8GokYxw6uE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tm+qKB+ap63NpNu0uXMFPyavtj0RVgAQG/pI6bwT89JWjONWIQV9WUB0wQKeiwWEPEQgek7zOKCkOcCgMue1MBtvNjD11IKJ5/QSMSVT3NXUuk8ZM7W8bCsfen6vvmdzgRoVsZKIB9wBIBK5BJvqAgHLonqwlGR4O8xQ0XoB5/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=LzPL2/+n; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tHNWO0xW; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790474359; c=relaxed/simple;
+	bh=Cj1yxOQ7NmiOhB54Fj2kvY8sqe96D//wtEYKIYBNRx8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=osiKOwAD/npOO9fV3J5p3m9EhsrCx6ncgmrcuGVPI2PDsDrubw+aYklIII8Yuv8P+Bfx+JazlXUg+WtVjqJDoXbzTcxMJQQUCcOw2X3Qz6VLiyz3GwJyAvvd7KTMU9j3yz4knSC9+SSzzJs3SM4iMuOSo15cP196sxLrTqPe8zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfeeVtO7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="LzPL2/+n";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tHNWO0xW"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 979E61D00073;
-	Sat, 26 Sep 2026 21:49:31 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sat, 26 Sep 2026 21:49:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790473771; x=
-	1790560171; bh=rA4LSxCVQPuct0fsk7/K44YfG8wp4yBOm4ZEsSk0LG4=; b=L
-	zPL2/+nSqmacqfU+pP+weBayNYxcQQQD1iomlGUghRM5AU/ZrSjeeOb9twWQ5JiB
-	qBvI3GICXvG7fvSgwWJMO5n6HcfEuYyiy22/RJwnrDd/JvlaytqIjvsUeq6M+x1C
-	Dq5EVl7t9GeRkipjQ2Z1BySsiMv03gh57eJ2k/vkgX5lqYKfCccRN4jG591/T2Ig
-	UNZTfjjUmjhtJReZKvwtCcrb/G71RfKhEJEomecv/2mdPXgU0Y/W7WBwkvMpXqQy
-	tvtCXIxix2mTmyInQgWU3u8+y1EOjEq1tB2wxBpLa0IVEl/iSoNAOZEt9Jf3tp6o
-	e8xptOFoWNyN30m+rqKdQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790473771; x=1790560171; bh=rA4LSxCVQPuct0fsk7/K44YfG8wp4yBOm4Z
-	EsSk0LG4=; b=tHNWO0xWjSKY+9dPihBJx55Xt8twJ3R5cZ05lPavuVzgPJM3mCK
-	MR4liOHINL9suYu44+FayyblqX936PKelPaPZZCGfuETkhoyKSWGUecpVq/KZp0k
-	IaZDmvutw5giXoQRROZzLw0GIR0VCbk8/f4tYa+zTTpTT0MbAcq5QNW1LQCQoT/5
-	/JMk/xd2CKflOFt+3Aywej/wWFup/YTqxK6QSxK7fvugYT4b8xIbBi9X6H8yF9fL
-	9bLoArh8k0ZBGXf0cAATf6MGHaeEoXWuS+HX7DSqLsvv01XomQGVkMxYjN4us7SN
-	WWNJbm/5luRu6FNAXzPQfSKl5szaMYmH2Iw==
-X-ME-Sender: <xms:K3a4amjL98eNNELjka8IFLDoJ9htQbnltsyuEepuvOk9l2QHorrikg>
-    <xme:K3a4ai12UjbL-kP7XJxYxk8vq5mX04icJnLaTprvHhVkW91QmCLsz2SddduGbrnug
-    _CysXyGQgVrkzI8Zw6EltWVDcRZCozRUEQIQLIBezPd6PJ3AMlLG9cF>
-X-ME-Received: <xmr:K3a4apf4FfdEV1LuCDlYPCxTdFcte-OTDJaU6aTQV7pgQOc0dr7lTCadVtGUedNFyNwir6m_C8NNIznUoCpic0s_4dHVcg>
-X-ME-Proxy-Cause: dmFkZTFnQ57NGncRnmBI3BkhWhFtNBO/q5DQ0aOxPo0phctjA38R7yQSje04TRLCD1R0U5
-    a/VQiP7RnC+3OtH4iKh9eG4HRKaiSU7kvKYUSexmV5j6C+UmXZ+222uU/KOONHUxfEm4k1
-    JPHJCU030jxTnprLucdt1VS1zMUCYRmU6YziR6+ytQc/WT47ZQJdU8rZQ5mD+2gu0NDRJn
-    OeMKBBF52j7/zCEdJJQ7oXXhquV0O5Ug/o4RgTKyn4FEX/AODMiYEtYZtJP6syB5vbPBzR
-    q1fycm03968BX4vO5gwdKEEvZpCRObuD74E7Na8anzkSKRFV16tkbyegzKM7KM9PdfeoJc
-    orLdy3OCW6bKuAMuub3C5CpFCmm16HPEMto7phbNHBwLoLruca1/zEFEfXpROKbD2YDE4C
-    iYEvOJCamCthomtncHUrOQppbs/Q/Rt9ZHrHZPCUu5enHEvG304+LUymaW5g0CL3fXll8s
-    A6EF4cTP/h4/Uf4aGTdeA1GCuuGVCkWxjzfXBv7cfAtdeeOZQQWWfPDWqCR/91n1Q5oeGt
-    U9MEFMnfsSjc7iJPMnRZ1LiE8YNqavgy18TJcBYONaeRu91vqmPSP6PWwqoLP5qZmaBsbk
-    fSQKDgAX2Wfh/xNhrGe0MG+/zPkjZltp3oBb4xZ0vO2m9/5PAs2tJiKhxg3A
-X-ME-Proxy: <xmx:K3a4aoy_lEFbaqrEjBUR-Yi-pOAS5GsMzdFDFce27Q_6LMhbOB8TSw>
-    <xmx:K3a4ahztB9RLNqdtMwYr36rzB_5gK1WlLbmrC_wRkM4tzxU9I-9_SQ>
-    <xmx:K3a4apbuNW9Gkb4nlF7fVbKnd9NxZGyZUiAaUV4eN9fMbH3QZzr40w>
-    <xmx:K3a4aq1nMp7hOamoF8wtHjDgELx-nJ4V3rGRyeEFHpsKOa10a3vrhA>
-    <xmx:K3a4anFkfq2WxUmjeYLSQR1YD9UPOkDVBFxz2SVGDuY4vJkDeqjRmpit>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 26 Sep 2026 21:49:28 -0400 (EDT)
-Date: Sun, 27 Sep 2026 10:49:26 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Bill Wendling <morbo@google.com>
-Cc: Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
-	codemender-patching+linux@google.com
-Subject: Re: [PATCH] firewire: core: add __counted_by_ptr attribute to struct
- fw_device
-Message-ID: <20260927014926.GC9201@sakamocchi.jp>
-Mail-Followup-To: Bill Wendling <morbo@google.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
-	codemender-patching+linux@google.com
-References: <20260925212552.125652-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfeeVtO7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755731F000FF;
+	Sun, 27 Sep 2026 01:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790474357;
+	bh=3mmxZtkXz6CMoG9+1fr08yaqLx0uIg8QGWPSaxHFEmQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mfeeVtO745hvKy5JDKZe0mq5Xp+dIMbWv6FY2A0tsEQd31GtzIjTpocTbRTlg2fHN
+	 uEu0FUH78rCbqLm5qsmHL5CtJgpECrjNHHrVzrRkhrIjHRdFNcUzaFQlAPcmuxJSVd
+	 SQGHNt5qK2LuU06CvmLaHbaVeeLZwb5DOV1furGgtmT5mJHlJMIe9zXwm1HhdSNJDq
+	 PsRyXGw34SMszmma88JhTfs5SDYSFpK0SthmaqCtuxHBTI/uFtmEftGvMUWJGZNGum
+	 U5WQ+83ZswSKqmhJRoPSC4OGwXi16+kNULIi0ppuzr5YJPlvHY2NYUlmLJ09cxvCyH
+	 cCvcBryhCpAnQ==
+Subject: Re: [PATCH net-next v4 2/2] selftests: net: test untracked NA
+ recovery of FAILED neighbors
+From: netdev-bot+sashiko@kernel.org
+To: lfqlee314@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ rdunlap@infradead.org, netdev@vger.kernel.org, aajith@arista.com,
+ roopa@nvidia.com, jhpark1013@gmail.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, shuah@kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 27 Sep 2026 01:59:16 +0000
+Message-ID: <179047435603.2160803.13373341999390974606@kernel.org>
+In-Reply-To:
+ <ce40008682ed26ab039168a5fcb515eff8d30c3a.1790127207.git.lfqlee314@gmail.com>
+References:
+ <ce40008682ed26ab039168a5fcb515eff8d30c3a.1790127207.git.lfqlee314@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925212552.125652-1-morbo@google.com>
 
-On Fri, Sep 25, 2026 at 09:25:52PM +0000, Bill Wendling wrote:
-> The GCC and Clang attribute '__counted_by_ptr' associates a pointer
-> field with an integer field holding its element count. This enables
-> runtime bounds checking by KASAN and UBSAN to prevent out-of-bounds
-> accesses to the pointer.
-> 
-> In 'struct fw_device' (defined in 'include/linux/firewire.h'), the
-> field 'config_rom' is a pointer to the device's Configuration ROM data,
-> and its associated element count is stored in 'config_rom_length'.
-> 
-> Additionally, update the existing KUnit test in
-> 'drivers/firewire/device-attribute-test.c' where 'config_rom_length'
-> was incorrectly initialized with the byte size
-> ('sizeof(simple_avc_config_rom)') instead of the element count
-> ('ARRAY_SIZE(simple_avc_config_rom)'). This ensures the
-> '__counted_by_ptr' bounds-checking annotation does not trigger any
-> false-positive panics or compile/runtime checks.
-> 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
->  drivers/firewire/device-attribute-test.c | 4 ++--
->  include/linux/firewire.h                 | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Thank you to correct the KUnit tests as well. Applied to for-next branch.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks
+- [Medium] The Fixes:-tagged bug fix is bundled with new tests that
+  depend on a new feature.
+- [Low] The commit message says the test verifies that "disabling each
+  gate keeps the entry in FAILED without a link-layer address".
 
-Takashi Sakamoto
+Pre-existing issues:
+- [Low] Some script exit paths skip cleanup().
+
+--
+
+selftests: net: test untracked NA recovery of FAILED neighbors
+
+This adds cases to ndisc_unsolicited_na_test.sh that seed a NUD_FAILED
+neighbor. Each case checks whether an unsolicited NA moves the entry to
+STALE, based on drop_unsolicited_na, accept_untracked_na and forwarding.
+
+It also runs tcpdump in the background and waits for it to exit. It keeps
+the return code in test_unsolicited_na_combination() so existing cases stop
+reporting false success.
+
+Link: https://lore.kernel.org/r/20260813233344.445265-1-lfqlee314@gmail.com
+
+> diff --git a/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh b/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
+> index 5db69dad0cfc0..ba9e670b51498 100755
+> --- a/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
+> +++ b/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
+
+[ ... ]
+
+> @@ -102,24 +115,39 @@ setup()
+>  }
+>  
+>  start_tcpdump() {
+> -	set -e
+> -	tcpdump_stdout=`mktemp`
+> -	tcpdump_stderr=`mktemp`
+> +	tcpdump_stdout=$(mktemp) || return 1
+> +	tcpdump_stderr=$(mktemp) || return 1
+>  	${IP_ROUTER_EXEC} timeout 15s \
+>                  tcpdump --immediate-mode -tpni ${ROUTER_INTF} -c 1 \
+>                  "icmp6 && icmp6[0] == 136 && src ${HOST_ADDR}" \
+> -                > ${tcpdump_stdout} 2> /dev/null
+> -	set +e
+> +                > "${tcpdump_stdout}" 2> "${tcpdump_stderr}" &
+> +	tcpdump_pid=$!
+
+[Severity: Low]
+This is a pre-existing issue, but some exit paths in this script never reach
+cleanup(). log_test() does this when the user quits under PAUSE_ON_FAIL or
+PAUSE:
+
+	[ "$a" = "q" ] && exit 1
+
+Also, setup() runs under set -e after setup_ns() has created the namespaces.
+
+Neither the script nor lib.sh installs an EXIT trap. On those paths the
+namespaces, the veth pair and the mktemp files are left behind.
+
+This patch adds one new case. tcpdump now runs in the background here. If
+start_tcpdump() or host_link_up() fails and the user answers 'q' in
+log_test(), is the tcpdump process orphaned? It still stops by itself
+because of timeout 15s.
+
+[ ... ]
+
+> @@ -129,58 +157,145 @@ cleanup()
+
+[ ... ]
+
+> +	if [ -n "${expected_state}" ]; then
+> +		neigh_show_output=$(${IP_ROUTER} neigh show \
+> +			to "${HOST_ADDR}" dev "${ROUTER_INTF}")
+> +		if [[ " ${neigh_show_output} " != \
+> +				*" ${expected_state} "* ]]; then
+> +			return 1
+> +		fi
+> +		if [ -n "${expected_lladdr}" ] &&
+> +				[[ " ${neigh_show_output} " != \
+> +				*" lladdr ${expected_lladdr} "* ]]; then
+> +			return 1
+> +		fi
+> +		if [[ "${expected_state}" == "FAILED" &&
+> +		      "${neigh_show_output}" == *"lladdr"* ]]; then
+> +			return 1
+> +		fi
+
+[Severity: Low]
+The commit message says:
+
+    Verify that disabling each gate keeps the entry in FAILED without a
+    link-layer address.
+
+Can this lladdr check in verify_ndisc() ever trigger? __neigh_fill_info()
+only emits NDA_LLADDR for NUD_VALID states:
+
+net/core/neighbour.c:__neigh_fill_info() {
+    ...
+	ndm->ndm_state	 = neigh->nud_state;
+	if (neigh->nud_state & NUD_VALID) {
+		char haddr[MAX_ADDR_LEN];
+
+		neigh_ha_snapshot(haddr, neigh, neigh->dev);
+		if (nla_put(skb, NDA_LLADDR, neigh->dev->addr_len, haddr) < 0)
+			goto nla_put_failure;
+	}
+    ...
+}
+
+NUD_VALID does not include NUD_FAILED, so ip neigh show never prints lladdr
+for a FAILED entry. Once the FAILED state match above succeeds, this check
+is always false. That means the "without a link-layer address" part is not
+actually tested.
+
+[ ... ]
+
+>  test_unsolicited_na_combination() {
+> -	test_unsolicited_na_common $1 $2 $3
+> +	local initial_state=${4:-absent}
+> +	local same_subnet=${5:-1}
+> +	local rc
+> +
+> +	test_unsolicited_na_common "$1" "$2" "$3" "${initial_state}" \
+> +		"${same_subnet}"
+> +	rc=$?
+>  	test_msg=("test_unsolicited_na: "
+>  		"drop_unsolicited_na=$1 "
+>  		"accept_untracked_na=$2 "
+>  		"forwarding=$3")
+> -	log_test $? 0 "${test_msg[*]}"
+
+[ ... ]
+
+> @@ -193,6 +308,16 @@ test_unsolicited_na_combinations() {
+>  	test_unsolicited_na_combination 1 0 1
+>  	test_unsolicited_na_combination 1 1 0
+>  	test_unsolicited_na_combination 1 1 1
+> +
+> +	# Expect FAILED entry to become STALE
+> +	test_unsolicited_na_combination 0 1 1 failed
+> +	test_unsolicited_na_combination 0 2 1 failed 1
+
+[Severity: Medium]
+This commit carries a Fixes: tag for f9a2fb73318e. The only change that
+fixes that commit seems to be the rc=$? move in
+test_unsolicited_na_combination(), which now runs before the test_msg=(...)
+assignment.
+
+These two new cases expect a seeded NUD_FAILED entry to become STALE with
+lladdr 02:00:00:00:00:02 and to keep extern_learn. That behaviour comes from
+the preceding series commit "ipv6: update NUD_FAILED neighbors from NA
+messages", which has no Fixes: or stable tag.
+
+Without that commit, ndisc_recv_na() still skips FAILED entries:
+
+net/ipv6/ndisc.c:ndisc_recv_na() {
+    ...
+	if (neigh && !IS_ERR(neigh)) {
+		u8 old_flags = neigh->flags;
+
+		if (READ_ONCE(neigh->nud_state) & NUD_FAILED)
+			goto out;
+    ...
+}
+
+Suppose a stable tree takes this patch because of the Fixes: tag, but not
+the feature commit. With rc now preserved, won't these two cases report
+FAIL?
+
+Could the rc fix go in its own patch with the Fixes: tag, and the
+FAILED-recovery tests in a separate patch without it? If they stay
+together, could the commit message at least state the dependency?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790127207.git.lfqlee314%40gmail.com
