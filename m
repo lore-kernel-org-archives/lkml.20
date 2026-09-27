@@ -1,238 +1,251 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03391632E7
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89EB277C88
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790471057; cv=none; b=RaOvlU8weGSMIY4XwiCoQLD3Nbh+h4Q2owwb8OuRzvyYZUBDhDuk3N8qogdfSZAXbwWjY5fiiW8fKcoGfxnZQccnDbeq0yAFzX8+KnN71TDmUmqq55rZbkLNg9CSUtQiBO6zoWD4c2gZyq6HayoxgWBS1IXYJRunq20CEK0EnwA=
+	t=1790471368; cv=none; b=XH9zvsiO9QIBqHAR9pZ+uUvTwNTWg2TfPwfQTX+rOKZVHOlMKq/ctsWHibS7a1VxghG8Ws3+P7jtgLEMBfu2SY/7iHjyILNkOaMIsI2kx8DvKLO0iiFvoAxyfELcwd+ZnI5YJsYhVT2eGBfDK114t6lZ4GfEBfvo2zosK6vGsUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790471057; c=relaxed/simple;
-	bh=vyonlww27nd+448wt9qP8foNfWYDEX6H7rEhX/94mF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O11wHYed7WJSxAFZrdXI2JsG9z4xe4Ltg8AXfRluUgxd0FDQ8SPmev537RK7II2ki8k/DMSmKSQHDrDRHCeqK5QLUp8ukxY/JVN1STbspT/f1IUG3YQIAqXxF7CEQcLy2OAtiQbRNfeyJ1s6Im8SbvBDtNDsSEzH6vTCVsAr6LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=YEOIrGIT; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	s=arc-20240116; t=1790471368; c=relaxed/simple;
+	bh=wbWx7cqpz+d/C1Q8z2j058LWkx/w8+P34KhcuFmTNF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=erOk4T6jSKwP7v6U5bjvs6fsgdREUAUjXad4eaaLRgIvR0b70apDbqx7Dzd4YE5CTT1aWNl8oVBU0cBTi0/vU635fUSNYcbm0ALHqgYaw6/FksMP2EgP22sH1TwdOUR7pN3A5nHPGV+VyAEGH3zGvVX7w2J6vPyoRmZDfk/JnHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J38xDBoR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QY9s2xvb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="YEOIrGIT"
-Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68R14B7G059851
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sun, 27 Sep 2026 10:04:11 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=j9w0REUefCOyn/q9h5nw6t2GYkHFhe/4JUNcRaBJ3ls=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250326; t=1790471051; v=1;
-        b=YEOIrGITN814dVoh8ELZYeibUAW/GbzKPm4z47VTZqNMlKKiY95jCfzAzE+q7hF8
-         iJwqg53LOLXUgElRtk1Vumhe9pq+Umaxlq//Xb/IaLz2f71i02FNAXu4NB4Xg5K1
-         quJ4ik9W6q518wDvbSX69acii7WdEVtW4rxpD3MSaTLBFqFLJmFSNMjzR9qEjKOm
-         GcH/dn5Uv4hHxCK70uGgOI8MyzvapSNEqr8IDmbvM/REtL9wIcbgMHRM7Y0jegBR
-         TcSBLbesnW/n4Fa7pmijBu3CqQxVgxkJ68JADrR9xfsFjzhVWmJGWwhxG1fsNvay
-         SahpQXVZnbMdM+gCqtn3Ag==
-Message-ID: <88d78717-d935-4c7f-a123-c6ddff761e97@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sun, 27 Sep 2026 10:04:10 +0900
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J38xDBoR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QY9s2xvb"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68R0FrmX472257
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:09:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=NhFYFspFINY9mlzAMXB4sTHoh3lFjbG0haA
+	vg4EKcn8=; b=J38xDBoRIdBEutpNK/gaokhG5QVUcozBgviMVb3T/gPrhKzSCBC
+	O2pfamWDRyT5hJsHek2MVKs46v9Z5V6rA3CYmcJSvDBJ2kHEzR3a49t30+Utg1Xd
+	/yCOPF6s7u7twvQSaFJPabcpx+oP+BLyK9mxoGBvaShTjxhg4pFPVgm3ih+sbsjl
+	VBc3qxllA/7ob924WeaSxIQoxRQQh19n1Nca1hllU9K3422jw/ltL8ZzH1dwJq4+
+	K1BtRjlDJPgggU01o1idxoaT9y8YLD14LNmkaWeEH94VEpr2nbMOmoe6dPkjgthi
+	OQcU4YcxzBvLMm+eaSFfYEaauuYDH75Zbww==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx7b9svs3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:09:25 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so2397542c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790471365; x=1791076165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NhFYFspFINY9mlzAMXB4sTHoh3lFjbG0haAvg4EKcn8=;
+        b=QY9s2xvbzfCj5Ra5x/yoVYBt1UGa2YqVetJGbYxiaZavl+lLad+CprNNsCE53Rwg/I
+         GxbdsyhuKc5GQr/RJQKWVaRHHJH+/fCaH7ZfIM3N8U3Nk9xaD99JEX6MhRgElCe64MPz
+         v7IdBy90klvVDDRDJF+4uwdU70Kq/cUFNsb/ygCQ5dHz0nIsE989W53Jr36gF/AOCP8Z
+         BemH4jE5G5/PNQBhG8KZqWVesO7lbgZ0A+DpsACQpYjq3H1XUx7+X9IFS9uSLPEKv0JR
+         AWix6bZu+gpnYoDHEw7+4BaFGTVKLsZBdIn6sqGVMvPULCaVGa9JpwV9YVvwErZVTyp3
+         9+SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790471365; x=1791076165;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NhFYFspFINY9mlzAMXB4sTHoh3lFjbG0haAvg4EKcn8=;
+        b=Iei1b98W1wwklvrDFDxpYPYO4yU5IWqp99Njnl0lixRVO+GhVx4rLB5e5IxjhRfR8s
+         yeX5GHAbz/V7Gaoq/plTDCE4Q52uLAc0wH7gNiiy5MwChtP6+K5FJtw8v8jO6je4jZCF
+         3MKI6P7G35oMHpKcSZ3iRcOhb+59i5FY2wxLeSL458kbLONRgcHdBSOXtvqBqocQexmC
+         612TL8p2eQ1wE4TZUCfPse6PT2R22D+WNdYuQJVTS5pKKOq+8rTQjrhl7zow+3jHqymD
+         qS5RJT2QlSMqO4idG0+/no90u+RDrI+u9SWo32RKg5eqEapuHxHqhPBz9P0Gi9zAgPdb
+         DMcA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Y99XxIdPuwKr59VT4dTE2bilrhtTH7ZFBSlEMnvU/XkoP4QBJpBeNUUUlHFLtTO9iG6ISFvTRWdO7x0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7cZX0ADeNtgHDBlAZvXl8464sCjtTw+1GejvB3YNfKv5z4MXG
+	6LJYpgScjTIfXVhDhCKRUyWzvRtzuD/atrlTML4wND3ZLJ8eL4UrSkN9GbHUeTjH9iG12ckFiDy
+	lopTg7+yw/greoJH3gMKXpwLRqXnVGd8CrIuJAo+NLp/ZH4wOUDAiyyEHdmEZ0FRUnS+yPFrzkA
+	M=
+X-Gm-Gg: AYBFou3ygXk3CJzmapiyM3h4x9ON1fpdt82fcwFYf+2g/7GEA004NUUpmZdrBLix/0m
+	2AbDiLja0HYs7xRcnQRxg9o6Lkwigp2DzwYV2XIDes3vsnfRmvCCHBwapUMNVKAI+pngHXrs2/L
+	cVzzljQtgANxoA4SqID7Rua5/8CKREfq4EABzRXoqrVxAtST3iAyfsgZS0YPpb2T9R/BAHi6iqK
+	A0QfjexWFejzJD0NTm34ok+NvMzhHSpqScl7fpwV1EhTK7r4m8x0XIkOflNZtIgRApigbtfNX+Y
+	LInx3ryWTyyHdihWbZob1pGr/IhPBKD1tsbFjj4v55sXJ3kK6giSrhivtpgwzT6Pz+UxUupWmF8
+	Jt3bSETFp9BIOrb1fIWFRFSq2AaxRIX/8+sS+3zfLy8Jm7IZdXSigDF3eR9I=
+X-Received: by 2002:a05:7022:b0c6:b0:142:d676:146a with SMTP id a92af1059eb24-146ce1aa654mr4807849c88.9.1790471364859;
+        Sat, 26 Sep 2026 18:09:24 -0700 (PDT)
+X-Received: by 2002:a05:7022:b0c6:b0:142:d676:146a with SMTP id a92af1059eb24-146ce1aa654mr4807816c88.9.1790471364201;
+        Sat, 26 Sep 2026 18:09:24 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c0ccsm15564028c88.4.2026.09.26.18.09.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 18:09:23 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v5] pinctrl: qcom: spmi-gpio: make direction changes exclusive
+Date: Sun, 27 Sep 2026 09:09:13 +0800
+Message-ID: <20260927010913.1212600-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 4/4] drm/virtio: wire blob ioctl creation to
- userptr objects
-To: Honglei Huang <honghuan@amd.com>, dmitry.osipenko@collabora.com,
-        airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
-        dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-5-honghuan@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260924095556.1326164-5-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDAwNCBTYWx0ZWRfX0JePJgmvCFYv
+ HYWbcSn8kPrwAAaqkP85qvPbt5mF6+L9kLHikwogIPC7mOr0sxCjQFV3hBx59CPK2Mf9MKijGEe
+ 4YNS+MMX5Tkg5INY5FRTWlUt/mtR2oU=
+X-Authority-Analysis: v=2.4 cv=d8FgWhjE c=1 sm=1 tr=0 ts=6ab86cc5 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=p8A5mclyQkRvBDaFiD4A:9 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-GUID: SZ7p6UZtkRwjI0MTkA_ekxyLqUzWbyHk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDAwNCBTYWx0ZWRfX1dXU3D6Ej/CG
+ aGD+SzoPo6cN6gLwCBDtm/aQcsNYTagi0/IlpsV3XoRd8A9FRmAXSIaYNJWocLwPkJIu9O6bmdz
+ MjynF0yjaM49kbOBIJhJN00wXVCCwpHwa3ymv2cJKs2hjLqugJALwPr0uV4q747aQERTQKmpiYg
+ zWwIJTQjUXKKHJTfCzPdR3f0VAn0G0omGsImP/gzn/fVD65nYUh0u0u+7Obh05OItMFzGLWFPWX
+ EJETG1Vq7LofzZFIfv5cRmQcTJ59HODD1Zmktj1Uyx/2tPvlg0ZHoAxFe4F3uFs2e/U7lbsUZ00
+ QPRg0HRzA8UgBPWONRs9oOXMyWsiU9nMdhvrg0k95QoBLwusJR2YPWRFZfUa4iXyXIANuih/fqU
+ JisXo4xc5iuV//d4hn5FPICyHFvi5DmkmOHFHojJBjly2N99fs6IhoBHV9ZOKz/9o5YytMmeNjS
+ RYnVrPhWuMN2yxWUQJA==
+X-Proofpoint-ORIG-GUID: SZ7p6UZtkRwjI0MTkA_ekxyLqUzWbyHk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270004
 
-On 2026/09/24 18:55, Honglei Huang wrote:
-> Integrate userptr into the blob resource creation ioctl.
-> 
-> - A non-zero userptr selects virtio_gpu_userptr_create()
-> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
-> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
->    advertised VIRTIO_GPU_F_BLOB_READONLY
-> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
-> - Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
-> 
-> virtio_has_feature() routes device-specific feature bits through
-> virtio_check_driver_offered_feature(), which calls BUG() when the
-> driver queries a bit it never declared in features[]. The
-> VIRTIO_GPU_F_BLOB_READONLY probe added to virtio_gpu_init() hit
-> exactly that: every probe crashed regardless of host support because
-> the bit was missing from features[]. Registering it there fixes the
-> crash.
-> 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
-> ---
->   drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
->   drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
->   drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
->   drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
->   4 files changed, 38 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> index 3a68a16b58..b8b9b40584 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> @@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
->   			    vgdev->has_resource_assign_uuid);
->   
->   	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
-> +	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
->   	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
->   	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
->   	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index 2aaa7cb080..f1edd20c37 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -182,6 +182,7 @@ static unsigned int features[] = {
->   	VIRTIO_GPU_F_RESOURCE_BLOB,
->   	VIRTIO_GPU_F_CONTEXT_INIT,
->   	VIRTIO_GPU_F_BLOB_ALIGNMENT,
-> +	VIRTIO_GPU_F_BLOB_READONLY,
->   };
->   
->   #ifdef CONFIG_PM_SLEEP
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> index 3d8e4ccdb7..3dc058e50e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -36,7 +36,10 @@
->   
->   #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
->   				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
-> -				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
-> +				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
-> +				    VIRTGPU_BLOB_FLAG_USE_READONLY)
-> +
-> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
->   
->   /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
->   static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
-> @@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
->   			return -ENOENT;
->   		value = vgdev->blob_alignment;
->   		break;
-> +	case VIRTGPU_PARAM_USERPTR:
-> +		value = 1;
-> +		break;
-> +	case VIRTGPU_PARAM_BLOB_READONLY:
-> +		value = vgdev->has_blob_readonly ? 1 : 0;
-> +		break;
->   	default:
->   		return -EINVAL;
->   	}
-> @@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->   	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
->   		return -EINVAL;
->   
-> +	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
-> +		return -EINVAL;
-> +
->   	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
->   		if (!vgdev->has_resource_assign_uuid)
->   			return -EINVAL;
->   	}
->   
-> +	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
-> +		if (!vgdev->has_blob_readonly)
-> +			return -EINVAL;
-> +	}
-> +
-> +	if (rc_blob->userptr &&
-> +	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
-> +		return -EINVAL;
-> +
->   	switch (rc_blob->blob_mem) {
->   	case VIRTGPU_BLOB_MEM_GUEST:
->   		*guest_blob = true;
-> @@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->   	params->blob = true;
->   	params->blob_flags = rc_blob->blob_flags;
->   	params->blob_hints = rc_blob->blob_hints;
-> +	params->userptr = rc_blob->userptr;
->   
->   	if (vgdev->has_blob_alignment &&
->   	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> @@ -518,9 +540,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
->   	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
->   	struct drm_virtgpu_resource_create_blob *rc_blob = data;
->   
-> -	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
-> -			&guest_blob, &host3d_blob))
-> -		return -EINVAL;
-> +	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
-> +			  &guest_blob, &host3d_blob);
-> +	if (ret)
-> +		return ret;
->   
->   	if (vgdev->has_virgl_3d)
->   		virtio_gpu_create_context(dev, file);
-> @@ -538,7 +561,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
->   				      vfpriv->ctx_id, NULL, NULL);
->   	}
->   
-> -	if (guest_blob)
-> +	if (guest_blob && params.userptr)
-> +		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
+Neither direction callback clears the opposite buffer: .direction_output()
+only packs PIN_CONFIG_LEVEL and .direction_input() only packs
+PIN_CONFIG_INPUT_ENABLE.  As pmic_gpio_populate() seeds input_enabled and
+output_enabled from MODE_CTL, a pad left in DIGITAL_INPUT[_OUTPUT] by the
+bootloader ends up in DIGITAL_INPUT_OUTPUT whichever direction is
+requested.  That leaves an input still driving the line, and makes
+pmic_gpio_get_direction() report an output as an input, which breaks
+consumers that read the direction back:
 
-After userptr creation has pinned pages, charged pinned_vm, queued 
-resource creation, and registered the object for restore, the 
-[handle-creation failure path calls drm_gem_object_release() directly. 
-The UUID-assignment failure path does likewise.
+  reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+  reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
 
-That function releases GEM internals; it does not invoke the object’s 
-.free callback. The userptr pages, DMA mapping, memlock charge, and host 
-resource therefore remain unreleased, with no userspace handle available 
-to close them.
+Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+direction, so MODE_CTL becomes DIGITAL_INPUT or DIGITAL_OUTPUT, never
+both.  pmic_gpio_config_set() writes the registers once after walking all
+configs, so this stays a single write.
 
-These error paths predate the series, but this patch routes long-term 
-userptr pins through them.
+An open-drain or open-source output is the exception: it only drives one
+rail, so pmic_gpio_get() needs the input buffer to sample the line rather
+than return the value last written.  Program the input buffer from
+pad->buffer_type, which gpiolib has already updated via
+PIN_CONFIG_DRIVE_OPEN_DRAIN, and key pmic_gpio_get_direction() off
+output_enabled so such pads still read back as outputs.
 
-Regards,
-Akihiko Odaki
+Genuinely bidirectional pads can still be described that way through
+pinconf; the gpiolib callbacks now mean what gpiolib says they mean.
 
-> +	else if (guest_blob)
->   		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
->   	else if (!guest_blob && host3d_blob)
->   		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> index 1d4d3bf46a..06c2bded49 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->   		vgdev->blob_alignment = blob_alignment;
->   	}
->   
-> +	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
-> +		vgdev->has_blob_readonly = true;
-> +
->   	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
->   		 vgdev->has_virgl_3d    ? '+' : '-',
->   		 vgdev->has_edid        ? '+' : '-',
->   		 vgdev->has_resource_blob ? '+' : '-',
->   		 vgdev->has_host_visible ? '+' : '-');
->   
-> -	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
-> +	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
->   		 vgdev->has_context_init ? '+' : '-',
-> -		 vgdev->has_blob_alignment ? '+' : '-');
-> +		 vgdev->has_blob_alignment ? '+' : '-',
-> +		 vgdev->has_blob_readonly ? '+' : '-');
->   
->   	ret = virtio_gpu_find_vqs(vgdev);
->   	if (ret) {
+Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+Assisted-by: LLM
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+Changes for v5:
+- Update commit log to be terse
+- Link to v4: https://lore.kernel.org/all/20260924070323.983528-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v4:
+- .direction_output() now programs PIN_CONFIG_INPUT_ENABLE unconditionally
+  from pad->buffer_type, instead of only clearing it for a CMOS pad,
+  so an open-drain or open-source pad whose input buffer was already off
+  gets it re-enabled rather than falling back to reporting the value last
+  written.
+- Link to v3: https://lore.kernel.org/all/20260924032314.948638-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v3:
+- .direction_output() clears PIN_CONFIG_INPUT_ENABLE only for
+  PMIC_GPIO_OUT_BUF_CMOS pads; open-drain/open-source keep the input
+  buffer so pmic_gpio_get() samples the wire.
+- pmic_gpio_get_direction() now keys on output_enabled instead of
+  input_enabled - required, or an open-drain output reports IN again and
+  the -EPERM regression returns.
+- Link to v2: https://lore.kernel.org/all/20260922065908.477523-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v2:
+- Drop GPIO shared-proxy patch
+- Update Fixes tag (Thanks Neil!)
+- Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
+
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+index f6dc43e27b38..9163bb14d703 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+@@ -734,29 +734,50 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+ 	    (!pad->input_enabled && !pad->output_enabled))
+ 		return -EINVAL;
+ 
+-	/* Make sure the state is aligned on what pmic_gpio_get() returns */
+-	return pad->input_enabled ? GPIO_LINE_DIRECTION_IN : GPIO_LINE_DIRECTION_OUT;
++	/*
++	 * An open-drain or open-source pad keeps its input buffer enabled while
++	 * driving, so the output buffer is what tells the direction.
++	 */
++	return pad->output_enabled ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+ }
+ 
+ static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
+ {
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	unsigned long configs[2];
+ 
+-	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+ 
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
+ }
+ 
+ static int pmic_gpio_direction_output(struct gpio_chip *chip,
+ 				      unsigned pin, int val)
+ {
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	struct pmic_gpio_pad *pad = state->ctrl->desc->pins[pin].drv_data;
++	unsigned long configs[2];
+ 
+-	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
++	/*
++	 * An open-drain or open-source pad only ever drives one rail, so the
++	 * line can still be sampled while the pad is an output.  Keep the input
++	 * buffer enabled for those, so that pmic_gpio_get() reports what is on
++	 * the wire rather than the value last written, and disable it for a
++	 * CMOS pad, so that the pad ends up in DIGITAL_OUTPUT rather than
++	 * DIGITAL_INPUT_OUTPUT.  Program it either way, as the buffer may have
++	 * been left in the opposite state by the bootloader or by an earlier
++	 * direction change with a different buffer type.  gpiolib applies
++	 * PIN_CONFIG_DRIVE_OPEN_DRAIN before calling this, so buffer_type is
++	 * already up to date here.
++	 */
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE,
++					     pad->buffer_type != PMIC_GPIO_OUT_BUF_CMOS);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+ 
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
+ }
+ 
+ static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
+-- 
+2.43.0
 
