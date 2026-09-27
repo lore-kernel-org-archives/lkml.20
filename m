@@ -1,152 +1,214 @@
-Received: from mail-wr2-f37.google.com (mail-wr2-f37.google.com [74.125.225.101])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FEE36920C
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D3D3B95E4;
+	Sun, 27 Sep 2026 07:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790492551; cv=none; b=lHVT5ksIdaOB6G7D5PWOdWr7ypTCnzHdKCx+hDwRdw44zFGIVSzIlVbFsMKMIkNyZkluSou3wHXBzuOsiLMpuWo7rMvXPO/g7ZGXthB6yoz4p/vJ7GmgQZ06SuSsh4r8kwXFdE338g+378N4xMpi5KHdJDN1FfZf6DjOSo4lyZo=
+	t=1790492553; cv=none; b=UxckAcqGCE8Hp7fPZVcPceypzF8JpYsrKWp5Aae5kLcNZW078T12UWth+GLW1x35vd7MuFlve8EOtBZjJil6pl6V9OI7fJFae4B6HoyI6kS8W7fkb2VPObBWPhLleb8eahThndXCTKqVU6cPNL4uq4MOlIS7DEQtAaxZelhFgRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790492551; c=relaxed/simple;
-	bh=EZBGaGu7g268yBeLa/NPbPJzutiCHGfKPegWoTP0nS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BFppAxpwezyQdSjLSv5vbSN9C+Pll1dLcDNwAi1tmLljzgMwFgn+Rrhr0Na00kyteTRX7r76vaZxfjDhk0rqGyPv4AWzHNQHvkthY8tzn5dI6GhhWWBneL+PHfz0YKBvyrNuPmBdf/LdEXSDhk2CxjLcPKMOCK3LyerPyO5EjcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhhbGWcS; arc=none smtp.client-ip=74.125.225.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790492553; c=relaxed/simple;
+	bh=4GJ13IWcPjWaUXa8jMggP9BDJTRfHjF4AEkLaUqiH4c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HSowLjrIWKhJRj9/I3SdCdNrWc1Jo3ySIfzEg+Woz7Vs2tj09h+uz3HJsiwwaV0Jz90hDX5T96iwD0OFRE86NNfARpLYkEfzVFpgwfwyUCEddM+9my4Rpzw4hrv986cOy1obIgwaYAig4HjDYDkYGFujzoBmBHkZ9mnpERzzvBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=iI6pHoUl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=JDDZOnHn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ROf4rYh+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CLC3IQzb; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhhbGWcS"
-Received: by mail-wr2-f37.google.com with SMTP id ffacd0b85a97d-4887840c529so725885f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790492548; x=1791097348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RJKp/brBpZ8U6kwJIcmM4FiZnVhsdc/GYabd2hj9ep0=;
-        b=fhhbGWcSs98KWNIPjQAwwy2Yzwiu5DdepGYGIryjir0puqjg/9ax8hBsUb14n4wWBn
-         8/MqsllnNi5kpq79icgdS4NmoAWnuLTQpDPY9Zs7HYADGy2VjYEdHzkMYQu8dWggLjJq
-         9swI1XBLBjnEVsGoMV5b3e4jtkhvmTswyFxQLcoDEddYigQ6xn8YXWDj5xGSyU87Fn/j
-         GyeNGdi56lUom7g/riLoAaddFOVw2U7u+q7SXU2tn4dm5gsALpXWfnOUbhjh1282tE/P
-         WVgPhbVvuHe/LsVhRDPywC8+lBvqoMD7t6xh0CkWhIo0amWuUHNnV2m2KpNAliIvZHaA
-         0NMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790492548; x=1791097348;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RJKp/brBpZ8U6kwJIcmM4FiZnVhsdc/GYabd2hj9ep0=;
-        b=PA939ISgEuxYqgqqa8pxtkHVbexkB/2yptayz2kz2UpblrWnnTbHSiekGpR2CbYM83
-         yaczak1LX/wvDDMhT/bHC1Mlan05xPMP+ku1CDJeU0yxYZ2NAyC/usWbOyFFpvFHs42P
-         nrR1eyONyHyuYdYxpiVeQEsJgruXZYcSiEoCAH25S/zYvFTICFLmvTs4tGLvLv1V6McB
-         LJHrLEim+/AA8Vf/UE+Wd4TMY29gc9DdYYKO1zDcVe610Nfh2b6axGfDyMmisp4+bCCQ
-         bUetOTje2LKQEwTJVbrrZW3Oh6Fgmklgint0Fz3N/wOonbxWAbh8oVkTaA6P3QLQ1TGd
-         gkow==
-X-Forwarded-Encrypted: i=1; AKwUvBx1GLqYn2ox6XmWSdW3/BRSihVpPUb/4U2T1Tm3y4FrpHx9t76mebFI76GMYDw1dwMlEoMhuk/ShvJYgck=@vger.kernel.org
-X-Gm-Message-State: AFuF++llm77eqXOqLCY1i/tWozkfTZv2zcZT8C8LmwTO+SM93qZ4ru3K
-	q0P+ESI3v7L0CKfq0pqPxkcGDo1z51G+2LZbedjcg14/uDilxbTo3XRb
-X-Gm-Gg: AYBFou0NnJni7ES88B8WSe39DKaO6Etnl3MR+UoMWC/MZ6gpyYHMnin2ZP8IivP1DFk
-	fNz0SbyBrANPuaIGTB9RAwNZ0AVRTJvKZoHTDkr/lMka68kTfpEmhXgQUWgq5u6I8+kEpljMhqI
-	1PfkEjxjsBEBreottzwZ/8cqc+ROTUxsnlGuYMKEMWzuXFokUotgP27qT9q5qeVLRc7GFj+d0My
-	M8HQ/EN6zvnlRN0Zg+EUENGe2Lg5j/PP90IE6fap1L4dinqXKgtzGvYNysBnoJxGVn2bCFJx/i+
-	mpH0PpQWx3t4UqDcF2nPDLaEBmUKECewKoAZqIGP3inUaBT89YfkJxodKpeEiv6xwxqKtFzuKsm
-	irqjDxrjNzKW2MZh+qjeCXentjmDFKd+8hvdZdfAirRQfJkzhFde0A7vsrOEQdAlXOTEO+wtRCo
-	Mw/qEZwa8Mkdn3GT5C3fghVqofVvwHHSVIOkXj3bk0p40z60HQTg63Kd1qARlX2SMRdy7vIs7+E
-	Z2W//ZcVpKXBesO3QZ+T0/fSsvD8EABxoYf
-X-Received: by 2002:a05:600c:1f83:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fe66c8087mr175447355e9.3.1790492548064;
-        Sun, 27 Sep 2026 00:02:28 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018f0e79sm57015315e9.7.2026.09.27.00.02.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:02:27 -0700 (PDT)
-Date: Sun, 27 Sep 2026 08:02:25 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, Andreas Schwab
- <schwab@linux-m68k.org>, Andy Lutomirski <luto@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>, Vincenzo Frascino
- <vincenzo.frascino@arm.com>, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- x86@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <20260927080225.37534e7c@pumpkin>
-In-Reply-To: <are7cfMIHZZn6jLz@zx2c4.com>
-References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
-	<87zex4ic68.fsf@linux-m68k.org>
-	<20260926121927.GA1486962@ax162>
-	<are7cfMIHZZn6jLz@zx2c4.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iI6pHoUl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JDDZOnHn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ROf4rYh+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CLC3IQzb"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E402021E71;
+	Sun, 27 Sep 2026 07:02:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790492532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5BIpyzpFhUTjXE4iGhZKarMO0HJAxtBWhlrJwRgsjRw=;
+	b=iI6pHoUlEws+GNp6AKWDB3CN0w4gZVIu/4onumaT1baG8dPh4ojciex5JdAzhZ0+9LMRx7
+	Akiq3eren4C2O5jUFoCJ1o8qXZ5pfzmwzlvsU0REzv6MeaU3cOLLSPFTn2Hp3UCvJubi/h
+	BbYL/jtizXeqGfs86CqYJWXiRyzEfWk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790492532;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5BIpyzpFhUTjXE4iGhZKarMO0HJAxtBWhlrJwRgsjRw=;
+	b=JDDZOnHn/iFwT41w7oqMvvG1FRjvtDiviOTVxap2/TvqaPK4B+AfJ6YzSAdzZzsiHxBZQZ
+	E3fotKVM5nfRjtAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ROf4rYh+;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CLC3IQzb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790492527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5BIpyzpFhUTjXE4iGhZKarMO0HJAxtBWhlrJwRgsjRw=;
+	b=ROf4rYh+/9GYig2Da3M5Iu4/q/F99fP+RsWMlc+iVksKdSM6GVoSorYP7y8NneeJkZBdIA
+	U6u3lKd510eKe73IzPvnaZGcJQWWWyc405+Mozk7Prz20Vpc1JpBQr3CwQPxWzRuvfkKoD
+	v7jtxUqc2op/tikUhvQ2NM7yCsWm0z0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790492527;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5BIpyzpFhUTjXE4iGhZKarMO0HJAxtBWhlrJwRgsjRw=;
+	b=CLC3IQzbgPlclo821E13H6iT3OClrKWxp9Warc8aOSZ7Vp/wCY6TEiQ+y6UPh88ghV4q1k
+	WQxmwkUiDPdJzXBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7CC9B133F1;
+	Sun, 27 Sep 2026 07:02:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id iL1nC2+/uGo/dgAAD6G6ig
+	(envelope-from <krisman@suse.de>); Sun, 27 Sep 2026 07:02:07 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: Daniel Tang <danielzgtg.opensource@gmail.com>, =?utf-8?Q?Andr=C3=A9?=
+ Almeida
+ <andrealmeid@igalia.com>, Christian Brauner <brauner@kernel.org>,
+ linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Hugh Dickins <hughd@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>,
+ smcv@collabora.com, kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-mm@kvack.org, linux-doc@vger.kernel.org
+Subject: Re: [BUG] Is casefold unreported in /proc/mounts?
+In-Reply-To: <5193732.31r3eYUQgx@daniel-desktop3>
+Organization: SUSE
+References: <5193732.31r3eYUQgx@daniel-desktop3>
+Date: Sun, 27 Sep 2026 03:02:01 -0400
+Message-ID: <877bk7yy6u.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="=-=-="
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E402021E71
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	SUBJECT_ENDS_QUESTION(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,igalia.com,kernel.org,vger.kernel.org];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+,1:+,2:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-On Sat, 26 Sep 2026 14:32:49 +0200
-"Jason A. Donenfeld" <Jason@zx2c4.com> wrote:
+--=-=-=
+Content-Type: text/plain
 
-> On Sat, Sep 26, 2026 at 01:19:27PM +0100, Nathan Chancellor wrote:
-> > On Sat, Sep 26, 2026 at 11:39:43AM +0200, Andreas Schwab wrote:  
-> > > On Sep 25 2026, Nathan Chancellor wrote:
-> > >   
-> > > > +#if __has_builtin(__builtin_memset_inline)
-> > > > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
-> > > > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
-> > > > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
-> > > > +#else
-> > > > +static inline void *memset_inline(void *dst, int value, size_t size)
-> > > > +{
-> > > > +	char *d = dst;
-> > > > +
-> > > > +	while (size--)
-> > > > +		*d++ = value;
-> > > > +
-> > > > +	return d;
-> > > > +}
-> > > > +#endif
-> > > > +  
-> > > 
-> > > memset actually returns the original pointer, not the incremented one.
-> > > Nothing uses the return value of memset_inline here, but it is
-> > > confusing.  
-> > 
-> > Whoops, good catch, I guess my fingers gave up on those last two
-> > characters :) I will fix this for v3 once there has been some time for
-> > further review.  
-> 
-> Do we even need to return a value at all? Might as well just make the
-> function two lines:
-> 
-> +       for (char *d = dst; size--;)
-> +               *d++ = value;
+Daniel Tang <danielzgtg.opensource@gmail.com> writes:
 
-Wouldn't it be better to add a barrier() or similar in there to
-stop the compiler playing unwanted games>
+> Upon successfully mounting via `sudo mount -t tmpfs -o casefold test /mnt`, I
+> cannot find a read-only way to determine whether this option is enabled.
+> `mount`, `cat /proc/mounts`, and `cat /proc/mountinfo` only display "rw",
+> "relatime", and "inode64", never "casefold" for both with and without
+> `-o casefold`. The only way on 7.0.0-34-generic to test I found is
+> `mkdir test ; chattr +F test ; echo $?`, but that isn't atomic. Which command
+> can determine, without writing anything, whether someone or some program
+> specified `-o casefold`? If absent, I suggest adding the missing info to
+> `/proc/mounts`, likely `mm/shmem.c:shmem_show_options`.
 
-David
+Yeah.  For device-backed filesystems it is not a mount parameter, but it
+is for shmem/ovl and should show in /proc/mounts.
 
-> 
-> (Technically that could even be one, but maybe that sort of golf loses
-> clarity. Your choice.)
-> 
+Either way, there are two ways to check:
 
+1) Parse dmesg after the mount. It is easily overwritten and probably
+worse than just trying;
+
+2) better way: do FS_IOC_SETFLAGS on the mountpoint (with chattr
++F).  If casefold is supported, you'll get -ENOTEMPTY, otherwise you get
+-EOPNOTSUPP.  Since it is the root of the filesystem and a single
+syscall, unless its remounted from under you (in which case /proc/mounts
+doesn't help either), you are safe.
+
+It is worth mentioning you can check kernel support with
+/sys/fs/*/features/casefold.  We probably should add the same for
+/sys/fs/ext4/<disk>/.
+
+This fixes /proc/mounts for shmem: 
+
+
+--=-=-=
+Content-Type: text/x-patch
+Content-Disposition: inline;
+ filename=0001-shmem-Report-casefold-setting-in-mount-options.patch
+
+From c4b198424fac49e10e32553b223b7615febc6513 Mon Sep 17 00:00:00 2001
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+Date: Sun, 27 Sep 2026 02:49:26 -0400
+Subject: [PATCH] shmem: Report casefold setting in mount options
+
+For not device-backed filesystems, casefolding is a mount option.
+Report the current encoding and casefolding flags in /proc/mounts so
+userspace can easily check if casefolding is supported.
+
+Reported-by: Daniel Tang <danielzgtg.opensource@gmail.com>
+Link: https://lore.kernel.org/linux-fsdevel/5193732.31r3eYUQgx@daniel-desktop3/#R
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+---
+ mm/shmem.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 897fa2b61346..2b93fcbf5127 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -4916,6 +4916,17 @@ static int shmem_show_options(struct seq_file *seq, struct dentry *root)
+ 	if (sbinfo->qlimits.grpquota_ihardlimit)
+ 		seq_printf(seq, ",grpquota_inode_hardlimit=%lld",
+ 			   sbinfo->qlimits.grpquota_ihardlimit);
++#endif
++#if IS_ENABLED(CONFIG_UNICODE)
++	if (root->d_sb->s_encoding) {
++		unsigned int version = root->d_sb->s_encoding->version;
++
++		seq_printf(seq, ",casefold=utf8-%u.%u.%u",
++			   unicode_major(version), unicode_minor(version),
++			   unicode_rev(version));
++		if (sb_has_strict_encoding(root->d_sb))
++			seq_puts(seq, ",strict_encoding");
++	}
+ #endif
+ 	return 0;
+ }
+-- 
+2.55.0
+
+
+--=-=-=--
