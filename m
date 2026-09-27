@@ -1,232 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-101.mta0.migadu.com [91.218.175.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D253CB557;
-	Sun, 27 Sep 2026 09:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CA43A9870
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790502538; cv=none; b=A7TkHPlN3LsTfQAUx4yJ2K7cKPwmlwcIcIdqNfMtSw8mtDymfsKQR9VYh06BpGOESc5USpB6kAcWcHKy3lq/Xxfrh39kqDAgbvs84Zw8cljLpbnjbRRvTtEoUkm3l1ZUHHC86i0b1pofVT3Sn2MJXrMelx5RgS8a7xNVEgdOJNs=
+	t=1790502905; cv=none; b=sL+1Oy22Ocj0+FYwBU7RGkaI9k/vV/EZmXygGFiRfVwKqMeNs30aJIJjcN5xjDWFMzWa4YlulSCRKadHwkuEAEWve4IegWZFXkikmdYYylQFfAEO6xzQbNqyqCnU/eYhhMSEWnh2sgRjF8e/EIdAp6QcSU8bD4nBCyd7Sc1HCKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790502538; c=relaxed/simple;
-	bh=8NQPWTpsoboogazA3iIT5DTYPsoxERUUIK9g6OIvrew=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kwInTBLbfpYk3UMEKx8CN+9HU+8V1eDf4Xov1Xwx3OVMeVEKo3AvVb6I1QGctjl+NgQ29GXj1smpem3ryxveQ1969kjw2WBWH6kxOh5U1/FPdCgKHSbfCzdxjid1sGeFerHndDCQcCF0lna0YPuRepzj79iOS/fJtLomrRUBeFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0YDBrN3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790502905; c=relaxed/simple;
+	bh=MnUziHyI7x/kpNN1Hc2LF0E+uP7SX1LMj6VKOBxKczs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHNpmrrzEkNhvRJx/2jfFlae39MH92CNa9DS9iWXys/6YCwFyWvzr2rS9NeBZFMMQo806qLMbIDchzhofUUpZixR0X6mW6ez7nxSaBYFz9LdKGW+XD/jrj4/bm0j12KGotXqoWZo1wkXPS6igQCN8VdC28hAio/aAEiqTI3P0rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gABBMUzM; arc=none smtp.client-ip=91.218.175.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0YDBrN3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A952FC4AF13;
-	Sun, 27 Sep 2026 09:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790502537;
-	bh=8NQPWTpsoboogazA3iIT5DTYPsoxERUUIK9g6OIvrew=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=H0YDBrN3eA8VVVPXtAHV3/hpUnZMvdnqrHFyFMY6eKccMZgu8mIkBHRRs0u/PGbGL
-	 n+iBoWiY4d919HsZq+FUpHuf8SWyHaZ7b6+c5EloO+iBTgznD/26nEl+tCuAKAFULB
-	 uSuvfshW3VxXB8mqsN5vaQ1qFXIBAS6Y9mDQR2tu48md+y2wcMq6Y+vy7G9u6gBF4z
-	 RH1eZt2QvSPkoj1/O34K2c7qijVqsVeL2kuzFiazL4xZ0hJaZS2bl/3WMQFlWcxC9x
-	 Hn/5NYLAWF+cQRWxeY2Th8VaS6nQEdRbiOj9ntWC/VxfzsV6YK8d2k+XdcwdTUXQku
-	 TXATsXaD+8nTg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 900E0C98324;
-	Sun, 27 Sep 2026 09:48:57 +0000 (UTC)
-From: Henrik Ma Johansson via B4 Relay <devnull+dahankzter.gmail.com@kernel.org>
-Date: Sun, 27 Sep 2026 11:48:57 +0200
-Subject: [PATCH RFC] io_uring: add support for copy_file_range
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gABBMUzM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MnUziHyI7x/kpNN1Hc2LF0E+uP7SX1LMj6VKOBxKczs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790502899; v=1; x=1791107699;
+ b=gABBMUzMEROqx3xzvGdiOWTjsJ7YOFC6Ecl4Kij2r4ubdtxSmfoq77BEBGExUuBd2+S4i2Fc
+ 8oMYaZ6mdOHsantFFe3Tc0K4DcxQ83Jy+/faX8B6L1Plo0Uwh171x/HnGd5qbP+Xx0+x9OQkt1Y
+ DlJ+SU0dYJRPOs6h8gFWlVKM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66a51e8696da171c;
+	Sun, 27 Sep 2026 09:54:59 +0000
+X-Mizu-Trace-ID: 66a51e8696da171c
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Christian Brauner <brauner@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Michal Grzedzicki <mge@meta.com>,
+	Alexey Gladkov <legion@kernel.org>,
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>,
+	Jan Kara <jack@suse.cz>,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH] fork: fix active reference underflow on unshare() failure
+Date: Sun, 27 Sep 2026 17:54:50 +0800
+Message-ID: <20260927095450.3017586-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-cfr-rfc-v1-1-5b9ddbe0490f@gmail.com>
-References: <20260927-cfr-rfc-v1-0-5b9ddbe0490f@gmail.com>
-In-Reply-To: <20260927-cfr-rfc-v1-0-5b9ddbe0490f@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Henrik Ma Johansson <dahankzter@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5989;
- i=dahankzter@gmail.com; h=from:subject:message-id;
- bh=Y6Qn2ejRW03ZlzzYwHZEwXGGECb9VUTiKUeZHr12C64=;
- b=kA0DAAoWDPOq2hz2HxMByyZiAGq45ojIJ1Ago3XO71ITlZp47priYq3soRwBsopgd/bXNrMrF
- Yh1BAAWCgAdFiEE0nxFoc4A2G1BZPBgDPOq2hz2HxMFAmq45ogACgkQDPOq2hz2HxMA+AD9HKtC
- EBKpaw9I1OxRog5R5yRt05ZCll14okDK9ncq7xwBALEnPkPzjEKz0e+NFjkLOnBqGgXOGmZBuNT
- LMcCmU90J
-X-Developer-Key: i=dahankzter@gmail.com; a=openpgp;
- fpr=D27C45A1CE00D86D4164F0600CF3AADA1CF61F13
-X-Endpoint-Received: by B4 Relay for dahankzter@gmail.com/default with
- auth_id=1067
-X-Original-From: Henrik Ma Johansson <dahankzter@gmail.com>
-Reply-To: dahankzter@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Henrik Ma Johansson <dahankzter@gmail.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
-copy_file_range(2) lets the filesystem decide how to copy: XFS, Btrfs and
-OCFS2 share extents instead of copying data (reflink), and NFS, CIFS and
-Ceph can have the server copy without data crossing the network. Neither
-is reachable through io_uring today. IORING_OP_SPLICE requires one end to
-be a pipe, so the only io_uring alternative is two linked splices through
-a pipe, which always copies bytes.
+When set_cred_ucounts() fails in ksys_unshare() the new nsproxy is
+released with put_nsproxy().  But the nsproxy has not been installed
+at this point; it is only marked as active once
+switch_task_namespaces() installs it, which happens after all failure
+points.  Dropping the last reference therefore deactivates it and
+puts the active reference of every namespace it points to: for
+namespaces created by this unshare() call the active count underflows
+to -1, and for namespaces carried over from the caller a live active
+reference of the still-running task is dropped, which makes them
+disappear from nsfs file handles and listns and causes a cascading
+underflow at task exit.
 
-Add IORING_OP_COPY_FILE_RANGE, eliminating the need for applications to
-keep a thread pool or offload mechanism just to issue copy_file_range
-without blocking. The SQE is packed like splice: fd_out in fd, off_out in
-off, off_in in splice_off_in and fd_in in splice_fd_in, where
-SPLICE_F_FD_IN_FIXED selects a registered file. An offset of -1 uses and
-advances the file position, like a NULL offset to the syscall. No
-copy_file_range flags exist, so splice_flags accepts only
-SPLICE_F_FD_IN_FIXED.
+Use nsproxy_free() on this error path, which drops the regular
+references without touching the active ones, like the setns() failure
+paths already do; see commit cefd55bd2159 ("nsproxy: fix
+free_nsproxy() and simplify create_new_namespaces()").
 
-There is no nonblocking path for copy_file_range, so the request is
-always punted to io-wq, like splice, fallocate and ftruncate. Writes to
-the same output file are serialized through hash_reg_file, as for those
-ops. As with other data transfer opcodes, auditing is skipped; the
-copy_file_range syscall is in no audit class either.
-
-The length is clamped to MAX_RW_COUNT, as the CQE result is 32 bits and
-->copy_file_range() and ->remap_file_range() may otherwise return more
-than INT_MAX. A short copy is allowed by copy_file_range semantics;
-callers loop, as they do for the syscall. As for other transfer
-opcodes, a result that doesn't match the (clamped) requested length
-fails the request for the purpose of links. A zero length is passed
-through, as vfs_copy_file_range() does its checks before returning 0,
-so errors match the syscall.
-
-As in the networking opcodes, -ERESTARTSYS is turned into -EINTR, as the
-request cannot be restarted like a syscall. NFS returns it when an
-in-flight server-side copy is interrupted by cancellation.
-
-Assisted-by: LLM sparse
-Signed-off-by: Henrik Ma Johansson <dahankzter@gmail.com>
+Fixes: a98621a0f187a ("unshare: fix nsproxy leak in ksys_unshare() on set_cred_ucounts() failure")
+Link: https://lore.kernel.org/r/20251118064552.936962-1-ptikhomirov@virtuozzo.com
+Link: https://lore.kernel.org/r/20260213193959.2556730-1-mge@meta.com
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- include/uapi/linux/io_uring.h |  1 +
- io_uring/opdef.c              | 11 ++++++++
- io_uring/splice.c             | 58 +++++++++++++++++++++++++++++++++++++++++++
- io_uring/splice.h             |  3 +++
- 4 files changed, 73 insertions(+)
+ include/linux/nsproxy.h | 1 +
+ kernel/fork.c           | 2 +-
+ kernel/nsproxy.c        | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
-index 909fb7aea638..a6bda05ed1e0 100644
---- a/include/uapi/linux/io_uring.h
-+++ b/include/uapi/linux/io_uring.h
-@@ -318,6 +318,7 @@ enum io_uring_op {
- 	IORING_OP_PIPE,
- 	IORING_OP_NOP128,
- 	IORING_OP_URING_CMD128,
-+	IORING_OP_COPY_FILE_RANGE,
+diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
+index 5a67648721c7d..dc2447f5f0924 100644
+--- a/include/linux/nsproxy.h
++++ b/include/linux/nsproxy.h
+@@ -100,6 +100,7 @@ void exit_cred_namespaces(struct task_struct *tsk);
+ void switch_task_namespaces(struct task_struct *tsk, struct nsproxy *new);
+ int exec_task_namespaces(void);
+ void deactivate_nsproxy(struct nsproxy *ns);
++void nsproxy_free(struct nsproxy *ns);
+ int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
+ 	struct cred *, struct fs_struct *);
+ int __init nsproxy_cache_init(void);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index d458d85d7a656..11e16554daa61 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -3324,7 +3324,7 @@ int ksys_unshare(unsigned long unshare_flags)
  
- 	/* this goes last, obviously */
- 	IORING_OP_LAST,
-diff --git a/io_uring/opdef.c b/io_uring/opdef.c
-index cf3aa2242cd7..2f4c869993b1 100644
---- a/io_uring/opdef.c
-+++ b/io_uring/opdef.c
-@@ -591,6 +591,13 @@ const struct io_issue_def io_issue_defs[] = {
- 		.prep			= io_uring_cmd_prep,
- 		.issue			= io_uring_cmd,
- 	},
-+	[IORING_OP_COPY_FILE_RANGE] = {
-+		.needs_file		= 1,
-+		.hash_reg_file		= 1,
-+		.audit_skip		= 1,
-+		.prep			= io_copy_file_range_prep,
-+		.issue			= io_copy_file_range,
-+	},
- };
- 
- const struct io_cold_def io_cold_defs[] = {
-@@ -849,6 +856,10 @@ const struct io_cold_def io_cold_defs[] = {
- 		.sqe_copy		= io_uring_cmd_sqe_copy,
- 		.cleanup		= io_uring_cmd_cleanup,
- 	},
-+	[IORING_OP_COPY_FILE_RANGE] = {
-+		.name			= "COPY_FILE_RANGE",
-+		.cleanup		= io_splice_cleanup,
-+	},
- };
- 
- const char *io_uring_get_opcode(u8 opcode)
-diff --git a/io_uring/splice.c b/io_uring/splice.c
-index e81ebbb91925..740f759a683b 100644
---- a/io_uring/splice.c
-+++ b/io_uring/splice.c
-@@ -147,3 +147,61 @@ int io_splice(struct io_kiocb *req, unsigned int issue_flags)
- 	io_req_set_res(req, ret, 0);
- 	return IOU_COMPLETE;
+ bad_unshare_cleanup_nsproxy:
+ 	if (new_nsproxy)
+-		put_nsproxy(new_nsproxy);
++		nsproxy_free(new_nsproxy);
+ bad_unshare_cleanup_cred:
+ 	if (new_cred)
+ 		put_cred(new_cred);
+diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+index 0f1b208d8eeff..454427b09ed97 100644
+--- a/kernel/nsproxy.c
++++ b/kernel/nsproxy.c
+@@ -61,7 +61,7 @@ static inline struct nsproxy *create_nsproxy(void)
+ 	return nsproxy;
  }
-+
-+int io_copy_file_range_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
-+{
-+	struct io_splice *sp = io_kiocb_to_cmd(req, struct io_splice);
-+
-+	if (READ_ONCE(sqe->addr3) || READ_ONCE(sqe->buf_index))
-+		return -EINVAL;
-+
-+	sp->off_in = READ_ONCE(sqe->splice_off_in);
-+	sp->off_out = READ_ONCE(sqe->off);
-+	sp->len = min_t(u32, READ_ONCE(sqe->len), MAX_RW_COUNT);
-+	sp->flags = READ_ONCE(sqe->splice_flags);
-+	if (unlikely(sp->flags & ~SPLICE_F_FD_IN_FIXED))
-+		return -EINVAL;
-+	sp->splice_fd_in = READ_ONCE(sqe->splice_fd_in);
-+	sp->rsrc_node = NULL;
-+	req->flags |= REQ_F_FORCE_ASYNC;
-+	return 0;
-+}
-+
-+int io_copy_file_range(struct io_kiocb *req, unsigned int issue_flags)
-+{
-+	struct io_splice *sp = io_kiocb_to_cmd(req, struct io_splice);
-+	struct file *out = sp->file_out;
-+	loff_t pos_in, pos_out;
-+	struct file *in;
-+	ssize_t ret;
-+
-+	WARN_ON_ONCE(issue_flags & IO_URING_F_NONBLOCK);
-+
-+	in = io_splice_get_file(req, issue_flags);
-+	if (!in) {
-+		ret = -EBADF;
-+		goto done;
-+	}
-+
-+	pos_in = (sp->off_in == -1) ? in->f_pos : sp->off_in;
-+	pos_out = (sp->off_out == -1) ? out->f_pos : sp->off_out;
-+
-+	ret = vfs_copy_file_range(in, pos_in, out, pos_out, sp->len, 0);
-+	if (ret == -ERESTARTSYS)
-+		ret = -EINTR;
-+
-+	if (ret > 0) {
-+		if (sp->off_in == -1)
-+			in->f_pos = pos_in + ret;
-+		if (sp->off_out == -1)
-+			out->f_pos = pos_out + ret;
-+	}
-+
-+	if (!(sp->flags & SPLICE_F_FD_IN_FIXED))
-+		fput(in);
-+done:
-+	if (ret != sp->len)
-+		req_set_fail(req);
-+	io_req_set_res(req, ret, 0);
-+	return IOU_COMPLETE;
-+}
-diff --git a/io_uring/splice.h b/io_uring/splice.h
-index b9b2848327fb..83138fab8fe8 100644
---- a/io_uring/splice.h
-+++ b/io_uring/splice.h
-@@ -6,3 +6,6 @@ int io_tee(struct io_kiocb *req, unsigned int issue_flags);
- void io_splice_cleanup(struct io_kiocb *req);
- int io_splice_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe);
- int io_splice(struct io_kiocb *req, unsigned int issue_flags);
-+
-+int io_copy_file_range_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe);
-+int io_copy_file_range(struct io_kiocb *req, unsigned int issue_flags);
-
+ 
+-static inline void nsproxy_free(struct nsproxy *ns)
++void nsproxy_free(struct nsproxy *ns)
+ {
+ 	put_mnt_ns(ns->mnt_ns);
+ 	put_uts_ns(ns->uts_ns);
 -- 
-2.55.0
-
+2.43.0
 
