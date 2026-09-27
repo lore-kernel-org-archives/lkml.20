@@ -1,112 +1,145 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BB23A1687
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645C23E5A20
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790512936; cv=none; b=T1PSuEIRRHhx/lcwdwnmA2KPBOTtyRV7gdnEjpAMLOonUG4sTpKPm4qsBHKx1vQkDJFGo7AMBv+gvuoQxOHQY3tvsRU9iquFVFVqMrbsmdEHOdxugiczLABKLpjkq/ZlTyYErBl1OOycLNScgnasnAuESBm5EmTYkZLhnluyW34=
+	t=1790513199; cv=none; b=mEfMKyeobuOxJAkNWiNeBn/2ybo+MoBU5t66oSJeAyNfk9SWqyAnRuk9zdtLAlQ2o753pNqzVUaVOXKtvbIQ90bclWCYUi6AIota32Brfxg6iJ+LAZS0dZFiRCZIlZOjMjQf5ijhYFcmoRPMztUSH2OUei5hQvM4MVAEkXagTPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790512936; c=relaxed/simple;
-	bh=O68dElmS/Mk1Yb/V2hTOB5Nm9sVhBXSpARMuMurzr4o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nu5rH8bRjQLUbbDDP3JE3Yoja+mBvJKgWgjjZaLNUP/LAUvP74MCBmy2UCCE1VJLuourz8NVZKn59+ChEID3XVZGqeGM9nhHZ7z5lBUN3l6cpC5z8g20DgbTXSTQOSMTZzhupk/RbotunDR6O0gB1XIZIeN15l6dhBCrAsdb3j4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Bap0xy/F; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790513199; c=relaxed/simple;
+	bh=xG8fQs+Nv8hzYaB47vBOWqr+MR+BJEmuFuZwRxqnET0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uyUSPGtas6sdSyGJ2vvfMVjT4GeSY6gvdnfbrJtP1zAn8C8JXHRJNuinB0hDVzj+ijmsU+RkIG03vzAtJUVPhNocfsszuoJuB3E+yBYNa8jxUsStFZMtd6yH8QPCNl5jrlBTwdiiQXiS0oJtd/8kXx+jG99u6gB6eybMXBg8IgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVcT70Yq; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Bap0xy/F"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3C9484E40ECD;
-	Sun, 27 Sep 2026 12:42:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id F2D5F604FF;
-	Sun, 27 Sep 2026 12:42:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CD81102F1E73;
-	Sun, 27 Sep 2026 14:41:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790512922; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=+h6WZaEjIYng93IBLp9Rybw7ShEOIP9ec51gcF7q9oc=;
-	b=Bap0xy/F4P7xqpuPokoT6a0u6uo3HNjAyONeXhtwAapBAlVDzQzhOhKVp9lL84oP8mJw+9
-	+wU1j5a5q0rSOhs6uoNh9UTqZA8zkORPleCuRt99Wq+P8hKHkre7JAkqHVhht2RL3uvIkW
-	zwZLQpTKmows82wFSwbLxrPsFsj9OJlud74AowM9wdHtsNu7MgHQns9TFy+gEtXQagqFjD
-	PbAGW5ucSb/bW7jCNriu38K+srLlqSLTfKxV9/RvE/WfyJNT/6lyJmxWlY5NiAVhXKQ1r0
-	y3de18d56JrF5Cy2say4dkXDU5mtRlHJ404sgo6rY4Adi6y8QALg2manoPh+Jw==
-Message-ID: <d2c915dc-45a6-4bf4-ba1a-6c7efa9c0164@bootlin.com>
-Date: Sun, 27 Sep 2026 14:41:52 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVcT70Yq"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so16093155e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:46:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790513196; x=1791117996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6TBF9avaY/bTBgvPOC6p2G/lL798dgydRUW2YJl/tA8=;
+        b=GVcT70Yq1sylQT1Id4B3ZvvKj8khaXua+PnNtiVOWLBmIYmmwlCFaSHL3SNN5JT6TU
+         iVtMHmSgdt1HPiAjgpRWfvk1zHGEl/9TkWV5Q+MV04O2/p2DEjzjxrjr+QNh95vKBOU4
+         GCWIIM7N9pMaaGAVf70vVuY7Q39e3Lor+PzwjPu0tm6Kc8VZxmmRRtDeXttGbweubOKt
+         mM54+UFwr2N7a9dDlYtRAxoAiehBd3JyjN+eBmZEiC3AeoUC5vGkthBmtv45q0S5ZPsp
+         fFfOVI3+sqi0n1Js98WKLZQFs6MMEjlKtUkjjeYT3GxjD1fH6jhcoaGohxNGz1c7tqVc
+         Vxhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790513196; x=1791117996;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6TBF9avaY/bTBgvPOC6p2G/lL798dgydRUW2YJl/tA8=;
+        b=HQ+760y/j02Ur86mTTH0CDzmRiTX8eN+fVS2MyPsO7/z2zEAwPabFBwpBpB4P7YkAW
+         NNKaDYyGTE9y0RDDIs0T0Tu2ysVQQdXN1WAsOPeqps5tyEWVDDhENsSA/bnKhAe3tKB2
+         YrU1IdDEnsGmUjrkGF784j8HyRmKvvLt8HXApmDMf6JYBd1latNrc1jDcKMRH4zTYd1C
+         pSzUQDcD1J5KC1wYHpL96YkNMA81t//ImH0d+/zdrYyBgTE80wRsgDw8P8K2Bw6aK6vi
+         QyL8Vb/P/Jt36RzW/sSLC7Nh67dQGHzTCBkOkgoPWpuDbJ5jm+HeWr5lyCs9frml2GqB
+         2e7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxUe7c5I8skk1QuFBi1GihdLKUt/znN2cr+1tkbtSQzVZ0JVV/nrOIK4BsTntHqXlvaFUDNeqGTBBap3vQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOomFb4sQFabRdaMrQ5ihwXGphx18wwu/WM9kc+usSbXg+cIPD
+	tXaSNSbbYNMIM4PeyWED6tH8p1NJnC1zYkWogCHqrTvmHG4p0Ox4unkG
+X-Gm-Gg: AYBFou1uWRjXHAr73FMUA10oyeU0vHkug8DkaZ+xVdEloqXzYEszBZGg5yczcyKhaM2
+	CudMOolAbCPXnX2ukBB/E8ScnWGprs8nN/mNVjsw4nUccBivmdVE0PcjKTPJyQBFbTKnotxIszX
+	1xVs4ucHvXQgvWUbrp3WVO/jjfJ6cgI+Sn+4CEzMC5smxgEb+gV+XyTt/dJ8sO8gLJNQ/ghW14/
+	unk6+FkD4jIRRuxyfKFLXm64HTDxDEQyZNfWdyhPFCJHLat65lT7z3yBFgML8OsrwMcreohL1U1
+	LgwVXgzDyaCQRFr2lei5U9RB/K7latPWsg4omeNH8q+gihLuJHxVUDBTlGbeXA7jrqGGMFZG1H0
+	7BKqVKhgzH/KBVOtAHh2TZB4ba7Nt3JzgBShAoirrHD7zvlrXd2LZtZ1CPS5lt2jWdCfGsNrHMT
+	GocNmp6mNu+sFM34NA/a+HQx6iIrjK/fKPchbhYigBQzQZIcRXKqyQnlEaK6Hy6Tsnf+ggovlct
+	lu/JZh7owN6qk+8OCp3maF5lALJQ8NNDF6GxmZAPhtPeRst8U78zfRHMmxlL95bflGxX9wEhYty
+	HOiu1+94WtDwIwXTuBacVTx7zJMkxwuf
+X-Received: by 2002:a05:600c:8b34:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a000b647f1mr30425705e9.0.1790513195410;
+        Sun, 27 Sep 2026 05:46:35 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm148440605e9.4.2026.09.27.05.46.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 05:46:34 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH v3 02/12] net: phy: micrel: Check RMII clock select property presence
+Date: Sun, 27 Sep 2026 14:46:17 +0200
+Message-ID: <095af7bdb3b28e7776bac12bb4f3f661d057216f.1790512621.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790512621.git.stefano.r@variscite.com>
+References: <cover.1790512621.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND net-next v17 00/10] net: phy_port: SFP modules
- representation and phy_port listing
-To: Aleksei Sviridkin <f@lex.la>
-Cc: davem@davemloft.net, Andrew Lunn <andrew@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
- Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Herve Codina <herve.codina@bootlin.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
- Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
- Romain Gantois <romain.gantois@bootlin.com>,
- Daniel Golle <daniel@makrotopia.org>,
- Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
- Frank Wunderlich <frank.wunderlich@linux.dev>,
- Pietro Ameruoso <p.ameruoso@live.it>
-References: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
- <20260924220118.2129522-1-f@lex.la>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260924220118.2129522-1-f@lex.la>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-On 9/25/26 00:01, Aleksei Sviridkin wrote:
-> Hi Maxime,
-> 
-> I ran v17 on a Keenetic KN-1012 (MT7981B + MT7531). Switch port 5
-> (lan4) goes either to an SFP cage or to an EN8811H copper PHY, and the
-> bootloader picks one devicetree variant per boot. The series was
-> backported to OpenWrt's 6.18 kernel together with the phy_port base and
-> its fixes, with PROVE_LOCKING and DEBUG_ATOMIC_SLEEP enabled.
+The micrel,rmii-reference-clock-select-25-mhz property is tested
+for presence, but of_property_read_bool() warns when the property
+has a value. Encoding it as <1> to satisfy the DT schema unit check
+would therefore produce a warning at PHY probe.
 
-Thanks for testing :)
+Use of_property_present() for the presence test. It accepts both
+existing empty properties and the new numeric form without changing
+the RMII clock selection.
 
-[...]
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+v2->v3:
+ - New patch: use of_property_present() for the RMII clock select
+   property so its numeric form does not warn during PHY probe.
 
-> 
-> A module port follows the netdev's admin state rather than module
-> presence. With lan4 down, a module sitting in the cage isn't listed,
-> because sfp_module_stop() runs phylink_del_sfp_mod_port(). After ifup
-> it comes back under a new id, so every ifdown/ifup renumbers it. Is
-> that intended? From userspace, "port 3 upstream 1" isn't stable across
-> an ifup.
+ drivers/net/phy/micrel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes that's intended, we don't really have a choice here. Module ports
-should be considered volatile in their id (this is best effort) as they
-may disappear / reappear with another module later on.
-
-> 
-> Tested-by: Aleksei Sviridkin <f@lex.la>
-
-Thanks !
-
-Maxime
-
-> 
-> Aleksei
-
+diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
+index ae830781824b..acb481a29c25 100644
+--- a/drivers/net/phy/micrel.c
++++ b/drivers/net/phy/micrel.c
+@@ -2791,7 +2791,7 @@ static int kszphy_probe(struct phy_device *phydev)
+ 
+ 		if (type)
+ 			priv->rmii_ref_clk_sel = type->has_rmii_ref_clk_sel;
+-		rmii_ref_clk_sel_25_mhz = of_property_read_bool(np,
++		rmii_ref_clk_sel_25_mhz = of_property_present(np,
+ 				"micrel,rmii-reference-clock-select-25-mhz");
+ 
+ 		if (rate > 24500000 && rate < 25500000) {
+-- 
+2.47.3
