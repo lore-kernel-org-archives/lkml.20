@@ -1,32 +1,32 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EAE42B324
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6784F41F37D
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532701; cv=none; b=f3B/ZxQCAsFFIsB/mbDVwSpI3LqcccCMhY4kDNCgudBpAK1U7lRT75rwvcCya+INVzGECpp30sJyqJzkFrgDHmZY1ngeiJhiohLSuoIFMXa1xiB7EkWHTa1SjghMY9WIUP9U2oh8jLP0622KmcD5dl7KPW5MSVBuNREoGUEQ0xQ=
+	t=1790532717; cv=none; b=NUhNAdqK+7fOhTfAj311Yc5K1v44AfN4be4Elx+KLE8WmNBx4ZqprH1PiglTgtoUByfh9adBV3DOmmG78RG2TTFLTDPfPPS/dyYLnzEEguDNOHwObxkCwwIylpp1h4n0QV+Nl6/q6X+eNpqxXyeYDrh2LlHQ2c0tB8viQeyfebo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532701; c=relaxed/simple;
-	bh=cIQm5B34mYIZi1ft8Tru7QN0mZUaF935R3j1c/f5EaE=;
+	s=arc-20240116; t=1790532717; c=relaxed/simple;
+	bh=CR4jBLPm2g14+zRan08kO2W29O9nAP/iVhyuzBG/OPM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bclnTpppzeXngIjdf4qXq7UN1VmxGrvDEuDBSl/w81Mv+nUblzL4ARIpc/pJpBu7GVUMpAERMKUAdjnwjuGoaVPN1DuptNHnxvjicOHv5ON0Euv3IYpNPgeE+8oR8xPrafSozy8zV/OP+wDRivfdsS5CIABWyE1k/Aesjc3JhgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IvMHKis4; arc=none smtp.client-ip=117.135.210.2
+	 In-Reply-To:Content-Type; b=dGS74hWtyV0FwdsLW8ykDu2x3xjeRxk3t0GLzTcGIwFJKkO+8f3SvU+4WZYLCHdQ42RjOOkVyptiORdr06g9ooiSnGfqlHIXUEfDxtFvs4hk58PDjLZzpucQ12BFUVqthe/FcjpRR+ZmDzQ4/+ja8YGWnj1XqylDO81Qf0EUQ+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YBa7Kft3; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IvMHKis4"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YBa7Kft3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=o64powhMT+ok2bugfNluu2BHFIGMb2xNerw6EGpozFI=;
-	b=IvMHKis4jrMy6P/LoD+g51uKLxXLkg1PSOC/1uhy5mD0waqjxTBphB1GqnVhxN
-	5G4d4uX5t+pZeVpzEqTXUt46zye9QeRsDL5Afa627K0ZAP6T4x4YZ44vzIWHcPwA
-	zuVsgVjgBJOuzMx12o+RS3inoBoE+1BmIPN9AFsOF5eLA=
+	Content-Type; bh=3S6Pt1yE85lle/nGVa01hdLY3n4t/Uq67vs6BjkSTtg=;
+	b=YBa7Kft3e5u9zDioqS/vTRSOpd50xDNOZgFah6sVfnOOgk+jS9nhfiFNoZpThA
+	IYYKPRurN1bc0Ic1Yx+eSsfAoBqAsYQCIxd50Bx5Gz5BlpPt3nwZNe3eSMMrUzGA
+	EdK3d9KEvUQrycz5v2F6uFxPPFttuwCQ06E0tc7bX80bQ=
 Received: from [IPV6:2409:8949:6ca0:7910:556a:2884:1c35:3923] (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v_ZEXLlqGIq_BA--.45690S2;
-	Mon, 28 Sep 2026 02:11:17 +0800 (CST)
-Message-ID: <e3c533d3-6f76-4fd4-bbeb-932f81b39920@163.com>
-Date: Mon, 28 Sep 2026 02:11:16 +0800
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3HzpSXLlqNZG_BA--.29966S2;
+	Mon, 28 Sep 2026 02:11:31 +0800 (CST)
+Message-ID: <bb318604-ac0e-47a2-9ee9-f69e69be0aee@163.com>
+Date: Mon, 28 Sep 2026 02:11:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,85 +34,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ntfs: set the attribute list size before reserving
- space for it
+Subject: Re: [PATCH 3/3] ntfs: do not refuse fallocate() when the MFT zone is
+ empty
 To: Matthias Goergens <matthias.goergens@gmail.com>,
  Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
 Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
 References: <cover.1790503811.git.matthias.goergens@gmail.com>
- <a3db61194cd4c2a472963aa6d9e9563ceb8efd33.1790503811.git.matthias.goergens@gmail.com>
+ <77d2e237e1c2ded042f8220350fd92cce5f502e7.1790503811.git.matthias.goergens@gmail.com>
 Content-Language: en-US
 From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <a3db61194cd4c2a472963aa6d9e9563ceb8efd33.1790503811.git.matthias.goergens@gmail.com>
+In-Reply-To: <77d2e237e1c2ded042f8220350fd92cce5f502e7.1790503811.git.matthias.goergens@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v_ZEXLlqGIq_BA--.45690S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy3tFWDtFykJr1fZF47Arb_yoW5XF48pr
-	9xCrnrtwsIyw17GrsrK3W8Ga40grWxGr12vryvk3yUAw4qyw4SgryfKrZagayftFZ5Zw4D
-	Zr4DGrWxArZ8ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uc2-OUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwgUx+2q5XEXd6gAA3w
+X-CM-TRANSID:_____wD3HzpSXLlqNZG_BA--.29966S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWrGFWkuryrCrW7uF1UAwb_yoW8Wryxpr
+	Zayw4YywsFqr1DKFsrWws0qF1Yq3y2grWUWa1kXw17CF93tr1kKFsYyF4kWrWIy3s7Gr1U
+	JFyUJF17W3s0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2ksgUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhM0-mq5XFPe6QAA3w
 
 
 
 在 2026/9/27 18:57, Matthias Goergens 写道:
-> ntfs_attrlist_update_locked() resizes the attribute list and then, for
-> $MFT, tries to reserve the maximum list size.  When that allocation
-> fails with -ENOSPC it falls back to ntfs_attrlist_repack(), which reads
-> the list through ntfs_inode_attr_pread().  The read stops at i_size,
-> but i_size is only updated after the reserve, so when the list has just
-> grown the repack gets a short read and returns -EIO.  Only -ENOSPC from
-> the reserve is ignored, so the -EIO fails the $MFT extension and with
-> it the file creation that needed a new mft record.
+> ntfs_fallocate() fails with -ENOSPC whenever the MFT zone has shrunk to
+> nothing.  The cluster allocator gives the MFT zone up when it cannot
+> find free clusters elsewhere, and nothing restores it before the next
+> mount, so after one such failure every fallocate() on the volume fails
+> with ENOSPC, punching holes included, however much space is freed.  The
+> allocator failure fixed by the previous patch was enough to get there:
+> afterwards a one-cluster fallocate() failed with ENOSPC while 123 MiB of
+> the 128 MiB volume were free.
 > 
-> On a 32 MiB volume with 512-byte clusters whose $MFT has a non-resident
-> attribute list, 591 of 1500 creations of empty files succeed and the
-> rest fail with EIO while 742 KiB is still free:
+> write() and truncate() do not look at the MFT zone, and
+> ntfs_allocate_range() already fails with -ENOSPC when too few clusters
+> are free.  Remove the check.
 > 
->    ntfs: (device vda): ntfs_attrlist_update_locked(): Failed to reserve attribute list space
->    ntfs: Failed add attr entry to attrlist
->    ntfs: MP update failed
->    ntfs: (device vda): ntfs_mft_record_alloc(): Failed to extend mft data allocation.
-> 
-> Update i_size as soon as the list has been resized.  File creation then
-> goes on until the volume is full and fails with ENOSPC.
-> 
-> Fixes: b1d732e62a5b ("ntfs: repack $MFT/$ATTRIBUTE LIST")
+> Fixes: 9c87959601e8 ("ntfs: update file operations")
 > Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 > ---
-> The volume is frag.img from
-> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-26-ntfs-mft-runlist
-> (mft-bootstrap/frag.img.xz); creating empty files on it until one fails
-> is enough.  Tested with KASAN and lockdep: after the patch the files
-> written before the volume filled read back intact after a remount, and
-> ntfsfix and ntfsresize --info find nothing wrong with the image.
-> ---
->   fs/ntfs/attrlist.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+>   fs/ntfs/file.c | 3 ---
+>   1 file changed, 3 deletions(-)
 > 
-> diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
-> index 1bbd2bc62c582..62dfb96e31a3c 100644
-> --- a/fs/ntfs/attrlist.c
-> +++ b/fs/ntfs/attrlist.c
-> @@ -252,6 +252,9 @@ int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni,
->   		return err;
->   	}
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 3ec82715a5882..762045d262963 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -1163,9 +1163,6 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+>   	if (!NVolFreeClusterKnown(vol))
+>   		wait_event(vol->free_waitq, NVolFreeClusterKnown(vol));
 >   
-> +	/* ntfs_attrlist_repack() below reads the list up to i_size. */
-> +	i_size_write(attr_vi, base_ni->attr_list_size);
-> +
->   	/*
->   	 * Reserve the maximum legal list size while the MFT metadata area is
->   	 * still easy to allocate contiguously. This prevents a later list entry
-> @@ -279,8 +282,6 @@ int ntfs_attrlist_update_locked(struct ntfs_inode *base_ni,
->   		}
->   	}
->   
-> -	i_size_write(attr_vi, base_ni->attr_list_size);
+> -	if ((ni->vol->mft_zone_end - ni->vol->mft_zone_start) == 0)
+> -		return -ENOSPC;
 > -
->   	if (NInoNonResident(attr_ni) && !NInoAttrListNonResident(base_ni))
->   		NInoSetAttrListNonResident(base_ni);
->   
+>   	if (NInoNonResident(ni) && !NInoFullyMapped(ni)) {
+>   		down_write(&ni->runlist.lock);
+>   		err = ntfs_attr_map_whole_runlist(ni);
 
 Looks good to me.
 
