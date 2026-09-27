@@ -1,79 +1,62 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698373C1F4B;
-	Sun, 27 Sep 2026 09:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C457C3A1D14;
+	Sun, 27 Sep 2026 09:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790500171; cv=none; b=NZAeysrfS6Un9JXnUnQIpL7i+xzhEahf1EaDWnZYAynrDnW1npZQkibaETPwYwzwan5+zLC+RwR6DdnMUu9fQ4s2wJwHdHFhpUS4VKtgi1cTuOksgtn6v2Zac+jfWramavUa4QmDbbNypq/BvxZ6EE1nWbSps902Rz+C2P9rZkQ=
+	t=1790500240; cv=none; b=WU71CxCmNJmvm0qsEXEk4D0hs79SifllJd/a6I/OD9Hrmv8Acz580rPpIytLFvCsUHLkvCTIhOhoaFyOBQYaDJK1/7wK6P1qeuu4li76l1EOG9H53qayCpM4i7ZiOmTbBb9IGjPLf69dGW33Plvn3PHNrIAczjIU9cfaGJLZmJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790500171; c=relaxed/simple;
-	bh=m/1HM/EMkEQeOjSAvIN1hN/z0S0DcPSU6m0w1hSQzn8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZF8p9tmpiEd7JfVZEVrzu5CWrQ2cWScEStxYyy34e8gOrN2p+5fQXq3ycvdAkGEg6e+/TSO+pfvrrlikRTGZ/5LC+4pfN2Db2jek7RS8rLD/fhXwHaAT79GSbWWO9yqy77B+mt3VlJTUqZxmM/lvp4z+0NYP2VQhcMKPaWriFsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=M9CGBOPJ; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=M9CGBOPJ; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1790500240; c=relaxed/simple;
+	bh=EIsirkzH/uyIsvHKJTedzwgxRJVZM1M4WxqOaYu2Rl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W61XLgabZTVo06sczkJE1yv5qCr7Lvfpbb1HUw6tcoBe5O2zDXYe6LAQ9Cznw/vGpnymGnYcmXBmOEf838bfzLDTnCDCu/fAR4aV1d9THFHzYw6x/IH5dlmFP9cYBxX58ojVQzqZpWm1Ak0ylpqS5XAbgH9g2lC+mKApQasAHlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=v4cawgK7; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="M9CGBOPJ";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="M9CGBOPJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790500167;
-	bh=m/1HM/EMkEQeOjSAvIN1hN/z0S0DcPSU6m0w1hSQzn8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=M9CGBOPJLrEOstfNUhA1QZ2oS9ED60A1po7CsgsdZirbRvw6vU+ZJ+inCNOJ6ynqS
-	 Pa1AMtlwsInXrsrPKK0e14/8aYZLr9Bunn3IzB29/GCU0kVeq8rB1nVMsUmYelaJCE
-	 KRVBEk+cpoagz/FFusCeJhWN/zwb6TXYQh2hcZiSEHbSmVZPcXA+nb6NjrTT1P8hH6
-	 /FKRV/vtmpXX2LkKPBxzDA4a8P1O/2qYogEJf9df/P5mJ07m18O7cjcPaomASy8cZf
-	 hgLhd8faT1aB/eg7ik8oVa0NcY5dakSzzHzcEfQPj/cQtK1weW9aeH6p37h8Wca12p
-	 VxGh7yIhe/0sQ==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id A407C41307; Sun, 27 Sep 2026 09:09:27 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790500167;
-	bh=m/1HM/EMkEQeOjSAvIN1hN/z0S0DcPSU6m0w1hSQzn8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=M9CGBOPJLrEOstfNUhA1QZ2oS9ED60A1po7CsgsdZirbRvw6vU+ZJ+inCNOJ6ynqS
-	 Pa1AMtlwsInXrsrPKK0e14/8aYZLr9Bunn3IzB29/GCU0kVeq8rB1nVMsUmYelaJCE
-	 KRVBEk+cpoagz/FFusCeJhWN/zwb6TXYQh2hcZiSEHbSmVZPcXA+nb6NjrTT1P8hH6
-	 /FKRV/vtmpXX2LkKPBxzDA4a8P1O/2qYogEJf9df/P5mJ07m18O7cjcPaomASy8cZf
-	 hgLhd8faT1aB/eg7ik8oVa0NcY5dakSzzHzcEfQPj/cQtK1weW9aeH6p37h8Wca12p
-	 VxGh7yIhe/0sQ==
-Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 02462412E0;
-	Sun, 27 Sep 2026 09:09:26 +0000 (UTC)
-Message-ID: <a1c3fda7-0a85-4953-a98d-489df28ce04e@birger-koblitz.de>
-Date: Sun, 27 Sep 2026 11:09:26 +0200
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="v4cawgK7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1790500235; bh=VFyFds04w0iFAQ88feln+96tQcUJrO7miVjc8rF/bZE=;
+	h=From:Message-ID:From;
+	b=v4cawgK7TwlLnu4/Bw3BDeNiBb0mVn+6ZJytd4po9ktIQC9YKbaQCWasC0m2kCCVW
+	 yyCk4ZU8/r7DpgPOUup4JOuV56kJKucasPlWo6HRyynlsFGW0VT7vuyUkFfOJAF1qz
+	 VHqn7yC40Du6Pi7Nl0WKl3FrbtjeqQogxD9oSz30=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 5417FC08A8;
+	Sun, 27 Sep 2026 11:10:35 +0200 (CEST)
+Date: Sun, 27 Sep 2026 11:10:34 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 0/5] tools/nolibc: pwrite() and pread() support
+Message-ID: <arjdio3bN6gWIKxt@1wt.eu>
+References: <20260927-nolibc-pread-v1-0-e9af6e47b37a@weissschuh.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 05/15] ax88179_178a: Add netdev2data()
- convenience function
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, neuromoments@gmail.com
-References: <20260916-ax88179a-v12-5-60c04c9924a2@birger-koblitz.de>
- <178968029536.22033.3161728030587874115@kernel.org>
-From: Birger Koblitz <mail@birger-koblitz.de>
-Content-Language: en-US
-In-Reply-To: <178968029536.22033.3161728030587874115@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260927-nolibc-pread-v1-0-e9af6e47b37a@weissschuh.net>
 
-On 17/09/2026 11:24 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 0 · Low: 1
-> 
-> - [Low] drivers/net/usb/ax88179_lib.c:131 adds the globally visible
->    helper netdev2data() which has no caller at this commit, and the…
-Will fix by squashing commit.
+Hi Thomas,
 
+On Sun, Sep 27, 2026 at 10:49:11AM +0200, Thomas Wei�schuh wrote:
+> Some users are missing those.
+> 
+> Link: https://lore.kernel.org/lkml/20260923224408.3745689-7-pratyush@kernel.org/
+> 
+> Signed-off-by: Thomas Wei�schuh <linux@weissschuh.net>
+
+Thanks for doing this. The whole series looks clean and makes sense to
+me. For the whole series:
+
+  Reviewed-by: Willy Tarreau <w@1wt.eu>
+
+Thanks!
+Willy
