@@ -1,98 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D352643CE71;
-	Sun, 27 Sep 2026 19:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E7531F98D;
+	Sun, 27 Sep 2026 19:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790538895; cv=none; b=AK0WAMAuxeEYtc2GEPG5sSKwAAe4LR+9WyiGYAjeOzmSWJ5vD+15wh565mbZARmEbT9Z2XHH/c/uDwIWPqvI56WavUmtZayXVtkeGrm81AjEhLMK/9LjBii5ax7SL6YgSNF9XqGAYldBJbFiLump/yQdiyzIMOs8p7VLDfahwjg=
+	t=1790539112; cv=none; b=XU7uA3oxJ/6BYS8oi8KiI5vikFOHPlsCDvOq5q1cZk7m2DdVNWeOsLAEgXLZniB04O35oNF16S14QHtFJ62IbAvJNPNmbZrB+cTr5pMJ5fYkHqmtcrK8nX6AlUsgMj9zcafTGyVRGbybAOwT/C0YalaKE6ck6XW+m/BSSvZ07bU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790538895; c=relaxed/simple;
-	bh=LhI68KTLydITauvcFqK2EZYAkeR4lJMuUQpic5g/8a8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=XMr8Tz9nc4QzSZuXcaKeTuSgeWawEHhZoxA4dQaISI+E/qzS8thL4GHNDNJfZvDkz+Y6YkjFpVRCp9Pd4L0GF91nhL/A4QtssG5lSoiPu/ngBNvozDG63GpG7+0Qizh/JREjDWFH3rW5rBLYg/bVpPXFKfJ8/z2GjeZfRI8Atu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yX64huLr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790539112; c=relaxed/simple;
+	bh=7VCFpXN7cYc8sdLGYAvNE0FP5Hzr0vRjjO5R9rfGcGg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MSpTaSlY+2zbFUUC3OpI54c5hytf4kgjoGNozmeFBlA2PoxQsb3UkWvMSJd5Z5lpM1mPdJ4smP04qSm8JDqCwIzhMp6rVzINT2ImbTCqezU1KkiAr/4sonWRj7wvbidAYcbOu72S7QAAgL/xbiTh03XCxkxfWioCO6qyTDMOI5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=c1lkDCFX; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yX64huLr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFAEC1F000FF;
-	Sun, 27 Sep 2026 19:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790538893;
-	bh=syrXrC34qOwYKtXT+0y34VtSNtk9nNOuE8xaaaEO4v8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=yX64huLrYBvawjHjNMziGPcDF408jVy97eCQhDGEdK9ruUIWtHuIYsE+mhNMfqt18
-	 Nqxac4sU4f16KAf+zoUW04JYqXg33sc2tfOTTb0EWu8wdgVWka3mOOBCFT22odBp06
-	 Fd3pMy/8/YX3DJSXlv/le88Lqf3alNmdUMlUep3Y=
-Date: Sun, 27 Sep 2026 12:54:52 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>, David Hildenbrand
- <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Madhavan Srinivasan
- <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Jonathan
- Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org, Lorenzo Stoakes
- <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>, Qi Zheng
- <qi.zheng@linux.dev>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
- <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Lance Yang
- <lance.yang@linux.dev>
-Subject: Re: [PATCH v5 00/12] mm: Switch device DAX to section-based vmemmap
- optimization
-Message-Id: <20260927125452.0c1ec382905482841a4faef7@linux-foundation.org>
-In-Reply-To: <FB00943F-8DB1-4BEE-BF37-701785DE2DDE@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
-	<20260926225105.a56f29d76b2f496c8dc2dac0@linux-foundation.org>
-	<FB00943F-8DB1-4BEE-BF37-701785DE2DDE@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="c1lkDCFX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=VmUTXC2IsZgXuwZJ1u8D9MwDqxE4b1ifYD3+hAizTzI=; t=1790539108;
+	x=1791143908; b=c1lkDCFXsffOLI3g7o3FiVdIPSiG4WY6UxEadveeBskXOdT87dTJnDySbvvFW
+	v8/b9XIbk3JD7TPxGBwR2+yokt/YiYjdLf4XjxA2P69VXDsk7OittJoncXaPHVcdbP/BphrpVaKjM
+	yunIFb1iED69FiMeR0nFHseQSRoSjjd11cwitC0GcaLRaf++F5zJT52sI2QPC+8SwUkBy/SoVrOWA
+	hEH+UocAfnMaqT3WZqwVs7AVKJcb0W1axkFHME9flPdSsVwn5v1fMtjK6BmSdETNODbq6fvqb1h2q
+	z1RyMig84McOs7I2bypEatNJHcGcVDUYhzZUoIqL7CEGsJFDJA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xAv0s-000000007mQ-0FSZ; Sun, 27 Sep 2026 21:58:18 +0200
+Received: from dynamic-077-183-200-086.77.183.pool.telefonica.de ([77.183.200.86] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xAv0r-00000002K6W-3UOQ; Sun, 27 Sep 2026 21:58:17 +0200
+Message-ID: <416ab0edeb42d71f78ab5481cb54f8ce0995d3c3.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
+ <dalias@libc.org>, 	linux-sh@vger.kernel.org, Muchun Song
+ <muchun.song@linux.dev>, Oscar Salvador	 <osalvador@suse.de>, David
+ Hildenbrand <david@kernel.org>, Andrew Morton	 <akpm@linux-foundation.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Date: Sun, 27 Sep 2026 21:58:17 +0200
+In-Reply-To: <arlhcX870kV0DBO2@gmail.com>
+References: <20260926183904.76186-1-kmehltretter@gmail.com>
+	 <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
+	 <arlhcX870kV0DBO2@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Sun, 27 Sep 2026 18:51:15 +0800 Muchun Song <muchun.song@linux.dev> wrote:
+Hi Karl,
 
-> 
-> 
-> > On Sep 27, 2026, at 13:51, Andrew Morton <akpm@linux-foundation.org> wrote:
-> > 
-> > On Sun, 27 Sep 2026 10:54:29 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
-> > 
-> >> After the HugeTLB conversion, optimized vmemmap state is described by
-> >> the memory section and the sparse-vmemmap population path can allocate or
-> >> reuse shared tail vmemmap pages based on that metadata. Device DAX still
-> >> uses the older DAX-specific population model, including a separate tail
-> >> vmemmap page reservation and architecture-specific logic to locate or
-> >> populate reusable tail pages.
-> >> 
-> >> This series makes device DAX use the same section-based model. Device DAX
-> >> records the compound page order from pgmap->vmemmap_shift in section
-> >> metadata before vmemmap population, uses the common per-zone shared tail
-> >> vmemmap page, and drops the extra reserved tail page. The powerpc radix
-> >> path is updated to use the same shared tail-page helper, so the generic
-> >> and powerpc DAX paths follow the same reservation model.
-> > 
-> > Thanks, I've updated mm-unstable to this version.
-> 
-> Thanks.
-> 
-> > 
-> > Sashiko asked a thing:
-> > https://sashiko.dev/#/patchset/20260927025441.741633-1-songmuchun@bytedance.com
-> 
-> Sashiko said page->refcount can overflow by incrementing it over 2.14 billion
-> times when mapping more than **524 TB** of DEV-DAX memory on a single NUMA
-> node, where the pages share the same node, order, and zone.
-> 
-> I am not aware of any practical hardware configuration approaching this
-> topology today.
-> 
-> Handling that theoretical limit would add non-trivial lifetime or
-> architecture-specific teardown complexity. Without a concrete hardware
-> requirement, I prefer not to over-engineer the current series. We can revisit
-> it when such a system or use case becomes realistic.
+On Sun, 2026-09-27 at 20:35 +0200, Karl Mehltretter wrote:
+> On Sat, Sep 26, 2026 at 08:43:45PM +0100, John Paul Adrian Glaubitz wrote=
+:
+> > Thanks for the patch! This should definitely be tested on real hardware
+> > and I think it's a good reason to test this on my SH7785LCR which would=
+n't
+> > boot on anything newer than 6.5.0.
+> >=20
+>=20
+> Testing with real hardware is very cool! Maybe I will get some SH
+> hardware myself one day. For now you've motivated me to do a QEMU SuperH
+> fork with more features, with a lot of help from my LLM agent:
+>=20
+> https://github.com/kmehltretter82/qemu-superh
 
-OK.  Presumably it would be cheap to add a check for this craziness and
-return ENOSOMETHING?
+Thanks, appreciate the patches. I'll try to look at these patches tomorrow.
+
+Since I am reviewing them in detail, it can take me a few hours to properly
+review them. Usually, I'm also asking Geert to have a look at them as well
+since he is a far more experienced kernel developer than I am.
+
+> I will send some bug fix patches based on it soon, hopefully also fixing
+> your 6.5 problem. I believe it is an old heap overflow in the SH intc
+> code that only started to crash when sh7785lcr_defconfig switched from
+> SLAB to SLUB in 6.5.
+
+Great, I'll give that patch a try tomorrow when I'm back home. Would be
+great to unbreak my favorite SH board.
+
+Btw, feel free to join us in #linux-sh on Libera IRC and/or on Discord:
+
+https://discord.gg/WhtqXkYys
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
