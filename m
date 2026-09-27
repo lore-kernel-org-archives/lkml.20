@@ -1,16 +1,16 @@
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96286395266
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A15420D4FC
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553074; cv=none; b=GIAGltf8/Jj28SXLd0RthBHAsPdtxjvXZnxrFwnSH8MHNqa81XhUxj/I2RIZBJmzDCPUPCUWL7yRr3h25ffnm0hbgHz1Y/c6BQNWcfsYFL9xLP5aUBB5pYt9NfI7QevPlFXsgyhCVsoFLxtjFaCFshOYqIxi3TimuToIYCG0W0A=
+	t=1790553081; cv=none; b=f6ilgzTF1VCX+tupsbCpYegDWNGqm7fmp7HSFeY7F3Aw9pFI4oKpDSaH2HIKsyLm5DfXYNtTHwr1kCuY6kyEwBwD5IsUW5BqY0+qMYcet/o9EDWdBf5dk4YR+3gd5rYsLNOufEzYoYHOtQUBa/fPdqMfwN8hZa1ZziE1teh3Pf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553074; c=relaxed/simple;
-	bh=hVcZEwOItRfTkH+M//Mjl15a32ibSK5gw8C7uwUkhgU=;
+	s=arc-20240116; t=1790553081; c=relaxed/simple;
+	bh=kmC9hSP/bIFy5QbLol1wNDlOsT/B/dyutfje+dnJ9OQ=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XHeGDFykVVBynMHv2PT31/eUPiPWg2tU8/KMvN28k94wQZ0EGv48aqLv7d9/CfRrrIdnvgP0IyjVjstFUDaSH/zxXEwWfWvtZW+dfpaHBNfRtlfVBHDPNw9h7gNSI2bQaudPlq2EUSA7Lqw9JVnUknzfXKEo0xegwDDsZYeN70k=
+	 Content-Type:Content-Disposition:In-Reply-To; b=JHiPDv0iwiaxYu5cMlXVbuBJbvTeY4jG8DKp60L0nvwR6g0P6Q/H58vOQTcQGjKA+EWlHQNBF0jS2wiw8FmNZV1ZIxU+q/1yRVhihBDyraPvBSeG1bZnC+WhQ4siew8ItJc4JqW7DUWRAH6jWyoUbAZOg7/z9Oqd2Wx2cEV+fRE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
@@ -18,9 +18,9 @@ Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xAyeB-000000000tP-3H3H;
-	Sun, 27 Sep 2026 23:51:07 +0000
-Date: Mon, 28 Sep 2026 00:51:04 +0100
+	id 1xAyeJ-000000000tt-3P3r;
+	Sun, 27 Sep 2026 23:51:15 +0000
+Date: Mon, 28 Sep 2026 00:51:12 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -41,9 +41,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v8 11/14] drm/bridge: it6505: reject a too short
- link-frequencies property
-Message-ID: <622ec77535273c2d203aade2d7a9fda7b02676b1.1790552614.git.daniel@makrotopia.org>
+Subject: [PATCH v8 12/14] drm/bridge: it6505: don't write an error code back
+ to the reset register
+Message-ID: <b79fcdac09d24ded63960f83d9d45268b02081ed.1790552614.git.daniel@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -55,14 +55,16 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1790552614.git.daniel@makrotopia.org>
 
-of_property_read_variable_u64_array() is asked for a minimum array
-size of zero, so a link-frequencies property shorter than one u64 --
-a 32-bit value written by mistake, say -- returns 0 without storing
-anything. it6505_parse_dt() reads that as success and derives
-max_dpi_pixel_clock from an uninitialised stack variable. Ask for one
-element so a short property lands in the existing error path.
+it6505_audio_input() saves REG_RESET_CTRL, pulses AUDIO_RESET and
+writes the saved value back. it6505_read() returns a negative errno on
+i2c failure, which regmap truncates to eight bits on the way out:
+-EIO turns into 0xfb, holding video, audio, AUX and HDCP in reset. A
+failed REG_AUDIO_INPUT_FREQ read is just as wrong, as any negative
+value passes the != 0xFF test and reports an audio clock that was
+never sampled. Bail out before touching the register and only report
+audio input for a usable readback.
 
-Fixes: 380d920b582d ("drm/bridge: add it6505 driver to read data-lanes and link-frequencies from dt")
+Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
 v8: no changes
@@ -71,21 +73,29 @@ v7: no changes
 
 v6: new patch
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 848e9a650b9ff..ea65ca051cb9e 100644
+index ea65ca051cb9e..73d7236733314 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -3392,7 +3392,7 @@ static void it6505_parse_dt(struct it6505 *it6505)
- 	if (ep) {
- 		len = of_property_read_variable_u64_array(ep,
- 							  "link-frequencies",
--							  &link_frequencies, 0,
-+							  &link_frequencies, 1,
- 							  1);
- 		if (len >= 0) {
- 			do_div(link_frequencies, 1000);
+@@ -1516,12 +1516,15 @@ static bool it6505_audio_input(struct it6505 *it6505)
+ 	int reg05, regbe;
+ 
+ 	reg05 = it6505_read(it6505, REG_RESET_CTRL);
++	if (reg05 < 0)
++		return false;
++
+ 	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
+ 	usleep_range(3000, 4000);
+ 	regbe = it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
+ 	it6505_write(it6505, REG_RESET_CTRL, reg05);
+ 
+-	return regbe != 0xFF;
++	return regbe > 0 && regbe != 0xFF;
+ }
+ 
+ static void it6505_setup_audio_channel_status(struct it6505 *it6505)
 -- 
 2.55.0
