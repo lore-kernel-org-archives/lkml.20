@@ -1,127 +1,144 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1A83D9524
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FF83E49F4;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519353; cv=none; b=Rp4qWcnWG2eFoRpCy+HvxAEC6+s5Ko4t9Qp4xj4SCgqZe1kyU3RpvL1mz2Yo1IDZJOiCStU/PBSy/TVEO76lPUiLuEp7hMHKvIacEkccuohWyWGq6Lfg43mLjbiyG6M5hURWK1GA2ue0r4dopRaI8d0glYCCsrLw+BPQaZ/AfOc=
+	t=1790519353; cv=none; b=lpXejF8BDhzL67QIph+6ULtXkIMZA21ziLB0yu99FCg27zcPXED7ZzqUnqz7w3lU9wtRZw65XUa/bfAMcj7pFtv7IkkF5YrrVKdlNQZJyiVR/L+VRGCWa/c2RS3ABzihSg0qeLFLAhb1P9n3avUBIMG8XXealwXyylEqMI3pFYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790519353; c=relaxed/simple;
-	bh=8arve+O6eaBkODv2dOHlZqdr6v/gEaXBSqvvyU+Tc8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FFOStKaM8lKVKtecSmkwv1McORzf8Lx2gC/nCaD06wbsc49cUa4NlHJ/58RCoEBvresu70Lb9OHHqMeFeH8VciY+USzsGEZDFM+IAgHHsoGbGdg6WhLSRs1C06tWLe8OlQ64WM8k5NhmBogvDW91phD71AOjFg8uXR4VF1nMhC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJBNFZd4; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=loY1pCAhdkrgIbxRkXzPM7ibYgJ5rizQ5x2h+dPCtoc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=J+P6kZGk5VrlDlj1C4vjjigdC75pH3do2nLqC9ych5724NRH9WpN03GEQClR4hWEvi1/0Fqn0CNHmePHXnov02+5cVXiWh2Po6nmswqkofooRXT+FEBiRyfB143OPaEHjN+Y0k/XSEpP+D2ZHAd6zMnIepuhUPlofEErXER55xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+ESTPNU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJBNFZd4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so16612025e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:29:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790519350; x=1791124150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m4ebhT5QYUpz7TFUlBXCRNqm87/Ue9x2YV0hzJwFSF8=;
-        b=OJBNFZd4doQI8IVGKo1kq0sQydLWWePGwuGIoaMYWOx22OS+INeOSBpj/QNOFQebvf
-         UfqZSN5tSxABREgl56RAa8le382wM2R+mTFTk3vpu/VAsbxz2hghgVEi/6QftRWkCCd4
-         kE9VpfsPPIZI5v90oGjxPMhA7apqQGquC+6BnNYeL+H6PdOVtTrfKWuYMx9PEWedHFy9
-         EX3egtSCJ9sBXpuwtV0tSntopVlaOcG5VtL4Gv9hEkLAx+LFoTovhnDQ41cz6PY3rX7Z
-         wJSCY6UewjLz7jCFn3ZJuroUqb4B5Ri1ajyQNajjedlQCH/f4RGdZwTZspYdlhiQDfg5
-         UWTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790519350; x=1791124150;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m4ebhT5QYUpz7TFUlBXCRNqm87/Ue9x2YV0hzJwFSF8=;
-        b=LH9GduAHzI6Ouxyp/9LIUHXrYObWfiYjZUqrfXhoBR5Fsr4g/TFY4JHoSfnyGE5/4X
-         1b2CK7H6exZ79RbRzh32XLT46NGOHVyiq8WMsnajmbiMPVxDtYxJMb5YG4jqi5Przcap
-         840b+bqbfYqY+D54E2/2fhlLw+ch+NMI853HEBoLtLlagt/8Xek94KD5iefeWpQP2NO7
-         3Hwvwo85SNfCWLFCwcLok8a0b7Ki6N4bSp7n/6bEoIaBBUnQvajrSxgVWImCajDT1ach
-         ilUBl6Ep5KjXz84T9+yDEPrMCHW4j/sIa39fJMQtMIBlG66WZrfG1IjtkjIqk7fwwR0H
-         KBBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9WtZtOu5ZqsdrTOFOSKqzFxOeiIDQqgTAFMW0PtEGw0nlICHcK+vZ6kHAzccqsW0EEE+76899J+tNFGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ6PeX1M7s3MWjjF9x6UjTnXsKtuJz0Ds+VAej2huvkHTT/Vx9
-	FSMy2c8T2mGmT75Dsv3Ewa8RKKom5K9dwzrPAXUTKL+Ewt03usEsByQ=
-X-Gm-Gg: AYBFou0wYuzigUajK8aDTwPI1FIgTiMvcOiDQZkmFmmdzIgZ6uf4KimSPR4BB5Jo+DS
-	XEWCSIwV2StxBbub/3kGhoxxjJ9VFxY8z5Ip3sR2DOJP6dtOC1EQrkYNtjyi+03FXX0kjVVgnW3
-	qfs2UujpfaHuSPEZRJh0K1fscAekcd7jDe3qcqL+TPGsnHrkSp8pzTZt0j4RdugCdc5xtEyT/C7
-	giu04X+2LYOzm5S754jiARWajDoXFJHyP+ArHCd2cWp1LSvpygwS0ch/OB0fW4i8NKRs9H3BA48
-	hMZEfDb+QrqFILO01FDssKlyoyXsNly8F3pN0cLNWxNTh0ipG1AQ2o04eLzKtQGmIFVGcSj6DeK
-	QIYsP0sRHIo5JHYDA+R9t/oYNvBKj+PEDLsQczC5W/PAdszNQRG8RP7FuRsTZZyldfqsDLQEL5y
-	AtvWDxugCw1Rk3ajafidY1vdPXrR8pDRGr0nJB+DIy+KdnRSdVahHJOu0F+uRzRafAinrol4cgD
-	HO0euk3/00wnIdm9+XNE8qktk91AYhtQlXfeC+AmyIcgSTN9oo=
-X-Received: by 2002:a05:600c:6290:b0:49e:799a:8969 with SMTP id 5b1f17b1804b1-49fe6707bb7mr206961305e9.30.1790519349715;
-        Sun, 27 Sep 2026 07:29:09 -0700 (PDT)
-Received: from localhost.localdomain ([31.223.26.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a76fsm21796928f8f.7.2026.09.27.07.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 07:29:09 -0700 (PDT)
-From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Pekka Paalanen <ppaalanen@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	nouveau@lists.freedesktop.org,
-	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
-Subject: [PATCH 2/2] x86/mm/kmmio: Remove misleading ERR_PTR() cast
-Date: Sun, 27 Sep 2026 17:25:41 +0300
-Message-ID: <20260927142816.15099-3-habilerenturker@hotmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927142816.15099-1-habilerenturker@hotmail.com>
-References: <20260927142816.15099-1-habilerenturker@hotmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+ESTPNU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A9FFEC2BCB3;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790519352;
+	bh=loY1pCAhdkrgIbxRkXzPM7ibYgJ5rizQ5x2h+dPCtoc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=e+ESTPNUtIG1RPO5PkUKC14pL/VXDPErti1u5o0ZCk+whGnnQ82raRnlsTVhjvY6i
+	 mcRCFZA50h+B+/1sYCualbgq9A3EJI+UDTcr2rfgXMD9swiRC+v9s83HElSah6/N8R
+	 DjTi7YFULXjYNhwjyto5KOVYIagmw6mURbNganer+vYFyZJfdNuFCx0xjiFbR62nXM
+	 vNCBQ4+0uYEuUB4y6jrIcLh4rDl155BiD02Oz+Ucwover/rvWecNevmKDkF+ppICsj
+	 7Dfr+goPhkjpIf+rBI7G7yC5OPGNX6eZTqZitU5C+48Rhatv/UpZSD7O8WQunj0FuG
+	 Ssy4YVvQlnPhA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93ABFC9830E;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Sun, 27 Sep 2026 16:28:15 +0200
+Subject: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
+ like
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
+References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+In-Reply-To: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2223;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=ocfAHBxwQh4nneVCIVvdqenheD8RusX+bkEk3wRZMOY=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZODbVS60nc1qt+uhw9c+XHjH1HP8zOuP7u1qkp7q95/
+ B7EbP20u6OUhUGMi0FWTJGlf67liXeXj575ukc9BWYOKxPIEAYuTgGYSKo2I8OqrvAHN1oY5t9Y
+ 5C++5U9CUZF7w6wn2qdj/qzMnmX88KYhI8P6v1uVs3QOL2vumnNsYflKL7HNlgKzN8sJcoveZ1C
+ 9mMoCAA==
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-Same issue as the hw_breakpoint fix: arg->err holds the address of the
-DR6 value, not an error pointer.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-The ERR_PTR() cast is misleading and triggers a false positive from Smatch:
+The T7, A1, C3, and S4 PWM controllers have a system clock in
+addition to the two input clocks of channels A and B.
 
-        arch/x86/mm/kmmio.c:596 kmmio_die_notifier() error:
-        'dr6_p' dereferencing possible ERR_PTR()
+The channel clocks are acquired by index in the pwm driver,
+where the core clock is fetched by name, with optional get
+which is silent when not provided.
 
-While touching this line, also fix the "unsigned long*" spacing to
-match kernel coding style.
+Require clock-names and minimum 3 items for S4, and devices
+which fallback to S4, where the PWM devices do not work
+without all 3 clocks.
 
-No functional change.
+Add an example showing T7 usage with its fallback to
+amlogic,meson-s4-pwm.
 
-Signed-off-by: Habil Eren Türker <habilerenturker@hotmail.com>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- arch/x86/mm/kmmio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/pwm/pwm-amlogic.yaml        | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/mm/kmmio.c b/arch/x86/mm/kmmio.c
-index 6ac981cec..88fb7af35 100644
---- a/arch/x86/mm/kmmio.c
-+++ b/arch/x86/mm/kmmio.c
-@@ -591,7 +591,7 @@ static int
- kmmio_die_notifier(struct notifier_block *nb, unsigned long val, void *args)
- {
- 	struct die_args *arg = args;
--	unsigned long* dr6_p = (unsigned long *)ERR_PTR(arg->err);
-+	unsigned long *dr6_p = (unsigned long *)arg->err;
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+index c337d85da40f1..e9cd5f1fdf264 100644
+--- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
++++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+@@ -62,7 +62,7 @@ properties:
  
- 	if (val == DIE_DEBUG && (*dr6_p & DR_STEP))
- 		if (post_kmmio_handler(*dr6_p, arg->regs) == 1) {
+   clock-names:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
+ 
+   power-domains:
+     maxItems: 1
+@@ -143,9 +143,15 @@ allOf:
+           items:
+             - description: input clock of PWM channel A
+             - description: input clock of PWM channel B
+-        clock-names: false
++            - description: gate clock for the PWM controller
++        clock-names:
++          items:
++            - const: channel-a
++            - const: channel-b
++            - const: core
+       required:
+         - clocks
++        - clock-names
+ 
+   - if:
+       properties:
+@@ -179,6 +185,15 @@ examples:
+     pwm@1000 {
+       compatible = "amlogic,meson-s4-pwm";
+       reg = <0x1000 0x10>;
+-      clocks = <&pwm_src_a>, <&pwm_src_b>;
++      clocks = <&pwm_src_a>, <&pwm_src_b>, <&pwm_src_core>;
++      clock-names = "channel-a", "channel-b", "core";
++      #pwm-cells = <3>;
++    };
++  - |
++    pwm@60000 {
++      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
++      reg = <0x60000 0x24>;
++      clocks = <&channel_a>, <&channel_b>, <&core>;
++      clock-names = "channel-a", "channel-b", "core";
+       #pwm-cells = <3>;
+     };
+
 -- 
-2.47.3
+2.49.0
+
 
