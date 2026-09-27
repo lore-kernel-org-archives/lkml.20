@@ -1,62 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E9F3C98B5
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64413B9D93
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546031; cv=none; b=LqyLHGkIP3UdViMfJeSwA/yCn6QJo8CRlTLY81hnU6FDXNakEvccV5y70OqMCrDNFSWYqcOHpZTiU28yKH4ZL8/W20ibkjy71J7QAV7QpoJexP3AgN6uokXfxVMceE9Jfa8ccLujF1+oX1/XdXX1LglZMQauElE41/NZZni8UXw=
+	t=1790546035; cv=none; b=hNvGng6aam93aYygNqop/+DZdCUw0rYBsw00ZWJcsDhMDKw4o9NhMLzEqDMLJcK1g8tP8CaL8Z0ieUYHs8oneFqeLtk73gNAEwxSQ9upwxUKO6xSA9YbDBoih3z7HX5ex1UlVGE4cIkYujAfYpGxcVdrhALXwlOn2cgWpNI0G4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546031; c=relaxed/simple;
-	bh=cpZxU+V5LSjZlr11ty+VxIhYvgU1Di2SyCt5UsyluzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KYcMwDeXw0TxkI1IiNfGt1nKIxfZQUGwjudrgQ2tal8jVKoFUi26U3MtbZHMG5B+TaTQZZ7E+CW8cJB1B6HJMCiOddgzvbXTU2yWaEsAqRUkeN3E0nqFRzEOi4yPBv61arj8MqPyHS/5hns4fK03p1UNguLLOkyU/oa1A1fKRDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iNISq0j6; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790546035; c=relaxed/simple;
+	bh=cPwSEWpsOxxHrQ7YrGZg29yb6xZCjbKc4iJtnoT2xjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gDyaNt6cJHaTWzqv4SkrakNqjO16KY3rknby2s/j4cTy8iaQ1fV8bmrAc2i2XlpCRuaKVM6U69M9UX9Uz95JnoUyrlUxPcNJetHshozmP4W3Q9vkHppVLxMf3HNzI44XJvfQA00oEqUo3NoS/Gu6u9v5s9J1eb5sl2j3f/O5hOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jg/x0HWK; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iNISq0j6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790546028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=krGMz5bdStFSZEE6OdNkCFJTj92DJdIV5J6AFUS24/4=;
-	b=iNISq0j66O0xeYB6CYW3CwWptRxdZD3m0dwPas8j/i4RfnBWbgEMYdjoSqEK/BQMjt9h1x
-	F4nPnUgK7w1I8NotQknppuKLe5ghrY+pi1zqyQmiLyOk3Hiaw763T4vdPmH2v6TJKt5Emm
-	k+2yjTFUP4651bBeeeJjz0p3+rJaUK0=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-488-SbEL44PuPaOZSS_ENoFh3w-1; Sun,
- 27 Sep 2026 17:53:44 -0400
-X-MC-Unique: SbEL44PuPaOZSS_ENoFh3w-1
-X-Mimecast-MFC-AGG-ID: SbEL44PuPaOZSS_ENoFh3w_1790546023
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F22A819560AA;
-	Sun, 27 Sep 2026 21:53:42 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 71F9341D;
-	Sun, 27 Sep 2026 21:53:41 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jg/x0HWK"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so1615713f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790546032; x=1791150832; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H3FM5h6XaUxXXvfmNME4Bh4GS6uG4DTAgTWJ51phUDQ=;
+        b=Jg/x0HWK2FYLiMzPXV/zF8wNN4burbdkVl3SUM9nYL0CvP5PNOFLFlw81BJrQ/leKV
+         mGm9D03QlAKbpm2+pJwxf37gw/k90NxycGiEZphqhfuvlw13caSb8qaK3r6JllON+NyE
+         PhuwcpDFdkPuu/ds9+HcuxfKTo6VaGY6k/D7pChjekVA6trLrkq3amPRJvN3ZxfKVZfH
+         kSllJSl+zFrmcDhm8pW+gUR421wTYnuNCKGt7GaVXUMkI2dTrvI0STZrzb9p+eiGJ89V
+         dGGp9ZF7HM5KXqwevMPJYnRkXjlFef4sQTYWwLydcZ/+vctqzH672tGqgz0C9b7X5wbm
+         A7XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790546032; x=1791150832;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H3FM5h6XaUxXXvfmNME4Bh4GS6uG4DTAgTWJ51phUDQ=;
+        b=GQkgaKoIuVsjIxr+ADdh9o/Qe19q/5Xec93mBhBVYdy37MztmYBGJ6e62BtIiQmTUY
+         8VwfsPmRLqJlObQdTMR+r1IQfrM0Thb6rHOr7puEyrBOHxkpzHj57sJR65ta7XDGJ9Pc
+         WeZjPNEUC+eeNGvdZ76e9E8NkeneegASQflG6LRbpFC11WBm37pFxgjUcPO2gGWTD2TS
+         S/aTi+c8/m/cx+ERTD22Oz1OXlf9h4I9fHSV47QnWZkO8aX2ru9ncdwltJ3LtXCa8MMC
+         ckmrZTbM4Tl9FxqwFkm2qpljsERzeQdposryFcSPgmi7ZxmHluUsm1+KPauWvmiDBOf8
+         Wsjw==
+X-Forwarded-Encrypted: i=1; AKwUvBztyPWYIoY2OMSmhM/40ofcZO+WJKUbA9A+EGm+BupeOHmYkd0b+XHKt8G1i5KDzhRvoP2YCOMbhhSvUbE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7yO/FmJU22kmPNyM91N8hhYITdGWbhiQZhotPPXZ6hXMPJBix
+	Qm91SIoZm3mbGrEf+RjNZ+Bz3HHb3AgfhjIiVTBUCip1HTuUkkLKiP3y
+X-Gm-Gg: AYBFou1942Xtp61XvFt97UpFgQ4KWsShqaR9gj3/1gRvXBUallMQ375EFc+oALycV03
+	jBjgLtBSUUa4oGkCq2+niZYySfXa9pkQ/a34A4Pt6Vpo6QHZp+X7DqOiaarjNWxyQ264G0uBV4u
+	/jeUSTIx2HoFv/Bs2emaVLVtQZe5ubdqN3uiatI+KfMGesW50amy8IFC2K4f41qt/wIR/VeTMQS
+	FmF5KuXehPhQoALRvX2zzg2hYYJ8OKCrjsuOZmfbZ2nmP6fQgyDGUU5Rfi18qBvdQj5yl984bzP
+	zTal0wBoBrBMxsHQKdqDigEETIqf/lp2pI/mQCvgvlTFANmr7qXZReUx3fg03maChFdLNafnNQE
+	N75yrk5F9FeqO7/nKu495SMTVm7x2iKP3p19IYsuMMWnBPJhIzz4/ctzWibwy1BkAIg3IopgEVR
+	f6BLwd9bG4RuacC/taMhbMIyhcHx5d/Q4DJp6q1IxegILB/PrKD7ghrjZUhhG5E47D190fKI8WR
+	g==
+X-Received: by 2002:a05:600c:4fcc:b0:49f:ce78:3560 with SMTP id 5b1f17b1804b1-49fe66f1a05mr207012045e9.17.1790546031943;
+        Sun, 27 Sep 2026 14:53:51 -0700 (PDT)
+Received: from kali ([169.224.126.44])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.53.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 14:53:51 -0700 (PDT)
+From: Ali Firas <alishmery18@gmail.com>
+To: netdev@vger.kernel.org,
+	idosch@nvidia.com
+Cc: kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org,
+	razor@blackwall.org,
+	roopa@nvidia.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v2 2/2] cgroup/cpuset: Remove CS_CPU_EXCLUSIVE handling code from v2
-Date: Sun, 27 Sep 2026 17:53:19 -0400
-Message-ID: <20260927215319.382422-3-longman@redhat.com>
-In-Reply-To: <20260927215319.382422-1-longman@redhat.com>
-References: <20260927215319.382422-1-longman@redhat.com>
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net-next v3 0/6] vxlan: vnifilter: bound a single request and account per-VNI memory
+Date: Mon, 28 Sep 2026 00:52:03 +0300
+Message-ID: <20260927215209.2581830-1-alishmery18@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,119 +83,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-As the is_cpu_exclusive() function is only used for DEADLINE shrink
-test with v1 there is no need to have the CS_CPU_EXCLUSIVE flag set on
-valid partition root anymore. Remove update_partition_exclusive_flag()
-and other CS_CPU_EXCLUSIVE flag handling code in cpuset.c.
+The VNI filter interface accepts a START/END range with no bound on
+either endpoint and no bound on how many VNIs one message may ask for,
+and the memory it allocates per VNI is not charged to the caller's
+cgroup.
 
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 52 ++++--------------------------------------
- 1 file changed, 4 insertions(+), 48 deletions(-)
+Since v2, Jakub asked that the VXLAN_VNIFILTER_ENTRY nest be linked to
+its policy with NLA_POLICY_NESTED() as patch 1:
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 104fe10c336d..4a915da37bb3 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1174,25 +1174,6 @@ enum partition_cmd {
- static void update_sibling_cpumasks(struct cpuset *parent, struct cpuset *cs,
- 				    struct tmpmasks *tmp);
- 
--/*
-- * Update partition exclusive flag
-- *
-- * Return: 0 if successful, an error code otherwise
-- */
--static int update_partition_exclusive_flag(struct cpuset *cs, int new_prs)
--{
--	bool exclusive = (new_prs > PRS_MEMBER);
--
--	if (exclusive && !is_cpu_exclusive(cs)) {
--		if (cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 1))
--			return PERR_NOTEXCL;
--	} else if (!exclusive && is_cpu_exclusive(cs)) {
--		/* Turning off CS_CPU_EXCLUSIVE will not return error */
--		cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 0);
--	}
--	return 0;
--}
--
- /*
-  * Update partition load balance flag and/or rebuild sched domain
-  *
-@@ -1248,11 +1229,9 @@ static void reset_partition_data(struct cpuset *cs)
- 
- 	lockdep_assert_held(&callback_lock);
- 
--	if (cpumask_empty(cs->exclusive_cpus)) {
-+	if (cpumask_empty(cs->exclusive_cpus))
- 		cpumask_clear(cs->effective_xcpus);
--		if (is_cpu_exclusive(cs))
--			clear_bit(CS_CPU_EXCLUSIVE, &cs->flags);
--	}
-+
- 	if (!cpumask_and(cs->effective_cpus, parent->effective_cpus, cs->cpus_allowed))
- 		cpumask_copy(cs->effective_cpus, parent->effective_cpus);
- }
-@@ -2028,19 +2007,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	if (!adding && !deleting && (new_prs == old_prs))
- 		return 0;
- 
--	/*
--	 * Transitioning between invalid to valid or vice versa may require
--	 * changing CS_CPU_EXCLUSIVE. In the case of partcmd_update,
--	 * validate_change() has already been successfully called and
--	 * CPU lists in cs haven't been updated yet. So defer it to later.
--	 */
--	if ((old_prs != new_prs) && (cmd != partcmd_update))  {
--		int err = update_partition_exclusive_flag(cs, new_prs);
--
--		if (err)
--			return err;
--	}
--
- 	/*
- 	 * Change the parent's effective_cpus & effective_xcpus (top cpuset
- 	 * only).
-@@ -2063,9 +2029,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 
- 	spin_unlock_irq(&callback_lock);
- 
--	if ((old_prs != new_prs) && (cmd == partcmd_update))
--		update_partition_exclusive_flag(cs, new_prs);
--
- 	if (adding || deleting) {
- 		cpuset_update_tasks_cpumask(parent, tmp->addmask);
- 		update_sibling_cpumasks(parent, cs, tmp);
-@@ -2942,10 +2905,6 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	if (alloc_tmpmasks(&tmpmask))
- 		return -ENOMEM;
- 
--	err = update_partition_exclusive_flag(cs, new_prs);
--	if (err)
--		goto out;
--
- 	if (!old_prs) {
- 		/*
- 		 * cpus_allowed and exclusive_cpus cannot be both empty.
-@@ -3009,13 +2968,10 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	}
- out:
- 	/*
--	 * Make partition invalid & disable CS_CPU_EXCLUSIVE if an error
--	 * happens.
-+	 * Make partition invalid if an error happens.
- 	 */
--	if (err) {
-+	if (err)
- 		new_prs = -new_prs;
--		update_partition_exclusive_flag(cs, new_prs);
--	}
- 
- 	spin_lock_irq(&callback_lock);
- 	cs->partition_root_state = new_prs;
--- 
-2.55.0
+  https://lore.kernel.org/netdev/20260921150904.65a704eb@kernel.org/
 
+Patch 1 does that. Without it the entry attributes were validated only
+as each entry was dispatched, so a multi-entry message whose later
+entry was invalid had the earlier entries applied and notified before
+the message was rejected. With the nest linked the whole message is
+validated up front and a bad entry rejects the message as a unit and
+installs nothing.
+
+Patches 2 and 3 bound a single request: patch 2 range-validates both
+endpoints to the 24-bit VNI space, and patch 3 caps the number of VNIs
+one request may add or delete, summed over its entries, at 4096. Both
+add and delete walk the span one VNI at a time under rtnl_lock, so both
+are bounded; that walk is the cost, not the memory.
+
+Patch 4 clamps the dump. vxlan_vnifilter_dump_dev() coalesces a
+contiguous run with no bound, so a device populated by several requests
+could dump a single entry that patch 3 then refuses on replay. Patch 4
+clamps the merged run to the same limit, so dump output is always
+re-enterable; the selftest installs more than the limit, dumps it, and
+replays what the dump reported.
+
+Patch 5 charges the per-VNI node and its per-CPU stats block to the
+cgroup of the task that created the VNI, so the memory a device grows one
+VNI at a time is accounted the way the device's own queues, ethtool
+state and NAPI config already are (commit c948f51c1654 ("memcg: enable
+accounting for net_device and Tx/Rx queues")).
+
+Patch 6 adds the selftests.
+
+The cap is symmetric, applied to add and delete alike, which is what
+Ido asked for when he agreed to a 4k limit. Patch 4 is what makes that
+safe: because the dump is clamped to the same constant, the kernel never
+reports a contiguous run that its own input path would reject, so a
+device holding more than 4096 VNIs can still be torn down by replaying
+what "bridge vni show" reports. Device teardown itself
+(vxlan_vnigroup_uninit()) is not a netlink message and is not subject to
+the cap.
+
+uAPI changes, all of them:
+
+  - a VNI at or above 2^24, previously accepted and stored (and
+    truncated on the wire), is now rejected with -ERANGE;
+  - a single request asking to add or delete more than 4096 VNIs, summed
+    over its entries, is now rejected with -EINVAL -- "bridge vni add
+    dev X vni 1-10000" used to be accepted;
+  - a request rejected by the entry policy, aimed at a missing or
+    non-vnifilter device, now returns that policy error rather than
+    -ENODEV or -EOPNOTSUPP, because the nest is validated before the
+    device is resolved (patch 1);
+  - "bridge vni show" now splits a contiguous run longer than the limit
+    into several entries instead of one (patch 4); the set of VNIs it
+    reports is unchanged.
+
+This is a policy and hardening change, not a fix for a crash or
+corruption; it targets net-next and should not be backported.
+
+One pre-existing semantic is worth review: an entry that carries only
+END and no START is treated as the range [0, END], so a lone END near
+the top of the space is a whole-space request that the cap now rejects;
+whether END-without-START should mean that is left as an open question.
+
+Not addressed here:
+
+  - vxlan_vni_add_del() still leaves the earlier VNIs of a range
+    installed if an allocation fails partway through it; with the cap
+    that is now bounded to fewer than 4096 VNIs. A fix needs a
+    transaction and overlaps a separate rollback change, so it is left
+    out.
+  - a lone VNI 0 dumps as a START-only entry the input path refuses
+    ("vni start nor end found"), and a stats dump carries per-entry
+    stats the input path refuses; both predate this series and are
+    unrelated to the limit.
+
+Changes since v2:
+  - patch 1 is new: link the VXLAN_VNIFILTER_ENTRY nest with
+    NLA_POLICY_NESTED(), as Jakub asked, so the whole message is
+    validated before any entry is acted on;
+  - patch 4 is new: clamp the dump to the same limit so its output
+    replays, which is what makes the symmetric cap safe;
+  - patch 5 accounts the per-VNI node and its per-CPU stats in
+    vxlan_vni_alloc();
+  - rebased onto current net-next.
+
+v2: https://lore.kernel.org/netdev/20260916193449.2552039-1-alishmery18@gmail.com/
+v1: https://lore.kernel.org/netdev/20260909092645.3105263-1-alishmery18@gmail.com/
+
+Ali Firas (6):
+  vxlan: vnifilter: validate the VXLAN_VNIFILTER_ENTRY nest
+  vxlan: vnifilter: reject VNIs outside the 24-bit space
+  vxlan: vnifilter: bound the number of VNIs one request may touch
+  vxlan: vnifilter: clamp the dumped VNI range to the request limit
+  vxlan: vnifilter: account per-VNI memory to memcg
+  selftests: net: test the vxlan vnifilter request limit and dump replay
+
+ drivers/net/vxlan/vxlan_vnifilter.c           | 110 ++++++++++++++---
+ .../selftests/net/test_vxlan_vnifiltering.sh  | 114 +++++++++++++++++-
+ 2 files changed, 209 insertions(+), 15 deletions(-)
+
+
+base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
+--
+2.53.0
