@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84FD33DEC8;
-	Sun, 27 Sep 2026 14:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855EF31AABC;
+	Sun, 27 Sep 2026 14:59:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521199; cv=none; b=eZe/PgoQ0s1BGjZvf4yvhYSb6KraxYA/VjLhgivJfyGjWrPjYgNq773z2k3fiGp3620pBSWWu7cRLqdYrdcfzZJ0dsApmGzdVWXRzWsMR1FBAksWuG+5bUq7MobsTFY4NP8K/mn16N2H8pufYoZOu/Klh3C+kA3FEc8TWlkaXOI=
+	t=1790521203; cv=none; b=By1qq83+DqHHAtD2ECIm3QWYOLn5fLUPzrCr2BQHEcot0+eDi//GZD4PnYXIA3en21I+bGhN3yfsLNCYLlxbDBV3DwKqzA9Wfg8XTd55Ga8cb7m9nYpqWYOp4xgew2YYj+ue4b8z8Z6yzYH4VnUX1EOq853n/Kk0JYtmQ9of0tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521199; c=relaxed/simple;
-	bh=OvHB4aQy0jJMF0Z6h7CMesGDOPXu3jfrH4vQmnFTWf0=;
+	s=arc-20240116; t=1790521203; c=relaxed/simple;
+	bh=o8A2e4z2JQDecFuamyJ8gr5ncEuH2PfxZ5tCpUBdTh0=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IIH0s1giegyevrkI3zKjzjVnvTiQDdDY69UM5Ccp5AoXrRt0tCQcbIguPRqxWFFRhL350XwrxzOC5HulRHOykO8nG586kumIIsFsN38lQLN1lzXD0hudcXTg6JdDm0TxQf+PC2loL5OUkAgYG3TKaohlOOxhUTGgsrbMZfnCiBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e18ckbT/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=FKUB9UX63vWyUJYVYKRAmrtV+y3FElQH4muE3zyZkFNtL3GePblMVzvL2B4NQwKHduLOMNTDWro6IWqoalCcrXlFc3AGNtXXtZg6oZ6IyhpVt8o8F34nnFncgXfzezEUav5lFrRci1/sIAhLs+OLt9gFW/yFrpzehSpWb71hAiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maHY6Cut; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e18ckbT/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54A81F00893;
-	Sun, 27 Sep 2026 14:59:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maHY6Cut"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97B381F0089A;
+	Sun, 27 Sep 2026 14:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790521194;
-	bh=pWhYh6CbQa5IkgwuLCkQKb6dg55T/o+xW4XtiUmA+CU=;
+	s=k20260515; t=1790521199;
+	bh=/l1PNXKQwltkMjXXqOjr03Ff62+xQlvJKxCiD5MB1Ic=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=e18ckbT/LXnI1qoH+WKz9nfq4XyyTkDM2dtwnv8HNjRdnXsj40jh65SfRaZXaiiu+
-	 +pcbIBzA5Mi5+Jkhj1NTKjB4hr4AfiJ7belJ0m8PrmK3jSZxkBiLDdXYuRs+1n4tW8
-	 vb5ts2WC9WuYzYu0jl7ehjOFPB9QhoiqngGkH8kqTrtXUt3HCIaHTMsgRZx+Dt/7Vy
-	 XdaA9gQ1IYiVQxmyN/EjUy5avE7wmnSDeDbRhrypzwQ1+pQfchGOzwYzBI2/62tqmB
-	 mZ+DGuLJpLfKxRxB26jRTk6/UoBbx6QOwySqJcYowh88TzUVsPIQghn+lQiKfK/h11
-	 KrYTPtpoffvRQ==
-Subject: Re: [PATCH net v11 09/17] rxrpc: Fix packet encryption error handling
+	b=maHY6CutmmsswcWc2GaV1KSmXGEKWa5exIbX6227jP2gQ5s1zgGBVzNqv6AigLKfN
+	 8o9S/7g7RCGruQSX4hMptCXqqqZbJqby98vKppJCkCK2zV+EUgRKsX7lTKZ5e+A9QY
+	 pqDny4Q+CkusuMfXeGPOcmMcXyrs6bU++krMsMUJc2qM0Rqrhz1WYNNSUy2FVFeqp7
+	 V/ImMuXx9rmw8SGSh7TXAkawYfh7bp2VYo27X92HJfVSEWcXGtAdisEHysAQlyCc3q
+	 1YHcHqYsSMQbmrpCwYImChZxk7RzeYge+2t6nuSxGhVohNJNAf77ft5GF2MIxZa8RX
+	 x7poBPssgbpAA==
+Subject:
+ Re: [PATCH net v11 17/17] rxrpc: fix use-after-free in rxrpc_poke_conn()
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  qotmddnjs@ajou.ac.kr, stable@vger.kernel.org
-Date: Sun, 27 Sep 2026 14:59:53 +0000
-Message-ID: <179052119345.2160803.10650297223669839534@kernel.org>
-In-Reply-To: <20260923133706.1496540-10-dhowells@redhat.com>
-References: <20260923133706.1496540-10-dhowells@redhat.com>
+Date: Sun, 27 Sep 2026 14:59:58 +0000
+Message-ID: <179052119820.2160803.10819328659483521735@kernel.org>
+In-Reply-To: <20260923133706.1496540-18-dhowells@redhat.com>
+References: <20260923133706.1496540-18-dhowells@redhat.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -53,165 +54,123 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The patch renumbers the return-value comment block in
-  rxrpc_send_data() (net/rxrpc/sendmsg.c) and adds a new item (5) for…
-- [Low] The patch adds a new userspace-visible sendmsg() behaviour on
-  AF_RXRPC sockets that Documentation/networking/rxrpc.rst never…
+- [Low] The commit message misdescribes the fix.
 
 Pre-existing issues:
-- [Low] This problem wasn't introduced by this patch, but the
-  rxrpc_kernel_send_data documentation block the patch edits…
+- [High] Nothing drains local->conn_attend_q after the I/O thread leaves
+  its main loop, so a poke that lands in that window leaks the…
 
 --
 
-rxrpc: Fix packet encryption error handling
+rxrpc: fix use-after-free in rxrpc_poke_conn()
 
-This changes rxrpc_send_data() so that -ENOMEM from ->secure_packet() is
-treated as retryable. The data just added to the last packet is removed
-again and the iterator is rewound. Any other encryption error sets a new
-sticky RXRPC_CALL_TX_ERROR flag, and after that every data send on the
-call returns -EIO until the application aborts the call.
+This patch makes rxrpc_poke_conn() take its poke reference with
+rxrpc_get_connection_maybe() in place of rxrpc_get_connection(). If the
+refcount is already zero, the connection is no longer added to
+local->conn_attend_q. This closes a use-after-free where the I/O thread
+touched a freed connection that was still queued.
 
-Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
-
-> diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
-> index 01ad12fdf3058..9b7eeae841485 100644
-> --- a/Documentation/networking/rxrpc.rst
-> +++ b/Documentation/networking/rxrpc.rst
-> @@ -878,8 +878,10 @@ The kernel interface functions are as follows:
->       exclusively to in-kernel virtual addresses.  msg.msg_flags may be given
->       MSG_MORE if there will be subsequent data sends for this call.
->  
-> -     The msg must not specify a destination address, control data or any flags
-> -     other than MSG_MORE.
-> +     msg must not specify a destination address, control data or any flags
-> +     other than MSG_MORE.  The last-packet flag will only be set on the
-> +     outgoing packet if MSG_MORE is not set and all the data in the iterator is
-> +     buffered.
->  
->       notify_end_rx can be NULL or it can be used to specify a function to be
->       called when the call changes state to end the Tx phase.  This function is
+> Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
+> rxrpc_queue_conn() uses before taking the poke reference, so a connection
+> past its last-active point is not poked/requeued after teardown began.
 
 [Severity: Low]
-This isn't a bug introduced by this patch, but it is in the same
-rxrpc_kernel_send_data() block that is being edited. The prototype
-documented just above this hunk doesn't match the header:
+Is this paragraph accurate? rxrpc_queue_conn() checks only the active count
+and takes no reference:
 
-Documentation/networking/rxrpc.rst:
-	typedef void (*rxrpc_notify_end_tx_t)(struct sock *sk,
-					      unsigned long user_call_ID,
-					      struct sk_buff *skb);
+net/rxrpc/conn_object.c:rxrpc_queue_conn() {
+	if (atomic_read(&conn->active) >= 0 &&
+	    rxrpc_queue_work(&conn->processor))
+		rxrpc_see_connection(conn, why);
+}
 
-include/net/af_rxrpc.h:
-typedef void (*rxrpc_notify_end_tx_t)(struct sock *, struct rxrpc_call *,
-				      unsigned long);
+The patch never reads conn->active. rxrpc_get_connection_maybe() checks
+only the refcount:
 
-rxrpc_notify_end_tx() in net/rxrpc/sendmsg.c calls it as
-notify_end_tx(&rx->sk, call, call->user_call_ID), which matches the header.
-So the documented version has the wrong argument types and order, and an
-sk_buff argument that doesn't exist.
+	if (__refcount_inc_not_zero(&conn->ref, &r))
 
-The documentation also calls the parameter notify_end_rx, but the header
-calls it notify_end_tx.
+That matches what rxrpc_poke_call() does with rxrpc_try_get_call(), not
+what rxrpc_queue_conn() does.
 
-Could the documented prototype and parameter name be updated to match
-include/net/af_rxrpc.h?
+Could the message say that the poke reference is now taken with
+inc_not_zero, and drop the claim that this copies the conn->active check
+in rxrpc_queue_conn()?
 
-[ ... ]
+> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+> index 0ece717db0f85..1be50e0c9cee5 100644
+> --- a/net/rxrpc/conn_object.c
+> +++ b/net/rxrpc/conn_object.c
+> @@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
+>  	spin_lock_irq(&local->lock);
+>  	busy = !list_empty(&conn->attend_link);
+>  	if (!busy) {
+> -		rxrpc_get_connection(conn, why);
+> +		if (!rxrpc_get_connection_maybe(conn, why)) {
+> +			spin_unlock_irq(&local->lock);
+> +			return;
+> +		}
+>  		list_add_tail(&conn->attend_link, &local->conn_attend_q);
 
-> diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
-> index 80c6afc647870..e3b6347888bfe 100644
-> --- a/net/rxrpc/sendmsg.c
-> +++ b/net/rxrpc/sendmsg.c
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch, but what
+happens if a poke arrives after the I/O thread has left its main loop?
 
-[ ... ]
+rxrpc_io_thread() breaks out of the loop once kthread_should_stop() is set
+and conn_attend_q is empty. It then calls rxrpc_destroy_local():
 
-> @@ -372,6 +373,13 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
->  		ret = -EPROTO;
->  		goto out_unlock;
->  	}
-> +	if (unlikely(test_bit(RXRPC_CALL_TX_ERROR, &call->flags))) {
-> +		trace_rxrpc_abort(call->debug_id, rxrpc_sendmsg_tx_error,
-> +				  call->cid, call->call_id, call->rx_consumed,
-> +				  0, -EIO);
-> +		ret = -EIO;
-> +		goto out_unlock;
-> +	}
+net/rxrpc/io_thread.c:rxrpc_io_thread() {
+    ...
+		if (should_stop)
+			break;
+    ...
+	rxrpc_destroy_local(local);
+    ...
+}
 
-[Severity: Low]
-This changes what userspace sees from sendmsg() on AF_RXRPC sockets. If
-->secure_packet() fails with anything other than -ENOMEM,
-rxrpc_send_data() sets RXRPC_CALL_TX_ERROR. From then on, every data send
-on that call returns -EIO here until the application aborts the call.
+rxrpc_destroy_local() sets local->dead and cleans up the client conns, the
+socket and rx_queue. It never touches local->conn_attend_q.
 
-Should this be described in Documentation/networking/rxrpc.rst? The only
-change there is to the rxrpc_kernel_send_data() paragraph.
+A client connection can still have conn->timer armed at that point.
+rxrpc_disconnect_client_call() arms the timer for jiffies+2, then puts the
+connection on the idle list with a reference held:
 
-The "Notes on sendmsg" section and the client/server walkthroughs don't
-say that a call can become unusable for sending, that it then returns
--EIO, or that it has to be aborted explicitly. Right now the only place
-this is described is item (5) of the comment in rxrpc_send_data().
+net/rxrpc/conn_client.c:rxrpc_disconnect_client_call() {
+    ...
+		set_bit(RXRPC_CONN_FINAL_ACK_0 + channel, &conn->flags);
+		rxrpc_reduce_conn_timer(conn, final_ack_at);
+    ...
+}
 
-The ENOMEM rewind can make a !MSG_MORE sendmsg() return a short count, but
-the existing text about returning the amount of data consumed already
-covers that. The missing part is mainly the sticky -EIO state and the need
-to abort.
+rxrpc_clean_up_local_conns() cancels only local->client_conn_reap_timer
+synchronously. It doesn't cancel each connection's own timer before it
+drops the unbundle and idle references.
 
-[ ... ]
+If conn->timer fires in that window, the refcount is still above zero:
 
-> @@ -481,22 +505,44 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
->  	 *
->  	 * (4) If another sendmsg() has already queued the last packet: -EPROTO.
->  	 *
-> -	 * (5) If we queue the last packet: the amount copied (which may be
-> +	 * (5) If an error occurs that may have corrupted the transmission
-> +	 *     buffer (e.g. crypto failure) or unusable crypto was encountered:
-> +	 *     the error given (and RXRPC_CALL_TX_ERROR is set to cause -EIO to
-> +	 *     be returned from further calls).
-> +	 *
-> +	 * (6) If we queue the last packet: the amount copied (which may be
->  	 *     zero).  recvmsg() should be used to collect the result.
->  	 *
-> -	 * (6) If some data has been copied by this call: the amount copied
-> +	 * (7) If some data has been copied by this call: the amount copied
->  	 *     (which will be greater than zero).
->  	 *
-> -	 * (7) Any other error.
-> +	 * (8) Any other error.
->  	 *
-> -	 * For (1)-(4), there's no point in continuing with the sendmsg().  The
-> -	 * app should abort the call (just in case the error came from
-> -	 * somewhere else) and then use recvmsg() to collect the final result
-> -	 * of the call.
-> +	 * For (1)-(6), there's no point in continuing with the sendmsg() and
-> +	 * we no longer care how much has been queued as the call is no longer
-> +	 * viable.  The app should abort the call (just in case the error came
-> +	 * from somewhere else) and then use recvmsg() to collect the final
-> +	 * result of the call.
+rxrpc_connection_timer()
+  rxrpc_poke_conn()
+    rxrpc_get_connection_maybe()   <- succeeds
+    list_add_tail(&conn->attend_link, &local->conn_attend_q)
 
-[Severity: Low]
-Should this range be (1)-(5)?
+The only thing that consumes conn_attend_q is the loop that has already
+exited. Does this leak the connection and its poke reference, along with
+its references on local, peer and bundle and its key?
 
-After the renumbering, item (6) is the case where the last packet was
-queued. That is the normal, successful end of the Tx phase.
+If so, rxnet->nr_conns never reaches zero. On netns exit,
+rxrpc_destroy_all_connections() would then wait forever here:
 
-Saying the call is no longer viable and should be aborted contradicts
-item (6) itself, which says recvmsg() should be used to collect the
-result.
+	wait_var_event(&rxnet->nr_conns, !atomic_read(&rxnet->nr_conns));
 
-It also doesn't match rxrpc_kernel_send_data(), which treats consuming
-all the data as success:
+AF_RXRPC sockets can be created without privileges. An unprivileged user
+could reach this window by closing the socket right after a client call
+succeeds.
 
-	if (msg_data_left(msg) == 0) {
-		ret = 0;
-		break;
-	}
+The old unconditional rxrpc_get_connection() had the same behaviour. The
+new inc_not_zero guard doesn't help here because the refcount is nonzero.
 
-Documentation/networking/rxrpc.rst agrees, saying the function "returns 0
-if all the data is queued".
-
-None of the later patches in the series touch net/rxrpc/sendmsg.c, so the
-wrong range would stay in the final state.
+Would rxrpc_poke_conn() need a local->dead check under local->lock to close
+this? Alternatively, rxrpc_destroy_local() could drain conn_attend_q and
+drop the poke references.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923133706.1496540-1-dhowells%40redhat.com
