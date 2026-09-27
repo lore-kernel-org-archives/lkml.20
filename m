@@ -1,74 +1,79 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A3A3BBFBD
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971AB2DFA3A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790527314; cv=none; b=vEZaR6EWIJhEsGwYCk6djyxHWfFLY6PwZ3o/Der25nwu/pxwNdKW7oqhw580uMdO94udJxQtVoD0NdFtyTqarvGlCV6XnK2UmHWTUZxn5yQpYQx2oMlTkt8uwwjBXje4cje2DmD8PKEuebrJRfFn/wjXnrgCiWdVz5LfTtuOkwM=
+	t=1790527466; cv=none; b=EM3NEvj8Qd47GsVqHmaXR+f6Rgq47toM+P8hpVmkTp7j9TB/3+4AOuIVFnplN0q68Xtmt2R7Q3OSKVbTP7waZ99L8twqb85RvsvDjOfi1fx02SCP3+/J+QdpTkA2yPNum0+EtO3osUCtuRksm0Ygb7FmBZp4QDYF5aXMjCTpV/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790527314; c=relaxed/simple;
-	bh=oJQ7TehGKQULHuSnn7wX7YQAUj1aG3Y9J5CmP9kRzyk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qQTodXKZdM//9WHL89h5urrLqiQ1GZWHr8vf0rQMBPOEG4RPk5Z36PP/fwDiROAZg0syqlVUb7+RBrJv334S7+IINzLuRtTByAGqTcRWAFxUJ9SGI9Fzwf2b0ALOiwexWOsSZ7vHBdsiPH3pbVSv9bEcRDB6GuikMby3wBWNWCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=SksMmFSX; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1790527466; c=relaxed/simple;
+	bh=L+XBQH44WpfOLeDHic6+FpCkliS5TT26uzehiypPz5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CdgMdJr8aR2ykHL7DgG3yrzYBNGxMqwPsyOIMX4XTGwp+2oxIUMngrHAewK3mIVv3vDtokgND4H/+kke0trwPQ5sfbxpBHx51GKH/aBfhUOvBffvlT/ilTLXbYsOlk1lPtLHHNdHIqAvGJpU+yNlTiFc12ED/gT/EIkM4abFcAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LkrEr7vo; arc=none smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="SksMmFSX"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1156125a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:41:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LkrEr7vo"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a60ed65bc8so19647751fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790527312; x=1791132112; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790527462; x=1791132262; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cD1GGOAxo3hdOUsJqunYxfhJul2XQRWSlBhx+D5pmZw=;
-        b=SksMmFSXxdmYyASIrD42gGRD8ICKB2i0TitCaaEM3yGf11909KZrtsA235TG5nbpml
-         uQ4JqemKmNR2zNSeGbOEfSyErPNnREtaHq8ib2e+1GLNZAjeUnOLQT+vXvD7X2wSK7Q6
-         Gw22sr1M+tBlb04P1Bo/rmiV+hBfYkXPLcKcgLcgXB+kzHIBYETgBRi6suIOWjIFUBDf
-         iuTAoip9pVqg+JEsCobT03gEojaP3Zkv9bSeUfjCu2RD6IvQjO27KXdJ4P6rRJnDD/xe
-         JANan9Ym1/AasQ2FNoUjypkX8DYQjgpsGunaZD+2q3mtdBgoADsb7m8aIW+nFz+vRPCS
-         3pIQ==
+        bh=9i9q/dJ0TzJzbLEzaTtZxs0gRFtr74CiVWwdTizVWpQ=;
+        b=LkrEr7voM4wWkm2g0dQTWMDgDNDUmekj96Imc3Ym1hLsqQt8Utx6h5lSkVRV0xNGkb
+         cjK5FlPDEtzIcpnylSNpEjIqYcunpiO11B7QNjybuELECLgcys+t1Vc1S5xmPKxBhbs7
+         17pBtcH7Uu4rXgko4v0tFqm6rTGT5GYqqikK20uxo+Q2uzgJLCwWAiw3Ihee5cYsSdMR
+         fUf5q4rgOGtFa0Rs5s8z8QclqeviPfd8RIa7UXcJQO6PJHiSWgp6h2aik+aSr6gmSOOa
+         7Sj81lB/FNuyc4SRiniJcPt/mcH5325BmSv6EiPedv80NH5b2yi13LGpwISDEiovbcKx
+         H4Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790527312; x=1791132112;
+        d=1e100.net; s=20260707; t=1790527462; x=1791132262;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cD1GGOAxo3hdOUsJqunYxfhJul2XQRWSlBhx+D5pmZw=;
-        b=jXWS20lUun1et2i6/r/P2K+bHq9qRruVMOpl9KsXcqgfGRDnzCntZlvTrYiHJx7GPN
-         Z0KXSSav3EOLuAsv5IJiu62iGCK9MtLlOqtnhGwvruI5xRDiWkaxFICAiPqYWrx6UkDr
-         4kHxoye+KGQvVne1uwqnH2hqSaBINzWK0vo3jAD73MePfP/PgPr4JrBN5P52CG+j1QH+
-         p/AfqCzOzSrsdD8QyYK96t5gGi8hc3zgS+wlRyAhloI+qc3+99aShJgdZiQGBYlOyhph
-         Bp4VgG7rKUrbOqS1f66gVv2xdWQw94y6LiyzWai5jZUu4SPeDSqKD+x66jJ1LksiuGfF
-         vn4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxlQPz7hduU3oFvZiwfxqas9NvUIzhUkPsEQAp1xySnv8xyFakqgdgjv2OAFhA9hxDRrh9sJihptI2oKUQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8URCTCQrOK6Y+4l8U2L4ZqbviBwejrSSOu/otHWuFM073ShV2
-	rFXreezSNxoCU4tLUDBAWjyK6sajHyzeBDvgC6K8ra8tFFlvHwVJ3PgHT5jlcsfRtrzW
-X-Gm-Gg: AYBFou1xe5+0O/IbF1XT6Bc7TNmMBEe8T5PowN4lGssu77el+9YEqhFGeMXwkPjgsS2
-	xmKHU9t6RPQZ4sO6DjyoBVoxIS8jBXtJGS1Qy5I7YplVdemlkWbxp6N5ZAjLYZLPaTwlqYFlbdf
-	oMKE8CQ4XdKfvtrL+2Ah7Y4Z04+VZDFb63bHxTkqSNpdY3tOLfRRZamX7D/GdJokoWby0Q8KiYf
-	TREaLRf+MkXfYmt/nSVK7devd5+RJJ0ZPXkbG4y6OCTsWo9VxqQQ3ye/BKZPsw780KkAYSCavME
-	cOyO6vPfR/vCFBFY58OVuA1zzWbRc0PhdQgujS0FP0GjwUeYTbXNUPx6AjT3FQh/gW8WvXxUv9o
-	+TAieRISjy2toGf47lY5eRVxt6pgjAq/Q5VCUdwXwGvx0SzdgNCs3d8SEMGWKg1rI0/BUnfXLKa
-	r39bYOuBMigrlGzoxROqECHOJZq1W6cviRRy/hllIJ+37mhoBio04RTOaiZ5xVRbFy
-X-Received: by 2002:a17:90b:4a8f:b0:39e:423:bb8f with SMTP id 98e67ed59e1d1-3a09853c638mr8360458a91.1.1790527312129;
-        Sun, 27 Sep 2026 09:41:52 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972f111csm21993533a91.2.2026.09.27.09.41.48
+        bh=9i9q/dJ0TzJzbLEzaTtZxs0gRFtr74CiVWwdTizVWpQ=;
+        b=YE+gqnfDqzSUy95BIJ8Gh8xEuE5eKGJayR26gszJcg2kegRSUV5vwwjPxpbb8uZCpQ
+         rI3+okdhf7Cpfa7B+RJztwOD9ynZnZfx83GJufZOPcqXrhwJSpETLbWMTf5v4TPUFiw7
+         Uw/8laWK0W8n7SkryvPVGUfBYNDcfT08kYImZ7uGJLKtCsCQfd1YT81pDp+xEbKA8Lgd
+         wZUZhU75Ovl8Q5HhjxG282DBhlVWEN9uv7ke7PWloFHkwhl6OPTwtVv2jvm+b4c36kMg
+         2pFdFiwUEHTou1ZsgUZyBRuXws3JMWmAwOdVSWxpLByQ/KwJf3LPH5f09U2QQGAGg6/D
+         3XuA==
+X-Gm-Message-State: AFq9FYJ3qG4vKG/fLrlY6irg31DmimFaKmk9IxEVBI3f1MNF32np0/Na
+	CMLV3/r25aW6/1R9FPpAnkaBiuR4u2ORM3BVsxu2MV0tmhM2RjhtXI02BXF/WzDe
+X-Gm-Gg: AYBFou10p/sPT7bJ1MSoJ04dxvcKJu6IHFFSOTgkFGW9RXFfdp5SpDYJpQGGV5pV2i7
+	JVVv/Mm3k9uLjNnBFNLGsCSwr+dKWKh8kzShR56W7mHLvTSyAxyB+SQjKRoUddk7CHFFThNQDXy
+	j7Q9IDNGFHrWKhQbU/XAmPe0vGPJsalKRQZWYn+dSxVRb/v9zysL8S134ccrMEDWLmdUxrS8mWI
+	CTfJCvD5BiNHrFpghkEIC845H7h5uT/MgDVV3Q8qeMVtjnymynPFHq/WI9TSoKECbR5hV+ij2tW
+	xm14KY0uqymgO1jblq7e1QmLXqVEi54Yb7/jREXryLPMgwXJXMqOMSnERzg0fNrtX7rSaztxKrW
+	kJc/jISrsfFW/XXz5kh/Io9pOp5GKzSrd1eFbiFV/a23ah2xymHGmmVKg/Moz0goEjtNAmi2het
+	y32Ccry3tb+SWbG1R+E5nadno0uAIOrfyU+/+9xD+y9v9oSxHJA5Auen1dYVsllD09KSr98BZqd
+	TfgVv8NBvOyCDYQ4Yo0g6oCT/VOMrlw
+X-Received: by 2002:a2e:b8cb:0:b0:3a3:74b9:8a7a with SMTP id 38308e7fff4ca-3a63c410288mr30893731fa.19.1790527462361;
+        Sun, 27 Sep 2026 09:44:22 -0700 (PDT)
+Received: from artemiipatov-ThinkPad-T14-Gen-2i.. ([185.119.0.68])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64b580b28sm22425781fa.11.2026.09.27.09.44.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:41:50 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: musb: Drop the D+ pullup during system suspend
-Date: Sun, 27 Sep 2026 23:41:45 +0700
-Message-Id: <20260927164145.1956429-1-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
+        Sun, 27 Sep 2026 09:44:22 -0700 (PDT)
+From: artemiispatov@gmail.com
+To: linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Cc: tglx@kernel.org,
+	peterz@infradead.org,
+	anup@brainfault.org,
+	atishp@rivosinc.com,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	conor@kernel.org,
+	hui.wang@canonical.com,
+	artemiispatov@gmail.com
+Subject: [PATCH 0/2] *** cpu/hotplug, riscv: Fix CPU stuck offline after failed hotplug attempt ***
+Date: Sun, 27 Sep 2026 19:44:16 +0300
+Message-ID: <20260927164418.3090433-1-artemiispatov@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,70 +82,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When musb_suspend() clears DEVCTL, the host sees a disconnect. But VBUS
-is still there, so the controller can start a new session on its own
-and, with SOFTCONN still set, pull D+ up again while its interrupts are
-masked. The host then fails to enumerate the gadget ("unable to
-enumerate USB device") and gives up, and nothing at resume makes it try
-again. On a T113-S3 board the gadget link never survived an s2idle
-cycle.
+From: Artemii Patov <artemiispatov@gmail.com>
 
-Clear SOFTCONN once the context is saved; musb_restore_context() puts
-it back on resume. This is what the FIXME asked for, as USB can't wake
-us in time with the interrupts masked. On da8xx, which keeps the
-session over suspend, the gadget now disconnects too.
+These two patches enable RISC-V to retry bringing an AP
+online when the control CPU failed to complete the
+SYNC_STATE_ALIVE -> SYNC_STATE_SHOULD_ONLINE transition and
+the secondary CPU is stuck spinning in cpuhp_ap_sync_alive().
 
-Fixes: 6fc6f4b87cb3 ("usb: musb: Disable interrupts on suspend, enable them on resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
----
-I found this on a T113-S3 board (sunxi, s2idle, Intel xHCI host): ssh
-over the gadget never came back after a suspend. With the patch, all 30
-cycles I ran re-enumerated after resume.
+The need for this arose during debugging RISC-V SoC. Control CPU tried
+to wake up a halted CPU and sent an IPI via OpenSBI. The IPI was masked
+while the secondary CPU was in Debug Mode; when the CPU left Debug Mode
+it saw the pending IPI bit and started processing it. Meanwhile control
+CPU did not observe the ALIVE state within the timeout in
+cpuhp_bp_sync_alive() and aborted the bringup. The secondary CPU
+eventually entered Linux and got stuck spinning in cpuhp_ap_sync_alive().
 
-To check for regressions, I also tried a BeagleBone Black (AM335x,
-dsps glue, suspend to RAM). There the link came back after every
-resume (10 cycles without the patch, 30 with it), probably because
-am335x_phy_suspend() powers the PHY off. 
+A retry of the bringup fails due to both the current sync-state
+switching in kernel/cpu.c and the incomplete SBI error handling in
+arch/riscv/kernel/cpu_ops_sbi.c (see the patches for details). Both
+behaviors are addressed by this patchset.
 
- drivers/usb/musb/musb_core.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+Artemii Patov (2):
+  cpu/hotplug: Skip kick stage if the AP is stuck in SYNC_STATE_ALIVE
+  riscv: sbi: Accept SBI_ERR_ALREADY_AVAILABLE in sbi_hsm_hart_start
 
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f536..272683f14d 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2825,18 +2825,24 @@ static int musb_suspend(struct device *dev)
- 
- 	spin_lock_irqsave(&musb->lock, flags);
- 
-+	musb_save_context(musb);
-+
- 	if (is_peripheral_active(musb)) {
--		/* FIXME force disconnect unless we know USB will wake
--		 * the system up quickly enough to respond ...
-+		/*
-+		 * We can't answer a host with the interrupts off, so drop the
-+		 * D+ pullup. musb_restore_context() puts back the state saved
-+		 * above.
- 		 */
-+		u8 power = musb_readb(musb->mregs, MUSB_POWER);
-+
-+		musb_writeb(musb->mregs, MUSB_POWER,
-+			    power & ~MUSB_POWER_SOFTCONN);
- 	} else if (is_host_active(musb)) {
- 		/* we know all the children are suspended; sometimes
- 		 * they will even be wakeup-enabled.
- 		 */
- 	}
- 
--	musb_save_context(musb);
--
- 	spin_unlock_irqrestore(&musb->lock, flags);
- 	return 0;
- }
+ arch/riscv/include/asm/sbi.h    |  2 ++
+ arch/riscv/kernel/cpu_ops_sbi.c |  7 ++++++-
+ kernel/cpu.c                    | 17 +++++++++++++++--
+ 3 files changed, 23 insertions(+), 3 deletions(-)
 
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-2.34.1
+2.43.0
 
