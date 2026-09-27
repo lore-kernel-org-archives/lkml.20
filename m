@@ -1,84 +1,147 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409E33590AE;
-	Sun, 27 Sep 2026 18:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF4C37A836;
+	Sun, 27 Sep 2026 18:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790535006; cv=none; b=eSfJjtTIxGFnkjpBveejbwMVBe9k6kPznQ1X71NWZk99L8vdq54wtR1udh3uloGfYrsEvh5G+ZgkZt9F4ML9Z5CmXzTvMMzj7GbGJjkMleQxmxPzdierQPM2MxtoJKpCH1HqtDTmLlBSMRZx4ZlwMnc01sHv7bMZzeiNOgxdeKY=
+	t=1790535037; cv=none; b=msSIyjyny87IEAgaGmKGDd0Zcmo8oN5a531QmTwGyhUROFLBfwVfWTnEHNPfrnJADHUFKYex7pL48u+tQUD7ZttttUQ0vsV9wmzLgYbKPQiFsfUNaVXo5LgVTbMrKm1aprzxbSqjiZdd9UXvg0vZoZg6rqmaX6xymKANptAWHvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790535006; c=relaxed/simple;
-	bh=ZDe/vfYFr60ID6CUjRuDiDx+zIYLf7EWijGTxdOmaI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RvXO5VuXU6RFLK6vEKtLUsCWL3H6xugC/MUJvdnwonUtT5DzmuRXgN+ODamJNLCcv2AThFvVuVOhCyvs8LfU5bC8w7j51dT7r0ny1SmwE5cZQtiVvM+GplB/l1GRRJEPr2yzVd7/zziUaa4yWYQ5APeoJ+JKstM7VJzz2luolIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=h9OMYNe7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790535037; c=relaxed/simple;
+	bh=UKNYa9ZSG/OBNMys2hkF5ktchZLmYh2lrz5mGoiWWUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YyK6AkqldZLcDqfZaBvsr6bEkd4cePpuJeGwpEmD4ZAXifdA7whM7DItu/pUPKlMRmb4kBDpkqdYc+sRDDN9q5u9WjbD+Ekwx8Y2gfGvB9ZyLLJ2I9Sqh0XhcQdp87DgH9+p0w1xlY/S17S+vppSs00nMlQ1dStL85NT8rmkt64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YKtyLJVK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="h9OMYNe7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Xkk0G43Izi62IE63Oro94rMuWBFwgmiIIxcAiWI1GAs=; b=h9OMYNe7Ltfvsdqcsk/z4jwILI
-	7CCnze8Cq85kzyOo59dfzepQXnK6B8VKa9SuKf3NBWGQQth+0WXGcxVd8KzGqtDT7t+ro7lBD5oCy
-	WjJb3dKWnPPHmhJLuEcpZ0mRB6pRqJWyNsglgP6Gvr8GJVWY2ahIoOmuqziSj3T89cy0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAtwd-007YOY-TK; Sun, 27 Sep 2026 20:49:51 +0200
-Date: Sun, 27 Sep 2026 20:49:51 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Simon Horman <horms@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v23 6/9] net: dsa: tag_mtk: add Airoha variant
- usage of this TAG
-Message-ID: <0ab0b856-3397-4e59-9008-a3b4d8fb4d48@lunn.ch>
-References: <20260925182435.21207-1-ansuelsmth@gmail.com>
- <20260925182435.21207-7-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YKtyLJVK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A2B1F000FF;
+	Sun, 27 Sep 2026 18:50:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790535035;
+	bh=2g1rELljeb6OqpXn8NQ7+2fWd4KTyBy8V9aLvSvhl8I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YKtyLJVKctTbRrYtkvEbhMhGbIcQ/ofufv7FnWG1L53/DZC+WkPsfIoRPbdINNIua
+	 LJy3kUrLJXk737L4VYOP1Klb6j831rdV/W3jYDGVMg3pQDTJ1rYey+Cc7gBJXYPH02
+	 lh/pcUtDHxFoc9TYUABLFt+P7QPJNyiP19/BCO2dbEtVlA675+PLa5+hZUu6R+V/zE
+	 sZIWDyAoudAQhyE1aezoMhQOJE2vYbhsTlwg1gKYbWMEiNheWnpRT6PqFbXYWPjONh
+	 SERfy+JBkcgMd8UdOVKqGb4pCtkrsHD8m54a8nmxm4ofspaMfcmYE9HUyNYtJe6vui
+	 MBGLtVSli8jaw==
+Date: Sun, 27 Sep 2026 19:50:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20260927195030.6c210d90@jic23-hlaptop>
+In-Reply-To: <9be6cfd1-5cb6-4437-b253-1590292b8cbf@linaro.org>
+References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
+	<20260925041325.0efac345@jic23-hlaptop>
+	<9be6cfd1-5cb6-4437-b253-1590292b8cbf@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925182435.21207-7-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 08:24:28PM +0200, Christian Marangi wrote:
-> Add variant of the MTK TAG for Airoha Switch and comments about difference
-> between Airoha AN8855 and Mediatek tag bitmap.
-> 
-> Airoha AN8855 doesn't support controlling SA learning and Leaky VLAN
-> from tag. Although these bits are not used (and even not defined for
-> Leaky VLAN), it's worth to add comments for these difference to prevent
-> any kind of regression in the future if ever these bits will be used.
-> 
-> Rework the makefile, config and tag driver to better report to
-> external tool (like libpcap) the usage of this variant with a dedicated
-> "Airoha" name.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+On Fri, 25 Sep 2026 10:12:32 +0200
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> Hi Jonathan,
+> 
+> On 9/25/26 05:13, Jonathan Cameron wrote:
+> > On Thu, 24 Sep 2026 15:14:14 +0200
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> >   
+> >> The MAX34417 is a specialized current and voltage monitor used to determine
+> >> power consumption of portable systems. The driver support getting the channel
+> >> voltage and accumulated average power over an I2C/SMBUS serial interface.
+> >>
+> >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>  
+> > 
+> > Hi Neil,
+> > 
+> > As pointed out too fast for a v2.  You aren't new upstream so
+> > that shouldn't come as a surprise!  
+> 
+> Yeah sorry, but with the initial feedback v1 was far form beeing
+> acceptable, will adjust timings for next versions.
+> 
+> > 
+> > Secondly for devices that are all about monitoring power supplies
+> > etc we always ask for a clear statement of why IIO rather than
+> > hwmon + to CC at least the maintainer and often the hwmon list.  
+> 
+> Sure, thanks for the suggestion.
+> 
+> > 
+> > There are various valid reasons for that choice, but it is good
+> > if they are clearly stated for discussion.  
+> 
+> I don't honestly have an strong opinion on that, for me IIO offers
+> much more options to retrieve data from the sensor and adding the
+> complex feature offered. The IIO triggers for example would
+> perfectly match with the bulk readout we coulnd't implement with
+> the hwmon API.
 
-    Andrew
+Ok. Just lay some of that reasoning out in v3 and include HWMON folk
+and see what they think.
+
+Jonathan
+
+> 
+> Thanks,
+> Neil
+> 
+> > 
+> > Thanks,
+> > 
+> > Jonathan
+> >   
+> >> ---
+> >> Changes in v2:
+> >> - switch to shunt-resistor-micro-ohms no more required
+> >> - removed gpio.h from example
+> >> - Fixed max34417->MAX34417 in Kconfig and comments
+> >> - Added missing includes and remove unneeded
+> >> - Fixed typos in comments
+> >> - Switched to fsleep()
+> >> - Better aligned max34417_read_power declararation
+> >> - Handled 0 acc_count
+> >> - Switched to GENMASK_ULL() for 32bits systems
+> >> - Added missing empty lines
+> >> - Moved the input correction into a helper
+> >> - Set default input correction for all channels
+> >> - Switched to dev_err_probe() to return from probe
+> >> - Switched to device_for_each_child_node_scoped()
+> >> - Handled invalid shunt-resistor-micro-ohms value
+> >> - Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
+> >>
+> >> ---
+> >> Neil Armstrong (2):
+> >>        dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+> >>        iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+> >>
+> >>   .../bindings/iio/adc/maxim,max34417.yaml           | 100 ++++++
+> >>   drivers/iio/adc/Kconfig                            |  11 +
+> >>   drivers/iio/adc/Makefile                           |   1 +
+> >>   drivers/iio/adc/max34417.c                         | 374 +++++++++++++++++++++
+> >>   4 files changed, 486 insertions(+)
+> >> ---
+> >> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+> >> change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+> >>
+> >> Best regards,
+> >> --
+> >> Neil Armstrong <neil.armstrong@linaro.org>
+> >>  
+> >   
+> 
+
