@@ -1,102 +1,160 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70983E0C57;
-	Sun, 27 Sep 2026 19:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9838A3290B7
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790537462; cv=none; b=bF2wjwMORgr23128RvZcaGRm0xT45z90zH3lBQUU/NQafgtwt5K6RhutgrD5ufMuhz0ljgz0gK7t+BZO8xrEft2u/qonbz2WW3MjmM+MjOFakSl5197gH15+e6rUaq9gzCkew8Na4TgwlHrMHosQc6X/qcDbG9ojr9YXaL0IgQM=
+	t=1790537656; cv=none; b=amhlt0UKVGvuBX6buCL/I0f4+mWmyUcAzV39PAlTojXIJa81Bo1FB8CIxl59fUKNtGWFz7KbtYkqRvwWdqE1lU4p2SdNUX6bd9ugpXf2FAGjtVdoo28KWQDJ+4CUXAM41GJppWG4cP406cbWbh6PYAw8VOawVu8Crhmvg/Qfwyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790537462; c=relaxed/simple;
-	bh=s5CklLZrT+S7vZWUtUja5Hz0PUvpWoEMCtZIBQJqi1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nV969u/txf/YURSwUzOCamAVL3C4X9KtgCzRGBIQB9OaBfYGpyobtEapa7J+pviEJWcY+ke8QnzgaMkE069HYczaQCHL41qq6oUdPMYEa+hi1V0ZNSjiokGI+A3WdJULXZSN11fl+GSm8605j6aSwZA+Z2AEsH6OZSboyFGFz8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rTnmOxbY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790537656; c=relaxed/simple;
+	bh=r8+tpB7P3+xQBDpzBUp59qkJAHV4DvnRMOMreO4ocfs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sCntQVXp+H6nm/1lb1A9ww2AuW1Uj+WleZa1U2swLfj5BLNMykD+m6k3bRRNNEQK7Y+cNncozfiNCBLCEsU4eOLOjZryLnXzDBELB+kQwTmeuoISJkQD1fP9ujftvYDaz3hjDvijYyVP2DWoMd4vkVHW0zbanSuYDP28Q33yQVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=s/GDD/Qk; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rTnmOxbY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=dUmekkaLB7pJaNtNJP1pyWK+1wzVpak1sZK828FP73c=; b=rT
-	nmOxbY0BMzVeWBuohg3lcYp97UC/9bz9gEbPdlOgaw2BFYXxII9TidLK5+jeyF7hwe5rtIVUPGrZm
-	LqOg8R9FnPdlOr3JAxJao5koYnO59ZVqXAPZvZyGh1UFjIIW0atknS1LmzO8840jrtUv89zCzzC9T
-	5zYmg3Fck89Pf5E=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAuaB-007Ydo-IB; Sun, 27 Sep 2026 21:30:43 +0200
-Date: Sun, 27 Sep 2026 21:30:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5YiYIOaYjOadsA==?= <liucj1228@outlook.com>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
-Message-ID: <ca958017-7a32-4a39-bf88-5a82c0869d58@lunn.ch>
-References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
- <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
- <2ecfaee1-921b-4d2a-bac3-ce2467b24ea7@lunn.ch>
- <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="s/GDD/Qk"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 332B3D07D4;
+	Sun, 27 Sep 2026 22:27:53 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 332B3D07D4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1790537274;
+	bh=QtfTve+l0Bn1liFHczvM4NssYuY0+18nCKACP2I4taQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=s/GDD/QkK3EHLSnNLOmLc3cfl3aeIvD9lajBxn41xHrO5KCIi0YTFDjkpKzlBHHJG
+	 PjdZqGkoSOtIiZgRo+hxWxy5GtNhd7UEq7/KL9TJJkUjAAADmUZBaVocQr3PQcp7rC
+	 ICAPX2Kdb/q0oWNmur7kM+iYhe+W26u39mQ3+FQnD5Vw69KmyNR5ju8dbg/CFjqxTo
+	 SpIWweU8j2ccWCmDUXhdWwghP3C+22xl4qAQv0jirCDRbu4fFNfqf7ZWmt7lVmFcT+
+	 dC52hz+ryf1SSXLGe9QyuUYgonHi7LQp4LeHaD3LK9DyG5EvmQ7OzIfApZ9o4fKyik
+	 +Xb4XoPvZ3xng==
+Message-ID: <4c7d561c341018d9cbcfd95707bff718d0a840bf.camel@rendec.net>
+Subject: Re: [PATCH v3] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC
+ helpers
+From: Radu Rendec <radu@rendec.net>
+To: Zhu Ling <zhuling2709@phytium.com.cn>, maz@kernel.org, tglx@kernel.org
+Cc: zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Sun, 27 Sep 2026 15:27:51 -0400
+In-Reply-To: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
+References: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
+	 <20260923082804.13197-1-zhuling2709@phytium.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
 
-On Sun, Sep 27, 2026 at 04:21:50PM +0000, 刘 昌杰 wrote:
-> Hi Andrew,
-> 
-> I checked the schematics and tested the broadcast control on an LCKFB Taishan Pi 3M (which has an MAE0621A-Q3C at PHY address 1, ID 0x7b744412).
+On Wed, 2026-09-23 at 16:28 +0800, Zhu Ling wrote:
+> When running with UBSAN enabled, enabling a GPIO controller that uses a
+> GIC interrupt as its parent triggers several shift-out-of-bounds warnings=
+:
+>=20
+> =C2=A0 shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
+> =C2=A0 left shift of 2 by 30 places cannot be represented in type 'int'
+>=20
+> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
+> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
+> same signed-shift pattern. These masks are generated by shifting signed
+> integer constants, which invokes undefined behavior when bit 31 is
+> selected.
+>=20
+> Use BIT() to generate the masks with an unsigned type and make their
+> intent explicit.
+>=20
+> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
 
-Thanks for this testing.
+The patch itself looks good to me, but I believe it deserves some Fixes
+tags. It's not explicitly mentioned in the documentation, so I spent a
+bit of time trying to understand if fixing a UBSAN warning is considered
+a bug fix. The answer seems to be yes.
 
-> For the RGMII delays, pin 24 (RXD1/TXDLY) is pulled down (4.7k) and
-> pin 25 (RXD0/RXDLY) is pulled up (4.7k). So the hardware straps are
-> TXDLY=0 and RXDLY=1. Per Table 7-3 in the datasheet, this disables
-> the TX delay and enables a 2ns RX delay. This matches the DT using
-> `phy-mode="rgmii-rxid"` and the RK3576 GMAC `tx_delay=<0x24>`.
-
-Unfortunately, this works, but is wrong.
-
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
-
-phy-mode="rgmii-rxid" means the PCB is adding the delay, which is not
-true. The PHY is. What would normally happen is that the DT would
-contain rgmii-id, indicating the PCB has no delays.
-PHY_INTERFACE_MODE_RGMII_ID would be passed to the PHY driver, and it
-would then reconfigure the PHY to insert both RX and TX delays. The
-strapping is ignored.
-
-At the moment, we don't have the ability to override the strapping. We
-also cannot verify what the PHY is actually doing against what the MAC
-would like it to do. So we can get into situations where it is wrong.
-
-> For the broadcast test: initially, PHYCR1 (page 0xa43, reg 0x18) was
-> 0x2118 (bit 13 set). Reading the PHY ID from both addr 0 and 1
-> returned 0x7b744412. After clearing bit 13 on addr 1, addr 0 stopped
-> responding (returned 0xffff), while addr 1 kept working. I didn't
-> send any writes to addr 0.
-
-Cool. Having the PHY respond on two addresses is bad. Linux can think
-there are two PHYs. It can suspend and resume it twice etc. 
-
-	Andrew
+> ---
+> Changes in v3:
+> - Fix the same issue in the GICv2 gic_poke_irq() and gic_peek_irq()
+> =C2=A0 helpers, as pointed out by Zenghui.
+>=20
+> Changes in v2:
+> - Use BIT() instead of explicit unsigned shifts, as suggested by Marc.
+> - Drop the redundant introductory text from the email.
+> - Update the author email address.
+>=20
+> Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMb=
+bPhUatLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=3D@proto=
+n.me
+> ---
+> =C2=A0drivers/irqchip/irq-gic-common.c | 2 +-
+> =C2=A0drivers/irqchip/irq-gic-v3.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
+> =C2=A0drivers/irqchip/irq-gic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 4 ++--
+> =C2=A03 files changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-c=
+ommon.c
+> index c776f9142610..8bd1eaa54295 100644
+> --- a/drivers/irqchip/irq-gic-common.c
+> +++ b/drivers/irqchip/irq-gic-common.c
+> @@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk=
+ *quirks,
+> =C2=A0int gic_configure_irq(unsigned int irq, unsigned int type,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base)
+> =C2=A0{
+> -	u32 confmask =3D 0x2 << ((irq % 16) * 2);
+> +	u32 confmask =3D BIT(((irq % 16) * 2) + 1);
+> =C2=A0	u32 confoff =3D (irq / 16) * 4;
+> =C2=A0	u32 val, oldval;
+> =C2=A0	int ret =3D 0;
+> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+> index 6e1fa5b247fc..15110d47ddb0 100644
+> --- a/drivers/irqchip/irq-gic-v3.c
+> +++ b/drivers/irqchip/irq-gic-v3.c
+> @@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offse=
+t)
+> =C2=A0	u32 index, mask;
+> =C2=A0
+> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
+> -	mask =3D 1 << (index % 32);
+> +	mask =3D BIT(index % 32);
+> =C2=A0
+> =C2=A0	if (gic_irq_in_rdist(d))
+> =C2=A0		base =3D gic_data_rdist_sgi_base();
+> @@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offs=
+et)
+> =C2=A0	u32 index, mask;
+> =C2=A0
+> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
+> -	mask =3D 1 << (index % 32);
+> +	mask =3D BIT(index % 32);
+> =C2=A0
+> =C2=A0	if (gic_irq_in_rdist(d))
+> =C2=A0		base =3D gic_data_rdist_sgi_base();
+> diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+> index f6bc29f515fb..fb7a55f5b394 100644
+> --- a/drivers/irqchip/irq-gic.c
+> +++ b/drivers/irqchip/irq-gic.c
+> @@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_dat=
+a *d)
+> =C2=A0 */
+> =C2=A0static void gic_poke_irq(struct irq_data *d, u32 offset)
+> =C2=A0{
+> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
+> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+> =C2=A0
+> =C2=A0	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d)=
+ / 32) * 4);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int gic_peek_irq(struct irq_data *d, u32 offset)
+> =C2=A0{
+> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
+> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+> =C2=A0
+> =C2=A0	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq=
+(d) / 32) * 4) & mask);
+> =C2=A0}
