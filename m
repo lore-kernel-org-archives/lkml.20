@@ -1,291 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ED520D4FC;
-	Sun, 27 Sep 2026 21:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA76120D4FC
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:43:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790545388; cv=none; b=qDgT0fGgijxOgWbTXiyoOClX93Vpo0z4l5cDey2LyApXt/XMBQ9L2pI1bjf7aXMUC4jwzyT3TQJD9NMSI2t7gwD8wnF8qxQFSE6viNIK17bBLVTR/ZvUlDEuyNljhVCV9BU0yyz+HMMH99WYrGCiLzGl5LMqteu4LD+U14mHpk4=
+	t=1790545427; cv=none; b=SAHvgox4zvDlaPkdVplCpU94x7TzhHDrzBpje3JGDqmdmsLF5Iqq/YcDInrAJFcXGWOtM4LXdYMuTRV/lkBC34CwYijCmt1jFHF8r0I6Huh248v6m8kCME8TFobvbxSgqjnKrydU3/eVmMrM1pFURXB2a0pBYqe3WEsAt67Z2bE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790545388; c=relaxed/simple;
-	bh=n4DDGAK/8u1AuRg6WBpYGIC5R/YZsN31zuN1oi/vDD8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=KkjobsF6G2sJ21IPLDuaPVMT+Fq4Yt7EShOvP6GgwZuHg5rzrsLJgnbd1DzUQJTcpNNta4lUy3ktAsvW7RCSHqfP79Zp8Vohnd6BYQXSC9GK1FBoUgfEFDkIRJwQ3A/TZbRk9mU84R20dgwc8dxtKHfHBjvMneEtEkyMICo3GxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zz0V6oF+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790545427; c=relaxed/simple;
+	bh=L01dxEkesUBA3VBO8737+O0T4hT4GIFzjrZLjQXI62s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bmkr+yfgxPNudopKuXnvL5vV6J1/PHwJWThKkaYq4MbgwBqEbRVgEYGwW/sKu1ANZh88n6aOVivEEI46FoGEtW81PpNen1cQ64lxbRHFf9XKam0x7vsiH/HQAV6S9hxkRKnlB0N/OMdFikGTM1H5CQHluC8xHRqcjInJLeRfjVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f83Hp21Q; arc=none smtp.client-ip=74.125.228.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zz0V6oF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFAB91F000FF;
-	Sun, 27 Sep 2026 21:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790545386;
-	bh=BVuWMZa259dxnjcZi7fHN6YYW1e8KlsPsvD+/UH+8Z0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Zz0V6oF+13UMKXCKD2VQoDSn+jsKcMncv5yM40z7aN0c0hlM9Oshflrs1D87phTIv
-	 Vzb0HlMdmMGZl0Oi0hOvHwOsXJj+SIAJ/nNBT9hgOxZr1c9n3jgtOrDXinCh6Mu7do
-	 bAhIBjYSdxz4IVSvlkzT7NuRJ1W7aWTaUZmiowcucuk2bk5+otQJrZpR1Urd6+a5Ex
-	 YDLb/a5zRkMQZo4KsUk7fQtjj06SOIYZKSoEc2CK3bx4PF1Oh2Yfm8bB2gQCRn684k
-	 4dvET8UdWqe09IseB36SdS8wJ2qAiGDFeUkuNOWpCxXQOROGpxGHFTziqtfBuwW3EL
-	 HyB2DV9aolmBQ==
-Content-Type: multipart/mixed; boundary="===============7163960345673193045=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f83Hp21Q"
+Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so286444166b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:43:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790545424; x=1791150224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YmHZZ2mWny07hG6UzfEwL1BdtLA8PVUAlm+jdgUs4YI=;
+        b=f83Hp21Qt21KyLDykyMppfPdAOIc6/Ax7YRJG7N2udJ6zu7vgW2f+69A2/Mb4OeCdi
+         WN2RDdroBwIDF7w1G7Jt38+xzTTVIYuSnLw2JIGqo6tG/XWBwUoZb1vEi8Oso5+zs8XL
+         pumrZ6MGSlOL0XqyM7A8gzhPu2CYPWalwK3xi035hd3sceH0o7Q30sD6Sii9qYCuyuyx
+         QaJy/PEkJMZbn8gFnAwdMjJMH9xZ3atDdjAdrB/IRwCUdcHWiaMdiSyacI4EtGY5yf0d
+         3cgnD4cHnCgSKjXXY0N+dWSFsyqryPIC8w1E0Krh1XNYdft9RzoBj1pFBIaDof+mVi0Z
+         7zdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790545424; x=1791150224;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YmHZZ2mWny07hG6UzfEwL1BdtLA8PVUAlm+jdgUs4YI=;
+        b=FbcnH196xdXwpNJsOxnMMwaBrIQ/IHQ7ZUYNU0FL0ZGXf/bEhMI1ci01ircKkahFlY
+         E0kQkAqEprIYbgfevtJgXrUv7PBJZXIKMx+TH3dgJJ2moCTolcxens5danwyQZF+Urb5
+         LbxCDZTLVrujTcc73UnVUvmlDIMUKn9Afc/wniCFSrWQ0pPk/Rm4SEKdh1kJgVvxnuFJ
+         ZOlKzRec0ByQiSTFz96nxBWdYfvVumnfXdTNEFjbm4H/U3Are9GRMJt2Fr2/u86bl/R8
+         yh5pH9oyi5cxTSRY1/oENNu77LAZeoAK0vEIZVxuD5pJwNtRo5/NnGlWDqMwgb7P4A03
+         nmiw==
+X-Forwarded-Encrypted: i=1; AKwUvBzuyI3AtT76ZrMs5x3rlEqdq3Lyjb7SnWOZDem8s8J1NgQ8HWdGHhe8hzQF7zokHKJFLSBg8KmX77cu9nE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmh3BhrqXeFiQQlInxY8c/9yl3pvHS33swfwOcMonc8KoyxlIn
+	gvm01bwzcN1N10gLxBQiM9XxboA4Kz8WheaBKKPWiuOrqVrHwbfYpBGV
+X-Gm-Gg: AYBFou25I9G25rkuB58lYF/jF+ug34PUmvFoz1D1gsdtqD+kFasMQFTfcz4NaFj/P1J
+	vdqTkfi8h2Ue/F1hp/Tb2PSW70Dp87NaJBBqht+Yz8VZgR7wW/0MV7rbtiyRa0/nTfNVJr3KbZG
+	ashVQd/AeWJsW3GScMFknG10Phk0EuuL5GXn5XVr0lMN2yFQB1LwsOcI857Y05t3j6f+X/Bi7Yz
+	iR8VOzKB8nJIydKOBSjrOMpW1up8l2MiveUz9rEw3/0k/2IKaNCm6UtznA/uP/4VpzC3NJjZ3U5
+	8QteZqF/onlIF1LEeTTRdDluVaWyyUD5F+kMi+fJpekcZvrULZLZpHrfDmgHDo34MZlIkwHTpcG
+	U9tnXX98R041GdDCm6X2IZKMB+4mLeVTFjBEqPt/bWISEPqVlwLg7bLZCPLJ6HSsO97hmW+qDZI
+	pJiXMaYSfWIB7iAscHMQAIbHv+q0R6YUo8AKh2eH0lHM1m6qqcOPhIgnSpkdKlWdW5lQB7WOjB+
+	10EBflXatzZCG1QcqVO0UDDYydTbLl4S0H++eWR
+X-Received: by 2002:a17:907:97cd:b0:c29:f5d5:5a97 with SMTP id a640c23a62f3a-c2ac241b098mr961595666b.33.1790545423787;
+        Sun, 27 Sep 2026 14:43:43 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm376091866b.33.2026.09.27.14.43.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 14:43:43 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: sam@ravnborg.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linmag7@gmail.com
+Subject: [PATCH v4 0/6] sparc32: replace sp_banks with memblock
+Date: Sun, 27 Sep 2026 23:43:11 +0200
+Message-ID: <20260927214334.886582-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <3e07af39920f472e97ee3cf73eddc49a72a11dffb2e11e9b7c5b7cc1d80affef@mail.kernel.org>
-In-Reply-To: <20260927205501.672807-1-visitorckw@gmail.com>
-References: <20260927205501.672807-1-visitorckw@gmail.com>
-Subject: Re: [PATCH v6] m68k, bpf: Add initial BPF JIT compiler support
-From: bot+bpf-ci@kernel.org
-To: visitorckw@gmail.com,corbet@lwn.net,skhan@linuxfoundation.org,geert@linux-m68k.org,ast@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,memxor@gmail.com,andrii@kernel.org,gerg@linux-m68k.org
-Cc: rdunlap@infradead.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-m68k@lists.linux-m68k.org,bpf@vger.kernel.org,jserv@ccns.ncku.edu.tw,marscheng@google.com,eleanor15x@gmail.com,visitorckw@gmail.com,daniel@thingy.jp,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sun, 27 Sep 2026 21:43:04 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============7163960345673193045==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Replace the sparc32-private sp_banks memory description with memblock.
 
-> diff --git a/arch/m68k/net/bpf_jit_comp.c b/arch/m68k/net/bpf_jit_comp.c
-> new file mode 100644
-> index 000000000000..a04ce91eb8e8
-> --- /dev/null
-> +++ b/arch/m68k/net/bpf_jit_comp.c
+The first two patches convert the SRMMU consumers that already run after
+bootmem_init() has populated memblock. The third patch moves memblock
+population to prom_meminit() and applies the mem= limit there. Patch 4
+removes an unused address bitmap before patch 5 moves the early memory
+setup into setup_32.c. Patch 6 removes the now-unused sp_banks array.
 
-[ ... ]
+This work is based on an earlier eight-patch series by Sam Ravnborg.
+Patch 2 directly carries over Sam's memblock sizing conversion. The series
+has otherwise been substantially reorganized and reworked for the current
+kernel. It retains the sparc32 mem= command-line option by using
+memblock_enforce_memory_limit() and uses memblock's exclusive range-end
+semantics throughout.
 
-> +static int jit_atomic32(u32 *ptr, u32 val, int op, u32 cmp)
-> +{
-> +	unsigned long flags;
-> +	u32 old;
-> +
-> +	local_irq_save(flags);
-> +	old = *ptr;
-> +	switch (op) {
-> +	case BPF_ADD:
-> +		*ptr = old + val;
-> +		break;
-> +	case BPF_AND:
-> +		*ptr = old & val;
-> +		break;
-> +	case BPF_OR:
-> +		*ptr = old | val;
-> +		break;
-> +	case BPF_XOR:
-> +		*ptr = old ^ val;
-> +		break;
-> +	case BPF_XCHG:
-> +		*ptr = val;
-> +		break;
-> +	case BPF_CMPXCHG:
-> +		if (old == cmp)
-> +			*ptr = val;
-> +		break;
-> +	}
-> +	local_irq_restore(flags);
-> +
-> +	return old;
-> +}
+The series applies on top of the sparc32 phys_base and Viking fixes,
+rebased onto Linux 7.3-rc1. The prerequisite tip is recorded below as the
+base commit. setup_memory() preserves relocated-kernel handling by
+removing RAM below the physical address to which PAGE_OFFSET maps.
 
-[ ... ]
+Link: https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.com/T/#t
 
-> +static void emit_atomic(const struct bpf_insn *insn, struct jit_ctx *ctx)
-> +{
-> +	const s8 *src = bpf_get_reg64_ref(insn->src_reg, tmp2, ctx);
-> +	const s8 *dst = bpf_get_reg64_ref(insn->dst_reg, tmp1, ctx);
-> +
-> +	if (BPF_SIZE(insn->code) == BPF_W) {
-> +		s8 s_lo = bpf_get_reg32(src[1], tmp2[1], ctx);
-> +
-> +		if (insn->imm != BPF_CMPXCHG) {
-> +			if (is_stacked(dst[1])) {
-> +				emit_16(ctx, 0x206e);		/* movea.l d16(%fp), %a0 */
-> +				emit_16(ctx, (u16)STACK_OFFSET(dst[1]));
-> +			} else {
-> +				emit_16(ctx, 0x2040 | dst[1]);	/* movea.l dst, %a0 */
-> +			}
-> +
-> +			emit_16(ctx, 0xd1fc);			/* adda.l #imm, %a0 */
-> +			emit_16(ctx, (u16)((s16)insn->off >> 16));
-> +			emit_16(ctx, (u16)insn->off);
-> +
-> +			if (BPF_OP(insn->code) == BPF_XCHG) {
-> +				emit_16(ctx, 0x4eb9);
-> +				emit_32(ctx, (u32)jit_atomic32);
-> +			} else {
-> +				emit_16(ctx, 0x2f00 | s_lo);
-> +				emit_16(ctx, 0x2f3c);
-> +				emit_32(ctx, insn->imm);
-> +				emit_16(ctx, 0x2f08);
-> +				emit_16(ctx, 0x4eb9);
-> +				emit_32(ctx, (u32)jit_atomic32);
-> +				emit_16(ctx, 0x4fef);
-> +				emit_16(ctx, 12);
-> +			}
+The v1 series was boot tested on a Sun SPARCstation 20 with dual
+SuperSPARC-II CPUs (SM71).
+The v2 series was boot tested on a Sun SPARCstation 20 with dual
+ROSS HyperSPARC (RT626) CPUs.
+The v3 series was cross-compiled with the SPARCstation 20 and LEON
+configurations as well as boot tested on a Sun SPARCstation 20
+with dual ROSS HyperSPARC (RT626) CPUs.
 
-[ ... ]
+The v4 series was cross-compiled with the SPARCstation 20 SMP configuration
+and a sparc32_defconfig-derived LEON configuration, both with HIGHMEM
+enabled. Boot tested on a SPARCstation 20 SMP (ROSS)
 
-> +	case BPF_STX | BPF_ATOMIC | BPF_W:
-> +	case BPF_STX | BPF_ATOMIC | BPF_DW:
-> +		emit_atomic(insn, ctx);
-> +		break;
+Changes in v4:
+- Use max_pfn in LEON's _pfn_valid() check, preserving the bounds of
+  last_valid_pfn instead of restricting the check to lowmem, as requested
+  by Andreas Larsson.
+- Correct the description: LEON systems can use highmem.
+- Carry Sam's Reviewed-by tag on patch 5; all six patches now retain his
+  review tags.
+- Rebase onto Linux 7.3-rc1 plus the three prerequisite patches; adjust
+  patch 6's context without changing its code changes.
 
-Can this code handle 32-bit BPF_LOAD_ACQ and BPF_STORE_REL atomics?
+Changes in v3:
+- Add Sam's Reviewed-by tag to patch 4.
+- Initialize max_pfn in patch 5 and use it as the highmem zone limit.
+- Use PHYS_PFN() instead of open-coded PAGE_SHIFT conversions in patch 5.
+- Remove the obsolete highstart_pfn and highend_pfn declarations.
+- Use the generic PFN limit declarations from linux/memblock.h.
+- Document removal of the duplicate private HIGHMEM summary.
 
-Looking at build_insn(), every BPF_STX | BPF_ATOMIC | BPF_W instruction is
-sent to emit_atomic() without checking insn->imm.
+Changes in v2:
+- Add Sam's Reviewed-by tags to patches 1-3 and 6. Patch 6 is the
+  unchanged source change from patch 5 in v1, renumbered by the new patch.
+- Drop the unused sparc_valid_addr_bitmap in a preparation patch.
+- Use for_each_mem_pfn_range() and the standard max_low_pfn variable in
+  the early memory setup. The change to LEON's PFN check made in v2 is
+  corrected in v4 to preserve its original bounds.
 
-On 32-bit arches, the verifier accepts BPF_W-sized BPF_LOAD_ACQ (0x100)
-and BPF_STORE_REL (0x110). In check_atomic() from kernel/bpf/verifier.c,
-these operations are only rejected when BPF_SIZE is BPF_DW and
-BITS_PER_LONG != 64:
+Suggested-by: Sam Ravnborg <sam@ravnborg.org>
+Link: https://lore.kernel.org/r/20260817153237.GA702187@ravnborg.org
+Link: https://lore.kernel.org/r/20260901214611.60560-1-linmag7@gmail.com
 
-    case BPF_LOAD_ACQ:
-        if (BPF_SIZE(insn->code) == BPF_DW && BITS_PER_LONG != 64) {
-            ...
-            return -EOPNOTSUPP;
-        }
-        return check_atomic_load(env, insn);
+Magnus Lindholm (6):
+  sparc32: use memblock when mapping the kernel
+  sparc32: use memblock to find available system memory
+  sparc32: populate memblock from the PROM memory map
+  sparc32: drop unused valid address bitmap
+  sparc32: move early memory setup to setup_arch
+  sparc32: drop sp_banks
 
-For BPF_LOAD_ACQ, emit_atomic() loads %a0 from dst_reg + off and calls
-jit_atomic32(ptr = dst_reg + off, val = src, op = 0x100, cmp). The switch
-in jit_atomic32() has no case for 0x100, so it only runs `old = *ptr;` on
-dst_reg + off.
-
-But dst_reg is the destination register for a load. check_load_mem() in
-the verifier only checks dst_reg with DST_OP_NO_MARK, so it can hold any
-scalar or be uninitialized. The resulting dereference of dst_reg + off
-(instead of src_reg + off) can read from an arbitrary address with no
-exception-table entry.
-
-Also, is_fetch is false (0x100 & BPF_FETCH == 0), so dst_reg is never
-written back. The verifier tracks dst_reg as holding the loaded value, but
-at runtime it keeps its old value.
-
-For BPF_STORE_REL, jit_atomic32() is called with op = 0x110. No case
-matches, so the store is silently dropped.
-
-Other 32-bit JITs (mips32, x86_32, riscv32, parisc32) reject unsupported
-atomic imm values. Could emit_atomic() or build_insn() accept only the
-imm values that jit_atomic32/jit_atomic64 implement and return -EOPNOTSUPP
-for the rest?
-
-[ ... ]
-
-> +static void build_prologue(struct jit_ctx *ctx)
-> +{
-> +	int bpf_stack = MAX_BPF_STACK;
-> +	int total_stack = SCRATCH_SIZE + bpf_stack;
-
-Can this stack reservation overflow the kernel stack?
-
-Every function reserves SCRATCH_SIZE + MAX_BPF_STACK = 96 + 512 = 608
-bytes, plus 16 bytes for d2-d5, 8 bytes for the return address and saved
-%fp, and emit_call() pushes 40 bytes of arguments for each bpf-to-bpf
-call.
-
-That's 632 bytes for the main frame and 672 bytes for each nested subprog
-frame, independent of prog->aux->stack_depth.
-
-The verifier allows MAX_CALL_FRAMES (16) nested frames. For CAP_BPF
-programs, it rounds each frame's stack_depth up to 16, so subprogs with no
-stack use cost nothing against the 512-byte combined limit.
-
-A program with a chain of 16 small static subprogs is therefore accepted
-and uses 632 + 15 * 672 = 10712 bytes of kernel stack on top of the
-caller's stack.
-
-On m68k, THREAD_SIZE is 8KB for every configuration where this JIT is
-enabled, thread_info sits at the base of the stack, and there is no guard
-page. Even 12 levels (632 + 11 * 672 = 8024 bytes) overflow by themselves.
-
-Shallower nesting can overflow when a program runs in softirq on top of an
-already deep stack. Callbacks invoked from helpers such as bpf_loop add a
-C frame plus another full JIT frame per level.
-
-The main entry needs MAX_BPF_STACK because a tail-call target reuses its
-frame. Subprogs can never be tail-call targets, and they cannot issue tail
-calls here because bpf_jit_supports_subprog_tailcalls() is the weak false
-default.
-
-Could subprog frames be sized from the actual stack_depth instead of always
-reserving MAX_BPF_STACK?
-
-[ ... ]
-
-> +	case BPF_JMP | BPF_CALL:
-> +		return emit_call(insn, ctx);
-
-Does this code copy back the callee's R2 for aggregate returns?
-
-For a subprog whose BTF return type is 9-16 bytes,
-bpf_compute_subprog_ret_regs() in kernel/bpf/verifier.c sets
-subprog_info->ret_reg_pair and prog->jit_required.
-
-On exit, prepare_func_exit() copies the callee's R2 state into the caller,
-including pointer types for static subprogs.
-
-In this JIT, BPF R2 is not a machine register. It is a slot at
-STACK_OFFSET() from %fp, so each frame has its own copy.
-
-The callee writes R2 into its own frame, BPF_EXIT runs build_epilogue(),
-and unlk discards that frame. emit_call() only fixes up d0/d1 for R0 and
-never copies R2 back.
-
-The caller's R2 slot keeps its old value (for example the argument it
-passed in).
-
-This creates a verifier/runtime mismatch. For example, after
-'r2 = 0xdeadbeef; call sub' where sub returns {r0, r2 = map_value_ptr},
-the verifier thinks r2 is a PTR_TO_MAP_VALUE in '*(u64 *)(r2 + 0) = x',
-but at run time the store goes to 0xdeadbeef.
-
-Because jit_required is set, there is no interpreter fallback.
-
-Every other JIT that supports BPF_PSEUDO_CALL keeps R2 in a hardware
-register, and arm32/x86_32 reject subprog calls.
-
-Could the callee's R2 be copied into the caller's R2 slot after a
-BPF_PSEUDO_CALL, for example by returning it in d2/d3 or through a scratch
-location?
-
-[ ... ]
-
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-
-Does this code handle the BPF_ST | BPF_NOSPEC instruction?
-
-build_insn() has no 'case BPF_ST | BPF_NOSPEC:', so the speculation
-barrier the verifier inserts falls to the default and returns -EOPNOTSUPP.
-
-m68k does not override bpf_jit_bypass_spec_v1() or v4(), which default to
-false.
-
-For any program loaded without CAP_PERFMON while mitigations are on
-(unprivileged, CAP_BPF-only, or through a BPF token), the verifier emits
-BPF_ST_NOSPEC() for speculative-path sanitation and after stack spills, in
-kernel/bpf/fixups.c:958-962 and 1035-1042.
-
-build_body() then fails and the whole program is not JITed. With
-CONFIG_BPF_JIT_ALWAYS_ON, which this patch makes selectable by adding
-HAVE_EBPF_JIT, and whenever prog->jit_required is set, the load fails with
--ENOTSUPP instead of falling back to the interpreter.
-
-test_bpf.ko runs as root and so never hits this.
-
-Every other eBPF JIT, including arm32, mips32 and x86_32, handles
-BPF_ST | BPF_NOSPEC as a no-op or a barrier.
-
-Could this case be added, or should bpf_jit_bypass_spec_v1/v4() be
-overridden if m68k does not speculate?
+ arch/sparc/include/asm/highmem.h    |   3 -
+ arch/sparc/include/asm/leon.h       |   2 +-
+ arch/sparc/include/asm/page_32.h    |  16 ---
+ arch/sparc/include/asm/pgtable_32.h |   3 +-
+ arch/sparc/include/asm/pgtsrmmu.h   |   1 -
+ arch/sparc/kernel/setup_32.c        | 112 ++++++++++---------
+ arch/sparc/mm/init_32.c             | 167 +---------------------------
+ arch/sparc/mm/leon_mm.c             |   1 +
+ arch/sparc/mm/srmmu.c               |  69 ++++--------
+ arch/sparc/prom/memory.c            |  51 ++-------
+ 10 files changed, 98 insertions(+), 327 deletions(-)
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36350420232
---===============7163960345673193045==--
+base-commit: ff3cbaedcebcb60f8f13fa4dd667116f29cd53e4
+-- 
+2.43.0
