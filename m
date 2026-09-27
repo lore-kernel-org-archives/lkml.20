@@ -1,108 +1,112 @@
-Received: from mta1.migadu.com (out-206.mta1.migadu.com [95.215.58.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9846037E5D2
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BB23A1687
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790512691; cv=none; b=ibbQ8mZxPzrtPheoQk42NdxNW/0jUekQQWU8NXrbJvkOxjCFFVWeJb5OgSAZ5N+gs1nrJfTGXWjopUJVFVeYK99PqwTFiBWoye828IJVJ2Z582cgO4iAVJ9rFszmBWTljSIWApebtwaoubUWGrHyOy2TZSaayV7lJ9AkfLpkbCk=
+	t=1790512936; cv=none; b=T1PSuEIRRHhx/lcwdwnmA2KPBOTtyRV7gdnEjpAMLOonUG4sTpKPm4qsBHKx1vQkDJFGo7AMBv+gvuoQxOHQY3tvsRU9iquFVFVqMrbsmdEHOdxugiczLABKLpjkq/ZlTyYErBl1OOycLNScgnasnAuESBm5EmTYkZLhnluyW34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790512691; c=relaxed/simple;
-	bh=NuKsMEW2bmL3HYEzGzn4/Q1vMLgkj5WzRXYhVoZ/eTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GXOwGBuBDvnVMf1QUqYpjB6hUN47BXd5ZoSOccaQ/mq0xbLRmv9bLsEfiCC5/VEt3/2D3WDG58yXgKvPuHBEfaTR1WTi5yQc6wTD4/eV0EnohDvSL1BFoPFrKNn8XPEoIKPhu6OxScvNP0aECIyd1BopvDefxXNQh3TeEIrhD3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e4IweKH3; arc=none smtp.client-ip=95.215.58.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790512936; c=relaxed/simple;
+	bh=O68dElmS/Mk1Yb/V2hTOB5Nm9sVhBXSpARMuMurzr4o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nu5rH8bRjQLUbbDDP3JE3Yoja+mBvJKgWgjjZaLNUP/LAUvP74MCBmy2UCCE1VJLuourz8NVZKn59+ChEID3XVZGqeGM9nhHZ7z5lBUN3l6cpC5z8g20DgbTXSTQOSMTZzhupk/RbotunDR6O0gB1XIZIeN15l6dhBCrAsdb3j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Bap0xy/F; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e4IweKH3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NuKsMEW2bmL3HYEzGzn4/Q1vMLgkj5WzRXYhVoZ/eTE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790512686; v=1; x=1791117486;
- b=e4IweKH32oHAAQEOzQLPOJ6zf76odYVxIcF4mnLVYyte3pGh2/oAzYyV42T1pnBaUehMisrr
- 5WRa8tTnPoGg8ckj+gt0hQVOmxCntb6qLWP+I677e9nIkmhO/UCG8KBAD4HJaDtGfrznGthrM7O
- A0f+8Zfzhf74uB0TMUKQP47I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b6f4c6ea8c77cd9;
-	Sun, 27 Sep 2026 12:38:06 +0000
-X-Mizu-Trace-ID: 0b6f4c6ea8c77cd9
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b8e81e2a0bso6232e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:38:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzEDscG/s3gD2iLqb+iorDWEd7qaXWtJh1KJmhWpzYsKxN3LlQdRBZlYtIQwPv/Dh8OvkWxK9190O+Qcl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNcDhXST6zV5n+tyuB0OhmhwH8RjBkN33dVEB53rDOzpPneZbO
-	ERHTRMXNH/pYzGJsDROkdwoPQovXg2F26hz4LgL5gymsyPovPuc0BuR+V7rbbndmmkOn19o6XlW
-	PzaTGKWQMHMtxaSiVZUzbG5OZguIscUE3gAjWSAG3
-X-Received: by 2002:a05:6512:b8d:b0:5b6:bcb:26c4 with SMTP id
- 2adb3069b0e04-5b8ef285eb3mr99786e87.16.1790512681261; Sun, 27 Sep 2026
- 05:38:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Bap0xy/F"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3C9484E40ECD;
+	Sun, 27 Sep 2026 12:42:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F2D5F604FF;
+	Sun, 27 Sep 2026 12:42:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CD81102F1E73;
+	Sun, 27 Sep 2026 14:41:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790512922; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+h6WZaEjIYng93IBLp9Rybw7ShEOIP9ec51gcF7q9oc=;
+	b=Bap0xy/F4P7xqpuPokoT6a0u6uo3HNjAyONeXhtwAapBAlVDzQzhOhKVp9lL84oP8mJw+9
+	+wU1j5a5q0rSOhs6uoNh9UTqZA8zkORPleCuRt99Wq+P8hKHkre7JAkqHVhht2RL3uvIkW
+	zwZLQpTKmows82wFSwbLxrPsFsj9OJlud74AowM9wdHtsNu7MgHQns9TFy+gEtXQagqFjD
+	PbAGW5ucSb/bW7jCNriu38K+srLlqSLTfKxV9/RvE/WfyJNT/6lyJmxWlY5NiAVhXKQ1r0
+	y3de18d56JrF5Cy2say4dkXDU5mtRlHJ404sgo6rY4Adi6y8QALg2manoPh+Jw==
+Message-ID: <d2c915dc-45a6-4bf4-ba1a-6c7efa9c0164@bootlin.com>
+Date: Sun, 27 Sep 2026 14:41:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-16-fuad.tabba@linux.dev>
- <86a4ph5fb9.wl-maz@kernel.org> <CA+EHjTzCQkeXQQcCDwABLR2w+NTmKTG3V6RSmhzYNayaoYXw3g@mail.gmail.com>
- <865x045mke.wl-maz@kernel.org> <aq0628Ci4pfEj0KG@willie-the-truck> <871paf3y1n.wl-maz@kernel.org>
-In-Reply-To: <871paf3y1n.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Sun, 27 Sep 2026 13:37:25 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzmGzwhVg=6jkHxzV6LF_WsdR1drobOFNTVWNyB1ZDGiw@mail.gmail.com>
-X-Gm-Features: AclHuK83YcLXY0C9NhVVfgcTUZxPrypRPxP9P25GK7wvjm4osxpyz56DMnGRBu4
-Message-ID: <CA+EHjTzmGzwhVg=6jkHxzV6LF_WsdR1drobOFNTVWNyB1ZDGiw@mail.gmail.com>
-Subject: Re: [PATCH v3 15/18] KVM: arm64: Reject host access to protected VM
- private state
-To: Marc Zyngier <maz@kernel.org>
-Cc: Will Deacon <will@kernel.org>, oupton@kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	catalin.marinas@arm.com, joey.gouly@arm.com, seiden@linux.ibm.com, 
-	suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, 
-	steven.price@arm.com, vdonnefort@google.com, qperret@google.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND net-next v17 00/10] net: phy_port: SFP modules
+ representation and phy_port listing
+To: Aleksei Sviridkin <f@lex.la>
+Cc: davem@davemloft.net, Andrew Lunn <andrew@lunn.ch>,
+ Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+ Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Herve Codina <herve.codina@bootlin.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
+ Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+ Frank Wunderlich <frank.wunderlich@linux.dev>,
+ Pietro Ameruoso <p.ameruoso@live.it>
+References: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
+ <20260924220118.2129522-1-f@lex.la>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260924220118.2129522-1-f@lex.la>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Marc, Will,
+Hi,
 
-On Sun, 27 Sep 2026 09:20:52 +0100, Marc Zyngier <maz@kernel.org> wrote:
+On 9/25/26 00:01, Aleksei Sviridkin wrote:
+> Hi Maxime,
+> 
+> I ran v17 on a Keenetic KN-1012 (MT7981B + MT7531). Switch port 5
+> (lan4) goes either to an SFP cage or to an EN8811H copper PHY, and the
+> bootloader picks one devicetree variant per boot. The series was
+> backported to OpenWrt's 6.18 kernel together with the phy_port base and
+> its fixes, with PROVE_LOCKING and DEBUG_ATOMIC_SLEEP enabled.
+
+Thanks for testing :)
+
 [...]
-> > and it would be really helpful to discuss it on the list. As you probably
-> > know, on Android, pKVM has the semantics you describe above: the ONE_REG
-> > calls succeed, but the register state isn't propagated to the guest once
-> > it's started running. I think we largely did it this way because we were
-> > solving a million problems at once during the initial development and
-> > having to pipe-clean VMMs wasn't particularly appealing at the time.
-> > It's also worth adding that, to my knowledge, we've never had any issues
-> > in Android because of this decision.
 
-That's Android 15 (6.6). Android 16 and 17 reject ONE_REG once a
-protected vCPU is finalized, except x0-x3 during one forwarded
-hypercall so the VMM can complete it [1]. crosvm has shipped against
-that on both.
+> 
+> A module port follows the netdev's admin state rather than module
+> presence. With lan4 down, a module sitting in the cage isn't listed,
+> because sfp_module_stop() runs phylink_del_sfp_mod_port(). After ifup
+> it comes back under a new id, so every ifdown/ifup renumbers it. Is
+> that intended? From userspace, "port 3 upstream 1" isn't stable across
+> an ifup.
 
-[...]
-> > If it's helpful, we can ask the crosvm developers here if they have
-> > opinions for/against the two behaviours?
->
-> I guess that'd be useful to know what they'd prefer, and also to look
-> into what QEMU does in this case -- I'm not exactly a good judge when
-> it comes to UAPI definition... ;-)
+Yes that's intended, we don't really have a choice here. Module ports
+should be considered volatile in their id (this is best effort) as they
+may disappear / reappear with another module later on.
 
-QEMU stops syncing registers once it has marked the guest state
-protected [2] (bar the virtual counter save/restore on stop/cont), and
-the QEMU CCA series sets that flag when the VM starts [3].
+> 
+> Tested-by: Aleksei Sviridkin <f@lex.la>
 
-On the kernel side, the CCA series rejects a SET_ONE_REG for a realm
-outside the GPRs, PC and two configuration registers with -EINVAL, and
-lets GET return what its message calls "(stale)" values [4].
+Thanks !
 
-Given that, are you ok with v4 keeping the error? :D
+Maxime
 
-Cheers,
-/fuad
+> 
+> Aleksei
 
-[1] https://android.googlesource.com/kernel/common/+/cfc696b1fb110
-[2] https://gitlab.com/qemu-project/qemu/-/commit/5c3131c392f84c660033d511ec39872d8beb4b1e
-[3] https://lore.kernel.org/all/20260903193611.1058589-5-mathieu.poirier@linaro.org/
-[4] https://lore.kernel.org/all/20260924160504.853911-23-suzuki.poulose@arm.com/
