@@ -1,388 +1,127 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15C63B27F7;
-	Sun, 27 Sep 2026 15:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA596339365;
+	Sun, 27 Sep 2026 15:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790524325; cv=none; b=tlUeRUpTPhNFy0dtDKO3pthXulZq5EFz8ceXmY81A63Qkb/s6EAzjq1uqBEm3PEH/YWEfxQsjWznv8JnCh2dRbK6l/UtYdTeKPu/wcjdDD47yvp5EBc7mIoOcH07VGI7O7splEcSj5GPG6Kd3x8m56zwYQYmlJ7N0+AOvGWZnrQ=
+	t=1790524453; cv=none; b=N/acuQu3m0VmRCd31lhK4K52bBH+AG89h5KqY/r0DBqaHjjkJxvfhw+oqluLVFkUhuRrannF806Z/g0a6yDalBHS0ujG3ng/ZpYqzWqxWV3UDHkaGQWFk5WsFIbaL1V9BPi+oo1ZcTVkfBaaBJCGzMYYTa960APFGOp6MvKjjXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790524325; c=relaxed/simple;
-	bh=ccCD+/yCszET+Xd2GGVdVuTrFXk6vvjWHjDAs0SJxf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I3cg0XNx2tXpRkumApOj2PBNzazvjut75QSLF5RLYDEVhjXt09lxOQ4154I/LM6m/WLaWN7YsL3+TWH/bhFA8ed8WpwYi7ygSvehgsSvEMBEidv7dS9+slUWb7Zgx2D2vsq4A9U2l1uFU1/zZmU7YLkSdRzHv+LtnfsqITp2v+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=DDrcnO4a; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1790524453; c=relaxed/simple;
+	bh=EudmtXiuy94lgut4rZXvxzNyCSSFnysF5xYcuiUtnkE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jZgeYlpU2ec4JlacEPyhzWjphjwgRB4h8r9SJZ0FY5+k5DHoxCMLjuYWIMam7pyHaIj3D46HRFKxzfJ1/n7t+MblzuPe+E2/BxdE7hWrKRlTr5QMZlWObyloSOZg+AaBw0WpoVzzOJiZ/zFNHQto8wdENCHCrNBn897bkQSkmbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p06+WqhP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="DDrcnO4a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1790524309;
-	bh=y7eIqATpdmNdTDN8RVaiP2UUDi4DVVu6DCcxySaroEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DDrcnO4aK05f4F2yBQ0qxSwFqWDt1mv6bKTisEHWnPDE+WtE2FNqHmU/4+EZ2OgUK
-	 TGWY06TOLu/Q0tGte0m7u/mynhhnLAtCX+DDWtDOz0UHEdXP498tRZ4aA4sZPnVG/v
-	 cgtqfSkhpwkCjt6XkbJ/j64vXV3YyIZUFE3XWQ/Nxmdu2Vze0sdiCNNrCU05dglw0l
-	 KOrE8GzXEX7iWC4SGblVfPFfqIaQ2MFkeFoA5UoM5MWYVZ55wT/vJTO0UT+nuE++Ve
-	 smBKN+EkpRKs8KHi82bhe4G+zsEfmGfNlI+62LnyfuGROZaFZeyq0DwZGd/mjvpYHq
-	 4RVpNSzxGXGkA==
-Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4ht87n6SXXzh4y;
-	Sun, 27 Sep 2026 11:51:49 -0400 (EDT)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Gary Guo <gary@garyguo.net>,
-	rcu@vger.kernel.org,
-	lkmm@lists.linux.dev
-Subject: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path, fallback to overflow list
-Date: Sun, 27 Sep 2026 11:51:31 -0400
-Message-ID: <20260927155134.4740-5-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p06+WqhP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67315C2BCB3;
+	Sun, 27 Sep 2026 15:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790524453;
+	bh=EudmtXiuy94lgut4rZXvxzNyCSSFnysF5xYcuiUtnkE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=p06+WqhPr89RnLj1m5VnRAf0FpDXF0U2Bd37TkBJGPeyndBv2YQSgCuxVraLEjzZ9
+	 RW57Zgp9ymKmPM6K6MqfVHUM9Voy/DvcEWg39bL2TJm8lBbNUE5k5csQsxjqFNZcR/
+	 4LKxqQXm9gbkOigxHLyQa1Pc0ca+/mnHDEycDwnL58fKcreEKswPqNlAHG/KcTLMbM
+	 8asxHiPNwSVvNouOjL99Ijn6TMSDGJELCr/vZzS/bmzkVZzCLYKoIQ5TXh0iyMq+vP
+	 tbmkWsjSLO5YGBwPO4myQL8MiDxZ05Y+uhIJzqA+KFEOc/9ntvTwrZ6y3a9NxsI48F
+	 30xiL1gXekl+g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43C10C9830E;
+	Sun, 27 Sep 2026 15:54:13 +0000 (UTC)
+From: Ali via B4 Relay <devnull+aliresool567.gmail.com@kernel.org>
+Date: Sun, 27 Sep 2026 18:54:01 +0300
+Subject: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
+ GameSir G7 SE
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-master-v1-1-96ff85291b25@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBTG8VfRubaaiTWvIhfGwVFGO0gt7264/
+ NX/+wIwekKGKgng8SSm1UVkaQLd1LoRBfXRoKQqpVFaLC3v6IU2xurC5rnEEmK8eRzo+o7q5jc
+ fdsZuf9dw3w/KLEKzagAAAA==
+X-Change-ID: 20260927-master-799b75b330e6
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ali <aliresool567@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790524451; l=2586;
+ i=aliresool567@gmail.com; s=20260927; h=from:subject:message-id;
+ bh=FeFiKgZTUo9MnK6Okaqk4RcBEvF7GaYA8aXucYh/6SM=;
+ b=VNtAduVk2LRlJGNV6nQCF/dxCdQjn9UlSx637pBBZ2Z0RDLc2CXCmlTPSWmAjNFBUc17C78b0
+ 2316GCmxa+SBmZGfEBmjaeC0pb1XFJh1awY4YJQkKwY4SPHA9Bb/4uT
+X-Developer-Key: i=aliresool567@gmail.com; a=ed25519;
+ pk=s/zyZoG6z3JyJokqs9ZIcSAb8PgriZ1QW+mgffBV90w=
+X-Endpoint-Received: by B4 Relay for aliresool567@gmail.com/20260927 with
+ auth_id=1071
+X-Original-From: Ali <aliresool567@gmail.com>
+Reply-To: aliresool567@gmail.com
 
-Introduce a "try acquire" hazard pointer fast path, which performs an
-early load of the address to store it into the hazard pointer slot, and
-then re-loads that address after a barrier to check whether it has
-changed meanwhile.
+From: Ali <aliresool567@gmail.com>
 
-On comparison failure, rather than re-try, guarantee forward progress by
-falling back to the __hazptr_acquire slow path on failure.
+The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
+then re-enumerates in a mode it picks from how the host enumerated it.
 
-The acquire slow path attempts a try-acquire for any available per-CPU
-slot. If that fails, it chains the backup slot into the overflow list,
-therefore guaranteeing forward progress for both hazard pointer
-read-side and synchronize:
+When the configuration descriptor is fetched the Linux way, 9 bytes
+followed by the full 80, the controller disconnects about 1 ms after
+its string descriptors have been read, before SET_CONFIGURATION, and
+comes back as 3537:1082, a generic HID gamepad without force feedback.
 
-- Readers set the wildcard, and then proceed to set the more
-  specific address to replace the wildcard.
+When the configuration descriptor is fetched in one 255-byte request,
+as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
+which xpad already supports, including rumble.
 
-- One synchronize alternates between two overflow list periods,
-  scanning each one while readers are added to the other period,
-  thus preventing a steady flow of readers from preventing
-  synchronize forward progress.
+Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
+makes no difference; the configuration descriptor request size alone
+decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
+identity, as is already done for the ShanWan Wireless Gamepad.
 
-With this change, the scan on per-CPU slots don't need to expect a
-wildcard anymore, because none can be produced by readers. Wildcards are
-only expected within overflow lists.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Paul E. McKenney <paulmck@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>
-Cc: Bradley Morgan <brads@mainlining.org>
-Cc: Gary Guo <gary@garyguo.net>
-Cc: <rcu@vger.kernel.org>
-Cc: <lkmm@lists.linux.dev>
+Cc: stable@vger.kernel.org
+Assisted-by: claude-opus-5-5
+Signed-off-by: Ali <aliresool567@gmail.com>
 ---
- include/linux/hazptr.h |  47 +++++++++++--------
- kernel/hazptr.c        | 103 ++++++++++++++++++++---------------------
- 2 files changed, 76 insertions(+), 74 deletions(-)
+Tested on 7.2.7 (x86_64, xHCI) by setting usbcore.quirks=3537:10a0:r at
+runtime. With it, the controller settles as 3537:1010 on every plug-in,
+is bound by xpad as "GameSir G7 SE", and rumble works through xpad's
+force feedback. Without it, it settles as 3537:1082 every time. The
+patch itself is against v7.3-rc5.
 
-diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
-index d1670121947a..fcf017ca2255 100644
---- a/include/linux/hazptr.h
-+++ b/include/linux/hazptr.h
-@@ -29,9 +29,6 @@
- /* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
- #define NR_HAZPTR_PERCPU_SLOTS	4
+usbmon of the 3537:10a0 enumeration without the quirk: GET_DESCRIPTOR
+(CONFIGURATION) with wLength 9, then 80, then string descriptors 0, 2,
+1 and 3. The port reports a disconnect about 1 ms after the serial
+number string, and the SET_CONFIGURATION that follows fails with
+-EPROTO. With the quirk, the only difference is a single wLength 255
+configuration request, after which the device re-enumerates as
+3537:1010.
+---
+ drivers/usb/core/quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index b5b577f..a4bcbe9 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
+ 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
+ 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
  
--/* The current hazard pointer wildcard. */
--extern void *hazptr_wildcard;
--
- /*
-  * Hazard pointer slot.
-  */
-@@ -190,6 +187,31 @@ void hazptr_note_context_switch(void)
- 	}
- }
- 
-+/* Try hazard pointer protection. */
-+static inline
-+void *__hazptr_try_acquire(struct hazptr_ctx *ctx, void * const *addr_p, struct hazptr_slot *slot)
-+{
-+	void *early_addr, *addr;
++	/* GameSir G7 SE */
++	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
 +
-+	if (unlikely(slot->addr))
-+		return NULL;
-+	early_addr = READ_ONCE(*addr_p);	/* Early load. */
-+	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
-+	/* Memory ordering: Store B before Load A. */
-+	smp_mb();
-+	addr = READ_ONCE(*addr_p);		/* Load A */
-+	/*
-+	 * Validate that address did not change between Early load and Load A.
-+	 * Use ptr_eq() to make sure that result from Load A is returned to the
-+	 * caller to preserve address dependency.
-+	 */
-+	if (unlikely(!ptr_eq(addr, early_addr))) {
-+		WRITE_ONCE(slot->addr, NULL);
-+		return NULL;
-+	}
-+	return addr;
-+}
-+
- /**
-  * hazptr_acquire - Load pointer at address and protect with hazard pointer.
-  *
-@@ -245,24 +267,9 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- 	ctx->acquire_cpu = smp_processor_id();
- 	ctx->acquire_caller = _THIS_IP_;
- #endif
--	if (unlikely(slot->addr))
-+	addr = __hazptr_try_acquire(ctx, addr_p, slot);
-+	if (unlikely(!addr))
- 		return __hazptr_acquire(ctx, addr_p);
--	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
--
--	/* Memory ordering: Store B before Load A. */
--	smp_mb();
--
--	/*
--	 * Load @addr_p after storing wildcard to the hazard pointer slot.
--	 */
--	addr = READ_ONCE(*addr_p);	/* Load A */
--
--	/*
--	 * We don't care about ordering of Store C. It will simply
--	 * replace the wildcard by a more specific address. If addr is
--	 * NULL, we simply store NULL into the slot.
--	 */
--	WRITE_ONCE(slot->addr, addr);	/* Store C */
- 	slot_item->ctx.ctx = ctx;
- 	ctx->slot = slot;
- 	return addr;
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index 13faa5ba7677..3ca73b56a5c2 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -13,17 +13,9 @@
- #include <linux/list.h>
- #include <linux/export.h>
+ 	/* DELL USB GEN2 */
+ 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
  
--static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
-+#define HAZPTR_WILDCARD	((void *) 1UL)
- 
--/*
-- * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
-- * hazptr_synchronize forward progress even with a steady stream of readers.
-- * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
-- * This also affects the overflow list selection: the current list used by
-- * readers is array[(unsigned long) hazptr_wildcard - 1].
-- */
--void *hazptr_wildcard = (void *) 1UL;
--EXPORT_SYMBOL_GPL(hazptr_wildcard);
-+static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the list phase flip. */
- 
- /* The current overflow list phase. */
- static unsigned int hazptr_overflow_list_phase;
-@@ -41,6 +33,10 @@ struct hazptr_overflow_list {
-  * successively iterates on both lists. Therefore, only list removals
-  * can cause the iteration to retry, and the number of removals is
-  * limited to the number of list elements.
-+ *
-+ * Due to the overflow list raw spin lock, the hazard pointer readers are
-+ * blocking, starvation-free with bounded waiting, assuming bounded critical
-+ * sections and no NMI or virtualization-induced holder preemption.
-  */
- struct hazptr_overflow_list_flip {
- 	struct hazptr_overflow_list array[2];
-@@ -51,26 +47,12 @@ static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_fli
- DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
- EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
- 
--static
--void *flip_wildcard(void *wildcard)
--{
--	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
--}
--
- static
- unsigned int flip_list_phase(unsigned int phase)
- {
- 	return 1 - phase;
- }
- 
--static
--bool is_wildcard(void *addr)
--{
--	if ((unsigned long) addr == 1UL || (unsigned long) addr == 2UL)
--		return true;
--	return false;
--}
--
- static
- struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
- {
-@@ -96,16 +78,36 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
-  */
- void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- {
--	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
-+	struct hazptr_slot *slot;
- 	void *addr;
- 
- 	/*
--	 * If all the per-CPU slots are already in use, fallback
--	 * to the backup slot.
-+	 * In case we are called due to nested use of hazard pointers,
-+	 * try a slot protection with per-CPU slots.
- 	 */
--	if (unlikely(!slot))
--		slot = hazptr_chain_backup_slot(ctx);
--	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
-+	slot = hazptr_get_free_percpu_slot(ctx);
-+	if (likely(slot)) {
-+		addr = __hazptr_try_acquire(ctx, addr_p, slot);
-+		if (addr) {
-+			ctx->slot = slot;
-+			return addr;
-+		}
-+	}
-+
-+	/*
-+	 * The backup slot overflow list guarantees forward progress of both
-+	 * hazard pointer readers and synchronize:
-+	 *
-+	 * - Readers set the wildcard, and then proceed to set the more
-+	 *   specific address to replace the wildcard.
-+	 *
-+	 * - One synchronize alternates between two overflow list periods,
-+	 *   scanning each one while readers are added to the other period,
-+	 *   thus preventing a steady flow of readers from preventing
-+	 *   synchronize forward progress.
-+	 */
-+	slot = hazptr_chain_backup_slot(ctx);
-+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
- 
- 	/* Memory ordering: Store B before Load A. */
- 	smp_mb();
-@@ -121,20 +123,21 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- 	 * NULL, we simply store NULL into the slot.
- 	 */
- 	WRITE_ONCE(slot->addr, addr);	/* Store C */
-+
- 	ctx->slot = slot;
--	if (!addr && hazptr_slot_is_backup(ctx, slot))
-+	if (!addr)
- 		hazptr_unchain_backup_slot(ctx);
- 	return addr;
- }
- EXPORT_SYMBOL_GPL(__hazptr_acquire);
- 
- /*
-- * Perform piecewise iteration on overflow list waiting until "addr" is
-- * not present. Raw spinlock is released and taken between each list
-- * item and busy loop iteration. The overflow list generation is checked
-- * each time the lock is taken to validate that the list has not changed
-- * before resuming iteration or busy wait. If the generation has
-- * changed, retry the entire list traversal.
-+ * Perform piecewise iteration on overflow list waiting until "addr" and
-+ * wildcard are not present. Raw spinlock is released and taken between each
-+ * list item and busy loop iteration. The overflow list generation is checked
-+ * each time the lock is taken to validate that the list has not changed before
-+ * resuming iteration or busy wait. If the generation has changed, retry the
-+ * entire list traversal.
-  */
- static
- void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list, void *addr)
-@@ -147,13 +150,11 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
- retry:
- 	snapshot_gen = overflow_list->gen;
- 	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
--		/* Busy-wait if node is found. */
-+		/* Busy-wait if addr or wildcard are found. */
- 		for (;;) {
- 			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
- 
--			/* We don't expect wildcards in overflow list. */
--			WARN_ON_ONCE(is_wildcard(load_addr));
--			if (load_addr != addr)
-+			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
- 				break;
- 			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
- 			cpu_relax();
-@@ -174,7 +175,7 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
- }
- 
- static
--void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
-+void hazptr_synchronize_cpu_slots(int cpu, void *addr)
- {
- 	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
- 	unsigned int idx;
-@@ -182,13 +183,13 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
- 	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
- 		struct hazptr_slot_item *item = &percpu_slots->items[idx];
- 
--		/* Busy-wait if node is found. */
--		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != scan_wildcard); /* Load B */
-+		/* Busy-wait if addr is found. */
-+		smp_cond_load_acquire(&item->slot.addr, VAL != addr); /* Load B */
- 	}
- }
- 
- static
--void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
-+void hazptr_scan_cpu_slots(void *addr)
- {
- 	int cpu;
- 
-@@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
- 	for_each_possible_cpu(cpu) {
- 		/*
- 		 * Scan CPU slots.
--		 * Forward progress against recurring wildcards is guaranteed
--		 * by scanning for one wildcard while new elements use the
--		 * other wildcard value (1UL vs 2UL).
- 		 * Forward progress against recurring single hazard pointer
- 		 * values is guaranteed by the fact that a hazard pointer
- 		 * is not reclaimed nor reused until the scan for that hazard
- 		 * pointer completes, which prevents a steady flow of readers
- 		 * to acquire that same hazard pointer value.
- 		 */
--		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
-+		hazptr_synchronize_cpu_slots(cpu, addr);
- 	}
- }
- 
-@@ -237,7 +235,6 @@ void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
- void hazptr_synchronize(void *addr)
- {
- 	unsigned int scan_list_phase;
--	void *scan_wildcard;
- 
- 	/*
- 	 * Busy-wait should only be done from preemptible context.
-@@ -251,16 +248,14 @@ void hazptr_synchronize(void *addr)
- 	 */
- 	if (!addr)
- 		return;
-+
- 	/* Memory ordering: Store A before Load B. */
- 	smp_mb();
- 
- 	guard(mutex)(&hazptr_phase_lock);
- 
- 	/* Scan per-CPU slots. */
--	scan_wildcard = flip_wildcard(hazptr_wildcard);
--	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
--	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
--	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
-+	hazptr_scan_cpu_slots(addr);
- 
- 	/*
- 	 * Scan overflow lists *after* scanning per-CPU slots. See
--- 
-2.43.0
+
+---
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+change-id: 20260927-master-799b75b330e6
+
+Best regards,
+--  
+Ali <aliresool567@gmail.com>
+
 
