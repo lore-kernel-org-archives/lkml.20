@@ -1,207 +1,221 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E125399364
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7413028E0F
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790481261; cv=none; b=rPcS+oQo3nCz/X77F7L7vpCRN7qzzC6uxLBr1R8KgaBlaEr+aI7ckks+7yBHFjt7vH6VmnvaU/aeHjZ8srsnZtypyD1k2+OgrocCMnZWtKIofxtX6QEBSI8/xP9pCyvUdIsi1P2fMmDZU9OVS4UnyJaL3XZk5G1wspCKW3QtG8Q=
+	t=1790481476; cv=none; b=TsRH2D4KmGy4EwKEkUY5mj5lBdOkuSYG8N2kin2aow/JkzcTCY1GXXs/pmxZV0Z94Uelc3IedlY22Qb/zvq+3bVEUnnC1dZpo0bax8XaGf+OyRMlRrnMDunCT+8YKuOnMUIpiqBKUA+giBjt+Tq4ee9fLN7rXdeKYGiPFlB1lek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790481261; c=relaxed/simple;
-	bh=HBMrCmfyLRkn72Zc1YBPchN1HtvbA66vn+t8ej3QZnk=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ANA5lqb0UdMSlAEnH/kFxY1sxMILZkv2/hpAdlQrQS7B7E11ZwBnRSgjFN1nCJa2jompXG6ULhQQTgm5Uv6TIDOPrcVw9qiHybMcZXAT0d/fEpsay1BiUovMzq/c7WHsVFlq0UQijrrzD2zuh/JeqFydpA8yahS5Vxb/KWZzhYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UWXN9HOr; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790481476; c=relaxed/simple;
+	bh=EssiDR7tIU1leVmnuL9ncrgd0q/uyV4nJb2AT7WNJfY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 In-Reply-To:References:To:Cc; b=T76bYUtZDwGlHdjIkAMJIvdZIzt4TclHch+C9V+Sk/YGoByFJB+xAVlnuUVL1G3F0d6VHuH6W76EYEhQYTr3v+ChxYGMvk/hyWvcWWiwCdbwHeWCAfJipItgteBnCcgK/VYF3zXvtvdE425uWi6lejFhQD0Z+PN/UwYQPYRTyng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VNafrDPi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g0qNcoR4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UWXN9HOr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790481258; x=1822017258;
-  h=date:from:to:cc:subject:message-id;
-  bh=HBMrCmfyLRkn72Zc1YBPchN1HtvbA66vn+t8ej3QZnk=;
-  b=UWXN9HOrBtyX/8SJMnN1IU1n85HJygey9Z3cv7HhxikWbgGFaByb2/wz
-   cJF3xsJegyaq0e2sYf1WrKjaDIU4whRvXWESLKkA6hlnKetmybQ9XH2X3
-   ER8cCsrcyzHoaPGoX7Y9V1sFQrejhFSDta6d77OhgwJXaEONMiHLmdYzS
-   QgZiCAdmArf1vjl6jEiwUT2qJiL1xfdY8s9T811iWW0gnTjxzAMgC22Yv
-   IIVilSj5osPTpEbFfO8l7d3XXePxylbtQ3TirrzhHuV9w0JAk+lSDp07p
-   yDIfBjEgkfm8XS/Che1DeJxKNBx/+qcPnjGICVC7rICZjRd4tYmslSXwi
-   w==;
-X-CSE-ConnectionGUID: hfKSh2s9RRybYtv+CyVCpA==
-X-CSE-MsgGUID: LjdOZhjISHSLiDJyudSyVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="108705853"
-X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
-   d="scan'208";a="108705853"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 20:54:17 -0700
-X-CSE-ConnectionGUID: qCnYkZWIT72awc47WClnQg==
-X-CSE-MsgGUID: LphVB5tLSOGp5FWsjgsBVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,125,1787036400"; 
-   d="scan'208";a="274244925"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 26 Sep 2026 20:54:15 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xAfxs-00000000MOP-2GoI;
-	Sun, 27 Sep 2026 03:54:12 +0000
-Date: Sun, 27 Sep 2026 11:53:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: drivers/gpu/drm/bridge/ssd2825.c:484:13: warning: stack
- frame size (20088) exceeds limit (8192) in 'ssd2825_bridge_atomic_pre_enable'
-Message-ID: <202609271111.XAPJ85Dc-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VNafrDPi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g0qNcoR4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68R3riP22754342
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GziMRmotnuRnmJsRHHSXSxyj/5Wi4x3EJPkL8EBkCgU=; b=VNafrDPiidPYdNSH
+	qkke64psewZpVujA9ZN1C9e/oEXP2qF5LPZm8aHP821JxUKf5wBpLWS0ENae7ntL
+	bK7BgotWGFO6l3fLj6RVB4eephzc6+8jFHXRSlXSh8zagNSvUycQj5bBHmujVQIL
+	twH0F1pD57OBZVtb/dD5uwyrMaqDfonj46/76VlbKwWVVU34iBnfmJdIk24sXezs
+	kJvupj2QsoT6+lwLAuzFCXz/rgj7HdxDej+F26KnE/exvQ9WtLke8QSM8qs62/j7
+	bkX5Zn5+KcFLE2wGt6YEKsBs/oFe7HuFiPcuj1uLN/zYRlZNyeoNE+RNJhB/FKZq
+	MnnsOA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx3rfthys-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 03:57:54 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34318e88ba2so1136954eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:57:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790481474; x=1791086274; darn=vger.kernel.org;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GziMRmotnuRnmJsRHHSXSxyj/5Wi4x3EJPkL8EBkCgU=;
+        b=g0qNcoR474QyevEoGJhNnA33ofPIiHn+2EN5X79YNVH5MtRN/i8EklX3aT5oUg3Rr2
+         dSwjULSuI2eUnZixy9VnuqDOEDviNedDN8p320EFbrDqtBhw1S1+Gs+uemsVhYeXGH8y
+         KDN5AB1+Gau1AFa5xf2kA55LCzsA1XKdZK48NbsOfRR2wdXi6Jz7SZAIG41WF1CebKOM
+         AB767cemYKMGAlegdT0GZw+13P/ksPkhm65eY1SlVUsK8uTKckLB6Q071EGJlA3sH/q1
+         ofEsEdUkLsT8kTm7TElVJqisTnQZ7vXYwN7NfPUXhagW02/PF5Vz6n4QHFO1YU9VYMR1
+         5BSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790481474; x=1791086274;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GziMRmotnuRnmJsRHHSXSxyj/5Wi4x3EJPkL8EBkCgU=;
+        b=mQny25cqObVfyiGpXzmygRIL95w54duYaPxwzFVnaRThswWpCZTrW66t6YbZjY0I23
+         EDNjJnGAc+R/e5VHUIbtJNTwi+lQqK60XI+b7qP/viI0ePjlxlFUVAKR/bVQl87WHQnt
+         gQ6MvdopmJEDM/gxgMT1mCQU7rliTG1sCRZkNKir/7m4BI0+tHRlfdYJP6oLUb8wVv1o
+         DBjIKNV+9yRDG51O75LQUT5a47CBYq3GQDGDLmc0gFO7D6cbSajMRC+gzx+gHAtZ4bdy
+         9BUv2xgE47y2oB2l6n0YFwLNnH8+OQPRrrfZe7okR3H0gf9fIm+hx0ikvs++Kqb/wSN0
+         lrZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTxJCJ6bnFBaX8xbP2Ns1YvScKeW7uV/jfa2ILky9G6TEJmYCgAjaRFeMJfL6ly5NqO8Fb3O+/Ea8S17M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRyfSOJlBmiK3YS9AZxZj07RSFAA4t4Qnpj4ytoTgpSWYnllR5
+	D+/PmkRcXgYxisx8e+SlPST9YHVUziJnpsLJ1UK5mTCfdlg8lEFZx9ZtYSjxrUi8tBdmB3+iZU+
+	C95RjOLr30b+sogkuj7fEaLpzpTUDjnuJbjC4EfWfCp0QjqmIPTXnAAD6rUJtuTNS4ck=
+X-Gm-Gg: AYBFou0hIYjuGG37CIY9lg0WPsgJ2JzP1QL9tWGwpAlojM8wJoZXuyymTnfJj/o31tV
+	eG6v2pqKDUo2+QF8ZkYVN/8kMgGRTDBMEoVxjdEQFFvGjCkQL6U2lN6OAp6QZgwmpu86WEkblSg
+	80F63vJASrvmOxkS9Mr9FHyY6cqriK5a1ZgOD1MlU1SF8BQ0BCsMewig5NZl3VWNAbME04qKjF4
+	llB26Xm5iKl1XyZRJ/hYdH6o/4brcU8EAAKo8XSUXSOINHYAo+jHbmZxSQSYVwRKkkmzhp8lHu/
+	Xx2TUsJOrKSlEdbNmoTZXiMhihKXPEGCvNK7cXMisYeIW97o9qHsbUVJOst8y1iABT2duJP7vtk
+	Fe31C/FAZkfuPuZgMKbJEzd93D1GQ8g==
+X-Received: by 2002:a05:7301:160f:b0:33e:653b:59d5 with SMTP id 5a478bee46e88-3427207a575mr4945415eec.29.1790481473738;
+        Sat, 26 Sep 2026 20:57:53 -0700 (PDT)
+X-Received: by 2002:a05:7301:160f:b0:33e:653b:59d5 with SMTP id 5a478bee46e88-3427207a575mr4945359eec.29.1790481472042;
+        Sat, 26 Sep 2026 20:57:52 -0700 (PDT)
+Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341460f5166sm19618127eec.29.2026.09.26.20.57.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 20:57:51 -0700 (PDT)
+From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] media: iris: add vbv delay support
+Date: Sun, 27 Sep 2026 09:27:44 +0530
+Message-Id: <20260927-iris_vbv_delay-v4-0-8ee2b7462e68@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADiUuGoC/33M0Q6CIBTG8VdxXIdDENGueo/WHMoh2VQKiuWc7
+ x5600XZzdn+Z/t+M/LgDHh0TGbkIBhv7BgjPySo7eR4BWxUbEQJLYhgBBtnfB2aUCvo5YRZzhT
+ VkpEypyiObg60eW3g+RK7M/5h3bT5IVu/u1TIMMGi4VJUnDWt0ifrfXp/yr61w5DGg1Yx0I9S0
+ eJLoVEpmVIlEQVXADsK+6+wqKiirHKdZaIB/kNZluUN//JYoD8BAAA=
+X-Change-ID: 20260730-iris_vbv_delay-343d2fa30842
+In-Reply-To: <20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com>
+References: <20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790481468; l=3871;
+ i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
+ bh=EssiDR7tIU1leVmnuL9ncrgd0q/uyV4nJb2AT7WNJfY=;
+ b=CB47GSXtx+x18h0fHdzUicS6c6MXV4Dmajc+QMnpVzey2YpYkG8IPZ3h1W1s8V4CzLhQ5nlzh
+ 4rIAskmgKmYDCILX+SNCDnjFJJj7HhgyTpmsnKBAP84gJybGFaWbV1G
+X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
+ pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDAxNSBTYWx0ZWRfX+UrnDdHUj6X5
+ ghiKtipIivKX9cl5/KLcMvgvnTWNov3hqaTWbRQnw5+u1icO8fSRz1vgsSAIZbRZMVhiWtjW+Z0
+ Kv1X/C/zmWOcUn0o1btEcsyDa68BZDA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDAxNSBTYWx0ZWRfX88nBGk4Oh88H
+ U7aYCROMqqgbz4xi5uop4CbRvM91BXTkWU8FsthRxB4aHJGzQ9vSe+oUsnQw1SkBRm98WUjDhBO
+ sw9HwxG19vW3v0jOl+M2MKq38FpxChJv75Ne0E8x2TFBoMntug03dT2PetvgHQYEAWctWScyyQ9
+ tb73DxwlMFa9JFXc2UGMF5mDTjQ7yUsgRvYwj4NaYsZHmFujZaN6O1GPSxUGYgo4t24Mp2CwJcy
+ SSl2KPgi85WUuFXgfzkFc53RpH48Y+mPNs3UCzcKYgF+FV+IKVIY8AWBFw/xREdDoiOrCaQuI+Z
+ MYLZ0eKFPy0Rz9cxlroyryzUwGUVT0G4nvEEq2gij9bdKTEEI9b5TavI0KwY0R71WnW992qmCta
+ +9UiaCPNzPgVC/OAhCQfL/cSY9BkHZzKyN5fxRfg2Go93AI/OL7yCmBkDxuJ07AVW3oI1SJBGTg
+ JDGZeLIzX46ntLMBAiA==
+X-Proofpoint-GUID: 3l6cUbPMFWYFxadT2UZfudl111uW2gXo
+X-Proofpoint-ORIG-GUID: 3l6cUbPMFWYFxadT2UZfudl111uW2gXo
+X-Authority-Analysis: v=2.4 cv=K6G3jCWI c=1 sm=1 tr=0 ts=6ab89442 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=C5IDlBnpNeGhfuk2CuwA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270015
 
-Hi Svyatoslav,
+This series adds VBV_DELAY (V4L2_CID_MPEG_VIDEO_VBV_DELAY) support
+for Qualcomm iris encoder sessions, allowing users to configure the
+initial VBV (Video Buffer Verifier) delay for CBR-encoded streams.
+This is useful for latency-sensitive encoding use cases (e.g.
+low-latency streaming) where the client needs explicit control over
+the encoder's buffering delay.
 
-FYI, the error/warning still remains.
+Patch 1 is a prerequisite for patch 2. The PIPE capability (control
+over the number of VPP hardware pipes used for a session) was
+previously only wired up for decoder sessions. Achieving low VBV delay
+values (34-100 ms) requires the encoder to be constrained to a single
+VPP pipe, so patch 1 enables the PIPE capability on the encoder path as
+well, which patch 2 then relies on to force single-pipe operation when
+VBV delay falls in that low-latency range.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   6812ce4e4379ffc99c52401ec28f0d7ffbc36206
-commit: 55023abe6a2921a8916b623c24208e1971b88729 drm: bridge: Add support for Solomon SSD2825 RGB/DSI bridge
-date:   1 year, 2 months ago
-config: x86_64-randconfig-1007-20260927 (https://download.01.org/0day-ci/archive/20260927/202609271111.XAPJ85Dc-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260927/202609271111.XAPJ85Dc-lkp@intel.com/reproduce)
+Patch 2 adds the VBV_DELAY capability: it registers HFI_PROP_VBV_DELAY,
+wires up the V4L2_CID_MPEG_VIDEO_VBV_DELAY control for the gen2
+encoder, and only applies the property when rate control is set to CBR
+since VBV delay is only meaningful for constant-bitrate encoding.
+It adds vbv_delay support for iris HFI Gen2 based targets (qcs8300,
+sm8550, sm8650, sm8750, x1p42100). Support for HFI Gen1 targets will
+be added in a follow-up series.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 55023abe6a29 ("drm: bridge: Add support for Solomon SSD2825 RGB/DSI bridge")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609271111.XAPJ85Dc-lkp@intel.com/
+This series has been verified with GST level testing.
+Command used:
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=NV12, \
+width=1280,height=720,framerate=30/1 ! v4l2h264enc output-io-mode=4 \
+capture-io-mode=4 extra-controls="controls,video_bitrate_mode=1, \
+initial_delay_for_vbv_control=300;" ! filesink location=/opt/test_enc.h264
 
-All warnings (new ones prefixed by >>):
+Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+---
+Changes in v4:
+- iris_set_pipe(): also require fw_caps[FRAME_RC_ENABLE].value before
+  forcing single-pipe, since disabling rate control makes the bitrate
+  mode (and VBV delay) meaningless regardless of CBR/VBR selection.
+- Link to v3: https://lore.kernel.org/r/20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com
 
-   In file included from <built-in>:3:
-   In file included from include/linux/compiler_types.h:171:
-   include/linux/compiler-clang.h:28:9: warning: '__SANITIZE_ADDRESS__' macro redefined [-Wmacro-redefined]
-      28 | #define __SANITIZE_ADDRESS__
-         |         ^
-   <built-in>:353:9: note: previous definition is here
-     353 | #define __SANITIZE_ADDRESS__ 1
-         |         ^
->> drivers/gpu/drm/bridge/ssd2825.c:484:13: warning: stack frame size (20088) exceeds limit (8192) in 'ssd2825_bridge_atomic_pre_enable' [-Wframe-larger-than]
-     484 | static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-         |             ^
-   2 warnings generated.
+Changes in v3:
+- iris_set_pipe(): check fw_caps[BITRATE_MODE].value directly instead of
+  inst->hfi_rc_type, which is stale here since BITRATE_MODE is applied
+  after PIPE in platform_inst_fw_cap_type order.
+- Link to v2: https://lore.kernel.org/r/20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com
 
+Changes in v2:
+- iris_set_pipe(): use inclusive VBV_DELAY bounds (>= 34 && <= 100 ms)
+  matching the documented range.
+- iris_set_pipe(): only force single-pipe under CBR rate control so
+  a stale in-range VBV_DELAY no longer affects non-CBR streams.
+- iris_set_pipe(): read fw_caps[VBV_DELAY].value once instead of
+  twice in the same condition, and derive the default work_route from
+  the immutable fw_caps[PIPE].max instead of the self-mutated .value,
+  writing the final decision back into .value so frequency scaling
+  picks up the corrected pipe count instead of a stale one.
+- iris_set_vbv_delay(): drop the dev_err() logged for non-CBR rate
+  control; that is an expected, valid configuration, not an error.
+- Link to v1: https://lore.kernel.org/r/20260730-iris_vbv_delay-v1-0-7b5a7953bcdf@oss.qualcomm.com
 
-vim +/ssd2825_bridge_atomic_pre_enable +484 drivers/gpu/drm/bridge/ssd2825.c
+---
+Sachin Kumar Garg (2):
+      media: iris: enable pipe for hfi gen2 encoder
+      media: iris: add support for vbv delay
 
-   483	
- > 484	static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-   485						     struct drm_atomic_state *state)
-   486	{
-   487		struct ssd2825_priv *priv = bridge_to_ssd2825(bridge);
-   488		struct mipi_dsi_device *dsi_dev = priv->output.dev;
-   489		const struct drm_crtc_state *crtc_state;
-   490		const struct drm_display_mode *mode;
-   491		struct drm_connector *connector;
-   492		struct drm_crtc *crtc;
-   493		u32 input_bus_flags = bridge->timings->input_bus_flags;
-   494		u16 flags = 0, config;
-   495		u8 pixel_format;
-   496		int ret;
-   497	
-   498		/* Power Sequence */
-   499		ret = clk_prepare_enable(priv->tx_clk);
-   500		if (ret)
-   501			dev_err(priv->dev, "error enabling tx_clk (%d)\n", ret);
-   502	
-   503		ret = regulator_bulk_enable(ARRAY_SIZE(ssd2825_supplies), priv->supplies);
-   504		if (ret)
-   505			dev_err(priv->dev, "error enabling regulators (%d)\n", ret);
-   506	
-   507		usleep_range(1000, 2000);
-   508	
-   509		ssd2825_hw_reset(priv);
-   510	
-   511		/* Perform SW reset */
-   512		ssd2825_write_reg(priv, SSD2825_OPERATION_CTRL_REG, 0x0100);
-   513	
-   514		/* Set pixel format */
-   515		switch (dsi_dev->format) {
-   516		case MIPI_DSI_FMT_RGB565:
-   517			pixel_format = 0x00;
-   518			break;
-   519		case MIPI_DSI_FMT_RGB666_PACKED:
-   520			pixel_format = 0x01;
-   521			break;
-   522		case MIPI_DSI_FMT_RGB666:
-   523			pixel_format = 0x02;
-   524			break;
-   525		case MIPI_DSI_FMT_RGB888:
-   526		default:
-   527			pixel_format = 0x03;
-   528			break;
-   529		}
-   530	
-   531		connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-   532		crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-   533		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-   534		mode = &crtc_state->adjusted_mode;
-   535	
-   536		/* Set panel timings */
-   537		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_1,
-   538				  ((mode->vtotal - mode->vsync_end) << 8) |
-   539				  (mode->htotal - mode->hsync_end));
-   540		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_2,
-   541				  ((mode->vtotal - mode->vsync_start) << 8) |
-   542				  (mode->htotal - mode->hsync_start));
-   543		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_3,
-   544				  ((mode->vsync_start - mode->vdisplay) << 8) |
-   545				  (mode->hsync_start - mode->hdisplay));
-   546		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_4, mode->hdisplay);
-   547		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_5, mode->vdisplay);
-   548	
-   549		if (mode->flags & DRM_MODE_FLAG_PHSYNC)
-   550			flags |= SSD2825_HSYNC_HIGH;
-   551	
-   552		if (mode->flags & DRM_MODE_FLAG_PVSYNC)
-   553			flags |= SSD2825_VSYNC_HIGH;
-   554	
-   555		if (dsi_dev->mode_flags & MIPI_DSI_MODE_VIDEO)
-   556			flags |= SSD2825_NON_BURST_EV;
-   557	
-   558		if (input_bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
-   559			flags |= SSD2825_PCKL_HIGH;
-   560	
-   561		ssd2825_write_reg(priv, SSD2825_RGB_INTERFACE_CTRL_REG_6, flags | pixel_format);
-   562		ssd2825_write_reg(priv, SSD2825_LANE_CONFIGURATION_REG, dsi_dev->lanes - 1);
-   563		ssd2825_write_reg(priv, SSD2825_TEST_REG, 0x0004);
-   564	
-   565		/* Call PLL configuration */
-   566		ssd2825_setup_pll(priv, mode);
-   567	
-   568		usleep_range(10000, 11000);
-   569	
-   570		config = SSD2825_CONF_REG_HS | SSD2825_CONF_REG_CKE | SSD2825_CONF_REG_DCS |
-   571			 SSD2825_CONF_REG_ECD | SSD2825_CONF_REG_EOT;
-   572	
-   573		if (dsi_dev->mode_flags & MIPI_DSI_MODE_LPM)
-   574			config &= ~SSD2825_CONF_REG_HS;
-   575	
-   576		if (dsi_dev->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
-   577			config &= ~SSD2825_CONF_REG_EOT;
-   578	
-   579		/* Initial DSI configuration register set */
-   580		ssd2825_write_reg(priv, SSD2825_CONFIGURATION_REG, config);
-   581		ssd2825_write_reg(priv, SSD2825_VC_CTRL_REG, 0);
-   582	
-   583		if (priv->output.panel)
-   584			drm_panel_enable(priv->output.panel);
-   585	}
-   586	
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 53 ++++++++++++++++++++--
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 19 +++++++-
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
+ .../platform/qcom/iris/iris_platform_common.h      |  1 +
+ 5 files changed, 70 insertions(+), 5 deletions(-)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260730-iris_vbv_delay-343d2fa30842
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+-- 
+Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+
