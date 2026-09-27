@@ -1,185 +1,327 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0801A41BA7A
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AC833DEE9;
+	Sun, 27 Sep 2026 16:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526824; cv=none; b=RfrSZpEoC595f7I5s0Sa76zJKegzwLZcKA9JLC9DkVaLbl2Xrg6ndwUp+asV5rCesSpLLVRaY2f4lKbGcqoPxl6RfbyORVepRCo0VaXoobSPtQy59QQKH/cfFgHSyYI+9qw7mGpHWeFNO1fWW0DASdhSXPvJCPetQsFisvWj9/w=
+	t=1790526858; cv=none; b=hDJ4qGiPW/R6QgX2yYXGWa5XW4yKZUVObquAGHpcAiPfWkmVjYHL1QklQFe9Ze4S2S5kUGmVhZPYD9uVeAI9cNRPl9RiDw6CNYdCCZRk2bd78l7k9vgbgzHvGa3DcBKwsXxRU1y2v4SVIdBrnne+Pgm15chs7y7iWcBVe/vKqn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526824; c=relaxed/simple;
-	bh=xGlbAsXAOE8rH+2A5jMDhH2JAdQcuVK+CGw16Ag4g3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YHcfGi+BvNtwOnK/iTAcWuGAJFA0ccSKO58cdcuIz9w/OxJrJEIXyqujYXvMDklYkNpZrk8ro9G4JAMasAGk3IA/ajpB6otTJgkIJRMSJtzRGNTYZuzTmPw7+8D28HDHDfDAOngHbZzAy1Khg+CEXNuVuhVytSzEU2bmeTD8lvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EN/ib10L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g3cmqhd5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790526858; c=relaxed/simple;
+	bh=pVhV0s5xSaqfi7ZpJcnxlNbFvnolA3fpIcpgj1k/dVA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=LpIT0NoXN1fGLnkIXRvZRRmLQaGXu9DiAMuNoqKDYoKVH6SCpSFfMZAluBsS156ZAlZOPa/gMVVWme5SFDcW4MeldsbP+GVXyu2wt4NWB19NzFDMHHgNepGiPt9hZQVcqM2w8b0XenNeGxDJ6IIOoE1FKmaPg6VpkpsPBs+kyUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ZtjRGBAl; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=m/8ZWVZs; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EN/ib10L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3cmqhd5"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QMkOrJ2148208
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:33:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=kBaOyYV1iWR4jpfFBZ3VawI9
-	vIbejaQgOQsY1cvSmjY=; b=EN/ib10LX8Y/+lkH0LFd8Jk09MJQN+CIC0e7m+uf
-	SFjv96uGdqB/t/rKCAY44aGZobz57ViFMvRnVljBHQPa9qd1lHKiYuXvfhaqGAnH
-	H92h5WAYp5cigEofp8/jBwuvtbpKRFddGeaCvseffvOiUEtKXC8uS6cPUNmPD7WF
-	/BVSAi27/TO/jOfutRTKml2kn7amU4nYxvTg8i8Xa3nxxQlozuSAiYgy/sWmUAxD
-	/4drmk0V+Ith/qcM7lQeW0TtVrZqZIQ/jn2l2MAZf3o0CQsKbD90B5+p+VmHrund
-	F0ME9KJN4BafMYiviDoi8ZgU1f4tRmUJ33kUeWMiI1rxkQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx3rfum6m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:33:39 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c6a0d2122so138590985a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:33:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790526818; x=1791131618; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kBaOyYV1iWR4jpfFBZ3VawI9vIbejaQgOQsY1cvSmjY=;
-        b=g3cmqhd5myslN0V5757uS/KwZ29tSu5wq/u4g3X9CKoKDEvEpjscVkZmnxP7WZvl11
-         l9w+vWLlaUqQ4z5Ov0fW1t1Aa8os0JB3hIoH9DnPj0d9fhTHpDQZZeu+vzyiCEm7X5tc
-         kfO1WiSzQkbUTO4DAYguORKrufsSprYwIaI9S4jjnmRiXYNB9HWX48cveKUfxRWMcJKa
-         gF8tsLgm8BJtCWmGgiZkcPJoF8C7uTni4M8e8C9UvUKyD+bCjlfe/eE1ZYpwwcPsn/rg
-         3giZsQkmfNg0M+7U/DAwNwyXnk7/MjJYTumBDDBSk1AOMG/m7M2k0qvGOEqXkxqUiZ0i
-         +r5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790526818; x=1791131618;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kBaOyYV1iWR4jpfFBZ3VawI9vIbejaQgOQsY1cvSmjY=;
-        b=LTuRBSC9dhwoDSYjcj1OPqjQEa+OMyO5RvdorYIdt3pIzKDBahCwEa7rY7SgPgw3up
-         eJI1UMNUMMYoDgZv0X+y7K3iQAQK3EQP2hZPm5pyWGA1tQUz++76MxhlOc71xAkW3e7W
-         GFq4rBguySzL0XXozAsI4kngBXOykjSSORD0gwP1WPpJiFCCy3wD3guOoh28ZDIOpYhS
-         qIk0oiV0rU3eTGth2wtbVvNWgndiKATE9hsQz7ROsAMAq8dUuv/vYm9d8O54VOV+AQUG
-         kFyX6+HupU4q96MwMVPiesiFP3AZPQcG3KbBj9FN215sK9OR79SsksjSWQoqEmrB0mC7
-         xgDw==
-X-Forwarded-Encrypted: i=1; AKwUvBw5oI8QMU0Mxi6wiXYyWk1iC25kCI0Xsl4ADg6WqULNy5civ/1V8nDCcUZkQONctoRgx6ywL9iJPV4vP/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2oF7hBjuyDrlUoKWki2r0j7u110NcBniYDFRTRDLHMPVjA7ft
-	WNzckEncrq8+/eh7X33zFXpaX/U9V/mz5QwlePDv47V0BjrJkcb4ddLhmM1PFfR7Q2LuCBkUesm
-	yfEV4oBroo9cm85Wq9sWz7kI2o/yYpbBULOVQn0uFov3JyCAIZmq5qm2WUXgji/gFbHw=
-X-Gm-Gg: AYBFou25Hld1htl6+WTGM62gIFW6nDtzWkUZ5fhXjjLm5box1hYW04U2pckPF1Va3B7
-	hLyGkzYr9+k95aWI4q4H4xRc5Yi3/TBdyni1vHD5vfLICfOzfOzd6M/rNt5zcdtBQQaq+ZWYar0
-	Uhn6vEo/dQkAIdXf8qIRJ8o9trP6CuH4DWVEf1lGaxZTBuGCUvboPlkog4MeLajIJYybLSJRm2a
-	0WrGcrlliy/h8lXYZXuaTajbppaddWu4xN5VbFi/1RhrTeFJoerakMO7n+bjLjzde7MZ9/zg6iP
-	bqL0FmvSUBIum20lUWpbtMkTp4p/GMqozeDR3u4IoP63EXYQh2+AgZO98S/DHSJRD8d7k+CozoL
-	IhsILB78nzpsPGL3A+RB1bCrWOHJVbTE9cAPJMmZ168kGDKgt298EiXq8HK70jh8b12o2NUt2nI
-	OSk033ruiA0Wxj
-X-Received: by 2002:a05:620a:8001:b0:93c:735c:2477 with SMTP id af79cd13be357-93c735c28b2mr277172885a.21.1790526818145;
-        Sun, 27 Sep 2026 09:33:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:8001:b0:93c:735c:2477 with SMTP id af79cd13be357-93c735c28b2mr277166485a.21.1790526817696;
-        Sun, 27 Sep 2026 09:33:37 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8e6ae622bsm1929439e87.16.2026.09.27.09.33.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:33:36 -0700 (PDT)
-Date: Sun, 27 Sep 2026 19:33:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Alexey Minnekhanov <alexeymin@minlexx.ru>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        phone-devel@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH RFC 00/12] Qualcomm Type-C support for 1st generation
-Message-ID: <zb3s4fmwx7vu3kcqigensacbgdqoaqnipfn4ntx4dh7ahrfr42@hvdw36dqb3qn>
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
- <voc4ie6fcegr3thk5n6dib4pkdxmracch4hhgjdih6pxrq2bfm@lq7mx4flowqk>
- <f85cdfb7-b797-4b4b-9937-670c6dfe52c3@ixit.cz>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ZtjRGBAl";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="m/8ZWVZs"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790526840; bh=KcI1YG6y7h4/QlDbPjAqJIr
+	5IQhsXAKX8fFu5YaAnC4=; b=ZtjRGBAl1N+5g5Y/brPE0eKl/4pLRE23RfFqabLEiNJa+ia23+
+	j50r8soN+ZJQKjHLaKumw42DilZ5cvJuAgJMk20V63oUEtUGz9/8RjFbcXrAupcAs3e1S5j+U1g
+	8DssHab49sRlLLD7uJyln3EYQkEpo++39qvaR+lSfC5GhKT8yigoQpSbrjPEOw+p2nrfvbzPWNs
+	+0QIk5oO6V6/mlLVQWipxDC/hBZlerhT93QOqUattXRPHS8SwI055fsI3tJMa+7vPRE4m28m+JD
+	TeKTM1r1j5JMmGgYhk6GW+BQqAFUobZX2Ef1W/JxGI19aTwp3NNwjK4/MW/u7cW8XQg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790526840; bh=KcI1YG6y7h4/QlDbPjAqJIr
+	5IQhsXAKX8fFu5YaAnC4=; b=m/8ZWVZsVicYufl1mdaHDFgo/jOn6WalbnDj748R7Vj5u14OaC
+	0YL+pzGAKmuHSrvqiotL4/moKX/L7Y6WnFDA==;
+Date: Sun, 27 Sep 2026 17:33:59 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+CC: linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, rcu@vger.kernel.org, lkmm@lists.linux.dev
+Subject: Re: [PATCH hazptr 0/4] Hazard pointer updates
+In-Reply-To: <89cecc9c-f29b-46d1-804d-c87171a445f0@efficios.com>
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com> <EAE9B584-7CEC-46AA-AC8F-A06F11073763@mainlining.org> <89cecc9c-f29b-46d1-804d-c87171a445f0@efficios.com>
+Message-ID: <1357947A-5850-4F73-B22E-2AE8B5CAABE2@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f85cdfb7-b797-4b4b-9937-670c6dfe52c3@ixit.cz>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA2NSBTYWx0ZWRfX7bOaqR4LJIRG
- x2+oXZZ6YcEHUjWUK+rEv4TuTG6c1ow5Gb1Ecy6KabI5oTYQ//RH8hhPduCpXCT1juqhbdmCZMe
- h2VVoyys6UqpEPZU9YsRcE5+NJ/zSWA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA2NSBTYWx0ZWRfXzOhK16HJXa9w
- E5pewA9f8sCXM+t2diQz8q7Ngxo2YPgUiSuEeJhCajT0v2aP2kLNa31OOeGuHAo++k+m8n9l9JM
- DNK4WcHpRDQv8IBB8Gx1QSqlrRrFu18CI/l6tNsUk5+zodQpmo/4tRHrgKcrUGGdvQLwmT4O4Im
- tQsb/hRsvmag90AHZ9rh+eRb0eqa1JL5yNBajaIMOiBLzaXtThXfacY49H+VtF+jF2Uzq+GORPA
- jyOQN16rdth//ob4TgxgCsjAs0pUI1o3/a0lJ3Cib/GX+YffyxdcfuFreLYh+/eZMLj/4yd5GWJ
- T4jHFI9M93DYULyZ5ixYP35BjxXKvqfLsHoQt9I7Oo+rivh8adeOGZcgIbGNPgVldxCl8ljoOMn
- /tlYyF8qs4a2GCN7TFCGi2BDr/M7luyxcuGT2mxnOdL19N/cUk3jn5biLW+yNwR6FuvLNMfD0qb
- LCsAeMYRgJT0VQlXj6A==
-X-Proofpoint-GUID: yWxRQ8s2XT8mURp4pQu0oSvfAOG9fzMC
-X-Proofpoint-ORIG-GUID: yWxRQ8s2XT8mURp4pQu0oSvfAOG9fzMC
-X-Authority-Analysis: v=2.4 cv=K6G3jCWI c=1 sm=1 tr=0 ts=6ab94563 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=Ei4b4_x7BeZEOqWOIxkA:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270065
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 05:16:28PM +0200, David Heidelberg wrote:
-> On 27/09/2026 15:05, Dmitry Baryshkov wrote:
-> > On Sat, Sep 26, 2026 at 02:40:19PM +0200, David Heidelberg via B4 Relay wrote:
-> > > This series adds basic USB Type-C support for 1st gen devices, covering
-> > > configurations that do not require VBUS power (e.g. devices using
-> > > externally powered docks).
-> > > 
-> > > VBUS support will be added in a follow-up series after this one is merged.
-> > > Supporting VBUS will likely require refactoring parts of the SMBX charger
-> > > support, which is why it is not included here.
-> > > 
-> > > Tested with an externally powered dock station:
-> > > 
-> > >   - Pixel 3 / 3 XL
-> > >   - SHIFT 6mq
-> > >   - OnePlus 6
-> > > 
-> > > Tested with an additional, not-yet-included VBUS patch for non-powered
-> > > devices:
-> > > 
-> > >   - Xiaomi Redmi Note 7
-> > >   - Xiaomi Mi Pad 4
-> > 
-> > THis is very interesting, as it will also unblock DisplayPort support on
-> > devices from those generations.
-> 
-> Yes, DP works with some minor adjustment there and there (going to be follow-up)
-> 
-> > 
-> > 
-> > One major comment. As we see, on SMB2 PMICs parts of the Type-C
-> > functionality are provided by the charger / FG device. I guess that on
-> > SMB5 PMICs we will get the same problem once somebody tries to implement
-> > additional charger features. Would it make sense to rework the PMIC TCPM
-> > driver to be a composite driver, taking several components via the
-> > existing Linux interface?
-> 
-> As this gets decided from the QCOM side, I'm fine with whatever suits the
-> hardware best.
+On 27 September 2026 17:27:33 BST, Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>On 2026-09-27 12:07, Bradley Morgan wrote:
+>> On 27 September 2026 16:51:27 BST, Mathieu Desnoyers
+>> <mathieu.desnoyers@efficios.com> wrote:
+>>> Hi Paul,
+>>> 
+>>> This series applies on top of "hazptr: handle NULL address in
+>>> hazptr_detach" you have in your rcu dev tree.
+>>> 
+>>> This first patch addresses a race identified by Boqun Feng in the
+>>> two-phase wildcard scheme.
+>>> 
+>>> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
+>>> Those were discussed at length in a prior version of hazard pointer
+>>> patches.
+>>> 
+>>> Patch 4 introduces a "try acquire" helper to allow the fast path
+>>> to not rely on wildcards, while keeping the wildcard forward
+>>> progress guarantees in the acquire slow path, used on fast path
+>>> failure.
+>> 
+>> Hi, here is a hazptr perf test on powerpc
+>> 
+>> REAL kill_fasync(), ns per call, best of 3, 100k calls:
+>> (stock = rwlock walk, conv = hazptr walk, same v3 tree ± the conversion)
+>> 
+>>    shape          stock    conv     delta
+>>    1 node,  1 walker     59      59     +0.0%   (singleton: identical)
+>>    16 nodes, 1 walker   539     539     +0.0%   (uncontended: identical)
+>>    16 nodes, 4 walkers  509     134    -73.7%   ← rwlock readers contend
+>>    16 nodes, 8 walkers  313     113    -63.9%   ← same list, 8 cpus
+>>    64 nodes, 1 walker  1979    2039     +3.0%   (pure walk: hazptr tax)
+>>    64 nodes, 4 walkers 1914     509    -73.4%
+>>    64 nodes, 8 walkers 1015     382    -62.4%
+>> 
+>> Its SLOWER than rcu, but beats rwlock
+>
+>Two feedback points:
+>
+>1) The comparison I think Boqun cares mostly about is with expedited
+>   RCU grace periods, this is where we suspect there is a significant
+>   benefit to using hazptr rather than RCU to eliminate those IPIs
+>   on synchronize.
+>
+>   It's good to know that it performs better than rwlock (albeit it's
+>   not surprising).
+>
+>2) I'm concerned about what looks like a use of hazptr to protect linked
+>   lists elements in your benchmark (did I miss anything ?).
+>
+>   RCU read-side critical sections protect all elements of a linked list
+>   naturally, but hazptr requires more care. See this comment above
+>   hazptr_acquire:
+>
+> * This protection is unconditional, and has limitations similar to
+> * that of unconditional reference-counter acquisition.  In particular,
+> * although holding a hazard pointer prevents a hazard-pointer-protected
+> * object from being freed, it does not prevent that object from being
+> * removed from a linked data structure, and does not prevent other
+> * hazard-pointer-protected objects referenced by this object from being
+> * both removed and freed.  At which point, invoking hazptr_acquire()
+> * on these dangling pointers would be a bug.  On the other hand, use of
+> * hazptr_acquire() is safe for immortal pointers to objects that do not
+> * themselves contain pointers to hazard-pointer-protected objects.
+> * Other (more complex) use cases are also possible.
+>
+>Does the pointer you protect qualify as an "immortal" pointer, or it's
+>a linked list "next" pointer ?
+>
 
-Bryan, as you are a maintainer of the PMIC-TCPM? Would the use of
-components be fine?
+Hmm. Do you have a idea on what you could metaphorically convert, with a
+core subsystem? 
 
--- 
-With best wishes
-Dmitry
+I'll give anything you want me to do a try
+
+>Thanks,
+>
+>Mathieu
+>
+>> 
+>> SIGIO delivery, plain mode, 8 ptys 1 listener each (identical harness):
+>> 
+>>    BASELINE (rwlock)     472/s
+>>    CONVERTED v4 (hazptr) 452/s   ← singleton fast path: gap 12% → 4%
+>> 
+>> With a few changes, it was 12% slower than rcu before.
+>> 
+>> Do you want those changes?
+>> 
+>> My idea is, we find something that would put use to hazptr, here is what
+>I
+>> tried
+>> 
+>> 
+>> diff --git a/fs/fcntl.c b/fs/fcntl.c
+>> index c158f082f1da..bb04076ff6d9 100644
+>> --- a/fs/fcntl.c
+>> +++ b/fs/fcntl.c
+>> @@ -17,6 +17,7 @@
+>>   #include <linux/slab.h>
+>>   #include <linux/module.h>
+>>   #include <linux/pipe_fs_i.h>
+>> +#include <linux/hazptr.h>
+>>   #include <linux/security.h>
+>>   #include <linux/ptrace.h>
+>>   #include <linux/signal.h>
+>> @@ -1009,15 +1010,20 @@ int fasync_remove_entry(struct file *filp,
+>struct fasync_struct **fapp)
+>>   		if (fa->fa_file != filp)
+>>   			continue;
+>>   -		write_lock_irq(&fa->fa_lock);
+>> +		/*
+>> +		 * Make the file invisible to the walk before unlinking,
+>> +		 * then wait for any in-flight send_sigio() to be done with
+>> +		 * the node before freeing it.  The walk holds a hazard
+>> +		 * pointer to this node, so it cannot already be freed.
+>> +		 */
+>>   		fa->fa_file = NULL;
+>> -		write_unlock_irq(&fa->fa_lock);
+>> -
+>>   		*fp = fa->fa_next;
+>> -		kfree_rcu(fa, fa_rcu);
+>> +		spin_unlock(&fasync_lock);
+>> +		spin_unlock(&filp->f_lock);
+>> +		hazptr_synchronize(fa);
+>> +		fasync_free(fa);
+>>   		filp->f_flags &= ~FASYNC;
+>> -		result = 1;
+>> -		break;
+>> +		return 1;
+>>   	}
+>>   	spin_unlock(&fasync_lock);
+>>   	spin_unlock(&filp->f_lock);
+>> @@ -1056,13 +1062,10 @@ struct fasync_struct *fasync_insert_entry(int
+>fd, struct file *filp, struct fasy
+>>   		if (fa->fa_file != filp)
+>>   			continue;
+>>   -		write_lock_irq(&fa->fa_lock);
+>> -		fa->fa_fd = fd;
+>> -		write_unlock_irq(&fa->fa_lock);
+>> +		WRITE_ONCE(fa->fa_fd, fd);
+>>   		goto out;
+>>   	}
+>>   -	rwlock_init(&new->fa_lock);
+>>   	new->magic = FASYNC_MAGIC;
+>>   	new->fa_file = filp;
+>>   	new->fa_fd = fd;
+>> @@ -1121,44 +1124,51 @@ EXPORT_SYMBOL(fasync_helper);
+>>   /*
+>>    * rcu_read_lock() is held
+>>    */
+>> -static void kill_fasync_rcu(struct fasync_struct *fa, int sig, int
+>band)
+>> +void kill_fasync(struct fasync_struct **fp, int sig, int band)
+>>   {
+>> +	struct hazptr_ctx cur, nxt;
+>> +	struct fasync_struct *fa;
+>> +
+>> +	/* First a quick test without locking: usually
+>> +	 * the list is empty.
+>> +	 */
+>> +	fa = READ_ONCE(*fp);
+>> +	if (!fa)
+>> +		return;
+>> +
+>> +	/*
+>> +	 * Hand-over-hand with two ping-ponged contexts: the next node
+>> +	 * must be acquired before the current one is released, but a
+>> +	 * hazptr_ctx may only front one live slot at a time.
+>> +	 */
+>> +	cur = (struct hazptr_ctx){ };
+>> +	nxt = (struct hazptr_ctx){ };
+>> +	fa = hazptr_acquire(&cur, (void * const *)fp);
+>>   	while (fa) {
+>> -		struct fown_struct *fown;
+>> -		unsigned long flags;
+>> +		struct fasync_struct *next;
+>>     		if (fa->magic != FASYNC_MAGIC) {
+>>   			printk(KERN_ERR "kill_fasync: bad magic number in "
+>>   			       "fasync_struct!\n");
+>> -			return;
+>> +			break;
+>>   		}
+>> -		read_lock_irqsave(&fa->fa_lock, flags);
+>> +
+>>   		if (fa->fa_file) {
+>> -			fown = file_f_owner(fa->fa_file);
+>> -			if (!fown)
+>> -				goto next;
+>> -			/* Don't send SIGURG to processes which have not set a
+>> -			   queued signum: SIGURG has its own default signalling
+>> -			   mechanism. */
+>> -			if (!(sig == SIGURG && fown->signum == 0))
+>> +			struct fown_struct *fown = file_f_owner(fa->fa_file);
+>> +
+>> +			if (fown &&
+>> +			    /* Don't send SIGURG to processes which have not set a
+>> +			       queued signum: SIGURG has its own default signalling
+>> +			       mechanism. */
+>> +			    !(sig == SIGURG && fown->signum == 0))
+>>   				send_sigio(fown, fa->fa_fd, band);
+>>   		}
+>> -next:
+>> -		read_unlock_irqrestore(&fa->fa_lock, flags);
+>> -		fa = rcu_dereference(fa->fa_next);
+>> -	}
+>> -}
+>> -
+>> -void kill_fasync(struct fasync_struct **fp, int sig, int band)
+>> -{
+>> -	/* First a quick test without locking: usually
+>> -	 * the list is empty.
+>> -	 */
+>> -	if (*fp) {
+>> -		rcu_read_lock();
+>> -		kill_fasync_rcu(rcu_dereference(*fp), sig, band);
+>> -		rcu_read_unlock();
+>> +		next = hazptr_acquire(&nxt, (void * const *)&fa->fa_next);
+>> +		hazptr_release(&cur, fa);
+>> +		swap(cur, nxt);
+>> +		fa = next;
+>>   	}
+>> +	hazptr_release(&cur, fa);
+>>   }
+>>   EXPORT_SYMBOL(kill_fasync);
+>>   diff --git a/include/linux/fs.h b/include/linux/fs.h
+>> index f9d1e05e8ae6..852f1b8c00af 100644
+>> --- a/include/linux/fs.h
+>> +++ b/include/linux/fs.h
+>> @@ -1365,7 +1365,6 @@ static inline struct dentry *file_dentry(const
+>struct file *file)
+>>   }
+>>     struct fasync_struct {
+>> -	rwlock_t		fa_lock;
+>>   	int			magic;
+>>   	int			fa_fd;
+>>   	struct fasync_struct	*fa_next; /* singly linked list */
+>> 
+>> 
+>> Anything I did wrong? No?
+>> 
+>> 
+>>> 
+>>> Thanks,
+>>> 
+>>> Mathieu
+>>> 
+>>> Mathieu Desnoyers (4):
+>>>   hazptr: Fix two-phase hazptr_synchronize race with detach
+>>>   compiler.h: Introduce ptr_eq() to preserve address dependency
+>>>   Documentation: RCU: Refer to ptr_eq()
+>>>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
+>>> 
+>>> Cc: Paul E. McKenney <paulmck@kernel.org>
+>>> Cc: Boqun Feng <boqun@kernel.org>
+>>> Cc: Bradley Morgan <brads@mainlining.org>
+>>> Cc: Gary Guo <gary@garyguo.net>
+>>> Cc: <rcu@vger.kernel.org>
+>>> Cc: <lkmm@lists.linux.dev>
+>>> 
+>>> Documentation/RCU/rcu_dereference.rst |  38 +++++++-
+>>> include/linux/compiler.h              |  63 ++++++++++++
+>>> include/linux/hazptr.h                |  47 +++++----
+>>> kernel/hazptr.c                       | 135 +++++++++++++++-----------
+>>> 4 files changed, 203 insertions(+), 80 deletions(-)
+>>> 
+>>> 
+>> 
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
+>
+>
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
