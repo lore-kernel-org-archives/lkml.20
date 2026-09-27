@@ -1,137 +1,111 @@
-Received: from mail-wr2-f24.google.com (mail-wr2-f24.google.com [74.125.225.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AFF3B7765
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4543D0923
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790548428; cv=none; b=aman7fID7tSlFnFjOj/REnW4d3lTTBYUrgxZ/qmPHAZZEdzgLGS4NEUlslzsm+FejOxYDHkHP1f9X9D325lEAyHCtTPly0J/Xihw48LpZTBFOwJVzCUqB53ruGNvTV513BwclOrGg+QkxlwLliRXwcM3T7wGi3vlzMLg3M6xzAI=
+	t=1790548459; cv=none; b=UoLD6z6oQLDdCEvhlmUnkB4oAY6HJJEm5ezpYBu3jquafgw4+urf3EnFkIvdJYx5S6pRqoBN9al/W9oBWTc86SNq3UxcwqslbxniIOc+RHPDvFTmsuOAL5eA9F2hgAYD942LH182GO/ajh+OeFY88RhvrXjl8nJSaeFBEcY0CW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790548428; c=relaxed/simple;
-	bh=1sRcSFppOrgktFqdfKHTNDuzVX5pBsaOKugd6hcDcIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AXc1mJ97f6I6O+T0COJ5a10BTbZHd/AOXR9GFsbZRB2K7HfzaeRxfE3JRxHxoXJSe6HxzmwhqJavEl0z1WPjBRI24Kvh1Bj2MLIClQHmtFU9lhxVco1VDZ19yPmJF/tbLp3wpBQoQlFd5RUh8lznRQTcD0BDjC7qAvm1x6ULVjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kx+xJFff; arc=none smtp.client-ip=74.125.225.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790548459; c=relaxed/simple;
+	bh=Hp4OOctJbRKzqb2yW8G43pvTRyOpExkzzFUV2ij+OHY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fx4WkKY/uoPy/ToQ9GoYNgN8CeJ4SoG+GUENFRKbneKIXl0Bp3filflRt1iN1WrfZSfziqISSVPI8BsqsZezz5l9KSlpOZR8Nn2TXY4D8ACg0+DDXaAokBzKrE6myASQQ1Q87TmYoMWqB1AD2pF0sQ++TCogXSTmwI6mANQQIbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=OydWa3hs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RISz6qgc; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kx+xJFff"
-Received: by mail-wr2-f24.google.com with SMTP id ffacd0b85a97d-482f63546c3so1930932f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:33:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790548425; x=1791153225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3HVeOlrU5+9T0TXxv7ji/SUxWihY/QvPKpNCrdEuPA0=;
-        b=Kx+xJFffzOkSdRikEURxt7j+/Ww29ZE649WMrWE/UUNYDPsDIvcy4YxzigdZPU2SBF
-         eGIUfv6W0k2qFwxMatLKc3n0tcOj8f/AV6u1Tbd6jqIanCo+dBG7hHuHaHckMKiQkFFG
-         zMs6A0QmmXVjfnAv3ITe8mfk0DcXfi5IKu4AFkdhBxuwLNYNODEMjysTIB/6DmCdXrkq
-         7d22wLlqKPDrLbV6w/BL5rXrbZfjdGpJ/4tqQ8IEuJoTOFRb8vM92xis5WT5mNROz+xc
-         wQwkRvSV9Xy6FzSFJT2NGxvn2G3fvORENRR7lz0TL2cKhHmPxkQbrsyB8LaydGLorWn5
-         ZV1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790548425; x=1791153225;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3HVeOlrU5+9T0TXxv7ji/SUxWihY/QvPKpNCrdEuPA0=;
-        b=FtUj55hCTQPUSejIjP/ffaScaUuBApE137LEBc/EnI4og3lpTVZlYJKw17klO6/l6T
-         e9GONvQogouhwxEURae2i/cOJr9O0/vJSOjeuXFuSnRYsIkDTbzxhP8vuxGw3R7OYzEO
-         qCSi9bWY03ECyrBM2hpzyL2EDsjPu0Qk0BfEq+tQvLnyI2xB61GGm9sJc8fqrkJASq+T
-         4BG0pRTobV213ntEG+zSGmvKdoFCGnV5sCB+XuFQ20gAsrO8KIHBtJ3gL+MsU0txQGw0
-         jguMtgNwssmbFeGzcv/srNUrm63lpwsrMbVWB7nYhES0S61fW6lKfBTY7rgzJzDKu4Zk
-         AnVw==
-X-Forwarded-Encrypted: i=1; AKwUvBx959UK+qhUhrJ/X1S2O/2hCI3mUC15a+84qbZ5/QHSOaZwLRK3IbwZRlRwrl/6Ht2rJkydY6p60Zixxoo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcz6oCcCP/SY4QLBCPk9hASkOu6s6iN2NgteffTcU4S68DrY38
-	8YrNy/NO5CzY+MA7T1A+1YWiD5KAy30uj0dhDvZUCieKRIPJVwmBegaV
-X-Gm-Gg: AYBFou3vBqMHu65+xv65gJm6tLWAQteTKGNpDB6Diqo6FWSwQaTs14ond5/iob/c7rh
-	NQdPv6L14a7nwyoGHn9fZ3jScEgz4YGG1fi8YEMfoJOGjLnUPEqkzbSISgzTTR/YhDXgBMnflr+
-	+tiDWbeCneTIGBufElCC2/fk0PQSD9CbecZPOdl7L5/6aptHh2/YVtgyekeklRUZc3qhB/ibOGz
-	/vEtVcAv6wqGeC52Rt8sheJoCchipvAFfvl7h3Jej3QrbWVCgIkwYfQ0FcO3hGQQXOkWt9BqUB2
-	y5z3rbDd7A37EZq42DJXoZBMLfu3B7tNdQGy9id3RIWt9Sn5etvatY5iz++niNtgL9t5+cOU4CS
-	sTj+7OzZJS9MKlGuU3beyNtq0+YGvAGl589l6qD079nRcESgADBJHRvaJhgu6OfNbx6hJkF7d7i
-	+AKlW/Pl039bMpC/hMBkQy08WD0PyXuCteWBqMNg7m/b7Kl3hEc/W3RfDVe1qptGbi6Udx
-X-Received: by 2002:adf:e19c:0:b0:487:11c3:b004 with SMTP id ffacd0b85a97d-488719760c4mr20369347f8f.52.1790548424757;
-        Sun, 27 Sep 2026 15:33:44 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcdbsm22517694f8f.2.2026.09.27.15.33.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 15:33:44 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH bpf] bpf: Fix uninitialized known_memory read in check_mem_reg()
-Date: Mon, 28 Sep 2026 01:28:05 +0300
-Message-ID: <20260927223327.414912-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="OydWa3hs";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RISz6qgc"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id A70321400043;
+	Sun, 27 Sep 2026 18:34:15 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sun, 27 Sep 2026 18:34:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1790548455; x=
+	1790634855; bh=7vqGQuR76OwCIa8mKkUWKH7FtPv+N5MafcWqQpKlZPg=; b=O
+	ydWa3hslXduvRVUFz+pw3j5VwxESFQ1Bgfvm022wNKAw2QhX6cg6lls15QVrVDm8
+	JhW/UmYu2NPFkNSyYIImvsg8lOxRcU3TqSkpW2j9ULEuglnn8RWia4CDUKGhafvf
+	3qc2kuYwo5UH/1lCdfy4BpgTn3PwPFHDfMM5VkouBZxzMML+VpH0Yea/YCv6kQJM
+	r0VUDFU87al0iW4CJp/QE9m4TfznKVYP5AbajU7Uz9c5t/Cf40yhWtdWoCnW4lUl
+	uBmDJtcmtORhk2vLgovVy2amjyBnLUpqdavx2uRwQAmMYlQEyT81XHQLeJ9iifn5
+	QH8ifJDmDzGwDl1K2JVYQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790548455; x=1790634855; bh=7vqGQuR76OwCIa8mKkUWKH7FtPv+N5MafcW
+	qQpKlZPg=; b=RISz6qgc2rVGLkeVGi0p3SO9ROwm7SkaR0w37g+KaChgzmuu+vW
+	OVpORpKh1fxxGp1whddlUuXLyBht15wd8Eiacu+KpPWr1tv14oOYrq7s3L4/E7ef
+	UgY7LsovW/OnY/OLPOkWr0EdfBaROtUszHRm+tG69ANzlua/6jnUbPTPAW2gv/V7
+	IE3zcvADwMrEpRSvh4uNhzPXugkYRLWNdz6TEiO6N4PTtrdYRiiuzWVEoRGSfW2V
+	b8NhiTI+By7xdaqbuwJrEyJz6KSMWqhmxd158HWGVnjw3qkH+vu0eCcs1bL/4Md6
+	TiFs29XVbGaxYY2V4+sqpXVXiTyyt8NMukA==
+X-ME-Sender: <xms:55m5arhHSs882nEAHaI0NCKOidBqO7XhNTENZ19rlY-kRaM_HBIPzQ>
+    <xme:55m5al8iitRPmzFUGOhVlxHgWbuGGDLVYq-IjHv--TYcbizndyftD4I9OyxOCKc-2
+    dK9NsXkeAOdtnzScuI0nGYmPjYJhCI-r8QzjW-tapVcJFhOlAPNVyyMmQ>
+X-ME-Received: <xmr:55m5aip6DJUch9SYWHdPjg7hMJANiX7R1TixQWiFcGiHoa7Ld8WOlFd1bif887-A7Nl7-cFp5KZJqHZBjknPOEdgmlU0>
+X-ME-Proxy-Cause: dmFkZTGKh7IZxPV+tZPwUauaHd982UsCpuYxMe+1wYS8NA+ULPUwe2myfn9dYIVFlfLoha
+    GfoS0uUI7P2tlgVylEt15lYml+3/xyiuwY7Hq4Re11QiaHKGuzPKyIUxjQuj83xNnZNz4p
+    GjS1n9+BNnnE0EHttibHT9fu/wDVfcBYJvzb0raIN/4X64Mv1gxuX/QIp4mFuGjKXvLOnB
+    inzP4kR7JVYavtR2rBrZANJsB2Fge9awg6FTepvasuWuX0cVMybH2j39clg2xQHx9iU2CA
+    EEzTRp/qevaHJE8mB9Ug0tZHKPXt8xPWyDEbIczF9L1GVG0ahzDHcCrZ3zs/rJHHJA1YYu
+    d7iKhfDLvHLJV3n2MDeHT/+wuI/s4shfubsDNH25iSnQLsefktK9AUFm58HVUexGETHyfn
+    nido45cWEwPox7ttUlKiG9TStjHRiaaxbrmW2UvIs5pyHUzWJS6GAuM85wkJITqJy1vRib
+    uvr3q1uatWWS2B1PaOEe/eFYFZIRa7TJ5nzC05NnkiG1yazxMAqHPwaEPU6JngR45iy0hb
+    5fWxoV9v6PK51yv4rapi0cmvt10X9bnuL9aTBg5iFNu/aHjkh5m4eb3tels8mDL6kfYvwl
+    8px0mnrWoLZvxigKdDp+28r17mnMxbWtAIMM0vzVzlOOSrnp9AjHQb5aMVgQ
+X-ME-Proxy: <xmx:55m5ak-rYVQmAiVb0jsT4Sjv7zJwWzpFbv6fHk7X4B-G0sCObbwbQA>
+    <xmx:55m5amWd5_f99X55O6-1cJqhrP0WrkG670XuGVG8OWSGqpW8Jw-Rng>
+    <xmx:55m5aqC59AX9NfjUhz5gMcPwYXaqetuHtsZ-Q8C6n-2cMytZmLzlMw>
+    <xmx:55m5anzR9nuts89b2zjQP5SSUCXlTdkALiHMLioGoT6J7FQSFvjxOw>
+    <xmx:55m5ahW4saxtKlhED0ho9_xbXNWnG_g2Xw3b72ey9GcUZ0BFfxbW5SRy>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 27 Sep 2026 18:34:14 -0400 (EDT)
+Date: Mon, 28 Sep 2026 07:34:12 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] firewire: cdev: code refactoring
+Message-ID: <20260927223412.GA90046@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20260927034343.28076-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927034343.28076-1-o-takashi@sakamocchi.jp>
 
-check_mem_reg() takes an optional bool *known_memory output parameter.
-When the register is NULL, the function returns early via
-mark_arg_precision() without setting *known_memory, leaving it
-uninitialized.
+On Sun, Sep 27, 2026 at 12:43:39PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> The cdev implementation includes some useless locking, goto, and waking
+> up. This series arranges the implementation to remove them.
+> 
+> Takashi Sakamoto (4):
+>   firewire: cdev: remove unnecessary client locking for fw_device
+>     members
+>   firewire: cdev: wake up client from queue_event() only when any event
+>     is available
+>   firewire: cdev: use xchg() to exchange pointer value
+>   firewire: cdev: refactor event copying to remove goto statement
+> 
+>  drivers/firewire/core-cdev.c | 61 +++++++++++++++---------------------
+>  1 file changed, 26 insertions(+), 35 deletions(-)
 
-The caller in check_func_arg() declares 'bool known_memory'
-without initialization and reads it after check_mem_reg() returns:
+Applied to for-next branch.
 
-  bool known_memory;
-  err = check_mem_reg(..., &known_memory);
-  if (err < 0) {
-      if (known_memory)
-          ...
-  }
 
-If mark_arg_precision() returns a negative value and the register was
-NULL, reading known_memory is undefined behavior. In practice only the
-diagnostic message selection is affected.
+Regards
 
-Fix by setting *known_memory = false before returning in the NULL
-register path, matching the intent that a NULL register does not
-imply the memory region is known.
-
-Fixes: 66e2727395dd ("bpf: Report Call Type Safety argument errors")
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- kernel/bpf/verifier.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 535967fc5f12..2cc8a2778c5a 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -7652,8 +7652,11 @@ static int check_mem_reg(struct bpf_verifier_env *env, struct bpf_reg_state *reg
- {
- 	int size, err = 0;
-
--	if (bpf_register_is_null(reg))
-+	if (bpf_register_is_null(reg)) {
-+		if (known_memory)
-+			*known_memory = false;
- 		return mark_arg_precision(env, argno);
-+	}
- 	if (known_memory)
- 		*known_memory = true;
-
---
-2.55.0
-
+Takashi Sakamoto
