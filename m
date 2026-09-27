@@ -1,108 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814ED397943
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50A13C943B;
+	Sun, 27 Sep 2026 09:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790500849; cv=none; b=VdRDQm/D+SSMo7oFmTikRBg3UIQ5NFbEzs8V/ukDXChLskWBB2V2iqjDeoTJUR1L0t6JDcGikaPIFnMS0pxs4Nb9WHdZ05n4+2oOhERrUL9yQwHuSO20zCwWt0TKG6b0cmNywLwy2mrL6DY38D8mzkynVx98swrjX1cUFogNp8g=
+	t=1790500874; cv=none; b=uTaY7B3xBvoZhmLDMIrtxCgyNVuNoC272SUD14qDutGox+qTs9QlSAuUWySLJufG84F8gEjpfDo9G9n1QnZ7otX3eJGDWapvPmFrSq122jUw86/j+wlOVfs56aXKr4LXzCIcoCgt0k/yYjWZkD0Oof5uZcaqpD66FFHqbHkEh60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790500849; c=relaxed/simple;
-	bh=GSpv/BD8k2BmlNcy3i0DNPlkp1F/wMCDedi0Jb3Un78=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JaDxNT4v5FYYb4kRqpmhg1PVjPWBMUvyky9SnLJWJKXFq9XjXwLoqf73ma3foLrtih5TpSDmT9hRU2PVZHqPNe9IhvSCzvSfLIINEPj95Pp/uOcQ1yW7y1tAZBRnFugygPIrlIdn0E1gRnRZmU6EmYRoiv4q1gMpY1mnxBLVLdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hr5lpLoP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790500874; c=relaxed/simple;
+	bh=JGLUvXuCQ5gw5sw4HIV/joRWy00QfINJUCs7V+84X04=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P885YLQ4Z5F3rrfoI9g+cXgBGjUwsbcECvOE1AfbdI7OG/LcZgR1h5fPOha8CZbY6+SpXHSAQ3La0p+ym9AlbafsUNh1CKVUBDdJz1EL/Szph920d574ZNL+6Ctw5SyoIF9MJE9KOmR0t+6bCzvFGxaEfrQRnuXChL0UV2YOXno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=eluOcJ96; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=eluOcJ96; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hr5lpLoP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166131F000FF;
-	Sun, 27 Sep 2026 09:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790500848;
-	bh=OsH0bMd9YqMqOaabYQzUoiaMXLlzQlFvj2cX0wC1/+Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Hr5lpLoPzc59zoryjKROdhXjYHWA4R0M67tQHgwK4+X0Jx9hx8jrXGzlRcRW8KhZ5
-	 dIeNgku4gtK7xMYcB2PLGUScclpIW+/pmZY6DieO3ev3s4BrdXvMN7knY0S+w7vieB
-	 gNbXA0Svof0Jm3ZabLmd6xj/ePJo6XyhuKXHYgz9jIPUFSJ6KfR6XqtjfjukSXOOCd
-	 Jmoe1MXOwsOKkFo5ZIEnN80aUjOPcKRC2ufGVjLZLzKYtER6nFyTu2afyV5WXRrVe3
-	 E4IEAz20A2nR1ZXtWBIvVT7nGoiIJaTc4ZnftGIBnZxK8dfP9c24Fn0bjIjEGRNwKg
-	 rzmIW2Qvw/v7g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xAl3u-0000000DxF3-0hn6;
-	Sun, 27 Sep 2026 09:20:46 +0000
-Date: Sun, 27 Sep 2026 10:23:53 +0100
-Message-ID: <87wls72gk6.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	James Morse <james.morse@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] irqchip/gic-v3: Memory-safety fixes on the probe paths
-In-Reply-To: <20260925085000.753400-1-fuad.tabba@linux.dev>
-References: <20260925085000.753400-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="eluOcJ96";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="eluOcJ96"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790500870;
+	bh=JGLUvXuCQ5gw5sw4HIV/joRWy00QfINJUCs7V+84X04=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eluOcJ96TvZKH//6jAHvj/kk6FBtKwleSWvpIO9Nt2yAvSBFjk906e22UG48N+c2y
+	 eLKVfoXvcCshtBR147s75bKo6nRx6yjPxXYa3f9fmudx5KxjCYLFnnMcrVvi7wP9yK
+	 ViYc+gNuMMD8KcPOXpgTHPW2Uj+0BEMIac0JuWsXAYUOpXSCF4QgaOC/TzN5O2T60+
+	 U2kTogKIca/njRc6vQvNAR1utB8dmT5SYRBsCx0XUZrazO55xfxp8IAInMQd5oobQT
+	 SigLw7W40PWIo6DUFy4roIpXP8uhcM7BKupZq5Xvq4HU4n+koCGoSMulZKsK6T+XfC
+	 qzCacsgWNmmHQ==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id C0E1641309; Sun, 27 Sep 2026 09:21:10 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790500870;
+	bh=JGLUvXuCQ5gw5sw4HIV/joRWy00QfINJUCs7V+84X04=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eluOcJ96TvZKH//6jAHvj/kk6FBtKwleSWvpIO9Nt2yAvSBFjk906e22UG48N+c2y
+	 eLKVfoXvcCshtBR147s75bKo6nRx6yjPxXYa3f9fmudx5KxjCYLFnnMcrVvi7wP9yK
+	 ViYc+gNuMMD8KcPOXpgTHPW2Uj+0BEMIac0JuWsXAYUOpXSCF4QgaOC/TzN5O2T60+
+	 U2kTogKIca/njRc6vQvNAR1utB8dmT5SYRBsCx0XUZrazO55xfxp8IAInMQd5oobQT
+	 SigLw7W40PWIo6DUFy4roIpXP8uhcM7BKupZq5Xvq4HU4n+koCGoSMulZKsK6T+XfC
+	 qzCacsgWNmmHQ==
+Received: from [192.168.2.51] (p5798b961.dip0.t-ipconnect.de [87.152.185.97])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id F3949412E0;
+	Sun, 27 Sep 2026 09:21:09 +0000 (UTC)
+Message-ID: <bc23c757-8f59-42fc-9770-0250807032c9@birger-koblitz.de>
+Date: Sun, 27 Sep 2026 11:21:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, james.morse@arm.com, will@kernel.org, tabba@google.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 08/15] ax88179_178a: Add EEE configuration
+ support for AX88179A PHYs
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neuromoments@gmail.com
+References: <20260916-ax88179a-v12-8-60c04c9924a2@birger-koblitz.de>
+ <178968029951.22033.7295791968219633553@kernel.org>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <178968029951.22033.7295791968219633553@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026 09:49:57 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On 17/09/2026 11:24 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
 > 
-> Hi folks,
+> Critical: 0 · High: 0 · Medium: 0 · Low: 2
 > 
-> Changes since v1 [1]:
->   - Patch 3 marks the skipped CPU in broken_rdists, so it's kept
->     offline. (Marc, sashiko)
-> 
-> Three probe-time bugs in the GICv3 drivers. The kernel keeps running
-> after each of them, so the memory involved is live rather than on the
-> way to a reset.
-> 
-> The first two free memory an enabled ITS still points at. Boot carries
-> on because its_init() discards a failed probe and gic_init_bases()
-> discards what its_init() returns. The third is a write past the end of
-> redist_regs[] for an enabled GICC with a zero GICR base, on a MADT with
-> no GICR entries. fa2dabe57220e's commit message says such tables exist,
-> and I haven't seen one.
-> 
-> Based on Linux 7.3-rc4 (93f51579e7df2).
-> 
-> Cheers,
-> /fuad
-> 
-> [1] https://lore.kernel.org/all/20260924161514.1112730-1-fuad.tabba@linux.dev/
-> 
-> Fuad Tabba (3):
->   irqchip/gic-v3-its: Don't free a vPE table shared with another ITS
->   irqchip/gic-v3-its: Don't free the tables of an enabled ITS
->   irqchip/gic-v3: Don't register a redistributor that was never counted
-> 
->  drivers/irqchip/irq-gic-v3-its.c | 16 +++++++++++-----
->  drivers/irqchip/irq-gic-v3.c     | 11 +++++++++++
->  2 files changed, 22 insertions(+), 5 deletions(-)
-> 
-> 
-> base-commit: 93f51579e7df248780214094418f205253383cc5
+> - [Low] The patch exposes .get_eee/.set_eee (ax88179a_devices.c:209-221,
+>    table entries at :232-233) and activates the LPI path by populating…
+This is due to a limitation of the hardware.
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+> - [Low] The commit message contains a non-existent part number:
+>    "Configure phylink to work with the PHYs in the AX88197A controllers"…
+> 
+Typo fixed in commit message: AX88197A -> AX88179A
