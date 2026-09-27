@@ -1,72 +1,46 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183661A681B
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB5C3BADAA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790503035; cv=none; b=uubLCxmtd6EQvtQ7cBtSyjgbxSBFOZQNPyE6vvGfF7uRbPEE1UNG2NTJiEJIl/7yOMaNoXnNPfwDOxgaKbTT9+AVO7fQmdMjR2ST+oUxYIQgn8CHZ3qOEvovfaubV7JkVETfSmYeUPWX0rrhGVEPZldPa0Jke6Ot9NOhavgnm/0=
+	t=1790503058; cv=none; b=Zh8F84OWiQZnn+k/d0LW+4XsNYJ3LRUGwUirfehEGjhj6+QJlkucuUWIqD0bZVgta+DDLlUF0v+mWZKL5T1tRBM6aZgkPjZYxnfvYHBw0vXdSHePuIOeCppnhUOZH3OpI01H2nL6bJJbbuPwNXM4Jd/qTQ+y1uZzZrdbrJAOrO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790503035; c=relaxed/simple;
-	bh=qo5/6Rvx43HRox+liVpTx+J84TXTvjvOaVg3apZRej8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PiHW1PNw70Eg3HjV8pEjMq1HBMmkWZrk84b/BkY9qu1NwfGVcUgUwtLeDOIH3ddakeWVyMjrpTY36WvLzSKm+qQbckBHBegCYKF4UgHek2pINNdvoxGreRyABb/EqSPoUAwE0LnN6GYWYDyjnQYyLuRcp3xSggU3BSd/udOw4wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X+ix3Bh5; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790503058; c=relaxed/simple;
+	bh=GI1MEE8aUsWOeJABkvxpx7fy2ukekgou3rsJWtL4kBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pX4ntfPP+pe+oOwVp7Ic8tX0pI6NdDi9pPt55ZBkES3PTNQsTWpan5ePMtWO7CYKAZXusmJWqGZFUqmNiMrACnwdbYQyUYda1cUbiaCDyfKu6mPannpFt5cfof4J4KXotIR2SCxhBJQOeCM8+y56p0AXQTAlNqxoWufnBGMPHHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=I8G6+rFF; arc=none smtp.client-ip=91.218.175.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X+ix3Bh5"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340f56c44b0so774346eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 02:57:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790503033; x=1791107833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zl12kuWFPbDDv+liW9sd0g6auvyCDPTIyeUkkHG4bLU=;
-        b=X+ix3Bh5TK6017tfS/740+gzJdg6VQekAj8KnrHkxBzorkIfbXtZ91QQA70sKYCtpi
-         e/8v/P7e5qC11RkK5BZ0LKJx6wVazgqhpubfxDgPXbYoSHlIqmvxX8w602DDwv0thDuF
-         JlA9codV3ZEwvJryGfKPcMxIayfkoY9JtrjzmM3xdd6C4xASyBkKfH9JMp0JATSTXE1s
-         of0Xo6SpgLtBkX4mKVD8DUHVyBBktOyUgAIxLI0jaBg6qMWrFjthmulQIxY2b1WQ47lB
-         wwJD5L2q2zIgvOhFKDtq+tCMt3s0OqOR5nfuj+kbc4vMJmUNr3FmHIRB+eYcHCPo3AWr
-         qbNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790503033; x=1791107833;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zl12kuWFPbDDv+liW9sd0g6auvyCDPTIyeUkkHG4bLU=;
-        b=gmgZCL1RnqsshMwaEGgxyUAUhEDYzwdWyteEOLaYXqlZeXZ/t44ykHUYfG9ISpuNvI
-         dTQA2R0642uZOAcc46dX6ONPpJxdxHF2+LBl1ApWNJleFj7bVM6YWloGC69SpFdoxSAF
-         yjrjGHgp1EwuNpWzS1zi79QYJ95bXlXw9zSUWR2rySDdR+FoDYYKhoa6uYMkcsOmrM/4
-         Cy7evjrMNbz4NHPtncSeagPI6wV0AFLM+0DOuuDzX/I80bbmmAgCgEHpUdDxxlKtfwMG
-         4TScVE/O0qq1Bo5S+iB9PgTGSqTHApEk8aziCV0SimMkaXJ/onIQUImJw1r5aMwauvcG
-         GCEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGr6fsxECIhJrzG2126OBzTBd5os1yVZKEhTvd8rc1RDsuSspQPfeuVFlsc7I6TxBxc7lyTxG77o/G+vY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYLJdq6BSqqt6CTb9sH37W+WYTuIiowUwZ4LxCDAXZEAb4OnSz
-	v3++SNb9ZgpF52tdPJ31EEqEBztcZDyeVCctwv80bISkyp4QWStLb6QV
-X-Gm-Gg: AYBFou2vhcaU1RUTQCMQfmY5YHw1iqMv/hXFPMGmMLfdYiWZsW+9JRAJfc7jfqhIQS6
-	HPr+RCjxs/FsdFAunxqeFDvJwPCHdmMIXFUP1z9V1yJlnwvXAwbpR8rCIv2vl6AV2vV5ftBTQIC
-	UTaIDtndeoCbW77vRxF/Qlp/uLDPqhufCchoMAKPFn3K+u2UvfYj8P3VI7vdxkEfycylymFQJmx
-	vvvkpjpus47PI64ajz7EzRWt/t1j59zuzj2b0y6JmyLGuRCa09//8Cr+/eTek3Xgl4kSTdUlrJo
-	hEzMlZDietxZCR3x7HYZTdML8ygMzCdzQcTZrngtkjQnnCne6DDGU/489yCnYFPREPMPCE3KHj1
-	zxYUsjxOvTubiDcJBfQCwlDM0yv0uoEbMQVPVrXtTttVavmoC3ygSkj+wogiOATOi8WUKwFa+HS
-	7ouxmwODWE2aaF3vRlQNV2NkRDYkVZuojkrYWra9P1CFsWMslynMK8a6E4TGLnrf9Yd6Quo18i/
-	zW9JDZGcGEfdZzdDxpPMmkuBaSH/76Fsr0=
-X-Received: by 2002:a05:7300:a987:b0:33c:1f00:358 with SMTP id 5a478bee46e88-34270ac690bmr7433551eec.17.1790503032942;
-        Sun, 27 Sep 2026 02:57:12 -0700 (PDT)
-Received: from archlinux ([157.48.21.227])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm23525304eec.15.2026.09.27.02.57.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 02:57:12 -0700 (PDT)
-From: Suryansh Singh <technosfan14@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="I8G6+rFF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GI1MEE8aUsWOeJABkvxpx7fy2ukekgou3rsJWtL4kBQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790503053; v=1; x=1791107853;
+ b=I8G6+rFFLJmaYHGwyMXt4JcPf5MoxGpRu21p52IqoHEVsG/+1EXshIvTfZa4vOvwp1lFnnbl
+ Mg4HJ0OMozym8fPvyeC9Aw1hC5WaB4nPf6U7Fw5JpNHC9QYaLMfsH4Tj2+pz5ZSDkwHm1cKvwTk
+ 8EKMda7v2lNzkNsdBJzbXfho=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5d1a45404f19f446;
+	Sun, 27 Sep 2026 09:57:33 +0000
+X-Mizu-Trace-ID: 5d1a45404f19f446
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Suryansh Singh <technosfan14@gmail.com>
-Subject: [PATCH] platform/x86: hp-wmi: Add Victus 15-fb3xxx support
-Date: Sun, 27 Sep 2026 15:27:00 +0530
-Message-ID: <20260927095701.185772-1-technosfan14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v2] cgroup/cpuset: Invalidate remote partition on housekeeping conflict
+Date: Sun, 27 Sep 2026 17:57:21 +0800
+Message-ID: <20260927095722.70660-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,37 +49,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The HP Victus 15-fb3xxx (board ID: 8DD0) uses the existing
-OMEN v1 WMI interface (despite being a Victus model) but does not use
-the standard EC thermal profile parameters.
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Add the DMI board name to hp_wmi_feature_boards[] and map it to
-omen_v1_no_ec_board_params.
+Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
+to a valid remote partition root without touching the partition's own
+control files. The partition then load balances that CPU, silently
+defeating isolcpus=domain for it.
 
-This enables the existing board-specific handling for 8DD0,
-including platform profile and fan control support.
+This can be reproduced on a 32-CPU system booted with
+isolcpus=domain,4:
 
-Link: https://github.com/yunusemreyl/omen-space/issues/206
-Signed-off-by: Suryansh Singh <technosfan14@gmail.com>
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir -p A/B
+    echo +cpuset > A/cgroup.subtree_control
+    echo 2-4 > A/cpuset.cpus
+    echo 2-3 > A/cpuset.cpus.exclusive
+    echo 2-4 > A/B/cpuset.cpus
+    echo 2-4 > A/B/cpuset.cpus.exclusive
+    echo root > A/B/cpuset.cpus.partition
+    cat A/B/cpuset.cpus.effective               # 2-3
+    echo 2-4 > A/cpuset.cpus.exclusive
+    cat A/B/cpuset.cpus.partition               # root
+    cat A/B/cpuset.cpus.effective               # 2-4
+
+The last write returns 0 and leaves the hierarchy in this state:
+
+    root (cpuset.cpus.effective=0-1,5-31)
+    |
+    \-- A (member):           cpuset.cpus=2-4
+        |                     cpuset.cpus.exclusive=2-4
+        \-- B (root, remote): cpuset.cpus=2-4
+                              cpuset.cpus.effective=2-4
+
+B is a remote partition: it takes its CPUs directly from the root
+cpuset, and A only passes its exclusive list down. Before the last
+write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
+root cpuset as a boot-isolated CPU. The write widens A's exclusive
+list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
+the grant: B remains a valid root partition, and CPU 4 is still
+listed in cpuset.cpus.isolated while sitting in a load-balanced
+partition.
+
+remote_partition_enable() already rejects such grants through
+prstate_housekeeping_conflict(). remote_cpus_update(), which applies
+ancestor changes to a remote partition, does not.
+
+Both paths also open-code remote partition validation. Move those
+checks into validate_remote_partition(), and check the resulting
+effective exclusive CPU mask for a housekeeping conflict there. The
+existing prs_err path then invalidates the remote partition instead of
+assigning it a boot-isolated CPU.
+
+Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
+Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes since v1:
+- Consolidate remote partition validation in a common helper, as
+  suggested by Ridong.
+- Check housekeeping conflicts against the resulting effective exclusive
+  CPU mask.
+- Rebase onto cgroup/for-7.3-fixes.
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 7ab81ce5f8d4..616f7432e024 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -350,6 +350,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D88") },
- 		.driver_data = (void *)&omen_v1_no_ec_board_params,
- 	},
-+	{
-+		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD0") },
-+		.driver_data = (void *)&omen_v1_no_ec_board_params,
-+	},
- 	{
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD6") },
- 		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
+ kernel/cgroup/cpuset.c | 71 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 49 insertions(+), 22 deletions(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 1fcec89a28b9..5adf47217e59 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1561,6 +1561,45 @@ static inline bool is_local_partition(struct cpuset *cs)
+ 	return is_partition_valid(cs) && !is_remote_partition(cs);
+ }
+ 
++/**
++ * validate_remote_partition - Validate a remote partition CPU change
++ * @cs: cpuset being enabled or updated
++ * @prs: partition root state to validate
++ * @excpus: resulting effective exclusive CPU mask
++ * @addcpus: exclusive CPUs to be added
++ * @delcpus: exclusive CPUs to be deleted, can be NULL
++ *
++ * Return: PERR_NONE if valid, otherwise an appropriate error code
++ */
++static enum prs_errcode
++validate_remote_partition(struct cpuset *cs, int prs,
++			  struct cpumask *excpus,
++			  struct cpumask *addcpus,
++			  struct cpumask *delcpus)
++{
++	bool updating = is_remote_partition(cs);
++
++	if (!capable(CAP_SYS_ADMIN))
++		return PERR_ACCESS;
++
++	if (!updating &&
++	    (!cpumask_intersects(excpus, cpu_active_mask) ||
++	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
++		return PERR_INVCPUS;
++
++	if (cpumask_intersects(addcpus, subpartitions_cpus) ||
++	    (updating &&
++	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
++		return PERR_NOCPUS;
++
++	if ((prs == PRS_ISOLATED &&
++	     !isolated_cpus_can_update(addcpus, delcpus)) ||
++	    prstate_housekeeping_conflict(prs, excpus))
++		return PERR_HKEEPING;
++
++	return PERR_NONE;
++}
++
+ /*
+  * remote_partition_enable - Enable current cpuset as a remote partition root
+  * @cs: the cpuset to update
+@@ -1574,11 +1613,7 @@ static inline bool is_local_partition(struct cpuset *cs)
+ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+ 				   struct tmpmasks *tmp)
+ {
+-	/*
+-	 * The user must have sysadmin privilege.
+-	 */
+-	if (!capable(CAP_SYS_ADMIN))
+-		return PERR_ACCESS;
++	enum prs_errcode err;
+ 
+ 	/*
+ 	 * The requested exclusive_cpus must not be allocated to other
+@@ -1591,15 +1626,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+ 	 * above it or remote partition root underneath it is not allowed.
+ 	 */
+ 	compute_excpus(cs, tmp->new_cpus);
+-	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+-	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+-		return PERR_INVCPUS;
+-	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+-		return PERR_NOCPUS;
+-	if (((new_prs == PRS_ISOLATED) &&
+-	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
+-	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
+-		return PERR_HKEEPING;
++	err = validate_remote_partition(cs, new_prs,
++					tmp->new_cpus, tmp->new_cpus, NULL);
++	if (err)
++		return err;
+ 
+ 	spin_lock_irq(&callback_lock);
+ 	partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
+@@ -1672,6 +1702,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 			       struct cpumask *excpus, struct tmpmasks *tmp)
+ {
++	enum prs_errcode err;
+ 	bool adding, deleting;
+ 	int prs = cs->partition_root_state;
+ 
+@@ -1695,14 +1726,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 	 */
+ 	if (adding) {
+ 		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
+-		if (!capable(CAP_SYS_ADMIN))
+-			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
+-		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
+-			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
+-			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+-		else if ((prs == PRS_ISOLATED) &&
+-			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
+-			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
++		err = validate_remote_partition(cs, prs, excpus,
++						tmp->addmask, tmp->delmask);
++		if (err)
++			WRITE_ONCE(cs->prs_err, err);
+ 		if (cs->prs_err)
+ 			goto invalidate;
+ 	}
+
+base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
 -- 
-2.55.0
+2.43.0
 
