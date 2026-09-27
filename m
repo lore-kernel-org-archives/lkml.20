@@ -1,84 +1,80 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CB93BB114
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CD03B6BF1
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 07:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790492979; cv=none; b=WL3Hyb5gPvGTZ/CJ+Fi1LVzxxOGQaE0OImlLzxgPva+DYOxuEY/r37BTTnpAJIw4XpdtWFnPMIyn6LU6jkjVR8i5r4hVipM2+wQ7LmfesR06YeQnE45A5145Hqmb+EPG7+GqZk4P2dCD5kPA5XtrauaVo3LeySkJmdcLsp6TwUw=
+	t=1790493067; cv=none; b=nXfhllfeBGQd6xNUDMNnm02eEqUSMHGH760XSn3vJdIAEkck+47BBZ3GRFSNiNkBDKeOaGWV+m8yfRXhkn1RFPDLutdCJZ0BZG8xPFwKN1XIypcnGgn96Fe53qlrynaC0k4ZlmsLYcLiQyCuTTOZdluY0AucYd6A00+Xkb1v6lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790492979; c=relaxed/simple;
-	bh=kbnHjqwGm6rIVOVkIrK29xFM1ZIy3uba9QlFOxAqZ34=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T3gAvJZlkXyEASZz93y9QmcA3a0BRG69RhMEpkx7GN2ECMO3MxSzsVDFP3xOzoAgRLjLwPTZNd1+3tdpbVq1zDJwXncCvVNmKzx+Ry1so8fK7hkSNDRHLfw4vRQfb/bLYMhI8eJxPJ6qvn7CmD3aBAt9jiE1J3X3KcxuNO6t8Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=UXPFW7ZB; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1790493067; c=relaxed/simple;
+	bh=0RQ/z4AsypFufaAVkW1Ij7MYV02j0Bqz1PEMbVd8BqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqJ6/fJB1Xb4yKXeoFF2VZUw/j/VQgNNoMLAznpZv6WJkzd8BLmOS/D2yPfQddbYAD0aba5992NKDzMHolTQbrIRaJP9bHjccEqEZzugoUa2u05WqOCLzzOCNEfP3KK1F3bTGqOE1Q68sLWVLAcJaMl/1TKM2gY2v3CTrMcqmjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XLImnVpB; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="UXPFW7ZB"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d07so1719509c88.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:09:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XLImnVpB"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-334f6631916so240420eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:11:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1790492976; x=1791097776; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HK2zmqCHh0xDqP3HVCbTRprntu2C3xUCOIeZly28qHM=;
-        b=UXPFW7ZBl2fB4+4WeZQq2R6aeCCjLlviaWFFxPtle4CWMLCCI/aVEscFI819Qc6TTh
-         vugMcyVT1Yk4rnLFSWIGfBgDnqUGGyLuIPAn4wcrUhmzPMKYnYiEzyv7OOWxMXHqsITS
-         es7LdU2sQPXBjBcLZgG1kk0Yq87cGLWCB4/NOGbet5aLYDgrn7WHIq6wvk8mdxsW27XC
-         NkVMMRsT3yITWM8pgyvFtox+EYpNUmzO4WY9Vamwk3IwiGtaNYXxg9GVT/Qripfbr46r
-         fxAGfVoIg3bz3fBAgU5qroQdMVOoSbRilbsJJ41U+2fTh+jXL06B9+Do4YNPyrgX/06k
-         p4fA==
+        d=gmail.com; s=20251104; t=1790493064; x=1791097864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MoYf1WznKmzccMmbZmdq7UQiskOv2xS1v3NBQI1ZhMM=;
+        b=XLImnVpBfKD3PnVFr7G0RORZnfsOwB4gxJNtHrbbAKgtuOmg6Se9a/y/3k2A2Ljgfo
+         QGXOKb8MvdS5jweVDk6xHdYGra+fUGaQwylI9u4M5Bhl38mE+0AEmFGpfcIZcVdE+qmX
+         IsnEe9kt0n8eXj+/4e903RTNVyKxh18mcsEUwElMOp/3XUiYV8X4zX5ReBiLEX5s6WHY
+         brvfDWRiPfDMgca+dCWzF9CQCCbjB6p//RiHXYIkjWHFo2zqzCkULVy1ReVI6CLDHopI
+         8Ei1g2nuR5V1E3qanIPiD6GnOaNGbWmMteK+1pE+koDVS//CMJT3TEsx7Eta0rHkRsUe
+         blZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790492976; x=1791097776;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HK2zmqCHh0xDqP3HVCbTRprntu2C3xUCOIeZly28qHM=;
-        b=lFWVxL8yaPYszGErXLvz/tyvm7K9RuyuUg+XW69paJfBLkV50ms4BJRhRO918SBv3Z
-         5w/y544cO6dL4w1r2jlkFCVDSNEzYrLxZmx81Y0jXMsuDaLnzxuIftz1H0GaCOD+o+QG
-         l6bojFL2cvwMc008TMoVTozEt7w/9GVGivwSoRmKU2A6d9RFen+DC0nwi//+U6dNR3oO
-         sG9B7Om5Y+BR+g1pHgXQ4yGkAkRXDbp4ScP+vBgDAaSo+0srxUvzu0gRYI8hKHFdP2+l
-         8ssf+ML+zchaAhN/qxnhH4K9yNWzeKSf+iy9owY9Udwo438sjjw4UePfyCvDa5YrYzJ+
-         zhug==
-X-Forwarded-Encrypted: i=1; AKwUvBy4fOFQsl8ABW8Yg/eU9WCvRERsjg+buYbMVVSgq81fHKceEiwdap7jsW10nCYmRxaCnrGMN3vaemE4M98=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkby3/L7ljfigi85oBz8AjDjITkC8mKMS348LIez57Z/X4/zhT
-	Tamntv6Gkb799LMDm2WgZUA3YaYURtQmD1h5fNjRgsFt7t9+P2ZXx55yMMgDl7YWCDc=
-X-Gm-Gg: AYBFou3dBLRJHTIRJTjDYCXesk1r1v7BVdxA7cHR9GRcvrVAiayaWBR+VicMTlUMbZL
-	R2s6pIj3QvpiHO6nFoEwFZRoKKj5Zb+5L2k0hZRGP/DOedSj50VWZdd9aJCQU+8OUnGED1HvBOg
-	4TDA3DwnDVcmDlP2JwbOYhyLAt0/n7/W0uQjrsk0puorErUXPTRTsEzJMlqD5iPjG+IyaQ5CenN
-	2iRlGp/3oEBGLr0XQIj6eNF5Y7YydCfS+lTecRxVzecfAJlDgXqERj1vp7ViPBE7uOJexRjA45A
-	hkUF4KubwCkSncLH3Cn0kHtax6Xfbk9NN6uF9732c2L2BaH7cp/jfgwD9uNr/3gzWYGb7qvgVNN
-	6dO/9SGZXagsmyuhFRQVV7Zo1LFFYdHAeRtKOcAUGSfFuEaM3ncR+ijAp9mbp2c2afjscQ8JEl+
-	OOVWWgljtEdmlXHa5rLYCEzx93YYsMP8CjdCePv9XVJdyddQIOWwrtJ8DQ9WCo0pGM1wU9f3l8t
-	Kb16WjypGAhZBc8UVoYqjBeH/ge3KvpyQ0R+vkL7vemVEQMBv5FbSV+ucTj1W55
-X-Received: by 2002:a05:7022:ea8b:b0:13f:c02f:60b1 with SMTP id a92af1059eb24-146ce67f53amr5479644c88.15.1790492975145;
-        Sun, 27 Sep 2026 00:09:35 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([2601:647:4380:3400:cdfd:5309:3fdc:3b4e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-146bb6551d9sm10322371c88.9.2026.09.27.00.09.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 00:09:34 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	dwagner@suse.de,
+        d=1e100.net; s=20260707; t=1790493064; x=1791097864;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MoYf1WznKmzccMmbZmdq7UQiskOv2xS1v3NBQI1ZhMM=;
+        b=0CHpexkVLSc5k9XLjeTmq9rQ7L+bNbWCXKCXrViZqw+6TNq1K4zkGU2sOUhtb2d7zK
+         En2LodOWGzhJJXHPqQH2LIS6u8VQroU7MkHjgZkkuF/WAkPZml2x3L1ciYALna4/79Lu
+         drDcDKZaV8nggPWKoZuPglbhdaAF+MAm2k4FHgTMSC7c9D78a+IKWsYoOo1sa5eGO++f
+         5d/e7PCgn57NdNFSSCOw2jP+URyNTqBxgaewDJm7fCBcVd7qYmf1K1fCizN4na+NQ0eW
+         oUSZiRdCBfud2Vjjs51jZfPbAV/81UNY8HZtY71Kv60XyJ/WZ68K/7MUhVr/RrrLUdB9
+         JCaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxghHkZRslWFDnAGM7ncuzuFv8CZr0pQiNM/lTUYqeh42a5ffugxGR4syCkW9LHMbHTYrKbWonHrClI4fU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEHpFnj4qogpc49c9XiHjk9DQZy9AV6zzbAuoGGW9NQ9sZE3jH
+	E5OplTwKsPYub/UsvOy48uNka+D2KOHspO8JQVcSoXaYy4aDvp2I6UFW
+X-Gm-Gg: AYBFou0DpG6crWon/3PwdqZz+wX8vwatXs1tUQgaXZ6/5eAoxmswb75BVREZxCYEX9g
+	dqeB5EoZe9vgYvIw/readH5TocuPkYEyEVwBjWMPCdzgKtMG76rMqFlG9ETRGOwf/A9iKPBqYuQ
+	hpl0k9MuJI9k/3W25Jp+cSB14G4MEQ3PRGZM8EuvvJujPJlypM38Pph/7q/J0dgDMr+Ai4WVWI5
+	ZN+z+Xw6TVXiRet+jJdZtAHYz1NU3TnEWnD17GESLcDaRoLKldYjjyLkkkYTvfZ2WSnaabWTswh
+	VtGuIU6x7QLkFKblkC0YGhTdbYDpDONAiy04sj6AQHCTHszcQ51Wy/juJNG5dAC8vW7wo6X+e4i
+	UMsVteUqyKNoiE1jZ3CrQOtqo0M5LVSOWk05wBYTz5VHPmZOTShwB7wR05Rl6DUurbj0qY/5AzA
+	K5Nt6D3NWSX6MtYfkAQ9ChvJHIbn4SUFSHqV2EZhuMZrOmQTOXq9s40F6vm/l9vKefVZ5Yd50fW
+	L0ibZgtR4BrR5F0YOvOSyzLXYKvzO6eizI5If+E8u45Orrfnu0+dmsdqez5bzQasCAvI/mTJVlf
+	XfCZ
+X-Received: by 2002:a05:7300:de0b:b0:341:f4d6:d9a5 with SMTP id 5a478bee46e88-3427169be76mr8534610eec.1.1790493063552;
+        Sun, 27 Sep 2026 00:11:03 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm22318886eec.15.2026.09.27.00.11.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 00:11:03 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	John Heffner <jheffner@psc.edu>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sj@kernel.org,
-	Saravanan D <saravanand@crusoe.ai>
-Subject: [PATCH v4 2/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
-Date: Sun, 27 Sep 2026 00:09:25 -0700
-Message-ID: <20260927070925.47209-3-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260927070925.47209-1-saravanand@crusoe.ai>
-References: <20260927070925.47209-1-saravanand@crusoe.ai>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipv4: Fix device use-after-free in ip_skb_dst_mtu()
+Date: Sun, 27 Sep 2026 15:10:51 +0800
+Message-ID: <20260927071051.3693368-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,315 +83,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
-as the least loaded CPU in the queue's blk-mq map group, and all socket
-work runs there for the connection's lifetime. This decision falls
-short when the host partitions its CPUs after connect time. On a 384
-cpu multi tenant host with 128 queue controllers, blk-mq folds three
-CPUs into every map group, some groups straddle two tenants' cpusets,
-and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
-cpuset, seen by the neighbor as steal time.
+When a socket ignores the path MTU, ip_skb_dst_mtu() reads the device
+MTU without RCU protection. The multicast and broadcast output path
+through ip_mc_output() can reach this helper without an RCU read lock.
+Netfilter releases its internal read lock before calling
+ip_finish_output().
 
-Embed the nvme_queue_info in the tcp queue and expose the io_cpu
-through the controller's queues directory
+A sender can load dst->dev and then be preempted before reading dev->mtu.
+Concurrent device unregistration replaces dst->dev with blackhole_netdev
+and drops the old device reference. After the grace period and remaining
+references drain, the device can be freed before the sender resumes and
+reads its MTU, causing a use-after-free.
 
-  /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
+KASAN reported:
 
-so a control plane that owns CPU placement can set it directly instead
-of relying on the driver's heuristic. The attribute accepts a cpu
-number, -1 or "unbound", where -1 and "unbound" leave the socket work
-unbound, running each invocation on the cpu that queued it. A user
-assignment is marked in the queue info flags, persists across
-reconnects and is never re-picked by the driver. The read-only
-managed attribute reports 1 while io_cpu is driver managed and 0 once
-the user assigned it. The accounting of nvme_tcp_cpu_queues applies
-regardless of who set the io_cpu.
+  BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
+  Read of size 4 at addr ffff88810921c038 by task poc/98
+  Call Trace:
+   ip_skb_dst_mtu+0x634/0x740
+   __ip_finish_output.part.0+0x22/0x2c0
+   ip_mc_output+0x287/0x930
+   ip_send_skb+0x11d/0x150
+   udp_send_skb+0x63e/0xdf0
+   udp_sendmsg+0x1235/0x1da0
+   __sys_sendto+0x32c/0x3a0
 
-The queue directories register on the first connect and persist while
-the queues cycle across reconnects, so a write can arrive while a
-queue is torn down. The io_cpu changes and their accounting therefore
-serialize under a controller level lock rather than the queue lock,
-which is destroyed with the queue, and the controller teardown waits
-for the last kobject release before the queue array is freed.
+  Allocated by task 97:
+   __kvmalloc_node_noprof+0x1d4/0x620
+   alloc_netdev_mqs+0x81/0x12c0
+   rtnl_create_link+0xaa3/0xe30
+   rtnl_newlink+0xabc/0x1f70
 
-Suggested-by: Sagi Grimberg <sagi@grimberg.me>
-Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
-Assisted-by: Claude:claude-opus-4-8 [Claude Code]
-Signed-off-by: Saravanan D <saravanand@crusoe.ai>
+  Freed by task 99:
+   kfree+0x131/0x3c0
+   device_release+0xc8/0x240
+   kobject_put+0x14d/0x280
+   netdev_run_todo+0x4cb/0xc70
+   rtnl_dellink+0x362/0xa90
+
+Protect the device lookup and MTU read with RCU and use dst_dev_rcu() to
+access the device pointer. Keep the MTU limit and headroom calculation
+unchanged.
+
+Fixes: 628a5c561890 ("[INET]: Add IP(V6)_PMTUDISC_RPOBE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- Documentation/ABI/stable/sysfs-nvme |  21 ++++
- drivers/nvme/host/tcp.c             | 153 +++++++++++++++++++++++++++-
- 2 files changed, 173 insertions(+), 1 deletion(-)
+ include/net/ip.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
-index a0bb88ca1694..4d0c7688e8f7 100644
---- a/Documentation/ABI/stable/sysfs-nvme
-+++ b/Documentation/ABI/stable/sysfs-nvme
-@@ -472,3 +472,24 @@ Contact:	Hannes Reinecke <hare@suse.de>
- Description:
- 		Shows the subsystem type. Possible values: "discovery",
- 		"nvm", "reserved".
-+
-+What:		/sys/class/nvme/nvmeX/queues/<qid>/io_cpu
-+What:		/sys/class/nvme/nvmeX/queues/<qid>/managed
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Saravanan D <saravanand@crusoe.ai>
-+Description:
-+		Per I/O queue directories, populated by the transport
-+		backing the controller and persistent across controller
-+		reconnects. NVMe over TCP exposes:
-+
-+		io_cpu: (RW) The CPU that runs the socket work for I/O
-+		queue <qid>, selected by the driver at connect time.
-+		Writing a CPU number overrides the selection and persists
-+		across reconnects. Writing -1 or "unbound" leaves the
-+		socket work unbound, running each invocation on the CPU
-+		that queued it. Reads return the current CPU, or -1 when
-+		the queue is unbound.
-+
-+		managed: (RO) Shows who owns the CPU placement. 1 while
-+		io_cpu is driver managed, 0 once the user assigned it.
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 921934028e0b..567c839e92a4 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -141,6 +141,8 @@ struct nvme_tcp_queue {
- 	int                     tls_err;
- 	struct page_frag_cache	pf_cache;
- 
-+	struct nvme_queue_info	q_info;
-+
- 	void (*state_change)(struct sock *);
- 	void (*data_ready)(struct sock *);
- 	void (*write_space)(struct sock *);
-@@ -171,6 +173,11 @@ struct nvme_tcp_ctrl {
- 	struct delayed_work	connect_work;
- 	struct nvme_tcp_request async_req;
- 	u32			io_queues[HCTX_MAX_TYPES];
-+	/* serializes io_cpu changes and their nvme_tcp_cpu_queues accounting */
-+	struct mutex		io_cpu_lock;
-+	unsigned int		nr_queue_infos;
-+	atomic_t		qinfo_refs;
-+	struct completion	qinfo_release;
- };
- 
- static struct workqueue_struct *nvme_tcp_wq;
-@@ -1497,6 +1504,12 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
- 	if (!test_and_clear_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
- 		return;
- 
-+	/* settle accounting a write racing the queue stop may have left */
-+	mutex_lock(&ctrl->io_cpu_lock);
-+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+		atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
-+	mutex_unlock(&ctrl->io_cpu_lock);
-+
- 	page_frag_cache_drain(&queue->pf_cache);
- 
- 	/**
-@@ -1716,9 +1729,19 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 	unsigned int *mq_map = NULL;
- 	int cpu, min_queues = INT_MAX, io_cpu;
- 
-+	lockdep_assert_held(&ctrl->io_cpu_lock);
-+
- 	if (wq_unbound)
- 		goto out;
- 
-+	/* A user assigned io_cpu is kept across reconnects */
-+	if (test_bit(NVME_QUEUE_INFO_IO_CPU_USER, &queue->q_info.flags)) {
-+		if (queue->io_cpu != WORK_CPU_UNBOUND &&
-+		    !test_and_set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+			atomic_inc(&nvme_tcp_cpu_queues[queue->io_cpu]);
-+		goto out;
-+	}
-+
- 	if (nvme_tcp_default_queue(queue))
- 		mq_map = set->map[HCTX_TYPE_DEFAULT].mq_map;
- 	else if (nvme_tcp_read_queue(queue))
-@@ -1836,6 +1859,114 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	return ret;
- }
- 
-+static struct nvme_tcp_queue *nvme_tcp_kobj_to_queue(struct kobject *kobj)
-+{
-+	struct nvme_queue_info *qinfo =
-+		container_of(kobj, struct nvme_queue_info, kobj);
-+
-+	return container_of(qinfo, struct nvme_tcp_queue, q_info);
-+}
-+
-+static ssize_t io_cpu_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			   char *buf)
-+{
-+	struct nvme_tcp_queue *queue = nvme_tcp_kobj_to_queue(kobj);
-+	int io_cpu = READ_ONCE(queue->io_cpu);
-+
-+	return sysfs_emit(buf, "%d\n",
-+			  io_cpu == WORK_CPU_UNBOUND ? -1 : io_cpu);
-+}
-+
-+static ssize_t io_cpu_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			    const char *buf, size_t count)
-+{
-+	struct nvme_tcp_queue *queue = nvme_tcp_kobj_to_queue(kobj);
-+	struct nvme_tcp_ctrl *ctrl = queue->ctrl;
-+	int cpu, old;
-+	int ret;
-+
-+	if (sysfs_streq(buf, "unbound")) {
-+		cpu = WORK_CPU_UNBOUND;
-+	} else {
-+		ret = kstrtoint(buf, 0, &cpu);
-+		if (ret)
-+			return ret;
-+		if (cpu == -1)
-+			cpu = WORK_CPU_UNBOUND;
-+		else if ((unsigned int)cpu >= nr_cpu_ids || !cpu_online(cpu))
-+			return -EINVAL;
-+	}
-+
-+	mutex_lock(&ctrl->io_cpu_lock);
-+	old = xchg(&queue->io_cpu, cpu);
-+	set_bit(NVME_QUEUE_INFO_IO_CPU_USER, &queue->q_info.flags);
-+	if (test_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
-+		atomic_dec(&nvme_tcp_cpu_queues[old]);
-+		if (cpu != WORK_CPU_UNBOUND)
-+			atomic_inc(&nvme_tcp_cpu_queues[cpu]);
-+		else
-+			clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
-+	} else if (cpu != WORK_CPU_UNBOUND &&
-+		   test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags)) {
-+		/* account a pin to a connected queue the pick left unbound */
-+		atomic_inc(&nvme_tcp_cpu_queues[cpu]);
-+		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
-+	}
-+	mutex_unlock(&ctrl->io_cpu_lock);
-+
-+	return count;
-+}
-+
-+static ssize_t managed_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			    char *buf)
-+{
-+	struct nvme_tcp_queue *queue = nvme_tcp_kobj_to_queue(kobj);
-+
-+	return sysfs_emit(buf, "%d\n",
-+			  !test_bit(NVME_QUEUE_INFO_IO_CPU_USER, &queue->q_info.flags));
-+}
-+
-+static struct kobj_attribute nvme_tcp_io_cpu_attr =
-+	__ATTR(io_cpu, 0644, io_cpu_show, io_cpu_store);
-+static struct kobj_attribute nvme_tcp_managed_attr =
-+	__ATTR_RO(managed);
-+
-+static struct attribute *nvme_tcp_queue_attrs[] = {
-+	&nvme_tcp_io_cpu_attr.attr,
-+	&nvme_tcp_managed_attr.attr,
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(nvme_tcp_queue);
-+
-+static void nvme_tcp_queue_info_release(struct kobject *kobj)
-+{
-+	struct nvme_tcp_queue *queue = nvme_tcp_kobj_to_queue(kobj);
-+	struct nvme_tcp_ctrl *ctrl = queue->ctrl;
-+
-+	if (atomic_dec_and_test(&ctrl->qinfo_refs))
-+		complete(&ctrl->qinfo_release);
-+}
-+
-+static const struct kobj_type nvme_tcp_queue_ktype = {
-+	.sysfs_ops	= &kobj_sysfs_ops,
-+	.release	= nvme_tcp_queue_info_release,
-+	.default_groups	= nvme_tcp_queue_groups,
-+};
-+
-+static void nvme_tcp_register_queue_sysfs(struct nvme_tcp_queue *queue)
-+{
-+	struct nvme_tcp_ctrl *ctrl = queue->ctrl;
-+
-+	if (test_bit(NVME_QUEUE_INFO_REGISTERED, &queue->q_info.flags))
-+		return;
-+
-+	/* a failed registration drops the reference through the release */
-+	atomic_inc(&ctrl->qinfo_refs);
-+	nvme_register_queue_info(&ctrl->ctrl, &queue->q_info,
-+				 nvme_tcp_queue_id(queue),
-+				 &nvme_tcp_queue_ktype);
-+}
-+
- static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 				key_serial_t pskid)
- {
-@@ -1906,7 +2037,8 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 
- 	queue->sock->sk->sk_allocation = GFP_ATOMIC;
- 	queue->sock->sk->sk_use_task_frag = false;
--	queue->io_cpu = WORK_CPU_UNBOUND;
-+	if (!test_bit(NVME_QUEUE_INFO_IO_CPU_USER, &queue->q_info.flags))
-+		queue->io_cpu = WORK_CPU_UNBOUND;
- 	queue->request = NULL;
- 	queue->data_remaining = 0;
- 	queue->ddgst_remaining = 0;
-@@ -1974,6 +2106,9 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 
- 	set_bit(NVME_TCP_Q_ALLOCATED, &queue->flags);
- 
-+	if (qid)
-+		nvme_tcp_register_queue_sysfs(queue);
-+
- 	return 0;
- 
- err_init_connect:
-@@ -2022,8 +2157,10 @@ static void nvme_tcp_stop_queue_nowait(struct nvme_ctrl *nctrl, int qid)
- 	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
- 		return;
- 
-+	mutex_lock(&ctrl->io_cpu_lock);
- 	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
- 		atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
-+	mutex_unlock(&ctrl->io_cpu_lock);
- 
- 	mutex_lock(&queue->queue_lock);
- 	if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
-@@ -2085,7 +2222,9 @@ static int nvme_tcp_start_queue(struct nvme_ctrl *nctrl, int idx)
- 	nvme_tcp_setup_sock_ops(queue);
- 
- 	if (idx) {
-+		mutex_lock(&ctrl->io_cpu_lock);
- 		nvme_tcp_set_queue_io_cpu(queue);
-+		mutex_unlock(&ctrl->io_cpu_lock);
- 		ret = nvmf_connect_io_queue(nctrl, idx);
- 	} else
- 		ret = nvmf_connect_admin_queue(nctrl);
-@@ -2650,6 +2789,14 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- 
- 	nvmf_free_options(nctrl->opts);
- free_ctrl:
-+	if (ctrl->queues) {
-+		unsigned int qid;
-+
-+		for (qid = 1; qid < ctrl->nr_queue_infos; qid++)
-+			nvme_unregister_queue_info(&ctrl->queues[qid].q_info);
-+		if (!atomic_dec_and_test(&ctrl->qinfo_refs))
-+			wait_for_completion(&ctrl->qinfo_release);
-+	}
- 	kfree(ctrl->queues);
- 	kfree(ctrl);
- }
-@@ -3047,6 +3194,10 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 		ret = -ENOMEM;
- 		goto out_free_ctrl;
+diff --git a/include/net/ip.h b/include/net/ip.h
+index 6f602df72ee6..14d6f77f3bb8 100644
+--- a/include/net/ip.h
++++ b/include/net/ip.h
+@@ -543,7 +543,9 @@ static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
+ 		return ip_dst_mtu_maybe_forward(dst, forwarding);
  	}
-+	ctrl->nr_queue_infos = ctrl->ctrl.queue_count;
-+	mutex_init(&ctrl->io_cpu_lock);
-+	atomic_set(&ctrl->qinfo_refs, 1);
-+	init_completion(&ctrl->qinfo_release);
  
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
- 	if (ret)
+-	mtu = min(READ_ONCE(dst_dev(dst)->mtu), IP_MAX_MTU);
++	rcu_read_lock();
++	mtu = min(READ_ONCE(dst_dev_rcu(dst)->mtu), IP_MAX_MTU);
++	rcu_read_unlock();
+ 	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
+ }
+ 
 -- 
-2.55.0
+2.43.0
 
