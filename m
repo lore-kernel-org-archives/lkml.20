@@ -1,73 +1,75 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C1835AC07
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C9E298CC4
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 05:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790486235; cv=none; b=qsEfYZQCpkPhVmLy2MZ3Y51w8okpNUxihUtYVI2FycNUl889uWwCvf2VIYm6k1WPLFW9bpmOk9W4UtId62T5aBvKD7pchCqXVb/F4+6q2mT6eGKoVZKfVP1CzCF7M5jzeYzF/YUQ9k9NYaoWaaCTZjo+1mdrUZHyug4LRrYQ2Pk=
+	t=1790486248; cv=none; b=i+jZOZl/7ombgyLeT2zSTVUEw3AP+5O3BKLD26Wuoz61yjo+qBeEjCLLhSPdFL2q9PeXJbvCOiFRUURHIvkKkbMn9F45KTv0Osim48om3WJkxcYCVAIjrWapZBxxQcECFLDRLapmzYdrF+rJov57baKOsVgmguoiVVKpFbDH9BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790486235; c=relaxed/simple;
-	bh=NU6QRcYWbC6ozvlXfNRptThKfI89r0/f8cNx0Vdf9+Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B2beRi+bmNZrWV0X5tC8cTneXh+kRTw8qxopmXyflGFntVeyE+vfoxZRUyVfIh23Sd6WFzx+yy7QqIZ6/vZabNj8eoo+dpOjykfqD7wzCk0yjtp28MHK9WOgXp9ZTzzQKFdtGbYMQRkvmuV4/REAf3v8n+CgYiyShYla+utCymc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ASFgvPH0; arc=none smtp.client-ip=74.125.229.42
+	s=arc-20240116; t=1790486248; c=relaxed/simple;
+	bh=nWYyEn3FlxnbDE5hfPTdOkEDIO47hQrt3IWc+5iB0G0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=euplXO7ZORnHxe7O6p7/kURdeW3gjvJhhmFu5RvfcEYFSff82EfPvUxmWwTE2+N1H2yp2dfADBT+AeLCfXfcOkDHpOGDKIPdOlxO6UXyIVSrnOHjScQIgE7C4O8UmgiMo4IxPB0zyOSgJ2Glo3pJjnbEwBjn6QO0uJtbmHKJKUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pc15xYtH; arc=none smtp.client-ip=74.125.229.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ASFgvPH0"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so918937eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:17:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pc15xYtH"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so1735071c88.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:17:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790486233; x=1791091033; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790486244; x=1791091044; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XP6+qvN7EZZEEWS6mx/6BLwbaxX5epJwC8MSjQPD2V8=;
-        b=ASFgvPH0Hq8dvFeHdrZrdRmuPYXXCOgW/wj+By/XziMBwPhLv9tDVclyth0GTNoE/5
-         hGQpUWnJuJC9S5cU/Od6iUWwn0MPni4w3qfaHSIaJ7IYdxjY3rtVjB1vZwjASbQls49S
-         EG0In6ksU8wc7YVBSRtrD1Me8qPT3ST24UjOiYabIt5TF40HDhGJsy6iU3Za2mOcaW3F
-         LVhNAuNUyXyCwrsuU/OrlEALCK+ftNZLzA/B+RSlTXDtm6swjsFuB24Eos+GygGj+Q/Z
-         GK5vAV4g9mxsQLSEydNKP/Rfmzjm5Af/sgOG3+/iGj1ckYhZLa09/JJm1fW1GGIJ6dUT
-         pCsQ==
+        bh=fYllJEMjqSI9dmThGcCAG+WXxe2fhi4B+5VSXcbhrlk=;
+        b=pc15xYtHMkXyln8PLqM50TBJpeK8NQI1vbmHUZ9vKdY6G7P3LJhAUzrEh6D+kSplJR
+         NQMgfhFab+awep1voN/hVZ4/Q84K6oj9yAi8neT/i4kLyZ0lKeU16uInYmxRC35duhgL
+         ULAW5+Jro6HaqHslL5V/sUPyPQ4kuOPL6gfrurocq7LhFul6eaYf5g3fKavmp7SsHjco
+         +XGQ4me41b1WTZIgKyqG3+r37W+AeVspTyv62+t9XHFVudBZL58kE4KwzJwGo9a0k1kn
+         VXaB+01nzQXdATLH2OJ61uZSyH+RsBuKacuUpqkKMQAvcp39CDEpquRv/6zuw2ctiZRn
+         RIlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790486233; x=1791091033;
+        d=1e100.net; s=20260707; t=1790486244; x=1791091044;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XP6+qvN7EZZEEWS6mx/6BLwbaxX5epJwC8MSjQPD2V8=;
-        b=eXHVoz6yHO06bjOtNIR0o360+YFK54+A80YJmO8qhm99k7wcAWqq510WLtz19hEfd5
-         daiOnWTFi43VsPs9EFelpXFLFXqhEJzzI1EP1Xd77gjtmxpSqbHVoLDnC6LG1+dPFRkA
-         OjIHZaiNmC0wHTluTDsvahBm5U4cxIA/puqkiwgLevUVbqDTYWZqpfBAAUNOsA7NjBbk
-         ZpivMm/e8q1CQNjgJt1tEjaHO5Jpm0+fo29CekSbf+ATWFnZ7iE4tqIUNaA7JvbAg+nX
-         BwCdPGpdV8/BysN9lJGlO8pjU9FVStr7ex94WBJ8JFV7X6VjDsJ5hoObhwB45nPaSioK
-         s8Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwE5CYtfHHamD7Gxi7WW5nI06UqmWfhOVGpD92nRu5f4t4pTwvHy1lbkYR5Y5MAwcy7UWff+ya/8h47Ts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYcyHQe8NmFQZK+7JkcW18kUttjobvRiss0H5sHmvCecoSQ3FW
-	gz1+J314s1SaUJSVwlQIDjl4YosKIBXigAG39rlwl8DZrUzYSJT9FNXe
-X-Gm-Gg: AYBFou0EOPe0juYsJE50EE2q4fh6WOACYlsvqo2MipUpEw+7jK/8v+gS68EVeN7a0gZ
-	jjuAY0BIHHuzRBhdgBQ3gRZ710ABGyR9KtFqro+21DBrIlBRtXJNfILq22FZMH4OXMJK4WlHiRt
-	teJOlL+0+KRbJr1ojA5YsM2fwvts5nnGezJC2j0gqwLPFpfFhWpgEGE1MshAuvl6HOM+SQmUy1/
-	3CKiZeUPL4e1SSALGn7SzFC7UefRJfbdeHTYPFMYX2WPtH4A1DFbHO67r/K4hiaA2IO6Krg1pb0
-	zy6JhPWNVD5Zgk/+E46DsBgRstU5HB98IshSMYbJJG/tQb+cUhtA8MzaN7uZgqKQ3GAyzkcyE+i
-	jrGFDAqTlkRZuGBZbi1R7Tp+QNBBwnwN13p8GRD7Oz+IppIB2mHglC1/V4JAOlBUOdF4R51j8yS
-	hQYDqAZRpz5QkieBxcNFwd+c2cylJJdDYzkqQ9DzamkNo2dC9GWnDVM1txdFJBJ2k6u2ka03Uzg
-	L/gi+AOBXuO9zIaM7Hx9dtfiypCXvg7mX4Scc7L+FerXp5jyfKNA6jzKVZMT5IW6xNDt+AKz5Tx
-	C78MZK4fdtQH8gVfCHGqHmN71QZyogTf7fGBhehKMqMN4zZW8L1BQq8meoBIrvxkiDVXkWqbVV0
+        bh=fYllJEMjqSI9dmThGcCAG+WXxe2fhi4B+5VSXcbhrlk=;
+        b=lzmv+WnxattJrd/nJ+N41KghUoOPpvRkS0MAF0TgtIaE90Vaj4krtjT0OKER77kOQY
+         q8I5TZiTBOTp3wmMqJHlCnB9x5Pp1/yUvRYaUQpe2nqfHe2/WZXqdptrPu7/7/+4xeah
+         /5MN/Yz0Gs8fVGawZPmq+q61G1cT5aqPZEhUoPbFMQUi+s4s+BkYopKZ7RqltV1xgATw
+         DJcobZ4CtEd6hvHqMLFshYrHGnYccKv07yRpb9/sGUl1jyzpXIe+7Am/fP8BjI5r0SN8
+         dcrI79xX5MzEtk4gw49MKVQCCqevsRQew407XPznsWUlNWSeQdvn+45Nmq0fe9mcaFQL
+         5erw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgSr4quRfY0MgtLZLMO47xMteQdp9+f9wg7O6Cl9BKHC/7Z4xdQ7h79NyWpl2eVLuL18rurXMKv7aWYu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKjpQxoOWf23Aq6TuriNz+ClDE37wAV5L1UhSiRhnzBEujsHqu
+	QI7OpDsvh/T6YW42z1nE9YmR9T29L/6WclwsWJrTMmvdytsG2cc0WFVd
+X-Gm-Gg: AYBFou2JQutYmH2Nbn06VNdQo1ldk4VzSav337zcfde2+KzYLg3lD5JcuMwjKiSoORG
+	HarJrr1y5Yo9Dn7L6sdkYZh/u/DSJ91jSHoCyW+oSYYoc50kWamLmXXMgYRIpSjEz5qH/1O1vxG
+	ywq3fMOLJJ7SYmo7Dtw+w65YCrmsm2BU/Vv2uGNa4yV90nxyB1MR7up9ehPeHgA/CCXOB8bEWbE
+	O01/6CdU0bTB4p4QTFovkp5/5wouRwlB1jEy3NsScnahO4D+sj3yATZP/9XkMsK07jr5LZLHla3
+	9RRoZukFtIhPjP1yOBSSfbp/QEX81GCv6yD6mA2MIhIB9HOkveRua4bb1Ng5ZUDr3rjlgroFeb1
+	7kpMOlcOOUyaXGcfYqp4hme+6FRMA/f4lt6nWOHIzjV84naNl6AoAeXSrtA6qsTNduxit9QxU5S
+	lNv2enh2DEs6c2Bga2cL5uUgZJv9xrYiI3cESHNpRqlxDgtxRhI9wbF69PQEPQw2luLAQSUJ6y2
+	XRncWyNlSxkxylcpxzShSJXLNFjO0yvryKdumDUBsDgixTpvsMHucHo5oHMTXOHXCljPWWUmDun
+	hzKNgCol5Cb/4AKc0hKfMBHi45WRR5R7sC4zxXkhnm77zcUYEZqtQFEZNdBguQdTK8H760Onjw=
 	=
-X-Received: by 2002:a05:7301:fd8a:b0:33e:c164:b5d7 with SMTP id 5a478bee46e88-3426f9c09a0mr5078028eec.3.1790486233118;
-        Sat, 26 Sep 2026 22:17:13 -0700 (PDT)
+X-Received: by 2002:a05:693c:824c:b0:346:7c2c:1d0c with SMTP id 5a478bee46e88-3467c2c2549mr424577eec.17.1790486243877;
+        Sat, 26 Sep 2026 22:17:23 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.116.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm20283753eec.4.2026.09.26.22.17.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341459234a1sm18410338eec.24.2026.09.26.22.17.20
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 26 Sep 2026 22:17:12 -0700 (PDT)
+        Sat, 26 Sep 2026 22:17:23 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH] NFSv4: use match_uint() for ids in the legacy idmapper upcall
-Date: Sun, 27 Sep 2026 10:47:07 +0530
-Message-ID: <20260927051707.71187-1-jain.sm@gmail.com>
+To: "Martin K . Petersen" <mkp@kernel.org>
+Cc: Mike Christie <michael.christie@oracle.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: target: rd: Check the return value of match_int()
+Date: Sun, 27 Sep 2026 10:47:17 +0530
+Message-ID: <20260927051717.71269-1-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,40 +79,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For an id to name lookup, nfs_idmap_lookup_name() prints the __u32 id
-with "%u" and requests the key "user:<id>" or "group:<id>".  If the
-legacy idmapper is used, nfs_idmap_prepare_message() parses the id back
-into the __u32 im_id with match_int(), which parses a signed int.
+rd_set_configfs_dev_params() ignores the return value of match_int()
+for the rd_pages=, rd_nullio= and rd_dummy= options and then uses 'arg'
+anyway.
 
-Since commit 77dd3b0bd17a ("lib/parser.c: avoid overflow in
-match_number()"), match_int() returns -ERANGE on 64-bit for values
-above INT_MAX, so the upcall fails for every uid and gid of 2^31 or
-above.  nfs_map_uid_to_name() and nfs_map_gid_to_group() then send
-the numeric id instead of a name.  A server that requires names, for
-example Linux nfsd with Kerberos (it never accepts numeric ids from
-RPCSEC_GSS clients), rejects it with NFS4ERR_BADOWNER, so
-chown() and chgrp() to such an id fail with -EINVAL.  On 32-bit these
-ids happen to work, because match_int() does not detect the overflow
-there and the wrapped int converts back to the same __u32.
+match_token() only matches these options if the value is a number with
+nothing after it, but match_int() can still fail with -ERANGE: when the
+value is 24 characters or longer, on any architecture, and on 64-bit for
+most values outside the range of an int.  'arg' is then not written.  It
+still holds the value parsed for an earlier option in the same write, or
+is uninitialized if no number was parsed yet.  The write succeeds, and
+for rd_pages= that value becomes the page count and RDF_HAS_PAGE_COUNT
+is set.  On 64-bit, for example, "rd_nullio=1,rd_pages=4294967296"
+configures a one page device, and "rd_pages=4294967296" alone uses an
+uninitialized page count (0 with CONFIG_INIT_STACK_ALL_ZERO, which is
+only rejected when the device is enabled).  A stale 1 also turns on
+RDF_NULLIO or RDF_DUMMY for an invalid rd_nullio= or rd_dummy= value.
 
-The signed parser has been used for the __u32 im_id since commit
-57e62324e469 ("NFS: Store the legacy idmapper result in the keyring"),
-which added this code; it only started to fail when match_int() gained
-its range check.
+Return the error from match_int(), as the fileio and pscsi backends do
+for their match_int() options.  As there, options that come before the
+invalid one in the same write have already been applied.
 
-The client only maps ids to names when it does not send numeric ids,
-that is with Kerberos or with nfs.nfs4_disable_idmapping=0.  It uses the
-legacy idmapper (an upcall to rpc.idmapd) when the request-key upcall
-fails, for example when nfsidmap is not configured, and always when the
-NFS client was created from a user namespace other than init_user_ns.
-
-Use match_uint(), which parses a decimal unsigned int with kstrtouint().
-The id is always printed by the kernel in decimal, so every __u32 is now
-accepted on all architectures.  The type of im_id now also matches the
-parser.
-
-Fixes: 57e62324e469 ("NFS: Store the legacy idmapper result in the keyring")
-Cc: stable@vger.kernel.org # 5.12.x: needs match_uint()
+Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
 Assisted-by: LLM
 Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
 ---
@@ -119,46 +109,106 @@ This patch was prepared with Claude Code (Anthropic), model Claude Opus 5.5
 test described below. The trailer only says "Assisted-by: LLM", as
 Documentation/process/coding-assistants.rst describes.
 
+Earlier attempts at this fix were not merged:
+https://lore.kernel.org/r/1528779148-42485-1-git-send-email-jiazhouyang09@gmail.com
+https://lore.kernel.org/r/20190112053159.99406-1-kjlu@umn.edu
+This version follows the review comments there: it returns the error
+from match_int() instead of -EINVAL, does not leak 'orig', covers
+rd_nullio= (and rd_dummy=, added later), and goes through a single exit
+path as the fileio backend does.  James Bottomley suggested
+ignoring an invalid option instead of failing the write; I went with
+returning the error so that a mistyped size is not silently replaced by
+a stale or uninitialized one, but ignoring it (a 'break' instead of
+'goto out') would also fix the bug.
+
 Dependencies: none. The patch is correct on its own on current mainline.
 It is related to "lib: parser: reject out-of-range values in
 match_number()", sent to Andrew Morton:
 https://lore.kernel.org/r/20260926012718.15675-1-jain.sm@gmail.com
-On 32-bit, that patch makes match_int() reject these ids as well, so this
-patch should be merged before it or together with it.
+With that patch, out-of-range values also fail on 32-bit (today they
+wrap there, for example rd_pages=4294967296 gives 0 pages), and this
+patch then turns that failure into an error instead of a stale value.
 
 Testing done:
-- W=1 build of fs/nfs/nfs4idmap.o with allmodconfig for x86_64 and i386:
-  no warnings.
+- W=1 build of drivers/target/target_core_rd.o with allmodconfig for
+  x86_64 and i386: no warnings.
 - A throwaway KUnit test (not part of this patch) called
-  nfs_idmap_prepare_message() under UML (x86_64 and i386 subarch) with
-  "user:<id>" and "group:<id>"
-  built the way nfs_idmap_lookup_name() builds them, for ids 0, 1000,
-  65534, 2^31 - 1, 2^31, 3000000000, 2^32 - 2 and 2^32 - 1.
-  x86_64: without the patch every id >= 2^31 fails with -ERANGE; with it
-  all ids parse to the right value.  i386: passes with and without the
-  patch; with the parser patch above applied it fails without this patch
-  and passes with it.
+  rd_set_configfs_dev_params() under UML (x86_64 and i386 subarch).
+  Without the patch, on x86_64:
+  "rd_nullio=1,rd_pages=4294967296" returns success with 1 page and
+  RDF_HAS_PAGE_COUNT set; "rd_pages=4294967296" gives 0 pages with
+  CONFIG_INIT_STACK_ALL_ZERO and 0xfefefefe pages with
+  CONFIG_INIT_STACK_ALL_PATTERN; a 24-character rd_nullio= or rd_dummy=
+  value of 0 after "rd_pages=1" sets RDF_NULLIO or RDF_DUMMY (also on
+  i386).  With the patch all of these writes fail with -ERANGE, and valid
+  values (rd_pages=8, rd_pages=0x10, "rd_pages=8,rd_nullio=1,rd_dummy=1",
+  rd_pages=2147483647) are unchanged, on x86_64 and i386.
 
-Not tested: a real NFSv4 mount using rpc.idmapd (legacy upcall), and the
-resulting chown() failure against a Kerberos export.  That effect comes
-from reading nfs_map_uid_to_name() and fs/nfsd/nfs4idmap.c.
+Not tested: writing to the configfs control file of a real rd_mcp device
+with targetcli, and enabling such a device.
 
- fs/nfs/nfs4idmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Not changed: a negative rd_pages= value still parses and becomes a huge
+u32 page count, as before.
 
-diff --git a/fs/nfs/nfs4idmap.c b/fs/nfs/nfs4idmap.c
-index bc397110d977..c7a20286d0ee 100644
---- a/fs/nfs/nfs4idmap.c
-+++ b/fs/nfs/nfs4idmap.c
-@@ -519,7 +519,7 @@ static int nfs_idmap_prepare_message(char *desc, struct idmap *idmap,
- 		fallthrough;
- 	case Opt_find_group:
- 		im->im_conv = IDMAP_CONV_IDTONAME;
--		ret = match_int(&substr, &im->im_id);
-+		ret = match_uint(&substr, &im->im_id);
- 		if (ret)
- 			goto out;
- 		break;
+ drivers/target/target_core_rd.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/target/target_core_rd.c b/drivers/target/target_core_rd.c
+index 092d9fe0d4e3..32762199e742 100644
+--- a/drivers/target/target_core_rd.c
++++ b/drivers/target/target_core_rd.c
+@@ -545,7 +545,7 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
+ 	struct rd_dev *rd_dev = RD_DEV(dev);
+ 	char *orig, *ptr, *opts;
+ 	substring_t args[MAX_OPT_ARGS];
+-	int arg, token;
++	int ret = 0, arg, token;
+ 
+ 	opts = kstrdup(page, GFP_KERNEL);
+ 	if (!opts)
+@@ -560,14 +560,18 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
+ 		token = match_token(ptr, tokens, args);
+ 		switch (token) {
+ 		case Opt_rd_pages:
+-			match_int(args, &arg);
++			ret = match_int(args, &arg);
++			if (ret)
++				goto out;
+ 			rd_dev->rd_page_count = arg;
+ 			pr_debug("RAMDISK: Referencing Page"
+ 				" Count: %u\n", rd_dev->rd_page_count);
+ 			rd_dev->rd_flags |= RDF_HAS_PAGE_COUNT;
+ 			break;
+ 		case Opt_rd_nullio:
+-			match_int(args, &arg);
++			ret = match_int(args, &arg);
++			if (ret)
++				goto out;
+ 			if (arg != 1)
+ 				break;
+ 
+@@ -575,7 +579,9 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
+ 			rd_dev->rd_flags |= RDF_NULLIO;
+ 			break;
+ 		case Opt_rd_dummy:
+-			match_int(args, &arg);
++			ret = match_int(args, &arg);
++			if (ret)
++				goto out;
+ 			if (arg != 1)
+ 				break;
+ 
+@@ -587,8 +593,9 @@ static ssize_t rd_set_configfs_dev_params(struct se_device *dev,
+ 		}
+ 	}
+ 
++out:
+ 	kfree(orig);
+-	return count;
++	return (!ret) ? count : ret;
+ }
+ 
+ static ssize_t rd_show_configfs_dev_params(struct se_device *dev, char *b)
 -- 
 2.43.0
 
