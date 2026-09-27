@@ -1,64 +1,64 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B7E3CB569
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0514D3CC334
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:54:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546049; cv=none; b=jBVAnQUn+ykW1JIIarGBvfgxsPb9iRSG8r/71UOo3jcILeAxugmB/9vJl0exsDb3qSwzKaRpC61RIKiIiXVAtj5Sa+F2WrMAkwS1x1Dux3nnI9JGYv3csnUrkZExVAgf22aMqwL5CWl9GVrad2muVo26jr2UgLD3yeXTIviratY=
+	t=1790546052; cv=none; b=Pm07X+hWLRpj+TDV0hWMG8YcM3ATp7zzm0pY3nkzumi7qUOpz7cy4DkIRaulDDB+iViVRnkb3dpVTFD2lZPaKYxcQ25yOL3OovMf4wL9bMfB42NL0bnm+Q+3rgo7Qq5C5WxsQ9fYYN+v8XCCKZIWWFC6oWEM6kT0THogvz9gADs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546049; c=relaxed/simple;
-	bh=s1Qf6zVi8UhwTlovQ06Go/fkv9HRKtX4+5qnTRUsQ7Q=;
+	s=arc-20240116; t=1790546052; c=relaxed/simple;
+	bh=sscHr/a0eI+rSyX2APqOJXjosRWL7Frah0IdG2yROFE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YP4FpP322rYroIb69w9mD6ajphVtf+EQlk2Qfvag1MHt49AmS9hmPTKxhe2ogOaJ86/UwmS4ECROmc3cs57DTTnWbgmBepSQQyvUR6pKded0S0KAbseThkIj0r3EDjDFOPh72WAeRvUfDZzzfjIr7MV9dqx91VehMsmBRzCbY9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZB9v5GH6; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=BSxBs6yRdvHynu0SINvbNVZmg8Kt1PMRO1Hp2UmCdSdd+OoCRyXE5MlVsZ2oDJIBWH2A81SzJV5RA4Ap5UMln1fN22657B6PQ5KvZ7ye/wK0vIh57uUpU2p7wyNQvUFkVQibevs736fCC0kIcluegx4+IHEA72kz2Cq4AsBIX6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFrJuvFf; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZB9v5GH6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so5748095e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:54:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFrJuvFf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso6505175e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:54:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790546043; x=1791150843; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790546046; x=1791150846; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p8iktBbgnmQg52LPBJr5bT0zIG6cybwQ3bD7gV4BQmY=;
-        b=ZB9v5GH6DwoWGP+y4sCieDvJkpLxpvB1sSxndPFJUu5rac2FHkgrEEpnGM5y5zZ8G/
-         7uuj2e6/pEFvN7Mj544BeEDTM1BrBbWWjtTFrrO3olhsPAx71V60bY2tDCU5Lhbrwxgj
-         +WAv01bZw8dL4/QxdY4Cpcyd3e+TwURekPRNuyeIo7NA8U7fYi+4xOUWVZV7O2aUJ36p
-         IOloQYtF/NZzsoFg5kJ+X+BePxMqd2DO3JAspN05CnZKZpsOH2N0pN+yOc9trF75xbzD
-         OooaDzv1L4UlozOC/4xqitfB8wUa2+15/J/duIAIcghBhMqWX05KBxTcMFnEzxymlMW0
-         h+QA==
+        bh=uylNNtWhFrB2xKZW5KF3UySVhmnx4gMhtUpqjfbH9bg=;
+        b=MFrJuvFfS+wV+0MljxiIkn57ZPO1HfhRN329+rbFNyYqxXRVZdMsynWI1XYasSXeMZ
+         Evw+IOxQ9efJ1mN28e88gymdxYPZUVFLNzKmqhwyUkyd9TKW+eG9HISu9ijg1wgxZoze
+         TJQSrpRQ0bRiISjyspsEe4pb/aRQE/ehz5xeOMIrMTGpSC/1lp/rPN+5FfTjWUkVsYXP
+         vrrBBDt8zb6QB40/nNBoADXEfMYD6+J2JqclAbk1hHqG+e8jFAmXAH7xfDEcMDf6Zc0X
+         Dj4zvWg9Bu4UKzyKoQY2CQE7I/Z22nAbaAt3z9GD9BFLaOH+0lRqXn3claFIV+xUyeBH
+         U+8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790546043; x=1791150843;
+        d=1e100.net; s=20260707; t=1790546046; x=1791150846;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p8iktBbgnmQg52LPBJr5bT0zIG6cybwQ3bD7gV4BQmY=;
-        b=YT9aoyC/VnNH9K5HqU/2iPIM2Lga5RbmtS5kPkw9dA/jxvI3fkOhw8yoJ7UalyzoAE
-         ufjS2zYX6qxHoGtOfkYS3l4paHYKy2saGftknfgUJrjaLLsiPKVDaDZwu99mbCoNy3QD
-         PMYeZlZYTGxbckXBr/8web/2CXC1Uo+liAGTag2BK7Gp2CdDH4Bp/GOkPo6wkzLStvOX
-         atjECogYKEhve5GLrpzSlE59GmqN1kRIrXsXfrHoDx3/8/ZfhAYgjhGqCZ3uKDGa95YS
-         /Y3Rs15FWBGgHBxPnXWN05rbghfSZAaMmf8WShk+wf4h9c1VB+y/uqZryHCW5JiJPqjx
-         qoVA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6xiKnplPW9KgB1JxK/U7u3LJYQqOy1Hx5iW90+mvCwtEPp2wpZMe97J2397HES+2TZJe+BRpoSNlYJt0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA7o54IkhlxJPxCqOkWjm0J85uqOFtckag8/JVlSXLehxEIK6d
-	WQ3Bvdb83EyVSLLdKL/Z17N1vsJRGYdjjb72ZdrQ0HCC7B2VsXEILejU
-X-Gm-Gg: AYBFou12HFRkE3q5oX9Jh6/suMdB+YGIhYwN6aERwpnEpevDowFZDMSr0eahBcoUGa8
-	mmQisfqZrmzHaRhsPVMiCHDVcpSsqq54yi1lVfh7C/LNuRzzLfl2EiYxyV9Y8pprjITzbods4En
-	4mthi0OlC0g8ZLWy6VNOcFzLIoFoqz1WHJpAFc99DUUUDwe6KObBHbkp7+NoxVBgWEwJ0WuCFdF
-	Z+OIln7bAnnYuGiA19xLl9KSbleAkZCg8u38jeFzeY/xbP0MSjzp/UwkFX37qK/VLzqrb4hTydi
-	eDRKMlG66ZAScXV2H/Uu7ssMyWj5oSp3si2qYJD8n2Zut2V2L4qtFHYuJ6F479mGjh/WQGTIZuZ
-	rICWg8s3WOwhn/YlWbNI4shgUzNvr8PDnF5CDWaE0Unei6yIxlUx1XaWiNnpU+w7q4GPNSsGhBA
-	Kt3rxIH+uJ935t6q5W+rbSjO2+LV/IJNpT/fXHd8WV4XDDQLtI0huuJwc4w8jCDqPlP4TuQXQH7
+        bh=uylNNtWhFrB2xKZW5KF3UySVhmnx4gMhtUpqjfbH9bg=;
+        b=FbQchdcEsokDHORzOm1HumWbIVwAAx3a35EGKjVL3r8h3X4GOfRjJYwjCl4JRTcgBI
+         PDMkp3jmqr5rhJGJobIfSuH9CAQSYlyjvzxdzmuvzHa2tCuWLawzU73L6Kx5tNSXWPK1
+         s3v/Fep9BdS87J4oslVX8MWgRpKyT/VMJhfs/mDv7e5V4X/P9tAszO4N3wat8fHySWOo
+         WgEKPr0LLXZzX6fbrva7B8P+taWIMv0cYpJTTU1vpnb4+Y6MeAskuqVQ1xIWTkrIkpoP
+         Cix/Ah9bswbRegUW3PRIvq5BWstjzsmTzpiuViLImlPX4H6/nD1dA34SnUvz4YshNblp
+         oECA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxOz/tstWdNXKDQ8zQqZDOGqJcXC0JU+keYBlbETJDCNqZB95a3P/q2qCQvW2iwDMTzP6yiR/i9o7LEDM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx50FZdipy/Ckkh+dosm2a262D33Yigw21ySjr81Fj2FyYluLM
+	V5Wgl9a4tm0cZqRkctlzCMcYkWAsfgNo/1YweUGkDeST68g8WoozNABq
+X-Gm-Gg: AYBFou2lGCZciso5pYN89rKX7WSYpdXiZCC5iNg+jVjy1173pBW9ucUN+wHKEiGgadJ
+	Ov15/MTtK3x3hZbzUPCf6TWYH2la6Yc9nt/tTZG61Q6g6xN9ENFXvA5njNpilqlMl4O7SEFjiho
+	fIz2HsBghqMy7RyzLSwDiOQFjI1sHEeOnVfhutzGeBc1ZHXCKe5zhovMsE9GRJWw6LDt/NBM1C9
+	cILPV9h10+y6gtr7o6T5/lQ6OHl5Yuv/3sB7G6oIw4FtWBDvfU5E8XmvIWNtaHIDxMTUgC8MObv
+	0Ehpqc66QHVZNx6SWPo7DhhvwBv7NrQRnr/+mQHY2SMBZpOT59TblfUgMjbAsI3QaGnN79XmaAX
+	tym2nUla59gcRNVXLg1CAj/Ixvcb2iPDHl15AK5Ld3cpnTvnmbGsmX4Xk0xGLal/8NqqSQ0hPAY
+	8JT8wQqLoxSkcgLgUxUPlmPirYmIYa4VUNnYpa4AGNPuskYtQDBMQbJ+vbIXP4YVHTmUcQ1ssNQ
 	Q==
-X-Received: by 2002:a05:600c:8b2f:b0:49f:ff09:3b26 with SMTP id 5b1f17b1804b1-49fff093cfdmr58137705e9.6.1790546043380;
-        Sun, 27 Sep 2026 14:54:03 -0700 (PDT)
+X-Received: by 2002:a05:600c:1f83:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fe66c8087mr200153965e9.3.1790546046087;
+        Sun, 27 Sep 2026 14:54:06 -0700 (PDT)
 Received: from kali ([169.224.126.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.54.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.54.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 14:54:02 -0700 (PDT)
+        Sun, 27 Sep 2026 14:54:05 -0700 (PDT)
 From: Ali Firas <alishmery18@gmail.com>
 To: netdev@vger.kernel.org,
 	idosch@nvidia.com
@@ -74,9 +74,9 @@ Cc: kuba@kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ali Firas <alishmery18@gmail.com>
-Subject: [PATCH net-next v3 4/6] vxlan: vnifilter: clamp the dumped VNI range to the request limit
-Date: Mon, 28 Sep 2026 00:52:07 +0300
-Message-ID: <20260927215209.2581830-5-alishmery18@gmail.com>
+Subject: [PATCH net-next v3 5/6] vxlan: vnifilter: account per-VNI memory to memcg
+Date: Mon, 28 Sep 2026 00:52:08 +0300
+Message-ID: <20260927215209.2581830-6-alishmery18@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260927215209.2581830-1-alishmery18@gmail.com>
 References: <20260927215209.2581830-1-alishmery18@gmail.com>
@@ -88,49 +88,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vxlan_vnifilter_dump_dev() coalesces a contiguous run of VNIs sharing a
-remote into one VXLAN_VNIFILTER_ENTRY with no upper bound on the span. A
-device may hold the whole 24-bit space, populated by several requests,
-and dump it as a single entry START..END. Now that a single request is
-bounded to VXLAN_VNI_FILTER_MSG_MAX VNIs, replaying such an entry in one
-RTM_NEWTUNNEL is rejected: the kernel emits an entry it will not read
-back, so a dump/replay of a device's VNI configuration fails.
+vxlan_vni_alloc() allocates a struct vxlan_vni_node and a per-CPU stats
+block for every VNI, both with plain GFP_KERNEL, so neither is charged
+to the cgroup of the process that created the VNI. A netdevice's own
+queues, ethtool state and NAPI config are already GFP_KERNEL_ACCOUNT in
+alloc_netdev_mqs() (commit c948f51c1654 ("memcg: enable accounting for
+net_device and Tx/Rx queues")), so these per-VNI allocations are the
+unaccounted part of a device that a cgroup can grow one VNI at a time.
 
-Clamp a merged run to VXLAN_VNI_FILTER_MSG_MAX VNIs so every entry the
-dump produces is one the input path accepts. The run is broken in the
-merge condition, by ending it once it reaches the limit even when the
-next VNI is contiguous and shares the remote; the two representations
-then agree on the same bound.
+Charge both to the caller's cgroup with GFP_KERNEL_ACCOUNT in
+vxlan_vni_alloc(). __GFP_ACCOUNT only charges an allocation made from a
+task in a non-root memcg, so the sole caller, which already handles a
+NULL return, is unaffected outside a memcg.
 
-Resume across netlink message boundaries is unchanged. cb->args[1]
-counts the VNI nodes already dumped and is advanced only when a
-completed entry is written; a run is still a gapless block, so its node
-count equals vnirange() + 1 as before, and the clamp only moves where a
-run ends. A device with more contiguous VNIs than fit in one skb still
-resumes correctly, now split into limit-sized entries rather than one.
+The charge lands in the caller's memcg: adding VNIs from inside one
+moves each node into the accounted slab and raises the cgroup's per-CPU
+memory, while the unaccounted slab is unchanged.
 
 Assisted-by: LLM
 Signed-off-by: Ali Firas <alishmery18@gmail.com>
 ---
 
 Notes:
-    v3: new patch. Clamp the dumped run to the request limit so its output replays.
+    v3: replaces 3/5 and 4/5. Account the per-VNI node and its per-CPU stats in vxlan_vni_alloc().
 
- drivers/net/vxlan/vxlan_vnifilter.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/vxlan/vxlan_vnifilter.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index 13f4e115701a..92ea1fc94f45 100644
+index 92ea1fc94f45..3087877ed1cb 100644
 --- a/drivers/net/vxlan/vxlan_vnifilter.c
 +++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -382,6 +382,7 @@ static int vxlan_vnifilter_dump_dev(const struct net_device *dev,
- 			continue;
- 		}
- 		if (!dump_stats && vnirange(vend, v) == 1 &&
-+		    vnirange(vbegin, v) < VXLAN_VNI_FILTER_MSG_MAX &&
- 		    vxlan_addr_equal(&v->remote_ip, &vend->remote_ip)) {
- 			goto update_end;
- 		} else {
+@@ -711,10 +711,11 @@ static struct vxlan_vni_node *vxlan_vni_alloc(struct vxlan_dev *vxlan,
+ {
+ 	struct vxlan_vni_node *vninode;
+ 
+-	vninode = kzalloc_obj(*vninode);
++	vninode = kzalloc_obj(*vninode, GFP_KERNEL_ACCOUNT);
+ 	if (!vninode)
+ 		return NULL;
+-	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
++	vninode->stats = __netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu,
++						   GFP_KERNEL_ACCOUNT);
+ 	if (!vninode->stats) {
+ 		kfree(vninode);
+ 		return NULL;
 -- 
 2.53.0
 
