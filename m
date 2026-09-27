@@ -1,179 +1,139 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F043230F
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66BC344031
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790537002; cv=pass; b=ZF5n8Cc8I3q+G6oBExi3e75TIsdFJOuFb79RZ439YPoeKAkkLm0L6eme2AUC2o+jMSDKsvX/dvymQIpf62raOU21GdEXdyprII3SA/XGypoPQpubFfJipyXN7SFBoMk3bsUdE7kiE59WmTKTUp9LiebvwUmFq2BM5UDUfp5W3Ns=
+	t=1790537219; cv=pass; b=o3ZX4v35kGwcP9HpYAOlmrBcs68dqkcuHHl+5qU49JDBGQ6PS0XOwkO8Pw3grRBIKcYydn1OYwfVGRkX5MINliTrsi9sSBPY02C+Bx3P8Ehu3WH26KdHhA4vypsRyhKHODwC49vO0clakxf8t7LqMcm/nGIy/bM7wdE7PnTeKok=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790537002; c=relaxed/simple;
-	bh=JxpCDu+yGAq3x+LaLrqPzWBYldA8v+H1aqRDcrTIXZk=;
+	s=arc-20240116; t=1790537219; c=relaxed/simple;
+	bh=c7beOP7YTTkGYf6lX60AuvvLOMkpaXTWjJ6zogSNaIU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ELM8dyktVh2lxI9bXxAEvdEOaDZZ+RxwvRlgaCA394WwtUKDav3pibjaoTSu4+t36wXNhW+LtnWs860y2FaAnuSVYfYSkfVHo+JzxUkDdn3J+Iq5bPv7GxiuG0glXgUk0hUgnKTEkCmBpRLmexLI4ICWzKe4qhR1HuOqRyeuST8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iLc3PqbG; arc=pass smtp.client-ip=74.125.229.169
+	 To:Cc:Content-Type; b=WrTEidg99OokIH63u6u1yH7MXs56GhYevYkLqrP8c9E6FgS0q8+qSbenyA0mV4wFAi6LI7Wu40zBIQohx/E/UBF4TVlVkqeWgUwyslZEdGlXyV2pH0SxprAR1TYzzXx0GBeTQeS8HeEqJ7g0JKL3FMzH6kPnK6kt2u+TdkwNgaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBh/uzao; arc=pass smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iLc3PqbG"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-141a5cf1370so61701c88.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:23:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790537000; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBh/uzao"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-141a5cf1371so137494c88.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 12:26:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790537218; cv=none;
         d=google.com; s=arc-20260327;
-        b=mpFynIt4YMDknIFyOHf4qN3DxfkQWkA9NGwinw+EXtQ9feNwU8xuVPX/85k5DwBDJj
-         H6nrrvh2DIqawBKwqK9FoTEBvD3DmKtlp/VPA05ihUGqd8c+c9Qcd/OS/WmaSXKm1jkQ
-         DrR7p3p4vx82HaNgRb/1ci/f7+t4eMFJW34aNjVbAAE33W5ACGrOQNOzBWeRP7hvEiSy
-         LBs/3ACJiw2KNSIvSMQozItH14eH03HqtpMs7gCQQ/lxz/xAYKqN/mnDwftO2muKPgGU
-         ZBrC4j7DQP3VEqdYaA+K9lXuMYM1eS5ZA6EalL37REJ3WOBg0nvkAW8rTZbb1b7g/j1U
-         sFvw==
+        b=cCmDXElc+RtPuNh8Q0hRhrCY+/qVoQOQ9weWYRkTY1wegOdJLmWX7tG1xEYEE/ZIcC
+         E6f6AGcf+/NqPN0GXtPULaaIJNjyCD0UQTuzXgohe0XT8+uyJhrRW1Nc5iR5/+i3BBM2
+         VmbDUUDK8fBQpHJ5r3Mmg+7oWU+uouQWrbD09Tl6FJ9yoDULMQs53PUo8t4NRU+zuNIZ
+         S3kyYBBW5ZJclM/PZsETP6gxmCub3r2yZArHXsz8FFZNnBDxfXivKDY2CwRQXrtJEf3s
+         nAJoqSWzrMfv527xX+f/S5rBEzURvEaZvadnZZL45P3DApOFGqK+oy4bvw+jei08e/dp
+         saiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=GQ1aNNlcd5tc7JMvOSQAmrryeFFMB3Nt+WvcOu7O2ZQ=;
-        fh=f9crU0ZOsanjrVL8MRePlYvIFZJrWPF+DokhwYYiUpw=;
-        b=lWlrpK6UjFJhPSXxXf6tuqVXm+cFONTIjNViE4zIsDc57HjTxRhpZX9PzGfi3M0eH0
-         FyHSfjnsz6oL7uEZCpEnu3bBIfv+EsyYk+voPz/Z+OU/J89FJX2aN+4LbSd+qRIrOvbr
-         gWingYVzzdRbTHIFY+sZ8+O92paEdJHurrVH7U2C3dF7fFucC38zIRHZrGoBCvsEkQCo
-         +l7cxJZu6eX15ho44skH9XjdIahSvhx1abK1V9NT04JcecVcLfjENr9cAHiHYppm9c6f
-         tt2GTH73pmc5bAwdJkKu9B0CRiTrQACMvUc6yWqgC/A7Z4kMAYhqoz5kMm9zy1g5uWC9
-         QbRA==;
+        bh=bLQ6al9H/Dbtt02cX9S5WR+KWcZ7MbpFtL/ELZ6WlQM=;
+        fh=kw6metXQR7iRvqggnl5g6AfWZ20H9GC3T5mHIaDvlvM=;
+        b=ZPoDDttxoA1yu6bPheJRx7Xh4TeF++gJtrX9aCnEsAouoxCBl8SHsfoi9xYuRhksHN
+         SYG+iVZLQzBU01OOzfwu5ldWDrgQWk2aHxK480TVcZR5zv/a50wz6i8mfEqlfw89PcFu
+         fGGQduwyqk+CyC/oz8c0CSRfuF1QzrO7lyxGA7zHVYSJpIyFnCHeygyVcMCW54qcQlLc
+         YXID22B9RoSoY5wOKfWrdeAI6Sch+o1z3PHGlOUGizmTyHCXZINm0jYwl+WsVhtrKj1Z
+         uSvnS6+8ydFjTkY9YWdPdMeuFm1Bxn8z6/utO1GDLhjrDvtUQtmXA3kfEicu+mx7qH2p
+         SOgQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790537000; x=1791141800; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790537218; x=1791142018; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GQ1aNNlcd5tc7JMvOSQAmrryeFFMB3Nt+WvcOu7O2ZQ=;
-        b=iLc3PqbGRP7UUnhp7KfiUQ2sdc5u0lbS1oxp9hEgz0PXkh2+W+wI84Zo1aaanj/U+B
-         n8Ga0YhhhJDq3W5jqEM3F0R8iyCG9Pz464Q5Kmt86Tl5DzLXQjkHLOJn+i8J9oowU7Sy
-         fq6gtxbhraRCTEzsgTpHX7Hii3L7tjR0enYDbclXxQH31XYQj5IkT66faRdzCnhgp9UZ
-         ekg3R9WRFeurKercVJE/364iXxLTWY3kXg1yRP7dFTH48TmE2wvIq91YAunXk2jjMGBF
-         9cNEhNvLDfChZ+FlK55PAN9gRVLDNSYOVZXv+DbMtnTglGwLfcgjMreBNcVjTXKUDOvZ
-         saxg==
+        bh=bLQ6al9H/Dbtt02cX9S5WR+KWcZ7MbpFtL/ELZ6WlQM=;
+        b=lBh/uzaoL41h8yoe+5zxwiv4fvYZczO4dUg3+yZOCHgcIFjoZt6QT1pDSQHMWcuKYU
+         ZanWn0aMLXhgPtK8s13xJBNTdmNQAA0wGZhIW106Y82ywpXrTFLtYrPXapVy0clt5Qsz
+         09tsWMvZJ8J3CiGfhH8Nbz4dMawgwAoiaQwy+jQeY/uAg4j6hMHbQcC4HOem28yAKOx4
+         jrpz7KRXOUBZUkSDfMLSxkJrNe7RHUC4TrUtc9KtEjorbNmlww8q9mb8Ayy7RPRNpYLG
+         raToRa9TyErx8Zeqs/LZQXw2H3l+7rhI+TtywvkTP1MXlPlzV57aBFHDWrxhNpxdN2mF
+         Zu7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790537000; x=1791141800;
+        d=1e100.net; s=20260707; t=1790537218; x=1791142018;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GQ1aNNlcd5tc7JMvOSQAmrryeFFMB3Nt+WvcOu7O2ZQ=;
-        b=N+sngkz5J3IzDvexrMzbVUyjs+NVgIOrOzkKZ5qdP7FDgIdgJ3OpztDTb/Jb+wdW3R
-         WPCzYNy/43KOQJyt6mVlP0NWGcT2/PVDIvx54AwhVUFmrVePh6e36kMffFSMUVzqwh8p
-         d6NdB/hyp2Yen79RwNnFz2r8BitSf3MbFBZTWrY9w5tE2wRj7cUZbeCinoKZzFxfpwFj
-         8+HBDxaIK3SfEtECCM3Bk3BZL3fHAPfhtxjydaWGu9l01NuiWro2SPyHcfog/UyUKZLY
-         MbFECno+ctnsemNlus1YYsoXm/C4X6srqkjLGdlM1auIzl/oOLTE4ULJdun0BqAqHLU0
-         +rGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlhcAtEYUdnQ11oPeOmZSWAQhA92EytOY0mXb6oaVaqB7rsnAaN+2RyrDsccu9CTX3bVOBRsATHOUmrzY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+w0frtfaoLRsvWhpkvSB2aPxwh+lplBOlemrhVRruQsZ+gXkB
-	+BbJrjQg8m3sxXQZu2mOHVtOdJt3FktAILmxCINfn8DHRyzuFPoKZc+HekZ8JMGTIjZGW8p9+PB
-	nQ10iG20r3Fq9vcvZb7BmQwWi3XUTMuo=
-X-Gm-Gg: AYBFou1JGTjYtjdFDhcsBsoAJE1zq7P8YzmN2wk1wpqvlxOPb663Yl+/Z42Jcw7lLwr
-	TQ+HLgKOJ98PlxhIEj0jU7kTa57wprCAd78T1snvt/9Y/7RRTvcPiMOf+xY/RFRJDDA6zSQl+Fm
-	GJWJv4mPv0SfUKROQf/rbpyeXb52wa9nc2lIanS18t/v06Q/WQ0pV2o6xWKDuEfGPIy2exMAl7i
-	ZA7403FJt1N3YW3IbPMioWB0Y0/JgLLaTZ5vv5hT62gkW5yCFMib1uKMXOCRJRe1M0KN1EoLkCv
-	WouHTKvMsuQuSZ06GNZ0se6Oxqj2TcWp8rdgUsFwgQApmhr9jJf8z14rHqQkaxWYF9K2tpN2MMF
-	ZNlRqwYY7kXDoau7SobmVpDyj0e6yuYtTnsZgJH8MJg==
-X-Received: by 2002:a05:701b:4542:20b0:139:81c6:67a1 with SMTP id
- a92af1059eb24-146cf7ee6efmr11412357c88.1.1790536999746; Sun, 27 Sep 2026
- 12:23:19 -0700 (PDT)
+        bh=bLQ6al9H/Dbtt02cX9S5WR+KWcZ7MbpFtL/ELZ6WlQM=;
+        b=k59kQfVcoGPSWX4OHnUMiPXliCGWTvjrTl95scW7KCRe2SNGQgxclBLPmi2nrBqmQk
+         amFLob5R3hcnfNIFpEtPka5HF8YxSHNQW3Bl+IbzUVblODbgetL2x3eekaNqJL3nBJ7E
+         ZaR6pWqbuLCkg0T1s1yM2vB8R/+dJFhDow41IEfdlbAqhW+2sVkJx/lgjkoumaapYbUS
+         XsjQNpajt4+nHqn2CASmE/gefXqukzzoHJ//r9mBuXso/+JTgtSZMZBtc7HkUXuniIsj
+         gEklzQMZDwqo5540FHXvZrZKWwvwSP2+74nVwPHQsChnVd17mgAa3mNuCxOipAlvBHOX
+         8Gdw==
+X-Forwarded-Encrypted: i=1; AKwUvByuoALj8W1DlQ94ExCAtNDYNRC6v1IEwmTNlaBBjZFMbcJ8AXmK0FcgSMlSRJcTZZCL59tjA0B8S/24fvo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRDKfQ9nWxYbIz7P/Wr+CQOTLFQcALgkZlDQyWSiEBa6T+JM8l
+	rViy7pNBnHcQc2OwBsev9cTAYDPCsd9Gd/Z6RqVS1sjBBtur3J0Cd+99eKntTJG+58SUyFiepD4
+	jdqr2sw4ZElFGfQmS8CDX+BK78Qm2VWs=
+X-Gm-Gg: AYBFou1zRxiBeeOd90nayM7kt7dOFv0CkrAJqXh2UmIWdxgT/CXH1ooDMVljP3hM7Xe
+	GIL0iQbi6MfJjjE3CBST4XzRFHLbhx6tJgFVP3vfUo4yUo+/dFhX9UUWtvE0TLxV81yMDnLKgst
+	iZEYUcJpSkGOd1NHqMsrP0/5HV0y2GHbHU+rc8OsmNZm9b+9DRQsBnCmgIT+iqiLeV2ahMWDHgC
+	vJw7xMkNg3eAyLfxevBDMJMFTRnPU6hQpCxXWWIao+x3VwX9aj1Nxv+NK8pUOghSAz8JafIa3y3
+	1BukDyB8oGDR6zMSmuDOlhsL4LSfR/iaJJRxsypqxlpeK49YRk50j/ClQqS8pUEOJX61bd8o91D
+	52sE9LQw3CGlk9Z6qirjEbo+dvT4Vb+ICQ9EGxiKMOw==
+X-Received: by 2002:a05:7022:29c:20b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-146cfdd1a65mr11563219c88.2.1790537217579; Sun, 27 Sep 2026
+ 12:26:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927161601.1183525-1-sashal@kernel.org>
-In-Reply-To: <20260927161601.1183525-1-sashal@kernel.org>
+References: <20260927145505.16883-1-kaloz@kernel.org>
+In-Reply-To: <20260927145505.16883-1-kaloz@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 27 Sep 2026 15:23:08 -0400
-X-Gm-Features: AclHuK8wUu5keriArIOfnqcjTa0PI5BDk7mnauwk6N-t9qf1EcExXFN7ZB-zoKE
-Message-ID: <CADnq5_PBt-8TZ2i90m9fs8OKWQHmdpLqCx9+my32duvb78Yaiw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix sanitizer check for the DML frame
- size limit
-To: Sasha Levin <sashal@kernel.org>
-Cc: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Nathan Chancellor <nathan@kernel.org>, Alex Hung <alex.hung@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev
+Date: Sun, 27 Sep 2026 15:26:45 -0400
+X-Gm-Features: AclHuK-CrK0NLf-dOyv1g22nCfXksI0ZY8rCmFNjK9n1wbeXqCSPRlaJ6RVXPAU
+Message-ID: <CADnq5_OB21LmvT-J2Ou_v1cNPNwQHz9wapwgauNzuDthRHcMiw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/radeon: Sun XVR-300 support on sparc64
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Applied.  Thanks.  Will include this in my -fixes PR later this week.
+On Sun, Sep 27, 2026 at 11:06=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrot=
+e:
+>
+> These two patches get radeon KMS working on the Sun XVR-300, a
+> FireMV 2200 PCIe (RV370) board, in sparc64 hosts.
+>
+> Patch 1 fixes an Oops that any posted radeon card on sparc64 hits in
+> igp_read_bios_from_vram(), which dereferences an ioremap() cookie to
+> check the VBIOS signature. It is tagged for stable.
+>
+> Patch 2 adds a legacy connector table for the XVR-300, which has no
+> COMBIOS for the driver to parse, so both DVI-I outputs are found.
+> The XVR-300 needs both.
+>
+> Tested on a Sun Ultra 45 with an XVR-300.
+>
+> Changes in v2:
+> - Read the signature with readb() before the allocation instead of
+>   checking the RAM copy, as radeon_read_bios() does (patch 1).
+>
+> Imre Kaloz (2):
+>   drm/radeon: Read the VRAM VBIOS signature with readb()
+>   drm/radeon: add a connector table for the Sun XVR-300
+
+Applied the series.  Thanks!
 
 Alex
 
-On Sun, Sep 27, 2026 at 12:26=E2=80=AFPM Sasha Levin <sashal@kernel.org> wr=
-ote:
 >
-> Building x86_64 allmodconfig with clang fails:
+>  drivers/gpu/drm/radeon/radeon_bios.c    |  6 ++-
+>  drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
+>  drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
+>  3 files changed, 58 insertions(+), 2 deletions(-)
 >
->   .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:10491:13:
->   error: stack frame size (3128) exceeds limit (3072) in
->   'dml_core_mode_programming' [-Werror,-Wframe-larger-than]
 >
-> That config enables both KASAN and UBSAN, and should get the 4096
-> byte limit meant for clang COMPILE_TEST sanitizer builds. The check
-> in the dml and dml2_0 Makefiles concatenates the three symbols with
-> no separator:
->
->   ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
->
-> KASAN and KCSAN cannot be enabled together, so before UBSAN was
-> added the string was at most "y". UBSAN can be enabled alongside
-> either of them, and with both set the string becomes "yy",
-> $(filter y,yy) is empty, and the build falls through to the
-> non-sanitizer limit of 3072. Adding UBSAN to the check therefore
-> lowered the limit for the most heavily instrumented builds instead
-> of raising it.
->
-> Separate the symbols with spaces so that $(filter) sees individual
-> words, and test for a non-empty result. Only the configs with two
-> sanitizers enabled change behaviour.
->
-> Found by KernelCI builds of the linus-next tree.
->
-> Fixes: ebf8b0fd8508 ("drm/amd/display: Relax DML frame limit with UBSAN")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/Makefile    | 2 +-
->  drivers/gpu/drm/amd/display/dc/dml2_0/Makefile | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/dr=
-m/amd/display/dc/dml/Makefile
-> index 91465ac05c971..eb4ce5b1ecfbb 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -29,7 +29,7 @@ dml_ccflags :=3D $(CC_FLAGS_FPU)
->  dml_rcflags :=3D $(CC_FLAGS_NO_FPU)
->
->  ifneq ($(CONFIG_FRAME_WARN),0)
-> -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-> +    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
->          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
->              frame_warn_limit :=3D 4096
->          else
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu=
-/drm/amd/display/dc/dml2_0/Makefile
-> index e8bd061be05c1..2181079c89d0e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-> @@ -28,7 +28,7 @@ dml2_ccflags :=3D $(CC_FLAGS_FPU)
->  dml2_rcflags :=3D $(CC_FLAGS_NO_FPU)
->
->  ifneq ($(CONFIG_FRAME_WARN),0)
-> -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-> +    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
->          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
->              frame_warn_limit :=3D 4096
->          else
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
 > --
-> 2.53.0
+> 2.47.3
 >
