@@ -1,108 +1,138 @@
-Received: from mail-ua2-f19.google.com (mail-ua2-f19.google.com [74.125.226.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F633F4827
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 13:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25F13C09FB;
+	Sun, 27 Sep 2026 14:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790517290; cv=none; b=fvOkcdkqcNI0O7ApU386PJhEw1vyCGHeAOAwHfLlJAyiokB0gZN5ei/rH4XOutpKra68nVw94BR9ENxh9hRPFtJRn5nZSX6oUPLf8CQON+9ekSEvIkZwU5vbhJ6QA3C53pv/drsjAoikxZFZidFJGHOwIyTAKbGQ+sl4GozQ5Jo=
+	t=1790517606; cv=none; b=o6K+e/D/7KfRSOaK5Np3t1uTWvXcnzh21wz5FsFGN37oXTRxtnnMxNuqfJjmWfeQr3sBfBOpAaLxXG+8fsPhgGUnhs9jt4ERTQx+H//S00IGKF6S/JIygHAGWQRZg/EziMa2OKtRYNf2ixcGmgLZ0nDLne0ZfD/6nuL+F0re4fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790517290; c=relaxed/simple;
-	bh=aJ/3u2TDk1FwrMLTOiGsBvCmKGy0HVamF0zMgDHiRbs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KiDKPPj3CczTiSWNBJXSB5hxqQ1z6bN4PQ9ZFxBVp8h2OuXeaCt5H+skB6tEsdTON4zJvixR35oK/9C6b3wZf/ZVmKGLQBasGYSXRxmk79BkbQSV5g0Bx5gNnJ/pkB7lvzmXHH7JU9rU2tlnsEB1kGelfw4Lq8PrJ0J8mzGnr34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f19.google.com with SMTP id a1e0cc1a2514c-98531196e20so1351112241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790517286; x=1791122086;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=L2OFp95iHCfRROl31Y+sf6zuVagn/RbGEuuvvri1wN8=;
-        b=tdxa+tfh9WMFOqx8JIBQ7uTyxVZpKLTTwOVmFkCW2LQU7Ce4luTpaGNEJOb9i8oADw
-         hR+zcoXoCv5sm+UFsMQm7eWiStbPDqV0mSECKLB9jFErFg652yQrhBNV/wW8PsAbj6he
-         Me8CdlQRPiD6PPclxf+kowwN3/u2E+ck32w+zjn0wtbB22hS2fRd4CMXWE5p/CaaMvG/
-         LxVl3fMOFoHHURy8KrM5W5kfYVs1dhstpOSR7LNuLNM6N8joZQeRBGpx/x7fZcZpjM/u
-         6oE29+T+s9zAV6hHk3bvrXakZADE651thIwP99mzOhXc/Efn3kTYg0TjDLBlnWEz7OwP
-         vVDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzAjzUU5oBcqXwHYrPde/H3yaWkhHKJeTbsqkeebQRSHRNtHKsrpZDMGzQVX3iCGEDeHUZvOMv9wcZw5F4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJum7Q0RwEHkH5wz8QvRh++V/XVNPxulIr9VU7Jr0Q+BchUdG6S
-	F3nqWyarbwsl7VNaWPPJ76zTKg7shIv7RamcfESNlgyyLLfvFALBOmSyo3DxH332
-X-Gm-Gg: AYBFou0XPU2G1kY0ww+/gxQ4EdCbbfK9ipvpstbQw2e7uVmn4lsr+tqM6w7aOChzp3k
-	fuSkx0FcfJk5jEb8X6PQTGJiaLzOLNb5eYXshosjufVS6KnAQ4zNbrllnkwdX2mPOUCz42quNcN
-	97qfJVrFnYsvkGs7/A+hlmNOaW61wm1aHIKVF5OMn6M0wBgbM40o7DFh/ch4kVBOkXjXd8fZGL1
-	a1bJiBiG7X+dZUOSnMtHAFyBcz2eI9LsyWh3QGenvNFeg2wUAQ2cidQv3NVHqneTt4dadTEG7yo
-	NQycRPfEO8ROz6wnwanWJZpcFG6+SmzK+oTIiyZL3yKVyP8YpbB20efMJ8btr7SEbGTU7Cq8OzQ
-	4Av131l4eM/0yPjVCerqLsRqcRJD5om6iLq5jUyqCfAzV2uyoz7XbtfbfidiEnAq0EUVGymP+wu
-	bVqlvRKfI8elGNSW2hFkTqLn0kDF1QbFrhODsAr4hLPhAQFq8BJ6HF7RGyR+CqBjTHFpJZrHG91
-	6uPiFDsNsfMXmIqrVXatUuTKLsdma20cKgiwNBazlNyAJE=
-X-Received: by 2002:a05:6102:f0b:b0:7a7:ad9f:53e2 with SMTP id ada2fe7eead31-7af1b96d38cmr4595687137.1.1790517286402;
-        Sun, 27 Sep 2026 06:54:46 -0700 (PDT)
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com. [74.125.227.40])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde645680asm5293308e0c.15.2026.09.27.06.54.45
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 06:54:45 -0700 (PDT)
-Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7ac5b4011a4so1428338137.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 06:54:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBziKt2xbY/TZB9LS05YGmcpsOibG6DBfYTaWcq4nNa17pdtWrf6AE3JdAl6rFgfx8bU8JtlGvMHISjYWsA=@vger.kernel.org
-X-Received: by 2002:a67:e703:0:b0:7a1:f7c3:3a42 with SMTP id
- ada2fe7eead31-7af1c17fd4amr4317636137.15.1790517284989; Sun, 27 Sep 2026
- 06:54:44 -0700 (PDT)
+	s=arc-20240116; t=1790517606; c=relaxed/simple;
+	bh=TWibO/U7JZz/QwbWUVZ4iATu8yxVm0v3Ez0NVaeMK3s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LZ+Q1JEcc3KN0GrtSjNGfqD6ZJZEk2anBEMFxNc4knlARGwcdbyrqHgBRY9U/hRk4lJ8RM+UpoaEFc+iKKa/ihzZZtqnf1VaHae7zg/IUMLZnrolvzFJu3b56A/vGHDbN1fbGKAT1PGmXJ5k1ffMMQIlKWx8q8GwLDDVA0rXQ8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLsvXwnb; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLsvXwnb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8AA85C2BCB3;
+	Sun, 27 Sep 2026 14:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790517605;
+	bh=TWibO/U7JZz/QwbWUVZ4iATu8yxVm0v3Ez0NVaeMK3s=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=aLsvXwnbxXATwC5FbM2CHce8MjwN6U0vKaXPBkJkXI99jA7wLStn7FUySJor5AInl
+	 EXabqEz8CayCMwZtm/QeuP+nqv6Sel38MX7siva62G0pp2T6chf9KElFtNMYgbHtAq
+	 Q1aEI6J960nnyZbnqYxdv0gcERIliHR3kW9LmIuJmjp3+/d7Ol53TFZkeU4zTfmq58
+	 fRmiembSlpx/2tocz1JnBISzooatzMkbIVSix9turdQ57bW5G/agjEqbWPwcD9KLZb
+	 rim2qdknvSHf7VD0/Pzgy0eEpdv8r2EXpQ0+LhQ3/yTOpWeTgt5iILIVXNBZkUlOTz
+	 Upxo0nkqaSsgw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63C60C98332;
+	Sun, 27 Sep 2026 14:00:05 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH v7 0/2] A proposal to add a gpio-locked clock driver.
+Date: Sun, 27 Sep 2026 13:59:59 +0000
+Message-Id: <20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828094940.3882602-1-daniel@0x0f.com>
-In-Reply-To: <20260828094940.3882602-1-daniel@0x0f.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 27 Sep 2026 15:54:33 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXL34_aMC5pnTyX8BpiTrRNptNbqUkLj3VEX8UFaXp0jg@mail.gmail.com>
-X-Gm-Features: AclHuK-W_2pkk78COKUsEJzd_bQ8Exi416vXDhPKEtXTioHarx1YejHcEFLpsas
-Message-ID: <CAMuHMdXL34_aMC5pnTyX8BpiTrRNptNbqUkLj3VEX8UFaXp0jg@mail.gmail.com>
-Subject: Re: [PATCH] m68k: apollo: Fix interrupt setup
-To: Daniel Palmer <daniel@0x0f.com>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF8huWoC/33PwU7DMAwG4FeZciYoceKk3Yn3QBwcN92iwYrSt
+ QJNfXfSXQpqxPG35O+372KMOcVRHA93keOcxjRcS/BPB8Fnup6iTF3JAhQ4ZXQj+0i3KUfJ7wN
+ f5Gmi3MkeFAEbDK1DUTY/c+zT10N9fSv5nMbbkL8fJbNep/97s5ZKOm08B6saG/xLyNMl5mceP
+ sQKzrAhqFUdgRVhQItNh8aqHWI2pNxSR0xBlGYmRaQs4Q6xG+LB1RFbkNhyE4yH4DXvENyQVmM
+ dwYJYoIAdG3JEO8T9QsDXEbe+o3zbmKBNZPiDLMvyAzG9vZ0QAgAA
+X-Change-ID: 20260318-feature-clock-guard-f20a2c35b965
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790517604; l=2916;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=TWibO/U7JZz/QwbWUVZ4iATu8yxVm0v3Ez0NVaeMK3s=;
+ b=ZYv4YZhRda6DmmweFJ29otdnUK5ilAr4Rqy3RS6DNMS8kFkHXJ/ZTnke6SMssQZGDaWPpI116
+ 39SuSrgLI55Ag0//heGluE4zdymm2AyClPPyL6A98XljSQEbswC2C9y
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-Hi Daniel,
+A gpio-locked clock represents an input clock, which state is determined
+by a GPIO signal. It's similar to a gated-fixed-clock, but GPIO direction
+is inverted. Consumers can use the output clock to wait until all input
+clocks are locked and only then initialize / access dependent peripherals.
 
-On Fri, 28 Aug 2026 at 11:49, Daniel Palmer <daniel@0x0f.com> wrote:
-> The user interrupt vector needs to be installed before the interrupts
-> are unmasked otherwise the timer tick isn't handled and boot up gets
-> stuck in calibrate_delay().
->
-> Assisted-by: Claude:claude-fable-5 # Wrote Apollo DN3000 emulator using QEMU
-> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+The usage example for such a driver is when peripherals depend on PLLs in
+a FPGA, which can't be directly accessed by the CPU, but need a GPIO pin
+to check whether clock is actually usable. E.g. some of the IPs might not
+have a proper split between registers and IP core, which means that if an
+external clock and/or PLL lock is missing and one tries to access the 
+registers, the response never comes, thus the CPU stalls.
 
-Thanks for your patch!
+Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+---
+Changes in v7:
+- Fix compatibility strings and schema errors.
+- Update GPIO pin name
+- Link to v6: https://lore.kernel.org/r/20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com
 
-Fixes: 0aa78106c661cf6c ("[PATCH] m68k: convert apollo irq code")
+Changes in v6:
+- Debug messages dropped.
+- The new driver is now an extension of exising clk-gpio drivers.
+- The controller doesn't enable the parent clock, the consumer is
+  supposed to do that instead.
+- Link to v5: https://lore.kernel.org/r/20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com
 
-LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-i.e. will queue in the m68k tree for v7.4.
+Changes in v5:
+- Use existing DT binding with an additional property instead of adding
+  a new one
+- The driver is simplified in a way that it represents the actual HW
+  desgin without additional unrelated constructs
+- Aggregation is removed, now it's one clock input, one clock output
+- Link to v4: https://lore.kernel.org/r/20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com
 
-> Backstory: I have Claude creating a version of QEMU that can emulate
-> every supported m68k machine. Its still working on getting Domain/OS
-> booting but it found that Linux locked up on boot and I used gdb to
-> find the cause.
+Changes in v4:
+- Removed driver specifics from DT binding
+- Link to v3: https://lore.kernel.org/r/20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com
 
-IIRC, you need several of them. A single DN machine feels lonely,
-and requires caretaking by the domain controller ;-)
+Changes in v3:
+- Removed unnecessary dt bindings
+- Improved HW description and commit messages
+- Link to v2: https://lore.kernel.org/r/20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com
 
-Gr{oetje,eeting}s,
+Changes in v2:
+- Renamed to clk-gpio-locked to express intent.
+- Provide enable() / is_enabled() operations so the clock behaves as
+  expected
+- Fixed DTS errors / warnings
+- Link to v1: https://lore.kernel.org/r/20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com
 
-                        Geert
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: clock: gpio-gate-clock: Add a new compatible string
+      clk: Add gpio-locked clock driver
 
+ .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 +++++++++++++++-
+ drivers/clk/clk-gpio.c                             | 44 ++++++++++++++++++++--
+ 2 files changed, 71 insertions(+), 5 deletions(-)
+---
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+change-id: 20260318-feature-clock-guard-f20a2c35b965
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
