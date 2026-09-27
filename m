@@ -1,130 +1,94 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B6C3BD65D
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11C53009CB;
+	Sun, 27 Sep 2026 22:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790548075; cv=none; b=Ocs8VCLvuzGbfDVLyyWPf9Ie2fxd3pmpWEtSPetVlBnOx974UtjsM1Vcp1QRe7QrV2trwjw0gKUMOgSzbQdhigZq5fOD/QMJ7bJ248t8CWN5KHuYeJ3zguRZqjoAcXkrCw8N9ikurkdoLdMgRK4FjOgeG0oXP8nE9zQCc5b3BWU=
+	t=1790548224; cv=none; b=B16H7SHO1EjeZLfkRPpDSk0JGt7xKMti6fX2ueEOmj6NQY+mk7tqX28P/aTfxM0yXXKBE8xntp99MG9RZXBwYXwpHL7Lqj1rZ5RBxllIR1f5ZdwjErNjbXZQ3pancN8xb+PUiuouVauWAwxCB6N9QsJB0J/ylXXWkvB6iTehxu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790548075; c=relaxed/simple;
-	bh=hN11+0jGO+kQVoJYilWNCb1+RxfmTWd1YuQ6sd0MZ/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DT8pNhUi3y4CSptrf8TDGlVljVH3UZv2hkKoRzloQo0bVK9NmUaWmWsl8cNhcZaiPs2/8kifpTpwZ9OqXrKtIxyrVAs6Ral2YbZ5D78hguYkp3u6a0/Ug44IiCpBRsygqLS9HYDQQnefnLl2vrH8EfvBGXWTiQzhtqHQ+SumYkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gLeFdwFc; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790548224; c=relaxed/simple;
+	bh=kDcOmst1QB1GDmfnhBuMLNQ8/tHcgA6+af3aHGg9NJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hZftBXtddA+4cUQchkIJLxR62ZDADetnM14VrDN+Phe9h2A8c8ET/6zwi/FlfacawIZL1Tc/qZQryVuQBXiTkAMK2ASgtP6nqNzleiVTeOuiRZs5O2+szdsQEzWjZ8TUvV07ejbaBP+XwvyDebl9PFDJ048VwHBsPR+IyTTw73s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RasLFjY2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gLeFdwFc"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso26568805e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:27:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790548072; x=1791152872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QNv/YKrib12Ia+OnE8CWdRxUx18FQtBwv4FLLr1iZq0=;
-        b=gLeFdwFcVcf22cW2WPgtavg1rZ2AqECRyPmYXZnyAOzMJLySeveoDDRo8wJzIqYodJ
-         UXDAKNZY3v9u8+AZrxuh11R3lRSkw3/naEtfRAOvxV1O2FYckibZ7lPnWfwZ2B8DSjuy
-         ELyoZy070LKB11laQAlQ2GFwDYYXHiLtixPFdf3g9ph+SfmEu/sVA7sBW6oFnHMTu4MW
-         EJpG3tSmWGEiFLBVKgXfwGr+Mq0UycdBzGSBYPBCOIlh23sxXg3k13sd4lwpTjUkSA7s
-         dVLgBw/Aq9U+anw19WGjcwuUEG/eIQbFE7WZzo/oT1dNXrx/4F6EfUIC2BFWyspcW+lT
-         1jRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790548072; x=1791152872;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QNv/YKrib12Ia+OnE8CWdRxUx18FQtBwv4FLLr1iZq0=;
-        b=Ot/SVSG4RDK1/u6jM2vMZVXkdAFWu5pBB+CTAQRsD77/rnbqWRRIpecpPHTCU2MNs6
-         7Tb6ixLno0mnZ3KdjhsrO5KWod8d/4i5+FxGnvGYR2ANe2jqkA5S4HcqQIfPVk4V2B5U
-         hVSwZh90W0DQwm1zzMnjAe2T7V43rK9RDhiXrBb7N30f7H+gcgmJ0tPEC/nb82TgYJu+
-         U2o2SthpyuNlkXkoqZHMwxKA+T4y2+VmzRybTY7KtrFdOZ+2Z2yao/5LDlNgUczhKpuq
-         yir0+5fdFbvfSFOmapS2IoaSe7FTdZ5hjqOwma33pOFhcBt+4U1twENepjTEhcsqGj1u
-         /YvA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1bzkwMazeLSI3YvxPqSkw7wxt185qHutTIbLrrrkm4t6Cia73nYDosi75qDs8uBwtXgtRn+oZCffmBCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+YM7eojhXdYFIaLOTCaDwLD2rwrI/YN3gmVFFvHl/nFkjkU7x
-	Tqh0k94Dj1x+RleA/7I0YZzBAO51oF8ce4AbiOtSS0ZHYKU63Ghu5UW4T0c7+Ghf4Z4=
-X-Gm-Gg: AYBFou0z0veqniT8IWolNDk4wWieza+yE2oa6BTLSnYgSrEW4Yy7/5eXafbZqlWt/62
-	ZiuK1JNDC75myC+awy6sDw9x4u68UxFZRRA8GMBcPvvG6RASXrZ6S1H5R7+ztW2HAc+Kn3e/T3P
-	xMneNAcDGv12dqIwa3QD6VKivgEBMC6LdVqI8+3wGAJ8NKak8m/SZW9HGKgNrz+6dInMmwxD/Op
-	WVna9AOcgVgnwqxsTIb+lE+QCx/DIvBsviAfgh79/sHgwITtmEdS/WQ67g/TXnrGMCzVwwLnGc0
-	QrKeBqj2//sBR3eH/xiwBxXPtFGTdDI6S0sk6oQpmki2lUgowdi38gWTbQ94ly5eIpd738LSwGw
-	LbUiKYJ1xWrN0ogCHXHVZskEm9tnHIUEeGBjdBCRStmnGqC4+rvbW+iWXxh6DWuo1ESyZ1BEoy4
-	8T6k9feFOf6v4qhi7eZO5Fz4oe8jvuGDiWtlEgB0Aex3kGUDHhSXt0Cxd1XwkJMcPOunz9
-X-Received: by 2002:a05:600c:37c4:b0:4a0:37a:10de with SMTP id 5b1f17b1804b1-4a0037a12fdmr27987895e9.24.1790548071788;
-        Sun, 27 Sep 2026 15:27:51 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee9203f0sm157073785e9.1.2026.09.27.15.27.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 15:27:51 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH bpf] bpf: Fix wrong frame passed to check_fastcall_stack_contract() in check_stack_read_fixed_off()
-Date: Mon, 28 Sep 2026 01:23:44 +0300
-Message-ID: <20260927222718.414674-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RasLFjY2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C401F000FF;
+	Sun, 27 Sep 2026 22:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790548222;
+	bh=FzmEujC8nWC0Ixq78nyENTqf5HHAu1Xrj8Twqk5+TEk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RasLFjY2IKwrccADHkDrqOF6Yd40pxfinlbj/og9IWz4tMl6SJby7sq//Y6EktL2J
+	 LlTJupNyOon1+ebiKd9VjZ9qVs/xizqk6aNgPODfNbHk5nbrglihZD4Jy5H+IaGEc7
+	 Q82vcK5nsKdhQMSUz392GuEQ35wxrNK1wJ8UwuEDUDxMfQua83u9IeY61L+lejsTam
+	 /W/QDPv7r4d2OmBTiq9Jh/SvDwL3XQEeI4JbQx5LRPQ9C1qI8syoXiuYquDQVbOynT
+	 A4npSi6TM3yRn2JH1eB1HCNGEsqnwCk7AZ07uiewD94aPUgxgtXR2IhHVP1p8mVehi
+	 RGuuQkhJ97GQg==
+Date: Sun, 27 Sep 2026 15:30:20 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>, Frank Li
+ <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, Jian Shen
+ <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>, Niklas
+ =?UTF-8?B?U8O2ZGVybHVuZA==?= <niklas.soderlund@ragnatech.se>, Paul Barker
+ <paul@pbarker.dev>, Byungho An <bh74.an@samsung.com>, Russell King
+ <linux@armlinux.org.uk>, Nicolas Ferre <nicolas.ferre@microchip.com>, Soren
+ Brinkmann <soren.brinkmann@xilinx.com>, Fabio Estevam
+ <fabio.estevam@freescale.com>, Arnd Bergmann <arnd@arndb.de>, Zhangfei Gao
+ <zhangfei.gao@linaro.org>, dingtianhong <dingtianhong@huawei.com>,
+ Jiancheng Xue <xuejiancheng@hisilicon.com>, Dongpo Li
+ <lidongpo@hisilicon.com>, Mitsuhiro Kimura
+ <mitsuhiro.kimura.kc@renesas.com>, Sergei Shtylyov
+ <sergei.shtylyov@cogentembedded.com>, Sergey Shtylyov <s.shtylyov@omp.ru>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Vipul Pandya
+ <vipul.pandya@samsung.com>, Girish K S <ks.giri@samsung.com>, Siva Reddy
+ <siva.kallam@samsung.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 0/7] net: ethernet: release managed IRQs before
+ freeing netdevs
+Message-ID: <20260927153020.5311dba6@kernel.org>
+In-Reply-To: <20260927144741.1320558-1-yaojiale02@163.com>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-check_stack_read_fixed_off() calls check_fastcall_stack_contract() with
-'state' (the current frame, i.e. the callee) instead of 'reg_state'
-(the frame that owns the stack being read, i.e. the caller).
+On Sun, 27 Sep 2026 22:47:33 +0800 Jiale Yao wrote:
+> Several Ethernet platform drivers request interrupts with
+> devm_request_irq() but allocate and free their netdevs manually.
+> Device-managed resources are released only after the driver's remove
+> callback returns, so these callbacks free the IRQ data while the interrupt
+> handlers can still be invoked. A late or shared interrupt in this window
+> can dereference freed memory.
 
-In a bpf2bpf call where a callee reads from a PTR_TO_STACK pointing
-into the caller's frame, 'reg_state' and 'state' are different:
-'reg_state' is the caller's frame, while 'state' is the callee's.
-Passing 'state' causes the fastcall contract to be checked against the
-callee's subprog instead of the caller's, leaving the caller's fastcall
-region unprotected and potentially can cause an incorrect fastcall
-rewrite.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-The three sibling functions are all correct:
-check_stack_write_fixed_off  -> passes 'state'     (writes to curframe)
-check_stack_write_var_off    -> passes 'state'     (writes to curframe)
-check_stack_read_var_off     -> passes 'ptr_state' (reads from ptr's frame)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Fix check_stack_read_fixed_off() to match the read pattern and pass
-'reg_state' instead of 'state'.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Fixes: 5b5f51bff1b6 ("bpf: no_caller_saved_registers attribute for helper calls")
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- kernel/bpf/verifier.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 1cd92336309b..5c523a9bde6b 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4020,7 +4020,7 @@ static int check_stack_read_fixed_off(struct bpf_verifier_env *env,
- 	reg = &reg_state->stack[spi].spilled_ptr;
-
- 	mark_stack_slot_scratched(env, spi);
--	check_fastcall_stack_contract(env, state, env->insn_idx, off);
-+	check_fastcall_stack_contract(env, reg_state, env->insn_idx, off);
-
- 	/*
- 	 * Refine the in-progress load record's origin to the source stack slot.
---
-2.55.0
-
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
