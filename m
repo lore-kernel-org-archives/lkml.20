@@ -1,74 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950C7184540;
-	Sun, 27 Sep 2026 16:45:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1BE3563FA;
+	Sun, 27 Sep 2026 16:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790527542; cv=none; b=B/bZxLiWtxbsELsNyu7THh2LaJpsRia9jnh4ZUxQFzBCrc5+Bjh+oCA3xM0qETUYRWAtZyJ+y2WLKMr+il8g9jRt8x/He4iREsYlxxsv/6UYD00cN4fySHRcZnCklATVTVU4MXNfW+0C7aI322zH9PPrTgwfj2v0onp1xCln8mE=
+	t=1790527838; cv=none; b=rM5JuyNvR7FAdfKsAR99SVtVHCd+Oq5JC8ZlkmYzlVa3arGg1o8hWFDOV1Rw9DgobgJLrihNLPUNZ0r2o9KGdfKLpJRtDg7X8Y9O+RWoYh0lcgwE1BHb7zvedFwxuWJV+NSyEihU0miEJi55qF488D3exYKKs+pv3hPmUTFDa9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790527542; c=relaxed/simple;
-	bh=8xWsYz+IsDt7c22i4hax2H19QEdu4xFg81LjCUSLft8=;
+	s=arc-20240116; t=1790527838; c=relaxed/simple;
+	bh=P6jO0/dH/krInycGqZ4EXuopL9fWo85OEF9L80C6B+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lcw8ZK1ruvYeE//vnruzz/M3zePuBIQcHnodFa7uaQyB5BEOROtd5ruSvCpB3R3OtZGj6TyUWCCnc8BDUXH1T3naCk2J//19OSp5aPTYkSGz9Lx002t0Klr+oOHO0LXwmW67C/5cDsd6+5e8O2YiFK/QPkBeeDKisDUZuCksXEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XFlPYnDC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SsjC8Q4NDGRiu+bahG5OL57ETRUeaPAf9XS3/dCasBkr4CICDERF8YE1iKBZddEwgxhR05Gjzok0tx/A5oOdmukZys/w2tbQCqf0/Wuc2eCcfad6OqIe7EjARYBIdxX0s5yI/w5WW2L7TWupQedabDlwCTkHhel9fOLRkAU3+nA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GMqs0mGl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XFlPYnDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E6B1F00893;
-	Sun, 27 Sep 2026 16:45:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GMqs0mGl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC71E1F000FF;
+	Sun, 27 Sep 2026 16:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790527541;
-	bh=LOcE2VhNDxU7mSeVB0a2OxugaGl3rC6hDDMRWTO+5xc=;
+	s=korg; t=1790527837;
+	bh=zZmMyFXXoKqbhYyiYzTmGKu6inh6YzFvzMS87lBBNu8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XFlPYnDCBdiiCKDDkf06+YK5M8OrLyEVJ21ANvaxxruIHeBnwwt1RbiGAmoydeD6e
-	 8H7SDZr9aa/bAInp1E2Y9gscrYKR1/IyOFxkWPp14rnvjYLF1wDGrNh+NTtP8u0G6i
-	 dD1lzmxoh0yH/XV54dg9FhI0bMOEOXUx9G3KAXII=
-Date: Sun, 27 Sep 2026 18:45:38 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Cc: Weijie Yuan <wy@wyuan.org>, Dongliang Mu <dzm91@hust.edu.cn>,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	alexs@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	si.yanteng@linux.dev, rdunlap@infradead.org
-Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Message-ID: <2026092700-catacomb-skipper-37b2@gregkh>
-References: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
- <cfc9cb8d-d13a-4dd6-809c-1ecf3bc9c758@hust.edu.cn>
- <CAMnqnYxzfUUaeaGTG=pESVN+2yeue4b_7N6d=xMGNE7qdrNbYA@mail.gmail.com>
- <2026092601-reassure-darkness-229b@gregkh>
- <aresDaW09qoYZsVH@wyuan.org>
- <CAMnqnYzjDmXhbsMUCT3s1qARHu-w+BODv3OLg8rO=-DQi4StYw@mail.gmail.com>
+	b=GMqs0mGlfqLjzE3sqF72YLfF+uBfrBC7DSmXT4OAp8B4+P11DZQLoXo1M+LbXUV0q
+	 CT55ZY1/q/hCyXUJSEHsG4gK08EsdAP0uqTjzs02HM+kP12J35M1DWibxofa2q8GzR
+	 VbtG0pO+PoHipkxxkXvc4WLKAXQlgR4pLd5MK1fo=
+Date: Sun, 27 Sep 2026 18:50:34 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] Add TAINT_DRIVER_OVERRIDE for usage of
+ driver_override
+Message-ID: <2026092702-negation-stoppable-b86e@gregkh>
+References: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
+ <01d7a085e56b860e83b65c96ff3dd86c4498804b.1790495516.git.u.kleine-koenig@baylibre.com>
+ <DLQ0BIYP96RN.Z0L5I17RQMRQ@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAMnqnYzjDmXhbsMUCT3s1qARHu-w+BODv3OLg8rO=-DQi4StYw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DLQ0BIYP96RN.Z0L5I17RQMRQ@kernel.org>
 
-On Sat, Sep 26, 2026 at 05:26:07PM +0200, Jiaming Ouyang wrote:
-> docs/zh_CN: add Chinese translation for usb/ohci.rst
+On Sun, Sep 27, 2026 at 11:55:39AM +0200, Danilo Krummrich wrote:
+> On Sun Sep 27, 2026 at 10:03 AM CEST, Uwe Kleine-König wrote:
+> > Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
+> > userspace manually messes with devices and drivers") introduced a taint
+> > for usage of bind/unbind sysfs files that manually trigger driver probe
+> > and remove respectively.
+> >
+> > For drivers that do their resource management correctly (which is also
+> > needed for module unloading) bind and unbind for matching devices are
+> > not critical operations. The thing that makes bind and unbind unsafe is
+> > that drivers can be forced on devices that originally don't match using
+> > driver_override. The result is that e.g. of_device_get_match_data()
+> > returns NULL despite all .of_match_table entries having a non-NULL
+> > .driver_data member which yields a NULL pointer exception for several
+> > drivers. And given that after setting a driver_override a manual bind is
+> > only one way a driver can be bound to an unexpected device, a separate
+> > taint for such an override is justified.
+> >
+> > Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> > Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+> > Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 > 
-> Translate Documentation/usb/ohci.rst into Chinese Simplified.
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Link: https://lore.kernel.org/driver-core/DLIL9H50MALI.3JROXYEEUM3KU@kernel.org/
 > 
-> The translation covers OHCI driver overview, hardware protocol
-> differences (OHCI vs UHCI), improvements since 2.4 kernel,
-> queueable interrupt transfers, and non-PCI support.
+> > diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+> > index c51ad96d4de4..7d5dc016a457 100644
+> > --- a/drivers/base/bus.c
+> > +++ b/drivers/base/bus.c
+> > @@ -513,6 +513,7 @@ static ssize_t driver_override_store(struct device *dev,
+> >  {
+> >  	int ret;
+> >  
+> > +	add_taint_module(NULL, TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
+> >  	ret = __device_set_driver_override(dev, buf, count);
 > 
-> ---
-> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
-> 
-> ---
-> Changes in v2:
-> - Correct the date
-> - Correct the layout
-> - Add specific details for it's contributors
+> There are buses (such as SPI) which unfortunately have to call
+> __device_set_driver_override() directly.
 
-For new versions, start a new thread and properly say "v2" in the
-subject line as the documentation asks you to.  Perhaps use a tool like
-'b4' that does this all for you?
+Huh?  That feels wrong, can't we fix s390 and spi instead?  Ok, maybe
+not s390, but why is spi doing that?
 
 thanks,
 
