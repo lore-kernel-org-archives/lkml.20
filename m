@@ -1,46 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82CD260565;
-	Sun, 27 Sep 2026 22:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5F3284880;
+	Sun, 27 Sep 2026 22:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546827; cv=none; b=FTYTt21GRnzuRNzJHrPheMNuDeM6Td0XLt54cglskWm1EI8eextmNqsK4zwGXX4+o3J4vedCgYJPP1bbHjIVoBtv+nd/vVW8FTjPYbBEY2eYdKjVJIr59BXZ413FUtLvXKCD4kKEqTwHNWAenMjeiHf4EJXPBs+2ZurH39AOIEA=
+	t=1790547047; cv=none; b=qw2yyRd5KZjiaqBZeBz05OazaSCLCto6+4HR+o0T+oxkjlUlVy4qIdQ7sMWAsYUavAPcUW44tjEsTxjd3ahc5O8AarTco2rgb1G+GU54fh6o65oSnua0lrus4cKrKSGmHRtn0Y6dxbdF4XRQthSlj8JWkaeYHlqw4vqroLebshk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546827; c=relaxed/simple;
-	bh=d+aJz1zKHpn9rY7AAI0z0Bfwgrtc1GkTtmSJdeejdk4=;
+	s=arc-20240116; t=1790547047; c=relaxed/simple;
+	bh=jIdgRBOsRW1TtgaCNmjXamxDDZtw9OZfuArBIc9mxNI=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PjzUmkbZGy4N+ZERv6zqFRwdYZ9WcaH49cC9mmwM1W/wnyBgdwlF67oF0hTdRKn5qpi1850mRpbG8/MQ+I5czbCHP2Vup64hQJsnwKrZdEGIfrIWP3dDtscUWnZH55Pe8hAd9lP4jYFHdrb+wrfDcPWDNOV4+Lln7IxbXSrVCcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DRbYTJQj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eAxVIlVvdqc9YRi/qmBwIVwSJFOAReQOlJz50o2OGHyKRl51BS3PPx04BCqEpPbgxdXSZtRXc0hQGsb+3MDkusnwEelVf65I2Oh+hhunLcdys6ltygPxs6cx/0zLAKp6gpE/d1kw4gRsXKzR5CdWoZBh6x8+eoj2+l9j7yAwZjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIVjtsTE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DRbYTJQj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993F11F000FF;
-	Sun, 27 Sep 2026 22:07:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIVjtsTE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B2D1F000FF;
+	Sun, 27 Sep 2026 22:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790546826;
-	bh=Gtpu0Nj+ZvaUDoZ3qvo7pqTSdauHwZKukSlMfQ6OCtg=;
+	s=k20260515; t=1790547046;
+	bh=jIdgRBOsRW1TtgaCNmjXamxDDZtw9OZfuArBIc9mxNI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DRbYTJQjGI7MSfxD5g/6y/vbNqJoUKgNFrV729EBHkR9Xm4oo1SjT6WQITJN0HpuZ
-	 KAbvbcJsuW9oy8+2D58iy+DyyursYPrIsIMEUQXELVg9ggj26b3eN25/ypDpZL6xQe
-	 pN4mMjnIGfVvYZO5sanspA6yEbU9PB09n8D2iRz6nF/QuZ/lz7nB0IwKkJgsTjAsqI
-	 YbKhGGHkEH3Bnn3UHr/H2mcfseHEMEqwnK6kjzg30a5yd6sszm8ViMk+x6U+45oHwc
-	 2Ist9TVbmvwWqJkqYJ84+Ldi17pdK1ln7pB8AUuSoOLIG0w+44OErhv1u4IPjsUDhJ
-	 NKhX0TlURlZUw==
-Date: Sun, 27 Sep 2026 15:07:04 -0700
+	b=kIVjtsTETDjHyHlIzLfqL1PnL67SD8BwIlDBR5xowGDIzi357TG+ZybNlKMVV2sSP
+	 QpivesH3HOkN5Ux1ZT16H8WUVs+oPnEFRMQNkL52/byLyli9GDKt6qWEMaUcppkhoT
+	 16VKPIOoPlX40iE6GeikJgqyyrGzZqwhYauG4gDnf1SL0EHieyj9cGE3A8pvkmJE6W
+	 oBKVDgWFl2PsrfDHpjcY/8fXTZ1KyqKIusvfmeLKbMRTNzC2czmsNUY/n/3PpbhTOF
+	 Tnie5Hudsa6qHvBMIr9MgRfdzRY6pJpOz5o3sPkbOfzy1bIQv7/OIPFLqspQkd2auL
+	 KaORu8Ubyr0XQ==
+Date: Sun, 27 Sep 2026 15:10:43 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal
- <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, "David S. Miller"
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
  <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ <pabeni@redhat.com>, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Marangi
+ <ansuelsmth@gmail.com>, Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen
+ <chenhuacai@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, Suraj Jaiswal
+ <quic_jsuraj@quicinc.com>, Richard Cochran <richardcochran@gmail.com>, Joao
+ Pinto <Joao.Pinto@synopsys.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Voon Weifeng
+ <weifeng.voon@intel.com>, "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ Linus Walleij <linusw@kernel.org>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Magnus Karlsson
+ <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Simon Horman <horms@kernel.org>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Thierry Reding
+ <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>, Richard
+ Genoud <richard.genoud@bootlin.com>, Alastair D'Silva
+ <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] netfilter: nf_tables: serialize offload stats with
- callback unbind
-Message-ID: <20260927150704.62c8c919@kernel.org>
-In-Reply-To: <20260927071520.3693598-1-nicoyip.dev@gmail.com>
-References: <20260927071520.3693598-1-nicoyip.dev@gmail.com>
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, ZhaoJinming
+ <zhaojinming@uniontech.com>, Lorenzo Bianconi
+ <lorenzo.bianconi@oss.qualcomm.com>, Ding Hui <dinghui1111@163.com>, Linkui
+ Xiao <xiaolinkui@kylinos.cn>, Linkui Xiao <xiaolinkui@126.com>,
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev, Rayagond
+ Kokatanur <rayagond@vayavyalabs.com>, Ding Hui <dinghui@lixiang.com>
+Subject: Re: [PATCH net-next v5 00/19] net: stmmac: preserve datapath state
+ across MTU and resume failures
+Message-ID: <20260927151043.7c8dfb36@kernel.org>
+In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,15 +78,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 27 Sep 2026 15:15:20 +0800 Chengfeng Ye wrote:
-> Rule GET and dump requests collect hardware statistics under RCU without
-> holding commit_mutex. Callback unbind removes entries from the base
-> chain's flow_block.cb_list and frees them immediately while holding
-> commit_mutex, so RCU does not protect the statistics iterator.
+On Sun, 27 Sep 2026 15:59:35 -0600 James Hilliard wrote:
+> Keep the stmmac datapath coherent after failed MTU changes or hardware
+> resume without changing the interface's administrative state. Retain the
+> working MTU configuration for rollback, and allow ordinary down/up
+> recovery when hardware cannot be restored.
 
-Slow down. Please do not submit more than 8 patches for networking
-at a time. You can revise the already submitted patches but since you
-violated community guidelines we ask you not to submit any new fixes
-for a month.
--- 
-pv-ban: 1mo
+Please read:
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+
+The limit is 15 patches per tree, you have 22 outstanding to
+net-next right now.
+
+Violating the limit again will result in a temporary ban.
