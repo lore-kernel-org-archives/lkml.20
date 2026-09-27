@@ -1,321 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4347424D64;
-	Sun, 27 Sep 2026 16:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7823B27EA
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526566; cv=none; b=iVnW1hYgyOIULVrT1vb1lfFUOVV2HB/SjxNJUjXcB6Un+/UaJCPz7hs+6dU3NK5t23Uzoar6jvt6CqSTT04K4zK2+oJIEsiFVukA3ZRusYDa/z0BSbmRmF5vn9tB8wo0KaJwpmNukRBbR4qOUzHrclgqGX4W57N9HKLlztYfLOI=
+	t=1790526696; cv=none; b=UqOdC4EBX9vODX+3JYbyM/aUSYwq0BbmJzUtz+sS0uA1dU7gfUQRNBsmrC3hn85KFSHAXzYE+yeITC4kyxq05TFZqAUwS7uzJONdDaziNptNcgBEuufJ3x7Y/Lhp6T6OY2NA/UtqLH2KVtjkmzBtnWk5nrdJ4cuiHLDXX0hhvoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526566; c=relaxed/simple;
-	bh=WZrhzPU9ggaAPz6T902N9uW8zKhN+Vfr9kKmhl4UWOU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fyh2Yl7mhccxonpoMpv8cTmHwZbEI97FU16b0u5dk6f/tbGwNUERf5sidZ1sxAIUST0uHyEKPKNKkQx798z8hiA914Y9vAOCvyHtaWZgL6xuLMGRUbQHwEkg/44GpUTjUghFgY7NpDe8BWvKdV+fBIUq30mD7uKhyxPR7M6sBrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fasPIneY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790526696; c=relaxed/simple;
+	bh=xtHgkLDLXdIRafLNhcILYt+MkfxN1Q9AfpswHsev6oo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rrpuq57PYhk7JZzSYMxunSOX5ayzVj7dJrOenMV2QD3888RijnM+RPuS7QbFHp6BWrLriCWKF0jSkYriLehAc6jTC84WRK4jAxmLYStJcZOmcJFV+GYpF0IB982BfvpWgp1dd+fZGgYUTKbbXFtPQjxfjn591PS3OHzzs/mRs4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OgpWlP3i; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fasPIneY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434BB1F00893;
-	Sun, 27 Sep 2026 16:29:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790526564;
-	bh=zoTLegbFfnJOrfpouRcz/WJeOTR3x5k8yoa9csThsL4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fasPIneYM039A2YmPrOM+hwgTjDSA4RpxXcuABCxGj4qge9l8d8vOlRXpQUCuBKIf
-	 EKDDxJhKdCWKMqDURCeksM8gBY7HCgJh8CqAWrVLo+hHtzlWriiotKkmwmV4dhEAeI
-	 GIhwzy+b+gArY2IxjFLsmwQo9DzyTgeS4AidS3xsYcCcU0V+JlbowXGrR8XKTaZjzC
-	 iMoYlU7rqRtNwZ8430QticP/BGWJZy4hOgL+fYPr8JRdW3yaFGO/6M3n7JFjLDw9fQ
-	 LaTiVU99BI2uubFo4yectHfpuyYGEKmiAsnkfbDQZaE7HoJg7IP1mJ9fCZOPJX3/cl
-	 dG554urWeC5/g==
-Subject: Re: [PATCH net-next v15 9/9] net: stmmac: qcom-ethqos: add support
- for sa8255p
-From: netdev-bot+sashiko@kernel.org
-To: bartosz.golaszewski@oss.qualcomm.com
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, vkoul@kernel.org,
- peppe.cavallaro@st.com, wens@kernel.org, jernej.skrabec@gmail.com,
- neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
- shawnguo@kernel.org, festevam@gmail.com, jan.petrous@oss.nxp.com, s32@nxp.com,
- mohd.anwar@oss.qualcomm.com, romain.gantois@bootlin.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, mripard@kernel.org,
- christophe.roullier@foss.st.com, brgl@kernel.org, radu@rendec.net,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, dfustini@tenstorrent.com,
- linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-mips@vger.kernel.org, imx@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
- bartosz.golaszewski@linaro.org
-Date: Sun, 27 Sep 2026 16:29:21 +0000
-Message-ID: <179052656185.2160803.1751830002645522416@kernel.org>
-In-Reply-To: <20260923-qcom-sa8255p-emac-v15-9-e82f33720737@oss.qualcomm.com>
-References: <20260923-qcom-sa8255p-emac-v15-9-e82f33720737@oss.qualcomm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OgpWlP3i"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-143513309aeso421400c88.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 09:31:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790526693; x=1791131493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tZRjOTFhnU5GAKoWVMmwGlqCnUjTFRNgvFnEoiZqddk=;
+        b=OgpWlP3iO62GKnimLzp4+kaZUGM6O21ZA6ZhcVYVamD5wmxgoZG/H8JxP3zqE3gHrB
+         WQh2E8N9WxKrmctOdO4DbnhqyHUcXJ/vd/Do2gHdjV9Hp2nZTpxYREdlU/J5DrhNri0g
+         ZM1b+c8T5UIqVn9bclNhLJjhXr8x0sp5RbO1doIDrFz+lFWygONV035iR3eEO6bdqpvI
+         qSVeOpDkm4tBLgE+ex1XV2xrHOtNRyuAcJ5SvJLZ9uf7ZXiwe4MXtPXdRLNsoIxEg3ap
+         wzLnhcJqy+Pvl5O0VP29W7oNWBQ71WrliAS+J7eakIqCPZf1RlZWJndOBnSxc3U3JjSh
+         mVrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790526693; x=1791131493;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tZRjOTFhnU5GAKoWVMmwGlqCnUjTFRNgvFnEoiZqddk=;
+        b=MAF9BGwTwvJp+xKuVrcUjTOqrBFGmYvB9YUTa9LeTCPEuo+3+2jNyjdbazYwU7s4pE
+         ybRjJVxmxSOhQIgq3dJ+UgQamBvSDLM32YdQOuAEEFSQzlC3OLpTF5poTlimxn+xcc4U
+         1+vQUpIwJD26QIEVXRTCIzMpAVZeeUg5zoW/VgTX2SZuXBAWK12YzYdBOSdQMqguYffO
+         TmGiF46SXHmWQQjmfw0nqOR5vSMSw1U3zHbmI9ujilKENpKDReAdemHVkgA77xI3Yyd6
+         Hgip04Hvl/Xzmi2uEM4Ghu12FRW2hsb91PZmYvMelien/U/JZ50WWimQ28M1y/AE9l0d
+         Uvag==
+X-Forwarded-Encrypted: i=1; AKwUvBy28WK3KPTrFOhwaIJXVKrNHBdW35J2OT4PkJT5o1onhiOIDUXmX6oIqFbOqHJHcmEV74VFSNm8nvat78s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxAHuV3oI97/8eEZwLe47hLJXBkDy6VMQZfdGrnr+3aX9dB2O+
+	abduWQH08igX0dZDaayNUREIV/6yyncPlj7f2C42cvFSoGI/Ekm0iy7a
+X-Gm-Gg: AYBFou1iG6ONHL2BfYCP95n1VqhcsSHcd9x1QHSJl8tVGXQS4rLyM0xqy103Hr+NF4d
+	hqTNlaHNNFaCi+/TxJ4U+eeu43FVJDmjZYV1Pt0SEb6ue9ySGId9JuT2BtMbKCTM7JzAgPt00aO
+	BBmBGucFHS4rbiw1V+l9PteWMsAgnFtYdlG0tT+Cs3Z4Nr32xX1VJOlzUjH9yIQKJn5U6W9C7iT
+	+VU7ByNuvPZOSqkupGuYQdgPPCq84F6fZzu0GW0QpnB30QKVJ6G2icT0PsurVEtTsLOj6hmo31o
+	Um1y5SyQ3Wic+JsBud0SBFgLQktBOzhjRNZRZ9j3tlTCmzih66eXTwsrKJtbxdQ+9sx1byYv0Ys
+	vfCkppGgiD1/8XRNlM+2n7MngHnuPnrqm2+kA7Bp0OLMTnqAVPL624o7YAWe7cSDwvBsJbcBuOq
+	IYN8YY6fl5TC7/P5T29JC//atVBYW0K/Aghl2ch3Z+NlMW4odmtMqlCJCDMlrYKDy0Vlyv1jG/i
+	QpLvmXgfUjmaH3frNEcesDSybGq5I/I
+X-Received: by 2002:a05:7301:2324:b0:341:49cd:6815 with SMTP id 5a478bee46e88-342709b5850mr6503247eec.18.1790526692387;
+        Sun, 27 Sep 2026 09:31:32 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm22383449eec.27.2026.09.27.09.31.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 09:31:31 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	co+1fe9b56e2c61be5e@bugs.sh,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] net: gso: validate TCP headers before segment length checks
+Date: Mon, 28 Sep 2026 00:31:16 +0800
+Message-ID: <20260927163117.746432-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+skb_gso_transport_seglen() derives the TCP header length with
+tcp_hdrlen() or inner_tcp_hdrlen(). Both helpers dereference transport
+header metadata without validating it first.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+A TUN user can supply a TCP GSO packet without NEEDS_CSUM and with an
+invalid IP header. The skb remains GSO while transport_header keeps the
+unset sentinel. TBF and police can then reach the length validator and
+read tcp->doff outside the skb head.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On the RX path, CONFIG_DEBUG_NET currently lets the unset marker survive
+to ingress while non-debug builds still apply a temporary compatibility
+reset. Validate the consumer instead of relying on that reset.
 
-- [Medium] With Wake-on-LAN armed, system suspend on sa8255p powers off
-  the MAC's SCMI "core"/"mdio" domains, and on resume the EMAC wrapper…
-- [Medium] The SCMI variant has no CSR/application clock, and nothing
-  substitutes a rate for it.
-- [Low] The new sa8255p (SCMI) variant accepts RGMII phy-modes but
-  silently misconfigures them.
-- [Low] The new comment in ethqos_scmi_setup() and the commit message
-  misdescribe what the code does.
+Validate TCP header ordering, linear bounds and fixed header presence
+before either public GSO length check. For encapsulated TCP, validate the
+inner offsets while allowing the outer and inner transport offsets to be
+equal, as required by IPIP. Also validate the MAC header for the MAC
+length variant.
 
---
+Leave non-TCP GSO behavior unchanged. Those paths do not dereference a
+TCP header, and valid FCoE skbs can have no transport header.
 
-net: stmmac: qcom-ethqos: add support for sa8255p
+KASAN reports:
 
-This adds a new sa8255p variant to the qcom-ethqos glue driver. On this
-variant, firmware handles power management over SCMI, and Linux models it
-with power domains. It adds a new emac data variant with a fixed PTP clock
-rate, plus a separate ethqos_scmi_setup() callback.
+  BUG: KASAN: slab-out-of-bounds in skb_gso_transport_seglen
+  Read of size 2 by task poc/133
+  skb_gso_transport_seglen (net/core/gso.c:155)
+  skb_gso_validate_mac_len (net/core/gso.c:270)
+  tbf_enqueue (net/sched/sch_tbf.c:260)
+  dev_qdisc_enqueue (net/core/dev.c:4227)
+  __dev_queue_xmit (net/core/dev.c:4884)
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 509a5368e69a8..3d4bc950a72ac 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+Cc: stable@vger.kernel.org
+Fixes: 4d0820cf6a55 ("sch_tbf: handle too small burst")
+Reported-by: <co+1fe9b56e2c61be5e@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ net/core/gso.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-[ ... ]
-
-> @@ -756,6 +788,80 @@ static int ethqos_hlos_setup(struct qcom_ethqos *ethqos,
->  	return 0;
->  }
->  
-> +static const char *const ethqos_scmi_pd_names[] = { "core", "mdio" };
-> +
-> +static int ethqos_scmi_setup(struct qcom_ethqos *ethqos,
-> +			     struct plat_stmmacenet_data *plat_dat)
-> +{
-> +	const struct dev_pm_domain_attach_data pd_data = {
-> +		.pd_names	= ethqos_scmi_pd_names,
-> +		.num_pd_names	= ARRAY_SIZE(ethqos_scmi_pd_names),
-> +		.pd_flags	= PD_FLAG_DEV_LINK_ON,
-> +	};
-> +
-> +	struct platform_device *pdev = ethqos->pdev;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	ret = devm_pm_domain_attach_list(dev, &pd_data, &ethqos->pds);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to attach power domains\n");
-
-[Severity: Medium]
-What happens to these two domains during system suspend when Wake-on-LAN
-is armed?
-
-devm_pm_domain_attach_list() creates virtual genpd devices through
-genpd_dev_pm_attach_by_id(). Those devices have no parent:
-
-drivers/pmdomain/core.c:genpd_dev_pm_attach_by_id() {
-    ...
-	dev_set_name(virt_dev, "genpd:%u:%s", index, dev_name(dev));
-	virt_dev->bus = &genpd_bus_type;
-	virt_dev->release = genpd_release_dev;
-	virt_dev->of_node = of_node_get(dev->of_node);
-    ...
-}
-
-dpm_propagate_wakeup_to_parent() only passes wakeup_path to dev->parent.
-It does not reach device-link suppliers, so device_awake_path(virt_dev)
-stays false.
-
-SCMI domains set GENPD_FLAG_ACTIVE_WAKEUP. Even so, genpd_finish_suspend()
-falls through to genpd_sync_power_off():
-
-	if (device_awake_path(dev) && genpd_is_active_wakeup(genpd) &&
-	    !device_out_band_wakeup(dev))
-		return 0;
-
-qcom_ethqos_probe() also sets plat_dat->pmt = true for this variant, so
-WoL can be enabled with ethtool. With priv->wolopts set,
-stmmac_pltfr_noirq_suspend() and stmmac_pltfr_noirq_resume() skip
-pm_runtime_force_suspend() and pm_runtime_force_resume():
-
-	if (!priv->wolopts) {
-		/* enable the clk previously disabled */
-		ret = pm_runtime_force_resume(dev);
-
-As a result, ethqos_clks_config(true) does not run on resume.
-
-If firmware really power-cycles the MAC and wrapper when the "core" and
-"mdio" domains are turned off, can WoL fail to wake the system? Would the
-SGMII loopback and FUNC_CLK_EN bits at rgmii_base also be lost, so that
-stmmac_resume()->stmmac_hw_setup() hits the DMA SW-reset timeout that the
-comment below describes?
-
-On the HLOS variants, the single GDSC is the MAC's own pm_domain, so the
-awake-path check applies to the MAC device itself. This looks specific to
-the multi-domain attach used here. The kernel tree can't show whether
-firmware actually removes power on that request.
-
-> +
-> +	/*
-> +	 * The SerDes lane, its clocks and the MAC AXI/AHB clocks are owned by
-> +	 * firmware and brought up through the SCMI power domains above. The
-> +	 * MAC wrapper itself, however is in the kernel's register space: the
-> +	 * wrapper bit that loops the PHY TX clock into the MAC's clk_rx_i -
-> +	 * needed because no recovered RX clock exists yet - is not
-> +	 * configured by firmware. Without it, clk_rx_i never toggles and the
-> +	 * DMA SW-reset polled in dwmac4_dma_reset() never completes.
-
-[Severity: Low]
-Is this comment right about where the SerDes power comes from?
-
-The sa8255p SerDes PHY binding (qcom,sa8255p-dwmac-sgmii-phy.yaml)
-requires a power-domain of its own. phy-qcom-sgmii-eth-scmi.c votes for
-it through the PHY device's runtime PM (devm_pm_runtime_enable() before
-devm_phy_create()), and set_mode() sets its performance state.
-
-qcom_ethqos_probe() still gets the "serdes" phy and installs
-qcom_ethqos_serdes_powerup(). The PHY TX clock that is looped into
-clk_rx_i therefore comes from serdes_powerup() in stmmac_open(), before
-__stmmac_open()->stmmac_hw_setup(). It does not come from the "core" and
-"mdio" domains attached above.
-
-The current ordering works. Could the comment name the SerDes PHY's own
-domain instead, so later changes to the SerDes or PM ordering are not
-misled?
-
-The commit message also says only:
-
-  Unlike the previously supported variants, this one's power management
-  is done in the firmware over SCMI. This is modeled in linux using power
-  domains so add a new emac data variant and a separate setup callback.
-
-Could it also mention the following?
-
-  - The kernel still maps and programs the "rgmii" wrapper registers
-    (SGMII loopback and FUNC_CLK_EN) at probe and on every runtime resume.
-  - set_clk_tx_rate and dump_debug_regs are dropped for this variant.
-  - A fixed 230.4 MHz PTP reference rate is hardcoded in
-    emac_v4_0_0_scmi_data.
-
-> +	 *
-> +	 * Map the wrapper and program the same loopback/functional clock bits
-> +	 * the non-firmware platforms rely on (see ethqos_clks_config) so the
-> +	 * RX clock is present by the time the DMA engine is reset.
-> +	 */
-
-[ ... ]
-
-> +	ret = devm_add_action_or_reset(dev, ethqos_clks_disable, ethqos);
-> +	if (ret)
-> +		return ret;
-> +
-> +	plat_dat->clk_ptp_rate = ethqos->data->ptp_clk_rate;
-
-[Severity: Medium]
-The PTP rate gets a fixed value here, but what about the CSR clock?
-
-The sa8255p binding has no clocks property. stmmac_probe_config_dt()
-therefore fails devm_clk_get("stmmaceth") and leaves plat->stmmac_clk
-NULL:
-
-	plat->stmmac_clk = devm_clk_get(&pdev->dev,
-					STMMAC_RESOURCE_NAME);
-	if (IS_ERR(plat->stmmac_clk)) {
-		dev_warn(&pdev->dev, "Cannot get CSR clock\n");
-		plat->stmmac_clk = NULL;
-
-dwmac4_core_init() then runs this on every stmmac_hw_setup():
-
-	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
-	writel((clk_rate / 1000000) - 1, ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
-
-With clk_rate == 0, won't this write 0xFFFFFFFF into
-GMAC4_MAC_ONEUS_TIC_COUNTER? That would break the LPI/EEE timers, which
-count in microseconds.
-
-plat_dat->clk_ref_rate is not set either, so stmmac_usec2riwt() and
-stmmac_riwt2usec() return 0:
-
-	unsigned long clk = clk_get_rate(priv->plat->stmmac_clk);
-
-	if (!clk) {
-		clk = priv->plat->clk_ref_rate;
-		if (!clk)
-			return 0;
-
-Would ethtool -C rx-usecs then fail the MIN_DMA_RIWT check, and would
-rx-usecs be reported as 0?
-
-> +
-> +	switch (ethqos->phy_mode) {
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_sgmii;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-
-[Severity: Low]
-What happens here if the device tree sets an RGMII phy-mode on a
-qcom,sa8255p-ethqos node?
-
-qcom_ethqos_probe() accepts PHY_INTERFACE_MODE_RGMII, _ID, _RXID and _TXID
-for every compatible, and the sa8255p binding does not constrain
-phy-mode. For RGMII, this switch takes the default branch, so none of the
-following happens:
-
-  - no fix_mac_speed is installed
-  - no set_clk_tx_rate is installed
-  - no RGMII IO macro or DLL programming is done (emac_v4_0_0_scmi_data
-    has no rgmii_por)
-
-qcom_ethqos_set_sgmii_loopback() also returns early for non-SGMII modes.
-
-The SCMI SerDes provider rejects RGMII as well:
-
-drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c:qcom_dwmac_sgmii_phy_scmi_validate() {
-	switch (submode) {
-	case PHY_INTERFACE_MODE_SGMII:
-	case PHY_INTERFACE_MODE_1000BASEX:
-	case PHY_INTERFACE_MODE_2500BASEX:
-		return 0;
-	default:
-		return -EINVAL;
-    ...
-}
-
-With a phys property, qcom_ethqos_serdes_powerup()->phy_set_mode_ext()
-fails at open time. Without one, the MAC runs in RGMII mode with no
-wrapper configuration. In both cases probe succeeds, but the interface
-never works.
-
-Would it be better for ethqos_scmi_setup() to return -EINVAL for modes
-that don't use the SerDes, or for the binding to limit phy-mode to an
-enum, or both?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
+diff --git a/net/core/gso.c b/net/core/gso.c
+index bcd156372f4df..7c76f721fe24e 100644
+--- a/net/core/gso.c
++++ b/net/core/gso.c
+@@ -240,6 +240,29 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
+ 	return true;
+ }
+ 
++/* TCP segment length reads doff, so validate its header offsets first. */
++static bool skb_gso_tcp_header_valid(const struct sk_buff *skb)
++{
++	unsigned int transport = skb->transport_header;
++	unsigned int tail = skb_tail_pointer(skb) - skb->head;
++
++	if (!skb_is_gso_tcp(skb))
++		return true;
++
++	if (!skb_transport_header_was_set(skb) ||
++	    transport <= skb->network_header || transport > tail)
++		return false;
++
++	if (skb->encapsulation) {
++		transport = skb->inner_transport_header;
++		if (transport <= skb->inner_network_header ||
++		    transport < skb->transport_header || transport > tail)
++			return false;
++	}
++
++	return sizeof(struct tcphdr) <= tail - transport;
++}
++
+ /**
+  * skb_gso_validate_network_len - Will a split GSO skb fit into a given MTU?
+  *
+@@ -252,6 +275,9 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
+  */
+ bool skb_gso_validate_network_len(const struct sk_buff *skb, unsigned int mtu)
+ {
++	if (unlikely(!skb_gso_tcp_header_valid(skb)))
++		return false;
++
+ 	return skb_gso_size_check(skb, skb_gso_network_seglen(skb), mtu);
+ }
+ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
+@@ -267,7 +293,12 @@ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
+  */
+ bool skb_gso_validate_mac_len(const struct sk_buff *skb, unsigned int len)
+ {
++	if (unlikely(!skb_gso_tcp_header_valid(skb) ||
++		     (skb_is_gso_tcp(skb) &&
++		      (!skb_mac_header_was_set(skb) ||
++		       skb->transport_header <= skb->mac_header))))
++		return false;
++
+ 	return skb_gso_size_check(skb, skb_gso_mac_seglen(skb), len);
+ }
+ EXPORT_SYMBOL_GPL(skb_gso_validate_mac_len);
+-
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923-qcom-sa8255p-emac-v15-0-e82f33720737%40oss.qualcomm.com
+2.55.0
+
