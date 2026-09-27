@@ -1,123 +1,137 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04BE3AA1BB
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAE539CD03
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 15:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790523166; cv=none; b=iwHyUNnoiKVbHJOBmhV2UswFjZnu8rDxG/aLL38+BoHn2+8MjW2+UmTbiYNxpn3+c7oJV8nXwhCfTIXBKug3TVFY0e9PfaO+QrQack/mgnY6NDsu9irXb7aoMAwUNs2QIpi7ltgjfCgZdmbX5CZpAud7Xz1k0FhACB8wmlB+0DQ=
+	t=1790523378; cv=none; b=OcuDoApdjYqzkWNoSgoBvtCJvC/VnN1JOidUoIeNay2QSEeyLHIqY5ivAwI43ovG4wTeK4sxjiwguIPlAZDwRhhZoGdwdu+5wxvwOiXIfm8VJOHeihzrwmulfkmiQLRq1M+IoXpZcWRlhSeYC43mrZTe5qWY5XAlEziRL01+UlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790523166; c=relaxed/simple;
-	bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+	s=arc-20240116; t=1790523378; c=relaxed/simple;
+	bh=dafvT+8i4y0bU9hQ9upGpm/t4DGzU+AITVviEAgTY/0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dWop7DAdlbYuZDFtu//SGUv+9ItwNl2DJq8LA35MgzQibevUlu1E+U24CPIUE9Mqr78KJNQHRbgr4hES4c9nFWv/qibbIWAFTC9d144eaCafgEfzsONCmysCEbjyHEyVuzP/8L/JCIMZwqSrJBhY+1yMsh/PY05j47W2xMuUAS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Bko8XzRm; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	 MIME-Version; b=poNpimNqOhEptnVO0QTdE2CsHpo2CbhO24FgYbgfTDnq5ootww/Ft24v54OVxl62rVz5aewOOE2GgPHM/7PW3jIDLSWfEgK2lYwmdODXQKw7Z10wCTzYzhBRKTZRUg7skYNZoK4xnISTflVOZU3hTLtF7RqHSWtrDGtewYyvQhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M2VHMwBJ; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Bko8XzRm"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb769ca17so20849011cf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:32:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M2VHMwBJ"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so322614366b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:36:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790523162; x=1791127962; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790523373; x=1791128173; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=Bko8XzRmxrxhB1yOjvyzWxL6fsflbVvF3cb+Jb0W1u854XoEEpOv1UgUywBedNTSG2
-         f+9AuKYYMyxONsYCe8nY5+U3FhhMpvrwJL5tUtRRXQFpVfI7sgXMLKuqftBxvV+e5NWP
-         tTQDTedpcQDJeJdgK+m6C38pvKZybvdzSrAKG/fn3r02D3ijRLNBDPH+rwhUrsQKR+jf
-         irZaO7g9CxOF2fynph5lJO7/0MR3r5822IqdiHkpId98lewlIZF5N0u4A7bGSX7Hbm2/
-         3+YJhCX01z1RxIPf8UDhMQ8Bo9J1+U0t/ZM0QAOvfNt0ZctALzDCZ52mLtvELG3J6Ek8
-         l0EA==
+        bh=9DyS1uA/5WR71Bye02IzLOSjpO+4bbdwbymAUdLccjY=;
+        b=M2VHMwBJCxMecAMGaLZ0faZtfA8ZVRJGCLq6apBZbkNoaliriku0s7hOj2v98r675w
+         xXcLC9EUAaBOFOipClqiXthQJxvS+1emN0sIKRAfnXJqlfzfWSZHIZH33eXWOqZT37Fu
+         YfHhbg2gocZXi/ZGpVIfsZbnfLOWGxCpmI24arAIWGGk+2Et5JMmzWsuYyfqGl3VnBad
+         sUAx7hnr4Dyd0S/8tJnJ/kbqHdY9I5+nwM4FOycOrTxH4uIH8U4AcbfO1PKhKz/puLJH
+         c0wdnLwbv7ZjwfSNxjOCrExvHMr9/b75vCxuCQ8yYb02/uwwUdoZO6AH4cYY7u0s/0sJ
+         Nmiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790523162; x=1791127962;
+        d=1e100.net; s=20260707; t=1790523373; x=1791128173;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=K64xvsgPllOHvWdFGu/y36yPcxu3DauAZdNLboglPKIKftNYaf1d8LXiGNfuyQslWZ
-         ioLtvbIqXY7MH2xYHWtvcMzMPaw03k/gRY3S7ZE0M9j6xEQDMYnJQo85+WpOC2U/3d+s
-         RQEjwVrUkE8gbgVfXP8fbREmdoGgwO411bdzUK/VT6uG69sHn6uJkI8QACSBjKRpw/sO
-         m2KzgO1MdUaAiqLrB2gfYe/yuGxsUvQu6u1XZZ9Sw6k26AHCmGo2SpZVOFBKNYXQ/OGE
-         /APGUz2C0XcfarCfWwjtdgKN2ekSRbzIgw9iaDmWYUfi+FmYnuEcjRGs+nU7D0IumrmS
-         Ebvg==
-X-Forwarded-Encrypted: i=1; AKwUvByghh4gT/8mtCwqOl/0xqbfRGqKg1aVxp2VI4mJWPFg0cs3odyaORkrxXcr+ES1gz8Dzamz+rGcBCD3HU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5JtQoBOoDHEPSEUiqI4toZI8YMbkc4hchTiR/fNRmaLVyOkIu
-	lLzNqIHRzUNHEj1/MGSluKpYxi0a+ML55Urs7dCVb3jifYnBP2jniXFdBi2y1uCvTgc=
-X-Gm-Gg: AYBFou0bfEkO+wMN4GyxEZNn17fksAzd0PCKx9qVXtRcgboFwhJLxIaYmsU83M4b46f
-	gwKGYQn9aQTJyP3Q93685bqGJcDC4MKkL6Zb+ZdfALTFygBZViSMyL3swhVr95jHROtteNZcsoo
-	G/ByiVCwgFNMkFkDqYqtFrcy1uudFTqlD36clJJawht5OOUxqtgqwyHtLWQklEH0Kt8oc66ZjZ6
-	K466haOEb0aar2v5vOcekfSI2y75ZsLo65vVj0lR+XIrtNS8bJ9ojIaoo7Yto8T3cHS6b2bZsr4
-	vs3hhrCSkWLNmmqn9rMbYK0DogI4R4UFZBMwfvTiYYnGU9ENmkjvgPeLuzubGkPNNJvE3mgaMk1
-	wozn2TABoTTh/aLY1BaymCgs+geYaRO3XbjolXRJmuig1Cm4YRtoCcm3PaMYim/uvyZkCXvosli
-	Lg0m8VKWW2KfM54u7DaYpfmQb5bisCK/mEU/uQJl9XgiYrh/Q=
-X-Received: by 2002:a05:622a:4d9a:b0:533:33c6:e636 with SMTP id d75a77b69052e-53333c6feb6mr56127141cf.6.1790523162378;
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322020e91sm43319281cf.1.2026.09.27.08.32.41
+        bh=9DyS1uA/5WR71Bye02IzLOSjpO+4bbdwbymAUdLccjY=;
+        b=ygPV52PhM1cs/LJW57UZcr494m5fpUhVNb5QmOVYg1kdV16m1H1//clVDIf1gGcRw5
+         pLflVzLit4aKJZeWJnWHz44Gaou0RBBCcJVlLlk1eDRYkPVQvdSDCuOwQ3LwQEKc5s8Z
+         C/dQgIr+6mmBh7a0RV62xjF9KRpTXtGfdE+Yk6Sr1wWCyKclMDRufCFXKTTrtPY+80xW
+         y+fQHB781G4qOGaiaELpXQnVCtc5gFh61M5hOf6Nu+SYET6cYs59hdHisedHIw8FV0r3
+         1H5yb+7F7Y9kZ8xG8P4QqwFucwFxwIhd4UA1bf+70VsbLKt5xpBDMCHuGpsl3gVBQrAl
+         zGMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxviXwhxu+x5/rGStJ1LTegzqtabCwrW+1AxMqCaT5XalF+9750ePOn6977GiQrQvXS96XFs3+PYbUpRrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6BOqlJumUdu9F6PGStjSJgwCHeCyy840z26MLqTN5kA2UVvvl
+	LQBP8lvW6s+M2xU4WsO2nt+0Kt1JEFmDKGA9t0nuzMuzf8ZwP3j/Y5Qo
+X-Gm-Gg: AYBFou052wdS0nLuy4lfX5S7D8YVldVGFf1b/+XSJ6EehGdLNIk3sRlGzVLPHmHf/h+
+	yqzY4O3YDctz7LNIe5tSAb4b65ptQg8eiWMx9iCJAQ9myeaxfWeFpjObvV8V/PMjXhc+yRXhKHd
+	VfABByBHUZ3LUwfaRVXtIJb2yeJRqqLskcNa5ZGUzaOSZz7APmK1p2AHOptlnzHai9BEPwVuMbI
+	JJP/Uez0dL0tg2TsMivXk85xWuDY/lQg75UaIKTAZyNpiPvPy/xHUFUcc6LtulIfcRpUJxZeQ04
+	fCkHmtGoGrsMP/5A/JhwOZGyLhxVdBu6ZpIbeSOwpT4+57egi5RpRZBjSfDJJtsPixBOENUphG0
+	k2zuORhKJEBGVQcBhWlaIQAaoiOs6HSRtcmgaR6WBsbMTd6otASXeSNVWJqjSS1Z6WQNUFV/vG2
+	UC5B7lqCrbM9hsiUXyMTJIJZBy6rgPBxjo5+ittiySZRJog8tJ+mx9NGhKY1l+3ASmA/dtbxfcw
+	nOpCmoPQjWOrYlONdIs+wY6gG6qG2CMhaNEeszLnOn19G84ysnI4hEh
+X-Received: by 2002:a17:907:9691:b0:c25:ee92:2d0d with SMTP id a640c23a62f3a-c2ae97a1113mr580454566b.9.1790523373209;
+        Sun, 27 Sep 2026 08:36:13 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:aa1:165c:44c1:e5d5:dfb4:8450:1cdb])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae7587edesm347465866b.34.2026.09.27.08.36.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Felipe Balbi <balbi@ti.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	johannes.goede@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Sun, 27 Sep 2026 08:36:12 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: Ziyang Huang <hzyitc@outlook.com>
+Cc: netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
-Date: Sun, 27 Sep 2026 11:32:36 -0400
-Message-ID: <20260927153236.2727-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
-References: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [RFC PATCH net-next v3 4/5] net: dsa: qca8k: flag QCA8337 internal CPU PHYs for SmartSpeed
+Date: Sun, 27 Sep 2026 17:35:58 +0200
+Message-ID: <20260927153558.2299-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
+In-Reply-To: <SEYPR01MB58827E0D18ACC93AF98A4109C98E2@SEYPR01MB5882.apcprd01.prod.exchangelabs.com>
+References: <20260923215858.1653-1-yongzhao.derek@gmail.com> <20260923215858.1653-5-yongzhao.derek@gmail.com> <SEYPR01MB58827E0D18ACC93AF98A4109C98E2@SEYPR01MB5882.apcprd01.prod.exchangelabs.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 27 Sep 2026 10:40:33 +0200, Hans de Goede wrote:
-> It would be great if you can post your DT bits for this upstream soon,
-> then we can add them to:
->
-> https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
->
-> and more people can test.
-
-They are posted; v3 is the current version, with Bryan's Reviewed-by:
-
-https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
-
-It also links the sensor to the privacy LED. It applies to
-qcom-laptops as of 3e45da63f61e, which already carries its
-dependencies (the x1e camera DT v7 and v20 5/6 and 6/6).
-
-Thanks,
-Liviu
+Hi Ziyang,=0D
+=0D
+> Have you correct the DAC settings of the IPQ5018 PHY ?=0D
+=0D
+Thank you for pointing this out. It turned out that the DAC values were=0D
+not being applied on my board.=0D
+=0D
+The OpenWrt DTS for this board sets qcom,dac-preset-short-cable, but=0D
+ipq5018_config_init() passes the unshifted value 0x10 to=0D
+phy_modify_mmd() and at803x_debug_reg_mask() while the mask is=0D
+GENMASK(15, 8). As a result, the high byte is cleared instead of being=0D
+set to 0x10, and bit 4 of the low byte is set. The same code is in=0D
+net-next today. All my earlier A/B runs, including the ones I reported=0D
+to Andrew, were done with this code. I will send the DAC fix as a=0D
+separate patch.=0D
+=0D
+With both writes changed to FIELD_PREP(IPQ5018_PHY_DAC_MASK, 0x10), I=0D
+repeated the A/B on the same board: six alternating warm boots with=0D
+identical kernel and rootfs contents. The only difference between the=0D
+two groups was whether SmartSpeed on the QCA8337 CPU PHY was left=0D
+enabled or disabled before its initial reset. I kept 0x10 and did not=0D
+try other values, given your warning. In all six boots the read-back=0D
+after the write was MDAC 0x6868 -> 0x1068 and EDAC 0x7800 -> 0x1000,=0D
+so the high byte was 0x10 and the low byte was preserved.=0D
+=0D
+The result was the same as before:=0D
+=0D
+- SmartSpeed left enabled: failed 3/3. PHY4's CTRL1000 read 0x0400,=0D
+  register 0x11 read 0x1030, and the CPU link did not come up.=0D
+- SmartSpeed disabled: 3/3 came up at 1 Gb/s.=0D
+=0D
+So correcting the DAC values alone did not avoid the failure in this=0D
+setup. I don't think this rules the DAC out yet, though, because of the=0D
+ordering. In these boots the QCA8337 CPU PHY (PHY4) was reset at about=0D
+2.3 s, while the IPQ5018 PHY's config_init(), which writes the DAC=0D
+values, ran at about 40 s. For roughly 38 s PHY4 may have been=0D
+negotiating with an IPQ5018 PHY that still had its reset-default DAC=0D
+values. I have not yet measured when PHY4 first drops its 1000BASE-T=0D
+advertisement relative to the DAC write.=0D
+=0D
+Do you know whether the vendor code has an ordering requirement here,=0D
+for example setting the IPQ5018 DAC before the switch-side PHY starts=0D
+autonegotiation, or restarting the link after the DAC has been set?=0D
+Any pointer would be much appreciated.=0D
+=0D
+Thanks,=0D
+Yongzhao Chen=0D
