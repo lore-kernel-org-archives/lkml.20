@@ -1,62 +1,63 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64413B9D93
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04593CB569
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546035; cv=none; b=hNvGng6aam93aYygNqop/+DZdCUw0rYBsw00ZWJcsDhMDKw4o9NhMLzEqDMLJcK1g8tP8CaL8Z0ieUYHs8oneFqeLtk73gNAEwxSQ9upwxUKO6xSA9YbDBoih3z7HX5ex1UlVGE4cIkYujAfYpGxcVdrhALXwlOn2cgWpNI0G4o=
+	t=1790546038; cv=none; b=ma3KoCAXOUgQrBysWWd88SDE5wHxKdyAqVcalwXheGnRdBPMgbdZbKfjyT+hovJtSsaqyDt9SZWWFUqmdlHxxZJfppiBTaNqinr8TWtZe9dQqSFUPhELOg9bG8yMPlneKBmNtQgCwQycB/7NpcLk2mplQ0sZJTQAxkCwo3Vi5eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546035; c=relaxed/simple;
-	bh=cPwSEWpsOxxHrQ7YrGZg29yb6xZCjbKc4iJtnoT2xjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gDyaNt6cJHaTWzqv4SkrakNqjO16KY3rknby2s/j4cTy8iaQ1fV8bmrAc2i2XlpCRuaKVM6U69M9UX9Uz95JnoUyrlUxPcNJetHshozmP4W3Q9vkHppVLxMf3HNzI44XJvfQA00oEqUo3NoS/Gu6u9v5s9J1eb5sl2j3f/O5hOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jg/x0HWK; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790546038; c=relaxed/simple;
+	bh=kiSE91uhtXJqytwDLCjtMSjpIBRyYiuWgsgh1lAFjt0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mXphBkQvyacnIv0ulIjGa0D5Ebhnymre0wVz02MKJiB6ZqOeaYaxNTP+8//qjGAzHdxmbDYJXxOZfdeFET42cb9334ZZ/gKVXLE8Et5zsO8RPMcg7YEQxjC0xLK10apct8EvNlBjDl9G2Xu40SzDcINlaFB+BvutCVYUB5pfEDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNGEk02p; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jg/x0HWK"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so1615713f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:53:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNGEk02p"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffe817151so5348245e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790546032; x=1791150832; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H3FM5h6XaUxXXvfmNME4Bh4GS6uG4DTAgTWJ51phUDQ=;
-        b=Jg/x0HWK2FYLiMzPXV/zF8wNN4burbdkVl3SUM9nYL0CvP5PNOFLFlw81BJrQ/leKV
-         mGm9D03QlAKbpm2+pJwxf37gw/k90NxycGiEZphqhfuvlw13caSb8qaK3r6JllON+NyE
-         PhuwcpDFdkPuu/ds9+HcuxfKTo6VaGY6k/D7pChjekVA6trLrkq3amPRJvN3ZxfKVZfH
-         kSllJSl+zFrmcDhm8pW+gUR421wTYnuNCKGt7GaVXUMkI2dTrvI0STZrzb9p+eiGJ89V
-         dGGp9ZF7HM5KXqwevMPJYnRkXjlFef4sQTYWwLydcZ/+vctqzH672tGqgz0C9b7X5wbm
-         A7XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790546032; x=1791150832;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790546035; x=1791150835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H3FM5h6XaUxXXvfmNME4Bh4GS6uG4DTAgTWJ51phUDQ=;
-        b=GQkgaKoIuVsjIxr+ADdh9o/Qe19q/5Xec93mBhBVYdy37MztmYBGJ6e62BtIiQmTUY
-         8VwfsPmRLqJlObQdTMR+r1IQfrM0Thb6rHOr7puEyrBOHxkpzHj57sJR65ta7XDGJ9Pc
-         WeZjPNEUC+eeNGvdZ76e9E8NkeneegASQflG6LRbpFC11WBm37pFxgjUcPO2gGWTD2TS
-         S/aTi+c8/m/cx+ERTD22Oz1OXlf9h4I9fHSV47QnWZkO8aX2ru9ncdwltJ3LtXCa8MMC
-         ckmrZTbM4Tl9FxqwFkm2qpljsERzeQdposryFcSPgmi7ZxmHluUsm1+KPauWvmiDBOf8
-         Wsjw==
-X-Forwarded-Encrypted: i=1; AKwUvBztyPWYIoY2OMSmhM/40ofcZO+WJKUbA9A+EGm+BupeOHmYkd0b+XHKt8G1i5KDzhRvoP2YCOMbhhSvUbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7yO/FmJU22kmPNyM91N8hhYITdGWbhiQZhotPPXZ6hXMPJBix
-	Qm91SIoZm3mbGrEf+RjNZ+Bz3HHb3AgfhjIiVTBUCip1HTuUkkLKiP3y
-X-Gm-Gg: AYBFou1942Xtp61XvFt97UpFgQ4KWsShqaR9gj3/1gRvXBUallMQ375EFc+oALycV03
-	jBjgLtBSUUa4oGkCq2+niZYySfXa9pkQ/a34A4Pt6Vpo6QHZp+X7DqOiaarjNWxyQ264G0uBV4u
-	/jeUSTIx2HoFv/Bs2emaVLVtQZe5ubdqN3uiatI+KfMGesW50amy8IFC2K4f41qt/wIR/VeTMQS
-	FmF5KuXehPhQoALRvX2zzg2hYYJ8OKCrjsuOZmfbZ2nmP6fQgyDGUU5Rfi18qBvdQj5yl984bzP
-	zTal0wBoBrBMxsHQKdqDigEETIqf/lp2pI/mQCvgvlTFANmr7qXZReUx3fg03maChFdLNafnNQE
-	N75yrk5F9FeqO7/nKu495SMTVm7x2iKP3p19IYsuMMWnBPJhIzz4/ctzWibwy1BkAIg3IopgEVR
-	f6BLwd9bG4RuacC/taMhbMIyhcHx5d/Q4DJp6q1IxegILB/PrKD7ghrjZUhhG5E47D190fKI8WR
-	g==
-X-Received: by 2002:a05:600c:4fcc:b0:49f:ce78:3560 with SMTP id 5b1f17b1804b1-49fe66f1a05mr207012045e9.17.1790546031943;
-        Sun, 27 Sep 2026 14:53:51 -0700 (PDT)
+        bh=LtrL9rdtZROWF13Kkg2INWOH/yaC5LA3LVjz0fScaZI=;
+        b=TNGEk02pzJoxvrxV5sxZqKgLhAjeI4g3hBDYdI4qr2DUU56STGjFkC6zcmZPk+0+OH
+         snpcGcK+9v1na0tO4z68YJXO2cJM3TMYNTjL0wbU+PtH+/AGpxeOqNvtL47dY2synTQS
+         bHy09Vq3Jr8egQtIXsP0kWvJ4wzBrCDpftUR19emp7+nK9U5SG4R21Hh/WDu3g8j0X6Y
+         a8epMol74K/skDg0pA8e96NdDunyZZ9yvlPEjCBj2jXQgQWuZq5hOLRTqeUj59VxXI13
+         uYXSpLQZowuqkfYoDprQnl70P5Pu4ZjhdOnZzKeoUvn8M27ACIWMj6DGKWjWBnP1nk30
+         SSBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790546035; x=1791150835;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LtrL9rdtZROWF13Kkg2INWOH/yaC5LA3LVjz0fScaZI=;
+        b=fwgNMgbexHg95++XdX9+IsOmnlVWkM1jF+lSpzi8eIz2sOGjrpUq7/PAwX4Vwrrp5w
+         CvVuQlJViOpp2WoEJxzW00fuOzPbrSDpDfNgcicOh34K4/G6A0kdRvKSbdS1KJBsbo3v
+         deWC0UPA5nHhqCf/ksD/cNeX4lsu7rVkZ3W5AUI3jlsa9by5zDI4ThInkNMcOOtRrML3
+         gckPD3I4UFkNAOH1yTPMamMQ/+hxTt6/e2RxVSbMPqOstjMfkJM2peXYQyJ07dVz4tGS
+         FaZX0hJho5HD+nnwEK2w8JIOaLb1Er/1KE0GnY7hUByWGlumLftUnYVFu4GJDqmdeV8P
+         7fEg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+cjdQbVXr1RtOWb/4aYgG3oMZ3OcHs+gYx22gNySMRC1Gv4YvV2NNkyqhRQ/RBEtc+4MW5ofZo7XMen0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhGnLIVP1dF5MsPcJUkMN/tbgZ8s21p278VUrS0LTH88zQnasg
+	R0QLN1BWdDRMZ2rtNlffUolr1aLYc7f7uISEHO8TL5/KDJtl9KTKLlfe
+X-Gm-Gg: AYBFou3/VjZbCzusQFUsIlvVfExLzO7isBPmbnKyrZu/knZWyHH9XllDGrl+CXCqyoW
+	Zix5bTHvVErwHICI/BqteAhWIMyQAERTVpWP4djPSvls1g95tLaY6yOEqsUHFnzw7ZGGscIZtXk
+	VpVeQsHWoTH1hOZGkpCFHzyUPzMSJz4UagdP/ko0XoCf4Z0dWpKTlRU8z7+TlEaZijD00nyXRlS
+	zAtf+n3GtqD+qtw7hj+uwTHX+vWEciSkyu4wcZvAGaNDkwtSHmXzZpN5Tzcp7conLpvjC/WxUeo
+	QdYbMYgRb1DaSfonDlYBFT/524z1E2LQnZDcfNh+1FtRBtLv+eeyTmOxGWMLv11zdgdQVfS6PXw
+	1wLpybFNwdsuDzcpVnACqOxeyHRRPROd2bYiTZiP8yvOrDJL5GWMePTgUE2472aa+pjYnbT3hQT
+	Qpm1/bHy+vzBgXSU8cuwMFfQ6WozjQnv9ae9sRsBd6jNMYv+/JWN/n9i5xCWLpY7w=
+X-Received: by 2002:a05:600c:1d0d:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49fe66f144fmr205252405e9.16.1790546034613;
+        Sun, 27 Sep 2026 14:53:54 -0700 (PDT)
 Received: from kali ([169.224.126.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.53.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm89556865e9.15.2026.09.27.14.53.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 14:53:51 -0700 (PDT)
+        Sun, 27 Sep 2026 14:53:54 -0700 (PDT)
 From: Ali Firas <alishmery18@gmail.com>
 To: netdev@vger.kernel.org,
 	idosch@nvidia.com
@@ -72,10 +73,12 @@ Cc: kuba@kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ali Firas <alishmery18@gmail.com>
-Subject: [PATCH net-next v3 0/6] vxlan: vnifilter: bound a single request and account per-VNI memory
-Date: Mon, 28 Sep 2026 00:52:03 +0300
-Message-ID: <20260927215209.2581830-1-alishmery18@gmail.com>
+Subject: [PATCH net-next v3 1/6] vxlan: vnifilter: validate the VXLAN_VNIFILTER_ENTRY nest
+Date: Mon, 28 Sep 2026 00:52:04 +0300
+Message-ID: <20260927215209.2581830-2-alishmery18@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927215209.2581830-1-alishmery18@gmail.com>
+References: <20260927215209.2581830-1-alishmery18@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,114 +87,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The VNI filter interface accepts a START/END range with no bound on
-either endpoint and no bound on how many VNIs one message may ask for,
-and the memory it allocates per VNI is not charged to the caller's
-cgroup.
+vxlan_vnifilter_process() parses the message with vni_filter_policy,
+whose VXLAN_VNIFILTER_ENTRY is a bare NLA_NESTED with no nested policy
+attached. The entry attributes are therefore validated only later, one
+entry at a time, by the nla_parse_nested() inside
+vxlan_process_vni_filter(). Entries are parsed as they are dispatched:
+in a message whose first entry is valid and whose second is not, the
+first entry is applied and its RTM_NEWTUNNEL notification sent before
+the second is rejected.
 
-Since v2, Jakub asked that the VXLAN_VNIFILTER_ENTRY nest be linked to
-its policy with NLA_POLICY_NESTED() as patch 1:
+Link the nest to vni_filter_entry_policy with NLA_POLICY_NESTED() so the
+whole message is validated up front, before any entry is acted on. A
+message carrying an invalid entry is now rejected as a unit and installs
+nothing.
 
-  https://lore.kernel.org/netdev/20260921150904.65a704eb@kernel.org/
+This reorders two faults. The nest is validated before the device is
+looked up and before the vnifilter flag is checked, so a request
+rejected by the entry policy, aimed at a missing or non-vnifilter
+device, now returns that policy error where it previously returned
+-ENODEV or -EOPNOTSUPP. The request was invalid either way; only the
+errno an operator sees changes.
 
-Patch 1 does that. Without it the entry attributes were validated only
-as each entry was dispatched, so a multi-entry message whose later
-entry was invalid had the earlier entries applied and notified before
-the message was rejected. With the nest linked the whole message is
-validated up front and a bad entry rejects the message as a unit and
-installs nothing.
+The nla_parse_nested() in vxlan_process_vni_filter() stays: it is what
+fills the per-entry attribute table the handler reads. It can no longer
+fail on a message that has reached it.
 
-Patches 2 and 3 bound a single request: patch 2 range-validates both
-endpoints to the 24-bit VNI space, and patch 3 caps the number of VNIs
-one request may add or delete, summed over its entries, at 4096. Both
-add and delete walk the span one VNI at a time under rtnl_lock, so both
-are bounded; that walk is the cost, not the memory.
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/netdev/20260921150904.65a704eb@kernel.org/
+Assisted-by: LLM
+Signed-off-by: Ali Firas <alishmery18@gmail.com>
+---
 
-Patch 4 clamps the dump. vxlan_vnifilter_dump_dev() coalesces a
-contiguous run with no bound, so a device populated by several requests
-could dump a single entry that patch 3 then refuses on replay. Patch 4
-clamps the merged run to the same limit, so dump output is always
-re-enterable; the selftest installs more than the limit, dumps it, and
-replays what the dump reported.
+Notes:
+    v3: new patch. Link the nest with NLA_POLICY_NESTED(), as Jakub asked.
 
-Patch 5 charges the per-VNI node and its per-CPU stats block to the
-cgroup of the task that created the VNI, so the memory a device grows one
-VNI at a time is accounted the way the device's own queues, ethtool
-state and NAPI config already are (commit c948f51c1654 ("memcg: enable
-accounting for net_device and Tx/Rx queues")).
+ drivers/net/vxlan/vxlan_vnifilter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch 6 adds the selftests.
-
-The cap is symmetric, applied to add and delete alike, which is what
-Ido asked for when he agreed to a 4k limit. Patch 4 is what makes that
-safe: because the dump is clamped to the same constant, the kernel never
-reports a contiguous run that its own input path would reject, so a
-device holding more than 4096 VNIs can still be torn down by replaying
-what "bridge vni show" reports. Device teardown itself
-(vxlan_vnigroup_uninit()) is not a netlink message and is not subject to
-the cap.
-
-uAPI changes, all of them:
-
-  - a VNI at or above 2^24, previously accepted and stored (and
-    truncated on the wire), is now rejected with -ERANGE;
-  - a single request asking to add or delete more than 4096 VNIs, summed
-    over its entries, is now rejected with -EINVAL -- "bridge vni add
-    dev X vni 1-10000" used to be accepted;
-  - a request rejected by the entry policy, aimed at a missing or
-    non-vnifilter device, now returns that policy error rather than
-    -ENODEV or -EOPNOTSUPP, because the nest is validated before the
-    device is resolved (patch 1);
-  - "bridge vni show" now splits a contiguous run longer than the limit
-    into several entries instead of one (patch 4); the set of VNIs it
-    reports is unchanged.
-
-This is a policy and hardening change, not a fix for a crash or
-corruption; it targets net-next and should not be backported.
-
-One pre-existing semantic is worth review: an entry that carries only
-END and no START is treated as the range [0, END], so a lone END near
-the top of the space is a whole-space request that the cap now rejects;
-whether END-without-START should mean that is left as an open question.
-
-Not addressed here:
-
-  - vxlan_vni_add_del() still leaves the earlier VNIs of a range
-    installed if an allocation fails partway through it; with the cap
-    that is now bounded to fewer than 4096 VNIs. A fix needs a
-    transaction and overlaps a separate rollback change, so it is left
-    out.
-  - a lone VNI 0 dumps as a START-only entry the input path refuses
-    ("vni start nor end found"), and a stats dump carries per-entry
-    stats the input path refuses; both predate this series and are
-    unrelated to the limit.
-
-Changes since v2:
-  - patch 1 is new: link the VXLAN_VNIFILTER_ENTRY nest with
-    NLA_POLICY_NESTED(), as Jakub asked, so the whole message is
-    validated before any entry is acted on;
-  - patch 4 is new: clamp the dump to the same limit so its output
-    replays, which is what makes the symmetric cap safe;
-  - patch 5 accounts the per-VNI node and its per-CPU stats in
-    vxlan_vni_alloc();
-  - rebased onto current net-next.
-
-v2: https://lore.kernel.org/netdev/20260916193449.2552039-1-alishmery18@gmail.com/
-v1: https://lore.kernel.org/netdev/20260909092645.3105263-1-alishmery18@gmail.com/
-
-Ali Firas (6):
-  vxlan: vnifilter: validate the VXLAN_VNIFILTER_ENTRY nest
-  vxlan: vnifilter: reject VNIs outside the 24-bit space
-  vxlan: vnifilter: bound the number of VNIs one request may touch
-  vxlan: vnifilter: clamp the dumped VNI range to the request limit
-  vxlan: vnifilter: account per-VNI memory to memcg
-  selftests: net: test the vxlan vnifilter request limit and dump replay
-
- drivers/net/vxlan/vxlan_vnifilter.c           | 110 ++++++++++++++---
- .../selftests/net/test_vxlan_vnifiltering.sh  | 114 +++++++++++++++++-
- 2 files changed, 209 insertions(+), 15 deletions(-)
-
-
-base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
---
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index dd94085e0886..d391ec579661 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -467,7 +467,7 @@ static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX
+ };
+ 
+ static const struct nla_policy vni_filter_policy[VXLAN_VNIFILTER_MAX + 1] = {
+-	[VXLAN_VNIFILTER_ENTRY] = { .type = NLA_NESTED },
++	[VXLAN_VNIFILTER_ENTRY] = NLA_POLICY_NESTED(vni_filter_entry_policy),
+ };
+ 
+ static int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+-- 
 2.53.0
+
