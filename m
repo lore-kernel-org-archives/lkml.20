@@ -1,171 +1,77 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB0D394788;
-	Sun, 27 Sep 2026 19:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5213B231829;
+	Sun, 27 Sep 2026 19:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790536434; cv=none; b=C4LTob+JytsKm87n1G8uvkPohVNcXVAGYimimRs4Dx6gia3yZgoYLv7pAisKE0is85YsT8WYGyxhRYZJq9q6DPWRfRiHP8PEXaj6i8lVtHQY85J/zztd+lfRGizwTuCTeY+akqtdGAmABUQuXiT/bZDZFYd+HH6LklixpdWuPcU=
+	t=1790536542; cv=none; b=Dq4mfcwUEOHUvvTfGWoCMPel3nwEQSWFE5ZBaCM5H3h2+SG44l45bm7wsqu5EnaChrLIbqW6yx5BqNolSFjuxcW78ZfImugX8OaQmh2lEwmB3f7pfGFeF/6pXKZoYeRizqMKT0/70SeeXPJVlBDmBOwepxvQDY4H29D3vZWMLO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790536434; c=relaxed/simple;
-	bh=+L0AKjiSKQJpnScFEG+7DmLRTGFbLMz8ineYWl3bjfI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RGzb0t/2Y+e1LxJLT/3iXyzgm9cVdInr8lRnkvC9kGbPg/q1W4ysomVlmpNvKIs6QbXq2GjYD5G7NAJPmTscLYo6UdhEwVpUd5c4NjoRXBHLJz6nCF1fTu37P3yJfz1IMwSI+iqNEKU4jg5kj0dISD0XYOZVD5s3u777QhK4Kj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc; spf=pass smtp.mailfrom=vasily.cc; dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b=J4u/94Xc; arc=none smtp.client-ip=109.224.244.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vasily.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vasily.cc
+	s=arc-20240116; t=1790536542; c=relaxed/simple;
+	bh=I/Z4Dq5qP+62urdqFOFOTkrLhloFH1RT/ER5bPm6B2g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D/Sw/++2wyzbfxEsJ6Jv8k0Q/BtrQich+sqniJ/7bQwb4djfd+N+NsS70F8nqY8iR9WTCPyZPIzZELJrpxaIVxsaQd1A0qD6+Qk2YFTmJ0J6lEHKjwLr7qsOzJ3FK9AkwaL2fPvDyZdIkCfW2Qu61XlIU5ujj5fqDz1HH9Fa5U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=NRDOCaSx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vasily.cc header.i=@vasily.cc header.b="J4u/94Xc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vasily.cc;
-	s=protonmail2; t=1790536427; x=1790795627;
-	bh=JTMxIGnWVyKR9R/fpQTCDypmeYP/X/RtaA9/QUpCGcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=J4u/94XciFTOiKq25cw7DfxwFEMcoACSyVUIVToe99mUiMotP5nKZa6DEVqP7Tibm
-	 ambycIEwZE/vPeJKu5Mid9rDXm6tbP60sePIV1Yf1AHnkYj+PyAAHjCxLnv145Znxy
-	 1+v8t6XqPlEW5+BR+Fps57O3nv+8XTgB5Oa8gsQUvGTeOuUP3qLtAVLOnk54tLuA6o
-	 O3NDD5wzbCBB8Li4MSc0ifnO45ckm4rjyl/kvWtTX3WFr5CpzRe27mtQ2n3hxId8CT
-	 vRpAveoRk9vsr+ZykvPCcsgL1CN0x21IbOuDiMc4eyZ0iFeajY+mhsA0rNIiQLTsza
-	 0MEpVrTD91WoQ==
-X-Pm-Submission-Id: 4htDcp28hnz2ScPL
-From: Vas Zayarskiy <contact@vasily.cc>
-To: linux@roeck-us.net,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	Jack Doan <me@jackdoan.com>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: [PATCH v5 1/5] hwmon: (aquacomputer_d5next) Avoid truncating scaled sensor readings
-Date: Sun, 27 Sep 2026 22:13:12 +0300
-Message-ID: <20260927191316.4137752-2-contact@vasily.cc>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260927191316.4137752-1-contact@vasily.cc>
-References: <20260927191316.4137752-1-contact@vasily.cc>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="NRDOCaSx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=NqRBQ/l/KshauKybq+sCIFSt1P3/4rPlGdvjwaBtLAY=; b=NRDOCaSxs31myX620RHNR3NtbD
+	DlO/eHfwjSO2o1fszpdlSXh2acAKvIRswjuUu1MGGz9cmWY6uPQsWR+wpABZ3YVXMOEQ9M2QmS/U3
+	kNgqBqiQsXDHZ9xTK4RknHJ9VA3VJphoUQvDhss9bvsB8OG/gn+EKGhhxHZ3aPhfl/0Q=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAuLM-007YXi-VD; Sun, 27 Sep 2026 21:15:24 +0200
+Date: Sun, 27 Sep 2026 21:15:24 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 9/9] net: dsa: Add Airoha AN8855 5-Port
+ Gigabit DSA Switch driver
+Message-ID: <c56b0621-a4c7-4276-91a7-dafb5c6cd5a8@lunn.ch>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-10-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925182435.21207-10-ansuelsmth@gmail.com>
 
-High Flow Next power is reported in watts. Multiplying the 16-bit value
-by one million can overflow both the signed intermediate and the u32
-cache. Store power in long, perform the conversion in u64, and clamp to
-LONG_MAX. The other existing power conversions fit in a signed 32-bit
-value. Return -ENODATA for unavailable power instead of exposing the
-stored error as a reading.
+On Fri, Sep 25, 2026 at 08:24:31PM +0200, Christian Marangi wrote:
+> Add Airoha AN8855 5-Port Gigabit DSA switch. Switch can support
+> 10M, 100M, 1Gb, 2.5G and 5G Ethernet Speed but 5G is currently error out
+> as it's not currently supported as requires additional configuration for
+> the PCS.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-The power cache is updated by HID reports without the hwmon read mutex.
-Read it once with READ_ONCE() and use that snapshot for both the
-availability check and the returned value. Mark the corresponding
-updates with WRITE_ONCE() so that the shared accesses are explicit.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Widen the shared current cache to u32. The Aquastream XT conversion to
-milliamperes can exceed 65535 mA; clamp its negative conversion results
-to zero before assigning to the unsigned cache. This also permits devices
-with scaled aggregate currents to store milliamperes directly.
-
-Assisted-by: LLM sparse
-Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
----
-Changes in v5: Snapshot the power cache once for validation and output,
-and mark power-cache writes with WRITE_ONCE().
-
- drivers/hwmon/aquacomputer_d5next.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index 1ca70e726..33d292228 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -19,6 +19,7 @@
- #include <linux/hwmon.h>
- #include <linux/jiffies.h>
- #include <linux/ktime.h>
-+#include <linux/limits.h>
- #include <linux/module.h>
- #include <linux/seq_file.h>
- #include <linux/unaligned.h>
-@@ -599,9 +600,9 @@ struct aqc_data {
- 	u32 speed_input_min[1];
- 	u32 speed_input_target[1];
- 	u32 speed_input_max[1];
--	u32 power_input[8];
-+	long power_input[8];
- 	u16 voltage_input[8];
--	u16 current_input[8];
-+	u32 current_input[8];
- 
- 	/* Label values */
- 	const char *const *temp_label;
-@@ -976,7 +977,7 @@ static int aqc_legacy_read(struct aqc_data *priv)
- 
- 		/* Calculation derived from linear regression */
- 		sensor_value = get_unaligned_le16(priv->buffer + AQUASTREAMXT_PUMP_CURR_OFFSET);
--		priv->current_input[0] = DIV_ROUND_CLOSEST(sensor_value * 176, 100) - 52;
-+		priv->current_input[0] = max(DIV_ROUND_CLOSEST(sensor_value * 176, 100) - 52, 0);
- 
- 		sensor_value = get_unaligned_le16(priv->buffer + AQUASTREAMXT_PUMP_VOLTAGE_OFFSET);
- 		priv->voltage_input[0] = DIV_ROUND_CLOSEST(sensor_value * 1000, 61);
-@@ -1006,6 +1007,7 @@ static int aqc_legacy_read(struct aqc_data *priv)
- static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
- 		    int channel, long *val)
- {
-+	long power;
- 	int ret;
- 	struct aqc_data *priv = dev_get_drvdata(dev);
- 
-@@ -1070,7 +1072,10 @@ static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
- 		}
- 		break;
- 	case hwmon_power:
--		*val = priv->power_input[channel];
-+		power = READ_ONCE(priv->power_input[channel]);
-+		if (power == -ENODATA)
-+			return -ENODATA;
-+		*val = power;
- 		break;
- 	case hwmon_pwm:
- 		switch (priv->kind) {
-@@ -1368,9 +1373,9 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 		priv->speed_input[i] =
- 		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
- 				       priv->fan_structure->speed);
--		priv->power_input[i] =
--		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
--				       priv->fan_structure->power) * 10000;
-+		WRITE_ONCE(priv->power_input[i],
-+			   get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
-+					      priv->fan_structure->power) * 10000);
- 		priv->voltage_input[i] =
- 		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
- 				       priv->fan_structure->voltage) * 10;
-@@ -1410,7 +1415,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 		priv->speed_input[2] = get_unaligned_be16(data + AQUASTREAMULT_PRESSURE_OFFSET);
- 		priv->speed_input[3] = get_unaligned_be16(data + AQUASTREAMULT_FLOW_SENSOR_OFFSET);
- 
--		priv->power_input[1] = get_unaligned_be16(data + AQUASTREAMULT_PUMP_POWER) * 10000;
-+		WRITE_ONCE(priv->power_input[1],
-+			   get_unaligned_be16(data + AQUASTREAMULT_PUMP_POWER) * 10000);
- 
- 		priv->voltage_input[1] = get_unaligned_be16(data + AQUASTREAMULT_PUMP_VOLTAGE) * 10;
- 
-@@ -1423,10 +1429,11 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 	case highflownext:
- 		/* If external temp sensor is not connected, its power reading is also N/A */
- 		if (priv->temp_input[1] == -ENODATA)
--			priv->power_input[0] = -ENODATA;
-+			WRITE_ONCE(priv->power_input[0], -ENODATA);
- 		else
--			priv->power_input[0] =
--			    get_unaligned_be16(data + HIGHFLOWNEXT_POWER) * 1000000;
-+			WRITE_ONCE(priv->power_input[0],
-+				   min_t(u64, get_unaligned_be16(data + HIGHFLOWNEXT_POWER) *
-+					 1000000ULL, LONG_MAX));
- 
- 		priv->voltage_input[0] = get_unaligned_be16(data + HIGHFLOWNEXT_5V_VOLTAGE) * 10;
- 		priv->voltage_input[1] =
+    Andrew
