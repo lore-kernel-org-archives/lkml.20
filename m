@@ -1,67 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic308-17.consmr.mail.ir2.yahoo.com (sonic308-17.consmr.mail.ir2.yahoo.com [77.238.178.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BF6846A;
-	Sun, 27 Sep 2026 08:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B09846A
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 08:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790499095; cv=none; b=WR7aWqX3vTgLG6MhUy9G3/VnxoaUJCa9HR+8f5jsIKYikPz+ZV1K0IxsK47X6ceUovU7S35xsE/QSpqFRsLXY1jy83H8bPu207QlAvmnuj6DgWMviNk0Q1RbMKJ22O8VH4W8vFVBDoRj+9QqiNUAY2YrumkbDB9NXp2nQaIqbEk=
+	t=1790499120; cv=none; b=FL5Ounk8TFFhUne0r3X7xAH+bpC8qSux5HXgLmVQYpfXcZ42esBLvs0CYTvHwoiYi1ZsL0h5RDTOagLRcazaH2IFfC1fBBSM2UUCrKTeVmyW8Rv9FRml7x9Dt9iNabw/CrlT2efwPYVd4sI4neFjBvNp1Y/TIOhip41LoleysoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790499095; c=relaxed/simple;
-	bh=Gaj7XqWXEUTvTZ2pwxNkw/M2q/QXDbU6QM4uoIcSnyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ELEW26O7uu1Bvg/IwUx3Olo8YZ/HSf3KzzwkQRTrFyFZTAJ8m7MkXILBlCydZSc9zawsjKR+YHF/ewNGCC/XMmZaCSYP3ZwL3vbiWXLy1JgOT5pM8CdYld21hwKiXciFxKLt6YFWUjjyjpvULvtDj1U0/GzpKUkafkGgHa4ja64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwix4i4W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790499120; c=relaxed/simple;
+	bh=18zJkDzr62duq9aYUDivNzap0V8KYXPeytuSHMR3AM4=;
+	h=Date:From:To:Message-ID:References:Subject:MIME-Version:
+	 Content-Type; b=J+q1KsKuTHDqc3Ry67zpGSW3KIX5jHAZrUBXZbVhESvf+Z6DX7kwL1Zy46u9S1XDgBe3/MTgkuVayXt6uK9/SxNAVWTWTUMj84CC5xYt8ja8vLu6sSIooONjSLyRsqeE++8wfPOcKS0NP13oWql33dO6HbmsWspZ90fGaJVAXRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=JzOfPk0E; arc=none smtp.client-ip=77.238.178.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwix4i4W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0871F000FF;
-	Sun, 27 Sep 2026 08:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790499094;
-	bh=Gkq2TAehQkWrC1lsDaHNR2t/+poWofOsdUGZ4N/x/iM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zwix4i4W1D6eEI5TVOeTmse+b839RviPXvE+wC26ru4pY26vGh9IvXoofxTrWvEFU
-	 iiIqUZ97X3DmQ9Llk7g8IaRZeyEeqDXbJImpX3WqKP7Tgv7PJJdZI8HobbZCQMvCfw
-	 wk6+XH6ZA2BeovyoSIg5at1Ov+kHGluIYtwcGgAHzUTRwZP6dZhbxpfvjl3ah/OQOe
-	 Tp412R3nZ+0jcird7WnfvWgr1OqJcbJvLo3x9aN3Bc3LEA6CwSJBNP5gpHw2ZtuNm7
-	 JvUJlERTFWLwK1IeaSfSrF5RPaWcH9DC6KFqNui+3ZB2B9o7k37hyQWakf+nxRdBes
-	 NnTBf/Nh5noWg==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v2] mm/damon/tests/core-kunit: add test for unconditionally skipping the last region
-Date: Sun, 27 Sep 2026 01:51:27 -0700
-Message-ID: <20260927085128.41506-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260926210737.8837-1-aethernet65535@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="JzOfPk0E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790499116; bh=18zJkDzr62duq9aYUDivNzap0V8KYXPeytuSHMR3AM4=; h=Date:From:To:References:Subject:From:Subject:Reply-To; b=JzOfPk0E5tCxwwDy3FUNqs47DcOG9WwEFzNJAaoz8sC1hSsQPHwAZ+A7yVgaCxjR5IBZ/K/Vnqh5uXNS9YIj4pbiwPIMRzNDa0GOUvAZJuMJZoLOXezJglVV8yhM1GBnEczbiskMadNRdKcmZRL1jWx0Su1yMicpgYife+emd6nicxPWa7mpl386+shRvfadq5m694PkSrUxzwW+I8GTTFVFtjz97wkBm2/LZx7gIJOs+o/fUlPDDlmok6II0qjXK1vf0Es2EOpqb+sbm1fHtEu8/CmrJiBVBOHKCiI0ihFWWbFUBc/g9O9j40RgRADhza/KfD8saBEbjW0FpjOchA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790499116; bh=IHsQ3MICkSupRNMTuX1lYTLHMZdw8PdDjdWDu+MKaIm=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=o708DBRJwh2MFCnY9kbDEO4bsnRQd2/b5xXuzN+gLordtD/d2ARcHblBoIB9WCNgzx5HaNeOEkQileG5TCB2yY42NWeHIuZXtknezU1L2S45pwNUoTQIHMhkq9SjnnnwORy4OkT6t7VuqhOfAgmF6h4NhNnx33XaPQVrNqnr8xMF5rRpr4zASJT1W+NkWOfMWeJok8QvqSy/FNnwXytQUiRKK97h/r43troQTWTCpWRk5PFq6HR7+fsyZgLacbKXcCEMLi5iTI9A3/0uF1FXlh6/glYJEK4mVhCW1RVhRkLc5MGjommZGTwWWGtZFRPMT3EN93Rf1LtvEv2xfGTRsw==
+X-YMail-OSG: Fc2MWoAVM1nRky6tgK2ltAQH5tpil2QAx3Cc94HnQdiHt3x5hqfS1hQuW9i9j9L
+ eJq8h0o1PzisPCHPxV4iEBehD1850Fj0KLCJ6GpaD8ZxpiMDMc3gXHqzl1Y6CUEab85QsKoxFBkY
+ RyMMwF9LdrVXMJxXlMbnMesYa0MU.El6jMAN4d7G91yVVYVN7_JHvyT4CAOqWnz..0OHDhI6dgwR
+ AtXbFHMoNU2l1hjAb7bkJ.Oj6i5kYjm.AJ771IEoJjpQlYqNYG1tQkIgtnpV1vIv6IKJ_FyJXpaJ
+ .pZzYbFTH5e8TPmNd28PiPwYlNKwX67u4Uv2AcmM2SPu5GJE70PVS3QdWFNPcNexf7cvlPUvWQMr
+ sxVio5qtohrbuA7R7pWWbbkzvBNa7T224W8G1HnifRKPz.rkAxEoS3lNywttX2M6EAb5RPvESec9
+ F3F9dPQj150IAsRKf43qkfE6dzIIkaUp.xrs5D96xHTBkgLVCCuCz4kRGsF0.3xbF3k_K7EoPOa8
+ 6wfrFPw6.leCtlYbszHeJWspVQA_KGSYi_1hCVhzPpN_dE_j3.vQFvv8vRFHGXHgwerKTaMlM4D7
+ pDsNrGO15eYA_JF8nGzR_vjg98RQy8uvDXCGVbBqCp097xs83lGesKgPY4NTo8_zuyWD_qh.hEVP
+ hSGPvHljYjdI8gkkTaGQ1YUYKAvMeKmSwDTY8i8UIYpXlXbV3GQqRu5S8cWB7BEVx4bxgksHBUaj
+ SJHX3NzI6WpozxhVYRGPVYWQjxzqSHkEJ6yqHx0kak6jcrqr4gI2nBxO1g7EgMFLiON0j_pO1DAP
+ 98s9_OqR07a5P_IAxf7q9CPMWBmPMpvjvseYJz6_POKYZuYlIxhM9Z4XO5dGb.8qssyKyJLAPIkW
+ Qvuf0IxcwSTyVmseP8xoagGl9wTYrYLVZH9YuCKdlRH_SZdfk3EPQ_qbNNcQVejaX.G_whzlRfPY
+ Wd7vdWL.piAcPaRT4bB9v7qJ8hcSIipQkn8.uyL2lT.2rfJR_jzO41lMBjXgTYj9sLlsQC3gSNal
+ oZ.uwLJTN3AMk6IuO0_O2E8qt3L62AqQpxmylEqHGRx7.6G5oJ0svqdVt83RBrRBj8nlC4QPZMJw
+ CK2qXKFsyy43SHeyQQfipwjPA_5iXXywTEGqHyzpYlqYNBEjifezRGZvvA6toRIoWwBqKCxeOWoS
+ 5o.vmq_5j6N6d0_YUew0yqsNqg9qyjQgxI1ENVhEZLMLcX6mOGEyrZWCB6.j4XNWSN52RJbqxqCG
+ CYRNX35AUM7AyJsXXmSCypgZ6WVMaxePthGlgG10K0lmYgIfbSnhlvH1WpuJDhQ4uMlFEm2kNj16
+ BCmXDDbwwhSAbrmQLnp6sWD.95M4ZrUfd4hxCzBrKU8KUXYiI5EflbmGFgp5O9oeNZGn0DaWQ1LG
+ zdfQO66vkhrX_CMcx1CYYZURB.w8sdJhb_CeEg4Nj2dixdG1MAoJ80pHuDvfz4.cSX1RvIS.F73K
+ CHYbA.WA_1V_Bje3SwHZ9s53xyN5M.IEl.IJ_4Nrhf6Cn4vUO6rhfudwtKHFKm5Y7wgvqeg7ukW_
+ 86uhLLeJyEmZZXMW8K3QH7s8hBF7C0Dp5SM3Xlf6RTpZNSzAsbmLVZgiA7DsTMqOBjqV92M8ebhq
+ U0MaKNCw0SSBJ6.fh4hhiKvnyqnVQhOTAR3mKg7TVuhyupQzDltLt56SLuOGNkEzd9YUtL4LBvJX
+ J32OaBY_dPyU0C0b7mhQmikutfRd5jJoRReYJX566Glw6v6KUsapztfLyDtGicmc8AOxx9rVnlGj
+ YSXZJ4zLz.BR3F6hmaQEBiEqgSeZf8BHyKgbcst7PrIP.HgDb5OSCwUSg0hNDzr15d5NWUzqcci7
+ 4kRQYdO4_HJbormeXW4JY1foOIp7DKu60S1AJDxqxMJkUDNzIdIgSG.eXcVpEyWH0Nnb0NNWARUW
+ DmKn_DMqQKZf6qo8.CdRXRKshnBxvL739RNF7FNpqytbcdy6KBAp1QyJqvGwFH5mGnCpg8Up_HMc
+ G3iiwlJ1caEswpglp5EGHYEcYH24Z1hnH1FZ9ChTQ5WJ5c1UZLQb.p6cbKq5NCTMbKUfbAG19Fi6
+ iVs0QU1t_fdqanf_uTM4pdUh0MkwMgHSiZQGWPipS9UI8WjVIIqTjRw--
+X-Sonic-MF: <ak416_kingz@yahoo.com>
+X-Sonic-ID: b5d2e1ac-bd78-4afd-a967-471eac55dfd5
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.ir2.yahoo.com with HTTP; Sun, 27 Sep 2026 08:51:56 +0000
+Date: Sun, 27 Sep 2026 07:56:40 +0000 (UTC)
+From: Kingz Tuffa <ak416_kingz@yahoo.com>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, 
+	"greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>, 
+	"linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Message-ID: <378088904.1527494.1790495800044@mail.yahoo.com>
+References: <378088904.1527494.1790495800044.ref@mail.yahoo.com>
+Subject: greybus uart patch.
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.26577 YMailNovation
 
-On Sun, 27 Sep 2026 05:07:09 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-
-[...]
-> Okay, I will change the commit message in the next revision.
-> 
->     Commit b3723b596b54 ("mm/damon/core: fix unconditionally skip last
->     region") fixed a minor bug.
-> 
->     Add a KUnit test case to cover this behavior and prevent regressions
->     in the future.
-
-Sounds good, looking forward to the next version of the patch!
-
-
-Thanks,
-SJ
-
-[...]
+ From: =3D?utf-8?q?Roberts=3D20Bric=3DC4=3DABtis?=3D <ak416_kingz@yahoo.com=
+> Date: Sun, 27 Sep 2026 10:48:38 +0000 Subject: [PATCH] staging: greybus: =
+uart: fix alignment to match open parenthesis MIME-Version: 1.0 Content-Typ=
+e: text/plain; charset=3Dutf-8 Content-Transfer-Encoding: 8bit Clean up the=
+ coding style in uart.c by aligning the arguments of wait_for_completion_ti=
+meout() properly. Signed-off-by: Roberts Bric=C4=ABtis <ak416_kingz@yahoo.c=
+om> --- drivers/staging/greybus/uart.c | 2 +- 1 file changed, 1 insertion(+=
+), 1 deletion(-) diff --git a/drivers/staging/greybus/uart.c b/drivers/stag=
+ing/greybus/uart.c index 24b4dab069c3..3d5ff4f65555 100644 --- a/drivers/st=
+aging/greybus/uart.c +++ b/drivers/staging/greybus/uart.c @@ -318,7 +318,7 =
+@@ static int gb_uart_wait_for_all_credits(struct gb_tty *gb_tty) return 0;=
+ ret =3D wait_for_completion_timeout(&gb_tty->credits_complete, - msecs_to_=
+jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC)); + msecs_to_jiffies(GB_UART_CRED=
+IT_WAIT_TIMEOUT_MSEC)); if (!ret) { dev_err(&gb_tty->gbphy_dev->dev, "time =
+out waiting for credits\n"); -- 2.55.0=20
