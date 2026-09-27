@@ -1,220 +1,171 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5D03BED1E;
-	Sun, 27 Sep 2026 21:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F473CE4B5
+	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546246; cv=none; b=rB1xyvfTwg0W9e5MOgx+JR2/3P8Gn3W7G3ZT2itq2jhcYzimeZd3039JIPKJDabyDbdpMamyQi1mdqrAkKhq5YOT1OwLv2jRr1/UUKRjv6l+UwefxPzFp6F7tb3h6/NSUN8XYca8ISqpu5t6aLuSk94QZ2mApqFVvCKnt6DLqnE=
+	t=1790546394; cv=none; b=YIbwI5WjywNA2dhKvQof5G71U7Qi+T9qxTYytbLwNMql98m+ejLApLfupUbIlo7SgyK2KdTWU75sSr3Z91e5nxkjlucz2LX7PexUSKeNdkgw6/M3M6SWiLlRRoLi4dWack+sWIuaw6CzTf3+rZ9I6BVcvzJNlYCxJuTu2G0pzMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546246; c=relaxed/simple;
-	bh=gjsPGw0v61pNjtznZU41kSL2ybUnUytR1SocOznKS7I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=de9oDuz0qA1HQi/arzq/qk8QwDFsCBcAFVL6XD7akvhSYlftA4ol2nThyqcKzFQqHQXCxhCf8qeFZ2jbnKTxA7rRoOsfmuMe83VSn8KaaU8bdQnA9XvKBaadi9IV9mTZM3xt8nl9aF17jJJIgWP1nCanP1mow3KdfDKW7pSHvww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=VpMvaEDh; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790546394; c=relaxed/simple;
+	bh=kRWe3zJ18nPwnbV8Vp/GoUZKSkrJS4rO4y9k1SLXFfM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=B6kmiD169WcOurSykYRD0Q1COsTTyzs4nwCFbkk78S0Q+Lyvh4pOm//1x+17f9Ht6I8kHkLkM6QOVceSu/Igk05cfC4d0LbkS83HNW2AKmepP72dBae8B1eC+3EoG5iw/KqK5i9NM9AZU5refJXFvZrfHSUcNNaiZ4ZPCzjIa7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H9Cy4ggc; arc=none smtp.client-ip=74.125.231.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="VpMvaEDh"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 592845340CBA;
-	Sun, 27 Sep 2026 23:57:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790546241;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tkpOoNdgsacFYhfHGzgH1uTh0Zi2/gzwLjiI3UWJu4A=;
-	b=VpMvaEDhW9vWTof2qXe6PNMSAm59ZHCCxUaCWael77Fm/9qGaAS8ROcVaGoJBofuMJ/NXq
-	tl4Y/FDaeL7WAjs4WPkWautAM2SqBiv3WWTm0ZWE/19q1BDFwOPMh1wWcU4V6yQ3Cpn5vh
-	5uWMyjThxQwLox7Ij+ejsqIvYLpSEF8=
-Message-ID: <d6dd3ff8-a728-43ab-9ce3-874bf2a2a457@ixit.cz>
-Date: Sun, 27 Sep 2026 23:57:21 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H9Cy4ggc"
+Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-8137b129131so1604797a34.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 14:59:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790546388; x=1791151188; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wMTK91isCtW7K3W3fSl1Ctwz86tx7+iRah3Eev0qMBA=;
+        b=H9Cy4ggc5TpXyWJhhmM2LN5DQpgz+tnnoNGH2grUgzEEVtj4a8l49p0u0Qfm9aNIcq
+         sjcvZyEnWyI/xR/k7ZeYogd+oDYkOPlOiV/PTPBniOrdZQbXUSzCqZ/hlSX0AbAR1Xxh
+         htfftGb4jWcb3Vkgppy/JKQaNf/adGn8CUyvBtR7ISF++gULFE1m//c02BniDbP+u2wj
+         K5nCHHjwLilsmnbS54aJFjHNaJAXKe27z18/Lw1kwts8F8BaPgIEJSO5jNvo3/FUQRhh
+         RIRMHLyeKKRBOC3epFDLFc3omp6mhlzq72Jf2dkEw2n2YJPUfce32Xil05kZY681vllk
+         zVFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790546388; x=1791151188;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wMTK91isCtW7K3W3fSl1Ctwz86tx7+iRah3Eev0qMBA=;
+        b=10H9CRSG35E+KUQtahihX1NEgoKVv/CVGkdmvJ6xppE4/WdndUl9zos7vHC8q9Mq5C
+         DHRF5CvwOhVXUwZy2QJKAdUkvsUuKLLwxGMNsagx/PJcLgKBNBRylQY1Qtoi3gYhGxqS
+         /+NyLR6Wj674GUuXtEqPDZWAv88xRdwwUXG6/MPw2CKzH3h7YsXx19dhIg8TMyXILtO8
+         rbaEMaQJskVNzo7GNgivxU1m9b1T8UNq8AFbDM/vVGZwsNWb7lC9dEeGyaygn4PJ9A2R
+         78GACiw7ugD4HYUpX59JlrjR9SHZ8iyWEypvOTrpCSsVwy4jQPV2tBJBKGpflb0zk2eI
+         mGmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMu5k4KUYlWkN0xWpR/N/CicIdpFu28bA9s1pGAjxjOnjVNsUFTXqdN8UfkjKj00xUEAnmGyEo59pctJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+DjMHwU+3gzJUXI+0GIY4e8hgOIaCusnJFFS/dbO95PnqbuSL
+	GFWPoRMVJ4WqA3ufaM9id9N8iTeUZZZW/tZJENhtgBdF0p1rPTBgG3bL
+X-Gm-Gg: AYBFou04IVwl7OWFhcWbBVcrpP8G36x7umpmXH4fDaC/b6zGCgFdCEs6a7GzswAPQzY
+	sNCUNvBqR4x4LhuprTeWpdwskq10i3gyZLc2c7EoWAHPwFWPxU6mlvibTwEw3d7QGr2vVF0MKuo
+	U7NxEoRsIwailAD9WgCg2A7aiuP+S1c38xQ7ECriKoRB4bI8jXo9CLJmzwJx/dhOOggKaBsRyiH
+	EmZqRCJDbOXD4JDnfZ8t92D8S/Y4lTIcmZvZXuUEb2wX8CHudHbANWdKBCyQwzMSFl2L6pndi1B
+	UvQfkGYb6DraRCa77AJgIEieIc/y2WPGkvNsSPsGnFZqfHC+ML3xqeZbbct4s3GXK50p3Chx3uN
+	vMesmjbHAKu3KJq0YBDFpQZ0aU0eGNGHiNFyc447V+U217nmqAB9lSNA53PbPH6iWGtujIZ9QUx
+	BfN6eBXTmsjsJ9FcqWxtIusMs5XO67ylH8GXvrLxhJD/gLdNCeeCDhDKpLpe3BQ0lRTNq5pthnZ
+	+TaXdrsmrbG8xSquiAbsbwtyXKLUhboZxIEn/Ylnj6jfSBCjhxkeBvbazQT/DVN7v/Bsygm4SAP
+	1fAk7ev5mCTLtF+yfoDE0WhuNn8GBZk5dManwutDj8gwHP4c3vNXDZ+infsTjQ0ze/k2XNpRYmr
+	wdnPDRRYMZ2x87GWfMPON3LnVKwOBAqA=
+X-Received: by 2002:a05:6820:81cf:b0:6b9:8413:89b8 with SMTP id 006d021491bc7-6d4411d2841mr11892599eaf.57.1790546388198;
+        Sun, 27 Sep 2026 14:59:48 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81b3de6f7e1sm4874147a34.22.2026.09.27.14.59.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 14:59:47 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 27 Sep 2026 15:59:36 -0600
+Subject: [PATCH net-next v5 01/19] net: stmmac: unwind the WoL IRQ after a
+ safety IRQ request failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] power: supply: bq27xxx: detect bq27541 behind bq27411
- compatible
-To: rinat.muhamedgaliev@gmail.com, linux-pm@vger.kernel.org
-Cc: pali@kernel.org, sre@kernel.org, afd@ti.com,
- konrad.dybcio@oss.qualcomm.com, krzk@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928-master-v4-1-052c73ec1767@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260928-master-v4-1-052c73ec1767@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-submit-stmmac-reset-fixes-v1-v5-1-feec6c14dd06@gmail.com>
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, 
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Joao Pinto <Joao.Pinto@synopsys.com>, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>, 
+ Voon Weifeng <weifeng.voon@intel.com>, 
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Simon Horman <horms@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>, 
+ Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, 
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>, 
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+ Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>, 
+ Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 27/09/2026 23:17, Rinat Muhamedgaliev via B4 Relay wrote:
-> From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> 
-> OnePlus 6 and 6T replacement battery packs may contain either a bq27411 or a bq27541 fuel gauge at I2C address 0x55. The device tree currently identifies the gauge as bq27411, but a bq27541 uses a different register map and then reports invalid battery values.
-> 
-> Read the DeviceType control subcommand when probing a bq27411. Keep the existing profile for DeviceType 0x0421, but select the bq27541 profile for DeviceType 0x0541. This retains the established DT ABI and supports replacement packs without introducing a generic compatible.
-> 
-> Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of charge, and temperature were reported correctly. Testing on hardware with DeviceType 0x0421 would be appreciated.
-> 
-> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> ---
-> OnePlus 6 and 6T replacement battery packs can contain either a bq27411 or a
-> bq27541 fuel gauge. The latter requires a different register map and produces
-> invalid battery readings when interpreted as a bq27411.
-> 
-> v4 drops the proposed generic DT compatible and DTS changes. The I2C driver
-> instead reads DeviceType while probing the existing bq27411 compatible, and
-> selects the bq27541 profile if the device reports 0x0541.
-> 
-> The bq27541 path was tested on a OnePlus 6T. Testing on an OnePlus 6 or 6T
-> whose fuel gauge reports DeviceType 0x0421 (bq27411) would be appreciated.
-> 
-> Changes in v4:
-> - Drop the generic compatible and binding update.
-> - Keep the established OnePlus DTS unchanged.
-> - Detect bq27541 from DeviceType in the bq27411 probe path.
-> - Send as a new thread.
-> ---
->   drivers/power/supply/bq27xxx_battery_i2c.c | 37 ++++++++++++++++++++++++++++++
->   1 file changed, 37 insertions(+)
-> 
-> diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-> index 94b00bb89c17..732164423423 100644
-> --- a/drivers/power/supply/bq27xxx_battery_i2c.c
-> +++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-> @@ -16,6 +16,11 @@
->   static DEFINE_IDR(battery_id);
->   static DEFINE_MUTEX(battery_mutex);
->   
-> +#define BQ27XXX_REG_CTRL		0x00
-> +#define BQ27XXX_DEVICE_TYPE		0x0001
-> +#define BQ27411_DEVICE_TYPE		0x0421
-> +#define BQ27541_DEVICE_TYPE		0x0541
-> +
->   static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
->   {
->   	struct bq27xxx_device_info *di = data;
-> @@ -136,6 +141,32 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
->   	return 0;
->   }
->   
-> +static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
-> +{
-> +	int ret;
-> +
-> +	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
-> +			    false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	switch (ret) {
-> +	case BQ27411_DEVICE_TYPE:
-> +		return 0;
-> +	case BQ27541_DEVICE_TYPE:
-> +		dev_warn(di->dev, "detected bq27541 instead of bq27411\n");
+The IRQ setup paths request the MAC IRQ, then the optional WoL IRQ, then
+the common safety IRQ. If requesting the safety IRQ fails, cleanup must
+release the WoL and MAC IRQs, but not the failed safety IRQ.
 
-For extend-ability, I would not hardcode the name but print the chip originally 
-supplied.
+The REQ_IRQ_ERR_SFTY case instead frees the safety IRQ and skips the WoL
+IRQ. Allocation fault injection during live XDP reopening reproduces a
+"Trying to free already-free IRQ" warning and leaves the WoL handler
+registered after the datapath resources have been released. A subsequent
+open can then fail to request that still-owned IRQ.
 
-> +		di->chip = BQ27541;
-> +		return 0;
-> +	default:
-> +		dev_err(di->dev, "unsupported device type 0x%04x\n", ret);
+Move safety IRQ cleanup before REQ_IRQ_ERR_SFTY and WoL IRQ cleanup
+after it. This restores reverse acquisition order for both shared and
+MSI IRQ setup, including unwind after failures in later per-queue IRQ
+requests.
 
-I would change wording to "unrecognized" here.
+Fixes: 5c2215167d12 ("net: stmmac: Add driver support for common safety IRQ")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> +		return -ENODEV;
-> +	}
-> +}
-> +
->   static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->   				     const struct i2c_device_id *id)
->   {
-> @@ -169,6 +200,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->   	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
->   	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
->   
-> +	if (di->chip == BQ27411) {
-> +		ret = bq27xxx_battery_i2c_check_device_type(di);
-> +		if (ret)
-> +			goto err_failed;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3ad9252bf6ae..894de213b92f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3828,13 +3828,13 @@ static void stmmac_free_irq(struct net_device *dev,
+ 			free_irq(msi->sfty_ce_irq, dev);
+ 		fallthrough;
+ 	case REQ_IRQ_ERR_SFTY_CE:
+-		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
+-			free_irq(priv->wol_irq, dev);
+-		fallthrough;
+-	case REQ_IRQ_ERR_SFTY:
+ 		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
+ 			free_irq(priv->sfty_irq, dev);
+ 		fallthrough;
++	case REQ_IRQ_ERR_SFTY:
++		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
++			free_irq(priv->wol_irq, dev);
++		fallthrough;
+ 	case REQ_IRQ_ERR_WOL:
+ 		free_irq(dev->irq, dev);
+ 		fallthrough;
 
-my few cents here is that until now we ignored mismatch, which may led to people 
-defining wrong compatible (and maybe some chips partly worked with different 
-compatible?) and now we would hard-fail.
-
-I would say warning from the bq27xxx_battery_i2c_check_device_type is good 
-enough, but lets hear what maintainers thinks :)
-
-David
-
-> +	}
-> +
->   	ret = bq27xxx_battery_setup(di);
->   	if (ret)
->   		goto err_failed;
-> 
-> ---
-> base-commit: 830b3c68c1fb1e9176028d02ef86f3cf76aa2476
-> change-id: 20260927-master-bd0afd9696ef
-> 
-> Best regards,
-> --
-> Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> 
-> 
+-- 
+2.53.0
 
