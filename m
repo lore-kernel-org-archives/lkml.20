@@ -1,62 +1,64 @@
 Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2AE846A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770E9264612
 	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 01:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790473238; cv=none; b=n4Wkc+b1X32ufJUcRZLZ8HOKzyTkTlaq+q/CJI4p+I/ycYZnKn1fMaHUi/sxxdDN15TOpaZ8E2+RXBmspW1MJdzEPjrizW0/e62KSSWGCZi2e4uUzBTJNFTVAUAtZH/thb2AqucjIv2bTgksoPldfMozYDaGy1vady1vv01+kn4=
+	t=1790473239; cv=none; b=c7t04tgc8S8RIYxWkIl1a3fuQeG3hHtAT9fJcrOWkc8OGL7VU/J0oSk27vpV17GnVJLL6ncZwFkkWee3IDCD+p95xurgVrIXdP8lun4U+cyoNjCC/dvObXaIM90lG+zO0CmnLfmIse5DtCxMjHovmgAQO9RRxsnvhJlvf0PXKGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790473238; c=relaxed/simple;
-	bh=UnnR+ATLgPExGFZHufyb2ba5HleIxoZRia483qSniq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dNCx44y8Okf8Abr9YKh+o99olsSEmfyKjyQmbucOyp3xibP2lPOKBC0WAqHRgxTSqDnEA6mj7jHFjUvmCxubyXe3EAOz9+lf5ZRkixeSM36Q6xxfui9qrpYBMj6141SdiGlUYyH0+bTjZzv8rZ2nOjJ/o3h5yKdre9NPVocZOrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hQWQzttE; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790473239; c=relaxed/simple;
+	bh=sn9KxYz/2BdaKnu+Jhkc59jJONIG3fW5WlAbi6N1UCY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wm6fd6n179MrzZF0/5cZ4ah6CFEc20jLNWagGFve6EzHMFBcyY6RwjB3GX/vtUvXvF8++3XenZCZLu9GhpAPRKHTLhYXxpZ8NsVn3utXhPHJdYs1xNBzTa3sAMRRjYWa7wzEfH8ZHdUIDAJMGTuRWVCemHnmT0qLjWwjqVhxVAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hh2HeTQt; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hQWQzttE"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f261so596199f8f.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hh2HeTQt"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48881a62e09so960360f8f.2
         for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:40:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790473235; x=1791078035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oCbMaHKrOBAkv4xsmVqUggrJcIbKWw7RYeOk/wu2YR4=;
-        b=hQWQzttEms21Zx0/m9+N6fW9VFZdEbxTpZQtgYKawIubNY2bqPpHVbOS+5a+hPSzdf
-         BESA1fYM0vvkuYJNUizPKc63CsVZQQNMvJn2Go0E1i3ceEom7CTXj8ug+9yRCrVQ62Wv
-         EKMgnSZMqFWGWZbeF7ZiFmXdIREkiRNubfwE/hr11UyqRrS6b54MSd5tClpkbJ5bQ7B0
-         e2nY7vIdunA/kZIlAkWLDP3ECRZDakomHdYty5zFxxzSHh4rEOAUnqboyUva/2jmi1yf
-         HfrK9fvVwD9m5HrF5hSsm7GTcSMD1AhWRet2TK/y3njdWklW9LMmcOWWov2iin9o3rvW
-         nUbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790473235; x=1791078035;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790473236; x=1791078036; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oCbMaHKrOBAkv4xsmVqUggrJcIbKWw7RYeOk/wu2YR4=;
-        b=HE4y9Y3U6ETqKpaoytGlIGroksYnqjie28sR3H5qIh1BFxnqDpCUkwi/T60PgAsVBk
-         NHSX4jH1Q5kBIPrJ9BSXGbQbZBazbXpaTrr6BgbFy7KJpOJWr81GCrtG7Dk8IijuLFTY
-         0WS6HvwCYi1VXgeJRfbJ6NYoll1wq9gcuCWOwGywFyQbVFmV0bEvPzmIy7vbnyfwTgWp
-         7VyveuJfTfyhMW6D/bXUyhqlzjRbWxEJS8Pl48ZTj/RPX8bKxeMVfjZGGr8jAWlW9LGF
-         g3nyB3kgrsRoK91XW63B17w4m7Bb+/DkAZzeZGp5HeG3x+LsQvxDIImxkm5AL+0agfEE
-         0oTA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjIPPGBax0rvRRyHmayMY130bInbxZB0EoFWehT0a6bFe6YRdqJHmvV6A5uZ1J3U8kDFyG3i3fzhL8y8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQH66boOH4TZZh8VTP6H4lWLiGKeZY9kOch5LPyJlrmbF3X0rF
-	Zu56Ab9Eun1bMOvL+7qEKIS545mt63xZWesL9a0klUGHQ3k4/0NgkIoA
-X-Gm-Gg: AYBFou31F62R1EpBwl45ZTKg069nmOS/tHAJ8OuWpjnEmXZCOzZ1H02pigC6y1xt0UA
-	og0vmqGCmBdJB1QydXr7Wgm3SJx/jouW8b39MSQ1rUcRwuVfatOO0ZQOP5V0EuFqyqq2hzKzSq2
-	ep9e1OnwyRIlY71Q/zdK2+G6PN4Vul69e9POXPW7xW7bO2dShpbN40z5ehpQ0OwETPc91C1qMEj
-	0g4LMpDCkaqXUwTbf3ckHMKvnXopUARVB2z/e59FEhLv56hc30ZmxoVJ2TZ262kDN+jIxWUGUoD
-	GBR8SFhedkg3cc2YQwOEyRXog1P7BAci/CQhrB2/hjUggAVhZXb0rzbspYA21GEe7wjsFqc3EiN
-	krKYk0TFeL3JJC8IiEEFBota9BMPpmXwqDbW7Hl2Rp/NyKkDGOoMaJr0Si9vw3k6HoEnRJq4Age
-	dTsYDBPzJIxMS3OVUvJ8tFqENq2kD3fmmQAP4crgGbGsRkovHxrPqt2pKaXJzFuDN027L3pTX7i
-	TcRv+haCQ==
-X-Received: by 2002:a05:600c:8b5b:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fe66f17damr169784005e9.10.1790473235208;
+        bh=5VyCHyAe/qKsy76Ruxzse7e5Pw3SyDcowOYYvNkiQsc=;
+        b=Hh2HeTQtaa+bvhEgRWPmvqd6vnVrl3mrdqHckSKllQFLtsswGcOcKg+8MKYzIjb1aA
+         2+cn9z1MmGkJREudzeOCASS+xRiAnX3wDXyARo1NTGO4bnaAe1Bqtw6NzuUaHXDdAIGv
+         4aN/R78wnR7/Mb1G/He/AoGsSEmcHKkY4lFWvDLotwVjWz2akgTqtlYS2w0ac/YRf8gx
+         WfOabypBJHqrRwnAmodrd7Cq3oS42HwTB2kyQLIRhZvMRp798TwsxZzLqs9i4Vpqirqb
+         6gTmA20aIeO1wU+16j/qzSZ7mo0b5i2YJ6ltABSIxzGUHzYILwhGC8oFJOhyJYulg60H
+         Ri5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790473236; x=1791078036;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5VyCHyAe/qKsy76Ruxzse7e5Pw3SyDcowOYYvNkiQsc=;
+        b=DGWy+Ly/wRRKzOMSw0gvGU2OJwBOzwrCfkh5ShHGdQHuW8HMbmnLowdQX9QydwhWsp
+         CU1sd66dY0Q0cTdvFie0b0MKvbIZsTRm3Vzhzbg1y0KqA6k3Rg7FFUInKbOl8SV6qbwj
+         FcnhdfjrVdn5Y4hlJ82VBGbk5TvWDuPKBraJ6ZVjRy0p+h3EWj4XqqoubUIEUlfdr+Bt
+         +qeDkFHnUlLu620foVNExniZuHeHVhofvUOihd0QznJvEGBGGrBbs26lG+6mHsG5xYWu
+         Gr+nPVy4Xd3PmWSC96VApTxJYqrvJUcsioMjgAz89QIQvlxyB57Aj/3WOJoWIgulji9h
+         Itkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwideGbytni9IqJOR91xKSEhMPmzay71CAqtJvLRoX4Txk6r2Tpt7aiGYqXXkxkE9jMMjqhI45vnEAyOyg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnlf8j78xcv3gV6Vt86nxwfh2v2aA4QC9SSxppzeYb8NP2W5/7
+	3+PJ7yoCgKZ9Gp7O+2iJw56rC68ddgixenx3jHanzb6varqUlHvhe/c2
+X-Gm-Gg: AYBFou1rDUw5JX8XbXOmUmtpa03QlDZ83Kv5XDjgVPdVryItC8fhlEHZOpr5xJPV0Ag
+	AfoL90np77BsKJ+6dqgWI49zy78t0NAwC1nlyync32uqd0vEv3YzfZSYQDjc8jYxpGhh/iXqIKz
+	FxYjTQFKOkzD+262TJftk29rzqnq6Hxiza9t80k74sbVZEalTlvXBCeZOLaa27juRmkhvTiJFC9
+	dzy5aFE9dExzaog/Mt6FxtSuHE20bju4Ke2lAwMepc0bGk9uRFQfADrOz/FvZJ0+VEeRWVYR5Ss
+	PwCkthdcfJtfdxDZuY3lkSdgf/Zw3aRyyxP2ih+tYNWqqelo1EcKiMFH/C6iMvnHbnaSFJOWuL9
+	W4QWabGUzPZvKR1ILizIzo4MuXF0FSeN5fGeCrNoorjhNzZHsWBeYtCEtN7SGMfRsAgf6QERMxY
+	bDugebwHar0+vk8WegdhfsRk3Vz5VZ5c0DiRrsI87y3Xogd7QBsZAxQfb+msq2G8Q64z9S69Poq
+	vBjV0ZFN3HmZRNIMpekPw==
+X-Received: by 2002:a05:600c:4ec7:b0:49f:ff6b:bc82 with SMTP id 5b1f17b1804b1-49fff6bc143mr26410215e9.20.1790473235760;
         Sat, 26 Sep 2026 18:40:35 -0700 (PDT)
 Received: from localhost.localdomain ([2a0a:ef40:1479:f801:b8e7:18fe:7039:e475])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee9203f0sm114736595e9.1.2026.09.26.18.40.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee9203f0sm114736595e9.1.2026.09.26.18.40.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 18:40:34 -0700 (PDT)
+        Sat, 26 Sep 2026 18:40:35 -0700 (PDT)
 From: Mohamed Jouini <amad3v@gmail.com>
 To: Armin Wolf <W_Armin@gmx.de>,
 	Hans de Goede <hansg@kernel.org>,
@@ -64,10 +66,12 @@ To: Armin Wolf <W_Armin@gmx.de>,
 Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mohamed Jouini <amad3v@gmail.com>
-Subject: [PATCH v2 0/2] platform/x86: uniwill-laptop: Support the PCSpecialist Recoil 16 AMD
-Date: Sun, 27 Sep 2026 02:40:29 +0100
-Message-ID: <20260927014031.3465252-1-amad3v@gmail.com>
+Subject: [PATCH v2 1/2] platform/x86: uniwill-laptop: Add PCSpecialist Recoil 16 AMD
+Date: Sun, 27 Sep 2026 02:40:30 +0100
+Message-ID: <20260927014031.3465252-2-amad3v@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260927014031.3465252-1-amad3v@gmail.com>
+References: <20260927014031.3465252-1-amad3v@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,50 +81,38 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 The PCSpecialist Recoil 16 AMD is a rebadged TUXEDO Stellaris 16 Gen7 AMD
-(board X6FR57TY), which the driver does not match today because of the
-different DMI vendor and board name.
+but reports sys_vendor "PCSpecialist" and board name "X6FR57TY", so the
+existing entry does not match it. Use the Stellaris 16 Gen7 AMD feature
+set.
 
-Patch 1 adds it with the existing Stellaris 16 Gen7 AMD feature set.
-Patch 2 maps the "Sc" key (WMI event 0xD0) to KEY_ROTATE_DISPLAY.
-
-Tested on the Recoil 16 AMD (BIOS N.1.39PCS10) with the driver from this
-series built against 7.2.7: the Sc key, the hwmon fan and temperature
-readings, and all three charging profiles. Charging from below 70%,
-with the charge counted from current_now:
-
-  Profile    CV (4S)    per cell   stops at, of a Standard charge
-  Standard   17.405 V   4.35 V     100%
-  Long_Life  17.194 V   4.30 V     about 93%
-  Trickle    16.818 V   4.20 V     about 90%
-
-In every profile the EC then reports 100% / Full, as Armin said it
-would.
-
+Signed-off-by: Mohamed Jouini <amad3v@gmail.com>
+---
 Changes in v2:
-- Patch 1 uses the existing Stellaris 16 Gen7 AMD feature set (charging
-  profiles) instead of the percentage charge limit (Armin).
-- Dropped the platform profile patch for now (Armin).
-- Added Armin's Reviewed-by to the Sc key patch. On whether TUXEDO knows
-  more about event 0xD0: tuxedo-drivers (4.24.0) has no entry for it in
-  its Uniwill keymap, so it only reaches the "Unknown code" debug message
-  there.
+- Use the existing Stellaris 16 Gen7 AMD feature set (charging profiles)
+  instead of a separate descriptor with the percentage charge limit.
 
-Regarding EC_ADDR_CHARGE_CTRL from the v1 review: it needs no cleanup. It
-was 0 before v1 was ever loaded, and after a power cycle without the
-driver the EC had reset it to 0 on its own.
+ drivers/platform/x86/uniwill/uniwill-acpi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-v1: https://lore.kernel.org/platform-driver-x86/20260925211635.1422516-1-amad3v@gmail.com/
-
-Mohamed Jouini (2):
-  platform/x86: uniwill-laptop: Add PCSpecialist Recoil 16 AMD
-  platform/x86: uniwill-laptop: Map the screen rotation key
-
- drivers/platform/x86/uniwill/uniwill-acpi.c | 11 +++++++++++
- drivers/platform/x86/uniwill/uniwill-wmi.h  |  3 +++
- 2 files changed, 14 insertions(+)
-
-
-base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
+diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+index eeead0159..7d39e97fa 100644
+--- a/drivers/platform/x86/uniwill/uniwill-acpi.c
++++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+@@ -3268,6 +3268,14 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
+ 		},
+ 		.driver_data = &tux_featureset_4_nvidia_descriptor,
+ 	},
++	{
++		.ident = "PCSpecialist Recoil 16 AMD",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "PCSpecialist"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "X6FR57TY"),
++		},
++		.driver_data = &tux_featureset_4_nvidia_descriptor,
++	},
+ 	{
+ 		.ident = "TUXEDO Stellaris 16 Gen7 Intel",
+ 		.matches = {
 -- 
 2.55.0
 
