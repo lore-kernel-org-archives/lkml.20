@@ -1,398 +1,324 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011025.outbound.protection.outlook.com [40.93.194.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE714EBAD8;
-	Mon, 28 Sep 2026 16:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612595; cv=none; b=joEmGL4YGk/2j1LIXOTCG0swovmxmNhX2L50s6hvphtrtwq9MxCE08GbL9yC+Ln6aJ02veYHZJdUZHXoeRnakPA49L22pQw7+w9vcgse2buSgPEgGYSMGMelf9QUGjrJWGnBtswdRIj3DmExqAjUbIDMU7qv+OC3VGp3muUZ2o8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612595; c=relaxed/simple;
-	bh=NvoT8NJ3lk4PBTjEtzQjhOmxBAPGx81/hz2OmoC7FuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lfy35YRLwHAjY5vIC566LfansRi9lU97vkfsF/dy4ltHgj+zWPZElQSBqCsG66VRWZi8F/fcsMjSpygYNVwyeN69QrK8L9HeQ64V85HIgrpoftI7KNOKiDPSPAO7+eWITaBzwdhEIWIwZY1GTY5nftm0LOcqjVsD4QtIa6+ZLyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hu9mSpV/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044D84BD36E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612629; cv=fail; b=TLN3P5lcz0LnBYB1hXv/MEaQCM73uQkNgTcmG1nq/PMK8EiK13c8KMv851zmw3PsRVQ5YMwgopQKy3PBqMRsXHdrl/dyrFU3kCzcyIToLmzR32QvNSQd5ZrChhuywTUhOg+8601EwvzFhITarmthrT4W6CR1VKeLN30v35xSBtc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612629; c=relaxed/simple;
+	bh=Lruz8dpDrf18njOfaZuUPfrJqg8/CARrF1ULXuKVFWM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ld/y9rgM89+JTsf8QE673IPUQH2MmIrKUvZjb8bbZOL5n1MngRvwHmI/OeZPNZZzYdZK5K7RuStfyTJcmRUZAsqU9OsDt+dGVDEx4cNIZao9ZFSVM2MGmVjyDZdZ9P44o/4kMNYO9ZphZ2ycOHdBII/E1Sp44dvKeZ8tjOfnqXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ReGHjd+G; arc=fail smtp.client-ip=40.93.194.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hu9mSpV/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1330D1F00893;
-	Mon, 28 Sep 2026 16:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612593;
-	bh=BY5JbRWfPaR1AROLkWXEE2iNve3eqz/LS/oiVR0SbPw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hu9mSpV/sS739xsuS0jg05c0z6QFAOcXuIhJZsHxnW921xDW+FTjwcSyDju6tXh3k
-	 CNV/UfzDbg08+4lOyA5JQZ0Rq+2/QvtbJpRMn2ZOo97SBMI2K9xWpMwmGdI6PxKeU2
-	 uITT7+UIKocCsdfmMBmosIBFRu5zHeCd6seSGOEIWj2c3O3Kq6f/0Edg+RtSxpnnXl
-	 Y97fuP5zlxYLu4124lCrnzi991i/ySLamLW/Dw8oZfxMedpNLshDH0trjpHa1G9wjp
-	 cYUQIDBK3ht+Dvg7N9XpPF/Ki3kZH0LiRYOQ5ldWBdnG1BjHTgQTed3mygl8i9JMBo
-	 k/Sy0YwoBa++w==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 4/4] perf test: Add false_sharing workload exhibiting cross-CPU false sharing
-Date: Mon, 28 Sep 2026 18:22:50 +0200
-Message-ID: <20260928162250.2413383-5-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928162250.2413383-1-acme@kernel.org>
-References: <20260928162250.2413383-1-acme@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ReGHjd+G"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OnwyCPItXPKpReZW2Je+vZkn0B86wvRDwElIi5wb4vh04jd7qVkVOr/inDY+UOEBAk9sjS9rP0DXeMifkmdZ4/eMrsUYtKEFpgHIWDrxxoRt0Savz3MBVtdk6pslF+AlOS1Io5NWS9UTDMPxc51mGLJXk6JkeQ9cFkVuXfOfErobANMKIL7SGaA9YrVeLlgh/2GXEkdbd5t0TukSnnO56AMExfWmg24Lyo+Ssg78erBtcDovExKbURqx/i8+YbzDIdkY599ymUZQYyJyz432WtXu6TkYVIui4NuxeKlRC9G6k4vUhRRjC3SKqP9loNkJ77EWwTX3p4LGGIuRL/CboQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gpg3D0taNDtLjx6aOJneUR+d6miA5jQHFfGDAEc7Flg=;
+ b=OvkqcRTlIB5/ezWBz4WijaOfRhxxLubXVFsdCCrohtSeWQ2FhoP6UkkIaMJWGgKDXZOONyfktPSIgExOIhuL/uXUqBpaFO/1jUBZhY/Xds5CLLxQe1mOr+go9A9+lzRhwzdU8X/9MS2G8nkH6fIhyCVVv2s61dVRskW59sagk+UBnBiQaUqhTGnkO9WQsJVCsyvcLZ/6TWpnEPZkShaUN6wVGYJUFzEaHxjNnmPGK+cyrrYpWPDk+vK7FMUJrwNFeiYaSFB5U9nr4x2GWZH1G4jSuEjjFPXYp9nPZMlhZIT1hqPHt3fKk5UDNY2234ZuG+BSLnqeAyqQAwL1P8ZgmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gpg3D0taNDtLjx6aOJneUR+d6miA5jQHFfGDAEc7Flg=;
+ b=ReGHjd+G+QDDY/N2xOIFRlLcAQYUhGg8so10i7QPcIjBCjAXmVpzdz/EVWlwO8jG+GYpD10Arm+iL6w7CTcf6mZ922MTxL0UJ/3KYfbqpI5tMNa7XKSOJ4i3rw6nTbIbN6Vgo+z+2YMaj38FMJulrw8voPilPUXL01JFhXTuruo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7183.namprd12.prod.outlook.com (2603:10b6:510:228::20)
+ by PH7PR12MB8105.namprd12.prod.outlook.com (2603:10b6:510:2b7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 16:23:44 +0000
+Received: from PH8PR12MB7183.namprd12.prod.outlook.com
+ ([fe80::d54c:d13c:6346:4009]) by PH8PR12MB7183.namprd12.prod.outlook.com
+ ([fe80::d54c:d13c:6346:4009%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 16:23:44 +0000
+Message-ID: <c8ad52ce-d872-4a4f-a261-f907f0d8af30@amd.com>
+Date: Tue, 29 Sep 2026 00:23:30 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 4/4] drm/virtio: wire blob ioctl creation to
+ userptr objects
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ dmitry.osipenko@collabora.com, airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-5-honghuan@amd.com>
+ <88d78717-d935-4c7f-a123-c6ddff761e97@rsg.ci.i.u-tokyo.ac.jp>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <88d78717-d935-4c7f-a123-c6ddff761e97@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0010.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::12) To PH8PR12MB7183.namprd12.prod.outlook.com
+ (2603:10b6:510:228::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7183:EE_|PH7PR12MB8105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9deda296-fca8-4c7a-c94e-08df1d7cddd7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|5023799004|11063799006|6133799003|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	+DuDn59mf+E6nBUkOOHhbpJL0u+NW2Z6hlBIUeY/m/4BQv6riqrCfKmP37etohOlxLEgkIBcb/UwB+B0yu6dxNWG0Heix7IbdNyw/Ym6RynML76N0sbbSJk47qI02eQUBgT/sUz28mpEG37FljN4lxH2qBiFrp2txcOFtjj5gqxBa4jXTqcTLzjadNmcZVsNdjf9bhyT0nK7b0nMM6eDZrU0ndEuA7ihB+sNY60INadBEjMKBHIALdv0RQeNzg20JKKl8ObDtgslLQx3pa542aH11APzaR9ttfQETiiKXH0weww3AxcySFpL8gJYYSeYosBbUYO9WGO5BfH0VnKf8fqJM+AUgeLKV5VMioLRLdw9YAg9ry5wfskHHG1EBUKMbi8roew88Kor/orZjsG1eD+HoUD5nTYZQcVyeZLJtZ6G5CH89f4NjBPGcI4oufNB0wIaT5caYz4L5alZ1PgVssv9Ba46g+8j4l4n0UoXp8bIJG9OQixyeJAfldXpX514MxXcn0YSK4fP3N33vtno2m2n4fDIa6TxvOyggoc6MDb+vhPv8L4jYkZ1HeMXU/XmiFqQWiaoS7jxekN8aJWXXp3RBTqcVZh/af7yKOYKonOxVWxY1aZSwcoIi43Hw/azxBLhDqYC0ofpAfgCABHkRHh0Q498QIval0OXrg8DJzo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7183.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dStQY0NRS0xwVklFNmlaV05Lbm1ZeSswclJWNGxzSWM4dmpJdUxhK1dlWWJG?=
+ =?utf-8?B?WnlPWlNlVnFHK09KZk00am1peGJQcjg2RUlFdFBxWjZ6Qm82YUFjRlVzc2w0?=
+ =?utf-8?B?RUNNVXhzem1TWUZpMVA0RzJEY0pRZ1o1eEdnSDVuNUNkVXpURTFvTkRhN2hU?=
+ =?utf-8?B?OWpLUE0zd0RUc1B1UlpKMzU5RFdJSldVb0tUMnhsUURWSVdBSTJNSWEyK09q?=
+ =?utf-8?B?M2hpdCtHWjRUWEhNRUIzRyt2a2g4S0YzdnJHR1JTbEVDSFlwMU1DU0FxMDhC?=
+ =?utf-8?B?S3VmZmQydHJ1eHBhYnZ6WUQrK21WSkxrSVFxRDdoTzkrTHFnWE1YNmd6b0dv?=
+ =?utf-8?B?RDdqRks1TTdheUNjWWswRElzUEorZnpZdHJCSVFIUHhIbDFMOWIwNlVuSFpm?=
+ =?utf-8?B?QkZrdnZZYnNjWklmNnVYU2xuWUtDVDJySVZBRTFTMFdYVWtCRDF2dUVWdmpB?=
+ =?utf-8?B?eEwxazVwNWZ6Q2N6LzJyaHBSUENlajhlY1B1UTAvRzEvRWFqcFpqN2FnRXk4?=
+ =?utf-8?B?eHpIWFExSHhwS2huNWQ0MXBjVzE2K1NPbkhYUjZTbk1EV3ZKS3JWTUdHQkV6?=
+ =?utf-8?B?Y3NibHNtd1B3UzVxOXlYYUNKRWtNZ09lZFFtck5GSHZYc3JZN0Z0blFSRXlP?=
+ =?utf-8?B?TjBOaWdTV1RPMGNNZWJ0UjJncVpTNktNUTBEUVY3VFJVKzJORWEwSXhRU09m?=
+ =?utf-8?B?cjFNVzZOdzliSkFvaXhvVGRWZDIrWEg1dnJyVHB1ODVaMGZqQTVpMkZCS2JR?=
+ =?utf-8?B?SndoaVAxVGtzUE5mUTh3aUFSYXlIT1UvVndzcURuNms2L2NFZDJUQnRkWXpS?=
+ =?utf-8?B?RVVjUFNZY01MUnRLazMyMno5dVh6eWVsQVE1YWluaTdQL2pkOElFWG5vQTNm?=
+ =?utf-8?B?OG0vRUpDK0tTSTl6NHZoQklLYTg2WEZBZEtPSHAxZkZvaU9Ld2V1S0tzVWV3?=
+ =?utf-8?B?MzRlQjJkRThwRkhENjFQOGpnQ2prZUVhSjR6Q0FOeE5SdFRwU05PSGxYNkRT?=
+ =?utf-8?B?WW5uWjBFalJHMjBuOEdKbXVGU0ZJdk1yQ1RnQUg2b2srNzgzMWxZQUkrVnZo?=
+ =?utf-8?B?YlFPK1VhcW9XVFZ3dXoveUVXUEswUHlEQ0krbEE5WGF2K1c4aUtaazJqTG9r?=
+ =?utf-8?B?YmYyV2p5SVk1bDFmUHFEVDBJUHFJVy83a3JwRnpaL3g5ckpCT2lRWkpPbnFZ?=
+ =?utf-8?B?UUxMN3RXbnhpaWlndTljV3J5N2VGT290amg2UGtoQlF3UEljS0VETjBPakpi?=
+ =?utf-8?B?SGVzSTZWSzlYNG9PakNmc0gySE1ldEJEbmVMOHVySGxFZXZWTXpHSXZNZmlp?=
+ =?utf-8?B?Qk9BNWo5NlZBZE1MRHNVVEVidzBjWm5tSitMamtyRVgxZTFMbmNlMW03N2VM?=
+ =?utf-8?B?YmpwclVRUWxZNWcxY0IvTjh6NFlTMVJ5NGU4Q2pRblZwejI2L3dPR1B6bGpQ?=
+ =?utf-8?B?bWNiSXNPK1lUVm80Mk5HMitlajhkNWN0NjJrTlhiYWtvalBCSjNyNHFua2M5?=
+ =?utf-8?B?SEx3ZTVrckRIMVd4ZFdkN2d1ZVpMakJSMlJZM096Q05ieG5vWFV3ZVRZNGtR?=
+ =?utf-8?B?R0VQa1ZLWGEvcGpHSWJvdURid2xSS25ZcDJ5SXYyMnFUZWxySVpZNXZCUllY?=
+ =?utf-8?B?OEQ3eml1Ykk4M2RFNnZIcyt0SklVT3g0VHNjSS9TWkU5QjhJcXdEbnZrNnYr?=
+ =?utf-8?B?S3dqdzZWKzhML3hYT2hYRGNnVGEzazgwSUV1RTJBNmt3S0l0UGNsbkZyMkVM?=
+ =?utf-8?B?WmZhUUZITnl6T056QXFkVXB1a1BPZU1lWTZiK0JFaWltTmNKRDNXRlUrQVVk?=
+ =?utf-8?B?QUhNSUpkaFVreGFCeTJueTd3MFRnK3FpMkVSa1gyOFM2czYxRmN1S2drc3Ax?=
+ =?utf-8?B?aG1FU1lPVHhNc0pFN29Hd1hBTjNXOGRwdGxTNUo0NGEzdmEralE0ZmxtUXBR?=
+ =?utf-8?B?TG5JS3NuV3A4dmR5cUVrMXVlUEtKekZ5UTFNMDg5S0Vpa3VqZTVQb1FzRGo5?=
+ =?utf-8?B?TFVYSGtpRUk2cHFRMU1WYVJnTGx4VEpyYWxJOFR0SVNTZnBCREtRQUNBZm5M?=
+ =?utf-8?B?Qis0dXFmUlpwLzZpYi95OXdHMTA3SENBb2l0NnhObUNhSXk4TFJWdU1EYUo0?=
+ =?utf-8?B?N3FEMzVoODJucU1EaVBsZXdwQmxWQWhyVHB2aTdZNlUrVmdQVDlLQkltOWJm?=
+ =?utf-8?B?RmFJOUgxL2t5NkZmYlBrYjYwZlNpbEUrWiszMWtvMmRmNHJYTUh6SWNpZUN3?=
+ =?utf-8?B?VTNwV2dFeG92UGFJbVRTNDBMYXNyTjJwTmFVaGpSdWcrUjl1R1NRM2FOaWxj?=
+ =?utf-8?Q?U3CoeBFDyILzc4HuX6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9deda296-fca8-4c7a-c94e-08df1d7cddd7
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7183.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:23:44.7207
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: reuIJhkbLOaU4PyugeJHD8+ySOtX/mbEaHTZUA4p1hhr4ByxiAqnMDSesQUKhikwcg+m800sbRT6ZXz9lNmnSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8105
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Add a 'perf test -w false_sharing' workload that hammers one shared
-struct from several CPUs, shaped as a TCP connection: a read-mostly
-identity (five-tuple) shares a cacheline with per-packet rx counters
-(the false-sharing line), a second line has packet-path private tx and
-congestion control counters, and a third the connection config.
 
-The packet path runs in the main thread and up to four lookup threads
-hash the five-tuple and pull the config, reading one volatile shared
-instance directly so the accesses are PC-relative and resolvable by the
-data type profiler.
+On 9/27/2026 9:04 AM, Akihiko Odaki wrote:
+> On 2026/09/24 18:55, Honglei Huang wrote:
+>> Integrate userptr into the blob resource creation ioctl.
+>>
+>> - A non-zero userptr selects virtio_gpu_userptr_create()
+>> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+>> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
+>>    advertised VIRTIO_GPU_F_BLOB_READONLY
+>> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
+>> - Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
+>>
+>> virtio_has_feature() routes device-specific feature bits through
+>> virtio_check_driver_offered_feature(), which calls BUG() when the
+>> driver queries a bit it never declared in features[]. The
+>> VIRTIO_GPU_F_BLOB_READONLY probe added to virtio_gpu_init() hit
+>> exactly that: every probe crashed regardless of host support because
+>> the bit was missing from features[]. Registering it there fixes the
+>> crash.
+>>
+>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>> ---
+>>   drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
+>>   drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
+>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
+>>   drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
+>>   4 files changed, 38 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/ 
+>> drm/virtio/virtgpu_debugfs.c
+>> index 3a68a16b58..b8b9b40584 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+>> @@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, 
+>> void *data)
+>>                   vgdev->has_resource_assign_uuid);
+>>       virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
+>> +    virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
+>>       virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
+>>       virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
+>>       virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/ 
+>> virtio/virtgpu_drv.c
+>> index 2aaa7cb080..f1edd20c37 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+>> @@ -182,6 +182,7 @@ static unsigned int features[] = {
+>>       VIRTIO_GPU_F_RESOURCE_BLOB,
+>>       VIRTIO_GPU_F_CONTEXT_INIT,
+>>       VIRTIO_GPU_F_BLOB_ALIGNMENT,
+>> +    VIRTIO_GPU_F_BLOB_READONLY,
+>>   };
+>>   #ifdef CONFIG_PM_SLEEP
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/ 
+>> virtio/virtgpu_ioctl.c
+>> index 3d8e4ccdb7..3dc058e50e 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> @@ -36,7 +36,10 @@
+>>   #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
+>>                       VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
+>> -                    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
+>> +                    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
+>> +                    VIRTGPU_BLOB_FLAG_USE_READONLY)
+>> +
+>> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
+>>   /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
+>>   static void virtio_gpu_create_context_locked(struct 
+>> virtio_gpu_device *vgdev,
+>> @@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct 
+>> drm_device *dev, void *data,
+>>               return -ENOENT;
+>>           value = vgdev->blob_alignment;
+>>           break;
+>> +    case VIRTGPU_PARAM_USERPTR:
+>> +        value = 1;
+>> +        break;
+>> +    case VIRTGPU_PARAM_BLOB_READONLY:
+>> +        value = vgdev->has_blob_readonly ? 1 : 0;
+>> +        break;
+>>       default:
+>>           return -EINVAL;
+>>       }
+>> @@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device 
+>> *vgdev,
+>>       if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
+>>           return -EINVAL;
+>> +    if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
+>> +        return -EINVAL;
+>> +
+>>       if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+>>           if (!vgdev->has_resource_assign_uuid)
+>>               return -EINVAL;
+>>       }
+>> +    if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
+>> +        if (!vgdev->has_blob_readonly)
+>> +            return -EINVAL;
+>> +    }
+>> +
+>> +    if (rc_blob->userptr &&
+>> +        rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
+>> +        return -EINVAL;
+>> +
+>>       switch (rc_blob->blob_mem) {
+>>       case VIRTGPU_BLOB_MEM_GUEST:
+>>           *guest_blob = true;
+>> @@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device 
+>> *vgdev,
+>>       params->blob = true;
+>>       params->blob_flags = rc_blob->blob_flags;
+>>       params->blob_hints = rc_blob->blob_hints;
+>> +    params->userptr = rc_blob->userptr;
+>>       if (vgdev->has_blob_alignment &&
+>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>> @@ -518,9 +540,10 @@ static int 
+>> virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>>       struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
+>>       struct drm_virtgpu_resource_create_blob *rc_blob = data;
+>> -    if (verify_blob(vgdev, vfpriv, &params, rc_blob,
+>> -            &guest_blob, &host3d_blob))
+>> -        return -EINVAL;
+>> +    ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
+>> +              &guest_blob, &host3d_blob);
+>> +    if (ret)
+>> +        return ret;
+>>       if (vgdev->has_virgl_3d)
+>>           virtio_gpu_create_context(dev, file);
+>> @@ -538,7 +561,9 @@ static int 
+>> virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>>                         vfpriv->ctx_id, NULL, NULL);
+>>       }
+>> -    if (guest_blob)
+>> +    if (guest_blob && params.userptr)
+>> +        ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
+> 
+> After userptr creation has pinned pages, charged pinned_vm, queued 
+> resource creation, and registered the object for restore, the [handle- 
+> creation failure path calls drm_gem_object_release() directly. The UUID- 
+> assignment failure path does likewise.
+> 
+> That function releases GEM internals; it does not invoke the 
+> object’s .free callback. The userptr pages, DMA mapping, memlock charge, 
+> and host resource therefore remain unreleased, with no userspace handle 
+> available to close them.
+> 
+> These error paths predate the series, but this patch routes long-term 
+> userptr pins through them.
 
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/tests/builtin-test.c               |   1 +
- tools/perf/tests/shell/data_type_profiling.sh |   9 +-
- tools/perf/tests/tests.h                      |   1 +
- tools/perf/tests/workloads/Build              |   2 +
- tools/perf/tests/workloads/false_sharing.c    | 236 ++++++++++++++++++
- 5 files changed, 247 insertions(+), 2 deletions(-)
- create mode 100644 tools/perf/tests/workloads/false_sharing.c
+Will fix it in next version.
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index d2f594921e25bda9..98134b1c74cf80f4 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -175,6 +175,7 @@ static struct test_workload *workloads[] = {
- 	&workload__context_switch_loop,
- 	&workload__deterministic,
- 	&workload__callchain,
-+	&workload__false_sharing,
- 
- #ifdef HAVE_RUST_SUPPORT
- 	&workload__code_with_type,
-diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-index a916c410274aa888..57203e0e5f857540 100755
---- a/tools/perf/tests/shell/data_type_profiling.sh
-+++ b/tools/perf/tests/shell/data_type_profiling.sh
-@@ -8,8 +8,8 @@ set -e
- # data type profiling manifestation
- 
- # Values in testtypes and testprogs should match
--testtypes=("# data-type: struct Buf" "# data-type: struct buf")
--testprogs=("perf test -w code_with_type" "perf test -w datasym")
-+testtypes=("# data-type: struct Buf" "# data-type: struct buf" "# data-type: struct net_conn")
-+testprogs=("perf test -w code_with_type" "perf test -w datasym" "perf test -w false_sharing")
- 
- err=0
- perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-@@ -59,6 +59,9 @@ test_basic_annotate() {
- 
-     "xC")
-     index=1 ;;
-+
-+    "xFS")
-+    index=2 ;;
-   esac
- 
-   # Under 'set -e' a bare failing command aborts the script through the EXIT
-@@ -114,6 +117,8 @@ test_basic_annotate Basic Rust
- test_basic_annotate Pipe Rust
- test_basic_annotate Basic C
- test_basic_annotate Pipe C
-+test_basic_annotate Basic FS
-+test_basic_annotate Pipe FS
- 
- cleanup
- exit $err
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 9c96f33483d14356..f379620069d34f3a 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -250,6 +250,7 @@ DECLARE_WORKLOAD(jitdump);
- DECLARE_WORKLOAD(context_switch_loop);
- DECLARE_WORKLOAD(deterministic);
- DECLARE_WORKLOAD(callchain);
-+DECLARE_WORKLOAD(false_sharing);
- 
- #ifdef HAVE_RUST_SUPPORT
- DECLARE_WORKLOAD(code_with_type);
-diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-index 048e371eb63e3164..18fceddccb56c013 100644
---- a/tools/perf/tests/workloads/Build
-+++ b/tools/perf/tests/workloads/Build
-@@ -14,6 +14,7 @@ perf-test-y += jitdump.o
- perf-test-y += context_switch_loop.o
- perf-test-y += deterministic.o
- perf-test-y += callchain.o
-+perf-test-y += false_sharing.o
- 
- ifeq ($(CONFIG_RUST_SUPPORT),y)
-     perf-test-y += code_with_type.o
-@@ -29,3 +30,4 @@ CFLAGS_inlineloop.o       = -g -O2
- CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-+CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-diff --git a/tools/perf/tests/workloads/false_sharing.c b/tools/perf/tests/workloads/false_sharing.c
-new file mode 100644
-index 0000000000000000..6fccb81e3ed1cb9a
---- /dev/null
-+++ b/tools/perf/tests/workloads/false_sharing.c
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * False-sharing demo for data type profiling, shaped as a TCP
-+ * connection: a read-mostly identity shares a cacheline with per-packet
-+ * rx counters (the false-sharing line), a second line has packet-path
-+ * private tx and congestion control counters, and a third the connection
-+ * config.
-+ *
-+ * With a 'perf mem record' of this workload the profiler shows accesses
-+ * to different members of the same cacheline, which the CTF stream lets
-+ * pahole flag as false sharing on line 0.
-+ */
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include <linux/compiler.h>
-+#include "../tests.h"
-+
-+struct net_conn {
-+	/* cacheline 0: identity (read-mostly) + rx counters (per packet) */
-+	uint32_t	saddr;		/*   0 */
-+	uint32_t	daddr;		/*   4 */
-+	uint16_t	sport;		/*   8 */
-+	uint16_t	dport;		/*  10 */
-+	uint8_t		state;		/*  12: 1 == ESTABLISHED */
-+	uint8_t		protocol;	/*  13: 6 == TCP */
-+	uint16_t	__pad0;		/*  14 */
-+	uint64_t	bytes_rx;	/*  16: every packet */
-+	uint64_t	packets_rx;	/*  24: every packet */
-+	uint32_t	rx_queue;	/*  32: backlog depth, fluctuates */
-+	uint8_t		__pad1[24];	/*  36..59 */
-+	uint32_t	last_ack;	/*  60: written per ACK */
-+	/* cacheline 1: tx + congestion control (packet-path private) */
-+	uint64_t	bytes_tx;	/*  64: every packet */
-+	uint64_t	packets_tx;	/*  72: every packet */
-+	uint32_t	cwnd;		/*  80: on every ACK */
-+	uint32_t	ssthresh;	/*  84: on loss */
-+	uint32_t	rtt_us;		/*  88: on every ACK */
-+	uint32_t	retrans;	/*  92: on timeout */
-+	uint32_t	__pad2[8];	/*  96..127 */
-+	/* cacheline 2: config, set at setup, read by everybody */
-+	uint16_t	mss;		/* 128 */
-+	uint8_t		snd_wscale;	/* 130 */
-+	uint8_t		rcv_wscale;	/* 131 */
-+	uint32_t	keepalive_int;	/* 132 */
-+	uint32_t	mark;		/* 136: firewall mark */
-+	uint32_t	priority;	/* 140: traffic class */
-+	uint32_t	__pad3[12];	/* 144..191 */
-+} __attribute__((aligned(64)));
-+
-+/* Volatile so every iteration really loads and stores. */
-+static volatile struct net_conn conn;
-+/* Keeps the reader checksums alive after the threads join. */
-+static volatile unsigned long fs_sink;
-+
-+static volatile sig_atomic_t done;
-+
-+struct fs_reader {
-+	pthread_t	thread;
-+	int		cpu;
-+	unsigned long	sum;
-+	char		__pad[64 - sizeof(pthread_t) - sizeof(int) - sizeof(unsigned long)];
-+} __attribute__((aligned(64)));
-+
-+static void sighandler(int sig __maybe_unused)
-+{
-+	done = 1;
-+}
-+
-+static void pin_to_cpu(int cpu)
-+{
-+	cpu_set_t set;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	/* Best effort: in a restricted cpuset this fails and the thread runs unpinned. */
-+	pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-+}
-+
-+/*
-+ * Connection lookup, as a load balancer or 'ss' scrape would do it: the
-+ * reads go straight to the global, this file is built -O0 and a local
-+ * pointer would be reloaded from a stack slot, a form the data type
-+ * resolver does not track.
-+ */
-+static void *reader_fn(void *arg)
-+{
-+	struct fs_reader *r = arg;
-+	unsigned long sum = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-reader");
-+	pin_to_cpu(r->cpu);
-+
-+	while (!done) {
-+		sum += conn.saddr + conn.daddr + conn.sport + conn.dport +
-+		       conn.state + conn.protocol;
-+		sum += conn.mss + conn.snd_wscale + conn.rcv_wscale +
-+		       conn.keepalive_int + conn.mark + conn.priority;
-+	}
-+	r->sum = sum;
-+	return NULL;
-+}
-+
-+static int false_sharing(int argc, const char **argv)
-+{
-+	double sec = 2.0;
-+	int nreaders = 0, nr_allowed = 0, err = 1;
-+	int *allowed = NULL, nallowed = 0, ncpus;
-+	cpu_set_t set;
-+	struct fs_reader *readers = NULL;
-+	int i, writer_cpu;
-+	unsigned long n = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-writer");
-+	if (argc > 0)
-+		sec = atof(argv[0]);
-+	if (!(sec > 0.0)) {
-+		fprintf(stderr, "Error: seconds (%f) must be > 0\n", sec);
-+		return 1;
-+	}
-+	if (argc > 1)
-+		nreaders = atoi(argv[1]);
-+
-+	/*
-+	 * A connection that just got established: identity and config fixed
-+	 * from here on, counters at zero.
-+	 */
-+	conn.saddr = 0x0a000001;	/* 10.0.0.1 */
-+	conn.daddr = 0x0a000002;	/* 10.0.0.2 */
-+	conn.sport = 54321;
-+	conn.dport = 443;
-+	conn.state = 1;			/* ESTABLISHED */
-+	conn.protocol = 6;		/* TCP */
-+	conn.mss = 1448;
-+	conn.snd_wscale = 7;
-+	conn.rcv_wscale = 7;
-+	conn.keepalive_int = 7200;
-+	conn.cwnd = 10;
-+	conn.ssthresh = 65535;
-+	conn.rtt_us = 50;
-+
-+	/* Pin against the allowed set, restricted cpusets still spread the threads. */
-+	ncpus = sysconf(_SC_NPROCESSORS_CONF);
-+	if (sched_getaffinity(0, sizeof(set), &set) == 0) {
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (!CPU_ISSET(i, &set))
-+				continue;
-+			nr_allowed++;
-+		}
-+		allowed = malloc(nr_allowed * sizeof(int));
-+		if (allowed == NULL) {
-+			fprintf(stderr, "Error: malloc failed for CPU list\n");
-+			return 1;
-+		}
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (CPU_ISSET(i, &set))
-+				allowed[nallowed++] = i;
-+		}
-+	}
-+	if (nreaders <= 0) {
-+		/* By default leave one CPU for the packet path, up to 4 readers. */
-+		nreaders = nallowed > 1 ? nallowed - 1 : 1;
-+		if (nreaders > 4)
-+			nreaders = 4;
-+	}
-+
-+	signal(SIGINT, sighandler);
-+	signal(SIGALRM, sighandler);
-+
-+	readers = calloc(nreaders, sizeof(*readers));
-+	if (readers == NULL) {
-+		fprintf(stderr, "Error: calloc failed for %d readers\n", nreaders);
-+		goto out;
-+	}
-+	for (i = 0; i < nreaders; i++) {
-+		int cpu = nallowed > 1 ? allowed[(i + 1) % nallowed] : -1;
-+
-+		readers[i].cpu = cpu;
-+		if (pthread_create(&readers[i].thread, NULL, reader_fn, &readers[i])) {
-+			fprintf(stderr, "Error: failed to create reader %d\n", i);
-+			done = 1; // Ensure started threads terminate.
-+			nreaders = i;
-+			goto out_join;
-+		}
-+	}
-+	writer_cpu = nallowed > 0 ? allowed[0] : -1;
-+	if (nallowed == 1)
-+		fprintf(stderr, "Warning: single CPU allowed, no cross-CPU traffic expected\n");
-+	if (writer_cpu >= 0)
-+		pin_to_cpu(writer_cpu);
-+
-+	/*
-+	 * The packet path: receive, acknowledge, transmit, repeat; every 64th
-+	 * packet simulates a loss so ssthresh/retrans get sampled too.
-+	 */
-+	if (sec < 1.0) {
-+		useconds_t usecs = (useconds_t)(sec * 1000000.0);
-+
-+		ualarm(usecs > 0 ? usecs : 1, 0);
-+	} else
-+		alarm((unsigned int)sec);
-+	while (!done) {
-+		conn.bytes_rx += conn.mss;
-+		conn.packets_rx++;
-+		conn.rx_queue = (uint32_t)(n & 0x3f);
-+		conn.last_ack = (uint32_t)n;
-+		conn.bytes_tx += conn.mss;
-+		conn.packets_tx++;
-+		conn.cwnd = 10 + (n & 15);
-+		conn.rtt_us = 50 + (n & 7);
-+		if ((n & 63) == 0) {
-+			conn.ssthresh = conn.cwnd / 2;
-+			conn.retrans++;
-+		}
-+		n++;
-+	}
-+	err = 0;
-+out_join:
-+	for (i = 0; i < nreaders; i++) {
-+		if (readers[i].thread) {
-+			pthread_join(readers[i].thread, /*retval=*/NULL);
-+			fs_sink += readers[i].sum;
-+		}
-+	}
-+	fs_sink += (unsigned long)(conn.bytes_rx + conn.bytes_tx + n);
-+	free(readers);
-+out:
-+	free(allowed);
-+	return err;
-+}
-+
-+DEFINE_WORKLOAD(false_sharing);
--- 
-2.55.0
+Regards,
+Honglei
+
+> 
+> Regards,
+> Akihiko Odaki
+> 
+>> +    else if (guest_blob)
+>>           ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
+>>       else if (!guest_blob && host3d_blob)
+>>           ret = virtio_gpu_vram_create(vgdev, &params, &bo);
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/ 
+>> virtio/virtgpu_kms.c
+>> index 1d4d3bf46a..06c2bded49 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> @@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, 
+>> struct drm_device *dev)
+>>           vgdev->blob_alignment = blob_alignment;
+>>       }
+>> +    if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
+>> +        vgdev->has_blob_readonly = true;
+>> +
+>>       DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
+>>            vgdev->has_virgl_3d    ? '+' : '-',
+>>            vgdev->has_edid        ? '+' : '-',
+>>            vgdev->has_resource_blob ? '+' : '-',
+>>            vgdev->has_host_visible ? '+' : '-');
+>> -    DRM_INFO("features: %ccontext_init %cblob_alignment\n",
+>> +    DRM_INFO("features: %ccontext_init %cblob_alignment 
+>> %cblob_readonly\n",
+>>            vgdev->has_context_init ? '+' : '-',
+>> -         vgdev->has_blob_alignment ? '+' : '-');
+>> +         vgdev->has_blob_alignment ? '+' : '-',
+>> +         vgdev->has_blob_readonly ? '+' : '-');
+>>       ret = virtio_gpu_find_vqs(vgdev);
+>>       if (ret) {
+> 
 
