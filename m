@@ -1,228 +1,313 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020132.outbound.protection.outlook.com [52.101.225.132])
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0291B453A4F;
-	Mon, 28 Sep 2026 06:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.132
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577844; cv=fail; b=UH3N4Vwx3RS4LpMPlfKFBqIW7j2qz2D0o/BOZIn80tWXDgQKCzz6trQm13xKRUQFJzPAag2LD43jnSJYgt3Y3SnDGD7fQOMibDCsjnUE4GAh76sPNz4E97C704yDftoDNxRiWxu8pjsDuPcQVfiI0Zz235Nt6hTPm2Fv8LuV4Sw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577844; c=relaxed/simple;
-	bh=0RNemxBr1PDb3U7J8o+YKizI91dHt/DXL6Z9AvqXkxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ifdxbc+8ZuVoP4M2b1fIXxEkGf+ohp9MENYC4CNNPDvtSYlgS2RdVFeSRSmmR+SOD6JGPs/cWCO3fIn7rdKHGkPZQJ/uemRLjafXSei6MOZI5bnln/9aab4IZPFZroNpEKMJZ/hUq//WgB0NYYWI11zgVmG9cYz47N8cvgP34Ss=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wQS3X2zKgpMdwsO004A2X68IchEpkzBQUcHUW9X2Nw/MWFd+M121akEIbitN+ybz/Pgvkw41Mi4DdfOEjp7yjImjyvLQDs/KfXGNKs2xqCllo+wtZidx2gIg5jXCSwoFqsjZPM47XJzKbf1V/yzCam4RyTP+NrGPi4B3Ew9tlkxkM7EDPQexwdidJxL5ZNqbMErqYfV2EjzmZp/pso6XaLbVFdMr6av6iRwsSkxwhhoepwov3uEARk8coLOXQcx526LhjXzJgo9yd6P+5ky5t2/Xqv/7LGbPwrOZJd07RwszJIi++l2DaU4yaBN5xsyXvnmc0HPNNjPE3x8DBER/WA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EcqVma6JmGYMMdXuV/0/KoR6ja2SZgU+Mypid0YDvRY=;
- b=ix8/pnRfWaaTNUPJFVfjXjSoKOOBEoAHium0toL0UB+78emHwpCczVHrLEThhHXTHMizb8Rl5leJvrRoO9jczBMQKJcaRtvt5TMAzOCRww13866MFXIBPlsN/DkwpnsOS/BWPivUMDSf3yO/TFwQtD3HB6QML12q6t0gCw9/TpyuqlnsahreQos9h36HQw/pbPk0fEFNytjqnhobrneyDXSKQJ1zvJMh6fkbIcn4G5/O8/5D4q/gWfOYUpKHrzL9MAtScwTcFvnmYqM+dmGe0lYekTeA04yKuo7LIkr+faruOZ1J0M28ULEnQNfd9Tjv2sOML9lZURMQmgameo/fBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PNWP287MB6163.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:333::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Mon, 28 Sep
- 2026 06:43:58 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 06:43:58 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v3 5/5] media: qcom: camss: Create the source to CSIPHY link per endpoint
-Date: Mon, 28 Sep 2026 12:13:36 +0530
-Message-ID: <20260928064336.272659-6-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928064336.272659-1-hitesh@ebytelogic.com>
-References: <20260928064336.272659-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0048.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::19) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87FB3DD85E;
+	Mon, 28 Sep 2026 06:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790577968; cv=none; b=VzUc3iU2SaxhzTI7BMaCUmoeAg9plNDL0UAVwA2RJU5HU8meP1qVTxvoVsvSrFBfCTvMvC6UEzHZo0mPpe1wB2/M2tAFYflyEGCxtrgsgDcZZvEVEn1OMW0Od2hyp3dz1YYYS3ppvvINhxSTI3by0YO3kArJHEzE+l/B3iMIz5o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790577968; c=relaxed/simple;
+	bh=pf1h8s51mQykoNLGiSOErB3X4yqDv5SE+AXtizTgDFU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RyF6gtwZFhin06A/dFX6Y1+AplFeREekYAQuQ3bURfhpfvVv2nWCCrYgKu2I0owTM6qc4PeQGu+kGOqeDbd598nQcqxZo9pONny0s2FNf3H/mDIqYu3lHQXcLi9g5CI81wHq9mahot2TrEjS9qNwoWbcLgOiNiv/WES1Q4ToUsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=k70cG1fq; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="k70cG1fq"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S1vOlo1520056;
+	Sun, 27 Sep 2026 23:45:56 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=yYshQPdA8r2ZC3kQohRYeFfzM
+	/hRSL+/+GvCj72n+3o=; b=k70cG1fq5ymDNkzzaABHMemNxF7Po7q2YeLEj1NLK
+	OIo9/QMGNjK+rzZVxn4pUzw4GFyOP2BMjw4gzRrVsd6S5M1VP752YICuRwskju4L
+	o9SIYTgCE93nnrfYY39Lio3LqlTOzpbUUJOp+QMEDqju7ifJH/shaq0QxVcORXGn
+	zYfR3vcsfARxP06oNs0GNU6tQU7c5yC8XBsr1F/2c8amKPbOO1x/89fsnf9yMkF+
+	oJR8j8U3C5j/hwWVBud6q5XEzVwGVbofx5c20cE9RD8pGA3NdfngrfUw6tjwLRoB
+	j7sLk/VQHbZVEdFq0ec2pvk84AGTt/7xNpWc0wR6H8tZA==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gxxt7t8jf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 27 Sep 2026 23:45:55 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 27 Sep 2026 23:45:54 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 27 Sep 2026 23:45:54 -0700
+Received: from kernel-ep2 (unknown [10.29.36.53])
+	by maili.marvell.com (Postfix) with SMTP id C88F23F706C;
+	Sun, 27 Sep 2026 23:45:50 -0700 (PDT)
+Date: Mon, 28 Sep 2026 12:15:49 +0530
+From: Nitin Shetty J <nshettyj@marvell.com>
+To: Paolo Abeni <pabeni@redhat.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <rkudurumalla@marvell.com>, <sgoutham@marvell.com>,
+        <rkannoth@marvell.com>, <gakula@marvell.com>, <sbhatta@marvell.com>,
+        <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <horms@kernel.org>, <nshettyj@marvell.com>
+Subject: Re: [PATCH net v2] octeontx2-af: Fix BPID leak in nix_bp_enable()
+Message-ID: <aroNHaLv6y14+5MY@kernel-ep2>
+References: <20260910031604.1045397-1-nshettyj@marvell.com>
+ <20260915131714.165308-1-pabeni@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNWP287MB6163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|366016|52116014|376014|23010399003|3023799007|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gktmIanFwmW/CL9FlRFmjfrj5W7k5pjnz/RRSMAx6eA8mssDQiTJidhyIqSr8pxdPOxD5vu/cJ3fTqog8sLnm0egTgdMIUB6aFO+PCfRmXurGd87Sj8ahSLM75t/EWXVRIsF1eT2trz8J3YqiOtl3II6TE0EKmTEFuU/NoZ8elyI0sb5B5aKZSrR32xMmAmrqsHmDdClLwUByZmkQwa6irZuAL2A8Gn3n4SgQWGRVGdXc4qslcBrmL66RRM4QCj8XBIk2DlL+25cc2/VQgsAFQ1v7o0B0DK/c1g6j1wQg8IhbOS59hQyMzynqaXP6BCSkJzXDA0y9lQEA28EiIQWQutCgC96Tdak/aK/bqS7W+oA2fqj2Rn5SMLkltHxCBPCj+T/aeLC7716sFiuTYN/MkyMsRLrXJngYzJjHQOTmoC8ZeIn6hde/Ms/2m7/y2lflTTi7r3oElSCAKx+odREZghKxlMz+6nvZZDi+HbPjuHoB+ew1LEy9AggX7Qt6uHyrUz+86QUvJ9OWJaKeP2Wk9wlScDK02rMAPJjD7KMM228OlyiXuHfTUnpzro+eBrNG4yWYCAS2XLH16YWk21fzmErdCb2T+PuA28fPD3or1xl7VHg0rPnnqtuXoZXHZKWzlWRnHKexpPo+TVF0rkaArepwdbMwSjnMU4/2FeO5hI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(52116014)(376014)(23010399003)(3023799007)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y7w0QejetIvBfDfWDo9sN/IC8OW9ieTdg7rfeN6QwdDHrX7VCL21aVgI0JQX?=
- =?us-ascii?Q?jMGru6EKgKABj2mL2UbAF+FgyPNpFlVFEobS1pIUDkNcEuw4vB/bLqPhKtAH?=
- =?us-ascii?Q?Fem1GWgkC+fh2JJ8jdb7vSGqg2l+VwDMWWhEm1qteYqmHMG95LfdIUSSg+OC?=
- =?us-ascii?Q?dWmfG7OILAa51QoliUQvaGuvPV37L8qA5V7dG7e2zTagDk3C7vkoIyJB3N0p?=
- =?us-ascii?Q?ycSTXEAeMccSrxGGiy9r1W6ZOqVq4uF/pk2yDAVTLObEVz/gJuy/ppCy4AEv?=
- =?us-ascii?Q?cOlmhMX4ULCuHyChlutCPc8VVcu5tXr6agCr5jwptZdSOqXYozX7pJzSUcQK?=
- =?us-ascii?Q?rCvDFe7iWDSwbHSmFdRti3l49JtGx0RANO+bQitVuDjubGe+yx4mawlIdIg6?=
- =?us-ascii?Q?1s33Cw6vzbLd+u0l7I7mOvba8FFG+aZ+9tAYb/WLBX1sGxU9dXFYxex9I9Rq?=
- =?us-ascii?Q?8cHa86fIqETakwKgZ/knpOmUN2wHlAKvq4BW+mGKj2ppM4pKfG5NGWlsJJWk?=
- =?us-ascii?Q?9MpaXe4X7ZA0Dmsj+zkEzq0ui0VLpIy94MY1AkVFK3oIs7Me2doYkJTd/cYT?=
- =?us-ascii?Q?rAjYDAINxoNgeHx1STx/4/0r9ConrknZnSnfNv2kLEK6zk1YWqClUNjCn/O7?=
- =?us-ascii?Q?2VzCT2G8ztpQnEKE6oyJrs4XXBOoCSpr/iLeVX/CVTYsmDfIgEdtBDyKFFlX?=
- =?us-ascii?Q?FKD+7XStOg2va66L3uqHHAQI690WY3t7PU2CMTzBAqbjCtMeMOTapAQcqA2f?=
- =?us-ascii?Q?4WQvZMz8D/8EmxDBe1OU2YVpR5uWADol5Kz3mWjPGmt4Z8p6N7R9VghXfRnE?=
- =?us-ascii?Q?0YyQ/K3VzsSlHvGt0aLw9diU0p05ga0tnrcWqvbbllq0moETOf/B5Jufl5mn?=
- =?us-ascii?Q?zHbpgxG4tBo4UB/EkNOgTYIo4MYx575LrXC3hW5YdKfKAPbj4Pe/pNSdsQ0b?=
- =?us-ascii?Q?LeGW2H6nHc9SN7nJQFYWX8bka/7nCrt1XRdQdE9DBJp877oQR02n1fSPWTXA?=
- =?us-ascii?Q?v2fXQOPqWsMjtQYlpMPFlcM/gmgpNxq1hI3zq1OVO3F3RYpB3EbPwpqk3STm?=
- =?us-ascii?Q?+PWl2n/BgOUK4d/vX+hj7KLU60sO9TwTqhycXW3wAP3+UJw9iVNM2tA0QgPI?=
- =?us-ascii?Q?Vg+vrft8Y9eDMsIwykJYyd9YCnC30laBBdEGqdXt4MIBYlQbtrCs7YssH6NI?=
- =?us-ascii?Q?3UoWLVvJ1Pgt4K7B3rtG3sTOEsE//bhEKzmU9pyjxjiYzbB5A1e4nJ0m2Tu2?=
- =?us-ascii?Q?YlqDm+b/Hy6tVnONYkmgqaSQulAaVD29xEzvaiN5gpD4WZ4pj3/W4LLBxB7Y?=
- =?us-ascii?Q?uYy7vrADzXdP2M9KAzefFp0D3CnFHLlgAAWg3a9tcMGANjgt0sp6V9t/i1Ku?=
- =?us-ascii?Q?A3GRymNdvt9GndQmX+JCemFvbIO2V9taxPXH9X5vLiWH+w8e5WswPwIDwkgB?=
- =?us-ascii?Q?sRxyw67QIQD5bPvl5If5q9HEYzrRXk8H/Hez9W7cCMmWnzYqkAkhCrIfUzeJ?=
- =?us-ascii?Q?NiJ5quFi0r33dJa1rABX9a5aAEAwMyqHQvnnWj2C70z+G1df04nogrlQdyH1?=
- =?us-ascii?Q?9//J/NX7psY1p4OUSXhetqNpQ/Rclu0OGDVy05I1p0xcwpK1JUOfR9XWBI9B?=
- =?us-ascii?Q?WR0qG4g1G+MBT0mQz2b/w/A3jXZLu0W+mvuZPK2kMGGvpjckcZ94HTIiGizA?=
- =?us-ascii?Q?t3emyDFiiv3XUSi3y2Gl8ywWhMEBj/x8qg5dMEKrsW4KYK+wkr+CxlKMk4g9?=
- =?us-ascii?Q?NTRQjojjrQx4bAI0ZTh3SSJFgkUw+74JJZ6egTTYZ7SRQP3PyPMk0Bn8gR+J?=
-X-MS-Exchange-AntiSpam-MessageData-1: MV/omkN4uALMHg==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:43:58.8861
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xc81R6aYKgnobvoUESMSKC0wJ+lvxDXHTdZLmCeOkMKA6MgvZGX0JfnQMF7z62OZ95/+/Rz9ZkL5qepI6qhf4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6163
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260915131714.165308-1-pabeni@redhat.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyNiBTYWx0ZWRfX3SjiSoQy1yZ/
+ Kd/GpAwARRsN8kus1In0i+Afr2E0kH7LBIclm3Rafm7qpv5ovpiIEwYxfA9lyqEhMVOIFipk+7M
+ xeuJ1vyDXtDeRwkGQcpVKc79PgDnLO57qHWGmI7vR2bK70aUqYVnxPydm7AaeuUxuoGPQrBAaXG
+ HxhWdbwTh1ZZ/rXEddd2PTkOhsuufpHOdtGampcYKTq8vxFSBzqTFoeFabOTiTvEw9zd15qdMmd
+ L9WPv9D/MmNx18A9QXU3u270C4QGhI8ITU7IPGhro8qNO0478gkSlgNhoqYuyXlr9MFIi9LBXaD
+ SwiyqhWtW0SgcCnmoNIXPD6j3S+SlgxkTZ+4Y+TiiZ1rLlMw9SmVrV/gybi1bw3ZxPlS1CImS5j
+ EfEqxwcfc3tA9sBmgNAAE0p1EqlrGLjxir6BxG4eocmIqlZTqY0wpRX80eb0oBC7EsII3S6q2gj
+ aPzsJ1z8rLPD7DPwekw==
+X-Proofpoint-GUID: xAp85VNxfSZvwM_bBFozCPBuBXz8r5vh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyNiBTYWx0ZWRfX2PpGEb3QQrZL
+ iuGiHR+FQeyOHJSqOUYZyAUpLc+jCVWiYLi1ZxWDW96aszZ9vN6fRkdGOONfzRdLZYfNg141ecX
+ GnbuxQxHjsQOxYva/9SEcR5fNjMDBcI=
+X-Authority-Analysis: v=2.4 cv=YaEodARf c=1 sm=1 tr=0 ts=6aba0d23 cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=qit2iCtTFQkLgVSMPQTB:22 a=9R54UkLUAAAA:8
+ a=20KFwNOVAAAA:8 a=84KQUMrIFqjjkz30nnYA:9 a=CjuIK1q_8ugA:10
+ a=YTcpBFlVQWkNscrzJ_Dz:22
+X-Proofpoint-ORIG-GUID: xAp85VNxfSZvwM_bBFozCPBuBXz8r5vh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
 
-The link from the external CSI-2 transmitter to the CSIPHY is created
-in the notifier .complete() callback by walking every registered
-subdev, reading the CSIPHY it was bound to from sd->host_priv and
-linking the subdev's first source pad to that CSIPHY.
+On 2026-09-15 at 18:47:14, Paolo Abeni (pabeni@redhat.com) wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+> ---
+> octeontx2-af: Fix BPID leak in nix_bp_enable()
+> 
+> For LBK interfaces rvu_nix_get_bpid() takes a BPID from the free pool on
+> every call, and nix_bp_enable() used to call it once before the loop and
+> once more after the last channel was programmed. The patch moves the
+> allocation into the loop body and rejects req->chan_cnt == 0 upfront.
+> 
+> > diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> > index 153eb57bad067..3a43432d29c15 100644
+> > --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> > +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> > @@ -764,19 +764,25 @@ static int nix_bp_enable(struct rvu *rvu,
+> >  	if (cpt_link && !rvu->hw->cpt_links)
+> >  		return 0;
+> >  
+> > +	if (!req->chan_cnt)
+> > +		return NIX_AF_ERR_INVALID_BPID_REQ;
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since the change adds request
+> validation here, is the companion bound on req->chan_base / req->chan_cnt
+> also needed for LBK?
+> 
+> rvu_nix_get_bpid() range-checks the channel interval only for the CGX and
+> SDP cases:
+> 
+> 	case NIX_INTF_TYPE_CGX:
+> 		if ((req->chan_base + req->chan_cnt) > NIX_BPIDS_PER_LMAC)
+> 			return NIX_AF_ERR_INVALID_BPID_REQ;
+> 	...
+> 	case NIX_INTF_TYPE_SDP:
+> 		if ((req->chan_base + req->chan_cnt) > bp->sdp_bpid_cnt)
+> 			return NIX_AF_ERR_INVALID_BPID_REQ;
+> 
+> The NIX_INTF_TYPE_LBK case has no such check, and nix_interface_init() gives
+> an LBK VF exactly one RX channel (pfvf->rx_chan_cnt = 1), while req->chan_base
+> is a u16 copied straight out of the mailbox region.
+> 
+> So chan_base = pfvf->rx_chan_base + req->chan_base can be any 16-bit value,
+> and each iteration does a read-modify-write of the AF-global register
+> NIX_AF_RX_CHANX_CFG(chan_v), which expands to 0x1A30 | (a) << 15. With
+> req->chan_base near 0xFFF0 the offset reaches roughly 0x7FFF8000, well past
+> the 1 << 28 per-block stride assumed by rvu_write64():
+> 
+> 	writeq(val, rvu->afreg_base + ((block << 28) | offset));
+> 
+> Can an LBK VF therefore reprogram the backpressure configuration of channels
+> owned by other PF/VFs (arming them against a foreign BPID with BIT_ULL(16)
+> set), or push the access outside the intended NIX register window?
+> 
+Since it is exisiting issue will submit separate patch.
 
-This assumes one transmitter feeds exactly one CSIPHY. A GMSL
-deserializer such as the MAX9296A has two independent CSI-2 output
-ports which, on the RB3 Gen2 vision mezzanine, are wired to two
-different SoC CSIPHYs. The same subdev is then bound once per CAMSS
-port endpoint, the second .bound() overwrites host_priv, and
-.complete() creates a single link from source pad 0 to the last
-CSIPHY. The second output port is left with no link at all, so a
-second camera can never be routed to the SoC.
+> >  	pfvf = rvu_get_pfvf(rvu, pcifunc);
+> >  	blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NIX, pcifunc);
+> >  
+> > -	bpid_base = rvu_nix_get_bpid(rvu, req, type, chan_id);
+> >  	chan_base = pfvf->rx_chan_base + req->chan_base;
+> > -	bpid = bpid_base;
+> > +	bpid_base = -1;
+> >  
+> >  	for (chan = chan_base; chan < (chan_base + req->chan_cnt); chan++) {
+> > +		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
+> >  		if (bpid < 0) {
+> >  			dev_warn(rvu->dev, "Fail to enable backpressure\n");
+> >  			return -EINVAL;
+> >  		}
+> 
+> [Severity: High]
+> Now that the allocation happens per iteration, does this bare return leak the
+> BPIDs already taken for the earlier channels?
+> 
+> For LBK, each call consumes one entry of the finite free pool and records
+> ownership:
+> 
+> 	case NIX_INTF_TYPE_LBK:
+> 		/* Alloc bpid from the free pool */
+> 		mutex_lock(&rvu->rsrc_lock);
+> 		bpid = rvu_alloc_rsrc(&bp->bpids);
+> 		if (bpid < 0) {
+> 			mutex_unlock(&rvu->rsrc_lock);
+> 			return NIX_AF_ERR_INVALID_BPID;
+> 		}
+> 		bp->fn_map[bpid] = req->hdr.pcifunc;
+> 		bp->ref_cnt[bpid]++;
+> 
+> A request with req->chan_cnt larger than the number of free pool entries
+> fails deterministically once rvu_alloc_rsrc() returns -ENOSPC. At that point
+> iterations 0..i-1 have already allocated BPIDs and written them into
+> NIX_AF_RX_CHANX_CFG with the enable bit set, and this path returns without
+> freeing them or clearing the enable bit.
+> 
+> The response is also left zeroed (otx2_mbox_alloc_msg_rsp() memsets the msg
+> region and rsp->chan_cnt is only set at the end of the function), so the
+> requester learns no channel/BPID mapping and will not send a matching
+> NIX_BP_DISABLE. Does that leave the BPIDs marked used with fn_map/ref_cnt
+> set until FLR, and the affected RX channels armed against BPIDs that no aura
+> maps?
+> 
+> Would an unwind loop that frees the BPIDs and clears BIT_ULL(16) for the
+> channels programmed so far be appropriate here?
+> 
+will fix it in next patch version
 
-Move the link creation into .bound(), where both the endpoint and
-the CSIPHY are known, and resolve the transmitter's source pad from
-the endpoint fwnode with media_entity_get_fwnode_pad(). Each
-endpoint then gets its own link between the right source pad and
-the right CSIPHY.
+> >  
+> > +		if (bpid_base < 0)
+> > +			bpid_base = bpid;
+> > +
+> 
+> [Severity: Medium]
+> Only the first allocation is remembered here, but the response is built from
+> it arithmetically:
+> 
+> 	for (chan = 0; chan < req->chan_cnt; chan++) {
+> 		/* Map channel and bpid assign to it */
+> 		rsp->chan_bpid[chan] = ((req->chan_base + chan) & 0x7F) << 10 |
+> 					(bpid_base & 0x3FF);
+> 		if (req->bpid_per_chan)
+> 			bpid_base++;
+> 	}
+> 
+> Does this diverge from what was actually programmed for LBK?
+> 
+> The mailbox contract in mbox.h says:
+> 
+> 	u8	bpid_per_chan;
+> 	/* bpid_per_chan = 0 assigns single bp id for range of channels */
+> 	/* bpid_per_chan = 1 assigns separate bp id for each channel */
+> 
+> The LBK branch of rvu_nix_get_bpid() ignores req->bpid_per_chan and always
+> allocates a fresh pool entry. With bpid_per_chan == 0 and chan_cnt > 1, each
+> NIX_AF_RX_CHANX_CFG gets a different BPID while rsp->chan_bpid[] reports
+> bpid_base for every channel. The requester then wires up only bpid_base:
+> 
+> drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c:mbox_handler_nix_bp_enable() {
+> 	for (chan = 0; chan < rsp->chan_cnt; chan++) {
+> 		chan_id = ((rsp->chan_bpid[chan] >> 10) & 0x7F);
+> 		pfvf->bpid[chan_id] = rsp->chan_bpid[chan] & 0x3FF;
+> 	}
+> }
+> 
+> With bpid_per_chan == 1 the response assumes bpid_base, bpid_base + 1, ...,
+> but rvu_alloc_rsrc() returns the first free bit of a shared bitmap:
+> 
+> 	id = find_first_zero_bit(rsrc->bmap, rsrc->max);
+> 	if (id >= rsrc->max)
+> 		return -ENOSPC;
+> 	__set_bit(id, rsrc->bmap);
+> 
+> and rvu_nix_get_bpid() takes and drops rvu->rsrc_lock once per channel, so a
+> fragmented pool or an interleaved allocation by another LBK function gives
+> non-contiguous BPIDs. Can the reported map then name a BPID owned by a
+> different pcifunc?
+> 
+> For bpid_per_chan == 0, would allocating once per request (and reporting the
+> BPIDs actually written) match the documented behaviour better than "exactly
+> once per channel actually programmed"?
+> 
+will fix it in next patch version
 
-For a subdev that does not implement .get_fwnode_pad,
-media_entity_get_fwnode_pad() falls back to the first pad matching
-the requested direction, which is exactly what the .complete() loop
-did, so ordinary single-output sensors keep the same link as before.
+> >  		chan_v = nix_get_channel(chan, cpt_link);
+> >  
+> >  		cfg = rvu_read64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v));
+> > @@ -784,7 +790,6 @@ static int nix_bp_enable(struct rvu *rvu,
+> >  		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+> >  			    cfg | (bpid & GENMASK_ULL(8, 0)) | BIT_ULL(16));
+> >  		chan_id++;
+> > -		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
+> >  	}
+> >  
+> >  	for (chan = 0; chan < req->chan_cnt; chan++) {
+> 
+> [Severity: Critical]
+> This is a pre-existing issue, but it interacts with the new mid-loop error
+> return above, so it seems worth raising here.
+> 
+> nix_bp_disable() recovers the BPID to release from the channel register:
+> 
+> 	if (type == NIX_INTF_TYPE_LBK) {
+> 		bpid = cfg & GENMASK(8, 0);
+> 		mutex_lock(&rvu->rsrc_lock);
+> 		rvu_free_rsrc(&bp->bpids, bpid - bp->free_pool_base);
+> 
+> nix_setup_bpids() makes free_pool_base strictly positive:
+> 
+> 	bp->free_pool_base = bp->cgx_bpid_cnt + bp->sdp_bpid_cnt +
+> 			     NIX_BPIDS_PER_CPT;
+> 
+> So for any channel whose CFG BPID field is below free_pool_base - the reset
+> value 0 on a channel that was never enabled, the tail channels left
+> unprogrammed by the new error return in nix_bp_enable(), or a CGX-range BPID
+> belonging to another function - the second argument is negative.
+> 
+> rvu_free_rsrc() does not check it:
+> 
+> 	void rvu_free_rsrc(struct rsrc_bmap *rsrc, int id)
+> 	{
+> 		if (!rsrc->bmap)
+> 			return;
+> 
+> 		__clear_bit(id, rsrc->bmap);
+> 	}
+> 
+> and generic___clear_bit() takes an unsigned long:
+> 
+> 	unsigned long mask = BIT_MASK(nr);
+> 	unsigned long *p = ((unsigned long *)addr) + BIT_WORD(nr);
+> 
+> 	*p &= ~mask;
+> 
+> Can this write outside bp->bpids.bmap? Since nothing bounds chan_base /
+> chan_cnt for LBK, a VF sending NIX_BP_DISABLE over channels it never enabled
+> appears to reach this with bpid == 0. Should nix_bp_disable() validate that
+> the register-derived BPID falls inside the free pool range before converting
+> it to a pool index?
+will fix it in next patch version
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
----
- drivers/media/platform/qcom/camss/camss.c | 51 ++++++++---------------
- 1 file changed, 18 insertions(+), 33 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 327ac7b280..cd9b66f265 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5224,49 +5224,34 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
- 		container_of(asd, struct camss_async_subdev, asd);
- 	u8 id = csd->interface.csiphy_id;
- 	struct csiphy_device *csiphy = &camss->csiphy[id];
-+	struct media_entity *input = &csiphy->subdev.entity;
-+	struct media_entity *sensor = &subdev->entity;
-+	int pad, ret;
- 
- 	csiphy->cfg.csi2 = &csd->interface.csi2;
- 	subdev->host_priv = csiphy;
- 
-+	pad = media_entity_get_fwnode_pad(sensor, asd->match.fwnode,
-+					  MEDIA_PAD_FL_SOURCE);
-+	if (pad < 0) {
-+		dev_err(camss->dev, "No source pad in external entity %s: %d\n",
-+			sensor->name, pad);
-+		return pad;
-+	}
-+
-+	ret = media_create_pad_link(sensor, pad, input, MSM_CSIPHY_PAD_SINK,
-+				    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
-+	if (ret < 0) {
-+		camss_link_err(camss, sensor->name, input->name, ret);
-+		return ret;
-+	}
-+
- 	return 0;
- }
- 
- static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
- {
- 	struct camss *camss = container_of(async, struct camss, notifier);
--	struct v4l2_device *v4l2_dev = &camss->v4l2_dev;
--	struct v4l2_subdev *sd;
--
--	list_for_each_entry(sd, &v4l2_dev->subdevs, list) {
--		struct csiphy_device *csiphy = sd->host_priv;
--		struct media_entity *input, *sensor;
--		unsigned int i;
--		int ret;
--
--		if (!csiphy)
--			continue;
--
--		input = &csiphy->subdev.entity;
--		sensor = &sd->entity;
--
--		for (i = 0; i < sensor->num_pads; i++) {
--			if (sensor->pads[i].flags & MEDIA_PAD_FL_SOURCE)
--				break;
--		}
--		if (i == sensor->num_pads) {
--			dev_err(camss->dev,
--				"No source pad in external entity\n");
--			return -EINVAL;
--		}
--
--		ret = media_create_pad_link(sensor, i, input,
--					    MSM_CSIPHY_PAD_SINK,
--					    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
--		if (ret < 0) {
--			camss_link_err(camss, sensor->name, input->name, ret);
--			return ret;
--		}
--	}
- 
- 	return v4l2_device_register_subdev_nodes(&camss->v4l2_dev);
- }
--- 
-2.43.0
-
+> -- 
+> This is an AI-generated review.
+> 
+> 
