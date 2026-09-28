@@ -1,192 +1,146 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012005.outbound.protection.outlook.com [40.107.200.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8BC4D2EF4;
-	Mon, 28 Sep 2026 13:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603479; cv=fail; b=jbIeo3+QvsF/GyaZ+nXz+pSvH3IqG8qYoWk2mOjUUiMA8hFh5tcFonH+z5gtde+VMCyNXm9fqvbyzYC8YMaHFp7wwX4JsuxGuWNvpGYy9I43wkn1B5mhx/fkJn+QNr7GuHKV5aX4EkQzKN+p0QPCNRGR69Q53lN2soDK10wUFME=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603479; c=relaxed/simple;
-	bh=O5ajjKlDOd1DaO7YanS4zg7Esn2nuLmIraPNTEBdWXo=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=q8MwZjf+s9KgADXS3jPdzCESW2g4DIgWdPEZ0aFS5FAMr2BPo1rg875nJB5znbpApTmq3DituIAxIwf8PsAlEXpWAUHh6vHCj2ZUHsukT5OrPfi3s88toYkyoQyOdmcMZZTSsxGMItdnhIVrPqkmA7URUY3bIdNkmfhxG7cll1I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IHzRKkRO; arc=fail smtp.client-ip=40.107.200.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48EB4BF944
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790603510; cv=none; b=Zx+0P46iRCf+o8a/+6k9dPhkPJB5Azy0y+0znvGhl9EuaoqnkLUWnRX57ZJPt0JgjiqHnw15/TeiohWY5kHDvLESGGjnApFlDKp3NqXQoui2MT6+HR2hlwUv83pxhnDi5g2IWcYSwxw+in7wR+5djlfr/TDejvFcfxZwfmHqVIw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790603510; c=relaxed/simple;
+	bh=gcCH/ImF2avN/BEXcJAAzwFIO1x1X7GsiP5n3c/8JK8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=isocmlueRg4Nui+cfzLdN9zKEoQnEdEEQLduytojlyhAeJdgNy1jSuruiiqO73KH+pWGYrWH3a5Y5z3EC14sKHF0AR/OYwR9G3uDjlYKF55aAtSEUtK1vXauqWXyrzn7w7hX3ZF9xPydhja75K7Q0ClEE0mh58a8kzZ7mETvrL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PMzswL8C; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IHzRKkRO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pZNjNc8l+rqq7GJdf6MeNR5tFY8Ez/r9XihfLkxjSlCzj7pt/2K97fY1foNh3m5CQ+4g0w99Kt5q7KDXu9B61DJ8pE6eQ8DH0qJmVJLRvyUHFkfEQ7tb+YrnaO6Rtx1iOQf4EcRyCmSibbMRhqIkxLSEwrOi3meznGSCymHmlq3hl5mnJnrDxI6z9Ll6EbaHVMYpyhqEimZ35b40Tiruz8j/RTByrdT9/6WZEAKseYHtHPz7Liy3Nuueb0zOaDHUyRYic+GqWjFdx/pCJQGXpDTTCuxqKocfH8QUlyKyRPlw3/joaGCUnBGcufDyZT1fAdK0JecMVH+PI7wIDZcR0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6U/hKKZRrRw4rOo6Z6BeiXo33OorVON/Zk9rQWV7flk=;
- b=t6HR0qnktnZgivb+8NC3BZet2Yw80USKAO99wCGAAaIaP0HH6mtpkQ6k4oKP08lTBcaKTaRtKl5yNEG/zTQNOBTU6VA7PTGUijSE6OtDL+RhvRC8VmJqGJ2K0xzbUKwiS0UgWsjq0WAwZz4t/AcO3gxnCbDQKeeYo1ejILqF7k0gRytYZqjbig01ju3rSbg9FYLTjQHSkpbTQd1bEsIqE63MBZcwYKdkKA4wP1ZL/ht44l0tl7YcldDTD8xlhj/Wd3gmyR4Mmb13RfMK5aLKbSt24fyIEhpv/OQHq1qTxHs2mmuEBfI28nDW+L/xHyeD7t3TAhoiHvlvDUuMnhJaNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6U/hKKZRrRw4rOo6Z6BeiXo33OorVON/Zk9rQWV7flk=;
- b=IHzRKkRO5OrWKWX0Cx2uQd428YeniF3/7XyQdPge41Rk+uapDes8w5l861DC85PkaOufYbBGL5tkSnes9LHzzKjURk70P9XWv6tnZm6NzBRBlvaKlSlm6JtCzLnwT4nQ4eK34xjJF+tn+AE/JS6Vie3siDWVWd8J9mBIQf92eKxNGYR9H/kv5m0znSJgv25Nxs23w1v118mXrx9loILTKNtP8bZhXlRnMB6U9kEmLN2JtlHIh2oS47WTRoWG0oOcGrfY8eUlnv7beiNkQChfTab61U7C8fObkfjd3snI0ShzKzXLAnvd0JSeqjPHCT1d8b+TilK5wbOMt737TGIVxA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by PH0PR12MB7485.namprd12.prod.outlook.com (2603:10b6:510:1e9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 13:51:11 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0451.014; Mon, 28 Sep 2026
- 13:51:11 +0000
-Message-ID: <b93e29fd-fc1b-46db-b8f6-f24a5e3d39ae@nvidia.com>
-Date: Mon, 28 Sep 2026 14:51:05 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 0/4] phy: tegra: xusb: Add Tegra264 support
-From: Jon Hunter <jonathanh@nvidia.com>
-To: Wayne Chang <waynec@nvidia.com>, Vinod Koul <vkoul@kernel.org>,
- JC Kuo <jckuo@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903071937.533646-1-waynec@nvidia.com>
- <f74e21be-c66a-4a26-8b32-389c2d118c02@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <f74e21be-c66a-4a26-8b32-389c2d118c02@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P195CA0005.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e2::14) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PMzswL8C"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341fe27b718so3008120eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790603508; x=1791208308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ONrDgBKVsUbMcgTyeE/kjmsO78+gt+LAoKwNAqLrInw=;
+        b=PMzswL8CmE1K5WlKHVI0h858Tf2HQUgFZxStQ3H1AfPI9fmcEsBM5Il1C0p7kfGING
+         6kcFhqCye0lveFgCHm0C9MVzy/LOBTNHRq4Gux8tgWB/rZJhmJpLCTyoVOVNmQjS4ics
+         0gIKyMQeoT1byXRIw+DIeMbxK+tqb0hidhKvjkVUnilmtwk+IA3GuYeN1jklgbL8ZBVU
+         CiC1nZQ0oMVVoSN4jrKgC1A5lKb4PS4l3GlpROr8LcGjQp7y0x/3AkUSq7kIfenZb9OU
+         7iDPkztvHgpNC5F/zfR4wBIJfbHfE4Pdeio16KH5vataxyAlFWEss1mOov3YeRC3+Ry/
+         XgUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790603508; x=1791208308;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ONrDgBKVsUbMcgTyeE/kjmsO78+gt+LAoKwNAqLrInw=;
+        b=L/4bCZyQ8xXl7Ju7wjQjQPp/pJgP9YlzbUt5fwUdChXJge9NVKxaVbwPMEqYFBiBp4
+         k6wzmSLyobMvCdBcwFIdjaJSfqdNMvzMS65PN+2W/fo7scfzVYsQuaxjBppcTFg+k5fa
+         KX3SetCKWACQxevrxnv3qEAwEdiCo7UvtCWpbG07kJU6WOXEInx8T7pqqSudwOWAXLPW
+         y62fYXfnwh9GRh8qIKYeaLSnXCRxpoLragCQXNWj2IAP1D/N5yJ0Y26HTaKmhqUrfuXw
+         2Vj7CZwAPLIRPEyCMwHb2ivzfmcZbcIYB3DIch0Svzb4XvMu26BPzat1fH8Pl+uOM6P9
+         SdHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzH1Kwbh5nH/i7wTZXin3hMrUVAtBOis5mbC+6bhmMv7wfyM2VBrG4csIrDm8wmW7ArcBOvL0UidlUKG3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDdFOMw3jOfeifuXzXfiP1pePbrsfbN4nSQQqZ1kBWuCvlUWG5
+	7ki0EqG3iinpzGH1j/opR8QudgV7H/kqjkF5BEhNrGbhss06wQjo0hA3
+X-Gm-Gg: AYBFou1eUePqYENP0DHgJUaWen03+XN/rw1qgaMibxkypEHUzZKPbl7G+/IO7r8tfuP
+	QaRwz8GM3/qMtxgX4FjXS42ZpGFHGoByCEjKd5oBWo8bdDBrk7nYMNx25D9V1S5GdsKR85Y4ctw
+	vAc5C2ZOGj2d5YewvoGpOm2pdCJhPbuJO8V/EDfSPOh9dhDz65g06Qh7pvvjNJOflXDG/EFxIAQ
+	5JRRE0fHFD1zw1mn1TTVMG09YIW29PW/ZGliiS5MlMd62K4qXEhJWZIUEqLsLhxRF4xdUae5ybF
+	g2Ujm8zPHh92YiiiZJmrLLE8IXzumUe605fAzj+Sc3z4ydDLs3g5J0EreqXVX5jxrNlUBNmsUkV
+	eNTivE+7c1gXcOw4AvuB7WP7mSaIeX2LodD+kSYGo2leFCuT/dHO8Xky2JJ2igpJ4Q8fuTTgXWM
+	xmybvMRHUFflCWpQqWhwSQwb2cMZAY0f7QeWRa1D8HM8z12xl7ajYMGr2H4w6c2zhQEp72/2Juu
+	aFGAdZfuLsU/VU8
+X-Received: by 2002:a05:7301:b89:b0:343:ba1b:9b55 with SMTP id 5a478bee46e88-343ba1c13acmr7303784eec.40.1790603507758;
+        Mon, 28 Sep 2026 06:51:47 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3475546c982sm6634166eec.5.2026.09.28.06.51.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 06:51:47 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shawn Tu <shawnx.tu@intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: hi556: fix power leak on remove while runtime-active
+Date: Mon, 28 Sep 2026 20:51:40 +0700
+Message-Id: <20260928135140.2354361-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|PH0PR12MB7485:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbbf3311-56e1-4841-5b54-08df1d678de3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	z/6jOyXdIWTEfRhS6o9pYn7UvR7Weu9RBSyCN4DeGK4HELwovJ1LlZRR8MJHc0zr9JbqlTMccnncwIjDcvVkqec3erYsjPN1VfgKqOPowYDsImK/uniVsWwZpI2t5TMXXquh3/yAvQWYxH9xQg4XoAn7dGg6XgUkhPiv5ZGoHmmYQcwWMNQWyrBE1xoil8Bak7ML+m9WPRFTw/cef7oxBFVlC9rdcVUWf/ltqfNDG1eZtqwlwczpHcbM/4us4wX9OFSRJVhjtTL56pKj7ybOMZyEroxXho57FOuTFto+63dLmjF9rGYvowSEIbpXPm5y9v57VinBdeP2sG36jKhHvXlLkt1x7O3pBnRkM/IZqFrIvqh2/ulrydzZUUB0hvVDTx6HbJKD/8zyoogsPZaBnT0QK7B2sFaRp2JWRE0ekFLquXpV+zDmUULQ58TkIx6No2JnBIVutD1GWEe+MsiNDNzV+WvQGlmn89SQBQbWv0BJSnyAE5IFVzwQsOydnJZZRfTFDp3nktXOWZTtMTRv1Bm1DKGm1hWqGeSOybJuw/gslfZA5xyyJo+C1Lit1n64aqEb3eta/MUHT4dziunVBGyJjUaZk8tO0lyIwfGEQzFZ/rvJY2yCE1onuCbvbUtDnoz1+c4LQomrA0JVa0hilzYXbWTuSqs7JczLRH3GhAo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWNKak5VZDA0WGg0UGVaOUZSQXloZWh4QjJzL1pxbXpZbXorNU40ZFhYK3Ni?=
- =?utf-8?B?WU1tQVQrQ0pGTU0wdkVJbWRudTdscFNsTkY3bkJYeTdvQS9RTC9DY3dKRW9P?=
- =?utf-8?B?SmdhcFVQTVVvQWpVd0JZekdsY2swUlRHeDk3VzRJTmxGTDdLaXBJMUthU0FL?=
- =?utf-8?B?UEUxU3Y1NC9GKzFsc2lzR1JJajRxUCs3eDJZd0FsZkZkcDdHODRpcGZWWW1i?=
- =?utf-8?B?cU9uTUtDeDJlTERZMHBiMXY0SG40aVJOOW1nWVhXQjZhTUZoY3B3cG8wMHBj?=
- =?utf-8?B?YllzQndoQmUzd1ZqN0JnVnFxZ0l0cFo5eEcwbk1tWmFOekVFT05PZFVXQ0FZ?=
- =?utf-8?B?bWdKMWQxTFlXTnlYWmdMT1hYMW9WSmEwaHJNTS81cnRjT0RycnBpbTJaN3Mw?=
- =?utf-8?B?c01KSCtDdlBXOXV3dkFTK3FtcEovZ0VCYTM2SGVHT0NJSzhJK1NWTStHMCs0?=
- =?utf-8?B?WWYyaGJ2NmV0NjVMNU1HaUFYS3FOR05QaE9TdzFPNGxnVTZwVFZwcEtWYjVH?=
- =?utf-8?B?TVlLRmJ3SFhuYUFycFRNc2Z3ZmE2MHVvRlNSNS8zRXAzdGplZGYwcCtIeHd6?=
- =?utf-8?B?US93cWM4clVZU0VkL2dzZDlRR0o3eEtDRURBQy9BWitzUGJYcHJ2VFYwVm45?=
- =?utf-8?B?cEp5Ulh2bkRtRXFrOFdVTnM5NnVMZ3FqU1dzQnRWaDFxaEVXdWRnb1VweW1L?=
- =?utf-8?B?SjV1aDBoRER6UzBVRXRxTXEzNU9RRU13VkZQTGJzbHlnaXpOZmxmaHN2UmtX?=
- =?utf-8?B?RHF2WEtqUUFLWHQwZzZnd0RpVlFLbW5ibVE0b1JxSVR5ZnZGWXloU0VIK0FM?=
- =?utf-8?B?WERLYXZqeFF4bDF5SGpWVWxXRzVpSEpRaTlWVitWNWc4ZlRyTVVrdE1IMXp4?=
- =?utf-8?B?STJIYkV6ZEVLV3E1bXBnT3hiZ2c4cndNREJDWGsrQ2lNNW9uQXoyTEV1alVo?=
- =?utf-8?B?bXBuQjZxSkdVZXJZYWZNdTYycVpxeG9oUlluRHY0VzBqbWI2LzBPK0dOV3JZ?=
- =?utf-8?B?MVd2QlQyT0xkOGFia0VSakRob2RXRWFiZ3F5bFA5OXV1NHJpWjNpcmt2YWN1?=
- =?utf-8?B?eGdaamxwZ25vWEdWNklHekxtV1dTai8ySWJmVHM2WHJ2b3N0RDU4QmJ3a0tO?=
- =?utf-8?B?WGhPa29yRW5NZ3BhUmdqdjhteEhlbzZjcTg0eTVvcWE2N2hIQTZxTGNQWEp3?=
- =?utf-8?B?OWhTWXpyUkRXUE5YZm0wOFIrQlV6ZEI0SGh5RDJubjJSRDlXNXQ2V1U3YWdU?=
- =?utf-8?B?UnZQdjlVY0VKLzFlLzlEY1lJSXNad093Mk1vY3NjL1FoY3hFQ3k2dXpDbkIx?=
- =?utf-8?B?Sk9QYUlMMDBtUVo2V3Q0bERCODUxSHMwT1ZtNFR2c0FwU0xrNlB6YnhMWldq?=
- =?utf-8?B?RW1OZDdMMDlMMkpqU1lVV2tmeW8vcWVZdFZFRFk0d0pXdHl2OXNpa3ZrZFpG?=
- =?utf-8?B?dnVPTTRyVkVwVVlwSHlBelI4RDNqVHA1TVJVdlFjcFlnZkcxcVQzRndEbUxw?=
- =?utf-8?B?bXdXZUt2dFZIUU9EcG5TaHdvdFlLbGNOM3B6aGlJUUlHR0FFUXRuaXFScm44?=
- =?utf-8?B?SElBbW9BYitETW1QSXFQVkY5ZGYxaDcrR2c3RWJXZU9aM24wZkh3dENBYjhq?=
- =?utf-8?B?WlZRVXgvbnUxNlNhdmp0dThSVURFWDNiUUdGd2tHTmFEcis2eDB5dE1scWlR?=
- =?utf-8?B?TVd6RVJGNlI1aUdkNlp5aDBFbGFIQnBrZ1JJMzdjQzBnOHk2YjR4T3ZKb3k3?=
- =?utf-8?B?RmIrVUwrc1U5eG1HUlM2Mk93cXVTNXorVWFMOTdCeFVZRUdpS1N2cFBzb09B?=
- =?utf-8?B?MTdhcldsaXVxTHIyWEUycEZEaUswVnRHMHJQZlM4V20ydFczUWE4WXhyWGFN?=
- =?utf-8?B?N2RLR2ZldGRBVVhTclduZVlFdk92MkYzdDFFNjdZOGhrZVZna0l2OVljYjdF?=
- =?utf-8?B?K2hIMldtU3pnM25PcnJ5ZnRtNGxOR0U1NlFCM3dycXRkVjRaQlU0Sm1KZU9N?=
- =?utf-8?B?UGtGMlNLZm1EYzVVb3VGaTM3YWprSE1LM0F4L2tHWmRxb2RsNnBBVzVIdTVB?=
- =?utf-8?B?WStZZ3FUeTdMY2tJeDI4aDl5cWRlaXdyWVNoeWtaUFh3TWJQa0ltVXAyc3A3?=
- =?utf-8?B?TWtYeXM4VHZmWmZlcE9pWjUvS2RUcWJFUnNoRjNNZ1h6alBwSm0rcmE0a2Vz?=
- =?utf-8?B?anN3MDN1QllGOWdHZStqNVkxamp1NXBGKzNVdEVoWkhZMmRnYmxVMFBxNm4z?=
- =?utf-8?B?MUtPazJDdU10OTJQNlZ1L1NJNnVoTExWTkNaVU9NOW80eHcvMldNS2tZQXY1?=
- =?utf-8?B?NmNnSTlTTURPdVd6WUJXVHYzN0YvTmJLTEJuVWxzbXZJdVpaUEtscGw2Z1ph?=
- =?utf-8?Q?ucdT7D4seOobzlxfO7WSUCrBOK5GNlQz4VTWbsJECL1Fl?=
-X-MS-Exchange-AntiSpam-MessageData-1: evMwCfPcDFLA1g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbbf3311-56e1-4841-5b54-08df1d678de3
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:51:11.3512
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JJcwY6NHroLE2ruouMcETSJhpZm1ZugAKTx1qlnBqbkyeyFgEj9t9UsF5k4PXZ7kW+kyiM7E/6qUKl/xv6vaTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7485
+Content-Transfer-Encoding: 8bit
 
-Hi Vinod,
+hi556_remove() calls pm_runtime_disable() but never hi556_suspend().
+pm_runtime_disable() only blocks future auto suspend/resume, it
+doesn't force a final one -- if unbound while hi556_set_stream() is
+holding an outstanding PM reference (removed while still streaming),
+the device stays genuinely active with regulators/clock enabled
+forever after.
 
-On 08/09/2026 18:01, Jon Hunter wrote:
-> 
-> On 03/09/2026 08:19, Wayne Chang wrote:
->> Add Tegra264 support to the Tegra XUSB PHY driver and its binding, as
->> part of enabling USB host functions on the Tegra264 Jetson AGX Thor
->> platform.
->>
->> This series was previously posted as part of a single 8-patch series
->> covering phy, USB host and arm64 DTS changes together [1]. Per review
->> feedback, it has been split by subsystem so each maintainer can pick
->> up only what belongs to their tree:
->>
->> - phy: tegra: xusb: this series (dt-bindings/phy + drivers/phy/tegra)
->> - usb: host: xhci-tegra + its dt-bindings/usb: separate series, to
->>    follow shortly (will reference this series once posted)
->> - arm64: tegra DTS enablement: separate series, to be sent once both
->>    of the above have landed, since it depends on both
->>
->> Patch 1/4 (dt-bindings: phy) now spells out in the commit message why
->> Tegra264 needs its own compatible string instead of falling back to
->> nvidia,tegra234-xusb-padctl, per Conor's and Krzysztof's repeated
->> question on v1/v2.
->>
->> [1] https://lore.kernel.org/linux-tegra/20260831185835.3732707-1-waynec@nvidia.com/
->>
->> Sing-Han Chen (1):
->>    phy: tegra: xusb: Use devm_clk_get_optional to fetch USB2 tracking
->>      clock
->>
->> Wayne Chang (3):
->>    dt-bindings: phy: tegra-xusb: Add support for Tegra264
->>    phy: tegra: xusb: Increase timeout for USB2_TRK_COMPLETED polling
->>    phy: tegra: xusb: Add Tegra264 support
->>
->>   .../bindings/phy/nvidia,tegra194-xusb-padctl.yaml |  1 +
->>   drivers/phy/tegra/Makefile                        |  1 +
->>   drivers/phy/tegra/xusb-tegra186.c                 | 31 +++++++++++++++++++---
->>   drivers/phy/tegra/xusb.c                          |  6 +++++
->>   drivers/phy/tegra/xusb.h                          |  3 +++
->>   5 files changed, 39 insertions(+), 3 deletions(-)
-> 
-> For the series ...
-> 
-> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-> Tested-by: Jon Hunter <jonathanh@nvidia.com>
-Any feedback on this?
+probe()'s own error path already shows the right pairing (calls
+hi556_suspend() when powered on). Do the same in remove(), guarded by
+pm_runtime_status_suspended() so the common already-suspended case
+isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Thanks!
-Jon
+Moved remove() after suspend()/resume()'s definitions since it now
+calls them directly.
 
+Fixes: e62138403a84 ("media: hi556: Add support for Hi-556 sensor")
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/media/i2c/hi556.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/media/i2c/hi556.c b/drivers/media/i2c/hi556.c
+index de573cee4451..45d1366c6d5a 100644
+--- a/drivers/media/i2c/hi556.c
++++ b/drivers/media/i2c/hi556.c
+@@ -1264,18 +1264,6 @@ static int hi556_check_hwcfg(struct device *dev)
+ 	return ret;
+ }
+ 
+-static void hi556_remove(struct i2c_client *client)
+-{
+-	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+-	struct hi556 *hi556 = to_hi556(sd);
+-
+-	v4l2_async_unregister_subdev(sd);
+-	media_entity_cleanup(&sd->entity);
+-	v4l2_ctrl_handler_free(sd->ctrl_handler);
+-	pm_runtime_disable(hi556->dev);
+-	mutex_destroy(&hi556->mutex);
+-}
+-
+ static int hi556_suspend(struct device *dev)
+ {
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+@@ -1316,6 +1304,20 @@ static int hi556_resume(struct device *dev)
+ 	return 0;
+ }
+ 
++static void hi556_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct hi556 *hi556 = to_hi556(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(sd->ctrl_handler);
++	pm_runtime_disable(hi556->dev);
++	if (!pm_runtime_status_suspended(hi556->dev))
++		hi556_suspend(hi556->dev);
++	mutex_destroy(&hi556->mutex);
++}
++
+ static int hi556_probe(struct i2c_client *client)
+ {
+ 	struct hi556 *hi556;
 -- 
-nvpublic
+2.25.1
 
