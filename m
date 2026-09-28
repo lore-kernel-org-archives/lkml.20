@@ -1,170 +1,172 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1843E4FC32F;
-	Mon, 28 Sep 2026 20:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30384FC356
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629049; cv=none; b=EQpvmiGaxE9n4NubUOxc16st2LZ4wvtUdcvrSXPJMg2yShrcZADxhKGQPVgGiXCi9VxeMuw59yiMThmRthT/3iTgAUOJflzUx4SM5mEibDpkHMXlkcahOVOYNCwj5vuTMVr4B454RG/OasdoDvBWY2vkJKncKL1MoqKvvxAlIpo=
+	t=1790629052; cv=none; b=UFqS55rtzrkhHu5oW+LOjNjst1CneyoTyGbh77lYYgCk+EMyi0k/ZAYQie3ISHCFyK0voiWgw+1PluRq3WEcbBCk47j/HtlWIzYNktRBaX9zaBvVQIOScMdbh4gQWA+XrUyNbY9+3z26Ak2BelwqkWcYWKXGOfJMcSA9Ua8vfUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629049; c=relaxed/simple;
-	bh=TT74p3cHstZBVa9P1I8B2IeGX50jmgT7WU1oUxuEDqg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LDGs9ZK+ci6/LZGi83ioSmQbsiLEIL7wUNzpVScugyfM0Q5LuMyLcPiA780+gViz6CPgCp/ikqh7JZY0vNBup8tABL+oBd0b+jb+C8Dg2DM2m6Ixq9j4cqn99IKRLmWNV2uqX5LoNgXaEOxFTaoG4xKAy5FZrMx41OPbq906ubA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=SxNyM8SK; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790629052; c=relaxed/simple;
+	bh=3JnyJKWel3/w3iLfxdhp8EfzhB6f91NxerOyNOuEJFg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fj5gcGucyhmYkiHt2qNIB2KRTl8ew3tX1JVkqQyqXHYS1xBxCt9gvhMuSrddZcc9saoBXw+kCAVY9laNIUVzG4DfMj9+jU1SBTDgu8jmEm7VILPHHiN/MWUNR2GwWa49c6jtTV8+IjUK+CNVLFRBwuyS9CRNzbM6T119A/2w0+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hzyERUoi; arc=none smtp.client-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="SxNyM8SK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790629045;
-	bh=TT74p3cHstZBVa9P1I8B2IeGX50jmgT7WU1oUxuEDqg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=SxNyM8SKWZTe0dRldz4qC1hMT/3dKboLLdi4ssezbYioaNCiDGoxeQkBlCpSzup4u
-	 WbmXb7lQaqBVtibuvrFikD1CrPX6OGfztpYJku3Kv1tdUlsiBqPkWQcBWofj7ej7EG
-	 fx2SuWj6YpnkIUrwzEuKbVOj6U6THPPfyZo7Ia0ln/z8l4k+a0sA+yFe9x84gPeLVg
-	 sWz6jJdTwZHvB6fLZoBicy0OVEAX0q8zEdx+Hik7JTlKSlXWiyk5S42U8r4AsAD27y
-	 WY8OdxOsnh/NJbohvYLsYJt9lDNAB6lLVhOkEHdpvTam7vELUxkBOanfD1n4Nik684
-	 dXoyvVBEQtwmw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C85217E0074;
-	Mon, 28 Sep 2026 22:57:24 +0200 (CEST)
-Message-ID: <7f06fbc16db2391baa1b0051943cfbafe961fa07.camel@collabora.com>
-Subject: Re: [PATCH] media: chips-media: wave5: Balance runtime PM on
- encoder close errors
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Nas Chung <nas.chung@chipsnmedia.com>, 
- Jackson Lee <jackson.lee@chipsnmedia.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Fricke
-	 <sebastian.fricke@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 28 Sep 2026 16:57:23 -0400
-In-Reply-To: <20260717075714.1508938-1-lilinmao@kylinos.cn>
-References: <20260717075714.1508938-1-lilinmao@kylinos.cn>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-o3oZO7blpYQnPuOg3/qP"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hzyERUoi"
+Received: by mail-qk2-f8.google.com with SMTP id d75a77b69052e-53333a2f1d3so5450351cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790629048; x=1791233848; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wa8W3OLkBGqzASUkXu8RiR+bwvcxHsCIsQEXqgkVDWw=;
+        b=hzyERUoi5F0uY6x7I8YAlgOeumEE55fZ1ekGQjpoJfRrkWMoA97LQK+ukOHTlnrdla
+         ly4ySVG/SCP3JuhjoTs4HxUT39Z1PoaQez0FgoepRoIgNsDEVpevMVEJc8sytV1S0u99
+         pHW1wT4OHJIEIxT+YdgoiFt1oew+/4ruy6kd6y/pZL5z9RNrDyVN8TRRTrSrijyA9OL1
+         2Wt95d+pQW86G7eMadt7uGXgDHa4/HooZTzz3kyQziWc8/nO9mu5mpwoeb4RaasUn2Hn
+         TUSe98r5w66TSBZL/1YjDXFBUt+kBPJDtdaKiz3X+MgFmjyJnDatRAkXiTLQqDD0+1WI
+         yZvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790629048; x=1791233848;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wa8W3OLkBGqzASUkXu8RiR+bwvcxHsCIsQEXqgkVDWw=;
+        b=FaVgaja2XoJkT2jA6GNq+2FYFLHwU+pXNRlpId+OTTzg+MguWPyinnwX9U+1HMVLYK
+         /EP1k7BsXSR0FtHopUT3gsznZPbJzC5gPL+LfoJsm6oyp5DTyCJbxBIDugDZDYBnFn2Z
+         JnPTepqiuhGzf23FkRZ0/Au6ABmB/1FHK05l8UpLDzJpHD4VstDYPIYZvYoasTLODEj5
+         FUod+U+jX0IaAGkkfYYUlZLfm4jW2si46fK2KPucrDOOd48/KsBIF8AfqeKErWBPNRe4
+         wp6FtjAA3WOJC7Ko3fHvWn+j96hCqw6IVCcju1LeCRdixpktEuZ/dvd9yL857TZrUWz0
+         +ksQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwH/Kfvoe5DjL+TXFmPJ8LxshrIYB3WMJlLegi8v+W2xMEml6Qrq+hZgC66hZ1ATUOmXnS1/D/P4amBnCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBnUa9AGi7E0htHnDpOeT7HrPeCPjsMWdibTdBjUyELYQEe6QZ
+	7diOqlrwHJkEAH3T0hDmLbT7d/BWIRtu9oNWYAz/KDCj1vfAgfoJuJ/r
+X-Gm-Gg: AYBFou2k/1pWuxnDhaNH0NTi2dZ7WBMjf3GQhyxdOmLO2PDsqDjkuhIxlmI1JgoyZKA
+	CaKMevoOsw3gZpXjDAtsK6BDFU27Qd8Yenc6Rh0CW9Fv6Tt5c5wxRai5Q4HumR8QkaPtU9lUkDX
+	01dRid4MPNbJV3vm7cLFYXVp7E3pcpBBvKO3pTsJgWuqyhlIbYbZuWOxcK38Nu1h2RNxbdBkt8D
+	+g89R9AobQMqRxC8hRGKau5NRvebQ2fwxyCOc9S1mWYMv7qCtcgCj5np1T2/nyDwy95eOIKHhh8
+	88n7iH0GB9xAczfXbtsrrR61A3tep5w5ml2pgdgmXq5bSZyaHFziskL7BEg/gAoRkVtkA5/DZHD
+	0Y7U57LnHMkxFcOwOUVjpTpOnZlfwu5CHnAx0gEBL/mJMlCJl/AX6A0273HOGGbCnALq7nIORGl
+	4pTB7Y2U9CagS2sq1laQ04hahBWvzTXKiqtaKY73/ZCLnUWlL0K/O2Udw18tF4VPZ6+aAjn6MVT
+	9BwUAdjnPdeg31ByEXD6BEeJArhkYC1SUNzvUuw74qJt9yZuz4m4AGOa4C10N3rpASN+womh9w=
+X-Received: by 2002:a05:622a:258d:b0:533:2daf:c0bc with SMTP id d75a77b69052e-53357e0f58bmr10788381cf.0.1790629048636;
+        Mon, 28 Sep 2026 13:57:28 -0700 (PDT)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223c6d82sm71443421cf.21.2026.09.28.13.57.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:57:28 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Mon, 28 Sep 2026 15:57:19 -0500
+Subject: [PATCH v4 1/3] dt-bindings: iio: adc: mediatek,mt6359-auxadc: add
+ mt6397 PMIC AUXADC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-o3oZO7blpYQnPuOg3/qP
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le vendredi 17 juillet 2026 =C3=A0 15:57 +0800, Linmao Li a =C3=A9crit=C2=
-=A0:
-> wave5_vpu_enc_close() resumes the device before taking the hardware lock.
-> Its three error paths call pm_runtime_resume_and_get() again instead of
-> dropping that reference.  Each failure therefore increments the runtime P=
-M
-> usage count twice and can prevent the device from suspending afterward.
->=20
-> Replace the extra resume calls with pm_runtime_put_sync() to balance the
-> reference acquired on entry, matching the successful close path.  This
-> aligns wave5_vpu_enc_close() with wave5_vpu_dec_close(), which already
-> releases the reference on its error paths.
->=20
-> Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/=
-resume")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-picked, ty.
-
-> ---
->  .../platform/chips-media/wave5/wave5-vpuapi.c     | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/dr=
-ivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-> index f77abd5e122a..4c1842f02c88 100644
-> --- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-> @@ -754,7 +754,7 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u3=
-2 *fail_res)
-> =20
->  	ret =3D mutex_lock_interruptible(&vpu_dev->hw_lock);
->  	if (ret) {
-> -		pm_runtime_resume_and_get(inst->dev->dev);
-> +		pm_runtime_put_sync(inst->dev->dev);
->  		return ret;
->  	}
-> =20
-> @@ -762,16 +762,13 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, =
-u32 *fail_res)
->  		ret =3D wave5_vpu_enc_finish_seq(inst, fail_res);
->  		if (ret < 0 && *fail_res !=3D WAVE5_SYSERR_VPU_STILL_RUNNING) {
->  			dev_warn(inst->dev->dev, "enc_finish_seq timed out\n");
-> -			pm_runtime_resume_and_get(inst->dev->dev);
-> -			mutex_unlock(&vpu_dev->hw_lock);
-> -			return ret;
-> +			goto unlock_and_return;
->  		}
-> =20
->  		if (*fail_res =3D=3D WAVE5_SYSERR_VPU_STILL_RUNNING &&
->  		    retry++ >=3D MAX_FIRMWARE_CALL_RETRY) {
-> -			pm_runtime_resume_and_get(inst->dev->dev);
-> -			mutex_unlock(&vpu_dev->hw_lock);
-> -			return -ETIMEDOUT;
-> +			ret =3D -ETIMEDOUT;
-> +			goto unlock_and_return;
->  		}
->  	} while (ret !=3D 0);
-> =20
-> @@ -787,10 +784,12 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, =
-u32 *fail_res)
->  	}
-> =20
->  	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_task);
-> +
-> +unlock_and_return:
->  	mutex_unlock(&vpu_dev->hw_lock);
->  	pm_runtime_put_sync(inst->dev->dev);
-> =20
-> -	return 0;
-> +	return ret;
->  }
-> =20
->  int wave5_vpu_enc_register_frame_buffer(struct vpu_instance *inst, unsig=
-ned int num,
-
---=-o3oZO7blpYQnPuOg3/qP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-1-23533a0d30e3@gmail.com>
+References: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
+In-Reply-To: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790629044; l=2834;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=3JnyJKWel3/w3iLfxdhp8EfzhB6f91NxerOyNOuEJFg=;
+ b=mway+9YBw+26uBdu0PB7mYGQXaUGyQC3x7jQ8ufOCuQmaNxG0dcH0uwuFpe/vq3Gqb4sxO1sb
+ 8lrBzk4tK1SA9ZB6wmkNkdeNoWX2sQSqFh2yshcMGc2zdcb1kWiQ+rA
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
------BEGIN PGP SIGNATURE-----
+The MediaTek mt6397 PMIC includes a 10-bit AUXADC used for battery voltage
+and battery temperature measurements. It is not register compatible with
+mt6359: a conversion is requested by writing a channel number to a select
+field and pulsing an edge triggered start bit rather than by setting the
+channel's bit in a request register, and the results live elsewhere.
+It therefore gets its own compatible rather than a fallback.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrUswAKCRDZQZRRKWBy
-9ObpAP9G1wVYQXoYtKAZSl9qDIN2cAllpelKU/dUPpwyU2D92AEAnf0IlCQAIR5H
-UBamORFbCvqL2CXELoKDUNgLP6CbOgw=
-=xgT3
------END PGP SIGNATURE-----
+Add the binding and the header naming the channels a consumer puts in
+io-channels. The battery channel is named for the input it measures,
+ISENSE, which is what mt6323-auxadc calls the same input.
 
---=-o3oZO7blpYQnPuOg3/qP--
+Assisted-by: LLM
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+ .../devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml      | 1 +
+ MAINTAINERS                                                      | 6 ++++++
+ include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h             | 9 +++++++++
+ 3 files changed, 16 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
+index c2f7387e4bfc..2847bd5d5bc4 100644
+--- a/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
+@@ -26,6 +26,7 @@ properties:
+           - mediatek,mt6359-auxadc
+           - mediatek,mt6363-auxadc
+           - mediatek,mt6373-auxadc
++          - mediatek,mt6397-auxadc
+       - items:
+           - enum:
+               - mediatek,mt6365-auxadc
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 72294ddfa5b7..c8cef3bcb7de 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16715,6 +16715,12 @@ S:	Maintained
+ F:	drivers/iio/adc/mt6323-auxadc.c
+ F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
+ 
++MEDIATEK MT6397 PMIC AUXADC DRIVER
++M:	Ryan Brue <ryanbrue.dev@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
++
+ MEDIATEK MT6735 CLOCK & RESET DRIVERS
+ M:	Yassine Oudjana <y.oudjana@protonmail.com>
+ L:	linux-clk@vger.kernel.org
+diff --git a/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h b/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
+new file mode 100644
+index 000000000000..b696c1cb5ebe
+--- /dev/null
++++ b/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_MEDIATEK_MT6397_AUXADC_H
++#define _DT_BINDINGS_MEDIATEK_MT6397_AUXADC_H
++
++#define MT6397_AUXADC_ISENSE		0
++#define MT6397_AUXADC_BAT_TEMP		1
++
++#endif
+
+-- 
+2.55.0
+
