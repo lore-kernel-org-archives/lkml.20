@@ -1,44 +1,44 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818E24519A3;
-	Mon, 28 Sep 2026 09:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9633E492E24;
+	Mon, 28 Sep 2026 09:43:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588590; cv=none; b=pA8T9612xKj4zw8dpb8KRj+0aZg1Fb/jC9efauf0hutn1DlEvE0jwm+D3IO6xex2CrEgLF9k+ldaNX1QTq/RpPvV21jjG5uBbEfsgKgcLz1z/ph2tqwn/3s0iKsTG7AH1nVtCwDGO5HN7NRl55YnmKdhHVLTitySE9d1n5qWLpc=
+	t=1790588594; cv=none; b=ktcc61IvxDxscdGyWW19q/7NxcBSs3APhCLtchbR+DHrkl5Yzwfbv2DncVlLZ20IpVMSULpc7Hr/6zmXuVuVwnbU6x7DH8wfK7xM7z0aPdCIthg+6tL3B5NDGucdrWyMgFvUFCP0+F7NU76KtjCqvyTT9PtsJqjaUKBEdCTO6xY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588590; c=relaxed/simple;
-	bh=IQ89eq0DhiyChrSIM/wph876V3ryNwBJXXwlA+H2aCk=;
+	s=arc-20240116; t=1790588594; c=relaxed/simple;
+	bh=r0y/a9YEVRYoi9Vk3nzlQTcvv7gsN3A5ebB9pXdgmT4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AYMHPz/WqTm7mLxoWJDIxZKzHTvGvAYFnZOeE4zFdoc4psLUYjYQaFfmRQteJBvy4ZXRrWJ2tXIynQGZTtfgDtdndzBTefbHFRIe/WrZlVTMmzfgW33XZnIx+CctWT4fXfKLA3a4VQMDWct6AZ+MWCA9zcMi1L9OSlTUMQtkxBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=fOsRGqyd; arc=none smtp.client-ip=188.40.3.216
+	 MIME-Version:Content-Type; b=mWQvCd0SPxfVY6rgWh8cKHYYYOCONsW6JFT7Qxq7cFB/5KOJEKy5ZOwMU0kdzo2rgMv7VnNugA30fB+tyvH6uX8/ppHbAz+jSm9LjxtNltf+mafpt00zPNL4meSTDIl95a8NIJf7wN6wxtpVbrE1O8Wr+psJn47BySaBmFBhyog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KwLpC7ol; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="fOsRGqyd"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KwLpC7ol"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ID7B6wbjsNNmOlQbuPS6iyOH0i0CHBvTbHBEcGBY4xo=; b=fOsRGqydo0GOhg1fGXJKGFG7+T
-	zl/gxqlyIwfiwPOJ77hcmcIgtd0MQNDA3DwOLHLehbjZHpfO1xk1O7qUoysmlJxSYWdODWXXb+LX8
-	/jY7cVUBNMNiR9HLPyDy6BuMciBs5cDX9xCzojc7tLKOK4sVJzViebHly15VasTEtP1Xw/dk9xtNz
-	34ZhJbkHjDM3zTAvPRGYD5YyvPR2kbUWza3GTTp5vmDIvu6FVE7HYVdo47033LHHHc4uRpyQP8zy2
-	D9fOzoq4Bk40fcUOHzRIVN3DH+UJS3qsDylhteJCu2bQomzXN1KerlLSSJPfPVr/fPeHD4Q7ocbrm
-	JUbJdCeA==;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=olO/hKKz89FHOaCKAaEXvx3zuxFgTV/VqCrzUGnPZ58=; b=KwLpC7olA7U1aRI29Mazglzkb7
+	a4K1/lsxm7GC55jLe1FYnqkJWuxGa7N3JT8J2ZNjXU+amYl0IR+zZadwhsAZA9vtdUVivYhf0JdGX
+	QDK2sJA9t2qzpna+JUGDDLsrVdBuRhyS0WJwyLZmkQ3VrGIs/2hp0TRz+CMsDQcSXqhL1wuKm4EIf
+	i1I5TJs/yCZ95vmR+ntlx9p6XdNqrVPuDbmJxEWLvxZ5eYSX7Xb/6Z9TJQq3Tah/IzOBJidDnKYxA
+	YqD0TvUkHgiQsovy2EteiM5OAMvbEyYMFIMjUNkS5ZYmyZCW/3RjLO7//3rtIciEOeH+AWpb01GAZ
+	78fNnhiQ==;
 Received: from sslproxy03.your-server.de ([88.198.220.132])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7ss-000JjN-0f;
-	Mon, 28 Sep 2026 11:42:54 +0200
+	id 1xB7sz-000JlS-1x;
+	Mon, 28 Sep 2026 11:43:01 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7sr-000A1V-2o;
-	Mon, 28 Sep 2026 11:42:53 +0200
+	id 1xB7sz-000BEL-0v;
+	Mon, 28 Sep 2026 11:43:00 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -60,52 +60,69 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
  Frank Li <Frank.Li@nxp.com>
 Subject:
- Re: [PATCH 1/8] dt-bindings: display: remove #address-cells and #size-cells
- off requires
-Date: Mon, 28 Sep 2026 11:42:51 +0200
-Message-ID: <5135446.31r3eYUQgx@steina-w>
+ Re: [PATCH 4/8] arm64: dts: imx8mq: remove #address-cells and #size-cells in
+ dsi@30a00000
+Date: Mon, 28 Sep 2026 11:42:58 +0200
+Message-ID: <2427808.ElGaqSPkdT@steina-w>
 Organization: TQ-Systems GmbH
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-1-f999fafbca60@nxp.com>
+In-Reply-To: <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
 References:
  <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-1-f999fafbca60@nxp.com>
+ <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: multipart/signed; boundary="nextPart5106211.GXAFRqVoOG";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
 
-Am Freitag, 25. September 2026, 18:37:50 CEST schrieb Frank.Li@oss.nxp.com:
+--nextPart5106211.GXAFRqVoOG
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+Date: Mon, 28 Sep 2026 11:42:58 +0200
+Message-ID: <2427808.ElGaqSPkdT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
+MIME-Version: 1.0
+
+Am Freitag, 25. September 2026, 18:37:53 CEST schrieb Frank.Li@oss.nxp.com:
 > From: Frank Li <Frank.Li@nxp.com>
 >=20
-> The display panel node is not necessary located in dsi node. So remove
-> these from requires list.
+> No children nodes under dsi@30a00000, so remove '#address-cells' and
+> '#size-cells' to fix warning with (W=3D1):
+>=20
+> arch/arm64/boot/dts/freescale/imx8mq.dtsi:1247.27-1297.6: Warning (avoid_=
+unnecessary_addr_size): /soc@0/bus@30800000/dsi@30a00000: unnecessary #addr=
+ess-cells/#size-cells without "ranges", "dma-ranges" or child "reg" or "ran=
+ges" property
+>   DTC [C] arch/arm64/boot/dts/freescale/imx8mq-kontron-pitx-imx8m.dtb
 >=20
 > Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
 Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+
 > ---
->  Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml | 2 --
+>  arch/arm64/boot/dts/freescale/imx8mq.dtsi | 2 --
 >  1 file changed, 2 deletions(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yam=
-l b/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
-> index 5952e6448ed47..a0c3ba9275684 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
-> @@ -137,8 +137,6 @@ properties:
->        - port@1
-> =20
->  required:
-> -  - '#address-cells'
-> -  - '#size-cells'
->    - clock-names
->    - clocks
->    - compatible
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/=
+dts/freescale/imx8mq.dtsi
+> index 5545b5b20ab2e..8d53df2be2280 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+> @@ -1247,8 +1247,6 @@ sec_jr2: jr@3000 {
+>  			mipi_dsi: dsi@30a00000 {
+>  				compatible =3D "fsl,imx8mq-nwl-dsi";
+>  				reg =3D <0x30a00000 0x300>;
+> -				#address-cells =3D <1>;
+> -				#size-cells =3D <0>;
+>  				clocks =3D <&clk IMX8MQ_CLK_DSI_CORE>,
+>  					 <&clk IMX8MQ_CLK_DSI_AHB>,
+>  					 <&clk IMX8MQ_CLK_DSI_IPG_DIV>,
 >=20
 >=20
 
@@ -115,5 +132,24 @@ TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
 Amtsgericht M=FCnchen, HRB 105018
 Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
 http://www.tq-group.com/
+--nextPart5106211.GXAFRqVoOG
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEByESxqszIvkmWRwbaS+g2M0Z/iUFAmq6NqIACgkQaS+g2M0Z
+/iWtAwgAw15FHfti/QRK+BceI+JbLmo2ap+ZhC7g7WR4VoJdRdbn1hpE0FnZS7b6
+wrRfOlVB3IlXx2h+O70oTDLN9qOIUslWX9dZW9Pz7ng7Ypps/PvzybgXpPINblUg
+lmQK+gJ241/D8QVKv5aW9ps6obTjElmlDa6FFMoG3lXr/t5m6RYrxHC1hP6s+N2p
+8/8zMFTKK1vWCEaJlyTEbhxcGZKoXbwmFal4ZM6sr8ZlgfOXj7mNmKvqXZGLSytr
+lYClZ6YdWvj6qI6nJgtTbp2aJg4lQ7d914y646Kwlqx9UKMOHaRM49MFLepw4Sy1
+cdtbyGbU7UU9IOezebLj77RrgMw1qg==
+=uz4y
+-----END PGP SIGNATURE-----
+
+--nextPart5106211.GXAFRqVoOG--
+
 
 
