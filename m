@@ -1,38 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD6036195A;
-	Mon, 28 Sep 2026 05:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B483345EC0;
+	Mon, 28 Sep 2026 05:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790572473; cv=none; b=fbwL/IKt9YeKVoN28iqBXb7cUo8evejmW4V66Rx9nVAXd/sXNWlgIMKYQA2DEkdjHaD6FFDSmsgpv7O3Swm3p443ywEBZl1SvKyAnD04YeInGILRrGRGlRY7lOkDyKr8hj4NvMhhxLlL944Q4m88gDcuK0eyBNyiZ1pzl1RZ++c=
+	t=1790572500; cv=none; b=ZcCirMlcNhQNmY0AeugMw8jUUUS0UjgSZ4VgRxb3F2Xa0WYBgkjOKPg5NLwmkRXiqDQGzgE63gHllJyVgmjfYAaRpBLHwwYiL+ImGAkOIIJWKXiTCD0GJbTQk3rYmKg4mO/EdKKQ0bI2nsOVgLoOWOdn5k0mhpG4mvuoMWxX1qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790572473; c=relaxed/simple;
-	bh=t8vWTi17bZjzu97QihdDCBRUxbsMrReoLp+F91eNGlQ=;
+	s=arc-20240116; t=1790572500; c=relaxed/simple;
+	bh=o5nCG+OAwTIWJJPZaeWtamUM9DOkcEIPimjNrkVeSz0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c9e/h7ur1KObOEjfDjftUP94vxWUR7UCrzODQoWH0V3hO8mxHtBpZ284QDXmZ/E871LnhHKf9AmMRW00TXZC4PHgDTTZIqW8RNATvvCVmJB3jOxGuzjkEvvkUJzfQUbSHlv+Sa4ZAQCIAW0DjJv/VHN7vXO7v2FL7Rw2zekSrMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z6I+Sp4u; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MxRPyn/q+L8uGx2S5BlAztButAw3tbewSCGFA2Kb2W16OKj9UYWkgYR0vtv0UIqVVH+ZsLlFeP0wMPes+GA4hL/wKPiMrJHFPyVDES9tReT5oUB1GVQCuM1dgNG8hRh9/lGYeO1ektV1HKNV8/Gam0Sqb6OVoanhHq/caHZ6Lgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=a20t/Mty; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z6I+Sp4u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A091F000FF;
-	Mon, 28 Sep 2026 05:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790572471;
-	bh=d5G8KDzWD3+Z+7AlD6YRuKE+rOIimOn2l/IBQGRPiSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=z6I+Sp4u5aHOlATRBbNS2irdtSUeBXdKEqAYNkpGHDaSjOMWqq4FRo8Bv47g2cB0m
-	 nnNxjezx2AnMeThsnOOZMVHnd7Tv2DzMRnNsia2AxoijEq7guP+bexBmSzClnKQxIr
-	 VSTdVQavdFoISLnu/m5pibk9q8arYpd7G9tRkENM=
-Date: Mon, 28 Sep 2026 07:14:28 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hyeontaek Lim <jennystr233@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+d164947c037324221043@syzkaller.appspotmail.com
-Subject: Re: [PATCH] kobject_uevent: fix OOB read in kobject_action_type()
-Message-ID: <2026092806-life-amazingly-e68d@gregkh>
-References: <20260927174241.36888-1-jennystr233@gmail.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="a20t/Mty"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=1r4RZI43iJp/ce+MihAT+y8KPQ68pt5edry6a9L0d70=; 
+	b=a20t/MtycGIrR5HKKg5UBXgywuNKVasX168meCmqtFPxIk1T5s4jSWQq1azveufNS+2FkozLm4u
+	8uTu9Rop8yTC+COA46mDD6fuGPcw/D7R+UmtyZ+gi0/8G99HithqUJs8fBlJ1RgNumpypMaqDHXLL
+	HIlCuauePkPPMR/oWnDWhASO2jsDM6oklpB0LJwMiGSP1+8SR5jwGION5S0/qF+zryVpWMQmiChDw
+	y4a523nxy2TFYWF4DRDZcQuqujoYc1uhJ7vx9HVFLITmdoENVHgxQ7Hex+rptJ7SJAn/+EFW4f33r
+	/ObBvR9eAuJCpFQu/59pPeptgLWj5l0tyHxw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xB3hT-00000000w6e-0KqC;
+	Mon, 28 Sep 2026 13:14:52 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 28 Sep 2026 15:14:51 +1000
+Date: Mon, 28 Sep 2026 15:14:51 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: huangchenghai <huangchenghai2@huawei.com>
+Cc: davem@davemloft.net, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, liulongfang@huawei.com,
+	qianweili@huawei.com, wangzhou1@hisilicon.com,
+	linwenkai6@hisilicon.com
+Subject: Re: [PATCH 2/4] crypto: hisilicon/sec2 - fix scheduling while atomic
+ in aead soft fallback
+Message-ID: <arn3y4kT0izjENFR@gondor.apana.org.au>
+References: <20260911102942.387778-1-huangchenghai2@huawei.com>
+ <20260911102942.387778-3-huangchenghai2@huawei.com>
+ <aq0AtfUHUw1qOD2Y@gondor.apana.org.au>
+ <c19bbae6-e1f1-4ca4-8156-8b1fb6746319@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,58 +52,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260927174241.36888-1-jennystr233@gmail.com>
+In-Reply-To: <c19bbae6-e1f1-4ca4-8156-8b1fb6746319@huawei.com>
 
-On Mon, Sep 28, 2026 at 02:42:41AM +0900, Hyeontaek Lim wrote:
-> kobject_action_type() matches a user-supplied action string against
-> the short "add"/"remove"/"change"/... literals in kobject_actions[]
-> using strncmp() with a length (count_first) derived from the size of
-> the user-supplied buffer (up to the first space, or the whole write).
-> 
-> strncmp() correctly stops comparing as soon as it hits a NUL byte in
-> either string, so a caller can make it report a "match" against a
-> short literal like "add" by embedding a NUL right after "add" in an
-> otherwise much longer buffer (e.g. write "add\0" followed by 391
-> bytes of arbitrary padding, with no space, so count_first stays at
-> the full write length).
-> 
-> The subsequent bounds check then indexes the matched literal at that
-> same, much larger offset:
-> 
->     if (kobject_actions[action][count_first] != '\0')
-> 
-> which reads far past the end of the 4-byte "add" literal, into
-> whatever object happens to follow it in .rodata (observed to land
-> inside uevent_helper_sysctl_table on the reporter's build).
-> 
-> Fix this by checking the literal's real length against count_first
-> before doing the strncmp()/indexing at all, instead of trusting that
-> a strncmp() "match" implies the lengths agree.
-> 
-> Reported-by: syzbot+d164947c037324221043@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d164947c037324221043
-> Signed-off-by: Hyeontaek Lim <jennystr233@gmail.com>
-> ---
->  lib/kobject_uevent.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-> index xxxxxxx..xxxxxxx 100644
-> --- a/lib/kobject_uevent.c
-> +++ b/lib/kobject_uevent.c
-> @@ -78,10 +78,11 @@ static int kobject_action_type(const char *buf, size_t count,
->  		count_first = count;
-> 
->  	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
-> +		if (strlen(kobject_actions[action]) != count_first)
-> +			continue;
->  		if (strncmp(kobject_actions[action], buf, count_first) != 0)
->  			continue;
-> -		if (kobject_actions[action][count_first] != '\0')
-> -			continue;
->  		if (args)
->  			*args = args_start;
->  		*type = action;
-> 
+On Wed, Sep 23, 2026 at 05:55:43PM +0800, huangchenghai wrote:
+>
+> I try to use SYNC_AEAD_REQUEST_ON_STACK instead, but it does not
+> work here: crypto_alloc_sync_aead() enforces a MAX_SYNC_AEAD_REQSIZE
+> limit of 384 bytes, and several composite AEAD algorithms supported
+> by sec2 (e.g. ccm(sm4), authenc(hmac(sha512),cbc(aes))) have a larger
+> reqsize, so the sync tfm allocation fails with -EINVAL.
 
-Hasn't this been resolved already?
+How big are these algorithms, is there any reason why we can't
+increase MAX_SYNC_AEAD_REQSIZE to accommodate them?
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
