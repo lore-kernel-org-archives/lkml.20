@@ -1,62 +1,64 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DEA4E3248
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707094F3922
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615670; cv=none; b=IP+bdRq27PHlKyWnYaIPL74G3eX1Q7eetnaGqit12fv80b60jBOysUyGBNhvvdVSkPrQXwFnQWbWyxw0FbbL4dkWOrIZ/rDUOX8kuos/WMN7JV2668RwI/s/d2FtM1W5P1C/x3bu7Cnp9UqVZtCHI8aBN/+tszdww7q2CXBmqgU=
+	t=1790615672; cv=none; b=CJigtjRjPw604pmXk4rAWtts354wHh0ocmY+53X+wR8oHVXqqT8JE6ChbMhNCuoQ4ArnywqnDbhSrkr7j94cvJdn5NWY2vJXDCstQNTG2Sr+Fext/HtFYC5YEX9Q3QRlw2hTnQFnDTH3B04SHnfzbTo1y4QP/94Ed/nSiMl+yyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615670; c=relaxed/simple;
-	bh=tehroZN3KtgNHaPozWMKAR0G6Rqm8qcNfVMBdzcofAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kpwc72rCkF3xdlqfm+qM3KQmhlzvvYhUSabq7hX/VYiUCjLE3IYy5gRa4AdPMUWNckmLMSRLqOFg5xXJ3GmicCr+Rp/aj03H5XHdjQLVzo59t2SBybmjo3sAt2rgBp2/qnjP/9DdCLGTNHAlyd7JaNgHLvuyb9ph3N+ude3J9Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSYe76pQ; arc=none smtp.client-ip=74.125.231.171
+	s=arc-20240116; t=1790615672; c=relaxed/simple;
+	bh=o59pLErvV1Eka8G0igqbbC6iIQ7emfCpQ9bDOzw+AAE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M7cHmx5Q4GhiWKBEGQLvgKu9T+nkG8+4rOg3HitolWq+elV3OVotU/f0UmbK5eTCoIwYXgmUsY6vUI5s8rY+J0WKpGvTOANDBFYgpLsjDekxcp92HMtozk03JyrDE+orB+HfOKSLDcOyPKlAxD7Jmw6W+eSjbA9Oihw9d3yZnxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AmMbLBhl; arc=none smtp.client-ip=74.125.231.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSYe76pQ"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b46bc1282so613243a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:14:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AmMbLBhl"
+Received: by mail-oo2-f36.google.com with SMTP id 006d021491bc7-6d73f71a49bso893590eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:14:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790615668; x=1791220468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
-        b=RSYe76pQcKyuu5SwzFTcq9kPXd5aZnRmnBdqyP37oa1QYRIwezgoUggFcywmCARuUh
-         QNX5EFvVezYqY/zog7oSBkjJ+oZwwp+7FbtXGuArILqdihTUsNToaxpqPCLbt8BdvR3o
-         WUsYujrYeLtBIqeP2Jo4bPWX+kn2+gLv++9cbP39uf+CWPJKxhQWdTRdCnmUUajvPuXT
-         zze27PdPtwVH91STO2I3kY5Beu+a01JvuwvmaK+5/dgFjoKO4ynwz6pboNsOYZ2X4Fwq
-         dSGzeiExPefZLx84Ux+67uNm7bFObLIvEy72bRYr2mrREP96UqdRLjksYQrmD0pig7/t
-         fBMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615668; x=1791220468;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790615669; x=1791220469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
-        b=ouZBN1OJa28GpyqlY6il4Bm8ijinOIpXpn4d3neoAKeErFThVkdg/qymUBS1c+x+xF
-         7FdXJAyE4cMpv+NwH2PAA2ET8JeQgNkS2IY3UVv3aX8Kz/Uu032NIkxiPUK4MJHvPzK0
-         J5a4K06vXRdJ2bTtjnQ5Ru0HglXcq5atrA5Ts3kZJDs5KT02fLks1cs6IgCJU6j1l11+
-         wFNAJJ0JoVvdd7a8ZREJiwXlmIk2kTQWIS9MpykiL3r+n8S8OcANakKpiiMTsqHaJH74
-         RaWidZYzFy8Xjupnula8RPeaq1fD3iOKrUOHb9PYa2a2DPIsSaCEmb0+/QXcHVoA/8Gb
-         HoAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLvCFv5eVlqQ7Jv5maYZ+B8VDaIaeNxBRJI+x96IZbPmoWR83htYgjDdzMeD1lvrGrK8mB6Xerxo5+kI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkmN0b/xumvkjC+JIk3bgIpGyLl+zxoW/Kzh2/vOIaEpUiYio8
-	ZphURe6o4qbZ3Q7Vv1bu/8zf0v/e2xcg8n6O8OUH/XQLpKO+JaZnZcpNR1M+2A==
-X-Gm-Gg: AYBFou2KhELyG2OR6QfaHVT7lxvNxBqO3u4a+sJFU4shJ+7l5zvvDOp4jAQPxX/pr89
-	nJdGOc3xv1wCKd8reMKj5Fp/TVcokDFpUjvCiBrMR2sddc7e2lxOir4PouqA9PLu7XjVJ5V/8Fc
-	OYmGY76FYCqnFMJMsnZYaacw2OP5ipEJgC5+Hp0OJ56bgt/TLHvyoMDY5SoCe9DjWY3uDuuHlCF
-	tlkMYEWAXnNm5vaAr+kzsATXw78L0lvSXqSyYy0c3Xgzy2Wxd6peN+krodnk6tkDVyZJjDWowid
-	RVwMYR+8XSQ91Fi2fqUY9G46Cea2hxCK8SyxLwbtZHhskHRtqZPiqDnChxKL397SWyiXsoGCmIV
-	Z56nAs7heY2a8sGP655HtmmdeKKHZyKinkv28RiivJFVNZcgvs1aK6wDL78IRvlbJ/XIlRZpU6K
-	mkc+Aw8mkhmo0Qaz6b+GhC6nEuMOorzvfr6RGesZmu5ts6Za69ikujl0Ash1/mg22H4D0JsDx64
-	RoSWWDarqhMoYChw8yX9qURk8zx3uKw6+Ff4JQqgg==
-X-Received: by 2002:a05:6820:986:b0:6d8:6049:1247 with SMTP id 006d021491bc7-6d860491701mr3981185eaf.2.1790615667972;
-        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+        bh=brqpvi0CsTT/mXnGEZ0fbXA8kawPBkDyjGi1skaJHcQ=;
+        b=AmMbLBhlejMXSnZI3uouKyZftGnw4B8IlNH7OZfigtXEyRfw2pWiXI5IZnuaOolB8e
+         rTUiP8Gdgm6s9I3Pv+45yPPEf6yQfJdP4660dcH1Px6ju3Ko+l6CvrgRIrNi9KAEOFPm
+         Xi6c3Wc5q3HlAkuF81AnMxx2nv0pMhGCh9LhzVI8JdcFMvRYrrqmR/C7xbuoYa4g1ZLx
+         DrZCgI9oVM/zlPfiuYJszedIqinDzvgNHz43CZAccb9SSH4czSHI+zPu4PPSBQydmSuL
+         EdvuHTl9SLxOiwzSgsAQ/LOcCYMYZMi7GMABEB499pfCBuVE2jLo7dJXJKE01pMeQwS/
+         bkaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790615669; x=1791220469;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=brqpvi0CsTT/mXnGEZ0fbXA8kawPBkDyjGi1skaJHcQ=;
+        b=sh5+SRvG2ACUsW4cc9yLw0/6ezM66s994bc+IWbeMpA0eONpZPnM0acJFqMvTR2BVc
+         f/UWJr5hsOFq3Rzym+Eu/zxeQagNDkw0k3hiSiQ8CaSfi3opRrbxYqecprG8j7el95Gz
+         MrqOSC3tQeY7009ufRNUo27FcjAIC6TNzhiCwSGX6oi+DOf1RXuvg1aIDkdwxqsosemq
+         0xWtSxGRMO0kDSTNGZ7IzNYJwzrxEfjYGHPsplIrBVSnUUC+xL0NOKI79r/wpDyywnn9
+         rMG105aEOruhH2QU02QYJDC1NLR2mVU/XMsQUPfQVmQlR44NrEPlpx1P9fau3ekEpxUn
+         USOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTajAY+a91b3aT5d7TJdwAIajPP0h0y5IhRUwpfyoGbcXNz8E90fewie901VTprbZakZlr+pkeNVZU9qU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyEs2UxOeg8kJe9x9J4afS2xLjwi9vMOD3SD87pUCootu/R1YB
+	XAVp0o4/hRpDl+D+SiLHhiVDFLw3Od4Qyx4/CpzA7aBGXFwRRhIL79mg
+X-Gm-Gg: AYBFou1Qkn3MbACQkBTqepEshva/Keq19VCUK+H9T+fDW2HnEv2Wa5Tu2FmnW+/D9bD
+	Pp3AC0gBWPsBhPoYPu/dQU0S3uQx4roAzl3zysbsLCkNBWMkCtbfcBDap3xHORV/tpPirvdcoNp
+	iigZS/+MA7vOohMq4Twd9VviNrBySK9ovfD7XGvzjw3wLgR5mEjOBgP9DMvwEwEECTVnPM0R0Ri
+	4BRa49gvQAkm7XzmFIuV2orNQA6qwKphil6BAl7RnmN/UlOUfLK5oqKWrAu3p5NPiHLU0+ZAYZv
+	yeOCnRNAeqoHueKiaO0eWRwWzNA3vCdaah0iHfGzpFP9nkrzyzCVZ8HesrT584Mj8xdkptn1ixz
+	Jsr9hJCQY+M3mQQ72/UIUUhjW5CN5YDFTYI3OYjGUOJvV+WbzbVa/rLlPGX16nJdkE+FrYzvYmU
+	490lnBkN3PBjB84f9jNzYuNDPqMA8hd0FnUKAPs+CzObdqtlXstuBHTqpEvSMZJ2RvD10vpIBzc
+	fMDVwVl3ZLsyK/Gl5VcC2fb2TRqOH+DQHCF8yIr
+X-Received: by 2002:a05:6820:81d1:b0:6d7:9cf4:e993 with SMTP id 006d021491bc7-6d79cf4f414mr6840896eaf.11.1790615669113;
+        Mon, 28 Sep 2026 10:14:29 -0700 (PDT)
 Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d87d9060cbsm5492874eaf.0.2026.09.28.10.14.25
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d87d9060cbsm5492874eaf.0.2026.09.28.10.14.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+        Mon, 28 Sep 2026 10:14:28 -0700 (PDT)
 From: Danish Khateeb <danishkhateeb03@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>
@@ -66,12 +68,13 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] tracing/user_events: Handle ioctls from 32-bit tasks
-Date: Mon, 28 Sep 2026 12:14:23 -0500
-Message-ID: <20260928171424.199202-1-danishkhateeb03@gmail.com>
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH 2/2] selftests/user_events: Fix pointer casts for 32-bit builds
+Date: Mon, 28 Sep 2026 12:14:24 -0500
+Message-ID: <20260928171424.199202-2-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928171424.199202-1-danishkhateeb03@gmail.com>
+References: <20260928171424.199202-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,96 +83,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The DIAG_IOCSREG, DIAG_IOCSDEL and DIAG_IOCSUNREG ioctl numbers are
-defined with pointer types, so their size field is 4 for 32-bit
-userspace and 8 for 64-bit userspace. user_events_data has no
-compat_ioctl handler, so on a 64-bit kernel every one of these ioctls
-from a 32-bit task fails with -ENOTTY and such a task cannot register
-any user events.
+The tests cast pointers directly to __u64. On 32-bit builds GCC
+sign-extends such casts, so addresses above 2 GiB, like the stack of a
+32-bit task on a 64-bit kernel, become 0xffffffffxxxxxxxx and every
+registration fails.
 
-struct user_reg and struct user_unreg are packed and only use fixed-size
-fields, so they have the same layout for 32-bit and 64-bit tasks. Add a
-compat_ioctl handler that maps the 32-bit ioctl numbers to the native
-ones and passes the argument through compat_ptr().
+Cast through uintptr_t so the tests also work when built for 32-bit and
+cover the compat ioctl path.
 
-Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
 
 Notes:
-    Tested on x86_64 in QEMU (v7.3-rc5 plus this series, KASAN and lockdep):
-    - A 32-bit program that registers and unregisters an event gets -ENOTTY
-      from DIAG_IOCSREG before and works after.
-    - tools/testing/selftests/user_events built with -m32 (with 2/2): all
-      four tests fail before and pass after, in three runs each. The
-      64-bit build passes before and after. No splats.
-    Also built with CONFIG_COMPAT=n on x86_64 and with CONFIG_COMPAT=y on
-    riscv64, both with W=1.
+    Built with and without -m32. With 1/2 applied, the 32-bit tests pass on
+    x86_64; the 64-bit binaries are unchanged in behaviour and still pass.
+    The -Wpointer-to-int-cast warnings left in a 32-bit build come from
+    kselftest_harness.h, not from these tests.
 
- kernel/trace/trace_events_user.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ .../testing/selftests/user_events/abi_test.c  | 10 +++---
+ .../testing/selftests/user_events/dyn_test.c  |  6 ++--
+ .../selftests/user_events/ftrace_test.c       | 32 +++++++++----------
+ .../testing/selftests/user_events/perf_test.c | 10 +++---
+ 4 files changed, 29 insertions(+), 29 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index f658c3a77aa7..07cfbb5a17de 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -8,6 +8,7 @@
+diff --git a/tools/testing/selftests/user_events/abi_test.c b/tools/testing/selftests/user_events/abi_test.c
+index b71813eaf5c0..21e1e3cca197 100644
+--- a/tools/testing/selftests/user_events/abi_test.c
++++ b/tools/testing/selftests/user_events/abi_test.c
+@@ -179,10 +179,10 @@ static int reg_enable_multi(void *enable, int size, int bit, int flags,
+ 	}
  
- #include <linux/bitmap.h>
- #include <linux/cdev.h>
-+#include <linux/compat.h>
- #include <linux/hashtable.h>
- #include <linux/list.h>
- #include <linux/io.h>
-@@ -2737,6 +2738,36 @@ static long user_events_ioctl(struct file *file, unsigned int cmd,
- 	return ret;
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)full_args;
++	reg.name_args = (__u64)(uintptr_t)full_args;
+ 	reg.flags = USER_EVENT_REG_MULTI_FORMAT | flags;
+ 	reg.enable_bit = bit;
+-	reg.enable_addr = (__u64)enable;
++	reg.enable_addr = (__u64)(uintptr_t)enable;
+ 	reg.enable_size = size;
+ 
+ 	ret = ioctl(fd, DIAG_IOCSREG, &reg);
+@@ -202,10 +202,10 @@ static int reg_enable_flags(void *enable, int size, int bit, int flags)
+ 		return -1;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__abi_event";
++	reg.name_args = (__u64)(uintptr_t)"__abi_event";
+ 	reg.flags = flags;
+ 	reg.enable_bit = bit;
+-	reg.enable_addr = (__u64)enable;
++	reg.enable_addr = (__u64)(uintptr_t)enable;
+ 	reg.enable_size = size;
+ 
+ 	ret = ioctl(fd, DIAG_IOCSREG, &reg);
+@@ -231,7 +231,7 @@ static int reg_disable(void *enable, int bit)
+ 
+ 	reg.size = sizeof(reg);
+ 	reg.disable_bit = bit;
+-	reg.disable_addr = (__u64)enable;
++	reg.disable_addr = (__u64)(uintptr_t)enable;
+ 
+ 	ret = ioctl(fd, DIAG_IOCSUNREG, &reg);
+ 
+diff --git a/tools/testing/selftests/user_events/dyn_test.c b/tools/testing/selftests/user_events/dyn_test.c
+index 78e3c33f4015..32f159544d0b 100644
+--- a/tools/testing/selftests/user_events/dyn_test.c
++++ b/tools/testing/selftests/user_events/dyn_test.c
+@@ -58,9 +58,9 @@ static int reg_event(int fd, int *check, int bit, const char *value)
+ 	struct user_reg reg = {0};
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)value;
++	reg.name_args = (__u64)(uintptr_t)value;
+ 	reg.enable_bit = bit;
+-	reg.enable_addr = (__u64)check;
++	reg.enable_addr = (__u64)(uintptr_t)check;
+ 	reg.enable_size = sizeof(*check);
+ 
+ 	if (ioctl(fd, DIAG_IOCSREG, &reg) == -1)
+@@ -75,7 +75,7 @@ static int unreg_event(int fd, int *check, int bit)
+ 
+ 	unreg.size = sizeof(unreg);
+ 	unreg.disable_bit = bit;
+-	unreg.disable_addr = (__u64)check;
++	unreg.disable_addr = (__u64)(uintptr_t)check;
+ 
+ 	return ioctl(fd, DIAG_IOCSUNREG, &unreg);
  }
+diff --git a/tools/testing/selftests/user_events/ftrace_test.c b/tools/testing/selftests/user_events/ftrace_test.c
+index decce06b9ba8..b9c75202f0bd 100644
+--- a/tools/testing/selftests/user_events/ftrace_test.c
++++ b/tools/testing/selftests/user_events/ftrace_test.c
+@@ -127,7 +127,7 @@ static int clear(int *check)
  
-+#ifdef CONFIG_COMPAT
-+/*
-+ * These IOCTLs encode the size of a pointer and thus change their numbers
-+ * between 32 and 64 bits. The structs they point to have the same layout.
-+ */
-+#define DIAG_IOCSREG_COMPAT	_IOWR(DIAG_IOC_MAGIC, 0, compat_uptr_t)
-+#define DIAG_IOCSDEL_COMPAT	_IOW(DIAG_IOC_MAGIC, 1, compat_uptr_t)
-+#define DIAG_IOCSUNREG_COMPAT	_IOW(DIAG_IOC_MAGIC, 2, compat_uptr_t)
-+
-+static long user_events_compat_ioctl(struct file *file, unsigned int cmd,
-+				     unsigned long uarg)
-+{
-+	switch (cmd) {
-+	case DIAG_IOCSREG_COMPAT:
-+		cmd = DIAG_IOCSREG;
-+		break;
-+	case DIAG_IOCSDEL_COMPAT:
-+		cmd = DIAG_IOCSDEL;
-+		break;
-+	case DIAG_IOCSUNREG_COMPAT:
-+		cmd = DIAG_IOCSUNREG;
-+		break;
-+	}
-+
-+	return user_events_ioctl(file, cmd, (unsigned long)compat_ptr(uarg));
-+}
-+#else
-+#define user_events_compat_ioctl NULL
-+#endif
-+
- /*
-  * Handles the final close of the file from user mode.
-  */
-@@ -2787,6 +2818,7 @@ static const struct file_operations user_data_fops = {
- 	.write		= user_events_write,
- 	.write_iter	= user_events_write_iter,
- 	.unlocked_ioctl	= user_events_ioctl,
-+	.compat_ioctl	= user_events_compat_ioctl,
- 	.release	= user_events_release,
- };
+ 	unreg.size = sizeof(unreg);
+ 	unreg.disable_bit = 31;
+-	unreg.disable_addr = (__u64)check;
++	unreg.disable_addr = (__u64)(uintptr_t)check;
  
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+ 	fd = open(data_file, O_RDWR);
+ 
+@@ -174,9 +174,9 @@ static int check_print_fmt(const char *event, const char *expected, int *check)
+ 		return fd;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)event;
++	reg.name_args = (__u64)(uintptr_t)event;
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)check;
++	reg.enable_addr = (__u64)(uintptr_t)check;
+ 	reg.enable_size = sizeof(*check);
+ 
+ 	/* Register should work */
+@@ -239,14 +239,14 @@ TEST_F(user, register_events) {
+ 	struct user_unreg unreg = {0};
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event u32 field1; u32 field2";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u32 field1; u32 field2";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	unreg.size = sizeof(unreg);
+ 	unreg.disable_bit = 31;
+-	unreg.disable_addr = (__u64)&self->check;
++	unreg.disable_addr = (__u64)(uintptr_t)&self->check;
+ 
+ 	/* Register should work */
+ 	ASSERT_EQ(0, ioctl(self->data_fd, DIAG_IOCSREG, &reg));
+@@ -263,13 +263,13 @@ TEST_F(user, register_events) {
+ 
+ 	/* Register without separator spacing should still match */
+ 	reg.enable_bit = 29;
+-	reg.name_args = (__u64)"__test_event u32 field1;u32 field2";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u32 field1;u32 field2";
+ 	ASSERT_EQ(0, ioctl(self->data_fd, DIAG_IOCSREG, &reg));
+ 	ASSERT_EQ(0, reg.write_index);
+ 
+ 	/* Multiple registers to same name but different args should fail */
+ 	reg.enable_bit = 29;
+-	reg.name_args = (__u64)"__test_event u32 field1;";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u32 field1;";
+ 	ASSERT_EQ(-1, ioctl(self->data_fd, DIAG_IOCSREG, &reg));
+ 	ASSERT_EQ(EADDRINUSE, errno);
+ 
+@@ -310,9 +310,9 @@ TEST_F(user, write_events) {
+ 	int before = 0, after = 0;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event u32 field1; u32 field2";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u32 field1; u32 field2";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	field1 = 1;
+@@ -367,9 +367,9 @@ TEST_F(user, write_empty_events) {
+ 	int before = 0, after = 0;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event";
++	reg.name_args = (__u64)(uintptr_t)"__test_event";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	io[0].iov_base = &reg.write_index;
+@@ -401,9 +401,9 @@ TEST_F(user, write_fault) {
+ 	void *anon;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event u64 anon";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u64 anon";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	anon = mmap(NULL, l, PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+@@ -439,9 +439,9 @@ TEST_F(user, write_validator) {
+ 	int before = 0, after = 0;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event __rel_loc char[] data";
++	reg.name_args = (__u64)(uintptr_t)"__test_event __rel_loc char[] data";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	/* Register should work */
+diff --git a/tools/testing/selftests/user_events/perf_test.c b/tools/testing/selftests/user_events/perf_test.c
+index 5727cb5b914c..b444d114b2f0 100644
+--- a/tools/testing/selftests/user_events/perf_test.c
++++ b/tools/testing/selftests/user_events/perf_test.c
+@@ -89,7 +89,7 @@ static int clear(int *check)
+ 
+ 	unreg.size = sizeof(unreg);
+ 	unreg.disable_bit = 31;
+-	unreg.disable_addr = (__u64)check;
++	unreg.disable_addr = (__u64)(uintptr_t)check;
+ 
+ 	int fd = open(data_file, O_RDWR);
+ 
+@@ -160,9 +160,9 @@ TEST_F(user, perf_write) {
+ 	__u32 *val;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event u32 field1; u32 field2";
++	reg.name_args = (__u64)(uintptr_t)"__test_event u32 field1; u32 field2";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	/* Register should work */
+@@ -224,9 +224,9 @@ TEST_F(user, perf_empty_events) {
+ 	__u32 *val;
+ 
+ 	reg.size = sizeof(reg);
+-	reg.name_args = (__u64)"__test_event";
++	reg.name_args = (__u64)(uintptr_t)"__test_event";
+ 	reg.enable_bit = 31;
+-	reg.enable_addr = (__u64)&self->check;
++	reg.enable_addr = (__u64)(uintptr_t)&self->check;
+ 	reg.enable_size = sizeof(self->check);
+ 
+ 	/* Register should work */
 -- 
 2.55.0
 
