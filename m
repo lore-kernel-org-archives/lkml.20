@@ -1,263 +1,389 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072114BE424;
-	Mon, 28 Sep 2026 13:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE21C4BD368
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601733; cv=none; b=eDlbXTeSJl6BLKuq+YeMBfeYermKSE8upCuB3cXaZmOwptc6kHAJytmlviPe2+EUOcKLZsBvxyAyJcNXtrltouDObaex53cPyRbHTsx+qg8GQjETM7PewXfsZRvpmlSAEWT/qTfzais/fh7ZXutPPMuhUv9TzOiQcziSQuhgQsA=
+	t=1790601757; cv=none; b=H9ANtWhZOt39RVYbNnBxDclwzBZvetbSo5rf8G4zWo0+Z4TC85fY+7kqzciXX9He4PgiscgzX7EXFDFpfoRa7D78Cc/v94v2q1ph2MnSHCzp/Q43XFA3CzA6YbkdVznsRoc02GmqlIYkZ6Zaxp8vVp+Ic+YiI8ctCDeCazXWnf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601733; c=relaxed/simple;
-	bh=fiSr2CurFUF2BEDZCJ0+kLSrqGv7tTF3hIrACQAfctI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EYvnB3zJ7Q9eIb3xPgiJPD5MOErEpLFRWN9zmduwIPexR3FaaqWmI8Y/O397EZQeQ7L4k5QXYZO4wHO85ZrouZPBIhV3tRz4uCEYx48NiZnZb3CRVIfzZFVeBcd1qh7ComFdAVj4QTMaxe320KZVCnAmMlYc8icxGqnwWC4t1NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHpAHYcn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790601757; c=relaxed/simple;
+	bh=E1+5UqElEpQ5P+0984SRmM5eJBgCjPMCC5ACMcP2rVs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cWymqB3G5ypVUYcEpgfrv1mytB7fJ5eNg+45NOfZpuxMg7JUua+1JYxtjip892bTU7MNUwEvX9/FsPiPkhM1sTdOnQ41zebbiBCrrXufLMAgu1iTIYFEv4dZFDOxx80C3eaUHnVyaa2wf9BmveWM7p9F8XKL78wbbEXhLpOUzZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=T96lA88M; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHpAHYcn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44BE1F000FF;
-	Mon, 28 Sep 2026 13:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790601731;
-	bh=YgxiOouyDIcVtIkvJV+4mIm0kZ7zolQYdXWab1VZqUE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZHpAHYcndcEZu8BSJSjp5O1bDar72ICptvsb9rE20DDfYoxOMWydTylADv6a25H+a
-	 j7AyKg+QhtsAFhdfIMdQU6HSt5hixP2HJW3jba0LLeEgZwd9eFeRuWUszzb68BDky2
-	 JBrtSMl1PYue+RG3o0wetIBken3nVnEARBrgUK2fLizOT9qqygbWCSl8wtye3vAgi/
-	 kTGi6vNnN5DmscdUxQIR55qNXYKFKIYXoZMAgmxpoanNrIRhrQRUQBiFp7K2hnU4wx
-	 HVrCxnHGAr8w3K4/JUkE2niLrVqb2T42o5El6OaxbBs1ie4PnlNTO6r+YjQh18Mat9
-	 R/R69t1ivu1mA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Andreas Larsson <andreas@gaisler.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nsafran1217 <54966414+nsafran1217@users.noreply.github.com>,
-	stable@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH v2 2/2] sparc64: flush vmalloc ranges from the D-cache on map and unmap
-Date: Mon, 28 Sep 2026 15:21:02 +0200
-Message-ID: <20260928132102.1707-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260928132102.1707-1-kaloz@kernel.org>
-References: <20260928132102.1707-1-kaloz@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="T96lA88M"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso2208959a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790601755; x=1791206555; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8RPcRKGYr1XZHwGm79pP3hdZM5YXoo/M6t9gIRk53wQ=;
+        b=T96lA88MvPoDgUMaV/YKVht+sjae4+kUJZqCnEqpvXGGLCY3UrQGtvW01nDwZBav7/
+         JAcFM5lTxFipzvh/N6hxOMdeVsFAz9E8Hqq8t+baHWpyt28MC9wcAD7ubPTFm/8VCp+F
+         GL2H3iPgHoHmvqyCbW809D+VFKxJgIHvsJ0ZE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790601755; x=1791206555;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8RPcRKGYr1XZHwGm79pP3hdZM5YXoo/M6t9gIRk53wQ=;
+        b=Qefl4GBpX5yn7GUOiMt6GqfMEOYYCZ6SIEQGIn3lz08z5RNgKq75v+ukrtn/Bi0esm
+         WNdZs+b22ZLm7lKUzYo/W4YL09gRJLdv7af2tnyEMeCOAhMhmNukcxDrEpP0Uu1S0Hgs
+         AqJ64oXhWIPlPUPSznMWNIKlMEhxD9NifB2jM7yrd2S1rGhxmJTc+ihGu7wRrEsysJdy
+         VxXkef9BXQg3ItpgwrMqMCySKE/LP/tv3ScvTOiF2l3CVgq2DPHkiTtlIFArgTd7Xn8k
+         L7bNmKocC3ZSQDOvU80OA54/M9I+jpP90XE74MGXaTvE7D2RvcoihX5YvVm6VipPVkvR
+         eJdA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTg8MA/8vSPzgeAGWyyLh+/GohrZo563a4rWASS1vpryvoQXZ5TM0jS+/tiYIhaBJp/W3856Gp37OAjHk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL35ClTzTdSKuXq+5MnYr7y2aH6wqL79cWLXZMk5LlxDsbziJSu
+	wsTG3pcttX2IAKN5imdMpMmZzMmwg2rvtZvHrXNn5D6yNZgsnD083tpOqfRLvK/Yo0E+pvxYLsj
+	U9d8=
+X-Gm-Gg: AYBFou36Cy6yw36vY9jqHSXv8PiuGpZZc/PowAwK29u90EXtZ4fjLjNMd6lxftHO5Zm
+	f2sAhb5oKonQAiMiqUBoxIM3l6EhY1u1KSn4LM9gWviEx5RcFs98eVLWFcElIcOLt1EA8zUPlRM
+	uvmkhO0imMHHeV3PS1KYEbq7dbrLfdGTbczJpvQf+YlrE0vdCH5HUSdA8l3/ibakfbgGLK/CcMz
+	Px6WUTuRn7xxUeRs6WJoI5TDmdzhNnCxRaHmOq6T+bd0jeorQlAIioIPvez7Bv551BIhjcRzXml
+	AYyeL/OUOB17nkwmGr9+DwBWiDltVj2cMW/VygdP+085dz8DrmtdyhZuiNDnt+IJCJ+XT5bbIWE
+	5HQTQMHsYs+5Ho8tPmPnhAB9UOWW29kBTKIISdW9xSDD30KgBNgnCA0N5//Ksi9tZoB/jPZCyu4
+	9Y22S/TjqnmOThwo/MN+4Gw7w1frSW5bwc1TEdVXJUY0S9dP1bQG+MsvkgmyoKNJpmzP1VqLaGx
+	ATHN18ekcgRMhVz35POgfn+Gz72WKGV24XTI7njBP5E1kQz
+X-Received: by 2002:a17:90b:37c5:b0:3a0:9640:8039 with SMTP id 98e67ed59e1d1-3a0bb59d69dmr7137507a91.30.1790601754763;
+        Mon, 28 Sep 2026 06:22:34 -0700 (PDT)
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com. [74.125.229.170])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4926a280dsm174754a91.0.2026.09.28.06.22.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 06:22:34 -0700 (PDT)
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144e32aaa1cso1708116c88.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwlj5BeLqR8LJan2J2KojqG+ZXXT3OY9JODa44tX5qh8w05KdF/E1M0YGQ/VjvE7rnz9/+4f76qy6Iv2Q0=@vger.kernel.org
+X-Received: by 2002:a05:701b:4252:10b0:143:298f:33b6 with SMTP id
+ a92af1059eb24-146d096d31fmr9984470c88.46.1790601750263; Mon, 28 Sep 2026
+ 06:22:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org> <20260928125242.GE4406@killaraus.ideasonboard.com>
+In-Reply-To: <20260928125242.GE4406@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 15:22:15 +0200
+X-Gmail-Original-Message-ID: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
+X-Gm-Features: AclHuK8oVZSlYIBQO6ij5u2sY0EUmnZWXqwfIgQBb-dk-zqNmpS46gemuFgKR64
+Message-ID: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
+Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras with
+ invalid uvc_version
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The L1 D-cache of Spitfire and Cheetah is indexed with VA bit 13, but
-flush_cache_vmap() and flush_cache_vunmap() are no-ops. Lines loaded
-through a vmalloc address survive the unmap, and once the page is
-written through the other colour, e.g. zeroed through the linear
-mapping, a later mapping of the old colour reads stale data. Anonymous
-user pages arrive the same way, as tlb_batch_add() does not flush them.
-On UltraSPARC III this corrupts BPF programs and module data.
+On Mon, 28 Sept 2026 at 14:52, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
+> > Currently, the driver expects that cameras properly implement the spec
+> > version that they announce, and if they fail to do so, we do not continue
+> > probing the driver.
+> >
+> > To make drivers more fun, some vendors decided to announce that they are
+> > a UVC version that they are not. Until now, we handled those cameras via
+> > quirks.
+> >
+> > Unfortunately, reality has shown us that there are more cameras out
+> > there with an invalid uvc_version than we initially predicted.
+>
+> As far as I understand, this was triggered by the Avermedia GC515. Have
+> you received other reports ?
 
-Flush each page on every CPU on map and unmap, or the whole D-cache in
-one cross call once the range exceeds its size.
+I have not, but we can agree that not that many people does the extra
+mile to report to this mailing list.
 
-flush_cache_vmap() also runs on the vmemmap, from sparse_init() before
-init_IRQ() sets up the cross-call mondo blocks; with the mondo block PA
-still zero, flush_dcache_all()'s cross-call lands on physical address 0
-instead. The vmemmap has no aliases to flush, so skip addresses outside
-vmalloc and module space.
+If multiple cameras, from different ISPs have this issue it makes me
+think that Windows is handling this uvc_version more naively than us,
+and unfortunately it is what most vendors use to validate their
+cameras.
 
-Link: https://github.com/sparclinux/issues/issues/29#issuecomment-5041121375
-Closes: https://github.com/sparclinux/issues/issues/29
-Suggested-by: nsafran1217 <54966414+nsafran1217@users.noreply.github.com>
-Cc: stable@vger.kernel.org
-Tested-by: Stian Halseth <stian@itx.no> # Sun Fire V240, SPARC T4-1
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
-v2: skip the flush outside vmalloc/module space, since
-    flush_cache_vmap() also runs on the vmemmap during sparse_init()
-    before cross-calls are set up (Stian Halseth); picked up his
-    Tested-by.
+I'd rather support more cameras than fewer.
 
- arch/sparc/include/asm/cacheflush_64.h |  6 ++--
- arch/sparc/kernel/smp_64.c             | 18 +++++++++++
- arch/sparc/mm/init_64.c                | 43 ++++++++++++++++++++++++++
- arch/sparc/mm/ultra.S                  | 25 +++++++++++++++
- 4 files changed, 90 insertions(+), 2 deletions(-)
+>
+> > This patch tries to handle these cameras with an identity crisis
+> > automatically. We still shame them in dmesg. But now they will work.
+>
+> If the vendors ignored the fact that those cameras didn't work at all on
+> Linux, do you think they will read dmesg ?
 
-diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-index 02c969417e7b..54a2d37008e6 100644
---- a/arch/sparc/include/asm/cacheflush_64.h
-+++ b/arch/sparc/include/asm/cacheflush_64.h
-@@ -42,6 +42,8 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
- #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
- #endif
- void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
-+void __flush_dcache_all(unsigned long size, unsigned long line_size);
-+void flush_dcache_all(void);
- 
- void __flush_dcache_range(unsigned long start, unsigned long end);
- #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
-@@ -73,9 +75,9 @@ void flush_ptrace_access(struct vm_area_struct *, struct page *,
- #define flush_dcache_mmap_lock(mapping)		do { } while (0)
- #define flush_dcache_mmap_unlock(mapping)	do { } while (0)
- 
--#define flush_cache_vmap(start, end)		do { } while (0)
-+void flush_cache_vmap(unsigned long start, unsigned long end);
- #define flush_cache_vmap_early(start, end)	do { } while (0)
--#define flush_cache_vunmap(start, end)		do { } while (0)
-+#define flush_cache_vunmap(start, end)		flush_cache_vmap(start, end)
- 
- #endif /* !__ASSEMBLER__ */
- 
-diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-index 18b6145da591..bebfc44241b3 100644
---- a/arch/sparc/kernel/smp_64.c
-+++ b/arch/sparc/kernel/smp_64.c
-@@ -915,6 +915,7 @@ extern unsigned long xcall_kgdb_capture;
- 
- #ifdef DCACHE_ALIASING_POSSIBLE
- extern unsigned long xcall_flush_dcache_page_cheetah;
-+extern unsigned long xcall_flush_dcache_all;
- #endif
- extern unsigned long xcall_flush_dcache_page_spitfire;
- 
-@@ -1025,6 +1026,23 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 	preempt_enable();
- }
- 
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	unsigned long size, line_size;
-+
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	preempt_disable();
-+	size = local_cpu_data().dcache_size;
-+	line_size = local_cpu_data().dcache_line_size;
-+	smp_cross_call(&xcall_flush_dcache_all, 0, size, line_size);
-+	__flush_dcache_all(size, line_size);
-+	preempt_enable();
-+}
-+#endif
-+
- #ifdef CONFIG_KGDB
- void kgdb_roundup_cpus(void)
- {
-diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-index 8792e5d92517..3e2096545e52 100644
---- a/arch/sparc/mm/init_64.c
-+++ b/arch/sparc/mm/init_64.c
-@@ -27,6 +27,7 @@
- #include <linux/percpu.h>
- #include <linux/mmzone.h>
- #include <linux/gfp.h>
-+#include <linux/vmalloc.h>
- 
- #include <asm/head.h>
- #include <asm/page.h>
-@@ -234,6 +235,17 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 		__flush_icache_page(page_to_phys(page));
- #endif
- }
-+
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	__flush_dcache_all(local_cpu_data().dcache_size,
-+			   local_cpu_data().dcache_line_size);
-+}
-+#endif
- #endif
- 
- #define PG_dcache_dirty		PG_arch_1
-@@ -3072,6 +3084,37 @@ arch_initcall(report_memory);
- #define do_flush_tlb_kernel_range	__flush_tlb_kernel_range
- #endif
- 
-+/*
-+ * The L1 D-cache is indexed with VA bit 13, so lines loaded through a
-+ * vmalloc address outlive the mapping.  Stores through a mapping of the
-+ * other colour do not update them, and a later load through their colour
-+ * returns stale data.  Flush at unmap so vmalloc's lines do not follow
-+ * the page back to the allocator, and at map time since anonymous user
-+ * pages are freed without a flush (see tlb_batch_add()).  Past the
-+ * D-cache size, one whole-cache flush is cheaper than a cross call per
-+ * page.
-+ */
-+void flush_cache_vmap(unsigned long start, unsigned long end)
-+{
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+	/* The vmemmap has no aliases and is mapped before cross calls work. */
-+	if (tlb_type == hypervisor || !is_vmalloc_or_module_addr((void *)start))
-+		return;
-+
-+	if (end - start > cpu_data(raw_smp_processor_id()).dcache_size) {
-+		flush_dcache_all();
-+		return;
-+	}
-+
-+	for (; start < end; start += PAGE_SIZE) {
-+		struct page *page = vmalloc_to_page((void *)start);
-+
-+		if (page)
-+			flush_dcache_page_all(NULL, page);
-+	}
-+#endif
-+}
-+
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
- 	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
-diff --git a/arch/sparc/mm/ultra.S b/arch/sparc/mm/ultra.S
-index 70e658d107e0..ff190670a235 100644
---- a/arch/sparc/mm/ultra.S
-+++ b/arch/sparc/mm/ultra.S
-@@ -242,6 +242,20 @@ __flush_dcache_page:	/* %o0=kaddr, %o1=flush_icache */
- 	retl
- 	 nop
- 
-+	/* Zeroing every D-cache tag invalidates the whole cache on
-+	 * Spitfire and Cheetah alike.
-+	 */
-+	.align		32
-+	.globl		__flush_dcache_all
-+__flush_dcache_all:	/* %o0=D-cache size, %o1=D-cache line size */
-+1:	subcc		%o0, %o1, %o0
-+	stxa		%g0, [%o0] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retl
-+	 nop
-+
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.previous
-@@ -801,6 +815,17 @@ xcall_flush_dcache_page_cheetah: /* %g1 == physical page address */
- 	 nop
- 	retry
- 	nop
-+
-+	.align		32
-+	.globl		xcall_flush_dcache_all
-+xcall_flush_dcache_all: /* %g1 == D-cache size, %g7 == D-cache line size */
-+1:	subcc		%g1, %g7, %g1
-+	stxa		%g0, [%g1] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retry
-+	nop
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.globl		xcall_flush_dcache_page_spitfire
+They wont, but distros might look into logs and keep track of warnings/logs.
+
+>
+> Jokes aside, UVC version override was added in November 2020, and the
+> Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
+> see if there are any drawbacks in the implementation below that can be
+> justified by such a small number of devices.
+>
+> > Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
+> >  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
+> >  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
+> >  3 files changed, 35 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > index e289cc71ba98..ca75f8d1ec46 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+> >
+> >       case UVC_VC_PROCESSING_UNIT:
+> >               n = buflen >= 8 ? buffer[7] : 0;
+> > -             p = dev->uvc_version >= 0x0110 ? 10 : 9;
+> > -
+> > -             if (buflen < p + n) {
+> > +             if (buflen < 9 + n) {
+> >                       uvc_dbg(dev, DESCR,
+> >                               "device %d videocontrol interface %d PROCESSING_UNIT error\n",
+> >                               udev->devnum, alts->desc.bInterfaceNumber);
+> > @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+> >               unit->processing.bControlSize = buffer[7];
+> >               unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+> >               memcpy(unit->processing.bmControls, &buffer[8], n);
+> > -             if (dev->uvc_version >= 0x0110)
+> > +
+> > +             /*
+> > +              * We are not using bmVideoStandards, so there is no need to
+> > +              * warn the user if it is missing.
+>
+> There's value in warning the user about UVC non-compliance though. I'd
+> like to see a warning that indicates the device reports an incorrect UVC
+> version.
+>
+> If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
+> field. This change is therefore not needed for any devices we know
+> about, right ?
+
+We do not know if it includes the bmVideoStandards or not. Wihout
+https://lore.kernel.org/linux-media/20260928124109.GF157191@killaraus.ideasonboard.com/T/#t
+it might leaking the next control. (this is how I started working on
+the other patch).
+
+Luckily for us bmVideoStandards is not used.
+
+>
+> > +              */
+> > +             if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+> >                       unit->processing.bmVideoStandards = buffer[9+n];
+> >
+> >               uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > index 2a3b7431cc68..2f3daa920ffa 100644
+> > --- a/drivers/media/usb/uvc/uvc_video.c
+> > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+> >       }
+> >  }
+> >
+> > +#define UVC_VIDEO_CTRL_MIN_SIZE 26
+> > +
+> >  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> >  {
+> >       /*
+> > @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> >        * on the protocol version.
+> >        */
+> >       if (stream->dev->uvc_version < 0x0110)
+> > -             return 26;
+> > +             return UVC_VIDEO_CTRL_MIN_SIZE;
+> >       else if (stream->dev->uvc_version < 0x0150)
+> >               return 34;
+> >       else
+> > @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> >  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >       struct uvc_streaming_control *ctrl, int probe, u8 query)
+> >  {
+> > -     u16 size = uvc_video_ctrl_size(stream);
+> >       u8 *data;
+> >       int ret;
+> >
+> > @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >                       query == UVC_GET_DEF)
+> >               return -EIO;
+> >
+> > -     data = kmalloc(size, GFP_KERNEL);
+> > +     data = kmalloc(stream->ctrl_size, GFP_KERNEL);
+> >       if (data == NULL)
+> >               return -ENOMEM;
+> >
+> >       ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
+> >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> > -             size, uvc_timeout_param);
+> > +             stream->ctrl_size, uvc_timeout_param);
+> >
+> >       if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
+> >               /*
+> > @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >               ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+> >               ret = 0;
+> >               goto out;
+> > -     } else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
+> > +     } else if (query == UVC_GET_DEF && probe == 1 &&
+> > +                ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+> >               /*
+> >                * Many cameras don't support the GET_DEF request on their
+> >                * video probe control. Warn once and return, the caller will
+> > @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >                       "Enabling workaround.\n");
+> >               ret = -EIO;
+> >               goto out;
+> > -     } else if (ret != size) {
+> > +     } else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+> >               dev_err(&stream->intf->dev,
+> >                       "Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+> >                       uvc_query_name(query), probe ? "probe" : "commit",
+> > -                     ret, size);
+> > +                     ret, stream->ctrl_size);
+> >               ret = (ret == -EPROTO) ? -EPROTO : -EIO;
+> >               goto out;
+> >       }
+> >
+> > +     if (ret != stream->ctrl_size) {
+> > +             uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
+> > +                           "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
+> > +                           uvc_query_name(query),
+> > +                           probe ? "probe" : "commit", ret,
+> > +                           stream->ctrl_size);
+> > +             stream->ctrl_size = ret;
+> > +     }
+>
+> There are two other locations where uvc_version is used:
+>
+> - In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
+>   devices that don't report dwMaxVideoFrameSize
+>
+> - In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
+>   control on pre-1.50 devices
+>
+> None of those are handled in this patch. Furthermore, more usage of
+> uvc_version may be needed in the future. This patch seems a bit fragile
+> to me in that regard. Could we instead detect the version and update the
+> uvc_version field ?
+
+Will send a follow-up to fix dwMaxVideoFrameSize.
+
+uvc_ctrl_filter_plf_mapping properly handes devices with invalid
+uvc_version. It automatically probes the control.
+
+I though about parsing the uvc_version, but then I realised that some
+devices might implement video_ctrl_size correctly but not filter_plf
+(or the other way around).
+So I decided that this was better.
+
+>
+> Another option, given the small number of affected devices, is to just
+> merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
+
+I'd argue that 4/5 is also a nice to have.
+
+>
+> > +
+> >       ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+> >       ctrl->bFormatIndex = data[2];
+> >       ctrl->bFrameIndex = data[3];
+> > @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >       ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+> >       ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+> >
+> > -     if (size >= 34) {
+> > +     if (ret >= 34) {
+> >               ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+> >               ctrl->bmFramingInfo = data[30];
+> >               ctrl->bPreferedVersion = data[31];
+> > @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> >  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> >       struct uvc_streaming_control *ctrl, int probe)
+> >  {
+> > -     u16 size = uvc_video_ctrl_size(stream);
+> >       u8 *data;
+> >       int ret;
+> >
+> > -     data = kzalloc(size, GFP_KERNEL);
+> > +     data = kzalloc(stream->ctrl_size, GFP_KERNEL);
+> >       if (data == NULL)
+> >               return -ENOMEM;
+> >
+> > @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> >       put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
+> >       put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
+> >
+> > -     if (size >= 34) {
+> > +     if (stream->ctrl_size >= 34) {
+> >               put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
+> >               data[30] = ctrl->bmFramingInfo;
+> >               data[31] = ctrl->bPreferedVersion;
+> > @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> >
+> >       ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+> >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> > -             size, uvc_timeout_param);
+> > -     if (ret != size) {
+> > +             stream->ctrl_size, uvc_timeout_param);
+> > +     if (ret != stream->ctrl_size) {
+> >               dev_err(&stream->intf->dev,
+> >                       "Failed to set UVC %s control : %d (exp. %u).\n",
+> > -                     probe ? "probe" : "commit", ret, size);
+> > +                     probe ? "probe" : "commit", ret, stream->ctrl_size);
+> >               ret = -EIO;
+> >       }
+> >
+> > @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+> >
+> >       atomic_set(&stream->active, 0);
+> >
+> > +     stream->ctrl_size = uvc_video_ctrl_size(stream);
+> > +
+> >       /*
+> >        * Alternate setting 0 should be the default, yet the XBox Live Vision
+> >        * Cam (and possibly other devices) crash or otherwise misbehave if
+> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> > index abcafd929c9e..8d99e857a69f 100644
+> > --- a/drivers/media/usb/uvc/uvcvideo.h
+> > +++ b/drivers/media/usb/uvc/uvcvideo.h
+> > @@ -461,6 +461,7 @@ struct uvc_streaming {
+> >       struct usb_interface *intf;
+> >       int intfnum;
+> >       u32 maxpsize;
+> > +     unsigned int ctrl_size;
+>
+> That should be called video_ctrl_size, ctrl_size is ambiguous.
+Ack
+>
+> >
+> >       struct uvc_streaming_header header;
+> >       enum v4l2_buf_type type;
+> > @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+> >  #define UVC_WARN_PROBE_DEF   1
+> >  #define UVC_WARN_XU_GET_RES  2
+> >  #define UVC_WARN_QUERY_CTRL  3
+> > +#define UVC_WARN_CTRL_SIZE   4
+> >
+> >  extern unsigned int uvc_clock_param;
+> >  extern unsigned int uvc_no_drop_param;
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
+
 -- 
-2.47.3
-
+Ricardo Ribalda
