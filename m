@@ -1,93 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E29F32B118;
-	Mon, 28 Sep 2026 17:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724183546FE;
+	Mon, 28 Sep 2026 17:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617473; cv=none; b=HgZZbcoMuzZ/T2AMaFL+e9bf5q689sOPpJVOisrHKpCGWYLoRXVwB8Uzmuua9ZO+SBg4GTBklTIJ+/Zt5a5vxnR3bc+jB4vWUa8DnvXDHPQ+ucD8Z0enhU1dZXeayz8/qIJQgcUmsPVxrXltRlniRzPnVONpDlzLjDK62Re7/hU=
+	t=1790617528; cv=none; b=LSw0vIhQgQ9QBK6OxJyKr/Ljf2qBU3d314DcEMe3uYij3KF28bodekhtysOzFRlq88w7AJo7QphoTVURyVG7zeqgJ2oOY3dFBpHr4qO86qcV6aEiFuea+tJp9PzheULTPhBJDiZypZNbNOga7KxQK6baJV50dUZMAPyAxnh+6us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617473; c=relaxed/simple;
-	bh=N4Jv5wZSGhYQNl6VnhTVbc8kkvGlTQgFnahhA7vDUhk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D11+oUcXULFULRWWhlzsWOzeaXdSwncinP5NOcXEgH65hPteRl8rH6xXdNuBep2cLZ+6QWA9AsjO/az3ilknGbjMudl4DSTDXbXn5fu/salU8kSUd6TeT9NIGg0qJGNTldEKf3jbv4NA3R5tkxWgHX2M5UffbQZq1GDM6V1rraM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0+IRFej; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790617528; c=relaxed/simple;
+	bh=i0vadijh8pdsj/NPWI7O6M2tP3r5fJxljbSxz7lK/OI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=amRfy2L7Kb4CmhgCguhR3dw4fv+pLoWR9vgm5lMMHFoNX3tZLaQIASml/PwkZkK66TAnx4G5xfioDazn9eLJ7cmq9FBaQ6cUx/vOsCodFm6YIP3pTmXWM+QOGBtrCkm0O49HJhDL5jCHcsJMo7yN9r9n1dR8zbSshWJ7Jb16+vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=ReLEoOjK; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0+IRFej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C333A1F00893;
-	Mon, 28 Sep 2026 17:44:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790617471;
-	bh=LX4LuZoDt/rc49RibEVXEdvKwPqqL8FWf86//5s3GWg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J0+IRFej6Ee9mLg3nwYKPtM9sakauE1HtnsRSt6dDvCyYqnDkrf0hqcU/indoztfw
-	 tpJNmwpqO5FB9cm4qdb2dgu3bnQF+S+G+G96yg7zi1/DUvTYDZ1m57tFZbVB+1QvYA
-	 Cb1X7yg0HHE5LZjhuUscUwuRv0Haz4rV6767L/dH9YXXgll2E5w/QP70MMnUTWRGyc
-	 dMSQLdE1P0GOgBsDICf/XKCm2enP+cKProuH/REprJrXhaFQKZoPVt2SHZsjCJSVqD
-	 PSh6kuhrxw5zK44KgzXVq9CVQZInBvJA7PtDR10mzvMnLxgs9NNVAoMrUHh24Fz2BS
-	 jNBcYQu7hHPJg==
-From: SJ Park <sj@kernel.org>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	kernel-team@android.com,
-	linux-kernel@vger.kernel.org,
-	"open list:MEMORY MANAGEMENT - MISC" <linux-mm@kvack.org>,
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH] selftests/mm: cleanup -Wformat issues in hugetlb-mmap
-Date: Mon, 28 Sep 2026 10:44:25 -0700
-Message-ID: <20260928174425.19155-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927162419.820609-1-cmllamas@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="ReLEoOjK"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4htpcQ6Q9kz1XM4TB;
+	Mon, 28 Sep 2026 17:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1790617521; x=1793209522; bh=mjHAcCA2W+dDXMkITJ80ELgI
+	nrM81TFTkqS/oMrtYVY=; b=ReLEoOjKlpmRLCJMPTsX/FlBYBJBB+5q6J7uv8+1
+	thrYz7iJchL6oU1zlXgQNtqA4Y9xGXK2r4EClw2FI5aj19DXj0L0MfUruZM2kQQC
+	xJmMpOgM1VvmXOdBYqhjf+KOIcdFwLxPPkGpEfr8EkwVzkDgyjFkJaxf5sVBY6dt
+	AhYv7YoSc1PAvA3KR4nD9kmOi4s1l0oEOIEDyG2H6k0itF7wk7eQKfzV76m2dIkE
+	exWDL3NPcegS/ihYCjLi28evQ1x9tFi7gZpyx4R98Memgawh1gmYJumIlK7BCbLo
+	zZP0Ft8dWuAMC/bTcwKRfML/OMPjIO8804UYKyEguG9kyg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id UyamknUSzgzv; Mon, 28 Sep 2026 17:45:21 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:334e:163d:7b65:8f42] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4htpcG3DSYz1XM4Sx;
+	Mon, 28 Sep 2026 17:45:18 +0000 (UTC)
+Message-ID: <3da87b3a-4260-4b6b-aae2-b741d524e665@acm.org>
+Date: Mon, 28 Sep 2026 10:45:17 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] scsi: ufs: core: Avoid unsafe MMIO reads in
+ ufshcd_mcq_compl_all_cqes_lock()
+To: Stanley Jhu <stanleyjhu@google.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Bean Huo <beanhuo@micron.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Peter Wang
+ <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260928035816.1294326-1-stanleyjhu@google.com>
+ <20260928035816.1294326-2-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260928035816.1294326-2-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 27 Sep 2026 16:24:18 +0000 Carlos Llamas <cmllamas@google.com> wrote:
+On 9/27/26 8:58 PM, Stanley Jhu wrote:
+> Fix both issues in ufshcd_mcq_compl_all_cqes_lock():
+> - Remove the ufshcd_mcq_update_cq_tail_slot() call and the redundant
+>    hwq->cq_head_slot = hwq->cq_tail_slot assignment without
+>    replacement. The two indices are already equal after the sweep: they
+>    are equal when the sweep starts, since ufshcd_mcq_poll_cqe_lock()
+>    consumes entries until cq_head_slot reaches cq_tail_slot, and the
+>    sweep advances cq_head_slot by exactly one full ring. Both indices
+>    are also reinitialized before the queue is reused.
+> - Extract ufshcd_mcq_compl_cqe() and invoke it only on non-empty slots
+>    during full-ring sweeps, keeping "Abnormal CQ entry!" logging strictly
+>    for unexpected empty entries in ufshcd_mcq_poll_cqe_lock().
 
-> Commit ae571cd6015c ("selftests/mm: hugetlb-mmap: add setup of HugeTLB
-> pages") and commit 9c5a65f374f8 ("selftests/mm: merge map_hugetlb into
-> hugepage-mmap") added logs of 'hugepage_size' which has a size_t type.
-> However, the incorrect format specifier '%lu' was used which triggers
-> -Wformat warnings when building for 32-bit:
-> 
->   hugetlb-mmap.c:125:55: warning: format specifies type 'unsigned long'
->   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
->     125 | ksft_print_msg("Default size hugepages (%lu kB)\n", hugepage_size >> 10);
->         |                                         ~~~         ^~~~~~~~~~~~~~~~~~~
->         |                                         %zu
-> 
->   hugetlb-mmap.c:134:47: warning: format specifies type 'unsigned long'
->   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
->     134 | ksft_exit_skip("Not enough %lu Kb pages\n", hugepage_size >> 10);
->         |                            ~~~              ^~~~~~~~~~~~~~~~~~~
->         |                            %zu
-> 
-> Fix this by switching to the expected '%zu' format specifier.
-
-Looks good to me.
-
-> 
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Signed-off-by: Carlos Llamas <cmllamas@google.com>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
