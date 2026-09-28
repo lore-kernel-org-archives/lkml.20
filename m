@@ -1,128 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CABB44BC9F;
-	Mon, 28 Sep 2026 06:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9E33B42D7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578302; cv=none; b=nO6Kr08JrBC/ht16x6gQSjHrz39sJTVrBaEw8fK0KPhfSBaBR677Wm+gPV5HPg1Gg+B9p89rOsG0Kg7KJ5XpxTFekEHi4zl8TizCnvWTVQQGUpG73ax5MxZwLptGTSmW2GGnjKS8GQZJkbHyTB8ffIQ8Lr23ExDvRSPbXx2yhCw=
+	t=1790578317; cv=none; b=rZhMOz7y6GaE3e5miGHBMWLM3uUBR9skSeIpX7E1QUT5aC+VtpX6ruS8jkEcgMTlZ6eeC/Ocnmq92VNY/5nJ4Ds3BizuV7fkWEf7LG7i3Sr+dOPa2IcqrWlXzLYXSCEDGhbuw7izTxfLFGxi4fJmLdhcUJttKimOeBhuuagYWHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578302; c=relaxed/simple;
-	bh=Ez0d4eOHHT61xFj2X/Pqm640K08kx2Nv1fnblcsLjZQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AAb5NbmaVogfzR14h898mxmLdNZk+4IIvxiHyF05iQpCY7gxVbwN4R+x9CWvpLcnrP6vJwJCKnLUYQEeMic6l9vfxEtjNDTSxq2m4o4VuZknMmNfFfCYcd2Suc17WTeLMQP2YMmwS9l7bESGZ4tcGWTztW2p3v6/kgt29LEOZd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awNh6g4O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790578317; c=relaxed/simple;
+	bh=g7HnC8uqTbvUXOf7grJy5hvESCLtvv+JmLFCJtRKpUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QPgfQczzlUq19T33BipOT6AVyjK/V/lelkiBcHWMxHuLhCiKosufdK0gP+YYTjGnMfMDzAYF5czsHyBswxVIEnNtQEjhz4dTtosrx7S2ElxFCZa+Oxakm74xONNIb3KcCxjYg1qufzJlROyBdLkdCFqFjgbce/Sd1HWZbKsgVTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DHi9qyRu; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awNh6g4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2E91F000FF;
-	Mon, 28 Sep 2026 06:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790578300;
-	bh=6bvi0aJZpJvjo0wU2SIzdv09OOUt/sxLlLQUAkQgNOI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=awNh6g4OXoa1ED09pWBOW/Swdn62dQkiK9Rl/hmqvuYf+igytl1fwpP7vQgLaqz6b
-	 zcwRoHpJOLhcpm9tWKd20yi8UFTQjEua4ov/zaT2nJxluw+jdrksHifTpedIUV6eCK
-	 usSOzkprAKb7UtlT63DpL6NFK7CpEC6Mz0SJhzDiWPxSzvOZHBass9nIXD/sHAlrae
-	 cJdfRaExGPDQsMYeO25qC0Yvc/lpA/fOe7IV5yAaDhwSjJTEgE8fJHheW1EzRvI9fG
-	 TFC93+oF5UZVR6EF9kgqTOoFnezkUhiZdmjl6dRqDuGLSSp+IGhJxhGQtLzgXuuN0Q
-	 f5YzxRlzt2I3Q==
-Message-ID: <c30d0b74-c133-40f8-970a-e15566507820@kernel.org>
-Date: Mon, 28 Sep 2026 08:51:38 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DHi9qyRu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jB
+	tlJDFKscNKWnzPzGWEgbYNeA/nKaim8x499cdrdZA=; b=DHi9qyRur8Y+DzgPTr
+	dzEYfVv36KLnfN8bx6UhBu60sJO0fS0JuyUnDGI57T/mX2FE6412pLyfh4+pqvb9
+	kAgpISUkP+SWJ9EdlEbcHlI2+wxfP0b+uLi+3CsFPl/jALKk7AAgCCMKwijOHc5C
+	5gaG+kldfuGDIdh83mnqglRWI=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338lcDrpqNj3_BA--.62282S2;
+	Mon, 28 Sep 2026 14:51:09 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Ian Bridges <icb@fastmail.org>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	syzbot+3942dc5563ea8b96bbbe@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Russ Weight <russ.weight@linux.dev>
+Subject: Re: [RFC PATCH] firmware_loader: fix use-after-free in fw_load_sysfs_fallback()
+Date: Mon, 28 Sep 2026 14:50:51 +0800
+Message-ID: <20260928065053.1750765-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ajSGzHwRxkT2rVMZ@dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ata: sata_mv: enable SoC SATA LED presence indication
-To: Carlos Junior <cjuniorfox@gmail.com>
-Cc: cassel@kernel.org, linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925193134.114566-1-cjuniorfox@gmail.com>
- <20260925212823.121415-1-cjuniorfox@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20260925212823.121415-1-cjuniorfox@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD338lcDrpqNj3_BA--.62282S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyUKr1DXr1DWrW7Gw4UJwb_yoWrJw13pF
+	WSqFnxKr4DuryrWrykZr4UZFyrZws3CayrGr1rG3WI9an8Zr9IqryxKw4q9F15urs3C3WY
+	yFWjgwn7JryDX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU_UUUUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB3jWWq6Dl2JVQAA34
 
-On 2026/09/25 23:28, Carlos Junior wrote:
-> Enable the SoC SATA LED controller in mv_soc_enable_leds().
-> 
-> Set the LED controller enable and device presence multiplexing bits
-> in the SoC SATA host-controller register. This enables SATA device
-> presence indication on boards using the SoC SATA controller.
-> 
-> Signed-off-by: Carlos Junior <cjuniorfox@gmail.com>
-> ---
-> Changes in v2:
-> - Do not initialize the SoC SATA LED blink bit; leave it to the
->   existing NCQ LED blink handling.
-> 
->  drivers/ata/sata_mv.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/ata/sata_mv.c b/drivers/ata/sata_mv.c
-> index d260f04e6..52e33485b 100644
-> --- a/drivers/ata/sata_mv.c
-> +++ b/drivers/ata/sata_mv.c
-> @@ -252,6 +252,7 @@ enum {
->  	SOC_LED_CTRL_BLINK	= (1 << 0),	/* Active LED blink */
->  	SOC_LED_CTRL_ACT_PRESENCE = (1 << 2),	/* Multiplex dev presence */
->  						/*  with dev activity LED */
-> +	SOC_LED_CTRL_ENABLE	= (1 << 3),	/* Enable SATA LED control */
->  
->  	/* Shadow block registers */
->  	SHD_BLK			= 0x100,
-> @@ -3382,12 +3383,20 @@ static void mv6_phy_errata(struct mv_host_priv *hpriv, void __iomem *mmio,
->  	writel(m2, port_mmio + PHY_MODE2);
->  }
->  
-> -/* TODO: use the generic LED interface to configure the SATA Presence */
-> -/* & Acitivy LEDs on the board */
-> +/*
-> + * Enable the SoC SATA LED controller and device presence
-> + * indication on the board's SATA LEDs.
-> + */
->  static void mv_soc_enable_leds(struct mv_host_priv *hpriv,
->  				      void __iomem *mmio)
->  {
-> -	return;
-> +	void __iomem *hc_mmio;
-> +
-> +	hc_mmio = mv_hc_base(mmio, 0);
+Hello Ian,
 
-This can be done in a single line with the declaration of the variable:
+I went through the two syzbot reports this targets (kernfs_get and
+__kernfs_new_node) and I agree with your analysis.  device_add() is not
+serialized against the removal of the requesting device, and
+get_device() in request_firmware_nowait() keeps only the struct device
+alive, not the kernfs nodes behind dev->kobj.sd.  The window is real.
 
-	void __iomem *hc_mmio = mv_hc_base(mmio, 0);
+Unfortunately I think the patch as posted cannot go in as-is:
+device_lock(parent) around device_add() deadlocks for any driver that
+requests firmware from its probe function, which is the common case
+rather than an edge case.
 
-> +
-> +	writel(SOC_LED_CTRL_ENABLE |
-> +		SOC_LED_CTRL_ACT_PRESENCE,
+Why: ->probe() already runs with the device mutex held.
 
-No need to have this on 2 lines:
+  __device_attach()
+      device_lock(dev);                     <- device mutex taken
+      bus_for_each_drv(... __device_attach_driver)
+          driver_probe_device() -> really_probe()
+              drv->probe(dev)               <- driver probe
 
-	writel(SOC_LED_CTRL_ENABLE | SOC_LED_CTRL_ACT_PRESENCE,
-	       hc_mmio + SOC_LED_CTRL);
+A driver that calls request_firmware() from there reaches
 
-is nicer. And you can also get rid of the local variable:
+  _request_firmware()
+      firmware_fallback_sysfs()
+          fw_load_from_user_helper()
+              fw_load_sysfs_fallback()
+                  device_lock(parent)       <- parent == that same dev
 
-	writel(SOC_LED_CTRL_ENABLE | SOC_LED_CTRL_ACT_PRESENCE,
-	       mv_hc_base(mmio, 0) + SOC_LED_CTRL);
+and takes the mutex it is already holding.  Linux mutexes are not
+recursive (see the semantics list in include/linux/mutex_types.h), so it
+self-deadlocks.  Both the synchronous and the nowait path end up in
+fw_load_sysfs_fallback(), so both are affected.
 
-But if you prefer keeping the variable for readability, that's fine too.
+I measured this rather than reasoning about it.  Two kernels, same
+config (CONFIG_PROVE_LOCKING + CONFIG_DEBUG_MUTEXES), same initramfs.  I
+wrote a scratch platform driver whose ->probe() has the same shape as
+softing_pdev_probe() -> softing_card_boot() -> softing_load_fw() ->
+request_firmware() (drivers/net/can/softing/softing_fw.c:153), and made
+it print mutex_is_locked(&dev->mutex) before requesting firmware.
 
-With these nits fixed, feel free to add:
+Without the patch, the probe reports the mutex is held and then completes:
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+  fwlockdep-test: probe: mutex_is_locked(&dev->mutex) = 1
+  fwlockdep-test: Falling back to sysfs fallback for: fwlockdep/does-not-exist.bin
+  fwlockdep-test: probe: request_firmware returned -110      <- returned
 
-> +		hc_mmio + SOC_LED_CTRL);
->  }
->  
->  static void mv_soc_read_preamp(struct mv_host_priv *hpriv, int idx,
+With your RFC applied verbatim, the same probe reaches the fallback and
+never comes back:
 
+  fwlockdep-test: probe: mutex_is_locked(&dev->mutex) = 1
+  fwlockdep-test: Falling back to sysfs fallback for: fwlockdep/does-not-exist.bin
+  (no further output; guest had to be killed after 320s)
 
--- 
-Damien Le Moal
-Western Digital Research
+The host run timed out (qemu exit 124) and the guest never reached the
+"request_firmware returned" line, so the 60s firmware timeout never even
+expires - the task is stuck on the mutex, not waiting for userspace.
+
+Some directions that might work instead:
+
+a) Keep a reference on the parent's kernfs node / directory rather than
+   on the struct device, so the node cannot be freed while device_add()
+   uses it.  The fallback device currently holds the parent device, and
+   device_del() tears the kobject hierarchy down independently of that
+   reference, which is the asymmetry to close.
+
+b) Have device_del()-side teardown and the fallback device_add()
+   synchronize on something that is not the device mutex, since the
+   mutex is already held by every probe-context caller.
+
+c) Detect the teardown after device_add() and unwind, which would stop
+   the crash without mutual exclusion, though it leaves the kernfs node
+   lifetime question open.
+
+I have not written a patch for this.  I would rather help get yours into
+shape than file a competing one.  Raising the deadlock now seems better
+than having a maintainer spend a review cycle on the RFC and hit it.
+
+If you still have the dummy_hcd + Raw Gadget harness you mentioned, that
+would be very useful for validating whichever direction we pick against
+the actual crash.  Happy to dig into one of these with you.
+
+Thanks,
+Quchaosheng
+
