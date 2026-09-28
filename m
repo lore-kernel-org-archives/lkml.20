@@ -1,155 +1,501 @@
-Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com [209.85.217.98])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3F37C0E6
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5689539A812
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620015; cv=none; b=EdJVwNyRjcBM8BmEUZF9V7N6ZGQ8fWqdSwlXPTSL9sL198t4jiq2GVbSXy50uDOj1rgth84yB3BSuW1IAQQlA0gToAFiVZ2wQMI6lbGDckByYV9Q6TCspRVl8nXV6Gvf7dLrimDRhu1zVefwpoIWcIT0aCKW2k6eAkfCixJ4Z/E=
+	t=1790620013; cv=none; b=tQ/+0ngfWSEHZumpebegnLb1dMeGJMJFZz2LRZb0O2FqNf/nzPPJg9Yr46xVeWHie+V4jlk8Qd6mG6h/Y9vc0umOsDhMEqWk00nHl17K6lBs+NIddLbdiw5y5GrXcbzqr3sRf2A2CvMah/ErGL7mmoL6f7nYOyidxFaKpK/PodU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620015; c=relaxed/simple;
-	bh=EpikG7Z0U6spB0qXKcgHsc68xeElTBeYTJAUVsrk9Fg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HNGkv2WINweJ1TPgijtW9LvGQjYv5mlKw0ikwDJhkiDPq8zyUoEcH2nYh2vztbVsrupVohKYkjYOhZsk4XpX5AalMoycg6tsXi8ebNAYOBxZVvn4eQUsvbeG4VPsnm372Fu+UJmesdjkXrqN0T28PJ4Ha09dkaQRhbaCRpjNEHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ATExPRya; arc=none smtp.client-ip=209.85.217.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790620013; c=relaxed/simple;
+	bh=lWVd2CggzQyiTWpNkazpx6eVFQMJ/kQ58tk/mMuxWLE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=eSdIoxE/HRWMMXpQi9P2gWhjx6KRlxQV+rlizFkjHo5L8r6eVHfaDGaPSnZ84sZEeiWLgJ1F7UYpztG9AlzvP6r16LfXMf23NrxTG3oS/Vi5yG0/J5C5lONOgIYT/NhhZWWI36ni/jznNjxxEssuN7+JG8LGqCmc31syNGrciGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eLLkkeVW; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ATExPRya"
-Received: by mail-vs1-f98.google.com with SMTP id ada2fe7eead31-7b23925a307so93001137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620012; x=1791224812;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FuQw+B0kSq5FJU56nD6/IW5lKXSJDgEpfGuGLprZ8a4=;
-        b=M0qIpm7wJS9+38UKAYG77IsHEAKNJ+uJKNgkDjzoXWW3yA9/uWYBi9zyHa5fBCZuzA
-         CNVlBVyZXapYdd1ppO5NfSBKNPAOhKjkecKKkBxlvSP+eSNDRJGruH+i9EhfgHzKCt47
-         P2+ycqoXkh86pkH4BSQ+lrWwCM1Xn0GhVaXvar+d2lMrvt9U2+EvkJueEQcgVoOoedlP
-         1XIxEzR1XutW4aAZjdSL2eMobK1ZHY/TuXLWZhW1aT4bH+uJVTmHZCprmOB10pDu3yy1
-         09D0SBOWKWQzkgXpHhIy5ePyeMCJkFPHG7CQPgEaCTR+ciTkzoZFhUfuPawHE/59FzDZ
-         VMTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwseoDVd9DRcS4/5wMuY6IdJqb2IqrKe8G/9tjjLEpCfp3o1jbqL+C8DHxGdEK6QRVR768nJsh1WD1q+9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAfCwwOgsJVh1VjGA/S57PtKRjEmoQ/yCa7hh3EZUhYUgEtykv
-	9g3HFEkNXpIavi8lCKHfy0xy4v7wWQEIJ/aqvj/ia6Zv4Wq80d7e4HN6061GL8LLxL449XYpHvb
-	knMzHB+QZGxrB/NPo8+Ot9aE0rnC26+way5uGt47wV3DWFwlY3aK4iJQHMkVSq6lBlEp7Z3lFL5
-	+9Tw2vcecGOc9BlEr55Irx4lVICk0vIzUPkZ9/qrEMkhfAAotWbU2WErjsA/jd/l0Fn+8Sx/YrA
-	DIFQn7o1dQiLwZAq7I3ntbf
-X-Gm-Gg: AYBFou25a1vs85WfJTVzNdb20NCToP/k1ycrmRxTtYwNMxvjuVPpAdL5MhPhSXrEd1I
-	sEd3oOzE8JX/3rfHcyZhcqFbaYDLHp0WakvyLer/ANH5XfnRdSyhA2RorkKxjZeXPJeqE5a/BDg
-	dnHmVRVKvrCEwXwss8PSq2L0GnxCajLLtfxQ3/aY6vebcSpnibN/gkwiBAxs6BQJgCtYmA2d4Rh
-	4qkps1r8muQNiVK7dGHnDRFSaG0W5778xzyl14rzPI0XsnyRSYruiP/42XpAwIexedpv6WM0uu3
-	xHo/J6f32D74PkWZ9huEQCQOnBqFSrGvdV9Bplj9R8jRvyNF73HfweBLNTUzfkKCmk5f+rQbjPe
-	9EECfSB2Yj+nZknHe4A4G9lsEyRjYOZ7Q0RgiSoNUlpWmGXIMGGlWEWdAUQbrzvO4WTuAG3Haoz
-	rJbAae2TDYV2iz2v9oTNfoB3TyeHIKDOp4fRIhJbzl
-X-Received: by 2002:a05:6122:3285:b0:5c9:a60d:327d with SMTP id 71dfb90a1353d-5cc9765142emr3711541e0c.17.1790620011869;
-        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5cde684ac11sm1590356e0c.6.2026.09.28.11.26.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c58ee2116so541090985a.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eLLkkeVW"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-349ffa249bdso1708705eec.0
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790620011; x=1791224811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790620010; x=1791224810; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FuQw+B0kSq5FJU56nD6/IW5lKXSJDgEpfGuGLprZ8a4=;
-        b=ATExPRyaDht0WtqZ2QsNQcnY2tq2Kgg50WdgjI18aMJUB4mRwWqitgTDr3jmOmCooQ
-         Wu//AYPDsXPT/c6jsa4yMEGSG1HqcEFceVlN4EY8mBB0Z9DgMBempwGRAFO6Sh+SIfVe
-         AhpcPj4oX8y2vjbXWD4as35dlpkywVZGRXcUs=
-X-Forwarded-Encrypted: i=1; AKwUvByXQsitcHrIIRWAonAdZuDJVkpn/AW6krxcRY+FJvkrULF5/VINZB8o5xHF20oJXk2zkZdTR5KNg1WaHzk=@vger.kernel.org
-X-Received: by 2002:a05:620a:7117:b0:93c:2c15:e51d with SMTP id af79cd13be357-93c474ff392mr2182136885a.46.1790620011084;
-        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:7117:b0:93c:2c15:e51d with SMTP id af79cd13be357-93c474ff392mr2182130685a.46.1790620010447;
-        Mon, 28 Sep 2026 11:26:50 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c8147c4desm205669385a.39.2026.09.28.11.26.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 11:26:49 -0700 (PDT)
-Message-ID: <6b61fc5d-1f4c-4634-8d61-2f090f0f7c3d@broadcom.com>
-Date: Mon, 28 Sep 2026 11:26:47 -0700
+        bh=rPNzM7M7wWyRlYleu89x2W7LdzWaVZZ34y+cjdUCZvg=;
+        b=eLLkkeVWIAvr2F6iEjQSXkKUrPsq1Mjvm8sLob06fA+Zk1R5WLS68mr0mIFm1r7AI/
+         SkNCe4+i39BirOcGg7e0QdiW0a/gV5dLjGldZWr4s7arne5out+k3TZGwpHg7NhLsf/r
+         n6CplYuhhqhzEPvat6C5fglUhavioJGVZuRI7yBzhV87P3VducrNsnAUEgoeCRcHyBXu
+         Wbvt4ThiQJ6MKPMcHsNY1wdb9Zao9JFRAUiYANbntonevtF+s8dOs1rs4zyaomVz3Rg7
+         Evr3h47oWpF9zRfa7qcuOvB9CjIwNALRH1kfBYv37x9N+cHT1RAW9GC2laTC/025cWE/
+         CMWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790620010; x=1791224810;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rPNzM7M7wWyRlYleu89x2W7LdzWaVZZ34y+cjdUCZvg=;
+        b=wx7VmbkVaU+N5Dx/EJrwNtDXj7c7G17xo7x+QXPzhIR7nkpvl25NtbVOiuiurMCB+F
+         mlTNrwoKFmdvzr03hEsnEnyT3iPQl1S5x3nvFPv8gP9HlfvBM/1Z/UU0Iwav4KVFKyjY
+         EqAeOSznlmC5/tP/t66HPm0d93mL4z42z/mO4RgXXgqsoHORycX0iAkw64ZPmfOD+FI8
+         ZgsBMyPw3sv5GURXa//TDKMcplYZvngtUCqopfHid2zWWtBnn8brl8EPDNNE7BRox8bv
+         Mn+fW86GzoESDSoLAJ2ylBkXXWcMyI9l8M3TMw/G0mYGU+G/GWhSHWBZG3jfmY5rUQug
+         jUuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5hjncL+ZoUWDr8N49N1FhoeBm17+l7g1gJYW3ViyDpw3c2ES7xRY/mMhxTp/WvqyOla2UDOatBmzcx4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCjMqh7Bb3YiJNRiLeMcEqM8O9DVOGT+O/oSIVlQOqoUXT5UGN
+	E1ShIoj+5blvwLFnOJGEP5UyNwGZ4x6KpJvWXdrNFgtgrsAjWuEMEyKSiL4Z+GsXwr+me9JTw3q
+	uxL4UtJin1Q==
+X-Received: from dlbep24.prod.google.com ([2002:a05:7022:1098:b0:146:da66:cd8f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:b059:10b0:143:298e:459f
+ with SMTP id a92af1059eb24-146d096cf16mr10822133c88.42.1790620009800; Mon, 28
+ Sep 2026 11:26:49 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:25:56 -0700
+In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/6] Add support for Broadcom BCM2712 IOMMU driver
- (Raspberry Pi 5)
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, dan@reactivated.net
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- nick.hollinghurst@raspberrypi.com, james.quinlan@broadcom.com,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
- <arojDdPH1o2ckB5x@8bytes.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <arojDdPH1o2ckB5x@8bytes.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Mime-Version: 1.0
+References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928182605.3649015-18-irogers@google.com>
+Subject: [PATCH v6 17/26] perf trace: Do not return 0 from syscall tracepoint BPF
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/28/26 01:19, Joerg Roedel (AMD) wrote:
-> On Sun, Sep 27, 2026 at 02:08:59PM +0100, Daniel Drake via B4 Relay wrote:
->> Daniel Drake (6):
->>        iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
->>        dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
->>        dt-bindings: display: brcm,bcm2835-hvs: Document iommus property
->>        iommu/generic_pt: Add Broadcom BCM2712 page table format
->>        iommu: Add Broadcom BCM2712 IOMMU driver
->>        arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
-> 
-> Applied patches 1-5, thanks.
+From: Namhyung Kim <namhyung@kernel.org>
 
-And applied patch 6 to devicetree-arm64/next, thanks!
+Howard reported that returning 0 from the BPF resulted in affecting
+global syscall tracepoint handling.  What we want to do is just to drop
+syscall output in the current perf session.  So we need a different
+approach.
+
+Currently perf trace uses bpf-output event for augmented arguments and
+raw_syscalls:sys_{enter,exit} tracepoint events for normal arguments.
+But I think we can just use bpf-output in both cases and drop the trace
+point events.
+
+Then it needs to distinguish bpf-output data if it's for enter or exit.
+Repurpose struct trace_entry.type which is common in both syscall entry
+and exit tracepoints.
+
+Closes: https://lore.kernel.org/r/20250529065537.529937-1-howardchu95@gmail.com
+Suggested-by: Howard Chu <howardchu95@gmail.com>
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Link: https://lore.kernel.org/r/20250814071754.193265-4-namhyung@kernel.org
+[ irogers: Use the local syscall_{enter,exit}_args, always return 1 from
+  augmented__output(), output the unaugmented args when the perf_event_open
+  augmenter fails, dispatch from a trace__bpf_output() handler, add a
+  per-task tracking event and keep excluding kernel callchains. ]
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/builtin-trace.c                    | 125 ++++++++++++++----
+ .../bpf_skel/augmented_raw_syscalls.bpf.c     |  64 ++++++---
+ tools/perf/util/bpf_skel/perf_trace_u.h       |  14 ++
+ 3 files changed, 157 insertions(+), 46 deletions(-)
+ create mode 100644 tools/perf/util/bpf_skel/perf_trace_u.h
+
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index ee844210e281..3dd40f3c3cbb 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -21,6 +21,7 @@
+ #include <bpf/libbpf.h>
+ #include <bpf/btf.h>
+ #endif
++#include "util/bpf_skel/perf_trace_u.h"
+ #include "util/rlimit.h"
+ #include "builtin.h"
+ #include "util/cgroup.h"
+@@ -555,6 +556,57 @@ static struct evsel *perf_evsel__raw_syscall_newtp(const char *direction, void *
+ 	return NULL;
+ }
+ 
++static struct syscall_tp sys_enter_tp;
++static struct syscall_tp sys_exit_tp;
++
++static int evsel__init_bpf_output_tp(struct evsel *evsel)
++{
++	struct tep_event *event;
++	struct tep_format_field *field;
++	struct syscall_tp *sc;
++
++	if (evsel == NULL)
++		return 0;
++
++	event = trace_event__tp_format("raw_syscalls", "sys_enter");
++	if (event == NULL)
++		event = trace_event__tp_format("syscalls", "sys_enter");
++	if (event == NULL)
++		return -errno;
++
++	field = tep_find_field(event, "id");
++	if (field == NULL || tp_field__init_uint(&sys_enter_tp.id, field, evsel->needs_swap))
++		return -EINVAL;
++
++	__tp_field__init_ptr(&sys_enter_tp.args, sys_enter_tp.id.offset + sizeof(u64));
++
++	/* ID is at the same offset, use evsel sc for convenience */
++	sc = evsel__syscall_tp(evsel);
++	if (sc == NULL)
++		return -ENOMEM;
++
++	event = trace_event__tp_format("raw_syscalls", "sys_exit");
++	if (event == NULL)
++		event = trace_event__tp_format("syscalls", "sys_exit");
++	if (event == NULL)
++		return -errno;
++
++	field = tep_find_field(event, "id");
++	if (field == NULL || tp_field__init_uint(&sys_exit_tp.id, field, evsel->needs_swap))
++		return -EINVAL;
++
++	field = tep_find_field(event, "ret");
++	if (field == NULL || tp_field__init_uint(&sys_exit_tp.ret, field, evsel->needs_swap))
++		return -EINVAL;
++
++	/* Save the common part to the evsel sc */
++	if (sys_enter_tp.id.offset != sys_exit_tp.id.offset)
++		return -EINVAL;
++	sc->id = sys_enter_tp.id;
++
++	return 0;
++}
++
+ #define perf_evsel__sc_tp_uint(name, sample) \
+ 	({ struct syscall_tp *fields = __evsel__syscall_tp(sample->evsel); \
+ 	   fields->name.integer(&fields->name, sample); })
+@@ -3021,7 +3073,10 @@ static int trace__sys_enter(struct trace *trace,
+ 
+ 	trace__fprintf_sample(trace, sample, thread);
+ 
+-	args = perf_evsel__sc_tp_ptr(args, sample);
++	if (evsel == trace->syscalls.events.bpf_output)
++		args = sys_enter_tp.args.pointer(&sys_enter_tp.args, sample);
++	else
++		args = perf_evsel__sc_tp_ptr(args, sample);
+ 
+ 	if (ttrace->entry_str == NULL) {
+ 		ttrace->entry_str = malloc(trace__entry_str_size);
+@@ -3159,7 +3214,10 @@ static int trace__sys_exit(struct trace *trace,
+ 
+ 	trace__fprintf_sample(trace, sample, thread);
+ 
+-	ret = perf_evsel__sc_tp_uint(ret, sample);
++	if (evsel == trace->syscalls.events.bpf_output)
++		ret = sys_exit_tp.ret.integer(&sys_exit_tp.ret, sample);
++	else
++		ret = perf_evsel__sc_tp_uint(ret, sample);
+ 
+ 	if (trace->summary)
+ 		thread__update_stats(thread, ttrace, id, sample, ret, trace);
+@@ -3274,6 +3332,18 @@ errno_print: {
+ 	return err;
+ }
+ 
++/* The BPF output event carries both entry and exit, tagged in common_type. */
++static int trace__bpf_output(struct trace *trace, union perf_event *event,
++			     struct perf_sample *sample)
++{
++	u16 type = *(u16 *)sample->raw_data;
++
++	if (type == SYSCALL_TRACE_ENTER)
++		return trace__sys_enter(trace, event, sample);
++
++	return trace__sys_exit(trace, event, sample);
++}
++
+ static int trace__vfs_getname(struct trace *trace,
+ 			      union perf_event *event __maybe_unused,
+ 			      struct perf_sample *sample)
+@@ -3585,27 +3655,6 @@ static int trace__event_handler(struct trace *trace,
+ 	if (thread)
+ 		trace__fprintf_comm_tid(trace, thread, trace->output);
+ 
+-	if (evsel == trace->syscalls.events.bpf_output) {
+-		int id = perf_evsel__sc_tp_uint(id, sample);
+-		int e_machine = thread
+-			? thread__e_machine(thread, trace->host, /*e_flags=*/NULL)
+-			: EM_HOST;
+-		struct syscall *sc = trace__syscall_info(trace, evsel, e_machine, id);
+-
+-		if (sc) {
+-			fprintf(trace->output, "%s(", sc->name);
+-			trace__fprintf_sys_enter(trace, sample);
+-			fputc(')', trace->output);
+-			goto newline;
+-		}
+-
+-		/*
+-		 * XXX: Not having the associated syscall info or not finding/adding
+-		 * 	the thread should never happen, but if it does...
+-		 * 	fall thru and print it as a bpf_output event.
+-		 */
+-	}
+-
+ 	fprintf(trace->output, "%s(", evsel->name);
+ 
+ 	if (evsel__is_bpf_output(evsel)) {
+@@ -3625,7 +3674,6 @@ static int trace__event_handler(struct trace *trace,
+ 		}
+ 	}
+ 
+-newline:
+ 	fprintf(trace->output, ")\n");
+ 
+ 	if (callchain_ret > 0)
+@@ -4791,6 +4839,16 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 		bpf_output->core.system_wide = true;
+ 		/* Exec doesn't enable a CPU event, BPF waits for the exec instead. */
+ 		bpf_output->immediate = target__enable_on_exec(&trace->opts.target);
++		/* Track the target, and see it exit, with a per-task event. */
++		if (evlist__get_tracking_event(evlist) == bpf_output) {
++			struct evsel *tracking =
++				evlist__findnew_tracking_event(evlist, /*system_wide=*/false);
++
++			if (!tracking)
++				goto out_error_mem;
++			/* --sort-events can't queue events without a timestamp. */
++			evsel__set_sample_bit(tracking, TIME);
++		}
+ 	}
+ 
+ create_maps:
+@@ -4902,7 +4960,7 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 
+ 	trace->multiple_threads = perf_thread_map__pid(evlist__core(evlist)->threads, 0) == -1 ||
+ 		perf_thread_map__nr(evlist__core(evlist)->threads) > 1 ||
+-		evlist__first(evlist)->core.attr.inherit;
++		!trace->opts.no_inherit;
+ 
+ 	/*
+ 	 * Now that we already used evsel->core.attr to ask the kernel to setup the
+@@ -5961,8 +6019,6 @@ int cmd_trace(int argc, const char **argv)
+ 	if (err < 0)
+ 		goto skip_augmentation;
+ 
+-	trace__add_syscall_newtp(&trace);
+-
+ 	err = augmented_syscalls__create_bpf_output(trace.evlist);
+ 	if (err == 0)
+ 		trace.syscalls.events.bpf_output = evlist__last(trace.evlist);
+@@ -5998,6 +6054,7 @@ int cmd_trace(int argc, const char **argv)
+ 
+ 	if (evlist__nr_entries(trace.evlist) > 0) {
+ 		bool use_btf = false;
++		struct evsel *augmented = trace.syscalls.events.bpf_output;
+ 
+ 		evlist__set_default_evsel_handler(trace.evlist, trace__event_handler);
+ 		if (evlist__set_syscall_tp_fields(trace.evlist, &use_btf)) {
+@@ -6007,6 +6064,20 @@ int cmd_trace(int argc, const char **argv)
+ 
+ 		if (use_btf)
+ 			trace__load_vmlinux_btf(&trace);
++
++		if (augmented) {
++			if (evsel__init_bpf_output_tp(augmented) < 0) {
++				pr_err("Failed to initialize the BPF output event fields\n");
++				goto out;
++			}
++			augmented->handler = trace__bpf_output;
++			/* Just the user space callchain leading to the syscall. */
++			if (callchain_param.enabled && !trace.kernel_syscallchains)
++				augmented->core.attr.exclude_callchain_kernel = 1;
++			trace.raw_augmented_syscalls_args_size = sys_enter_tp.id.offset;
++			trace.raw_augmented_syscalls_args_size += (6 + 1) * sizeof(long);
++			trace.raw_augmented_syscalls = true;
++		}
+ 	}
+ 
+ 	/*
+diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+index d9284a5c030d..d16e55706335 100644
+--- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
++++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include "vmlinux.h"
++#include "perf_trace_u.h"
+ 
+ #include <bpf/bpf_helpers.h>
+ #include <bpf/bpf_tracing.h>
+@@ -62,13 +63,19 @@ struct syscalls_sys_exit {
+ } syscalls_sys_exit SEC(".maps");
+ 
+ struct syscall_enter_args {
+-	unsigned long long common_tp_fields;
++	union {
++		unsigned long long common_tp_fields;
++		unsigned short	   common_type;
++	};
+ 	long		   syscall_nr;
+ 	unsigned long	   args[6];
+ };
+ 
+ struct syscall_exit_args {
+-	unsigned long long common_tp_fields;
++	union {
++		unsigned long long common_tp_fields;
++		unsigned short	   common_type;
++	};
+ 	long		   syscall_nr;
+ 	long		   ret;
+ };
+@@ -169,10 +176,11 @@ static inline struct augmented_args_payload *augmented_args_payload(void)
+ 	return bpf_map_lookup_elem(&augmented_args_tmp, &key);
+ }
+ 
+-static inline int augmented__output(void *ctx, struct augmented_args_payload *args, int len)
++/* Returning 0 would drop the tracepoint for other perf sessions. */
++static inline int augmented__output(void *ctx, void *args, int len)
+ {
+-	/* If perf_event_output fails, return non-zero so that it gets recorded unaugmented */
+-	return bpf_perf_event_output(ctx, &__augmented_syscalls__, BPF_F_CURRENT_CPU, args, len);
++	bpf_perf_event_output(ctx, &__augmented_syscalls__, BPF_F_CURRENT_CPU, args, len);
++	return 1;
+ }
+ 
+ static inline int augmented__beauty_output(void *ctx, void *data, int len)
+@@ -211,12 +219,20 @@ unsigned int augmented_arg__read_str(struct augmented_arg *augmented_arg, const
+ SEC("tp/raw_syscalls/sys_enter")
+ int sys_enter_unaugmented(struct syscall_enter_args *args)
+ {
++	struct augmented_args_payload *augmented_args = augmented_args_payload();
++
++	if (augmented_args)
++		augmented__output(args, &augmented_args->args, sizeof(augmented_args->args));
+ 	return 1;
+ }
+ 
+ SEC("tp/raw_syscalls/sys_exit")
+ int sys_exit_unaugmented(struct syscall_exit_args *args)
+ {
++	struct augmented_args_payload *augmented_args = augmented_args_payload();
++
++	if (augmented_args)
++		augmented__output(args, &augmented_args->args, sizeof(struct syscall_exit_args));
+ 	return 1;
+ }
+ 
+@@ -408,7 +424,9 @@ int sys_enter_perf_event_open(struct syscall_enter_args *args)
+ 
+ 	return augmented__output(args, augmented_args, len + size);
+ failure:
+-	return 1; /* Failure: don't filter */
++	if (augmented_args)
++		augmented__output(args, augmented_args, sizeof(augmented_args->args));
++	return 1;
+ }
+ 
+ SEC("tp/syscalls/sys_enter_clock_nanosleep")
+@@ -590,6 +608,7 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+ 
+ 	/* copy the sys_enter header, which has the syscall_nr */
+ 	__builtin_memcpy(&payload->args, args, sizeof(struct syscall_enter_args));
++	payload->args.common_type = SYSCALL_TRACE_ENTER;
+ 
+ 	if (bpf_ksym_exists(bpf_iter_num_new)) {
+ 		bpf_for(i, 0, 6) {
+@@ -642,48 +661,55 @@ int sys_enter(struct syscall_enter_args *args)
+ 		return 1;
+ 
+ 	if (pid_filter__has(&pids_filtered, getpid()))
+-		return 0;
++		return 1;
+ 
+ 	augmented_args = augmented_args_payload();
+ 	if (augmented_args == NULL)
+ 		return 1;
+ 
+ 	bpf_probe_read_kernel(&augmented_args->args, sizeof(augmented_args->args), args);
++	augmented_args->args.common_type = SYSCALL_TRACE_ENTER;
+ 
+ 	/*
+ 	 * Jump to syscall specific augmenter, even if the default one,
+-	 * "!raw_syscalls:unaugmented" that will just return 1 to return the
+-	 * unaugmented tracepoint payload.
++	 * "!raw_syscalls:unaugmented" that will just output the unaugmented
++	 * payload.
+ 	 */
+ 	if (augment_sys_enter(args, &augmented_args->args))
+ 		bpf_tail_call(args, &syscalls_sys_enter, augmented_args->args.syscall_nr);
+ 
+-	// If not found on the PROG_ARRAY syscalls map, then we're filtering it:
+-	return 0;
++	return 1;
+ }
+ 
+ SEC("tp/raw_syscalls/sys_exit")
+ int sys_exit(struct syscall_exit_args *args)
+ {
+-	struct syscall_exit_args exit_args;
++	struct augmented_args_payload *augmented_args;
+ 
+ 	if (!task_traced())
+ 		return 1;
+ 
+ 	if (pid_filter__has(&pids_filtered, getpid()))
+-		return 0;
++		return 1;
++
++	augmented_args = augmented_args_payload();
++	if (augmented_args == NULL)
++		return 1;
++
++	bpf_probe_read_kernel(&augmented_args->args, sizeof(*args), args);
++	augmented_args->args.common_type = SYSCALL_TRACE_EXIT;
+ 
+-	bpf_probe_read_kernel(&exit_args, sizeof(exit_args), args);
+ 	/*
+ 	 * Jump to syscall specific return augmenter, even if the default one,
+-	 * "!raw_syscalls:unaugmented" that will just return 1 to return the
+-	 * unaugmented tracepoint payload.
++	 * "!raw_syscalls:unaugmented" that will just output the unaugmented
++	 * payload.
+ 	 */
+-	bpf_tail_call(args, &syscalls_sys_exit, exit_args.syscall_nr);
++	bpf_tail_call(args, &syscalls_sys_exit, augmented_args->args.syscall_nr);
+ 	/*
+-	 * If not found on the PROG_ARRAY syscalls map, then we're filtering it:
++	 * If not found on the PROG_ARRAY syscalls map, then we're filtering it
++	 * by not emitting bpf-output event.
+ 	 */
+-	return 0;
++	return 1;
+ }
+ 
+ /* Trace the children of traced tasks, added before they can run. */
+diff --git a/tools/perf/util/bpf_skel/perf_trace_u.h b/tools/perf/util/bpf_skel/perf_trace_u.h
+new file mode 100644
+index 000000000000..004ba96aaba9
+--- /dev/null
++++ b/tools/perf/util/bpf_skel/perf_trace_u.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/* Copyright (c) 2025 Google */
++
++/* This file will be shared between BPF and userspace. */
++
++#ifndef __PERF_TRACE_U_H
++#define __PERF_TRACE_U_H
++
++enum syscall_trace_type {
++	SYSCALL_TRACE_ENTER = 0,
++	SYSCALL_TRACE_EXIT,
++};
++
++#endif /* __PERF_TRACE_U_H */
 -- 
-Florian
+2.56.0.rc1.315.gc6ed9934b7-goog
+
