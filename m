@@ -1,79 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5C24E8E0F;
-	Mon, 28 Sep 2026 19:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437094E73B9
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790622933; cv=none; b=sT7WhToWclWWZzHpIPyKEzgaBkfp4pboRfzGGBXeltkzzFY11kVFdHdiLEFydagVyUPuhb9SdvV8655SLtTQpWZE3+YDg8WCgtuCYRUAv1ZecRptctFX1yc+jebiOsdxlwd9FLsSyohqlFA376SKuIvuMfqVMzwFjAvA+RYpCN0=
+	t=1790622938; cv=none; b=hK93alj6ZFrjHTKIFngBiq1M6qEP2+qQ2F4iT4MctRht7Dbb14JhPeqozgFKG8dnRCu5mnFZRnRKW8KXkUj0ErhysehDa++s8oRRGEVfW4n4Dgvxq6X83G9/jawQAWAmbTJpEdbDbGPWiWO10ILWTx4vVZZ0fQ7vQ3g33WFWmEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790622933; c=relaxed/simple;
-	bh=a8dv7ZBOxg9u8J91MSLKO0UdjH8Iwx9Vfg19B6tu3sM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=UaGDyE7Wcykk7eosnawlY4+XA34rSsMLncU4v7Ucwda01TqiJXZ1pl2aZApDGKUUapucn/fCEq2IH2PtJv4R8AjtXeJ5fvm/zXzG4G1evA2DO4tHK5+7gUQK7TaEKHOM6hcxBBgS5O7gCEz8UBbvLWYujOyAbN+tvbxs6919c6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I42bfjmK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790622938; c=relaxed/simple;
+	bh=cnSkWhVxKLSHuvDTlQufv+EuF2rraS4RcqOQGjemejk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FqPM+WUTOaaRveTvssvRh22MOR9uqv4x1O6tl5uGikGCwKdUxWBJlN8hLYAYrw46kzQbz2QIz3DcQ9/hfJkcx58r6dsKnMA9JuFqrngW4JTCGcgNobwpA0UlbHT9vuYuMq3CURtFhq6SGJF4NidPmiwiXIXeunXdo7uJYyFSLh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1ul2MGa; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I42bfjmK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E321F000FF;
-	Mon, 28 Sep 2026 19:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790622931;
-	bh=pavSSyd+5COpJ+FcYxjfDIVgJHsCwKFFaC01d4tX+dY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=I42bfjmKYEPkRHi6/P5qfOYiySBGPCQo3hyjWscD2WFbwElDzvhOEArEjKw+QXq+K
-	 E6miPc3uHEabIFJHdxx+AHJ7DDls/hfk1DL4IZUb/iHwEhd8RSp9vhTe6N7DjdlCtx
-	 Z+MQ5gzlixTfSRfy889DFy+fcHZerD/xaK2AHFkflhyMrTp3vJ93gHvwulxrjWKivl
-	 qU4zURbXLJ/mqaPhqj8BeGSGJs8DVAJS9OlAlnFjlP7lhAGXSW1D52aTGILJMf0Cds
-	 u64U+UNXD0X1DFPIpzS7s7jYO8w3fYpQN/KRqb6sVU3ugfo03Lbk7qQQzMO7p6vqEI
-	 RCyajIT8fcqNQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: kotaranov@microsoft.com, snsanghvi@microsoft.com, longli@microsoft.com, 
- jgg@ziepe.ca, Konstantin Taranov <kotaranov@linux.microsoft.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260923131155.4055875-1-kotaranov@linux.microsoft.com>
-References: <20260923131155.4055875-1-kotaranov@linux.microsoft.com>
-Subject: Re: [PATCH rdma-next v4 0/5] RDMA/mana_ib: Streamline kernel
- UD/GSI posting and completion handling
-Message-Id: <179062292875.3940368.14073384996930348094.b4-ty@kernel.org>
-Date: Mon, 28 Sep 2026 15:15:28 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1ul2MGa"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-883a16b758dso267003b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:15:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790622936; x=1791227736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RgWd/l9HpKlKhvcWTT1u0c7+1pXvz8TwXeJa3yLEX5w=;
+        b=K1ul2MGaTUlcU8VoW/vtt3h45V2MYm/YBvwbZR91EXDoyl13W6Q8fgtqYxlszs1w4e
+         wp7lCYHPu49E9isGQ+3ibE7C+C/+5nAtA0J65wEy6fthROkkZGuF0j6Ap9WOMGF5rHlT
+         DFyUjqpI+xrWZZG5t1vjeOiCx3DrHFW9+k6dQ7UoylvJrk8XhYU8BW2iQ7tMgZ87FC6r
+         B0lpOhAXr28bilYzaCElM46svxOF0h1gVXFvcH/hc1GpvjtujJ6KtxhuHnz8q5tbz7c/
+         E+1pCkt+/qMWoLpTcnhmp9bHSWnexnCmJ5QMYIzudhzS/liYFOGoFZIyRQXUW1BTXaP8
+         hsfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790622936; x=1791227736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RgWd/l9HpKlKhvcWTT1u0c7+1pXvz8TwXeJa3yLEX5w=;
+        b=E+FBiGVE2hbZOvakvxOcMHS/Zw/2wSAE9zf4derzuk2Zes79GYS7Z/nPW6jSVTng9a
+         uyjDu6c34I5aOf1P2Fbac9/CcyBoWd5q2oy+XSRC0MYgWw4d9bZUmTWW844G3QS3QmMb
+         nZgK35meryA3J+sIiI4NmqkFaZMCFLrdoXxE3/j0s0HLHZJoYkuWGAFI/FSgjZ+H3X5f
+         FD6Z1XEMVe6JCupp2cx5gVin4vJAyhqfBf1IV8OWII3N82pl3GTH12E2TCqVgcqdpOqN
+         dOJjS7WWTHvGtY88mAxNSvsyvNnurel8JNVufY+KRDCuNiE4Z9U05NyISNkUz5crFp31
+         V6gg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/B/0ulsEPBizlsdcEI0QEzfkuc/prgqjnBKl08/28Jd4KwtH6q3bDau+T+4OJYmMMY9jFledU+M7aNaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLemLoX2sVeoSQvHX4lG5TASwv8lSb9z+jnA49YCRqKSJrkz2/J
+	fGt0z39AEOtsNJwKWb9v9oaUmtEYtm7Qk/xUaHiWdY5sgtNgongUQGJC
+X-Gm-Gg: AYBFou3TsfkEsmP/YTmpuw8GcxXGzG2Lv9xJBaAlzrMqu5CgUxISOfmOFVg0eDzSqM6
+	QseBWd2JgzrbcEJEt1uIRoFn3FbvcKCxodx8cknaaJBOw3UyQmaoZt7EIOFs+MaK7nlB58kDvUU
+	Gbp3JIA/Ax3SQvNg26CmZHSGN0oj0Gq9fg3908eA54UxkYSLc2s/UIT7/fJTG/vvmT0wUGiHVoK
+	ae7T8B2swRDGHuXPBXEKr9HabDLCAOpb2PFazPQ4DXD2cBb3szb5MMkXCjnMaWnB5n1YzTnbcOy
+	9uGxdUwIGX3U1oicvIu5KiQu8ooS83WmGBxlrHno8EMIQoj8PlOVDpIGnbnHRW8O5JoSnBtzbDn
+	VIruFbGkhPCj9OshHcrOAuof2ul3ST1KbK47jFKixsJcTyKupsVBz7zozWFGpcXZVLcfZ4Il3Zq
+	UkkGMb0GX/Mds+g2lpLR7f3qNFQ9czOvx3ou938k7rSJ0Xfve8srEPZsEL5g1oU11TqH/X9t/L1
+	6b67POcfc1ImUfDpqJSS/YxXPqWC7KBjskkqUPbBzXdipg5I4ve4MCsKzBUjM6zlYayq8Agheq9
+	0ijLhSapOClh1kOOuinp
+X-Received: by 2002:a17:90b:5648:b0:3a0:e985:9ca2 with SMTP id 98e67ed59e1d1-3a49c1a1c55mr90738a91.31.1790622936500;
+        Mon, 28 Sep 2026 12:15:36 -0700 (PDT)
+Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2006-1fb9-8409-0195-705e-5b47.dynamic-ip6.hinet.net. [2001:b011:2006:1fb9:8409:195:705e:5b47])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49c1afb23sm284314a91.16.2026.09.28.12.15.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 12:15:35 -0700 (PDT)
+From: Yiwei Lin <s921975628@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Yiwei Lin <s921975628@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] rbtree: update augmented data on the way down in rb_add_augmented_cached()
+Date: Tue, 29 Sep 2026 03:15:26 +0800
+Message-Id: <20260928191526.645160-1-s921975628@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928140513.GF4121620@noisy.programming.kicks-ass.net>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+On 2026/09/28 22:05, Peter Zijlstra wrote:
+> > And that is *very* close to being generalizable, obviating the need for
+> > RBCOMPUTE. Does your LLM see a way to make that happen?
+>
+> Perhaps by doing something like so?
+[...]
+>  #define RB_DECLARE_CALLBACKS_MULTI(RBSTATIC, RBNAME,			\
+> -			     RBSTRUCT, RBFIELD, RBCOPY, RBCOMPUTE)	\
+> +			     RBSTRUCT, RBFIELD, RBCOMPUTE, RBAUG...)	\
 
-On Wed, 23 Sep 2026 06:11:50 -0700, Konstantin Taranov wrote:
-> From: Konstantin Taranov <kotaranov@microsoft.com>
-> 
-> This series updates the kernel UD/GSI work-request and completion paths in
-> the MANA RDMA driver. This series is required for upcoming kernel RC QP support.
-> 
-> The main idea is to fill in WCs directly from CQEs and do not use shadow Qs
-> as proxy. The older code, a CQ had lists of QPs using it, which adds overhead
-> on polling when CQs are shared. Instead, CQs now maintain only the list
-> of QPs in error state.
-> 
-> [...]
+Yes, and since RBCOMPUTE is always "reset the fields to the node's own contribution,
+then fold in each child". I think we can also generalize it with RBMERGE, by
+adding one extra RBINIT:
 
-Applied, thanks!
+        static inline void min_vruntime_init(struct sched_entity *se)
+        {
+                se->min_vruntime = se->vruntime;
+                se->min_slice = se->slice;
+                se->max_slice = se->slice;
+        }
 
-[1/5] RDMA/mana_ib: Optimize shadow queue bookkeeping
-      https://git.kernel.org/rdma/rdma/c/8b55ae7c81f038
-[2/5] RDMA/mana_ib: Revise UD send posting and WQE definitions
-      https://git.kernel.org/rdma/rdma/c/afcebf3cfa0e84
-[3/5] RDMA/mana_ib: Revise UD receive posting with GDMA_WR_IB_SGL
-      https://git.kernel.org/rdma/rdma/c/387c51aa0ee0ae
-[4/5] RDMA/mana_ib: Make kernel CQ arming robust
-      https://git.kernel.org/rdma/rdma/c/9d3fccc58efe4a
-[5/5] RDMA/mana_ib: Poll UD completions and flush software error QPs
-      https://git.kernel.org/rdma/rdma/c/1d99b7cea29c31
+So the original RBCOMPUTE can be generated by the template instead, which allow us to
+remove min_vruntime_update.
 
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
+        static inline bool RBNAME ## _compute(RBSTRUCT *node)                         \
+        {                                                                             \
+                typeof(node->RBAUGMENTED) aug;                                        \
+                RBSTRUCT *child;                                                      \
+                                                                                      \
+                RBINIT(node, &aug);                                                   \
+                if (node->RBFIELD.rb_left) {                                          \
+                        child = rb_entry(node->RBFIELD.rb_left, RBSTRUCT, RBFIELD);   \
+                        RBMERGE(&aug, &child->RBAUGMENTED);                           \
+                }                                                                     \
+                if (node->RBFIELD.rb_right) {                                         \
+                        child = rb_entry(node->RBFIELD.rb_right, RBSTRUCT, RBFIELD);  \
+                        RBMERGE(&aug, &child->RBAUGMENTED);                           \
+                }                                                                     \
+                if (!memcmp(&aug, &node->RBAUGMENTED, sizeof(aug)))                   \
+                        return true;                                                  \
+                node->RBAUGMENTED = aug;                                              \
+                return false;                                                         \
+        }                                                                             \
 
+Base on this I have another idea: can we let augmented data becomes one member and
+init/merge just work on its type by value. Taking sched for example:
+
+        struct_group_tagged(sched_aug, aug,
+                u64 min_vruntime;
+                u64 min_slice;
+                u64 max_slice;
+        );
+
+So fair.c's se->min_vruntime etc. can stay as they are, we don't have to rely on the
+FOR_EACH machinery. Do you think this can be better or do you prefer the field-list form?
+
+Thanks,
+Yiwei Lin
