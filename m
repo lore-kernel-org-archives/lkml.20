@@ -1,157 +1,133 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D36A4B7A28;
-	Mon, 28 Sep 2026 11:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65DD4B4051;
+	Mon, 28 Sep 2026 11:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596103; cv=none; b=mbJTJ6D7kVEGyT+lfRu1/3Ig55Ib2KeaTNS18pI8xUK4hWUFmjk0ATuTNyXIn8T8IWyHNhRSn3M/GBOtFH+6IDrFg/MQ/gkq8lsVVlmlHgcy+8Yrn8GjvLnXtjJelEBEshmMPggQytl93mnywY1Jy5vANzP2Goxxc/VqKB27WBI=
+	t=1790596146; cv=none; b=B7Q3oSNbSWM/LQZYFL+TMOIakNFtu4EednGDjN475jZJWay55u7quhnsN93lnQGvDc1J7gulWulGTM8/jSClz0U6Wy8tgul7Jtc482n+jNfJy2OA/UPsVygLizWmwQ4B7flT6L5Nfk66QV5p4jd9ATegQoJaDASvjsYy+KC49Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596103; c=relaxed/simple;
-	bh=EgPFAuP9qvQBrProAV6Bi/9+EkS0oVZfziknCw4Lrlg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=pstxIicdiK9nmuTHWI5wWebM4V1j0eI+ARtls6d7H+gON/PumFwOPaJVya8HRW/+C7x2LCLKhOiNBwxLrO0uVzKJ/INpvqDlNbRHWXiRRzxd/uimSoZoShMLkp0DVwQAFgA/pTvYbAAZWCvOHiyKyMpNQ73gwsqx2uzDOAdIToo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MGXKKc4c; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790596146; c=relaxed/simple;
+	bh=q6PoaKN9iIEau/KmRPHWF51XnmHHGgWe/7tgT8DwTrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UMPXmjf/5XjF2yDMPqOyajOKTVM0SuqVVUPjKxlSPH3MAt5qXx9nYgvrq/VuSGo81wpQIYODthmGQ6uysTiRRtTa6g2DSUx8hOpYWfOTJ8G55IySsdM05sfGnJdlT7roYQIiiphrX+hzDQrdnVsBFZgY1DyjDh4lJcm/o9Mybzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jfQcEwF9; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MGXKKc4c"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BFD551A1040;
-	Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 73DFD60504;
-	Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DAA5A102F2227;
-	Mon, 28 Sep 2026 13:47:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790596095; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=TR2EoUedzfwkF3107b5KNS7BcXvPvkAv8bW+yYycLg8=;
-	b=MGXKKc4c5SOmaVWp/phoair6djFZb7UjXYb4g7L1mu9HkDS45D2Mlcr5y0nCwPGAVqpsGv
-	OEyWMqiy3ker2qxJrAW/UnrGrRHX0U5FTADuUuUtmWYUjbjs5sEQnRZOMUAMqnzQlFMAjA
-	pPfwXpH8+1YUt2r57oV6Vdkon/lXPcVhV54ca8km8DMGpKDscvP2exc0uf2Nu6SDXfkR44
-	TLdVQPBbaKuqlM8N4aAFilFSY0cAFNPEgcpSiJcNTfZYNkrgZ0RKbrheWBH8E5cEAIKAjr
-	8JuIZsDLIGY++CVbtEFdbI5WenxcI1Asgjh4lbJzwiQZuHiUsB0V5sy5A7bfEQ==
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jfQcEwF9"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 198D9B07;
+	Mon, 28 Sep 2026 13:47:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790596032;
+	bh=q6PoaKN9iIEau/KmRPHWF51XnmHHGgWe/7tgT8DwTrY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jfQcEwF9OMkqUc8jl7A4WzuJ6FX2m0CKE/F67+V1gLWzvyGl4Z0hv6dcP1AYcW5Qv
+	 elNfY3Od2uuA611rECdOmhxzkw13E5LeBAOQ3nI9EEjSlNbv+f3h4wB75wySt0QVuu
+	 sWACo92byoTwpg7fG8QPaUFJyF572E9Pc7EoZwuE=
+Date: Mon, 28 Sep 2026 14:49:00 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] media: uvcvideo: live pan/tilt/zoom readback on
+ the OBSBOT Tiny 2
+Message-ID: <20260928114900.GC157191@killaraus.ideasonboard.com>
+References: <20260902002553.34839-1-jordan.mymail@gmail.com>
+ <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 13:47:52 +0200
-Message-Id: <DLQXBZQ8KOCD.17XT73H60GTNJ@bootlin.com>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
- indentation in the example
-Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai"
- <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
- <samuel@sholland.org>, "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Frank
- Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
- <festevam@gmail.com>, "Francesco Dolcini" <francesco@dolcini.it>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov"
- <lumag@kernel.org>, "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Marcus Folkesson"
- <marcus.folkesson@gmail.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Yannick Fertre"
- <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
- <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
- <philippe.cornu@foss.st.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Adrien Grassein" <adrien.grassein@gmail.com>, "Russell King"
- <linux@armlinux.org.uk>, "Simha BN" <simhavcs@gmail.com>, "CK Hu"
- <ck.hu@mediatek.com>, "Jitao shi" <jitao.shi@mediatek.com>, "Yongxing Mou"
- <yongxing.mou@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Chris
- Morgan" <macromorgan@hotmail.com>, "Martinez Canillas"
- <javierm@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-X-Mailer: aerc 0.22.0
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
- <179057359762.92994.13773102514654073802.b4-ty@b4>
- <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
- <20260928065837.GA22609@killaraus.ideasonboard.com>
- <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
- <20260928100841.GC22609@killaraus.ideasonboard.com>
-In-Reply-To: <20260928100841.GC22609@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
 
-Hello Krzysztof, Laurent,
+On Mon, Sep 28, 2026 at 01:01:11PM +0200, Hans de Goede wrote:
+> Hi All,
+> 
+> On 2-Sep-26 02:25, Michael Jordan wrote:
+> > The OBSBOT Tiny 2's GET_INFO strips the AUTOUPDATE bit from its pan,
+> > tilt and zoom controls, so uvcvideo caches them and userspace can never
+> > observe the actuator's live state. This series reports AUTO_UPDATE
+> > controls as volatile to userspace, generalises the existing XU flags
+> > fixup table to all controls, and adds entries for the three affected
+> > controls on this camera.
+> > 
+> > Changes in v2 (following Ricardo's review of v1 [1]):
+> > 
+> > - Patch 1: unchanged; picked up Ricardo's Reviewed-by.
+> > - Patch 2: uvc_ctrl_fixup_flags() now returns bool and runs at the
+> >   start of uvc_ctrl_get_flags(), before the allocation, skipping the
+> >   GET_INFO query entirely for controls the table covers (Ricardo).
+> > - Patch 3: as asked, I checked whether the camera's other
+> >   AUTO_UPDATE-flagged controls suffer the same bug. Two more do:
+> >   CT_PANTILT_RELATIVE and CT_ZOOM_ABSOLUTE, both verified on hardware
+> >   to change autonomously and report live values on GET_CUR; entries
+> >   added for both. Exposure, white balance and focus turned out to be
+> >   write-only on this firmware (their autos work, but GET_CUR echoes the
+> >   last SET_CUR), so they gain nothing from AUTO_UPDATE and were left
+> >   alone; details in the commit message. The commit message also no
+> >   longer claims the capability byte is the same for every control --
+> >   probing every control showed it is computed per control, just wrong
+> >   for the PTZ ones. Dropped Ricardo's Reviewed-by since the patch
+> >   changed materially.
+> > 
+> > The full lsusb -v output was posted in reply to v1's patch 3, in the
+> > thread at [1].
+> > 
+> > [1] https://lore.kernel.org/linux-media/20260828152557.653475-1-jordan.mymail@gmail.com/
+> 
+> Michael, thank you for the patch. Patches 1/2 look good to me:
+> 
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> 
+> Ricardo (and Michael, I wonder, in the light of Michael already having
+> found a second camera with the same issue and also in the light of your
+> "media: uvcvideo: Automatically handle invalid uvc_versions" series
+> if it would not be better to try to fix this up automatically instead
+> of relying on device quirks?
+> 
+> Specifically the UVC_CTRL_FLAG_AUTO_UPDATE flag is already there
+> in the default flags for these controls (and a bunch of others)
+> in uvc_ctrls[].
 
-On Mon Sep 28, 2026 at 12:08 PM CEST, Laurent Pinchart wrote:
-> On Mon, Sep 28, 2026 at 10:08:43AM +0200, Krzysztof Kozlowski wrote:
->> On 28/09/2026 08:58, Laurent Pinchart wrote:
->> > On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
->> >> On 28/09/2026 07:33, Luca Ceresoli wrote:
->> >>> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
->> >>>> Correct indentation in the examples to consistent 2- or 4-spaces
->> >>>> indentation to fix dt-check-style warnings ("example 0
->> >>>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, =
-but
->> >>>> re-indenting entire example just for that is too much churn.
->> >>>
->> >>> Applied, thanks!
->> >>>
->> >>> [1/2] dt-bindings: display: Use consistent indentation in the exampl=
-e
->> >>>       commit: 370c5d9004f8b754351981d59fc26851bf943e93
->> >>
->> >> Thanks, but I expected no one will pick it up, so I asked Rob to take
->> >> it, thus it is already queued.
+The UVC_CTRL_FLAG_AUTO_UPDATE flag in uvc_ctrls indicates which control
+*may* be auto-update controls. In many devices, lots of those will not
+be auto-update controls. For instance, UVC_PU_HUE_CONTROL may only
+auto-update when auto-hue is enabled. Devices that implement manual hue
+only will not update this control.
 
-Sorry that this caused confusion.
+We use the flags in uvc_ctrls as a fallback if getting control info from
+the device fails (in uvc_ctrl_get_flags()). I think that's the right
+thing to do.
 
->> > Please explain your merge plans in the cover letter next time.
->>
->> The merge plan was this going through drm-misc. It got reviews, no one
->> applied, even Dmitry for msm only reviewed the msm-bits (second patch),
->> so I asked Rob to take it. This was not planned, but result of usual
->> drm-misc inactivity for bindings (many bindings were not taken in the
->> past or with noticeable delay/pings).
+> I wonder if we should simply always honor UVC_CTRL_FLAG_AUTO_UPDATE
+> from uvc_ctrls[] even when we do get a valid GET_INFO request and
+> simply or in the UVC_CTRL_FLAG_AUTO_UPDATE from uvc_ctrls[] if it
+> is there?
+> 
+> That avoids needing to adding more and more quirks for this.
+> 
+> Regards,
+> 
+> Hans
+> 
+> > Michael Jordan (3):
+> >   media: uvcvideo: report AUTO_UPDATE controls as volatile
+> >   media: uvcvideo: generalise the XU flags fixup to all controls
+> >   media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+> > 
+> >  drivers/media/usb/uvc/uvc_ctrl.c | 122 ++++++++++++++++++++-----------
+> >  1 file changed, 81 insertions(+), 41 deletions(-)
 
-My personal rule of thumb to apply patches to drm-misc is to wait at least
-(the latest of):
+-- 
+Regards,
 
- * 2w after the patch has been sent
- * 1w after it's reviewed/acked
-
-This is to give everyone reasonable time to chime in and nack if needed.
-
-According to that policy, which is of course debatable and not ubiquitous,
-this patch got applied timely.
-
-> If that happens again, could you please reply to the series on the
-> dri-devel list to tell it will be merged through the DT tree ? I don't
-> think there's any issue with merging patches that way, it's just
-> coordination that's lacking.
-
-I agree a ping over e-mail or on #dri-devel would be good and less noisy.
-
-But if the patch has multiple eligible branches an "applied, thanks" e-mail
-would let everyone know. I do it very cheaply with 'b4 ty'.
-
-Kind regards,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Laurent Pinchart
