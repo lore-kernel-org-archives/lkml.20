@@ -1,145 +1,101 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47D42F5495
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65548302CC1;
+	Mon, 28 Sep 2026 12:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599752; cv=none; b=b47FC2FmJYFQeBAleLx3djqMomM3oipXp/zRcq8QNvN7LPZMTRUJA2ZaJsxK9BZPYIj4Cr13w0vnpyktJhz0vsiLtefsJMkKpEIVXMGMmQz6k6iT6zaF1D65kKJijWB3Hy4HNWAsHQ+QtGRhx+G5gmULHlB3MTnt5Iqa3i1mY/8=
+	t=1790599797; cv=none; b=auRs3e8YgIxCEiARwRWwtYozDmpliLqOxlE6p+nArnPuGT8qpN9s3zG6AjNl8XVPqAtRFD3gMFAyMtp/UDUjyjLGskEyUZAqZfgjuqI0YBWGA0S7ZERi3jiNQHUDK3EXGIh05SRS14WztnMCQfs6a53RTwkTGXBTR3hn1uq+uKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599752; c=relaxed/simple;
-	bh=iwPUjzVQ5FQXf0yt+FbVketC+cbR4rY68wr2/Q0ajLw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IZ6DpBzkrz5sG3XienXgiSkcoVV0X9S/g6oYheW2fUMNIDm0Cegt7ryHh5P7WcV1rx0nEcaKygMx1h/Kz68DCDa3ks1CXhUm7F5gPhiwUH8g3subpVuwlZ+4PYXTcqA7VfBBwB0pG9aCuDbz+VqIcHbbNqLHSVf6a+AfawyohRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LHzbMzbk; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790599797; c=relaxed/simple;
+	bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VCbrsinTe3QepozQxqBjeo6JLD9PiKCdSp270wbC4xufqs+acIrkBcgJrrvvkvsBApp0+xJGURVdJxkIP+JMjsyMJOA5NfTO6MW0wEpX917caPSRZ6T2fFiSERmcGoTy92XrODeuwVTCBbqbRnYzw/cVGUUjqtEdkxK3huWqAsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JT86vmjP; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LHzbMzbk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=4v
-	XfgVlhxvGGj1ab1beMSZVI4bO6eO4i8/Cd0P0/eVc=; b=LHzbMzbk1V6MK/65ER
-	V8TXyUL55mvJzK1pMfQMSw4AJ5vJG/aVR3vLgx+Bc9LHU0+FkEuKmIva00IanFuD
-	IY7VN1JifE/ZrP8z8qoYMtu9qRt2D0uFErJxCBunVyH//nyj9Cvqucorz/6y6OUw
-	pqJ63EJyl2sjsvLPSuWsjA6ws=
-Received: from localhost (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3f9L6YbpqlffLBg--.27692S2;
-	Mon, 28 Sep 2026 20:47:55 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] sched/fair: Avoid overflow in place_entity()
-Date: Mon, 28 Sep 2026 21:47:54 +0900
-Message-ID: <20260928124754.1692077-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JT86vmjP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790599795; x=1822135795;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
+  b=JT86vmjPqZEBOrs01+h8r1XFDB0DyRSesrIwGYuyPwKR5KcemUuPlWth
+   Z1G3IMB1JXjCT/R0pGz/8bjif5faEpZu10SoSJQp7C9EX5V9LCyigtu2W
+   3OwdbdgaJTiFoFnY+krJMXjapCUHywlx3+aqzsS3kMh+IEac8FxRUxP9Y
+   VB2DijrXpJLESuHrn+tAesZ3ZYv+4xHWaJK99Gujx4XtpUZb9pUrBFy38
+   VzrX4nR6YoByHA9EusQEfvEX9Nr/ciiijR2Dy/TtTAYskNdVRfG8Yg3bc
+   dsneN7xykxXntIjB36m+iklpRvtnSW7NJhS2Q7uC/qr693Kxu8DFp4sx+
+   g==;
+X-CSE-ConnectionGUID: Ih20ZQUTSRG0COHtO2yXIA==
+X-CSE-MsgGUID: MosLQ9wTSF2JyPI/qZ/NGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108786997"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="108786997"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:49:54 -0700
+X-CSE-ConnectionGUID: aWXxhip/QdGoIrz/iToTEQ==
+X-CSE-MsgGUID: H7DTyoqiR2O1/qHpVzrBeQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="274267253"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 28 Sep 2026 05:49:52 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 181C099; Mon, 28 Sep 2026 14:49:51 +0200 (CEST)
+Date: Mon, 28 Sep 2026 14:49:51 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: amber.kao@ite.com.tw
+Cc: ite_pd@ite.com.tw, jeson.yang@ite.com.tw, Yaode.Fang@ite.com.tw,
+	gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
+ alternate mode support
+Message-ID: <arpib-_yT8o6-hhg@black.igk.intel.com>
+References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
+ <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
+ <arJgdmA9cWLMQpzV@black.igk.intel.com>
+ <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgD3f9L6YbpqlffLBg--.27692S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr4DWF1DKFWrZF4DAFWDJwb_yoW5AFyrpF
-	Z7tay8Xrs7Xw4Svay2yw4v9F15uwn5J3y3AF1v9FW0krn8Kr1qvryfK3ZIgFn0g34vka1a
-	vrWYq347AFWjgrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhvfP2q6Yfs6ngAA3X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
 
-place_entity() inflates an entity's virtual lag with
+On Wed, Sep 23, 2026 at 10:33:50AM +0000, amber.kao@ite.com.tw wrote:
+> On Fri, Sep 18, 2026 at XX:XX, Heikki Krogerus wrote:
+> > >  config UCSI_ITEPD
+> > > -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
+> > > +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
+> > >  	depends on I2C
+> > > +	depends on DRM || !DRM
+> > > +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+> >
+> > Please split this part into separate patch.
+> 
+> Hi Heikki,
+> 
+> Understood, thanks for the suggestion.
+> 
+> I will move the Kconfig prompt, help text and MODULE_DESCRIPTION
+> updates out of the DisplayPort patch, so that the IT885x/IT527x
+> support and the DisplayPort alternate mode support are separate
+> patches.
+> 
+> Would it be fine to send both patches at the same time, or would you
+> prefer that I send the DisplayPort alternate mode support after the
+> IT885x/IT527x support has been accepted?
 
-    lag * (load + weight) / load
+It does not matter to me.
 
-Commit 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-replaced the scaled-down weights used in this calculation with
-avg_vruntime_weight(), removing the arithmetic headroom provided by
-scale_load_down().
+Thanks,
 
-The multiplication can overflow s64 before the division even when the
-final quotient is representable. A task's hierarchical effective weight
-can be as small as 2 after avg_vruntime_weight() scaling under group
-scheduling, while entity_lag() bounds |vlag| by
-
-    calc_delta_fair(cfs_rq_max_slice(cfs_rq) + TICK_NSEC, se)
-
-For example, with HZ=1000, NICE_0_LOAD=1048576, and the minimum scaled
-hierarchical weight scale_load(2)=2048, this bound is 891289600. With 114
-maximum-weight entities, the runqueue load is 10361604096. The
-intermediate product is:
-
-    891289600 * (10361604096 + 2)
-        = 9235189971864780800
-        > S64_MAX
-
-The signed overflow corrupts the entity's placement.
-
-Rewrite
-
-    lag * (load + weight) / load
-
-as
-
-    lag + lag * weight / load
-
-The two expressions are equivalent, but the latter avoids multiplying the
-virtual lag by the total runqueue weight. entity_lag() bounds vlag against
-the entity's effective weight, so the remaining lag * weight product stays
-bounded. rescale_entity() preserves this scale across h_load changes and
-already relies on the same product when rescaling vlag.
-
-Keep the original zero-load warning semantics by multiplying lag by weight
-after replacing the divisor with one.
-
-Fixes: 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-Signed-off-by: Hui Su <sh_def@163.com>
----
-Testing:
-- PASS: UBSAN positive/negative overflow cases, zero-load/control paths,
-  64-bit landmarks NICE_0_LOAD=1048576 and scale_load(88761)=90891264,
-  unscaled 32-bit landmarks 1024/88761, and 100000 random cases checked
-  against a __int128 oracle.
-- PASS: Full x86_64 kernel build; kernel/sched/fair.o builds for i386
-  and arm64.
-
- kernel/sched/fair.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 7455a83a6a99..a013bfba576b 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6268,10 +6268,19 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
- 			load += avg_vruntime_weight(cfs_rq, curr->h_load.weight);
- 
- 		weight = avg_vruntime_weight(cfs_rq, se->h_load.weight);
--		lag *= load + weight;
--		if (WARN_ON_ONCE(!load))
-+		if (WARN_ON_ONCE(!load)) {
- 			load = 1;
--		lag = div64_long(lag, load);
-+			lag *= weight;
-+		} else {
-+			/*
-+			 * Avoid overflowing lag * (load + weight) by distributing
-+			 * the division:
-+			 *
-+			 *   lag * (load + weight) / load
-+			 *     = lag + lag * weight / load
-+			 */
-+			lag += div64_long(lag * weight, load);
-+		}
- 
- 		/*
- 		 * A heavy entity (relative to the tree) will pull the
-
-base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
-
+-- 
+heikki
