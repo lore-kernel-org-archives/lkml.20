@@ -1,522 +1,140 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013063.outbound.protection.outlook.com [52.101.72.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EF0423A66
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED89D41A56A;
+	Mon, 28 Sep 2026 13:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.63
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600882; cv=pass; b=HOXU8E9P4iordskW+hMa9QcfXdjTxUMnbEj9a1H6cCTmE5Sm0KA42IkSMS0rtwyhaHTW7OTMHjuHbXl2eZR36ZN+xugKDratSQXuVVO2R/Onub1cYHVG3hhCudVqZ3o4T2OYYUMA2spqfILPeZJkjZKJ79qgWTsPQr9n5LJD9A8=
+	t=1790600884; cv=fail; b=AFjtzWAMiYJSB4qscg5Q27i8b9VtdzQRBAcphbrpyQrY3mtamDp75FMhpH5K5ckQiNC9aLJBR3ihLUBnb+7KKOXi7phjFeE3m2ojcw0ccp86fjukpAW+jsiNo+ADXrh8idtA8qz+xJGlfPxbOYd3XaA5DM0xC1eOaIMcqm7ZZgo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600882; c=relaxed/simple;
-	bh=xEcymRmGszspdnukJ2qDwmGJzrkJxNGdwFUd0osA0MY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZysX/FcDUAOSo9h1JFn5hyVACH1EhtAdOGsTNyDzBBrvIzLCPxCfmlFThW8WeV9gq6sFI1Yi0E1w1q8TphyC8m/kMjpb8eO4qwLb06iD8/Auc2Mkw09E01Fyao4rIzlSJKKYZHkju/8INB3TAIBu5Iqzw+LDP+aIGR5il9XcFNA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ma/yyqIV; arc=pass smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790600884; c=relaxed/simple;
+	bh=M2SXAHqh2JviyXjtGjZEJb2ONydWKWahYH8018t+ACc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=peprpi61TpFPaNaqj/PPfmMv6QJGGkSxSIEx8WgpN12BplUHZYr9nGyjLOsejUvhxQBn6yMl0x8S/B+uCsxBRQLdnax6GGxyHhoIb1rAiqOZxZi2EOlsetVNJUps98CJsZeCNURneaqlAByWBnJyKnLKfE12+NYETe+urgMTKdA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=kUJ8lmzQ; arc=fail smtp.client-ip=52.101.72.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ma/yyqIV"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af9270c53so262897066b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:07:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790600877; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BJsY3kVOViPBc+A+n0WElKlSHRffVchQQ3Nql+yHmZzzJ8/kidfjQV663Us6t/ezol
-         71kyarCgUmTztGlObXxYa47jYIMboFbYQW7F/fdTlT3hEz8/9nobzNlGVuEWE+4Nh0SC
-         gGCiwowZHya+nm/ox5VmM+13dY7zNiJRMspn0XJlWqSqpQhecQQ6zRISh5Pg2xz6yGMX
-         HkGrjrIYQY5QOX9AHmXsNSiqrMcgqkCZGq4szXi6tJbTnM9/dTBbk+dXiUN4Uem08R02
-         jTbO1S20KKDjZSAXQ8vcUDNJ+nh45BxYrTEkoJCF5hEPWk+v9KhD1tIZRTBDUHkkyHxB
-         ug2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
-        fh=TrhUEHjvP3ep4oy+wNIo5In3E/JIP2PMwAaz2iPpvYA=;
-        b=LdorGh8MYfhE3UUdGoHPkFZNCnWMPTM+hy+Trf9AfK5b5tI7tNolTFn1gxDYFXXyTH
-         xaWi2mJAJB+4sonmaGsLe0SHDd/Hs8DvyEakfNj5cVBJ7BMnPWHlTGL4ttoP9uJSql/T
-         OVRcxd8W0+brSh/S3jJ1V7Arv5qVXOUjos2UxqjPWj1haCWhHvt/0rsrwYOa+pKHQ76B
-         2kdH4uxkR3h2sDNrEYNzNeGVR/7WisxBT+14f5DnIoUizdG4RAd2UIf627cB9Duu+89v
-         Zy8Ty3oa68EtWMJNsyGPaMUj4rs0h9qH3ziY+wCBJU/fAn7FGNWLt+OeE2Ypm+inYHdi
-         odGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790600877; x=1791205677; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
-        b=ma/yyqIV6I9wSrTVT0HMFEi1kTrXqW9LVSpyyjZpY03eYHjRr5e5HwmfziYcwnoBBn
-         5EaY3DNnp1RZsV8APCX4HDPAKzrfnxPHK49dwyEP/qL5gk9A8x9e5aiROF/6LAz7foBZ
-         JO15CSz1+UvCIN+LQZttxSQJaJ2Z2ukiM/5OlvzzTWdHlGfriFv/+68B1oHh4dyk6UUu
-         +BYjQjmakJZRfQbJ1iy2PBVGBuLcfrMrvq/wJUjbBwcfsAQRVEH+knwVC/lSuTutMskK
-         Ue4RRpeZ/0/gYoIQz0dTGoqRQNW3TpbU+D1R2GdTtX9IUdS2AJ9cpbQX6eJypS3WRCoG
-         hSTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790600877; x=1791205677;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
-        b=DFUqPche4hCBtE950gNgNFBrf8n1fz/ZdKO98v/UZ3xClNHwwvj40RLS7n9kday/Zw
-         tCnlLqnLYA++O5M2+ML4ERphKt4V/YyFtr6HXjN8ciEW0zwdiM8w0X+Z06ArA6Hcopyr
-         JF4VK1qZ4KDF3SVMv4RDPTNifP2IKPy4a8ZrV79VMYc9kMdqldUK6levNbVClXKV+Htl
-         IfEV6f5comYrcvmyujb7ejH0dHfHo6TLjvp3uVFUDmspdjZmNT8LED1y4WTKsUjolq78
-         OMED+7ZLbQd6R1W6QdpisQZ0BF3tqq5cZg5n0cocCfcJ6+QWcHN5jumwjvhNhZUnMAlD
-         rrhg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0ZCHvfIFk9Z0ruxZEqFLL+V8NV2eZTQgAejkCwXFatYT7RBCRv9jpXwubyKBHRveYuOiCliXiSXEMjIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvZMcTi3PFh3OqflZS3WGGeqCiMOOdUuqk6L9vl64QoLy58Lqq
-	D8vo//YYOxAMAR83ICV3R9ZN9ethAJCAeA627pyVzvWewUI1BIB13DSB7Uaj83C/2B64AZ4Cxo5
-	OGKJEkapnZ2AnSXYr8oAvCZbmhytnwfc=
-X-Gm-Gg: AYBFou1drYBBq9A0H6sKPlJ8Ss9oMqrYj3X9Ks+Tkem2e0mGoU+jSAE2dG9juN2D+Yu
-	VfcDFXLgMRocnxiCAlvsJUTRzjBtY2qSNhnEfnARwqMhG5Lth1fb9c6M43fqHd4sMlbjzggdA9C
-	aKXZUn3fbU2ZtlYOmSF32Soh0CCVz/4ZCnWwNgqP1ddL3S7huHUeDTdZ+ucLEHBptqyrHEfsuXs
-	GG+vvNyAH6Kibtl+Fjn+pF9WnVJilWiJLugWkxjeU6ptyxkbbBKxR1Th0pD5rmQTRW+cIUlVVT6
-	KM7vzs55nt7MHJLR3wAmv11savQeTjqrg43mbnzaPkiuvQH2X1SZvbbmcVuHFAORPO+e3X63MDr
-	L0oazXv+Y2/gaSJOOHgEhH85D6P5Gm8hdWD0SyrAup0PPkpllXYvTJLji/H+j2Ov0KXBxxnXdK4
-	TSkxj10hxkUJqAqXxo/UkwIp6+AV24dTD/cvq9IesQ
-X-Received: by 2002:a17:907:d005:b0:c26:2151:180a with SMTP id
- a640c23a62f3a-c2ac525fe62mr1010298366b.3.1790600877277; Mon, 28 Sep 2026
- 06:07:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="kUJ8lmzQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a9/QLMXeaHyMof1y9fam15iyU08rxgGUUvnfj1X1HXxQ1198d6oyBcUGTriRFTv+dWAro5/+qS6afJzGXPaZ96Ck7KxLyvH0QXsmA2mX7TB4EOvZamjeETmnSbaiam67ySO4ebfQrRZLzEste01JhaF1+xTqmy4/ddB1i4th6f7WN+ZD9TETPxUWEwg2sdkQTj9/UvYR+sL4NuFlADVZ/buvinkLbKPjUD/DZOWdnG2YQ/JfwmePwm+7DNVm7E4k3MWUnYf5e0oAYTss0HLS35lKCR0ABBJSmFA+Jpj1Xng/KUhuXNpSL9XJt/IWF56Co+n6vFdHXnejth+G1/9vbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zxSNjVT4979CcDIB2eXyC2fXrOMFb2I45D/2gr/sDgg=;
+ b=yYCNkbNKtD28jgLPirVnBSuBH4YT8Cs5hkusRqCWsAXH5UOAW9oUvtQQUyZ8jwHddZho8OOVNDMuIOyC+Kv8P0Tn1vUU7+6R7yZX5myTtrF+TvMo5+9Upfj4uSW17hAR7hqCnB/qCxjTsQrU79SoHaFFxnTcmL+XKW8b3GFON5jZQ4Wg6YIRmceFnmOqktIBwi/sR0NsW8DBKNq2yGk6to9z+2L4Wp9uB+w7hTciWMG7uxx67DWlN26MBnX5KiLBbiV6PHXJqxQlJiXCg4b7KBvv4WLB5r7rdDOQBSf0XgXb/F7XTA2sg0/DMwa3uLeH55+gb1GBAeuKzrFurnA2Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zxSNjVT4979CcDIB2eXyC2fXrOMFb2I45D/2gr/sDgg=;
+ b=kUJ8lmzQli1BIh+azhe0vqgHUmaViI1r7seGp50NyzLmZPw14Xmz/YusPXBY31a2JQqYmRe5pUUFy1TdwYx9WLPY29X5hn8WCaX7IvgF/o+qtyD9RIvQZvohlEi2ggDuxng3RJYolZtax2YuUORgoP2o7fJKB28SYw7hWDPzNJsc4hXLTEW95DqGBd5ZByeZ+wXTjPG+/0SE4dVWFTQTQ87AQunWLau/5VsawzbcvboqJYLOmnOY+I/EmySwGrUWgOdBdgyWxkpqANPTkyK1mHg9x66+IF8bJF4WpJTYk3h1712WBsXO25Fm8MtoFnxOrO8UPe3u+jRygUYS24rX6A==
+Received: from PAZP264CA0151.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f9::15)
+ by PA1PR10MB8643.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:443::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 13:07:59 +0000
+Received: from MAD0EPF000008AB.eurprd04.prod.outlook.com
+ (2603:10a6:102:1f9:cafe::74) by PAZP264CA0151.outlook.office365.com
+ (2603:10a6:102:1f9::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
+ 28 Sep 2026 13:07:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MAD0EPF000008AB.mail.protection.outlook.com (10.167.241.183) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 13:07:58 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
+ 2026 15:13:30 +0200
+Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
+ 2026 15:07:36 +0200
+Message-ID: <a4c02a71-df8e-4370-8ec5-9f07210f8727@foss.st.com>
+Date: Mon, 28 Sep 2026 15:07:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928111907.72592-1-pepe.schlehofer@gmail.com> <20260928111907.72592-3-pepe.schlehofer@gmail.com>
-In-Reply-To: <20260928111907.72592-3-pepe.schlehofer@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 28 Sep 2026 16:07:20 +0300
-X-Gm-Features: AclHuK8LrUHy1cNTkceV0KejktAKpvV1sU6tn8Odpjfo0Yk1ssM4v7bILMVuPmU
-Message-ID: <CAHp75VeH70LshOt0qzrvLkZYqDx=43o=34_wmHWkbYcTy7Z3vA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] leds: Add support for Turris 1.x LEDs
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	=?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Rong Zhang <i@rong.moe>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Sep 28, 2026 at 2:19=E2=80=AFPM Josef Schlehofer
-<pepe.schlehofer@gmail.com> wrote:
->
-> From: Pali Roh=C3=A1r <pali@kernel.org>
->
-> Add a driver for the eight RGB LEDs on the front panel of the CZ.NIC
-> Turris 1.x routers. They are driven by the CZ.NIC CPLD firmware, whose
-> source is available at
-> https://gitlab.nic.cz/turris/hw/turris_cpld/-/blob/master/CZ_NIC_Router_C=
-PLD.v
->
-> The LEDs use the multicolor LED class. Every LED except the WiFi LED can
-> also be driven by the CPLD from hardware events, exposed as the private
-> turris1x-cpld trigger. The five LAN LEDs share one set of colour
-> registers, so the colour and brightness set last on any of them apply
-> to all five.
->
-> The controller device exposes the global brightness controlled by the
-> button on the back of the router through `brightness`,
-> `brightness_level`, and `brightness_levels/<N>`. The Turris Omnia
-> driver already has `brightness`, so its ABI entry is extended to cover
-> the Turris 1.x as well.
-
-> Signed-off-by: Pali Roh=C3=A1r <pali@kernel.org>
-
-> Cc: Marek Beh=C3=BAn <kabel@kernel.org>
-> Cc: Andy Shevchenko <andy@kernel.org>
-
-Please, move these (Cc list) to the block under the cutter '---' line,
-so it won't pollute the commit message.
-
-> Co-developed-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> ---
-
-...
-
->  What:          /sys/class/leds/<led>/device/brightness
-> -Date:          July 2020
-> -KernelVersion: 5.9
-> -Contact:       Marek Beh=C3=BAn <kabel@kernel.org>
-
-> +Date:          July 2020 (Turris Omnia), September 2026 (Turris 1.x)
-> +KernelVersion: 5.9 (Turris Omnia), 7.4 (Turris 1.x)
-
-This is quite unusual. If you want to refer to the kernel version, do
-it in the description. Also note the version (see below more on it).
-
-> +Contact:       Marek Beh=C3=BAn <kabel@kernel.org>, linux-leds@vger.kern=
-el.org
-
-Why? The mailing list is kinda default, no?
-
-...
-
-> +What:          /sys/class/leds/<led>/device/brightness_level
-> +Date:          September 2026
-
-Impossible. Use https://hansen.beer/~dave/phb/ to predict the dates of
-the next release, this is a huge driver that most likely may not make
-v7.4, so the v7.5 is a plausible candidate.
-
-> +Contact:       Josef Schlehofer <pepe.schlehofer@gmail.com>
-> +Description:   (RW) Index (0-7) of the global brightness level in use on=
- the
-> +               Turris 1.x routers. The button on the back side of the ro=
-uter
-> +               steps through the levels. Writing to this file selects a =
-level
-> +               directly. The CPLD keeps the selection across driver unbi=
-nd and
-
-the driver
-
-> +               reboot.
-> +
-> +               Format: %u
-> +
-> +What:          /sys/class/leds/<led>/device/brightness_levels/<N>
-> +Date:          September 2026
-
-As per above
-
-> +Contact:       Josef Schlehofer <pepe.schlehofer@gmail.com>
-> +Description:   (RW) Value of the global brightness level N (0-7) on the
-> +               Turris 1.x routers, one file per level. These are the val=
-ues
-> +               the CPLD firmware steps through when the brightness butto=
-n is
-> +               pressed. Reading returns the value, writing accepts an in=
-teger
-> +               between 0 and 255. The CPLD keeps the values across drive=
-r
-
-the driver
-
-> +               unbind and reboot, and restores the defaults (255 64 32 1=
-6 8 4
-> +               2 0) at power-on and when the reset button is pressed.
-
-...
-
-> +#include <linux/bits.h>
-> +#include <linux/container_of.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/kstrtox.h>
-> +#include <linux/led-class-multicolor.h>
-> +#include <linux/leds.h>
-> +#include <linux/limits.h>
-> +#include <linux/math.h>
-> +#include <linux/minmax.h>
-
-> +#include <linux/mod_devicetable.h>
-
-Not anymore. Rely on what platform_device.h provides.
-
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/types.h>
-
-...
-
-> +struct turris1x_leds {
-> +       void __iomem *regs;
-> +       /* Protects the CPLD LED registers and @reset */
-> +       spinlock_t lock;
-> +       /* Set by turris1x_leds_reset(), after which the LEDs are left al=
-one */
-> +       bool reset;
-> +       struct turris1x_led led[TURRIS1X_LED_NUM];
-
-Please, check the layout of all structures with `pahole`, it might
-suggest a better one.
-
-> +};
-
-...
-
-> +/* Must be called with ddata->lock held */
-
-This is good, but having a lockdep annotation is even better.
-
-> +static void turris1x_led_set_colors(struct turris1x_leds *ddata, struct =
-turris1x_led *led,
-> +                                   enum led_brightness brightness)
-> +{
-> +       struct led_classdev_mc *mc_cdev =3D &led->mc_cdev;
-> +       unsigned int i;
-> +       u8 val;
-> +
-> +       led_mc_calc_color_components(mc_cdev, brightness);
-> +
-> +       /* The colour registers are 8 bits wide, do not let values wrap *=
-/
-> +       for (i =3D 0; i < TURRIS1X_LED_NUM_COLORS; i++) {
-
-for (unsigned int i...) {
-
-> +               val =3D min_t(unsigned int, mc_cdev->subled_info[i].brigh=
-tness, U8_MAX);
-
-No min_t(), it should be an exceptional use, and it was especially
-proven to have issues with < INT_MAX comparisons in some cases. I
-think you mean to have clamp() here.
-
-> +               turris1x_write(ddata, turris1x_color_reg(led->reg, i), va=
-l);
-> +       }
-> +}
-
-...
-
-> +static int turris1x_hwtrig_activate(struct led_classdev *cdev)
-> +{
-> +       struct turris1x_leds *ddata =3D dev_get_drvdata(cdev->dev->parent=
-);
-> +       struct turris1x_led *led =3D to_turris1x_led(cdev);
-> +       unsigned long flags;
-> +       u8 val;
-> +
-> +       spin_lock_irqsave(&ddata->lock, flags);
-
-Why not guard()()?
-
-> +       if (ddata->reset)
-> +               goto unlock;
-> +
-> +       /*
-> +        * If software turned the LED off, the last configured colour was=
- not
-> +        * necessarily written to the CPLD. Write it with max_brightness =
-before
-> +        * the hardware takes over.
-> +        */
-> +       if (!led->on)
-> +               turris1x_led_set_colors(ddata, led, cdev->max_brightness)=
-;
-> +
-> +       /* Disable LED software control */
-> +       val =3D turris1x_read(ddata, TURRIS1X_LED_SW_OVERRIDE_REG);
-> +       turris1x_write(ddata, TURRIS1X_LED_SW_OVERRIDE_REG, val & ~BIT(le=
-d->reg));
-> +
-> +       led->hwtrig =3D true;
-> +
-> +unlock:
-> +       spin_unlock_irqrestore(&ddata->lock, flags);
-> +
-> +       return 0;
-> +}
-
-...
-
-> +       /*
-> +        * Enable or disable the LED under software control. The CPLD ign=
-ores
-> +        * this bit while the hardware trigger drives the LED, so leave i=
-t
-> +        * alone.
-> +        */
-> +       if (!led->hwtrig) {
-> +               val =3D turris1x_read(ddata, TURRIS1X_LED_SW_DISABLE_REG)=
-;
-> +               if (brightness)
-> +                       val &=3D ~BIT(led->reg);
-> +               else
-> +                       val |=3D BIT(led->reg);
-
-If led->reg is unsigned long, you can use __asign_bit() here.
-
-> +               turris1x_write(ddata, TURRIS1X_LED_SW_DISABLE_REG, val);
-> +               led->on =3D !!brightness;
-> +       }
-
-...
-
-> +static int turris1x_led_register(struct device *dev, struct turris1x_led=
-s *ddata,
-> +                                struct fwnode_handle *fwnode, u8 val_sw_=
-override,
-> +                                u8 val_sw_disable)
-> +{
-> +       static const unsigned int colors[TURRIS1X_LED_NUM_COLORS] =3D {
-> +               LED_COLOR_ID_RED, LED_COLOR_ID_GREEN, LED_COLOR_ID_BLUE,
-> +       };
-> +       struct led_init_data init_data =3D {};
-> +       struct led_classdev *cdev;
-> +       struct turris1x_led *led;
-> +       unsigned long flags;
-> +       u8 val, dis;
-> +       u32 reg, color;
-> +       unsigned int i;
-> +       int ret;
-> +
-> +       ret =3D fwnode_property_read_u32(fwnode, "reg", &reg);
-> +       if (ret || reg >=3D TURRIS1X_LED_NUM)
-> +               return dev_err_probe(dev, -EINVAL, "Invalid or missing 'r=
-eg' property\n");
-> +
-> +       ret =3D fwnode_property_read_u32(fwnode, "color", &color);
-> +       if (ret || color !=3D LED_COLOR_ID_RGB)
-> +               return dev_err_probe(dev, -EINVAL, "Invalid or missing 'c=
-olor' property\n");
-
-Do not shadow the error code.
-
-> +       led =3D &ddata->led[reg];
-> +       if (led->registered)
-> +               return dev_err_probe(dev, -EINVAL, "LED %u already regist=
-ered\n", reg);
-
-EBUSY / EEXIST ?
-
-> +       led->reg =3D reg;
-> +
-> +       /* Set the initial colours to those currently in use */
-> +       for (i =3D 0; i < TURRIS1X_LED_NUM_COLORS; i++) {
-
-for (unsigned int i...) {
-
-> +               led->subled_info[i].intensity =3D turris1x_read(ddata, tu=
-rris1x_color_reg(reg, i));
-> +               led->subled_info[i].color_index =3D colors[i];
-> +               led->subled_info[i].channel =3D i;
-> +       }
-> +
-> +       /*
-> +        * LEDs 1-5 (LAN) share one set of colour registers, and the brig=
-htness
-> +        * of an LED is applied by scaling its colour, so all of them sho=
-w the
-> +        * colour and brightness written last. Each LED still keeps its o=
-wn
-> +        * intensities and brightness, so multi_intensity and brightness =
-report
-> +        * what the LED was last given, which is not necessarily what it =
-shows.
-> +        */
-> +       led->mc_cdev.subled_info =3D led->subled_info;
-> +       led->mc_cdev.num_colors =3D TURRIS1X_LED_NUM_COLORS;
-> +
-> +       init_data.fwnode =3D fwnode;
-> +
-> +       cdev =3D &led->mc_cdev.led_cdev;
-> +       cdev->max_brightness =3D 255;
-> +       cdev->brightness_set =3D turris1x_led_brightness_set;
-> +
-> +       /* All LEDs except the WiFi LED can be driven by the hardware tri=
-gger */
-> +       if (reg !=3D TURRIS1X_LED_WIFI) {
-> +               cdev->trigger_type =3D &turris1x_hw_trigger_type;
-> +               cdev->hw_control_trigger =3D turris1x_hw_trigger.name;
-> +       }
-> +
-> +       if (!(val_sw_override & BIT(reg)))
-> +               cdev->default_trigger =3D turris1x_hw_trigger.name;
-> +
-> +       if (!(val_sw_override & BIT(reg)) || !(val_sw_disable & BIT(reg))=
-)
-> +               cdev->brightness =3D cdev->max_brightness;
-> +
-> +       led->on =3D !(val_sw_disable & BIT(reg));
-> +
-> +       ret =3D devm_led_classdev_multicolor_register_ext(dev, &led->mc_c=
-dev, &init_data);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "Cannot register LED %u\n"=
-, reg);
-> +
-> +       /*
-> +        * A linux,default-trigger property replaces the hardware trigger=
-, and
-> +        * the CPLD then keeps driving the LED and ignores software contr=
-ol.
-> +        * Take such an LED over in the state the LED core reports.
-> +        */
-> +       spin_lock_irqsave(&ddata->lock, flags);
-> +       val =3D turris1x_read(ddata, TURRIS1X_LED_SW_OVERRIDE_REG);
-> +       if (!led->hwtrig && !(val & BIT(reg))) {
-> +               dis =3D turris1x_read(ddata, TURRIS1X_LED_SW_DISABLE_REG)=
-;
-> +               if (cdev->brightness)
-> +                       dis &=3D ~BIT(reg);
-> +               else
-> +                       dis |=3D BIT(reg);
-> +               turris1x_write(ddata, TURRIS1X_LED_SW_DISABLE_REG, dis);
-> +               led->on =3D !!cdev->brightness;
-> +               turris1x_write(ddata, TURRIS1X_LED_SW_OVERRIDE_REG, val |=
- BIT(reg));
-> +       }
-> +       spin_unlock_irqrestore(&ddata->lock, flags);
-> +
-> +       led->registered =3D true;
-> +
-> +       return 0;
-> +}
-
-...
-
-> +       best_level =3D 0;
-> +       best_error =3D INT_MAX;
-> +       for (level =3D 0; level < TURRIS1X_LED_NUM_LEVELS; level++) {
-
-Ditto.
-
-> +               value =3D turris1x_read(ddata, TURRIS1X_LED_LEVEL_VALUE_R=
-EG + level);
-> +               error =3D abs(value - brightness);
-> +               if (error < best_error) {
-> +                       best_error =3D error;
-> +                       best_level =3D level;
-> +               }
-> +       }
-
-...
-
-> +/* _level is always a literal 0..7, it is pasted, stringified and stored=
- */
-> +#define TURRIS1X_LEVEL_ATTR(_level)                                     =
-       \
-> +       static struct turris1x_level_attr turris1x_level_attr_##_level =
-=3D {      \
-> +               .attr =3D __ATTR(_level, 0644, brightness_level_value_sho=
-w,       \
-> +                              brightness_level_value_store),            =
-       \
-
-Don't we have __ATTR_RW() ?
-
-> +               .level =3D _level,                                       =
-         \
-> +       }
-
-...
-
-> +       device_for_each_child_node_scoped(dev, child) {
-> +               ret =3D turris1x_led_register(dev, ddata, child, val_sw_o=
-verride, val_sw_disable);
-> +               if (ret)
-> +                       return ret;
-> +               count++;
-> +       }
-
-> +       if (!count)
-> +               return dev_err_probe(dev, -ENODEV, "No LED devices found =
-in device tree\n");
-
-We have counting API, so this can be done ahead. Yes, it will iterate
-over the list twice, but I don't think it's an issue.
-
---=20
-With Best Regards,
-Andy Shevchenko
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] arm64: dts: st: fix sai3b unit address on stm32mp2
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Olivier Moysan
+	<olivier.moysan@foss.st.com>, Amelie Delaunay <amelie.delaunay@foss.st.com>,
+	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260924193759.27881-1-mateusz.nowicki@posteo.net>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20260924193759.27881-1-mateusz.nowicki@posteo.net>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008AB:EE_|PA1PR10MB8643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2334c1c3-3c14-4066-0d3b-08df1d6184c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	dbnyIOIYHWsVnuu+/hwhMgU2ioMjjiYmTK64eAdQDXd8FPjLoE1cQru5YsHhQdHY13Pkm5UPGkQ99kFvTJ8ISmetHt+q7nQJAp/clJ4hXQfOKWIzz3dnKlAQDgunnE6tNCx+BTjtoBTEBrKKjgq2QvLeBRLHGPFOLM1BYWhaa6/90cCdXpY7D2rXkl73vhSaNwiMPENFya3oh3nC5Dio+CKaJ1KTWVMxXFv0mAGGXrHLaIVp/kQ6YIdjVUKqWAOobliv+o69FMHSVgk21Hw7N9JomIlOhCmicc7Or77ZHQ+T/2T7zZ2v5Yj/3iRccKMRNjTw/GCqTA40R09DtIxeGgqj4t7DFe9yOxpTxcY5FDx359CvTZuZembo7yuMT1Im7jpsCsBv08ESOMVvOPMxZgiDEIrO1curu0eK9tvdPmBf+TmFvO6INaKTqynebQnBnGOhYXXn1eMSaVgTFTkG4UkqqtxZlToNprPYtyv210zaF2jORptGKvkmzPBRtawWx0MVBOhoJibDxYErDYIMqCl530GpBHm1Gi+6EkG9WCF4PnMAUSATojzxlno3+UUZlte+b5Qvk5DtOvcArGeR1bLyrZT10WKnltXudR+IztRa1osOTJvJM8fKqhd0lCy30fg+JqCJbTME8bu0G/kz7+AEdzSWVGXUITQ+m9Chbxp0lmNK5iQOtE/mK1mAjYlF7+k2XsQUNmoiaU32cfVC9w==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NvB43Fu3yn31YG4vvvysDsG6GuhtHwXjLo3Eyg2FGQVxH8CAk3mFUU9LHw/GAMVM2gFtodx479Z+XA0U2z8YIVIhvqHQ2EEDudiqB51W0oC3cYKXwv5bP+2Gb9+4pvqVSlQAxGQWpTS00dLUCjRE52/q8gXkLzqsROTxRyG+l1vrWZFf1wdR3XVvl5HKx5Wv/g8Prj+UJSIbK5+8tHRvkGZZGb3m2vVAfziK6JiL8KU7W2jFYCa6rY2RIrQFitP8rTBHtk80rpU9cs/jCfdrFDG5b8wsELwkS15x9z+JK+GhMRsH1lK/m4CwxqaWJ9fclY5BY493U9XEYVbHIST2WnlPe7eSfdDe74FYVf2cxfDkebtVzvomy7a4ArsWgRHAmFcAcNRAvN3m7jSQXAjHj44a3JCEtDu7Ec4tGYwrIaPJHfCEXLRIZhsMC5ORYvAK
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:07:58.5351
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2334c1c3-3c14-4066-0d3b-08df1d6184c7
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008AB.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR10MB8643
+
+Hi
+
+On 9/24/26 21:38, Mateusz Nowicki wrote:
+> The sai3b node on stm32mp251 and stm32mp231 has a unit address taken
+> from the secure alias of SAI3, while its reg property and all other SAI
+> nodes use the non-secure alias. The reg property is correct, so there
+> is no functional change.
+> 
+> The typo comes from two different commits, so each SoC gets its own
+> patch with its own Fixes tag.
+> 
+> Mateusz Nowicki (2):
+>    arm64: dts: st: fix sai3b unit address on stm32mp251
+>    arm64: dts: st: fix sai3b unit address on stm32mp231
+> 
+>   arch/arm64/boot/dts/st/stm32mp231.dtsi | 2 +-
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> 
+> base-commit: 2f92d900f262a16c8ae02daf53ae2910d07185f5
+
+Applied on stm32-next.
+
+thanks
+Alex
