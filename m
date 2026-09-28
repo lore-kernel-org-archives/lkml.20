@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328B2352034;
-	Mon, 28 Sep 2026 17:27:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27264E4C20;
+	Mon, 28 Sep 2026 17:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616455; cv=none; b=XwehDSi8uJjzMpdSQh/VO5CCxVONDZrULEwXDdOlvYl1T5MbmzE/EQmXwOcraY9UrQTjhOMJl76/OcRdxZ8yGUce7PGF4RvbFgWBrJ6B/VmWE8CsLX5I+SR4EbejUC30Obke7FNZayYDuqCyMaad6rdWhqpkY2DW+GjBnifibCU=
+	t=1790616460; cv=none; b=OwpLLgES9Sgmd29q9gs7IwFYYct/FMfDOgVFUpicVdASRuEbnHglpE4pzV0DMnIuheeupQQQQBL9IOApJebxoAGhSi4OqYkMZbHN3bC0+bQAMPv0DF0QledEVG+GBt7QVF7HJjNotHYBc0hx8l6e86nEwcrfu0YZdgL9vi6QCSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616455; c=relaxed/simple;
-	bh=DREW0pnsHVnYIRYZJD9DChr73EUt3Hcbs4tKegeuVNU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oERuX8OhrGNDJEbDOxABHlj4eKVV1txULdBkWfdrp8t3/MKEMb3U1bGKif1zPMt7BsXnzW0expWcxVy6H8//k8fpRZh4c6N6NsKT8dORw6KvNUzphj22OxxR91FXx3Rsjt5m4HDf7idQW2fLyiL0uGc5EbJmwzsZaeKT4nWPT94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMF4MzQQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790616460; c=relaxed/simple;
+	bh=AHw6WcgdVZgKfWGs8wYDEg+b2spe6e8gjU2uAAY/cLc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ebl7UKyv3gonECiKSTT9Zfjxpi77ShFFeCTCkVxa2rD/ef2pWuJ7gyeOodP4wKrgrchqO8B6F3doEYURCB6VE27XqgxElY5Nu/6mmupIloyD+GgPMDm1Vot31Yq1gEK0af5HuCrfs0arA1pvYrPm6rfBmad6FW/3/JQ6R+LU80c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ML2QdkCS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMF4MzQQ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 555441F000FF;
-	Mon, 28 Sep 2026 17:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ML2QdkCS"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0B9CD1F00893;
+	Mon, 28 Sep 2026 17:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790616453;
-	bh=bYY6SIuB38pNpvOXnuI019MieEUYiynUJJ9aqYbDrY4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PMF4MzQQaBO1S123rLATz7lD7J/3S79MF4F1iuNOzs88eZr9hChaxqvOeeYV/q6PW
-	 CUo5hRjsrTwhTnA9VFnZ/YLT1rAS/LLuWTfTi+r321ElD6RZFkwxvOrxqESVvkX2G/
-	 rkXOaNGG/CUIhSvkIkBhNq/hbUZy8jgWYxVZc5ErX+du+7cruK/f9tYoyilePUgOuM
-	 KTjDceMzVZVR/0cRH5EAtEZ4BIsNS5DJ6H7bv9NMP+b4dRzdsAFTzDG6a/jMebFu6R
-	 K0J0VS5ArMRQARYfpVFXhnCwhQNfiF/fu+52s5O1LxcAOPLZuOzEVRHNJn2CzkyzZ0
-	 ypIUc5Ir8JYuw==
+	s=k20260515; t=1790616458;
+	bh=9TV9CZp7F6pGowVYUJzJ4N6Q8t1cPGPvHxtYWak4BOo=;
+	h=From:Subject:Date:To:Cc;
+	b=ML2QdkCS3OlmsKQFbRneo/Dlnm8gkGcBAJgnibAb7/PJa0WxDM9XNJv8kL5KqiL6t
+	 7z/7Tkm1ZnURsXPB3nXojxLLZzPXiQ1mq4IXis0jZYFfttjVG4b+nKFlz8h6Iz2BBv
+	 /wXXvB0zyoX9KJy7Uz43TV5kxt/eZUI4i2s3oUJdzEEer5tgUK55Xt6xUCSXtPoyW3
+	 9VHz2rq7lyb2ERXoBToE4x/4iVBmX4e+IBvDSJqiTyltIGP//E4SHOsBO4tdd5mZUM
+	 G/0WhFcUBKkyeoRCTvMXgORvgbGczTvTiJACqSc4N7zazKWAMld/JZUOA6Y0savHQk
+	 uxDgyLuCI25Lw==
 From: Nicolas Schier <nsc@kernel.org>
-Date: Mon, 28 Sep 2026 19:26:57 +0200
-Subject: [PATCH v4 1/2] kbuild: Mark usr_gen_init_cpio as
- no-dot-config-target
+Subject: [PATCH v4 0/2] Move tool for generating initramfs cpio to scripts/
+Date: Mon, 28 Sep 2026 19:26:56 +0200
+Message-Id: <20260928-move-gen_init_cpio-to-scripts-v4-0-f437a33c40ac@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,10 +36,13 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-move-gen_init_cpio-to-scripts-v4-1-f437a33c40ac@kernel.org>
-References: <20260928-move-gen_init_cpio-to-scripts-v4-0-f437a33c40ac@kernel.org>
-In-Reply-To: <20260928-move-gen_init_cpio-to-scripts-v4-0-f437a33c40ac@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGGjumoC/4XPQW7CMBCF4asgr2tkj3Hc6ar3QAgRMwmjFjuyI
+ wuEcnecsEBVF1n+s/ie5iEyJaYsvjYPkahw5hhq7D42wl9OoSfJ59oCFDQKwMprLCR7CkcOPB7
+ 9wFGOUWafeBizRPpE6hDJ6pOoxpCo49vi7w+1L5zHmO7LXNHz9SUbhSty0VJJ5a2y2Grytv3+o
+ RTodxtTL2a6wJtzoNY4qBw0rSNtvdPG/OPMm8PVv4upHKLfoelc4wD+cNM0PQGCR+iCaQEAAA=
+ =
+X-Change-ID: 20260225-move-gen_init_cpio-to-scripts-9e89ef99e51a
 To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
  Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
  Randy Dunlap <rdunlap@infradead.org>, 
@@ -53,53 +55,100 @@ To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
 Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Askar Safin <safinaskar@gmail.com>, linux-doc@vger.kernel.org, 
  kexec@lists.infradead.org, linux-mm@kvack.org, 
- linux-kselftest@vger.kernel.org
+ linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=nsc@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3530; i=nsc@kernel.org;
  s=20250924; h=from:subject:message-id;
- bh=DREW0pnsHVnYIRYZJD9DChr73EUt3Hcbs4tKegeuVNU=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBquqNnSXZkN50m/3I+6jr4xgQZQchL3CmlL4kEv
- i+EigEvgyaJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCarqjZwAKCRAHUgpwFiYS
- ae2zD/9RtzfbLSq2k0CTp9fSMzaHgvIq9PoA0g6ReAplrJoADU/2bqSjWLjJPd5c9RuqfuAHgp4
- fHW7Kc6on2hwnObtpbvt7w90j83hS1KOni88O9ez2ACmdmYyz7ZuQYbtDw0TqFgP3xz8lJVorTv
- vtsXQS/7bIVX4rhIY7CX41T6yc93jsVHgMOuXgyBjM/dPRWXJpWTysvgRBrDFRO9z+a9QEOJXiB
- V9cbYfZAGpdKHphXhOlXCpZG0tftpvv6FUv/ruB0VBSJS9WccGl8dZRdCrMnCHS5Yc3iqNxhuua
- GMIwwaxiHufFAFS3BDQOHfd27k0t18Kx3VT3hsam8a2bp+3Ic8uMWB15ZbCatgalDbIufOAt59R
- kR3fSmYKau1A52n8L7ChcSV8vFhkMBkNoclyibapUbreuliExvScTFXtUHPa9IBF/yYVsd/5NT0
- gjaYUihtoKQz0jzX7KZKLPzxAVLD8C7rCcHT6Wko6YgDFUJNSdPubrLbCreF5aRTFsZsUk1Ph+P
- yqJwaam6eZX2Q18p+BLbEvYPJg6A4PK1ryUh+4HRzeRAVwvhuE5uyRugm1ihl0VSC9JNfMrYudt
- jQoY9lo8YjCTd9IgJHWtd+H1IjcMhmG8we+W5Wui3EHheGGBmvXvWQoWIYhkrAKB+ly6TwAlCdV
- Jqz/BL+0xKqSI6g==
+ bh=AHw6WcgdVZgKfWGs8wYDEg+b2spe6e8gjU2uAAY/cLc=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBquqNngpRwJH7gtezweBGwAnX75e2BjKoR7HKmD
+ +sDP+kdN+2JAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCarqjZwAKCRAHUgpwFiYS
+ aURsEACSbagu8wpV2hI77TKfpUyKYeiN6C1f9X3Ib3qZeypiAv7bCFlW0vHuECGboSOccAcPG0j
+ kO4zYR7Rd2P09QyWjep2b9RMx9ebQZa3Pkw7CkNJRvRYdzaXqfOrZKNVyycf6cswhNzYg/MvFNC
+ 2mq3S456NmxFP+tBpQDzRRXE8cR3tWgOdMPgzeFpskkcloyPWmme31LFMmQc4uG2QAVIvJCP3ru
+ Vjc1+U5ZVyJnci53Ndu3IiOzfNOGu45RzYNsVXZ8WJd81QHVcJP+utNDpOAQAlVbpRBiLXcs9Pv
+ LNILfhKuAgtV0Hbq2cEN54Tn225iFOmgJU3u1JhIhGHnFT7dlPfhP3i0tCvRLBjurAjAMic51aB
+ O8oInBBP2YTcR3eVNlHacd9ookbdHuYODSEcLrCfT/ZOfsnYKFSkZYuYievOivk7sxG/NBLJzJ3
+ XnMnh7m9UN8/dDaur9qQoVyNdfZSlWIPauVTtp29cD51mfY5TNU4KQKYMaaCJrXme2Sl/+J0f4Q
+ +Z5Mxr6NJ1JKBrnHlYDtjxNe1VABRnfxKsLH3bhhe/cF5Ucum3QgTr+pXiGTA2OsF11Y+x5T7l5
+ N6wI1iHm82VVYP9Px+ogjtFrfdcjwerLMNMLtctbbgc0MSYcSZO57QmfOk1eVPI0TiVUoIl7lea
+ uO06Fu8x9SVY80A==
 X-Developer-Key: i=nsc@kernel.org; a=openpgp;
  fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-Let usr/gen_init_cpio be built also if there is no kernel configuration.
+initramfs cpio tools had been subject of several recent discussions on
+linux-kbuild.  Let's get two minor steps forward by enabling a
+top-level target for building gen_init_cpio w/o the need of a valid
+kbuild configuration [1] and move the tools for generating the built-in
+initramfs from usr/ to scripts/ [2].
 
-Askar Safin reported that gen_init_cpio may be of use before any kernel
-configuration is available.  Add usr_gen_init_cpio to list of targets
-that do not require a .config file.
-
-Reported-by: Askar Safin <safinaskar@gmail.com>
-Closes: https://lore.kernel.org/all/20260220191150.244006-1-safinaskar@gmail.com
-Fixes: f8e05c10631e ("kbuild: Add top-level target for building gen_init_cpio")
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
+Link: https://lore.kernel.org/all/20260220191150.244006-1-safinaskar@gmail.com # [1]
+Link: https://lore.kernel.org/all/aSdrCFkUQup3qb-q@derry.ads.avm.de/ # [2]
 ---
- Makefile | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v4:
+  * Update tools/testing/selftests/liveupdate/vmtest.sh to new path of
+    gen_init_cpio (Mike Rapoport)
+  * Update stale comment in gen_initramfs.sh (sashiko)
+  * Link to v3: https://patch.msgid.link/20260925-move-gen_init_cpio-to-scripts-v3-0-99c493f76722@kernel.org
 
-diff --git a/Makefile b/Makefile
-index 751a08643bf85ccfd05060a3f574980f73b3a97f..51fada9059d68a92e6f5725e45ff9a594bfd9645 100644
---- a/Makefile
-+++ b/Makefile
-@@ -298,6 +298,7 @@ no-dot-config-targets := $(clean-targets) \
- 			 %asm-generic kernelversion %src-pkg dt_binding_check \
- 			 dt_style_selftest \
- 			 outputmakefile rustavailable rustfmt rustfmtcheck \
-+			 usr_gen_init_cpio \
- 			 run-command
- no-sync-config-targets := $(no-dot-config-targets) %install modules_sign kernelrelease \
- 			  image_name
+Changes in v3:
+  * Update various remaining usr/gen_init* references treewide (Nathan)
+  * Link to v2: https://patch.msgid.link/20260720-move-gen_init_cpio-to-scripts-v2-0-26b7e15c7133@kernel.org
 
+Changes in v2:
+  * Build gen_init_cpio only if CONFIG_BLK_DEV_INITRD (Thomas)
+  * Keep underscore top-level target name (scripts_gen_init_cpio)
+    (Thomas)
+  * Link to v1: https://patch.msgid.link/20260309-move-gen_init_cpio-to-scripts-v1-0-0c5059b1ec5b@kernel.org
+
+To: Nathan Chancellor <nathan@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Luis Augenstein <luis.augenstein@tngtech.com>
+To: Maximilian Huber <maximilian.huber@tngtech.com>
+To: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+To: Alexander Graf <graf@amazon.com>
+To: Willy Tarreau <w@1wt.eu>
+To: Thomas Weißschuh <linux@weissschuh.net>
+Cc: linux-kbuild@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: kexec@lists.infradead.org
+Cc: linux-mm@kvack.org
+Cc: linux-kselftest@vger.kernel.org
+
+---
+Nicolas Schier (2):
+      kbuild: Mark usr_gen_init_cpio as no-dot-config-target
+      kbuild: Move gen_init_cpio and gen_initramfs.sh to scripts/
+
+ .../early-userspace/early_userspace_support.rst          | 16 ++++++++--------
+ Documentation/filesystems/ramfs-rootfs-initramfs.rst     | 10 +++++-----
+ MAINTAINERS                                              |  1 +
+ Makefile                                                 |  9 +++++----
+ scripts/.gitignore                                       |  1 +
+ scripts/Makefile                                         |  3 +++
+ scripts/Makefile.package                                 |  2 +-
+ {usr => scripts}/gen_init_cpio.c                         |  0
+ {usr => scripts}/gen_initramfs.sh                        |  4 ++--
+ scripts/remove-stale-files                               |  2 ++
+ scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py     |  2 +-
+ tools/testing/selftests/kho/vmtest.sh                    |  2 +-
+ tools/testing/selftests/liveupdate/vmtest.sh             |  4 ++--
+ tools/testing/selftests/nolibc/Makefile.nolibc           |  2 +-
+ usr/.gitignore                                           |  4 +++-
+ usr/Kconfig                                              |  2 +-
+ usr/Makefile                                             |  4 +---
+ 17 files changed, 38 insertions(+), 30 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260225-move-gen_init_cpio-to-scripts-9e89ef99e51a
+
+Best regards,
 -- 
-2.47.3
+Nicolas
 
