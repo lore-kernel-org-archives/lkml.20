@@ -1,171 +1,152 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020087.outbound.protection.outlook.com [52.101.225.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A63351C3B;
-	Mon, 28 Sep 2026 10:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590928; cv=none; b=Zz6xHWQ5nRKosx1bJALGtzhL1+MeTbm3/dKukZOVOKaewkZSruLorTqYHIJVPYhRrYj+0UH1lqRUS9zDJ7hy05D9PTHrb6ij7fWfUzkefLkB7Lh+MWho1GzPnudJIafhyhQI4YTkURyAxjOllSMyJYmckEZRe1jFbi2EoOCrXLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590928; c=relaxed/simple;
-	bh=uVRYWRetMVDLgbMLivyX+0D95h4/EvA4hayvcJIgujI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u0/G/MRdywaLdjql52Atkjugl3nHBcNeopToGsTNS4dpIhGr1hp4CCBNDV6kLtBh+UsO1TFiUM0m8zSnbrQsdoyBByQNbHAfhIH77yEz1N1MTlGuekRTHHGXSMdpwlnmBMOZmZzEgmNQ/VizP3ZgWSysC5L3bcPlOmMKYkdb/gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Gk78jVUM; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Gk78jVUM"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9Zfsg801968;
-	Mon, 28 Sep 2026 10:21:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=42n2KTSFzQ2c0e8hup3itMbfDJzMY0
-	tDaAd0BZ0wisA=; b=Gk78jVUM0D7eCuYLq5w87SQt6l4K03/euukvrzKNBa95Og
-	Dh9Jxi4ZJetbLhRqKei4UgYwcxuLiDqQn9i7+OTQxIs8F2nV5fOzirKq1wLdwLRt
-	FpiNerUnHDAjCOdRdlkTR2kNbu8A6AVEw6TYREaqIBCcMq79bBfkmNHQCAFQuAg6
-	jSUtiZbq3UJ0mtMn6ydxbqTZyO43zMdNwrtjnnMtfUvAeqVzhhAuL5x+04wyRN12
-	s2s2NbJCE71FnPDl8BAVvm/lHzaS7TwOx5v6MjFflGUjNoH/313U4mlF+Gohl/EG
-	6iWxZj9A37vW+nIxJ1jaOgFf0SbgNt3Z2UxF3cnQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j50qse-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 10:21:30 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9HeEb4136587;
-	Mon, 28 Sep 2026 10:21:29 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhcqct-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 10:21:29 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SALR9315794558
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 10:21:27 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 49B552004B;
-	Mon, 28 Sep 2026 10:21:27 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 005AE20040;
-	Mon, 28 Sep 2026 10:21:22 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.95])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 28 Sep 2026 10:21:21 +0000 (GMT)
-Date: Mon, 28 Sep 2026 15:51:18 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
-        libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
-        djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
-        yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
-        wangkefeng.wang@huawei.com, yukuai@fnnas.com
-Subject: Re: [PATCH v6 08/31] ext4: avoid unnecessary transaction in
- ext4_map_blocks() for unwritten extents
-Message-ID: <aro_npJ95b4Nf978@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
- <20260903123543.2302999-9-yi.zhang@huaweicloud.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B18D40926C;
+	Mon, 28 Sep 2026 10:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790590930; cv=fail; b=Ma8xnLnta0rYClEpnlfrOXntfi17mwrSJ99594U4BuXUBS5yBT/asLfS2rvFj7ibYXgON7cYCjsA+09hv8lM/rZbHlra+6vZUWKo7s5CgPeeIxUff++KNc/48GZkGjcyzYJU2yvELJKuoHA9bRMHbOpMWPnWLcdQZSxxIHDyQyw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790590930; c=relaxed/simple;
+	bh=wmhPl2omB6Lir8S4Kh2W24VZi2qkNDueJ/TloZAZCJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LyDK1ibA9RqpqXiZoQwvdy02OQ7WycPYlpudxe0IANEG2ycsuy6Pd72MBT7yC652oVVbwclw7RTTMi1MdhVuCFmHitkwRh/fkuutqDeJkS2kg3LbYdyCySeoqo0E8skWTID+TJJYLY3HajWpuvrqnAosFv7kna7nelHlj7E0yqs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RmrqtZ0hhUwAQ+Wq0Z2dm6PFNV5FhC9KhL3Zqw1e9JQ4YuHDsGv2kNsoayVgwiEcaJQ7pswaXW0+0VWD4WyQE9CEvSSRz/nZsS0By62KkmUhBOyFlGZjONfDw2mKLV8e+NxkGWtEbB0BjcxeI+7Xoe2iLS454p7v2TL+a6XtvIJpzb7wYcFIljzVhyF9WyRDsTGXMB5WldklKfIsn1KrdqNawwTP1+Hlo+wHxa7KLMD1CGlNLwSMHlBsjjSOuRlV0TSl2a16Hp/ABCXUcPTjKmIIGF0RmgKtZDag2S0/5gGoo06M/esQpzKI5qpIDKJ7zX2Svf/UuUvgdj1RE2/VbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B5FEfNHSC6zmI4hApqy6M6dr9052ft+v4LlvMTtlNkA=;
+ b=eQ3XZ0R+C7ov0AHlew6bWFYBTX5PcnLQkB9EtX6yPgu8w+H/0o2w3ysuT/mmFelQOATRRzNPigqYsUgDSjZ0K6BpuyYYRvQ+aZlZic64zAmTL24mBIb9CXO6XpSbRHqlGDL+0TLDmyT5+VYTqhHZh7VCnvB04xpW7SaUS3kwvaLSYfFW847EXpPXAOW9HdpUlCUP3mX9Arn9P9lUyE8aSiBePGLEo33B4rWK8nukPiYyMzVi5gwrpJxXIEbfLutcXW8nY2rB9gx8WRcW20tXNR5pTvUCBcYkA9XiM0pA/P13Wrivquxta0D3UaVK3y2iz7ERshuj2hDxlSORP6rB7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by MAUP287MB5196.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1c1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 10:22:04 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 10:22:04 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ravi@ebytelogic.com
+Subject: Re: [PATCH v3 3/5] media: qcom: camss: vfe: Fix VFE reset while another line is streaming
+Date: Mon, 28 Sep 2026 15:51:54 +0530
+Message-ID: <20260928102154.529821-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cd778fa5-6382-4378-af18-1e19cf0d6c9b@kernel.org>
+References: <cd778fa5-6382-4378-af18-1e19cf0d6c9b@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN3PR01CA0078.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::13) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903123543.2302999-9-yi.zhang@huaweicloud.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfXzcVktDZTwDnK
- 5asKdY4vnlBIQGjuoO/v5pspla/3Aq8Cw1BG62oSjYnycWML2tyVYcvAVC2DjuzT+B9DnUa22iS
- 3FDSRy86zu2htRX6P/gwQjyIHrlLaAM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfX8AmCfDjjuGSb
- 6Ml73spcLxxlEyo+5bOczo8lbe33LcO4NR6CbVquxajaCP6/7GAOFOG2XIf4uHWlAyDzUXjR/eF
- WoxNUpcA3b1RKNrLNMzDpoOCNkGUZr2OztJNfa4RKSsqU+OHQvntzMaBYXgouav6CnHX/YiVdff
- 4rfCJo/I0qFXW3OfEc4mTK5azcCUGr5lrp2tViGEKBdsDGZEGIxkc52azYt5j2tEZHu11YvZ0Pf
- RtFSofArge/VIG3iis+WN8412UqzbPGCsQJKf9+GpxyU9wLRdKyNIsz09wCkTOO0EDbEqoNhCEb
- i5PuxxEplziL2hAIomTM0StHHxpnxEU0Ls4eNsvA/Obl869rX79tDmggXEOtka52FgaK5BWqzab
- PcqL9iCEPlTqBH8Xu3SVW+7PSwmy0z52WEQQL0j/Od27SaAWZaOayTSJzwQnGCsGm5PMUfJgl+s
- NiLgv6KaUJdvpF9KzYw==
-X-Proofpoint-GUID: 95CUtjtgQ3nwP6EjspzCAK7m1riRIuCd
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6aba3fab cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=i0EeH86SAAAA:8
- a=VnNF1IyMAAAA:8 a=aWqQkjiijrM5delGkE4A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: oXABs_Ul6pnF5jifYJKlST-LtTSZtSfx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280040
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB5196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 199ab7d1-5967-49b2-b78d-08df1d4a572a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|1800799024|366016|23010399003|10070799003|3023799007|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LGoNgWicTC5suyq+3ou1PBnk+mwFgDa1qrN2wJYCut04IdhpflyTOsp6FWqY/RzmL3V5FXZld8HpPoF50xWbLnCGcS4d7BS71Y9HHcn05Z1cPmUt7mI7fH8h2UHAuQ1n3TKby4We3EunSvI2QCUl0ZhOSYJjCT419uyU3XUnm3Y2QptDwsoMG5kNNNbeqCCfC7SVlvlcHqSsYHIuChBcNjvcN4M2FxdHVuIm/JHPgb+fHON3styqzRPWh+73B1h0pldb2ULeMXKT4XLn+6o2A/K2U25e69W2P2j6PyFr1ebDD/06XAMurFOx+7TUBUaVV5D3ioWfzOnkJam9lEqAyiGIYwmVlYP/477FbejM4bOSk8t0vM+K/iW6HuXstC5XqZWg7LWMEKysU+WZxLmqyF2WNBtnDwTBXFaWjYWEiRTVshmtPuUhCIAwi20G8E3rtsZN3JK74OZ/ywjPxNmZAX3m6Y4WITjRDJOO1h1hP07m1s78zL2F5sORgMcQhVyunWfHesjDw7/Mi2fnxtBl92DT3xJJzcbPhd376FHY9q8vFD0gi28ElHrHqcAojU7eyYu38+gGNA3Xd230Bc7Avp87rNNKUQQqnplKl1ifBIsLpemAFtBSVLEmcd3yG50avL2CpFhUa2YKdfJIvt6rmJ8C2hCGeqDb0o/d49+Rd38=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(366016)(23010399003)(10070799003)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NJNH5HWCSZrk1xugTkMf0nVa+gABGGvFiNNcMHZhpXSWqWBbHEHe3GQr8HKv?=
+ =?us-ascii?Q?fbyoVvVSEcYrz2l/Nn0UtEolv1pLCLvIfLfIVJgDEgzFsRT40gMTsQzyjNsf?=
+ =?us-ascii?Q?ONxc9lFAmMCWkh296I4A4tTMhCKLqqXI++RxewKVfO9ZCeXJn1kOy07CkJHi?=
+ =?us-ascii?Q?bpiRMHwUjRo6Eh1OTXbSgrNL+ERcJ0tMJSEHLKJu2apSi6Imx6JbvrVjShEB?=
+ =?us-ascii?Q?BLjWkrdQiAgbTX7gCvHE/bmsOaTMDd4vADQk82YEMsb3qtimUi9X2WAd/cEe?=
+ =?us-ascii?Q?QBVCS9Nwi91qIa8hq7UpxEwRDGTDLMZv+fJdd5sEMHUZZx/LlWSEM7TYN5iO?=
+ =?us-ascii?Q?GF8wiANqrt/fCd+Q/HK2yXqoWjzQCeRjMV0LFB4fVb99v8xoLNdvp5X8aeCt?=
+ =?us-ascii?Q?VjCxX/l1A5kr9ldDpnV9autK+fX1G4g+FfB9aLWACyheQw5s0HlzfOybRyQR?=
+ =?us-ascii?Q?QYZHqJaRUCAu/BmW5PJQ3vQjcIrGNkdM5jWhkmSfiDJkhYbXmve2o/X0gCzn?=
+ =?us-ascii?Q?UysybcjdE4nucxq93Np3E3yKqVIV2kcjOAr+lD8n3T/7fYvULTvRD5o9a/67?=
+ =?us-ascii?Q?RZLQARUmGTPZpomerApYt4Iz5NfPaqgKbl9yREMB5Xhjpe9dbriv9Ywi4mbH?=
+ =?us-ascii?Q?MZvfa0pYscO7pIHf4YRJfUqoiyTTFZd7ImX/QWHslMbahF3RZ4+KUzmtiI3z?=
+ =?us-ascii?Q?3QxftMTy/bzZd5S04b5hqi8b9mOUcV0ojhlVIwlGbBpS+GAkjSfrSKAXU1Yi?=
+ =?us-ascii?Q?mNC1MCSaS9Lt3jnQCcPrLqjxVrYhGZKRjtJmDrobK9R3pSm/N6q8FxGO68NZ?=
+ =?us-ascii?Q?IvrM5STqVqA/x+GUAn09YTuBvPCkXUNZrTCiLUGQx6BfFuw81YOb2FTiJMyd?=
+ =?us-ascii?Q?VD45bMrQs3msuwCh03bz6hN+fjKftCdq5XITiQ3Mak6bqXaD6ndwki1NVRD7?=
+ =?us-ascii?Q?O6xCRDZIjTlGmiIeHeOO8uoHAtIfCt5lSP3r1Zef/R8dV1c+gF/DOjojEa1Q?=
+ =?us-ascii?Q?/tPn8LrUz1UrrwlaT6mb3lw5DjxdXhz2a0Ml/g8QDMunY+OWFOGnhcc46nnU?=
+ =?us-ascii?Q?PlLE57vAZZJlPMe1oSco4HCpEvBAuylZKFUWy+RjRpsgxyXBg1/0XDhoYrMO?=
+ =?us-ascii?Q?PNs5gtJCHON34VqSOj4rtYaPXRH4hhncNU79HR7rhnqHXtdbKyVwlUGGgoYP?=
+ =?us-ascii?Q?jPOYLkynFrEqbO8xSCrP0bQ5ACdOfM4zKtYRdwGLdQLflG6FMwFuxybO7iC+?=
+ =?us-ascii?Q?PPCRd/JEiUgJw/oIDUW2Pf4GBVhlboEZSnO4tF5V9hUiWcpu3jihQndO28fC?=
+ =?us-ascii?Q?zes9d7N7ptoShR+70gRAgplsk/yIgKY4nxK/8YHmVqAD4wy/lzsXaCJtylYc?=
+ =?us-ascii?Q?0VepmXTGUYM0gknnahOny5CFnjQmcAAJUVE6MzNZqMIaklUiZMrCpNy0nw0+?=
+ =?us-ascii?Q?Ovte3BOpqFgcB927/B+/MnAusBbyFAkZDO+YQ5jstQoa4BiixhH92K8N96Tw?=
+ =?us-ascii?Q?n58GEV8RyAeL4foYr6UjReSrIrmTFMoUHWoYTp85k7if+aBqHDygiR9CCfw9?=
+ =?us-ascii?Q?6gKqac6aej+iNCyzgaxOcDnNwLV1n9wtbcNyE1QFEnwFxn+BWAkaiablpsPb?=
+ =?us-ascii?Q?GANCr4v3eAtTU+3TyWPOZj2M1C4fovsGp4Zy74N4c9wn0H0fh8ydjrZxJLQq?=
+ =?us-ascii?Q?yz7jRF0H8Y7iUdwp5oCFd4mq2sWXQy76bYhyuoQEjJU2K17DanK6ZeCvPPsR?=
+ =?us-ascii?Q?L7ngIXYn7q/fetiHEZ1DIs3CsRy8l4PuIEyQi2hkN9wYzsLA+hmPC3ToyqbG?=
+X-MS-Exchange-AntiSpam-MessageData-1: g2tkiPaB6QTkkg==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 199ab7d1-5967-49b2-b78d-08df1d4a572a
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:22:04.0168
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +uUBnBqJ+o63WzeuyGhnP2nUbtqp1hhqmwrK9kbLyKDAWnQRc4VrnDl6ffVhCKmU8YRTeIXICUUVlguYvdr9EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB5196
 
-On Thu, Sep 03, 2026 at 08:35:20PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
-> 
-> When ext4_map_blocks() finds an unwritten extent in the extent cache and
-> the caller is willing to accept unwritten extents without conversion,
-> there is no need to start a journal transaction since no metadata update
-> is required. This avoids unnecessary transaction overhead in the
-> upcoming iomap writeback path when overwriting already-allocated
-> unwritten extents.
-> 
-> One thing to be careful about, as the comment in ext4_map_blocks()
-> states, if the flags contain EXT4_GET_BLOCKS_CREATE, the function will
-> mark @map as mapped.
-> 
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+On 28/09/2026 10:49, Bryan O'Donoghue wrote:
+> NAK.
+>
+> This can't be correct, in fact its very racy and will break.
 
-Yeahh, I had something similar in one of my WIP branches :)
+You are right, thanks for spelling out the interleaving. Sampling
+stream_count before the decrement, and outside the lock that protects
+it, lets both callers conclude they are not the last one and the reset
+is then never done.
 
-Thanks for taking care of this. Feel free to add:
+I have taken your diff as is for v4: vfe_disable_output() only stops the
+write masters, and vfe_disable() does
 
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+	if (--vfe->stream_count == 0)
+		ret = vfe_reset(vfe);
 
-Regards,
-ojaswin
+inside stream_lock. Keeping the reset under the lock also closes a
+second window I had left open, since vfe_enable_v2() increments
+stream_count under the same lock and then configures the output after
+releasing it, so a line could have started coming up while the reset
+ran.
 
-> ---
->  fs/ext4/inode.c | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index c9dea4ca5caf..7a5c74af8ff3 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -809,14 +809,23 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
->  	 * Note that if blocks have been preallocated
->  	 * ext4_ext_map_blocks() returns with buffer head unmapped
->  	 */
-> -	if (retval > 0 && map->m_flags & EXT4_MAP_MAPPED)
-> +	if (retval > 0) {
->  		/*
-> -		 * If we need to convert extent to unwritten
-> -		 * we continue and do the actual work in
-> -		 * ext4_ext_map_blocks()
-> +		 * If we need to convert written extent to unwritten or
-> +		 * convert unwritten extent to written, continue and do
-> +		 * the actual work in ext4_ext_map_blocks().
->  		 */
-> -		if (!(flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN))
-> +		if (map->m_flags & EXT4_MAP_MAPPED &&
-> +		    !(flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN))
->  			goto out_handle;
-> +		if (map->m_flags & EXT4_MAP_UNWRITTEN &&
-> +		    (flags & EXT4_GET_BLOCKS_UNWRIT_EXT) &&
-> +		    !(flags & EXT4_GET_BLOCKS_CONVERT)) {
-> +			/* Contains EXT4_GET_BLOCKS_CREATE - mark mapped. */
-> +			map->m_flags |= EXT4_MAP_MAPPED;
-> +			goto out_handle;
-> +		}
-> +	}
->  
->  	if (!handle) {
->  		handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS,
-> -- 
-> 2.52.0
-> 
+Retested on the RB3 Gen2 with both cameras aggregated as VC0 and VC1 on
+one CSIPHY, so that CSID0 feeds RDI0 and RDI1 of the same VFE: the two
+stream concurrently (60/60 frames each) and VC1 restarts five times out
+of five while VC0 keeps streaming, 200 frames without a gap and no
+"VFE reset timeout".
+
+v4 sent as a new thread.
+
+Thanks,
+Hitesh
