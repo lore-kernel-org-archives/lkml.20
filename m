@@ -1,69 +1,50 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE140EB8D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770B746D2AF;
+	Mon, 28 Sep 2026 20:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790627785; cv=none; b=ksSgYJEIH9z9Nw1+Luk0ctiDKTpyYF5ns2Fmpwg1+/kH5rNUj0Y7/K563TS+H6ZVvMFyeP3+kRUbhPqTHCrksIWMgYsRNRPFcv0w+3aUW54T0Xc/YuWPGdgyGd1VDaxfAeYalvTrlCBlm4xJMOYsklGI0UpAdp4M52tXtWfC+C0=
+	t=1790627834; cv=none; b=TeX4/LteWMXH6BbC+xndZKdFOc0v3zw4U8FIXuXOL3ubPLjJTMSouAAj9uO4OZN3hg3QvrGKuLYDMj9awFGoh89hbvUS3K0FsOZZ/5133GVLdXsC/NIIkl9JtAgKXj7kFFbG5sauzY5WiXaqeW+rblxc3D6x/pfQty1T9QxrzzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790627785; c=relaxed/simple;
-	bh=jtYCAc7nKITkIVx8b/PmW3ua5f0S738M195XwlzGYeU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dS5KscozLOgn0NLsuii9hM1QZrvW7x+NW1Nn3v5UeIPFmE3n5QbonNBYbHPP3n2PWCladQPLiUERwE6SDHYb3Vev5Kvg5d0uZWOpVIS7Aes0/8sQdSFgVyy+jP3bT0HWgldDk6FHT0ov/uvokU6vohGhmClPRqvenD5A9vASSJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A4eUMGwJ; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790627834; c=relaxed/simple;
+	bh=NioknLsD16oLtjxY+fFyJSlRvaGeEFxfDj064Z+6Myc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vAW35Ljih2v9d2W0jljLZwqx7b3a/IdUCa9L4HMEklvnwOv7qvPS7fgL5Yy+q8LU9iVjRyat/1qqmJn7UY77wuYF5AHZbHHc4dnCqHWxTm2In0iv53MY8AiffQN6EkrawLLbD9zF5NjmlWM0rMxDlc9DHfNa5dbT/cq+XbYqaME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hPTGN73E; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A4eUMGwJ"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b35eae3076so592409137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:36:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790627783; x=1791232583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/wqE0gOeMMpr/nqn1OVJOAEQ+QHtmheZQZYs7E5QFRI=;
-        b=A4eUMGwJ2RHxa1MoHbCVGdhvFVn/ni4GeJYOcIOMsDgkI+b44w/5aFdwdhuHTkrJYv
-         xVzUksiNNqOQ9soYmcAmDgMNK372gfa4eTeUuE9gr9Lw9ztnehisvy23k/TioDsc+76q
-         hVVC2hvCQ3VpsZV1Xy7A0QIVSXvm7AippU2CefRK2lBjkWfhccetOC5nSJjj2a+SR+MP
-         kgFnQy9tv95EnlKvD1agn/y1XNUNT0PDy2e2E+YT5B61BlP92PqlHA4BV+1tFECWoVNr
-         dS0WVd3rjL+hOaZekomC+593XxGtPcX2GMoVv+o77mVwxyzgp4KtCVfnUeuV3Ri7Qx+z
-         W3Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790627783; x=1791232583;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/wqE0gOeMMpr/nqn1OVJOAEQ+QHtmheZQZYs7E5QFRI=;
-        b=djZpDPZxNc9zeYFzZnWbgZRfm+KFf5pMtbKiCAohhsDyYE3xhUK2GsAEO/+l0dd7sV
-         G9L7qk5CKw8fiGNIwXj8okJKc0ShjpG0PM41a/VoUqcpxu7LYdxZQGrsGrtflZS8plAc
-         9mszOD54S4M6RIv5J5TgMppexNJ15TVXSSzZN0UGIYLJchN2R6i00j+HOYy4K2vrf9BC
-         E7iEcm7D5/6HPv1dUZ3zv+ER9xn+VhCBlgk+IvcHfu07uuOXuW3m9FMciCKptfncwyg3
-         0Ec+d6Ab7eTdkbP7ZvSBrDawxtGUO3pE+ZFEFxfmGd/UctWjts+HpgSq7oxBrf2r6koM
-         f9bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmBXcJLnZIZTHjq8pn2RFqvfoB/td5/vGWuRS/QW4eL2CX5ddlnjKkzv/1woQ5qJ+NNbW9bCsrvFGcH/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+3raV626q8zFGA3NFTm6f7p6qKN5GRVGLMGujAISxbvMqMoN/
-	vppDKi4jn2hX/MsZa8CaIppcj28x0J63Mk6lPw4hHX2zvy/ZYJPkv3rJkdCVs/FkD+A=
-X-Gm-Gg: AYBFou0fKwNiXZtXYRBvx94Mfn+IJoLtw0qPMdVhngRoECCPTRvYKLfAr5j2A48kJTw
-	FhiBI3quiCvdKpQDC9AoByxTq1V6gKpxvHvw54dFUNkrsxvVUKMjfNouH38d8LCI49me8eb7/ER
-	rdSL/uDheSGtgMBUDr4FVmpjGWrZVmW+6K1rxVj9JHW+ktbqAXSHYTeagMUM6O6CGVSf4V/hr3a
-	OE/TSSRbCws3L5gwroW5UPyD3UewF0iNg4qrA7cLBU8eyUJHiIhUoegO7Zi5rDSXBpUgwgSfg8Z
-	p0csZK5In7dQoUrPulRgU1+cgdxnpVg6NgIyn8KJytsl61nlKB+NNwImw2CcV/FFyTZAbR5Wnxs
-	R+Stdld2jmf0SeNS78Y8Zl2vyZVBr8wkjB4o8VglcM1KwdtwxFtWgRM2jYgWqWOqmZYnlHDOFh9
-	YQsc0CcqWTH/t8+l0sJmLooLJ+TNl5ju3jtrW7WHCAU0i2j63eUNjlQ0RoGtnepJi6sA5AZM07U
-	QFTvuhV1lvJjimH5JAmcTKSQMDC7aj8wIo4t1o2ccvANSPna2r90+3b9+7GaHps2O6enjxzw2ff
-	19oszyijsBo5CkkD6Q==
-X-Received: by 2002:a05:6102:3972:b0:7b2:508e:3d57 with SMTP id ada2fe7eead31-7b2508e43dcmr1935899137.4.1790627781635;
-        Mon, 28 Sep 2026 13:36:21 -0700 (PDT)
-Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889afc5c7csm8438164241.2.2026.09.28.13.36.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 13:36:21 -0700 (PDT)
-Message-ID: <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
-Date: Mon, 28 Sep 2026 22:36:18 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hPTGN73E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790627832; x=1822163832;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=NioknLsD16oLtjxY+fFyJSlRvaGeEFxfDj064Z+6Myc=;
+  b=hPTGN73ER9g6OGlAHeXvk+mAU7h289+b4Gl1JggliAmXGpFQoKUjmo1T
+   QMC7YYecbMZ9/w421IxmjP8LLMqpJwsPfnQ2yuAaxm1JgZChvNzrTAB05
+   /ilXxbiNh+hT5VdydAQZ/BtETLN1D6pVPjCUZbtDTbDxeRHGW7PO5xME6
+   8CZ5uhW3rdK+qIBGLazcYiv9KgxXK5/AWHReOoCQ9fnFg29J4cgw4N3zd
+   3DT5Gc1zt0/sh9/7qY9NJdt5gt6q56z2Jvbctvdpq1y8yMMsHCx4Sf6Ad
+   7bZbdT9MNHD0ejDrQ3e0IG31IWUHTnMQ0P68QRJgTMOKpbF2A7MhKX5QD
+   A==;
+X-CSE-ConnectionGUID: 0nKU0HqfSHWZwJpR2BLSlA==
+X-CSE-MsgGUID: j91rGkiFTXCRTw2jscPimw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="107719892"
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="107719892"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 13:37:12 -0700
+X-CSE-ConnectionGUID: INVKBYsiSzquTZocL8W1fw==
+X-CSE-MsgGUID: ga8jB+kuTs+snlgLVERsUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="274266408"
+Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 13:37:12 -0700
+Message-ID: <224672fa-8e29-4b0a-b472-6721e057b8a3@linux.intel.com>
+Date: Mon, 28 Sep 2026 13:37:11 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,231 +52,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <arrAqg5n87INTHE6@beelink>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 6/6] virt: tdx-guest: Make the Quote buffer size
+ dynamic
+To: Peter Fang <peter.fang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
+ Tony Lindgren <tony.lindgren@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Artem Bityutskiy <artem.bityutskiy@intel.com>
+References: <20260928100913.2265687-1-peter.fang@intel.com>
+ <20260928100913.2265687-7-peter.fang@intel.com>
+Content-Language: en-US
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20260928100913.2265687-7-peter.fang@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/28/26 21:48, Benjamin Tissoires wrote:
-> On Sep 28 2026, Neil Armstrong wrote:
->> On 9/28/26 19:24, Benjamin Tissoires wrote:
->>> On Sep 28 2026, Neil Armstrong wrote:
->>>> Hi,
->>>>
->>>> On 9/28/26 18:22, Maxime Ripard wrote:
->>>>> Hi,
->>>>>
->>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
->>>>> difficult to support and require pretty much a panel driver for each
->>>>> panel produced. Most of them are pretty simple, and require an opaque
->>>>> initialization sequence that is usually poorly documented.
->>>>>
->>>>> This creates a tension between OEMs and distros because OEMs will
->>>>> typically get a new panel to react to a sourcing issue during
->>>>> production, and thus need some swift turnaround between getting their
->>>>> new panel and it being operational in the OS. Distributions on the other
->>>>> hand can take years to ship a kernel with that new panel driver.
->>>>>
->>>>> To solve this, I followed the example of HID-BPF and wrote a panel
->>>>> driver that will rely on BPF programs to perform the panel
->>>>> initialization. That way, we can ship the programs separately from the
->>>>> kernel, and with a different lifecycle. If this driver is accepted, the
->>>>> plan is to have a userspace component started by udev to identify and
->>>>> load the right BPF program for the panels found on the device.
->>>>
->>>> This is kind of late for serious applications except if we manage to
->>>> solve the bootloader to Linux display engine transition.
->>>>
->>>>>
->>>>> This driver is fully functional and works with both 5" and 7" Touch
->>>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
->>>>> typical panel driver in multiple ways:
->>>>>
->>>>> - BPF programs can only be loaded by userspace. This leaves us with two
->>>>>      choices:
->>>>>
->>>>>      * We prevent the driver from loading until the script itself is
->>>>>        loaded. This has the side effect of preventing any other output to
->>>>>        be used until the initramfs is ran at the earliest, and possibly
->>>>>        ever if the loader isn't installed for example.
->>>>
->>>> This adds a dependency on user-space behavior and if somehow the
->>>> initramfs doesn't load for a reason we won't have a way to display
->>>> an error.
->>>>
->>>>>
->>>>>      * Or we probe the driver all the time, but only report it as connected
->>>>>        once a program has been registered. This is somewhat unconventional,
->>>>>        but allows the other outputs to be functional, *and* allows the user
->>>>>        to force the output if their panel doesn't require any
->>>>>        initialization or during debugging. I chose this solution.
->>>>
->>>> Both options are not really great...
->>>>
->>>>>
->>>>> - It's not a panel driver, but a bridge one, which is also pretty
->>>>>      unconventional. This is required because panel drivers don't have
->>>>>      access to a detect callback that is required for the above, but I also
->>>>>      think that the recent work from Luca blurs the line from panels and
->>>>>      bridges and we'll end up going that road anyway.
->>>>
->>>> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
->>>> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
->>>> a proper way to describe the display/panel/monitor independently of the DDIC.
->>>>
->>>> At first glance it's a nice driver, but moving the timings into a blob moves something
->>>> into possible proprietary binaries with possible closed licence and distribution
->>>> restriction so it's a downgrade for the same of bringing up a panel faster.
->>>
->>> Quick answer on this, because I had the very same questions regarding
->>> HID-BPF:
->>> - in BPF, you can require (and by default it does) that only GPL
->>> 	compatible BPF programs are loaded, closing the argument of "closed
->>> 	licence and distribution restriction"
->>> - also, a BPF program can be disassembled much easier than a binary
->>> 	blob, and I remember Alexei showing me an example where you get almost
->>> 	the source code from the BPF object in just one pass.
->>
->> Right, it "solve" one of my question, but doesn't really solve the issue
->> of vendors providing "GPL" bpf programs with source available "somewhere".
->>
->> Another big issue is the API, I don't want to keep the current API as-is,
->> we plan to support more advanced panel features and use try to use the
->> atomic states to support rate switching for example, and I'm not confident
->> it's a good idea since there's no "simple" and "forever valid" API
->> to initialize panels...
->>
-> 
-> That's exactly where BPF shines. The simple rule of thumb is: there is
-> no API stability guaranteed. Basically, thanks to the verifier and CORE
-> (Compile Once Run Everywhere), you don't need to keep the API stable and
-> available forever. There are multiple ways of dealing with it, but the
-> gist is that if a BPF is trying to load an "old" API, it will be
-> rejected by the verifier.
-> 
-> Then it's a matter of being nice enough in the kernel and provide ways
-> to deal with those.
-> 
-> To give you a few examples:
-> 
-> - in HID-BPF, in userspace, we keep old versions of APIs in separate
-> 	compiled objects. Each is incremented (by 10 so we have a little bit
-> 	of room in the middle). Then the loader tries first
-> 	0020-device-with-new-api.bpf.o, and if it fails, it tries
-> 	0010-device-with-old-api.bpf.o
-> 
-> 	I'm not saying we should do the same here, but that's one idea
-> 
-> - recently, a BPF commit broke the ABI of a function while removing
-> 	implicits: bpf_wq_set_callback_impl() was replaced by
-> 	bpf_wq_set_callback() with a different number of arguments. I simply
-> 	had to add a new function in my header which basically does:
-> 
-> 	static inline int
-> 	hid_bpf_wq_set_callback(struct bpf_wq *wq,
-> 	                        int (*callback_fn)(void *, int *, void *),
-> 	                        unsigned int flags)
-> 	{
->        if (bpf_ksym_exists(bpf_wq_set_callback))
->                return bpf_wq_set_callback(wq, callback_fn, flags);
->        if (bpf_ksym_exists(bpf_wq_set_callback_impl))
->                return bpf_wq_set_callback_impl(wq, callback_fn, flags, NULL);
->    }
-> 
->    And then I changed the bpf.c to use hid_bpf_wq_set_callback() and the
->    bpf is compatible with both APIs
-> 
-> - with CORE, struct fields are relocated on the fly when you load the BPF
->   
->    So for instance, if my BPF only accesses fields .name, .phys and .id
->    in the BPF, I can define:
->    struct hid_device {
->      char                       name[128];
->      char                       phys[64];
->      unsigned int               id;
->    }
-> 
->    Then when loading the bpf, the verifier replaces all offset to the
->    ones actually used by the running kernel, and the program loads
->    transparently, even if you add fields before/after or change the
->    fields order in the kernel.
-> 
-> Changing the mindset is the hardest part of it. But once you are making
-> the shift, it's actually much better to work with. It doesn't mean you
-> can go yolo. You still need to be careful in your choices knowing the
-> impact on your users. But the API at version 0 is not frozen and you
-> don't need to maintain it forever, especially if you control the loader
-> and the headers used to compile the BPFs.
+Hi,
 
-It's really impressive, but there's no way this would become the de-facto
-way to program the panels, and if the motivation is to make it simpler
-this implementation requires adding bindings and bpf programs which that
-are the same as native panel drivers, but won't be able to work until
-user-space starts and will require to be in initramfs or rootfs to
-have functional display.
-
-Not sure to understand what are the positive features here
-except isolating the panel code in a safe bpf program (is this really needed ?).
-
-I mean the idea is cool and bpf is a nice thing, but I'm really not
-convinced about it programming panels.
-
-Neil
-
+On 9/28/2026 3:08 AM, Peter Fang wrote:
+> Support a new TDX module ABI that reports the Quote size limit in a
+> metadata field. The fixed 128KB buffer in the driver may be too small
+> for Quotes that use new algorithms like post-quantum cryptography (PQC),
+> which can produce much larger certificates. With this ABI, the guest
+> sizes the buffer to the platform's needs and no longer has to rely on
+> some empirical number.
 > 
-> Cheers,
-> Benjamin
+> The shared buffer comes from the buddy allocator, as the host expects it
+> to be physically contiguous. The allocator's page order limit should be
+> sufficient for current attestation needs. Platforms that don't report
+> the limit fall back to the default 128KB buffer.
+> 
+> AI was used under supervision to collect/apply feedback, review code and
+> workshop logs.
+> 
+> Based on a patch originally by Kuppuswamy Sathyanarayanan.
+> 
+> Signed-off-by: Peter Fang <peter.fang@intel.com>
+> ---
+> v5:
+>  - Do the export here, and use EXPORT_SYMBOL_FOR_MODULES() instead.
+>    [Xiaoyao, Dave]
+>  - Drop the comment about the buddy allocator. [Dave]
+>  - Drop the RB tags, as the code changed substantially.
+> v4:
+>  - Move the PAGE_ALIGN() out of get_quote_buf_size(). [Xiaoyao]
+>  - Improve the get_quote_buf_size() pattern again.
+>  - Document that the reported size covers every Quote type. [Xiaoyao]
+>  - Document that a module update does not change the reported size.
+>    [Tony]
+>  - Add Tony's Reviewed-by.
+> v3:
+>  - Split out from the v2 "Allocate Quote buffer dynamically" patch. Add
+>    the dynamic buffer feature on top of the refactoring. [Dave]
+>  - Improve the get_quote_buf_size() pattern for better readability.
+>    [Dave]
+>  - Drop __GFP_NOWARN so an allocation failure warns. [Dave, Rick, Kiryl]
+>  - Drop the Reviewed-by tags from v2 (Kiryl, Binbin) as the patch was
+>    reworked.
+> ---
+>  arch/x86/coco/tdx/tdx.c                 |  1 +
+>  drivers/virt/coco/tdx-guest/tdx-guest.c | 13 ++++++++++++-
+>  2 files changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> index 323e1efc78ea..847430fc639f 100644
+> --- a/arch/x86/coco/tdx/tdx.c
+> +++ b/arch/x86/coco/tdx/tdx.c
+> @@ -213,6 +213,7 @@ int tdx_get_max_quote_size(u64 *max_quote_size)
+>  
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_FOR_MODULES(tdx_get_max_quote_size, "tdx-guest");
+
+I think you can cleanup other exports consumed by tdx-guest driver
+to use the same format (in a prep patch).
+
+tdx_hcall_get_quote(), tdx_mcall_get_report0() and tdx_mcall_extend_rtmr(0.
+
+>  
+>  static void __noreturn tdx_panic(const char *msg)
+>  {
+> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> index b79b4325da3a..ad2cb4740898 100644
+> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
+> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> @@ -212,11 +212,22 @@ static long tdx_get_report0(struct tdx_report_req __user *req)
+>  static size_t get_quote_buf_size(void)
+>  {
+>  	static size_t quote_buf_size;
+> +	u64 max_quote_size;
+>  
+>  	if (quote_buf_size)
+>  		return quote_buf_size;
+>  
+> -	quote_buf_size = PAGE_ALIGN(TDX_DEFAULT_QUOTE_SIZE);
+> +	/* Start with the default buffer size */
+> +	quote_buf_size = TDX_DEFAULT_QUOTE_SIZE;
+> +
+> +	/*
+> +	 * Override the default when the TDX module reports a size. Add room
+> +	 * for the header metadata.
+> +	 */
+> +	if (!tdx_get_max_quote_size(&max_quote_size))
+> +		quote_buf_size = TDX_QUOTE_TOTAL_SIZE(max_quote_size);
+> +
+> +	quote_buf_size = PAGE_ALIGN(quote_buf_size);
+>  
+>  	return quote_buf_size;
+>  }
+
+-- 
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
 
