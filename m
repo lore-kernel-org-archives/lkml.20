@@ -1,39 +1,43 @@
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779F32EEE9E;
-	Mon, 28 Sep 2026 22:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4A950278E;
+	Mon, 28 Sep 2026 22:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634097; cv=none; b=I2QkBlEarDYgoFHDxu0UpcGU5HQRHH6QvAEBcZcOxCX9WBMmKjwaOWZboZvy2nvJ2zfu1olMqA/3gyVb/8eJeXkrBsVbhzU4fYeRw8eJvMMpM0iEHHngECaV6NW9IqvoGkEDFqrDB3pbwK8BuUErNcyOkusJH/iFwgnKr4QcpI4=
+	t=1790634105; cv=none; b=N7Cu636DO5+VQrycniaOeekZpcslXc6FgloS9YZeelBrWa2YoHWCOITA7+obnanEOMkP9RBSuwnbXVewWfgrUaQI/Y13Kg+rHmPaWTSnqvH1on31+je88BKLRzcVT+GbmSJoC7cycvlJSh91reaIlz3gKPx1d1DzBTz1yU/no1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634097; c=relaxed/simple;
-	bh=CUw/KgZp6nX3qcURn+sjsT026rLSXQ1mNhFGzks4upo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=pmjMaiO/+iL0vfx46xr1dOUJRL9vv5BWHDgDgYnRuEmNaWvkxwxMSz5B1ext3VOWNx9naLhx4yiD9kJQPS/57is8bjB1JSiUffyil0ABnmxgWfeVo34iBr2F750e/nw75ghMLBW5RqJacc1GE9zfMgdF90wBAWtNxtJzJ0aOMDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=aAQmCxkI; arc=none smtp.client-ip=185.70.43.20
+	s=arc-20240116; t=1790634105; c=relaxed/simple;
+	bh=TqtcK7V//MTFTGMD5vH/XidBOgfLAsnN0w5ksRjoD+k=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qJG1rg/wYaGr7fCv3SHCuXCSEWNgIJF2U0lJfnfU44yYd/PMwhAnXjoxSyAXeDg1yLSqbFNrtNFtOd2x6pJ3YnN7YqWvVR68wSR2pmSTV2VGg+VHw9seXJhds9MBrY7N5FiCRr1BiAJyqLvgtUgzqszdZhM9wbBkQt0E4ZJhrQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=Kdj4R3hG; arc=none smtp.client-ip=109.224.244.117
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="aAQmCxkI"
+	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="Kdj4R3hG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790634086; x=1790893286;
-	bh=iRbeTs4tZFymXZFw9/v48DmpvAx0bac2gHRH6vWGRdM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=aAQmCxkIzclgfgueYTsc0QCb9sry0DWSyw2HrcMDgH+A44kEdPuAECpZDjj9TLvls
-	 hrFMm3q7m3rgoHUB3X6crmcQ7kObj/eNESy5xq2Y4xdF9JahRuBt56ckeAofpocJmf
-	 +qAT8mjEIbCLyAYBEVC/uxZVky8YueJifT/s/R9q4K1rFkJZECwKF040B6k2cWMVjq
-	 ElsooDWTag6je0srvotg8ezXyWkLTSDmfPn3Icg/I9SsjE+0ozQ/TM1gvkS/jwE8fI
-	 gSW1WAcJPDMbItRe+BjguEHs+OxY9bQdLd8xw2+A/qcYy15y9iu8FnPUDo0+9c6Wcs
-	 7Zrr5GnJAUKJQ==
-Date: Mon, 28 Sep 2026 22:21:21 +0000
+	s=protonmail3; t=1790634093; x=1790893293;
+	bh=MtGXELPa1cbOtTYMyRrSdYOyckRr5473KGkzkST/MDU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Kdj4R3hGY4TO8o0t4P+vmXLEjTDeIHcaCunZdyW5DaUBVT61K72o3kKkyafWV5HB+
+	 6cxNCTNExzlIfLeK/izeAaYMpp2buypB0OrzvsXx/Z8RJSG2WNtxNhBc0sUEe4ehfx
+	 MIBC0v0MLvqWC/T6HRyjodQs3PRBUka0KOimEQEaicSRdmGypAO4hfgr8RJjd3ZxJ4
+	 0Q+VU8MIIYbyeCg7C9I7d2j9mfRPuylERspVbH/IGGr1g3CXRRrQxxwVZhK7xkp1hU
+	 lu+7d3aF2FSylMi3s45xLY0q9WbVug/WbmmEiTFBBz6JY76bHcSHMQwYm38SYCSYdQ
+	 wZhjZSYy9tlag==
+Date: Mon, 28 Sep 2026 22:21:29 +0000
 To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 From: Alex Robinson <alex@ironrobin.net>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] Lenovo ThinkPad X13s embedded controller support
-Message-ID: <20260928222056.10044-1-alex@ironrobin.net>
+Subject: [PATCH v3 1/3] dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
+Message-ID: <20260928222056.10044-2-alex@ironrobin.net>
+In-Reply-To: <20260928222056.10044-1-alex@ironrobin.net>
+References: <20260928222056.10044-1-alex@ironrobin.net>
 Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: 14a5ad8ba92e33eb19a72849a7472ee9c09b87fa
+X-Pm-Message-ID: c949a6d90857b5f230619b6e0d0b37b1f601f35f
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,99 +47,95 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Add support for the embedded controller found in the Lenovo ThinkPad X13s.
+Add a standalone binding for the embedded controller in the Lenovo
+ThinkPad X13s. Although its I2C command transport resembles that of the
+T14s EC, its keyboard-backlight, event and power-management interfaces
+differ.
 
-The X13s EC uses an I2C command transport similar to the ThinkPad T14s EC,
-but its event, keyboard backlight, and power-management interfaces differ
-enough to warrant a separate driver.
+Describe the event interrupt and the separate host-controlled power-state
+signal, which is high during normal operation and low in the low-power
+state. Require this GPIO and allow wakeup-source to describe wake
+capability.
 
-The EC event interrupt is provided by GPIO103. GPIO176 is a separate
-host-controlled power-state signal used during low-power transitions. The
-driver follows the EC command and GPIO sequencing described by the X13s
-ACPI DSDT and defers EC event queries during suspend until the I2C
-controller is available again on resume.
+Assisted-by: LLM
+Signed-off-by: Alex Robinson <alex@ironrobin.net>
 
-This initial series provides EC transport, power-management support, and
-keyboard-backlight control. Other EC events have been left for follow-up
-work rather than exposing unverified input mappings.
-
-Disable EC wakeup by default, following the existing upstream ThinkPad
-T14s EC driver policy. The EC interrupt multiplexes multiple events and
-no selective X13s EC wake-event mask is currently known. In particular,
-lid-close event 0x53 can wake the system, but the event type cannot be
-determined until the system has resumed far enough to query the EC over
-QUP8/I2C. Rather than attempting to filter an already-triggered wakeup,
-disable EC wake broadly. Other EC events therefore cannot wake the system
-by default either; another enabled wake source is needed. Feedback is
-welcome if a selective X13s EC event-mask mechanism is known.
-
-Normal runtime EC interrupts remain enabled. The low-power entry sequence
-(0x80 <- 0x55, GPIO176 low), exit sequence (GPIO176 high, 10 ms delay,
-0x80 <- 0xaa), deferred-event handling, and backlight behavior are unchange=
-d
-from v2. No speculative event filtering or EC register writes are added.
-
-Retain wakeup-source in the DT node, binding, and example: it describes
-hardware capability, not the driver's default wake policy. The I2C core
-initializes wake capability and associates the IRQ before driver probe;
-device_wakeup_disable() in probe disables policy without disabling normal
-IRQ handling. Userspace can explicitly re-enable power/wakeup, with the
-same risk of unwanted wakeups. This is a default-off policy, not a removal
-of hardware wake capability.
-
-This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
-
-Development was assisted by an LLM, including analysis of the decompiled
-X13s ACPI DSDT and review of the resulting implementation.
-
-This series is based on Linux v7.3-rc4.
-
-The v3 series was tested on a Lenovo ThinkPad X13s. With EC wake
-disabled, runtime EC events continue to work and keyboard-backlight
-state remains preserved across both manual s2idle and lid-triggered
-suspend/resume. Closing the lid while the system is already suspended
-does not wake it, while opening the lid still wakes the system through
-the separate lid wake path. The QUP8 pin configuration was also
-previously verified on hardware.
-
-For v3, the package patches pass an application check and the driver
-builds as an ARM64 module with W=3D1. Checkpatch reports no errors (only
-the generic MAINTAINERS reminders; the series includes an entry).
-A source comparison confirms that the only C changes from v2 are the
-wakeup API include and the probe-time wake policy with its explanation.
-
-Changes in v3:
-- Disable EC system wakeup by default using device_wakeup_disable(), as
-  in the upstream T14s EC driver, without disabling runtime IRQ handling.
-- Explain why unknown selective event masking requires disabling EC wake
-  broadly, and invite information about a selective X13s mechanism.
-- Retain the DT wakeup-source capability description and all v2 low-power,
-  deferred-event, and backlight behavior.
-- Remove the Kconfig help text's claim of wake support.
-- Verify on hardware that disabling EC wake prevents lid-close wake
-  without breaking runtime EC events, lid-open wake, or backlight state
-  restoration across suspend/resume.
-
-Changes in v2:
-- Make keyboard-backlight snapshot and EC power-management operations
-  best-effort so EC failures do not prevent system suspend or resume.
-- Save firmware-selected keyboard-backlight brightness in the EC on
-  Fn+Space, following the DSDT's SCMS(0x20) operation.
-- Save software-selected keyboard-backlight brightness in the EC so lid
-  opening does not restore a stale setting.
-- Restore the EC-saved keyboard-backlight brightness on lid open,
-  following the DSDT's SCMS(0x21) operation.
-- Process deferred EC events after the normal resume brightness restore
-  so a lid-open restore takes precedence.
-- Add the QUP8 pinctrl state for GPIO43 and GPIO44 using the configuration
-  observed on the running hardware.
-- Fix the placement and ordering of the i2c8 and EC pinctrl nodes.
-
-Link: https://lore.kernel.org/all/20260925215358.33417-1-alex@ironrobin.net=
-/
-
-Alex Robinson (3):
-  dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
-  platform: arm64: Add Lenovo ThinkPad X13s EC driver
-  arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+---
+diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,t=
+hinkpad-x13s-ec.yaml b/Documentation/devicetree/bindings/embedded-controlle=
+r/lenovo,thinkpad-x13s-ec.yaml
+new file mode 100644
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad=
+-x13s-ec.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/lenovo,thinkpad-x13=
+s-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lenovo ThinkPad X13s Embedded Controller
++
++maintainers:
++  - Alex Robinson <alex@ironrobin.net>
++
++description:
++  The Lenovo ThinkPad X13s has an I2C-connected embedded controller (EC)
++  providing keyboard backlight control and event notifications. In additio=
+n
++  to its event interrupt, the EC has a separate host-controlled power-stat=
+e
++  input used during transitions between normal operation and low power.
++
++properties:
++  compatible:
++    const: lenovo,thinkpad-x13s-ec
++
++  reg:
++    const: 0x28
++
++  interrupts:
++    maxItems: 1
++
++  power-state-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the EC power-state input, driven by the host.
++      The signal is high during normal operation and low in the low-power
++      state. It is used together with I2C power-state commands, rather tha=
+n
++      as a power-supply enable or reset signal. The GPIO is active high.
++
++  wakeup-source: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - power-state-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        embedded-controller@28 {
++            compatible =3D "lenovo,thinkpad-x13s-ec";
++            reg =3D <0x28>;
++            interrupts-extended =3D <&gpio 1 IRQ_TYPE_EDGE_FALLING>;
++            power-state-gpios =3D <&gpio 2 GPIO_ACTIVE_HIGH>;
++            pinctrl-0 =3D <&ec_int_n>, <&ec_power_state>;
++            pinctrl-names =3D "default";
++            wakeup-source;
++        };
++    };
++...
 
