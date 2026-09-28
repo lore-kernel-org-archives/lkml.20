@@ -1,157 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D1D401A25;
-	Mon, 28 Sep 2026 13:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9F13D47A6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600937; cv=none; b=CizFIaCwwBkR72vI/7ayg8uat8b7qPF+rimEFJMoejaO58Xj4nC4uGnn9wG3QnPFDMgD1I0kjh5dAdefdN5FVJ4ocrufu8V68F2mlTFuhGDVaCyt3aC7L0DxnTKCVoK7eDC5NIzvBTK5zSB5G6ALezePmI73M/6DbkJGAkTJQWE=
+	t=1790600985; cv=none; b=WequjfSujTFDO1LVFoaHDDYXTQBKLxQACHtL0sKo8TVHNKHfVhYviVS516uFf+ETTkz+z+ullx/3p7bW7wNM2F9MnoYFmgRlNJnWFwfYxhNuC8B30PRP3yNYatZrilcG03lpO0P0EpRU1UvWcb975EFiSioXh3e543MVWX4Zdfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600937; c=relaxed/simple;
-	bh=6qQf4RhaH0BmLuDSzTlP51a6XdeA8jUYoENzUueonkY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mgOGnL8oh/DBbXlEfE+wwYD5zcObvW7UZArU4OUv0p2oeqSRJihkcI0aqYYNnKDkhEDmEAFn2wsAyO+wJXmvJipc42Xo2z7zPi5WU79VSn7C01V1WhA3lSIzikeGggV1ksBRjAWK/9G7pgnKVZk3I7bXCL03c/7nbR9hBzBzWyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W2YNCQGB; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790600985; c=relaxed/simple;
+	bh=qSbGPs7nFx9VBiBK9DWufXisF3dFct+nsBeEPk4iYfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ALL0C7uCuBMU2RLpyQSoInt2NWhr4Jq2jm6zjom1Qje+UBUJaFMXvEi1jIMyqPrajIobNYAsadMZSPCP3dxkYeWuivhJe8uBAJgQ+QZ70TSS9xhVD8R+BFRxQBCyjWrnVwvv8VwR6UNmO9WaFX2ucUfyULKSumAXVZSZi2bfxSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gB7EkYeD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W2YNCQGB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790600936; x=1822136936;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6qQf4RhaH0BmLuDSzTlP51a6XdeA8jUYoENzUueonkY=;
-  b=W2YNCQGBLC1Hk09yAbeMso8sI0lx0IirQmGzcHcMksrAGq3cT6eoVwWc
-   bxe/+BSL+lnraPa0vMbZrzLDKlMmyaVYJj1ItZwU4Em+XB2xjaU88FSDA
-   bLP8kP2fU3Q7QHieYzv8dCcTyEV0JQQXo13VE11O43W0WZQeeK2OGkkvY
-   aS5/WHIwODA3L7EuI3+rEFq3ik+5mQvC/t45X1pf7s78zGQVVvfLIAJG4
-   tZ1Bq++yCq0AelMHiJ37/1id/kqV8CLOF2auSOV7uce5E6DxNL++BxzsS
-   AeVduj3/+mRMxmJyaQhZ9qIVmhWt1nKBlzlmgv4bEzk5JTW+r0Mo5PW5X
-   w==;
-X-CSE-ConnectionGUID: 4Jg8rgHpQ/eC9BHfLiNzsg==
-X-CSE-MsgGUID: FpNv0RrVRKuiUFQJXMZkdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101867171"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="101867171"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:08:55 -0700
-X-CSE-ConnectionGUID: bbK0evoWRcCK758tZKw+VQ==
-X-CSE-MsgGUID: YhqaW/lCSTeUR0cK7c+1FA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="274270715"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 28 Sep 2026 06:08:53 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 3339999; Mon, 28 Sep 2026 15:08:52 +0200 (CEST)
-Date: Mon, 28 Sep 2026 15:08:52 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Marek Maslanka <mmaslanka@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
-Subject: Re: [PATCH] usb: typec: port-mapper: Only match USB4 port if host
- interface is available
-Message-ID: <arpm5HpsYGtfbXLs@black.igk.intel.com>
-References: <20260925131650.3777399-1-mmaslanka@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gB7EkYeD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790600983;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Yjx5Iw05PKfzTcktcgSYhYGCQtJxiGcu7fODO6nG0w8=;
+	b=gB7EkYeD4zbtdfy4pAoraOmDc0GXyh5+ap1eL/rWP7uOmMCTG2d/YKpf4PX9lzYi6OhkBa
+	QonAVnPmC6wj8GzFa0R2k3K9yqbKvzJSADowSEn1DZ0iKkUJFZ3/8DflcKT/WxAKx2yg4C
+	cbzgj/Zlf2cX8cS6NIw7wUOMJq00FDY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-259-Hqf7Mu5fOTSULuafHwoTDw-1; Mon,
+ 28 Sep 2026 09:09:39 -0400
+X-MC-Unique: Hqf7Mu5fOTSULuafHwoTDw-1
+X-Mimecast-MFC-AGG-ID: Hqf7Mu5fOTSULuafHwoTDw_1790600978
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DDF04191DFEE;
+	Mon, 28 Sep 2026 13:09:37 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C3D651800361;
+	Mon, 28 Sep 2026 13:09:36 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: stable@vger.kernel.org,
+	sashal@kernel.org
+Cc: rppt@kernel.org,
+	sayalip@linux.ibm.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6.18.y v2] selftests/mm: hugepage-mremap: fix mapping alignment
+Date: Mon, 28 Sep 2026 09:09:16 -0400
+Message-ID: <20260928130916.231112-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925131650.3777399-1-mmaslanka@google.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Fri, Sep 25, 2026 at 03:16:50PM +0200, Marek Maslanka wrote:
-> typec_port_match() adds a component match for the USB4 port whenever a
-> USB 3.x port that shares the _PLD with the Type-C connector has the
-> "usb4-host-interface" property, regardless of whether a USB4 port can
-> ever be registered for it. The component framework binds the aggregate
-> device only once every match has found its component, so if the USB4
-> port never shows up, the USB 2.0 and USB 3.x ports are not linked to the
-> connector either: the "connector" symlinks are never created and USB
-> devices enumerated on those ports are never linked with the Type-C
-> partner.
-> 
-> This happens in at least two cases:
-> 
-> 1. CONFIG_USB4 is not reachable from the Type-C core, i.e. CONFIG_USB4=n,
->    or CONFIG_USB4=m with CONFIG_TYPEC=y as in the x86_64 gki_defconfig.
->    usb4_usb3_port_match() is then a stub that always returns false.
-> 
-> 2. The firmware references a USB4 host interface that is disabled. For
->    example, on Intel Alder Lake-N (ChromeOS Nissa) the TCSS xHCI USB3
->    ports (SS01-SS04) reference TDM0/TDM1, whose _STA returns 0 because
->    the SoC has no integrated Thunderbolt/USB4 and the DMA controllers
->    are disabled in TCSS DEVEN. No PCI device is enumerated for them.
-> 
-> Only add the USB4 component match if CONFIG_USB4 is reachable and the
-> referenced host interface is available and has been enumerated as a
-> device. The latter mirrors the check in usb_acpi_add_usb4_devlink(), see
-> commit 623dae3e7084 ("usb: acpi: fix boot hang due to early incorrect
-> 'tunneled' USB3 device links").
-> 
-> Fixes: 4fd7a1f0f7f2 ("usb: typec: Connect Type-C port with associated USB4 port")
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
 
-+Alan
+When running the HugeTLB kselftest suite on arm64 with 64K base pages,
+this test always fails:
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Marek Maslanka <mmaslanka@google.com>
+  # -------------------------
+  # running ./hugepage-mremap
+  # -------------------------
+  # TAP version 13
+  # 1..1
+  # # Map haddr: Returned address is 0x7eaa40000000
+  # # Map daddr: Returned address is 0x7daa40000000
+  # # Map vaddr: Returned address is 0x7faa40000000
+  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+  # # Planned tests != run tests (1 != 0)
+  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 hugepage-mremap # exit=1
+  # NOTE: These hugetlb tests provide minimal coverage.  Use
+  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+  #       hugetlb regression testing.
+  # SKIP ./uffd-wp-mremap
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+The problem is that the default HugeTLB page size on such systems is
+512 MiB and 'length' is not aligned to the page size. This causes
+uffd_register() to fail as 'length' is 10 MiB and not aligned to the
+HugeTLB page size.
 
-> ---
->  drivers/usb/typec/port-mapper.c | 21 +++++++++++++++++++--
->  1 file changed, 19 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/port-mapper.c b/drivers/usb/typec/port-mapper.c
-> index cdbb7c11d714..3a97b084c3bd 100644
-> --- a/drivers/usb/typec/port-mapper.c
-> +++ b/drivers/usb/typec/port-mapper.c
-> @@ -42,6 +42,23 @@ static int usb4_port_compare(struct device *dev, void *fwnode)
->  	return usb4_usb3_port_match(dev, fwnode);
->  }
->  
-> +static bool typec_has_usb4_host_interface(const struct fwnode_handle *fwnode)
-> +{
-> +	if (!IS_REACHABLE(CONFIG_USB4))
-> +		return false;
-> +
-> +	struct fwnode_handle *nhi_fwnode __free(fwnode_handle) =
-> +		fwnode_find_reference(fwnode, "usb4-host-interface", 0);
-> +
-> +	/*
-> +	 * The USB4 port can only appear if the host interface is enabled in
-> +	 * the firmware and has been enumerated as a device. The latter is
-> +	 * the same check as in usb_acpi_add_usb4_devlink().
-> +	 */
-> +	return !IS_ERR(nhi_fwnode) && fwnode_device_is_available(nhi_fwnode) &&
-> +	       nhi_fwnode->dev;
-> +}
-> +
->  static int typec_port_compare(struct device *dev, void *fwnode)
->  {
->  	return device_match_fwnode(dev, fwnode);
-> @@ -64,11 +81,11 @@ static int typec_port_match(struct device *dev, void *data)
->  				    adev_fwnode);
->  
->  		/*
-> -		 * If dev is USB 3.x port, it may have reference to the
-> +		 * If dev is USB 3.x port, it may have reference to an available
->  		 * USB4 host interface in which case we can also link the
->  		 * Type-C port with the USB4 port.
->  		 */
-> -		if (fwnode_property_present(adev_fwnode, "usb4-host-interface"))
-> +		if (typec_has_usb4_host_interface(adev_fwnode))
->  			component_match_add(&arg->port->dev, &arg->match,
->  					    usb4_port_compare, adev_fwnode);
->  	}
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
+On upstream this was fixed by a914785f6349 ("selftests/mm: hugetlb-mremap:
+add setup of HugeTLB pages") as that commit aligns 'length' to the
+default HugeTLB page size as part of what it's doing. Since this commit
+is part of a 50+ patch series, we backport only the 'length' alignment
+bits to fix the test.
 
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+ tools/testing/selftests/mm/hugepage-mremap.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
+index 928c1045e295..0d4e1a5b185d 100644
+--- a/tools/testing/selftests/mm/hugepage-mremap.c
++++ b/tools/testing/selftests/mm/hugepage-mremap.c
+@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+ 
+ int main(int argc, char *argv[])
+ {
++	unsigned long hugepage_size;
+ 	size_t length = 0;
+ 	int ret = 0, fd;
+ 
+@@ -114,7 +115,12 @@ int main(int argc, char *argv[])
+ 	else
+ 		length = DEFAULT_LENGTH_MB;
+ 
++	hugepage_size = default_huge_page_size();
++	if (!hugepage_size)
++		ksft_exit_skip("Could not detect default hugetlb page size\n");
++
+ 	length = MB_TO_BYTES(length);
++	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
+ 	fd = memfd_create(argv[0], MFD_HUGETLB);
+ 	if (fd < 0)
+ 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
 -- 
-heikki
+2.55.0
+
