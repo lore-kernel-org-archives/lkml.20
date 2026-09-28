@@ -1,93 +1,153 @@
-Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D868135C68F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9901D2DA76C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560479; cv=none; b=nxoR9lcNWkhXEqyWefL8YZJpdd5jmoUxixAPMiByf9Mew6bmyFhPCr8gwPUYm79n0Q1Szg//vGOC5uFRCJtgTp1JWmMUgG1Fa08K92f5uQuEsKsveNILT7BuZndmRQ3OWfiq4qPdtuk+RM7q+fPTXYUiT9gfwC/PIfMffdslE8k=
+	t=1790560506; cv=none; b=IW+8cyOyK2Mvx01yqSxwSr0QzAZFLuYKNR3bCILixSFOWTUnoxmsniuWy3IFUYOzgMHjGsf1L2BAOa0dME0zTXNj26e7KUpGPQzYZQ8fDXfnCxJ7KHYf5nMAGbWjV1LmfsRa/1Zz/Z1noPBcwstiD7JtFqkTj03bfkKLoY0+gcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560479; c=relaxed/simple;
-	bh=w8pmFGrWPuuNi5jQAP7vT3tqKT/JOWUSxE9OiA65u3Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B8gR+NXfl5cCIYpFJU3dblqrsUZdBlpPTyA/IAvO5rCEf96YMtgJEK6NP+FSNRiGPg3hdX5YF9QzhtSJ9LwGvTfSXQYLd14Jj71g4dTggVI+3kkTUvcJr5ZNqA4+PK81rIXsNjYPxUV+99PWVV2bTF4akMoGI8NsvrulGPgkOSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GwmOLsdy; arc=none smtp.client-ip=91.218.175.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790560506; c=relaxed/simple;
+	bh=47kpwhfBphDNfAl9tT6LtOpbvuS5Dwof1DtjmCZpB8k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ie20dtaxcgpl0ergPEzAjIJMZq49YztvCJ7YrcdlNfp/xtpv6XxUTWiyE7XagUVzZLdf1g2KeTv0bq2p62YkKW+JEOnssjRJHN5iCBXh22GO4SmsbfqnA1Qiha3Sn8hSrQf9RAml6S8KPs4FBgjv0yI5HzEuVGL2juY0WnQJJe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efTM8ZTj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GwmOLsdy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=w8pmFGrWPuuNi5jQAP7vT3tqKT/JOWUSxE9OiA65u3Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790560475; v=1; x=1791165275;
- b=GwmOLsdyL64bXd6jdG9pJ+xRhlkHe07JcVjN2JQyMMAOjnX5qxZ0xpoqWXwhr5BoBt8vjf2r
- pclyFFbvQa26VGeyaN20DjTEX41Fb7z60OL8TJh59Dd4Vi7DFxkF+T8Z25MrZyhtHj8v3mOgQ5g
- B56IR29kac4kgUcNxHW/Yi5o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 52cfff9f79659a3b;
-	Mon, 28 Sep 2026 01:54:35 +0000
-X-Mizu-Trace-ID: 52cfff9f79659a3b
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 09:53:52 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: =?iso-8859-1?Q?Asbj=F8rn_Sloth_T=F8nnesen?= <ast@fiberby.net>
-Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Danielle Ratson <danieller@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jonas =?iso-8859-1?Q?K=F6ppeler?= <j.koeppeler@tu-berlin.de>,
-	Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@redhat.com>
-Subject: Re: [PATCH net-next v2 8/9] netlink: specs: tc: fix typo in cls-flags
-Message-ID: <arnINjSI8OuGSFxc@fedora>
-References: <20260925213918.204767-1-ast@fiberby.net>
- <20260925213918.204767-9-ast@fiberby.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efTM8ZTj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F16B1F008A1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790560505;
+	bh=CGDHSAQ5tB8MgTGCNrr1v8mE/afcFeNYKkJFVpSD3HM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=efTM8ZTjjCUwGQZqLYzGrQMvIRNj811R0a5ErKv8kIFW/DB39UcjRTPbpaaPEls7j
+	 IYG32tcb3oey8Za6dN3D0lmtMftQiLW02Ptv4TzONIcuu0zxm3mt/lp6+XKKB6Mxli
+	 kuPne008yO6fgfXySCfK2usA9taAcsIW5yVuwKEY8Yq+Ejzy5+3bll0fZ5jkxMwz6x
+	 m9WevhtUkFTch45w4jlCwC4Wf0+2EXPPy+ftvJZUB3rM28a8BrKC5NYRsM2kC6pJJy
+	 /ZonZsx9sCNsKZG/oOGH25BFYvfvEhPBIuX0zf8PrqjquhO23rCQO7X7TGYDw9q1zA
+	 QRilRG6ReHc5g==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afd63c3e0so213326366b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:55:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzgtJkwa/+R4d9KQZc5xt05mzYt7Tpoy1t/TRB6sO04SUNuug4vpiq5DD4OmdxMvnOY/5DvCRWUWGMbMY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCgCAvP+zEuIAVgOW51+OKBGlDgkjf1qMqdFWXzwND8bHcob7l
+	brKtqm0xcDHuj3zvoM+uzJH+eeb4sy0tQM0E+BWWm292JzHQj1uouaaaobM0S7VHLHcMguMNeL1
+	5t8PVukrlz/gq+9q8ASix2fbT4gfZuOdLvvLs1RKUdQ==
+X-Received: by 2002:a05:6938:a085:20b0:c2a:fd39:f23b with SMTP id
+ a640c23a62f3a-c2afd39f9c8mr309429166b.24.1790560504047; Sun, 27 Sep 2026
+ 18:55:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260925213918.204767-9-ast@fiberby.net>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-7-hebaoquan@kylinos.cn>
+In-Reply-To: <20260916101929.149106-7-hebaoquan@kylinos.cn>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 15:54:53 -1000
+X-Gmail-Original-Message-ID: <CACePvbVDR8k+X_AB03qF6LZNt_VUZKpZjdiBi=otpEBqTbH9dA@mail.gmail.com>
+X-Gm-Features: AclHuK_8_Mi_A98RRVS32FyJnZqZq_ytQTjn47If1ciKgv35gXDCap__SJ9tEr0
+Message-ID: <CACePvbVDR8k+X_AB03qF6LZNt_VUZKpZjdiBi=otpEBqTbH9dA@mail.gmail.com>
+Subject: Re: [PATCH v3 06/14] mm, swap: add xswap grow trigger on cluster allocation
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 09:39:11PM +0000, Asbjørn Sloth Tønnesen wrote:
-> Fix a typo in the naming of a cls-flags constant.
-> 
-> The correct name for TCA_CLS_FLAGS_NOT_IN_HW is "not-in-hw",
-> not "not-in-nw".
-> 
-> CC: Jamal Hadi Salim <jhs@mojatatu.com>
-> CC: "Jonas Köppeler" <j.koeppeler@tu-berlin.de>
-> Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
-> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
+On Wed, Sep 16, 2026 at 12:20=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
+wrote:
+>
+> When cluster_alloc_swap_entry() fails to find a free cluster and
+> the xswap device still has room to grow, expand the mapped range
+> by XSWAP_GROW_CLUSTERS clusters.
+>
+> Since xswap is always SWP_SOLIDSTATE, global_cluster_lock is never
+> held on this path.
+>
+> This makes the xswap cluster space grow transparently as swap usage
+> increases, without any userspace intervention.
+>
+> Growing maps pages into the VM_SPARSE area, which can sleep. The caller
+> holds local_lock(&percpu_swap_cluster.lock) across the whole slow path,
+> so drop it around xswap_map_clusters() and take it again afterwards; it
+> only protects the per-cpu cluster cache, which this path does not touch.
+>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 > ---
-> Note for Sashiko/Clashiko: Targeting net-next, so no "Fixes" tag.
-> 
->  Documentation/netlink/specs/tc.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/netlink/specs/tc.yaml b/Documentation/netlink/specs/tc.yaml
-> index 2e663333a279..b6ccc645b0e3 100644
-> --- a/Documentation/netlink/specs/tc.yaml
-> +++ b/Documentation/netlink/specs/tc.yaml
-> @@ -42,7 +42,7 @@ definitions:
->        - skip-hw
->        - skip-sw
->        - in-hw
-> -      - not-in-nw
-> +      - not-in-hw
->        - verbose
->    -
->      name: flower-key-ctrl-flags
-> -- 
-> 2.55.0
-> 
+>  mm/swapfile.c | 41 +++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index b0edf5421fc5..17e482059d32 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -1273,6 +1273,47 @@ static unsigned long cluster_alloc_swap_entry(stru=
+ct swap_info_struct *si,
+>                 if (found)
+>                         goto done;
+>         }
+> +
+> +#ifdef CONFIG_XSWAP
+> +       /* For xswap: grow the cluster_info array, then retry. */
+> +       if (!found && (si->flags & SWP_XSWAP) &&
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+I see oppertunity for more swap_ops
+
+Chris
+
+> +           READ_ONCE(si->nr_clusters_mapped) < READ_ONCE(si->nr_clusters=
+_max) &&
+> +           list_empty(&si->free_clusters)) {
+> +               unsigned long nr_new =3D min(READ_ONCE(si->nr_clusters_ma=
+x) -
+> +                                         READ_ONCE(si->nr_clusters_mappe=
+d),
+> +                                         XSWAP_GROW_CLUSTERS);
+> +               unsigned long start =3D READ_ONCE(si->nr_clusters_mapped)=
+;
+> +               unsigned long i;
+> +               int ret;
+> +
+> +               /*
+> +                * Mapping pages can sleep.  The lock only guards the per=
+-cpu
+> +                * cluster cache, which this path does not touch.
+> +                */
+> +               local_unlock(&percpu_swap_cluster.lock);
+> +               ret =3D xswap_map_clusters(si, start, nr_new);
+> +               local_lock(&percpu_swap_cluster.lock);
+> +
+> +               if (!ret) {
+> +                       for (i =3D start; i < start + nr_new; i++) {
+> +                               struct swap_cluster_info *ci =3D &si->clu=
+ster_info[i];
+> +
+> +                               /*
+> +                                * A concurrent grower may have taken the=
+se already;
+> +                                * only add the off-list ones.
+> +                                */
+> +                               spin_lock(&ci->lock);
+> +                               if (ci->flags =3D=3D CLUSTER_FLAG_NONE)
+> +                                       move_cluster(si, ci, &si->free_cl=
+usters,
+> +                                                    CLUSTER_FLAG_FREE);
+> +                               spin_unlock(&ci->lock);
+> +                       }
+> +
+> +                       found =3D alloc_swap_scan_list(si, &si->free_clus=
+ters,
+> +                                                   folio, false);
+> +               }
+> +       }
+> +#endif
+>  done:
+>         if (!(si->flags & SWP_SOLIDSTATE))
+>                 spin_unlock(&si->global_cluster_lock);
+> --
+> 2.54.0
+>
