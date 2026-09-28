@@ -1,146 +1,227 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2B4A28505E;
-	Mon, 28 Sep 2026 04:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790568810; cv=none; b=flaa+HjwvLihqyI4p2O1pK1/y5ncU7/axReBekOyV7g2P0na28DVilQ6g7RFrqFcjHdAxpdsJawZaaqlSCpC9KgYnGDSwR3+wWPfTQivmfXkg6zvDSJ5/CcdqpRoST0XMRvk/xLqwZE3FGxWv+zWZLSpg1UUOkFWUqcFZk0m3ks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790568810; c=relaxed/simple;
-	bh=93DNEAwvSiql5tVYyRBz+VAReMoXOj1afxbwYmmDDR4=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=b8Or97Nd4oDS4xRPCE9lZhYmdX79zjiWtsgQfaGMbU3xdi5nj9tDEsHoOlf/gHDq4YliGww542K5mxXJJp3bvhLdxDGG0SgY/pXCvlrE7VzbRbr2Yppkm285twTWuz4I0xsfDCQhwQheYjj6/l9K2Tx3fYIu0Ck2/nODIU53238=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxPtNm6blqG2AQAA--.47762S3;
-	Mon, 28 Sep 2026 12:13:26 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAxX89l6blqB_AlAA--.15177S2;
-	Mon, 28 Sep 2026 12:13:25 +0800 (CST)
-Subject: Re: [PATCH 2/6] LoongArch: KVM: Guard against NULL irqchip in irq
- injection
-To: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20260927075240.3007947-1-cui.tao@linux.dev>
- <20260927075240.3007947-3-cui.tao@linux.dev>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <4b4aba4a-c609-93f5-51e8-3b70a8baf6ad@loongson.cn>
-Date: Mon, 28 Sep 2026 12:14:50 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013031.outbound.protection.outlook.com [40.93.196.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D50F28505E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790568815; cv=fail; b=TJt454ct18Ga8dBXiWbwGwTeLSoB1oUvjVg7Q9J5FkjACpHCv1p2zGymY5KwKWt0boNCRsHC6MRRlLvW6ivW3orPg/YNnTIRzOTu8xSrsa4P2nUzbcFP5KFVJJTqHdkOkS+Dq+LU5OJLvN8MrHjA/dJQD2RD22g3/yOFN8pAy48=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790568815; c=relaxed/simple;
+	bh=TIoa01LUP/HxGlqSf2QxLNeI2BdxfYZ8bC6pouPDJ54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Gcik7GdoBC6s3DJl9ZiwcxxP9Uyqmt6rcv2oMkufs3KhGtK4pQac27kcgF0HS6zmx7MAcP1U6GgVrIv+n3cixlPAapi1Zv6Dhube2Wn5WML1RvXUIIl1q4v3YEbMRjXOWFTbtfB1qG0NuM7TaR2YWPbsYFRJqWv2ATABwA2PGaM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GwxzdWkg; arc=fail smtp.client-ip=40.93.196.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GwxzdWkg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q0/cu8CTn9Cv3ES7fx0vzDm1xcimpc979hgCqeTvqiWg5taBcc3Jk8cB2NNTDU8V2rLcif3OeF1orq0Xs4WS4TFpe71bkz/fuXAlgZrK5JPfql69Xo/6Wm7wDw2NM+tNNJUjrxRHdpkhYk8U6F0NDn/JPRSPrcJ0of8DYBNG6SCkWmAmgre0xWcFBCvqROqBetuckVY721dsiubBUzOdLawuAmBemfo5FgUACy6BM/U1yKFsCVc2JvLosN31/iQ6DVuovQxA6612EO50ojH1Hp+0vBVYCyGeBzyAkUn3kvLjtnyPZnpYmW55NVtGucdiGzZ7rJha9DoqFG/dIFZWwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7tzOgc3YtTp2JfO39g/6gr3vfVVI984nTSoG28FHy98=;
+ b=tlrpr5Yt14qtrEZYw2OmIngOsjYWw6GrwswHmPWwjdRPphN/137gB+f9M00IPURgMaiamSUY0bxGPQfanDx9pOxAq3G/NSnfTwzWnREEAnQFWU4cI5F8CtVg56fguQJlGuU97PsJEvB6z/rLL5u54c2SAchQXoe1cxC9xjO9F2K2LoXPc3oHIWOxk4BRLrrBG+iqE44b5CjDsvtlm8aOqZjjR8A5h/SjYqkDEiW98Q4t+d1KviOMdg5fFQ1mpIqAH9ZgDvn+SDuymiL0tYVzmstDzzLQ6fwuonUlEnNdWBG63i7+ilIm5pYJTm8Xuxwjq+cW0OLhws4o4imcIwXucQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=stgolabs.net smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7tzOgc3YtTp2JfO39g/6gr3vfVVI984nTSoG28FHy98=;
+ b=GwxzdWkg9uVvvuTQvjo163MY47QqE3YAcXUbHGPEp9qog5MA/wHf7Yvr7IUOuDBFpc5DzoSNj2spLszHZq6DDRArCxXd9eL+qgnYkMewRfUSCAd1mfwk9v0hCOC0P9t/ArT57RYl+LvMpxVSKN7sQlOFxooojJ2+kJrnHibVUHg=
+Received: from SJ0PR13CA0219.namprd13.prod.outlook.com (2603:10b6:a03:2c1::14)
+ by DM4PR12MB7672.namprd12.prod.outlook.com (2603:10b6:8:103::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 04:13:25 +0000
+Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::34) by SJ0PR13CA0219.outlook.office365.com
+ (2603:10b6:a03:2c1::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Mon,
+ 28 Sep 2026 04:13:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 04:13:24 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 27 Sep
+ 2026 23:13:23 -0500
+Received: from [192.168.0.152] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Sun, 27 Sep 2026 23:13:15 -0500
+Message-ID: <e0526c63-f6aa-4b4f-b5eb-1c76434a0857@amd.com>
+Date: Mon, 28 Sep 2026 09:43:14 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260927075240.3007947-3-cui.tao@linux.dev>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
+To: Davidlohr Bueso <dave@stgolabs.net>
+CC: Joshua Hahn <joshua.hahnjy@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <Jonathan.Cameron@huawei.com>, <dave.hansen@intel.com>,
+	<gourry@gourry.net>, <mgorman@techsingularity.net>, <mingo@redhat.com>,
+	<peterz@infradead.org>, <raghavendra.kt@amd.com>, <riel@surriel.com>,
+	<rientjes@google.com>, <sj@kernel.org>, <weixugc@google.com>,
+	<willy@infradead.org>, <ying.huang@linux.alibaba.com>, <ziy@nvidia.com>,
+	<nifan.cxl@gmail.com>, <xuezhengchu@huawei.com>, <yiannis@zptcorp.com>,
+	<akpm@linux-foundation.org>, <david@kernel.org>, <byungchul@sk.com>,
+	<kinseyho@google.com>, <yuanchu@google.com>, <balbirs@nvidia.com>,
+	<alok.rathore@samsung.com>, <shivankg@amd.com>, <donettom@linux.ibm.com>
+References: <20260911210859.1359875-1-joshua.hahnjy@gmail.com>
+ <f871efd2-06b4-493f-87cc-919b6e0945c0@amd.com>
+ <20260927232130.smxstw7f474k2qcl@offworld>
 Content-Language: en-US
+From: Bharata B Rao <bharata@amd.com>
+In-Reply-To: <20260927232130.smxstw7f474k2qcl@offworld>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxX89l6blqB_AlAA--.15177S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxWry5WFW7Jry7urW7ZFW5Arc_yoW5CFy8pF
-	W3C390kr4rXryUJr92ga1DWw47Z3s3Xr1SgFy29FyxCFn0qF1rJF18Ar9rZFyUKw48GrWI
-	9F4fW3s0v3WDAacCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jz2NtUUUUU=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|DM4PR12MB7672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29c9f743-ddda-4cfe-e576-08df1d16d716
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|23010399003|36860700016|13003099007|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hjPm8HDxR2U548x7qaUh8PxKTVBeQY7t1CcHs08p7swUB8CbVjXk3oFk1Nwr0xkLCnzh05iduG+BbTaS+r08Zpa+3qQgO2KJ0IGV2y85AQeW4lFeMAmZVeMgcTBULR6TakFgbVNmg/CmlXYFywrWQxFJBMH4oK0gQ6IE9BdPD7UBJXId8SbgeY84sSVtJSMFsSTX4rtJaU+w3Zq7ii/NeN4BT+WVB2Zbf+xA7P3DIQCCUCQ+bzY6Wkfa347AIKEof9HmH5WOnq7fWHoP7gAXnBHMNK30qrB3Ow27WmzZ9nU4GG0+Ze+2GWSO4Oj3/wDbSK3Q+9OeECIEa85DmitZbreL5exqti/yNF2zfKOkrGFxOY5PBSBCKVb/sq54XcHsVMefUSS51wIKgyprby5KId51jKVBfON2ErkxlaFoMZsAqDxur49AYDJjkLEOdIG3MpWeXX8y76bE59LrAIM00HH2YN2Z92zXI6UTCCjabd7X1RCCopYd5EWd9BqUn2krp4+AYTPTFKw/Q8u2EEs4sencqf3md/siCzwUd48KvWVkLvubCt03NUkcKPWL48B/WIGjpP7xysA+lkKJU8N4wbtcBNZSJmA+0Fq+Ap5pt5AEyOyHdcSAS4Cp4kZOrNNIhDOGU0/ey9LrS65FnaZPlqoA1Pg813CnIJwvap5t8HXLQKAxDxw0hxltWwbQatG1hHoWLMXp2nRlcRR3bTp3KA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(13003099007)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FRtusxOZdi/JTCPgDON+fdOLIZwSGkyaagdOzY1ecw8MFEUhpLoDCndckQlv6M/zDVGEXv2HpaNYzzX3Zo3BfSbnRqgleHO1hlDb62zjpKgkhr6HTQedOvSn5ObJ4RVfcOTw+wI0mwaSnsCzk5pEYtOR3NFHQAROQXZ65E1BiOeLEPUmqcsWanwl7g+XeIDOmRmqrS5g6C3XlYVIX7LYLXMD0gJu5M6wLIvIzIGEtpz1nIOvACkzKvV7kbmJdKEowJAQTLmTxQN7Xf1TvoOdui2z9z7Dm+lC1MF1Hcu50WYYcjNRhSKDJbavihADcQzyh0cNUr6yDO0mMloqSKis8jqyMGgGj8V3K2JvVTnUCMvru9nn9i98yC6rheKB4es3UmYxUz22aHJKUpHm352tzNRt7ti/8RJj8auQ1aLGVTTlvkW/MEi82n0K+V2Kna/q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 04:13:24.4236
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29c9f743-ddda-4cfe-e576-08df1d16d716
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001EA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7672
 
-
-
-On 2026/9/27 下午3:52, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
+On 28-Sep-26 4:51 AM, Davidlohr Bueso wrote:
+> On Wed, 16 Sep 2026, Bharata B Rao wrote:
 > 
-> The irqfd injection path dispatches through the irq routing table
-> without the kvm_arch_irqchip_in_kernel() gate that protects
-> KVM_IRQ_LINE: kvm_set_pic_irq() and kvm_arch_set_irq_inatomic() call
-> pch_pic_set_irq(kvm->arch.pch_pic, ...) and pch_msi_set_irq() calls
-> eiointc_set_irq(kvm->arch.eiointc, ...) directly, so a routing entry
-> that outlives the corresponding in-kernel irqchip dereferences a NULL
-> (or, before the previous patch, a freed) device.
+>> On 12-Sep-26 2:38 AM, Joshua Hahn wrote:
+>>> - I also found a bug where the kmigrated thread isn't created for nodes
+>>>   that are onlined later after boot, like CXL nodes that get onlined
+>>>   with memory later on. I've been using a small hack commit in
+>>>   pghot_memhp_callback that just checks for the MEM_ONLINE case and
+>>>   spawns a kmigrated thread.
+>>
+>> I will take care of this scenario (CXL node online after boot) in my next
+>> posting.
 > 
-> Make pch_pic_set_irq(), eiointc_set_irq() and dmsintc_set_irq()
-> tolerate a NULL device.
+> I was also running into this for chmu integration. I have been carrying the
+> below in my own testing, fwiw.
 > 
-> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->   arch/loongarch/kvm/intc/dmsintc.c | 3 +++
->   arch/loongarch/kvm/intc/eiointc.c | 5 ++++-
->   arch/loongarch/kvm/intc/pch_pic.c | 3 +++
->   3 files changed, 10 insertions(+), 1 deletion(-)
+> Thanks,
+> Davidlohr
 > 
-> diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
-> index 63072595c01b..e27f448bb54f 100644
-> --- a/arch/loongarch/kvm/intc/dmsintc.c
-> +++ b/arch/loongarch/kvm/intc/dmsintc.c
-> @@ -70,6 +70,9 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
->   	unsigned int irq, cpu;
->   	struct kvm_vcpu *vcpu;
->   
-> +	if (!kvm->arch.dmsintc)
-> +		return -EINVAL;
+> -------------8<------------------------------------------
+> diff --git a/mm/pghot.c b/mm/pghot.c
+> index c7f523a61683..2f1e16e5091d 100644
+> --- a/mm/pghot.c
+> +++ b/mm/pghot.c
+> @@ -602,6 +609,18 @@ static int kmigrated_run(int nid)
+>      return 0;
+>  }
+>  
+> +static void kmigrated_stop(int nid)
+> +{
+> +    pg_data_t *pgdat = NODE_DATA(nid);
+> +    struct task_struct *t;
 > +
-There is kvm->arch.dmsintc checking in its caller function 
-pch_msi_set_irq().
-
->   	irq = (addr >> AVEC_IRQ_SHIFT) & AVEC_IRQ_MASK;
->   	cpu = (addr >> AVEC_CPU_SHIFT) & kvm->arch.dmsintc->cpu_mask;
->   	if (cpu >= KVM_MAX_VCPUS)
-> diff --git a/arch/loongarch/kvm/intc/eiointc.c b/arch/loongarch/kvm/intc/eiointc.c
-> index fe0a1918f26f..c68f9033638a 100644
-> --- a/arch/loongarch/kvm/intc/eiointc.c
-> +++ b/arch/loongarch/kvm/intc/eiointc.c
-> @@ -112,8 +112,11 @@ static inline void eiointc_update_sw_coremap(struct loongarch_eiointc *s,
->   void eiointc_set_irq(struct loongarch_eiointc *s, int irq, int level)
->   {
->   	unsigned long flags;
-> -	unsigned long *isr = (unsigned long *)s->isr;
-> +	unsigned long *isr;
->   
-> +	if (!s)
-> +		return;
-When is it possible that parameter s is NULL? There is 
-kvm_arch_irqchip_in_kernel() checking in kvm_send_userspace_msi().
-
-> +	isr = (unsigned long *)s->isr;
->   	spin_lock_irqsave(&s->lock, flags);
->   	level ? __set_bit(irq, isr) : __clear_bit(irq, isr);
->   	eiointc_update_irq(s, irq, level);
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-> index 62c09b5f3937..88666425d800 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -48,6 +48,9 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
->   {
->   	u64 mask = BIT(irq);
->   
-> +	if (!s)
-> +		return;
+> +    t = pgdat->kmigrated;
+> +    if (t) {
+> +        kthread_stop(t);
+> +        pgdat->kmigrated = NULL;
+> +    }
+> +}
 > +
-When is it possible that parameter s is NULL? I think that when in 
-kernel irqchip is removed, there is no way to inject line IRQ in kernel 
-side.
+>  static void pghot_free_hot_map(struct mem_section *ms)
+>  {
+>      struct pghot_hot_map *hot_map;
+> @@ -707,6 +726,58 @@ static struct notifier_block pghot_mem_notifier = {
+>      .priority = DEFAULT_CALLBACK_PRI,
+>  };
+>  
+> +/*
+> + * The first memory block of a node is onlined before the node gets
+> + * assigned to a memory tier (memory tiers react to
+> + * NODE_ADDED_FIRST_MEMORY at MEMTIER_HOTPLUG_PRI), so at
+> + * MEM_GOING_ONLINE time for that block node_is_toptier() still
+> + * returns true and pghot_online_sec_hotmap() skips it. Backfill the
+> + * hot maps once the node tier is known.
+> + */
+> +static void pghot_alloc_node_hotmaps(int nid)
+> +{
+> +    unsigned long section_nr, s_begin, start_pfn;
+> +    struct mem_section *ms;
+> +    struct page *page;
+> +
+> +    s_begin = next_present_section_nr(-1);
+> +    for_each_present_section_nr(s_begin, section_nr) {
+> +        ms = __nr_to_section(section_nr);
+> +        start_pfn = section_nr_to_pfn(section_nr);
+> +
+> +        page = pfn_to_online_page(start_pfn);
+> +        if (!page || page_to_nid(page) != nid)
+> +            continue;
+> +
+> +        if (rcu_access_pointer(ms->hot_map))
+> +            continue;
+> +
+> +        if (pghot_alloc_hot_map(ms, nid))
+> +            pr_warn("pghot: no hot map for section %lu on node %d\n",
+> +                section_nr, nid);
+> +    }
+> +}
+> +
+> +static int pghot_node_callback(struct notifier_block *self,
+> +                   unsigned long action, void *arg)
+> +{
+> +    struct node_notify *nn = arg;
+> +
+> +    switch (action) {
+> +    case NODE_ADDED_FIRST_MEMORY:
+> +        if (node_is_toptier(nn->nid))
+> +            break;
+> +        pghot_alloc_node_hotmaps(nn->nid);
+> +        kmigrated_run(nn->nid);
+> +        break;
+> +    case NODE_REMOVED_LAST_MEMORY:
+> +        kmigrated_stop(nn->nid);
+> +        break;
+> +    }
+> +
+> +    return NOTIFY_OK;
+> +}
+> +
 
-Regards
-Bibo Mao
->   	spin_lock(&s->lock);
->   	if (level)
->   		s->irr |= mask; /* set irr */
-> 
+I don't think we should allocate section hotmaps from node hotplug notifier
+callback and let it get allocated from the already existing memory hotplug
+notifier callback.
 
+I have already taken care of node hotplug in my latest tree from which I posted
+only the IBS Memory Profiler part.
+
+https://github.com/AMDESE/linux-mm/tree/bharata/pghot-mprof-rfcv0
+
+Regards,
+Bharata.
