@@ -1,312 +1,123 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from mail-wr2-f40.google.com (mail-wr2-f40.google.com [74.125.225.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB55F4F3EA4
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613980; cv=pass; b=qshwdAsDlwMRm2k7nU4FbGtQ6+r67GnC6r4kPkRkG76m6Sb4qDO6HaiyyjPuNoUDZ8n1glm/fjzKV34rxZLMnfRjd8AcL/tJpmqcsBlcEGD5bCBAF9cIfhaCTmgPVd+t5LZ+8ucu2O1Ltnv7A6JOJixvKNJbeFWZtUDBvLvw7Jg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613980; c=relaxed/simple;
-	bh=B74UBb276nD/8iUECibtxJNeQU0pVKwKpT61VpN43I8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oUKgLeAabUjNEkBc/yoy2amYdM2qk1S2K35Gu09gml7a+1iy8/o1RFNj7CyX5K1Rer59CVOgxTKNYqtAsW9SOlo8SHsgKUnMzcXYXvV7D7+BTvFI/i6c2cgAK0oacQcbV4iEVS8NebsulPER3NQKWh1pn2m+BvZ5R9ZNydy5A3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=KgW7jgoM; arc=pass smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D6B4F3EB6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.104
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790613982; cv=none; b=gZPMZev+Q5Qd/IeQjsD8vAczqsI7HtvHRyOFb44f2zAoIsRFI+rIeEKQn824r4sVDOtlEBLieu9OekDVdBtvV7gG3ysYxffopdOazeEo+o5UJ+BXuQH90VPoTr/ceOk5O655MyYWep+QYsJRVMlRkteJ7flDT0dYkq9daurSMYY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790613982; c=relaxed/simple;
+	bh=jnnkpX6A9eUVIr0NRIFbVU++Wwtl6+NRJQ8AKjJzMGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YH2BuwdzXD4AWCoGjxE3mFa9cBLzMzN0n9o4uJU+ea+Tmx/9J1ZOiPBeQ9nM5iS1qaI/RbkVJtdRBG/v8kH85+WdT4XZN0cCsQ2vUfQQGxLS5X6T2hPWZFGDUkZL/QtlCVdoTlj1tLjytj1pxkb1E2vsGOyLhbUS86Ugah0EVCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=k3qVUUGW; arc=none smtp.client-ip=74.125.225.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="KgW7jgoM"
-Received: by mail-oo2-f41.google.com with SMTP id 46e09a7af769-7f4bdf2e95fso566187a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:46:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790613977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pd3bE7u+KDYbASBcxK/EUCYmtDpzv5EJOmKCBz5xAIxgFeCWHPBRwAJm724fLQCea4
-         Vj9fhf8rMhKo/o0KCGB3CwpkYETigve4ob3IKrpyoV5fmKR+dGlB+KNWSAvOIPGizdTt
-         gwEo9e5K0FWSEFXfFLbrZ1Vx27nJjUbliSo1SPBTgc88Ji3OdSNeGoyFWRIx7ypIieGa
-         MDHMoNFJJHLrwH529MIMFJWtkqBUIACxF4842cgSUQvuWGRf/IC3hNO1TW5JPWsrAoyV
-         glrO4CviUrsvh9Au5o+eEhsF7JyA3IK1xePgYV/9Xzge+Zpn9g4+IjS7aTLFUjDkyS0J
-         NEgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f6MxcGWKPwlSfZ6XYjmwewQi2AoWWoplu0F5a8GFLTk=;
-        fh=PYixM7kBrbNPzJQ4Fz+4f/VMPeSlPNJ5HaCX1l34TWk=;
-        b=Pto6Rz90OGbnbpV3sACyES3I2860K0qaVW/oOQ4BkM8DA45965pc3SVgO+MQ+MoOsU
-         HQUG2ZGuKiIS8jk5rsrrcXtYe9x7a3lPQ65Mp82YaTeiCuQ6L54HLLirE3VFgo3C+1H5
-         LVIVddYV/hTcuJxeoxFqaYH4yd1lAO0CfwA9bMlSlLCnmpKBwSo5Dd5J6aeUV4JdyODH
-         PQ+T8qSuyLlzbP6DtcxcKAwBIT6jGBgCvdONtnx4Tp25E0dxF6SPETUWCoDHSs4vorJz
-         9DXO/8gvz5d3JFgsa4Yq+ozGcbYM65EDxjJxKCwUV0GfE0+fpCW/Ul1gk8m7KlnRDjOO
-         uAlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="k3qVUUGW"
+Received: by mail-wr2-f40.google.com with SMTP id ffacd0b85a97d-488780459e2so3192142f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:46:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1790613977; x=1791218777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=baylibre.com; s=google; t=1790613978; x=1791218778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=f6MxcGWKPwlSfZ6XYjmwewQi2AoWWoplu0F5a8GFLTk=;
-        b=KgW7jgoM5zz6tgYQBRqbmbDEGiF1aXW35IF4IQ9+pwZpdHSdXJk2L89d1KdfF5OXJ5
-         c3mbhYIy+gpVg4iSzrGcN7u93mcZN2R1SEtO/EnzYUrmlTnQzuHHlFqDxFckUGymuWrp
-         dfOn+kkvHwlqaP9WWUGAK00DJi/QOw4NxrfDuFY49ZuKp3missCWjTRUpvCOQ45vv5qU
-         CDWdqYa5YqUOfEqmjuHuPA/siUjpjNalykuakR/QLklOHCpUn+g1YAlye4FnGqq/o4wu
-         n0az1+cv4NYDVdJGvmL0nO1O5VbR8AZCwl6aJiCNh9YlUx9frCkO0VXm6OikAwvF8mTa
-         S71A==
+        bh=hAWwzEDYsdL/vGS/72cVPiDxquOMmSf2cMFzWqr5TUU=;
+        b=k3qVUUGWhI4HALhzrP/TaL/0yJZn1XtLqFidu/HEtTo53G3Qn7sQZ2Fo4v6XIeI9BJ
+         CbROkaraZ8AlldRR+Wa+pxG765h0Z1CAUJE/tf3feTxHauujZQ5B+5lGGiutvtdO/bdu
+         siUrOUY3rLV1RPNukelp6Qv0zSGGbEzwXTfujMA7tvdb+kwd/XFHAjez+WAim6fnenUC
+         dfPACNLElG+T1uBDJqxI4dvNH9ZnYsVcmEljk57x25btkElMjL60vxhIvPshD7nOKL4g
+         ZsvbfKNJbtf4HX/MhzlPfgo9LYJRpI1T+7uIZcOC3gcc7Tn51Dc7De/7Ydw6nS2QWTf6
+         yakg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790613977; x=1791218777;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790613978; x=1791218778;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f6MxcGWKPwlSfZ6XYjmwewQi2AoWWoplu0F5a8GFLTk=;
-        b=fCpdTa5IvXnfAZXlpOclncmue61GDdZf37YVgdcj5XW1I767PxhXPifFgygizWPLCF
-         sv0iEDqrECL4CNRrBF81h9zy/QHiPxymQAj5RbjZLsQ6CsF1J8P4eNjSorRkphPlOKmw
-         6LJJwVDRB4tEv6d685rXuBTJ8/AQudoIFqo6+Sh1ZdZtcZdSC4GUE+0N6CSzjx9mZMwK
-         e31nfybhiZ2rBOxoiWwef379iZk+pCeNoa3PZaObwrzR3j33I3DNLuR0xgKQZTMA4ol8
-         mX+kbU7x5Y9QDX8abd5IuWZwSBgsrJKK7IUM7I3YLsPTKQfnOlUhE1GP6nPot8tB4yVE
-         ZRcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaYz4R0f/vjP1IchD7N+syWT2ZLpHfoz7ah5Uofn1tEZ3IuGpNXhsh0hR/BqH4pdf7D2ekWpCBx888ZkM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTw0p8cVZqehxTC+vsQevS7bDNpPENZU0siPY1QXAxGnyOjEQW
-	a+PC56NifLW4EuSybNddJ4jNcjb517lavpA471s+GBiBhBekjFTsZuhhXxLNrU1WHuq8AFV5Lqr
-	WKOTQnUqkCD3hian/HxqEzrO+Q2mmx6pA08dhwABSGg==
-X-Gm-Gg: AYBFou3oerJzsoeeUjc+0VwARP7d+OYGjxYhpceafVDupUpifATk/IWZnci42EQB4sI
-	KT76TqpsZhLBtSmDNgztep+uzxD5pBqkGBLKKxHXk2Q9ycMCa0MCyMBsF/zimGu3oyS3J3bw0Nl
-	S7hTmILUiMCPofEwzhChC9c0/vq3ajecFRzuhI1ef/CFfCy1rmGLkcJTKv0qtpAxy9uAod0ct61
-	7Fm95s8dXl1X45qmCtGEdgnoqN2k1TGhNAxi+NSzDk4Zc9zq911vRoguYLW7VsJJHToZxbLHF/F
-	+fjL+7B4iLyzlrbu2bnjqdJZFsGmugADZngEGPBdd79Gi03Dd/LVKLg=
-X-Received: by 2002:a05:6870:174b:b0:47c:e496:7b37 with SMTP id
- 586e51a60fabf-49304c03782mr14185148fac.0.1790613976466; Mon, 28 Sep 2026
- 09:46:16 -0700 (PDT)
+        bh=hAWwzEDYsdL/vGS/72cVPiDxquOMmSf2cMFzWqr5TUU=;
+        b=Iw0F5EIgpcUzI9z+euCQbyUhKVDnd8qFJb6gZ1I1mC69Oa8LmGq1ed1B1E39jPlx50
+         NacT9GWpJ7YOfFfbonkCDz6TJn7bPzBbX2WIGkSJLk7zIMYVf6Qg32OkpRRMBdWHMLOW
+         pLzwfVG6G9hw1bLLxBGWN6C5btnIyPlOhM3n4lj2/TzdPV1O+rGe8gJ5kmh5Mph3FgnA
+         P/cpprQ9dE+bePfLoDaS5KtQmc2B7ZuRuXvVcDJ7p0yGJiO4+dbrYd9J0UYdUH31zPP9
+         ri5/5tsSyXcPhxAMM3tLGd6esAHtPq28CZVihUjBrpzkrbWGpUiTwqcaik3tY55DyYmq
+         Vv1g==
+X-Forwarded-Encrypted: i=1; AKwUvBwXMAWaHy6XqKvQ8Qe2s00o2WdDMVDmwSUymIHY3k8XrGG0IbFQna6iN+bCthWlw3dtTpLeltbMdsrDTL4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj/SCphN4mWTwGdRCXU1efsJi6xV8BJMBjCNApBWwoYrZGYg5u
+	8+cmnjgMYUQKD2DlgEJA5RjmR97+13N6hKHkqB7l2XVDodM+RCSAakFmBaaS06oTc98=
+X-Gm-Gg: AYBFou1BGdMpti66SSSbAzzmCtoaABeMw/wyJayiDDM995Gf91wrJrxXGPcAYXn6wj/
+	AU1uVLzIhz/nVy6peUl86vJXsquCQBhg0TLGWRYVMkzPDbfhvhwDMOZPFYapxCTab747y8Fqr0V
+	aw9Fw4u3VtVrASxT7M8y8AGubkQwDGxTGkjgT2Eqh+lf6z5IevgJsWgxnTSLaEkb4xrunU229Az
+	alDMFqV+w3eXfPwlhNARzWfWOnPRE9JgChUwqGZMeThf5bg9mQldx5pQSGy/47vGCSLAKbeNQHF
+	c2BLhuyCM6sTnMpXN5z7CG0z2Kb9p+PjreofWYeTa4Gjz9MUIqGPdFYU+RPGvm7o8tS0MK8eIvr
+	7oqur/cBZpdh3X9p0fDrI2399vOl+6BMC/0DVvHgeD92bc+AsyKXvtwmg+pbAdFf1QYWloyeFG0
+	3JQ0TXehekQVmOdbnUAwnq1kwFxtela3FYhPEMTQSSLkw0V8YyFXNd0cPMBu6fhVggOC4++n/oy
+	I1NIYRKFs/bksZw6ifA+ZrzjQAPbDMwODzMjRzPm+mqrqi01I43Vp3f4vBQ5g==
+X-Received: by 2002:a05:6000:2c11:b0:487:b28:c82a with SMTP id ffacd0b85a97d-48871879aecmr25843657f8f.47.1790613977949;
+        Mon, 28 Sep 2026 09:46:17 -0700 (PDT)
+Received: from localhost (p200300f65f19a90433f74747aea68541.dip0.t-ipconnect.de. [2003:f6:5f19:a904:33f7:4747:aea6:8541])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4887a36189bsm27776092f8f.21.2026.09.28.09.46.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 09:46:17 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH v3 1/3] docs: admin-guide: Handle TAINT_FORCED_BIND when parsing /proc/sys/kernel/tainted
+Date: Mon, 28 Sep 2026 18:46:02 +0200
+Message-ID:  <bf400c123ec86a7192388ad23cfe4194f536937e.1790612298.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790612298.git.u.kleine-koenig@baylibre.com>
+References: <cover.1790612298.git.u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com> <20260928-b4-ublk-cancel-stop-v1-1-4a4360232a46@toxicpanda.com>
-In-Reply-To: <20260928-b4-ublk-cancel-stop-v1-1-4a4360232a46@toxicpanda.com>
-From: Caleb Sander Mateos <csander@purestorage.com>
-Date: Mon, 28 Sep 2026 09:46:04 -0700
-X-Gm-Features: AclHuK-atp-GyZJe4TIVhfWYQuo52M71kqTHzd7P4K8sn93o8izgsy4uwMLRvC8
-Message-ID: <CADUfDZpg0O89whqqCD4tASkS1KxV6b7xWn9mH8TTPQPo6KSFFg@mail.gmail.com>
-Subject: Re: [PATCH 1/9] ublk: keep queue canceling over canceled commands
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1413; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=jnnkpX6A9eUVIr0NRIFbVU++Wwtl6+NRJQ8AKjJzMGY=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqupnLEWwU4nnlnlZA7LE5yrcNgYkA2pF5L5t0z t/9cwZm36iJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCarqZywAKCRCPgPtYfRL+ TucICACN+AyTvue/mceH/MnFWJsKL8AdaDdIkUDXr7WE4JygrR48sB2yKoGH8oxBbmAFZoIYhLL eXVEf4JzuaTR8nbKlKfi7lq83HbmXbj186CwlftOaiEjDvC7N7byaFSHEQeifccsrovUBbdQ6SU /Z+usdibWVtAwKXxyrh0UqPVUdcwKMxUMIjL0zMCYp+4G54HXGNQftvqBg4+GB39wz6NrmkrbgM frDm9EIL5up886P/8NXiOiW0kYczKLp55okfL/YtBqUvmUHX9FdBRaCUCoZnJbHa6wn+DFgMQ+l 6rJwsvu3oEnrrBP9iw46CIRxF6YSQwGaae0qf6Nnzwecz7JC
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 9:02=E2=80=AFAM Josef Bacik <josef@toxicpanda.com> =
-wrote:
->
-> ublk_queue_rq() dispatches a request to a NULL io->cmd and the kernel
-> oopses when a queue got ready over commands which were canceled after
-> being fetched. ublk_mark_io_ready() clears the queue's ->canceling once
-> q_depth commands got fetched, and that count does not go down when a
-> fetched command is canceled:
->
->     task A                          task B
->     FETCH part of the queue
->     exits, its commands get
->     canceled
->     ublk_uring_cmd_cancel_fn()
->       queues marked canceling
->       io->cmd =3D NULL, command done
->                                     FETCH the rest of the queue
->                                     ublk_mark_io_ready()
->                                       queue is ready
->                                       ->canceling =3D false
->
-> During recovery the disk is attached at that point. Before the first
-> start START_DEV adds it afterwards.
->
-> The UBLK_IO_FLAG_CANCELED left from an earlier round is dropped after
-> the command is published, and ublk_cancel_dev() does not hold
-> ub->mutex, so a cancel coming in between loses its flag again.
->
-> A UBLK_F_BATCH_IO queue has no per-io flag for this, but STOP_DEV and
-> QUIESCE_DEV set its ->force_abort when they cancel its fetch commands,
-> so key on that for such a queue. ->force_abort is only cleared once the
-> queue is ready again, by ublk_queue_reset_io_flags() after this check
-> has read it, so one left set by the quiesce of a server which is gone
-> would keep the queue of the next server canceling. Clear it in
-> ublk_ch_release_work_fn() once the old server is gone, under ub->mutex
-> since ublk_stop_dev_unlocked() sets the flag under that mutex and needs
-> it set until del_gendisk() returns. From then on until the queue is
-> ready again, requests for a UBLK_F_USER_RECOVERY device are requeued
-> through ->canceling instead of failed through ->force_abort, as they
-> are on a queue without UBLK_F_BATCH_IO.
->
-> Fix by keeping ->canceling at the ready transition while a command of
-> the queue carries UBLK_IO_FLAG_CANCELED, or while ->force_abort is set
-> on a UBLK_F_BATCH_IO queue, and by dropping the stale flag and
-> publishing a fetched command in one cancel_lock section.
->
-> Fixes: 728cbac5fe21 ("ublk: move device reset into ublk_ch_release()")
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  drivers/block/ublk_drv.c | 59 +++++++++++++++++++++++++++++++++++++++---=
-------
->  1 file changed, 48 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-> index 66eb55e7162e..183de080e008 100644
-> --- a/drivers/block/ublk_drv.c
-> +++ b/drivers/block/ublk_drv.c
-> @@ -2603,6 +2603,16 @@ static void ublk_ch_release_work_fn(struct work_st=
-ruct *work)
->                 }
->         }
->  unlock:
-> +       /*
-> +        * A ->force_abort left set here was set against the server which=
- is
-> +        * gone, clear it so that ublk_queue_reset_io_flags() does not co=
-unt
-> +        * it against the next one, whose requests ->canceling holds back
-> +        * until its queues are ready.  Do it under ub->mutex, under whic=
-h
-> +        * ublk_stop_dev_unlocked() sets the flag and relies on it until
-> +        * del_gendisk() returns.
-> +        */
-> +       for (i =3D 0; i < ub->dev_info.nr_hw_queues; i++)
-> +               WRITE_ONCE(ublk_get_queue(ub, i)->force_abort, false);
+tainted-kernels.rst contains a small script to check which taint bits
+are set in /proc/sys/kernel/tainted. Add one more loop iteration to also
+handle the newly added TAINT_FORCED_BIND bit.
 
-I think this has already been done in
-https://lore.kernel.org/linux-block/20260821103047.369522-2-yangxiuwei@kyli=
-nos.cn/
+Also simplify by starting the loop at 0 and save substracting 1 for each
+usage of the loop counter.
 
->         mutex_unlock(&ub->mutex);
->         ublk_put_disk(disk);
->
-> @@ -3015,27 +3025,44 @@ static void ublk_stop_dev(struct ublk_device *ub)
->         ublk_cancel_dev(ub);
->  }
->
-> -static void ublk_reset_io_flags(struct ublk_queue *ubq, struct ublk_io *=
-io)
-> +static bool ublk_queue_has_canceled_io(const struct ublk_queue *ubq)
-> +       __must_hold(&ubq->cancel_lock)
->  {
-> -       /* UBLK_IO_FLAG_CANCELED can be cleared now */
-> -       spin_lock(&ubq->cancel_lock);
-> -       io->flags &=3D ~UBLK_IO_FLAG_CANCELED;
-> -       spin_unlock(&ubq->cancel_lock);
-> +       u16 i;
-> +
-> +       /*
-> +        * The ios of a UBLK_F_BATCH_IO queue are not canceled one by one=
-,
-> +        * canceling the queue sets ->force_abort instead.
-> +        * ublk_ch_release_work_fn() clears the flag when a server goes a=
-way,
-> +        * so one seen here was not left behind by an earlier server.
-> +        */
-> +       if (ublk_support_batch_io(ubq))
-> +               return READ_ONCE(ubq->force_abort);
-> +
-> +       for (i =3D 0; i < ubq->q_depth; i++) {
-> +               if (ubq->ios[i].flags & UBLK_IO_FLAG_CANCELED)
-> +                       return true;
-> +       }
-> +       return false;
->  }
->
->  /* reset per-queue io flags */
->  static void ublk_queue_reset_io_flags(struct ublk_queue *ubq)
->  {
->         spin_lock(&ubq->cancel_lock);
-> -       ubq->canceling =3D false;
-> +       /*
-> +        * A command canceled after being fetched is still counted as rea=
-dy
-> +        * but can't take requests, so the queue has to stay canceling.
-> +        */
-> +       if (!ublk_queue_has_canceled_io(ubq))
-> +               ubq->canceling =3D false;
->         spin_unlock(&ubq->cancel_lock);
->         ubq->fail_io =3D false;
->         ubq->force_abort =3D false;
->  }
->
->  /* device can only be started after all IOs are ready */
-> -static void ublk_mark_io_ready(struct ublk_device *ub, u16 q_id,
-> -       struct ublk_io *io)
-> +static void ublk_mark_io_ready(struct ublk_device *ub, u16 q_id)
->         __must_hold(&ub->mutex)
->  {
->         struct ublk_queue *ubq =3D ublk_get_queue(ub, q_id);
-> @@ -3044,7 +3071,6 @@ static void ublk_mark_io_ready(struct ublk_device *=
-ub, u16 q_id,
->                 ub->unprivileged_daemons =3D true;
->
->         ubq->nr_io_ready++;
-> -       ublk_reset_io_flags(ubq, io);
->
->         /* Check if this specific queue is now fully ready */
->         if (ublk_queue_ready(ubq)) {
-> @@ -3269,6 +3295,8 @@ static int ublk_check_fetch_buf(const struct ublk_d=
-evice *ub, __u64 buf_addr)
->  static int __ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub=
-,
->                         struct ublk_io *io, u16 q_id)
->  {
-> +       struct ublk_queue *ubq =3D ublk_get_queue(ub, q_id);
-> +
->         /* UBLK_IO_FETCH_REQ is only allowed before dev is setup */
->         if (ublk_dev_ready(ub))
->                 return -EBUSY;
-> @@ -3279,7 +3307,16 @@ static int __ublk_fetch(struct io_uring_cmd *cmd, =
-struct ublk_device *ub,
->
->         WARN_ON_ONCE(io->flags & UBLK_IO_FLAG_OWNED_BY_SRV);
->
-> +       /*
-> +        * ublk_cancel_dev() runs without ub->mutex, publish the command =
-under
-> +        * cancel_lock so that a cancel either misses the io or finds it =
-whole,
-> +        * and drop a stale UBLK_IO_FLAG_CANCELED in the same section fir=
-st so
-> +        * that one set from now on stays.
-> +        */
-> +       spin_lock(&ubq->cancel_lock);
-> +       io->flags &=3D ~UBLK_IO_FLAG_CANCELED;
->         ublk_fill_io_cmd(io, cmd);
-> +       spin_unlock(&ubq->cancel_lock);
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Fixes: fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when userspace manually messes with devices and drivers")
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
+ Documentation/admin-guide/tainted-kernels.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-And this looks like it may also duplicate
-https://lore.kernel.org/linux-block/20260508123746.242018-1-tom.leiming@gma=
-il.com/
+diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+index abbf5e3dd749..a208811ad525 100644
+--- a/Documentation/admin-guide/tainted-kernels.rst
++++ b/Documentation/admin-guide/tainted-kernels.rst
+@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+ script, but if you need something quick you can use this shell command to check
+ which bits are set::
+ 
+-	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
++	$ for i in $(seq 0 20); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i&1));done
+ 
+ Table for decoding tainted state
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- 
+2.47.3
 
-Best,
-Caleb
-
->
->         if (ublk_dev_support_batch_io(ub))
->                 WRITE_ONCE(io->task, NULL);
-> @@ -3306,7 +3343,7 @@ static int ublk_fetch(struct io_uring_cmd *cmd, str=
-uct ublk_device *ub,
->                 ret =3D __ublk_fetch(cmd, ub, io, q_id);
->         if (!ret) {
->                 ublk_apply_io_buf(ub, io, cmd, buf_addr, &auto_buf, NULL)=
-;
-> -               ublk_mark_io_ready(ub, q_id, io);
-> +               ublk_mark_io_ready(ub, q_id);
->         }
->         mutex_unlock(&ub->mutex);
->         return ret;
-> @@ -3723,7 +3760,7 @@ static int ublk_batch_prep_io(struct ublk_queue *ub=
-q,
->         ublk_io_unlock(io);
->
->         if (!ret)
-> -               ublk_mark_io_ready(data->ub, ubq->q_id, io);
-> +               ublk_mark_io_ready(data->ub, ubq->q_id);
->
->         return ret;
->  }
->
-> --
-> 2.55.0
->
