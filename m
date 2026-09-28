@@ -1,54 +1,88 @@
-Received: from e234-60.smtp-out.ap-northeast-1.amazonses.com (e234-60.smtp-out.ap-northeast-1.amazonses.com [23.251.234.60])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284E4497396;
-	Mon, 28 Sep 2026 10:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8695497398;
+	Mon, 28 Sep 2026 10:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590119; cv=none; b=cgpoLnn/wWa+5Iqr5KQMTJ/KD/tWv9ho8hqBw7TWRxuaac+WbHLZPliBGwy0Zd8N1gylxuuA3oBEl9dl5YlPEoLcgtpNo9hTMtshpRg80HA0cQoroAcj0JdWHqDNu3p3eVmC22TEAvBTnIC9ZP/lZLZ8+lhcwA8En2edRNIpE2A=
+	t=1790590127; cv=none; b=aikCGmjfK6qNDEtdKgCE70fdp23q+I20HhoL9R6OrwNJPCT3l+iP+nyxoreCE7TnJpe1F9Pf+mlBHmUTDf9wWkg5neyKuQqhT7fWGmIjVMirCSYQuUmApneRpDwJq2c49z45p8TVBGDF7BeoGbmHHRp/CVt5hbJ/Hid7eqO6R1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590119; c=relaxed/simple;
-	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
-	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=LQV6jwp92k4+cuW8Xm9VMI3G2sHadjIVWFdUrAs/DeSUww3rVTj4EQv+kjKMx3EwSKvkPaLK4QsDlIvym7a4gbxUvZb+ipttVffsYtV5fj0noy0OPahA/10uXYyoLcUy6OAPtUm17/qedDrWrFNhH0O6xB8qOeshRNGdm7Xsli4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=I8IgdS8+; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=HQ6p/NJR; arc=none smtp.client-ip=23.251.234.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1790590127; c=relaxed/simple;
+	bh=k6VynnZ+N0kAdeAd03ynKQPR8TBTY7wOhaOTHQKca+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d9h6VmQ4kWUyiFY/qtm60zR18nPiMxOUlZh2bwqI0EXVILJBFIx4puX6nL6LYiMfoU+w+oCVnvWiLPG76R45O2kYSnqjxvvKlznoMW6bM7nF3S/XIA36/aBmgPmP4OcJHes//9O2I4KzxPqFtyi8JK6qeQiIzPLXjrIqjCTMuaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cYi0UKhH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="I8IgdS8+";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="HQ6p/NJR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1790590116;
-	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
-	b=I8IgdS8+wA2fQ+k0Oy2LH+foCXQKmKHNbJkqBMOblk727ycomb2VIXFVuH4Rn4V+
-	4qHdDFvR1ENxEbyEIcnoASM86dKxoBVBPIbYDty5sW7Ak62XkIsbQnKJjE4t0GEO6RD
-	EnxHGoQhXDqIatm6eAobiqz7BJpp6eXNtNTIt+h4=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1790590116;
-	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
-	b=HQ6p/NJR4eW+L5zLl6mf+qsbfcDrQicaTYDNmW39mddiGyWgXrkvkkbV0QEvvn1s
-	tdu2Q7XChE7FG7TA5+GfRWf0rB1qUN+aNz6Vyjogg4Fmuh27OMf+KYUlr8/eRTFC8pm
-	H1nBYIaKgvkzSJd7A7RVDnL9FcFigmAEQ/QfoEBo=
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-In-Reply-To:
- <CAEe3GZE9pVyV=PRxo_1V39dXCEHz_wx1fa5P3U=686b0fweOng@mail.gmail.com>
-From: fQwQf <fqwqf@fqwqf.xyz>
-To: jingyliang@chromium.org, daleyo@gmail.com
-Cc: jikos@kernel.org, bentiss@kernel.org, corbet@lwn.net, broonie@kernel.org, 
-	rostedt@goodmis.org, mhiramat@kernel.org, 
-	mathieu.desnoyers@efficios.com, dmitry.torokhov@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-input@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	hbarnor@chromium.org, tfiga@chromium.org
-Subject: Re: [PATCH v4 00/11] Add spi-hid transport driver
-Message-ID: <010601a0e77ce26e-204b61a2-f41e-4d77-b585-228c5da788dc-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 10:08:36 +0000
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cYi0UKhH"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E36DB236;
+	Mon, 28 Sep 2026 12:06:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790590013;
+	bh=k6VynnZ+N0kAdeAd03ynKQPR8TBTY7wOhaOTHQKca+w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cYi0UKhHY06B7Vg62VtL/Uqyke32Y27qqq3plWvR9m6EVW/CNEflE+5kqP2JeozAf
+	 o8RgWh+ZMIiO8DNusL1tMpQ7W1egqmADBEVBq6ch6vulOHK4Q1qExGccxe3mT8xLGv
+	 jVTbhMYiYuw0ld5Li3bK/+10oRYcX3LD5PSwMP9A=
+Date: Mon, 28 Sep 2026 13:08:41 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Chen-Yu Tsai <wens@kernel.org>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Philippe Cornu <philippe.cornu@foss.st.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Adrien Grassein <adrien.grassein@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>,
+	CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
+	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
+ indentation in the example
+Message-ID: <20260928100841.GC22609@killaraus.ideasonboard.com>
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <179057359762.92994.13773102514654073802.b4-ty@b4>
+ <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
+ <20260928065837.GA22609@killaraus.ideasonboard.com>
+ <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,58 +90,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.09.28-23.251.234.60
+Content-Disposition: inline
+In-Reply-To: <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
 
-Hi Jingyuan, Dale,
+On Mon, Sep 28, 2026 at 10:08:43AM +0200, Krzysztof Kozlowski wrote:
+> On 28/09/2026 08:58, Laurent Pinchart wrote:
+> > On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
+> >> On 28/09/2026 07:33, Luca Ceresoli wrote:
+> >>> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
+> >>>> Correct indentation in the examples to consistent 2- or 4-spaces
+> >>>> indentation to fix dt-check-style warnings ("example 0
+> >>>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> >>>> re-indenting entire example just for that is too much churn.
+> >>>
+> >>> Applied, thanks!
+> >>>
+> >>> [1/2] dt-bindings: display: Use consistent indentation in the example
+> >>>       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+> >>
+> >> Thanks, but I expected no one will pick it up, so I asked Rob to take
+> >> it, thus it is already queued.
+> > 
+> > Please explain your merge plans in the cover letter next time.
+> 
+> The merge plan was this going through drm-misc. It got reviews, no one
+> applied, even Dmitry for msm only reviewed the msm-bits (second patch),
+> so I asked Rob to take it. This was not planned, but result of usual
+> drm-misc inactivity for bindings (many bindings were not taken in the
+> past or with noticeable delay/pings).
 
-Thank you both. Since my earlier message, I have moved =
-the SL7 integration onto Jingyuan's v4 series, replacing the standalone =
-downstream HID driver. Normal touchpad operation is working with the local =
-GENI QSPI stack and existing iptsd setup. This is testing of v4 plus my =
-local changes rather than unmodified v4.
+If that happens again, could you please reply to the series on the
+dri-devel list to tell it will be merged through the DT tree ? I don't
+think there's any issue with merging patches that way, it's just
+coordination that's lacking.
 
-The QSPI transport uses spi-mem =
-operations, with 1-4-4 transfers and eight dummy clocks for the SL7 read =
-path. I also have changes around DMA buffer alignment, report bounds and =
-request handling. I plan to separate the generic fixes from the QSPI =
-transport changes and keep the GENI/GPI controller work in a separate =
-series, retaining the downstream provenance. I can rebase against v5 and =
-drop anything it already addresses.
+-- 
+Regards,
 
-I also encountered a resume issue in =
-this SL7 integration: the HID reset-resume callback could run before the =
-asynchronous reset/descriptor exchange completed. Delaying that callback =
-addressed the ordering problem. The touchpad also lost its =
-userspace-selected heatmap mode after reset; restarting iptsd restored =
-multi-finger input. My current SL7 workaround recreates the HID device =
-after reset so userspace reconnects and initializes it again. Resume with =
-this workaround has been tested successfully here, but I would like to =
-discuss a cleaner recovery policy before proposing that part upstream.
-
-Jingyuan, do you have a preferred transport interface for adding spi-mem =
-support to the generic driver? I can prepare a focused diff for discussion =
-alongside your v5 work.
-
-Dale, thanks for the nix1e link. I have reviewed =
-the patches and module build definitions at b274dd7. The build definitions =
-apply v4 plus fullduplex.patch to SPI-HID and include separately built =
-GENI/GPI modules with the downstream QSPI patches. The HID read path =
-combines the command and receive buffers in one SPI transfer; my local =
-implementation instead expresses the command, address, dummy clocks and =
-data through spi-mem.
-
-The DT configuration in that revision targets =
-Romulus13/15, so I assume the additional Denali DT changes you mentioned =
-are local to your setup; please correct me if I have missed a published =
-branch. If those changes are available, a link or diff would help us =
-compare the wiring. I also noticed that nix1e's README reports a suspend =
-fix. On your SP11 setup, do touch and pen both remain fully functional =
-after resume without restarting iptsd (if you use it)? That would be useful=
- context for the SL7 recovery issue above.
-
-Please keep me CCed, as I am =
-not subscribed to the lists.
-
-Best regards,
-Jizhou Tong
+Laurent Pinchart
