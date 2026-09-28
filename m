@@ -1,67 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6D52E5B2A
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BD336CDF8
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618471; cv=none; b=aO0qGCRHxH2+prqtUHu5xapwo6zD8tIdzti8zOp3aUZba+P35D0LKjvKgS8Lt7zfoT1eQdvwS30+asXgjfCcBbRfEpUd7YeM1zpo9PpsMiozJswbwIaP2KfnMFIwlxskp5gNV5m0e2eHfLBuVfBb19fXwOfp2J/8ibERnMnfc5I=
+	t=1790618473; cv=none; b=ECrA5hDsG0FwZuv3KC14yi+iKzuDwxuS4ZoJXv4+AgIp3kr4TZfNQ2ojWm82HxhAUGILGwH+X9jwuabkFIEggoEWX4M/f4oys9aPAXiPy1uOitXeaW2VE9MeKwrxbWfJzbLf7n2lBD8n62jruYSwg/+23qw9ldk2c8Ld9/JuoxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618471; c=relaxed/simple;
-	bh=hCjncUcjccL8dLLQkdqgionB2mq4SnnDe6up7exhToM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=STanmvbgFExoqmbSdmcr0d6CFl4m3Hg5N8VaXsICZEcIj0gy7CNp3p8FxwSE6xmKYrgcwULHeQ9ZUjDCOv7ufZ0yv7caoivLbO+cioxP3/U1tgchxEDVYB/yF3D9+W/KFVZaGtITV7LZCTedFz7PlywOrUR45d0TRx+Av7H2H/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JfwFC3/A; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790618473; c=relaxed/simple;
+	bh=JtNlKuZX9/sU1bTMsVw4IAAFkE/YW1CXkk5G3Rh4M8I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LjWgnKbWQVX1TlV7132w2pW0sCi89kVNe3yH7zbOSG2NnyzXWZRz75ehA7qGqCwIPRnNmgjq+ZCazalo/hruJm8aLIJ3pjIuOWsjCNAKmh16m/CuTaCEd/4yrq0NHs2iwHEiJcmDu+uNtn2whe15Z2GUAkSzgEEdqLbCMfMNMaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P8QT1AAc; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JfwFC3/A"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff6988855so1213835e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:01:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P8QT1AAc"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887dc451d7so295273f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790618468; x=1791223268; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Kfh49rBnp+fv8rYbtPwFIFAZ780+WTkGnS4eo4NPc78=;
-        b=JfwFC3/A+g+/pwKCMx0IVPg8SXQ0H9Jbn0XLGlIFKutinPeBMPWwYQkZLBATaZ+F5S
-         S/buuuH51QMU2IA65IqnUTRZQ+vXg3Azxs4oSNgK1x6H5VOyXfDDdP6OsNMu6l+j47+h
-         Mf6oE7lVzDG5GarVZOS0oXzasa5plOdcyMu5lCmoiRN/AR4T5DgxflcN6HzrIrKjmn9e
-         61rjp+kn2+o6SlRyKOfbRadUNmFVbMkDBHOOyhWwADncdR7Vg098fJaQqaxf+zsdm9yu
-         zY8ztioiaCnfu08KZvq2vOUzJ2qie5lvhMJ0FOpIUhkkE3fTHj9Kp93Vo7n3VAwiUc8d
-         ogdw==
+        d=gmail.com; s=20251104; t=1790618470; x=1791223270; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nmpTVow7I5KawbWbjtXYLbBgNUQkJQlP4LemooUJQPE=;
+        b=P8QT1AAcVWMeay1ltTYZ2pAaGyfYjiHAQe+xGTVP92qNHFhflp0nssY8Hg13sk1hMx
+         X5AqN+kMJVBacOOl3t3zwYXSaj1cOTM56LWZnYa4pXZTDtz1VxVOtJOa4OgiKMbzIHCo
+         1ksSkK51a+Z3GsM5Z5+0djS3eqoEv/b5tqm/5Z7z+DIpJuGiIH8Zx03stwoa2nuDYIoS
+         xlz8n/p4GIFQjU6m9DAFET0WcYx8wWppzJKbjTkwrwgvLk2bt5PGNr3QMCUw+/mMDkj+
+         GGWZTeBmkp3W/mQJ+TKa2v3W7Iz0mVLhlKXmvLh5tNuf9JjVmppQSWamLTjDLMEJcnxx
+         T41Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790618468; x=1791223268;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kfh49rBnp+fv8rYbtPwFIFAZ780+WTkGnS4eo4NPc78=;
-        b=hrluQPgNPUd1YosCGGvzE4vUDHWvtowXfpMcv4mhpN1xhMTGyUEezMc78UNS/XkqSZ
-         Y4brvZnJ8771NinnxRwLI7ZOb96Algq4kgNP4ti+JhMzoKr11E4VtNhz8/4ofv1NPgoT
-         XELT7gJVHFCYg8Kqo7ghxrPV5wM6+3GthntPDvNaXD04YxyGrbocezbf/5Imq7hZmlOA
-         hNyNjdNQUkCFqCzY/V3+7nzGWshpDn8s1PLodlY3b8Hli4o0aXMMSoGgnSS/hlMDEL7f
-         4JSHaPBr2v+WvP1b9R3RqR+V2+GuTN3GKkC74mzeDWrO7DaMHZpMzUBAU3EfqKfximix
-         BvAw==
-X-Forwarded-Encrypted: i=1; AKwUvByDkTP0++o/uu5psoCNayJQG49b6Jyg4mYaF/iTjnqFM3dMlLwhZbcFxLi2c9YQjau00cXakw9nnarNxM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRU1yIoAs+RUKWjefgdb2PK3qZaNjkp54wA4Klh28u3TTeBq3Z
-	yw2NWpdcvSwBgohqvWIZoGnWgLNZDxR6xjY7ddEZw/Xej1+oZ/VRTY1W
-X-Gm-Gg: AYBFou0/hd3lKyQGYiKR2Hi34467TyhktvdjHVS1lEqiH2dqoJyTzIt01FwB5p+Z7fz
-	6AMTSGz2JSF6COBcf1vyZeA/Cq22HI/WvZyh6mBl4ZhaE40nbj9wHiX5BNxTSKikzYmXaGkcIbi
-	9xyUq10ggTcE40TpUViwv6rxd1ug1M88J4Zv7F3iFujt2oPjnC3IRBFLIlZxSpQQ8LvZl74mg54
-	RvAb/nupgcyPEQFUUO2EH0pMmFXx+8YLYJY642c7I8KF5R/I2ZPvcb6JTAPEEbeCUdCUqe23n0a
-	LpMCH+kvhtqSLkSDR1erAjvwg5yn9k8tjMZHYER/jDZDLYVEr1kaU2oaZszuDKNFwCidKyLslwy
-	S44MkUbTk9X/hEvYChnM2yD6mNjqiSJ/OX/RYMt+/dZN0iNhDWPMoIGVE5R5MuzWlMyO8xhyCyE
-	l1F/h/vamxOmPdKvnTw8oL+CjWmoRdY8dHl2+eKtV5K3d71sJGyxeI
-X-Received: by 2002:a05:600c:c48e:b0:49e:6683:d227 with SMTP id 5b1f17b1804b1-49fedd2c6dfmr164489635e9.0.1790618468247;
-        Mon, 28 Sep 2026 11:01:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790618470; x=1791223270;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nmpTVow7I5KawbWbjtXYLbBgNUQkJQlP4LemooUJQPE=;
+        b=qiPyV1pDEGF6NYVa3/XI5af8l8pg7B5Zy5mcraS++6EY2zGMbS5xmwvHp0rKrtGGqQ
+         nys9YlTOLvfazeIvqrUj82cdr25+/9U9d+YpAmHlLP8giBU5fGDV6BujxOdjydEXKpo5
+         A7gLkZ1FAK5a0juVzoZwv12/WF62aZCufVDIp5oxw9ivrnEBqYeOi+9Jn0Ej3Vqkn14C
+         LCdKRqD5scaK4sHYVIxUE+yv9p0a+3m7Cbg7TL0O/0AQpzs3uDdBvM03rCgx3BeVXgIF
+         VutICiMX+Tm8p0HDYCd16TB+dZferVviSN4Qh4aRwsLsg3JxHaFukcnxy9rd+cPTICpP
+         7Z8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwLYPV4jiSgTaYbnU2XAJtZlkuxaIxfdiQlAr8QP8CNnQk+XLZ/Hb4Ru95qmUho19pMIFK6890EW2KD6Zc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLbBvwCTR/FYQvZEyPiDo/28RZ5x92sJie0ASdZ+PK6TwE7jjP
+	G/ZEE9/6ckyn/zTprM9FnJnJZzIQg4EH41vGwUl55C0EYpKrL/cvlO16
+X-Gm-Gg: AYBFou0uNqxDF6IZcHcoifOlmLPnDfvTPObH6R2ZSI8El3CryN2NIk9G+mh7xltCB7Y
+	2YBL3BcmtPbOAgw3YX2oPlFJWA5g+t9KGImgelFPEj3rSZ7winVguNsP/jP3T2uL6kQuGMV/rJg
+	EJBjBDbzwZ6wQt/P0vGCICZ4sk1E4ri5qRCscHCp0FEAVhMEVw0YEg5tsfz/TkPLcq8LszPBzAK
+	jBaE1LvDSU96xvqFniYDw/nGP/2X5vhDO7CMDqYB+8ZrsgEpPhDOHP72/N6xGGEeoen/aVPf+BO
+	BSILTK06AVSTuTpGo2B79A1uPimO5mDkZ+Bugo9GQAmOOmU4LFuvs+QNDRWxDop2SVHmJieD6Xz
+	MMH+W3Rg/eG4IOs9KSjt11bOFZEL+JQtheY62sGv/czU5LwrfB+w4U0Qw6IcFnustPSjliMUymm
+	T4nZgcFNcp2dzQW2vPsiR7WZ+EFoMbMGSK7bkLzL0bQyboW4Pn9ry4
+X-Received: by 2002:a05:6000:2c11:b0:488:7787:4696 with SMTP id ffacd0b85a97d-4887abc29d8mr18917939f8f.5.1790618469651;
+        Mon, 28 Sep 2026 11:01:09 -0700 (PDT)
 Received: from localhost ([2620:10d:c092:500::5:c231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf4598esm10991745e9.0.2026.09.28.11.01.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48aecf40a8dsm4425649f8f.18.2026.09.28.11.01.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:01:07 -0700 (PDT)
+        Mon, 28 Sep 2026 11:01:09 -0700 (PDT)
 From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Subject: [PATCH net-next 0/4] netconsole: fix target enable race and
- configfs read locking
-Date: Mon, 28 Sep 2026 19:00:02 +0100
-Message-Id: <20260928-netcons-fixes-v1-0-bb5ffe5e698a@gmail.com>
+Date: Mon, 28 Sep 2026 19:00:03 +0100
+Subject: [PATCH net-next 1/4] netconsole: finish enabling the target before
+ releasing RTNL
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,10 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBREr0JmbRNogQSvYlxAHfW7KKa/GBLC3
- f3K8mXemw3KLFScqw2ZH1GZk0FzqhCfY3rQyc0YvvZ9PfjOJZY4J3V3WaluCGNg0wbfTx2seWf
- +B0suMNX0teB6LLpML8byu8O+fwFeDvocewAAAA==
-X-Change-ID: 20260925-netcons-fixes-93a3e14326b5
+Message-Id: <20260928-netcons-fixes-v1-1-bb5ffe5e698a@gmail.com>
+References: <20260928-netcons-fixes-v1-0-bb5ffe5e698a@gmail.com>
+In-Reply-To: <20260928-netcons-fixes-v1-0-bb5ffe5e698a@gmail.com>
 To: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -81,35 +81,83 @@ To: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
  =?utf-8?q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
  Stephen Hemminger <stephen@networkplumber.org>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gustavo Luiz Duarte <gustavold@gmail.com>, 
- Sashiko <netdev-bot+sashiko@kernel.org>
+ Gustavo Luiz Duarte <gustavold@gmail.com>
 X-Mailer: b4 0.15.2
 
-While looking into the sashiko report about local_ip_show() and
-remote_ip_show() missing proper locking [1] (fixed in patch 3/4), I
-noticed a couple other places that need locking: patch 1/4 fixes a
-null-ptr-deref when enabling a target races against a NETDEV_UNREGISTER
-event, and patch 2/4 fixes a use-after-free when the local_mac_show()
-callback races against a NETDEV_UNREGISTER event. Patch 4/4 is mostly
-cosmetic but worth fixing.
+netcons_netpoll_setup() publishes nt->np.dev inside __netpoll_setup(),
+then releases the RTNL and waits for an RCU grace period before
+returning. Only after that does its caller store STATE_ENABLED:
 
-[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
+A NETDEV_UNREGISTER event landing in that window tears the target down
+and we end up storing STATE_ENABLED with a NULL np->dev, leading to a
+null-ptr-deref in netconsole_write():
 
+  BUG: KASAN: null-ptr-deref in netconsole_write+0xb9/0x7f0
+  Read of size 8 at addr 00000000000000a8 by task pr/netcon_ext0/135
+   netconsole_write+0xb9/0x7f0
+   nbcon_emit_next_record+0x501/0x550
+   nbcon_emit_one+0x10e/0x170
+   nbcon_kthread_func+0x2ff/0x3b0
+   kthread+0x199/0x1e0
+
+Store STATE_ENABLED before dropping the RTNL lock to avoid racing with
+netconsole_netdev_event().
+
+Fixes: 2382b15bcc39 ("netconsole: take care of NETDEV_UNREGISTER event")
 Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
 ---
-Gustavo Luiz Duarte (4):
-      netconsole: finish enabling the target before releasing RTNL
-      netconsole: read np.dev under the RTNL in local_mac_show()
-      netconsole: avoid printing partially updated target attributes
-      netconsole: remove unnecessary target refcounting from the netdev notifier
+ drivers/net/netconsole.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
- drivers/net/netconsole.c | 110 ++++++++++++++++++++++++++---------------------
- 1 file changed, 60 insertions(+), 50 deletions(-)
----
-base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
-change-id: 20260925-netcons-fixes-93a3e14326b5
+diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+index 267254f046de..7dde00eb8e98 100644
+--- a/drivers/net/netconsole.c
++++ b/drivers/net/netconsole.c
+@@ -552,13 +552,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
+ 	err = __netpoll_setup(np, ndev);
+ 	if (err)
+ 		goto put;
+-	rtnl_unlock();
+ 
+ 	/* Make sure all NAPI polls which started before dev->npinfo
+ 	 * was visible have exited before we start calling NAPI poll.
+ 	 * NAPI skips locking if dev->npinfo is NULL.
++	 * Hold RTNL until enable is finished so we don't race with
++	 * netconsole_netdev_event()
+ 	 */
+-	synchronize_rcu();
++	synchronize_net();
++	nt->state = STATE_ENABLED;
++	rtnl_unlock();
+ 
+ 	return 0;
+ 
+@@ -589,7 +592,6 @@ static void resume_target(struct netconsole_target *nt)
+ 		return;
+ 	}
+ 
+-	nt->state = STATE_ENABLED;
+ 	pr_info("network logging resumed on interface %s\n", nt->np.dev_name);
+ }
+ 
+@@ -1079,7 +1081,6 @@ static ssize_t enabled_store(struct config_item *item,
+ 			goto out_unlock;
+ 		}
+ 
+-		nt->state = STATE_ENABLED;
+ 		pr_info("network logging started\n");
+ 	} else {	/* false */
+ 		/* We need to disable the netconsole before cleaning it up
+@@ -2667,8 +2668,6 @@ static struct netconsole_target *alloc_param_target(char *target_config,
+ 			 * otherwise, keep the target in the list, but disabled.
+ 			 */
+ 			goto fail;
+-	} else {
+-		nt->state = STATE_ENABLED;
+ 	}
+ 	populate_configfs_item(nt, cmdline_count);
+ 
 
-Best regards,
---  
-Gustavo Luiz Duarte <gustavold@gmail.com>
+-- 
+2.55.0
 
