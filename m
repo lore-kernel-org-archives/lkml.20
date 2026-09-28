@@ -1,136 +1,516 @@
-Received: from mta1.migadu.com (out-41.mta1.migadu.com [95.215.58.41])
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A00F4B0E5C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596016; cv=none; b=U0P/thk483NoxRArBhJSPtlppd6wWd2FRXi+bTQjkTQKEqV4m97AFYdt8a/vyw8O2R+J6LxuGcTi7lTVDie/sS1D2+bh1f3r1Q0qjGHhVvMQwYxlz1Fv4ycwd9za2AF/4pG/KW1U5qUqkBlEk37OrVpWEfcbC6/BcLNwRg+2f2A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596016; c=relaxed/simple;
-	bh=xFoYoTFmea6JwFgNn0/x7qB+AzppySK65jVPEEVi/4Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FbtOp/MsLS8EhuC1ZhhHP2TlXwSWjhPKVjedrZLMbpnl2Pm7fpGnn7yFrOA0BkqcVKvfB5rMOE/GnZamMrW3TGOrOM4CK3oweBr9c68d9R8UpPxCGu1dg47rcMDeSkbhdSNtlBHKFpjixYaQCTvKWKmMg/+fIN36434ckvcFukM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gjxE1ep/; arc=none smtp.client-ip=95.215.58.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D6E4B1B56
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790596018; cv=pass; b=G63nizvyVYwoIIClLTNIO7ojWsWvh/cDt47nJ3U7hNKSg8/2PZYVHQQhJgFdltZWJBGC9h0CB1gjpeWJ6v9cOsSvXQUDheAorAdaSS5iQwSvQJRt/MJc3mvmTeW5vSQoUR9dCr0FJxqUVlubu9hnIt04T+AsLBSwHldhp5iWpYc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790596018; c=relaxed/simple;
+	bh=TAkv1EiTIHzH7s4Ic/6KxfJfuBew5rdbjm529OpwC8s=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M9oOQRIL4cssbIb3uWnRQO5+NSlxH8yed1kWwMWySkZdE343t4yPtkkDBBIeLBeHiGa+dLYMFS4e/hgtLAVu+OkKkb0S+H0tgLY7H535DCp0lvOqkCRVdNMhK3tnmY4eJiDHb9l7oBIxq+IoyNgmugfmODyiMpvbg5zjGj/7ATA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kxbw77U5; arc=pass smtp.client-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gjxE1ep/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xFoYoTFmea6JwFgNn0/x7qB+AzppySK65jVPEEVi/4Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790596011; v=1; x=1791200811;
- b=gjxE1ep/x/NJCUyfdEEKuEFLbKn+0EDEDuEmX+lPVI8NET2fk5EQKMM/Y0wpt5A4uP052Bmg
- iHGNDXaYioc96iVVC+Mm3T738pkGW3fnL7Xf95Q3T8YvI8s1XsY/gIZSK9fjlyIbarH03iNbbcQ
- f2qHo9yiBrE28pUvdOa4k8P4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a1c51cc4e3403e67;
-	Mon, 28 Sep 2026 11:46:50 +0000
-X-Mizu-Trace-ID: a1c51cc4e3403e67
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH RFC v2 0/7] mm/vmscan: move vmscan tracepoints to a local header
-Date: Mon, 28 Sep 2026 19:46:17 +0800
-Message-Id: <20260928114625.3609130-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kxbw77U5"
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so283003b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:46:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790596014; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UY7WTFHznq317jmZR/hbgpPcAv2NQc0s9coOfXzE3QHuXdyT2/MVeuDUEfCh7Qe2YD
+         RhMVcCjg/GSBJAIsvcysHRTqrDkCMDZ2UZdlfvR11Gh4cdT374NnIOELWDywPgpRbIeP
+         od+KIVe7YfGuqNxl1h9EmnvP9ytEMP4YsYiUrdEhjAGYqSsJlABeg/cUNOa2JZdm99QD
+         Jaw16L+ZKCjPx6pbbNmlI47RfHnJprSQ+jgKqKUhWcPL0DoekJTLoOZQ2kKOTGmUcK7E
+         saXYVm0J5o2BjFjAE8n8crGNnLs8jfSy53rkhWM1AjqC07c3lsxpLqTZOAUsOyRPGQno
+         pdfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
+        fh=6fF6EQ+I4FX4VSFyboRLF+J+Gb/B9Cbv862pdDchMkk=;
+        b=RXF2SjrftfPH9Tuzxoh1oKw0lKGeZOAUD0B6AHLSM2nRW9djJ0ASVTbdx0/rBQU1uu
+         qvjbH5yzsHXmK4JyCu16SKxTf8r3JKF90eAphspYYcck89Q8eBqN4p+aSJUPBp6vUfAb
+         kQi5h99AI5msvhg+NKRv5q/4e/YtxL0UvrRoHzvZmmFOf7hxFVt5fIIw4Wzf2dFSOnfu
+         FmcD1w9ExHToI8/PIpGw1DURyV7eZglcCkb4BqBWdQzyo7AcYD9OqUKaeybr1fwzNOvC
+         SxvbndGjWHl0WZ3TtJosCLg+BqWPPh6Ti3DieUq+iDzGtvjTLi0RHyxhDzT+W3EENNBT
+         4OyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790596014; x=1791200814; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
+        b=Kxbw77U5tHmPyxIyb7qFHh+ulGgh06qbviRBIDw9cfJnRHKgPZVD7aZdsNkvAqGt6J
+         4lDCX2GEZKvI0s8ZBSbU59CSG89l9BNzcaaDB+t7IhlbtGpNtLnMQYTYZDspwnaiGRG6
+         M7YSjMQ71/cxJOLmIF1RK7oh3ExYGkH7hUFYYdIga8sDk1Gg7lQbp62vG8s5lmAAqCRQ
+         7aOrtOjuUhnzzG+2sHIkfLDbiKotrZwMW/yUzhQFUrC8ZUATnDobem2yxgTwoB/VovUd
+         aDPUIjTJfNwR3qtU161qrfXmAiigMSPGNZW1TAlabUMw5GMHfZQ4pq2DdfcCNh1QS13t
+         Qm7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790596014; x=1791200814;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
+        b=I29DtFpgy5Ikc4ZqiooQFbctwbLXPhn8pBn59ZenSpGcWOwTxJTPkIvW/ihXqjL7bp
+         sIQlN19vRxNoOLdMm/UFp8P2u4p7pxOD++Dd3gj0aq4hrj09/JZ8DTB//H93MMXpCAQR
+         eoZEcnrPNUKlYtBFJPEPhl+QzakudT+JIeoU966p65UcktMCF0dMVW2hG7/Qka3Ndow7
+         SRD5Q3c7PXpbuF8Pn3dPPZInYdpzKduEhaJ3S5zh8XS/Y0MS9MdNdEgfZ3iN1KrRbZPA
+         6aGhz7yulBiiCpxds6wIV+47QFg+f4r/qwLDkriP4az39mgkCC+2oZ03hl48yy5fP7vj
+         HMfA==
+X-Forwarded-Encrypted: i=1; AKwUvByewDjGqIcZgh+OemRpa/yQedU9397IRazw/0mUFJuoNjyehZFjhWima51FVXVXVLH9ZALfuAXuQ9cVLsg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1o7SINwCkRxuTb1Y8/l3mxKckV5UFCNJtgDaamNqEebP2lCs+
+	4E/mU17wi/32GFsHyYWdpf0xWKJxmO57yL0feg54tHLxRW8P77MHZcXznCE/sqOaUsTPEORG51I
+	DH2lo3ZZ34VPGqnRYGN0pycDmlqcBwdE=
+X-Gm-Gg: AYBFou1V1ylNaqOcIamHdLITksjAvrKvwAHV4tLiaBpwHHl96lLdhj145Ugm3Igc3Fo
+	hE79RR+0qmyg/GF17mpoxJWkofSygjkEvC7oC8CHB7LkcHxjt7do20Tmzv6YWJR0Yc/uBbwl9vO
+	91BzJq0twDZBjTC/b4lDDcZoo6JRYookXQ20XKhFilUKkkX44XK07bailr/3QnGc4JsrGax/nd1
+	Ec/MjddsJ8VjjBhEFhuBhKyrqBKS0vMsQCpkwsuSrDzF39rnd7RPbabjstNytElYFyMxSWw9RMY
+	RxiNQ3n+dZJ6Er6CkuRFVrYs83ZBwNlcLmeJWq6kAMulusvJKP16O2CAKMPBp2Ibw1UUbwaJLHq
+	7V3ZeotpsDOP3tGVTtf45
+X-Received: by 2002:a05:6808:8983:10b0:4e4:4b49:3a31 with SMTP id
+ 5614622812f47-4e44b7707bfmr4005856b6e.2.1790596014276; Mon, 28 Sep 2026
+ 04:46:54 -0700 (PDT)
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:53 +0200
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:53 +0200
+From: Aveline Noir <jm5905938@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
+References: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 28 Sep 2026 13:46:53 +0200
+X-Gm-Features: AclHuK-LgVtdD9OWC6wM2fRx3Dbg6SSDnvXWs7wRBZWuJE8GQkEcKnTTVIRDDCs
+Message-ID: <CANOyQmGkGwSkwUj-NOKzhQ_mgapoqqoOLaqXaGAjWK8jiknarQ@mail.gmail.com>
+Subject: [PATCH 1/2] HID: picolcd: Move output requests out of spinlocked sections
+To: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, bigeasy@linutronix.de, 
+	linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Creating a PicoLCD through UHID triggers a sleeping-in-invalid-context
+warning in picolcd_set_contrast() on PREEMPT_RT. hid_hw_request() can
+allocate with GFP_KERNEL and wait for a reply through __hid_request(),
+but the driver invokes it while holding data->lock. The same pattern
+exists in the other output paths.
 
-This series started as an effort to add two tracepoints for MGLRU. In the
-discussion, Steven suggested moving include/trace/events/vmscan.h to
-mm/trace_vmscan.h [1], as several other subsystems already do. Once the
-header lives under mm/, struct scan_control can be moved there too, letting
-the trace events access its fields directly instead of having each callsite
-copy the scalars out by hand.
+Serialize output report updates and requests with a separate mutex.
+Keep the spinlock for status and pending replies shared with raw_event(),
+and drop it before submitting requests. Serialize the failed-state
+transition with output requests during removal.
 
-The series builds in small steps:
+Use the blocking LED callback and protect LED state updates with the
+report mutex. Move framebuffer reset outside fbdata->lock so the new
+mutex is never acquired under that spinlock.
 
-  1) drop the now-unused vmscan trace include from memcontrol.c;
-  2) move include/trace/events/vmscan.h to mm/trace_vmscan.h, using a
-     relative TRACE_INCLUDE_PATH so no Makefile change is needed;
-  3) move struct scan_control into a dedicated mm/vmscan.h, which
-     trace_vmscan.h pulls in, guarded against the multi-read that
-     define_trace.h performs;
-  4-7) pass scan_control to the vmscan tracepoints and pick the fields
-     out in TP_fast_assign, one group at a time: the reclaim-begin
-     events, the LRU isolate/shrink events, mm_vmscan_reclaim_pages and
-     mm_vmscan_balance_pgdat_end.
+In a PREEMPT_RT QEMU guest, the original syzkaller reproducer triggered
+six sleep warnings with the baseline module and none with this change
+during a four-second run (214 iterations). Five rounds each of concurrent
+LCD, backlight, two LED and UHID destroy operations, with and without
+persistent-open framebuffer writes, completed without BUG/WARNING.
+Physical hardware and suspend/resume have not been tested.
 
-Besides the cleanup, this moves the code that computes the tracepoint
-parameters into TP_fast_assign(), which is in a separate text section. It
-removes code from the work flow, improving instruction cache.
-
-There is no functional change and no ABI change: TP_STRUCT__entry and
-TP_printk are untouched, so the exported event format is identical. This
-was confirmed by diffing the tracefs format files before and after, and
-by capturing the direct/memcg/node reclaim-begin events under load in a
-QEMU guest (order, gfp_flags and memcg_id all match).
-
-Where a value passed to a tracepoint is a local of the caller rather than
-a scan_control field (highest_zoneidx for balance_pgdat_end, nr_reclaimed
-for reclaim_pages), it stays a separate argument.
-
-[1]: https://lore.kernel.org/linux-mm/20260916095122.50cbb620@robin/
-
+Fixes: d881427253da ("HID: use hid_hw_request() instead of direct call
+to usbhid")
+Reported-by: syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=912222e4cb82423535fa
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
-Changes since v1:
-  - Convert the remaining vmscan tracepoints too, not just reclaim-begin
-    (4 -> 7 patches).
-  - Put struct scan_control in its own mm/vmscan.h instead of directly in
-    trace_vmscan.h suggested by Baoquan.
+ drivers/hid/hid-picolcd.h           |  2 ++
+ drivers/hid/hid-picolcd_backlight.c |  7 ++---
+ drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++++++----------
+ drivers/hid/hid-picolcd_fb.c        | 23 ++++++++-------
+ drivers/hid/hid-picolcd_lcd.c       |  7 ++---
+ drivers/hid/hid-picolcd_leds.c      | 31 +++++++++++--------
+ 6 files changed, 69 insertions(+), 47 deletions(-)
 
-Ridong Chen (7):
-  mm/memcontrol: drop unused vmscan tracepoint include
-  mm/vmscan: move vmscan tracepoints to a local header
-  mm/vmscan: move struct scan_control to a dedicated header
-  mm/vmscan: pass scan_control to the reclaim-begin tracepoints
-  mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
-  mm/vmscan: pass scan_control to mm_vmscan_reclaim_pages
-  mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
+diff --git a/drivers/hid/hid-picolcd.h b/drivers/hid/hid-picolcd.h
+index 57c9d0a675..846a8ceb95 100644
+--- a/drivers/hid/hid-picolcd.h
++++ b/drivers/hid/hid-picolcd.h
+@@ -102,6 +102,8 @@ struct picolcd_data {
+ 	/* Housekeeping stuff */
+ 	spinlock_t lock;
+ 	struct mutex mutex;
++	/* Serialize updates to output reports and their HID requests. */
++	struct mutex report_mutex;
+ 	struct picolcd_pending *pending;
+ 	int status;
+ #define PICOLCD_BOOTLOADER 1
+diff --git a/drivers/hid/hid-picolcd_backlight.c
+b/drivers/hid/hid-picolcd_backlight.c
+index 4b43b64537..9fe27437d2 100644
+--- a/drivers/hid/hid-picolcd_backlight.c
++++ b/drivers/hid/hid-picolcd_backlight.c
+@@ -23,19 +23,18 @@ static int picolcd_set_brightness(struct
+backlight_device *bdev)
+ {
+ 	struct picolcd_data *data = bl_get_data(bdev);
+ 	struct hid_report *report = picolcd_out_report(REPORT_BRIGHTNESS, data->hdev);
+-	unsigned long flags;
 
- MAINTAINERS                                   |   4 +
- mm/memcontrol.c                               |   2 -
- mm/shrinker.c                                 |   2 +-
- .../events/vmscan.h => mm/trace_vmscan.h      |  80 ++++++-----
- mm/vmscan.c                                   | 136 ++----------------
- mm/vmscan.h                                   | 118 +++++++++++++++
- 6 files changed, 178 insertions(+), 164 deletions(-)
- rename include/trace/events/vmscan.h => mm/trace_vmscan.h (90%)
- create mode 100644 mm/vmscan.h
+ 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
+ 		return -ENODEV;
 
++	mutex_lock(&data->report_mutex);
+ 	data->lcd_brightness = bdev->props.brightness & 0x0ff;
+ 	data->lcd_power      = bdev->props.power;
+-	spin_lock_irqsave(&data->lock, flags);
+ 	hid_set_field(report->field[0], 0,
+ 		      data->lcd_power == BACKLIGHT_POWER_ON ? data->lcd_brightness : 0);
+-	if (!(data->status & PICOLCD_FAILED))
++	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
+ 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+-	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+ 	return 0;
+ }
+
+diff --git a/drivers/hid/hid-picolcd_core.c b/drivers/hid/hid-picolcd_core.c
+index d73e97c8b8..9d6bf75aba 100644
+--- a/drivers/hid/hid-picolcd_core.c
++++ b/drivers/hid/hid-picolcd_core.c
+@@ -77,7 +77,7 @@ struct picolcd_pending *picolcd_send_and_wait(struct
+hid_device *hdev,
+
+ 	if (!report || !data)
+ 		return NULL;
+-	if (data->status & PICOLCD_FAILED)
++	if (READ_ONCE(data->status) & PICOLCD_FAILED)
+ 		return NULL;
+ 	work = kzalloc_obj(*work);
+ 	if (!work)
+@@ -89,23 +89,27 @@ struct picolcd_pending
+*picolcd_send_and_wait(struct hid_device *hdev,
+ 	work->raw_size   = 0;
+
+ 	mutex_lock(&data->mutex);
+-	spin_lock_irqsave(&data->lock, flags);
++	mutex_lock(&data->report_mutex);
+ 	for (i = k = 0; i < report->maxfield; i++)
+ 		for (j = 0; j < report->field[i]->report_count; j++) {
+ 			hid_set_field(report->field[i], j, k < size ? raw_data[k] : 0);
+ 			k++;
+ 		}
++	spin_lock_irqsave(&data->lock, flags);
+ 	if (data->status & PICOLCD_FAILED) {
+-		kfree(work);
+-		work = NULL;
+-	} else {
+-		data->pending = work;
+-		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+ 		spin_unlock_irqrestore(&data->lock, flags);
+-		wait_for_completion_interruptible_timeout(&work->ready, HZ*2);
+-		spin_lock_irqsave(&data->lock, flags);
+-		data->pending = NULL;
++		mutex_unlock(&data->report_mutex);
++		mutex_unlock(&data->mutex);
++		kfree(work);
++		return NULL;
+ 	}
++	data->pending = work;
++	spin_unlock_irqrestore(&data->lock, flags);
++	hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
++	mutex_unlock(&data->report_mutex);
++	wait_for_completion_interruptible_timeout(&work->ready, HZ*2);
++	spin_lock_irqsave(&data->lock, flags);
++	data->pending = NULL;
+ 	spin_unlock_irqrestore(&data->lock, flags);
+ 	mutex_unlock(&data->mutex);
+ 	return work;
+@@ -224,18 +228,21 @@ int picolcd_reset(struct hid_device *hdev)
+ 	if (!data || !report || report->maxfield != 1)
+ 		return -ENODEV;
+
++	mutex_lock(&data->report_mutex);
+ 	spin_lock_irqsave(&data->lock, flags);
+ 	if (hdev->product == USB_DEVICE_ID_PICOLCD_BOOTLOADER)
+ 		data->status |= PICOLCD_BOOTLOADER;
+
+-	/* perform the reset */
+-	hid_set_field(report->field[0], 0, 1);
+ 	if (data->status & PICOLCD_FAILED) {
+ 		spin_unlock_irqrestore(&data->lock, flags);
++		mutex_unlock(&data->report_mutex);
+ 		return -ENODEV;
+ 	}
+-	hid_hw_request(hdev, report, HID_REQ_SET_REPORT);
+ 	spin_unlock_irqrestore(&data->lock, flags);
++	/* perform the reset */
++	hid_set_field(report->field[0], 0, 1);
++	hid_hw_request(hdev, report, HID_REQ_SET_REPORT);
++	mutex_unlock(&data->report_mutex);
+
+ 	error = picolcd_check_version(hdev);
+ 	if (error)
+@@ -268,7 +275,6 @@ static ssize_t picolcd_operation_mode_store(struct
+device *dev,
+ 	struct picolcd_data *data = dev_get_drvdata(dev);
+ 	struct hid_report *report = NULL;
+ 	int timeout = data->opmode_delay;
+-	unsigned long flags;
+
+ 	if (sysfs_streq(buf, "lcd")) {
+ 		if (data->status & PICOLCD_BOOTLOADER)
+@@ -283,11 +289,15 @@ static ssize_t
+picolcd_operation_mode_store(struct device *dev,
+ 	if (!report || report->maxfield != 1)
+ 		return -EINVAL;
+
+-	spin_lock_irqsave(&data->lock, flags);
++	mutex_lock(&data->report_mutex);
++	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
++		mutex_unlock(&data->report_mutex);
++		return -ENODEV;
++	}
+ 	hid_set_field(report->field[0], 0, timeout & 0xff);
+ 	hid_set_field(report->field[0], 1, (timeout >> 8) & 0xff);
+ 	hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+-	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+ 	return count;
+ }
+
+@@ -537,6 +547,7 @@ static int picolcd_probe(struct hid_device *hdev,
+
+ 	spin_lock_init(&data->lock);
+ 	mutex_init(&data->mutex);
++	mutex_init(&data->report_mutex);
+ 	data->hdev = hdev;
+ 	data->opmode_delay = 5000;
+ 	if (hdev->product == USB_DEVICE_ID_PICOLCD_BOOTLOADER)
+@@ -603,9 +614,11 @@ static void picolcd_remove(struct hid_device *hdev)
+ 	unsigned long flags;
+
+ 	dbg_hid(PICOLCD_NAME " hardware remove...\n");
++	mutex_lock(&data->report_mutex);
+ 	spin_lock_irqsave(&data->lock, flags);
+ 	data->status |= PICOLCD_FAILED;
+ 	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+
+ 	picolcd_exit_devfs(data);
+ 	device_remove_file(&hdev->dev, &dev_attr_operation_mode);
+@@ -630,6 +643,7 @@ static void picolcd_remove(struct hid_device *hdev)
+ 	picolcd_exit_keys(data);
+
+ 	mutex_destroy(&data->mutex);
++	mutex_destroy(&data->report_mutex);
+ 	/* Finally, clean up the picolcd data itself */
+ 	kfree(data);
+ }
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index 8c28e982e0..c17104fd60 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -91,7 +91,6 @@ static int picolcd_fb_send_tile(struct picolcd_data
+*data, u8 *vbitmap,
+ 		int chip, int tile)
+ {
+ 	struct hid_report *report1, *report2;
+-	unsigned long flags;
+ 	u8 *tdata;
+ 	int i;
+
+@@ -102,9 +101,9 @@ static int picolcd_fb_send_tile(struct
+picolcd_data *data, u8 *vbitmap,
+ 	if (!report2 || report2->maxfield != 1)
+ 		return -ENODEV;
+
+-	spin_lock_irqsave(&data->lock, flags);
+-	if ((data->status & PICOLCD_FAILED)) {
+-		spin_unlock_irqrestore(&data->lock, flags);
++	mutex_lock(&data->report_mutex);
++	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
++		mutex_unlock(&data->report_mutex);
+ 		return -ENODEV;
+ 	}
+ 	hid_set_field(report1->field[0],  0, chip << 2);
+@@ -133,7 +132,7 @@ static int picolcd_fb_send_tile(struct
+picolcd_data *data, u8 *vbitmap,
+
+ 	hid_hw_request(data->hdev, report1, HID_REQ_SET_REPORT);
+ 	hid_hw_request(data->hdev, report2, HID_REQ_SET_REPORT);
+-	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+ 	return 0;
+ }
+
+@@ -187,13 +186,16 @@ int picolcd_fb_reset(struct picolcd_data *data, int clear)
+ 	struct hid_report *report = picolcd_out_report(REPORT_LCD_CMD, data->hdev);
+ 	struct picolcd_fb_data *fbdata = data->fb_info->par;
+ 	int i, j;
+-	unsigned long flags;
+ 	static const u8 mapcmd[8] = { 0x00, 0x02, 0x00, 0x64, 0x3f, 0x00,
+0x64, 0xc0 };
+
+ 	if (!report || report->maxfield != 1)
+ 		return -ENODEV;
+
+-	spin_lock_irqsave(&data->lock, flags);
++	mutex_lock(&data->report_mutex);
++	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
++		mutex_unlock(&data->report_mutex);
++		return -ENODEV;
++	}
+ 	for (i = 0; i < 4; i++) {
+ 		for (j = 0; j < report->field[0]->maxusage; j++)
+ 			if (j == 0)
+@@ -204,7 +206,7 @@ int picolcd_fb_reset(struct picolcd_data *data, int clear)
+ 				hid_set_field(report->field[0], j, 0);
+ 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+ 	}
+-	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+
+ 	if (clear) {
+ 		memset(fbdata->vbitmap, 0, PICOLCDFB_SIZE);
+@@ -232,9 +234,10 @@ static void picolcd_fb_update(struct fb_info *info)
+ 	mutex_lock(&info->lock);
+
+ 	spin_lock_irqsave(&fbdata->lock, flags);
+-	if (!fbdata->ready && fbdata->picolcd)
+-		picolcd_fb_reset(fbdata->picolcd, 0);
++	data = !fbdata->ready ? fbdata->picolcd : NULL;
+ 	spin_unlock_irqrestore(&fbdata->lock, flags);
++	if (data)
++		picolcd_fb_reset(data, 0);
+
+ 	/*
+ 	 * Translate the framebuffer into the format needed by the PicoLCD.
+diff --git a/drivers/hid/hid-picolcd_lcd.c b/drivers/hid/hid-picolcd_lcd.c
+index 318f19eac0..a1fdbfdfde 100644
+--- a/drivers/hid/hid-picolcd_lcd.c
++++ b/drivers/hid/hid-picolcd_lcd.c
+@@ -27,17 +27,16 @@ static int picolcd_set_contrast(struct lcd_device
+*ldev, int contrast)
+ {
+ 	struct picolcd_data *data = lcd_get_data(ldev);
+ 	struct hid_report *report = picolcd_out_report(REPORT_CONTRAST, data->hdev);
+-	unsigned long flags;
+
+ 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
+ 		return -ENODEV;
+
++	mutex_lock(&data->report_mutex);
+ 	data->lcd_contrast = contrast & 0x0ff;
+-	spin_lock_irqsave(&data->lock, flags);
+ 	hid_set_field(report->field[0], 0, data->lcd_contrast);
+-	if (!(data->status & PICOLCD_FAILED))
++	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
+ 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+-	spin_unlock_irqrestore(&data->lock, flags);
++	mutex_unlock(&data->report_mutex);
+ 	return 0;
+ }
+
+diff --git a/drivers/hid/hid-picolcd_leds.c b/drivers/hid/hid-picolcd_leds.c
+index 6b505a7535..c6ae8ace1d 100644
+--- a/drivers/hid/hid-picolcd_leds.c
++++ b/drivers/hid/hid-picolcd_leds.c
+@@ -29,10 +29,9 @@
+ #include "hid-picolcd.h"
+
+
+-void picolcd_leds_set(struct picolcd_data *data)
++static void picolcd_leds_set_locked(struct picolcd_data *data)
+ {
+ 	struct hid_report *report;
+-	unsigned long flags;
+
+ 	if (!data->led[0])
+ 		return;
+@@ -40,14 +39,19 @@ void picolcd_leds_set(struct picolcd_data *data)
+ 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
+ 		return;
+
+-	spin_lock_irqsave(&data->lock, flags);
+ 	hid_set_field(report->field[0], 0, data->led_state);
+-	if (!(data->status & PICOLCD_FAILED))
++	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
+ 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
+-	spin_unlock_irqrestore(&data->lock, flags);
+ }
+
+-static void picolcd_led_set_brightness(struct led_classdev *led_cdev,
++void picolcd_leds_set(struct picolcd_data *data)
++{
++	mutex_lock(&data->report_mutex);
++	picolcd_leds_set_locked(data);
++	mutex_unlock(&data->report_mutex);
++}
++
++static int picolcd_led_set_brightness(struct led_classdev *led_cdev,
+ 			enum led_brightness value)
+ {
+ 	struct device *dev;
+@@ -59,20 +63,23 @@ static void picolcd_led_set_brightness(struct
+led_classdev *led_cdev,
+ 	hdev = to_hid_device(dev);
+ 	data = hid_get_drvdata(hdev);
+ 	if (!data)
+-		return;
++		return -ENODEV;
++	mutex_lock(&data->report_mutex);
+ 	for (i = 0; i < 8; i++) {
+ 		if (led_cdev != data->led[i])
+ 			continue;
+ 		state = (data->led_state >> i) & 1;
+ 		if (value == LED_OFF && state) {
+ 			data->led_state &= ~(1 << i);
+-			picolcd_leds_set(data);
++			picolcd_leds_set_locked(data);
+ 		} else if (value != LED_OFF && !state) {
+ 			data->led_state |= 1 << i;
+-			picolcd_leds_set(data);
++			picolcd_leds_set_locked(data);
+ 		}
+ 		break;
+ 	}
++	mutex_unlock(&data->report_mutex);
++	return 0;
+ }
+
+ static enum led_brightness picolcd_led_get_brightness(struct
+led_classdev *led_cdev)
+@@ -87,7 +94,7 @@ static enum led_brightness
+picolcd_led_get_brightness(struct led_classdev *led_c
+ 	data = hid_get_drvdata(hdev);
+ 	for (i = 0; i < 8; i++)
+ 		if (led_cdev == data->led[i]) {
+-			value = (data->led_state >> i) & 1;
++			value = (READ_ONCE(data->led_state) >> i) & 1;
+ 			break;
+ 		}
+ 	return value ? LED_FULL : LED_OFF;
+@@ -122,7 +129,7 @@ int picolcd_init_leds(struct picolcd_data *data,
+struct hid_report *report)
+ 		led->brightness = 0;
+ 		led->max_brightness = 1;
+ 		led->brightness_get = picolcd_led_get_brightness;
+-		led->brightness_set = picolcd_led_set_brightness;
++		led->brightness_set_blocking = picolcd_led_set_brightness;
+
+ 		data->led[i] = led;
+ 		ret = led_classdev_register(dev, data->led[i]);
+@@ -159,5 +166,3 @@ void picolcd_exit_leds(struct picolcd_data *data)
+ 		kfree(led);
+ 	}
+ }
+-
+-
 -- 
-2.34.1
-
+2.55.0
