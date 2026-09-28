@@ -1,249 +1,139 @@
-Received: from mta1.migadu.com (out-26.mta1.migadu.com [95.215.58.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C71A4DBD75
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D404BD79E;
+	Mon, 28 Sep 2026 14:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605437; cv=none; b=TKbfuyFpjn0HhksO7hIXOSmashDdV1slbYu7oX0S/ITgKwyE//U91e+8k4rqoLIxO61fxUUYbrXqGe/rVEW8HcJ43/K5qLYUkD8frXr8KbI/oLlX2Cm3ACmM9CdMBZz5+I/Rx0wLgZW6RazOmeHDlhFcjst4AanJQGR/MJtsaAI=
+	t=1790605478; cv=none; b=eWKyHhF+yaGb3MDhPFGujGRLE/9WB6R3Zysll00TKy+sulLO2hbd2plR4elbbB7Nc77kcUijGEzByfYWlq1pmcKAaza1JXf2A6uqCM0S7/dEPe2hCV6qMDyAqQHBiAIyqWKp/+EQ1utzVJ0QZFtsd2JPtS1BWLdmRABDYJ84zcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605437; c=relaxed/simple;
-	bh=1Pt5c0ewlbxs35Qenv4TwVyYegBMJMSsO1N36lie138=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PmnRBgAml0dk5kaIUi/irSTHV25IyjKEuvyTG5cdl5Ns1mrCqrsYXErUlmzOCf1a4y7zFACscVmcIFYsGjNZoyYeJsMWC3liUjGb1i4K/3D5xRAWzPhMhkt3PRxKlFoZ++wDgm43wwcjNWLKVxgsfwmdu72tDCFC7p9PXLg3Wcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TTbQt+ME; arc=none smtp.client-ip=95.215.58.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790605478; c=relaxed/simple;
+	bh=TUPQiWGaksxIu2jhdVNuvKfToIZjUJ7DaiDHclCajrk=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=INLlm6Hc/AAqKlObHRiuw//dq9O8xR0hUwtXlvcUUy7hNc9oGfbm4c4TtKXbnA/ppri756pzHqQGgbOAipVN3VtbpWqLfbOOpcVUL74nqWOaAOw4yzgBv+eZrgc+2NmB8kd+Y6Rq71/EkpcFi/fZAV/2YX4FEcaM9NUBgagWjWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=iA/e40Oi; arc=none smtp.client-ip=166.70.13.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TTbQt+ME"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1Pt5c0ewlbxs35Qenv4TwVyYegBMJMSsO1N36lie138=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790605430; v=1; x=1791210230;
- b=TTbQt+ME2K8PxCLCOmpoW5JqKs4ryiFwi0mHnJxOJO1XzsxjzoTRinLfYOwx2SEbVDyAZTtj
- O55Cmeivj9IA8AL3CD5hAknmeLiCvMAfVSj75YyaC+BBGDuPJtsN6OJxeLlEsDs0uFSWTQgHmQA
- tRdgor9s9niz+3WOM4KgIIH4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 39d7e5e62d16e8e6;
-	Mon, 28 Sep 2026 14:23:50 +0000
-X-Mizu-Trace-ID: 39d7e5e62d16e8e6
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 16:23:46 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
- range
-Message-ID: <arpyD2CjxOqwQvx8@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
- <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="iA/e40Oi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=TUPQiWGaksxIu2jhdVNuvKfToIZjUJ7DaiDHclCajrk=; b=iA/e40OiNdjs/TZNZHRrMawsgW
+	RUWY1gEhXKNkRcf45y4kfcnfLIHQEz+VrkOP4xqH1B0t+AhKgu3Xaj/03o/WrIncxl5FvGk2nw/dD
+	B3sfypnEAa8raf4UXYXrrIFYwCr+6ReAShD4A6BN9WyuVQfuAsrHe3qpwMGrW6darQCQ=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:33258)
+	by out02.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xBBsb-0004ul-Sg; Mon, 28 Sep 2026 07:58:53 -0600
+Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:44176 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xBBsa-00GCOe-Se; Mon, 28 Sep 2026 07:58:53 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: Christian Brauner <brauner@kernel.org>,  Kees Cook <kees@kernel.org>,
+  Shuah Khan <shuah@kernel.org>,  Jeff Layton <jlayton@kernel.org>,
+  linux-kselftest@vger.kernel.org,  linux-kernel@vger.kernel.org
+In-Reply-To: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
+	(Natasha Klaus's message of "Mon, 28 Sep 2026 10:25:35 +0300")
+References: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
+Date: Mon, 28 Sep 2026 08:58:46 -0500
+Message-ID: <87tsn932ax.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+Content-Type: text/plain
+X-XM-SPF: eid=1xBBsa-00GCOe-Se;;;mid=<87tsn932ax.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX1/NilCz1i07GshbSNFOsN1HnhcVs7m55w0=
+X-Spam-Level: *
+X-Spam-Virus: No
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	* -0.5 BAYES_40 BODY: Bayes spam probability is 20 to 40%
+	*      [score: 0.3050]
+	*  1.5 XMNoVowels Alpha-numberic number with no vowels
+	*  0.7 XMSubLong Long Subject
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa03 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+	*  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+	*  0.0 TR_XM_PhishingBody Phishing flag in body of message
+X-Spam-DCC: XMission; sa03 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: *;Natasha Klaus <natalie.klaus@runtimeverification.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 521 ms - load_scoreonly_sql: 0.05 (0.0%),
+	signal_user_changed: 4.6 (0.9%), b_tie_ro: 3.2 (0.6%), parse: 0.96
+	(0.2%), extract_message_metadata: 12 (2.3%), get_uri_detail_list: 1.40
+	(0.3%), tests_pri_-2000: 17 (3.3%), tests_pri_-1000: 2.8 (0.5%),
+	tests_pri_-950: 1.63 (0.3%), tests_pri_-900: 0.91 (0.2%),
+	tests_pri_-90: 146 (28.0%), check_bayes: 139 (26.6%), b_tokenize: 7
+	(1.4%), b_tok_get_all: 8 (1.6%), b_comp_prob: 3.8 (0.7%),
+	b_tok_touch_all: 113 (21.8%), b_finish: 1.38 (0.3%), tests_pri_0: 317
+	(60.8%), check_dkim_signature: 0.63 (0.1%), check_dkim_adsp: 5 (1.0%),
+	poll_dns_idle: 1.89 (0.4%), tests_pri_10: 2.3 (0.4%), tests_pri_500:
+	11 (2.2%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH 0/2] userns: reject out-of-range uid_map/gid_map values
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, jlayton@kernel.org, shuah@kernel.org, kees@kernel.org, brauner@kernel.org, natalie.klaus@runtimeverification.com
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out02.mta.xmission.com); SAEximRunCond expanded to false
 
-Hi Dave,
+Natasha Klaus <natalie.klaus@runtimeverification.com> writes:
 
-thanks for your feedback! Greatly appreciated!
+> map_write() silently truncates uid_map/gid_map/projid_map values above
+> U32_MAX modulo 2^32 on 64-bit kernels, so e.g. "4294967301 1000 1" is
+> installed as "5 1000 1" without an error. Patch 1 rejects such values
+> with -EINVAL. Patch 2 adds a selftest for all three fields and for the
+> unchanged in-range path.
+>
+> This is hardening, not a security fix.
 
-On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > When updating the flash_duration range ensure the ceiling is at least as
-> > long as the exposure time is. This may cause the calculated
-> > flash_duration register value to be rounded up.
-> >
-> > This is done by introducing a new
-> > ov9282_update_ctrl_range_flash_duration() function and using them
-> > wherever possible.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> >  1 file changed, 28 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index f728709fcf0a6..be38ecfad8c82 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> >                                 NSEC_PER_USEC);
-> >  }
-> >
-> > +/**
-> > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > + * @ov9282: pointer to ov9282 device
-> > + *
-> > + * This may round up the ceiling to the microseconds representation of the
-> > + * next flash_duration register value to make sure one can illuminate the whole
-> > + * exposure time long.
-> > + *
-> > + * Return: 0 if successful, error code otherwise.
-> > + */
-> > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > +{
-> > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > +
-> > +       if (fd_max_us < exposure_us)
-> > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> 
-> Reading the driver for how it handles flash duration, it all gets a
-> bit convoluted. I see part of it comes from the units being usecs
-> whilst natively it is in lines, but we've got this slightly odd calc
-> and adding 1, and rounding in try_ctrl to get closest to the absolute
-> value.
+Well error in more cases.  *Shrug* I don't think that even really
+hardens anything but it is moderately more correct.
 
-That's true. I'm also not happy with this back-and-forth conversion between
-u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-all "timing related" controls in the same unit (likely usecs). I was
-already playing around with that approach, but as this would break the
-current exporsure property I have not sent those patches...
+> The patch and the selftest were drafted by Claude Code (Claude Opus 5.5)
+> in an interactive session; I reviewed, built and tested them. The
+> assistant flagged the truncation while reading map_write(), and I
+> confirmed it by writing to uid_map on a running kernel.
+>
+> Tested on v7.3-rc4-393-g165768bb7026 under virtme-ng, x86_64 defconfig
+> with CONFIG_USER_NS: all five selftest cases pass on the patched kernel.
+> On an unpatched 6.8 host, four of the five fail as expected.
 
-If you have any "mainline-acceptable" idea on how to do that I would
-definitely love to hear it ;-)
+Storing an unsigned long into an unsigned long long instead of an
+unsigned is a mistake in the opposite direction and is more costly.
 
-> Seeing as this is the max flash_duration, is it actually limited by
-> the exposure, or by the frame duration? The difference between those
-> is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> you up to another 9usecs to play with. That covers any of this
-> rounding stuff. You can afford to always round that one down and never
-> clip the range below the exposure time.
+A more targeted fix would be to replace simple_strtoul with
+kstrtou32.
 
-From a hardware perspective this isn't limited at all AFAICT. But from a
-"use-case" perspective a flash_duration (with a flash offset=0, which is
-the hard-coded default case in this driver currently) longer than the
-exposure time makes no sense, as it does not have any effect on the image.
+As for tests you probably also want to test some negative values as
+well, and probably a few good values.
 
-With this patch I want to make sure to be able to illuminate the frame
-during the complete exposure time, but keep the maximum as short as
-possible. So I was comparing/aiming this at the exposure time, not the
-frame duration.
+Eric
 
-As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-time: Would a "turned-on flash" during those 25 lines have any impact on
-the frames brightness in your opinion?
-I haven't explicitely tested/measured this with hardware, but I guess
-this does not have any impact?
-
-Or do you mean when calculating against the frame duration the +/-1
-stuff can be dropped and the code would be easier to read?
-
-Sorry If misunderstood your feedback somehow.
-
-> 
-> There is reference in the docs to a different behaviour if "the
-> vertical blanking period is long", but with a bit to set to give
-> stable behaviour (0x3017 bit 1).
-
-I've read that paragraph in the datasheet, yes. But as this was not
-affecting my use-case I haven't included this in this series or my
-downstream kernel. Do you think it's worth adding support for this? Do
-you know of any reports complaining about this power saving feature?
-
-thanks!
-
-regards;rl
-
-> 
-> You've far more experience with how this sensor handles the strobe
-> outputs though.
-> 
->   Dave
-> 
-> > +
-> > +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
-> > +                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +}
-> > +
-> >  /**
-> >   * ov9282_update_controls() - Update control ranges based on streaming mode
-> >   * @ov9282: pointer to ov9282 device
-> > @@ -555,7 +578,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-> >  {
-> >         u32 hblank_min;
-> >         s64 pixel_rate;
-> > -       u32 exposure_us;
-> >         u32 lpfr;
-> >         int ret;
-> >
-> > @@ -590,9 +612,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-> >         if (ret)
-> >                 return ret;
-> >
-> > -       exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > -       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, exposure_us,
-> > -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +       return ov9282_update_ctrl_range_flash_duration(ov9282);
-> >  }
-> >
-> >  /**
-> > @@ -605,11 +625,9 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-> >   */
-> >  static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
-> >  {
-> > -       u32 exposure_us = ov9282_exposure_to_us(ov9282, exposure);
-> >         int ret, ret_hold;
-> >
-> > -       dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
-> > -               exposure, exposure_us, gain);
-> > +       dev_dbg(ov9282->dev, "Set exp %u, analog gain %u", exposure, gain);
-> >
-> >         ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
-> >         if (ret)
-> > @@ -623,9 +641,7 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
-> >         if (ret)
-> >                 goto error_release_group_hold;
-> >
-> > -       ret = __v4l2_ctrl_modify_range(ov9282->flash_duration,
-> > -                                      0, exposure_us, 1,
-> > -                                      OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +       ret = ov9282_update_ctrl_range_flash_duration(ov9282);
-> >
-> >  error_release_group_hold:
-> >         ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
-> > @@ -660,11 +676,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
-> >                  * Ensure the flash duration range is also updated on powered
-> >                  * down sensors.
-> >                  */
-> > -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
-> > -                                              ov9282_exposure_to_us(ov9282,
-> > -                                                                    ctrl->val),
-> > -                                              1,
-> > -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
-> >                 if (ret)
-> >                         return ret;
-> >                 break;
-> > @@ -674,10 +686,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
-> >                  * duration. Therefore recalculate the flash duration range
-> >                  * here.
-> >                  */
-> > -               exposure = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
-> > -                                              exposure, 1,
-> > -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
-> >                 if (ret)
-> >                         return ret;
-> >                 break;
-> >
-> > --
-> > 2.53.0
-> >
-> >
+>
+> Natasha Klaus (2):
+>   userns: reject uid_map/gid_map values that do not fit in u32
+>   selftests/namespaces: add uid_map/gid_map range tests
+>
+>  kernel/user_namespace.c                       |  14 +-
+>  tools/testing/selftests/namespaces/.gitignore |   1 +
+>  tools/testing/selftests/namespaces/Makefile   |   3 +-
+>  .../selftests/namespaces/uid_map_range_test.c | 155 ++++++++++++++++++
+>  4 files changed, 169 insertions(+), 4 deletions(-)
+>  create mode 100644 tools/testing/selftests/namespaces/uid_map_range_test.c
+>
+>
+> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
