@@ -1,135 +1,163 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29422378822
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621884; cv=pass; b=XGLNnZ641uohuMa811ohbNN9zrcQtsMY+tmLBi1lESZ6ubx5UaiCZAeQCmlafxPPjykSfoj6Vv2B2oHrp/US7n6vxKoPO7F9qeqWQABes3h9HoEfpy5/rGsxH+Bocfc4RfkVGLrYs4mmjXtG1F974R5OLQNIXxhxWcWyaWMv7J8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621884; c=relaxed/simple;
-	bh=Im1NAfF0TnV3CDpW6n2DT1Ez9Xb/l8e1pIhIoS8My2A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qgk1XfDbaHbo65iF6L346Qhl18QqhWmaFIYukiHSg5dp5t5DDiVC0dWKnsPmKN1cnn0HmK22EysY088cGN+SGLkdvVINilq45FTbJ/yfocARTdO/UXBRB2DEVeCAiDsDnx/SPjfskz0KQgDNooAWnTr021xEnKhTh/sHPYfr1g4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sZqVXuoc; arc=pass smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500683BE14A;
+	Mon, 28 Sep 2026 18:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790621927; cv=none; b=PzgnRDguIdUrkYpPCIDSLtrQ+ChVGcJAvPrhnStzyUGzszvGgZSx3/kffFQ+14OokuNqfgC5hDQTe17rd1/XDOgxgcImIsahQD4sCRoNrVRC9xWJrrEXVxQiT3jTPI1Yf21vUl/0mCyridRC6lXXvUqNCCTDlUkFF6R6NmdiFjQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790621927; c=relaxed/simple;
+	bh=KJz1UrlxroTw9zwWWy6KGkUgPX8Gomb04xBPCt5j6RY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C27S9Psq6FtMnJRjc/eN3vZNRLsb9F/muD5AHsVH89rrFaQjDo7W/f8mqVzlgi7fcufEOeb4PSoqbLHOXx4VUaPpx6vqcjTDOt6z3T0cs0RLxj1ZzzCVxtkAWGFl7ZkaZQDAC9GbZg0fG1xPpJsytP3FAcqNMjSPB+hXLgsDR7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOYYg7oC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sZqVXuoc"
-Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cd1d9d66c9so1076172e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790621882; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gvCGUj74Qxqw8bMFDSzRZoIs8mXH3VFVpkF90mLRUzCFbB/iQJX1S2jlWGlHn30Xbt
-         PUObHPz4HTqvfgbgNAjgXK1i8EiucdBBeOmzU5Ah4FdhLhcwtgIneMpavs1IMHAU7gk4
-         1HxIT3sHXTuXmKT/ZV4J/q9odrg5KcvypZ1eL+eLx128beP8Wk33LhNoBzHZyHR+jZt3
-         hL4zFEi5h2qrdnI/QPHWRzZ5F14V56MiyGbPlFjR7i2n1Wvo1odtuvtOYpXBGY0QX1zX
-         5d9B1iMqRvJslDhP3vM69M075cBIby6KAbuuEgymgvc0ckLMGeqykdLLQdbdy0kVKvQj
-         0SMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
-        fh=j+ByBT5YfvAxcbqBxuC63nk7PCNzZBVWloRRzjWBkjo=;
-        b=B1QV6LrCqNexov2OTRKVbngALw/7cps5H0RourA2Yjzjto8/CFk/xvZarw69BrMHQ0
-         RYDd/sUhbF01sxMI1P2wP2DLirzS2Ffl4uB6VIie3mVShV+rqyjca18khcb3OewPa7fl
-         Y5txrhCMiWLqDmbX/zz4X+qr/GnECfpgmwtcMPX1kW+4sXbVcwDvpMFny+WjlT1mkX07
-         tD5qR5JsKMQ6GkWD1CwSe+MX7T92zOUbcwerjcCV1S/HO7WZgi4If0/dWCI554uLb0x4
-         QFSLEpNp3m2Vb2nJvubHZpvv16Is/EO8kjdjuzp81s2Evda85gzIFn+KhC3LBl5ze/61
-         nFmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790621882; x=1791226682; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
-        b=sZqVXuoc6h7XgKkZ6kU3dpZ6kYOv6gI4W9xnXG2hM6Z1O344XYWhjK/63pN2esHBRI
-         H05fFVuuhbEhKGu8CF+3nhPraTmlbDyN6xSLF+ayaP/3m3HjCX4vR41ye7bTb4EKQGNS
-         QlRlWu0YUff0rpSPmNpr4vOub6G6TwpULNbKe6P3TdmZTVoItMEeaJ93cWPMLRq1hNjV
-         vLnjnFjIv7byHsvBAlsQ2FCpzAkSB7vvofs96fgARyVgszBZcDtkuxkjpEp43pwP9/xU
-         AjZM/ObJ0zTOUWAmiVf/sj/7CFQvBt3D6zFXx9aCiwjBh3b51jTX0pUKYiJjseZqB5tr
-         dm3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790621882; x=1791226682;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
-        b=wwwPUhWrvcKYbwyItnjeR1WZ5VOU3RzGGarzqssL63I6yTKOtsbwJJy/feHoa2SLns
-         gousC9Ix3IxYWXN5X3RJ9Xy7KgzumDrjcZJff3+tBnA83j9KoADYpKfqhKxB2seilsFZ
-         9YP3XNyrpGd9afuVoXLyw8IIQhQbSbRBWNqm9J+7dNBGxVhGV5ZPnTjSICBzhs/V7NEN
-         AK9ybdM/UUDN2NurycPTj1xb4/3fg5KV2XPwCu7fsoJ3b5/AN8TqI/vf4+7sdbgOeLK+
-         8uGOK5ztE1a6hD3wMa/jGkmvkoP7VPT6R8N35rZjbK0ctgX/+mvk0aogAKLd4G855MhE
-         OT6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzblH0KHXu9QL+keC5cWbg8NREVgP8tlLp8k6HU/ORwaBpGMBggSChsuBm8kqwquOAzbNnxbsxduKiJSOw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm4wrTib+j8XXVLjeHO8hxWAWWHeflwOimYvFjXMgoveecrivb
-	oFU380n9PRtHSwiHmS27+s6WDs4C4cuR3QjdFS/8aPmo+lHRPApex4X4405FJ3+P00OwBsNqtXf
-	jwlixmIvlUcD5eQninBK7UcwpB2mqqrapyiDPrGE=
-X-Gm-Gg: AYBFou3Fz1aE/y8UlWbn0AB+Nf4tZV+nQkVR+XfK5gg/gZbv4dXPlWbPpopDKPy13N2
-	zsucwySuP+5fcolhyFzDm7DLGyyRT1dntuiymPgYfGnX2ZMh16dFZx/5T2X7xgbLhCZ5i3rLpUs
-	cS+hMH/bCuoHnLt+qhC2lYQAzFc0RzBrdPSDxVQp7ks6ZcxjMl35avh45g4uFVvvk2l0kgXIdF6
-	jyk9fwQ5drNaLugI9CX25978e5ViZGXWWhZODzPgYZuvhCHC4xamdsL14CFA4aGSdDCIHV4kw+C
-	d/6Ptjv3bSD+N1Q0esqpzlz1YROZGr0sC5mlNaMQLTKgdVVx9K2YxwYKav+1Lh9FNELpCEk7ktL
-	+bOQC1cub8M6ow7TmT7EO
-X-Received: by 2002:a05:6102:2d04:b0:7a6:accf:72c1 with SMTP id
- ada2fe7eead31-7af19740319mr4949454137.0.1790621880968; Mon, 28 Sep 2026
- 11:58:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOYYg7oC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8331F000FF;
+	Mon, 28 Sep 2026 18:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790621925;
+	bh=BQJlLat4qxj8pgDrowtyIAkoQQPKp9J5TEk8suVVKjQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nOYYg7oCN+CEi6+HSLYl5pLYDPIkgl9oIzaKeRsIwnLQLz8gmq2Wlu8L8C67dnJeG
+	 8Jqjug8DQ2jWcrnxQaDVIw6DTaQKfwBEz5XUeHMtQu+4oXvZNYq/hQmhg9GTUYuIaX
+	 BDacpyX/6tMbFS4fZj3+80NIoy+Z1ibgbEcH6aPXMhaAGIYuRy/vAvhAZDbjQBVPe9
+	 7bwsvipBELhLtcU85W+9CT0n5D9xfPhyUfHWMBbm0bGZocbd8ObHRV61EiYsQnAK5O
+	 OCs1pBsYyjVxK8UZ3AoZWY14OtJ41S0GCn9WpAN4rU+kY6M4c63VqlKaID+AO+oIJZ
+	 sntZfdjPV6lGA==
+Message-ID: <9d4517d0-0e78-4eee-970e-0cac9d0a856f@kernel.org>
+Date: Mon, 28 Sep 2026 20:58:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928044513.1330392-1-morbo@google.com> <fb409745-856d-44c6-b9a9-387bb7499811@opensource.cirrus.com>
-In-Reply-To: <fb409745-856d-44c6-b9a9-387bb7499811@opensource.cirrus.com>
-From: Bill Wendling <morbo@google.com>
-Date: Mon, 28 Sep 2026 11:57:44 -0700
-X-Gm-Features: AclHuK_sC2R2kVmE83msZCKkzBaFLDE0QnCGPY-epZGSZc4zNKjrTMXfdmX0tnM
-Message-ID: <CAGG=3QWAhuHptY1qGsMoP_s6rkBthx3nWadPmYQdjWRMcRCH=w@mail.gmail.com>
-Subject: Re: [PATCH] firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl with __counted_by_ptr
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: Simon Trimmer <simont@opensource.cirrus.com>, 
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, patches@opensource.cirrus.com, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/12] CRASH_MEMACTION: describe pages to a kdump
+ kernel (was: CRASH_WIPE_SECRETS)
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Baoquan He
+ <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org,
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev,
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org,
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+ <arqli0H0v5qPG22z@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <arqli0H0v5qPG22z@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 1:51=E2=80=AFAM Richard Fitzgerald
-<rf@opensource.cirrus.com> wrote:
->
-> On 28/09/2026 5:45 am, Bill Wendling wrote:
-> > Annotate the 'cache' pointer member of 'struct cs_dsp_coeff_ctl' with
-> > the '__counted_by_ptr' attribute. This allows the compiler and KASAN
-> > to perform run-time bounds checking on accesses to the 'cache' buffer,
-> > preventing potential out-of-bounds reads or writes.
-> >
-> > The 'cache' pointer points to a buffer of size 'len' bytes, allocated
-> > to hold the cached value of a DSP coefficient control. The 'cache' and
-> > 'len' are initialized in 'cs_dsp_create_control()'.
-> >
-> > Every subsequent access to 'ctl->cache' is strictly validated to
-> Is that true?
-> When I last looked at these __counted_by they were only checked by
-> a subset of library functions (which was documented) so I was still
-> able to write code that overran the buffer.
->
-There are several flags that need to be specified when trying to
-trigger an out-of-bounds error, like this:
+On 9/28/26 19:49, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 28, 2026 at 07:17:48PM +0200, Jan Sebastian Götte wrote:
+>> I'm using linux on an embedded target in a Hardware Security Module-like
+>> application. One requirement is that I want the system to be able to
+>> quickly erase its memory when it detects physical tampering. I'm
+>> approaching that by using kdump to load into a small payload that
+>> instead of dumping RAM, erases RAM frmo start to end. However, writing
+>> all of RAM, especially on an embedded target, is rather slow. For this
+>> reason, I propose a new crash_memaction mechanism that lets the old
+>> kernel indicate marked memory areas to the kdump kernel at page
+>> granularity.
+> 
+> Sorry this all seems really invasive for what seems to be a very specific
+> use case.
+> 
+> In general, with big changes like this, you should send the series as an
+> RFC.
+> 
+> Please send any future revisions of this as an RFC.
+> 
+> The bar for a new VMA flag, a new madvise() flag, 
 
-  -fsanitize=3Darray-bounds,object-size,local-bounds
+It's actually three new madvise modes. Way to invasive indeed. This won't fly.
 
-They should produce code to check each array access if the compiler
-can determine that it's from a struct. E.g., Clang probably won't
-generate the bounds checks if the field was passed into a function
-that isn't inlined. GCC may have better luck with that.
+-- 
+Cheers,
 
--bw
-
-> However, recent compilers might do more checking now.
->
-> Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+David
