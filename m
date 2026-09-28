@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE36357D08;
-	Tue, 29 Sep 2026 10:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2DE1D416C;
+	Tue, 29 Sep 2026 10:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676162; cv=none; b=KvUC2CRtxwULpCJEnwk0bEoPddKFxzam94k4Y/rDACuawS59Ms6PqR1xKbQgHVHTxyF2xzgrPQGIEHIJGUgNeJ5GDywBVlJpMb90KB1z2M8hZoVfhYuPvf0YCX6uPuwepoayRMHsbdQvqE3KUF3Ze5UI4gTrV13gCw0SLytulkg=
+	t=1790676202; cv=none; b=dffVHUTMliqQr9uiAiDPrKyMZAri3WghzEL7xAjJ4lY6T2o8SPpoko1k6RptIaJgpkj0RnFhOGGEnPwLFYVpDsmW2tBcMVD6IrhuOrb+jdg0xkR843owUyeeOwpGkkkqV3pjxfFtLYvVvUszAFywrmXJxyaGpq9moMKNnYUoMoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676162; c=relaxed/simple;
-	bh=Ckh2edlgD8pSknkf616R4gEWATYDE58unwFe5zCxFh4=;
+	s=arc-20240116; t=1790676202; c=relaxed/simple;
+	bh=sQF1ijqj5LE8SBRqGw2k8iUqXxg3AS1UFnSFnLTDrXs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Aeq97/vrdMOgFTCIcVbgUw0Htwaf/Emf1wnm1KTZkB0r+rAvJH+51hNkzM+H4AoCoWa/QhV2HrF58BmxQvWhCyvRELBp3xHFdScE7CyEs0uVvBS3SWz+piO0PTGXUANzkEuuoJTdnMRGbSYadFDW+hsysD9xhDTRf/jbpg8PKoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P27SZoG7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=fmeNB0dBQBowx1QAu6I+LqqkTiH/RCVroHoRzNccWo8mrQtVLjS2DCgwH796scbN8QVjGqRjBAoe8Gsj1EwRCzmey7MG0ehjsnmqI9aoFHoBt9THLr7lUqRbM83EN+X/DfxWXOSqsJbUWV8B/wZRct+XwNY+nV62KpG1PrB6GJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJjHn3rE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P27SZoG7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B841F00899;
-	Tue, 29 Sep 2026 10:02:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJjHn3rE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902D01F000FF;
+	Tue, 29 Sep 2026 10:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790676154;
-	bh=36q4a2p+FUw1btR0MIsYjhi8bRxVrc6Pe96L4kpGQpY=;
+	s=k20260515; t=1790676196;
+	bh=fyV8wdbA9PD/PC0vY6GD6KQo9xffIYODnSB/nuBnSD8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=P27SZoG7S+tUMJ2AMrw+Ul9q5TVxIE/LrfXT7whMv0Hp20IJoXP2uzaQhzPyryn11
-	 jtcPe1Cm1CU2KX8ob7tkSngfRN+rD6xzzs4rg5LiW+BoSXHh4b/7fGJMnvvVkXnhIf
-	 QBHfQI1p/j1har32HQmWnGJ2Y1WEtApwIqSGjZbdocvLTxJfeBNHSaNFAOSwYBsT1Y
-	 9kUzAhfyiOW6TdbMORQ1sJUmAR7E5bPXNIgkSLein/svsyMY535DYe5PRXNjxnNCso
-	 UB+aL8zvfI9jq48p8aTpYRb5LCOMymudSUWFOpKpD4cTFeGzuBjiRadY/IIQw7UbNl
-	 djmCDMZNNEByA==
+	b=OJjHn3rEtKkIZJeeoOOe8w+ALm2QpbJxV7+jT8BnRQ/3F/EHqsSocWLl7Huy2qanU
+	 oR1emfORSWeRc/W+MPRPrDbk5pxtObsTQSQIoVEGEC0FwM+YBa0nEA8Ixf7LHH0Wsa
+	 /WWn36G0FiNdFD9LSPNwSrK3sRmqMsEdFY9cCfc4ovojtR8c9lH9zPw8pjm63dvC9C
+	 9gyMvA39lIEOQg3L85O+feAwPDFd50ZTwdk5mzIKQx6n0Qn2/ZChEzesy65lVX8cWE
+	 ix7JMiGi6IELSXy/lXZJP/5bykl7oHy/i9uRmK1HIk7cNrR67koL7jj/szF7qA2hOr
+	 se8xu/QHk7RoA==
 From: Mark Brown <broonie@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Peng Fan <peng.fan@nxp.com>
-In-Reply-To: <20260924-regmap-lock-guard-v3-0-8a6127223c16@nxp.com>
-References: <20260924-regmap-lock-guard-v3-0-8a6127223c16@nxp.com>
-Subject: Re: [PATCH RFC v3 0/4] regmap: convert map->lock/unlock users to a
- scoped guard
-Message-Id: <179062150526.139547.3870545428656485907.b4-ty@b4>
-Date: Mon, 28 Sep 2026 19:51:45 +0100
+To: tsbogend@alpha.franken.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, Udaya Kiran Challa <challauday369@gmail.com>
+Cc: skhan@linuxfoundation.org, me@brighamcampbell.com, 
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260825162257.77042-1-challauday369@gmail.com>
+References: <20260825162257.77042-1-challauday369@gmail.com>
+Subject: Re: [PATCH v5] spi: dt-bindings: microchip,pic32mzda-spi: Convert
+ to DT schema
+Message-Id: <179063753265.139547.14430985812194627498.b4-ty@b4>
+Date: Tue, 29 Sep 2026 00:18:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,44 +48,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1660; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Ckh2edlgD8pSknkf616R4gEWATYDE58unwFe5zCxFh4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu4y3UhkEt0UETSd83e2WBmjH2m6tw1TPQYFRn
- fsNp4dftfOJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaruMtwAKCRAk1otyXVSH
- 0LPrB/9NFa28KPT0lcapOxqeM1/p6G6IrExV4sxqMXF12+mviXbuxblizSFnSC/jPotky7yU/LB
- SqAv17tRlzRo3UtcWdElls6ASA35yWFRjxKmtqhXTQSzV+/mXhn5bYiOmzFQzK4CEeRsm4ItBGP
- JqXnMc9A7XWuR70IEpg8WKuquwwYPBKUw4VaiYG4R1XI8cgMnLOVwCfwDb2hGvDJP/9Dv8b8fQR
- Sd5fUnhiF/EHHOJSQwyRYMYzm47RD75iXXU4LMlivvzxi8m9aV8aB5c2PWYp7POTD6gRdXWQLFT
- GCSRB0LAkLlibsCJxtVyo6tsuVZCvtOr0tUNvs3WbPHvOLLa
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sQF1ijqj5LE8SBRqGw2k8iUqXxg3AS1UFnSFnLTDrXs=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu4zg6iwLt1fprBJltqdeHY8ouLDouI2p9Lnqy
+ 7xSmAArFOCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaruM4AAKCRAk1otyXVSH
+ 0O0SB/wI8hR/F5iAdOPJrsVZllGvzRXrzyXyatmcrHbyJjnA00uakB0tQzA3bgs1KaOa9earV2m
+ ddFNgLesmHB5weSX9zv7Du4tgIoK6d/4kOAkjJwR3a2nmvZT0sGur9OZjAWhyrtgQsDKMpoGBDz
+ 1wREMG8kNDMxlNRNyRZgw48Sc4JoDS3NYwTmQyexjahl+GZM/xn0YQQ0p7Aw/b7jxz7jbgtVMg9
+ gYIuWXSfS1GMHSSc3By/Y/ZV6+Zg6BXiNMhtjyx6VQQlZGzK7HwxOFA5G8mkKTcMhQd2k9cE7Bu
+ 2BhaS2cFmKSGvu/MlXoa71v5wsEkQajYggpvqS5fa1TOKAFX
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 24 Sep 2026 14:30:51 +0800, Peng Fan (OSS) wrote:
-> regmap: convert map->lock/unlock users to a scoped guard
-> 
-> The regmap lock is taken by calling the lock and unlock callbacks
-> directly at every call site:
-> 
-> 	map->lock(map->lock_arg);
-> 	...
-> 	map->unlock(map->lock_arg);
-> 
-> [...]
+On Tue, 25 Aug 2026 21:52:57 +0530, Udaya Kiran Challa wrote:
+> spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
 Thanks!
 
-[1/4] regmap: convert lock/unlock to a scoped guard
-      https://git.kernel.org/broonie/regmap/c/80328b41ea28
-[2/4] regcache: use the regmap scoped lock guard
-      https://git.kernel.org/broonie/regmap/c/23f1120dcbea
-[3/4] regcache: rbtree: use the regmap scoped lock guard
-      https://git.kernel.org/broonie/regmap/c/555a1bd78bbc
-[4/4] regmap: debugfs: use the regmap scoped lock guard
-      https://git.kernel.org/broonie/regmap/c/9999d5a07ee0
+[1/1] spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
+      https://git.kernel.org/broonie/spi/c/cecb86a37ac0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
