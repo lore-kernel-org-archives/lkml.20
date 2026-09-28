@@ -1,109 +1,77 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BDB4E66DA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB2D1A681B;
+	Mon, 28 Sep 2026 15:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610097; cv=none; b=S3vtj8XN/uOQwhIb5YRYNSqGwALBTemaxPBMP0KVaAfswN8KIzLDXsFUyuyg8u7xntH4HH8OdP8FwpvAp55oQCZCKJlQmFcGUP7p5OBEFWWsa6/jsVz5pK85hbeb741aHCifbRud6VOV2slwGgrD0o8SwqD4+lkdHOwjFF/uOTs=
+	t=1790610098; cv=none; b=dR8CPCQYXfFAsv4eoM2FIm4qjvZOmBwkd0tUlSHy82P57eCKxf2PUlgVaFD3GW/25n4lq5SGa9QbgYV0YOPsZO4GYi3X5Bjb9nUmVnr1FSV382nc5H9dDuVvr3Z/3ZXAGVNjPkV8h/qLj7zXWB22He3/WW8esQ2BuD3qaFelIjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610097; c=relaxed/simple;
-	bh=9Msw6I067+6iBsgwsr/Bt4ePiirOGUBNmkcsMmUbeO4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ki2oNC7Jjt/+A5qRre1iEZ7QRv6QIGk/sy1d8sLtKK9scRXLrjBTn/xyj/fZTWNPYcgZFzLmHKhHORkhgBMdllxHBj96WXbcOUpvgFABNMnqruLXVijB7PXTvTZ8Olks0c7tZJpIZRLRlzvzvZQFLgRprBmRdA2Fy+WThb7fYwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UJo6vSKr; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790610098; c=relaxed/simple;
+	bh=YtZTkRT+KkFERghcrmO9yBE7MlbcCBw4KFwwn2D3gjY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=HxVyTyaw8YeNgWgpkahpn1fjD5Q0l5EftrbeWEPfNdf9eBxiimSQq5kTcLUR7HCtQHdzjdLaDnia06Mr4LVXmxdidlfVlQ1gmZA/IcLb9HD6ACaalW+tUfbmExfll93X/Lrq43ZGWwzZV9JE4v9oLJ7o5lKSTrl/skfzvGs+2Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gEDwhQyX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UJo6vSKr"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4216aee8fso3586932a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:41:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790610096; x=1791214896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vK0Krog7rzU4pR4Isc7XjCheGIHMrcN1uvJXgDIv7WA=;
-        b=UJo6vSKrdb1FJJmAC5rwm2jy7fh5IGeHhMa36zwuacU/6z2+ufQhkslHMue57nkQMD
-         oskhJF+Q9a8/+Vfetl2OlnyDeoTtllz7n3aER8GpcZRG7qgg7IAnUwWUB21Xc44Avdui
-         xVhjS7OXwiqJn14gn/C67rQ7ZfKINQjlvlUmeqZgXJvoL4smzR8rImsCadLq14q3o1WK
-         ZtwTICgXPU13Q2b80JcoMJbUiAzDtf93Yc1SXdaZ+t49vFqg9uJicghzDiSjKSfDn8xl
-         QAin0+mbMBr+DTIc/E7e+gzPPcjGKJM31lxfrqFOQTMqA1rVUh0a0B5Siy080/mBuYbF
-         ZLhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790610096; x=1791214896;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vK0Krog7rzU4pR4Isc7XjCheGIHMrcN1uvJXgDIv7WA=;
-        b=jVcbY48ResAZ/p8jXMWXg7roD8S9Z5gQn0MFlaq0Bw4gjWT/rKPQVUE87gK9xipTj3
-         feQnkbxJvMUIVdFtgjSl2+mw16EwrAxUCkDjCfGJeZ7iSBmNsnYY/BZZguONviQ83tFE
-         w3s2xIfI6I/ZJXQ7x3dt0zXKpNVMFSpQzAtlF+f3mT1it58MWGVAV0kVKTcOkEg6JJ6i
-         ybs8hyKuwxanOC+PPdJ4TSb0QVDuFmCjI2HuxT35dYB1IigiPHi7w38jcLj7r9MBl5Ha
-         R7joZ4QCFmNKmLimo+ua8bBaKdQUoBwRhstbZSNW7KV55iUq80VX2ETG0SyL1puILi5K
-         VPIA==
-X-Forwarded-Encrypted: i=1; AKwUvByNj2YJo1KyrpdmXdAGTbr2+d8mCVZKzu257xFBM7lWYLA0EWdsrRPHiECPv7RUXqrmwoUGroCXRa96/rM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDhE9gPkF6a2KVS7VUIuIVoTT2InsG6ZDU0w/kdNHGnVeNxDdv
-	q9jDMu7fr9cz9igYzvP3okj1/0+sFG7li7bQWfLc594rDAAMnCLKpWdW6cOY7NlbPYgzeIuxzkR
-	qmhj6vA==
-X-Received: from pgbbm24.prod.google.com ([2002:a65:6e98:0:b0:cc7:85ef:361e])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d48b:b0:3dd:85a8:cb7f
- with SMTP id adf61e73a8af0-3de0e8a05bamr11668505637.34.1790610095566; Mon, 28
- Sep 2026 08:41:35 -0700 (PDT)
-Date: Mon, 28 Sep 2026 08:41:34 -0700
-In-Reply-To: <CABgObfZeA_q_prxJhbdNqYpE8quPD360LhVBQv8ypcPpLA-Mhg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gEDwhQyX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA691F000FF;
+	Mon, 28 Sep 2026 15:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790610096;
+	bh=+CCrRpAw78jDH8mpX/ibpuK5hmAos3vXUBO90Hq/QP8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=gEDwhQyXOqavK/A6DymGtFseRbBfNkQT0/b77gAp9K+89BW11OVIq6IvOpYOYMV6I
+	 bl0YF8+TxBot/CG6HD54nrhUe/LbQSvXWNdnFwvbFpFQ65IcKh6Iay+BXx8IKlyEfB
+	 Ehs18UsHLDJBkRlMsIhYXBxTY4nsFyvP3zwKJgx8ZLe0OkYXCIY7+Vy3YtODE2xsD0
+	 /Jn8+vQcS31tNeT2OFrWgJitCBxmhssi8Js1S45UlEn29VRmCLgRBq4+B801oDB0Lr
+	 KadUOIWahYe+bVv41QrZTSNhpcJCUjpdQ6kgTZAoLXHuF5YwgIUbJv1RdG6RxySGJc
+	 8LncwyTaXYnIw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93CDA3924456;
+	Mon, 28 Sep 2026 15:40:22 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260925233321.2381319-1-seanjc@google.com> <CABgObfZeA_q_prxJhbdNqYpE8quPD360LhVBQv8ypcPpLA-Mhg@mail.gmail.com>
-Message-ID: <arqKrvYupBpAM2WI@google.com>
-Subject: Re: [GIT PULL] KVM: Fixes for 7.3-rcN
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 0/2] Bluetooth: Serialize TX scheduling with teardown
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179061002143.4169639.3931590453704871029.git-patchwork-notify@kernel.org>
+Date: Mon, 28 Sep 2026 15:40:21 +0000
+References: <cover.1790407061.git.nicoyip.dev@gmail.com>
+In-Reply-To: <cover.1790407061.git.nicoyip.dev@gmail.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, padovan@profusion.mobi,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Sat, Sep 26, 2026, Paolo Bonzini wrote:
-> On Sat, Sep 26, 2026 at 1:33=E2=80=AFAM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > Please pull a variety of fixes.  Nothing is super urgent, but all of th=
-ese can
-> > be fatal to the host and/or guest (except for the selftest change, whic=
-h fixes
-> > a regression that was introduced in 7.3).
-> >
-> > The following changes since commit d599822bdb66aeec5ec76297b0fc6efaaeef=
-e07c:
-> >
-> >   Merge tag 'kvm-s390-master-7.3-1' of https://git.kernel.org/pub/scm/l=
-inux/kernel/git/kvms390/linux into HEAD (2026-09-04 17:34:28 +0200)
-> >
-> > are available in the Git repository at:
-> >
-> >   https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc5
-> >
-> > for you to fetch changes up to 119e9db233ad0f4cbd4cfb9f9385a7bca378b37d=
-:
-> >
-> >   KVM: Don't pre-reserve xarray entries when storing empty/NULL attribu=
-tes (2026-09-22 08:36:16 -0700)
->=20
-> Pulled, thanks. I added on top the SEV cache writeback patches which
-> are not present here.
+Hello:
 
-Heh, because they're buggy.  Sashiko pointed out flaws in both[1][2].  I ha=
-ve
-fixes (will send them shortly); I was late on posting v2 because it took me=
- forever
-to figure out a not-awful solution for the double-free issue due to the ann=
-oying
-CONFIG_CPUMASK_OFFSTACK behavior.
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-[1] https://lore.kernel.org/all/20260923165304.1662E1F000FF@smtp.kernel.org
-[2] https://lore.kernel.org/all/20260923165349.CAAF01F000FF@smtp.kernel.org
+On Sun, 27 Sep 2026 01:04:01 +0800 you wrote:
+> The TX scheduler drops its RCU read lock before using the selected channel
+> or connection. Teardown on the separate request workqueue can then free
+> that object while transmission is still using it.
+> 
+> This series fixes two distinct lifetime bugs using the existing device
+> mutex:
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,1/2] Bluetooth: hci_core: Serialize ACL scheduling with channel deletion
+    https://git.kernel.org/bluetooth/bluetooth-next/c/f4845ab191a4
+  - [net,2/2] Bluetooth: hci_core: Serialize SCO and ISO scheduling with teardown
+    https://git.kernel.org/bluetooth/bluetooth-next/c/848a7a91c7f0
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
