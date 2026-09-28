@@ -1,46 +1,38 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74BD304976;
-	Mon, 28 Sep 2026 05:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD6036195A;
+	Mon, 28 Sep 2026 05:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790572387; cv=none; b=J/RJn14Tile9VXqz/ngzgNdpjKthHSJug15YSHhUTJLHgZKqugCu1Bpp+gM0BcCJGj8kUxHIe2VBLZwevHmwZCtWktRI2hFhokRWLWMDUWq8cOjzYvMeAiUdrD4bcrUwZIyvzAeDnzFzGJ15A0dUUh98Qany9ThYCWnoc5lqrEs=
+	t=1790572473; cv=none; b=fbwL/IKt9YeKVoN28iqBXb7cUo8evejmW4V66Rx9nVAXd/sXNWlgIMKYQA2DEkdjHaD6FFDSmsgpv7O3Swm3p443ywEBZl1SvKyAnD04YeInGILRrGRGlRY7lOkDyKr8hj4NvMhhxLlL944Q4m88gDcuK0eyBNyiZ1pzl1RZ++c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790572387; c=relaxed/simple;
-	bh=ddjb+wjuvi1cOlP8e3yNBP7QmK6wSnxRalRF9qu2HR8=;
+	s=arc-20240116; t=1790572473; c=relaxed/simple;
+	bh=t8vWTi17bZjzu97QihdDCBRUxbsMrReoLp+F91eNGlQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HGL73fcNWlZYdfiaRKYo0QT+3kgNJLxiTSoCTu8Z/z8ekecCZ+wLrhAYBrxlztnFB4DJG92XX52Iwgm6ydt27RfdH78BMjQX2Ao3b8WMRIuE1cQJ/Uor/ROlo43vjIx82Oe3mBrppQQH1G2mXWNxlO6f8vCUXjvAuTtr7NppYAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=rhKwLiz4; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=c9e/h7ur1KObOEjfDjftUP94vxWUR7UCrzODQoWH0V3hO8mxHtBpZ284QDXmZ/E871LnhHKf9AmMRW00TXZC4PHgDTTZIqW8RNATvvCVmJB3jOxGuzjkEvvkUJzfQUbSHlv+Sa4ZAQCIAW0DjJv/VHN7vXO7v2FL7Rw2zekSrMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z6I+Sp4u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="rhKwLiz4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=l4S3cZQ27xJ/MCj4M6F8Mpv2fXrMlqYJXkc2iABTX0w=; 
-	b=rhKwLiz4sKZZusau9LVVQM/+91+ioCBjxfz8ZrHTblLR3yCkA96T3oRqeTaW9Fl4EIA52ppIngF
-	LI1i1IEnTcePxI3MzomlDhqW8uimSbUjvwPnZaZXyAxg/zLt+hSr36neodVPUkp+r0dSFySF+ItAB
-	FEOG7p5nkc83y1SEDmtw6R56Dp68b7tAsu6IwRVRqCRBmebk5VdC3YFqSzB2NOshNaUABdPE+AkPf
-	X4b3Bmy/aFZjgnxWym9VZpGJXrKBafyXxMiej/LaINeKfL7uT3clva/Zg32CmEVNzaQAbtItARZFQ
-	XDBq3d2otVr7Sgkbi4y/1yJ2Mt32iHMyoz8w==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xB3fV-00000000w3f-0AyE;
-	Mon, 28 Sep 2026 13:12:50 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 28 Sep 2026 15:12:48 +1000
-Date: Mon, 28 Sep 2026 15:12:48 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Ralf Lici <ralf@mandelbit.com>
-Cc: linux-crypto@vger.kernel.org, Antoine Tenart <atenart@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with
- accurate DMA directions
-Message-ID: <arn3UFsriRlGMXwB@gondor.apana.org.au>
-References: <arOOmSnC1NxvG1nw@gondor.apana.org.au>
- <20260923091318.194633-1-ralf@mandelbit.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z6I+Sp4u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A091F000FF;
+	Mon, 28 Sep 2026 05:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790572471;
+	bh=d5G8KDzWD3+Z+7AlD6YRuKE+rOIimOn2l/IBQGRPiSk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=z6I+Sp4u5aHOlATRBbNS2irdtSUeBXdKEqAYNkpGHDaSjOMWqq4FRo8Bv47g2cB0m
+	 nnNxjezx2AnMeThsnOOZMVHnd7Tv2DzMRnNsia2AxoijEq7guP+bexBmSzClnKQxIr
+	 VSTdVQavdFoISLnu/m5pibk9q8arYpd7G9tRkENM=
+Date: Mon, 28 Sep 2026 07:14:28 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hyeontaek Lim <jennystr233@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+d164947c037324221043@syzkaller.appspotmail.com
+Subject: Re: [PATCH] kobject_uevent: fix OOB read in kobject_action_type()
+Message-ID: <2026092806-life-amazingly-e68d@gregkh>
+References: <20260927174241.36888-1-jennystr233@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,33 +41,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923091318.194633-1-ralf@mandelbit.com>
+In-Reply-To: <20260927174241.36888-1-jennystr233@gmail.com>
 
-On Wed, Sep 23, 2026 at 11:13:17AM +0200, Ralf Lici wrote:
->
-> There is no caller to identify for that particular single-entry layout,
-> it was only a hypothetical example in response to your question. Even
-> for out-of-place AEAD, the destination starts with space reserved for
-> the associated data (as documented in the comment at the top of
-> include/crypto/aead.h). A single linear destination entry can therefore
-> contain both that reserved prefix, which the device does not write, and
-> the ciphertext and tag, which it does write. Because the DMA direction
-> applies to the whole entry, such a mixed entry is mapped
-> DMA_BIDIRECTIONAL.
+On Mon, Sep 28, 2026 at 02:42:41AM +0900, Hyeontaek Lim wrote:
+> kobject_action_type() matches a user-supplied action string against
+> the short "add"/"remove"/"change"/... literals in kobject_actions[]
+> using strncmp() with a length (count_first) derived from the size of
+> the user-supplied buffer (up to the first space, or the whole write).
+> 
+> strncmp() correctly stops comparing as soon as it hits a NUL byte in
+> either string, so a caller can make it report a "match" against a
+> short literal like "add" by embedding a NUL right after "add" in an
+> otherwise much longer buffer (e.g. write "add\0" followed by 391
+> bytes of arbitrary padding, with no space, so count_first stays at
+> the full write length).
+> 
+> The subsequent bounds check then indexes the matched literal at that
+> same, much larger offset:
+> 
+>     if (kobject_actions[action][count_first] != '\0')
+> 
+> which reads far past the end of the 4-byte "add" literal, into
+> whatever object happens to follow it in .rodata (observed to land
+> inside uevent_helper_sysctl_table on the reporter's build).
+> 
+> Fix this by checking the literal's real length against count_first
+> before doing the strncmp()/indexing at all, instead of trusting that
+> a strncmp() "match" implies the lengths agree.
+> 
+> Reported-by: syzbot+d164947c037324221043@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d164947c037324221043
+> Signed-off-by: Hyeontaek Lim <jennystr233@gmail.com>
+> ---
+>  lib/kobject_uevent.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
+> index xxxxxxx..xxxxxxx 100644
+> --- a/lib/kobject_uevent.c
+> +++ b/lib/kobject_uevent.c
+> @@ -78,10 +78,11 @@ static int kobject_action_type(const char *buf, size_t count,
+>  		count_first = count;
+> 
+>  	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
+> +		if (strlen(kobject_actions[action]) != count_first)
+> +			continue;
+>  		if (strncmp(kobject_actions[action], buf, count_first) != 0)
+>  			continue;
+> -		if (kobject_actions[action][count_first] != '\0')
+> -			continue;
+>  		if (args)
+>  			*args = args_start;
+>  		*type = action;
+> 
 
-So why is it a problem if the dst SG list entries aren't pointing
-to memory that's also occupied by the SG list entries?
-
-Even if the hardware doesn't write to the data, it should be OK to
-map them.
-
-The only issue that I can see is if the same memory is present in
-both the src SG list and the dst SG list, but that is expressly
-forbidden for out-of-place operations, and indeed would be a grave
-security issue.
-
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Hasn't this been resolved already?
