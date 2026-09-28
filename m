@@ -1,285 +1,188 @@
-Received: from out13-174.antispamcloud.com (out13-174.antispamcloud.com [185.201.17.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFF14EA39D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28435357CF1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626642; cv=none; b=LxbelK8HBI3IU9KqNnA6nGU/FMh63T8/VGjW6TWOzNAOaQqH2hu9vulx6qZzlJqubAYtZHYcJycw1Utt9k9u3NhKDjvPOVw1x/qcfQs8EfBcMzmJYxmoudCEcoPCDsixNwb2s5t51PTJuoWpWeIMXvEBknMW0/zZYUcIBfsDByE=
+	t=1790626692; cv=none; b=OcBKlBLxTc4wTppaoM+mBvl/RJD+/zaFOPYx7dN4AcEthA/TBqcURVqw9IddZl67LOa5F+KX94G1V1zidoJSelfALR4GV0UBEgJXHfNyueJTusxrnvuA950kMTfFZg9WJyh1L1VaBAYxRFS3/uWcI1PTUoGeBRe9TbLST+C2bIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626642; c=relaxed/simple;
-	bh=KiWS9rmqlrWbx4H52Mu5IK9wp+kih7ag98lHIYjLONQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Fog0tjAn8fyakA3HFbPblhfc/HKVRq1wulVY6gi1ve8HIndCdLQwz1jQH0v0764SpyM2mbYbl5396HMlABIYjtWeAkmzSxPRa9LQAD+f61tudWrF34J8GZDr3u4ZfdJtM5MmxfB9WCB0ro4zG/8t+03w6Kwa8ZDbsm/mV9wTGy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=Fghx87X2; arc=none smtp.client-ip=185.201.17.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1790626692; c=relaxed/simple;
+	bh=CgZhHGj1pW6833JwW53EB4b6tZGAvoRHquleruZAoaY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P4DXcv/fxXfxi7cXabSBINBMB5JQxFBrAn9PY9BvS8PJbvPqHrvgqgjtQ8BLZlyOyhg7gZ/V2+uoyLVoZski4DY9WIrR9Zupku57pc6NOPVGgQdDF/pn2E7D2vj99xDqQtLnEqj5rA7nKqthIC4/mhZ7rcQP0uwfScTS4tiZgkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=dyBCZ3ra; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="Fghx87X2"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx323.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1xBHmZ-007KfO-2f; Mon, 28 Sep 2026 22:17:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:Message-Id:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=XCQ+Jqlo/1+DmjMeD+QyS9dHb8G5UE657pxVi4mOYiE=; b=Fghx87X2cqfAHYTK3Jb8k+Ss0j
-	bwG2/lbXpoxYsSTUBxRn5xdbHtPuZPd885wzctGcYKz3ct68j8N4EGj7Mvl561H3Fq6GzbTeGtiUu
-	abOoqc95az7lOdLsTG4BaODXxRMMW2zV+2+t2vN+i7ERhIZHvHwxGUhzm9dkGX7YJwyVhI53hqpxS
-	Xbxj4Tis4HlAyIPbCUSTemRRi6NeNjoiu75KtJiKJ5zxrzBO/WM4GYu33fJE4AZxPVa2ASB8B4CFr
-	wSmkQTxHhAfaGFNvcTLjzw//qj6ReUjco4gsl5ra0QOiNvGx+vnC4Im8d5dRvevKKEV8/QNa5HFl8
-	1QWrY8FQ==;
-Received: from [188.251.249.2] (port=38962 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <dan@reactivated.net>)
-	id 1xBHmT-00000006NMK-1W9M;
-	Mon, 28 Sep 2026 20:16:57 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Mon, 28 Sep 2026 21:16:27 +0100
-Subject: [PATCH v2] drm/vc4: Set DRM DMA device directly from HVS and V3D
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="dyBCZ3ra"
+Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b35eae3076so585660137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790626688; x=1791231488; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=dyBCZ3radDp8NPPuky5lRIVeEStjDLSxCR/fe0QOxD3GJKsM7UztGPRF3CyZWb25BL
+         GQkb90LA0Ew0NGGK7fgAoHJcVeqhqsm59g5UbrTQZtQDbGGZMzuNJ7wSK9U9TgihRIae
+         Hb1OPh+2gyW47mHGuDMfYl5yILeUGDfK8ONLgV9IHO3P45f7VroRGCtZWwEpYVWpcGnw
+         rO6N0PAeU2R//L77bnSjGRnl18G8pvaGypsMQ2tJP6zcVs4+UjV8u9j8NE9Q9AwTI/Ia
+         /cLpSG2R7UmXGLgZPx15SLlqKYwcicvLIb8/MIV0PttZ1JfRBQZSD3kuyoDUeRaza/a6
+         2Ctw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790626688; x=1791231488;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=JUbjLTbFdZ66NupiPx40p4NM2IK0QmE5noymJruf6T1G1i1KDapCuzXYrAeYJEAg3i
+         Q0b6R2MwfF25cqLeu5/jkkPvrDcD6mdGLSsaABECQMgqNfAvbL7IhiPQNwItRTS+Tv2z
+         Lp5Mkn4qVYc56YfNA5WgSy3l0lx7SUpLP+wrv5BKmqNqo28luladaaTskWqnu4a9Fl/f
+         vcs2wt10XR6gny23c+/tAgdEWYDvQUGIzhjRsj4HSi8THX3H4oR/6hCa/i+Evfn26c2r
+         UjHI7l71iYfFiF80KDOPbE6v7GyGnMgPHlsKPHJR77NXdIIRYITMlIXGKlqCUcMrVDRi
+         h6qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKdvcoPh6Rgh9IIzVsyAuo4RUELkti6V/SYDdQoXA0o2Ez72jipg/VFEGfzrlzZpsPJfGNGAtcp8iUcpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+lhzX6dEzMwOhyasiXkDOzA5Qpyb1VKaJBXMhHgp9PtIQRblM
+	znPs0UdW/h19K9ooy/bNrLe1VnF9b2X757oel3beRomo+bCZLVpZOfiprL2J4mBQ5Cc=
+X-Gm-Gg: AYBFou2a8yWkzfRHnfmH90zGQFu4dZXsEKtgXNW7m/XeXhxfJwCJVb1QvGedF5Z6JtI
+	48XalcG8xBEiBHA29i76fO8miIc5vuVcabVMgRMERnhDzd7dzQVA7Kgbl1sdjEFPEQb+xeMZ4h7
+	oFSDQ/YtqEh6d3ppvo4kVHBSwsF1C7/ZIcfKtwBOziaKTk1EmgIhdupmYA3JEClL4+PeccGClBB
+	nFXkchdJsZOnKovs4BuXC3FYiw/m15PsSQ+eIUJaCGGdy3d7FR5U5TdHiPLpPf4gc7IKASxyr9P
+	4RfmTw9WoFH0hlJflijIY9FR94eeLtRhd0Bz1PUwErLKoNWHsRCwVmKkcipQe251WCn+tCjbioH
+	eK8sRApX+kjeTGzFB3E0WYFQfL3T/snTqq4NNVKBFMLu4RfSUXX7d54fWQY45DzpgT487lwjyjm
+	jT2elaHUxo6w4mb+n74jq4mBwaafSX53IkPI7Qv4Qi4amglS4JiB6pE5AffPRHuCm0YJ3HzGd+h
+	tM9N8+qOtcEB1MsPP9IWTrb
+X-Received: by 2002:a05:6102:4497:b0:7af:4a46:4c12 with SMTP id ada2fe7eead31-7b1c4a2ca24mr2719387137.2.1790626687873;
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm10681972137.7.2026.09.28.13.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Message-ID: <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
+Subject: Re: [PATCH v2] media: rockchip: rga: quiesce IRQ before releasing
+ m2m state
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Fan Wu <fanwu01@zju.edu.cn>, jacob-chen@iotwrt.com, 
+	ezequiel@vanguardiasur.com.ar, Sven =?ISO-8859-1?Q?P=FCschel?=
+	 <s.pueschel@pengutronix.de>
+Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 16:18:05 -0400
+In-Reply-To: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+References: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-39ovF+b+wtIn04/R/uu7"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7Zh2iFRccQ/DoraDzAIwbdNoS
- O9u5QAu38//7+8QOQhHuDU7BM4SZVsr0KkBN9v1ySi+MpCiTvVk0IcF/WLR17JjJDTuoZSdDKm
- uhzp7BZ7kfSjvY+VZYtrC53jI+pf+kWWNGltqq9B5d73oIbB1SbJN7M8rJxhLKV+GO5+9tgAAA
- A==
-X-Change-ID: 20260927-drm-dma-device-2-7cb00af72069
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Daniel Drake <dan@reactivated.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5896; i=dan@reactivated.net;
- h=from:subject:message-id; bh=KiWS9rmqlrWbx4H52Mu5IK9wp+kih7ag98lHIYjLONQ=;
- b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquss2HURnzr50sciRsNToYpadPq7mv1xZbDaET
- +O/T1QFnruJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarrLNgAKCRDD5o+xUxRH
- u0GiD/0RPtBXkr4k4VphvnSrfb4p35MKCy92nRY+fsWRY9YzGlNzSY2TrV/Pz6JfMAVSRWPxTKc
- ZLhgO+ia887X+hOwUI6q1VnEbAONzY4UUCtE8699Tz55leufYqAR/fQD5ZH4sDVWqhUWT/ncflw
- jZDZkFVVnNj3FNzlTYoTGP0CAq/e1Jp66yBx4PFeISvUn04BRq6t4cr3oyxDQKKCncCIwpd+VSt
- ZzpvG7V3MjvSFUaqmrcvASnVZ1Vd4YaKBBzuZVbR/fxL0AgsSrLqLnVO6OpCbJ0LXsiRRxsUUm4
- HgmUSVyG8G8MquCGLXNzPgEGaQgSO8f3yuyixiFnERFOEupw6xoY5bs1IvuQlqqWJShUiWHPQUx
- vtsAue4h5JEWHwAURMAUAB1TJk//7HgwQ3EzjFk8gKA+aVLWshJu6mzsQ1hRxa37OGICFAOsQPj
- SttrnrwuLmByGnYbFAuTkLPVPHgvjgBuYP7S/kiOkH8o3FS/PeVTDZLAFWAaUfDDnA/VAVMs1f9
- ARL1yWZ90sRHzCHHBfRmex8Qd38owJpLfevxZXlo0sr/Q7SnxOSjZWoEkYq7wtsXM4zVUEvrXs0
- YXxEsJsoHhd30pVUpe2/CeNz0brWCc8X2JCLXbWMOjnYdiHsbjgsqZHxFmllF1Jz1TggzYkkfLM
- eZOlHZK28c6uOPg==
-X-Developer-Key: i=dan@reactivated.net; a=openpgp;
- fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (3.15595205073e-05)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuUMmaoMuBSiUwtDGP72TL6jd0apT5URAmlP
- Ap1xtw4+Pyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIPuerjYGMhFdj0XRzUIOuasGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhb0iZ5sDJvU3vQetKu48NmiFWBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyuRGwS4zb
- U2SpbuGn2H9wu1eUhmDyvvkU36kt1G/6UaF01G345XaD9uig/JeVXRFOvN2Zyl1BO2RsqHwINePX
- 0v+Bu4/uGdQrw1B0vCxVYoiTq41BYWjic3wJagIFQBlh/6hdMqrVysFrZniWUMHCbXbG5pHi0EDC
- xCu4joth+xIfHUK/o2YKorGG+wjslSExNlc+l3JfrXHsIjFHUvXSqWyy2EIYrTBj84Gn4hZQUC7O
- aWSYTlEGP1UnNT1fbIpcMX2J9HfksJ+XzzsUxQdwG/aW7E6exW/eiSb8KOox1L+p3Y5OHK08p1d3
- 9/788m5+t0YLipR+Df7pf/QfK9meWhMyCmWQXzwyKuAo5gIr2X7Ln2JFvTwxw2rUoW840DiKE00o
- 4HcXiVlmqq7rjtmnPPvgN0j5Zjdo7lug1QoDSvrYNiHnrwo3MxFvlFv7ce8Spf+GMZJk67EtLxTr
- EHBFDDaVxo8uvMBjbuQvf6VNVyYoAi8Uc2oZx8hUUuy5epJAJTBivmuTWFpVYNhpSn7kRHMcN6qo
- XPjenLhIOF1oeRb/UAjtSdLUCm4oBscLM8knIGNgyBKMPc7zMAqywG0cN7qx7jyvDaJXYkeEPRzA
- leU8fvDJlqs+4uVSxCZaxD168J7ArISHgc1ouiDb0lGY3htzeHnKxaPb82JYf6EvQqPTPpuFqUUQ
- z+mM8JAD4ECWUEmmlTt39YF6tMVf4ZbCsLPTDm9x1wcjenLcvy0+pYBTkP/qV+1a5UVM8nkKOUP3
- tkPn0sdJdb3NZ6ToW7sjD5Nt2di8yRcICxi3Rg/ILhdlE8tcUX6kZr3+Ob4JcQTWeXW8oEyu47TQ
- DqTi6GKwcPGM2dTl3QCYaxBp/L42XX16l+mke5pNa7TIOj7iFBj9MkiPhSHaQZlugDaDyn+fTA7j
- SeBK0owOZo/nKKA2Y8v1MU62oe4qNRYfW7XcddzgZJ0Q4x+0GOxZvoENDONKwfMsKvKUfj3CUGQZ
- VNqeRfoLADSib5OZB5Y+uxAGfYgWMkiPhSHaQZlugDaDyn+fTEvwYiZNmk2q0LoKDU23xXc=
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
 
-vc4 uses of_dma_configure() during bind to set the DMA configuration of
-the drm device by borrowing the configuration of one of its component
-devices.
 
-This violates driver model expectations that IOMMU probing and domain
-attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
-Get DT/ACPI parsing into the proper probe path").
+--=-39ovF+b+wtIn04/R/uu7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-With the introduction of the bcm2712-iommu driver behind the vc4 hvs
-device, a warning is triggered:
+Hi,
 
-    vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
+Le samedi 04 juillet 2026 =C3=A0 08:46 +0000, Fan Wu a =C3=A9crit=C2=A0:
+> rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
+> devm-managed and is only released once rga_remove() returns, so rga_isr()
+> can still run while the m2m device state is being torn down.
+>=20
+> Store the IRQ number in struct rockchip_rga, unregister the video device
+> first, and free the IRQ before releasing the m2m state so the handler
+> cannot run against the freed state.
+>=20
+> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Instead of configuring the virtual aggregate device, adopt the pattern
-used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
-register themselves as the device to use for DRM allocations via
-drm_dev_set_dma_dev(), provided a DMA device has not already been
-assigned.
+Again, I don't know if this is a real issue, but seems fair.
 
-HVS will typically bind first and claim the DMA device. The gen6 36-bit
-DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
-older generations, vc4's v3d component continues to be available as a
-fallback, and the default platform bus 32-bit DMA mask is retained.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
-Changes in v2:
-- Fix vc4_bo_purge() to also use the selected DMA device for freeing
-  allocations
-- Link to v1: https://lore.kernel.org/r/20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net
----
- drivers/gpu/drm/vc4/vc4_bo.c  |  3 ++-
- drivers/gpu/drm/vc4/vc4_drv.c | 27 ---------------------------
- drivers/gpu/drm/vc4/vc4_hvs.c | 14 ++++++++++++++
- drivers/gpu/drm/vc4/vc4_v3d.c |  8 ++++++++
- 4 files changed, 24 insertions(+), 28 deletions(-)
+Picked, ty
 
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 49ea2ed0996b..320c5a0c71ed 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -303,7 +303,8 @@ static void vc4_bo_purge(struct drm_gem_object *obj)
- 
- 	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
- 
--	dma_free_wc(dev->dev, obj->size, bo->base.vaddr, bo->base.dma_addr);
-+	dma_free_wc(drm_dev_dma_dev(dev), obj->size, bo->base.vaddr,
-+		    bo->base.dma_addr);
- 	bo->base.vaddr = NULL;
- 	bo->madv = __VC4_MADV_PURGED;
- }
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 616caf9d9915..62f1a5731e33 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -273,16 +273,6 @@ static void vc4_component_unbind_all(void *ptr)
- 	component_unbind_all(vc4->dev, &vc4->base);
- }
- 
--static const struct of_device_id vc4_dma_range_matches[] = {
--	{ .compatible = "brcm,bcm2711-hvs" },
--	{ .compatible = "brcm,bcm2712-hvs" },
--	{ .compatible = "brcm,bcm2835-hvs" },
--	{ .compatible = "brcm,bcm2835-v3d" },
--	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
--	{}
--};
--
- static int vc4_drm_bind(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -295,8 +285,6 @@ static int vc4_drm_bind(struct device *dev)
- 	enum vc4_gen gen;
- 	int ret = 0;
- 
--	dev->coherent_dma_mask = DMA_BIT_MASK(32);
--
- 	gen = (enum vc4_gen)of_device_get_match_data(dev);
- 
- 	if (gen > VC4_GEN_4)
-@@ -304,21 +292,6 @@ static int vc4_drm_bind(struct device *dev)
- 	else
- 		driver = &vc4_drm_driver;
- 
--	if (gen >= VC4_GEN_6_C)
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
--	else
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
--
--	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
--					       NULL);
--	if (node) {
--		ret = of_dma_configure(dev, node, true);
--		of_node_put(node);
--
--		if (ret)
--			return ret;
--	}
--
- 	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
- 	if (IS_ERR(vc4))
- 		return PTR_ERR(vc4);
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index e715147d091c..305770c87dcf 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -22,6 +22,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/component.h>
-+#include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
- 	}
- 
-+	if (vc4->gen >= VC4_GEN_6_C) {
-+		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/*
-+	 * Use the HVS as the DRM device's DMA controller for buffer
-+	 * allocations if one has not already been configured.
-+	 */
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	if (vc4->gen >= VC4_GEN_5) {
- 		struct rpi_firmware *firmware;
- 		struct device_node *node;
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index f32410420d3e..1f76d4850122 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
-+#include <drm/drm_drv.h>
- #include <drm/drm_print.h>
- 
- #include "vc4_drv.h"
-@@ -443,6 +444,13 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
- 	vc4->v3d = v3d;
- 	v3d->vc4 = vc4;
- 
-+	/*
-+	 * In headless setups where HVS is absent, use V3D as the fallback
-+	 * DMA controller for buffer allocations.
-+	 */
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	v3d->clk = devm_clk_get_optional(dev, NULL);
- 	if (IS_ERR(v3d->clk))
- 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
+>=20
+> ---
+> Changes in v2:
+> - Rebased onto media-committers/fixes (Linux 7.2-rc1) so the Media CI
+>   valid-ancestor check passes. The rga driver was rewritten upstream
+>   (rga3 support, external IOMMU, clk_bulk, cmdbuf moved to rga_ctx), so
+>   this is a re-port rather than a pure rebase: the resource freed during
+>   removal is now rga->m2m_dev.
+> ---
+>  drivers/media/platform/rockchip/rga/rga.c | 4 +++-
+>  drivers/media/platform/rockchip/rga/rga.h | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index b3cb6bf8eb86..fbc99462dce2 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
+>  		ret =3D irq;
+>  		goto err_put_clk;
+>  	}
+> +	rga->irq =3D irq;
+> =20
+>  	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
+>  			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+> @@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
+> =20
+>  	v4l2_info(&rga->v4l2_dev, "Removing\n");
+> =20
+> -	v4l2_m2m_release(rga->m2m_dev);
+>  	video_unregister_device(rga->vfd);
+> +	devm_free_irq(rga->dev, rga->irq, rga);
+> +	v4l2_m2m_release(rga->m2m_dev);
+>  	v4l2_device_unregister(&rga->v4l2_dev);
+> =20
+>  	pm_runtime_disable(rga->dev);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index bd431534d0d3..7bcdf36c11b4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -73,6 +73,7 @@ struct rockchip_rga {
+>  	struct device *dev;
+>  	struct regmap *grf;
+>  	void __iomem *regs;
+> +	int irq;
+>  	struct clk_bulk_data *clks;
+>  	int num_clks;
+>  	struct rockchip_rga_version version;
 
----
-base-commit: 16130ac7861fbbaef5564463a9f6be230e00fb24
-change-id: 20260927-drm-dma-device-2-7cb00af72069
+--=-39ovF+b+wtIn04/R/uu7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Best regards,
--- 
-Daniel Drake <dan@reactivated.net>
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrLfQAKCRDZQZRRKWBy
+9KCPAPwM1fyw7fD5QEP3/mMmZg+7cHaUSSeU24SoTWd1bUpA9AEA7xkB7orTNjBo
+jdc9UGf06pEwlRtqhefYvUSz8x45Rgg=
+=QwDi
+-----END PGP SIGNATURE-----
+
+--=-39ovF+b+wtIn04/R/uu7--
