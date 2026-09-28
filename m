@@ -1,281 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A903440655;
-	Mon, 28 Sep 2026 00:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE2954706C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553717; cv=none; b=Br/oLVio3GXTT+BN1JVmAGVr+GFjE6Ic9fz2UnOzLvUV03cuSRsQkZGo9fHDwMZt1d7JctGkR9V+O4891Rsjbl5H1Fnhstj5SNqE/iqTtrtJUBI7ca2cdUj020HS2LOE7cehEmywhIJOLlqVAYjq5wZ24iHU0bAXrTZzHY5q0xw=
+	t=1790554409; cv=none; b=QCkyg1G7Cit/d7a0tPRKHnkwTx9XctYRjI/7/OD81TvL/r2VmY3EjQuVH6lNHkE6Hi2rwn/2qMktmvY/Z0/w4O42WvqUNDtsIVDE+MIFav6BEzaKzGP8F+iLqSsw/ntAzhzt6pS0c5trKI+tP/oyEpxt26fw1dQf1pIJA013uM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553717; c=relaxed/simple;
-	bh=2h0tflcmwnYpCOw/vbGnneBRJd6jEAnLgMup0fdJs2I=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=g7IMrZsFXHNrGt7wYWVHhcquxuTUe2zDk/sS75TD9rV2/wHG+WSP7qelS/7b1XIUWs/FK7NlnUpQs0SzaEIY6HbVXEDUJrmx6GSHq5jfN/MgkP8iaeblXneSybmIsH+C9dVe7BdyitI0+6w7NuMUZ7ksfD0Oj3gWFfBmyfLzx+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cF0Kpb9/; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cF0Kpb9/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC08F1F0089D;
-	Mon, 28 Sep 2026 00:01:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790553709;
-	bh=8HvkItHrjkvkLU4V8IA1lneV5KPSLS/NbyYtngKNnhU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cF0Kpb9/NeZmQlOGIIf3UHUK0USLXl4kc5rQF5qW9FriwBfr+EPe97YsOWPD+tpWT
-	 GtncYrBSsOUyrrBxjycUWlmE05y6EW4zzmDIWkegip2PcXLQWVFi23xRJUGAwH2mEM
-	 9ExE8fafzV1PApTTfest6nIGVqxIbNeNkmXNw9hXXUWXgGdOwS1AQobRrf5xQRb3ct
-	 iFnE+EVleawAVVtXCIVo0GB11s5dx5UrEql9e/ATpF9nYkALQE94VMLW4yI94I484I
-	 iH7Rt/YKcbAmAvFj2n7XGoNR1ZpfDfzsHkw1r7Rok4WIzJsqZC7hYnN2W5Ser4kFHk
-	 gIuC9omqPnEqw==
-Subject: Re: [PATCH net-next v2 8/8] eth: mpnic: add basic Rx handling
-From: netdev-bot+sashiko@kernel.org
-To: daniel.zahka@gmail.com
-Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, dimitri.daskalakis1@gmail.com,
- mohsin.bashr@gmail.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org
-Date: Mon, 28 Sep 2026 00:01:48 +0000
-Message-ID: <179055370821.3145.15563353156431464401@kernel.org>
-In-Reply-To: <20260924-linux-mpnic-v2-8-4badc9b58b9e@gmail.com>
-References: <20260924-linux-mpnic-v2-8-4badc9b58b9e@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1790554409; c=relaxed/simple;
+	bh=YZydMoameDYL3fo6XfSreYDvxZwQWHV2MCw3517c0iY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=XWJQwdO1nF1IVWIPt+Nf1r7rJhqEkLsoo2QmpsD+34ntdz3qLB2dLbUmMyUmvEoQpodm2y3hN7MuBzQ/n7onJUfuPV7WfKXInJQAeo7mkzQQ+0ohEgWjasdsbluR2E4Z1TnoamQ96I0dLoIrkdNR0qvNFD6V+Ey2GRqAt2777jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-81120824498so4740372a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:13:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790554404; x=1791159204;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/gihveQMEggeio5H0RThhS3vMuwQoXGYNU/ZAKVdLUI=;
+        b=RzEkWmRfF83CNtIUq/VuGCMBx1VD4g4iMIZQhN3tz8xIGSEMIw6eSJlUeVj6RWPqtq
+         CKpd8/DzhVvRyuXPC8J+wQ1FldQh1d80llCtPx+eeK5uJqjf5pu1JuNHKykmsWpgxnsG
+         fNdj6Llo0HrVXi1ffWYZ1x8rcIcsrQuZoAa27L3OOmSWT4Gh2vYUlTCi1mtQgV4j5d3u
+         O/D5AohT+Mta/J4ItBRmb8ylekVk7g+z8SpJSvqbJb/qk3m5vgLBda0qAZt6sKOiMCCx
+         ZtxsLkR+ypKyEsNxAuXPmKFFNiTEgtjQY7RCuVj2i8STczfOQH8BoYnrEUMv/ZnN9JlO
+         a0NA==
+X-Gm-Message-State: AFuF++mpJcevIP3HBeZ+wnrTFmOe2LdCbeGzo4Huic9hOCD5Z0KYy0de
+	GXaJ3TpQdA2uZlhckjjvyX6XUIh5igVXUOqQqDjTPXqXzqjPEpw9ut32JkV8BAR1gW9Absk3cPV
+	6h86NZDrdNy4YAZ7cxfvsEyv2L2CdIMWSkCCQFwrcGjNrgwaWNqmy5++eLko=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:16aa:b0:4c9:f7ca:82b1 with SMTP id
+ 5614622812f47-4d72cd3640amr8838646b6e.33.1790554404223; Sun, 27 Sep 2026
+ 17:13:24 -0700 (PDT)
+Date: Sun, 27 Sep 2026 17:13:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab9b124.dc2998a4.2261f5.0070.GAE@google.com>
+Subject: [syzbot] [mmc?] KASAN: slab-use-after-free Read in memstick_next_req
+From: syzbot <syzbot+34f63c11dab47d09ad9a@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	linux-usb@vger.kernel.org, maximlevitsky@gmail.com, oakad@yahoo.com, 
+	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org, ulfh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Hello,
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 0
+syzbot found the following issue on:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+HEAD commit:    d58dffe9ee2c USB: core: amend usb_get_from_anchor() kernel..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=1371cd25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+dashboard link: https://syzkaller.appspot.com/bug?extid=34f63c11dab47d09ad9a
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-- [Medium] Rx buffer queues can starve for good after a page allocation
-  failure.
-- [Medium] mpnic_clean_rcq() never checks that a frame is in progress
-  before handling a descriptor.
-- [Medium] mpnic_page_pool_get() indexes ring->rx_buf[idx] with the raw
-  18-bit MPNIC_RCD_AL_BUFF_ID from the completion descriptor (up to…
-- [Medium] The descriptor fields BUFF_OFF (16 bits) and BUFF_LEN (14
-  bits) are used without range checks to build the skb head, frame_sz,…
+Unfortunately, I don't have any reproducer for this issue yet.
 
---
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/424c61cbb872/disk-d58dffe9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4124586dc97c/vmlinux-d58dffe9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a07e8e384dc4/bzImage-d58dffe9.xz
 
-eth: mpnic: add basic Rx handling
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+34f63c11dab47d09ad9a@syzkaller.appspotmail.com
 
-This commit adds Rx completion processing to the mpnic driver. Each frame
-is built in an xdp_buff from three kinds of descriptor: a header
-descriptor, one payload descriptor per page and a closing metadata
-descriptor. The frame is then passed to GRO, and pages are shared between
-frames using a batched page_pool reference bias.
+==================================================================
+BUG: KASAN: slab-use-after-free in memstick_next_req+0x1f4/0x240 drivers/memstick/core/memstick.c:227
+Read of size 4 at addr ffff888113453074 by task kworker/1:2/15608
 
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> index 389a9e5476c6e..edb07b7f334bd 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> @@ -405,6 +405,34 @@ static void mpnic_fill_qt_bdqs(struct mpnic_q_triad *qt)
+CPU: 1 UID: 0 PID: 15608 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: events rtsx_usb_ms_handle_req
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ memstick_next_req+0x1f4/0x240 drivers/memstick/core/memstick.c:227
+ rtsx_usb_ms_handle_req+0x1dc/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:520
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-[ ... ]
+Allocated by task 9796:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0x8f/0xa0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2d8/0x680 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ memstick_alloc_card drivers/memstick/core/memstick.c:383 [inline]
+ memstick_check+0x2c1/0x10d0 drivers/memstick/core/memstick.c:452
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-> +static struct page *
-> +mpnic_page_pool_get(struct mpnic_pg_ctxt *pg_ctxt, struct mpnic_ring *ring,
-> +		    u32 idx)
-> +{
-> +	struct page *page = pg_ctxt->page;
-> +
-> +	if (unlikely(pg_ctxt->idx != idx)) {
-> +		if (pg_ctxt->pagecnt_bias &&
-> +		    !page_pool_unref_page(page, pg_ctxt->pagecnt_bias))
-> +			page_pool_put_unrefed_page(page->pp, page, -1, true);
-> +
-> +		page = ring->rx_buf[idx];
-> +		page_pool_fragment_page(page, MPNIC_PAGECNT_BIAS_MAX);
+Freed by task 9796:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x43/0x70 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x20c/0x650 mm/slub.c:6792
+ memstick_alloc_card drivers/memstick/core/memstick.c:420 [inline]
+ memstick_check+0x72b/0x10d0 drivers/memstick/core/memstick.c:452
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-[Severity: Medium]
-Here idx is the raw MPNIC_RCD_AL_BUFF_ID field from the completion
-descriptor. mpnic_pkt_prepare() and mpnic_add_rx_frag() pass it through
-unchanged. The field is 18 bits wide (up to 262143), but rx_buf[] only
-has hpq_size/ppq_size entries (256 by default).
+The buggy address belongs to the object at ffff888113453000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 116 bytes inside of
+ freed 2048-byte region [ffff888113453000, ffff888113453800)
 
-Could a bad buffer ID from the device read past the end of rx_buf[]?
-page_pool_fragment_page() would then write pp_ref_count through
-whatever pointer it found there.
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x113450
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x200000000000040(head|node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 2979, tgid 2979 (syz-executor), ts 50665226939
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0xf4b/0x3440 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2d7/0x2f70 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x61c/0x7e0 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ sk_prot_alloc+0x10b/0x2a0 net/core/sock.c:2251
+ sk_alloc+0x36/0xe80 net/core/sock.c:2307
+ __netlink_create+0x5e/0x2c0 net/netlink/af_netlink.c:627
+ __netlink_kernel_create+0xed/0x750 net/netlink/af_netlink.c:2024
+ netlink_kernel_create include/linux/netlink.h:62 [inline]
+ diag_net_init+0xbd/0x140 net/core/sock_diag.c:333
+ ops_init+0x1e2/0x5f0 net/core/net_namespace.c:137
+ setup_net+0x118/0x3a0 net/core/net_namespace.c:443
+ copy_net_ns+0x345/0x7a0 net/core/net_namespace.c:582
+ create_new_namespaces+0x3ea/0xac0 kernel/nsproxy.c:132
+page last free pid 2979 tgid 2979 ts 50662397831 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x714/0xfc0 mm/page_alloc.c:2962
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
 
-An in-range ID for a slot the device already completed seems like it
-would also reset the refcount of a page that in-flight skbs still own.
+Memory state around the buggy address:
+ ffff888113452f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888113452f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff888113453000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                             ^
+ ffff888113453080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888113453100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
 
-mpnic_bd_prep() only posts IDs in [0, size_mask], so this needs a faulty
-or misbehaving device. Would it be worth masking idx with
-ring->size_mask, or rejecting IDs that are out of range?
 
-[ ... ]
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> @@ -417,6 +445,87 @@ static void mpnic_flush_pg_ctxt(struct mpnic_pg_ctxt *ctxt, bool napi)
->  	}
->  }
->  
-> +static unsigned int mpnic_hdr_pg_start(unsigned int pg_off)
-> +{
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-[ ... ]
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> +	if (ALIGN(MPNIC_RX_HROOM, 128) > MPNIC_RX_HROOM &&
-> +	    pg_off == ALIGN(MPNIC_RX_HROOM, 128))
-> +		return 0;
-> +
-> +	return pg_off - MPNIC_RX_HROOM;
-> +}
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-[Severity: Medium]
-If the device reports a BUFF_OFF smaller than MPNIC_RX_HROOM, does this
-unsigned subtraction wrap around and produce a huge pg_start?
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-The BUFF_OFF (16 bits) and BUFF_LEN (14 bits) fields are used without
-range checks in a few other places:
-
-- mpnic_hdr_pg_end() can return values well beyond PAGE_SIZE. These
-  feed frame_sz in mpnic_pkt_prepare(), which decides where
-  skb_shared_info is written.
-
-- With fin set and pg_off larger than page_size(page), frame_sz in
-  mpnic_pkt_prepare() and truesz in mpnic_add_rx_frag() both underflow.
-
-- In mpnic_add_rx_frag(), a payload frag with pg_off + len past
-  page_size(page) would expose adjacent memory to the stack.
-
-The same values also set the page_pool_dma_sync_for_cpu() ranges.
-
-A device that follows the configured HROOM/TROOM/MAX_HEADER_BYTES layout
-should not produce these values. Would a sanity check against
-page_size(page) still be worth adding?
-
-[ ... ]
-
-> @@ -442,23 +551,99 @@ static void mpnic_put_pkt_buff(struct mpnic_pkt_ctxt *ctxt, bool napi)
->  	page_pool_put_full_page(page->pp, page, napi);
->  }
->  
-> +static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
-> +			   struct mpnic_q_triad *qt, int budget)
-> +{
-
-[ ... ]
-
-> +		switch (FIELD_GET(MPNIC_RCD_TYPE, rcd)) {
-> +		case MPNIC_RCD_TYPE_HDR_AL:
-> +			if (FIELD_GET(MPNIC_RCD_HDR_SUBTYPE, rcd) ==
-> +			    MPNIC_RCD_HDR_SUBTYPE_HDR)
-> +				mpnic_pkt_prepare(rcd, state, qt);
-> +			break;
-> +		case MPNIC_RCD_TYPE_PAY_AL:
-> +			mpnic_add_rx_frag(rcd, state, qt);
-> +			break;
-> +		case MPNIC_RCD_TYPE_META: {
-> +			struct sk_buff *skb = NULL;
-> +
-> +			if (likely(!(rcd &
-> +				     MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK) &&
-> +				   !state->pkt.add_frag_failed))
-> +				skb = xdp_build_skb_from_buff(&state->pkt.buff);
-> +
-> +			if (likely(skb))
-> +				napi_gro_receive(&nv->napi, skb);
-> +			else
-> +				mpnic_put_pkt_buff(&state->pkt, true);
-> +
-> +			state->pkt.buff.data_hard_start = NULL;
-
-[Severity: Medium]
-Nothing checks that a frame is in progress before a PAY_AL or META
-descriptor is handled. state->pkt.buff.data_hard_start is zero at
-start and is set back to NULL after every META.
-
-Suppose a PAY_AL arrives without a preceding HDR descriptor.
-mpnic_add_rx_frag() then calls xdp_buff_add_frag(), which writes to
-skb_shared_info at an address based on a NULL data_hard_start and a
-stale frame_sz.
-
-A META in the same state would take the success branch:
-
-mpnic_clean_rcq()
-  xdp_build_skb_from_buff()
-    napi_build_skb(NULL, frame_sz)
-
-Only the error path, mpnic_put_pkt_buff(), checks data_hard_start.
-
-Can either of these cause a NULL pointer dereference in NAPI context?
-
-HDR_AL descriptors whose subtype is not MPNIC_RCD_HDR_SUBTYPE_HDR are
-skipped silently, so a frame that starts that way would hit the same
-path.
-
-The opposite case is also possible. mpnic_pkt_prepare() overwrites
-state->pkt.buff without releasing the page_pool references of an
-unfinished frame. Could that leak pages and stall page_pool_destroy()?
-
-fbnic_pkt_prepare() has a WARN_ON_ONCE(xdp->data_hard_start) at this
-point, and mpnic_pkt_prepare() drops it. Would it make sense to keep it?
-
-All of this needs the device to break the HDR, PAY_AL*, META ordering.
-
-[ ... ]
-
-> +	rcq->head = head;
-> +
-> +	/* Allocate buffers, force dma_wmb(), and then start writing tails */
-> +	mpnic_fill_qt_bdqs(qt);
-> +
-> +	return packets;
-> +}
-> +
->  static int mpnic_poll(struct napi_struct *napi, int budget)
->  {
-
-[ ... ]
-
-> -	if (likely(napi_complete_done(napi, 0)))
-> +	if (work_done >= budget)
-> +		return budget;
-> +
-> +	if (likely(napi_complete_done(napi, work_done)))
->  		mpnic_nv_irq_rearm(nv);
-
-[Severity: Medium]
-mpnic_clean_rcq() is the only runtime caller of mpnic_fill_qt_bdqs().
-__mpnic_fill_bdq() simply stops when the page pool allocation fails:
-
-		page = page_pool_dev_alloc_pages(bdq->page_pool);
-		if (!page)
-			break;
-
-The shortfall is never reported back, because mpnic_clean_rcq() only
-returns the packet count. mpnic_poll() then completes NAPI and re-arms
-the IRQ anyway.
-
-Say the allocation fails while the device has no posted buffers left,
-or fewer than the 16-descriptor HPQ/PPQ drop threshold. The device then
-drops incoming frames without writing any RCQ completions. What would
-schedule NAPI again in that case?
-
-There doesn't seem to be a timer, a service task, a forced IRQ trigger,
-or a return of the full budget to retry the refill. The only
-mpnic_nv_irq_trigger() call is in mpnic_napi_enable(). The only way out
-seems to be a Tx completion on the same vector.
-
-Could a receive-mostly queue stay stuck until the interface is brought
-down and up again?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-linux-mpnic-v2-0-4badc9b58b9e%40gmail.com
+If you want to undo deduplication, reply with:
+#syz undup
