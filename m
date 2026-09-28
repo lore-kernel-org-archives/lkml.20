@@ -1,83 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A5C3C1963;
-	Mon, 28 Sep 2026 11:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D48949F10E;
+	Mon, 28 Sep 2026 11:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594030; cv=none; b=PwCE78WnfuJWsFP4xR0pn6jXwAx6ZdVmt9CriM88wJe8QoVRiS8Fyz/A8JLzSqVs2xgq1F/D+i8zAZ3aJ3QdPd6uN/gZpGa6peWzhV+bxzr6gvRLhX6/LWeS8Lk3ZU5Xuqv0aU1xSkdJq+637V9+notIQSon4anMu6W3z6v4Dqc=
+	t=1790594032; cv=none; b=pj7ahTMic29MOK+n7WtuBss3cZHuMAGRAbc6XchsM/YlyxB1XcnzaueOGRmm0gcljSgY9v/SAs/yi++lAU6z6ajc6+SB/h9D3vrClfywxH/MRHRoWfM+XyAYrWHLnUV7O7Q2kqT295m9M0MIDM6ouQr0dnWxnVrBFbvLikiHJqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594030; c=relaxed/simple;
-	bh=Xt9fMidhXbEU+swi45nX46wlwtCnk/OmcRXy+TVkMDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=okmXVSWgVg/mJKGpjfPs3HvE/118gAJUhZDmdL+k4ROYhImjt+hgACrtOFy/Bf9ZfdqQnTjSaczBQO3u3LJhr2vuMm5tDDZo+RkB5a0pheal7I7hLmhx9l373V8WW8yinylFRhxEMuiewOtXA3fB9pzcI7S6ddTXGDIDnWSP3kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQeK0CN7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790594032; c=relaxed/simple;
+	bh=aRJ7x/TcmWKbQT5nksVCBDhM/dTCDl59fx8W9AKmdOo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T1ENO7tDTnszl3zQxgp3t6r+Xi+DQAqjTFFJUfbFPuS1drcWCYxGVLljmipRj5l3x/y39TdMAAzYxT/MAfQfxl8b85zhj7hINg6xebC1th8GaNZJ0hnvWOCasE/h/kLzCJaZBJ7k0cN/G+TDAJBwrvjfFL/Ux4KwHEYiugdpF6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CYa6HhFm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=G5ivVhAb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=IDTg2gwj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2aSrRK7S; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQeK0CN7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D591F000FF;
-	Mon, 28 Sep 2026 11:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790594028;
-	bh=Xt9fMidhXbEU+swi45nX46wlwtCnk/OmcRXy+TVkMDw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bQeK0CN7BKmE7JHSsiLZo2GFx5vqJft/tbAP2TzTjl+M4F1Ew932Ddjtrv1vMa1lr
-	 nZZKtCI6XKfe8RE9k2GYFnJq+WU/M4+As1WL2vIn2wKtKMLjd6vb81MvwW5LGyVzHq
-	 ydBJDeQ9UA3woKsTRpBv6KIYPmoGo+9TRiEErfwd4Apyl4Slm3x/Ipn2rKkS4Edgy3
-	 tQVCSURBTBFQJzxVMfviFDABHdgQLFxdwFV8K8dEEg7KSgIqSk6cB1MNHLGFBXozr6
-	 DJOt6qRiv8feKHBbFe0TAovpy1caQOeME4J1y94rzYDhpbHF1kavOEBctX3ECOWrVN
-	 iNwOLimAMTayw==
-Date: Mon, 28 Sep 2026 12:13:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shuah Khan <shuah@kernel.org>, linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: ALSA: Skip timer tests when device is
- unavailable
-Message-ID: <3c3502e5-eabd-4133-a93a-a69a5a2671cd@sirena.org.uk>
-References: <20260927064430.2112688-1-arfa79lg@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CYa6HhFm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G5ivVhAb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IDTg2gwj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2aSrRK7S"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E01D71FB9C;
+	Mon, 28 Sep 2026 11:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790594025; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o1EOHeN74X16VIeb+VlWrCUHYQbIVvI9Iu6E5ixfWdM=;
+	b=CYa6HhFmWd2jPBdr10cWG8kLvoH50e7BdxTeg7oFP/zJtnbMpBCV9KLyOUQ6A3d+Vc4sJS
+	sYG0+i3mNNGnIPuj5cnYjIQI4gOzOWld/la5tYBgTuoBiNVpACGeXC3hmkajcRlVnI3Qv2
+	ge1c6qmCAPeP+vUuNFpvbqpG8VgE8Vk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790594025;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o1EOHeN74X16VIeb+VlWrCUHYQbIVvI9Iu6E5ixfWdM=;
+	b=G5ivVhAbuiTiQ6vF4/LcM/KabbuLjoS8rFK7qHwotP3qplkanSZslD5x2od2zIZm8FeZ6T
+	z/1c8ssx+aQeFsDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=IDTg2gwj;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=2aSrRK7S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790594020; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o1EOHeN74X16VIeb+VlWrCUHYQbIVvI9Iu6E5ixfWdM=;
+	b=IDTg2gwj6YJtx6/tM/2eFSIYYHWg4zVo11MaiTh1ReO8Lpgy+OAa6nutAWcgWahF962rxq
+	RV62uErRXITrFxegYhXEMUJXraKBF3lYr+/fcLFAl2hp5EPH/F6CGaaMjOFrsT6RwvDEpu
+	FAs2DW0LLPbEeTIQXPomqbUvshc3xCs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790594020;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o1EOHeN74X16VIeb+VlWrCUHYQbIVvI9Iu6E5ixfWdM=;
+	b=2aSrRK7StTJjutIn2Hr7MmJAyhi90sncOhNMXNZ/cmFRDy68WYG4ciMEWFBs1W9GOZCY/W
+	GHxX98n5aknyFdAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 918DE133F1;
+	Mon, 28 Sep 2026 11:13:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id N+NBGuRLumrfLQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:13:40 +0000
+Date: Mon, 28 Sep 2026 13:13:40 +0200
+Message-ID: <875wzp7hnf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Matt Barr <matthewjaybarr@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Drop Yoga Pro 9 16IAH10 PCI SSID quirk
+In-Reply-To: <20260921214812.22139-1-matthewjaybarr@gmail.com>
+References: <20260921024011.2115055-1-matthewjaybarr@gmail.com>
+	<20260921214812.22139-1-matthewjaybarr@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qqAs8gvD/4vczrQi"
-Content-Disposition: inline
-In-Reply-To: <20260927064430.2112688-1-arfa79lg@gmail.com>
-X-Cookie: All is fear in love and war.
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E01D71FB9C
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
+
+On Mon, 21 Sep 2026 23:48:12 +0200,
+Matt Barr wrote:
+> 
+> The PCI SSID quirk added for the Lenovo Yoga Pro 9 16IAH10 (PCI SSID
+> 17aa:3846, codec SSID 17aa:3920) also matches every other machine that
+> shares PCI SSID 17aa:3846. snd_hda_pick_fixup() tries all PCI SSID entries
+> before it falls back to the codec SSID, so those machines now get
+> ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1 and never reach their own
+> codec-SSID quirk.
+> 
+> The Lenovo Legion Pro 7 16IRX8H (product 82WQ) is one such machine: PCI
+> SSID 17aa:3846, codec SSID 17aa:3884. Before this quirk it picked
+> ALC287_FIXUP_TAS2781_I2C via the 17aa:3884 codec SSID fallback and bound
+> its TAS2781 amplifier. With it, the codec never binds the amplifier and
+> the internal speakers are silent:
+> 
+>   snd_hda_codec_alc269 hdaudioC0D0: ALC287: picked fixup  for PCI SSID 17aa:3846
+> 
+> versus, on a kernel without the quirk:
+> 
+>   snd_hda_codec_alc269 hdaudioC0D0: ALC287: picked fixup  for codec SSID 17aa:3884
+>   snd_hda_codec_alc269 hdaudioC0D0: bound i2c-TIAS2781:00 (ops tas2781_hda_comp_ops ...)
+> 
+> Drop the PCI SSID entry. The Yoga Pro 9 16IAH10 has the same amplifier as
+> the Yoga S990-16 (codec SSID 17aa:3920), so it still gets a fixup through
+> the codec SSID fallback, using the existing 17aa:3920 entry. Switch that
+> entry from ALC287_FIXUP_TXNW2781_I2C to ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
+> which applies the DAC routing fix and then chains to
+> ALC287_FIXUP_TXNW2781_I2C, so the amplifier setup is unchanged.
+> 
+> Fixes: 41d60cbfde10 ("ALSA: hda/realtek: Fix bass speaker DAC routing for Lenovo Yoga Pro 9 16IAH10")
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=220540
+> Suggested-by: Zhang Heng <zhangheng@kylinos.cn>
+> Signed-off-by: Matt Barr <matthewjaybarr@gmail.com>
+> ---
+> Hi Zhang,
+> 
+> Thank you for the quick review. Your suggestion is cleaner than my
+> version, so this v2 uses it. I checked that the 17aa:3920 entry keeps its
+> amplifier setup, since the new fixup chains into ALC287_FIXUP_TXNW2781_I2C.
+> 
+> v2: Reuse the existing 17aa:3920 entry instead of adding a codec SSID
+>     entry, as suggested by Zhang Heng. Built against 7.2.5 and tested on
+>     a Legion Pro 7 16IRX8H without the model= workaround: the codec picks
+>     the 17aa:3884 quirk again, binds i2c-TIAS2781:00, and the speakers
+>     work. Not tested on a Yoga Pro 9 16IAH10 (no hardware).
+
+Applied now.  Thanks.
 
 
---qqAs8gvD/4vczrQi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Sep 27, 2026 at 06:44:30AM +0000, Alireza Feyzabadi Farahani wrote:
-> When CONFIG_SND is disabled, opening /dev/snd/timer fails and the
-> userspace timer tests report failures even though the test environment
-> does not support ALSA timers.
->=20
-> Skip the affected tests when opening the timer device fails because the
-> device is unavailable. Continue to report unexpected open failures as
-> test failures.
-
-Reviewed-by: Mark Brown <broonie@kernel.org>
-
---qqAs8gvD/4vczrQi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6S+gACgkQJNaLcl1U
-h9AgVQf+KSbdqOvSf+AkN6++AuG5aET16O0JEdAEhNBEZbf+1YzcCrTJ6ygaxD2w
-rg2gI2JiZyBvSf0Kes0wxVl6Ga8LWIr8zjisjizfvQohkK4/O25xFpMKTZ3aEi5A
-cAKFRnuTsNzH3F3GONiaCLUlxIek30gW5ydZpQVUdU9zjO0xj5bcgKDfKP6BNqMP
-7Q7uFWKttGB6oGJ5L1/oWL0U9pVDTeolFinyMHo/i9IQC6XK38aCtvlGXVbSF1Eg
-240IqWGRmBx2zUEUtrdAH/9zUJ8G52pnvFBQQ67KmIh97a1OBMedNruPLruYnFfs
-/YmEblK27r3WFrBUthF4xdISq1jHBA==
-=YAGk
------END PGP SIGNATURE-----
-
---qqAs8gvD/4vczrQi--
+Takashi
