@@ -1,134 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030383CFF49;
-	Mon, 28 Sep 2026 10:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A66519F40B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589980; cv=none; b=Je9ymNSy5FtqVQuaG6pkTxQSl5F53n4j9iTjjjk1GCYZj8KAL2hbNyMKg401k3ZUJDS5clUKMGrjOYEEGkvKUiv1Mjat1ukjHxrnHCx552G+KEQE+s3yvk9WyT9TYguVRGfJTNcYvFpeNYX6PjyFRUtENKyyunKgER+CyCbkG3s=
+	t=1790589999; cv=none; b=ef7lh9DYYPdI4G4YJiz9YooLqvFlP9OVJmcnpnYgJiEockqRKMlyedjXwfucJO2xkyChKnHKKJznyLC//HnZ9tNjduA7Nx9XABGczmKOA0X7wIKia1Nh27/zusgO80ph+lNvatwQcU5gANHF/TDo8OCNEjr1nWcuuEFl3l/5YMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589980; c=relaxed/simple;
-	bh=h3kFj6cg9mTnCNLZylShgCtUXIFnOSUyMdj+MVDCUwQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iBURMeMMAAtktb5aO57G5THhs++T+G+nW9lpj3ITUGETuTWVEZToPtUwl1GLiKdHo8heQITpeCjmrieCK3+8Q0MRv5BGzID7k+dT3cxnfNxWkPngz0z9VsjXAkYWiRRY6VSQvc1Dl1MFO57nOh08xgv6PHewaB39MvCsMNun+gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLYQInke; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589999; c=relaxed/simple;
+	bh=UkrDHIOlRzw0AkKHorPE4M+cke4cHQ7AZn3FJ2HDXWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iUZPLVoOZasuNQyU++uY+oIpcmDpbnxw6JzFEdN7ZlYnKB4GIEghSU8KDIS4nvFyk/dRO0XPE+HiYuIlc0OntdzH8d4tD6xqDWCwmM1X6H6OAqamkOJymawq2ZMHgztUCz20fR+jLJ020DWyOsgYo8lmrjqHE4RQRPOHIuITik4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=T/LZi2sg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=J/jYptmh; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLYQInke"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4AF1F000FF;
-	Mon, 28 Sep 2026 10:06:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589978;
-	bh=H7XMA2MyPtBGtHXeBa0Gg30v8MrdMWY70pIih3+O+nU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nLYQInke1hVftuPeMgwThpqe0Mjj+b2eCbhn3arNW0/pCnjLOpz8fNXhTQRnNHWtV
-	 e0vY4gCSvnrGfhJKvp9MwAUeB59vS+fAX8GcN+llR6iY9WfbtQN4j80fSAo7yhbbUE
-	 4/RvgUctm2go+NN9Qxw4YUcQtLwgL2SS8emeN2q9uVV056i4mm5M0uY0v7sqn2IJHM
-	 c8IyXw5/FzyM7wjyweR2F0cMUsaQHIHHZDzpwQZPSWIp+4tHBou0zJfhz3YMZZ5HPl
-	 AwvyRtkn0hCWEevXo+k1krz40W2Pz6eksAPd5UabC/SvB/GJ2FK/D+gG9oAE3HflQq
-	 EBv81YZXp9tgA==
-Date: Mon, 28 Sep 2026 12:06:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
-	Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 12/27] dt-bindings: gpu: panthor: Document
- panthor-arbitration bindings
-Message-ID: <20260928-satisfied-rigorous-boobook-9dcef4@quoll>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-13-karunika.choo@arm.com>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="T/LZi2sg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="J/jYptmh"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8823B14000DE;
+	Mon, 28 Sep 2026 06:06:36 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 06:06:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790589996; x=
+	1790676396; bh=kcUsOL3101xiV9NL11+6UCDVa/c8zCTvs2ZvNLpRaUs=; b=T
+	/LZi2sg4uuBWkOjTyNhCVObsn/DS+ZLuyww5KBI+VR+LMoYmLG5qVxFC8DPJEMLU
+	zCg5ZSDx3XZnBf3o6tAnnlv9XjbZ27plLqBnQQ4Mf9bf/RTnwlOyTlirAwLicNJH
+	ePapL++6HhWEQYA6ODwWZ2qunWJXbRbqe9q1h4pnYckOItqJGJRcnEtxUNp1KCwW
+	ng3U62MKI0mjf9QOVsQ6ScOnc9E5V2qKhfZUFNmWG4t1FqvXrs3rpeLNEsl3mPdx
+	uhLSsX8vzlC6jH19/lOWaiB4CwHgI6a5andWwG1p5iLbKLnwaKa8GqyNjcD8BpWJ
+	C8TSvDDX/Y1tNE8OksbEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790589996; x=1790676396; bh=k
+	cUsOL3101xiV9NL11+6UCDVa/c8zCTvs2ZvNLpRaUs=; b=J/jYptmhWRqiG/+5q
+	n4x+RmHp8dmJolILwLSCJFzPxbbLZHmFZVtponmj5hc8UQTP0VLUkdU9pxIRDLNF
+	xQS6u/I+0mw5hl6/sojXitXHjxVRzuv/DZzEHaWj7SxIeze+7dQGpX5Xv5VwLKic
+	C/usFjS4+GJXlZwkmwwvjJZM14uYEzJZxcBnl8ZF86OURQ5vtPhXPQ05PilZMhMb
+	I/jPBg/iMbNdn3o1dDrD9DpQqYiZRah4p0dIO/a9dTseCpjAr2JO7ARtUgslG52k
+	nkIA9oMCp2c6yY14BBU89d8y6nZhiZF+LUGovG5H6hrRHgFe3tKBLaV96AupCDxA
+	EvRQQ==
+X-ME-Sender: <xms:LDy6avLfqQjp-yK0TWiT6j8SaqKTBPrw8E1x9Zyks8_ardtQEHUk5A>
+    <xme:LDy6avGE5OeXHQCNGYG4qlWpol2lQ4D67uknTFgXTo66JeLXVQ_kJBTDNWto9tFHE
+    w7HyLqawVtAespFnRNSmdkgY7VqMQMnHF3Roq4N0QqMdMi5dbfYcdkp>
+X-ME-Received: <xmr:LDy6at28ylqVdclOEQ5rV8U0eF5QTex3Bt0oWVwx9Uyg5qbdBWDL5lnTxzo>
+X-ME-Proxy-Cause: dmFkZTF8+FzWl2kPFFw+2+MUnNndpG3Es29zlM3W8MqBD0QW9993JqL27RjsdWHL5iQTuv
+    8LHkef+10EFcRNyu6aMfBJblGtUMhigK1wvWUg5pa/T2F4HZOycwBRl+2S+z7tqw2cJfHU
+    gdsF/P6BOMqpKS9LZRm0d8oBtyKEEqCXwj8zji6pXjSixGW9yMDmevXCSXRhMug+RBOuj6
+    H/TPGEbj0UBxBpkklI8Q2dk1KPN1FfxQ05T6kAzB+fcPQyWzSSafNh6004OlOqdREfhbRG
+    BHI+j7BDMASDclZuapGmxVrXolh8JlQnm8Hn+THchpsYHB/1yAmWKg/yew9Ltzw86nEqaa
+    nkU2cSQL8qRENKHB4iLNlXxdqgyOVujeFZPY74aW8lk80wFKRFo5VNSaZ7AT7QmlDWD9LR
+    0yipAeB93S3lT7SuNh0By8tlp0OfFp2H8zgTSrQFo0KHX5n2NESmCyvNsDjZk8XaZbHIST
+    ZPBWSoO1tX2inUBxZBeekbSe37r41xaOOV2PulMgtKG58RnGeLhAV0T8OH5yiRIoqbrmVd
+    rE1verYunpxGQv9dp7hI2EwK8yDFx2fJJ/dWIgZxWZ5d1F2VtlbOGwI8/VX8tKwzmSYfE8
+    kXoTXNVhISb8KqFylRnZAVVbp+5Vyeo83tcqBZaBffEQeZold3dtspwRSUrw
+X-ME-Proxy: <xmx:LDy6auzQYrJrdyET1-xzeeFunAEG-S3GcTZMqTsqB-KXcARhxMbT-g>
+    <xmx:LDy6akivFgq_rF-Vc7qOEEZSnw63Q7QrUHYqFgykkCRvZuoyuPEUZQ>
+    <xmx:LDy6alztq1DqoAh5tn1TFl_P6zwpsHZQAmmCyfAe8Golq_2GdqNb6w>
+    <xmx:LDy6aqzX47Mg6uhRuYWVCKAF0FOCEOP03LYWqiKdFgAiKqzXOuM8kQ>
+    <xmx:LDy6auZLLy71yC652L2PG6mBw9wnLrjjhpSNO7UbUrJzrCQs6GPAUUsB>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 06:06:35 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>
+Subject: [PATCH v4 01/13] mm/khugepaged: drop redundant mm_struct pin in madvise_collapse()
+Date: Mon, 28 Sep 2026 11:06:15 +0100
+Message-ID: <20260928100630.21870-2-kirill@shutemov.name>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260928100630.21870-1-kirill@shutemov.name>
+References: <20260928100630.21870-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922204535.2850094-13-karunika.choo@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 09:45:06PM +0100, Karunika Choo wrote:
-> Mali 5th-Gen AM GPUs expose arbitration registers outside the GPU node.
-> The arbitration device contains partition-control and resource-group
-> register blocks used to grant, yield, and close access windows.
-> 
-> Document partition and resource-group child nodes, each with its own
-> register range, interrupt and hardware ID.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
-> ---
->  .../gpu/arm,mali-gen5-am-arbitration.yaml     | 125 ++++++++++++++++++
->  .../bindings/gpu/arm,mali-gen5-am-system.yaml |   9 ++
->  2 files changed, 134 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
-> new file mode 100644
-> index 0000000000000..9ea2b4bb9a344
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
-> @@ -0,0 +1,125 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +# Copyright 2026 ARM Limited. All rights reserved.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-arbitration.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Mali 5th-Gen GPU Arbitration Device
-> +
-> +maintainers:
-> +  - Liviu Dudau <liviu.dudau@arm.com>
-> +  - Boris Brezillon <boris.brezillon@collabora.com>
-> +
-> +description:
-> +  The arbitration device manages partition-control and resource-group blocks.
-> +  Each block is described by a child node with its own register range,
-> +  interrupt and hardware ID. Partition and resource-group IDs are separate
-> +  namespaces. Access-window IDs are global to the GPU.
-> +
-> +properties:
-> +  $nodename:
-> +    const: panthor-arbitration
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-Same comments. I stopped review here except one more point:
+madvise_collapse() holds an mmgrab() reference across its work. It is
+redundant. Every caller already holds mm_users:
 
+ - madvise(2) works on current->mm, which lives as long as the task is in
+   the syscall;
+ - process_madvise(2) reaches a remote mm through mm_access(), which takes
+   an mm_users reference and holds it until the syscall returns;
+ - io_uring passes current->mm;
+ - DAMON takes one with get_task_mm() and drops it after the call.
 
-> +
-> +  compatible:
-> +    const: arm,mali-gen5-am-arbitration
-> +
-> +  "#address-cells": true
-> +
-> +  "#size-cells": true
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^partition@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      Partition control block and its initial resource assignments.
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description: Partition control register range.
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +        description: Partition control interrupt.
-> +
-> +      arm,id:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
+Drop the mmgrab()/mmdrop() pair.
 
-IDs are not allowed. See writing bindings or DTS101 slides.
+Assisted-by: LLM
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ mm/khugepaged.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index e13d233b9967..75c876acf527 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -3229,7 +3229,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+ 	cc->is_khugepaged = false;
+ 	cc->progress = 0;
+ 
+-	mmgrab(mm);
+ 	lru_add_drain_all();
+ 
+ 	for (addr = hstart; addr < hend; addr += HPAGE_PMD_SIZE) {
+@@ -3285,7 +3284,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+ 	}
+ out_nolock:
+ 	mmap_assert_locked(mm);
+-	mmdrop(mm);
+ 	kfree(cc);
+ 
+ 	return thps == ((hend - hstart) >> HPAGE_PMD_SHIFT) ? 0
+-- 
+2.54.0
 
