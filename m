@@ -1,48 +1,50 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990F347126A;
-	Mon, 28 Sep 2026 08:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995B13783C5;
+	Mon, 28 Sep 2026 08:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583750; cv=none; b=dCe7sQvGRNo5N4VEOUS0K0Nbs1hSbSHaitk6g/8604tolRfuTgkQcw4Yu6+pPqzb/xTlnVtV9BlQwtqgb7q0FPSusRmKRK/jpXuzm/+d8PlCrbh7CIwgsmAzOT1igeMC9xMGK2wukcVuq1qgZxevNuPTHd0PXhLx9eDMbRockSo=
+	t=1790583759; cv=none; b=u+yVY5W8DRkKzxaDXoCE8B/MqQ0/PDfN23eGxSo2oCR2Jr66DbsbIn2nnF8+NwYumLenzAFMhuUbVUFa7uVH1qKfcvF82/tgQHhtTP/3p+flc9fk6+33P4j7ZBeRzqy3t1DKO6AT4KT72z3AYQQK2aoLrfeC9uYDbCF/xzAk2v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583750; c=relaxed/simple;
-	bh=Gck/KM1EilDjxxmrPmjNDlhIL11i0u8eYg6X3jR22eY=;
+	s=arc-20240116; t=1790583759; c=relaxed/simple;
+	bh=71VpvoeXO3LpPfDEq7YVyLxqUvtg8NHlN1NDuMr40OY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f74pG2RTc6C9CvBEkKwrnjR14CD3DlqV7VYiuMNFgUJH+IUlwIiJGfs633WQgPVPRS6FR/babQJsktZY8rUTnvQSGpuCxZf0z2uWUZIpJW7nB61TlxU0bws2SW4M23zTyM9gna+8/kdONopXNnKi305j0KU6sybj3e2IqybEuBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1C93F3EBA1;
-	Mon, 28 Sep 2026 08:22:23 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [RFC PATCH 3/4] mm/zswap: allow writeback to be throttled by the cgroup IO controllers
-Date: Mon, 28 Sep 2026 10:18:38 +0200
-Message-ID: <20260928081900.4187482-4-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928081900.4187482-1-alex@ghiti.fr>
-References: <20260928081900.4187482-1-alex@ghiti.fr>
+	 MIME-Version; b=slL8x19Xejy1JEFzhkCckXBe29tGNdzJAWj9ViD1qkLLUI4bp+XcFxHsYL9o5IUqf2LAcpGMkTO8Ef/zDMK+xAJK2cXuW22mJFmlCo9ZMTlyK07YdZ9a2UAJBD4oB0hK1C8i0kPP8KlOpCqMjiCzAmgV3jZw6I2r+qA8Ee5D5co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JWdt5s4l; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JWdt5s4l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gg
+	VRzXraIyqQBjjF/f4890CVZWneX6nCin74kDHMb2o=; b=JWdt5s4lFdQK7yvKze
+	jCKdCLOHbllxC9AiuC2/U5OjoaUEsvpu/RXR4A8ItD6h01qdT+B03jUwe2cHxSqJ
+	Y2Q9ZgqLQl0phL1S6ToRUXLTX525OqLGmsAgxLcy03zfNLJWqf5AQfHR+Louk5+m
+	tCsQkdRxlWETf1rLHd7eo0yFg=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDXX4GjI7pqCAGkBQ--.42849S2;
+	Mon, 28 Sep 2026 16:21:56 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 net] net/packet: guard the ll header push in packet_rcv_spkt()
+Date: Mon, 28 Sep 2026 16:21:40 +0800
+Message-ID: <20260928082140.1899337-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179058331782.31693.12350465700616409287@kernel.org>
+References: <20260928065000.1749383-1-quchaosheng000406@163.com> <20260928065000.1749383-2-quchaosheng000406@163.com> <a56a3e49-ffdf-4285-bca6-992b12127289@hartkopp.net> <20260928080919.1888649-1-quchaosheng000406@163.com> <179058331782.31693.12350465700616409287@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,122 +52,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEW6N0v/qhbP15hg7rOtVRroKWhPIQwcq/TVt0qEZDhT+eUHNB5EQJEYoFuoBx9qmMf9D2NwLWxd+d/fibAsDoF8JQVfAcRijfNdurquHJPescUKhuoiULW+oLv+b1vYSyAI916kdOv/Q1kOdPYUQv5Y6Y2UnOafceg2u84CLd8giuFKsAY6iUfyh1IilMhqnUHFuHdNUeqpGxAfL0MQv0xA3bdtFYg3UkeqvM+hh6FGR35z7hxyf2k/2W1TpUTyr9yKMGdnlHJysoSILZdKapVYfY4huAkx9McOMFIJNffUjSUU1FqF8CNOP4hpapHQzU35sos8POl5KBYenunmngIoa3Zq0hQ3IavtSZxCqnU4f5J/ImKy3j5SLbeDTywKsP96a6D9RVNBVEbSzPOxcc/JxQ4cTrQisYytX+kcF+fehOw9Nb6VTh4h25eh9vgujk7J8FA5OWo3oFmiCn1DETgJCE3kM8zxbbhoIrzJLnGLD1L3p2Ra1hmXqMS2QLyI5GNzYV7VMR8cIVE39umIrLNxLfDp9I71MuX7FYnEKwL/bM5QIZzzxkyJixOIscQTZRuraPIPreFOl5ATqrpEAcje1d2fM2RrwDFBMYuRheyF0JvUoFicil7eMbQT4oLDrJbcPtPUN+be7QFP5ttyzuwSlSpNDINMBFzDO+R2eJRXA
+X-CM-TRANSID:_____wDXX4GjI7pqCAGkBQ--.42849S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr18try8GFyrCw48Xr1rtFb_yoWDKrgE9a
+	4kZ34DXw4UJrsxWrWYkr4YyryDGayDA34rWrZ5Xr43Kr95urs8ZanxJr1S9F90yF1xKFsx
+	Gw1FvwsavwsI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUj6nmtUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AQ7sGq6I6TdQQAA3g
 
-bio_issue_as_root_blkg() exempts REQ_SWAP bios from the cgroup IO
-controllers. The exemption avoids priority inversion: reclaim issues
-swap writes on behalf of the whole system, so making them wait on one
-cgroup's IO budget stalls memory reclaim for everyone.
+Manual code inspection, and nothing reported it before this.
 
-For zswap writeback the exemption does harm: the write is charged to the
-cgroup's IO budget anyway, afterwards, but is issued ahead of the
-synchronous swapin and page cache reads that the workload blocks on.
+I was working out what else the CAN skb header regression (9f10374bb024)
+reaches, and the packet socket turned out not to be covered by the CAN
+patch: packet_rcv_spkt() is the one call site of the ll header restore
+that d549699048b4 left without dev_has_header(), and SOCK_PACKET reaches
+it.  It came out of reading the receive paths, not from a scan, a tool
+or a report.
 
-Let zswap writeback opt out of it with REQ_BACKGROUND.
+Because nothing had reported it, I built the reproduction before posting
+rather than sending a theoretical path:
 
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
----
- include/linux/swap_ops.h |  1 +
- mm/page_io.c             |  7 +++++--
- mm/zswap.c               | 20 ++++++++++++++++----
- 3 files changed, 22 insertions(+), 6 deletions(-)
+  v7.3-rc5 under QEMU, slcan on a pty (the driver RX path; vcan resets
+  the headers in can_send() and does not reproduce it), defconfig plus
+  CONFIG_CAN_SLCAN=y, two images from one tree differing only in the
+  hunk.  Unpatched: skb_under_panic len:-65455 out of
+  packet_rcv_spkt+0xe1 and a panic in interrupt.  Patched: no panic.
 
-diff --git a/include/linux/swap_ops.h b/include/linux/swap_ops.h
-index 57ac6c703f68..152598ce6c4f 100644
---- a/include/linux/swap_ops.h
-+++ b/include/linux/swap_ops.h
-@@ -17,6 +17,7 @@ struct swap_iocb {
- struct swap_io_ctx {
- 	struct swap_iocb	*sio;
- 	struct swap_info_struct	*sis;
-+	bool			throttled;
- };
- 
- /*
-diff --git a/mm/page_io.c b/mm/page_io.c
-index 88962571cb93..14dd54ae6d65 100644
---- a/mm/page_io.c
-+++ b/mm/page_io.c
-@@ -591,9 +591,12 @@ static void swap_bdev_submit_write(struct swap_io_ctx *ctx)
- {
- 	struct swap_iocb *sio = ctx->sio;
- 	struct bio *bio = &sio->bio;
-+	blk_opf_t opf = REQ_OP_WRITE | REQ_SWAP;
- 
--	bio_init(bio, ctx->sis->bdev, sio->bvecs, ARRAY_SIZE(sio->bvecs),
--			REQ_OP_WRITE | REQ_SWAP);
-+	if (ctx->throttled)
-+		opf |= REQ_BACKGROUND;
-+
-+	bio_init(bio, ctx->sis->bdev, sio->bvecs, ARRAY_SIZE(sio->bvecs), opf);
- 	bio->bi_iter.bi_size = sio->len;
- 	bio->bi_iter.bi_sector = swap_folio_sector(bio_first_folio_all(bio));
- 	bio_associate_blkg_from_page(bio, bio_first_folio_all(bio));
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 8925b6100402..3b902f29ed4c 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -983,16 +983,21 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
-  * in the first place.  After the folio has been decompressed into
-  * the swap cache, the compressed version stored by zswap can be
-  * freed.
-+ *
-+ * @throttled lets the cgroup IO controllers throttle the write rather than
-+ * issue it as root.
-  */
- static int zswap_writeback_entry(struct zswap_entry *entry,
--				 swp_entry_t swpentry)
-+				 swp_entry_t swpentry, bool throttled)
- {
- 	struct xarray *tree;
- 	pgoff_t offset = swp_offset(swpentry);
- 	struct folio *folio;
- 	struct mempolicy *mpol;
- 	struct swap_info_struct *si;
--	struct swap_io_ctx ctx = {};
-+	struct swap_io_ctx ctx = {
-+		.throttled = throttled,
-+	};
- 	int ret = 0;
- 
- 	/* try to allocate swap cache folio */
-@@ -1070,8 +1075,14 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
-  *
-  * ZSWAP_SHRINK_SWAPCACHE (out) is set when the walk stopped at an entry whose
-  * folio is already in the swap cache.
-+ *
-+ * ZSWAP_SHRINK_THROTTLED (in) lets the cgroup IO controllers throttle the
-+ * writeback rather than issue it as root. Only the memory pressure shrinker
-+ * sets it. The pool limit path must not: once the pool is full zswap_store()
-+ * rejects everything until this writeback drains it.
-  */
- #define ZSWAP_SHRINK_SWAPCACHE	BIT(0)
-+#define ZSWAP_SHRINK_THROTTLED	BIT(1)
- 
- /*
-  * The dynamic shrinker is modulated by the following factors:
-@@ -1154,7 +1165,8 @@ static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_o
- 	 */
- 	spin_unlock(&l->lock);
- 
--	writeback_result = zswap_writeback_entry(entry, swpentry);
-+	writeback_result = zswap_writeback_entry(entry, swpentry, flags &&
-+						 (*flags & ZSWAP_SHRINK_THROTTLED));
- 
- 	if (writeback_result) {
- 		zswap_reject_reclaim_fail++;
-@@ -1180,7 +1192,7 @@ static unsigned long zswap_shrinker_scan(struct shrinker *shrinker,
- 		struct shrink_control *sc)
- {
- 	unsigned long shrink_ret;
--	unsigned int flags = 0;
-+	unsigned int flags = ZSWAP_SHRINK_THROTTLED;
- 
- 	if (!zswap_shrinker_enabled ||
- 			!mem_cgroup_zswap_writeback_enabled(sc->memcg)) {
--- 
-2.53.0-Meta
+The v1 had an extra skb_mac_header_was_set() conjunct; v2 drops it after
+Oliver asked whether af_packet.c was the right place for this, and both
+kernels were re-run with the version posted here.
 
