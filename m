@@ -1,402 +1,205 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011020.outbound.protection.outlook.com [52.101.57.20])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564ED3403EB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591557; cv=fail; b=A/IKQYulZCcHE4jXOndN1uG1t5ta62GFGeZ4EBebdMS3rRzrJYt8cyipaI+/eh8YVmqH15hEGgKDzhiRsORLMOlN/2r3j52fYsAVaCRVe/pO1xwPd7OvZ2X2AVpCr6nbBTLiSGj2XokCWpWbXX/rSYRMghWpte0Epl2nfGnzF1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591557; c=relaxed/simple;
-	bh=xBKReQ1suWwUEY7TYjK4UUaloZowrqdzbbbZuEP9YDE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SkpLh1ugKZ4Iqu2WzkeyIBM5KaHVNudWutauapHx2mY6IFTUBcT6RRA8+aLvlS6cxCjDqGD4HoTBF0Q61EHhx04k+T3bTA22V24ub6d8oRRknL6GmwIskyoCOHXtgX8ofM7D/n4FnTIZwJJvWdXaL5mBfqOnY+QwbGqONM+zTus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZyvMx/M6; arc=fail smtp.client-ip=52.101.57.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F56A4848BC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790591561; cv=none; b=Pn0W2gmJ+oh8WVhJY16kYLC1AbbKnY1OyCEhI93aup2yW0G7o3v2Z5gkrEk5xdxU93C5rZWHiS20z01S/Ck94odqxYIBc1uNRcwiYi6CUgXq1oe+/C0YnYQjQh9aO7YyxKemzfi5j0OPqrRjr6xlFvF72UCN5qwyVC6IRxLOc00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790591561; c=relaxed/simple;
+	bh=armPerPDEuCiYMBFxS8ifFGR3dsE4GIeKySBG01cE2Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GMqgPept0QdF/H0Gqyzsnn+Cqu2xJPgopVdnwZzToA+T0m2gMkxEs9AZpq1qfqFG7lYef73xzHUqVx/BFWQOf4urPtPuLFio5U3I2qtW523U3Lx5ta9JdG3lie99bae9BXGWk+dULNolR9AT+LZ0N6tNtIrdbfaW8w2p/Koh+/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n9RfLYUv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K1sBf4IL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZyvMx/M6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=liUrpiGQ1Jc2teB4pz44hDWQ00ppmL1lEyaBRcIjYgCYfHIlRqMCzv0yxCEci118jurVd93J4trGmeO3Qg0lVr2Unxicqo+8guyETyPIeGDd2NmaCdPyzRtxx0XCWeNpJO6SEl/iyPP87n+ObKOND9ylnqa2RnnwstjRvWF59VLbZABdWXreDQmykZ2zyOK+FSXx5hppqNUEkONXoPaRdAnG4KmOgybesCSmbOTDDLBeqd4eUrNavLTAz7CaX/Rd8Ho2ahtiRYpsZHXAduMQRGTioRUmYD2kOX2OGqN4CWGvv1SQHC1FsZVJ3j7Z1BVi5JPDud2EE/g2pW0ZLhKZ4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bW/LvIIfvz7Z/M5LScndgMGvog9EMSigqWluEmHRwO4=;
- b=omp4f0uRQgJZJkFxXrZN5oYstqRHD3OOxGGumsFuuTszS9IYQJzaoXdeKHPIE9SQMVSvxfdbrQGkkPCfsa9+riIBYcaQDHDqxZejXe+KGPXIgIc2HwoypR4AIX/KIHDrjBzPUIj9fXWwMIpH6ki9zac4jOn088oNOw4D9VxA0C66Ke0A8Zz+guqXv4J82/mkSH1JRMCCtnjm09YNnprXweGOXf4uWgvhzxfi9wuFB3318bJkClJiwU8To0JoaS8ynhoh/BtznHifTDkDYrRA+aDu47dUM2fGPfLPQZ/mQVQPwwbVnUDUvGefs+2zuvXbPklHo28ONoO3DU3iR2ix7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bW/LvIIfvz7Z/M5LScndgMGvog9EMSigqWluEmHRwO4=;
- b=ZyvMx/M6ZHgJszAWCmfXKl2qXozx/s4ts/NjuT01S1qxkEAy+LHVQ2rtuXuh6VIndyq5RUiZcpij2DQFeK9kcW4SIhaFBmRClRg+pSmEdbnpNs3gn4Y4OfU5X6/y7i3LQlhnFSs1cU7bcw0vYqSf620lzkeu2FrNK95mFLoi5R4Sa4Swt3JAdoFEErKJh6YbXcw4MrCSCx3+siFboMvJ22Cu0zi7oFCq9jBYp2+mtKn5fEGqJ0Vcsauwm1LOc9uaussZrlu55dBNc/lzSrUItFW2Q5zn8LMnj6/R3wPlx2YgHiKEwc+GRWbxQXgyCidLwBqvoJjILOrXF8EenMFg6w==
-Received: from SJ0PR03CA0053.namprd03.prod.outlook.com (2603:10b6:a03:33e::28)
- by IA5PR12MB999325.namprd12.prod.outlook.com (2603:10b6:208:603::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 10:32:30 +0000
-Received: from MWH0EPF000C6195.namprd02.prod.outlook.com
- (2603:10b6:a03:33e:cafe::6c) by SJ0PR03CA0053.outlook.office365.com
- (2603:10b6:a03:33e::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 10:32:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000C6195.mail.protection.outlook.com (10.167.249.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:32:29 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:32:08 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:32:07 -0700
-Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:31:59 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
-	<zhiw@nvidia.com>
-Subject: [PATCH v3 23/31] gpu: nova-core: vgpu: initialize GSP plugin RPC buffers
-Date: Mon, 28 Sep 2026 13:28:26 +0300
-Message-ID: <1ffd2814f3adb7657f2154d9799e5492fc5c4a99.1790580105.git.zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
-References: <cover.1790580105.git.zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n9RfLYUv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K1sBf4IL"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9M5Cu245906
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=PVGGMV8fJ58jlO8Q9RDWAm
+	kLzOI+S9ojRygO484xoKw=; b=n9RfLYUvDeM9kgaa5elRVCfZNAb+jQhAuOyXHT
+	RiTtJNbf+wV8vgwRWx7TLocPODqtNI05GKsp/gPjHbBSrQ2i9d5OuAdqMakRcbFj
+	iGrQjJKO2h4jA63ob9zQwQVFRQSdmKA1Bd9gCgYrEe3VYWRgRCanqpmxG+Uvs5A+
+	Ftib/uyM2njihzwrq/CldpsolTBfxtIQRPEiOIjSI5b56rJZWVNR4VaVx16eVpBQ
+	HC+qPGYDjCFQej9z0grB+fv1WlAYiS02oeuSIGzWAbnPtS/LRjzIMBgmkqndiHFk
+	qCJ1RtPkBaBDNLWBCBPmLxNTxVYqriyFzy8UBfAb0McvIM5A==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt10xy4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:38 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so4482181a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:32:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790591558; x=1791196358; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PVGGMV8fJ58jlO8Q9RDWAmkLzOI+S9ojRygO484xoKw=;
+        b=K1sBf4ILoVcgzFAcXodTl+8RP6StU9/3iVqvMbVpGzZFvzyyCDONtjv8/Wx/jaCEUW
+         5U6noMffMW25MtofrqmTHbiyaUGbgXRKJc6qh4F1vyV29oUGwmJb8QmpfgZNDdlhMDlv
+         q3bWoY6udkVm0vluZG0dWtKbYXdF8zI7OOVbURzjgJhmuC9Jt8q29fQmx/tmJZIteDSN
+         UT3HnY9SZR3LC38ABHN2Q/XkVh5Dn0dNXXUvNB24PR1R0XqmcVlNAddMis8/ksZGiDqn
+         IyP6beiBoGw1Q7bfaOSnhPnOY2aOu4etmsxEJFXCl9kUB8sG2Gw/ZdQl2ut+89ORv9Td
+         /yhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790591558; x=1791196358;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PVGGMV8fJ58jlO8Q9RDWAmkLzOI+S9ojRygO484xoKw=;
+        b=n33JaP56wdVlNnfdYGKs2ZLnGvSAuoUoCyja5Ut/h57kquxec/dE94SV1kTvsU1Q5N
+         UMN18A6WFnM10bih2Op4tZmWMbvQMn8JU5vfTGKkEQ4gvpgXDkjZaa658sgAxzbfkAtd
+         2WW3PBtqMknED/SeGvil6voU12rzFeOPPcRf65SP2FHbZPqHxYogh8B+3WqcjpCdvetW
+         AP6ddrWdtkF0OVm7bjgpuG45Rdbu/pZavnhVklyTEFbzRnvsIZ7PJllEflEFiPDB/tWA
+         t/OJdygl1pNs0S0Nepfs6ftKhqXC7T6j2rizLy4eNO5X0t+ukkHhsuTEFlipAov3T6Ia
+         sDGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxpDGf6Ej4M+oMqbOTysEAI19zUQoM4Gjp3X55WmBc/uoCfDk6crejxmyK/hAxWN7i/DMs+6jD6BtbEhqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUfniOKWy1O2Yqt7pTprkyNjnWnu8YGglH0Ma4JnRT/eYOefS+
+	qHXJ+epHRO3Qy2/8vL88RvjaOPSHBljo+rkjh1srzUzgmMYzY5e197gSM4HpFwI7jMP2SP82UYW
+	YO09zN2zZiOLwFNBSFcjdoxldYu+U58AiVlc3ctJSGgEIxe447AonJoVZgCcjpbrSOgY=
+X-Gm-Gg: AYBFou1aSeopmHqTLjX/RDpSIhACsunVsT7A09BLrdmMfVjbuWDFMf0Km+ihODtE5Ej
+	QEeVlu16X9S16YSoFB44k23GRVR0/kLt/GYzcmIlmG+HouGkujYnYSK512L3uKMyKIVUx0PPAJy
+	XV4C8AMSWYtmr5+L7dQnDQdDAwjWRNg/l4vBPvihn2uyhB1ChmVIgjhN+PuJLouFpDCl+mcoL5r
+	kuDfJsRRo4ZsVKfJlBXVeUvK5FEi80GtKmU3/u7Q9cdLdTHr+Vuy20Him3019SMDhRYsxDNSXYO
+	iryq3llQecBRaKV3P2i54QpM6iXJtspcdUOmUIy/Dly5y24ZHlrc6j0mhi9Ce5ueKyqnNXwquYu
+	9w4v6TNr/9G5tH3x2shJNJIlott0=
+X-Received: by 2002:a17:90b:3d92:b0:3a0:f2bb:53b8 with SMTP id 98e67ed59e1d1-3a0f2bb5716mr3854123a91.62.1790591557839;
+        Mon, 28 Sep 2026 03:32:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d92:b0:3a0:f2bb:53b8 with SMTP id 98e67ed59e1d1-3a0f2bb5716mr3854110a91.62.1790591557320;
+        Mon, 28 Sep 2026 03:32:37 -0700 (PDT)
+Received: from hu-nandam-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm19885131a91.2.2026.09.28.03.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 03:32:37 -0700 (PDT)
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Subject: [PATCH 0/5] ASoC: codecs: lpass-macro: manage clocks in runtime PM
+Date: Mon, 28 Sep 2026 16:02:18 +0530
+Message-Id: <20260928-xo-sd-runtimepm-v1-final-v1-0-e3ebade3aeb7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6195:EE_|IA5PR12MB999325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d7911dd-0c1b-46fc-f19b-08df1d4bcc1b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|23010399003|36860700016|3023799007|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	EYJDF5NmnDmzPfx5iSNkvwzkKfmqA/sSFqCDg3VM8+o8/CikUcOzcbuRs+3iO+cRlGx0wGp/WxetVPrU+8LR/HNQ2tb9qucXFYh2aC7jO3CigqOKRaTdy3g5LkF1KdHOgWXKBou+UaAW/FJ7k7H+EGQm5N8VGisUK97/fHtr4xO1coOyZBXPdRgd/CYECg1iM4nzcMSaRXuPZsR9EQ6Q8U6+tO4RUcHXoM62ZMaCdi8WMAXBhAcN2y/2cvv1I+a9FoTkwDitpR+yqcZ6PZrXwk2hAasudb4bxn9/Hz6R4mqc2sn2qOFQALcUQ5Yc3JehqUCbTHMwSTZxUtn1JVdCMO9AnS7TjcHW6q+87UOwlRPZgyuDgjJ7p7OwuoXMxhiu1o8eXyPWOcnCfqz3epO7fvWd8AH9wgYU2DtZO7Mf2i339O/rmi1XpDHJ0vf738+/XZjFtvFPxJDbAngNzyIXrl0ZeRR6LZ9M5cx2elKdrbfbpTVdF2+JKJPX51UGRvHnqaYpuXaT716Vpo6zXDGSvCGafi6WO12i+CjclhmxT9vt6Equ1j0xtNbROzUjwxL8Mdq2xaPGH183Vhq3n5J0YT+CumfhKLmu3JQS1RGJuRS8MZTANH3dvELn5+zmN4H9gzuuPGLbS0r33yQNrDHxvlBNidMb9LoR3Y26KdJg1q3shNE6bYvVOKj7E46CgO+l4tzN5ThoR4Y6XMDCQO+loA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(23010399003)(36860700016)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Ubkz5uZSqsG+1dj79UPUF9HGTeH7Z/b88vAwOdiUud/R8K22BBCTO0Nfdi95uQmww9mwwtnMQ2e0VMDGBc65PfNfel4i92ESS4onhiqEGmxw7msZtldykYuZJcgEQLL5qTIw+jFVELTauLkxbMAPP8A9tMnG3XaHdOH8u9I5MDA8xWHvmfhxJrpYz4JPMMMTe/KIVaTfNLg3wfvSAnU3w7h4hlErFdJMUK3/FCs2cdBRet9BMtHi6/muZwRdrmFd3c1CwHSR6mAKPmB5754VXcZZvze+kLo6qmRrRfa5llerbN7bSeHkVqH3xFuCoHLCmexfb+HXI3Kcrc1tNLzxzaH00guZ//Zl4KjGd2gEKUi2KVsF6AYb3cu+wkaHtERy9w5v/QAZfF10ueuz8ga5kkrX0aDEKeLKlzfXwz8TB+ah+8nfh1eV0arOnhbTcH/5
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:32:29.2964
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d7911dd-0c1b-46fc-f19b-08df1d4bcc1b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6195.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999325
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADJCumoC/yXMQQ6CMBBG4auQWTtJqaLRqxgXbfmrY6SQDhASw
+ t2tuPwW762kyAKlW7VSxiwqfSqoDxWFl0tPsLTFZI09m6tteOlZW85TGqXD0PFcc5TkPny8wId
+ 4Mg7BU8mHjCjLvr4//tbJvxHG34+27QtY7clyfAAAAA==
+X-Change-ID: 20260925-xo-sd-runtimepm-v1-final-37ebcf40aecb
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX4sokTRIFWrsw
+ G9Z0FKpu7A9urYXwreWXwsAZdMh2gkV/0t5a18msgoxdYuv/nEUDQ+2TW/iP1DdupcnmleY3/fs
+ ADAhpFJDfQtAvBDuIHY10WGfjIW1QGtxz9I8rPH9c02RjMFIDxMRnPrgSuIITDokzwcOv6CjkN3
+ dZvLfnHxOtK8YbhCsztfUQSbhi98q5qRJxlYZKX9/5cqcoJJdBh5ITmk2ezxi/0VW2LXLVhwZEY
+ IwLOxCvOaHtIQ4ENgbwBsEt+QBUq6Uboh+/iWtLNyAxyPknPKJZFy+XfUKnliRApEr9KnVo6+zB
+ VE6TnNJIRZE+63QIIAE/mCT9klGmD9UvHDpUsKOJw5b2pJxApyXyr3Nhde4XZUpUPClNLpR5mgy
+ kBOL/jP1cwoWUxhs583vz3UPEtBUEmInxIAJ6og6ChEkgqC2Qv3DPnNuYT7IT936Xet5aWo/T3u
+ 2ASLJW5AIiaQ1pOzNnA==
+X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba4247 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=RY2o0Md-0pArxuxOjsoA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: iYrKoBypbLkn3uyJ6MT4o3b2SKkhebZF
+X-Proofpoint-GUID: iYrKoBypbLkn3uyJ6MT4o3b2SKkhebZF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfXwIOX8di+S017
+ nm9s0RiCvHxA4pKr6oUGTDI1rPU2OvefSyqDuxm6kfk88PYKMjUN9Vk0qzyHC8a7q+3fshyMfqA
+ 0p+Ep0viYI4fTR44azqkB+vHL7j4I6s=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280041
 
-The first plugin RPC needs region offsets, a protocol version and
-initialized control and response state in the shared communication
-buffer.
+The LPASS macro codec drivers currently rely on the PM clock framework
+to manage their clocks. The PM clock framework is useful for the common
+case where drivers only need clocks enabled while the device is active,
+but its lifecycle is not a good fit for these codec clocks.
 
-Add BAR1 accessors to initialize those fields and verify the fixed
-response structure size at build time. The control sequence field first
-carries the boot-ready marker, so RPC initialization must follow the
-plugin's ready indication.
+The PM clock framework separates the prepare and enable lifetimes:
 
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+ - of_pm_clk_add_clks() adds the DT clocks to the device PM clock list.
+ - pm_clk_acquire() is called while adding each clock.
+ - for normal clocks, pm_clk_acquire() calls clk_prepare() immediately
+   and marks the clock as PCE_STATUS_PREPARED.
+ - runtime resume calls pm_clk_resume(), which calls clk_enable() for
+   clocks already in PCE_STATUS_PREPARED.
+ - runtime suspend calls pm_clk_suspend(), which calls clk_disable() and
+   returns the clock to PCE_STATUS_PREPARED.
+ - clk_unprepare() is not called on normal runtime suspend; it happens
+   when the PM clock entry is removed/destroyed. For a codec device this
+   usually means driver remove or reboot, not the end of an audio use
+   case.
+
+PM-clk does have a different runtime suspend path for clocks that report
+clk_is_enabled_when_prepared(), where suspend uses
+clk_disable_unprepare(). The issue described here is for normal clocks
+with separate enable/disable operations, which remain prepared across
+runtime suspend.
+
+That prepare/enable split is problematic for platforms where the audio
+macro clocks are sourced from an XO-backed clock tree. Preparing a child
+clock walks the parent tree. If the parent path reaches an RPM/RPMh
+managed XO clock, the provider may vote for the XO resource during
+prepare. Therefore a non-zero prepare count can be sufficient to keep
+the XO resource voted at the provider level, even when the corresponding
+enable count is zero.
+
+In other words, after the codec runtime suspends, PM-clk has disabled the
+LPASS macro clocks, but it has intentionally kept them prepared. On
+XO-backed clock trees that remaining prepared state can still hold the
+parent XO vote and prevent XO shutdown. This is expected behaviour from
+the PM clock framework, but it does not match the power requirement for
+these audio macro clocks.
+
+For the LPASS macro drivers the required clock lifetime is simpler: the
+macro register block needs these clocks only while the device is runtime
+active. Move RX, TX, VA and WSA macro clock handling into the existing
+runtime PM callbacks using clk_prepare_enable() on runtime resume and
+clk_disable_unprepare() on runtime suspend. This makes both prepare and
+enable counts follow the device runtime PM active state and releases
+parent XO votes when the macro runtime suspends.
+
+Each macro driver is converted independently so the series remains
+bisectable. The final patch drops the now-unused PM_CLK dependency from
+the LPASS macro Kconfig symbols.
+
+Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 ---
- drivers/gpu/nova-core/mm/bar_user.rs          |  10 ++
- drivers/gpu/nova-core/vgpu/fw.rs              |   2 +
- drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs | 141 +++++++++++++++++-
- 3 files changed, 147 insertions(+), 6 deletions(-)
+Ajay Kumar Nandam (5):
+      ASoC: codecs: lpass-rx-macro: manage clocks in runtime PM
+      ASoC: codecs: lpass-tx-macro: manage clocks in runtime PM
+      ASoC: codecs: lpass-va-macro: manage clocks in runtime PM
+      ASoC: codecs: lpass-wsa-macro: manage clocks in runtime PM
+      ASoC: codecs: lpass-macro: drop PM_CLK dependency
 
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index 964aee8bfdb1..bcbef1571fb9 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -150,6 +150,11 @@ pub(crate) fn try_read32(&self, offset: usize) -> Result<u32> {
-         self.bar_user.bar1.try_read32(off)
-     }
- 
-+    fn try_write8(&self, value: u8, offset: usize) -> Result {
-+        let off = self.bar_offset(offset)?;
-+        self.bar_user.bar1.try_write8(value, off)
-+    }
-+
-     /// Write a 32-bit value at the given offset.
-     pub(crate) fn try_write32(&self, value: u32, offset: usize) -> Result {
-         let off = self.bar_offset(offset)?;
-@@ -283,6 +288,11 @@ pub(crate) fn try_read32(&self, offset: usize) -> Result<u32> {
-             .try_read32(self.access_offset(offset, size_of::<u32>())?)
-     }
- 
-+    pub(crate) fn try_write8(&self, value: u8, offset: usize) -> Result {
-+        self.access()?
-+            .try_write8(value, self.access_offset(offset, size_of::<u8>())?)
-+    }
-+
-     pub(crate) fn try_write32(&self, value: u32, offset: usize) -> Result {
-         self.access()?
-             .try_write32(value, self.access_offset(offset, size_of::<u32>())?)
-diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
-index 1528cc56ce74..03225b9833c3 100644
---- a/drivers/gpu/nova-core/vgpu/fw.rs
-+++ b/drivers/gpu/nova-core/vgpu/fw.rs
-@@ -15,12 +15,14 @@
-     VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE,
-     VGPU_CPU_GSP_CTRL_BUFF_REGION as RawControlRegion,
-     VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_CTRL_BUFF_VERSION,
-     VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-+    VGPU_CPU_GSP_RESPONSE_BUFF_REGION as RawResponseRegion,
-     VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-     VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE, //
- };
-diff --git a/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
-index a00f4d2affc7..31da31de4fd2 100644
---- a/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
-+++ b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
-@@ -20,7 +20,8 @@
- 
- use super::fw::{
-     self,
--    RawControlRegion, //
-+    RawControlRegion,
-+    RawResponseRegion, //
- };
- 
- static_assert!(
-@@ -38,6 +39,10 @@
- static_assert!(
-     size_of::<RawControlRegion>() == u32_as_usize(fw::VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE)
- );
-+static_assert!(
-+    size_of::<RawResponseRegion>() == u32_as_usize(fw::VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE)
-+);
-+
- /// Physical VRAM regions containing the vGPU plugin logs.
- pub(super) struct PluginLogRegions {
-     pub(super) init: VramRegion,
-@@ -80,9 +85,14 @@ fn take_region(region: &VramRegion, cursor: &mut u64, size: u32) -> Result<VramR
- pub(super) struct CommBufferRegion<'map, 'gpu> {
-     map: BarMapping<'map, 'gpu>,
-     control: VramRegion,
-+    response: VramRegion,
-+    message: VramRegion,
-+    migration: VramRegion,
-+    error: VramRegion,
-     init_log: VramRegion,
-     vgpu_log: VramRegion,
-     kernel_log: VramRegion,
-+    guest_trace: VramRegion,
- }
- 
- impl<'map, 'gpu> CommBufferRegion<'map, 'gpu> {
-@@ -97,22 +107,22 @@ pub(super) fn new(
-         let mut cursor = 0;
- 
-         let control = take_region(&region, &mut cursor, fw::VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE)?;
--        take_region(
-+        let response = take_region(
-             &region,
-             &mut cursor,
-             fw::VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-         )?;
--        take_region(
-+        let message = take_region(
-             &region,
-             &mut cursor,
-             fw::VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-         )?;
--        take_region(
-+        let migration = take_region(
-             &region,
-             &mut cursor,
-             fw::VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-         )?;
--        take_region(
-+        let error = take_region(
-             &region,
-             &mut cursor,
-             fw::VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-@@ -132,7 +142,7 @@ pub(super) fn new(
-             &mut cursor,
-             fw::VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-         )?;
--        take_region(
-+        let guest_trace = take_region(
-             &region,
-             &mut cursor,
-             fw::VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-@@ -143,9 +153,14 @@ pub(super) fn new(
-         Ok(Self {
-             map,
-             control,
-+            response,
-+            message,
-+            migration,
-+            error,
-             init_log,
-             vgpu_log,
-             kernel_log,
-+            guest_trace,
-         })
-     }
- 
-@@ -177,6 +192,21 @@ fn read_u32(&self, region: &VramRegion, field: usize) -> Result<u32> {
-             .try_read32(self.io_offset(region, field, size_of::<u32>())?)
-     }
- 
-+    fn write_u8(&self, region: &VramRegion, field: usize, value: u8) -> Result {
-+        self.map
-+            .try_write8(value, self.io_offset(region, field, size_of::<u8>())?)
-+    }
-+
-+    fn write_u32(&self, region: &VramRegion, field: usize, value: u32) -> Result {
-+        self.map
-+            .try_write32(value, self.io_offset(region, field, size_of::<u32>())?)
-+    }
-+
-+    fn write_u64(&self, region: &VramRegion, field: usize, value: u64) -> Result {
-+        self.map
-+            .try_write64(value, self.io_offset(region, field, size_of::<u64>())?)
-+    }
-+
-     /// Return the physical regions occupied by the three plugin logs.
-     pub(super) fn plugin_logs(&self) -> PluginLogRegions {
-         PluginLogRegions {
-@@ -209,6 +239,105 @@ pub(super) fn is_plugin_ready(&self) -> Result<bool> {
-         Ok(value == fw::GSP_PLUGIN_BOOTLOADED)
-     }
- 
-+    /// Initialize the shared control and response buffers for plugin RPC.
-+    #[expect(dead_code)]
-+    pub(super) fn initialize(&self) -> Result {
-+        self.write_u64(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.response_buff_offset),
-+            u64::try_from(self.region_offset(&self.response)?)?,
-+        )?;
-+        self.write_u64(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_buff_offset),
-+            u64::try_from(self.region_offset(&self.message)?)?,
-+        )?;
-+        self.write_u64(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.migration_buff_offset),
-+            u64::try_from(self.region_offset(&self.migration)?)?,
-+        )?;
-+        self.write_u64(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.error_buff_offset),
-+            u64::try_from(self.region_offset(&self.error)?)?,
-+        )?;
-+        self.write_u64(
-+            &self.control,
-+            core::mem::offset_of!(
-+                RawControlRegion,
-+                __bindgen_anon_1.guest_rpc_trace_buff_offset
-+            ),
-+            u64::try_from(self.region_offset(&self.guest_trace)?)?,
-+        )?;
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(
-+                RawControlRegion,
-+                __bindgen_anon_1.migration_buf_cpu_access_offset
-+            ),
-+            0,
-+        )?;
-+        self.write_u8(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.is_migration_in_progress),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.error_buff_cpu_get_idx),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(
-+                RawControlRegion,
-+                __bindgen_anon_1.guest_rpc_trace_buff_cpu_get_idx
-+            ),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.attached_vgpu_count),
-+            1,
-+        )?;
-+        self.write_u8(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.is_gr_init_done),
-+            0,
-+        )?;
-+
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_type),
-+            0,
-+        )?;
-+        // Replace the boot-ready marker with the initial RPC sequence.
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_seq_num),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.response,
-+            core::mem::offset_of!(
-+                RawResponseRegion,
-+                __bindgen_anon_1.message_seq_num_processed
-+            ),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.response,
-+            core::mem::offset_of!(RawResponseRegion, __bindgen_anon_1.result_code),
-+            0,
-+        )?;
-+        self.write_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.version),
-+            fw::VGPU_CPU_GSP_CTRL_BUFF_VERSION,
-+        )
-+    }
-+
-     /// Invalidate the PTEs and release the communication mapping.
-     pub(super) fn unmap(&mut self) -> Result {
-         self.map.unmap()
+ sound/soc/codecs/Kconfig           |  4 --
+ sound/soc/codecs/lpass-rx-macro.c  | 74 ++++++++++++++++++++++++-----------
+ sound/soc/codecs/lpass-tx-macro.c  | 75 ++++++++++++++++++++++++-----------
+ sound/soc/codecs/lpass-va-macro.c  | 74 ++++++++++++++++++++++-------------
+ sound/soc/codecs/lpass-wsa-macro.c | 80 +++++++++++++++++++++++++-------------
+ 5 files changed, 203 insertions(+), 104 deletions(-)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260925-xo-sd-runtimepm-v1-final-37ebcf40aecb
+
+Best regards,
+--  
+Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+
