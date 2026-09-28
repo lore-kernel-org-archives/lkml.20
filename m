@@ -1,149 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A5237E5C5;
-	Mon, 28 Sep 2026 18:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E56381AFB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619394; cv=none; b=CA9oNhb5LxIKQqDg8k0tz40adp1PmMQ725+8fzdEjNJ8FsObRbpvffw1dlOJ1IsLr0t8b/0r8at24OQ8Y55yIHbMv8agzYI6yjS8yfwisWWRGPKpOSvVoXWnWihBGXTrDMaCBXB/DX8H1f6+AG50DT+rRNRbi6KVk1cZdYropGE=
+	t=1790619463; cv=none; b=JT0zs9B+iTQBeYsDDB0q6qm4P5lO1xYnfK4sP+vXIn8I66X4Dlqcg1/f0xQTYg3BS9AdODyBIEr2kVrCqpjk958AORw12RHvly48Y73prsTvI86F0U1z8+G+XwkmN5YE6ZQdL3avk7NIe7KWM5v6ttFoxqJIPC/8UMbBBtQacHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619394; c=relaxed/simple;
-	bh=PmaO83t7PRe4HczkSaTr9aLkTHEtYH1agSDLYmZqAp8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EqdDaA5QjhJ0XvGNGkCK87OkHBB0tTZDwruGwMEUnQ9Ii492V0ANLqdnYgv/VLblGg1cIMdnkLXTu5CEBteSrcsqdKjqm/rAyBpfrl/OjrvGHpbWkk2KRSQAEaBbkGdLfLoNHc7tNzoHVT5cIZd7vnWGxrDzGG+oLoPjlZ1/2cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URLeFls5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790619463; c=relaxed/simple;
+	bh=t7wnAbQo9fhp75YDIZ8Di2uLMxtaqNgTQQQgRgB2y7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WvZBWFzpZVOFJhKRlkBfyqux3QS+IKYG9exZXCBx9ZADiYtRMLkGBxka+z3kw5OnylHIAltwqLwx1FJNkfoE/ntXGZBmPMXra3hzMHhE0liUH5+kHZgX7I2dCGuEJBPOCSqfPj391RTwOsnnG5V7f6/wDsG9a+UDygZsKx2qveY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbLERrcq; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URLeFls5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 58F65C2BCC7;
-	Mon, 28 Sep 2026 18:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790619394;
-	bh=PmaO83t7PRe4HczkSaTr9aLkTHEtYH1agSDLYmZqAp8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=URLeFls5xDxm0GeaD8B+BdnRB/41+yC67smUZdHfad1vf4vTuoGJ6iMLSztGsYiAn
-	 ivtjnlwLxnNyOTUZ/3m+6+rY1G31zDDa3eldwVCjOf9QToEP+oMXuuYuNAO0jvppb7
-	 tA6fslqnBeLzzeFnUzf5IaTYZT3kl81cqAFvG8jzcd4x6KIXd5wMOYGvXFEHmcrcIQ
-	 64thzBPHW2o9k3j7ut6lyGmeVghQwtsFtA85ccZjMOB3rC8fX9caQxuWog/9m8s72u
-	 iLmMQ7KJ5NXTqul+srfhxLc28UJHQQFtDHEWGhXGN4pXQNHjWNO6SaxB946ESZQn2D
-	 rOHn9unmdoNyw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34E3BCA5FA3;
-	Mon, 28 Sep 2026 18:16:34 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Mon, 28 Sep 2026 15:16:28 -0300
-Subject: [PATCH] usb: dwc3: qcom: Check for L2 only when suspending a host
- with wakeup
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbLERrcq"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so32128205e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:17:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790619460; x=1791224260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7P4n65OS1muIcpC3FLPM1Cf6wgXMdF30weAgyrooSwc=;
+        b=cbLERrcqKD/iOx0zNL9szerynmLpYRmAEg0WAk2cgUSNgqaSYG4iE/hkL5Meo8zWZk
+         l6AuMPOzBoTZTosFX6LNrPtQ372ff3ATLSqxr+Udv2PeFJmRoyS+4en3Zhc/A7pIT3CQ
+         +BOV9ypIyujKFzljQPwviI3CYGPJ7BoBNv/JdhDizZVBzyT5ib6P4vEw/SVDAKm2zyl7
+         LEWs66oHgK4DVjGIbuVbWkJO34NM42NXS/sTrQevGaqXILZFAMKhydVefE/UycrGgftZ
+         VA+lhwc7CIjNrmIL9Jjpx5Sy9yTqxzMci/bTEFzFKFmxz29IKm0Wn6lh9QMFrnlUT1R3
+         lBnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790619460; x=1791224260;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7P4n65OS1muIcpC3FLPM1Cf6wgXMdF30weAgyrooSwc=;
+        b=QjbuI8MjTVwT629Mgy6b7aG4a4mKAT220zefU6XMhAODSVazgJQ7tTeu+X3QqqevOs
+         bvcuP0eGeumXIr7T/VFgHMGDlQWYHvlA1lUOLRfS87ULa3MIG/RziAnOSdAA2FgCQWKf
+         3eTit35GabWht1tyi15u/u1tlj66nZ+DutBogZXO7i6YBSRd9h6UoAM58L7VlYx2W3Zd
+         KoJqZhSg/PUaRDJ3BrmrBgpxEANwdkODLap5xWFcQ0ew7xGfr+99IbNR9vxoVV/UqwJP
+         7bPVVa3lEzoBOlClJZ3M8t4ucruTwAheJA/J2Uq4maacxACiYYWTEooCYWDbOjrVEpgA
+         RqHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzoO3D+SOrQ/CFD3iMhb4SORFHBxMEB7PmF7V1aZU39xKmhz/TVPh8pSYnkTAlNcBTAD/WS/rZjRrYsWb0=@vger.kernel.org
+X-Gm-Message-State: AFuF++noaxIYVutADWVEYlatDJFibURUcoki0XOWoV0QUPiLQYk55QWn
+	nDLW1KTHDwfFNcvtYmfrVris4hVUa/mtEa4FAVw71jP7mImUUxyrCDj6
+X-Gm-Gg: AYBFou22DzFWw3tE+IQdYuCQqZI1vB687gZQdYXwRgF1CPlSt+wZHe0M9OVx2Ditu1g
+	KoVweKrQPExRCX0f1137zrURag8LZnT6LlHsbGKMexeNvGz0d9OW5l66GlSXdgcO/TM+NGk+p03
+	u61xR7Lm20VxId8f4jESlBOMZNKSMeyjDViblTR88JPgIc3DnuaqvVcFxhtHJ6pkZ+9+aZ2B/qF
+	mMa6vYK4CNy4iPNfCu8KuMyL3QssRq9zU6zTte6oN/cJDlNcqon9SNfrHxmV3g8Oi9FI6fHsZ48
+	JkPQ8cl2BO0rOrxvUU7NTzW+UKc1nD+e1rRGhCaIqCnpp5AdkRWzr0cgfeV7H03ObqSbBwEtpT5
+	LNjWR/Adq3zAdqLum7DLi+2HJh3fJiQmpXzwfROhbgBik4Hh26to21bJ9RAJweFHaMJ9tOqWje6
+	SnxuoqtyvaYF4OUYGSRC4kIenYCjNgukOyQp953xpZsAvYh5hGgmzJuuid3+kf6CvMM3tD4nHDk
+	hbjFwg6nexwKewByJXanToy5DVbBNOPtNY=
+X-Received: by 2002:a05:600c:3511:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49fe66fca74mr225174635e9.23.1790619459558;
+        Mon, 28 Sep 2026 11:17:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm14819315e9.9.2026.09.28.11.17.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 11:17:39 -0700 (PDT)
+Date: Mon, 28 Sep 2026 19:17:37 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] PCI: sysfs: Reject unaligned resource I/O port
+ accesses
+Message-ID: <20260928191737.20c8a985@pumpkin>
+In-Reply-To: <fd1753ec-020b-b90d-ec1a-9d21ab2fa9a4@linux.intel.com>
+References: <20260928123036.7902-1-kartikey406@gmail.com>
+	<fd1753ec-020b-b90d-ec1a-9d21ab2fa9a4@linux.intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxG4auQrm2CJRDwKsYFU36kqCAzCiaEu
- zvK8lu8t1KANwQ6JSt5zBZsHCKOh4S0q4cr2JpoklSKtJKSm0UznnR88F1YO+iNkbk8rxWtK4R
- i+PRo7fOfni+7w9v10NfvRNv2BTbuNNt2AAAA
-X-Change-ID: 20260928-dwc3-qcom-l2-check-e3b55acefb62
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790619393; l=3338;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=kTgm6rFNJ51HgyF1+bhK1uBxwLypDtFEi7P/iVrPY/M=;
- b=s+l+3PPixIi2c5hVLy8Fdn/OQHPA87hXlNkWFP0pgQolbC7E5p2g+Kt68KYFBMgt9IqJpmlH3
- Ou5vl5s1IsSDCuH50PYMVjRUI7s9SY7WkF05DvqQxnc6O13anbq5/Uq
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+On Mon, 28 Sep 2026 15:57:23 +0300 (EEST)
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
 
-In peripheral mode the core disconnects and powers the PHY off before
-the glue suspends, so the link never enters L2 and every system
-suspend logs "HS-PHY not in L2". Check only for a host with wakeup,
-the one case that parks the PHY in L2.
+> On Mon, 28 Sep 2026, Deepanshu Kartikey wrote:
+>=20
+> > pci_resource_io() validates that the requested port lies within the
+> > BAR but never checks that it is aligned to the access size. A
+> > pwrite64()/pread64() on a resourceN file with an odd offset and
+> > count=3D2 or count=3D4 reaches outw()/outl() with a misaligned address.
+> > On arm64 this becomes a store/load to a Device-memory mapping
+> > (PCI_IOBASE + port), which architecturally requires natural
+> > alignment, causing an alignment fault and kernel oops.
+> >=20
+> > Reject misaligned 2- and 4-byte accesses before they reach the
+> > low-level accessor. With natural alignment enforced, an access that
+> > starts inside the BAR cannot extend past its end, so drop the
+> > port + count - 1 range check.
+> >=20
+> > Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D7134530b25073b4ef373
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > ---
+> > v2: Check alignment per access size in the case 2/case 4 branches
+> >     instead of using IS_ALIGNED() with a user-controlled count, and
+> >     drop the now-redundant port + count - 1 range check.
+> >     (Bjorn, David, sashiko)
+> > ---
+> >  drivers/pci/pci-sysfs.c | 7 ++++---
+> >  1 file changed, 4 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+> > index 1f21856aac8a..8118cc6b3a61 100644
+> > --- a/drivers/pci/pci-sysfs.c
+> > +++ b/drivers/pci/pci-sysfs.c
+> > @@ -1209,9 +1209,6 @@ static ssize_t pci_resource_io(struct file *filp,=
+ struct kobject *kobj,
+> >  	if (port > pci_resource_end(pdev, bar))
+> >  		return 0;
+> > =20
+> > -	if (port + count - 1 > pci_resource_end(pdev, bar))
+> > -		return -EINVAL;
+> > -
+> >  	switch (count) {
+> >  	case 1:
+> >  		if (write)
+> > @@ -1220,12 +1217,16 @@ static ssize_t pci_resource_io(struct file *fil=
+p, struct kobject *kobj,
+> >  			*(u8 *)buf =3D inb(port);
+> >  		return 1;
+> >  	case 2:
+> > +		if (port & 1)
+> > +			return -EINVAL;
+> >  		if (write)
+> >  			outw(*(u16 *)buf, port);
+> >  		else
+> >  			*(u16 *)buf =3D inw(port);
+> >  		return 2;
+> >  	case 4:
+> > +		if (port & 3) =20
+>=20
+> Why fon't these use !IS_ALIGNED() anymore? You can use e.g. sizeof() to=20
+> connect it to the natural alignment of the type so you don't have to use=
+=20
+> literals at all.
 
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
-Tested on a Motorola Moto X4 (XT1900-6, SDM630) with the sdm660-mainline
-7.2.3 tree, in peripheral mode with the cable attached: the "HS-PHY not
-in L2" message appears on every system suspend without this patch, and
-not over three consecutive cycles with it. Host mode is untested, since
-this board runs the controller in peripheral mode. The board binds
-dwc3-qcom-legacy, so the same change in dwc3-qcom.c is build-tested
-only. Applies unchanged to next-20260928.
----
- drivers/usb/dwc3/dwc3-qcom-legacy.c | 16 ++++++++++++----
- drivers/usb/dwc3/dwc3-qcom.c        | 16 ++++++++++++----
- 2 files changed, 24 insertions(+), 8 deletions(-)
+That just obfuscates what is going on....
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom-legacy.c b/drivers/usb/dwc3/dwc3-qcom-legacy.c
-index d3fad0fcfdac..ba3f70dea4ab 100644
---- a/drivers/usb/dwc3/dwc3-qcom-legacy.c
-+++ b/drivers/usb/dwc3/dwc3-qcom-legacy.c
-@@ -431,10 +431,18 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
- 	if (qcom->is_suspended)
- 		return 0;
- 
--	for (i = 0; i < qcom->num_ports; i++) {
--		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
--		if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
--			dev_err(qcom->dev, "port-%d HS-PHY not in L2\n", i + 1);
-+	/*
-+	 * Only a host with wakeup enabled keeps the HS PHY powered and parks
-+	 * it in L2 across suspend. A peripheral disconnects from the bus and
-+	 * powers the PHY off first, so its link never enters L2.
-+	 */
-+	if (dwc3_qcom_is_host(qcom) && wakeup) {
-+		for (i = 0; i < qcom->num_ports; i++) {
-+			val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
-+			if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
-+				dev_err(qcom->dev, "port-%d HS-PHY not in L2\n",
-+					i + 1);
-+		}
- 	}
- 
- 	for (i = qcom->num_clocks - 1; i >= 0; i--)
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index ac68b4218b56..e0920da280ce 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -343,10 +343,18 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
- 	if (qcom->is_suspended)
- 		return 0;
- 
--	for (i = 0; i < qcom->num_ports; i++) {
--		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
--		if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
--			dev_err(qcom->dev, "port-%d HS-PHY not in L2\n", i + 1);
-+	/*
-+	 * Only a host with wakeup enabled keeps the HS PHY powered and parks
-+	 * it in L2 across suspend. A peripheral disconnects from the bus and
-+	 * powers the PHY off first, so its link never enters L2.
-+	 */
-+	if (dwc3_qcom_is_host(qcom) && wakeup) {
-+		for (i = 0; i < qcom->num_ports; i++) {
-+			val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
-+			if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
-+				dev_err(qcom->dev, "port-%d HS-PHY not in L2\n",
-+					i + 1);
-+		}
- 	}
- 	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
- 
+David
 
----
-base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-change-id: 20260928-dwc3-qcom-l2-check-e3b55acefb62
-
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
-
+>=20
+> > +			return -EINVAL;
+> >  		if (write)
+> >  			outl(*(u32 *)buf, port);
+> >  		else
+> >  =20
+>=20
 
