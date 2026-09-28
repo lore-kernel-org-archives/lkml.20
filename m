@@ -1,124 +1,232 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F75C35C69B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABF6395ACC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620531; cv=none; b=YChZ/dx0RGxlV1PTzgZRv+4n6gCVa6z+bgTfQtmPTa5bmObaP2qXINvksO/+YSbyhUToqnVUzVVPax/cZ3K30kUiAoeqMD99KWPZjm8FMXRm9g/ZAmXaGJ0kYaNK+BU4C0n/Pn3PnWuvBrwfpUNFhxkgiZClSGr3ZKBXlV1jNzc=
+	t=1790620789; cv=none; b=hUEMvVJyEzf5GGNlb9N3SQIgOZrLq8YFDyJpuzxTRNwUeanj5zHPXd/LeOSRqHcmZinqdBOfG4vLFEyowM4CMPAD63uLLQdcDh5G+THSkvLGJTfLfuONMKL0fZLDLkAU9DRsX0qzpk7ynrrAWyfgk4HXndqyjUT3cqC+gzNPjWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620531; c=relaxed/simple;
-	bh=Fa7UETDgObC9pq8R4zODrgE9VeFREK6fLvCloveBz6Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K50Ej/q+BSO8MVxDkjtDrd4O2pp7nFOS0xoMMv3Id9Daa9zpJ3KXZBt/fMPiwPQOiq+4BE6Zkblf2tjy8pC73k7Zi706X/9jn3Ux2GXygn2rlNwQC7kEJV7BV9SopwxvnryXf7d/DUGTMIPkkvuok6qdb8/NeRz37JL0qIRTHtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=OCQvMRWF; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790620789; c=relaxed/simple;
+	bh=Ewfn825KMMfQWZHKSaQmSSueVQ7i6/KPsY9fK9R06Ec=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rfEM2V40WKCFgFEb8ycrKwtTRKAVCloVGUClaFuyOgSKA/xJx2s4hJXRIGQbP0gdnmTrvSfC1eQ/O4MwSlNhvD3TIlfuQ76bLWuQr7OXWoSt4u24u+FefKO9yIu6OdOYtHu9joQ/rlj/oUtRaOMwJM/rE7OMfxuN0gkxR1iFciA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DCwQTcZn; arc=none smtp.client-ip=74.125.228.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="OCQvMRWF"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-532db7db0c6so31078071cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:35:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DCwQTcZn"
+Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cc4aa027fe4so397963a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790620528; x=1791225328; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dxYWdnG9XxFrqCAEGe9EqULQHLeOXuQ+tsemj8NQgPs=;
-        b=OCQvMRWFaaG7PG+jWRdM+wDB+dmQ16r3yAiNRv9fmJLd7/4TvTRZetCx55AE2QH99U
-         VywUQNpucSdncZWLk2G/X0+OJXbe9HxD7j5bhPUYgV+JS5WGWQZWuK65kgRWeOT2yW15
-         sBz9LdDqgvu9sy/GEIYpNtD/B5o4lYfFEp8ytTs/+L1umwr6DosXzrXW2X0MZxvfyBAn
-         ie42fcimUeX6gVesioD+18VLGjpbZg+P+PULtAtIYIGFXfwBHGY/43SjAr/ONuNLxcbu
-         9aQDetwYd3Sd5nQeCJr4gwuRn4vqEBzo05vZB/1CiV7MC/EptfO6U3RPLlBwoF7Mjkfq
-         Bwbw==
+        d=gmail.com; s=20251104; t=1790620787; x=1791225587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5IOOwv7IZ0QI+lpXyM098yh42pUbvn2jib46/JVSv4g=;
+        b=DCwQTcZnmpp6yvpJOw9RQhELLtoW+YD7LvOZIIoAvHo5aEe6QPWwPDjQ8saK7tu/mM
+         AuvqVTT1hSqWEez6jR4fw2SpR1/JLZot5kXDq5wFv9ts015eSqSloscIHe8+T7Ifz76q
+         367qcoIq2/UsqJrlgiItqBe0pan5n82x3NDjcM+7xf8BHvzPzVis8QyPGXO33t54sMJN
+         j4LYTYpEeFOfTmH1485YvN8ZBn31dBi9C4YKhfarE5t+P+nioXwcU4Vb+o4ceaLNCOkE
+         NbAmN4K5DUnsypwKJ1CxhohZMOptrAPqO3axx1BeUuG7a2OuyHFAWg1XZ5AVDrUHwUeO
+         ojHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620528; x=1791225328;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dxYWdnG9XxFrqCAEGe9EqULQHLeOXuQ+tsemj8NQgPs=;
-        b=dSuugSCCtw/4Lm7lloAatBv4smQnrusq4UYbskQyPGUT/BOb8UioKXWXmzOD4Jv3hX
-         OEFJXLGRpRXoe47JPURauQGv4vXIP1gcKnDTAnxAtQiJH0QExYS/Vpxjme6DryURe5e1
-         m1QJT73tj3wHMBALAKJnMmx2ZmII0aqmA4TJ0Y7o0Gg4mQqEhPVJzrZFtsr6n+Zr49VH
-         aKtDtzekrvgQjSp8TVqaG4GD8NuXKGyArWi/voU0/ip8PNCJv2ej0aUnmQnD3D0QuP0e
-         ZTtPmwrnqW4WY3i0W2zbviSJ0OAfWA9SvozYtiiiXahpMxKrpR8bwbIou2+XlmVsqwIo
-         sptA==
-X-Forwarded-Encrypted: i=1; AKwUvBxEWPAUM6gBrEWtSN8kPvFFRWpnpOx6HVAx3Cx5nEgpYY/+hSju10Wc5VJiMNJYZFG0FFDRwiVVr+ACMEI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZ6QjQs6oc1MI3CFgqAXA+1kUeKVnuPOmJEYcp9ZfXWhmKzVjf
-	s+wdJSZS3E+OFqCsUxDMXoMdP1U0R8YHV8rMuA0jxIXX1PGjXFyDN4j2KWqJ00u+JJ8=
-X-Gm-Gg: AYBFou1qTPjshpX+14pmwGfi1Q/2FaaGlL08trHQL6f+2f6zaSiqX4oMnthnP7pQ2yk
-	1Ao4IV/oVw/sbT7f7gcYGAo71FYNKzUjuIKREneh9H86WVI2/gmXNn+DDOx3GXBwCvhD8TY9smc
-	xsZ+AGLJRwqwS50JJ1vTXEgu+nGc4ODPrBotRgr1eqOMUPkkv0Y4SFTJ9T5loMLN0RfAC7pw/qW
-	oDSIFNrGUz1N0KKXOgqp11CWrvVkdlFOt7i49j9a0wM0RSpKy/Az8hJWe48tCGdBCM/RHp2oF5z
-	P5eN/R8BY2YjzwbbeHJ8kD5ldUB397OgR+NJuoT7gmB7UjiAsIwRfUy8Uv5hw+dZjFY1GnEhrzo
-	e2V5M/FjQy/axTIkNce7+fGLqI7pqFK1GA+1QXxyh7wHmZNEZKUHYsiAtcxejhMDwqZY5t4CD+s
-	chk7RVTOtd9b7ZgXVb8iOaS91H8ybcZ0mCv3pjsi6FoG5y58kYvJEAllsEmsXhxmbSNwRfQmSm+
-	FESnwvCk/gHvaw=
-X-Received: by 2002:a05:622a:14a:b0:533:427e:11c5 with SMTP id d75a77b69052e-533427e1705mr80457491cf.56.1790620527932;
-        Mon, 28 Sep 2026 11:35:27 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.249])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332240741asm69846731cf.26.2026.09.28.11.35.27
+        d=1e100.net; s=20260707; t=1790620787; x=1791225587;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5IOOwv7IZ0QI+lpXyM098yh42pUbvn2jib46/JVSv4g=;
+        b=JKIKlSsQYKHYT4Bf9EN/AomGCCBwfqiA/Sc1crKMIfkDi/JzPmxGc3ohhs9R29VY5U
+         cH2LJ69hXh4uwliwhgotKQ50iYrlpyT/FqTZ7bEg/bCvTRWsTErA9DuVsuDDLHeyCSSB
+         drilAmYAeyG+K8T5+X5r3/XDEjz/8G8xDpGLTDmGTYuONEwuOA4TwMJrKMK1eCcT9Byn
+         gkRs82eFifkMuhSUNQ8x3E3EBrao1XKn6Oi6PrcoH3GJVwZW8PGubphI3urM1xEwftgb
+         3JcjZoB1e2ln+1wLFuTbzRJXcqZRAP2FSzTFvYP6fG6Uzc5VmBvvWMXgIJAbTGNlB44m
+         jdkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOXBIuKgZmHnYSi7Pfh4qRwl8Vb/5GRJkRRu6NdqVM/gQf8zVvl+UHWiLjj/rrZ6pMBcxMQ9zYOsf75mU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF0bL6mS6M8VoD3WZh5840dlWEchw/pYxcQSWisYl87VKnHU4d
+	D/hnHGerwNVF98w7JYOjIt8xkKnv61EV3g7zQaKhrk5JLW5KRTo3cMw=
+X-Gm-Gg: AYBFou1zM0cDW2HOj+Bdc+GzuJSKZ0sHOZ0hTCgyGdCHuwhXgoA17igDa9dfVq+QLmd
+	opo6e9ULsdS7FTAbCG2FAOAru6YoZd3fsOAsEvbJUArgQ5GZc/lDnd1UkLHAqYzEiwqqDDJK2M7
+	Tmivy5YQYJPTowuJmY4K3fz9SNCSJnPmQPTMwVkzSooL1CW5oBmC5F9h9u/lNUDM/d2lmtHApbM
+	phSeuaDbMwnGk+77vohS4d+JfrtPTfrFeP19BclUzwx9SaBT8PAaGn3mDYDuXk3t8iOedplXXhW
+	imHDwUODjObNjTt/VWozMRO4aqEQmCWyDcixHOS0XhsBLgckCTaEolTBYY+VIzIRG0B+ohJEI/6
+	yDTRvePFejku3m1Yu0Hq526nArILN2EhrjsrsvDxb0e/uWrDvJ6GYK+q/B2KbZUuR2jBBSLJUWh
+	azxkAdXeUjqP35fY9RKbeXlXsA7/6tftfJJ7FOZiMu1IUpgRAS9raY+0j/vcmULRRZ4Jtj3IFlZ
+	GcWZ5LdMNDvhyejNimA
+X-Received: by 2002:a05:6a00:b46:b0:881:b503:6425 with SMTP id d2e1a72fcca58-881b50369demr5738321b3a.12.1790620786465;
+        Mon, 28 Sep 2026 11:39:46 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([2a14:7dc0:101:1565::2bf2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf83e0fsm4511336b3a.37.2026.09.28.11.39.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:35:27 -0700 (PDT)
-Date: Mon, 28 Sep 2026 18:34:13 +0000
-From: Josef Bacik <josef@toxicpanda.com>
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/9] ublk: keep queue canceling over canceled commands
-Message-ID: <aop36p477swqzqcn7u7ib3wx5g7sjytcfnya6jjuaukihlgfwn@d6adnvllypd6>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
- <20260928-b4-ublk-cancel-stop-v1-1-4a4360232a46@toxicpanda.com>
- <CADUfDZpg0O89whqqCD4tASkS1KxV6b7xWn9mH8TTPQPo6KSFFg@mail.gmail.com>
+        Mon, 28 Sep 2026 11:39:45 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: a.hindborg@kernel.org
+Cc: ojeda@kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: time: make Delta division and remainder fail consistently
+Date: Tue, 29 Sep 2026 02:39:25 +0800
+Message-Id: <20260928183925.1315274-1-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADUfDZpg0O89whqqCD4tASkS1KxV6b7xWn9mH8TTPQPo6KSFFg@mail.gmail.com>
-X-Mutt-Resume-Draft: 1
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 09:46:04AM -0700, Caleb Sander Mateos wrote:
-> On Mon, Sep 28, 2026 at 9:02 AM Josef Bacik <josef@toxicpanda.com> wrote:
-> > +       for (i = 0; i < ub->dev_info.nr_hw_queues; i++)
-> > +               WRITE_ONCE(ublk_get_queue(ub, i)->force_abort, false);
->
-> I think this has already been done in
-> https://lore.kernel.org/linux-block/20260821103047.369522-2-yangxiuwei@kylinos.cn/
+On 64-bit, Delta division and remainder use Rust operators, which panic
+for a zero divisor and for the i64::MIN / -1 overflow case. On 32-bit,
+the C helpers do not provide the same behavior, so the same API calls can
+return architecture-dependent values or emit a divide-by-zero diagnostic.
 
-Not quite. Yang's patch went in as 8a14be55bdc6 ("ublk: clear
-force_abort in ublk_queue_reset_io_flags()") and this series is on top
-of it, so that clear is still there. The problem is that this patch has
-the ready transition of a UBLK_F_BATCH_IO queue look at ->force_abort to
-decide whether the queue has to stay canceling, and it reads the flag
-before 8a14be55bdc6 clears it. A ->force_abort left over from the old
-server's quiesce then keeps the new server's queue canceling and the
-recovery fails, so it has to be cleared earlier, when the old server
-goes away.
+Check both invalid inputs before selecting the architecture-specific
+implementation. This gives both APIs the same panic conditions as i64's
+`/` and `%` operators and documents them in the public API.
 
-You're right that clearing it in two places makes no sense though. For
-v2 I'll move the clear instead of adding one: drop it from
-ublk_queue_reset_io_flags(), since the release work covers Yang's case
-too (START_USER_RECOVERY can't happen until the old server has
-released /dev/ublkcN), and say so in the changelog.
+Tested on x86-64 and ARMv7 QEMU with CONFIG_SAMPLE_RUST_REPRO=y: zero
+divisors and i64::MIN / -1 panic for both APIs, while 10 / 3 returns 3
+and 10 % 3 returns 1 on both architectures.
 
-> > -       io->flags &= ~UBLK_IO_FLAG_CANCELED;
-> >         ublk_fill_io_cmd(io, cmd);
-> > +       spin_unlock(&ubq->cancel_lock);
->
-> And this looks like it may also duplicate
-> https://lore.kernel.org/linux-block/20260508123746.242018-1-tom.leiming@gmail.com/
+Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
+Closes: https://github.com/Rust-for-Linux/linux/issues/1254
+Assisted-by: LLM
+Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+---
+ rust/kernel/time.rs | 103 +++++++++++++++++++++++++++++++-------------
+ 1 file changed, 72 insertions(+), 31 deletions(-)
 
-That one is f7700a4415af ("ublk: fix use-after-free in
-ublk_cancel_cmd()"), and it orders ublk_cancel_cmd() against the reset
-path, ublk_reset_ch_dev() clearing io->cmd. This hunk is the fetch side,
-which f7700a4415af left alone: __ublk_fetch() drops the stale
-UBLK_IO_FLAG_CANCELED and then publishes io->cmd. A cancel that runs in
-between sets CANCELED again, the fetch clears it, and the queue goes
-ready over a command that was already completed. Same lock, different
-race. I'll mention f7700a4415af in the changelog so that's clearer. Thanks,
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 6c0a5e8090d0..55c90365ba73 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -405,21 +405,65 @@ fn mul_assign(&mut self, rhs: i64) {
+     }
+ }
+ 
++#[inline]
++fn div_s64_or_panic(dividend: i64, divisor: i64) -> i64 {
++    if divisor == 0 {
++        panic!("attempt to divide by zero");
++    }
++
++    if dividend == i64::MIN && divisor == -1 {
++        panic!("attempt to divide with overflow");
++    }
++
++    #[cfg(CONFIG_64BIT)]
++    {
++        dividend / divisor
++    }
++
++    #[cfg(not(CONFIG_64BIT))]
++    {
++        // SAFETY: `divisor` is non-zero, and both operands are passed by value.
++        unsafe { bindings::div64_s64(dividend, divisor) }
++    }
++}
++
++#[inline]
++fn rem_s64_or_panic(dividend: i64, divisor: i32) -> i64 {
++    if divisor == 0 {
++        panic!("attempt to calculate the remainder with a divisor of zero");
++    }
++
++    if dividend == i64::MIN && divisor == -1 {
++        panic!("attempt to calculate the remainder with overflow");
++    }
++
++    #[cfg(CONFIG_64BIT)]
++    {
++        dividend % i64::from(divisor)
++    }
++
++    #[cfg(not(CONFIG_64BIT))]
++    {
++        let mut rem = 0;
++
++        // SAFETY: `rem` points to a local variable and `divisor` is non-zero.
++        unsafe { bindings::div_s64_rem(dividend, divisor, &mut rem) };
++
++        i64::from(rem)
++    }
++}
++
++/// # Panics
++///
++/// Panics if `rhs` is zero, or if the quotient overflows, i.e. if `self` is
++/// `Delta::from_nanos(i64::MIN)` and `rhs` is `Delta::from_nanos(-1)`. Both
++/// cases panic on 32-bit as well as on 64-bit; see `div_s64_or_panic()`.
+ impl ops::Div for Delta {
+     type Output = i64;
+ 
+     #[inline]
+     fn div(self, rhs: Self) -> Self::Output {
+-        #[cfg(CONFIG_64BIT)]
+-        {
+-            self.value / rhs.value
+-        }
+-
+-        #[cfg(not(CONFIG_64BIT))]
+-        {
+-            // SAFETY: This function is always safe to call regardless of the input values
+-            unsafe { bindings::div64_s64(self.value, rhs.value) }
+-        }
++        div_s64_or_panic(self.value, rhs.value)
+     }
+ }
+ 
+@@ -554,29 +598,26 @@ pub fn as_millis_ceil(self) -> i64 {
+         }
+     }
+ 
+-    /// Return `self % dividend` where `dividend` is in nanoseconds.
++    /// Return `self % divisor`, where `divisor` is a number of nanoseconds.
++    ///
++    /// The result has the sign of `self`, and its magnitude is strictly smaller
++    /// than that of `divisor`.
+     ///
+-    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
+-    /// limited to 32 bit dividends.
++    /// `divisor` is a 32-bit integer because the helper called on 32-bit
++    /// platforms, `div_s64_rem()`, takes an `s32` divisor. The dividend (`self`)
++    /// is a full `i64` on every architecture, so the width restriction applies
++    /// to all configurations, not only to 32-bit ones.
++    ///
++    /// # Panics
++    ///
++    /// Panics if `divisor` is zero, or if the division overflows, i.e. if `self`
++    /// is `Delta::from_nanos(i64::MIN)` and `divisor` is `-1`. These are the same
++    /// inputs [`ops::Div`] panics on, and the same ones `i64`'s `%` operator
++    /// panics on. See `rem_s64_or_panic()`.
+     #[inline]
+-    pub fn rem_nanos(self, dividend: i32) -> Self {
+-        #[cfg(CONFIG_64BIT)]
+-        {
+-            Self {
+-                value: self.as_nanos() % i64::from(dividend),
+-            }
+-        }
+-
+-        #[cfg(not(CONFIG_64BIT))]
+-        {
+-            let mut rem = 0;
+-
+-            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
+-
+-            Self {
+-                value: i64::from(rem),
+-            }
++    pub fn rem_nanos(self, divisor: i32) -> Self {
++        Self {
++            value: rem_s64_or_panic(self.as_nanos(), divisor),
+         }
+     }
+ }
 
-Josef
+base-commit: d266640c6c760c9bc215bf5a3ece122ca488b6f5
+-- 
+2.34.1
+
