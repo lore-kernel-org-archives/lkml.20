@@ -1,110 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f9.google.com (mail-lr2-f9.google.com [74.125.230.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3E9495032
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790639043; cv=none; b=bT8dE/vgnDieTbjCybPsC0pFnYU5//EY+aq1sTOKTUOA4ys26mnKfTUZrNFVGg6zCQA9xOz+iZDbsLx558LPPgW2QwQcy1yaxFPl1dTvYP9eUs3H+J+E3jpBdwP1eV15BrDWuDoaw9NxeBTFrlHQDHHO3rKxcmZE8DrlcfLYpqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790639043; c=relaxed/simple;
-	bh=aJgW/iHQLpGqvlqU776ZKildmL9crqFve9o/gRD9XRU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sIuNBQcdwbbCQ2EnaJNhwer90gANgj5WDum6L3W00VwpqDrY/+QCn3KhWDdUnVhf7k8XBmGJy9rh8fl33n0cStpRsRMjRSwnCUU8RTlEReS1Vy0qMB2hWzVdU8bilES6mtyHxRFjehnTzgXP7Nk2Q1x+62Ud+SR1Mcd5mNZkib8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M68z9GNg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D0638F62F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790639087; cv=pass; b=d4JG9mkdXqVJ++gVxRipqgL7ko6diP2WYWgx9vrKb3jmSGqk9Ak8t3F3RuwCRWTummoUrT5qBPyrD4QIUMspA5J2ObfHTiQ66K5VRwF8T2ovHdmPSZ4KndNQd8jYKyd1+NStWWSnfMRHQb7ZxD8f5kgVRbEP3mn0st+RwemZiog=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790639087; c=relaxed/simple;
+	bh=N8Ru2KZ4gnHPrAukAwiJge7OXCwCBTs64/BeOs5VIkw=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=HwZgBd5BISZJBSHsGCrnV26ZZy4p29uWZqHJOBEHT63xKtvWAMXSgmCyL4uGnWF3KS38Ipp2teJum9QSGj8L6D0kgKejnYGnktfxMseLHqZGzCygCHzB9Ja3hyuyiz4HyvGUkfWs3/yW3cAdQQKVtzejkbA3T/YfeViTeQU951g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U9xfHsZk; arc=pass smtp.client-ip=74.125.230.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M68z9GNg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91321F0089D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790639041;
-	bh=1WdtbWW9ZiTyoHXGF6wqFuwUhglmsjzBGLU11/qcEXY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=M68z9GNgU1PQrr9z96rreonup5D0owhIvGzXs7QpZSeLQ9/G7DCePG8c/J106NVF2
-	 ELp/hW5TMc2AR/+rWeSLdh5b7f9XHZnjkhNOA+kktP60q87GW6/PYc+BVKdH2rr+3O
-	 pYHGlrlKzuOoIG7xI1cKlu9mEqO8kzArWJo14OQW6/zUIRVgpoBpECMMLlMBaBrYA+
-	 uQsYt441dFP1HMl0wkwVJRzPAsSrqyZfi6zdUm+qcnvWeuMBGGmQfi0q1Rwogu22o5
-	 AKsCj3oHGRtU4XlGiJ+w6psK3GDWyT2GK4qJq6OfkdCxJS0SztqCYFWc1Oy5K/PFoF
-	 sFMKXcWf815NQ==
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-148516e0b5aso61058c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:44:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzG/zkxb71TlFnbY2F4gERdWAIpii9jxsZs3w0LyJUuJM/x7L/hOwLDqc+IDplCXpw9yeioOHCMVOUNKWo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXaQxihzRQKYYsLJkXnv/i8Z54C+p2mwIEgCW6RnWnt350RMs/
-	FPZtSaDxUTs1aXXj6Xp+DDPzgcVZnFaFertbEmn9RctUxtUWS8uIh6X0Y134HLNuwEFk+Koj9nE
-	9XEQ4ujdmzibYK08m6oMBoxPyXso4IQ==
-X-Received: by 2002:a05:7022:220e:b0:143:296a:4e58 with SMTP id
- a92af1059eb24-146cfec8688mr17695133c88.27.1790639041117; Mon, 28 Sep 2026
- 16:44:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U9xfHsZk"
+Received: by mail-lr2-f9.google.com with SMTP id 38308e7fff4ca-3a655c007efso22383861fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:44:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790639084; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oIqz/iDA8sH/4TZfXTu2GQuMu3VO6YXbSsN4uuOAykdQoC2hPaHzppkRASzboXdu+n
+         Hoh9puXa7h6vKczKLYciLNx9pb67F4CvmEh5nfAjBiT87pGGPimbeZeWRkB+e2bYhxz6
+         rAxLZXwOz7UmPYq9HITDiqtZo98hJPi52NBNe0XvLOInqGwbFGIkRAZkZuDkwb9VjQtI
+         dnSYIrvo/CFtfa0xSLUvFG9ILzGSyB8242/afLFxVQqCmZDm/EQrJc6ix3aVvsAsSIPD
+         JklEgVo4QeL4Ood9g8Xcif4tvlqog+MlfrHLqyEG7wkNp4vBAz2Oh9CV2g5bDfsdtW3T
+         Vtjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=N8Ru2KZ4gnHPrAukAwiJge7OXCwCBTs64/BeOs5VIkw=;
+        fh=yC+2TLdcvI6s0XNFWJayfXT0k+yLre+W8IB8CTgl2Ng=;
+        b=UdLmJZLWHJGJBDXMdz8o+g/KrxUcfrpmLAzFOOYvNrYopopoSK9ClrCkWL/YAj53ug
+         WoSYNJyveQNo/FlH1VUkw30V/ggElu36mXPSvZTcaTp3Fdl7r9snIpOgIOfSkUIyhilR
+         TAjcts9RXAh8is+ExUdyFqKXW10oOerHlrcwIFcKa9RfT+dKdLYTtY4jRfkFWhupEiqA
+         WDMdaEce2sWEcM3wEuGNFOIGgbTcwqnD/XOL0WIycuIB9bO7daDAm/HYSCoNwsw8dzLg
+         R+UvuDrmpm45eqd6eBLlaaOlZ7fhhCSvy9aUSymM3TJh3TxgL1fJpR5tLli9dA1/HC0U
+         KnPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790639084; x=1791243884; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N8Ru2KZ4gnHPrAukAwiJge7OXCwCBTs64/BeOs5VIkw=;
+        b=U9xfHsZktYUjcDNnHgiPXqk0uziSRSj6H7tXw10zBThOwv3HwKy30K1k7B2wOACgfU
+         G9+XYl2CnhDqDQEOQ+4WiQsAetQUkkZPDB/9ko0NFpGwmKFM1sqljbjNbT7UGzN715Lf
+         mauQsojCuxseN46ZHmOVBIgl0WZ16iO6zSJJB0tSva7SsEIa4beH3e2RcKyfGTyLj+rt
+         l2WDFPjrng8qXlHoRWmXRMTpSXXRSD2GTb8IuK4KEIEjgr/HHkLRFIdduM7GkzmZW+00
+         Jsyhlt9jpA1yPf/hCPrxqkfx6/JYQHwNxDW2agOoOIgfqqALTw8VbUbFLrVJGTMP413L
+         h9ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790639084; x=1791243884;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N8Ru2KZ4gnHPrAukAwiJge7OXCwCBTs64/BeOs5VIkw=;
+        b=Vrk+gGJZgU/w2RFhkNv5BR6UMk0LsJ+OW5Popu1hMJcX4nGvuDDEerBeZS6G7jwLeb
+         Ro+IcNuGrclevoAJ0GE5bzJVObG0Gdu79EhcmpfOKgS7fAHaWCO6HgmJ0JhxxJWx7/Gk
+         InaYyba2wxEydB/5ztOo2IoevlK7qlzATQZ6jYWU9cCaiuMBB4e9+W3kUBTlsOG5X+ce
+         hulrnsyb3N6RnAqox+jrKQSzvrQNur0M3pWY4w4jG144hxmmNWXrjqviLBy3jH8bX36X
+         ojq7AO0HPa/oUxyWpjIlmrrYN49W8Oki0QkgcaS3j3vaFvpsZ2+r55+5elWXqAA5RnVt
+         3pow==
+X-Forwarded-Encrypted: i=1; AKwUvByDqXuBgobJUGaFt1u5OmT6uBDHoE5idIxXp0+xqJROcaIlEdqnGdt5/uIPVZXSBjIn83rrtCe7Ovi1vqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLD/fwcWddcqE6B0QQfSprZJqOSVfg7hDNY3+Nvv6naRpWHv7QS
+	RCllJLZ0N4Sm3rnuCBjCL69OCjizUQ+wKmyhfuLEDq9skiA2Wu4sXJrZO/0cHRvQIUT0QmIvdHo
+	vlkZ7gK1cL7L6lU6fYDQLxvZXitALHAU=
+X-Gm-Gg: AYBFou2CdBvvM++8Lqc6pcnvWv5jbDjl3LMY2hhpzkpt0Mrm4rPs1cxPO5e7m5ZfS9n
+	PcpSKjZAz49wlz07V+QrzZeC21t+oX7HVAerb7Q1krR+r9Yr2RCHyRPA3T4ekYBfysk/0naDuq4
+	LfpaV1nm0CDgtD5FMjqsg9P1wktDbgI2QtrUUgvI9sQeOUHqxlG4blUTR3l2eG4qnbgpTmrKTHp
+	nluozhn7BaOvrZc57euq7k8rrS0B1DI3qhTTyHSX9l0eB5DV1IA34XsprwG7bXZ5oCwuMlwtale
+	iKWm5Qg1TjdLFnbu++v3SssRU0QiCa337AdEjMovM1rUG1VxETc5DJnrF2UiidyOnUevGJgE4Vl
+	smC1OMHWBr9SKAhi/+qsmIk9VfH/WhDKHwGry4Mqs9IF8Lih2KBEqAZGiwJoTY8z4zBYLCGg=
+X-Received: by 2002:a2e:b8c8:0:b0:3a6:772c:2763 with SMTP id
+ 38308e7fff4ca-3a6772c2ad3mr10310711fa.0.1790639083996; Mon, 28 Sep 2026
+ 16:44:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828-mtk-hdmi-v2-fix-register-offset-v1-1-118ad5d7ebe3@baylibre.com>
-In-Reply-To: <20260828-mtk-hdmi-v2-fix-register-offset-v1-1-118ad5d7ebe3@baylibre.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Tue, 29 Sep 2026 07:45:55 +0800
-X-Gmail-Original-Message-ID: <CAAOTY_9wM00UUgXCCapLkuNhaV8h7Hh5gDP=ayhUTy2kxLn8gg@mail.gmail.com>
-X-Gm-Features: AclHuK9rDQP3ezTpoWlsP6Hp3Tj24gUagLdqOtVesows-kOTI3dxpack7i3LaLs
-Message-ID: <CAAOTY_9wM00UUgXCCapLkuNhaV8h7Hh5gDP=ayhUTy2kxLn8gg@mail.gmail.com>
-Subject: Re: [PATCH] drm/mediatek: mtk_hdmi_v2: fix VID_DOWNSAMPLE_CONFIG
- register offset
-To: Julien Stephan <jstephan@baylibre.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, CK Hu <ck.hu@mediatek.com>, 
-	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Tommy Chen <tommyyl.chen@mediatek.com>
+From: omer zalman <omerzalman42@gmail.com>
+Date: Mon, 28 Sep 2026 19:44:32 -0400
+X-Gm-Features: AclHuK_VsivwmfiG4mYbPPAahvGUwAEkm-1jf-dH6-g7RAdYNo4Yu9FnxlBZi20
+Message-ID: <CAGLNFZes3CXA568n+5_rgoneDh7w-2=MS34ON7n1tq3ezeZzsw@mail.gmail.com>
+Subject: [PATCH] check-uapi: reject zero and malformed job counts
+To: akpm@linux-foundation.org
+Cc: arnd@arndb.de, quic_johmoo@quicinc.com, linux-api@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="00000000000085ee3a065c93a6a5"
+
+--00000000000085ee3a065c93a6a5
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Julien Stephan <jstephan@baylibre.com> =E6=96=BC 2026=E5=B9=B48=E6=9C=8828=
-=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=888:10=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> According to the datasheet, VID_DOWNSAMPLE_CONFIG is at offset 0x8f0;
-> 0x8d0 is the VID_CSC_COEFF_0 register.
+With -j 0, the per-header loop waits on an empty PID before any
+worker starts. It counts that wait error as an ABI failure even when
+the header passes. Reject non-positive or malformed job counts as
+prerequisite errors before starting the check.
 
-Applied to mediatek-drm-fixes [1], thanks.
+Signed-off-by: Omer Zalman <omerzalman42@gmail.com>
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-fixes
+The exact git-format-patch file is attached because Gmail's web
+composer removes tabs from inline diffs.
 
-Regards,
-Chun-Kuang.
+--00000000000085ee3a065c93a6a5
+Content-Type: application/octet-stream; name="02-check-uapi-job-count.patch"
+Content-Disposition: attachment; filename="02-check-uapi-job-count.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mulw9q5i0>
+X-Attachment-Id: f_mulw9q5i0
 
->
-> Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT81=
-88")
-> Signed-off-by: Julien Stephan <jstephan@baylibre.com>
-> ---
->  drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h b/drivers/gpu/dr=
-m/mediatek/mtk_hdmi_regs_v2.h
-> index 521b35c7e14d..bf3ebf5492d1 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h
-> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h
-> @@ -173,7 +173,7 @@
->  #define  TPI_AUDIO_LOOKUP_EN           BIT(2)
->
->  /* Video downsampling configuration */
-> -#define VID_DOWNSAMPLE_CONFIG          0x8d0
-> +#define VID_DOWNSAMPLE_CONFIG          0x8f0
->  #define  C444_C422_CONFIG_ENABLE       BIT(0)
->  #define  C422_C420_CONFIG_ENABLE       BIT(4)
->  #define  C422_C420_CONFIG_BYPASS       BIT(5)
->
-> ---
-> base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
-> change-id: 20260828-mtk-hdmi-v2-fix-register-offset-879afc38cad1
->
-> Best regards,
-> --
-> Julien Stephan <jstephan@baylibre.com>
->
+RnJvbSAzN2UwZDE4YjdhYWE2MjE5ODFhYzE0MzNmZDRkYmRhYzcyMTk0Njk0IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBPbWVyIFphbG1hbiA8b21lcnphbG1hbjQyQGdtYWlsLmNvbT4K
+RGF0ZTogU3VuLCAyNyBTZXAgMjAyNiAwODo0MToxMCAtMDQwMApTdWJqZWN0OiBbUEFUQ0hdIGNo
+ZWNrLXVhcGk6IHJlamVjdCB6ZXJvIGFuZCBtYWxmb3JtZWQgam9iIGNvdW50cwpUbzogQW5kcmV3
+IE1vcnRvbiA8YWtwbUBsaW51eC1mb3VuZGF0aW9uLm9yZz4KQ2M6IEFybmQgQmVyZ21hbm4gPGFy
+bmRAYXJuZGIuZGU+LCBKb2huIE1vb24gPHF1aWNfam9obW9vQHF1aWNpbmMuY29tPiwgbGludXgt
+YXBpQHZnZXIua2VybmVsLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwoKRnJvbTog
+T21lciBaYWxtYW4gPG9tZXJ6YWxtYW40MkBnbWFpbC5jb20+CgpXaXRoIC1qIDAsIHRoZSBwZXIt
+aGVhZGVyIGxvb3Agd2FpdHMgb24gYW4gZW1wdHkgUElEIGJlZm9yZSBhbnkKd29ya2VyIHN0YXJ0
+cy4gSXQgY291bnRzIHRoYXQgd2FpdCBlcnJvciBhcyBhbiBBQkkgZmFpbHVyZSBldmVuIHdoZW4K
+dGhlIGhlYWRlciBwYXNzZXMuIFJlamVjdCBub24tcG9zaXRpdmUgb3IgbWFsZm9ybWVkIGpvYiBj
+b3VudHMgYXMKcHJlcmVxdWlzaXRlIGVycm9ycyBiZWZvcmUgc3RhcnRpbmcgdGhlIGNoZWNrLgoK
+U2lnbmVkLW9mZi1ieTogT21lciBaYWxtYW4gPG9tZXJ6YWxtYW40MkBnbWFpbC5jb20+Ci0tLQog
+c2NyaXB0cy9jaGVjay11YXBpLnNoIHwgNSArKysrKwogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKQoKZGlmZiAtLWdpdCBhL3NjcmlwdHMvY2hlY2stdWFwaS5zaCBiL3NjcmlwdHMvY2hl
+Y2stdWFwaS5zaAppbmRleCBlMzQ5ZDFmLi5hNWI1OTk1IDEwMDY0NAotLS0gYS9zY3JpcHRzL2No
+ZWNrLXVhcGkuc2gKKysrIGIvc2NyaXB0cy9jaGVjay11YXBpLnNoCkBAIC01NzUsNiArNTc1LDEx
+IEBAIG1haW4oKSB7CiAJCWV4ZWMgPiAvZGV2L251bGwgMj4mMQogCWZpCiAKKwlpZiAhIFtbICIk
+TUFYX1RIUkVBRFMiID1+IF4wKlsxLTldWzAtOV0qJCBdXTsgdGhlbgorCQllcHJpbnRmICdlcnJv
+ciAtIEpPQlMgbXVzdCBiZSBhIHBvc2l0aXZlIGludGVnZXJcbicKKwkJZXhpdCAiJEZBSUxfUFJF
+UkVRIgorCWZpCisKIAlydW4gIiRiYXNlX3JlZiIgIiRwYXN0X3JlZiIgIiRhYmlfZXJyb3JfbG9n
+IiAiJEAiCiB9CiAK
+--00000000000085ee3a065c93a6a5--
