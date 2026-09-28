@@ -1,126 +1,306 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD049D596;
-	Mon, 28 Sep 2026 11:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D4F3115BC;
+	Mon, 28 Sep 2026 11:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593334; cv=none; b=Bcd6sFaEYOujQhVbQ8eDugZq3obgTxjqEf2YraKdUPnnJHF2LlShVXaYRlgfR9dJQinI5iQZcWTBIVryLI1LNLlOTcTN3bcxaObhudVjqwcx6mzcd29VWhh/Fy/RXymCyv5oq+cmSFNRoFBqdfoVjko9L189MEab9m/oONXMtFw=
+	t=1790593347; cv=none; b=MmOc4zYKMm0DRXF9W5W5f5o2x2srkV1qW4BXzz1RrIKAijvCAXDTh35U56GJsXmVV4SkhcAdiBSGj9C3mQCgkUNEkOMm6B/5v7+nDZaZZW5JJy9af4AxgFzaYDAsQo/DP4eEU3XJKcBLTD6+dmA08VZE2gX1XarcGoTFRA7nEt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593334; c=relaxed/simple;
-	bh=NGisOX6xzRlIMDWd73gZ/6yVhZXRtE9zwAVYv+XhHbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ORNs3saReDcRQbY7Ds4Zeu+GiCprpLn+av/O/ywiRJlFGubNZb/2al2kkheXb32eu2SI5e6YGRx//ppWkcbv6WNcIchHHpxjlemgHJNpU/LNAHqNjOz51k5a/vNRr6uWoIhscvkoB3TcnViFFkWgcMKTqWGVE+kKG658S2b5+a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlrsSpvO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593347; c=relaxed/simple;
+	bh=vDM3Jsc4s2Pcenh8iO1OuupcO/tSGDTEI7SgHoe5a50=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=byLpeRrB+goYvi9UEfZAwRd9kGxJ7365B+ZnskgtUqSiRnasBcxR9w5JWCQmxM6jPYDS7x0Fj1ViLai3Q6StfuaMkJHgMGKeXlAMsjTa280RWJGyCMayz/IqX7nsCgalnYKBMmiRKS1pO+ymgnzIKzc/fqkPIkCns48ZNJjbX8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RO5T5IGF; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlrsSpvO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F250D1F000FF;
-	Mon, 28 Sep 2026 11:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593332;
-	bh=bAjb4nAXPR9/i3eiS24x+8vRetpGX2MA10w/UyvWNyA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QlrsSpvOI4SMJ6JD2IAaBKWwcUNmIuETBE+3QZ3occy7QhrVeBgXKG/n6V+oM4102
-	 FNAOHP5q6IxYSKpFioZEM/ivKwA13o8vlf4eeCYKm8sYejjvfj12YYH+94GD+pOB4X
-	 aWi9own6vBuIKF159LGkwN76xrneol8U0o65wYnNY9ZgwyT1wdnVWiUrQivyFuprVQ
-	 iIAWVhipUhzm9Pb+gTxv0GY+5Au3nxHJ+bfJcVyDga22r5DsFxHAf0hu7v+1kjSfkj
-	 H51Zgsx/4vdWffNPd+sQVQZLJyQUaSYN+/twnZ0MriOtoOjfHHvfdZY194HVA8JcEq
-	 dVFP7m7oVAm6g==
-Message-ID: <ee480f01-fd84-4eda-85fb-9d5cad5f3d86@kernel.org>
-Date: Mon, 28 Sep 2026 13:02:04 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RO5T5IGF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790593350; x=1822129350;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=vDM3Jsc4s2Pcenh8iO1OuupcO/tSGDTEI7SgHoe5a50=;
+  b=RO5T5IGFE4/2AJCdyHAmU/qqBxvHRx3EAmAnHcUXw/qSSz00ogPOPZad
+   dNniuk3ZBZYy4OC8Nx6vGQURsT9AhbXNWfTHwYHLGS7BpdJEtq2a+en4R
+   rsPk0nWrOpnoqeEABv56r/I5kE3kF81d6e7Pc0uofVqkzrv8ClBtU4bRf
+   dZqoXUa0zejejJQ3PlgjnufJ9kfvvKeI0Q3EWkilIxV4pCz5mfOZuwle4
+   NhL8Kk1TMlWYlpBuXqtMD4Dy7vPYI9pSb/I1LqkqUTBhISNaFh2qHVs4u
+   L+t7sUn7PR/bHmSZP+4BzM4lk70mO+HGV11L5ozh36BrZ7IGI1Dn0Xo0J
+   g==;
+X-CSE-ConnectionGUID: bFAJbgXdQXa3H8oQWgtrFg==
+X-CSE-MsgGUID: 7FAlnek9R5ygFrSu1nO9/w==
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="231363130"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:02:29 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Mon, 28 Sep 2026 04:02:23 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 28 Sep 2026 04:02:18 -0700
+Date: Mon, 28 Sep 2026 13:02:18 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
+	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
+	<horms@kernel.org>, <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH net-next v8 13/15] net: lan966x: add PCIe FDMA XDP support
+Message-ID: <20260928110218.ktlj26jtyakuywio@DEN-DL-M70577>
+References: <20260924-lan966x-pci-fdma-v8-13-201c7b707d8b@microchip.com>
+ <179036955220.2160803.7046320782670912992@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
- Nord compatible
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
- <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
- <20260928-gregarious-deft-boar-e776ae@quoll>
- <arpH+9ytWKFntjiz@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <arpH+9ytWKFntjiz@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179036955220.2160803.7046320782670912992@kernel.org>
 
-On 28/09/2026 12:56, Mohd Ayaan Anwar wrote:
-> On Mon, Sep 28, 2026 at 12:16:45PM +0200, Krzysztof Kozlowski wrote:
->> On Wed, Sep 23, 2026 at 05:34:17AM +0530, Mohd Ayaan Anwar wrote:
->>> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
->>> SGMII PHY binding.
->>
->> Why random order? Why not enum with existing part?
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
 > 
-> You are right. I will group the stanalone compatibles into a single enum
-> and sort them alphabetically in v2.
+> Critical: 1 � High: 0 � Medium: 2 � Low: 0
 > 
->> Why not even compatible with existing device?
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Nord uses the QMP v7 SerDes register layout, whereas sa8775p uses the
-> v5 layout. The offsets differ, so Nord cannot use
-> qcom,sa8775p-dwmac-sgmii-phy as a fallback compatible.
+> - [Critical] Use-after-free and double free on the PCIe RX path when an
+>   XDP program shrinks a frame.
+> - [Medium] On the PCIe path the driver accepts XDP but cannot handle
+>   XDP_REDIRECT, and the bond driver cannot tell.
+> - [Medium] In lan966x_fdma_pci_napi_poll(), a poll that consumes all
+>   FDMA_PCI_DCB_MAX (256) RX descriptors never re-arms any of them.
+> 
+> --
+> 
+> net: lan966x: add PCIe FDMA XDP support
+> 
+> This commit adds basic XDP support (XDP_PASS, XDP_DROP, XDP_TX) to the
+> lan966x PCIe FDMA path. The IFH and FCS are stripped before the program
+> runs, and the pointer and length from after XDP are passed on to skb
+> construction or to a new memcpy-based XDP_TX routine.
+> lan966x_xdp_setup() now accepts programs on PCIe and skips the page_pool
+> reload there.
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > index 7185e65dda435..216e9cbcd1580 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
+> 
+> [ ... ]
+> 
+> > +static int lan966x_xdp_pci_run(struct lan966x_port *port, void *data,
+> > +                            u32 data_len, void **xdp_data, u32 *xdp_len)
+> > +{
+> 
+> [ ... ]
+> 
+> > +     act = bpf_prog_run_xdp(xdp_prog, &xdp);
+> > +
+> > +     *xdp_data = xdp.data;
+> > +     *xdp_len = xdp.data_end - xdp.data;
+> > +
+> > +     switch (act) {
+> > +     case XDP_PASS:
+> > +             return FDMA_PASS;
+> > +     case XDP_TX:
+> > +             return lan966x_fdma_pci_xmit_xdpf(port, *xdp_data, *xdp_len) ?
+> > +                    FDMA_DROP : FDMA_TX;
+> > +     default:
+> > +             bpf_warn_invalid_xdp_action(port->dev, xdp_prog, act);
+> > +             fallthrough;
+> 
+> [Severity: Medium]
+> What happens here when the PCIe port is a bond slave?
+> 
+> The PCIe ports use the same lan966x_port_netdev_ops as the platform
+> ports, so both .ndo_bpf and .ndo_xdp_xmit are set. bond_xdp_set() looks
+> only at those pointers and never reads xdp_features:
+> 
+> drivers/net/bonding/bond_main.c:bond_xdp_set() {
+>     ...
+>                 if (!slave_dev->netdev_ops->ndo_bpf ||
+>                     !slave_dev->netdev_ops->ndo_xdp_xmit) {
+>     ...
+> }
+> 
+> This patch removes the -EOPNOTSUPP return for PCIe in
+> lan966x_xdp_setup(), so a bond with a lan966x PCIe slave can now install
+> its program on that slave. For bond slaves, bpf_prog_run_xdp() can then
+> turn XDP_TX into XDP_REDIRECT:
+> 
+> net/core/filter.c:xdp_master_redirect() {
+>     ...
+>         if (slave && slave != xdp->rxq->dev) {
+>                 ri->tgt_index = slave->ifindex;
+>                 ri->map_id = INT_MAX;
+>                 ri->map_type = BPF_MAP_TYPE_UNSPEC;
+>                 return XDP_REDIRECT;
+>     ...
+> }
+> 
+> It can also return XDP_ABORTED when the master is down.
+> 
+> This switch has no XDP_REDIRECT case. Would those frames go to the
+> default branch, log a "Driver unsupported" warning and be dropped?
+> Nothing calls xdp_do_redirect(), so the redirect info set by
+> xdp_master_redirect() would never be used.
 
-This is useful to be mentioned in the commit msg. Commit msg does not
-have to be long. It also does not have to repeat the obvious parts.
-Usually it is enough "Add foo bar, not compatible with existing baz baz
-because of different register offsets".
+Re-raise of dismissed issue in v7.
 
-Best regards,
-Krzysztof
+> 
+> [ ... ]
+> 
+> >  static struct sk_buff *lan966x_fdma_pci_rx_get_frame(struct lan966x_rx *rx,
+> > -                                                  u64 src_port)
+> > +                                                  u64 src_port, void *data,
+> > +                                                  u32 data_len)
+> >  {
+> 
+> [ ... ]
+> 
+> > -     memcpy(skb->data,
+> > -            fdma_dataptr_virt_addr_contiguous(fdma,
+> > -                                              fdma->dcb_index,
+> > -                                              fdma->db_index),
+> > -                                              data_len);
+> > +     memcpy(skb->data, data, data_len);
+> >
+> >       skb_put(skb, data_len);
+> >
+> >       skb->dev = lan966x->ports[src_port]->dev;
+> > -     skb_pull(skb, IFH_LEN_BYTES);
+> > -
+> > -     skb_trim(skb, skb->len - ETH_FCS_LEN);
+> >
+> >       skb->protocol = eth_type_trans(skb, skb->dev);
+> 
+> [Severity: Critical]
+> Can this lead to a use-after-free when an XDP program shrinks the frame?
+> 
+> data_len is now the length from after XDP, returned by
+> lan966x_xdp_pci_run(). bpf_xdp_adjust_tail() and bpf_xdp_adjust_head()
+> let it shrink to ETH_HLEN. Take a 14-byte frame with h_proto 0x8100
+> that returns XDP_PASS. eth_type_trans() then leaves skb->len == 0 and
+> skb->protocol == ETH_P_8021Q.
+> 
+> Now suppose src_port is in bridge_mask and IGMP/MLD redirect is enabled
+> in ANA_CPU_FWD_CFG. lan966x_port_mc_set() enables it when multicast
+> snooping is on, and snooping is on by default. In that case the code
+> after this point reaches:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_hw_offload() {
+>     ...
+>         if (eth_type_vlan(skb->protocol)) {
+>                 skb = skb_vlan_untag(skb);
+>                 if (unlikely(!skb))
+>                         return false;
+>         }
+>     ...
+> }
+> 
+> pskb_may_pull(skb, VLAN_HLEN + 2) fails in skb_vlan_untag(), so it
+> frees the skb with kfree_skb() and returns NULL. lan966x_hw_offload()
+> only returns a bool, so the caller still holds the freed pointer:
+> 
+>                 if (!lan966x_hw_offload(lan966x, src_port, skb))
+>                         skb->offload_fwd_mark = 0;
+>         }
+> 
+>         skb->dev->stats.rx_bytes += skb->len;
+> 
+> The freed skb is then returned to lan966x_fdma_pci_napi_poll(), which
+> passes it to napi_gro_receive(). Would that be a use-after-free followed
+> by a double free?
+> 
+> The problem in lan966x_hw_offload() is older. Before this patch it could
+> not be reached, because skbs were built from the hardware length and the
+> MAC drops runts. The frame contents can also come from the network, for
+> example when a decap program uses adjust_head on a minimum-size outer
+> frame.
+
+A VLAN-tag frame arrives on a bridged port, with IGMP/MLD snooping enabled. That
+same port has an XDP program that shrinks the frame to ETH_HLEN and returns
+XDP_PASS. AFAICT, yes, that will result in UAF.
+
+Agree that the problem is lan966x_hw_offload, which can potentially free the
+skb, without letting the caller know. This function is pre-existing and used in
+the platform path, but the UAF can never happen there, because the frame length
+is guarded, and the post-program length is not used at all.
+
+Since there is no live bug in the platform path today, this should, IMO, be a
+preparatory commit in this series, that refactors the lan966x_hw_offload()
+function to let the caller know the skb was freed.
+
+> 
+> [ ... ]
+> 
+> > @@ -312,8 +430,17 @@ static int lan966x_fdma_pci_napi_poll(struct napi_struct *napi, int weight)
+> >                        */
+> >                       fdma_dcb_advance(fdma);
+> >                       continue;
+> > +             case FDMA_TX:
+> > +                     fdma_dcb_advance(fdma);
+> > +                     continue;
+> > +             case FDMA_DROP:
+> > +                     fdma_dcb_advance(fdma);
+> > +                     continue;
+> >               }
+> 
+> [Severity: Medium]
+> What happens if one poll consumes all 256 (FDMA_PCI_DCB_MAX) RX
+> descriptors?
+> 
+> Every result path calls fdma_dcb_advance(), which wraps at n_dcbs. After
+> 256 frames, dcb_index is back at the value saved in dcb_reload. The
+> re-arm loop at the end of lan966x_fdma_pci_napi_poll() then runs zero
+> times:
+> 
+>         while (dcb_reload != fdma->dcb_index) {
+>                 old_dcb = dcb_reload;
+>                 dcb_reload++;
+>                 dcb_reload &= fdma->n_dcbs - 1;
+> 
+> So none of the consumed DCBs are re-armed, and they all keep
+> FDMA_DCB_STATUS_DONE. With a budget above 256, fdma_has_frames() stays
+> true and the same frames are processed again in the same call. With a
+> budget of exactly 256, the next poll processes them again.
+> 
+> Would this deliver stale frames twice, run XDP on them again, and resend
+> the XDP_TX frames?
+> 
+> Only the budget bounds the loop. __napi_busy_loop() passes the socket's
+> SO_BUSY_POLL_BUDGET straight to napi_poll(), and that value can be up to
+> U16_MAX with CAP_NET_ADMIN. The ring can fill completely, because the
+> hardware fills the last DCB before it stops on the invalid nextptr.
+> 
+> This loop was added by the earlier "net: lan966x: add PCIe FDMA support"
+> commit in this series. This patch extends it with the XDP_TX and
+> XDP_DROP results, and it does not seem to be fixed later in the series.
+> The platform lan966x_fdma_napi_poll() has the same pattern with 512
+> DCBs.
+
+Re-raise of dismissed issue in v7.
+
+> 
+> --
+> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-lan966x-pci-fdma-v8-0-201c7b707d8b%40microchip.com
+
+pw-bot: cr
