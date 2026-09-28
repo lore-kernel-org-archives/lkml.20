@@ -1,259 +1,222 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023114.outbound.protection.outlook.com [52.101.83.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-28.mta1.migadu.com [95.215.58.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F0347F76D;
-	Mon, 28 Sep 2026 08:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.114
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585790; cv=fail; b=INUVmhFbWmwJAywH/fwQAERTQXgU+UEqZA6pEosaC4gns5j8OUloud73XDI1ZC3LAKT0x+GnV9uny6DKLmLI/xMPZ4V/aDUjc6ZbT0xqsJK4jA/EivlgiXTibRneRppO9FsJfH2q0St+Av2oaUnlhCR7V5+eKc+WlyWKsnshC6U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585790; c=relaxed/simple;
-	bh=S464YIw4m9Bo0zEOkrWsmGuz+wQka1iKhO/djdkFQlU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=d8+7l7PbvWQmkw7RYMd6HeiiBghYntLEKAUG3xnMFFIqkVzreHmPPOnmTtDulixAFXsbVt3SXC195mT0I7uw1BA+Q0EqwgSGQROoSu83GJVO4tMCc9/UVEBZJOo0xfPlQhHD9t/Qh3sH/AQwIbf8PXzytIN3Pf9YPsCHodYBH54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=jVDaw4Lf; arc=fail smtp.client-ip=52.101.83.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD33847F76D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.28
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790585801; cv=none; b=CcU0Hvj4wCdExxypmyM0YfzRgaEwFsLsrqwepi0ZDgYWGWL0sOBQEPTYsq4BKhTM5MB/2250q37FCLex0Jp0a1JEe4tldYMHNm0kIOvfnmPgFcj0ApI/GVK8pVwGP2aJ+GM28CABNyR9ITpA7Ri1Nq/GVegDzYX6PRhxXoasCbw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790585801; c=relaxed/simple;
+	bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hrtQeWHRIRX7y0fE3xXNE/v7GA4ArA2T3qvr3qjOgb/L6zEZWYYVvRD0P58VzQMXNfeIkEIMhXXRODBUufWkJWr+Hn1mQLbIVbtEW8UilP/QGFhWuROInUDknhe0kixoKqFwfmzWDf/hpWTyy9ByNne6mchZLUZZzZrns7l0a8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o03E5lYB; arc=none smtp.client-ip=95.215.58.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="jVDaw4Lf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aoeDMh4NuRUNftK1GBe2P+GbNTBltJ3jZEoXPSVz548nS220iqtg/LeaoT61hmGwgo+9fCs14PLNS8bPSESP2hebnlBtpHlVrR5BLPqrEmKST0E4jgWMcqSWSyreyO448hkIOHzEuklz0arqUSawqelQSGluTqfWRa+DIaegAQUWTE6f9/X6rDvfv2zQTRI+gFb3wqi0rFlblGxW+u6H1RveQ9TfzeMv2K9h9PN0/2sJ8FSvWVCELzEfFVueZZeaO8h0Z5nRyw0ewWJI9TnAkYqDjJDtICcl67GpElvo6EFXwqcO/Vkbx8HjUgomD1CVpVhQEbSjNOP64GFVszF4JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VSIQvgk68ADZ6hnkXQ7gR6xxYu8W6UvZh80DzHSmimQ=;
- b=rUnQfZdPqvD1OK/8c/huUDcvZB/UgFWK+Y/N0AwsNuxEoFZrlCVacZBjsiZQCcACuN3CRowaFzS7wTLVoqhzWuQc/s00RycfvmPpaWXyL06SVxVBdfgeZUkLeQNea9Q7+hgQxRGGdOIiJmZsFdTIj/VpbMBjO7zAqIIvTM7Nm/DcLgknIog6n5snekUHPt0NBU2EST6SJA/D2GEpEPM9c9eU4i5P1Etiaobo51hqVmmLWwNvhU6hXAfyYDwwgyoueXxLgnCU/vVusXFxilpZP4UHZ7EyQyagl5dTHXsv0RL0u6BiGdVIwvpN0Sw5sOtG0x+Bpoq2DKZ17QE1TkgE7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 13.74.137.176) smtp.rcpttodomain=linuxfoundation.org
- smtp.mailfrom=ziehl-abegg.de; dmarc=pass (p=quarantine sp=quarantine pct=100)
- action=none header.from=ziehl-abegg.de; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VSIQvgk68ADZ6hnkXQ7gR6xxYu8W6UvZh80DzHSmimQ=;
- b=jVDaw4Lf2ZZm4BclEfQO0dOepe3BQ1Ho68Aj+XO8rWgRKJBGiTxgPQYJDHxzRNHlPQkEsS1/zozvSv0WLvv3JbbyCOWhMF99JdVNwmVcp9Eg1+TAHZOuPPs1iOVmtk0d0SdY3pvj6WaYNhZceVQ99JmavIjEahIQ3qlf+nAIV8o=
-Received: from AS9P250CA0002.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:532::6)
- by AS8PR02MB9187.eurprd02.prod.outlook.com (2603:10a6:20b:5b2::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 08:56:20 +0000
-Received: from AM7PEPF00000050.EURPRD83.prod.outlook.com
- (2603:10a6:20b:532:cafe::61) by AS9P250CA0002.outlook.office365.com
- (2603:10a6:20b:532::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 08:56:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
-Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
- designates 13.74.137.176 as permitted sender)
- receiver=protection.outlook.com; client-ip=13.74.137.176;
- helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
-Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
- AM7PEPF00000050.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Mon, 28 Sep 2026 08:56:20 +0000
-Received: from AS8PR07CU003.outbound.protection.outlook.com (40.93.65.52) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 28 Sep 2026 08:56:18 +0000
-Received: from OS6P279CA0059.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:31::16)
- by DBBPR02MB10770.eurprd02.prod.outlook.com (2603:10a6:10:532::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 08:56:13 +0000
-Received: from CPH1EPF00000521.eurprd05.prod.outlook.com
- (2603:10a6:e10:31:cafe::5e) by OS6P279CA0059.outlook.office365.com
- (2603:10a6:e10:31::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 08:56:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 178.15.18.66) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=ziehl-abegg.de;
-Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
- designate 178.15.18.66 as permitted sender) receiver=protection.outlook.com;
- client-ip=178.15.18.66; helo=mail.za.ziehl-abegg.de;
-Received: from mail.za.ziehl-abegg.de (178.15.18.66) by
- CPH1EPF00000521.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 08:56:13 +0000
-Received: from localhost (10.1.201.87) by vEX02.za.ziehl-abegg.de
- (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Mon, 28 Sep
- 2026 10:56:11 +0200
-From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>
-CC: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<hugo@hugovil.com>, <tobias.gannert@ziehl-abegg.de>,
-	<joachim.knorr@ziehl-abegg.de>, Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v2 RESEND] serial: sc16is7xx: fix TX gap caused by kfifo circular buffer wrap-around
-Date: Mon, 28 Sep 2026 10:55:59 +0200
-Message-ID: <20260928085559.3341419-1-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o03E5lYB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790585797; v=1; x=1791190597;
+ b=o03E5lYBXzk39nECo1YLzIkDQIFZEbQfuJWYVbKtoTgYYYFqupfuTqCt/wZnyi31RNDOho/B
+ 4tFVXx/afcs5xmrZkTx6kW+4fkdtMKpBEahUWhWleXWeFcUSqYQHfFsDnzPKPccvgmKdX7OCuYv
+ StWTmXJIQHL3KDHPBnji9S6M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id add109b2092b6c53;
+	Mon, 28 Sep 2026 08:56:37 +0000
+X-Mizu-Trace-ID: add109b2092b6c53
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 10:56:35 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
+ time calculation
+Message-ID: <aronEaoCLJo0h2Ni@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
+ <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: vEX03.za.ziehl-abegg.de (10.1.201.107) To
- vEX02.za.ziehl-abegg.de (10.1.201.106)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30224.004
-X-TM-AS-Result: No-10--7.198600-8.000000
-X-TMASE-MatchedRID: xm/AKV1+13TIEK13nCa2RdwK3aKXLlLAOteHVGUMZ+DlbwjdfEVENEBz
-	kHVLTkBx4AQ6En/+N1aoPdIvr1LpWlL1WjDDWM9gwroDo7M6Ycy9TAVy0y48Gznirt1Adl4gSNz
-	OYgASIP7DEdyTYYzGzQ2FPEakzVvqfJYE9GoWRJGxkiMlzRAr9kGoVfTbC+0PpK0cdqYqf3M46j
-	ujf3NZ6MUonAf5mkE2gaDFHNp6hidigYd5ESghxvbi+YTr2htSEpRQcMr0mi6QpDFuPdGIG8Kkn
-	/6EKqY6AJ+dkE5Z75Xpm4uj63ofZ7wCrakag8ujYBS4BO08ckOB37bQADgKr4CpIfHsTRJvxHtx
-	9qt/1r+xQ8t+/wTTMuUTedInjF4ziRz4gknBIqAIjw+vaMoIm/zUKvBZSHFYEgg3cwDHl/2jYFS
-	FiWs3onGDuy8y1qkuImxnQvgkai1WB15Xa8khtlmblT0sEa1ozzsqyMJb8JpZCp8ExgdxTMsDlZ
-	ROI5+mJMs/b3X04Tc=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--7.198600-8.000000
-X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30224.004
-X-TM-SNTS-SMTP: EE38A320CB9812DACB7A0571106706750F70BD986986C2348BFFD11D4105D58E2000:8
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	CPH1EPF00000521:EE_|DBBPR02MB10770:EE_|AM7PEPF00000050:EE_|AS8PR02MB9187:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7df34d5f-c7fa-42f1-873d-08df1d3e5d7f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|13003099007|3023799007|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- IN0gkqBw6jUxwb1v38AaH9mR1SDA8dL3nOqG3pMVqCRuJzKjzUj1HPFLgOkzXtoMmI6XZ1fnBT1l+vtnDrHPcFiHu8X6+NNenhKtREMy1ZtySBeNVyhRhWPYe71TLO6wxjzo+HIT26uXcFjyo0zqEqsjVakRz/gvQva2rPCnlPG475vidpBAsvkD50dJcPcduwLQ2wcjOmKOEa5ZmOcOUWj+2y7tC3SlzzR+T82IInmetJZiFNCokMnTvJAwAIB8ioR8WdtbPnIGDuT+/1qXrm/RTaKjG3MadSYeQfuSuH/qo31E6v+0lRN9qoRi9VEWDEp4Z8Ne6XS8snUZ+lu6aOyBKFz9BklawfYBkOqQ13eDAz4r0sqVTlO2J+DBZ96SObB/Gw2VFn1aqQptrOyExK4eMW+GfVb4YE0a1UBziSh0bNj1f7XIkOi/15XFl6SoP8Nz3Y1DuujRcL/ZlAkbwZvv9pumw/qUJ6kl26tnDyCfEPYZvenbcgbZX7cBY/qqQFrEXHNUWKMcW3Q4VrweIzNnM02Kod/XrTfL0HYd24NLUY1K7oNxHmSe/6DeVRnrBXjQf+1XMJIvtA2l6WWYcVFDD+nvJYXAvf56Jr2KCpGQvuQLYldicoKAMmZoYuXzFk4FX3iqXj6G+95UdqVZvkXWITUGT7Bl9Fm83qoBUc4=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:178.15.18.66;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(13003099007)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked: HKGBftR7Jx7zfPFZLgKGKixfZUc7rPNALx8IW3gts0Le0vNhg6CVEX/0iQCotkVv6cevhYzXxc39n0U3kH8HVlSv8DxYSNEk4DvV0SUddcauIW8zfDfVlgNWtFyPH1EKKwI+bzkgzpbz5gue9STvnaeWQUnmk1LW947Fr6OSSu2+EQO26vRdrpq73ptCtH9tbVPxYKynLhFFjnEGhTH1B/HOBNDZc6GZJuYM5CrwiOwAz19YnzYg7sluoHHjygW4k8HLUcIMUYpnjiGdmEZRT+fvzE/EmYKhKetp6cEpYc9u60WcIXBv4bwRENb41Yjbxf5HnD1pXxqEr2CqMxMtfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR02MB10770
-X-CodeTwo-MessageID: 874cb772-03c9-431a-8a57-0ffa31776297.20260928085618@eu21-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7PEPF00000050.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9bb412e0-7a5f-4755-e297-08df1d3e5924
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|14060799003|23010399003|1800799024|35042699022|82310400026|13003099007|3023799007|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	tJhV0FTmG+eSAAbIWcYBfVNI5Vy+28bHRlZqmd7fHKimHPByBRN3IAWJxyltti+F80XWRwgGzb5/+zJTXRwZIpCvMFBpsQvz5CEjzItm7vjJWUaCo41/MHT6haYtize/7CZppsDlr4kEo4CPDNxcpPt64vAbN5RtJ7Fmb288iGKbo42cgDQVyI2vJnnt+1iFy/nmcG2Z22Oo66WIiy4ezQRvy5YYl3c7xXEtovoD10o4aVvSsm+GJnJFR1lg4x5Zcd4Yi0MWaGbtl7rBXCaNyjPjUPNgLHfDjKFLbMpd3f3WvApR0TE75TXVpG9x8t3lGz1Z24DbxQ+y/V+Fo35CiIv5gHnfGzTkOA8PiCg2dSayORxlfzZ/ZnM3BwMjooT2N9AyyOJxJGRBaTd0dOeibPcT4+wc7fj4tB9ov61QNizCd0/xdyzAZX/i9pawgS4YDMidfijno1aOfhNSjbVz9et9w9F7eS/MBQNr4GOMMC/NvTqtZ2XP7vjlV/TZl79QGc+XCBNPiePA1WbksBDYIDjPgCxnC/Dfvwk4YiuYD428qfy8Qll0V0r+lgg2EYyLP9Jw3Sx3mQ7sMbYWHgX15SIpCJlLGfoIklbGaYL9lt/EyjF61Bft2gZTx6PVwe0Po0cWJCVr1FXMDTby59QrdeABOZX9rO6mj8JhZJPOphg=
-X-Forefront-Antispam-Report:
-	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(14060799003)(23010399003)(1800799024)(35042699022)(82310400026)(13003099007)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dHqW36tbp2rBx7F/anQxcWLelLYFBsNSHon4l65SsDgQoMhG5e50ZQBYF4ft8atDlN3nDtEwPQvGuceQMKy1ZSn8BFmvudI3pOy+lYuhnConc/7fRC9r0vuybzX8tQdtniSDb7qDJczdcDk79VbOoBwCQnbmscl2R5u1m0jOdUDRC0k7XMSBdgQFGXjIUyVXi2QqVKLCBNwM04PP3snPwfdLcmfbjo/PU0FNL+QpKjGQj59NwQj5G65T9VTgloWy3AZG8Yy5tIGP7cLBpVASnh3eZq/tSfJW3b/Tfz7zfKsjycha6JX9hMII/cogrOlUz0MlRht0zJ166OPeP+FF9x6mzN4yiPko7YzI40bA0wyTmsWSb3LDIabNd/sWWkmTP4yv4I1XRVD0/TY9X7Oh8kc68xa1MeGwRO0J1sYcVmMsUGtA2KvQq5Rar5HHnVfQ
-X-OriginatorOrg: ziehl-abegg.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:56:20.2620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7df34d5f-c7fa-42f1-873d-08df1d3e5d7f
-X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7PEPF00000050.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB9187
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
 
-kfifo_out_linear_ptr() returns only one contiguous linear segment of the
-xmit kfifo. When transmit data wraps around the end of the kfifo, only
-the first segment up to the buffer end is sent. The remaining data at
-the start of the kfifo is not sent until the next TX interrupt fires,
-resulting in a visible mid-frame TX gap on the wire.
+Hi Dave,
 
-The resulting gap is unintended: data remains queued in the xmit kfifo,
-but the hardware TX FIFO drains empty before the remaining segment is
-sent. Such gaps can break timing-sensitive serial protocols such as
-Modbus RTU.
+thanks for your feedback!
 
-Modbus RTU requires a message to be transmitted as a continuous stream.
-For baud rates above 19200, the Modbus Serial Line guide recommends a
-fixed 750 us inter-character timeout. On the tested 115200-baud system,
-oscilloscope measurements showed mid-frame gaps exceeding that value.
-Receivers using the recommended timeout may therefore discard the
-incomplete message.
+On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
+> Hi Richard
+> 
+> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > ov9282_exposure_to_us() divided the line length by the pixel rate control,
+> > which is the MIPI rate and not the clock HTS is counted in.
+> 
+> It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
+> the MIPI rate. Many drivers do conflate the two.
+> 
+> However I did notice a couple of weeks back that pixel_rate is
+> incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
+> readout).
+> 
+> <quote> Actually I see the problem. In the hardware the pixel rate for 8 bit
+> is scaled by the change of PLL2 multiplier from 0x50 to 0x60 = x1.2.
+> The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =
+> 0.96, so my 96% of speed would be spot on. The use of link frequency
+> in computing pixel rate is totally bogus as they are on independent
+> PLLs </quote>
 
-The incomplete transfer also causes unnecessary TX interrupts: instead
-of using all available hardware TX FIFO space in one go, the driver
-requires an extra interrupt to send the remaining segment after the
-wrap.
+So I guess I should also get rid of the pixel rate pre-processor
+calculation which depends on the link frequency?
 
-After the tty xmit buffer was converted to a kfifo, the driver used
-uart_fifo_out() to copy data into a linear staging buffer, allowing a
-transfer to span the kfifo wrap-around boundary. Commit 133f4c00b8b2
-("serial: sc16is7xx: fix TX fifo corruption") replaced uart_fifo_out()
-with a single kfifo_out_linear_ptr() call to remove the shared TX/RX
-buffer. Since kfifo_out_linear_ptr() exposes only one contiguous
-segment, that change lost the wrap-around handling.
+Is it OK with you to just hard-code them?
 
-Fix this by calling kfifo_out_linear_ptr() in a loop, advancing through
-all contiguous segments until the available hardware TX FIFO space is
-exhausted or the xmit kfifo is empty.
+#define OV9282_PIXEL_RATE_10BIT   160000000
+#define OV9282_PIXEL_RATE_8BIT    192000000
 
-This fixes the kfifo wrap-around gap independently of the stale-TXLVL
-refill issue.
+AFAICT it should be possible to calculate the PLL1 pix clk from the input
+clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
+would prefer to not add this to this series. If it's desired and possible
+from your point of view, I can tackle this in a future series.
 
-Tested on SC16IS752 over SPI driving RS-485 at 115200 baud 8N1 on an
-i.MX6ULL-based board. Oscilloscope measurements confirmed mid-frame
-breaks at the kfifo wrap-around boundary before the fix; no such breaks
-were observed afterward.
+> 
+> If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
+> the current 200000000), does that solve your problem without
+> recomputing things?
 
-Fixes: 133f4c00b8b2 ("serial: sc16is7xx: fix TX fifo corruption")
-Cc: stable@vger.kernel.org
-Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-Reviewed-by: Joachim Knorr <joachim.knorr@ziehl-abegg.de>
-Link: https://lore.kernel.org/linux-serial/20260623112225.82386-2-paultyson=
-.mbewe@ziehl-abegg.de/
-Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
----
-Changes in v2:
-  - Corrected the Modbus RTU timing description for baud rates above 19200
-  - Distinguished the xmit kfifo from the hardware TX FIFO
-  - Clarified that this fixes one independent TX gap source
-  - Corrected the introducing-commit history for direct kfifo access
-  - Removed the max310x comparison
-  - Addressed Hugo Villeneuve's review: clarified that multiple segments
-    are sent, scoped tail to the loop, and added the requested blank line
+Thanks for the explanation above. I guess you're right, the link freq/mipi
+rate should not be in there. I've just ran a quick test and it should be
+fine with that change.
 
- drivers/tty/serial/sc16is7xx.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+As i would like to keep the ov9282_line_time_ns() function, what's your
+take on the following implementation? Would that be OK for a v2?
 
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.=
-c
-index 7107a0fb1e7b..fa7805d2cde2 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -652,7 +652,6 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
- 	struct tty_port *tport =3D &port->state->port;
- 	unsigned long flags;
- 	unsigned int txlen;
--	unsigned char *tail;
-=20
- 	if (unlikely(port->x_char)) {
- 		sc16is7xx_port_write(port, SC16IS7XX_THR_REG, port->x_char);
-@@ -677,9 +676,19 @@ static void sc16is7xx_handle_tx(struct uart_port *port=
-)
- 		txlen =3D 0;
- 	}
-=20
--	txlen =3D kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
--	sc16is7xx_fifo_write(port, tail, txlen);
--	uart_xmit_advance(port, txlen);
-+	/* Handle circular buffer wrap-around by sending multiple segments */
-+	while (txlen > 0 && !kfifo_is_empty(&tport->xmit_fifo)) {
-+		unsigned char *tail;
-+		unsigned int to_send;
-+
-+		to_send =3D kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-+		if (!to_send)
-+			break;
-+
-+		sc16is7xx_fifo_write(port, tail, to_send);
-+		uart_xmit_advance(port, to_send);
-+		txlen -=3D to_send;
-+	}
-=20
- 	uart_port_lock_irqsave(port, &flags);
- 	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
---=20
-2.43.0
+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+{
+	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+	return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
+}
+
+thanks!
+
+regards;rl
+
+> 
+>   Dave
+> 
+> [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
+> The original reporter did come back to me and acknowledge he was using
+> the downstream Rockchip driver which is doing the wrong thing.
+> 
+> > The right
+> > clock is PLL2's system clock. With the PLL2 dividers left at their reset
+> > values the chain
+> >
+> > SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
+> >         =    24  /    1     /    3    * loop_div /     4       /    2
+> >
+> > collapses to SYS_CLK = loop_div MHz.
+> >
+> > Fix this by introducing a new static function to calculate the current
+> > line time and use it in ov9282_exposure_to_us().
+> >
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
+> >  1 file changed, 37 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index c10b2e205834e..3f83a6cf338d8 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -10,10 +10,12 @@
+> >  #include <linux/delay.h>
+> >  #include <linux/i2c.h>
+> >  #include <linux/math.h>
+> > +#include <linux/math64.h>
+> >  #include <linux/module.h>
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/regmap.h>
+> >  #include <linux/regulator/consumer.h>
+> > +#include <linux/time64.h>
+> >
+> >  #include <media/v4l2-cci.h>
+> >  #include <media/v4l2-ctrls.h>
+> > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
+> >         return container_of(subdev, struct ov9282, sd);
+> >  }
+> >
+> > +/**
+> > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
+> > + * @ov9282: pointer to ov9282 device
+> > + *
+> > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
+> > + * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
+> > + * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
+> > + *
+> > + * Return: line time in nanoseconds.
+> > + */
+> > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> > +{
+> > +       u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > +       u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
+> > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
+> > +
+> > +       /*
+> > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
+> > +        */
+> > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
+> > +}
+> > +
+> > +/**
+> > + * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
+> > + * @ov9282: pointer to ov9282 device
+> > + * @exposure: exposure register value to convert
+> > + *
+> > + * Return: microsecond represenation of the given exposure register value.
+> > + */
+> > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > +{
+> > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
+> > +                      NSEC_PER_USEC);
+> > +}
+> > +
+> >  /**
+> >   * ov9282_update_controls() - Update control ranges based on streaming mode
+> >   * @ov9282: pointer to ov9282 device
+> > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >                                         mode->vblank_max, 1, mode->vblank);
+> >  }
+> >
+> > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > -{
+> > -       /* calculate exposure time in µs */
+> > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > -       u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
+> > -
+> > -       return exposure * trow_us;
+> > -}
+> > -
+> >  /**
+> >   * ov9282_update_exp_gain() - Set updated exposure and gain
+> >   * @ov9282: pointer to ov9282 device
+> >
+> > --
+> > 2.53.0
+> >
+> >
