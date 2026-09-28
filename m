@@ -1,172 +1,292 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B5F485501
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586703; cv=pass; b=GpYao3V69PRQS/hWcPu5+C7o6b5+0fbbqOCLqyVa6p+1MemGn3KEn7eCmVKA1S5aM0FonBgfJ7b2+qyORok/uwbU5KX0q+e5C2u9jsuTJV4W8ISn4SW9KeAaAu0F1lX7fP32rO/CdxVXNYRaMQki7m//Pm21N6bG0Ei+NrI0UJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586703; c=relaxed/simple;
-	bh=KTENyYqQEJ1QJsUU6WyAiz6HgJhYCr6u0cGxg5uGf9Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pWN9pspsMritEY0HRlIYWdzHKDbxAxfmHRj1s8RYFhYH7qOAemshWVoqaB/nB/fUfOXsocgZc2Wz1dbodLIccco7uTH6Kmtr2qKiwNYgV265R+dOQWgZzoxJBL6keE+uhds5zJLXbRpsTGB8r+p0E2C7ik3SpiWZi3bAC60jPes=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ocW9bnWC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nixc8U/q; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AFC485945;
+	Mon, 28 Sep 2026 09:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790586717; cv=none; b=iwkdtnCSdY0Kdvkr70G4vMilOyygbtSpwzJUfVULQvRX1MKknPmioXIMqJsdAciBJ0D3LJAITynPh8lFA/WKhkYbrcuf9EGUK0X2/hfFpyP3KcBJBWLHyzGRfVq4LGlC8q+7ySeV9KdzVbFefV2JsrNmvgWSPqP7O0uO8ugezw0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790586717; c=relaxed/simple;
+	bh=yEAzrAWxh2eJOhD7DTsVJFDtUUgr1LRPm3GRg0UU1DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k3t7fq8EMPDvyD415KsZw89BNY0vN/hbmPm8zCjy1O9aSmDlQdhOwFAJ0TBlHnBLtbiwdfCbrf5SxjmQt1QozzmvY0S0/2swN9+QnXrs6rOPPCwJh6baPFe9k+73qUySTLMD3RhSRK4azGOjAXQJERPUh1jUANsq3jDGNCLrVak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EBTYY66r; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ocW9bnWC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nixc8U/q"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S80LAV1263138
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=; b=ocW9bnWCtyfDOLpW
-	24RrfcaBN2VSok9itSj+FdB/z1HwJYlh8mkkpzn+5p7KHR4dhU/3lspZwD4ofGpd
-	bS4OkzdKl8YeJClO77+s2S1jlyVlR5kAVdWG1PRTHTtl8mrX+m35hjUXuJ6lfikd
-	D7h9j6hbSunh8SQhdC708muRSNWCy9HHbQGAPqvh4owe3D7BzSPzlD7DMOqoM4gW
-	8lDOlS+jWYU0O2672SLTPLUUNLfFXGG7F0BxDyo2Dfd/lKAIFyqWS8iEJhYHhP6e
-	P5BuJBGbMApRNMWIo2dmVhlMHr/dPQNgYMFXZ/DGSje+3M/bahkWKArFZPwfqFkQ
-	roBfNw==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526ngnp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:40 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8a7d69f4204so37541677b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:11:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790586700; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O1cVvKZIkrm++qY8gRag3wChGihPWEBgQ+Mwqpwur9O2zFzSZAdLV16wPh7iqjSks9
-         6Z8rHzN89otz+y31YsPRbXVxhdJqSPrHoqtL7L/cR4+M72fEo2/PT5p/W74ToYarr7aJ
-         s6hC/p+YbKFPCuk/XoEMOI4qAFhkC7YccPHbCyKKOg+5i5JP5zgKjYvV/6lJdiUm0umx
-         ho52hPQlwUmKAUr5CwXukm4TrE5+WsgHiSunOT//FNd8srx/jJT1j6T+T7RQUauCVOvs
-         KAhPYTihKrCOVJW/vyWRTViHC+J+SIVuMtXXLsf2XXiQXFkZBF5Y0OAK7P/6kxA8BEIT
-         n9kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
-        fh=PZJfWsMy1QHFQ6g+Vq+EJHAwbe5zFmDQH+mvyr+h6kI=;
-        b=C5/4uOF4oWDv0dGKH2tgs4QyRyyk5AJMPLb7SEzvlkb8Ioxk2hYJD/503AZVhmFDyf
-         4mBDQmYVKmXLM0yXlwySAd4APPBMKS7EqRgA6DW5waJtZ6ORQSPzezxHiWyQWCICC/U5
-         tavmJmAlN2VQiE76qVApEmHBiYpahVv5+nw9uB5aoFmlYenJOguAyKFqfEnrLT0c78/B
-         4N2QcwFXLMygz0x9Wk93dQoqjp6SJscW3czkZzB7uY0/WsItyngzk/i4091Vx6uBIpWG
-         pU1LFDlGvTKqGgv8QVRguapgqRk3mk9B37hUZ4B5FRxqTuoJuRaPMJOb58sRQP87BXIy
-         Fx+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790586700; x=1791191500; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
-        b=Nixc8U/qhB6n9qnty0EC6TNCzgc5b/Ls5dE82vee1i53LODYVX5+y4m0kq3p5Jr25c
-         vYrJA6KLbcyLMB5RzjenpJiZNQ/p/3r3JFPmYur3U2LgicVdBTYrz+Buh9V9EUNGAb0e
-         IuNGtU0DCaY+fSd48c3rWkJYQKFbZE9qSBoMEf6T/3QdUpzA2Yaptb+9XPYRJSWY2Lz6
-         OWCoIaW601wzbor2krIBiRu9wy4Ipt5F9/cqtf9IUr4XeA4zeH4W8JthUXrj/mlz793x
-         v5lum27xsDNCEugUmXhI+VZlvQC4CFJYhqip/4hI41LDA1ebt0bM8013r+pc8tyTvStW
-         HTWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790586700; x=1791191500;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
-        b=ni8gf8lxSjrNzBcYZeW1yRfSB6xutBb5C03Qlc3z4JJE0zmunOv6LBeXa5Y4sqWA8o
-         xmdq0lVLxHLJmvN9XvjrWwJvsN3jPWiWzW8mjquAxUwsqa6jDW5QSOk6kBIS8HbzpoJK
-         ulO2JvdNgohGeTcnB1at2+0J6SoxzcVbEB144hJlIZXL4dAVHSw7QUi3PE4Al1XhknJV
-         WEz7KVnTJoE52VA+A4eqqEI5fHWmJnDu6tOCU/9uQAEriGIrmla2yEH94y/xBtMDxCyQ
-         wNbChyVt9WCiNRxLYlF0LFoUPL2ryGJ+MnAWDtNLUyGNvjfJCg3OUIwOrfLN/XTIG5mx
-         JEYw==
-X-Forwarded-Encrypted: i=1; AKwUvBykwzlBwN6n38T/zYy4TbPDRgSZ7xW4E635iKc0/KxOu5vIHNBa68hAf8aB1HVh8UNX9a7CHulMxdotQaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiB8vV61WfcwhZp+XNucMUvLEji2DbgtlLMk0Zxz9veqTou3Nh
-	ZcsTRSClF0lo7FeYaPNYjM3ofHM9TIjdOYPvO4Owsr9tLh8pRhql7zdcvbGG7Y+Pc4LSPGA/qId
-	uPpOIodPrIfiz+hCdFPaIidh6hoJK/MSMi2XazHYh4gaIpxHYTSRFwSdhRSUSx1abibBdCxJ6xU
-	+29Ojz2MWSD5QzUStdJpX7kjZR/Uy1bP253NpfKomYwg==
-X-Gm-Gg: AYBFou2+0LQw1/I6XkjbBQ77ch7RcY1ZUHVMqz6a8uF5ODjpdUS74ASjhPKMuCvPk90
-	bYG3G+7WTfCH27mSjOSdIAaMj/lnc3i5cn0FM/hOYn5OkOtzI6LgYdkSNpuYnatRYLDKDn3hnVw
-	27uT3TmROHvlslvv8zJaXakXYlzDT8bA7xFZBwiRZ2G8ZyP/HFy1xOqas5Njc=
-X-Received: by 2002:a05:690c:6610:b0:884:c7df:fd25 with SMTP id 00721157ae682-8a64b527551mr64705627b3.17.1790586700408;
-        Mon, 28 Sep 2026 02:11:40 -0700 (PDT)
-X-Received: by 2002:a05:690c:6610:b0:884:c7df:fd25 with SMTP id
- 00721157ae682-8a64b527551mr64705327b3.17.1790586699978; Mon, 28 Sep 2026
- 02:11:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EBTYY66r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790586716; x=1822122716;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=yEAzrAWxh2eJOhD7DTsVJFDtUUgr1LRPm3GRg0UU1DY=;
+  b=EBTYY66rKuyslK8FQetGMM6xQSK0rmpEMmS3I4sLt7zXYqwaZiuonQOH
+   dDK9qB2p0iW2Y8C+JnWhtTDqyoxbNLXSdJ2++dGwbZmAVNAe2YYVKct44
+   eSsV4/hqUnGdo8hhKDx3DH25qsW0sdlMUnoZ1GkZ9Pg5uXU+GNo+3IugS
+   19GzgpqSH5mkMMhAIEkDlZMmqUAeKCI9I2EYXKLguHrqEVqaH0FRXqRfW
+   N30Ilw8wf/2u5J6JsFo5OWbQzv0WdMbXWK9HQrlRp50p8eqhJ3MrkucwW
+   PlD9lm1vZfOYdBVa1TXICaxtCUAyy85KD1e3CNUf3uxwTipPjU8p+9Ebm
+   A==;
+X-CSE-ConnectionGUID: pVJJWMnlRbGx4VJBHD3lmw==
+X-CSE-MsgGUID: umO8JoCRQKyLRRRpEcY6nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90148266"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90148266"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:56 -0700
+X-CSE-ConnectionGUID: s763RDibTtu9W+m96ZgrmA==
+X-CSE-MsgGUID: U2isXoaLQUq2jOalYo+cOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="275120819"
+Received: from yzhao56-desk.sh.intel.com ([10.239.47.61])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:49 -0700
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@intel.com
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	x86@kernel.org,
+	rick.p.edgecombe@intel.com,
+	kas@kernel.org,
+	tabba@google.com,
+	ackerleytng@google.com,
+	michael.roth@amd.com,
+	david@kernel.org,
+	vannapurve@google.com,
+	sagis@google.com,
+	vbabka@suse.cz,
+	thomas.lendacky@amd.com,
+	nik.borisov@suse.com,
+	pgonda@google.com,
+	fan.du@intel.com,
+	jun.miao@intel.com,
+	francescolavra.fl@gmail.com,
+	jgross@suse.com,
+	xiaoyao.li@intel.com,
+	kai.huang@intel.com,
+	binbin.wu@linux.intel.com,
+	chao.p.peng@intel.com,
+	chao.gao@intel.com,
+	farrah.chen@intel.com,
+	yan.y.zhao@intel.com
+Subject: [PATCH v4 11/17] KVM: TDX: Honor the guest's accept level contained in an EPT violation
+Date: Mon, 28 Sep 2026 17:11:16 +0800
+Message-ID: <20260928091116.15647-1-yan.y.zhao@intel.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20260928090729.15468-1-yan.y.zhao@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
- <20260923-b4-qaif-shikra-audio-v7-2-d5b6f056568e@oss.qualcomm.com> <arOcDLy_ESS6Qwcs@sirena.co.uk>
-In-Reply-To: <arOcDLy_ESS6Qwcs@sirena.co.uk>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 14:41:28 +0530
-X-Gm-Features: AclHuK9E6ayaYE_Y95ZKtkfHPWfcu5v3kwH1jhnosx1aL68qwy7Agii-WL47rOs
-Message-ID: <CAC-tS8AbBcN98ceaLFJaAt_+d6T0C5dpSSkRz_9yJv64KhE3kQ@mail.gmail.com>
-Subject: Re: [PATCH v7 02/10] ASoC: qcom: Add QAIF shared data structures and
- variant interface
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6aba2f4c cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=_qd6ERi7e6bvJ_0A4_YA:9
- a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10 a=kLokIza1BN8a-hAJ3hfR:22
-X-Proofpoint-GUID: -NIstSlfWXkw8KsPDPkAQ-2S3uRt1NiP
-X-Proofpoint-ORIG-GUID: -NIstSlfWXkw8KsPDPkAQ-2S3uRt1NiP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfX8QJz7TUIBCwI
- JAfTljKhycpZGLDTek8lvRKACYyrv+Fx9K6TqArURORs5D/cYUbte+MMa/b5JeO7DdgRa27LKwN
- I1VzQqjvICXE4mO92xBQwYMbPVztRHr9/bdj88696ocwCeXhSKBASocH0wWFM5y4YX0CsCHey5U
- zxumPMS7ht+G5cioMxTVl61Bvr0F7P/mMYUmraJ4qEKiCThbcm5lSxKpAJFp/aCKypOq90XravJ
- wgedR8VBH3LuZJ3UZHYIxMEL9ioG5aGN4FX3OW7xccBOTyfQ2dQdtpI3diFbnVnYb/uLQ7zg3ob
- EWcF8xYYcxRF+4qXEnsyrvJNdHOY91ngwSNxIjMx9sB2gRGo7vxuHNVBSmp0hxvTRKpwh2VxFLt
- DDFLe2trGvGeuLmJuskunIh8GXt6k8vobQIDNN4Z818ZZ2BOWmqeAymwv4xN4lSx/Ql6mMiPULK
- DB2QazMDH0x8D5XL0xQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfX2nEZywln+mtX
- uM7Ws9oC00zJQMGo7qKyAgb8Nx24XHh+i07eZsuMS/lfjWPrbVTaGDQl3GwietZPYysu+KFjTTA
- ff9mO1hWNX3rPurVH0GEbiPpwa7A9Po=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280036
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 3:00=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Wed, Sep 23, 2026 at 12:18:22PM +0530, Harendra Gautam wrote:
-> > Add qaif.h to hold common definitions shared by the QAIF CPU DAI and PC=
-M
-> > platform drivers.
->
-> > +struct qaif_variant {
-> > +     u32 rd_len;
-> > +     u32 wr_len;
->
-> Does anything use these?
-Thanks for pointing it out, these dead fields were overlooked. Will
-drop both in the next version.
--Harendra
+TDX requires guests to accept S-EPT mappings created by the host KVM. Due
+to the current implementation of the TDX module, if a guest accepts a GFN
+at a lower level after KVM maps it at a higher level, the TDX module will
+synthesize an EPT Violation VM-Exit to KVM instead of returning a size
+mismatch error to the guest. If KVM fails to perform page splitting in the
+EPT Violation handler, the guest's ACCEPT operation will be triggered
+again upon re-entering the guest, causing a repeated EPT Violation VM-Exit.
+
+To ensure forward progress, honor the guest's accept level if an EPT
+Violation VM-Exit contains the guest accept level (the TDX module provides
+the level when synthesizing a VM-Exit in response to a failed guest ACCEPT,
+e.g., due to accept level < host mapping level or due to intermediate
+paging structure missing or inaccessible).
+
+(1) Set the guest inhibit bit in the lpage info to prevent KVM's MMU
+    from mapping at a higher level than the guest's accept level.
+
+(2) Split any existing mapping higher than the guest's accept level.
+
+For now, take mmu_lock for write across the entire operation to keep things
+simple.  This can/will be revisited when the TDX module adds support for
+NON-BLOCKING-RESIZE, at which point KVM can split the huge page without
+needing to handle UNBLOCK failure if the DEMOTE fails.
+
+To avoid unnecessarily contending mmu_lock, check if the inhibit flag is
+already set before acquiring mmu_lock, e.g. so that vCPUs doing ACCEPT
+on a region of memory aren't completely serialized.  Note, this relies on
+(a) setting the inhibit after performing the split, and (b) never clearing
+the flag, e.g., to avoid false positives and potentially triggering the
+zero-step mitigation.
+
+Note: EPT Violation VM-Exits without the guest's accept level are *never*
+caused by the guest's ACCEPT operation, but instead occur if the guest
+accesses memory before said memory is accepted.  Since KVM can't obtain
+the guest accept level info from such EPT Violations (the ACCEPT operation
+hasn't occurred yet), KVM may still map at a higher level than the guest's
+later ACCEPT level.
+
+So, the typical guest/KVM interaction flow is:
+- If guest accesses private memory without first accepting it,
+  (like non-Linux guests):
+  1. Guest accesses a private memory.
+  2. KVM finds it can map the GFN at 2MB. So, AUG at 2MB.
+  3. Guest accepts the GFN at 4KB.
+  4. KVM receives an EPT violation with eeq_type of ACCEPT + 4KB level.
+  5. KVM splits the 2MB mapping.
+  6. Guest accepts successfully and accesses the page.
+
+- If guest first accepts private memory before accessing it,
+  (like Linux guests):
+  1. Guest accepts a private memory at 4KB.
+  2. KVM receives an EPT violation with eeq_type of ACCEPT + 4KB level.
+  3. KVM AUG at 4KB.
+  4. Guest accepts successfully and accesses the page.
+
+Link: https://lore.kernel.org/all/a6ffe23fb97e64109f512fa43e9f6405236ed40a.camel@intel.com
+Suggested-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
+---
+v4:
+- In [1], Sean renamed tdx_honor_guest_accept_level() to
+  tdx_handle_mismatched_accept(). In v4, Yan further renamed it to
+  tdx_handle_guest_accept_ept_violation(), because EPT violations caused by
+  a guest's ACCEPT operation are not necessarily due to the guest's ACCEPT
+  level mismatching KVM's mapping level. In the case where a guest accepts
+  memory before ever accessing it, EPT violations caused by the guest's
+  ACCEPT operation occur when there are no present KVM mappings.
+
+- Introduced helper tdx_is_mismatched_accepted() (Yan renamed it to
+  tdx_is_guest_accept_ept_violation()). (Sean)
+
+- Introduced helper tdx_get_ept_violation_level(). (Sean)
+
+- Invoked kvm_tdp_mmu_mirrors_split_huge_pages() instead of
+  kvm_split_cross_boundary_leafs(). (Sean)
+
+[1] https://lore.kernel.org/all/20260129011517.3545883-42-seanjc@google.com
+---
+ arch/x86/kvm/vmx/tdx.c      | 75 +++++++++++++++++++++++++++++++++++++
+ arch/x86/kvm/vmx/tdx_arch.h |  3 ++
+ 2 files changed, 78 insertions(+)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 397a308b834c..f97b76bd8fe9 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -14,6 +14,7 @@
+ #include "tdx.h"
+ #include "vmx.h"
+ #include "mmu/spte.h"
++#include "mmu/tdp_mmu.h"
+ #include "common.h"
+ #include "posted_intr.h"
+ #include "irq.h"
+@@ -2049,6 +2050,76 @@ static inline bool tdx_is_sept_violation_unexpected_pending(struct kvm_vcpu *vcp
+ 	return !(eq & EPT_VIOLATION_PROT_MASK);
+ }
+ 
++static bool tdx_is_guest_accept_ept_violation(struct kvm_vcpu *vcpu)
++{
++	return (to_tdx(vcpu)->ext_exit_qualification & TDX_EXT_EXIT_QUAL_TYPE_MASK) ==
++	       TDX_EXT_EXIT_QUAL_TYPE_ACCEPT;
++}
++
++static int tdx_get_ept_violation_level(struct kvm_vcpu *vcpu)
++{
++	u64 ext_exit_qual = to_tdx(vcpu)->ext_exit_qualification;
++
++	return (((ext_exit_qual & TDX_EXT_EXIT_QUAL_INFO_MASK) >>
++		 TDX_EXT_EXIT_QUAL_INFO_SHIFT) & GENMASK(2, 0)) + 1;
++}
++
++/*
++ * An EPT violation can be either due to the guest's ACCEPT operation or
++ * due to the guest's access of memory before the guest accepts the
++ * memory.
++ *
++ * Type TDX_EXT_EXIT_QUAL_TYPE_ACCEPT in the extended exit qualification
++ * identifies EPT violations caused by the guest's ACCEPT operation, which must
++ * contain a valid guest accept level. For such EPT violations, honor guest's
++ * accept level by setting guest inhibit bit on levels above the guest accept
++ * level and split the existing mapping for the faulting GFN if it's with a
++ * higher level than the guest accept level.
++ *
++ * Do nothing if the EPT violation is not caused by the guest's ACCEPT
++ * operation. KVM will map the GFN without considering the guest's accept level
++ * (unless the guest inhibit bit is already set).
++ */
++static int tdx_handle_guest_accept_ept_violation(struct kvm_vcpu *vcpu, gfn_t gfn)
++{
++	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
++	struct kvm *kvm = vcpu->kvm;
++	gfn_t start, end;
++	int level, r;
++
++	if (!slot || !tdx_is_guest_accept_ept_violation(vcpu))
++		return 0;
++
++	if (WARN_ON_ONCE(!VALID_PAGE(vcpu->arch.mmu->mirror_root_hpa)))
++		return 0;
++
++	level = tdx_get_ept_violation_level(vcpu);
++	if (level > PG_LEVEL_2M)
++		return 0;
++
++	if (hugepage_test_guest_inhibit(slot, gfn, level + 1))
++		return 0;
++
++	guard(write_lock)(&kvm->mmu_lock);
++
++	start = gfn_round_for_level(gfn, level);
++	end = start + KVM_PAGES_PER_HPAGE(level);
++
++	r = kvm_tdp_mmu_mirrors_split_huge_pages(kvm, start, end, level);
++	if (r)
++		return r;
++
++	/*
++	 * No TLB flush is required, as the "BLOCK + TRACK + kick off vCPUs"
++	 * sequence required by the TDX-Module includes a TLB flush.
++	 */
++	hugepage_set_guest_inhibit(slot, gfn, level + 1);
++	if (level == PG_LEVEL_4K)
++		hugepage_set_guest_inhibit(slot, gfn, level + 2);
++
++	return 0;
++}
++
+ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+ {
+ 	unsigned long exit_qual;
+@@ -2074,6 +2145,10 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+ 		 */
+ 		exit_qual = EPT_VIOLATION_ACC_WRITE;
+ 
++		ret = tdx_handle_guest_accept_ept_violation(vcpu, gpa_to_gfn(gpa));
++		if (ret)
++			return ret;
++
+ 		/* Only private GPA triggers zero-step mitigation */
+ 		local_retry = true;
+ 	} else {
+diff --git a/arch/x86/kvm/vmx/tdx_arch.h b/arch/x86/kvm/vmx/tdx_arch.h
+index 350143b9b145..6b8b18b0689a 100644
+--- a/arch/x86/kvm/vmx/tdx_arch.h
++++ b/arch/x86/kvm/vmx/tdx_arch.h
+@@ -76,7 +76,10 @@ struct tdx_cpuid_value {
+ } __packed;
+ 
+ #define TDX_EXT_EXIT_QUAL_TYPE_MASK	GENMASK(3, 0)
++#define TDX_EXT_EXIT_QUAL_TYPE_ACCEPT	1
+ #define TDX_EXT_EXIT_QUAL_TYPE_PENDING_EPT_VIOLATION  6
++#define TDX_EXT_EXIT_QUAL_INFO_MASK	GENMASK(63, 32)
++#define TDX_EXT_EXIT_QUAL_INFO_SHIFT	32
+ /*
+  * TD_PARAMS is provided as an input to TDH_MNG_INIT, the size of which is 1024B.
+  */
+-- 
+2.43.2
+
