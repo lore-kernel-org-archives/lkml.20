@@ -1,150 +1,208 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6974E36FA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608260; cv=pass; b=S6iD1aVbfr8IiEGKcEhbvmt1WEjC1a6dHZ1By0vSBBTArdm4FPq/eP9UCpo6F4wbD9RXG6ly5Mmcn1/X6p4/Vjqi5AuRKBkNbII6pJ2BrKP6IeShCzsZBWaJa/jslJ3t2LM/TS7yd8rXH+YJqYISeKqaTU570ZcZ6bBwqJdXcsQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608260; c=relaxed/simple;
-	bh=pZqLigY/V58vxv0vplszd649EomfRBfgLWrDqFBPRrM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CYk2wmUakRcgfg4PCoy268aFWR5DfIdH+e9LyNaTCLfFzVoADevG9r9MfWT8552vCS9ac+jvETxOM2oL95ZgUB2zW6RlRkwBpREtrTus6/78TVHHhv+21ujdpkdNgmb+lzLKoo5NtIlhEkeWgjdD2LusKq20PTuih2DRwEj5oXc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CLg1q/z0; arc=pass smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B764E50D5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790608277; cv=none; b=GXK/HDnVrEj2RlOSfGuSmYYUG/mhG2xFEY+TMf+1MssQW+pPpmvcdh+jLS6/fwTC4M4DkQFr4775z9B5aVK//8HtBx3Uzi2qdeAe4i27g+FA+tmoTcCtADgbQgRecwAj5Ok7g8Yk4z5MA94uw/93VdffXbLSLQ0WXhHOcKkPIYg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790608277; c=relaxed/simple;
+	bh=Btgwhx0BnnAizJrXmxZMw/SLxF62CwA2ISV8PZ03L+A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=AoLDNZs+QktHRQ9kNlmz8l/piEGfZecGiUEsTG51v5bFSlWaLU3VyIGsAhWqQUet9rr3uErYY+SBhnhWCVS8iv5suObugQ2mrzFiRqTOJ6MyLmW9AnOoVW+9tPTi0sGvFTD3xQtWDtRZ94N7ovsQx67quToUU+N9lWdhD//LI08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hElgDlSu; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CLg1q/z0"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so81775ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:10:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790608258; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Di4mUnYbLWYJfTjRvxGpIJcXKkn57xK2+I300jGZ9Ko+68dnp7esjE0zIDQHWqhzH9
-         kBwBIjIS/6JGkComneiZCSsZ9fqAkoBcyloToOANFr3tlkv3rhi/3SXnFq5rpp6SBXrL
-         PRtZXQalrVljqQkxseIczIGiOTMzw/BmjObyaaDSIGl8likD9z0t53RlkgtZEJjplVe/
-         YZyaGKwTZV5wGcw5hGC7VYp75csJytANsgn10lVT2ZgwP8zaMInE9rioZNPMvkYT0XJK
-         /7VBbkARLBDI+awDvANGUuqHLbA9Pp/ZZDFxXqIqxKQ+dHdhWNl2+ZBKkcxDg27YUCW0
-         gjmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T7/zoEBFh3/uOoeMjRxiTHNfdp81+5Ohw65fQALeP0M=;
-        fh=RoAZj3P2Ik6gm0PLCQTgp6AR2Y1Hq7NPZLLBKi/QwNo=;
-        b=G8BVKsrVEZMVV+sp7vKlm7dAE2IH9iTV+vs0uM3ry77LvfUwQLw/NWU5seDUs2wZPE
-         Wa9kbiPm8kfDsCJdVmW1Q9mtmE91EP2qNALCzJXYnAobHxvZtAwgiGNxovLOJHRfIPES
-         nHIHO48wEA/h6VYNqjc9D3Vj/FcnlDr6FjmPhTMG9QSJlvhcFwWOsbPqZnyxl1KeQ+G7
-         Sp/o7ySeUKk85qP9SkssLudi+aDxOeZJSb4X0VbYi9u8b76/oYWABDtLdjZIuFeP0cli
-         ZSRPc0d6Pm5vrlI8+8TN1klVWj3F+PwEUge9wgsykqs1xeUrPMv9bJCoGKe9P+dBc1Ou
-         yGgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hElgDlSu"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-674138cbe59so2287099d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790608258; x=1791213058; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T7/zoEBFh3/uOoeMjRxiTHNfdp81+5Ohw65fQALeP0M=;
-        b=CLg1q/z0cqy53j6YyJvGfZ/ghKbvh6w6wfGtvgb03GrdxDXgjchQV7BJ6LFzAv/K6h
-         hqWyiA+SqBHrOBnGe+hBX6GLtTCatxYaATIBR4jxMAh+hczOkABJnVoBcLcZtqkgkfjt
-         uF8lnsSRpEHfQuUNVSnecKOYPc5fHt7nSbZBcPPFUB9iyTZaFl9xxDNS5/DY2/aEquYF
-         5etWcEI1rkbeNYkYi2ZT3gqeMIlvqUkIqwKWqCglxF8I2m8CCLZlwNrwI8SFhhhRFm5R
-         TX0xxSxz6bNQYnq9LaGC0rzNyzQnzjHuQsf5JbN8FBgk5gL0FV/ucRXhi/fpY25G6CHX
-         RZ5A==
+        d=gmail.com; s=20251104; t=1790608275; x=1791213075; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QHvMa8Hu6Y1I/qqNnl3MyJApBFjOdiC6iLmv+1VbGMM=;
+        b=hElgDlSuokS9yZy/UsRR4dQkO3sP6LXJsluhL2CVlNltYLdF7CreDDTtQFmbrGEaGG
+         c/labKYwefQrh0ZYnFs4PyRBSRbX49xpHiZE2MaX2jZSfF37hgl5u9aFL9R0WLwqt1iB
+         S3wJJGkcaGGVPUlTaYw4kSYT1NBzS2mg3P5WZ4OgfA2cpohU+c2Pkt4lcVp4KtBbrPap
+         EbefgauT9x89OUNiC7WxhcBXmLsZTSQpMiVrBM7S1LIoNFRblmUDhi3qDwEg77jF89ij
+         u5ZxOvq5Qibk5QYYYheaPBOgez7ezQEiXOfaNpIRdu0hj/j2TqBNVEIoCh0Qx7I1FTJP
+         vbOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608258; x=1791213058;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790608275; x=1791213075;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T7/zoEBFh3/uOoeMjRxiTHNfdp81+5Ohw65fQALeP0M=;
-        b=uyAvWllBcg+/8w36za/edk8YM4cqzCFHdZaevA4AKfrwHXOgpRZdrvcqScc3lRc67g
-         6kgl1th+yT8MMnGD+mb38o9oY2gdO2FBJgZS95FzbK1WnZHdwTpt+a8DICuB/h6o7P5f
-         aOVtVcpN8G4jjX8BYubXIzYzBSHuhQUyB9VhFt/LsrB8rRH6AwG2UOFpjYVUAOUJkzSk
-         4meon0cLsaIpfBjhklLIHPGa5OvKgIciQfX4cYMdUAbcpp6v3A0Bz6Hcro6YaSNLatWY
-         FzF4TpTeIyL/+4s7M18EL8FVqXVkHV6+c5ct4P9cNTmGyCyNpA+0rwQU1x6iBk7GONBG
-         1+9g==
-X-Forwarded-Encrypted: i=1; AKwUvByc6e0ZC2sZmayFtY2GQyXerknPJPVTIPIcQcji7h5CjsWI777HizwuT7YmGq69WQDYvkTQ3OkjVR+9Q3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiWsQhH6CNjytMN2Hb4znyi8hDJQmpgxc1IeRbvdTWg3grLHFg
-	H8NXi1lUUexFP6+hI1zPEz7MjdUxviHtJCQTYEWYjd8PV/rGaxCiZFD7p05HHRX6eN6UN4CRnv8
-	T1iYIlaFUuvE4biFuLDysrtKyude8SmCDLanUKHCc
-X-Gm-Gg: AYBFou0xBRt5KZHE8BnTBRplKOzlRkgO92uWLTdqImYxp9XVvTYddFLnDKMSNA5Iq66
-	IszD/+kxn8euYYhvn7PJIrWzuPc9DVAqIZPhqmQptmrwmbufb/fagUD9OI8O+SH5jqYlU5LcsNI
-	4GS5HU0+QT8VRrIptWjLdm2EjreM2+YxoFGk8IyxbctN0nOf4ZE+gwnL639gquj7Jn7SHY9ZERQ
-	MoA9XwOsJtXU3VgTENSs9DwPkIF6H3dAgT9FvvJ0dlTyuuMtk7+fQ+3A7yhfBX3KSafPy82qWCg
-	zuquopEyfYQzN4W42bwMqwkG6IpNyptRlcEGN/0L6KXGLoVMA4RM927yERrrTrEe2tggo8YtkG1
-	RVUcpT/I4
-X-Received: by 2002:a17:903:4b0c:b0:2dd:3a08:d47b with SMTP id
- d9443c01a7336-2dfa9776406mr6317755ad.13.1790608257368; Mon, 28 Sep 2026
- 08:10:57 -0700 (PDT)
+        bh=QHvMa8Hu6Y1I/qqNnl3MyJApBFjOdiC6iLmv+1VbGMM=;
+        b=2NN0McwHBaJ6c/rJQSAtDXUow65M2id6yYcSj5iNRyNVYKWSKguiLip1xVXjnkhv0v
+         mDTXaknenTIXYDHIyCeQKON/xP44pbqcdG2s7vv3xMxsImOJ+fpkrrsp5prGk4/vaKY3
+         Pgqqb3yvk5KMtYVorctY1tciCg8zkg5QeUy6DCq/QMUdN0ByIzEojkKiBTVBdUstXVrK
+         s+mlejnA7tblCcjdqjD9WQh90m9hypOJcf/B3CuMtN6MlU76ZxjfbGEX1KJCRJzE8FuX
+         h3A+nbSe+/A6DiSFduxTq+o+uzb9/facmREhGxhHv1LYq+V3OQj/SOCUVR3UysQIv/Ds
+         RDeg==
+X-Forwarded-Encrypted: i=1; AKwUvBx+sOt80VcGFrJqqHeROjE8nBz8j8i9pFaBQ6JyoJpTB/fgAQRaZBngjXIlo2pzWzfO9GrSDsuez2GsOZg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqE2nJiR/p33ADnKc77tmDeNyJta4xZzARWJtMqs+1ckNmWjCP
+	qWT9NjLWVzmjpC5IfsAJrt4+7QQ5/cAO1iHzf0Z5le04MtxJlh0iAvxj
+X-Gm-Gg: AYBFou0nXInbTmQUN54wbgM13W8gybmZasaK6p/wxen0zKyNSB4083T2lu6Z9uixE+/
+	hLn251zLG6qeoQSensGmwULnN/BNB1vwiRULZS8B+5f3onPFunCIXzgFH/p3lm2ZXfUTRr3gvd2
+	GOYXHWahZhuVaHYpXycg1Him1G6koz/JJwO15UG33IfFxp/SzAVUabyftBH+zGm00BF77R0FaFl
+	pKW9L+2a9iHFEeoRX2EDu9uqqdbqO4I2oVvMvUw9wbZDA/qG1UaCEGV6lA5IKjMw9VU/n1g7tGB
+	PzRM8BVUSR+s7q71mt1WfUvPfudgq7tIe5l2gBLrVwrEDeSjTC5JqqZl6o0/RrnI1Ed0MGJBElF
+	UIqF5IuPNPF0p6EDDoP+6bECmDUO1C/QG+Gb2vECoYYqcVN/Ynj9WFeadYSZxI50yLNgKZiT1q0
+	P/2RrbfezMl8pdsAmRFwMheRP3SbxT3Sjt950a/HqMer9yK3hfYpnhM14r3e5aDO8moDZBM/Kxo
+	73EcLGEly+STw==
+X-Received: by 2002:a05:690e:11cd:b0:671:70d1:d6e5 with SMTP id 956f58d0204a3-672ed9737dcmr6316635d50.87.1790608274762;
+        Mon, 28 Sep 2026 08:11:14 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914399d5002sm74202116d6.48.2026.09.28.08.11.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 08:11:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260928-perf-orphan-args-v1-1-8cacf784621e@bootlin.com> <8bc8b276-bc4e-4a6d-b770-5b02c79946d4@linaro.org>
-In-Reply-To: <8bc8b276-bc4e-4a6d-b770-5b02c79946d4@linaro.org>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 28 Sep 2026 08:10:45 -0700
-X-Gm-Features: AclHuK-kAXBX9fdC7SCFH8-ZLHfC94yfr3nfW-yKnzc1gR_zZi6raeAWaByfbbw
-Message-ID: <CAP-5=fW8As_PsV1JQtm1yx4pOwgX+znBL3xDR_0eA_hApHOwyw@mail.gmail.com>
-Subject: Re: [PATCH] perf build: Improve fix for "argument list too long" error
-To: James Clark <james.clark@linaro.org>
-Cc: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
-	Gregory CLEMENT <gregory.clement@bootlin.com>, =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>, 
-	Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Markus Mayer <mmayer@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 11:11:13 -0400
+Message-Id: <DLR1NOR9UY43.3PNHOY085ZSU6@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 7/8] eth: mpnic: implement Rx queue
+ allocation and cleanup
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260924-linux-mpnic-v2-7-4badc9b58b9e@gmail.com>
+ <179055370676.3145.8533599239834787365@kernel.org>
+In-Reply-To: <179055370676.3145.8533599239834787365@kernel.org>
 
-On Mon, Sep 28, 2026 at 2:15=E2=80=AFAM James Clark <james.clark@linaro.org=
-> wrote:
+On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> On 28/09/2026 09:55, Beno=C3=AEt Monin wrote:
-> > The orphaned pmu-events JSON files are passed to the shell via
-> > `echo "$^"`, which puts the whole list into a single argument. With
-> > a long enough output directory path and enough files, exec'ing
-> > /bin/sh fails with:
-> >
-> >    make[5]: /bin/sh: Argument list too long
-> >    make[5]: *** [pmu-events/Build:228: prune_orphans] Error 127
-> >
-> > This only happens with out-of-tree builds, when setting O=3D to a
-> > relatively long path.
-> >
-> > To reproduce, build once with JEVENTS_ARCH=3Dall, then rebuild with
-> > a smaller JEVENTS_ARCH without cleaning first, so the leftover files
-> > become orphans. Using nds32 (which leaves ~1100 orphans), an output
-> > path of only ~70 characters is already enough to trigger it:
-> >
-> >    OUT=3D/any/long/path (at least 70 characters)
-> >    make -C tools/perf JEVENTS_ARCH=3Dall   O=3D$OUT -j$(nproc)
-> >    make -C tools/perf JEVENTS_ARCH=3Dnds32 O=3D$OUT -j$(nproc)
-> >
-> > Express the orphan file list as paths relative to $(OUT_DIR) by
-> > stripping the common prefix and restoring it with printf, the same
-> > approach used in scripts/Makefile.clean, so the shell arguments stay
-> > short.
-> >
-> > Fixes: b6712d91f8f5 ("perf build: Prevent "argument list too long" erro=
-r")
-> > Suggested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-> > Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
-> > Tested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> - [Medium] In `mpnic_stop()`
+>   (drivers/net/ethernet/meta/mpnic/mpnic_netdev.c), Rx teardown frees=E2=
+=80=A6
 >
-> Reviewed-by: James Clark <james.clark@linaro.org>
+> --
+>
+> eth: mpnic: implement Rx queue allocation and cleanup
+>
+> This commit adds the Rx side of the mpnic queue triad: a header buffer
+> queue, a payload buffer queue and a completion queue. All three share
+> one page pool per triad. It also adds the enable/disable, fill and
+> flush paths, and adds the HPQ, PPQ and RCQ blocks to the idle wait done
+> on teardown.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index b1fb0d3902a7a..389a9e5476c6e 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>
+> [ ... ]
+>
+>> @@ -767,6 +1084,9 @@ void mpnic_wait_all_queues_idle(struct mpnic_dev *m=
+pd)
+>>  		{ MPNIC_TQS_IDLE(0), MPNIC_TQS_IDLE_CNT, "TQS" },
+>>  		{ MPNIC_TDE_IDLE(0), MPNIC_TDE_IDLE_CNT, "TDE" },
+>>  		{ MPNIC_TCQ_IDLE(0), MPNIC_TCQ_IDLE_CNT, "TCQ" },
+>> +		{ MPNIC_HPQ_IDLE(0), MPNIC_HPQ_IDLE_CNT, "HPQ" },
+>> +		{ MPNIC_PPQ_IDLE(0), MPNIC_PPQ_IDLE_CNT, "PPQ" },
+>> +		{ MPNIC_RCQ_IDLE(0), MPNIC_RCQ_IDLE_CNT, "RCQ" },
+>>  	};
+>>  	u32 non_idle_bitmap;
+>>  	int err;
+>> @@ -779,15 +1099,31 @@ void mpnic_wait_all_queues_idle(struct mpnic_dev =
+*mpd)
+>>  				non_idle_bitmap, err);
+>>  }
+>> =20
+>> +static void mpnic_clean_bdq(struct mpnic_ring *bdq)
+>> +{
+>> +	unsigned int head =3D bdq->head;
+>> +
+>> +	while (head !=3D bdq->tail) {
+>> +		struct page *page =3D bdq->rx_buf[head];
+>> +
+>> +		page_pool_put_full_page(page->pp, page, false);
+>
+> [Severity: Medium]
+> What happens to these Rx buffers if the idle poll times out?
+> mpnic_wait_all_queues_idle() returns void. On timeout it only logs:
+>
+> 	err =3D read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
+> 				!non_idle_bitmap, 20, 500000, false, mpd,
+> 				queues, ARRAY_SIZE(queues));
+> 	if (err)
+> 		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
+> 				non_idle_bitmap, err);
+>
+> mpnic_stop() then carries on with teardown either way:
+>
+> 	mpnic_disable(mpn);
+> 	mpnic_wait_all_queues_idle(mpn->mpd);
+> 	mpnic_flush(mpn);
+>
+> 	mpnic_reset_netif_queues(mpn);
+> 	mpnic_free_resources(mpn);
+>
+> Two things happen after that:
+>
+>   - mpnic_flush()->mpnic_clean_bdq() gives every page still posted in
+>     [head, tail) back to the page pool.
+>   - mpnic_free_resources()->mpnic_free_rx_qt_resources() frees the HPQ,
+>     PPQ and RCQ descriptor rings with dma_free_coherent(), then calls
+>     page_pool_destroy().
+>
+> Before this patch, the same timeout-and-continue path only covered Tx,
+> where the device reads host memory. Now there are DMA_FROM_DEVICE page
+> pool buffers and an RCQ that the device writes to.
+>
+> If the device has not quiesced when the poll gives up, could it write
+> frame data into freed or reused pages, or write completions into the
+> freed RCQ ring?
+>
+> Separately, the earlier commit "eth: mpnic: start and stop the Tx HW
+> queues" says every block a packet passes through must report idle
+> before memory is safe to free. The Rx idle table here covers HPQ, PPQ
+> and RCQ, but it has no Rx DMA engine entry to match TDE on the Tx side.
+> The only RDE registers defined are CFG, CTL and the MEM_INIT ones.
+>
+> Does RCQ reporting idle guarantee that the RDE has no writes in flight?
+> If not, should an RDE idle entry be polled here as well?
+>
+> This code is still the same at the end of the series, in "eth: mpnic:
+> add basic Rx handling".
+>
+>> +
+>> +		head++;
+>> +		head &=3D bdq->size_mask;
+>> +	}
+>> +
+>> +	bdq->head =3D head;
+>> +}
+>
+> [ ... ]
 
-Acked-by: Ian Rogers <irogers@google.com>
-
-Thanks,
-Ian
+Same feedback addressed in v1 series.
