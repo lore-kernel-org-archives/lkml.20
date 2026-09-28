@@ -1,196 +1,175 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D194F393F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DEA4E3248
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615651; cv=none; b=uUwbiFj/GTitQ57C3vOT17pVxUVs5OlvCLmrHbJgnZKyKeFHn1m3EAXy9Hf1s3aqEZstYDpeNSj0ck7MUyTLnX2SvFtpvilD6P9WmHGh7sfP+ZC0ljVXrURPKjL9M2fdNmP+0/YDlGGiNuO/MioDss22Ap3esbXpzE8m8N2vsRU=
+	t=1790615670; cv=none; b=IP+bdRq27PHlKyWnYaIPL74G3eX1Q7eetnaGqit12fv80b60jBOysUyGBNhvvdVSkPrQXwFnQWbWyxw0FbbL4dkWOrIZ/rDUOX8kuos/WMN7JV2668RwI/s/d2FtM1W5P1C/x3bu7Cnp9UqVZtCHI8aBN/+tszdww7q2CXBmqgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615651; c=relaxed/simple;
-	bh=MbYUL73La3phT6CWXVxz3A2hkcPLAKJyAdn49kkRKFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iB09zHJ4HAPI9aDUL0zrCtEv/RT3PSJ9Oy57vrBoHZvlfoU1JMDBRqYpIG1/CMp+MyFraxEMWsSVrFpTDKiQ/bZOyHVDRIZBCsqPWrEgDKfS4pyVi/b1NHPolBT9Dlp0lgktSU7RwvdRxpR02Liisw2QVFxA0na0CgPOkFLEM8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DpEt8Q/R; arc=none smtp.client-ip=74.125.224.170
+	s=arc-20240116; t=1790615670; c=relaxed/simple;
+	bh=tehroZN3KtgNHaPozWMKAR0G6Rqm8qcNfVMBdzcofAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kpwc72rCkF3xdlqfm+qM3KQmhlzvvYhUSabq7hX/VYiUCjLE3IYy5gRa4AdPMUWNckmLMSRLqOFg5xXJ3GmicCr+Rp/aj03H5XHdjQLVzo59t2SBybmjo3sAt2rgBp2/qnjP/9DdCLGTNHAlyd7JaNgHLvuyb9ph3N+ude3J9Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSYe76pQ; arc=none smtp.client-ip=74.125.231.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DpEt8Q/R"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-6729ca45e37so3421897d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSYe76pQ"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b46bc1282so613243a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:14:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790615647; x=1791220447; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MmJ/EW0KwY0F0cm8LaUC3Fhj6N704NFs3EmzLQEffnQ=;
-        b=DpEt8Q/Rtt6CU3VVCy088mlM94gI41xgFL8/OIpF7pLSuO5iZe0mNZsHnYrtDAxXH0
-         hJUBdhVhN4oej1WlPQhTfYlrf8FVZLn/Kqq6kzE7jSdpa5rY1Prk7NIoKnPW7z9n+klw
-         mWAtVjQboIZziiPgP+TY2Bge/YSusfHHOvkSn59MNZR1OAL3agPO+Lq0bqe90fr4z29l
-         BZDEZFONCqNi35OL8P0pUwsiDVQddf++iE7GOXMf2O6JOD4jkWmv+EUpdgqp/9MwXfbE
-         bhVWF7vK2Q+15ah7ydijagIGn6QwcNK70wA1I1/gAJIHvjji3tEm5JUboSICRcvCP8nh
-         fHZg==
+        d=gmail.com; s=20251104; t=1790615668; x=1791220468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
+        b=RSYe76pQcKyuu5SwzFTcq9kPXd5aZnRmnBdqyP37oa1QYRIwezgoUggFcywmCARuUh
+         QNX5EFvVezYqY/zog7oSBkjJ+oZwwp+7FbtXGuArILqdihTUsNToaxpqPCLbt8BdvR3o
+         WUsYujrYeLtBIqeP2Jo4bPWX+kn2+gLv++9cbP39uf+CWPJKxhQWdTRdCnmUUajvPuXT
+         zze27PdPtwVH91STO2I3kY5Beu+a01JvuwvmaK+5/dgFjoKO4ynwz6pboNsOYZ2X4Fwq
+         dSGzeiExPefZLx84Ux+67uNm7bFObLIvEy72bRYr2mrREP96UqdRLjksYQrmD0pig7/t
+         fBMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615647; x=1791220447;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MmJ/EW0KwY0F0cm8LaUC3Fhj6N704NFs3EmzLQEffnQ=;
-        b=yAeWJ15eYHq0PVt+P8VOFiJdO4vM2acVsVbLpZnWOubRtDse6A+zs/XygFRtFd2Wle
-         ETeXRlLPIcLfx3PPvJWkiW7edOz6Ip6Ez4rZJpdt6xC65P7XXuobLNhkMs8trieCyzCX
-         cLIk5ccT1wz02uzJN3+eP8mDvlc0Lg5J4VxYt5vUPs0pl7kiG0QOsiMm6O/j1o3vWXHE
-         EIKCXts51YfFW4z77YJQeKN15mKCMlWSyJx/PB1HZ8OqN9rLIUib/9fTSwSYH6mfqKkx
-         Zce/epC2AfcAhxkZ3vWp33FKFyX4d1gDhU0k43EaO9uKUyPmHMVP7VDyuci8bTGwxKZw
-         4Eqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJcki49dhV6l2GeuvVaqlOQXMOe3vckoeO/Eev1T6saT+zSqr4f05DJvDHIo2A/gHybjxOarUUQ5O1s4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtsfT677seNA+z0cmcVAL4guk764+yDRx2St3ZqJdqjeL713hv
-	MhDPqDo2ruAAjuaR3rIgRBLd6QW2xiq1EPYP4SHrTnrsbFeFxm9bOS3/
-X-Gm-Gg: AYBFou3tENr3o3w31n+pR2pYkFsDZJtdrroWBvt7AfLndE5drXqos4rNyAvk/p4/QCT
-	0pq4eWPICYfCKjE1yCBzj7Upjf/ar4ffS2Y3/n3vPZ56Vozd0nDeJdaGRzPWGJz/U8uYhK35zUy
-	tv4sh7J5MPP+QSXnixr95tamjUctx2yICp8I2Qm7shEqE1+8kMAkLvsOOTPHf1g6XqdYLqe7Xj1
-	6NWBnORA23bccUn9oSHnV0I/iRKOI74X4cOtu/oKvBaA1M5pr/B/g8eWzWKbglqtRRro1QqkHB5
-	OxyU9WHUr4WuWmNgMG1PJ4BheSkH2T/qtyp+DfoQIO9wofgpDL+9ZuPS2TXHd3QezlfEuhyWGv/
-	fMyQkhCFYPPXz+owqPc6R+ugm9TjU9xK8tBMwP5lw2S2Rn2V0zZP3iysJbTeW+Ra+rH05jOBw6U
-	twn8lDslv9n8CS0npkKXVwx8GiP8Rvq5w5uSzUVlIy6NDWEA7oSzPM1rOcuY2T41dyEgWqLDW3c
-	90=
-X-Received: by 2002:a53:ac98:0:b0:671:1398:648d with SMTP id 956f58d0204a3-674111a8a77mr3399078d50.9.1790615647178;
-        Mon, 28 Sep 2026 10:14:07 -0700 (PDT)
-Received: from suesslenovo ([71.132.185.69])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ee940a0sm4752038d50.3.2026.09.28.10.14.06
+        d=1e100.net; s=20260707; t=1790615668; x=1791220468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
+        b=ouZBN1OJa28GpyqlY6il4Bm8ijinOIpXpn4d3neoAKeErFThVkdg/qymUBS1c+x+xF
+         7FdXJAyE4cMpv+NwH2PAA2ET8JeQgNkS2IY3UVv3aX8Kz/Uu032NIkxiPUK4MJHvPzK0
+         J5a4K06vXRdJ2bTtjnQ5Ru0HglXcq5atrA5Ts3kZJDs5KT02fLks1cs6IgCJU6j1l11+
+         wFNAJJ0JoVvdd7a8ZREJiwXlmIk2kTQWIS9MpykiL3r+n8S8OcANakKpiiMTsqHaJH74
+         RaWidZYzFy8Xjupnula8RPeaq1fD3iOKrUOHb9PYa2a2DPIsSaCEmb0+/QXcHVoA/8Gb
+         HoAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzLvCFv5eVlqQ7Jv5maYZ+B8VDaIaeNxBRJI+x96IZbPmoWR83htYgjDdzMeD1lvrGrK8mB6Xerxo5+kI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkmN0b/xumvkjC+JIk3bgIpGyLl+zxoW/Kzh2/vOIaEpUiYio8
+	ZphURe6o4qbZ3Q7Vv1bu/8zf0v/e2xcg8n6O8OUH/XQLpKO+JaZnZcpNR1M+2A==
+X-Gm-Gg: AYBFou2KhELyG2OR6QfaHVT7lxvNxBqO3u4a+sJFU4shJ+7l5zvvDOp4jAQPxX/pr89
+	nJdGOc3xv1wCKd8reMKj5Fp/TVcokDFpUjvCiBrMR2sddc7e2lxOir4PouqA9PLu7XjVJ5V/8Fc
+	OYmGY76FYCqnFMJMsnZYaacw2OP5ipEJgC5+Hp0OJ56bgt/TLHvyoMDY5SoCe9DjWY3uDuuHlCF
+	tlkMYEWAXnNm5vaAr+kzsATXw78L0lvSXqSyYy0c3Xgzy2Wxd6peN+krodnk6tkDVyZJjDWowid
+	RVwMYR+8XSQ91Fi2fqUY9G46Cea2hxCK8SyxLwbtZHhskHRtqZPiqDnChxKL397SWyiXsoGCmIV
+	Z56nAs7heY2a8sGP655HtmmdeKKHZyKinkv28RiivJFVNZcgvs1aK6wDL78IRvlbJ/XIlRZpU6K
+	mkc+Aw8mkhmo0Qaz6b+GhC6nEuMOorzvfr6RGesZmu5ts6Za69ikujl0Ash1/mg22H4D0JsDx64
+	RoSWWDarqhMoYChw8yX9qURk8zx3uKw6+Ff4JQqgg==
+X-Received: by 2002:a05:6820:986:b0:6d8:6049:1247 with SMTP id 006d021491bc7-6d860491701mr3981185eaf.2.1790615667972;
+        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d87d9060cbsm5492874eaf.0.2026.09.28.10.14.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:14:06 -0700 (PDT)
-Date: Mon, 28 Sep 2026 13:13:35 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net, 
-	gnoack@google.com, paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, dlemoal@kernel.org, 
-	hch@lst.de, axboe@kernel.dk, viro@zeniv.linux.org.uk, brauner@kernel.org, 
-	jack@suse.cz, dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org, 
-	sj1557.seo@samsung.com, yuezhang.mo@sony.com, hirofumi@mail.parknet.co.jp, 
-	cel@kernel.org, jlayton@kernel.org, neil@brown.name, okorniev@redhat.com, 
-	Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, amir73il@gmail.com, 
-	senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com, zohar@linux.ibm.com, 
-	roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, 
-	stephen.smalley.work@gmail.com, omosnacek@gmail.com, casey@schaufler-ca.com, nanx95726@gmail.com, 
-	djwong@kernel.org, daniel@iogearbox.net, linux-security-module@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev, 
-	ecryptfs@vger.kernel.org, exfat@lists.linux.dev, linux-nfs@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org, 
-	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, xiujianfeng@huawei.com, 
-	lujialin4@huawei.com
-Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
- WRITE_METADATA access rights
-Message-ID: <arqcbjWLN1CLkL_Y@suesslenovo>
-References: <20260924104831.1081137-1-caixinchen1@huawei.com>
- <araxO4ze0KZBz756@suesslenovo>
- <20260926.255b951d3013@gnoack.org>
+        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Beau Belgrave <beaub@linux.microsoft.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] tracing/user_events: Handle ioctls from 32-bit tasks
+Date: Mon, 28 Sep 2026 12:14:23 -0500
+Message-ID: <20260928171424.199202-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260926.255b951d3013@gnoack.org>
 
-On Sat, Sep 26, 2026 at 09:56:28AM +0200, Günther Noack wrote:
-> Hello!
-> 
-> On Fri, Sep 25, 2026 at 02:03:05PM -0400, Justin Suess wrote:
-> > On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
-> > > This series adds two new Landlock filesystem access rights,
-> > > LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
-> > > which control access to file and directory metadata such as inode
-> > > attributes (mode, ownership, timestamps), extended attributes and POSIX
-> > > ACLs.  It picks up the work from the "landlock: add chmod and chown
-> > > support" series [1] and follows the coarse-grained grouping discussed in
-> > > that thread [2]: instead of separate chmod/chown rights, metadata
-> > > operations are grouped into one read and one write right.
-> > > 
-> > > Landlock evaluates access rights on a per-path basis, but the metadata
-> > > related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
-> > > inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
-> > > inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
-> > > object.  Patches 1-7 therefore first pass struct path instead of dentry
-> > > through the metadata-related VFS helpers and LSM hooks.  This is a pure
-> > > refactoring with no behavior change, split so that every patch builds
-> > > and works on its own:
-> > >
-> > I like these patches, but is the ability to read metadata already
-> > sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
-> > directory?
-> > 
-> > The one case I see this being different is:
-> > 
-> > 1. if you wanted to grant read access to the file, but not metadata
-> > read access, but I can't think of any usecase for being able to read
-> > the contents of a file, but not the metadata. (see below)
-> > 
-> > 2. If you had the absolute path already and didn't need READ_DIR.
-> > 
-> > I see introducing this READ_METADATA as causing potential
-> > hard-to-diagnose issues.
-> > 
-> > Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
-> > 
-> > The program can technically open the file with the READ_FILE permission,
-> > but it may error out because the stat() on it beforehand failed.
-> > It's pretty common for programs to do that kind of thing (stat before
-> > open), like for checking for config files (strace bash and you see it
-> > stat .profile, /etc/profile)
-> > 
-> > There may be other bugs, because being able to set permissions to read
-> > a file *but not read it's metadata* isn't possible currently in posix
-> > acl and userspace may not work well if that assumption no longer holds.
-> >
-* posix acl and linux DAC.
+The DIAG_IOCSREG, DIAG_IOCSDEL and DIAG_IOCSUNREG ioctl numbers are
+defined with pointer types, so their size field is 4 for 32-bit
+userspace and 8 for 64-bit userspace. user_events_data has no
+compat_ioctl handler, so on a 64-bit kernel every one of these ioctls
+from a 32-bit task fails with -ENOTTY and such a task cannot register
+any user events.
 
-> > So maybe WRITE_METADATA is good enough?
-> 
-> The existing use cases are the combinations of (a) READ_DIR
-> allowed/denied and (b) READ_METADATA allowed/denied.  Because these
-> two access rights overlap slightly, it seems likely that for a given
-> directory or file, users will want to either grant both, or deny both.
-> 
-> At the moment, where the (not yet existing) READ_METADATA is
-> implicitly always allowed, the problematic case is the one where the
-> Landlock user wants to deny READ_DIR, but where much of the same
-> metadata is still available through stat() and the various
-> get-attribute syscalls.  (c.f. the warning box in the Landlock docs
-> [1])
-> 
-> In my view the READ_METADATA right closes a gap that READ_DIR left
-> open (which is also potentially surprising to callers if they did not
-> read the docs closely).  Also, if its implementation is symmetric to
-> WRITE_METADATA, I feel that it's worth having it in the same patch
-> set.
-> 
-> –Günther
-> 
-> P.S.: I know, even after we can control stat(), there are likely ways
-> to infer the presence of a file by observing Landlock error codes.
-> This would be nice to fix as well, but is harder to do without
-> controlling the path walk itself [2].  But also, the fact that this is
-> currently not controllable is not an excuse for leaving READ_METADATA
-> open IMHO.
->
-I'm still sort of concerned about the case where read access is allowed,
-but metadata isn't, due to how many applications will not cleanly handle
-such an unexpected condition. You can reproduce this with a seccomp
-policy forbidding stat().
+struct user_reg and struct user_unreg are packed and only use fixed-size
+fields, so they have the same layout for 32-bit and 64-bit tasks. Add a
+compat_ioctl handler that maps the 32-bit ioctl numbers to the native
+ones and passes the argument through compat_ptr().
 
-Would it make sense to have the existing READ rights
-(READ_DIR/READ_FILE) imply READ_METADATA on the files/directories 
-if READ_METADATA is handled? Reading a file's contents should always
-imply that you can read the metadata.
+Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
-Thanks,
-Justin
-> [1] https://docs.kernel.org/userspace-api/landlock.html#filesystem-flags
-> [2] https://github.com/landlock-lsm/linux/issues/9
+Notes:
+    Tested on x86_64 in QEMU (v7.3-rc5 plus this series, KASAN and lockdep):
+    - A 32-bit program that registers and unregisters an event gets -ENOTTY
+      from DIAG_IOCSREG before and works after.
+    - tools/testing/selftests/user_events built with -m32 (with 2/2): all
+      four tests fail before and pass after, in three runs each. The
+      64-bit build passes before and after. No splats.
+    Also built with CONFIG_COMPAT=n on x86_64 and with CONFIG_COMPAT=y on
+    riscv64, both with W=1.
+
+ kernel/trace/trace_events_user.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index f658c3a77aa7..07cfbb5a17de 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/bitmap.h>
+ #include <linux/cdev.h>
++#include <linux/compat.h>
+ #include <linux/hashtable.h>
+ #include <linux/list.h>
+ #include <linux/io.h>
+@@ -2737,6 +2738,36 @@ static long user_events_ioctl(struct file *file, unsigned int cmd,
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_COMPAT
++/*
++ * These IOCTLs encode the size of a pointer and thus change their numbers
++ * between 32 and 64 bits. The structs they point to have the same layout.
++ */
++#define DIAG_IOCSREG_COMPAT	_IOWR(DIAG_IOC_MAGIC, 0, compat_uptr_t)
++#define DIAG_IOCSDEL_COMPAT	_IOW(DIAG_IOC_MAGIC, 1, compat_uptr_t)
++#define DIAG_IOCSUNREG_COMPAT	_IOW(DIAG_IOC_MAGIC, 2, compat_uptr_t)
++
++static long user_events_compat_ioctl(struct file *file, unsigned int cmd,
++				     unsigned long uarg)
++{
++	switch (cmd) {
++	case DIAG_IOCSREG_COMPAT:
++		cmd = DIAG_IOCSREG;
++		break;
++	case DIAG_IOCSDEL_COMPAT:
++		cmd = DIAG_IOCSDEL;
++		break;
++	case DIAG_IOCSUNREG_COMPAT:
++		cmd = DIAG_IOCSUNREG;
++		break;
++	}
++
++	return user_events_ioctl(file, cmd, (unsigned long)compat_ptr(uarg));
++}
++#else
++#define user_events_compat_ioctl NULL
++#endif
++
+ /*
+  * Handles the final close of the file from user mode.
+  */
+@@ -2787,6 +2818,7 @@ static const struct file_operations user_data_fops = {
+ 	.write		= user_events_write,
+ 	.write_iter	= user_events_write_iter,
+ 	.unlocked_ioctl	= user_events_ioctl,
++	.compat_ioctl	= user_events_compat_ioctl,
+ 	.release	= user_events_release,
+ };
+ 
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
+
