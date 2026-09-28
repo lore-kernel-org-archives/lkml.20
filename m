@@ -1,124 +1,147 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DCA35838E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD34C349CD1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790569565; cv=none; b=pic1xV1u5Omy7Wh4k4+qMdM4Nd81yAyqcHh+stmVD+j/Hdd3znFuxtCwjwbIJBHFypaMXqZMxwSFsIzNcLmoZFGnmlD12bjzRBMPmaFiANKufu037AangeYj2/pIGzEPS1xUCC9ebRGZMvH1gF4gMbRq0dXSkmIYNHDl+Y4cxX8=
+	t=1790569583; cv=none; b=cpRbCBdessWQDZiKnlUcmG+pz8WMouNDfloSKLe2IIz0zFKttwHWJlwpiQWTABcCUUGFiUvhK/Fyse9ecSR/Wzr60q+8jsuKcYdu1HX43y0e3AplSvkdjOfU4E+SqjdsO4kYLuPubY4o8+2RYsRCfn5jsLUMr8EbJ93v5bMWqKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790569565; c=relaxed/simple;
-	bh=opiQtSW1lSKLQ7uVkYvsf1NhHRDdCKyKOTcUwYHrZf8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kwKAYygFH2004SCN+vR8eBe1yB/kvBwPAq2qz+Re9rlW9nOUxq4xjuNGhpTUZDiKJmBDeVgJswsaPsKDD5ECCoeULo3KNf7p1y9pGq2XTt0YN/g6kzPWJOnYXQqLY2vRXvH/lJdKhjvfFnObBFxmsG1itGzhxPBg9wrL8iDfmeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LKMgIHnr; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790569583; c=relaxed/simple;
+	bh=Glpk8JbMYBC+fNyg6t+G4JCTtagtnxJN0ZLKBOnTQTs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=rEi54bzJxb1Kv/VmmkXvgOaw2rCIB9Bf4abfknyZ2ws3Qe7KIqHK+rG7GuCqfUQfPiVwnsH4gvUDz1tBGdNuseV5ENHHCgmJUAy0hKYrSP5k2le0FARqKwpk9C5CcZyck7jVOsrFtDp4v3DKvt4a1dFoSoKgBgzJf479fZxPF6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S8uNetnj; arc=none smtp.client-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LKMgIHnr"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso1685157a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:26:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790569563; x=1791174363; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FrMP4Ii/YMUEItMnNYi/9VayHYXB02wrW1zol6BNPjU=;
-        b=LKMgIHnr5FzTPs2SdXG16+II6hjF95rjYl3jwx4dTV8mN8odn1Y7scYlAK0KhVAeBO
-         GwvFnHHsIqIJoAOlnd/DxHnNLe8uw3hZeHASmHrtV/V4ESDWDtb1FPe+QkAsMWH/bU+F
-         IKO+2sMGo/Sg7oKqcZzjtWiQm0c7aq3Wj/Ync=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790569563; x=1791174363;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FrMP4Ii/YMUEItMnNYi/9VayHYXB02wrW1zol6BNPjU=;
-        b=Vn34JXlaJz4TavKuEAFasBBiB+4u8b3xkETwK4auOZahswNlx1CR227PP185dvv06g
-         ee0PrCOuZVOTUE0g+1u3qN1YfV8Gc4a6e+MPEwddJNsXGeeiOoVm/kJE0quctwIAgABe
-         2fhOcKDcG7Aj+7oom++UtHgZY2Vcgt32c4k1UCrcSBG+HKnkO08fNS95P0juE1osMuoL
-         kikS+CcdJsWqAy4Ol5re06qQsGgWsJlZVbPCtnQXOjmE2YGBPopPyRxl+e83PfC9j43z
-         4jIsUDGxCWJAUX/MI8ozkvAG//f/NZkflOpxShVNVy3RxFAthXAmcVU7/VPIWSTjdk4J
-         ILVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzj8IsUYvYfa84rr1jcTMWjthqVx4IGGmjs/zEMGw1lfgl8koNIZF5fkMJbVvSzikXNdGZgu/BLfInOCRs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjomiVj8SXPZAQzRG9ZokmiM2x2ENs7//CKzIihNODjkEbKUTB
-	kYHoLGlkrfLnx39iNcisTWCYo4kK3/d3tUdkXcrUXHHAEMv34BhYB7ld2q7tI191hA==
-X-Gm-Gg: AYBFou13ds/uhA39rR6esb4Z++Qcn40mA4hzdga7xLujJ3d5/6jdvCaPE65BuP5YbYl
-	dMVUFtnaaPc6YJjJWBzpbKkhytpbRRmV0NljKaY5Att2NEjv44x8nEpjBItBn5yEWrLV4U/eHSJ
-	So2rK+gllsafzLRKZ3vLKneHXVXAdoKe9H4TTYjtkwaoPoh8axKDMNl9DZvRyfZ4VoflJGQdF9I
-	oRg+wBDxAzwnmMuWXXE5ERot5H4z0R+7JYRWIxxsMkI8teO8/8nfHRwYEIwDuHnsnpVvm9OUDD4
-	FTW4hzDr3zmjl9KYmxtIOKDjw+0UrDLZcKJ6yFigYvR1lyTTbxOh035BGNJZicpfI2rQaFirJlU
-	hiTbmdiYxrakvvTTHZVK8RdFLxvOm5gxkMB/7y/GGlyOKhxpkuDAHKdwDwhFpTJNfSJN/Ta7A63
-	4phI75+O/tczlss+RvEBOSEOFi/nmNuZTLybrZz0/awQITiuoLk+kaCmwHAECuF49pfnbNfjKQa
-	2si/SEfueA19aJe28AgjYJ2X7EBF+XPbm4ptpM=
-X-Received: by 2002:a17:90b:3b4b:b0:3a0:d2f3:fa80 with SMTP id 98e67ed59e1d1-3a0d2f40159mr5894433a91.6.1790569562955;
-        Sun, 27 Sep 2026 21:26:02 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:fdbe:318b:98fe:bd96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99917besm17891690a91.14.2026.09.27.21.25.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 21:26:02 -0700 (PDT)
-Date: Mon, 28 Sep 2026 13:25:53 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
-	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, 
-	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH RFC 0/9] lib/lz4: stop forking upstream LZ4, vendor it
- instead
-Message-ID: <arnr-Su0uJdK_rOb@google.com>
-References: <CGME20260925113450eucas1p2fcf838f00f35e1bce0ca04a694cd0cd2@eucas1p2.samsung.com>
- <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S8uNetnj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Glpk8JbMYBC+fNyg6t+G4JCTtagtnxJN0ZLKBOnTQTs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790569578; v=1; x=1791174378;
+ b=S8uNetnjaT95Te3/CadF+V8u9Xec9I4jrluUa+Lx4fCtP0XIsZ0PcTQVycE5n9LQNZfJI8KL
+ KeUa75lfmzj1/lrB/hPDZ9saQITMgLzpb+lgh7lazP1DkkO0W+iMoNj0CkkNWmDUCSMw9agzt4z
+ w7v7g6CU4xq9hO4mNAa4UyWw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 061b4c85c7534b56;
+	Mon, 28 Sep 2026 04:26:18 +0000
+X-Mizu-Trace-ID: 061b4c85c7534b56
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v5 00/12] mm: Switch device DAX to section-based vmemmap
+ optimization
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260927125452.0c1ec382905482841a4faef7@linux-foundation.org>
+Date: Mon, 28 Sep 2026 12:25:58 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Lance Yang <lance.yang@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0E16642B-8180-4047-B846-40E3CC52E7D8@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260926225105.a56f29d76b2f496c8dc2dac0@linux-foundation.org>
+ <FB00943F-8DB1-4BEE-BF37-701785DE2DDE@linux.dev>
+ <20260927125452.0c1ec382905482841a4faef7@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-On (26/09/25 13:27), Michal Wilczynski wrote:
-[..]
-> Michal Wilczynski (9):
->       lib/lz4: import upstream LZ4 sources verbatim
->       lib/lz4: backport upstream's -Wmissing-prototypes fix
->       lib/lz4: add the build environment for the vendored sources
->       arch: boot: put the LZ4 freestanding headers on the decompressor path
->       lib/lz4: switch the compressor to the vendored sources
->       lib/lz4: switch the HC compressor to the vendored sources
->       lib/lz4: switch the decompressor to the vendored sources
->       lib/lz4: fold lz4_kernel_api.h into <linux/lz4.h>
->       MAINTAINERS: add an entry for the LZ4 compression library
 
-On my x86_64 build .text size change seems to be quite significant:
 
- ./scripts/bloat-o-meter lib/lz4/lz4_compress-old.ko lib/lz4/lz4_compress.ko
-add/remove: 0/2 grow/shrink: 5/1 up/down: 8022/-1755 (6267)
-Function                                     old     new   delta
-LZ4_compress_fast_continue                  6028   10486   +4458
-LZ4_compress_destSize                        158    3112   +2954
-LZ4_compress_fast_extState                  4078    4597    +519
-LZ4_saveDict                                  82     153     +71
-__UNIQUE_ID_modinfo_466                       52      72     +20
-__pfx_LZ4_compress_destSize_generic           16       -     -16
-LZ4_loadDict                                 261     204     -57
-LZ4_compress_destSize_generic               1682       -   -1682
-Total: Before=14756, After=21023, chg +42.47%
+> On Sep 28, 2026, at 03:54, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>=20
+> On Sun, 27 Sep 2026 18:51:15 +0800 Muchun Song <muchun.song@linux.dev> =
+wrote:
+>=20
+>>=20
+>>=20
+>>> On Sep 27, 2026, at 13:51, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>>>=20
+>>> On Sun, 27 Sep 2026 10:54:29 +0800 Muchun Song =
+<songmuchun@bytedance.com> wrote:
+>>>=20
+>>>> After the HugeTLB conversion, optimized vmemmap state is described =
+by
+>>>> the memory section and the sparse-vmemmap population path can =
+allocate or
+>>>> reuse shared tail vmemmap pages based on that metadata. Device DAX =
+still
+>>>> uses the older DAX-specific population model, including a separate =
+tail
+>>>> vmemmap page reservation and architecture-specific logic to locate =
+or
+>>>> populate reusable tail pages.
+>>>>=20
+>>>> This series makes device DAX use the same section-based model. =
+Device DAX
+>>>> records the compound page order from pgmap->vmemmap_shift in =
+section
+>>>> metadata before vmemmap population, uses the common per-zone shared =
+tail
+>>>> vmemmap page, and drops the extra reserved tail page. The powerpc =
+radix
+>>>> path is updated to use the same shared tail-page helper, so the =
+generic
+>>>> and powerpc DAX paths follow the same reservation model.
+>>>=20
+>>> Thanks, I've updated mm-unstable to this version.
+>>=20
+>> Thanks.
+>>=20
+>>>=20
+>>> Sashiko asked a thing:
+>>> =
+https://sashiko.dev/#/patchset/20260927025441.741633-1-songmuchun@bytedanc=
+e.com
+>>=20
+>> Sashiko said page->refcount can overflow by incrementing it over 2.14 =
+billion
+>> times when mapping more than **524 TB** of DEV-DAX memory on a single =
+NUMA
+>> node, where the pages share the same node, order, and zone.
+>>=20
+>> I am not aware of any practical hardware configuration approaching =
+this
+>> topology today.
+>>=20
+>> Handling that theoretical limit would add non-trivial lifetime or
+>> architecture-specific teardown complexity. Without a concrete =
+hardware
+>> requirement, I prefer not to over-engineer the current series. We can =
+revisit
+>> it when such a system or use case becomes realistic.
+>=20
+> OK.  Presumably it would be cheap to add a check for this craziness =
+and
+> return ENOSOMETHING?
+
+
+Sounds right =E2=80=94 I'll send a follow-up fixup patch shortly.
+
+Muchun,
+Thanks.
+
