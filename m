@@ -1,291 +1,235 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D615049CF28;
-	Mon, 28 Sep 2026 12:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597161; cv=none; b=ppAnPffWL/57fzqVG+YzE72WT+CZhfOU/HsX3kDjPaCzV+4QS668CINJ1IMEAKdEiyE/v/Ro1kdhrDO44CrqS3bMFCVCSWIA5bNZDPC+w1ttikcyqTjkmccUnr9M3OBQcx9FssKW1NwugPTU3BQRhodZkfGeQ4mzgrgrKIxsoL8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597161; c=relaxed/simple;
-	bh=A9V4pbu5h7ab/1ykkp0OIsq+kCP60ETlvv8m6UoUE88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mVOvMHb/IueSbp47McxxVy4GPw0QkFVyunB2XJ13gcKuFP8BtSulxYcT1qhDeaK5i+cpN/v/bEz5nBkko/QCrLlqKttaIz1YhuCWvCCJHwH09Dp61Iz2jIa8GcGX5HDv0yPrkO9/zATPywNSUTW+guInR/hGSXu+yp/Fk9+bCZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TCCDprzJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000994BA1EB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790597185; cv=fail; b=gelh4j3RgEJBl/uB4dgvdgDBWTkYxeotye2OXamSexehDdnLtiefulH35hgkk0POAdgyIdgn9OWs/tVdIKjhclAmM5RBpsODF3YrT0H2srQmADvUUNjIHRSmyP9pXpDX6/sm++KNz42SY9qJVLfPOm2LNkP+d3vk68drnJMkgh4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790597185; c=relaxed/simple;
+	bh=r3ernBvs6aAwS00lBjrfJSLeifoxdNm9vM9xH3/kUM4=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=tIAdizH70fiX73CWP99dA9RLVmSMHE/m3Dleiq8HRtlsxL0t8S2HTILx4xLkn0NpjEHpTmdaJfCrKKDkPmISYiAtXonujYJC5XF/CNGcYcIpDeDBQHKRVs0SAoB/mkHPRDa2LnzRTdfHbVG106h9bZCvWYJVbRb1osapYKCtWTk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JOayj5HD; arc=fail smtp.client-ip=52.101.62.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TCCDprzJ"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBa4ai824443;
-	Mon, 28 Sep 2026 12:04:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=NCIXR0
-	Hs9RwjT7rq+PiaxtNUAk0tz5yF4FzPUq4siPY=; b=TCCDprzJrsGWb3BiDfno8s
-	p0DfGH898yK51mcnul2/CUF1ZzOh2rLJUntPENGJ+o7S8LeKpNAN7N+8FtkyirAo
-	lLYMJctv3hwSyFAeyMw+PLx/Rpw7QTlBhJORnlr1BZFeTjF7Lf+gixXLe39Edq6/
-	9nbL4GS+HH5Y8FsSAMlNrGGRFjmbl+ivLmzVXiOCTKTWc8fLEB8DMZ97OE78/ND+
-	wIG5Mmo2kM0ftctCKDoEBAbmEUAG1pGnDvKq9mYQ4ZkmmjljfAU5wqrf1vo3nNiL
-	RsqFrjsWbmrEBZAtEOzgNPQpKR+HgNMIi+R03Rn12ibDGLQ938h29PoyuHCJmOBA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk128w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:04:19 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHrjS076685;
-	Mon, 28 Sep 2026 12:04:18 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhd1mx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:04:18 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SC4GcB49938724
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 12:04:16 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 49A9220040;
-	Mon, 28 Sep 2026 12:04:16 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 91AB72004B;
-	Mon, 28 Sep 2026 12:04:11 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.95])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 12:04:11 +0000 (GMT)
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: "Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
-        Daniel Gomez <da.gomez@kernel.org>,
-        Pankaj Raghav <pankaj.raghav@linux.dev>, Theodore Tso <tytso@mit.edu>,
-        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>
-Subject: [RFC PATCH v4 10/12] xfs: Implement RWF_NOSERIAL to parallelize RWF_WRITETHROUGH writes
-Date: Mon, 28 Sep 2026 17:33:11 +0530
-Message-ID: <6503684dc469fc75724393242184358d520ea4f4.1790596383.git.ojaswin@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790596383.git.ojaswin@linux.ibm.com>
-References: <cover.1790596383.git.ojaswin@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JOayj5HD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sRaqWpqDjunoEJg8HDl+9gTAKQi0Zh/yuHyL0F+wYHqjlV/VKUgrfChXPr+1Ft42cvXGQNJN39TFA1mzGx5N8Kk6qAr4djNEGwTr7QBDjJE8kfvLP0rNWnGTemKNXNukdKLGFMaR2Sd8eeFExaklwMSltm6TdFI9Ff+p/nWq9d4eER2KruJpHQtZhPMFEEJK5vjeRkNePXgz9ynC/m0CdZbe2sykKgpqhofHvcCA0SlXfhqrm+DN1wlDqVm4stNxbjNOB1rSMhFew08Ij+weh/CFzt+9UQaj3MduWvdanKBF9rkjzJWHzp5Gp4u8jo5jLAPD7As03kKJ8ld/x9Nrdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ivCXqtXl21y1iMZPtlXc8t8+mxy0aGroanUMkbrM8bE=;
+ b=rf187JexaAZ2OCnRaQvqZ4mEmyWTomH6rOLnziqXRJIZyRC94SlGBMEOQbX0pQjxVDbzu30G5uSv+fQYFf/77TMgomq3ODZALhu++3aVs+N/kVVyfj67k5+spGycTolYWgWMTIyu4QBHKlXXe89wYFUXgP0BWpLrp9tIvCsmvdLTH9iaAbSC5Ch8M8yhKRD41wnLjHlkvFfX6z/F3O7oS9076rNuJ54fAzSZiBZ1bgeZKtfHQhzUOAzkaHriUWm2WU1YisOyyWtNb0HjJt23DeT/mgxBzC7d2R/AwxLQbiD5K2QhN4gjZOLNYdabHoH6oJ5X6YsczWKRe14T/wOlaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ivCXqtXl21y1iMZPtlXc8t8+mxy0aGroanUMkbrM8bE=;
+ b=JOayj5HDjUd/jeDIuLjpDCAviWdgD+pGz4vIklCaPAeBWyy8yZY/WywkARffJHNOilorc7v+5I5Wfk7gdmUliCqbMFAcqRjZvnCK1XjCM91ANuHc0weU0jxt9WLw1NkbU7IXZ6xh2zHoBCmOsezHYfUWSjX+nTHlTLefdlT6M+InXxtKIFwHMACIJWsE3cxK0MRrNfLspK9AQrJ6gZBMPAhHsi6AsX48CrcBLkiXrTGIDxkbm9F/QMHCAzDh8iZieIa0wEIg1K2HW3d8yMyeOfWdO9jwh54ckD8Xfg0NHd3Wg/WNITulB2ky6NWA2FWQXGD9SnpTs2vRv31BNvDfBg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 12:06:12 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 12:06:12 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 21:06:09 +0900
+Message-Id: <DLQXPZPJY23T.ZFEU6BCMHDSG@nvidia.com>
+Subject: Re: [PATCH v3 13/33] gpu: nova-core: separate the generic falcon
+ bootloader from FWSEC
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+References: <20260918010719.1176945-1-jhubbard@nvidia.com>
+ <20260918010719.1176945-14-jhubbard@nvidia.com>
+In-Reply-To: <20260918010719.1176945-14-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0025.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:263::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: rbFL-4xRFsTynGGcC5o_AFrPPoAnm0ek
-X-Proofpoint-GUID: czNHwlDBvkAmDd0aNLajzXAhI8YcO-nS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX/kkxyLuyqH8c
- fwL5pa63SFtfWhkfyo/0jjVr8V3L689JTjLx6h1PLFKUOnCen8kWAS3Nr0PxrgZjW9ur0BU18nb
- 5IKfZOMdSPdgfsd4t1Kr6InfjnQvzpc=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6aba57c3 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=7CW_VmIZYsy9TsuLaD4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfXw21nDKiTZzoh
- sWh8kzUMvfdxsqcdqVjqUtKq40zKlWV3gbj19oyd6e3fJATfkKJaUKNGd8XdWT8NhtnHK42qn3Z
- WrcHI6H4oXX1vuJgYtBxwN6aYjQzVXSCKT6dm/emA9HE4leQtIcaaImvZTTJ8wCNUOAGjRfnNQ3
- cTevKMS8p2tTLnnwapgNQZt1JRYZhsHDPemRpqGWcgGw8unIURigNCNBvAVJwhPvhG++1WCCD5n
- 9rBuJOocy45Fqnc3x1TmVc79dFN5nAsc0e8OLGeBG6w/1TZNVqkSvICL+buIAN6frctSGX2Jbu5
- SsfG4XXCFh0cPNAOag/UrYtaTlGdfCZD1PBjlkCANDOyiwNq9i29Z8FTzTImFe0Hn2JY6wyE3sC
- 7/oZOTkZ2E2gGQ+A/yJx1QRBo5Zlu5ZNzKCRmaMn1n6/i+D7SWn3yUsG1KESvMjDA2CqjIZMLDL
- iHXbHlKf78sVVpE0JYQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280046
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS4PR12MB999075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513bcd89-e965-4a86-0e0a-08df1d58e386
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|7416014|1800799024|376014|366016|10067099003|56012099006|11063799006|3023799007|6133799003|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	54GfZLGLIU1G1gSL1QA3HI0IMXaEcMNYk6A3Ez0AdS+o8c23x+4OJP8nWb3kq4FCTrYpShUD+kW8u+w/MKaQMoXwPEwCcEVrj+uxJyBv4N2WwSe8iSRKFJeuVpjxs6uB/tbxT/fq2qb4OZeW6CT2yHR0J++ZNfwFXvDzMRe9TxlK9T+yQqKiEqrp9HqaRKhrDT3CHYxZPCBsQSQzOeAMLkqRawe1O/VGXj36r3VFmzJ27Ed/VBDFAxQ9mQaCY+bRRZWlyByUNmbxgZvUiC+Sg7kiDTnsWXOIwHMIny9T6VBnVLLi9r/6liWurZBjYqofD6dRNIuAmGXCEZKJaYhCwy/vF1n0cKLRlb18KZztHezit2PFt9nss266JCYVxLgjyKCtVuNdTfmvSutfkrSqoCjyC49D0PlnBlNxL/Nv+PsmjSixDhwAAsZajIU1Cpvx0nbIqOr0CYunVYACSm4xkLCtCXMDEOTYyIucc3LH8XscDStqvQUV+ZnbzUbnymCQUhLwykqmPbYfqmZ+Ipx+UUNBhTUMP7UVlfgcv6oN1ZoQlV8mXMqS+Dxq85tK75vvyL7ibbBKOpW9n0DXokT8trCHksiYT0zb+DPf0VB/qhJDTQGIO+1ATiFnRZvoASzPcBz0tPtnjpLYiRLlj9AEQfS26tU+LsZtkMfeBT1M/Kw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(1800799024)(376014)(366016)(10067099003)(56012099006)(11063799006)(3023799007)(6133799003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NTJMRTVKcGNSRVNoM0tQL29Md0ZaYkRqbWgxQkpXd3V3VDRrTCtma3lPM1Rp?=
+ =?utf-8?B?ZlMvTVhtVzA1L1lSb1hFelFKQTMrMFowQUYwWXAweDZPemY4MHNBRE5vaXE2?=
+ =?utf-8?B?ZVFLSmVnWk5IVC85ZmlKYXFQeDBQeG5HZU5Wbm9OMTRrbjhzM0ZFemxTMHlL?=
+ =?utf-8?B?cmlxZFZyMGZwUzc4RDJ6SkJoY2FqMmdidFpBbGxsdytTa1NpaXlMQ3RMKzZq?=
+ =?utf-8?B?OGxuRFdBd1RLa3JMVTByQUxGL1R2YmlCMDFaU2lRMEFPbVc0eVNsZE1MV2VJ?=
+ =?utf-8?B?TkN5UUZkVVlObFo4eGFnTE5Vdk53aHhyVWxwOHhCRXM4cUdMcXc1YUh3VWNE?=
+ =?utf-8?B?bWhybFdEWmJRRWEyZTdXeURCc3FCUGpEb2w0WE82QlhKUUV5ZVQ3dWNDN3hT?=
+ =?utf-8?B?d0ZuVVk5TlhEZ0RkYkZhbU0rbnFQZXpQOUR4VDdwUlVNaVM0RlVRY0xMZUQz?=
+ =?utf-8?B?MFZoNWFqY2VvWXBNS09sZVF3NGgrRFc3Z0Nmd2t3anNMZUQ5VDBCYTJrUE1Q?=
+ =?utf-8?B?MDhaVmNXcnJvQnA2b0xvbmhmSzlXblM3TzhmeWkxbzdwV0NWZFg5MElzdlJZ?=
+ =?utf-8?B?Mlc2NHRSaDc2NktHRXVqQTV4MWxvV003aUR3dHlVYStKRDl2VEZGY3RST0FZ?=
+ =?utf-8?B?TWxmbHBST3BML2l3NGgyeVUwYURGQ2hZc01XQUt3Y0JVdWdhdGxoMmJtejJ6?=
+ =?utf-8?B?WVJkN2ptQlRmKzBwVlhhVXAwZFhaMlp3azRYR0xtTyt4Wk54OXBCMnlKYVkv?=
+ =?utf-8?B?bmR2cGdPNFpnbzNBTGJ6c3dlRVRpb3JWYkdPNHJJQTY4WTlxdkZwZnVrcmkr?=
+ =?utf-8?B?bjh2NHJYSlNSeDhpemUrTFZMcDZqWk0rYkgyUVFGQXBBOUxmcU9QQXZseUk4?=
+ =?utf-8?B?UGN0ZVlZYXEveXdtbk13WVg0QWNySGQ5blkyallzTk8vMGR1aTFBQy8yVUJr?=
+ =?utf-8?B?S2RGYWRPSzgrc1FrN3NIVlVJdkV0UVgxVlVZR2JDRWRXTzBMS0d3UUlUSjRz?=
+ =?utf-8?B?R05vRTdFODJsQkZiU2taZy9sdllWSnBWWG5KVkhJVjF3SWtGTHM5UUd2TDZl?=
+ =?utf-8?B?d2lQZDZPeW9VdnFPR1FzOTc1RmpIT2c5NVErbDZHVWVhYm9VTVpOQzRqdkhT?=
+ =?utf-8?B?OERnSlpRUlJ3SzNCSjJ2ZFFhODFPMXdCNWZlV2c0MDROUHRYV2tmYmFQRUtu?=
+ =?utf-8?B?dHhsbXRneS90NEt4clQwMitOSEJ1VW5raERuNEJHOUM1anhxNEErVVdKWUZQ?=
+ =?utf-8?B?U28rNWVXWWg2NzBOTUNpTGhsRUJTZWU1M0RUdDN4anlucGVwZjBCQTdxZnU3?=
+ =?utf-8?B?dEFkU0JPbXQrZGQ0WWxSeldRdFNnZ1RyWFA4bzF3Wi95THNpZ0dIUVc2TUht?=
+ =?utf-8?B?cDNJeER6MXBxWlV3RDhDWXlPN3FBZnBUTXVab3hXY1czUEZuaTZ2bXpKV1Rp?=
+ =?utf-8?B?M1N2SkgyR0dydW0xc3gyTGZ4NzdSZkFDVU1uZmVkVGlYY0VhV0ZzM1NHTHkv?=
+ =?utf-8?B?KzFob1FpUmM0eityWUNNQVEzVWFQM0xPSXZFMmhjaDJremJmRkhXZHU0K2d3?=
+ =?utf-8?B?eVBsTXk5NzBOTkFzZlJlc3VCN1FTN1FSQ3R1SWxWTkR0dXhWaDB3RjlUdUEv?=
+ =?utf-8?B?ZUN1MlhFVHlMdnoyRTBQZ3ozd0E2ekgzMDRveGlYbDFCVmFtM1Y4RmdueGc3?=
+ =?utf-8?B?M3JnSExyZkd0VXQ0dnE5Qkc1TXNXZXJnT1VvV3ArUVZTNi9EWmxvTk9Vc2Mr?=
+ =?utf-8?B?dDNUNnMxMUx3TGhHV3JHMEwzdUxRb21IeWxMMkI2TUNpTlFCU05Xakp2QW1E?=
+ =?utf-8?B?eDVhZStiNStVOEN5R2ppSjJ3RkVWT2t1d0ptekdvZEVvNktCY1NraDlWUnZV?=
+ =?utf-8?B?dEkwQkZsaFpxNG9kc3ZkaTVmN2JJOVNrekpZK2NYZGlwTXM1MmlZdlUyOC90?=
+ =?utf-8?B?Y05vakROaXR5cmwySklySEFROE44WHRocEhNendzS0tLZTVCTW1UaEh0dGR4?=
+ =?utf-8?B?Y1lZbVlHaGVhdEpsUXVSQmZEYlBMTmZjYmpvOUF3bWY2cTEwbHpmZE5DVlcy?=
+ =?utf-8?B?N1ZuQitDK0UwQ05lRkNmbjk2VEJEMUwzQmtvV1lqRGl5YzZqajVlUm1HWFVB?=
+ =?utf-8?B?WDBPTlBuZ1Z5OWJqSWd6SEU2cDIwbVR0V01zaVhVSytlNnpYYlA3dDFqUzBG?=
+ =?utf-8?B?SWlXQTdhUnJ2QkIvYWtNUnlubmwyV0ZlMkF1NlE1VFNCNktwVjZKUkNlL2ll?=
+ =?utf-8?B?REh4SjRxQmFMMUlxUTJZZEtFemhDKzJ1YldmcEJPM01YamppZDM5TC83dXBT?=
+ =?utf-8?B?eXdQeFVJRUtwcndCaElKRmF3dXhxZ01saEQzUDJZMzQ5dzBBa1EvTDM5MGYx?=
+ =?utf-8?Q?b/StO485AiGL2RuYzHPk+EqF2WBx36uEAUGH2CltKc4s4?=
+X-MS-Exchange-AntiSpam-MessageData-1: s2Ygvr6SDTa4sQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513bcd89-e965-4a86-0e0a-08df1d58e386
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:06:12.3976
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZRi/9hKNqnLGKPxG7Kt8sVvzg4MaERmZlTcpO9E3GIwacdb/F+kcpRcFPNyx23jhBK+djdsj8w6xW5XW/w0YSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999075
 
-In xfs, buffered writethrough writes take an exclusive inode lock
-similar to regular buffered write path. However, since writethrough also
-submits the write under the inode lock, the increased critical section
-really hurts performance when we have parallel writers writing to the
-same file.
+On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
+> The generic falcon bootloader is a small program that loads a larger
+> image into a falcon. The r000 boot protocol needs it to run an image
+> that GSP-RM names in a load-and-execute event during boot.
+>
+> Nova-core used the bootloader only to load FWSEC, so the bootloader code
+> was part of the FWSEC code, and there was no way to run it on another
+> image.
+>
+> Move the bootloader into its own type, which FWSEC then uses.
+>
+> Place the bootloader at the top of the falcon's IMEM, using the IMEM
+> size that the HWCFG register reports, instead of assuming a 64 KiB IMEM.
+>
+> Assisted-by: LLM
+> Reviewed-by: Timur Tabi <ttabi@nvidia.com>
+> Reviewed-by: Zhi Wang <zhiw@nvidia.com>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 
-To mitigate this, implement RWF_NOSERIAL flag which allows us to perform
-the write under a shared inode lock, instead of an exclusive lock. This
-gives significant performance boost to single file, multiple writer
-workloads at the cost of losing write-write serialization and read-write
-serialization guarantees which XFS has historically provided.
+This is a very good change to have even without the switch to r000 as it
+properly isolates the generic bootloader code. But this change alone is
+not the entire story: patch 16 is another part of it, and so are the
+bits of patch 17 that touch `fwsec/bootloader.rs` and
+`gen_bootloader.rs`. If you extract the relevant bits of patch 17 into a
+new patch then you have 3 commits that read perfectly once they are
+put in a sequence (i.e. the current patches 14 and 15 should be moved
+right after the extracted part of patch 17).
 
-Let's look at each of the guarantees and what changes with the NOSERIAL
-flag:
+I've tried squashing these 3 patches into a single one and even that
+looks pretty decent with `--color-moved`, but it's also fine to keep
+3 separate patches if you prefer.
 
-Write-write guarantee:
+Those patches also still seem to have some doccomment churn, please
+confirm whether changing the documentation is actually warranted.
 
-Image 2 writers trying to write the same 3 folios. One is write As to
-all 3 folios (denoted by AAA) and the other is writing BBB. Then under
-exclusive lock the final state of the 3 folios could only be either AAA
-or BBB.
+Just one tiny nit on this patch below.
 
-However, with NOSERIAL writes, we could end up with mixed data in the
-3 folios, like AAB, ABA, BAA etc. Note that this mixing will always
-happen at the inter folio level, data contained within the same folio
-will not be mixed as it is protected by the folio lock.
+<...>
+> +impl GenericBootloader {
+> +    /// Loads the generic bootloader image for `chipset`, placed in the =
+last blocks of an IMEM of
+> +    /// `imem_size` bytes.
+> +    ///
+> +    /// # Errors
+> +    ///
+> +    /// - `EINVAL` if a required TLV field is absent or the image does n=
+ot fit in IMEM.
+> +    /// - `ENOMEM` if the padded copy of the code cannot be allocated.
+> +    pub(crate) fn new(
+> +        dev: &device::Device<device::Bound>,
+> +        chipset: Chipset,
+> +        imem_size: usize,
+> +    ) -> Result<Self> {
+> +        let fw =3D request_tlv(dev, chipset, "gen_bootloader")?;
+> +        let tlv =3D Tlv::new(fw.data())?;
+> +        dev_dbg!(
+> +            dev,
+> +            "loaded generic bootloader firmware v{}\n",
+> +            tlv.get_string(b"VERS")?
+> +        );
+> +
+> +        let ucode =3D {
+> +            let blob =3D tlv.get_bytes(b"BLOB")?;
+> +            let code_size =3D usize::from_safe_cast(tlv.get_u32(b"CDSZ")=
+?);
+> +            let code =3D blob.get(..code_size).ok_or(EINVAL)?;
+> +            let aligned_code_size =3D code_size
+> +                .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT=
+ }>())
+> +                .ok_or(EINVAL)?;
+> +
+> +            let mut ucode =3D KVec::with_capacity(aligned_code_size, GFP=
+_KERNEL)?;
+> +            ucode.extend_from_slice(code, GFP_KERNEL)?;
+> +            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
+> +
+> +            ucode
+> +        };
+> +
+> +        // The top of IMEM, above the blocks that the bootloader loads t=
+he image into.
+> +        let imem_dst_start =3D imem_size.checked_sub(ucode.len()).ok_or(=
+EINVAL)?;
+> +
+> +        Ok(Self {
+> +            ucode,
+> +            imem_dst_start: u16::try_from(imem_dst_start)?,
+> +            start_tag: u16::try_from(tlv.get_u32(b"STRT")?)?,
+> +        })
+> +    }
+> +
+> +    pub(crate) fn boot_addr(&self) -> u32 {
 
-Read-write guarantee:
-
-In XFS, reads also take a shared lock, however they don't take a folio
-lock when copying from the folio to the user buffer. Due to the shared
-lock of read and exclusive lock of write, we are able to guarantee that
-the read always reads either completely old data or completely new data.
-
-However, with the NOSERIAL flag, writethrough will take a shared lock for
-writes, ie a read can race with a write which is still in middle of
-copying data to the folio, hence the read can read a mix of old and new
-data.
-
-Despite the above changes in behavior, there might be applications
-who would be okay to lose the guarantees because of the nature of their
-workloads for example, if they never have multiple readers/writes doing
-IO to the same range in the file. Such applications would benefit
-significantly by using NOSERIAL writes.
-
-Below are some fio performance numbers of RWF_WRITETHROUGH with and without
-NOSERIAL writes.
-
-** Multiple writes, single file (Pure overwrites, DSYNC) **
-  Fio Workload:
-    libaio, buffered randwrite, bs=4k, size=2G (pre written), O_DSYNC
-    iodepth=32
-
-  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
-     1        350           392         +12.0%
-     2        526           798         +51.7%
-     4        597          1591        +166.5%
-     8        630          1839        +191.9%
-    16        570          1836        +222.1%
-
-** Multiple writes, single file (Preallocated file, sync_file_range) **
-  Fio Workload:
-    libaio, buffered randwrite, bs=16k, size=5G (fallocated)
-    sync_file_range=wait_before,write:16
-
-  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
-     1       1099          1279        +16.4%
-     2       1482          2456        +65.7%
-     4       2065          2479        +20.1%
-     8       1778          2500        +40.6%
-    16       1787          2508        +40.3%
-
-* Multiple writes, single file (Truncated file, DSYNC) *
-  Fio Workload:
-    libaio, buffered randwrite, bs=4k, size=6.5G (truncated), O_DSYNC
-    iodepth=32
-
-  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
-     1        78            80         +2.6%
-     2        97            88         -9.3%
-     4       100            96         -4.0%
-     8       109            97        -11.0%
-    16       106           107         +0.9%
-
-Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
----
- fs/xfs/xfs_file.c | 57 ++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 51 insertions(+), 6 deletions(-)
-
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 3e25baca22c2..ef3265f3b6b6 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -508,6 +508,45 @@ xfs_file_write_checks(
- 	return kiocb_modified(iocb);
- }
- 
-+STATIC ssize_t
-+xfs_file_writethrough_checks(
-+	struct kiocb		*iocb,
-+	struct iov_iter		*from,
-+	unsigned int		*iolock,
-+	struct xfs_zone_alloc_ctx *ac)
-+{
-+	struct inode		*inode = iocb->ki_filp->f_mapping->host;
-+	size_t			orig_count = iov_iter_count(from);
-+	xfs_fsize_t		isize = i_size_read(inode);
-+	ssize_t		error;
-+
-+restart:
-+	error =  xfs_file_write_checks(iocb, from, iolock, ac);
-+	if (error < 0)
-+		return error;
-+
-+	if (*iolock == XFS_IOLOCK_EXCL)
-+		return 0;
-+
-+	 /* Extending IO needs exclusive lock for i_size change */
-+	if (iocb->ki_pos + iov_iter_count(from) > isize)
-+		goto upgrade_excl;
-+
-+	return 0;
-+
-+upgrade_excl:
-+	xfs_iunlock(XFS_I(inode), *iolock);
-+	*iolock = XFS_IOLOCK_EXCL;
-+	error = xfs_ilock_iocb(iocb, *iolock);
-+	if (error) {
-+		*iolock = 0;
-+		return error;
-+	}
-+	iov_iter_reexpand(from, orig_count);
-+	goto restart;
-+
-+}
-+
- static ssize_t
- xfs_zoned_write_space_reserve(
- 	struct xfs_mount		*mp,
-@@ -1108,23 +1147,29 @@ xfs_file_buffered_write(
- 	unsigned int		iolock;
- 
- write_retry:
--	iolock = XFS_IOLOCK_EXCL;
-+	if (iocb->ki_flags & IOCB_NOSERIAL)
-+		iolock = XFS_IOLOCK_SHARED;
-+	else
-+		iolock = XFS_IOLOCK_EXCL;
- 	ret = xfs_ilock_iocb(iocb, iolock);
- 	if (ret)
- 		return ret;
- 
--	ret = xfs_file_write_checks(iocb, from, &iolock, NULL);
--	if (ret)
--		goto out;
--
- 	trace_xfs_file_buffered_write(iocb, from);
- 	if (iocb->ki_flags & IOCB_WRITETHROUGH) {
-+		ret = xfs_file_writethrough_checks(iocb, from, &iolock, NULL);
-+		if (ret)
-+			goto out;
- 		ret = iomap_file_writethrough_write(iocb, from,
- 						    &xfs_writethrough_ops, NULL);
--	} else
-+	} else {
-+		ret = xfs_file_write_checks(iocb, from, &iolock, NULL);
-+		if (ret)
-+			goto out;
- 		ret = iomap_file_buffered_write(iocb, from,
- 						&xfs_buffered_write_iomap_ops,
- 						&xfs_iomap_write_ops, NULL);
-+	}
- 
- 	/*
- 	 * If we hit a space limit, try to free up some lingering preallocated
--- 
-2.55.0
-
+Let's give a short documentation to this new method.
