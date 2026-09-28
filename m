@@ -1,170 +1,170 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FB64BA9F2;
-	Mon, 28 Sep 2026 12:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE24B4BD106
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597443; cv=none; b=p4TSfBq4Nk0Fserv9sf3GSkdMFOtiTU7kj9WYS16LpNV+448ovukAIGYc5LCx4Bn5UIE6v5W5wu3zxLvPFsPSM6JedKwpqgpou6zYYlHEhaWy2qU8isZ4e4jgoTCKm2Rizc9CDS3ys19EEiUtPb4tvSk2HqMPx1QhAEt4lkZABg=
+	t=1790597448; cv=none; b=tKLEBFzkcZLn2ioQe2LrjdgYMLgfSXtc6eFUjldApk0cJbyliXpvFOED5rJZcGV+aIBJuQg7s8D13io2610v2pbMSXmP/+hoyebrzCSg1NywsIXhjKBirFc9vvjSa+i0ziqMlgFh1LmBFpTw2lB5VOUenqVBf6CY7KVyN3THv9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597443; c=relaxed/simple;
-	bh=11T/FXaU6/yHKFLaw2ytHH77JsNUcI8PhrK/1EEIHWw=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=knIGcTOMgm1DAOx70M+pOW1HwXRjd9MkBd4C2926yotkYc+4h/VzyTfwi1vTp645uuUX0bBJf6mxlVnVM2pW4aQhEqK54TghA/IVOfjk2tRrKTeHGM/2th2x4wwyu95X59BcXGblXvDU/lI2aZcY3FnFQ3gD8tBO1gbJiehS7ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4htgB66gGXz8Xrrg;
-	Mon, 28 Sep 2026 20:10:38 +0800 (CST)
-Received: from njb2app05.zte.com.cn ([10.55.22.121])
-	by mse-fl1.zte.com.cn with SMTP id 68SCARCe062864;
-	Mon, 28 Sep 2026 20:10:27 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njb2app05[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Mon, 28 Sep 2026 20:10:30 +0800 (CST)
-X-Zmail-TransId: 2afd6aba59367b8-060b9
-X-Mailer: Zmail v1.0
-Message-ID: <202609282010301316BZ8zDUYb1NPROJaErr_Q@zte.com.cn>
-In-Reply-To: <20260922100913.GA13925@horms.kernel.org>
-References: 202609211451400236_aZ55Ox3y7NW8MQnYImM@zte.com.cn,202609211459460680vBvKdpuZZ9yR4QVn3ONR@zte.com.cn,20260922100913.GA13925@horms.kernel.org
-Date: Mon, 28 Sep 2026 20:10:30 +0800 (CST)
+	s=arc-20240116; t=1790597448; c=relaxed/simple;
+	bh=hsmTgOXWY31yOiEwYfObS2Rz+k0nCQ4lsbwNkTGpX2A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fSt8e+GzcvE974bvmRYVcAl3x62wwuPUdL8lwpgTZc1OHE1d5InEjYOVftDpzLWf/aZWC+5KxuSyzzFnqrlwEc7pPpwGfCcb3RNwT2/NH0PbLrLq27xp1Vd9mmUX3Wl+X5M54iwYTDPIRq3EkYw5fgIeyOLuMiXm1Lm6Rv9ga58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y7qiIkgj; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y7qiIkgj"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso594792a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:10:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790597446; x=1791202246; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zm7WiEcvZgYFQgA/86utiXIUrMSJvOJdKJld1YmBXzI=;
+        b=Y7qiIkgjLbdzFTRurEE6SNfIvHulB7dz4jgPOVvF8rkQNH9hCxW1dSKh0R+x4XYya5
+         omFJoLkNqiFAbqNB9qshnJZo7ihJUbXleM6KagaXDKvck2RQSVubGIs016cnAYuuiQp0
+         3C+7bIznvIWpoqKdXRYoeuUqvsHkU4qeD3z0Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790597446; x=1791202246;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Zm7WiEcvZgYFQgA/86utiXIUrMSJvOJdKJld1YmBXzI=;
+        b=WsC3iEfOKX37qLiytba3z7ug4VFtoytPXi5gnDnkPqVfPnK9kuJHcrHH+OeAngahwA
+         3sTuNflAo89KHWW8bNLIrQo9gq4smUxeyDXW4nQFzh6V1sH2+1NxxFcyrU8BWhdsW2r4
+         tA7Ec9qqa5+4wWsIFxUVKb3mLhwIy6Bn8rgondB42sMkFHEp3yRTqn9vJK4QXHuaLmte
+         tqBOMfFauh0Kaw+sZXfd4jKPlOJ6cKVkWoKEMjD5MW8VEITepIZ03Sw7F7ksFIqpSaur
+         A5M/kkfzNa/heRlVEbsCneTR025qjR1T99b9ZsvyKf7EB86bj6XS9ZVH+i0bpDtPvSN+
+         8G4g==
+X-Forwarded-Encrypted: i=1; AKwUvBy33qcZfGHFXfa2jyYTfdHaSMZp8TBNgkAAaBW9nSHutY+TtRIeGTzcrYqLXJ/W4NVgVN8qmkGmqUaxguk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjzGbw2p+BR2A32IA0UAZkTxEpiAlNwVlCgJ5Qr1p/hM6jc51H
+	4c+iWuEK0KQmJDXNaTJDgKM0OjZVXnfYNR7cv5k4usHM4cfgM0YLrwpbvZyucw3RixPdkpbCVVS
+	+oNs=
+X-Gm-Gg: AYBFou1f7OEVbyKUHTiUWC8YjaK5vYtog7qql/+YB6yXr1wXeCpwtUqXoUw5g1k7mqS
+	uohnWEHk6n2FwKXwvQ7N8OvLOcfYQ+QXGrp/7DFQXaVHE+HHnqn3/9FNBtiiC5N7LSIMPPFbRf8
+	nMkyHTn0tUJN46Zrc2AnFzFmVKIvgIeDnWd3nRJOeUjvai2pv642ysf7gsk4yJ5I+GN4Jcmmdaf
+	fQ2oKLdUXzleDEORUCWulFZkzezJxXOOw3/kZmOnn0pKlQY8TXUAZjTruSAbitQ4tauKbMmJqyC
+	lSSAE7+b4PFDHpel1etPXvYvwehDJqI1hs+YfGajE0dfIYmu0TmIq7AAs5Isc/ugjlHa0m4Ktuh
+	hSpqDybJPf8+WteDcnbazthkIjMBb9Lvkfy7OfRe+b1yrhDOCp8tdRKTQs4xEVMWswu/RcKY3cg
+	d2gYgzACV2D1cUsn9DyYtpKsVcDPTx3pfwunqxtGiayObAspwIHnOHjufxNb5OMzft4vPZIleT/
+	HiLmBgWcGEhiXaOIpDZcjV3QTbEVbezj1odHg==
+X-Received: by 2002:a17:90b:1dc2:b0:3a4:8c41:facf with SMTP id 98e67ed59e1d1-3a48c4202f8mr141320a91.41.1790597445811;
+        Mon, 28 Sep 2026 05:10:45 -0700 (PDT)
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com. [74.125.229.140])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm20725776a91.4.2026.09.28.05.10.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 05:10:43 -0700 (PDT)
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so1796438c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:10:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOyJYo9N/m1ePaWSgu0lq58cjIjYV/MSKuEJo1kHiBoVaKdy977tKANXbuSVC3vapv83fevstP+0yvL48=@vger.kernel.org
+X-Received: by 2002:a05:7022:689b:b0:141:aa71:6e02 with SMTP id
+ a92af1059eb24-146ce2a0f65mr14559278c88.2.1790597441109; Mon, 28 Sep 2026
+ 05:10:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <horms@kernel.org>
-Cc: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <linux-kernel@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCBuZXQtbmV4dCB2MyAyLzNdIGRpbmdoYWk6IGFkZCBNU0ktWCBpbnRlcnJ1cHQgcG9vbHM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68SCARCe062864
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 28 Sep 2026 20:10:38 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ABA593E.000/4htgB66gGXz8Xrrg
+MIME-Version: 1.0
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org> <20260928120252.GB4406@killaraus.ideasonboard.com>
+In-Reply-To: <20260928120252.GB4406@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 14:10:26 +0200
+X-Gmail-Original-Message-ID: <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+X-Gm-Features: AclHuK_-lgmEmOmfxcxZ6_9uVZ5ilRo7HifkMu9cud87ufINOQ3FYQtiYfguUNg
+Message-ID: <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@skynet.be>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 21, 2026 at 02:59:46PM +0800, han.junyang@zte.com.cn wrote:
-> > From: Junyang Han <han.junyang@zte.com.cn>
-> >
-> > Allocate the fixed MSI-X vector layout of the device and manage the
-> > vectors in per-purpose pools: the async event queues first, a range
-> > reserved for RDMA in between and the vq queue pairs last. This series
-> > wires up the async pool; the vq pool comes with the netdev series.
-> >
-> > IRQs are reference counted so that several event queues can share one
-> > vector. The pool hands out the least loaded matching IRQ once it passes
-> > the pool minimum threshold, and binds newly created IRQs to the least
-> > loaded CPU of the requested affinity mask. Interrupt delivery fans out
-> > through an atomic notifier chain attached to each IRQ, which the async
-> > event queue setup posted later in this series hooks into.
-> >
-> > Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
+Hi Laurent
 
-...
 
-> > @@ -516,10 +604,24 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> > goto err_modern_cfg;
-> > }
+On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Ricardo,
+>
+> Thank you for the patch.
+>
+> On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > uvc_parse_control() passes descriptor by descriptor to
+> > uvc_parse_standard_control() with the number of bytes remaining in the
+> > buffer, not the number of bytes of that descriptor.
 > >
-> > + ret = zxdh_pf_irq_table_init(zxdh_dev);
-> > + if (ret) {
-> > + dev_err(&pdev->dev, "zxdh_pf_irq_table_init failed: %d\n", ret);
-> > + goto err_modern_cfg;
-> > + }
+> > Because of this, malformed descriptors could leak over the next
+> > descriptor, leaving malformed data in our structures.
+>
+> What issue does this fix in practice ?
+
+Look into uvc_parse_standard_control().
+Let's take the UVC_VC_HEADER
+
+Imagine we have a malformed control at the beginning of the descriptor that has:
+
+buffer[0] = 3
+buffer[2] = UVC_VC_HEADER
+buffer[3] => Beggining of next control
+
+With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+
+What does it fix in practice? It avoids that data outside the controls
+is parsed as part of the control.
+
+
+>
+> > Change the code so we pass the actual length of the descriptor to the
+> > parser.
+> >
+> > Note that this makes the existing check more strict and some devices
+> > that are wrongly parsed today will not be probed now.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> >  1 file changed, 5 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > index e289cc71ba98..429f1ab19a2a 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> >        */
+> >
+> >       while (buflen > 2) {
+> > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > +                     return -EINVAL;
 > > +
-> > + ret = zxdh_pf_irq_table_create(zxdh_dev);
-> > + if (ret) {
-> > + dev_err(&pdev->dev, "zxdh_pf_irq_table_create failed: %d\n", ret);
-> > + goto err_irq_table;
-> > + }
-
-> I am wondering if you considered calling zxdh_pf_irq_table_create()
-> from zxdh_pf_irq_table_init(). And likewise for
-> zxdh_pf_eq_table_init()/zxdh_pf_eq_table_create() in patch 3/3.
-
-> I mainly ask because it seems like it would simplify zxdh_pf_probe()
-> slightly. But I don't feel strongly about this.
-
-Both taken in v4: the create() steps are folded into their init() counterparts,
-and every probe error path now goes through the same destroy() functions
-remove() uses, so each patch carries one cleanup authority from the start.
-This also drops the internal pci_free_irq_vectors() on the pools failure
-path - destroy() releases the vectors exactly once for any partial init state.
-
-> > +
-> > devlink_register(devlink);
+> > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> >                   buffer[1] != USB_DT_CS_INTERFACE)
+> >                       goto next_descriptor;
 > >
-> > return 0;
+> > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> >               if (ret < 0)
+> >                       return ret;
 > >
-> > +err_irq_table:
-> > + kvfree(zxdh_dev->irq_table.priv);
+> >
+> > ---
+> > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
 
-> As a counter to my previous comment: I see the line is changed to call
-> zxdh_pf_irq_table_destroy() in patch 3/3. But I'm wondering if it should be
-> (or would be nicer if it was) zxdh_pf_irq_table_destroy() in this patch.
 
-> > err_modern_cfg:
-> > zxdh_pf_modern_cfg_uninit(zxdh_dev);
-> > err_cfg_init:
 
-...
-
-> > diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_irq.c b/drivers/net/ethernet/zte/dinghai/zxdh_irq.c
-
-...
-
-> > +static struct zxdh_irq *zxdh_irq_alloc(struct zxdh_irq_pool *pool, int vecidx,
-> > + const struct cpumask *affinity)
-> > +{
-> > + struct zxdh_core_dev *zxdh_dev = pool->dev;
-> > + struct zxdh_irq *irq;
-> > + int err;
-> > + int cpu;
-> > +
-> > + irq = kzalloc_obj(*irq, GFP_KERNEL);
-> > + if (!irq)
-> > + return ERR_PTR(-ENOMEM);
-> > +
-> > + irq->pool = pool;
-> > + irq->irqn = pci_irq_vector(zxdh_dev->pdev, vecidx);
-> > + if (irq->irqn < 0) {
-> > + err = irq->irqn;
-> > + goto err_irqn;
-> > + }
-> > +
-> > + ATOMIC_INIT_NOTIFIER_HEAD(&irq->nh);
-> > + snprintf(irq->name, ZXDH_MAX_IRQ_NAME, "%s_%d@pci:%s", pool->name,
-> > + vecidx, pci_name(zxdh_dev->pdev));
-
-> W=1 builds complain about this. E.g. GCC 16.2.0 on x86_64 says:
-
-> CC [M] drivers/net/ethernet/zte/dinghai/zxdh_irq.o
-> drivers/net/ethernet/zte/dinghai/zxdh_irq.c: In function 'zxdh_irq_alloc':
-> drivers/net/ethernet/zte/dinghai/zxdh_irq.c:94:52: warning: '%d' directive output may be truncated writing between 1 and 11 bytes into a region of size between 0 and 99 [-Wformat-truncation=]
-> 94 | snprintf(irq->name, ZXDH_MAX_IRQ_NAME, "%s_%d@pci:%s", pool->name,
-> | ^~
-> drivers/net/ethernet/zte/dinghai/zxdh_irq.c:94:9: note: 'snprintf' output 8 or more bytes (assuming 107) into a destination of size 100
-> 94 | snprintf(irq->name, ZXDH_MAX_IRQ_NAME, "%s_%d@pci:%s", pool->name,
-> | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 95 | vecidx, pci_name(zxdh_dev->pdev));
-> | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-> ....
-
-Thanks for testing with GCC 16. Fixed in v4: the pool name now has a
-buffer bound of its own (16 bytes; the longest pool name is 13) instead
-of sharing the 100-byte IRQ name buffer, and the copy uses strscpy().
-The series is now built per-patch with W=1 before submission.
+-- 
+Ricardo Ribalda
