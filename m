@@ -1,80 +1,100 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92D34DEC21;
-	Mon, 28 Sep 2026 14:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F564DE72D;
+	Mon, 28 Sep 2026 14:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605914; cv=none; b=g3AS8E4J9+WT7O0coXDt7GnxhrpUzOCYPKwTzTWiCmceg4/R/tg/V6J2wcwyEjKqAPYMEWk2PvbSp3DEHDc2P/uyEX3x8ZbvABIpitGTp4D/VlWpGLp5VTPaky/Xbqh9INzrYYx5gb/r5obTeFkewbjzwQgFZt5fcyKqbcvBNv4=
+	t=1790605927; cv=none; b=OLsDqN8eCiQ4+ZC1ofIQgqKgiOLJPxpoSqvLbnvO8wZ6wEUoCRRy22ULpAIB0Zps7ZRhhivHDggHHm7QQ48pyOUYbJfk37FfX8MQqrM7LGL/DfWDKBGi8E/EXSlXO4eZzreMP+1EE6EaQHWPxWFf1CRDCjbwMQltf5mHQGcHZSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605914; c=relaxed/simple;
-	bh=G5nhJFHOphxhLy5VEu+x6x3ZtsxPZ4gB+naoUcQxVH4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NoMJ0IvxekbfIVkxB64oduMKdTsvxC5Yyk3qOSYZlvrAe1/vAIF2FIQ+sdoynVzNksLTPE8CxqqyuQxfdrvSiX/4SEDRWlBkjMcaR1D3GYFdVdfFHvK/X0uBIzGkLU0Gn7l6teFM8w8F8U0TgK2Pq9hZfCjoEnd7kd8XSTENIhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from pc.omp.ru (77.37.240.142) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Mon, 28 Sep
- 2026 17:31:36 +0300
-From: Georgiy Osokin <g.osokin@auroraos.dev>
-To: Jens Wiklander <jenswi@kernel.org>
-CC: Sumit Garg <sumit.garg@kernel.org>, <op-tee@lists.trustedfirmware.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<lvc-project@linuxtesting.org>
-Subject: [PATCH] tee: shm: reject zero-sized allocations in tee_dyn_shm_alloc_helper()
-Date: Mon, 28 Sep 2026 17:31:13 +0300
-Message-ID: <20260928143113.1700001-1-g.osokin@auroraos.dev>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1790605927; c=relaxed/simple;
+	bh=wGyEMMlGjQZNCJCqcAF5KPjSov7zTUYY3KO2X3ZgJVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bQbX9Uk99QiVcM2Z6k/4wkZiNzUnCD8xNdiCwFsbXxBXTRE3kfUOoIeRSI+A33iswb1mndE49fswrltmR+bLlCe4BPjZreLFQ9AVZLHR4DxQYPL4JlV3eHPyJ7qiOua+F958+VyXC8vwKxdcJPkQ0H7E3n6nZ6UazzDTC/YLQ6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXDEkNs7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXDEkNs7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB3A1F000FF;
+	Mon, 28 Sep 2026 14:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790605918;
+	bh=4blZf6xxzmEC5OMJoSN+p5mrJDQy+r+9wEMcEu0rzZ4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EXDEkNs7PELNrHo0lbN35E7u3L9gaY/Mzo76teZnK77RAWZH1sXuiOuk+IgDSmMu2
+	 XXRLmU7LefizGLgVANCLxQsoXUUar6/OGZ+eAuyZHpbtR6/32HvMyvS+21gyv4yywS
+	 Yvr+BHSutXqVgsqalwPTTN20kiZi1tyB/CNyRjLQ7/7cgQulQyDuJkiLo40pjco6A+
+	 tnMgrqojJwH6PHOn7DEqGyK3fUegPZPuNGgeNnm0nZliM/R5RUzVx4PXJ6XpbefA7+
+	 xchr1GcPMgbpYbT4Nv6m4sRpLO8IMrsi8UbC7U9hDW1xwLIOD1enA+scy77FyMWnSB
+	 jri4uO8+lzvmg==
+Message-ID: <ba275cd1-2d86-4ab1-a6e7-6758ddbc31c9@kernel.org>
+Date: Mon, 28 Sep 2026 09:31:56 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm: dts: nxp: imx: Add devicetree files for M48
+Content-Language: en-US
+To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnemaximilian.richter@draeger.com,
+ martynas.grybauskas@draeger.com
+References: <20260924183855.1393302-1-petko.manolov@konsulko.com>
+ <20260924183855.1393302-3-petko.manolov@konsulko.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260924183855.1393302-3-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-tee_dyn_shm_alloc_helper() derives nr_pages from a caller-supplied size
-and passes it to alloc_pages_exact() without checking it. For size == 0
-nr_pages is 0, and alloc_pages_exact(0) calls get_order(0), which is
-documented as undefined and returns BITS_PER_LONG - PAGE_SHIFT. The page
-allocator then trips its order > MAX_PAGE_ORDER warning and fails the
-allocation; on a panic_on_warn kernel that ends the boot.
+Hi Petko,
 
-This can be triggered by TEE_IOC_SHM_ALLOC with struct
-tee_ioctl_shm_alloc_data where size is 0.
+On 9/24/26 13:38, Petko Manolov wrote:
+> M48 is a heterogeneous board made by Draeger that is based on two
+> independent cpus, that are monitoring each other.  One of them is
+> imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
+> independently off qspi.
+> 
+> This one adds the DT for the two variants of M48 that are based on
+> imx6q and imx6dl.
+> 
+> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> ---
+>   arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
+>   .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
+>   .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
+>   .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
+>   .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
+>   5 files changed, 495 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+>   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+>   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+>   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+> 
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+> index 1a2539fa19b4..44b393256235 100644
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+> @@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+>   	imx6q-dmo-edmqmx6.dtb \
+>   	imx6q-dms-ba16.dtb \
+>   	imx6q-ds.dtb \
+> +	imx6q-draeger-m48.dtb \
+> +	imx6dl-draeger-m48.dtb \
+>   	imx6q-emcon-avari.dtb \
+Please remember to run get_maintainer on the file that you're 
+submitting. For this case, for the arch/arm/boot/dts/nxp, you need to 
+also Cc'd :
 
-Reject a zero page count, as register_shm_helper() already does for the
-register path.
+Frank Li <Frank.Li@nxp.com> (maintainer:ARM/FREESCALE IMX / MXC / 
+LAYERSCAPE ARM ARCHIT...)
+Sascha Hauer <s.hauer@pengutronix.de> (maintainer:ARM/FREESCALE IMX / 
+MXC / LAYERSCAPE ARM ARCHIT...)
+Pengutronix Kernel Team <kernel@pengutronix.de> (reviewer:ARM/FREESCALE 
+IMX / MXC / LAYERSCAPE ARM ARCHIT...)
+Fabio Estevam <festevam@gmail.com> (reviewer:ARM/FREESCALE IMX / MXC / 
+LAYERSCAPE ARM ARCHIT...)
 
-Fixes: cf4441503e20 ("tee: optee: Move pool_op helper functions")
-Cc: stable@vger.kernel.org
-Cc: lvc-project@linuxtesting.org
-Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
----
- drivers/tee/tee_shm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-index 6742b3579..daa4af1e0 100644
---- a/drivers/tee/tee_shm.c
-+++ b/drivers/tee/tee_shm.c
-@@ -343,6 +343,10 @@ int tee_dyn_shm_alloc_helper(struct tee_shm *shm, size_t size, size_t align,
- 	unsigned int i;
- 	int rc = 0;
- 
-+	/* get_order(0) is undefined and exceeds MAX_PAGE_ORDER. */
-+	if (!nr_pages)
-+		return -EINVAL;
-+
- 	/*
- 	 * Ignore alignment since this is already going to be page aligned
- 	 * and there's no need for any larger alignment.
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.54.0
+Dinh
 
