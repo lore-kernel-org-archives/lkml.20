@@ -1,215 +1,170 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-m49227.qiye.163.com (mail-m49227.qiye.163.com [45.254.49.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C5B4D489E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603873; cv=pass; b=RM9acG+C/Uau5OyjJuVPe1dG6QvTdmM0wsUSHDI3yCul0Tvpalqfsk3TMWKEUEPZmMwaWKbjxDE0Ua4qTipl+wdu4iNwHtt8EdJrLwhjDIqdvAu6sp68cJyscMXlZpvbP1wM8GhlV1o5OnQbSZkUiLQVdKPuZKaEnQC4uQTWFds=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603873; c=relaxed/simple;
-	bh=N0apPBi5a5rdeR6XkE9u3uUSLlm4uI9nB9Kynheh+l0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G9dEDmZ2ijC8Zu5WfaKo2v0EUhIQh3TEnSS9H4WgXMFWWrn05lsIH7845QgYMaub9AAu5j2kqw503xVkoGrzt6Dq8QJYGANztDeKpvgdO2dvAqhIwVy/LkgYHMebjNave1DCdBnoLDkS4EcnEAXaFCrhjtySMSmUm/kUMblj5bo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z4tRZgHZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gZm+5Tke; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E66D4D4880;
+	Mon, 28 Sep 2026 13:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790603905; cv=none; b=pTbjh156YUOowWixIq4cTBp6R5UBCk1CgMoNltuQca/rBnKfXLCW7iLrFdVzgCnMkdts0LFMn22MjMaM/r34j3IUcWGRq6x0ltOIeE7Y8ikZ6uT5Mo3AVUK6raAsrKWhQ7xLFjVlKvad9vFKpRSo6/gBfU2Z0xaRGOpUXfuphaE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790603905; c=relaxed/simple;
+	bh=uzMmhbGcunUgHE96gQ5ra+XHvPN4hFsgzpBNWL6HZ0s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=e9yrJORdofmgpOoX/Nsx+foPJsfz5qfKu2pf5I+NF5u+BVOZfAszNWPqyH64mlcBPai7UApq3CBLm8IKLLZFcS0v9bTRGOFtkCZox32vjzc9V/yXTdke+ihHicnzNoK/3IxRsPxQW3w8lVwSpSP9xgsPrcu8lbaRGnHkRFHkvag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=SjHYE+56; arc=none smtp.client-ip=45.254.49.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z4tRZgHZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gZm+5Tke"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBA9tE1189333
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=; b=Z4tRZgHZskb8ptT5
-	TWLgXlXd5ZEfOMXoSIMOXv3xiSCfmZPrN/BXEN2Jx/EI7xgxsl/mhtg23qiOqhBr
-	lotZeIr931hrlSEd5cQ/+wfndIUB7MMIEPhy0N4qQaoL3vx0QDP3gKzGCBMkjA4K
-	qZEViEARpzKBw/bZJdJ6k6fM60UXmpX36/eFY3dIVjAN/AFSwPSLBAOzinZyFOZG
-	8mAxM8Svcg16uWsn2JDQlVfu7pS1jD7EKG1O73xL6IcpK9DHPvN80Fj2n8ZkDcIH
-	gzgCPX/52m/fh2UgSttxIDJ4qB8q8S1LQf9euuiVEAdLjZcrqYl5RVZOicTCxXKu
-	X1l8WA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynbc10ct-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:49 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86261e66700so2235426b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:57:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790603868; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lm73QaXNdo3UNcIgO+rVBPBH3oGtq3Ahcp/iMYvOJu4oXiZX3qiqMMs3vnTzCZ3T5x
-         ElPVIiJA/eG+Q6BS7J9aOo+AqufBlHewBsEzGLt8BqBRxuIagOOtmPf8Dqriz16j5aQM
-         fQ4Vr8z803n+vVwN6LWeaVweqeOqPt0YyhdFZgglMSb1iZ7Kpj58601lP728QWU8JU2e
-         AGDZWacpWgxTPAY459/lTerk0BvpRnsjpc9uuCAyaLX8a7UWvXG0G2QEzlTM7Pa/QZ/b
-         3blKVV/xtz49o3+leHqJCbyP7TFXVVoG2UXB6aTiBy1rG1vg7jLubvid3fJhiX9LwzJg
-         FkCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
-        fh=o3unhng5fi1Mj0+s853Oq724HMDcP1+tUX6IP31uXSg=;
-        b=bBPqgdIzoS9vUxRC6xSRFXrusIcwJxAcsDRZfJ36hQsqhntqQAm+D6uGQMX8a0aI4B
-         X3ayK+6KszN1w83P26HPiaoZViwQbIg2wT9z8+IGY0C4yUrXvtJl4pqgvY/H3jyP8S17
-         vQxeh5vkLJECPr7gTkB9TjH1hM4p5n7U9rK78mfQsQmWFW+bdGeeJWBN7fB1ciOgYkmG
-         AfPJk2qb2fvxCDBYK+BBhMLa8dpF6GZJNUSUAXYa4v5RLOpCTog8sZonHLG5w86ksN+N
-         Q5+6tHYHBUCgluvjigGu70XuVcCokUavPI2DT+VLkTWpt8REntV5XWGOoilBCAzJAUAm
-         yCtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790603868; x=1791208668; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
-        b=gZm+5TkeNiuNCWoMFmByiGuXPWyeZfYVqr2uIkJNz73oKjT5kMP3a1/PLCH20oeLe0
-         xcvk9SuiHU33LZ55Fbzpfxo1NFE/GBDg/vuoWelGhue22jmQ8AZDU0QRjzBVyuk62/HK
-         pohM2L7obX8b66ghXXB9PSYRPQlEfxawvn88RDeEYywCxhFFV4rkCqwxuRdiC8P5I24e
-         wA+SBuii5pGi4MhJHWIoXYSph59G0Q0iayJbv5z+vVNVBDBVkY21N9yu1IDSzYOFOi1j
-         XrXt2aO9RGNzSTW5/ek7Wg9xq+o+xZaDAI6G3NrmZIDngCZvK9zlDMcXh3IiziXH73n2
-         ybxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790603868; x=1791208668;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
-        b=u8jivnU7PVwlmfBgAANfA7oya47XfHMO/UFzMpmF3auKVt9oMRN4wl1bIw7ffbTK7n
-         /2r425nHsCK503LxWoODT2whoEsSylKGkY1WkMCKLsXW8o0rRhMfJUHtRRZdzQ6SWMo7
-         R05w3wkf7obCBUi7cN7ifuKHNl2Swxj3YY5h/qASKHb1lqYBkVRFoNt061rc7PFABmch
-         PEVi11cru0JjjVFNku8lMzLrbXhnhNlqQm8dYkr6J/aEgQtQ9fFPLVAXzdU9WoXSY/PV
-         olHMq16I/RV6qmdJBHl1u8KQIRnpi/FPsIvav8xUSHELnrz2XaptctwB3AZ6JoEFJAV0
-         zfFA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3PaSRaeoHIn2npUrpFKbg3zcfexohZiTRCxA7JpgMi+SxVaLy/sRL428jSiZxsc1ihIHxTcYFhVPAeuU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPbrsJYCgR68Rh37xNeIccU76Yfkzlsj4NNa6/Z8NL19xBLgcz
-	4R+uo9HUVFWLxSW5KcygxJOhmIY24VGpcCiDE4afXqOIIzmxKHsdq8ksHLoq039C8FO3AtvxHil
-	f7cvcr7R62NpNcdPPW2rgjJsGRBDDEipvVrlfJpoNve0JS2UlZVA7kIE+xVt+lIaZF5fnr/6nom
-	2tScOuBdH+U4lI+ZM8+rBZ7vSkarlR8sCKzsJkdLIbvA==
-X-Gm-Gg: AYBFou2nhwFoLjJOOVCCtmpNHZsknyT1PorJZydyhA53LmjuIkRmfCMZOph+TIU6+wK
-	JGHJpahrNVglW2YF9Vr5NArLIS63XQ/PdZWj1eckAMTbhOQjb/vGfnk2jplkLWcgjy3TTJ68z++
-	npOSx7xcd4glFIRtSIREozd2ou46eCHiyoohv0mGDz148FwJWf9j1oL7V08A==
-X-Received: by 2002:a05:6a00:950f:b0:881:c881:96e8 with SMTP id d2e1a72fcca58-881c8819a45mr4006754b3a.23.1790603868160;
-        Mon, 28 Sep 2026 06:57:48 -0700 (PDT)
-X-Received: by 2002:a05:6a00:950f:b0:881:c881:96e8 with SMTP id
- d2e1a72fcca58-881c8819a45mr4006707b3a.23.1790603867726; Mon, 28 Sep 2026
- 06:57:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="SjHYE+56"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e82;
+	Mon, 28 Sep 2026 16:15:10 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 07/14] drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+Date: Mon, 28 Sep 2026 16:14:11 +0800
+Message-Id: <20260928081418.3605775-8-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
-In-Reply-To: <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 15:57:35 +0200
-X-Gm-Features: AclHuK-nE9h16BssbY-0V-0Lcqrz78yNjoqqCVRnCD5BWpC1wzqbo2Hd-T05VXY
-Message-ID: <CAPx+jO9Vj=42dHEwLzTHe1b+nrvip+ibVv4iPquxwJKbFAkm=A@mail.gmail.com>
-Subject: Re: [PATCH v3 04/19] dt-bindings: power: rpmpd: Add MSM8952 power domains
-To: muzafferkadir@mainlining.org
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
-        linux-input@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=Sq4Fe/O0 c=1 sm=1 tr=0 ts=6aba725d cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=OuZLqq7tAAAA:8
- a=xo1k5ONJVskqAlz3UKAA:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
- a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-GUID: ZMiZTtl2G2OQSWDMGFDf_8K90Sfni0P2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NSBTYWx0ZWRfX/LdzEdjVHL8b
- Po4gPvIoagGPWwNQ0pTcJpnQODWTS6h6wxTpg2Z+l7DMcBFEvX2eKtf4+3RLOVrK95YjavhpnnQ
- IooqbFXT7sarF+TDzr0ZrDnHbStPYOlioOOZ9ywHdwZbhJ19Yc5vjCQ3Z55k/hER/s9wn3pYHdA
- hDMW4CiWbXR1tBEfSmtE6BBNejUi2Yjh68uw/6AH91eBeyyAR2ItPJ+Gm6YQLD27DPFwuIJVIuY
- scjUHLuwfHdoZyjyqcSNkwxc9fIrVx3s82bnU2BNJXZRVh+0dNAiMKDkdi/PIk8PGVZEFBhz6s1
- TqetCUqNOUGn2Y8iJu+VR21emJClUUa7TjpXGv8CfJydj6FSnPz5yibKC5s6v35xNXkpriG3txW
- 9/ZYcC7J1t7aKuiURG0MSyYqxsmGtjllgwIu05oa/XBiQixnq4yLpGyecXSwuB64KRdwLDt9Nqt
- ROzRAau5A02ssrm5GAw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NSBTYWx0ZWRfX5FC4aIgTRS1u
- FpaSG0eSp1RJuuz2LMKTPsvlWW69eYuKfrBUYsc0K3So1Gm035e5g/h830yqtRlB7P7ySZ4bota
- yyp5gmOTAHW0wCXxSIiSBOG9YYybcrM=
-X-Proofpoint-ORIG-GUID: ZMiZTtl2G2OQSWDMGFDf_8K90Sfni0P2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 malwarescore=0
- adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280055
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0e715079203a8kunm323e2b5437cf46
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBpJVh9LTx9ITkxOS0hMGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	JDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=SjHYE+56N6njEMERlvA7CzIvvttQUj+1DqOl5N+7vYVCDHNks5/VwpLpJwipHXqLp27AMonjVyXtHBUV3JDbbesPg/M4G2sKJZjfQHq5QmuDyiVDEkhjX4WiYzH86vsGeQUUX2JJ8bcBXKZSs3ByfXFgNYt7AO4aiDq4aNMr7dA=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=7ov5ZAWTee/V9ZBPtOKDaozcrk5oFd5f7m81BucbP6I=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Sep 21, 2026 at 8:19=E2=80=AFPM Muzaffer Kadir via B4 Relay
-<devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
->
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->
-> Document the compatible for the rpmpd found on MSM8952.
->
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+The Analogix DP controller provides two sets of interrupt sources for
+hotplug detection: HOTPLUG_CHG for any HPD level change, and the
+PLUG/HPD_LOST pair for connect/disconnect transitions respectively.
 
-Applied for next, thanks!
+On Rockchip platforms, configure the HPD deglitch filter and use
+HOTPLUG_CHG interrupt for hotplug detection. Other platforms retain the
+original PLUG + HPD_LOST scheme with unchanged deglitch values.
 
-Kind regards
-Uffe
+Move the HPD deglitch configuration into analogix_dp_reset() so that
+platform-specific values are set alongside the existing register
+defaults in a single location. Update the threaded IRQ handler to check
+the corresponding interrupt flag based on platform type.
 
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> ---
->  Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Do=
-cumentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> index a70bfacbc5d1..8ee1c25a7c9d 100644
-> --- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> +++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> @@ -76,6 +76,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,msm8937-rpmpd
-> +              - qcom,msm8952-rpmpd
->            - const: qcom,msm8917-rpmpd
->        - items:
->            - enum:
->
-> --
-> 2.55.0
->
->
+---
+
+Changes in v2:
+- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+  analogix_dp_reset().
+
+Changes in v3:
+- Modify the commit msg.
+- Replace macro HPD_IRQ with HPD_IRQ_ALL.
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    |  9 ++++++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 22 ++++++++++++++++---
+ 2 files changed, 26 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index f88e3263ba0e..287fc16125ef 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -714,13 +714,18 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ {
+ 	struct analogix_dp_device *dp = arg;
+ 	u32 irq_type;
++	bool hpd_detected;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type)
+ 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+ 
+-	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+-	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
++	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
++		hpd_detected = irq_type & DP_IRQ_TYPE_HP_CHANGE;
++	else
++		hpd_detected = (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
++			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
++	if (hpd_detected) {
+ 		dev_dbg(dp->dev, "Detected cable status changed!\n");
+ 		if (dp->drm_dev)
+ 			drm_helper_hpd_irq_event(dp->drm_dev);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 0f1406e4a5d3..025da25463a8 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -160,8 +160,13 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
+ 	writel(0x0, dp->reg_base + ANALOGIX_DP_PKT_SEND_CTL);
+ 	writel(0x0, dp->reg_base + ANALOGIX_DP_HDCP_CTL);
+ 
+-	writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
+-	writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
++	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
++		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
++		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
++	} else {
++		writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
++		writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
++	}
+ 
+ 	writel(0x10, dp->reg_base + ANALOGIX_DP_LINK_DEBUG_CTL);
+ 
+@@ -188,7 +193,18 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+ 
+-	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
++	/*
++	 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
++	 * pair can be used to implement hotplug detection.
++	 *
++	 * On Rockchip platforms, configuring HPD deglitch to 2ms and
++	 * using HOTPLUG_CHG interrupt for hotplug detection is proven
++	 * as a better solution via engineering verification.
++	 */
++	if (analogix_dp_is_rockchip(dp->plat_data->dev_type))
++		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
++	else
++		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
+ }
+ 
+ /*
+-- 
+2.34.1
+
