@@ -1,245 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E064EE840;
-	Mon, 28 Sep 2026 16:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A63F4E2F2B;
+	Mon, 28 Sep 2026 16:22:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612561; cv=none; b=amsq4m0d2VPCV2oLxp3keiw4pfOWLbsoFS7FdpbqEfEyNHAtI2FMWvj5X6LzYJvVutGHBedii8SElYt6jdgcb90ea8kAwS+YapUSAtR2k32IHZ9oaIO0uzvZ2g3flc4KrUmhyqP3JAcuDnxYkpjYHKqS2QUZ0FpGQc54megf76c=
+	t=1790612579; cv=none; b=E1rzxHPDhhpoPw8Pj8RdUB+CyI541eP4QXsmMN61zL4MBJu//vBWgNzb5WSMOYrNFX5u9y2DGE/2Ctjx5jZRo2z1Iet0PUMK4+NKHX0WAYOeAlhzKtyRwlLE6UHKJ2ZC37bZZH5uzeVzhVRNLTchxhi+8p5xBlmpzDfCEoRFByE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612561; c=relaxed/simple;
-	bh=ZYgZYD7JpbqT97KHtSk4iVbtoENcGyke2ICgcF7Yk+A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Giptu7O2xjSSFxyJ5fmHotJnUZ6XCgjfexQn6z3NpHfWLCF6g1WescZ9uwgyeAqmKSSmXp7Uq9gwO2OqAS+z47+u2n4B2evDT2AEDfl7Feby9JvkGX5/GA7POdN/ABsv5QLjRPLnIaEqs0wJdUwJ+w526jIAoRVxRq5dDW0mKmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exUCF+uo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790612579; c=relaxed/simple;
+	bh=KxN6Q1vV5UdrZpGl+MfXUI6bNX/ZKYmoEYI9T90YuVA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CslNRMxmHFs5YxluqgAVuEiJ9Qa2xfjPaVDcmITRhYmGFhqDBDFNFGPhVL7CScQOcH/RLR2EnXxr22zmIdmB8riMoGmb0qXLeJDBnG98W0vyqmxf97fe6fm5rdE8jOsrL8lRE5nLiJ+qyzPJs3I9gPajLPjvea/RmvVUEZpXr3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YeFxsNsd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exUCF+uo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243E21F00893;
-	Mon, 28 Sep 2026 16:22:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YeFxsNsd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5051F00898;
+	Mon, 28 Sep 2026 16:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612557;
-	bh=WuyZUjLenwsCfwS9QKli7wzxywUnFb57xoXkqL2ZFHg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=exUCF+uoC3LJPEFvKkr/Iyg+urdpecMJmq7SPUSTT5u92JP60c4PWpugRa0IgDGSF
-	 wun3g+u/KBxDs1HuGZcR2mE01wHfBRE3ulSnkwPsj6lYbwQXmX12FqM2pSshmzJ8CH
-	 s9G351I/gGdlu/uSY0hop3Lv0NdBwkm9JgliyyP5KXPcfzv6nNpnkRUJ4vodk+X+Bl
-	 g6SkFxdgjDohjlrXzzOP0z68xkaGHWjdZtpTUQhcAoUOTzxmrAdm6ZcYqTl5o8n8qG
-	 U2jmlW8PLPGNpG7/IYBhw1abW6NZP4kRCxkh+NJKE85073awxYlqp0W4Ijn9YctkHo
-	 4IHKt3sA3IwLQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 28 Sep 2026 18:22:06 +0200
-Subject: [PATCH DO NOT MERGE 6/6] arm64: dts: broadcom: Add Raspberry Pi
- ILI9881C DSI panel overlays
+	s=k20260515; t=1790612577;
+	bh=GLJWPR3aBhSFwMqtwCGVT1yMKv0qBbK0mLQzOD4EGyI=;
+	h=From:To:Cc:Subject:Date;
+	b=YeFxsNsdfTwVeHvx3hT7rkNJbskmdO7T1EuAgGac6ncDXZkaviWjlTGhn75g9rOVr
+	 VUjC8WMkIj7GoUPp5mZPfoqvQBY/XcWTUKDUzKc1OixeJu63ImAgJeFnhkkLzTnI8X
+	 d3YHnlJ4S21YNGp45RaN0G7AsetREFsmh/rqa+pLAKQI4BXHf8yLv0Wpm9fE4ZbNfV
+	 g6js25JSSpmjF7/bue94G+csclAggq82ExC+sR4s+0K7xM2bgTJzC0+2Kl+5cpLsJU
+	 HzfFEqsCXB8ECLVJEzMCRIVWR5izktVybihfkPmo2liF5zqvvY33Saq1q9Bcdg3n3v
+	 mfjasWwWxYhAg==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Subject: [PATCH 0/4 v1] perf tools: Add progress diagnostics and a false-sharing workload
+Date: Mon, 28 Sep 2026 18:22:46 +0200
+Message-ID: <20260928162250.2413383-1-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-drm-mipi-dsi-panel-ebpf-v1-6-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4776; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ZYgZYD7JpbqT97KHtSk4iVbtoENcGyke2ICgcF7Yk+A=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm7phj/0Lt4cMNSEx3jk6zlPks2G0z0vnmIvUGP9Z7fy
- u3s8zU/d0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJrBRnrI88+bCp864+x7H1
- ngWGbVyysas3C8hxqfK0afGeXl0ayPK67Ze6Lf8hHq365hWSQvrTGesUvyR/Eo1k/vPO/Xgg178
- qFr+C+UuPxSmxPjELvb1vUjnbtLn7JudIzVA/1Kq82yigzwEA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-Add device tree overlays for the Raspberry Pi 5-inch and 7-inch
-MIPI-DSI panels (ILI9881C) on the Raspberry Pi 4 Model B.
+Hi,
 
-Both panels share the same I2C-connected display MCU at 0x45 on
-i2c0_1, which provides GPIO and PWM for reset and backlight
-control. The common parts are in a shared dtsi. Each panel overlay
-includes it and adds only the panel-specific compatible string, physical
-dimensions, and timing.
+This series adds progress and stuck-process diagnostics to perf, and a
+workload that makes false sharing visible to data type profiling.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- arch/arm64/boot/dts/broadcom/Makefile              |  8 +++
- .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         | 22 ++++++++
- .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         | 22 ++++++++
- .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  | 65 ++++++++++++++++++++++
- 4 files changed, 117 insertions(+)
+The changes are:
 
-diff --git a/arch/arm64/boot/dts/broadcom/Makefile b/arch/arm64/boot/dts/broadcom/Makefile
-index 01ecfa304184..d717dc8c4071 100644
---- a/arch/arm64/boot/dts/broadcom/Makefile
-+++ b/arch/arm64/boot/dts/broadcom/Makefile
-@@ -13,8 +13,16 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-400.dtb \
- 			      bcm2837-rpi-3-b.dtb \
- 			      bcm2837-rpi-3-b-plus.dtb \
- 			      bcm2837-rpi-cm3-io3.dtb \
- 			      bcm2837-rpi-zero-2-w.dtb
- 
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-4-b-dsi-ili9881-5inch.dtb
-+bcm2711-rpi-4-b-dsi-ili9881-5inch-dtbs := bcm2711-rpi-4-b.dtb \
-+	bcm2711-rpi-4-b-dsi-ili9881-5inch.dtbo
-+
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-4-b-dsi-ili9881-7inch.dtb
-+bcm2711-rpi-4-b-dsi-ili9881-7inch-dtbs := bcm2711-rpi-4-b.dtb \
-+	bcm2711-rpi-4-b-dsi-ili9881-7inch.dtbo
-+
- subdir-y	+= bcmbca
- subdir-y	+= northstar2
- subdir-y	+= stingray
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso
-new file mode 100644
-index 000000000000..99aac1105ac6
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso
-@@ -0,0 +1,22 @@
-+/dts-v1/;
-+/plugin/;
-+
-+#include "bcm2711-rpi-4-b-dsi-ili9881.dtsi"
-+
-+&panel {
-+	compatible = "raspberrypi,dsi-5inch", "panel-mipi-dsi-bpf";
-+	width-mm = <62>;
-+	height-mm = <110>;
-+
-+	panel-timing {
-+		clock-frequency = <83333000>;
-+		hactive = <720>;
-+		vactive = <1280>;
-+		hfront-porch = <110>;
-+		hsync-len = <12>;
-+		hback-porch = <95>;
-+		vfront-porch = <100>;
-+		vsync-len = <2>;
-+		vback-porch = <100>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso
-new file mode 100644
-index 000000000000..809d9b354b89
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso
-@@ -0,0 +1,22 @@
-+/dts-v1/;
-+/plugin/;
-+
-+#include "bcm2711-rpi-4-b-dsi-ili9881.dtsi"
-+
-+&panel {
-+	compatible = "raspberrypi,dsi-7inch", "panel-mipi-dsi-bpf";
-+	width-mm = <90>;
-+	height-mm = <151>;
-+
-+	panel-timing {
-+		clock-frequency = <83330000>;
-+		hactive = <720>;
-+		vactive = <1280>;
-+		hfront-porch = <239>;
-+		hsync-len = <33>;
-+		hback-porch = <50>;
-+		vfront-porch = <20>;
-+		vsync-len = <2>;
-+		vback-porch = <30>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
-new file mode 100644
-index 000000000000..bd08e22581a3
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Common DSI infrastructure for Raspberry Pi ILI9881C panels
-+ * (backlight, i2c mux, display MCU, DSI1 port wiring)
-+ *
-+ * Each panel overlay includes this and extends &panel with its own
-+ * compatible, dimensions, and panel-timing.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	panel_backlight: panel_backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 31>;
-+		num-interpolated-steps = <31>;
-+		default-brightness-level = <15>;
-+		pwms = <&display_mcu 0 200000 0>;
-+	};
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c0mux {
-+	status = "okay";
-+};
-+
-+&i2c0_1 {
-+	status = "okay";
-+
-+	display_mcu: display_mcu@45 {
-+		compatible = "raspberrypi,touchscreen-panel-regulator-v2";
-+		reg = <0x45>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		#pwm-cells = <3>;
-+	};
-+};
-+
-+&dsi1 {
-+	status = "okay";
-+
-+	panel: panel@0 {
-+		reg = <0>;
-+		reset-gpios = <&display_mcu 0 GPIO_ACTIVE_LOW>;
-+		backlight = <&panel_backlight>;
-+		dsi-lanes = <2>;
-+		mode-video;
-+		mode-lpm;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&dsi1_out>;
-+			};
-+		};
-+	};
-+
-+	port {
-+		dsi1_out: endpoint {
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
+  - move perf_config__set_variable() to util/config.c and serialize config
+    parser and read-modify-write state, so non-builtin perf code can persist
+    configuration changes safely;
 
--- 
-2.55.0
+  - add 'perf report --progress' for stdio users, showing the current phase,
+    percentage, and counts while a session is processed;
 
+  - add the prototype tools/perf/scripts/perf-stuck.sh helper, which samples
+    a running perf process and can invoke the accompanying GDB commands when
+    progress stops;
+
+  - add 'perf test -w false_sharing', a synthetic TCP-shaped workload with
+    identity and packet counters sharing a cacheline, and include it in the
+    data type profiling shell test.
+
+The progress backend handles nested phases and completes them on error paths
+as well as successful paths. The false-sharing workload uses a shared
+volatile instance so the data type profiler can resolve direct accesses to
+the individual members.
+
+The perf-stuck helper is intentionally a prototype and requires the usual
+/proc access; its optional GDB mode additionally requires gdb and suitable
+debug information. When only one CPU is available, the false-sharing
+workload warns that it cannot produce cross-CPU traffic but still runs.
+
+Best regards,
+
+- Arnaldo
+
+ tools/perf/Documentation/perf-report.txt      |  13 ++
+ tools/perf/builtin-config.c                   |  70 +-------
+ tools/perf/builtin-report.c                   |  10 ++
+ tools/perf/scripts/perf-stuck.gdb             | 106 ++++++++++++
+ tools/perf/scripts/perf-stuck.sh              | 181 ++++++++++++++++++++
+ tools/perf/tests/builtin-test.c               |   1 +
+ tools/perf/tests/shell/data_type_profiling.sh |   9 +-
+ tools/perf/tests/tests.h                      |   1 +
+ tools/perf/tests/workloads/Build              |   2 +
+ tools/perf/tests/workloads/false_sharing.c    | 236 ++++++++++++++++++++++++++
+ tools/perf/ui/Build                           |   1 +
+ tools/perf/ui/progress.h                      |   2 +
+ tools/perf/ui/stdio/progress.c                | 162 ++++++++++++++++++
+ tools/perf/util/config.c                      | 124 +++++++++++++-
+ tools/perf/util/config.h                      |   2 +
+ tools/perf/util/ordered-events.c              |  16 +-
+ tools/perf/util/session.c                     |  12 +-
+ 17 files changed, 865 insertions(+), 83 deletions(-)
+
+base-commit: 0ae6fc78c5ce0dfd
+--
+Assisted-by: OpenCode: GPT-5.6 Luna
