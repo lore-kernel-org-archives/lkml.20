@@ -1,269 +1,181 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB5E4E36ED;
-	Mon, 28 Sep 2026 16:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AEE4E36ED
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612718; cv=none; b=SD9BazptQkS9jPVaLEHSNddHwzpeG6eyoveVEOQhfzxyV563Vg9eiALSsk2ozHrV7svrOs83FLlXGg/Ii+3hyLixoOZ1tluWIwJlyQ9qVX277Zkw9xYoOCVMMpni900ED6Jh6Bh6AlE87hwJE5Sjktol7HixQ/GwiDFfv5VFd5g=
+	t=1790612745; cv=none; b=ntf8TLXCrln4rFk2r+CBdvIjAmm3d0xsXY88s7Vv3kPlexwvn8ACaQFVK77K5SkcM8XnIa9yK2VDSsvOPIU3xuGALRCLabxygbS1SPXr2B4VXUBEftBZMzUpIwfADv4Cdm3fFOZUndX2KJj3kOaobi6bqz98EVbidT1XQX9wuhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612718; c=relaxed/simple;
-	bh=IeXHQDuG+UlSTHrfck/KhKvmZ0Y8Fcngu2CJvdQNwxU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cNAifyXls5qHdqXtp4wxHwoeg/3veux3OWpPHnU2FxMGg8EwGs3kU+0tiFUiEryXLEbaiLVimQ0nNHyw4+XlCsKt+kfvifEA3LuF4eDiWCnkYAMbD49FdLD3M3E41kPIXMe5B3lSG1V9mSq7xfKe4m+mNILX3RajEgE1UUVIE0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=H2WJ+rIR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RpST6PYQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1WjzO2fT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gw3poFN3; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790612745; c=relaxed/simple;
+	bh=RBpxUWeldpvkQFz0ci2d1q8aSBH8yeW6c7VrkwVHoG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fTnU3gRWKuVDb74k8gFJr6A4qVWFq4DbpeU3vVmGFc70GiatwS50Up/+ICUPuHXSOK6Ao7Vco5q2JhGlJ6CcxJtXsBS1aCIPXejoOhuQkSnAXpc9AiJJDX/DIX/KA5vI1voSOpFHMzXvzTAvI5dw5dXtjD4Cl2rjuYnGpi0I1u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oprQ68Rv; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="H2WJ+rIR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RpST6PYQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1WjzO2fT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gw3poFN3"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7C61A21D59;
-	Mon, 28 Sep 2026 16:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790612710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
-	b=H2WJ+rIRKkUYdsmM2JwBzqizVpVBBhyqQ+2bPRdgSUcE5FNOSCGZkwIARZUDStw/h1bU33
-	0vKxkEZ497ACbK4i4QCnsdd9pS7aPinm/CKCLXjG401MIiqL2O1XnZ4+n5RP8lsXvCa4Vn
-	lRHdeF4KqiajWXsVvorE9TkLDdZyPQ4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790612710;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
-	b=RpST6PYQMSVpqo0VXsT56G5ijoG/pNR/iABjpqe7wlLau9L1KnPIipZFkheOnfWCaL6T2W
-	mJc1Q5SiN14SbkBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790612706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
-	b=1WjzO2fTMSuLHwiXvYhdYmjcHovUgPBHlbY8M43CBH/sdDKBRkhPV6JQU97KjkGyniOGV5
-	w655unPL8oPF1JvBLCsuJI2gRWW8b4L0GJaE5SNO86vmmzf4Aah05GrzQT6SlU72+BasYb
-	a/NwCepPqU7TsHZNeTX/o2WpduIH3zQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790612706;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
-	b=gw3poFN3KOKxuSGssviSZHD4S+PJzn4CXRDaEMhSqmzC3/VUYo8GlTMRWFTljwVkwlzU/m
-	Tv5PKfl1y4mmhnAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0C13133F1;
-	Mon, 28 Sep 2026 16:25:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id wQ+tL+GUumrTdwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 16:25:05 +0000
-Date: Mon, 28 Sep 2026 18:25:05 +0200
-Message-ID: <875wzp4a3i.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Frank van de Pol <fvdpol@gmail.com>
-Cc: tiwai@suse.de,
-	perex@perex.cz,
-	corbet@lwn.net,
-	khan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/1] ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
-In-Reply-To: <20260925021915.78909-1-fvdpol@gmail.com>
-References: <20260925021915.78909-1-fvdpol@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oprQ68Rv"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d6ff23d82eso2563495ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:25:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790612744; x=1791217544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zoHFbGNtVQoHjVLOP0fq+w6gtBNh9zXQIgTMyktRzcM=;
+        b=oprQ68RvxFhGfjVCI9RyPnQNzoqrSmwfP0UVqH4Yf63OhB+OGcxvvznCZo+xWsZIJK
+         FX+JtB56xdqi8LMlLW/8jajr93PyjDseHZRL9ZiTBdOKsI++0coxfycyfFe6VjeRjSpH
+         GrgG1B5XS7TFHwsurgyZRtyzzDBXuo2LTWVwdhfkPBY1gKTRlY2g1JeC+bjBzZgQQART
+         zHS1+N+2pKYv2n3FcPZzfwyV6Q4yt9W5iuBuv5HKZaFvymm7Dw/PFDP97cXnI+ke1Ct4
+         lziCLbCZ7Rr1BnUNt5ETFMgHJvupsUWwpFI23oCEP7esQXa1JmNsYGJRIutxmBzq+fx8
+         LoeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612744; x=1791217544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zoHFbGNtVQoHjVLOP0fq+w6gtBNh9zXQIgTMyktRzcM=;
+        b=OyOVhQtTvbM791q+f6fjQiaKEhLekIDHqTpD2lbvCG4n/zddyRiNtOoTTneL6060AE
+         24C6u9N5x/fXJmLdcUdeTC5KGRecgq1fH2KBWIeRgwUjD01hYw4m02V85ZWpqFAD+/1a
+         8ltHwwhMlkVGgIdVwT2UiPUw+2R6RsdEcQMnDh+SdKL6dTpNX4Qe2CaUOr13K06db8gK
+         HtpYZdBKZMFaglbR4xegI6oUgBB+fiRvLmWQzRZ7/sjq8neESnCOxwQ+VjJTjehphQx3
+         /8Xhjx8uzA1ETOPclki23LTEkLY+h1jb9wd5RiRyGU0gTwlvAvhi7UXMIZVK7MZSX4D9
+         hzMw==
+X-Forwarded-Encrypted: i=1; AKwUvByErkoUHt0tzoKwQddhhdIhvE3maLNHgOFARBMniBlVGsd7Ah2QI6ziVSQ4hdKiM4V2STtYRrrqUV38j/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfl1JsSz8aWWZ2ip7eRfFLdjJ96u/IHRKu5NhwLxHNRwUoCkQ1
+	5GQADFQ6rWVWIFuGHYyAsOdP2/0A0PSDmKQIsoYmouWubzJKIpoC2cqb
+X-Gm-Gg: AYBFou1+x0A5yT8Zd0eFEW3Dv8M1Gucqug+s31xmsJBoSX5a8nyDzY1Q+ZpKLmH4huW
+	ThJXSPgdxYm6RHzddnF+KEQPtUq2RKtUM+7ffd8yIwukLOXBCr1n9iZYsZWOe9ubAdM1hmVvNCd
+	Z93YfvTgxmtPkF6r1ojV6YUNZP0KcE8p8RVCVwj/Lu+ZPBL7qnJHnXBRmrV6UAfCOabIey9YQHD
+	KcUFEgem40psCT7ytcOPZ0zoGJ6gCcIV8KOExpCVwU1qe0Es5vEX3yy6FCt/HPIoN982XsbMmI6
+	YLUZNq5ada119Bn268xyLSs8c5OnVDUSp42y+6hwY3j3U0wCJHrkpeHYRE3rdwfN/ROABwAgPXI
+	eC3/75tghJqRzEPThrW+u0kaZO9GA0YSX6D48eeLLHycIqG5VaCCkyfT7Sne+JqlCMOxMkkw0Y6
+	nllaxhtYXSG+ZtnqXYhhXTdcs7b7ew2qGlovJvx7oPdmzqgkYO+bbIQcVMFO+yC0cHeIb14D1Qr
+	zpF5ReMXXQknViAwjaUnAAFRMfOGm8+ajIf7sJMHpfF3/P9FyFBV6BAaSOsJhLuu7nh33c=
+X-Received: by 2002:a17:903:3202:b0:2dd:190e:28b6 with SMTP id d9443c01a7336-2df7dd7b9bcmr188420695ad.2.1790612743509;
+        Mon, 28 Sep 2026 09:25:43 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a4a00dsm31259622eec.1.2026.09.28.09.25.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 09:25:42 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Martin KaFai Lau <kafai@fb.com>,
+	Wei Wang <weiwan@google.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] ipv4: Fix device use-after-free in ip_mc_output()
+Date: Tue, 29 Sep 2026 00:25:34 +0800
+Message-ID: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026 04:19:13 +0200,
-Frank van de Pol wrote:
-> 
-> Hi Takashi, Jaroslav, and the ALSA community,
-> 
-> Apologies for the long gap since v3. This is not simply v3 with the review
-> comments addressed -- I went back to the reverse engineering, and a fair
-> amount of what came out of it changed the driver structurally.
-> 
-> The patch has grown accordingly: v3 was 8 files and 1613 insertions, this is
-> 17 and 7326.  Most of that is not new logic: of the roughly 5700 added
-> lines, about 2100 are comments, 1660 are KUnit tests and generated test
-> vectors for the codec, 249 are the new jockey3.rst documentation, and only
-> about 1300 are executable code.  The rest is blank lines and Kconfig
-> plumbing.
-> 
-> The relatively large number of comments comes from the deliberate decision
-> to include what I learned from the protocol analysis with the relevant
-> section of code.  The parts that most need explaining (the bit-plane wire
-> format, device initialization, why the URBs run for the device's whole
-> lifetime, the locking order etc.) cannot be verified by reading the code
-> alone.  ploytec_codec.c is over half comment for that reason: the DOC: block
-> deriving the format from the board's I2S and DMA geometry is effectively the
-> specification the optimized variants implement.
-> 
-> Previous version:
-> v3: https://lore.kernel.org/all/20260622011131.1748298-1-fvdpol@gmail.com/
-> 
-> Changes v3 -> v4:
-> 
->  - Reworked the locking architecture around an explicit hierarchy: a
->    process-context rate_mutex outermost, then IRQ-safe leaf spinlocks for
->    playback, capture and MIDI that are never nested in one another.
->    Documented in jockey3.c.
-> 
->  - Fixed the capture stall after a sample-rate change, eliminating the USB
->    device reset that recovery used to require.  The reset rate per rate
->    change went from 19.3% to zero, with a 98k clean streak on arm64 and 61k
->    on x86_64.
-> 
->  - Rewrote the bit-plane codec: a portable reference implementation plus
->    32-bit and 64-bit SWAR variants selected at compile time, called through a
->    batch API at the driver's real batch sizes. Against the same machine's
->    reference build, the optimized path measures 11.0x encode / 7.8x decode on
->    x86_64 and 6.9x / 6.1x on arm64. KUnit tests validate all variants against
->    an independently derived model of the wire format.
-> 
->  - Added URB coalescing.  The driver used to submit one 512-byte packet per
->    URB, fixing the completion rate at 9923/s at 44.1 kHz and 21600/s at 96
->    kHz for as long as the device was plugged in, used or not.  N packets per
->    URB (N a power of two, 1 to 8) are now chosen per PCM open from the
->    requested period size.
-> 
->  - Fixed a cold-boot initialization race. Straight after power-on the device
->    accepts the entire init sequence, reports success on every transfer, takes
->    playback samples, but its audio engine never starts. Bisected over 100
->    cold boots to between 144 and 156 ms after enumeration; the driver now
->    waits 250 ms before its first control transfer, close to the 297-308 ms
->    the Windows driver waits.
-> 
->  - Added a URB liveness watchdog. Every error path hangs off a URB
->    completion, so a device that stops completing URBs produces no error, no
->    xrun and no log line. A work item now reports either direction silent for
->    20 ms and enters the recovery ladder on a stall onset.
-> 
->  - Hardened handling of an unresponsive device: an EP0 error-class predicate
->    aborts the handshake before usb_set_interface() is reached, since the USB
->    core disables an interface's endpoints as its first action and does not
->    re-enable them on the failure return.
-> 
->  - Added Documentation/sound/cards/jockey3.rst
-> 
->  - Addressed the v3 review comments.
-> 
-> 
-> Testing:
-> 
-> Validated with an automated hardware-in-the-loop framework written for the
-> purpose: probe and unbind endurance, PCM cycling, every rate in both
-> directions, period and buffer boundary matrices, duplex, xrun injection,
-> rate-change soaks, suspend/resume, USB disconnects via hub port power
-> switching, and cold-boot cycling through a network-controlled mains switch. 
-> Some of the figures above come from runs of tens of thousands of iterations.
-> 
-> Exercised on real hardware on x86_64, i386, arm64 (Raspberry Pi 4) and
-> armv6/armhf (Raspberry Pi 1B -- functional but tight at 88.2/96 kHz), with
-> x86_64 and arm64 also run under a KASAN + lockdep debug kernel.  The codec
-> KUnit suite additionally tested under UML and QEMU on i386, arm, arm64,
-> riscv and s390 (test big/little endianness).
-> 
-> 
-> Two things I would rather state than have found:
-> 
->  - The mitigation stack around the rate-change stall is now practically
->    dormant since the rate-change improvement.  I kept it as cheap insurance;
->    happy to remove it.
-> 
->  - The 250 ms settling delay in jockey3_initialize() runs on the
->    USB hub thread.  I can move initialization off the probe path if you
->    prefer, though that introduces complexity to avoid races.
-> 
-> 
-> I look forward to your review/feedback.
-> 
-> Best regards,
-> Frank
-> 
-> Frank van de Pol (1):
->   ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
-> 
->  Documentation/sound/cards/index.rst           |    1 +
->  Documentation/sound/cards/jockey3.rst         |  249 +
->  MAINTAINERS                                   |    8 +
->  sound/usb/Kconfig                             |    1 +
->  sound/usb/Makefile                            |    1 +
->  sound/usb/jockey3/.kunitconfig                |   13 +
->  sound/usb/jockey3/Kconfig                     |   60 +
->  sound/usb/jockey3/Makefile                    |    7 +
->  sound/usb/jockey3/jockey3.c                   | 4060 +++++++++++++++++
->  sound/usb/jockey3/ploytec_codec.c             |  656 +++
->  sound/usb/jockey3/ploytec_codec.h             |   44 +
->  sound/usb/jockey3/ploytec_codec_kunit.c       |  871 ++++
->  .../usb/jockey3/ploytec_codec_test_vectors.h  |  793 ++++
->  sound/usb/jockey3/ploytec_midi.c              |   83 +
->  sound/usb/jockey3/ploytec_midi.h              |   36 +
->  sound/usb/jockey3/ploytec_proto.c             |  365 ++
->  sound/usb/jockey3/ploytec_proto.h             |   78 +
->  17 files changed, 7326 insertions(+)
->  create mode 100644 Documentation/sound/cards/jockey3.rst
->  create mode 100644 sound/usb/jockey3/.kunitconfig
->  create mode 100644 sound/usb/jockey3/Kconfig
->  create mode 100644 sound/usb/jockey3/Makefile
->  create mode 100644 sound/usb/jockey3/jockey3.c
->  create mode 100644 sound/usb/jockey3/ploytec_codec.c
->  create mode 100644 sound/usb/jockey3/ploytec_codec.h
->  create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
->  create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
->  create mode 100644 sound/usb/jockey3/ploytec_midi.c
->  create mode 100644 sound/usb/jockey3/ploytec_midi.h
->  create mode 100644 sound/usb/jockey3/ploytec_proto.c
->  create mode 100644 sound/usb/jockey3/ploytec_proto.h
+ip_mc_output() reads rt->dst.dev and stores it in skb->dev without RCU
+protection.  dst_dev_put() can concurrently replace the destination device
+and release the old device after an RCU grace period, leaving the multicast
+output path with a stale skb->dev.
 
-Thanks for the update.  I think overall the code would be OK, but
-the problem is that it's a way too big single patch to digest.
+The stale device can be dereferenced by the post-routing path.  In
+particular, a socket using IP_PMTUDISC_PROBE reaches ip_skb_dst_mtu() from
+ip_finish_output() and reads the freed device's MTU.
 
-Could you try to instruct LLM for splitting logically for easier
-reviews?  It could be like starting with the core probe skeleton,
-polytec core stuff, basic PCM loops, the mixer support, the MIDI
-support, kunit, documentation, something else I forgot, etc.
+KASAN reported:
 
+  BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
+  Read of size 4 at addr ffff88810921c038 by task poc/98
+  Call Trace:
+   ip_skb_dst_mtu+0x634/0x740
+   __ip_finish_output.part.0+0x22/0x2c0
+   ip_mc_output+0x287/0x930
+   ip_send_skb+0x11d/0x150
+   udp_send_skb+0x63e/0xdf0
+   udp_sendmsg+0x1235/0x1da0
+   __sys_sendto+0x32c/0x3a0
 
-Takashi
+  Freed by task 99:
+   kfree+0x131/0x3c0
+   device_release+0xc8/0x240
+   kobject_put+0x14d/0x280
+   netdev_run_todo+0x4cb/0xc70
+   rtnl_dellink+0x362/0xa90
+
+Protect the whole multicast output path with an RCU read-side critical
+section, as ip_output() already does.  Load the destination device through
+skb_dst_dev_rcu() and keep it protected through the post-routing hooks and
+ip_finish_output().
+
+Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v2:
+- Protect the whole ip_mc_output() path instead of only the MTU read.
+- Load the destination device with skb_dst_dev_rcu(), matching ip_output().
+- Use the commit that made dst device replacement RCU-protected as Fixes.
+
+Link: https://lore.kernel.org/r/20260927071051.3693368-1-nicoyip.dev@gmail.com/ [v1]
+
+ net/ipv4/ip_output.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index a24cc8ee11d3..cf44597896cd 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -367,8 +367,11 @@ static int ip_mc_finish_output(struct net *net, struct sock *sk,
+ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+ 	struct rtable *rt = skb_rtable(skb);
+-	struct net_device *dev = rt->dst.dev;
++	struct net_device *dev;
++	int ret;
+ 
++	rcu_read_lock();
++	dev = skb_dst_dev_rcu(skb);
+ 	/*
+ 	 *	If the indicated interface is up and running, send the packet.
+ 	 */
+@@ -406,7 +409,8 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 
+ 		if (ip_hdr(skb)->ttl == 0) {
+ 			kfree_skb(skb);
+-			return 0;
++			ret = 0;
++			goto out;
+ 		}
+ 	}
+ 
+@@ -418,10 +422,13 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 				ip_mc_finish_output);
+ 	}
+ 
+-	return NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+-			    net, sk, skb, NULL, skb->dev,
+-			    ip_finish_output,
+-			    !(IPCB(skb)->flags & IPSKB_REROUTED));
++	ret = NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
++			   net, sk, skb, NULL, skb->dev,
++			   ip_finish_output,
++			   !(IPCB(skb)->flags & IPSKB_REROUTED));
++out:
++	rcu_read_unlock();
++	return ret;
+ }
+ 
+ int ip_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+-- 
+2.43.0
