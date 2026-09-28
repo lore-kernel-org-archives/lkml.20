@@ -1,422 +1,220 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5684B7A3E;
-	Mon, 28 Sep 2026 11:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596704; cv=fail; b=TzB+BWYsmvuP574qlB23Zn16qufxtn6d4XlUF6SloDGtJtnZf/yhUxOC5BwkRQGEV0FjBO5+gdHXzb/NEn+lT7ukDpCj57+dDcZD82REiFuansDtk2bM9w6RWEs4P5uZ0lronNRiW+Kqt8n0lClHUhlGT2vBxtCpc39QhQ9MmiQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596704; c=relaxed/simple;
-	bh=xQcpVfrtdsxU02KejBVz52HsRTmZP7KvWeDrPe9Lf0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=EL60gbbYUbRVcIu5QDumHKsEcCipKwXToAUElXdIlrxhVIzC4qt1lRtPduIHU4Bt6l5UrPLKgZ7svZgv5lo/syIpVKV6F9Y2eMRqdqHbZJEYc9aXnKzZ7eEGj80vd94+UBN7NwMIFriPIRtrB+sMZ35w/0t+U5nlYcDWZfktiAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=DcBxv8VZ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=EtBb/jwJ; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="DcBxv8VZ";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="EtBb/jwJ"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SBAmgP1608615;
-	Mon, 28 Sep 2026 06:57:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=ScdbwFvfxVzGvAmgdDRdN3al6apXxCvU/s4zokQBN
-	ag=; b=DcBxv8VZAW7vpD7xBpRmgy5LkB+8B4v/zLVx19vqyz5VPXcB+fm5ptfQS
-	LLjrA4m64i5qjeuZKX/UVJMfISPykIwmcmMLl9c0R+09s2zFuAuFOcFCOSHG9yw3
-	FjwbB4jw27U24E1J8tMDQBPNOnW2Tqu5NTyN48WYxa5cgZmFdDFVi0zf+fSrwlFs
-	R9VnnoTaaOAyOuGxO+LYpNbzdy4BqftY3xp0/YN36VDXgUGGjbw6Nxd8lRtA+KIG
-	AJ054WqwzYs9D6htN1VMWiTr40exjnTH/YGxJYbxZXxmh6BHWMtnGfWWKaNSmXuh
-	jD85KVREZ4wfl8JCvlC+KsYJNGjQA==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012028.outbound.protection.outlook.com [52.101.53.28])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2nnh01-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 06:57:56 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aXCfeV9it5c1KfPd1g4E+0uN5PryBUqhBqgz7MRvpFNyjbx/mLqeH1j+3mQXBQ76PuNfuvf6ea+c7EPc+y2vGYK17g1/H9C9oWxzLrhAsdEMd5YM2OSui+KevZktcjFw2tS+F8IZhV6Ko75gq526iDUV2w4FHvAP1uppyoNceAE0++aBBGTV9eb3opF/80rtQF0Qj+5WN7xJxm0T2AOalL+DtreBQA3jlRRmq009Xz8ggKOfY7AKx2Duv3z5t5yW/mBVlq6kpFD5h9EhJlNEgnx6JEssU84mLHeDgee8QPZul2QZpdK3gN9Lh5Buu6cSB2VLq+K/CJ6kEJqcZmFJLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ScdbwFvfxVzGvAmgdDRdN3al6apXxCvU/s4zokQBNag=;
- b=s6Zi60tGIA/+cUnnTZmZW/gmUKqejnygxTagTfyD65agHMzz9ulak8cpiuSV9fqF4r1Z4T9h9kgXVfWTm7rs6iA8tIiaTGCSC+APxbU1MkijQP5alXxLZfHY3nHM+QtInbIOAlVNPpOBcR1h12U3In2Sv8SoUh7F6nJGT/XgpZi65VhRo7QjllMJv/OzYAUDQwW7+eOp/sdpdri8d53Pb0grYrl+poF+dqDmIw1G8+WNAvz1u+sUTJmRxYpps5Q0jLccJhDd6oUrd/2GV0m+26WpeZRNlGxysiA5o33LYeRyyROe47euOFT9dytcQqfePbce0uIyA5484hXKtizwBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ScdbwFvfxVzGvAmgdDRdN3al6apXxCvU/s4zokQBNag=;
- b=EtBb/jwJJ2bL3wP9GxWC/JUW6nU+DJ9zMxiIZyuMzF7BSrMG20dbb8KszTzsNajPajvbQ5eSxNTHr9A995dtRxAAJnVsKh8J/Qneldkyo+seFiIXYtRcJO9GGyHXVlNIyLHpfcnJVrjORiDT5omkaDw2S0jJverGrzT9QFeNFQU=
-Received: from BN9P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::20)
- by DS4PR10MB997550.namprd10.prod.outlook.com (2603:10b6:8:31d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.6; Mon, 28 Sep
- 2026 11:57:54 +0000
-Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
- (2603:10b6:408:13e:cafe::79) by BN9P220CA0015.outlook.office365.com
- (2603:10b6:408:13e::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 11:57:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Mon, 28 Sep 2026 11:57:52 +0000
-Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 06:57:21 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE212.ent.ti.com
- (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 06:57:21 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 28 Sep 2026 06:57:21 -0500
-Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SBvH6A3069609;
-	Mon, 28 Sep 2026 06:57:17 -0500
-Message-ID: <ef825818-87b3-41f8-8f7a-372076ecd656@ti.com>
-Date: Mon, 28 Sep 2026 17:27:16 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77064B8291
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790596710; cv=none; b=ZGzEwJYzWoMq0V0yE+scqlpcVt45RcPhEhIA51YXDH25VyP5107SkTACMOycHCXmNVYAMuUz2owSm/ZrUtshutYgyaahJHstznfnO78Octy17pNspU1ll1MelXXUumayknBp0A/uGaeyzKRFbBidbNtjlYnuIGrA7ySa0oC9pGg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790596710; c=relaxed/simple;
+	bh=1O3PxAFo3FfLIlYr/TdS/zrbc350A63udpmTM0P5zpo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WBWyBlLWJzLnSAJYv8IvL/hQTualdTaFK3eqiqxsi/qHE8PWzRWA6jVgAK1Z4yTSAjOncJflAIqOidDeu5/0RBMuM9SH2giU6uD8QeWUU2ycOmZRuB1K/RGt0jTy6nteCijuZT4MBOD2I8zmO9LB/fmiWZEmfBYEyYLi6xRIPu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4959c49e054so3134642b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:58:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790596707; x=1791201507;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tD00Tn9PzpN11Ydf9Aruk6Tjr4xl8SEYjEbKTx3h+aw=;
+        b=B2Hrvz1nIYYaf+i8oKCe42/7BFkGJq1rz0tz76pQ3Ck8L3LK9scFl4alRjQZ64zVWQ
+         fQXhVZLzpQscjMQ5xn3PCD7v5FgPjCivPRtN3tSJHb7cHz5Sq775PjeTd6dGpo3VW/Yd
+         e61XLG/nrw2lPDNl9acB/UFyPoAixCukSACxlQwc3MAeqvrFzHKlhIPKjoHfV+m3GN4b
+         v41VfoTuqRatfJGZIajLErUvgMbKXYwhYQMoew1/LR7G5yY6TqJ9DRKCWECEp43aWiI9
+         G9hjuUlHhK1eV8ly8/v0xwNGj+mrVjSL9kQx/zt0DJuFuoPTJMTwW+0bSD8/N1t8DMWe
+         c8rA==
+X-Forwarded-Encrypted: i=1; AKwUvBxw9DTzV4kBY6xXAPKuAErrRbVWPd3Qrs545OYMFyFvsoMQJzMhHdvFFodOM1Qn5RfPn8F570DoFf+KiNU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxy/miicV8gAqLVNUAnXx50HQRDTSK+onghOZdxFWdHM29y8D5
+	So7E+DNlsTaOQbNU1ayWIXpySrQrq92aFUvlhqdjcgAL18K9k/Kl3pjjx+NCMBtzZ1Q3ii5xhBJ
+	ftPo5zo5Y46hqw3xaiJrg6A//oQcASXO1kkTdrZE8z9zA2Q0DHpLONfFso0s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] drm/tidss: Add mechanism to detect DPI output
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Devarsh Thakkar
-	<devarsht@ti.com>, Jyri Sarha <jyri.sarha@iki.fi>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: Tomi Valkeinen <tomi.valkeinen@ti.com>, <dri-devel@lists.freedesktop.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
- <20260903-tidss-pre-beagley-v1-6-93928baa8b12@ideasonboard.com>
-Content-Language: en-US
-From: Swamil Jain <s-jain1@ti.com>
-In-Reply-To: <20260903-tidss-pre-beagley-v1-6-93928baa8b12@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|DS4PR10MB997550:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46fcb986-7845-458b-2e62-08df1d57b99a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|23010399003|36860700016|921020|3023799007|10067099003|5023799004|4143699003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	3IIh5UxwVZO4aAWQ9w7kLqdnKT2xMhNiSLHtaDREbRBrD6B3GRkImNJRHU7DlR2ln1BGWK1vZu0pcaQ28AScubsUPi0jL6vZxgRBH28Qu3gwqr4zZBSDr6yuvz1b3lEv45gmy5NSWDnFEgHySU39NtBmAztZvCwDhLoA1hYAEDE3//jy6og+RylEii2+ZguDguUC53s70mG7phng9+CA3PWeyToa2F753prjlH0ZR8dcwAkgKKpc4Jr+NhvpmPfx7AbNDxBavP+ngai+0qeRGE9POvH1uTMLHW44JCM81/GtNKm9cDShuME4WeX0JAmd6SZz9kDFGHhFsWuxRtFB46JM2WvcSpJEdUMzlFzGDIlQZe2yJ6JG9NgWqRStJ5OrjGLtLLRHR1xrHtLCVLRlmqkumdZJ9jNbAU2jMSagK+vOiNXUAUBMFQQwz9aAsU6LRTH4LzzSxTOThPwbGT91m1WihuWcLdrQx+yQbtXg0oAMlhQunvKxT0vY0+cZzGnfuPRd2fXW8rkCIlQ5WU2mhHAqmlu+dO+0DTeFNN2YPbGOcoa2ud+Si4DDZpETlH7hXkdoDj7ustLhijB+LCgTgxbsgadqSTWBrcU9y/+5BFghh2Cx6gcFDQmc6oUoSZWOVFGSm+p1/MBFRJb/eDiXC25L8Z7md0/WqqbQPTAWHDb895RHTDYPs/v2ySfBhb75HZ+kPvIdfqo20tj18ylLmVateFomX2uaHEsT09Qq/tyAo1sju2sYTaIkqk+ekSfj
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(921020)(3023799007)(10067099003)(5023799004)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dauGhoyXngmsJf4VhVoGszVq1zKoaiidvYzByJ41Xss5YYB9gQnaoIUoQlDz+Hj86gn9Pw3qI/fThnoxzocFO0rTiYfG7oG38gbO5Jlr8wtAX1HqeHdUdjo41RXrK90joEQLrvCUbg/2LjOWsyFn+bMBq5IC85scXC2uRNj5kPJpJVZ8etP/qZvSocrZnzjJswyR9bkSE+19zyygFcmVi4SeuA+nWJEqiqJIgBPTpt/3oSRZF+f8oi7FJfy4Q3U9tWReVfb5+bYx48g9K6aJF+g0CHcickJOpZ8PIzRNb3P3VlUI+Z3C6+vURtbVCj59xDXJBjpsMzJaO/L6sgSkg9ttT4UNORAXijXuaaqz5vO1LJVFGUU8/BZCzR+GCabnwr6SV9wUnucUPP6KbRzXyP2vwfTPwMEpBbT4y+FfjVIbA/bms+c+AZwAnmMZ1bQW
-X-Exchange-RoutingPolicyChecked:
-	HmShPBCcqQcTv82aonPBxJ4GPUHsTOR6EMLecHEZCqYEzK3ob3CSclPDWsQrXYq6UMe0rCzv9OgUGg2actOZPICZtbeCvZO1IL/EljnnLaF0xyFSA/vt9frgOHb9vji6Wswyx0ShANdC/8C8MS5JK25XrU8DJ4uCs1b4172AmBE2pL8OQqjKdIQFtCL6iOqwoRE72NKS5z1VEu7nVXBrtUBK9O1O/d7olBQ8TLhrnTZ0gmnjCbc6k7RRS2ioWDWBFgkFyq0XLOI9PUEsa6RczQStT2t45MUJoPmIRuSFyU7zLQN6Pf63wEw12nGgrAHGlnEa3dFhL5jOvzIgacKH2g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:57:52.1895
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46fcb986-7845-458b-2e62-08df1d57b99a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DE.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR10MB997550
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfX9RyXxDMGJiza
- e9ql06KbsIw0ly5Q1UVdN42KojK747s1bS8NFt4caE+TlfLXtGCaUm6U17Nsj9QPxgS0o/BBL6w
- uHWsLBmM5iY6mBA1YaFam3P5hH3p9wQ=
-X-Proofpoint-ORIG-GUID: 0MsJUxE9y9m2guTY37UJr_5PXxBajl6O
-X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6aba5644 cx=c_pps
- a=B83JijZ7EzXLHUDiN273XA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=P1BnusSwAAAA:8 a=sozttTNsAAAA:8
- a=QNTgMZfpnKhU915D8GMA:9 a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: 0MsJUxE9y9m2guTY37UJr_5PXxBajl6O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfX/VhBZVr3DKMg
- NJtdfV0n6rgPbShh4XxHxyf5IodSRXOxU2D4mB6nalrICD1fumI8fhFiFBN/BH7vQGV2CUhK2K6
- w6y4xHN+K824qflbNTkVk2v7eUrE3HhuNXSAhGyL+I6w/oNhR8cYL8sRX3kzN1e44QnEOn7GsyZ
- cW99iSCtlGLc6uB23nZ1AzkRfSP1SJqfJH3eK15Bx+ZRQjbq4YbPjQqndfWfddRbgZAs/QMXJNW
- XiCJA6KAyrtRRAsHw60oGH6RyXJRTXRLYJKu1rMcSjKhIkRtIjBDy2VFlPgQ461n40c7EQrsc9P
- u5wS51t8MpTUlyMvgd+Y8Ok0RDFR3R65GWlyjSnsy2t9QMNOhJjGYgiY1Ceuq5f01NtDZ/GOHKY
- o/wL7qOwcy9wg6n2eQxtPDnC7GgbInXB8TMZDUmgo/jmpffWbODXUzi+1CUKxcfHmrTEk5/VeNX
- f+qtTBjL2Vgav+lnzpQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280047
+X-Received: by 2002:a05:6808:17a1:b0:4e6:76eb:b997 with SMTP id
+ 5614622812f47-4e676ebbb9amr6162017b6e.62.1790596707620; Mon, 28 Sep 2026
+ 04:58:27 -0700 (PDT)
+Date: Mon, 28 Sep 2026 04:58:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aba5663.beeaa6a4.36f27f.0003.GAE@google.com>
+Subject: [syzbot] [i2c?] INFO: task hung in ft260_remove
+From: syzbot <syzbot+1dc44aa283d5af458c73@syzkaller.appspotmail.com>
+To: andi.shyti@kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    62f4c998b297 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15b69c05580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=1dc44aa283d5af458c73
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/d1795a0bff93/disk-62f4c998.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ec557749691d/vmlinux-62f4c998.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/2e2f8fa31746/bzImage-62f4c998.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1dc44aa283d5af458c73@syzkaller.appspotmail.com
+
+INFO: task kworker/1:6:5715 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/1:6     state:D stack:21408 pid:5715  tgid:5715  ppid:2      task_flags:0x4288060 flags:0x00080000
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
+ i2c_del_adapter+0x292/0x440 drivers/i2c/i2c-core-base.c:1847
+ ft260_remove+0x5d/0x80 drivers/hid/hid-ft260.c:1104
+ hid_device_remove+0xc5/0x1c0 drivers/hid/hid-core.c:2897
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ hid_remove_device drivers/hid/hid-core.c:3126 [inline]
+ hid_destroy_device+0x6b/0x1b0 drivers/hid/hid-core.c:3148
+ usbhid_disconnect+0x9f/0xc0 drivers/hid/usbhid/hid-core.c:1479
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Showing all locks held in the system:
+locks held by khungtaskd/31: 1, last CPU#1:
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6871
+locks held by getty/5375: 2, on CPU#1:
+ #0: ffff888034e030a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
+ #1: ffffc900032332e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
+locks held by kworker/1:6/5715: 6, on CPU#1:
+ #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802979d1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802979d1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88807aa121d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88807aa121d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
+ #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+ #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+
+=============================================
+
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 31 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
+ nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
+ trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
+ __sys_info lib/sys_info.c:157 [inline]
+ sys_info+0x135/0x170 lib/sys_info.c:165
+ check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
+ watchdog+0xfd7/0x1030 kernel/hung_task.c:561
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 1 to CPUs 0:
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
+Code: 9c 88 02 e9 83 08 03 00 cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d e3 a1 23 00 fb f4 <c3> cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 90 90 90 90 90
+RSP: 0018:ffffffff8ea07ca0 EFLAGS: 00000242
+RAX: 00000000004d2bf7 RBX: ffffffff819bbcb0 RCX: 8000000000000001
+RDX: 0000000000000001 RSI: ffffffff8e414ba9 RDI: ffffffff8c6da780
+RBP: ffffffff8ea07d78 R08: ffff8880b8633a1b R09: 1ffff110170c6743
+R10: dffffc0000000000 R11: ffffed10170c6744 R12: 0000000000000000
+R13: 1ffffffff1d51e00 R14: 1ffffffff1d40f9c R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888124ccb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000559c5e26da38 CR3: 000000000eb48000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ arch_safe_halt arch/x86/kernel/process.c:767 [inline]
+ default_idle+0x9/0x20 arch/x86/kernel/process.c:768
+ default_idle_call+0x72/0xb0 kernel/sched/idle.c:122
+ cpuidle_idle_call kernel/sched/idle.c:199 [inline]
+ do_idle+0x2e0/0x540 kernel/sched/idle.c:355
+ cpu_startup_entry+0x43/0x60 kernel/sched/idle.c:454
+ rest_init+0x378/0x3a0 init/main.c:732
+ start_kernel+0x392/0x3e0 init/main.c:1190
+ x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
+ x86_64_start_kernel+0x137/0x1b0 arch/x86/kernel/head64.c:291
+ common_startup_64+0x13e/0x157
+ </TASK>
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 9/3/26 17:39, Tomi Valkeinen wrote:
-> There are situations where the driver needs to know if the output is
-> going to the DPI output or not. There is no trivial way to get this
-> information, as there is no "DPI bridge". We can only find this out in
-> reverse: check if the output is NOT DPI, and if that is negative, then
-> it must be DPI.
-> 
-> At the moment we have two non-DPI outputs: DSI and OLDI. DSI always has
-> "ti,j721e-dsi" DSI bridge connected to the DSI, so we can use that for
-> checking. OLDI doesn't have a compatible property, but we can check if
-> the DT node has "oldi-transmitters" node as a parent, and the dss node
-> itself as a grand-parent. There's also a special case for OLDI, the
-> AM62x OLDI, which uses an older design that requires a special case in
-> the detection.
-> 
-> If the output is not connected to either of the above, it must be DPI.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Reviewed-by: Swamil Jain <s-jain1@ti.com>
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
->   drivers/gpu/drm/tidss/tidss_crtc.c  | 10 ++++--
->   drivers/gpu/drm/tidss/tidss_crtc.h  |  4 ++-
->   drivers/gpu/drm/tidss/tidss_dispc.c |  5 ++-
->   drivers/gpu/drm/tidss/tidss_dispc.h |  3 +-
->   drivers/gpu/drm/tidss/tidss_kms.c   | 70 ++++++++++++++++++++++++++++++++++++-
->   5 files changed, 85 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-> index 400329aa2200..ae9c66831b6c 100644
-> --- a/drivers/gpu/drm/tidss/tidss_crtc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-> @@ -192,7 +192,8 @@ static void tidss_crtc_atomic_flush(struct drm_crtc *crtc,
->   		return;
->   
->   	/* Write vp properties to HW if needed. */
-> -	dispc_vp_setup(tidss->dispc, tcrtc->hw_videoport, crtc->state, false);
-> +	dispc_vp_setup(tidss->dispc, tcrtc->hw_videoport, crtc->state, false,
-> +		       tcrtc->dpi_output);
->   
->   	/* Update plane positions if needed. */
->   	tidss_crtc_position_planes(tidss, crtc, old_crtc_state, false);
-> @@ -235,7 +236,8 @@ static void tidss_crtc_atomic_enable(struct drm_crtc *crtc,
->   	if (r != 0)
->   		return;
->   
-> -	dispc_vp_setup(tidss->dispc, tcrtc->hw_videoport, crtc->state, true);
-> +	dispc_vp_setup(tidss->dispc, tcrtc->hw_videoport, crtc->state, true,
-> +		       tcrtc->dpi_output);
->   	tidss_crtc_position_planes(tidss, crtc, old_state, true);
->   
->   	/* Turn vertical blanking interrupt reporting on. */
-> @@ -414,7 +416,8 @@ static const struct drm_crtc_funcs tidss_crtc_funcs = {
->   
->   struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
->   				     u32 hw_videoport,
-> -				     struct drm_plane *primary)
-> +				     struct drm_plane *primary,
-> +				     bool dpi_output)
->   {
->   	struct tidss_crtc *tcrtc;
->   	struct drm_crtc *crtc;
-> @@ -427,6 +430,7 @@ struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
->   		return ERR_PTR(-ENOMEM);
->   
->   	tcrtc->hw_videoport = hw_videoport;
-> +	tcrtc->dpi_output = dpi_output;
->   	init_completion(&tcrtc->framedone_completion);
->   
->   	crtc =  &tcrtc->crtc;
-> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.h b/drivers/gpu/drm/tidss/tidss_crtc.h
-> index 040d1205496b..65df220698f6 100644
-> --- a/drivers/gpu/drm/tidss/tidss_crtc.h
-> +++ b/drivers/gpu/drm/tidss/tidss_crtc.h
-> @@ -20,6 +20,7 @@ struct tidss_crtc {
->   	struct drm_crtc crtc;
->   
->   	u32 hw_videoport;
-> +	bool dpi_output;
->   
->   	struct drm_pending_vblank_event *event;
->   
-> @@ -44,5 +45,6 @@ void tidss_crtc_error_irq(struct drm_crtc *crtc, u64 irqstatus);
->   
->   struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
->   				     u32 hw_videoport,
-> -				     struct drm_plane *primary);
-> +				     struct drm_plane *primary,
-> +				     bool dpi_output);
->   #endif
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-> index 58d5eb033bdb..c21ac3f51720 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-> @@ -448,6 +448,7 @@ static const u16 *dispc_common_regmap;
->   
->   struct dss_vp_data {
->   	u32 *gamma_table;
-> +	bool dpi_output;
->   };
->   
->   struct dispc_device {
-> @@ -2770,8 +2771,10 @@ static void dispc_vp_set_color_mgmt(struct dispc_device *dispc,
->   }
->   
->   void dispc_vp_setup(struct dispc_device *dispc, u32 hw_videoport,
-> -		    const struct drm_crtc_state *state, bool newmodeset)
-> +		    const struct drm_crtc_state *state, bool newmodeset,
-> +		    bool dpi_output)
->   {
-> +	dispc->vp_data[hw_videoport].dpi_output = dpi_output;
->   	dispc_vp_set_default_color(dispc, hw_videoport, 0);
->   	dispc_vp_set_color_mgmt(dispc, hw_videoport, state, newmodeset);
->   }
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-> index 739d211d0018..6f53d554259c 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.h
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-> @@ -131,7 +131,8 @@ void dispc_vp_disable_clk(struct dispc_device *dispc, u32 hw_videoport);
->   int dispc_vp_set_clk_rate(struct dispc_device *dispc, u32 hw_videoport,
->   			  unsigned long rate);
->   void dispc_vp_setup(struct dispc_device *dispc, u32 hw_videoport,
-> -		    const struct drm_crtc_state *state, bool newmodeset);
-> +		    const struct drm_crtc_state *state, bool newmodeset,
-> +		    bool dpi_output);
->   
->   int dispc_runtime_suspend(struct dispc_device *dispc);
->   int dispc_runtime_resume(struct dispc_device *dispc);
-> diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-> index 70c14c3be10d..eefe2221bdde 100644
-> --- a/drivers/gpu/drm/tidss/tidss_kms.c
-> +++ b/drivers/gpu/drm/tidss/tidss_kms.c
-> @@ -122,6 +122,68 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
->   	.atomic_commit = drm_atomic_helper_commit,
->   };
->   
-> +static const char * const tidss_internal_bridge_compatibles[] = {
-> +	"ti,j721e-dsi",
-> +};
-> +
-> +/*
-> + * Detect whether the bridge is internal to the SoC or not.
-> + * We detect this via two means:
-> + * - If the bridge's of_node has a compatible, compare to known internal values.
-> + * - If the bridge is a grand-child of DSS, and has "oldi-transmitters" parent.
-> + */
-> +static bool tidss_is_bridge_internal(struct tidss_device *tidss,
-> +				     struct drm_bridge *bridge)
-> +{
-> +	struct device_node *parent, *grand_parent;
-> +	bool is_internal;
-> +
-> +	if (WARN_ON(!bridge->of_node))
-> +		return false;
-> +
-> +	for (unsigned int i = 0;
-> +	     i < ARRAY_SIZE(tidss_internal_bridge_compatibles); ++i) {
-> +		if (of_device_is_compatible(bridge->of_node,
-> +					    tidss_internal_bridge_compatibles[i]))
-> +			return true;
-> +	}
-> +
-> +	parent = of_get_parent(bridge->of_node);
-> +	grand_parent = of_get_parent(parent);
-> +
-> +	is_internal = parent && grand_parent &&
-> +		      tidss->dev->of_node == grand_parent &&
-> +		      of_node_name_eq(parent, "oldi-transmitters");
-> +
-> +	of_node_put(grand_parent);
-> +	of_node_put(parent);
-> +
-> +	return is_internal;
-> +}
-> +
-> +/*
-> + * Detect whether the videoport's output goes to the DPI output or not. There is
-> + * no "DPI bridge", so we have to find this out in reverse: check if the output
-> + * is NOT DPI, and if that is negative, then it must be DPI.
-> + */
-> +static bool tidss_is_dpi_output(struct tidss_device *tidss, u32 hw_videoport,
-> +				struct drm_bridge *bridge)
-> +{
-> +	/*
-> +	 * On AM65x the OLDI TX is modeled as a part of the DSS itself, on VP0.
-> +	 * On other SoCs OLDI TX is a separate bridge. As there is no DT node
-> +	 * for the OLDI TX on AM65x, we cannot detect this from the DT data, and
-> +	 * have to special-case it here.
-> +	 */
-> +	if (tidss->feat->subrev == DISPC_AM65X && hw_videoport == 0)
-> +		return false;
-> +
-> +	if (!bridge)
-> +		return true;
-> +
-> +	return !tidss_is_bridge_internal(tidss, bridge);
-> +}
-> +
->   static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   {
->   	struct device *dev = tidss->dev;
-> @@ -133,6 +195,7 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   		u32 hw_videoport;
->   		struct drm_bridge *bridge;
->   		u32 enc_type;
-> +		bool dpi_output;
->   	};
->   
->   	const struct dispc_features *feat = tidss->feat;
-> @@ -149,6 +212,7 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   		struct drm_panel *panel;
->   		struct drm_bridge *bridge;
->   		u32 enc_type = DRM_MODE_ENCODER_NONE;
-> +		bool dpi_output;
->   		int ret;
->   
->   		ret = drm_of_find_panel_or_bridge(dev->of_node, i, 0,
-> @@ -160,6 +224,8 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   			return dev_err_probe(dev, ret, "port %d probe failed\n", i);
->   		}
->   
-> +		dpi_output = tidss_is_dpi_output(tidss, i, bridge);
-> +
->   		if (panel) {
->   			u32 conn_type;
->   			int ret;
-> @@ -205,6 +271,7 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   		pipes[num_pipes].hw_videoport = i;
->   		pipes[num_pipes].bridge = bridge;
->   		pipes[num_pipes].enc_type = enc_type;
-> +		pipes[num_pipes].dpi_output = dpi_output;
->   		num_pipes++;
->   	}
->   
-> @@ -230,7 +297,8 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
->   		tidss->planes[tidss->num_planes++] = &tplane->plane;
->   
->   		tcrtc = tidss_crtc_create(tidss, pipes[i].hw_videoport,
-> -					  &tplane->plane);
-> +					  &tplane->plane,
-> +					  pipes[i].dpi_output);
->   		if (IS_ERR(tcrtc)) {
->   			dev_err(tidss->dev, "crtc create failed\n");
->   			return PTR_ERR(tcrtc);
-> 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
