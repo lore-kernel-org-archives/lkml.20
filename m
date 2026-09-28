@@ -1,149 +1,174 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3D94C900E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA8E4C900E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610725; cv=none; b=GUXFPRXq7BHTM08T/HFyJvkHPeiwL1EopwGzcyYeuON8RGVAYRqVu8zk+5cfwnrGL85r7sYzk5fTgogA30Z4K12WiTbDNypUPhel3e0ewek806UQ6beWJNEEmPmXUVpj1ne2/HYNpRcDo/Ui5u1nA7oBx+jhpdB7sDqWWNVjkG4=
+	t=1790610733; cv=none; b=NUW07u84+3yFVgJDWDO2/KYuMnYIeVk3l8tycZ19ByOGWMI9Vac8yNxZLDo5K65FBhQSqTA26J9eotW4YdD93YgaOVcSVWRByWfYknYmuxe23ouYNsxuaZf+QTGzayk28sXd95Eo5yHWnQLuPzMDjIKoWL0OQQXW+Skm+mmnzg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610725; c=relaxed/simple;
-	bh=zmQ+cGSdLK7YhG4R1i+dzG2u52GR9O6BViCki2jfEGY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qxiTj9X+BUzUC3fjk03uHufRwIwB6Qy6i8EbD56UtRf1I6Z6fD3D5LXIz2DeWclOg9zxijql7HUh0H+O3HzeHDQZXoD0O0/9R5OI8odTvPNmUPJtOFihVOWj+HDifpT/ud09oMmFesbbhlVgV7Uvgju87DbSgramXzCcLwhMIBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ST8MG4CD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A058ra4r; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790610733; c=relaxed/simple;
+	bh=g5Yjq1RDYJwlJdZJWUNyqyb5tcGXaE5WgCWFOiz4Trw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EHhkMji9sSov1Zv/zmWdg8sm5fCNlcE1PBGzL+lgRVySIEOInSam2EgoQsTXNxve1nhsm4vcvlNTlbpaVv26W3YYHuk3vMihaLAb4uI6G41ELDdw8BhS5+E6xBFIkFGsKEBRJnBzSc3i9tUfve3JsYms+NFmMWIpkD8iYYUszi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWW6e5TY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ST8MG4CD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A058ra4r"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEeTBH941349
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:52:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=T0AF+DcWWCvi8THZVLIS8nXBQEPcNEV+6AF
-	+JHgsS9o=; b=ST8MG4CD0L5RBv5oT1KamUJvvBGvHgYTCmLOTFqFp3ZglsL3QJo
-	QfshErlB6d+BeY7ZLTJjJjkoU+28E4TsDWpgXtbr/Z5rEYbdBzh846Rm0vDp5ulk
-	MZWuAVcZWUKQtjH04rMfd9TqwcexcebtgHzFshf5VSAzul80efRd0yZA7KmpzS+w
-	XNNjXTCbAc/puOZqx2IyB0OBzB59ww/pMY7SmrPHKnD7DejD+eD8DOsxJi53OK6y
-	7873dyCTrSzaI7sN84QLkJGxPEhrom2lTTLOfyFfSDMrXaJ183iZlUyImU3xr87I
-	2dN2fQTuiYltUP+HeslvXYTO4YKLWnf6dDw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt127n3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:52:02 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e82060977so596373385a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:52:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790610722; x=1791215522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T0AF+DcWWCvi8THZVLIS8nXBQEPcNEV+6AF+JHgsS9o=;
-        b=A058ra4rB07k+xpz/bBKJqaeEqiV4adgtodVnbxv7m4/pRIAfbByBEW1TtFY4VyoJL
-         Nr+abYYqgYGUuxyiCdu2KXJz1055i3hJsjByeBvVIUZ4Hvb8FFk3YAVG2RqF7q4ea8eh
-         +b4VIl4Picf39zltXA+5KImCxkswbPWWa1+Ifl8NMQUE8A9LPN11LuTAIfDv0Ko/K4Yp
-         qEAOgFEYNbhRX4IPvg/aa2aBKcVutXUDzLzQ1tLslrQZDUS0BMvM5IBUvEPN+BjxPMzY
-         oi6Y8MQrwvlMfQ2wcl67K3ag1I0T2R5clbMtzGS/0hMAaeQhKxJlwojvy8Ei3Ye9BwQb
-         AzGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790610722; x=1791215522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T0AF+DcWWCvi8THZVLIS8nXBQEPcNEV+6AF+JHgsS9o=;
-        b=tIWoC5a1jfDHyBIy5ct1Bxw971CzZLePy++R6UBtHZgPE7B559KOBPtzf7V51nnus9
-         gbKIioj2yiYaFAdB1WZZJpj1P0fX2f4qk8w8/erKA835si0kV7DuNHcKzgA/365vJ14B
-         DbmWIyCnK2FUoFV6XUDCXndjDAhkqKLiTNkOSdR8O/BHmOZAUpZEPHqIpe6v7997Yxyu
-         Miq/7ZdCN+bAC+o7tmUjLV/qmQ5ioBiCN2gZPLJQN4j7HvKxMIeMmwmFI2dm3eXH18ZA
-         uaDg+t8cimVOVS1W7qJQropedrjzkBhkju2U7TroybMxQVnc8e4GhmY1uUGrvxEl5zFk
-         wARQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwo/tZe5yU9LC9I3atPQ+AAOhDOzA5YXJ1n7cY9ttAybn5qmZHzQzH1ljx25J3TCGjNK74pDtEKJjMcIzc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxk5sn9ZEp0OLPUv58+haLfT/2knGitoNQE67CrjDFZxFw5vkQ
-	CrkIgBwRz2LcNUK6oCx89rQP0Zq6D6ijJVV5oVqLAlDc2P7On73MOa1lFomuS2fIuqPJa+/IDpS
-	8T1OFlumnwP2rhM/coM5jel2OVNlEl6RFWVXE9fM3pAyt93wNTGlUDrl9G1yo5qbw2Ok=
-X-Gm-Gg: AYBFou2/gcsm8VuS0CsnGsPcMD3ixnRJZyx4RkSv53S/hfe9DDf+1cYx5wcUzLAzwj6
-	YyjCCs/HwJKvVyGSCtBmF5M9vRiVqxn6VgpIp7wISUIAhUakO9GnmK30aQ9uLB/IvqWQ2nHzpH1
-	y9Yj+b0GzMXlsSgd1+7aTnwdeUXgGKm9hrrmGe1MKMTJaBSDtTzAe8r10vDoPFV+RAF5u7os/7Z
-	SaTopXFWLKcDb0wKJaVj8NdL4RbLclJ6rBGCdQMs+5RRReHTFaAsju/qw2rw3QdkaMFtCb/y4gV
-	c4iUBnCnmsMlk38oxI/d7eDSrdpxk1zV7SOZww3mrf23mwKoM7o+R91kGYwCi1RYblh7YYO691F
-	6rutuUxWCy+oraeLdg9tjnkk5IP2UnhGYTVvD+5AErRO4Yak7ORbkWIwa1g==
-X-Received: by 2002:a05:620a:488d:b0:93a:1196:ce5 with SMTP id af79cd13be357-93c43db73demr1950337885a.33.1790610721847;
-        Mon, 28 Sep 2026 08:52:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:488d:b0:93a:1196:ce5 with SMTP id af79cd13be357-93c43db73demr1950333185a.33.1790610721258;
-        Mon, 28 Sep 2026 08:52:01 -0700 (PDT)
-Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dc3e12208sm282175166b.42.2026.09.28.08.51.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:51:58 -0700 (PDT)
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-To: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>
-Cc: Robert Richter <rric@kernel.org>, Guangshuo Li <lgs201920130244@gmail.com>,
-        linux-kernel@vger.kernel.org,
-        Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Subject: [PATCH] mmc: cavium-thunderx: Drop redundant calls to get|put_device()
-Date: Mon, 28 Sep 2026 17:51:48 +0200
-Message-ID: <20260928155149.134516-1-ulf.hansson@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWW6e5TY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265041F000FF;
+	Mon, 28 Sep 2026 15:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790610730;
+	bh=CA9+Khdny5X3PvtzSKfpyt/0TRJuMd+3QPdfNjaitb8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FWW6e5TYlYkD9F17qJd9niI1OEU1NX5IWz/mgl2P5fYxu1kSc1pYY8M6RmG2XOmvd
+	 ETFLUYunCFlwk7anJ1lZ2lJSwvPWjMIMBv8Dh9Ybcw6rf1MaOv2aFOxr6RTzlwsbhl
+	 b+7d/Xq/tAObx9d7TbdbzHp515pzww5pR+JvjSNPNhNfZ3/DQ0pCbULKm8Xg9/LNTW
+	 9du8kxBTLg0qJ3t1tkZCYFd0r/WnOm3Lf/D8RYE5GDx1YNCmDY99gMRK26nbGRHs50
+	 DitO1BDi1d2UGt/QB4vbtziHMCgiXP8MgbaOAZCb3VPRv9zXZuQ7Qi9PfyS/54oO5l
+	 j+tv6Mg87tfaw==
+Date: Mon, 28 Sep 2026 16:52:08 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Seongjun Hong <hsj0512@snu.ac.kr>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] tools/mm/slabinfo: refactor slab attribute reading
+Message-ID: <arqIzSPQVDky8jqc@thinkstation>
+References: <20260927-tools-mm-update-slabinfo-v1-0-a4ea0d4dc136@snu.ac.kr>
+ <20260927-tools-mm-update-slabinfo-v1-1-a4ea0d4dc136@snu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2MyBTYWx0ZWRfX7AAx3kKMtJav
- 4GQ6UGkD53upRbuw5h7yRGUv8j4XrWlmcZ3oFGuhQ822rS2RZ0Loi+4qgxN++rSfq9N/QcX/OGg
- 7pMZRJTICF3xN5ZrkarMUr1QGdCQDxPtpT0Mzgi4W7dAFKvj1IhIsu4aB0wjdLAL3RMEAidyI9V
- Xio3sMzc32lwtTh6e9GZ7qLRolcyipRiP7e0F3tNypj3+0o4ZNmv7ttVmP8vd4rLvGBDmoDjkRU
- VZI6jwkANCt2O5HdrUdrgvdW1gDrQc4J81NA56bXGjQoian4ZdZK5BuLSWPZvdfdIDDKeTWutpU
- SvgY+GGtrdIibcA+1RDM4g19FQWvhAiBE1453zZBD+ZjQt3+FaMFBpceMIOY4jznYSkKCzbCmGN
- s33LwrQmNyPiXXsmMce4WfkAJ57zMcV4mFZScuXVGSbgeCDOknP+PnX3AobwtqziFTC99SBCrNC
- /NlTLPixdbwUej/EFhQ==
-X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba8d22 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=gW215rox_sT49jLpqXsA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: 6jQQ6eD98euuapearpFncApV-_jPDz71
-X-Proofpoint-GUID: 6jQQ6eD98euuapearpFncApV-_jPDz71
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2MyBTYWx0ZWRfXzRkRAsrsDIX1
- 7mo5nYhNh0OKa7NVUS0kk73JWMqAzfc2YOnyuI3LLiaEN4eRouflXH3MnnlTeLA1mWT7ZvdR+TK
- hQai2WC0wog2ia66Vug+hLfB9wM6oEI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280063
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927-tools-mm-update-slabinfo-v1-1-a4ea0d4dc136@snu.ac.kr>
 
-Since commit 522811e944ed ("of: platform: stop accessing invalid dev in
-of_platform_device_destroy"), there is no need to take a reference for the
-device before calling of_platform_device_destroy(), hence let's drop this.
+Hi Seongjun, thanks for working on tools/mm/slabinfo improvements!
+My comments inlined below.
 
-Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
----
- drivers/mmc/host/cavium-thunderx.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+On Sun, Sep 27, 2026 at 05:57:27AM +0000, Seongjun Hong wrote:
+> The fields of struct slabinfo were mixed with deprecated sysfs files,
+> which looks complicated. Organize every field of struct slabinfo by
+> config option and the attribute order in mm/slub.c's slab_attrs[]. Because
+> slabinfo should be able to run on previous kernel releases, leave the
+> deprecated members for this time.
+>
+> read_slab_dir() had ~50 lines of attribute reads inlined. Move them to a
+> new fill_slabinfo() helper so that directory walk and per-cache
+> attribute reading are separated.
+> 
+> Fold get_obj_and_str() and decode_numa_list() into get_obj_and_decode()
+> to avoid unnecessary strdup() and leave only one member assignment in
+> fill_slabinfo() for each sysfs file.
+> 
+> Make broken statements into a single line for better readibility.
+> 
+> Remove alias field from struct slabinfo because it is initialized to 0
+> and never updated. The only usage of this field "if (slab->alias)" is dead.
 
-diff --git a/drivers/mmc/host/cavium-thunderx.c b/drivers/mmc/host/cavium-thunderx.c
-index 84ff6d82ae3c..eecac003e546 100644
---- a/drivers/mmc/host/cavium-thunderx.c
-+++ b/drivers/mmc/host/cavium-thunderx.c
-@@ -157,11 +157,8 @@ static int thunder_mmc_probe(struct pci_dev *pdev,
- 	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
- 		if (host->slot[i])
- 			cvm_mmc_of_slot_remove(host->slot[i]);
--		if (host->slot_pdev[i]) {
--			get_device(&host->slot_pdev[i]->dev);
-+		if (host->slot_pdev[i])
- 			of_platform_device_destroy(&host->slot_pdev[i]->dev, NULL);
--			put_device(&host->slot_pdev[i]->dev);
--		}
- 	}
- 	clk_disable_unprepare(host->clk);
- 	return ret;
+Would you please separate this patch into multiple patches?
+It's hard to review when multiple refactorings are done in a single
+patch.
+
+> No functional change intended.
+> 
+> Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+> ---
+>
+>  tools/mm/slabinfo.c | 245 ++++++++++++++++++++++++++++------------------------
+>  1 file changed, 131 insertions(+), 114 deletions(-)
+> 
+> diff --git a/tools/mm/slabinfo.c b/tools/mm/slabinfo.c
+> index 48d1ee8b0e81..84359d628f2e 100644
+> --- a/tools/mm/slabinfo.c
+> +++ b/tools/mm/slabinfo.c
+> @@ -27,25 +27,49 @@
+>  
+>  struct slabinfo {
+>  	char *name;
+> -	int alias;
+>  	int refs;
+> -	int aliases, align, cache_dma, cpu_slabs, destroy_by_rcu;
+> -	unsigned int hwcache_align, object_size, objs_per_slab;
+> -	unsigned int sanity_checks, slab_size, store_user, trace;
+> -	int order, poison, reclaim_account, red_zone;
+> -	unsigned long partial, objects, slabs, objects_partial, total_objects;
+> +	int numa_slabs[MAX_NODES];
+> +	int numa_partial[MAX_NODES];
+> +
+> +	unsigned int slab_size, object_size;
+> +	unsigned int objs_per_slab, order;
+> +	unsigned long objects_partial, partial;
+> +	int aliases;
+> +	unsigned int align;
+> +	int hwcache_align;
+> +	int reclaim_account;
+> +	int destroy_by_rcu;
+> +
+> +	/* CONFIG_SLUB_DEBUG */
+> +	unsigned long total_objects, objects, slabs;
+> +	int sanity_checks, trace, red_zone, poison, store_user;
+> +
+> +	/* CONFIG_ZONE_DMA */
+> +	int cache_dma;
+> +
+> +	/* CONFIG_SLUB_STATS */
+>  	unsigned long alloc_fastpath, alloc_slowpath;
+>  	unsigned long free_fastpath, free_slowpath;
+> -	unsigned long free_frozen, free_add_partial, free_remove_partial;
+> -	unsigned long alloc_from_partial, alloc_slab, free_slab, alloc_refill;
+> -	unsigned long cpuslab_flush, deactivate_full, deactivate_empty;
+> +	unsigned long free_add_partial, free_remove_partial;
+> +	unsigned long alloc_slab, alloc_node_mismatch, free_slab;
+> +	unsigned long order_fallback;
+> +	unsigned long cmpxchg_double_fail;
+> +
+> +	/*
+> +	 * Deprecated files:
+> +	 * No STAT_ATTR()/SLAB_ATTR() for these exists in mm/slub.c's
+> +	 * slab_attrs[] anymore.
+
+This part of the comment looks fine, but
+
+> Although cpu_slabs remains as a file,
+> +	 * it is also outdated and always prints 0. Keep these for backward
+> +	 * compatibility, but they should be removed later.
+
+This doesn't seem useful information to put in the comment.
+
+We were able to remove some files when
+Documentation/ABI/testing/sysfs-kernel-slab says
+"Available when CONFIG_SLUB_STATS is enabled", because that implies that
+those files may not exist. 
+
+But it's not the case for files like cpu_slabs,
+and I don't think we're going to remove them in the future.
+
+Probably simply say something like
+
+"Deprecated files: the kernel does not create those files anymore or
+ always prints hardecoded "0" since they are deprecated" ?
+
+> +	 */
+> +	int cpu_slabs;
+> +	unsigned long free_frozen;
+>  	unsigned long deactivate_to_head, deactivate_to_tail;
+> -	unsigned long deactivate_remote_frees, order_fallback;
+> -	unsigned long cmpxchg_double_cpu_fail, cmpxchg_double_fail;
+> -	unsigned long alloc_node_mismatch, deactivate_bypass;
+> +	unsigned long alloc_from_partial, alloc_refill;
+> +	unsigned long cpuslab_flush, deactivate_full, deactivate_empty;
+> +	unsigned long deactivate_remote_frees, deactivate_bypass;
+> +	unsigned long cmpxchg_double_cpu_fail;
+>  	unsigned long cpu_partial_alloc, cpu_partial_free;
+> -	int numa[MAX_NODES];
+> -	int numa_partial[MAX_NODES];
+>  } slabinfo[MAX_SLABS];
+
 -- 
-2.43.0
-
+Cheers,
+Harry / Hyeonggon
