@@ -1,120 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB9F46D566;
-	Mon, 28 Sep 2026 08:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C20846D545;
+	Mon, 28 Sep 2026 08:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582722; cv=none; b=iZB3jVaeee8eREwt9AZVrdKqJmYDGAFHSzjcKR4CqeShoea+wjG2THUHl7eqboR1G8f4c46BKlzF1ZhVA+74r4YqoA7o5TJ4T7ID0INDYzrxChlVNLpY/GRhlMIl7Ld4Qtty/BpnXk7sSE5MLFHxUxVFYmXCYV52f1gBz1+DaN0=
+	t=1790582732; cv=none; b=r0H07aTQusUBXmUYlBD1vN/8Dw5oRZE6gM/F7wEhMi4/QvncR86Qyrx5T4TyO35MJeQ7ZfPdqDI+cms6IyVzjJHGGVVtjR1QzRj20G14DTAYaryIKeoYIqOMAE5LpL5rSoy43SgmnWq8pnsrJgtZV0lJBI4m4D9zcuAzVbVWrQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582722; c=relaxed/simple;
-	bh=CLE1hff59NfDaPqxetHMHCxnVK9pP11wBDO1IHdaMMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eKl7d1c4QXY/cFXNn3wDFB7dDGEhPue4eFkJxhcCKTL0TJVOcsofPDkdA/FMu0WJb7JYYjeTHR/i7SJftohTHACvh8hs0/l7BnZDTP2JT6gx0T7rEgClpIkbHd/7F8wZWa/3EwLcS/NCPBygSq484q/zcAT6Oe/A/ugRo3CCepI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuJs//tE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790582732; c=relaxed/simple;
+	bh=ZoYd2sdPRi7PYnEG0IlvFGd13KoF/WZCPDZleG3Y+cw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sPciPMFOHLYbymUNmASeATCc/HhIjea0auD4/I/9gydTZeKucn6td72y5MoPQHWIwlzIUrpJuk9D8p3HmbGqRLk363txUCx+VBK/Gj5t0nb6XZORFcXZCJxxweFTh/NFAeMIUbhB77y433Y6yyL70kw6M5rozfqJmwCsABG2nbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GZFpwPFl; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuJs//tE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488351F00898;
-	Mon, 28 Sep 2026 08:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790582720;
-	bh=kMSliRECiOyVzb7mmb2oyO8TWYL1SDNQtZEnFZXRVXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RuJs//tEi1R/HBgjPWiAUFaTLnXlfDfe2P6LxrN7edYXtiO0bNjvXpxw1VRRpR5aU
-	 nsw+I38VALfol5uxnd7Q+UqnzAGnoJMzdqD1noWbcJ9YqeZ3BUvQmo7ozUyQBm+ZzE
-	 7mLgR3D7RweZgFeUCsq1XhluBv63VJkDVuFJVOvxixWWi9eR4cF8ndmfFceNDK7mEA
-	 vTpBGohEtqHCSI0GQSCRihiiOxzM4tVcPfALAa1HL6Eea/uggDKLKJOpqBQ6smvquA
-	 Z+GrqblCbwZzpfW1QAR7R2rubIie8wv60HNxE+zSjA4I1Hzv4lfCOkK075KlKeZsBZ
-	 RK3cbAn1TaQOw==
-Date: Mon, 28 Sep 2026 10:05:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: tze.yee.ng@altera.com
-Cc: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Tanmay Kathpalia <tanmay.kathpalia@altera.com>, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: mmc: cdns,sdhci: add SD6HC DDR50
- read-path tuning
-Message-ID: <20260928-thoughtful-firefly-of-science-7fe3f5@quoll>
-References: <cover.1790074790.git.tze.yee.ng@altera.com>
- <25649477d9967bb04b12c6e60b0ee76443f356af.1790074790.git.tze.yee.ng@altera.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GZFpwPFl"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 72046169E;
+	Mon, 28 Sep 2026 01:05:24 -0700 (PDT)
+Received: from [10.57.12.79] (unknown [10.57.12.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 949CB3F86F;
+	Mon, 28 Sep 2026 01:05:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790582727; bh=ZoYd2sdPRi7PYnEG0IlvFGd13KoF/WZCPDZleG3Y+cw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GZFpwPFl7ovI3rDNT/2mn4+w0i4sXv4nTmdNKJvdtEoZbukSO66jtaCM+F9CsbXdb
+	 ZQvnQ+cf9fHw3YVxkeX+xcls+suLYnK7BcC2DCPEW+ZevQmsUlgnB7EwYSwF+Huj6z
+	 s6cD2Zr1h9Xg0ltB6Jac4THbkfTIu9l/lUMJZmoE=
+Message-ID: <88bd2049-d25b-4767-81f8-83c99749fd11@arm.com>
+Date: Mon, 28 Sep 2026 09:05:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <25649477d9967bb04b12c6e60b0ee76443f356af.1790074790.git.tze.yee.ng@altera.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
+Content-Language: en-GB
+To: Marc Zyngier <maz@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-3-suzuki.poulose@arm.com> <arZQCiF3iqp9eCsy@arm.com>
+ <f7662116-ef8e-4f97-90a4-07173236617b@arm.com> <87v77r2ga5.wl-maz@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <87v77r2ga5.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 07:12:37PM +0800, tze.yee.ng@altera.com wrote:
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
+On 27/09/2026 10:29, Marc Zyngier wrote:
+> On Fri, 25 Sep 2026 16:23:49 +0100,
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>>
+>> On 25/09/2026 11:42, Catalin Marinas wrote:
+>>> On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
+>>>> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+>>>> index 32102c3912fa7..e8b29983b0021 100644
+>>>> --- a/arch/arm64/kernel/cpufeature.c
+>>>> +++ b/arch/arm64/kernel/cpufeature.c
+>>>> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
+>>>>    static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+>>>>    	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
+>>>>    	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
+>>>> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
+>>>
+>>> I think we end up exposing this to (any) guest unless we mask it out in
+>>> sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
+>>
+>> Valid point. I personally don't think this matters. The FEAT_RME alone
+>> is not useful or harmful. I could mask it in KVM as a safe bet.
 > 
-> DDR50 has no CMD19 tuning, so the SD6HC read path must be centred by
-> static, board/SoC-characterised PHY settings. Add three optional SD6HC
-> properties:
+> Is there *any* case where the guest (realm or not) should know it is
+> running on RME enabled HW? I can perfectly imagine that someone would
+
+We don't do that for Linux Guests at least. The Realms rely on the 
+presence of RSI ABI.
+
+Cheers
+Suzuki
+
+
+> implement something looking like CCA on non-RME systems.
+
+
 > 
->   - cdns,ddr50-read-dqs-delay:   DLL_SLAVE[7:0] read-DQS delay that centres
->     the read eye (0-255).
->   - cdns,ddr50-use-lpbk-dqs:     DQS_TIMING[21] read-DQS source
->     (0 = phony, 1 = loopback).
->   - cdns,ddr50-phony-dqs-timing: PHY_CTRL[9:4] phony DQS assertion timing
->     (0-63) that positions the fabricated strobe relative to the returning
->     DDR data; not produced by the Cadence timing calculation.
+> 	M.
 > 
-> All three are disallowed for the SD4HC variant.
-> 
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-> ---
->  .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 27 +++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
-> index d5ea2717904b..df86872603d0 100644
-> --- a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
-> @@ -74,6 +74,33 @@ properties:
->      maximum: 1000
->      default: 24
->  
-> +  cdns,ddr50-read-dqs-delay:
-> +    description: |
-> +      SD6HC DDR50 read-DQS delay (DLL_SLAVE[7:0]) used to centre the read
-> +      eye. DDR50 has no CMD19 tuning, so this is a board/SoC-characterised
-> +      value. If absent, the driver default is used.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 0xff
-
-default: ...
-
-Also, look at the existing bindings. How are the delays represented? ps.
-Why is this different?
-
-
-> +
-> +  cdns,ddr50-use-lpbk-dqs:
-> +    description: |
-> +      SD6HC DDR50 read-DQS source (DQS_TIMING[21]): 0 = phony DQS,
-> +      1 = loopback DQS. If absent, the driver default is used.
-
-Then this is just type: boolean
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
-> +
-> +  cdns,ddr50-phony-dqs-timing:
-> +    description: |
-> +      SD6HC DDR50 phony DQS assertion timing (PHY_CTRL[9:4]). Positions the
-> +      fabricated read strobe relative to the returning DDR data; the correct
-> +      value depends on the board's SD flight time and is not produced by the
-> +      Cadence timing calculation. If absent, the driver default
-> +      (REBAR_PULSE_CYCLES-1) is used.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 0x3f
-
-Best regards,
-Krzysztof
 
