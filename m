@@ -1,103 +1,87 @@
-Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97D3A3644DE;
-	Mon, 28 Sep 2026 06:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.248.49.38
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBD836B91C;
+	Mon, 28 Sep 2026 06:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578279; cv=none; b=SkrgAXSSMGRYhzIu7gx0Fvk5w5OPvx20w1IYSGh8ZMnD6k40EulkNAmUJhfwcXlMLSyGsCJ1NrghfoRUhojU1Eg9wAhMZv/5CmdhTWRpWbs18izLcq34tBs+kcsgoXWa0WZfpDeE6cBRuxlxb3AeuKQKe0FAzkIcQINH6R3I68w=
+	t=1790578286; cv=none; b=FcSLKgS9D8eC7Sw4doiz3TTVy/PVZPZtfHu5AuZztE+igW20m8ttvQtVdcW/HM6HQjhnsh+kchiTZ6TqFhrMm29Mo6ZLqL+GGVMb5SboCt4vHr8vxIe5sz+ekwxfkEm0ZzoUfJaBpv/1YG7YLwUP/NCE0jqS59+7yZYj3JuWM0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578279; c=relaxed/simple;
-	bh=vdhUNmVV0tAGz5Sa/G9YfcZcTTk9SfHwyuBGytisO88=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pk1/KJQUQqR0UhRfoLbxUJ6XVFS+XHPIA346jXl6RDTiizZje7Kl7CQvq8higkKHoFi7hENQecxjn7FOoQRgfe6y13p2ZOGlVO0rD4wn7fXxzpLNqtPN5oayKrg9Q1gAKAcbsengZUyT96JTUPG6lbAcRyQt6atpwpEUTcDCAaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com; spf=pass smtp.mailfrom=socionext.com; arc=none smtp.client-ip=202.248.49.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
-Received: from unknown (HELO iyokan3-ex.css.socionext.com) ([172.31.9.54])
-  by mx.socionext.com with ESMTP; 28 Sep 2026 15:51:09 +0900
-Received: from mail.mfilter.local (mail-arc01.css.socionext.com [10.213.46.36])
-	by iyokan3-ex.css.socionext.com (Postfix) with ESMTP id 3ED5620914A4;
-	Mon, 28 Sep 2026 15:51:09 +0900 (JST)
-Received: from iyokan3.css.socionext.com ([172.31.9.53]) by m-FILTER with ESMTP; Mon, 28 Sep 2026 15:51:09 +0900
-Received: from [10.213.138.107] (unknown [10.213.138.107])
-	by iyokan3.css.socionext.com (Postfix) with ESMTP id E9B2310A019;
-	Mon, 28 Sep 2026 15:51:08 +0900 (JST)
-Message-ID: <faa1027c-7279-462a-9c6f-f03354b9cfd3@socionext.com>
-Date: Mon, 28 Sep 2026 15:51:09 +0900
+	s=arc-20240116; t=1790578286; c=relaxed/simple;
+	bh=0yzF/FMWkf25zDuDPn+6mPi3d1Mnv0EK7qW9Qss+hB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GpCZ3aaSBJ16g5V/nUGdZHdEJedunDaRROh4zTaINIqpodFtNBXSLqUyK2XpvmzXhA+1bTCCTcwQ02sAhVGWlaNvrSzcsjcpya7g2oYI8RPIaqXZzvkcL+jsMP/a6BqtgwVAJjJDleNkqOWMvk/XquBHC3GIoJuPLn0Udy3vOKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mZVxIMqa; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mZVxIMqa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=sP
+	jQQ3i3HZlk8RHhJOLbP3Ox7Qn+1Lsq2zbmXgJgnk0=; b=mZVxIMqa13JQdUi00S
+	xSrMqILeEgncEDV4aUirh6OiRBrEiEzfeCTGSqOlwh+oYAStc73aDrF0P0klhYAg
+	YqgYYUUt/aNpTQRlie6LYqgGsmn3VMKdID9YRiIfbjdg4XoqhL7Toe827wsFlbSW
+	PVZl61q8Z46xFsErcPKgdI2dU=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338lcDrpqNj3_BA--.62282S3;
+	Mon, 28 Sep 2026 14:51:10 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Kaixuan Li <kaixuanli0131@gmail.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] can: isotp: check the frame type, not just the length
+Date: Mon, 28 Sep 2026 14:50:52 +0800
+Message-ID: <20260928065053.1750765-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920035626.2581040-1-kaixuanli0131@gmail.com>
+References: <20260928065053.1750765-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Malathi A <malathi.a2000@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260917040511.103232-1-malathi.a2000@gmail.com>
- <97e4ab26-b147-4cf4-97f9-307903f14e61@socionext.com>
- <arUvJyvChXXcasSu@ashevche-desk.local>
- <3ea1f574-ddb5-46a6-9bc1-7a8ea84c54bd@socionext.com>
- <arZ5KxIp55qA6UA7@ashevche-desk.local>
-Content-Language: en-US
-From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-In-Reply-To: <arZ5KxIp55qA6UA7@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD338lcDrpqNj3_BA--.62282S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr1DZF1kJFW5Cry3urWfKrg_yoW8GFWkpF
+	98KasakrnYvF93Cr9ru3WxtryFk34kJr10yFn8tr1jywn09r4vyFWrKa4YgayUCwsav340
+	gw4Yq3s8Ca1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRrMa8UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5B7jWWq6Dl77GQAA3i
 
-On 2026/09/25 22:37, Andy Shevchenko wrote:
-> On Fri, Sep 25, 2026 at 08:32:20PM +0900, Kunihiko Hayashi wrote:
->> On 2026/09/24 23:09, Andy Shevchenko wrote:
->>> On Thu, Sep 24, 2026 at 06:07:37PM +0900, Kunihiko Hayashi wrote:
->>>> On 2026/09/17 13:05, Malathi A wrote:
-> 
-> ...
-> 
->>>> I'm a bit concerned about the error path in uniphier_uart_resume().
->>>> The clock may have been disabled in uniphier_uart_suspend(), and
->>>> clk_prepare_enable() can fail when trying to enable it again.
->>>>
->>>> In that case, wouldn't devres try to disable an already disabled
->>>> clock on detach?
->>>
->>> Isn't there is a guarantee that the .remove() is called with PM
-> runtime on
-> 
-> After reading a code of driver core I see that this is the opposite
-> actually.
-> The PM runtime might be off.
-> 
->>> and get, meaning it's called with the enabled clock? But if not the
-> case,
->>> we might use PM runtime force operations (resume and suspend in the
->>> respective cases.
->>
->> My concern was just the case where clk_prepare_enable() in the system
->> resume callback fails, leaving the clock disabled before devres cleanup.
->>
->> This driver currently only uses SET_SYSTEM_SLEEP_PM_OPS(), so I wasn't
->> considering runtime PM here.
-> 
-> So, in such a case how do you see the scenario when system is resumed
-> (Right?
-> Otherwise we can't do anything, like detaching driver from the device.)
-> and
-> clock is disabled?
+Hello Kaixuan,
 
-Ah, I understand your point. I was assuming that the driver could later
-be detached after uniphier_uart_resume() failed, leaving the clock disabled.
+I hit the same collision from a different direction and independently
+arrived at the same fix, so:
 
-If that sequence cannot happen after a failed system resume, then my concern
-doesn't apply. Thanks for pointing this out.
+Reviewed-by: Quchaosheng <quchaosheng000406@163.com>
 
-In that case, I have no further concerns about the use of
-devm_clk_get_enabled() here.
+Two things I checked that may be worth having on the record, since they
+are the questions this patch is likely to attract.
 
-Thank you,
+First, that isotp really is the only gap, so it does not need to grow into
+a series.  I went through the other places that consume a CAN skb without
+looking at its type.  bcm_rx_handler() and can_can_gw_rcv() do gate on
+can_is_can_skb() / can_is_canfd_skb(), and those two helpers carry a
+second condition on the frame length field
+(include/linux/can/skb.h:93 and :101).  On a CAN XL frame that field is
+cxl->flags, and CANXL_XLF alone is 0x80, which is already past
+CAN_MAX_DLEN and CANFD_MAX_DLEN, so an XL frame is rejected there before
+its length is ever used.  So the collision is specific to isotp.
 
----
-Best Regards
-Kunihiko Hayashi
+Second, nothing on the transmit side can produce it.  isotp always builds
+its frames at so->ll.mtu and validates ll.mtu against CAN_MTU / CANFD_MTU
+in the setsockopt path, so the frame that passes the old length-only test
+can only come off the wire.
+
+Your A/B table is what convinced me, by the way - case C in particular is
+the right control, since it shows the EBADMSG already existed for a
+malformed Classic FC from any sender.  Nothing becomes reachable that was
+not reachable before.
+
+Thanks for fixing this,
+Quchaosheng
+
