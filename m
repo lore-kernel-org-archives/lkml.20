@@ -1,79 +1,107 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E783921FB;
-	Mon, 28 Sep 2026 05:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C763B1ED0
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790574391; cv=none; b=TyDqJ6ivly8YKA0O3bDP9AN6oRX5Y+/uwW8eVRUptTQE4Zot3hLS5KaIQfUnXMa0eztREsMW8SB2K7nA9apY8gbKRJx7hbzfndcXUfLunbdoN0p3rtPyTTxtHFNKuG5HlQcb8rAyjtidPZ4p9egb7OMEhk1Ipz+PSBVac364Ksc=
+	t=1790574511; cv=none; b=bwsHWMpM8H+yJtsxUuuXpjjZqNMrtZo8xasKnxm8JKROblpSsRqSD3T3OoptAb8UfuO5pOntQOrIYPoNEFcpehQeEemfyN7P14a5qnfLI/zZrqk9YczhJuCMFgdwSij/4/gWTmZ3dv5yktyY5Gd3V2B8IX9kc3ndR/E4InJXYwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790574391; c=relaxed/simple;
-	bh=ftFZ2HnEv4SL/A0+ikOrSM2KcTXY+Wyg5ROgkIxtHkY=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID; b=HB8pVfNScwmLYDp3wZ2nGLS5AqEtOHdiQZdqGzXXEVNv/O78v+4mxpwxDA5jcFQ4/fEA0HLmZUYrttxMWyGq7rG6gAfFrrqVfycYNSWPZtrORED9dharOG9MD0Izg6L9syY6LYpAkm5onQy8z9jl0EZqVacVR+C57rJf00XOBvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=IBijV9y7; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790574511; c=relaxed/simple;
+	bh=iMYszCd2Q2GkfRGunaTTlbLJABOPePOXot6uhYku9yA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lFo/a9k1Frn9Zxi2TdmCUkKBFbRYCm4PNwCCVU/xOEN9oy0yHCASbc8uWS/orUM/NP9fvdNkTOnuwYcrdMGLjOFaMzCE4XJUHfxJUMsBXNwF00X0i9uJdqeZ0LBYnf0L9SB2QD+AflMTeZ98myiyeJ7pP/rOSdlaYCUN0SJYSQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bxSu473o; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="IBijV9y7"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790574373; h=Content-Type:MIME-Version:From:To:Subject:Date:Message-ID;
-	bh=ftFZ2HnEv4SL/A0+ikOrSM2KcTXY+Wyg5ROgkIxtHkY=;
-	b=IBijV9y7rmUpXicbdAy87370TQRn5zcEGoenbyIzudyS/wSnAEWr3nqZTA1w7Z43lSpHfDZXqHDunoBs0naSPtZnGZnWIjOv4RSBwHS0AduCkxqrkOZI3H3QkXquVBw0eBH3hl6GFKhtF7LAultOO2vZTFwHBhz8XJXm5GPmbdc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fuwenxin@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XBiHlhz_1790574372;
-Received: from t50b09067.sqa.eu95(mailfrom:fuwenxin@linux.alibaba.com fp:SMTPD_---0XBiHlhz_1790574372 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 13:46:13 +0800
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bxSu473o"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccd5cf02so1329181a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790574505; x=1791179305; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kWV/wHWLQfhp6L6mSocYwp2pbMQ9zmUarPxSrrFDYg8=;
+        b=bxSu473ocLXfE6sENO6UDQCfPbZYu9DTkKv7SzG0U2ent1wE55DvXVZrKbPwgxoTSi
+         HFx73BSqIiVKSUS7gxUnPTz/Kkc68NvdKaga6clGtTJ/PFcrNDAoFOz9HrToRPEuY7JB
+         w5SzVZBiHKy3ICHS569p+1/EZqyvkGv23nnzc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790574505; x=1791179305;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kWV/wHWLQfhp6L6mSocYwp2pbMQ9zmUarPxSrrFDYg8=;
+        b=Yletr3aae3fj69IAAaOyc3LwWPZ18pgpCz3MltllGi5zK6KgfWNKWJGM7rcFq4/S/0
+         hZTbXzw1w2dJgR2SDokbQ59ng9a2vOUeJb1miywmDxN5CTR1/LQjv6Z/zBp1/vX+bU8G
+         2ZkgI5B5tZeapSg7IYrDaJfj/Zt7oenynZS4/HmU+TQbqWmdBfBYSCpUkphj1TURAsJE
+         y6TZBfJhllxgt70xWKSXiQ7nwEUdQjbrUni2hR3W5AdP6w/NUrNA76SHRvQUp4njgX+Q
+         TM8h2a58lCv/YDreR6ZTL7c/5Ca3NrRKZ6zRn9Yiujx96WfpsWoVsEepdm/aDWYWNzDD
+         lKjw==
+X-Forwarded-Encrypted: i=1; AKwUvByJjk71n5ukRftts09GodnZd5SihdQK5X9WA3L0fy0ATldAHkXNzkUhC2eAUFPCm30lpGBorEry1ndsEQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhZ1eMu+991ZfsR8Q7qZI3vkiRs4g98UD0C0v35PNauNhiibzd
+	ZWWhKpmBfu90kAmVFgbUnMjdvindffqtNbiouHQfabaqYdN3mxLs6HrgsKpqSXlv8A==
+X-Gm-Gg: AYBFou3B4Tcski99rW99G8Dol3cOY9WOSPXGaafJ6cBNN+ho2XIi0QNNTKbtLIXoJ4J
+	GmJtjo0mvKJQYVxIOUiVUEyeY/raY9eoYadyh/+EHKv8pu9G5zgUT3LRKy5qpZLxB2ImBa4zahh
+	x9mbsE2eG2s+ya50EjOVoNRfytJ2xAPshM4MMK1OqCaWzSQvbAIVKjcHTfoOynXv8JQLwuGj6aN
+	RqqQ3paVA/2AlJUhIhyQg7RKYtuCJM+8KJw5JgFkhnghkR5YFfuTCDT+zNSPnH4v/JYL7Iq4I+J
+	kIzsuyi8FedowGHoh85zzqtlIRqrCEVlBEXXJ1jwIc4PB0ZWuaOtLMhH08VhoUiH0wMVxmOlI4Q
+	uClc1XGVAZ0pHVqWev5/TJrWxFXc6FC/wSunethvAhzRx5KshDOR81YPfvnr3uD5Ou2JRQJAIPU
+	v7NzsaTdvW9NYzOn4RbBMNIo4xUgp9CZoCOpnCoSo456diGLVB6QMq2T2PXkGxXKNdfrag8cKPQ
+	Wz6Eo5Qms/SuhsRXTDEsiyMOy/IzAt7I9ycOIGI/oo9BcTN9A==
+X-Received: by 2002:a17:90b:3888:b0:3a0:cc33:2287 with SMTP id 98e67ed59e1d1-3a0cc3324ccmr6256726a91.6.1790574505299;
+        Sun, 27 Sep 2026 22:48:25 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:fdbe:318b:98fe:bd96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bec30aaasm17853889a91.15.2026.09.27.22.48.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 22:48:24 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:48:15 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Phillip Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, 
+	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH RFC 3/9] lib/lz4: add the build environment for the
+ vendored sources
+Message-ID: <arn9tK5MxxxfH7OW@google.com>
+References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+ <CGME20260925113456eucas1p136c3cd1f08be7201ad6b3f7b0e8ff02d@eucas1p1.samsung.com>
+ <20260925-lz4-vendor-upstream-v1-3-1c7ffbe21c4b@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Wenxin Fu <fuwenxin@linux.alibaba.com>
-To: acme@kernel.org
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- irogers@google.com, weilin.wang@intel.com, adrian.hunter@intel.com,
- alexander.shishkin@linux.intel.com
-Subject: [PATCH] perf intel-tpebs: Stop record process before deleting the
- last entry
-Date: Mon, 28 Sep 2026 13:46:12 +0800
-Message-ID: <179057437287.652774.7332965203936908557@t50b09067.sqa.eu95>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-lz4-vendor-upstream-v1-3-1c7ffbe21c4b@samsung.com>
 
-ZXZzZWxfX3RwZWJzX2Nsb3NlKCkgZGVsZXRlcyB0aGUgcmV0aXJlLWxhdGVuY3kgZW50cnkgZnJv
-bQp0cGVic19yZXN1bHRzIGJlZm9yZSBjYWxsaW5nIHRwZWJzX3N0b3AoKS4gU2VuZGluZyB0aGUg
-U1RPUCBjb21tYW5kCnRlbXBvcmFyaWx5IGRyb3BzIHRwZWJzX210eCBpbnNpZGUgdHBlYnNfc2Vu
-ZF9yZWNvcmRfY21kKCksIGFuZCBpbgp0aGF0IHdpbmRvdyB0aGUgc2FtcGxlIHJlYWRlciB0aHJl
-YWQgbWF5IHN0aWxsIGJlIGRyYWluaW5nIHNhbXBsZXMKZmx1c2hlZCBieSBwZXJmIHJlY29yZCBh
-ZnRlciBTVE9QLiBXaXRoIHRoZSBlbnRyeSBhbHJlYWR5IGdvbmUsCnRwZWJzX3JldGlyZV9sYXRf
-X2ZpbmQoKSBmYWlscywgcHJvY2Vzc19zYW1wbGVfZXZlbnQoKSByZXR1cm5zCi1FSU5WQUwsIHRo
-ZSBzZXNzaW9uIGFib3J0cyBhbmQgcGVyZl9zZXNzaW9uX19kZWxldGUoKSBjbG9zZXMgdGhlCnBp
-cGUgcmVhZCBlbmQgZWFybHkuIHBlcmYgcmVjb3JkIHRoZW4gZ2V0cyBFUElQRSBvbiBpdHMgZmlu
-YWwgc3Rkb3V0CndyaXRlcyBhbmQgaXMga2lsbGVkIGJ5IFNJR1BJUEUgYmVmb3JlIHByaW50aW5n
-IGl0cyBzdW1tYXJ5IGxpbmVzLAptYWtpbmcgcGVyZiB0ZXN0ICJJbnRlbCBUUEVCUyBjb3VudGlu
-ZyBtb2RlIiBmbGFreSAofjMwJSBmYWlsdXJlCnJhdGUgd2l0aCAncGVyZiBzdGF0IC1lIGNhY2hl
-LW1pc3NlczpSIC0tcmVjb3JkLXRwZWJzIC1hIHNsZWVwIDAuMDEnCmluIGEgbG9vcCBvbiBhIDE5
-Mi1jb3JlIFhlb24gUGxhdGludW0gODQ3NUIpLgoKU3RvcCB0aGUgcmVjb3JkIHByb2Nlc3Mgd2hp
-bGUgdGhlIGxhc3QgZW50cnkgaXMgc3RpbGwgb24gdGhlIGxpc3Qgc28KdGhlIHJlYWRlciBjYW4g
-bWF0Y2ggYW5kIGRyYWluIHRoZSByZW1haW5pbmcgc2FtcGxlcywgYW5kIG9ubHkgZGVsZXRlCnRo
-ZSBlbnRyeSBhZnRlcndhcmRzLgoKRml4ZXM6IDhkYjVjYWJjZjFiNiAoInBlcmYgc3RhdDogRm9y
-ayBhbmQgbGF1bmNoICdwZXJmIHJlY29yZCcgd2hlbiAncGVyZiBzdGF0JyBuZWVkcyB0byBnZXQg
-cmV0aXJlIGxhdGVuY3kgdmFsdWUgZm9yIGEgbWV0cmljLiIpClNpZ25lZC1vZmYtYnk6IFdlbnhp
-biBGdSA8ZnV3ZW54aW5AbGludXguYWxpYmFiYS5jb20+Ci0tLQogdG9vbHMvcGVyZi91dGlsL2lu
-dGVsLXRwZWJzLmMgfCAxMCArKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25z
-KCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvdXRpbC9pbnRlbC10
-cGVicy5jIGIvdG9vbHMvcGVyZi91dGlsL2ludGVsLXRwZWJzLmMKaW5kZXggYjQxMTcxYjVkZjc3
-Li5lN2EwMTE4YmM1ZTQgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3BlcmYvdXRpbC9pbnRlbC10cGVicy5j
-CisrKyBiL3Rvb2xzL3BlcmYvdXRpbC9pbnRlbC10cGVicy5jCkBAIC03MTEsMTEgKzcxMSwxNSBA
-QCB2b2lkIGV2c2VsX190cGVic19jbG9zZShzdHJ1Y3QgZXZzZWwgKmV2c2VsKQogCW11dGV4X2xv
-Y2sodHBlYnNfbXR4X2dldCgpKTsKIAl0ID0gdHBlYnNfcmV0aXJlX2xhdF9fZmluZChldnNlbCk7
-CiAJaWYgKHQpIHsKKwkJLyoKKwkJICogU3RvcCB3aGlsZSB0aGUgZW50cnkgaXMgc3RpbGwgdmlz
-aWJsZSBzbyB0aGUgcmVhZGVyIHRocmVhZCBjYW4KKwkJICogZHJhaW4gc2FtcGxlcyBmbHVzaGVk
-IGFmdGVyIFNUT1A7IG90aGVyd2lzZSBpdCBhYm9ydHMgdGhlCisJCSAqIHNlc3Npb24gYW5kIGNs
-b3NlcyB0aGUgcGlwZSwga2lsbGluZyBwZXJmIHJlY29yZCB3aXRoIFNJR1BJUEUuCisJCSAqLwor
-CQlpZiAobGlzdF9pc19sYXN0KCZ0LT5uZCwgJnRwZWJzX3Jlc3VsdHMpKQorCQkJdHBlYnNfc3Rv
-cCgpOwogCQlsaXN0X2RlbF9pbml0KCZ0LT5uZCk7CiAJCXRwZWJzX3JldGlyZV9sYXRfX2RlbGV0
-ZSh0KTsKLQotCQlpZiAobGlzdF9lbXB0eSgmdHBlYnNfcmVzdWx0cykpCi0JCQl0cGVic19zdG9w
-KCk7CiAJfQogCW11dGV4X3VubG9jayh0cGVic19tdHhfZ2V0KCkpOwogfQotLSAKMi40My43Cgo=
+On (26/09/25 13:27), Michal Wilczynski wrote:
+[..]
+> +
+> +/* LZ4_decompress_fast() and LZ4_resetStream() are still kernel API. */
+> +#define LZ4_DISABLE_DEPRECATE_WARNINGS 1
+
+Is this upstream code?  As far as I understand it, LZ4_decompress_fast*()
+deprecated upstream and are strongly discouraged.  Do we want to suppress
+deprecation warnings?
