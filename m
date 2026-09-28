@@ -1,63 +1,65 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF5545D5D5;
-	Mon, 28 Sep 2026 07:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3D945FFD2;
+	Mon, 28 Sep 2026 07:01:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578897; cv=none; b=S/20YTdRpBOGdeBxMGhjncE4wPu9utyUnSnWBg/ST0DigJiptf/Z7+pD1dk62epVBpXADQNfMxNxxT3BS3UtsyuaaYtpcsmtqhlHWbactsJk2JFkhj8eN9Hjn3qOmZim6rSd3uGKnk6q/mvxaEbcsAW7ZXOUYfDffMrQFlX5lAk=
+	t=1790578897; cv=none; b=cN7eGtW8AEl0j9WSh0R3jikhTquUMHVbj91H/cZYOdGihvCF3WEGZTKFayqve9RlINTNlszwy1pXBgbCIoXK4RpVkAImT5y2C08kL8w+hd/BU4dhB6Lf3GnD4Zyrhq5Z4rHXLSLz+VJrK7hdE4F0j+wyeUScTF5sLE0SXPMyDAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790578897; c=relaxed/simple;
-	bh=sadE27guixpeVjX2Cr2tWHDP1wyLjkmlMfhUTPlepgM=;
+	bh=01WjWi6OQPQ4Sltv8boNZGN9o1pfsVOaL8S8/H2CfUA=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=XECjN4wViaDxTkG3znqLfzD0mzsCmhUehgf13wdFE00z/s85JHhrLKrrMnYajmG5uG0KUwoez6OtUhaBSrjFGLXzCwumdSfURS6btap2fylqtRYTqTDHQrITcQwMK/zU5l4x1DMpzg6Uo5vqJOsxgxi6D+4uxD7649cuPN1evns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TuwSLp78; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0yqt5HPx; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=Zqv3O7xLVTpvJ5L/ddXTZRlvHaGb4SeON/QG32k0ThrGhImU5mtY/P56Ih38d5kfdhYiHz1dI/jPpSCluRgmgHKMx7+wrPY5OUgaqZg1D2xWOMrX54OxUy/OogEFDv9BzCcHLFUmT9Zm/rrcIzTvuJ9vlXmEKo8nufwgE9FB6fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qRkCIvWy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yDFzqLMX; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TuwSLp78";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0yqt5HPx"
-Date: Mon, 28 Sep 2026 07:01:31 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qRkCIvWy";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yDFzqLMX"
+Date: Mon, 28 Sep 2026 07:01:32 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790578893;
+	s=2020; t=1790578894;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zZLzGVqgKTf3QWn/I2KPazBMXraZO94UeWJR/EtpIpM=;
-	b=TuwSLp78ry4Nwq+WkIbUxiFrFgH+FpPj7KcpJY8uNQjmMVyStS27Xj0qoLvQkyF8Po10Ad
-	45cR+2ApKTOVV+xZV2twuIjRhI+MXk9zuTC7kCZ5CPGYFxrXKTSBijwFhZ4itK1LNsK06X
-	onHR3PXnGanXALPjwCnloFzNhYxNzGoN4qszDj++k3HWbfefKRz5IFe/Zys7M0BzXnID1n
-	IcbdOIDyCP1c4JZdRIXFzeBQkck4KHiFHxV0eHiM3ufJNDK0VYV7c1CA/3PGt2xqUaIK5v
-	nVqJkvZHrATwU28Kkb2lxFeRki0uLhLxJ9evjieklTvpCKz5qshiqH7OAaFwOw==
+	bh=fCiPp2A94KvjKHCXpQP9LoUnQOMUJEotPICm4uipelY=;
+	b=qRkCIvWydp2wCJifBMxU+/Gr+3X8j2h+EdXdX1orWt88F6mvVMUckTjcVHddvvEw0V9h15
+	z8zdURBzspCoBrafgN8GBvEZ+jy2ZknXXJy4E/NmDyMFBA1xSSreVXV4B385NEqGvBgQ6Q
+	IWzbOXMvKWbxh2MZw0GfPaIaTdKUIVCB5JrsTakw61y/Pa2owqAkbtg7RHREk3zVOmZU2w
+	pCVaOAXcn18p/AGiVLRsJTXFbza2Ghl/eBYzVuTAbqFXqztF39gLwRP5c/Q/gsxLpGqrjI
+	t3uRHRJZM9PBtQYhIOtmmsG75f45bgk4JIaAqeIsz2aadF6WcWlcf90k34Sf0w==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790578893;
+	s=2020e; t=1790578894;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zZLzGVqgKTf3QWn/I2KPazBMXraZO94UeWJR/EtpIpM=;
-	b=0yqt5HPx6vzNj+rsdIYuMFhj5mSth0ReJJF3y4mx+AH8rE2I5y8kH3JuwCjgsdzE7d8+yw
-	yiEpS9IS+kHAKdBw==
+	bh=fCiPp2A94KvjKHCXpQP9LoUnQOMUJEotPICm4uipelY=;
+	b=yDFzqLMXYoWd/vcgMF07E0s1WBDVLRNGZ5VJ9kIMGCBouiEILXT+KTnh6OLQqVf/b8u6/l
+	/beDkfL8w7FycrCA==
 From: "tip-bot2 for Shrikanth Hegde" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] cpumask: Introduce cpumask_intersects_and
+Subject: [tip: sched/core] sched/cputime: Add kcpustat_field_total helper
 Cc: Yury Norov <yury.norov@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Yury Norov <ynorov@nvidia.com>, Mete Durlu <meted@linux.ibm.com>,
+ Frederic Weisbecker <frederic@kernel.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260928053728.797539-3-sshegde@linux.ibm.com>
-References: <20260928053728.797539-3-sshegde@linux.ibm.com>
+In-Reply-To: <20260928053728.797539-2-sshegde@linux.ibm.com>
+References: <20260928053728.797539-2-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179057889120.3910103.8328955221740142956.tip-bot2@tip-bot2>
+Message-ID: <179057889285.3910103.14197792731457052758.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,138 +69,102 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     cfb463b7172dca2f29b2221b71b54890f268e3fb
-Gitweb:        https://git.kernel.org/tip/cfb463b7172dca2f29b2221b71b54890f26=
-8e3fb
+Commit-ID:     a8d0854a76a876ea474e17322acb680716a09da2
+Gitweb:        https://git.kernel.org/tip/a8d0854a76a876ea474e17322acb680716a=
+09da2
 Author:        Shrikanth Hegde <sshegde@linux.ibm.com>
-AuthorDate:    Mon, 28 Sep 2026 11:07:17 +05:30
+AuthorDate:    Mon, 28 Sep 2026 11:07:16 +05:30
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Mon, 28 Sep 2026 08:44:40 +02:00
 
-cpumask: Introduce cpumask_intersects_and
+sched/cputime: Add kcpustat_field_total helper
 
-Introduce bitmap_intersects_and() to determine whether the intersection
-of three bitmaps is non-empty. Unlike cpumask_first_and_and(), this
-returns immediately when an intersecting word is found and does not
-calculate the first matching bit.
+Provide a new helper function which sums up a given type of cpustat
+over a specified cpumask.
 
-Add cpumask_intersects_and() as the corresponding cpumask wrapper.
+This allows the caller's code to be simpler and avoids duplication.
+For example, subsequent patch in the steal governor use this exact
+same pattern when calculating steal time.
 
-A subsequent patch uses the helper to determine whether a task
-has a CPU that is present in its affinity mask, the preferred CPU mask,
-and task possible CPU mask.
+Number of cpus can be derived from cpumask_weight() where necessary.
 
 Suggested-by: Yury Norov <yury.norov@gmail.com>
 Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-Reviwed-by: Yury Norov <yury.norov@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Yury Norov <yury.norov@gmail.com>
-Link: https://patch.msgid.link/20260928053728.797539-3-sshegde@linux.ibm.com
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Reviewed-by: Mete Durlu <meted@linux.ibm.com>
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
+Link: https://patch.msgid.link/20260928053728.797539-2-sshegde@linux.ibm.com
 ---
- include/linux/bitmap.h  | 14 ++++++++++++++
- include/linux/cpumask.h | 18 ++++++++++++++++++
- lib/bitmap.c            | 17 +++++++++++++++++
- 3 files changed, 49 insertions(+)
+ arch/s390/kernel/hiperdispatch.c | 10 +++-------
+ fs/proc/uptime.c                 |  6 +-----
+ include/linux/kernel_stat.h      | 11 +++++++++++
+ 3 files changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
-index 7df1573..adafbcf 100644
---- a/include/linux/bitmap.h
-+++ b/include/linux/bitmap.h
-@@ -52,6 +52,7 @@ struct device;
-  *  bitmap_complement(dst, src, nbits)          *dst =3D ~(*src)
-  *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
-  *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
-+ *  bitmap_intersects_and(src1, src2, src3, nbits) Do *src1, *src2 and *src3=
- overlap?
-  *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
-  *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
-  *  bitmap_full(src, nbits)                     Are all bits set in *src?
-@@ -181,6 +182,9 @@ void __bitmap_replace(unsigned long *dst,
- 		      const unsigned long *mask, unsigned int nbits);
- bool __bitmap_intersects(const unsigned long *bitmap1,
- 			 const unsigned long *bitmap2, unsigned int nbits);
-+bool __bitmap_intersects_and(const unsigned long *bitmap1,
-+			     const unsigned long *bitmap2,
-+			     const unsigned long *bitmap3, unsigned int nbits);
- bool __bitmap_subset(const unsigned long *bitmap1,
- 		     const unsigned long *bitmap2, unsigned int nbits);
- unsigned int __bitmap_weight(const unsigned long *bitmap, unsigned int nbits=
-);
-@@ -446,6 +450,16 @@ bool bitmap_intersects(const unsigned long *src1, const =
-unsigned long *src2, uns
- }
-=20
- static __always_inline
-+bool bitmap_intersects_and(const unsigned long *src1, const unsigned long *s=
-rc2,
-+			   const unsigned long *src3, unsigned int nbits)
-+{
-+	if (small_const_nbits(nbits))
-+		return ((*src1 & *src2 & *src3) & BITMAP_LAST_WORD_MASK(nbits)) !=3D 0;
-+	else
-+		return __bitmap_intersects_and(src1, src2, src3, nbits);
-+}
-+
-+static __always_inline
- bool bitmap_subset(const unsigned long *src1, const unsigned long *src2, uns=
-igned int nbits)
+diff --git a/arch/s390/kernel/hiperdispatch.c b/arch/s390/kernel/hiperdispatc=
+h.c
+index 2172065..c21496f 100644
+--- a/arch/s390/kernel/hiperdispatch.c
++++ b/arch/s390/kernel/hiperdispatch.c
+@@ -207,16 +207,12 @@ static unsigned long hd_calculate_steal_percentage(void)
  {
- 	if (small_const_nbits(nbits))
-diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-index 4c8bb69..7c8f167 100644
---- a/include/linux/cpumask.h
-+++ b/include/linux/cpumask.h
-@@ -825,6 +825,24 @@ bool cpumask_intersects(const struct cpumask *src1p, con=
-st struct cpumask *src2p
- }
+ 	unsigned long time_delta, steal_delta, steal, percentage;
+ 	static ktime_t prev;
+-	int cpus, cpu;
++	int cpus;
+ 	ktime_t now;
 =20
- /**
-+ * cpumask_intersects_and - (*src1p & *src2p & *src3p) !=3D 0
-+ * @src1p: the first input
-+ * @src2p: the second input
-+ * @src3p: the third input
-+ *
-+ * Return: true if AND of the three cpumasks is non-empty,
-+ *	   otherwise false
-+ */
-+static __always_inline
-+bool cpumask_intersects_and(const struct cpumask *src1p,
-+			    const struct cpumask *src2p,
-+			    const struct cpumask *src3p)
+-	cpus =3D 0;
+-	steal =3D 0;
+ 	percentage =3D 0;
+-	for_each_cpu(cpu, &hd_vmvl_cpumask) {
+-		steal +=3D kcpustat_cpu(cpu).cpustat[CPUTIME_STEAL];
+-		cpus++;
+-	}
++	steal =3D kcpustat_field_total(CPUTIME_STEAL, &hd_vmvl_cpumask);
++	cpus =3D cpumask_weight(&hd_vmvl_cpumask);
+ 	/*
+ 	 * If there is no vertical medium and low CPUs steal time
+ 	 * is 0 as vertical high CPUs shouldn't experience steal time.
+diff --git a/fs/proc/uptime.c b/fs/proc/uptime.c
+index 433aa94..53143c6 100644
+--- a/fs/proc/uptime.c
++++ b/fs/proc/uptime.c
+@@ -15,12 +15,8 @@ static int uptime_proc_show(struct seq_file *m, void *v)
+ 	struct timespec64 idle;
+ 	u64 idle_nsec;
+ 	u32 rem;
+-	int i;
+-
+-	idle_nsec =3D 0;
+-	for_each_possible_cpu(i)
+-		idle_nsec +=3D kcpustat_field(CPUTIME_IDLE, i);
+=20
++	idle_nsec =3D kcpustat_field_total(CPUTIME_IDLE, cpu_possible_mask);
+ 	ktime_get_boottime_ts64(&uptime);
+ 	timens_add_boottime(&uptime);
+=20
+diff --git a/include/linux/kernel_stat.h b/include/linux/kernel_stat.h
+index 9ca6c22..c1e8555 100644
+--- a/include/linux/kernel_stat.h
++++ b/include/linux/kernel_stat.h
+@@ -196,6 +196,17 @@ static inline void kcpustat_cpu_fetch(struct kernel_cpus=
+tat *dst, int cpu)
+ }
+ #endif /* !CONFIG_VIRT_CPU_ACCOUNTING_GEN */
+=20
++static inline u64 kcpustat_field_total(enum cpu_usage_stat usage, const stru=
+ct cpumask *cpus)
 +{
-+	return bitmap_intersects_and(cpumask_bits(src1p), cpumask_bits(src2p),
-+				 cpumask_bits(src3p), small_cpumask_bits);
++	u64 total =3D 0;
++	int cpu;
++
++	for_each_cpu(cpu, cpus)
++		total +=3D kcpustat_field(usage, cpu);
++
++	return total;
 +}
 +
-+/**
-  * cpumask_subset - (*src1p & ~*src2p) =3D=3D 0
-  * @src1p: the first input
-  * @src2p: the second input
-diff --git a/lib/bitmap.c b/lib/bitmap.c
-index ed68512..d1cb8a5 100644
---- a/lib/bitmap.c
-+++ b/lib/bitmap.c
-@@ -308,6 +308,23 @@ bool __bitmap_intersects(const unsigned long *bitmap1,
- }
- EXPORT_SYMBOL(__bitmap_intersects);
-=20
-+bool __bitmap_intersects_and(const unsigned long *bitmap1,
-+			     const unsigned long *bitmap2,
-+			     const unsigned long *bitmap3, unsigned int bits)
-+{
-+	unsigned int k, lim =3D bits / BITS_PER_LONG;
-+
-+	for (k =3D 0; k < lim; ++k)
-+		if (bitmap1[k] & bitmap2[k] & bitmap3[k])
-+			return true;
-+
-+	if (bits % BITS_PER_LONG)
-+		if ((bitmap1[k] & bitmap2[k] & bitmap3[k]) & BITMAP_LAST_WORD_MASK(bits))
-+			return true;
-+	return false;
-+}
-+EXPORT_SYMBOL(__bitmap_intersects_and);
-+
- bool __bitmap_subset(const unsigned long *bitmap1,
- 		     const unsigned long *bitmap2, unsigned int bits)
- {
+ extern void account_user_time(struct task_struct *, u64);
+ extern void account_guest_time(struct task_struct *, u64);
+ extern void account_system_time(struct task_struct *, int, u64);
