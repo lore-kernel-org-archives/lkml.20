@@ -1,96 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9974F55DA;
-	Mon, 28 Sep 2026 17:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4913A3E9A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617011; cv=none; b=CGKgCaghI5JbbXli3zIvzSTFrwBACpP91PSkBuHoXfrD4GQZ2XU/98s8ftvOjbU8LwYnOrpkyc4s9YDWBkGK2/gcNY4NLkIm9UFFJNnfmq9Cds9b2X/4IP2FJvFBs67u+EZApD9Q23JKtvJWhVZ2vCW2BFfwPF+FiRGPS0Ac6Ho=
+	t=1790617043; cv=none; b=EeVa1GUonGChmNaPOVol+pWjwKyntbPY9TYBZeMugqvY1AL1CwU3mDeG+Xy6RIc1zT0XjALhDVcXzmGoPDqxu5t9ZCysq3cASIEi3RZmOzenAcg2ksxaYnb+llpYCHnlup9QhH2pNKTVsfUMFqy4yitsljpjnWdEbfEBWvSuzvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617011; c=relaxed/simple;
-	bh=+r35xYWViHAiR7sxYREvQL9rqqd84gi08nBU3k0Auv4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mv2s9v0NHb0axb1/Fa52eIe5fCt4vYeYNxjBrWNJbpz0BlZpH19BY8iLtENV3JbWQQLt2KCxZ3y+Bos9gMw1TzqdedhCMERPUhtcaF4d42vitRUaXq1jQ3VpqPOPUrFoWhqGyLJ/ReyBvxUtGqpvTW/A8H57PrMynL6Df5o3N4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRIVjcZP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790617043; c=relaxed/simple;
+	bh=5mHtFBAg26QKU8dVMlRHFnW8y7AdoS7TKkzgUtwngWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HHxtEcaxyDRajBnYSrSAz7vg/Yb316rk8y536rpAZQmmHjciAJrUjGV+WjFkBl7ZXbEvGo5qJV4f2BKakYwu9agSkJ5njkmUi1nIdwVWiYvTnC/3ZMRjpYJxWNBmu08hPU9MPNiG1IlQ9l4A6pBhZpzk3o+Dts7ugzN8pNVdwx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2OPr/0w; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRIVjcZP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C373E1F000FF;
-	Mon, 28 Sep 2026 17:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790617009;
-	bh=+r35xYWViHAiR7sxYREvQL9rqqd84gi08nBU3k0Auv4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eRIVjcZP6kE3UK//4StpY0kavKE44Mjonn9fR2bQ5ywHPLGZY7CPKGdakw96FJB7v
-	 XI+YZlkU9mc3zKkw3tpHXI5R2ZR5F0wgAmT8jGSV8rfq/qjY3Mrlw3/qBbfO5WKuOx
-	 s2pwzzkvQ1tgzCydYhj5KU1G9S/RnWjDK1uCICxHYGJtHZRNh2ljgOgjqFSmyVgKre
-	 qv2Q2JEvM82S9mXhMPyboIDBYJYhYKAkhVWFWtA31dzU9VPBm+4Fvu0cbZEH7y0hKC
-	 /4u5L0HiD/WxZdASK4k3eJOlokcp4muwL/as5ZaRhM3Icgjaz+U5b9iPTTX2OZOJTw
-	 8GfrReHg+WMTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/12] kexec: Add a crash memaction registry
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Dave Young" <ruirui.yang@linux.dev>, "Mimi
- Zohar" <zohar@linux.ibm.com>, "Kiryl Shutsemau" <kas@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>, "Usama Arif" <usama.arif@linux.dev>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "Mark Rutland" <mark.rutland@arm.com>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Alasdair
- Kergon" <agk@redhat.com>, "Baoquan He" <baoquan.he@linux.dev>, "Matthew
- Brost" <matthew.brost@intel.com>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Ying
- Huang" <ying.huang@linux.alibaba.com>, "Serge E. Hallyn" <serge@hallyn.com>, "Jann
- Horn" <jannh@google.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, "Michal Hocko" <mhocko@suse.com>, "Nico
- Pache" <nico.pache@linux.dev>, "Jarkko Sakkinen" <jarkko@kernel.org>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "David Hildenbrand" <david@kernel.org>, "Mikulas
- Patocka" <mpatocka@redhat.com>, "Will Deacon" <will@kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>, "Gregory Price" <gourry@gourry.net>, "Harry
- Yoo" <harry@kernel.org>, "James Morris" <jmorris@namei.org>, "James
- Bottomley" <James.Bottomley@HansenPartnership.com>, "Oscar Salvador" <osalvador@suse.de>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Lance Yang" <lance.yang@linux.dev>, "Muchun
- Song" <muchun.song@linux.dev>, "Rob Herring" <robh@kernel.org>, "Paul Moore" <paul@paul-moore.com>, "Rik
- van Riel" <riel@surriel.com>, "Peter Xu" <peterx@redhat.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Benjamin Marzinski" <bmarzins@redhat.com>, "Byungchul
- Park" <byungchul@sk.com>, "Saravana Kannan" <saravanak@kernel.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Zi Yan" <ziy@nvidia.com>, "Liam R.
- Howlett" <liam@infradead.org>, "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "David Howells" <dhowells@redhat.com>, "Jonathan
- Corbet" <corbet@lwn.net>, "Catalin Marinas" <catalin.marinas@arm.com>, "Mike
- Rapoport" <rppt@kernel.org>, =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>, "Rafael
- J. Wysocki" <rafael@kernel.org>, "Mike Snitzer" <snitzer@kernel.org>, "Alistair
- Popple" <apopple@nvidia.com>, "Andrew Morton" <akpm@linux-foundation.org>, "Brendan
- Jackman" <brendan.jackman@linux.dev>
-Cc: robh@kernel.org, linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org, keyrings@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-security-module@vger.kernel.org, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, linux-mm@kvack.org, linux-arch@vger.kernel.org, devicetree@vger.kernel.org, "Eric
- Biggers" <ebiggers@kernel.org>, kexec@lists.infradead.org, conor+dt@kernel.org, linux-fsdevel@vger.kernel.org
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-1-e511e9ee2329@jaseg.de>
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
- <20260928-crash-memaction-upstream-20260921-v3-1-e511e9ee2329@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 17:36:45 +0000
-Message-Id: <20260928173645.C373E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2OPr/0w"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so19059725e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790617040; x=1791221840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vaR2wWHbg1jftSpi3ap04pX9MAkuCDlgGH8GXKfd2Pc=;
+        b=F2OPr/0wVVxuufTjiSB6AhXnOxKQbHKCY4HXlksdD7xDlXdsJye57KAnl+karBV5bN
+         tBeFHq20jnshE8YYcMX11pPmcxOEbRm1QGakAsF6D2btvqd4ZoClTQpLLzBMVMb4hMUn
+         C2hde07AMzkFo3jKaBu7JtGnlAjQh1IY8WWuh2BnZwhw8DTGqj6SSg4Xu8CUslgpCT1b
+         GO4i8o1Wyj09ZPvoImWpP1RiHWC9bYkWQX8XHnL9e39LMX9X0jMPGoKRuCWMvp4XlLG1
+         ciubGQnprBtirWmM3PPf8NIw6+VruHBiEc5gl3cyFgE+/NUNwyK5IZuryzVfflAf4UxL
+         Sf4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617040; x=1791221840;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vaR2wWHbg1jftSpi3ap04pX9MAkuCDlgGH8GXKfd2Pc=;
+        b=dox1shyJL+TfAPnULUisf058vz/paawgN75afQet4az6NDbYosgV+L4bkJqGea7eGo
+         v2andoF6MPenpRmAWd5+cgrviPY0WtjQIT5tDj8onQdfI35WjtNRD7/X5Wm/4C2q5M1F
+         gRUR48MmyFB1t7NbqfKy029iNHqbgbmEfyapqtbuLD8XRWfah90cvLVJBQMO+ujnNodf
+         DmbvUn/Zbl1+GlaAoa2PaQENSFQjXZ4HDcTSyKNpVjK2UtvQWRNgpI+fBgw3wXuHS5nH
+         WAJZygYBVFNfNo4Pru1lxGv9aWAS30CcwgJF8FrqW/fuQGV4QAYaKteebBBx24vAFkpM
+         w2hA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCOvgmIgFg01TNOWXQoWchbA7ZwcCcoSah/ces9cFy7JrqcFJ14evtvK2NfH9JeJWTISE6fXbT14s6pY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJexGdc7jOVSgix/ckWlG462OO/7TUzGc22wIDTPFhT/QhFRep
+	KGgCtZ1p2qEBeF4Zfx2lfBmqZlKyKYBzE7rOSiQU71FBSYCiezHOYl/k
+X-Gm-Gg: AYBFou0YJIGeN3TaWEbBFrpd58Y5M+zi0TLPa54I+16+tr73mCqmJ29eucsn8bhOm+T
+	8rdqKXevsu6ftN5znj+ha6xNoJIBijLgczV9bsySCo5rBetligCdcxS75Bl/qTM3ke/+gO3EdsT
+	oVpLHc0+lIGgO+5VamhNvQ1/r3xesT2IGrbuaX4GPBkSlXhMDEei6u8xmh8blkBHOlFvkXO9bXB
+	ewOOS7ExdNDqdtMrqBcCD/jmHer8UBxAr0v/4rTLptwk8Zq7gubr7m56nv/Hyv8mKM9yDm6MVUD
+	o5Bj2ZyzsrSwkhzJUtMtceppnN5xVlW2mXETa7OGnC1jnML5DOegm48eJID8QQKmR8+cylVPmoB
+	GpXC9pNIHUyhed8eCLZ5QxOEJts8A0csGVQjWLbRV9VaFWtn2oFSKha3OtlwGgPQV/hvd24Mw4w
+	Ug0LRdq4X1IVT3DWFH5xBEMpJQ8mYzDVZeDOXALRl+fk77yfJ23lM1PuOeLQyNkK5I7QsA
+X-Received: by 2002:a05:600c:4689:b0:49f:fe48:d171 with SMTP id 5b1f17b1804b1-49ffe48d27amr112540905e9.35.1790617040134;
+        Mon, 28 Sep 2026 10:37:20 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d10bb26sm5446595e9.0.2026.09.28.10.37.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 10:37:19 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Cc: john.fastabend@gmail.com,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
+	syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
+Subject: [PATCH bpf] bpf: Fix smp_processor_id() warning in rhtab_delete_elem()
+Date: Mon, 28 Sep 2026 20:31:36 +0300
+Message-ID: <20260928173703.504474-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> Add a registry identifying page use to a kdump kernel. Intended uses are
-> wiping of crypto keys on crash, or omitting pages holding e.g. crypto
-> keys or unimportant caches from crash dumps.
->=20
-> The registry is a bitmap with one bit for each physical page. The
-> meaning of the bits is set by the crash_memaction=3D cmdline param. When
-> not present, no bitmap is allocated. Marking is a lock-free bitmap
-> update with no allocation, so it is safe from any context.
->=20
-> The bitmap and its metadata is handed over to the kdump kernel through
-> elfcorehdr.
->=20
-> Signed-off-by: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+bpf_mem_cache_free_rcu() uses this_cpu_ptr() which requires preemption
+to be disabled. In rhtab_delete_elem(), this call happens after
+bpf_enable_instrumentation(), so preemption is re-enabled at that
+point and this_cpu_ptr() triggers:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+  BUG: using smp_processor_id() in preemptible [00000000] code
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-crash-mema=
-ction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de?part=3D1
+Fix by moving all post-delete cleanup — rhtab_read_elem_value(),
+check_and_init_map_value(), bpf_obj_cancel_fields(), and
+bpf_mem_cache_free_rcu() — inside the bpf_disable_instrumentation()
+section, before bpf_enable_instrumentation() is called.
+
+This is consistent with __htab_map_lookup_and_delete_batch() which
+wraps the entire batch operation including element freeing under
+bpf_disable_instrumentation().
+
+Fixes: 6905f8601298 ("bpf: Allow special fields in resizable hashtab")
+Reported-by: syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fd7e415d891073b83e1f
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+Tested with syzkaller:
+- Before the fix: the reported warning was reproduced reliably.
+- After the fix: the warning was no longer reproducible.
+
+ kernel/bpf/hashtab.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+index f744a42bb813..8cc07e54daaa 100644
+--- a/kernel/bpf/hashtab.c
++++ b/kernel/bpf/hashtab.c
+@@ -2979,19 +2979,18 @@ static int rhtab_delete_elem(struct bpf_rhtab *rhtab, struct rhtab_elem *elem, v
+ 	else
+ 		err = rhashtable_remove_fast(&rhtab->ht, &elem->node, rhtab_params);
+
+-	bpf_enable_instrumentation();
+-
+-	if (err)
+-		return err;
+-
+-	if (copy) {
+-		rhtab_read_elem_value(&rhtab->map, copy, elem, flags);
+-		check_and_init_map_value(&rhtab->map, copy);
++	if (!err) {
++		if (copy) {
++			rhtab_read_elem_value(&rhtab->map, copy, elem, flags);
++			check_and_init_map_value(&rhtab->map, copy);
++		}
++		bpf_obj_cancel_fields(&rhtab->map,
++				      rhtab_elem_value(elem, rhtab->map.key_size));
++		bpf_mem_cache_free_rcu(&rhtab->ma, elem);
+ 	}
+-	bpf_obj_cancel_fields(&rhtab->map,
+-			      rhtab_elem_value(elem, rhtab->map.key_size));
+-	bpf_mem_cache_free_rcu(&rhtab->ma, elem);
+-	return 0;
++
++	bpf_enable_instrumentation();
++	return err;
+ }
+
+ static long rhtab_map_delete_elem(struct bpf_map *map, void *key)
+--
+2.55.0
 
