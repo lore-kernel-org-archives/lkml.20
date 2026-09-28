@@ -1,125 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E38E3815DF;
-	Mon, 28 Sep 2026 23:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C283E4EC65E;
+	Mon, 28 Sep 2026 23:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790638104; cv=none; b=WnRCQ4ciUWMXTxic0FFI5t0tbvzcaWHE5l3ozCBW78WRdD3ZbqY2+L2IGDfgsqypt5MrwRerWLHuxNTpUOB4UQ4UnzrKzyYwFPDzeX2HDwShn9Dw7+D3lVPmWvq+LyHhHFj7wAtREJEJ1nrgN48LUVa3CpnGbgAXK4cvKcH9970=
+	t=1790638119; cv=none; b=Zo1MYyRQp40jvNWCdPkc0RFp0ctM5xRAnDy31h6Y1SQanZqh+L9t/bv93o0W/lszllGT7Zt4Pe6JdOT+4UdsegMcHqACaqGKkuHSvgno8YtLpZsfNnFJSmLuvBPM5vKf/mdRJ5rP+y6uPE3Is9byFb8GcRLLMtcWqT5XfVVjhes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790638104; c=relaxed/simple;
-	bh=YutVHJG0sZy7YrGij8d8zLfjEvsbc5uRWluQnIWAHEo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PWOtWekp3NpIKZddgxhuvqIn2v9S7fooQ0UZ2GVuIS1FRrK2bT6i2ajFSv2Qybo853AgxTSUY3g+fF8hBVQySYBOAt0p/po6GTWQbNz+yqy4IAeBWjgFeZ+XKHKdWPfWiUwNMmnab+TJVK8Fj7uzQTVo5eG+KR0b+ZHKlYJdS6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVpgVMkQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790638119; c=relaxed/simple;
+	bh=l/o7cXx1MVHJRDzgvW+ogOatBKEsTRZet2VaxF/Gpo4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=RIeQmYsy2u+iZedJ7sm0oSN8yQpXUBeuBoTyjwPE3ILXafoS3XUNL5MilLejf9tNy8X/EMCOsZwEoTKccPX4snMc7EFb4Q92wjghI/bxq53icD+DA/kZBkaZT+ha8YYrPGFe8tjMr0Z7ecJ/m02gJM8RueHHsMj3dosFkAKTcE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmD95QVh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVpgVMkQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770821F000FF;
-	Mon, 28 Sep 2026 23:28:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmD95QVh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9551F000FF;
+	Mon, 28 Sep 2026 23:28:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790638103;
-	bh=YCK46affos81d8aICOHNKYT/US3ZEkCXaLZboaoPCAQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SVpgVMkQqjporxpG0TbdmbxYZEdDwbkX8AodyOeL2/pn0nCLsLgLEUURkeCQv3c94
-	 N6Lp+MTCphYa8S2oNLJts1/RUcW57tIzgD/i4FGE0PbALfE0AvSushgXBydWZEh0iW
-	 f+2Dgy04YrxY5Bl85Xh8mUWFwW0doeDFxXFQoq2Rp8PDNL0ehrdXMY5HSL1coL1IMj
-	 LOv1RvybgDz89UX4VqBCTTxqU0mcnC91/C4FQuJL6mY+5bDWyPm7xNnH22lmf1xpON
-	 VWyPqHzXOEjy6nPg4luz4i/+uhoR0OhjitZ36w1OyAc6k5QSboYCcd2z071zg0dyQr
-	 pNoLTa3uSEPZg==
-Date: Tue, 29 Sep 2026 01:28:20 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Robert Foss <rfoss@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Luca Weiss <luca@lucaweiss.eu>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org, konradybcio@kernel.org, 
-	stephan.gerhold@linaro.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5 5/5] i2c: qcom-cci: Enforce the required CCI clock rate
-Message-ID: <arrymkYqBOzLrgnV@zenone.zhora.eu>
-References: <20260927-cci-clk-fix-v5-0-4cd498559ae5@oss.qualcomm.com>
- <20260927-cci-clk-fix-v5-5-4cd498559ae5@oss.qualcomm.com>
+	s=k20260515; t=1790638117;
+	bh=N3LXhRZ9A18QFWnLXQDtNteOlvh/mZvik91X2odSzoc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bmD95QVhaYzfqyuWwwiQW+xUj2qGmZTpmx/SeWhjAwI5wiRMC7kYRDQVVj1i9EtQO
+	 RqSr3YRFd5lR4HJsQ1rRDA2kL+hPVCcbzYyEkSirQ3Yt7CCo0nbmrGQ2LwoSyl/sNg
+	 yCuvREsjjCeydUjHAkzyY7E1oW6ND8Ez16160Ck/Ny8AYepwLkmLH+3JMLbHdx/HH7
+	 TBgMuAQMxyEFbV3cX7rBDWaXeLviZkwRhgUzVU1pID1IolPDJwdTXO0QxA9lMZ+/yg
+	 xMpi0+AX04V/WI7I/6Qrg1pX5SOkA+62NMmZltAukR61nPa0VYCNP2V7BMl7fkHTkx
+	 tu0ClVgydkHKw==
+Date: Tue, 29 Sep 2026 08:28:28 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: paulmck@kernel.org
+Cc: Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Thomas Graf <tgraf@suug.ch>, Herbert Xu
+ <herbert@gondor.apana.org.au>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
+ <memxor@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>, John Fastabend <john.fastabend@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil
+ Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, bpf@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, Roman Gushchin
+ <roman.gushchin@linux.dev>, Chris Mason <clm@meta.com>
+Subject: Re: [RFC PATCH 0/3] fprobe, rcu/tasks, rhashtable: Switch fprobe
+ and BPF kprobe-multi to Tasks-Rude RCU
+Message-Id: <20260929082828.cd9844b5e632a23fd8308dbf@kernel.org>
+In-Reply-To: <f593867e-dcef-4f68-b609-a253f489f7b8@paulmck-laptop>
+References: <179060575297.372125.10581329083761385407.stgit@devnote2>
+	<f593867e-dcef-4f68-b609-a253f489f7b8@paulmck-laptop>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927-cci-clk-fix-v5-5-4cd498559ae5@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Loic,
+On Mon, 28 Sep 2026 09:25:02 -0700
+"Paul E. McKenney" <paulmck@kernel.org> wrote:
 
-...
+> On Mon, Sep 28, 2026 at 11:29:13PM +0900, Masami Hiramatsu (Google) wrote:
+> > Hi,
+> > 
+> > Here is an RFC patch series which removes standard RCU read lock
+> > (guard(rcu) and rcu_read_lock()) from fprobe callback paths
+> > by switching fprobe and BPF multi-kprobe to Tasks-Rude RCU.
+> > 
+> > Motivation & Problem
+> > ====================
+> > 
+> > Currently, fprobe entry and exit callbacks (fprobe_fgraph_entry,
+> > fprobe_return, and fprobe_ftrace_entry) execute in the tracing hot
+> > path where preemption is disabled.
+> > 
+> > However, fprobe was forced to wrap hash lookups with guard(rcu)() and
+> > rcu_read_lock() because:
+> > 
+> > - rhashtable defers bucket table deallocation using standard RCU
+> > - unregister_fprobe() and BPF waited for a standard RCU grace period
+> > 
+> > Taking standard RCU read locks in the tracing fast path introduces
+> > several drawbacks:
+> > 
+> > 1. Unnecessary Runtime Overhead:
+> >    Every probe hit manipulates current->rcu_read_lock_nesting with
+> >    memory barriers, and rcu_read_unlock() adds conditional branches
+> >    to check for special quiescent processing.
+> >    On debug kernels with CONFIG_PROVE_RCU=y or CONFIG_LOCKDEP=y,
+> >    this additionally acquires and releases lockdep maps on every hit,
+> >    introducing severe lockdep hashing overhead and tracer recursion risks.
+> > 
+> > 2. Fragile Dependency on rcu_is_watching():
+> >    Standard RCU treats idle CPUs (and user-space on nohz_full CPUs) as
+> >    Extended Quiescent States (EQS). If a function is traced while
+> >    rcu_is_watching() is false, standard RCU is blind to the read-side
+> >    critical section. In such contexts, synchronize_rcu() does not wait
+> >    for the reader (risking Use-After-Free), and lockdep emits an
+> >    "RCU-illegal: rcu_read_lock() used while not watching!" warning.
+> >    To avoid this, ftrace callbacks normally require FTRACE_OPS_FL_RCU,
+> >    adding extra trampoline check overhead.
+> > 
+> > 3. Asymmetric Synchronization with fprobe_return():
+> >    fprobe_return() executes under preempt_disable_notrace() without
+> >    holding rcu_read_lock(). Prior to this series, unregister_fprobe()
+> >    only waited on synchronize_rcu(), which does NOT wait for pure
+> >    preempt-disabled sections, leaving a potential Use-After-Free window
+> >    during probe unregistration.
+> > 
+> > I've tried to fix the last UAF with simply introducing guard(rcu)()[1]
+> > but Sashiko found the 2nd problem [2]. So I decided to implement this
+> > series.
+> 
+> Unless I am missing something subtle, Sashiko needs to be taught a
+> little bit more about RCU.  Preemption-disabled regions of code really
+> are valid RCU readers.  If you have a reproducer showing that this is
+> not the case in some situation, that would be a bug in RCU.
 
-> @@ -318,7 +319,7 @@ static const struct hw_params *cci_get_hw_params(struct cci *cci, int mode)
->  	unsigned long rate = clk_get_rate(cci->cci_clk);
->  	int ri = cci_clk_rate_idx(rate);
->  
-> -	if (ri >= 0 && mode <= cci->data->max_mode && cci_hw_params[ri][mode].thigh)
-> +	if (ri >= 0 && mode <= cci->data->max_mode)
+Thanks for the clarification!
+So I think we can replace rcu_read_lock() with rcu_read_lock_sched_notrace()?
+(also, maybe we need to add rcu_is_watching() check)
+Current code may involves lockdep in fprobe, that is not good.
 
-why are you removing the .thigh check here?
+BTW, if we want to trace some code in extended quiescent state, do we
+still need this Tasks-Rude RCU?
 
->  		return &cci_hw_params[ri][mode];
->  
->  	return NULL;
+Thank you,
 
-...
+> 
+> Adding Roman Gushchin and Chris Mason on CC for their thoughts.
+> 
+> 							Thanx, Paul
+> 
+> > [1] https://lore.kernel.org/all/179055575009.241711.6358052647499787191.stgit@devnote2/
+> > [2] https://lore.kernel.org/all/20260928005114.9C9FC1F000FF@smtp.kernel.org/
+> > 
+> > 
+> > Solution: Tasks-Rude RCU
+> > ========================
+> > 
+> > Because fprobe callbacks already run strictly within preempt-disabled
+> > contexts, we can transition fprobe and its deferred table reclamation
+> > to Tasks-Rude RCU:
+> > 
+> > - Tasks-Rude RCU detects grace periods via schedule_on_each_cpu(),
+> >   forcing a schedule on every online CPU. This guarantees that all
+> >   preempt-disabled sections that began prior to the grace period have
+> >   completed before memory is reclaimed.
+> > - Unlike standard RCU, Tasks-Rude RCU does not rely on dyntick-idle /
+> >   EQS tracking. It does NOT require rcu_is_watching() to be true and
+> >   does not trigger lockdep warnings in pre-RCU/idle execution paths.
+> > - Within fprobe, guard(rcu)() is replaced with guard(rcu_sched_notrace)(),
+> >   reducing the lookup lock to pure, non-tracing preempt counter
+> >   increments without lockdep or RCU state manipulation.
+> > 
+> > Feedback and suggestions from RCU, BPF, and tracing maintainers are welcome!
+> > 
+> > Thank you,
+> > 
+> > ---
+> > base-commit: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
+> > 
+> > Masami Hiramatsu (Google) (3):
+> >       rcu/tasks: Export call_rcu_tasks_rude()
+> >       rhashtable: Add use_tasks_rude parameter to defer bucket table free
+> >       fprobe: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
+> > 
+> > 
+> >  include/linux/rcupdate.h         |    6 +++
+> >  include/linux/rhashtable-types.h |    2 +
+> >  kernel/bpf/syscall.c             |    2 +
+> >  kernel/rcu/tasks.h               |    8 ++---
+> >  kernel/trace/fprobe.c            |   66 +++++++++++++++++++++-----------------
+> >  lib/rhashtable.c                 |    5 ++-
+> >  6 files changed, 54 insertions(+), 35 deletions(-)
+> > 
+> > -- 
+> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-> +static int cci_set_core_rate(struct cci *cci)
-> +{
-> +	struct device *dev = cci->dev;
-> +	unsigned long rate;
-> +	int ret;
-> +
-> +	ret = cci_get_required_rate(cci, &rate);
-> +	if (ret) {
-> +		dev_err(dev, "no CCI clock rate satisfies all masters\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = dev_pm_opp_set_rate(dev, rate);
-> +	if (ret) {
-> +		dev_warn(dev, "CCI clock could not be set to %lu Hz\n", rate);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Sanity: The hw_params timings are only valid at the exact
-> +	 * expected rate, verify what landed on the hardware.
-> +	 */
-> +	if (clk_get_rate(cci->cci_clk) != rate)
-> +		dev_warn(dev, "CCI clock is not at expected %lu Hz\n", rate);
-> +
-> +	return 0;
-> +}
-> +
->  static int __maybe_unused cci_suspend_runtime(struct device *dev)
->  {
->  	struct cci *cci = dev_get_drvdata(dev);
-> @@ -678,6 +739,19 @@ static int cci_probe(struct platform_device *pdev)
->  		return dev_err_probe(dev, PTR_ERR(cci->cci_clk),
->  				     "failed to get CCI clock\n");
->  
-> +	ret = devm_pm_opp_set_clkname(dev, "cci");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set CCI OPP clk\n");
-> +
-> +	/* OPP table is optional */
-> +	ret = devm_pm_opp_of_add_table(dev);
-> +	if (ret && ret != -ENODEV)
-> +		return dev_err_probe(dev, ret, "failed to add OPP table\n");
-> +
-> +	ret = cci_set_core_rate(cci);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set CCI clock rate\n");
 
-The error logging is a bit messed up here: you either print here
-or in cci_set_core_rate(). Besides why is a warning there and an
-error here? I would just print error in cci_set_core_rate() and
-return here.
-
-Andi
-
-> +
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
