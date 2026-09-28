@@ -1,118 +1,109 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8168B2F8E93
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B252F8E93
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790571083; cv=none; b=Sw6Y57Bx3tJ/MIdIn9r2T+Ua+tX8bkaxruUOEIb+ORgduAgip3dXT0c92xz1lDORBS0Qr1KffrQzNz6NesH20PERB0fuWOz7g/hWAe/76ihPE0baQBF2SZy48Qq260uHFsQohL/wJ8oG/n6WTln5wtFwUWegsMoM5hMK2aI3Rtc=
+	t=1790571089; cv=none; b=E7hBzjxO/eX0CLDUE8SNh/Q1mjc9LnEcvBEQjCuwiKzwoTGTddiZqFcb4LtCTRqvYpLYfJmFCKTo/Qv+Lc+nADfHywDCrszCixrJCGQ5Q9QFttotp+NReZ1OdmIeAH/9W9d6U7jiHJtof5TyZN0kqnLNUTmXmmvfc3ZL9I/0Pgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790571083; c=relaxed/simple;
-	bh=Mu0frYNG961E9MrWNHyD/bKWnVTPw+zQgOncEvVsdog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PvvCek47qSxNzKBptekHFe49dZp+NmddUT657zdARzeZhlkNEXuhIm9Emo2uHi89VwottDWZVF0lWt0LTbcwS2mje1WMkhBkZSQ22SeQI0L4D9cgsjfw7on/Ny7xMgXtWAV8sv5aXywuI6VKp5yn/KqA0Ck6YVeIUwzqRqQm5oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=qecHHOUg; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=gnoMyJBV; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
+	s=arc-20240116; t=1790571089; c=relaxed/simple;
+	bh=/RiLw2SErvUKqOgeJzpySOUxPAqr2XROBbtgzqBp1HE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LWuJG5Hp5KmJx8m+FUn6JKml7/x/zBwJIpr3MO9cD3rc9nTvyEB9NOsHpQpgo8i0aJKiwEbY4JSrBcLjgk7vTBXeJbqouEtjPUdHPK6mc2PIUxzY7Z2QYRjlaNQv+BdhhsBAvHFsXNBaA6fqXyZbOuellrZ7VTCIH8wu6V984K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o7ccztPx; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="qecHHOUg";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="gnoMyJBV"
-DKIM-Signature: a=rsa-sha256; b=qecHHOUgZgMmKF0IPDu3rIqFJjD3pXSGbH8z3eZUbIAn0TrG9Yvf+KTmhNq5h8lP+hNIlIwFo+h2QwX/BiFmkhaRS8gAF0ouCRzsXqvRg+AyRAkfUgSulNhbpC/IASjcsPytWS4oBNSe49fBa96srIqn5qtZLyxW02yygaY9NLVeg1k+P9y87PdcsTiH+HNYIFK1eKiwouOuNb9opAvWrd2G18so1I9GkaHcTmzSgwNoFD2i86QslbRNA+O+eTh+Uahp6o7PADjD7OKIARsFcGgajVuAtV9C2Ffw3/mKnYYQAAnag9vqXSivdNJL2dyzjIp8B5iE8d5DaBjWKz29cg==; s=purelymail3; d=q-lab.dev; v=1; bh=Mu0frYNG961E9MrWNHyD/bKWnVTPw+zQgOncEvVsdog=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=gnoMyJBViSkQkc0uFtQBajT/CsFyyTyya4bYrQ9S8PtiYxetZYqSeh894wyVmjAAyYPN6t6y9LaDBxCnuraRXlIGKeB7pNglgjlUjhb2kom6NuK6HHuhX8FEKipXrFFHn9N5sHBEU02sCdrzFp8gZIaX+74a6qt7fPzY+361n3qUpG/qr34X3ya1u4sr0affnBxLZsJAt53dOKoToagWdvz3Tfw5pK9rpT3bU6qDOpeH/p3l+Rh3/TuEH/6G7K2Ro4PPBSYxGQxR32tRgTkG4IvTpvYJW5mmIZGdPO/zk1alxYitKQaqWpRJ1s0vFAckjHoAx7KuFTz0o8Bex7jzXw==; s=purelymail3; d=purelymail.com; v=1; bh=Mu0frYNG961E9MrWNHyD/bKWnVTPw+zQgOncEvVsdog=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 284201:25281:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 46625648;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 28 Sep 2026 04:51:00 +0000 (UTC)
-From: Quentin Freimanis <quentin@q-lab.dev>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	UNGLinuxDriver@microchip.com,
-	Lars Povlsen <lars.povlsen@microchip.com>,
-	Bjarni Jonasson <bjarni.jonasson@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: sparx5: make ports inherit the switch base mac address type
-Date: Sun, 27 Sep 2026 21:50:12 -0700
-Message-ID: <20260928045012.30178-1-quentin@q-lab.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o7ccztPx"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so3185932eec.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:51:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790571087; x=1791175887; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fxBVsadU3CapuSwF1ZwYMR5BhuIaCuGr5O6zle7Zy+0=;
+        b=o7ccztPxpxzhKsryUU5W3ki29pXPltPeaqr7hj1j6KqXGcLvALnP0J8kbzDYwDVw/a
+         XEgl3Hu37uW8e9r87QEM7N2pRr33Fanvwk2j6kw9YqPjLHWIqZ2QEkrSPa44mMr6v9ms
+         Hv2K+bJYOEQiNl/fr5AgpqGCD8m1sKPHF/Uzd2IF5h19Po0wnhQf8dJsQNjnTckDOMX5
+         qqUrjif4ryPR1gfsrk3qLyR+U/k+9IMahMkzQav8kuBBn3zIjwYHOBk/VXh9xRchJ77T
+         1/1Cue8wGD6DeSrcvV7R034lH9uViAVHLMhgwHkcZNTDbqiVJ8gxva10lAXFI4UIghKX
+         6SOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790571087; x=1791175887;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fxBVsadU3CapuSwF1ZwYMR5BhuIaCuGr5O6zle7Zy+0=;
+        b=mhaIMMlxvLgC3mUzWroE1aQ4+b+FdWPsaxg2xCOMCN8Ve1qwizH6NyEoDA8tZnHksj
+         N2H3+f8PhinJJ+9q/Zwz1uGLjfI3Bj66ct8p8j2KB/Q1z2lshsu3GiD8NugEoSv2ki5s
+         UwodEtpxZv5SUgNjxvjxGtSO/cuxBfP+nyl8VReboo8XCmwMRsomTWANLrYJZ3TyO6rQ
+         NX/G3Z+VChE8S2s5M1PblzTWRNdqf/rOSXEYx5DqcBy9yjRzdRR9t2vz8HSGlOgfGSGE
+         XqdaqUSX3pEzpABl27m9ttB6/UuiSdb1V3Csw1seDCtyLO/AQjXM0yFhUO5e5SQRe6p5
+         pbWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPmK4+IaFfZfrJcnNC0zXVUt8SkHZxd4m2/RLsMAyYst5iOo3VkazGsbSRXSE+6QAjvcxPUlfgkQSEkpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlxTlRyiXszZS1gua2XcSQpoaFjaVWPSf/VvvVo4E1kxUimSqo
+	Dt8+DsabMnDUQ3vPp+avWwm3WHvA/TJ1ywLb2VbX8x2WuPrRw6IZkjhQ
+X-Gm-Gg: AYBFou2ncm8fea5LDQ+vD9p+l0sJpLSrM5jGLK+4AH2AgH34kdY5AeZQ5ivO1W3ZNqu
+	Jr3e+sGXWnl51rQYPHxiAIoWz1i5tazdIPyDiwkKPCIfTEsvqROt4hiSOTbiwM1kXMgzrGjwqSR
+	lElT835jLumAYIVZ+UBokxCP8ZS5FqRlBPFmkgKl4gloe2A0V5Qx5+KWJuh2q074wYzLT9+U1ts
+	uulSj61y3P/2dU0Qortci99fqkLNiRDKc0XadxFxgoDIx9tdmh7n89tBj0sUJug0f44Ksuefnw3
+	eiWALDTM3d2QBNctDmFW6pL22sn+ZpymwARRJyS7qs5ISHpb88V3k3xVeMcOv3POiu8Lv2kY/u/
+	7Z7iJi5iNADFSTDwS5++NtF4iNbGD/enLrrqeWe9pfqpZNLXQxHwwYDOTmlU4ZHfA9MRVpVMHLT
+	maapbzMudaYZje3t0ou8EmP1dSde6h6fzehHvqSt6zxPmpAR1V3Nxo0R7lX0AQ7eJoHc0GSpkpT
+	IOQixssDYCQdACIISrVclVRQpfAfIlAoue8XWPh
+X-Received: by 2002:a05:7301:4201:b0:33b:ea8c:811b with SMTP id 5a478bee46e88-3426fbbeb5dmr8469221eec.5.1790571086738;
+        Sun, 27 Sep 2026 21:51:26 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:526d:2f94:503b:aada])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c166cfsm22840869eec.28.2026.09.27.21.51.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 21:51:26 -0700 (PDT)
+Date: Sun, 27 Sep 2026 21:51:23 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: "R. Larocque" <rlarocque@disroot.org>
+Cc: linux-input@vger.kernel.org, salmundani@gmail.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: synaptics - limit T440p InterTouch quirk to
+ LEN0036
+Message-ID: <arnyJnqIpwcwX2nT@google.com>
+References: <20260927005810.85971-1-rlarocque@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260927005810.85971-1-rlarocque@disroot.org>
 
-When the switch uses a random base MAC address it does not mark each
-port's address as random:
+On Sat, Sep 26, 2026 at 08:58:10PM -0400, R. Larocque wrote:
+> From: "Raphaël Larocque" <rlarocque@disroot.org>
+> 
+> The ThinkPad L440 also uses board id 2722, but does not have the SMBus
+> initialization problem seen on the T440p. On the L440, the SMBus
+> companion becomes available shortly after psmouse probes, allowing the
+> touchpad to use SMBus/RMI4 normally.
+> 
+> The T440p's quirk is currently applied to all Synaptics touchpads with
+> board id 2722, unnecessarily disabling SMBus InterTouch on the L440,
+> as reported by Daniel Salmun.
+> 
+> Restrict the quirk to PNP ID LEN0036, which identifies the T440p, so
+> that other devices sharing board id 2722 retain their normal
+> SMBus/RMI4 operation.
+> 
+> Reported-by: Daniel Salmun <salmundani@gmail.com>
+> Link: https://lore.kernel.org/all/20260925230039.236786-1-salmundani@gmail.com/
+> Fixes: 26eb3d92c7a4 ("Input: synaptics - disable InterTouch on ThinkPad T440p (board id 2722)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Raphaël Larocque <rlarocque@disroot.org>
 
-  $ dmesg | grep "MAC addr"
-  sparx5-switch e00c0000.switch: MAC addr was not set, use random MAC
-  $ cat /sys/class/net/eth0/addr_assign_type
-  0
+Swapped the condition (since integer check is cheaper) and applied,
+thank you.
 
-0 is NET_ADDR_PERM, so userspace thinks this is a stable address. Fix by
-tracking the base MAC address assign type in the sparx5 struct and
-applying it to each port's netdev.
-
-Fixes: f3cad2611a77 ("net: sparx5: add hostmode with phylink support")
-Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
----
- drivers/net/ethernet/microchip/sparx5/sparx5_main.c   | 1 +
- drivers/net/ethernet/microchip/sparx5/sparx5_main.h   | 1 +
- drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c | 1 +
- 3 files changed, 3 insertions(+)
-
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c b/drivers/=
-net/ethernet/microchip/sparx5/sparx5_main.c
-index dad713e9ddd5..b530fb6d3d0c 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-@@ -898,6 +898,7 @@ static int mchp_sparx5_probe(struct platform_device *pd=
-ev)
- =09=09dev_info(sparx5->dev, "MAC addr was not set, use random MAC\n");
- =09=09eth_random_addr(sparx5->base_mac);
- =09=09sparx5->base_mac[5] =3D 0;
-+=09=09sparx5->base_mac_assign_type =3D NET_ADDR_RANDOM;
- =09}
-=20
- =09sparx5->fdma_irq =3D platform_get_irq_byname(sparx5->pdev, "fdma");
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/=
-net/ethernet/microchip/sparx5/sparx5_main.h
-index eb57b86fbe22..0f7d8440f614 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-@@ -392,6 +392,7 @@ struct sparx5 {
- =09struct notifier_block switchdev_blocking_nb;
- =09/* Switch state */
- =09u8 base_mac[ETH_ALEN];
-+=09u8 base_mac_assign_type;
- =09/* Associated bridge device (when bridged) */
- =09struct net_device *hw_bridge_dev;
- =09/* Bridged interfaces */
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c b/driver=
-s/net/ethernet/microchip/sparx5/sparx5_netdev.c
-index 4dedf5d92641..b3725cf2dd44 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c
-@@ -294,6 +294,7 @@ struct net_device *sparx5_create_netdev(struct sparx5 *=
-sparx5, u32 portno)
- =09ndev->ethtool_ops =3D &sparx5_ethtool_ops;
-=20
- =09eth_hw_addr_gen(ndev, sparx5->base_mac, portno + 1);
-+=09ndev->addr_assign_type =3D sparx5->base_mac_assign_type;
-=20
- =09return ndev;
- }
---=20
-2.55.0
-
+-- 
+Dmitry
