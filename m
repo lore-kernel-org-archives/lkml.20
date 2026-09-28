@@ -1,217 +1,191 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B51C4F6471
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704674E06EC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617333; cv=none; b=HHYih9L8LLsjHIU1Z1god20c2xKQPYd3jcbcm79nMIu9di4xAD27mIYH/m9wgjf+2ealckqP1/qlD8+IVoZhpnKWl/LrY476Wj9GwKarAUMaJNYj9iQpo/3EhXTqRoyHv5KCBvTYWiA5vDdP7RUH971OvagIFu11cGYGhZMbUuM=
+	t=1790617354; cv=none; b=h1BakIDQL8c0CgqSKi9zYXi5i7S3bCQnsr/SGJOXyCPQMRgBN4ulSfgMGwXSPvrk04aEyhWaripV8+btPbCwpYHzDBS/icZitQq4nURmCiSyUjavshDqMl++xJ8XAQvqtmFKzvsqd44tH4Ai1HahIZdrXIJ+oPxU4ijD4C6zhA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617333; c=relaxed/simple;
-	bh=z3qI62qf4mT1gEi8u87wgjjXgOWjBMNHyAjBz41QMeQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tMdddhZw7Wp+YQAWoxkSbFZwpud8vKUxbwoXui4DdOo4ETclIK3QxTIX3HRbbsiSz+P2VMIjd58tLXE73084gyUdm9Yf4G8I0M+1nsQgNBziBOxE8skGpdq2HXGyXc3fX3hUUPCNGd0uC7zUgP1xo+QHZwrVIGgAFZllTbCG97o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QaeWoEEt; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
+	s=arc-20240116; t=1790617354; c=relaxed/simple;
+	bh=aUUSmgHqQhCtyaUyPVrKNdKUlZbWL0wNpisO5osGGFI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PkUUQcNcGbEVWEQ7F0O4x8GRTzzt20b+GEiFxw1BrUZ6lgli9nkgQibGadfLcPnSfiIR7b2rHnc3ZZvrjQUgLjzZzGsxSmFVp7Wqq5C/Aazo3GMUypQ1uys55bLbGvGGXdBzIFAyvfzFyAECzs60c4+nElGGmFv3mQks1uySIy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XL4Wl/Hw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dp6KFr4i; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QaeWoEEt"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so50955955e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:42:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XL4Wl/Hw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dp6KFr4i"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdw2i1016772
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:42:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Q/1WfCSunnO65R5rdxWHjPtFptxxB7B5h8x2TWIFRQo=; b=XL4Wl/HwJgVRsuK8
+	q3RnyxqVML+kI3u/FS7cNh8W4kkcTRT/kJpRRqY1kQ8ncLkcbMYKvlaGj3AbRhn2
+	xoLbu5zbfpa2q9VQVN1u18gKoMa+e195I5YqiqzBWXdv+KkG073OJMFSuuVnOyLQ
+	xX1gsBhkUEqHGunvIr8WUUyMc3VAMqVc8/EVT3UxdRKJJf7X8HF9gk+AhWpHs0bO
+	dHDbvNGPSujYVT8i8sBYlOQsBEmLSjaPsCkANfb84zBpb9ZVt0jwtlua89+aYNWc
+	yKnKL0p0l2UB6eQjRS82Tw1nlZembrYY0Z2DNiGKDg3Q0vEkhvqPXG8YZBiASt6S
+	+sDkuQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq3e0n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:42:31 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-791463ed29dso2933218137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:42:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790617327; x=1791222127; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790617350; x=1791222150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GvWsjS4kJdvoXcVGD6geTFWpf+d6azd0mBr60JzC1QM=;
-        b=QaeWoEEteMcnPyDKE1CvBElqp8ump6EO5ObA9YQ1xYHSoiawrxPCMTY40Ik98EqRIp
-         PK0i3HCeGRWCzEoitDjN0PZTc+0cMvR8fO8pIkHwpWdDlHGFXsGPZgO0M3d0zqmfD2B+
-         jqr1sNOO8HRROPzPhmuYRhoUQxOXsfNY3MFXMWdl9bJ2rhkBGcOJyPf1sL7ACYn70rvI
-         1HkQUOD+doKHr0iGxVZwe7/27xbimMdGkyPo41MlgVfGNGcOTKRuuAnjpzcAiBjpLdqX
-         7kOme88ugQ0x5VvcH9xyNnQ3gEbD7FM1oEoni2lnhpQnX7S4KFGM1T4OKe+Id5WrwVow
-         QGkw==
+        bh=Q/1WfCSunnO65R5rdxWHjPtFptxxB7B5h8x2TWIFRQo=;
+        b=dp6KFr4i8HVRteFugtB++wTMpaErmh71EAChPC6h+jdGb/yJkSx0pQtabUxRv3DEGF
+         o9zTgJgwi91j2Y7tnuvWC2C1ojmwaLdTn8tE1rLJH9IUSX3nOAWO+hXGX0wbhL2805kd
+         O8xZ3d/afsQGP/aBEBUppi3Ff++zUCAER3tQ3u2nk3Z6uxqv880pXVDjS8u2RazyHAXb
+         FDLG98XVyou24xdbcyZwtmG89BXPGPTZ/SuCosmDUIIx4VI2E5rnp2BRhvYRj6WW6SY0
+         K6PBJxrJM2rtM3/ybrQLMLRZuojV9WWaH6js3CNbIy4gT7CBqcdvpeVc9XqFX658ZktI
+         E4pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617327; x=1791222127;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790617350; x=1791222150;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GvWsjS4kJdvoXcVGD6geTFWpf+d6azd0mBr60JzC1QM=;
-        b=MysXrJtc/ivE+TsF4URn49OPS+giYNrLNSOTHVqrxO0WtPugPS8Gd6iCcP0X6S/ZxT
-         yMcUDsU2G0rVCPYgFc3BGXnrcGaxQxLFt5xjciB71nkQEmnaqUO76tqrF96T5oqDcygG
-         gfuPNmGqsjDjNRam9p1pAg4c/ruIircWVgxTMPEXUzIeLltASn7lByrscSNN23RJNhFu
-         uglu3tbNxQ6M93BvCJ0xjWgOYQAssejd44Az5gEqYGc6Djmj5/XFnS/jaaomBm2m9BV3
-         HuIQI363cI7AXGcvRGVx4cBgEVxgmrEuoM0UzIs20ROEnJl+bAv1AcH90haHxWm4ymy8
-         0qXw==
-X-Forwarded-Encrypted: i=1; AKwUvByNb3s9v25K5qLz+Wy+jB4w5u77kuA/KSiUO3qy32VLBt07By7yrJIDqAbqGtzJh3q/R6pzL2lr/G655Cg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9Nw1x5We3s2+Ls/9OGv5DhIke4HuP5WE5fm8xEBceTsVm4geG
-	WqJHQEAeDFht1KKW2iUbp3cWGXrDN8N/1pIp6x2Sz3sefZ0O31cXOPf5nNBxYP2vbuPJz9t2UZf
-	cjzUs5Y6/DTB6Uw==
-X-Received: from wmpr40.prod.google.com ([2002:a05:600c:3228:b0:49f:fde6:649f])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6287:b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fe7babaadmr223084505e9.20.1790617327143;
- Mon, 28 Sep 2026 10:42:07 -0700 (PDT)
-Date: Mon, 28 Sep 2026 17:41:22 +0000
-In-Reply-To: <20260928174122.3380703-1-smostafa@google.com>
+        bh=Q/1WfCSunnO65R5rdxWHjPtFptxxB7B5h8x2TWIFRQo=;
+        b=JHPL8gWnHpEer5vB7XSi88v1DGh8WBF3PR7A9HA810iUn6NqaGlZusvKfjs6Y8rhGa
+         e35CD+nU22EmjmIwm1G2MceFvY+jobucCQzC1iCVnODxMeqYs87smpgjTDknJooZNG2A
+         RneR1r/bW39iPl8FHnV3Pz8CsTaK/JQggI2CpH8jPnEALa0WYMg/kGIM5CYk6L5EIy2o
+         AOYd2nrAizbwtH+md163kVcn4kkClmYYArw2cMly1R0NmrA927IbSB7I7FaAi1Bj/8HM
+         Qtldp1vE71HOluH0NQ82QF4+kRh/5nDNJ53Y95fXbsfrsCqf3n8ZxjTrBe/j9WvCJrow
+         935w==
+X-Forwarded-Encrypted: i=1; AKwUvBxCy72WXPsE5PghKfr4/Id1nwc9IIw47E4MntZmEZao9PDm0IXSImZRR2Dmv6UaZDzwwqHkyd9gn8c1tkU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVfuT23hiqyOH8tOSttrEG5b5Mywy6ub28bsp2Bcl7xc8S/DbX
+	4LUKkvJoh6Is3PwKupZzm4gJheICxzzLvL7UOTJ8s0p/jUSgnssCKJrKFXVA7SVMFZUBeDmlAPH
+	H/QsvKFwlVS92P+yzmeqZqMxxfcHtwKWvJJ6HhGFy3q9M13VIGxpiwa/SCwVw3jvRMw5TXa6wo4
+	g=
+X-Gm-Gg: AYBFou2dGZiEpjNqHc+ZrEP5a9U27QqZniwhDfHwU/Ydatwn5YIM2gmBzZt37O6c39w
+	ooEgcQfSNCH9SZb1f+i0X7UxMBXMtB0pEx0tYqvad5UmWpyAA/EbUwMqdN4ru/LkXuUpFruuGY8
+	xahrdZ7ptX6emWUOrN2gMhId8KFF+N0j8nyCql5vJRA2dZh1TC7eatMZQ/jCs9HvjZBckrlvlJr
+	2HcYoyCzu4UEnzWeVrhchHRlVa+OXxoaJBuvSYcjKQSNsBDK5v9HWqtxORooQxznb0I05+KLGT3
+	HhBxBNQhWLVT9a/ZZvrh2GvHQE0Do+t87ujDIP0JBj5Nqvii8md/MUS8Kurg0uFFL96AnFBSPI9
+	ymOPxdRkjQ13Q0VXTM2jzrK+M5A==
+X-Received: by 2002:a05:6102:5491:b0:7af:8089:2734 with SMTP id ada2fe7eead31-7b79926dc9fmr1077939137.27.1790617350368;
+        Mon, 28 Sep 2026 10:42:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:5491:b0:7af:8089:2734 with SMTP id ada2fe7eead31-7b79926dc9fmr1077918137.27.1790617349866;
+        Mon, 28 Sep 2026 10:42:29 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a00cf868b5sm15293635e9.1.2026.09.28.10.42.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 10:42:29 -0700 (PDT)
+Message-ID: <b037133f-3a5f-4957-84b6-6eda14739f5b@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 18:42:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928174122.3380703-1-smostafa@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928174122.3380703-16-smostafa@google.com>
-Subject: [RFC PATCH 15/15] arm64: mm: Set stack size from the kernel command line
-From: Mostafa Saleh <smostafa@google.com>
-To: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, 
-	linux-hardening@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	akpm@linux-foundation.org, urezki@gmail.com, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, kees@kernel.org, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, gustavoars@kernel.org, 
-	bigeasy@linutronix.de, clrkwllms@kernel.org, 
-	Mostafa Saleh <smostafa@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/5] dt-bindings: mfd: qcom,spmi-pmic: add compatibles
+ for pm4124-codec
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, sboyd@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, alexey.klimov@linaro.org,
+        r.mereu@arduino.cc, srini@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <566b4bc1822bc86a5844cbe1b2fe91d05b5ee9e4.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <20260928-ancient-boar-of-persistence-629a9e@quoll>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260928-ancient-boar-of-persistence-629a9e@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: P4ZatBw809cQF72KtFDxsG5BJPtaEOA6
+X-Proofpoint-GUID: P4ZatBw809cQF72KtFDxsG5BJPtaEOA6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3MCBTYWx0ZWRfX2vzyg4sB6wBb
+ FV2ZbFPxC1TzfahkfQNUhmVUU5XHrD7m/qgaksBJOZqOHiauygw0dEPIlN8q3rGX7Of3iQ4R1AA
+ DOGU6yWwb2+Ewk/RuQY5T1v1Vn5Nlz0=
+X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6abaa707 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=bMBjfq_dd7qU7rFTbikA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3MCBTYWx0ZWRfX7C2/lF7V7cqH
+ fHowt288XbEN6seNGAJ/0ehWtWd7xae5wZm1wfykVdRlMYryagzWBDFDkjVTXtW2EiFI3objtQk
+ 20QGfbpPL9RrYjKsW4L0cwt5JN1F8dqA5C74NFlIDCJeTVLrMb2MIDEIFAFWGFm2lBn//0XI5Fa
+ e0B0liWmHNdK77irQrbnxQ2vs8sm+PEq0dRwvoS4BdBaKWfyo/hnq82TelNDlDi1eAkGwOfjkrZ
+ 5b5F8RwaKhh4CDd976ScpbciHifJBmXC9XJNsA7LOzniAp3rKV/PXY0tDMKA+evKuNY6mKauqyn
+ fAmCQOlP++maLdufJAY7vHZnzhJ0FAydzlgfIp60EcY4hWJlEs8bec1r8GrLHFjS8d4hgcc7q5d
+ N4+41oh96GurkIVgt+pKyXB8OIpxo/CRqn3EVl+Hrl0LxxAXvGjpZbNheXrYYJ3oaJEDRMt+R4z
+ 0N15hHianT9jQmOX6iQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280070
 
-Select CONFIG_ARCH_HAS_VARIABLE_STACK_SIZE for arm64 and override
-arch_vm_stack_pages() to a value set from the command line, this
-value have the following properties:
-- Aligned to page size (doesn't need to be a power of 2), so it can
-  be 12kB for example
-- Min value is chosen to be 8kB
-- Max value will be the default stack size on arm64 which is used to
-  allocate the VA range for the kernel stack.
+On 9/28/26 11:09 AM, Krzysztof Kozlowski wrote:
+> On Tue, Sep 22, 2026 at 11:11:24PM +0100, Srinivas Kandagatla wrote:
+>> From: Alexey Klimov <alexey.klimov@linaro.org>
+>>
+>> Qualcomm Agatti SoC has PM4125 PMIC, which includes audio codec.
+>> Audio codec has TX and RX soundwire slave devices to connect to on-chip
+>> soundwire master.
+>>
+>> Add missing qcom,pm4125-codec compatible to pattern of audio-codec node
+>> properties in mfd qcom,spmi-pmic schema to complete the audio codec support.
+>>
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> [Srini: reworked the patch]
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>>  .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml        | 10 +++++++++-
+>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+>> index f6534e9e9912..d750da31ae3f 100644
+>> --- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+>> +++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+>> @@ -148,7 +148,15 @@ patternProperties:
+>>  
+>>    "^audio-codec@[0-9a-f]+$":
+>>      type: object
+>> -    $ref: /schemas/sound/qcom,pm8916-wcd-analog-codec.yaml#
+> 
+> This had three compatibles:
 
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
----
- .../admin-guide/kernel-parameters.txt         |  7 ++++++
- arch/arm64/Kconfig                            |  1 +
- arch/arm64/include/asm/memory.h               | 12 ++++++++++
- arch/arm64/kernel/entry.S                     | 10 +++++---
- arch/arm64/kernel/setup.c                     | 24 +++++++++++++++++++
- 5 files changed, 51 insertions(+), 3 deletions(-)
+That is true, things have moved under the hood.
+Thanks for spotting this, I will fix this and send v4.
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 33cd30996e47..e6ef22f01e01 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2920,6 +2920,13 @@ Kernel parameters
- 
- 	keepinitrd	[HW,ARM] See retain_initrd.
- 
-+	kernel_stack_pages=
-+			[ARM64,EARLY]
-+			Format: <integer>
-+			Number of pages mapped for each task kernel stack.
-+			The virtual area stays THREAD_SIZE and only its top
-+			pages are mapped.
-+
- 	kernelcore=	[KNL,X86,PPC,EARLY]
- 			Format: nn[KMGTPE] | nn% | "mirror"
- 			This parameter specifies the amount of memory usable by
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 020fcaf36b1b..5e09ae904e34 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -58,6 +58,7 @@ config ARM64
- 	select ARCH_HAS_SYSCALL_WRAPPER
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
- 	select ARCH_HAS_ZONE_DMA_SET if EXPERT
-+	select ARCH_HAS_VARIABLE_STACK_SIZE
- 	select ARCH_HAVE_ELF_PROT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
- 	select ARCH_HAVE_TRACE_MMIO_ACCESS
-diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
-index 4545d9b39bd5..1d300b16032d 100644
---- a/arch/arm64/include/asm/memory.h
-+++ b/arch/arm64/include/asm/memory.h
-@@ -113,6 +113,13 @@
- #define DIRECT_MAP_PHYSMEM_END	__pa(PAGE_END - 1)
- 
- #define MIN_THREAD_SHIFT	(14 + KASAN_THREAD_SHIFT)
-+#define MIN_KERNEL_STACK_SHIFT	(13 + KASAN_THREAD_SHIFT)
-+
-+#if (MIN_KERNEL_STACK_SHIFT < PAGE_SHIFT)
-+#define MIN_KERNEL_STACK_SIZE	PAGE_SIZE
-+#else
-+#define MIN_KERNEL_STACK_SIZE	(UL(1) << MIN_KERNEL_STACK_SHIFT)
-+#endif
- 
- /*
-  * VMAP'd stacks are allocated at page granularity, so we must ensure that such
-@@ -130,6 +137,11 @@
- 
- #define THREAD_SIZE		(UL(1) << THREAD_SHIFT)
- 
-+#ifndef __ASSEMBLY__
-+extern unsigned long kernel_stack_pages;
-+#define arch_vm_stack_pages()	(kernel_stack_pages)
-+#endif
-+
- #define THREAD_ALIGN		THREAD_SIZE
- 
- #define IRQ_STACK_SIZE		THREAD_SIZE
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index ea733b673970..39e68aace0a6 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -76,9 +76,13 @@
- 	msr	spsel, #0
- 	mov	x1, sp
- 	msr	spsel, #1
--	sub	x1, x1, x0
--	cmp	x1, #THREAD_SIZE
--	b.lo	.Lstack_ok\@
-+
-+	add	x0, x0, #THREAD_SIZE
-+	sub	x1, x0, x1
-+	adr_l	x0, kernel_stack_pages
-+	ldr	x0, [x0]
-+	cmp	x1, x0, lsl #PAGE_SHIFT
-+	b.ls	.Lstack_ok\@
- 
- 	/* Check whether we are on the IRQ, SDEI or EFI stacks. */
- 	stp	x2, x30, [sp, #-16]!
-diff --git a/arch/arm64/kernel/setup.c b/arch/arm64/kernel/setup.c
-index 29c6100f0c50..34559048dcca 100644
---- a/arch/arm64/kernel/setup.c
-+++ b/arch/arm64/kernel/setup.c
-@@ -278,6 +278,30 @@ u64 cpu_logical_map(unsigned int cpu)
- 	return __cpu_logical_map[cpu];
- }
- 
-+unsigned long kernel_stack_pages __ro_after_init = THREAD_SIZE / PAGE_SIZE;
-+
-+static int __init setup_kernel_stack_pages(char *str)
-+{
-+	unsigned long min = MIN_KERNEL_STACK_SIZE / PAGE_SIZE;
-+	unsigned long max = THREAD_SIZE / PAGE_SIZE;
-+	unsigned long val;
-+
-+	if (!str)
-+		return -EINVAL;
-+
-+	if (kstrtoul(str, 10, &val) || val < min || val > max) {
-+		pr_err("Invalid kernel_stack_pages=%s, should be between %lu and %lu\n",
-+		       str, min, max);
-+		return 0;
-+	}
-+
-+	kernel_stack_pages = val;
-+	pr_info("Kernel stack size set to %lu KiB\n", (val * PAGE_SIZE) / SZ_1K);
-+
-+	return 0;
-+}
-+early_param("kernel_stack_pages", setup_kernel_stack_pages);
-+
- void __init __no_sanitize_address setup_arch(char **cmdline_p)
- {
- 	setup_initial_init_mm(_text, _etext, _edata, _end);
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+
+
+> 
+>> +    properties:
+>> +      compatible:
+>> +        contains:
+>> +          enum:
+>> +            - qcom,pm4125-codec
+>> +            - qcom,pm8916-wcd-analog-codec
+> 
+> This has only one from that list (+a new one).
+> 
+This model was suggested by Rob in last review, I will add the context
+in msg.
+> This must have rationale in commit msg.
+> 
+--srini
+> Best regards,
+> Krzysztof
+> 
 
