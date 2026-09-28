@@ -1,95 +1,38 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5D0359A66
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AB1E366DA3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790559096; cv=none; b=aWF+fwWuwd4KOeKun7KwJ8TECkaV/2T3dGvbpk4x+1iC3EGdWrDSHycwuzLGqH+nmPF3nUyDF0BdnxF1EKiiArMGh+oLI1UMG4U1TmMn6hA8aL9VTdAnQcq8Q6fG5MSGocXdLLG2Mga/gwZbRWUKRmc0OGPTkbH9eHHXzJoeCuc=
+	t=1790559105; cv=none; b=p5USsCyPiGOFChV1pErhW4PgA3QvyWlzSviIjq5y8r3fUeQuEGHzfEDue+3yX0wC4YKoXJ+VSdT+RKE43HG3D3iWlZrG1KGe2yzNxfwMrQW+7tokuV0zn6AnoTC/aRduOGvkE6y+MM5vCwL6uvKP3FyrpmVhyW/VqOlW25RlPzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790559096; c=relaxed/simple;
-	bh=yZJky22DK8SoOEpKSdAy5qWRF+Ef1Q8RltBsE50v/BQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p+m8st5vCj9w9gRCDSxo+Pp4zCrJIKs9epXl6pLpB7/ZyKoiQCsdwM/bCffxMUVWGbb7agOgqDXgNvD4BWTIbDUV85Cw3MOv6Xf6hPYerQRv7xdfRIdimGRCLVgnioh080wy0P0Sr3TuzFWcShFJ6VYgGIMSrnj9UTYJXLX10L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjN3D6/i; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjN3D6/i"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1377541a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:31:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790559094; x=1791163894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dirh2UEA4WtZV+9yohxG/1+RZRfECh/4CcVZeUY5/Aw=;
-        b=FjN3D6/iX6V2G9kUvqo7VMoWG8X2GwZokIdETRbLrvtbPutfidQwHT+zoGBvKjKvK9
-         /doRn4Ewe0emBwc1JDAInoF8rN9h/nczc9PrMATpNus1Hw2er/bfqFAZ/QRfCZsL3zZE
-         6AFXUk5D/zpFstO1stkLrlPbXRikjMjwsgWpoVivRMb+ZHxkG/GB8nywQthMhe8VJrC9
-         NpXz6Q3F3dDgQEkONPmMRK5Us4DVlDD3GdPEkZsl6Uy/WC4wGo4+txR8hNKNLz0ExvTd
-         FUpyql55GuDlIUIRRXWhB9D/JwkX2wKlveMDJohO1AIcXMa7RHeHPyPNWq72jlgNS/6Y
-         K1Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790559094; x=1791163894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dirh2UEA4WtZV+9yohxG/1+RZRfECh/4CcVZeUY5/Aw=;
-        b=105rhKYhnevW3AweWxdqbDgpEziTbFZGceYoeRrQxGjoxUrbFZHx+BsXJDVIz07Zr2
-         59cJrG1W1iodLDcfmlKR1JDcSfHG52F0fmtYHO6i2TEd8+2H5nEOqVyt7lowNn6SOnCb
-         HZiDudUxhXSwFPLE8VGz6BNmqFOL5h9egHHnthtjC2fJs6ThHrAbAzyBtTMQkPWWaj5+
-         2uRIRjVlSX6RENDSaLNdmsjnDh5UADvCMfW+AtzPhjeY9HCAg3GQH6Dn9uD//7x2IZAQ
-         Ex5ceLq2ZoWFexo0ISmC7GOBcdeWEAmhOYprhPA/iwHqCMy+GCjCsUdQ3Rx8Ggbk0XPc
-         rUhg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1v/oWseTPGTAKZHGYu7zKgYG36QX8OuFAvzBxQTfuK/d4OrRV49aaTm509B/NitMTUfJGFxlvGoiLfCc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8KyrfdZmGtkMxXuaJ7R9bqwmPRYFq05EaIdXyhNN8s92XWphi
-	Vs+9xhXW3NnIOVbhv3eEdCH7jKzhNG5oUEZF028l0ZGZ96eflpVxmr2V
-X-Gm-Gg: AYBFou09UtPDhsaobIL4EvxCoX9Ero/D2ZEASnnW8Ykr9hr19wpqAKQnuKqUEFR7Z4T
-	qR++C1uoew9zfyscGlg3Wr7OMmadbu9mX2EXsn7H1a15GCSPG0vt9yCFoMNFfx7+N9o0oHDE4Wj
-	gfddNkUCeSU49xCuOfdX/Z72HIcfu1anR4H2BZqMBJx9ZQeYF0eNKmey4tMbcfUYP7B3Ps0V0tb
-	LBf3bz7oEJHT3+6oYKSeGtd4+02hCv+9x+Gb6/atgM0rNsVPnAbr+cj9g+ZlD/0k7RvZdBXQ8RR
-	gVUEI3Ppq3gK+fkHFi9Hid5QzHdZJlVLDaQMAZUnv8gNzSXgw+6TFPcvDzSMgTrCNKvsjAx90Nk
-	kK/z0RgUKdSVh6rcHYudLZln13VhQTAMBdpcFkmY+ycWYmP3pEAKCfuQyDmydWTjdnMX/+nw7OY
-	xR4PNR8k+QSSHtFfj3b7IMx47m8NdVGivmDNLIwxZujaX8fheiKnbmQUYk3ileiwVM52DGpt6iu
-	bSxMdn8Wt3XVwlo
-X-Received: by 2002:a17:90a:608f:b0:3a0:b61e:e31f with SMTP id 98e67ed59e1d1-3a0b61eea38mr3748176a91.28.1790559093919;
-        Sun, 27 Sep 2026 18:31:33 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm14951084a91.7.2026.09.27.18.31.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 18:31:32 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: djbw@kernel.org,
-	linux-pci@vger.kernel.org,
-	bhelgaas@google.com,
+	s=arc-20240116; t=1790559105; c=relaxed/simple;
+	bh=ME/oQC1qHMKyd1QCUbHtgGNPDJyvxohJC0SRAwHDKaM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ucOLrG0UZS2LULB7Lb4uKpAYi7rqdrnUEWeBoh9vHsIS/9ywdX72MdRz+6KsmI4yf2GJ1zXn+U0TLBsH4VYFQ5fLoHl2EsBvHuPM1sXNKoi8euYJmnzMZNIiWHs409zRlVNVy2ADWhCRAls5qPvyTpSGkevbAcZ3VTGHfiV/fWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDngzxxw7lqQME_AQ--.18158S3;
+	Mon, 28 Sep 2026 09:31:29 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with UTF8SMTPA id zS_KCgAX+6dxw7lq4NIaAA--.23320S2;
+	Mon, 28 Sep 2026 09:31:29 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: lucas.demarchi@intel.com
+Cc: raag.jadav@intel.com,
+	matthew.brost@intel.com,
+	thomas.hellstrom@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Jonathan.Cameron@huawei.com,
-	rust-for-linux@vger.kernel.org,
-	lukas@wunner.de,
-	akpm@linux-foundation.org,
-	jic23@kernel.org,
-	alistair@alistair23.me,
-	linux-cxl@vger.kernel.org
-Cc: aliceryhl@google.com,
-	gregkh@linuxfoundation.org,
-	benno.lossin@proton.me,
-	a.hindborg@kernel.org,
-	boqun.feng@gmail.com,
-	ojeda@kernel.org,
-	alistair23@gmail.com,
-	bjorn3_gh@protonmail.com,
-	gary@garyguo.net,
-	tmgross@umich.edu,
-	wilfred.mallawa@wdc.com,
-	alex.gaynor@gmail.com
-Subject: [PATCH v4 19/22] lib: rspdm: Support SPDM get_certificate
-Date: Mon, 28 Sep 2026 11:31:20 +1000
-Message-ID: <20260928013123.566184-1-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928011123.450800-1-alistair.francis@wdc.com>
-References: <20260928011123.450800-1-alistair.francis@wdc.com>
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v3] drm/xe/i2c: cancel the client work on remove
+Date: Mon, 28 Sep 2026 01:30:30 +0000
+Message-Id: <20260928013030.612592-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,365 +40,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgAX+6dxw7lq4NIaAA--.23320S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?xPWWJQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnbfYAegEspJ+qccDMUwRutu124ZyaTE3EU4k7BkgWOWCX6PgIqM1qRe4CLMsMP4/CcYP
+	q5WdbJ2wszwILaV1EN/N5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxCFWrZrW3AF1UuFy7XF15KFX_yoW5tFyxp3
+	90gFW5GFWvqay2gw42va1xCFy8Ca1fJrWfCr17J3y3u3ZIkr17KrZxtFW5ZFyjyr4kZa4Y
+	vrn0q3y29FWUAFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwmiiDUUUU
 
-From: Alistair Francis <alistair@alistair23.me>
+To: lucas.demarchi@intel.com
+Cc: raag.jadav@intel.com,
+    matthew.brost@intel.com,
+    thomas.hellstrom@linux.intel.com,
+    rodrigo.vivi@intel.com,
+    airlied@gmail.com,
+    simona@ffwll.ch,
+    intel-xe@lists.freedesktop.org,
+    dri-devel@lists.freedesktop.org,
+    linux-kernel@vger.kernel.org
 
-Support the GET_CERTIFICATE SPDM command.
+xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
+schedules i2c->work when the adapter is registered under the xe I2C
+platform device, and xe_i2c_client_work() then instantiates the AMC
+client device on that adapter.
 
-The kernel will send a GET_CERTIFICATE request to the the responder and
-then iterate over all of the certificates returned.
+xe_i2c_remove() tears down the AMC, unregisters the client devices,
+the bus notifier and the adapter platform device, but it never drains
+i2c->work. A work item that is still queued or running when the
+adapter is unregistered dereferences i2c->adapter in
+i2c_new_client_device() after platform_device_unregister() has
+released the adapter. The work item is also embedded in the
+devm-allocated struct xe_i2c, so a work item still queued after the
+drm device devm unwind frees that allocation runs its callback on
+freed memory.
 
-Certificate validation happens in the next commit.
+The bus notifier is the only thing that schedules this work, and it is
+unregistered after the client devices. An instance that is still queued
+when the teardown runs can therefore write
+i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
+clearing the same array, and an AMC client it instantiates late is only
+cleaned up by the adapter's own child sweep in i2c_del_adapter().
 
-Signed-off-by: Alistair Francis <alistair@alistair23.me>
+Move bus_unregister_notifier() in front of the client teardown loop
+and cancel the work right after it, so no new instance can be
+scheduled and a queued instance is drained before the client array is
+touched. A running instance still finds a live adapter, since the
+adapter is unregistered later.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- lib/rspdm/consts.rs    |   2 +
- lib/rspdm/lib.rs       |  15 ++++
- lib/rspdm/state.rs     | 110 ++++++++++++++++++++++++++++-
- lib/rspdm/validator.rs | 152 +++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 278 insertions(+), 1 deletion(-)
 
-diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
-index 11e080815aa6..234534c7aa6d 100644
---- a/lib/rspdm/consts.rs
-+++ b/lib/rspdm/consts.rs
-@@ -148,6 +148,8 @@ fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+Changes in v3:
+- rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
+- discussion: Link: above points at the v2 thread
+- unregister the bus notifier before the client teardown loop and
+  cancel the work before the loop as well: v2 cancelled the work only
+  after the loop, so an event arriving during the loop could still
+  schedule the work to race with the array teardown and leak a freshly
+  instantiated AMC client
+ drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index f4f3819..b82caaf 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
+ 	xe_i2c_irq_reset(xe);
+ 	xe_amc_exit(i2c);
  
- pub(crate) const SPDM_GET_DIGESTS: u8 = 0x81;
++	/* Stop the notifier from arming the client work before teardown. */
++	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++	cancel_work_sync(&i2c->work);
++
+ 	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+ 		i2c_unregister_device(i2c->client[i]);
+ 		i2c->client[i] = NULL;
+ 	}
  
-+pub(crate) const SPDM_GET_CERTIFICATE: u8 = 0x82;
-+
- // If the crypto support isn't enabled don't offer the algorithms
- // to the responder
- #[cfg(CONFIG_CRYPTO_RSA)]
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 92035b1070d1..ee17f4818aeb 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -109,6 +109,21 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
-         return e.to_errno() as c_int;
-     }
- 
-+    if state.provisioned_slots == 0 {
-+        return -(bindings::EIO as c_int);
-+    }
-+
-+    let mut provisioned_slots = state.provisioned_slots;
-+    while (provisioned_slots as usize) > 0 {
-+        let slot = provisioned_slots.trailing_zeros() as u8;
-+
-+        if let Err(e) = state.get_certificate(slot) {
-+            return e.to_errno() as c_int;
-+        }
-+
-+        provisioned_slots &= !(1 << slot);
-+    }
-+
-     -(EPROTONOSUPPORT as i32)
+-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+ 	xe_i2c_unregister_adapter(i2c);
+ 	xe->i2c = NULL;
  }
- 
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index 502d99eb13a6..780b9d459abf 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -52,16 +52,21 @@
- use crate::validator::{
-     GetCapabilitiesReq,
-     GetCapabilitiesRsp,
-+    GetCertificateReq,
-+    GetCertificateRsp,
-     GetDigestsReq,
-     GetDigestsRsp,
-     GetVersionReq,
-     GetVersionRsp,
-     NegotiateAlgsReq,
-     NegotiateAlgsRsp,
-+    SpdmCertChain,
-     SpdmErrorRsp,
-     SpdmHeader,
-     GET_CAPABILITIES_RSP_SZ,
--    NEGOTIATE_ALGS_RSP_SZ, //
-+    GET_CERTIFICATE_RSP_HDR_SZ,
-+    NEGOTIATE_ALGS_RSP_SZ,
-+    SPDM_CERT_CHAIN_HDR_SZ, //
- };
- 
- /// The current SPDM session state for a device.
-@@ -654,4 +659,107 @@ pub(crate) fn get_digests(&mut self) -> Result<(), Error> {
- 
-         Ok(())
-     }
-+
-+    fn get_cert_exchange(
-+        &mut self,
-+        request_buf: &mut [u8],
-+        response_vec: &mut KVec<u8>,
-+    ) -> Result<GetCertificateRsp, Error> {
-+        let len = self.spdm_exchange(request_buf, response_vec.as_mut_slice())? as usize;
-+        response_vec.truncate(len);
-+
-+        let response: GetCertificateRsp =
-+            Untrusted::new(response_vec.as_slice()).validate(&*self)?;
-+
-+        Ok(response)
-+    }
-+
-+    pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
-+        let mut request = GetCertificateReq::default();
-+        request.header.version = self.version;
-+        request.header.param1 = slot;
-+
-+        let rsp_sz =
-+            (GET_CERTIFICATE_RSP_HDR_SZ as u32 + u16::MAX as u32).min(self.transport_sz) as usize;
-+
-+        request.offset = 0;
-+        request.length = (rsp_sz - GET_CERTIFICATE_RSP_HDR_SZ) as u16;
-+
-+        let mut response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
-+
-+        let mut request_buf = request.to_bytes()?;
-+        let response = self.get_cert_exchange(request_buf.as_mut_slice(), &mut response_vec)?;
-+
-+        if (response.header.param1 & 0xF) != slot {
-+            pr_err!("Invalid slot response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let portion_length = response.portion_length;
-+        let rem_length = response.remainder_length;
-+
-+        let total_cert_len = portion_length as usize + rem_length as usize;
-+
-+        let mut certs_buf: KVec<u8> = KVec::new();
-+
-+        certs_buf.extend_from_slice(&response.cert_chain, GFP_KERNEL)?;
-+
-+        let mut offset: u16 = portion_length;
-+        let mut remainder_length = rem_length as usize;
-+
-+        while remainder_length > 0 {
-+            request.offset = offset;
-+            request.length = (remainder_length.min(rsp_sz - GET_CERTIFICATE_RSP_HDR_SZ)) as u16;
-+
-+            let mut request_buf = request.to_bytes()?;
-+
-+            response_vec.resize(
-+                request.length as usize + GET_CERTIFICATE_RSP_HDR_SZ,
-+                0,
-+                GFP_KERNEL,
-+            )?;
-+
-+            let response = self.get_cert_exchange(request_buf.as_mut_slice(), &mut response_vec)?;
-+
-+            let portion_length = response.portion_length;
-+            let rem_length = response.remainder_length;
-+
-+            if portion_length == 0
-+                || (response.header.param1 & 0xF) != slot
-+                || offset as usize + portion_length as usize + rem_length as usize != total_cert_len
-+            {
-+                pr_err!("Malformed certificate response\n");
-+                return Err(EPROTO);
-+            }
-+
-+            certs_buf.extend_from_slice(&response.cert_chain, GFP_KERNEL)?;
-+            let (val, overflow) = offset.overflowing_add(portion_length);
-+            if overflow {
-+                pr_err!("portion_length  response overflowed\n");
-+                return Err(EPROTO);
-+            }
-+            offset = val;
-+            remainder_length = rem_length as usize;
-+        }
-+
-+        let header_length = SPDM_CERT_CHAIN_HDR_SZ + self.hash_len;
-+
-+        if total_cert_len < header_length || total_cert_len != certs_buf.len() {
-+            pr_err!("Malformed certificate chain in slot {slot}\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let certs: SpdmCertChain = Untrusted::new(certs_buf.as_slice()).validate(&*self)?;
-+        let cert_chain_length = certs.length as usize;
-+
-+        if total_cert_len != cert_chain_length {
-+            pr_err!("Malformed certificate chain in slot {slot}\n");
-+            return Err(EPROTO);
-+        }
-+
-+        self.certs[slot as usize].clear();
-+        self.certs[slot as usize].extend_from_slice(&certs_buf, GFP_KERNEL)?;
-+
-+        Ok(())
-+    }
- }
-diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
-index c058dde31440..f4e9485179d0 100644
---- a/lib/rspdm/validator.rs
-+++ b/lib/rspdm/validator.rs
-@@ -26,6 +26,7 @@
-     SPDM_CAP_SUPPORTED_ALGORITHMS,
-     SPDM_CTEXPONENT,
-     SPDM_GET_CAPABILITIES,
-+    SPDM_GET_CERTIFICATE,
-     SPDM_GET_DIGESTS,
-     SPDM_GET_VERSION,
-     SPDM_HASH_ALGOS,
-@@ -794,3 +795,154 @@ fn validate(unvalidated: &[u8], context: &'c SpdmState<'c>) -> Result<Self, Self
-         })
-     }
- }
-+
-+pub(crate) struct GetCertificateReq {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) offset: u16,
-+    pub(crate) length: u16,
-+}
-+
-+impl GetCertificateReq {
-+    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-+        let mut out = self.header.to_bytes()?;
-+
-+        out.extend_from_slice(&self.offset.to_le_bytes(), GFP_KERNEL)?;
-+        out.extend_from_slice(&self.length.to_le_bytes(), GFP_KERNEL)?;
-+
-+        Ok(out)
-+    }
-+}
-+
-+impl Default for GetCertificateReq {
-+    fn default() -> Self {
-+        GetCertificateReq {
-+            header: SpdmHeader::new(SPDM_GET_CERTIFICATE),
-+
-+            offset: 0,
-+            length: 0,
-+        }
-+    }
-+}
-+
-+pub(crate) const GET_CERTIFICATE_RSP_HDR_SZ: usize = mem::size_of::<SpdmHeader>() + 4;
-+
-+pub(crate) const SPDM_CERT_CHAIN_HDR_SZ: usize = mem::size_of::<u16>() + 2;
-+
-+/// A parsed SPDM certificate chain
-+#[expect(dead_code)]
-+pub(crate) struct SpdmCertChain {
-+    // `length` is a u16 (with 2 bytes reserved) for SPDM versions 1.3
-+    // and lower and u32 for 1.4. We don't currently support `LargeOffset`
-+    // and `LargeLength`, so let's pretend this is always a u16
-+    pub(crate) length: u16,
-+
-+    pub(crate) root_hash: KVec<u8>,
-+
-+    pub(crate) certificates: KVec<u8>,
-+}
-+
-+impl<'a, 'c> Validate<'c, Untrusted<&'a [u8]>> for SpdmCertChain {
-+    type Err = Error;
-+
-+    type Context = &'c SpdmState<'c>;
-+
-+    fn validate(unvalidated: &[u8], context: &'c SpdmState<'c>) -> Result<Self, Self::Err> {
-+        let length = u16::from_le_bytes(
-+            unvalidated
-+                .get(0..2)
-+                .ok_or(EIO)?
-+                .try_into()
-+                .map_err(|_| EINVAL)?,
-+        );
-+
-+        let root_hash_end = SPDM_CERT_CHAIN_HDR_SZ + context.hash_len;
-+        let mut root_hash = KVec::new();
-+        root_hash.extend_from_slice(
-+            unvalidated
-+                .get(SPDM_CERT_CHAIN_HDR_SZ..root_hash_end)
-+                .ok_or(EIO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        let cert_chain_end = length as usize - root_hash_end;
-+        let mut certificates = KVec::new();
-+        certificates.extend_from_slice(
-+            unvalidated.get(root_hash_end..cert_chain_end).ok_or(EIO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(SpdmCertChain {
-+            length,
-+            root_hash,
-+            certificates,
-+        })
-+    }
-+}
-+
-+pub(crate) struct GetCertificateRsp {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) portion_length: u16,
-+    pub(crate) remainder_length: u16,
-+
-+    pub(crate) cert_chain: KVec<u8>,
-+
-+    /// Size of the response, not public
-+    length: usize,
-+}
-+
-+impl GetCertificateRsp {
-+    #[expect(dead_code)]
-+    pub(crate) fn len(&self) -> usize {
-+        self.length
-+    }
-+}
-+
-+impl<'a, 'c> Validate<'c, Untrusted<&'a [u8]>> for GetCertificateRsp {
-+    type Err = Error;
-+
-+    type Context = &'c SpdmState<'c>;
-+
-+    fn validate(unvalidated: &[u8], context: &'c SpdmState<'c>) -> Result<Self, Self::Err> {
-+        let header: SpdmHeader =
-+            Untrusted::new(unvalidated.get(0..4).ok_or(EIO)?).validate(context)?;
-+
-+        if header.code != SPDM_GET_CERTIFICATE - 0x80 {
-+            return Err(EINVAL);
-+        }
-+
-+        if header.version != context.version {
-+            pr_err!("Invalid version response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let portion_length = u16::from_le_bytes(
-+            unvalidated
-+                .get(4..6)
-+                .ok_or(EIO)?
-+                .try_into()
-+                .map_err(|_| EINVAL)?,
-+        );
-+        let remainder_length = u16::from_le_bytes(
-+            unvalidated
-+                .get(6..8)
-+                .ok_or(EIO)?
-+                .try_into()
-+                .map_err(|_| EINVAL)?,
-+        );
-+
-+        let cert_chain_end = 8 + portion_length as usize;
-+
-+        let mut cert_chain = KVec::new();
-+        cert_chain.extend_from_slice(unvalidated.get(8..cert_chain_end).ok_or(EIO)?, GFP_KERNEL)?;
-+
-+        Ok(GetCertificateRsp {
-+            header,
-+            portion_length,
-+            remainder_length,
-+            cert_chain,
-+            length: cert_chain_end,
-+        })
-+    }
-+}
--- 
-2.55.0
 
