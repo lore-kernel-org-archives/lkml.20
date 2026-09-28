@@ -1,154 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA714489FB9;
-	Mon, 28 Sep 2026 11:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61520490C12
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593285; cv=none; b=nEckSyc57s5oRUAxuVotdcAdrZHyTGix/2UcRwOugs3mqNTlCbTwkwRGdQp7KEsTCeV5uGtH3KyePs1EOhwfadAL2arI/QFFlpI0YlNqaSTZIETjWWy5PM805iBLMHkj5NfuqIBCeCVYpBqeBeFFvQByDaOu0IkavcIRQhi73TE=
+	t=1790593319; cv=none; b=t9riSf9/FffR4CT7wTdFVH5BuO5TWQLTCZ/dqC8YPY1THQPA7TgNiukNhtFlsg5mk/xem5X3Rq7kEtK/7Dr0p3I6pbE5gmLfVlfW7usVOpxwe1ud9Tj6vY+eAdmfO9TnPcdT6B5CVI3TMtlfu56PkWeJKYwnOr/oC6IlyvRSmxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593285; c=relaxed/simple;
-	bh=OPgOww627zD19BL+U//itmZv8dXx28KLUtom1uWHtxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=asqUvpU1HBKv9fJp0nLZWxAinCLS9TuA0l/EvH+O8zkzeByQ35b17UjpdPAd44X2WPcua/WSYYJAUEwCd7Sqt8h4ii7wcXxucnet79mcpkwwzKIuiPQmbxGOU1qapP8LRQ4wASq1s44iALoMwILE/DnF7OFqYLE8bshYwgFayts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tKg2YA0R; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790593319; c=relaxed/simple;
+	bh=jkyTYu2joa+N7LW/jLjMCrd80RlV2NlHH6zguWtPxew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=srzkBQ0mTaU9MaZj7+1cEEpr9N8gl5glPUQlSbM7qWGxsDj034mezSq9T4FyNiU5/5Y66ZeqIj/robIwSJrGJ1+SrdGi7inZwyOS+CojhIMZhKy3sCXumAtxomnVi/WyaehmL8/sqeKDfATMGrtcsrsIVokcH3dr377cDHm5hjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndx/x6nw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tKg2YA0R"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3ED81595;
-	Mon, 28 Sep 2026 04:01:19 -0700 (PDT)
-Received: from [10.57.12.79] (unknown [10.57.12.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B95943F86F;
-	Mon, 28 Sep 2026 04:01:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790593283; bh=OPgOww627zD19BL+U//itmZv8dXx28KLUtom1uWHtxo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tKg2YA0RHPuzdmRwV0lPGoDlgCUybqftje3GGS1BYH9CKtDCPS2NkvtEfCoAcTdbL
-	 ggVP7QGb7VEoJkplTGJTVfZVKoE56b1IVaD/Hu4bXFFzuEw+HScrzYRvw5CHvILr8y
-	 oMAmklYeDEboPJMEJeAx1kRbKYe4TFF0mFie7dms=
-Message-ID: <4e315360-5b7a-4a0e-99c0-679a0271e625@arm.com>
-Date: Mon, 28 Sep 2026 12:01:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndx/x6nw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819E21F00898;
+	Mon, 28 Sep 2026 11:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790593318;
+	bh=ZkSQyWzu7T/0A3a31XNu8vpxdHKsJ4rnNLYcnd0bezA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ndx/x6nwMj46Es9rYHZ9z5o5JqF6jxdKphwEJZh+flA2ah0VkSrN1HPEkvBpTZ55l
+	 Ec140TtlDd00Tm8VtLGdh+OYVKZXZ0cixKbTgzq/h0Jrs+rr0ZvEOC8OG3Xkgg9QsN
+	 sPsYC2pc+Yqt/UI424ddW2XK70/rrvc1WMUH306WX7q6ii+DiFZaGC8+1oeExOv1le
+	 IyMP4ppESpTjASvi8x0OInxnclTaAPXeNrazQgAAnd2ENyXioV7QTp6iRQKOApdZwH
+	 WNYK0ElfQrsxviktM5lH9ifaxdewsw+Ij7RF58oCxfzkZWcVw9CfQgdsm+NISW6BNW
+	 XNEDMAFhYc2gw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 51887198003A;
+	Mon, 28 Sep 2026 07:01:53 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 07:01:56 -0400
+X-ME-Sender: <xms:IUm6amGRh7ivfHDvq4z-E4J238NnRqeDSKn55_llFW07u2nvIC12gw>
+    <xme:IUm6anzTLp0eOfCljLLN7gd438Ibx6XI9YP_osT2WClEWug6PWQZEYIJVekIUzG5l
+    Tr-0rptENVwcMoqN7WMkBrhNoGTT2U18ORsCPfW-OmiEc3ZRh8KTZ_i>
+X-ME-Received: <xmr:IUm6alm3_1G1yWMrJZAP6YyyEhFHpAW59SEB6sArwbs_1HFnH1XDQTTvpZs>
+X-ME-Proxy-Cause: dmFkZTF0aXYM8k99TJSKePzPlV0De8TMZ2NIzeehRzclNPyyK+ntmJJe9xCW5IfIQqBvZb
+    4B//Q8aA+dg+pkoM/Hu4RNB1DMHP9RcAheVWJjNEUWscLZxr0DKXN45dL8/VHoXCApqgdv
+    9kyt5mrKg/Qv0CHkIWHqHnTGVENgrqiQhzXgV4SFDHQCtMPP0dbQrKV7Ld27CUqdi/llIg
+    RPOyyKS2epukrnxpRUIDWnbAA6KMEqtKVW7p8XcJ5GCOI0cRyClu1cuGLZi8XLbNZuRw22
+    4LFnKw9fd81HwwydQsLTyoqMNRUkKJLfz8JqZMNAwQBJE82qW8VZnUdBtFke/U1qNBefWu
+    WHCWENgAaAF7ORaIKprhr7jnkKBAHlQytYXZ4nF9v7PeatMRQz3kA9MLoHMo1ubFNX0htR
+    ZZnUVdeBxwHVo2Q9B2+N3Eh6miyohAYEhBv+2AdOVJT3RUAG90m8Ht+cdygxtl1HsmeT1u
+    dMRCTmtfi2+cS/qJp0ga1/cmugkZ3GHpjh0iUJnBpTvAIMXsHbLE0TciO9UV6aYwEnsIC7
+    A51LzFfDGTFIHQMkDkOfmf1YIk0tochZfIOTFQ97CEiVXCYXjRhwr3QG4FQYMxJPb2BhM2
+    tLlFSoqklbLoC9YaXpInfuYnQIKOYnUc28/ozsBsi8pb+OVTDGPgFXtN/eWw
+X-ME-Proxy: <xmx:IUm6auBd3_IhSHMMW3j4FKZja0Mq6HFnH8XR7kq3VggHYchzikfyFg>
+    <xmx:IUm6agKxqdn9FF9woV3mgkBZEhkETPfU_LNFx8CsGvUEeAGGUsoXpQ>
+    <xmx:IUm6ahwx6SH2NL2nvBSCuoCYvtrA-MntLblDciCkdhYYgjLUBxGdoA>
+    <xmx:IUm6akz2-uaDiSQsTbDgrPDCV3AZqJhHwdzK44hNCNp5pwAqq_41GA>
+    <xmx:IUm6aj3NRI4ihvxFUzsqZuJuC6btbpULou_EwtGCUY2EM-zl6oWB9zOE>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 07:01:52 -0400 (EDT)
+Date: Mon, 28 Sep 2026 12:01:51 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/mremap: fix locked_vm leak by splitting VMA for
+ MREMAP_DONTUNMAP
+Message-ID: <arpI-wmzRXU5aSOG@thinkstation>
+References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+ <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com> <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
- <arKVcjCOJf8p9rWL@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <arKVcjCOJf8p9rWL@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
 
-Hi Catalin
-
-On 22/09/2026 15:49, Catalin Marinas wrote:
-> On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
->> I had another look and we could handle this via kvm_fault_is_gmem_abort()
->> see in arch/arm64/kvm/mmu.c:
->>
->>
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 87e49251e0447..af5a4bf961aae 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
->> *s2fd)
->>          gfn_t gfn;
->>          int ret;
->>
->> +       if (!kvm_slot_has_gmem(s2fd->memslot))
->> +               return -EINVAL;
+On Sun, Sep 20, 2026 at 03:13:11PM +0100, Lorenzo Stoakes (ARM) wrote:
+> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+> operations that keep the original VMA in place.
 > 
-> I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
-> changes, we should never get in this situation. Well, to be revisited
-> for private devices.
+> Historically this has led to a lot of bugs where non-obvious interactions
+> occur between existing mremap() operations and the original VMA.
 > 
-> Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
-> kvm_fault_is_gmem_abort(). Something like:
+> Fix another of these - partial copies.
 > 
-> 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
-> 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
-> 		return -EIO;
+> The long-standing mremap() partial VMA logic has the baked-in assumption
+> that the originating VMA is unmapped and thus moved.
 > 
-> To me it makes more sense for gmem_abort() to be called only *if* it's a
-> gmem slot. So any inconsistency, avoiding user_mem_abort() for private
-> memory, should be done in the caller. I assume the caller will also have
-> to route the private device path as well rather than rely on
-> gmem_abort().
+> However MREMAP_DONTUNMAP defeats this by performing a partial copy
+> instead since it keeps the source VMA around.
 > 
->> +
->>          if (!perm_fault) {
->>                  memcache = get_mmu_memcache(vcpu);
->>                  ret = topup_mmu_memcache(vcpu, memcache);
->> @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
->> phys_addr_t fault_ipa);
->>   static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
->>                                      const struct kvm_s2_fault_desc *s2fd)
->>   {
->> -       if (!kvm_slot_has_gmem(s2fd->memslot))
->> -               return false;
->>          if (kvm_memslot_is_gmem_only(s2fd->memslot))
->>                  return true;
->> +       /*
->> +        * For Realms, all private faults must be backed by GMEM.
->> +        * TODO: Handle Trusted device private memory mappings.
->> +        */
->>          if (private_ipa_fault(kvm, s2fd->fault_ipa))
->>                  return true;
->>          return false;
->>
->>
->> Also, I have the following hunk for preventing memslot modifications.
->> I will add this to v20 integration branch, which is almost ready ;-)
->>
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 582b48e34486b..87e49251e0447 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->>          }
->>   }
->>
->> +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
->> +{
->> +       /* Cannot modify memslots once a pVM has run or Realm created */
->> +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
->> +               return false;
->> +
->> +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
->> +            kvm_realm_is_created(kvm))
->> +               return true;
->> +       return false;
->> +}
->> +
+> An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
+> but the operation can be performed partially:
+> 
+>                            |-----------------|
+>                            |                 |
+>                            |                 v
+>                         <------>          <------>
+>                         .new_sz.           new_sz
+>                      |--.------.--|       |------|
+>                      |  .source.  |       | dest |
+>                      |--.------.--|       |------|
+>                      <------------>
+>                          old_sz
+> 
+> The page tables in the specified range are moved, but the original VMA is
+> kept intact.
+> 
+> This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
+> cleared for the entire source VMA and set for the entire destination VMA.
+> 
+> This results in an mm->locked_vm leak as the change is therefore not
+> accounted correctly.
+> 
+> The clear solution here is to make the portion of the source VMA which is
+> mremap()'d distinct from the rest of it, a.k.a. split it.
+> 
+> Therefore resolve this issue by splitting it ahead of the rest of the
+> mremap() operation.
+> 
+> In order to make this change re-expose split_vma() in vma.h for
+> CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
+> instead).
+> 
+> A quick search of how MREMAP_DONTUNMAP is used in the wild suggests that
+> the partial case is either unused or rarely used, so this should not result
+> in unreasonable VMA proliferation.
+> 
+> Since this makes every mremap() MREMAP_DONTUNMAP operation operate across
+> an entire, distinct, VMA, also eliminate now-redundant code checking for
+> this in dontunmap_complete().
+> 
+> Finally, update the sys_map_count check to account for this case.
+> 
+> Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This needs to be tweaked for Realm to support non-secure device 
-assignment. Aneesh reports that the Device assignment fails now,
-because the Device BAR reset deletes the memory slot and re-registers
-it, which the above change prevents.
+Makes sense:
 
-I will modify that to
-1. Prevent "Guest-memfd" backed memory slot deletion. Makes sure that
-    nothing can replace a private memory slot.
-2. Allow non-Guest-memfd backed memory slots to be created
-   after the Realm is created. We anyways prevent "private" memory
-   to be mapped from a non-Guest-memfd memslot.
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Suzuki
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
