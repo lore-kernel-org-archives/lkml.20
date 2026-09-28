@@ -1,90 +1,115 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53143C1D5B;
-	Mon, 28 Sep 2026 19:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1C64EE86B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623270; cv=none; b=YB25ROoRX5BmWJtbvEV6kwMWnNt2EfCYIw+/ZAVDXdxKXrNuNxkr+0WJD/xuthS9NTuwmdNFPwYDVRuYbfJYU8vH/J8+Zc7Sp4vP/lEJuJbXQvqS8xsY4+28MRn7I7tIzb6WUgGR/hgkZ+wpXKEax3OZxskvyFDY52dgNgpTe+8=
+	t=1790623289; cv=none; b=HEzoSTWcqAdjzmn3xv4XZ8QKdwlQ3U4K1zBPPmHShVpxmwPaff0oFjsNRYTgTdI8e8tGVY8cI1zXlonnwS4T1CHHj4Q8vNSb6z7dynHSopRvhHuj7LE99QPyDj0SzYcnMTQnFDVf/lqy23QBYhlCpxCpadbyRsN04XbXjp/ea8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623270; c=relaxed/simple;
-	bh=QasQxIRx20taz4gWUy574eMahZ48Aax1dCcVCA0xDGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o1okAk7VJ9VmFI4at1gqzTax84Dac10dmvEI/LiIHX6jcz2dI8o0JANAnYd6lprJqdCyBfnm0mPOPuczdAOSde5EY7A/PxqUouaHFrWDOeQPNuqnzYqc35XCRofyyjj0khPk9zOz6EHfG0Hf6d2YqkGyv/BPaQ2S5Vi8EF0laC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=HZxLkY+g; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790623289; c=relaxed/simple;
+	bh=e4W3heWpJSSfMatKHc6jQT2QirxzrrhJb2u5eQNHmGQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=th4Fys2BLSfOzQcXf3l4b8UHarSSFA+jYuVRIxcYxDZ1mbh7N3hfFnmFCMgL8rbIPRsEqN4KXbJn9ocb42kkcYb3M91l83EW7oQYPvC5buLSsMpxX1LEG4L7lIkK9+uYDk5BiQepC5hjtIQl/JUjFIOOWxnfWJ6r3qBSmQ1T8Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xz+GHSZ/; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="HZxLkY+g"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2C32B40E01CD;
-	Mon, 28 Sep 2026 19:21:05 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id FSp33QZJmj3t; Mon, 28 Sep 2026 19:20:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790623255; bh=hWMdcqvL+ZRtnF9HF93VtM3rYEpoQymrFCVBxhuYp6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HZxLkY+g3HBVgFsl7x/przJH/+335DfjkQMtV/Oc0EPQVVPBLHk/h1dArKQ0TNnmv
-	 VEpRuTfVsg+3hNSC6AgsnYbWiRCSAZtjTC/e7Fy0irzy17LwgHdRpcc19KWmU2SN19
-	 yATTITu3W8D/Iy9BYRYs1/Apso/xFcNGsgIVbJuq9CT5dBpoMX4v2juRYQ61rJlV9z
-	 nWKhEN6wQLGqS6zntdlZZ8B3/X3Ap7GKK0cPhNqD+6qcrm+io+uB6+LgIZK2c/+bAH
-	 GOBJLarB7Eo8Uu7KgG8AbkgwT9t8P1Ud88fCfsOH3kYRqsDuh806Rlq42PZeI9VgiF
-	 UOmoejsw5wXYDrVZRkYy/1U3AMLBcwjQUYLxvtmY/jsvyIkojmkx57XcY0iJVE7mF9
-	 1QVIZ8VzEWLiff3/UyC8Ewo+JwsepS4gav2K4709gQOvb01L4prZsDjamkp1Y0WeTv
-	 4W+Nru8/8x+NvaKEw1bAZwZHsUpWPpaKDnc1vQhNjv43lPlQMNJNr4zgV5EYDdHpHl
-	 Ly2U7uT9LP+Ga5d0dQIh6pDps3Vl4Mv2QmTa+YRfKN46QtpbmLBYFpqHEC9E4xJiEa
-	 ejHjwqk46KmS8DFtW7n9s04CSuGAjxsdQxPSvtPDVkmT3K6qnGLViWXFa+pqAObgpU
-	 7LNj2QAVYPn0LRvuRGXKXpko=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A729140E00E8;
-	Mon, 28 Sep 2026 19:20:49 +0000 (UTC)
-Date: Mon, 28 Sep 2026 12:20:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Vishal Badole <Vishal.Badole@amd.com>, tony.luck@intel.com,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] EDAC/amd64: Mask UMC chip select to the four
- implemented selects
-Message-ID: <20260928192045.GAarq-DbwF6-q79hXC@fat_crate.local>
-References: <20260925172639.97063-1-Vishal.Badole@amd.com>
- <20260925172639.97063-3-Vishal.Badole@amd.com>
- <20260925181429.GBara6BXp_J2rnvoOp@fat_crate.local>
- <20260928143821.GB2289128@yaz-khff2.amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xz+GHSZ/"
+Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-6d8f2bdc754so643257eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:21:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790623287; x=1791228087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AVeRClalrWLka3P0+7DfFgAskiK62atsVktrSXYS9Rw=;
+        b=Xz+GHSZ/gIoBvLcPJjaQk3rDT+HEw67Hwg3rJt4chZEILO8gHA6xK9dtcWq/JDyflT
+         0BAuG+Sl8zwoOOArQSDZi93W4CTdpe06z0XZ3nqC4jG+k89A65gtxvDuR2I9RT8ucY0L
+         77xDGU6SZe7JtV6l6XGwH6KVqiv3VynwuSdUJIeSM6aThb2IA4M/WbCwNl6OB2o4uXVZ
+         9PbVwkOMm/SBHtNFpYVbyaG4aUEz8pno3b7y9vsae02eT0oickJRlaU7oJKC3H5RpNqr
+         LnL/QKLB+g2iBsI7KtWJw1naFeBXOImVEWyiUjQ/4VFvTWwM4+mltB2eVoxQO9JDpzIk
+         c+aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790623287; x=1791228087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AVeRClalrWLka3P0+7DfFgAskiK62atsVktrSXYS9Rw=;
+        b=m3q+Dwdt+Nmts+BzgLhzvpwWoGzzPewI+nXImaXNcxKwDDpYWA7Ydrb5TJCRzW9xgS
+         zkeSTkWb1Wujq+JxJ/P7adFkB9HmRH3ZgDrzrfCDkTa/PCo6A2qEUYzkkPt0GBndI+z5
+         tmKxY5WvNDt1f+fySOon22VVZ6C93xL18mseqowlxIgOKkWtG6x2zdcxUZCw/w+wPgS+
+         ilotoLzBlsP3Mqw5p5HxfzL9QHV1KCGZDc8dLouZEDtOh3XVnRnXeuZQGMIVdDRf1kMQ
+         x2qY1aw/ofd9G1o6jraBNoej8D3D4HP969CPXn9JZKfJrTybtn9RonKRSr9Ki1YIoHZA
+         +qLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjEoPFN4EpgS6O30KWp6fGX7ZhDOa9IjMdQBHXHTOpgtC/9kcQooE4HxxKlg/vq8lM0Ur15G2hCin6B4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0doZZfm/eyxw+NiGjUbF4oWb4JL+alJCVsLO0T5sEVgAJsw/t
+	JVO253GFiJcYMymCjvf5pD2GZ/Eh25lGRedoJ9rDJGEgrUkm7ysvjYs0jm5Ow67teU8=
+X-Gm-Gg: AYBFou2WddfTzBDRnIoTBOUqOuxkXrcH/iXfPLvAiFnzChYNQDCz2PsWU1AvHs7RVzV
+	+HlZWQifWEVnfOT0p6w83+UgiAHNgrnehUsiMceUSE78+wt5oGbDhJCgxofVcDSA/l9biUbM+Xc
+	1fEcO0dLEVnKFnu0aDaSY9tka7AO+4YufkvWs4V7Sqag1Z9Q3aoSvXSSSNaIcJbFGYAcAcT3xVU
+	6rINZDxjnMWtGdQ+8fKR9TxktJcaF7ljOgArVL5A25LR7trUIuM9wlQ93vjxuu8wySxMnZ1cSWy
+	yKbZX5qejGX46ml9UBlu0ZGKb0SQMTNHH2LrGHQJVebwFfp7YUdUUlTw1aGrlQnVr2t5ZYcGnwq
+	l/+dvZyMqHhr4sKQFaCe5WEjZ4adGIu5v+xulDmiPC2vXijX8CABitl8lS/F526C86COZ3qY/N2
+	tG7ZRQk/nMM8D6ZyhhD1vbIaK1PzHF4u/Uo/stEW8wSkP/bjk/VSslEOVYXRTA95sR1FnU/F78S
+	8Uh4qbv8Fsrs4ywo9DQvCU=
+X-Received: by 2002:a05:6820:214:b0:6d9:8fed:b73c with SMTP id 006d021491bc7-6d98fedb9aamr2471163eaf.57.1790623287111;
+        Mon, 28 Sep 2026 12:21:27 -0700 (PDT)
+Received: from Xinshengs-MBP ([129.79.197.98])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d882dc49dbsm6088996eaf.9.2026.09.28.12.21.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 12:21:26 -0700 (PDT)
+From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: usb: asix: remove redundant PHY address short-read check
+Date: Mon, 28 Sep 2026 15:21:19 -0400
+Message-ID: <20260928192119.73351-1-xinsheng.zhu.ny@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928143821.GB2289128@yaz-khff2.amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 10:38:21AM -0400, Yazen Ghannam wrote:
-> I didn't consider this a necessary fix. But it'd be good to have it to
-> avoid noise from reports.
+Short-read handling was added to asix_read_cmd() by commit
+920a9fa27e78 ("net: asix: add proper error handling of usb read errors").
+The helper converts short reads to -ENODATA while preserving negative
+errors from the underlying USB read operation.
 
-I didn't either but what is Vishal doing to trigger this:
+Remove the redundant short-read check in asix_read_phy_addr()
+and its unreachable -EIO assignment. The existing negative-return check
+handles both short reads and underlying USB read errors.
 
-"Since only four csrows are allocated, a syndrome with bit 2 set decodes
-to an out-of-range csrow and trips:
+Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+---
+ drivers/net/usb/asix_common.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-  EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)"
+diff --git a/drivers/net/usb/asix_common.c b/drivers/net/usb/asix_common.c
+index 4f03f4e57655..51bf887e3520 100644
+--- a/drivers/net/usb/asix_common.c
++++ b/drivers/net/usb/asix_common.c
+@@ -327,11 +327,6 @@ int asix_read_phy_addr(struct usbnet *dev, bool internal)
+ 	if (ret < 0)
+ 		goto error;
+ 
+-	if (ret < 2) {
+-		ret = -EIO;
+-		goto error;
+-	}
+-
+ 	offset = (internal ? 1 : 0);
+ 	ret = buf[offset];
+ 
 
-Vishal?
-
-From reading the commit message, I still have no clue how that happens and
-what are we fixing here.
-
+base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
 -- 
-Regards/Gruss,
-    Boris.
+2.54.0 (Apple Git-157)
 
-https://people.kernel.org/tglx/notes-about-netiquette
