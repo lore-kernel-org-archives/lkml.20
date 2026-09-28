@@ -1,305 +1,151 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6B1330D29;
-	Mon, 28 Sep 2026 12:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6572367D3;
+	Mon, 28 Sep 2026 12:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598277; cv=none; b=K1F1IYQRJHg1mxr7t0FGVFu23oyj2u8fLfE4s/qMzPypyzj4xVGr8hlVTXNDXzq1//OOs4Ndg1dCHQDaCi070ptiNzXTR9ATa8VWTEURwanDEZuCc/zkARNQX9lkz21i9tYJcXu5UiBDx+ul/mOGWcEOaJ97nCIwP7E3lJdr98w=
+	t=1790598286; cv=none; b=mD1sj3R185Zy0yttTqouTo0kg1onJ9CA8hsCoyNH2O3hbPWq/GUeV6ixefl7JIUs1wqfMi1a/C51VaOjP3cRgF3Q9rM899p/MgZUaiJfK0hpmUVBNdcqjSwoim4NoQqCHhHNHOh156z4Xl51TeRxe6tbHNw5aYh16aQocAAY26k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598277; c=relaxed/simple;
-	bh=EpG3og2O4gczajFRcDdYkud2oB20AySKbSQIpqmWPHo=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=beqgPTt5e1JyC3pqIrP9HCMQupZb2hWcz/hqOotgyTrsAMMrwT/8kuVqxUSairNd/daB4BRsKuzVaWMbJuwJSJorgSouDe4b7Aqp7ECJgDuUUs70f2+GpH21nngzFo2uXq3NubTg/ONF5kjFBkmvahjQqqNmk2buUasfyRwuDHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	s=arc-20240116; t=1790598286; c=relaxed/simple;
+	bh=uc0MUoMdSLJvuhnF56W9Xx19TzgaS8/1c8xXbOdAJBw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KC8DV49oppeRXtiDL7JOTLV6T8vfKaSrzXOhH2bWozr+0MYBa5j6/ViAhidxevjj68KVq/HYNR7bnWMlaGTmxgZdkmETDsoP8VEc+vZ7TLrXlNXABLVd+okrfp9/91Ln+hDpwQ1NoVvIhtWdP+t/lC201YZR2mSVujYAinxLJpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2DPSZgrz; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=u+II5QUa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0PvowrnK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Lx3oLs7F; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2DPSZgrz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="u+II5QUa";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0PvowrnK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lx3oLs7F"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4htgV92ksYz5B0xY;
-	Mon, 28 Sep 2026 20:24:33 +0800 (CST)
-Received: from njy2app01.zte.com.cn ([10.40.12.136])
-	by mse-fl1.zte.com.cn with SMTP id 68SCOOC0072489;
-	Mon, 28 Sep 2026 20:24:24 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njb2app07[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Mon, 28 Sep 2026 20:24:27 +0800 (CST)
-X-Zmail-TransId: 2aff6aba5c7bca8-17598
-X-Mailer: Zmail v1.0
-Message-ID: <202609282024273579VUWteKdnnbvWlyjERLQ-@zte.com.cn>
-In-Reply-To: <20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn>
-References: 20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn
-Date: Mon, 28 Sep 2026 20:24:27 +0800 (CST)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F0AB922321;
+	Mon, 28 Sep 2026 12:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
+	b=2DPSZgrzkbxlaqi2J4LNNXlZBcsHX3BUmZlel9+KGgzozpXrVLNxChCtTP4LjMnBejaiUF
+	iwexwZ51FPviSEY81PLcLvIWzQwYr6x5ToiEj8nTQgNAjwxPcC6Q6JQLgdztuIeW1px77N
+	Af64rKFvacShsDWR0R6uIC6l3WEeVRk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598273;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
+	b=u+II5QUaJrbK1hbbMDW8ErhnJpucilOd5T5lmPqcSoNFX8qTRT/6G3H7Q9kiZSNRPvRkYx
+	lvRAfHGtH4w/KTAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0PvowrnK;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Lx3oLs7F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
+	b=0PvowrnKdlAekA9E+5hYEq399qN9nvWTWqJ0Usd2m2p1w+UoilMyKeheNVh3+bgY6zDiP2
+	kgk5JeHuxmhSj4Nz0ycb8nYEEuLs2mDowbOSiiTyXSrqRyGp8VdV+0uCz6w2Xe/ygrJ1Vb
+	fII0Pqg26nUQDgnMre8CYBjJJ8O59AI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598269;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
+	b=Lx3oLs7FRGq75a3/fibx7JxP6sQQj34/htGmQd5MlxqSjnZ+dcGJ8qGWd26TfEyNErbVhM
+	KOMLY1ZcmLsZ+qDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7670A133F1;
+	Mon, 28 Sep 2026 12:24:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Ikp7EnxcumoKdgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:24:28 +0000
+Date: Mon, 28 Sep 2026 14:24:27 +0200
+Message-ID: <87jyo55zt0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] ALSA: mpu401: shut down timer before freeing MPU
+In-Reply-To: <20260927093809.681726-1-runyu.xiao@seu.edu.cn>
+References: <20260927093809.681726-1-runyu.xiao@seu.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY0IDEvM10gZGluZ2hhaTogYWRkIGZpcm13YXJlIHZlcnNpb24gY2hlY2sgYW5kIFJJU0MtVgogcmVhZGluZXNzIHBvbGxpbmc=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68SCOOC0072489
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 28 Sep 2026 20:24:33 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ABA5C81.000/4htgV92ksYz5B0xY
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: F0AB922321
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,seu.edu.cn:email]
+X-Spam-Flag: NO
 
-From: Junyang Han <han.junyang@zte.com.cn>
+On Sun, 27 Sep 2026 11:38:09 +0200,
+Runyu Xiao wrote:
+> 
+> When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
+> input and output with a timer. During raw-MIDI teardown, the timer callback
+> can already be running when snd_mpu401_uart_remove_timer() clears the last
+> mode bit and calls timer_delete(). That API neither waits for a running
+> callback nor prevents it from rearming the timer, and free_irq() does not
+> synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
+> mpu while the timer callback still uses it.
+> 
+> Initialize the timer once when the MPU object is created and only rearm it
+> while a timer mode is active. Shut it down synchronously after freeing the
+> IRQ so an in-flight callback completes before mpu and its resources are
+> released.
+> 
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-The DingHai firmware publishes a version compatibility block and a
-RISC-V health buffer at fixed offsets within BAR 0.
+Applied to for-next branch.  Thanks.
 
-After the PCI capabilities are mapped, poll the compatibility block
-until the firmware populates it (the region reads as all ones until
-then) and verify the driver/firmware version contract. Then wait for
-the RISC-V management core to set its power-on flag in the health
-buffer before the rest of the probe continues.
 
-Firmware images that support neither self-healing (health version
-other than 1) nor hot-plug interrupts (patch level below
-ZXDH_HPIRQ_PATCH) do not report the power-on flag and skip the
-readiness wait.
-
-Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
----
- drivers/net/ethernet/zte/dinghai/en_pf.c | 130 +++++++++++++++++++++++
- drivers/net/ethernet/zte/dinghai/en_pf.h |  46 ++++++++
- 2 files changed, 176 insertions(+)
-
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
-index 86d437408820..ddff9b0438fb 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.c
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
-@@ -6,6 +6,8 @@
-
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <net/devlink.h>
- #include <linux/dma-mapping.h>
- #include "en_pf.h"
-@@ -369,6 +371,120 @@ int zxdh_pf_modern_cfg_init(struct zxdh_core_dev *zxdh_dev)
- 	return ret;
- }
-
-+/* The firmware fills the compatibility block field by field, so it is
-+ * only ready to be read once every field we consume has lost its
-+ * erased value.
-+ */
-+static bool zxdh_pf_fw_compat_ready(struct zxdh_fw_compat __iomem *compat)
-+{
-+	return ioread8(&compat->module_id) != 0xffU &&
-+	       ioread8(&compat->major) != 0xffU &&
-+	       ioread8(&compat->fw_minor) != 0xffU &&
-+	       ioread8(&compat->drv_minor) != 0xffU &&
-+	       ioread16(&compat->patch) != 0xffffU;
-+}
-+
-+/* Read the firmware version block and verify the driver/firmware
-+ * version contract.
-+ */
-+static int zxdh_pf_fw_compat_check(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
-+	struct zxdh_fw_compat __iomem *compat;
-+	struct zxdh_fw_compat *fw_compat;
-+	bool ready;
-+	int err;
-+
-+	fw_compat = &pf_dev->fw_compat;
-+	compat = pf_dev->pci_ioremap_addr[0] + ZXDH_FW_COMPAT_OFFSET;
-+
-+	/* The firmware publishes the block within 10 s of boot; wait twice
-+	 * that to leave margin.
-+	 */
-+	err = readx_poll_timeout(zxdh_pf_fw_compat_ready, compat, ready,
-+				 ready, USEC_PER_SEC,
-+				 ZXDH_FW_COMPAT_TIMEOUT_SEC * USEC_PER_SEC);
-+	if (err)
-+		dev_info(zxdh_dev->device,
-+			 "compat region not populated, assuming legacy firmware\n");
-+
-+	/* Firmware predating the compatibility region keeps the erased
-+	 * pattern, which fails the module id check below and defers the
-+	 * decision to the readiness wait.
-+	 */
-+	fw_compat->module_id = ioread8(&compat->module_id);
-+	fw_compat->major = ioread8(&compat->major);
-+	fw_compat->fw_minor = ioread8(&compat->fw_minor);
-+	fw_compat->drv_minor = ioread8(&compat->drv_minor);
-+	fw_compat->patch = ioread16(&compat->patch);
-+
-+	if (fw_compat->module_id != ZXDH_MODULE_ID) {
-+		dev_info(zxdh_dev->device,
-+			 "unknown module id %u, skip fw compat check\n",
-+			 fw_compat->module_id);
-+		/* Unknown firmware is treated as predating the HPIRQ
-+		 * patch, so that the readiness wait is skipped.
-+		 */
-+		fw_compat->patch = 0;
-+		return 0;
-+	}
-+
-+	if (fw_compat->major != ZXDH_MAJOR) {
-+		dev_err(zxdh_dev->device,
-+			"driver major %u incompatible with firmware major %u\n",
-+			ZXDH_MAJOR, fw_compat->major);
-+		return -EINVAL;
-+	}
-+
-+	if (fw_compat->fw_minor < ZXDH_FW_MINOR) {
-+		dev_err(zxdh_dev->device,
-+			"firmware fw_minor %u older than required %u\n",
-+			fw_compat->fw_minor, ZXDH_FW_MINOR);
-+		return -EINVAL;
-+	}
-+
-+	if (fw_compat->drv_minor > ZXDH_DRV_MINOR) {
-+		dev_err(zxdh_dev->device,
-+			"driver drv_minor %u older than required by firmware %u\n",
-+			ZXDH_DRV_MINOR, fw_compat->drv_minor);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Wait for the RISC-V management core of the firmware to finish
-+ * booting, so that later probe steps can talk to it.
-+ */
-+static int zxdh_pf_wait_riscv_ready(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
-+	struct zxdh_health_buffer __iomem *hb;
-+	u8 health_version;
-+	u8 power_on;
-+	int err;
-+
-+	hb = pf_dev->pci_ioremap_addr[0] + ZXDH_RISCV_HB_OFFSET;
-+	health_version = ioread8(&hb->health_version);
-+
-+	/* Firmware that supports neither self-healing nor hot-plug
-+	 * interrupts does not report the power-on flag.
-+	 */
-+	if (health_version != 1 &&
-+	    pf_dev->fw_compat.patch < ZXDH_HPIRQ_PATCH)
-+		return 0;
-+
-+	err = readx_poll_timeout(ioread8, &hb->riscv_power_on, power_on,
-+				 power_on == 1, USEC_PER_SEC,
-+				 ZXDH_RISCV_READY_TIMEOUT_SEC * USEC_PER_SEC);
-+	if (err) {
-+		dev_err(zxdh_dev->device, "timed out waiting for riscv power on\n");
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	struct zxdh_core_dev *zxdh_dev;
-@@ -405,10 +521,24 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto err_cfg_init;
- 	}
-
-+	ret = zxdh_pf_fw_compat_check(zxdh_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "zxdh_pf_fw_compat_check failed: %d\n", ret);
-+		goto err_modern_cfg;
-+	}
-+
-+	ret = zxdh_pf_wait_riscv_ready(zxdh_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "zxdh_pf_wait_riscv_ready failed: %d\n", ret);
-+		goto err_modern_cfg;
-+	}
-+
- 	devlink_register(devlink);
-
- 	return 0;
-
-+err_modern_cfg:
-+	zxdh_pf_modern_cfg_uninit(zxdh_dev);
- err_cfg_init:
- 	zxdh_pf_pci_close(zxdh_dev);
- err_pci_init:
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
-index 7373dee8d1a9..7733f41c57f1 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.h
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
-@@ -29,6 +29,51 @@
- #define ZXDH_PF_ALIGN2			2
- #define ZXDH_PF_MAP_MINLEN2		2
-
-+/* Fixed offsets of the firmware interface regions within BAR 0. */
-+#define ZXDH_RISCV_HB_OFFSET	0x5300
-+#define ZXDH_FW_COMPAT_OFFSET	0x5400
-+
-+/* Driver/firmware version contract. The firmware publishes its side of
-+ * the contract in the region at ZXDH_FW_COMPAT_OFFSET.
-+ */
-+#define ZXDH_MODULE_ID		1
-+#define ZXDH_MAJOR		1
-+#define ZXDH_FW_MINOR		0
-+#define ZXDH_DRV_MINOR		0
-+/* Firmware patch level that introduced hot-plug IRQ support. */
-+#define ZXDH_HPIRQ_PATCH	4
-+
-+#define ZXDH_FW_COMPAT_TIMEOUT_SEC	20
-+#define ZXDH_RISCV_READY_TIMEOUT_SEC	40
-+
-+/* Firmware version compatibility block at ZXDH_FW_COMPAT_OFFSET.
-+ * Fields are read through ioread*(), which converts from little-endian.
-+ */
-+struct zxdh_fw_compat {
-+	u8 module_id;
-+	u8 major;
-+	u8 fw_minor;
-+	u8 drv_minor;
-+	u16 patch;
-+	u16 rsv;
-+} __packed;
-+
-+/* Health buffer at ZXDH_RISCV_HB_OFFSET, maintained by the RISC-V
-+ * management core of the firmware. Fields are read through ioread*().
-+ */
-+struct zxdh_health_buffer {
-+	u32 synd;		/* Bitmask of active syndrome flags. */
-+	u32 health_counter;	/* Incremented heartbeat counter. */
-+	u8 status;
-+	u8 rfr;
-+	u8 fw_exception;
-+	u8 riscv_power_on;	/* Set to 1 once the core finished booting. */
-+	u8 fw_version[32];
-+	u8 pf_status[5];
-+	u8 health_version;	/* 1 when the firmware supports self-healing. */
-+	u8 rsv1[30];
-+} __packed;
-+
- struct zxdh_core_dev {
- 	struct device *device;
- 	struct pci_dev *pdev;
-@@ -54,6 +99,7 @@ struct zxdh_pf_dev {
- 	s32 modern_bars;
- 	void __iomem *pci_ioremap_addr[6];
- 	u32 dev_cfg_bar_off;
-+	struct zxdh_fw_compat fw_compat;
- };
-
- void *zxdh_core_alloc_priv(struct zxdh_core_dev *zxdh_dev, size_t size);
--- 
-2.27.0
+Takashi
