@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D304C9DE0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:15:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E108637F014
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633727; cv=none; b=eZLF7vkgZXHBTpEuaka3iZI2VPuA8pWW77EMNU5uER/CrXHD1VdP2HJ2reIR+boLYhco5UoEvh3eWC8OcTQBATCTkJOqz7MwiVRIMEwNtSGMDF19CYpUrkzNpwME8oJ6qVR0y4JJk8nJelGa2b5Up3GVhrZPqAgutmExRHXbo6U=
+	t=1790633727; cv=none; b=r+85TW0mCBvAKMTVzvicAyIX3He8JpW4NBl/jqw4EulSe827HkmFJp0FbH9MyN4RNIWRKRTzzxBVxd1cnDbdhJac6VI7oNVRBdbsWyurpNNLtIU1kEShXQOTjEtHcJjJoBtndUw5hnyhlxkhv3aHFaJuvLj2weUZNc4uotb3sV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790633727; c=relaxed/simple;
-	bh=IRqoKFEUUPH3JfUBrnXoDVdYH2g0YY0OxwRoPolp5Jw=;
+	bh=Lt8FCzYvITElzYlBQf+YZR8q+LpXlOQFy5oBI6Gh+Xs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RVanFtVyXnCPDsjOYS8YGHylY0bAnSLqExrMpX50v7W1GMMoTGaxGLO2ACn3LXJl91SjACpTcZ5zoxGI+9mGSHGwQ9VyVl0d5BWY8ZLCXK6E1H9dCA55aPbX9GMgIpzysIw5gvPuxfHgQFXeRwrXLnvuUa6MlW88/gAHupEF0O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T0axI/mp; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=i85f9q8a7qaaDKkYlvX47tj/50O68JyoA5EqNPg+1Vra5WOIaX//uAKl3t5AiQCuChJNijtiOisXpQgvyZho4YOMiywo/LnPxPzAZR2JdZbl9cQN2iQAdOO1PyD38f+bz0El+tzkr4YKmSkfKE4M8ZdWB1H3chJZGIi4hncEVvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S2SpZugA; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T0axI/mp"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S2SpZugA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790633723; x=1822169723;
+  t=1790633720; x=1822169720;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=IRqoKFEUUPH3JfUBrnXoDVdYH2g0YY0OxwRoPolp5Jw=;
-  b=T0axI/mp1VMNgVTLnsxZWJQmeNRKe8EYar7OGB2abiaudiZZ9h6qc5WH
-   XKt9+ZZry9I/pCwAPqLfw2eVvp974YMAqXrdezSK2hOy78YiwpbSInijI
-   LmTY9lfHDXv9cd/ZjXN1AP+2QlU9jNotp7NSU3tz/XYg0GfX4WhUEMKwO
-   HUui5YbI9ZoBP1KHqI9amkcZ1f/Fgx4HAHcXEJrdQOnPh4cigyKr9tYz2
-   k++rjJkXUHUgTkUy0nvO1PT1XM3Ztws4K+KsDlL33fFrbEv5NvNULkJHK
-   bU1m/EV+mEexQ0oD1+p4RyWpKERs6i5yyaXKY+y1Wx/pLVnSo0UvxsYW2
+  bh=Lt8FCzYvITElzYlBQf+YZR8q+LpXlOQFy5oBI6Gh+Xs=;
+  b=S2SpZugAIGWuR3ZVS1XuqVqu2vtTSeOIzoPijjhyD7hEtxdXxBMwDJzy
+   fq564KO9+YuD18p2MD194BmYEU59h31qoT+JopUQDeuAnboJO0986CSHs
+   m8fisrE2upNCljx2mFz0CNgn7i97Yd9HyYcjhg1fwdqZTFPyESxersNt0
+   bUlsmSSVUDhnLMlAOb7P3MC4oj/9krca2xyxEav47OfFMmMJe+4EDdm2w
+   zbcoBzDWsA+YZen8XzJlD265v/xhss45J9QJG3H92u75m+rK6W/o2YNfh
+   OEbAXl0C71vGEYWtU0ZRygdImCYdqnJe8YMjpyduD0lQp0DNv92K80xRO
    w==;
-X-CSE-ConnectionGUID: /U40qrXPSDan5a6pGY/BSg==
-X-CSE-MsgGUID: k2gg2BjuT8GsS/nyx/RFaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90387179"
+X-CSE-ConnectionGUID: 1k5X5HdUSmGs+0k5kn6M9A==
+X-CSE-MsgGUID: 5uilumSJRXGPo9GRCT9iDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90387171"
 X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="90387179"
+   d="scan'208";a="90387171"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:15:18 -0700
-X-CSE-ConnectionGUID: lI6QkQZ+T5+EwFtwgKuBog==
-X-CSE-MsgGUID: /hSIZ/obQHe0dFlJf6uoiw==
+X-CSE-ConnectionGUID: awguaEKjTJ+V7Oo64HerHg==
+X-CSE-MsgGUID: YIJOq/5qTMyUL3pV9EtD7Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="274685466"
+   d="scan'208";a="274685460"
 Received: from lstrano-mobl6.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.222.143])
   by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:15:16 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v13 03/25] x86/resctrl: Check if monitoring features are supported
-Date: Mon, 28 Sep 2026 15:14:47 -0700
-Message-ID: <20260928221509.68002-4-tony.luck@intel.com>
+Subject: [PATCH v13 02/25] x86/cpufeatures: Add missing CQM feature dependency
+Date: Mon, 28 Sep 2026 15:14:46 -0700
+Message-ID: <20260928221509.68002-3-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928221509.68002-1-tony.luck@intel.com>
 References: <20260928221509.68002-1-tony.luck@intel.com>
@@ -73,48 +73,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both Intel and AMD manuals say that software must first check
-CPUID(0x7,0x0).EBX[12] to see if any monitoring features are supported before
-checking for resource specific features supported in subleaves.
+The Intel Software Developer's Manual says that software must check that
+CPUID(0x7,0x0).EBX[12] (Linux X86_FEATURE_CQM) is set before checking
+for monitoring features in CPUID leaf 0xF.
 
-Each of the L3 monitoring features is further gated by CPUID(0xF,0x0).EDX[1].
+Add the missing dependency of X86_FEATURE_CQM_LLC on X86_FEATURE_CQM.
 
-Add checks for these feature bits.
-
-Maintainer note: No need to backport this fix. No issues have been seen
-from this failure to follow the exact enumeration process in the manual.
-
-Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
 Signed-off-by: Tony Luck <tony.luck@intel.com>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
 v13:
-	Dropped (Linux: X86_FEATURE_*) from commit comment
-	s/specific features/resource specific features/
-	s/L3-based monitoring features/L3 monitoring features/
-	Added maintainer note about not back porting.
+	Added Reinette RB tag
 ---
- arch/x86/kernel/cpu/resctrl/core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/x86/kernel/cpu/cpuid-deps.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 55214d6fdc49..34ca3c7cc046 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -968,6 +968,14 @@ static __init bool get_rdt_mon_resources(void)
- 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
- 	bool ret = false;
- 
-+	/* Any monitoring at all? */
-+	if (!cpu_feature_enabled(X86_FEATURE_CQM))
-+		return false;
-+
-+	/* Any of the L3 monitoring features? */
-+	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
-+		return false;
-+
- 	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
- 		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
- 		ret = true;
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index 99801e844b30..93d45b688f6c 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -67,6 +67,7 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_AVX512_4FMAPS,		X86_FEATURE_AVX512F   },
+ 	{ X86_FEATURE_AVX512_VPOPCNTDQ,		X86_FEATURE_AVX512F   },
+ 	{ X86_FEATURE_AVX512_VP2INTERSECT,	X86_FEATURE_AVX512VL  },
++	{ X86_FEATURE_CQM_LLC,			X86_FEATURE_CQM       },
+ 	{ X86_FEATURE_CQM_OCCUP_LLC,		X86_FEATURE_CQM_LLC   },
+ 	{ X86_FEATURE_CQM_MBM_TOTAL,		X86_FEATURE_CQM_LLC   },
+ 	{ X86_FEATURE_CQM_MBM_LOCAL,		X86_FEATURE_CQM_LLC   },
 -- 
 2.55.0
 
