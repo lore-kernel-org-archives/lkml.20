@@ -1,154 +1,150 @@
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5220939184A
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1748391853
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619994; cv=none; b=AvlVTHEzdgjLlS4B8/8pkEqBDoEr/TupyLbS5qPrN1VsutMBhGOSBn05p3NJdzoS32JvBonxYZOl/qz1QxpK8vn8h7aOZ4AlH46MoGofxPSJdSDm65eTSURRdXO6gM5EBdewAtCIrgJA+gnlxDyR/AW+W2wUO3Q3Ev3zJWj1hbE=
+	t=1790619997; cv=none; b=k2oIYndxps7wiV0Uc6OsI8Z6c+tvvu2bRZgVYIu8LTy1quCbQXUwc7yHUT7ahetkNoP6iYCib4aFqJjiBgp62pFwSHIpMaKXH3Db6U6ee4SRYRabJUY58f+lUvUJOWCLJTYLuKxDfd1AObwQ0lGH631cYzkflLbgiIp8+2VYDtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619994; c=relaxed/simple;
-	bh=+b7CFFHgZ618D+Uis2e9wFQoJJRfY/sRed2KpRC4bYk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=sQtP0QEx7wYAV6Eujc1CSUgoxHjKI8Q3vhCPOay98Sea1Ry8uU4TaPsgUrFZypvLmHH3YYQayqiRZjYJNXA2YIJFdDlF+xtnnelBLk/NMkUy/MZATpKdtPKgajXJ7Gj1y/OyMQRFkGNgnJQOkhJubcTRbUVubDK83UBI2a7M1D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=T9zLs2We; arc=none smtp.client-ip=209.85.215.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790619997; c=relaxed/simple;
+	bh=UduaDJlHfbFTdzR6YJRzsoWjOUEEZ0mJdO4Z993c2l8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=VFFeGbDIjrQvIIJl7sjmmMvepc1Tqqs1SGOnC0tDR67gAFQxYncl9WUBYUf8eGDeSb72jh7OHssrohxmaj9c9iIpkXsNonua4Pqj1DgFlg5bKCB0Ml0AMudvrY1hZ//aKRSjPx5kQ6ITiSD2JUZfCmTkdyXMtipRNhoiMcSDeT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lus4bln2; arc=none smtp.client-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="T9zLs2We"
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc75e1703f1so253007a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790619993; x=1791224793;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XGjdMwJsnua5C5JwBesKhZf4WJKUTjxVN8HV5NiB4F4=;
-        b=MsbsOKcpiyc42Tdt+geOGZtr3vdyCAjwRr5ODw/6r94s1Q0agefyfkEpZiop63mBc+
-         AJE7d/A4YU14bHdKLippGkF2d1v2Mne61qAgMC9M1Sr9HNjQQ7v+nmkuRbnD8jTHvhZ+
-         xlKqSzjVoqh0zAOvmhCIVTKh3W3hYjoUXvaXT8cAr3l4jjKpyRnxzTtpyjV1A2ZthZoV
-         4oVa3B8lg1Ewn0bFF0yJRwsZ/vqRodZgzemba8NIz//kLI8oKQG/akEO0vJs76fXBDBY
-         p0fUcBGDwD6XKu0aTNfKAzUgxAPsOluwooMFZQTGLVbLKEmKDHDZsB5KX7Hp1OSgMGHN
-         57Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJRYXFpGdmxXadvNtJNneOG/9sVaOPupb98kWCRbhzhP/od6DhHb+HwnD567NN810ZNV8l4lKiwA5CsXU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsZ9U54CGkqyPi0Oy8ySulNNeDppCxQZoOEaV68Nr3codq4EGk
-	V/dd4xrktb//F7AFTz+Dzogt0sIrzeK6bd4icmjgmIgkbCQr2AImyyO5h6ExARGBSgdX0lb8Y/9
-	oh5MvJEWnz4i/ZcRnRLA0BZF5LFFYnwEamG0rBqelP80Lxz/oQBOLiyE3bxAyGKBLXySd2AhAqw
-	d3wPliV4Fsp3ufCmgWNAJRyKLOdPQJxi0OZOufopW6Dc4qsqq4xHI6aqrkAYapCdvRqijC8qhCJ
-	bpVZPhztf8stI1Tpr5Rnjl/
-X-Gm-Gg: AYBFou1eAGXaWhA2eQl4M0M6l5y0j4nY0KeVGKahuSTwvE4GB7emRixrxopGvZnk/S8
-	fMRbMCfVrtFUKvVSut5od/L/r15EEiFlY3f0Ddp3QuYjR4OmmrfoEyFu5EBWHDzB3h5pLZPuPNZ
-	N6lb3HInFwy0IIp6jcx8kNl47tNUcZF7WWfMHcs+bSCm2giIgzIpQEj7ifYGjGd4DT+B1iMHE5n
-	lfy0HzNOAt6TJ8QMc9PpXVNehXIg6mcsbPMrVwD7uWNslPZ1q9CjoNBE+BNh0e1YnJ/sJv9qDO5
-	WwI/xVadF7lIIppQhNuZOuZunZFm/ODPHa+Li8kV3Xaa58d8ugs/5k7Y4624sHRM45z9sA4b8sq
-	IObQxWhkHXBYvDGf75MeBFJJdOX0HVI94cpoPET2FNjCIyRexEOB+QP5KDAwU/tg4MOlKpFBIpE
-	KP5LNMIjK9EoTkl5HeP2Bc4aFVY6LZmfAwJWl0tSX2vis=
-X-Received: by 2002:a17:90b:224e:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3a0cbe2a16cmr7792241a91.63.1790619992432;
-        Mon, 28 Sep 2026 11:26:32 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a49760bf05sm245383a91.0.2026.09.28.11.26.31
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 28 Sep 2026 11:26:32 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34afa104860so79673eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lus4bln2"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-139b62317d0so238422c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790619990; x=1791224790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XGjdMwJsnua5C5JwBesKhZf4WJKUTjxVN8HV5NiB4F4=;
-        b=T9zLs2WeOZ0WTMzPllACcc/68+cOEaryRNpBXBD8LDZjb0ici6+6XxGXrC45BsOmDo
-         NFX6yEBxOTSe9G9CqdTs1mT1qfT+/F2QKXKSJc+5iE7+hudl7r+b0B8rMc4w5lg73mzk
-         mwXjwbF5DQNa9zqTy5X4qfMdlSo1QJG5bUlRQ=
-X-Forwarded-Encrypted: i=1; AKwUvBy6WcBMOrla7M+WhDVPN/yGz9VUJac4/dc1orzOUaBzSe+nFerejuHwTqLjF/k9HMIfnOgT51Snr1UmjY8=@vger.kernel.org
-X-Received: by 2002:a05:7300:3081:b0:344:1bd9:1f0d with SMTP id 5a478bee46e88-3441bd92155mr11160562eec.21.1790619989831;
-        Mon, 28 Sep 2026 11:26:29 -0700 (PDT)
-X-Received: by 2002:a05:7300:3081:b0:344:1bd9:1f0d with SMTP id 5a478bee46e88-3441bd92155mr11160501eec.21.1790619989070;
-        Mon, 28 Sep 2026 11:26:29 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c17074sm27663297eec.26.2026.09.28.11.26.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 11:26:28 -0700 (PDT)
-Message-ID: <7c437a10-985b-402c-b3ac-cfa97c53d014@broadcom.com>
-Date: Mon, 28 Sep 2026 11:26:26 -0700
+        d=google.com; s=20251104; t=1790619995; x=1791224795; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dk1kduljn1xel3FGAsdASwjPdqG+eyGO9CLIz0ryBwM=;
+        b=lus4bln2JTF7vnyTHFA7uaqrZYTn1clNWnkV6qjkwhhizHWa/GAqVL7Y3TYoW1ZU24
+         qX6fgkUYBO5mcHlurEp3tS2QZrlxQ3jKGwGEPZ+msXi7XR0ghRNBA33ItHasbaSC3Xta
+         aNnINO3m0hveHDt8Dtzp8B152zAa7hTnVSlbMAb1AoKPDQ98bvocvhXYN2yQWyAFUfSC
+         wADvkD+0D8To6JsDjFkIBZe84qhco7cnfAmdkuOcMnmXTTRk77qWg11YFXhz6cdTvOWp
+         Ag9xGCZduYWgLRF/i5mmvDPKnKmYtJO2mwdLVI+r27QycXRmi+ZeJaz1Tbg//iUiisiT
+         c+Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790619995; x=1791224795;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dk1kduljn1xel3FGAsdASwjPdqG+eyGO9CLIz0ryBwM=;
+        b=i4tKTp8kc5QDFZTvRTkFM67I+TmXyFlNMTV4AT/Fi9XJA3gmaSBdJx9prMwkaeybZi
+         4tGRloWQ0fA8dsnbaaER4InvkGOsC8cKY/Hv7cEoZHsH+75wjTRFJPDLvwKCM5vnXYgh
+         Jjv7X4awFfBavZO9icYkrgCYhlc4q1KiNw/nBR6/hYmMjzkPAH8Yw/4vMGLq2IgkRLF6
+         TMmI6j/y5S5+Tf2C+bErjxhPfkBJRxOddjTRu7z9mPpRmdvy0yRx4e9TYEz54uhVYC3K
+         cpMZv72J3wVAlwOH1JbTTZrhhcxxsaEcmXbSJI/EfK9em+gMRF0VvPc+w7CH35MaLnFd
+         K9pw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhbuowZk0KMkLVo0eO7+edLLaIWp90ZKmKdcjzNMFBXE2lLspNZMrFZ3Bw3yUmoL8Bht4tihg9Muiaoa0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7JAnL9fQOfOT0rIkE97TzkeNusX3A7ynzY6B4TLIo/Dxdfj8I
+	WfUSrhxzbdZfvfNRdJ24zGy0od1OM8Gc9sPey1Q159Q855+rR5yuucCDI7xZafTX4JkMJQbn+QF
+	diSEDzkNjyg==
+X-Received: from dlbsn5.prod.google.com ([2002:a05:7022:b905:b0:144:c63a:75d4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:270b:b0:14a:51c8:e9fd
+ with SMTP id a92af1059eb24-14a51c8eba7mr2776611c88.26.1790619994154; Mon, 28
+ Sep 2026 11:26:34 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:25:49 -0700
+In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-To: Andrea della Porta <andrea.porta@suse.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
- Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
- Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-References: <cover.1790606188.git.andrea.porta@suse.com>
- <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Mime-Version: 1.0
+References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928182605.3649015-11-irogers@google.com>
+Subject: [PATCH v6 10/26] perf trace: Only take augmented arguments from the
+ BPF output event
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/28/26 07:42, Andrea della Porta wrote:
-> From: Stanimir Varbanov <svarbanov@suse.de>
-> 
-> The RP1 chipset used on the Raspberry Pi 5 features an integrated
-> PWM controller to drive the cooling fan.
-> 
-> Add the corresponding DT node for this PWM controller.
-> 
-> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+syscall__augmented_args() treats any data after the syscall arguments as
+augmented arguments. trace__sys_enter() avoids this for
+raw_syscalls:sys_enter, but trace__fprintf_sys_enter() also handles
+syscalls:sys_enter_* tracepoint events, whose trailing data since v6.19
+holds the __data_loc strings of internal fields. Only the BPF output
+event carries augmented arguments, so only look for them there.
 
-Applied to devicetre-arm64/next, thanks!
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/builtin-trace.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
+
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 6a54d8bff534..1f89f85ba2e4 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -2947,7 +2947,8 @@ static int trace__fprintf_sample(struct trace *trace, struct perf_sample *sample
+ 	return printed;
+ }
+ 
+-static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sample, int *augmented_args_size, int raw_augmented_args_size)
++static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
++				     struct perf_sample *sample, int *augmented_args_size)
+ {
+ 	/*
+ 	 * For now with BPF raw_augmented we hook into raw_syscalls:sys_enter
+@@ -2963,9 +2964,14 @@ static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sam
+ 	 * use syscalls:sys_enter_NAME, so that we reduce the kernel/userspace
+ 	 * traffic to just what is needed for each syscall.
+ 	 */
+-	int args_size = raw_augmented_args_size ?: sc->args_size;
++	int args_size = trace->raw_augmented_syscalls_args_size ?: sc->args_size;
+ 	static uintptr_t argbuf[1024]; /* assuming single-threaded */
+ 
++	*augmented_args_size = 0;
++	/* Only the BPF output event carries augmented arguments. */
++	if (sample->evsel != trace->syscalls.events.bpf_output)
++		return NULL;
++
+ 	*augmented_args_size = sample->raw_size - args_size;
+ 	/*
+ 	 * The raw data is padded to a u64 boundary with stale bytes, so less
+@@ -3025,18 +3031,7 @@ static int trace__sys_enter(struct trace *trace,
+ 
+ 	if (!(trace->duration_filter || trace->summary_only || trace->min_stack))
+ 		trace__printf_interrupted_entry(trace);
+-	/*
+-	 * If this is raw_syscalls.sys_enter, then it always comes with the 6 possible
+-	 * arguments, even if the syscall being handled, say "openat", uses only 4 arguments
+-	 * this breaks syscall__augmented_args() check for augmented args, as we calculate
+-	 * syscall->args_size using each syscalls:sys_enter_NAME tracefs format file,
+-	 * so when handling, say the openat syscall, we end up getting 6 args for the
+-	 * raw_syscalls:sys_enter event, when we expected just 4, we end up mistakenly
+-	 * thinking that the extra 2 u64 args are the augmented filename, so just check
+-	 * here and avoid using augmented syscalls when the evsel is the raw_syscalls one.
+-	 */
+-	if (evsel != trace->syscalls.events.sys_enter)
+-		augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
++	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size);
+ 	ttrace->entry_time = sample->time;
+ 	ttrace->entry_cpu = sample->cpu;
+ 	msg = ttrace->entry_str;
+@@ -3099,7 +3094,7 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
+ 		goto out_put;
+ 
+ 	args = perf_evsel__sc_tp_ptr(args, sample);
+-	augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
++	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size);
+ 	printed += syscall__scnprintf_args(sc, msg, sizeof(msg), args, augmented_args, augmented_args_size, trace, thread);
+ 	fprintf(trace->output, "%.*s", (int)printed, msg);
+ 	err = 0;
 -- 
-Florian
+2.56.0.rc1.315.gc6ed9934b7-goog
+
