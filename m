@@ -1,121 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9509228DB55;
-	Mon, 28 Sep 2026 07:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C888378D74;
+	Mon, 28 Sep 2026 07:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580687; cv=none; b=bcNfTtDCZfX8DDpM5sldWrKyxVDnuYrXmFwdgzPNkOb64GTP6FVYnmDR9tfEAn3QQOaEwAWwCKW3MyRC3oxE31h0xbp9y2AKNSBMb8qJ+zBrZRIl4SSyVv1agKtBxEHIIIZlyqMLAwq1ztP9PQe55upgfQww7zIaaO+DKOVqlv8=
+	t=1790580747; cv=none; b=F7fUO1Pt4psa6qrJax9UW4+GxyXEHkr2MOsA4A5Jf1I/IxiGkUnQzFuPzz4NI6Z8m9P7/rYhB5f6+9PaOyOH3YSGEHAzESvimBDiHpR4FCyJAmFMv9JADS3JACGuZ2v8UlzIMUjluWSGSzs8L88k3jgabTda3xIoXpx1aNUsea8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580687; c=relaxed/simple;
-	bh=Ca9sZ4RBLOYv0TdqAiJl97XpGIudxDx96U1gD4wT5Hk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=knb1EUebGY9k1fGeizw8SYGRtvxJghdKwK0EIorfhITtTqmDdDo54d0m39SU/4jj8G1nscZaBZPAHQHxiTSsYqVz25as/tWDQDxALKGXsmO2YWV2PptGcbkIEW3qHYW1xSezriAMQZxyxMD4PWFXXlQvCIta+brkOAham0K/LKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nlNvvELL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790580747; c=relaxed/simple;
+	bh=dgepjDVWjlpjORY9mopx1lT//VGOTdCXOKLVTmgrXrU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hqD7yOiOQNidPo2dMAW47G6KGK+EDRXr7OubSHllkLrNouozPuOHPFzJ4ICSATJ158rcLYogstex7wNY6ZPhss57IVBpaxhTlNLLu9o99nXGwqDK9+t39JdynG28cqcnS66v4y6ZpjGQ7zJPEF48sxyRIb8rSpLmtHB4eCwyUF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vkH/KMvR; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nlNvvELL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1861F000FF;
-	Mon, 28 Sep 2026 07:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790580686;
-	bh=eUkQZnFeJ7aRQhuoiAx/6V9HaJwecxUtJMzNDOUByhI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=nlNvvELLQetkR33rdbttAnu4L1qLqJERdAp3Lql0uneIYMjLpl25dXtbCJTzu7mxw
-	 E+IeQrkVozoIhK/y7PJ9Sjl5/ngEQsVaRQDjXaGnpPAdIimdL9TDTjSYISmJqpUMwB
-	 I7x/PEEZVI2K/WUHJrebBNztLY97PeeLfo0JrGG4PP/yrfUaardojyoTB5W8Pu1+TN
-	 DANSCnB/+lm1GcJm506WSNAFS50VeGCDfd84+FFHqe9zN+nKKjPSwP1f44swhsWaKV
-	 jHK1SFF6iYjMwl8BVkoSEo9IceMNzkfNvmNXoLzCNbOwUvnJ7ycyqqb4GvLOIbRBP/
-	 IYyt0IOB6A5UA==
-Content-Type: multipart/mixed; boundary="===============1352127693393188869=="
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vkH/KMvR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3B8551A0FD3;
+	Mon, 28 Sep 2026 07:32:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F2D36601BD;
+	Mon, 28 Sep 2026 07:32:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B96CF102F1E42;
+	Mon, 28 Sep 2026 09:32:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790580738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1yVG7biGd8LMh933pwAmn0KONt09cooOBGmuGeDuRG4=;
+	b=vkH/KMvRVbAsfr989+yy6/jIOx0UvnkM3xmUrwI+hntjDoZhKSZlothGHJWV0SLXfmPioi
+	pBZUROwK79npc1KIJKFRseNPaZnVAO+E2Z88iFJjy6KC1Grzt3bjXI9IfaN+i4FOxs/gNQ
+	Nnd08n+01OQYRJf2xjlpAlFBIA18cnd8XINovHmM4HOYrI8avIZ6jZf54Dr3Aai2X//9S9
+	8VOJojwMsDZWENJ5jiYaQzZ5LFazff2+Cek28yw04jdKczOgYxKanRU6wBaXYQ3V8JhHzz
+	cNdID9Py9+StbQfzqUV4oln25LsWwpONTUdoIoh8yBrujC63mB2j91B03n0XGw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-Id: <1b9e3f19e7883e9d62c2d4c7de0fbaa17017346d92943e36a17704f7a68864ef@mail.kernel.org>
-In-Reply-To: <20260928063724.24008-1-hui.zhu@linux.dev>
-References: <20260928063724.24008-1-hui.zhu@linux.dev>
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: Add bpf_proactive_reclaim test
-From: bot+bpf-ci@kernel.org
-To: hui.zhu@linux.dev,roman.gushchin@linux.dev,inwardvessel@gmail.com,shakeel.butt@linux.dev,akpm@linux-foundation.org,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,david@kernel.org,baohua@kernel.org,geliang@kernel.org,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org,netdev@vger.kernel.org
-Cc: zhuhui@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 28 Sep 2026 07:31:24 +0000 (UTC)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 09:32:14 +0200
+Message-Id: <DLQRW9F3KVF9.349XXY22RRFKH@bootlin.com>
+Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
+ <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
+ <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
+ <arZiv20Z4P7DQaD6@shikoro>
+In-Reply-To: <arZiv20Z4P7DQaD6@shikoro>
+X-Last-TLS-Session-Version: TLSv1.3
 
---===============1352127693393188869==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-> diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
-> index 2b883b388f90..5621ef94ad7e 100644
-> --- a/tools/testing/selftests/bpf/config
-> +++ b/tools/testing/selftests/bpf/config
-> @@ -57,6 +57,7 @@ CONFIG_LIRC=y
->  CONFIG_LIVEPATCH=y
->  CONFIG_LWTUNNEL=y
->  CONFIG_LWTUNNEL_BPF=y
-> +CONFIG_MEMCG=y
->  CONFIG_MODULE_SIG=y
->  CONFIG_MODULE_SRCVERSION_ALL=y
->  CONFIG_MODULE_UNLOAD=y
+On Fri Sep 25, 2026 at 2:02 PM CEST, Wolfram Sang wrote:
+> Hi Paul,
+>
+> thanks for your patches!
+>
+> On Thu, Sep 24, 2026 at 04:12:48PM +0200, Paul Louvel wrote:
+>> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+>> The memory controller supports ECC, software scrubbing, and SECDED.
+>>=20
+>> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
+>
+>
+> Disclaimer: I don't know the technology nor the subsystem. So, only some
+> high level comments.
+>
+>> +
+>> +static void cdns_rmw(struct cdns_mc_priv *priv, u32 reg, u32 mask, u32 =
+val)
+>> +{
+>> +	u32 regval;
+>> +
+>> +	mutex_lock(&priv->lock);
+>> +	regval =3D readl(priv->io_base + reg);
+>> +	FIELD_MODIFY(mask, &regval, val);
+>> +	writel(regval, priv->io_base + reg);
+>> +	mutex_unlock(&priv->lock);
+>
+> Hmm, a spinlock is probably more suitable for such short operations? You
+> could even save a lock here and use a generic mutex in
+> inject_ctrl_store() for the whole operation. That would work for now. In
+> terms of defensive programming, a spinlock could be argued, too, to make
+> future additions more robust.
 
-[ ... ]
+Yes, I wanted to use the lock inside the function so that in the future, if=
+ it
+is used, the caller won't have to bother locking anything.
+Noted for the spinlock, that seems more appropriate indeed.
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-> new file mode 100644
-> index 000000000000..d642658a2198
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
+>
+>> +static void cdns_mc_err_inject(struct mem_ctl_info *mci, u16 synd)
+>> +{
+>> +	struct cdns_mc_priv *priv =3D mci->pvt_info;
+>> +
+>> +	cdns_rmw(priv, CDNS_DDR_ECC_XOR, CDNS_DDR_ECC_XOR_CHECK_BITS, synd);
+>> +	cdns_rmw(priv, CDNS_DDR_ECC_STAT, CDNS_DDR_ECC_STAT_FWC, 1);
+>> +}
+>
+> Bike shedding: I think this is too short for a seperate function and it
+> should be folded into its caller.
 
-[ ... ]
+ACK.
 
-> +	/*
-> +	 * Charge FILE_SIZE of page cache to the cgroup. Reading rather than
-> +	 * writing keeps the pages clean, so reclaim does not have to start
-> +	 * writeback before it can evict them.
-> +	 */
-> +	if (!ASSERT_OK(ftruncate(data_fd, FILE_SIZE), "ftruncate"))
-> +		goto out;
-> +	for (off = 0; off < (off_t)FILE_SIZE; off += sizeof(buf))
-> +		if (!ASSERT_GT(read(data_fd, buf, sizeof(buf)), 0, "read"))
-> +			goto out;
+>
+>> +
+>> +static ssize_t inject_ctrl_store(struct device *dev, struct device_attr=
+ibute *attr, const char *buf,
+>> +				 size_t count)
+>> +{
+>> +	struct mem_ctl_info *mci =3D to_mci(dev);
+>> +	u16 synd;
+>> +
+>> +	if (kstrtou16(buf, 16, &synd))
+>> +		return -EINVAL;
+>> +
+>> +	cdns_mc_err_inject(mci, synd);
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static DEVICE_ATTR_WO(inject_ctrl);
+>> +
+>> +static struct attribute *cdns_edac_attrs[] =3D { &dev_attr_inject_ctrl.=
+attr, NULL };
+>> +
+>> +ATTRIBUTE_GROUPS(cdns_edac);
+>
+> What about using debugfs instead via edac_debugfs_create_*?
 
-Could this allocation method cause issues if file holes are mapped to the
-zero PFN in the future? The read() approach assumes that accessing a
-ftruncate()-created sparse file will allocate page cache, but if the kernel
-someday maps file holes to a shared zero page instead of allocating backing
-pages, this wouldn't necessarily give us page cache to reclaim.
+Seems to be more appropriate since inducing a CE or UE would only be for
+debugging purposes.
 
-Barry Song suggested using write() followed by fsync() as a more future-proof
-way to ensure actual page cache allocation, which would also allow removing
-the two lines of explanatory comments above.
-
-> +
-> +	args.cgroup_id = cgroup_id;
-> +	args.size = FILE_SIZE;
-> +	skel->bss->reclaimed = 0;
-> +	err = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.memcg_proactive_reclaim),
-> +				     &opts);
-> +	if (!ASSERT_OK(err, "test_run"))
-> +		goto out;
-> +	if (!ASSERT_EQ(opts.retval, 0, "retval"))
-> +		goto out;
-> +
-> +	/*
-> +	 * A single call is a single bounded pass: it reclaims something, but
-> +	 * stops well short of the requested size instead of retrying until the
-> +	 * goal is reached the way a write to memory.reclaim does.
-> +	 */
-> +	ASSERT_GT(skel->bss->reclaimed, 0, "reclaimed");
-> +	ASSERT_LT(skel->bss->reclaimed, (__s64)FILE_SIZE, "single pass");
-
-[ ... ]
+>
+> Happy hacking,
+>
+>    Wolfram
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Thanks,
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36389535910
---===============1352127693393188869==--
+
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
