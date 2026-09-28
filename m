@@ -1,123 +1,185 @@
-Received: from sender5-of-o55.zoho.com (sender5-of-o55.zoho.com [165.173.182.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F7A28B4E2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E0B29ACC6;
 	Mon, 28 Sep 2026 12:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599481; cv=pass; b=Ztb9jzvszLHOlsNeHdZPJwjOhhBGL983Od+7/FBcbW5N7XVGbh02hZnsDPh9Kz1X57NxJS/Tj8Hc9DPMcCXT+y+ZE76deCAAavaRz+DaL2BLKs8x+jiVXNRQ4y852F3LpGCUURUz6s9vRA7487kHldy3oQN2l3ngjXBef22U/bA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599481; c=relaxed/simple;
-	bh=t1ct19muTVVA6a3YOMPbo5iCaIyj1pbHQTM7tA7TqO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RrzbhCjq4LAgC/q6QWmPEmeVFrIc3CAJih1rbI+GPyhkmEREoLc8Weh2pn178X9ClJfIFY8JeF0znc4M75L8uqejEg9NOmei2gYOrNh015GTbB4fHVTlR7l3TUTpEJ0NHFF3vhBqHyhN93DWb9lWNqwoc1CF+pBxtYxMX8crK48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com; spf=pass smtp.mailfrom=anirudhrb.com; dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b=EbLFQIAQ; arc=pass smtp.client-ip=165.173.182.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=anirudhrb.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599482; cv=none; b=j9mwfYjpOI4XYbqfjVdpQoTl4c1Gz4UqGsltG58S/et4y3v163K9rpqkLf9ESSs3ZfZLTXkfVyWm4xoqQfKdbIum+HAH5ngpe0CB76N9+bha6o6oLK2x7P6LHKCEf0RDzYptlmXU72VpJWz9DSFbRuXkqU38OZpqfj6JEuzYchQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599482; c=relaxed/simple;
+	bh=ZXNlI+RAX+nTm0DvvNRSw2dlsVY/sr/atGTezTTinoY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M1+zuDoHUzHqHkJpNKoneraeuxwl0Yzfo/NtVJuHulFzZMpxs9aRg2GSGpWKquS5BXtqbZuXv1PfjeW946cbtnNpU354VonARC13PJopM0xm85s4K4C7GAgyZ+gnl1Rb2UlvrDozgSOgxz+mVsu7VzE+zLhzvVjoC+om3FOeyCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KJiDs8xD; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b="EbLFQIAQ"
-ARC-Seal: i=1; a=rsa-sha256; t=1790599467; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hH2KWiLobGVC1XOgDrmKl0zuJgIIXrjIkOYFBcfs6knXT3T2F31AclB4aYJ3D9Vh49SQG8lfRLCr7YoKY4NCpmA49LxoIRN5dZdaZgDA0Beqx73UKUTSSN6e80ThqVUvc6souzpPJeyWczD2fWCI95nJILRu6vcXwY3Z9rlq980=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790599467; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ntNyoBsPo5i8+2vYK1FbvQG8xjYGXEqBk9oRJ1mBLw0=; 
-	b=O+VNDNzGlu6w+lbXYtUzd2OCjAPxNEJkxyu0gQ7SFk1UMLf6t0xCQ3ffXnIbPQnGzVn3Tt3RF2FubvHh9g375XqcLwxv3IszyZ6hFrRGrkaNJvINp585e+AHHHvy8Fij2ywfvg8E4RxurVge/LIN3WS4bhnTgMihzilX6ykRvLE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=anirudhrb.com;
-	spf=pass  smtp.mailfrom=anirudh@anirudhrb.com;
-	dmarc=pass header.from=<anirudh@anirudhrb.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790599467;
-	s=zoho; d=anirudhrb.com; i=anirudh@anirudhrb.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=ntNyoBsPo5i8+2vYK1FbvQG8xjYGXEqBk9oRJ1mBLw0=;
-	b=EbLFQIAQl5U0CFTa6/owiYk9ImlR4oH0eN0fpDgqPqfRORjePjqOPI2NVRl0WT3+
-	MnAVf2NA3e+pLXtSmSYeVrnj9S3gEi3zT5OjSS7BXfgucu+6EVQks1WWEYDyCyadskM
-	VKW3HVRRh2i3VAqmvHHxU52h4fthBkmUsFWWELes=
-Received: by smtp.zohomail.com with SMTPS id 1790599463967550.0402211931;
-	Mon, 28 Sep 2026 05:44:23 -0700 (PDT)
-Date: Mon, 28 Sep 2026 12:44:16 +0000
-From: Anirudh Rayabharam <anirudh@anirudhrb.com>
-To: Magnus Kulke <magnuskulke@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	Wei Liu <wei.liu@kernel.org>
-Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
-Message-ID: <20260928-hopping-illustrious-guppy-d4fd41@anirudhrb>
-References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
- <20260924-outrageous-nebulous-spaniel-7bf6f7@anirudhrb>
- <arZhqarRnacsApc0@example.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KJiDs8xD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790599481; x=1822135481;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=ZXNlI+RAX+nTm0DvvNRSw2dlsVY/sr/atGTezTTinoY=;
+  b=KJiDs8xDJPEjb9oGMBn9jCsVPTYFalvEsCjsybq6zcDSYhjBJf4AQK9E
+   b2HQjicrqIrSd/c7G6ZwXY9DBboJe7zjT+7tP1273EfMfNT+GOs4AZzRd
+   5kJimaiaHFcAxsBjpoXQ9MMlCDtHFYslLGaLGoFgPV4XXrEBXZrw0pHXH
+   rzJilWIESiEbLKDum4D1cpxdjQsDErsu+ENbEM78zEW7T/b3jH4oUcvFk
+   KdVLKAevI0GM2EU2lAEYeXhJWO1E7JPDgZWl1khiWGIGU3wMlYW99lS1V
+   V8kKB3T4jTX+F+lOi5r0vTKCkrp1VOhaJ/Q1s5H/B9oph59uc8auhmX5T
+   A==;
+X-CSE-ConnectionGUID: wceG/DgvQVmWT/3vcbQE5g==
+X-CSE-MsgGUID: JGgB9U/WQqm03VgsSC41iA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101465243"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="101465243"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:44:40 -0700
+X-CSE-ConnectionGUID: fFRMilzCTkWSkFZj16NO1w==
+X-CSE-MsgGUID: h6+JZbPHRayLtVxz/h87ig==
+X-ExtLoop1: 1
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.73]) ([10.245.244.73])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:44:35 -0700
+Message-ID: <417b4032fd106c6730558759fd02e67e2fdc1c82.camel@linux.intel.com>
+Subject: Re: [PATCH v8 20/23] PCI/P2PDMA: Let a client declare that it
+ selects ATS per mapping
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,  Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev, Tushar Dave
+ <tdave@nvidia.com>, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,  Chaitanya Kulkarni	
+ <kch@nvidia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens
+ Axboe	 <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>, Ankit Agrawal
+	 <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Sumit
+ Semwal	 <sumit.semwal@linaro.org>
+Date: Mon, 28 Sep 2026 14:44:32 +0200
+In-Reply-To: <20260928-fix-p2p-acs-v4-0-v8-20-404453b9c435@nvidia.com>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+	 <20260928-fix-p2p-acs-v4-0-v8-20-404453b9c435@nvidia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arZhqarRnacsApc0@example.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.579.46
-X-ZohoMailClient: External
 
-On Fri, Sep 25, 2026 at 01:57:29PM +0200, Magnus Kulke wrote:
-> On Thu, Sep 24, 2026 at 01:51:10PM +0000, Anirudh Rayabharam wrote:
-> > On Thu, Sep 17, 2026 at 10:10:52PM +0200, Magnus Kulke wrote:
-> > > +
-> > > +	for (i = 0; i < count; ++i) {
-> > > +		page = pfn_to_page(pfns[i]);
-> > > +		ret = set_direct_map_valid_noflush(page, 1, true);
-> > 
-> > Should we batch this? (i.e. collect a batch of contiguous PFNs and restore them
-> > at once)
-> 
-> yeah, seems conceivable. let me check.
-> 
-> > 
-> > > +		/*
-> > > +		 * HV_DEPOSIT_MAX is capped at 511, so a deposit range cannot cover
-> > > +		 * a 2MiB page, so deposited pages are of 4k granularity and cannot
-> > > +		 * be collapses into a 2MiB page, which would require an allocation
-> > 
-> > 511 is the limit for one deposit call. But after multiple deposit calls,
-> > a deposited range can cover a 2 MiB page.
-> >
-> > > +		 * and can potentially fail.
-> > 
-> > It is unclear to me what requires an allocation and can potentially
-> > fail. Could you please clarify?
-> > 
-> 
-> yeah, admittedly this is properly an overly defensive comment. the point
-> was: set_direct_map_valid_noflush() is fallible. I understand one of the
-> reasons for it to fail would be reoganization of the direct map,
-> which would imply allocations, which in turn could fail.
-> 
-> but this is contrived and should not happen for the deposit case. Also,
-> with Mukesh's proposed rework, this comment would not be accurate anymore.
-> So, I'd remove the reasoning from the comment (but keep the logic), ack?
+On Mon, 2026-09-28 at 14:19 +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+>=20
+> The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot
+> tell
+> from it whether a client will translate a given address. Most devices
+> translate any address once ATS is enabled, but some choose ATS per
+> DMA
+> mapping and can still use bus addresses for the rest.
+>=20
+> Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device
+> can
+> declare that before P2PDMA starts treating clients with ATS enabled
+> as
+> translating everything. Keep it in the device's P2PDMA state, which
+> already ends with the driver binding.
+>=20
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Yeah, sounds good!
-
-Thanks,
-Anirudh.
-
-> 
-> > > +		 *
-> > > +		 * Should it fail anyway we leak the page, if we would hand it
-> > > +		 * back to the allocator we would introduce faults into random other
-> > > +		 * parts.
-> > 
-> > I agree this is what we should do. I just don't understand what the
-> > first part of this comment block is talking about.
-> > 
-> > Thanks,
-> > Anirudh.
+> ---
+> =C2=A0drivers/pci/p2pdma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27 +++++=
+++++++++++++++++++++++
+> =C2=A0include/linux/pci-p2pdma.h |=C2=A0 4 ++++
+> =C2=A02 files changed, 31 insertions(+)
+>=20
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index 1f4bf0125a5c..ae676509f9f3 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -26,6 +26,7 @@
+> =C2=A0struct pci_p2pdma {
+> =C2=A0	struct gen_pool *pool;
+> =C2=A0	bool p2pmem_published;
+> +	bool ats_per_mapping;
+> =C2=A0	struct xarray map_types;
+> =C2=A0	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+> =C2=A0};
+> @@ -1568,6 +1569,32 @@ void pci_p2pmem_publish(struct pci_dev *pdev,
+> bool publish)
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+> =C2=A0
+> +/**
+> + * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a
+> client
+> + * @pdev: PCI device that initiates peer-to-peer DMA
+> + *
+> + * Declare that @pdev issues Translated Requests only for the DMA
+> mappings its
+> + * driver sets up to use ATS, rather than for any address once ATS
+> is enabled.
+> + * P2PDMA then takes the Address Type of this client's Requests from
+> the TLP
+> + * flags its callers pass.
+> + */
+> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
+> +{
+> +	struct pci_p2pdma *p2p;
+> +
+> +	p2p =3D rcu_dereference_protected(pdev->p2pdma, 1);
+> +	if (!p2p)
+> +		/*
+> +		 * ats_per_mapping is a performance optimization,
+> +		 * if pcim_p2pdma_init() didn't set pdev->p2pdma
+> pointer
+> +		 * for some reason, let's simply use ATS global
+> settings.
+> +		 */
+> +		return;
+> +
+> +	p2p->ats_per_mapping =3D true;
+> +}
+> +EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
+> +
+> =C2=A0/**
+> =C2=A0 * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA
+> transfers
+> =C2=A0 * @provider: P2PDMA provider structure
+> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+> index 36045b1b730c..543a09426a11 100644
+> --- a/include/linux/pci-p2pdma.h
+> +++ b/include/linux/pci-p2pdma.h
+> @@ -109,6 +109,7 @@ struct scatterlist *pci_p2pmem_alloc_sgl(struct
+> pci_dev *pdev,
+> =C2=A0					 unsigned int *nents, u32
+> length);
+> =C2=A0void pci_p2pmem_free_sgl(struct pci_dev *pdev, struct scatterlist
+> *sgl);
+> =C2=A0void pci_p2pmem_publish(struct pci_dev *pdev, bool publish);
+> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev);
+> =C2=A0int pci_p2pdma_enable_store(const char *page, struct pci_dev
+> **p2p_dev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 bool *use_p2pdma);
+> =C2=A0ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
+> @@ -166,6 +167,9 @@ static inline void pci_p2pmem_free_sgl(struct
+> pci_dev *pdev,
+> =C2=A0static inline void pci_p2pmem_publish(struct pci_dev *pdev, bool
+> publish)
+> =C2=A0{
+> =C2=A0}
+> +static inline void pcim_p2pdma_set_ats_per_mapping(struct pci_dev
+> *pdev)
+> +{
+> +}
+> =C2=A0static inline int pci_p2pdma_enable_store(const char *page,
+> =C2=A0		struct pci_dev **p2p_dev, bool *use_p2pdma)
+> =C2=A0{
