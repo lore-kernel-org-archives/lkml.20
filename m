@@ -1,103 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB09488D9C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:48:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBB6488DB2;
+	Mon, 28 Sep 2026 08:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585309; cv=none; b=PDNZyg+qynm5jT4xaP7SHWTpNd37TaxCYeHk01erkbgdrxetr61mS8QY+cSmFvFvyaEQjRAkj9S7/0IhDF8fb9bqBI863tOgUGXJmhrIxtTNJqdomXLK1ydwgn9vF02Q3I3b4b5A6NlUp/jgQj0T7+Bf6/3mRyucEWwMK5twmbc=
+	t=1790585309; cv=none; b=dM+BAD2BFAad9wiS8b8J/XYodJosqfT71N/Eh/FMNahtlTB5OYyj9Ec5s/ST5X3S8TuepHh/wmHtbwqW7O/9KGMNmeaFRHJOQwG8wcrTs2Ujd3Om0LzprMGq13NKFMtyzLCdD+bF6pSwug/YYutYwx1G/b+G9MMP2aASi6MjkMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790585309; c=relaxed/simple;
-	bh=4+YaRd+w8CkKUy2umZb5rtfcp72agIYLGB21NcbX/fw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Qj7o9kfGSgL9dU5ny4mZpY54zM2egFkAg4ecwoaVm+1U5sS2q3LA3Q1qvPb13UifZdaR8X96Oqe4pq04z8J/o4UCBZXs4Jqr0xKu4lQXCcd5tdj13tBeOgIDKDGgVkXdkS1cuUoIRERJqZbg1xq2b+GP6I0f3HseZcpCdKjJIC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxbySvb0; arc=none smtp.client-ip=100.103.45.18
+	bh=hYQWAuyH4Mknu8HsvEzCSBQhgRmeUm5PRhpm7S51nLQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DyHqTFM6cvvcLwhIoBs77XgOANSiVdCUJWfcQ1fvOG/hbgKB0N8C+5eqvYGQIT7ywkrmyCjfHBI6Jpmyp5k60nQ7XRhjkjaC9wI62UnUGklJEBhEbFnwQrprapCA6ujaquNXvrnq+hT7Qol5uL/39vc514UIlmU3hul2V9IMWas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMjaCbTk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxbySvb0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852CC1F00893;
-	Mon, 28 Sep 2026 08:48:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMjaCbTk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E491F000FF;
+	Mon, 28 Sep 2026 08:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790585306;
-	bh=yLabRzTUqOUXQwgBjet8vKJDfT/Yj93lFm/f0NXf0fg=;
-	h=From:Date:Subject:To:Cc;
-	b=hxbySvb0c5U1ddRxETp6cq1wU7L0alG6fj7LX9jUThAcqHAP6DklVfNDAiFMmhBTp
-	 oYhLfiJSG/U1KguJ1+fjQ1sKb2nDYsIbQWrj7F0SFh+zcmju3XcpqGm9ACxlqzVh81
-	 imPv3oNQC+NcUOKqwhnoyuXoxws25H6N/Md7YGEKNNT5LgJWkHODd1WsT3oLu5XcFK
-	 5BJ3edJlelICi0L81sA+IiZ+qG4Zr46Bwm3HWnhXxKOWwiW0fzHTC89ewFeVFtwAuE
-	 lzP9GtwlYiSi3CIp1y8XdnhYJU+nefUAKpLOTJYcK6OoeFYkVsdj+EM9GswkdWZXVU
-	 m2+XfPvh4HSrQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 28 Sep 2026 10:48:21 +0200
-Subject: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
+	bh=u8DaDbB8ZQKuqKU9oeD4+Afniur8EUd6QsbN8UoqPQM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AMjaCbTkzMFB49B+wdgtKL4qKys8VbvfkDsQOxvkodGnJPZwYWjHX3u7MbtWVPVDl
+	 iPt9/Nql44ZfEL+pBq7j79WiMzAUzMwZrIHoKyZTgbME8/RyqKBuiQxMXQch6+zDgT
+	 Jekt1qFlVYGH0jqatHqcI4fEJQnhvAsEH83iJDhxR/OLRT8gxP43ScnoqAPpsL1bjL
+	 q8ZnOOhzNOFtK4cy57Q7LW/t9SWuhVeky05qH6K/Gm9KRBxWHCmNYY3NIvZyVNgqkU
+	 lDmttwxSVmwrUgjReFjkB7DIL9+cvg5tBYscLAD2Abz6XP1Crbf/3z4YJrEmTFwYZM
+	 gneuqZQP4+QKA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v5 2/2] mm/damon/tests/core-kunit: test the temporal tuner's size quota conversion
+Date: Mon, 28 Sep 2026 01:48:15 -0700
+Message-ID: <20260928084816.5575-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260928084816.5575-1-sj@kernel.org>
+References: <20260928084816.5575-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
-X-B4-Tracking: v=1; b=H4sIANQpumoC/yWM0QqDMAwAf0XybCEWFLtfESldjZpBVRo3BuK/G
- 7fHg7s7QCgzCTyKAzJ9WHhdFKqygDiHZSLDgzJYtA062xqhuKvj5yA+UfIpbKaxWA/RYUA3gpZ
- bppG/v2vX/1nez5eW9wrO8wLuHPfkdwAAAA==
-X-Change-ID: 20260928-section_has_mem_map-6205dc90a09f
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Baoquan He <baoquan.he@linux.dev>, David Carlier <devnexen@gmail.com>, 
- Dave Young <ruirui.yang@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1383; i=david@kernel.org;
- h=from:subject:message-id; bh=4+YaRd+w8CkKUy2umZb5rtfcp72agIYLGB21NcbX/fw=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJ2aV7fJiTZsbSSO9P1lYho1/1HHhtNdlb6H3vYUZP+J
- +f3l3T+jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACayQJqR4QXXg8p2FVmmD+xf
- /1VOKCn4YyydI6+dI+7/+OBywXu3JzIyXHwUXzzpx8kM0yyjE3OuRL6x11iz8KDcx813VNtro9Z
- xsQIA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
-needs similar information (although still relying on
-SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Let's just export the value instead, so tools that work on vmcoreinfo
-will not have to guess.
+damos_goal_tune_esz_bp_temporal() encodes the size quota in basis
+points, so the conversion is exact only up to ULONG_MAX / 10000.  Pin
+the three sizes around that boundary: the largest one that fits, the
+first one that does not, and ULONG_MAX.
 
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
-SECTION_MARKED_PRESENT and further cleanups" [1]
+ mm/damon/tests/core-kunit.h | 48 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-This patch can go in independently. It would be preferable if both
-go into the same kernel release ;)
-
-[1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
----
- kernel/vmcore_info.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
-index 5a417f8a922a..7833a36064a8 100644
---- a/kernel/vmcore_info.c
-+++ b/kernel/vmcore_info.c
-@@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
- 	VMCOREINFO_STRUCT_SIZE(mem_section);
- 	VMCOREINFO_OFFSET(mem_section, section_mem_map);
- 	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
-+	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
- 	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
- #endif
- 	VMCOREINFO_STRUCT_SIZE(page);
-
----
-
-base-commit: 57e4ac91fc62d75d84b5a03827a19ceb4094ecd9
-
-change-id: 20260928-section_has_mem_map-6205dc90a09f
-
---
-
-Cheers,
-
-David
-
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index ef4b8b85d67b..caf582882f5f 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -2284,6 +2284,53 @@ static void damon_test_rand(struct kunit *test)
+ 	}
+ }
+ 
++static void damos_test_esz_goal_temporal(struct kunit *test)
++{
++	struct damos_access_pattern pattern = {};
++	struct damos_watermarks wmarks = {};
++	struct damos_quota quota = {
++		.goal_tuner = DAMOS_QUOTA_GOAL_TUNER_TEMPORAL,
++	};
++	struct damos_quota_goal *goal;
++	struct damon_ctx *ctx;
++	struct damos *s;
++
++	ctx = damon_new_ctx();
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++
++	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
++			NUMA_NO_NODE);
++	if (!s) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "scheme alloc fail");
++	}
++	damon_add_scheme(ctx, s);
++
++	goal = damos_new_quota_goal(DAMOS_QUOTA_USER_INPUT, 10000);
++	if (!goal) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "quota goal alloc fail");
++	}
++	goal->current_value = 0;
++	damos_add_quota_goal(&s->quota, goal);
++
++	/* The largest size quota the basis-point conversion can hold. */
++	s->quota.sz = ULONG_MAX / 10000;
++	damos_set_effective_quota(ctx, s);
++	KUNIT_EXPECT_EQ(test, s->quota.esz, ULONG_MAX / 10000);
++
++	/* Any larger one saturates instead of wrapping. */
++	s->quota.sz = ULONG_MAX / 10000 + 1;
++	damos_set_effective_quota(ctx, s);
++	KUNIT_EXPECT_EQ(test, s->quota.esz, ULONG_MAX / 10000);
++
++	s->quota.sz = ULONG_MAX;
++	damos_set_effective_quota(ctx, s);
++	KUNIT_EXPECT_EQ(test, s->quota.esz, ULONG_MAX / 10000);
++
++	damon_destroy_ctx(ctx);
++}
++
+ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_target),
+ 	KUNIT_CASE(damon_test_regions),
+@@ -2324,6 +2371,7 @@ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_is_last_region),
+ 	KUNIT_CASE(damon_test_walk_control_obsolete),
+ 	KUNIT_CASE(damon_test_rand),
++	KUNIT_CASE(damos_test_esz_goal_temporal),
+ 	{},
+ };
+ 
+-- 
+2.47.3
