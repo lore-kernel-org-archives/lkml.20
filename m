@@ -1,101 +1,212 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3108F44B68B;
-	Mon, 28 Sep 2026 06:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A3C3644DE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578289; cv=none; b=Ou1qBdWYIeaCuCBP55h3tS4LajB/1lzrSA4Nv57ZJQKo2qc7AsBGtMrqoZs3VOHRs00EGqHYNjVdjh8AsIxfzUjjm2WcdLvukoquQfvtifnOWqqWGepM55TsipvQqJkKqKQaC51Tu2QZF4s6t54532e30SVZjj6TgS6j5I5xZ/Q=
+	t=1790578296; cv=none; b=mIMKKY8rYSAKADqZvx6IcwmckuJDWRFknYeqjPUI0IMgDRqfObHSa0upd23T5ZDZj8kmG/lBztIhH+t3PKQbF/B0SLjnJunPfWDDrGPjU2RxdU3rHOu3cQWyuU7aklxnLQ6AzZTSPY9o1boHM3oPsalEj1MCOXYeNsIUhmgMwbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578289; c=relaxed/simple;
-	bh=g30+Ouih9hKzNp23bdeOAgIPVF6MR4hbNeyi4JjJ6CA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G6eHYbyKY2Z7265g2tiIYTWHVWNBcXnSxGsjhwec01xlEtdfn6Dh6JCtukcjf8YjdyCkBr1nfhOzKtN8TNrqZaF6w2m4r/8F2/GFYfQFThOMr2V+k0J6oCHbwSJQIQT2V4jb17ZhToT1B7FpjYJ8w0k9bxL9qIJJxnPW8+dwlME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MyG8QFDg; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790578296; c=relaxed/simple;
+	bh=S65Su3u6l3QjEEjqlT1UaR7HWq+bwOyoeYIpkTcHUUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ctc9TPM9cK3wa79dgLbj2oh1NVtJjw84oc5RhTDgddF7NfUPj2RAoN+NMhnVzrn9uOcXTmfO9TxFCCWUjNKH04+MHPag1daxpmZZOsGtPjWLc9wiM0d9vc8mw8leG24ydU5lY5j7FITDhBS5yHUjIQkAwc6FgtfUfviKuLcN8kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xDVvP07g; arc=none smtp.client-ip=91.218.175.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MyG8QFDg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Oq
-	BaAnE2oIaQa/7VXfJCai6gvSX8hbezKNuMG55IdGI=; b=MyG8QFDgbNIlOnmhDH
-	HkQwPziF2tsFV8yE9SFl3bpR+tSZ/BbVnVDK+toqNQzHNsbeW07KT/9xdBp7iw8U
-	rZxqTmvdDXk9AsGnVvp3EYkjFHjAO+5rfYjZ3BfoqiTDgveCDQ270fUpOKQBGcxm
-	YHVSYbb/h1WpL+/t4l3CL1Mrc=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338lcDrpqNj3_BA--.62282S4;
-	Mon, 28 Sep 2026 14:51:10 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: zjamg <ndaugoing@gmail.com>
-Cc: Quchaosheng <quchaosheng000406@163.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] can: restore skb header initialisations in init_can_skb()
-Date: Mon, 28 Sep 2026 14:50:53 +0800
-Message-ID: <20260928065053.1750765-3-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917123716.63116-1-ndaugoing@gmail.com>
-References: <20260928065053.1750765-1-quchaosheng000406@163.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xDVvP07g"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=S65Su3u6l3QjEEjqlT1UaR7HWq+bwOyoeYIpkTcHUUM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790578292; v=1; x=1791183092;
+ b=xDVvP07gNn6/KBANVOoN54dJAHWMkY+FFkIw296SJI4pdFGpMpgsjQpkBjiRBkLpELPQvao8
+ NhrnifP03WvU89KCAH4edARDSqkRu49Nf3qG7bTqhxDTJh/D3HDW7BcWlFCYdNHKPTanbWui2mb
+ ltUdaa0Ov+1XZrjs3zBfwpIU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id b44e6e57b2fd478e;
+	Mon, 28 Sep 2026 06:51:32 +0000
+X-Mizu-Trace-ID: b44e6e57b2fd478e
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 14:51:26 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	shuah@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net-next 4/5] selftest: seg6: add explicit cleanup for
+ SRv6 End PSP test
+Message-ID: <aroOXOzCzYjEQKCV@fedora>
+References: <20260922-srv6_flavors_endx-v1-4-4d01c05c47b7@kylinos.cn>
+ <179025107951.2160803.7004145160447009717@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD338lcDrpqNj3_BA--.62282S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar1kKr1rtF18AF4fJr4ruFg_yoW8Ww4Up3
-	9xK3Z8Ar4DZFy3C3yIgF1jqa4Fyrs8ta4UuayDGr4UZ3WYgryxAFWIgry5ur909rs5G34a
-	yFyDZw1Ska1DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRx-BtUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x7jWWq6Dl579AAA3U
+In-Reply-To: <179025107951.2160803.7004145160447009717@kernel.org>
 
-Hello zjamg,
+On Thu, Sep 24, 2026 at 11:57:59AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 � High: 0 � Medium: 1 � Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] Asymmetric teardown: `cleanup_rt_policy_ipv6()` deletes
+>   localsid routes it never created.
 
-I reproduced the panic independently and verified that your patch alone
-fixes it, so:
+Ack, I will not remove the End localsid routes.
 
-Tested-by: Quchaosheng <quchaosheng000406@163.com>
-
-How I tested, in case it is useful for the maintainers.  The driver RX
-path is required: vcan does not reproduce it, because can_send() resets
-the headers itself on the way out.  I used slcan over a pty, opened a
-SOCK_PACKET socket on the resulting can0, and pushed one frame in through
-the line discipline.  Two kernels, same config, same initramfs, only your
-patch differing.
-
-Without the patch, v7.3.0-rc5 under QEMU:
-
-  skbuff: skb_under_panic: text:ffffffffa0b28261 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
-  kernel BUG at net/core/skbuff.c:214!
-  RIP: 0010:skb_panic+0x50/0x60
-  Call Trace:
-   <TASK>
-   skb_push+0x4d/0x60
-   packet_rcv_spkt+0xe1/0x170
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-  (the len/put values match the ones in your report)
-
-With your v2 applied verbatim, the identical run prints
-
-  RESULT: survived, no skb_under_panic
-
-and the guest powers off normally.
-
-One note that may be worth adding to the commit message if you respin: the
-2015 fix you reference, 969439016d2c, is the second time this class of bug
-was closed on the producer side.  packet_rcv_spkt() has still never been
-hardened, which is why the same failure mode came back a third time when
-9f10374bb024 dropped the calls again.  I sent a separate patch for that
-receiver-side guard so the next regression of this kind degrades to a
-dropped frame instead of a panic - no overlap with this one, and yours is
-the one that fixes the actual regression.
-
-Thanks for picking this up,
-Quchaosheng
-
+Thanks
+Hangbin
+> 
+> --
+> 
+> selftest: seg6: add explicit cleanup for SRv6 End PSP test
+> 
+> This adds cleanup_rt_policy_ipv6() and cleanup_end_flv_psp(), called at the
+> end of host_srv6_end_flv_psp_tests(), to tear down the policy and localsid
+> state installed for the PSP test.  It also moves the host neighbour proxy
+> entries from __setup_rt_policy() into the common setup().
+> 
+> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> > index 56a1c5f865a77..52731983b4cc9 100755
+> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> 
+> [ ... ]
+> 
+> > @@ -576,6 +572,56 @@ setup_rt_policy_ipv6()
+> >  	__setup_rt_policy "$1" "$2" "$3"
+> >  }
+> >  
+> > +cleanup_rt_policy_ipv6()
+> > +{
+> [ ... ]
+> > +	for n in ${policy_rts}; do
+> > +		node="$(__get_srv6_rtcfg_id "${n}")"
+> > +		op_type="$(__get_srv6_rtcfg_op "${n}")"
+> > +		rt_nsname="$(get_rtname "${node}")"
+> > +
+> > +		case "${op_type}" in
+> > +		"noflv")
+> > +			function="${END_FUNC}"
+> > +			;;
+> 
+> [Severity: Medium]
+> Does the "noflv" case here delete a SID that the policy helper never
+> created?
+> 
+> On the add side, __setup_rt_policy() only installs the SID if it is not
+> already present:
+> 
+> 	fullsid="${LOCATOR_SERVICE}:${node}::${function}"
+> 
+> 	# add SRv6 Endpoint behavior to the selected router
+> 	if ! ip -netns "${rt_nsname}" -6 route get "${fullsid}" \
+> 		&>/dev/null; then
+> 		ip -netns "${rt_nsname}" -6 route \
+> 			add "${fullsid}" \
+> 	...
+> 
+> For "noflv" that guard is always taken, because setup_rt_local_sids()
+> already installed fcff:<rt>::${END_FUNC} for every router during the
+> common setup():
+> 
+> 	# Local End behavior (note that "dev" is a dummy interface chosen for
+> 	# the sake of simplicity).
+> 	ip -netns "${nsname}" -6 route \
+> 		add "${LOCATOR_SERVICE}:${rt}::${END_FUNC}" \
+> 		table "${LOCALSID_TABLE_ID}" \
+> 		encap seg6local action End dev "${DUMMY_DEVNAME}"
+> 
+> > +
+> > +		fullsid="${LOCATOR_SERVICE}:${node}::${function}"
+> > +
+> > +		# Remove SRv6 Endpoint behavior for the selected router
+> > +		if ip -netns "${rt_nsname}" -6 route get "${fullsid}" &>/dev/null; then
+> > +			ip -netns "${rt_nsname}" -6 route \
+> > +				del "${fullsid}" \
+> > +				table "${LOCALSID_TABLE_ID}" \
+> > +				dev "${DUMMY_DEVNAME}"
+> > +		fi
+> > +	done
+> 
+> Since the delete is gated on the route existing rather than on whether
+> this helper created it, the condition succeeds precisely for the
+> setup()-owned End SID, and it is removed.
+> 
+> [ ... ]
+> 
+> > @@ -669,6 +723,12 @@ setup_end_flv_psp()
+> >  	setup_rt_policy_ipv6 1 2 "1:psp"
+> >  }
+> >  
+> > +cleanup_end_flv_psp()
+> > +{
+> > +	cleanup_rt_policy_ipv6 2 1 "3:noflv 4:psp 2:psp"
+> > +	cleanup_rt_policy_ipv6 1 2 "1:psp"
+> > +}
+> > +
+> 
+> With the "3:noflv" entry above, every normal run ends with
+> fcff:3::${END_FUNC} deleted from rt-3's localsid table, so the
+> environment no longer matches what setup() built.  After the deletion a
+> lookup of fcff:3::000e in rt-3 falls through the
+> 
+> 	to fcff::/16 lookup localsid
+> 
+> rule down to the "unreachable default" route that setup_rt_local_sids()
+> installed.  Should the teardown mirror the guarded add and only remove
+> the flavor SIDs plus the encap route it actually created?
+> 
+> This matters for exactly the case the commit message mentions, "when
+> later tests are added to the same script": a later test that depends on
+> the default End SIDs would fail or take a different path unless it
+> happens to call __setup_rt_policy() with a noflv entry, which silently
+> re-creates the SID.  In this series the End.X PSP test added later does
+> re-add fcff:3::000e via setup_endx_flv_psp(), so the asymmetry is
+> currently masked and the behaviour becomes order dependent.  The
+> cleanup_rt_policy_ipv6() and cleanup_end_flv_psp() helpers are unchanged
+> at the end of the series, still passing "3:noflv".
+> 
+> The commit message describes the change as tearing down flavor-specific
+> state the PSP test installed:
+> 
+>   "The PSP test installs policy and route state, but relies on global
+>    cleanup to tear it down. That can leave flavor-specific state around
+>    when later tests are added to the same script."
+> 
+> Could it also mention that shared state created by setup() is removed?
+> 
+> >  check_rt_connectivity()
+> >  {
+> >  	local rtsrc="$1"
+> > @@ -771,6 +831,8 @@ host_srv6_end_flv_psp_tests()
+> >  
+> >  	check_and_log_hs_connectivity 1 2
+> >  	check_and_log_hs_connectivity 2 1
+> > +
+> > +	cleanup_end_flv_psp
+> >  }
+> 
+> One more question on the call site: host_srv6_end_flv_psp_tests() runs
+> after "set +e", so a failing or over-reaching "ip route del" in
+> cleanup_end_flv_psp() produces no test failure.  Would it be worth
+> checking the return values here so teardown errors are visible?
+> 
+> -- 
+> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-srv6_flavors_endx-v1-0-4d01c05c47b7%40kylinos.cn
