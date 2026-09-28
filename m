@@ -1,36 +1,40 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1164CA790
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FD64BF946;
+	Mon, 28 Sep 2026 13:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602879; cv=none; b=RQ8ZBYIfVYKGEy9E0cBVjHr9UgeRVYHEamWnwTYXQGml3bFiHtBbYm07/IG1QHnApCLy0u6NLUUo/elVw0MHl1JVPJcWNoRuivX+5YPUO338gYLNfBaEL3RHWngr0/SdelseTmkpFWgrtFbjKMgUhQB9J5A5Qi6N5CRHEbrpBPA=
+	t=1790602887; cv=none; b=k+W5uMI32+C4SgHfsT9yp5u82DzeKq7QBAQ42nfrto8MA1INV0ptBvNRWnzV5Izu+Je/HoEC1Z9UXq7LxMZBqIBApaQulDhkyBERWBCAWgjIPo2PDdcmLy+iI5MO+eLYt3CS/bUogBlTIPf9iFbJCih2FpHzWQj2J8SGEAKITmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602879; c=relaxed/simple;
-	bh=JUc7kuES2hezSdKXk/c82t1oSL1pRQ63BUnpcVzaWhc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YnDviyzflqP8rsAdLTeg9UyjY7kVB7bWsLaLjGqKsZhVdMmJIq+rR+4O+etSVVTWW6RwMUkPQyyUBqyMFwvYbaBEApGU0KLPHe7cf+4Nd1aRvenxgNTTttm2sSHjRt4Gy/KvDh52T/64cCf38n24DZrEEJMBphj3eng0cPzH8uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YBwLcvpF; arc=none smtp.client-ip=45.254.49.198
+	s=arc-20240116; t=1790602887; c=relaxed/simple;
+	bh=OvPesYhUz0abtatRiPDF0DqCezg+bPtnVd+8UCJjitE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqyIdRZYXEQpFLSwkIJfiKjx473oQW9u7ejSb5iKJX3t71ZdxAAHsYoenb/fcmxQeg8MMBVRiO7g6zzJm1tgwvnQTALPX+WQv32HjqGExKBeuuNqxH/dJ6+fLNZH6I4DSqoI6VD4iGgeRFsw2sNCH3mGtp+s1wvSfNk1CdUWm/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=B7h1P9/H; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YBwLcvpF"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="B7h1P9/H"
 Received: from LAPTOP-99KJFSET (unknown [36.153.54.109])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f428;
-	Mon, 28 Sep 2026 21:41:11 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f42b;
+	Mon, 28 Sep 2026 21:41:17 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
-To: mahesh@linux.ibm.com,
-	andrew+kernel@donnellan.id.au
-Cc: arnd@arndb.de,
-	gregkh@linuxfoundation.org,
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net
+Cc: edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	o-takashi@sakamocchi.jp,
 	kees@kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
+	u.kleine-koenig@baylibre.com,
+	bhelgaas@google.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	jianhao.xu@seu.edu.cn,
 	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] misc: ocxl: cancel XSL fault work before freeing SPA
-Date: Mon, 28 Sep 2026 21:41:10 +0800
-Message-ID: <20260928134110.227-1-getshell@seu.edu.cn>
+Subject: [PATCH net] net: calxeda: cancel timeout work before freeing rings
+Date: Mon, 28 Sep 2026 21:41:15 +0800
+Message-ID: <20260928134115.1957-1-getshell@seu.edu.cn>
 X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,45 +43,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e83f820903a1kunmbc7156bd20018c
+X-HM-Tid: 0aa0e83f982d03a1kunmb71640c3200197
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkJMVkpKT05IGRpPSxlPTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHklNVhlKTRhJSkMdHRgfSFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VSktCWVdZFhoPEhUdFFlBWU9LSFVKS0hKT0
 	hMVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=YBwLcvpFi+6rs7TsdwYgfLKEl05w0FfvgiSvnPQYBvBWX92NOGzxbiY59aeIniMW6STTjTaYc2gWMLRrz2yCvdfrKRd9u+fXMl4d7LZjC7OdQ4zCJ/j+YKY0imljHsGwQBSCWUYKDQM6gCnvBJFAQ/yr09bCYf1Mx8sbyuBmNU8=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=XOJXYA9rQ4lFRHo1EDsql4tJzWZKNZ9h7Ec4LEePgas=;
+	b=B7h1P9/HjY4sYg1kdne5dpMbDktJTIGz2J5q0QNTCxqRTjPDZzFDHb0jvmxg7+vCFLmYWJ5PkV+9u0HOWHTVdks7ZHnPsgt9NrCW1qfuonM2J4xgSdRbI+t6iyzXsQHYH4YcPA3OxirG/YvHGrzLHaQzQ64Qk5hq/jUigXOYRak=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=JPpesLbpqTXhTChazicZMw0rRv0UVvEk9s0aeAKcx4s=;
 	h=date:mime-version:subject:message-id:from;
 
-The XSL fault interrupt takes an mm reference and queues fault_work
-embedded in the SPA. free_irq() stops new interrupt handlers but does
-not drain an already queued worker, allowing free_spa() to release its
-container first.
+The transmit timeout paths queue tx_timeout_work, which accesses the DMA
+rings and NAPI state. xgmac_stop() can free the rings without waiting
+for a queued timeout worker, so the worker may subsequently use freed
+storage.
 
-Cancel the work after freeing the interrupt. When cancellation removes a
-pending instance, also drop the mm reference that the worker would have
-released.
+Stop transmit and interrupt publication, cancel the timeout work, and
+only then disable NAPI and release the rings.
 
-Fixes: 5ef3166e8a32 ("ocxl: Driver code for 'generic' opencapi devices")
+Fixes: 85c10f282861 ("net: add calxeda xgmac ethernet driver")
 Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- drivers/misc/ocxl/link.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/calxeda/xgmac.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/misc/ocxl/link.c b/drivers/misc/ocxl/link.c
-index 7749dcd16117..8146e98e77e7 100644
---- a/drivers/misc/ocxl/link.c
-+++ b/drivers/misc/ocxl/link.c
-@@ -335,6 +335,8 @@ static void release_xsl_irq(struct ocxl_link *link)
+diff --git a/drivers/net/ethernet/calxeda/xgmac.c b/drivers/net/ethernet/calxeda/xgmac.c
+index a2410fba6be2..63296469bd85 100644
+--- a/drivers/net/ethernet/calxeda/xgmac.c
++++ b/drivers/net/ethernet/calxeda/xgmac.c
+@@ -1046,12 +1046,10 @@ static int xgmac_stop(struct net_device *dev)
+ {
+ 	struct xgmac_priv *priv = netdev_priv(dev);
  
- 	if (spa->virq) {
- 		free_irq(spa->virq, link);
-+		if (cancel_work_sync(&spa->xsl_fault.fault_work))
-+			mmput(spa->xsl_fault.pe_data.mm);
- 		irq_dispose_mapping(spa->virq);
- 	}
- 	kfree(spa->irq_name);
+-	if (readl(priv->base + XGMAC_DMA_INTR_ENA))
+-		napi_disable(&priv->napi);
+-
+-	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
+-
+ 	netif_tx_disable(dev);
++	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
++	cancel_work_sync(&priv->tx_timeout_work);
++	napi_disable(&priv->napi);
+ 
+ 	/* Disable the MAC core */
+ 	xgmac_mac_disable(priv->base);
 -- 
 2.50.1.windows.1
 
