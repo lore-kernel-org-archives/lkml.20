@@ -1,215 +1,495 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604304D6C44;
-	Mon, 28 Sep 2026 16:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3E44ED197;
+	Mon, 28 Sep 2026 16:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612208; cv=none; b=ki4BZ7px0T4vsYP4uXAPMloSi7wUx78rIyOsSIyyaUVLrbn9npAt3ksMCkFgfAji9/9TjrCRnKDpKO6MpXiiQWG6SbklQkmdOhBuQmvwZdRpDPL/FYPCV/REDuTw6wEDpspAE5baxvl6MqAu9PRd0rECv1HyKY/qfF6BNsNmJug=
+	t=1790612204; cv=none; b=bHyyDq7z22/a1uwX+d7rtHLrlizQ6Ol/R5j6zubLr/LzHXIFPsayX2aFLq+ou2hdCuJoAmNruJcsZtFgi/lPvIIVIsx5kkkW5Q5526ZyFHHas/xAwdwMFvilOo6rAtzF9EL/pnW702PgUxouJ8uOoW90qRq1IvfYZQSXwmgTncM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612208; c=relaxed/simple;
-	bh=DtdCHxnUaXbzaIkavnA16JdKEeULygl5SHR+qf3JWHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ENLzPN6e9pQoSjaZIk7hqZ8fRGGpWuCFecRHx6rbUCftDNj/GIKqmbIaocntO30xcxtTojWXCGSkYsHczgAJtXxrfV8XznOgiepdTwUJ/JopROUtG7UzGUl/+DxVX6LO1aKssIlEOjVUSqx+T1kE9FATb5nWFh6Chud1pU+CqNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=k99btnrm; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790612204; c=relaxed/simple;
+	bh=FzUuUHKGxa/vsonfqC5REgiXsMRueMZ3yo5JvZMxJJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WVllfevKfoN/aFE+naaraWO6BvE9WEC+gQCQ7BRN8rhokHdKnmfR+YZCDAwbb+jBhtrjN1QRKXDyOAaq/ZmuOl8k7xKWsoZsF2Peny8GHlFT7z7Sppyab4gKi/HiflxiLxHVBFgb6oF/xsEwIliu6feZG71FjR1b7htOOT6RAEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fDMPS1BQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="k99btnrm"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5UR5216848;
-	Mon, 28 Sep 2026 16:15:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=tqCY0tWphzhWyHFpdwjWwuig9ZhPkf
-	5YqjbeUt1I6uA=; b=k99btnrmIQbXQhiNFlOlpqOSkqX6x4ivkIceiZAgkVkPmp
-	90Wr5xTzDine7WgmavgI1Ytag/Br2PCOhmSwR20Nl+6F5P4xz6spfuXVXTByiO3z
-	HVtzEHFV048q9X290W8Scx/NHbEyEAMwHNjUlLkXItUv+0fiQ1LfP//RJIJU7Msd
-	zPo3tZKilcjaWb3MCLHmPaY8fpQJ9DiYsZRwTGSw6tJvLVkV0yZDlIcjNja/H8MT
-	nP+PPpJJs81hmjGcOTPGPOBqQBtq3QU29ZsDMmNa4TyA+8dZpcBrRhwqh50IJZaq
-	g5Oefq9WkK2P7TYpVGjBHp9T4BHb7sCbd3AqiByQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe27nq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 16:15:56 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SElVgA251961;
-	Mon, 28 Sep 2026 16:15:56 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck61mn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 16:15:56 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SGFnOn54460908
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 16:15:49 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1FBC920043;
-	Mon, 28 Sep 2026 16:15:49 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3F8C620040;
-	Mon, 28 Sep 2026 16:15:48 +0000 (GMT)
-Received: from osiris (unknown [9.87.129.112])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 28 Sep 2026 16:15:48 +0000 (GMT)
-Date: Mon, 28 Sep 2026 18:15:46 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 20/29] s390: Introduce Start Arm Execution instruction
-Message-ID: <20260928161546.428362-B-seiden@linux.ibm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-21-seiden@linux.ibm.com>
- <1e3b65b3-0c21-466f-ae09-8426eeacb97d@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fDMPS1BQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EB91F00898;
+	Mon, 28 Sep 2026 16:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790612179;
+	bh=v9Tw4ZE1G69hRr4vc52iHnkSsVjNEruzNlhhsAUicUU=;
+	h=From:To:Cc:Subject:Date;
+	b=fDMPS1BQWnhqBOm5Et2mOCue6qkyeCiAtDwNCfym/yr7KTxRMQsqu0E6hMtOC3G4v
+	 zVB5Nk0ppwIjf11h1jlqCVd40xiB83NC/dlmG3Othz+Yj26ZLpuQO/2Vq89ZvGMcPq
+	 Elbik/R3zVlKqJUEchfTMLky3ugNbNjwwjfpacNS+vNbyC1jKVoP2AVcB7mBqQ1T0W
+	 PyCLWuxlgyWfASyTH/028go6JiMSdTragpnvIFyaPQzWMc6aqPUGpuysKLqr6wkZEn
+	 SP2ZljcJ1FqeYd2qX+k2O8HBsNs1d79Q7dVDQ6RHhVwJTg1TqLMZCirKMeXkrqt2mC
+	 gaVo0QpwNmSqQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	Janne Grunau <j@jannau.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Manikandan Muralidharan <manikandan.m@microchip.com>,
+	Dharma Balasubiramani <dharma.b@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Liu Ying <victor.liu@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Jyri Sarha <jyri.sarha@iki.fi>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	dri-devel@lists.freedesktop.org,
+	asahi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org
+Subject: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
+Date: Mon, 28 Sep 2026 18:04:50 +0200
+Message-ID: <20260928161605.2271412-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1e3b65b3-0c21-466f-ae09-8426eeacb97d@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba92bd cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=e3H7mCSiy_dY2-7_aUoA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX3FSm3poY32ru
- XNpcZw6G5JilofWjVWIAL3oP4Ur3C8GgIIfLeX1MeJGeUvA+tByS9z0RHBt9xL4zxRF9vJaef8f
- NIGNJmu/RKV8WlV/FMOZH0MbVUwyyTg=
-X-Proofpoint-ORIG-GUID: u7gi_9HJKgoAJZK9_WrkyB0fwXIjcwUQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX6DJMgiDneped
- QSRu5a4Y/OkaqXFWEb5fmEwOY/3QV3AbBPgXGGv5B9jhsW5sdO51LB/lWwvdQOuMIX8xx8pHfq4
- bEPo7AIYAOxJzo4vgZ+CRTxb8Y5bOVl6Xj1S1suhouAJjFIst8GSNDYQj1otUv9o4eeeqF04Ind
- 2CIREBrvbcTKBikSaD1MivFC/xg6YfsOEvxK1AS8lTTBuDThSDdJxNZr9lUOmkV9g68YxvZl7tb
- anrOkjnQMnN6fjMAT035LPxzGd8IAFZ4PDVYNzMWao59alb/XDdFJa141lC7Ux2Vko4KCJEP0t7
- InhU1EMnFF9RZBBZGG5NdOUDNVEJHWmaS4b7k/YsA0YpRgk571Ms7AbnAW4IQl2bYyIV5zEP2Tn
- y9z8eVpGMf0DmsQ8oNmbgk4BhnXNBR+X1WsDJfbgl+HmZCyLDrv8O1Wqv+mRlszk98FPt26E0/0
- mYYFsmG+FgH/gT5vd9A==
-X-Proofpoint-GUID: P2tX3rfu3_XjSxABuwj_-1RkrjrsE3wJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280064
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 05:53:33PM +0200, Ilya Leoshkevich wrote:
-> 
-> 
-> On 9/18/26 15:30, Steffen Eiden wrote:
-> > The Start Arm Execution (SAE) instruction is the centerpiece for
-> > executing arm64 (KVM) guests on s390. Its purpose is, similar to SIE, to
-> > enable accelerated execution of arm64 virtual machines. SAE expects the
-> > physical address of a control block as the only argument.
-> > 
-> > The host is responsible to save & restore
-> >   - GPRs 0-13
-> >   - access register 0-15
->              ^^^^^^^^
->              registers>   - breaking event register (BEAR)
-> >   - vector/floating point registers
-> > between SAE executions to guarantee host consistency.
-> > 
-> > GPRs and BEAR are save and restores in the asm functions. The other
->                     ^^^^^^^^^^^^^^^^^
->                     saved and restored
-> 
-> > register are handled in within C code. Access registers are handled in a
->   ^^^^^^^^             ^^
->   registers            not needed probably?
-> 
-> > later patch and SVEs will be handled when they are introduced in a
-> > future series. Most arm64 registers are handled by a satellite block
-> > called save_area. Some registers, frequently used by hypervisors, are
-> > placed into the SAE control block itself.
-> > 
-> > Enlighten asm/kvm_host_types.h for the new header variant. The new
-> > header is chosen instead of asm/kvm_host_s390_types.h if KVM_S390_ARM64
-> > is defined.
-> > 
-> > Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
-> > Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> > Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> > Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> > ---
-> >   arch/s390/include/asm/asm-prototypes.h       |   1 +
-> >   arch/s390/include/asm/kvm_host_arm64_types.h | 124 +++++++++++++++++++
-> >   arch/s390/include/asm/kvm_host_types.h       |   4 +
-> >   arch/s390/include/asm/sae.h                  |  58 +++++++++
-> >   arch/s390/include/asm/stacktrace.h           |   5 +
-> >   arch/s390/kernel/asm-offsets.c               |   1 +
-> >   arch/s390/kernel/entry.S                     |  22 ++++
-> >   arch/s390/tools/opcodes.txt                  |   3 +
-> >   8 files changed, 218 insertions(+)
-> >   create mode 100644 arch/s390/include/asm/kvm_host_arm64_types.h
-> >   create mode 100644 arch/s390/include/asm/sae.h
-> 
-> [...]
->    > +#if IS_ENABLED(CONFIG_KVM)
-> > +/*
-> > + * __sae64a calling convention:
-> > + * %r2 pointer to sae control block physical address
->           ^^^^^^^^^^ I guess it's just a physical address and not a
->                      pointer to it?
-> 
-yes. Fixing.
+From: Arnd Bergmann <arnd@arndb.de>
 
+The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
+not all callers include this, which leads to build failures in
+some configurations:
 
->                      ^^^ sometimes it's called "sae", sometimes "SAE" -
->                          it would be nice to have some consistency> + */
-Thanks, I will convert everything to SAE
+drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
+drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declaration of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+  404 |         bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+      |                  ^~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
+drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declaration of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+  306 |         next = devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
+      |                ^~~~~~~~~~~~~~~~~~~~~~
 
+Include the new header in all files that need it.
 
-> > +SYM_FUNC_START(__sae64a)
-> > +	stmg	%r6,%r14,__SF_GPRS(%r15)	# store kernel registers
-> 
-> Strictly speaking we don't need to save %r14, but I guess you do this
-> for unwinding?
-yes. Also, some later (unsent) patch needs this and before I forget this, let's
-do it now. 
+Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/adp/adp_drv.c                    | 1 +
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c | 1 +
+ drivers/gpu/drm/bridge/chipone-icn6211.c         | 1 +
+ drivers/gpu/drm/bridge/imx/imx-ldb-helper.c      | 1 +
+ drivers/gpu/drm/bridge/ite-it6263.c              | 1 +
+ drivers/gpu/drm/bridge/microchip-lvds.c          | 1 +
+ drivers/gpu/drm/bridge/nwl-dsi.c                 | 1 +
+ drivers/gpu/drm/bridge/nxp-ptn3460.c             | 1 +
+ drivers/gpu/drm/bridge/parade-ps8622.c           | 1 +
+ drivers/gpu/drm/bridge/parade-ps8640.c           | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c    | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c   | 1 +
+ drivers/gpu/drm/bridge/tc358762.c                | 1 +
+ drivers/gpu/drm/bridge/tc358764.c                | 1 +
+ drivers/gpu/drm/bridge/tc358775.c                | 1 +
+ drivers/gpu/drm/bridge/ti-dlpc3433.c             | 1 +
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c            | 1 +
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c            | 1 +
+ drivers/gpu/drm/drm_bridge.c                     | 1 +
+ drivers/gpu/drm/imx/ipuv3/imx-ldb.c              | 1 +
+ drivers/gpu/drm/imx/ipuv3/parallel-display.c     | 1 +
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c              | 1 +
+ drivers/gpu/drm/mediatek/mtk_dpi.c               | 1 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c         | 1 +
+ drivers/gpu/drm/mxsfb/lcdif_drv.c                | 1 +
+ drivers/gpu/drm/sprd/sprd_dsi.c                  | 1 +
+ drivers/gpu/drm/tidss/tidss_oldi.c               | 1 +
+ drivers/gpu/drm/tilcdc/tilcdc_encoder.c          | 1 +
+ drivers/gpu/drm/verisilicon/vs_bridge.c          | 1 +
+ 29 files changed, 29 insertions(+)
 
-> 
-> > +	STBEAR	__SF_SAE_BEAR(%r15)		# save breaking event address register
-> > +	.insn	rre,0xb9a50000,%r2,0		# Start Arm Execution
-> > +	LBEAR	__SF_SAE_BEAR(%r15)		# restore breaking event address register
-> > +	lmg	%r6,%r14,__SF_GPRS(%r15)	# restore kernel registers
-> > +	xgr	%r0,%r0				# clear guest registers to
-> > +	xgr	%r1,%r1				# prevent speculative use
-> > +	xgr	%r2,%r2
-> > +	xgr	%r3,%r3
-> > +	xgr	%r4,%r4
-> > +	xgr	%r5,%r5
-> > +	BR_EX	%r14
-> > +SYM_FUNC_END(__sae64a)
-> > +EXPORT_SYMBOL(__sae64a)
-> > +#endif
-> [...]
+diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
+index fdf0e6316175..eb67c6fe9c01 100644
+--- a/drivers/gpu/drm/adp/adp_drv.c
++++ b/drivers/gpu/drm/adp/adp_drv.c
+@@ -16,6 +16,7 @@
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
+index e8aea905fb10..d16945ebb2f5 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
+index 4ec50fb63aba..fc4a49b2b246 100644
+--- a/drivers/gpu/drm/bridge/chipone-icn6211.c
++++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
+@@ -6,6 +6,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_mipi_dsi.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c b/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
+index 6149ba141a38..018fedb0162c 100644
+--- a/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
++++ b/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
+@@ -13,6 +13,7 @@
+ 
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include "imx-ldb-helper.h"
+diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
+index 21ac8e58b9d2..12a23bb45c84 100644
+--- a/drivers/gpu/drm/bridge/ite-it6263.c
++++ b/drivers/gpu/drm/bridge/ite-it6263.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ /* -----------------------------------------------------------------------------
+diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
+index dd4ffc9f4df3..53291cde0636 100644
+--- a/drivers/gpu/drm/bridge/microchip-lvds.c
++++ b/drivers/gpu/drm/bridge/microchip-lvds.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 09992529f3d8..f7043dcd76cb 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include <video/mipi_display.h>
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index f9eff8bfceb7..489704df6145 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037d..ff24aa647028 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -19,6 +19,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
+index 56b48f8feab6..425985f2398d 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8640.c
++++ b/drivers/gpu/drm/bridge/parade-ps8640.c
+@@ -20,6 +20,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define PAGE0_AUXCH_CFG3	0x76
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index 5dd475fcaacf..11233d2d7385 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define HWVER_131			0x31333100	/* IP version 1.31 */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+index c0d89dd767ce..5b4f4c823d48 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define DSI2_PWR_UP			0x000c
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 76564d5e4f69..c9e5bbc5dcd0 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -23,6 +23,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
+index 049215e65988..311de8797402 100644
+--- a/drivers/gpu/drm/bridge/tc358764.c
++++ b/drivers/gpu/drm/bridge/tc358764.c
+@@ -18,6 +18,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define FLD_MASK(start, end)    (((1 << ((start) - (end) + 1)) - 1) << (end))
+diff --git a/drivers/gpu/drm/bridge/tc358775.c b/drivers/gpu/drm/bridge/tc358775.c
+index 203dc738ecef..e7ea47307a50 100644
+--- a/drivers/gpu/drm/bridge/tc358775.c
++++ b/drivers/gpu/drm/bridge/tc358775.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #define FLD_VAL(val, start, end) FIELD_PREP(GENMASK(start, end), val)
+diff --git a/drivers/gpu/drm/bridge/ti-dlpc3433.c b/drivers/gpu/drm/bridge/ti-dlpc3433.c
+index c9f789e30687..21922878e60e 100644
+--- a/drivers/gpu/drm/bridge/ti-dlpc3433.c
++++ b/drivers/gpu/drm/bridge/ti-dlpc3433.c
+@@ -10,6 +10,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_mipi_dsi.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index eb5b249cc43c..cc6c4c89d468 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -45,6 +45,7 @@
+ #include <drm/drm_bridge_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+index 48b83df9aed6..de16afa99b91 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+@@ -32,6 +32,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index e7f9e6d58927..e50737432071 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -36,6 +36,7 @@
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include "drm_crtc_internal.h"
+diff --git a/drivers/gpu/drm/imx/ipuv3/imx-ldb.c b/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
+index 63d6a1e7c1bd..317db4d9b898 100644
+--- a/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
++++ b/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/imx/ipuv3/parallel-display.c b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
+index eb75827394f8..966649bc6dc6 100644
+--- a/drivers/gpu/drm/imx/ipuv3/parallel-display.c
++++ b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
+@@ -17,6 +17,7 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ #include <drm/bridge/of-display-mode-bridge.h>
+diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+index c67fe80b8115..cac50a002004 100644
+--- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
++++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+@@ -14,6 +14,7 @@
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
+index 0e4f430de983..b73d76a40c6c 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dpi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ 
+ #include "mtk_ddp_comp.h"
+ #include "mtk_disp_drv.h"
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 9b1d1982e683..df5fed30718e 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -8,6 +8,7 @@
+ 
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_vblank.h>
+ 
+ #include "msm_drv.h"
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+index e2173c4d6fc2..ba14b20cb038 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+ 
+diff --git a/drivers/gpu/drm/sprd/sprd_dsi.c b/drivers/gpu/drm/sprd/sprd_dsi.c
+index 23b0e1dc547a..260d1682c8a7 100644
+--- a/drivers/gpu/drm/sprd/sprd_dsi.c
++++ b/drivers/gpu/drm/sprd/sprd_dsi.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #include "sprd_drm.h"
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 5eb749f495d5..7e77b4af36d0 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ 
+ #include "tidss_dispc.h"
+ #include "tidss_dispc_regs.h"
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
+index ac4b5beb2dd5..5fb0e8e1e829 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
+@@ -10,6 +10,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+ #include "tilcdc_drv.h"
+diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
+index dc7c85b07fe3..586f1bd7d7b5 100644
+--- a/drivers/gpu/drm/verisilicon/vs_bridge.c
++++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_connector.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+-- 
+2.53.0
+
