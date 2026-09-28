@@ -1,166 +1,125 @@
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA91466AED
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26C36468C13;
+	Mon, 28 Sep 2026 07:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582352; cv=none; b=se9+8pjfIAGvcMqezN6AFUIs/uiZIc6es9yJwTcfbfnYaZ2bIw/cHPi+64mF0RgR9FSmCCgcZOy5C/JfsQ6HIFOCwVTi52JnVloBks5OA6NBV1gu7ClMA+jz4jMr4qraztime9EpGw0CrsQYLUPW2duRjszFYe/RGpp/428SagA=
+	t=1790582382; cv=none; b=GhhEk7mDf+viflgkKQDAOk5gHzsmp8oF/z/aQgkz8s9uvS/yFyWVqAWoV+3WBcg89eeL1zCyjile5QCg6oSEC1unBbPyqpn8nveZM6+DZ/31JVu99KXnWMlzgqehWj1Hfr8+9HTb/jtfaYJWhZ5H7pK81Yb+7xA5oJ757uRbk3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582352; c=relaxed/simple;
-	bh=ED+sBRr3QhMO5/4gS/VqfY8k9EZbHBPa7Fm+KPqc9as=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lWfFeOUVBJdes090YppqRTR6PnqTNRIqiMz7shtXbwedNsWx8vBdUY9dMSy14f4tUyVsckbS4jKQxE8oBVi5m50ZUayBa+JStMHwxFvk1CFpwvXyiIrVPET4XPHw3sAdWyU7SQxrzMg4pEmKDFktdQUoHg9x/C5ENGIbvchruGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JPihjfMb; arc=none smtp.client-ip=74.125.225.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JPihjfMb"
-Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49fe4ca1052so6650495e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790582349; x=1791187149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XhysCFeCFrK6Hy/AV9kl1/zr3IXUOwo2mfXgBsYx8sE=;
-        b=JPihjfMb3WY76x+yDC/RJKaFkXn/ssSQGuprdvgCJ3E76w9JNPtkZc+0KoaVwmKZYT
-         qKSwIAyohTIK8g0aukoajF4Wi0acP3C/4JUVISb7LW60+gPc0zJc7cflaDHwLdsZP3+/
-         hF/i6tA4Y8ESnzEfFKPwH6eNVu/ghuq6Vg90dkH6yWRForln4mK1aFYPLSoI2ozPaF5X
-         XOGQ4bKEkv3LLpq8VeP9Q8RMVs0oRqxm/vMg5xTmNz5S/Tc5LwDS1lbb3UKzItV7X3UN
-         OSvUVfXwrCizrL3GJT+ZdssP3Ts9PcJnPcczPqhMuqnZaInLhpqqUhdENvYWkrqer3OT
-         NH0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790582349; x=1791187149;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XhysCFeCFrK6Hy/AV9kl1/zr3IXUOwo2mfXgBsYx8sE=;
-        b=pwotffLj1i045iUx5e5z180qDl3NajVgGoUIcfzqZpxeyUaUVuxXkGsObuXuWyc41f
-         xh5GlsTkfH7fZcheRjrRa7rrOnan4gS2SjAAma7mSL3TMKplAhKjsnqU7lGGcF7SNVQT
-         LzGveL+lh4NvPUeDSajELTzg03ZRh85pfL40pWCo3dKuFDDxCJYjZ8/Rm9elKxkASVCW
-         s4bioGT+EK9+IdWWU62Nrt0YuP7AVA6u7XLtRrrn9b/SMkOWgNpl0R4l+q/AuIfRqZ4s
-         lNTH8L4ichPTrXNajawv+YZ1mIaGtG4kUYPk4oLQ6uoMIbPrTBhy77AY6hrdCJv52ipJ
-         PfRA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDjuF7DbkuympPr+uldAn00saPiuiMZ8qu5n9MCBKNBxs4FlCrj+DlRemULu+0Q9IOR1ioMkwhILnPf08=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYS1zmCZKqeiQBJxpRa1G9bJOure6dA2wmMHbO2au8eRmLFqCs
-	j8wpxhtuYTcNY0R3H19/URWYZTzeI750aBkANW/2CckEqf2hsdNORo1zCSaE2B03JbQ=
-X-Gm-Gg: AYBFou0p22TIyf618QGEA04Ya5HYgdJV61WJ0hjNjGr9Jk3QRyyQgnOflBXlSIAMSBx
-	QPIocgOgOn8pLLK5HoZGeVpP4swS8u/dsXYtqjDuNldnNv2Ky/rD/fyIi6y0riZvYnoaMuBr0v0
-	0Zd6VaDBeIfL1jjJNcA3NTyqvUsJSr9AzRCxURzHI4ktZXKJWhMdEKLbjPN9r2W1wDTQy8P3fKn
-	QQZgIMJaz7e/RpdEXKzkJOI97vUj+T3kJ4VMBJpS0VdVX1QSz5ynAtZaZoS5SyrWfOfWvVc3g1E
-	Pg1NxD5QqtM0mcrA7Gw6HYTIxq+W+REItCJUVoM4TwcekmmZawY4WZT1PA3scBYexn61iNVIsof
-	Nr68AqZMKNRhnAMyoSkpygdqwcD6XCdjfJFxCvoa0KzEq91ePxDeWbj/RjXMlK+LMmg5MeDxAp1
-	+oTsAwBaTzSCb7kccHRBFFfp8nI/Fe3jjhkJ3EUYjobH2eZy9UkWx/qO8m1AjoiB5HK9QX8ySqM
-	BQvEu4p78RN+2VVxOzDJdn+PTdY0zpLoBkD8BwW/1IljL2H/TEmHQ==
-X-Received: by 2002:a05:600c:a4c:b0:49c:fa20:cc08 with SMTP id 5b1f17b1804b1-49fe67060cemr213903135e9.31.1790582349255;
-        Mon, 28 Sep 2026 00:59:09 -0700 (PDT)
-Received: from [192.168.0.38] (static-246-51-231-77.ipcom.comunitel.net. [77.231.51.246])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a007be0761sm21702035e9.3.2026.09.28.00.59.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 00:59:08 -0700 (PDT)
-Message-ID: <bafa7204-1025-4db6-974b-1491d3cc48a6@suse.com>
-Date: Mon, 28 Sep 2026 09:59:07 +0200
+	s=arc-20240116; t=1790582382; c=relaxed/simple;
+	bh=4kl2el4FpHcVHqxsS4pGEvHLvJHgWdZsn2aHeqzIC4Q=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=SakwRzNZftAS5XrdekmiWV2DTs5OvKDk6aMvQw6w6xkL+PjkP6tOR2/xkBINird3pMjaCiviaKTJ0OCiJzL16qgnk4Ntou6kq0cngyOdyHHdzPD4kMkoVBYCJudcJ6zl3CjLswONOHMFRpr2l0TALbk9PHPs/47lGJ8hKlfxam8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxvtJqHrpqU3EQAA--.48063S3;
+	Mon, 28 Sep 2026 15:59:38 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCx9cxpHrpqVP8lAA--.52959S2;
+	Mon, 28 Sep 2026 15:59:37 +0800 (CST)
+Subject: Re: [PATCH 6/6] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn
+Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260927075240.3007947-1-cui.tao@linux.dev>
+ <20260927075240.3007947-7-cui.tao@linux.dev>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
+Date: Mon, 28 Sep 2026 16:01:02 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] wifi: brcmfmac: Add clm_blob firmware for
- brcmfmac43456-sdio
-To: Benjamin Drung <benjamin.drung@canonical.com>,
- Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org
-References: <20260923203739.2560527-1-benjamin.drung@canonical.com>
- <20260923203739.2560527-3-benjamin.drung@canonical.com>
-Content-Language: en-US, ca-ES, es-ES
-From: Matthias Brugger <mbrugger@suse.com>
-Autocrypt: addr=mbrugger@suse.com; keydata=
- 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
- PVrr2NoUqi/bxI8fFQJD1jVj8K0=
-In-Reply-To: <20260923203739.2560527-3-benjamin.drung@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20260927075240.3007947-7-cui.tao@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCx9cxpHrpqVP8lAA--.52959S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7tFW3Cry8JryDKr47XF48Xwc_yoW8KF48pr
+	WrCa9xCFW8Kr129Fs7Zwn3XF1I9Fs7uw4S9a45AFyYkwn0gryrKFy8A3yDX3WDJ395AF1I
+	qr4fGa90va1UAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
 
 
-On 23/09/2026 22:37, Benjamin Drung wrote:
-> On Ubuntu 26.10 these firmware file are missing inside the initrd when
-> including the brcmfmac kernel module:
+On 2026/9/27 下午3:52, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
 > 
-> ```
-> /usr/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob.zst
-> /usr/lib/firmware/brcm/brcmfmac43456-sdio.clm_blob.zst
-> ```
+> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+> invocation: every call overwrites pch_pic_base and registers the same
+> kvm_io_device on the MMIO bus at the new address, while
+> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
+> init, MMIO to the stale ranges computes its register offset against the
+> new base and silently reads 0 / drops writes, and the leftover bus
+> entries persist until the VM is destroyed.
 > 
-> So include the clm_blob firmware file for brcmfmac43456-sdio similar to
-> the other firmware files.
+> Reject a repeated init with -EBUSY, a null address with -EINVAL, and
+> only set pch_pic_base after the bus registration succeeds so a failed
+> init does not leave the device half-initialized.  The registration
+> error is propagated instead of being replaced with -EFAULT.
 > 
-> Bug-Ubuntu: https://launchpad.net/bugs/2168109
-> Signed-off-by: Benjamin Drung <benjamin.drung@canonical.com>
-
-Reviewed-by: Matthias Brugger <mbrugger@suse.com>
-
+> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 > ---
->   drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   arch/loongarch/kvm/intc/pch_pic.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-> index 3cff0f1fe25f..cea52d408817 100644
-> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-> @@ -618,7 +618,7 @@ BRCMF_FW_CLM_DEF(43430A1, "brcmfmac43430-sdio");
->   BRCMF_FW_DEF(43430B0, "brcmfmac43430b0-sdio");
->   BRCMF_FW_CLM_DEF(43439, "brcmfmac43439-sdio");
->   BRCMF_FW_CLM_DEF(43455, "brcmfmac43455-sdio");
-> -BRCMF_FW_DEF(43456, "brcmfmac43456-sdio");
-> +BRCMF_FW_CLM_DEF(43456, "brcmfmac43456-sdio");
->   BRCMF_FW_CLM_DEF(4354, "brcmfmac4354-sdio");
->   BRCMF_FW_CLM_DEF(4356, "brcmfmac4356-sdio");
->   BRCMF_FW_DEF(4359, "brcmfmac4359-sdio");
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+> index 136211f154d4..2baf9ecf0c8a 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -285,7 +285,10 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>   	struct kvm_io_device *device;
+>   	struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>   
+> -	s->pch_pic_base = addr;
+> +	if (!addr)
+> +		return -EINVAL;
+To detect repeated init, I think it will be better add a BOOL type 
+variable such ready/has_init for this. In theory device with physical 
+address 0 is possible.
+
+> +	if (s->pch_pic_base)
+> +		return -EBUSY;
+-EEXIST or 0 if it is created already?
+
+Regards
+Bibo Mao
+>   	device = &s->device;
+>   	/* init device by pch pic writing and reading ops */
+>   	kvm_iodevice_init(device, &kvm_pch_pic_ops);
+> @@ -293,8 +296,11 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>   	/* register pch pic device */
+>   	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
+>   	mutex_unlock(&kvm->slots_lock);
+> +	if (ret < 0)
+> +		return ret;
+>   
+> -	return (ret < 0) ? -EFAULT : 0;
+> +	s->pch_pic_base = addr;
+> +	return 0;
+>   }
+>   
+>   /* used by user space to get or set pch pic registers */
+> 
 
