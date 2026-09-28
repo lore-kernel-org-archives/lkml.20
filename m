@@ -1,148 +1,232 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011020.outbound.protection.outlook.com [40.107.130.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF862D0C7E;
-	Mon, 28 Sep 2026 12:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598987; cv=fail; b=SkI+66vN/jjig8r04HDeULIBQKmmsVPpHO6wSRk9b1aGeTsxNSc0zAdBr1Y58eak65pxQ0QcctKktc2NQXnp+C1NE7KArpKqdDz2rU77dY/fQXyBOEjPLP4FSaNprgE7XerWn37oE5tGToXYrP8UJaBBqdjYlKVB1TtDE4HCBbg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598987; c=relaxed/simple;
-	bh=KKf1SFyJGz3LcmyQQN1Wryo+Qr1WU+u7Nq8zsnwPg6A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=oEm1UNE6gLbN0eDluDexuX6sZULBm/ZWBSCdrN9J/ojsM6Wir2U56BOa0m0W3tqrliBzP/IwBQJqGJi0/lUtU+yHRIk1uPIQtivNv2d7f1JL7phA0SuE9iN3nvuwWdTklPRFvT+jIuS17tuvU84HuB2R2PcByFX4Ykn8EMMMNtA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=ZLpQCEX0; arc=fail smtp.client-ip=40.107.130.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0A52E7369;
+	Mon, 28 Sep 2026 12:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598990; cv=none; b=ZsBa/HZ3UlOShSLT/ORK+9p7Fwe257pP+xyHpy7s0QEMxNh4euWxGViLhW0OzLM+A/C20U+4KeE9uhbPGl9FD4rmmV9D0YBH0jj9p+fXaG0z6vWmuC6k5qrij/UDzRE3m1I/0IrVLkq+oOZRRHo8zoMXMxR6hBklBSEii7aIGGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598990; c=relaxed/simple;
+	bh=uZraZvbQFEAbh+rjj7F1JQi75lAteRsDKCzDVpM8x5w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EMXqW85/Lhv4MeHQvKK1/owb/UNXcg38Czy0VyjuL8t6R9GTdtNTLF/zsZL7n3ZGDp05lgAWTh8TKHEos2mYYusAy2aE3zJCinDzkoUJAgG5I72eMbSaLYI4p3GemOK2d9CTPhQKZw6LuZ0fWBOh5pBsFjfOxyPOwE7aX2mH5DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SuCJne2A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ePHOP+/X; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=DvZ22CDL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QMogQ8ZY; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="ZLpQCEX0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iWSOntlIHhLO1Y6ENb1qMxmS7fpDIzGyyJ7zuzNIMHt6rMbuJzyIImJ2JjSEreaFRs4YfUsxaDfIIoazCsxtTu/jrmTCfy/NR487GKe/XNfFPprqIVSRYfVaiWi2aiPT4HgI1KlbMCGOmz3NNWBg6orDIodeBALr+TmEMTddpEUpZXPq4OzPHdDplqwaYOvijhDkkAbw14K/UtTvMcaWqhbnUreHIqX9vuRnZXbGs0KBqKFGhYB5SG5WITC18YZcrGVyhYpBrPHakdUkg/O5MCqeamFNG+JbFtHyieaoCR8uX30NQ9ODv7Xq0ADXd86FQU9T/u+B58oNDCzLe0pSfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mc/bdvdkiAk+yiOt4oL4sGGddhVVosjzwOkJ8zwgM+g=;
- b=X2JjO6hX5lIzx1Cq22FWpJ7CIV3xTMof8yMfTTk07KPMAWe+NV02WXemCiAvFx7a8ucLmlzBLUtxvJuLvozDAoXFD2eijNMjTdYlBZ+ac553iaoE3Knep5cL6Ih4EfRwmQtsmtC4bjgBNTc8mwQgY0eOhcOmaMC3yQgtujfs1MbNDCpALCsauiONQhly0FBe/qvIXbqaXugWyGOqk+tlbxDRX/8eKxDkoba74dkFB50AxbZDHpWkFIomzkiYc6SMYiBTcHYUI/3J4G1KvKD3gCoCSycVGvvuBwmMgl0xO+Lt1nEmb2ArJGY4TJKZSpL9ha44aCb1zVeE7h1Dcs/CpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mc/bdvdkiAk+yiOt4oL4sGGddhVVosjzwOkJ8zwgM+g=;
- b=ZLpQCEX0egHX171bZnTkqw7rydB/DsE0YEEBaGGrxWNBSdCWelAhEleVZ9LDFiga5Zmw9c3OzSzyWnL/dc8I0+l8eNQvBIBYCvKY2xqwuzJHiNq1+FLnd16BcdLZDfCmGQzDk0mi5qzYMdGkwdv8ysqKToF5R7+93iwY+B/IwwrEu+X1xp9lLpE7HoYVcaSW5uX8SV7gZoxaSGisowdmUGxnYp0FwoGkpLP4WMvPJ1igbEpt/HtKOKf1YE4V4iHUhd74zNhcq9Tm64zTqefvLWPaaO0cFVr4XFv4jaqUAhKR3oZW6UqCcurq+GaWJkuB1EmU50dGRN6k2s0LI3dplQ==
-Received: from AS4P195CA0006.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:5e2::11)
- by DU0PR10MB5267.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:34b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 12:36:20 +0000
-Received: from AMS1EPF0000009E.eurprd02.prod.outlook.com
- (2603:10a6:20b:5e2:cafe::ae) by AS4P195CA0006.outlook.office365.com
- (2603:10a6:20b:5e2::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 12:36:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS1EPF0000009E.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 12:36:20 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 14:42:12 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 14:36:18 +0200
-Message-ID: <8e590e6e-30bd-408e-a570-93a3cc107f27@foss.st.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SuCJne2A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ePHOP+/X";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DvZ22CDL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QMogQ8ZY"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C04F1FB56;
+	Mon, 28 Sep 2026 12:36:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
+	b=SuCJne2A1NFqCw0WbINUFgzcMGqb7GXaGjjlqG4lOJ8zD/+9/a2Gz+7TvrhjE7cVcpFho8
+	g7SpCOoGnfBO2UU8H1B5F50k20mZkdOzYNJo82TkddO5+iYOv+hBVXMrMeIlC6e8gzwW/N
+	oqHoT9itcSXRc9Xx3TaWJnYbX94p8WE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598982;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
+	b=ePHOP+/XoLJaLF7rrsvxts2i4tvI9CwCofNn35FuDWZNPaAnIY+eTYmu2hfildni8DUj2Z
+	L0TgBZd0gCPDRHCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DvZ22CDL;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QMogQ8ZY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
+	b=DvZ22CDLoshdySlRYdBfR2Ebe9DrpzHe3U1XexF7Kyidaea2p6us1KJADNDV0se83PN2AJ
+	l/8hjIB5wJSjDS4pAFZfQfXWh9ChUvFu7IU0TWUaaQb767E7rSwnROE3XkpPZaDSWzdBjX
+	G/sUvfso8rsHPq3KO3lQHa2AWT2GgW4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598978;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
+	b=QMogQ8ZYkYa2THhiNROHxbKQozSZX+KK4QbPk6t+hy6Ci2tgCxEYr3+FJ7a9WFzRhIR/OJ
+	QcA9T8KyHVMPjeCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 33ABC133F1;
+	Mon, 28 Sep 2026 12:36:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1sLHAUJfumqfAwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:36:18 +0000
 Date: Mon, 28 Sep 2026 14:36:17 +0200
+Message-ID: <87bj9h5z9a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Akhil Arul <akhilarul324@gmail.com>
+Cc: tiwai@suse.com,
+	tiwai@suse.de,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	syzbot+825b7e3a03dd072c187f@syzkaller.appspotmail.com
+Subject: Re: [PATCH] ALSA: rawmidi: give up draining output when the device stops draining
+In-Reply-To: <20260920130620.61431-1-akhilarul324@gmail.com>
+References: <87tsnng8kl.wl-tiwai@suse.de>
+	<20260920130620.61431-1-akhilarul324@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] arm64: dts: st: enable camera on stm32mp2x-dk and
- correct stm32mp2x-ev
-To: Alain Volmat <alain.volmat@foss.st.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Hugues Fruchet <hugues.fruchet@foss.st.com>
-References: <20260914-stm32mp2-dk-camera-v1-0-2f2bd719bb63@foss.st.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260914-stm32mp2-dk-camera-v1-0-2f2bd719bb63@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000009E:EE_|DU0PR10MB5267:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d1be176-5973-4ae4-46b9-08df1d5d1924
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	XmLSGWaEoRSfG8GgGRWDPuX6qLkorC/8AfjMr5JZuBXM5lF9yomAsXsQj6aVSxgDMGngOMsraOHgWVKEL5p15PiVvaXIdXvwxqLYBkbPg8IsgcW2TZTF/Y0A5ZIL2FDelicn00WI4qQMViTRBGg4AF9OU3zED62mLjay5yQe655CXiKuOsjqoT+OQz/9MJxF9NgO7CLckWkjrPhGmykOxeDWqirbQvBKm9rRUb/nI8EXXxgctQBP96OGJgElfXPPVmVbSIOIBFzNwAvbP1SirKEhIEoXftpU/Ns+IJ2pskJesMtkV7m5Pib5ckXcVI0rkiyvpLja4p4fv0S4Ars0Rbv7REvDX/pJDvKc5n0qKx/UveaNGmV1PJvc3F54jxBdihkbt1Xbo8A25kmd/zEZ8H9rkTHq0tsZl+bR7is+jLKindU7ky5ewnG2VgPs02lQNnbJ6C702vyVR1Sh17cloD7w6cvxU+Vfwjq9git9eLc42kdWpwPn0GJ2jsmTIn3Lcg0kXG0B+FLBVwVk4Cd/P08pqMC0BJ7hXnptd6VTg2Ici1dW44+gLCYFY4AGrCB/OfKEUDmzlKP+RQQgKbNVbRSjkVMvdMQPnd0fx/og1nd1T/cCjmTUEBWibgzBo8Me/hZ1Kra3D/dz3LMBn2ofvQTC20epzxcNMroiPmTjnN0smYuh5WI4tGPXpYaT9v1IDXKlQE4pkC0Jid73XuE5ug==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BwXUV7npmiC9oRddofK4Eo3CEG4AECQo8Wq6AsRZEL/lQzPzDVHf8VGKTroplmwsCvY6TquIcs2aaBARW9STPDlWyFIa6LUbRREjDg9282E+UrZt1n+un0LJ3jwpgHhkwKImAKuNPutzxaW7Zjy2cnIKA9ouvkNqCK2fpfJqmk98k7aH84wTUIRJ2karaIutn5KuTnW8yLYz4vtCK1JJHe3ih1jR09eSRii2LNA4V/ozB3/rT5M0TdcwRXw4oWv/UA7RTjcH/ddcBe5J++eWSjDhDr3ZJt8pMxY2xOuw6CPaZ9vSoHEJTQfRPJj8nHQ8XIgWrifp+MrPILxocid9F5Dvxznr36pywtutfOOSUFdwXfcchB+UWSl4KXCN77BLyrthxsNxJRqutqUMUoBrX+RBTGKoRuKkog66c60/XgQOS2DmLu/tYZwz5imeJq9O
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:36:20.0053
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d1be176-5973-4ae4-46b9-08df1d5d1924
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000009E.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5267
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 8C04F1FB56
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[825b7e3a03dd072c187f];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-Hi Alain	
-
-On 9/14/26 08:54, Alain Volmat wrote:
-> This series enables the camera pipeline on stm32mp235f-dk and
-> stm32mp257f-dk boards via usage of the CSI IMX335 sensor connected
-> to the CSI / DCMIPP of the STM32MP2x.
-> It also perform 2 corrections to the stm32mp257f-ev1 board to ensure
-> that the IMX335 is well enabled.
+On Sun, 20 Sep 2026 15:06:20 +0200,
+Akhil Arul wrote:
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> snd_rawmidi_drain_output() waits up to 10 seconds for the output buffer
+> to empty.  The wait is unconditional, so a substream that has stopped
+> being consumed costs the full timeout on every call.
+> 
+> The sequencer OSS emulation makes that expensive.  midisynth_unuse() runs
+> as the port unuse callback with grp->list_mutex held for write, and calls
+> snd_rawmidi_drain_output().  A single teardown closes every OSS midi port
+> of the device, so an unresponsive device exposing many ports holds the
+> rwsem for minutes.  snd_seq_port_connect() needs the same rwsem, and in
+> the OSS path it runs under register_mutex, so every other odev_open()
+> queues up behind it until the hung task detector fires:
+> 
+>   INFO: task syz.4.21:6176 blocked for more than 143 seconds.
+>     __mutex_lock
+>     odev_open
+>     chrdev_open
+>     vfs_open
+>     path_openat
+> 
+> Detect a stalled drain by sampling the free space instead of always
+> sleeping for the whole timeout, and give up once it has not increased for
+> a second.  A substream that is still making progress is given as long as
+> it needs, within the same overall 10 second limit as before, and each
+> wait is clipped to the remaining time so that limit is not overshot.
+> 
+> The warning is rate limited because a stalled drain is now detected much
+> more often than once per 10 seconds.
+> 
+> Closing one such device in qemu, with the syzkaller reproducer supplying
+> the gadget, took 72-103 seconds before and 9-11 seconds after.
+> 
+> Reported-by: syzbot+825b7e3a03dd072c187f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=825b7e3a03dd072c187f
+> Signed-off-by: Akhil Arul <akhilarul324@gmail.com>
 > ---
-> Alain Volmat (4):
->        arm64: dts: st: add imx335/csi/dcmipp nodes on stm32mp257f-dk
->        arm64: dts: st: ensure IMX335 is enabled on stm32mp257f-ev1
->        arm64: dts: st: use video-interfaces media bus type in stm32mp257f-ev1
->        arm64: dts: st: add imx335/csi/dcmipp nodes on stm32mp235f-dk
+> Went with the adaptive one in the end.
 > 
->   arch/arm64/boot/dts/st/stm32mp235f-dk.dts  | 75 ++++++++++++++++++++++++++++++
->   arch/arm64/boot/dts/st/stm32mp257f-dk.dts  | 74 +++++++++++++++++++++++++++++
->   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 45 +++++++-----------
->   3 files changed, 165 insertions(+), 29 deletions(-)
-> ---
-> base-commit: 2f92d900f262a16c8ae02daf53ae2910d07185f5
-> change-id: 20260913-stm32mp2-dk-camera-7ad3ac8d3075
+> I tried the fixed cap first and couldn't make it stand up. buffer_size is
+> PAGE_SIZE, so 16K or 64K on arm64, and PARAMS goes to 1MiB, so any constant
+> I pick is really a guess about the buffer. Test device consuming at the
+> MIDI-1 wire rate:
 > 
-> Best regards,
-> --
-> Alain Volmat <alain.volmat@foss.st.com>
+>   buffer    unpatched      2*HZ cap        adaptive
+>    4096     ok 1.42s       ok 1.44s        ok 1.43s
+>   16384     ok 5.60s       -EIO 2.06s      ok 5.63s
+>   65536     -EIO 10.06s    -EIO 2.06s      -EIO 10.06s
 > 
+> The middle row is a healthy device at full rate failing because the kernel
+> has 16K pages. That killed it for me.
+> 
+> The adaptive version keeps the 10s ceiling and only bails out when avail
+> hasn't moved for a second, so those rows stay as they are. It also happens
+> to fix the hang better than the cap did. Closing one /dev/sequencer2 with
+> the syzkaller gadget attached, three runs each:
+> 
+>   unpatched   72.0s   102.7s   102.3s
+>   adaptive    10.7s     8.7s    11.6s
+>   2*HZ cap    18.4s    12.4s    16.5s
+> 
+> The teardown still calls the drain the same ~31 times either way, 9 to 15
+> of which time out; only the cost of each timeout moves. Hung task detector
+> at the default 120s stays quiet over three runs of about four minutes, with
+> the repro plus two threads opening /dev/sequencer2.
+> 
+> The cost is that a substream which goes quiet for a second with data still
+> queued now gets -EIO. Same device, pausing once and then resuming:
+> 
+>   pause    unpatched     patched
+>    950ms   ok 3.53s      ok 3.53s
+>   1050ms   ok 3.83s      ok 3.84s
+>   1200ms   ok 4.28s      -EIO 1.30s
+>   2000ms   ok 6.68s      -EIO 1.31s
+> 
+> So it's 1.05-1.2s rather than exactly a second. The poll grid is 200ms and
+> the cutoff drifts depending on where the pause lands against it.
+> 
+> I said 400ms in my last mail. That turned out to cut off a device pausing
+> for half a second, which a real one might do, so I widened it to a second.
+> 
+> Worth saying that avail isn't monotonic here - drain doesn't gate writers,
+> it only forces the wakeup in snd_rawmidi_transmit_ack(). That's why the
+> test is whether avail increased rather than whether it reached buffer_size.
+> I checked a shared append substream with a second writer refilling it, in
+> case that read as a stall. It doesn't: avail jitters instead of sitting
+> flat, the counter keeps resetting and the drain runs the full deadline.
+> With the refill matched to the consumption rate, unpatched gives -EIO at
+> 10.07s and patched at 10.06s.
+> 
+> I couldn't find a way to bound the teardown without putting a cutoff
+> somewhere. Whether a second of silence is enough to call a device stopped
+> is your call.
+> 
+> No Fixes: tag, the 10s wait predates git.
 
-Applied on stm32-next.
+I like the idea, but the code is for the core part and non-trivial, I
+put this to for-next branch (for 7.4) now.  Thanks!
 
-regards
-Alex
+
+Takashi
