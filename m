@@ -1,25 +1,26 @@
 Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021105.outbound.protection.outlook.com [40.107.51.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580002931E9;
-	Mon, 28 Sep 2026 10:22:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EFB499F39;
+	Mon, 28 Sep 2026 10:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.105
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590974; cv=fail; b=HkoJG5s6MKXabV5RC0/uyZLVcuNi2pemoi2p5S+EBMC4FZDb+WH8A8wzMf9rPgaQfl/KzOf+61z7MwHtJD2SkVvG7RCGpxKigUpmxHG35SWDRlENRlsdNCz28FxKTSOdjHbbcjswcclIOJqqZ8wvAU1Vgz3WXJKBI5rfc1FLyao=
+	t=1790590976; cv=fail; b=SmxGe+5+LckVJ5IgKfIhuecJCl6r3yTu5MDVCMizYZTmxDyrkIPkJnCGGuZxprEC3gbIXYlV3a9099RdKnoecOyrnVQ/sdcDbkNFXwc9GF2hakHztEAzuBGCgLyCORM8TvOIp+nHIYMx7jwD2o+GTHeYTrO6PBrJ09jYIrYa2Vs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590974; c=relaxed/simple;
-	bh=TdwMiHJ9bsNHeRcGjkbG/E31IpTS7LPAUn/XaErKfnQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QJnKdLepDugfNJalxqJZaN50T1nlArKA0g4bjE0fDot0bqLo0sjSLOdiQRB+MgBescYn8ly367gMsvLaUE03GUI5EsElLjlRAfkOJMj+JgTsD8Jn/kb6LjbVelrVXplbjzGkA31MtpW2a/T1mkbvFDiCm606F6Hemru7pfBZQ/0=
+	s=arc-20240116; t=1790590976; c=relaxed/simple;
+	bh=2KctDc49mXKtBEqd/BBQKnVHojHmg3qYD4aJ4wEoYJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e9Q9t6VbrIWH7tLzeUiMRKkgueTud0xqPesf+PeGK3h14a5LnRMF5xwKWuVFYjJ++hVw79OT6ow+nKXp15ylH2vpEdMYnIutaH7F8RKLr0HMOw+oV7IGzSRW54VfEYNQzM1LuFmioViRN5AfcxzLy4eLoIILziDLEMDEvWOUnv0=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MT8OV70QfiWMcUNZPCebQ+nHVoDS0Mb6CV/Wa/XDzYu+8D7IrDHXhzt5BCg7NlpEbDizh+s8/qrXBitovrKy65obSRn/CcMrlaUe4lg2LWSzNUbj++VSk2GcKwoMQpKLbjPJLMZwlhfaQ4Ok7iT+61JX2rCaAMsZAoJ9vFziroeRCQ4OcYXC/FE1aylTtYwq+D71ITYiFRcp2IxMkdaJeHuqGdyAoW4zRDRFvUCFuBk2I+GdhwU3ic2nRIY6jMiLg92ioEmenXCa/x61BsW9wAWM58+X7uYpbL4VuBF7zJwtVVTVPKus8hQJLN/468n3HfSPX8GyW8DsGpXJg/BSbA==
+ b=UUV8fBtNaI4pGs3qd8wgSndtisVmBn4Q/lB0TP9rQwYsds0farESRbcx6f6daCgc6Khlbhm7UqUkOglslVlk41NnHv9YSsPfg6X7eOcxT6fXLddYbt0sSX7FrlYQoMb+oi/gIfV+K+s1JW9Rrp9kSI21qu8jmd95jOeWcenD2JuOYmMSqmFCBKtWezK/2b1hqej8WnfuU0j6kxeEmW6frOWXwA//+aTk/UEVv2GX+k0Wnhg29rfy2/HiHkiCQHBoEr2Q9O6EbKrDsuH/+Q4bvXL8tQ/yANGRezvieHiATXocfOVpCQO013mr9iE3ZnZV+oZ0cgZLyhUF+EZozP5bgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ISF/t0rRQcEmUlZCv2zU4JhdoNHVRCfLtJDZ+ccb6BE=;
- b=SMdsX3BT8T0+3sCRhLwJy9k3nlhpbCF6J+jlW3tsokkvkQIln1IV6QlUz6VwknLBZWCf2N9joXANwkM/JNraK0itdbVASa7Cqmo1Fmo+jr14MCpdbJusPfoamYIkTL3/WKH5HUhnfVWnIhGXcVgAj7VZWZplxxTxiNmb5rJjNTFjDHYRkUxR+fImuLJ4XAVT9/QBJMMlaFO4O4Lwh8GCcqy2h3kiS/xu2ZmoRmnDJhl+C8rj/0aW//7VImaqESsBRiGNKvWOBaLyWZYkK/rTOH0Mx0vIbiyDPIk5juGvouh0FikuEzN6jIAMfz71OmFLj348ezOr2iogn9LzmyWzvw==
+ bh=hlBh+twuvcdUiku/RsbgQ4rRcIAMHjPFzdOvIWv0nCk=;
+ b=OEb37/TgLsvTT9h6vZrdYcMRVals0Jf42N0cdR98dtfeXhsGlQu7qgv3iKnoYb5fAxZ/HbywCOowU/LJwvf4TiWo67n3NSZM2BZNumVhgNmOfbLWK97ZPAA6gZccxQ3LF/eGP6PQJGn8BSD41m/WP/ap9QPqKiRTz9VUUh0CCHTUyWP6IpTNwVsbq8TSkALsiE6YeAez8sd1hS+7axkwdrTPUSMVh/fcD/PBvjsEw8IwHyFb66KE8nVyRNAo7B2NCUlsf3BR6JzV36NCj79nLdV4TrOlO3lcOZ981AFIq47DOkNBvQA1ksED3YRfm4FeeR4b/YeO3mXPZFJRuobymQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -29,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by MAUP287MB6171.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:226::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
- 2026 10:22:47 +0000
+ 2026 10:22:51 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 10:22:47 +0000
+ 10:22:51 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: linux-media@vger.kernel.org
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -46,10 +47,12 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v4 0/5] media: qcom: camss: fixes for several cameras behind a CSI-2 bridge
-Date: Mon, 28 Sep 2026 15:52:32 +0530
-Message-ID: <20260928102237.533341-1-hitesh@ebytelogic.com>
+Subject: [PATCH v4 1/5] media: qcom: camss: vfe-17x: Fix write master buffer done being dropped
+Date: Mon, 28 Sep 2026 15:52:33 +0530
+Message-ID: <20260928102237.533341-2-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928102237.533341-1-hitesh@ebytelogic.com>
+References: <20260928102237.533341-1-hitesh@ebytelogic.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: PN4P287CA0060.INDP287.PROD.OUTLOOK.COM
@@ -63,160 +66,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB6171:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8f32888-8ca3-45d9-554f-08df1d4a7115
+X-MS-Office365-Filtering-Correlation-Id: eab22666-762d-4fc5-9314-08df1d4a733e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|52116014|376014|10070799003|23010399003|1800799024|3023799007|6133799003|10067099003|5023799004|56012099006|18002099003;
+	BCL:0;ARA:13230040|366016|52116014|376014|10070799003|23010399003|1800799024|10067099003|5023799004|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	oIUIkGPvzY5EROhYH3risJfNHIpIbyUBD7Roo0zLW+IteH3JngZPjdGwhoZLSHHqD8Sm+F6yaBRbBfyGWHI6N1AIw6puLerq6EUUBTV9UYzqapAYQoZwMFFKI/gle6Q/hjubNZY5vyY5j13slzNCuIczAaJEHt0ll3Dd8J6iT/cKOC3bhE85U+qO3urTSLkVw88zfGP9lzSSN2J1IYJQ9KW+5oUVk7EG2uuNbdHZELPVepZiT3WNcsMPfQD7AAKyrR4rDM2B7jx0e7bF19Y3EQpUVivYg0yQp2v9v01ZYAay1w8DP6/mluOzE/ZfgvCnupAYXqtufqVV0uNt0YPQb0LgdN/I38I1h8VwxHtIYTRRr9UcJIUVqAeDGOn74t+u8czH9SKHSGg5j4HXyIqx48PQLwcEf9LDZcDTMN07FA7fm0/ubLmtBJfyf9sQHdAdqEGysFBvCzHlNi+0CTvRqag/v2qwl5yypuGnr8znBaDzSmPXUj3hXaDARGCusew/NCAc4fyhjwuxsfhNULdVIQ6azK+LH4LmXRmhm5eC3OqoDg+gXYk52orxW0/1GaHUEKdBQc1DZ+dmD+ftSvbjTkgTXk2t6y7Nq4Rfqw6ax1nmmUS8dzApkwlBbWyQMhzr
+	/uCqMRDdseG0cpxFjBuNWal4Dz74piINHjo7Oc7bic0krCANQ3YlSRK5zI8R6kWVmHf/+kVoCokzW9XVv2SEsoRb/rLFMfw5AIEn+m4t918X+zZ+7dE7zc4EUaf/WF0kryd6MdXTpZBk/nx1beH5sYk9CIUAispMaFXO4yn/61r8US16bgtl54x8GnyjTxh6PW6Wm+eWfF+U0zE4Zp4bGbNR4ZzIAjzN5PSqFH1cbnctAXUAueYgVzSIv8tFFJzn37gpZXF5greFLqakv3FdYwXz2v8kTebBSBgmwh6x1lzN8An1bgL+GKovt1DDBWiw1i+q7syRHnJSvBeZ4TSD4eBmxMeGF/ckCp56dXI8zleQ5wTGVt1BIrmr4iAOtCsK1mmMejV+pP98I1SHwBH4quaPv0kb5NJBtz7CmGSfbKJ6GTTTPo0ZYa2V+/WeXFU6myk0u9t1+eh/Pa0Dd0iBkjg+XUkSIa7K1xpV2clBu2Tw/b1jPX6mlneHAuAhSFrk8tsSbyrUX89mUhDBy6cpUNS5LkcPVyUpLCqN9hmK9TLU0k6UzEKwbaSWx0oQYtGbEgFDbv3JNX9amdhzvKFSw2ojrEK1RegSYKFrzRqtej01L3Nci1iOTwuvijH51RCbTw8dzbqjQwuxjVWw5vE2Kbgx0v5gKtHWFEGSu3Rd3pE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(10070799003)(23010399003)(1800799024)(3023799007)(6133799003)(10067099003)(5023799004)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(10070799003)(23010399003)(1800799024)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?mB3w/KeZnYggaPoMqBpgxD8JcPA9mKpRsWAMY8c1dKaay8/khVQnUm2dM2YK?=
- =?us-ascii?Q?H5Y/aI3qQbgxmsvrmRR888kqE2ySGlAsjhCpTZJWULp3ZJYQ+NX1M+jQc3tg?=
- =?us-ascii?Q?bjrYdZCzRLWUnzB1C8qoNGE184+93PumevzdDBfNBvNMSofsoZ46oJ6zbedo?=
- =?us-ascii?Q?WYxVLrBzjr3O5EA0gQ0/ETz8cFOECjvQoNGXw6+HvIum9VJ/+5HVmyJm3p0A?=
- =?us-ascii?Q?sI78dwOUTlrE9Cvr6mb48AvVHp4gLdY716uo/bPq5mhg/v113gylsVgWrIGz?=
- =?us-ascii?Q?BGRVbJ8NCQcBqS7U7LLxBMi00zHi/pvQcCu4kT6GJK+HH106yFlBlQhsf8sn?=
- =?us-ascii?Q?DBbpDBoQmi2TpU1BFCSACQG7peP4OUwtV6Kvdmodpla1rs8eWLhnXvDSp0JH?=
- =?us-ascii?Q?xRhyu3Hz5F1ku9mtfWacXgAoQ00EWt16xDIPZPRv+ieEXqL9vp/tPqtA/1eT?=
- =?us-ascii?Q?i+wCen/xmffUdawS2zyyoM9C4+9H8raVduEOAoyzBnddQcBj9jvdnZ3UlogM?=
- =?us-ascii?Q?Mu6UbX+5mYtYvlmuureaxNwCGBJneEe6rS1A9Tvb60z9lekl+wQV483k+DdW?=
- =?us-ascii?Q?pp+7SVflzobcNL94Yg0gE+NCkbrMG/NJwDF2wTNLeFutvvU7VOde9buJFRdT?=
- =?us-ascii?Q?/mr1/KtXvSUHLQnnS/GrrEB9EEp8CztyuoDiVBwgcpdQoLLcBDuYI7I7VRaw?=
- =?us-ascii?Q?vqvjCBpmcuv+K9SSIkhnwkBBpv8Ous8jthMWTePu6NSINkVFt4FO/nJP4tFL?=
- =?us-ascii?Q?UucO29BnaoC1afXpPRQrPeUuelYXTs9o15nVLUoV0RE4aiImgf/oZJexlIr/?=
- =?us-ascii?Q?tO+CNX5qDoMC6JVe6SWS9AOblpkwPKQ12q0/zuovi6fFQmC1OLEuI/ZXU0K6?=
- =?us-ascii?Q?rLq+M2AocPLkomrvf6nqqbWW1ud+E6f0HNP3rlHn8i5WcrsxyQEdFNEx0uOf?=
- =?us-ascii?Q?yQZsT5tjr/6bf9yxkBtgZ3Ypqug2ph1JWWVWwCD/QovqsPEmzVsyzimGlcLN?=
- =?us-ascii?Q?XfNBSLDTVP/yrvSMrwN6GGCKt9HC6Z3yvwPPW1L/iZAquzK2IuDWl3Rd3DQV?=
- =?us-ascii?Q?WtzMvzh1zyadAltiCADnRgNUHzvDVboIszKONx10fnT45vxOM3574XAV0+Vn?=
- =?us-ascii?Q?o2U7XuDcTl+TiofB/Op7BSITpZtut9JJzsgGeHTntdZSjrN17N/LFoT6PuKs?=
- =?us-ascii?Q?WnCshp/xUUJz8VkeOkFscfW9TAOf5f5sLivVJQZk/UutSwDyPBhl7eBFSr/l?=
- =?us-ascii?Q?v0P1MthqbDUWdjuW3R/O8ArxECmHTozXt/Wz7uzwIDjdEvgRSrfqOPEsR+zd?=
- =?us-ascii?Q?NEXmPUcYUgO3jy+kIv/XKXy8nhdIRD4lBx331ODA8fkD3qzZYk+LY7K6+gbW?=
- =?us-ascii?Q?M+4qyF39BB1gtrFQB7+dsM+h5DdZAvu8hbCyn6A4PqDMYko7JmDh1tHr7Ti+?=
- =?us-ascii?Q?IFmj/RJsPjji76YnGjRoSPJsVoM/v3Eo7zYEGHyGX1xAEXaUFI+jcbGQCmeU?=
- =?us-ascii?Q?QJCiQ9UI0ijTkJ3VaVpKpkl3xbXPIDLmg5Srd8pUJ/3AHiQPgtztYcS104ff?=
- =?us-ascii?Q?VLRp0gKH5VOgM4+gOLl0RmGAm0txYvprCRnrpW0rwD1s26MZcoRpOZuq401I?=
- =?us-ascii?Q?vlBeFoh6oi3FeoOm53rV686NtOWjqkl2Mf4kYjJpFl3i2Ydq5gBkxCqdaYZ+?=
- =?us-ascii?Q?w63uZG8QLJScl/VV6K38SPrlN/STpcucyKP68Wwh2Wkxtr5MG9tXRqJ5Gy9X?=
- =?us-ascii?Q?t9AWQ1sG6Er/a5aPV01AC6VRjOG1lSyMdkezwQEkIgSM3xs+Vu8QKpHOMn7C?=
-X-MS-Exchange-AntiSpam-MessageData-1: 1JT1n3lj1lsVDw==
+	=?us-ascii?Q?QpFY+kzHlftaePj0oFsOeQbrGWkHFMKPU3AVDbv/bjYOcUaLoDb10gK6vi8R?=
+ =?us-ascii?Q?mqsvo7EjqDCTFKpY7pwma8fawr2fL8J3cRaNK3gLNy64+SNuAUNQJCt1ekTW?=
+ =?us-ascii?Q?66aWlWvkIVr4sQxmJAz/Ok/ShcJMoGkbAkVzArr8q9LMRQGcBocoTBjhH8Po?=
+ =?us-ascii?Q?Eb4SIq2RcQb2TMwUOEsZ2uh7D80yUbteRedYkbZ1o6BlTINlgMc+X32WTWra?=
+ =?us-ascii?Q?EQLAiVygZiMGTV3/peHntWrij09exokh8ecGRDW0aKAb5V8fXz2DFtRSctOa?=
+ =?us-ascii?Q?8bYm75PwLNhlwwjBzV1PaVcdK+yWG1JiRdipVLb4u1BQ1D8dDu0GEae5vTnR?=
+ =?us-ascii?Q?DJ9z7dbfM2BiFy1t6PDM1nteaKlyVTfMaI3IQY84YjkTsZZ/5P5hoibDsV8Y?=
+ =?us-ascii?Q?NfBW8XYcBk2OgmtcDnYu4ay+kRrtfSzUAuvY2t25tAcKyf++sJvPHQvdwCVO?=
+ =?us-ascii?Q?igIAXmyspDlvF0GXVkNT9oufqkXzTz2crw9DPWFGm65Ty89Zy4MZl8kt0J9c?=
+ =?us-ascii?Q?xLd7PZMSJpToZCMK/HLacVOay7rWzI48Ukbi/1A2FztfshqUQihbADdGSOwB?=
+ =?us-ascii?Q?jzjuExXSfMU0ellZDpUXSn0XR++tm8dN90dqqMnKuzeci6/TIwRccK117GpS?=
+ =?us-ascii?Q?s8SRvPycofFEhrt51ndX5wNU011zHpU+XWaO3l517bJnAunY3XlH6JxoKCtP?=
+ =?us-ascii?Q?P8gytGJxNh1RNlf85qA5ISHGzotyiDk9kHnTkzARwTz3PI51mKJBzUEx/eS+?=
+ =?us-ascii?Q?C2Jh87fSirzkiOb48z0mrOb1j5OYiA6PcYTzDbtU6ZuBrSnsZ6T5V0s0dMOQ?=
+ =?us-ascii?Q?5Ov9vkUCggOy7U2gTFytDNJmlTfroDIytOeH5CHWgcc+K0xQWaf5cjmenJpy?=
+ =?us-ascii?Q?K8XiIhxRIIDvCL47nzO3J/9wqLRKuxZaBu9OU1zzF9Wy/u0rbMCUJYjmmHMP?=
+ =?us-ascii?Q?XQ6C0ThAdHn2zUFwqiV1tkD9PqajYYKUgJbWv/oPOuK5Yw1zZZuLFQbIIS7I?=
+ =?us-ascii?Q?GAVl26tFP/XfuJyLrjx1OTpxBv/zi8HprJueorEjes2FEjuTjBlWnE3lbYEg?=
+ =?us-ascii?Q?bgtHbcKk8RclEVEtogXXwkjxNUnlhRWeI//jqg51WOuWps2JNqyHrXUXzK5V?=
+ =?us-ascii?Q?//wNlwM5O+ycOX1YoLYIvJCKcFOXOB9+3cm+mKn0KFdDjqbSovb3U5Kcfa/6?=
+ =?us-ascii?Q?OrC3m8LKqHq7YTgh9Z1MVrDb4OmaqcH7JWlncUZQaKzjqMDNIUyWfg37dSJb?=
+ =?us-ascii?Q?Zm2X4krUU+wsC0TJJPRppoJU8/0KYozcyEKmUc2vsXjupq4m5oJQm5wn8nIj?=
+ =?us-ascii?Q?E9Ldyv9zMMFbZRsvfdtU1ihAXTs+m0qAQhjXd72hUKqEqUDBYYS8frFUDEa3?=
+ =?us-ascii?Q?BSIeX/YUWizHMkBWsb9DT5KMV6XZscuto3rOnTxeVJkw4HNlNo4MQc/vCPSt?=
+ =?us-ascii?Q?EDH/+Vgw6456nBLQCnABHCwWwiqIk38+yXdUS7Fr8QXjGBtWxtiT2xIC5HLW?=
+ =?us-ascii?Q?u7QhOqrzqR38p4KAsZ5z2UQxWaS0ncRlJhWoe9k7xeNiWFdnuiLLW2dBZmT8?=
+ =?us-ascii?Q?3Z5u1QgZ+5eSYZnH4u4Hb6HouMn7Nzzpm8YW17dWl9fmcODcfgCp/c929kiY?=
+ =?us-ascii?Q?Udo4sfWEkx2nDRD/x/iehJhWdTU2ThdlENX5krZMgHzUDEJfCgTwEP9UzIFS?=
+ =?us-ascii?Q?Nvntj4xN4wyfXJneE9Z0j5VzTUOPDx+KquSXcT9MN3fCEbyzGgYcMx3YdHyI?=
+ =?us-ascii?Q?2C44VrAQM9i2c6iXSG9ULWYCaF1ZmTlvWcfVR6aKP3raAL73aUsd6obmRtkF?=
+X-MS-Exchange-AntiSpam-MessageData-1: eOPVK49P1PstAQ==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8f32888-8ca3-45d9-554f-08df1d4a7115
+X-MS-Exchange-CrossTenant-Network-Message-Id: eab22666-762d-4fc5-9314-08df1d4a733e
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:22:47.4052
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:22:51.0189
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iXzC3xBVFkvb95uIiWXwKg5FXQzyxwLN341CTFH/Rml3DFu5ZXMp76QyNUtlraeN8QQTeGs7WFnO2z0mZCR9yg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: YIeQ1m7p5omksG07Qs4H+sB6ID3DRhHcA1yIRL67/y2Dzdv1tBnyA6RetSq0I3042ivNv0N9nc87PqSxzoTzAA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB6171
 
-This series contains the CAMSS changes needed to run two GMSL cameras
-on the RB3 Gen2 (QCS6490 / SC7280) vision mezzanine, where a MAX9296A
-deserializer sits between the sensors and the SoC. The deserializer and
-serializer drivers (the out-of-tree maxim-serdes work for MAX9296A and
-MAX96717) and the AR0234/IMX900 sensor drivers are out of tree and not
-part of this submission; only the SoC side is here.
+The VFE 17x interrupt handler reads and clears the bus status
+registers on every interrupt, but only acts on the per write master
+BUF_DONE bits when bit 9 of IRQ_STATUS_0 is set as well. Bit 9 is the
+ping-pong flag of image master 1. It has nothing to do with the other
+write masters, and it is not guaranteed to be set in the same
+interrupt in which a write master reports a completed buffer.
 
-Patches 1-3 are fixes for two RDI lines streaming on the same VFE, hit
-by any configuration in which the CSID demultiplexes several virtual
-channels, not only by a bridge: the VFE 17x interrupt handler drops
-write master buffer done events, VFE 17x hands the second line the
-wrong write master, and stopping one line resets the VFE underneath
-the other.
+The bus status is read-to-clear. When a buffer done arrives while bit
+9 is not set, the handler clears the status and never calls
+wm_done() for it. The buffer stays queued in the driver and the video
+node never receives that frame.
 
-Patch 4 addresses the assumption that the sensor is the CSI-2
-transmitter: the rate the receiver has to be programmed for belongs to
-whatever drives the bus, and v4l2_get_link_freq() already knows how to
-ask it. Patch 5 lets one transmitter with several CSI-2 outputs link
-each output to its own CSIPHY.
+With one RDI streaming this is rare. With two RDIs streaming on the
+same VFE, for instance two virtual channels demultiplexed by the CSID,
+the interrupt rate doubles and one of the two lines loses buffer done
+events continuously.
 
-The v1 patches 6-8 (shared CSIPHY/CSID refcount and the streams API
-handling in camss-video) remain dropped. Gjorgji's "add V4L2 subdev
-streams API support" series [1] covers that ground properly: tested on
-RB3 Gen2 with streams enabled for SC7280, both cameras stream and start
-and stop independently without them.
+Act on the bus status alone, as the other gen2 VFE handlers do.
 
-A CCI fix found during the same bring-up, enabling SCL clock stretching,
-has been sent separately to linux-i2c [2]. It is independent of this
-series.
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+---
+ drivers/media/platform/qcom/camss/camss-vfe-17x.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Tested on RB3 Gen2 with AR0234 and IMX900 cameras on MAX96717
-serializers, on the vendor 6.18 tree and on the qualcomm-linux qcom-next
-branch (v7.2 based): both cameras streaming concurrently on the two
-CSI-2 ports, and each camera started and stopped repeatedly while the
-other keeps streaming, without interference. The CSID test pattern
-generator was exercised after patch 4 as well.
-
-v4 was re-tested on the RB3 Gen2 with the reworked 3/5 and 4/5 in place,
-including the case patches 1-3 address: with both cameras aggregated as
-VC0 and VC1 on one CSIPHY, so that CSID0 feeds RDI0 and RDI1 of the same
-VFE, the two of them stream concurrently and one can be restarted five
-times out of five while the other keeps streaming without losing a
-frame. Dual-port streaming, the per-camera captures and the resulting
-IFE and CSID clock rates are unchanged from before the series.
-
-Re-checked against next-20260925: the series applies cleanly, every
-patch builds on its own with W=1 for arm64 (defconfig plus
-CONFIG_VIDEO_QCOM_CAMSS=m) and checkpatch --strict is clean.
-
-Changes in v4:
-- 3/5: move the reset into vfe_disable() and do it under stream_lock as
-  part of the decrement that reaches zero, instead of sampling
-  stream_count in vfe_disable_output(), which raced with a concurrent
-  disable and could skip the reset entirely (Bryan, Loic)
-- 4/5: replace camss_find_sensor_pad() with camss_find_transmitter_pad()
-  rather than keeping both; camss_get_pixel_clock() and the g_skip_frames
-  query use it too, and the commit log spells out what that changes
-  (Loic)
-- 1/5, 2/5: Reviewed-by added (Bryan, Loic); 5/5 unchanged
-- Rebased on next-20260925
-
-Changes in v3:
-- Resend as a standalone series rather than a reply to the v1 thread
-  (Bryan); no code changes
-
-Changes in v2:
-- Fixes first, with Fixes: tags and "Fix" titles, commit logs rewritten
-  (Bryan)
-- 1/5: no PIX special case, plain removal of the IRQ_STATUS_0 gate
-  (Bryan)
-- 2/5: use vfe_get_output_v2() on 17x like the other gen2 VFEs instead
-  of a 17x-only mapping; no PIX special case (Bryan)
-- 3/5: commit log rewritten without part names and with the affected
-  line spelled out (Bryan)
-- 4/5: camss taken from the entity's media device instead of an extra
-  argument, so the callers are unchanged; multi-line clause split
-  (Bryan)
-- 5/5: Reviewed-by added (Bryan)
-- v1 6-8 dropped in favour of [1] (Loic, Bryan)
-
-[1] https://lore.kernel.org/all/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com/
-[2] https://lore.kernel.org/linux-i2c/20260921131954.1690578-1-hitesh@ebytelogic.com/
-
-Hitesh Patel (5):
-  media: qcom: camss: vfe-17x: Fix write master buffer done being
-    dropped
-  media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
-  media: qcom: camss: vfe: Fix VFE reset while another line is streaming
-  media: qcom: camss: Take the link frequency from the CSI-2 transmitter
-  media: qcom: camss: Create the source to CSIPHY link per endpoint
-
- .../media/platform/qcom/camss/camss-vfe-17x.c |  46 +------
- .../platform/qcom/camss/camss-vfe-gen1.c      |   8 +-
- drivers/media/platform/qcom/camss/camss-vfe.c |  15 ++-
- drivers/media/platform/qcom/camss/camss.c     | 115 ++++++++++--------
- drivers/media/platform/qcom/camss/camss.h     |   2 +-
- 5 files changed, 84 insertions(+), 102 deletions(-)
-
-
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+index e5ee7e717b..c011f64f63 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+@@ -364,9 +364,8 @@ static irqreturn_t vfe_isr(int irq, void *dev)
+ 			vfe->isr_ops.comp_done(vfe, i);
+ 
+ 	for (wm = 0; wm < MSM_VFE_IMAGE_MASTERS_NUM; wm++)
+-		if (status0 & BIT(9))
+-			if (vfe_bus_status[1] & STATUS1_WM_CLIENT_BUF_DONE(wm))
+-				vfe->isr_ops.wm_done(vfe, wm);
++		if (vfe_bus_status[1] & STATUS1_WM_CLIENT_BUF_DONE(wm))
++			vfe->isr_ops.wm_done(vfe, wm);
+ 
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.43.0
 
