@@ -1,155 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8DF367F26
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997654E2F03
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611241; cv=none; b=QMl/3o4ryG/aoJGZPUFEQhcpqtvgnLFfEFgge2VMIrsYrQKEeYZusPvxJ9povS2AVbUlVkH/CVUwRby8F9LM3yl7d1cofz+JOJT0ULCXQtDXQ4sh3W3L0Y7+s1j8QdxldGAV4MeTMRUT4uiOvbuLKgF208BHrW3dmiQF3T9kNqM=
+	t=1790611285; cv=none; b=l7BQlxVcDsobeMfTooEGTzalcY+Dy2AdpO+ASa2UaAvbuKqWPeOfZptrZWndOsiEOyem2UFZgSe91hbyZRxodupLK0lYihnE1lWpZX86mhpIZ0hFS4FgGZaUGagrfrQpyPyPlUqMxTSi6Zra1gYjyTo9cyrDEaeMF/lO+qZrq3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611241; c=relaxed/simple;
-	bh=Gk2xkJZGPeVEKBCrhgUGRQs7SjKsgX5bshchPAfWK4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LpxTFkusfayzk/RpD1iNuuv/MrONUI850Bnj5VhNvrjJJ8nMxxjoDFrrH4Zis4Z6Fnqc/haIVduBFD63FO66k2hhbO+NuyfgzUVlCRAX1BJ6DEiBbewlYMxc//nRirz4h0dBWEKZIvDrh4gPdn7ieqSRmKfj7t89EVWYAc0uBU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xxh5DmGQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790611285; c=relaxed/simple;
+	bh=uSKWGEy+h0iZrPZ3sx1w7LlZBURNAT0ImgBibqITfCc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=rrui36k6DnACLpareCZv6j6MQZeExnC1CpIs+eDkqgbIgC+jc6QItg8A2sRrj/GZ3WERMa1Aks/sO5Yxy1BxMJRF2sgajp5QG5YiZ7V/oQxzuTCMN7wFlxVOZZeOmBLiQaZlDb9UnF/7/wu/yw7HW4G50ff/e2ij+QMdwp+xffk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mLYrsp8U; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xxh5DmGQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD4E1F000FF;
-	Mon, 28 Sep 2026 16:00:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790611239;
-	bh=W6eGbi4h94EROe2FvU3gHfkuY65w4Ck4RppvNoXrrGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xxh5DmGQ/V3AQE5TqtcfppYnymChdn1KQezAimXBQ9NzTpf38wanjTsUBcC2xsLrB
-	 q3KAfjYz1hS7deetbUlAEh9Zf1COn4l5weayXaOtUZRUEQArEm+EQUJKRZeX2jjygk
-	 +jK5SW8f2MLqPoH/psACmui9jhQ0GzcFtyBOrDF7XMtkjpjdnwVsjnhE5GgSu/fkSW
-	 b+xDgGf2/+3ctlnoS2A+TI/NVHC5aM3suqBzpv8WwpKN1mul8+9f2YMQVAEi9oFAYl
-	 g3sjtfF5W6v2T6AXD1LK0P2IZTJ63llfRU7UpNIl2Qz3D3CTWYbR1IKx7FXS3berQ3
-	 GmdI+zzMw9oeQ==
-Date: Mon, 28 Sep 2026 17:00:37 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Seongjun Hong <hsj0512@snu.ac.kr>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] tools/mm/slabinfo: report percpu sheaves and barn
- statistics
-Message-ID: <arqNTeIsjXCcYyxp@thinkstation>
-References: <20260927-tools-mm-update-slabinfo-v1-0-a4ea0d4dc136@snu.ac.kr>
- <20260927-tools-mm-update-slabinfo-v1-2-a4ea0d4dc136@snu.ac.kr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mLYrsp8U"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-9143a7c85c5so36861826d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:01:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790611282; x=1791216082; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0L0FfZEwFrI5hnOen6cKyT8bGV7DqSFD/qxUGYMRgC4=;
+        b=mLYrsp8U1ewdKN6ZuAjN904WjXAEnrq4AROfEBedTkheVduZCT4PiT55DZJIXp+0/I
+         PNJ+y1jYs8N5IIQ7GUemW/6n5Al57tktiB88eNM9uRcE64P2YRIpsyTlhReGwx7K213O
+         BXYWlQeY3KEpFgBEiiYxPvpEwv4S3sDJyCQBAoBkj/3JmujluI67wQvdOvoOGF5K30mI
+         UECe2a1QcygOk3lWajoZnfe0J1mLqNKfwfpWZ/lHvVZbtCLW+aEeyvMxFY1VsTT2eD1d
+         7JRkgdXyannb/R4mrCdxydOLkcXbm/8e0mstAqz3aI+xts6QHsPreWzJmNZENx2xJm9I
+         EqUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790611282; x=1791216082;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0L0FfZEwFrI5hnOen6cKyT8bGV7DqSFD/qxUGYMRgC4=;
+        b=DJdIASHG3Qq5F8eo77a2VW2H63yrm1ojZyNAM7aEcP3RAzz3AwHVc0FPynzV+gTEVC
+         Yr/4V6Hi3wcD7u23Z/sbe8u6BQogo/nSHL4ZwEwwiJCtBrV+V4bC4j4UfX0PwMNXafYg
+         L5Ye2xu8wfnbIvjPTyScVvNhkUfR3ziJworUyy9EJwGxk8sBwl4JEAQrDi0Z8HNJ1B2m
+         qjOh70UF14hIEiSWvq62TdljFFD2Ksgc1V13J6YotYPcLikWsNfYj00hPPkrqRvDmhZz
+         ZU3LRP+Yeq1yHyW/LYYCRyH8ruFX/LDqddhKxv7e0qwfLcS9PibXuInKS2BJgBS2mMa9
+         bcFw==
+X-Forwarded-Encrypted: i=1; AKwUvBx0kos7BCcpCawMq67OS8Om/mi519V1xsY6RGbchieJ3gE1g8zxwHrqz4+b6FF9fVZt9iy5iVXEqJEyEhg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLw6s7d+b0a2dHG5KjEP4VgQNl72TyES+YHA9ocVUbSrX44V+PJ
+	uhnqfdBhoDe+f3qpXaYhmcZ0YJ+t9Mud/LFWArh7fAF3tlNVdC9YJSdQ
+X-Gm-Gg: AYBFou0W7N6CSvjhQ49SSE5TZlUq/GKEkOaJ/9EdaO7pwt6PBuQk3PQs/+HeoT5xAyO
+	u3qFb2t8eq8Op4jHkZokxmGqs5Qe1jfugp0ilfRck0jt16OaDnkziVXfeXNOjbm8hUNAaR1hYI/
+	w6gynbufawthHEwvdY88shvgOiFIJaOoDWFyAYxgRDvaKBWg1LCzvbczYRrGZoa1wNo8EMd2PSP
+	/lCMj7N0EDWovWhVtzMS9Ifhb9y5SWFUqIOP+UF2Pq8C29XiyPtj8TlRemAN6TIugdP9AITI6uK
+	xAWedZqCpubSDDDhOuSKZUHwZxTaxUtH7cBV2AyNlSsEXBtRB8YrBBY2bJ8vO6n26Wn74+mCidQ
+	86OMVNNLYYTb2uWwvkZ2PYYQhVAaaWxqKviNB5RjzN+9EO6F5SPbGBPKhtR1aytwStUhgvDpuvf
+	0nnQXp0IvS4ngiu0E8oIhX34efaSqk7fhCKN6vDtg5Qvw+SCgzeVSsV56BwyQTMMgXfhxsQqLjZ
+	fo=
+X-Received: by 2002:a05:6214:1d26:b0:914:40fb:8e89 with SMTP id 6a1803df08f44-91440fb8eebmr178876886d6.16.1790611281978;
+        Mon, 28 Sep 2026 09:01:21 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09985sm83727016d6.30.2026.09.28.09.01.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 09:01:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927-tools-mm-update-slabinfo-v1-2-a4ea0d4dc136@snu.ac.kr>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 12:01:20 -0400
+Message-Id: <DLR2Q21OM7VS.EXK4BZIZJ1VL@gmail.com>
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 3/8] eth: mpnic: allocate MSI-X vectors
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260924-linux-mpnic-v2-3-4badc9b58b9e@gmail.com>
+ <179055370029.3145.13976204260796634034@kernel.org>
+In-Reply-To: <179055370029.3145.13976204260796634034@kernel.org>
 
-On Sun, Sep 27, 2026 at 05:57:28AM +0000, Seongjun Hong wrote:
-> Since commit 2d517aa09bbc ("slab: add opt-in caching layer of percpu
-> sheaves") sysfs provides the statistics of sheaf and barn, but slabinfo
-> did not utilize this information. Display perf, API, and sheaf allocation
-> counters on slabinfo report(-r).
-> 
-> Example slabinfo report output:
-> 
-> 	$ slabinfo -r kmalloc-1k
-> 
-> 	Sheaf capacity             12 objects
-> 
-> 	Sheaf Perf Counter    Success     Fail
-> 	--------------------------------------------------
-> 	Barn get                    4       43
-> 	Barn put                    4        0
-> 	RCU sheaf free             34        0
-> 
-> 	Sheaf API Counter        Fast     Slow
-> 	--------------------------------------------------
-> 	Prefill                     0        0
-> 	Return                      0        0
+On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] The driver frees its MSI-X vectors both by hand and through
+>   devres.
+>
+> --
+>
+> eth: mpnic: allocate MSI-X vectors
+>
+> This commit adds mpnic_irq.c, which allocates one MSI-X vector for FW
+> interrupts and one vector per online CPU for the completion queues. The
+> allocation happens in mpnic_probe(). The vectors are freed on the probe
+> error path and in mpnic_remove().
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_irq.c b/drivers/net/e=
+thernet/meta/mpnic/mpnic_irq.c
+>> new file mode 100644
+>> index 0000000000000..bcc33655cbbea
+>> --- /dev/null
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_irq.c
+>
+> [ ... ]
+>
+>> +void mpnic_free_irqs(struct mpnic_dev *mpd)
+>> +{
+>> +	struct pci_dev *pdev =3D to_pci_dev(mpd->dev);
+>> +
+>> +	mpd->num_irqs =3D 0;
+>> +	pci_free_irq_vectors(pdev);
+>> +}
+>
+> [Severity: Low]
+> Is it safe to call pci_free_irq_vectors() here when mpnic_probe() enables
+> the device with pcim_enable_device()?
+>
+> pcim_enable_device() sets pdev->is_managed. Because of that,
+> pci_alloc_irq_vectors() in mpnic_alloc_irqs() ends up in
+> pcim_setup_msi_release():
+>
+> drivers/pci/msi/msi.c:pcim_setup_msi_release() {
+>     ...
+> 	if (!pci_is_managed(dev) || dev->is_msi_managed)
+> 		return 0;
+>
+> 	ret =3D devm_add_action(&dev->dev, pcim_msi_release, dev);
+>     ...
+> }
+>
+> The kernel-doc for pci_free_irq_vectors() says not to do this:
+>
+>  * WARNING: Do not call this function if the device has been enabled
+>  * with pcim_enable_device(). In that case, IRQ vectors are automatically
+>  * managed via pcim_msi_release() and calling pci_free_irq_vectors() can
+>  * lead to double-free issues.
+>
+> With this patch, both the err_free_irqs path in mpnic_probe() and
+> mpnic_remove() call mpnic_free_irqs()->pci_free_irq_vectors(). Devres
+> then runs pcim_msi_release()->pci_free_irq_vectors() a second time.
+>
+> Today the second call does nothing, because pci_disable_msix() returns
+> early when !dev->msix_enabled. That makes it an internal guard, though,
+> not part of the API contract. The TODO in pcim_setup_msi_release() also
+> says the implicit managed mode is slated for removal.
+>
 
-You mean "Prefilled Sheaf API Counter"?
+For these two reasons (second call idempotent, msix auto enrollment in
+devrez slated for removal), I think it is ok to keep as is. Let me know if
+that is a problem.
 
-> 	Sheaf Objects/Allocations
+> The pattern is still present at the end of the series.
+>
+> Could the driver pick one owner for the vectors? It could drop the manual
+> pci_free_irq_vectors() and let devres free them. Or it could stop relying
+> on the implicit managed mode, so the explicit free is the only one.
+>
+>> +
+>> +int mpnic_alloc_irqs(struct mpnic_dev *mpd)
+>> +{
+>
+> [ ... ]
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/e=
+thernet/meta/mpnic/mpnic_pci.c
+>> index 68a64377e6c5a..127b71b44b0fb 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+>> @@ -112,12 +112,18 @@ static int mpnic_probe(struct pci_dev *pdev, const=
+ struct pci_device_id *ent)
+>
+> [ ... ]
+>
+>> +err_free_irqs:
+>> +	mpnic_free_irqs(mpd);
+>>  err_free_mpd:
+>>  	kfree(mpd);
+>> =20
+>> @@ -132,6 +138,7 @@ static void mpnic_remove(struct pci_dev *pdev)
+>>  {
+>>  	struct mpnic_dev *mpd =3D pci_get_drvdata(pdev);
+>> =20
+>> +	mpnic_free_irqs(mpd);
+>>  	kfree(mpd);
+>>  }
 
-This doesn't make sense to me.
-
-Perhaps should be separated into
-"Sheaf Allocation/Free" and
-"Sheaf Refill/Flush" ?
-
-
-> 	--------------------------------------------------
-> 	Objects flushed to slabs             0
-> 	Objects refilled into sheaves      516
-> 	Sheaves allocated                    7
-> 	Sheaves freed                        0
-> 	Oversize sheaves for prefill         0
-> 
-> Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
-> ---
->  tools/mm/slabinfo.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 58 insertions(+)
-> 
-> diff --git a/tools/mm/slabinfo.c b/tools/mm/slabinfo.c
-> index 84359d628f2e..dbc72582ffab 100644
-> --- a/tools/mm/slabinfo.c
-> +++ b/tools/mm/slabinfo.c
-> @@ -574,6 +582,39 @@ static void slab_stats(struct slabinfo *s)
->  	}
->  }
->  
-> +static void sheaf_stats(struct slabinfo *s)
-
-Perhaps let's fold this into slab_stats()?
-I'm not sure why this should be in a separate function.
-These files are part of SLUB_STATS files, that are related to sheaves.
-
--- 
-Cheers,
-Harry / Hyeonggon
-
-> +{
-> +	if (!s->sheaf_capacity)
-> +		return;
-> +
-> +	printf("\nSheaf capacity       %8u objects\n", s->sheaf_capacity);
-> +
-> +	printf("\nSheaf Perf Counter    Success     Fail\n");
-> +	printf("--------------------------------------------------\n");
-> +	printf("Barn get             %8lu %8lu\n",
-> +		s->barn_get, s->barn_get_fail);
-> +	printf("Barn put             %8lu %8lu\n",
-> +		s->barn_put, s->barn_put_fail);
-> +	printf("RCU sheaf free       %8lu %8lu\n",
-> +		s->free_rcu_sheaf, s->free_rcu_sheaf_fail);
-> +
-> +	printf("\nSheaf API Counter        Fast     Slow\n");
-> +	printf("--------------------------------------------------\n");
-> +	printf("Prefill              %8lu %8lu\n",
-> +		s->sheaf_prefill_fast, s->sheaf_prefill_slow);
-> +	printf("Return               %8lu %8lu\n",
-> +		s->sheaf_return_fast, s->sheaf_return_slow);
-> +
-> +	printf("\nSheaf Objects/Allocations\n");
-> +	printf("--------------------------------------------------\n");
-> +	printf("Objects flushed to slabs      %8lu\n", s->sheaf_flush);
-> +	printf("Objects refilled into sheaves %8lu\n", s->sheaf_refill);
-> +	printf("Sheaves allocated             %8lu\n", s->sheaf_alloc);
-> +	printf("Sheaves freed                 %8lu\n", s->sheaf_free);
-> +	printf("Oversize sheaves for prefill  %8lu\n",
-> +		s->sheaf_prefill_oversize);
-> +}
-> +
->  static void report(struct slabinfo *s)
->  {
->  	if (strcmp(s->name, "*") == 0)
-> @@ -613,6 +654,7 @@ static void report(struct slabinfo *s)
->  	show_tracking(s);
->  	slab_numa(s, 1);
->  	slab_stats(s);
-> +	sheaf_stats(s);
->  }
