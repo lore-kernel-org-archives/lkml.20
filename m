@@ -1,157 +1,125 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571A7440A2F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8427457E41
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578690; cv=none; b=ovZ8oYEMKQQiIlz2RxCbkWW5J/nIFuxjsfM5q2aqzeeYtpG0FOMwkLRTdoNL7XdN2bD8UU1ssqjIHqwz1HN2LQVAzjBTXJcF8j1EWUX4QlgJLZ8j9nMgWcEKtKjhSj2We71xJKWHJTgxXF489MBW53GPe+PAshBrQ6835vJ2jHY=
+	t=1790578701; cv=none; b=X9xZsR2Ga/YoOtYB0gUFDgYcfvfq/5UYjptKasMAGvqrdj1Cm7tg5GecZjnEziZ9ZBa/Fej9dukMCzVK7wP8TQVtqjP5l/2UKHEWcBdMMiHK/6HlwYWhsE+TvIXaphGWs1HhwaQ0cb/4mCkwkPTXFb/jBnTHAvbBsrntFF2IdxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578690; c=relaxed/simple;
-	bh=YuK61F7k/rSoU0uw5Dg5cXbqHjHe/G9clpwYicDbyeg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kUJVJUgh3WZnp/FvKJpOsH9DJ2PBxg7momjNIms6guonAJZpZePfRE27jI+o0oznwns8/9OWGVClrttdKaAE/AX0EEEOCiG/a3D9nYZhUxESp2woGACoRFIHXEXgDhPVs+8BwR8VIPzL2MAT8/9eJ3GhXALjopE4puuK2EXjgwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=VxHbMgeP; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790578701; c=relaxed/simple;
+	bh=x4UOc67gdqAtkLbv3EOLJ2rgbePcLiaPfOeYJPFnXHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Qx1yiPm7/Yo+nbnjk2DQZ0s/gPTVXrGw6Pxy5df+XfwcS73J0DvRjZ0jTPxq+oVxNV+eMKc9f2a4sYCej+UsVwLr2xSmTjVEGWm2QxbT1vTvLmoFnNke5dSPFGvCl0FMNseuXqZacd56kVYNuVCBWPfKdj0oiA1IoXuDbVXOz6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxiqWaJg; arc=none smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="VxHbMgeP"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so11590415ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:58:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxiqWaJg"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf5e6878fso3221904a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:58:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790578680; x=1791183480; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ksa2sNXJPSNoTaKAca6K+XVzGYsQFC4DIMIyH08mj4w=;
-        b=VxHbMgePQLUQ+9s4C6VCem1KkhWXDsPqd7hMFzg3BcEoYeuoSRPjf8bmE6d4IcKB//
-         RovvZCmySNDQ+/ozAhgQQ76uB5GDs3SQEP0GJ92USzibPZ/Oja6SjAZ7W/gUF47lLB+u
-         2EF68qg/v8YPa+K8XYi3s5ruC0VgyMN79A/xo=
+        d=gmail.com; s=20251104; t=1790578693; x=1791183493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x4UOc67gdqAtkLbv3EOLJ2rgbePcLiaPfOeYJPFnXHM=;
+        b=IxiqWaJgcx+Ue7br5kHQeGpbeQrXrlPvARZyiN3d++H+1Z/HfN+Nx43yRdJYe37dpB
+         fXuW0WsWccQDd1BptViX1wA75MRuHPWDpsRHw8DaryqBp1tajZQjRBQBuTms1GdI5aH7
+         a24YvQX/N7l9JHJ6KHIkqFgEB89IC3TZcX2DbG4Rne3e7em18E3mtUOzvj/ufquY3v9r
+         u9tCve5tHZ/ycFatCaUh08N2pg6IAHK1onuxFWdAc8UmYO02SDOQywv4IOqZoDK7l3nT
+         6oiy5TUyuYutCjxMH2CUp1dgcOIogPMEatfxQKVAfot21TnPCbmk2dMLIeOmZ+pgrpkJ
+         DpJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790578680; x=1791183480;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ksa2sNXJPSNoTaKAca6K+XVzGYsQFC4DIMIyH08mj4w=;
-        b=Ov182AltoeKO6dSSdIqKZTELzDsS0W4SqfzblVrKZtIft6uV7cL71WCONk85yTRujx
-         eU9miMuW6SjJMjVeEMj2YeM1GIxX0IR6KOjzX5Wks7Rh0x07RmBkWJmiizMcwg7hPoXM
-         uG7ofsDsdyVzezFjuxrO0QhHcFHLldheQ6/gNk6pCxj9YikcHRTGc9Ogx0Cv6nUQJ2WG
-         HsX3++5DAVPJO5O5aFt7XFf8YDuUJRY/FSlte4W8f4SqYLo0iz0wkBcbtS53UUQnbEcd
-         hXTIFo477aTnvZ0BtvHiPYYv//WXIE4iy37YgVTafjEryD4BARsFjdz7zFXSGkeZiRRn
-         rR/g==
-X-Forwarded-Encrypted: i=1; AKwUvByO1y1JFXcFlIgT992OZSYy9IbRMjz/vbOJDObzUMEbxAU7oZnd2w165GT/RZnR3X1RpLpXrGdKtvBA558=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpFRvk2n0+rLxP6UuDEIJ1fjm3ptesnhsXog4771kf49J3DNR0
-	A6ZZ52bN7yq4SJ2aGVbKvY8ZwCeakTgSHNhgVJZGXyoUo0MihWIq+D4V6Utv0cTWXeXJAIVjJvU
-	eU2U=
-X-Gm-Gg: AYBFou2Uc0j4m4toPQ4x1uym78tjpgEsNOnHD2k0A7a+cJtGBH2mmOHuut2+bojcT4L
-	3AmdQkRgQkbmXU/9wwrr/WykgprZ9FXSb01D+YNnDLm2mHCo5McjhwWtY8wF8foWQfOFi7ipMtR
-	2MHFTt8lp7vzrYijJDXGLobMpEctj76XyFeGe53g7HTIwZcu1kZTAn3tBRT/0cEk5PL0CNUVUop
-	x7WqoRRMJXcDQPndK0SVUme9XQGt0zjHOEcTBl+CGCY51/U8pr3ZFa1PrO2ILInwF5/+gUI7uy/
-	B+/7zIZefzc4LO1Mie24da35yVo2wtNkdYp2G+8+jqaS3816CJ2T3osfayl9hC7cIjs8oyfO4At
-	klBBWEpaI4vmVglOzehdC103UVVCI5uKC8mOyNzXH67etp0QmD3ZZqEd4LzcLZ3WzgdnpQ6IgmH
-	h5J2kfPIu64NX3rE6kV2poTnMSFPSLh/+hgFFxFaGVxj5aRwmc8j6ljj5JGsyoezcLcMnk2OfaQ
-	VRXftUieUuTkgIeKSogK8bquIU7WBGmTP4fTw==
-X-Received: by 2002:a17:903:3c6b:b0:2dd:ad74:6d16 with SMTP id d9443c01a7336-2df7dc1e71fmr94835895ad.28.1790578680475;
-        Sun, 27 Sep 2026 23:58:00 -0700 (PDT)
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com. [74.125.229.140])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbc593sm36983575ad.6.2026.09.27.23.57.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 23:57:59 -0700 (PDT)
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04edb5so4513303c88.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:57:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwRepPtER5f0woaS0/2E3QpE5Lv26ZfLDl0WAEr4CL2wRLAOmmsMuYYZGai6C/srAEruLoQQCvxMH1kNV4=@vger.kernel.org
-X-Received: by 2002:a05:701b:2618:b0:146:852d:60b7 with SMTP id
- a92af1059eb24-146ce1a9fa4mr7123265c88.8.1790578677319; Sun, 27 Sep 2026
- 23:57:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790578693; x=1791183493;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x4UOc67gdqAtkLbv3EOLJ2rgbePcLiaPfOeYJPFnXHM=;
+        b=MrI8QCgl4p/wnHEr6U0bSOkY0QUTF9XhjN1I3bPJd3nBemEvAdvUwbApcPM8tZkytq
+         FaETOHRf1TLvvHYHa6MAHS2rOVAPTfuMdU2YBG6XOyY6Xnu58f06fSE/NCNrsdWPh2GR
+         WY155asjo6WAefIpRLNrwST8JoXKVsIUsILFH3r5e0FrFhasRluqT85eO7Bw/e/QLCEt
+         b8Sc3c+wNMNvlBcUlOWfMDD3V7CS0NifKElHlnSN/Rij6uUTXRviAhELwbjuLgvU2mau
+         oxKPSbhHPWgHHy+v9DVJg9y+KZdFQjDokg1c1C+F1rBAzeI+oQRiCk/6c5cRfR0DWPGR
+         iRSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiI2Bwkfk1YR4CH24OeleuBIDPGO+UASifNybWpCgqnh5iAKYIxPFC6777R2IwbhSjp4kXWV0zZh5FBVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM1A7pbpy3mn4GwdZqsWie6e+iDTPTPKG5EAZnhKxb7dVU4mqV
+	NAO9eMTkoVCq84OI5PibU5Gs+Tuzt3EfcaP89UZSqyNJbNFmRcUT+utp
+X-Gm-Gg: AYBFou1t31P7lfCEG9FBy9T/WHM4PAfVkPRBWugM7zdH0EURIMT/xRvV3JUv9fmik19
+	DGBOPoKmFmePsDwcLA/y1t1B0FRYPO0Y4Jr1ki9gRKwOKPRVrSaqfuRkbXJvHNcCj2DLO7XmE35
+	dOYhRTzqFwXItXiIHBsPc9qKwnNkRWKR4EI5J36rVkiZd3m5aJJq5FP0bMhjYYJzZJ7mVlnesgi
+	BlmVfG/p7JIxVN6dEONb6XO/cR27Kk74MMCY3mj4StfZ1ORWiKZuDsEKMlh4R46ln2pOZNAnV6X
+	UfDjBwxkeixePF33aeg8ZAwKnnqmdUvpWEBrcbOA6yeWtegM7PfZ6PcBZf8GZ4PtGjUj4viwHTv
+	Vylcgfi53sGd1cBEQHn9XxLPMEZWK7YNBoNDTOlUxPuPyqsIWSQO3pwHvociOECT92TuxHg4u7a
+	Szh/yCDDyG/s56cROfk6I9G/Jd5ky7in4w+wFrKDGK3erm0XknJDTcK2IBw6ekCtOZz1mzbKRyG
+	g+SVKJ4dLzqO83ktHnc5GHXZQZgmClrkHBKCq0g+o1g+ux1FMTQ6RYo
+X-Received: by 2002:a05:6402:21c2:b0:6aa:7ff:4ebf with SMTP id 4fb4d7f45d1cf-6aac8ef938fmr8251360a12.15.1790578692435;
+        Sun, 27 Sep 2026 23:58:12 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:801:793:68fd:c07a:9093:1956:b4bf])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ab5be57b13sm2286016a12.33.2026.09.27.23.58.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 23:58:12 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Ziyang Huang <hzyitc@outlook.com>,
+	George Moussalem <george.moussalem@outlook.com>
+Subject: Re: [RFC PATCH net-next v3 4/5] net: dsa: qca8k: flag QCA8337 internal CPU PHYs for SmartSpeed
+Date: Mon, 28 Sep 2026 08:57:58 +0200
+Message-ID: <20260928065758.5507-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
+In-Reply-To: <20260927153616.2317-1-yongzhao.derek@gmail.com>
+References: <20260923215858.1653-1-yongzhao.derek@gmail.com> <20260923215858.1653-5-yongzhao.derek@gmail.com> <09d669ff-7aad-4414-880a-21c2e7bf2cd7@lunn.ch> <20260924234814.1734-1-yongzhao.derek@gmail.com> <d2797713-9b92-43c8-a26e-bf3bc9817ad8@lunn.ch> <20260925210153.8717-1-yongzhao.derek@gmail.com> <69b36e16-eece-4739-9208-96bd8e60943f@lunn.ch> <20260926082129.1632-1-yongzhao.derek@gmail.com> <426f9dcb-7473-48d5-a473-4435cc81312c@lunn.ch> <20260926215152.376-1-yongzhao.derek@gmail.com> <e18c66e9-7ba2-46c0-baf5-b4281a45755d@lunn.ch> <20260927153616.2317-1-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-4-jordan.mymail@gmail.com> <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
- <20260927220625.629672-1-jordan.mymail@gmail.com>
-In-Reply-To: <20260927220625.629672-1-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 08:57:43 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsBbns32PGir2JCZ8Ofv9CpXgjV50k-vszmFY-jT-2WNg@mail.gmail.com>
-X-Gm-Features: AclHuK_lmC3xPTa7GiwCuz3Qiv72zKIW67dqijrDrJVyGb8R2iwkNOlb0-TaFyc
-Message-ID: <CANiDSCsBbns32PGir2JCZ8Ofv9CpXgjV50k-vszmFY-jT-2WNg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the
- OBSBOT Tiny 2
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Michael
-
-On Mon, 28 Sept 2026 at 00:06, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> Hi Ricardo,
->
-> On Wed, 2 Sep 2026 08:34:34 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> > Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
->
-> Thanks for the reviews on v2.
->
-> I have a question about how to handle a second device. I now have an
-> OBSBOT Tail 2 (3564:fefc) and it has the same defect as the Tiny 2.
->
-> Its GET_INFO bytes match the Tiny 2 control for control:
->
->   CT_PANTILT_ABSOLUTE   0x03
->   CT_PANTILT_RELATIVE   0x03
->   CT_ZOOM_ABSOLUTE      0x03
->   CT_ZOOM_RELATIVE      0x0f
->   CT_ROLL_ABSOLUTE      0x01
->
-> Without a fixup entry, pan_absolute reads back the commanded target the
-> moment it is written. With entries for 3564:fefc on top of v2, all three
-> controls report the live value on GET_CUR, both during a commanded move
-> and when the camera changes them on its own:
->
-> - pan/tilt position and pan/tilt speed follow the gimbal under the
->   camera's subject tracking, with the host issuing no requests;
-> - zoom follows a zoom change made at the camera.
->
-> I checked the other AUTO_UPDATE controls the same way as for the Tiny 2.
-> White balance and focus only echo the last SET_CUR. Exposure time reports
-> live values until the host writes a manual exposure once, and from then
-> on echoes that value, across a power cycle. I would leave all of those
-> alone, as on the Tiny 2.
->
-> So the change is three more table entries, identical to the Tiny 2 ones
-> apart from the product ID. v2 still applies cleanly to media/next as of
-> 2dcdfb625c3b, so nothing else forces a respin.
->
-> Which would you prefer?
->
->  a) a v3 with the Tail 2 entries folded into 3/3;
->  b) a v3 with the Tail 2 entries as a new 4/4, leaving 1-3 as reviewed;
->  c) leave v2 as it is, and send the Tail 2 entries as a follow-up patch
->     once v2 is applied.
-
-I prefer b) because c) cannot be tested by media-ci.
-
->
-> I lean towards (c), so that a reviewed series is not disturbed, but I am
-> happy to do whichever is easiest for you and Laurent. In any of the three
-> I will include the Tail 2 lsusb -v output.
-
-BTW, I am curious, did you hear anything back from OBSBOT?
-Could you also report this to them?
-
-Thanks!
-
->
-> Thanks,
-> Michael
-
-
-
--- 
-Ricardo Ribalda
+Hi Andrew,=0D
+=0D
+Following up on the initialisation order, as promised. On this board=0D
+it was the cause, and the DT workaround is not needed.=0D
+=0D
+The IPQ5018 GE PHY leaves reset in ipq5018_probe() and starts=0D
+autonegotiating with its reset defaults. Its LDO, EEE, MSE and DAC=0D
+settings are only written in ipq5018_config_init(), when stmmac=0D
+attaches the PHY on open, about 39 s later on this board. I sampled=0D
+both PHYs during that window. They resolved 1000BASE-T every 2.5 to 3 s=0D
+without getting link, and after about five attempts SmartSpeed=0D
+downshifted on both sides at the same moment: the IPQ5018 PHY's=0D
+CTRL1000 went 0x0200 -> 0x0000 and PHY4's 0x0600 -> 0x0400. The soft=0D
+reset at attach restores the IPQ5018 side, but nothing touches PHY4=0D
+again, so the CPU link never came up.=0D
+=0D
+Applying the same analog settings in probe, right after the reset, and=0D
+restarting autonegotiation, fixed it with SmartSpeed left enabled on=0D
+the QCA8337: 3 of 3 warm boots came up at 1 Gb/s about 2.5 s after PHY4=0D
+was reset, against 0 of 3 without it. Both groups ran the same kernel=0D
+and rootfs, with the probe-time writes enabled by a private DT property.=0D
+The final patch was then checked on the same board over a first boot,=0D
+three reboots, three interface down/up cycles, three renegotiations, a=0D
+network restart and a 10 minute observation, all at 1 Gb/s with=0D
+SmartSpeed enabled. It is still one board, and I have not done a=0D
+power-cycle test on this kernel.=0D
+=0D
+So I will not add the workaround property. I will send the at803x=0D
+change to net together with the DAC fix, and v4 of this series without=0D
+patches 4 and 5. George, I've Cc'd you since the at803x change touches=0D
+the IPQ5018 probe path you added.=0D
+=0D
+Thanks,=0D
+Yongzhao=0D
