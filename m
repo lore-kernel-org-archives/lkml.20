@@ -1,79 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F0F4D9F7A;
-	Mon, 28 Sep 2026 17:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFB54E06EC;
+	Mon, 28 Sep 2026 17:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616684; cv=none; b=KoOO8Q5TaVWE6t/S5lAA/VF6WM8rQd6bpCB/WuqA7OLjItYD4/+lRe3W0rJJoQv25vaxZTVJpHYEjHceKIE3yW1+/C4nliILpgvDL1NAlr4GksT0Xf7tJwkRkGUgpPbB1nkXYlYsk6ZOuaWeirkYoXhsNHEduykT0djYMmYWvWw=
+	t=1790616691; cv=none; b=c9JdmPX+RJAcHvt8IgVNbQxYHYkYCkygpq6+98jMHOTMFcRwMw8lAEGrKSXXys180r2+W6S0Imxs3qliWjmnitf/Pay0t9KISKoZ7g0I52WTBfvrzit2xABw3AMLLeyGqozRBGYfJbamQT0P7Y+YxQ57vBKH+BENNnQl2r7YkqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616684; c=relaxed/simple;
-	bh=gtb8dE5DjWNX8LLndwvWwB55+9YgbDbsy5qnxIngP+w=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Ip+P1AJPJAn/QnKAckIH9XKVr+WcDLI4gshTiVBN8HH0QWdS2JW2JSUM7/wFtDCChnaJj26D3w+RKcmHkx1xEdN4vYE3dVybBB8dHt9761TtIIvmvRfox6gu1o36Vij+zRR94cjZzyg4twl4wyKploaVl8TPXfFx/MYF8gCxQkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4RaGLWK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790616691; c=relaxed/simple;
+	bh=e610i3YkKCJ7ovp5CVxmH37BSfaeDa6goPAswzlSaxA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R1VaPBeRLImj4R+MG5LgFVzs1564lbIo1EAaENfmpzuBBI6pIYVrlHEVr0sHdewgSwVT6432BflUDLMLWo7c5MX0T3sIPGjZRx6YKsXwqhgYdGUfY/Utr+ClefbFc27+whg1i3pfiA/o+OPxYBlMl48TYj74PoDl5Fu3vckJyKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWdT5vPa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4RaGLWK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A25D1F000FF;
-	Mon, 28 Sep 2026 17:31:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWdT5vPa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDFF71F00893;
+	Mon, 28 Sep 2026 17:31:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790616683;
-	bh=pHJYtikXFc1vtR98MlddK6htj5JKY/hiF30Xh6nEIVE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=f4RaGLWKRoCsV6GG4KLOh6fMDi4ah1JIdK1MBKpu7hjXmO2nrbueJD7zIo0CpJKPA
-	 H88Eo/vbrSK5LwOn7SBtecAwi94cV1p7VAf7ihJKX/NinsBoUs8Zr5S+pKo6xfBDzh
-	 z0ChSz8ZoSAsLDnKQG7EchwPA/8fUnxKNqQ8+3bcZIQj4ShfpTWpJCLaykw5LQpv1M
-	 RBNr5uJ3djA8OBw2i/qBKW3AJmGdd/Hk4dE5vAVBJgerWYuVzTOX9KYCbdUEqudhSM
-	 +VV9TtRG9w0X/Zf7mWirGfKuMl1Gv5UuFNcJN5TFuqVpBYxbHLD/5ypv0l5hXrZarg
-	 mohyTf/X9Vehw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199113924A68;
-	Mon, 28 Sep 2026 17:30:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790616689;
+	bh=iQQS9XYFhdTKtd3oL9IPy/F06HT1iz+PJR+Bok9jroc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AWdT5vPaGegKrRimuMHvTQfHH9WjlmeyLB3ovAArHUmSPCdybJNTQOboBaDfwQwWk
+	 2hnc+xRHY6JjRh7dXntj5PFFxEfWqaWDzAPNLFV8e3b9sg4RESbPxFHz1LoLq4lStO
+	 QD+gnzsOH1WbTJp7BlJuL0LgnYZWPVolmvvB+n9LGqMX8qqBgJJpnlEI3EvIeFSB2z
+	 rHKkoH9RMywfGxgVerz2GHQWvEHGN5gSsW8QOdHRUgZSQyehyAOmzNUygXXx8dHzMN
+	 dn1VzscpxHO1HhR1c9kxUQNuHKZ6FKdOkC2BlxfmeaSQUbZWH6X4MrFndJpZlG+Hb2
+	 kbSl4ZKlfzUSg==
+Message-ID: <7a4003e7-3c8c-4c9a-9365-10475a61c08b@kernel.org>
+Date: Mon, 28 Sep 2026 19:31:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v18 00/10] net: phy_port: SFP modules
+ representation and phy_port listing
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, davem@davemloft.net,
+ Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, Herve Codina <herve.codina@bootlin.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
+ Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+ Frank Wunderlich <frank.wunderlich@linux.dev>,
+ Pietro Ameruoso <p.ameruoso@live.it>, Aleksei Sviridkin <f@lex.la>
+References: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4] Bluetooth: SCO: serialise sco_conn lifetime against
- sco_recv_scodata()
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179061660764.34603.5921039762584362076.git-patchwork-notify@kernel.org>
-Date: Mon, 28 Sep 2026 17:30:07 +0000
-References: <20260926212145.1343318-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260926212145.1343318-1-qwe.aldo@gmail.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: pav@iki.fi, luiz.dentz@gmail.com, marcel@holtmann.org,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
 
-Hello:
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Sat, 26 Sep 2026 18:21:45 -0300 you wrote:
-> sco_recv_scodata() upgrades the weak hcon->sco_data back-pointer to a
-> strong reference under hdev->lock:
+Le 27/09/2026 à 15:36, Maxime Chevallier a écrit :
+> Hello everyone,
 > 
->     hci_dev_lock(hdev);
->     hcon = hci_conn_hash_lookup_handle(hdev, handle);
->     ...
->     conn = sco_conn_hold_unless_zero(hcon->sco_data);
->     hci_dev_unlock(hdev);
+> Here's V18 for the phy_port improved SFP support and netlink interface.
 > 
-> [...]
+> V18 aggregates Andrew's reviews (thanks !) and Aleksei Tested-by tags
+> (thank you as well, this is nice). It also contains a few tweaks
+> following sashiko and Aleksei's report after testing, the ops-locked
+> check also checks for NULL netdev ops. I also added a missing rtnl()
+> around port deletion in phylink, and changed a bitfield to a bool in
+> phy.h following sashiko and Aleksei's reviews.
+> 
+> This work extends on the recent addition of phy_port representation to enable
+> listing the front-facing ports of an interface. For now, we don't control
+> these ports, we merely list their presence and their capabilities.
+> 
+> As the most common use-case of multi-port interfaces is combo-ports that
+> provide both RJ45 and SFP connectors on a single MAC, there's a lot of
+> SFP stuff in this series.
+> 
+> This series is in 2 main parts. The first one aims at representing the
+> SFP cages and modules using phy_port, as combo-ports with RJ45 + SFP are
+> by far the most common cases for multi-connector setups.
+> 
+> The second part is the netlink interface to list those ports, now that
+> most use-cases are covered.
+> 
+> Let's see what we can do with some examples of the new ethtool API :
+> 
+> - Get MII interfaces supported by an empty SFP cage :
+> 
+> # ethtool --show-ports eth3
+> 
+> Port for eth3:
+> 	Port id: 1
+> 	Supported MII interfaces : sgmii, 1000base-x, 2500base-x
+> 	Port type: sfp
+> 
+> - Get Combo-ports supported modes, on each port :
+> 
+> # ethtool --show-ports eth1
+> 
+> Port for eth1:
+> 	Port id: 1
+> 	Supported link modes:  10baseT/Half 10baseT/Full
+> 	                       100baseT/Half 100baseT/Full
+> 	                       1000baseT/Full
+> 	                       10000baseT/Full
+> 	                       2500baseT/Full
+> 	                       5000baseT/Full
+> 
+> 	Port type: mdi
+> 
+> Port for eth1:
+> 	Port id: 2
+> 	Supported MII interfaces : 10gbase-r
+> 	Port type: sfp
+> 
+> - Get Achievable linkmodes on a SFP module (combo port with a DAC in the
+> SFP cage)
+> 
+> # ethtool --show-ports eth1
+> 
+> Port for eth1:
+> 	Port id: 1
+> 	Supported link modes:  10baseT/Half 10baseT/Full
+> 	                       100baseT/Half 100baseT/Full
+> 	                       1000baseT/Full
+> 	                       10000baseT/Full
+> 	                       2500baseT/Full
+> 	                       5000baseT/Full
+> 	Port type: mdi
+> 
+> Port for eth1:
+> 	Port id: 2
+> 	Supported MII interfaces : 10gbase-r
+> 	Port type: sfp
+> 
+> Port for eth1:
+> 	Port id: 3
+> 	Upstream id: 2
+> 	Supported link modes:  10000baseCR/Full
+> 	Port type: mdi
+> 
+> Note that here, we have 3 ports :
+>   - The Copper port
+>   - The SFP Cage itself,
+>   - The SFP module
+> 
+> This series builds on top of phy_port and phy_link_topology to allow
+> tracking the ports of an interface. We maintain a list of supported
+> linkmodes/interfaces on each port, which allows for fine-grained
+> reporting of each port's capability.
+> 
+> What this series doesn't do :
+>   - We don't support selecting which port is active. This is the next step.
+>   - We only support PHY-driven combo ports. The end-goal of this whole
+>     journey that started with phy_link_topology is to get support for MII
+>     muxes, such as the one we have on the Turris Omnia. This will eventually
+>     be upstreamed as well.
+> 
+> If you want to play around with it, here's [1] the patched ethtool that I've
+> been using to produce the outputs above.
+> 
+> Thanks !
+> 
 
-Here is the summary with links:
-  - [v4] Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/816fb1590a4c
+Tested on one of my powerpc boards, I get the expected result:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+~# ./ethtool --show-ports eth0
 
+Port for eth0:
+Port id: 1
+Port type: phy
+forced : off
 
+Tested-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+
+Looking forward to the support for MII muxes.
