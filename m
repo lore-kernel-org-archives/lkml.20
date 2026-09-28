@@ -1,144 +1,236 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA5D4EFFA2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB204EFFB9
 	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613609; cv=none; b=UiDYJVqcUiDcAKNNjR8+B8PnA/f4u76lYSm49LkdyhPQmYFkqDtK0CwgPCVlA1Sat2XnN2cKVBMa+Y0d8qCxKVt6LmvbMXb1EG1Q+Pf0ANFO2DEoCEUKvv7Xs9hBsrmbw019m/EhAzvOeAmN0qPzfl/O11BN0tit6p7SQXQG940=
+	t=1790613611; cv=none; b=A5rfPKwSmqiAhLD7rXaJVOrJgey7jZf+Wx9P1Bzq5LKUzq+fSQl30K0Pc6dDUUhgnhc+Ue0VhnY/STh9xIRzG83XtwJHeCY011qPWSqwJDvV+qjNw1exWogyHm9Jlv2LYS1XgJzTc50JCA8Kjv1QesZHjTVfHrIv8SYTPLYszZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613609; c=relaxed/simple;
-	bh=6THoCCBVd+/ZjxZ3xgtcJIVoQhC/QcPIewn4tAZ+WI0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BMjB150+6tb1ZNu7cqEF6h6dqFVHni/3BzzY55ICg9J0sdE+FS5sZxZokb47Q11jup71sriVnIDogFSbWWQHsQGtbvc5c20v/GopFr0jAdmkG+zPWQwlDLnrVqu5UK0DouGFs59TBlhhsZ5OCQ/NbLO5VZUrt1ivh6hIAIfz0tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rTkfir8/; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790613611; c=relaxed/simple;
+	bh=vFT+byoG5tituWWCkgZk7bZhiSIfXMG4mT4Z8agsgCk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=uVM2ArQYmYDlnxk2qj6BSir+p7Km2dxRu5233delmdJXWgKIK7IKfFUpRI2tYrVNjTvxsu1+V/PHD/F7/fQdeg1xg0oFtZM1BMPEtbQJd7JZV8lk7KxIWvXkBvEfBBOuzRDLlv+T/xM1P2M7St+sQy7tVggvuv9/K46lmtHcVXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TkeCuhfj; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rTkfir8/"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc44d708055so3977529a12.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TkeCuhfj"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso5376755e9.0
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790613607; x=1791218407; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/MWRr8LBMaJZmxpSUxy/Rjeh3NVu2xmhfdirmx3vVU0=;
-        b=rTkfir8/1F6a7yCgMrZ8Y2agqXtHOhZboanxGWqljoN5OqYK3Nu7vjGMWJqU//DrMY
-         BttlSBZEBJzVE6UTGIzFW+cRmgMSDpKF9Up+fMCn+sLY5hFBnVrcEoIsmwZUoirnFrdM
-         lJfYtZM61NwtPhbv13XpXqmBqIx5v8ez0VaXggGywcXiE0/gqYKZmaoHvv8T77ve7bFf
-         MhVX4mu7Ch0eLAKTrhXMpXsT9g1f4pJZl++Xc5pWYTeQvU/YmDcbTH8QCQxQIXKBuj6z
-         6MqEMvF3IOenKzaK/zY2LZBcsFKtYIQ6pfHjow/kJtA6KyvFb4KJEMKE74tkGqX79TgY
-         MTKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790613607; x=1791218407;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790613606; x=1791218406; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/MWRr8LBMaJZmxpSUxy/Rjeh3NVu2xmhfdirmx3vVU0=;
-        b=lsMM5CtzgHWOyzF227OjFQgys60MaHjaWP0X86CP6+ZKpxQntHpZTQWcRV43MccBne
-         Y0OmQrpYJMEsGY1ddi7FZAl4nz7qI0ZxGPlQa4+pOctjxTU0auvnaeEGMgUhXu6jp2BS
-         poWXRezkKm16/Yp8HHV/DEbdtG+s5EMZOA+DHtJMRsHwIIjQtSrG80vvjp3FiflUX/9f
-         mwGHOVr8dpm62F5n1e2QdpoHCRl8aTUOkQamiEkCE7wFkjTl7GBixUIge541JTouQ5I/
-         ubhX9thcbn6m1lyhVqokIEXi47YcJRQlNi5SeX/UkHiosLCVMrU03+CLyXJCgf58/Rtm
-         1lMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwF6F6DuJ21zyDL26mchKoftB7+ZmcV7x8gs3x+NHi5gB+S9DaaApcBO2ZdwAGt+K/JoMfrgMPPOwX61bI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lss50KwKGj7ZWfuuEDYYGVUkzjh5tzyNeN4mYP2lS4reiK9A5G
-	xE6VDRFdSkd7EBSobhgnA5wZNX8UWUIRU6IOdNPoiLi0S2eQcm/ugLHTSG10+CauaZabkLWLTR4
-	w0hup/A==
-X-Received: from pgbgj7.prod.google.com ([2002:a05:6a02:4947:b0:cc7:9d5b:c2ac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:cf8f:b0:3de:79b7:d62e
- with SMTP id adf61e73a8af0-3de79b7da7cmr609965637.54.1790613606937; Mon, 28
- Sep 2026 09:40:06 -0700 (PDT)
-Date: Mon, 28 Sep 2026 09:40:06 -0700
-In-Reply-To: <20260926104355.13697-1-tharitt97@gmail.com>
+        bh=FZUYNBRcOcwahT/HwUn9HlQGjcQyMs/osOqncN2KOUo=;
+        b=TkeCuhfjkZgJXpRz+7dw+KLxAlHDQDolB9ucCcJZBInB1GJlxrd9CirvHHp+bnO3Wr
+         jxSZwt5ep3G3MK5DHQyzniDo/vOmgBdNd74oz9fYLiksU95OcTCing2TNS2DcIwI4w86
+         3J0wZmPsGpRLefg2lNLfYw41bPwMs1LyASURn1/J+Q4gGSlb6ahahCxBhsR7N6xTLbVA
+         qPPTV3RhPqMz4xHIW+fZw5LVXxx+CWzAUdzD9Cc9F9q39X2xCgo6rU1CW8/KEpQYMuKq
+         owhAzoSqJIHtSBRw0oAUukQMQehPgeHyo5WkJfsIaYCABbhP8u0I/1Wis5QEdUBG0qVI
+         Wqnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790613606; x=1791218406;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FZUYNBRcOcwahT/HwUn9HlQGjcQyMs/osOqncN2KOUo=;
+        b=keuRdatoX64dLo3veNvu81DdZyeTto0ZpsswDJuVOO5xXNvyqr008971Aptq4WnO74
+         AZyw88cRJoBH5nUgX4PVQwT6TbzeR4dcKAlNIPG/KXkTWiB5w6XVBnoQcp9h2//9anUr
+         i45WHBnsyVqDzcLkUD6JhsYRArUopb+209O2+PDTPqiv0MatKeoI7gexafe0d1eE5z2b
+         1ysJeoQWuKyWhMA0tuhPk/fohKDrhlgx6mw2FAD7i80iNT9l9Qid1VSyCTWpcvyu+hQI
+         49phDzRujW44YrLrOPYhfTYr5rhECzJKnq2Sa+VpsSeqog2X7m3iHwORPMrvF678i03j
+         RzBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMeScQJeD8NLJdMJsb34BUliACW7PvUV7v49Oxnwg0E0eUx70FEK5tl85ki6fWmLpYBFQEgpwpZSjNjG0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndAIHw68j6NDLh+IGISDx0+ORjSuphh7paCtOMtwZ5m+Y/mNcR
+	FS7J8Gv8mkbvglxBeXzwpDxzE2ILafIx3Pvz/E8wr0S/AXGa6lDtBlAl7YCvQhVsw3o=
+X-Gm-Gg: AYBFou3iQtlEj1D2Jpw+22HcAKjAqjAr6oROKbjTr5J6M73F8K/1PQC7Q+wmBKXK7LD
+	ua/N14arAmouOXp1cUV6e2Unrvxc53kA9wR0CEDdzChqqNGvodBwKY0kde+efGPjeIT9X3JsePE
+	8ICg6zrgccpMNRyCVxnDz6JdoNx3pGjIfQ3M6V4F8AJ7IzCS+Nde6aUx8uTkupE/Dw3N9ET8Q8S
+	ObPpN29ZG7TZNddk60GW/GzRmpJBRnRGsQHik7LSC0iRppmjdgwCx+T65hHpxVxzwCrfaIfZW/I
+	XhLX7M4hX+L/NGC7pCSKl7DAJhUg2g2fIDTjpVNY+Tv/HK+M0pDWsSPYNyXQUl5JSvRBmWjqZN8
+	frl64EKGFjKDMbu7kxm4dL/YRF8/CPag13SBb6nQOjqx8jdc/pYJl5/Qm6h64iRgNdY7JDsLa3H
+	qkvd18fc3wP1YYQVRM5cKLOQw+JgDoIhYJMIfOyITRao3W0nlO/d+iQTQcPOM2dIKpj4CMKGTx2
+	FV6JvHZDYN9k3bSAzqksOOEbMN7yZqkH96Bzp5ZmpD6qdI=
+X-Received: by 2002:a05:600c:4e12:b0:49c:fc6e:a3df with SMTP id 5b1f17b1804b1-49fe66f82d8mr225035645e9.30.1790613606106;
+        Mon, 28 Sep 2026 09:40:06 -0700 (PDT)
+Received: from [192.168.27.65] (82-64-67-166.subs.proxad.net. [82.64.67.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0ea071sm3637265e9.9.2026.09.28.09.40.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 09:40:05 -0700 (PDT)
+Message-ID: <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+Date: Mon, 28 Sep 2026 18:39:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260926104355.13697-1-tharitt97@gmail.com>
-Message-ID: <arqYZpzSNppxYBK9@google.com>
-Subject: Re: [PATCH] KVM: selftests: Verify KVM_MSR_EXIT_REASON_INVAL on
- reserved EFER write
-From: Sean Christopherson <seanjc@google.com>
-To: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kernel-mentees@lists.linux.dev, me@brighamcampbell.com, 
-	jkoolstra@xs4all.nl
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 26, 2026, Tharit Tangkijwanichakul wrote:
-> The msr_filter_deny test covers the FILTER and UNKNOWN MSR exit
-> reasons, but nothing exercises KVM_MSR_EXIT_REASON_INVAL.
+Hi,
+
+On 9/28/26 18:22, Maxime Ripard wrote:
+> Hi,
 > 
-> Have the guest set a reserved bit (bit 63) in EFER while preserving
-> the other bits, and verify that the write exits to userspace with
-> KVM_MSR_EXIT_REASON_INVAL along with the attempted value.
+> Panels in general, and MIPI-DSI panels in particular, are pretty
+> difficult to support and require pretty much a panel driver for each
+> panel produced. Most of them are pretty simple, and require an opaque
+> initialization sequence that is usually poorly documented.
 > 
-> Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+> This creates a tension between OEMs and distros because OEMs will
+> typically get a new panel to react to a sourcing issue during
+> production, and thus need some swift turnaround between getting their
+> new panel and it being operational in the OS. Distributions on the other
+> hand can take years to ship a kernel with that new panel driver.
+> 
+> To solve this, I followed the example of HID-BPF and wrote a panel
+> driver that will rely on BPF programs to perform the panel
+> initialization. That way, we can ship the programs separately from the
+> kernel, and with a different lifecycle. If this driver is accepted, the
+> plan is to have a userspace component started by udev to identify and
+> load the right BPF program for the panels found on the device.
+
+This is kind of late for serious applications except if we manage to
+solve the bootloader to Linux display engine transition.
+
+> 
+> This driver is fully functional and works with both 5" and 7" Touch
+> Display 2 panels for the RaspberryPi. However, it breaks away from the
+> typical panel driver in multiple ways:
+> 
+> - BPF programs can only be loaded by userspace. This leaves us with two
+>    choices:
+> 
+>    * We prevent the driver from loading until the script itself is
+>      loaded. This has the side effect of preventing any other output to
+>      be used until the initramfs is ran at the earliest, and possibly
+>      ever if the loader isn't installed for example.
+
+This adds a dependency on user-space behavior and if somehow the
+initramfs doesn't load for a reason we won't have a way to display
+an error.
+
+> 
+>    * Or we probe the driver all the time, but only report it as connected
+>      once a program has been registered. This is somewhat unconventional,
+>      but allows the other outputs to be functional, *and* allows the user
+>      to force the output if their panel doesn't require any
+>      initialization or during debugging. I chose this solution.
+
+Both options are not really great...
+
+> 
+> - It's not a panel driver, but a bridge one, which is also pretty
+>    unconventional. This is required because panel drivers don't have
+>    access to a detect callback that is required for the above, but I also
+>    think that the recent work from Luca blurs the line from panels and
+>    bridges and we'll end up going that road anyway.
+
+On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+a proper way to describe the display/panel/monitor independently of the DDIC.
+
+At first glance it's a nice driver, but moving the timings into a blob moves something
+into possible proprietary binaries with possible closed licence and distribution
+restriction so it's a downgrade for the same of bringing up a panel faster.
+
+I'll review further and comment.
+
+> 
+> Let me know what you think,
+> Maxime
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
-> Tested on Intel Core i5-10210U (VMX). Not tested on AMD.
+> Maxime Ripard (6):
+>        dt-bindings: display: Add panel-mipi-dsi-bpf generic panel binding
+>        drm/panel: Add generic MIPI-DSI panel driver with BPF init sequences
+>        drm/panel: dsi-bpf: Add BPF program build infrastructure and helper header
+>        drm/panel: dsi-bpf: Add Raspberry Pi 7-inch panel BPF program
+>        drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
+>        [DO NOT MERGE] arm64: dts: broadcom: Add Raspberry Pi ILI9881C DSI panel overlays
+> 
+>   .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++
+>   arch/arm64/boot/dts/broadcom/Makefile              |   8 +
+>   .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         |  22 +
+>   .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         |  22 +
+>   .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  |  65 +++
+>   drivers/gpu/drm/panel/Kconfig                      |   3 +
+>   drivers/gpu/drm/panel/Makefile                     |   1 +
+>   drivers/gpu/drm/panel/bpf/Kconfig                  |  28 ++
+>   drivers/gpu/drm/panel/bpf/Makefile                 |  10 +
+>   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-core.c    | 452 +++++++++++++++++++++
+>   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-kfuncs.c  | 278 +++++++++++++
+>   drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi-ops.c | 242 +++++++++++
+>   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.c   |   4 +
+>   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.h   | 246 +++++++++++
+>   drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi.h     | 264 ++++++++++++
+>   drivers/gpu/drm/panel/bpf/progs/Makefile           |  93 +++++
+>   .../panel/bpf/progs/Raspberrypi__dsi-5inch.bpf.c   | 266 ++++++++++++
+>   .../panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c   | 271 ++++++++++++
+>   .../gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h   |  95 +++++
+>   19 files changed, 2554 insertions(+)
 > ---
->  .../selftests/kvm/x86/userspace_msr_exit_test.c      | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+> base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+> change-id: 20260928-drm-mipi-dsi-panel-ebpf-d78b72a9c47f
 > 
-> diff --git a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-> index 2808ce727e5f..7446e1404264 100644
-> --- a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-> +++ b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-> @@ -309,6 +309,9 @@ static void guest_msr_calls(bool trapped)
->  	/* Invalid MSR, should always be handled by user space exit */
->  	GUEST_ASSERT(rdmsr(0xdeadbeef) == 0xdeadbeef);
->  	wrmsr(0xdeadbeef, 0x1234);
-> +
-> +	/* Setting a reserved EFER bit is rejected by KVM, exit with INVAL */
-> +	wrmsr(MSR_EFER, rdmsr(MSR_EFER) | BIT_ULL(63));
+> Best regards,
 
-I'd rather use an MSR that is less likely to gain supported bits in the future.
-It's definitely unlikely EFER[63] will be used in the near future, but it's far
-from impossible.
-
-My vote would be to write a non-canonical (even with LA57=1) value to MSR_FS_BASE
-and/or MSR_GS_BASE.  While it's technically possible that x86 could extend the
-canonical address space, that's pretty much guaranteed to require truly massive
-architectural changes.  And if we reuse the NONCANONICAL macro (which we should),
-then even if the unlikely happens, at the very least it will be easy to find what
-all needs to be updated.  As a bonus, the test already uses in MSR_FS_BASE and
-MSR_GS_BASE, so they're naturally fits.
-
-Alternatively, we could use PAT, as it's extremely unlikely x86 is going to gain
-new memory types in the near future, but I like using a non-canonical value.
-
->  }
->  
->  static void guest_code_filter_deny(void)
-> @@ -627,6 +630,13 @@ static void handle_wrmsr(struct kvm_run *run)
->  		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_UNKNOWN,
->  			    "deadbeef trap w/o inval fault");
->  	}
-> +
-> +	if (run->msr.index == MSR_EFER) {
-> +		TEST_ASSERT(run->msr.data & BIT_ULL(63),
-> +			    "MSR_EFER data missing reserved bit");
-> +		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_INVAL,
-> +			    "MSR_EFER trap w/o inval fault");
-> +	}
->  }
->  
->  KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
-> @@ -667,7 +677,7 @@ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
->  
->  done:
->  	TEST_ASSERT(msr_reads == 4, "Handled 4 rdmsr in user space");
-> -	TEST_ASSERT(msr_writes == 3, "Handled 3 wrmsr in user space");
-> +	TEST_ASSERT(msr_writes == 5, "Handled 5 wrmsr in user space");
->  }
->  
->  KVM_ONE_VCPU_TEST(user_msr, msr_permission_bitmap, guest_code_permission_bitmap)
-> -- 
-> 2.53.0
-> 
-> 
