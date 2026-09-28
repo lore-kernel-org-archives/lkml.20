@@ -1,96 +1,168 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE7F3A5433;
-	Mon, 28 Sep 2026 18:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2195632;
+	Mon, 28 Sep 2026 18:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621606; cv=none; b=C0E5WczQBoxLiu4ZWP7PKvNK2mlvz6CZh18sIYNvTehTMqx/LTzUxDq86BVpTQ+vie9P7Z/fXO+IFGudr0dbdVMtPKd6KBbWrX6OZJcneYCEKS5SJBW8xlSIa4AqhA8Vpyv4nIZAZzXpg+a62Tq98z/ByWCZXMEF2mq9ywTIREk=
+	t=1790621745; cv=none; b=qPOr9+fAtzWkWXCwXbnNxcjgdDhkH2hr6ybU8huoq+xFpDPJY1MWSMyvbq39IeQ1bvWGX3Q4+UyXqzDdDCTw4mgeEr3nYUHJs1cZJIJHNdOAmD7Kz8KySYRAuWmPUDYU/2E+ygsZqz7mGe2gTvmyAxVievFOKKVX8O1oxCysKtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621606; c=relaxed/simple;
-	bh=FiUX5DtQeuhq6jWcWYW7DKewva0ApmdYNc7Is1bnzyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mtem1pd1GrOhi8U6Xu4x9CeyMdICw7wSPi2D7TjIAeFU3JCW8rraIovbv2rxMR3qkPg/0Dkrroc181GNMcmJKuQX0EnnBDHt8UGiIx2/cUkxmE1wziDcRxCl3zeYNtiv7AA1fBmFbtELnlYYfJbZHkx3u6Xn/j2Fet0OUdPkvZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=H6dqDaak; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790621745; c=relaxed/simple;
+	bh=onZDiNCv4SpLXbclYO7QTRI0/zTxTJio8MMiVpSA3ys=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G1ZMk3w8aoWLJ4/CjU9ICxsYo0TEfNUmUCu3BDPIHqX656zF9hG4jBm4JQiBqgerkJ1TISxvm9JIU2SfOsx/bfyq9LIUqIbkSP0TLMDp0DjSS8am08IGj4RaqVRdrss1pt7t6uGR6npa0JJyyZ+xRpo8AvANU3xDNzO/q3A9AWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHmy2ePq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="H6dqDaak"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6A5C4493;
-	Mon, 28 Sep 2026 20:51:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790621489;
-	bh=FiUX5DtQeuhq6jWcWYW7DKewva0ApmdYNc7Is1bnzyA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H6dqDaakMQuKDQNM9GWpDYzqyOspLvMCXri1yqHoj0KLY0YDWCqa1DbKUCv82m9ca
-	 SxzPnCsSPbkdH8GnTQOr9kO3/atP4hbb7cRuc4yZzKkel6c7HAIpTOgrpNvF5v4GvI
-	 n+c+CwMoWbUrzV0t7CsGgwuEqNTxuNeEUr9sd+TE=
-Date: Mon, 28 Sep 2026 21:53:18 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on
- the OBSBOT Tiny 2
-Message-ID: <20260928185318.GA171869@killaraus.ideasonboard.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-4-jordan.mymail@gmail.com>
- <20260928115713.GD157191@killaraus.ideasonboard.com>
- <20260928143448.757683-1-jordan.mymail@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHmy2ePq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA091F000FF;
+	Mon, 28 Sep 2026 18:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790621743;
+	bh=LV5foDq0te//h3ZFoq+eAVN3kgz2N/aXomur4SLjfrs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RHmy2ePqKXcwoZ6sOF7EkuTmUGsyy55qFEnR3bxmPV1Md1l2SfmzNinWLsWWYVIbP
+	 FIs5DyhSATA5lJBx14pPb7T8WFefOrpjQo7hd5tLPTq1Hq7lA2+Tz3ogCVa58Dm9J5
+	 hye2SrWsvIn0NJinRY7xbAQUM7cHTh/aL3xLwKgAfxPrSwFz0cEGr9HySQwNIuG8V1
+	 JEs4uuUfDn8pmTlqDb7BeUApsz8sj9gHf9P781S0VgS/nBHT6M64zisqGiVP6qLnCw
+	 UT1Z88sVXIaHIzRD8oCujjnxZ8mTYMTaFXXBhfEwPwmZZULbTvr9TFwg9s2WxTCQh0
+	 CVrDnOsMYT7rA==
+Subject: Re: [PATCH net-next 1/6] ipv6: reject a negative optlen in
+ do_ipv6_getsockopt()
+From: netdev-bot+sashiko@kernel.org
+To: leitao@debian.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, john.fastabend@gmail.com, sdf@fomichev.me,
+ shuah@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ david.laight.linux@gmail.com, kernel-team@meta.com
+Date: Mon, 28 Sep 2026 18:55:41 +0000
+Message-ID: <179062174160.3145.8573490114986242294@kernel.org>
+In-Reply-To: <20260925-sockopt_expand_out_v2-v1-1-c3ef2e3bb5c0@debian.org>
+References: <20260925-sockopt_expand_out_v2-v1-1-c3ef2e3bb5c0@debian.org>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928143448.757683-1-jordan.mymail@gmail.com>
 
-On Mon, Sep 28, 2026 at 10:34:48AM -0400, Michael Jordan wrote:
-> On Mon, 28 Sep 2026 14:57:13 +0300, Laurent Pinchart wrote:
-> > The device implements an interrupt endpoint. Does it report control
-> > change events for those controls ?
-> 
-> No. I checked today on both the Tiny 2 and the Tail 2, with the uvcvideo
-> status trace enabled (trace=0x200) and a stream running so the status
-> URB was submitted. Neither camera sent a single status packet during
-> commanded pan and zoom moves, or while its subject tracking changed
-> pan/tilt and zoom on its own. GET_CUR reported the live values
-> throughout.
-> 
-> > > The vendor has been asked to fix the firmware (support ticket #8220,
-> >
-> > Any public link ?
-> 
-> No, sorry. It is a private ticket filed through OBSBOT's support
-> channel, which is the only way I have found to contact them. I have the
-> confirmation email showing it was received and is awaiting a reply, and
-> can forward it if that is useful, but there has been no response since
-> 2026-08-04.
-> 
-> > This belongs to the commit message.
-> 
-> Agreed, I will move it there.
-> 
-> With the Assisted-by tags and the shorter 2/3 message, that makes a v3.
-> Hans, let me know whether you would like me to send one, or would
-> rather fix these up when applying.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-The long commit messages is a part that bothers me. Not only are they
-long to read for the reviewers with a lot of unnecessary noise, they
-convey a feeling that the LLM outputs are sent to the list without being
-truly understood.
+Low priority / nit picks for your consideration:
 
-I'd be much happier if you shortened the commit messages to focus on the
-useful information, conveying *your* understanding of the issue by
-ditching the LLM text and writing the messages yourself.
+- [Low] The commit message misdescribes how a negative optlen behaved
+  before the patch.
+- [Low] The commit message frames the change as a standalone bug fix
+  ("the fix stands on its own here") for user-visible behaviour, but it…
+
+--
+
+ipv6: reject a negative optlen in do_ipv6_getsockopt()
+
+This commit makes do_ipv6_getsockopt() return -EINVAL when the optlen
+read from userspace is negative. IPv4's do_ip_getsockopt() already does
+this.
+
+> IPv4's do_ip_getsockopt() rejects a negative optlen right after reading
+> it. do_ipv6_getsockopt() never has, and nothing downstream treats it as
+> an error either: len is an int, but every consumer compares it unsigned,
+> so -1 behaves as a huge value and each site clamps to its own reply
+> size.
+
+[Severity: Low]
+
+Is this an accurate description of the old behaviour? Two cases in
+do_ipv6_getsockopt() in net/ipv6/ipv6_sockglue.c don't seem to match it.
+
+For MCAST_MSFILTER, ipv6_get_msfilter() and compat_ipv6_get_msfilter()
+already use a signed compare, because size0 is a const int:
+
+	const int size0 = offsetof(struct group_filter, gf_slist_flex);
+	...
+	if (len < size0)
+		return -EINVAL;
+
+So len = -1 already returned -EINVAL before this patch.
+
+For IPV6_2292PKTOPTIONS on a SOCK_STREAM socket, len is never compared
+or clamped:
+
+		msg.msg_controllen = len;
+
+msg_controllen is __kernel_size_t, so -1 becomes SIZE_MAX. That value
+passes both size checks in put_cmsg():
+
+  msg_controllen < sizeof(struct cmsghdr)
+  msg_controllen < cmlen
+
+As a result, every pending cmsg is written to optval with no limit from
+the real buffer size. This covers the cmsgs from ip6_datagram_recv_ctl()
+and from the sticky rxopt put_cmsg() calls. After that:
+
+		len -= msg.msg_controllen;
+
+reports the number of bytes written, not a clamped reply size.
+
+The writes only land in the caller's own address space. The BPF kernel
+sockptr path through sol_ipv6_sockopt() only allows IPV6_TCLASS,
+IPV6_AUTOFLOWLABEL and IPV6_TRANSPARENT with *optlen == sizeof(int).
+So this is a changelog problem only, and the code change covers both
+paths.
+
+Could the commit message mention the IPV6_2292PKTOPTIONS case, and drop
+the claim that every consumer compares len unsigned?
+
+> This is a bug ready to bite us in the near future, let's get this fixed.
+>
+> I've found this because testing the rest of the patch was returning
+> inconsistency when optlen = -1.
+>
+> Later patches make the check unreachable, since sockopt_init_user() and
+> sockptr_to_sockopt() both reject a negative length before the switch
+> runs. Keep it as a guard; the fix stands on its own here.
+
+[Severity: Low]
+
+Is this meant as a standalone fix, or as preparatory hardening for the
+series?
+
+Userspace can see the change on the baseline. The IPv6 proto_ops have no
+getsockopt_iter, so do_sock_getsockopt() takes the legacy
+ops->getsockopt path and never reaches sockptr_to_sockopt():
+
+do_sock_getsockopt()
+  sock_common_getsockopt()
+    udpv6_getsockopt()
+      ipv6_getsockopt()
+        do_ipv6_getsockopt()
+
+Nothing on that path checks the sign of len. With len = -1,
+getsockopt(udp6_fd, SOL_IPV6, IPV6_TCLASS, buf, &len) reaches:
+
+	len = min_t(unsigned int, sizeof(int), len);
+
+It then writes 4 bytes and returns 0. With this patch it returns -EINVAL.
+
+If this is a fix, should it have a Fixes: tag and target net? The
+unchecked len predates git history, so something like this would fit:
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+If it is hardening for the net-next series, could "a bug ready to bite
+us" and "the fix stands on its own here" be reworded?
+
+Also, "the rest of the patch" and "Later patches make the check
+unreachable" refer to the series. Once this is in git history, readers
+won't have that context. Could those sentences be reworded too?
 
 -- 
-Regards,
-
-Laurent Pinchart
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0%40debian.org
