@@ -1,117 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45324BD7B4;
-	Mon, 28 Sep 2026 13:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCEA4BEE50;
+	Mon, 28 Sep 2026 13:29:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602132; cv=none; b=PudAvNhIiitOzSMSzImtdrmUaYLjIHysU7pLJ15QDmQMAlps/LTZqLcmnZ4ZFNEcV2S19ShVHj23obpjekJayvkGYt+cGyWcv8+0iKxkteDHCwK5qp2lXmULo+rdPIHJdjANOkeMR+t2ZTYgcWaiY5QVM6n8lBIpvdh02AccpJs=
+	t=1790602173; cv=none; b=WCzVRDPspYIaEGouovEG+vRBx7LZrQdINGGAUq/Zesk4qUcF5YLnk0g9I4ZVLtuhOfcllL/PQh2v+K/T4X979u0tE8S1Bsog1xtjyK9qeOgJBLIJCSmMbPXHF+ns4hUBQjR+oxFyf4OI4v2NvPEM/KgLEVqCszpKk+1shmglJxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602132; c=relaxed/simple;
-	bh=A12mMxs1KlWbHi4NGZ0aS3+TGDJ6Wsu/Wxx1xvAnGFU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Te65td1PwiDLFrK6TggA/PTQwOjuagyGKsZBWB6QeuTi01M0LcdV8VJR7CCDkMmIftv9Jsif2zW/I2bIdUHuVcumBzW1eVZnOfEza6iTL4Fkhhu7Zs1AY//qnEA8WX0beTwKVQb+prGMNFvBgrW7O9n5o7nsyrUQ7GULaFLuMxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmtMFO5J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790602173; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KzzkShOcmQ+oOI1QcChsLujfhHGSWSSTK5nuaSD7sLvU1KTSy+z2OHDkt0vqzXvyfD9w/zDGIxo6ZE+pTx7WzZbTPh7cYTXNJYBvWIOFrlChiFQnl3vNxBoYCLKXqMJ/BuXA2V7aET74fBNsZb98fTdSyz+rb0ZFPjmdQbTWZYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkhZr2kN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmtMFO5J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CEE1F000FF;
-	Mon, 28 Sep 2026 13:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkhZr2kN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE131F000FF;
+	Mon, 28 Sep 2026 13:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790602131;
-	bh=MepXiiR8/SiK3rXnagkZ9Ru4v4HspQlVme1kNSfS+C4=;
-	h=From:To:Cc:Subject:Date;
-	b=bmtMFO5J8/MUgYpauuHV2Hr+4l0iW0YnQY/DjDznJHZYaPcCrpEt68H0Akta8pl4a
-	 lSMKCdloi4vKG2JpOxJv2/WeTLd80qjywe1uD1NLLxga94CqPVshVJU8vmIC7lXLTm
-	 0hgtzkEKJBi4Q0ISp1c/ouVcsOwCW+a4cE1tFbXCYdJT6EgAoP2dXhFUv0zrmcwbfB
-	 bqyZfYJOBoZWlhe3G8XR/LvMvFosonhO7pH1Sld6TcA4PMpRxEolG0OYg9gJxOGS+/
-	 tZS3MztiJuIIWQpwSyK7lzpkYwGX8RB1BMixnLoLThxdK1FVjOZ7olywidyADRawxn
-	 y8njFVuwLyzwA==
-From: djakov@kernel.org
-To: amitk@kernel.org,
-	thara.gopinath@gmail.com,
-	rafael@kernel.org,
-	daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	anjelique.melendez@oss.qualcomm.com,
-	konrad.dybcio@oss.qualcomm.com
-Cc: linux-pm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georgi Djakov <djakov@kernel.org>
-Subject: [PATCH] thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
-Date: Mon, 28 Sep 2026 16:28:23 +0300
-Message-Id: <20260928132823.1426513-1-djakov@kernel.org>
-X-Mailer: git-send-email 2.34.1
+	s=k20260515; t=1790602172;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hkhZr2kN9xlZyPG7DSNJzZtV5dCWhUthi5/gk+mfXfH7gbDMIzf3IzJKV1/XsuXph
+	 rVZcwYkjqz2xTqarcBlMGoVPMCFYajNLHm2crVf9qqNnhjvCqSS+ICLK0mwBBEpcEP
+	 e0Iho5a6UEeVBMQMK9RYRneTcsr2QogXur25NJ5w/M/+c56bxeP4nafjwTspUJGHrg
+	 /6KZS6rvv2ASThbgqN/Sh9yhp9up2YzZ4UfDRQxDxmyF35m9SQ1AnCTyxZpkFMtfTb
+	 +Gs+ix+FejonURmjy50aRe4haeLLD+A4q2w8wHIHOcAQeRXSJVC/SWhPuNOrFfLcYQ
+	 RK+lOgWL8IPzw==
+From: netdev-bot+sinfo@kernel.org
+To: Yuchao Zhang <ndaugoing@gmail.com>
+Cc: Toke =?utf-8?q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Jiri Pirko <jiri@resnulli.us>, cake@lists.bufferbloat.net,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v4 0/2] net/sched: sch_cake: prevent shaper corruption
+ and stall in cake_overhead()
+Date: Mon, 28 Sep 2026 13:29:30 +0000
+Message-ID: <179060217089.31693.7921839735693556642@kernel.org>
+In-Reply-To: <20260928132452.59996-1-ndaugoing@gmail.com>
+References: <20260928132452.59996-1-ndaugoing@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Georgi Djakov <djakov@kernel.org>
+Hi!
 
-Fix the following issue noticed when booting on the db845c-dragonboard:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-BUG: KASAN: global-out-of-bounds in qpnp_tm_sync_thresholds+0x11c/0x180 [qcom_spmi_temp_alarm]
-Read of size 24 at addr ffffdd2495f01200 by task (udev-worker)/371
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-CPU: 3 UID: 0 PID: 371 Comm: (udev-worker) Not tainted 7.3.0-rc3 #116 PREEMPT
-Hardware name: Thundercomm Dragonboard 845c (DT)
-Call trace:
- show_stack+0x18/0x24 (C)
- dump_stack_lvl+0xa4/0xf4
- print_report+0x1f4/0x5ac
- kasan_report+0x84/0xcc
- kasan_check_range+0xf0/0x1a4
- memcpy+0x3c/0xa4
- qpnp_tm_sync_thresholds+0x11c/0x180 [qcom_spmi_temp_alarm]
- qpnp_tm_probe+0x3dc/0xae8 [qcom_spmi_temp_alarm]
- platform_probe+0xc4/0x18c
- really_probe+0x17c/0x4fc
- ...
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-The buggy address belongs to the variable:
- temp_map_gen1+0x60/0xc4 [qcom_spmi_temp_alarm]
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-It looks like temp_map is a pointer to the complete temperature map.
-Indexing it directly advances the entire map, rather than selecting a
-threshold row.
-
-Fix this by dereferencing the temp_map before indexing it to select the
-requested threshold row.
-
-Fixes: 703f13285a6c ("thermal/drivers/qcom-spmi-temp-alarm: Add temp alarm data struct based on HW subtype")
-Fixes: 1f835c6a4c84 ("thermal/drivers/qcom-spmi-temp-alarm: Prepare to support additional Temp Alarm subtypes")
-Signed-off-by: Georgi Djakov <djakov@kernel.org>
----
- drivers/thermal/qcom/qcom-spmi-temp-alarm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/thermal/qcom/qcom-spmi-temp-alarm.c b/drivers/thermal/qcom/qcom-spmi-temp-alarm.c
-index fb003ca96454..911ebfd0cdeb 100644
---- a/drivers/thermal/qcom/qcom-spmi-temp-alarm.c
-+++ b/drivers/thermal/qcom/qcom-spmi-temp-alarm.c
-@@ -345,8 +345,8 @@ static int qpnp_tm_update_critical_trip_temp(struct qpnp_tm_chip *chip,
- 	}
- 
- skip:
--	memcpy(chip->temp_thresh_map, chip->data->temp_map[threshold],
--		sizeof(chip->temp_thresh_map));
-+	memcpy(chip->temp_thresh_map, (*chip->data->temp_map)[threshold],
-+	       sizeof(chip->temp_thresh_map));
- 	reg |= threshold;
- 	if (disable_stage2_shutdown && !chip->require_stage2_shutdown)
- 		reg |= SHUTDOWN_CTRL1_OVERRIDE_STAGE2;
-@@ -535,8 +535,8 @@ static int qpnp_tm_sync_thresholds(struct qpnp_tm_chip *chip)
- 		return ret;
- 
- 	threshold = reg & SHUTDOWN_CTRL1_THRESHOLD_MASK;
--	memcpy(chip->temp_thresh_map, chip->data->temp_map[threshold],
--		sizeof(chip->temp_thresh_map));
-+	memcpy(chip->temp_thresh_map, (*chip->data->temp_map)[threshold],
-+	       sizeof(chip->temp_thresh_map));
- 
- 	return ret;
- }
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
