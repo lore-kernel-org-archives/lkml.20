@@ -1,108 +1,113 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393854BB28D;
-	Mon, 28 Sep 2026 14:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA35B4D6C2A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604128; cv=none; b=kj0I8/eQNrSqPrDUev8uJUcIqdnAd6KJfMUAmgQPrdEiN95B23C+/lyCnGZVD2xJ/ADlCFZ+LA5vUWnB4BpoXBipnbmLnBlfLohBy6VHh6IothHo/djj1e85MzUCDBFneyQHgcNkQ0RFlubiVf/kpD8xt6j4iv/rJLk/HHP2Iys=
+	t=1790604146; cv=none; b=OuB9kCYOCogflPk0CfG0yZme9h0QylC5GglSc9FsqN7ylqZ9+M0puGVzAqT+WV1yKaFyhQMC19ZlKgt97hqhmE1OKqGLjVdxWwJY3TY3ffKVRoNl+4024L2LJ27GXHMDwizZjcJesYVKnVs71Tlv+zCkO3TZphLrWXDnaLH/EGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604128; c=relaxed/simple;
-	bh=8338N/MLUsSVLfr50ikls34dEQtzKihPaRcPDbLoRsw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Im2vWsRL0Y2f2PgX/XXcXV2L8bkCwJ5+7tsFnw+++NFy1fTqjDHFd6vRlHrRxs5tZqxMYtTsyISUY5F0Zq0AAdgM9hXoFUgc/lxR+Jd4/fH49FRiLi/2ivI/OijN2OuXWkVZ+lBkj8tOCgje9RFMZ+5tPfP/CkTCS2ouwMwQnmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=YQO7w6Iw; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
+	s=arc-20240116; t=1790604146; c=relaxed/simple;
+	bh=sDcYZUlaCQrODWTDQOdoGAqUtZJ63zUW+u7kJeDf6WY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bB2Zr8xfF8d3io7KvY+E8LZyXS29R2zZEE2J3wy5uBQUwEnCL8J4S5keGwuWQGZk68Pk66j/CKNBbcs8NODiHd2C6QeaAIVR6wdI5bCnkbE5aWvTtVjkuc1oLNn0jobT2bMciWWQNFXtCF0e2DmJup3szFj566WeArmPsPe023Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F9GzQdFL; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="YQO7w6Iw"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4htjfc38vkzMlrS;
-	Mon, 28 Sep 2026 16:02:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790604120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4cEe7dLmKEHxBNr/9u9hCoZ8kn9K4vqRyeK15aUsoes=;
-	b=YQO7w6IwJEptPdadGHC46a7i/TJDT0KUwwPMbIo2g9uPrkk27W1xxH2H2SugWEBscQB/5Q
-	nT+obrCHrkrgT9NSV7X0Y4eRF3Z7BTrYZSQ0AWj9omXzWuqSb5iLKgTxelzQ8F4bZVy56K
-	F+OCLCK/YBWbaQ1cN952OZUy0gWQWWLAFz9eg9v0mpCCAVXrBJso6LYfA8nZjBsVSGFIfP
-	CQEnB/q8VvJB1Zt0W848QKgekcM5lbLF1PRIRo0NkW6mVvurqCZK/xIl3dUJwkwb1VbGnY
-	SymmZRgD5B+zxWj8eGjTlsFsOskQXUV02zGcFJjc9jaIOOSymvYr4+WnkRFkbA==
-Message-ID: <31cc7f2d-4a8d-4584-8866-6961b7d7af31@alexanderkoch.net>
-Date: Mon, 28 Sep 2026 16:01:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F9GzQdFL"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so2062327a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790604144; x=1791208944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J7dh01dzLOouMVphsrFlQ6d9OZfrgH3444PU6KYEKGI=;
+        b=F9GzQdFLr0cMvWe3TzPB2irprc87cGJhoD7ayjes1TfRZfqm3l8NcUN9vaqp3bZcqk
+         WGAjXtEEIVwePDIg1XVOsePtQkKdz9HtT+KbVHK8b3q3r1zufijwxKvmZVi1ZY11gAS4
+         QcWLCT9/R3v6MsyRcPwFf+dOmShTgLlGqFetBcEPfHIVLpqY+csdp0rL7vdSYaqdwyw3
+         /On5Yp7QH4igcBnjZoPOG14o8XYPFyfgZ92ZNRE4ouc81E1UtfecSbL0EpnRruQUFo39
+         8RM0iANOprBn8+9oaXQ5YGka2ZPlk1Ec/Hah3e33uBHsaR4QQUN5zX+gwJO2Na14r/PK
+         QFdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790604144; x=1791208944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J7dh01dzLOouMVphsrFlQ6d9OZfrgH3444PU6KYEKGI=;
+        b=UigwGiJzwPPq3KSFY8il0Nf4zcQ4WG8+68Ykv3D3kYwuf24ZevAtPjgfMfsmTQRbwD
+         EfpWbN8jDBOzfnHtE+9WB4MkRkW10RQhELlMIJDMrzKzJSVN+hsbXwo6bsiDhhuls7p4
+         ca5OUqrriYVANxHzH/nVcxrGrM5LEwXWf7cdsyQ+6ml+AvuFTVCoesfRCCvS1874Pb5z
+         3lRUnRrM13YUzJR3/RLqXH1wn5CO7BKrPKNpDmxm7hqmYMsOAoHg4D20/svWI96rWafK
+         EMf2SwvJL1CLNicnLuLvVldnbGoPGvuH1e1TUvdIn/X8KCUQulwW71lGkQvn5Qh6BozW
+         WvjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3cFX0eV0PIyh0fOua2HlPv1+XUoT5i9nl1UQjQutmk4caIeZoDv7X8pCAvu85UBc7YA+KaPC5wTBJTJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8/m8vlzMcIhC0UPc1+R97MdY9tcBpgnSpe3237V2z+SqVtB6s
+	WZxIqMWIrLxZH6IckChxG6GstYNVepRQ6bIeopQxx8pUdV6Mn/Yw3icl
+X-Gm-Gg: AYBFou0tU8FTBODpoc0O4uPIbIBPR7/6S+bXSD+iEzSGfI8RYibZ9SEw3qKgE/aGhA8
+	gVpxq9I52YT4MRZHmQOmYsuneCI5nnojUSIWeCd0uKeKOa/R6HVzRxmCXb4h5s9t7XGzFe6djSV
+	o/TuDQWbW5Ceyx7l33iDqhp8NO7138KwYBxGSwVrQKe/myPpTV9LN7vz+ueU7eKyXKFjfEglREH
+	QEQOEaewIon5ecoAwqMXLBElvpETd1mq/z0QzoFO8ONUspmZGSQ6LeCZpeGftz10cmQuoKSZjbn
+	Aj3qteGYS1Pdwq1ApoCQcDtl4BIDUv2McbaTT3PgKeq6YgXM3wE6BM09408S5EzI4ojTJ3F4jdi
+	557a1bLvk5uyd57aaTGFb7mRnXTzb3n3MKdfMm6yKbJVPh1bCJJS9TxjVCuIxaRAqqAg8Or1Ujx
+	D4V9dn5X4LVUyDB5HW3e/tyLTdvVN+qfFCPFuVP8/otTpzVoWX7Za4Xhm1mILQjVtL8tcMkedMp
+	EhDW/3J+IAQgh7E8QJOVwcJcGs=
+X-Received: by 2002:a17:90b:5806:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3a098ae706bmr11448998a91.1.1790604143869;
+        Mon, 28 Sep 2026 07:02:23 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm20657073a91.2.2026.09.28.07.02.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:02:22 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov13b10: fix power leak on remove while runtime-active
+Date: Mon, 28 Sep 2026 21:02:16 +0700
+Message-Id: <20260928140216.2396160-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] SoC: dt-bindings: asahi-kasei,ak4619: Add PDN GPIO
- support
-To: Rob Herring <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Khanh Le <khanh.le.xr@renesas.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928114019.1441752-1-mail@alexanderkoch.net>
- <20260928114019.1441752-3-mail@alexanderkoch.net>
- <20260928131208.GA3834499-robh@kernel.org>
-Content-Language: en-US
-From: Alexander Koch <mail@alexanderkoch.net>
-In-Reply-To: <20260928131208.GA3834499-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
->> Add documentation for optional property that enables operation of the
->> 'PDN' pin during initialization:
->>
->>      codec@10 {
->>          compatible = "asahi-kasei,ak4619";
->>          reg = <0x10>;
->>          pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;  // <--
->>          #sound-dai-cells = <0>;
->>      };
->>
->> Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
->> ---
->>   .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml     | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> index d412531ef9a2..3c7754351e8a 100644
->> --- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> +++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> @@ -34,6 +34,12 @@ properties:
->>       $ref: audio-graph-port.yaml#
->>       unevaluatedProperties: false
->>   
->> +  pdn-gpios:
-> powerdown-gpios is a standard name for this function.
+ov13b10_remove() calls pm_runtime_set_suspended(), but that's pure
+bookkeeping -- it doesn't call ov13b10_suspend() (which actually
+deasserts reset, disables the regulators, and disables/unprepares the
+clock via ov13b10_power_off()).
 
-Thanks for the hint, this might actually inverse the logical polarity of 
-the GPIO that I had in mind. I will look at other examples and consider 
-them when submitting v2.
+If unbound while ov13b10_set_stream() is holding an outstanding PM
+reference (removed while actively streaming), the device stays
+genuinely active with regulators/clock enabled forever after.
 
->> +    maxItems: 1
->> +    description:
->> +      GPIO controlling the AK4619 PDN input pin. Used during driver
->> +      probing to power up the codec.
-> When a driver does something is not relevant. Would be useful to state
-> the active (meaning powered down state based on the naming) state.
+Call ov13b10_suspend() in that case, guarded by
+pm_runtime_status_suspended() so the common already-suspended case
+isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Understood, I will make that more clear in v2.
+Fixes: 7ee850546822 ("media: Add sensor driver support for the ov13b10 camera.")
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/media/i2c/ov13b10.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-
-Best regards,
-
-Alex
+diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+index b0d34141a13a..ab5cf9af2e85 100644
+--- a/drivers/media/i2c/ov13b10.c
++++ b/drivers/media/i2c/ov13b10.c
+@@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
+ 	ov13b10_free_controls(ov13b);
+ 
+ 	pm_runtime_disable(ov13b->dev);
++	if (!pm_runtime_status_suspended(ov13b->dev))
++		ov13b10_suspend(ov13b->dev);
+ 	pm_runtime_set_suspended(ov13b->dev);
+ }
+ 
+-- 
+2.25.1
 
