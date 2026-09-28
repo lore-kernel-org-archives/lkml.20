@@ -1,200 +1,170 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3814649F116;
-	Mon, 28 Sep 2026 11:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB8D49EC52
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593763; cv=none; b=lOpiaa2WvU/kJ6RUIDCWNzMrQ9UeUUWuKUWYqAIWqsFVaTCCoWp7NGJN3iZo63vx6PNxAy+p6l1LFMSRPmzmjjUGv1j03I72YNlL0QJUqHwu+RRjSOp3imsj6A+T/W5I40PVoXK3h5w9XyDAyG2kK62cLQQLpIueQL8fRa9kb5o=
+	t=1790593764; cv=none; b=gupzDKPdLVNycXNjrQe4YSpTcFkJaUPTnImCcLT6KFdx1iqVH8FS65q1KvG6cq4opGGFqYlI8Ph6ZfJxwj15mJPwxPka7aNfIxc/qdxtHH2ksNN/WaFIOtAy3VKKzlDodEcYzOwEw8PzI5zWWBkXmP2xv4KToyZWsN3zgvseenE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593763; c=relaxed/simple;
-	bh=WE6PzurydW/drmbxJyh6GpCx2suGeOTn5nUycRCNkk0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DguPs92iyArzCibJyn0AiAYHdfCx3J8Eju768tt096chdRqhsV3usHn2UbkABsROLwDde761RTdK0b8Xztsa2+Cb0cYSsOQIlGbN/nOCNWJTW3HaxYqqtIrPzbs7zIdAGcYJvLg14PhCqSqYdcrCHjEJKJJ/8eqtwh7Y/e4HdpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cb2hREYr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=q1YgcN1O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ioi9EQTw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LznkOXU5; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790593764; c=relaxed/simple;
+	bh=V7++Z6Q4Is+KX0oKqAtCtffZGEEwrBvT8RQwkGg/1wE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fu99/VH+cQSbjkTXNr5qgVxzB34uByE7axsry1rmmu+As2j0SJyLUdZFux/2wHrFHKGv4oqEyZyAPfpGfC6cI7ae7u74E/05uLN0v/4XZkariFdE0JVlzvVsnAF6RedgVwTTCJbIX0xWRjSr3HEzJPzvV59Mg6pb3HMNweG42jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=cxgqdO/j; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cb2hREYr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="q1YgcN1O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ioi9EQTw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LznkOXU5"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 18F6522722;
-	Mon, 28 Sep 2026 11:09:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593756; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u82Pe7jWAg2xKFd3Qp2Tapdiw5beq5HkcKj2Uql+6sg=;
-	b=Cb2hREYrRbXZS+bvpmYD6oUjkeE75XpljXiEzFwNB5NX/nsa76f6brMQMXA1DuGYwiCf4t
-	qq/WM7NrKgucJNonvuw3dSzagCV1MfQBWCqd2xymUbv5uYQbL3r/oUEXTq+HUTxOHUhY37
-	L7vXgVbNkPuwkk7cu6Xw/DH7fgoqJak=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593756;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u82Pe7jWAg2xKFd3Qp2Tapdiw5beq5HkcKj2Uql+6sg=;
-	b=q1YgcN1OADD+7AAcpg6jFEPBcUZqTMi21zteIerGeuGbQG2VtHPb3wnITfoybnHHvTJeqW
-	V+2geBVN8VebXmAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ioi9EQTw;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LznkOXU5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u82Pe7jWAg2xKFd3Qp2Tapdiw5beq5HkcKj2Uql+6sg=;
-	b=Ioi9EQTwIYdrY/LpSm6A1KCMKB4lyxX7/lPmb3mwSYosNkq/Ci4TN6tvBd2hCGNrt627he
-	D3pAVTJMUXc8iD23ajPzLvK1U+XQzhqg+gjxehA9svszbb3yOd//VmtlKbrkUxAmutN/JD
-	d2TcCibsUGpPXahVpkCF2yygYqhEoXM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593752;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u82Pe7jWAg2xKFd3Qp2Tapdiw5beq5HkcKj2Uql+6sg=;
-	b=LznkOXU5D5ds+jQSX42ycNRyiT9qpENSaEDXdWVVj9XZeo/NIJNktGh9wODgZr8QC4sE8G
-	ykmkkJVlCGbbVzAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B0A2133F1;
-	Mon, 28 Sep 2026 11:09:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 84gwFNdKumpVKQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:09:11 +0000
-Date: Mon, 28 Sep 2026 13:09:11 +0200
-Message-ID: <87a4p17huw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Peng Fan <peng.fan@nxp.com>,
-	Zhao Dongdong <zhaodongdong@kylinos.cn>,
-	Arun Raghavan <arunr@valvesoftware.com>,
-	Fu Hao <fuhao@open-hieco.net>,
-	Joakim Zhang <joakim.zhang@cixtech.com>,
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="cxgqdO/j"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso2304134f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:09:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790593760; x=1791198560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5Hbwzddbbp3OqIU1MbfolXZQVb9BNy+to7ZoHFd6OK4=;
+        b=cxgqdO/jx1zdUMhHdLeIGT62mCM0adJjA2ntKtc4KAd1VStuSwG7JTv130zBoS5fDO
+         aiRxsxOI12hynPcZHsRaAnpFotV8m2U4M05AAOqSDkLK91hiLr6SNaxZaoUUCAQT4tNn
+         neCFS7yEsg4MxH8LwAEV1AaP4mOL6ZZe3F5Ej6szd53HOgubNupwdfqHUi5WTDs9k1us
+         fzmWpiKBIQA/ZJ/KIV50AGkr+ss42csNQZ4MxUEae4lt5C9LmYOphsyfxIdTUMTGQUNh
+         sWUOpXV1boznB+yn9tbsV3E4r1y+Zzg+xgjaPojxvVLBM4zAJSDXFNPyR/UGMCcpuMRI
+         aavg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790593760; x=1791198560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5Hbwzddbbp3OqIU1MbfolXZQVb9BNy+to7ZoHFd6OK4=;
+        b=fnqAVBfthgHbsOB+cBlh9+VICQnpp/uUI1ECchgKIQETGxZnH3+55sicjZINFvt0ix
+         OwMb/N4ElO0EKSoh+vBHSx4nwRJomK1bsRfe7HsJYK2BW1gvXvRpUPQsdVj3rgiGDfhq
+         janqPHaR5RK2OGePP4F4VfRcv6d6bmxrYTxY7dVI7sRflSTatx8Hj+9AEgM4mft804D/
+         zgrvQ2A9UHo8QgujTeZQHQnAhYpDtmGEpcLP/NwjXkGOYrDO4kpOzPXXyCSWljgqYP07
+         ezFQJnErVIWhs+mbqc0ydtlEcNRJStsRSRJNqeX5DZ8Ht4tBNDpaPhJi2VYQgwhhbPL2
+         yDIg==
+X-Forwarded-Encrypted: i=1; AKwUvByHIPeWK2WkHIIkjjz1abMMgyqdAAD2XbKLCwTnxtzkwJtld5W1QUdNwKnIE003YQcw28faXUrjcPmuJDQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWWg3nwlPvK+gv3wiGYSXSQDCfWQ7MytvXnhqZezcIRnBoI8nW
+	DNq2ZrwbV16b78ZMql4Frh01C92esOCFwjkj21K0qumSD5mp6/IOQ+reCWuS3kA49/c=
+X-Gm-Gg: AYBFou0D++QM85/upGwYyCMyWD91kvYFz1NYCna5AVTklSMDabC1/uv5GTFvb6rqg3R
+	xczmIJS5WGf69UcHx2oopEJVv48/ErXJHgiR9JIi4Ff2h8arNyGurPadp1H3dxEZG6GwuhiIXr6
+	KfdFp2f5t0/5vZDgg31qyENjocKASzn/UUZYTopMcW6GyrZLtKG+8BhaSzCzp5t2tnFn7NkGa/p
+	wPOarw888KBUCYDV/Sd9sxDMAyfru350phjO2FHw1HVwZqv3+8qcPYzcpl0GXo7oXI10xZj6Gi7
+	2GmBrCEy+D1tyonNiuCFmbx2tx2CCEHlB4vUICnEKSIMGtYSAWRqZI9erzH6xo7qZI1UYNTHBiM
+	NtCNinAXqimpkHqOny6/riMs/I1NrSPweCXywxi1TBJlDDq8NMKgniL0cOtlE21emJ2DH4MWb6S
+	PoiSyWzGah79v9MqK1NmmgnPKCZx1xoYuDHimllzatlGR/tHKSvdl4KUyrRl4PgzdkWKWiWKFNc
+	SpVNPcWFrqIYxFxN/E=
+X-Received: by 2002:a05:6000:4b09:b0:488:6072:c0bc with SMTP id ffacd0b85a97d-48872a5d9a7mr22419714f8f.4.1790593760084;
+        Mon, 28 Sep 2026 04:09:20 -0700 (PDT)
+Received: from localhost ([2a02:168:9d56:1:4334:d7ec:dc81:975d])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4887a6470b7sm27304997f8f.27.2026.09.28.04.09.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 04:09:19 -0700 (PDT)
+From: Bruno Produit <bruno.produit@trailofbits.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: Kyle Zeng <kylebot@openai.com>,
+	jfs-discussion@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH] ALSA/ASoC: use assign_bit() where applicable
-In-Reply-To: <20260918141532.3022761-1-peng.fan@oss.nxp.com>
-References: <20260918141532.3022761-1-peng.fan@oss.nxp.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	Bruno Produit <bruno.produit@trailofbits.com>,
+	syzbot+f1521383cec5f7baaa94@syzkaller.appspotmail.com
+Subject: [PATCH v2] jfs: pin metapage during synchronous writeback
+Date: Mon, 28 Sep 2026 13:09:16 +0200
+Message-ID: <20260928110916.2089316-1-bruno.produit@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: 18F6522722
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,ti.com,gmail.com,kernel.org,ladisch.de,nxp.com,kylinos.cn,valvesoftware.com,open-hieco.net,cixtech.com,vger.kernel.org,suse.de];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,nxp.com:email];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026 16:15:20 +0200,
-Peng Fan (OSS) wrote:
-> 
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
-> 
-> Done with Coccinelle semantic patch:
->     // set_bit -> clear_bit => assign_bit
-> 
->     @@
->     expression cond, bit, addr;
->     @@
-> 
->     -if (cond)
->     -        set_bit(bit, addr);
->     -else
->     -        clear_bit(bit, addr);
->     +assign_bit(bit, addr, cond);
-> 
->     // clear_bit -> set_bit => assign_bit
-> 
->     @@
->     expression cond, bit, addr;
->     @@
-> 
->     -if (cond)
->     -        clear_bit(bit, addr);
->     -else
->     -        set_bit(bit, addr);
->     +assign_bit(bit, addr, !cond);
-> 
->     // __set_bit -> __clear_bit => __assign_bit
-> 
->     @@
->     expression cond, bit, addr;
->     @@
-> 
->     -if (cond)
->     -        __set_bit(bit, addr);
->     -else
->     -        __clear_bit(bit, addr);
->     +__assign_bit(bit, addr, cond);
-> 
->     // __clear_bit -> __set_bit => __assign_bit
-> 
->     @@
->     expression cond, bit, addr;
->     @@
-> 
->     -if (cond)
->     -        __clear_bit(bit, addr);
->     -else
->     -        __set_bit(bit, addr);
->     +__assign_bit(bit, addr, !cond);
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+release_metapage() decrements mp->count to zero before it starts a
+synchronous write. metapage_write_one() drops the folio lock while it
+waits for writeback, but release_metapage() retains mp and dereferences
+it after taking the folio lock again.
 
-Applied to for-next branch now.  Thanks.
+Once writeback clears META_dirty and ends, reclaim can lock the folio
+first. metapage_release_folio() then observes a zero count and frees mp,
+leaving release_metapage() with a dangling pointer.
 
+Add a separate writeback counter that metapage release and reclaim both
+honor while synchronous writeback has dropped the folio lock. Keep it
+separate from mp->count so concurrent writers can still reach the final
+release path and propagate META_dirty to the page cache.
 
-Takashi
+Fixes: 7fab479bebb9 ("[PATCH] JFS: Support page sizes greater than 4K")
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reported-by: syzbot+f1521383cec5f7baaa94@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f1521383cec5f7baaa94
+Assisted-by: Codex:gpt-6
+Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+---
+ fs/jfs/jfs_metapage.c | 9 ++++++---
+ fs/jfs/jfs_metapage.h | 1 +
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+v2: Following the Sashiko review at 
+https://sashiko.dev/#/patchset/20260922110754.1804555-1-bruno.produit%40trailofbits.com,
+use a separate writeback counter to preserve concurrent dirty writes.
+
+The syzkaller issue has the same crash and root cause, although its public
+reproducer did not trigger KASAN in local runs. A separate reproducer
+reliably triggers the KASAN use-after-free under reclaim pressure.
+
+diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
+index 41fe12e641ce..1c388eb4af2b 100644
+--- a/fs/jfs/jfs_metapage.c
++++ b/fs/jfs/jfs_metapage.c
+@@ -269,6 +269,7 @@ static inline struct metapage *alloc_metapage(gfp_t gfp_mask)
+ 		mp->data = NULL;
+ 		mp->clsn = 0;
+ 		mp->log = NULL;
++		mp->writeback_count = 0;
+ 		init_waitqueue_head(&mp->wait);
+ 		INIT_LIST_HEAD(&mp->synclist);
+ 	}
+@@ -309,8 +310,8 @@ void metapage_exit(void)
+ 
+ static inline void drop_metapage(struct folio *folio, struct metapage *mp)
+ {
+-	if (mp->count || mp->nohomeok || test_bit(META_dirty, &mp->flag) ||
+-	    test_bit(META_io, &mp->flag))
++	if (mp->count || mp->nohomeok || mp->writeback_count ||
++	    test_bit(META_dirty, &mp->flag) || test_bit(META_io, &mp->flag))
+ 		return;
+ 	remove_metapage(folio, mp);
+ 	INCREMENT(mpStat.pagefree);
+@@ -623,7 +624,7 @@ static bool metapage_release_folio(struct folio *folio, gfp_t gfp_mask)
+ 			continue;
+ 
+ 		jfs_info("metapage_release_folio: mp = 0x%p", mp);
+-		if (mp->count || mp->nohomeok ||
++		if (mp->count || mp->nohomeok || mp->writeback_count ||
+ 		    test_bit(META_dirty, &mp->flag)) {
+ 			jfs_info("count = %ld, nohomeok = %d", mp->count,
+ 				 mp->nohomeok);
+@@ -882,9 +883,11 @@ void release_metapage(struct metapage * mp)
+ 		folio_mark_dirty(folio);
+ 		if (test_bit(META_sync, &mp->flag)) {
+ 			clear_bit(META_sync, &mp->flag);
++			mp->writeback_count++;
+ 			if (metapage_write_one(folio))
+ 				jfs_error(mp->sb, "metapage_write_one() failed\n");
+ 			folio_lock(folio);
++			mp->writeback_count--;
+ 		}
+ 	} else if (mp->lsn)	/* discard_metapage doesn't remove it */
+ 		remove_from_logsync(mp);
+diff --git a/fs/jfs/jfs_metapage.h b/fs/jfs/jfs_metapage.h
+index 2e5015c2705b..12368314b2da 100644
+--- a/fs/jfs/jfs_metapage.h
++++ b/fs/jfs/jfs_metapage.h
+@@ -31,6 +31,7 @@ struct metapage {
+ 	/* Journal management */
+ 	int clsn;
+ 	int nohomeok;
++	unsigned int writeback_count; /* Synchronous writeback users */
+ 	struct jfs_log *log;
+ };
+ 
+-- 
+2.53.0
