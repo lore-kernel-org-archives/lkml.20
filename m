@@ -1,146 +1,344 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473E24E80A9;
-	Mon, 28 Sep 2026 15:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611141; cv=none; b=uk9Rzy73S7ANss4SiN9c5UahCRPMg2J64W6MS55W6iGLPn8t5hwSAYfPPJN7fDHmTr/5ZruJnDn4FHCZYdL4D6PiE45XbYdfAZlPocfybVcpLSccHD13Cm5D5QgeFu/+I7izm+4zQoj3bNVTTf3y/BKr9ddcSAEpmx8EZmrR93c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611141; c=relaxed/simple;
-	bh=04Ifz2k31JE157sSuBCrUq92PK7BGbZhITDHVUXzOwA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YlNug6otyyTnSNYh9iz29CfPoqw3IVSZDztTl488z8FZlrDOjCVWDm4lL6jcIiH5MgcwdobWjD/mh5Nv2S4rN15kWxa2b9w5qI5QSrmt3xoxsuKITAtpammDMOxUzObq53KrEMhlt018oQXKEt1PZ/BLKlzcQZ4HRaFMqKxmcrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=grNeGLQF; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C794E80BD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790611154; cv=pass; b=s7ZDXlBKSrGIxk8yGI+OChziEkMb5akRuAj9p3QqPE/3310vfDJSOl7JtTw80J2PMC86EtisFAej3xoULDYo/xeVBtv1RdbRfgq6IUoSXnP44WGITj3j8nMbjKqhyWIughm8twBeDS8fRmRvQ+GP3uMdRSkbJpKt830CemKV5mA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790611154; c=relaxed/simple;
+	bh=3R0bnUDCIfG5AB/zI6SVEdqlvDxRk1RhQmI3kuQGWBY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hu+L6I6TM+nVbEcKXrcJRZJeBu32TnXb/uQmLYv4gVoUVrx+W6onmI0yd13x5WZunOKTZxDCyx/W6wT7xUro0rwsVsm537QSqWvK2zVfzIwAJUGKX6uEd+MQnzTvz2Ed27AxyDYuILCXc9xBETrJsZLS7HrWXYWedHjDZWLxahQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=A1GWxLDW; arc=pass smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="grNeGLQF"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5YEY216947;
-	Mon, 28 Sep 2026 15:58:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=rzyibD
-	QTpQayQMJ6uE+DAwnjNSVqg9HDPjxKT/D4jMY=; b=grNeGLQFIcNppKXXDKI0rl
-	ThLMbnF6URl5Sg70BHzDbIBGMok1PcGBVunzH4LH80tr5xSz0JZgBdUTDZwRYHxS
-	sPLeXAsV+2g7y/1QeXKOwJi+CBPnrVSh6M58EEb19sVkUCLXuNH73/d43igI4Lli
-	JIm5jWsL+kNDUw2AMi6JTy76JKeM7uMDdqAtGyFMj8mgI//ioIOlpUw0HgPAMb2w
-	FmziXcuPqxjwmI66ZF/hq9/GbOY0SjLKxmEjJVdLkzSeHV8i7SQL2HRx+OEz9P52
-	rkRsPmPP+LcPyiKu0/0CZNVYsVQrktc9BQraPckbPlQujcnoT6tX0u4kT7FBgobw
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe24r7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 15:58:36 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SElYxt290963;
-	Mon, 28 Sep 2026 15:58:35 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y5qq2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 15:58:35 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SFwWBo44040678
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 15:58:32 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 02D2620043;
-	Mon, 28 Sep 2026 15:58:32 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0680920040;
-	Mon, 28 Sep 2026 15:58:31 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.81.16])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 15:58:30 +0000 (GMT)
-Message-ID: <c97ae089-fadf-4a29-b7df-4947ea8d6592@linux.ibm.com>
-Date: Mon, 28 Sep 2026 17:58:30 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="A1GWxLDW"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8facae850so96895ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:59:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790611151; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pEHIpl9mDsKvbqP6lnbmxzCphkpOjDzqByfIfRwCTWo3lVTDi5SAwbYtG9zhwmuRP8
+         Gc4cFj2CWzu4TKZzJqJBQnPA8Fol1lObtZOMoyOQEMqOXPNDjCOxBigkvD0mNl0OsuGN
+         OMrVcODRz3YQggv0UAFeEMSr2NYDe3Q9Clz/mw0/FAEX3DHz2WS1Bd98u4opZfVirAmX
+         yJRjF2J8yk6Syp0saujJ+HiqK5072puWUiCfmrqWvPV7/lVa2HS/azxy9ZDWpT45LV9S
+         BTze3ddlDl5egJ+8wfHnYvr6E/+j2R0WVNOt5qrNjl1JRUGc5aTvErrnWzOe+bASPyY6
+         bB9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aePuW6SdMhb4ew66W72zQFU5ACf7q5ldJc5VJ/cdC7o=;
+        fh=IaltTrLxx5gbz49C1nNKneldAej7O+xzFg0JPgGKdz4=;
+        b=LQc6duS3mm/ykE2Y9y5W32B7HownNrAOPqZB0Y2gFekBeiUVBavRFQEuBHtOVUBMeM
+         eweck6hJkLduquQoRYl2IgFQ6BNtM8zctBw1yrSXcIIWruiuxNuxaEXpdxpSEzVFaEr5
+         bc5pE8KmJfr59Y6ub+DkzPQJJMgIoQ4/MBRkDfemdBO9L8NBBrxN2lumiA6NiVXFe1Kn
+         Hhim4APhg0/S3vT30h317A/HdxKyc3y+ecL6bIPZbunJkwMpzK5OFHwqKNCxhSipcudt
+         UsedtmKDMXpriHGTjDjP3StSE0j07Ia8NQtbCQYG3vS3wE8a8ycA90Si4u7q14vCErrs
+         X8VQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790611151; x=1791215951; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aePuW6SdMhb4ew66W72zQFU5ACf7q5ldJc5VJ/cdC7o=;
+        b=A1GWxLDWXd6nns7krLcj8xc5CZo4eIiNay5RL+VWGElhMGdokhu/XwPQWezVjkc2M5
+         jGEKz0C02tab/tRR60LZYSLMQKs9a3jcP93G/gOOjTc2C/lH6GkIWyWQrwHvLMEivR1V
+         948wbqDPcOCic9IBpOQVEmsznrqVQOMwGXEpPVX9OAWNQUY6vlhxEa0yDqETDk8hi3NS
+         clPc3NR8HKTgywslo2B8wO+foaqTumMtJUWl39k0VXP91VbcIfB8hBstev5lstKwbsAr
+         C+ooj/DTgP1Ro5tHsTKgebQn3vpuivmTFiuaxXVsb96TwVFqU+eaQmwmWfDiKqSrkLw+
+         dfGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790611151; x=1791215951;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aePuW6SdMhb4ew66W72zQFU5ACf7q5ldJc5VJ/cdC7o=;
+        b=h1JoaTOEPMjRwwwlca8kKFLSOOPRZo9kOm1DXONiwDkgyOdfE0QeF/CAeRHQ0h4Drx
+         JTQt0fKlWqI/zFc+Hhzd9OYV6yw9Jn1p+GpzhYAqCRmUiwOhQAsvyqA25j5i7ef1G89h
+         XdlbxGDDcpB6UHc3+bXw6zy3NCsppMSH3v8u8jkETCGs8ZcLa9JwS7Ipxi//EzPGxHvd
+         u5jBtPC48deBDQ0CtvxhHGFmXKuDsqXA0OZ4foC4+S+YRXmIfFxkHptPOVQ0KQBL3dvQ
+         O+ZzQ2IVEm2ejVkx0QSNN0K7Veh3H1EpCzPLJSTn7LWJu8r7gaVwUEABkHQCHDZj0VjU
+         y9yA==
+X-Forwarded-Encrypted: i=1; AKwUvBxef5EAfFEMfLzMGYMYL5M/Od11dZV1lbmItFBTjHaMzrG5yauAkjokQyyGXmNN+AkWjbwMcZd+6AEcTPY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT2KXms20STDWEsM2tWH6ykrQFod4UJijzUsQmMztsCLEy9ajD
+	9TZICnei8/f1A0uXDRhChd7Y+dOAst5Rgwk5W7/sHgNxJ7ciY/LoT8ZsgZ9qeFLFUOq41wFTvSh
+	OZKA3yhIIGXfKIecFWapK1EPI8+5mNe6nvVqtTKai
+X-Gm-Gg: AYBFou2gMF8jzUPdVmzBQgBxcUPnqdWHjL/xxelBgmJpfAorMWp+LmoAwto1Jo4eh4K
+	j9YENobN5vX8nMnKjLjXs32uPYu6IUqEC4U1XPZY4Z+HJOk/yGb55b2MMRPwu3YrVSUMyzR2MsP
+	vMYfsfy1g4Fn7IiTofzgt6CKXUnOxO6t+umbeAgHTao7S33sTGuRaPl+/VB7qg1ZRXVF0YKc+W8
+	L6udqrB7FpTwbqGYTBors6NS6BRU/UbnHlRKrfdPdjsn3zTl53OrcHqCUHDUtny5HyjN0XrWApl
+	z7s5TORANBBbU6hkn/PdCGXHn8qXLVoSVq9bUL3UpAsMo/bXsGJ0ifCvbYlcN8w0Xa2V6k886cQ
+	C1gXRNoOI
+X-Received: by 2002:a17:903:1aa3:b0:2d5:db38:800f with SMTP id
+ d9443c01a7336-2dfa6227507mr7954595ad.14.1790611150463; Mon, 28 Sep 2026
+ 08:59:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 22/29] s390/hwcaps: Report SAE support as hwcap
-To: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter
- <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik
- <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-23-seiden@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20260918133107.1042730-23-seiden@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba8ead cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=-Vzjgo3omqpRI_WBrZcA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2MiBTYWx0ZWRfX4XV4UOxcfS7P
- 0BbtHhPo3KhYsVIOb3OM9DJGdbUgdubsZz0PgqbsxfIQwCL713wGVSEIxXAo1kV+BTSks25F7J1
- NVpWyNmQFAq7cQFI010E63gNGvAYwws=
-X-Proofpoint-ORIG-GUID: Mtrun8DKU0SK8lBZtLKEIDFHUbwLPE0S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2MiBTYWx0ZWRfX4DHV58DlNGDR
- 9T8Sp1CTOSVq/jLjjCsS4ZVoacGNvlbSs81VEvfmGDzJH7xQPd5kW/ZXg3Nx3PGSX8aJXvts/25
- uPF5HZMFIqBiDWtUBsv9pXd0ySQAPRYoAk1Ts1gpFYITkvhSZ7jyT93LxmzdafpHLywZxlC6b7t
- ZVQijeYBuyC8/bFU8HmvxfvehGbwo69D7uMTsWPDikZYOlUw0SASC23aAA5DybNNk6IZ/Yz3Sk+
- EplkGTF5eA3FTz57P8lCxrJ3bBRJythk0gvQ4/kiN7KP2MwOhVw/lJCcZpm70bEHzo/juFjkfMK
- qQWz26gJabzwTI3Em2OVpMB3etfotcopkdiz/bmB3g0aFyT5t2nBiQM1aF4Ah60SleCIwvkRZjY
- QlwDz2wZfHGJ4Z06HyOdXmby4zPzD/MX4ZFloFI7OPbKGOMl1XcW3Yx3UWLRT2o4qIJt6Ftlvm+
- XaaNGoeWKs0fPoD/law==
-X-Proofpoint-GUID: VIifUq-Wtvu10B-gtNGluxlt-RnrP-Q4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280062
+References: <20251016205126.2882625-1-irogers@google.com> <20251016205126.2882625-3-irogers@google.com>
+ <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de>
+In-Reply-To: <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 28 Sep 2026 08:58:57 -0700
+X-Gm-Features: AclHuK8PY4tYRy8xE2PQkLwp-Hd2yqHo30sGWzuk88EQmRBlMd_99GCwO19cbdY
+Message-ID: <CAP-5=fVBLzMG7bPAHAiYtfx-NLUTgUo+fxP87SrQ=eH2saKzxA@mail.gmail.com>
+Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from
+ packed struct to memcpy
+To: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
+	linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Eric Biggers <ebiggers@google.com>, Al Viro <viro@zeniv.linux.org.uk>, 
+	Christophe Leroy <christophe.leroy@csgroup.eu>, "Jason A. Donenfeld" <Jason@zx2c4.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 28, 2026 at 8:39=E2=80=AFAM Stefan Kerkmann
+<s.kerkmann@pengutronix.de> wrote:
+>
+> Hi Ian,
+>
+> On 10/16/25 22:51, Ian Rogers wrote:
+> > Type punning is necessary for get/put unaligned but the use of a
+> > packed struct violates strict aliasing rules, requiring
+> > -fno-strict-aliasing to be passed to the C compiler. Switch to using
+> > memcpy so that -fno-strict-aliasing isn't necessary.
+> >
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > ---
+> >  include/vdso/unaligned.h | 41 ++++++++++++++++++++++++++++++++++------
+> >  1 file changed, 35 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/include/vdso/unaligned.h b/include/vdso/unaligned.h
+> > index ff0c06b6513e..9076483c9fbb 100644
+> > --- a/include/vdso/unaligned.h
+> > +++ b/include/vdso/unaligned.h
+> > @@ -2,14 +2,43 @@
+> >  #ifndef __VDSO_UNALIGNED_H
+> >  #define __VDSO_UNALIGNED_H
+> >
+> > -#define __get_unaligned_t(type, ptr) ({                               =
+                       \
+> > -     const struct { type x; } __packed * __get_pptr =3D (typeof(__get_=
+pptr))(ptr);     \
+> > -     __get_pptr->x;                                                   =
+               \
+> > +#include <linux/compiler_types.h>
+> > +
+> > +/**
+> > + * __get_unaligned_t - read an unaligned value from memory.
+> > + * @type:    the type to load from the pointer.
+> > + * @ptr:     the pointer to load from.
+> > + *
+> > + * Use memcpy to affect an unaligned type sized load avoiding undefine=
+d behavior
+> > + * from approaches like type punning that require -fno-strict-aliasing=
+ in order
+> > + * to be correct. As type may be const, use __unqual_scalar_typeof to =
+map to a
+> > + * non-const type - you can't memcpy into a const type. The
+> > + * __get_unaligned_ctrl_type gives __unqual_scalar_typeof its required
+> > + * expression rather than type, a pointer is used to avoid warnings ab=
+out mixing
+> > + * the use of 0 and NULL. The void* cast silences ubsan warnings.
+> > + */
+> > +#define __get_unaligned_t(type, ptr) ({                               =
+       \
+> > +     type *__get_unaligned_ctrl_type __always_unused =3D NULL;        =
+ \
+> > +     __unqual_scalar_typeof(*__get_unaligned_ctrl_type) __get_unaligne=
+d_val; \
+> > +     __builtin_memcpy(&__get_unaligned_val, (void *)(ptr),           \
+> > +                      sizeof(__get_unaligned_val));                  \
+> > +     __get_unaligned_val;                                            \
+> >  })
+> >
+> > -#define __put_unaligned_t(type, val, ptr) do {                        =
+                       \
+> > -     struct { type x; } __packed * __put_pptr =3D (typeof(__put_pptr))=
+(ptr);           \
+> > -     __put_pptr->x =3D (val);                                         =
+                 \
+> > +/**
+> > + * __put_unaligned_t - write an unaligned value to memory.
+> > + * @type:    the type of the value to store.
+> > + * @val:     the value to store.
+> > + * @ptr:     the pointer to store to.
+> > + *
+> > + * Use memcpy to affect an unaligned type sized store avoiding undefin=
+ed
+> > + * behavior from approaches like type punning that require -fno-strict=
+-aliasing
+> > + * in order to be correct. The void* cast silences ubsan warnings.
+> > + */
+> > +#define __put_unaligned_t(type, val, ptr) do {                        =
+       \
+> > +     type __put_unaligned_val =3D (val);                              =
+ \
+> > +     __builtin_memcpy((void *)(ptr), &__put_unaligned_val,           \
+> > +                      sizeof(__put_unaligned_val));                  \
+> >  } while (0)
+> >
+> >  #endif /* __VDSO_UNALIGNED_H */
+>
+> commit a339671db64b ("vdso: Switch get/put_unaligned() from packed struct=
+ to
+> memcpy()"), which landed in 7.0, causes a performance regression on an NX=
+P
+> i.MX25 (ARMv5TE) SoC.
+>
+> I found it while updating a client's board from 6.12 to 7.0. A fio 4k ran=
+dwrite
+> benchmark on a NAND storage with UBI and UBIFS filesystem was the only wo=
+rkload
+> that showed a clear regression between those two versions, so I bisected =
+with
+> it:
+>
+> perf stat -e irq:irq_handler_entry --filter 'irq =3D=3D 49' -a \
+>     -- \
+>     fio --name=3Drw \
+>     --filename=3D/var/stat/testfile \
+>     --size=3D8M \
+>     --rw=3Drandwrite \
+>     --bs=3D4k \
+>     --direct=3D0 \
+>     --fsync=3D1 \
+>     --numjobs=3D4 \
+>     --group_reporting
+>
+> | kernel | irq_handler_entry | fio bw   |
+> | ------ | ----------------- | -------- |
+> | 6.12   | 155783            | 401KiB/s |
+> | 6.13   | 162317            | 395KiB/s |
+> | 6.14   | 168741            | 392KiB/s |
+> | 6.15   | 168556            | 401KiB/s |
+> | 6.16   | 166090            | 403KiB/s |
+> | 6.17   | 162541            | 385KiB/s |
+> | 6.18   | 157527            | 386KiB/s |
+> | 6.19   | 183675            | 381KiB/s |
+> | 7.0    | 190372            | 297KiB/s |
+>
+> The bisect targeted the large drop between 6.19 and 7.0; the smaller 6.17
+> regression predates this commit and is unrelated. Reverting a339671db64b
+> restores throughput to the 6.17 level (~385 KiB/s). The commit is still
+> present in 7.3-rc5, and the same codegen problem reproduces there.
+>
+> Digging deeper, I built 7.3-rc5 with my config and GCC 16.2, with and wit=
+hout
+> the commit, and compared the object files: 114 of them differ. As
+> <vdso/unaligned.h> is included by <linux/unaligned.h>, every
+> get/put_unaligned() call site depends on it transitively. GCC did not inl=
+ine
+> __builtin_memcpy() and turned it into a function call, e.g. in crypto/crc=
+32c.c
+> (__chksum_finup(), inlined into chksum_digest()):
+>
+> Without the commit:
+>
+> <chksum_digest>:
+>                    str    lr, [sp, #-0x4]!
+>                    sub    sp, sp, #12
+>                    str    lr, [sp, #-0x4]!
+>                    bl    0xc0 <chksum_digest+0xc> @ imm =3D #-0x8
+>         R_ARM_CALL    __gnu_mcount_nc
+>                    ldr    r0, [r0]
+>                    str    r3, [sp, #0x4]
+>                    ldr    r0, [r0, #0x20]
+>                    bl    0xd0 <chksum_digest+0x1c> @ imm =3D #-0x8
+>         R_ARM_CALL    crc32c
+>                    mvn    r2, r0
+>                    mov    r0, #0
+>                    ldr    r3, [sp, #0x4]
+>                    lsr    r12, r2, #8
+>                    lsr    r1, r2, #16
+>                    strb    r2, [r3]
+>                    lsr    r2, r2, #24
+>                    strb    r12, [r3, #0x1]
+>                    strb    r1, [r3, #0x2]
+>                    strb    r2, [r3, #0x3]
+>                    add    sp, sp, #12
+>                    ldr    pc, [sp], #4
+>
+> With the commit:
+>
+> <chksum_digest>:
+>                    push    {r4, lr}
+>                    sub    sp, sp, #8
+>                    str    lr, [sp, #-0x4]!
+>                    bl    0x124 <chksum_digest+0xc> @ imm =3D #-0x8
+>         R_ARM_CALL    __gnu_mcount_nc
+>                    ldr    r0, [r0]
+>                    ldr    r12, [pc, #0x54]        @ 0x188 <chksum_digest+=
+0x70>
+>                    ldr    r0, [r0, #0x20]
+>                    mov    r4, r3
+>                    ldr    r12, [r12]
+>                    str    r12, [sp, #0x4]
+>                    mov    r12, #0
+>                    bl    0x144 <chksum_digest+0x2c> @ imm =3D #-0x8
+>         R_ARM_CALL    crc32c
+>                    mvn    r3, r0
+>                    mov    r2, #4
+>                    mov    r0, r4
+>                    mov    r1, sp
+>                    str    r3, [sp]
+>                    bl    0x15c <chksum_digest+0x44> @ imm =3D #-0x8
+>         R_ARM_CALL    memcpy
+>                    ldr    r3, [pc, #0x20]         @ 0x188 <chksum_digest+=
+0x70>
+>                    ldr    r2, [r3]
+>                    ldr    r3, [sp, #0x4]
+>                    eors    r2, r3, r2
+>                    mov    r3, #0
+>                    bne    0x184 <chksum_digest+0x6c> @ imm =3D #0x8
+>                    mov    r0, #0
+>                    add    sp, sp, #8
+>                    pop    {r4, pc}
+>                    bl    0x184 <chksum_digest+0x6c> @ imm =3D #-0x8
+>         R_ARM_CALL    __stack_chk_fail
+>      188: 00 00 00 00      .word    0x00000000
+>         R_ARM_ABS32    __stack_chk_guard
+>
+> Is this an accepted trade-off? My understanding is that the kernel is alw=
+ays
+> built with -fno-strict-aliasing, so the packed-struct type punning was we=
+ll
+> defined there, and the __packed annotation is what lets GCC generate vali=
+d
+> code for the unaligned access.
 
+Hi Stefan,
 
-On 9/18/26 15:30, Steffen Eiden wrote:
-> From: Hendrik Brueckner <brueckner@linux.ibm.com>
-> 
-> Report SAE support as hwcap (and /proc/cpuinfo)
-> 
-> Signed-off-by: Hendrik Brueckner <brueckner@linux.ibm.com>
-> Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> Reviewed-by: Janosch Frank <frankja@linux.ibm.com>
-> ---
->   arch/s390/include/asm/elf.h    | 2 ++
->   arch/s390/include/asm/sclp.h   | 5 ++++-
->   arch/s390/kernel/processor.c   | 3 +++
->   drivers/s390/char/sclp_early.c | 1 +
->   4 files changed, 10 insertions(+), 1 deletion(-)
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+and sorry for the performance regression! I largely work on the perf
+tool which is in the tools/ directory but uses kernel header files,
+such as for unaligned accesses. My work was motivated by trying to
+avoid using -fno-strict-aliasing in the perf tool.
 
+As the compiler is given __builtin_memcpy of a fixed memory size then
+the lowering should match that of using the packed struct. Are there
+compiler flags you are using that disable compiler optimizations? This
+feels like a compiler bug, a workaround is to use the packed struct
+helpers in linux/unaligned/packed_struct.h
+
+Thanks,
+Ian
+
+> Best regards,
+> Stefan
+>
+> --
+> Pengutronix e.K.                       | Stefan Kerkmann             |
+> Steuerwalder Str. 21                   | https://www.pengutronix.de/ |
+> 31137 Hildesheim, Germany              | Phone: +49-5121-206917-128  |
+> Amtsgericht Hildesheim, HRA 2686       | Fax:   +49-5121-206917-9    |
+>
