@@ -1,186 +1,154 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F5B3914FA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5220939184A
 	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619994; cv=none; b=F0htxbQ+eo+0biV99CzbdksFi4jlhMcL+Io2XVniS7SXZcueuhjAIJ0KP44/ZB9qFDIFc/desKlMcOS4CJnXq3Q08i8HWjiS4UoXp5NVmr8lygiRTZSOgAdJXnJsstNx7HrxS0KTxH3FJ3uC/KCZq4TMdD1O+7UHpeSnb56kAzc=
+	t=1790619994; cv=none; b=AvlVTHEzdgjLlS4B8/8pkEqBDoEr/TupyLbS5qPrN1VsutMBhGOSBn05p3NJdzoS32JvBonxYZOl/qz1QxpK8vn8h7aOZ4AlH46MoGofxPSJdSDm65eTSURRdXO6gM5EBdewAtCIrgJA+gnlxDyR/AW+W2wUO3Q3Ev3zJWj1hbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790619994; c=relaxed/simple;
-	bh=x0c9r+m8YkXsE8vK0JvmaBesea7Dv2xfQ9Hn9IEaIQg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oqXF1RSCHrRp/0Opx2ZW/KkaEhB2LarOVVmokoKWLy4jeJLg0bmvxlX+TrW6mPnCza9i66zqMepzJZl2ocurYqe57wUijHDF/gpYMmyaiRwiLJ5uWM9Bqvwr/SIgUdt3tK069j7OJZMLQL0ixJxq5IondqUePHFNLtZIEVY47vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gy/tUeH4; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	bh=+b7CFFHgZ618D+Uis2e9wFQoJJRfY/sRed2KpRC4bYk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=sQtP0QEx7wYAV6Eujc1CSUgoxHjKI8Q3vhCPOay98Sea1Ry8uU4TaPsgUrFZypvLmHH3YYQayqiRZjYJNXA2YIJFdDlF+xtnnelBLk/NMkUy/MZATpKdtPKgajXJ7Gj1y/OyMQRFkGNgnJQOkhJubcTRbUVubDK83UBI2a7M1D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=T9zLs2We; arc=none smtp.client-ip=209.85.215.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gy/tUeH4"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34344599f01so773941eec.0
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="T9zLs2We"
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc75e1703f1so253007a12.3
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790619992; x=1791224792; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tQOX81l4i+MdF7wYiQTpB4FwjvgsQrx+lL/G82h2scE=;
-        b=gy/tUeH4tfISN7CqX3AQ8PmmeSo2bUELsZ8t3VGl7BFkaUa2WlmyQ4mFXeyg9+sdXx
-         SpbfJKFmcfMmJlyjKTc4p9LhtoLQElRdMoIb9rd5v731WxD0gMh2xMSp1hJbbDNEHIJ2
-         5XFkjxTMpy2dTN5JApR1dgEYb5wF0d35kUkIh/bkyi0F3VXy1JopTcbSjHANqVyqtOLx
-         cktQqGjLBc5xDKUJ9wFK4erRYcqXLVN4xzLiRmJ7cnCJtCeIyz3aIwR0SIhPnl5zk3tz
-         ctYr8iMI1S/BFpAwJze0XNqRImYooPUarVKEAR17cYAoyB4NYx6WUILfMevBJ+NEq880
-         To5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790619992; x=1791224792;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tQOX81l4i+MdF7wYiQTpB4FwjvgsQrx+lL/G82h2scE=;
-        b=y3v3WQEMeGcriJjZYxSvkKHJvy1Pmab6a30RVGVJN21rO1PxQC+NA/IT8d6k7YArEf
-         dFLk/p3CuOfmPZDFNd0w3uVGHLtPGDsSGDosxK+8fmoiVlsUbWkqp9wUECUfkZjisg3n
-         /1x4uDlTJr/o5JBXVXTXDqMNK0gdwwj/i5Q5No8KVsQWKEBW6ZsU1zRBNTXcqx6ibQqc
-         p4UVejBQFyVRFQq/zAdZWJzPYiCV3jxaDlRou1ZBGVEDshOeBu0Lc/4G/7dU0rt1Uhrk
-         H59pZptKDE23dNypafRWrGVLmCQ3BhByYnyAxmz7oHOK16BORbl4OTcQ6ldXM2Em2VJo
-         2HOg==
-X-Forwarded-Encrypted: i=1; AKwUvBzh/2iXOfx6yqx8NyIBF2UrD5LzPHiCoc1EPSZ11OG0ONpqxsl4B3KiOblOffPMJzBmVyKZbcqcdqaWGFg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM21uekjXF3wSseZ6dC+47v1QDn8Or4RcKBeSuOc+RlQd//vix
-	VmQjnnNOcZn/1fXNq5xL6XJPmIma5/o55ZYV2KUUg3/YudBPIDSyiISxXNLdUxMX1akC4oMj+Yt
-	88E1Km8xsnw==
-X-Received: from dlbuj9.prod.google.com ([2002:a05:7022:3d89:b0:144:d1d0:a66])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:21d3:20b0:143:490b:93da
- with SMTP id a92af1059eb24-146d049730emr10532941c88.39.1790619991902; Mon, 28
- Sep 2026 11:26:31 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:25:48 -0700
-In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1790619993; x=1791224793;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XGjdMwJsnua5C5JwBesKhZf4WJKUTjxVN8HV5NiB4F4=;
+        b=MsbsOKcpiyc42Tdt+geOGZtr3vdyCAjwRr5ODw/6r94s1Q0agefyfkEpZiop63mBc+
+         AJE7d/A4YU14bHdKLippGkF2d1v2Mne61qAgMC9M1Sr9HNjQQ7v+nmkuRbnD8jTHvhZ+
+         xlKqSzjVoqh0zAOvmhCIVTKh3W3hYjoUXvaXT8cAr3l4jjKpyRnxzTtpyjV1A2ZthZoV
+         4oVa3B8lg1Ewn0bFF0yJRwsZ/vqRodZgzemba8NIz//kLI8oKQG/akEO0vJs76fXBDBY
+         p0fUcBGDwD6XKu0aTNfKAzUgxAPsOluwooMFZQTGLVbLKEmKDHDZsB5KX7Hp1OSgMGHN
+         57Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJRYXFpGdmxXadvNtJNneOG/9sVaOPupb98kWCRbhzhP/od6DhHb+HwnD567NN810ZNV8l4lKiwA5CsXU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsZ9U54CGkqyPi0Oy8ySulNNeDppCxQZoOEaV68Nr3codq4EGk
+	V/dd4xrktb//F7AFTz+Dzogt0sIrzeK6bd4icmjgmIgkbCQr2AImyyO5h6ExARGBSgdX0lb8Y/9
+	oh5MvJEWnz4i/ZcRnRLA0BZF5LFFYnwEamG0rBqelP80Lxz/oQBOLiyE3bxAyGKBLXySd2AhAqw
+	d3wPliV4Fsp3ufCmgWNAJRyKLOdPQJxi0OZOufopW6Dc4qsqq4xHI6aqrkAYapCdvRqijC8qhCJ
+	bpVZPhztf8stI1Tpr5Rnjl/
+X-Gm-Gg: AYBFou1eAGXaWhA2eQl4M0M6l5y0j4nY0KeVGKahuSTwvE4GB7emRixrxopGvZnk/S8
+	fMRbMCfVrtFUKvVSut5od/L/r15EEiFlY3f0Ddp3QuYjR4OmmrfoEyFu5EBWHDzB3h5pLZPuPNZ
+	N6lb3HInFwy0IIp6jcx8kNl47tNUcZF7WWfMHcs+bSCm2giIgzIpQEj7ifYGjGd4DT+B1iMHE5n
+	lfy0HzNOAt6TJ8QMc9PpXVNehXIg6mcsbPMrVwD7uWNslPZ1q9CjoNBE+BNh0e1YnJ/sJv9qDO5
+	WwI/xVadF7lIIppQhNuZOuZunZFm/ODPHa+Li8kV3Xaa58d8ugs/5k7Y4624sHRM45z9sA4b8sq
+	IObQxWhkHXBYvDGf75MeBFJJdOX0HVI94cpoPET2FNjCIyRexEOB+QP5KDAwU/tg4MOlKpFBIpE
+	KP5LNMIjK9EoTkl5HeP2Bc4aFVY6LZmfAwJWl0tSX2vis=
+X-Received: by 2002:a17:90b:224e:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3a0cbe2a16cmr7792241a91.63.1790619992432;
+        Mon, 28 Sep 2026 11:26:32 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a49760bf05sm245383a91.0.2026.09.28.11.26.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 28 Sep 2026 11:26:32 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34afa104860so79673eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790619990; x=1791224790; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XGjdMwJsnua5C5JwBesKhZf4WJKUTjxVN8HV5NiB4F4=;
+        b=T9zLs2WeOZ0WTMzPllACcc/68+cOEaryRNpBXBD8LDZjb0ici6+6XxGXrC45BsOmDo
+         NFX6yEBxOTSe9G9CqdTs1mT1qfT+/F2QKXKSJc+5iE7+hudl7r+b0B8rMc4w5lg73mzk
+         mwXjwbF5DQNa9zqTy5X4qfMdlSo1QJG5bUlRQ=
+X-Forwarded-Encrypted: i=1; AKwUvBy6WcBMOrla7M+WhDVPN/yGz9VUJac4/dc1orzOUaBzSe+nFerejuHwTqLjF/k9HMIfnOgT51Snr1UmjY8=@vger.kernel.org
+X-Received: by 2002:a05:7300:3081:b0:344:1bd9:1f0d with SMTP id 5a478bee46e88-3441bd92155mr11160562eec.21.1790619989831;
+        Mon, 28 Sep 2026 11:26:29 -0700 (PDT)
+X-Received: by 2002:a05:7300:3081:b0:344:1bd9:1f0d with SMTP id 5a478bee46e88-3441bd92155mr11160501eec.21.1790619989070;
+        Mon, 28 Sep 2026 11:26:29 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c17074sm27663297eec.26.2026.09.28.11.26.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 11:26:28 -0700 (PDT)
+Message-ID: <7c437a10-985b-402c-b3ac-cfa97c53d014@broadcom.com>
+Date: Mon, 28 Sep 2026 11:26:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928182605.3649015-10-irogers@google.com>
-Subject: [PATCH v6 09/26] perf trace: Don't allocate syscall arg formats for
- internal fields
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+To: Andrea della Porta <andrea.porta@suse.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
+ Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+ Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+References: <cover.1790606188.git.andrea.porta@suse.com>
+ <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-syscall__read_info() sizes sc->arg_fmt by the tracepoint's field count,
-which includes the internal fields that follow the arguments, and only
-then subtracts them from sc->nr_args. syscall__alloc_arg_fmts() copies
-sc->fmt->arg[] for every entry, so with more than 6 fields, for example
-renameat2 with its 2 path strings, it reads beyond the end of that
-RAW_SYSCALL_ARGS_NUM sized array. Count the arguments before allocating,
-and pass the array's size to syscall_arg_fmt__init_array() so its walk
-stops before the internal fields, rather than stepping beyond the array.
+On 9/28/26 07:42, Andrea della Porta wrote:
+> From: Stanimir Varbanov <svarbanov@suse.de>
+> 
+> The RP1 chipset used on the Raspberry Pi 5 features an integrated
+> PWM controller to drive the cooling fan.
+> 
+> Add the corresponding DT node for this PWM controller.
+> 
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-trace.c | 43 +++++++++++++++++---------------------
- 1 file changed, 19 insertions(+), 24 deletions(-)
-
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 35d39a3fe803..6a54d8bff534 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -2282,13 +2282,13 @@ static bool field_is_ptr_sized(const struct tep_format_field *field)
- }
- 
- static struct tep_format_field *
--syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field *field,
-+syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, int nr, struct tep_format_field *field,
- 			    bool *use_btf)
- {
- 	struct tep_format_field *last_field = NULL;
- 	int len;
- 
--	for (; field; field = field->next, ++arg) {
-+	for (; field && nr > 0; field = field->next, ++arg, --nr) {
- 		/* assume it's the last argument */
- 		if (is_internal_field(field))
- 			continue;
-@@ -2360,8 +2360,8 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
- 
- static int syscall__set_arg_fmts(struct syscall *sc)
- {
--	struct tep_format_field *last_field = syscall_arg_fmt__init_array(sc->arg_fmt, sc->args,
--									  &sc->use_btf);
-+	struct tep_format_field *last_field = syscall_arg_fmt__init_array(sc->arg_fmt, sc->nr_args,
-+									  sc->args, &sc->use_btf);
- 
- 	if (last_field)
- 		sc->args_size = last_field->offset + last_field->size;
-@@ -2373,7 +2373,8 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
- {
- 	char tp_name[128];
- 	const char *name;
--	struct tep_format_field *field;
-+	struct tep_format_field *args, *field;
-+	int nr_args = 0;
- 	int err;
- 
- 	if (sc->nonexistent)
-@@ -2410,30 +2411,23 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
- 		return -errno;
- 	}
- 
--	/*
--	 * The tracepoint format contains __syscall_nr field, so it's one more
--	 * than the actual number of syscall arguments.
--	 */
--	if (syscall__alloc_arg_fmts(sc, sc->tp_format->format.nr_fields - 1))
--		return -ENOMEM;
--
--	sc->args = sc->tp_format->format.fields;
-+	args = sc->tp_format->format.fields;
- 	/*
- 	 * We need to check and discard the first variable '__syscall_nr'
- 	 * or 'nr' that mean the syscall number. It is needless here.
- 	 * So drop '__syscall_nr' or 'nr' field but does not exist on older kernels.
- 	 */
--	if (sc->args && (!strcmp(sc->args->name, "__syscall_nr") || !strcmp(sc->args->name, "nr"))) {
--		sc->args = sc->args->next;
--		--sc->nr_args;
--	}
-+	if (args && (!strcmp(args->name, "__syscall_nr") || !strcmp(args->name, "nr")))
-+		args = args->next;
- 
--	field = sc->args;
--	while (field) {
--		if (is_internal_field(field))
--			--sc->nr_args;
--		field = field->next;
--	}
-+	/* Internal fields follow the syscall arguments. */
-+	for (field = args; field && !is_internal_field(field); field = field->next)
-+		nr_args++;
-+
-+	if (syscall__alloc_arg_fmts(sc, nr_args))
-+		return -ENOMEM;
-+
-+	sc->args = args;
- 
- 	sc->is_exit = !strcmp(name, "exit_group") || !strcmp(name, "exit");
- 	sc->is_open = !strcmp(name, "open") || !strcmp(name, "openat");
-@@ -2455,7 +2449,8 @@ static int evsel__init_tp_arg_scnprintf(struct evsel *evsel, bool *use_btf)
- 		const struct tep_event *tp_format = evsel__tp_format(evsel);
- 
- 		if (tp_format) {
--			syscall_arg_fmt__init_array(fmt, tp_format->format.fields, use_btf);
-+			syscall_arg_fmt__init_array(fmt, tp_format->format.nr_fields,
-+						    tp_format->format.fields, use_btf);
- 			return 0;
- 		}
- 	}
+Applied to devicetre-arm64/next, thanks!
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Florian
