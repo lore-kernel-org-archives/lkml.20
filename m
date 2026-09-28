@@ -1,134 +1,161 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013064.outbound.protection.outlook.com [52.101.72.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF0E43C7A4;
-	Mon, 28 Sep 2026 19:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624367; cv=none; b=i/M5uhxnn+inip8LXrXX9WaZtoaESO5vABWmmSs/rFRjqFFywMM/ZbrgbdefaHz2DKLMq2k1guhWMtVBLUXCW8n70DJlH8XF8Z0qEMlFe8KsAGUEOQOZLl6ELeyozj9eknujeJOC1WJsW6lkviVO5f1FiHV3RE5/qCoikjakNlc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624367; c=relaxed/simple;
-	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G5DXESqhkYNgCIN4uTBHAzkXcqDxBin51QGCuNJMmo1xuCYzcNFv3VobZz+U0VFvIGjx86ZEWp7E1yVY1kfGooL5lAukzauS/wkSHSLmvuGrAj1dGlcGwjwWFdC08I7BF1RIYLKPR4CiEl+IZc9JSIq7n3NU5CPvE5YYGY/jdjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HYVBYBjj; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A779A3C1D6B;
+	Mon, 28 Sep 2026 19:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790624400; cv=fail; b=PSqwF9sVeq1RydRqvnxFx3o2jm9bg1RcB5Q7ggGCVEb9chHh7YDhLEVEtYsXrkF8NkZyota/kVSTkS44ZypsxaQdMYBdC/GYEzV8Pv9TvrAtZAcMGwPjDWEiL5td3mR25N12riuQ/x38wIS3qAwAadpSAYLcTtKG5tus6EloLug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790624400; c=relaxed/simple;
+	bh=CY43sPJFapyW+mx4BhCpJEunL8GMLfcWBrwCt+xEXZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VDkxk0R/DyFB8NBhyxNeCKt2ICppj5VJQa0kDmoB5TtEs6qWEIwaSFQF5Hn+aWemahsiPxo9x3LowFR8q8DlFs7hl4X4v7DaFt16S0VFMB1DjE43rFRxjer0ZW8vha8xgcJX9aLPHqBwdUuE58RhJvnUlzfdwqhgL86URF97PD8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=P2BeuqjG; arc=fail smtp.client-ip=52.101.72.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HYVBYBjj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790624364;
-	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=HYVBYBjjuj9EqjMBnBn4CvDnQ58LVJvWBlOUfJS1Ga/XmiCzQJDRrqHtTBbH3g3bB
-	 2zrWFStAS9/v8fF5tm/gQHvEBv7QN5xyAZfce7OBPvXFdgpRc6E2y/jnW//3APo897
-	 nXBHYrmArPHcRhS9vYbSxBUreSMfOT+t5yZ2bPw2H4ybgiKIlYkiqzqM4uuyPVoG6I
-	 rd1WC5Ocb5NWg7bOGzl3zpcNvxh8kFp7ZqJEEONrCkn+zqjQ/JqW/p4RuNerQUxb46
-	 bHVJfFTAzvvhqjjLsIpysgPNDaA0U0qg6Nd2KKESaFBQwXdzS+gy5LLEr9Z2BOIC+b
-	 XfbyD8kw2EsWw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D049D17E006F;
-	Mon, 28 Sep 2026 21:39:22 +0200 (CEST)
-Message-ID: <54bdf44f368e90bce879dab51475230726a630e0.camel@collabora.com>
-Subject: Re: [PATCH RFC 2/2] media: amphion: Add
- V4L2_FMT_FLAG_DYN_RESOLUTION for VC1L
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Ming Qian <ming.qian@oss.nxp.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>, Frank
- Li	 <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 15:39:21 -0400
-In-Reply-To: <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
-References: <20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com>
-	 <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-M4XvjIAAQre3ge1Vefte"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="P2BeuqjG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DpKJk2lSFO65IpzffbjrekMzjGpTn+GcbXtm2lSbj5fQCc1Tie3JUJLe0cBR31sVRrQp/sQ6yUOfn70VVl4JmShhaFFDZnnPnFhRLGCO80cY/NowZu3kBzvuPq53nez6mKgkgMws5fTkeFrIcCQ9sNNaHCyQHwRYVdj+JvcbE+2jECS+I8EUU9ZSbA3n/dzf0SbkKMBh9Q5hUieHHbpg2cMQPqUD9hix56tjCvVTCKNRCKqe9PAInr5nfMMjBSA/Os9B5j4GLSlNj6w4gbtViV/jASlGOx96MR2mY3YqzsU2kKib2kvgXgnuDUHvo1sV9os0MoVU37Bvc/wazrlpsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wrvlkk+Az9sk63pYDUxFE8/vU4qUIFMvy25A2O9Fi5Q=;
+ b=PdjjhoOz3DdPmrOw+Z0mRqI9SxbL0L1pW7Ir+NvjdXAiWPbgdPS/BPfutyBStBdRIorNg98sycX6ugAMc3tmcZCDYlvD7zfpc8HyDMSAqKA4no/O9M7X28bsL1U2XhhJ71+0UscOS9e2yqS0bVpKFsARd63sfslsgB/ZZW9kyvZ1SEHnEc+NihxnVmjmVkb3ToIRqOoWmDRmRr3xfQBPXQWUUgVBoBCZKzUC0l8X37l/t3TNPJDFaLhA0OXUD32tq4ZC3noXJounbw3A6u1ToQxZi97qIsunEV+HG/TM41kVKfQ/iJyp6UM2EM9i1L6E5glz84fee4eGlYdUpEzc6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wrvlkk+Az9sk63pYDUxFE8/vU4qUIFMvy25A2O9Fi5Q=;
+ b=P2BeuqjGcYO4f+QZ9CrkR3bYGF0Ws/NnuhfWc236yRw8UfqL7wcOmsRFpwuulSkswNqUAV9nst/B4kyYfmEw/PLfo35xc/fbhlGVdgfn4mPb+GA9d1v9ZWCV20x3YbfcVT1n0Xl82GA5TRRHXd3+U9MLCPbbJTM4ZWSEScERiHx5/S/5SXJFcs9H5EbIE7BxAd7tz1fNACUbLECTeBi2RKBPYN9QQ7qXgFsEskfbDCoU6zIXZxJo8Hjg8Cvt6ivYUNUDPImuLbvmz0HpeV8UObPhF4+CYeElvt8uAoLvtcAu4Ztjk+bg5eb8jNf+7eU+IJ3cPA4aJPMZK0F2C7PZlg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
+ by AM9PR04MB8633.eurprd04.prod.outlook.com (2603:10a6:20b:43c::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 19:39:55 +0000
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 19:39:55 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Josua Mayer <josua@solid-run.com>
+Subject: Re: [PATCH 1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop undocumented adi,led-polarity
+Date: Mon, 28 Sep 2026 15:39:48 -0400
+Message-ID: <179062437989.2051924.7816774578871901661.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
+References: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH0P220CA0014.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:d3::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|AM9PR04MB8633:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa93179f-fd2c-4202-ad22-08df1d98457f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|23010399003|921020|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	xTEm9xE62NH/OhI0qiwKW+E2gmKhLU+vVbARVEIUQJlFabfnySClo5F+sgWeW/TuvXdYcEq5jICNAJ10yGFxv/3qTIi9cFZtU9ilALNzGHyNdXG/B+EywETGv6SZqoeQ+rntf3S+n/rmVwQ0uL3xkcznECHPMGIDkomOcuV7rDGDBR+4spBCfJYPECwtGUf8w45tPr9nAJz7DR/ZTySji8ntW2ubYDJSI12OGyMuhsLsE0M41JNUVsLpwB936RTSue7o398gWP1GHsDBOymUNZqQLiRdPmyjDvp2ef6nJKWQEFUNhKcV2Jkqg711x9kG2rwWQkEdPjeOsgALKsAxABqUIhsxLAST2TVuQAwvBq67B2McNFdO2PDW4KN5XLXmWMNA+6thg8QZy86fQW/jeUc0M6dq0NA7ewVFASkM3ifuWse2F3S2wHSJQlZ4nd5pXgRcFaLxqszEl+4/BuSF1RHULlWZ5vuE14FA3c/ITPdy1YH2HGoJP/0DtAxrEcArl/GTQ2+RuBrnHCN9sGQBuCHtGx+SSTG+V9gB2WNrUqR0fkyXcSrz2PFRh3eT7kxYo9NJ0h8ZLZKxpaAaY7zr2ZmFzrHezbqHxXcbuEkGLHahk+IRp+yz4jdZSyXGrc5uni4Xs7QXSPtomIYKPmV/J5I7uvMo+dfurr/4t6R9byQ9cnyiyYlZLXtVH7WV1Qp9Cb1BSfT8hXIgvjmOVUOKCQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(23010399003)(921020)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YVc5cEJDK2loNENNRC9YOHcxMVdoNk95djNHcU9kTnkwUlF2TFNacXJQbUdn?=
+ =?utf-8?B?blVpUEtSV3p1eDJ2Tm1BdDlnL3hLQUxoVnB2VUI2cnkwVlJFd0hCL1Zvc1Ja?=
+ =?utf-8?B?TVFGd1oreFd2cDZ3UHdRekxtd3ZSQ3pJaDlkcHhCazNsK0U2Sk1qTC95VE1U?=
+ =?utf-8?B?dTA3cXp6bkFpOU1WeG1PWEllRHVFRnl1ZElrRFhJU04zaklmeUphbHJWaUgr?=
+ =?utf-8?B?VTJYUEFFSVE4aDZQdS9EUGg0ZVo5S0VqQUFFZGpLRHI0VWsyYjh1bHVScmRj?=
+ =?utf-8?B?eVlaVFBZVTgrUUpaUllnc05pRjRWOG1PcysyQ1lqL3JXUE1DOG1tSmpuc1px?=
+ =?utf-8?B?eGZLcnFVeFZvQncwOXBsYVI3L01EUVAxNnFNQjlabzRtc0laK0FtS1ZVdFl0?=
+ =?utf-8?B?Uk92KzdKUGwveGk3Y3BaNTNoTjFiQVNnTGFNWVV1S25Fb0NkZlFIdEU4cUdN?=
+ =?utf-8?B?MGh6WGZuRWJmY1RJM1dYUS91R0VEdkFBeEoxRGN2b09hd2tMNVUvTjZWWHM5?=
+ =?utf-8?B?ek5nSUpkWE9GRmoxeWd2MUtNT1FzRWZWZDBPbTcrZWI5V0hsNEFaVExrOEs3?=
+ =?utf-8?B?ekppaVZJVWw4RllJekk0QXhaREJTaEovYW1STmpXcWE4R3ljMmZEa1FMS3k1?=
+ =?utf-8?B?SzAyVDV6TEtmQWtxMVM0QVV5RDZOT01ZNml3UG5WTDZsT2lBQ1NqdmNSbUxU?=
+ =?utf-8?B?Vm1QVkMzeUFlT2lBODJQSWxGeUlhcVFvaGhJUzhXK0ZnS2F1WXozcWIweEVJ?=
+ =?utf-8?B?YlplUHM4MU9Bc1h4NnQrdVFvbFBPQTUraTVCaFhWZ1FqckJaRDlwL3hSRmlF?=
+ =?utf-8?B?blBzRmZqWkNHWmNwQktUV01kaVBHeGFnaUxRUXd5V3BLRXhKWGV6eHRBRDFp?=
+ =?utf-8?B?bitHSHk2MisvbUpmYzQ2bTlHdG9rMVNvaE5mYm5udisyZldJK3JqdHpCcDRo?=
+ =?utf-8?B?dmYrWW8zRXpLVkF6a2VVdGdTUGpxYTA1WGIwM1RmdFprYnU0TGFQRDZMT1Jq?=
+ =?utf-8?B?VlJHNkw1OWpyUDd2aUJ6QjVyRjMyS2ZFTFB0U09Oa1k1Yjd0amRFMjZZbTA4?=
+ =?utf-8?B?cWNVY3g0enE2MU52R25xLzdwa2Y5SFpuZTBMYWdhMlIwaUZyMlY2V0NONTNV?=
+ =?utf-8?B?MC82U2xFNnpPckZEbHVoVDhQVVhsTUlMT0hJNXdSL29rVzM1Qm81YUJibTdM?=
+ =?utf-8?B?Q1pnZW5DUDFkanhGY2R1eTgycHFtUG5JeDJvSjQrdUdnaENmQ0pyeVlEQ2NK?=
+ =?utf-8?B?NUZjVGl3Y3lGcENISUc1eXk3d1RwdTRaUlRtaFNSUFd6ZUtGN3FkMGU0aGZ6?=
+ =?utf-8?B?bjhKWnFLbFF0R04xd0FMNEYwSEVsK1RWSm5IVkRoUklCQXFmc0YyMjFYak54?=
+ =?utf-8?B?ZzA4UHpmQ2Z6c0ErOEwvTnRGbldPN2s0K0hlb3lIZkZaRFg2VkVoZHRnQXh2?=
+ =?utf-8?B?UjZMK2duMXBJVzRyckRvN1gwZjdhVVFBTWg2VlNkYWtxSkVKdVJwbEpaQWda?=
+ =?utf-8?B?VlE1L293SVF6WlhES3YvZW8va3N6U25EbHM2WFNoL2szeDc2V2hBZ0RyR1hO?=
+ =?utf-8?B?RFE3S3RpenlWTnhXUS95RVZwM2kxN09FQUtacTVQU2hhc2FDSi9mdWJHV0Qw?=
+ =?utf-8?B?ZXRQYnZEaEo0Q21QTVl4MnpMWlh6dVBRNlVVN1NGSFl2ZFdUTUFYOUFoV2Rn?=
+ =?utf-8?B?QnZPQTIwQVRSQ1l6Yml3QVBoYjRvNDVYaHJyR3d0djVnL0NDdk5xMXM3MktP?=
+ =?utf-8?B?TEhwQmR2U3lUeGZDS3ZJUzNiakozNktEMkQrdXIwMlRub09tZXFJYm9pYTFB?=
+ =?utf-8?B?TUVEZ0xHMElSVWx2TnV1eHdyTloxRkRrTW1mNVRaTW5MbUZZQVRZMmJLa2tE?=
+ =?utf-8?B?UCtMaVdNclhOSllMNGpVNEhZK3dtVnRTOUJ0d2lYdDcwcG9YSEtIU2g4NXkr?=
+ =?utf-8?B?SU81dThJWklkTVRaWTZVZDZPNVkzMjRrek9ibWtCNjVUeDFGcC9vckpKU1Bu?=
+ =?utf-8?B?M0dxMy9YbDlMczBIODR0TkhUTVhKYXdZZUlaMDJqYkVSTHRsbE5RRkl3SlNu?=
+ =?utf-8?B?c1hkZzBWaWg5K3lWb21Mb3o3cmozWFFoWXhmZlhnMjJiNnZpTW9zU1RHKzB5?=
+ =?utf-8?B?ZCtZNHVyQTJZVlFtcVAzSG5XeExpeEt5R0FtQldSZTZYUmVhNzRkQ2h1UmpU?=
+ =?utf-8?B?dFJ4end0eGJUN09vSE9OWlErUVBLRG9KSnRIcUtKdHdaWkRoWnI1T3hEQ1A2?=
+ =?utf-8?B?TFNGMkpBSVA0aGloQ0MwQnZkN1oxdmV1UmxGOVVOak42bHV1Q3VGSlMzUmFo?=
+ =?utf-8?B?dFRWRW5la241SjJxUGF2Ulh3RmtBL1U0TFZnbXFiQnVsaVdRVjVHcHJlSHhL?=
+ =?utf-8?Q?jV2FG0g2UjMHXbCa0P4lU/OoxlH/TkVIxFxEt?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa93179f-fd2c-4202-ad22-08df1d98457f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 19:39:55.7050
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f2nVN1kXFmDgGtyM5k8a8aT3IS/444kfNU9ggSRFLhdcMnSTWvor4xM9rbNSBZ55UkRfgQnAMD5xSn05TfnBNxsrNpAosmH/vDaaxB6BCKWtjbSo2VFJtQXSCsVNM/HM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8633
+
+From: Frank Li <Frank.Li@nxp.com>
 
 
---=-M4XvjIAAQre3ge1Vefte
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, 23 Sep 2026 17:13:11 -0400, Frank.Li@oss.nxp.com wrote:
+> Drop undocument property adi,led-polarity and adi,link-st-polarity.
+> ethernet-phy@0 status is disabled and no in tree overlay file to enable it.
+> 
+> Fixed below DTB_CHECK warnings:
+>   arch/arm64/boot/dts/freescale/imx8mn-solidsense-n8-compact.dtb: ethernet-phy@0: adi,led-polarity: b'\x00\x00\x00\x01' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+> 
+> 
+> [...]
 
-Hi,
+Applied, thanks!
 
-Le lundi 08 juin 2026 =C3=A0 12:56 +0900, Ming Qian a =C3=A9crit=C2=A0:
-> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
-> event after parsing the resolution from the stream header for VC1 Annex
-> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
-> GStreamer) cannot determine that the driver will signal the initial
-> resolution, causing it to skip waiting for the event and fail to set up
-> the CAPTURE queue properly.
->=20
-> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
-> indicate that the decoder will emit the source change event during
-> initialization, consistent with other coded formats supported by this
-> driver.
->=20
-> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence star=
-tcode for vc1l format")
-> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+[1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop undocumented adi,led-polarity
+      commit: fbbb3324b517f7cc59d424bbb90266cc1b13943d
 
-
-Can you send a non RFC version of this.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
->  drivers/media/platform/amphion/vdec.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platfo=
-rm/amphion/vdec.c
-> index a9f0521f2e1a..75808482d090 100644
-> --- a/drivers/media/platform/amphion/vdec.c
-> +++ b/drivers/media/platform/amphion/vdec.c
-> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] =3D {
->  		.mem_planes =3D 1,
->  		.comp_planes =3D 1,
->  		.type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
-> -		.flags =3D V4L2_FMT_FLAG_COMPRESSED
-> +		.flags =3D V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
->  	},
->  	{
->  		.pixfmt =3D V4L2_PIX_FMT_MPEG2,
-
---=-M4XvjIAAQre3ge1Vefte
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrCaQAKCRDZQZRRKWBy
-9CYCAPsFveAaWChcZQDCXyLHHs+vulfT1yzF5GrpP/nbumEvAwD+PIpjMxcHbLmi
-mmV7vNw7LQoqmoTk7u/pflIvWwXjfwk=
-=8PXW
------END PGP SIGNATURE-----
-
---=-M4XvjIAAQre3ge1Vefte--
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
