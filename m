@@ -1,28 +1,28 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011064.outbound.protection.outlook.com [52.101.57.64])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011023.outbound.protection.outlook.com [40.93.194.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B192F3C10AB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83D23C10AB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591471; cv=fail; b=RVQdYMD7fm72boBlcIs2LFl/Mh6pIRu5aKfIBw5EC/nQ4nBUcO7Vcwj3nFpo5hxmEcGzhFgaWh9vutIO2cEBYY3opwVKbE7Sg7hhD2R7U/nik8dRFXMM3jzpC2WEJ2w7+EJ+euuxDxG1pmrSRLAgx3VDxl2/lz/qD+t/V1aClQ4=
+	t=1790591480; cv=fail; b=ga88Tw7blSH/eE0Vo326nOcwfMY4YPEm+TOu29qpPBe2xyHrKdDH+rY98xjYFHN/3DzuOtfUw8E7RIx0QQ2AFKrNGgvgFAaV8U8OAQLT7HhJFyZPvJBNhyzhj3qRwWY5v+D9WFmEyAmUscSrrbcOFX9isrlqdgm9TdKKdMygq68=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591471; c=relaxed/simple;
-	bh=zsdJEkYkBQRUpOEJytJabNO0HG3ll98yeut16OVMxRQ=;
+	s=arc-20240116; t=1790591480; c=relaxed/simple;
+	bh=aF2L/7TZRD620MqGYxi6nydePm24Jhhns/xELnDi2dU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ol6Nq02dRFpOnsQYbxy1HHbKoQyWxNdVtiPuBR4I5SiHFFpapy31dr7wTDNrjnNoDLgQyddxbLf4wUmEc01ropiV3ej7TpGGq91aAu5Y2kqC0/7FlV/MwFQ6K8VR9r77hfqLnZ2JjO/Mt/RO3YDx7I+h73kVmi6spyWsgG0Jc+c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TZk1ct0c; arc=fail smtp.client-ip=52.101.57.64
+	 MIME-Version:Content-Type; b=UczmtE0Q9+Fw1zXfVX3gi3dbxebGGXLZegx4kcvRAt5y9HXGZKDL7/As8pKCrvTs4+m/ZEkQT8Vn4r9/cT/XmvWBLAojo8I+xdjMA3CPkNOrGesj05WEXXiFTb2j8u50FcSvuMp0TQzxd1N3XIlZBPHmQYZB6rCeZJAE3voGwcI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VdD1YthC; arc=fail smtp.client-ip=40.93.194.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TZk1ct0c"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VdD1YthC"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rF58SV37YbnG0HC7IOnKWbKe1ixd7PWcAD2OhOMMSxAM6cSZupX2FwrzqBnftHvaUOiQR4twpu3qk1xN3nEsxzisa8Q4+djW80jda/TgboFtLgQjGbJI8DhcpYjGA5tRkYaTQdCZvs5mFsSM1W7UFsA8UHXOlaO81b4EBzsBy8AUXIPzI7JfP+CiGNIZ5wCyqjhpkZczq2ZOlg7zu6PIhjkpJ4QbmYnfObU497Lhwk9dt8sAI/haJqYoYjQaidAYl/zxwX1mxaqxj1/eVxooOxd8pwyTsDrp6waYuoDiJ9Hpy0ZNwKjMbge9YANqbhET2Myais5m1bHZcRWpF7MIHw==
+ b=nxmUWbAzdhTEKHqO/WH2YDTgsRJ8mIs3nwQARGPZN9cs8LbXoBoimZ28QWRSIrpaY9HcXMhknGApZuNTSahsJ6z4DdRrbuoHGCHLH4dWyXcunJAO6FGaoIwEutbItCWKJCP9wRuV5VjR0UZkZR8Dj5XtxDvuy0TJNKh125LX7ESQlEY+wbWzBwL6tTkwGvt2ruABxVkF6yOOS1w80nd3nQoUqxynzpv4KVCqWVxr3Q6ipDwokMRkBQtuou68H+d8btrfdbwVIBN8gbZ+BYdLFb6O6Av1LEcZ5kM46nxGKGqPG4r7dW7cgiDeBMse6n1K3j7PF+U1C3sZWmctwdZV1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XiJed/SfiNfFFnCKYiiV797XbfjlfPeM9XTzioRY8Bs=;
- b=UypPIy7aj9J7Unsoz6ROLL26iJ8NSqYt17eQYmjMhMbiMGiTLxpUnBGMOuVgvxioyMBUCC3nlBQAuFOvb1qCTIdE2Qjx1yAohjobwKEeWjIaXH7wjcfhErSWXerEnPOCelX9FwiWKtgyabSN9JNoBqJQMXYAuhkmAg9K5S13o/AjmMQKSH27OnDxw2UUOo09IpQdvBGxRsXXZRxX5TW2MAvZuJPCfeK6YuKul70TncAml34dP8dVORI08GSY9wwzK9EmUwYSoXeWamNl4QlKgQcbK0cWbLTnhJ7Fdc/M/zaf+71ttNSLzyj3wW3kHZFvIdOwzGSwQ14cu5C2G/9mag==
+ bh=uK0janomBS4FDi2NSVODdZmbtMIEOcYHuBGwhyozNlA=;
+ b=fkHpOjoQ2eyV+fD4inpcjS+1XZDWAs6P5elFyJpYldLxgnNbIOMuhLRSNf2zwX7YIrIEymmqK6LZcTPP5D6dLgukkh+fTYscAw9lV/8GCR4wc6pGhF+Pl2zBmOy+IhuFH/GZ6NLQL3tfCvkGKs7BH2zr1FTx2T/Cj7wDic6BrHU6MG7ZAMmKPXs9binuzPyz4hYH4oFSjMSnrTbHg/55aE9PtiO1nNcdG5TaH0+HzyIarmXwJua/KtldSBa7CdjvYqK3eJp+s50AvLs0HSVzV0gtb7/ldQH/G7FuwWTMp0Frs2VJh2Mym+Gz6DsjrV/pExjU0iz025+hDhzDJubTWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XiJed/SfiNfFFnCKYiiV797XbfjlfPeM9XTzioRY8Bs=;
- b=TZk1ct0cb6F+flR2331mMtKCYn/xMWGbLZEpKnUGLDhfxhu+YfxqgrwccLv00CWc1bJLJLlzs8MDbL6hMxNyXR01/8SaAGxrOqfvAsEO41j5mIkHbgppL8M5AEyBJDJOvvB7p4IsTEDQiXoJehbH+0N7WhlA59Rx7TqFsHp4LVnxsGn0sHMCar9s4TuWh/mGUKGfyArggdqdOg/iINVMolDQMhqJq5NbM6WYs+a1Hfvvexe2QcHVW7xQvQ6FcsICHLzCeIfrHuPyJrL2I51mGIzCRQwAX+arp286BosizJrwKm601q1jVw+PLBksI98vm6eXQHSb+2oOpdcxXPXRjw==
-Received: from BY1P220CA0047.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::9)
- by MW6PR12MB9018.namprd12.prod.outlook.com (2603:10b6:303:241::6) with
+ bh=uK0janomBS4FDi2NSVODdZmbtMIEOcYHuBGwhyozNlA=;
+ b=VdD1YthCi+VnCttPMOusYyq0EDXe8QxoBqUfBpohAa2fUfIwlN5BeW+fV1GJBmCJQUbflsWWbPwPng5gyES8Hxfwu5irVYJkQeE3KkUaFmLsb/KFVi7pbahMZoZcX26kclgbZR/utgjC6r9o1hLckORQElCMe0qbE2FBZiY8d6RgfcPmv733xjGqpEkXXtHc5S//9+6H9Wxxp9qUx20qMr8PzXYwfVEiady1uIyzfYwJCw1yOgBdxzHDZKSDctHBxUn1AsqQ+77lGo/zU3I1GKFJWACX0zWlBI42hgZJO/wtFVT3ci8jUCJUuxfwDRo7TiUWRpdp1wTCXKvuVhGZyQ==
+Received: from SJ0PR03CA0266.namprd03.prod.outlook.com (2603:10b6:a03:3a0::31)
+ by DS6PR12MB152050.namprd12.prod.outlook.com (2603:10b6:8:410::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 10:31:03 +0000
-Received: from MWH0EPF000C6193.namprd02.prod.outlook.com
- (2603:10b6:a03:59e:cafe::33) by BY1P220CA0047.outlook.office365.com
- (2603:10b6:a03:59e::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 10:31:11 +0000
+Received: from MWH0EPF000C6192.namprd02.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::50) by SJ0PR03CA0266.outlook.office365.com
+ (2603:10b6:a03:3a0::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 10:31:03 +0000
+ 28 Sep 2026 10:31:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.161 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000C6193.mail.protection.outlook.com (10.167.249.107) with Microsoft
+ MWH0EPF000C6192.mail.protection.outlook.com (10.167.249.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:31:02 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:31:10 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:30:40 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:30:49 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:30:40 -0700
+ 2026 03:30:48 -0700
 Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:30:32 -0700
+ Sep 2026 03:30:40 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH v3 13/31] gpu: nova-core: gsp: wait for GMC completion events
-Date: Mon, 28 Sep 2026 13:28:16 +0300
-Message-ID: <4f6e999f86d57cf91a6c8b146b05afaa08c189c2.1790580105.git.zhiw@nvidia.com>
+Subject: [PATCH v3 14/31] gpu: nova-core: vgpu: add r000 plugin bindings
+Date: Mon, 28 Sep 2026 13:28:17 +0300
+Message-ID: <dc6209545947c9ca01cb01cb2b4c7a43e178ad3b.1790580105.git.zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
 References: <cover.1790580105.git.zhiw@nvidia.com>
@@ -93,160 +93,229 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6193:EE_|MW6PR12MB9018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 028e9283-aa3e-43e8-949c-08df1d4b9889
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6192:EE_|DS6PR12MB152050:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ff1b039-74b4-41eb-9f02-08df1d4b9d6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|30052699003|7416014|376014|82310400026|1800799024|56012099006|10067099003|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|36860700016|82310400026|260925021311599003|3023799007|6133799003|10067099003|260925022911599003|260925021911599003|56012099006|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	mGKKopgDBVjt8zw+7ozKbx7dAoqjHuPDk578AqQQQg1iV+yzi4CQN2OqfaPylMC8HTB3GJtZJjnRA0YXDuYGYbbx0k83qd940n6rUEMwvTYDhCnSSzZP3puIgPdUuM1yCYIhoVNhskaUdc/92EG9DXw1tzXAjH/+AFwX2uIQDvOVp8Pafdt5LBG3NH3Q1CxEMl00kDguqLIPzCGVTtwrb7BeyKsAUDDnUIdZM4ZKvUO+G94gkuWM4sHO4PRrwqbKP21wFAHc9ArI44p3gxQsl1jAIqs8D8FFh38iVJGI8N4EmXtMW3S3m7B7Pm8E0K+Vo/05J+fK65q0qCJbgpCqM6uA5ZmWsNGtcW3rwFIifBQdwoDrl1kILaV7mNr/vffFXLz6sUjMy1pA8PsEi0ioH6jJoC2JiE1TS07OvWJ+mC5lijNn0vVvYvGgq9ykaDXmYUOZIvGeRpnFWgwvGhCHB9A+L22epwNpkD36I3Vyy9RUZOarccPIwq4etkkfBLQUui1GZRoDSmQxIrro1FTNYQrnAXCXjviSiOCuanZG6YBWkNADdbhCLerDiDncU7L5fcImkmj2zWtB6GqPLv2dZU1fgIz3ONs/bEOuJRdzGDxmedE465aK7gRSXho9aL4G/ghjP7Uehdm5OcLj5PKv850pAjCdqZQKAE5zI7UdCAgGrrqjcZ7TYQy5iA5dAglPlYijYRwiRJ1usaJjBqnJcQ==
+	Z2fIBzYw3qEUUbmhH8fZUNVd/WVyxCfD05DrQykZcknzb47r7+nQ88/mUk8iY9pxRaiJCXqIsaHh2MqjTByVPQLh1hIonwvXaTqTfy+t/fWqZ/vaFE4suwzsdFQJP7YSywWMlwhMecUzTn5sJdEMDbm4y1pQohfLt2cotKIxpZ78GQBeZ8TdhrOODT6ZklEVaXzVjys3lfq/b1XvfCfic/sIdvO60e+szreFGSB7at/G7qmqrWAB4MmXG2szoqjw9G6627jOBi4/1OuxnUtA8awVDN4GtQj+L9JwJD9CaXeHML2sJhCJBDlcAmDYiNfJN4BTuu31zuZcdlgX4H9adLYtYUI+ZRlfNLcaC9m3Q7FP9QdlkJqqHicJsluuOVjoD5eZEtUOePeZeMRIxrEh6YE3FCuy619nqb0Uqyj94NjXNOsddeqE4nZ8S+u0P7/cr1LLLKbP+Nt2bdBa7dUDcNe0q4b04/CKe1gmeyjx3tZlno7bgptPGu4/MYDywX+3Db9yjbOjJqU07ENd7s6vML9JKMmwhS2lKRzEOe4sCrx1Pw/LfAv5+0vJiDfMUBUyMYHC2iZr1InZxmiXEAO+EHUW+UwGJ9eaHh9R2SKLxkH560u8Jneq7+YA3e9ERWVJAp3n+MJYsabZvhVTRLgqnAZ+C8iH+M+bIa+pqz2J49TnphHHA+jiscXSw3Bds33heN9WHpPNGtnrnHUE9BwHpw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(30052699003)(7416014)(376014)(82310400026)(1800799024)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(36860700016)(82310400026)(260925021311599003)(3023799007)(6133799003)(10067099003)(260925022911599003)(260925021911599003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	FlYFtM+dytlug8PO45Owt7GcDL6TvGZJJMaEUzUhrNESckJGJ7n53PLWUiAkY7H03huLmmLBI+0UwfqEzoLKaCq4ZBomxJBCOJIanVVFvGNQ4iEAwd+0CJg9wcV5sys/2V32X2pOtgM3U7JbdB/JksILyYGsAHoTe2SWeXnMpPPPu/B90HGAmR6p+8gAhSoa6jRTqtYWzh1l/wNFg+lZJSgP/+uTqP/nMSIR+dFoYfzAoW+iHDMnPRyf3vv9OfaFCOqalEV1dbMw1Ny62Y57EYB9IlffOjKzKAgWHm7yeXLkNF3NJy0pe1mbcmeL799QbuFvoF8bfCVNW14DdZAohUyJRvZaBQUmCD9zd69mmzKS+hjolYWV9ai/0hX/Pm3TeFKyxEX9UvVQWwaA+AK1lhSTiyy5lflzVIIvaOy/TtrNMT7pfTC8FspjNJxIodXE
+	EEDPH75rZV5TVRDfC3KoPsadE+fqHCP9imcyswCLjpn5Yg7/WGN1AuF1IN/2tpPjy5m00UEwrWz2KEYHVY8niqeFDIevOrUk+xmnYXjr7LaLx3fEBKYWiKHzgwJRS7f0YYeduEdCIGOpJn9soo+did45c5Q9cJ8zHsS8bpBvwC4TlhGvu4KLxcDzL1AhkTju8FuTO5wmdAziwb0tNXbc5/l+6iZ0eXziTpzg3T/FNFFAT7blbr+ZYXRFeg2lIUDre9VNvL/3lOQDZYdzsrC5TDZYQsagoIxexyzEfFYXBTEgGj78jiVs0O8jvn0bYymthOs8Hsk1KeEIjsstx6XW5Rn1QHsKDuS3/lNvhijy6W4a0mCTqipREy3yK/DBEUh0CkZbJwwsC/LbGNCWCy1jD8X38VNM53Y500c1U6AiydHoBRB2mcVHv7yT988ZilwN
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:31:02.7864
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:31:10.9955
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 028e9283-aa3e-43e8-949c-08df1d4b9889
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ff1b039-74b4-41eb-9f02-08df1d4b9d6e
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6193.namprd02.prod.outlook.com
+	MWH0EPF000C6192.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9018
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB152050
 
-GSP plugin shutdown completes through a separate event carrying the
-GFID. Releasing the queue guard after sending would let another receiver
-consume that completion.
+The GSP plugin communication area and RPC protocol are defined by the r000
+firmware interface. Keeping local copies of that ABI risks letting the vGPU
+manager drift from the firmware layout.
 
-Keep the guard from sending through the matching event and use the
-shared Inner receive deadline. Offer GMC events to the completion
-predicate, pass unmatched events to the caller's handler, and consume
-interleaved responses and RPC messages. Represent completion with a
-value and all continuing cases with None.
+Extend the existing r000 binding set with the nova-core subset of
+dev_vgpu_gsp_shared.h. The bindings expose the control and response
+region types, message IDs, and firmware-defined region sizes. Keep the
+raw declarations private and expose only the symbols needed by the GSP
+plugin communication layer.
 
-Propagate callback errors after consuming the current valid element.
-Document callback non-reentrancy and that the receive timeout starts
-after sending, excluding mutex acquisition and command-queue space
-waits.
-
-Co-developed-by: Alok Kumar <alkumar@nvidia.com>
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- Documentation/gpu/nova/core/interrupts.rst |  6 ++-
- drivers/gpu/nova-core/gsp/cmdq.rs          | 55 ++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw.rs            |  7 +++
- 3 files changed, 66 insertions(+), 2 deletions(-)
+ .../gpu/nova-core/gsp/fw/r000_00/bindings.rs  | 173 ++++++++++++++++++
+ 1 file changed, 173 insertions(+)
 
-diff --git a/Documentation/gpu/nova/core/interrupts.rst b/Documentation/gpu/nova/core/interrupts.rst
-index 45ba788bfe27..f78b1294905b 100644
---- a/Documentation/gpu/nova/core/interrupts.rst
-+++ b/Documentation/gpu/nova/core/interrupts.rst
-@@ -578,7 +578,8 @@ command reply or an unsolicited event, and the two differ in the function code.
-   arrival with its sequence number, function code, and length.
- * A GMC message carries a command id in place of a function code. The
-   ``GSP_INIT`` wait and synchronous GMC transactions claim responses with the
--  expected command id and sequence number. These waits consume interleaved RPC
-+  expected command id and sequence number. A GMC completion-event wait uses its
-+  caller's predicate to select an event. These waits consume interleaved RPC
-   messages as events. Unmatched GMC messages are handled by the wait's callback
-   or logged and consumed; a queue drain with no waiting caller logs them at
-   warning level and drops them.
-@@ -605,7 +606,8 @@ mutex. Replies and events share one queue and one read pointer, so one lock is
- held across the whole drain. A thread waiting for a reply logs each event that
- arrives before the reply and keeps waiting. One receive deadline applies to the
- whole wait, rather than a fresh timeout after each message. The default timeout
--is 5 seconds; GMC transactions can specify another timeout. For send-and-wait operations the receive deadline starts after sending,
-+is 5 seconds; GMC transactions and completion-event waits can specify another
-+timeout. For send-and-wait operations the receive deadline starts after sending,
- so it does not bound waiting for the mutex or for command-queue space. The thread
- holds the mutex from sending through receiving, so no other caller consumes the
- message it waits for.
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index df3d45a13a13..43038c7fe823 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -791,6 +791,61 @@ pub(crate) fn send_gmc_and_receive_timeout(
-         })
-     }
+diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
+index fa17d3e2edf6..3cc718bb2ab8 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
  
-+    /// Sends an asynchronous GMC command and waits atomically for its event.
-+    ///
-+    /// The command queue remains locked from the send through the matching
-+    /// event, preventing another transaction from consuming its completion.
-+    /// GMC events are passed to `predicate`, then to `handler` if the predicate returns false.
-+    /// GMC responses are debug-logged and consumed without invoking either callback. Interleaved
-+    /// RPC messages are logged as events and consumed.
-+    ///
-+    /// One receive deadline starts after sending and is not extended by other messages. It does
-+    /// not bound waiting for the mutex or for space to send the request.
-+    ///
-+    /// Both callbacks run with the queue locked and must not reenter this queue or reset it.
-+    /// Their second argument is the raw `max_resp_or_status` word of the event header.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EMSGSIZE` if the request exceeds the command queue's maximum element size.
-+    /// - `ETIMEDOUT` if space does not become available to send the request, or if no event
-+    ///   satisfies `predicate` before the receive deadline.
-+    /// - `EIO` if the command queue slot cannot hold the request headers, the receive queue is
-+    ///   poisoned, or a received element fails framing validation.
-+    ///
-+    /// Errors from initializing the request headers and from either callback are propagated
-+    /// as-is. The current valid element is consumed before a callback error is returned.
-+    #[expect(dead_code)]
-+    pub(crate) fn send_gmc_and_wait_event(
-+        &self,
-+        command_id: u32,
-+        payload: &[u8],
-+        timeout: Delta,
-+        mut predicate: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result<bool>,
-+        mut handler: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result,
-+    ) -> Result {
-+        let mut inner = self.inner.lock();
-+        inner.send_gmc(command_id, payload, 0)?;
-+        let deadline = Instant::<Monotonic>::now() + timeout;
-+
-+        inner.await_gmc(deadline, |header, payload_0, payload_1| {
-+            let header = &header.gmc;
-+            if header.is_response() {
-+                return Ok(None);
-+            }
-+
-+            let command = header.command_id();
-+            let max_resp_or_status = header.raw_status_word();
-+            let sequence = header.sequence;
-+            if predicate(command, max_resp_or_status, sequence, payload_0, payload_1)? {
-+                return Ok(Some(()));
-+            }
-+
-+            handler(command, max_resp_or_status, sequence, payload_0, payload_1)?;
-+            Ok(None)
-+        })
-+    }
-+
-     /// Sends a GMC API request that GSP-RM does not answer.
-     ///
-     /// # Errors
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 71732418e7a5..a416826737bb 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -802,6 +802,13 @@ pub(crate) fn sequence_number(&self) -> u64 {
-         self.sequence & !GMC_EVENT_SEQUENCE_BASE
+ #[repr(C)]
+ #[derive(Default)]
+@@ -850,3 +851,175 @@ fn default() -> Self {
+         }
      }
- 
-+    /// Returns the raw `max_resp_or_status` word carried by a GMC header.
-+    ///
-+    /// Its meaning for an event is defined by that event's command.
-+    pub(crate) fn raw_status_word(&self) -> u32 {
-+        self.max_resp_or_status
+ }
++pub const GSP_PLUGIN_BOOTLOADED: u32 = 1315261039;
++pub const VGPU_CPU_GSP_CTRL_BUFF_VERSION: u32 = 2;
++pub const VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE: u32 = 2097152;
++pub const VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE: u32 = 4096;
++pub const VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE: u32 = 131072;
++pub const VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE: u32 = 262144;
++pub const VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE: u32 = 65536;
++pub const VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE: u32 = 65536;
++pub const VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE: u32 = 2637824;
++pub type VGPU_CPU_GSP_BOOL = u32_;
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_VGX_VERSION {
++    pub major_number: u32_,
++    pub minor_number: u32_,
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_GUEST_INFO {
++    pub vgx_version: VGPU_CPU_GSP_VGX_VERSION,
++    pub guest_driver_version_buffer_length: u32_,
++    pub guest_version_buffer_length: u32_,
++    pub guest_title_buffer_length: u32_,
++    pub guest_changelist_number: u32_,
++    pub guest_driver_version_buffer: [ffi::c_char; 256usize],
++    pub guest_version_buffer: [ffi::c_char; 256usize],
++    pub guest_title_buffer: [ffi::c_char; 256usize],
++    pub guest_branch_buffer: [ffi::c_char; 256usize],
++}
++impl Default for VGPU_CPU_GSP_GUEST_INFO {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
 +    }
-+
-     /// Returns the `NV_STATUS` that a response carries.
-     ///
-     /// The value is meaningful only when [`Self::is_response`] is `true`. In a request, the same
++}
++#[repr(C)]
++#[derive(Copy, Clone, MaybeZeroable)]
++pub union VGPU_CPU_GSP_CTRL_BUFF_REGION {
++    pub buf: [u8_; 4096usize],
++    pub __bindgen_anon_1: VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1,
++}
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1 {
++    pub version: u32_,
++    pub message_type: u32_,
++    pub message_seq_num: u32_,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub response_buff_offset: u64_,
++    pub message_buff_offset: u64_,
++    pub migration_buff_offset: u64_,
++    pub error_buff_offset: u64_,
++    pub guest_rpc_trace_buff_offset: u64_,
++    pub migration_buf_cpu_access_offset: u32_,
++    pub is_migration_in_progress: u8_,
++    pub __bindgen_padding_1: [u8; 3usize],
++    pub error_buff_cpu_get_idx: u32_,
++    pub guest_rpc_trace_buff_cpu_get_idx: u32_,
++    pub attached_vgpu_count: u32_,
++    pub is_gr_init_done: u8_,
++    pub __bindgen_padding_2: [u8; 3usize],
++    pub host_info: [VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1__bindgen_ty_1; 16usize],
++}
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_CTRL_BUFF_REGION__bindgen_ty_1__bindgen_ty_1 {
++    pub vgpu_type_id: u32_,
++    pub host_gpu_pci_id: u32_,
++    pub pci_dev_id: u32_,
++    pub vgpu_uuid: [u8_; 16usize],
++}
++impl Default for VGPU_CPU_GSP_CTRL_BUFF_REGION {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION: MESSAGE = 1;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT: MESSAGE = 2;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET: MESSAGE = 3;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_STOP_WORK: MESSAGE = 4;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_CANCEL_STOP: MESSAGE = 5;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_SAVE_STATE: MESSAGE = 6;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_CANCEL_SAVE: MESSAGE = 7;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESTORE_STATE: MESSAGE = 8;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESTORE_DEFERRED_STATE: MESSAGE = 9;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MIGRATION_RESUME_WORK: MESSAGE = 10;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_CONSOLE_VNC_STATE: MESSAGE = 11;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_VF_BAR0_REG_ACCESS: MESSAGE = 12;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_UPDATE_BME_STATE: MESSAGE = 13;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET_MIGRATION_BUFFER_PTR: MESSAGE = 14;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_RELEASE_CLIENT_DATABASE: MESSAGE = 15;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_CHECK_IS_ALIVE: MESSAGE = 16;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_SEND_STATIC_INFO: MESSAGE = 17;
++pub const MESSAGE_NV_VGPU_CPU_RPC_MSG_MAX: MESSAGE = 18;
++pub type MESSAGE = ffi::c_uint;
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_DISPLAYLESS_SURFACE {
++    pub sequence_update_start: u64_,
++    pub sequence_update_end: u64_,
++    pub effective_fb_page_size: u32_,
++    pub rect_width: u32_,
++    pub rect_height: u32_,
++    pub surface_width: u32_,
++    pub surface_height: u32_,
++    pub surface_size: u32_,
++    pub surface_offset: u32_,
++    pub surface_format: u32_,
++    pub surface_kind: u32_,
++    pub surface_pitch: u32_,
++    pub surface_type: u32_,
++    pub surface_block_height: u8_,
++    pub __bindgen_padding_0: [u8; 3usize],
++    pub is_blanking_enabled: VGPU_CPU_GSP_BOOL,
++    pub is_flip_pending: VGPU_CPU_GSP_BOOL,
++    pub is_free_pending: VGPU_CPU_GSP_BOOL,
++    pub is_memory_blocklinear: VGPU_CPU_GSP_BOOL,
++}
++#[repr(C)]
++#[derive(Copy, Clone, MaybeZeroable)]
++pub union VGPU_CPU_GSP_RESPONSE_BUFF_REGION {
++    pub buf: [u8_; 4096usize],
++    pub __bindgen_anon_1: VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1,
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1 {
++    pub message_seq_num_received: u32_,
++    pub message_seq_num_processed: u32_,
++    pub result_code: u32_,
++    pub guest_rpc_version: u32_,
++    pub migration_buf_gsp_access_offset: u32_,
++    pub migration_state_save_complete: u32_,
++    pub is_migration_allowed: VGPU_CPU_GSP_BOOL,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub surface: [VGPU_CPU_GSP_DISPLAYLESS_SURFACE; 4usize],
++    pub error_buff_gsp_put_idx: u32_,
++    pub grid_license_state: u32_,
++    pub guest_os_type: u32_,
++    pub frl_config: u32_,
++    pub guest_info: VGPU_CPU_GSP_GUEST_INFO,
++    pub is_guest_info_populated: VGPU_CPU_GSP_BOOL,
++    pub guest_rpc_trace_buff_gsp_put_idx: u32_,
++}
++impl Default for VGPU_CPU_GSP_RESPONSE_BUFF_REGION__bindgen_ty_1 {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++impl Default for VGPU_CPU_GSP_RESPONSE_BUFF_REGION {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
