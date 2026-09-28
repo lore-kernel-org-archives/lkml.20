@@ -1,69 +1,98 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE87B374A14;
-	Mon, 28 Sep 2026 06:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB33370AE0;
+	Mon, 28 Sep 2026 06:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576741; cv=none; b=IEpy/E3p8GQu64CLExlo3BwehRJEYDctkhEMRPHvhsv1otelUOqRRam9tQigfWYoP0n4wQL1QZLrG1d1Umv5QAy+f5U5jWByLaFhFbVCuEUXUoZdAgV296KKqspDPpwErDUfWlRxFsmXywbM5hptPToBOyGqsaumhDgY4zDjVPA=
+	t=1790576798; cv=none; b=HyMlYyXNeRs33p0qtL0coPPH8mcIZujgc2h8FNWF3j/pgPklFu/QW5GG72ZZYfUpSxApt8bqbrSSZLk+sOpdj/wx74FS2ryyX0+/Jqu44bIkU4eu9l4NNZZ0A0gdbVVvVXEFibdt+W38QxFocpc7+GWG9QumSjU+Ze9cC4IZYTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576741; c=relaxed/simple;
-	bh=yK8SkxVrTjAHp9UslPmSuszj7WECzvfTU7WphPliP2M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CEiCfdh6+365mGea65VtgjJniiwbDXn5G8wUM6ih/xvg6jAnHzCvonurCiOj4Ehy87wZu0/CZtQC0SWJhg+Elgyz9o/4bWjZQFKpEmbe2EUgujiwkyLfqnYapJQpTZFpmfnZgR9Wae45xQLIQ1oKpsYDl9NILuoKmCpxq3ym6sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=TTjoskBw; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790576798; c=relaxed/simple;
+	bh=danY1/3QYgjgXRAkhsnU84WXE6Unw+o2tWh5stmxuMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fjw17PQVay7g/0AirPdapGF8jUDCfqKYMJyNggPrA/gq/fRqluLRWtRfAqm5Iyi9mdOT4sYmy6J8Trj6ceMFjN4GLXXd2H126/fcTfeoSSnW/Wn1htK7uPGOIE1N0LKPwHCPn+zrYMo6QwfFC0h9v6ZP4XMiCcIqOl6mcEMwPIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9SasWgG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="TTjoskBw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=yK8SkxVrTjAHp9UslPmSuszj7WECzvfTU7WphPliP2M=;
-	t=1790576738; x=1791786338; b=TTjoskBwSYcAVZQVTxORHFfSqtiJ040BmZ06NhO4+Rq1owf
-	MhaPa5aYde1DXSXTbk1x5VmzVxcMiDg6LMrxa5DZ6y8Z1pq9/ungc2Yix9R+OkOsQD348AUmP5Bqu
-	dzK9ePbHsFX2ysNjzQdXYijAt4pG71tpxtQWUO8HlgDo7CNhIdSoM2Sxz7v5FoIqSvzowkg9OrO9w
-	Qe3dimUVxpxY7KNabrJdrGRLvel0Z3as0kfzyTTAZ1ygza7pK/yR9UC2l8fJVOADnzxiPhf59d9fG
-	ftRz9+/6rJI24dZ6Ulsovj8hx26OGU1G+TzJ1UInJnIX1//qMmDpCPQmMoh5xlsQ==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xB4no-0000000DHx1-3fEl;
-	Mon, 28 Sep 2026 08:25:29 +0200
-Message-ID: <2e378b6615ef4022a62989f6501018e689e5993a.camel@sipsolutions.net>
-Subject: Re: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>, Michael
- Straube <straube.linux@gmail.com>,  Peter Robinson <pbrobinson@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Date: Mon, 28 Sep 2026 08:25:27 +0200
-In-Reply-To: <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
-	 <20260921154347.82317-4-luka.gejak@linux.dev>
-	 <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
-	 <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
-	 <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9SasWgG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9541F00893;
+	Mon, 28 Sep 2026 06:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790576796;
+	bh=qOioi9o3R1Ts8psFnPK7TSix7Udz0DSZGiarerXWJ6U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q9SasWgGM9salqUrT59EZ/UZxa9kJcGh8XMCesLqZ73V8/gLZ147WEukiY/jcWggu
+	 /QX4u7MI3v1uO1fIPKWsCDrzlXag/C4SoBuSpqX6Qh3mVry/JoGHNraazcYDXQIm3i
+	 SmwfsNyIxy4seZKSKcJB6CLPR4JOarqzxj7uzG5gbIdGkqJEVBRFwZxqJlCJaDqkhB
+	 AMs9bEGMPDhmBbHcwH84PzWm79GQ/wsa+Hs+VjOSVGUYxAB0hzonEJYur48fg6ayh/
+	 iWgylxUw9xEK3/DRkXanUaSaFEjy5BLbFtpzk6HreG7Tup2ykmIkehvuVXvOFhgXCH
+	 da5nvdPK4MaMQ==
+Date: Mon, 28 Sep 2026 08:26:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/8] ASoC: dt-bindings: qcom: Add Shikra RX and VA
+ macro codecs
+Message-ID: <20260928-loose-outstanding-woodpecker-dfa8db@quoll>
+References: <20260922-add_shikra_support-v1-0-6c6cb6444caf@oss.qualcomm.com>
+ <20260922-add_shikra_support-v1-1-6c6cb6444caf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922-add_shikra_support-v1-1-6c6cb6444caf@oss.qualcomm.com>
 
-On Thu, 2026-09-24 at 03:11 +0000, Ping-Ke Shih wrote:
->=20
-> Can you reuse the existing since they are the same?
->=20
+On Tue, Sep 22, 2026 at 03:12:30PM +0530, Mohammad Rafi Shaik wrote:
+> Document compatibles for Qualcomm shikra rx and va macro codecs.
+> This SoC does not provide macro and dcodec clock so reflect that in
+> the bindings.
+> 
+> Shikra integrates LPASS codec version 4.1, which is not backwards
+> compatible with the already described compatibles.
+> 
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-rx-macro.yaml  | 17 +++++++++++++++++
+>  .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml  | 17 +++++++++++++++++
+>  2 files changed, 34 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> index 4988e7ed6e34..69d7b7332d36 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> @@ -14,6 +14,7 @@ properties:
+>      oneOf:
+>        - enum:
+>            - qcom,sc7280-lpass-rx-macro
+> +          - qcom,shikra-lpass-rx-macro
+>            - qcom,sm6115-lpass-rx-macro
+>            - qcom,sm8250-lpass-rx-macro
+>            - qcom,sm8450-lpass-rx-macro
+> @@ -138,6 +139,22 @@ allOf:
+>              - const: dcodec
+>              - const: fsgen
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,shikra-lpass-rx-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 3
 
-For the record, if you find yourself arguing with an LLM (which is
-clearly the case here) then feel free to just drop the patches - clearly
-the submitter hasn't even bothered to understand them.
+You can drop this one, it's already set in top-level.
 
-johannes
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
