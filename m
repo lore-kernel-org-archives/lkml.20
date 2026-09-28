@@ -1,170 +1,301 @@
-Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com [74.125.226.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7603F33A02B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580163; cv=pass; b=dba18uFe58JXE1eCC7z1A6shDAixvR1mPBlPQKOMG/gjOju996qj7xRzEwD9HsVGjxrap+KaPhrs8gEuVn5OJQxIag6RXj463+HUXI8BRMa3V57wCAY7LxPAaC0TkNqpfjE7zR9m2jcODJPyQC0ikPIvlBrwgzxgHNTGlaPJPAs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580163; c=relaxed/simple;
-	bh=APrQLHWyNaMSnUAIds3Epz7+tbhmT/nxmeVzEs8HE4E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TW/zNnMvDjE5qe/KsRHCpzFRKNt5XvvTP1QRjeKCOLDqoo0blGogWj5f/2u4aspy95ThnmSYsPAl+ievp0y7Bs6vqqN2vx6hdUpqbRpFoYos+/vXuxpcDmVqypCrAvesV/HoGSYE4faRMgHTqxCSNqHGewnPessYzeNacjNOUYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aowtTon9; arc=pass smtp.client-ip=74.125.226.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92689448BA3;
+	Mon, 28 Sep 2026 07:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790580169; cv=none; b=HLIHxsiJhNMMjoKCJhhODSDK89MJAg/sT8n12Un2NpmVf/dTo+dBQllOSLZEGks+afFW6X4XYOPjuZl0DCseEHTG4KwnuwCspFU0hfMNjclBUMhSzFY7C6vnn7UEkCadsYv2MNrBamUuhLi+Fy+34FD5Fs3jjHDMoVpx/OUPrhw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790580169; c=relaxed/simple;
+	bh=BM42dP6biGLp+7pQuwYJLZMZOnYanD/7h0L+4WgxWuA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lYs6xHXJOHJinC/7yQhsOwd40tFzowZ7euF/FfE3FMwcDIZd5z9kYjZnIw2laniA/4g+kLTavM5vNYHCbziIz0PpVCRVqvAeaj6+XspB2HElHfvYFEjJWUbp5s3EpsGjzjEQZ5Oz+y+Nei71yFa7nhv0OHbc+4qxlD7nUkWyDAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VdVbm0/a; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aowtTon9"
-Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-98729795320so440492241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790580154; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bpYDp/O7IKKzDXUrq++hLImhPSnd2rFd7t8W3TWJhq1m4DPIjO/8bnE4ijQ1h6Nvka
-         /ekMOV6Xemm05N+HY8Hk1puNDROryRXRrXdPm/NSOOmL0z7COU1EWdTD4eTzNBFYY0vQ
-         qBQUvCAvfuhg9lYc5/p5flaz06ipa48WR2JDNTaW4kvf410806t8m+5qwbzByvZLT9Ft
-         bUDgpbQXzogvWa5aHJHhpzmCFSzemN06gabOdlBHGK5aXhFLA8RNzrfCHXNaPug8Y2no
-         8cjE+2numDmxXSD+8c//SAZ2rZ27KkWnVpeci/wsrLrXY1Zhohj9QZBVmvwxwSinfun3
-         tL2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7S7hcaIQrNT100EqV+kMOddYduCRqLzOTn6PrUxYv68=;
-        fh=cZmYv1rNa+XOC5ODNfsgbkWlOpbmA2HAhGxSeSSEHck=;
-        b=HRz0qMrQTvtx56TD/vfaM5ztHqwztb3bzteWAkk1KQ/GmlL+5dS5nDR4k9UCSjqXZY
-         HfPn9SE7fxy2YAk+KutsHV41/fX1lthtOQXACGgHlFp43Evy55l0A92Rv0hkHUQWOiQh
-         tdK5TBlSZYsQdxTvqmsVwraURxn0yNsVgWRQBlOWI3lhT39Hp/cvfhi2hE4EbMtfucPm
-         4zSVle3O5YBuL3Knrj5jbWmkdCOFpwPR2DCfJk8zVIdsGtbvAKxJipjR3ZLL13zyXbBg
-         yESgVLDu58c99/fL9BDEWtJ9VApX/SIrnp3GpAOTwPGYcgxbBGJ9HzQ9uLqi4I+jG3L1
-         Zivw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790580154; x=1791184954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7S7hcaIQrNT100EqV+kMOddYduCRqLzOTn6PrUxYv68=;
-        b=aowtTon9eurVABMkco2PDehcr/Udzr/nr4OhZ9Sv/tqOxSXHrkp/TGRYtOzBXeef2x
-         L+p1lw7+1d8T3kosxzJ/covXUFOf/UtBEXDEqGR/aCkFEWhB+lv7mrW6pa2ZseW41W1r
-         tsHx9oHjkZhhTdBc0VMhShTEq2qSwDj5Lcj4i8c00QTjzK0wgVOTTohMHYPqrU8FzyXJ
-         aZmEy6/G8SUrF6vDt4uNBDVOk5SRorvptVTwyQBzENqsPXBa4HSVAGO7zbQ6bcjnVH2Q
-         nA5nf5cZBX79bXvFgnPRzND/i8KGd2jDp7czqNhfeQEjy6W+KKdZXUtuivc2y0e6xp3D
-         /hsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790580154; x=1791184954;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7S7hcaIQrNT100EqV+kMOddYduCRqLzOTn6PrUxYv68=;
-        b=dMjZPeB7uku/J9f8HAgErAX59aenIkCrBEeUT3Zr3aklZ3Td/1TAzyPA8ikEe2RZVK
-         UzyD174AZ5ZTUTxNbS+s3XV8u5NAPqFstH0vl6A/V/1Z7jyuuwwezx7Qgnkih51WsEe4
-         +2VrHXs7+FmYVXzOqRKe5EhGp5BZNTVx3jGAohOY979RyJhfNwIAEq88pn8sS5nT1X8R
-         F/gV/d9dbV1cZ0PZNmME1y3jQH+Inu78bLTNvareh3corEcTsjjvDuyC7xKMJydLO/Q7
-         P2uArcW6vBfEh+QI/NdA/uaYdybuPsQa7hwGk8RfoT3eNOi0+viwYIpklBn/hCgx9oDh
-         y7Cg==
-X-Forwarded-Encrypted: i=1; AKwUvByVEAf4QBVcHKyifSwVkNqJL13PVG/q7nbA0obKExFNLCQ72JDPDxHnmQO3uAUxl0pkh0R+VTOd/sOOgPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHMToNvmRB0syYHKCW1GlQlrY17blAKkJxoV8/aUiOer1Mrz0C
-	+8jbdafhVLKR9zLLZuguZuaTR9VxH/iYXDYLM4EPzupZVDv5pGuhL6d9aVW2Rcpg2rf/tteOCaN
-	jGtCDLKI/mzLTKGSNV0NC5EUOsZd8d+ami2dYRoY=
-X-Gm-Gg: AYBFou1RizW9mFPdj/K841umbx9WfsJwBJ1Fo+558pfOsAg/EGYnbQ13ueY1UuWlT47
-	SmlwFsageZfag+N24Tb/yYHR24CglpUF2jjJFMsLlt2pXvWV0XQJ7o9Ocg+3EhnrLDtwiKQ2rYb
-	1E/JcJwv5gTWQ6lC5niG6XIUUvwFzz+Wy1k2sR3yC3f6MCoMXtbIT+VSQYB/n/0a5arVvQz4CcI
-	uQkm77/9ZiR0rzFC2yzGlDLKN/G7YU1Rkz5kxLeCgtIn8+bCfLWYAGRQCce8dLTRmWkRgf4Vtoz
-	nW5RNjbIWNtJPADXYwQvea1T92Cy1WBBVEdpiS0OtVBezYY/81bgaho8SGSaCs0qYyxTIQD55DX
-	q4R/kgu/g8yYOsehhn7nE+JxKh8ePBP8=
-X-Received: by 2002:a05:6102:3912:b0:7a5:9a:3a31 with SMTP id
- ada2fe7eead31-7af1e0ef5f1mr4324150137.34.1790580153025; Mon, 28 Sep 2026
- 00:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VdVbm0/a"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RNK0JG3561189;
+	Mon, 28 Sep 2026 07:22:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=aAtXoF
+	B0noFysjucdBRQnw8AHU5+6B2BxlOaL9AtvMs=; b=VdVbm0/ax+ndBCt4/jUx3a
+	zq3XI1XBM9GS30uzJyw0JfQ2wMhN54Yb/+USdxKRjiRv4KwT94NdUEqnTUQHhA37
+	vkxeHfHxvlijAz3nOET+GsRAl++4bE37HVB/RXvdEYU+wTx9z4O0TpaHWNrqnlm2
+	FkPvbxmwr63gG0jt34SCl6GAxMjMyckjy4SxCcZNKkTscjvKXF7BFOQw4WzTMe3k
+	c6amC7YP0RMJU5xwlyclJmdGCEAi4f1vYgPNR0tqJKdomi46b0T7kEQ6uyYmTa06
+	ct3dvD130fhO0Lu1N+Asz1GleDpt8JvXwZFfuakYXQSvE6pTasgef8trlKqAC+eQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fjyvp5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 07:22:23 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S42p13879670;
+	Mon, 28 Sep 2026 07:22:22 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxtkg40xv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 07:22:22 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68S7MKb741746854
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 07:22:20 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 98DDD2004E;
+	Mon, 28 Sep 2026 07:22:20 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 87CCE20040;
+	Mon, 28 Sep 2026 07:22:17 +0000 (GMT)
+Received: from [9.124.213.127] (unknown [9.124.213.127])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 07:22:17 +0000 (GMT)
+Message-ID: <95790639-84d0-4cc2-92a8-c97c920b2d22@linux.ibm.com>
+Date: Mon, 28 Sep 2026 12:52:15 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com>
-In-Reply-To: <20260928063824.1386524-1-morbo@google.com>
-From: Bill Wendling <morbo@google.com>
-Date: Mon, 28 Sep 2026 00:22:17 -0700
-X-Gm-Features: AclHuK-aDUfgxYTMcH2KBUEabNgFX4lq35X-cZ81U2Qsle4b2SorScwmDO1r1OY
-Message-ID: <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ovl: fix wrong layer paths in mountinfo for detached
+ mount FDs
+To: Amir Goldstein <amir73il@gmail.com>, brauner@kernel.org
+Cc: miklos@szeredi.hu, viro@zeniv.linux.org.uk, jack@suse.cz, shuah@kernel.org,
+        linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260924112858.51392-1-disgoel@linux.ibm.com>
+ <20260924112858.51392-2-disgoel@linux.ibm.com>
+ <CAOQ4uxgj3RL2roivmha9yeWToR-s9kaBm8WUK1vJ_q7pWOjxOQ@mail.gmail.com>
+Content-Language: en-GB
+From: Disha Goel <disgoel@linux.ibm.com>
+In-Reply-To: <CAOQ4uxgj3RL2roivmha9yeWToR-s9kaBm8WUK1vJ_q7pWOjxOQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: Z0dqrZ_78sEseHnG83uc_Tt8V1lCtiYg
+X-Proofpoint-GUID: U_2rTDYtnpPqzDe_5sLVt3Uj5cDiAAi8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX81WPtjMvj/zz
+ mVBe0vR4Uz9jft8ovIsuqH/hkGZFVR7QomBFTFSXbjB/QK8fz4seSWG2ukkpBAzh9to86/k4Xje
+ 1MvCLnDoO3x1iIpbQ4BeLcRQ0NMbx/k=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6aba15af cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=AlhcxhPrcBOVSj21lkEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX0zgh6nELTyON
+ y1xGnLZsVqyhlc+kAXPau6KJT/xIWswAzZuPrxaCPqIDkqgAIkH7tAw71TnlieOsz1jVZ6wSDiW
+ nw1t8cn8L52tSyqJXyRarpnO1IiwYuj4tvS2YTl+jk2iEUrCzc/9AAT7RfGIr+uCZxq5Eg01WYu
+ L8gLPvummwdZstm7L7R6kSs4y370KEe11hyx7K/zF1X7DHTSTSiq0oHqAcZtRppuWt+qKa52s+P
+ wC3pjcKL+oXq+KQRnYTq7GckP1dGD1LzR5UdzsuZ4eMrHYV3kN5QT5NlcVvLz6fkBRJQgKkaXe8
+ SC4EoD4gNvYy7EjGCa/j1gq9D8OzWdtvzSGV+9B5NJmjRTpuF6zpHI4jA/YoYzCNhjcn1R7VrZr
+ rdAoBNlxhZO/Qqv+6yGg8RUY+MZ0vbYhBoCsahsF9AeOyoR3Ghh+wgz9gTzEHViRsDBHf5XnhRL
+ NFaVwWJSw4MmLzKwjhQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280028
 
-On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@google.com> w=
-rote:
->
-> The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-> with the 'size' field, which represents the number of elements of
-> type 'struct acpi_gpio_params' allocated for 'data'.
->
-> To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-> CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-> attribute.
->
-> Analysis of allocation, assignment, and access points shows that the
-> pointer is never accessed before the count is set, which guarantees that
-> this annotation is safe and will not cause runtime panics or
-> false-positive bounds checks.
->
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
->  include/linux/gpio/consumer.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consumer.=
-h
-> index fceeefd5f893..2b80cf7aa7e7 100644
-> --- a/include/linux/gpio/consumer.h
-> +++ b/include/linux/gpio/consumer.h
-> @@ -667,7 +667,7 @@ struct acpi_gpio_params {
->
->  struct acpi_gpio_mapping {
->         const char *name;
-> -       const struct acpi_gpio_params *data;
-> +       const struct acpi_gpio_params *data __counted_by_ptr(size);
->         unsigned int size;
->
->  /* Ignore IoRestriction field */
+On 25/09/26 9:27 pm, Amir Goldstein wrote:
+> On Thu, Sep 24, 2026 at 1:29 PM Disha Goel <disgoel@linux.ibm.com> wrote:
+>>
+>> When overlayfs layers are passed as detached mount file descriptors
+>> (opened with open_tree(OPEN_TREE_CLONE)), ovl_parse_layer() uses d_path()
+>> to record the layer's path for display in mountinfo.
+>>
+>> d_path() walks up the mount tree to the process's filesystem root.  For
+>> detached mounts this walk stops at the anonymous namespace root instead
+>> of the real system root, producing a short incorrect path like "/l1"
+>> instead of the full absolute path.
+>>
+>> Export mnt_is_anon() from fs/namespace.c to detect detached mounts.  In
+>> ovl_parse_layer(), use dentry_path_raw() for detached mounts instead of
+>> d_path().  dentry_path_raw() walks the dentry chain independent of mount
+>> namespace and returns the correct fs-relative path.  The path is
+>> display-only; the actual layer_path used for mounting is always correct.
+>>
+>> Also fix the set_layers_via_detached_mount_fds selftest: the mountinfo
+>> check strings were copy-pasted from the regular (non-detached) test and
+>> expected absolute /tmp/ paths, causing the test to always fail.
+>>
+>> Fixes: a08557d19ef4 ("ovl: specify layers via file descriptors")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
+> 
+> Disha,
+> 
+> Thanks for the report!
+> 
+>> ---
+>>   fs/namespace.c                                |  9 ++++++++
+>>   fs/overlayfs/params.c                         | 14 ++++++++++-
+>>   include/linux/mount.h                         |  1 +
+>>   .../overlayfs/set_layers_via_fds.c            | 23 +++++++++++--------
+>>   4 files changed, 37 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/fs/namespace.c b/fs/namespace.c
+>> index ae5dc64f8b45..9feefa0a517d 100644
+>> --- a/fs/namespace.c
+>> +++ b/fs/namespace.c
+>> @@ -363,6 +363,15 @@ bool __mnt_is_readonly(const struct vfsmount *mnt)
+>>   }
+>>   EXPORT_SYMBOL_GPL(__mnt_is_readonly);
+>>
+>> +bool mnt_is_anon(struct vfsmount *mnt)
+>> +{
+>> +       struct mount *m = real_mount(mnt);
+>> +       struct mnt_namespace *ns = READ_ONCE(m->mnt_ns);
+>> +
+>> +       return !IS_ERR_OR_NULL(ns) && is_anon_ns(ns);
+>> +}
+>> +EXPORT_SYMBOL_GPL(mnt_is_anon);
+>> +
+>>   static inline void mnt_inc_writers(struct mount *mnt)
+>>   {
+>>   #ifdef CONFIG_SMP
+>> diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+>> index c93fcaa45d4a..2758ff8426b7 100644
+>> --- a/fs/overlayfs/params.c
+>> +++ b/fs/overlayfs/params.c
+>> @@ -477,7 +477,19 @@ static int ovl_parse_layer(struct fs_context *fc, struct fs_parameter *param,
+>>                  layer_path = param->file->f_path;
+>>                  path_get(&layer_path);
+>>
+>> -               layer_name = d_path(&layer_path, buf, PATH_MAX);
+>> +               /*
+>> +                * For detached mounts (open_tree(OPEN_TREE_CLONE)), d_path()
+>> +                * resolves against the anonymous namespace root and returns a
+>> +                * short fs-relative path rather than a full system path.  Use
+>> +                * dentry_path_raw() instead, which gives the path relative to
+>> +                * the filesystem root regardless of mount namespace.  The name
+>> +                * is display-only; layer_path itself is always correct.
+>> +                */
+>> +               if (mnt_is_anon(layer_path.mnt))
+>> +                       layer_name = dentry_path_raw(layer_path.dentry,
+>> +                                                    buf, PATH_MAX);
+>> +               else
+>> +                       layer_name = d_path(&layer_path, buf, PATH_MAX);
+>>                  if (IS_ERR(layer_name))
+>>                          return PTR_ERR(layer_name);
+>>
+>> diff --git a/include/linux/mount.h b/include/linux/mount.h
+>> index acfe7ef86a1b..51e9f228c9d1 100644
+>> --- a/include/linux/mount.h
+>> +++ b/include/linux/mount.h
+>> @@ -78,6 +78,7 @@ extern void mnt_make_shortterm(struct vfsmount *mnt);
+>>   extern struct vfsmount *mnt_clone_internal(const struct path *path);
+>>   extern bool __mnt_is_readonly(const struct vfsmount *mnt);
+>>   extern bool mnt_may_suid(struct vfsmount *mnt);
+>> +extern bool mnt_is_anon(struct vfsmount *mnt);
+>>
+>>   extern struct vfsmount *clone_private_mount(const struct path *path);
+>>   int mnt_get_write_access(struct vfsmount *mnt);
+>> diff --git a/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+>> index 7a293544233d..12d930fe46be 100644
+>> --- a/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+>> +++ b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+>> @@ -686,23 +686,28 @@ TEST_F(set_layers_via_fds, set_layers_via_detached_mount_fds)
+>>          while (getline(&line, &len, f_mountinfo) != -1) {
+>>                  char *haystack = line;
+>>
+>> -               if (strstr(haystack, "workdir=/tmp/w"))
+>> +               /*
+>> +                * Detached mount FDs are resolved via dentry_path_raw(),
+>> +                * which gives a path relative to the underlying fs root
+>> +                * (e.g. "/u/upper", "/l1") rather than a full system path.
+>> +                */
+>> +               if (strstr(haystack, "upperdir=/u/upper"))
+>>                          layers_found[0] = true;
+>> -               if (strstr(haystack, "upperdir=/tmp/u"))
+>> +               if (strstr(haystack, "workdir=/u/work"))
+>>                          layers_found[1] = true;
+>> -               if (strstr(haystack, "lowerdir+=/tmp/l1"))
+>> +               if (strstr(haystack, "lowerdir+=/l1"))
+>>                          layers_found[2] = true;
+>> -               if (strstr(haystack, "lowerdir+=/tmp/l2"))
+>> +               if (strstr(haystack, "lowerdir+=/l2"))
+>>                          layers_found[3] = true;
+>> -               if (strstr(haystack, "lowerdir+=/tmp/l3"))
+>> +               if (strstr(haystack, "lowerdir+=/l3"))
+>>                          layers_found[4] = true;
+>> -               if (strstr(haystack, "lowerdir+=/tmp/l4"))
+>> +               if (strstr(haystack, "lowerdir+=/l4"))
+>>                          layers_found[5] = true;
+>> -               if (strstr(haystack, "datadir+=/tmp/d1"))
+>> +               if (strstr(haystack, "datadir+=/d1"))
+>>                          layers_found[6] = true;
+>> -               if (strstr(haystack, "datadir+=/tmp/d2"))
+>> +               if (strstr(haystack, "datadir+=/d2"))
+>>                          layers_found[7] = true;
+>> -               if (strstr(haystack, "datadir+=/tmp/d3"))
+>> +               if (strstr(haystack, "datadir+=/d3"))
+>>                          layers_found[8] = true;
+>>          }
+>>          free(line);
+>> --
+>> 2.45.1
+>>
+> 
+> Christian,
+> 
+> I confirm that the test is failing on upstream:
+> 
+> # Starting 1 tests from 1 test cases.
+> #  RUN           set_layers_via_fds.set_layers_via_detached_mount_fds ...
+> # set_layers_via_fds.c:717:set_layers_via_detached_mount_fds:Expected
+> layers_found[i] (0) == true (1)
+> # set_layers_via_fds.c:39:set_layers_via_detached_mount_fds:Expected
+> rmdir("/set_layers_via_fds") (-1) == 0 (0)
+> # set_layers_via_detached_mount_fds: Test terminated by assertion
+> #          FAIL  set_layers_via_fds.set_layers_via_detached_mount_fds
+> not ok 1 set_layers_via_fds.set_layers_via_detached_mount_fds
+> # FAILED: 0 / 1 tests passed.
+> 
+> I could not find a point of regression.
+> Could it be that the test was merged failing?
+> That would be strange.
+> 
+> This is how mountinfo of detached layers look like on upstream:
+> / /set_layers_via_fds rw,relatime - overlay none
+> rw,lowerdir+=/,lowerdir+=/,lowerdir+=/,lowerdir+=/,datadir+=/,datadir+=/,datadir+=/,upperdir=/upper,workdir=/work,uuid=on,metacopy=on
+> 
 
-There's a problem with 'drivers/firmware/efi/libstub/Makefile'. Clang
-needs a compiler flag to support the "__counted_by_ptr" attribute
-referencing a field *after* the pointer, like in this patch. However,
-the Makefile blasts the flag away for x86 platforms. Below is a hack
-that copies the part of the top-level Makefile that adds the flag. I
-don't think that's a good solution. The comment in the driver's
-Makefile says that the stub code executes before the kernel does,
-which I assume is why a lot of the flags are blown away... In any
-event, I'm not sure how best to address this.
+Hi Amir,
 
--bw
+Thanks for looking into this!
 
-diff --git a/drivers/firmware/efi/libstub/Makefile
-b/drivers/firmware/efi/libstub/Makefile
-index 77a2b2d74f3f..945674048d8f 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -19,6 +19,14 @@ cflags-$(CONFIG_X86)         +=3D -m$(BITS)
--D__KERNEL__ $(CC_FLAGS_DIALECT) \
-                                   -fno-asynchronous-unwind-tables \
-                                   $(CLANG_FLAGS)
+On my ppc64le system (7.3.0-rc4) I saw dentry_path_raw() giving per-
+directory names like lowerdir+=/l1, upperdir=/u/upper etc., which is why
+I went with the kernel fix. But your observation of lowerdir+=/ for all
+layers is a valid outcome too depending on how d_path() terminates.
 
-+ifeq ($(CONFIG_X86_32)$(CONFIG_X86_64),y)
-+ifdef CONFIG_CC_IS_CLANG
-+ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-+cflags-y                       +=3D -fexperimental-late-parse-attributes
-+endif
-+endif
-+endif
-+
- # arm64 uses the full KBUILD_CFLAGS so it's necessary to explicitly
- # disable the stackleak plugin
- cflags-$(CONFIG_ARM64)         +=3D -fpie $(DISABLE_KSTACK_ERASE) \
+You are right that the test strings (/tmp/l1 etc.) never matched
+detached mount output.
+
+> Whether the suggested solution is what we want for it, I am not sure.
+> I also don't recall if we discussed this at the time and whether
+> there were any decisions about how to present this mountinfo.
+> 
+> Maybe this mountinfo is fine and then we only need to fix the test.
+
+Happy to send a v2 with just the selftest fix if that is the preferred
+direction.
+
+> Thanks,
+> Amir.
+
+-- 
+Regards,
+Disha
+
