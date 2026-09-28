@@ -1,185 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA81B3ACF1B;
-	Mon, 28 Sep 2026 09:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586702; cv=none; b=gt9Oqbua/hUA93frtwk37X93/2zxrDAEKfBrGVU07t8x9Sk94nTYc6C0pdl0vJ2OrvPGPHbXbZzdSYvnKxB5MU1QJRZtlQCPA06P9IVm2sAQuDrLKrsTPgjwAS4Sb/4L5YNhxr7W3fPwAzmfPxawapXP4f0HTbL9a4nxeLUBkJc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586702; c=relaxed/simple;
-	bh=GvJMxRCWJr2M3aM5fGBhG2o17KvUmU40LnQl6XvWZjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K2ujSGCDd3sNHjQjo/vlJX5q8i7JNMUBb1HW9/7JSGFxPUEsg/tfP/WCkUiYUv1qbCJd9vGihcD6FB++8LPr8yHyeo6YQh369S2r/Gbs90WpO3d92uFr94shPo41A8oFnHG1+l2dMAXfEN5GmaVhLB7ea8SramAXBL7NXMpmSy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vz3TWDvX; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B5F485501
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790586703; cv=pass; b=GpYao3V69PRQS/hWcPu5+C7o6b5+0fbbqOCLqyVa6p+1MemGn3KEn7eCmVKA1S5aM0FonBgfJ7b2+qyORok/uwbU5KX0q+e5C2u9jsuTJV4W8ISn4SW9KeAaAu0F1lX7fP32rO/CdxVXNYRaMQki7m//Pm21N6bG0Ei+NrI0UJU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790586703; c=relaxed/simple;
+	bh=KTENyYqQEJ1QJsUU6WyAiz6HgJhYCr6u0cGxg5uGf9Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pWN9pspsMritEY0HRlIYWdzHKDbxAxfmHRj1s8RYFhYH7qOAemshWVoqaB/nB/fUfOXsocgZc2Wz1dbodLIccco7uTH6Kmtr2qKiwNYgV265R+dOQWgZzoxJBL6keE+uhds5zJLXbRpsTGB8r+p0E2C7ik3SpiWZi3bAC60jPes=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ocW9bnWC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nixc8U/q; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vz3TWDvX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790586701; x=1822122701;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=GvJMxRCWJr2M3aM5fGBhG2o17KvUmU40LnQl6XvWZjk=;
-  b=Vz3TWDvXSZS42isrA86XqoPHCqVL1eW/Q+baf3epxwgGrBMkMOJHYSOE
-   YO0Efp5T9rXB/GaH/uEHpV0s9TtEQXIt9AfA7kFmbX1PIlA+AssKmuw53
-   E0zjPo5V6Pd8ktErvxg5d2GXxn50KeecbllNjA+Rqrckt4ZCpaDN6rX2U
-   2HdFBmhnQ38hiDv/zroG33ArGG23OD5PBLBuP12fYUqIEDTA9mwUP8CVA
-   POMVbzYuLKYAdwnfdhW+2A8Mw3KNt5z69nv5EWQFGPQ8TyL8UlIZUck2x
-   4l7HctGXrIvmhIgf0zLbgEpiPrkn2kZ8A0pbUjH5pcpoGtfFQkuDBQDg3
-   g==;
-X-CSE-ConnectionGUID: sZWUVyzsTJuqX8Ab5E/mHg==
-X-CSE-MsgGUID: sBIc1CsfR5ONLvrrbOdCUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90323417"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90323417"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:41 -0700
-X-CSE-ConnectionGUID: uFCqSsJPSSmGll/JFDjRzA==
-X-CSE-MsgGUID: vbYbCR9ERey02FV51wAg9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278819313"
-Received: from yzhao56-desk.sh.intel.com ([10.239.47.61])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:35 -0700
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com,
-	dave.hansen@intel.com
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	x86@kernel.org,
-	rick.p.edgecombe@intel.com,
-	kas@kernel.org,
-	tabba@google.com,
-	ackerleytng@google.com,
-	michael.roth@amd.com,
-	david@kernel.org,
-	vannapurve@google.com,
-	sagis@google.com,
-	vbabka@suse.cz,
-	thomas.lendacky@amd.com,
-	nik.borisov@suse.com,
-	pgonda@google.com,
-	fan.du@intel.com,
-	jun.miao@intel.com,
-	francescolavra.fl@gmail.com,
-	jgross@suse.com,
-	xiaoyao.li@intel.com,
-	kai.huang@intel.com,
-	binbin.wu@linux.intel.com,
-	chao.p.peng@intel.com,
-	chao.gao@intel.com,
-	farrah.chen@intel.com,
-	yan.y.zhao@intel.com
-Subject: [PATCH v4 10/17] KVM: x86/mmu: Add a TDP MMU API to split huge pages for mirror roots
-Date: Mon, 28 Sep 2026 17:11:03 +0800
-Message-ID: <20260928091103.15631-1-yan.y.zhao@intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20260928090729.15468-1-yan.y.zhao@intel.com>
-References: <20260928090729.15468-1-yan.y.zhao@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ocW9bnWC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nixc8U/q"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S80LAV1263138
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=; b=ocW9bnWCtyfDOLpW
+	24RrfcaBN2VSok9itSj+FdB/z1HwJYlh8mkkpzn+5p7KHR4dhU/3lspZwD4ofGpd
+	bS4OkzdKl8YeJClO77+s2S1jlyVlR5kAVdWG1PRTHTtl8mrX+m35hjUXuJ6lfikd
+	D7h9j6hbSunh8SQhdC708muRSNWCy9HHbQGAPqvh4owe3D7BzSPzlD7DMOqoM4gW
+	8lDOlS+jWYU0O2672SLTPLUUNLfFXGG7F0BxDyo2Dfd/lKAIFyqWS8iEJhYHhP6e
+	P5BuJBGbMApRNMWIo2dmVhlMHr/dPQNgYMFXZ/DGSje+3M/bahkWKArFZPwfqFkQ
+	roBfNw==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526ngnp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:40 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8a7d69f4204so37541677b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:11:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790586700; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O1cVvKZIkrm++qY8gRag3wChGihPWEBgQ+Mwqpwur9O2zFzSZAdLV16wPh7iqjSks9
+         6Z8rHzN89otz+y31YsPRbXVxhdJqSPrHoqtL7L/cR4+M72fEo2/PT5p/W74ToYarr7aJ
+         s6hC/p+YbKFPCuk/XoEMOI4qAFhkC7YccPHbCyKKOg+5i5JP5zgKjYvV/6lJdiUm0umx
+         ho52hPQlwUmKAUr5CwXukm4TrE5+WsgHiSunOT//FNd8srx/jJT1j6T+T7RQUauCVOvs
+         KAhPYTihKrCOVJW/vyWRTViHC+J+SIVuMtXXLsf2XXiQXFkZBF5Y0OAK7P/6kxA8BEIT
+         n9kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
+        fh=PZJfWsMy1QHFQ6g+Vq+EJHAwbe5zFmDQH+mvyr+h6kI=;
+        b=C5/4uOF4oWDv0dGKH2tgs4QyRyyk5AJMPLb7SEzvlkb8Ioxk2hYJD/503AZVhmFDyf
+         4mBDQmYVKmXLM0yXlwySAd4APPBMKS7EqRgA6DW5waJtZ6ORQSPzezxHiWyQWCICC/U5
+         tavmJmAlN2VQiE76qVApEmHBiYpahVv5+nw9uB5aoFmlYenJOguAyKFqfEnrLT0c78/B
+         4N2QcwFXLMygz0x9Wk93dQoqjp6SJscW3czkZzB7uY0/WsItyngzk/i4091Vx6uBIpWG
+         pU1LFDlGvTKqGgv8QVRguapgqRk3mk9B37hUZ4B5FRxqTuoJuRaPMJOb58sRQP87BXIy
+         Fx+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790586700; x=1791191500; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
+        b=Nixc8U/qhB6n9qnty0EC6TNCzgc5b/Ls5dE82vee1i53LODYVX5+y4m0kq3p5Jr25c
+         vYrJA6KLbcyLMB5RzjenpJiZNQ/p/3r3JFPmYur3U2LgicVdBTYrz+Buh9V9EUNGAb0e
+         IuNGtU0DCaY+fSd48c3rWkJYQKFbZE9qSBoMEf6T/3QdUpzA2Yaptb+9XPYRJSWY2Lz6
+         OWCoIaW601wzbor2krIBiRu9wy4Ipt5F9/cqtf9IUr4XeA4zeH4W8JthUXrj/mlz793x
+         v5lum27xsDNCEugUmXhI+VZlvQC4CFJYhqip/4hI41LDA1ebt0bM8013r+pc8tyTvStW
+         HTWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790586700; x=1791191500;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Klqip8pbOj3w2usVTTkZpv7Y+Lu/sulkIkYft5/eRI=;
+        b=ni8gf8lxSjrNzBcYZeW1yRfSB6xutBb5C03Qlc3z4JJE0zmunOv6LBeXa5Y4sqWA8o
+         xmdq0lVLxHLJmvN9XvjrWwJvsN3jPWiWzW8mjquAxUwsqa6jDW5QSOk6kBIS8HbzpoJK
+         ulO2JvdNgohGeTcnB1at2+0J6SoxzcVbEB144hJlIZXL4dAVHSw7QUi3PE4Al1XhknJV
+         WEz7KVnTJoE52VA+A4eqqEI5fHWmJnDu6tOCU/9uQAEriGIrmla2yEH94y/xBtMDxCyQ
+         wNbChyVt9WCiNRxLYlF0LFoUPL2ryGJ+MnAWDtNLUyGNvjfJCg3OUIwOrfLN/XTIG5mx
+         JEYw==
+X-Forwarded-Encrypted: i=1; AKwUvBykwzlBwN6n38T/zYy4TbPDRgSZ7xW4E635iKc0/KxOu5vIHNBa68hAf8aB1HVh8UNX9a7CHulMxdotQaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiB8vV61WfcwhZp+XNucMUvLEji2DbgtlLMk0Zxz9veqTou3Nh
+	ZcsTRSClF0lo7FeYaPNYjM3ofHM9TIjdOYPvO4Owsr9tLh8pRhql7zdcvbGG7Y+Pc4LSPGA/qId
+	uPpOIodPrIfiz+hCdFPaIidh6hoJK/MSMi2XazHYh4gaIpxHYTSRFwSdhRSUSx1abibBdCxJ6xU
+	+29Ojz2MWSD5QzUStdJpX7kjZR/Uy1bP253NpfKomYwg==
+X-Gm-Gg: AYBFou2+0LQw1/I6XkjbBQ77ch7RcY1ZUHVMqz6a8uF5ODjpdUS74ASjhPKMuCvPk90
+	bYG3G+7WTfCH27mSjOSdIAaMj/lnc3i5cn0FM/hOYn5OkOtzI6LgYdkSNpuYnatRYLDKDn3hnVw
+	27uT3TmROHvlslvv8zJaXakXYlzDT8bA7xFZBwiRZ2G8ZyP/HFy1xOqas5Njc=
+X-Received: by 2002:a05:690c:6610:b0:884:c7df:fd25 with SMTP id 00721157ae682-8a64b527551mr64705627b3.17.1790586700408;
+        Mon, 28 Sep 2026 02:11:40 -0700 (PDT)
+X-Received: by 2002:a05:690c:6610:b0:884:c7df:fd25 with SMTP id
+ 00721157ae682-8a64b527551mr64705327b3.17.1790586699978; Mon, 28 Sep 2026
+ 02:11:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-2-d5b6f056568e@oss.qualcomm.com> <arOcDLy_ESS6Qwcs@sirena.co.uk>
+In-Reply-To: <arOcDLy_ESS6Qwcs@sirena.co.uk>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 14:41:28 +0530
+X-Gm-Features: AclHuK9E6ayaYE_Y95ZKtkfHPWfcu5v3kwH1jhnosx1aL68qwy7Agii-WL47rOs
+Message-ID: <CAC-tS8AbBcN98ceaLFJaAt_+d6T0C5dpSSkRz_9yJv64KhE3kQ@mail.gmail.com>
+Subject: Re: [PATCH v7 02/10] ASoC: qcom: Add QAIF shared data structures and
+ variant interface
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6aba2f4c cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=_qd6ERi7e6bvJ_0A4_YA:9
+ a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10 a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-GUID: -NIstSlfWXkw8KsPDPkAQ-2S3uRt1NiP
+X-Proofpoint-ORIG-GUID: -NIstSlfWXkw8KsPDPkAQ-2S3uRt1NiP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfX8QJz7TUIBCwI
+ JAfTljKhycpZGLDTek8lvRKACYyrv+Fx9K6TqArURORs5D/cYUbte+MMa/b5JeO7DdgRa27LKwN
+ I1VzQqjvICXE4mO92xBQwYMbPVztRHr9/bdj88696ocwCeXhSKBASocH0wWFM5y4YX0CsCHey5U
+ zxumPMS7ht+G5cioMxTVl61Bvr0F7P/mMYUmraJ4qEKiCThbcm5lSxKpAJFp/aCKypOq90XravJ
+ wgedR8VBH3LuZJ3UZHYIxMEL9ioG5aGN4FX3OW7xccBOTyfQ2dQdtpI3diFbnVnYb/uLQ7zg3ob
+ EWcF8xYYcxRF+4qXEnsyrvJNdHOY91ngwSNxIjMx9sB2gRGo7vxuHNVBSmp0hxvTRKpwh2VxFLt
+ DDFLe2trGvGeuLmJuskunIh8GXt6k8vobQIDNN4Z818ZZ2BOWmqeAymwv4xN4lSx/Ql6mMiPULK
+ DB2QazMDH0x8D5XL0xQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfX2nEZywln+mtX
+ uM7Ws9oC00zJQMGo7qKyAgb8Nx24XHh+i07eZsuMS/lfjWPrbVTaGDQl3GwietZPYysu+KFjTTA
+ ff9mO1hWNX3rPurVH0GEbiPpwa7A9Po=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280036
 
-From: Sean Christopherson <seanjc@google.com>
-
-Add an exported API to split huge pages in mirror roots for a given gfn
-range.  TDX will use the API to split huge pages in preparation for
-partially zapping a private huge page, e.g., for converting a huge page
-from private to shared, or for splitting a huge page to match the guest's
-ACCEPT level.
-
-For all intents and purposes, no functional change intended.
-
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
----
-v4:
-- new patch.
----
- arch/x86/kvm/mmu/tdp_mmu.c | 40 ++++++++++++++++++++++++++++----------
- arch/x86/kvm/mmu/tdp_mmu.h |  2 ++
- 2 files changed, 32 insertions(+), 10 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/tdp_mmu.c b/arch/x86/kvm/mmu/tdp_mmu.c
-index 472419963a19..9c783accb9ed 100644
---- a/arch/x86/kvm/mmu/tdp_mmu.c
-+++ b/arch/x86/kvm/mmu/tdp_mmu.c
-@@ -1616,6 +1616,26 @@ static int tdp_mmu_split_huge_pages_root(struct kvm *kvm,
- 	return 0;
- }
- 
-+static int tdp_mmu_split_huge_pages(struct kvm *kvm, int as_id,
-+				    enum kvm_tdp_mmu_root_types type,
-+				    gfn_t start, gfn_t end,
-+				    int target_level, bool shared)
-+{
-+	struct kvm_mmu_page *root;
-+	int r;
-+
-+	kvm_lockdep_assert_mmu_lock_held(kvm, shared);
-+
-+	__for_each_tdp_mmu_root_yield_safe(kvm, root, as_id, type) {
-+		r = tdp_mmu_split_huge_pages_root(kvm, root, start, end,
-+						  target_level, shared);
-+		if (r) {
-+			kvm_tdp_mmu_put_root(kvm, root);
-+			return r;
-+		}
-+	}
-+	return 0;
-+}
- 
- /*
-  * Try to split all huge pages mapped by the TDP MMU down to the target level.
-@@ -1625,18 +1645,18 @@ void kvm_tdp_mmu_try_split_huge_pages(struct kvm *kvm,
- 				      gfn_t start, gfn_t end,
- 				      int target_level, bool shared)
- {
--	struct kvm_mmu_page *root;
--	int r = 0;
-+	tdp_mmu_split_huge_pages(kvm, slot->as_id, KVM_VALID_ROOTS, start, end,
-+				 target_level, shared);
-+}
- 
--	kvm_lockdep_assert_mmu_lock_held(kvm, shared);
--	for_each_valid_tdp_mmu_root_yield_safe(kvm, root, slot->as_id) {
--		r = tdp_mmu_split_huge_pages_root(kvm, root, start, end, target_level, shared);
--		if (r) {
--			kvm_tdp_mmu_put_root(kvm, root);
--			break;
--		}
--	}
-+int kvm_tdp_mmu_mirrors_split_huge_pages(struct kvm *kvm, gfn_t start,
-+					 gfn_t end, int target_level)
-+{
-+	/* The as_id for mirror roots can only be 0 */
-+	return tdp_mmu_split_huge_pages(kvm, 0, KVM_MIRROR_ROOTS, start, end,
-+					target_level, false);
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_tdp_mmu_mirrors_split_huge_pages);
- 
- static bool tdp_mmu_need_write_protect(struct kvm *kvm, struct kvm_mmu_page *sp)
- {
-diff --git a/arch/x86/kvm/mmu/tdp_mmu.h b/arch/x86/kvm/mmu/tdp_mmu.h
-index bd62977c9199..a6919de10ca2 100644
---- a/arch/x86/kvm/mmu/tdp_mmu.h
-+++ b/arch/x86/kvm/mmu/tdp_mmu.h
-@@ -97,6 +97,8 @@ void kvm_tdp_mmu_try_split_huge_pages(struct kvm *kvm,
- 				      const struct kvm_memory_slot *slot,
- 				      gfn_t start, gfn_t end,
- 				      int target_level, bool shared);
-+int kvm_tdp_mmu_mirrors_split_huge_pages(struct kvm *kvm, gfn_t start,
-+					 gfn_t end, int target_level);
- 
- static inline void kvm_tdp_mmu_walk_lockless_begin(void)
- {
--- 
-2.43.2
-
+On Wed, Sep 23, 2026 at 3:00=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Wed, Sep 23, 2026 at 12:18:22PM +0530, Harendra Gautam wrote:
+> > Add qaif.h to hold common definitions shared by the QAIF CPU DAI and PC=
+M
+> > platform drivers.
+>
+> > +struct qaif_variant {
+> > +     u32 rd_len;
+> > +     u32 wr_len;
+>
+> Does anything use these?
+Thanks for pointing it out, these dead fields were overlooked. Will
+drop both in the next version.
+-Harendra
