@@ -1,48 +1,58 @@
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
+Received: from mail-m19731114.qiye.163.com (mail-m19731114.qiye.163.com [220.197.31.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D81CD1E4;
-	Mon, 28 Sep 2026 08:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46180472F60;
+	Mon, 28 Sep 2026 08:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583626; cv=none; b=Xzygeuyf3nM87n0eNX7pcK/mmm9SUsVnD0Epd2FswrnASEqcETByJuzbpMS25ZjQCPZAK9RxBvhBV3RTl8wUnILRG8bn3TLQ/VgA2J9p5HnRWD4DS6R24DAXmY41dDFqRUPKqHTGTVMd2TBZ8XqAF0kkHHGUU4GjbZmIQMzWDXo=
+	t=1790583630; cv=none; b=abUFvC240bTf/LEOOdaGctAVQVqbbQbaQyJU09yIIxeInyA5nhoTR78++nUsXVvbEKlkVidR98o9WZLadYLoJ22o7vxzPtyGdkebYk6ftVBHGAd6TdmD2JkR3Iq9KHq8YjrNMfGMTLRSRp6xlXAWvS8it9/rBY2LfVVpcNeuYdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583626; c=relaxed/simple;
-	bh=EIOlTxc/PUvmWAXCep9gmlZnbbjYSFRzmdX6+vr4OJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aND59Z5sQoX2eGglIDWgmFGbs5P/Nez732hlAaHRxsLv1NmC2YiLd4jKgCwvb/GZcW/kjcrFyZoGcLqSQbb512LADC4c6Ebyqi55VLFHKYT7O6XX5aM7+J8rmiXttO/vKmqvCRLdYPZGeZZ43LUPC/YOHlmwoG0AUq092favUBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 669973EC5D;
-	Mon, 28 Sep 2026 08:20:13 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [RFC PATCH 1/4] block: do not issue background swap bios as root
-Date: Mon, 28 Sep 2026 10:18:36 +0200
-Message-ID: <20260928081900.4187482-2-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928081900.4187482-1-alex@ghiti.fr>
-References: <20260928081900.4187482-1-alex@ghiti.fr>
+	s=arc-20240116; t=1790583630; c=relaxed/simple;
+	bh=xqx/9wwnyZSOJtMOeVB2aHX+mobpoxasxJjw/cG11+k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sULAUPj0Kh95lzsUwZumUtujdolQtcCBMvBnjq6ETSlONTimgD0Ji0l1jsm82lBWZVe/56CteQeHYcHblTGbvnVa+GI3NknT+zDldSSacKzz5utWBBHYsQw7qtiHi7JTTHGvQ7UzWxPFLCCdODnPLp9lXt9mwBeNmLu4m8ete8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Z56cA+TX; arc=none smtp.client-ip=220.197.31.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Z56cA+TX"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e69;
+	Mon, 28 Sep 2026 16:15:06 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 04/14] drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ bitmask
+Date: Mon, 28 Sep 2026 16:14:08 +0800
+Message-Id: <20260928081418.3605775-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,52 +60,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Cause: dmFkZTGtUmpjxhEfx2k/XMvfS2bDqEP9+dB5zZisGhxTwA8bQzLw3TIzq2waSv+gTQCne6+EBQmyW7bEzXaepF5Okak6AT+sDdJyFRS8JBxX5eWAn2dKQA+IxAW5YOKg6RuNOZXqSmdOPVtik4kDkXkMveBkIhwLfHH6+oJtYNWba4phVM5VwK3qK5PwYOtrhYesE5w8z8mqi5VPr4rtOenhStP9HwF40aqyUg3ojWVSxtNC6vSsJqOcXNUU4pC8KocXQZNj6qmJ4vmZaKB0nGV5McglAJybgGAm8g3dYpUDEI9WO4UM4y91lgaIcJNucAmybGIzNLZsbSjgKfmbti5QxXMMfUvFbT1AkH89G/MMj38j4q74p5XkbfKyohiHv9XRW4UD/pdec83V4NQkOXrvURbOT96oYYrYHDxmjFK1KjchHzgYg8zGemrbUaVE2vKPg16rjveWSO9xAGHGqh2ADS0qK/PcGf9ne04mTtbDtfkNij3DEXnMjJrdi8Taez2DFKDdhwBktDyq2o77Np8WcYQcvmTb1BxknF8+K9IJQOe8OcxYY8ciEPlX5n7qaSNaXmtsI1/dOMqnOv3F/LfNKoKqg8r98gWpdvostny/4LmW7Tli5vDVhPTM8H2Bd5lnbS74gF4KOUwMJJD9BuWbTC+IniWZc2wyvhDuRx60ETwFBg
-X-GND-State: clean
-X-GND-Score: -100
+X-HM-Tid: 0aa0e714f95c03a8kunm323e2b5437cf2b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTU4dVkhCHRoYTRlKTRpLSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Z56cA+TXn61gM36KmMnqt58pWMIoN3X/1SUemzszGu1kqKdPEpp+oME3BGYgWyONLL7HgX6sEbMTLr4ukFGjl3ajtGX4IIXy+9YsN2xjiH3aj019v9MS8ZlQc5oxRHPc1RYFS7fnDiQAgfxqEW5lU2G3zDHew171aFWlpKwLNRo=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=UWZOxCLTaxMJAjRXwenGJil0lgzREKKZ0OpySOymUtY=;
+	h=date:mime-version:subject:message-id:from;
 
-bio_issue_as_root_blkg() issues every REQ_SWAP bio as root, bypassing
-the cgroup IO controllers, because reclaim cannot stall indefinitely on
-swap writes. Some swap writes are not urgent though: zswap writeback is
-best effort.
+Update analogix_dp_clear_hotplug_interrupts() to take an irq_type
+bitmask argument. Instead of clearing all hotplug interrupt bits
+unconditionally, only clear the interrupt flags corresponding to the
+triggered events.
 
-Such a bio cannot simply drop REQ_SWAP: dm-crypt and dm-thin rely on it
-for limit_swap_bios, which caps in-flight swap bios to avoid a memory
-deadlock, see commit a666e5c05e7c ("dm: fix deadlock when swapping to
-encrypted device").
+Pass the detected IRQ bitmask from the irq thread handler, and use the
+full HPD_IRQ_ALL mask during HPD initialization.
 
-So let REQ_BACKGROUND, which already marks IO that is not urgent, opt a
-swap bio out of being issued as root. No swap bio sets it today, so
-nothing changes until a caller does.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 ---
- block/blk-cgroup.h | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/block/blk-cgroup.h b/block/blk-cgroup.h
-index e67c69839129..02009cb45495 100644
---- a/block/blk-cgroup.h
-+++ b/block/blk-cgroup.h
-@@ -242,10 +242,16 @@ void blkg_conf_close_bdev(struct blkg_conf_ctx *ctx)
-  * the bio and attach the appropriate blkg to the bio.  Then we call this helper
-  * and if it is true run with the root blkg for that queue and then do any
-  * backcharging to the originating cgroup once the io is complete.
-+ *
-+ * A REQ_SWAP bio is issued as root because reclaim waits on it, unless it is
-+ * also REQ_BACKGROUND, which marks it as not urgent.
-  */
- static inline bool bio_issue_as_root_blkg(struct bio *bio)
- {
--	return (bio->bi_opf & (REQ_META | REQ_SWAP)) != 0;
-+	blk_opf_t opf = bio->bi_opf;
+Changes in v2:
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption.(Sashiko)
+
+Changes in v3:
+- Rename newly added macro HPD_IRQ to HPD_IRQ_ALL.
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  2 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 28 +++++++++++++------
+ 3 files changed, 22 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 974be5b702dc..f88e3263ba0e 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -717,7 +717,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type)
+-		analogix_dp_clear_hotplug_interrupts(dp);
++		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+ 
+ 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+ 	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 3f40d95757c5..88fa538a5949 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -196,7 +196,7 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp);
+ void analogix_dp_force_hpd(struct analogix_dp_device *dp);
+ u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
+-void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
++void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type);
+ void analogix_dp_reset_aux(struct analogix_dp_device *dp);
+ void analogix_dp_init_aux(struct analogix_dp_device *dp);
+ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 49c1961e4326..2c1d4655114b 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -24,6 +24,11 @@
+ #define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
+ #define INT_STA_MASK		INT_HPD
+ 
++#define HPD_IRQ_ALL		(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
++				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
++#define COMMON_INT_4_HPD_IRQ	(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
++				 DP_IRQ_TYPE_HP_CHANGE)
 +
-+	return (opf & REQ_META) ||
-+	       (opf & (REQ_SWAP | REQ_BACKGROUND)) == REQ_SWAP;
+ void analogix_dp_enable_video_mute(struct analogix_dp_device *dp, bool enable)
+ {
+ 	u32 reg;
+@@ -375,18 +380,25 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
+ 	return 0;
  }
  
- /**
+-void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
++void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type)
+ {
+-	u32 reg;
++	u32 reg = 0;
+ 
+-	if (dp->hpd_gpiod)
++	if (dp->hpd_gpiod || !irq_type)
+ 		return;
+ 
+-	reg = HOTPLUG_CHG | HPD_LOST | PLUG;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
++	if (irq_type & COMMON_INT_4_HPD_IRQ) {
++		if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN)
++			reg |= PLUG;
++		if (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT)
++			reg |= HPD_LOST;
++		if (irq_type & DP_IRQ_TYPE_HP_CHANGE)
++			reg |= HOTPLUG_CHG;
++		writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
++	}
+ 
+-	reg = INT_HPD;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA);
++	if (irq_type & DP_IRQ_TYPE_IRQ_HPD)
++		writel(INT_HPD, dp->reg_base + ANALOGIX_DP_INT_STA);
+ }
+ 
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+@@ -396,7 +408,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+ 	if (dp->hpd_gpiod)
+ 		return;
+ 
+-	analogix_dp_clear_hotplug_interrupts(dp);
++	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ_ALL);
+ 
+ 	reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+ 	reg &= ~(F_HPD | HPD_CTRL);
 -- 
-2.53.0-Meta
+2.34.1
 
