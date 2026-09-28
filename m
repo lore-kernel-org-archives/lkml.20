@@ -1,148 +1,145 @@
-Received: from mail-m1973178.qiye.163.com (mail-m1973178.qiye.163.com [220.197.31.78])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E4B47126A;
-	Mon, 28 Sep 2026 08:20:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53DB471268
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583644; cv=none; b=p5sbP5cW9c96LSo3sD8c11aqBoRAfZ+K/bNmziJ50XDjnDkRFaiP+MauvOY2u6n+0kHtHHxc91nk6cVyrsV6m+bCeAlUxMxUzzOAA6C3rg1if1v4sojVQotdFx2RrqqcyUIu0M0fhhgKGX9MuE7di7Am5LiQ6qLlIxWOnG6GxsM=
+	t=1790583649; cv=none; b=LxbcW9zq7EcfGe5+HlcUV4BPsVJ/RWLiYDHO+jHi+FKddVS+yFbshuWOeMs6jAisN1TkNE7gXiY2yNcl6ewQO1nwlguX3R/Br8VAG6shA4hkPCEJfHxfEtQAXYL8EF5oej8Erg8PNf97FpvS4p1ru6y3dKBwKFrEzju4jxRcN5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583644; c=relaxed/simple;
-	bh=O+G1PsdrzcTL6zd1t7UY614jzYi/X+9Ypvjtk/iKbPU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=R4EO4EI5SK6YcSwmv1CGJ0/Myh2YE8PvjiJ0h3h82v7ohFllZtMSm3ovaMGA4pmiDmE+/AdwkNpG+bptmxNFYRG3opIz45FUGKj1JCPsSHvxI/1U8r5Ff0I1/1lbin/4TRmtF24NbgVc0X/U2b2uuB2M8Ga1P2y2vsbfmaZZNaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FHR468bO; arc=none smtp.client-ip=220.197.31.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790583649; c=relaxed/simple;
+	bh=CtjiIg1LsVrrun9n/5vKLItzxCmbEx2V8e805VpiR4U=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Vaf+eMVbv20ghb8reQ6Ivjy0VkV6mJGaO85PtYHnBVSm6Yt4H4C8XCCe9OuL/LqxlpwNIBj8/O60ajmRrD0iz9QLAVfynPwdMcjdo5VnsGKs54fODli5WjcIS7nhMVfdSldOFL9GghILV+daKOvDeJeRdPxdHRh6ZO49/hgMyos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=s3R1shks; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FHR468bO"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398ea3;
-	Mon, 28 Sep 2026 16:15:14 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 10/14] drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin detection
-Date: Mon, 28 Sep 2026 16:14:14 +0800
-Message-Id: <20260928081418.3605775-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
-References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="s3R1shks"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1790583640; x=1790842840;
+	bh=sWR7+AcckXLzVN8kNNdUbAEI0EtHthjNSFtY23Le07s=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=s3R1shksSUw6ZHzawrEzuYla/HQ3wOCMyXwUgQAjHEluSJ+zRBDxME8kSzMVniN0h
+	 qFGqpUA6QW6gJIpNMVBZi7BsA8QfKYypT4Dm0kPHiPJ8c7wF53OOIYLmFwpbMMl6c6
+	 lmpdBl3cJ/HVY28nNf0EzIAO808pbMLe/iE8mTzLPKVy6aY23TgjDDY/OQBw2O9/hB
+	 nqGZVvHB/+oIAHH3NotFmIMlt79N09mZ8VAyOHAHEx8G4fvvGwPSWL1aU+MAMLW5Gi
+	 d+Dv0qybqWM/x3F7jvsDvZFCzOVdaszF81ok7zQFIsADZ20S9K+xnut5Cegs1XOvG8
+	 JQgQnybWCelww==
+X-Pm-Submission-Id: 4htZ4h5D8mz1DF4X
+From: Esben Haabendal <esben@geanix.com>
+To: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman"
+ <jonas@kwiboo.se>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>,  Guido =?utf-8?Q?G=C3=BCnther?=
+ <agx@sigxcpu.org>,
+  "Fabio Estevam" <festevam@gmail.com>,  "Robert Chiras"
+ <robert.chiras@nxp.com>,  "Sam Ravnborg" <sam@ravnborg.org>,
+  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
+  "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,  "Oliver F. Brown"
+ <oliver.brown@oss.nxp.com>
+Subject: Re: [PATCH v4 0/4] drm/bridge: nwl-dsi: Various fixes
+In-Reply-To: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
+References: <vfndbk9zi3OIqSxPrtQEXwhrwIF37_6XjQPApIjAJ1MRPGB62dWkOgynZc0CcQjqCmzn-OzHvMjxzYtTttZXgQ==@protonmail.internalid>
+	<20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
+Date: Mon, 28 Sep 2026 10:20:35 +0200
+Message-ID: <87qzidvlbg.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e715167803a8kunm323e2b5437cf71
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEoeVk5DS09JGRlIGB1MH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FHR468bOgqbhhO89sW6plrUIBNGprK8yYsnbhwl/HwN66rnW4hGl8VtzxBx68WybFuSZzy8j3qDfROdZCxkvRQ6vAzV8f/oAq+aB4t0IwrwwrfY+6QjEQaNJ508ExGLqC6LpAn4qYVRjMuO/H56CpbpVCrtGHnvHBXYvQ1Gt82w=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=QLzkxeakjSh54tUqTZOT4TJ34W2N82hCyBquIMOGQ6g=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
-DP controller to remain powered and clocked to generate plug/unplug
-interrupts. Without a runtime PM reference, the controller suspends
-when the display pipeline is inactive, disabling HPD detection.
+"Esben Haabendal" <esben@geanix.com> writes:
 
-Acquire a runtime PM reference in analogix_dp_bind() and release it in
-analogix_dp_unbind() for native HPD pin mode. This keeps the controller
-alive throughout the device lifecycle for continuous hotplug detection.
+> This series brings a few patches fixing horizontal sync timing, EOTP pack=
+et
+> behavior and hsync/vsync polarity selection when using DCSS endpoint, as
+> well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
+>
+> The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly fr=
+om
+> NXP vendor tree, so I have kept Author unchanged, although I have modified
+> the commit message. Let me know if I should change Author for that.
+>
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
-Persistent power is only necessary for native HPD pin mode. It is not
-required for force-HPD or GPIO HPD modes, where hotplug detection does
-not depend on the DP controller's internal interrupt logic. Add helper
-analogix_dp_require_pm_for_hpd_irq() to identify Rockchip native HPD
-pin configurations (non-GPIO, non-force-HPD).
+Is there anything I can or should do to get this patch series merged or
+at least some review feedback that I can work on?
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+/Esben
 
----
-
-Changes in v2:
-- Split IRQ enable/disable logic, handle native HPD pin and
-  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
-  calls.(Sashiko)
-
-Changes in v3:
-- Modify the commit msg according to the previous commit for moving IRQ
-  enabling/disabling.
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index addd319719de..38857508d939 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -39,6 +39,12 @@
- 
- static const bool verify_fast_training;
- 
-+static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
-+{
-+	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
-+	       !dp->force_hpd;
-+}
-+
- static void analogix_dp_init_dp(struct analogix_dp_device *dp)
- {
- 	analogix_dp_reset(dp);
-@@ -1571,6 +1577,12 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
- 		goto err_unregister_aux;
- 	}
- 
-+	if (analogix_dp_require_pm_for_hpd_irq(dp)) {
-+		ret = pm_runtime_resume_and_get(dp->dev);
-+		if (ret)
-+			goto err_unregister_aux;
-+	}
-+
- 	enable_irq(dp->irq);
- 
- 	return 0;
-@@ -1585,6 +1597,10 @@ EXPORT_SYMBOL_GPL(analogix_dp_bind);
- void analogix_dp_unbind(struct analogix_dp_device *dp)
- {
- 	disable_irq(dp->irq);
-+
-+	if (analogix_dp_require_pm_for_hpd_irq(dp))
-+		pm_runtime_put_sync(dp->dev);
-+
- 	drm_dp_aux_unregister(&dp->aux);
- }
- EXPORT_SYMBOL_GPL(analogix_dp_unbind);
--- 
-2.34.1
-
+> ---
+> Changes in v4:
+> - Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
+>   eliminate intermediate rounding errors.
+> - Drop patch 4 (will be included in follow-up patch series, together with
+>   a patch addressing the unblanced resource teardown and PM runtime
+>   underflow problems in the error path).
+> - Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9=
+d672e1@geanix.com
+>
+> Changes in v3:
+> - Added Fixes and Cc: stable tags.
+> - Split patch 1 into two, with change of endpoint mux control in a separa=
+te
+>   patch.
+> - Fixed mux_control_try_select() state argument.
+> - Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0=
+ac453f@geanix.com
+>
+> Changes in v2:
+> - Added safeguard against small horizontal sync timings, protecting again=
+st
+>   division by zero and integer underflow.
+> - Added error handling of nwl_dsi_mode_set() call.
+> - Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d91=
+8a86ad@geanix.com
+>
+> To: Andrzej Hajda <andrzej.hajda@intel.com>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Robert Foss <rfoss@kernel.org>
+> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> To: Jonas Karlman <jonas@kwiboo.se>
+> To: Jernej Skrabec <jernej.skrabec@gmail.com>
+> To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Guido G=C3=BCnther <agx@sigxcpu.org>
+> To: Fabio Estevam <festevam@gmail.com>
+> To: Robert Chiras <robert.chiras@nxp.com>
+> To: Sam Ravnborg <sam@ravnborg.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+>
+> ---
+> Esben Haabendal (3):
+>       drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+>       drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+>       drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+>
+> Robert Chiras (1):
+>       drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+>
+>  drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++=
+------
+>  1 file changed, 74 insertions(+), 13 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260710-nwl-dsi-fixes-c148b0adb685
+>
+> Best regards,
+> --
+> Esben Haabendal <esben@geanix.com>
