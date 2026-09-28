@@ -1,133 +1,188 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2217B3750A9;
-	Mon, 28 Sep 2026 18:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618443; cv=none; b=K7snflS7F/8IzyNnTmVt5Z7QiHXun0gxR7Ms0cXNHwxqWKcwX1TXG0m3HPw3IXDd4k6afC4JcCCekpp+lqokTG1t1KQKDxwBdj/Jk5suhCiHEzjsML9UaX2MsKtOlH2ezQ57EQkg4XR4PeuFTwmqp7Ds0Z+OrGvU6py4aoqIvFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618443; c=relaxed/simple;
-	bh=DrV29lL9cL1NQXPk/MG3/cXxxQzYFgynM2Iuq5wjAWM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzenyYRxN/wqdzICEAj4MXzhVQV04Kbk8NWc9ngsaqhdtr5jz9uVw0+ZAMCcPIomLvw6SPCzJMkgE/Qh4jbWnAiiva9nSSTfVI+Sb4DnItcgtE4UMHigyeMUZx8Mp5eoIJLLvqzWnRARqUdNS1kdUBvrB3lDmS5jJk1LBKKpgWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=kAUaIAMl; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E569C2E5B2A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790618463; cv=pass; b=FjKZi1GiHClln83wPk4651GgbftKYO3R28IQ9Bbf1dp7o5q6Jhq5IbDoiWT1LnOqBN1E/y3iYCxB3bfc24d4AWto4+vRlobpTTpaDuMq3891M+MUI+aQgSmr3gwSywSBpwgkhffJneTrVRTI09kid8uyGZgQM3I3SJt3UNt0XI0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790618463; c=relaxed/simple;
+	bh=Q+bScFDrYz9EGcg8tS8t+zCNkNzuFfCjAA5PSwOkMNc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WuGb+PhWlyitDnbHtj7FyaSYQqiahWwrTtp92CRf6hU2/LWRW5QOx4Ws2DCUWoWRIHhuwCsZjTv/fNCjVh+t6PjpOma0rElUul178i/AUh1k6GyRDDHinFOSJms497tdiQu/A/UjXZCknGWpO8f+K7yeR11I40bIbrQUO8MkP1o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=kNNoiGV6; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="kAUaIAMl"
-Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SHwukK3561556;
-	Mon, 28 Sep 2026 10:59:49 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=pEF+FSbGC0I
-	yV+m+oO1hZz2RvMreBEf6ik/hQ9tP7DA=; b=kAUaIAMlccHRfXvCHNx9HLLgSvS
-	zUzXCppBo+HK8nIQev08VJ7mlkiwJOEAcPTfsYzBN9RLvoTu2Xa+Ae9hDz4riYAi
-	M4973+1KiZJOsPV8xEmrqIiege4V4D7UrEEKIYWiAepty/5n5O7KZX/133LwhcVf
-	QgnaxN4pqXyGz5gh0YbxVnYzi6Ik4wD0nDpA20s7CkHfC2TH0enbggx2LA5Pq7hX
-	Gg3K9R9fD4YfYlw9OVoHQl2pd90I6DX2ru/4DCzqXM72aJvgYJnXRbQa7rKud2N2
-	QGfT5GnzUUQNoalo6bif1GZHDKTvCN0XIAzJgHAiWktYCHfG9bG3eae8hmQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gxymj8skw-10
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 28 Sep 2026 10:59:49 -0700 (PDT)
-Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1b::2d) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Mon, 28 Sep 2026 17:59:10 +0000
-Date: Mon, 28 Sep 2026 10:59:05 -0700
-From: Alex Mastro <amastro@fb.com>
-To: Matt Evans <matt@ozlabs.org>
-CC: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-        Jason Gunthorpe <jgg@nvidia.com>,
-        Christian =?iso-8859-1?Q?K=F6nig?=
-	<christian.koenig@amd.com>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Logan
- Gunthorpe <logang@deltatee.com>,
-        Kevin Tian <kevin.tian@intel.com>,
-        Pranjal
- Shrivastava <praan@google.com>,
-        Longfang Liu <liulongfang@huawei.com>,
-        Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
-        =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-        Sumit Semwal
-	<sumit.semwal@linaro.org>,
-        Ankit Agrawal <ankita@nvidia.com>,
-        Alistair Popple
-	<apopple@nvidia.com>,
-        Vivek Kasireddy <vivek.kasireddy@intel.com>,
-        <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
-        <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v7 6/9] vfio/pci: Convert BAR mmap() to use a DMABUF
-Message-ID: <arqq6VXW8Rif59BL@devgpu015.cco6.facebook.com>
-References: <20260924152159.49702-1-matt@ozlabs.org>
- <20260924152159.49702-7-matt@ozlabs.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kNNoiGV6"
+ARC-Seal: i=1; a=rsa-sha256; t=1790618430; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LPNI4MswH7Lzntzn90zDKT599utqlLYYxB65mXavT7wDLugpHBgF6zCKDAVr3jpuTuWKpt7nSHohwlogSJNXIQu63ODrw5AlEo1wbT/uAOB1meoE0y/JOIZWObjS48MJzKNOWXR+/Gwpfeu0NsS/MqRC8ilLhMcFIKhPRJGZWes=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790618430; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rx2Dp8F0G79AkzZ8TkfSoNMZCeNYUm4dgXzgVmBJYYU=; 
+	b=RQOMq9AHmT+JrwZb2c/bEpey0HjPjzJTWBWcDG727xpNONUU4xzfZPVGClzjnSnSWqpz4kQW0cAE8356G+oMxtia1EF6JRlNsd7Jy7hDRolt9GgGnqWRrFRAq0C10TQG7cRhZ1qgaLy5N/O59MY1uPqZ5GdezLaa6LjwQZVjRAI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790618430;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=rx2Dp8F0G79AkzZ8TkfSoNMZCeNYUm4dgXzgVmBJYYU=;
+	b=kNNoiGV6doOW3mVcl+p8MW6tf2EKhNZuGCmyzX6mJpdPZNghSdU5Lb7032525Zvi
+	WsihPJchqqZ/b++ELDdBz3wbWea72I1hph29bZ1pwvO4itw20C2m2xDLzMPCcn5HWxP
+	hmUx8QU2gtztNZf44iZHQ22CZGuiMMVwjsOqZUzY=
+Received: by smtp.zohomail.com with SMTPS id 1790618428921626.3807045692041;
+	Mon, 28 Sep 2026 11:00:28 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 9FC5618081B; Mon, 28 Sep 2026 20:00:24 +0200 (CEST)
+Date: Mon, 28 Sep 2026 20:00:24 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, linux-phy@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com
+Subject: Re: [PATCH] phy: rockchip: inno-usb2: ensure PHY is running when
+ clock is requested
+Message-ID: <arqnn8s5yFmZzQvG@venus>
+References: <20260908-phy-rockchip-inno-usb2-clock-fix-v1-1-f7d59c31b908@collabora.com>
+ <xnvakstneih6njyxfe27kdx54vy3zpnth24o4mjlzuoykb2pfh@np7dx62waujo>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="untgwae5zqmwhmvm"
 Content-Disposition: inline
-In-Reply-To: <20260924152159.49702-7-matt@ozlabs.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXwkixo5mFwJL+
- 3HxVttVUw+QY1JoVP6q/63ZuKC1iNj+c/kiuAoI/m0mErc4e+ALmZ+sdLPtiu5xXfpLVL1H5sw1
- KoQeyUON47ZXxYfTn/Brx09PCPtLkJk=
-X-Proofpoint-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXz7SjoAw7WbsZ
- 0rw1WR/kQSLSd+1v8o5N+oHGO7nv54+PqYN6mxhHQ/CwrRq+y7emYcDWXrwym0zCeMMMa2FCMCr
- BgTsqJWofCMKDD/BC1iVgqGdG8iuKaxUQlHgXPSVhLmVjo32uo4XDVPvOfkAJsE6l0QuDm3w6VE
- r31kXYppLEsgTWVzeJAaNWssShBQ9jlnBI+0vZyyvl2QIQ+D5ATJFvqVcgq0h20cR4TvBkYmq0M
- M8o2mx94ripun1SkUw+MKHWcBV2azAbayTjK4wGG4TjCpk2vdsJr4a0jBMRq3F91qr0MejGDxNu
- av0w7LR5mviJeRXJ1g0VKYHCFm6bp9VnvAoCaFbTm6XDRiJ562qJsky0FcUzLFfpQxNh9IICMTx
- xnF9zDKglBN9URMpMjFlJYCN+0uNXYvcUvUqCn0+YjDXn6PkNL2MQsovuF2qwuRx9WWfFbGbhyz
- obwvwrEB9L0mFhnvAZQ==
-X-Authority-Analysis: v=2.4 cv=Hp3jiETS c=1 sm=1 tr=0 ts=6abaab15 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22 a=NEAV23lmAAAA:8
- a=wdxqxBYYAAAA:20 a=FOH2dFAWAAAA:8 a=RDIsNprFJan8OBN3x1YA:9 a=CjuIK1q_8ugA:10
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_05,2026-09-21_02,2025-10-01_01
+In-Reply-To: <xnvakstneih6njyxfe27kdx54vy3zpnth24o4mjlzuoykb2pfh@np7dx62waujo>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.602.86
+X-ZohoMailClient: External
 
-I used [1] to validate that the problematic sequence that deadlocks
-in v5 is resolved by this v7 series.
 
-The test stands up a spoofed nvgrace device [2] in QEMU and runs a test [3]
-which:
+--untgwae5zqmwhmvm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] phy: rockchip: inno-usb2: ensure PHY is running when
+ clock is requested
+MIME-Version: 1.0
 
-1. Launch reader thread: pread() from vfio device fd into a userfaultfd-managed
-   page.
-2. Wait until the uffd fires, but do not resolve the fault. Now pread()
-   from 1. is blocked, holding memory_lock(R) inside nvgrace_gpu_read_mem().
-3. Launch writer thread: pwrite() the PCI command word, queuing for
-   memory_lock(W) inside vfio_basic_config_write().
-4. Launch mmap thread: mmap() on the vfio device fd, taking mmap_lock(W)
-   and triggering the internal dma-buf export that backs the mapping.
-5. Resolve the uffd fault.
-6. Join the threads.
+Hello Mani,
 
-On v5 the dma-buf export in step 4 takes memory_lock(W) and blocks behind the
-reader and the queued writer. The reader's fault path nests mmap_lock(R) inside
-memory_lock(R), while the mapper holds mmap_lock(W) across the mmap handler and
-waits on memory_lock (lockdep reports the cycle).
+On Sat, Sep 26, 2026 at 04:50:07AM +0200, Manivannan Sadhasivam wrote:
+> On Tue, Sep 08, 2026 at 06:07:42PM +0200, Sebastian Reichel wrote:
+> > On RK3588 the OHCI controller registers can only be accessed when the
+> > PHY's 480MHz clock is running. After system suspend the controller is
+> > resumed before the PHY.
+>=20
+> This statement is slightly confusing. There is no PM ops in this
+> PHY driver.
 
-On v7 the export takes only the new dmabuf_lock, which neither the reader nor
-the writer holds, so step 4 completes while the uffd fault is unresolved.
+I will take a closer look how it is powered off during suspend.
+Generally I expect it to loose state in any case as the related
+power domain should be disabled.
 
-Tested-by: Alex Mastro <amastro@fb.com>
-Reviewed-by: Alex Mastro <amastro@fb.com>
+> > The controller requests the clock, which opens
+> > the gate in the PHY's clock prepare function. But with the PHY suspended
+> > this just results in a dead clock being routed. The OHCI driver will
+> > then continue to access its registers resulting in a board hang.
+> >=20
+> > Fix this by resuming the suspended PHY in the clock's prepare function,
+> > so that the clock is really prepared once the function returns.
+> >=20
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> > This was noticed on RK3588 EVB1 when resuming from system suspend. This
+> > is technically a fix, but its unclear when the bug was introduced and
+> > system suspend is broken on RK3588 for quite a while and not just due
+> > to this problem. So I think this fix can be merged the normal way via
+> > linux-next.
+> > ---
+> >  drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 37 +++++++++++++++++++=
+++++++++
+> >  1 file changed, 37 insertions(+)
+> >=20
+> > diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/ph=
+y/rockchip/phy-rockchip-inno-usb2.c
+> > index 7d8a533f24ae..07d400967def 100644
+> > --- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+> > +++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+> > @@ -332,6 +332,39 @@ rockchip_usb2phy_clk480m_clkout_ctl(struct clk_hw =
+*hw, struct regmap **base,
+> >  	}
+> >  }
+> > =20
+> > +static int rockchip_usb2phy_clk480m_leave_suspend(struct clk_hw *hw)
+> > +{
+> > +	struct rockchip_usb2phy *rphy =3D container_of(hw, struct rockchip_us=
+b2phy, clk480m_hw);
+> > +	bool relock =3D false;
+> > +	int ret, i;
+> > +
+> > +	/* Limit to single port; it's unclear how multi-port should be handle=
+d */
+> > +	if (rphy->phy_cfg->num_ports > 1)
+> > +		return 0;
+> > +
+> > +	for (i =3D 0; i < rphy->phy_cfg->num_ports; i++) {
+> > +		struct rockchip_usb2phy_port *rport =3D &rphy->ports[i];
+> > +		const struct rockchip_usb2phy_port_cfg *port_cfg =3D rport->port_cfg;
+> > +
+> > +		if (!rport->phy || !port_cfg || !port_cfg->phy_sus.enable)
+> > +			continue;
+> > +		if (property_enabled(rphy->grf, &port_cfg->phy_sus)) {
+> > +			property_enable(rphy->grf, &port_cfg->phy_sus,
+> > +					false);
+> > +			relock =3D true;
+> > +		}
+> > +	}
+> > +
+> > +	if (relock) {
+> > +		ret =3D rockchip_usb2phy_reset(rphy);
+> > +		if (ret)
+> > +			return ret;
+> > +		usleep_range(1500, 2000);
+> > +	}
+> > +
+>=20
+> This looks like a duplication of rockchip_usb2phy_power_on(). So I'm assu=
+ming
+> that phy_power_on() is not called by the OHCI driver before accessing the
+> registers. So why don't you fix that instead?
 
-[1] https://github.com/opsound/vfio-dmabuf-lab.git
-[2] https://github.com/opsound/qemu/commit/349f0b12ca633fc42532aeda33273079b2b8e5d4
-[3] https://github.com/opsound/vfio-dmabuf-lab/blob/cfe762123076c4543fdc4e8d5e9b62ad6bf998d9/tests/nvgrace_uaccess_test.c#L309
+I can look into it. My way of thinking was, that the clock should be
+running independently of that when the clock has been requested via
+common clock framework.
 
-Alex
+Greetings,
 
+-- Sebastian
+
+--untgwae5zqmwhmvm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmq6qzQACgkQ2O7X88g7
++pog+A/+MEyOCVKuYQ5mvlVbb5Ag+syHiOeLRFUzhUivNdnzrXzfdkriXModstAY
+TFfa4898XF49E/Ru7SIFZBvG/X+K0TwZmezCy6NKxZKAkxbt13pc8x4gxwMaalKb
+Pf7G51RdsaL+QVUGKiHzqjt2Ij8J3qvOp6QUTceI6kKA8xIg4D8ObWXi1m9FV0vT
+ep8U5w/l8/ZJ+8wTDawVBPMG/IZ03HoviEfeN7YB3Bbu7unEWkWUKWLAaa3o5Bj2
+urmwDdGa4AI7v8AQqg8hapFNDWNbW+0ltgv0fLBRJl9jyN49BVjDHbK/3YNFW4Vk
+nchGhClmnnc7g+Arwj+ddamMh42B52eXdN062igi1+9omeDm7QdXNoIyyuLT+Jwm
+Yu+fB+HiiOe2AKHNdB4mi85Z4D2p9eTNbA7xXgAAA+BGb7mNm02wdY3zvUC2mtCU
+6a/5qXzoypPq+WkbcKPOKfESeQ7wNcdETRAnHfSg8izrfW5lZ9ZsC2amUVDkWLo9
+VRJ61SESKkPvgTaqscTNIBFX20I46FU0noS/JSe6jTL7j+Phn36Ert4ZIH6JRZZK
+8ADc8nasbNs7VJ6AERiF5Z34j8uL36z7oRDiK7CzlYWhQGg9mbvfH5PjBZwuoYkr
+IGuop0RFl3hrViQsLJ4KPhyfNPUKIFPB+SbuAV0wy08eia2W4YU=
+=dCQG
+-----END PGP SIGNATURE-----
+
+--untgwae5zqmwhmvm--
