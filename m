@@ -1,492 +1,455 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013065.outbound.protection.outlook.com [52.101.72.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89584D1787
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602392; cv=none; b=aBi5fpVZTxjX3PlAjjaZUnKs6TjL29bbBy2dPFrj+sFDFliq6WytmQGWU3G4ceLgi5j4nC6sqygUuBEzJzWDVC2XBCrbwJgyOy+0h8vRVWAC3Yel9sVK7St5COl/8vT/74WRe4M/tcHOPVfgFJsLPo8VogBKnYLSvvsmPdTg8lI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602392; c=relaxed/simple;
-	bh=+TFUZF24zR90EzHuFN3/Z4BUjLDYP5TSG6Dr2rhm9r0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NSdFYNdGYX1dQObbx/sNuqsnLQ+cemyuazJCnsm6ZooKq2fwCLgdi7uTbpMwAOi0bOd111/R7/KfRdn3XcuDPTbf1z6enNV9mMgNQ5RBkJ//UN1L2tPMQeeN2X2VVzOXBNzS0oy8GXfsEFXx4eWfRUGTgvQQ6H1w0xG8A7nlTEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yt7Xr6TA; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6317F4C7522;
+	Mon, 28 Sep 2026 13:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.65
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790602437; cv=fail; b=UBsT+J5xd5gq2iGlIBh2rYnxWfcUMuoeTQUYbxY4wMqqw000w/5L1a9ie/a/am5BhZsMs8OE44+Nz/woCCRmK0lU2+U/Xhof4HeRQ8loIO5S0CzLb8Ch04SgHTXWT7QfSPnJRtvHl9XHQPGruDsJX7w3B0q4mjVlikH9uMgSm0g=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790602437; c=relaxed/simple;
+	bh=qoOyeisugPgV0x/Ez/POdc36YAKQXr5Cn964t1DHwwQ=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=u70mgjVJrPwZLN6CeqlGXH4YWg+ClXKmMfuRVTX3Bo9BJM++kdfppolWmopCHsrdYftGZJsI4Atzm2xcbRJHLw7XamnYizWTkxbSgLlxFtfRrccw0+JTd0gxOwGZ1zJIAEnqzL7gTM/Z2nLKAwuJP5cBN5z7Z0LECq8BnCtQibs=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Aq8baAao; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Aq8baAao; arc=fail smtp.client-ip=52.101.72.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yt7Xr6TA"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso2403770f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:33:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602384; x=1791207184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S4++bv7VkupLTBlegq9bDur2NZ+d8zmcops2rZn7Th0=;
-        b=Yt7Xr6TAM88UoZqbLa6e1T/A3BVhyLkeYj7LN38sD3jiFjyLMppbXMPNKj/gLa7M5L
-         JUC+n7NSUOy7HiovAEhHwFYP1j+ADv45TlV8DTynQG1iDjYC4CLy2j9XBX/1Z9RkSXxG
-         210LQxXVfcEU2D420jLQLBXIL30Kvy3vs2B8yvAujkua5qkHyIaofHqkhORxNYS4ijQZ
-         TC+Wrv9k0pmubltDZ38Quw/zI/r1fJz/N6FTt9HtCQM6Xr4Zj5K3Dkzl/XgH5aX6DQVZ
-         xMqdLGl14CZdBd7eW20VG5O4IUK51AsEvFTojg+g+/kL+pnzFnSepy5z8/VML3ZijIO7
-         mPDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602384; x=1791207184;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S4++bv7VkupLTBlegq9bDur2NZ+d8zmcops2rZn7Th0=;
-        b=VesFPQ30qd7mAllu+J2O7U6RH+8QLwFFQPffr/dJ6Vhm8QsGeuq0sQCcGiEPvi/guc
-         XVJ1gcBOr7QkUbD4OTartGlE/fcXS8aBkyYeJeltyQ7BibAJBL1DjKOEivfuECc0qEpu
-         ixMRg6CXtcBvkmUN8HdOZyJ+EYhNqxUkzjYX8bGXrcXLm3TVwg9INx7/k4lxBYL0FhN/
-         Uk0MFSUUWY5mCfQdNYH3MfIO3uthlVRsH/j047e186jV11RyuPwfXAbDXpgsUDLJlsmB
-         uSleQNu8mxWBP/UW/N8o0IbPGOnsf+LYsg7EUP6pd7p4ZcVpeMg90Cr5L676c0/sr6Gl
-         Vm0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwKhD8vokTUM08WLl9Rf61GNVpxB0jnUMpEhNppD4Cm0Mr6o30zRdY2BfTF1syy4KMshlU/tmhmpWfQfxw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLa2PBwlVQEmVRqnvnqfbQ2RHMRNcTwEECgot0p5QqY3ZvJL5HF
-	ERicz9iHEe8TRosnWWj9m5xdw4AANhWZCoqoSQbrFgrZX55f4P0IKnzd
-X-Gm-Gg: AYBFou0ykzoJIEZU1fUvbSj/HOsX0wxgC06sxK/r64GCi+z0Ct1ZiDE/+7QpZLyoiV0
-	4yRqGMvBKe6o8VTzXBffdQ7KF64gzRkMqp0ePPD0scFSuBfiHW2tV87PlgQaCm7Lls0x7MgS7k+
-	hvVjRfnGy43mrbqHS6xE87MBr2U89h6TFAdwse8ceIJTohxTCLH7WQJwKMTLrJgYyVk3fYnDBLh
-	KjNNIos3fY3ODeB7IDIPgGAFLa6Xx1glZ3irPY64DJ3IB1CC5QQ60ZJR+QKi43WYx8/WY83nYTC
-	54HcmNGRqBl1ZMbydxhF/b0L4N+z4SocLvmeIgB04iE5nJsgCkcJ2Yt7I6hqLxskjZA0CCFO7hP
-	t04PgnSK080oh7LmLbgeHBEwHePyh7kNo7NAJciS8Ov+uP0SzWqbNQsJUPcdynEj3AHKQBSZqny
-	8pT1O2+p9r6+j9Vh7vUnkVL85hp1Izh5rcRWoLWfyL35qFp2/2fEkQ0UF4DK2aWwq9I4+8K3+ar
-	FJR8Pz6o2b4bBU/pWEyWdo4WYfY25EqQoINme7qKL7uroy+SYniqNwDHa+v3220UNSbyIJV9Noz
-X-Received: by 2002:a05:6000:2608:b0:488:84ba:ae2e with SMTP id ffacd0b85a97d-48884baaf4emr12983113f8f.0.1790602384178;
-        Mon, 28 Sep 2026 06:33:04 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.33.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:33:03 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: linux-block@vger.kernel.org
-Cc: asml.silence@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev
-Subject: [PATCH v7 13/13] io_uring/rsrc: add dmabuf backed registered buffers
-Date: Mon, 28 Sep 2026 14:32:29 +0100
-Message-ID: <f51f95d2e5e2f8c0c4fe0e17364b2b333b6e6cd6.1790602223.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1790602223.git.asml.silence@gmail.com>
-References: <cover.1790602223.git.asml.silence@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Aq8baAao";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Aq8baAao"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=WvwkkBVoK5JoFjjixRpLYGF0zIRMmDk4RMOth8fPiGklGzjtw4hGsORP3egNn2fpCoC2QNYMMfAj5sWkeTH6ZF7ZD8fN4nKSJYGFbNlm9T/Wj0MZjoxXs+sxQmCfc8u5KGJTvnM1QhVKfmjHdCfIov/4k0fGH415HRGk7sh1Vj/TEYanR7mHMUBEoGkXxWekTfk9LOlL4TojMTK8kt3c9cistNtfTLDOK2h08c8QXdo1PRpwy4cOgiLJjWsnXu6gtROBAfhZ4l9SF4Ea95S7L7BwbUq6+M3WyoHmSh8olFGJKJbGL8+7/OOmXJAjqhbgCrVhN1qojEy8LIL41dSSag==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zhJiPmC05vbAFa3iBHhvre5DBnGDrHpdgu0wj867Zd4=;
+ b=Qk76iFoXH8iZd5cmdv0lIw7Kqso/6zTvajWB4k8edUzcIVkR0waKF78+TJwrS9FSJkvmxCBNZSgnrCMbFKq2y4dFl4gR/r6btsJmZyEQ/1+D11YdAsCqx9CQRpWYkc9m1qFQ9M44MS2dMEvgHrlvUfDlLpBLJ3e2Hp/iDLqOnKnAHf71J+ooN/TumJ9AsSCXpmTKpOa4uI/ynRIO8Z37cRBoxro+td94wWRJ1vRs3Z4WZ3c27dtjVgrZzLG6ng9fBznEIFH+sp5gAPay9yHVbwT9+tMHwrDzNoxQsueZ/LMmNeOpKNjN5FylROgMjY4KQc89hTJC4JI97LiqrQt47g==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zhJiPmC05vbAFa3iBHhvre5DBnGDrHpdgu0wj867Zd4=;
+ b=Aq8baAaoHdQOMPHkBdX5D+FzkZ4MuFmwIBJ04wtAGE3ifFB4AT7KfmNic7RsPTgXTrLx7NjHmCgQ7xANmMUnG0V39BvKaw326xH8do9zcNk53mcsfmOHRLk3WshykCtPC0i7vCDpjGZRSciIGL2CqL90pjqQTHckcXfzUAxPPL0=
+Received: from OS6P279CA0168.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:38::7) by
+ PA4PR08MB6158.eurprd08.prod.outlook.com (2603:10a6:102:e2::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.19; Mon, 28 Sep 2026 13:33:43 +0000
+Received: from CPH1EPF00000522.eurprd05.prod.outlook.com
+ (2603:10a6:e10:38:cafe::9f) by OS6P279CA0168.outlook.office365.com
+ (2603:10a6:e10:38::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 13:33:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ CPH1EPF00000522.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Mon, 28 Sep 2026 13:33:42 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vH8vifZMlV/X7FOGuPF5vdBl9HfECwcUG2bZlTyyKw/t6I1Q0Sek8b8tUNWXu7H/2+anZUSiSCZu37yHJUcJL4st03rkv211WkbFtssnLU774OHWJVkdDLcZtSXxdHyZywxarH+DQCtfPviNCn1PSGi+eUskpxGwlmrs8AC7GVxyFGUMcyR0YiQGLkVp2zGCIeJ/EFcUgeAbvCU1mnztzRtucrOgwQeG/stN/T1q80uC648pqgHVgft9/w/B09InG4T8bKerBvZ1DeoRgYhKWTbOVG4SROPWwHrUwPCWfKaTM2LYDHs9Z7/xrHwu9nPH5OV+Z3zWdCi7kyrI88lTvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zhJiPmC05vbAFa3iBHhvre5DBnGDrHpdgu0wj867Zd4=;
+ b=g0PU0BttSNcSrMWsuEGLL5aCDsSEjZppr7GjHDtfMWbBEqWe2I1qXlD0yvYbR0QtHrXnxLa0xpLx9mbIz1r3Vgsf391+jH+5u9qe33FNXrzkkAjOKyPATbIlLalSIP6kd446kNh+kjs4kkQDpRmHB8i+snqFaB5LpgGGLpp4DIFwdhYrMZAeMu5vT5M09V+d2LdJvZjbdtqNHfWQXtxOJEVcccPGg+PUSQvi0lxZX8X2HhmIFh1IkxslK/awWzvlh4OO6/YRYHp542uSl/wdXmL91gWH3rc452na6agzv/tNoyEZYWjoe/4D25WLhLLrh+inbhzCJz8s83MLJdGSfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zhJiPmC05vbAFa3iBHhvre5DBnGDrHpdgu0wj867Zd4=;
+ b=Aq8baAaoHdQOMPHkBdX5D+FzkZ4MuFmwIBJ04wtAGE3ifFB4AT7KfmNic7RsPTgXTrLx7NjHmCgQ7xANmMUnG0V39BvKaw326xH8do9zcNk53mcsfmOHRLk3WshykCtPC0i7vCDpjGZRSciIGL2CqL90pjqQTHckcXfzUAxPPL0=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI0PR08MB10391.eurprd08.prod.outlook.com (2603:10a6:800:20c::6)
+ by DBBPR08MB6201.eurprd08.prod.outlook.com (2603:10a6:10:20a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 12:21:02 +0000
+Received: from VI0PR08MB10391.eurprd08.prod.outlook.com
+ ([fe80::fa6b:9ba8:5c2f:ac91]) by VI0PR08MB10391.eurprd08.prod.outlook.com
+ ([fe80::fa6b:9ba8:5c2f:ac91%4]) with mapi id 15.21.0451.014; Mon, 28 Sep 2026
+ 12:21:02 +0000
+Message-ID: <9ffb913f-87cf-48da-b08e-544cfbda785f@arm.com>
+Date: Mon, 28 Sep 2026 14:21:00 +0200
+User-Agent: Mozilla Thunderbird
+From: Pierre Gondois <pierre.gondois@arm.com>
+Subject: Re: [PATCH v5 3/4] cpufreq: CPPC: Preserve OSPM-set registers across
+ hotplug and unload
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, christian.loehle@arm.com, ionela.voinescu@arm.com,
+ zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
+ ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com,
+ kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ acpica-devel@lists.linux.dev, linux-tegra@vger.kernel.org
+Cc: treding@nvidia.com, jonathanh@nvidia.com, vsethi@nvidia.com,
+ ksitaraman@nvidia.com, sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
+References: <20260916103820.1760297-1-sumitg@nvidia.com>
+ <20260916103820.1760297-4-sumitg@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <20260916103820.1760297-4-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0138.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::17) To VI0PR08MB10391.eurprd08.prod.outlook.com
+ (2603:10a6:800:20c::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	VI0PR08MB10391:EE_|DBBPR08MB6201:EE_|CPH1EPF00000522:EE_|PA4PR08MB6158:EE_
+X-MS-Office365-Filtering-Correlation-Id: da38112a-b525-46d1-f669-08df1d651d4e
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|921020|6133799003|56012099006|10067099003|5023799004|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ zAaiTqqjkGHxWSoKbru552KxjW4HgY7E//6Ckt6XcHtyyHeqEzIRLqKHC126dciV6AJluo7HySxdC6i3BaZgTGlu4DSnqYOK3+0iCV1eEI8DuXfXKYdjQAnLLihEBEtqr1/uPl0wJMrMkanjfoPciN09TQuKsi1klTThbe2Kk8yRZ9pbdjOOljZlZ6UPbHv5sRCnkXYb+fW9UWv0LGFLp7Pf5wXNPLyqwDd6ohVDumobKUkeN8Xwf0EU+97PKpiDid7rwGy50c84CTgQshYPzI/8PwJvEXNydgeF71NAIGbsi/EZm4Wt2rC/ijmlu2XxA8s47ugHZfyqPO9DS+j3yS5wlD49Emyh9eyaMl+o2KieHPVl+Bf3RSdEU6DFVE4gAh4tjyi7FDHN0gAOLXciBosmkzzYRJEQzsJXJ14xDuAStjOgSzZpAl/KZJi7inIM1dbTqJenVssbnlzeLWEn7a4Y3Sr17qV2GM93hNkmmNKx1oclqmFm2qnNrNHpMcyYkYT7HbQVTCq51kZjrAGSlfW76ytxBAKijtNwgkuKiTbc+K1S35YOz6NK7czsDfDNxjqx18nWsOcGs6b28X92S4V+BjG4WO0Vlt1q856u6OI4XzJ9zoFYpwW+qbgzVFH4ZWK3j1/J/ENmZsgNcVYTmBjs1OGdWsGbdcZMpsrcIDc=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB10391.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(921020)(6133799003)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ pCYnEonxJbPA+UVlEvmDGyoHGZnqw+wQzha3/rt9mVOLZt2eyffXYONaakg6QtAadHqXHXtPvSRnqziiCE8bz6Xg7OrxvkFu77UrkjjAlcyb8E1H68swOun94odTW+N2vNFqzPxw7oby29jckHSFWj1K3w9e2R1jTZdd/TdepnmLk1eMBNKmeBm7sAACPe4FnyzsgQ5at2Ui4iBVos9Z9zJaUfHD78qM6OLIihellopk0Dne3jHva2kf02jICXLpylW7+mZkeDTuGlo0ym93Ez6EkM8bayswPxttyZ2iYk+ftqw6uC3nyugQnzLiLoVn4O+MA0oqynvVJhcb8RPxkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6201
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF00000522.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	4bee810e-cd1a-449c-edf9-08df1d5af5dd
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|14060799003|36860700016|376014|7416014|35042699022|23010399003|82310400026|1800799024|921020|4143699003|6133799003|10067099003|56012099006|5023799004|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	X5Mme5NIkKRkQBc/vse03yMX5QK19eAIUGmuVGKTSMvpiJtoR/VuxdUyC1w+us5iddfz5C0F4Mxl4hUGPMXrzz01mpEV1JPM7UQMW9dWvVDMR2wup9EKyer9yoC7Y22iEcDqkVhtdPS2Ee4MMZ+D05IzFlRMeyb6mvEFeF8+cOfi6hOvy6/jdThTpGf1sD6FIhSQl0WE8y/UvMx2zsVY4QI3Ovn1exeUtGw+XQkbTCyQYCGUFpbiPI7Dwqf+GONnWsvcx9tjizc83FNPbE2maLsPgLBh5+qgszfA/XV4numOymK5bVEfPRuEU591VXM9ri938GpEJBTUoQS1MxGzS7SvP4Ld7KdQpNNWzlOj0pEKlihUbUno/p05CGMtqgZj9ogWsIibcH43aTQGWbReee0K7CLqR/zNF47m83e0AHymHwtoKTWjjQMI29RAJITStDSjHuAVKiWaY2Ywdeyqkj1hGGlwTJICOU0ohmHYMx8FBaYvlS5J3+geTyy7gABigWKO+r+UtZSP/j50I1Bcbm4momkhiLeXQXsrDh6HHIsXgykKdwH1H1gqliDhwdkW+xHfjvFWBO31AXXPq97mPwxCCNvy4wsJMvBvbGOISw8c3dWsCZf5vwwR+BhV0F/9RLhiOnXH5Zhy3HosXhLf+TtHAFxloJVLqjAzpFpAj1Mmps09c79S04tmyXtA6Ya6gTi06wFrAnpt+uccPlD23w==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(36860700016)(376014)(7416014)(35042699022)(23010399003)(82310400026)(1800799024)(921020)(4143699003)(6133799003)(10067099003)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HeTsh58B9wNEnrcaupTUbwrhBbTobNT+rQ951poRQ2csvwyw4jy+3UgC9qF6ODIvgrMHY73JkX1OrXs79sE407sDwehMbJzDhC4g9R0mZCmblZ3AJ+qMBNoq1FW7vh3efezgtxZ+3A2LArIvbf+XIbdqbo8r3NYhhd/KGGlWAc7MIXmMCpYIpOS5nSJDKYoyi0qBTss3CL14eA0Es/ritdpwsgwA1W5JXwZveH2SxscWr0wDhtucdf5dj5gY2PQ4KwQTcwDs082FtWFiXJP4b8EhTgeE2wwcus4qgzP+IRJAe5gKzg0YnieP+TR7nca6ilLaUGgs89VaxXnpyMYsTwRHC/0Ul0aVGolrX/PznPrKzKFjvWmmyJxJjyTgnO9PMPrCdJOA7S7sEXakv4gc6sRWVjZoiTG75aM4BFACqGtPXIHGtTPXoyki5E7ysdeR
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:33:42.8836
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da38112a-b525-46d1-f669-08df1d651d4e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF00000522.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6158
 
-Implement dmabuf backed registered buffers. To register them, the user
-should specify IO_REGBUF_TYPE_DMABUF for the regitration and pass the
-desired dmabuf fd and a file for which it should be registered.
 
-From there, it can be used with io_uring read/write requests
-IORING_OP_{READ,WRITE}_FIXED) as normal. The requests should be issued
-against the file specified during registration, and otherwise they'll be
-failed. The user should also be prepared to handle spurious -EAGAIN by
-reissuing the request.
+On 9/16/26 12:38, Sumit Gupta wrote:
+> Values written to OSPM-set CPPC registers via sysfs can be lost in two
+> ways:
+>
+>    - Across CPU hotplug: the platform may reset a CPU's registers while it
+>      is offline.
+>    - On driver unload: the value the driver wrote is left in the register
+>      instead of returning to its pre-driver state.
+>
+> Add a small table-driven mechanism that handles both:
+>
+>    - On init(), capture each register's firmware value before the
+>      driver programs anything.
+>    - On offline(), read back each register's current value (whatever was
+>      last set via sysfs) so it can be reapplied, then restore the firmware
+>      value.
+>    - On online(), reapply the value captured at offline() after
+>      reprogramming the performance controls. A failed write to the controls
+>      does not skip the reapply, as no other path restores these registers.
+>    - On exit(), nothing is needed, as the core calls offline() first, which
+>      already restored the firmware values.
+>
+> Cover the Autonomous Selection (auto_sel), Energy Performance Preference
+> (EPP) and Autonomous Activity Window (auto_act_window) registers. Writes
+> to EPP and auto_act_window only have meaning while auto_sel is enabled,
+> so write auto_sel before them when enabling it and after them when
+> disabling it. While autonomous selection stays disabled, the platform may
+> ignore those writes.
+>
+> Suggested-by: Pierre Gondois<pierre.gondois@arm.com>
+> Link:https://lore.kernel.org/all/86780f97-29ee-4a72-b311-38c89434b707@arm.com/
+> Signed-off-by: Sumit Gupta<sumitg@nvidia.com>
+> ---
+>   drivers/cpufreq/cppc_cpufreq.c | 193 ++++++++++++++++++++++++++++++++-
+>   1 file changed, 190 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index d7d96fe0da1b..ac315071a979 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -28,6 +28,183 @@
+>   
+>   static struct cpufreq_driver cppc_cpufreq_driver;
+>   
+> +/*
+> + * OSPM-set CPPC registers tracked for save/restore. A value the OS wrote is
+> + * reapplied from online() across CPU hotplug, and the firmware value is
+> + * restored from offline().
+> + *
+> + * Autonomous Selection (auto_sel) is kept first, as the registers after it
+> + * only have meaning while it is enabled.
+> + */
+> +enum cppc_saved_reg_id {
+> +	CPPC_SAVED_AUTO_SEL,
+> +	CPPC_SAVED_EPP,
+> +	CPPC_SAVED_AUTO_ACT_WINDOW,
+> +	CPPC_NR_SAVED_REGS,
+> +};
+> +
+> +struct cppc_saved_reg {
+> +	const char *name;
+> +	int (*get)(int cpu, u64 *val);
+> +	int (*set)(int cpu, u64 val);
+> +};
+> +
+> +static const struct cppc_saved_reg cppc_saved_regs[CPPC_NR_SAVED_REGS] = {
+> +	[CPPC_SAVED_AUTO_SEL] = {
+> +		.name = "auto_sel",
+> +		.get = cppc_get_auto_sel,
+> +		.set = cppc_set_auto_sel,
+> +	},
+> +	[CPPC_SAVED_EPP] = {
+> +		.name = "epp",
+> +		.get = cppc_get_epp_perf,
+> +		.set = cppc_set_epp,
+> +	},
+> +	[CPPC_SAVED_AUTO_ACT_WINDOW] = {
+> +		.name = "auto_act_window",
+> +		.get = cppc_get_auto_act_window,
+> +		.set = cppc_set_auto_act_window,
+> +	},
+> +};
+> +
+> +enum cppc_saved_type {
+> +	CPPC_SAVED_FIRMWARE,
+> +	CPPC_SAVED_REQUESTED,
+> +};
+> +
+> +/*
+> + * Per-policy values saved for each register in cppc_saved_regs[]:
+> + *   firmware_val  - value before the driver touched it, captured at init()
+> + *                   and written back when the policy goes offline. U64_MAX
+> + *                   if it could not be read
+> + *   requested_val - value in effect when the policy last went offline,
+> + *                   reapplied at online(). U64_MAX if none
+> + */
+> +struct cppc_saved_vals {
+> +	u64 firmware_val;
+> +	u64 requested_val;
+> +};
+> +
+> +struct cppc_policy_state {
 
-Internally, dmabuf registered buffers is an optin feature for io_uring
-request opcodes and they should pass a special flag on import to use it.
+With:
 
-Suggested-by: David Wei <dw@davidwei.uk>
-Suggested-by: Vishal Verma <vishal1.verma@intel.com>
-Suggested-by: Tushar Gohad <tushar.gohad@intel.com>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- include/linux/io_uring_types.h |   5 +
- include/uapi/linux/io_uring.h  |   6 +-
- io_uring/io_uring.c            |   3 +-
- io_uring/rsrc.c                | 162 ++++++++++++++++++++++++++++++++-
- io_uring/rsrc.h                |  18 ++++
- io_uring/rw.c                  |   6 +-
- 6 files changed, 192 insertions(+), 8 deletions(-)
+enum cppc_saved_type {
+     CPPC_SAVED_FIRMWARE,
+     CPPC_SAVED_REQUESTED,
+     CPPC_SAVED_MAX
+};
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index 90fea94ad202..3d41ca622114 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -11,6 +11,7 @@
- 
- struct iou_loop_params;
- struct io_uring_bpf_ops;
-+struct dma_buf_io_map;
- 
- enum {
- 	/*
-@@ -610,6 +611,7 @@ enum {
- 	REQ_F_IMPORT_BUFFER_BIT,
- 	REQ_F_SQE_COPIED_BIT,
- 	REQ_F_IOPOLL_BIT,
-+	REQ_F_DROP_DMABUF_BIT,
- 
- 	/* not a real bit, just to check we're not overflowing the space */
- 	__REQ_F_LAST_BIT,
-@@ -705,6 +707,8 @@ enum {
- 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
- 	/* request must be iopolled to completion (set in ->issue()) */
- 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
-+	/* there is a dma map attached to request that needs to be dropped */
-+	REQ_F_DROP_DMABUF	= IO_REQ_FLAG(REQ_F_DROP_DMABUF_BIT),
- };
- 
- struct io_tw_req {
-@@ -827,6 +831,7 @@ struct io_kiocb {
- 	/* custom credentials, valid IFF REQ_F_CREDS is set */
- 	const struct cred		*creds;
- 	struct io_wq_work		work;
-+	struct dma_buf_io_map		*dmabuf_map;
- 
- 	struct io_big_cqe {
- 		u64			extra1;
-diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
-index 98b259901185..c39297e8beb6 100644
---- a/include/uapi/linux/io_uring.h
-+++ b/include/uapi/linux/io_uring.h
-@@ -810,6 +810,7 @@ enum io_uring_rsrc_reg_flags {
- enum io_uring_regbuf_type {
- 	IO_REGBUF_TYPE_EMPTY,
- 	IO_REGBUF_TYPE_UADDR,
-+	IO_REGBUF_TYPE_DMABUF,
- 
- 	__IO_REGBUF_TYPE_MAX,
- };
-@@ -819,7 +820,10 @@ struct io_uring_regbuf_desc {
- 	__u32 flags;
- 	__u64 size;
- 	__u64 uaddr;
--	__u64 __resv[7];
-+
-+	__s32 dmabuf_fd;
-+	__s32 target_fd;
-+	__u64 __resv[6];
- };
- 
- /* Skip updating fd indexes set to this value in the fd table */
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index a67b2adeda36..267b2a43131a 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -109,7 +109,7 @@
- 
- #define IO_REQ_CLEAN_SLOW_FLAGS (REQ_F_REFCOUNT | IO_REQ_LINK_FLAGS | \
- 				 REQ_F_REISSUE | REQ_F_POLLED | \
--				 IO_REQ_CLEAN_FLAGS)
-+				 IO_REQ_CLEAN_FLAGS | REQ_F_DROP_DMABUF)
- 
- #define IO_TCTX_REFS_CACHE_NR	(1U << 10)
- 
-@@ -1134,6 +1134,7 @@ static void io_free_batch_list(struct io_ring_ctx *ctx,
- 				io_queue_next(req);
- 			if (unlikely(req->flags & IO_REQ_CLEAN_FLAGS))
- 				io_clean_op(req);
-+			io_req_drop_dmabuf(req);
- 		}
- 		io_put_file(req);
- 		io_req_put_rsrc_nodes(req);
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 6f6860d6ca03..c22bc374b1cd 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -10,6 +10,7 @@
- #include <linux/compat.h>
- #include <linux/io_uring.h>
- #include <linux/io_uring/cmd.h>
-+#include <linux/dma-buf-io.h>
- 
- #include <uapi/linux/io_uring.h>
- 
-@@ -881,6 +882,94 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
- 	return true;
- }
- 
-+struct io_regbuf_dma {
-+	struct dma_buf_io_ctx		*ctx;
-+	struct file			*target_file;
-+};
-+
-+static void io_release_reg_dmabuf(void *priv)
-+{
-+	struct io_regbuf_dma *db = priv;
-+
-+	fput(db->target_file);
-+	dma_buf_io_ctx_release(db->ctx);
-+	kfree(db);
-+}
-+
-+static struct io_rsrc_node *io_register_dmabuf(struct io_ring_ctx *ctx,
-+						struct io_uring_regbuf_desc *desc)
-+{
-+	struct io_rsrc_node *node = NULL;
-+	struct io_mapped_ubuf *imu = NULL;
-+	struct io_regbuf_dma *regbuf = NULL;
-+	struct file *target_file = NULL;
-+	struct dma_buf *dmabuf = NULL;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (ctx->flags & IORING_SETUP_IOPOLL)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (desc->uaddr || desc->size)
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = -ENOMEM;
-+	node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
-+	if (!node)
-+		return ERR_PTR(-ENOMEM);
-+	imu = io_alloc_imu(ctx, 0);
-+	if (!imu)
-+		goto err;
-+	regbuf = kzalloc(sizeof(*regbuf), GFP_KERNEL);
-+	if (!regbuf)
-+		goto err;
-+
-+	ret = -EBADF;
-+	target_file = fget(desc->target_fd);
-+	if (!target_file)
-+		goto err;
-+
-+	dmabuf = dma_buf_get(desc->dmabuf_fd);
-+	if (IS_ERR(dmabuf)) {
-+		ret = PTR_ERR(dmabuf);
-+		dmabuf = NULL;
-+		goto err;
-+	}
-+	ret = io_validate_user_buf_range(0, dmabuf->size);
-+	if (ret)
-+		goto err;
-+
-+	ret = dma_buf_io_ctx_create(target_file, dmabuf, DMA_BIDIRECTIONAL,
-+				    &regbuf->ctx);
-+	if (ret)
-+		goto err;
-+
-+	regbuf->target_file = target_file;
-+	imu->nr_bvecs = 0;
-+	imu->ubuf = 0;
-+	imu->len = dmabuf->size;
-+	imu->folio_shift = 0;
-+	imu->release = io_release_reg_dmabuf;
-+	imu->priv = regbuf;
-+	imu->flags = IO_REGBUF_F_DMABUF;
-+	imu->dir = IO_BUF_DEST | IO_BUF_SOURCE;
-+	refcount_set(&imu->refs, 1);
-+	node->buf = imu;
-+	dma_buf_put(dmabuf);
-+	return node;
-+err:
-+	kfree(regbuf);
-+	if (imu)
-+		io_free_imu(ctx, imu);
-+	if (node)
-+		io_cache_free(&ctx->node_cache, node);
-+	if (target_file)
-+		fput(target_file);
-+	if (dmabuf)
-+		dma_buf_put(dmabuf);
-+	return ERR_PTR(ret);
-+}
-+
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 						   struct io_uring_regbuf_desc *desc)
- {
-@@ -899,6 +988,12 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	if (!mem_is_zero(&desc->__resv, sizeof(desc->__resv)) || desc->flags)
- 		return ERR_PTR(-EINVAL);
- 
-+	if (desc->type == IO_REGBUF_TYPE_DMABUF)
-+		return io_register_dmabuf(ctx, desc);
-+
-+	if (desc->dmabuf_fd || desc->target_fd)
-+		return ERR_PTR(-EINVAL);
-+
- 	if (desc->type == IO_REGBUF_TYPE_EMPTY) {
- 		if (uaddr || size)
- 			return ERR_PTR(-EFAULT);
-@@ -1223,9 +1318,59 @@ static int io_import_kbuf(int ddir, struct iov_iter *iter,
- 	return 0;
- }
- 
--static int io_import_fixed(int ddir, struct iov_iter *iter,
-+void io_drop_dmabuf_node(struct io_kiocb *req)
-+{
-+	struct io_mapped_ubuf *imu;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (WARN_ON_ONCE(req->buf_node->type != IORING_RSRC_BUFFER))
-+		return;
-+	imu = req->buf_node->buf;
-+	if (WARN_ON_ONCE(!(imu->flags & IO_REGBUF_F_DMABUF)))
-+		return;
-+	dma_buf_io_map_drop(req->dmabuf_map);
-+	req->flags &= ~REQ_F_DROP_DMABUF;
-+}
-+
-+static int io_import_dmabuf(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
-+			   struct io_mapped_ubuf *imu,
-+			   size_t len, size_t offset,
-+			   unsigned issue_flags)
-+{
-+	bool nowait = issue_flags & IO_URING_F_NONBLOCK;
-+	struct io_regbuf_dma *db = imu->priv;
-+	struct dma_buf_io_map *map;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return -EOPNOTSUPP;
-+	if (!len)
-+		return -EFAULT;
-+	if (req->file != db->target_file)
-+		return -EBADF;
-+
-+	if (req->flags & REQ_F_DROP_DMABUF) {
-+		map = req->dmabuf_map;
-+		goto init_iter;
-+	}
-+
-+	map = dma_buf_io_get_map(db->ctx, nowait);
-+	if (unlikely(IS_ERR(map)))
-+		return PTR_ERR(map);
-+	req->dmabuf_map = map;
-+	req->flags |= REQ_F_DROP_DMABUF;
-+init_iter:
-+	iov_iter_dmabuf_map(iter, ddir, map, offset, len);
-+	return 0;
-+}
-+
-+static int io_import_fixed(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
- 			   struct io_mapped_ubuf *imu,
--			   u64 buf_addr, size_t len)
-+			   u64 buf_addr, size_t len,
-+			   unsigned issue_flags,
-+			   unsigned import_flags)
- {
- 	const struct bio_vec *bvec;
- 	size_t folio_mask;
-@@ -1245,6 +1390,12 @@ static int io_import_fixed(int ddir, struct iov_iter *iter,
- 
- 	offset = buf_addr - imu->ubuf;
- 
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		if (!(import_flags & IO_REGBUF_IMPORT_ALLOW_DMABUF))
-+			return -EFAULT;
-+		return io_import_dmabuf(req, ddir, iter, imu, len, offset,
-+					issue_flags);
-+	}
- 	if (imu->flags & IO_REGBUF_F_KBUF)
- 		return io_import_kbuf(ddir, iter, imu, len, offset);
- 
-@@ -1307,7 +1458,8 @@ int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 	node = io_find_buf_node(req, issue_flags);
- 	if (!node)
- 		return -EFAULT;
--	return io_import_fixed(ddir, iter, node->buf, buf_addr, len);
-+	return io_import_fixed(req, ddir, iter, node->buf, buf_addr, len,
-+				issue_flags, import_flags);
- }
- 
- static int io_buffer_acct_cloned_hpages(struct io_ring_ctx *ctx,
-@@ -1729,7 +1881,9 @@ int __io_import_reg_vec(int ddir, struct iov_iter *iter,
- 	iovec_off = vec->nr - nr_iovs;
- 	iov = vec->iovec + iovec_off;
- 
--	if (imu->flags & IO_REGBUF_F_KBUF) {
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		return -EOPNOTSUPP;
-+	} else if (imu->flags & IO_REGBUF_F_KBUF) {
- 		int ret = io_kern_bvec_size(iov, nr_iovs, imu, &nr_segs);
- 
- 		if (unlikely(ret))
-diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index 351995b61e68..8e36a954169e 100644
---- a/io_uring/rsrc.h
-+++ b/io_uring/rsrc.h
-@@ -28,6 +28,11 @@ struct io_rsrc_node {
- enum {
- 	IO_REGBUF_F_KBUF		= 1 << 0,
- 	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
-+	IO_REGBUF_F_DMABUF		= 1 << 3,
-+};
-+
-+enum {
-+	IO_REGBUF_IMPORT_ALLOW_DMABUF		= 1 << 1,
- };
- 
- struct io_mapped_ubuf {
-@@ -170,4 +175,17 @@ static inline void io_alloc_cache_vec_kasan(struct iou_vec *iv)
- 		io_vec_free(iv);
- }
- 
-+void io_drop_dmabuf_node(struct io_kiocb *req);
-+
-+static inline void io_req_drop_dmabuf(struct io_kiocb *req)
-+{
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (!(req->flags & REQ_F_DROP_DMABUF))
-+		return;
-+	if (WARN_ON_ONCE(!(req->flags & REQ_F_BUF_NODE)))
-+		return;
-+	io_drop_dmabuf_node(req);
-+}
-+
- #endif
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 755166e90746..9867ae2905e3 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -367,8 +367,8 @@ static int io_init_rw_fixed(struct io_kiocb *req, unsigned int issue_flags,
- 	if (io->bytes_done)
- 		return 0;
- 
--	ret = io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
--				issue_flags);
-+	ret = __io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-+				  issue_flags, IO_REGBUF_IMPORT_ALLOW_DMABUF);
- 	iov_iter_save_state(&io->iter, &io->iter_state);
- 	return ret;
- }
-@@ -583,6 +583,8 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
- 
-+	io_req_drop_dmabuf(req);
-+
- 	/* ring owner may block in freeze_super() before task_work runs */
- 	if (kiocb->ki_flags & IOCB_WRITE)
- 		io_req_end_write(req);
--- 
-2.54.0
+This could be changed to:
+struct cppc_saved_vals regs[CPPC_NR_SAVED_REGS][CPPC_SAVED_MAX];
+this would simplify cppc_cpufreq_saved_reg_value() and 
+cppc_cpufreq_save_regs()
 
+> +	struct cppc_saved_vals regs[CPPC_NR_SAVED_REGS];
+> +};
+> +
+> +static DEFINE_PER_CPU(struct cppc_policy_state, cppc_policy_state);
+> +
+> +/*
+> + * Per-policy state is kept in the per-CPU variable of the first CPU the policy
+> + * manages. related_cpus (the policy's full set of CPUs) never changes while the
+> + * policy exists, so this CPU (unlike policy->cpu) stays the same across CPU
+> + * hotplug, and every callback reaches the same copy.
+> + */
+> +static struct cppc_policy_state *
+> +cppc_cpufreq_policy_state(struct cpufreq_policy *policy)
+> +{
+> +	const struct cpumask *policy_cpus = policy->related_cpus;
+> +
+> +	/*
+> +	 * related_cpus is empty until the core fills it in after init(), so
+> +	 * fall back to policy->cpus, which has the same first CPU.
+> +	 */
+> +	if (cpumask_empty(policy_cpus))
+> +		policy_cpus = policy->cpus;
+> +
+> +	return &per_cpu(cppc_policy_state, cpumask_first(policy_cpus));
+> +}
+> +
+> +/*
+> + * Save each register's current value, either as the firmware value, captured
+> + * before the driver programs anything, or as the requested value, to reapply
+> + * at online().
+> + */
+> +static void cppc_cpufreq_save_regs(struct cpufreq_policy *policy,
+> +				   enum cppc_saved_type saved_type)
+> +{
+> +	struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
+> +	unsigned int cpu = policy->cpu;
+> +	u64 val;
+> +	int i;
+> +
+> +	for (i = 0; i < CPPC_NR_SAVED_REGS; i++) {
+> +		if (cppc_saved_regs[i].get(cpu, &val))
+> +			val = U64_MAX;
+> +
+> +		if (saved_type == CPPC_SAVED_FIRMWARE) {
+> +			st->regs[i].firmware_val = val;
+> +			st->regs[i].requested_val = U64_MAX;
+> +		} else {
+> +			st->regs[i].requested_val = val;
+> +		}
+> +	}
+> +}
+> +
+> +static u64 cppc_cpufreq_saved_reg_value(const struct cppc_saved_vals *st,
+> +					enum cppc_saved_reg_id reg,
+> +					enum cppc_saved_type saved_type)
+> +{
+> +	if (saved_type == CPPC_SAVED_FIRMWARE)
+> +		return st[reg].firmware_val;
+> +
+> +	return st[reg].requested_val;
+> +}
+> +
+> +/*
+> + * Write one tracked register, skipping it when there is no saved value.
+> + * A register the platform does not allow writing is not an error.
+> + */
+> +static void cppc_cpufreq_write_saved_reg(unsigned int cpu,
+> +					 enum cppc_saved_reg_id reg, u64 val,
+> +					 enum cppc_saved_type saved_type)
+> +{
+> +	const char *op = (saved_type == CPPC_SAVED_FIRMWARE) ?
+> +			 "restore firmware" : "reapply saved";
+> +	int ret;
+> +
+> +	if (val == U64_MAX)
+> +		return;
+> +
+> +	ret = cppc_saved_regs[reg].set(cpu, val);
+> +	if (ret == -EOPNOTSUPP)
+> +		return;
+> +	if (ret)
+> +		pr_debug("Failed to %s %s=%llu on CPU%u (%d)\n", op,
+> +			 cppc_saved_regs[reg].name, val, cpu, ret);
+> +}
+> +
+> +/*
+> + * Apply the saved firmware or requested value to each tracked register.
+> + *
+> + * Write auto_sel first when the value being applied enables autonomous
+> + * selection and last when it disables it, so the writes to the dependent
+> + * registers can still take effect. While autonomous selection stays disabled,
+> + * the platform may ignore those writes. Do not enable it temporarily to force
+> + * them through.
+
+The spec says:
+
+`Writes to this register only have meaning when Autonomous Selection is 
+enabled.`
+
+which is subject to interpretation. I'm not sure this should be taken 
+care of,
+
+IMO the firmware should still store these values, but this is a personal 
+interpretation
+
+so what you did might be safer.
+
+If someone else has an opinion this might be useful
+
+> + */
+> +static void cppc_cpufreq_apply_saved_regs(struct cpufreq_policy *policy,
+> +					  enum cppc_saved_type saved_type)
+> +{
+> +	const struct cppc_saved_vals *st = cppc_cpufreq_policy_state(policy)->regs;
+> +	unsigned int cpu = policy->cpu;
+> +	u64 auto_sel, val;
+> +	int i;
+> +
+> +	auto_sel = cppc_cpufreq_saved_reg_value(st, CPPC_SAVED_AUTO_SEL,
+> +						saved_type);
+> +
+> +	if (auto_sel)
+> +		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
+> +					     saved_type);
+> +
+> +	for (i = CPPC_SAVED_AUTO_SEL + 1; i < CPPC_NR_SAVED_REGS; i++) {
+> +		val = cppc_cpufreq_saved_reg_value(st, i, saved_type);
+> +		cppc_cpufreq_write_saved_reg(cpu, i, val, saved_type);
+> +	}
+> +
+> +	if (!auto_sel)
+> +		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
+> +					     saved_type);
+> +}
+> +
+>   #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
+>   static enum {
+>   	FIE_UNSET = -1,
+> @@ -718,6 +895,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>   	policy->cur = cppc_perf_to_khz(caps, caps->highest_perf);
+>   	cpu_data->perf_ctrls.desired_perf =  caps->highest_perf;
+>   
+> +	cppc_cpufreq_save_regs(policy, CPPC_SAVED_FIRMWARE);
+> +
+>   	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+>   	if (ret) {
+>   		pr_debug("Err setting perf value:%d on CPU:%d. ret:%d\n",
+> @@ -791,12 +970,14 @@ cppc_cpufreq_prepare_perf_restore(unsigned int cpu,
+>    *
+>    * The platform may have disabled CPPC and reset the performance controls
+>    * (desired, min and max performance) while the CPU was offline, so re-enable
+> - * CPPC and reprogram them.
+> + * CPPC and reprogram them. Also reapply the OSPM-set registers that offline()
+> + * reset to firmware values.
+>    *
+>    * Report failures without returning them, or the core would free the policy and
+>    * leave the CPU without cpufreq. A failed write to the performance controls is
+> - * not fatal, as the governor's next request programs them again. A failed CPPC
+> - * enable stops the restore, as the writes that follow may not reach the
+> + * not fatal, as the governor's next request programs them again. The OSPM-set
+> + * registers are reapplied even then, as no other path restores them. A failed
+> + * CPPC enable skips both restores, as the writes that follow may not reach the
+>    * platform.
+>    */
+>   static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+> @@ -832,6 +1013,8 @@ static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+>   		pr_debug("Failed to restore perf controls on CPU%u (%d)\n",
+>   			 cpu, ret);
+>   
+> +	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_REQUESTED);
+> +
+>   out_fie:
+>   	/* Restart what offline() stopped, with a new counter snapshot. */
+>   	cppc_cpufreq_cpu_fie_init(policy);
+> @@ -851,6 +1034,10 @@ static int cppc_cpufreq_cpu_offline(struct cpufreq_policy *policy)
+>   	unsigned int cpu = policy->cpu;
+>   	int ret;
+>   
+> +	/* Save what the OS set, and leave the platform in its pre-driver state. */
+> +	cppc_cpufreq_save_regs(policy, CPPC_SAVED_REQUESTED);
+> +	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_FIRMWARE);
+> +
+>   	/*
+>   	 * Stop the frequency invariance updates and cancel the pending work, so
+>   	 * that no sample spans the offline window. online() restarts them with
