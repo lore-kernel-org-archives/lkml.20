@@ -1,90 +1,78 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEEA347533
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44486361DD5;
+	Mon, 28 Sep 2026 03:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790564977; cv=none; b=pv8lleGtQtZ4yFLDJymAbZMu1MQma0qoo/2K7GHNuyESqO3p2ExPnl0TjzZsZ73XoHn6oq1J9Wlfr5ABs8lCXcCdu29qW2j0X7R2Zm+1SwGsvU2kOLzbLJszMUFrWLbfLfAh8aGpOUSurmyB2fJEVvyRtGF3Y0NShvZ7wFoVIGo=
+	t=1790565012; cv=none; b=nO+QLbDjT/xjmMs1yrxcLgQeOEkZM1qKewA75Yp9znvu3PWXH4nZLlCep8xKkBasMcNSKZcB1+xJYMT2GFat4iq+RPrr7Qd3qMrhJZbgPhLw8qQzUGBZdwcjkzSG0V17/qRREIKze6Sg1PNsib0EpusYBhM+PNImFK259Rgps9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790564977; c=relaxed/simple;
-	bh=2m+NU9deBab6lT4HoCkvMMoFBLuSQjYvO/0juA/rOEI=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=J1H7ppkr4tl7R9CoEenpvCE3QFjyy19w12x4zkF+wIUEYAUFhNDtJ77jb5Pp2hMKLjU5/hdz23mXwuvYsjbzviGpOfKKIkS7Kx5MiJMb0nsspuLSeT6UtADXS4f8eMTZHi+ERMNAUvBbxpKZRpETYiJnE1s3feEdCIuSJyScx8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tFuFBTPF; arc=none smtp.client-ip=91.218.175.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790565012; c=relaxed/simple;
+	bh=s4i7bjQS3hTJqcapsRCQwavARHyKb9RyH9bZl2AuNr8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ukYjEfPEJRmvI4roIU3n5A7GusxdhMPsc5dLy5oZcLJxXQrmBLG05o9IdIWdgRU23XO1clfVcNmRpP1fiEHHwpJp0LO0lFm6PWY8JBzXGIoh7IejJTIX1580loETLmaMQm2ADFjVALVwCG/uXgxTuXKdxauMcBYYoCgwKJD24/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5D282Bw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tFuFBTPF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2m+NU9deBab6lT4HoCkvMMoFBLuSQjYvO/0juA/rOEI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790564972; v=1; x=1791169772;
- b=tFuFBTPF96qxlbbzscreEqcfkjw3woBis79wdlBuTOC2LUcf+i00J05QKkx3GQExQbo/zVQF
- mm+DZ4IDEqVFRBMKXwiwKTR8gDvQlwu9JMScF11waOErvP4oKIxwaBTkd5KcxqJmO+u3UYt5N6y
- H0tHy1BheLxiCtR/QJ+Vl6QI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 2350573a62ce507b;
-	Mon, 28 Sep 2026 03:09:32 +0000
-X-Mizu-Trace-ID: 2350573a62ce507b
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5D282Bw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4031F000FF;
+	Mon, 28 Sep 2026 03:10:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790565011;
+	bh=572ZApzffR2V5WVZZG923BXMb95uxq8rXlHIXJhmvi4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=e5D282Bw7e+LCL3BfaBn/xHL5axhjK4+/hI1+KnHpF0fOc4M9VGiMkah8tqedfPPl
+	 4VozO5QljckrQqi8d0htX/SoPJlvWkhnhUZYftpsleLPSrpkm19v4PDxW1CzQfvcEI
+	 vDlTuAQ30QQ7t83WpGIWk0dgxvid1/E1R01F0+s1m5/lpAf311A+12PDXutGyY3ySF
+	 y8/WERcDxVbsK1VAZBfzo4ai8jbwwRtZApBBw0wZwMKn6B589YPSX9y97ceVN87k4O
+	 u2invxepd54ZbZSaXlzT5kqIp5XK1U8UbNev8wcVzBZdFcoBOesOvJYB4qAGxkQiLq
+	 bdH8j9IeCzd4w==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: lpieralisi@kernel.org, kwilczynski@kernel.org, bhelgaas@google.com, 
+ helgaas@kernel.org, heiko@sntech.de, yue.wang@Amlogic.com, 
+ Hans Zhang <18255117159@163.com>
+Cc: pali@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, 
+ jingoohan1@gmail.com, khilman@baylibre.com, jbrunet@baylibre.com, 
+ martin.blumenstingl@googlemail.com, cassel@kernel.org, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org
+In-Reply-To: <20260911162537.469018-1-18255117159@163.com>
+References: <20260911162537.469018-1-18255117159@163.com>
+Subject: Re: [PATCH 0/2] PCI: dwc: Clean up DWC PCIe register macros
+Message-Id: <179056500511.302500.18235445992989185257.b4-ty@b4>
+Date: Mon, 28 Sep 2026 05:10:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v4] mm/hugetlb: fix overbroad MMU notifiers for unshared
- PMDs
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260928024723.87708-1-lizhe.67@bytedance.com>
-Date: Mon, 28 Sep 2026 11:09:16 +0800
-Cc: akpm@linux-foundation.org,
- david@kernel.org,
- osalvador@suse.de,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- aiqi.i7@bytedance.com
-Content-Transfer-Encoding: 7bit
-Message-Id: <47EB85CB-D961-4A41-9842-A842C9E620C3@linux.dev>
-References: <20260928024723.87708-1-lizhe.67@bytedance.com>
-To: Li Zhe <lizhe.67@bytedance.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
 
+On Sat, 12 Sep 2026 00:25:35 +0800, Hans Zhang wrote:
+> This series cleans up the DWC PCIe controller register macros to better
+> match the Synopsys DesignWare PCIe Controller Reference Manual, and
+> removes an unused set of iATU unroll register definitions.
+> 
+> Patch 1 renames various register and field macros, dropping redundant
+> PCIE_ prefixes and using documented base names.  Field macros are
+> renamed consistently so their register association is clear.  No
+> functional change intended.
+> 
+> [...]
 
-> On Sep 28, 2026, at 10:47, Li Zhe <lizhe.67@bytedance.com> wrote:
-> 
-> Hugetlb currently expands MMU notifier ranges to PUD boundaries whenever
-> PMD sharing is possible. That is only needed when huge_pmd_unshare()
-> actually detaches a shared PMD page table, because clearing the PUD
-> invalidates the whole PUD-sized virtual address range.
-> 
-> For hugetlbfs hole punch, and similarly for other hugetlb unmap paths,
-> a shared mapping can pass the "PMD sharing is possible" range test in
-> adjust_range_if_pmd_sharing_possible() even when the hugetlbfs file does
-> not currently have any shared PMD page tables. KVM then receives a 1G
-> invalidation for a 2M operation and zaps unrelated secondary mappings,
-> so the guest has to fault them back in.
-> 
-> Avoid this by tracking active PMD-sharing attachments per hugetlbfs
-> inode. The count is incremented only after huge_pmd_share() successfully
-> installs a shared PMD table, and decremented when __huge_pmd_unshare()
-> actually detaches one. Since huge_pmd_share() can run concurrently under
-> i_mmap_lock_read(), use a 64-bit atomic counter. A zero count is used to
-> skip the conservative notifier range expansion only after excluding
-> concurrent PMD sharing with the mapping write lock.
-> 
-> On a Redis-in-VM workload that punches cold 2M hugetlb pages, this patch
-> improves P99 QPS stability while punching pages, reducing the QPS
-> degradation ratio from 7.09% to 1.45%.
-> 
-> Reported-by: aiqi.i7 <aiqi.i7@bytedance.com>
-> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Applied, thanks!
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+[1/2] PCI: dwc: Align register macros with Synopsys documentation
+      commit: f29719b5064c07cec23c928055df302181374df5
+[2/2] PCI: dwc: Remove unused PCIE_ATU_UNR_* register definitions
+      commit: 4996364a46e738cc455f5fa9b8b09f2f3348bcc9
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
 
 
