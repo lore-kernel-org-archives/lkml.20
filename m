@@ -1,87 +1,201 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D04946F484
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16332471268;
+	Mon, 28 Sep 2026 08:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583676; cv=none; b=a6vt0eUzPHXsX2pyqMJLEQJM6LcNdG3UQ0NjoxP3k0cSVdv8aM1LZ2QAcKvj/X/eiL8iIR5fl+fwhnvuJBHMVUhwtUu7RGCBic8sO9ioRTkI/kMHg+3uqAUFSxK4P5y9I7uTZlakIKGDd0ETgGW1IAi3sfT56QhAGxdzfmIHbig=
+	t=1790583678; cv=none; b=Nig0q8INWvFel6ILQjPwGd3dhWh7BOxDvjty//w4aw63PKWu/qrmDwyDoShdkVBQdtUHOz1VK12CuB940PG2ExLucy8UEO1ptUAR6WFRxe/AARKFNe++6CiOASDFPfLxhCQV7vbUKnBYJ1zEPAfYb7rCJti+zfcBzd+7arkaqYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583676; c=relaxed/simple;
-	bh=sY+s2SrqCzhVRPqFlGEMJ2bakNnFS59A3kYKuGXDUos=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MocsuAOytz8p5pNSnp3ttqjBC7IHIox+LUMA80JSYiqgiXIhkRwZj5s6IcQkE9oS2duPHU6lIWOvkjz3IsA0c860+LT6kj95zSYBPFer21KfHJLtVQwZEthkIixNFJLHOG3SBZJ6iilcaWjBBzpIxHM/UeOuyl0HT6PwGQZbKWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AD9AI7pqv1UICQ--.246S2;
-	Mon, 28 Sep 2026 16:20:17 +0800 (CST)
-Message-ID: <7442671c93a4e5d4b2d1f4c377566369ab249f77.camel@iscas.ac.cn>
-Subject: Re: [PATCH 0/2] drm/bridge: th1520-dw-hdmi: Two fixes
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Felix Gu <ustc.gu@gmail.com>, Drew Fustini <fustini@kernel.org>, Guo Ren
-	 <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Andrzej Hajda	
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 16:20:16 +0800
-In-Reply-To: <20260321-th1520-v1-0-ec877197770d@gmail.com>
-References: <20260321-th1520-v1-0-ec877197770d@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1790583678; c=relaxed/simple;
+	bh=p1GMttPK9IkkRom+Vh1p8MWXXvVJPZFco+fOhe7maOs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VRRAEeGLSoToB9GOktZRwDxdPh8jqkQFUiI4nEoo+jG1IqiuBKPfFxzOFikd7S5fe3pdaQLAF4gSdjYTNZ8KwOX+mNiZl+paJdTFcfl0Tp83orCn7tqOakRd0TrOIMHz6SLRC0u5Ov2Q06W/zQY1wgi9f/wq593+A/dCNRlBk3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Acpn3Rlk; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Acpn3Rlk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790583677; x=1822119677;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=p1GMttPK9IkkRom+Vh1p8MWXXvVJPZFco+fOhe7maOs=;
+  b=Acpn3RlkGAXPytqQXYyPe7vnjUMonyNggwcPkRGEl+HDyR4GWV/rYHIh
+   VR8FQEUlrxN1MZ1KqixKhB/3n8jt/XeGEEMRjMPHfOiLKsj7U9b+doW5Z
+   V6an0nqskfURe423Bz2hmjlAkEPanHvCLWM/pA9VQdreUqyxQJJNL7q+e
+   MDxY68inis6UG2cR2cT4g23WOKNentdI5uQmNJZb3deWyBiYU0tjG6ixx
+   L0SvebgkZgBdx/vEOLkBqXSCpyhmLZeMZ8Tayg1W5RnBwB1zhbU/IzTH3
+   xOidpvw6Qu796p/+c0GwBy0yYyG76hoFfyxsvAw1bgKozXw5ulc9VNK3P
+   A==;
+X-CSE-ConnectionGUID: tdMafKF5R/mhUqrMoV/Dbg==
+X-CSE-MsgGUID: S5nFHdogRAmk3wzbpFXjrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="100608394"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="100608394"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:21:16 -0700
+X-CSE-ConnectionGUID: 90hIbrU7TyuX0UjrjjAm4g==
+X-CSE-MsgGUID: I8VaB4VBRMWcAB5Yk7XyVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="274500544"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.65])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:21:12 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B7C7E121BA9;
+	Mon, 28 Sep 2026 11:21:14 +0300 (EEST)
+Date: Mon, 28 Sep 2026 11:21:14 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>,
+	"G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>,
+	"Robby Cai (OSS)" <robby.cai@oss.nxp.com>,
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	leonardo.costa@toradex.com
+Subject: Re: [RFC] media: i2c: ov5640: Implement get_mbus_config
+Message-ID: <arojemk96ALP_Nnr@kekkonen.localdomain>
+References: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+ <arGNRTpmYwB2_gLk@kekkonen.localdomain>
+ <hufoatx76dnto4w3f33lx3gr7efwgcmkj3x7nzofofpzm5f3hn@pvuswzm5ielf>
+ <arKo_e-3vWC4aqKD@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAD3AD9AI7pqv1UICQ--.246S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY67k0a2IF6F4UM7kC6x804xWl14x267AK
-	xVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j
-	6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r
-	xl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv
-	0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z2
-	80aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF
-	7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r4a6rW5Mx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU87fHUUUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arKo_e-3vWC4aqKD@SMW015318>
 
-=E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 03:12 +0800=EF=BC=8CFelix Gu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+Hi Leonardo,
 
-Applied to drm-misc-fixes.
+On Tue, Sep 22, 2026 at 11:12:45AM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 09:32:41AM -0300, Leonardo Costa wrote:
+> > Hi Sakari,
+> >
+> > On Mon, Sep 21, 2026 at 11:02:13PM +0300, Sakari Ailus wrote:
+> > > Hi Leonardo,
+> > >
+> > > On Mon, Sep 21, 2026 at 03:04:59PM -0300, Leonardo Costa wrote:
+> > > > Hi all,
+> 
+> Add G.N zhou and Cai Robby.
+> 
+> Frank
+> 
+> > > >
+> > > > Some time ago, we had sent a patch that implemented the .get_mbus_config
+> > > > function for the OV5640 camera. This change was necessary for the camera to
+> > > > work with the i.MX6 after the v5.18 release.
+> > > >
+> > > >     https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
+> > > >
+> > > > The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
+> > > > implemented on drivers that don't have dynamic lane configuration. There were
+> > > > proposals of implementing it in other points of the camera pipeline, but no
+> > > > conclusion was reached.
+> > > >
+> > > > We are planning to send the overlays for this camera for the Apalis iMX6, but
+> > > > we verified that this patch is still needed for the camera to work on the
+> > > > current mainline. Below are the commands to configure the pipeline, which
+> > > > explicitly require a .get_mbus_config from the camera driver.
+> > > >
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     Unable to setup formats: Inappropriate ioctl for device (25)
+> > > >     [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+> > > >
+> > > > I am not very familiar with this subsystem, and it's been years since this
+> > > > discussion took place, so I wanted to know what are your thoughts about this
+> > > > patch and what the correct approach would be here. Was there any change that
+> > > > would make this patch ok to be applied today? Do you think this still should
+> > > > be included somewhere else on the pipeline?
+> > >
+> > > My objection to the approach was about adding code that does very little or
+> > > nothing to potentially a rather large number of drivers.
+> > >
+> > > Since that we've gotten v4l2_get_active_data_lanes() that however seems to
+> > > be used by the imx-mipi-csis driver only. Could using that solve the
+> > > problem you have?
+> >
+> > Hmm, looking at the implementation of v4l2_get_active_data_lanes it
+> > seems to actually still use .get_mbus_config, and falls back to a
+> > maximum value passed as an argument.
+> >
+> > Furthermore, the error comes from imx-media-csi.c, and it doesn't seem
+> > to be reading the number of lanes in the config, but rather the type of
+> > the mbus (all the uses of the gotten mbus_cfg boil down to checking the
+> > value of mbus_cfg.type). The receiver (imx6-mipi-csi2.c) actually seems
+> > to get the number of lanes statically, and handle well the case where the
+> > camera doesn't implement .get_mbus_config.
+> >
+> > To test this, I hard-coded mbus_cfg->type = V4L2_MBUS_CSI2_DPHY inside
+> > csi_get_upstream_mbus_config(), and the test above worked with that. So
+> > as far as I understand it, imx-media-csi.c really only needs to know
+> > what the type of the bus is.
+> >
+> > The csi_get_upstream_mbus_config function already identifies whether
+> > it's connected directly to the receiver or the mux, see the switch
+> > statement below. If I understand correctly, in the case where it's
+> > connected to the receiver directly, this is already known to be CSI-2,
+> > so (I think) we can set the type value directly in this case.
 
-Thanks,
-Icenowy
+Yes, that's what I presume as well -- the caller needs to know the type of
+the interface, as you can't really have DVP and CSI-2 on the same interface
+(and even if you share pins, these should still be logically separate).
 
-> ---
-> Felix Gu (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix error chec=
-k on dw_hdmi_probe()
-> return value
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix remove() c=
-allback
->=20
-> =C2=A0drivers/gpu/drm/bridge/th1520-dw-hdmi.c | 8 ++++----
-> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
-> ---
-> base-commit: b5d083a3ed1e2798396d5e491432e887da8d4a06
-> change-id: 20260321-th1520-f4326138c9bf
->=20
-> Best regards,
+> >
+> > For the mux I am not entirely sure. From the "Figure 19-1. CSI2IPU
+> > gasket connectivity" figure in the IMX6DQRM TRM [1] (the same one Jacopo
+> > referenced on the other thread), the mux's possible inputs seem to be
+> > well defined to be either the receiver itself or the parallel interface.
+> > Given this, maybe we could similarly infer the bus type from the
+> > sd->grp_id gotten from the mux.
+> >
+> > static int csi_get_upstream_mbus_config(struct csi_priv *priv,
+> > 					struct v4l2_mbus_config *mbus_cfg)
+> > {
+> >     ...
+> > 	switch (sd->grp_id) {
+> > 	case IMX_MEDIA_GRP_ID_CSI_MUX: // <------ Mux
+> > 		sd = imx_media_pipeline_subdev(&sd->entity,
+> > 					       IMX_MEDIA_GRP_ID_CSI2,
+> > 					       true);
+> >         ...
+> > 		break;
+> > 	case IMX_MEDIA_GRP_ID_CSI2: // <------- Receiver
+> > 		break;
+> > 	default:
+> > 		...
+> > 		break;
+> > 	}
+> > ...
+> > }
+> >
+> > [1] https://www.nxp.com/webapp/Download?colCode=IMX6DQRM
+> >
+> > What are your thoughts on this?
+> >
 
+-- 
+Regards,
+
+Sakari Ailus
