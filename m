@@ -1,195 +1,230 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010028.outbound.protection.outlook.com [52.101.229.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C00369224
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790575410; cv=none; b=ZZdQ7HgwZtlWpOZ1ZTzNown3tgR1BqBYD+5IGTd54YPsG6f+5m54vRyUlTpzPIKBZPgUbh1A3i32QNLAMRrnfk0mXjHvtC8BLfpqTOLr7y512UDXMDm6UBoZ3jpllyt8vJWslr6Oh2YaQhB7aJEdwh3nddxnfvcBNGDwdCa2qJA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790575410; c=relaxed/simple;
-	bh=jtBGmV+G6RZCfWl0qfmB7ipeAzBeiwJeiJ/xug/77Cw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Js88miZ/Ydd2Ej9cvqV3/FxaV0lFLKguywE4Oylh68x08RoIji+lYK8NmTFFHf6xdJ2OQ+g+4uumHatd7eR8e5byFdtrQEgQ0NikVcGpcP6G+l24J39L9WR41JvEEyd45djnW+rNvG5Lju6UPJjW6SUXhc0QhBFuWHhGwZvubt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MwXyitkk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xc+K/6UF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58B7409103;
+	Mon, 28 Sep 2026 06:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790575432; cv=fail; b=DS+nAT7JK/8Eftj/rZQNvuCvH/MNWojjgPQ9ckGImNtixpm6ADlNUkK2/B7BU0I6gPszgI5K6/QkJscgkCpVyW9XwI2h8zAu0lbn6WtUn+mUTew30Yi1dmpp8nW5FWzk4EEmwlqsQpNV0JDmonDhDLLk9UbDdc+3uRlofrKRzFA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790575432; c=relaxed/simple;
+	bh=3jOAXD/3jLrMs0JyJD7xUQaOL81WNZsBxLHFsmFLLxw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=c6tsIyjiXneLChQZ02pUV98Sg2sCv7qzU+B9yF7DVSpafZE5H4/vzH4mQCEZdYFMNnO8eW0bxC2AIkeu2oK98RqqVumsJ/XB6NVaTxctRLnsW90lej78IRn3hXU30J5jzHd/MlMA/ZYA+VcPoDWIwaQqv0Y9AjhATPFUKAp6ri4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Q3NsUaX6; arc=fail smtp.client-ip=52.101.229.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MwXyitkk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xc+K/6UF"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RLRbaq4134666
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:03:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=; b=MwXyitkkxn0o88VW
-	l9uaPIO/lY4hQjuEshUjTOfxwQkdFJNbJIC0x2nXV8IPoAATJPp+VfKXE/zzGZUq
-	7AxOj80knHjC2avsCthYU1qqiucB8vcecCMW8FTfVZPvqrVtD2iTPnvPG+TZmnKz
-	OA4LQ38+62mzKc1gkv6N5ot1OWCQUX1AGVvGbSNXdMTBqiBH6SIw9/EapQtuzpjC
-	tpYcvEvzYJupGnDV+Kro/VYrNwrYGwr2Plc0/uKe3+V/wEIVJ2w4ZP9tGBWV4ang
-	+l6dk1hIOOc1RBADy/vhUFthXpbi6SCtw647X+H+yFZI0nVr+ioHqSZn4D580mPZ
-	SoAkoQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526mtr6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:03:27 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530f49fc5ffso91840011cf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:03:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790575407; x=1791180207; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=;
-        b=Xc+K/6UFd7wRKWvb/Ox0KwgBpmbsbcVUX175cyWiIi9LiNpPzwAT5Ekw4xLIzPxEDU
-         zmdJVlGGgD/oulcZoPuVcmy/x5BtwrzK6cGNFSeM+LniwRuciYZxeWNOzj07k/jpyyZI
-         P7rbFGKveyM6kQq7AnfSDi7YNILfNFz0B8N98n61tt44dH4N3S0ZGjmD6bs6+ty6o0h8
-         i2gnVESLq9sLrqZWdNTuQ5j0+r3OPy5lH/1EwEhJmmrBzCg73Jlr08enIP5lUU9i7Gq9
-         74aMH7Rp58Eyo6Aa2LWfJy+rKi4AT4W7k6XS3kRScBdKjXRRvJAMpmvO2a66NID8yTcO
-         FUXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790575407; x=1791180207;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=;
-        b=K5QXFcqJdwORYxmNpGvusABWwI1wXbPeL8hEJ003w4eHIg3s2k280Sj0JtTrQsr0Ci
-         AQbMBEraWtA4xOEZ3vbi7RCWM2Co7qWtmytTOnBkbVTRtlJnwI8hb64U+wm9IumPIid5
-         CpxaCrCBmawmYsQfC7S8WRIKurYIguCkhiaSLzdXyDBXoEGro9gy0PV5G3FKYVJkedud
-         rHdbZbTtGGiZk05jph+9L6BHe0X8h2snGKNLvFVxT6J1lesCQvpTqKPe80AwrfHR2TMo
-         Qclc1yd1n+VV7oyZYOW2oqYEPeWVhWfo1UHHqNDl1m/SbJ5mS8YCvPfZaQ1VO/UkPVVA
-         a0vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWpHopvjoeK729OYdaapynxNl4aO58B0AsjMStoDG7FYpiKe/oIasJBiSVV2xx0ocDQ1Bg+KJWqrUssZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k10h0hyUOcCIyN9x42G8zIvz0LapLW+LzUSeWX55zuFPEj4MUL
-	p+xn/rMjpdKMGKkUE24MKFgK/GyzZYvvGlo3viIrPYVCWpEzgb8Vp+3e8Sgg2ttDdmCfnIb1/i8
-	n7oFiZrYML9GMujy2Ed1DWMqFyi6Yy1aPslaxcKe7zz8haqvKKM+2Ph+8JkULukCuvQw=
-X-Gm-Gg: AYBFou0B1/1NsH8njtWdOtTUj4MlQqAjeAc0xLsT6LekpDP5eUC6fpABd489TbvuA19
-	NvG+MSRQLhOTF+E1dDPGEL0Grhd5Ec7buupnxlbmrhBRp6OBm3CR8FrmMzE7Y+48oi48+zo5pyt
-	YbHZrpgAXCuKojivHYvbdVX9bP39VatEHDj5R/xW44NxRmQSZIgAlD7NWQXS2vk0+GJKNxygFQT
-	Dr/dBr6PMcpmJyJN3kqGrDW7kRqu9nihojAn6TRUHpKOWRroSMhJW727xigsJKijwzZJ5SKWJVa
-	OFwm0noGw4k/mXzU3Dhfka2fJESmHuZsl5lSRz+nfYtdIGThVLIDfOh6ks8Vu8xKEOMsHpcIUs1
-	owsw7WPO8yGgG6GhFjddHpYnS2IUD
-X-Received: by 2002:a05:622a:580a:b0:530:8853:1be5 with SMTP id d75a77b69052e-5330dbe7652mr183346021cf.10.1790575407250;
-        Sun, 27 Sep 2026 23:03:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:580a:b0:530:8853:1be5 with SMTP id d75a77b69052e-5330dbe7652mr183345631cf.10.1790575406762;
-        Sun, 27 Sep 2026 23:03:26 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017816efsm113080805e9.9.2026.09.27.23.03.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 23:03:24 -0700 (PDT)
-Message-ID: <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 08:03:18 +0200
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Q3NsUaX6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Szl/cmvFmf7sqTTiBgGuHzNvQaaZoo3G3L0n0Ljr6zKUg1bRbtlDfLdLtQ+DJja1+zXaQPr1DBxIwTMR0w++AHXEs6VAAibrl++z8g0AQSL8H1LeSHiPtzdmsBkU7bQkUmRbcT5aFVk0yNzeYFUR34+IcDO3k3UqxFl9mR0tTRm3TaU/fpTYSq9P6bAEjulPX6fwYyCORhfXqsd8Hz064fSoZ3udEuyXeFhnOIkg1Q5IsK4+IwOpTmKHsVg6MdiU4alTe6FKPCgGO0yITmaC4joYwJVY6Gu8q4K9ZHTlA5YN5LpWrvZ/G5ibo8+iZdAMEY0IpL3s4PZQQNT3oiANuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XsCoFZLkmIaRCySNh0p9jIgMBue9vLbNu23O3pP3sxA=;
+ b=Fu4Vn87CXvY+2ihP7RluOdZNbONYTXxZa1bRDiTd20NR/8f3emiT42u14jC+ftN1ICw9JyS2boHB9Q/oyvZzOIjouBhIJIl7qC7x/9X0uwXpYyG4Od4U7y8eufXte9oPgDu9q5eQmo6RwKAfsYwMWytUzU8RPnbcBxXlcJQloGEu2/hSIJFMMGsh5wLhmrn6hjHaQLmsjC4XaRK6dbZx9cD1GCNoUqrBo7geLkadoSeYUuaTuMMqd/eFBgKz2AIiyCWtb7wC8dvMrzzvToMqyogO53XZ+4GZoefNTGGZWZuqwKLARvyYgkWnegAxfbfOjm2O3kxpY5x+vRSdDChl9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XsCoFZLkmIaRCySNh0p9jIgMBue9vLbNu23O3pP3sxA=;
+ b=Q3NsUaX6vJIPz/GAnNXRsbcolSgLP73vkX1ugnou/bKano8312Iz8XQKoFhj5G/FK2LJnarb6+vhI4D7gXnWRjqPetmO/Xu4bBN9G3kDzoDabIRRXpUFQQXnrc0Ly3W0RxXmfaI4cdyb7k20t/jbLIOGzj12AR1HqnzQsbLD2yk=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS3PR01MB8715.jpnprd01.prod.outlook.com (2603:1096:604:153::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 06:03:46 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:03:46 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: jiale yao <19888972804@163.com>
+CC: Linus Walleij <linusw@kernel.org>, Andy Shevchenko
+	<andriy.shevchenko@linux.intel.com>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without match
+ data
+Thread-Topic: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without match
+ data
+Thread-Index: AQHdTPMcx8CFgDS7T0eXq2w7rRWLsrbgohqAgAAGNACAAtp7cA==
+Date: Mon, 28 Sep 2026 06:03:46 +0000
+Message-ID:
+ <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260925133804.2231004-1-yaojiale02@163.com>
+ <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
+In-Reply-To: <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB8715:EE_
+x-ms-office365-filtering-correlation-id: cb10e0ea-7678-4cf3-49e2-08df1d264213
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|4143699003|11063799006|6133799003|10067099003|260925021311599003|260925022911599003|260925021911599003|56012099006|22082099003|18002099003|3023799007;
+x-microsoft-antispam-message-info:
+ JtIayncOtOgH4LJHYSwchfKSe2LyChriphebweR/76Oa3L9RIeL4rVLVJmrYH5j+iG8vVVqIHOzY/ai6yaJwerKqxM9hU5vg7arfiAa4e4u9TWAT2dou4RSRyknAS8/Vin0Yvj6ON6BY0B27OFmcuGOANcUQQU+rSuojZm/EuLWY53c1examOvauEJ3vz2sJumAquMf6VPrDRuH/HePg+zWuJ8bt0c/LlQ3/2yH0l/P8Zy4nPFpvUpmFHeB9DMI3y+pjiMnb8DRoGIODWYA7IKDjraDxmxAz37a/Pi8ZMSV2/lf7s8ejhlk6CSr8ioeYNMdd40Jc6V8XSregWxHWpabR8dHI7MzczQzeGW1kP+Ic7uvDaNRK/lprvrN/680dxxIvv4GOXTJyGzIpAXRfmwm/T4rtmuob6ziAoWhWwxlc3ZeyQ68kebXul+SjSKNUuX48tm4/UzyYexWyh4E0BH1xFgRg6hMAL+3eeRNwzxnIvTMvBFWe9pwez2MlNqnkR98xNHENwWKnVaYyUdI4arzYtKktoTZ2AJJLC/d9HWyaCHHpvSH5qhnhLvydvJGL/CcHGpTddILCGyCaFYJVsBNwvu1KOhDzEfwSiIDYocdKyytGWLZ8SHBC7OwU2mp/gsuHsowYhAQpTDrjlv8yps+Lic5WzjP1VUmBOcOtaXhJjziKgPdqOhvTvHaGK1dj+2Np15mwWteaIJnODWXJQqo81YhLv1uEZLHxgWYpeSM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(4143699003)(11063799006)(6133799003)(10067099003)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?WQcJ4aVvWO/g+4q5OrXylmi4/3ndfckuCWulr2lVWhvx++6heTdXHkzbJsLQ?=
+ =?us-ascii?Q?jMYIvVFnCh0MR8AEt39LbZAywf+S04am0LJuVuQKXWKFiCfiG//rS3WvkDCr?=
+ =?us-ascii?Q?o6bdUDZs+910nA0zdpaJ0wUBn8PyvwBFselJDmq7cPio/Aqm3pP1pj97tJL7?=
+ =?us-ascii?Q?JjtRz5mdF6zui4r2ZV/Y+E8gxX3V76DgsiO+VwNII0bIVCvDXZa4+kccdahN?=
+ =?us-ascii?Q?62uFImLYr4HrN9PIBmTOvsN0bEnzYQ/uKn38q9pFGjaLW8+4ZbrEp/cX/Ebh?=
+ =?us-ascii?Q?OQtN5RJDH2Uwk12nQXwoFZDBN//FNnbItRiRATKZ761wU7bAvhga6Xq497+G?=
+ =?us-ascii?Q?KbTEfcE0YgBAdr5imC2PXbhE5rCuSAGDYGMLegHL1j8+PHUr+iRuohORfvbz?=
+ =?us-ascii?Q?V17Qz+Xg/b+Fw0bu17Wdz4bgLgcECzNjudci6mEzXIPouEBQNO1GJ/JrcTTJ?=
+ =?us-ascii?Q?HR/OtKmzh79C82X8s0p7qb1lY+fPeGYPoE/4Q947hyJu6g0H0fPluXrEoY76?=
+ =?us-ascii?Q?9aqXhGwJCyyO6os5O0E4eQ/NLRpr+fmW2uoJ4RA/aJ3KcH/DHSXx73WFtECR?=
+ =?us-ascii?Q?6r11VSfH6sXVOYCPeezB/v93UFpMd/YQYCgI/rd/Lzjv80qqpigYAWhU4QEW?=
+ =?us-ascii?Q?maIeD5w9Xu4f5oZQksvmkZ9mNJeT2EwngKmoboJ5VdcgcPDOWViIZ2JEdLT2?=
+ =?us-ascii?Q?j4p+AOIpiLMJbdjpDEzJjTe4RfXjEvnYwFfTAFcWV+TdoWQuN7w4PuOa8STM?=
+ =?us-ascii?Q?UbjXk+iVYbFoks55VdP2zbEmOTBxbUgK9dC2oNXTWMlRDCJqpQHzFDz1438Z?=
+ =?us-ascii?Q?S+tu5Xqjd5ail0o96vOXAzhNKQEDctAzdjW0s1BARYrzH/o2x9jfT+YqkTba?=
+ =?us-ascii?Q?9BVtyuFdY/884EMtDna8ynprwWNqHLo8ZiTpS1NSW1FzGPruMTjCUZbRrbyG?=
+ =?us-ascii?Q?pnMGAjUSvQzeAnBGkPN5BY33xodxQDjPFEfnCgmVhGrkALtI8RL5LW+mrkMA?=
+ =?us-ascii?Q?/SytNPL+VoB3NXX4Mi3rmLoNJNJ+ZWfY+yJnAKmkRpJ6NkYpiL5J+6nnzZEW?=
+ =?us-ascii?Q?jI/UsTvcqwpMNQhHlwsWNyYtqSdPZKFvBEFsv823+JJ1Uohkc3ZGzZj6a+Rd?=
+ =?us-ascii?Q?x2weZ3aqWCfmPbWVTptmHbTYdYxeBIFNYzeBycWZ9zd9qs9LGOPcsA1Fu/aO?=
+ =?us-ascii?Q?YhKWNsVd4zLYPfW6aM8jCqshv1vcSbQdGiRdmX5MdHMfzFtOLOv/1NmRdJMj?=
+ =?us-ascii?Q?5gcYd+NTj6kPI8GKI/J/kylEqgfFr2Q6l1f+bj7tFtf6feYO9P96nbA0t3eg?=
+ =?us-ascii?Q?jZnDmPJYnhk90KNYZNcBdKQdFTmnTk5IcC+88AjRk5+2/2vK+p8ccjbEOdr6?=
+ =?us-ascii?Q?i8ANz3s+nylTUiQbklA/+ZpDgsI15z6e9ZYklZmqzOca6tEXV6NDQ+2oBtKk?=
+ =?us-ascii?Q?oGQLLAEU0Tx7/apxa/ygoiq/EHEvP4Zkvwt04ZBzx4AdDIFEr1m3jCDZ9bPL?=
+ =?us-ascii?Q?7qAk+RFscrY+hBjazygIiyAfO8dfj38YZea1QXvbxPw+l80iCmKg6SJt2APx?=
+ =?us-ascii?Q?J5nndOAjH7HJSAd2ob1hhECBwuCSf4OnaMz6bGduXGcShvo5CGEl9iEj+FG+?=
+ =?us-ascii?Q?iJxQfWJLVl0dsrWmDDQmgfzohApjbg2oFYC2d2oCHcPr/RVyzB39PyK/rQn5?=
+ =?us-ascii?Q?dkp8GEMlw1kEtCvr172s72LAvIuYO18M/dImFZ9yRUVb2IOTZ68rDC/L3WGB?=
+ =?us-ascii?Q?PSSdoI8amQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
- indentation in the example
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai
- <wens@kernel.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jernej Skrabec
- <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Francesco Dolcini
- <francesco@dolcini.it>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Marcus Folkesson <marcus.folkesson@gmail.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Yannick Fertre <yannick.fertre@foss.st.com>,
-        Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-        Philippe Cornu <philippe.cornu@foss.st.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Adrien Grassein <adrien.grassein@gmail.com>,
-        Russell King <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>,
-        CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-        Abel Vesa
- <abelvesa@kernel.org>,
-        Chris Morgan <macromorgan@hotmail.com>,
-        Martinez Canillas <javierm@redhat.com>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-        linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-        linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org,
-        linux-stm32@st-md-mailman.stormreply.com
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
- <179057359762.92994.13773102514654073802.b4-ty@b4>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <179057359762.92994.13773102514654073802.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6aba0330 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=chZs0_0Ys9iI7aL1xjgA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: Xm-OjziNDtWG4GyFvPx0Bd-ohyHT0QCz
-X-Proofpoint-ORIG-GUID: Xm-OjziNDtWG4GyFvPx0Bd-ohyHT0QCz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyMyBTYWx0ZWRfXzHl2kDuc5vPH
- i0vEPlEJ0vzZN3Qd2dWRyt3tttqVtyXLQ57ar2Q4PiPESsZ/JGrZOkvzJ9emo3/lL+hFYtUelyG
- 5v1qdiyLKMAM0GbS8VzEyQXP15GJTdNLjl0i2/lbP2/x4DBsFxJK/UVIh82PLPrEG4JMqp74wwi
- BFHO7EuvX2sSbcC+TsJ/3k7NuJDgJcQo9ODSmHTEra/NqF+jDcNvJEVAl2PTazYj55oAeJu3A/9
- XRtukQZy2j53tIqSrZ5rmzMTCsSLOjFz0z7UEuQBQv4PsPlsMQ30oA3ynEbP+QKOGrUIZwD/1WZ
- icaW/8t/CQDDdVs1OHrEMAwQgcCX+6S46NZKQ67geg9dX2nSgULjiVmQz2qmZKH+6t0YnTeIFnF
- bZknnDtgNGQzdNP3NcOv+tm3CRWg8rpHNF7V4PhJ3Dncv5k8BA0B45u+CqHKFXE8s0nApXiFQOQ
- 65OfSMMO6fM3hZ2WFCg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyMyBTYWx0ZWRfX0NP1gGZSU5v3
- ikbdoXlwr5JiSFUPY7MwxL0bBEjrPfcrZ3A+l4e2LumNuZnJ53R/0VBzDQ+INor382v9Fgdmnzf
- hLUev2GL1n0VIuuYR7in7rzulG9S6lo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280023
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb10e0ea-7678-4cf3-49e2-08df1d264213
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 06:03:46.3793
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P1NihQ6II8B81ddIxOd7MyfdS/DYaResUeth8FLHFHfVqwgRJJ9l91YkVnP+f2y2RamCSNTfi1SrNPBzKN7cHdYng/oRdH0zt0jI7dSQM68=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8715
 
-On 28/09/2026 07:33, Luca Ceresoli wrote:
-> 
-> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
->> Correct indentation in the examples to consistent 2- or 4-spaces
->> indentation to fix dt-check-style warnings ("example 0
->> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
->> re-indenting entire example just for that is too much churn.
-> 
-> Applied, thanks!
-> 
-> [1/2] dt-bindings: display: Use consistent indentation in the example
->       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+Hi jiale yao,
 
-Thanks, but I expected no one will pick it up, so I asked Rob to take
-it, thus it is already queued.
+> -----Original Message-----
+> From: jiale yao <19888972804@163.com>
+> Sent: 26 September 2026 11:24
+> Subject: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without match d=
+ata
+>=20
+> [You don't often get email from 19888972804@163.com. Learn why this is im=
+portant at
+> https://aka.ms/LearnAboutSenderIdentification ]
+>=20
+> Hi Biju,
+>=20
+> At 2026-09-26 18:07:14, "Biju Das" <biju.das.jz@bp.renesas.com> wrote:
+> >Hi,
+> >
+> >> -----Original Message-----
+> >> From: Jiale Yao <yaojiale02@163.com>
+> >> Sent: 25 September 2026 14:38
+> >> Subject: [PATCH] pinctrl: mcp23s08: reject devices without match data
+> >>
+> >> A device bound through driver_override need not match an entry in the
+> >> driver tables. In that case
+> >> spi_get_device_match_data() returns NULL, but mcp23s08_probe() later
+> >> passes the result to the regmap setup and dereferences it while settin=
+g up each device.
+> >
+> >I believe this is an invalid use case as the user trying
+> >driver_override and the probe returns error. Am I missing anything here?
+>=20
+> Yes, my commit message was not clear enough. This patch is intended to fi=
+x a regression introduced by
+> commit 2e44555b05c0, rather than to make an unmatched device probe succes=
+sfully through driver_override.
+>=20
+> Before that commit, missing match data effectively resulted in type 0, wh=
+ich fell through to the default
+> switch case and returned -EINVAL.
+> Commit 2e44555b05c0 replaced the type value with an info pointer, but the=
+ SPI path missed the
+> corresponding NULL check before dereferencing
+> info->type. The I2C path preserved the previous error handling with an
+> explicit NULL check after the same conversion.
 
-Best regards,
-Krzysztof
+you are testing the driver with driver_override and your patch makes driver
+Probe failure. I do not understand the test case you are trying to
+achieve with driver_override.
+
+Can you please share some logs with driver_override that you planned to tes=
+t?
+
+Cheers,
+Biju=20
+
+>=20
+> Consequently, an unmatched device bound through driver_override used to f=
+ail cleanly. It can now cause a
+> NULL pointer dereference when a valid spi-present-mask property is presen=
+t. This patch restores the
+> previous failure behavior.
+>=20
+> >
+> >Can you please prepare a patch that makes the driver probe success by
+> >using driver_override Feature? Also please share some logs to see how
+> >it works in real device
+> >
+> >Cheers,
+> >Biju
+> >
+> >>
+> >> Reject devices without match data before reading device properties.
+> >>
+> >> Fixes: 2e44555b05c0 ("pinctrl: mcp23s08: Simplify
+> >> probe()/mcp23s08_spi_regmap_init()")
+> >> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> >> ---
+> >>  drivers/pinctrl/pinctrl-mcp23s08_spi.c | 2 ++
+> >>  1 file changed, 2 insertions(+)
+> >>
+> >> diff --git a/drivers/pinctrl/pinctrl-mcp23s08_spi.c
+> >> b/drivers/pinctrl/pinctrl-mcp23s08_spi.c
+> >> index bacebcff67ef..926034fcd512 100644
+> >> --- a/drivers/pinctrl/pinctrl-mcp23s08_spi.c
+> >> +++ b/drivers/pinctrl/pinctrl-mcp23s08_spi.c
+> >> @@ -146,6 +146,8 @@ static int mcp23s08_probe(struct spi_device *spi)
+> >>      u8 v;
+> >>
+> >>      info =3D spi_get_device_match_data(spi);
+> >> +    if (!info)
+> >> +            return -ENODATA;
+> >>
+> >>      ret =3D device_property_read_u8(dev, "microchip,spi-present-mask"=
+, &v);
+> >>      if (ret) {
+> >> --
+> >> 2.34.1
+>=20
+> Cheers,
+> Jiale
+
