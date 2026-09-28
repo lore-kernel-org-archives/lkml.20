@@ -1,49 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4674F7CB0;
-	Mon, 28 Sep 2026 22:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB57C502563
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633219; cv=none; b=GB2wCuh8jAkFozCjIRoSRY583eloh4xNqH9sUAQO47EwYx8GMXhA95AOIy/Jf+rRMvz+HzaqrJDqWUO7CnGlhXg1SgDwS4y/kvgq6lYxq8zxlaDKV/Pbk+pC2vE2rNMqPNrxZAWGTeAWgMnxkLQ6TtW7IzpfXzHtFxObua2Ui0M=
+	t=1790633223; cv=none; b=rHNwlD0p8lqtJ8dqYLcf0bmYcASN2NBAeUH1xMWRKlGaD0+pT9wBTrpgrXzI1/5NFnDQUBywqicVOmww0yEvqE1y4e+97qmNIDN43ph/vEVGz2GRuaewTp0INYpi8DI0zM6mJptN0OYwAD4Moag4ylKecRfbhRAG7um2xOKpcqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633219; c=relaxed/simple;
-	bh=zOGLU3H0NGHkfdaXervuB3EenEC66RQFAoVPr1ydiiQ=;
+	s=arc-20240116; t=1790633223; c=relaxed/simple;
+	bh=X41/cIbMvzxPRUI5NOfiDZIbIvjDef8SxPQiIMMnTi4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kkxOS/0b+MUJBq3rwseOUzV9H0LVvFBcxZ2g05AfpQkXs3ngER+DpMrI59/Ecm4khz4LjP+mK0xr1HwtS8Wvam1z6iE6TwbRD1JzIenWQH4eAucwfq4Kt4cDyKW7wJlRgkBQRGZRARMa+yZLCGJldCdRly/SZnag0JmMfpgACrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUfwyNbJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IDDNu6Y/EIZpy/kwHvcDTZUDPjL7yHy2+jk5cZ03ciear90a20lRNNbCR5gm3YRRsah3J5WOEZOTit7iL7R0g0rfbgATTb6Al1jXC8LH4ygoQ8KPW+FO96S/P3VzzInFmEjSq3+fHUdx0eO6FXq7+8cPGdmXNWt4OncjfQww2Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z/N1UpI6; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUfwyNbJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E901F000FF;
-	Mon, 28 Sep 2026 22:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790633217;
-	bh=Yo4OmuVy0iOUrX0dIs9Yx9vGKkVpATes0ESTIMMsU30=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eUfwyNbJ4eHby6KjGFiAQRtgkPYWVCqw9YOHDP1eaYC09UBYRv5XII4MHHLcJprKh
-	 rl8Bn9uGGQlHaaeiHsS1lCHnDL1mxa+fluXOitkfXWvkPfXbOfZZymav3Nnk+HF5Tq
-	 z8VV5HDyOMPcs/bi8mN98NcyR5M7eCbwHp4Nr//vXzX5AuJmhgI8CDjgMIc99OQDmK
-	 RoOorCWHf4z3KM9mZHlAr8AXqt27xKW/mRyFgI2WTwToQQCkx3tf7jRf+uBY242Dq6
-	 Jq46z83HeLYlkL8WHBn1cfU+n8la7rrIOW84NQkTYMs8i6t/xelVrcJs6IdG4RZJZ9
-	 SmRftGqtS2AGA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 4/4] perf test: Add false_sharing workload exhibiting cross-CPU false sharing
-Date: Tue, 29 Sep 2026 00:06:34 +0200
-Message-ID: <20260928220634.2451784-5-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928220634.2451784-1-acme@kernel.org>
-References: <20260928220634.2451784-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z/N1UpI6"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af43c5b0cso442828366b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:07:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790633220; x=1791238020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NBXPUjjR8+JdvTG8x+WkgNQCyJpOtYcJ55dEf/OrhJ0=;
+        b=Z/N1UpI6wlazl2/eggTKH31+4UEzARtIY8qX3/+G25ttsVOGsXUN/vj34NluSMETCJ
+         0dlzDuuhrvTYFn2iIrHyr05Xyc+2YBFWcn5sZOwU1anKXCwsYNp3Na6SXVkwMeDRR3pc
+         /BSrrZo7Qwku3H5fKLYaogSYdYF4xrW6M52XkhSm8bKt5EiQBhs541oeZj3sH3V8ERc/
+         IUGIomPQTYpyXxA2HjxKe+FN9Vgb50db4bmYtTXrd1uc5uVtGJVoVVwlAGVH9vv+gtkq
+         98E15ssYV4B793Uxoj8N8yNCkrCHs3b3imm9pfDWxd33S3D8sGfUUidt8f38ApdFnY31
+         3mFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790633220; x=1791238020;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NBXPUjjR8+JdvTG8x+WkgNQCyJpOtYcJ55dEf/OrhJ0=;
+        b=HeeJNCcNIR6uAC4aopuLvo72+ydNluHP7awoIcaWIat2EpTeXxxS1sTSSu51+bf4AL
+         i1scLx5ZdSffCGH9pt4w4rZwe9a+nZfxC881BFELaOrI5MbHeq1g+gPLYWVUiVjsRhrD
+         IV9FnThsYp/1t4Iq+C0s09oVi8tJV7ukiV5K0JZj06w48ppQTSx8H/0F6G8jWJVSifJN
+         ghtEAXACaJ29KtmUrX5pfxIkqLUygIJHDRIZ/59mwckUNII2ia6zgQmZXTt4k7OZ6L2l
+         11ymsb4yzxiI2tHa7o4LVqRIUzZ3Lh9BLZQjn9QMhu8LYLMeLtJJczp+NsQQfcZAxPwN
+         wuug==
+X-Forwarded-Encrypted: i=1; AKwUvBznoBqSHstdhnjxVG/k8jbk6Vj+YM8TZor4ZA4ytU2cpIV+H7kQ/r0HQ8br6JgyKuRL4YBgIezgOGawWiQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLacpKCx96CnA4DAbH5aZcFfKkjUQv8dE8ztBNHpS9OuyMOrOj
+	K0SbDOwUblI4lP+USr/83HAFZNDbNs4rujUodh55GHdIjlLxBxQmBwHG
+X-Gm-Gg: AYBFou1VY6Ipwpu85Vt01XfRp8nBcQGrFVo+nK9gsQlKx7aMfWWhrXHTogbHOdQc5z7
+	2r02Ds/iHPhCI0yDkPG+uuyzYVp2geL1NLhBsyyi8HB0prCCWNTpCbWeMz9pZuZFi+7ZCDPCH3u
+	9ENFmtF/JIsqcsSPm+J8sJz+KOERAO38/LZ5oHkz2lZ2yX63bZt3Ei0weLtdwayGgy3FtfBhccG
+	CUdAmSJ2Lz7YAWgawUfYRYruLHglOPdEhnh8IbZniRzv1xg69arBlWHAjarZA14NvaHi5aviz1w
+	ElOQyTuH4ohx7ZfZjwTzgvcBvdQqJCZmjkoBw5Ofq66rvNRU/fxldWUAMUGHjaBiQRR8a4JLbXI
+	LVoLk4VXjf7q0/ImwOHLOfxybYbe2gXwGJln5fwJm+2Lfyl/KmWVl2J7gADROfnXCoCqi9C+8Bi
+	06dqvEtdgBDvhMwWQLX5MmAf/WV/Xd0K/mdk/aG4VGvCTwN9q8hY19mW2VmkjgdGkN5eO9rdlp7
+	IovVDXPOTktcX8h62jnmK3z48Q1euYZrwDqMJTiHUj4ZbAdjNFWZBx+
+X-Received: by 2002:a17:906:7946:b0:c26:1648:a06b with SMTP id a640c23a62f3a-c2ac2511a13mr1112807466b.38.1790633219855;
+        Mon, 28 Sep 2026 15:06:59 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:801:793:68fd:c07a:9093:1956:b4bf])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b50fsm520177266b.32.2026.09.28.15.06.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 15:06:59 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	John Crispin <john@phrozen.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/3] net: dsa: qca8k: propagate MDIO errors
+Date: Tue, 29 Sep 2026 00:06:27 +0200
+Message-ID: <20260928220629.238-2-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
+In-Reply-To: <20260928220629.238-1-yongzhao.derek@gmail.com>
+References: <20260928220629.238-1-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,351 +84,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+qca8k_mii_write32() ignores errors from both 16-bit half-word writes.
+Its callers (register writes and read-modify-write helpers) then return
+the earlier successful page selection or read result, incorrectly
+reporting success even when writing the switch register failed.
 
-Add a 'perf test -w false_sharing' workload that hammers one shared
-struct from several CPUs, shaped as a TCP connection: a read-mostly
-identity (five-tuple) shares a cacheline with per-packet rx counters
-(the false-sharing line), a second line has packet-path private tx and
-congestion control counters, and a third the connection config.
+Propagate write errors from both the low and high half-words through the
+regmap paths and internal MDIO master transactions. Attempt to clear
+MASTER_EN even if a transaction fails, preserving the initial error, and
+report a cleanup failure if the transaction itself succeeded. Preserve
+the existing Ethernet-to-MDIO fallback order.
 
-The packet path runs in the main thread and up to four lookup threads
-hash the five-tuple and pull the config, reading one volatile shared
-instance directly so the accesses are PC-relative and resolvable by the
-data type profiler.
+Propagate read errors through the internal and legacy MDIO bus callbacks
+instead of masking them as 0xffff. Returning 0xffff causes PHY
+read-modify-write callers to treat the failed read as valid register
+data, which can corrupt unrelated bits on writeback.
 
+Stop polling when reading the MDIO busy status fails, and return the
+error immediately. Because the read helper clears its output on failure,
+checking only the BUSY bit mistakes an unsuccessful read for transaction
+completion.
+
+Fixes: 6b93fb46480a ("net-next: dsa: add new driver for qca8xxx family")
+Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/tests/builtin-test.c               |   1 +
- tools/perf/tests/shell/data_type_profiling.sh |   9 +-
- tools/perf/tests/tests.h                      |   1 +
- tools/perf/tests/workloads/Build              |   2 +
- tools/perf/tests/workloads/false_sharing.c    | 240 ++++++++++++++++++
- 5 files changed, 251 insertions(+), 2 deletions(-)
- create mode 100644 tools/perf/tests/workloads/false_sharing.c
+v2:
+- Removed the blank line between the Fixes: tag and the other trailers.
+- Cc John Crispin, author of the commit named in the Fixes: tag.
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index d2f594921e25bda9..98134b1c74cf80f4 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -175,6 +175,7 @@ static struct test_workload *workloads[] = {
- 	&workload__context_switch_loop,
- 	&workload__deterministic,
- 	&workload__callchain,
-+	&workload__false_sharing,
+v1: https://lore.kernel.org/netdev/20260923215748.1336-1-yongzhao.derek@gmail.com/
+
+ drivers/net/dsa/qca/qca8k-8xxx.c | 51 ++++++++++++++++++--------------
+ 1 file changed, 28 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 4c928983b86..0851e4d65b8 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -129,13 +129,16 @@ qca8k_mii_read32(struct mii_bus *bus, int phy_id, u32 regnum, u32 *val)
+ 	return ret;
+ }
  
- #ifdef HAVE_RUST_SUPPORT
- 	&workload__code_with_type,
-diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-index a916c410274aa888..57203e0e5f857540 100755
---- a/tools/perf/tests/shell/data_type_profiling.sh
-+++ b/tools/perf/tests/shell/data_type_profiling.sh
-@@ -8,8 +8,8 @@ set -e
- # data type profiling manifestation
+-static void
++static int
+ qca8k_mii_write32(struct mii_bus *bus, int phy_id, u32 regnum, u32 val)
+ {
+-	if (qca8k_mii_write_lo(bus, phy_id, regnum, val) < 0)
+-		return;
++	int ret;
++
++	ret = qca8k_mii_write_lo(bus, phy_id, regnum, val);
++	if (ret < 0)
++		return ret;
  
- # Values in testtypes and testprogs should match
--testtypes=("# data-type: struct Buf" "# data-type: struct buf")
--testprogs=("perf test -w code_with_type" "perf test -w datasym")
-+testtypes=("# data-type: struct Buf" "# data-type: struct buf" "# data-type: struct net_conn")
-+testprogs=("perf test -w code_with_type" "perf test -w datasym" "perf test -w false_sharing")
+-	qca8k_mii_write_hi(bus, phy_id, regnum + 1, val);
++	return qca8k_mii_write_hi(bus, phy_id, regnum + 1, val);
+ }
  
- err=0
- perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-@@ -59,6 +59,9 @@ test_basic_annotate() {
+ static int
+@@ -462,7 +465,7 @@ qca8k_write_mii(struct qca8k_priv *priv, uint32_t reg, uint32_t val)
+ 	if (ret < 0)
+ 		goto exit;
  
-     "xC")
-     index=1 ;;
-+
-+    "xFS")
-+    index=2 ;;
-   esac
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
  
-   # Under 'set -e' a bare failing command aborts the script through the EXIT
-@@ -114,6 +117,8 @@ test_basic_annotate Basic Rust
- test_basic_annotate Pipe Rust
- test_basic_annotate Basic C
- test_basic_annotate Pipe C
-+test_basic_annotate Basic FS
-+test_basic_annotate Pipe FS
+ exit:
+ 	mutex_unlock(&bus->mdio_lock);
+@@ -492,7 +495,7 @@ qca8k_regmap_update_bits_mii(struct qca8k_priv *priv, uint32_t reg,
  
- cleanup
- exit $err
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 9c96f33483d14356..f379620069d34f3a 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -250,6 +250,7 @@ DECLARE_WORKLOAD(jitdump);
- DECLARE_WORKLOAD(context_switch_loop);
- DECLARE_WORKLOAD(deterministic);
- DECLARE_WORKLOAD(callchain);
-+DECLARE_WORKLOAD(false_sharing);
+ 	val &= ~mask;
+ 	val |= write_val;
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
  
- #ifdef HAVE_RUST_SUPPORT
- DECLARE_WORKLOAD(code_with_type);
-diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-index 048e371eb63e3164..18fceddccb56c013 100644
---- a/tools/perf/tests/workloads/Build
-+++ b/tools/perf/tests/workloads/Build
-@@ -14,6 +14,7 @@ perf-test-y += jitdump.o
- perf-test-y += context_switch_loop.o
- perf-test-y += deterministic.o
- perf-test-y += callchain.o
-+perf-test-y += false_sharing.o
+ exit:
+ 	mutex_unlock(&bus->mdio_lock);
+@@ -799,14 +802,13 @@ qca8k_mdio_busy_wait(struct mii_bus *bus, u32 reg, u32 mask)
  
- ifeq ($(CONFIG_RUST_SUPPORT),y)
-     perf-test-y += code_with_type.o
-@@ -29,3 +30,4 @@ CFLAGS_inlineloop.o       = -g -O2
- CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-+CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-diff --git a/tools/perf/tests/workloads/false_sharing.c b/tools/perf/tests/workloads/false_sharing.c
-new file mode 100644
-index 0000000000000000..12e10d10b87e0d77
---- /dev/null
-+++ b/tools/perf/tests/workloads/false_sharing.c
-@@ -0,0 +1,240 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * False-sharing demo for data type profiling, shaped as a TCP
-+ * connection: a read-mostly identity shares a cacheline with per-packet
-+ * rx counters (the false-sharing line), a second line has packet-path
-+ * private tx and congestion control counters, and a third the connection
-+ * config.
-+ *
-+ * With a 'perf mem record' of this workload the profiler shows accesses
-+ * to different members of the same cacheline, which the CTF stream lets
-+ * pahole flag as false sharing on line 0.
-+ */
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include <linux/compiler.h>
-+#include "../tests.h"
-+
-+struct net_conn {
-+	/* cacheline 0: identity (read-mostly) + rx counters (per packet) */
-+	uint32_t	saddr;		/*   0 */
-+	uint32_t	daddr;		/*   4 */
-+	uint16_t	sport;		/*   8 */
-+	uint16_t	dport;		/*  10 */
-+	uint8_t		state;		/*  12: 1 == ESTABLISHED */
-+	uint8_t		protocol;	/*  13: 6 == TCP */
-+	uint16_t	__pad0;		/*  14 */
-+	uint64_t	bytes_rx;	/*  16: every packet */
-+	uint64_t	packets_rx;	/*  24: every packet */
-+	uint32_t	rx_queue;	/*  32: backlog depth, fluctuates */
-+	uint8_t		__pad1[24];	/*  36..59 */
-+	uint32_t	last_ack;	/*  60: written per ACK */
-+	/* cacheline 1: tx + congestion control (packet-path private) */
-+	uint64_t	bytes_tx;	/*  64: every packet */
-+	uint64_t	packets_tx;	/*  72: every packet */
-+	uint32_t	cwnd;		/*  80: on every ACK */
-+	uint32_t	ssthresh;	/*  84: on loss */
-+	uint32_t	rtt_us;		/*  88: on every ACK */
-+	uint32_t	retrans;	/*  92: on timeout */
-+	uint32_t	__pad2[8];	/*  96..127 */
-+	/* cacheline 2: config, set at setup, read by everybody */
-+	uint16_t	mss;		/* 128 */
-+	uint8_t		snd_wscale;	/* 130 */
-+	uint8_t		rcv_wscale;	/* 131 */
-+	uint32_t	keepalive_int;	/* 132 */
-+	uint32_t	mark;		/* 136: firewall mark */
-+	uint32_t	priority;	/* 140: traffic class */
-+	uint32_t	__pad3[12];	/* 144..191 */
-+} __attribute__((aligned(64)));
-+
-+/* Volatile so every iteration really loads and stores. */
-+static volatile struct net_conn conn;
-+/* Keeps the reader checksums alive after the threads join. */
-+static volatile unsigned long fs_sink;
-+
-+static volatile sig_atomic_t done;
-+
-+struct fs_reader {
-+	pthread_t	thread;
-+	int		cpu;
-+	unsigned long	sum;
-+	char		__pad[64 - sizeof(pthread_t) - sizeof(int) - sizeof(unsigned long)];
-+} __attribute__((aligned(64)));
-+
-+static void sighandler(int sig __maybe_unused)
-+{
-+	done = 1;
-+}
-+
-+static void pin_to_cpu(int cpu)
-+{
-+	cpu_set_t set;
-+
-+	/* There may be no second CPU in a restricted cpuset. */
-+	if (cpu < 0)
-+		return;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	/* Best effort: in a restricted cpuset this fails and the thread runs unpinned. */
-+	pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-+}
-+
-+/*
-+ * Connection lookup, as a load balancer or 'ss' scrape would do it: the
-+ * reads go straight to the global, this file is built -O0 and a local
-+ * pointer would be reloaded from a stack slot, a form the data type
-+ * resolver does not track.
-+ */
-+static void *reader_fn(void *arg)
-+{
-+	struct fs_reader *r = arg;
-+	unsigned long sum = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-reader");
-+	pin_to_cpu(r->cpu);
-+
-+	while (!done) {
-+		sum += conn.saddr + conn.daddr + conn.sport + conn.dport +
-+		       conn.state + conn.protocol;
-+		sum += conn.mss + conn.snd_wscale + conn.rcv_wscale +
-+		       conn.keepalive_int + conn.mark + conn.priority;
-+	}
-+	r->sum = sum;
-+	return NULL;
-+}
-+
-+static int false_sharing(int argc, const char **argv)
-+{
-+	double sec = 2.0;
-+	int nreaders = 0, nr_allowed = 0, err = 1;
-+	int *allowed = NULL, nallowed = 0, ncpus;
-+	cpu_set_t set;
-+	struct fs_reader *readers = NULL;
-+	int i, writer_cpu;
-+	unsigned long n = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-writer");
-+	if (argc > 0)
-+		sec = atof(argv[0]);
-+	if (!(sec > 0.0)) {
-+		fprintf(stderr, "Error: seconds (%f) must be > 0\n", sec);
-+		return 1;
-+	}
-+	if (argc > 1)
-+		nreaders = atoi(argv[1]);
-+
-+	/*
-+	 * A connection that just got established: identity and config fixed
-+	 * from here on, counters at zero.
-+	 */
-+	conn.saddr = 0x0a000001;	/* 10.0.0.1 */
-+	conn.daddr = 0x0a000002;	/* 10.0.0.2 */
-+	conn.sport = 54321;
-+	conn.dport = 443;
-+	conn.state = 1;			/* ESTABLISHED */
-+	conn.protocol = 6;		/* TCP */
-+	conn.mss = 1448;
-+	conn.snd_wscale = 7;
-+	conn.rcv_wscale = 7;
-+	conn.keepalive_int = 7200;
-+	conn.cwnd = 10;
-+	conn.ssthresh = 65535;
-+	conn.rtt_us = 50;
-+
-+	/* Pin against the allowed set, restricted cpusets still spread the threads. */
-+	ncpus = sysconf(_SC_NPROCESSORS_CONF);
-+	if (sched_getaffinity(0, sizeof(set), &set) == 0) {
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (!CPU_ISSET(i, &set))
-+				continue;
-+			nr_allowed++;
-+		}
-+		allowed = malloc(nr_allowed * sizeof(int));
-+		if (allowed == NULL) {
-+			fprintf(stderr, "Error: malloc failed for CPU list\n");
-+			return 1;
-+		}
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (CPU_ISSET(i, &set))
-+				allowed[nallowed++] = i;
-+		}
-+	}
-+	if (nreaders <= 0) {
-+		/* By default leave one CPU for the packet path, up to 4 readers. */
-+		nreaders = nallowed > 1 ? nallowed - 1 : 1;
-+		if (nreaders > 4)
-+			nreaders = 4;
-+	}
-+
-+	signal(SIGINT, sighandler);
-+	signal(SIGALRM, sighandler);
-+
-+	readers = calloc(nreaders, sizeof(*readers));
-+	if (readers == NULL) {
-+		fprintf(stderr, "Error: calloc failed for %d readers\n", nreaders);
-+		goto out;
-+	}
-+	for (i = 0; i < nreaders; i++) {
-+		int cpu = nallowed > 1 ? allowed[(i + 1) % nallowed] : -1;
-+
-+		readers[i].cpu = cpu;
-+		if (pthread_create(&readers[i].thread, NULL, reader_fn, &readers[i])) {
-+			fprintf(stderr, "Error: failed to create reader %d\n", i);
-+			done = 1; // Ensure started threads terminate.
-+			nreaders = i;
-+			goto out_join;
-+		}
-+	}
-+	writer_cpu = nallowed > 0 ? allowed[0] : -1;
-+	if (nallowed == 1)
-+		fprintf(stderr, "Warning: single CPU allowed, no cross-CPU traffic expected\n");
-+	if (writer_cpu >= 0)
-+		pin_to_cpu(writer_cpu);
-+
-+	/*
-+	 * The packet path: receive, acknowledge, transmit, repeat; every 64th
-+	 * packet simulates a loss so ssthresh/retrans get sampled too.
-+	 */
-+	if (sec < 1.0) {
-+		useconds_t usecs = (useconds_t)(sec * 1000000.0);
-+
-+		ualarm(usecs > 0 ? usecs : 1, 0);
-+	} else
-+		alarm((unsigned int)sec);
-+	while (!done) {
-+		conn.bytes_rx += conn.mss;
-+		conn.packets_rx++;
-+		conn.rx_queue = (uint32_t)(n & 0x3f);
-+		conn.last_ack = (uint32_t)n;
-+		conn.bytes_tx += conn.mss;
-+		conn.packets_tx++;
-+		conn.cwnd = 10 + (n & 15);
-+		conn.rtt_us = 50 + (n & 7);
-+		if ((n & 63) == 0) {
-+			conn.ssthresh = conn.cwnd / 2;
-+			conn.retrans++;
-+		}
-+		n++;
-+	}
-+	err = 0;
-+out_join:
-+	for (i = 0; i < nreaders; i++) {
-+		if (readers[i].thread) {
-+			pthread_join(readers[i].thread, /*retval=*/NULL);
-+			fs_sink += readers[i].sum;
-+		}
-+	}
-+	fs_sink += (unsigned long)(conn.bytes_rx + conn.bytes_tx + n);
-+	free(readers);
-+out:
-+	free(allowed);
-+	return err;
-+}
-+
-+DEFINE_WORKLOAD(false_sharing);
+ 	qca8k_split_addr(reg, &r1, &r2, &page);
+ 
+-	ret = read_poll_timeout(qca8k_mii_read_hi, ret1, !(val & mask), 0,
++	ret = read_poll_timeout(qca8k_mii_read_hi, ret1,
++				ret1 < 0 || !(val & mask), 0,
+ 				QCA8K_BUSY_WAIT_TIMEOUT * USEC_PER_MSEC, false,
+ 				bus, 0x10 | r2, r1 + 1, &val);
+ 
+-	/* Check if qca8k_read has failed for a different reason
+-	 * before returnting -ETIMEDOUT
+-	 */
+-	if (ret < 0 && ret1 < 0)
++	/* Preserve an MDIO read error instead of treating it as ready. */
++	if (ret1 < 0)
+ 		return ret1;
+ 
+ 	return ret;
+@@ -818,7 +820,7 @@ qca8k_mdio_write(struct qca8k_priv *priv, int phy, int regnum, u16 data)
+ 	struct mii_bus *bus = priv->bus;
+ 	u16 r1, r2, page;
+ 	u32 val;
+-	int ret;
++	int ret, ret1;
+ 
+ 	if (regnum >= QCA8K_MDIO_MASTER_MAX_REG)
+ 		return -EINVAL;
+@@ -836,14 +838,18 @@ qca8k_mdio_write(struct qca8k_priv *priv, int phy, int regnum, u16 data)
+ 	if (ret)
+ 		goto exit;
+ 
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	if (ret < 0)
++		goto exit;
+ 
+ 	ret = qca8k_mdio_busy_wait(bus, QCA8K_MDIO_MASTER_CTRL,
+ 				   QCA8K_MDIO_MASTER_BUSY);
+ 
+ exit:
+ 	/* even if the busy_wait timeouts try to clear the MASTER_EN */
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	ret1 = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	if (!ret)
++		ret = ret1;
+ 
+ 	mutex_unlock(&bus->mdio_lock);
+ 
+@@ -856,7 +862,7 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 	struct mii_bus *bus = priv->bus;
+ 	u16 r1, r2, page;
+ 	u32 val;
+-	int ret;
++	int ret, ret1;
+ 
+ 	if (regnum >= QCA8K_MDIO_MASTER_MAX_REG)
+ 		return -EINVAL;
+@@ -873,7 +879,9 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 	if (ret)
+ 		goto exit;
+ 
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, val);
++	ret = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, val);
++	if (ret < 0)
++		goto exit;
+ 
+ 	ret = qca8k_mdio_busy_wait(bus, QCA8K_MDIO_MASTER_CTRL,
+ 				   QCA8K_MDIO_MASTER_BUSY);
+@@ -884,7 +892,9 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 
+ exit:
+ 	/* even if the busy_wait timeouts try to clear the MASTER_EN */
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	ret1 = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	if (!ret)
++		ret = ret1;
+ 
+ 	mutex_unlock(&bus->mdio_lock);
+ 
+@@ -919,12 +929,7 @@ qca8k_internal_mdio_read(struct mii_bus *slave_bus, int phy, int regnum)
+ 	if (ret >= 0)
+ 		return ret;
+ 
+-	ret = qca8k_mdio_read(priv, phy, regnum);
+-
+-	if (ret < 0)
+-		return 0xffff;
+-
+-	return ret;
++	return qca8k_mdio_read(priv, phy, regnum);
+ }
+ 
+ static int
 -- 
-2.55.0
+2.43.0
 
