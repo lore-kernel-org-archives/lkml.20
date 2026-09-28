@@ -1,92 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98D94AC148;
-	Mon, 28 Sep 2026 11:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A35D4AAC7C;
+	Mon, 28 Sep 2026 11:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595484; cv=none; b=PyMccIJ+rdr5bQ+KibNvAiR/CNdDiQpcWXkjMITFGBRfECpXzf7Ck2X+2fJW8xpPYV2ylT/ZQz5KcqIlVWDClleG4bZvoVclB7kL6wa2DFuxhchB3pZS35rtrvd5jdOAbm/1iFd61jMpfWh7WnCnIg4XgQItRJDddabjJLVHzXo=
+	t=1790595489; cv=none; b=mkt2npc90YyRS7JWyOsG0GScDxb4fezS+VkcDLc8we+DL/cAST5To/E/5xdwZ3QC3wXfkRCTs/13QM5zITmBFrliPzj5tci1LtbioBq3veqI5aXQXLJB0JSIjeQh2I0OocQmT52nS2KMwKjyLRwdYRFezh2hqto9JPOdMcDgfpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595484; c=relaxed/simple;
-	bh=kDnnlNBo405fAOSZLWH3+dQVJ15NauQramngbj35ue8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=im2ys5pellsMWJNu2NvN1K4OU5QH22HvTVUMH2DQ1CzzYems0iVje2+rYr677K6kaV76s6ylaAR3fb8Rc8h+UIpwqVZHbhKfpP5se1QWcUBK7lc+o4u7+KrgNfROW+uahUp9c+yC/mK4PxgO6/b5FmmhVP5skTXmjQZDF7WPCMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BI8o955V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790595489; c=relaxed/simple;
+	bh=+FcoN7dq/tjvhAPCVNzEfd6LNfp4AUHpNFZXDQs4LqY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UMy+2ZGVMKOr1CYMps5E0haWTYFc8D/5dh+YTPVZVv48YIzFX5btkzZqBYYVBN7fTxiDTs99ZLJHeFBTQi8OKqkzBtX8QOChzo4+ow9TgtKxiCCQqK4/nuZlrjDamJI/O84eb24YeU5V1A/E6LYOhrU+47vd9X5bL+so9+qxm+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nZdmuhUP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+rc0SEd4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GiO+r+Xc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3rkn9cDY; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BI8o955V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3401F00893;
-	Mon, 28 Sep 2026 11:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790595482;
-	bh=+fRE7u7p7mgyA70gWyXTxX6WuH7haPMllhu9ppFM8hs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BI8o955VGnKz57CAbn6tjOPweK5fhFvKW1c6CUE6J7BA1E1/zG3szqr7C6j9w+MZ9
-	 IpiiZplkzI0dcBHLXrcOYxRHSnSkMKSw7Ryedx9FyxlV4NK22xZHJtvKteTwhs54Pc
-	 N7RHb5miS1Osvbw0p/FK/wKTKnpbG/S+FxvC6p++LjQQXsGl1cu/IEUQ6eCUqiEQar
-	 L15hOYdV7UycKff0YHY73LsVc4/2TmWcecrx5oyKrPZaOOtk9NtLfloSK6nPv3LWCj
-	 Z7WBeuyudJAaVTUxgDA5srESVu8rCauCSljUXoFQUeJkNTsG/YD4xhpbRlHP2FifHE
-	 SoyMHEqKm8+cQ==
-Date: Mon, 28 Sep 2026 12:37:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Georgi Djakov <djakov@kernel.org>,
-	Evan Green <evgreen@chromium.org>,
-	Yassine Oudjana <y.oudjana@protonmail.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Aishwarya.TCV@arm.com
-Subject: Re: [PATCH 0/6] Assorted fixes for icc-rpm
-Message-ID: <d8f3da24-4ec8-4a88-bb7b-9df359b00ca2@sirena.org.uk>
-References: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
- <a4439f1d-6c2c-43ee-966c-239eaee148df@sirena.org.uk>
- <11500e01-a854-4d43-8964-a2456e319be7@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nZdmuhUP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+rc0SEd4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GiO+r+Xc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3rkn9cDY"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 094C421DC0;
+	Mon, 28 Sep 2026 11:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595482; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wcwoN1WOBAXUs0E8Imk6lwewdlRsvndfIM795I/UTxs=;
+	b=nZdmuhUPMnSmE0NMo62gitTdNnCL3yigO3St0q3KOfhZeIp3WJYyplmhzs7UAC51i+uEib
+	xqEvWfKqL0S0r9bUGvyZWR322mK15kjR5WxPTXmqBEr99+hmggWGdV7i+nyVMr3QFBylcm
+	HY+WNYffCKt5Cnlvpv/9FXlHBzEnqyY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595482;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wcwoN1WOBAXUs0E8Imk6lwewdlRsvndfIM795I/UTxs=;
+	b=+rc0SEd4RXIj6hXTVwvbROpAnFu4ZuPY/6FUWhqDQHon0WHBcRM38OgD1RFf6B01dWUPjI
+	qopDBa9Z/KwH/EBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GiO+r+Xc;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3rkn9cDY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wcwoN1WOBAXUs0E8Imk6lwewdlRsvndfIM795I/UTxs=;
+	b=GiO+r+Xcb3sMt8nJDWg7ajdzByC0MFwq4cuT48tpiv7N70K/sowVhWts+Uq9cnMHMfsAOL
+	QT2f60sbo2hfsAW6VdV8nb0N7oN9lTb5UULsqQSfbCJVseZmZM8+mX45lb40Kb+sAhN51I
+	TgHxkV0qv89tf0MfW6G3sLO415Rq/U4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595478;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wcwoN1WOBAXUs0E8Imk6lwewdlRsvndfIM795I/UTxs=;
+	b=3rkn9cDYALgDy6nLKdXaAa3bvBwPAJZHkTdbDKV1EynXRY5v/ttEZ14CVnTKtN3zoA1jLT
+	NwGzZzQDsdDkBkAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B24B6133F3;
+	Mon, 28 Sep 2026 11:37:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2TsmIpVRumrqRgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:37:57 +0000
+Date: Mon, 28 Sep 2026 13:37:57 +0200
+Message-ID: <87se2t61yi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu-Hsiang Tseng <asas1asas200@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix silent speaker on Higole F9B
+In-Reply-To: <20260923141344.1543158-1-asas1asas200@gmail.com>
+References: <20260923141344.1543158-1-asas1asas200@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iKrgofF5lHYfF49A"
-Content-Disposition: inline
-In-Reply-To: <11500e01-a854-4d43-8964-a2456e319be7@oss.qualcomm.com>
-X-Cookie: All is fear in love and war.
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: 094C421DC0
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
+X-Spam-Flag: NO
+
+On Wed, 23 Sep 2026 16:13:44 +0200,
+Yu-Hsiang Tseng wrote:
+> 
+> The Higole F9B is an Alder Lake-N mini PC with a 7" touchscreen and an
+> ALC269VC codec (subsystem ID 0x10ec111e). Its DMI strings are all
+> "Default string", so the SSID is the only way to identify it.
+> 
+> The internal speaker is silent out of the box. The generic parser
+> assigns DAC 0x03 to the speaker pin 0x14 and DAC 0x02 to the headphone
+> pin 0x15, but the speaker only reproduces what DAC 0x02 plays, whatever
+> its connection selection says. Checked one path at a time, only the
+> gain of DAC 0x02 and the mute of pin 0x14 change what comes out of the
+> speaker. User space only knows the path it was told the speaker uses,
+> so selecting the speaker turns the path that actually reaches it all
+> the way down.
+> 
+> Route both 0x14 and 0x15 through mixer 0x0c (DAC 0x02), which is what
+> ALC290_FIXUP_MONO_SPEAKERS already does. Tested on the device: the
+> speaker plays.
+> 
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Yu-Hsiang Tseng <asas1asas200@gmail.com>
+> ---
+> The quirk line and this changelog were drafted with an LLM (Claude Code);
+> the path-by-path analysis and the test were done by hand on the device.
+
+Applied now.  Thanks.
 
 
---iKrgofF5lHYfF49A
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Sep 28, 2026 at 12:49:09PM +0200, Konrad Dybcio wrote:
-> On 9/25/26 1:19 AM, Mark Brown wrote:
-
-> > <4>[    3.147172] qcom-pcie 1c08000.pcie: supply vdda not found, using =
-dummy regulator
-> > <4>[    3.147292] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, u=
-sing dummy regulator
-> > Format: Log Type - Time(microsec) - Message - Optional Info
-> > Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-
-> Strange, next-20260923 boots for me :/
-
-The issue appears to have gone away today. =20
-
---iKrgofF5lHYfF49A
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6UZUACgkQJNaLcl1U
-h9AXPwf/SUdTeoI4Zzm9kPwoGI7qUtQj1z1wGAkMG7EPue5dBSCMo6Vk2SSJwvc6
-NOi0C8h86+XrFgdyJzFMiMj/YTD1Aac/AA9Lm/jkP54/ncW0/BZssOQjmkfXeQuW
-1pJOrgxx7oWpxtqzjyuTktAn39+U7KBXUycYp0NiNhBk07iuLy0h28I7Wzm3/Wcc
-FPbsaR6/q9ASsUOBL1YYnyQ5FIkEV6e7i/Qg+yABTiBPEA2fTTRwgzx6DaFIlDKg
-6RCcWOOvBDM8/IU1w7ywQKB7MCyDmgNS+YtDOQlOnD2Bg7zoefZxFAugUvgj25TL
-73lmxzVfWO0mtjk0vTJClokBN0sKuA==
-=bny/
------END PGP SIGNATURE-----
-
---iKrgofF5lHYfF49A--
+Takashi
