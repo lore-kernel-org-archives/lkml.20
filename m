@@ -1,238 +1,117 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5AF46F4AB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88F1466B09;
+	Mon, 28 Sep 2026 09:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589237; cv=none; b=et4g+U8w42sWUP+flDUS/HfBy/Ds6YBxQ8GNJxvpuaTWNrJWr3MksriKiypYXRL9de2i9+p/VoOAL9twefdf8K4s8EbfxkILJjxSsPt5EfX1r4ShReSsyjxp7ZaxLovRxk9xdG+KJacl9XtRPRXTLHljBVmq1acOvS+9d/tpNVc=
+	t=1790589257; cv=none; b=N/stukpXr5tTCZ1cKOimBbFd6+65C7lSFnaf/D9/taFpoMR6yjULcKNk49XAL0havehgVMBfkAE+Zc4DP3GnJFDEpso1WxT9q/2iANmH5jNw8ROUxzBNBo84bhoT1tX+8I2gr9BUz/50T97ZBPFmmsMvNye2CAbaRSzWh7EkZPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589237; c=relaxed/simple;
-	bh=mXlMxmlL0FCNrGyBpcyx+dWJuiW6H8zzigvVTYrhlCM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n/57n5+3f9ox02pGe5Y2cu90jPJDoRrWygFS4rvQEBUX6d0iCiMzjt19rATVjDB6QXWgSaOo+6Uf0jwolIeERvogOyg0qO17z9w/SEjNAepFe6wKpGS6/Y1F/V+sg4OVKmnQNJ7kCs9sm+tVauiu9N+8CUjp2/DUO5618eE8eGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Io3Jzd7m; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790589257; c=relaxed/simple;
+	bh=Byz7ahQrpVAlTkfb7uhvJc3bj7qglIhdenh7tczHaTU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dcg9izduP3mEjajOnVJQv62ZKEQRB/1jwnSPlsXvIbNEkkBtKBP6e9l+u9UdKIrtwJgKGodG5Y7ToW+i/SSOfyaxGaRONWGj5LhLI5fAm5oSD/FNPl4yEQEF43Fa20ZKDevRHyYIqNWqjeLP8v1w+BGc+LvzHyfj7Ie9bveKz8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FnmKvmGT; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Io3Jzd7m"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570a3030so200432666b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:53:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790589233; x=1791194033; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mJTLKL9T8vepgzmrMMl9hUBXjorXrkUQap53+72PCy8=;
-        b=Io3Jzd7mvaFarYjW7U9ipoUHvYm1LRy/ccwrHinacxEgYa/Xksk+57zZ7yYH0AtB9F
-         GyHwI/VMuiEFdTFmFr3TJZvovaPS4o9rAzlikv8Bl23dGV4/Zw0TjKxshaHc7WAhNvE0
-         nt6+lCyyjplPFh4ix30GD9ZjlCOv1ZIi7XJI8aH/2n0tCfJ5OuCidSBidd12q7EV5+2U
-         cJ+dO4pxxW21NEXrKcte93rgeX1Pm2QX1KX5WN45QhA+z6uqpNPXvBe2Ip0DYmPWf7+X
-         3+8pqphySp8b2oCSGCRaORkgkz2TVZxGW3xWWy17h1YyhZqmXI/Ip5ykVP4iRMp9W5Nd
-         Xh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790589233; x=1791194033;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mJTLKL9T8vepgzmrMMl9hUBXjorXrkUQap53+72PCy8=;
-        b=VuwlGlyWlaZwQ5aE9QrO5+qO5qUKWxRppYRl4i5ZvwXUpsOtjkiVTTXFM8/p4pGuHV
-         mtiNTAKYgCB2pJWeC6oiGpp0gSg9aXj0qF+0/KsWa6R9QqzODJPnERmXyVhc42VIsegD
-         /2IOzNhS/UbB126bOg/0X5XzBOuHdIkFjC8UHgc1ovtFUMa11x1w9xl5tJyz6ssJaYje
-         CghY59fO/gRxrmszfeiTB0u64xzRwccx/BgaikP15GXkoZOeqIfIvjVpBltFxDmej9+X
-         xlDbUTWOZjv4O4b1GZKP6g+MjMsTzK+PIP2hk8LUklR6Vhu6HKcp7tJMxa1HNRSw1wOn
-         PmmA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1Gxq/pclP4hyD+DSNi28o27DkPTPMWArIzuolupt+Grqi4FhdqTweT0k98lg/+71hw1wr1M88f8sZLLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKo3M3j0GzRZ1HgUNFaqbrHar90uYz2Wv3SUXpw6g67f/JjjWcY
-	8onCFHT80IfNvLmMdUWih4lTjYNJCNDK1mgFMQgdYDVfssLBBU37y2Xw
-X-Gm-Gg: AYBFou2WxMoaKIznbK6bTPkcTN64R6XOSL8u27C4vw7KKCi3Z6xrYbMzGwVdQEAtAxE
-	3gNv4FWiKRBXcNNLKYFE6ctQT9HNrMZG/tPKvXKnMY3r9bzpdUKRXRPIUpFGfIkkgjGccDjRkjF
-	uf7caCY1K4iR5L0Y4bkuHjoEomaJzqHMwDHGUsVOIwztuOv6Mcs6ysctCHlWOuRnk2/NeHNXtPk
-	k6/B21/6cTKIYiYO4onf7iZ6T347hETHhAS1wkLVT3UWpvFeRIpeNDeqCEx9iRZD+BJiCn5y/73
-	VMMz5g73Up3pui8jBH7IK/fnKmc/+2evylTGEbJrdMeaNeSAy5i7d0RRTSjD9jrLUjogFTLNcJK
-	Iu9b5dD5Eeo4NB88pwT5BWEsh85tbDcdkSxclAq3gCaNGHB4ifT5S+Cry4c7cs38E9eW/jFGv3/
-	S8PYwbx58UW48WoYhqIVnblZB+7fhWUI1jwU8=
-X-Received: by 2002:a17:906:2083:b0:c2d:5ce0:1061 with SMTP id a640c23a62f3a-c2d5ce01e9cmr243001866b.21.1790589233412;
-        Mon, 28 Sep 2026 02:53:53 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678c90csm466121166b.6.2026.09.28.02.53.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 02:53:53 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 28 Sep 2026 11:53:51 +0200
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-modules@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-Message-ID: <aro5L-W-439tTICi@milan>
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
- <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
- <aq1noAdz9U3tXH_Y@gremlin>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FnmKvmGT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790589256; x=1822125256;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Byz7ahQrpVAlTkfb7uhvJc3bj7qglIhdenh7tczHaTU=;
+  b=FnmKvmGTPmxsOJVIXBSJmrARataDaTFOVjH0XlO/DGfcT2pDw8O2xw2Z
+   Fc0jaq1pnhhZ1ODPumX89YJKExF4R3hJFl1PoLwaPiKBtqyEb1wA1dZqV
+   D3g/jqBrrKaLWkJ2dd/4RCLyizfRqnksW8qU1ZvGESzSdhae+fAxhOUdI
+   uZAj26F7bfp0cETEkxTECv9nRF1C0OrXYXWM9OZeL+SMRdmUsf7y6yA9d
+   ImDlXDeMMN+n8azbzKygJoBfAtLtLWWVcYbZQvCkWG/y+oBTgncuNLHZY
+   /QJgvZCXBNVpVWvo53f3OZ31GZS+ktV7ym6V1qphsahYJzxwmWkjxNSXO
+   A==;
+X-CSE-ConnectionGUID: maQLTnjoREC6BBXJqQhEag==
+X-CSE-MsgGUID: PYiaF/FTSNGPUCk5ptHnMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="95099260"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="95099260"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:54:12 -0700
+X-CSE-ConnectionGUID: H6saJdx+QYWi7wTlSdOw/w==
+X-CSE-MsgGUID: ksQEhulSR4eu0suTJCndyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="278372663"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:54:10 -0700
+Date: Mon, 28 Sep 2026 12:54:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartu Alev <bartualev@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>,
+	Mario Limonciello <superm1@kernel.org>,
+	Hans de Goede <hdegoede@redhat.com>, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: acpi: Ignore AC adapter wakeup on ASUS FA507
+Message-ID: <aro5Pz000gT7Q9t1@ashevche-desk.local>
+References: <20260927014212.302743-1-bartualev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aq1noAdz9U3tXH_Y@gremlin>
+In-Reply-To: <20260927014212.302743-1-bartualev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 18, 2026 at 05:35:02PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Looping in Ulad who is best placed to respond on this.
+On Sun, Sep 27, 2026 at 04:42:12AM +0300, Bartu Alev wrote:
+> The ASUS TUF Gaming A15 FA507 wakes from s2idle whenever the AC
+> adapter is plugged in or unplugged.
 > 
-> Ulad could you look at the below? Thanks! :)
+> In the CPMGPIO0 SSDT, GPIO pin 23 (0x0017) is declared in the
+> \_SB.GPIO._AEI resource template as:
 > 
-> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
-> > Hi Suren、David、Lorenzo
-> >
-> > On 2026/9/17 09:12, Hao Ge wrote:
-> > > Hi Suren
-> > >
-> > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
-> > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
-> > >>>
-> > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>
-> > >>>> Hi Suren
-> > >>>>
-> > >>>> Thanks for you review.
-> > >>>>
-> > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>>>
-> > >>>>>> The reservation is already stored in the maple tree when
-> > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
-> > >>>>>> module, so nothing releases the entry. Release it and roll
-> > >>>>>> module_tags.size back. Without the rollback a concurrent load that
-> > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
-> > >>>>>> vm_module_tags_populate() and write to unmapped memory.
-> > >>>>>>
-> > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
-> > >>>>>> retry to populate the same range would BUG on them, so undo them,
-> > >>>>>> but only if vmap actually ran.
-> > >>>>>>
-> > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-> > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> > >>>>>
-> > >>>>> If a patch fixes two other patches, it likely needs to be split so
-> > >>>>> that each part fixes one patch only. But read on please. I'm not sure
-> > >>>>> if one of the fixes is correct.
-> > >>>>>
-> > >>>>
-> > >>>> Kept them in one patch because they only make sense together.
-> > >>>>
-> > >>>> After a failed populate the reservation is released and the
-> > >>>> size rolled back, so the next load takes the same gap and calls
-> > >>>> vm_module_tags_populate() again, and that retry would trip over
-> > >>>> the PTEs the failed vmap left behind.
-> > >>>>
-> > >>>> Without the rollback a load that already passed needs_section_mem()
-> > >>>> just reuses the gap, skips populate and writes to unmapped memory.
-> > >>>> So splitting them leaves each half broken.
-> > >>>
-> > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
-> > >>> completely separate patch with vmap_pages_range() doing cleanup
-> > >>> itself.
-> > >>>
-> > >
-> > > I think I get where you're coming from now.
-> > > Thanks for taking the time to explain.
-> > >
-> > >>>>
-> > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > >>>>>> Cc: stable@vger.kernel.org
-> > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> > >>>>>> ---
-> > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
-> > >>>>>>  1 file changed, 10 insertions(+)
-> > >>>>>>
-> > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
-> > >>>>>> --- a/mm/alloc_tag.c
-> > >>>>>> +++ b/mm/alloc_tag.c
-> > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
-> > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
-> > >>>>>>                         release_pages_arg arg = { .pages = next_page };
-> > >>>>>>
-> > >>>>>> +                       /*
-> > >>>>>> +                        * vmap_pages_range() only runs once all pages were
-> > >>>>>> +                        * allocated, and it may have installed some mappings
-> > >>>>>> +                        * before failing. Undo them.
-> > >>>>>
-> > >>>>> If vmap_pages_range() failed to map the range, why should we need to
-> > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
-> > >>>>> would argue that vmap_pages_range() should be undoing these partial
-> > >>>>> mappings itself before returning the error.
-> > >>>>>
-> > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
-> > >>>
-> > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
-> > >>> only possible reason I can think of is performance but I can't imagine
-> > >>> a failure to map is a performance-critical case.
-> > >>>
-> > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
-> > >>
-> > >> Huh, my gmail thinks you are still at your previous companies :)
-> > >>
-> > >
-> > > I manually fixed it on the mailing list for this thread.
-> > >
-> > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
-> > >>> mapping when it fails?
-> > >>>
-> > >>>
-> > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
-> > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-> > >>>> so I did the same here.
-> > >>>>
-> > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
-> > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
-> > >>>> the current behaviour for now.
-> > >>>
-> > >>> Yeah, I understand it would require a deeper cut but if that's the
-> > >>> right way to handle this we might as well do that. Let's see what MM
-> > >>> folks think.
-> > >>>
-> > >
-> > > Sounds good to me. Let's wait and hear what the MM folks say.
-> > >
-> >
-> > I just looked into the call sites for __vmap_pages_range.
-> > And I found there's a bug in one vmalloc caller [1].
-> > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
-> > __vmap_pages_range. If there are leftover PTE mappings,
-> > this can trigger a BUG(); [2]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+>     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullNone, 0x0000,
+>              "\\_SB.GPIO", 0x00, ResourceConsumer, ,)
+>              { 0x0017 }
 > 
-> I think best person to look at this is Ulad as vmalloc is his baby :)
+> and the corresponding \_SB.GPIO._EVT handler issues a device wake
+> notification for the AC adapter on pin 23 events:
 > 
-> Ulad, what do you think?
+>     Case (0x17)
+>     {
+>         Notify (\_SB.ACAD, 0x02) // Device Wake
+>         Sleep (0x05)
+>         Notify (\_SB.ACAD, 0x80) // Status Change
+>     }
 > 
-> Thread is at
-> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/ for
-> context.
-> 
-Uh.. I missed this. Let me check!
+> Both AC plug and unplug transitions therefore trigger a spurious
+> wakeup from s2idle. Add an ignore_wake quirk for this pin.
 
---
-Uladzislau Rezki
+...
+
+> I have one question: this issue is probably present across the whole
+> TUF series. If I acpidump more TUF models in the future and they all map
+> to the same GPIO pin, should the quirk list the board names one by
+> one (FA507, FA506, FA707, ...) or match on the product family ('ASUS TUF
+> Gaming A15', 'ASUS TUF Gaming A16' or 'ASUS TUF Gaming')?
+> 
+> The DMI outputs on my FA507NV laptop are as follows:
+> 
+>   board_name:     FA507NV
+>   board_vendor:   ASUSTeK COMPUTER INC.
+>   product_family: ASUS TUF Gaming A15
+>   product_name:   ASUS TUF Gaming A15 FA507NV_FA507NV
+
+I can't guarantee that, so the safest approach is to go with the one-by-one
+quirk(s). If you get a confirmation from the vendor (ASUSTeK) in writing
+supporting your idea, the patch will be welcome, of course!
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
