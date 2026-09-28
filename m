@@ -1,182 +1,123 @@
-Received: from mta1.migadu.com (out-231.mta1.migadu.com [95.215.58.231])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B007733DEE9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142DB3955CB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576525; cv=none; b=a+d90yJnmK9/sVxv/wSUuyf+zSCnY9JP6/SC6vjE7Y2wnyVWX5N51J3S4Eq3ID8q6+L2bFZgWBAJa/68S8XTmqdEr/MuSl44nhS2FncIy3CCwrP8QY105lUvB8Ls98KrwCoJ3pQ0gzZMMzIKUYyzvFuWXMosetqT1qgj8WdoKgw=
+	t=1790576570; cv=none; b=l4AqecPjLidUmnMJChnGZ5FMEGLvmZXFbf9qQ9j3iU927/2yUiVaRgVsvZfi0cinLp78cWbjj+eU3FZsaqSzE/Em01IdQinqfHm1cJNz+KLHzdVhdE6vYNc6U9WY1fvtn7refXv+9/2sd/ZShX+syqu6mxir8AAFZheYVaqHhN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576525; c=relaxed/simple;
-	bh=xym6Wj7a/N3u6kYO3/JK3RDdgZcFhCBlwPnIf4E3wOM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4lVWeax2LWnGPFHiSTAnuBaGCsfZCVoTkWj0NzzYDdFyTe+GIyh9cmn9vQvCJkT6+/gRTQ9JHpFBFLxXM5FWwDhy50TS5B6z4dGacSB9vD6qTHV0uAmunmb2lDwUvAAXxnu6DhOuJNqt73FYg/K4a4C7IEo1mj5wxEDC9vscHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VFvnTRfJ; arc=none smtp.client-ip=95.215.58.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790576570; c=relaxed/simple;
+	bh=LR/nA4tVHyi6eFNl4mMbMzn2KnpfyeV8b0n4FCCSrn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u6OfkCXZKZadzLwjs/SyTCB+EET+0hLWnoUAfJE/70Pa6mPBYLMyFCtX12ffOBLGPuXLa9l9vebHOiWHxOb0UWNlSitkUcS4z4aAs/eeImIa9j7Xa4DJYwtebleCrSPVH0KuFIkkQsMvlZxCtRYY1ezgAIpsKAAs/XiiwSjPi2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=LUd+qxlj; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VFvnTRfJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xym6Wj7a/N3u6kYO3/JK3RDdgZcFhCBlwPnIf4E3wOM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790576520; v=1; x=1791181320;
- b=VFvnTRfJFFAZonTkx+Um9XdugatgKpaamU4hx5IBOJSqOlDX7s64g4SPVKWgO+AvUE2UWnLe
- XICLuCqXU5cZL8ZKTTS+KSXaAgBJoSsubyF5Y7VOi3rSUde7wiMrLuI5uDDxkt5xv0UweCKB7pE
- AER1vc1Ph58gWa26+56teTcg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b52d0056da5ef9c5;
-	Mon, 28 Sep 2026 06:22:00 +0000
-X-Mizu-Trace-ID: b52d0056da5ef9c5
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 14:21:48 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	shuah@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next 2/5] seg6: add RFC8986 flavor support for End.X
-Message-ID: <aroHfO-QWHwm5e19@fedora>
-References: <20260922-srv6_flavors_endx-v1-2-4d01c05c47b7@kylinos.cn>
- <179025107692.2160803.16596847240332091038@kernel.org>
+	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="LUd+qxlj"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so364134266b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:22:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790576565; x=1791181365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PbVyliIXNTgSBOAj+pK7xJkZUV9YZeRWXj8iKW7Lm+M=;
+        b=LUd+qxljMVLJckINGPYvWjAF/JZv1PbV69Dd08+Uz6YKRbM++bMm19YwvyT0WNCXDV
+         Hme2XzMBi/qWNSQ1CgvyzpcEzG308zMO9vjSw3DInRxTyvZGlIuUL0ShaKdaQngAhiIp
+         HpdsMacrFYcydNqbXrL2xTfigP3dd1i5GOT6R4p81O2L5taFNnnZWT0SW12ByP5V2u2M
+         nY8S0X8ERkDJkSG/OrqgD3/Vks68e0441lxZ/F9qC9pfnqQwEuZhDeww9jstb2Rzd7Bz
+         E/8uDmQjpAUwHfVIbXFcc4Iyx0nQ1nt7ZAw6pWXj+7hV1u9MYqhctGspW4RF7LgjbW8W
+         kmIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790576565; x=1791181365;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PbVyliIXNTgSBOAj+pK7xJkZUV9YZeRWXj8iKW7Lm+M=;
+        b=eujbQmOrWhWQmW0WXlKI09m8e+XXu7H1q+UKlOQZTh1i6+TbFUzO4+y8Q0LfPBHN5/
+         iJFLiLQhQSjmHUrU+eF8CjJJzydehJzWL348AWnyL2grf9qUYGGJx7O6V7qgXHuK+EMO
+         LW46YsO6B/lM0954ubjWi6aBg3aX8p+EGWcbUFuXOmt0Vw1sumOvJOpVn1ii/7af69LO
+         lO0jReTJTLVm3cQ2faTnDY+23JWUvfIbcQ2SKnwu7VO6yJnnM5AFF/HZLICr7V5uZOZH
+         6MLeBsGNLtAgGS1feKzqVuO1lzYchYoRRJPHDxred0Im1WmE87/XzLnk0LMpgjWfAYG7
+         QE2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzF5zSgdVyA1OKnbxaAMzxSAJ+1z4Oozwm1cmIvwkCu0kQl1kIT8eBx4fXzf8OSLaik1ALdm+j1TdATUuM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQUFIyn0yPKaDZoEeYfYwHJkTMv+eBNtbZ3vR7v59omoq0CCEL
+	lcQAq+g6oOHKDa04uL3bPyWE2YtOK7oXvRSkl/wTcm950O4ukCieIPqEfnn99xCpdlQ=
+X-Gm-Gg: AYBFou3F/Eq4kZQR8dqtFlEmXrGjp+xU4445zVzCy/CE/BUAPiD+vxHHr43XRUOyjXw
+	YH8aIi3rJXuIUaLOYFqh9qGSmlCq8iuPnKUUPyJU+frT6nyDfSN10HAzrpGkj1yiZf9SqmdSq8V
+	SWM6Kxz8Ap9iXw3LtEbD+i9ECX5oKIod2gNnCzWuJEf52lsyGcwJbh8Vm3jIZ09E1b8eEf+PVEl
+	15aIA3qZPs/0arrFWlQFOZN89AEQAmwPR9FJ7EMmXvvePIEHUqpfP+w69EBDLtIBylAdtIQ4SbB
+	J3i1ZgqxwtWdNy7tahh/5mggtL+BGiwdMY4/xbMsprSt/SQlr921GeDRg6fJw7p4ohMznrKMq4t
+	pLvokjc3rA5dB8hdPl0r9vAjvEEDeB2yUa3LaAY4fVK9Z1MpH7A/uFucM/NrJuuC815yjTg3oXZ
+	owD53HBO3LagoZhaao6oSF1fWe7wKx/Mk/GqQIgx9SaBPe85btbbHk9sxIy639JBkydgPTIogHV
+	uo9x1OcRSZllUWhyaJOPnejX9GFTehXZKst27/64Q4E/T9JLyc=
+X-Received: by 2002:a17:907:ea8b:b0:c2a:fbe1:7340 with SMTP id a640c23a62f3a-c2afbe173b5mr498650466b.41.1790576564599;
+        Sun, 27 Sep 2026 23:22:44 -0700 (PDT)
+Received: from vger (99.240-244-81.adsl-static.isp.belgacom.be. [81.244.240.99])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678bbb0sm419858666b.5.2026.09.27.23.22.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 23:22:44 -0700 (PDT)
+From: Tom Verdonck <tom.verdonck@inspiral.be>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tom Verdonck <tom.verdonck@inspiral.be>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (sht4x) Fix torn read of heating_complete in heater_enable_show()
+Date: Mon, 28 Sep 2026 08:22:38 +0200
+Message-ID: <20260928062238.67746-1-tom.verdonck@inspiral.be>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
+References: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179025107692.2160803.16596847240332091038@kernel.org>
 
-Hi,
-On Thu, Sep 24, 2026 at 11:57:56AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] net/ipv6/seg6_local.c: the patch widens
->   SEG6_LOCAL_END_X_FLV_SUPP_OPS to (SEG6_F_LOCAL_FLV_NEXT_CSID |…
+Commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in
+heater-ready check") widened ->heating_complete from unsigned long to
+u64. On 32-bit architectures a u64 is no longer loaded and stored
+atomically, so heater_enable_show(), which reads ->heating_complete
+without any locking, can race heater_enable_store() and observe a torn
+value, reporting a wrong heater state.
 
-Andrea has talked about this issue and will fix it in net tree.
+Take the hwmon lock in heater_enable_show(), as heater_enable_store()
+already does when it updates ->heating_complete. The other reader,
+sht4x_read_values(), is only reached through the hwmon read callback,
+which the hwmon core already serializes with the same lock.
 
-> - [Low] net/ipv6/seg6_local.c:759-761 — the kerneldoc-style comment on
->   end_flv8986_core() still says the helper processes the packet "on the…
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/cover.1790358356.git.tom.verdonck@inspiral.be?part=3
+Fixes: 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in heater-ready check")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+---
+Guenter, if the hwmon branch has not gone to Linus yet, feel free to
+squash this into commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies
+wraparound in heater-ready check") instead.
 
-OK, I will update the comment.
+ drivers/hwmon/sht4x.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks
-Hangbin
-> 
-> --
-> 
-> seg6: add RFC8986 flavor support for End.X
-> 
-> This adds PSP processing to the SRv6 End.X behavior by reusing
-> end_flv8986_core(), and widens SEG6_LOCAL_END_X_FLV_SUPP_OPS so End.X
-> advertises PSP flavor support alongside NEXT-C-SID.
-> 
-> > diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> > index 584e6aca38930..7462da1da3629 100644
-> > --- a/net/ipv6/seg6_local.c
-> > +++ b/net/ipv6/seg6_local.c
-> > @@ -121,7 +121,8 @@ struct bpf_lwt_prog {
-> >  
-> >  #define SEG6_LOCAL_END_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
-> >  					 SEG6_LOCAL_FLV8986_SUPP_OPS)
-> > -#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
-> > +#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
-> > +					 SEG6_LOCAL_FLV8986_SUPP_OPS)
-> 
-> [Severity: Medium]
-> With this mask widened, does parse_nla_flavors() now accept the
-> combination next-csid plus psp for an End.X instance?
-> 
-> parse_nla_flavors() only rejects bits outside the per-action mask:
-> 
-> 	rc = seg6_flv_supp_ops_by_action(action, &supp_fops);
-> 	if (rc < 0 || (fops & ~supp_fops)) {
-> 		NL_SET_ERR_MSG(extack, "Unsupported Flavor operation(s)");
-> 		return -EOPNOTSUPP;
-> 	}
-> 
-> 	finfo->flv_ops = fops;
-> 
-> and seg6_flv_supp_ops_by_action() returns SEG6_LOCAL_END_X_FLV_SUPP_OPS for
-> SEG6_LOCAL_ACTION_END_X, so "ip route ... action End.X nh6 <addr> oif <dev>
-> flavors next-csid,psp" would be installed, and put_nla_flavors() echoes the
-> stored mask including PSP back to user space.
-> 
-> Is PSP actually executed in that configuration?  In the new
-> input_action_end_x() below, the NEXT-C-SID test returns before
-> end_flv8986_core() is reached, and the arg-zero sub-case of
-> end_x_next_csid_core() goes to input_action_end_x_core():
-> 
-> 	if (seg6_next_csid_is_arg_zero(daddr, finfo))
-> 		return input_action_end_x_core(skb, slwt);
-> 
-> input_action_end_x_core() only does advance_nextseg() and then
-> input_action_end_x_finish(), so seg6_pop_srh() is never called and the SRH
-> stays on the packet even though PSP was accepted and is reported as
-> configured.  The comment above seg6_flv_supp_ops_by_action() states that
-> unsupported combinations make the kernel refuse to instantiate the tunnel.
-> 
-> Would it be better to reject next-csid together with psp for End.X in
-> parse_nla_flavors(), or to route the NEXT-C-SID arg-exhausted path into
-> end_flv8986_core()?
-> 
-> For reference, the same shape already exists for the End action via
-> SEG6_LOCAL_END_FLV_SUPP_OPS and input_action_end()/end_next_csid_core(),
-> but for End.X the combination only becomes configurable with this change.
-> At the end of the series the mask and input_action_end_x() are unchanged,
-> and the added selftest only installs psp on its own, so the combination
-> stays accepted but unimplemented.
-> 
-> >  
-> >  struct seg6_flavors_info {
-> >  	/* Flavor operations */
-> > @@ -841,12 +842,19 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
-> >  {
-> >  	const struct seg6_flavors_info *finfo = &slwt->flv_info;
-> >  	__u32 fops = finfo->flv_ops;
-> > +	int ret;
-> > +
-> > +	if (!fops)
-> > +		return input_action_end_x_core(skb, slwt);
-> >  
-> >  	/* check for the presence of NEXT-C-SID since it applies first */
-> >  	if (seg6_next_csid_enabled(fops))
-> >  		return end_x_next_csid_core(skb, slwt);
-> >  
-> > -	return input_action_end_x_core(skb, slwt);
-> > +	ret = end_flv8986_core(skb, slwt);
-> > +	if (ret)
-> > +		return ret;
-> > +	return input_action_end_x_finish(skb, slwt);
-> >  }
-> 
-> [Severity: Low]
-> This isn't a bug, but the comment above end_flv8986_core() still reads:
-> 
-> 	/* process the packet on the basis of the RFC8986 flavors set for the given
-> 	 * SRv6 End behavior instance.
-> 	 */
-> 
-> With this new call site the helper also serves End.X, whose post-processing
-> differs (input_action_end_x_finish() forwards to slwt->nh6/slwt->oif rather
-> than doing a DA-based lookup).  Could the comment say "End* behavior", which
-> is the wording already used above seg6_flv_supp_ops_by_action() and in the
-> SEG6_F_LOCAL_FLAVORS comment?
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-srv6_flavors_endx-v1-0-4d01c05c47b7%40kylinos.cn
+diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
+index da2b6130fca7..27fddff70354 100644
+--- a/drivers/hwmon/sht4x.c
++++ b/drivers/hwmon/sht4x.c
+@@ -237,6 +237,8 @@ static ssize_t heater_enable_show(struct device *dev,
+ {
+ 	struct sht4x_data *data = dev_get_drvdata(dev);
+ 
++	guard(hwmon_lock)(dev);
++
+ 	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
+ }
+ 
+-- 
+2.53.0
+
