@@ -1,239 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54801A6835;
-	Mon, 28 Sep 2026 14:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C624BD36E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606822; cv=none; b=ZdyfshZxBiRnWF3oAwRjeI7N3u9yAvNvi0/79kQagg+zC3lDRHUetmauSnuElEj7FOzl20kXRW7KWWYVHuRYZZ2SWUlriUkjQYDTGwaK4JEmZ/3EUhIYVzi0HZJKTbJno7yU19BQeQz+a+SYCsosJV4t2T822N2f3FFoEAguvQk=
+	t=1790607060; cv=none; b=uqAVMYQsqq4UJgphv6aE2nY4xN8BP+U13LltJSCM/C73U410txGm2pFNLFoJcX1fAG2l1s3Y1iwp31vXSxf/wmc5b0/6xNFjOGK6SctrM4e0xDAmXLZjKOYFZi/hNov8PcmgTrTPP9LT8H4hCL0iuFqy8DONoXWk3JEJVMo8qio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606822; c=relaxed/simple;
-	bh=zbCPH1gp8E37CKzqvu7k6g1mdsc56Fqts1Xhj5f47ug=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CFPfM0PC3+QSAn8oNp3wuxyru2DaxixXDIAZUy/yGMEQ5QfusCrAdlBSQt9NWgjOA1K063PMyqhsDHEJBJgUkiqXK10tDiAiC0aE3fIYyK25a/Inv3cBmMWaa+PZaEFiW/B3Y6K7spP0XCG5DW6f4i1KEU9h0uwHy09/O9X2XR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dI22Ru21; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790607060; c=relaxed/simple;
+	bh=iWkWDGNdURg+OiihageyrbZ+a1Gfd++w69an/fPU3Mg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r2maWbtVNghqKpf7EHH/GTWhCMT/rq0PWr4c0Jg6XFs4mThAboajJD6S6jPYZHp3rV6zMDsFSZTAfKK6ZtQbl3Pqr7PwZuL8n4e7DqfVNdysLWMMDCLEDJ8zD31FP8cm+o5OAC3tRk//4tjrwtHYuQ9wO7tNOy3wOBaf3zPoQXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=UKL7/9h7; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dI22Ru21"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB391F000FF;
-	Mon, 28 Sep 2026 14:46:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790606817;
-	bh=j0t2Y/8RoScbs1ozWBH/tUK6/SLvoQ34K92T2DbWczM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dI22Ru21oM811VNVARN7RQXH51/GaOm1Ypk1BOKqqCxjAYWNh5qSnrzXOSbRpw6SS
-	 kzVhJyGtP4a4C4Q6P/H6Oi/RypTbfuEmh8PChk3AIVBazqyvBBaYrgzpBINtUHNM7K
-	 3lWDpto1USFeK9JbulsBN1RFz1/kCumKwjPcswUM0I5X2aCpKM60kw1nL3TI/ay7PZ
-	 i6lZugu1+jMCRicstAVOIN5qgjJZ7DHUHq2qnQe8x5imeiuvcpSvBCPSBuzBsorDkg
-	 WZJAY9H/RdSRlGJcbSyc+ude+et38WUD2DaWcqffjwGVmvCFzgFeVetvscqmKNtB/w
-	 K1knt0vp45XSA==
-Date: Mon, 28 Sep 2026 15:46:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Peter Maydell <peter.maydell@linaro.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] KVM: arm64: selftests: Check ID regs are
- immutable after a failed run
-Message-ID: <arp7mig_PrD9Jbc7@gremlin>
-References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
- <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="UKL7/9h7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 912994E41098;
+	Mon, 28 Sep 2026 14:50:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 36976601BD;
+	Mon, 28 Sep 2026 14:50:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4672D10329684;
+	Mon, 28 Sep 2026 16:50:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790607053; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=TvuuZ6aLqblf+H0W8nqZvZBIx+Xtg4eiL7p4ol//ojc=;
+	b=UKL7/9h7KmpkIo3dALdGSlM5n7z1V5/Yd4YECQ5G4LmP12RroYSNYjfwu7P/4SYsf8U+JF
+	54OHmcgorp8B56TQTY85WLxck1r4yQ/ovJbvx1oHdpVRbYQgSaHdYh5bSMUbo+KLjCgukV
+	lORj+NtvVj8K7DLUMKPd02Gvm3JE7v83rohMt9sKrrkqoPOaIJJ2gWNAlqKDxDja05yiLa
+	q5GR4aCvMdof/nokisMmUqyCAq8HR7eW1meMrwb+5be+XTr9fA9bMOMJQ5jSGMSjh/CKHa
+	uIZPQP5flK4JuHJePICzTxXxh6+OXkJKoDYi9oeaiOWtwRV5B308kgP05j8qOg==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Peter Robinson <pbrobinson@gmail.com>
+Subject: [PATCH net-next v2 0/2] net: stmmac: Report RSS as not supported
+Date: Mon, 28 Sep 2026 16:50:40 +0200
+Message-ID: <20260928145043.1228968-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 01, 2026 at 07:18:50PM +0100, Mark Brown wrote:
-> From: Fuad Tabba <fuad.tabba@linux.dev>
->
-> Add a set_id_regs case covering ID register immutability when a vCPU's
-> first KVM_RUN fails after finalization but before
-> KVM_ARCH_FLAG_HAS_RAN_ONCE is set. The test provokes such a failure with
-> a PMUv3-enabled vCPU whose PMU is left uninitialized, then checks that
-> KVM_SET_ONE_REG on the feature and implementation ID registers, and
-> KVM_CREATE_DEVICE for a vGIC, are all rejected with -EBUSY.
->
-> Assisted-by: Antigravity:gemini-3.1-pro
+Hi everyone,
 
-NIT: we changed the rules for the Assisted-by tag, it only needs to be
-'Assisted-by: LLM' now. Not a huge big deal but FYI :>)
+This is V2 of an RSS cleanup for stmmac, discovered while running the
+rss kselftests on stmmac. It returns bogus indirection tables and key
+sizes, when RSS isn't actually available at all.
 
-https://docs.kernel.org/process/coding-assistants.html
+RSS is currently not supported on any stmmac devices upstream, so
+code that was already useless is now effectively dead. It has been the
+case since 2019 when the code was added, as platforms need to set rss_en
+in their plat data, and no glue ever did that.
 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Link: https://patch.msgid.link/20260805064740.3013538-1-fuad.tabba@linux.dev
+Russell King ran a poll in february 2026 [1] asking if the code should
+be dropped, without any reply going in either direction.
 
-LGTM so:
+Jitendra Vegiraju from Broadcom sent 9 iterations of a Broadcom PCIe glue
+driver [2] that actually sets rss_en = 1, so there's some hope that this
+may be used in the future.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[1]: https://lore.kernel.org/netdev/aYd4BkAeNW6d0iIC@shell.armlinux.org.uk/
+[2]: https://lore.kernel.org/netdev/20260402213629.1996133-1-jitendra.vegiraju@broadcom.com/
 
-> ---
->  tools/testing/selftests/kvm/arm64/set_id_regs.c | 106 +++++++++++++++++++++++-
->  1 file changed, 105 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
-> index 7429a1055df5..10849d21c0dd 100644
-> --- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
-> +++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
-> @@ -13,6 +13,7 @@
->  #include "kvm_util.h"
->  #include "processor.h"
->  #include "test_util.h"
-> +#include "vgic.h"
->  #include <linux/bitfield.h>
->
->  enum ftr_type {
-> @@ -803,6 +804,107 @@ static void test_reset_preserves_id_regs(struct kvm_vcpu *vcpu)
->  	ksft_test_result_pass("%s\n", __func__);
->  }
->
-> +/*
-> + * ID registers must stay immutable even when a vCPU's first KVM_RUN fails
-> + * after finalization but before KVM_ARCH_FLAG_HAS_RAN_ONCE is set.
-> + */
-> +static void test_idreg_frozen_after_failed_run(void)
-> +{
-> +	static const u32 imp_id_regs[] = {
-> +		SYS_MIDR_EL1,
-> +		SYS_REVIDR_EL1,
-> +		SYS_AIDR_EL1,
-> +	};
-> +	struct kvm_vcpu_init init;
-> +	struct kvm_vcpu *vcpu;
-> +	struct kvm_vm *vm;
-> +	int r;
-> +
-> +	if (!kvm_has_cap(KVM_CAP_ARM_PMU_V3)) {
-> +		ksft_print_msg("PMUv3 unsupported, cannot fail the first run\n");
-> +		ksft_test_result_skip("%s\n", __func__);
-> +		return;
-> +	}
-> +
-> +	/* Skip the default vGIC so the KVM_CREATE_DEVICE gate is reachable. */
-> +	test_disable_default_vgic();
-> +
-> +	vm = vm_create(1);
-> +	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
-> +	kvm_get_default_vcpu_target(vm, &init);
-> +	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
-> +	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
-> +	kvm_arch_vm_finalize_vcpus(vm);
-> +
-> +	/*
-> +	 * A PMUv3 vCPU left without PMU init is rejected by
-> +	 * kvm_arm_pmu_v3_enable(), which runs after sysreg finalization.
-> +	 */
-> +	r = _vcpu_run(vcpu);
-> +	TEST_ASSERT(r < 0 && errno == EINVAL,
-> +		    "first KVM_RUN should fail post-finalization: r=%d errno=%d",
-> +		    r, errno);
+Nvidia platforms seem to be RSS capable, but it's not going to work out
+of the box. Let's leave the feature there for now, with proper -EOPNOTSUPP
+returned for RSS ops.
 
-Ah nice determinate way of triggering the issue.
+V2:
+ - target net-next
+ - Add a dedicated helper, following Nicolai's review.
 
-> +
-> +	/*
-> +	 * Feature ID registers: use values that would have been accepted before
-> +	 * finalization, so that a rejection means the registers are final
-> +	 * rather than the value being invalid.
-> +	 */
-> +	for (int i = 0; i < ARRAY_SIZE(test_regs); i++) {
-> +		const struct reg_ftr_bits *ftr_bits = test_regs[i].ftr_bits;
-> +		u64 reg = KVM_ARM64_SYS_REG(test_regs[i].reg);
-> +		u64 val = vcpu_get_reg(vcpu, reg);
-> +
-> +		for (int j = 0; ftr_bits[j].type != FTR_END; j++) {
-> +			u64 ftr = (val & ftr_bits[j].mask) >> ftr_bits[j].shift;
-> +			u64 safe = get_safe_value(&ftr_bits[j], ftr);
-> +			u64 new_val;
-> +
-> +			if (safe == ftr)
-> +				continue;
-> +
-> +			new_val = (val & ~ftr_bits[j].mask) |
-> +				  (safe << ftr_bits[j].shift);
-> +
-> +			r = __vcpu_set_reg(vcpu, reg, new_val);
-> +			TEST_ASSERT(r < 0 && errno == EBUSY,
-> +				    "%s write after failed first run: r=%d errno=%d",
-> +				    ftr_bits[j].name, r, errno);
-> +			TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
-> +		}
-> +
-> +		/* A write matching the finalized value is still accepted. */
-> +		vcpu_set_reg(vcpu, reg, val);
-> +	}
-> +
-> +	/*
-> +	 * The VM-wide implementation ID registers are gated separately. Bit 0
-> +	 * is within the writable mask of all three, so flipping it is a change
-> +	 * KVM would otherwise accept.
-> +	 */
+V1: https://lore.kernel.org/netdev/20260926093343.292181-1-maxime.chevallier@bootlin.com/#t
 
-Nice.
+Maxime Chevallier (2):
+  net: stmmac: Introduce a helper to check RSS support
+  net: stmmac: Don't set or get RSS parameters when not supported
 
-> +	for (int i = 0; i < ARRAY_SIZE(imp_id_regs); i++) {
-> +		u64 reg = KVM_ARM64_SYS_REG(imp_id_regs[i]);
-> +		u64 val = vcpu_get_reg(vcpu, reg);
-> +
-> +		r = __vcpu_set_reg(vcpu, reg, val ^ 1);
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h         |  5 +++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 12 ++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    |  4 ++--
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
-Ah literally a flip.
+-- 
+2.55.0
 
-> +		TEST_ASSERT(r < 0 && errno == EBUSY,
-> +			    "implementation ID reg write after failed first run: r=%d errno=%d",
-> +			    r, errno);
-> +		TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
-> +	}
-> +
-> +	/* Creating an in-kernel irqchip would change the ID registers too. */
-> +	if (kvm_supports_vgic_v3()) {
-> +		r = __kvm_create_device(vm, KVM_DEV_TYPE_ARM_VGIC_V3);
-> +		TEST_ASSERT(r < 0 && errno == EBUSY,
-> +			    "vGIC creation after failed first run: r=%d errno=%d",
-> +			    r, errno);
-
-I guess in general it's making sure - where there should now be finalisation on
-reg setting that this is actually enforced?
-
-> +	}
-> +
-> +	kvm_vm_free(vm);
-> +	ksft_test_result_pass("%s\n", __func__);
-> +}
-> +
->  int main(void)
->  {
->  	struct kvm_vcpu *vcpu;
-> @@ -828,7 +930,7 @@ int main(void)
->
->  	ksft_print_header();
->
-> -	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
-> +	test_cnt = 4 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
->  	for (i = 0; i < ARRAY_SIZE(test_regs); i++)
->  		for (j = 0; test_regs[i].ftr_bits[j].type != FTR_END; j++)
->  			test_cnt++;
-> @@ -847,5 +949,7 @@ int main(void)
->
->  	kvm_vm_free(vm);
->
-> +	test_idreg_frozen_after_failed_run();
-> +
->  	ksft_finished();
->  }
->
-> --
-> 2.47.3
->
->
-
---
-Cheers, Lorenzo
