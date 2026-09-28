@@ -1,265 +1,152 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9A81C2AA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB21F33B6FB;
+	Mon, 28 Sep 2026 00:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790556337; cv=none; b=srY7IeXjLeuLX6YhLP+N0eqWnNtDBSz+zJX+9AbM5KioQEvY+MBywXjTlo7M6vc567BUKbH/LEp9YrCzH4NYSwiK5Hgon1dcu2mKEwure9QX8sdSsn86I1mEd5XaYATcP0PzJontZFgFZqjh0mJQu3lWKmY3Mh9M5LmJQ5GNAyg=
+	t=1790556364; cv=none; b=RexeDtGe3ftPcAjCtr0xiaYMjab7ksEYnoQmXxFUBWmXfQGIXjrK9vR13YU6LY4O5T0sYshNBaaWmCPTdGmjzHf9/5EvBkTAFjUr8jlsnUuqa3xi5nNpoXlpatgjWwUxGivMwG89rROAia6+be1xn/qik2JKDETCB3ydQt2fK0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790556337; c=relaxed/simple;
-	bh=BnIGEibz8Xw+DjOIycdXq11EkeD2j6Syg+GjYw8qM5U=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Wgx+nDwCrsE/aw3BTZdJgCDeOUjQi4jkfer7TAMpl5gbG11MS6igctB89TaxF5YQsodFLVV5n79bIJ+NDauly8c7b+gNyr149WIZfndz9OM18ta20i+qcw5iZjz5yhQK7/7BXVI94vAUx/wX+DXp+EGbYl2m9USUOP2WVuI58ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4eb04c0e1feso166185b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:45:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790556334; x=1791161134;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=09MBUf3G+zc8XVi1unMtT7iI4bGusWQamBoaPObpOc8=;
-        b=u/j0T4d8K0PpbP/eViHjCB4Ae+Mt7zj+puSORutTySDP2yGXWJfZgwsSENmAyUHlon
-         dzFyHZVo53xIRrU2ukQp23Xg7faNHzX8g0jnxrgXQGJXGjmxBgD+kZz5tyHO/5dUheha
-         ts79aC+FuAmA3lvzVB+PJ/lL7/jCX/wVmkvyiLeDM0uXyAMNuxwbFmFP0w7hiXGWT6jr
-         enZ9DKPQ8EnaS1kTydXK6GDwK1L59jSgBnd0FyU9+2GJMgUVDofLR1TLRlI6Hf//jl7p
-         np0XOgz9xKHrbFiPtf8VNDK/lqGsHCgpA+ZMmNpPBLOYnTorTrcKpuaQ2KE5D40QsL3y
-         0TLg==
-X-Forwarded-Encrypted: i=1; AKwUvByQmF9vJg55DcKuayjhfag053FqPFOcxaXbH+0vW2SMIPOB3JIEdg5VQmmaFP4HvscuLOCC7nJjuhWcKBI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT0XDq7mbTTmRHzKtXdU0XSm4rHhzYFi9fz/kC7p0klGxr/kNx
-	Mvw4Cd9OEPEZUlz6qKs6QPauKzBg9LRNoU1y6N7/E8hTHGAA8gN4gDWpF09Gb5+Cd2LXef5Q/5T
-	Tm98AFrls/6XNQw5Wse1t/bJxiYqzsudN77jzVypB31GtDVVMavZWD0wae0c=
+	s=arc-20240116; t=1790556364; c=relaxed/simple;
+	bh=MnbnVylyGuLf3rX0F5bMUHu5xygQPKBQOn4zeybZoOo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LqXW3n6dslnUm6wSAmma3NVADsMmosEeFMND3qoBtadYqavUsBt7PfBW3FpuriGHHwh4lEZVvWNMa+ASP4lLgv7lQCoiG76TwHMODvq6e51km5OytaIB2QlJrnpAXtfJwAvVhUfQcfuoIa97/socLn5qhwBrAfDA/kuDD7NkaeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAnMZn35; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAnMZn35"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046681F000FF;
+	Mon, 28 Sep 2026 00:45:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790556359;
+	bh=iDTWTbsesCKDWU0wPcWa5OfHCranjK97rOj/GXBu9QY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EAnMZn35/3VE3yoGkvt/ULZdEXByOhHU3+7wtcUv/mxOz0sbNAk/AITr/rk4ftyvC
+	 WaNfEECVy2ctE+iRlw6/l6azsUG/JNA30Gp1juTM2e55FwWwxZCULF8XqKb9szGgmt
+	 wWPymCg6Nbb1By+wQufi+LCRzLXQUOl9jpIHjN41fLmqLLyjyVWiI/yNX38P+LQ+QM
+	 0WFnpWAnS0ZPJKeSFeyvykwTt9NPnKvnB95mRyCGkr1mnpv5FybIqDjPMXnURiP84W
+	 ymEBAM3UAKZAfNNltzc1QdcS5kXVn0No3r67THaQANzHI4eTOhD52ES18dHwAFv+rF
+	 7kI2TFENZyKhg==
+Subject: Re: [net-next,PATCH v1] enetc: Increase eMDIO MDC rate to 1.2 MHz
+From: netdev-bot+sashiko@kernel.org
+To: marex@nabladev.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
+ xiaoning.wang@nxp.com, claudiu.manoil@nxp.com, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, vladimir.oltean@nxp.com, wei.fang@nxp.com,
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 00:45:58 +0000
+Message-ID: <179055635852.3145.15306649512061194740@kernel.org>
+In-Reply-To: <20260924003132.580306-1-marex@nabladev.com>
+References: <20260924003132.580306-1-marex@nabladev.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a1e:b0:4d6:92b3:5c84 with SMTP id
- 5614622812f47-4dc69d1c59amr7708046b6e.65.1790556334344; Sun, 27 Sep 2026
- 17:45:34 -0700 (PDT)
-Date: Sun, 27 Sep 2026 17:45:34 -0700
-In-Reply-To: <69d56a91.050a0220.28fc4.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab9b8ae.dc2998a4.2261f5.0071.GAE@google.com>
-Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Read in kbd_event (2)
-From: syzbot <syzbot+098cefc0911c68db5dab@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, jirislaby@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tahernady45@gmail.com
-Content-Type: text/plain; charset="UTF-8"
 
-syzbot has found a reproducer for the following issue on:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-HEAD commit:    efb44d93a620 Merge tag 'x86-urgent-2026-09-27' of git://gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=132c325e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=098cefc0911c68db5dab
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=150fe605580000
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+098cefc0911c68db5dab@syzkaller.appspotmail.com
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-==================================================================
-BUG: KASAN: slab-use-after-free in __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
-BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:181
-Read of size 1 at addr ffff88803a627418 by task syz-executor104/5953
+- [High] enetc: MDIO clock overclocked beyond 2.5MHz on 400MHz platforms
+- [Medium] The two MDC rates in the commit message cannot both be right.
 
-CPU: 0 UID: 0 PID: 5953 Comm: syz-executor104 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __kasan_check_byte+0x2a/0x40 mm/kasan/common.c:574
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire+0x7d/0x350 kernel/locking/lockdep.c:5916
- __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
- _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:181
- rt_mutex_slowunlock+0xbf/0xa30 kernel/locking/rtmutex.c:1430
- rt_spin_unlock+0x10f/0x200 kernel/locking/spinlock_rt.c:84
- kbd_keycode drivers/tty/vt/keyboard.c:1574 [inline]
- kbd_event+0x2e8d/0x41f0 drivers/tty/vt/keyboard.c:1592
- input_handle_events_default+0xd4/0x1a0 drivers/input/input.c:2614
- input_pass_values+0x288/0x890 drivers/input/input.c:128
- input_event_dispose+0x35f/0x700 drivers/input/input.c:342
- input_event+0x87/0xb0 drivers/input/input.c:396
- uinput_inject_events drivers/input/misc/uinput.c:660 [inline]
- uinput_write+0x3be/0xfe0 drivers/input/misc/uinput.c:682
- vfs_write+0x29f/0xbb0 fs/read_write.c:685
- ksys_write+0x156/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb964fdc25e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007fb962f82168 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fb962f826c0 RCX: 00007fb964fdc25e
-RDX: 0000000000000030 RSI: 00007fb962f821d0 RDI: 0000000000000003
-RBP: 0000000100460001 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000000 R14: 00007ffec9fa4910 R15: 00007ffec9fa49f8
- </TASK>
+--
 
-Allocated by task 5950:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- alloc_tty_struct+0xa6/0x7a0 drivers/tty/tty_io.c:3075
- tty_init_dev+0x59/0x4d0 drivers/tty/tty_io.c:1373
- tty_open_by_driver drivers/tty/tty_io.c:2046 [inline]
- tty_open+0x7e5/0xcd0 drivers/tty/tty_io.c:2093
- chrdev_open+0x4dc/0x600 fs/char_dev.c:411
- do_dentry_open+0x849/0x1420 fs/open.c:996
- vfs_open+0x3b/0x350 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1448/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+enetc: Increase eMDIO MDC rate to 1.2 MHz
 
-Freed by task 31:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x1c5/0x6d0 mm/slub.c:6801
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+This commit changes the divider in ENETC_EMDIO_CFG from 258 to 138. The
+aim is to raise the eMDIO MDC clock on i.MX95 B0 from 558 kHz to 1.2 MHz,
+so that PHYs such as the NXP TJA1120, which need at least 1 MHz, work.
 
-Last potentially related work creation:
- kasan_save_stack+0x3e/0x60 mm/kasan/common.c:57
- kasan_record_aux_stack+0xbd/0xd0 mm/kasan/generic.c:556
- insert_work+0x3d/0x330 kernel/workqueue.c:2272
- __queue_work+0xd4b/0x1120 kernel/workqueue.c:2448
- queue_work_on+0x106/0x1d0 kernel/workqueue.c:2501
- tty_open_by_driver drivers/tty/tty_io.c:2042 [inline]
- tty_open+0x988/0xcd0 drivers/tty/tty_io.c:2093
- chrdev_open+0x4dc/0x600 fs/char_dev.c:411
- do_dentry_open+0x849/0x1420 fs/open.c:996
- vfs_open+0x3b/0x350 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1448/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> index 998aaa394e9c4..30ea91cea00e5 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> @@ -24,7 +24,7 @@
+>  
+>  #define ENETC_EMDIO_CFG \
+>  	(MDIO_CFG_HOLD(2) | \
+> -	 MDIO_CFG_CLKDIV(258) | \
+> +	 MDIO_CFG_CLKDIV(138) | \
 
-The buggy address belongs to the object at ffff88803a627000
- which belongs to the cache kmalloc-cg-2k of size 2048
-The buggy address is located 1048 bytes inside of
- freed 2048-byte region [ffff88803a627000, ffff88803a627800)
+[Severity: High]
+Does this divider change only affect i.MX95?
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3a620
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x80000000000040(head|node=0|zone=1)
-page_type: f5(slab)
-raw: 0080000000000040 ffff88813ff073c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000200080008 00000000f5000000 0000000000000000
-head: 0080000000000040 ffff88813ff073c0 dead000000000100 dead000000000122
-head: 0000000000000000 0000000200080008 00000000f5000000 0000000000000000
-head: 0080000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5620, tgid 5620 (syz-executor), ts 116331677010
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d8/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x54b/0x790 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- __register_sysctl_table+0x6f/0x1370 fs/proc/proc_sysctl.c:1378
- __devinet_sysctl_register+0x36d/0x470 net/ipv4/devinet.c:2745
- devinet_sysctl_register+0x187/0x200 net/ipv4/devinet.c:2785
- inetdev_init+0x29e/0x4d0 net/ipv4/devinet.c:291
- inetdev_event+0x307/0x15e0 net/ipv4/devinet.c:1590
- notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
- call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
- call_netdevice_notifiers net/core/dev.c:2327 [inline]
- register_netdevice+0x18c0/0x1ed0 net/core/dev.c:11552
- register_netdev+0x40/0x60 net/core/dev.c:11631
- vti6_init_net+0x259/0x3b0 net/ipv6/ip6_vti.c:1173
-page last free pid 5434 tgid 5434 ts 92300899086 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
- __slab_free+0x250/0x2a0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
- alloc_buffer_head+0x2a/0x280 fs/buffer.c:2872
- folio_alloc_buffers+0x1fa/0x6f0 fs/buffer.c:743
- create_empty_buffers+0x3a/0x520 fs/buffer.c:1576
- ext4_block_write_begin+0x610/0x1560 fs/ext4/inode.c:1193
- ext4_da_write_begin+0x879/0xd70 fs/ext4/inode.c:3167
- generic_perform_write+0x2ad/0x8b0 mm/filemap.c:4374
- ext4_buffered_write_iter+0xd5/0x380 fs/ext4/file.c:354
- ext4_file_write_iter+0xafc/0x1d00 fs/ext4/file.c:-1
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x61e/0xbb0 fs/read_write.c:687
- ksys_write+0x156/0x270 fs/read_write.c:739
+ENETC_EMDIO_CFG is written to ENETC_MDIO_CFG on every access by
+enetc_mdio_read_c22(), enetc_mdio_write_c22() and their c45
+counterparts. Those helpers are shared by every ENETC eMDIO user.
+That includes the LS1028A standalone eMDIO function in
+enetc_pci_mdio.c and the Felix internal MDIO bus in felix_vsc9959.c,
+not only the i.MX95 ENETC v4 PF.
 
-Memory state around the buggy address:
- ffff88803a627300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803a627380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88803a627400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                            ^
- ffff88803a627480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803a627500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+The commit message only reasons about the i.MX95 clock. On LS1028A,
+enetc_pf_data sets sysclk_freq = ENETC_CLK_400M. If MDC is the input
+clock divided directly by CLKDIV, 400 MHz / 138 is about 2.9 MHz.
+That is above the 2.5 MHz MDC limit in IEEE 802.3 clause 22. PHYs
+that only guarantee 2.5 MHz could then return corrupted reads, fail
+to probe, or miss link state changes on boards that work today.
 
+The hardware may instead follow clk / (2 * div + 1), which is what
+xgmac_mdio_set_mdc_freq() assumes for the sibling FSL block. In that
+case LS1028A would land around 1.44 MHz and be fine. The commit
+message does not say which relation applies, and it gives no figure
+for LS1028A.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Was this tested on LS1028A, and what MDC rate results there? The
+same constant gives different rates depending on the SoC clock.
+Would it be safer to compute the divider from the actual clock rate
+and a target MDC frequency, along the lines of the DT alternative
+mentioned in the NOTE, rather than hardcoding one value for all
+platforms?
+
+[Severity: Medium]
+Can the two MDC rates in the commit message both be right?
+
+The message says:
+
+    The current eMDIO MDC rate is 558 kHz on i.MX95 B0.
+    ...
+    increase the MDC clock to 1.2 MHz
+
+That is a 2.15x increase. For any linear divider of the form
+clk / (a * div + b) with b >= 0, going from 258 to 138 can raise the rate
+by at most 258 / 138, about 1.87x.
+
+The sibling FSL driver uses this relation in xgmac_mdio_set_mdc_freq():
+
+    div = ((clk_get_rate(priv->enet_clk) / priv->mdc_freq) - 1) / 2;
+
+That gives mdc = clk / (2 * div + 1), so the ratio here is 517 / 277, about
+1.866.
+
+If 558 kHz is the real current rate, the new rate would be about 1.04 MHz,
+not 1.2 MHz.
+
+Working the other way, enetc4_pf_data uses sysclk_freq = ENETC_CLK_333M for
+i.MX95. That gives 333 MHz / 277, about 1.2 MHz, for the new setting. But
+the same clock puts the old setting at 333 MHz / 517, about 644 kHz, not
+558 kHz.
+
+Which of the two figures was measured? If 558 kHz was measured on hardware,
+the new MDC would be only about 4% above the TJA1120's 1 MHz minimum.
+
+Could the commit message give the MDC rate actually measured after this
+change?
+
+>  	 MDIO_CFG_NEG)
+>  
+>  #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924003132.580306-1-marex%40nabladev.com
