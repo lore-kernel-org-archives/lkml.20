@@ -1,150 +1,252 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5800643DEBD
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AD52D662F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553469; cv=none; b=nHeMnESDktllomFptVSIdw6cD3+UI+aRZ5VxlwkPrsCRpCiVIgnY6bnNiRTEOJaofyorxe6Fm+nkyVYdqL64pZD22Poq+hjENrv5kWhZyLA0x6giWHxLRGoUzDMJ7zrbWkBOcYH8WjLj6NVOZN+PQ+NPaFL+6LkgeG04kjEeCHc=
+	t=1790553623; cv=none; b=DNI9cQJa+77VZQBNuQqGi6dey3qUCfO+vM2o/FlVxuAiAJHNL+8r59mEl+ANHlZX6cVPTQxFUC17uzCdIZvZpFH3H9RjiNSu9MctAwz06Rtp5zmzN0oJb4iGkBPP2c0lKmdjcDTczwAzWr7plFhVEu2KHIdJ8iRPEoomN0THHFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553469; c=relaxed/simple;
-	bh=DglIrrDXllyhsuTDAoN4Y2DXS2rVZd1hX0AlaVyvY/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rXjx5d4NXPMQ/TEgJO3pnOK+EDtqt/YERJBlDDaqyP/BWenP2mJhXgm5P+4kbEaIaYOzljLtr5brMoSs9/FQME8Ic+WZ0NFzXgcmF54vnUn0FWWjyeQbsIEN7djZnbaq4iytskT1RDfP1LEQJiPiLzoUz421haXH5haK+/reEHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=WJp7xzFN; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1790553623; c=relaxed/simple;
+	bh=2i/YOLVGOBcoQZcjhg+RukDoW4SYzZpNRFTQ3EPjlPU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MjWl3Olj9+HFJifDKnxrgNwYbEKZH+z7GJl9APImOr5tGGKGLXNe1pYkVF4jkazQfXzo+SLpieOtXlTi5+dbVhhlCSK/Cn3jcPTvfXLBD9JKwivkfDvZn3BYGkpjv4Dsw+GXyYNI54OAOF/2apVzepz7CIx652HCcgdu2YxiXTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AfANXENq; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="WJp7xzFN"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso22921125e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 16:57:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790553464; x=1791158264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YqY7rv9uom0DquimJxa+2jP2W//BGSFqhleEITvxJnA=;
-        b=WJp7xzFN7fLX7WsdmmmxQcZdAj5+PPQA53mQr+l4ueta3UrOEHA6Xhxvh1lFTuR0YV
-         k9rzYA4Ej1Q8eHSxVNRBOWYz5IXVIy+y0BXjt6d/MVaLUZeEQfR6XYzD6FTbIwkmvLxz
-         HCD1BuAEk6Bi/SnUJAgpBXK27YKI4HdJ8qqYNDXt42eqm8V0daYcyMS+0K8okQJjHygh
-         Wq8R0BMZmL/9lKgPqA2FHym+XBtmD9EtrUcDXcwZZPljy/hHiKjdZMAyDRVk0Y9n1P5Z
-         AtOI1xG2rhhV0hk3VPMwjnLuhewVDx2b5/QMskgXeOPQXLE+68sw1I3CJcb5KS3WnBCZ
-         HsPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790553464; x=1791158264;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YqY7rv9uom0DquimJxa+2jP2W//BGSFqhleEITvxJnA=;
-        b=RjdyyWUAnJhM4rxO6cMLvXAOJHYUhwqYaZlN91ApxUdypRCPjowzNjjEXp2uOKObZc
-         Z1j6UJDwybGdG4MZS6sv4eO6zfJjWzmF++3S7zTLiWvqFxEAMvX8pNeLzwSv8o+B8D1U
-         gxMFxfDJxBRjTWRqsP876bRuIWQoTFS1WYvPjOaZf6sPaG0s6IENuAZJcwnhVXMcMVWv
-         bM3EW9iqurXkPvqmBPdmCaeuWbuH+hYhkpM3vXBDFmnsOLH+W0vTjBg5rHQdrf3DmtJX
-         9yc1ERStdhWTXBPUtW4h8+1E6c+eEdLVu35143MOgOMqEBVe9GrNkq2lxoGJ8QHiqtIl
-         nQhA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3C/3MuY8X/d6xnsRnUYual8IjBgA7JzeT1YOb3GoW0oDGcsbeod7wQY88dL0x87DvxCQ4KpquyME02ao=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmLyFcTBFQUs9nnsnJxdlE79t3a/MMEN/c4m6SpmfPecNmflcy
-	F9cLtT63GYz2Eijkw+ClI4v07vJEtImGIcfs5nXMfslPonKioa+9sLgGk42qfH/K6T0=
-X-Gm-Gg: AYBFou0wasOXeLApVJ+ZLjwiwJuT+5Y4oasXfNAkz6WYzQgt+toVw0/ZRPJfi8WHKT+
-	/Pr2FeRF+0wagWeNNSSkBuqTTTEAPi6ew+JX3UuWdY+/tssghMOr2GiMihNb3jNkYcU9TKnGqiu
-	dV7Y9UjjwJ6DHCe1jsftIi/pRFWUFNlLAaerWisbaFaanlj1FyJJ3ckbsK83whhDmJ8gSr/LDJU
-	NIwUmFQ1CK3taIQ6aEEjyeXgtWI9f781iLCAzWHyyJczVe+4hKCT0Fg2JmlGyXeQYGjpSX03WuW
-	6FcrIBT92/4jwXj0dXcvx87uMUW8/pl2Kugx/DHDDqoDQId8uqYxMf4OOZTqFeJ+fhP3fgNLrbz
-	2a0uclEKMIjFzH0RvOKeh5wUXaAGzCgQfr+MY1I5ZV6rgVt11iFkUmpY+/Rii7JUoZn3jbOoqsf
-	v6uTyWQW2NL41e6ds9EAlZ9THulw15YCdNmHnSRww7RuPDr13TEw==
-X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fe66f4c72mr207314845e9.19.1790553463941;
-        Sun, 27 Sep 2026 16:57:43 -0700 (PDT)
-Received: from remote-01 ([84.17.55.134])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017998dbsm137971495e9.14.2026.09.27.16.57.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 16:57:43 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	olteanv@gmail.com,
-	Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	steve.glendinning@shawell.net,
-	f.fainelli@gmail.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aleksei Sviridkin <f@lex.la>
-Subject: [PATCH net v12 3/4] net: phy: take the interrupt back from the bus on detach
-Date: Mon, 28 Sep 2026 02:57:32 +0300
-Message-ID: <20260927235733.2619081-4-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927235733.2619081-1-f@lex.la>
-References: <20260927235733.2619081-1-f@lex.la>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AfANXENq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790553617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qcV6/Og6Sz2Yo283jW8k6RTUPMhfbh+WVPWxZsx9csc=;
+	b=AfANXENqYAKSJ2kc75LqykQ+odZQWiZEe/ZqqSAfDfXR2H+5J55IOfvoiqAD9gYJJhj763
+	ucHQPBK2wVlQN4m+NXhC0wgUSJYWI0ri0DusC0sC81l2bLAv+FVgG7K8IV01EerCAtV51x
+	z8eeMmRkFq3VG58GT1vVS5ZRCbg3hxw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-348-RXSMzLYnNdyf9u1224Je9A-1; Sun,
+ 27 Sep 2026 20:00:13 -0400
+X-MC-Unique: RXSMzLYnNdyf9u1224Je9A-1
+X-Mimecast-MFC-AGG-ID: RXSMzLYnNdyf9u1224Je9A_1790553612
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A8AAE1954B1B;
+	Mon, 28 Sep 2026 00:00:11 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0D7CD1800473;
+	Mon, 28 Sep 2026 00:00:09 +0000 (UTC)
+Message-ID: <45825532-9300-42d2-bdbf-b0b0808b94cc@redhat.com>
+Date: Sun, 27 Sep 2026 20:00:09 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: Invalidate remote partition on
+ housekeeping conflict
+To: Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260927095722.70660-1-guopeng.zhang@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260927095722.70660-1-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-When a PHY's driver is a module that is not loaded yet when the MAC
-connects, the PHY gets the generic driver first. phy_probe() then
-replaces phydev->irq with PHY_POLL, because genphy has no interrupt
-support. Nothing puts the number back, so after the real driver binds
-the PHY is polled for the rest of the uptime.
+On 9/27/26 5:57 AM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>
+> Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
+> to a valid remote partition root without touching the partition's own
+> control files. The partition then load balances that CPU, silently
+> defeating isolcpus=domain for it.
+>
+> This can be reproduced on a 32-CPU system booted with
+> isolcpus=domain,4:
+>
+>      cd /sys/fs/cgroup
+>      echo +cpuset > cgroup.subtree_control
+>      mkdir -p A/B
+>      echo +cpuset > A/cgroup.subtree_control
+>      echo 2-4 > A/cpuset.cpus
+>      echo 2-3 > A/cpuset.cpus.exclusive
+>      echo 2-4 > A/B/cpuset.cpus
+>      echo 2-4 > A/B/cpuset.cpus.exclusive
+>      echo root > A/B/cpuset.cpus.partition
+>      cat A/B/cpuset.cpus.effective               # 2-3
+>      echo 2-4 > A/cpuset.cpus.exclusive
+>      cat A/B/cpuset.cpus.partition               # root
+>      cat A/B/cpuset.cpus.effective               # 2-4
+>
+> The last write returns 0 and leaves the hierarchy in this state:
+>
+>      root (cpuset.cpus.effective=0-1,5-31)
+>      |
+>      \-- A (member):           cpuset.cpus=2-4
+>          |                     cpuset.cpus.exclusive=2-4
+>          \-- B (root, remote): cpuset.cpus=2-4
+>                                cpuset.cpus.effective=2-4
+>
+> B is a remote partition: it takes its CPUs directly from the root
+> cpuset, and A only passes its exclusive list down. Before the last
+> write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
+> root cpuset as a boot-isolated CPU. The write widens A's exclusive
+> list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
+> the grant: B remains a valid root partition, and CPU 4 is still
+> listed in cpuset.cpus.isolated while sitting in a load-balanced
+> partition.
+>
+> remote_partition_enable() already rejects such grants through
+> prstate_housekeeping_conflict(). remote_cpus_update(), which applies
+> ancestor changes to a remote partition, does not.
+>
+> Both paths also open-code remote partition validation. Move those
+> checks into validate_remote_partition(), and check the resulting
+> effective exclusive CPU mask for a housekeeping conflict there. The
+> existing prs_err path then invalidates the remote partition instead of
+> assigning it a boot-isolated CPU.
+>
+> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
+> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+> Changes since v1:
+> - Consolidate remote partition validation in a common helper, as
+>    suggested by Ridong.
+> - Check housekeeping conflicts against the resulting effective exclusive
+>    CPU mask.
+> - Rebase onto cgroup/for-7.3-fixes.
+>
+>   kernel/cgroup/cpuset.c | 71 +++++++++++++++++++++++++++++-------------
+>   1 file changed, 49 insertions(+), 22 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 1fcec89a28b9..5adf47217e59 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1561,6 +1561,45 @@ static inline bool is_local_partition(struct cpuset *cs)
+>   	return is_partition_valid(cs) && !is_remote_partition(cs);
+>   }
+>   
+> +/**
+> + * validate_remote_partition - Validate a remote partition CPU change
+> + * @cs: cpuset being enabled or updated
+> + * @prs: partition root state to validate
+> + * @excpus: resulting effective exclusive CPU mask
+> + * @addcpus: exclusive CPUs to be added
+> + * @delcpus: exclusive CPUs to be deleted, can be NULL
+> + *
+> + * Return: PERR_NONE if valid, otherwise an appropriate error code
+> + */
+> +static enum prs_errcode
+> +validate_remote_partition(struct cpuset *cs, int prs,
+> +			  struct cpumask *excpus,
+> +			  struct cpumask *addcpus,
+> +			  struct cpumask *delcpus)
+> +{
+> +	bool updating = is_remote_partition(cs);
+> +
+> +	if (!capable(CAP_SYS_ADMIN))
+> +		return PERR_ACCESS;
+> +
+> +	if (!updating &&
+> +	    (!cpumask_intersects(excpus, cpu_active_mask) ||
+> +	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
+> +		return PERR_INVCPUS;
+> +
+> +	if (cpumask_intersects(addcpus, subpartitions_cpus) ||
+> +	    (updating &&
+> +	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
+> +		return PERR_NOCPUS;
+> +
+> +	if ((prs == PRS_ISOLATED &&
+> +	     !isolated_cpus_can_update(addcpus, delcpus)) ||
+> +	    prstate_housekeeping_conflict(prs, excpus))
+> +		return PERR_HKEEPING;
+> +
+> +	return PERR_NONE;
+> +}
+> +
+>   /*
+>    * remote_partition_enable - Enable current cpuset as a remote partition root
+>    * @cs: the cpuset to update
+> @@ -1574,11 +1613,7 @@ static inline bool is_local_partition(struct cpuset *cs)
+>   static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>   				   struct tmpmasks *tmp)
+>   {
+> -	/*
+> -	 * The user must have sysadmin privilege.
+> -	 */
+> -	if (!capable(CAP_SYS_ADMIN))
+> -		return PERR_ACCESS;
+> +	enum prs_errcode err;
+>   
+>   	/*
+>   	 * The requested exclusive_cpus must not be allocated to other
+> @@ -1591,15 +1626,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>   	 * above it or remote partition root underneath it is not allowed.
+>   	 */
+>   	compute_excpus(cs, tmp->new_cpus);
+> -	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+> -	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+> -		return PERR_INVCPUS;
+> -	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+> -		return PERR_NOCPUS;
+> -	if (((new_prs == PRS_ISOLATED) &&
+> -	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
+> -	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
+> -		return PERR_HKEEPING;
+> +	err = validate_remote_partition(cs, new_prs,
+> +					tmp->new_cpus, tmp->new_cpus, NULL);
+> +	if (err)
+> +		return err;
+>   
+>   	spin_lock_irq(&callback_lock);
+>   	partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
+> @@ -1672,6 +1702,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+>   static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>   			       struct cpumask *excpus, struct tmpmasks *tmp)
+>   {
+> +	enum prs_errcode err;
+>   	bool adding, deleting;
+>   	int prs = cs->partition_root_state;
+>   
+> @@ -1695,14 +1726,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>   	 */
+>   	if (adding) {
+>   		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
+> -		if (!capable(CAP_SYS_ADMIN))
+> -			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
+> -		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
+> -			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
+> -			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+> -		else if ((prs == PRS_ISOLATED) &&
+> -			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
+> -			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
+> +		err = validate_remote_partition(cs, prs, excpus,
+> +						tmp->addmask, tmp->delmask);
+> +		if (err)
+> +			WRITE_ONCE(cs->prs_err, err);
+>   		if (cs->prs_err)
+>   			goto invalidate;
+>   	}
+>
+> base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
 
-Seen on a Keenetic KN-1012: the Airoha EN8811H behind an MT7531 port
-has its driver on the root filesystem. Its devicetree interrupt maps to
-irq 15, and after the real driver binds phydev->irq reads -1.
+Thanks for fixing this.
 
-Restore the number when the PHY detaches. It comes from the bus table,
-mdiobus->irq[], where the PHY got it at creation. Do it only when
-phy_attach_direct() bound the generic driver, since that is the
-substitution being undone; otherwise the field belongs to whoever wrote
-it. Do it before device_release_driver(), because after the release a
-probing driver can write the same field.
-
-The store is ordered before the release rather than locked against it:
-device_release_driver() takes the device lock itself. A MAC that sets
-phydev->irq before phy_start(), as phy.rst describes, is not affected,
-since the restore runs on detach, between connections.
-
-Tested on the KN-1012 with a 6.18 distribution kernel: phydev->irq
-reads 15 after the real driver binds, and -1 without this patch.
-
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
-
-Notes:
-    v12: shorter commit message, no code change.
-    
-    The PHY module was made to load after the root filesystem, and the
-    distribution's own late-PHY patch was removed. The value was read with a
-    debug-only module parameter; the three switch ports read 79, 80 and 81
-    in both runs.
-
- drivers/net/phy/phy_device.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..a9c71a286118 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1965,6 +1965,8 @@ void phy_detach(struct phy_device *phydev)
- 	 * real driver could be loaded
- 	 */
- 	if (phydev->is_genphy_driven) {
-+		/* The release below lets phy_probe() write this field. */
-+		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
- 		device_release_driver(&phydev->mdio.dev);
- 		phydev->is_genphy_driven = 0;
- 	}
--- 
-2.53.0
+Reviewed-by: Waiman Long <longman@redhat.com>
 
