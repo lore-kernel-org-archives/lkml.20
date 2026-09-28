@@ -1,175 +1,231 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C504BF945
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6CB4848AA
 	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790632488; cv=none; b=j2Qci/Q3mR02GtqgqE/9AG4X4v8aQgOHcZf6E68jW+O0mrDZou+X9T8PWHM1yUO/UH/fmU6SXSBLMSdDZqLf+CLCmNJz+Ws/6vceDkr5cBnc/jeuDi5LGxrZ5PbIOK6XVHcmZQEIpIGT3Bo1DAAkAqVDb7q7QyhwRin48AioJQU=
+	t=1790632488; cv=none; b=GnQ7IC621UBv01vBaA/VoGlrmiP+X6YntbhruZaC6yFVwyirskLhLezIsFTPXVHjBzIl8GUoy93V0kxwObmBAozGfwnYH4AvBVquowg7ltV9ZlQX8EmEHLvsKR9CdgFacjUb7AzDQF0vRBRG9csoQc7SqQzTY/tvHPdsBP/SKJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790632488; c=relaxed/simple;
-	bh=hVuFlpIciviOdEKkyDoMYVy59c2xWi88gSzmUi3PDhA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=f1yGNwfyfyTrpX8//5Sa4PaVsC64hi5RJ5dnkykqvCZrcKisu46CagwiseXDobTJU8L0QTjvSAD957Wyj2+iG2pi4DD1XmBqIxvAweudhrFs0MJghS7+wqSxuLKs+ONmhz3oiWatCRZ1NatVywNcgngVVAYS112geAx3YROKQYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+	bh=F/lYJq93HE3KTkDMJDD1Xx9Dsvnevs2QAzx6ZjMsIA0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gaKlzIdByWypOeJohdb4wmoG3O0QAsCUvMYiC/kKikJ26+dDhh8TTXbhcryTls9wpmFIZPks+OGedBp1eDEli4N7wBzrr7wxhPAXMy5g6JftkQlTU0oOqWmrO4//LY/DJb8WlSsnEb1ZK4edP35IcL846NoHqMfBo6EcL4DncMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b597558c4cso6198026b6e.1
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso5887913b6e.2
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:54:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790632486; x=1791237286;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lSk+cSsV2reaYHR/BJZXFfwVLCYIby+3JaSCkIJ4O0I=;
-        b=Xxn8IilheUEHydbIwdY3yB/WdhtdHN/69rTNCqPlHYJF8KVBYxgY5pNXW+HpTZdDbR
-         REmLtxgNTrnZ7YXQsxkkAZgELmGmjMJ1VWZ4WqOXnXfAHHjnKqhFu0PKfGmN0WVde8kd
-         mZbusmPCqYrN4Bavh4icce3Zy7qKckUfKzXe0nC/JVZpt3K1EeRWhEgLpP1MhAtXoGYM
-         Ljw2UPMjvvUvjRWU/YwRngKVhzVy/QX2eOs8CnrgxAkdIXmyoWQ2HMqeYllggZTXtKq1
-         f+Cl3FjTz+RdfTMrK3uUFVnk5vTbwhwqGzb42ecSBoNfeXV20xrj3p/lFSzrNZSC5XOm
-         oRYA==
-X-Forwarded-Encrypted: i=1; AKwUvByTRkN1DCBXrea8YynnarQ0y3tTHGJ9QhC6sejgBBHzOil7mWhdVzDwtWnYVPtRztUS2cBSzlh5K30TKbU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnfGCM7oD/V79p4uO8RTUaQ56dih9iIIxAwBxPJsLbkO9Mlkhh
-	sW1H/LdUcGlyJLDsiTwowraq08uE4gNTWpy/oOEkqs4N5RZ0oKZ51/Ldj51C63G8v/BUWmIMOiC
-	jcLo9x6SWA3mwKyG8+G69uU2r6GExlRTkgk7NWERjQxUEU++OwI2CP+acc74=
+        bh=ck1aEFhy8Ab2Jarz1ZL0rFiozc8SHcmEaFtnwSHvuZU=;
+        b=Pf1KwDtwazuHfSi1tJrhId9Ij3I14dLwAvcJfwv99UXqDHyD8LHcXT31OTJm4nW2s3
+         L0griHi2N01bQc9i3qHO6Mf4Vl3DMKoOwJiBibrEWvBz332n43zbmShziVeFLezFIWFj
+         E95CYl5DNWLcLUbflygoCqpRan29uH+5XGlhz4iU7D9PZr4kCmr6T3U2hNUGQenm/kJC
+         rbtbjlWm9yRfBAeFVVsAn6JuWgO8w/xQM3hfjp8j/n6EGzaoGPenOv253UL6mn0Nl8Pb
+         A/IJtgOEI7yp+XHf1ZxhaWqLff7wc5J0NHfA0mZirqV5Xy/FfantiXIzHe4uDEs+R1mn
+         kgNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpUPr3KkqdDSSQDLJrnlVHrdjyYvmWRAjRC0XfOizZSdPM61lZk2EVsI0ptZvX3S86bxZ9rsfOBz/cPyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTSEa4AojYZzyl79f65lH7RBTlFt6dzKcLD5panm2oLDgQ2Nzu
+	8KKNbrqQfDu229O7RMOB7Yamoc8ViOqW+ScldSuyK0ba+Yb4E9ywBWB8cFxp+4W5cKalO5pdRRT
+	VReh3yITm5JNW1PR8oZXwzshuI0hqntMIST6d6JozBoNnkQJWuYHWjsmOn0c=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1811:b0:4cb:f21c:a799 with SMTP id
- 5614622812f47-4d72ac45fd2mr19042124b6e.33.1790632486034; Mon, 28 Sep 2026
- 14:54:46 -0700 (PDT)
-Date: Mon, 28 Sep 2026 14:54:46 -0700
+X-Received: by 2002:a05:6808:50a9:b0:4b9:e65b:8c34 with SMTP id
+ 5614622812f47-4d72aa5b00dmr16932936b6e.34.1790632485787; Mon, 28 Sep 2026
+ 14:54:45 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:54:45 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abae226.69bd487b.a6f8c.000a.GAE@google.com>
-Subject: [syzbot] [ext4?] KASAN: slab-use-after-free Write in do_split
-From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
-To: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller-bugs@googlegroups.com, 
-	tytso@mit.edu, yi.zhang@huawei.com
+Message-ID: <6abae225.69bd487b.a6f8c.0009.GAE@google.com>
+Subject: [syzbot] [block?] possible deadlock in blk_revalidate_disk_zones
+From: syzbot <syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    72d3fcf802c4 Linux 7.3-rc5
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=147f6325580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+HEAD commit:    f5f84daefcd9 Add linux-next specific files for 20260925
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=1630ce05580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=be00179930e43a43
+dashboard link: https://syzkaller.appspot.com/bug?extid=b0910be96b7c31314822
 compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12379605580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=127f6325580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=168dcac9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15627605580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/6e221bb16a33/disk-72d3fcf8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/705025f5cae2/vmlinux-72d3fcf8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5f22341c14fa/bzImage-72d3fcf8.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/5d87cd1c0001/mount_0.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=17e37605580000)
+disk image: https://storage.googleapis.com/syzbot-assets/e42cbc7060af/disk-f5f84dae.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e80a7ee494ac/vmlinux-f5f84dae.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f41cc55a1308/bzImage-f5f84dae.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Reported-by: syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com
 
-==================================================================
-BUG: KASAN: slab-use-after-free in dx_move_dirents fs/ext4/namei.c:1863 [inline]
-BUG: KASAN: slab-use-after-free in do_split+0x1241/0x1e90 fs/ext4/namei.c:1993
-Write of size 90458 at addr ffff88803b38ac6e by task syz.0.17/6003
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kworker/u8:10/3352 is trying to acquire lock:
+ffff88801fae6450 (&disk->zone_revalidate_mutex){+.+.}-{4:4}, at: blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
 
-CPU: 1 UID: 0 PID: 6003 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+but task is already holding lock:
+ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #3 (&q->q_usage_counter(io)#75){++++}-{0:0}:
+       blk_alloc_queue+0x544/0x690 block/blk-core.c:504
+       __blk_alloc_disk+0xe3/0x1d0 block/genhd.c:1527
+       nvme_mpath_alloc_disk+0x5c2/0x8b0 drivers/nvme/host/multipath.c:769
+       nvme_alloc_ns_head drivers/nvme/host/core.c:4049 [inline]
+       nvme_init_ns_head drivers/nvme/host/core.c:4153 [inline]
+       nvme_alloc_ns drivers/nvme/host/core.c:4267 [inline]
+       nvme_scan_ns+0x2e22/0x46c0 drivers/nvme/host/core.c:4483
+       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #2 (fs_reclaim){+.+.}-{0:0}:
+       __fs_reclaim_acquire mm/page_alloc.c:4365 [inline]
+       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4379
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4673 [inline]
+       slab_alloc_node mm/slub.c:5011 [inline]
+       __kmalloc_cache_node_noprof+0x66/0x620 mm/slub.c:5695
+       _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+       alloc_worker kernel/workqueue.c:2853 [inline]
+       init_rescuer+0x167/0x530 kernel/workqueue.c:6002
+       workqueue_init+0x214/0x680 kernel/workqueue.c:8517
+       kernel_init_freeable+0x26b/0x3e0 init/main.c:1658
+       kernel_init+0x22/0x1d0 init/main.c:1563
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (wq_pool_mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       __alloc_workqueue+0xe8d/0x21d0 kernel/workqueue.c:6201
+       alloc_workqueue_va kernel/workqueue.c:6253 [inline]
+       alloc_workqueue_noprof+0xe3/0x210 kernel/workqueue.c:6269
+       disk_alloc_zone_resources block/blk-zoned.c:2101 [inline]
+       blk_revalidate_disk_zones+0x8d1/0x1650 block/blk-zoned.c:2575
+       null_add_dev+0x12b8/0x1d70 drivers/block/null_blk/main.c:2056
+       nullb_device_power_store+0x240/0x380 drivers/block/null_blk/main.c:511
+       flush_write_buffer fs/configfs/file.c:207 [inline]
+       configfs_write_iter+0x337/0x430 fs/configfs/file.c:229
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:687
+       ksys_write+0x150/0x270 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&disk->zone_revalidate_mutex){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
+       nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
+       nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2620
+       nvme_alloc_ns drivers/nvme/host/core.c:4293 [inline]
+       nvme_scan_ns+0x34c1/0x46c0 drivers/nvme/host/core.c:4483
+       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+Chain exists of:
+  &disk->zone_revalidate_mutex --> fs_reclaim --> &q->q_usage_counter(io)#75
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&q->q_usage_counter(io)#75);
+                               lock(fs_reclaim);
+                               lock(&q->q_usage_counter(io)#75);
+  lock(&disk->zone_revalidate_mutex);
+
+ *** DEADLOCK ***
+
+locks held by kworker/u8:10/3352: 4, last CPU#0:
+ #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #2: ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ #2: ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
+ #3: ffff88802ac3a5d8 (&q->q_usage_counter(queue)#58){+.+.}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ #3: ffff88802ac3a5d8 (&q->q_usage_counter(queue)#58){+.+.}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 3352 Comm: kworker/u8:10 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: async async_run_entry_fn
 Call Trace:
  <TASK>
  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- __asan_memset+0x22/0x50 mm/kasan/shadow.c:84
- dx_move_dirents fs/ext4/namei.c:1863 [inline]
- do_split+0x1241/0x1e90 fs/ext4/namei.c:1993
- make_indexed_dir+0xdab/0x1360 fs/ext4/namei.c:2328
- __ext4_add_entry+0x1e77/0x1ff0 fs/ext4/namei.c:2432
- ext4_add_entry fs/ext4/namei.c:2469 [inline]
- ext4_rename fs/ext4/namei.c:3939 [inline]
- ext4_rename2+0x1f71/0x3270 fs/ext4/namei.c:4218
- vfs_rename+0xbd9/0xef0 fs/namei.c:6208
- filename_renameat2+0x533/0x9b0 fs/namei.c:6326
- __do_sys_rename fs/namei.c:6370 [inline]
- __se_sys_rename+0x55/0x2c0 fs/namei.c:6366
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe7da7be159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fe7d9dfd028 EFLAGS: 00000246 ORIG_RAX: 0000000000000052
-RAX: ffffffffffffffda RBX: 00007fe7daa46090 RCX: 00007fe7da7be159
-RDX: 0000000000000000 RSI: 0000200000000780 RDI: 0000200000000100
-RBP: 00007fe7da85506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fe7daa46128 R14: 00007fe7daa46090 R15: 00007fff45d807e8
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:2 mapcount:0 mapping:ffff888023717420 index:0x8 pfn:0x3b38a
-memcg:ffff88801c2dc200
-aops:def_blk_aops ino:700000 dentry name(?):""
-flags: 0x8000000000493c(referenced|uptodate|dirty|lru|active|owner_2|private|node=0|zone=1)
-raw: 008000000000493c ffffea0000efb748 ffffea0000d68388 ffff888023717420
-raw: 0000000000000008 ffff8880235dbb40 00000002ffffffff ffff88801c2dc200
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x152c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_HARDWALL), pid 5836, tgid 5836 (udevd), ts 120465350871
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_pages_mpol+0xd4/0x280 mm/mempolicy.c:2486
- alloc_frozen_pages_noprof mm/mempolicy.c:2557 [inline]
- alloc_pages_noprof+0xd2/0x2f0 mm/mempolicy.c:2577
- folio_alloc_noprof+0x22/0xc0 mm/mempolicy.c:2587
- filemap_alloc_folio_noprof+0x111/0x4c0 mm/filemap.c:1019
- ractl_alloc_folio mm/readahead.c:200 [inline]
- page_cache_ra_unbounded+0x2d6/0x8f0 mm/readahead.c:288
- do_page_cache_ra mm/readahead.c:348 [inline]
- force_page_cache_ra+0x26f/0x2e0 mm/readahead.c:378
- filemap_get_pages+0x493/0x1e80 mm/filemap.c:2714
- filemap_read+0x429/0x11e0 mm/filemap.c:2824
- blkdev_read_iter+0x2f8/0x430 block/fops.c:832
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x59e/0xa90 fs/read_write.c:574
- ksys_read+0x156/0x270 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 28 tgid 28 ts 120462276719 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
- __tlb_remove_table_free mm/mmu_gather.c:228 [inline]
- tlb_remove_table_rcu+0x85/0x100 mm/mmu_gather.c:291
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core kernel/rcu/tree.c:2919 [inline]
- rcu_cpu_kthread+0xb2c/0x1740 kernel/rcu/tree.c:3007
- smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
- kthread+0x38b/0x470 kernel/kthread.c:436
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+ blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
+ nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
+ nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2620
+ nvme_alloc_ns drivers/nvme/host/core.c:4293 [inline]
+ nvme_scan_ns+0x34c1/0x46c0 drivers/nvme/host/core.c:4483
+ async_run_entry_fn+0x9d/0x430 kernel/async.c:129
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff88803b38af00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff88803b38af80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff88803b38b000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                   ^
- ffff88803b38b080: fb fb fb fb fb fb fc fc fc fc fc fc fc fc fa fb
- ffff88803b38b100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+ </TASK>
+nvmet: Created nvm controller 9 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 14 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 33 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 35 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 36 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 38 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 48 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
+nvmet: Created nvm controller 68 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
 
 
 ---
