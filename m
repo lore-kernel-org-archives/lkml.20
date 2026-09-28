@@ -1,172 +1,160 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010063.outbound.protection.outlook.com [52.101.46.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0543D4CDDC1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210CF4CB8BD;
+	Mon, 28 Sep 2026 13:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.63
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602950; cv=pass; b=ZqzkH+Ml9fo1cB7jKIgA/yuWZbG8YzY2ZOHp+dCc0e4Jzh1VNUo9+/Qx51l9ijYLT8tnh7vWHu4XuG/fHWKsYCTg+qTrO1RULv6iHfK1JU7QtjtuLxOpv4Sm6VUAlupkjV4ysNcxKdT6EeC2dQNJ91+JuFQMOgz4JLw7qAQBMRg=
+	t=1790602952; cv=fail; b=YKwFdSXovPSKX5DgPEpF3xrugraZqmFQ8F6C8q2+5jNiIBMcNEeLGwSVqqFX3q27UR2pDN8Gd8rTxP51ROwKS3+35bt5G94fLea3OqLB9AdDT41dDadZzZq+aPjbU9ZzaoJ7vdVt0LDp1cQm95Bk+TJ/NUwCjmcqknxPIEfC3zU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602950; c=relaxed/simple;
-	bh=k2uwa9kfpmX/6oBhi2iMilr4w0fmi3EZ1DNQBIYEhZU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AT7LgiNpCJoY3Lg15c2ykVEMTMOu/vE+UYG57YfYecU+ASwedHY8Jjv0JiEXi6ppR5fn8gyNzMT7YtiP0R5lMlGYAOEtvKiPB4NoyAXc3e2nsSzkLL5lLc52Id/fcAjXQdLIaqvqJejXQHGmt+1nQLSNfzO7P/MkRhPdA/MmY6g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=fLJpZYv6; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	s=arc-20240116; t=1790602952; c=relaxed/simple;
+	bh=SPuSopk9fcnnA02UyDbywT3CP5SwnhQayp92Xq7XPEU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FMouGcmUVoRbz5QGLtGmeNHv0LuMR5GUp6TPN3kkXwhL1Uxn7lTAPQgg8F3+jNstf5FXUjtTcsZcgxjSv2OLvuLq6l0vaFDNwv/EIkuA6GQPIHr9Pw53HBkY89AzqYhJaH4alEa1yXJJB1Q/2NM8FUrZ91Obv8stKxEq8ss8T1I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Bb7PooCE; arc=fail smtp.client-ip=52.101.46.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="fLJpZYv6"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so16681355e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:42:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790602946; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ql7kehyiWBL1imV66r2grhd5KnXXwelnTytrF0AnS9nk97TgTuWOgG1WMKwFReouLE
-         ilq1hNi70nnSTEBNKjpAik7gbkfKqYyeWBoQpc8UK77Y9XCzSr0iGLJpEFPmeY/8uTHQ
-         EVGJrDl4woozLTpn/Fj7Ar6IcHghEHW+X1p3CrCmGc6P7w45rtuoXmzQAHg3MDNOG47q
-         3U8xEyihI8mB56KwUBLCoCHcHhFmXBN6GqvcxnFneVxtX6oGKH4lIEEFSpb+8JQnEZtz
-         WHbaEiRNI5s2xPLnyjCFnsJIYWV84Nfmhxl7WBvd63yPQ6N9cDbm2WmLHCZWfdi218FM
-         r8EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BQVE+Yt78Z3pfyI+mWf7Zu1XcCvdZQxX7b3ZOkZzIX8=;
-        fh=C4wTbzkbVf4BDIU6WJOLsrh6dHjZRN2sQxM63v2682E=;
-        b=VrzDgCKFFLQRqetStcUWbtDtSfv7J03rw4bc6Q2szYfqjGohBJVVvSmf06xQMsPSDu
-         yLXIm0R5P/2GsPb+3uplChN/c+kb2hwq81x34vvB0KP88S78sUw2HlhXtznqCy5uxZ+8
-         dkJccmbFos9qEJF28z3NgELus8CaNVx3JSiE875QC3aZEqJPdNP0sE1zeXP248zgBG3A
-         fbWOAGNNiBGT4G3FrCcr9ZTccxYkuyVmS0ocfHfdVYLZQR4debYOyJo26fCmS9e21MBl
-         Ix0anXikAvC/3pclSsMFLY8mAPXRzlt2pLcqV2nqgxaS6o8Ixg5zwPUTPCtMCqW5Ubb0
-         W22w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790602946; x=1791207746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BQVE+Yt78Z3pfyI+mWf7Zu1XcCvdZQxX7b3ZOkZzIX8=;
-        b=fLJpZYv6JMSV8xL3CAMW9ipZIwFhydjwC4jIHZb35FoQ3GbSVmcehaLelYJuiukDr/
-         6YoI9XcdeRFpl2KyKZ5o4aBFZcM+P5Ic459MlVFWuBPni76FHPBFPyMcQX2sA1gwuExG
-         vZXg48pdk/iY/fOa+62zxE3xMdkXdSWh6d9rbb8XBuM3CYbryZfD735vbsGx1XEn7Lgr
-         1S/iiYROOTJVTNAxV9fqjR1l+8WaQ1PTaiZIDgI11PgCGRQCNh1wCNWhnvqRaqxH8IbP
-         g+wKxr+Uo8oAk00Q0wY6caqEj4AwLwwpmsjAPkKVpTfxl6E7kqgkz10f9kfgp8e8avQt
-         gQrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602946; x=1791207746;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BQVE+Yt78Z3pfyI+mWf7Zu1XcCvdZQxX7b3ZOkZzIX8=;
-        b=mKdLEVtji/Pofk9RJQP5bYtvCKofe4L3odJJ5/MdHrufUBWsMpcTgyGbaZSzDiAT9X
-         DjeHpgOTtr8DIzgQ1WOQ82hPv8aQEvzZK6vfhb7GlEg4IiTo2lsgAmBlaGpmFc+BtwHp
-         zL6epiNQfUaHetRs1oWiW2qhjL0hOHkoQXT6S3Hhd37vK6jwFEIV0Kzbhd+VJEbgHF8s
-         f5OklaoMuvu3Y/C05dUXXHEB+nGbJtPh6NMQ7X6aZrNpbu2eeKn3jKFERT5ImfH0zxCA
-         hGSqRzHdMgCjHrvDw6fTslKnTxRP9uw1CXsDF7Dz2aJGwJcJEdmqGKRAFNnb6WAjbAYD
-         cR3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzyT1ETJsRpuNQy053NoUg7rcBdemr6VtBCAAIK93KTG/R65bG6T+oi84XQKy/HF3swzeg4rXrspRPPMFs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSIofeRsL49Gza7P7TH/RNIo91uQsmc48n/lyBLZZu2Zmsry1o
-	DAvPCeWGloPK2mu6AJHcKUmueJTzDrSEaS5ck6zdpoMicjzdZq3Ju7U8Ul65dSOwcbsrNC9SXR2
-	E8umNqR1CpY20vVev3G3m49BFfDxHI9UOyrI2ak6TEQ==
-X-Gm-Gg: AYBFou0xNazoriS4c/Cl+bl5eCVaV8hXkVUU8VabqHCxJ0jLyLmqvPHwT4clswRbmHP
-	1le98H7ZR9VgMEBvyrxppDRgVqxscIDS42UrXyzqDKs0klu5ZagvIDohlWIrP+1Cug1OgLjxhtN
-	kHNpinjArNEEp7eFevRWSGpqtCkHIOt5asKuyDHMJtYaLcX5jEGhovIUAxyZ9hwXZTg8MJDUxYk
-	U00y3ihiRxhoDOVJuibeNppuSUQAINPTa5Zwk4+lYUsDeaHUMLKocUheVQDGpQyElL7U90Hr8Zi
-	q9AVi1RuBWWvUeWEIhYYASzYwleoR72MPU2lHfHRDqcHsrPlfO6a6VzObptcDnEdcYakCW7FGst
-	aDcwl4XyqM/KO8RvkfhSvkl4sGnyVNG3EI2bJ3Ptp/iZXHJn0u67LGCDahDkOnaKBaTsUdS2ixi
-	3kC4LA8F1U1g==
-X-Received: by 2002:a05:600c:46d4:b0:49f:ec98:f030 with SMTP id
- 5b1f17b1804b1-49ff06f839dmr165880955e9.33.1790602945896; Mon, 28 Sep 2026
- 06:42:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Bb7PooCE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gs/0lka33XPmCTAyQuO7GIS+ya8hG4nvyY51P8XyqZu8YO3cYSRNI0CZv5Fo6wFgJXO7wLKFQcaho1ivs9hgxzubXpU1RjA8CGyVXjoG2aK8ek3ylFT1IX1AoiAVZQFzx9HCNukzKwHTIfk7IvD9dA2weqbZEwu9/KnUJKHTQUvrYE8wQnKxe4Wl/wu7bBn8DsE0t3CIv5ObEJYDK8dBuu6ZFR4LqIet3yWdBy0o3H2XvXHqnOuGHRLBfYWCbiHGDnt0hTWMXWIa/z19908rZQJXaY93Ye8UGceDod3P9qQM1Tf+bzq4+KYwapu66Mj9y7a+jG34hTg3foSpqfUYGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2BWagMlJqfAnZVtyLhu5DZce63V3CohG05Si//7v8FI=;
+ b=sFzERzRDwdpJjuBFxYExEBoe0bJGGw3rjzy+eLpDKox664g1z4pmuenMu9WKXUmP9B1CdGxgrZ7hHc/xkyGrAbZ/6idVanePa5jT2GoBtX3846aL4OlyzGi39wuQIhW2/8TGqNXXkyEKALcTHCKIHW2l/moy0w/ceEkLomMKEZxNiwrfaC47NK+Iz/wyZSQPnHGXBXenaNEsbgYdJ2p5oGOvN7J/h4yofWQ+Ti9q9t37INyzdM7yN4U9WrjVEnM3X6BCBCXK9We7bnLTr9e9SbdBtaz0zMP5m7tQ2B5UO4wM9iTmXPy52AwfvygXEpuuxE4lmLLoD+zGbaOk1m/hAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=synopsys.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2BWagMlJqfAnZVtyLhu5DZce63V3CohG05Si//7v8FI=;
+ b=Bb7PooCEiR9XgHWIoX+A+lF6gCSjkX7ewJVHjafoSD7bSVk+nOt2STjJuLoOv3p2HGHBe5P00wMLbHuSuoIXCb0NFzwWiJtYJvDq2T/l8qXARrjI1IlxO3DLpucPOjIrQR4wDdzducUd7sEtwW13ZscfU+/wXsU9JPAVua9S8LM=
+Received: from BL1PR13CA0251.namprd13.prod.outlook.com (2603:10b6:208:2ba::16)
+ by DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 13:42:25 +0000
+Received: from LV8PEPF00000059.namprd02.prod.outlook.com
+ (2603:10b6:208:2ba:cafe::25) by BL1PR13CA0251.outlook.office365.com
+ (2603:10b6:208:2ba::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Mon,
+ 28 Sep 2026 13:42:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF00000059.mail.protection.outlook.com (10.167.245.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 13:42:24 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 08:42:21 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 08:42:19 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <Thinh.Nguyen@synopsys.com>, <gregkh@linuxfoundation.org>,
+	<michal.simek@amd.com>
+CC: <linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Radhey Shyam Pandey
+	<radhey.shyam.pandey@amd.com>
+Subject: [PATCH v2] usb: dwc3: xilinx: use device_get_match_data() in probe
+Date: Mon, 28 Sep 2026 19:12:15 +0530
+Message-ID: <20260928134215.3194328-1-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928094739.2605-1-cp0613@linux.alibaba.com> <20260928094739.2605-2-cp0613@linux.alibaba.com>
-In-Reply-To: <20260928094739.2605-2-cp0613@linux.alibaba.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Mon, 28 Sep 2026 19:12:14 +0530
-X-Gm-Features: AclHuK9NQvFd0dqx39FONs2gN8zrhWEmLq1wAOlPjaDEqyssj2Y5zQw81EJtk-A
-Message-ID: <CAAhSdy2JhEoG2-hrtN63ZF3sj6Uyqrs8G4Gj+P3Ut2f5h+v4fg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] perf riscv: Implement rdtsc()
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: acme@kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	james.clark@linaro.org, leo.yan@linux.dev, john.g.garry@oracle.com, 
-	will@kernel.org, mike.leach@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
-	guoren@kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000059:EE_|DM4PR12MB6254:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fed5be6-c083-4342-54a7-08df1d6653e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|13003099007|6133799003|10067099003|260925021911599003|260925021311599003|260925022911599003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lezRrZijoLPr7BbR/IGmxfnLDMO7OMUV5aFdmFYwiD6Da1lAQtrfagTDLS4OnxeVf89mbaSCxk6M4KhFhMQsRwArXjzwjUq1N8nxZ1qv/ykGrhmvvAWU/aLksad8hepvBWP8pyb5BtT0QhKcI21Ff7sCXAgGs0jumGMlV28OrdhsbzZnGcNfkGrduLTvcZQpZGsg6Zlit69ICXbUSyfp9DOaAobfYUuxjIzBCJZvFVQ0i3bx7P1k/nbfW2bECHEpdAcYD6P2UoxK/j/cREEywDZDJ3Bn0i2/EKwiC4DlL9PqtEr59kby+B6bMcPVbs4uCIURcVmybIj8DVHKOE9330Acb1QHTACt0DIjLE7M6KYhGwL2HLJn34FL+Zsrk2Z0GWlvhwmbhYpTyudTC227TEbpeLEVmlmxofAk1scgwAjNTH86Mt4dLj8sxI+PQHc8uAxmtGwPJUieabc8qv3ohDH9mRdR6bVTkOekFCHczXURL6IG9mcLfyvinhdMWZcStdnENXD1NhU9XoEi0R+3vr5v51GQOssT9zjNy4aJOaqYCzoibGsTd8/a1ebT+dSA1Phb+xWe8RX0O1gQyz+lTZ1s0/V15TRsWS+6tQEoiHG3M8czOhGVUFQDHiWbGXqeqss6ZCgyGpZuiLYBNUe9c2pz8FkSkokh8TQLpz/fdEyBD78tbXIT4qQjy/gbAkIpmSM0ejur+A8XAGGFlP2i1w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(13003099007)(6133799003)(10067099003)(260925021911599003)(260925021311599003)(260925022911599003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Z3jRkGktL0+svlqap0ickRx3rP4tmULg7FLpbYETo0uwvOJYQwOwgP35t9XukAUnIM+uPP4lV/nOV2ZNviy7MS5A8EPzNcGIvWWRqeiIW5Ibgw06MyTgpVWQVijGuhETA8PFp7HQk69QVC8UgthZYx7ms/I+vGhWuMlBePUzcE0qVyC+wv41FcSOj1TADwzt/lzTninwGYGNfiRHMMZMy88O9WNw5MdsqmRoeZgrw6YNr/fqAT6UqtwXmz/hGhm9HcZjj5v3D+5dr3GfZK4df6qZubaYqztlqYhhhbHyZjusw9V4uyR7FVYZMom4Hc5Ci8JSyRXJ1dK4vww+pXWKK4rRkQz0bw0ZlpGeOWmTkZTLAdt0vhBWv2P/1ICqQybN8hsa+AaU/je36gnANywxUdka6zjq3w8MnbIkb1LYOr3/aGIhQzlulk+4cMUNU1eL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:42:24.0685
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fed5be6-c083-4342-54a7-08df1d6653e2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF00000059.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6254
 
-On Mon, Sep 28, 2026 at 3:20=E2=80=AFPM Chen Pei <cp0613@linux.alibaba.com>=
- wrote:
->
-> There is no riscv implementation of rdtsc(), so perf links against the
-> weak stub in util/tsc.c and every caller reads a constant 0 that is
-> indistinguishable from a real counter standing still.
->
-> Implement rdtsc() over the time CSR with rdtime.  The time CSR is a TSC
-> equivalent on riscv: it is readable from user mode, it ticks at a
-> constant frequency, and it is the same counter that riscv's
-> arch_perf_update_userpage() builds the user page conversion fields from,
-> so the counter and perf time share a timebase.
->
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+Use device_get_match_data() to obtain the platform init callback from
+the OF match table instead of calling of_match_node() and dereferencing
+match->data directly.
 
-LGTM from RISC-V perspective.
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+Changes for v2:
+Split as feature patch for usb-next from "[PATCH 0/5] usb: dwc3:
+xilinx: error handling and teardown fixes" series.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+Link to v1:
+https://lore.kernel.org/all/20260810174713.2325292-1-radhey.shyam.pandey@amd.com
+---
+ drivers/usb/dwc3/dwc3-xilinx.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Regards,
-Anup
+diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
+index b832505e1b04..1a8619854d6d 100644
+--- a/drivers/usb/dwc3/dwc3-xilinx.c
++++ b/drivers/usb/dwc3/dwc3-xilinx.c
+@@ -12,6 +12,7 @@
+ #include <linux/clk.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of_platform.h>
+@@ -279,7 +280,6 @@ static int dwc3_xlnx_probe(struct platform_device *pdev)
+ 	struct dwc3_xlnx		*priv_data;
+ 	struct device			*dev = &pdev->dev;
+ 	struct device_node		*np = dev->of_node;
+-	const struct of_device_id	*match;
+ 	void __iomem			*regs;
+ 	int				ret;
+ 
+@@ -291,9 +291,11 @@ static int dwc3_xlnx_probe(struct platform_device *pdev)
+ 	if (IS_ERR(regs))
+ 		return dev_err_probe(dev, PTR_ERR(regs), "failed to map registers\n");
+ 
+-	match = of_match_node(dwc3_xlnx_of_match, pdev->dev.of_node);
++	priv_data->pltfm_init = device_get_match_data(dev);
++	if (!priv_data->pltfm_init)
++		return dev_err_probe(dev, -ENODEV,
++				     "missing platform init handler\n");
+ 
+-	priv_data->pltfm_init = match->data;
+ 	priv_data->regs = regs;
+ 	priv_data->dev = dev;
+ 
 
-> ---
->  tools/perf/arch/riscv/util/Build |  1 +
->  tools/perf/arch/riscv/util/tsc.c | 19 +++++++++++++++++++
->  2 files changed, 20 insertions(+)
->  create mode 100644 tools/perf/arch/riscv/util/tsc.c
->
-> diff --git a/tools/perf/arch/riscv/util/Build b/tools/perf/arch/riscv/uti=
-l/Build
-> index 2328fb9a30a3..52cd6a481de8 100644
-> --- a/tools/perf/arch/riscv/util/Build
-> +++ b/tools/perf/arch/riscv/util/Build
-> @@ -1 +1,2 @@
->  perf-util-y +=3D header.o
-> +perf-util-y +=3D tsc.o
-> diff --git a/tools/perf/arch/riscv/util/tsc.c b/tools/perf/arch/riscv/uti=
-l/tsc.c
-> new file mode 100644
-> index 000000000000..7cc4710ac38c
-> --- /dev/null
-> +++ b/tools/perf/arch/riscv/util/tsc.c
-> @@ -0,0 +1,19 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <linux/types.h>
-> +
-> +#include "../../../util/tsc.h"
-> +
-> +u64 rdtsc(void)
-> +{
-> +       u64 val;
-> +
-> +       /*
-> +        * The time CSR ticks at a constant frequency and is the same cou=
-nter
-> +        * the kernel feeds into the user page conversion fields through
-> +        * sched_clock(), so it is a TSC equivalent here.
-> +        */
-> +       asm volatile("rdtime %0" : "=3Dr" (val));
-> +
-> +       return val;
-> +}
-> --
-> 2.50.1
->
->
+base-commit: d58dffe9ee2c8883193959ff4ef995ec07932874
+-- 
+2.44.4
+
