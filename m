@@ -1,159 +1,118 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985FA4F93A9;
-	Mon, 28 Sep 2026 19:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01834FD283
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623962; cv=none; b=h39yt8UlvyTvMTSdxofkivoMXMXLN9X+FF/0kAJe1cYu4I3OFFV64cmZLq0kasocGd/9kOO7BAb3MZq42bmVkaB3fEgJ6fySgKDCTflwfk2G78bnI6ugTGtWBLZivFr+KkSBefSiHAooJXVS5rxNM6s1o/8cTrW3u7L7/N8CPyY=
+	t=1790623963; cv=none; b=gTu13XCpYJSY2RevgO7aX8b3pOA4Il8ETxwlvZi2/+MIdgZMwZ0/laENak3JkplKuxnccxo/QyRI8kS3bUA0Xt2qyPm+++StZTxsVOScmQywRt8zQBu3TMMemLu7h1QSASekauG3+ugInx9MRS5m6YorNZr2NKkdUpEyfbyWAf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623962; c=relaxed/simple;
-	bh=DQ5nlfRqZE3FbyWMbdQHOrtC/do0Cfp582XSybzZF9s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=itMkOf243Z3/ZO2fcu+5fku28scOhzBRGlg/kbLqV+Bq8JRIIgJ3jQjpE85+V9bfG++Xk5azRONW6YG55fDgz85lSHN3M5KaqKt0xcPVzXouukBANe9rvx6RaJGEJfoJEM1TRAI57gpPxjFb57gTbtfpk7B+eN0kXPAiB1bk5Ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=sZ6iXgk6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ISVq6SNM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CBtTsSTm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Dy6NrCRx; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790623963; c=relaxed/simple;
+	bh=68M+aw75dRbMgcut4KINBwcjsVRbPn9k8Ke4njHrHTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZjpVvC38zZkMj70CdPdEQeX51w+yuKWElrlmGFkuH/tbFz7mqE+Ce9OqgqGZXV/zTCGWSnwwE5i3zDFUK9d9X3xUwoaLTZynF106X/K2AUEeZz04mCroXGsQxtWM42A71ddGzE9J9BREUUPcBIdDp1PwiyHIbuv8FBBdt7DOx9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=NY89sdfE; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sZ6iXgk6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ISVq6SNM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CBtTsSTm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Dy6NrCRx"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A5DA421B07;
-	Mon, 28 Sep 2026 19:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790623954; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0YJiXd6b/wgtCwPyZJ4rZMSFxf8RnvD5CBeyG3dsbPU=;
-	b=sZ6iXgk6CnC0OVVZZWZOKl3tuRczsNoH7qkovzMUn7FbeaepvS/BgroFPW23DDnU68cfFO
-	ohLIhSCgAE02wnt15V9PZm79XLupd/btt807frPCKxpaUHdZzxdQq7ryv5ioMB4Voi9ElH
-	KU43swDqqkmsQUVLiEyK+mbCxoCnplk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790623954;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0YJiXd6b/wgtCwPyZJ4rZMSFxf8RnvD5CBeyG3dsbPU=;
-	b=ISVq6SNM8BcKRGhGzDGIdF+4Hn3GuYIZ2o96Vbzu8SBJx4XvUh4db8/IreGAeV/9t1BrxU
-	DfFPlYYMwkHokiAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790623950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0YJiXd6b/wgtCwPyZJ4rZMSFxf8RnvD5CBeyG3dsbPU=;
-	b=CBtTsSTmp7aPLfbC1rUZq5Me6G5fQvdVPRh49M0mpG2J/BtSLNoEnIcGoSZfViTy49cuW4
-	cnNT7g/EOG+GvVDbDJY8nS0E05Kr80DnqFZko7Xgyg6K6sOyMg2hR178VlklW4bT22hYw7
-	2jBjt69uRfGb9gOc3/SZkTwwf+Ex5Mk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790623950;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0YJiXd6b/wgtCwPyZJ4rZMSFxf8RnvD5CBeyG3dsbPU=;
-	b=Dy6NrCRxhKnOgjSPUroEZ21lSnlG6Rk3ryS2z/EO4IJpvrUo4Rb/vhVdJ5AR4fURjfYvJj
-	8n4/ARH7Vv6gOnBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D39D3133F1;
-	Mon, 28 Sep 2026 19:32:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4RBiFn3AumpWOAAAD6G6ig:T17
-	(envelope-from <fmancera@suse.de>); Mon, 28 Sep 2026 19:32:29 +0000
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	davem@davemloft.net,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Eric Dumazet <edumazet@google.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 16/16 net-next v2] ipv4: make CONFIG_IPV4 boolean
-Date: Mon, 28 Sep 2026 21:30:12 +0200
-Message-ID: <20260928193046.6698-17-fmancera@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260928193046.6698-1-fmancera@suse.de>
-References: <20260928193046.6698-1-fmancera@suse.de>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="NY89sdfE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=Hp/CIWuSKdq6HDFc2/B4jN9WUMT+pr0dxBBjG8+5Spw=; b=NY89sdfEq/EgbYU4aFvtuosbwC
+	k5pSvBX5EvKVh0E0wWYQmx2ne1r6uunqjaGZL3D6nyhPQhYOxjfGoKaIOvvBI8OM9ZmCkrzfamo7l
+	fQtRClBeznw3yudYQNw72nICiyLtFqgMFRiE3vVyXkhc+VOh/JOvPRT5OeI4k/irkbmHSt9ohG4OT
+	D5IZkzlKZLYeP/T0R15wt11YE+nPci/RehLV17xQrxhwvz/cGprM7NaipEao2jUOKNPlWhDuA++CY
+	91U56oXG8Orppiow1hEBoslM6IRd3P+HTn9RoXd+FamYCMMtrgjeX8LPhRisr/TBzRo7meSXYgdtX
+	536DAekQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xBH5F-008Xh1-1G; Mon, 28 Sep 2026 21:32:17 +0200
+Message-ID: <ae2f040d-f4a2-41ef-8e84-0e8e69cd4a4b@igalia.com>
+Date: Mon, 28 Sep 2026 16:32:11 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: drain GEM timer and work on teardown
+To: Hongyan Xu <getshell@seu.edu.cn>, mripard@kernel.org,
+ dave.stevenson@raspberrypi.com
+Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn
+References: <20260928134100.420-1-getshell@seu.edu.cn>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260928134100.420-1-getshell@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 
-Change CONFIG_IPV4 from hidden 'def_bool y' into an exposed boolean.
-This allows users to explicitly disable IPv4 via Kconfig to build
-IPv6-only. The default is kept at 'INET' to prevent breaking existing
-configurations.
+Hi Hongyan,
 
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
----
- net/ipv4/Kconfig | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+This issue was already addressed in [1].
 
-diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
-index 51bf05d9770c..c7d36cfa4a1d 100644
---- a/net/ipv4/Kconfig
-+++ b/net/ipv4/Kconfig
-@@ -3,7 +3,15 @@
- # IP configuration
- #
- config IPV4
--	def_bool y
-+	bool "The IPv4 protocol" if IPV6
-+	default INET
-+	help
-+	  Support for IP version 4 (IPv4).
-+
-+	  Disabling this option compiles the kernel networking stack without
-+	  IPv4 support, resulting in a IPv6-only system.
-+
-+	  If unsure, say Y.
- 
- config IP_MULTICAST
- 	bool "IP: multicasting"
--- 
-2.55.0
+[1] 
+https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/94cf5971b1d04c6382437387c4dc3836cc7a1437
+
+Best regards,
+- Maíra
+
+On 28/09/26 10:41, Hongyan Xu wrote:
+> The hangcheck timer can rearm itself or queue reset_work, while the V3D
+> interrupt queues job_done_work. vc4_gem_destroy() releases state
+> embedded in vc4_dev without first draining those asynchronous callbacks.
+> 
+> Shut down the timer so it cannot be rearmed, then cancel both work items
+> before GEM state is destroyed.
+> 
+> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>   drivers/gpu/drm/vc4/vc4_gem.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+> index e231c906709c..2443b62df89c 100644
+> --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> @@ -1194,6 +1194,10 @@ static void vc4_gem_destroy(struct drm_device *dev, void *unused)
+>   {
+>   	struct vc4_dev *vc4 = to_vc4_dev(dev);
+>   
+> +	timer_shutdown_sync(&vc4->hangcheck.timer);
+> +	cancel_work_sync(&vc4->hangcheck.reset_work);
+> +	cancel_work_sync(&vc4->job_done_work);
+> +
+>   	/* Waiting for exec to finish would need to be done before
+>   	 * unregistering V3D.
+>   	 */
 
