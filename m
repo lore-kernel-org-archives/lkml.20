@@ -1,169 +1,161 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74562415B79
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2FB4C9E04;
+	Mon, 28 Sep 2026 16:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612534; cv=none; b=WEn71Ds+uHWR7sG9ZS5IXjJI78LIt7NjB67GeTnh61yFPnOK5Euc0rMiYVrlt0j29CmegiJeGsnN9IrJRxtJDwntfCsIFMKl8gwv3xpX7t/SusXNe6Xq08/9uFUsxqUttn8D4H7eDw6oumLsutpS4W6DOwm9dMIDF0hihQwrCDQ=
+	t=1790612537; cv=none; b=JQNr429uUnaf66VO4t1JuEQ1Agn64yC0FeNWJODl7qqNhdxgNRfz5so0J7mKVsYYn39kNq43DH9Es4khXgl8Q2zdpjc6qRepWvcEso6coz7ZaKdWwERAHN1XnaRshYATWfGs6tjO9JBmKmCekE3ABF5oHxgxcovpOdIpsLtpavk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612534; c=relaxed/simple;
-	bh=WBUMNLsirzlSTr+A8TJzMQ3GDuiW6bCNowDjytQerEQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=merUIS1qiQ0c2i3QdQcLdGUOq/po01P1FgA2tZWR9G/7rve3YB3nnNEqKdQpmlOuDD0JnVW82sJFTW4IO3Ik1kOhDRH0hbF/cEXWKInWPD2386+8vM1MuFlo6mfmqYY8KuchIsrylMM8mb78WCi7sclgoB93pswulpiQqA2hKX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com; spf=pass smtp.mailfrom=brivo.com; dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b=Jnkv73Lx; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brivo.com
+	s=arc-20240116; t=1790612537; c=relaxed/simple;
+	bh=5lHqMWuG2SC/nvr8+jRbwofW8j9/nXRWESqbC2CG75I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZdcR/tF0lLepUvriYxMjb0maUxPzfTGLzh03DE4gV5opigO6Th1MyXDCPXW8F2RKkxTKp+EFp06uKWOz8GZ3xgnHy04juPcn4wMr2gYiVcxFw/ba48jTRPtItaECwVOwuAaFGZ5BRhh3s3eC5qNOvuurWSxkMX0/eGYKJ9Y+4b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKbUATTq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b="Jnkv73Lx"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09f3so22507901cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:22:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brivo.com; s=google; t=1790612532; x=1791217332; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I9iZ745V3O9TQK90r+cmJTPJh5uGbsz3PptJMxIgYsU=;
-        b=Jnkv73LxNJNzjx3EXUAL6KNN1W+3BJ7cdjqY3jqMgrTtmtK4K/jYk2DU1xxvuUlu5y
-         zKCAu2A3nyUvHDg/z2LU6GyEhqD3hAajw4egLCoz/3w0nxY9CZMv9QLYvLd10FCkY+zl
-         T3vGGn+b5Td5JTAc+ga3tmWP3VvX2nCpjIpDZ57I/NeDM9TL5XfqgZk7zH4a1kjJAxWj
-         hJAme6lNT7RXlYX0opuZEgT0CgZQz7lM+VTOQTLLFRm3Do7EmTywGu3HSkNZyNHjNTuH
-         ojETuwKMZA3uOsWoGh0tBz9YEsprRy/7G73SfZIZHg9N0dcoTPiOVQbaH3pNyVxjWd2x
-         14ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790612532; x=1791217332;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I9iZ745V3O9TQK90r+cmJTPJh5uGbsz3PptJMxIgYsU=;
-        b=e4+3S91Y6eOE/TimpYqfoiOC3iCwLKB0C00ejhaNe1vftAUCbd9mcWBbsC62TFISuS
-         0HRwubyCNsy1S8GSHuy74ZydO2BZ0NyA7dyxz4JDogaar1qMs89ZyxMetaJQgx9q4qQB
-         XjCmbHg4Um4qe2us6AMYpjvFoYvdsGwh7MwHLUUHqr+cl0isiag/HZOba7Dx2ATcntB0
-         srra2cy8LzKSrdUglh5hx4uzfs4wN9cfbxcwc/bJ26OjMwuWmqgAdV2gJx1QP7dFERPt
-         RHS003uC7G1MWh/zN0wJrrh5Y0snL2sTtNChcCY5rS6yAnMe9mqS19HolqV7FCbuyzd2
-         E7sA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSaB5xoHdQD2f8g+2lneuC5D1eO4rMYYqHJ9qnStD1AJqXFGcdeklvu28v0CF4bNAfJqvvwIUfARFpcEU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyh/KiZJdpI5S/fbKSuQtCTG2AIAAn5KXq1spfmPh6nj3DP5Fz
-	dPDJuTBibToXNGw7XgXDYILM5Y4hilBOSvP1Mu8/exWKjQWkYZ8WRPGGgLxEJxcq+7S43BJvayO
-	k3nRobhmESp1EdzVcDl5GIV8GejCFLPVqrZ/qpcy75C75NRz8TnFzEcyGz8o=
-X-Gm-Gg: AYBFou1RQrd1m5hfDM0dcyJItR0toyONrNTmQCb7Rgxaa1iMyQVgOPa40D+TOtXlia3
-	4MYrvMBp8CpzB0sd/9snqJEgaSdZpwtuBIl8nLdyWPngsU38jXRJMzzG3+zv7ooLllCSqxqevON
-	7cdZ0DY2ZnIo0sctRwV2r3n01P47Nytfu2HWaMUR/ShSeGi+UvBoqN21f0+uBagWUbVyUfOBJFv
-	jx6bSnGDPSDdIdhgWbQ8WcBvBvvqb8tQKI/+EbH8+9hRSUyOLMo8hSsCnJwF02rE6CjPVhVv+8S
-	ceSeolFNuteAVmcJ4S360xKezuRpoFTG8xhWzJYumhjgHfAYI1QV5Yal0mA8vFPBz0kh4pmhxzO
-	7f+ddoVeFXRlwmLmzpImlX3LA3DO5RuBKvAFYKGydPPDZIFfUUV2OTGBkXxQZAkq09kKTWw/wNf
-	dnemNJfWLvmn05iBaTBpTIuUcgcjRaLRc7LpXroUq6g9P2X1e5NiunCOlymVc2PiIb1Wo9gwEbZ
-	W4=
-X-Received: by 2002:ac8:5c8d:0:b0:533:33c6:e63c with SMTP id d75a77b69052e-53333c6fec4mr122429221cf.16.1790612531895;
-        Mon, 28 Sep 2026 09:22:11 -0700 (PDT)
-Received: from [10.200.233.210] ([66.193.28.125])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223cad4esm65860381cf.24.2026.09.28.09.22.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 09:22:11 -0700 (PDT)
-Message-ID: <e5a5dccc-46c4-497c-ab8b-b3f7fe5e316d@brivo.com>
-Date: Mon, 28 Sep 2026 12:22:11 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKbUATTq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E36C1F000FF;
+	Mon, 28 Sep 2026 16:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790612535;
+	bh=qg3X+kdxoIWMjV+DfXe6h75eyqNhu8yttfmSXvX9ux8=;
+	h=From:Subject:Date:To:Cc;
+	b=dKbUATTq4fjTaREfaqOEJGvKEw83Tkv2bH+3PvipH+013sWwF/VxYiBwbK+eoOwZy
+	 k7KhBu9U6ZrpmwjNv441irC7hYgx1ptdfTcbR2jUdYIxskcQpdihnFXHt0NIZ9kew0
+	 ivHFhvBWAPG3mi6hGj8BhsucDAoySnOrGIDQlBCTiIHru/oQgpD/N6lUZUKqdvUlmN
+	 EWGOkNOOu1+dI1m+I66QxLEq9rMMZl5se+TWXwquTqfu0bjp01p1uAnryJoLAUNEyZ
+	 fYPjsSmoKLJ2zaiQYbQV65uNVVT5I/cWA70HrblFyyzYkQjHeJk+iAmNVoW67BM2Wy
+	 Rm54b9XunksrA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Date: Mon, 28 Sep 2026 18:22:00 +0200
+Message-Id: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: meson-gx: Convert host->lock to raw spinlock
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
-References: <20260921191326.2146363-1-sanderson@brivo.com>
- <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
-Content-Language: en-US
-From: Sean Anderson <sanderson@brivo.com>
-In-Reply-To: <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBswibSuEi1MxxpIE4UIorsnL
+ d/i/wcKZaYCU/NAposLn7Giaxuwu4kbIbtqkEIOYpQaXQ4YODG6wphMpANpTR6d0quSZrS98lD
+ rlMnz/Z/n5X0/x9i3pGkAAAA=
+X-Change-ID: 20260928-drm-mipi-dsi-panel-ebpf-d78b72a9c47f
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4301; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=5lHqMWuG2SC/nvr8+jRbwofW8j9/nXRWESqbC2CG75I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm7phjskmP3W/my72a6h9id8ra8E4bWkqpTYr+rP48xP
+ 6birXm/YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzEJpWx4UnduYjC+p/PzPNt
+ VvU+/nxQrc+y/voPa6HDJzYu3f7liYbArLZ+l7VMjyaKC9xwsEngYqyPXXZksrx6Ycbi47cYfkm
+ bmn+1+Vy3KePL/Aydw58Et22dxR95wPlUzj75jeccSldGuL0CAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
+Hi,
 
+Panels in general, and MIPI-DSI panels in particular, are pretty
+difficult to support and require pretty much a panel driver for each
+panel produced. Most of them are pretty simple, and require an opaque
+initialization sequence that is usually poorly documented.
 
-On 9/28/26 12:17 PM, Ulf Hansson wrote:
-> On Mon, Sep 21, 2026 at 9:14 PM Sean Anderson <sanderson@brivo.com> wrote:
->>
->> The primary handler for IRQF_ONESHOT interrupts is always run without
->> threading, even on PREEMPT_RT. Therefore, we must use a raw spinlock,
->> which will never sleep (even on PREEMPT_RT).
-> 
-> Sorry, but I don't quite understand the above. Are you saying that
-> IRQF_ONESHOT only works with raw spinlocks?
+This creates a tension between OEMs and distros because OEMs will
+typically get a new panel to react to a sourcing issue during
+production, and thus need some swift turnaround between getting their
+new panel and it being operational in the OS. Distributions on the other
+hand can take years to ship a kernel with that new panel driver.
 
-The primary handler of an IRQF_ONESHOT handler must use raw spinlocks.
+To solve this, I followed the example of HID-BPF and wrote a panel
+driver that will rely on BPF programs to perform the panel
+initialization. That way, we can ship the programs separately from the
+kernel, and with a different lifecycle. If this driver is accepted, the
+plan is to have a userspace component started by udev to identify and
+load the right BPF program for the panels found on the device.
 
-https://www.kernel.org/doc/html/latest/core-api/real-time/differences.html#interrupt-handling
+This driver is fully functional and works with both 5" and 7" Touch
+Display 2 panels for the RaspberryPi. However, it breaks away from the
+typical panel driver in multiple ways:
 
-> 
->>
->> Fixes: 066ecde6d826 ("mmc: meson-gx: add SDIO interrupt support")
->> Signed-off-by: Sean Anderson <sanderson@brivo.com>
->> ---
->>
->>   drivers/mmc/host/meson-gx-mmc.c | 12 ++++++------
->>   1 file changed, 6 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
->> index 694bb443d5f3f..d5365c0404cb9 100644
->> --- a/drivers/mmc/host/meson-gx-mmc.c
->> +++ b/drivers/mmc/host/meson-gx-mmc.c
->> @@ -176,7 +176,7 @@ struct meson_host {
->>
->>          bool needs_pre_post_req;
->>
->> -       spinlock_t lock;
->> +       raw_spinlock_t lock;
->>   };
->>
->>   #define CMD_CFG_LENGTH_MASK GENMASK(8, 0)
->> @@ -953,10 +953,10 @@ static irqreturn_t meson_mmc_irq(int irq, void *dev_id)
->>          cmd = host->cmd;
->>
->>          if (status & IRQ_SDIO) {
->> -               spin_lock(&host->lock);
->> +               raw_spin_lock(&host->lock);
->>                  __meson_mmc_enable_sdio_irq(host->mmc, 0);
->>                  sdio_signal_irq(host->mmc);
->> -               spin_unlock(&host->lock);
->> +               raw_spin_unlock(&host->lock);
->>                  status &= ~IRQ_SDIO;
->>                  if (!status)
->>                          return IRQ_HANDLED;
->> @@ -1112,9 +1112,9 @@ static void meson_mmc_enable_sdio_irq(struct mmc_host *mmc, int enable)
->>          struct meson_host *host = mmc_priv(mmc);
->>          unsigned long flags;
->>
->> -       spin_lock_irqsave(&host->lock, flags);
->> +       raw_spin_lock_irqsave(&host->lock, flags);
->>          __meson_mmc_enable_sdio_irq(mmc, enable);
->> -       spin_unlock_irqrestore(&host->lock, flags);
->> +       raw_spin_unlock_irqrestore(&host->lock, flags);
->>   }
->>
->>   static void meson_mmc_ack_sdio_irq(struct mmc_host *mmc)
->> @@ -1225,7 +1225,7 @@ static int meson_mmc_probe(struct platform_device *pdev)
->>          if (ret)
->>                  goto err_init_clk;
->>
->> -       spin_lock_init(&host->lock);
->> +       raw_spin_lock_init(&host->lock);
->>
->>          if (host->dram_access_quirk) {
->>                  /* Limit segments to 1 due to low available sram memory */
->> ---
->> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
->> branch: meson_mmc_raw
->>
->> --
->> 2.53.0
->>
+- BPF programs can only be loaded by userspace. This leaves us with two
+  choices: 
+
+  * We prevent the driver from loading until the script itself is
+    loaded. This has the side effect of preventing any other output to
+    be used until the initramfs is ran at the earliest, and possibly
+    ever if the loader isn't installed for example.
+
+  * Or we probe the driver all the time, but only report it as connected
+    once a program has been registered. This is somewhat unconventional,
+    but allows the other outputs to be functional, *and* allows the user
+    to force the output if their panel doesn't require any
+    initialization or during debugging. I chose this solution.
+
+- It's not a panel driver, but a bridge one, which is also pretty
+  unconventional. This is required because panel drivers don't have
+  access to a detect callback that is required for the above, but I also
+  think that the recent work from Luca blurs the line from panels and
+  bridges and we'll end up going that road anyway.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Maxime Ripard (6):
+      dt-bindings: display: Add panel-mipi-dsi-bpf generic panel binding
+      drm/panel: Add generic MIPI-DSI panel driver with BPF init sequences
+      drm/panel: dsi-bpf: Add BPF program build infrastructure and helper header
+      drm/panel: dsi-bpf: Add Raspberry Pi 7-inch panel BPF program
+      drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
+      [DO NOT MERGE] arm64: dts: broadcom: Add Raspberry Pi ILI9881C DSI panel overlays
+
+ .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++
+ arch/arm64/boot/dts/broadcom/Makefile              |   8 +
+ .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         |  22 +
+ .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         |  22 +
+ .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  |  65 +++
+ drivers/gpu/drm/panel/Kconfig                      |   3 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/bpf/Kconfig                  |  28 ++
+ drivers/gpu/drm/panel/bpf/Makefile                 |  10 +
+ .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-core.c    | 452 +++++++++++++++++++++
+ .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-kfuncs.c  | 278 +++++++++++++
+ drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi-ops.c | 242 +++++++++++
+ .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.c   |   4 +
+ .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.h   | 246 +++++++++++
+ drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi.h     | 264 ++++++++++++
+ drivers/gpu/drm/panel/bpf/progs/Makefile           |  93 +++++
+ .../panel/bpf/progs/Raspberrypi__dsi-5inch.bpf.c   | 266 ++++++++++++
+ .../panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c   | 271 ++++++++++++
+ .../gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h   |  95 +++++
+ 19 files changed, 2554 insertions(+)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20260928-drm-mipi-dsi-panel-ebpf-d78b72a9c47f
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
