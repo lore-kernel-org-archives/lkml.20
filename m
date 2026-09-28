@@ -1,119 +1,138 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC194349BC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24C84349BC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603529; cv=none; b=e5isgResDwk+csIjt1frs/RMWI/5gvGLyR2CCmtbuJzHHwfzNcvcaDX1Mhxh8HaI5/v50EiaY0jXAZ/91O3dfMFWpGsXZ0KUFZQ/svm+1ivQnbfznaQ4zmBRE6zsMFNpW7Q3t8194C1+3SyijBWX8qyZqrie26jJUgKpnK05Wmw=
+	t=1790603534; cv=none; b=Pxd10u2c3tU4aPoi/PQvUcZoXND1MdvHSwGlTPyhWiZ9OKABnJ+jog06B0pNMqbTZDZFR//UHtL8wDz9ophI+hzNG7yDIUs3efuKux/iUdY9pJxpoC4+aqGROaS9ItsTo7UBqFmhktIbUYyxO+2wJ0LxAxAm1A228zif+Ckjx+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603529; c=relaxed/simple;
-	bh=h9nhueiW90n/PQeZv1y1n3cikpJCagd1jp/6ZlWFcBA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UtEGpF+d1PulmBzpLiClZRlPLenWAr/8b60qhIAG+JaTbUOeIp5Xka5yU0ct3DR5a3Jw+i14r3YEnrUycSb9RWTmb1elSgwfn4ovsPzVwJ9bUaVdrfYhFnCtKqEwfszaBRg6k3n3MzXswx6PhDQP/Dl1HVDutSnkVsZKhQENiw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A150Iwbo; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790603534; c=relaxed/simple;
+	bh=nsztS+SgTPSoQ/D1lsoAMNzlVg+6MEAWElX7J48YQgQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NgOF8l4oiGlxnz3gE4OEF5axMmTOGN/safmXSPVlE67UUdGM/uP0PbTwFpt5UrZecnqlO18ZhhvJTMO/t9SGzlMQRoO1lYduncALTWiNDVyANAf7T7aDDQ65+rrNZ5b5U5j2uTadcXNXUazXLQIXPoXCoIAQU88AZE/3j8vFGzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqR41t8X; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A150Iwbo"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so436926666b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790603525; x=1791208325; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l4Wj4baECg7d15XvpDd5zrHb67qSLbXRWYAn4x6e368=;
-        b=A150Iwbo2tFLqNR91CwrGuMs1Txsm0dgch3PlDvZXlMKCaUp7hGMkBGp2whOXTbPOW
-         r7ZXgwBg1Z14dOJu4EFgPRmmbnRpzirtiu6vr1jy40V6pOcvWRSFqHNKl+C9LpxFhK1O
-         HGhKkEx4lLZTAEMl71bKfppNZSrSCQorjk+P85Hz1OrdhvQ0iphaPhta02DGIgQH6wiX
-         xV3sczBExnpvdOpIx/JQSeh3VQuCvLGKsJ9V/ILvyrhKvuSAZdsBGXkojjfqwNCTAcru
-         2PByzPs/dfVPm35N5Cy3hy1XFVuaQrPYEgq32x1TB/WSVjLsI9VkhqHgaQkAifgepRsT
-         bMog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790603525; x=1791208325;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l4Wj4baECg7d15XvpDd5zrHb67qSLbXRWYAn4x6e368=;
-        b=FcqrdcX85GF6uf7qSpYnAyrV6KJm5eFUGwekB6z7sm9RVEBwV8p1Af28ikuQCQAAjZ
-         SmlcbjdQg00TywWqfCpu7/xet/PPGOxsslxz3Xtgzfopmuc5xSjkgt46HhzFnaCgqRq2
-         9x2QkkKnaJwi1xe+ydawLClVPPlrDUgxpZcTxSwt5EE67rOppSUFN07sBe3JDJkx7WGO
-         FWcIisZG/rMVfSuivr/a78LS37vku5JjTrP5dyopHU4Nc1ynU8beJKTI042WNS+8Yv5i
-         fhH6/ZFMh6HYpv5BS5yxsgLOlTLacf+wHddUq20x6x1aQ6beaHGe1/Gj/mEnQcoYm0LP
-         Zu7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwAVYlUB6dF/cks8ptWnaznmdoC7liywtczV5ATl4sHnfWsjx2jBUyDcxfhR6PxlEOQ/MsKybeuktAbWqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOKyv7Jp8vNxl4nkOFjSqDJWsdz39xt6ODCUwJ4QUG9ijCM337
-	HfvMi/sQLE3XdyFIZRbB3ZpADJJf3kZlkyw3t0QY5Z576he1jmK0VGLpx5F3Qum2qCk=
-X-Gm-Gg: AYBFou1RQK0Unc2afE/8Ds4NFmsWYNzslHe6YzQH6syUNGzBGK7duZDOvXPLmzyFSMA
-	JtxoTQe+VQCQ6/NazxTUvJyJVJ/JP88XMx7oNuxIm58zBWjur2DwNqye23RUvj1o1eB0HUah1G9
-	K9fQBebsXy0jquS4ETH+QEslw9Xpiqpd/czfou4b6NPrwqzLPZrQefKYB51lhcjH632v08UDvgO
-	G4TykAviStHptq4MYrJaSRV58JGsh/Z0l5GZc4hSxMoX9LAp3oFpEb2Ng5lEbBUC3D4KmGfFWmq
-	bU3HZKNZwikQWfR091e431lQDRYcWpBCB5RWEEXIZLWXP525TjmfZUn5VjEWZODVRX5STcd+dtc
-	bjPfcddkm56e0ziGO9QVxh/lO8pGdgph5Q/DhBSZXl3RbDWeW5ldQJWYoB2L+dYFbxxW6e9LSt2
-	RizHJHXWiiTwKKVHy6FarrpU8wR/1zLlPIoh1H2NkJSaGlYdal3lLw0f5REFgWPf6lhQutgeQ4E
-	8Q=
-X-Received: by 2002:a17:907:d14:b0:c29:c07f:c0c8 with SMTP id a640c23a62f3a-c2ae979eef6mr776208966b.3.1790603525476;
-        Mon, 28 Sep 2026 06:52:05 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bcadbsm285069566b.72.2026.09.28.06.52.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 06:52:05 -0700 (PDT)
-Message-ID: <79e7cb39-b4af-4ac9-b72b-b01872603cff@linaro.org>
-Date: Mon, 28 Sep 2026 14:52:04 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqR41t8X"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 58003C4AF0B;
+	Mon, 28 Sep 2026 13:52:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790603533;
+	bh=nsztS+SgTPSoQ/D1lsoAMNzlVg+6MEAWElX7J48YQgQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=iqR41t8X+UZJqymu3xI5mosI0EMV6OSpwz0emDBUfnGt6+FStmMAjSTd2JVWm6IkB
+	 wYniSMWRRno+rNYRNyLgA10rOI3qZg5xm0/NBGURM7G8tGbO8s8sTW7Kj6l+giGybY
+	 l4fCt4gLoqhoR26PCKK8oZljmIwmzRGwMI1XVZWs/6S7dfMkinDQ/EBg8n9riEJkHs
+	 Uu2bKMVGGjHIcc8WhRqpKatXBGO6uk/eKuJZM8sy/zhaAeb7lklypDgj4ZlypDAni2
+	 aX3frHq47AmWf6p6yQ71SQAHeoNmCbESKpg4nVkGeYSG7kmRAm1m/mtzz3PeBkbbf8
+	 wErVA4o3EV0xQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34F64CA5FA5;
+	Mon, 28 Sep 2026 13:52:13 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 28 Sep 2026 15:52:07 +0200
+Subject: [PATCH] bus: fsl-mc: drop the fwnode links of the dpmacs nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf python: Fix arm-cs-trace-disasm type error
-To: Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928-james-perf-mypy-cs-disasm-v1-1-1bda909475ce@linaro.org>
- <20260928134642.GE14479@e132581.arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260928134642.GE14479@e132581.arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr>
+X-B4-Tracking: v=1; b=H4sIAAZxumoC/x3NPQ7CMAxA4atUnrFUPFQpV0EMaeKARfMjmwJS1
+ bsTMX7LezsYq7DBZdhB+S0mtXScTwOEhy93RondQCNN40wOU1Xcmr2UfcZkK+aAsWUfMH1KjYy
+ rlKfhRLQ49nGZnYcea8pJvv/R9XYcPyxG4uV4AAAA
+To: Ioana Ciornei <ioana.ciornei@nxp.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790603532; l=2306;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=1JT8cCZAXY4kQa0R2Q4UFo1Xst/5Or/QNRjHLJIMOVA=;
+ b=6Hz8SIymAGcIVfMH4oZSYHZ103fey0tK7MYzBai9ppIO2uluoOJzO6yewQfRpQBAyxrygqkgz
+ TDNOlCcKT5rBaW58LEjaXZdheScWhs3KHGR6mXq1OB7YR9lXMDcdhCt
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
+From: Vincent Jardin <vjardin@free.fr>
 
+A DPMAC node under dpmacs/ is never the fwnode of any device:
+  the fsl-mc bus creates dpmac.N objects without one,
+  then dpaa2-mac finds its node in dpmacs/ at connect time.
 
-On 28/09/2026 14:46, Leo Yan wrote:
-> On Mon, Sep 28, 2026 at 01:58:09PM +0100, James Clark wrote:
->> The perf sample dso_bid getter returns a string or None, matching its
->> Optional[str] annotation. Attempting to decode it as bytes causes mypy
->> to report union-attr errors, even though this was behind a conditional
->> that checked for bytes type.
->>
->> Use the string directly, retaining the fallback for an unknown build ID.
->>
->> This fixes the following build error:
->>
->>    python/arm-cs-trace-disasm.py:266: error: Item "None" of "str | None" has no attribute "decode"  [union-attr]
->>
->> Fixes: 279b402e5143 ("perf python: Port arm-cs-trace-disasm to perf module")
->> Assisted-by: Codex:GPT-6-Astra
->> Signed-off-by: James Clark <james.clark@linaro.org>
-> 
-> Thanks for the fix:
-> 
-> Reviewed-by: Leo Yan <leo.yan@arm.com>
-> 
-> Just curious, have you run this script and compare the result with old
-> one? Seems to me, the build pass is insufficient, we should run a small
-> test to ensure the result to keep same.
-> 
-> Thanks,
-> Leo
+fw_devlink therefore attaches the supplier links of those nodes (phys, ...)
+to the nearest ancestor device, the fsl-mc bus, as SYNC_STATE_ONLY proxies.
 
-Yep the test still passes. I assume the "if isinstance(sample.dso_bid, 
-bytes)" part was just dead code.
+device_link_add() refuses such a link once the consumer has probed, and
+fw_devlink logs the refusal as an error.
+
+On an LX2160A board with 4x25G DPMACs for which phys = <&serdes_1 N>,
+the Serdes PHY binds after the bus and then at every boot it shows:
+
+  fsl_mc_bus 80c000000.fsl-mc: Failed to create device link (0x180) with supplier 1ea0000.phy for /soc/fsl-mc@80c000000/dpmacs/ethernet@3
+
+once per port!
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ drivers/bus/fsl-mc/fsl-mc-bus.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+index 5878eafd8d44..0c37b6780c84 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-bus.c
++++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+@@ -11,6 +11,7 @@
+ #define pr_fmt(fmt) "fsl-mc: " fmt
+ 
+ #include <linux/module.h>
++#include <linux/fwnode.h>
+ #include <linux/of_device.h>
+ #include <linux/of_address.h>
+ #include <linux/ioport.h>
+@@ -1033,6 +1034,20 @@ static int fsl_mc_firmware_check(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static void fsl_mc_purge_dpmac_fwnode_links(struct device *dev)
++{
++	struct device_node *dpmacs, *child;
++
++	dpmacs = of_get_child_by_name(dev->of_node, "dpmacs");
++	if (!dpmacs)
++		return;
++
++	for_each_child_of_node(dpmacs, child)
++		fwnode_links_purge(of_fwnode_handle(child));
++
++	of_node_put(dpmacs);
++}
++
+ /*
+  * fsl_mc_bus_probe - callback invoked when the root MC bus is being
+  * added
+@@ -1134,6 +1149,8 @@ static int fsl_mc_bus_probe(struct platform_device *pdev)
+ 						&mc->num_translation_ranges);
+ 		if (error < 0)
+ 			goto error_cleanup_mc_io;
++
++		fsl_mc_purge_dpmac_fwnode_links(&pdev->dev);
+ 	}
+ 
+ 	error = dprc_get_container_id(mc_io, 0, &container_id);
+
+---
+base-commit: 7b3b0598c00e67f2df85d0b4cd99eaa3be6c9bfd
+change-id: 20260928-for-upstream-fsl-mc-dpmac-fwnode-links-622b8eadb98a
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
 
