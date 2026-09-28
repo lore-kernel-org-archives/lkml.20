@@ -1,70 +1,76 @@
-Received: from mail-wr2-f36.google.com (mail-wr2-f36.google.com [74.125.225.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E7B4BD7B4
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F7F3FC5B7;
+	Mon, 28 Sep 2026 17:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615919; cv=none; b=oq3vmIPrt7S115e/gHrGFkvf6HckHcoZanpsN0Xtd5JOt8p/pZzQ1SXmRwql5UpfFozepvCYKf80TaAUkVJkhGlR5h5cUdpk7glCAGzglqna+CT8EFBBovwBTFTkIAyYrCP+qOzqNh6SwCcIaGBdavTbzwgB3DixmnXCBWYqVSs=
+	t=1790615915; cv=none; b=Y0B6v8P2TXm6GvRrhELiebtg6R2rHPv/JDfR2C7k8LJNJRtg/9KZr8varK7ruuB/6zgbhlUHIE4pC+nsa6oWNLkdW/YuqwI6fw3NiLqobDckZuU5ov/+BiDrlPTOEsMrwiL3ZAjNDd3Y9itIAMVnerfM8wfkD1IaP8sKlbvmlrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615919; c=relaxed/simple;
-	bh=YoPcT+r0NPwyBnJxWK4PIEC9nGCY4cC6HMWtxjxy0e8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lmlDMSw4ttfIVOleo1V4POG4i2WqA/hxpTEUOVjk6JmnioqfFyMhF1pqKz929aP6UB3/qJI8KoWTQkPV9fGdELXhDES9odxKpARNjtC3ACJZK4whx7pKe0GJq4Yu6sGqLSZsw1TFSu5qe1XY/Vajq+ERDnk/g5/aSzmOmS+JUds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=kvIL62jk; arc=none smtp.client-ip=74.125.225.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1790615915; c=relaxed/simple;
+	bh=NQ7FCOvj1P0hio7GdY33PzDULFySRHmwCazTCiLXg0M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hpSer6I1pRvfNHJrUMdZEWPVNpBtp2Ob4Jx7cValI2+mdRSiKaJPPjGIJU5/2n4wltsyO9QI/SxX0/QaSWXe1jShng2lurKxA0Qg1tsxVg9ubFLrOQO/R99xwNAcUfSEfZFVFNmePr/cEZK/FEc0tBBGyf8LeS2bAhYp3XWgTRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=PDW96tMY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rP7VwLU+; arc=none smtp.client-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="kvIL62jk"
-Received: by mail-wr2-f36.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1582149f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:18:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790615913; x=1791220713; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qzUE7F0kx/Sy/yA3+E0ssA+mT7Axk9cKYyuMi26SVJU=;
-        b=kvIL62jkgV0HFttA5w9JPu7NpdSqd2j+4Y05KOnMJ+25A9622UsF3S3T9+Hi04tmdx
-         jbROz6g/gSl8XdCGGg6K1voi9ILluICGHKrOBGaF7/EN2+JAdqIJh1AtKHLC5BmkNbJT
-         xfd8LUAYfcRTFvG0RenhPxxs9Eh04coiieWrwQB7TK3j64bsBL27yJ8bVE0zXCfA/sUn
-         8tLZnV57jRUnZglkMRl+vHh3OTZZfQImlBD4gGICBG0kYPQ6kRnxiJtD7FucT41HS/C/
-         +7/AtQeWhFuJw3w65Rzol/BFxqWJDuJ3+gwiOX6Djx5TBCYgjz7/IVTKtze6gp4naF1O
-         ffmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615913; x=1791220713;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qzUE7F0kx/Sy/yA3+E0ssA+mT7Axk9cKYyuMi26SVJU=;
-        b=wyMZRL4xk3yqUXQqwjg0+RWDc3xxkb4lQwcqLlNKcZf5NsIlOJdH3VmnzLPxHCSGmH
-         8Vg0RZpUBngCS+IRa1ttcyu0zkPB32rlqWKgL4Shb/Tr/XIwzcIkVMEMQvDKDe24qr5+
-         wJVY4GKS7dM0uzNYXtUKJqUZIMXOxMI8Qa2rRkwoRqRdZzkQEN/PtgaRtw4AsgZ1q2fJ
-         xAOlt8D9AtVItpoSyZxNtXH8BQ+Te1R1Hw6BZfo7nKcYVi6siz4xxdx1LVqWgfDRJIdW
-         DTpeH8zPff8E7kmZ3o5B9s5K0Nfz/7jyxuK0uXVB4FNhIkdbp/j66K27Zyvb2BI4i80t
-         vbcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzdONQRWYEpjMzIbP4MKVH8/i8lYhjZqGuwYHI6QmmBvugs7VgMz6Idz3a8+SPpD6Mo66XMAbTb7tpVFwo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK11HJjhFbjSFAz0K82uWOGbLQ/BWaI4PlPacOivLTAgtzChBYQ
-	vz5F8AqOqalhPB2fdV2h5aGJrMPFMXwc8tCwRfp5d6TQwfUhaGEUC2npTGRt0/Wvjp7c4G/7dff
-	zuDLb
-X-Gm-Gg: AYBFou3fR7SyfYHFinKCez/aMY69+Ji42XA/vo9rOIDHy76EAsDQHvuk5aJm4EGP1mX
-	DXRlX+yo9lVmxnwd4au1Gh/bJqccMpHlgwcH5tOTw0xkTE3BZxKIDCXV7OkT8cJmjyf6MPVQa8v
-	qtBPOylcOyXc24KmQeW2P5+s0YTMCdYHNL75OUHfjQG5d399KZ+yM3cY5ULQQFEVAgbm4Qf/TNF
-	SE6yiA2HhDfbo5al7eHThust3Nne1yyhTJp4yseofzUbqMXPxGd28bc3/r91c9cxbal9yVpQq/b
-	U3PmGcjrNFsfVZJcruf24JSkILOsADcPDaR98f0JZwDAF97iBYUaNTXXA9jP6eVvLs3AKlHisxO
-	zligjVeU4VyjbjODuSNXDJ34KOERo2FfRLJf28ZYD+EHZAZL/E6WGxBi/9ZBMxmtlCY7aLUuC2O
-	GlIJ8gDg5ujRm2P2EeL9TNmr2liAd3QEDOVTOw0X6c6VCWrY4XVd4GPxV5tYHZQE8l2h4Mt0Ufn
-	ziLYwbums/jeldAvTy3fe20LO8=
-X-Received: by 2002:a5d:5d10:0:b0:488:641b:2dfa with SMTP id ffacd0b85a97d-488716b28c5mr30171327f8f.2.1790615912742;
-        Mon, 28 Sep 2026 10:18:32 -0700 (PDT)
-Received: from alchark-surface.localdomain ([5.194.93.183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84221bsm29224973f8f.36.2026.09.28.10.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:18:32 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 28 Sep 2026 21:18:18 +0400
-Subject: [PATCH 3/5] power: reset: syscon-reboot-mode: enable supplies for
- the next stage
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="PDW96tMY";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rP7VwLU+"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailflow.phl.internal (Postfix) with ESMTP id 5F29B13804CF;
+	Mon, 28 Sep 2026 13:18:29 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 28 Sep 2026 13:18:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1790615909; x=1790623109; bh=bV
+	g0AFXfRcn0kYVBIO4bfsJw3vxA/g/QL37izKwnfQA=; b=PDW96tMYg4rbGYdKku
+	0EJCPNI36r4B2hUwhfR3GlFGPvu014j8MQbAmAu/jDt3apTosy9kl2lONm7ZW0tM
+	WC4dSMUV+DZI/8WakXXy5rvWgEkGpzOScmSGb3IPOjsBrUN8LkjH/Ha/MT9arhrj
+	lV5WTyTu5QzeR2yKg40VcC6BtfLWYxr0LyUY5BGoYDxszYqxkqeq1WOd58jjird1
+	0fglY81og4AL3IOrAAj7x5sfsCKjH667Jl5IVYoZIlLo1qFx44vMQ/d8KNsxXLVQ
+	te3Wx/YozKKpZTJTzDde316FvaArpyqNf3tYolcTAtev5GeHOKL7zDSQW4uXXnx+
+	4Stw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790615909; x=1790623109; bh=bVg0AFXfRcn0kYVBIO4bfsJw3vxA
+	/g/QL37izKwnfQA=; b=rP7VwLU+g5w5kgoZE/Ygfqp4O9SaMC2M+jdmk9pJscEl
+	bgmxy1pqsyLyypPy/teiX1wg0jXQ0nPfuIwXjq7cUEIAaTJcjGO6UtUMfk3GOpgU
+	GaOjwK1OyDrIS9OX4Y1TV59vKf7VSnORwDlqJraYMK2QlLsBNY9hYFndgoTVNxfh
+	vyCKI6ejywyPLgEjUW6+Pb04S7gVk5iKib7E09GD3L7/daSIm3D4AM307v44m2bR
+	SeamX+Tm+3Nvlp/aNOv1nfTHTGSkvpcrQBOJr8lxReqrA/SSML+H471MoZh6RYuM
+	JMo72E3ICD3MLbyjniYyWV9zP3MEDkginbxbVtTKqA==
+X-ME-Sender: <xms:YaG6akR6zEUWWm5zOtptcC5g5i5w2qNblqYpBtRBWKX05DcEkDNT_w>
+    <xme:YaG6alOFelEG63JQmHEZMaF-e4O7ggLjwK0VvoRAwxO-8RIN98lg_2lp5CIaMUa7R
+    W6iT7JUfZfhiE29ZEi5ZgAq-xs1FljwChczQM_LN_PCP9886HB2Pas>
+X-ME-Received: <xmr:YaG6auEySkVu0oVYOEBOMDlnLc03H5U-j1rY_MXACx-1l3Zx97auzd4rkzBPJVDq>
+X-ME-Proxy-Cause: dmFkZTF0iCUIjHjLkwYyqUzkXaYeY8zBVzbYdKa9uLqQTqMZv99nAR+IiEJPZL8+SJzKiZ
+    B7K3UjPIiWFyTiV33TJp2Iu3+otBrZpR7GdRG7oEWKpQxhAYRys/bIgWVjAFO+ttb48/Iu
+    vqtTDVO6beSYfb8DehSXxRdciBkpTkKn6DftQ8bRlXa4NWwGLAN1zR3yNWg1JGuJyO2wz/
+    IIAW+S+/FbyS/i0Qc8pWib5DM/WcYqRedoxaD58VxZCKYewFPrkCfWlpRLwPx+CCMijei6
+    NYqaXMB3pIqrRZsvEgwz9iXvEg7oTndNrsTGOSQoCalXtITSIECGB5COlgHV3BetS9pdNk
+    Mi2BWMxCxErt8z5rhQ8RzJjuSNmMDsZ13mfP2K5O4G/XtKP4GwUlbMqf2G/eDIzZTe7Ddf
+    W8g6pT8RqKP0+eIeSfmPFa6lY+sN4EB3i8gbBuTkoF0K64vyoMVtJhiICB7+CPi6u5Rqjk
+    Hx+lJhTi44brC6/RpmQR8K1/0vQ+VbXWiIsYI0Tajw97tGq1WtKJHin2gLVyZQXOghUoHC
+    iF9Q8Rkrf9hrCgBCVxZdi4r8n08voOTzj01FOEXwmMjJYyw/N0x0PZuaB8Z+VCCg0Vd3EA
+    qwVKuKkmhlJ7CaWDTzA2u9vCQbBGkZI7hdOPcs/SXlyoX3Q7/RgMG4GELV2Q
+X-ME-Proxy: <xmx:YaG6ahB_BxV8xWTFhKnQ-hpdBQ-bjdKKSLoNBOcCL1FzH_JkIOQyfQ>
+    <xmx:YaG6ankfpCLXapt1GM8R3UNIjgB_PVs2fW6PYF7Pk1XTmowCMoZQjA>
+    <xmx:YaG6ahvSEmutTft2TiccZxTYsTwsCXnVsrxvWvOoTJB2T9GVDW8Snw>
+    <xmx:YaG6anVJ0kMtsUB9aikmSQQRzu1NRpBUPJB1FlMUDlFX-eAuWy3grQ>
+    <xmx:ZaG6ahiI1MV-bxXkvIHv1w2c4MwhADANsDKMFiU-VHH_QQ7gj6gVuWzt>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 13:18:08 -0400 (EDT)
+From: =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+Subject: [PATCH v3 00/12] CRASH_MEMACTION: describe pages to a kdump kernel
+ (was: CRASH_WIPE_SECRETS)
+Date: Mon, 28 Sep 2026 19:17:48 +0200
+Message-Id: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,123 +78,284 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-rk3576-reboot-mode-v1-3-65486b03bd41@flipper.net>
-References: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
-In-Reply-To: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Sebastian Reichel <sre@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2Oyw6CMBBFf4V07RjaCgFX/odhUcsAxUDJtKBC+
+ HfLY3mSk3vuwhySQcfu0cIIJ+OM7QPIS8R0o/oawZSBmYhFGuciAU3KNdBhp7QPLoyD84Sqg9P
+ gkKLUldKJklnOws5AWJnv3ngWB7vx1aL22/BmNMZ5S7/9xCQ37+hlnJ+9GcmaGYHwY+kNk4AY8
+ iTlJZdayFv8aJXD+loiK9Z1/QMbbXc71gAAAA==
+X-Change-ID: 20260925-crash-memaction-upstream-20260921-6e3cfac5a389
+To: Jonathan Corbet <corbet@lwn.net>,
+  Shuah Khan <skhan@linuxfoundation.org>,
+  Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
+  Saravana Kannan <saravanak@kernel.org>,
+  Andrew Morton <akpm@linux-foundation.org>,
+  Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+  Pasha Tatashin <pasha.tatashin@soleen.com>,
+  Pratyush Yadav <pratyush@kernel.org>,
+ Dave Young <ruirui.yang@linux.dev>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+  David Hildenbrand <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+  Brendan Jackman <brendan.jackman@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+  Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,
+ Alasdair Kergon <agk@redhat.com>,  Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+  Benjamin Marzinski <bmarzins@redhat.com>,
+  Herbert Xu <herbert@gondor.apana.org.au>,
+  "David S. Miller" <davem@davemloft.net>,
+ Mimi Zohar <zohar@linux.ibm.com>,  David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,  Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,  "Serge E. Hallyn" <serge@hallyn.com>,
+  James Bottomley <James.Bottomley@HansenPartnership.com>,
+  "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,  Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,  Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>,  Lance Yang <lance.yang@linux.dev>,
+  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+  Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+  Matthew Brost <matthew.brost@intel.com>,
+  Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,
+  Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+  Arnd Bergmann <arnd@arndb.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org, 
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3628; i=alchark@flipper.net;
- h=from:subject:message-id; bh=YoPcT+r0NPwyBnJxWK4PIEC9nGCY4cC6HMWtxjxy0e8=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtWhgXXaSTtI/Hu03nsp35v1ky2hOMxY/63+Pgd2A+t
- eZtM8PVjoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- 0EjHWMeIgYtTAKZaqIiRoXNpqZeOWp7gt8Wz/obaz1Q48eCojm67ouwvuYUNHLOX2TIyfCyaxO5
- 9yPuJvSOjW6208LV7aXatE1/nnLD4wT5ntXQxLwA=
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Requesting a boot mode on some SoCs such as the Rockchip RK3576 hands the
-request to the boot ROM in a register that a full reset would clear, so
-any reset that carries it has to leave the PMIC untouched. This means that
-the regulators stay in whichever power state the running OS left them,
-which may be unsuitable for the early boot code. E.g. on RK3576 the DDR
-initialization blob runs on the way back and accesses registers which
-Linux normally leaves powered down, resulting in an unrecoverable abort.
+I'm using linux on an embedded target in a Hardware Security Module-like
+application. One requirement is that I want the system to be able to
+quickly erase its memory when it detects physical tampering. I'm
+approaching that by using kdump to load into a small payload that
+instead of dumping RAM, erases RAM frmo start to end. However, writing
+all of RAM, especially on an embedded target, is rather slow. For this
+reason, I propose a new crash_memaction mechanism that lets the old
+kernel indicate marked memory areas to the kdump kernel at page
+granularity.
 
-Get every supply named in the reboot mode node and enable it when a mode
-is written, which is when a mode is being requested. The supplies are
-deliberately left enabled afterwards: the system is on its way down, and
-what runs next cannot turn them on.
+I will be using this mechanism to indicate "secret" memory ranges for
+early wiping by my kdump payload. After discussion with Baoquan He early
+August, the patchset includes a second flag that can be used to indicate
+"cache" memory that the kdump kernel may want to skip when creating the
+dumpfile.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+The record is a bitmap with one bit per page, allocated at boot. It
+reaches the kdump kernel as a PT_NOTE named MEMACTION. Marking is a
+lock-free atomic bitmap update with no allocation, so it is safe in any
+context.
+
+The feature is gated by a static key that is patched in only when the
+kernel is booted with a crash_memaction= parameter indicating which
+flags to pass to the kdump kernel. The parameter sets the meaning of the
+bitmap bits to both kernels.
+
+Marking Memory
+==============
+
+Theres both a kernel and a userspace interface to mark memory.
+
+In-kernel, crash_memaction_mark() takes a virtual address range and a
+type. Marking has page granularity. To support smaller objects,
+patch 2 adds a "secret pool" kmem_buckets instance whose backing pages
+are marked SECRET. Patches 5 to 7 move dm-crypt volume keys and IV
+seeds, crypto tfm contexts, and the payloads of the user, trusted, and
+encrypted key types into this pool. Keeping keys in dedicated slab
+caches also provides some defence in depth against use-after-free and
+out-of-bounds reads, independently of what I'm doing here with kdump.
+
+For userspace mappings, madvise() with MADV_CRASH_SECRET or
+MADV_CRASH_CACHE sets a new VMA flag, VM_CRASH_MARK. Folios mapped into
+a marked VMA are registered as they arrive in rmap.
+
+A mark lasts until the page frame is allocated again, so it is cleared
+in post_alloc_hook() rather than when freed to account for leftover
+data. Hugetlb folios reused from the pool bypass post_alloc_hook(), so
+their marks are cleared on dequeue instead.
+
+Overhead
+========
+
+Measured on arm64 (QRB2210, 4x Cortex-A53, 3.6G) at next-20260922, three
+boots of the same tree:
+
+    k0  CONFIG_CRASH_MEMACTION=n
+    k1  CONFIG_CRASH_MEMACTION=y, no crash_memaction=
+    k2  CONFIG_CRASH_MEMACTION=y, crash_memaction=secret
+
+k1 and k2 are the same kernel image. The workload rebuilds mm/ of a
+kernel tree a few times with make -j4.
+
+    k0  157.05 s median (n=8, range 156.51-157.77)
+    k1  158.23 s median (n=8, range 157.96-159.69)
+    k2  157.42 s median (n=8, range 156.97-163.24)
+
+Against k0 that is +0.75% for k1 and +0.24% for k2, both within
+measurement noise.
+
+Out of scope here
+=================
+
+This series only records the page types in the note. The secret type is
+wired up with some kernel users related to disk encryption. The cache
+type is not wired up with any kernel users (but can be used from
+userspace).
+
+The bitmap is sized from the memblock memory map at boot and is never
+resized. Memory added by hotplug is therefore not covered by a bitmap
+and cannot be marked. I'm focused on embedded targets that don't support
+hotplug anyway.
+
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
 ---
- drivers/power/reset/syscon-reboot-mode.c | 39 ++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+Changes in v3:
+- Use page bitmap instead of range-based registry
+- Move smaller allocations into secret_pool buckets
+- Link to v3: https://patch.msgid.link/20260811-crash-zeroize-rework-v2-0-9561d13c2340@jaseg.de
 
-diff --git a/drivers/power/reset/syscon-reboot-mode.c b/drivers/power/reset/syscon-reboot-mode.c
-index e0772c9f70f7..3072922f1716 100644
---- a/drivers/power/reset/syscon-reboot-mode.c
-+++ b/drivers/power/reset/syscon-reboot-mode.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_device.h>
- #include <linux/reboot.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/mfd/syscon.h>
- #include <linux/reboot-mode.h>
- 
-@@ -18,6 +19,8 @@ struct syscon_reboot_mode {
- 	struct reboot_mode_driver reboot;
- 	u32 offset;
- 	u32 mask;
-+	struct regulator_bulk_data *supplies;
-+	int num_supplies;
- };
- 
- static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
-@@ -28,6 +31,20 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
- 
- 	syscon_rbm = container_of(reboot, struct syscon_reboot_mode, reboot);
- 
-+	/*
-+	 * Whatever acts on the mode (e.g. boot ROM) runs before the operating
-+	 * system, and may need supplies that the running system had powered
-+	 * down. Enable them here, and deliberately leave them enabled: the
-+	 * system is on its way down, and what runs next may not know how to
-+	 * turn them on.
-+	 */
-+	if (syscon_rbm->num_supplies) {
-+		ret = regulator_bulk_enable(syscon_rbm->num_supplies,
-+					    syscon_rbm->supplies);
-+		if (ret < 0)
-+			dev_err(reboot->dev, "enabling reboot mode supplies failed\n");
-+	}
-+
- 	ret = regmap_update_bits(syscon_rbm->map, syscon_rbm->offset,
- 				 syscon_rbm->mask, magic);
- 	if (ret < 0)
-@@ -36,6 +53,13 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
- 	return ret;
- }
- 
-+static void syscon_reboot_mode_put_supplies(void *data)
-+{
-+	struct syscon_reboot_mode *syscon_rbm = data;
-+
-+	regulator_bulk_free(syscon_rbm->num_supplies, syscon_rbm->supplies);
-+}
-+
- static int syscon_reboot_mode_probe(struct platform_device *pdev)
- {
- 	int ret;
-@@ -59,6 +83,21 @@ static int syscon_reboot_mode_probe(struct platform_device *pdev)
- 
- 	of_property_read_u32(pdev->dev.of_node, "mask", &syscon_rbm->mask);
- 
-+	ret = of_regulator_bulk_get_all(&pdev->dev, pdev->dev.of_node,
-+					&syscon_rbm->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "can't get reboot mode supplies\n");
-+
-+	syscon_rbm->num_supplies = ret;
-+	if (syscon_rbm->num_supplies) {
-+		ret = devm_add_action_or_reset(&pdev->dev,
-+					       syscon_reboot_mode_put_supplies,
-+					       syscon_rbm);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = devm_reboot_mode_register(&pdev->dev, &syscon_rbm->reboot);
- 	if (ret)
- 		dev_err(&pdev->dev, "can't register reboot mode\n");
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Rob Herring <robh@kernel.org>
+To: Saravana Kannan <saravanak@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Baoquan He <baoquan.he@linux.dev>
+To: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+To: Dave Young <ruirui.yang@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Muchun Song <muchun.song@linux.dev>
+To: Oscar Salvador <osalvador@suse.de>
+To: David Hildenbrand <david@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: Michal Hocko <mhocko@suse.com>
+To: Brendan Jackman <brendan.jackman@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>
+To: Zi Yan <ziy@nvidia.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Alasdair Kergon <agk@redhat.com>
+To: Mike Snitzer <snitzer@kernel.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+To: "David S. Miller" <davem@davemloft.net>
+To: Mimi Zohar <zohar@linux.ibm.com>
+To: David Howells <dhowells@redhat.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+To: Paul Moore <paul@paul-moore.com>
+To: James Morris <jmorris@namei.org>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+To: Jann Horn <jannh@google.com>
+To: Pedro Falcato <pfalcato@suse.de>
+To: Rik van Riel <riel@surriel.com>
+To: Harry Yoo <harry@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Nico Pache <nico.pache@linux.dev>
+To: Ryan Roberts <ryan.roberts@arm.com>
+To: Dev Jain <dev.jain@arm.com>
+To: Barry Song <baohua@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+To: Kiryl Shutsemau <kas@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Byungchul Park <byungchul@sk.com>
+To: Gregory Price <gourry@gourry.net>
+To: Ying Huang <ying.huang@linux.alibaba.com>
+To: Alistair Popple <apopple@nvidia.com>
+To: Peter Xu <peterx@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: kexec@lists.infradead.org
+Cc: driver-core@lists.linux.dev
+Cc: linux-mm@kvack.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: dm-devel@lists.linux.dev
+Cc: linux-crypto@vger.kernel.org
+Cc: linux-integrity@vger.kernel.org
+Cc: keyrings@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-arch@vger.kernel.org
 
--- 
-2.55.0
+---
+Jan Sebastian Götte (12):
+      kexec: Add a crash memaction registry
+      lib, kexec: Add a secret pool for key material
+      mm: Wire up the crash memaction registry
+      arm64: Enable the crash memaction registry
+      dm crypt: Allocate key material from the secret pool
+      crypto: api - Allocate tfms from the secret pool
+      security/keys: Allocate key payloads from the secret pool
+      mm: Add VM_CRASH_MARK
+      mm/rmap: Mark folios mapped into crash_memaction-marked VMAs
+      mm/madvise: Add MADV_CRASH_SECRET, MADV_CRASH_CACHE and MADV_CRASH_RESET
+      Documentation/mm: Document the crash memaction registry
+      kexec: Expose the crash memaction bitmap in debugfs
+
+ Documentation/admin-guide/kernel-parameters.txt |   9 +
+ Documentation/mm/crash_memaction.rst            |  68 ++++
+ Documentation/mm/index.rst                      |   1 +
+ MAINTAINERS                                     |   4 +
+ arch/arm64/Kconfig                              |   3 +
+ crypto/api.c                                    |   9 +-
+ drivers/md/dm-crypt.c                           |  19 +-
+ drivers/of/kexec.c                              |   7 +
+ fs/proc/task_mmu.c                              |   3 +
+ include/linux/crash_memaction.h                 |  86 +++++
+ include/linux/kexec.h                           |   6 +
+ include/linux/mm.h                              |   9 +
+ include/linux/rmap.h                            |   5 +-
+ include/linux/secret_pool.h                     |  47 +++
+ include/uapi/asm-generic/mman-common.h          |   4 +
+ kernel/Kconfig.kexec                            |  39 ++
+ kernel/crash_core.c                             | 475 ++++++++++++++++++++++++
+ kernel/kexec_core.c                             |   4 +
+ kernel/kexec_file.c                             |  10 +
+ kernel/ksysfs.c                                 |  15 +
+ lib/Makefile                                    |   1 +
+ lib/secret_pool.c                               |  27 ++
+ mm/huge_memory.c                                |   2 +
+ mm/hugetlb.c                                    |  10 +-
+ mm/madvise.c                                    | 132 +++++++
+ mm/migrate.c                                    |   2 +-
+ mm/mm_init.c                                    |   3 +
+ mm/page_alloc.c                                 |   6 +
+ mm/rmap.c                                       |   8 +
+ mm/userfaultfd.c                                |   1 +
+ security/keys/encrypted-keys/encrypted.c        |   5 +-
+ security/keys/trusted-keys/trusted_core.c       |   3 +-
+ security/keys/user_defined.c                    |   3 +-
+ 33 files changed, 1006 insertions(+), 20 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260925-crash-memaction-upstream-20260921-6e3cfac5a389
+
+Best regards,
+--  
+Jan Sebastian Götte <linux@jaseg.de>
 
