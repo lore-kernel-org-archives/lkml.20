@@ -1,146 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m11892.xmail.ntesmail.com (mail-m11892.xmail.ntesmail.com [115.236.118.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8E12931E9;
-	Mon, 28 Sep 2026 08:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81580471D17;
+	Mon, 28 Sep 2026 08:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585424; cv=none; b=YSVNQvOF7kdgOjd6+pKnLgjmLGCaEZosXHGPptmwrKf6wCt3fof2mjrHJ+R87TJm574eYHy3cEwlKeNdwZYKlNfGVtQDMsrWFvkd9oSrfvJOTNv54zuTqmS+J3CWMi/UcWtFFZmKbrQ9ClSoGkTSlYSoqhTlouFJxys9u5gDeCA=
+	t=1790585445; cv=none; b=OZ1c/b7vEFe7zHzuCjtrd+q4dvpdVZJiApxiH2UuV8JwP3Nf2lWKBM+LFX7Y1amH7INW6tNSeEzO9SHUzE17C2s1nJE5n8LANqSm4VFOU4O0qTbjG5pl+AQy073vtHB+MBFXUHKX+5ybdB2wOyyhwB0WVsCV/9PyC5isHhCWsLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585424; c=relaxed/simple;
-	bh=7xqsvgBUdY0jvRKC//ezf518jUci4xRkjMuj7wAJTI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=um25eGTusDMjs+On1Z1DBngrkyc8RRjkCG744MAro7VL2CoQYeaM0u3iaNc5b8IiPXg57B3B63O+dPHPGbvRGzhTPblOdjIET92Iij2PB0Oo2Ro4g0PSh8BITssGU/lRq9W4R+P4xHMLaW8yIzMEerI34T+MWPjpx9fgPqNjznw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEK97vav; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790585445; c=relaxed/simple;
+	bh=1Pksynov9aeVdOSKKgXz77EFExl/nOfnqzJK9RtCqCM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qXUA4jLSueUYTpOrV4n9xuwHrN4AnXbaO8v9CJq443N0nCZkRZSA4W83SNzccrn9ikIXDn5TNkEX4JKPnheJafdRISwuy9a81n7TK1OcJX19hBMuHEGwOdCqXTd2ilWaJFeKCwTlgDTjVDbwo+dd9Yuq5WrByqycihaG4xuZ0Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=NPeuArak; arc=none smtp.client-ip=115.236.118.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEK97vav"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07EE51F000FF;
-	Mon, 28 Sep 2026 08:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790585422;
-	bh=Xux5ZPoLqrz1mbftErEicTW9loRDj4oR9SfIqryQVFI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iEK97vavCrO6FGamvL6w7E2I1MX2GZCebpDkO0cMSJDvo5xQ2vNNjADjci6TP8N29
-	 b8f5WsNIuHiiAVePejbUiD2f14ejjCMal/GCUjIpIQcT74Gun81v7NHdK2Qm42IMCn
-	 7yrkD2JQqZC3M8VbYDcqxuGS8IbhDUEdbAyK4k0BgbhaG1CS5D+9XqaUVVL7X0I6o7
-	 fReqiFglUmaWiN2BlAbXClfp2HnuyMig/dz67ReP7rtvxpERkOiDkfJTJ/t/SPpeS1
-	 7uKDXsEYc3REZnADw9w8J+97lG7Kzs/sY9a6AjOEiFY2bkpohtKyBzjjxopxg2+1jP
-	 x6teGcrUOIaqg==
-Message-ID: <9009312f-0ffb-4425-ab82-1eb7e52a4646@kernel.org>
-Date: Mon, 28 Sep 2026 10:50:11 +0200
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="NPeuArak"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e33;
+	Mon, 28 Sep 2026 16:15:01 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 00/14] Add HPD support for Rockchip Analogix DP
+Date: Mon, 28 Sep 2026 16:14:04 +0800
+Message-Id: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/13] mm/sparse: remove SECTION_MARKED_PRESENT
-To: Dave Young <ruirui.yang@linux.dev>
-Cc: David Carlier <devnexen@gmail.com>, akpm@linux-foundation.org,
- axelrasmussen@google.com, baohua@kernel.org, baolin.wang@linux.alibaba.com,
- baoquan.he@linux.dev, brendan.jackman@linux.dev, dakr@kernel.org,
- driver-core@lists.linux.dev, gregkh@linuxfoundation.org, hannes@cmpxchg.org,
- jan.kiszka@siemens.com, kasong@tencent.com, kbingham@kernel.org,
- liam@infradead.org, linux-cxl@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, osalvador@suse.de,
- qi.zheng@linux.dev, rafael@kernel.org, rppt@kernel.org,
- shakeel.butt@linux.dev, surenb@google.com, vbabka@kernel.org,
- weixugc@google.com, yuanchu@google.com, ziy@nvidia.com,
- devel@lists.crash-utility.osci.io, kexec@lists.infradead.org,
- Baoquan He <baoquan.he@linux.dev>
-References: <20260921-b4-sparsemem_cleanups-v2-10-54d81d65e125@kernel.org>
- <20260927192013.144672-1-devnexen@gmail.com>
- <655c509e-318f-48bc-8183-2b1274dd05ac@kernel.org> <aroezLexo1WoeYI7@darkstar>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aroezLexo1WoeYI7@darkstar>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0e714e5e803a8kunm323e2b5437ceec
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSU5KVkxNSEkeHk8eThoZTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	JDQkpVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=NPeuArak9zMBvuarSz5iKVEXiIL5odXzHe5EvTEshRuaYGKWeZyxojJZEiFfdtC4heHfEzbZbkZVtNu19b/JTmusgkP9X0NPHjv9QkvBFKFwJMZDtsTg3rmz4rB4eD7OJqLa6UA9OHkrEgxpIQfL+re9Hn40DqgI5Rc6oJ/nSkc=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=EpVz/2867iTyXyA6HpAsWnkijlEWB7GK5XYbayHtyU0=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/28/26 10:01, Dave Young wrote:
-> Cced kexec list.
-> 
-> On Mon, Sep 28, 2026 at 09:28:08AM +0200, David Hildenbrand (Arm) wrote:
->> On 9/27/26 21:20, David Carlier wrote:
->>>
->>> Hi David,
->>
->> Hi!
->>
->>>
->>> It seems dropping SECTION_MARKED_PRESENT_BIT shifts the other section flags down
->>> one bit. crash hardcodes SECTION_HAS_MEM_MAP as (1UL << 1) in
->>> pfn_to_map(), so it now tests SECTION_IS_ONLINE: offline and
->>> ZONE_DEVICE sections no longer resolve to a struct page. makedumpfile
->>> only checks bit 0 and is fine.
->>
->> Thanks. To be expected when relying on kernel internals.
->>
->> Which makes me wonder why makedumpfile
->> (https://github.com/makedumpfile/makedumpfile) not require any such information.
->>
->>>
->>> Keep bit 0 reserved, or export the bits via vmcoreinfo?
->> We could export it, or crash can simply detect the change based on the kernel
->> version. I remember the latter was done in makedumpfile in the past (although we
->> export it).
->>
->> I can send a separate patch to export it.
-> 
-> Thanks David.   Checking kernel internals via kernel version is not a good idea
-> due to the downstream kernels.
+Rebase after the following two patch series:
+[0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
+[1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com/
 
-Patch at:
+This series improves the HPD (Hotplug Detect) interrupt handling in
+the Analogix DP driver to enable reliable native HPD pin detection on
+Rockchip platforms, and introduces platform-specific HPD detection
+schemes with fine-grained interrupt control.
 
-https://lore.kernel.org/r/20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered, clocked and initialized to generate
+plug/unplug interrupts. The previous driver enabled/disabled IRQ during
+bridge enable/disable, which left no HPD detection when the display
+pipeline was inactive. Additionally, the interrupt mute/unmute/clear
+routines operated on all HPD interrupt bits unconditionally, lacking
+the granularity needed for per-event control.
+
+The series reorganizes IRQ and pm_runtime management into bind/unbind,
+adds IRQF_ONESHOT to eliminate read-modify-write races on interrupt
+mask registers between hardirq and threaded handlers, converts the
+interrupt type detection to a bitmask-based scheme for fine-grained
+mute/unmute/clear operations, and configures Rockchip platforms to use
+the HOTPLUG_CHG interrupt with a 2ms HPD deglitch setting for better
+stability.
+
+Furthermore, the next bridge is now resolved into bridge->next_bridge
+instead of the platform data field, the forced connected-status logic
+is restricted to panel endpoints based on the bridge chain, and HPD
+events from downstream bridges (e.g. display-connector with hpd-gpios)
+are handled through the .hpd_notify callback.
+
+Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+
+Native HPD pin mode:
+
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp_txm0_pins>;
+  };
+
+GPIO HPD mode:
+
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp0_hpd>;
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+  };
+
+  &pinctrl {
+      edp {
+          edp0_hpd: edp0-hpd {
+              rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector without HPD GPIO):
+
+  &edp_out_conn {
+      remote-endpoint = <&dp_con_in>;
+  };
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector with HPD GPIO):
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+      pinctrl-0 = <&edp0_hpd>;
+      pinctrl-names = "default";
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+All four configurations detect cable plug/unplug events correctly.
+
+======
+In the previous version [2], Heiko reported that the Analogix DP
+connector state could not be retrieved correctly after probe. With the
+current v3 series, analysis shows that the connector hotplug events are
+now reported accurately:
+
+1) When the display-connector bridge has hpd-gpios configured, its
+   .hpd_enable() callback schedules the HPD work, which triggers the
+   .hpd_notify() callbacks of all bridges in the chain. The following
+   call stack reports the event during binding and invokes the Analogix
+   DP .hpd_notify() callback:
+
+   rockchip_drm_bind()
+     -> drm_kms_helper_poll_init()
+       -> drm_bridge_connector_enable_hpd()
+         -> schedule_work(&conn->hpd_work)
+           -> drm_bridge_connector_handle_hpd()
+             -> drm_kms_helper_connector_hotplug_event()
+
+2) The local test environment had CONFIG_DRM_FBDEV_EMULATION enabled,
+   where the DRM FBDEV framework called the Analogix DP .detect()
+   callback to fetch the initial connector state, which masked the
+   problem:
+
+   rockchip_drm_bind()
+     -> drm_fbdev_client_setup()
+       -> drm_fb_helper_initial_config()
+         -> drm_helper_probe_single_connector_modes()
+           -> analogix_dp_bridge_detect()
+
+3) With CONFIG_DRM_FBDEV_EMULATION disabled, the path in 1) still
+   triggers and reports the HPD events as expected.
+
+[2] https://lore.kernel.org/all/20260804081717.741404-1-damon.ding@rock-chips.com/
+======
+
+Damon Ding (14):
+  drm/bridge: analogix_dp: Return bitmask from
+    analogix_dp_get_irq_type()
+  drm/bridge: analogix_dp: Check all negative return values for
+    &analogix_dp_device.irq
+  drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+  drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
+    bitmask
+  drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
+    irq bitmask
+  drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+  drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+  drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+  drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+  drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
+    detection
+  drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data
+    field
+  drm/bridge: analogix_dp: Restrict forced connected status to panel
+    endpoints
+  drm/bridge: analogix_dp: Handle HPD notification from downstream
+    bridge
+  MAINTAINERS: Add entry for Analogix DP controller bridge
+
+ MAINTAINERS                                   |  11 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    | 153 ++++++++++++-----
+ .../drm/bridge/analogix/analogix_dp_core.h    |  13 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 156 ++++++++++++------
+ drivers/gpu/drm/exynos/exynos_dp.c            |  15 +-
+ include/drm/bridge/analogix_dp.h              |   1 -
+ 6 files changed, 233 insertions(+), 116 deletions(-)
+
+---
+
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls.(Sashiko)
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption.(Sashiko)
+- Update commit messages to align with newly added IRQF_ONESHOT related
+  commit.
+- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+  analogix_dp_reset().
+- Add new patch to restrict the forced connected-status shortcut to
+  panel endpoints only, allowing DP connector bridges to rely on HPD
+  detection. (Reported by Heiko Stuebner)
+- Add new patch to handle HPD notification from downstream bridges
+  (e.g., display-connector with hpd-gpios).
+
+Changes in v3:
+- Reorder the series: convert the IRQ handling to a bitmask and add
+  IRQF_ONESHOT before moving IRQ enable/disable to bind/unbind.
+- Add new patch to check all negative return values for
+  &analogix_dp_device.irq and propagate the actual error code.(Sashiko)
+- Rename macro HPD_IRQ to HPD_IRQ_ALL to avoid confusion with the
+  DP specification IRQ_HPD, extract the irq_type-to-register bit
+  mapping into a shared helper, and drop the unused
+  COMMON_INT_4_HPD_IRQ macro.
+- Simplify commit messages across the series.
+- Add new patch to use bridge->next_bridge instead of the plat_data
+  field, resolving the next bridge in
+  analogix_dp_aux_done_probing().(Suggested by Heiko Stuebner)
+- Report panel endpoints as always connected from
+  analogix_dp_get_plug_in_status() via force_connected_mode, computed
+  from the bridge chain at attach time.
+- Determine the hpd notify mode from DRM_BRIDGE_OP_HPD on downstream
+  bridges that lack DRM_BRIDGE_OP_DETECT.
+- Add a MAINTAINERS entry for the Analogix DP controller bridge.
 
 -- 
-Cheers,
+2.34.1
 
-David
