@@ -1,296 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACB04E0B8E;
-	Mon, 28 Sep 2026 16:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9844E2F2B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612541; cv=none; b=appNV2BmAO2rdDGSZ0YgpoRkkoMk4f6RPltqCETQJ/hT0Ic1OcyTGtYh+EaNsJ/mP15dFh74QDPRKP/W6ek7jIyMns0Iuk7ggHmL5PCeXsnMtuhL8H9B3VZeZa5i/Im4RHfjDznW7GNylYINbUhk9q6o6P6uEAnomWkotkMU6SI=
+	t=1790612545; cv=none; b=ZOPNpjngjowC92uVWcASbGIjaDxizIJCjwWffOD81OpQWaaIMXjElNkvmBAs9EuKGHwy5qU/r5vfBZYFXv7YcPlrcVK9YDT8Dauj1JpsfMQQSBI9zDoPkEYxUf1usJDmNL6C0viQXgr2jlP0vZmf6qWBDql+Q9tbJJ1KRvsa7zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612541; c=relaxed/simple;
-	bh=pDWOGFyWouNEZF+awmHlMPjXiLztfhV7MDBC8hfwm9s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fzdvGb99y/+8/mtgez31q5UP6LDgfYgCRUIbu2bxVEgRZEbwX+wQ3g+Y6yplRFynhoqllt1LeDxFzjrZmqxj/6NdX2PrBr1xldSjkLKw941QicqTBCYg9SkBiCZqUBJzkAMih7qI1dSnZDZ3xnOYApRml5XYuH6Hrwwvige2Oks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xj+KoD+I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790612545; c=relaxed/simple;
+	bh=T0BVWlH+xvCgpGrbu8nNWISjsWHXibM8xFq2to97JoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G6I4w/dELRGocy9a10Cr42GoS/DTloiTlWw7QsPdGpjYezHd6Jgsav8qZljBZUUEchYOiwouzBDSW8GavCpClBcrJWzEjI7wZHPsOH0E9jRMGWpYl1cvyyoNZLoLCtDrfTC2sxx560FQ03iUzUEJiLmifcIFXg9esXiNKhExIjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXBNNdrP; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xj+KoD+I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7381F000FF;
-	Mon, 28 Sep 2026 16:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612539;
-	bh=H1WTmhyLHKhOqWu61NpTR/qh7tvb+QfQ7sfdNN6kkjI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Xj+KoD+IfywWzjwLaCyyNCG1EpffnGlD5ybfFCqt6bjTkBupcVGdWGXmAuI1fhXM3
-	 NuQO85NvvdPuOW6r6UCJy50+27loUOBhKIxKH0eXI8UGPjjpVGr6Xz/FFu0TMtFeTY
-	 kfonwOYrgRIezYbHpS8JVbQs/+sjVENmk3t1U8jJHKILpIWngJlyBplNR8parKzR1B
-	 f9TOl5ytSYo6bdOtvowpevGh4GawshPX5oAnHD7ai8Wn3u1ezEr7piWqxlHBOUbmr7
-	 6OQaN5DBydJrrYb/+cBOdsWY76ZAL+LmmMV2R+Ze3T5QWkio7VECidwO25RW1w/WOp
-	 dbWTFYNAzopjg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 28 Sep 2026 18:22:01 +0200
-Subject: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXBNNdrP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so26428565e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:22:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790612542; x=1791217342; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pnCeuLGKaQE+iBUrLvw9M2eMKqv09/kl1t4RvltPK10=;
+        b=eXBNNdrPIkTnwGz1WO2x3siSqzZk9NZTx99SD69BsgT5Wkoy0YZh2VInAruhjkYpXa
+         ENYXaD2rYB/sSFVWSOwAk8zocTYvKu+cWGFq0Qw/ZhrWwSgU0pr+EmZD4Du6ps0BeOxJ
+         xyn2eJi/0yslacFl4ibW0XxdB0e7nRVBdGuGQ+UeJEe1mDJfF+gvtGofBaCbren184BI
+         1XgWBfNJCNdYI9QeapMEChSthDFCH/kd2YBn2r1YQla14ypMFLwqNzCNZkAXbcnCdZr9
+         FgUn980OojVDTMtFM7N/rAsuYTBQGZErkgXmkOzCybLDzwUfBXzQqb4u/725l0A+w7IL
+         XQKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612542; x=1791217342;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pnCeuLGKaQE+iBUrLvw9M2eMKqv09/kl1t4RvltPK10=;
+        b=JoUuoHaU38i0O9ERvxJqE7J9xE+neoR5INBHsO/ThOztZWww25YDGtVkRbv0xYiW2N
+         w0i2XmPaxX9Rshbw7KekNHx32jknQDRXtjdOTeeFoI6Kcewwe6zUGnpW36NJ18+pRYa3
+         4hDV3TuCu57YisVbKm54DX/rDLwhct1JC+PKM7HXiRHIL1FVbmhUSTsfWtsILCvMs4E2
+         j6hjrAp2OUxsiq4nV26ZuMzeZOP55zjWevPoR8tF9TSmCUEctkescppzYQcGUVZKj05b
+         NnuDI21KglREHhFnlF8A13wRMvS2c33teREjpWlIQ2Be+6M/TzY3rUJs3VEF0Av58IwF
+         kyfA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0ciWPbVGanTOw1pT+JKE39NmZjnypMBInH5xCTjg9zzAUPKqNRSYTOgmx1htsNcqg9V4D5u/kpynFuFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKAZ8TwLYRh4XTr89jifLGALGCwEus6S6iwtUY7AS4K1E1rObu
+	XAMmTUZWLu6VFS03msg6i3RJO0yb+iSqFi5QJgiwiRfElZdblPztij8z
+X-Gm-Gg: AYBFou1IxREI+moLHiUMef7CEEG2jTrzpOsISS276Ckz+z4wGRyUQgcg5crG5aNkY46
+	0znjWPCL2/fPJrQepSCiKMchkNgakBaMN+luUDD7D+4B78YdOEbax4qQFFG6/xfT0DtChbnno7e
+	NxvcL/Kda4tTBu5WPtwzGUwz2KdhBARuDe4FqpVGiEY8OQUECdZJgyU0332c6RpZRX1N46AQgNq
+	wQJMkDoVVELLLvKYaO7Tor69DDLvvOvUVUwpqoeZnlp6eHJrPkC2dgkLPRTBAK2QfKblw7MX4IT
+	SyU1r1cLYR/Jed7QZQD00fnyFgb6wRIXSLTyeNNeJr7IYQBev3iLu9j1HNKSLWGfKjMOJqAG3H/
+	RIoDOvSZoOA441XKhKc4nTx7ReneFo+oipo9/HQwQClvc4zpSutmCfZwexHAp0U1I8RYEcO32lP
+	TQCylZEYEMbpyCzvJlNMBb5awDq4AECDXtWxJeVS00fmzKAu2Y+1kz+PEkYTS765JFmHZcS9qxv
+	s/VyMZS+lrSTs4UDElSgXIaNaXUIbZKx0MvNqup/kwtrImpA8I=
+X-Received: by 2002:a05:600c:348a:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-49fe7bbaf83mr222889565e9.23.1790612541529;
+        Mon, 28 Sep 2026 09:22:21 -0700 (PDT)
+Received: from sp1der-OptiPlex-7080.epfl.ch (dhcp-122-dist-b-107.epfl.ch. [128.178.122.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b150sm3372535e9.7.2026.09.28.09.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 09:22:20 -0700 (PDT)
+From: spidermana <xuyiwen14@gmail.com>
+To: mehmet.mkoseoglu@gmail.com
+Cc: a.hindborg@kernel.org,
+	acourbot@nvidia.com,
+	aliceryhl@google.com,
+	bjorn3_gh@protonmail.com,
+	boqun@kernel.org,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	gary@garyguo.net,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	lossin@kernel.org,
+	ojeda@kernel.org,
+	rafael@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	tamird@kernel.org,
+	tmgross@umich.edu,
+	viresh.kumar@linaro.org,
+	work@onurozkan.dev
+Subject: Re: [PATCH v3] rust: cpufreq: reject NULL from cpufreq_cpu_get()
+Date: Mon, 28 Sep 2026 18:22:14 +0200
+Message-ID: <20260928162214.487564-1-xuyiwen14@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
+References: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6464; i=mripard@kernel.org;
- h=from:subject:message-id; bh=pDWOGFyWouNEZF+awmHlMPjXiLztfhV7MDBC8hfwm9s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm7phgynmh8rHeV/dbtWULc6sKvNtVMj85q8DX3e7nMo
- rM7UP1Zx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjItDLGOrXdlkKPRfss7MMv
- H5JPDeeeISB3aZFYVM9D518sa2v324ZMnVa5VPRvtsEbg8CkHZEvGeu9F76fZrxRZzGz7rslT4M
- s5Gf9/d/zf2st258F+/gkJ98/8N5zmVKX7JdLkTyyifJW+7wA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-Most MIPI-DSI panel drivers follow an identical pattern: acquire
-regulators and GPIOs, perform a reset pulse with specific timing,
-send a vendor-supplied sequence of DSI commands, then enable the
-display. The only truly panel-specific part is the init sequence
-and power-on/off timing.
+On Sat, 29 Aug 2026 19:10:13 +0300, Mehmet Koseoglu wrote:
+> cpufreq_cpu_get() returns either a referenced policy or NULL.
+> PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
+> rejects ERR_PTR values but accepts NULL.
+[...]
+>          Ok(Self(
+>              // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
+>              // the returned reference.
+> -            unsafe { Policy::from_raw_mut(ptr) },
+> +            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
 
-The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-with a single generic driver whose panel-specific behavior is
-provided by BPF programs loaded from userspace at runtime,
-following the HID-BPF model. This enables new panel support
-without kernel patches.
+Just a quick nit here, maybe rephrase this SAFETY comment, e.g.:
 
-Panel DT nodes use a two-entry compatible with the panel-specific
-string first and "panel-mipi-dsi-bpf" as fallback. The generic
-driver matches on the fallback, while the first compatible is used
-to identify which BPF program to load.
+            // SAFETY: `ptr` is non-NULL and `cpufreq_cpu_get()` took a reference on it, so it is
+            // valid for writing and remains valid for the lifetime of the returned reference.
 
-Six normalized optional regulator supplies cover ~95% of existing
-MIPI-DSI panels: vcc (IC core), iovcc (I/O interface), avdd/avee
-(positive/negative analog), and elvdd/elvss (OLED EL driver).
+Either way, looks good to me.
+FWIW, I hit this too and have a reproducer [1].
+[1] https://github.com/Rust-for-Linux/linux/issues/1258
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++++++++++++++
- 1 file changed, 184 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
-new file mode 100644
-index 000000000000..9a20a21cf70e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
-@@ -0,0 +1,184 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/panel-mipi-dsi-bpf.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Generic MIPI-DSI panel with BPF init sequences
-+
-+maintainers:
-+  - Maxime Ripard <mripard@kernel.org>
-+
-+description: |
-+  A generic MIPI-DSI panel driver where the panel-specific power sequencing
-+  and DSI init commands are provided by BPF programs.
-+
-+  Panel DT nodes use a fallback compatible so the generic driver matches on
-+  "panel-mipi-dsi-bpf" while the first compatible identifies the specific
-+  panel for BPF program matching.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - description: Panel-specific compatible string
-+      - const: panel-mipi-dsi-bpf
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  backlight: true
-+  enable-gpios: true
-+  height-mm: true
-+  port: true
-+  reset-gpios: true
-+  rotation: true
-+  width-mm: true
-+
-+  vcc-supply:
-+    description: IC core supply, typically 2.8-3.3V (charge pump input)
-+
-+  iovcc-supply:
-+    description: I/O interface supply, typically 1.8V (MIPI logic level)
-+
-+  avdd-supply:
-+    description: Positive analog supply for source/gate driver, typically +5V
-+
-+  avee-supply:
-+    description: Negative analog supply for source/gate driver, typically -5V
-+
-+  elvdd-supply:
-+    description: OLED EL positive supply
-+
-+  elvss-supply:
-+    description: OLED EL negative supply
-+
-+  dsi-lanes:
-+    description: Number of DSI data lanes
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 3, 4]
-+    default: 4
-+
-+  mode-video:
-+    type: boolean
-+    description: Use DSI video mode (as opposed to command mode)
-+
-+  mode-video-burst:
-+    type: boolean
-+    description: Use DSI video burst mode
-+
-+  mode-lpm:
-+    type: boolean
-+    description: Use low-power mode for DSI commands
-+
-+  mode-no-eot:
-+    type: boolean
-+    description: Disable end-of-transmission packet
-+
-+  clock-non-continuous:
-+    type: boolean
-+    description: DSI clock is non-continuous
-+
-+  hs-rate:
-+    description: Maximum lane frequency for high speed mode in hertz
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  lp-rate:
-+    description: Maximum lane frequency for low power mode in hertz
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  panel-timing: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - panel-timing
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "elida,kd35t133", "panel-mipi-dsi-bpf";
-+            reg = <0>;
-+            backlight = <&backlight>;
-+            vcc-supply = <&vcc3v3_lcd>;
-+            iovcc-supply = <&vcc_1v8>;
-+            reset-gpios = <&gpio3 13 GPIO_ACTIVE_LOW>;
-+            dsi-lanes = <1>;
-+            mode-video;
-+            mode-video-burst;
-+            mode-lpm;
-+
-+            width-mm = <42>;
-+            height-mm = <82>;
-+
-+            panel-timing {
-+                clock-frequency = <17000000>;
-+                hactive = <320>;
-+                vactive = <480>;
-+                hfront-porch = <20>;
-+                hsync-len = <4>;
-+                hback-porch = <20>;
-+                vfront-porch = <2>;
-+                vsync-len = <1>;
-+                vback-porch = <2>;
-+            };
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+  - |
-+    /* OLED panel using avdd/avee and elvdd/elvss supplies */
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "boe,bf060y8m-aj0", "panel-mipi-dsi-bpf";
-+            reg = <0>;
-+            vcc-supply = <&vreg_l14a>;
-+            iovcc-supply = <&vreg_l12a>;
-+            elvdd-supply = <&vreg_oled_pos>;
-+            elvss-supply = <&vreg_oled_neg>;
-+            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+            dsi-lanes = <4>;
-+            mode-video;
-+
-+            panel-timing {
-+                clock-frequency = <157000000>;
-+                hactive = <1080>;
-+                vactive = <2160>;
-+                hfront-porch = <36>;
-+                hsync-len = <4>;
-+                hback-porch = <36>;
-+                vfront-porch = <4>;
-+                vsync-len = <4>;
-+                vback-porch = <4>;
-+            };
-+
-+            port {
-+                oled_in: endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
-
--- 
-2.55.0
-
+Reviewed-by: Elowen Xu <malanalyzing@gmail.com>
