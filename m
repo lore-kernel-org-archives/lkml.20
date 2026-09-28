@@ -1,128 +1,117 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FE744F7993;
-	Mon, 28 Sep 2026 22:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582B22EEE9E;
+	Mon, 28 Sep 2026 22:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634246; cv=none; b=MgIusAm0nHDs1mfboJXK+8pO5q43PVha6yBPPp9+MA0cWd/odYcNqfwdCTCWogrdkxet+nXAgGBP7hM9BIOle+m5mzjalRDcsSWMxLlqKVSrUSLyxZq6hQRvyunmL0W7DbwBYOyNYIZcnyPF8sW9fC+eMwTJOYJBSyeA4Ga8Ijc=
+	t=1790634285; cv=none; b=Dr/iaOXaVKHPYkhJyqB772PlkUMrmsBGglk3Cdj6agZOdtPC94EH7O0mAZWaQhL2EulbtqwX7CEQSKTfhOSOyN3F0uDgojWNZVbpoe9YsImcT8V8rL0LrhwR5csQ8l3EvakEa2cemLDQH6Mg57aGjUHRuAg91wjtN44WT3v5SNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634246; c=relaxed/simple;
-	bh=yWgL9R8J6QfXxcaXNP6NyG6bCWOtvD6I5vqArl62G4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=emrXv5LIV933zRwRSq4RoX6Z72XgT8z/LbpOX0uKpOF4PgsiNfhRWkyldOxQT7RcMHe1W1fAhT3OBG5mNXl2KDhUJJ8cyRx8ZvNidzdsNxPszT5xtmBM4UJjTFXIe+utPPFM3yiQSAONDSyAXVJOh7An6BKM/dXZM5uuQxK6HcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gAI7EDjq; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790634285; c=relaxed/simple;
+	bh=CQ1sHx0JdzzR5DVXNUibmZyTLdxwADEgfkQSPEiTcW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=DSVr9U9LZCTqflYl0DOw/r3iMRHKE/jaCGmy32KNimtC7uB2XD01EU6cfy2+k24cWDyfo6pnSpLyzZ+I1T6V/+ii18kae1l5zN/xukhPfQ4rk6RDyx66X6zD0UdSRXXmpfZ+daUNBL6Eq80TyJtipYr5C/xlUXKj9RKKLNZm5kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/m4TO+b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gAI7EDjq"
-Received: from localhost (unknown [20.236.10.163])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A060820B716A;
-	Mon, 28 Sep 2026 15:23:12 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A060820B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790634193;
-	bh=cTAy/BNC2U75pwxrEQc/VQ2Mbb57wX4ATnB/0hzfS3A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=gAI7EDjqyqQ3DD7dzjcplEewID1FzVgGMiszzqePOOKyl6tBjAXDFze5Wz3Qgzx41
-	 ZndL0a+CbpuSvtMmsPAH+Q0/I7U7HqNBxw6FrKEMUllabi+KmjQXKZSGN5vT+fv8nt
-	 Biy2cV00WKQ2Zpxj4uclJ9HcIlVmLAUorXbDUZto=
-Date: Mon, 28 Sep 2026 15:24:02 -0700
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alexey Kardashevskiy
- <aik@amd.com>, Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel
- <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, Kevin Tian
- <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
- <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
- <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
- <yilun.xu@linux.intel.com>, Shameer Kolothum
- <shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini
- <pbonzini@redhat.com>, jacob.pan@linux.microsoft.com
-Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
- parent
-Message-ID: <20260928152402.000079ce@linux.microsoft.com>
-In-Reply-To: <20260928182022.GD1616761@nvidia.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
-	<20260917140159.1163281-6-aneesh.kumar@kernel.org>
-	<179027891416.104879.10365675178574704349.b4-review@b4>
-	<yq5ald8pkhj7.fsf@kernel.org>
-	<20260925122305.GG9354@nvidia.com>
-	<yq5a5wzpr7b9.fsf@kernel.org>
-	<20260928121147.GP9354@nvidia.com>
-	<yq5azex1peqt.fsf@kernel.org>
-	<20260928161738.GB1616761@nvidia.com>
-	<20260928110854.00003ff0@linux.microsoft.com>
-	<20260928182022.GD1616761@nvidia.com>
-Organization: LSG
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/m4TO+b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16091F000FF;
+	Mon, 28 Sep 2026 22:24:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790634283;
+	bh=QXHVC5yMZceL5J1JsKV4vQfSwG3c2NxZWnu6Pfi0xFw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=F/m4TO+b8y+Bwyx9DgGsfW0txIaTWEuEM6ClnjSJfebYcblSdTTjbzP1Fcioz33Pd
+	 z3mvkX5AA3HiF+s2GgpeYaqXzJNxX2cIb9F2uS6yG//b3i7eeqkqU+fusQmhy7ni6i
+	 zmSxlnBxTofWY65Q/tGeTVyQhIL9s/EEtOJ/6+9vtVPgEcN4QjaxRS0OBAxwGBuDsM
+	 vl4NblMQBj/oOcOrChd2PZJMbltqau8oJvI50Kx+BEqLH8uOINJAuCsGRWERYM8WMW
+	 kHViKsa++YJSl9B8dh2Q39BC/C2THqEfjkKB/ofLWXMqMUqQtxKe9SP4IWb349mMBh
+	 QjlNROFCx2nEg==
+Date: Mon, 28 Sep 2026 17:24:42 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-pci@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
+ PCIe4
+Message-ID: <20260928222442.GA2266778@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3bb47958-09e2-4726-85e3-8e5d3873840e@mailbox.org>
 
-Hi Jason,
-
-On Mon, 28 Sep 2026 15:20:22 -0300
-Jason Gunthorpe <jgg@nvidia.com> wrote:
-
-> On Mon, Sep 28, 2026 at 11:08:54AM -0700, Jacob Pan wrote:
-> > Hi Jason,
-> > 
-> > On Mon, 28 Sep 2026 13:17:38 -0300
-> > Jason Gunthorpe <jgg@nvidia.com> wrote:
-> >   
-> > > On Mon, Sep 28, 2026 at 09:09:06PM +0530, Aneesh Kumar K.V wrote:
-> > >   
-> > > > Does that mean the SMMU driver will return viommu_ops before
-> > > > iommu_ops->viommu_init() is called? If so, should viommu_init()
-> > > > be moved into viommu_ops?    
+On Mon, Sep 28, 2026 at 11:32:37PM +0200, Marek Vasut wrote:
+> On 9/28/26 11:01 PM, Bjorn Helgaas wrote:
+> > On Mon, Sep 21, 2026 at 10:27:48PM +0200, Marek Vasut wrote:
+> > > Add support for R8A78000 (R-Car X5H) PCIe4.
 > > > 
-> > > That's probably the cleanest arrangement, yeah. Then the TSM ops
-> > > are just the same 'get_viommu_ops' call under TSM and it is easy
-> > > to put in a flag 'must have null hwpt' that goes at the right
-> > > point. 
-> > This should also work for the parentless hypervisor vIOMMU in my
-> > RFC: https://lore.kernel.org/linux-iommu/20260925190742.1575380-1-jacob.pan@linux.microsoft.com/T/#t  
+> > > This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+> > > of R-Car X5H PCIe4 are almost all the same.
+> > > 
+> > > The controller initialization sequence is slightly different and is
+> > > factored out into controller specific callbacks, in a manner similar
+> > > to previous R-Car Gen4 handling.
+> > > 
+> > > The controller does have a PHY attached to it, but the PHY is operated
+> > > by a separate PHY driver, the PHY driver instance binding is handled
+> > > in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
+> > > controller specific callbacks.
+> > > 
+> > > The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
+> > > DT compatible string to discern R-Car X5H PCIe4 controller supported
+> > > by this driver, from R-Car X5H PCIe6 controller which will most likely
+> > > use a separate driver.
+> > 
+> > The gen5/pcie4 usage is confusing.
+> > 
+> > I often push back on things like "PCIe Gen4" because it's ambiguous
+> > (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
+> > something else), but it's so widely used to mean transfer rate that
+> > it's hard to resist, and the best I can hope for is clarification.
+> > 
+> > But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
+> > mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
+> > is something like "PCIe Gen4, i.e., 16 GT/s"?
 > 
-> Yes! That case is very similar, the hypervisor under Linux is a close
-> cousin to RMM/TDX.
+> Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
 > 
-> > I will give below a try, I currently have below (can be avoided if
-> > get_viommu_ops() can simply return NULL for the hypervisor type):  
+> PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also PCIe
+> Gen6 core in the same SoC, but that will require a different driver and
+> different compatible string.
 > 
-> The amd_iommufd_get_viommu_ops() must only permit its own type, but
-> AMD doesn't have a type right now because they are merging their
-> patches bit by bit..
-> 
-> ARM already returns NULL:
-> 
-> > > +const struct iommufd_viommu_ops *
-> > > +arm_smmu_get_viommu_ops(struct device *dev, enum
-> > > iommu_viommu_type viommu_type) {
-> > >  	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
-> > >  	struct arm_smmu_device *smmu = master->smmu;
-> > >  
-> > >  	if (!(smmu->features & ARM_SMMU_FEAT_NESTING))
-> > > +		return NULL;  
-> 
-> Though I wonder why would you check for IOMMU_VIOMMU_TYPE_HYPERVISOR
-> in the amd driver?
-> 
-It is an early capability check. AMD vIOMMUs require a nesting
-parent, while IOMMU_VIOMMU_TYPE_HYPERVISOR is parentless. Returning
-zero prevents the core from allocating an AMD vIOMMU and calling
-viommu_init() with a NULL parent. As you said above, AMD doesn't have a
-allowed vIOMMU type yet.
+> Since none of this shipped in any kernel version yet, would you prefer some
+> sort of rename ? I can send patches.
 
-> Maybe hyperv should be a TSM?  Maybe we should also route the
-> get_viommu through the the "kvm" fd somehow?
-Just to understand this better, are you suggesting to do away with
-hv-iommu-root driver in the context of external domain attach, instead
-let mshv (hyperv) register as a vIOMMU external provider?
+Huh.  TIL that pcie-rcar-gen4.c refers to the 4th generation R-Car
+SoCs (and, I guess the point of this series is to add support for 5th
+generation SoCs), not to PCIe Gen4 link speeds.  I see that
+"renesas,rcar-genX" is all over the place in 'compatible' strings, so
+I guess we should follow that precedent.
 
+If the "renesas,rcar-gen5" SoC includes both PCIe Gen4 and PCIe Gen6
+cores, I suppose everybody refers to them as pcie-gen4 and pcie-gen6,
+so the "renesas,rcar-gen5-pcie4" you used is probably the obvious
+choice.
 
+But maybe we can make commit logs less confusing by saying things
+like:
+
+  - R-Car Gen4 SoCs S4/V4H/V4M
+  - R-Car Gen5 SoC X5H
+  - the R-Car Gen5 SoC PCIe Gen4 core
+  - the R-Car R8A78000 X5H PCIe Gen4 core, which supports a x8 link at
+    16 GT/s
