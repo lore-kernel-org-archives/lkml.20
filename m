@@ -1,53 +1,46 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F02036F90C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F96329E4B;
+	Mon, 28 Sep 2026 02:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790562969; cv=none; b=G7hPOqUY1Tgy5e/xxL9JOaUhlip9IEvFX+11CsZ1tiTnHI2hvT+Q7jHCEL2rlgce1O6Vw8LTt7Jx87SaFz8MTLAQEJrgNW1mzV9pHdmAcUXDEHp0+Oywb1GdgtzbBimgIOHyPadDiX9z9vLr1UJ8gAgCQDwyuVM5aehlnc7JARE=
+	t=1790563084; cv=none; b=tjwgD0Ipj6l91566Tp+iI/w8+KMeGbyU33TU3ej3R8/sLjF79suTHzm26paoly7muIFkg8YjHoOPsbI8eHtjpSeh862pKPNKatS9EBi5Wfm12vAaWvsyogYXMP/Fe4HNL4ohArmqOs6wo0LtSeR+7yQFs/ZbF03zYI3Q7Mj1lSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790562969; c=relaxed/simple;
-	bh=OUtN1NPk1mRcfZkghFoTTbHusGeyv7h9M8UBOmmvCtc=;
+	s=arc-20240116; t=1790563084; c=relaxed/simple;
+	bh=P+ozHXXzbc99l5W2TO+4GV9+gDsHam+tloYu5S074HY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k8b386+wck2hNq5xvyyfbyBizbs9jJSjsg+5W19CAQp1S2VpMl0beSKLaVLS22swsszKa3BHx+kPJ0Cysg+J1A1hjD3BnfptXHWUrfYESKmOFaX1eG63ZU32hXpV9uUL7EOcTQZzNmKObUTic5BCT3wWp6FTS+1zU3GLfCT+nBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ExIenBAr; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=OzeyBzfarWSnT6FQ3lt0q49w3qhvB083Pn5jkwCgn7K2gcFtYfymnoz6cWUGxxdWj5g3S8DmS/WeZtMmLauF8MFdi+zWZAtRJ4lNBy2iaIVIyO58eo7leLDxkIESVm9p4ThY+3yA4b3bbukq1EQmF1XImbMUPWb22CSw7EOauEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZFpJp8Xf; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ExIenBAr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OUtN1NPk1mRcfZkghFoTTbHusGeyv7h9M8UBOmmvCtc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790562964; v=1; x=1791167764;
- b=ExIenBArV7FedfoeAA9QxeR4kIbQmTaySFLtdu8yio8xOiYmZ8QAsN71JpQ7saBgfEcZjTsR
- PAX6x7qyfBTe5JcXlM1QWboqGU5Vzivon4lPuWUSfpKyBg7+3T3GZ3/oPlzBQiSaGzujPDSklR8
- RvQm/Uc5V6uOwnK/PzOQar3M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9cace0c6bcb29ea3;
-	Mon, 28 Sep 2026 02:36:04 +0000
-X-Mizu-Trace-ID: 9cace0c6bcb29ea3
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Tom Herbert <therbert@google.com>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZFpJp8Xf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Zu
+	L58/ZwTVO1G/8FczzDO+eS4OSmnaixwJyDc3790Gw=; b=ZFpJp8Xf+R0W2HD7NV
+	HwtaY7wPY1FPUMz7Xl89KQD4Zf5NrgIeI5HK7woJwwlXOR6Ywvb0UZn4SdlyQepU
+	VoArsNTEHzAzAZnRrZxLRkwGOKxFRcHUu+lhL7CzkIuVF1caUxdVPPxE7g9p0JF7
+	I0FjsTj42inK4yPXe2Y5AhSZ4=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDXX97F0rlq7pg8BQ--.54366S2;
+	Mon, 28 Sep 2026 10:36:54 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net-next v2 2/2] selftests/net: check auto-selected port with reuse options
-Date: Mon, 28 Sep 2026 10:31:42 +0800
-Message-ID: <20260928023145.301855-2-jiayuan.chen@linux.dev>
+	quchaosheng000406@163.com
+Subject: [PATCH] Documentation: sched-preemption: Add a SPDX license identifier
+Date: Mon, 28 Sep 2026 10:36:38 +0800
+Message-ID: <20260928023638.1397038-1-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928023145.301855-1-jiayuan.chen@linux.dev>
-References: <20260928023145.301855-1-jiayuan.chen@linux.dev>
+In-Reply-To: <87v77s2f02.fsf@trenco.lwn.net>
+References: <20260922083101.99685-1-quchaosheng000406@163.com> <87v77s2f02.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,135 +48,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXX97F0rlq7pg8BQ--.54366S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrurW3XF1DKr1xuw4xJw4fZrb_yoW3WFgEq3
+	s5WF45Jayjqr1vqF43tFW5WrW5Ca12kF4DJw4kA345J34Dur1DKryDWF1vyw1xGr43uFy5
+	X390gFnxtFnFkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRRAhltUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AbuZGq50sbccgAA3B
 
-Use IP_LOCAL_PORT_RANGE to limit a socket to 8 ports, bind 8 sockets
-to port 0 and check they get 8 distinct ports and the 9th bind fails
-with EADDRINUSE. Run it for the four combinations of reuse options on
-the sockets:
+The file was added without a license identifier.  Add one, matching the
+other files in Documentation/scheduler/.
 
-  none                         (existing test)
-  SO_REUSEPORT
-  SO_REUSEADDR
-  SO_REUSEADDR + SO_REUSEPORT
-
-TCP passes all four. Before the udp fix UDP only passes the first
-one: the scan hands out a port already taken by a socket with the
-same reuse options, so fewer than 8 distinct ports come back and the
-9th bind succeeds.
-
-  # ./ip_local_port_range.sh
-
-Before:
-
-  ok 13 ip_local_port_range.ip4_udp.exhaust_8_port_range
-  not ok 14 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseport
-  not ok 15 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseaddr
-  not ok 16 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseaddr_reuseport
-  ok 49 ip_local_port_range.ip6_udp.exhaust_8_port_range
-  not ok 50 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseport
-  not ok 51 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseaddr
-  not ok 52 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseaddr_reuseport
-
-After:
-
-  ok 13 ip_local_port_range.ip4_udp.exhaust_8_port_range
-  ok 14 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseport
-  ok 15 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseaddr
-  ok 16 ip_local_port_range.ip4_udp.exhaust_8_port_range_reuseaddr_reuseport
-  ok 49 ip_local_port_range.ip6_udp.exhaust_8_port_range
-  ok 50 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseport
-  ok 51 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseaddr
-  ok 52 ip_local_port_range.ip6_udp.exhaust_8_port_range_reuseaddr_reuseport
-
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Suggested-by: Jonathan Corbet <corbet@lwn.net>
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 ---
- .../selftests/net/ip_local_port_range.c       | 52 ++++++++++++++++++-
- 1 file changed, 51 insertions(+), 1 deletion(-)
+ Documentation/scheduler/sched-preemption.rst | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/selftests/net/ip_local_port_range.c b/tools/testing/selftests/net/ip_local_port_range.c
-index e6834a6cfc8f..3d32b33cba46 100644
---- a/tools/testing/selftests/net/ip_local_port_range.c
-+++ b/tools/testing/selftests/net/ip_local_port_range.c
-@@ -301,7 +301,27 @@ TEST_F(ip_local_port_range, single_port_range)
- 	}
- }
- 
--TEST_F(ip_local_port_range, exhaust_8_port_range)
-+#define REUSEADDR	0x1
-+#define REUSEPORT	0x2
+diff --git a/Documentation/scheduler/sched-preemption.rst b/Documentation/scheduler/sched-preemption.rst
+index bfa22559c29b..b48e53587a7a 100644
+--- a/Documentation/scheduler/sched-preemption.rst
++++ b/Documentation/scheduler/sched-preemption.rst
+@@ -1,3 +1,5 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+static int set_reuse_opts(int fd, unsigned int flags)
-+{
-+	int one = 1;
-+
-+	if ((flags & REUSEADDR) &&
-+	    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)))
-+		return -1;
-+
-+	if ((flags & REUSEPORT) &&
-+	    setsockopt(fd, SOL_SOCKET, SO_REUSEPORT, &one, sizeof(one)))
-+		return -1;
-+
-+	return 0;
-+}
-+
-+static void exhaust_8_port_range(struct __test_metadata *_metadata,
-+				 const FIXTURE_VARIANT(ip_local_port_range) *variant,
-+				 unsigned int flags)
- {
- 	__u8 port_set = 0;
- 	int i, fd, err;
-@@ -313,6 +333,9 @@ TEST_F(ip_local_port_range, exhaust_8_port_range)
- 		fd = socket(variant->so_domain, variant->so_type, variant->so_protocol);
- 		ASSERT_GE(fd, 0) TH_LOG("socket failed");
- 
-+		err = set_reuse_opts(fd, flags);
-+		ASSERT_TRUE(!err) TH_LOG("setsockopt(SO_REUSE*) failed");
-+
- 		range = pack_port_range(40000, 40007);
- 		err = setsockopt(fd, SOL_IP, IP_LOCAL_PORT_RANGE, &range, sizeof(range));
- 		ASSERT_TRUE(!err) TH_LOG("setsockopt(IP_LOCAL_PORT_RANGE) failed");
-@@ -335,6 +358,9 @@ TEST_F(ip_local_port_range, exhaust_8_port_range)
- 	fd = socket(variant->so_domain, variant->so_type, variant->so_protocol);
- 	ASSERT_GE(fd, 0) TH_LOG("socket failed");
- 
-+	err = set_reuse_opts(fd, flags);
-+	ASSERT_TRUE(!err) TH_LOG("setsockopt(SO_REUSE*) failed");
-+
- 	range = pack_port_range(40000, 40007);
- 	err = setsockopt(fd, SOL_IP, IP_LOCAL_PORT_RANGE, &range, sizeof(range));
- 	ASSERT_TRUE(!err) TH_LOG("setsockopt(IP_LOCAL_PORT_RANGE) failed");
-@@ -352,6 +378,30 @@ TEST_F(ip_local_port_range, exhaust_8_port_range)
- 	}
- }
- 
-+TEST_F(ip_local_port_range, exhaust_8_port_range)
-+{
-+	exhaust_8_port_range(_metadata, variant, 0);
-+}
-+
-+/* Auto-selected port must not land on a port already taken by another
-+ * socket, whatever reuse options both of them have, so all 8 sockets
-+ * must get distinct ports.
-+ */
-+TEST_F(ip_local_port_range, exhaust_8_port_range_reuseport)
-+{
-+	exhaust_8_port_range(_metadata, variant, REUSEPORT);
-+}
-+
-+TEST_F(ip_local_port_range, exhaust_8_port_range_reuseaddr)
-+{
-+	exhaust_8_port_range(_metadata, variant, REUSEADDR);
-+}
-+
-+TEST_F(ip_local_port_range, exhaust_8_port_range_reuseaddr_reuseport)
-+{
-+	exhaust_8_port_range(_metadata, variant, REUSEADDR | REUSEPORT);
-+}
-+
- TEST_F(ip_local_port_range, late_bind)
- {
- 	union {
+ =====================
+ Scheduler preemption
+ =====================
 -- 
 2.43.0
 
