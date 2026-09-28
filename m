@@ -1,129 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f29.google.com (mail-wr2-f29.google.com [74.125.225.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5F64DE729;
-	Mon, 28 Sep 2026 14:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7AF4DE725
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.93
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606352; cv=none; b=PZNf5Lhbe+fvHXWNs6FGXW1ZE3JiKtUaSj76tJXT4zHnEQK35SnACr99eRIzC8qThdsqeRD6f7pYbJpCt/xBteay+3rsnPFspJi5/1B6a9hp5QGJ7KFwbIjXc8UkMNPeo/YOY+VRP2cVFjehQjDTpQ4FoXV7+HdglmS+iIU9amU=
+	t=1790606354; cv=none; b=GGvuuMqhZtAJgn2qP9f1FOxTdJpZYX/fTrfqJMvKMzLBQ53bLL1uOmMv3Sv44H79rJBipcY8ckHFixfZn+7Sv3Ao1BBU9kcfCSbdOPbuOqXtcm8t9bQLuL71ro2S0IpY9Hv9+HdeARSTj08a8Qqbr1KECAOGvzhtZumAFcGPcs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606352; c=relaxed/simple;
-	bh=4YjKs+L2GTxwc1OBkiJDc7B54oY4PcXWb8rFB33O4JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crsq2vRhX0RNlVbLvgCF4VAhiMpUNnM/bldnilxtgX0Q09WbwDE0beB5pVN4ElRpjXnq3lZo2y0AdHZnI7Yszba0Kcgr1AnrtsyMD5tQJwaOonjdWo+387KnMBPZf9k9idxdG4seI0uwB3+On1pTw4pxTAp37KRbtP7JivuJDX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O5ZrpoO5; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790606354; c=relaxed/simple;
+	bh=Go39NKKMwkuXXP/SejpjyZo/TgbX2bfpHuiP0B8nCjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qMGFxap3gnvowDS/ysNcBJ1dvSL8+1orQR0Whk1FsZ2LKjUNLUMtK5HMDFgRsV+uVEapIUohBdOh1BwUqDdyZXnWPAH6bwr/CCNKcFtdvhjwSYn9B4cPU08bkt4GRJX/OBkBJxZX9CwW+neLZuFGSaFF3xW8DiF+IeHJzRuYB2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dFTEi4Xv; arc=none smtp.client-ip=74.125.225.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O5ZrpoO5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790606348; x=1822142348;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=4YjKs+L2GTxwc1OBkiJDc7B54oY4PcXWb8rFB33O4JQ=;
-  b=O5ZrpoO5ctK1ckLnxKCVOEyWl2YwT7lDNxf8Xkqp8Vq0aDx2bBrF7CU+
-   S7Sw7mxRWQo6J2jVfjQCSsA518n2pi1YTuGothIRrBZx8JVjgQ6QA8HKD
-   NSm7uDLI6U7SxTizqaR1/dIMVxW9g1vdHtoyJo2dth305odaS5TJZV8jn
-   k5lhIzPoJ1D6XfYGxIYqAjrsa43ep/XsH6h4heM2EWVqdug8NnXbUlVdW
-   ZhqfMUr7bpoI9x/lzdpH4UU4BLoT9p30XenQaj0hMEV6t5OXsRbnnou0i
-   PEGojPHrSBIi6bKNfPgST6Lp/th5pbCIwD6M8d7GeJJEMR9lgkFBvxfbg
-   g==;
-X-CSE-ConnectionGUID: l4jF6hM/SwOOKD4g41driA==
-X-CSE-MsgGUID: SSYTAW8PSUCOcdGz0kWP5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90173831"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90173831"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:39:05 -0700
-X-CSE-ConnectionGUID: G4kgOxMISGC+43LOX2830Q==
-X-CSE-MsgGUID: PrTpgZWaTx6eAiTarsbhbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="272867583"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 28 Sep 2026 07:39:02 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 640C599; Mon, 28 Sep 2026 16:39:01 +0200 (CEST)
-Date: Mon, 28 Sep 2026 16:39:01 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Gris Ge <cnfourt@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org, Benson Leung <bleung@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Pooja Katiyar <pooja.katiyar@intel.com>,
-	Hsin-Te Yuan <yuanhsinte@chromium.org>,
-	Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Skip CAM query when partner has no alt
- modes
-Message-ID: <arp8BXZIrW6UFdbi@black.igk.intel.com>
-References: <20260927021649.8967-1-cnfourt@gmail.com>
- <CAMMMRMeX9-r_coX1zbUNoMGU+GUW56o4iY_jfyE5_ovFYs6UCA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dFTEi4Xv"
+Received: by mail-wr2-f29.google.com with SMTP id ffacd0b85a97d-48aef5d66c1so5800f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:39:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790606342; x=1791211142; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
+        b=dFTEi4XvVLZJszsReOkilJ7ow361Yt51GnX19cTotmVahtKj4/nNmLOU6MJUNiaK+Q
+         TiT3EzjtxZPUAkoNXyufdaap4MzAd/4A460k+ECGX2F83I9iwAbwGg9HnTLR22A9nXh5
+         9WXlYoR/cGo1b1NL3M+0rVm/sCVpObhpDbls5lLMcUj92lzAjlaSziKdoSfpeVaYHNZq
+         Gkp786T1UQnmM+53Q6wKdw6HyBhthXxxJ3m8OPNVQ8rNvpkYLiW8ny9D7rjWcLSDP/8V
+         f7YU2108AR86D37eZsXsrC5QPBKwJMjZMvZwstA7SqIv6U9Vu6eireIB25vHBi7xIJjP
+         x9rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790606342; x=1791211142;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
+        b=TQUViCiICa/aPQSna3LYErD+uQQKWXdul1FvIIoPFGSbqUMywGgfzFRQ86QdzwCxJJ
+         2mLWUhFoNoFhf3iGGqU7F6cJ+o5U+AcNr7RWqauhXoBj3iLGviCdQ8v2gdxJGH0OZxsi
+         7ZJ6QyA5O8X9/efwXzHWy0gqb/cgCO0eEaQKSTUTKYRiNMqwri2K+foLYz/7AJMjhWDs
+         5I011NQgomQTm9LlyTKLIXftZEFF3DGp6WgVwWJ+aJALFlNyTalG6YH38MCGfe2bghrq
+         pRTizK8/kSZvNE0w1f6Tuh4DvlDVKYDH4liXN1uyE/yBKQ+BAhLE+BNN2MGvY6oujhkZ
+         kxdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMFzrMRet7/Xa4PLrNAwJlmKXwdTc2GiJBPpOtFYVP+5UTOAWvrZF5jaNxU9sSJtNUyEBIPH+R7tMKXv8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZCwbgCSRgcK1n1++MPKuNV9e7ASnJQgxJGjRUkk0zFXQBUztv
+	/zrd2xSWjpLU6dG9xS9prry2yRRMZt6UessWQ+fP5jGU8TUN9j1aASr4EtX28LSYthQ=
+X-Gm-Gg: AYBFou1BlDjPzo0uHvPXOHlVonXvP9wJxWFyxTaqQx5clt68oL0bCnPO3I950QSYU5m
+	mj+I8zRrkEG9HQFDLbpzflyD3O6+cd4nqPdVhYpXg2XUa2/p9A5G32c5gZsjRH5EFFyxhe7IAWI
+	2C89LXvvSwEEjRzfzErvm3QAIyU8Woe4Jp/xTAba87wjBcGNBnIf0Ox3ZFslk8AxQFYEmlJjr/N
+	hypd1ZygFeVVt37dW1aAaqe18t9Z8atX/BE8QfeuU3a/siz34+j6gcYhcGqdCyRB5//k/Yrbiho
+	7QFmxQf3VJgrYLX/tfj78HvtNOHndzdvKjaTQHQHCxSDi+wVZgkBQTxxer2hv/AbaLfUx0EBOpV
+	xR10kc0ZI5gDi3q7SZWMVhLtUlaIDygJCpusi5MFJrFCVJ8TxVWylQvyqLjiKK83hMp4AwqjFTF
+	5oqWK9XPeS1N8JBk3eZp25ykBVaybZ6HdzhthK0RjzPH4Pd1hHLcvl5QJa+w2f+QQ9upQ+fw==
+X-Received: by 2002:a05:6000:2284:b0:488:89ad:56c0 with SMTP id ffacd0b85a97d-48889ad576amr11374823f8f.11.1790606342507;
+        Mon, 28 Sep 2026 07:39:02 -0700 (PDT)
+Received: from localhost ([195.94.147.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6470b7sm28425051f8f.27.2026.09.28.07.39.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:39:02 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>,
+	mbrugger@suse.com,
+	Sean Young <sean@mess.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	"Gary Guo" <gary@garyguo.net>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v10 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+Date: Mon, 28 Sep 2026 16:42:40 +0200
+Message-ID: <ee0aa89faa14e0073f1271693bae28678652998b.1790606188.git.andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1790606188.git.andrea.porta@suse.com>
+References: <cover.1790606188.git.andrea.porta@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMMMRMeX9-r_coX1zbUNoMGU+GUW56o4iY_jfyE5_ovFYs6UCA@mail.gmail.com>
 
-On Mon, Sep 28, 2026 at 08:47:40AM +0000, Andrei Kuchynski wrote:
-> On Sun, Sep 27, 2026 at 2:17 AM Gris Ge <cnfourt@gmail.com> wrote:
-> >
-> > Since Thunderbolt alternate mode support was added,
-> > `ucsi_altmode_update_active()` is called on every Connector Partner
-> > Changed event.  This made the driver send `UCSI_GET_CURRENT_CAM` to
-> > PPMs even when the partner had no alternate modes registered. Firmware
-> > that does not support the optional alternate mode details answered Not
-> > Supported, which produced a spurious error on every partner change:
-> >
-> > ```
-> > ucsi_acpi USBC000:00: GET_CURRENT_CAM command failed
-> > ```
-> >
-> > Fixed by skipping the command when there is nothing to update.
-> >
-> > Fixes: da87d45b1951 ("usb: typec: ucsi: Add Thunderbolt alternate mode support")
-> > Cc: stable@vger.kernel.org # v7.0+
-> > Assisted-by: Codex:deepseek-v4.1-flash
-> > Signed-off-by: Gris Ge <cnfourt@gmail.com>
-> > ---
-> >  drivers/usb/typec/ucsi/ucsi.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> > index bef3f9b71d71..71b28e4df470 100644
-> > --- a/drivers/usb/typec/ucsi/ucsi.c
-> > +++ b/drivers/usb/typec/ucsi/ucsi.c
-> > @@ -360,6 +360,15 @@ void ucsi_altmode_update_active(struct ucsi_connector *con)
-> >         u8 cur;
-> >         int i;
-> >
-> > +       /*
-> > +        * Alternate mode support is optional, and the PPM is not required to
-> > +        * support GET_CURRENT_CAM when it does not support alternate modes.
-> > +        * There is also nothing to update when the partner has not registered
-> > +        * any alternate modes, so don't send the command in that case.
-> > +        */
-> > +       if (!con->partner_altmode[0])
-> 
-> Should we move this validation into ucsi_handle_connector_change?
-> 
->         if (con->partner_altmode[0])
->                 ucsi_altmode_update_active(con);
-> 
-> All other call sites are already guarded by this condition.
+From: Naushir Patuck <naush@raspberrypi.com>
 
-Makes sense to me.
+Add the devicetree binding documentation for the PWM
+controller found in the Raspberry Pi RP1 chipset.
 
-> Besides, I don't think we need that comment above.
+Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
 
-I agree.
-
+diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+new file mode 100644
+index 0000000000000..be020583fd0ba
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Raspberry Pi RP1 PWM controller
++
++maintainers:
++  - Naushir Patuck <naush@raspberrypi.com>
++  - Andrea della Porta <andrea.porta@suse.com>
++  - Stanimir Varbanov <svarbanov@suse.de>
++
++allOf:
++  - $ref: pwm.yaml#
++
++description: |
++  The PWM peripheral is a flexible waveform generator with a
++  variety of operational modes. It has the following features:
++   - four independent output channels
++   - 32-bit counter widths
++   - Seven output generation modes
++   - Optional per-channel output inversion
++   - Optional duty-cycle data FIFO with DMA support
++   - Optional sigma-delta noise shaping engine
++  Serves as a fan speed provider to other nodes for a PWM-connected
++  fan.
++
++properties:
++  compatible:
++    const: raspberrypi,rp1-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++  dmas:
++    maxItems: 1
++    description: |
++      Phandle to the DMA controller and the channel specifier for
++      the duty-cycle FIFO.
++
++  dma-names:
++    items:
++      - const: tx
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pwm@98000 {
++      compatible = "raspberrypi,rp1-pwm";
++      reg = <0x98000 0x100>;
++      clocks = <&rp1_clocks 17>;
++      #pwm-cells = <3>;
++    };
 -- 
-heikki
+2.35.3
+
