@@ -1,159 +1,197 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682024DD3D1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617934; cv=none; b=MWmpwenJzmDEFWboaaZHwg4tK0pGuu4yavEhDzRxjJYHeNY0dQ68DB9MIpVF2UqZ5UTVowfVuzi+zpUkFkg8WEMrIqOwqqElZOI/jJWXuh7Ejog3zVyPZCfVdH0IGusvxxz4JTzNKh7GldlyGi7GUJ2QRC3J/qX+nP93Y1X0yKs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617934; c=relaxed/simple;
-	bh=aX7D9fe6wgqI+yh1tRxKCLwwJ3l80BYRwaXfGv/OprE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8LSR6yONKkKQmncCKH/hi6a0qpw2ieaEC1WfRjr6Qd8pt5WCtS1gcEanOxfI7sD2dJNp7kJWJ8czNlqx2J2djQbbyH1Oel1EcpiUq9ZUaC4bRuWcpv0Fh2Sbe8Vx/rRgYt2yxkm2dV2VTr0ayTyK8+3Aoef5F2Enx2sQI/WKoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUZLsK3p; arc=none smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A364DD3D1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790618032; cv=pass; b=nUl4w6xLX9wt60GNZFTyiJwwGMwGonAV2Lrpc5MOZHDNz3bE8/5z+ai0whw74p54YrQV5n59Udkronwk2UIniwxANysg9Z/vnM94W3U+LN4gy9sL/gvDwtvG2TSViC4YHMuJ2m2lt/qF8Cs4shYEARfVINyAF07Be/tZGCu2b0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790618032; c=relaxed/simple;
+	bh=2kNG+wBoo1LXnVxUU7YpNWdNJd2rymZ+d19jEj0AZXs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q+n7TAx0ZFTjtTOR4f59A3OndQ/rfmftUEGp5nNiqeH1/ctHwTobIxOlEDuiQQewIiG6gIsC4hE36XeaW9XUAMvp5oihQ6WQkNtf/nK5lqVBtSmWcvssYuWrWy9uKhl9gsHUt1g2f/N36xEg3vTzO9kye4kmBJ+IMqZrhcqq9L4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=FEsBMcKI; arc=pass smtp.client-ip=74.125.231.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUZLsK3p"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6d33d80855eso2324683eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:52:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="FEsBMcKI"
+Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-804db2d0287so339394a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:53:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790618029; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bkVJnQN8yspWZVVmlVnQTFtKRd+mL34EH8qekwyeczBVcbKtmFUghL/bgJjtbTaXAq
+         tTjcHs8BurDV3pYVXBUJ13gyLXxDkHklV0ND9SyF/jJ5I5Ye+W+3YkMgDc8UzZAPZ00X
+         3+YDgfSfstohtC8U8XBqvB8sfljMZXYx7PjnTnD6tP9TxfQ5EDWmDUCrLzNKPEFoquc3
+         vxl0vRzM5wuG+/xWrLqaM79ya9ql5YmVtpk57WWaFZpPuo/WN/1AWDrjmZ2APy792MVC
+         ee3IyRrtJAGgA6i0vYombA3h8+K4kHR2uSo2+7tkvziiOpWNfL64vngiaQdxriKrSEOo
+         Jxow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pxorRVrnA629ZxhkkzbuPJrftY5VCgA7nPzvnQoi4i8=;
+        fh=dPTlHlzcRYqiLa4idyNLeIjnbb8Ee2fUpqOQqeVzd/E=;
+        b=SdsBkeJ1zJCADhGcLf8xJxiwbaNb+tRnNqUauTda2k2Bq4Ay8eZS7TsImEEAefn2wN
+         zU+w3vhzcaDKaVkzABICKV/N4NpZl5ooZvAi5g8qFjkpz3pevVcmob2GX7lNOSpTbcqR
+         Hcgw6HPeeIrpzRPadDSqGu33MG1CPD95UGK1igjzDhtSNX/n+6bXomOeqlOB7xAlk2PG
+         wzYqyp05+M9THH6uMrH5yokmzxbX+upqhHVTu8SeOJt1JBregxGNKmsfswI99isO7ivc
+         WsqVIojBO1hrWKB7vC3TVkAu3pbNO3LIm+3ijzqdKgYW8uEKR7q+Wmq+yjrrUGjYpzuP
+         QR3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790617931; x=1791222731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gSUc6iIFEktt4xs/8drR7GEw7uAyN5LVYmIaYzfxAoc=;
-        b=PUZLsK3pV3Y0qml4ftKHUv5bc5ploACHOynkvT7fa+QVlTX8NTqElZYi/qfvnQPWrO
-         6Vy7T98qYwTAk7ergQvGGR6+c0HedKF4l3WscJ4gAB0vxvlBV59XQ1bJFKAM+sBlBO/v
-         r+FTG1OiazcL0tFqTCRg0OV8+w+t3ZA5Gep09vrMZ/EV8CO1rXSz7oZQmz9Rmb7iBZjc
-         qVkjocb2ZmJzT830rw2O7ug4csXu3JjR66e0Gy/5ZA1nUJvbYa5L6jOa5fcO7EJriKN4
-         Rtg3R4fT72lWGfDo+9VphAi40/ZTrd8t41x6+MD0FuXv1rQZ7zT6TykarMlq+NHFPNnO
-         USWg==
+        d=purestorage.com; s=google2022; t=1790618029; x=1791222829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pxorRVrnA629ZxhkkzbuPJrftY5VCgA7nPzvnQoi4i8=;
+        b=FEsBMcKIGfj95sMSo6NPiSGSxjKIY5b2uRvmr2NI0GfUEhege9pHgCandUX1/CE4pQ
+         vSeyFstbxNFx3M0wcrOBxGLkDkyY4VjT+2XoVhZODsBtHSPO6yJ9SwO4Vhoz5SZkQgjf
+         pMLIbVZf3VjQCsSFzR3okAw2ct6ooi7/rPQ0UDDptK++0lcC8MrnUaGUBfeZBUze6r6/
+         SRybZgyNdeHEL/GlqKoO3tZtzgHqcN3gv5OwAWBGENEK5fOblbv+TwAoDI0/w4/ykW/d
+         eQ9+EgYzDyZloSMfX5AEIPk3Y3g4MmS/JKbic363fh1xfVCShfZJumyUr+fz0TT7/i0G
+         ZMqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617931; x=1791222731;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gSUc6iIFEktt4xs/8drR7GEw7uAyN5LVYmIaYzfxAoc=;
-        b=esnI6uXosukRqcuWr6f1uPgoE5s1LWS+//8svAvWJu8Ep6EGqGHvsuMfX7duA6DCuG
-         e7azcL6f03VG5N6sziUpaFAcs1oKNc+s1+k5Gdws5ALbJKTrr362IuszcJ/z5FVbbLKp
-         kYDMKhKIUesS1iYqoYKHG7y7IhS5Vp61/w+ishb5/V/MC/e7lEee/41mkwTXDj4th7Fe
-         dvkQFcq2KcFLVYxWeprW1FafeSJKjhsqy8dn71CYkG6l5ABpH0ifUjYDe+fVISosh4Vu
-         nWY9SY/92PtuIEY8Z49FJZdAHtH7B4vaS4nc45RPk5SzwMa2P6fV2wNwzklZ8JF/06Hz
-         3JTA==
-X-Forwarded-Encrypted: i=1; AKwUvBywVnbw8jd/1wEHccnV+Yk6iZ7ZB14yhRSnR8QzwtBnAI17Nn5W7INRM+4vbL8aVEOqbezChILrYyBTe6A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBZfJOKd/tpL2RKlJXCPWLzy76mj1mP8UpnpNfwG7fDDh9LFgc
-	7PZZ5e7SlabiVmtcAjPi9bugDXFQ5JAIZOB14qkV5EJEiPVVk6wkhF2z
-X-Gm-Gg: AYBFou15/fqzsnXnG2XQZpuXvWls15mwRAxa5vagoBamsfdLM6LRHDGCc8sa7kwpC+3
-	zOQoTUDTxnBuGDgcYgyCqVy75YJQlyZ1+qR7qQXf39fT1Pn8p0PqfyRBd3ZpwrEIGxAZCvRVL+x
-	N79/28iDquP3sPtopEd1AodZw/A/EWZOOv32ETS2ZDdmqiO/AcZEey55SmV6+pVDwCWyLPNBk2d
-	Rblc5RJq5SCn2I9uUFSy4g4p5L7wOWTrfWBlRiynOMKKn2z52Ydrixr9J6aBrw8igInw6qr89qi
-	uo6Q6XdTMOHZjagqhv4JzP9umf+uwoVOjUxI6DHJ+uyPqKyfcNb/BoLx9VpQJmaQ3NZJp6qx3n3
-	UBjp0blI8VPgH+0u63eoHG06JUlhEjCpZa5GYS/6EwcqnhAST6dqZiH58XXWb1QfRnL0HyjimOk
-	vBhdRKN+W80TywrVWk+63tZUsi3kJu5Was07Gu0iJJoe7o3sWip/htCUvSKktWvJzqQN4DS1iy5
-	2svr6TPUlic3qxdy2Z8tw==
-X-Received: by 2002:a4a:e913:0:b0:6d8:9568:840a with SMTP id 006d021491bc7-6d89568880bmr3942870eaf.46.1790617930923;
-        Mon, 28 Sep 2026 10:52:10 -0700 (PDT)
-Received: from cachyos-SlimIce.lan ([2607:fb90:9a26:9349::e71])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8822199cbsm5971644eaf.5.2026.09.28.10.52.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:52:10 -0700 (PDT)
-From: Jared Wuerzburger <jwuerz@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Samuel Dionne-Riel <samuel@dionne-riel.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] iio: imu: st_lsm6dsx: Add ACPI ID SMOCF05 for LSM6DS3TR-C
-Date: Mon, 28 Sep 2026 12:50:49 -0500
-Message-ID: <20260928175049.86941-3-jwuerz@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928175049.86941-1-jwuerz@gmail.com>
-References: <20260928175049.86941-1-jwuerz@gmail.com>
+        d=1e100.net; s=20260707; t=1790618029; x=1791222829;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pxorRVrnA629ZxhkkzbuPJrftY5VCgA7nPzvnQoi4i8=;
+        b=enaEzcR07lOawGccZ5lvaRrmyldUDF0SRmkEXZy0sa+/llbuhquqtV1Ni68rpoN9oI
+         LFWF3kxMjag2cia7EQTuX7MEjK9JYhL34HqVFiK2FtF/HAR6ozadi3HQ2kVBfn8kZJNL
+         Cxl8lfWsIdNmLsa5lbaXM2lzBgYtTGzmQlD02t5vkTsXfSeRDmrzNDfHCAs6q5g+Amjz
+         /6CzVwy3pVMxE70ruzkZSCRRF2iB5TNS6/rS898DjCxu7foHoif7e9Mf4ZRSivse/ZBB
+         T8OB+Uxs0Ozgopo8XLQPzylN++76ChnY3g9ak+NP9VkJTVQ3/BoQt8cV35c4ur9LAn5H
+         8ccg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtHEkOFcJgFTdqdgQ7R9gDGceMne5kyeafBDa1QvkxWs19I0Si+AAJzmuLnTgiApKApUNnrwpcTC0Pwkw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0J1LYMUK25/5MKiEvw30eNAlaOZV8+uEpNoAiqTJlrtgIIgex
+	VUuHh8gJpx9vbpBEjgrJkSNb+NfTUNnah5iU6NsgwWoSh55ccNh1Ck6uQq0xZqyvuLJxTjkoi99
+	guQKGrsQe+Fi9cnBsWS1BXIuTwUO9/9brcnT2ei0Rpw==
+X-Gm-Gg: AYBFou27aICrFtCH3V0/7UhobrP+J9baphgC1DUNSzhytpHgy/srf7oZCCDDZREvcrW
+	YUeFoNw5KX+saCxEzy1bnmsIqg+cnipK9FmjpuopP9zVhzkx5OxobU9wLFFZZYO4sBNdLtGKbmu
+	e2mhMWVOOFXrmyzFB2lh6ZxlckaFwETLfEba1Q9BKTdsQXBiQXFgTC59O4pSCgQ/N7lz8B8mDgy
+	Q76awJbBsfbAC84YLDWWvEqHmDnddR/scOaPP4NuOK5BrdzPG06ZkjNyWrbfgeG0hn2WkcI0fWt
+	TKBdbKH1DJdvYnzkntqiBEYARz6AbBhh4Ny/Gpx/y78oAGS8PRdgvwU8FWP7y4+6Oc8=
+X-Received: by 2002:a05:6870:f10e:b0:447:4cf0:eb19 with SMTP id
+ 586e51a60fabf-4930bb82a4amr15095600fac.4.1790618029099; Mon, 28 Sep 2026
+ 10:53:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com> <20260928-b4-ublk-cancel-stop-v1-3-4a4360232a46@toxicpanda.com>
+In-Reply-To: <20260928-b4-ublk-cancel-stop-v1-3-4a4360232a46@toxicpanda.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
+Date: Mon, 28 Sep 2026 10:53:38 -0700
+X-Gm-Features: AclHuK9nxEm2zBDwrnuiv4JMUs_01csR-Wh_9mfwxHD7EKXDa_-x71ypJIIn4T0
+Message-ID: <CADUfDZqDZEM4=uw+By6RnxvLqXbc-iPf8RCUQtQB5_Z_Di84Aw@mail.gmail.com>
+Subject: Re: [PATCH 3/9] ublk: publish io->cmd under io->lock in the commit paths
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Samuel Dionne-Riel <samuel@dionne-riel.com>
+On Mon, Sep 28, 2026 at 9:03=E2=80=AFAM Josef Bacik <josef@toxicpanda.com> =
+wrote:
+>
+> io->cmd shares its storage with io->req. FETCH, COMMIT_AND_FETCH and
+> NEED_GET_DATA switch the io from one to the other in
+> ublk_fill_io_cmd() without a lock of their own. That was fine as long
+> as everything else looking at io->cmd ran under the uring_lock of the
+> same ring, which is the case for the io_uring cancel callback.
+>
+> ublk_cancel_cmd() is also called from the control path, from
+> ublk_cancel_dev() with IO_URING_F_UNLOCKED, and the next patches add
+> more such callers which run while the server still commits requests.
+> Nothing orders their reads of io->flags and io->cmd against
+> ublk_fill_io_cmd() then. A reader can find UBLK_IO_FLAG_ACTIVE set and
+> still pick up the request pointer from the union.
+>
+> The batch commit path calls ublk_fill_io_cmd() under io->lock already.
+> Do the same in the other three callers, so that io->lock covers every
+> switch of the union to a command. io->lock is per io and only taken by
+> the task which commits that io, so the fast path gains an uncontended
+> lock in a cacheline it writes anyway.
+>
+> ublk_batch_prep_io() calls __ublk_fetch() with io->lock held, which
+> makes the order io->lock, then ubq->cancel_lock.
+>
+> The readers move under io->lock in the next patch.
+>
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  drivers/block/ublk_drv.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 50c99b28ef21..17a33539f271 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -3169,6 +3169,9 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_urin=
+g_cmd *cmd)
+>  {
+>         struct request *req =3D io->req;
+>
+> +       /* io->cmd shares its storage with io->req, switch them under io-=
+>lock */
+> +       lockdep_assert_held(&io->lock);
+> +
+>         io->cmd =3D cmd;
+>         io->flags |=3D UBLK_IO_FLAG_ACTIVE;
+>         /* now this cmd slot is owned by ublk driver */
+> @@ -3338,8 +3341,11 @@ static int ublk_fetch(struct io_uring_cmd *cmd, st=
+ruct ublk_device *ub,
+>          */
+>         mutex_lock(&ub->mutex);
+>         ret =3D ublk_validate_io_buf(ub, cmd, &auto_buf);
+> -       if (!ret)
+> +       if (!ret) {
+> +               ublk_io_lock(io);
+>                 ret =3D __ublk_fetch(cmd, ub, io, q_id);
+> +               ublk_io_unlock(io);
+> +       }
+>         if (!ret) {
+>                 ublk_apply_io_buf(ub, io, cmd, buf_addr, &auto_buf, NULL)=
+;
+>                 ublk_mark_io_ready(ub, q_id);
+> @@ -3496,7 +3502,9 @@ static int ublk_ch_uring_cmd_local(struct io_uring_=
+cmd *cmd,
+>                 if (ret)
+>                         goto out;
+>                 io->res =3D result;
+> +               ublk_io_lock(io);
+>                 req =3D ublk_fill_io_cmd(io, cmd);
+> +               ublk_io_unlock(io);
 
-The Minisforum V3 and V3 SE tablets declare their ST LSM6DS3TR-C IMU in
-the DSDT with the hardware ID SMOCF05 instead of SMO8B30, so the driver
-never binds and the accelerometer and gyroscope are missing. The
-Windows driver (version 1.0.4.3) binds the LSM6DS3TR-C to both IDs.
+Taking a spinlock for every ublk I/O completion will be very
+expensive. Is it not possible all paths calling ublk_cancel_dev() to
+wait for all tags to go idle?
 
-Relevant part of the DSDT, identical on both models:
+Best,
+Caleb
 
-  Scope (_SB.I2CD) { Device (STS) {
-    Name (_HID, EisaId ("SMOCF05"))
-    Name (_CID, EisaId ("SMOCF05"))
-    _CRS: I2cSerialBusV2 (0x006A, ..., "\\_SB.I2CD")  vendor data "SLA0"
-          I2cSerialBusV2 (0x006A, ..., "\\_SB.I2CD")  vendor data "SLG0"
-          GpioInt (Edge, ActiveHigh, ..., "\\_SB.GPIO") { 9 }  "SLA0"
-    Method (SLA0): "-1 0 0", "0 -1 0", "0 0 -1"
-    Method (SLG0): "1 0 0", "0 1 0", "0 0 1"
-  } }
-
-Both I2C resources describe the same address; the I2C core uses the
-first one.
-
-The vendor-specific SLA0/SLG0 methods are not parsed, because SLA0 is
-not usable as a mount matrix as it is. Its X and Y signs are right, but
-it also negates Z. It follows the Windows sensor convention, which
-reports Z = -1g with the screen facing up, while iio-sensor-proxy uses
-the same X and Y signs but expects Z = +1g in that posture. Applied as
-a mount matrix, SLA0 gives correct screen rotation, but iio-sensor-proxy
-reports the tilt inverted. The actual mounting is a plain 180 degree
-rotation about Z (-1 0 0; 0 -1 0; 0 0 1), with which orientation and
-tilt are both right. As for SMOCF00, the matrix is therefore provided
-by the systemd hwdb instead.
-
-Tested on:
- - V3 SE (Ryzen 7 7735U, BIOS 1.03) with this change.
- - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7, with this change and
-   the stock firmware tables. The driver binds to i2c-SMOCF05:00, the
-   WHO_AM_I check passes (0x6a), and both lsm6ds3tr-c_accel and
-   lsm6ds3tr-c_gyro are registered. Screen auto-rotation and tilt work
-   with iio-sensor-proxy and the matrix above (checked with the device
-   renamed to SMO8B30 via a DSDT override, i.e. the same
-   ST_LSM6DS3TRC_ID driver data).
-
-Closes: https://github.com/mudkipme/awesome-minisforum-v3/issues/2
-Signed-off-by: Samuel Dionne-Riel <samuel@dionne-riel.com>
-[Jared Wuerzburger: rewrote the changelog with the DSDT excerpt, test
- results and mount matrix rationale, converted the entry to C99
- initializers, dropped the mount matrix patch]
-Assisted-by: LLM
-Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
----
-
-Notes:
-    Jonathan, when applying, could you add a Link: to this series? The
-    cover letter has the full DSDT excerpt, too long for the changelog.
-
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-index c4097ce2bf..11e5ec3798 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-@@ -145,6 +145,7 @@ MODULE_DEVICE_TABLE(of, st_lsm6dsx_i2c_of_match);
- static const struct acpi_device_id st_lsm6dsx_i2c_acpi_match[] = {
- 	{ .id = "SMO8B30", .driver_data = ST_LSM6DS3TRC_ID },
- 	{ .id = "SMOCF00", .driver_data = ST_LSM6DSO_ID },
-+	{ .id = "SMOCF05", .driver_data = ST_LSM6DS3TRC_ID },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, st_lsm6dsx_i2c_acpi_match);
--- 
-2.55.0
-
+>                 ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx)=
+;
+>                 if (buf_idx !=3D UBLK_INVALID_BUF_IDX)
+>                         io_buffer_unregister(cmd, buf_idx, issue_flags);
+> @@ -3514,7 +3522,9 @@ static int ublk_ch_uring_cmd_local(struct io_uring_=
+cmd *cmd,
+>                  * uring_cmd active first and prepare for handling new re=
+queued
+>                  * request
+>                  */
+> +               ublk_io_lock(io);
+>                 req =3D ublk_fill_io_cmd(io, cmd);
+> +               ublk_io_unlock(io);
+>                 io->buf.addr =3D addr;
+>                 if (likely(ublk_get_data(ubq, io, req))) {
+>                         __ublk_prep_compl_io_cmd(io, req);
+>
+> --
+> 2.55.0
+>
