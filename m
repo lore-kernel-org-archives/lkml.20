@@ -1,120 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C81440A25;
-	Mon, 28 Sep 2026 08:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA00470EA5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583264; cv=none; b=IwQdpkwN3eXxvwDJjd5X4uWJPsoQYYrCCRu9XloIzubh72WWKIbQ/b2pEwZ7ox9+qEnEg5KbOH7hc22w/HFBFoUM/HnRgol2DZYrbFG/8gPpZmnvnAwbeHmXFXk/KimZ2/3o7n7kdWxpgvUTFYX464J+zoGttTtceRCOEgDrN9Q=
+	t=1790583313; cv=none; b=gQdiVs1ki7DRqWnJSbTqeKVtgxzWikFm3zrCOC/Vom/floGCEa6IApf/6B3VTUItnzeh+Nfg4unwpcRmXOUXM2dSg51qErQjf1gBqy2RX4eJg7RhowAt7p7GP9sh5umu68b8OjcjnE22S86W3sD2sdgLrmLazE9ajupU8Aj3cJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583264; c=relaxed/simple;
-	bh=7ybBn7ZdwlBlJ9WHyiY2r7WhsvHiPw4ssNpFoeZYcAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RyOjm47/IZuzFO++mu2EhMA303WNzG1cJ8ZfReia67v4dGOt9VZk3uUzpDoN2vvPkdM9njjVBZEToCbqudcFcTIV9Mp596NANRBh7bYTppslca096KJ7idupbx4kbMeFD2EcIKBk4jaBFmcoktgJp0NQfL2w+VqIIR9vnYcO0uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lbD+zQ1s; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790583313; c=relaxed/simple;
+	bh=eJiO/FYrLlV7xeZ+gg/DbqurbXD2F3ZS67N63yr/0pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4UJYlEf/brzNK0tB/BytexONnWZtcQPO/pwkYOrS62XpVap8QXqwzJOJyd7sEeFuPlzwTijXPJAN3Te7DiZDwLpBMzlkicQjCgrtLt5Vac7r0LyaTliI2C1PjkbFNkdUdvO4oWwJ26aWM9+Qnb5ZCszpxMYfP/oLLjdSUHZ1Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=od4VucFb; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lbD+zQ1s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790583262; x=1822119262;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=7ybBn7ZdwlBlJ9WHyiY2r7WhsvHiPw4ssNpFoeZYcAA=;
-  b=lbD+zQ1spia+aw8H+QKWGVyWUsZVxwF7kl6PG8OO2lkZKRU4w/D27Zn5
-   k6VSFdfL3AT5QQ0D80Bog3ASZ6QSVYsdL0VSjj1w7+rqfmtFJdjeXNmic
-   Emshgsvik17j0Df2yupsCi3C6F6+5iwTnebCWJ/tRcvsP4mgyUBu4qHpa
-   hN5w3OxUdBHsadVN2Jpwmkn8gIfVEDuY0JVAbVmRnzaebVwaqBio96Kip
-   LWz+zL8nKsbsfWLnrWn4PeTRZ1LAO7d5XouZIWmElgnbN4xcvkuQcahp1
-   nCrA6IYSD1aS2uHdM1O/6Gqm6K8oPncugUlGpf0xr4mByPu2985JlEQ4n
-   w==;
-X-CSE-ConnectionGUID: 5yLnnwS1SGWzhcTOw32ecQ==
-X-CSE-MsgGUID: FGOP36HFQbKhetnzVSrdvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90403270"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90403270"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:14:22 -0700
-X-CSE-ConnectionGUID: 7I02WSn5Rj6DcHajdOBhGQ==
-X-CSE-MsgGUID: u0YdxXt5RaCKv0QaYSR51g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278805402"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:14:18 -0700
-Date: Mon, 28 Sep 2026 11:14:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Jiale Yao <yaojiale02@163.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Anshul Dalal <anshulusr@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Shi Hao <i.shihao.999@gmail.com>, Linus Walleij <linusw@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Angel Iglesias <ang.iglesiasg@gmail.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] iio: validate SPI match data before use
-Message-ID: <aroh125qBr1ZAXBI@ashevche-desk.local>
-References: <20260925131738.2200612-1-yaojiale02@163.com>
- <20260926021143.478d5361@jic23-hlaptop>
- <ardhvKaSdYh2HiS6@monoceros>
- <20260927182001.10c331dd@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="od4VucFb"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df90e859e8so8468865ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:15:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790583310; x=1791188110; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
+        b=od4VucFbma5nokHnVBuNU+YariaerHkpUckMjYGz3FGaUjGPuDM6SN9Vh93Trskr7V
+         FPYQp2Yh1oBNZe6F11qBHK7In40aEIKwDZHhOI+rbDBt8q/5NE/v2r1i3ZcQkofGFvw2
+         JGJuXr3dwf0wDst0kWdU4rDXFTcXp3Nq3BrcF3D5iIWCQk5c3TBjuzgakmRwjtXe9QbH
+         9LwLdo7zCe0rRasWfNxPlrLBt0A8gcTelkRHUJ/uykjuV4w7iL+pq1QgcAphUSZieIst
+         GMfYvLEyVkJhSDN14FIuZjBNG8QheNLma9921DtsurD6+HuCVyk+pY5C7+5NYR09T9EL
+         vrsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790583310; x=1791188110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
+        b=FHN4KLXrX7AS6WHJgX31EMi0+SSnlnyhRefyc8ByNjclLRHIlxPt0QcbCPbu/PdJfH
+         R5d9IEpdu9tmx9+5QJlLZFjZB8++3Uo0kwIorUqhIWpNSwxV253SSo+PAvf3Bf8TOCaX
+         Ea1QaXKlqHRPX2XX1EdOzTx/BDtXXO9/b7H6EIqMXfcmdxFflvPn1p7yN5ICUDEZLiDj
+         CAQCUs6M6Nx0uaUwK2uem8gsUAvkutZAVOIt62S1NW8TzLAuotSdGLvnlFiCO16SJ+Aw
+         VBd1CXIT2GoOpLRjxrXsvf+YMNEEEv2kAhJtXdXl+vUg8wUNHXvXs5yGIB8MfCa2oRSl
+         TCww==
+X-Forwarded-Encrypted: i=1; AKwUvBznq6mdDbXuS+cnze3pHTzBW4t7O5J5y98M9g7DMWm1qJPAC5WdNpTfgyMgrsf5YCUR9hJEmP1fabM3aBs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4XLBK69TVZHqYj5g6SZfR9cKv8h3t9e7H4hxW00Tk16pxX4RY
+	+6bEDB4a2GHzWOrnejzNjsghVux9rqM9TPbrWnkRzEIk+i7al0hTXlvu
+X-Gm-Gg: AYBFou1O+deiwOSlo9Ry01SrcIfepaOVdqsqe9MuSVpa6j1G+vSHnAAR/zWGgedSIo9
+	FbkG4G8/mZvmeh3gDjg4J5BPwHlLnE3GKuoTEAzlKeDZ+xpLnBhHtJhEbAHbMB8rt+qFlNMLZFW
+	+Eh+AsLoe0LDtIX2GxyRbl8sxFy5v/8+cuwBjXs5M/mq3tnhKSBFyLA1ZBNCDmQlmYcHAqWPsWi
+	kyEYmqmjlSXetEQbVO8KcRMyfzKgGFKmXsWFd4IiSLmdUyGgXcBMWuUbf8Nb8uJS4kk0UPgrQbr
+	y5SH6E9hlzujy/xUdHHl8OHjUhaK6DymbyrzkYYaQJ+vY9No619F+C48jj0HiRPbrzLYf1bxAFq
+	AiUtHnAFGUWReDc5uzHbev1qg9Hr9kbuWbN3x70MOUfirSeoem6yM4MiCC2f6R5NnJo+4+znBGK
+	lGblekIePILIoFhF6Wpq3KfSw5hgIFKH+24JF/Wxxz+aDfYDhbe6NSUoYR6zLm8euRIxz54cjgH
+	YB0sCBC3Qx3UuCAIXL+xV5VLUtkbn5Iv57gX1k=
+X-Received: by 2002:a17:902:fdae:b0:2df:67e8:4a39 with SMTP id d9443c01a7336-2df7dfef6ffmr74050975ad.10.1790583310497;
+        Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
+Received: from DESKTOP-HOME ([2406:5900:111f:dc2a:3071:69c7:a4c4:6259])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fb675bsm37833275ad.10.2026.09.28.01.15.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
+From: Beomseok Kim <dilddream31@gmail.com>
+To: nouveau@lists.freedesktop.org
+Cc: lyude@redhat.com,
+	dakr@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Beomseok Kim <dilddream31@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
+Date: Mon, 28 Sep 2026 17:14:50 +0900
+Message-ID: <20260928081450.19340-1-dilddream31@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260927182001.10c331dd@jic23-hlaptop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Sep 27, 2026 at 06:20:01PM +0100, Jonathan Cameron wrote:
-> On Sat, 26 Sep 2026 08:13:13 +0200
-> Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com> wrote:
-> > On Sat, Sep 26, 2026 at 02:11:43AM +0100, Jonathan Cameron wrote:
-> > > On Fri, 25 Sep 2026 21:17:29 +0800
-> > > Jiale Yao <yaojiale02@163.com> wrote:
-> > >   
-> > > > SPI driver_override can bind a device without a matching entry in the
-> > > > driver's ID tables.  spi_get_device_match_data() then returns NULL.
-> > > > 
-> > > > These seven IIO drivers use that result without checking it, causing a
-> > > > NULL pointer dereference during probe.  Add the missing checks before
-> > > > the match data is used.  
-> > > 
-> > > I was hoping we'd close this finally by adding a flag to the
-> > > drivers to say they should fail a match if driver_override is set.
-> > > Given I thought maybe that would happen when Andy looked into this
-> > > a while back I've been sitting on this problem for a while.
+nouveau_fence_signal() clears fence->channel before dropping its
+reference.  nouveau_fence_no_signaling(), however, removes an already
+signaled fence from fctx->pending without clearing the pointer.
 
-Sorry, I have had no time to continue...
+The fence can remain attached to a BO reservation object and be used
+later in nouveau_fence_sync() after channel teardown has freed the
+channel.  This leaves a stale channel pointer that the sync path can
+dereference.
 
-> > > 
-> > > Unfortunately seems we have to carry on papering over it in the
-> > > drivers for now :(  
-> > 
-> > Note there is another effort:
-> > https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com/
+A diagnostic build with concurrent short-lived Wayland GL clients
+observed nouveau_fence_no_signaling() with a fence pointing to channel
+C, nouveau_channel_del(C) returning, and then nouveau_fence_sync()
+attempting to read C->cli.  A no-fault read failed after teardown.
 
-...but I like this effort, it looks great!
+Clear the pointer in nouveau_fence_no_signaling() to match
+nouveau_fence_signal(), so the sync path uses the fence wait fallback.
 
-> Nice. I look forward to ripping all these checks out again
-> if that lands. Obviously we won't backport doing that given the checks
-> will remain harmless.
+Fixes: 29ba89b2371d ("drm/nouveau: rework to new fence interface")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Beomseok Kim <dilddream31@gmail.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_fence.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+index edbe9e08b..5b09cf134 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fence.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+@@ -488,6 +488,7 @@ static bool nouveau_fence_no_signaling(struct dma_fence *f)
+ 	 */
+ 	if (nouveau_fence_is_signaled(f)) {
+ 		list_del(&fence->head);
++		rcu_assign_pointer(fence->channel, NULL);
+ 
+ 		dma_fence_put(&fence->base);
+ 		return false;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
