@@ -1,94 +1,137 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4603128A3;
-	Mon, 28 Sep 2026 05:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FC437F001;
+	Mon, 28 Sep 2026 05:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790574980; cv=none; b=ZKILSX7l5FR0jp1YeGXmb3L6BtdJXMP7XmCqmEjeMjffyB6y91VWIcr2nRlrxOhPa4kypmObDBK49d4zndQr++hrh0+YGmtnWkaEsec2BYZmkuUhxE3MQBekSTOk4TrBykOszmm/CpEdmGBCgTjH4k3yXnr6pxNSqEZlic1fkl4=
+	t=1790575031; cv=none; b=MPr/CzblTlByHd0RzwAYAIsPyEqhM6hiXcUBGnns9wexALqnWt4A6GzwoliYk31c/+TQOY7RKo7fMh20/pzDQ81p+BLhyHgLL0w1bRGIW+27L7GKte7p56Zo2+47mFKdtd72HJFyJT7Ckx9bIHKaEL1Yf4qiEunSe+OF9AT+Huc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790574980; c=relaxed/simple;
-	bh=nQMPpWqP6oKUMSu3d6WiFX4U2GSFGssszVzLQ33CNSY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Lh9MyECTejGNNaZomScD5QjLOCJx8fpjFTchkl9CAp97RlIHmxGL7WuWaIAZHJRFySWRrqbOdzOvVrT3hOYUWL4670P3+zw50z1a0Y6Wmd79HcCjaPMk8hbZeHHaF2LS4orSFSFHDQDm8mXCnRRzT11Cv+BaOFLRK7XJBYph0Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=dzYe7xy3; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790575031; c=relaxed/simple;
+	bh=VaBdn5/4eyku5eCM/H9gAe8dnrP6K3AE3mbV+4KKGhU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p7MsexERDLDsbBAarKabw/Ix8JkaOi74fqzI7NnO3y/Oz8hO1XyLhdrNLkRRF+7p2skt0PzKWdp1a66BbefHexipm2NPM/Qk+5Kaz2Dk8qbETJrnkwewS5yxI37f/JqUuQfyrVYVa6gcwFFomHvEPSlWQRYlCfUinN1sWNApLYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=b1eyqxOS; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="dzYe7xy3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=tXrNx1m/iiNSeWJUxlUna+iM//WCZoyeR83r2tjnamg=; t=1790574976;
-	x=1791179776; b=dzYe7xy3RvE7Sit6D8r6vsrS1pKv/A0phi9uzXUwgbrOOD+iySUCaJd2hA2ZA
-	JRu09GoW9Yxp0xw1RWKgEti/V7FQ3NF5Lob+M0Vd6ni3YY4NhZrcHCZM28zd61Jp4T7W190gmeNuC
-	AnSDfXIuhNyehiMr5IObEO5Ensi2HJJrCbAZ3ei7j87RNRgA8pqtfWn5YtyForwm6/9Aaq3N4Q21E
-	dZe0hH80tqOpQV4HG5v1DnVQzyBZIwOXsVSE5nyzcYy/7KRmdA6FzXBXHAs9Nx8UUQSvEI/il2eQX
-	8v/E0HYZzAvtI9jS8a577g29HadetQWhIw4NpJnPp94Lk72AbA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xB4LV-00000001cbt-3I7a; Mon, 28 Sep 2026 07:56:13 +0200
-Received: from dynamic-077-191-243-001.77.191.pool.telefonica.de ([77.191.243.1] helo=[192.168.178.50])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xB4LV-00000004Bo7-2N11; Mon, 28 Sep 2026 07:56:13 +0200
-Message-ID: <61edcd485d5f2704a87f208a5d0eec82576a38ae.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 2/2] sh: mach-x3proto: convert gpio-keys to software
- nodes
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>,  Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 07:56:12 +0200
-In-Reply-To: <arn6r3RohRPJrk0_@google.com>
-References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
-	 <20260704-sh-x3proto-swnode-v1-2-0c039549dc46@gmail.com>
-	 <d3a2875ba34bf10ddae3626b77da071cd4624348.camel@physik.fu-berlin.de>
-	 <arn6r3RohRPJrk0_@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="b1eyqxOS"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RLdmJm986650;
+	Mon, 28 Sep 2026 05:57:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=5C46zn
+	l+fz3Fcmow214k3Bma9CDzZe8ZuUM1fvjbxHk=; b=b1eyqxOSsbrkpH7eXu6vuq
+	jwgNGMYPt06VkiiTIHgZFhA8BIZchX6ISxpMIWGlveOL1mqjtrgYCZ8dz7mCj20X
+	Cy1Pq5LSpynrvbgRfSih21NxIzakvH8uSRQNu0u/EZfrxCSnWq/hPrVefiepOVl1
+	euNw8JA6OHxiuu2g7qbBBiwmIvzbYjKmRNamZkQwCL4CFxhFSgXmtKP6NYrUGH20
+	/++UQHDXY4XIBk3b2yRxyk+QEinLcMNPQwC6aCu9p0Snjt3AackPt99aLxEmSjQG
+	wbI+/pFXQmrA9asmzX5r7Z0+NpEZioJSvoS/b9MvaeQ+jXU28YKKl9gXXxfY56RA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5psy7m4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 05:57:01 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S3Wcwl2070653;
+	Mon, 28 Sep 2026 05:57:00 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck3vfn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 05:57:00 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68S5uxiW56099316
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 05:56:59 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5619C58052;
+	Mon, 28 Sep 2026 05:56:59 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BC3BD58056;
+	Mon, 28 Sep 2026 05:56:52 +0000 (GMT)
+Received: from [9.39.20.37] (unknown [9.39.20.37])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 05:56:52 +0000 (GMT)
+Message-ID: <7960d73e-e316-4853-8398-144742e866d3@linux.ibm.com>
+Date: Mon, 28 Sep 2026 11:26:50 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/smc: serialize sndbuf descriptor release with
+ diagnostic dumps
+To: Chengfeng Ye <nicoyip.dev@gmail.com>,
+        "D. Wythe"
+ <alibuda@linux.alibaba.com>,
+        Dust Li <dust.li@linux.alibaba.com>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Tony Lu
+ <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Wenjia Zhang <wenjia@linux.ibm.com>
+Cc: linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260927073203.3694279-1-nicoyip.dev@gmail.com>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <20260927073203.3694279-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: j5QSBf6hnu4gFjl0DmN0HbIBEwuT2KN9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyMiBTYWx0ZWRfXz7pw0chf3PJZ
+ Mb99ouu4dBk2tDRMmi9MF8HiCAe5+NXAfAoEcJaDulLiX3aQxEIdA32BMjDQTQ8eeJUc+BqGj9j
+ btjhUdtRRlSNLk8rliRmghheTOAF/r8Oc11fgk9CBCJYQjjGyoZI+Npa5++bty9MS4T/LHrlDBf
+ NSzD5iZHHX31zMFe/xR44r2N/0NvpDNoR1+ohdrneAv9AtXF/yD4lXIt6rgY+oivJMT9SpKaMbc
+ bt2Vr/zBXaUQgNTq4nbLWp/QcBm3SNjOMfVxqDadO3U+P+JMiNHarflvh5FntOIEC5QZtmtWGME
+ P/AOIlYZiGKJEIOfrJRmGMNCLldLofZmZUECYpfLgmhiGOqQjBLIqcylCzcf2oDjqtHf7kJdbiY
+ 98AWXbl4xxlgNOpN0Imh2lpSp8dydaPEWMrq7pA0sLUQJ1OrellCOVDyfOGpn6HeRwhx0O4RNrL
+ cEmiWc0inUUrMjI1pFA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyMiBTYWx0ZWRfX3Dd8pCY31Kc9
+ jXPmu8eyGc3u+ySkiQUHF2lIaIQjOfsMpCk1yHGCRngGm5/4c0Ejxer70523pZz/pQNgfAMn8d4
+ nHY5CqgbPTSPmpF5UEqwqkkQyylLaOU=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6aba01ad cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=B3kcKS1toMKKngqSjDsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 2dlgop4EcxiqUDLEkERlk-6rUzB4D3N_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280022
 
-Hi Dmitry,
 
-On Sun, 2026-09-27 at 22:28 -0700, Dmitry Torokhov wrote:
-> Hi John,
->=20
-> On Thu, Sep 17, 2026 at 08:49:15PM +0200, John Paul Adrian Glaubitz wrote=
-:
-> >=20
-> > It took me some time to fully grasp the rewrite, but I think this shoul=
-d work as expected.
-> >=20
-> > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
->=20
-> Sorry for bothering you but I do not see it in next. Just want to make
-> sure this (and others) is not stalled.
 
-Don't worry, I'll merge it today. It's already reviewed, so I just
-need to merge and push it. Sorry for not doing it right away.
+On 27/09/26 1:02 pm, Chengfeng Ye wrote:
+> An SMC-D connection can remain in the socket hash while smc_conn_kill()
+> tears it down. For devices supporting DMB nocopy, smcd_buf_detach() frees
+> the send buffer descriptor without taking the hash lock held by the
+> diagnostic reader.
+> 
+> __smc_diag_dump() can load a non-NULL conn->sndbuf_desc, then a concurrent
+> smc_conn_kill() can clear the pointer and free the descriptor before the
+> dump reads its len field. The socket lock held by the teardown path does
+> not exclude the dump, and clearing the pointer before freeing it does
+> not protect a reader that has already loaded it.
 
-Adrian
+Agreed. This is addressed in v6[1] by unhashing the socket at the top of
+smc_conn_kill(), before smcd_buf_detach() runs, so no hashed socket can
+have its sndbuf_desc freed under a concurrent diag reader.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+[1]
+https://lore.kernel.org/netdev/20260926065023.1629497-1-mjambigi@linux.ibm.com/
+
+
