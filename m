@@ -1,280 +1,171 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BEB471CE9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E0C2FD1B3;
+	Mon, 28 Sep 2026 09:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588109; cv=pass; b=d8AuFADjgnUQOjsBXevtzQZ529uhoWMO6lVaC3GTCaEeBiYv/jXhkTwQwYN7yfqH9F0XAHDP2tXC+2OG3EVX+7Ku5eTP0uV1AVeNf7PTyzWq8KgXMPSFhyjnjvCIsoEyJw+ijgtReLJAkPDv8dBpwBwrs8P/fTfSzvaIGdlCQmo=
+	t=1790588115; cv=fail; b=QUcrqoj0t0Btg1rO9/OvkjfMGM99BhFZgieIXf3wzO0ZCBxMqnQ7P14wAc7BwjwWxqJAJ+wOro8RJ001RS9sBEe/1CYFbcf8hqcd/iR7qQf2O0xjmfqnnsI5Oak0w3TH0+3S27Dx2S0qzXvOQOPOiCd+SZE7dm9j6e4J39esf6E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588109; c=relaxed/simple;
-	bh=ccoxnOTnhnpq6LUQRFjL4NJ/6/zTWuObEY8FUXuRip8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pqslmf5+b8jBSBdMrmSQOg/7M/lKhxgUgD/w5Dh+r3FJ96A5I+P9kHcH9ZVolpWlbIqcUQC5kD36X7gSdxHOKTcfjQwgyebKLH6T65E5AVOr0LTRitZE/owGOCrCLYAA+UuUyBh88VUM2u29ZI3y51yx94TrMDI/3wK1AwSmlu8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KlgEBctu; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790588115; c=relaxed/simple;
+	bh=WFJNE6NnhonHASAzVNwOYm4PcGkR62UMp27tyhfh6hU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W81Y6xMJz5fFWa7ruCYCuCxCkom111VSs/VZlMIN3M9nBuE3PAwDMgGWeLI/dlZw2RV9sV64ZVauO4ppEwn8M2tPqxeVhmcE0whhlAIhH1klExluEpP5Hst9CjJrP9UnxZnTZjRaxlecjo9LQbBMnJDkK9G4+EbC6zZgoHm2fCg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=UvpTKFzj; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=DrZCR0oP; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KlgEBctu"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dd363f57aso89767166b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:35:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790588106; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DYbvrQVubdjNgocdmOn4JlqRY+CHUgf/rnKpMWiwOCWkhSNKSPPLu86hxv+UFIkFXe
-         d4oaUF7FzSv/it37KvlYuqdVf6T2/6hGodM9SO6zvG3Oxe4SGirkDWepdda0/YLOfooc
-         pmpmY0ng+TRyKJiWNeehvdJZni/FJjpGzxNC+j+D2MS+7MVzWfDF/4w/vkvKUqGUCqKE
-         c2cDUJQwG9iUBDU8zcdefvP9lcr5g5WgwnNCMAuLtNG9Aq1KbV7oBaSMC3vLIGFAKeNM
-         syKLt0xmK/57ifxbEZXbbmV4Ly8ylVH10GOlkX8nc3h8oXjtBP436vtLsRdJmMZFJK32
-         rFcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
-        fh=dXGcnd3rpXqJT7C6Gz9i+6MRb6OgVYrpZmAWKRzgEO0=;
-        b=SpGqVyCGe9QbFEMQjk9LUETJbwFAbe9cWfeupeCwayUs8G9DDXXhjvYe21XpolnvjR
-         73WePoJ7BaMxwXafJFXp7wqxmqCrGTJ7tZl5G0rUhBBP2BaT+25JARUQaOTEdeoM+WDp
-         XM+SL35EKEH97YVA7qUCzRklg9EV+fOlq2bB1Svoll6xNzyrDdvk0VRq5cq1OwbI1kVP
-         bdeUCZDPfiXuRP/Z72xDsXgfIZO1kCgzhx+X7ZXyHpJQNMd1CmpaLfwHoVK6UsKorzA7
-         uiDpSLwFcLbYVd5mymAKzSpxeCaOFHtKQD78EgSEvcfc3OiAwa0Nzukk5htZkJ1LsXoZ
-         ljDQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="UvpTKFzj";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="DrZCR0oP"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S82GOs1054048;
+	Mon, 28 Sep 2026 04:34:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=EPIv/Y0t4hJDOS3D9y
+	dgf/qPNKP6pXi0K451N9z9uj4=; b=UvpTKFzja6EeJlqB/j0akIJ8/HY41uNduq
+	krLouPUIU+tKmvILjucQUf8KU7iQov0INa5Qooxj4b0gYPlJJEzLuEMGA0QgpQhM
+	oWtlDaG3GFb8DaFpY5ZtAiR4Vkdn6P2BFIKnisl1/3eqW1Lkqsdzje9B1KX2mc2C
+	3ljEwwLK4Aft3sSRKsiqhykc+ugGt1vqG8y6iF2NCAjAmkjzv2GKkLJ/nMGmAfto
+	WPpCIjC0KoBQjS5xDx3bYmJVr5wZHMgBcALbYNBkLOUk62ie/yP8xPHsNV0Jn5fZ
+	XbzxifxFLR1ouOjrugEv34fK0SMCi6IXVdanxlMG2BlX31a/FUKw==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11021107.outbound.protection.outlook.com [52.101.52.107])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gxafj9n9x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 04:34:54 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n51srGgy36jxtDR/OgA9+0D+dYuYSNqeCP5ogkcPRRmG0dWFx2ihMlNVpXyUuPepyzkSBuYbmRekaXdIun78Z4jBF/zOG9XwuqpgKteiZe1ZvsxmGpPPZqj5xYMuiR9ZJ9Gpapd5Tvnie5zifphrwYF0ptogahSlsEgRsAgITSKG8NG9uyWxXGaUNoUR6QpnYAgnPO8dRK3ZkMVbQ6vCOuE64FLyE96CVn/JA2HG5LF5jbIJ0siuqMqbYtoKApnQ4a3xJNr28zntOAFVwDr3LIT5kuEjPEhAcsttDdUmhEzwbMyBXpkkCCH58IT3Xen1YPraGmDg4NNOvnZmgv5MHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EPIv/Y0t4hJDOS3D9ydgf/qPNKP6pXi0K451N9z9uj4=;
+ b=jObpkYI/41NTOjd1l1h1XBei15X+9ofFnxMbVYX6SI+5fwGSDtsup0wWCITipxlV07rICkhivo4SpCqr8eOqKkfaTgY8+yE7m5uF1xyCTyeZ+KhxdYz8qMBSdr1BbzVa05Akkp+qR3xyDcrG9EZgiSRFwkxGjDrnpkqsQZDob4QIShUSZSu7mb1Yeh+u8XHbwjp9oy6WMKCuygtQaQz0gB2eG77gbDDVfKamqpda/xNu/KCbt45k+F6gGbiNIT6hoaZtXKbrxqKKaV7edSF+DdE/Pr9WxQc7u2WQL08eDUr87eCGwSnVyn0yKdn4KeIYAsjv3SkbYa6xbzZIAUdb6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790588105; x=1791192905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
-        b=KlgEBctu8040tRcI4JJ4z/lgw8m/xm5eAl8RMeOIXx7JpsVmJQYUqB9eMde8iISo/t
-         WIPMtGAUW7FN1hSgHRICbGUopeOII87H1k9vWr+uhhQwjlECKMiCdvhzLLZs8f6NxrkH
-         utFukPD17YPzJiQMNyKy3b7197ojQviiyZUXfg1BsEwWVp+3Yx3FlJ1tiRixN4dHodAT
-         41XPdKXcWiaH4zMiO/FkXizKAMVrpvzZfQm9DEEsoQRL4lQiVGyB6hYiAGr6IKeI6OnB
-         3pSyidg2i/6mtA25l1Go5VofvJV6+FmLMpAqVrTn9gKPBHVRsdgA23b/Fysoth7AVC33
-         bOeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588105; x=1791192905;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
-        b=LjJt8aDb/FA8gua9tDS+ws49HgZAM9c7wXpo9d7xy1n91RnFADE/yWs/hXl3EYkZHr
-         pbyTLr8pKmd7jwQhwvyI3pTwbXH38cuGkhx8e1YStolOnDLbgYLvjE74JJBR3+0plZNf
-         GB5F3uQEoGKX0ym2qCUk6myq3qDxA5Dr506T097o/b13Lyp9XrMR0ISzfZqRjGR73y7k
-         w2Edi9h1nw78b8Xw9fWu2NivLHW728eP5JgvXRG/zl8tfFRcUYwgX+j8K3yXAczkI6Pn
-         oYxPModvnWfe82oAyWcEoOXSmCPBAli53PMBLJY761+w2WayumzyzddvhxyLTAI7/27o
-         NI1w==
-X-Forwarded-Encrypted: i=1; AKwUvByZZXygGl8oWRFqBx3Ldpj2L7dihhk1cPtbrbfrvG36i4Ia/Q7eBB+DiLas0/ev1ZmVgYW171ANROdqAa0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5c9id2MQWTM1JvINWarNb/qKO9G5z5KuoQq8gozhtiwHBX1sJ
-	IhVKDAVgysBQKLnOrdToiZs5UVeiHcXgqxNuIn1jp4a7TJymNMDmgTs04GBK1SVzFbqlg1jADa3
-	IVB6nI3lonXarJBGlwQCdf7T1XyzfcXg=
-X-Gm-Gg: AYBFou1O2DjbR3RLMhunwUgUEBXWLSMqW0C1bgUvb8nYf25D8aDSjaGf/Pm76XgPUTX
-	SJDfj5opvTAXm/1ef5VA2L4EBpU/BHIj3wo/1PqvgUViRFhui4vAL2ufkyt5RDiyFH+7xEv8uMR
-	O8AuA+RPna3ZtDlY92etFMh5Ijrtk5Jh6edw6A6fOjmaeeGpM9jbdjK5epSyb+XPuk3KXyT/RoT
-	4c2Ji5Y5n0SMEEz9dEMGjG1rM3wsPFdAben+d5DKc+RQBkpPZTA7zgKMUsv0wUZo5JOgrP2LkIP
-	bV89PZW4Fc+JzeEHHT8FbvDME8xv68MS9fkyifpeDmA+p98BBfPpl2mFN324ZVqxsx9zXyRIyjr
-	BC45FkqL+C6U=
-X-Received: by 2002:a17:907:9445:b0:c26:19de:9adb with SMTP id
- a640c23a62f3a-c2ac259cee2mr1036666866b.26.1790588105420; Mon, 28 Sep 2026
- 02:35:05 -0700 (PDT)
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EPIv/Y0t4hJDOS3D9ydgf/qPNKP6pXi0K451N9z9uj4=;
+ b=DrZCR0oPNIYvZ5FUP+voj/8j8WMoGodIDXMYE/pb8Ie41SZV39hK193rjSggWI7lF/NRTyFOaN/+OUZn/gIWCrAY8FqDG9FkYYyrAjwVDHntZZad3Hxo1UA3dgNlYQAjq4oEO1LDBP1DIKsYCLiSY+OR2gd4NVMt3ai5X8qABAI=
+Received: from SN7PR04CA0165.namprd04.prod.outlook.com (2603:10b6:806:125::20)
+ by SJ0PR19MB5611.namprd19.prod.outlook.com (2603:10b6:a03:42b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 09:34:48 +0000
+Received: from SN1PEPF00036F3F.namprd05.prod.outlook.com
+ (2603:10b6:806:125:cafe::54) by SN7PR04CA0165.outlook.office365.com
+ (2603:10b6:806:125::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 09:34:48 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SN1PEPF00036F3F.mail.protection.outlook.com (10.167.248.23) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Mon, 28 Sep 2026 09:34:47 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 656F7406540;
+	Mon, 28 Sep 2026 09:34:46 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 54ADC82254B;
+	Mon, 28 Sep 2026 09:34:46 +0000 (UTC)
+Date: Mon, 28 Sep 2026 10:34:45 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+Subject: Re: [PATCH v5 4/7] ASoC: SDCA: add class_ops with populate_function
+Message-ID: <aro0teZqdsNTvHS6@opensource.cirrus.com>
+References: <20260925161049.758913-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260925161049.758913-5-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com> <20260928091144.818739-1-liuxiang.277@bytedance.com>
-In-Reply-To: <20260928091144.818739-1-liuxiang.277@bytedance.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Mon, 28 Sep 2026 17:34:27 +0800
-X-Gm-Features: AclHuK-2Am0IrJwrtO2WIF-9sUUaEeJonX73QRQrUzGpc-JcUfmwQN43Q37uOAk
-Message-ID: <CAMgjq7Agqr1FLcG3HqT_M_1s8cHc21qQKTM-JS67-3gfQ6azPQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 00/15] mm/mglru: frequency guided promotion
- (MGLRU-FG) and flag cleanup
-To: Xiang Liu <liuxiang.277@bytedance.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Yu Zhao <yuzhao@google.com>, Barry Song <baohua@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925161049.758913-5-srinivas.kandagatla@oss.qualcomm.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3F:EE_|SJ0PR19MB5611:EE_
+X-MS-Office365-Filtering-Correlation-Id: 585e2b55-07fe-4c10-dc13-08df1d43bccc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|82310400026|23010399003|376014|36860700016|61400799027|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|16102099003;
+X-Microsoft-Antispam-Message-Info:
+	4t8P3Lt9+DJmezSssOScSYr+YDauVfA9a+vRdKhZTOkY+EDVxFDcoSJUOemlsmgrYjRRvmrSp/suqCs0Ey41dD4TjMhySVIbRN0ueiMyVzSZdMf9WBtwAtJx0OlANMeaXuBLWw0yS/eMny3Cj6XHnQHXD7dbvEPdLyaMhXN3TcBj6wQeoqPRcB4Lcu8Pfat+YiRUUzD5jdEcOaCJ0T/HpqQWq4C/ojrbRda6PsvjkKZ3JM43gD9EFOnvbI7DNd+VUooFJDEqkvj2yHg6kppMSgsJ95Lu2KkDSlUvwtiAxRjytN07pzbL3606ZuLryt+xQsUipDx6b211GGQ2hQXJxWOktOmhSZYYGfC9CeLQQCMNGjulBRUOeGq8d0l8Eqy1TBf+KW4bPQOVuDjX2vtnLppFAK+SSYAbwK0x1FiFe8l40dPCwkHmTkn7XdDOS5p2L5ZXU8NQNxDjocpK3WwDy5egtFChAW07cJrmyI64xmSB9oVil6e6KhKQpZB74ux2jVDOpDuBLP9/NOft4NkO55tGuwG7iB73TJRrdGmh+6buSYmGe3K3dXWCv6M7o4BASYGXq0tl7K1R4Qrcj65s9Zux49K24Hdb6kvSc/CuVL2X4Eo0IIqTk74ZyeJtF4eRqTdENSbn763Cce5zVa8Ils1Kvuo5VtLe15556OoAxTRpef0hL3rwrLClBHVQw5mlPrCsxE0YZzqSd74m0gMNcQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(23010399003)(376014)(36860700016)(61400799027)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6AMr9eHRQJl6oUKsYRG+HxkPO8iaRwxswM5Rij7JaMlSEzYX1PSQDqglnrcssDJSJUKEqO6rfRNcjeKhwpw6cPqyf524pzhQ2eu3kNx/IGfnPgpACScTk0emBrWl4tJqBXdT0/sk0/2G5ODV3rKbUN6OJQiR+s6U9s9a50rmhjIQzztiJE0Dn3eaNMXszianaq4F3GaMl64tgGoCE5uRJpKj9PzSrUN/B4bQSdjQKkK+AgHvYYwGqFQIj03ZfH8Q0za9glN1kLYDJwCNUywbZ96YGK3FKWYgS3R7Az0m+QOk+p1A1hHn8U/dCd/hiTerK+olIa0iEEPXi+R4xfnv8oZZuBjxD49tnnI1VyUGruNvgT27E7sVZBSNp+Ae5vWELk1XjVHsdcb9hCNPZgNuztKdmuBOeTRF0moLm6ir0pfh5luWrynqaqIHZdQyd3Oy
+X-Exchange-RoutingPolicyChecked:
+	0GxGjYtf2sT9zWJ6MHFi5iDI9IY6XutpM11BeJX1wuUWMAmFPTBXJ+elHrVmq3yCeZ64Eju4NZHpAC08B4jmqIPUcVx2fawwonQ/QkqqLhaOoEVNGokxMN30HScRorvfYeVCB9qH+gqy1X88bIzMQ4gvLuRF6IUPXK3GkumMH4deQX9lSw8IuLuwscUahTM+ep2U+aDOKaTCPFUcv6utDYGO2e3PoIbgbDzDa1Y+Bd0Ax9haEsuj9JVZIhBI9p2oPj3optEbHO5t9NLSksz5JOH2X5IS7Ejx9fWBSkoa0vLdLycjIZPQMA88ATSd0D2MpiKqTOw+Pl4gsYTJgwgJ2w==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 09:34:47.4686
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 585e2b55-07fe-4c10-dc13-08df1d43bccc
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SN1PEPF00036F3F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR19MB5611
+X-Authority-Analysis: v=2.4 cv=GtLXaU1C c=1 sm=1 tr=0 ts=6aba34be cx=c_pps
+ a=xX5bFixAAzgdQQ8ihQiE1w==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=EUspDBNiAAAA:8 a=w1d2syhTAAAA:8 a=pB80b_qWtbF5VLgjRo4A:9 a=CjuIK1q_8ugA:10
+ a=O8hF6Hzn-FEA:10
+X-Proofpoint-ORIG-GUID: a-Q6az8ttsSBBnQnEvOHXjZD4TKF-wrU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNyBTYWx0ZWRfX5wrKlFKwzqW3
+ mfmDFtO2xcmpOr+V7FFTWV146LGIOiz9vaGg551i9SjNhOVOArjN+GWNyqfVnyDaaEorjD7nc75
+ 2iQPKKph441vgVQSUpNMV24E2M4SBrUNA46i1CGrkddlvhQQo4dOzfziqnphscjF3QsrrVDee31
+ mAbWjRJMC/Uh3jN8KxnB28Ss01LGZiDmEZpiRtofyhNWobWM3uhMovOZUJda1gJCJQE/oi5fGJN
+ NrGTjiO1gwiM+zFJZrEyE7oMXDy8Mrh2oJbbAPFNewYyqrQgWRnbqUsVKIm8+N0PD3DqvBMwoPi
+ YRthAvQjbr5I4iN3Zzuml8pw3rYR2plyg/eopLYaKDzYfrT6VrT3yMGcF7fCTY9UnvabbUhqPd4
+ WYdCbl5h/gzxXgmkQnLUIFQzr64PVZQWafbisQjsR3i1F6Gf1Gju/YJhD1Hybgeiz4qhxZeo36R
+ ip9HdTIpnUIQ4b8OweQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNyBTYWx0ZWRfX4IPSiLIvjXqM
+ VsjGtT94n77vznu0Yc9u/n6mXeYWdKBhq0hyZw27MMxh1J4ZQO4xdpibJW5NbmdSaLl6xSgkJxQ
+ B/cT8BaxbcjtYppzHrYUTeFdG4m23DU=
+X-Proofpoint-GUID: a-Q6az8ttsSBBnQnEvOHXjZD4TKF-wrU
+X-Proofpoint-Spam-Reason: safe
 
-On Mon, Sep 28, 2026 at 5:12=E2=80=AFPM Xiang Liu <liuxiang.277@bytedance.c=
-om> wrote:
->
-> Hi Kairui,
->
-> I tested the complete MGLRU-FG RFC v2 series on an x86_64 machine with
-> a SATA SSD. I found that the LevelDB Scan/Get result changes with the
-> relative intensity of GET and SCAN.
->
-> Setup: base commit 9958290885035431e2494159f555e332c3c14906, about
-> 28 GiB LevelDB, 2.5 GiB memcg, swap off, Zipf 0.99, SCAN length 10000,
-> 240 seconds warm-up plus 240 seconds measurement. Each untraced ABBA
-> sample used a fresh database copy, page-cache drop, reboot and cooldown.
->
-> Untraced ABBA results
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Workload                  GET/SCAN   Baseline       FG     Delta
-> 1 SCAN + 3 GET                92.5    4688.62  4425.82    -5.61%
-> 4 mixed workers, 99.5/0.5    195.2    6200.60  6385.57    +2.98%
-> 1 SCAN + 7 GET               237.2    9574.97  9831.70    +2.68%
->
-> The first workload is the original four-thread layout: one continuous
-> SCAN thread and three GET threads. The second is a custom workload in
-> which every worker chooses 99.5% GET or 0.5% SCAN per request. The third
-> keeps one continuous SCAN thread and increases GET threads to seven.
->
-> In the original workload, FG changed GET throughput by -5.74% and SCAN
-> throughput by +6.91%. The two ABBA position pairs were -6.21% and
-> -5.00%. A separate 5 GiB memcg repeat was also negative: -9.07% and
-> -7.67%.
->
-> Traced results
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> I ran one fresh-boot baseline/FG pair for each workload. To limit probe
-> overhead, I selected about 1/1024 of file offsets using a stable hash of
-> inode and page index.
->
-> Initial placement of newly loaded GET folios
-> --------------------------------------------
->
-> We tracked new file pages loaded by GET requests and recorded where
-> MGLRU initially placed each page: the oldest generation or the
-> second-oldest generation.
->
-> Workload / kernel       Sampled   Oldest        Second-oldest
-> 1S+3G / baseline           1452    186 (12.8%)   1266 (87.2%)
-> 1S+3G / FG                 1371   1052 (76.7%)    319 (23.3%)
-> Mixed / baseline           1782    199 (11.2%)   1583 (88.8%)
-> Mixed / FG                 1662   1312 (78.9%)    350 (21.1%)
-> 1S+7G / baseline           2719    469 (17.2%)   2250 (82.8%)
-> 1S+7G / FG                 2677   2107 (78.7%)    570 (21.3%)
->
-> For example, the original 1-SCAN/3-GET baseline run sampled 1452 newly
-> loaded GET folios. Of these, 1266 entered the second-oldest generation
-> and 186 entered the oldest. With FG, 1052 of 1371 sampled folios entered
-> the oldest generation.
->
-> The same change appears in all three workloads: mainline places most
-> new GET folios in the second-oldest generation, whereas FG places most
-> of them in the oldest generation.
->
-> FG promotion was active in all three workloads:
->
-> Workload              Later GET       Moved to the promoted generation
->                       changed gen     during reclaim scan
-> 1 SCAN + 3 GET              38              548
-> 4 mixed workers             32              558
-> 1 SCAN + 7 GET              70              936
->
-> However, FG also removed more sampled GET folios before another GET
-> reused the same in-memory folio:
->
->                          Removed after one GET      Later reloaded
-> 1 SCAN + 3 GET            81.5% -> 88.4%           44.7% -> 48.6%
-> 4 mixed workers           73.4% -> 90.2%           48.3% -> 52.7%
-> 1 SCAN + 7 GET            84.5% -> 88.2%           56.2% -> 61.1%
->
-> The arrows show baseline -> FG. "Later reloaded" means a later GET
-> demanded the same file offset after it had been removed from page cache.
->
-> The request-level counters explain why the final results differ:
->
-> FG change per request       GET cache miss   GET I/O wait   SCAN cache mi=
-ss
-> 1 SCAN + 3 GET                    +2.29%          +6.87%           -15.97=
-%
-> 4 mixed workers                   -5.68%          -4.19%            -6.93=
-%
-> 1 SCAN + 7 GET                    -2.89%          -0.32%            -8.26=
-%
->
-> FG improved the SCAN side in every workload. In the original workload,
-> the GET miss and I/O increases were larger than the SCAN gain, producing
-> the 5.61% total regression. When GET was denser relative to SCAN, GET
-> misses also decreased and FG became a net win.
->
-> My interpretation is that FG introduces a cold-start window for a new
-> GET folio:
->
->   first GET -> oldest generation
->             -> a later GET promotes it, if it is still present
->             -> otherwise reclaim removes it first
->
-> The outcome depends on whether GET reuse arrives before the continuous
-> SCAN stream consumes the oldest generation. The trace shows that both
-> promotion and early removal occur in practice.
->
-> This machine uses SATA, while the positive results in the cover letter
-> used NVMe. Storage latency may also change the timing among page-cache
-> insertion, LRU drain, the next GET and reclaim.
->
-> Is this cold-start window an expected trade-off of the current design?
-> Would limited initial protection for refs=3D1 folios, or a decision based
-> on observed refault/reuse distance, be worth testing?
+On Fri, Sep 25, 2026 at 05:10:45PM +0100, Srinivas Kandagatla wrote:
+> Add struct sdca_class_ops with a populate_function callback that lets
+> codec drivers supply the SDCA topology (entities, clusters,
+> init_table, ...) from static tables in place of sdca_parse_function()
+> on DT/non-DisCo platforms.  The callback is a pure data source and
+> performs no bus I/O.
+> 
+> Codec drivers embed sdca_class_drv in their own priv and register
+> their populate_function through class_ops passed to
+> sdca_class_probe().
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
 
-Hi Xiang, thanks for testing:
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Well I mentioned this in the cover letter:
-
-=3D=3D=3D
-
-Interestingly, mainline MGLRU already beats CLRU on this one after a
-recent change in lru_gen_folio_seq that bumps new folios with refs =3D=3D 1
-to the second-oldest generation. That change accidentally gave random
-reads a higher hotness level while making sequential reads much colder:
-sequential reads involve many readahead hits, and readahead folios start
-with refs =3D=3D 0, so they're already in the oldest generation, and
-folio_mark_accessed() on a readahead hit has almost no effect on generation=
-s
-in mainline MGLRU. Meanwhile, all direct-hit (random read) folios start
-with refs =3D=3D 1 in the second-oldest generation. As a result, the scan-g=
-et
-test natively protects the "get" part and sacrifices the "scan" part.
-That's not the best solution though. It's unreliable because it depends
-on LRU drain timing, and it hurts workloads where the sequential part is
-actually hotter (any workload involving a hotter large file and many
-small cold files will be affected).
-
-=3D=3D=3D
-
-That actually mentions commit 6cbdd9726fb50. Before that commit, as I
-mentioned in an earlier RFC, the LevelDB test is doing a lot worse in
-mainline, which also matches what Tal tested in that cache_ext paper:
-https://lore.kernel.org/linux-mm/20260502-mglru-fg-v1-0-913619b014d9@tencen=
-t.com/
-
-It was like this:
-GET/SCAN LevelDB [2]:
-Classical LRU: throughput_avg: 993.64 Ops/s
-MGLRU before:  throughput_avg: 951.12 Ops/s
-MGLRU after:   throughput_avg: 1344.72 Ops/s (+41% faster)
-
-After that commit, MGLRU beats CLRU for this test, but that's a side
-effect. (And also I made the test run much longer to let both CLRU /
-MGLRU to learn the hotness info more so in V2 RFC the ops/s is higher,
-also reduced the RA window as RA window dramatically effects the
-result).
-
-6cbdd9726fb50 strongly favors the GET part, because of scan readahead:
-non-readahead random folios (GET) will not use too many RA so they
-mostly start with refs =3D=3D 1 before landing in LRU (stay in percpu
-folio batch, so also due to a time window and unstable) so they are
-put in 2nd oldest gen. Sequential reads, however, use RA heavily and
-start with refs =3D=3D 0, landing in the oldest part. This creates a
-strong bias toward reclaiming the scan part, which coincidentally
-suits that benchmark. But it is just not right, assuming sequential
-read is colder than non-sequential reads makes no sense. And it does
-caused regressions for many other tests, e.g. some data base like
-SQLite, and for example a recent report for other people:
-https://lore.kernel.org/all/20260901180704.168106-1-ehab.ababneh@intel.com/
-
-With FG, however, it will actually learn the hotness. If you check
-Tal's paper and code there is also warmup phase for any algorithm to
-take effect, so I'm already glad that with NVMe, where the warmup
-window is shorter, FG is already doing great, and even if the window
-is long, there isn't significant regression, and more like a balance
-issue. I believe this way will lead to better long-term performance.
+Thanks,
+Charles
