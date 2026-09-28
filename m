@@ -1,104 +1,62 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D583DAAC8;
-	Mon, 28 Sep 2026 21:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC94B4F96AD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630952; cv=none; b=O5vfkDB6DB97HNk8Y9p/s1C4x6CUgtrxdPpSSN9lwI+h8vX3a1CHrynKBh20Sniqw3iEehyl9/7suvxY/vg23JASF2SDamnIT7qx1/4rWbI5RGH7tfRU02KjeRDq20WINrDOq1kPb0UCVOaLrReSU9jY9W5kZynRbRmOOMOuRCU=
+	t=1790631075; cv=none; b=pk0UUv/L22He8TrCnpWSV35HgTAErJFuU7j26iHEnTvJMYOcMNdbDxqT4iDWPDa7wz87dNiu4RY8nZRllAh040LiQrsozse9RFqcGAUQ2qx8Xq650OS66Qn3Y/PLpQq53PYsThcOMyt3kcmgrF7DAvVT2Or8+sWLweKHX8+YJ88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630952; c=relaxed/simple;
-	bh=94BTNUt57tVlWApoGV+9gTyiBgNku404d45yMzs3n8Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=P20+FGpV1+5MBosZexusGgIW2oGz8KpHbknkh1gE284JA4krvjqOOamyUJdj9paFcCS391d70wtq4CnUMbt5Byv5+FzdLRkZEqc8qJVgT3j1smOn5o9MXVgcH2K1mdSANTY5OBTF3i4D+5YYnplIm2Sa2586Goph8KROwKYhPEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=OrHB54i2; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790631075; c=relaxed/simple;
+	bh=14CjeDzlncrsUDvx8meKCe4UR2VXZR8CQ0dWNYgN/bM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=U7nIKMck2jMj5C09kPauXhZJS5+wbU2RiOLqIQxhuZ6NqCIFwxonfLzXvkqlWy8dSK85aZM8zY84w7LN2opbVzWphdzcas7xlsDe7+mMIeegTGv8knGVYcdBLQ+pclkcJ9KnwA/Z3MUir+KsQsn5kbc8e1KJ1rocQXQodkIlsW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHR0+wcF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="OrHB54i2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=U+l/DafMvWMGnvh2E+IccrVXEKeqhLd0JdIY8xbHcr8=; t=1790630949;
-	x=1791235749; b=OrHB54i2VakXZu6/eXhkkCIxGNmlqii85yAwfbSbUsBikZYpnLc8OkE1MC20d
-	OnwmP3YxDztVXyRW0qiFxqojzSt2REbKg96MkDLLfXiMQuP/MzcqLVqqeqnJPX6JlzLnH597HW2m1
-	wAwXnZCZA7H9o/3r72tKFfltm5Epq5AI5c3Der+Jt4k/wyp9QdNMqA27HFrXf6a0f1OPmzewAEpmI
-	LKZk+x32wzlyzrk2NYXDHwqhWYaoAxpOhPHudGuBeNgJ041BmZ/sGbfErrkDq5TfL+J71RfR1KZhX
-	ufT76pllByhfjV+xmzL0gcNqE+wG4abjoiHgdSZ9YpzncleY3Q==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xBIuD-000000023HV-3Wpg; Mon, 28 Sep 2026 23:29:01 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xBIuD-00000003iKg-2cIk; Mon, 28 Sep 2026 23:29:01 +0200
-Message-ID: <3a78c262f00b02e9ea70756120e054c822c23192.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 23:29:00 +0200
-In-Reply-To: <arrZ4bFPXPsvjXvb@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
-	 <d4f35d5001924ef9ff4b28ac412a9d4b6048d789.camel@physik.fu-berlin.de>
-	 <CAMuHMdVRznzGdRwZOHa3=cxhoDNBh1kJqGUoBHqowgj_nzKCRg@mail.gmail.com>
-	 <ed4f818f00df446df53a9168054bee1a9a993409.camel@physik.fu-berlin.de>
-	 <CAMuHMdW=amt+3ej6+i5TMaO6VUKJt3qqYvSWctFtSt8Tttrk2g@mail.gmail.com>
-	 <cdb4898094f152eb617ea353c0780e7fbb000659.camel@physik.fu-berlin.de>
-	 <CAMuHMdVw+-V5OKgRugm2Jz+S=0dOD7hi1p-U=Fzmh3piCOkE3Q@mail.gmail.com>
-	 <a6242d982e0815131fb2436091c77f0e7e545424.camel@physik.fu-berlin.de>
-	 <arrZ4bFPXPsvjXvb@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHR0+wcF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1968B1F000FF;
+	Mon, 28 Sep 2026 21:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790631072;
+	bh=14CjeDzlncrsUDvx8meKCe4UR2VXZR8CQ0dWNYgN/bM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IHR0+wcFGVH0CZEX+Zv9srriAWE/CH4/abBf2EEo66dg3ew0oHccYcjB7X8ZVrrfV
+	 BOsxZV3YLcDP27gO5Y78iItI1OiOiBaZOWx5gcHlOn2RbrgkA5iT9ANWGcvzrILI8+
+	 FytYrBRCAHrEc+KQ5TpR7843p9pnTYc0LNQ1vvr7hkfjhb/51rZOI5yaybxg9wiMt1
+	 mGHLszv/6LGQsynqsl84e225MMpma07AwEJ5iPLDe+MCf1DR4skdT3Rct0edhcTbeM
+	 6UqFkSlgbU7eGpSAsc1vSZzRTJEa572YHpP9YeGPAEjSjlPizpf33kCf4v6aVIiFd2
+	 JvZN23xluY/6Q==
+Date: Mon, 28 Sep 2026 11:31:11 -1000
+Message-ID: <1bcd7a71f382de147d7e26ee14f00ac7@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH wq/for-7.4 v2 3/3] workqueue: add a
+ percpu_concurrency_managed workqueue attribute
+In-Reply-To: <20260925-wq_final-v2-3-860ee052169e@debian.org>
+References: <20260925-wq_final-v2-0-860ee052169e@debian.org>
+ <20260925-wq_final-v2-3-860ee052169e@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
 
-Hi Karl,
+Hello, Breno.
 
-On Mon, 2026-09-28 at 23:22 +0200, Karl Mehltretter wrote:
-> Which U-Boot version does your board run ("version" at the
-> prompt)? Its limit may differ from the 8 MiB default.
+On Fri, Sep 25, 2026 at 06:09:52AM -0700, Breno Leitao wrote:
+> Introduce percpu_concurrency_managed, similar to the discussion in [1],
+> and use it when deciding to do concurrency management, instead of
+> relying on WQ_PERCPU (the only WQ type that does CM as of now).
 
-I'll answer the remaining questions later, but here is the version:
+Once PERCPU is its own scope, the scope picks the backend, and concurrency
+management and the per-cpu max_active follow from that. Opting out of
+concurrency management on the per-cpu pools is what WQ_CPU_INTENSIVE already
+does, and I don't see a need to change that at runtime. How about dropping
+this patch for now?
 
-U-Boot 2014.01 (Jan 30 2015 - 11:01:14)
+Thanks.
 
-CPU: SH4
-BOARD: Renesas Technology Corp. R0P7785LC0011RL
-DRAM:  384MB
-Flash: 64MB
-PCI: SH7780 PCI host bridge found.
-PCI:   Bus Dev VenId DevId Class Int
-  00:00.0     - 10ec:8169 - Network controller
-  00:01.0     - 1095:3512 - Mass storage controller
-In:    serial
-Out:   serial
-Err:   serial
-Net:   RTL8169#0
-Hit any key to stop autoboot:  0=20
-=3D>
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+--
+tejun
