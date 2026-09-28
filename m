@@ -1,65 +1,65 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88DB4BF955
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EAA4BE430
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601913; cv=none; b=pYwfTdYoUEyw9aSQ33XjPdA+LgDrnzBMEzX/bL35oZG/ZXSJ3m+kHT4V2NJ8EVvMFwKwWbriUftdlUH4/pvqnZnxAPmtJfHCIhpXJs7KM+x2epC/p2JhAEXZU8r1G2t8AfpNZYBfv2SyB7p6kJhhAXC23Dm4dE8IxzSj83qyL6o=
+	t=1790601918; cv=none; b=Dtcdr3XraHxVa8l8+2+0fGNe5xmO2EujJtaLab5cwMllkJTYyx67/0NtDNHKVym1Y2dpyQz9+pgPCxBR3921irRvqWpN+CP5n/GoSLGFrmHJQab2SzHzaG+XXdKREia81l2/BW2ydDF+Jv22Ta9t7EQZ0pZ01cjgiHv/GnPG/mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601913; c=relaxed/simple;
-	bh=hMARLGXAcDtyi7/ghv8YnrqnZ0zG7q6e+5JguN4tTyk=;
+	s=arc-20240116; t=1790601918; c=relaxed/simple;
+	bh=omWUq2ylgri5HVuCo9P7BsNPWyA3Qdamo17UVw6wFGM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ea9PgL8B7q4ljD1sjG/KAxY+Wa4mfoA6NpgbGLIRniyrbUu4gmoO85/ZsDgc4QBN54MfVhz+tnAI86DqqKY0VpbhY91ndrK8rJ0Ynjd67MLObEjj/U8PGkzoEhn3/62fCRGtv8402KubclBvd/X58d0KYl4AkmW9oCzoGWCr3BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YeNr1oGs; arc=none smtp.client-ip=74.125.224.170
+	 MIME-Version:Content-Type; b=D3I7/eLpUsF4FhfXIxeVwRdVfr9hYoUaYX7B8Ac5zCgcCft2TiOK1R0wqMe+ruwtrrhJK0Glqk/sR4P46V3rai9C09ITJ8WLdMJy6bFGHk43Q/GaD9pG92UuwfsZquEaKm6io/swmSHnqR3TuPegNWuqTkZZaeKTXJ6vpFMkPIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WfAYq3xS; arc=none smtp.client-ip=74.125.224.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YeNr1oGs"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895fd505824so23675837b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:25:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WfAYq3xS"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8a87fe69060so19959877b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790601911; x=1791206711; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790601915; x=1791206715; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CZeRErcG1oGOMZVEvs5q13I33GHS43HVOMHGEPpqKWQ=;
-        b=YeNr1oGsGb4TuutZWdsY4n/+3ACjLa6sLGTR349hWay37rMFgkC9GsyTwBIkeXvGJ8
-         hYWjIUvy3zxHxWHsW3gQepvq/bgzmVKOZgTSSpYE6L7tTk14m9JWdq7hVq6QEE1Crwp/
-         nkXny8tYMViFMPwoD5fmiM0+xOwTyICg9lhLD3/7e3g5KEubxWkhsIwHqjeGNHLhFmpD
-         nJjbOBfUYCp0hiVNmePhL9JayOfybfh7GLuVH0vpEJmFbczC4VxcQAAoO5LzoY7+5lw7
-         YPazct1efgNVmQTWlI3bBWHdXAtt2eg5yanznBxMFTiPv0s4c3+9U9uYG2HINk+OyMrP
-         S/Tg==
+        bh=J+r/qb76YDeMxdfipeBCvFr6YaXG+gMr49LHmpmmJnA=;
+        b=WfAYq3xSFi7kZ/2GXBjCbmZHxxCTKcuQX3tGUKuRSI+MiYulCzyQofksi4eyy4yG94
+         mONbf4d7xsxWhnJRCoBz2hBrIeyI/mqvga15DCh0fRK06BvDVnvG70ku0A/9puUlQ482
+         PMLN8gx+X8QctwVMQV04LDgRUdonb1xFo5mM9HlyPK2LcwLjT50MbdsIB8e91l845lr6
+         +bWdu5BgeumSM4QrosYIup/dBcACpwgFrDv5/7NPJ31OMU9k0pvmEOfj4jMmrSP1wjx1
+         3EDqRR3y6QEfO3BskSlMMXAXBOB/SYMBzO16azi34QJJUY0lNkhKjfKG9qWdMPmIlGMp
+         gjQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790601911; x=1791206711;
+        d=1e100.net; s=20260707; t=1790601915; x=1791206715;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CZeRErcG1oGOMZVEvs5q13I33GHS43HVOMHGEPpqKWQ=;
-        b=2asx+nqrcWh8PEc7Gx2w0dd8lvQ1goFilU8ZNBDfGtnzxTDnnw1/min6W9ZmmmNfu+
-         WpDF8zSjFJ6yJrb+/5k6Jo9YjyljltwdC2DRjla0Za0g3dKDp9FxG+oYoma2IKorNfze
-         Lu4jHjY5oOrcsjlUYlNjEocDZC5JBX3UJfSIEZ2sZv3WLWtxJ3VYl69Z0Y8juyvKHuxG
-         LxqktAHy0QKe9+6lrXBMXtQEYnRoGjeA7jidRyNL9VUjl0p1/RzvtpdMnVUQlLHKF1+e
-         QMmF8jahu/yERx/I05nuG2cUQ49fVRnpVnnqvpSplJVogEOWz8zAD7tX/Twc8spnktYg
-         N6kw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtPs8juODpdJT0H/DiPo3pJh5y+vpEe98KbyQ7/HUO4InZ409ms5gYvpGO8qmy14+/be/h+DCIYAyjdGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKx8C2f0c3ZCizmRTJ1L9h+qBUU3adSYNNve8KqCL2ilPYCYuah
-	ZSNHitJLQxSt4oQJcwLXNsg2mEW7Cln2KuirOVvY/U7ATxTQKfGT4Lj6
-X-Gm-Gg: AYBFou0EDNCNZxfHWywSLVphCtbg8e8NP1J0/VnsBMfoRifQ12ILMH7LblLmSVSZwhJ
-	iJHFEyp3Xd3J+SsqlUD8agaJyOdOxy8epHaCgOdOLa/+E/Bdpsni26WEPQruzVYFGqmRx39NZ9M
-	cTGbkT4n2ewb45akYqX/80JK/b75uepvitaIvbJtmW54xoesXLvGnA3/Mjfcmnm4Iv78NU1JC2T
-	+odMcLEZEVN95XWlZCsRo7kbKhKjJfpE9wBt5h0Gcl7CCZs3lnmoN2rWTu68LaRieNBQ8RlwP18
-	THONO1E65RmyxuyzZsIMZdnLU+54qEgglLoPb/opiPr0DGC7wp/7d4aMbRnBHgwnwG7+/S/zU0/
-	HuFEKl52KZ492CmCyg3N9NniEmaq4LsEo0UUHWvmNXU7Nki//gbIAi93gbUQVrKvVXnMC7ofooe
-	OS11aoegYG6NacrECRhCTabfVlrhAuX0pciBLnuXuI50g7qDBRRoH7nOOWSAzxnKjb5cJwgCF8u
-	nXgN7rW92MVl+p/kJXzZXJ+J/CVOpk+y/43GjI=
-X-Received: by 2002:a05:690c:6e87:b0:8ab:3246:4abd with SMTP id 00721157ae682-8ab32464ca8mr4432007b3.57.1790601910699;
-        Mon, 28 Sep 2026 06:25:10 -0700 (PDT)
+        bh=J+r/qb76YDeMxdfipeBCvFr6YaXG+gMr49LHmpmmJnA=;
+        b=CoWEkqHpyAB2KVXseV1eIO+q5eHx2fCKK6dk9Ysj1wuLzB5hyr0lDDFf/lct05mJG9
+         oo98KB0raQUFM7rs2ExeuXX81aRA1kXc2WZJ1QkX4zwQCGiO6q0g9Io9kJ2tFl1FU63+
+         +Ec+CBsIiN5MVe/tuJacLocK5w4jTwyOQETx/ALSCmP2iRYWJogdgg1WGi3HX89M4kbD
+         T15w9L+R6CS1GucUduHW4gnHcyyQFiWs0TUpPnVfniEvije6juxJoNtDihPzMLtVaVPJ
+         FWxWmlWZptUu0cY0+YaYYZWXj56eZ4zux7VOxaIKUuEQVz4a3RNuh0f+MuQvUK+5OFP5
+         e+ug==
+X-Forwarded-Encrypted: i=1; AKwUvBxeVJ7sMNpeJDOSCUaIU6+FMFajHzp8hMMAynRX7vq8SOOZ4Z1gBsbag6QxsO3AwYhbsqBh8R6lixookPs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJary19sNP66GTa2txTRbZ8Usm0xgc0rUhdnVzRJwnjetUkEKX4
+	GolgSaA6bt3AW86gB0JCfkIrV0XtE1Etd4pnI6YPIzAnaVVkKKlpempu
+X-Gm-Gg: AYBFou3Rz9Z+0gAjR26CNoM7o6McaDuAMNy3krqZJk4NYFHV8K5bCqzVE0Wwl0SDRm6
+	wEzFwuULUlp0aIcAWaavPToN3F/Yka+GYcoAPFD/y9F5aZpbD0dYNcYI4LyTFQvtZa1XIkx29o3
+	AGLM8GdfLa9GHm00SKYN3F9IPgUOJI/RXljoloRQEZTK2/ivr9yhylldQZg8fWL3LKXxv1VETra
+	xtLvfE9J8Wb2ywpxqWhHr/OCFRnCkFRZM6Jjxkw36uOzyweR9XbzF/7lITdQAaPmed3BLmYxZov
+	EfLJiwFD3IaPKb4kdpHMPzWICPmKwjuWRkprYjfKZMF8ZhUKqPJiReAUytbGkacyvNdf9EDiIt2
+	RaT5zNP6ymw8OUg16VtJwFmRF9Q3B/IsYJLuqqtIxpffUX9skHDUxcZNwY/Ofem6fn1C52amRwp
+	mfWB3qz086Nbnb9ZMPlEOY4ZGOgNLNWSFdfUf/o8CaMrHCuB1VpEnhuVPX8N7ow65W8L4gAgyrm
+	Go+EtvAD9M3VnsQuMxtYlid8l6l3S/lfXyMX+AffZsoBrhW+Q==
+X-Received: by 2002:a05:690c:348a:b0:8a8:722a:9a25 with SMTP id 00721157ae682-8a8722aa639mr37186547b3.63.1790601915083;
+        Mon, 28 Sep 2026 06:25:15 -0700 (PDT)
 Received: from localhost.localdomain ([2409:8a1e:2e81:7320:94d6:8f64:6f66:fcd2])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab391acfb0sm298087b3.48.2026.09.28.06.25.06
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab391acfb0sm298087b3.48.2026.09.28.06.25.10
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 06:25:10 -0700 (PDT)
+        Mon, 28 Sep 2026 06:25:14 -0700 (PDT)
 From: Yuchao Zhang <ndaugoing@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -74,9 +74,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH net v4 1/2] net/sched: sch_cake: fix shaper stall on segs == 0 in cake_overhead()
-Date: Mon, 28 Sep 2026 21:24:51 +0800
-Message-ID: <20260928132452.59996-2-ndaugoing@gmail.com>
+Subject: [PATCH net v4 2/2] net/sched: sch_cake: validate transport header offset in cake_overhead()
+Date: Mon, 28 Sep 2026 21:24:52 +0800
+Message-ID: <20260928132452.59996-3-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260928132452.59996-1-ndaugoing@gmail.com>
 References: <20260928132452.59996-1-ndaugoing@gmail.com>
@@ -89,64 +89,110 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In cake_overhead(), packets with a single segment bypass multi-segment
-overhead calculations:
+In cake_overhead(), the header length up to the transport layer is
+computed using logic borrowed from qdisc_pkt_len_segs_init():
 
-	if (segs == 1)
-		return cake_calc_overhead(q, len, off);
+	/* borrowed from qdisc_pkt_len_segs_init() */
+	if (!skb->encapsulation)
+		hdr_len = skb_transport_offset(skb);
+	else
+		hdr_len = skb_inner_transport_offset(skb);
 
-Commit c5d34f4583ea ("net_sched: cake: use qdisc_pkt_segs()") switched
-cake to retrieve the cached segmentation count via qdisc_pkt_segs(skb)
-instead of calculating it locally for dodgy GSO packets. If an skb with
-segs == 0 reaches cake_overhead(), it skips the segs == 1 early return
-and enters the multi-segment arithmetic:
+However, cake_overhead() does not validate the computed offset:
 
-	len = shinfo->gso_size + hdr_len;
-	last_len = skb->len - shinfo->gso_size * (segs - 1);
+1. When the transport header was never set, skb->transport_header holds
+   the sentinel value ~0U. skb_transport_offset() returns ~65535.
+   skb_header_pointer() subsequently fails, leaving hdr_len as ~65535,
+   charging ~66 KB per segment to the shaper.
+   Mirror qdisc_pkt_len_segs_init() by bailing out when
+   unlikely(!skb_transport_header_was_set(skb)).
 
-	return (cake_calc_overhead(q, len, off) * (segs - 1) +
-		cake_calc_overhead(q, last_len, off));
+2. While qdisc_pkt_len_segs_init() runs at the start of __dev_queue_xmit(),
+   packet headers may be adjusted before cake_overhead() is reached:
+   - in sch_handle_egress() via tc/BPF egress filters;
+   - inside cake_enqueue() via cake_classify() -> tcf_classify() (e.g.
+     act_bpf, act_pedit, act_mpls, act_vlan).
+   For example, bpf_skb_adjust_room(..., BPF_ADJ_ROOM_MAC) invokes
+   bpf_skb_net_hdr_pop(), which pulls skb->data forward and re-syncs
+   transport_header only when it aliased network_header, i.e. when no
+   transport header had been parsed. If a transport header had been
+   parsed, its offset is left where it was while skb->data moves forward,
+   so skb_transport_offset() becomes old_offset - len and can turn
+   negative. Since hdr_len was declared as unsigned int, a negative offset
+   wraps around to near UINT_MAX, corrupting header length accounting.
 
-Because segs is an unsigned 16-bit integer, (segs - 1) underflows to
-65535 (and is promoted to 4294967295 in the 32-bit unsigned arithmetic
-above). This multiplies the per-segment overhead by UINT32_MAX, so
-cake_overhead() returns a length close to 4.29 GB. cake_advance_shaper()
-then charges that length to the shaper, stalling the CAKE dequeue path
-for tens of seconds at 1 Gbit/s, and for minutes to hours at lower rates.
+Declare hdr_len as int and fall back to cake_calc_overhead(q, len, off) if
+unlikely(hdr_len < 0). Consolidate all early fallback paths into a single
+'err' label at the end of the function.
 
-Fix this by returning early with cake_calc_overhead(q, len, off) whenever
-segs <= 1.
-
-Fixes: c5d34f4583ea ("net_sched: cake: use qdisc_pkt_segs()")
+Fixes: a729b7f0bd5b ("sch_cake: Add overhead compensation support to the rate shaper")
 Cc: stable@vger.kernel.org
-Acked-by: Toke Høiland-Jørgensen <toke@toke.dk>
 Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
 ---
 v4:
- - Add Acked-by: Toke Høiland-Jørgensen <toke@toke.dk>.
+ - Consolidate the 3 duplicate calls to cake_calc_overhead() into a single
+   'err' label at the end of the function, turning early returns into
+   'goto err' statements per Toke Høiland-Jørgensen review.
  - Link to v3: https://lore.kernel.org/netdev/20260927131009.24250-1-ndaugoing@gmail.com/
 
 v3:
  - Split from v2 into a standalone patch with its own Fixes: tag
-   (c5d34f4583ea) per Simon Horman and Sashiko review.
+   (a729b7f0bd5b) per Simon Horman and Sashiko review.
+ - Clarify header mangling ordering (sch_handle_egress() and cake_classify()
+   before cake_overhead()) rather than inaccurate "post-enqueue mangling"
+   wording per Sashiko review.
  - Link to v2: https://lore.kernel.org/netdev/20260922084124.36858-1-ndaugoing@gmail.com/
  - Link to v1: https://lore.kernel.org/netdev/20260917122153.62722-1-ndaugoing@gmail.com/
- net/sched/sch_cake.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sched/sch_cake.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
-index dc93267029e7..b0d604a7052a 100644
+index b0d604a7052a..f8deb8083f16 100644
 --- a/net/sched/sch_cake.c
 +++ b/net/sched/sch_cake.c
-@@ -1420,7 +1420,7 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+@@ -1413,21 +1413,28 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
+ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+ {
+ 	const struct skb_shared_info *shinfo = skb_shinfo(skb);
+-	unsigned int hdr_len, last_len = 0;
++	unsigned int last_len = 0;
+ 	u32 off = skb_network_offset(skb);
+ 	u16 segs = qdisc_pkt_segs(skb);
+ 	u32 len = qdisc_pkt_len(skb);
++	int hdr_len;
  
  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
  
--	if (segs == 1)
-+	if (segs <= 1)
- 		return cake_calc_overhead(q, len, off);
+ 	if (segs <= 1)
+-		return cake_calc_overhead(q, len, off);
++		goto err;
  
  	/* borrowed from qdisc_pkt_len_segs_init() */
+-	if (!skb->encapsulation)
++	if (!skb->encapsulation) {
++		if (unlikely(!skb_transport_header_was_set(skb)))
++			goto err;
+ 		hdr_len = skb_transport_offset(skb);
+-	else
++	} else {
+ 		hdr_len = skb_inner_transport_offset(skb);
++	}
++
++	if (unlikely(hdr_len < 0))
++		goto err;
+ 
+ 	/* + transport layer */
+ 	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 |
+@@ -1452,6 +1459,9 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+ 
+ 	return (cake_calc_overhead(q, len, off) * (segs - 1) +
+ 		cake_calc_overhead(q, last_len, off));
++
++err:
++	return cake_calc_overhead(q, len, off);
+ }
+ 
+ static void cake_heap_swap(struct cake_sched_data *q, u16 i, u16 j)
 -- 
 2.53.0
 
