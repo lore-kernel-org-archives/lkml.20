@@ -1,198 +1,235 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816EF352F95
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790573175; cv=pass; b=mfcvljJmZfda5ZPr3lX1skj9gr2lNVqLJVXsQ5EwD5s2itbDa+Fy2eZkAVPDul51mZS8EGUfHOBbP1MXJZITrEBqcEgwzxgaGU1/FUwD8bg37cLWFxyqHMZFfNiUWY16rskg4tqm0dwGR+x4YZRwFdz9zwe4Ah2OaPN8e0JYBvI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790573175; c=relaxed/simple;
-	bh=ulKfwKoh5ZniJSXC97YGKCyDolFa0F2AklKeKJ+3iYI=;
-	h=From:In-Reply-To:MIME-Version:Date:Message-ID:Subject:To:Cc:
-	 Content-Type; b=sc+GpJmZfK+msB5J6NL23NIohTHO/PjEHTSOBeLj/Q6j+4eHSYYhJ6Nl+s1VzPtdL9HLqZJGDSMfAOnXWE6eEBZYhv/wfEzLd9/iSjhcYyb0WAjSEq67kmF5zbuRbkC8W7XkVSv1VRxcVmT6VwTnCsHcfx0JA+B64wIxQ9XzXJ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rGylari8; arc=pass smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52566330317
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790573224; cv=none; b=Gux6aNaM3AAUJKJZuHXEZ1eR+4wqpDApqDCL7IWO5Eib3MwLfOs+b++7GGGyR4vroi+FqpKRgDvP9JGYHfUxwuRCAk3bnF39PQ+jYNJm/H6FglguUHDTRveRBZY1M1+9DG/Uio8JWQofTW7LVTUn5GqyEK95KbD1dt6IcUDx99Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790573224; c=relaxed/simple;
+	bh=Ah2AEUfrYndLMVRhOzPcb9yOaSwuLaxse1o6b8bV0G4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K8kd9GSowA6JCWkI+S5RZnYuzx6+vLQC/FqCx4PpuTPTO/rk9JxX3AU8Ledzq4scckYh1HY0RmXgE3rjbSUCxwsco5pSvEdzgrmYT9B2LGMEtf1W6BgoBjB99Lqgn2c6NxYawP8uqQXmV1RHwD/A/jmjh6cJVBOCk/FXlXiHvEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWJGO6r5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rGylari8"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09fcso12718761cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:26:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790573173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Uu53dO26Zsbr6Qsc236xkcat9EGXNuztt/hO4aiC45sdyTFQFONAAhLqy28FwwjZQk
-         6fHyDXF5hj1PeDQQjCl99oOfc48bqRAGI4W4YJAxe+ETsut0jmt9Td3EJuaKuZWt1yLv
-         K4XfSJzY3Ex3Vlz9psZFUme8oVqZ7wCmGyofQF6tM4fNrzGR1pEK3jcAdr10fdxibiSh
-         kOywsq6OG0IJU4DH2HvETqGlKEzPqhoSUVopddc8+wcVe5EFkqPzZf88gxMGvcmS8BTt
-         q+599vXgGJh6irTLOL9sZpArl5jSuR7nH3Zw22/r8fnzS6bldTcwe4s6GSi+BNpXiVCq
-         04UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:in-reply-to:from
-         :dkim-signature;
-        bh=9uhJQMU9Md0aI6D1ejMKihBiU/dixd7kNMrT0BD86Fg=;
-        fh=VvDdjU1dwJ5lk1gXRjE+f/G8iCsI4NroUAlZ8AFADoc=;
-        b=nmTCsN94woNyvE5BSbreYa6/BDSugCUuMVAJWjmkZIXfjcrwUG+IQ+DIcj5vo3WSks
-         k6Ei8ogxrHGVg5b9RqAhdt8T2uCESVDu+s3N2Gdx1noPTk3fAq6a2wlwarBTO8N6nU+r
-         do4HfNVirkd1lJsNhp2KwmNhLcmIB/z7V49HX9GHTEWBvk3w29LoJX91IgTwDT4uoLDq
-         5OIvN2GnlKqJTV9AcvW83I2msgNH40hZwP6sXRL/0TARPgusgzw4443Jp5vVwwOdL0gx
-         /wt6hgufS7ZwnJr1GQsF1eI1yzucwor7/4R3xXCdNQA6C6Vc7GLUJsUeQM2k9bQ8gVON
-         NKYw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790573173; x=1791177973; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:in-reply-to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9uhJQMU9Md0aI6D1ejMKihBiU/dixd7kNMrT0BD86Fg=;
-        b=rGylari8NB9WHgBT/7ONM8TF/2z9mTbaMDKA2DM3GQfzAK/YkLj/MyzDdpwlfb270K
-         kPdfVmtBFtKobZ0xW6nn329thwv2KIL0A4tBPk14ATd2im4jGqNenAuIXvdsBB4jnTAH
-         Iqks0jAUJ2oPMJOe92YtMPxhuDBOoqTQifVIOEh9ycXTr/A8f0ely+OXA6K0IREj4B5E
-         M4v+m7dGmAY5kJCeIY5r4z8u3lkdANX5o+WROKFPqXvpeQVlOf/8XBdl4leQj6z+3RdS
-         n7sn0k7p8LYGkrqgBqkWHH8PtwxOrLvH2bOMc6CoDZ2AYSA40gtmEUdAEKEflQMAo/Lm
-         Vwiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790573173; x=1791177973;
-        h=content-type:cc:to:subject:message-id:date:mime-version:in-reply-to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9uhJQMU9Md0aI6D1ejMKihBiU/dixd7kNMrT0BD86Fg=;
-        b=lTbTdeHPXkFpUkmWaUYTq0cT9Jb9UHmmPxvDuaUIFRYHLp2+O+lJ+ID2WlOBEzEO4l
-         LL2y3kkAz+zkDyWLI8nDiiXzL0a0wMEHvQb19UO6R6eBFoNBhgqlfKh1FblVp7BKbs7D
-         rJF3cujCnun7tB22Kfx1tzrRuin2GeDGRWZA3oRpZ1uZcL+iCNXpV3stwH/ycTxHwzGz
-         z7i/cK3x1XGqG+Nu6c0NYtTmcPOU2IR8AF+LkS3Ei6w/qo1o1WGuMU+05f/UgDmVajnV
-         HeoyLgkw8wWZm/lNOpumFBTTsKjAQj8sVpy+FjVV29QgI5oZ4jsXYDvYMXJhHTTTJj2V
-         c7Lw==
-X-Forwarded-Encrypted: i=1; AKwUvByrUFWFCAqoq+yCxJGzDqsbrNRGYV6eOmfqaRDOfD8vtc8hoYxSALIpWdMEuJ8rri51rvVu5fgYTdoWl8w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQVvvjX/+hTgyysSO1HKYfI/yzBNKX0iyPlO7kMa+hhdoAe9Ts
-	qVTTyajW8XYhNaxqN8sTYZA2ZtbooybhLXX8t5toFZpMR7fqusJtLmzOyJLw9oiqsDJ7ZOLZTAn
-	lVOkQ0ScH2YssmJ01jPk+gxinLT0osFXTtnuzGiHE
-X-Gm-Gg: AYBFou2vWMJ+/WPZFzNjSJ/bTNKzAJq8LhUC/2Sw5OzfjD4OdajlXwqxYb5CdIB/DBL
-	s5JFOSqFJ1TuX/q4ccDMk7PjCXhN13w8b8mQ8Y/SVZC4mwyo6W6O0BOcSb4eLY6eNLOMI17f3hw
-	A2Nw2Qc3pWAqyrESrG37qQ0rV51Btc6bXfrTFZLxrHIWpw8Y01p0rJYLCe6b/1669I8HvsbBKFN
-	8CfAOuVBvydeQ+JEFkL6Yk9Ziqwo5OL6hMUfJB9+RcrE53AqfNerphgcWJKvFSj1othBGLTgu50
-	Al9LFGSQ3aZXrrfKfMwNbpCSpQhNXO93ZBcGH0EM+4z7dDUD4WbX7JKdccYVGtu8g3AobjlOE9q
-	VQ6q3zS6ITg==
-X-Received: by 2002:a05:6214:27c1:b0:90e:8dcc:4e5 with SMTP id
- 6a1803df08f44-9142f919107mr186704706d6.28.1790573172597; Sun, 27 Sep 2026
- 22:26:12 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 27 Sep 2026 22:26:11 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 27 Sep 2026 22:26:11 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260428113037.88766-2-enderaoelyther@gmail.com> (message from
- Zhao Li on Tue, 28 Apr 2026 19:30:38 +0800)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWJGO6r5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82CF61F0089C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:27:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790573222;
+	bh=nbR4qOlYxUWlOFxZQwzq4H4GzfUZpkBGmCpDrZmQISY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JWJGO6r57luVC5SxyIky0wYBVV5pFUAcywvoOlCA7HCfVlFKL85EM3O05yACtrogm
+	 XJydYynPfBnUbkZs73yhwh2R6yFB2HjXxltXSICbTDK2zHFunAiKUoMrJRYg+A6Cmm
+	 yf4tldxuFfjnJ80fdnKhgcuSfJTPjGNFQ7/n4DOLXxqEbsn7Bp/tL8GYVec0AegFMd
+	 lpJi6l1FdcUVWHhwfngIQQnWAyyvaLw1Ivp95ZUpdvNkrOKkHi/cRCx0X4bLvI4QKD
+	 94M0wDypzcNleeiSrs1S80MSOXDZXS7Chb+LiE0SlEd+LJWeB/1rYf31xOueNJH6h6
+	 hE742EtfsHK3w==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso3599901a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:27:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz6BJ37q95UwW8twc/jUw8X3Ee/Ds9DHoNLZtH+ve3KFJzWIdvU799xAp/QuyA4tVwiyfBvV5CxYIBRNLM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPGhl3vP1JLiiBCN4XJrMmLzFRyfmPzmKUgK4CGxBqeKgTEjwx
+	LfpjlkhD579FTdYKrhyKuJr1tqU/iNkIQf3vgQbehw5y3Trql0co9CC/awhCj6PfT5DHR7B3vSQ
+	AxMNPY8dCYYX9SN7gnG9ofqlHH1oJTfuP3rD0pPnkrQ==
+X-Received: by 2002:a05:6402:2755:b0:6ab:7700:9360 with SMTP id
+ 4fb4d7f45d1cf-6ab77009470mr3252778a12.21.1790573221307; Sun, 27 Sep 2026
+ 22:27:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 27 Sep 2026 22:26:11 -0700
-X-Gm-Features: AclHuK8teF1_hnBMYASoAggcWTeG1bGk-jNppBGAEy7BhwDUpekXIrCo_Z7K6QQ
-Message-ID: <CAEvNRgEh9_cMQmiNLXumFLt7JtFy0VNNCNB=1mY71bz9JzUxtQ@mail.gmail.com>
-Subject: Re: [PATCH v3] mm/hugetlb: fix max-only subpool accounting on
- alloc_hugetlb_folio failure
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: akpm@linux-foundation.org, mawupeng1@huawei.com, muchun.song@linux.dev, 
-	osalvador@suse.de, david@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Karl Mehltretter <kmehltretter@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-9-hebaoquan@kylinos.cn>
+In-Reply-To: <20260916101929.149106-9-hebaoquan@kylinos.cn>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 19:26:49 -1000
+X-Gmail-Original-Message-ID: <CACePvbX1ZMu=DJ5AU2fjkOT8Y1o=peetizr1uFag17D8_9_byg@mail.gmail.com>
+X-Gm-Features: AclHuK_8kcLS_r3xP2ZiQ5ZwO06a56MHUoBUWTKoqa7lnUBMRC86eB9HZgOK25E
+Message-ID: <CACePvbX1ZMu=DJ5AU2fjkOT8Y1o=peetizr1uFag17D8_9_byg@mail.gmail.com>
+Subject: Re: [PATCH v3 08/14] mm, swap: free backing pages in xswap_unmap_clusters
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Zhao Li <enderaoelyther@gmail.com> writes:
+On Wed, Sep 16, 2026 at 12:20=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
+wrote:
+>
+> vm_area_unmap_pages() does not free the backing pages that
+> xswap_map_clusters() allocated, so they leaked on every unmap.
+>
+> Collect the backing pages from the PTEs before unmapping and free them
+> after the PTEs are cleared. The collection array is allocated under
+> memalloc_noreclaim_save(); on failure, return -ENOMEM without unmapping.
+>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 
-> alloc_hugetlb_folio() calls hugepage_subpool_get_pages() when map_chg
-> is set.  For a subpool with max_hpages != -1, that bumps used_hpages
-> regardless of whether it returns gbl_chg = 0 (rsv slot consumed) or
-> gbl_chg > 0 (used_hpages slot only).  If the allocation later fails
-> before a folio is returned, the unwind must undo the used_hpages
-> bump.  The old cleanup only ran for !gbl_chg, leaking used_hpages on
-> the gbl_chg > 0 path.
->
-> For gbl_chg > 0 on max-only subpools (max_hpages != -1, min_hpages
-> == -1), hugepage_subpool_get_pages() took only a speculative
-> used_hpages slot.  Drop that slot directly under spool->lock.  In
-> that configuration hugepage_subpool_put_pages() cannot restore
-> rsv_hpages, so the direct decrement is the exact inverse and is
-> race-free against concurrent puts.  This matches the used_hpages-only
-> part of hugetlb_reserve_pages()'s out_put_pages cleanup, but
-> restricts it to the max-only case where no rsv_hpages restoration is
-> possible.
->
-> Mounts with min_hpages != -1 are left unchanged for now.  v2's
-> approach (hugepage_subpool_put_pages() + h->resv_huge_pages++ to
-> back a restored rsv_hpages slot) double-counts global backing under
-> concurrent free_huge_folio() and creates phantom reservations under
-> concurrent hugetlb_unreserve_pages().  Safe cleanup of that quadrant
-> needs a coordinated fix across multiple call sites.
->
-> Reproduced on size=20M hugetlbfs with the faulting task in a hugetlb
-> cgroup whose limit is exceeded.  Vanilla leaks 6/8 hugepages of
-> subpool quota; this patch leaks 0/8.  Verified under QEMU.
->
-> Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-> Cc: stable@vger.kernel.org # v6.15+
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Will this patch still be needed if you don't do the shrinking?
+
+Chris
+
 > ---
-> Changes in v3:
-> - Replace v2's hugepage_subpool_put_pages() + h->resv_huge_pages++ on
->   the gbl_chg > 0 branch with a direct used_hpages-- under spool->lock.
-> - Restrict the cleanup to (max_hpages != -1, min_hpages == -1) where
->   the direct decrement is the exact inverse of the speculative bump.
+>  mm/swapfile.c | 76 +++++++++++++++++++++++++++++++++++++++++++--------
+>  1 file changed, 65 insertions(+), 11 deletions(-)
 >
-> Changes in v2:
-> - Skip the gbl_chg > 0 cleanup when max_hpages is unset.
-> - Add hugepage_subpool_put_pages() + h->resv_huge_pages++ on the
->   gbl_chg > 0 branch.
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 2a03b13c0ed2..5b31aacb3ec5 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -67,8 +67,8 @@
 >
->  mm/hugetlb.c | 25 ++++++++++++++++++-------
->  1 file changed, 18 insertions(+), 7 deletions(-)
+>  static int xswap_map_clusters(struct swap_info_struct *si,
+>                               unsigned long start_idx, unsigned long nr);
+> -static void xswap_unmap_clusters(struct swap_info_struct *si,
+> -                                unsigned long start_idx, unsigned long n=
+r);
+> +static int xswap_unmap_clusters(struct swap_info_struct *si,
+> +                               unsigned long start_idx, unsigned long nr=
+);
+>  static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data);
+>  static void xswap_try_shrink(struct swap_info_struct *si);
 >
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index f24bf49be047e..cfdeaf6394c5b 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -3025,13 +3025,24 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->  		hugetlb_cgroup_uncharge_cgroup_rsvd(idx, pages_per_huge_page(h),
->  						    h_cg);
->  out_subpool_put:
-> -	/*
-> -	 * put page to subpool iff the quota of subpool's rsv_hpages is used
-> -	 * during hugepage_subpool_get_pages.
-> -	 */
-> -	if (map_chg && !gbl_chg) {
-> -		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-> -		hugetlb_acct_memory(h, -gbl_reserve);
-> +	if (map_chg) {
-> +		if (!gbl_chg) {
-> +			/* Full inverse when subpool_get_pages() consumed rsv_hpages. */
-> +			gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-> +			hugetlb_acct_memory(h, -gbl_reserve);
-> +		} else if (gbl_chg > 0 && spool && spool->min_hpages == -1 &&
-> +			   spool->max_hpages != -1) {
-> +			unsigned long flags;
+> @@ -3343,9 +3343,14 @@ static void free_swap_cluster_info(struct swap_inf=
+o_struct *si)
+>                         }
+>                         spin_unlock(&ci->lock);
+>                 }
+> -               /* Unmap all mapped clusters and free the VM_SPARSE area =
+*/
+> -               if (si->nr_clusters_mapped > 0)
+> -                       xswap_unmap_clusters(si, 0, si->nr_clusters_mappe=
+d);
+> +               /*
+> +                * free_vm_area() drops the mapping without freeing the p=
+ages,
+> +                * so the unmap has to succeed first.  Retry; its only fa=
+ilure
+> +                * is a transient -ENOMEM while collecting the backing pa=
+ges.
+> +                */
+> +               while (si->nr_clusters_mapped > 0 &&
+> +                      xswap_unmap_clusters(si, 0, si->nr_clusters_mapped=
+))
+> +                       cond_resched();
+>                 free_vm_area(si->cluster_vm);
+>                 si->cluster_vm =3D NULL;
+>                 si->cluster_info =3D NULL;
+> @@ -3988,21 +3993,44 @@ static int xswap_map_clusters(struct swap_info_st=
+ruct *si,
+>         return -ENOMEM;
+>  }
+>
+> -static void xswap_unmap_clusters(struct swap_info_struct *si,
+> -                                unsigned long start_idx, unsigned long n=
+r)
+> +struct xswap_page_data {
+> +       struct page **pages;
+> +       int nr;
+> +       int max;
+> +};
 > +
-> +			/*
-> +			 * For max-only subpools, subpool_get_pages() took only a
-> +			 * speculative used_hpages slot. Drop that slot directly.
-> +			 */
-> +			spin_lock_irqsave(&spool->lock, flags);
-> +			if (spool->used_hpages > 0)
-> +				spool->used_hpages--;
-> +			unlock_or_release_subpool(spool, flags);
-> +		}
->  	}
+> +static int xswap_collect_page(pte_t *pte, unsigned long addr, void *data=
+)
+> +{
+> +       struct xswap_page_data *xpd =3D data;
+> +       pte_t pteval =3D ptep_get(pte);
+> +
+> +       if (!pte_present(pteval))
+> +               return 0;
+> +       if (xpd->nr < xpd->max)
+> +               xpd->pages[xpd->nr++] =3D pte_page(pteval);
+> +       return 0;
+> +}
+> +
+> +static int xswap_unmap_clusters(struct swap_info_struct *si,
+> +                               unsigned long start_idx, unsigned long nr=
+)
+>  {
+>         unsigned long start_addr =3D (unsigned long)si->cluster_info +
+>                                    (size_t)start_idx * sizeof(struct swap=
+_cluster_info);
+>         unsigned long end_addr =3D start_addr + (size_t)nr * sizeof(struc=
+t swap_cluster_info);
+>         unsigned long vm_start =3D PAGE_ALIGN(start_addr);
+>         unsigned long vm_end =3D PAGE_ALIGN(end_addr);
+> +       unsigned long size;
+> +       unsigned long npages;
+> +       struct xswap_page_data xpd;
+> +       unsigned int noreclaim_flags;
+> +       int i;
 >
+>         mutex_lock(&si->xswap_lock);
 >
+>         if (vm_start >=3D vm_end) {
+>                 WRITE_ONCE(si->nr_clusters_mapped, start_idx);
+>                 mutex_unlock(&si->xswap_lock);
+> -               return;
+> +               return 0;
+>         }
+>
+>         /*
+> @@ -4014,12 +4042,32 @@ static void xswap_unmap_clusters(struct swap_info=
+_struct *si,
+>         flush_percpu_swap_cluster(si);
+>         synchronize_rcu();
+>
+> +       size =3D vm_end - vm_start;
+> +       npages =3D size >> PAGE_SHIFT;
+> +
+> +       noreclaim_flags =3D memalloc_noreclaim_save();
+> +       xpd.pages =3D kmalloc_array(npages, sizeof(*xpd.pages),
+> +                                 __GFP_HIGH | __GFP_NOMEMALLOC | GFP_KER=
+NEL);
+> +       memalloc_noreclaim_restore(noreclaim_flags);
+> +       if (!xpd.pages) {
+> +               mutex_unlock(&si->xswap_lock);
+> +               return -ENOMEM;
+> +       }
+> +
+> +       xpd.nr =3D 0;
+> +       xpd.max =3D npages;
+> +       apply_to_existing_page_range(&init_mm, vm_start, size,
+> +                                    xswap_collect_page, &xpd);
+> +
+>         vm_area_unmap_pages(si->cluster_vm, vm_start, vm_end);
+> -       /* vm_area_unmap_pages() clears PTEs but does not free pages. */
+> -       /* TODO: free backing pages via page table walk or tracking bitma=
+p */
+> +
+> +       for (i =3D 0; i < xpd.nr; i++)
+> +               __free_page(xpd.pages[i]);
+> +       kfree(xpd.pages);
+>
+>         WRITE_ONCE(si->nr_clusters_mapped, start_idx);
+>         mutex_unlock(&si->xswap_lock);
+> +       return 0;
+>  }
+>
+>  /* Track the end of the run of pages that is already mapped. */
+> @@ -4152,7 +4200,13 @@ static int setup_swap_clusters_info(struct swap_in=
+fo_struct *si,
+>                 return 0;
+>
+>  err_unmap:
+> -               xswap_unmap_clusters(si, 0, si->nr_clusters_mapped);
+> +               /*
+> +                * Retry until the unmap succeeds.  Its only failure is a=
+ transient
+> +                * -ENOMEM while collecting the backing pages.
+> +                */
+> +               while (si->nr_clusters_mapped > 0 &&
+> +                      xswap_unmap_clusters(si, 0, si->nr_clusters_mapped=
+))
+> +                       cond_resched();
+>  err_free_vm:
+>                 free_vm_area(si->cluster_vm);
+>                 si->cluster_vm =3D NULL;
 > --
-> 2.50.1 (Apple Git-155)
-
-This fixes out_subpool_put in alloc_hugetlb_folio() on a mount that
-specifies max_size only, and does not introduce any further bugs AFAICT.
-
-Tested-by: Ackerley Tng <ackerleytng@google.com>
-
-Further details at [1].
-
-[1] https://lore.kernel.org/all/CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com/
+> 2.54.0
+>
