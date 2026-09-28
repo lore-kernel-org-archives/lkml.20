@@ -1,44 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C75E4973A2;
-	Mon, 28 Sep 2026 10:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A830C472540;
+	Mon, 28 Sep 2026 10:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590351; cv=none; b=VVKLRMhRK8r5cZ3PNKsH1fCWy9N3//4kC9W7zQeu8h229Oni4SONRzQW4vzi4yRKgp3dBqK7+vNma9noTTxMUp9vutmDXFZ9hxdwSt3JUTdnFn5jldvj2EXca4WqlvIAP4GidEHUPIKjKh8VUia0MySxQGw5iqgB+BBxuhDOXZ8=
+	t=1790590364; cv=none; b=u7OistxZUtnFNuR9UdpPgM0uxlmqeePo2ic23jCCX+rnb8iIM69iCvfOYj9QVrWBVpf5CoLwW2WiP9H5xRb+u/vHV3DgxnFVgOBmn30HDILlHxFSmBOkdU60Z0njmICL5koCQeANTbMpfKXAvdf1w7WKvJVRwWPx6mhCV/EnVik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590351; c=relaxed/simple;
-	bh=Y1Kt8mJvaTh/xjAd6TP+xz+U92kmxMTNpwVMwRnN+18=;
+	s=arc-20240116; t=1790590364; c=relaxed/simple;
+	bh=ForAMpRmjYQhGKOZvVTN4ev/F2ykpldgWDOHrL9zlI0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BwWwDfpQjjaFiGp5e8b7OZP01g6HnpGqtpWaxCPQH9vpVyAAzRIMW33kbSS+LtmR6HHtEPqTMXdKzVFgtlbKKFbcQesqEi9Ljez1C4dxs/cu7WqE45Yh3FaqBp3ifvXHCLjkzOeBUfLqRI2Id/fT+tV0XYgzBMd6u43OxpCDjqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8Axq38J; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EpSerjbTeUWZRjMXBT3wiU3TJCf+JyIw2ksDuaHC6HgLOVvRlx5bzZiWdCD+9tWfofXT9IuAux826dquLsdBFtaywwylaSQ7H1DYU29kt6aEcF/fs3EKXnjmJFSi/0qrSaIVOYBXDzRm7ilPX6adS4xr2PcgKm6fjw2DIAnFRXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=M3xm3ltD; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oHUjsiJo; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8Axq38J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAC61F000FF;
-	Mon, 28 Sep 2026 10:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790590349;
-	bh=LPXBbtH8arx5Ywwa/MpxBRIT9dp2/co/kq2hc9i8TR4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T8Axq38J6OIqckGMFib2U5D1Sie4VAL0YAFq4joRnI0DQAEjf0TmLrxj1kHW0cKH1
-	 bq2w19oBvbwJqT+HE5gkIZN8+/UZ8s4KQQckxJmZoPhgYtrRzbs/QQah/ciaM/B+Qd
-	 claU/pBHVnGoJ3HlbuMixLBti+ZaGSbjS8BllxO9IG4ZSVXqr0Q9eRZpk8DkqQbTJQ
-	 oy1p75z3IZFk7pUc9KX7CU7mhkGORPnCALDok6/x+gxPXLC4OP7hdZToLZ9kjjFe20
-	 q9y7spoYszHvWL8iB1ZzA+Qc+JVHgvyglxqcaKXJKRQKhFgks9bw78I3ab2rDnTc+J
-	 +P+yGkeMseMNQ==
-Date: Mon, 28 Sep 2026 12:12:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com, 
-	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Maili SoC and its
- reference board
-Message-ID: <20260928-futuristic-overjoyed-bobcat-adbe8f@quoll>
-References: <20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com>
- <20260922-maili-dts-v1-1-ac2b1b76bfd9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="M3xm3ltD";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oHUjsiJo"
+Date: Mon, 28 Sep 2026 12:12:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790590360;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0dEtTlutFaT0vfpjjH0sO8tCDudniPGBkapiiGSjLTE=;
+	b=M3xm3ltDGN8lCyamcTSWCo8p85V7XN1MgBkJIcxl2ymrfO7JBTb+P+gLyRIRSxmRM4/0f7
+	NjHSpFxIncMNpt8VjU275oYJRXeLylAob+zhcd67pXPqsDZheaZkbSWhuTju/LltQZZyXH
+	AYHJO2nX+NrYQvHoWn0n/Y3FfQGN0Iu+PCpZOTWnIL6hfB8zpiowM1/TVWDmE/EeEQ1Xi6
+	8tWa5XO4oVzecUfIlwsH9Rbwr6GQfiKMEp+3uWiK95Hn0oWNshWYdgiwEcqIX43vKQY3tJ
+	N/Qz+g40l+qLcMmTA6o7+s5k/NF8hM0DbLIK3eefk3oS+vr6kXt70hhP57pyXQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790590360;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0dEtTlutFaT0vfpjjH0sO8tCDudniPGBkapiiGSjLTE=;
+	b=oHUjsiJoVrCEyTE11shUkEMw8xoyzk9YjbgiMqvTdjwb4kQBpZ1H+/xwIogyZdiHNtXa1d
+	8Pq267EDe/sJagDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com
+Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
+ entry
+Message-ID: <20260928101238.NpVQ1n8V@linutronix.de>
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-4-xiexinet@gmail.com>
+ <20260923104346.ur63K3h2@linutronix.de>
+ <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
+ <20260925082954.MYDugnDU@linutronix.de>
+ <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
+ <20260928063824.0E3LO1vu@linutronix.de>
+ <52f4d7a6-6bbe-41fb-863c-5c71644e20d4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,21 +66,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260922-maili-dts-v1-1-ac2b1b76bfd9@oss.qualcomm.com>
+In-Reply-To: <52f4d7a6-6bbe-41fb-863c-5c71644e20d4@gmail.com>
 
-On Tue, Sep 22, 2026 at 04:19:58PM -0700, Jingyi Wang wrote:
-> From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+On 2026-09-28 11:42:01 [+0200], Xin Xie wrote:
+> > This does not sound like it is limited to hsr. I think it deserves a
+> > helper similar to skb_linearize().
 > 
-> Document the Maili SoC binding and the board which use it.
-> 
-> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+> Patch 3 already uses the common __skb_gso_segment() helper, then
+> passes each segment through normal HSR/PRP forwarding. Do you mean
+> a new common wrapper around this helper?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I must have missed this part. It is okay then.
 
-Best regards,
-Krzysztof
-
+Sebastian
