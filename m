@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C135471CE9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D51218592;
+	Mon, 28 Sep 2026 08:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584155; cv=none; b=eYEYXRWhPm3rWOghyrDE6ssC06oecMwTzrb4yN+4P5b2uWIDwjVQB3QlApy4HZKmvofFQE56eQ9xCz0BHJtdype1+c6mZ+5QS3pF3NTI08IVyI97fZ9EjjUgTUWUJRUR7jXymdiKeSlX9PqpIEaOtbuY2r0WSxn1lh8h2JlUEJk=
+	t=1790584188; cv=none; b=S74P6HPRm+jiu+IG1INWkmolo0Laj0+vHYGGmru9L5R6rNMrayju0A5MDHpVS8pCxTIUbHqEvbn53Mzk6zhfYt9Q6yeZj7/4clnVbhzYYarj5tYLhoFqIG+lqZNWgHVEKneKbzNas+XqtkEvWRtRahqqYnecQgR92UtTMNsOobk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584155; c=relaxed/simple;
-	bh=Zw5zXhOLVqkbc+ncf2hBP8AcxwwgRaaxjEW5W6koMro=;
+	s=arc-20240116; t=1790584188; c=relaxed/simple;
+	bh=KrlCLsEPy6i+Fn0tPrKLSS4HQF4I6tn0uGveEr/VM6g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dOm9G07kK3KRyjuZwV34/FJjZsJibb7X9rjOkb00fnGKyXsPHEtnjin2INYNhPl7kYJrzSEIR8sYl0BAU2DOG3Lh40w39E+y5nK9OjGkZbTGIHRvOZ+xa+u716U44pxUBzNjopGLHjvOJhV24jxGH9VRQTafiWaRUAh1QX5HrmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jBuhpJQu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cGcRBbbf; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=WRUEG3I3wL8ySgIlPm146j5Vhy/lw+CJWljbxTHFV4F2WOQ/xhsiX6kidj+t1gcyy4GNqLsHXteDZOZmr8Kols/QS6Wh3KlcxAjJRoKFH9nU4+QMbtRkwhC51NkGvTouUdpC5wewUL/EMheqmcKLIsZUjq91evZ9QY4Da4BH3Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3c6Y2tD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jBuhpJQu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cGcRBbbf"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S7xVgl1871040
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:29:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=; b=jBuhpJQuH44rdrAq
-	wvTI1RPbP/mnbkm35Ej7ZxBm6iMOc6gwmtEOdX9PWzdc3/Z/8R8LnQRfUSBiRO/p
-	BPLmwXqNFqyRDlPG4+bQQJkPY0asEWsZ/Q/PZGIEEovI3Y4XpRCz0Yy3K+ldCrsh
-	L++SiejYXDtKXYZNUAjNCBB4Q6iUoNfSzqOokC8WRub7Kk65U3Q00P+2TKEkp+GM
-	37z1nGO3wBFt5Cvlm2fO2eaA4UpIIr+xBrOWIPpiRl5WX10fGenUrSreobh1/vL0
-	NSLHkH6dO9mUdHFB7l0u1GvDyysJp8ibSJSzokOczQurYyUmwixaqoN1eAb0AdOf
-	WXTSSA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyhubgmur-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:29:13 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93bf3eeb42cso43994685a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:29:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790584152; x=1791188952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=;
-        b=cGcRBbbfKANOvQ3wXvxD7igTZ45JljGevRuQUMqQWko4XwKbJ4SwFzbpb9cxmLq3Zz
-         tVateK0NVFLZa0KMBgefQ4n2tryruhaQwFt5rTGwYXrtFizfFfTgQWJnDceQnmHLEaJU
-         AH3DERUFpmRFmcrLNLHhoIHi+zfRgjLFtfEPFh8xF8R09gUjwmv839Lw6Iw5USrOsaY0
-         RPPQkZqfVUDyrWJD2fjsCvC3emBz/gTq5OKf4W6bD8DA+YN7HADpJDSq9Y7zis5w0L4h
-         qVZWDxqkEvOIRqiMZImYyqo3HU99Q9GcRcPEnze569ZUFY/xb4rXWdsqXFgMXZlrlNYO
-         extg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790584152; x=1791188952;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=;
-        b=K57JsI7o104LIv7ZEtqPNNxbSL8dOY6hvNN4ExzGnGJ8kXww3zjLg6SEuqvDYmYRFo
-         2ZHMzLoSZxnQO5eu8Iq82/IJ3HumAqSb3tpGhlYlCJomvMIyeH7+giWduMWrpMJapAeZ
-         W51prFmb0W/SxAQLeUStrZagPhUvZbtJ6EwkeIBkTJvLWepbHrO/iggdwWpr69dFGeKn
-         gsvaCFzZm2uKRdGmF4/NY6Bfw6LryT2IxJ/X2DT5Qbot7vX/j1CpxZZBtsOladijDn8/
-         A6JxNfK5P5G/o4+Igj0Rv+KUBa6aiIKqjAzBpSOH/kLmaZWV2CWVmVO2wDToU0qqKvVy
-         /Lyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPnfn7/Uhu9GAyW/vZslnb1h+SmOOinLRAGhR1Z68j8HYxLiJO3FC/EUuLA9HFoElq/0KiOoLNoukcJuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvrRrTDHa9FqN+N57mTzI0klen5oqAk8W6tbsqdGP4vZ03biKX
-	kAduvqF8wQY8cN/Uy+bWDs1d4BWG6K3zBhnUo5su8M0+57NR7L6tcRWRFoaTu2ujZh4Y4mzWoXY
-	mI4XfL/NL6LvUJuCgb6ICUpVLGWEQt4ydG39qkbsV8BSjPUN3sMZvg7Vy65pfL41SW5M=
-X-Gm-Gg: AYBFou3yy938PmMtuJclzzh/R2KX4R2KJhW6hlFGb01tLZ9pOlvxzswHJ1AIC/uH2Rk
-	6qYuARRfu5V1KOTXI7KBhIsqNmAA/YGCgI/iqFH9w840CqkUfmXtDOS1JPajSknmtG1XcUHT9Hl
-	CL7R3s3+cWdvoHRhAse9aiyo17CODLUlneQ9ha/dso1TxDozrYDjlr2vJXMYRnqrnFBNuXEgkei
-	gUJElQs2I6z0PXXQZHSgo6oCXRs5ggi+sbFQCSE5bPof6zXz4GjXIlQxNWocMYUiTOf5HClJorz
-	N/zHHvv0Je7xYtH0aQtar9x1JfMsqEechk2CzDO1HS3fuFXS9dNghXVXFrlMZEMKbqMF7VI2/HJ
-	sv3ojbXAd+aDosblrDHoNEg==
-X-Received: by 2002:a05:620a:404c:b0:93b:ee2a:b67c with SMTP id af79cd13be357-93c43d78ef4mr1813620785a.4.1790584152254;
-        Mon, 28 Sep 2026 01:29:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:404c:b0:93b:ee2a:b67c with SMTP id af79cd13be357-93c43d78ef4mr1813617885a.4.1790584151740;
-        Mon, 28 Sep 2026 01:29:11 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dd69d4f65sm128311666b.22.2026.09.28.01.29.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 01:29:10 -0700 (PDT)
-Message-ID: <89c68705-bac5-40d2-b53b-bfc818900487@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 10:29:08 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3c6Y2tD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C1D1F000FF;
+	Mon, 28 Sep 2026 08:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790584186;
+	bh=IZAP9Bay2IciXaBinquhfRw0Eu5bH+v9rrr+JMH5nno=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O3c6Y2tDshehPW7DmHao4G983vFF10mlnFWO53Neh6vYVcG8Va3kHppgfQyiDnv4L
+	 FbLRYfTcPrKg/6m1ylBpGsn8n6cWeLjVhqPG89UvGXHtTlXZHvZ92WAffsWMgeAmyn
+	 OQ3UuCVhsq5UfYMTwPfy6E9BOBJQN5SO3SNKfADbxP8NHN1uHc6uqd2jJZBKXoxJ15
+	 WztEK7OtYi7SPsLYODQbrc+m3G6txSicKkoo+LspB2ntbsQx79iUHxbClj6/PWAdOW
+	 36sa60aBTNnC5nKgKMKlUYlIJarikgmNdmNzHlOJ0GaGNOuQnsQVghU5wxUbjc+wKZ
+	 H5vrZx+W8sTDw==
+Message-ID: <f268bd7e-48fa-4d5e-ae0a-165a857b6a9a@kernel.org>
+Date: Mon, 28 Sep 2026 09:29:42 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,77 +35,157 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a3xx: fix VBIF halt mask for A306/A306A
-To: me@samcday.com, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Alexandre MINETTE <contact@alex-min.fr>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 2/5] media: qcom: camss: vfe-17x: Fix write master
+ selection for RDI lines
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ravi@ebytelogic.com
+References: <20260928064336.272659-1-hitesh@ebytelogic.com>
+ <2jpIk8J1d06yt8C04qiGPbBn1739XTQu_FPMJMROXkVbd83Z7e8j8P8fUMMLJITczKVtbLCLDgcAKBCPp1Nx_w==@protonmail.internalid>
+ <20260928064336.272659-3-hitesh@ebytelogic.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260928064336.272659-3-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8LxZmX33QpNAzrzBKVwlB_f83YGbYOvc
-X-Authority-Analysis: v=2.4 cv=C7F8WgP+ c=1 sm=1 tr=0 ts=6aba2559 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=Oh2cFVv5AAAA:8 a=lKQ-AihTAAAA:8 a=EUspDBNiAAAA:8 a=ZpghvvjZZmtfGsAZhOkA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=7KeoIwV6GZqOttXkcoxL:22
- a=K6G5NyU7usMl-irPePdK:22
-X-Proofpoint-ORIG-GUID: 8LxZmX33QpNAzrzBKVwlB_f83YGbYOvc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX3WPa7VGLbPtP
- qCvi6NLbw19EyG210Bo5F5ao2ytHhO153a8S/SLWxAneJezBARaTr6GVpc3VugB26qyXrUh+z/I
- PN/GU0wNvDdUyniy4EbPKz1MHOyEiPwe0ew19ItdvwjGMopVJrq6fhLM1y0RFsJQZK4SKl20sHW
- TDxHwH4SVaXb9ALDKNlL0N4aCAne6xoTNazsDLWMrzXg9EO/cXgqBejfvvkbca/UbhjUgN0x62M
- Hk48tpP+PyhHlXKBoDpmAOB8UvYfxt7l0Kf0BSjHiCHaXw3J2pm4JtuNTdFpClbFHQyElbJKsgH
- 9KO4g4pBi6GEqt+EyableOexh/KDFh9S9s2C1jVBGXFpPbbYgJmAlYT9IPTVIXeq4fxiI1RBeur
- uzzszkejyzguEp/c9HHpWO0trxjZ9gdIAkUcOmg17XZDfrM0UUM8B6oNEu64jGyq5kA04lMrZLo
- N1/TJ9Ekb+VB6LNQoRg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX67DZyvcVxwjp
- WAW31V2jp30qYW8cVTFim/kfCVCTOa+c8zglt11zSiqdJ0fajQ4vxNaWDAtCp58TEMKu8/EJibJ
- rdbhYtirwkEOq+AFrZewHFqtIWHVKZs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280033
 
-On 9/26/26 8:17 AM, Sam Day via B4 Relay wrote:
-> From: Sam Day <me@samcday.com>
+On 28/09/2026 07:43, Hitesh Patel wrote:
+> On the gen2 VFE bus there is no crossbar between the RDI paths and
+> the bus write masters: RDI n is served by write master n. The common
+> vfe_get_output_v2() reflects this by mapping line->id to write master
+> line->id, and every gen2 VFE except 17x uses it.
 > 
-> A306 and A306A implement only three VBIF XIN halt request bits.
-> Consequently, waiting for the full 6-bit A3xx mask times out and
-> prevents runtime suspend.
+> The 17x code kept its own vfe_get_output(), which reserves whichever
+> write master is free first. That happens to be the right one as long
+> as a single line streams and it is RDI0. As soon as two lines of the
+> same VFE stream, for instance two virtual channels demultiplexed by
+> the CSID to RDI0 and RDI1, the second line to start is given the
+> write master of the other RDI. Both write masters are then programmed
+> with the buffer address and frame size of the wrong line. The frames
+> are truncated to the smaller of the two buffers and the SMMU faults
+> on the larger one.
 > 
-> This issue was reproduced on a DragonBoard 410c: the request reads back
-> as 0x7 and the acknowledgment as 0x00070007 - the poll eventually
-> returns -ETIMEDOUT, and a3xx_pm_suspend fails with -EBUSY.
+> Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
+> duplicate. This also removes an error path that released
+> output->wm_idx[0] before it had been assigned.
 > 
-> The downstream kgsl driver corroborates this (see link). Since the
-> single-character difference between A3XX_VBIF_XIN_HALT_CTRL0_MASK and
-> A30X_VBIF_XIN_HALT_CTRL0_MASK could be confusing to read, the narrowed
-> GENMASK is instead defined inline in a3xx_vbif_halt().
+> The gen1 VFEs are not affected: they have a bus crossbar and any write
+> master can serve any line, so vfe_reserve_wm() is correct there.
 > 
-> Fixes: be0e82b8e0c9 ("drm/msm/a3xx: Drain VBIF before GPU suspend")
-> Link: https://android.googlesource.com/kernel/msm/+/c90c7feeca2f5839ad6824f816c0bd207602a2f4/drivers/gpu/msm/adreno_a3xx.c#637
-> Assisted-by: LLM
-> Signed-off-by: Sam Day <me@samcday.com>
+> Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+>   .../media/platform/qcom/camss/camss-vfe-17x.c | 41 +------------------
+>   1 file changed, 1 insertion(+), 40 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> index c011f64f63..62c2405359 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> @@ -382,45 +382,6 @@ static int vfe_halt(struct vfe_device *vfe)
+>   	return 0;
+>   }
+> 
+> -static int vfe_get_output(struct vfe_line *line)
+> -{
+> -	struct vfe_device *vfe = to_vfe(line);
+> -	struct vfe_output *output;
+> -	unsigned long flags;
+> -	int wm_idx;
+> -
+> -	spin_lock_irqsave(&vfe->output_lock, flags);
+> -
+> -	output = &line->output;
+> -	if (output->state > VFE_OUTPUT_RESERVED) {
+> -		dev_err(vfe->camss->dev, "Output is running\n");
+> -		goto error;
+> -	}
+> -
+> -	output->wm_num = 1;
+> -
+> -	wm_idx = vfe_reserve_wm(vfe, line->id);
+> -	if (wm_idx < 0) {
+> -		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+> -		goto error_get_wm;
+> -	}
+> -	output->wm_idx[0] = wm_idx;
+> -
+> -	output->drop_update_idx = 0;
+> -
+> -	spin_unlock_irqrestore(&vfe->output_lock, flags);
+> -
+> -	return 0;
+> -
+> -error_get_wm:
+> -	vfe_release_wm(vfe, output->wm_idx[0]);
+> -	output->state = VFE_OUTPUT_OFF;
+> -error:
+> -	spin_unlock_irqrestore(&vfe->output_lock, flags);
+> -
+> -	return -EINVAL;
+> -}
+> -
+>   /*
+>    * vfe_enable - Enable streaming on VFE line
+>    * @line: VFE line
+> @@ -441,7 +402,7 @@ static int vfe_enable(struct vfe_line *line)
+> 
+>   	mutex_unlock(&vfe->stream_lock);
+> 
+> -	ret = vfe_get_output(line);
+> +	ret = vfe_get_output_v2(line);
+>   	if (ret < 0)
+>   		goto error_get_output;
+> 
+> --
+> 2.43.0
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
