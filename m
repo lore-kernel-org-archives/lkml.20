@@ -1,80 +1,191 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2FE4973AB;
-	Mon, 28 Sep 2026 10:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26EE498920
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590531; cv=none; b=LcfKXQc2LlZKdYd8qo6Cf94IxkUsyLSpWRK/qmat90K3TooBze/PIcbxQTbKoOVqR3rPUFxFydVVl5TenmKbjrsCNNE9cJwxob0awxtWncqOKKouPQt3cQ9inQv9EmJyV9w7aXivIthXMKtSoswrO1wsQ6gKTZF31Y7Mk8HVBec=
+	t=1790590537; cv=none; b=c+QPXcaRQGP9KuFq0ufOGj1CXUsoGMsb0Vh96S90o203FwJitEBwSr6VhyhZhZ9W9oZTInLHgtFKM6nJhE41DhyKLgJCZHgmCeqKwOrgT+S28ANBHFYltQ6CsDznejltRu77T+utblPWssS6tEfkigEwnoxuJyoBGTx+FEHv6yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590531; c=relaxed/simple;
-	bh=xJmD7Ggat0xCtmwzsYD9DrfBO9Jd+BpGgLq+9l+05Kw=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bybFK1loyAcs5QXb0Ym5t6AU9n85/LoK1ahCFPRMZCWBXJeoYeHjku18yYggmglZUNEvNg/VzeXyntPrJitCzBkwQY9r8z0BPZALGNvpL1on5nzxiGtwyk6EeI9VjxsdpjNj4rV0nfoK18UGmWusx8npZ4oz4K1c0ts+4vXr3MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=nIKDVUAU; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790590537; c=relaxed/simple;
+	bh=2sH0Z1b1DEsr+Upk37SxQ2YStDHN0yVwwbQc9S7oe9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXzi7M0MhdW820wjsdbZhCcrQc4J/VMMOgYld0ZatLkxtDunKIPcJDNOEDqOxqs9wm9nSiRZKQyVeoYLSbI4++vY8FzEVpe5xUc0tl5eULyeXkBpxFmeGoG/kfwijMNOnGEoxSVoqZk6UpJEzXp9VlpjF+nAXDatzmta9BCXmkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qbgtaWZV; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="nIKDVUAU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=xJmD7Ggat0xCtmwzsYD9DrfBO9Jd+BpGgLq+9l+05Kw=;
-	t=1790590529; x=1791800129; b=nIKDVUAUn6Q8Rls3IQUzagn6k0gf7Yfe18DEZjmsq4CFJXD
-	LtlyPSnNZjKRPy7zy64jkK66p1M0vMmP0/XA+XgY8FBJUSBWawVYUdlkZda7EeheEKbIheH8hO0RR
-	lzpjni3wayGbv/iHmYmY+armcJCLa9fu1RIiHKRDhLWPAEfR1DLPt85eLJMVnlJ1NTXxcvRXLezq5
-	QfiVrSz3VicdnDMIC0Aq144mLLg8lpvXCdWjd5lvxan/U3xpUyia2zOtOCDRQz2kQSXTrq67N6k4G
-	YBfiBwVnbtSmjfteHi+kzJ5yhpSHZAO1UZbZVV+G7hmcpvlBMbOzgAF4eJAjDcHg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xB8OL-0000000DS2R-1LI7;
-	Mon, 28 Sep 2026 12:15:25 +0200
-Message-ID: <9b3efaebb9f5460f6bfaaa284fd235e76c940361.camel@sipsolutions.net>
-Subject: Re: [PATCH 1/1] wifi: mac80211: ignore PM bit in non-bufferable
- MMPDUs for PS start
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Lee Jones <lee@kernel.org>, Emmanuel Grumbach
- <emmanuel.grumbach@intel.com>,  Luca Coelho <luciano.coelho@intel.com>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 12:15:23 +0200
-In-Reply-To: <20260928100508.3487525-1-lee@kernel.org>
-References: <20260928100508.3487525-1-lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qbgtaWZV"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9ZbSY801872;
+	Mon, 28 Sep 2026 10:15:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=I9YWgdp3mCbRCKvgPqLXG3NX489SEVw7ADOKm78t1
+	t0=; b=qbgtaWZVNmU+C9w65tTS5Pguk/4bpNIvUIJp7XS8LC0ZKTNlDaAA6lSmk
+	YNj9VTPiHNYYYAsblB5OOjKycMbvmbqlfcymSVPTYfNvJZ0vVt3Kzn4wWXIWM2Ve
+	e5D0zVz6+n3btd6nleC58PakY83B2IGESl27nLE6io5WUfInVu49R6jml1CMXI/B
+	lun1BKQ+zJOanQ/yIUZrwaymnFvnAXVRjwh0z9c0fOuloOheBv24FGEGSJ9oYBwS
+	ttWB8jvElfVGeEEhGAXMuDNmid6i6dbncO9QA8v/ddb+cDkl4FhU/mVa071JgbH7
+	eO8fXLNE3c5AAgkEVRXEsLkmlmFwQ==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j50pwf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 10:15:22 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9HXTe4136558;
+	Mon, 28 Sep 2026 10:15:21 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhcpq1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 10:15:21 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SAFHX545089218
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 10:15:17 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5D3D82006C;
+	Mon, 28 Sep 2026 10:15:17 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2D90520067;
+	Mon, 28 Sep 2026 10:15:14 +0000 (GMT)
+Received: from shivang.bl1-in.ibm.com (unknown [9.123.12.247])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 10:15:13 +0000 (GMT)
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: mkchauras@gmail.com, adityag@linux.ibm.com, adri.vero.dev@gmail.com,
+        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        shivangu@linux.ibm.com, sourabhjain@linux.ibm.com,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>
+Subject: [PATCH v5] ppc/fadump: collect dump when CPU_STATE_DATA is less than reserved
+Date: Mon, 28 Sep 2026 15:46:46 +0530
+Message-ID: <20260928101646.415278-1-shivangu@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfX2b48/DL15AVO
+ jzH79/Zwynf/gq+61IdT4tnToAbC+JtgbzY0595NkqNPVqTDhigKOGYqgJEo1vPMoLL/k+4zvfd
+ PceXFiCYYaN7+a3Z82Wlm1RkuLoH4J8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfX6pUbEtvL3F1O
+ 1Yj1A18VxDGB49ABy+XS0r78bprRvZ/nz79L/EHzn+txHEwJYd7Tq7Hug/veAkI6D3lWuJJWnQt
+ racSi4RS6MgAOHMMd8zJGothNdXwHuSJqAEbxd6tiIxn0jviIowDaolkWp2l+HlF0YvcgYebp5K
+ MIkLYYL6dPkQaXS862B3r1wdI2C/Y04Xwm+/F+NuQZ1aSUgbonXcXSCMeX04vCl6BiBSdDG8YGP
+ tbdP3gw2x4Uz+EOzu9G4e2Kgo8toh9w9ZPXXv/feJpiAkgTwwPQcXf2Yel/ZNE7wdpE5EEU5uMV
+ VVpu+WTmECM5vQaZZKUUiuJBbHiT6pf59+WfbQ65fYReCZW/ll1V3NDnlsU4ptLQ6CBu1o9JMp8
+ rP5uy08oBlORk/tXFilks6CpkhBLMsBoj2lBww5Siy2d6/fvFpuzqn9x0My8Vt54xHE2kHC9MKc
+ 6Tf+5ql5Zw4Vn8GTBlw==
+X-Proofpoint-GUID: 16hvucQr_i2I5bML6FhShkO-5lFkN0ou
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6aba3e3a cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=rhl6VPSXp8Npg8hTsXYA:9
+X-Proofpoint-ORIG-GUID: Z-8AifYGZ8GNAAvGoHw_VknlqIwA3DPd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280040
 
-On Mon, 2026-09-28 at 10:05 +0000, Lee Jones wrote:
-> Per IEEE 802.11, the Power Management subfield in the Frame Control
-> field is reserved in non-bufferable management frames (such as
-> Authentication, Association Request, and Reassociation Request) and a
-> station remains in Active mode during authentication and association.
->=20
-> When commit 9fef65443388 ("mac80211: always update the PM state of a
-> peer on MGMT / DATA frames") allowed non-bufferable management frames
-> to update peer power-save state so that re-authenticating stations
-> could transition from doze to awake (sta_ps_end()), it also allowed
-> non-bufferable management frames with the Power Management bit set to
-> transition an awake station into power-save mode (sta_ps_start()).
->=20
-> Restrict wake-to-doze transitions (sta_ps_start()) in
-> ieee80211_rx_h_sta_process() to data, action, disassociation, and
-> deauthentication frames using hdr->frame_control (avoiding inspecting
-> encrypted action frame payloads prior to ieee80211_rx_h_decrypt()) while
-> preserving doze-to-wake transitions (sta_ps_end()).
->=20
+During Fadump in Qemu VM, when maxcpus value is set to more than current
+cpus, following failure is observed.
 
-This doesn't make sense to me - you don't really say why you're making
-this change other than saying what the spec says, but then you're
-explicitly not spec compliant both ways - without any explanation either
-way?
+    [    0.045806] [      T1] rtas fadump: Dump taken by platform is
+        incomplete (0)
 
-johannes
+This is because the CPU_STATE_DATA is allocated for maxcpus, while the
+data is only filled for current cpus. As per current implementation
+of Fadump, dumped_bytes and source_len for a region have to match,
+Which is failing for qemu's case, Even tough the dumped bytes are
+reported correctly for only the current cpus. After this /proc/vmcore
+generatition also fails.
+
+Allowing dumped_bytes to be lesser than or equal to allocated length, for
+CPU_STATE_DATA Fadump region.
+
+Reported-by: Anushree Mathur <anushree.mathur@linux.vnet.ibm.com>
+Closes: https://lore.kernel.org/all/5e66daf4-3f55-4044-94a5-4f50bb040849@linux.ibm.com/T/#u
+Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
+---
+
+Changelog:
+v5:
+    - rebase to master
+    - fixed error message to incomplete/corrupted based on dumped size.
+
+v4: https://lore.kernel.org/all/20260828094942.2439404-1-shivangu@linux.ibm.com/
+    removed extra blank line.
+
+v3: https://lore.kernel.org/all/20260827075803.2240934-1-shivangu@linux.ibm.com/
+    removed extra variable.
+
+v2: https://lore.kernel.org/all/20260826125626.2108771-1-shivangu@linux.ibm.com/
+    Only allowing lesser size for CPU_STATE_DATE Fadump region.
+
+v1: https://lore.kernel.org/qemu-devel/20260429065127.366813-1-shivangu@linux.ibm.com/
+
+---
+ arch/powerpc/platforms/pseries/rtas-fadump.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/arch/powerpc/platforms/pseries/rtas-fadump.c b/arch/powerpc/platforms/pseries/rtas-fadump.c
+index 3bb4ac2ab6cc..9b9e09f3d900 100644
+--- a/arch/powerpc/platforms/pseries/rtas-fadump.c
++++ b/arch/powerpc/platforms/pseries/rtas-fadump.c
+@@ -459,6 +459,8 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 	/* Check if the dump data is valid. */
+ 	for (int i = 0; i < be16_to_cpu(fdm_active->header.dump_num_sections); i++) {
+ 		int type = be16_to_cpu(fdm_active->rgn[i].source_data_type);
++		uint64_t bytes_dumped = be64_to_cpu(fdm_active->rgn[i].bytes_dumped);
++		uint64_t source_len = be64_to_cpu(fdm_active->rgn[i].source_len);
+ 		int rc = 0;
+ 
+ 		switch (type) {
+@@ -469,10 +471,20 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 				pr_err("Dump taken by platform is not valid (%d)\n", i);
+ 				rc = -EINVAL;
+ 			}
+-			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len) {
+-				pr_err("Dump taken by platform is incomplete (%d)\n", i);
++
++			/*
++			 * Make sure that dump is collected for entire region.
++			 * CPU_STATE_DATA region is allowed to dump less than allocated space.
++			 */
++			if (!(bytes_dumped == source_len ||
++			(type == RTAS_FADUMP_CPU_STATE_DATA && bytes_dumped <= source_len))) {
++				pr_err("Dump taken by platform is %s (%d)\n",
++					(bytes_dumped < source_len ? "incomplete" : "corrupted"), i);
++				pr_debug("type -> %d, bytes_dumped -> %llx, source_len -> %llx\n",
++					 type, bytes_dumped, source_len);
+ 				rc = -EINVAL;
+ 			}
++
+ 			if (rc) {
+ 				pr_warn("Region type: %u src addr: 0x%llx dest addr: 0x%llx\n",
+ 					be16_to_cpu(fdm_active->rgn[i].source_data_type),
+@@ -482,7 +494,7 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 			}
+ 			break;
+ 		case RTAS_FADUMP_PARAM_AREA:
+-			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len ||
++			if (bytes_dumped != source_len ||
+ 			    fdm_active->rgn[i].error_flags != 0) {
+ 				pr_warn("Failed to process additional parameters! Proceeding anyway..\n");
+ 				fadump_conf->param_area = 0;
+-- 
+2.54.0
+
