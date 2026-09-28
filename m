@@ -1,133 +1,140 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD68C48A2BF
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E988A485CE7;
+	Mon, 28 Sep 2026 09:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586311; cv=none; b=rs5VvQu31fz86ASuMEb/FsCcnHoHw3PBnuuBAqwGe79R+bLwtNfy9jiYZUNcUHILiVn16xgTmapA9uMCFCxBzlRaKvBiWZvHUz+SgtF2KjejUHjs9DSyPN8s+FWfYOSnv7VEy/tWAyPyT7dPNW6Y6GAizoPCo6oK5wdyrjHEnAE=
+	t=1790586343; cv=none; b=MVRQGaQ+V+GB6cEpsf/dCf93qcVm6M5/fSOKKD9WiIox9M9cxApuMXNVEfZJdsN7SpMmxuavKz1JflUYYPj82v2fEheOpGDd6Bgi9fpTIlFLv/NxRB3CR/BX5uL4YpPj2TuxLM2bKmedGCtHurVvaQdUzrEfrva40vqxwouIM70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586311; c=relaxed/simple;
-	bh=Dodyo73tHzWX6mITu1AXopUHn/pAmQk68ifxgr5KOns=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b72+k3zUvZGwsy35bkF/TYnzvBwWNVZ2B1YcPTByuny0q/F/sJmFBQWFEtJ/YTMQMPjgLQlc/AEKoNhDBn0+SBUGZMtSQEC286+TM9lxePgKRHx74ipkVQlB484/ZqiD/YDJqYN5+XuT2gL0fDXUxRT4sFK15+Vjeng8GgSvw9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nIHmSbtn; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790586343; c=relaxed/simple;
+	bh=kR3Wv1Tir4JM5KPxkQhigKEUEM12HkBEU3ytRlA1k3U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gnT150C58XDJpgVK9uos81PQpPAiAry6paZHMCdLFaoavt+z7DRI55mZiMOYM896R/zs7KUvjce6cdSV4qDlwIW2Ce/+nZ+TYk0Btvuxt8IUwsEKEZq6o6OTsIlNNwQIHovfhBVmFbQOho/xuKoAmb7EbfeGmm2GhPZR0x3HYHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Eo+qjrad; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nIHmSbtn"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso7504685e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790586308; x=1791191108; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lOLH8R3k3uRQ7vYYCf3t/tbfkb4DGWyK1/C7dSgp7AQ=;
-        b=nIHmSbtnhxniwr6W+zhGYiyXiNweG9LpGM2fAb84diJ8frf/46wwtsnf+njZfkujMS
-         zEf7EFmFkWp509IHqMvUAxziMyHl0dL/pw+Zbk1d+ZrXpjqwiomTYHXS/Ow5dlhqVZt9
-         JvPzzri/7+ouyBOAHw401L0sUlNiP1fhaVRKR2DGKx9i6mcDXYTmvwg5CL3XEK1ILnMs
-         upsKF2QL9spDOnF0FBNcHVdrPbqq6qbMCFJbl9koI65+inwDOxNXKFojGJkeixeFkXfh
-         PxYQzdBmiIBmyvpKiI6szl7DuRn8vu2lViNYkE6GUPV9OZnWxIBeSwO2VBmUrJA+3Hc4
-         Cojw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790586308; x=1791191108;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lOLH8R3k3uRQ7vYYCf3t/tbfkb4DGWyK1/C7dSgp7AQ=;
-        b=f9OMclbMHciUWRXH4V3HAzuzcehEp+kXGxg2rXUVEoBAgIyUW5HnOt3Qw1rn2qqo40
-         RsDZiu1eHnx6npC7XyZ63DbnYNebEqF8YxMKwWJzPguv9U728xxgbeZr7yn5VGMqOfOU
-         +TUKwqGCayFZ2HfUIBANK1boWCeNCWAwSxtfO7VxGdd2bCQkxKSCcYCmNVHyGpZcj0ur
-         K0T9nMDTM2OOdQupbkkRX8szThnUlZfCInnTTIALUgZfLQ7Vyj/ll0Tr+DOzPJp9ai2U
-         L8bWqAUZ/7QkEfSqKTNn7n329zzbWFWzRYfmuxRBI5TgPTt2qgBZH/SyaPQ6XvNIreEs
-         zUnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvrRilEOvlmejVcpvGdrHg0jQyMjkDJ1cKCYWbhacpoCL6nE/ANbThFQVKqowve8yEGtZ1VZJrEkMpHGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/2vNuOZUwJtT+QWrDs3VbdFvTXDUMO/2YDQ6kQGI5iVzJlrEn
-	f+R7q0HwyMFrn2xGSq1VBqNBJUKNxuRKkYED1IFHlpUxd0Hk64dxzE82
-X-Gm-Gg: AYBFou35jX5O9wFqrmveiUpyBR/i7CTEMZTnRJHk+zZ8Bq6DuASTBIsJtIaDtod0EQL
-	myk3AQNpCEag1d2J/TlHGxDKATEPaeapL/3qGSOyAtNa7py55D8MZqu0H5MhAS8XQE80/KThlCF
-	5DfGTPb3gvBo+GdWoKJOikNu4I8gyH4jkJ7IdQJ8dc+qwQ1cS0DhH7OlTD+YJFYMUFBOIfWD5MK
-	6V8rGK4bLXVHhv+WJBit3E5ikmQ8VwT23e+S8wSf8YUwvRLZ/WYeAwS5Wr1RQAeGLveDGaFOyUc
-	oavgkMqSU0iLc6HB37myGFIpTKLHylsmQCp5rAn+8+sg3xdavQ65kP1goqFshcsoLjpIsdE0Bfc
-	A14RlgNoqMzOKg8mOKg5tw2n/KuNGroSJoH7m6HmI0SUTmUxPCsDd+0Cz+LkcZg5N7QmIisWi97
-	rbxEMtLy16HYl769acRsaurJKBoaC/TdIcmlrtyXQfXpOEnldVOSEtKxANCGEzXnmTg+9taPtdU
-	/wRcEPdg21MceHaDyZbNW7sHxshcKxbKgk=
-X-Received: by 2002:a05:600c:8b82:b0:49f:fefc:7d01 with SMTP id 5b1f17b1804b1-49ffefc7e4dmr89811365e9.15.1790586307457;
-        Mon, 28 Sep 2026 02:05:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001906c5esm125927285e9.12.2026.09.28.02.05.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 02:05:07 -0700 (PDT)
-Date: Mon, 28 Sep 2026 10:05:06 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Ivan A. Melnikov" <iv@altlinux.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Cameron
- <Jonathan.Cameron@huawei.com>, Francesco Lavra <flavra@baylibre.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: tools: Use proper macro to detect _Float16 support
-Message-ID: <20260928100506.7ba18d8b@pumpkin>
-In-Reply-To: <20260918161305.1161852-1-iv@altlinux.org>
-References: <20260918161305.1161852-1-iv@altlinux.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Eo+qjrad"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790586342; x=1822122342;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kR3Wv1Tir4JM5KPxkQhigKEUEM12HkBEU3ytRlA1k3U=;
+  b=Eo+qjradTh2nYLJ6o6f2G7ZokUDRwW9IMXqYXek8NBnJwSXq1nOWhAgG
+   +9JAdr14Tayp3zdpSFzzD9Q9+kEB5eIyytkigssF0aRZ6fnRo7QgHIJL8
+   hl/zfBgVN/aTrURNQoHvk37GMrVpQNyNiWByNp/o2UfATqxpevIDie+8B
+   cE1bvXd46oY3Ls+GOA0vAZsHbYB92b7kMCS6prK6JWWKGgAF04nzof9Kh
+   61UItJyV4O00+rPZ0IOM7pc5OnlR+iBbjUM2FrXvIJh+biEegQz3/OCX+
+   jKKnJ7qxWNq1mknqhulf5lyrY2ndVNyxmCSopi/oH1Q2uiGSoiQnXkaaH
+   w==;
+X-CSE-ConnectionGUID: 4j6LdW/OTHijXUh7qz2yCA==
+X-CSE-MsgGUID: Zbw/PHoCRcaoW2jPT/zX9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101804469"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="101804469"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:05:42 -0700
+X-CSE-ConnectionGUID: ELvY+UF9RzeWIl6j4fsNYg==
+X-CSE-MsgGUID: Gjrb7YEFRVasfH3K/wKTwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="273604206"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:05:39 -0700
+Date: Mon, 28 Sep 2026 12:05:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Cc: Malathi A <malathi.a2000@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+Message-ID: <arot4SH3vbDpKC8A@ashevche-desk.local>
+References: <20260917040511.103232-1-malathi.a2000@gmail.com>
+ <97e4ab26-b147-4cf4-97f9-307903f14e61@socionext.com>
+ <arUvJyvChXXcasSu@ashevche-desk.local>
+ <3ea1f574-ddb5-46a6-9bc1-7a8ea84c54bd@socionext.com>
+ <arZ5KxIp55qA6UA7@ashevche-desk.local>
+ <faa1027c-7279-462a-9c6f-f03354b9cfd3@socionext.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <faa1027c-7279-462a-9c6f-f03354b9cfd3@socionext.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, 18 Sep 2026 20:13:02 +0400
-"Ivan A. Melnikov" <iv@altlinux.org> wrote:
+On Mon, Sep 28, 2026 at 03:51:09PM +0900, Kunihiko Hayashi wrote:
+> On 2026/09/25 22:37, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 08:32:20PM +0900, Kunihiko Hayashi wrote:
+> > > On 2026/09/24 23:09, Andy Shevchenko wrote:
+> > > > On Thu, Sep 24, 2026 at 06:07:37PM +0900, Kunihiko Hayashi wrote:
+> > > > > On 2026/09/17 13:05, Malathi A wrote:
 
-> __FLT16_MAX__ is an internal compiler macro. GCC defines it if
-> _Float16 is supported by the target in general, but the support
-> may depend on the exact target options. For example, on i586
-> without -msse2 I get the following error from GCC15:
+...
+
+> > > > > I'm a bit concerned about the error path in uniphier_uart_resume().
+> > > > > The clock may have been disabled in uniphier_uart_suspend(), and
+> > > > > clk_prepare_enable() can fail when trying to enable it again.
+> > > > > 
+> > > > > In that case, wouldn't devres try to disable an already disabled
+> > > > > clock on detach?
+> > > > 
+> > > > Isn't there is a guarantee that the .remove() is called with PM
+> > runtime on
+> > 
+> > After reading a code of driver core I see that this is the opposite
+> > actually.
+> > The PM runtime might be off.
+> > 
+> > > > and get, meaning it's called with the enabled clock? But if not the
+> > case,
+> > > > we might use PM runtime force operations (resume and suspend in the
+> > > > respective cases.
+> > > 
+> > > My concern was just the case where clk_prepare_enable() in the system
+> > > resume callback fails, leaving the clock disabled before devres cleanup.
+> > > 
+> > > This driver currently only uses SET_SYSTEM_SLEEP_PM_OPS(), so I wasn't
+> > > considering runtime PM here.
+> > 
+> > So, in such a case how do you see the scenario when system is resumed
+> > (Right?
+> > Otherwise we can't do anything, like detaching driver from the device.)
+> > and
+> > clock is disabled?
 > 
->   iio_generic_buffer.c: In function 'print2byte':
->   iio_generic_buffer.c:141:17: error: invalid conversion from type '_Float16' without option '-msse2'
->     141 |                 printf("%05f ", ((float)converter.f + info->offset) * info->scale);
->         |                 ^~~~~~
-> 
-> To fix that, use the public macro without double underscores.
+> Ah, I understand your point. I was assuming that the driver could later
+> be detached after uniphier_uart_resume() failed, leaving the clock disabled.
 
-Assuming float and _Float16 are both IEEE 754 you can directly convert them.
-If I've typed it correctly:
-	union {
-		uint32_t u;
-		float f;
-	} converter;
-	converter.u = (input & 0x8000) << 16 | (input & 0x7fff) << 13;
-	printf(... converter.f * 0x1p112 ...)
+I'm not sure, I don't know if I was right. Can you confirm that this scenario
+is not possible? So, it might look like CPU is resumed, some of the devices
+were resumed, but this particular UART failed to resume, and now we want to
+detach it. If this case is possible, I believe tons of the device drivers as
+of today may be affected by the same issue (it doesn't mean that the issue
+is impossible to happen, one needs to investigate deeper).
 
-That handles denormalised values (near zero) but not infinity and NaN.
+> If that sequence cannot happen after a failed system resume, then my concern
+> doesn't apply.
 
-David
+As pointed out I'm not sure. Last time I experimented with failed resume was
+long time ago.
 
-> 
-> Fixes: cdd445d4b2a9 ("iio: tools: Add support for floating-point types in buffer scan elements")
-> Signed-off-by: Ivan A. Melnikov <iv@altlinux.org>
-> ---
->  tools/iio/iio_generic_buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/iio/iio_generic_buffer.c b/tools/iio/iio_generic_buffer.c
-> index 000193612aad..9ea93984e0e9 100644
-> --- a/tools/iio/iio_generic_buffer.c
-> +++ b/tools/iio/iio_generic_buffer.c
-> @@ -131,7 +131,7 @@ static void print2byte(uint16_t input, struct iio_channel_info *info)
->  		printf("%05f ", ((float)input + info->offset) * info->scale);
->  		break;
->  	case 'f': {
-> -#if defined(__FLT16_MAX__)
-> +#if defined(FLT16_MAX)
->  		union {
->  			uint16_t u;
->  			_Float16 f;
+> Thanks for pointing this out.
+
+> In that case, I have no further concerns about the use of
+> devm_clk_get_enabled() here.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
