@@ -1,139 +1,452 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89F23D8914
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32053CD8B5;
+	Mon, 28 Sep 2026 10:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592329; cv=none; b=P4fmlrVWbSnRHo7pfPlTrQ53MT41SfljbDfx/IlLxZ3cE0j1M52jVUCFiXXRO+TZqGnJwWXaVX1OEGTb/UJAcZtgueAFVMsqLiLkMMFZ43KRw/vXBmRQs988h+dFvm9eK/wsUvpYPnbGfw6ZUvXAUvXpWc+QIcKRWs9pVoRft0E=
+	t=1790592328; cv=none; b=S6Z432y0YccrPLLG9CS16fNbB825+kuL+MfWLhGha9wXAR9eHIHM24S1ykcUzZ1FyPugiqaDMMphv7CIXLV+G8nEeOlyd1NwaqbsD07Yc8pzs5LPl4/LiqTxB45GJWWbZvLc4N6M3cz1etJUXqmv7duuXwfIPYd725QHPLOK/io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592329; c=relaxed/simple;
-	bh=idEtOGz0tSPFc6Wku3wNGhIeV5TRsxTorqK2Qyxj7lY=;
+	s=arc-20240116; t=1790592328; c=relaxed/simple;
+	bh=w2ef0agF0sHQkwBDp0BYT4U4xIc77QOB1sQFwCzchVc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WxCOR5+zibCVQVZws4q+wB83lN3Nt+F8obisuSlip9uA5SwUi8FCLQlrUh0GOrDa8gIHHzM+5iWwr7MeUXGLnjR7pyn+kAEEGR+yOP2hkezH9q8YXb9SJY/RwRMPIAffhoHIyENb9iFdUtN1pLXQdss7K+neRKuCOD1r4vWmHTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N55hHaSi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=U7KUFYVZ51uf0c52CDXTC+p0AdZ4Wps2eI+sVvQf1Ha3Mf1Tx61SwcJNGrYmaoq4/V3aM6UT9dwBvKMT0i4YGxGd3uHAW2UGceDBE+jpPGje1vuK8Tg0BNUy0mGhuhH2eDzJUYfZEvq4oaxRgupD1HPJF2WiNf+DLzXe8d/aZnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcETg5sc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N55hHaSi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E271F00899;
-	Mon, 28 Sep 2026 10:45:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcETg5sc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21241F000FF;
+	Mon, 28 Sep 2026 10:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592327;
-	bh=pkN3i1kfI7ou6rynJpVZcTVcqK4JP2ip7U/AkgCuNZg=;
+	s=k20260515; t=1790592326;
+	bh=NoKY/U6enyTSm0edyajLicLyKE2psUwChbv2rX46JIw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N55hHaSiAFoCEqUbcpUK1ba3c7jI4PHLKH+LSqhl4MwioLCLKK8udMtx+wid3aAKv
-	 j0wL94J8PRdAKwdMCdLLr0Sgm9vMNCixykC2G5RufrS90JeWUr8yxCaUseMoEEKgra
-	 8HhCsnybTPOg6wMMuXmoCQPG/FF1Iv4Xz4PR4PwbTZJ6yFbOkVbVS4rVvqwHjKVUgI
-	 dipGK4gL/7U2aZ+wdvx3GXlZMlAsfnO86KRHPY7yjyWS8kvjIL7QN3i7R6vDeA7LvI
-	 8tRoxL6C3eg08+NQihufNSV+hUry/ge/Y3AsBQZLwh+L5jHFHPlm516Mmtc/VhROGT
-	 lNdUaWjfNv6gw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0ADF0198003A;
-	Mon, 28 Sep 2026 06:45:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Mon, 28 Sep 2026 06:45:25 -0400
-X-ME-Sender: <xms:Q0W6ame47D9MaXBY-G9oKtIF0u9qyGuMcWh-z2_zFY13ibi5h3FpMg>
-    <xme:Q0W6agrV11EYmJoOBxuq2ktzvOciho9MYMAFiT5kmXW78D2IBup33aLx_LoiIY49Y
-    1vueIlY5LRWfOPCmz7_8meHs3t6DihIw2c6hyVOvML_tBSSsFAU95pJ>
-X-ME-Received: <xmr:Q0W6as_0QqgphPDV6kZf_MxU08Xna30sVf_-eX80ZHpUMsQn7wO5WKIDVJU>
-X-ME-Proxy-Cause: dmFkZTEQ2M4Yss00TVpFpyzYKayTNLhSmxlk8jgjYdWRC8efZB9dhd1fhy51Ard/y+ZR52
-    mQzsiCa3phAmXiUEsipTMcJZKBtf9dU2wz0a/IwoLhZl3hUY9v5yn7wDMUjwGwyJmAh0XC
-    bjpflSyPRI5OmclTeYExGhZ5xy1PLjrywhAsS7laXNeXT5atgJLELAXGuiG6jFTyo89i8N
-    6QrLqf/9UpPfOJ2VRQ1pffV0SHdsTMeCSkgCgk8VYQb9KnDhpYc08nTyCMw2ppxi1TusCU
-    frbp1suLUW4f78RzbWO+LUGjoIyb5F/hrDuH1UVFGbQmOyOePFniGTBH5CX1x2U1eK0tTx
-    3CAj7Tq/ETMBGkHKCBBxSzxkd2hwtd2MP8GN1m1ZL8D3ztlRI0inQfX9YZexQE3LnePDsI
-    hLJiZrCPKPYIfvxLOJyUytXOdjKpzSmzMbkmjcyAqnkzbEPpf4SgGJawzEm0x0fdIwPwjL
-    WUDs8+RNftCaeTHljXiKAoiW0Drmk3JYLBXfpPOAuvxvbfywJHy07rCO+YQQtuk8MrN4hS
-    Gjdp+OMmA3A0b+SuFVP2TYpGnsTcGrcLzmgM22cbxKxmJJd4LToubqv0fB9JWIy+7mn9XT
-    MJz++EzRZD1yR1mm8QFaqg/rtlE61Yca4OhgDVTw1nD/DjU9h4xDSAVKht2A
-X-ME-Proxy: <xmx:Q0W6ah6NgBNPToTjNWoaDm7omAaGWgrC7ZsS_-8lm7O0g2QIPq8ncw>
-    <xmx:Q0W6amiC5N-CbhpZ6pkSN_tQeoY6Q9uScOkFbq1js8aBwq4he4mM_Q>
-    <xmx:Q0W6aor9HR-Btkv3EH984Ou_Fq34Qwvob97iB9gBtEPcIKifgNOT_Q>
-    <xmx:Q0W6aiLViP_tumx3rNT1HgsOVtVpqiNQYGxqh-3WA6npHFMkfpAzRA>
-    <xmx:Q0W6alvyKHocqgx1txQ50t5HDAyk0da1pYdclSxqTGrghaw21JLIPODy>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 06:45:22 -0400 (EDT)
-Date: Mon, 28 Sep 2026 11:45:21 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP
- self-merge
-Message-ID: <arpEHIwTy8QxUjI2@thinkstation>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
- <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
+	b=FcETg5scXRjbB85Pp4+fwFvgGfz1+e8xCujtQd2/8VgOzcSvK5LQ9zI7LaEqaAbO7
+	 h6z5Q9TsdYsvunK8TG3GodLtnubxHGmd8jogqt1lsu2I2AHCBPm2+xLzpRbyDLgWQR
+	 z3pvtS1UzdMnIGeZg6gYDbqUC6ETnBqWfcSwPAhxITOSaiyAEJVbieU3oYopujxyEg
+	 3ZHoRDJFm02QzkX8fQEdv1FgVXxFYQvDp4sScXEVepG9Pm1l6g0EE0EL4xAq6h+Tex
+	 3DLHVPRbPRQGdgpTqC3W3pCX/3UP15hX91zhlPkFOKcFA/OJaH+I3FAoG7twomFivX
+	 DWAATT216k5vQ==
+Date: Mon, 28 Sep 2026 12:45:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, ath11k@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>, 
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH ath-next 02/16] dt-bindings: net: wireless: ath11k: Add
+ bindings for IPQ5018
+Message-ID: <20260928-sloppy-perfect-marmoset-bfec90@quoll>
+References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+ <20260923-ipq5018-qcn6122-mpd-v1-2-86729521a75c@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
+In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-2-86729521a75c@outlook.com>
 
-On Sun, Sep 20, 2026 at 03:13:10PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-> operations that keep the original VMA in place.
-> 
-> Historically this has led to a lot of bugs where non-obvious interactions
-> occur between existing mremap() operations and the original VMA.
-> 
-> Fix another of these - self-merge.
-> 
-> Self-merge occurs when a VMA is moved in front of or behind itself and the
-> attributes of the VMA permit such a merge.
-> 
-> Practically this can only happen for unfaulted anonymous VMAs due to the
-> page offset equality requirement for merge:
-> 
->                            |------------|
->                            |            |
->                            |            v
->         |...........||-----------||...........|
->         |           || unfaulted ||           |
->         |...........||-----------||...........|
->               ^            |
->               |            |
->               |------------|
-> 
-> This becomes problematic if the VMA is configured by the user to
-> mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-> set.
-> 
-> MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-> for the destination VMA.
-> 
-> Self-merge makes this impossible (there is only one VMA) and incorrectly
-> clears the destination VMA's mlock flags.
-> 
-> This causes a leak in mm->locked_vm as clearing this flag does not
-> decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-> is not decremented on unmap.
-> 
-> Resolve this by simply disallowing a self-merge in this case - the source
-> and destination VMAs are kept distinct and then are able to have distinct
-> mlock() flags.
-> 
-> Update dontunmap_complete() to make the now-redundant self-merge check a
-> VM_WARN_ON_ONCE() instead to guard against future regressions.
-> 
-> Also update the VMA userland tests to reflect the change.
-> 
-> Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Wed, Sep 23, 2026 at 04:05:08PM +0400, George Moussalem wrote:
+> Although support was added for IPQ5018, the bindings are missing, so
+> let's add them.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+So there is no ipq5018 compatible in existing file.
 
-One thing: mlock semantics of MREMAP_DONTUNMAP are not documented in the
-man pages, only in the commit that added the flag. It can be surprising
-that the source gets munlocked. I am not even sure it is the right thing
-to do.
+> 
+> WiFi on IPQ5018 boards come in one of the following configurations:
+> 1. IPQ5018 (standalone) + optional 5G/6G WiFi card (such as QCN9074)
+> 2. IPQ5018 (MPD) + one or two 5G/6G QCN6122 WiFi chips where QCN6122
+>    is an IPQ5018-specific companion chip.
+> 
+> IPQ5018 implements the multi-PD architecture as follows:
+> 
+>                      +-----------------------------+
+>                      |     Q6 Remote Processor     |
+>                      |            RootPD           |
+>                      +--------------+--------------+
+>                                     |
+>                                     |
+>                                     |
+>               +---------------------+---------------------+
+>               |                     |                     |
+>         +-----v-----+         +-----v-----+         +-----v-----+
+>         |  UserPD1  |         |  UserPD2  |         |  UserPD3  |
+>         |  IPQ5018  |         | QCN6122 #1|         | QCN6122 #2|
+>         |  (Radio)  |         |  (Radio)  |         |  (Radio)  |
+>         +-----------+         +-----------+         +-----------+
+> 
+> The rootPD is responsible for managing the lifecycle of the UserPD and
+> shared resources and providing SSR notifiers. There are different
+> firmware blobs that include either the rootPD and userPD binaries for
+> IPQ5018-only which auto-spawns the userPD for IPQ5018 WiFi, or for
+> IPQ5018 and QCN6122 for which the userPDs for each radio must be spawned
+> by the ath11k driver.
+> 
+> SMP2P is used for signaling between the host and the Q6 remote processor
+> to manage the lifecycle of the userPDs, so add the required interrupts
+> and smem-states for incoming and outgoing interrupts in the case of the
+> IPQ5018 + QCN6122 MPD configuration. Otherwise, the SMP2P interrupts and
+> smem-states are not required for the IPQ5018-only configuration.
+> 
+> In addition, document the memory regions needed for loading the BDF and
+> M3 firmware as well as for assigning the M3 dump memory block.
+> 
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  .../bindings/net/wireless/qcom,ath11k.yaml         | 423 ++++++++++++++++++++-
+>  1 file changed, 410 insertions(+), 13 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+> index a846cd704b19..621ad6d4ddad 100644
+> --- a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Where is the compatible update?
+
+> @@ -29,8 +29,13 @@ properties:
+>      minItems: 32
+>      maxItems: 52
+
+56
+
+>  
+> +  interrupts-extended:
+
+git grep should tell you - it's not needed. Drop.
+
+> +    minItems: 56
+> +    maxItems: 56
+> +
+>    interrupt-names:
+> -    maxItems: 52
+> +    minItems: 32
+> +    maxItems: 56
+>  
+>    qcom,rproc:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+> @@ -56,11 +61,15 @@ properties:
+>  
+>    memory-region:
+>      minItems: 1
+> -    maxItems: 2
+> +    maxItems: 3
+>      description:
+>        phandle to a node describing reserved memory (System RAM memory)
+>        used by ath11k firmware (see bindings/reserved-memory/reserved-memory.txt)
+>  
+> +  memory-region-names:
+> +    minItems: 1
+> +    maxItems: 3
+
+Names would have to be here. But why do you need it in the first place?
+
+> +
+>    iommus:
+>      minItems: 1
+>      maxItems: 2
+> @@ -78,20 +87,11 @@ properties:
+>    qcom,smem-states:
+>      $ref: /schemas/types.yaml#/definitions/phandle-array
+>      description: State bits used by the AP to signal the WLAN Q6.
+> -    items:
+> -      - description: Signal bits used to enable/disable low power mode
+> -          on WCN6750 in the case of WoW (Wake on Wireless).
+> -        items:
+> -          - description: Phandle to the Shared Memory Point 2 Point device
+> -              handling the communication with a remote processor
+> -          - description: Single bit index to toggle in the value sent to
+> -              the remote processor
+> -            maximum: 32
+> +    minItems: 1
+> +    maxItems: 3
+>  
+>    qcom,smem-state-names:
+>      description: The names of the state bits used for SMP2P output.
+> -    items:
+> -      - const: wlan-smp2p-out
+
+Why isn't all this in qcom,ipq5332-wifi.yaml?
+
+>  
+>  required:
+>    - compatible
+> @@ -103,6 +103,242 @@ additionalProperties: false
+>  
+>  allOf:
+>    - $ref: ieee80211.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,ipq5018-wifi
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          items:
+> +            - description: misc-pulse1 interrupt events
+> +            - description: misc-latch interrupt events
+> +            - description: sw exception interrupt events
+> +            - description: watchdog interrupt events
+> +            - description: interrupt event for ring CE0
+> +            - description: interrupt event for ring CE1
+> +            - description: interrupt event for ring CE2
+> +            - description: interrupt event for ring CE3
+> +            - description: interrupt event for ring CE4
+> +            - description: interrupt event for ring CE5
+> +            - description: interrupt event for ring CE6
+> +            - description: interrupt event for ring CE7
+> +            - description: interrupt event for ring CE8
+> +            - description: interrupt event for ring CE9
+> +            - description: interrupt event for ring CE10
+> +            - description: interrupt event for ring CE11
+> +            - description: interrupt event for ring host2wbm-desc-feed
+> +            - description: interrupt event for ring host2reo-re-injection
+> +            - description: interrupt event for ring host2reo-command
+> +            - description: interrupt event for ring host2rxdma-monitor-ring3
+> +            - description: interrupt event for ring host2rxdma-monitor-ring2
+> +            - description: interrupt event for ring host2rxdma-monitor-ring1
+> +            - description: interrupt event for ring reo2ost-exception
+> +            - description: interrupt event for ring wbm2host-rx-release
+> +            - description: interrupt event for ring reo2host-status
+> +            - description: interrupt event for ring reo2host-destination-ring4
+> +            - description: interrupt event for ring reo2host-destination-ring3
+> +            - description: interrupt event for ring reo2host-destination-ring2
+> +            - description: interrupt event for ring reo2host-destination-ring1
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac3
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac2
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac1
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac3
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac2
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac1
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac3
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac2
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac1
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac3
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac2
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac1
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac3
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac2
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac1
+> +            - description: interrupt event for ring host2tcl-input-ring4
+> +            - description: interrupt event for ring host2tcl-input-ring3
+> +            - description: interrupt event for ring host2tcl-input-ring2
+> +            - description: interrupt event for ring host2tcl-input-ring1
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring3
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring2
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring1
+> +            - description: interrupt event for ring tcl2host-status-ring
+> +        interrupts-extended:
+> +          items:
+> +            - description: misc-pulse1 interrupt events
+> +            - description: misc-latch interrupt events
+> +            - description: sw exception interrupt events
+> +            - description: watchdog interrupt events
+> +            - description: interrupt event for ring CE0
+> +            - description: interrupt event for ring CE1
+> +            - description: interrupt event for ring CE2
+> +            - description: interrupt event for ring CE3
+> +            - description: interrupt event for ring CE4
+> +            - description: interrupt event for ring CE5
+> +            - description: interrupt event for ring CE6
+> +            - description: interrupt event for ring CE7
+> +            - description: interrupt event for ring CE8
+> +            - description: interrupt event for ring CE9
+> +            - description: interrupt event for ring CE10
+> +            - description: interrupt event for ring CE11
+> +            - description: interrupt event for ring host2wbm-desc-feed
+> +            - description: interrupt event for ring host2reo-re-injection
+> +            - description: interrupt event for ring host2reo-command
+> +            - description: interrupt event for ring host2rxdma-monitor-ring3
+> +            - description: interrupt event for ring host2rxdma-monitor-ring2
+> +            - description: interrupt event for ring host2rxdma-monitor-ring1
+> +            - description: interrupt event for ring reo2ost-exception
+> +            - description: interrupt event for ring wbm2host-rx-release
+> +            - description: interrupt event for ring reo2host-status
+> +            - description: interrupt event for ring reo2host-destination-ring4
+> +            - description: interrupt event for ring reo2host-destination-ring3
+> +            - description: interrupt event for ring reo2host-destination-ring2
+> +            - description: interrupt event for ring reo2host-destination-ring1
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac3
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac2
+> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac1
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac3
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac2
+> +            - description: interrupt event for ring ppdu-end-interrupts-mac1
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac3
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac2
+> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac1
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac3
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac2
+> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac1
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac3
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac2
+> +            - description: interrupt event for ring rxdma2host-destination-ring-mac1
+> +            - description: interrupt event for ring host2tcl-input-ring4
+> +            - description: interrupt event for ring host2tcl-input-ring3
+> +            - description: interrupt event for ring host2tcl-input-ring2
+> +            - description: interrupt event for ring host2tcl-input-ring1
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring3
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring2
+> +            - description: interrupt event for ring wbm2host-tx-completions-ring1
+> +            - description: interrupt event for ring tcl2host-status-ring
+> +            - description: Q6 firmware user PD fatal interrupt event
+> +            - description: Q6 firmware user PD ready interrupt event
+> +            - description: Q6 firmware user PD spawn interrupt event
+> +            - description: Q6 firmware user PD stop ack interrupt event
+> +        interrupt-names:
+> +          minItems: 52
+> +          items:
+> +            - const: misc-pulse1
+> +            - const: misc-latch
+> +            - const: sw-exception
+> +            - const: watchdog
+> +            - const: ce0
+> +            - const: ce1
+> +            - const: ce2
+> +            - const: ce3
+> +            - const: ce4
+> +            - const: ce5
+> +            - const: ce6
+> +            - const: ce7
+> +            - const: ce8
+> +            - const: ce9
+> +            - const: ce10
+> +            - const: ce11
+> +            - const: host2wbm-desc-feed
+> +            - const: host2reo-re-injection
+> +            - const: host2reo-command
+> +            - const: host2rxdma-monitor-ring3
+> +            - const: host2rxdma-monitor-ring2
+> +            - const: host2rxdma-monitor-ring1
+> +            - const: reo2ost-exception
+> +            - const: wbm2host-rx-release
+> +            - const: reo2host-status
+> +            - const: reo2host-destination-ring4
+> +            - const: reo2host-destination-ring3
+> +            - const: reo2host-destination-ring2
+> +            - const: reo2host-destination-ring1
+> +            - const: rxdma2host-monitor-destination-mac3
+> +            - const: rxdma2host-monitor-destination-mac2
+> +            - const: rxdma2host-monitor-destination-mac1
+> +            - const: ppdu-end-interrupts-mac3
+> +            - const: ppdu-end-interrupts-mac2
+> +            - const: ppdu-end-interrupts-mac1
+> +            - const: rxdma2host-monitor-status-ring-mac3
+> +            - const: rxdma2host-monitor-status-ring-mac2
+> +            - const: rxdma2host-monitor-status-ring-mac1
+> +            - const: host2rxdma-host-buf-ring-mac3
+> +            - const: host2rxdma-host-buf-ring-mac2
+> +            - const: host2rxdma-host-buf-ring-mac1
+> +            - const: rxdma2host-destination-ring-mac3
+> +            - const: rxdma2host-destination-ring-mac2
+> +            - const: rxdma2host-destination-ring-mac1
+> +            - const: host2tcl-input-ring4
+> +            - const: host2tcl-input-ring3
+> +            - const: host2tcl-input-ring2
+> +            - const: host2tcl-input-ring1
+> +            - const: wbm2host-tx-completions-ring3
+> +            - const: wbm2host-tx-completions-ring2
+> +            - const: wbm2host-tx-completions-ring1
+> +            - const: tcl2host-status-ring
+> +            - const: fatal
+> +            - const: ready
+> +            - const: spawn
+> +            - const: stop-ack
+> +        memory-region:
+> +          items:
+> +            - description: memory region for Q6 firmware
+> +            - description: memory region for M3 firmware
+> +            - description: memory region for M3 dump
+> +        memory-region-names:
+> +          items:
+> +            - const: q6-region
+> +            - const: m3-region
+> +            - const: m3-dump
+> +        qcom,smem-states:
+> +          items:
+> +            - description: Signal bit used to shutdown Q6 user PD
+> +              items:
+> +                - description: Phandle to the Shared Memory Point 2 Point device
+> +                - description: Single bit index to toggle in the value sent to the remote processor
+> +                  maximum: 32
+> +            - description: Signal bit used to stop Q6 user PD
+> +              items:
+> +                - description: Phandle to the Shared Memory Point 2 Point device
+> +                - description: Single bit index to toggle in the value sent to the remote processor
+> +                  maximum: 32
+> +            - description: Signal bit used to spawn Q6 user PD
+> +              items:
+> +                - description: Phandle to the Shared Memory Point 2 Point device
+> +                - description: Single bit index to toggle in the value sent to the remote processor
+> +                  maximum: 32
+> +        qcom,smem-state-names:
+> +          items:
+> +            - const: shutdown
+> +            - const: stop
+> +            - const: spawn
+> +      allOf:
+> +        - anyOf:
+> +            - required:
+> +                - interrupts
+> +            - required:
+> +                - interrupts-extended
+> +        - if:
+> +            required:
+> +              - interrupts-extended
+> +          then:
+> +            properties:
+> +              interrupt-names:
+> +                minItems: 56
+> +            required:
+> +              - interrupts-extended
+> +              - memory-region
+> +              - memory-region-names
+> +              - qcom,smem-states
+> +              - qcom,smem-state-names
+> +          else:
+> +            properties:
+> +              interrupt-names:
+> +                minItems: 52
+> +                maxItems: 52
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -265,6 +501,19 @@ allOf:
+>              - description: interrupt event for ring DP20
+>              - description: interrupt event for ring DP21
+>              - description: interrupt event for ring DP22
+> +        qcom,smem-states:
+> +          items:
+> +            - description: Signal bits used to enable/disable low power mode
+> +                on WCN6750 in the case of WoW (Wake on Wireless).
+> +              items:
+> +                - description: Phandle to the Shared Memory Point 2 Point device
+> +                    handling the communication with a remote processor
+> +                - description: Single bit index to toggle in the value sent to
+> +                    the remote processor
+> +                  maximum: 32
+> +        qcom,smem-state-names:
+> +          items:
+> +            - const: wlan-smp2p-out
+>  
+>  examples:
+>    - |
+> @@ -464,3 +713,151 @@ examples:
+>              iommus = <&apps_smmu 0x1c02 0x1>;
+>          };
+>      };
+> +
+> +  - |
+
+No, three examples are enough. No need for fourth.
+
+Best regards,
+Krzysztof
+
