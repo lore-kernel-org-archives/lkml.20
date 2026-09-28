@@ -1,79 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F01470429;
-	Mon, 28 Sep 2026 23:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4844BF945
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790638653; cv=none; b=mIApFWEogLRBmfpVXTRrZjLKuZaB/4mWg/mNlIT8G1V95w+vD74q9/a7+ADM2xRsXRYht0H/3pVStU3VNt95CbkTCz4/NkfV0MyF2iHCS0qRzEb63HY5V6wCOZWLusOHihXW9yPpHf+JZxkXbAJEpZWsc0YnWXxKzv+AKS6ILt4=
+	t=1790638683; cv=none; b=G1HSZI4hKgC+Tx+p9e5SRrARae/gPlnJFfjN6StQLMK9Ky3uxHdv+miwpf7KrJlBl9m3SEqv0bRVDe2JCbpCXIcweyUZUKGnO9y2squ9hha1y5pWl05wsZPZ2iaNyXFqRHSifFr5LnKZMFRZybG26gukrW9auGjlJAhHY2lYgG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790638653; c=relaxed/simple;
-	bh=pejY82Fj5/wTqOvIWfFOhZ4TJVh03Rj1g01ke4ofWDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i3iw/kJVZoI3toaXntDqrl+yVLsJcAJe/Cd+v8aHN/HY813dROD1IqXnviYZbwRio34ZfKcGZ9HtwL657gbSc8O9SYVvw/+fCtmNU0sgqMGqh7H2Ry5ncP/aj5eHlE3yI1ipnp1sqRRlG7AEG8zo/Zwh0ur3ccxhKv2/vYqTlNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TTrpDj5W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790638683; c=relaxed/simple;
+	bh=UizoVDxMJSChmzHkokQBY5XFbU+b82UuYjggKsQ1RCA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Q5lOHdy+gJG3PCUQ6WPEodyeC36Kv6cCghnnmIKPkoGyGy8C3i0Be7YmCBWvlU6i7eTIsg4zui6bHDOVCx5PdN0ajdwYqWKgfPwNV639/MrKDr2w7Yp8VqCLKm9h/cQlqAzOF+fyJJTINf8Mxo1/1wFq3YbDdCTes+WS/J5/2LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d6AzCEvH; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TTrpDj5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4731F000FF;
-	Mon, 28 Sep 2026 23:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790638651;
-	bh=oHyZ/liGhiGDNksFA1WpL4KIfqZ+EOX2YGgMK/FxXsQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TTrpDj5WgkflohaT4j1bn6pOQbi4V4CNmGGbW9nceGe/Ku8cAvKNAmn0JhvZtowIV
-	 0CZddJS1AHwin/qrIGKuWucF/PLYfmQhJr167NTTiHUAo6CxmKhWvTECB6r6dK2tWp
-	 KQXnVyy4YIdi11BQ1g2LkM6Fhx6L0VWIq67byaZ73cgr9kxR17JYHB2/69S1wiECpB
-	 M407Wht3udQ0YYsvmXMzSGcohgy/DYsID03eaWJ1AQua5b1IqjKgEzhm2SQpH2Lcw8
-	 DsO+bf7w0VPNWNqQmC4ZQ334ytuTEAPj2dy8evvF31jJM6SAdxhDvX5VafauNc/Q6c
-	 xjKnu3ZQMGT8A==
-Date: Tue, 29 Sep 2026 01:37:28 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Hitesh Patel <hitesh@ebytelogic.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, ravi@ebytelogic.com
-Subject: Re: [PATCH v2] i2c: qcom-cci: always enable SCL clock stretching
-Message-ID: <arr57tHBYx1MowW7@zenone.zhora.eu>
-References: <20260914132328.976902-1-hitesh@ebytelogic.com>
- <20260921131954.1690578-1-hitesh@ebytelogic.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d6AzCEvH"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34316295d86so5781984eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:38:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790638681; x=1791243481; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=26dak7J/RLVeINbEtqAzmWrMUxm9/Y3gwde42VTpH7c=;
+        b=d6AzCEvHyWFNhyU35ROzXAEq55gnz0856Nl1XjQ0NmMMWDzdHREuk5auKiZVpY0EyT
+         4JdEAHZDSLLkh1dMpGYCKJC082leaE6Rx9M7Kaj9M14yjuGptnLqBDudqdLzjWqnjF/G
+         +z13OWsBiSbiChbuzUQAjespCTxnjy8xPj92JuQgeEm+RSLbo1h/217NQbU52KFvdelx
+         5HX7Z01cUScRoX5Vqix195o+V+kTbhpNqf7jOnC/DH2Pqb6M9F8P70Ateaux2FgkCmAS
+         wPM/P/4/r0sG1eK0YoUI2qYN3x3NCQlDPIrkKCh3vbkFPvt6JJF3PrhlX9fy+Py9xz+X
+         ha+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790638681; x=1791243481;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=26dak7J/RLVeINbEtqAzmWrMUxm9/Y3gwde42VTpH7c=;
+        b=1II2JXxjTJO4Mh6l3mDCZch8Gq1IVO2iD63FEuDuHFVcThiX3D60AdKP3ZRdsc4TlP
+         ePOIU1IterV8WiBMi6cEa8kbcsYQnS38ki8VjYPWlEcHupJzHFjn7b6zwBC41vmYe/JG
+         gTZvgBfsYDNJyms+wmdVRI5Yo4AvfUO9FUr2d2l7L4A7D7/zlwYqSu+mTmHqdDLHhUMZ
+         GWzAOJ6jkZCpOoD8PRI/FTRh7Mf0cD40c7in72mBz5ZM0h51m4Ns4t/sTAHwPaXDr2Kj
+         fEMy/F4WcuAbf9UGezdeH+4fiSxzbYx65xqk2T6ZLWvZjnx9U/kaLlPjG145QgNrGpAL
+         8OiQ==
+X-Gm-Message-State: AFuF++kjWpRzzrNDn8d+B/J5zHQg9gKqOKUsHKXoXv8DuWdUyy3iTACr
+	xKcZAKEfZ/P8Zv1FcUaVzUI+Yg0+Z1t66quJfwj2HIRT/YixmCnNdUBZnF4YppcVXqT8k/+IG/k
+	6E39+FTjLDgBTRw==
+X-Received: from dlbpu5.prod.google.com ([2002:a05:7022:e885:b0:144:f4b8:ee5e])
+ (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:281b:b0:144:f4b9:9be4 with SMTP id a92af1059eb24-146ce492cb6mr9987436c88.15.1790638680897;
+ Mon, 28 Sep 2026 16:38:00 -0700 (PDT)
+Date: Mon, 28 Sep 2026 16:37:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921131954.1690578-1-hitesh@ebytelogic.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928233743.3777102-1-stevensd@google.com>
+Subject: [PATCH] sched/psi: clamp negative cpu_clock() skew
+From: David Stevens <stevensd@google.com>
+To: Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: linux-kernel@vger.kernel.org, David Stevens <stevensd@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Hitesh,
+When working with timestamps, psi is careful to only compare timestamps
+from cpu_clock(cpu) with the same cpu argument. However, on systems with
+a stable clock, that cpu argument is ignored. This means that despite
+psi's best efforts, there will be some cross-CPU cpu_clock() timestamp
+comparisons.
 
-Please don't send next versions as --in-reply-to, it makes life
-difficult.
+The cross-CPU skew in cpu_clock() timestamps is generally orders of
+magnitude smaller than psi measurement intervals, so the cyclic times
+counters naturally absorb the jitter. However, if get_recent_times()
+executes immediately after a task on another CPU enters an active stall
+state, then negative skew can cause the u32 active state duration
+calculation to underflow. If that state had not been active since the
+previous execution of get_recent_times(), then times and times_prev will
+be equal and the very large underflow value will be passed out to
+collect_percpu_times(). There, it will be zero extended and folded into
+the u64 total accumulator as a very large delta of about 4 seconds
+scaled by that CPU's share of nonidle time.
 
-On Mon, Sep 21, 2026 at 06:49:54PM +0530, Hitesh Patel wrote:
-> Every CCI timing table except the msm8953 fast-plus one leaves SCL
-> clock stretching disabled in MISC_CTL. A slave that holds SCL low is
-> then not waited for: the master keeps its own clock timing and the
-> transfer fails with a NACK or returns corrupt data.
-> 
-> This is hit with a camera reached through a GMSL serializer/
-> deserializer I2C tunnel (MAX9296A/MAX96717 on the RB3 Gen2 vision
-> mezzanine, SC7280 CCI v2 at 100 kHz). The deserializer acknowledges
-> the address locally, forwards the transaction over the coax link and
-> stretches SCL until the remote side has completed it, which takes well
-> over one clock period. Without stretching the register reads of the
-> sensor behind the link intermittently return garbage and writes are
-> dropped, which shows up as random sensor init failures.
-> 
-> Clock stretching is part of the I2C specification for every speed
-> mode and a device that does not stretch is unaffected by it, so there
-> is no reason to make it a per-table parameter. Set the bit
-> unconditionally and drop the scl_stretch_en field.
-> 
-> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+That large jump can lead to spurious wakeups for the PSI_POLL aggregator
+or incorrect values for the PSI_AVGS aggregator. Spurious triggers or
+nonsense psi values (e.g. full>some, psi values >100%) can cause
+userspace to take unnecessary corrective action, such as a userspace OOM
+daemon killing processes to relieve (non-existent) memory pressure.
 
-I'll wait for an ack from Konrad here.
+When running browser workloads on an Intel N100 with a sustained
+psi.mem.some of 2-3%, this underflow is observed once every couple of
+hours.
 
-Thanks,
-Andi
+Clamping elapsed time to >= 0 prevents this jump from happening. It does
+result in the total accumulator being slightly elevated compared to what
+it should actually be, but that error is bounded by the skew and is in
+practice always smaller than what is added today. Note that expanding
+times to u64 to prevent the u32->u64 conversion from causing issues
+would result in userspace-facing total counters no longer being
+monotonic, which could break consumers that derive rates via successive
+total values.
+
+Clock skew can cause issues in two more places. First, negative clock
+skew in record_times() can propagate through the times accumulator to
+the delta calculation against times_prev in get_recent_times() and cause
+it to underflow. Second, the elapsed time values calculated by
+successive executions of get_recent_times() can appear to go backwards
+if the first execution has positive skew and the second has negative
+skew. This can cause the delta calculation to underflow, since elapsed
+is propagated in the times_prev value. However, both of these require
+that the growth in stall time between iterations be non-zero but smaller
+than the inter-CPU skew. Neither issue has been observed in practice and
+they are not addressed here.
+
+Cc: stable@vger.kernel.org
+Fixes: eb414681d5a0 ("psi: pressure stall information for CPU, memory, and IO")
+Signed-off-by: David Stevens <stevensd@google.com>
+---
+ kernel/sched/psi.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+index 4e152410653d..893ad16ff42c 100644
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -305,8 +305,24 @@ static void get_recent_times(struct psi_group *group, int cpu,
+ 		 * (u32) and our reported pressure close to what's
+ 		 * actually happening.
+ 		 */
+-		if (state_mask & (1 << s))
+-			times[s] += now - state_start;
++		if (state_mask & (1 << s)) {
++			s64 elapsed = now - state_start;
++
++			/*
++			 * When sched_clock_stable(), cpu_clock(cpu) ignores
++			 * the cpu argument, so we can end up doing cross-CPU
++			 * comparisons. A negative clock skew can result in
++			 * underflow to a very large u32.
++			 *
++			 * While the u32 cyclic accumulators in groupc could
++			 * handle a very large u32 from underflow, folding it
++			 * into the u64 totals in collect_percpu_times()
++			 * would result in huge jumps. Clamp to avoid that.
++			 */
++			if (elapsed < 0)
++				elapsed = 0;
++			times[s] += elapsed;
++		}
+ 
+ 		delta = times[s] - groupc->times_prev[aggregator][s];
+ 		groupc->times_prev[aggregator][s] = times[s];
+
+base-commit: 1fb28c664a19df8d45a6afa04d28d102b04ea680
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
