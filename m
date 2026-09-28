@@ -1,121 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96AD49738C;
-	Mon, 28 Sep 2026 10:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16836497391
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590077; cv=none; b=NKbdJJBWrOWIW5d9+KHnhwn7rYTcgKdS3Duo4MSlmYP4nz+E9ESf6udQtxJFJvLlHDDSQTvVXeEi3+4lb5ZHfDsAnKe6YnHbgyo7f8UDr5hgLj9nH2xepkbBtgxtB1H1/CnmY095EVgmWaNArggTtaMNLUqIqjXhaUYQYkumwLA=
+	t=1790590119; cv=none; b=VkPeZ3lLKHIzJMzBIH54Bi6vamQv9AfYyg2XxHgk1T4Xk5UcW1FYhnQ7fG96c7fhtSAPkhOQ6Td1GiRXWHkNneqiAkcOc1JAaJH/PVzLeyPlFX/F/eAhP/DmdZDmKY/jlaITt7Y7Ia8ntsS+rdO6kGSq+CbMG0UuQVJSPBnKy6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590077; c=relaxed/simple;
-	bh=X5m5Fot/RqIdhE4//wzeHwQKhkiyhsdddWzInFmXIpI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L3ym1+clO9uM7CxAkafFI4Drp8Cjf6R4gcugn7an1Cyd3X2QjG2ve8HGYs7ZfU/+3+Y6riVlxPkps5Uhg4mp09FRxWGAB/u6+mfULoUrXPxurQRoR9L8P1LdRwsKen0uoyC5WHLRJRr2HwtfSlC4k8uxjRdrIMgvi5qEVlJIlHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/PkV9UZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/PkV9UZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C1D1F000FF;
-	Mon, 28 Sep 2026 10:07:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790590076;
-	bh=MQuPb454HWvayvbhkhIV9J03lpD+/nxJIOYytBBlONM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M/PkV9UZsxZEV3S+L5muyc6Nza5gh9fs4sqZj2j2huWhhGpQckwZ3uWXw4SnntILh
-	 dZzqWhsSk1LtuJCzSgxTUzlSjDSYWgD1YO0gqSrpiSbt0LCRETu/eITXpXWbT+iE0W
-	 +wY/VcF23ri1wYfHhwo34uiWvGPqnKZ0NtjK/MDVFP5dhHPmDy5tMcXF62RxpMg+RA
-	 A+gABTW1h5WJIHmvot1nPQLwsjiTrlYgLfFXG56VhU6Z8ZY+uhO9ZsQWjNS5haFxjj
-	 mBmK2Oqg6rEwpD/BgqOqyEuNAc016MEHvieCRVvispO+2sXDvGdYep/yxU/nD68Nl+
-	 NnvgDWmh/0sQw==
-Message-ID: <9d6f2d3f-ce3d-4123-8bc3-a5e4aed5ad53@kernel.org>
-Date: Mon, 28 Sep 2026 12:07:47 +0200
+	s=arc-20240116; t=1790590119; c=relaxed/simple;
+	bh=JDki/ynWyR4JJkD6CujtT4H4k22sWsPQ5W9eLuS5fSM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ebIZvNWQXlk7FEuGRaFfUNk+5LmA6LAa5MUy9/Eppix85kZHHm02tPTYiLbdpCh0sVR6S+QHx6fx4UJcUxZsIHau72+KqDc3kdJPAnjjSBR2XJJ0faTsSDnMt6bZhZrDYunwlbed57ANS3Xy6WluBtPYYTIY/oKS/P/bpokhNc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4959c49e054so3058514b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:08:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790590117; x=1791194917;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IPId6bWi2Ez3+4T15azCBAg0q+TU06lXWj8UJZ9JFa8=;
+        b=B3lv3gkLoRqm6UEUrS3VwxGhkOTYnoLJEENmQgelAVcmMkjS56y4iZ/M2z/5deYPql
+         snnALZ2mzG1bqH2YftImJNmiFg52clcle90OHISJEIljfRdLUh76WiIjG+TGSl4H+l3s
+         ucTyHHz2GH05dMbuZrAw3U/YSOB6fEUSdSoLcEj24AJzZFCI7UDj05qODijR8r9+3RsK
+         sRmJkRihR+tpnc86sFe84gQpr0ZMBLFyzuCBe4BgCYrjELC/bl7oXOsERva2ToJ1dKKZ
+         nxM+AILaLYTLIoUW0OpcUgUqV5ktBowAJvYzN0O8YWeqAKQ3Cn0SRnxRDwj80kApKR87
+         Lc9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwi9UEtgL8bcCfXdJ7vsfD1n0ZcXbAsIF8nDbVaHYRNmcnk8Up4bsehslNOsSTsNEaGjR/imZ4crXiadbY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgaxxo8eEkG+dOuhE/UvN5nWdMOzmXpChWWhX1AOE2BtnU2oej
+	Vuylds/uqSUxPaLxwSPtj6SfVUETJIUOqB5JwgVHkNoijkvqhMIJ6Qm3IbfOSwdlNE7t2Xy0/jR
+	FF9J3XSP0LUcgGgE+Y/EiCZv1hb26pQk7btBnCfB9+J+j+nV8E0FtlMPQY5Q=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v18 10/10] Documentation: networking: Update the
- phy_port infrastructure description
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, davem@davemloft.net,
- Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, Herve Codina <herve.codina@bootlin.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
- Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
- Romain Gantois <romain.gantois@bootlin.com>,
- Daniel Golle <daniel@makrotopia.org>,
- Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
- Frank Wunderlich <frank.wunderlich@linux.dev>,
- Pietro Ameruoso <p.ameruoso@live.it>, Aleksei Sviridkin <f@lex.la>
-References: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
- <20260927133619.955236-11-maxime.chevallier@bootlin.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260927133619.955236-11-maxime.chevallier@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:17a1:b0:4e6:76eb:b997 with SMTP id
+ 5614622812f47-4e676ebbb9amr5945570b6e.62.1790590116910; Mon, 28 Sep 2026
+ 03:08:36 -0700 (PDT)
+Date: Mon, 28 Sep 2026 03:08:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aba3ca4.80e1c6cc.1e8e5f.0070.GAE@google.com>
+Subject: [syzbot] [udf?] WARNING in udf_prealloc_blocks (3)
+From: syzbot <syzbot+bd60ece8a4d1116e2c04@syzkaller.appspotmail.com>
+To: jack@suse.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    62f4c998b297 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13b68205580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
+dashboard link: https://syzkaller.appspot.com/bug?extid=bd60ece8a4d1116e2c04
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-62f4c998.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1f7cc8cb8766/vmlinux-62f4c998.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/efe99eedd372/bzImage-62f4c998.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bd60ece8a4d1116e2c04@syzkaller.appspotmail.com
+
+oom_control is deprecated and will be removed. Please report your usecase to linux-mm@kvack.org if you depend on this functionality.
+loop0: detected capacity change from 0 to 2048
+UDF-fs: INFO Mounting volume 'LinuxUDF', timestamp 2022/11/22 14:59 (1000)
+------------[ cut here ]------------
+!buffer_uptodate(bh)
+WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz.0.0/5321
+Modules linked in:
+CPU: 0 UID: 0 PID: 5321 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
+Code: 4c 89 f7 e8 29 01 d8 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 74 52 fb ff e8 6f 59 66 ff eb 8c e8 68 59 66 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 5a 59 66 ff 90 0f 0b 90 e9 cf fd ff ff
+RSP: 0018:ffffc9000e30f170 EFLAGS: 00010287
+RAX: ffffffff826193a8 RBX: ffff888043e0e620 RCX: 0000000000100000
+RDX: ffffc9000eb82000 RSI: 000000000003b662 RDI: 000000000003b663
+RBP: ffffc9000e30f301 R08: ffff888043e0e627 R09: 1ffff110087c1cc4
+R10: dffffc0000000000 R11: ffffed10087c1cc5 R12: 0000000000000008
+R13: 000000000000016a R14: 0000000000000000 R15: dffffc0000000000
+FS:  00007fde834a96c0(0000) GS:ffff88808c2c0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fde83467980 CR3: 0000000012ff6000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ udf_bitmap_prealloc_blocks fs/udf/balloc.c:214 [inline]
+ udf_prealloc_blocks+0x575/0x11b0 fs/udf/balloc.c:705
+ udf_prealloc_extents fs/udf/inode.c:1064 [inline]
+ inode_getblk fs/udf/inode.c:925 [inline]
+ udf_map_block+0x1ed6/0x4270 fs/udf/inode.c:392
+ __udf_get_block+0x52/0x250 fs/udf/inode.c:476
+ __block_write_begin_int+0x6c2/0x1900 fs/buffer.c:2030
+ block_write_begin+0x8d/0x120 fs/buffer.c:2144
+ udf_write_begin+0x118/0x270 fs/udf/inode.c:259
+ generic_perform_write+0x2d5/0x8f0 mm/filemap.c:4374
+ udf_file_write_iter+0x2e8/0x6c0 fs/udf/file.c:112
+ do_iter_readv_writev+0x612/0x8c0 fs/read_write.c:-1
+ vfs_writev+0x343/0x990 fs/read_write.c:1058
+ do_pwritev fs/read_write.c:1154 [inline]
+ __do_sys_pwritev2 fs/read_write.c:1212 [inline]
+ __se_sys_pwritev2+0x177/0x2a0 fs/read_write.c:1203
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fde8259e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fde834a8fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000148
+RAX: ffffffffffffffda RBX: 00007fde82825fa0 RCX: 00007fde8259e159
+RDX: 0000000000000001 RSI: 0000200000000100 RDI: 000000000000000d
+RBP: 00007fde8263506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000005412 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fde82826038 R14: 00007fde82825fa0 R15: 00007fff9cce3ed8
+ </TASK>
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Le 27/09/2026 à 15:36, Maxime Chevallier a écrit :
-> With SFP now properly supported with phy_port, add some details in the
-> documentation. Fix a typo along the way (driver -> driven).
-> 
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Tested-by: Aleksei Sviridkin <f@lex.la>
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> ---
->   Documentation/networking/phy-port.rst | 26 +++++++++++++++++++++-----
->   1 file changed, 21 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/networking/phy-port.rst b/Documentation/networking/phy-port.rst
-> index 6e28d9094bce..2a9b1ec93b70 100644
-> --- a/Documentation/networking/phy-port.rst
-> +++ b/Documentation/networking/phy-port.rst
-> @@ -99,13 +99,29 @@ will eventually be able to report its own ksettings::
->               (_____)-----| Port |
->                           +------+
->   
-> +SFP ports
-> +=========
-> +
-> +SFP interfaces involve 2 distinct components, each represented by
-> +a :c:type:`struct phy_port <phy_port>` instance :
-> +
-> + - The SFP cage itself is a :c:type:`struct phy_port <phy_port>`. It's special
-> +   in that it's not an MDI interface, but rather a hot-pluggable MII.
-> +   The :c:type:`struct phy_port <phy_port>` associated to it lists the different
-> +   MII interfaces we can use on the cage.
-> +
-> + - The SFP module, when inserted, will also be associated to a
-> +   :c:type:`struct phy_port <phy_port>`, that represents the various linkmodes
-> +   that it gives access to. The module's :c:type:`struct phy_port <phy_port>`
-> +   doesn't supersede the cage's port, it references it through
-> +   the :c:type:`struct phy_port <phy_port>` :c:member:`upstream_port` field.
-> +
->   Next steps
->   ==========
->   
-> -As of writing this documentation, only ports controlled by PHY devices are
-> -supported. The next steps will be to add the Netlink API to expose these
-> -to userspace and add support for raw ports (controlled by some firmware, and directly
-> -managed by the NIC driver).
-> +As of writing this documentation, the port's presence and information can only
-> +be queried, and it's not possible to change any of the port's settings or select
-> +which one should be used.
->   
->   Another parallel task is the introduction of a MII muxing framework to allow the
-> -control of non-PHY driver multi-port setups.
-> +control of non-PHY driven multi-port setups.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
