@@ -1,58 +1,73 @@
-Received: from mail-m49227.qiye.163.com (mail-m49227.qiye.163.com [45.254.49.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E66D4D4880;
-	Mon, 28 Sep 2026 13:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634D04D4876
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603905; cv=none; b=pTbjh156YUOowWixIq4cTBp6R5UBCk1CgMoNltuQca/rBnKfXLCW7iLrFdVzgCnMkdts0LFMn22MjMaM/r34j3IUcWGRq6x0ltOIeE7Y8ikZ6uT5Mo3AVUK6raAsrKWhQ7xLFjVlKvad9vFKpRSo6/gBfU2Z0xaRGOpUXfuphaE=
+	t=1790603906; cv=none; b=r3pMCs4q4KvQaCxrUOgjbZAjs9lHyDiGccA3EVNTfcHhua98CrsMedcvofNIwMwaHP/2MCToTpTZrVRxMECvVLmcJlQJTgG4BxUNKY0LJVqigwMhfoaGgQgZroL5aYWGq1M2ewT6wbHmg2vFVJkoqVqlGKeuAWwtV7RDSzesycA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603905; c=relaxed/simple;
-	bh=uzMmhbGcunUgHE96gQ5ra+XHvPN4hFsgzpBNWL6HZ0s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=e9yrJORdofmgpOoX/Nsx+foPJsfz5qfKu2pf5I+NF5u+BVOZfAszNWPqyH64mlcBPai7UApq3CBLm8IKLLZFcS0v9bTRGOFtkCZox32vjzc9V/yXTdke+ihHicnzNoK/3IxRsPxQW3w8lVwSpSP9xgsPrcu8lbaRGnHkRFHkvag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=SjHYE+56; arc=none smtp.client-ip=45.254.49.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790603906; c=relaxed/simple;
+	bh=GU6rru0i0s02icKiHw7kTQykJ0rwnxsY2s22aKjWk1M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HdJUtQAPr2v5wuLDhxWL+3vYuGIHRah8H+4JLxGHaQKj6BYjTCaEQ188cPmQG4EErmD8BSqH5k/5e1A6PWJoa7WSq9JToYMlk7a7tXjWCm2qfgbES9mT7TFHEMeLEDXh5JUbSD6+HaJeTnE1ImjmQw23C1dDAuSecXGwlTiaGYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWCRZG3B; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="SjHYE+56"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e82;
-	Mon, 28 Sep 2026 16:15:10 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 07/14] drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
-Date: Mon, 28 Sep 2026 16:14:11 +0800
-Message-Id: <20260928081418.3605775-8-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
-References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWCRZG3B"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1550451a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790603904; x=1791208704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bn4hX6mT9hKK5rs7jV7LPfxAez/GODV4ZuwmMfHS/FE=;
+        b=KWCRZG3BH/xMxDzhFuzu5LJD8N6OoUPJ01NzQLdgF6pc5vyN3Kl77uK3SbzUIu1sRh
+         J/3hTOv+96FEe+npci/1JQ7kvDraY2zAFj9W1I9/CFombAhvcBxPRWfgTHzOX+Gvzg3W
+         Is5m5LgH+KoNIZDT/wreas8xMhatSNtVmHbjvNmFwcRJh1BqcknzTto9dhlKVuA95e0J
+         j8/xyIX1nRfRVtBH99BTkfx2nUdR/yJtK5YUQS9OJsqKGBHrCVxrTAt1mBXoMUbR0Mrq
+         eQPOZFSnogHRg1yv5JqpHR5MsrzQ9QQ9SFw+PUK74H9WAj3G4AxXuBKtmVLdLNhNqZYZ
+         GI/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790603904; x=1791208704;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bn4hX6mT9hKK5rs7jV7LPfxAez/GODV4ZuwmMfHS/FE=;
+        b=VJtmcL0q0zIKGUqNm4WbxDttxIqbZrlSos7Mz4e+aMkoLbvEQfdLS91wAxoXADDO/q
+         D6paBGrZfZMVNCfldjEoOW1O4PsaJMKPKgOA43T3QkESSR5CFGscz9Ye9QX1n+JDhcXp
+         P/ZVnpDhop7srFBJ4yj28uiYmQOLspvcSO8+URNe0AlvkNTxTRtPNAoYhp+hhGTtpONg
+         39mmS+Ra1NA0kPQEiqIfQ17uxK3pvtiGujEZU/TJt8AtWxvN5a+72c+upt0D2qNhC8+V
+         Zv5RgQvYbszGtgT9XwLdhevwWC+Snb7aKFJBLwFwe+sQma9VfIbr82MBoacZmUtAzIPk
+         jkFA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3gzK4wUmDfhOjQwN9s5hq6i1X5Bqwwtpld5rBetFrzdxzXBvrniIF1oOwHTSPwPicCM/jlscmwedPf4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKmvzQinjPIIfNbzV2WRMObi4gcJtqhygdZdRi9kVQUeUpr+GB
+	NYeDBNLReYl1toNutUKrvgrCuBnE+t3fuQ/4SnzCSwqbSt66lXLfLZTPczBDtA==
+X-Gm-Gg: AYBFou3JndzdRasSON1YVo68QiiOF0/UabyWHAb52xaD16Z4GHOkayjRulgLdCxcMi4
+	Ngx7zI6dEWPZTtyZJmqZxWdNOHosa90vP9ip2rKUGsvk1647/OfJikR2xNfqOjLxNfB9QvzJ6vs
+	px4wzldFxGd21L9+6bEopzix53sbXFTbVTlIVuRayJ5fkeMfmEjGWlM6vzu3pXRj6Ufbt1BkdJ1
+	HYNnDmlFKwZDqF+af5The/yW6rsfv98OX6PJm5QNvlJSfF0rn4cxwSfjOSfcRYLkxDTny/WmaFu
+	qS8FsLBFzZEH5OAUfi/1q98PvfhUZeeBWaVVX9Y8WLRbCyS7VgkK/iJfCssYQ9clmfdTv0Oy3ie
+	V2XUcF9t29wlGfXk5K+v7rKtKYP/IOX8bYfnQaK67NoqId7J6m8m1fb+AR7NVpWze8APpZj9uK4
+	YUS9Tjf87I1ueeQYcy4M5PB3otY3uAkKAf1gRxUFk1GQkTh6ewofAXhbPhoiM/JPKYcGxXRWrA7
+	lwr1aXK+r24+6c5
+X-Received: by 2002:a17:90b:3c91:b0:3a4:7a81:e6ad with SMTP id 98e67ed59e1d1-3a47a81e754mr1375128a91.11.1790603903568;
+        Mon, 28 Sep 2026 06:58:23 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc79219db77sm4204205a12.14.2026.09.28.06.58.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 06:58:23 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ak7375: fix regulator leak on remove while runtime-active
+Date: Mon, 28 Sep 2026 20:58:16 +0700
+Message-Id: <20260928135816.2383130-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,111 +75,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e715079203a8kunm323e2b5437cf46
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBpJVh9LTx9ITkxOS0hMGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=SjHYE+56N6njEMERlvA7CzIvvttQUj+1DqOl5N+7vYVCDHNks5/VwpLpJwipHXqLp27AMonjVyXtHBUV3JDbbesPg/M4G2sKJZjfQHq5QmuDyiVDEkhjX4WiYzH86vsGeQUUX2JJ8bcBXKZSs3ByfXFgNYt7AO4aiDq4aNMr7dA=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=7ov5ZAWTee/V9ZBPtOKDaozcrk5oFd5f7m81BucbP6I=;
-	h=date:mime-version:subject:message-id:from;
 
-The Analogix DP controller provides two sets of interrupt sources for
-hotplug detection: HOTPLUG_CHG for any HPD level change, and the
-PLUG/HPD_LOST pair for connect/disconnect transitions respectively.
+ak7375_remove() calls pm_runtime_set_suspended(), but that's pure
+bookkeeping -- it doesn't call ak7375_vcm_suspend() or otherwise
+disable the regulator. ak7375_open()/close() hold a resume_and_get()/
+put() pair for as long as a /dev/v4l-subdevX fd stays open, and
+nothing requires userspace to close it before unbind -- so removing
+the driver with an fd still open leaves the regulator on with no code
+path left to ever disable it.
 
-On Rockchip platforms, configure the HPD deglitch filter and use
-HOTPLUG_CHG interrupt for hotplug detection. Other platforms retain the
-original PLUG + HPD_LOST scheme with unchanged deglitch values.
+Call ak7375_vcm_suspend() in that case, guarded by
+pm_runtime_status_suspended() so the common already-suspended case
+isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Move the HPD deglitch configuration into analogix_dp_reset() so that
-platform-specific values are set alongside the existing register
-defaults in a single location. Update the threaded IRQ handler to check
-the corresponding interrupt flag based on platform type.
+Moved remove() after suspend()/resume()'s definitions since it now
+calls them directly.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
+Fixes: 90ee26fb2f50 ("media: ak7375: Add ak7375 lens voice coil driver")
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
+ drivers/media/i2c/ak7375.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
-  analogix_dp_reset().
-
-Changes in v3:
-- Modify the commit msg.
-- Replace macro HPD_IRQ with HPD_IRQ_ALL.
----
- .../drm/bridge/analogix/analogix_dp_core.c    |  9 ++++++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 22 ++++++++++++++++---
- 2 files changed, 26 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index f88e3263ba0e..287fc16125ef 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -714,13 +714,18 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
- 	u32 irq_type;
-+	bool hpd_detected;
- 
- 	irq_type = analogix_dp_get_irq_type(dp);
- 	if (irq_type)
- 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
- 
--	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
--	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
-+	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-+		hpd_detected = irq_type & DP_IRQ_TYPE_HP_CHANGE;
-+	else
-+		hpd_detected = (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
-+			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
-+	if (hpd_detected) {
- 		dev_dbg(dp->dev, "Detected cable status changed!\n");
- 		if (dp->drm_dev)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 0f1406e4a5d3..025da25463a8 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -160,8 +160,13 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_PKT_SEND_CTL);
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_HDCP_CTL);
- 
--	writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
--	writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
-+		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-+		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	} else {
-+		writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-+		writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	}
- 
- 	writel(0x10, dp->reg_base + ANALOGIX_DP_LINK_DEBUG_CTL);
- 
-@@ -188,7 +193,18 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
-+	/*
-+	 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
-+	 * pair can be used to implement hotplug detection.
-+	 *
-+	 * On Rockchip platforms, configuring HPD deglitch to 2ms and
-+	 * using HOTPLUG_CHG interrupt for hotplug detection is proven
-+	 * as a better solution via engineering verification.
-+	 */
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type))
-+		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
-+	else
-+		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
+diff --git a/drivers/media/i2c/ak7375.c b/drivers/media/i2c/ak7375.c
+index 9a2432cea3ff..79327440f0b5 100644
+--- a/drivers/media/i2c/ak7375.c
++++ b/drivers/media/i2c/ak7375.c
+@@ -229,16 +229,6 @@ static int ak7375_probe(struct i2c_client *client)
+ 	return ret;
  }
  
+-static void ak7375_remove(struct i2c_client *client)
+-{
+-	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+-	struct ak7375_device *ak7375_dev = sd_to_ak7375_vcm(sd);
+-
+-	ak7375_subdev_cleanup(ak7375_dev);
+-	pm_runtime_disable(&client->dev);
+-	pm_runtime_set_suspended(&client->dev);
+-}
+-
  /*
+  * This function sets the vcm position, so it consumes least current
+  * The lens position is gradually moved in units of ctrl_steps,
+@@ -328,6 +318,18 @@ static int __maybe_unused ak7375_vcm_resume(struct device *dev)
+ 	return 0;
+ }
+ 
++static void ak7375_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct ak7375_device *ak7375_dev = sd_to_ak7375_vcm(sd);
++
++	ak7375_subdev_cleanup(ak7375_dev);
++	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev))
++		ak7375_vcm_suspend(&client->dev);
++	pm_runtime_set_suspended(&client->dev);
++}
++
+ static const struct of_device_id ak7375_of_table[] = {
+ 	{ .compatible = "asahi-kasei,ak7345", .data = &ak7345_cdef, },
+ 	{ .compatible = "asahi-kasei,ak7375", .data = &ak7375_cdef, },
 -- 
-2.34.1
+2.25.1
 
