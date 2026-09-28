@@ -1,133 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F4E3644C9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C10618AE3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790558302; cv=none; b=jjG+6yX7MuFE84eA0r6rNoXmc0FJAB/Wg3BPBm1ubNg/yvm9TLstp4y4yrbFPlOXr+AbhymD0LV1fO1RD0rHMHZlmPzkMlIwIlbaOljqTDQdTjqrU0I4u1GFrgvypYjJOj9TBdj8V1BuxrD2MN6xqaPTJDvpH24/aYtRGWGkFBk=
+	t=1790558390; cv=none; b=Zu5gpNBYvbQrR3l8tasvGKsbEkC1cNNYs+QZgCjOXK3VDhVo4jTtjURbst2TMdWKf5p4W/9eP70F8711PaZtnfKRDpwLMZeTUH5GCOEHXvROmpOcglzcKtxFMXvxhqf2Z4JE+PXH2oh87XLwEWlEQswgI3lsjdWD/KlpjpiEoss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790558302; c=relaxed/simple;
-	bh=PdrNDQOCBv9Wg5hE6jv+1bfhcXsylvoaCMakOXlldRI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ui54YQsq1lV6slXoaW2yBlIXutcR7cC/C+rUY1FJokeGyJ1STOEiCBuhEXfc32KV3/NUb+UMsmRGTvZWFg1iW5nKvxBHWPVgh3m2+ucPJ9jkJ8hxw5Thc6yBw+oMJTPRPvuy6LwhjYJTuG43LnV0onqLhwPStgzC3HSrubw5PDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMcGBYf7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790558390; c=relaxed/simple;
+	bh=T1Q1qBSqnVJIk94dr55GCcw/GkY9e40DE3AqaXVAM/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n71WOedXNsTVqGkdkNoad/sf3y5/LZc1FYqHUdYXmFGlxohp/TkEEBEoR6oGEDjlRBTVKBxxclneIcflV0PFXSAS7WC2W67ZuKBppp+QgBjdv96VyRrtefBIK+GuaNSJOuEWCLDbQqdIw2vu0VRD5mObPrxRUpupV8OTQM1a5Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oYnkGplt; arc=none smtp.client-ip=91.218.175.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMcGBYf7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488FF1F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790558290;
-	bh=GeSgmECTKuaHk2+F7oGmV2w3CiTIst6U8AwDjonsHaI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cMcGBYf76yqYpZ9sQKYtcmVuUMn8uo6Zc7rHTHrTNOnyiLl8c6gBo4tqVCpOB/4XA
-	 6c4kDp5oY8dIfhTBNtXr+bKRNl83w+Y7wkaSDPYy+xDJHIBaaF3A2/wNIcTdajLjMc
-	 E/qIvUxcjFQtGVylSWr33Y1yINdYHQ1MxfSnaqAM82Bk8CepWzdafczOz71I0pd2i3
-	 FGrHWoMLAPw+joZR8C2gzOhgpEa9dEEUrSeeUZ85hSE4KDUKhoZALNv72yniZuqU44
-	 1dgownxL+7kNaYLONEbhxUHl88ij/LDI2mCScuGKvcipkFBq1jBgpHn0soX0jTctA6
-	 RIsG7xt/Z/N6w==
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaea178c96so2766104a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:18:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw8073h/Zg3SOt3tX6VK7dsRL7R0VC+cXgpJd97jQQKuid6sGR3nZ7D+KMe4G3wVlo+zpPer9eXXPRJEXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMqjMN3Loy1uT8CAngd2g0F7cDCU70eHt40X/qR8tKG6nYSTpZ
-	en4ifYlWWjUFWCGjQqg9oJFr8UZttT5QOWWOzUvBRMwI0osSqssenpNsbO7OqRcsc4/J+6NieMo
-	psAvxKNN6lJ1srNbCFid00QasnthtJAdeGBKP14iCTg==
-X-Received: by 2002:a05:6402:535a:20b0:6aa:e9b6:411d with SMTP id
- 4fb4d7f45d1cf-6aae9b643e6mr4835243a12.35.1790558289196; Sun, 27 Sep 2026
- 18:18:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oYnkGplt"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=T1Q1qBSqnVJIk94dr55GCcw/GkY9e40DE3AqaXVAM/s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790558386; v=1; x=1791163186;
+ b=oYnkGpltQxL+7pHHJyvGcbGKdissNQrbXVlZnAzlv9ffsWQ80FBuzPbv7vhmoyC84PQId3bE
+ h2alrPU3qWm8eEhHnuU1qaOIFf/mQHTqVii2TdSTooX4rb9Iqq/K0bO+Jz6JvAs8q9HBj52HVJF
+ clWaBvLUD8ZncF1Xl7jI/XV0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 46b8d1b57dee1be2;
+	Mon, 28 Sep 2026 01:19:36 +0000
+X-Mizu-Trace-ID: 46b8d1b57dee1be2
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 09:19:25 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: =?iso-8859-1?Q?Asbj=F8rn_Sloth_T=F8nnesen?= <ast@fiberby.net>
+Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Danielle Ratson <danieller@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/9] netlink: specs: rt-link: re-align IPv4
+ devconf
+Message-ID: <arnAnUVFHJZ8eroW@fedora>
+References: <20260925213918.204767-1-ast@fiberby.net>
+ <20260925213918.204767-2-ast@fiberby.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-3-hebaoquan@kylinos.cn>
-In-Reply-To: <20260916101929.149106-3-hebaoquan@kylinos.cn>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 27 Sep 2026 15:17:58 -1000
-X-Gmail-Original-Message-ID: <CACePvbUD7rQ1=638nzku7mdu08BK0cg1aEX+2jJT+WDJ4PUV0w@mail.gmail.com>
-X-Gm-Features: AclHuK9lbaxxfRu9uT3RykRdEUPVHrPVty2eqURRDIMaSXYeT4wqg8fVhgKsuec
-Message-ID: <CACePvbUD7rQ1=638nzku7mdu08BK0cg1aEX+2jJT+WDJ4PUV0w@mail.gmail.com>
-Subject: Re: [PATCH v3 02/14] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
-	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925213918.204767-2-ast@fiberby.net>
 
-On Wed, Sep 16, 2026 at 12:19=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
-wrote:
->
-> Add CONFIG_XSWAP Kconfig option for extendable swap device support.
-> It depends on SWAP && 64BIT && ZSWAP, since xswap devices are backed by
-> zswap, and on SYSFS, which is currently the only way to create one.
->
-> Add three fields to struct swap_info_struct under CONFIG_XSWAP:
-> - cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
-> - nr_clusters_max: total number of clusters in the xswap address space
-> - nr_clusters_mapped: number of clusters currently mapped (lazy grow)
-> These fields enable lazy vmalloc-based dynamic cluster management.
->
-> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-
-Can you fold this with the following patch? At least the struct
-members should go with the next patch.
-
-It seems nobody use those data structures in this patch anyway. So
-this patch alone has no visible value add, other than adding the
-config file.
-
-Chris
-
+On Fri, Sep 25, 2026 at 09:39:04PM +0000, Asbjørn Sloth Tønnesen wrote:
+> The YNL "ipv4-devconf" enum is misaligned with the IPV4_DEVCONF_* enum.
+> 
+> IPV4_DEVCONF_* starts at 1, ipv4-devconf starts at 0.
+> 
+> $ git grep -B3 -A1 IPV4_DEVCONF_FORWARDING include/
+> inc../uapi/linux/ip.h-/* index values for the variables in ipv4_devconf */
+> inc../uapi/linux/ip.h-enum
+> inc../uapi/linux/ip.h-{
+> inc../uapi/linux/ip.h:        IPV4_DEVCONF_FORWARDING=1,
+> inc../uapi/linux/ip.h-        IPV4_DEVCONF_MC_FORWARDING,
+> 
+> Re-align the YNL spec by explicitly setting the first value to 1.
+> 
+> This misalignment has been present since the spec was added in
+> commit b2f63d904e72 ("doc/netlink: Add spec for rt link messages").
+> 
+> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
 > ---
->  include/linux/swap.h | 5 +++++
->  mm/Kconfig           | 9 +++++++++
->  2 files changed, 14 insertions(+)
->
-> diff --git a/include/linux/swap.h b/include/linux/swap.h
-> index b4331ca4759a..b7882aac1eab 100644
-> --- a/include/linux/swap.h
-> +++ b/include/linux/swap.h
-> @@ -242,6 +242,11 @@ struct swap_info_struct {
->         signed char     type;           /* strange name for an index */
->         unsigned int    max;            /* size of this swap device */
->         struct swap_cluster_info *cluster_info; /* array, one entry per c=
-luster */
-> +#ifdef CONFIG_XSWAP
-> +       struct vm_struct        *cluster_vm;    /* VM_SPARSE area for clu=
-ster_info */
-> +       unsigned long           nr_clusters_max;/* total clusters in the =
-xswap address space */
-> +       unsigned long           nr_clusters_mapped; /* currently mapped c=
-luster count */
-> +#endif
->         struct list_head free_clusters; /* free clusters list */
->         struct list_head full_clusters; /* full clusters list */
->         struct list_head nonfull_clusters[SWAP_NR_ORDERS];
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c180d40cd671..5d6c7845c422 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
->         default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
->         default ""
->
-> +config XSWAP
-> +       bool "Extendable (virtual) swap device"
-> +       depends on SWAP && 64BIT && ZSWAP && SYSFS
-> +       help
-> +         Adds support for extendable swap devices (xswap) that decouple
-> +         PTE swap entries from physical backing storage. The cluster_inf=
-o
-> +         array is backed by a sparse vmalloc area that grows and shrinks
-> +         on demand, avoiding static pre-allocation overhead.
-> +
->  config ZSMALLOC
->         tristate
->
-> --
-> 2.54.0
->
+> Note for Sashiko/Clashiko: Targeting net-next, so no "Fixes" tag.
+> 
+>  Documentation/netlink/specs/rt-link.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/netlink/specs/rt-link.yaml b/Documentation/netlink/specs/rt-link.yaml
+> index 7a72cd1b7e1e..8d63933f9910 100644
+> --- a/Documentation/netlink/specs/rt-link.yaml
+> +++ b/Documentation/netlink/specs/rt-link.yaml
+> @@ -309,6 +309,7 @@ definitions:
+>      entries:
+>        -
+>          name: forwarding
+> +        value: 1
+>        -
+>          name: mc-forwarding
+>        -
+> -- 
+> 2.55.0
+> 
+
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
