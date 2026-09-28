@@ -1,95 +1,151 @@
-Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m127162.xmail.ntesmail.com (mail-m127162.xmail.ntesmail.com [115.236.127.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2145C342C9E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4139948F01D;
+	Mon, 28 Sep 2026 09:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587779; cv=none; b=jcEKFdoWuRyae7l3C35f01i84zPVDEMiY/lOqi19mUlNboPZEhKzC7NV9ZNdt1SU3gpvt85TMX+9BjZ992d8zr+Gk7meGlL7I6x5NJHSqwTzneOHJbSmTIkYixgUV1vcloBgaL76KU8cvkr/TbzgpWKOkTeFhd2RSqlv3cQVNbc=
+	t=1790587851; cv=none; b=W5Yl4EavYezCVHWShnTe3obch+JiPXksbsKeXGvXpKrjCyblKx6WftOG6er8dmmbQxArBNJ9csfa46WJJUbSeZCvxmUYQzMxhf4UlmK0HX/l+AmjI3i0CUpku0gK0JKJcwt0Dt7z/eYr1K5HWtUVHJ1uvGzJ84ROSozC+rnfGxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587779; c=relaxed/simple;
-	bh=mNyW1L2Kl7XsWs4BhSwMHQIYW+aVztuR3efDX2CQxJ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L32cHFtj2Uc01APaOD0E0A/mFJT7yVBUEdW4xm5IM+y93wZf/2vfu8LXiR9IiMKH/n8G3QidPsNoe/My/bSt1q/SpUkaAcKWS/l3U65OiONRYurLx5sEUNuJIhT+5vdr0duEUUUyIQxSbMoQ4fk0Z5cmFIk3lVbaMdgTXVe3FQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TnVqrUpS; arc=none smtp.client-ip=91.218.175.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790587851; c=relaxed/simple;
+	bh=QfxPITENy2U6ojm7wIy6exXOKnlaV3obKxwLB4O4yJw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EPJOIryaCmgpVWglKcZ3sUGJGw7M4yyElHBUZElASe7/i5M3XgUvwWgWGLJaCnMcxvJJwmdzarouNdLALcFjf7mLHI9zn6ILsm6em/a7TotxuME2BxBSuK1KlCxNjDZQsok0Z8qg8qEFpUchaIYEJzMqFIJBfZ9GKws3j51Nqfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Wfr60wMv; arc=none smtp.client-ip=115.236.127.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TnVqrUpS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mNyW1L2Kl7XsWs4BhSwMHQIYW+aVztuR3efDX2CQxJ8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790587775; v=1; x=1791192575;
- b=TnVqrUpSi10TgM6NHSsahlF/WLf4OgrlPFTkFcwkvMs9H8AglY3SF6xCdX+DVAAihe8ZU/Pm
- /JZgB7Ms8n6intEieiXuk9b2OVobJ3f89yGEGIFs6yzNtjYxD1VywnnxYazNy/DpaUNoSqw79/2
- xX2LvybbUMGMh9QdjgIpYap8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2cbb19f8d2e023f5;
-	Mon, 28 Sep 2026 09:29:35 +0000
-X-Mizu-Trace-ID: 2cbb19f8d2e023f5
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b8f42bb8a9so4986e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:29:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzNCay9KA6TkoSyjpoNBb9o1rkSzJlk1TDqa2+cBTQPesYJYMlQ0rGAS0XAJYwfUAwfkx7oAT+wXwnfhvY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3dIl3cLgXPUt0GJPCNvttsaJD/Y3idvU1EY547tCoNz7VMHTm
-	mqcXbPjG4hETrZzUjt3RaJa5q2Ex5Ve+Ux4KzFaqeLTkWeawl67aDdMkBpk41ToYF9d6atRR19l
-	8ZYTO+GLJNHIyQsY8OMr16a7tmff7aMpbIh/Hvfd7
-X-Received: by 2002:a05:6512:3d8e:b0:5b8:c8f2:16c4 with SMTP id
- 2adb3069b0e04-5b8ef255fa0mr175606e87.10.1790587770867; Mon, 28 Sep 2026
- 02:29:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Wfr60wMv"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e5f;
+	Mon, 28 Sep 2026 16:15:05 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 03/14] drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+Date: Mon, 28 Sep 2026 16:14:07 +0800
+Message-Id: <20260928081418.3605775-4-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928064643.3265087-1-fuad.tabba@linux.dev>
- <20260928064643.3265087-5-fuad.tabba@linux.dev> <4095827e-dbbb-4ab9-8610-1bc317aa096f@oss.qualcomm.com>
-In-Reply-To: <4095827e-dbbb-4ab9-8610-1bc317aa096f@oss.qualcomm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 28 Sep 2026 10:28:54 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxwffM9vQ0c8MQgsojsXOAUOzo8qD1=aoRK_zGvBF0XgA@mail.gmail.com>
-X-Gm-Features: AclHuK9Tx9jSnIhG13zjawNFq0tNHoDD4fS1QJa_ek8GgO61EjctlFamlrJQUSM
-Message-ID: <CA+EHjTxwffM9vQ0c8MQgsojsXOAUOzo8qD1=aoRK_zGvBF0XgA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] KVM: arm64: selftests: Check a feature hidden in
- an ID register is UNDEF
-To: Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Quentin Perret <qperret@google.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	Wei-Lin Chang <weilin.chang@arm.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0e714f49203a8kunm323e2b5437cf1f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSUlOVkIaSUpNGB4ZGEsaQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Wfr60wMvG2J8qXhOo+zFzALi2vXZTHnXnItUIGi80sunqP3uXezqTn20pSNXseZJpW14EPUORahf2X8lmgkjMQy2T0E3haipumge3QtefnLqRgtXcBC66qN5HZikwDMj0wARqUkZXwgFCjtPTlDh5i1Tyse4Ml1PBRn1DthkrPU=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=TeGRKIo9zN3ch77zMT+V+rC/6To7Yk8YMsagDBLa1v4=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Venkata,
+The threaded IRQ is requested without IRQF_ONESHOT, allowing hardirq to
+preempt the threaded handler. This creates a read-modify-write race on
+HPD interrupt mask registers between the hardirq mute and thread unmute
+operations.
 
-On Mon, 28 Sep 2026 at 10:20, Venkata Rao Kakani
-<venkata.kakani@oss.qualcomm.com> wrote:
-> > +     for (;;) {
-> > +             vcpu_run(vcpu);
-> > +             switch (get_ucall(vcpu, &uc)) {
-> > +             case UCALL_SYNC:
-> > +                     got = uc.args[1];
-> > +                     break;
-> > +             case UCALL_ABORT:
-> > +                     REPORT_GUEST_ASSERT(uc);
-> > +                     break;
-> > +             case UCALL_DONE:
-> > +                     kvm_vm_free(vm);
-> > +                     return got;
-> > +             default:
-> > +                     TEST_FAIL("Unknown ucall %lu", uc.cmd);
-> > +             }
-> > +     }
->      Return missing?
+Add IRQF_ONESHOT to keep the IRQ line masked during thread execution,
+which eliminates the race and makes the per-event mute/unmute calls in
+hardirq and thread handlers redundant. Move interrupt status clearing
+to the beginning of the threaded handler, before
+drm_helper_hpd_irq_event(), to avoid losing events that arrive during
+the event handling.
 
-No, the loop never falls through: the breaks only leave the switch,
-UCALL_DONE is the one way out and returns there, and the ABORT and
-default cases end the test. So control can't reach the end of the
-function.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Thanks for having a look,
-/fuad
+---
+
+Changes in v3:
+- Split out a separate commit to improve the return value checking for
+  &analogix_dp_device.irq.(Sashiko)
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c  | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 27c9a764e25f..974be5b702dc 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -704,10 +704,8 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ 	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+-	if (irq_type) {
+-		analogix_dp_mute_hpd_interrupt(dp);
++	if (irq_type)
+ 		ret = IRQ_WAKE_THREAD;
+-	}
+ 
+ 	return ret;
+ }
+@@ -718,6 +716,9 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
++	if (irq_type)
++		analogix_dp_clear_hotplug_interrupts(dp);
++
+ 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+ 	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
+ 		dev_dbg(dp->dev, "Detected cable status changed!\n");
+@@ -725,11 +726,6 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 			drm_helper_hpd_irq_event(dp->drm_dev);
+ 	}
+ 
+-	if (irq_type) {
+-		analogix_dp_clear_hotplug_interrupts(dp);
+-		analogix_dp_unmute_hpd_interrupt(dp);
+-	}
+-
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -1474,10 +1470,11 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 		 * that we can get the current state of the GPIO.
+ 		 */
+ 		dp->irq = gpiod_to_irq(dp->hpd_gpiod);
+-		irq_flags = IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_NO_AUTOEN;
++		irq_flags = IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_NO_AUTOEN |
++			    IRQF_ONESHOT;
+ 	} else {
+ 		dp->irq = platform_get_irq(pdev, 0);
+-		irq_flags = IRQF_NO_AUTOEN;
++		irq_flags = IRQF_NO_AUTOEN | IRQF_ONESHOT;
+ 	}
+ 
+ 	if (dp->irq < 0) {
+-- 
+2.34.1
+
