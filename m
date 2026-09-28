@@ -1,146 +1,135 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F953F8252
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621792; cv=none; b=Pzg/PkI1kZXIRGGk4vOOce/Q8fJoJDskaQI/qGwQvMGKEcAZ3UZri5bSV8wZaZKuJrreIEax1SQ5JHoZyiUJrg/PGkZLYqEtn6oY3tKCrAOy056LF2O+s4WHBQYoq0qqRrO4p+zDcRXpJeVKJmHQrnacd5WjgL/CsgLXw8ejbsw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621792; c=relaxed/simple;
-	bh=n7rrWwU0s9ggul7JuiFbx+85HACZBLjrWg3YZUUQI4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NLfIpicnaH4GEOLmQgMRxPZJMKxfFR6sj9GM4e9H45SbulgtyUvQgDkzuESrFvAsBWfYfXjv1AItFi2dvdALTwYrrwfe8ClHC0r56KehkSJi4u0MEnDB4MKyGpi+qyyME9goYJrm0IkotbeUJ1DmT03VPh2d7jy+cR+5tLl9sUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FGwHOVMr; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29422378822
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790621884; cv=pass; b=XGLNnZ641uohuMa811ohbNN9zrcQtsMY+tmLBi1lESZ6ubx5UaiCZAeQCmlafxPPjykSfoj6Vv2B2oHrp/US7n6vxKoPO7F9qeqWQABes3h9HoEfpy5/rGsxH+Bocfc4RfkVGLrYs4mmjXtG1F974R5OLQNIXxhxWcWyaWMv7J8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790621884; c=relaxed/simple;
+	bh=Im1NAfF0TnV3CDpW6n2DT1Ez9Xb/l8e1pIhIoS8My2A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qgk1XfDbaHbo65iF6L346Qhl18QqhWmaFIYukiHSg5dp5t5DDiVC0dWKnsPmKN1cnn0HmK22EysY088cGN+SGLkdvVINilq45FTbJ/yfocARTdO/UXBRB2DEVeCAiDsDnx/SPjfskz0KQgDNooAWnTr021xEnKhTh/sHPYfr1g4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sZqVXuoc; arc=pass smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FGwHOVMr"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so18450415e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sZqVXuoc"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cd1d9d66c9so1076172e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790621882; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gvCGUj74Qxqw8bMFDSzRZoIs8mXH3VFVpkF90mLRUzCFbB/iQJX1S2jlWGlHn30Xbt
+         PUObHPz4HTqvfgbgNAjgXK1i8EiucdBBeOmzU5Ah4FdhLhcwtgIneMpavs1IMHAU7gk4
+         1HxIT3sHXTuXmKT/ZV4J/q9odrg5KcvypZ1eL+eLx128beP8Wk33LhNoBzHZyHR+jZt3
+         hL4zFEi5h2qrdnI/QPHWRzZ5F14V56MiyGbPlFjR7i2n1Wvo1odtuvtOYpXBGY0QX1zX
+         5d9B1iMqRvJslDhP3vM69M075cBIby6KAbuuEgymgvc0ckLMGeqykdLLQdbdy0kVKvQj
+         0SMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
+        fh=j+ByBT5YfvAxcbqBxuC63nk7PCNzZBVWloRRzjWBkjo=;
+        b=B1QV6LrCqNexov2OTRKVbngALw/7cps5H0RourA2Yjzjto8/CFk/xvZarw69BrMHQ0
+         RYDd/sUhbF01sxMI1P2wP2DLirzS2Ffl4uB6VIie3mVShV+rqyjca18khcb3OewPa7fl
+         Y5txrhCMiWLqDmbX/zz4X+qr/GnECfpgmwtcMPX1kW+4sXbVcwDvpMFny+WjlT1mkX07
+         tD5qR5JsKMQ6GkWD1CwSe+MX7T92zOUbcwerjcCV1S/HO7WZgi4If0/dWCI554uLb0x4
+         QFSLEpNp3m2Vb2nJvubHZpvv16Is/EO8kjdjuzp81s2Evda85gzIFn+KhC3LBl5ze/61
+         nFmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790621788; x=1791226588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1790621882; x=1791226682; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UlGFsX/Ls46WgCFLV1KYmW3Gnb4dDClBQv1c5lbc9ow=;
-        b=FGwHOVMrY0LNjRNgnB8Y41Iicam17g4Em7db71S7O8ZIAyNEwVT78P+a6utI9g1DhC
-         E/SXuucY3LJWPpVPxtbkN81NqbrCwz+08eAFPS0hHhe+1ZMhbfUX+zGf3U1zs78VkCTp
-         tXSyhvp/bmlcpQ91+V1fA8YIaSJIdgEyASClk/lnfslrZVBnVQx45LmhIWwmA84iflLG
-         GC4/bv/QgeU4Yt6FES1Uv6DpDtdqy5wa2CkkV52YQgjMdxp5up/2/y1EOTGe6XgsHbW6
-         3K6+pRv4W4ve+ZIR+unK1Kth3sH7GlTgjY9Cs+S/Dfgrpj0iKue56pwKsOM6gvhSDULI
-         BaFA==
+        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
+        b=sZqVXuoc6h7XgKkZ6kU3dpZ6kYOv6gI4W9xnXG2hM6Z1O344XYWhjK/63pN2esHBRI
+         H05fFVuuhbEhKGu8CF+3nhPraTmlbDyN6xSLF+ayaP/3m3HjCX4vR41ye7bTb4EKQGNS
+         QlRlWu0YUff0rpSPmNpr4vOub6G6TwpULNbKe6P3TdmZTVoItMEeaJ93cWPMLRq1hNjV
+         vLnjnFjIv7byHsvBAlsQ2FCpzAkSB7vvofs96fgARyVgszBZcDtkuxkjpEp43pwP9/xU
+         AjZM/ObJ0zTOUWAmiVf/sj/7CFQvBt3D6zFXx9aCiwjBh3b51jTX0pUKYiJjseZqB5tr
+         dm3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790621788; x=1791226588;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790621882; x=1791226682;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UlGFsX/Ls46WgCFLV1KYmW3Gnb4dDClBQv1c5lbc9ow=;
-        b=GF6Ca6YQzgMwsL7rZYs1rPrbIseBamhODnSVQv3G2J4pojQS4rMfePrX0/3nsYPm8g
-         JOTpGY++c/impPksVcniKROzHmldLiAD4hIIV6Rm9UvFLgJJ0OpeaJx27/LTknGKxGW9
-         qtr/4/fXa+MJdydU73eINBbgxZOWrqwKBuRjLsGgV4/wSVuFQg93bvS0/ZzBpBd127wC
-         xyVCWdJvxY8qepFNlM6k0nuCxEpHahreqrXaS/6PrKCxN5W31rl/8ilbkRw6CVndSDxB
-         KHbmJzL64OyM0N05NbJMVRT0nsX8R9gaFqSgPp3YoJ6kJm95MHaJ9IwrC86Kox1dFMAY
-         buPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXBr4DFFhYBT4Q7UAhYoXsOct2BotJ5z4iOZpTKvfY/2m6xHlv4PBdyE5UeY6TfS3tIELuc9iLQfcUVvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUzRbdbt97PH6YWcwPwTvaZNNv62eaihQUIhw3yNfQwKWkol4P
-	9X0jgJNXrU6OUXHPLsGzYE1l9sC0Ykw2Q+1gXdryWXqYHA/QAkHKh/uy
-X-Gm-Gg: AYBFou17yIYMQbj2xFA97XG53E3O2/bosm2KzPt7tfWqDDEW8iJguBiOlxAub3p6tun
-	8tJGb8s+fAY2pAYX3v7TJLVQQD+oE+uaJbwOw1QSlwLSqxNrqmqf6mP+BPmgama7WniwG/g5VRY
-	jK9aybWnXCZMeDIKMD4KkgQK2M+SJxWyAlNrmE1c8DHtJBS06b6ZwKdcNjBXQWyvVQEZzXWp0+2
-	RtMNvGvk9IYxktkAZWNn4+OqeAK0Rz9EekX9FwJ2dAWNjV21/Su4Lss38f2XdLJC9OX1Y8L3cMf
-	ZjiJA/TDGi1fln8SPfkEZntYq3hicend7Hds1HLeVZ99opc/o0LXoOsY5WFhNotDriFCkGD1+Eg
-	5Ktyjzij1a2I2epsyeh34gf/amHirGDdu99HutgI7AzBn+WeUfKitci+nBllYLD4sj3ZL/pLdXL
-	xGamv0Z4ppuMfcnJ9sSVCG0dwqaFyHQefOw+aWhdL9O/b8xQtxxDipFB8MjvptxarQvV7e6S00s
-	iIY1js3kvvq9s0kfczAMMhysIFaYksUymU=
-X-Received: by 2002:a05:600c:3b98:b0:49f:ce78:3564 with SMTP id 5b1f17b1804b1-49fe66f187cmr271554715e9.21.1790621788116;
-        Mon, 28 Sep 2026 11:56:28 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0f66cfsm12682225e9.14.2026.09.28.11.56.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:56:27 -0700 (PDT)
-Date: Mon, 28 Sep 2026 19:56:26 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Maciej Grochowski <Maciej.Grochowski@sony.com>,
- Nikolas Joshua Britton <nbritton@exabit.io>, Geramy Loveless
- <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, Alexey Fomenko
- <alexey.fomenko@intel.com>, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kw@linux.com>,
- linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 5/5] PCI/quirks: Avoid certain BAR 0 address with igb
-Message-ID: <20260928195626.1e878a20@pumpkin>
-In-Reply-To: <77f7d79b-d3fb-0576-0b6d-eef4efd8d634@linux.intel.com>
-References: <20260924202056.GA2001522@bhelgaas>
-	<447e3daa-c8a5-2b0c-2c6d-3f3eb92e94cc@linux.intel.com>
-	<20260928141936.2539ad5f@pumpkin>
-	<77f7d79b-d3fb-0576-0b6d-eef4efd8d634@linux.intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=t2cIO50UyguhSiU6G2c4CxKHoZiSwBuo4uMuhhmaldo=;
+        b=wwwPUhWrvcKYbwyItnjeR1WZ5VOU3RzGGarzqssL63I6yTKOtsbwJJy/feHoa2SLns
+         gousC9Ix3IxYWXN5X3RJ9Xy7KgzumDrjcZJff3+tBnA83j9KoADYpKfqhKxB2seilsFZ
+         9YP3XNyrpGd9afuVoXLyw8IIQhQbSbRBWNqm9J+7dNBGxVhGV5ZPnTjSICBzhs/V7NEN
+         AK9ybdM/UUDN2NurycPTj1xb4/3fg5KV2XPwCu7fsoJ3b5/AN8TqI/vf4+7sdbgOeLK+
+         8uGOK5ztE1a6hD3wMa/jGkmvkoP7VPT6R8N35rZjbK0ctgX/+mvk0aogAKLd4G855MhE
+         OT6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzblH0KHXu9QL+keC5cWbg8NREVgP8tlLp8k6HU/ORwaBpGMBggSChsuBm8kqwquOAzbNnxbsxduKiJSOw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm4wrTib+j8XXVLjeHO8hxWAWWHeflwOimYvFjXMgoveecrivb
+	oFU380n9PRtHSwiHmS27+s6WDs4C4cuR3QjdFS/8aPmo+lHRPApex4X4405FJ3+P00OwBsNqtXf
+	jwlixmIvlUcD5eQninBK7UcwpB2mqqrapyiDPrGE=
+X-Gm-Gg: AYBFou3Fz1aE/y8UlWbn0AB+Nf4tZV+nQkVR+XfK5gg/gZbv4dXPlWbPpopDKPy13N2
+	zsucwySuP+5fcolhyFzDm7DLGyyRT1dntuiymPgYfGnX2ZMh16dFZx/5T2X7xgbLhCZ5i3rLpUs
+	cS+hMH/bCuoHnLt+qhC2lYQAzFc0RzBrdPSDxVQp7ks6ZcxjMl35avh45g4uFVvvk2l0kgXIdF6
+	jyk9fwQ5drNaLugI9CX25978e5ViZGXWWhZODzPgYZuvhCHC4xamdsL14CFA4aGSdDCIHV4kw+C
+	d/6Ptjv3bSD+N1Q0esqpzlz1YROZGr0sC5mlNaMQLTKgdVVx9K2YxwYKav+1Lh9FNELpCEk7ktL
+	+bOQC1cub8M6ow7TmT7EO
+X-Received: by 2002:a05:6102:2d04:b0:7a6:accf:72c1 with SMTP id
+ ada2fe7eead31-7af19740319mr4949454137.0.1790621880968; Mon, 28 Sep 2026
+ 11:58:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260928044513.1330392-1-morbo@google.com> <fb409745-856d-44c6-b9a9-387bb7499811@opensource.cirrus.com>
+In-Reply-To: <fb409745-856d-44c6-b9a9-387bb7499811@opensource.cirrus.com>
+From: Bill Wendling <morbo@google.com>
+Date: Mon, 28 Sep 2026 11:57:44 -0700
+X-Gm-Features: AclHuK_sC2R2kVmE83msZCKkzBaFLDE0QnCGPY-epZGSZc4zNKjrTMXfdmX0tnM
+Message-ID: <CAGG=3QWAhuHptY1qGsMoP_s6rkBthx3nWadPmYQdjWRMcRCH=w@mail.gmail.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl with __counted_by_ptr
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Simon Trimmer <simont@opensource.cirrus.com>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, patches@opensource.cirrus.com, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sep 2026 17:30:41 +0300 (EEST)
-Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+On Mon, Sep 28, 2026 at 1:51=E2=80=AFAM Richard Fitzgerald
+<rf@opensource.cirrus.com> wrote:
+>
+> On 28/09/2026 5:45 am, Bill Wendling wrote:
+> > Annotate the 'cache' pointer member of 'struct cs_dsp_coeff_ctl' with
+> > the '__counted_by_ptr' attribute. This allows the compiler and KASAN
+> > to perform run-time bounds checking on accesses to the 'cache' buffer,
+> > preventing potential out-of-bounds reads or writes.
+> >
+> > The 'cache' pointer points to a buffer of size 'len' bytes, allocated
+> > to hold the cached value of a DSP coefficient control. The 'cache' and
+> > 'len' are initialized in 'cs_dsp_create_control()'.
+> >
+> > Every subsequent access to 'ctl->cache' is strictly validated to
+> Is that true?
+> When I last looked at these __counted_by they were only checked by
+> a subset of library functions (which was documented) so I was still
+> able to write code that overran the buffer.
+>
+There are several flags that need to be specified when trying to
+trigger an out-of-bounds error, like this:
 
-> On Mon, 28 Sep 2026, David Laight wrote:
->=20
-> > On Mon, 28 Sep 2026 15:20:13 +0300 (EEST)
-> > Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
-> >  =20
-> > > On Thu, 24 Sep 2026, Bjorn Helgaas wrote:
-> > >  =20
-> > > > [+cc Rafael, ACPI resource question]
-> > > >=20
-> > > > On Wed, Sep 23, 2026 at 04:17:55PM +0300, Ilpo J=C3=A4rvinen wrote:=
-   =20
-> > > > > While testing the resource placement changes, my tests hit a case=
- where
-> > > > > igb fails to probe when BAR 0 is placed at 0x9c000000:
-> > > > >=20
-> > > > >    90000000-9cffffff : PCI Bus 0000:a0
-> > > > >   -  90000000-902fffff : PCI Bus 0000:a1
-> > > > >   -    90000000-900fffff : 0000:a1:00.0
-> > > > >   -      90000000-900fffff : igb
-> > > > >   -    90100000-901fffff : 0000:a1:00.0
-> > > > >   -    90200000-90203fff : 0000:a1:00.0
-> > > > >   -      90200000-90203fff : igb
-> > > > >   +  9be00000-9c0fffff : PCI Bus 0000:a1 =20
-> >=20
-> > Is that valid?
-> > I'm no expect but I wouldn't expect an address range to cross a power o=
-f 2 boundary. =20
->=20
-> Hi,
->=20
-> Bridge windows are defined by a base/limit pair, both with 1M granularity=
-.=20
-> There's nothing that disallows a bridge window crossing a power of 2=20
-> boundary in the spec (AFAIK).
->=20
-> Note that after this quirk is applied reshuffling the device BAR=20
-> resources, the same crossing is still there and the device works.
->=20
-> Perhaps you mixed this up with BAR resources that indeed must to be=20
-> naturally aligned.
->=20
+  -fsanitize=3Darray-bounds,object-size,local-bounds
 
-I did say I wasn't an expert :-)
-The PCIe book I've got is just over 20 years old (only 1000 pages).
-I know rather more about the TLPs - we had a problem with some fpga logic
-that didn't like getting two completions for a single read.
+They should produce code to check each array access if the compiler
+can determine that it's from a struct. E.g., Clang probably won't
+generate the bounds checks if the field was passed into a function
+that isn't inlined. GCC may have better luck with that.
 
-But it would be consistent with something 'not liking' BAR0 being at
-9bxxxxxx and BAR1 at 9cxxxxxx.
+-bw
 
-David
-
-
+> However, recent compilers might do more checking now.
+>
+> Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
