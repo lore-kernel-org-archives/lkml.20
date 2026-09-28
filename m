@@ -1,119 +1,141 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-m118217.qiye.163.com (mail-m118217.qiye.163.com [115.236.118.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58496218592;
-	Mon, 28 Sep 2026 08:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16DE46C836;
+	Mon, 28 Sep 2026 08:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584194; cv=none; b=d3d5605c4GxN/ooe/ufWFpowVm80vPc6QxDnpgvOLdXs0PPJRYMEXUYI3g532axrXcIFJ89fcwhYoIERZvojhBjD4F7GtjVD/CVTe8I5xO+iqrKVm4kIa5Ba62jT2+Z7tUY69N4qLYat3o1svuGDlpSO0BWRiBdokAVs/tqzgEQ=
+	t=1790584241; cv=none; b=lh1RcwzuRad5qnaXcPs9sb7xb5qpqfnY3u1OMNGlqOzFZXDkR/G6Wjnw9cVGrq0ujex34w9NG+jzt0GTwAdMOykpabMYRb3hCwPRBbwJIkBIjxJkLSK6DHpaUgpbfx7P/3YyMnwwG0yRtPPaQBHVDSF2DAsM2fhDLQHZaYMDGBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584194; c=relaxed/simple;
-	bh=lPgY0OX2361XcCtAX56rWcvG1KCkVjI4PrpEC+nDM3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k7m3bCTOPa/urznPz0GRTJVEE5owYYgK9nnJR+WkghwWDFR1Ya8g75b6jAJHEEHL40a9pfzZ/1lYAMyadoW+HG16tnl7P6PpPjENS+aSZUROgEzkAj7WPlGfrfL8nC0++JkMU3okRW5WRoWfH/wIPKHMR3e98HsO3j/rKttGKkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fsVvxdTE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IGyhlSa+; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790584241; c=relaxed/simple;
+	bh=56O1+XtCbBuMpsZY03ud511WNyyJck6lK7YOl8I3S/Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Vvq0BjPYTU+rktZM+B1AnSzLT3Q6I/Vd2TazRPTJb80j08tY4v/J7aZm9Y137/KqvRjskRRlaPgv4qEONDmQUJNzWOuO0ncZZe14W2dSADPXoWSjD4s+BD6bkVKI/mpZLzdkmdFvdZZ1YmhMiTWqIPegfL7ZB5HS/+xg4/+JLDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FAHqU1AM; arc=none smtp.client-ip=115.236.118.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fsVvxdTE";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IGyhlSa+"
-Date: Mon, 28 Sep 2026 10:29:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790584191;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lPgY0OX2361XcCtAX56rWcvG1KCkVjI4PrpEC+nDM3w=;
-	b=fsVvxdTEB7rvAJoJAplF2ONYu+C4T1ZUVXgqcqQtPwk1tQJJiaFHJKogITDOpf5YWDeLr3
-	xQudJRHRGuV36Uq3ALyluIOGeNy49aB7hg1Zif9Fy/3yDjx+mNns5uqXQnXBZrMZs6Wvsw
-	GHIzHMPCvEeAlPReNMVDFRkxQBWre7tBI7EQ/IV9I1D7R7AswqCSoSdBQqQr/kGrdtZAuE
-	26ejtT7tJ9GHecg9hEcPV9MRgo0CNQEHRe2tkOdqZ7/lC7v9zMsS5Gyhl4tnHnKq2hTv2d
-	CC5azOpBcpza3VQal2ABjCkXwyWGp3BOg7j3MW1A142DePwrwa54TL7S7gzMdw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790584191;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lPgY0OX2361XcCtAX56rWcvG1KCkVjI4PrpEC+nDM3w=;
-	b=IGyhlSa+Ce/L0Up8OJsQFD06YDqiqM2IsqUVvRsKygzDSHOPKFA2QaNjSmWq5RO0HcNsz6
-	6bmifjpyKghPd+BA==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
-	Ryota Sakamoto <sakamo.ryota@gmail.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Dmitry Antipov <dmantipov@yandex.ru>, 
-	Petr Mladek <pmladek@suse.com>, Kir Chou <note351@hotmail.com>, 
-	codemender-patching+linux@google.com, linux-hardening@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	kunit-dev@googlegroups.com
-Subject: Re: [PATCH 2/2] lib/tests: Add KUnit test for struct stack_trace
- __counted_by_ptr attribute
-Message-ID: <20260928101929-4f53f80d-7194-434e-bbd6-ee6f5838ac4f@linutronix.de>
-References: <20260823123549.1120133-1-morbo@google.com>
- <20260823123549.1120133-3-morbo@google.com>
- <20260824083538-d0eff358-e1d4-4af6-9e61-d4d816783266@linutronix.de>
- <CAGG=3QXojhEsqvk-L5vT3w37z_VO+p1=8vrJCJ44sTz_V-YRGg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FAHqU1AM"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e7e;
+	Mon, 28 Sep 2026 16:15:09 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 06/14] drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+Date: Mon, 28 Sep 2026 16:14:10 +0800
+Message-Id: <20260928081418.3605775-7-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGG=3QXojhEsqvk-L5vT3w37z_VO+p1=8vrJCJ44sTz_V-YRGg@mail.gmail.com>
+X-HM-Tid: 0aa0e715032803a8kunm323e2b5437cf3f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0wdVkoZHkodS0sZHh1KTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	JDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=FAHqU1AMFg6sHS+bmLPMNVPm4GWr2jNNA78d4/VKocxSkxEoUQOCbs7IHvYWMIQNEKWjnYM5uROq0b/DEZElOzLYT2ZmJ/GRUxkE69kmOofEekArRl5zc6UgrBuEmxm3OTL404gFDlrUGxuAzuYXd+O0Vw7pLnSi8RtSRPoTxug=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=uKF52fufhJOZnsTT21ImBLc4H+Rm8ECocgf/WYHaG+I=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Bill,
+Remove local COMMON_INT_MASK and INT_STA_MASK macros. These constants
+are only used once inside this function and bring no reuse benefit.
 
-sorry for the long delay.
+Replace open-coded register writes for COMMON_INT_MASK_1~3 with
+direct writel(0) calls.
 
-On Thu, Sep 10, 2026 at 12:48:51PM -0700, Bill Wendling wrote:
-> On Sun, Aug 23, 2026 at 11:41 PM Thomas Weißschuh
-> <thomas.weissschuh@linutronix.de> wrote:
-> >
-> > On Sun, Aug 23, 2026 at 12:35:33PM +0000, Bill Wendling wrote:
-> > > Add a custom KUnit test suite 'stacktrace_counted_by' to verify that the
-> > > __counted_by_ptr annotation on the 'entries' field of 'struct stack_trace'
-> > > behaves correctly.
-> >
-> > The implementation of __counted_by_ptr should be tested by a dedicated unittest
-> > for that feature. And I am fairly sure that already exists. It should not be
-> > tested in random subsystems.
-> >
-> I'm looking at `tools/unittests` and...what in the world is it
-> supposed to be testing?
+Leverage analogix_dp_unmute_hpd_interrupt() using the full HPD_IRQ_ALL
+mask to initialize HPD interrupt state, removing duplicated register
+handling.
 
-This seems to be testing the documentation generator.
-An assumption which is corroborated by 'git log'.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> It looks like it's testing absolutely nothing of substance.
+---
 
-Debatable...
+Changes in v3:
+- Replace macro HPD_IRQ with HPD_IRQ_ALL.
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++----------------
+ 1 file changed, 4 insertions(+), 21 deletions(-)
 
-> I assume you want there to be a test that runs and
-> produces a stack trace triggered by an invalid access, right?
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 6ac03a1aa512..0f1406e4a5d3 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -18,12 +18,6 @@
+ #include "analogix_dp_core.h"
+ #include "analogix_dp_reg.h"
+ 
+-#define COMMON_INT_MASK_1	0
+-#define COMMON_INT_MASK_2	0
+-#define COMMON_INT_MASK_3	0
+-#define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
+-#define INT_STA_MASK		INT_HPD
+-
+ #define HPD_IRQ_ALL		(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
+ 				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
+ 
+@@ -189,23 +183,12 @@ void analogix_dp_swreset(struct analogix_dp_device *dp)
+ 
+ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+ {
+-	u32 reg;
+-
+ 	/* 0: mask, 1: unmask */
+-	reg = COMMON_INT_MASK_1;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
+-
+-	reg = COMMON_INT_MASK_2;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+-
+-	reg = COMMON_INT_MASK_3;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+-
+-	reg = COMMON_INT_MASK_4;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_4);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+ 
+-	reg = INT_STA_MASK;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA_MASK);
++	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
+ }
+ 
+ /*
+-- 
+2.34.1
 
-Correct.
-
-> I'm unable to find any tests in `tools/unittests` that do anything like
-> that...maybe I'm missing something?
-
-Look for KUnit tests instead. For example lib/tests/fortify_kunit.c.
-Or non-KUnit tests in lib/test_fortify/.
-Or LKDTM tests in drivers/misc/lkdtm/.
-
-Also see Kees' recent message about testing traps with KUnit [0].
-Apparently it is not so easy to test this from KUnit. But your proposed
-stack_trace-specific test would have run into the same issues.
-
-
-[0] https://lore.kernel.org/lkml/202609041620.81446C2A@keescook/
-
-(...)
-
-
-Thomas
