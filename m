@@ -1,84 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F184772BB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BBC401A2E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584293; cv=none; b=D4eGMDIuoOWbisJr86eUpMmtePBtw27gG43udhSfiOGKrO516EAqctVzqb+YPLVBIQdm1OHEcJwBqm3yYrh5yAdM6EZbXbbl/qXZdhud+iSEoQ66hSzgZ6JaDMlkpvpnnrOMJDO9a0eFNjGF55ZCBX2T8U9/+YffwAUs/L2C8qo=
+	t=1790584326; cv=none; b=p5/ySgqG2Eqcj43SQKmznhG7la7DVuTHMgYMCmq4h4rlCBa9fm84Dp62ZBqaO5PpytbEw07g2RzYEvgU/tsBMilMcP8aIIS+0Ox796k+g9J10alKGe73IQFdb/SzaRyIYmcgt8k4HXNjUlPwK95n/Niaegp2b4DffBOjlguvnSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584293; c=relaxed/simple;
-	bh=MuqpoHduVduL/y0wnBWdGHkHHicM70MFPxT5bKmE1Us=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hc2qlE0MzNZ1i+bClv9PqkeAp6Z76YbVKAoFZkY7Eu2cxdsog1imahoFzJRwgJTghzf9mvavdLa9bj50WKCIOt5P0lKAIoFj9IduCR3ZYvkC7Gu2a5+H9vyRCTAZ+gW6Jw0KwTDmmlae1Gu/krvqEoEXNh1TjwnSuA713KO95/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdOItFxA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790584326; c=relaxed/simple;
+	bh=0vsNUizkmzlbu8y8J+IZWSMNjN9v2l2Yufh8n4d8/RU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RMzko2J9Qfo6B3BQzOIjsm0OVKl7Y++b2I8JglD75WBkM4vEQUKPvqTmlnLudkBqLhEHvYDyBw9rV7w6m4c1MqqEm87DSkm3vl0zj9VBcBkcMQyEUepHKnAnup2IxtlMvqqHzkS5oeF2ozlsDkLmI8ihCka1Sm/26enwWXUF3yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tyjF0o3c; arc=none smtp.client-ip=95.215.58.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdOItFxA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B431F008A0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790584291;
-	bh=MuqpoHduVduL/y0wnBWdGHkHHicM70MFPxT5bKmE1Us=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=WdOItFxAVAnzGluXvaDDPCqN97XLfPMl6A4YDyzTSNHzz1xZ0O9nipQg6bqWldVC/
-	 bL5P14/A+KpZRX6/6d7cfBu+8IQFHbklBnqpXAhUhYWlJ4eIq3TLtRtOeuTktBrmdN
-	 aFOKcRw4xro1MwdgAj8WWPyzfjwtc6k87zPYO3UJOKiEYK4kNkcaiBMTIitBS5Fut1
-	 NebZzxCskzK8/PUepB1K4qmKLNbteeJzIedfndeLsC2nKSc7m9PkIj0IMaCwAs9yVU
-	 Ta2Pu0+eLOSVAFCdkb180/qey6U3G3M3sTybDecgX7XFbT4p0f3+BSR5cvMZ1Lr4Vq
-	 z8fkqXxbr90Lw==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso2674991e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:31:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZyS3aDuuQqrD1FgqZWWAqyRSfYpqS7C+IVPaS8Z1/FXOmUHNxr1+vwccyq7lKPvEzn2UznwgNnd0EVkI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/eN5aup5p2jAd9hIQ1HlywjuIcyhoIsbmEuxEpqaGTBxbfJKy
-	encaxcYbC5cAJ6yJVvLWH6qgLyNUpJ61nNRO/aEPP6HHXMeSVlhrba+zRqkW+5KT5SF6zqnEyrd
-	8VuJNFKjEMW44O1mh4a+qPn5Zd1pN/Tpa+WSG7tt4VA==
-X-Received: by 2002:a05:6512:3046:b0:5b8:c311:88e8 with SMTP id
- 2adb3069b0e04-5b8df1e6cf2mr3720055e87.26.1790584289662; Mon, 28 Sep 2026
- 01:31:29 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 01:31:28 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 01:31:28 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260925193008.127314-1-2000.costalucas@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tyjF0o3c"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0vsNUizkmzlbu8y8J+IZWSMNjN9v2l2Yufh8n4d8/RU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790584322; v=1; x=1791189122;
+ b=tyjF0o3cR9ljeFX4XK3gL8z3b7xqobt2exvjAkbD+PvnbxNfg2F1GudPKGeS+nnZnBWsZe8e
+ AEK7Cwjwz0O91OKfGmf/5KNZvAVKzBK9uEzR8gkDGuKYdlvX3ue6Aq1wiZnpSoUClPeZEUe3bhA
+ 4Klw25etPFVrQB63qCKJd9bo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 42d1b3bbabd087ec;
+	Mon, 28 Sep 2026 08:32:01 +0000
+X-Mizu-Trace-ID: 42d1b3bbabd087ec
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 16:31:51 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, k-hagio-ab@nec.com,
+	ruirui.yang@linux.dev
+Cc: David Carlier <devnexen@gmail.com>, akpm@linux-foundation.org,
+	axelrasmussen@google.com, baohua@kernel.org,
+	baolin.wang@linux.alibaba.com, brendan.jackman@linux.dev,
+	dakr@kernel.org, driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org, hannes@cmpxchg.org,
+	jan.kiszka@siemens.com, kasong@tencent.com, kbingham@kernel.org,
+	liam@infradead.org, linux-cxl@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com,
+	osalvador@suse.de, qi.zheng@linux.dev, rafael@kernel.org,
+	rppt@kernel.org, shakeel.butt@linux.dev, surenb@google.com,
+	vbabka@kernel.org, weixugc@google.com, yuanchu@google.com,
+	ziy@nvidia.com, devel@lists.crash-utility.osci.io
+Subject: Re: [PATCH v2 10/13] mm/sparse: remove SECTION_MARKED_PRESENT
+Message-ID: <arol9w7G3vupIVZ7@MiWiFi-R3L-srv>
+References: <20260921-b4-sparsemem_cleanups-v2-10-54d81d65e125@kernel.org>
+ <20260927192013.144672-1-devnexen@gmail.com>
+ <655c509e-318f-48bc-8183-2b1274dd05ac@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923184450.135601-1-2000.costalucas@gmail.com> <20260925193008.127314-1-2000.costalucas@gmail.com>
-Date: Mon, 28 Sep 2026 01:31:28 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Me3iGe9bxAM2Ph=kBU8PAvRZxq16NHk3FSKsp3EafhbdQ@mail.gmail.com>
-X-Gm-Features: AclHuK80sCVvVAPH0hKzq8SMRPB_tS6-QZBjVGjDspI-Uie2oIgZKXJbO_KiA9A
-Message-ID: <CAMRc=Me3iGe9bxAM2Ph=kBU8PAvRZxq16NHk3FSKsp3EafhbdQ@mail.gmail.com>
-Subject: Re: [PATCH v2] spi: bcm2835: fix device_node reference leak in bcm2835_spi_setup()
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-spi@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Mark Brown <broonie@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <655c509e-318f-48bc-8183-2b1274dd05ac@kernel.org>
 
-On Fri, 25 Sep 2026 21:30:08 +0200, Lucas Costa
-<2000.costalucas@gmail.com> said:
-> of_find_compatible_node() returns a device_node with its reference count
-> incremented, but bcm2835_spi_setup() only uses the return value to test
-> for a matching node in the loop and never releases it.
->
-> Declare the node with a scope-based __free(device_node) cleanup so the
-> reference is dropped automatically when leaving the loop body, matching
-> the existing __free(kfree) usage in the same function.
->
-> Fixes: e19c1272c80a ("spi: bcm2835: Restore native CS probing when pinctrl-bcm2835 is absent")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
-> ---
+On 09/28/26 at 09:28am, David Hildenbrand (Arm) wrote:
+> On 9/27/26 21:20, David Carlier wrote:
+> > On Mon, Sep 21, 2026 at 09:59:02PM +0200, David Hildenbrand (Arm) wrote:
+> >>  enum {
+> >> -	SECTION_MARKED_PRESENT_BIT,
+> >>  	SECTION_HAS_MEM_MAP_BIT,
+> >>  	SECTION_IS_ONLINE_BIT,
+> >>  	SECTION_IS_EARLY_BIT,
+> > 
+> > Hi David,
+> 
+> Hi!
+> 
+> > 
+> > It seems dropping SECTION_MARKED_PRESENT_BIT shifts the other section flags down
+> > one bit. crash hardcodes SECTION_HAS_MEM_MAP as (1UL << 1) in
+> > pfn_to_map(), so it now tests SECTION_IS_ONLINE: offline and
+> > ZONE_DEVICE sections no longer resolve to a struct page. makedumpfile
+> > only checks bit 0 and is fine.
+> 
+> Thanks. To be expected when relying on kernel internals.
+> 
+> Which makes me wonder why makedumpfile
+> (https://github.com/makedumpfile/makedumpfile) not require any such information.
 
-As Mark said: don't send new versions in response to older versions.
+Makedumpfile requires it too, while it doesn't ask for HAS_MEM_MAP. So
+checking MARKED_PRESENT becomes checking HAS_MEM_MAP's value, it luckily
+works.
 
-In any case:
+# git grep MARKED_PRESENT
+makedumpfile.c:                 if (!(map_mask & SECTION_MARKED_PRESENT)) {
+makedumpfile.h:#define SECTION_MARKED_PRESENT  (1UL<<0)
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+Add makedumpfile maintainer Kazu here.
+
+And add Dave Young here since I heard he is taking over Crash maintenance
+as a volunteer.
+
+> 
+> > 
+> > Keep bit 0 reserved, or export the bits via vmcoreinfo?
+> We could export it, or crash can simply detect the change based on the kernel
+> version. I remember the latter was done in makedumpfile in the past (although we
+> export it).
+> 
+> I can send a separate patch to export it.
+> 
+> -- 
+> Cheers,
+> 
+> David
