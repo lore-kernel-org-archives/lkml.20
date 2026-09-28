@@ -1,141 +1,118 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32D9331EBE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC391DF27F;
+	Mon, 28 Sep 2026 01:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790558903; cv=none; b=T0ktJMbt2RHR8E5w9y6iTlf1MYaEmz2eCjBJ5FhnY5zAAuo2Pl0E+/gjQMI3UXvgU+eIYVSYXLv3Y5JuS5tPplMC2rsUcWyibcQy6FcDOl9SSGyQ5S/jzZD0XyDv0JpT7QUcQcs1meH0BvWmepFBUlX4fOM4Czpvc5chb2ioMPI=
+	t=1790558909; cv=none; b=hk0lA039q/I++ek8O0wS5B5i0pRsuwPzJOboZrZBPt+FdHtM4bKLH8NsGSw3GF9CUWoJ+s0Jo6ZNmfLUqpCk1ruC00om+ZjdoRNlQ2jXFDqBQB6gOyncOgpK4J5z+kJ83ok9StwQXqUBBSjpfsNxl50EddQRU/fiNylpPM84V9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790558903; c=relaxed/simple;
-	bh=2ehdvQIsANuzSyhG0PFVkeG3NOTtP55gQMYIpUaKWlE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LiCtBisq7KwskXvZTBM35hiCKfX4fg9LSmEMo1tjrnBLlvEzMFiB8d01lLt7pZ2/QC3c8BbJQRVTiufs4wBWNUgogg5rLcTYLXOOv6kIWOieZD3SRfIBGNoJ3z9+TsRg7zeZmP/vG2NeQ/n2SDq2rCX3bNpMvBAWI2W9dL0RGrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KiAafJDw; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790558909; c=relaxed/simple;
+	bh=R8RBlNUvLAj/c5OCvCzqGGtecvvLitr4+VxtS8J9N1Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ol3j+av1FKaipsBAuFvZrujAccbo/GM6QVrPJxesz5A7viXPd0OoSocMt4g4wb+UD4bYxtMnRL0wFnMeRnCOzXFKLhkk4dotnWfjE01EtKeMicJAGHPVfxxrsKI3ZxiT4uxvSWKG+cAJSkh0+kDeXdAz8/M2qh9W0oVqVwu1diY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=GdbhlefF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Qa01+y6y; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KiAafJDw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2ehdvQIsANuzSyhG0PFVkeG3NOTtP55gQMYIpUaKWlE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790558898; v=1; x=1791163698;
- b=KiAafJDwEiJHTuFjGg1kdCcAS+gxqU2XMsK+0F8u13ilgu1LEHFqgoz8JuX+nLCaP485EGLz
- GEbAY60R6iue4VUOiO0GF5x5cYOijbPhj+RZx4SGU5oDjjYqLNrErWgxMsEtogAfX7mgVTBhpXp
- L1VC/YaRKsK81jhnRvqjKlhI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 753f209cd2acc2f1;
-	Mon, 28 Sep 2026 01:28:18 +0000
-X-Mizu-Trace-ID: 753f209cd2acc2f1
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 09:28:11 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: =?iso-8859-1?Q?Asbj=F8rn_Sloth_T=F8nnesen?= <ast@fiberby.net>
-Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Danielle Ratson <danieller@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, Heng Guo <heng.guo@windriver.com>
-Subject: Re: [PATCH net-next v2 2/9] netlink: specs: rt-link: re-align
- ifla-inet6-stats
-Message-ID: <arnCq0o5forfSyiz@fedora>
-References: <20260925213918.204767-1-ast@fiberby.net>
- <20260925213918.204767-3-ast@fiberby.net>
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="GdbhlefF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Qa01+y6y"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 909E11D00058;
+	Sun, 27 Sep 2026 21:28:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Sun, 27 Sep 2026 21:28:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm1; t=1790558906; x=1790645306; bh=tRF7stuLVU
+	S3TqZU86djFQ/qvgcJq/YMszLuELntmdY=; b=GdbhlefFtPS4ov/JBjz5V/YnlB
+	dzm8TF3madyh25nIw3ewtucUmI25K/BBezqURnNM+F4QTppBw7c8Q5ElUohAAA6E
+	VN5tZi8rmce6Jg6McBIkBbBWM2e2sSvBcp7sTh/5GZKYCIttffZYpKpvML4/wIRr
+	YdPhT8MZOZUbsEmFpcn6CiwRhdCvceFHFGURKZnE8ume9KQVVU6NU8xSXno87K+3
+	Pwuj7+ziTcuxXi5Dp8pj/JHB/n4bL/oSGJMbW9+KJPyJX5RMoF6hj9g9kvz1RUvC
+	nWdxVoWeILJ9m0TpLXODpd0hz7WPMxtWouZJtTvECmh8XSC55ogb9ovm9BQw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790558906; x=1790645306; bh=tRF7stuLVUS3TqZU86djFQ/qvgcJ
+	q/YMszLuELntmdY=; b=Qa01+y6y3xOZTsJCYOGpB1a+KZ0oGxrw8weoM48oD9m7
+	oZgZW9up5e+0qQj1D1ljOgCXTKeBJqX6WaJoG0y6Nqw3x1yIyHU1o+HtaPjz+hZb
+	6P11w7arGUnFE4M1BD+q9O1LGRGC4QYehJwGXOtVABAREEjv4W0sfcNoelW4L6CR
+	ltsF2BH8/GadqiL4yYVVu1S+dc5iGnbtdAuXTW9hbYYlSVejj65GRvqkl34Amskp
+	PmjgsGug8rT4fOtL7zJSI+zIV7QATlqg851KFr1L3AqNwIDIc2m54l6hH4ImyKOO
+	1Moh8tSBe4I1sNYYcXCxIEmM80Hh+qIHCOHOlZH2aQ==
+X-ME-Sender: <xms:ucK5ainM7o6GyzeZIHziEnRag2zqH-Hbl-qBGRIEcOPpqyfLJ-9J5g>
+    <xme:ucK5as7EWlsFXnYvIm4-a0LWgr9mzki0h3dB33P2xabxn3kOn6m1cDT0PpiaM9QEt
+    8kbZ9lCfLyvHlsFEjUJpYHPBm-mQrSHCVjPUPlD74Urd9F_RcI>
+X-ME-Received: <xmr:ucK5arS3fOAjLt-PF-lRMphTTBz28i7U4Cx3ERItZbMQTmCFvo69EllRLKMNXvig4yqolGxZ6GSbFP89kABVS28dE9iDXNo>
+X-ME-Proxy-Cause: dmFkZTGzEJMs6zAqs6Fj5qeFWXmQuIzC/y16oMmAdIWv9OrGzXve4mbhNIpkQtRzg+hlOB
+    PA/BqTKfxLLInwCdfXQIFfnhPgDrd4T5ppb3j1crlSVcX0q5rQdA+RmGvCy6rRXdwLzgEc
+    BhGeSaPcn5Z7Di7bjRcdQnnSPhL4nspWSQ4VyMVdtmEvNd59BzcL2B0x/3a0oR1mqjj86f
+    RDneIrIY0K9glx7X21JbIZZjAc0YjQmUnuCNCZEB/WsJ71t+WCkgR2nTkGaazoMRdCIyuH
+    E1nR5IZVbW+k45Y8ozRy1YHoFs5wMahRcKoX71KvLY1OtX25WpwYRmwvJQPqRtTTzjUHKy
+    +T1iMrxw7lcmuUoi2XlBNNvU/TtMSQ6Wxvc1+YqV6+XlV9ieTdiwm/92AlB+Ofk5IAoXmY
+    KKA0pD6eaQ+yg9+Qejrlm1GCU1E4fpw+fqMzp00UaiNn+ftNIE2dxL1H1qK0agJMcecSZI
+    MvYZAcuwu2f4pxLX+9utkxIAlX6PDNCnMuYEPlxITINi3tcWGXP9wTI39hy/MMsJ2CY6m0
+    dLQ+u1ni6hH99iwI1TVSGw++y6qkntyi0f213KK/1om3oQBSslLGYpJTQS657vx65k57Tu
+    AHEUthnMwbzXvNxOQpCc4opRAjshkQBHgRIAKVfdULQ9lZBFxlcl/5L2Cfnw
+X-ME-Proxy: <xmx:ucK5aixnGO0Sb4I8ACQBnj3HEUAAXtt84UdtO6bL79mSpBpBritIqg>
+    <xmx:ucK5arreZbirmfLkOYFsg4KLnJiRnNmG30gLhcRVDi3Vikfwsrv4LQ>
+    <xmx:ucK5at0BZWsLri1iL69LqKv_t9RVt49CMEN54YXIo1gkOgY3SH1N2g>
+    <xmx:ucK5ajwb5WC702PfWxtd2V7Waq9YpjGjKMDyx5oO1RB8FOaEjnNR1g>
+    <xmx:usK5avnba2La3d6AHBC3GxDKLmdXB55Ya1tTtcoeZi2119Wii3OP1O6s>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 27 Sep 2026 21:28:23 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] smb/client(cifs): prepare for locking changes.
+Date: Mon, 28 Sep 2026 11:25:01 +1000
+Message-ID: <20260928012812.2890035-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260925213918.204767-3-ast@fiberby.net>
 
-On Fri, Sep 25, 2026 at 09:39:05PM +0000, Asbjørn Sloth Tønnesen wrote:
-> YNL enum ifla-inet6-stats got misaligned with C, as two commits
-> reordered the enum.
-> 
-> In commit b4a11b2033b7 ("net: fix IPSTATS_MIB_OUTPKGS increment in
-> OutForwDatagrams."), IPSTATS_MIB_OUTPKTS was renamed to _OUTREQUESTS
-> and a new _OUTPKTS was as the last entry.
-> 
-> In commit 652e2c777862 ("net: reorganize IP MIB values (II)"), the
-> IPSTATS_MIB_* enum was reorganized for data locality.
-> 
-> Neither of these commits updated the YNL spec.
-> 
-> This changed uAPI, as IPSTATS_MIB_* is used as indicies in an u64 array,
-> exported as IFLA_INET6_STATS by inet6_fill_ifla6_stats_attrs().
-> 
-> This patch updates ifla-inet6-stats to reflect both of these commits.
-> Next time we want to reorganize these counters we should properly apply
-> mapping as to maintain the current order on the netlink side.
-> 
-> While touching these entries, also remove the dash from ect{0,1}-pkts,
-> so that they align with the C naming.
-> 
-> This pre-existing issue was identified by Sashiko during review of
-> commit 2b0aecb7b2b1 ("netlink: specs: rt-link: add accept-ra-min-lft").
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260831093458.472180-1-ast%40fiberby.net
-> CC: Heng Guo <heng.guo@windriver.com>
-> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
-> ---
-> Note for Sashiko/Clashiko: Targeting net-next, so no "Fixes" tag.
-> 
->  Documentation/netlink/specs/rt-link.yaml | 20 +++++++++++---------
->  1 file changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/netlink/specs/rt-link.yaml b/Documentation/netlink/specs/rt-link.yaml
-> index 8d63933f9910..3560053cea7a 100644
-> --- a/Documentation/netlink/specs/rt-link.yaml
-> +++ b/Documentation/netlink/specs/rt-link.yaml
-> @@ -532,11 +532,21 @@ definitions:
->        -
->          name: indelivers
->        -
-> -        name: outforwdatagrams
-> +        name: noectpkts
-> +      -
-> +        name: ect1pkts
-> +      -
-> +        name: ect0pkts
-> +      -
-> +        name: cepkts
-> +      -
-> +        name: outrequests
->        -
->          name: outpkts
->        -
->          name: outoctets
-> +      -
-> +        name: outforwdatagrams
->        -
->          name: inhdrerrors
->        -
-> @@ -587,14 +597,6 @@ definitions:
->          name: outbcastoctets
->        -
->          name: csumerrors
-> -      -
-> -        name: noectpkts
-> -      -
-> -        name: ect1-pkts
-> -      -
-> -        name: ect0-pkts
-> -      -
-> -        name: cepkts
->        -
->          name: reasm-overlaps
->    - name: br-boolopt-multi
-> -- 
-> 2.55.0
-> 
+I am working on changes to directory locking.  The medium term goal is
+to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+can be run unlocked, and consequently cannot be called when ->i_rwsem is
+held.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+The requires:
+ 1/ that d_alloc_parallel() not be called while i_rwsem is held.  cifs
+    does this in a couple of places.  A new interface d_alloc_trylock()
+    is now available and can be used instead.
+
+ 2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
+    unlocked d_alloc_parallel() would then be able to create a new
+    dentry with the same name.  In particular d_rehash() must be phased
+    out as it won't be safe.  This particularly affects the mechanism to
+    block lookups/revalidates while an unlink/rename is happening.  The
+    mechanism is changed to use one similar to how NFS addresses this
+    needed, though using the new LOOKUP_PRIVATE flag.
+
+The patches depend on patches recently added to the vfs tree.  I would
+prefer these land in that tree too with an Acked-by or similar from cifs
+maintainers.
+
+Thanks,
+NeilBrown
+
+ [PATCH 1/3] smb/client: don't unhash and rehash to prevent new opens.
+ [PATCH 2/3] smb/client: use d_alloc_trylock in cifs_silly_fullpath()
+ [PATCH 3/3] smb/client: Use d_alloc_trylock() in cifs_prime_dcache()
