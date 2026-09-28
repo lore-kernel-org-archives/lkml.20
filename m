@@ -1,190 +1,142 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234574C650E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626368; cv=pass; b=PjK1OH/vvs/r3UKgmXd1gtx2bRF5alj/p//WvvUvmEE5nzaZag+FtFV56OvxOPTu9RdMDzwQSP0TIv6QM1CqjzoUv62UovVxzJklpoN+Vd/OrIEHAegTpPQnigYAcyMrPkjYfJ2g6LUy1KyTFmm/wVlwZ0kCvSFku5Tb7tWCPT8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626368; c=relaxed/simple;
-	bh=LYplrdyBy/ve1B9b3/A0Q3qNi6+XTJGeLMxYSFaxX+0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SiZJcjRtcfDnvjCMN9dEaySoqO3sl2cb55qoZJJgHLjkPIGGMH5BIcpnsFLDwF+5/CD5SCsq/Ep29Fx7WU4dnplmAtYH03zKG2G+eHeqGrq7rZrbnz7/mXmcdKiObDeZ3GlwWrSrWW49a00QntGi+dQQzIcvy6cT5B73McFoVFs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cFd+iOdL; arc=pass smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C67369D53
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790626370; cv=none; b=rD1EMDQjqKMw49wDpYM+rUbsBzOAbOU4rWMVhVNWtdJcyXK7AtkjYw4z9Qd5iXeW+btY5TYfkTP+IoGSDS6x+Pi9twfYf2HPHT9Zf4xbhu+KM9rzCmCLK2piC3TTLxYY4ADg4kULbBpp609IM5xQyGcjs3cNmDwsbep9yAvwryw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790626370; c=relaxed/simple;
+	bh=6Dp/hhMzy2cZom8NGxLWZtptCrgvBGm+SG+vfodARZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M8mCBc6cfPKY9JQNlMeLEsE+a6kF3fh7oWfgz/HNyQJShGMm6cXqPP+EsbNjGeOe2jEirX8zn21I897BcpvknRmabBlck8rU/Kl9lUhS+8W78M0632zGZDxWanA/Y0nV0AOAJ9WzVtmB4M7YvFsRwdDEp6FDdE/94aZ/eG1HW04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fnfjTAeU; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cFd+iOdL"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afb4e9977so389908966b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:12:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790626362; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o2hegER4AW2yzMUdA/Qm2w44ut/ZvdHgqxwshqvYgw6bbSL0g73p1HR3ppLXbYYTkb
-         YRPl/KgB0cndHY8nyBjJVkRchyOna8EBDqlQ97YJmoiMjRDnLYmBKMd7uRHipEcklOQi
-         LZTLuxnjaqSMr/JvkfSJjOQ1+7qhyu0IspEfEewzoYimfVIq0Q3aw1OF8UOPWj6wD0Un
-         G11Lc6ONyUD37AGznRQrbzxAFzfHygBQ9BZQeDgHHlAq+sO/F+x/l0DQgi+7s8lhe4xm
-         zXig7g70gXynmOhyz2NjgWK2n65eGVph0WHCpwSuO57DZtHMbttqcq1OHkrXh3iltSS7
-         Oe8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        fh=qak8qLwHvbgxRzQVbu2bauQa9YGElq7iKm1jAcYt+Pc=;
-        b=k2An/QFs8E60SAhBDHrS0BL00mr5u16vyhMHOoxI1K5KDBeRrE0laWRChNquCF9tRT
-         SAcXEyR+q7jfRxX9BCCzmpuDIN1R2RA9uMKHucvRUIcBowHN3JNO+z/mcYk1K2pgM5jC
-         7GvIp062EHOtnpjWHI0q3Coq6SISP72MLBEIMoH9Ac8+yAe/3s5spiHv7kaPALoRWJgF
-         HW7kx4EJzbsdBuJsMXRaoCpOuJe18LbZIoYOSRm8+NgG3bPPtPYMk4ZIrCMEpOqi2Npl
-         Yu1NEfZGNQyTwzEQWxjOPxx2MrqDhJswUU/BjKFdcBFyUtm1tKNZLiOYkYe+2IBLv5cw
-         Peow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fnfjTAeU"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so19407725e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:12:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790626362; x=1791231162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        b=cFd+iOdLI45sRnZVAbchIr3Yj+myKDsj5iXol4CaUTAd0+IT9u34qXPGCOmkOQjKtM
-         Qid/vorez+NvJnemvwo2x2MWLzXCM3Xxsh/rnJ1LV7A5rNAG8ayU0ePQ9mjpolagtrWl
-         GU+FIAUac8Gr2JfE6YqhQ8UugaeWOzCdJJkDbYBVafvk24vyYsWkWwXGKZPEhHZM6Lia
-         OaPGHcX4RFzw1VUxmAT8LhaEKMV0MQCwXwdOoFLQbbEfT9PRYR3uJrCGuxwJ3pWOHyqZ
-         yf7xtF2SBhqopJXiZFdQhChCd5Ycgcvd0h1F6/0B/LvLh6Yx12O6G8yM2HfBwpaQc3gk
-         U3Qg==
+        d=gmail.com; s=20251104; t=1790626365; x=1791231165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xiagLwmOxbDGI/iupLudQ2PVS19f/NOJ4+VSuZuRNvA=;
+        b=fnfjTAeUr0sih+Q+h4T7gNb9C6Qh2A+2JNjWMlRhwwrmJ8E1jJ7pY/A7y424ajVIaz
+         zQDdoA66nP1wEq57kaQr83zO2AKMvvCv7OQ0uAO9/MjMLD4uz0HPECc6ZTn+TpkkpbR8
+         QPNfMes/OD+wRQVkN+5SLIEOhn+wDs3YAsT+UdP8XtlcM6jQtazEIrmC5i2pZgjPMn2F
+         7YJHUAf+DDWGfukWFtqomxk1awtC1Tuo75svR95VUKAB/Ynsowl1No6KGdbCyTLGe9Tr
+         G+YbnbolqKhtTI2jDK6dEBOnnWsjGJZrr/8E1yxVwrC7MaVfUnEKpBO16+trlaWtlWWH
+         RShA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790626362; x=1791231162;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        b=2BVWIxajWgYuOqzSAPm1YKaCqIFw/wRjv1eW/gJGNgnFe4OUVj0w5yWhJev8WiCzqU
-         cg22dGegqYzD+FLmDDFzzpocQP3MX0s0RIMVm9zi/fRaDvBs5qPbqR4J3p4s0hLPVxks
-         f6IywD70NTpIP2JomrxLY/HIcv2Tz1r01iOVM7iw5dvsKbFPjZBRLgbf3zOvvkQK5ry+
-         i5Lq2a3uTxo62zfxPmn7nKvsz97jRCn9f1V7PQ96aN88GtzQLif0oXaWL9uNUvSIUM+1
-         xIxBk7JDvGBcNGBGM5kfDRNCAB/6mjhGrr8ohY3daOQR5cimEQb0DKCuA1FKPMgIG8H5
-         tWMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEQK0g/2pBOvWrGKxHlLYzB+DAqNHWhcwxrjA9gAhGVA/Nr6lHa5lGNXgcy7W/hFHpGEIq/pH1BZyUMhU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgrv9gw34h/JSR9AZe0od8SElkoQBC0tdR1/onzr+odKIk8n/0
-	3IKcfC5WQe2bWDnmUcxtAMPRC87+hI0ZG+VCsWhLMtOhdsY8CrksIUkSp7ApSFNpFfs0jAlbLv5
-	8SlboFhKZF12Po9kUwdOP51QLJI4Vcds=
-X-Gm-Gg: AYBFou0k1mI23SrM3YL6x3g5gTWFTwkrQ8sASr/wQ27FchDaaMskb7fahkUe/BLSA1s
-	6gT2jjd5qPNS57Dfft5EosejSpyosJVVPI5svd5BIZ7QGb+mex2JHqi8NyyKt2T9KPfwZK3To2O
-	FIRAhon+5JFmBisS32F+/Kyr17Bl7WT46aGNDAbCIEaqJPoFjC0J391G3AloJ5DyJXomrbjUBAw
-	g5ciJdmx6xqsWsMuoAPM/bkYdB+/uU1qZapvpe3btl/QoKg420MCVmh3o6tsgaDnMijW2WzqZoI
-	t5C8JyPfqdiZSNijJjDU9OivARb9hw866kAZpdH4EEDUluz9e2sT23HB4xSZUQUZYBFPM2grsvA
-	Bz4pIqIvP5iMk5gL9mwZzQwqLsbhu7rhytjyczuI=
-X-Received: by 2002:a17:907:e8d:b0:c29:f5d8:9c7c with SMTP id
- a640c23a62f3a-c2ac22cb147mr1134942566b.43.1790626361635; Mon, 28 Sep 2026
- 13:12:41 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790626365; x=1791231165;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xiagLwmOxbDGI/iupLudQ2PVS19f/NOJ4+VSuZuRNvA=;
+        b=yIAEw+Io04oE2oeV94VGD4LIvf+fYr/RHBiHHiDopu2kwX4q4NT//OdWYXbCAEv1j1
+         L9mu2Q1Bpnm+lnIX893/9yFfgm8DlvBoX6ppvAIemBt4f0Qzio4ILtq6kHAv8Z0sYAg5
+         HEwCtbhd5jfwdFCU62AXo3BoZc62kd27P9fGIrgY/gBGwLaDgaMt6k52DVPhJBISTTnw
+         uj2k/t8pKEcQR36ocboBQP397YH08eTNzXrn02ROP6LnL3/mM5zj/tOySYqzvYoteDId
+         RaX0yHaCv4mZjXW0wmHQGmesKrDAO2KODXHi5tHkjpTLM7hsVJnrHebKettAj1DWQpF3
+         iyiQ==
+X-Gm-Message-State: AFuF++kj8eLN0WtmAd99SgltlauP39KmWbNrREH6k0LevI3QkfRJtRaS
+	lTqtAvDmwI96twWbv1NJeBZSDhQE2uGgfBi8QlqJ7MN8pVtVe1V5HfBq
+X-Gm-Gg: AYBFou14O3pjPdsp+00rp9nkN9bXM5mKqknvMy5vDPghHeQ0YHe5mWvKTFp/Pno6dXo
+	Efw8zOIiuYEFaXeWQosvr6NLwVzP5iOX7ylp5xK3U6eUXMNaKLK8CvrRO4A/Zd3ko9fjd30QzWj
+	rXInNkgEIu0hwTcamEVVsFa5irDCC1OpJrVmbX8dUfbEU41ye3HlJ3fyqSyt5pDp9m1341foQpl
+	Zstrm6e4KyhxTbRKU450ApwYg9ACYrvmGoj79cd4rT6jx10/nqKaTdQAVUmvQ2RS6V7IzuEph6C
+	6WT5p3oelgkjmGF/6PaEFGVx3/gwKa763y+u5r4ghQ/oeot+0k0hgf7Z4HOE/67XJt68m6tqZbW
+	vDHWr+m7oKJwnt+lHnEaO8h80FQ+swjL8FPDWBATMNGz9Xz1ky/PUDKkLvohsi38474Z3r5s3/B
+	tlsg5HP68ULeGAnWDlKWfcVjzEZjcVhngba7dcgBDiBMqrgS5sPB2zHDyE8y1NlkD1BWkJJoNh/
+	fIS3f0F1tNC4g0wnJBHH47qxxLRk/jTIWqKCNObt3LaRhEElIdP3pQw6A==
+X-Received: by 2002:a05:600c:348e:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49ff06b2ef6mr188592985e9.5.1790626364553;
+        Mon, 28 Sep 2026 13:12:44 -0700 (PDT)
+Received: from env.. (dynamic-176-003-100-011.176.3.pool.telefonica.de. [176.3.100.11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00c11a9d2sm30457755e9.3.2026.09.28.13.12.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:12:43 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	chengzhihao1@huawei.com,
+	magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+Subject: [PATCH 0/2] md: add a control device for array management
+Date: Mon, 28 Sep 2026 20:12:22 +0000
+Message-ID: <20260928201224.3602262-1-abd.masalkhi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com> <20260919060037.84602-1-meatuni001@gmail.com>
-In-Reply-To: <20260919060037.84602-1-meatuni001@gmail.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 29 Sep 2026 01:12:30 +0500
-X-Gm-Features: AclHuK9JUTRFiE1kmA3vX9iGMdGDyovU-rO_D4_8LNq9x5prseHY4a5bJKiRjAY
-Message-ID: <CADqcGBm5r0+t44E3fyN5Re4+nL8hm+XxY9knQVqGUy0WmqVh9g@mail.gmail.com>
-Subject: Re: [PATCH v4] platform/x86: hp-bioscfg: fix 16-byte heap overflow
- for empty auth token
-To: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Josh Snyder <josh@code406.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-ping.
+All md management ioctls (SET_ARRAY_INFO, ADD_NEW_DISK, RUN_ARRAY,
+STOP_ARRAY, ...) are issued on the md block device itself, so the
+caller must hold the array open while it configures or stops it.
 
-On Sat, Sep 19, 2026 at 11:00=E2=80=AFAM Muhammad Bilal <meatuni001@gmail.c=
-om> wrote:
->
-> hp_calculate_security_buffer() special-cases an empty authentication
-> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-> hp_populate_security_buffer() does not special-case that same input:
-> for any authentication string that does not start with BEAM_PREFIX,
-> including the empty string, it always builds "UTF_PREFIX +
-> authentication" and converts the result to UTF-16, writing a 2-byte
-> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-> 20 bytes total, regardless of how long "authentication" itself is.
->
-> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-> hp_calculate_security_buffer()'s return value, so for an empty
-> authentication token it allocates 4 bytes for the security area but
-> hp_populate_security_buffer() then writes 20 bytes into it, causing a
-> 16-byte heap buffer overflow.
->
-> The authentication token used here is the current admin/setup
-> password, which is an empty string by default until one is
-> configured. Any write to a writable BIOS attribute while no admin
-> password has been set reaches this path.
->
-> Fix by removing the special-case early return for an empty string in
-> hp_calculate_security_buffer(). The generic calculation that follows
-> already accounts for the UTF_PREFIX correctly, which naturally yields
-> the same 20 bytes that hp_populate_security_buffer() writes for an empty
-> string, avoiding duplicate logic for special cases.
->
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Reported-by: Josh Snyder <josh@code406.com>
-> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
-verflow-v1-1-6985f8c9e67c@code406.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v4:
->   - Straight re-generation against current mainline: v3 was written
->     against a tree state that had a duplicate "authlen =3D strlen(...)"
->     assignment (one copy meant to be removed, one meant to survive),
->     which current mainline does not have. That mismatch is why Ilpo
->     needed "special trickery" to apply v3, and why the manually-applied
->     result ended up with no authlen assignment at all (reported by
->     kernel test robot). The v3 diff itself was fine, as Ilpo confirmed
->     ("authlen is not uninitialized, so only the early return should be
->     dropped"); this is that same one change, regenerated from scratch
->     against the actual current tree so it applies cleanly without manual
->     intervention.
->
-> Changes in v3:
->   - Remove the special-case return entirely instead of adjusting its
->     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
-.
->   - Credit Josh Snyder who previously noted this approach.
->
-> Changes in v2:
->   - None for this patch; resubmitted as part of the v2 series.
->
-> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
-om [v1]
-> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
-com [v2]
-> Link: https://lore.kernel.org/r/20260818191120.38556-2-meatuni001@gmail.c=
-om [v3]
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
-vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index 4d94e48..abf8ce2 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -47,9 +47,6 @@ size_t hp_calculate_security_buffer(const char *authent=
-ication)
->                 return sizeof(u16) * 2;
->
->         authlen =3D strlen(authentication);
-> -       if (!authlen)
-> -               return sizeof(u16) * 2;
-> -
->         size =3D sizeof(u16) + authlen * sizeof(u16);
->         if (!strstarts(authentication, BEAM_PREFIX))
->                 size +=3D strlen(UTF_PREFIX) * sizeof(u16);
-> --
-> 2.43.0
->
+This is a problem for STOP_ARRAY and STOP_ARRAY_RO. Before the array is
+stopped, the page cache must be flushed, and no other task may have the
+device open or be writing to it. The issue arises when several tasks
+share the same file descriptor table, as they count as a single opener.
+Consequently, one task may still be writing while another task flushes
+the page cache and stops the array. A write within this window can race
+with the stop operation.
+
+Add a misc character device, /dev/md-control, with a fixed minor
+MD_CTRL_MINOR. The control device is not tied to any md device, each
+request specifies the array in the payload, either by name, by UUID or
+by device number, without the need to open the md block device.
+
+The new ioctls use the existing MD_MAJOR ioctl type, starting at 0x40,
+with an MD_ prefix. Every request structure has a flags field. Unknown
+flags are rejected with -EINVAL.
+
+Each new command matches an existing block device ioctl with only one
+exception. The STOP_ARRAY_RO has no separate command, it is handled
+via MD_STOP_ARRAY with the MD_RO_FLAG set.
+
+New 64-bit structures, including mdu_ioctl, are introduced
+(mdu_array_info64, mdu_disk_info64, mdu_param64, mdu_bitmap_file64,
+and mdu_version64) to resolve padding and overflow issues in fields
+such as size, ctime, and utime.
+
+The existing ioctl on the md block device is unchanged, but a
+warning message will be printed to recommend upgrading mdadm.
+
+The mdadm tool has been updated accordingly, and the mdadm patches will
+be posted to the linux-raid mailing list shortly.
+
+Suggested-by: Yu Kuai <yukuai@fygo.io>
+Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+
+Abd-Alrhman Masalkhi (2):
+  md: make mddev lookup and ioctl helpers non-static
+  md: add a control device for array management
+
+ drivers/md/Makefile            |   2 +-
+ drivers/md/md-ctl.c            | 597 +++++++++++++++++++++++++++++++++
+ drivers/md/md.c                |  41 ++-
+ drivers/md/md.h                |  10 +
+ include/linux/miscdevice.h     |   1 +
+ include/uapi/linux/raid/md_u.h | 119 +++++++
+ 6 files changed, 758 insertions(+), 12 deletions(-)
+ create mode 100644 drivers/md/md-ctl.c
+
+-- 
+2.43.0
+
