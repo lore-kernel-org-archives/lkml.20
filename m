@@ -1,188 +1,213 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28435357CF1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08A83AAF52
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626692; cv=none; b=OcBKlBLxTc4wTppaoM+mBvl/RJD+/zaFOPYx7dN4AcEthA/TBqcURVqw9IddZl67LOa5F+KX94G1V1zidoJSelfALR4GV0UBEgJXHfNyueJTusxrnvuA950kMTfFZg9WJyh1L1VaBAYxRFS3/uWcI1PTUoGeBRe9TbLST+C2bIU=
+	t=1790626734; cv=none; b=vD83VloeZFEooyUNXuGiuK8K8NOEFFCagivDpme4lgtAx/5BZGCrbrkumKX3NgfcmSTzFyJ1Qy8KfZCMxL/8PVotQnfC6QbdBE6cGzUaZq7UbUZPjeiE9mjJusCbHkox7WWZWRHxF4TLZb7eKg4OtxIGF4MK5KsEwwYrLoPvrVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626692; c=relaxed/simple;
-	bh=CgZhHGj1pW6833JwW53EB4b6tZGAvoRHquleruZAoaY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=P4DXcv/fxXfxi7cXabSBINBMB5JQxFBrAn9PY9BvS8PJbvPqHrvgqgjtQ8BLZlyOyhg7gZ/V2+uoyLVoZski4DY9WIrR9Zupku57pc6NOPVGgQdDF/pn2E7D2vj99xDqQtLnEqj5rA7nKqthIC4/mhZ7rcQP0uwfScTS4tiZgkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=dyBCZ3ra; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790626734; c=relaxed/simple;
+	bh=yfMpwjR4Mb76xt9y9RfMOOwobv/4i5sPUE8M+81Aq+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OsuZCvzz/JzaHc8mN3i3LWvJuNl0Gh/U93xdiMBQ0bU3rTw13pE3uduyRZVLhH6dbiZplw4dHb6lDawSWgBdANFaeprCc+hbj3E5SBkkdjoPkYLxDT6u7rqassacAPEcjwpjun97HPSRc+NeHx/9Ok9OfHo0NKLm1JsApIR25R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cezuWU/0; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="dyBCZ3ra"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b35eae3076so585660137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:18:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cezuWU/0"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-343479e6005so162336eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:18:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790626688; x=1791231488; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
-        b=dyBCZ3radDp8NPPuky5lRIVeEStjDLSxCR/fe0QOxD3GJKsM7UztGPRF3CyZWb25BL
-         GQkb90LA0Ew0NGGK7fgAoHJcVeqhqsm59g5UbrTQZtQDbGGZMzuNJ7wSK9U9TgihRIae
-         Hb1OPh+2gyW47mHGuDMfYl5yILeUGDfK8ONLgV9IHO3P45f7VroRGCtZWwEpYVWpcGnw
-         rO6N0PAeU2R//L77bnSjGRnl18G8pvaGypsMQ2tJP6zcVs4+UjV8u9j8NE9Q9AwTI/Ia
-         /cLpSG2R7UmXGLgZPx15SLlqKYwcicvLIb8/MIV0PttZ1JfRBQZSD3kuyoDUeRaza/a6
-         2Ctw==
+        d=chromium.org; s=google; t=1790626732; x=1791231532; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cr8XQlonHStI5lsvWXRcBcaqjtnReUb4PPL/E4xIzB0=;
+        b=cezuWU/08FS+by4fS+xPJMIyemHPtvVMgqEP9iCj3hXYYqH9x683FpcrjpAv9IDr77
+         jpsXJaY/tVeUhTBoJB4Ysi+zasoM82RFIMqMDqlQJq+dHEv+9ZjmSI+wQvZQgPZgsFWQ
+         VgaYTlMVHOGjTil9kAFWedOdPpBbbG6fraWDA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790626688; x=1791231488;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
-        b=JUbjLTbFdZ66NupiPx40p4NM2IK0QmE5noymJruf6T1G1i1KDapCuzXYrAeYJEAg3i
-         Q0b6R2MwfF25cqLeu5/jkkPvrDcD6mdGLSsaABECQMgqNfAvbL7IhiPQNwItRTS+Tv2z
-         Lp5Mkn4qVYc56YfNA5WgSy3l0lx7SUpLP+wrv5BKmqNqo28luladaaTskWqnu4a9Fl/f
-         vcs2wt10XR6gny23c+/tAgdEWYDvQUGIzhjRsj4HSi8THX3H4oR/6hCa/i+Evfn26c2r
-         UjHI7l71iYfFiF80KDOPbE6v7GyGnMgPHlsKPHJR77NXdIIRYITMlIXGKlqCUcMrVDRi
-         h6qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKdvcoPh6Rgh9IIzVsyAuo4RUELkti6V/SYDdQoXA0o2Ez72jipg/VFEGfzrlzZpsPJfGNGAtcp8iUcpU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+lhzX6dEzMwOhyasiXkDOzA5Qpyb1VKaJBXMhHgp9PtIQRblM
-	znPs0UdW/h19K9ooy/bNrLe1VnF9b2X757oel3beRomo+bCZLVpZOfiprL2J4mBQ5Cc=
-X-Gm-Gg: AYBFou2a8yWkzfRHnfmH90zGQFu4dZXsEKtgXNW7m/XeXhxfJwCJVb1QvGedF5Z6JtI
-	48XalcG8xBEiBHA29i76fO8miIc5vuVcabVMgRMERnhDzd7dzQVA7Kgbl1sdjEFPEQb+xeMZ4h7
-	oFSDQ/YtqEh6d3ppvo4kVHBSwsF1C7/ZIcfKtwBOziaKTk1EmgIhdupmYA3JEClL4+PeccGClBB
-	nFXkchdJsZOnKovs4BuXC3FYiw/m15PsSQ+eIUJaCGGdy3d7FR5U5TdHiPLpPf4gc7IKASxyr9P
-	4RfmTw9WoFH0hlJflijIY9FR94eeLtRhd0Bz1PUwErLKoNWHsRCwVmKkcipQe251WCn+tCjbioH
-	eK8sRApX+kjeTGzFB3E0WYFQfL3T/snTqq4NNVKBFMLu4RfSUXX7d54fWQY45DzpgT487lwjyjm
-	jT2elaHUxo6w4mb+n74jq4mBwaafSX53IkPI7Qv4Qi4amglS4JiB6pE5AffPRHuCm0YJ3HzGd+h
-	tM9N8+qOtcEB1MsPP9IWTrb
-X-Received: by 2002:a05:6102:4497:b0:7af:4a46:4c12 with SMTP id ada2fe7eead31-7b1c4a2ca24mr2719387137.2.1790626687873;
-        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm10681972137.7.2026.09.28.13.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
-Message-ID: <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
-Subject: Re: [PATCH v2] media: rockchip: rga: quiesce IRQ before releasing
- m2m state
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Fan Wu <fanwu01@zju.edu.cn>, jacob-chen@iotwrt.com, 
-	ezequiel@vanguardiasur.com.ar, Sven =?ISO-8859-1?Q?P=FCschel?=
-	 <s.pueschel@pengutronix.de>
-Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 28 Sep 2026 16:18:05 -0400
-In-Reply-To: <20260704084659.612221-1-fanwu01@zju.edu.cn>
-References: <20260704084659.612221-1-fanwu01@zju.edu.cn>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-39ovF+b+wtIn04/R/uu7"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20260707; t=1790626732; x=1791231532;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cr8XQlonHStI5lsvWXRcBcaqjtnReUb4PPL/E4xIzB0=;
+        b=cU15g6cO+PkrqzV6gO7hAGwHmgmSK4PFDgfhnaCubyHq7AgCwbpeqGG1nJ+bzLyugw
+         bCWIo1O+QZiX6FM/OlxScZr+0PZYMeWPmUz4Am1UYscq8wdD8absvNKs1LSTbXZwzI//
+         PKuyWNQGL4fg1C+PjWSsOXWCR0tfKF5+VxioHojtt9cpbGAiAlT3w6tdjdgAvKP8doO+
+         HqgftrVMWjxasysv4EjyOzLWFiwDxJbPp6+DDSmWtPQ5F8iYVG5CvqPJyodj7uBc45dm
+         J1K0Yhp8Z31EKTl5lmOlUKSVOHf4YJLixc8VgUEoB2RZ4vec/e6H3IHYfrvF8vx512Vv
+         A8iA==
+X-Forwarded-Encrypted: i=1; AKwUvBxofXiX0QpZf//nG+eHcPJHHlLiMaK9Xsa82zuCGeZyL9i0Xjs6bsND8Wlu1ZARudknJtW1v5Zg7EMsIKY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImnPiBUWQzt0UgUzf3F3uhBbKI/1m94/rVtWCnsqbO7ZOm4khv
+	OjF7NBgiXZud+tVhSlaBSLOzQVfkiIEoBxfG2FXtPOYgaDdmWN1mglHontskgb+swQ==
+X-Gm-Gg: AYBFou2OieO8OmkwreuRxnt16hzXkFONy8jbOvOe3P2lMfqDikv9y8OgF1+RGa1Klj5
+	zAtPCilubYAfLpDKNBKhCWv/jgFu+HGkBQbrkeyRGmMUmWTOcBzDBdHbq2OmWMBHJrJoQr+/Q9B
+	zcqoamP7krUu1z88Exy1ZWGQonZPyxFM+O3nrNY6oUSDDrTZ6fzY0bgc9ETqBz7ZOEJl2DVfkCd
+	FIRO5DWApdeyVJ6LpcrbGEwS1l9M2trGlPC2P9SeWzed0Z6uRf7bYUYXJLzYDg79sq64tcwtqx2
+	qWIAkjLz2Ibvf3vOYiwiOLYRBJ2q/7dpKKZ5kuIar5iyLFvG5E4mpa7lpI4fCCYSFxVaFLNvbXG
+	PUGjWuBR3vxXs8BOXYfe0i46/TtVAQamjgEjDqCZquwHF+6bLYH1HTYFVhoMJzZqAD9XK64Exlu
+	wd83zd6sDGGM+6Fp6ww6v71srAuOoHVz79yhOc2joc4ueby017piMyTG2mAlxebokbyBFayjqtv
+	qxi82MO6P8jE1YMuKJ0MhHwHMjaAS0N4QAF9A==
+X-Received: by 2002:a05:7301:433:b0:342:890a:4088 with SMTP id 5a478bee46e88-34af520868fmr530048eec.2.1790626731636;
+        Mon, 28 Sep 2026 13:18:51 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:a706:cad8:8223:aefa])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34141a49febsm32169717eec.2.2026.09.28.13.18.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 13:18:50 -0700 (PDT)
+Date: Mon, 28 Sep 2026 13:18:48 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-doc@vger.kernel.org,
+	linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+	Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Doug Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/8] PM: runtime: Misc improvements to runtime_pm.rst
+Message-ID: <arrLqEyoXhIm1vVu@google.com>
+References: <20260923174711.1283986-1-briannorris@chromium.org>
+ <20260923104031.v2.3.I383681b22c12d7caee976cb91aa90d1a94d4a591@changeid>
+ <CAPx+jO_1qYnN37diVN1=PA0xGa0iSBfXD_uqgSdFpTn4t0zJiw@mail.gmail.com>
+ <arVWVA3lks7SopQH@google.com>
+ <CAPx+jO_A684fd8SJML9NEmsGzNx2Ge3-mWyQcyjgGP2S5aX1jQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO_A684fd8SJML9NEmsGzNx2Ge3-mWyQcyjgGP2S5aX1jQ@mail.gmail.com>
 
+On Mon, Sep 28, 2026 at 03:15:43PM +0200, Ulf Hansson wrote:
+> On Thu, Sep 24, 2026 at 6:56 PM Brian Norris <briannorris@chromium.org> wrote:
+> >
+> > On Thu, Sep 24, 2026 at 04:01:00PM +0200, Ulf Hansson wrote:
+> > > On Wed, Sep 23, 2026 at 7:47 PM Brian Norris <briannorris@chromium.org> wrote:
+> > > > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
+> > > > index 39fdeeda7a1e..352cdaf0650d 100644
+> > > > --- a/Documentation/power/runtime_pm.rst
+> > > > +++ b/Documentation/power/runtime_pm.rst
+> >
+> > > > @@ -315,7 +319,10 @@ removal of their drivers.
+> > > >
+> > > >  Drivers in ->remove() callback should undo the runtime PM changes done
+> > > >  in ->probe(). Usually this means calling pm_runtime_disable(),
+> > > > -pm_runtime_dont_use_autosuspend() etc.
+> > > > +pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
+> > > > +devm_pm_runtime_enable() during probe, which automatically takes care of
+> > > > +calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon driver
+> > > > +detachment.
+> > >
+> > > As I have stated in earlier discussions at LKML, the
+> > > devm_pm_runtime_enable() API is not entirely easy to use correctly by
+> > > drivers. It means that pm_runtime_disable() gets called at some point
+> > > *after* the ->remove() callback has been invoked, which can cause
+> > > problems, unless the driver's ->remove() callback has managed things
+> > > correctly.
+> >
+> > Yeah. And I think it's rare for drivers to have done a thorough job. A
+> > rare exception: I found commit 2d90ecdfa326 ("ASoC: rockchip: i2s: Use
+> > managed hclk and runtime PM cleanup") an interesting outlier -- it adds
+> > an additional devres teardown to power things off afterward.
+> >
+> > OTOH, between v1 and v2, I chose to tweak one of the Examples to avoid
+> > devm, precisely because it was committing (or hinting at) these kinds of
+> > mistakes.
+> >
+> > > My point is, the above makes it sounds like it's easy to switch to the
+> > > devm managed version, while it certainly isn't that straight forward.
+> >
+> > Right, I said as much in the cover letter too:
+> >
+> > (possible future work)
+> > <quote>
+> >  * Adjust the way devm_pm_runtime_enable() works, specifically for
+> >    remove()/teardown. Currently, this is very hard to use correctly --
+> >    some common driver patterns may assume that a device will tear down
+> >    while RPM_SUSPENDED; but that's not actually guaranteed. Notably,
+> >    this makes some of the "Examples" section fairly tricky/subtle.
+> > </quote>
+> 
+> I think having some examples that *don't* use devm_pm_runtime_enable()
+> would make better sense, as it would show what is needed to take care
+> of things correctly.
+> 
+> Stating that there is devm_pm_runtime_enable() available would of
+> course be fine too, but in that context, I think we should point out
+> that the user really needs to address the ordering problems that get
+> introduced when using it.
 
---=-39ovF+b+wtIn04/R/uu7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yep, that's exactly I took out of the patch 8 discussion. I have such a
+revision ready to send out in v3.
 
-Hi,
+(Some part of this is a general problem with devm_*; for one, if you
+only use it partially, and still have some manual teardown in remove(),
+there's a high probability you'll get the ordering wrong. But that's
+general advice, and not really specific to RPM documentation, IMO.)
 
-Le samedi 04 juillet 2026 =C3=A0 08:46 +0000, Fan Wu a =C3=A9crit=C2=A0:
-> rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
-> devm-managed and is only released once rga_remove() returns, so rga_isr()
-> can still run while the m2m device state is being torn down.
->=20
-> Store the IRQ number in struct rockchip_rga, unregister the video device
-> first, and free the IRQ before releasing the m2m state so the handler
-> cannot run against the freed state.
->=20
-> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> > Would this be a good moment to pass this possibility by you? What if we
+> > taught the teardown to force a device back to RPM_SUSPENDED? Something
+> > like:
+> >
+> >     static void pm_runtime_disable_action(void *data)
+> >     {
+> >             pm_runtime_dont_use_autosuspend(data);
+> >             pm_runtime_disable(data);
+> >
+> >             // New code:
+> >             if (pm_runtime_status_suspended(data)) {
+> >                     int (*callback)(struct device *);
+> >                     int ret;
+> >
+> >                     callback = GET_CALLBACK(data, runtime_suspend);
+> >                     ret = callback ? callback(data) : 0;
+> >                     if (ret)
+> >                             return;
+> >
+> >                     pm_runtime_set_suspended(data);
+> >             }
+> >     }
+> 
+> pm_runtime_reinit() is already taking care of some of the above.
 
-Again, I don't know if this is a real issue, but seems fair.
+It gets the set_suspended() part, but not the real key point -- running
+the suspend callback.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+I believe this is one of the bigger RPM-specific misconceptions and
+pitfalls people make, and is made worse with devm_pm_runtime_enable():
+people assume that as long as their driver isn't trying to use the
+device (e.g., they've closed any open handles, etc.), then the device
+will leave in the same state as it came in -- suspended. But that's
+absolutely not the case, due to:
 
-Picked, ty
+1) race conditions -- async put()/suspend is not guaranteed to complete
+   before pm_runtime_disable(), and therefore the post-disable status
+   is not guaranteed.
 
->=20
-> ---
-> Changes in v2:
-> - Rebased onto media-committers/fixes (Linux 7.2-rc1) so the Media CI
->   valid-ancestor check passes. The rga driver was rewritten upstream
->   (rga3 support, external IOMMU, clk_bulk, cmdbuf moved to rga_ctx), so
->   this is a re-port rather than a pure rebase: the resource freed during
->   removal is now rga->m2m_dev.
-> ---
->  drivers/media/platform/rockchip/rga/rga.c | 4 +++-
->  drivers/media/platform/rockchip/rga/rga.h | 1 +
->  2 files changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index b3cb6bf8eb86..fbc99462dce2 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
->  		ret =3D irq;
->  		goto err_put_clk;
->  	}
-> +	rga->irq =3D irq;
-> =20
->  	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
->  			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
-> @@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
-> =20
->  	v4l2_info(&rga->v4l2_dev, "Removing\n");
-> =20
-> -	v4l2_m2m_release(rga->m2m_dev);
->  	video_unregister_device(rga->vfd);
-> +	devm_free_irq(rga->dev, rga->irq, rga);
-> +	v4l2_m2m_release(rga->m2m_dev);
->  	v4l2_device_unregister(&rga->v4l2_dev);
-> =20
->  	pm_runtime_disable(rga->dev);
-> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
-atform/rockchip/rga/rga.h
-> index bd431534d0d3..7bcdf36c11b4 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.h
-> +++ b/drivers/media/platform/rockchip/rga/rga.h
-> @@ -73,6 +73,7 @@ struct rockchip_rga {
->  	struct device *dev;
->  	struct regmap *grf;
->  	void __iomem *regs;
-> +	int irq;
->  	struct clk_bulk_data *clks;
->  	int num_clks;
->  	struct rockchip_rga_version version;
+2) forbid() -- if user space forbade runtime PM (on >
+   .../power/control), the device will not suspend.
 
---=-39ovF+b+wtIn04/R/uu7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+I think it's a clear win to ensure balance -- that
+devm_pm_runtime_enable() can ensure the device leaves the same way it
+came in -- suspended. (Or, if that was somehow not true: I could add a
+check into devm_pm_runtime_enable() to make this conditional on initial
+runtime_status.)
 
------BEGIN PGP SIGNATURE-----
+Note that many (most?) drivers *do* care about balance -- e.g., they
+expect a balanced regulator_enable()/disable(), because resource
+teardown (regulator_put()) will fire a WARN_ON() otherwise.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrLfQAKCRDZQZRRKWBy
-9KCPAPwM1fyw7fD5QEP3/mMmZg+7cHaUSSeU24SoTWd1bUpA9AEA7xkB7orTNjBo
-jdc9UGf06pEwlRtqhefYvUSz8x45Rgg=
-=QwDi
------END PGP SIGNATURE-----
+Anyway, unless I hear major objection, I'll try to put my proposal into
+a proper patch + description, so it can be reviewed on its own.
 
---=-39ovF+b+wtIn04/R/uu7--
+> Moreover, we have pm_runtime_force_suspend(), which may fit well for
+> some cases, but not for all.
+
+Yeah, I was imitating that, more or less. I suppose there's no harm in
+using it here though. I'll think about it.
+
+Brian
