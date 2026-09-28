@@ -1,274 +1,194 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wr2-f36.google.com (mail-wr2-f36.google.com [74.125.225.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D004E4C56
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E7B4BD7B4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615915; cv=none; b=AehXVU/Gy0ioApCdnLh47LboTht04yb2xCtqTsyUer4SIFHOAH+JzFmJxvs+i3dnHRgYY/qCz2OlCZJOUykpcpMn8YGZ7kfgdCvo55AZd4OGdfNGC98+4NSGHhBaKn4Wz6P0MKkQPtEye7gvHcf5G1uhy/US+u0cMj0SQEPMhWU=
+	t=1790615919; cv=none; b=oq3vmIPrt7S115e/gHrGFkvf6HckHcoZanpsN0Xtd5JOt8p/pZzQ1SXmRwql5UpfFozepvCYKf80TaAUkVJkhGlR5h5cUdpk7glCAGzglqna+CT8EFBBovwBTFTkIAyYrCP+qOzqNh6SwCcIaGBdavTbzwgB3DixmnXCBWYqVSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615915; c=relaxed/simple;
-	bh=hWuaMcaAwTkbyMj8HLDf2zprF9Ov5rQwyMoJUf8Yv9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pqga0RNnEnlOMPBjajq6Ewh7BJutB6hc23eOvd+1yhBf3Az7xl9dcYc3UeuM35KdEbABy9rzqyWsJnkKljdpCH9JtFkbGbaZdugINVTCkakBioTxdrWKY03AyPhK116F31L86FqtBgFjXsSUKGj3HYtcKd8LYrW9LwU61EVGzBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZzWzJSb; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790615919; c=relaxed/simple;
+	bh=YoPcT+r0NPwyBnJxWK4PIEC9nGCY4cC6HMWtxjxy0e8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lmlDMSw4ttfIVOleo1V4POG4i2WqA/hxpTEUOVjk6JmnioqfFyMhF1pqKz929aP6UB3/qJI8KoWTQkPV9fGdELXhDES9odxKpARNjtC3ACJZK4whx7pKe0GJq4Yu6sGqLSZsw1TFSu5qe1XY/Vajq+ERDnk/g5/aSzmOmS+JUds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=kvIL62jk; arc=none smtp.client-ip=74.125.225.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZzWzJSb"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so2237743a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:18:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="kvIL62jk"
+Received: by mail-wr2-f36.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1582149f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:18:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790615912; x=1791220712; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=flipper.net; s=google; t=1790615913; x=1791220713; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tsxxZqu/e5alkQ/9a1WyhnZ5MzktcoX/8HVXHoiojYs=;
-        b=jZzWzJSbat51dnjmybCKvUWUx9yh+SUKQy5RtY6lyc3Ejgf8OYlkdBfRPzCUzSE5ce
-         bzZyUnamQ99qksek+pp7bOcIwFJLP4O9jEY/Q+j5/8hZvgjQ5PELCn5SADoIBKwxv3YW
-         hxLp6kRZl8MOqp9aWhPNarwyaQqtOh+YpAZDCp6mSB0rvVBGNTC2gcDSz03iIo/ISjYh
-         EZbU8cRERmn7H4BBVLXxSDChoK0Yo+NR+dTM+E7A2hgs6s5tvkSEUnfEHxnyr5DgKt5d
-         oPltY5GSu+LxcmG8LMZCdMELFLZOhPg4Bs/Ss1X6wXC4L9EIUgeY+jxOrx9Xd30jMA8k
-         XPQg==
+        bh=qzUE7F0kx/Sy/yA3+E0ssA+mT7Axk9cKYyuMi26SVJU=;
+        b=kvIL62jkgV0HFttA5w9JPu7NpdSqd2j+4Y05KOnMJ+25A9622UsF3S3T9+Hi04tmdx
+         jbROz6g/gSl8XdCGGg6K1voi9ILluICGHKrOBGaF7/EN2+JAdqIJh1AtKHLC5BmkNbJT
+         xfd8LUAYfcRTFvG0RenhPxxs9Eh04coiieWrwQB7TK3j64bsBL27yJ8bVE0zXCfA/sUn
+         8tLZnV57jRUnZglkMRl+vHh3OTZZfQImlBD4gGICBG0kYPQ6kRnxiJtD7FucT41HS/C/
+         +7/AtQeWhFuJw3w65Rzol/BFxqWJDuJ3+gwiOX6Djx5TBCYgjz7/IVTKtze6gp4naF1O
+         ffmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615912; x=1791220712;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tsxxZqu/e5alkQ/9a1WyhnZ5MzktcoX/8HVXHoiojYs=;
-        b=AJPEhhsNCfjxnxZLVSi3BDoVfQ863iekmC1dBiF1Y6RZoVXtj0B5jY4wq4W04VNeCr
-         wZD6LkkurrGJqLPhrk2nA76/Jmh18c2Y9bEN94IuPWeuelccIn+ZePuDy/yAhQ5LjbAs
-         9gQxkXkA8t8U99v4VZsLaPkonQ8S2XmSWDy2Z+S86uZpDBCsm3egRz/UsjVK3P8B4x4+
-         slTebeVBBbSQsztxUsYU4j/al59rYal0Xdl4YMeyd/LKC26dtxje9PtME51hyE3a+phT
-         VhHWMrkjaiqy/EM0u+XjqiPos/BQJt2wwoXv25AjwfzoihokFU7JJGqc8wq9u3Osa0Tp
-         8T9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByMQjMnJWXfxe7DLpb8+qPcjXxYvmgK2FY4gDkC88tDI5L9vtHB1H4YpS1kKp8F0fwmWoghpBON7DU3T9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7GF2YKQBl0+pTdb8LhiZJElfgYbWtYWvP0lDZIeyp4FO3EEuY
-	NKrvkzSL4Hd91d3tKMIhQL1D/LVNbkFGBeh4qAY2dhpgcAaCQrIrfE6l
-X-Gm-Gg: AYBFou0S4y2Y3OM+vqs+iRqRUv/GowTan/nZUKyb36cRJ9NCX7NJJGKGthpF+yGiMa2
-	Vr8bNjCjumDnFgBgpApUSpZXf3BByJkF4pvJp0fhC5xAvDrxrUOEGu400cv4fBWT0rBx0fOD8qU
-	qXo9IF1zjPGtODWTARsWM1ddFLhk4n8JS0vMry36fbpQPNLT4B23lsRogE+MfxwLRZW00PAaXgd
-	nEvfH9zoF+lG9NbKs8doaFzafWygi8FKdy5ScaS7ulQknsaxxph2M/zboxTKvj2iqD5s30gWfry
-	pXT5i8GDwHmT0oflG1uvHKPd5CrRnY4didirRyxMmJMDag06JRFQ/bc8E0jaix+F+4vdgrbbnyx
-	22bju/sgIpUeDdIPRrFjqQKOBzDx6bclKqJcdYPcdT7NZvuwMU5grUlxaxENbNn4Qgi1svnBWGh
-	4aieBy/baN7g4S2/7e97DfQa+QNInK1FhHxJHhkD6djRTH8GZkzXkt7PfqHvfKsnfWQH8Jr0azu
-	AwXDA5WsDEedOowiesiFQUa
-X-Received: by 2002:a17:90b:4c42:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3a098e5897amr12847976a91.61.1790615911502;
-        Mon, 28 Sep 2026 10:18:31 -0700 (PDT)
-Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986bb8f6sm189139a91.0.2026.09.28.10.18.27
+        d=1e100.net; s=20260707; t=1790615913; x=1791220713;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qzUE7F0kx/Sy/yA3+E0ssA+mT7Axk9cKYyuMi26SVJU=;
+        b=wyMZRL4xk3yqUXQqwjg0+RWDc3xxkb4lQwcqLlNKcZf5NsIlOJdH3VmnzLPxHCSGmH
+         8Vg0RZpUBngCS+IRa1ttcyu0zkPB32rlqWKgL4Shb/Tr/XIwzcIkVMEMQvDKDe24qr5+
+         wJVY4GKS7dM0uzNYXtUKJqUZIMXOxMI8Qa2rRkwoRqRdZzkQEN/PtgaRtw4AsgZ1q2fJ
+         xAOlt8D9AtVItpoSyZxNtXH8BQ+Te1R1Hw6BZfo7nKcYVi6siz4xxdx1LVqWgfDRJIdW
+         DTpeH8zPff8E7kmZ3o5B9s5K0Nfz/7jyxuK0uXVB4FNhIkdbp/j66K27Zyvb2BI4i80t
+         vbcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdONQRWYEpjMzIbP4MKVH8/i8lYhjZqGuwYHI6QmmBvugs7VgMz6Idz3a8+SPpD6Mo66XMAbTb7tpVFwo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK11HJjhFbjSFAz0K82uWOGbLQ/BWaI4PlPacOivLTAgtzChBYQ
+	vz5F8AqOqalhPB2fdV2h5aGJrMPFMXwc8tCwRfp5d6TQwfUhaGEUC2npTGRt0/Wvjp7c4G/7dff
+	zuDLb
+X-Gm-Gg: AYBFou3fR7SyfYHFinKCez/aMY69+Ji42XA/vo9rOIDHy76EAsDQHvuk5aJm4EGP1mX
+	DXRlX+yo9lVmxnwd4au1Gh/bJqccMpHlgwcH5tOTw0xkTE3BZxKIDCXV7OkT8cJmjyf6MPVQa8v
+	qtBPOylcOyXc24KmQeW2P5+s0YTMCdYHNL75OUHfjQG5d399KZ+yM3cY5ULQQFEVAgbm4Qf/TNF
+	SE6yiA2HhDfbo5al7eHThust3Nne1yyhTJp4yseofzUbqMXPxGd28bc3/r91c9cxbal9yVpQq/b
+	U3PmGcjrNFsfVZJcruf24JSkILOsADcPDaR98f0JZwDAF97iBYUaNTXXA9jP6eVvLs3AKlHisxO
+	zligjVeU4VyjbjODuSNXDJ34KOERo2FfRLJf28ZYD+EHZAZL/E6WGxBi/9ZBMxmtlCY7aLUuC2O
+	GlIJ8gDg5ujRm2P2EeL9TNmr2liAd3QEDOVTOw0X6c6VCWrY4XVd4GPxV5tYHZQE8l2h4Mt0Ufn
+	ziLYwbums/jeldAvTy3fe20LO8=
+X-Received: by 2002:a5d:5d10:0:b0:488:641b:2dfa with SMTP id ffacd0b85a97d-488716b28c5mr30171327f8f.2.1790615912742;
+        Mon, 28 Sep 2026 10:18:32 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84221bsm29224973f8f.36.2026.09.28.10.18.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:18:30 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] RDMA/rxe: Invalidate MWs on QP destroy
-Date: Tue, 29 Sep 2026 01:17:55 +0800
-Message-ID: <20260928171756.3254016-4-cccccccccccc777777@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
-References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+        Mon, 28 Sep 2026 10:18:32 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 28 Sep 2026 21:18:18 +0400
+Subject: [PATCH 3/5] power: reset: syscon-reboot-mode: enable supplies for
+ the next stage
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-b4-rk3576-reboot-mode-v1-3-65486b03bd41@flipper.net>
+References: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
+In-Reply-To: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3628; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=YoPcT+r0NPwyBnJxWK4PIEC9nGCY4cC6HMWtxjxy0e8=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtWhgXXaSTtI/Hu03nsp35v1ky2hOMxY/63+Pgd2A+t
+ eZtM8PVjoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKZaqIiRoXNpqZeOWp7gt8Wz/obaz1Q48eCojm67ouwvuYUNHLOX2TIyfCyaxO5
+ 9yPuJvSOjW6208LV7aXatE1/nnLD4wT5ntXQxLwA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-A type-2 MW holds a reference to the QP that bound it. If the QP is
-destroyed while an MW is still bound, the MW keeps the QP alive and the
-responder can retain a stale QP association.
+Requesting a boot mode on some SoCs such as the Rockchip RK3576 hands the
+request to the boot ROM in a register that a full reset would clear, so
+any reset that carries it has to leave the PMIC untouched. This means that
+the regulators stay in whichever power state the running OS left them,
+which may be unsuitable for the early boot code. E.g. on RK3576 the DDR
+initialization blob runs on the way back and accesses registers which
+Linux normally leaves powered down, resulting in an unrecoverable abort.
 
-Scanning the global MW pool to find these MWs is unsafe: pool entries are
-struct rxe_pool_elem pointers, and concurrent deallocation can invalidate
-the object being visited. It is also unnecessary because only MWs bound to
-the QP being destroyed are relevant.
+Get every supply named in the reboot mode node and enable it when a mode
+is written, which is when a mode is being requested. The supplies are
+deliberately left enabled afterwards: the system is on its way down, and
+what runs next cannot turn them on.
 
-Track type-2 MWs on a per-QP list. Clear qp->valid and stop the send task
-before invalidating the list so a late bind cannot attach a new MW after
-invalidation. Yield between MWs to avoid spending a long time in a
-non-preemptible loop when a QP has many bound MWs.
-
-Fixes: 32a577b4c3a9 ("RDMA/rxe: Add support for bind MW work requests")
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-Changes in v2:
+ drivers/power/reset/syscon-reboot-mode.c | 39 ++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-- Track type-2 MWs bound to a QP in a per-QP list instead of scanning
-  the global MW pool.
-- Fix the XArray iterator type mismatch by no longer treating pool
-  elements as struct rxe_mw pointers.
-- Clear qp->valid and stop the send task before invalidating MWs so a
-  late bind cannot attach a new MW after invalidation.
-- Yield between MW invalidations to avoid long non-preemptible loops.
-
-v1: https://lore.kernel.org/linux-rdma/20260928155351.3222978-4-cccccccccccc777777@gmail.com/
-
-drivers/infiniband/sw/rxe/rxe_loc.h   |  1 +
-drivers/infiniband/sw/rxe/rxe_mw.c    | 44 +++++++++++++++++++++++++--
- drivers/infiniband/sw/rxe/rxe_qp.c    |  2 ++
- drivers/infiniband/sw/rxe/rxe_verbs.c |  8 +++++
- drivers/infiniband/sw/rxe/rxe_verbs.h |  3 ++
- 5 files changed, 55 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
-index 5e95e5c5e32d6..5c648a5ef34b1 100644
---- a/drivers/infiniband/sw/rxe/rxe_loc.h
-+++ b/drivers/infiniband/sw/rxe/rxe_loc.h
-@@ -90,6 +90,7 @@ int rxe_alloc_mw(struct ib_mw *ibmw, struct ib_udata *udata);
- int rxe_dealloc_mw(struct ib_mw *ibmw);
- int rxe_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe);
- int rxe_invalidate_mw(struct rxe_qp *qp, u32 rkey);
-+void rxe_invalidate_mws(struct rxe_qp *qp);
- struct rxe_mr *rxe_mw_get_mr(struct rxe_qp *qp, int access, u32 rkey,
- 			     u64 *offset);
- void rxe_mw_cleanup(struct rxe_pool_elem *elem);
-diff --git a/drivers/infiniband/sw/rxe/rxe_mw.c b/drivers/infiniband/sw/rxe/rxe_mw.c
-index 82e9fef89b6c3..678f251c8ded3 100644
---- a/drivers/infiniband/sw/rxe/rxe_mw.c
-+++ b/drivers/infiniband/sw/rxe/rxe_mw.c
-@@ -166,6 +166,9 @@ static int rxe_do_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe,
+diff --git a/drivers/power/reset/syscon-reboot-mode.c b/drivers/power/reset/syscon-reboot-mode.c
+index e0772c9f70f7..3072922f1716 100644
+--- a/drivers/power/reset/syscon-reboot-mode.c
++++ b/drivers/power/reset/syscon-reboot-mode.c
+@@ -10,6 +10,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/reboot.h>
+ #include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/reboot-mode.h>
  
- 	if (mw->ibmw.type == IB_MW_TYPE_2) {
- 		mw->qp = qp;
-+		spin_lock(&qp->mw_lock);
-+		list_add(&mw->qp_list, &qp->mw_list);
-+		spin_unlock(&qp->mw_lock);
- 	}
+@@ -18,6 +19,8 @@ struct syscon_reboot_mode {
+ 	struct reboot_mode_driver reboot;
+ 	u32 offset;
+ 	u32 mask;
++	struct regulator_bulk_data *supplies;
++	int num_supplies;
+ };
  
- 	return 0;
-@@ -247,11 +250,13 @@ static int rxe_check_invalidate_mw(struct rxe_qp *qp, struct rxe_mw *mw)
+ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+@@ -28,6 +31,20 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
  
- static void rxe_do_invalidate_mw(struct rxe_mw *mw)
- {
--	struct rxe_qp *qp;
- 	struct rxe_mr *mr;
-+	struct rxe_qp *qp = mw->qp;
+ 	syscon_rbm = container_of(reboot, struct syscon_reboot_mode, reboot);
+ 
++	/*
++	 * Whatever acts on the mode (e.g. boot ROM) runs before the operating
++	 * system, and may need supplies that the running system had powered
++	 * down. Enable them here, and deliberately leave them enabled: the
++	 * system is on its way down, and what runs next may not know how to
++	 * turn them on.
++	 */
++	if (syscon_rbm->num_supplies) {
++		ret = regulator_bulk_enable(syscon_rbm->num_supplies,
++					    syscon_rbm->supplies);
++		if (ret < 0)
++			dev_err(reboot->dev, "enabling reboot mode supplies failed\n");
++	}
 +
-+	spin_lock(&qp->mw_lock);
-+	list_del_init(&mw->qp_list);
-+	spin_unlock(&qp->mw_lock);
- 
--	/* valid type 2 MW will always have a QP pointer */
--	qp = mw->qp;
- 	mw->qp = NULL;
- 	rxe_put(qp);
- 
-@@ -298,6 +303,35 @@ int rxe_invalidate_mw(struct rxe_qp *qp, u32 rkey)
+ 	ret = regmap_update_bits(syscon_rbm->map, syscon_rbm->offset,
+ 				 syscon_rbm->mask, magic);
+ 	if (ret < 0)
+@@ -36,6 +53,13 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
  	return ret;
  }
  
-+void rxe_invalidate_mws(struct rxe_qp *qp)
++static void syscon_reboot_mode_put_supplies(void *data)
 +{
-+	struct rxe_mw *mw;
++	struct syscon_reboot_mode *syscon_rbm = data;
 +
-+	for (;;) {
-+		spin_lock(&qp->mw_lock);
-+		if (list_empty(&qp->mw_list)) {
-+			spin_unlock(&qp->mw_lock);
-+			return;
-+		}
-+
-+		mw = list_first_entry(&qp->mw_list, struct rxe_mw, qp_list);
-+		if (!rxe_get(mw)) {
-+			list_del_init(&mw->qp_list);
-+			spin_unlock(&qp->mw_lock);
-+			continue;
-+		}
-+		spin_unlock(&qp->mw_lock);
-+
-+		spin_lock_bh(&mw->lock);
-+		if (mw->qp == qp)
-+			rxe_do_invalidate_mw(mw);
-+		spin_unlock_bh(&mw->lock);
-+
-+		rxe_put(mw);
-+		cond_resched();
-+	}
++	regulator_bulk_free(syscon_rbm->num_supplies, syscon_rbm->supplies);
 +}
 +
- struct rxe_mr *rxe_mw_get_mr(struct rxe_qp *qp, int access, u32 rkey,
- 			     u64 *offset)
+ static int syscon_reboot_mode_probe(struct platform_device *pdev)
  {
-@@ -349,6 +383,10 @@ void rxe_mw_cleanup(struct rxe_pool_elem *elem)
- 	if (mw->qp) {
- 		struct rxe_qp *qp = mw->qp;
+ 	int ret;
+@@ -59,6 +83,21 @@ static int syscon_reboot_mode_probe(struct platform_device *pdev)
  
-+		spin_lock(&qp->mw_lock);
-+		list_del_init(&mw->qp_list);
-+		spin_unlock(&qp->mw_lock);
+ 	of_property_read_u32(pdev->dev.of_node, "mask", &syscon_rbm->mask);
+ 
++	ret = of_regulator_bulk_get_all(&pdev->dev, pdev->dev.of_node,
++					&syscon_rbm->supplies);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret,
++				     "can't get reboot mode supplies\n");
 +
- 		mw->qp = NULL;
- 		rxe_put(qp);
- 	}
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 311f285d78a6b..132d224a278b2 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -220,6 +220,8 @@ static void rxe_qp_init_misc(struct rxe_dev *rxe, struct rxe_qp *qp,
- 	}
- 
- 	spin_lock_init(&qp->state_lock);
-+	spin_lock_init(&qp->mw_lock);
-+	INIT_LIST_HEAD(&qp->mw_list);
- 
- 	spin_lock_init(&qp->sq.sq_lock);
- 	spin_lock_init(&qp->rq.producer_lock);
-diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
-index 8553c8402c619..1f45e8bc53da5 100644
---- a/drivers/infiniband/sw/rxe/rxe_verbs.c
-+++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
-@@ -650,6 +650,7 @@ static int rxe_query_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- static int rxe_destroy_qp(struct ib_qp *ibqp, struct ib_udata *udata)
- {
- 	struct rxe_qp *qp = to_rqp(ibqp);
-+	unsigned long flags;
- 	int err;
- 
- 	err = rxe_qp_chk_destroy(qp);
-@@ -658,6 +659,13 @@ static int rxe_destroy_qp(struct ib_qp *ibqp, struct ib_udata *udata)
- 		goto err_out;
- 	}
- 
-+	spin_lock_irqsave(&qp->state_lock, flags);
-+	qp->valid = 0;
-+	spin_unlock_irqrestore(&qp->state_lock, flags);
++	syscon_rbm->num_supplies = ret;
++	if (syscon_rbm->num_supplies) {
++		ret = devm_add_action_or_reset(&pdev->dev,
++					       syscon_reboot_mode_put_supplies,
++					       syscon_rbm);
++		if (ret)
++			return ret;
++	}
 +
-+	rxe_disable_task(&qp->send_task);
-+	rxe_invalidate_mws(qp);
-+
- 	err = rxe_cleanup(qp);
- 	if (err)
- 		rxe_err_qp(qp, "cleanup failed, err = %d\n", err);
-diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
-index 0f5ffd94643f9..d6585581e9c33 100644
---- a/drivers/infiniband/sw/rxe/rxe_verbs.h
-+++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
-@@ -288,6 +288,8 @@ struct rxe_qp {
- 	struct timer_list rnr_nak_timer;
- 
- 	spinlock_t		state_lock; /* guard requester and completer */
-+	spinlock_t		mw_lock;
-+	struct list_head	mw_list;
- 
- 	struct execute_work	cleanup_work;
- };
-@@ -387,6 +389,7 @@ struct rxe_mw {
- 	int			access;
- 	u64			addr;
- 	u64			length;
-+	struct list_head	qp_list;
- };
- 
- struct rxe_mcg {
+ 	ret = devm_reboot_mode_register(&pdev->dev, &syscon_rbm->reboot);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "can't register reboot mode\n");
+
 -- 
-2.43.0
+2.55.0
+
