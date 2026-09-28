@@ -1,159 +1,129 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4844BF945
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6434D17BF;
+	Mon, 28 Sep 2026 23:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790638683; cv=none; b=G1HSZI4hKgC+Tx+p9e5SRrARae/gPlnJFfjN6StQLMK9Ky3uxHdv+miwpf7KrJlBl9m3SEqv0bRVDe2JCbpCXIcweyUZUKGnO9y2squ9hha1y5pWl05wsZPZ2iaNyXFqRHSifFr5LnKZMFRZybG26gukrW9auGjlJAhHY2lYgG0=
+	t=1790638801; cv=none; b=BRAeJ3uTCb0EWsSjVp3urwZCQm2rFlWgHAhYpqJ+0Qlerf+i09tJXO/Ut5r/cuk9xOk1gb9DDY7oEsoYEYCpc+7S65jncaZMSZyzYFCmD9tOzvY+8ACTrB+OHlezXgEWK3YdwtNfI/g8mgoPNwCqsvucu00eTTZKLJ2y30R/f4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790638683; c=relaxed/simple;
-	bh=UizoVDxMJSChmzHkokQBY5XFbU+b82UuYjggKsQ1RCA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Q5lOHdy+gJG3PCUQ6WPEodyeC36Kv6cCghnnmIKPkoGyGy8C3i0Be7YmCBWvlU6i7eTIsg4zui6bHDOVCx5PdN0ajdwYqWKgfPwNV639/MrKDr2w7Yp8VqCLKm9h/cQlqAzOF+fyJJTINf8Mxo1/1wFq3YbDdCTes+WS/J5/2LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d6AzCEvH; arc=none smtp.client-ip=74.125.82.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
+	s=arc-20240116; t=1790638801; c=relaxed/simple;
+	bh=3Id3YZxHTEU6p1kro3m9VhN/Bchm+cOhsdhBMPdVY30=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sWPQFsPzPhbZFNiczSpgVrkZSKi07PUNA2nbNeTN/d1vZJuE3ipahbbYEHbuKfdac4oXzOqCXl/0ICvIJrI7JgqODjclTAqh+hYv0bDC/jSe/CWMUP/4tuIKhJfd2cf6h2Z+n/cvZgbJXc37XHcsggdQzCu3qjaaTzeldIhY19M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YbM3qQSO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d6AzCEvH"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34316295d86so5781984eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:38:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YbM3qQSO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391A51F000FF;
+	Mon, 28 Sep 2026 23:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790638681; x=1791243481; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=26dak7J/RLVeINbEtqAzmWrMUxm9/Y3gwde42VTpH7c=;
-        b=d6AzCEvHyWFNhyU35ROzXAEq55gnz0856Nl1XjQ0NmMMWDzdHREuk5auKiZVpY0EyT
-         4JdEAHZDSLLkh1dMpGYCKJC082leaE6Rx9M7Kaj9M14yjuGptnLqBDudqdLzjWqnjF/G
-         +z13OWsBiSbiChbuzUQAjespCTxnjy8xPj92JuQgeEm+RSLbo1h/217NQbU52KFvdelx
-         5HX7Z01cUScRoX5Vqix195o+V+kTbhpNqf7jOnC/DH2Pqb6M9F8P70Ateaux2FgkCmAS
-         wPM/P/4/r0sG1eK0YoUI2qYN3x3NCQlDPIrkKCh3vbkFPvt6JJF3PrhlX9fy+Py9xz+X
-         ha+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790638681; x=1791243481;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=26dak7J/RLVeINbEtqAzmWrMUxm9/Y3gwde42VTpH7c=;
-        b=1II2JXxjTJO4Mh6l3mDCZch8Gq1IVO2iD63FEuDuHFVcThiX3D60AdKP3ZRdsc4TlP
-         ePOIU1IterV8WiBMi6cEa8kbcsYQnS38ki8VjYPWlEcHupJzHFjn7b6zwBC41vmYe/JG
-         gTZvgBfsYDNJyms+wmdVRI5Yo4AvfUO9FUr2d2l7L4A7D7/zlwYqSu+mTmHqdDLHhUMZ
-         GWzAOJ6jkZCpOoD8PRI/FTRh7Mf0cD40c7in72mBz5ZM0h51m4Ns4t/sTAHwPaXDr2Kj
-         fEMy/F4WcuAbf9UGezdeH+4fiSxzbYx65xqk2T6ZLWvZjnx9U/kaLlPjG145QgNrGpAL
-         8OiQ==
-X-Gm-Message-State: AFuF++kjWpRzzrNDn8d+B/J5zHQg9gKqOKUsHKXoXv8DuWdUyy3iTACr
-	xKcZAKEfZ/P8Zv1FcUaVzUI+Yg0+Z1t66quJfwj2HIRT/YixmCnNdUBZnF4YppcVXqT8k/+IG/k
-	6E39+FTjLDgBTRw==
-X-Received: from dlbpu5.prod.google.com ([2002:a05:7022:e885:b0:144:f4b8:ee5e])
- (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:281b:b0:144:f4b9:9be4 with SMTP id a92af1059eb24-146ce492cb6mr9987436c88.15.1790638680897;
- Mon, 28 Sep 2026 16:38:00 -0700 (PDT)
-Date: Mon, 28 Sep 2026 16:37:43 -0700
+	d=linux-foundation.org; s=korg; t=1790638798;
+	bh=1HFLO5rBdRNtlKvRCci2EuPZ1UPk8TFVkIuVr0KdXBc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YbM3qQSOZprYyJJo1LOb+4d+Unzi6Iot229rfqkh1ZIpP15t4Xir0u6Ip6jr0ONa1
+	 W32A/o6ob8UZY2av8Rs4ZiZzDO14UDp3WmYDpngemwMM5JwE5Lo9QT8cA9uKHVYhR7
+	 gCT5kHe5AejMLxykgr9gbhIZ/9JtumReda/umMW0=
+Date: Mon, 28 Sep 2026 16:39:57 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro
+ Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v3 0/6] mm: make MAP_PRIVATE-/dev/zero mappings truly
+ anonymous
+Message-Id: <20260928163957.832a27ee9596a25a282c2707@linux-foundation.org>
+In-Reply-To: <20260926-map-private-dev-zero-v3-0-d4781e84ccfc@kernel.org>
+References: <20260926-map-private-dev-zero-v3-0-d4781e84ccfc@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928233743.3777102-1-stevensd@google.com>
-Subject: [PATCH] sched/psi: clamp negative cpu_clock() skew
-From: David Stevens <stevensd@google.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: linux-kernel@vger.kernel.org, David Stevens <stevensd@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When working with timestamps, psi is careful to only compare timestamps
-from cpu_clock(cpu) with the same cpu argument. However, on systems with
-a stable clock, that cpu argument is ignored. This means that despite
-psi's best efforts, there will be some cross-CPU cpu_clock() timestamp
-comparisons.
+On Sat, 26 Sep 2026 11:41:05 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-The cross-CPU skew in cpu_clock() timestamps is generally orders of
-magnitude smaller than psi measurement intervals, so the cyclic times
-counters naturally absorb the jitter. However, if get_recent_times()
-executes immediately after a task on another CPU enters an active stall
-state, then negative skew can cause the u32 active state duration
-calculation to underflow. If that state had not been active since the
-previous execution of get_recent_times(), then times and times_prev will
-be equal and the very large underflow value will be passed out to
-collect_percpu_times(). There, it will be zero extended and folded into
-the u64 total accumulator as a very large delta of about 4 seconds
-scaled by that CPU's share of nonidle time.
+> Historically anonymous memory was obtained in linux by MAP_PRIVATE-mapping
+> /dev/zero.
+> 
+> The canonical way of doing these now is mmap() specifying MAP_PRIVATE |
+> MAP_ANON, but we must continue to support the legacy means of obtaining these
+> mappings.
+> 
+> As-is these mappings are an unusual edge-case - they satisfy
+> vma_is_anonymous() but have non-NULL vma->vm_file, and their page offset is
+> the offset into the /dev/zero file.
+> 
+> Commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE
+> file-backed anon folios") causes all other anonymous folios to be tracked
+> by their anon index (vma->vm_start >> PAGE_SHIFT at the point of first
+> fault), leaving MAP_PRIVATE-/dev/zero as the outlier.
+> 
+> This series remedies the situation by making MAP_PRIVATE-/dev/zero mappings
+> truly anonymous with !vma->vm_file and correct anonymous page offset.
+> 
+> It starts by bringing the memory character driver into mm/ - this file
+> implements /dev/zero, /dev/mem among other things and is already (as
+> clearly indicated by its name) within the remit of memory management.
+> 
+> By doing this, the file_is_dev_zero() function can be provided, internal to
+> mm, which allows for positive identification of these mappings.
+> 
+> Using this, first prevent any other mappings from mapping memory
+> anonymously, then make these mappings truly anonymous and eliminate all
+> code in the kernel that previously had to account for these strange beasts.
+> 
+> Finally, it adds userland VMA tests to assert the behaviour and selftests
+> to assert expected merge behaviour.
 
-That large jump can lead to spurious wakeups for the PSI_POLL aggregator
-or incorrect values for the PSI_AVGS aggregator. Spurious triggers or
-nonsense psi values (e.g. full>some, psi values >100%) can cause
-userspace to take unnecessary corrective action, such as a userspace OOM
-daemon killing processes to relieve (non-existent) memory pressure.
+Thanks, I've updated mm-unstable to this version.
 
-When running browser workloads on an Intel N100 with a sustained
-psi.mem.some of 2-3%, this underflow is observed once every couple of
-hours.
+> v3:
+> * Added tags (thanks David! :)
+> * Moved the reworked mmap_prepare vm_ops comment to 3/6 where it is introduced
+>   and fixed a typo in it, as per David.
 
-Clamping elapsed time to >= 0 prevents this jump from happening. It does
-result in the total accumulator being slightly elevated compared to what
-it should actually be, but that error is bounded by the skew and is in
-practice always smaller than what is added today. Note that expanding
-times to u64 to prevent the u32->u64 conversion from causing issues
-would result in userspace-facing total counters no longer being
-monotonic, which could break consumers that derive rates via successive
-total values.
+Here's how v3 altered mm.git.  Includes a merge fix for the
+recently-added hotfix "mm/vma: predicate setting mmap_prepare VMA
+fields on new vma alloc", per yourself.
 
-Clock skew can cause issues in two more places. First, negative clock
-skew in record_times() can propagate through the times accumulator to
-the delta calculation against times_prev in get_recent_times() and cause
-it to underflow. Second, the elapsed time values calculated by
-successive executions of get_recent_times() can appear to go backwards
-if the first execution has positive skew and the second has negative
-skew. This can cause the delta calculation to underflow, since elapsed
-is propagated in the times_prev value. However, both of these require
-that the growth in stall time between iterations be non-zero but smaller
-than the inter-CPU skew. Neither issue has been observed in practice and
-they are not addressed here.
+And...  really?  I already had David's tags so we did a full resend for
+a single comment typo?  Little -fixes had their role...
 
-Cc: stable@vger.kernel.org
-Fixes: eb414681d5a0 ("psi: pressure stall information for CPU, memory, and IO")
-Signed-off-by: David Stevens <stevensd@google.com>
----
- kernel/sched/psi.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index 4e152410653d..893ad16ff42c 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -305,8 +305,24 @@ static void get_recent_times(struct psi_group *group, int cpu,
- 		 * (u32) and our reported pressure close to what's
- 		 * actually happening.
- 		 */
--		if (state_mask & (1 << s))
--			times[s] += now - state_start;
-+		if (state_mask & (1 << s)) {
-+			s64 elapsed = now - state_start;
-+
-+			/*
-+			 * When sched_clock_stable(), cpu_clock(cpu) ignores
-+			 * the cpu argument, so we can end up doing cross-CPU
-+			 * comparisons. A negative clock skew can result in
-+			 * underflow to a very large u32.
-+			 *
-+			 * While the u32 cyclic accumulators in groupc could
-+			 * handle a very large u32 from underflow, folding it
-+			 * into the u64 totals in collect_percpu_times()
-+			 * would result in huge jumps. Clamp to avoid that.
-+			 */
-+			if (elapsed < 0)
-+				elapsed = 0;
-+			times[s] += elapsed;
-+		}
+
+ mm/vma.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/mm/vma.c~b
++++ a/mm/vma.c
+@@ -2816,7 +2816,7 @@ static int call_mmap_prepare(struct mmap
+ 	if (err)
+ 		return err;
  
- 		delta = times[s] - groupc->times_prev[aggregator][s];
- 		groupc->times_prev[aggregator][s] = times[s];
-
-base-commit: 1fb28c664a19df8d45a6afa04d28d102b04ea680
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+-	/* It's invalid for mmap_preprare hooks to clear vm_ops. */
++	/* It's invalid for mmap_prepare hooks to clear vm_ops. */
+ 	if (!desc->vm_ops)
+ 		return -EINVAL;
+ 
+@@ -2932,7 +2932,7 @@ static unsigned long __mmap_region(struc
+ 		allocated_new = true;
+ 	}
+ 
+-	if (have_mmap_prepare && allocated_new)
++	if (have_mmap_prepare && !map_is_anon(&map) && allocated_new)
+ 		set_vma_user_defined_fields(vma, &map);
+ 
+ 	__mmap_complete(&map, vma);
+_
 
