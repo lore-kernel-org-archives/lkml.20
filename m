@@ -1,243 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013044.outbound.protection.outlook.com [40.107.201.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A824AB3DA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595526; cv=none; b=j8ZHzhRfBaI227YsCcJ+HbjJ6nXSKpXVnJafeIlOxY0z84WDSndBcnRiq/FhVZqHEOFzeC8zHo0DHHDWTpPm1bJWURL7nncPqnTh9NKIFUuoJY9/AXeHFGy84rzfOw2JpGoC4SmuNTOQcbq7NUBHdwlQEuuN6uKZg2jOo41UX9A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595526; c=relaxed/simple;
-	bh=chepO21nsfjqXOtqCbP4d0DXR0pxAHhbCjhGGisK2UE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OpEa+rBzzXWzPU1bq0TAZ3NvU5JtVsjshW0YIAWbd99snqX2Cgzn7CsEgro1KiXs4C+rI51I8gjORCScV9R8RJuVMhlXGiCtIgL/tKVD7TwQxjEp4K8WjNFIEwcM4tYoGUd5nz6uDg2Jgp9/JTO1Qm5XzPkc3TN7+Z6SZaLz6as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBb7z6/F; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3278E4ABBCF;
+	Mon, 28 Sep 2026 11:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790595618; cv=fail; b=KmYV7n+Kal1OHh1spcRfZyfen6wX9sBvYpmG9t2zBSdy3OMr904OVqz9d9/Mb6S4r2aXdCEC4fCp+UWgMMgzgbXn7HH5boLsbPnJCXES3DLHFnJ7ezFhbBf1ExJJhw6NFSANMl78t+j3xVmrF6ekZPvat7WyaDZSrhWAErbD1C4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790595618; c=relaxed/simple;
+	bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ofi8MGFXz+bu7MffFLwnKN+rtnh8at7zBypQxXDcbQI+FQq96xy77+8HdZ99XAQl1iWz+Oz2eamCGXabg2QqlN1O1780QNL/CyBZchMx5e86AYC33dYgIpXOSJVm/PyRg5sXsVAguk1ciwMW++RbcmSDaTGW2RY1By3nmg7KWbo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kz2gu6+C; arc=fail smtp.client-ip=40.107.201.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBb7z6/F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A2BC1F000FF;
-	Mon, 28 Sep 2026 11:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790595525;
-	bh=XNGkhJEfxOeYKYpixMtJoNeTjPIucLbHny1mogdj/aA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QBb7z6/FP3AmSw3CsJ02RRRqAX29w35VTu2NoKyC5xhM2zLjlKzaeDVJVSsJnvbp9
-	 UD77NoHmrGRCMeWcqNkQ/bXaA0kpvfeByfO+0dsmb3JW5iqAYWaOB6pWod1Flvj+YS
-	 kM1dW/SpQyP2E13Fyx3lKmrP6Zj2f2MxNgA45CA+v4f+RDXWgxs7SXe0fwzmeIAMzc
-	 /kbUOqOu8MzrwTII/JDJiEet94/hwBTEiywIW6vz9co0EbTKM/c4r6L06T4lBcinll
-	 8V71vTx052R9vzPl3BXKWOBoSyTVoZktkofcfE+cJiMEMk3reowpfoHp9N+TOilRT3
-	 T0AJJzMwNnZhg==
-Date: Mon, 28 Sep 2026 13:38:39 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Shashank Mohan Jain <jain.sm@gmail.com>
-Cc: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
-	Eric Dumazet <edumazet@google.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] time/jiffies: Don't saturate usecs_to_jiffies() on a
- truncated limit
-Message-ID: <imuoalnzhebreu6btt2qp5itwz67eckm5favcjrinb42lwrqy3@prd5dpnnt5fl>
-References: <20260928093601.79224-1-jain.sm@gmail.com>
- <20260928093601.79224-2-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kz2gu6+C"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XE3/5be1VWM4CZSPn9p5OKVFM59b35KAznzVWP7fMXc/Xa/Vx12DDZdq0XyTJaHPX4OwPCtYYfmeVWVgwbmxkOQPhQKxkXdKkcUDNI+3UCYojPWpXczsCqq3IgAeK8+RDoqjciK2GwqBYSYk7iJWNM6dHpzfrfauTTS2TAXQSHD41n5HK1/4gWTCs9dbilQzmzzR813uwMP0zPJKwnb+lpN6EeBWx8ru45qhFbzc6awSuotFGizK+ST7u/XKWqvVlEzQx0mOjx4SGEKX7QJmgJ7rR6Pa3KH/6dAUWAukYzKpm5IuntfNOIcKopmKiXe5LZ1GYa22s+i0IuHrApk6Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
+ b=LsrgJA5ZpPWV8Lxv6Fb9AgzQt/qrbVCG3VmYm0JeNcxowAyB6RLcD0fghYgARhUfmlBiDvF9QoHoRQpQ/virRBPrstmyk4zXuUVppMrY0wwsgJgJen+JyUazrhtTIXMmPTfGgo5/+owvbhY8irNLGS3kugBcTyd7DBCjKuarAFCu7TT2uSycIWvaRxLL7gSxAZJwTGgwPcB0OxW3Zb8OZfpDqgOPn1i3CM+mPrMM/uYMDohXTwms9bao1zR0w/BCm7PKma/q+FJ1c8ww2oQZeUI4BaZEivDF2tlrUs1KztihakQ0LgZqehH+rqcSkXmn8gy5G+HbWW5geNfj8lngEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
+ b=kz2gu6+CxxT4qOgR7ZxIq2DlGtLdTApuXYCD9xxa8nt85dVh3N+6pfTQ00Eo3/bSW+6NnbsI+y0hlXvJAESpQ5+R9YbwluhfhkKhXueibIFzuE4ZNGkZN7ZE7PFlvwqFue0+X7Jpw5nqmmmU5fCWaVVjCdZRE47n1Jm3M0p/vjdDdJaLZmnRkFeHL0pGBSS1lMMXlgy4W39jHABak3kLjdwQMg7kY4APzlZDxrWn0kQGNRcKndASgAmEJICr2mbbrm7bihzh1e6wEr3MA7IbarWhV5+BFUZ9/3zimDM8Jd9MVolN1E0mFx5vPDpTMvTMKi5ufhCt6fTSOvir2KntoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA1PR12MB7568.namprd12.prod.outlook.com (2603:10b6:208:42c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 11:40:11 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 11:40:11 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 20:40:08 +0900
+Message-Id: <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
+ a sub-module
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Zhi Wang" <zhiw@nvidia.com>
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
+ <20260928122015.3df66b3e@inno-dell>
+In-Reply-To: <20260928122015.3df66b3e@inno-dell>
+X-ClientProxiedBy: OS7PR01CA0191.jpnprd01.prod.outlook.com
+ (2603:1096:604:250::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6fqjv7tfrcm3raqn"
-Content-Disposition: inline
-In-Reply-To: <20260928093601.79224-2-jain.sm@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB7568:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|10067099003|11063799006|3023799007|18002099003|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	vCQOPlTEevDGJdOe3Q1vIuY87zR5KZSrRySkLVmJu938idMhSCpYOqDifItF86p1JlWRTA7TQmWQcELYvBkuG1dk8v+7HJnxH8pckwiwoeM5il5uGu+HxNgDul2mQUTkaCm3fVBZoeBoNdYhLdt3aLr5ATR6yqniZcicHSBi8Au/bnv/16sg1a4Bx/zSnY5sSLzfNd0BiQBorMKv+0PdzIHKASW4KeeqNjFcukb/EwdBelYWoW7L+TQXmSd2aY0dVDRa7FpsLc/xGrcOqUgacVrHLl0QEXv9qNMqtIjREhoAfmvXfysVyPXiArru6UdT9AY4ZY9EaH8ld98qJ7XeXv85GLpuxayhEtvZVoPjfSUdkM3BAUCuMSXU2dyvmKI8oav1zwnsn8Q6TSN2iKn9EhO7IbTCdXq2JbFB6uwvdH8Tahn8VO13zFnCeSsgMeUswmKsNiLTjoU5fWM2lVHsG402qSXvk5jkH5HXloFKpmIlckfwJ05aSyGd3YCAf7CTV2oc0/HNoxiV5lY56QMCtykEFrq/Bssy9/Dg2hsatvz3ScDRk3mDFPXLga68Hm/tbEAMYdH+0wxiyV6yCQcuLx2iK2o5JA4bOpK+rp1ZvAOZ/eBBx3Wliiv2VbvjQufDWrKbK7qngW5QR7cKE1FHEyj/RcbQEi7Ui+V5y0R9PIc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WXBndE9teFVSMXR4VTR5dXFwK0J4V2hBdExlcGtkRmhXck5PYVJZVlpPUVk0?=
+ =?utf-8?B?elFEMDNwSWNkeG1KcXB1Ulo1U1NjdFJ2dXRVUDNnRnl3R2FWRVlRT1lzT0kz?=
+ =?utf-8?B?cS95Qjc3QVd6c25QZHk4SVc4a0kvcUFldkIxYkhhZFBTM0NXU3JSSlViMkRh?=
+ =?utf-8?B?cVh6QzJGY21HMXJISHJxQ1dZQkxXS0tlOWxGWUJXc2FCcEV1UVdSdTdlaDIx?=
+ =?utf-8?B?U2RIV3R2NXFETU82cnFRNHcrZGV3anZzRVJEczNqUmJ2WlRlRjBBM1QwT3Y4?=
+ =?utf-8?B?RTdReUlTVjBDMTVieTkvR01IaFhTaStxWmFMMmRmV04vMm83TjVmanVTeDJq?=
+ =?utf-8?B?V1hlRFRicnoxV3RsSFNvK0VwNkZ1Yk9aUnhyWlZVcDluS0NPRkRMeERQYWtM?=
+ =?utf-8?B?UXMzYWJHY1ZuMDhxVDMwa3NRWUxINWRxTXpGRmNteWNWRFNDWXM5SUw4NGNW?=
+ =?utf-8?B?bkVOZ0FGVDdkVEtHZDQ1eDhYbnVxSWJJUEFUU1pLZW9XNFJ5bTBDbWV6VEtU?=
+ =?utf-8?B?ZTJqMFlvSUNMQTY2UG9pRk1sODgveTBHLzFoZGE2QThzbmNtR2d5WWdseXEz?=
+ =?utf-8?B?NFRhaVBtcjRya09WZTJZcHFxQXhxMlord1hGZWFrZnNxbTZWbHZHZi94RnBZ?=
+ =?utf-8?B?S3VYeHBNOUYxVzZJZnJPMS96YldKZ1hUZTlabXhmczBmWjM3d3k2OUE5dUFk?=
+ =?utf-8?B?dGpOblkzZ3RMMFNiSVdTWU4yYnp5NlhMOWN4ZGJlVE14U3NITlc2OFlYY1NR?=
+ =?utf-8?B?L3h0Z2tGT3Z1TURaenBkaGMwd3NXZTZFWVRhRzBtcXFJd0pPY0hIbkJKUVVH?=
+ =?utf-8?B?LzZueXBMNHNtczY2NWgrd05JYUZ2eHpHbzJRN2pxS2dqWllIOXljU2ZiWGNl?=
+ =?utf-8?B?TUZMZ2s0QlFoVDk2QW5XblhDSElyM2FHN25EOXpMZjVwZkpZN0VtZ2FrSnZ3?=
+ =?utf-8?B?cUNWTFoxazV1ejgyc2crd3YvdHhFakc0TXA0RFJRK1M5MWtjRjhrd3lSbUdU?=
+ =?utf-8?B?ZzN0Z0ZLNFVIOG9GT05uOE11amJQdEFmSW5VaGJsRDlSY3pab0FyWTJBME1i?=
+ =?utf-8?B?MS9UUTY0Rzc1V1doYURsbGNyd1lTaElhWFBURHVCZEZIMzRhd2dBS242Vmdr?=
+ =?utf-8?B?NnlxaTI0aURhZ1JsZ2tqOTZRdmlVTjRXYVdPQ0xJRXdTMUtPT3NvTk9hMkNz?=
+ =?utf-8?B?UHZqTHluMHVBV2tIU3pwWjdSZ3V6VGRUNGNIakh4cjQ1OWFtTmc5TXdjMFc3?=
+ =?utf-8?B?MzhPWHVEcUFmekxqR2lEV1kyMDFwVE8xbHVYNUhJNXFLK3NCdGo4SlU0V0xV?=
+ =?utf-8?B?RkJKbm9lYldrTHRDY3JmaDc2endmd3lyUjdjNXdwLzFHTm9VRS9BblhHanBk?=
+ =?utf-8?B?L1I3dDcvK09FYUlzMWpnYlVCVTJCbk43MUFpcXRlQnVDYXNjajI2RTVwM3A2?=
+ =?utf-8?B?TzUvRW5FdUxpYVdpemJWOHE4cTlkNUxjWUcrQ0g5bytZb3hzeklSZjZ5Qnh6?=
+ =?utf-8?B?TXNya0Zwbkg5K0VONDBRNE0weVI4cGNtRldybmpVY1g2bHlhM05obUtxTHFF?=
+ =?utf-8?B?UW1Zd2t4QmRaNTA1WThiNjNoQ2dwNFJZTXdoZWw4QU1xa0RWUVJFVHl1OWhv?=
+ =?utf-8?B?MmUzSDlmbE5tR3VvdVdLSzEyVDJwQjNlcVYxUkNaSS9oanBvQU5GeTFWUFZW?=
+ =?utf-8?B?ZVdvbFQxeVY0RS9CQ2NRM0tYZjh6UXdrSVM5NGtmTXY1U25qanBxWDA3NFIx?=
+ =?utf-8?B?VnNkZ1krNU9NRlVYUW96ZkpNekxaTlpiV2oxRytJTnVHenNaWXprcmREb3Rl?=
+ =?utf-8?B?WjM0QzVibExZMHdRQlJvMEhCZXRSNTVIT0NHYnpBb1JoakxpSUpFdzY0WWpy?=
+ =?utf-8?B?emI4dFQzZ0FtTnNadlVSdTNyOHE1Ym91ZzF4eldvKzhqRUIxakUyWmt0cHdv?=
+ =?utf-8?B?MlgrcXl2VWY1UnRNQithVTh5cEdnQk44dFJRN1g2eWZadFE5R05EdDl0NE1r?=
+ =?utf-8?B?TnR2amtvZDl3QWw5bXlsYmZXejVkWnRVQnJTS0syVS9pR1YzeUlOWHlaOVpy?=
+ =?utf-8?B?anJFWjBVM1d6dEJxWEsxYnV0Nm81WjhubmtHd0ZOZUdWZEptWmlUUWxhU01M?=
+ =?utf-8?B?VGZPL0pqdWxrM1JJYWp6T0NhcldLSzJFSFYxdndlazdYd3lYbDZ2NFF1SmVW?=
+ =?utf-8?B?eGJKaE5ScFRlTDFVVElhbnRxNXpzUHpDT2xXa1JIeDRuYjBrQUFuQVg1MHNF?=
+ =?utf-8?B?SWZnQnpDV29HbGxVelk2TVBObW5UMVZuZUVhdWplWlhlL3lJZ1JSSE8rbTBB?=
+ =?utf-8?B?bHhwSjljbXMzRGRpcWRGSTlwTktkbHcyMWlhWHVLV05UY2UzbVhhc3FNZGR3?=
+ =?utf-8?Q?jKs3DAKcXrPyam2g8ODCo0mMMaB7nXIOExmsmleOhoodo?=
+X-MS-Exchange-AntiSpam-MessageData-1: MHrNUGRDERzIQw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:40:11.6426
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EyTsFNjw9ihtPBaEfvd2K7TQd05sxBvMjLrMkxTQWyYPBd1JQX0DeEDkmmdAbiWlDYVXlqkJjIr6KEdk4gkZ3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7568
 
+On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
+> On Sun, 27 Sep 2026 22:46:25 +0900
+> Alexandre Courbot <acourbot@nvidia.com> wrote:
+>
+>> Move the types and code related to RPC commands into the
+>> `rpc` sub-module, and update their users to reference them from their
+>> new location.
+>>=20
+>> This is a pure move commit, with no functional change intended.
+>>=20
+>
+> Hi Alex:
+>
+> What would be the plan for commands.rs in the future after the movement?
+> I was adopting the similar code structures (fw.rs/command.rs) for vGPU
+> manager's RPCs and GSP plugin RPCs, e.g. having RPC typed code and
+> function handler(wrapper)s, it would be nice that I can align with the
+> idea accordingly.
 
---6fqjv7tfrcm3raqn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Can you point me to the the structure you have if it is posted? (sorry,
+too many series in-flight and I cannot find where it is ^_^;)
 
-On Mon, Sep 28, 2026 at 03:05:59PM +0530, Shashank Mohan Jain wrote:
-> usecs_to_jiffies() and __usecs_to_jiffies() return MAX_JIFFY_OFFSET, an
-> effectively infinite timeout, when
->=20
-> 	u > jiffies_to_usecs(MAX_JIFFY_OFFSET)
->=20
-> but jiffies_to_usecs() returns an unsigned int, so the limit is
-> MAX_JIFFY_OFFSET microseconds truncated to 32 bits, an arbitrary value.
-> With HZ=3D300 the out-of-line jiffies_to_usecs() also overflows 64 bits in
-> j * HZ_TO_USEC_NUM, and the limit ends up at 1431649098 us on 64-bit and
-> 1431649781 us on 32-bit. Every timeout between about 23.9 and 71.6
-> minutes then becomes infinite: usecs_to_jiffies(2000000000) returns
-> MAX_JIFFY_OFFSET instead of 600000. For instance, a PIE tupdate or a
-> DAMOS watermark interval of 30 minutes never fires at HZ=3D300. With
-> HZ=3D100, 250 and 1000 the limit is 4294947296, 4294959296 and 4294965296
-> us, so there only the top 19999, 7999 and 1999 values are affected.
->=20
-> The check is not needed at all. MAX_JIFFY_OFFSET is at least 2^30 - 2
-> jiffies and HZ is below 12288, so UINT_MAX microseconds are far below
-> MAX_JIFFY_OFFSET jiffies for every supported HZ. Drop it, update the
-> kernel-doc, and add a static_assert() for the assumption.
->=20
-> The bogus limit was also hiding a wrap: when HZ divides USEC_PER_SEC,
-> _usecs_to_jiffies() rounds up with (u + USEC_PER_SEC / HZ - 1) in
-> unsigned int, which wraps for u close to UINT_MAX (usecs_to_jiffies(
-> UINT_MAX) would become 0 at HZ=3D100). Round up with a remainder test
-> instead. The reciprocal multiplication used for the other HZ values is
-> done in 64 bits and does not wrap for any 32-bit input.
-
-Looks like your fixing two things in one patch. I would suggest making
-two patches
-
->=20
-> Values above the old limit, including UINT_MAX, now give a finite
-> timeout (at most about 71.6 minutes) with every HZ. No caller uses
-> UINT_MAX as an "infinite" marker; the callers that clamp to UINT_MAX or
-> range-check the result (TCP_RTO_MIN_US, TCP_DELACK_MAX_US) keep working.
->=20
-> When HZ does not divide USEC_PER_SEC, jiffies_to_usecs() is out of line,
-> so the check also defeated the constant folding: every
-> usecs_to_jiffies(<constant>) compiled to a call to jiffies_to_usecs()
-> and a compare. Those now fold to a constant.
-
-This commit message (and the others in this series as well as the cover
-letter) is too verbose, hard to read. It is not obvious what you are
-doing and why.
-
-I suggest a table of erroneous values. Like [1]
-
-[1] https://lore.kernel.org/20260923134237.3628505-1-zhanxusheng@xiaomi.com
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-> ---
-> Checked in userspace over all 2^32 inputs, with the current code and
-> the code from this patch both extracted verbatim from the tree and
-> built with the generated timeconst.h, for every Kconfig HZ value (24,
-> 32, 48, 64, 100, 128, 200, 250, 256, 300, 500, 1000, 1024, 1200),
-> 32- and 64-bit. The KUnit test in patch 3 fails without this patch on
-> UML x86_64 (HZ=3D100) and on qemu x86_64 and i386 with HZ=3D300, and pass=
-es
-> with it. Prepared with Claude Code (Anthropic), model Claude Opus 5.5
-> (claude-opus-5-5).
->=20
->  include/linux/jiffies.h | 22 ++++++++--------------
->  kernel/time/time.c      | 10 +++++++---
->  2 files changed, 15 insertions(+), 17 deletions(-)
->=20
-> diff --git a/include/linux/jiffies.h b/include/linux/jiffies.h
-> index bbd57061802c..d3f2663e4435 100644
-> --- a/include/linux/jiffies.h
-> +++ b/include/linux/jiffies.h
-> @@ -575,7 +575,8 @@ extern unsigned long __usecs_to_jiffies(const unsigne=
-d int u);
->  #if !(USEC_PER_SEC % HZ)
->  static inline unsigned long _usecs_to_jiffies(const unsigned int u)
->  {
-> -	return (u + (USEC_PER_SEC / HZ) - 1) / (USEC_PER_SEC / HZ);
-> +	/* Round up without overflowing for u close to UINT_MAX */
-> +	return u / (USEC_PER_SEC / HZ) + !!(u % (USEC_PER_SEC / HZ));
->  }
->  #else
->  static inline unsigned long _usecs_to_jiffies(const unsigned int u)
-> @@ -589,14 +590,10 @@ static inline unsigned long _usecs_to_jiffies(const=
- unsigned int u)
->   * usecs_to_jiffies: - convert microseconds to jiffies
->   * @u:	time in microseconds
->   *
-> - * conversion is done as follows:
-> - *
-> - * - 'too large' values [that would result in larger than
-> - *   MAX_JIFFY_OFFSET values] mean 'infinite timeout' too.
-> - *
-> - * - all other values are converted to jiffies by either multiplying
-> - *   the input value by a factor or dividing it with a factor and
-> - *   handling any 32-bit overflows as for msecs_to_jiffies.
-> + * conversion is done by either multiplying the input value by a factor
-> + * or dividing it with a factor, rounding up. Any unsigned int number of
-> + * microseconds is far below MAX_JIFFY_OFFSET jiffies for every supported
-> + * HZ, so, unlike msecs_to_jiffies(), there is no 'infinite timeout' cas=
-e.
->   *
->   * usecs_to_jiffies() checks for the passed in value being a constant
->   * via __builtin_constant_p() allowing gcc to eliminate most of the
-> @@ -611,13 +608,10 @@ static inline unsigned long _usecs_to_jiffies(const=
- unsigned int u)
->   */
->  static __always_inline unsigned long usecs_to_jiffies(const unsigned int=
- u)
->  {
-> -	if (__builtin_constant_p(u)) {
-> -		if (u > jiffies_to_usecs(MAX_JIFFY_OFFSET))
-> -			return MAX_JIFFY_OFFSET;
-> +	if (__builtin_constant_p(u))
->  		return _usecs_to_jiffies(u);
-> -	} else {
-> +	else
->  		return __usecs_to_jiffies(u);
-> -	}
-
-This effectively becomes
-
-if (__builtin_constant_p(u))
-  return _usecs_to_jiffies(u);
-else
-  return _usecs_to_jiffies(u);
-
-What is the point of this?
-
-Best
-> =20
->  extern unsigned long timespec64_to_jiffies(const struct timespec64 *valu=
-e);
-> diff --git a/kernel/time/time.c b/kernel/time/time.c
-> index 079ab34f61db..470195e88ca0 100644
-> --- a/kernel/time/time.c
-> +++ b/kernel/time/time.c
-> @@ -591,16 +591,20 @@ unsigned long __msecs_to_jiffies(const unsigned int=
- m)
->  }
->  EXPORT_SYMBOL(__msecs_to_jiffies);
-> =20
-> +/*
-> + * UINT_MAX microseconds are far less than MAX_JIFFY_OFFSET jiffies for =
-every
-> + * supported HZ, so usecs_to_jiffies() never needs to saturate.
-> + */
-> +static_assert((u64)UINT_MAX * HZ / USEC_PER_SEC < MAX_JIFFY_OFFSET);
-> +
->  /**
->   * __usecs_to_jiffies: - convert microseconds to jiffies
-> - * @u:	time in milliseconds
-> + * @u:	time in microseconds
->   *
->   * Return: jiffies value
->   */
->  unsigned long __usecs_to_jiffies(const unsigned int u)
->  {
-> -	if (u > jiffies_to_usecs(MAX_JIFFY_OFFSET))
-> -		return MAX_JIFFY_OFFSET;
->  	return _usecs_to_jiffies(u);
->  }
->  EXPORT_SYMBOL(__usecs_to_jiffies);
-> --=20
-> 2.43.0
->=20
-
---6fqjv7tfrcm3raqn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmq6UbgACgkQupfNUreW
-QU/NYQv/ZgNT17TVNHwXqcMrLim7AVclxK/suP36VatrpRORrr2RPAgO1lnJPVH0
-0CYM4DriTxFp8MgnD6i/pFifYCo1/unIJ38M9GabuxTMUEH5Wo9pkTc1riJyc2y7
-TBTEe48AQ+A6uJbbi3lKyz3+ir4it6ZchsttJE1wxsJHxyZdoOMUiWCPIj7UlR+f
-89d9m7XHrUAns+uMuEDXb0i/uMosld2TGV19EaKu8GUdDL3KXu+Jsccfkc+qBSpx
-KJ57McQbJh1TKcElh4wDZHoQjZKycEf8ZgEDwJ677a5pAc5jkgAEur2qZdJt5xAK
-NI2I3vC+wHannad2C0I3Wv6Bae+mK1ligwtlwZWUd4qC8yMe+C2hIPWdkqpng9xO
-gi6417Os+kQ3NU3PnlaQJAyglGGCzIEEKk9Jvo8tDfqlLfWQtfw/9qtwU6qoXzYk
-VmOtYEKyB2/wnb0k/gAwMzqmsdXbHyeCQ2UZlcTkBdng1Kva5PZMBsdiX+0M02xl
-6G7o8ASs
-=Wi3G
------END PGP SIGNATURE-----
-
---6fqjv7tfrcm3raqn--
+If you add vGPU RPC commands then I guess somewhere like
+`gsp/commands/rpc/vgpu.rs` would be a good place for them. But let's
+wait until this series is approved before settling on a design - moving
+code around is easy anyway.
