@@ -1,140 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB96A344021;
-	Mon, 28 Sep 2026 22:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633063; cv=none; b=TW/zowEyn3heZLd+aGy3qk9RS7zEqp+l5TptoY6aYdOuhNxKYNot5ieGJaGSDwaUpXYSxliADxAD9N4T2ScFNeyRPo5YxRj4/YmScF6QDKJHtfvCA5V8b+2SPUBmZP+15MZoRHVc7MUdwhsRw+NlzJWLuI0TQ/F4Nk2uGWAekJ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633063; c=relaxed/simple;
-	bh=BwsjGz6iUh59cLgLUFJKdhLkOfQobRfo4RrxZOTVLJw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fLLiBKIQ19l8a3iSSUFeW5ux36kbrR17YzBPHxaQZ1yehIQLmzw43Bnvfl5g79zV89R0EZ1ZdaE7CnsluAkqzUlcOKRN66vDLUxTiMShHcACZ9x9lgwteZzuHRXh4urDey+iiNfD9vLxp9ovLgSoTXHqd5ku05kl5Ig8cATGTgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWTWbsW9; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729764EA394
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790633115; cv=pass; b=XgLEyduKIoz+4FrX9RuxCXQt+PJeS/mmW2Sl+PCdJyuzcropXURg+3+NUoe+B4a816ynDykAJcqxrBQSblZpNEWJNIk6GJAQ5D38UdCY74rNI/s4YyIIe2eJHO7srxKLnKN3TVhTgIRWP1XgDQEJH1avnsEVkThK3EoSf0vwcms=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790633115; c=relaxed/simple;
+	bh=f3tKnsCi9hJfFbJifSFha92to3XpZTWs/LpB5vXMPw0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IrdigwOwSsuiu+5PawZhsEDwcJb0BBdy6Hr9kgKFjznGBCEpkDRy1JhgWXtTWAmAhCbvPPAVa5nU2wVvLT38RENPWGz2HrvIQNynfVXj7Y8uPfdKV0D9N2vrFXIl0gVfbH4iQaNpCrio2IHn5hteDzEiwHJ/62W2RBoF9TZ9ubI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oac/TkV5; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWTWbsW9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790633062; x=1822169062;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BwsjGz6iUh59cLgLUFJKdhLkOfQobRfo4RrxZOTVLJw=;
-  b=kWTWbsW945It6wCjqnGHXPKJnQ9D76mTKUkyEyYWZrChYXA6e6oPgHpl
-   yCzw+nfQECsiMflIXb1ucTkMiXyodauFzCVfpxKetI0E/eYa4+NG5BcGp
-   aXUqpMl9P6R0lFI/vpu8kegLLu8ILTon76zKPXPhPSavCXfctyGcKBSkq
-   e0yYP1X1NhBf9iWJPT9rNlSVFxawGecwiXb1qlUy2whLPtKeNTtuHmbWb
-   V5l9TX9w6iCQ5zJiMoxgTav3C35NmLEnQoIuPe0dMyIwI4vOrEnayVbbH
-   B97uMgn03jxrbfyAJorjfnKCKaZtNQpQLK/3JfLaXAK0gknhQBTCuHvk/
-   A==;
-X-CSE-ConnectionGUID: qvu2TkIsTby6dP+zrEh3DQ==
-X-CSE-MsgGUID: UT5IMSR9Rk2A/67G9lhNxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90563416"
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="90563416"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:04:22 -0700
-X-CSE-ConnectionGUID: YR79f9dTSi2hW8CeEJUDag==
-X-CSE-MsgGUID: xr+Z/rNgS2yClAwIheWc2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="278539058"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:04:19 -0700
-Date: Tue, 29 Sep 2026 01:04:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: pressure: add Sensirion SDP31 driver
-Message-ID: <arrkYNNlD6_bCgiO@ashevche-desk.local>
-References: <20260928215422.3720-1-m.abubakar365@yahoo.com>
- <20260928215422.3720-3-m.abubakar365@yahoo.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oac/TkV5"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-533202fe429so110161cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:05:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790633112; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rR/FRGfRjN6ntphlVYq5lgeepxSP26a36lwFx4+EC7C7y+SKOG31lt8kEx3FaJlr/L
+         Un2Ya1Jak9diC+f2uuIG2QdZP+8mWGBKHfs8aTsjh+nWKKeYpjfnE4vzvTN95a9VXLxe
+         Vvm1cxZ4NsISdPD10Oe1NuKDcYrvULzbwdKu1Qch4Rz1E6qWFQamX5ucs/gwNnNucBMh
+         Qx41cxps8W5TR+dDBnU+nN9wSVgpTwf+zNag5W8iRWWjQuVD8DzGqsyDIp9sbuR9XYsf
+         tIUT3Cmt/MlRMIkIq9z/FWuDuFHqVoYookye6xd+EFflXtfhb9Pr2aMXvk9nEoLCZl9F
+         bgvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kfBNTZeAncpILO1totwhYKiKnbMPiL6D3GS9AuR/h8Y=;
+        fh=Qm3VPp5pTe/YPR/FpCh3BQ39FuFlDvGDEIDRlN3maS4=;
+        b=GrdgTGoLTcPJf/AV0MreU7BQJ+/3ilVqZWMKy41xNbKeW3toqVL4KpwRDG55macPiG
+         0Ef7Fqdh/aBoo9mM4iE1aRJFsM3nW+PbFkFRUyejYHvdJ0o2kjdnWjyYYJKwJzRXPAK8
+         vr7RfVXndJ/N+w8mLimT0xk0yR7mGwy/D3HOLfTRyOHlqT/qsR9hMzinJndSbJtDEYHr
+         Af8HOQgvtHkNXa6iOyY33jjYL3AAjp+YLh4GEIP4aj0Cfra6uuBRyAc7XOEBH4SmfOkZ
+         xOX12Mf0MAZ/34hqnrPHbGF5EQXWNFeC+4hrwJNMmKJDQsoCLsmUDxwYYAM5Zg1f8427
+         y58w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790633112; x=1791237912; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kfBNTZeAncpILO1totwhYKiKnbMPiL6D3GS9AuR/h8Y=;
+        b=oac/TkV5UwKv07KHKkzjyxA1GStVW7rs6tlgjNZLqjEj+0J6aKfV/Fm477T43TFlcf
+         3hY3SErBiCXwRStvWOSilxgkIG/kicFJndhaeR8sG6dztjSxDvlWBCKaaMeMrE56PTPA
+         Ea0GeSJm8iL4U5r1qA+YKau/7/6cu0vFk5ayAc+7gcO4BAp9meXo9ijL7BP3k+qv+LwI
+         2rRROT/4xw/oqW5sA5qu4X/eFNIPpbRnzV8/gCvmuC3F2iHiRLLzPlmvn3gf4PD7L92d
+         MBb/TUHuXjaI+zoog6Ult3NOC7yNIzdvX3LQgSP0B/wNEFvaYXon11KkPHkstceRH/CL
+         rbVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790633112; x=1791237912;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kfBNTZeAncpILO1totwhYKiKnbMPiL6D3GS9AuR/h8Y=;
+        b=IQiyp7WDjy3/7gqo7Ce1tx3sl80iZySyYAUto0tl6icT0cn7tUZeUl6TixoXDkt6RX
+         Mguw6PS8JKD+RKFr9K8y4HftnYJVOsb6Y7/LddySZeyZSKWDM59qEgKRTkdtW3MHG3kn
+         Ko/C8tqG1MKKu3jRlDQWEQeU8w6xWLhJrWsOWIxdfidx4ZIsfTqJyr7XXxrdJG2Qb7AD
+         9vwz2INGYQREe4ZMsWAj+tGGpNihpbkp9jStvlNp6rqRGWFFbX7t2n9md91HEs4BqtCN
+         YcnLUJEBt6utvEfmsv4qHzJkilt1kLvH94+CADo3Sdh9FRaGytTK4/81J7TPtKOoteue
+         XPkA==
+X-Forwarded-Encrypted: i=1; AKwUvByJZ90p4/wpFpG6zg3Q52w/qraIGJmAPcgxViOKNmoeGh/FEX7WYxmge8ZaDb4s3WKaK6yy5nt/X1xJIBI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJhGcScd9mfP/W2kSNSeiJj38uIAb9nHgZlxGFsuUSxoS6v7y5
+	Mq/wH7ngxY0JthpoIRHe2wyQG9W+/8wOndwfrFNb1/yiB1W2JHFKBzXQoKLOOSRmPQaPNuzfJoB
+	5t7H3CKdQfZpff/yHx8dtcTey6lAesfRcvh5D+Y6t
+X-Gm-Gg: AYBFou05b3oXNxdI4WPAhwUD/RjmesxXUyHrgryaQs9zkxXv6chPvQDKiK3wPfVob3y
+	QlYGevvXIrdkkWDADnHMqbLTvPx7dy+38MXM1B9udOEPkrOSu0zFOyiMThBi0+stjZJ6lnWO19Q
+	PfLb1u5yTh9H6hrvGKGMMKxnSa0GWZVdG8HJ7uV7iOZG9WRVNGdxQlIq2LsR0QRZmZ51ux23CjK
+	+F4IIWncRCnvHzB18aqXQh/u27gGPQKS9e7MDxUzAGPeWhuykqkQRGnq3nM3nBr3SSYuXG/Slpv
+	ZW/fVc/wv1H2gG6XScepMeOCIsNG9RQmBJI3r5Qjh6FQo/lHRsbvD3nMFRqMha+8LskKs4kcyBt
+	iYBvvteD7PQ==
+X-Received: by 2002:a05:622a:1819:b0:531:16a:5a3d with SMTP id
+ d75a77b69052e-5335a1f032amr1321061cf.12.1790633111445; Mon, 28 Sep 2026
+ 15:05:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928215422.3720-3-m.abubakar365@yahoo.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260928075237.3055101-1-irogers@google.com> <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
+ <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com> <arrhc_7jvX_W2uXS@google.com>
+In-Reply-To: <arrhc_7jvX_W2uXS@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 28 Sep 2026 15:04:59 -0700
+X-Gm-Features: AclHuK_htnD34uMf4P2yvFXVI_-906AbkfBwNGfpX8cxb5YUIQgE5dTKJuOd5kE
+Message-ID: <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
+ storage, and LRU shrinking
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Alireza Haghdoost <haghdoost@uber.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 02:54:22AM +0500, Muhammad Abu Bakar wrote:
-> Add an IIO driver for the Sensirion SDP3x family of differential pressure
-> sensors (SDP31, SDP32 and SDP33). The devices are accessed over I2C and
-> report differential pressure and temperature. Each measurement is
-> validated using the sensor's CRC-8 checksum. The scale factor is read
-> from the sensor at runtime, so all three parts are supported.
-> 
-> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+On Mon, Sep 28, 2026 at 2:51=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+wrote:
+>
+> Hello,
+>
+> On Mon, Sep 28, 2026 at 01:55:26PM -0700, Ian Rogers wrote:
+> > On Mon, Sep 28, 2026 at 12:45=E2=80=AFPM Alireza Haghdoost <haghdoost@u=
+ber.com> wrote:
+> > >
+> > > On Mon, Sep 28, 2026 at 12:52=E2=80=AFAM Ian Rogers <irogers@google.c=
+om> wrote:
+> > > >    annotations. Saves 48 bytes per struct symbol (two rb_nodes) and=
+ provides
+> > > >    cache-friendly binary search (bsearch) and callback-based iterat=
+ion.
+> > >
+> > > Hi Ian,
+> > >
+> > > Thanks for posting this and for Cc'ing me. I built it on edd8a9fe2eca=
+0,
+> > > the same base as the v3 series I sent last week, and compared it with
+> > > v3 in eager mode (today's behavior) and with --lazy-load-symbols.
+> > >
+> > > All runs use perf script --no-inline --max-stack 127
+> > > -F comm,tid,time,ip,sym,dso, with one warm-up and three runs; the
+> > > median is shown below. Peak anon is the maximum RssAnon from
+> > > /proc/PID/status, sampled every 10 ms.
+> > >
+> > > 1) Production: 120 s cgroup profile of a storage service on an 80-CPU
+> > >    host (perf record -a -g -F 99 -G <cgroup>). 54k samples, 11 DSOs,
+> > >    5% of lines [unknown].
+> > >
+> > >                   time     max RSS    peak anon
+> > >    v3 eager      4.5 s    386 MiB     314 MiB
+> > >    v3 lazy       3.7 s    151 MiB      80 MiB
+> > >    this series  95.9 s    309 MiB     275 MiB
+> > >
+> > > 2) A sample fixture from my v3 cover letter, a worst case with 73% of
+> > >    lines [unknown]:
+> > >
+> > >                   time     max RSS
+> > >    v3 eager      3.2 s    334 MiB
+> > >    v3 lazy       1.9 s    106 MiB
+> > >    this series 205.3 s    449 MiB
+> > >
+> > > Most of the time goes to reloading. On the fixture, a profile shows i=
+t
+> > > under map__find_symbol() -> dso__load() -> dso__load_sym(). After eac=
+h
+> > > shrink, the first miss in a shrunk DSO re-parses its whole symtab, an=
+d
+> > > addresses that resolve to [unknown] miss every time.
+> > >
+> > > The peak is still set by dso__load(), since the whole symtab is
+> > > materialized before a shrink can run. That is the main blocker for us
+> > > running perf script at scale: we can't bound how much memory it will
+> > > use, so we have to contain it with memory.max, and then the profiling
+> > > job fails with an OOM kill instead of degrading.
+> >
+> > Hi Alireza, and thanks for the feedback! I'll see what can be done
+> > about dso__load in v2.
+>
+> Thanks for the patches and the analysis.
+>
+> I think many of this memory overhead come from the symbol string.
+> Probably we don't use most of them.  Then would it be nice if we can
+> lazy-load the strings?  Then it'd have an union of a pointer and a file
+> offset for symbol strings.  The find-by-name API is used rarely for
+> user DSOs and the kernel symbols should be fully loaded anyway.
+>
+> Without the string (and the priv part), now it has a fixed size so it
+> should be saved in an array directly.  Probably we can add a limit there
+> and print it with offset when it doesn't have the name.
+>
+> I'm a bit skeptical about the refcount approach here.  It may be hard to
+> determine when it reclaims memory.  I guess the lazy-load strings with
+> an array would give similar savings like Alireza's work.
 
-...
+Thanks Namhyung. Without reference counting we lack a good way to
+discard symbols; we must either assume they always exist as in the
+current code or implement reference counting. I don't see a way around
+it. Alireza's patches introduced an "unknown" state for when a symbol
+limit was hit, but I think that'd be frustrating in practice. We could
+use it after trying to shrink memory use, in my opinion.
 
-> +#include <linux/cleanup.h>
-> +#include <linux/crc8.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/once.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/unaligned.h>
+Fwiw, I never like switching the rbtree to an array. The issue is that
+the rbtree has references that really should be managed by a reference
+count. Doing that is a challenge in the current code and a sorted
+array offers similar performance while simplifying the reference
+counting.
 
-Follow IWYU principle.
-At least types.h, err.h or errno.h are absent.
+We load all symbols instead of lazily because we need the end of a
+symbol, which we can only determine by processing the entire symbol
+table as the end of one symbol is the start of the next. We generally
+translate one address in a DSO into a symbol, so loading all symbols
+is overkill. I think we can do better by loading only symbols within a
+certain address window rather than loading all symbols in a DSO. We
+can then expand this window as more symbols are needed. This at least
+bounds the number of symbols but isn't quite lazy loading.
 
-...
+Alireza also made good points about how symbols not being found or
+being shrunk leads to thrashing patterns. I think we can fix this by
+maintaining extra state in the DSO. I'm working to add this into v2.
 
-> +static int sdp31_read_measurement(struct sdp31_data *data, s16 *pressure,
-> +				  s16 *temp)
-> +{
-> +	u8 rx[6];
-> +	int ret;
-> +
-> +	ret = sdp31_trigger_read(data, rx, sizeof(rx));
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (sdp31_check_crc(&rx[0]) || sdp31_check_crc(&rx[3]))
-> +		return -EIO;
+Thanks,
+Ian
 
-> +	*pressure = (s16)get_unaligned_be16(&rx[0]);
-> +	*temp = (s16)get_unaligned_be16(&rx[3]);
-
-And casting is for...?
-
-> +	return 0;
-> +}
-
-...
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->type) {
-> +		case IIO_PRESSURE:
-> +			*val = 1;
-> +			*val2 = data->dp_scale * 1000;
-
-KILO?
-
-> +			return IIO_VAL_FRACTIONAL;
-> +		case IIO_TEMP:
-> +			/* raw / 200 = degC, so raw * 5 = milli-degC */
-> +			*val = 5;
-> +			return IIO_VAL_INT;
-> +		default:
-> +			return -EINVAL;
-> +		}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Thanks,
+> Namhyung
+>
