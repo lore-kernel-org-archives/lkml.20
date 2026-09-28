@@ -1,36 +1,36 @@
-Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A2B48F82D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0544C45FFC8
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587934; cv=none; b=PN0LghxOzBMOWA4LGFDcAWsFN3RVoWJ0nXLAR4Bs2uwqaDtBcu12Vq784IvhAEwdll3oSzPaKZr4WQ8IdzrICsuHZZLvTPqKbdU4vHIgAnfsBVrEP6VAcMLnnE4Uvso8nTW/tOw0FQBEyb4+Foso8JU6o+UI6K1L7oTeXqGKnSM=
+	t=1790587961; cv=none; b=s1TFjUCkD7JlrpTWFezOa+kTnp2zU9eAEZyloeKEXPbYHoJl8FpzndpYhWE1gZn00VJJxXwGbLUO/HK2cD4CKdOl1znZiRq5AgalGcz/6N1YhLU4iXRr3N53HPFwxZSJdcVv+JaSIfyJXvMo35yp/urq/b4U7BCRKWDBdaOdqPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587934; c=relaxed/simple;
-	bh=/bSK2lubDnXPJRJMBandZLUxr2bVf/nnBoaIn65kMWE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=AY5CDfNl/cPdodXQ6kjXocKLI6aWXRJ+4rjKpMCPyVFXvabVhV2dmvez1FqdpF27y4LRdTigClReH2khL/F3rq7EK+dDTIioHtn1ezo37NwLkup3DHvj4Vbiz3SFnoJQMseMm12gJ3rd7GKg794W5jFatX+rWfwUUzsoXxq62ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D9EE97Ud; arc=none smtp.client-ip=95.215.58.237
+	s=arc-20240116; t=1790587961; c=relaxed/simple;
+	bh=q/EWnrvfu/By4yIs7thZgSeiec3+1Clq2apXYTQEHY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oD5NcfMPJVuYBETt83z01sncup1Ply6Qr2KPuq5/5HA17lO5mZV1+SuNn5W09uw72RjXQlUsKLRViDTTEFlm5ZzdRCf5nk7d2X4RmY1y39T7N/YpcZSZmI4lNxfUnN1mbtsNpvkjilCBMXosvxM5GEgIOGo9zovM61wNFObD1FU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jdX+9JhY; arc=none smtp.client-ip=91.218.175.82
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D9EE97Ud"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jdX+9JhY"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/bSK2lubDnXPJRJMBandZLUxr2bVf/nnBoaIn65kMWE=;
+DKIM-Signature: a=rsa-sha256; bh=q/EWnrvfu/By4yIs7thZgSeiec3+1Clq2apXYTQEHY4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790587929; v=1; x=1791192729;
- b=D9EE97UdixMUET/nixv4jdFGpn4lsz2vp6DJHF7I9olzEJvLDeX0XhZ1rTflBKupJ68p+2ay
- j/Ux1HrX8vhlZ9pXvMhqEMQd/x35HBYHzbJYuZbgUbJMZuXZReKliRoUqwKkDwy8DCO1nr3JFRF
- b2LpAzYyJ3nmxJqpjdKQw320=
+ t=1790587958; v=1; x=1791192758;
+ b=jdX+9JhYFgeoPO1O36VI/5VbY699cBBGGnvy60mbLIgam22SDfZYY/lbg4XoUwQAyaMDgGcV
+ EnzncVm7ujQLG0i23KYplu6P36zw8DPxplCdz8hjBkXkzHINBeRm6YYtQkZLv0GeQwz1mr3bjVe
+ G/JKwOTF4MpPGsYsXhXVXw+o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a440adeeebd7c28e;
-	Mon, 28 Sep 2026 09:32:09 +0000
-X-Mizu-Trace-ID: a440adeeebd7c28e
+Received: by smtp.migadu.com with ESMTPS id aae8f6bbddf91de2;
+	Mon, 28 Sep 2026 09:32:27 +0000
+X-Mizu-Trace-ID: aae8f6bbddf91de2
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <feee55e3-6425-4a00-9622-b809ec4f5021@linux.dev>
-Date: Mon, 28 Sep 2026 17:31:59 +0800
+Message-ID: <8b38cb59-6e3e-4fe2-bbd7-2fc4cdd9312e@linux.dev>
+Date: Mon, 28 Sep 2026 17:32:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,87 +38,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 6/6] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Bibo Mao <maobibo@loongson.cn>, gaosong@loongson.cn,
- zhaotianrui@loongson.cn
-References: <20260927075240.3007947-1-cui.tao@linux.dev>
- <20260927075240.3007947-7-cui.tao@linux.dev>
- <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
+Subject: Re: [PATCH-next v2 1/2] cgroup/cpuset: Run SCHED_DEADLINE shrink test
+ on valid partition root only
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hui Peng <benquike@gmail.com>
+References: <20260927215319.382422-1-longman@redhat.com>
+ <20260927215319.382422-2-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20260927215319.382422-2-longman@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
 
-在 2026/9/28 16:01, Bibo Mao 写道:
+在 2026/9/28 05:53, Waiman Long 写道:
+> Commit f82f80426f7a ("sched/deadline: Ensure that updates to exclusive
+> cpusets don't break AC") adds a check in validate_change() to make
+> sure that there is enough bandwidth for SCHED_DEADLINE tasks if we
+> shrink a v1 exclusive cpuset that has CS_CPU_EXCLUSIVE flag set.
 > 
+> With the introduction of cpuset partition in cgroup v2, we keep setting
+> the CS_CPU_EXCLUSIVE flag for a partition root so that the SCHED_DEADLINE
+> check will continue to work as intended. However it turns out that the
+> current code isn't perfect and there are cases where a cpuset isn't
+> a valid partition root, but the exclusive flag is still incorrectly
+> set. This can leads to SCHED_DEADLINE check being incorrectly triggered
+> when there are deadline tasks in the system. This can result in unexpected
+> -EBUSY failure when making changes to cpuset control files. Fix that
+> by checking for a valid partition root for v2 and is_cpu_exclusive()
+> for v1. It is far easier and less cumbersome than to make sure that
+> the exclusive flag is only set for valid partition roots.
 > 
-> On 2026/9/27 下午3:52, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
->> invocation: every call overwrites pch_pic_base and registers the same
->> kvm_io_device on the MMIO bus at the new address, while
->> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
->> init, MMIO to the stale ranges computes its register offset against the
->> new base and silently reads 0 / drops writes, and the leftover bus
->> entries persist until the VM is destroyed.
->>
->> Reject a repeated init with -EBUSY, a null address with -EINVAL, and
->> only set pch_pic_base after the bus registration succeeds so a failed
->> init does not leave the device half-initialized.  The registration
->> error is propagated instead of being replaced with -EFAULT.
->>
->> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> ---
->>   arch/loongarch/kvm/intc/pch_pic.c | 10 ++++++++--
->>   1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->> index 136211f154d4..2baf9ecf0c8a 100644
->> --- a/arch/loongarch/kvm/intc/pch_pic.c
->> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->> @@ -285,7 +285,10 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->>       struct kvm_io_device *device;
->>       struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->>   -    s->pch_pic_base = addr;
->> +    if (!addr)
->> +        return -EINVAL;
-> To detect repeated init, I think it will be better add a BOOL type variable such ready/has_init for this. In theory device with physical address 0 is possible.
+> Even though commit a86ce68078b2 ("cgroup/cpuset: Extract out
+> CS_CPU_EXCLUSIVE & CS_SCHED_LOAD_BALANCE handling") is marked as a
+> commit to be fixed, the problem may exist before that.
 > 
-Thanks for the review.
+> Fixes: a86ce68078b2 ("cgroup/cpuset: Extract out CS_CPU_EXCLUSIVE & CS_SCHED_LOAD_BALANCE handling")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 753aa65afcd7..104fe10c336d 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -771,8 +771,8 @@ static int validate_change(struct cpuset *cur, struct cpuset *trial)
+>  	 * For v1, effective_cpus == cpus_allowed & user_xcpus() returns
+>  	 * cpus_allowed.
+>  	 *
+> -	 * For v2, is_cpu_exclusive() & is_sched_load_balance() are true only
+> -	 * for non-isolated partition root. At this point, the target
+> +	 * For v2, is_partition_valid(cur) & is_sched_load_balance() are true
+> +	 * only for non-isolated partition root. At this point, the target
+>  	 * effective_cpus isn't computed yet. user_xcpus() is the best
+>  	 * approximation.
+>  	 *
+> @@ -781,7 +781,8 @@ static int validate_change(struct cpuset *cur, struct cpuset *trial)
+>  	 * becomes an issue.
+>  	 */
+>  	ret = -EBUSY;
+> -	if (is_cpu_exclusive(cur) && is_sched_load_balance(cur) &&
+> +	if ((is_partition_valid(cur) || (!cpuset_v2() && is_cpu_exclusive(cur))) &&
+> +	    is_sched_load_balance(cur) &&
+>  	    !cpuset_cpumask_can_shrink(cur->effective_cpus, user_xcpus(trial)))
+>  		goto out;
+>  
 
-Good point. Using `pch_pic_base == 0` as the initialization state mixes the device state with the configured address, a separate boolean is clearer.
-
->> +    if (s->pch_pic_base)
->> +        return -EBUSY;
-> -EEXIST or 0 if it is created already?
-> 
-
-I also agree that `-EEXIST` is a better fit than `-EBUSY` for repeated initialization. I'll update the patch accordingly.
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
 Thanks,
-Tao> Regards
-> Bibo Mao
->>       device = &s->device;
->>       /* init device by pch pic writing and reading ops */
->>       kvm_iodevice_init(device, &kvm_pch_pic_ops);
->> @@ -293,8 +296,11 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->>       /* register pch pic device */
->>       ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
->>       mutex_unlock(&kvm->slots_lock);
->> +    if (ret < 0)
->> +        return ret;
->>   -    return (ret < 0) ? -EFAULT : 0;
->> +    s->pch_pic_base = addr;
->> +    return 0;
->>   }
->>     /* used by user space to get or set pch pic registers */
->>
-> 
-
+Guopeng
