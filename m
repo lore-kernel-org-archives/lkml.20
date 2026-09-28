@@ -1,164 +1,128 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357584195A1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.97
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601081; cv=pass; b=vE5FjE3Vl5VgCsJnI/KrUIm3wuViwHamCOnlQeZuFmGAZMHjGnIvpd0mOR2BUd+OsxQXm1ub3y9ckwA3RDHW4iZn0yBs1YXTgbK+z0rSra8c91ozq5vku422b1mH+FDN0IhgSCV6HWG3ZRqmhIWTLV7MTEd1xr3R8zLX/fvs03U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601081; c=relaxed/simple;
-	bh=o4r5F2fgvwBkN4M4LzHhDPy/9BpkJ+Qa5ATUM2N8jqg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TvQdJlFZ0Negy1omKBIQze9xxGfrqUmojSGvygEtPKlyqUDSqq1nh5hz4LBQ2GoVTD1JG4edTWOsFvbN8q3+/D/8lGrK8gAvcw08DWoDT2sLJb2SckVIp/T3ZdYKuXrA1uIvF33OsEbPoRdCLUJ4dOGSQm7uzs8KodPxZdeJHcQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kX8GLzED; arc=pass smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C645421221
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790601098; cv=none; b=CybEBQrsNnsr27OM6397i1le5atZM/MSI+mgpJJvScRQL2bUlNzSML8UKnebLIkKT8PxZiG7FMgwk2H5Rv01u9batPpCi8TNpqOt0JngFY5Z1DTliJVC6e1ZjCxsrDtYTNENsW2BLqu+OuONOOmLl5YBTo30l+OWb1cvw7YjCyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790601098; c=relaxed/simple;
+	bh=RN2xk2/pj5/I3BQINoAJtu1yiJdf8GVNnSA4MnW2dNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mNRJLIv/TAP3vlYvRlGUe48ckQtZrHmJghCHVGG4L4ENWwqEICBZ3VUre09Gg+q/sGiAizLirQQsDy5oJpTG6iNs/xRdoF5DG+yk51HGI4dUUBopYQm5LSm6HuPF+mBXG7uHGzY6kFJ71JfY5G0yk2Fhz8csXqZizVNeJoS67Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dm3ggQEG; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kX8GLzED"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6abc27842b6so2472766a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:11:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790601078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q59L/B2VnZ7lQNFKYAho1VcN8NV/nyufNmBR8eMMvwyL3QQu9k8JvaYERHRMq9iM8t
-         wCxkwd+db3XPaJjl+vLZRJT7Zan4U5hWcjkXjDP26CwV8U0sgBj0WwgLsABJgGTKdEFl
-         uCpOod2KmFasQVG5EECejfwcBwabYIKU0sSphDGp2Z+L8gSG98VJ4CetZuaMCYysWd2A
-         NTf4Tr0Q0or8XWiP1TVl61ukz/w70ONam7edOEccdRb1aln3UPl42N3yDcOwRUgbnw/i
-         fbwUeqqwMe8TaACWZ9G30g6ag65Efgm+Lz92otoUMQMtI2VLsocKSu8M+XkBLGOFRou2
-         AxKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lQueGXrz4y0mf/YW0CKD4m4LFRs8gTKhhd/6y7bqJSs=;
-        fh=CSHsDiZfDLd2nwZ4QZZJSechJ35W5cVv4aAEcnZNjFA=;
-        b=kxlZoBddAZgIQFsa1jeoGThQjMwLvje1b0TqE4+YwQVMklNOZl8qmEOoQdeJTNOvqG
-         vjYoDqP7X6lWQnwKhp60C/JqRyb8ivi44jTn90FtnRDpb/vv3qJcnmV2GH8frzAIABDn
-         l3QZpk5vBixx/1XtcEDgCjh/hQnKkzPrKq2ptk87jsnEn4t84L36bXdccUp1BTlDYBqe
-         yZyJvrfjaJ0mNKgjeqRVcjtbiiQvQRsABcoq6/4iwxcrbV643JMFCMpQWaAlCNK2abyi
-         kWuMnxbacq6He/qd4jXowE5cUEXg1wllDOAKasc+tY33JJ4fA3I0GwM3lHxYEYD63GVc
-         1lCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790601078; x=1791205878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lQueGXrz4y0mf/YW0CKD4m4LFRs8gTKhhd/6y7bqJSs=;
-        b=kX8GLzEDtUZc8XKDp5fA5RcpnsJa+daZxGbuvKDGqD9c9vKHZWSKbDSr2NpZBwQIcW
-         qSThZZmZYf+a6LRcJtmC6KDfoX4o+Jt0hZKQICy2TU2FRFyNRh399KjdnEbYdNk0ghjn
-         h+AnHU4Al/qSUlP3YRiLGP9kbCElQw13Sb9lSi0gXtPJSaPXSh/ARN/7my0XTuudtw7V
-         lf7v7I8LrXbaRkjBDVhAGFPLIzCE0RuNapBtHlISJXslLweFPg20fAWdPo61eXKS1lsy
-         lmrpzeYLf27P/dKlNN/xGjuc+WuQSbLWoW0jW6rjuCZ4IM7C/XqLzjy2NTkRig/380U7
-         D0qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790601078; x=1791205878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lQueGXrz4y0mf/YW0CKD4m4LFRs8gTKhhd/6y7bqJSs=;
-        b=ns+QA8V1+LA16AMyHhNBdxoKrscAOoO4q2BggxhysnSM6ZqpXmmu15avAC3f7S0sI0
-         fGCIZhjMY0Grak0OkcBMp/J+/S4ZhBoGrkD688QK9jk+jANpVWsZ4Up9Uv02wld15CiN
-         78/VnC2EUyiu+wqbdKdMetBrLkCRX/t85TBVBKETDvmX83KwV92xYnXS2HZ76DO/huyy
-         Z/fi4gZNL9LcuTgDd07Qu/yvvIrkrvPYM0EpLdZZhPAAbZO5mZfdRM7i4NidU8qOGT5A
-         1jwXj2lQtHftYC6Qu791GK4JMe36pvkL3UlSzGJrSqt2Zj0o+qlpqY9dwkNr8vaNe/Cn
-         7KOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFitAtOUV5RWsleaPXjgLq2/poVLhB8iEFKPHAgkINeQ/D82uRh5UUBNXvKQ5vZukxqw32i5Z1ziaUEpc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2HVbK+OS4dR8fxKRQZgh8agythZyRO410DwKHIB4Pv1mbInwv
-	F6JLcQkGySD7JJk8rcwsCTtPriVrD4q1pGHs8Ham+jWPT0ELgPbmNIRpKGrXPMD/VPbH+wbLF+G
-	80zYiW+YRLyi+cbzCrAHnt17CheZkxNE=
-X-Gm-Gg: AYBFou0z56rCHmANSb3duK1YtTxzsAtk4l6pP64cfVlKnunQEEmvk9D7sN+5fSWjHyG
-	7TtQ5jO1ExS6KbqLdyKBrqXMLWf6CwSAoJzfhdwxhnMvQLbI8XWe/ru9DDFYB12g7chMnzf9r21
-	mWERomGeDjTbf5vzeT+7pDTQaBzLT820wFvM2Izjn/CMmCkHGJ/UGSpdWHcolRcib961Q9YuZs6
-	MDQTbasHEiH+f5dvcjTCN2PsfeX1TcOZ1t6h5/vOXWuww8NcrpoFIHLzQ0aZeWSMoh36foZLrfN
-	OS0qz/9RYLrGEI2jkLuf/WOmMhUcdOWXWZEl3Vu/y+NYBho+EZNjPYOZk9ohHogU8QFkyPbRV9r
-	QD66fGq1xP4X+JlYsWWNOsvleMVTTcCr/unCZKP5x9AoVG3iPF5XLWpDJltNi8ZCj/9N0V/XixQ
-	FxRhXnGNXY3jsnCr1Ql6NgOD43dDT+HzkyCFGXLuzz
-X-Received: by 2002:a17:907:930d:b0:c2d:e067:275d with SMTP id
- a640c23a62f3a-c2de0674acamr162299266b.2.1790601078194; Mon, 28 Sep 2026
- 06:11:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dm3ggQEG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790601096;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=U1oksysxdIEOFzBPfANmMTd4+i/t9FKmSwmS/c9F7Hk=;
+	b=Dm3ggQEGuMs+qHzsT+9kqKlRyAZPJHL58hsotx2b8LSKx31YFp+cz0oALHnvKavSgSxQcW
+	HyvWSyLfU/v+JIrhzOCgH3vP7PimwMrY1t17Q3xBYGKU+uBZjDwdY/osBOn5nG5FeSid+v
+	hPWJiOC/B+w4okfPTrGSVOTALvHH5Ps=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-151-nhfxfn3VNHmacMGaCHo8xA-1; Mon,
+ 28 Sep 2026 09:11:30 -0400
+X-MC-Unique: nhfxfn3VNHmacMGaCHo8xA-1
+X-Mimecast-MFC-AGG-ID: nhfxfn3VNHmacMGaCHo8xA_1790601089
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3EFFB190F985;
+	Mon, 28 Sep 2026 13:11:29 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 124F91800473;
+	Mon, 28 Sep 2026 13:11:27 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: sashal@kernel.org,
+	stable@vger.kernel.org
+Cc: rppt@kernel.org,
+	sayalip@linux.ibm.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6.12.y] selftests/mm: hugepage-mremap: fix mapping alignment
+Date: Mon, 28 Sep 2026 09:11:17 -0400
+Message-ID: <20260928131117.231700-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
- <arZRZfa7AmDxmwoJ@ashevche-desk.local> <20260925125433.GY106095@black.igk.intel.com>
- <araGjQoaffMhDMLz@ashevche-desk.local> <20260926100727.GB106095@black.igk.intel.com>
- <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
- <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com> <50a29ae4-bae1-44be-9dbe-79a1147accf0@kernel.org>
-In-Reply-To: <50a29ae4-bae1-44be-9dbe-79a1147accf0@kernel.org>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 28 Sep 2026 16:10:41 +0300
-X-Gm-Features: AclHuK9datk0SIrirqG4Wm6GEpBsJI2Z425EMVFQsLXPnhF6M-rCXvPDBPrj8CI
-Message-ID: <CAHp75VeHupSXCBUyoUdPXY-GvBcupQ9kczhr-M3=WLkEzDKyvw@mail.gmail.com>
-Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
-To: Hans de Goede <hansg@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, Lixu Zhang <lixu.zhang@intel.com>, 
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, Mika Westerberg <westeri@kernel.org>, 
-	Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Mon, Sep 28, 2026 at 3:35=E2=80=AFPM Hans de Goede <hansg@kernel.org> wr=
-ote:
-> On 28-Sep-26 13:34, Andy Shevchenko wrote:
-> > On Mon, Sep 28, 2026 at 2:13=E2=80=AFPM Bartosz Golaszewski <brgl@kerne=
-l.org> wrote:
-> >> On Sat, 26 Sep 2026 12:07:27 +0200, Mika Westerberg
-> >> <mika.westerberg@linux.intel.com> said:
-> >>> On Fri, Sep 25, 2026 at 05:34:53PM +0300, Andy Shevchenko wrote:
-> >>>> On Fri, Sep 25, 2026 at 02:54:33PM +0200, Mika Westerberg wrote:
-> >>>>> On Fri, Sep 25, 2026 at 01:48:05PM +0300, Andy Shevchenko wrote:
-> >>>>>> On Fri, Sep 25, 2026 at 12:22:15PM +0200, Bartosz Golaszewski wrot=
-e:
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
 
-...
+When running the HugeTLB kselftest suite on arm64 with 64K base pages,
+this test always fails:
 
-> >>>>>>>  drivers/gpio/{ =3D> intel}/gpio-graniterapids.c   |  0
-> >>>>>>>  drivers/gpio/{ =3D> intel}/gpio-novalake-events.c |  0
-> >>>>>>
-> >>>>>> These are interesting drivers, not sure where to put them
-> >>>>>
-> >>>>> IMHO they should be there too. We are maintaining them both.
-> >>>>
-> >>>> Do you send PRs to Bart or you just rely on him to take the patches?
-> >>>
-> >>> I don't expect these two drives to get too much attention, and they c=
-ould
-> >>> be contained nicely inside intel folder and that would help Bart to
-> >>> identify that these are Intel drivers. So your bandwidth would not su=
-ffer
-> >>> even if these two are added there. Your call.
-> >>
-> >> I'd like to avoid a situation where we have Andy's Intel drivers under
-> >> drivers/gpio/intel/ and other Intel drivers under drivers/gpio/. I'd p=
-refer
-> >> to move all of intel GPIO drivers into drivers/gpio/intel/ and have An=
-dy
-> >> gather changes to them if he agrees.
-> >
-> > Okay, we have two parts missing:
-> > - Nova Lake driver (I would need Adam or Mika to step in as at least a
-> > designated reviewer for that)
-> > - USB IO (I think we need to agree which tree it will go through, my
-> > bet that media tree is the best), for that we need Hans' consent
->
-> Routing the USBIO / LCJA GPIO drivers to the media-tree, with
-> Sakari likely doing the merging for both works for me.
+  # -------------------------
+  # running ./hugepage-mremap
+  # -------------------------
+  # TAP version 13
+  # 1..1
+  # # Map haddr: Returned address is 0x7eaa40000000
+  # # Map daddr: Returned address is 0x7daa40000000
+  # # Map vaddr: Returned address is 0x7faa40000000
+  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+  # # Planned tests != run tests (1 != 0)
+  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 hugepage-mremap # exit=1
+  # NOTE: These hugetlb tests provide minimal coverage.  Use
+  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+  #       hugetlb regression testing.
+  # SKIP ./uffd-wp-mremap
 
-Sure, Sakari, would it work for you?
+The problem is that the default HugeTLB page size on such systems is
+512 MiB and 'length' is not aligned to the page size. This causes
+uffd_register() to fail as 'length' is 10 MiB and not aligned to the
+HugeTLB page size.
 
-> Now that I'm working for Qualcomm I don't have much time anymore
-> for working on IPU6 / IPU7 related drivers.
+On upstream this was fixed by a914785f6349 ("selftests/mm: hugetlb-mremap:
+add setup of HugeTLB pages") as that commit aligns 'length' to the
+default HugeTLB page size as part of what it's doing. Since this commit
+is part of a 50+ patch series, we backport only the 'length' alignment
+bits to fix the test.
 
---=20
-With Best Regards,
-Andy Shevchenko
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+ tools/testing/selftests/mm/hugepage-mremap.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
+index 3070484f9ed0..42dd4eeba52b 100644
+--- a/tools/testing/selftests/mm/hugepage-mremap.c
++++ b/tools/testing/selftests/mm/hugepage-mremap.c
+@@ -87,6 +87,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+ 
+ int main(int argc, char *argv[])
+ {
++	unsigned long hugepage_size;
+ 	size_t length = 0;
+ 	int ret = 0, fd;
+ 
+@@ -104,7 +105,12 @@ int main(int argc, char *argv[])
+ 	else
+ 		length = DEFAULT_LENGTH_MB;
+ 
++	hugepage_size = default_huge_page_size();
++	if (!hugepage_size)
++		ksft_exit_skip("Could not detect default hugetlb page size\n");
++
+ 	length = MB_TO_BYTES(length);
++	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
+ 	fd = memfd_create(argv[0], MFD_HUGETLB);
+ 	if (fd < 0)
+ 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
+-- 
+2.55.0
+
