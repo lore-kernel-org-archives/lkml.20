@@ -1,64 +1,64 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A1B49DBBE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E0E49D5AC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592313; cv=none; b=tQMd4zRvjMBEuX7ENpazipo0zRTQtwtSPKjfRUa8X4QeUD17VU1fWaw78gsmTymi88S8FDps+CpNFzj1y5IxjMpKStpTh/MoeEA+7Qm6A8gVUsth3DZjVA4vfEqkMhKMGhYPEavKxZ6vGdMjNYjKXx1TynsUitlqGHoyQDh95k4=
+	t=1790592317; cv=none; b=jTwFlOYkNH+W2lzr1ewSDnl3FK2eJY7553S/L1dt6MxyXKLFGqbQ3tt3ZnSajrd72O2pkfntRlkE/eUCVikzOvouydIJEiS+SAfDLQlO9ea0ZCXdYfp/YnBiqZGaDjirZkUEJvQpdNLDvnutxu3WXD9D+LXO/j6JgvUXnj2fEnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592313; c=relaxed/simple;
-	bh=46KW7jlb6ZAP3VKw+KAEpnMDi8hj0qhLKIPWEXdIWc0=;
+	s=arc-20240116; t=1790592317; c=relaxed/simple;
+	bh=TKNn4LEOUUv0yJ9yNzSuHJV5b+Vs5Z355F4qo0GHiBg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fgiiqtxZiahf6oUI+sdS3Rfq2XUGJhPqCX5SfEGVNXUukvaPQFw6EZ7xEr5uf6G5hcyvcFkeFx8+F5n8uyzjGIr0wGQtWW2JgLdZqLmM+UoXwqpLqe7lJa5bTQ8FuNIpKz0OtXEJ+iIzrpZLTTQJRI+TnDTwjVyxtV/S9hGzO7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FBKvhxGA; arc=none smtp.client-ip=74.125.227.170
+	 MIME-Version; b=s9UZLBfnBe+WnDDoPXsI6V8JwmVZdFaR73aAQFOUc/u8B/yQkAP8tsduqUpXrd6uPWGkf/b6vG8c83uMCngncjPyXW2Xy55eIrkhWs2fXm6G4+pDyIS1wPOrIWuSGLiLgsVIgq9tuQRQMJTfg8C0OVxjeLDjjdxWrGPIlElE7QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBGhWTsu; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBKvhxGA"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso2351489a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:45:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBGhWTsu"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so978641a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790592312; x=1791197112; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790592315; x=1791197115; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FRWWslO+/BIQXfzsm8/OFu4CVVZ4h6+o4ax7yTxGRKw=;
-        b=FBKvhxGAKCNLuLkwXdYSB0Nk/PxhDGfkwOFNn6QTtGoPsyx64TTmwGS4/Lgul0r69Y
-         /42o+IoT68d5M/ZlpjD8U5OljPhRLcjoqsakQwywYi8Gh0dxs8uJojjwj/HRPaV8u+8T
-         kXwCwhNjVqPIeZviigv8gcz7kG2uclMUuTMcjhLcXSFcN0WkjWwh9O2xfONcFZiiOeYL
-         bDAK4UX46KVPaEQzxCq2Q8Hx2eNHno7gpHcFKcHFfYMHJ6OngENx5utzwwNLNRtap9DB
-         mn0hAN7gBw8HeIMpjlKAafjw7Xk0o7GNtu4u0TBXsKKRpKiFxbmY6Qp1CjqFbTQsgl4Y
-         aekQ==
+        bh=Nf/66osJudXLuEZ03+OHFd4peJaJBQJPrvu5ptsPZms=;
+        b=dBGhWTsu9vSZ1jwbYN2vJCa215NS5rEoUQiUE00EFenYUpaeDv+Ci5PMpFb+zPMbRs
+         z+bNrSL+idlTpEejiMw4JkzM+UtP5ES9gzdmX3f6Am62fl5xa5pV4bolN8tY5zU/WBbo
+         AMmyLCrYW3YFg1SFht/KV017qxspPYD9e43Z5FHGe+METuExn79aQf0Ay30DvAvsUpaU
+         Q8atK/QsMkRt/eyojP3lWBPnSUbZDeSYaW0s9BwmVS9/2iflC5N7zhIQEiX/wgj4FEQ6
+         gPmJM/pzdMHXelDrbTRqN1Fjifl3rwbXmhZRNHm+kDsfZBKC+S1/WKM32QAqGVDh7ZmS
+         6uBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790592312; x=1791197112;
+        d=1e100.net; s=20260707; t=1790592315; x=1791197115;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FRWWslO+/BIQXfzsm8/OFu4CVVZ4h6+o4ax7yTxGRKw=;
-        b=cD1aQmkOkBKXx+FZ5a/yNjn3lJW+l5Cpcz5fulR4bW5cqOZd/MaQ1lXMSH2xaSJN9o
-         Ji/LSMTIDp/+FvAuknL52cqzVK5MIcrmghKNXCZtArEm1drETLGxRyiAis2UgGh3RY9g
-         8F0aAZwoNBXpB4YnraOKXXmYQ33OS/GjY/xO3UKQaFBlevN+xPyxwSX5WE6AvYg0YWNS
-         YAWgEAxM6YwG0Nm+9xAvDsX+kWkr4BwDBlS6IA4hY3XvT/S9BjBgYT3j0mJi5ib1nXor
-         bCJWfOnqvUnq95uMigRMrFcxvjDwUmFfAjzIJMOIm27eG7gNBhaf6E7nsbsq5yQw6Dop
-         o9Eg==
-X-Forwarded-Encrypted: i=1; AKwUvBwc/LsZdo03tEwJ3h4IZ56KnIcuLlLz0c4a/z4kEtWlPR/h1Z1lazfVzM8xd1PthbAY3lBXBPps2AETZeE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqbjgJ1tcD3sC6ISeZr++P6VHNuge1m+DlMR6J2D9ZWCpPVAF/
-	PpN+pbOViZL2vP1tm/OU503+GARL4T0mqkFTaKmhiM/jZKVrRjQGIExx
-X-Gm-Gg: AYBFou2wJKCxE57BDwlG1NfzNsDiKF/d66Jii2o2nL3Vx45MXBXQr0H5p8xaOUd0p9L
-	5nxbnO1D+/kUy5QPyoISzlJiYPTW+s2uPFO4W0jRTwuZ5mei5mS+4mOKw8dvLa3umOsgZEJGuZ4
-	ibDgEZszydsuG8AnOFMz7Pg0gau6Xmq1sOwHeNlEGlfuZQdslVKEALGws7dqa2RNZRRmfFN7wje
-	svqJHkrfcjN0k73T5Vx6hghTU9NkGUiIfTrLZP/zCrD1W0FxnK6bPA2dFOl0dx/l3omrm+Kin8a
-	BAbooU430VOPo2TAjz5fyeJ82AF023ipA5zRPv+tWtl3RWNe83UWyvJupZSdjkudoP7IcFDcB0J
-	4AaA1Soy1Cl01+LTuMYEPOKR4u3Q4IbHqfVRS8w0I6nv7nkyxUHtF/JQGJ1OUwkMoLLdc6sV+AJ
-	B1V2vTrDBmw8P5hpKHidv8O4/l1CTJoZYuXA3q2ehqw4HEe9i4R7ZrM1DXFmzDuqIBMpMXpbgcG
-	dGuCBg4rLPo83KsL1/hjrPCWnfZE2tQHYURNB0PyFHoSNS5DASyzFzT6w6vJg==
-X-Received: by 2002:a17:90a:164f:b0:3a0:a912:e775 with SMTP id 98e67ed59e1d1-3a0a912eb90mr5962250a91.54.1790592311558;
-        Mon, 28 Sep 2026 03:45:11 -0700 (PDT)
+        bh=Nf/66osJudXLuEZ03+OHFd4peJaJBQJPrvu5ptsPZms=;
+        b=EKLpk/53gg8XTJpRilV2JDN6ZZejp6TDlVG0Ux1Wh1WMEPtOdbytkIKaiyF8EOC4Tb
+         z5VsSJgh+ZDja68akqf44UmeCRDOrdFyt2K7Y9PHbBB4d6J2gXH3DG3alnp9PRlhMtJO
+         xzRkU0TjZj6EIbGBK4b142z9oumrdKheAjNkgJeJY8xViGpSzCAfHbEVovtwq40ed4nV
+         zaf0oQbbf+PyO0tQP9Df8PjRGS6W4FEJrVNiQQbUI51TAuYpK7JJOxVhd2ar9K1PXZL3
+         MZSh9lSn2Q48hj3dEHGU3DK/Y9A7NfejVfTyX4/v2xsdJobpZLTjOpW+TYEzuPNlOXES
+         TMqg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1AjRy+n7Ja7N6d55l2qBWqZgrSwgE6R+3fwN0WzWmZbM/bYfUGPjYVcBeqPbIZj7+vav8VPrcZggxGAk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVNnsHF38f+qkQ2bkzMBHiemkAQ+wdX2S1zAb9aSN8Tm8FqgY+
+	DXm1A+XjOj4ma2APxFcMuOQUr8m642Q0CrIzwjy7XO9iruFaydD9bmLi
+X-Gm-Gg: AYBFou325jWew9TqUrvgFDjR0Qj9Y2M/i6FTNw1LoFzTjNAoMg0T0NznMOfR19UPBR1
+	HXiv5VXg1yEdQv2zUwbVtg8pxHypSWKCjyHFB3cGR5/4Prlnccigh+J2E4EVcvFEHBGauALjOT2
+	ny1cV63jxuyD0QRtzFBN1DH7Z8TNDn7TwQD0+u0jyUxe6rDJJLwtAzE8LTVxPh4TbDaAUZabate
+	P79nZucDYbgj86NqfE4u8H0/57JCSzusIAa30ademP1z9nfVo/VV4PfILt6/36hVu71Ix/Jq21X
+	qj8Zfut/+0lvcCwJGbzp/ZIaCB6Sgld8tfchCVrWlzJktDPjNeBcNc2npumo8WOTkB7QGQw+yvC
+	1k1JCQ5zceD7cMXT+G/xUI0av/Tqws/NCAHkQGwugddHHYlDn/CjB0TnyYy0MmhHjWwXLkAs1WL
+	ciej9ejAqaPvnVRwsOLrIrOXXNKdX7lvyXLiwmPgA6/Zz190RvvpOdEXifZdynp5kIbWwLX8Ygq
+	ClCdjpwXnCEFYKG7zG1vQGwbTIIYCIEBth/SfeIr5/Q5nzqHpKmx79afBVy
+X-Received: by 2002:a17:90b:4fc8:b0:39d:f4fd:8075 with SMTP id 98e67ed59e1d1-3a098ce492amr9654551a91.19.1790592315575;
+        Mon, 28 Sep 2026 03:45:15 -0700 (PDT)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm27071975a91.12.2026.09.28.03.45.08
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm27071975a91.12.2026.09.28.03.45.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 03:45:10 -0700 (PDT)
+        Mon, 28 Sep 2026 03:45:14 -0700 (PDT)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -69,9 +69,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Marco Elver <elver@google.com>,
 	linux-kernel@vger.kernel.org,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [RFC 5/6] powerpc/mm: Rework nohash TLB broadcast locking
-Date: Mon, 28 Sep 2026 16:14:35 +0530
-Message-Id: <d14bf0c33cac4a54601e0c2e4019a373ba342530.1790590014.git.ritesh.list@gmail.com>
+Subject: [RFC 6/6] powerpc/mm: Enable context analysis
+Date: Mon, 28 Sep 2026 16:14:36 +0530
+Message-Id: <f7cc79150caab4f355de8e8c44fda5f954f55130.1790590014.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1790590014.git.ritesh.list@gmail.com>
 References: <cover.1790590014.git.ritesh.list@gmail.com>
@@ -83,58 +83,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Clang's context analysis reports:
-  mmu_context.c:141:2: error: releasing raw_spinlock 'context_lock' that was not held [-Werror,-Wthread-safety-analysis]
-  mmu_context.c:147:1: error: raw_spinlock 'context_lock' is not held on every path through here [-Werror,-Wthread-safety-analysis]
-
-  tlb.c:257:4: error: raw_spinlock 'tlbivax_lock' is not held on every path through here [-Werror,-Wthread-safety-analysis]
-  tlb.c:259:5: error: releasing raw_spinlock 'tlbivax_lock' that was not held [-Werror,-Wthread-safety-analysis]
-
-This reworks the locking in __flush_tlb_page() a bit to satisfy clang
-context analyzer requirement.
-Also steal_context_smp() drops the context_lock, so it needs to be
-annotated with __must_hold to inform the clang analyzer that this
-function holds the context_lock.
+powerpc/mm/ objects now build with Clang context analysis enabled.
+Turn it on for book3s32, book3s64 and nohash mmu.
 
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- arch/powerpc/mm/nohash/mmu_context.c | 1 +
- arch/powerpc/mm/nohash/tlb.c         | 8 +++++---
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ arch/powerpc/mm/Makefile          | 2 ++
+ arch/powerpc/mm/book3s32/Makefile | 2 ++
+ arch/powerpc/mm/book3s64/Makefile | 2 ++
+ arch/powerpc/mm/nohash/Makefile   | 2 ++
+ 4 files changed, 8 insertions(+)
 
-diff --git a/arch/powerpc/mm/nohash/mmu_context.c b/arch/powerpc/mm/nohash/mmu_context.c
-index 28a96a10c907..bdbe1f55f388 100644
---- a/arch/powerpc/mm/nohash/mmu_context.c
-+++ b/arch/powerpc/mm/nohash/mmu_context.c
-@@ -95,6 +95,7 @@ static DEFINE_RAW_SPINLOCK(context_lock);
-  *  -- benh
-  */
- static unsigned int steal_context_smp(unsigned int id)
-+			__must_hold(&context_lock)
- {
- 	struct mm_struct *mm;
- 	unsigned int cpu, max, i;
-diff --git a/arch/powerpc/mm/nohash/tlb.c b/arch/powerpc/mm/nohash/tlb.c
-index 07a2db16c2b1..9297549aef41 100644
---- a/arch/powerpc/mm/nohash/tlb.c
-+++ b/arch/powerpc/mm/nohash/tlb.c
-@@ -252,11 +252,13 @@ void __flush_tlb_page(struct mm_struct *mm, unsigned long vmaddr,
- 		/* If broadcast tlbivax is supported, use it */
- 		if (mmu_has_feature(MMU_FTR_USE_TLBIVAX_BCAST)) {
- 			int lock = mmu_has_feature(MMU_FTR_LOCK_BCAST_INVAL);
--			if (lock)
-+			if (lock) {
- 				raw_spin_lock(&tlbivax_lock);
--			_tlbivax_bcast(vmaddr, pid, tsize, ind);
--			if (lock)
-+				_tlbivax_bcast(vmaddr, pid, tsize, ind);
- 				raw_spin_unlock(&tlbivax_lock);
-+			} else {
-+				_tlbivax_bcast(vmaddr, pid, tsize, ind);
-+			}
- 			goto bail;
- 		} else {
- 			struct tlb_flush_param p = {
--- 
+diff --git a/arch/powerpc/mm/Makefile b/arch/powerpc/mm/Makefile
+index 8c1582b2987d..33e51abb5aac 100644
+--- a/arch/powerpc/mm/Makefile
++++ b/arch/powerpc/mm/Makefile
+@@ -3,6 +3,8 @@
+ # Makefile for the linux ppc-specific parts of the memory manager.
+ #
+
++CONTEXT_ANALYSIS		:= y
++
+ obj-y				:= fault.o mem.o pgtable.o maccess.o pageattr.o \
+ 				   init_$(BITS).o pgtable_$(BITS).o \
+ 				   pgtable-frag.o ioremap.o ioremap_$(BITS).o \
+diff --git a/arch/powerpc/mm/book3s32/Makefile b/arch/powerpc/mm/book3s32/Makefile
+index 50dd8f6bdf46..d5069a586c7b 100644
+--- a/arch/powerpc/mm/book3s32/Makefile
++++ b/arch/powerpc/mm/book3s32/Makefile
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+
++CONTEXT_ANALYSIS	:= y
++
+ KASAN_SANITIZE_mmu.o := n
+
+ ifdef CONFIG_KASAN
+diff --git a/arch/powerpc/mm/book3s64/Makefile b/arch/powerpc/mm/book3s64/Makefile
+index 33af5795856a..c5d8d2ef72ac 100644
+--- a/arch/powerpc/mm/book3s64/Makefile
++++ b/arch/powerpc/mm/book3s64/Makefile
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+
++CONTEXT_ANALYSIS		:= y
++
+ obj-y				+= mmu_context.o pgtable.o trace.o
+ ifdef CONFIG_PPC_64S_HASH_MMU
+ CFLAGS_REMOVE_slb.o = $(CC_FLAGS_FTRACE)
+diff --git a/arch/powerpc/mm/nohash/Makefile b/arch/powerpc/mm/nohash/Makefile
+index cf60c776c883..7d7409d2cf97 100644
+--- a/arch/powerpc/mm/nohash/Makefile
++++ b/arch/powerpc/mm/nohash/Makefile
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+
++CONTEXT_ANALYSIS		:= y
++
+ obj-y				+= mmu_context.o tlb.o tlb_low.o kup.o
+ obj-$(CONFIG_PPC_BOOK3E_64)  	+= tlb_64e.o tlb_low_64e.o book3e_pgtable.o
+ obj-$(CONFIG_44x)		+= 44x.o
+--
 2.39.5
 
