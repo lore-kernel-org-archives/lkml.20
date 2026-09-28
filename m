@@ -1,91 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31052E7370;
-	Mon, 28 Sep 2026 12:16:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8C22D9780;
+	Mon, 28 Sep 2026 12:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597795; cv=none; b=VuEDutNp2OhoMqemJGqPdno+wx8396K/U091Izco0LtQyfA4Wh0rdJi1DjmzChrOVHg/uxMgnxFM2zbjgHLvLnVajGflv3Viz6zZoOKtbzmAhcdloj/IVUDpZ8XfrcuGTSud4URBQbp2MD2TlxQsLJE7OhZpiFDIlnGRWRInM4Y=
+	t=1790597804; cv=none; b=AcOg9A6u9K5FAE3T+bQuv+g4ARn/rjuwfSctBEXjZYuHbiU5VLLNYdo59cASD4tef44pP39veYsBZbqro1SOLWdhrvlw3ddx0FlZfDCocPqH9nUC6aVtLwiM9xcw4fSpGOoztfb/dBcPHeQW9mbOqGVT7hXZpMBlAzosovANGas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597795; c=relaxed/simple;
-	bh=KuHZqfekh5ZPAEucEpKCSKNpmdMHELyD0CXhACD4lAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qtix/dXJWzn+qdinYo6YZSK/DJWfpx61JVnrxUSuMR8FpLGixHwV5zrmaEFvPgqLaR54VLnbffHS7Z/whEGfjlQsZTTxY/SxZa8HKoQxym9WoO/ErD6O9i5CQZCWkfhqKRjQx/q0QgULD5PjhneqjBEghZzyvTVflEpSwbbunfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpiW+7rN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790597804; c=relaxed/simple;
+	bh=OuWmBA2AfGbO9O6NdK7R0zBcaotzJKjBa8IaakDd9so=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=l/JLb1eNtbL200pwQAYiN8vbJ0FB3crGCchfZMZUe+Zs9wnoBgGrFcmg70aMFsjyyP0OK9Z3ZHqv1rl0xe5l4L24noyFjqy6IZSpBASM9CGP035MYnhf6L2NnM2g029MEgfsW7hiUWlxiSLVVXxqDADYf4Rxrcif/WaQvFAQxbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=moa9aQb3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpiW+7rN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536221F000FF;
-	Mon, 28 Sep 2026 12:16:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="moa9aQb3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A5B1F000FF;
+	Mon, 28 Sep 2026 12:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597793;
-	bh=KuHZqfekh5ZPAEucEpKCSKNpmdMHELyD0CXhACD4lAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HpiW+7rNQQuhtN0LsjGTaRjsKM87FLoi2vaHHamzjDYtGSW+EZIpa93MpItmkZgEF
-	 RraauKwc3Rvefoza+wpqTTFUYyaIsOzT4DPMlMX91z2NwmtcB7xZWetsTcG4oaGnZD
-	 ty9qT6d8gNWGxz13JV4xb5YPgIMLE6A/nGwv+A4VYh1m8XusBkNpEi/w9KOqf28Y+Q
-	 GHiqMYIZ9XQCIr4Plj4VoC1aHbIJSsZThn8H4OINo+GHHfNmOifmMPwRsMEi15LR6s
-	 49+KQhLg7vKbeFstUQMDJEKQ5ucbPX71OrH5wK7OFREE23D6c7qrjFVqK68ZeYAut0
-	 WArzzbNt+5mfg==
-Date: Mon, 28 Sep 2026 13:16:27 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Nicolas Schier <nsc@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH] kbuild: keep .modinfo when vmlinux is linked with
- --gc-sections
-Message-ID: <arpXd4ZEYnP6qR4j@gremlin>
-References: <20260927161227.1179863-1-sashal@kernel.org>
- <arpLoeLVATRCXm5E@gremlin>
- <20260928115628.GA964114@ax162>
+	s=k20260515; t=1790597802;
+	bh=+BPqsEVt6o4S2aBhcJVM3MwO8plXj1e6T8B9ELdlxEA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=moa9aQb3uCCfgmel/5Ls6dMMX8FiDIbpFtAl0OglOc5WQq9twT1qo3F8SrENZSoje
+	 t/j4bsP0U5yWAILoh5PLYxgawlHdLxZSRDxX84SWTG7srrTOp3fMnBshwR/c/pcsr2
+	 BPBO5oH1Le5OgGV2Ztyb92XBLO/Hp2W2MMO4WmJpBZpRi8D/TJr6r2G4enp1UQgreP
+	 G1jiEbXBudwxinLrlCVk7t5aQZCb6a7XjvtW2mloEez0gUUebYBc+X+cNjjSFg4LeK
+	 eWtggWd4ipNrb6qAr1teES8bUO8OQ9VQjAxOlZng3NkqCPduVkWmefUoD3kQivOOHa
+	 lLk3ffPsllK7A==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
+ <hkallweit1@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, "Russell King (Oracle)"
+ <rmk+kernel@armlinux.org.uk>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John
+ Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, Suraj Jaiswal
+ <quic_jsuraj@quicinc.com>, Richard Cochran <richardcochran@gmail.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>, Vladimir Oltean
+ <vladimir.oltean@nxp.com>, Ong Boon Leong <boon.leong.ong@intel.com>, Voon
+ Weifeng <weifeng.voon@intel.com>, "Song, Yoong Siang"
+ <yoong.siang.song@intel.com>, Linus Walleij <linusw@kernel.org>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>, Magnus Karlsson
+ <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Simon Horman <horms@kernel.org>, Thierry
+ Reding <thierry.reding@kernel.org>, Jonathan Hunter
+ <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Jose
+ Abreu <Jose.Abreu@synopsys.com>, Yao Zi <me@ziyao.cc>, Philipp Zabel
+ <p.zabel@pengutronix.de>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, Alastair D'Silva
+ <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, ZhaoJinming
+ <zhaojinming@uniontech.com>, Lorenzo Bianconi
+ <lorenzo.bianconi@oss.qualcomm.com>, Ding Hui <dinghui1111@163.com>,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, Linkui Xiao <xiaolinkui@126.com>,
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev, James Hilliard
+ <james.hilliard1@gmail.com>
+Subject: Re: [PATCH net-next v5 04/19] xsk: freeze deferred pool teardown
+ during system sleep
+In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-4-feec6c14dd06@gmail.com>
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+ <20260927-submit-stmmac-reset-fixes-v1-v5-4-feec6c14dd06@gmail.com>
+Date: Mon, 28 Sep 2026 14:16:38 +0200
+Message-ID: <87a4p14lll.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928115628.GA964114@ax162>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 01:56:28PM +0200, Nathan Chancellor wrote:
-> On Mon, Sep 28, 2026 at 12:15:46PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Nathan - do you want me to fold this into the 1st patch of my series on respin
-> > or fine to treat separately?
+James Hilliard <james.hilliard1@gmail.com> writes:
+
+> Pool destruction calls the driver under RTNL from system_wq. That queue
+> is not frozen during system sleep, so ndo_bpf() can run after the device
+> suspend callback has gated its clocks or after the noirq phase.
 >
-> Let's keep it separate since it is an existing issue and might want
-> to be backported in its own right.
+> Use the freezable workqueue for deferred pool release. Work already
+> running completes before device suspend, and newly queued destruction
+> waits until device resume. The pool, UMEM and netdev references remain
+> owned by the work until then. This does not replace driver error
+> handling after a failed resume.
 >
-> I applied a subset of your series to kbuild-next-speedups to begin
-> exposing the "ready to go" (IMO at least) bits to -next (good thing
-> since it found this). You should be able to rebase on that for
-> subsequent versions, although maybe we still want to include those
-> changes for
-> others to continue to review but *shrug*. If there are follow up review
-> comments, just send delta patches and I will decide if I want to keep
-> them separate or squash them.
+> Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from=
+ umem")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-Ack, will rebase on that and send deltas from here on out on those.
+This fix should go as a separate net fix for AF_XDP (potentially paired
+with a minimal stmac-fix).
 
-Easiest to keep things straight on my side would be to stop sending those
-patches, I can list them in the cover letter with links to the originals
-for any further review?
+> diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+> index 9d2d94f1fb75..c58f56f24a9c 100644
+> --- a/net/xdp/xsk_buff_pool.c
+> +++ b/net/xdp/xsk_buff_pool.c
+> @@ -337,7 +337,10 @@ bool xp_put_pool(struct xsk_buff_pool *pool)
+>=20=20
+>  	if (refcount_dec_and_test(&pool->users)) {
+>  		INIT_WORK(&pool->work, xp_release_deferred);
+> -		schedule_work(&pool->work);
+> +		/* Teardown calls ndo_bpf(), which may need powered hardware.
+> +		 * RTNL alone does not exclude the device's system PM callbacks.
+> +		 */
 
-As for what remains, is there anything else I need to do?
+Remove the comment, please. The commit message is enough in this case.
 
-I think timing this week is less than ideal with LPC next week so people
-have less time to go through it but it does feel like things are
-stabilising (despite the large changelog for v4 ;)
 
-Thanks for all your help with this! Is much appreciated.
-
->
-> --
-> Cheers,
-> Nathan
-
---
-Cheers, Lorenzo
+Bj=C3=B6rn
