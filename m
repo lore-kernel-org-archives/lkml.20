@@ -1,187 +1,303 @@
-Received: from mail-dy1-f227.google.com (mail-dy1-f227.google.com [74.125.82.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D11413787
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.227
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576005; cv=none; b=u7LDTq1ZSfuDxNuDhDXy8qNi4u17onpQQNvX/0Ya2sn9VA564rO0sB5R29ZldZCFfW0M456eu9Hv7cIIBjPwbp0mVB/aiAVo5Ug8pqpRx+3xC8nAkuyQS7j6XZv81iSRmMmwSJyQB9ZGZ13ztS5Rjhstt6N0xYbbEdBnP8Er6aM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576005; c=relaxed/simple;
-	bh=6tD42cqvdIX5kuE3J6jtYXGA/Dn7Do6Ay0I8SZ+eFkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DSR8OxjoGVV3jKtW1DawZlYUnSbtY0/7tMu2guaTAZZseae5VSI/QGzMBYuIYaLpjQtYoPnGB/BhxEgdEnbnmyrpGRv5J5h0r4J4UwwQfdel0oAc9ui43+f/X1LIZ8p7rkjmhhmTBYkQRLaI931OGlZOy3MAvZPlr8sKpG3Dobs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=C8SSlWi4; arc=none smtp.client-ip=74.125.82.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F675415F2B;
+	Mon, 28 Sep 2026 06:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790576012; cv=fail; b=ViiKPYqpnZH13yzy9hAJfnRpBqdi1uxjDLsr62jRpMapYFAZMlkNtt4nptqoLYSwpdHa6UVWqtYUT4No1GyhV9sJRTLEiWHz/duHPTkn7EeyzOWC8znfIzFvWc+vq0xIGT982QMuKVplHQY1C92WqNvitPpImzFIJLerbiZ7Dvs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790576012; c=relaxed/simple;
+	bh=cc+hzCHl3XpuKh2g1QhwnqJee45OxJHOI0kY4d56tZ4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=OOc+q39vlHRmlL0HJKLeiAOMneYuJhvjlc0fp19wHib5iz4xBg9Pdu6mP570AV1hxs8ETvPEf0TD4TKmjXP3yamRVyim4+T3aQ7XruwhgQ2aK/OGthLfO8uLx59myifw2+xG7O6mXUWzbtfKqUgNqv8nxPdEHmT6faFGHQZTtOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uSMTnp2H; arc=fail smtp.client-ip=52.101.69.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="C8SSlWi4"
-Received: by mail-dy1-f227.google.com with SMTP id 5a478bee46e88-33fb4680717so3410789eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:13:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790576000; x=1791180800;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XJqX9wReYd0vAQ7JMnmN23yR6lPs88wXppo9VAOKHJo=;
-        b=M2+zYOF+cjoo1aHFzYycLUG0gMgieLKLhqWLw+4U43RxDbBqwLZFe57FXRJVm2mWUZ
-         5SnJ+0ADSyJDQkl/jZn+CAXm0NwVXvmXFMkHs041UpnFds84GV1/0vRWCJYaOG3eGbvP
-         I/1rHfLoldhRaTpzYrI9wsivek8KJqt5WUsMtgVzoN9xNYyLZkgGnbeCTkdhTwcIrkr0
-         wmzMC0vHLivdRzxd1kdbgk4ZFE+EZOkiTFUPoxkZpuM/ywZ+enCraCPAavagm82Twc3I
-         EJAaI4ev88qIWbUdhrRxcwCcfGks3TOIJJhlbKwLCX4zrsFlBIEsboDeVVzGlmgenJ5j
-         VSfg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1W4uYmR2jS/JyFZG7/wTFAzleHboyUq9u3mN7UHN9eYBkinFJy+RMP46RW0a6lL9zgnhqrDnay72tuso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEvf0Q0nDmx12oqHgxvoiwb1oyjvqJWK3XJ/Q/Gj4EXHLGPQDU
-	VAaAf2d6x9DAEvoafjso9ii72hNeH0YgQub/65AMRzyFLmhovkz+F3hmVqmDKxAl9y4dfI3URPC
-	aw88TTagjuaQrdjb/YriEk/r+UMicwF6wQLBIzpgR5Y7RBwVwbPEka77MMcJ1jaXmP4GaRzecPe
-	bl8WPKIqzZyG3uLbyg9mXYdGhpS58Ffsda9Am7r28hdzYwZGXzDb3+pHQJD8KVAvpMVlcgtKlRJ
-	MhfYs8YqizDct9Lmw==
-X-Gm-Gg: AYBFou1YpHmrp04KEJHAk6TNfqNPtRS72QQMExiS1Tmo2Kv/re1Xb44s1UhQbtvDGeE
-	tw8YSxdsvk0mkuayynKCBA9KkRxETteXecPRtFxxMtTlpxGSWSFR8L5F521kaLI5PgouhG6DG0t
-	AanEAP/Sxqfpg2iFacWdba4lBL1HiAqZi2yCD0xNgriJbjMadojIot3JU00p9fhaI+Sm02LiumX
-	FlcEzC1c2NQgDg+D5OvcasBZ5Rc6MKjxBXSy3kAeUzRdyciS7X9KzPbwgAECbzvw5wUgoET9AWw
-	noR+weDSVb1jFfKrWl8l2BNF/LuEMmzT+Vr5LYsDGKxDGLD4AQAb1ReiZN3okUTSD+oSh/bssoh
-	3ZHm+VrGWUEM9ZoHErw40nvE5qOrl8T0gBTxmAm2bjlyNpJ6aYcIq0uUfh/ePx4stEO+DbwK1Vs
-	zVcxTwHlL6YcYTXq9X8q8D8pBxAsWU1wNiXg==
-X-Received: by 2002:a05:7300:3b28:b0:328:2ea5:bd39 with SMTP id 5a478bee46e88-342705b94bcmr13830720eec.4.1790575999603;
-        Sun, 27 Sep 2026 23:13:19 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-341c4b38adfsm79730eec.3.2026.09.27.23.13.19
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 27 Sep 2026 23:13:19 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-142f4306744so7603352c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:13:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790575998; x=1791180798; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XJqX9wReYd0vAQ7JMnmN23yR6lPs88wXppo9VAOKHJo=;
-        b=C8SSlWi408iq4gU3c4exk8c3GPMI0VLjIO2H6i6FX4VbWCJTFFvKA7Cxslrp2dGuvp
-         TKHxRqs19Vcx2w5Uep8MEKEggCbAa4hP8tLxsfoxasiYbqxa4OyoC6Nn4VMy6uAoywAb
-         wz69CUsRDFXmmrWr2uKv0kFXFoup/PKCsGEHE=
-X-Forwarded-Encrypted: i=1; AKwUvBzSyFxtsU8xnnU1Srn9tbrHD9RUgLCxAhAowLW1A+mIzVBcB9Sxxz4d1MgZSNL/V4f56xcPIg+hvMKcUkg=@vger.kernel.org
-X-Received: by 2002:a05:701b:4558:20b0:148:4522:560c with SMTP id a92af1059eb24-148452256a6mr5733436c88.11.1790575997756;
-        Sun, 27 Sep 2026 23:13:17 -0700 (PDT)
-X-Received: by 2002:a05:701b:4558:20b0:148:4522:560c with SMTP id a92af1059eb24-148452256a6mr5733398c88.11.1790575997013;
-        Sun, 27 Sep 2026 23:13:17 -0700 (PDT)
-Received: from H5S1 ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm17355561c88.17.2026.09.27.23.13.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:13:16 -0700 (PDT)
-From: Vikas Gupta <vikas.gupta@broadcom.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uSMTnp2H"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c75hZuDYzbxlRbGWAPIIa93xFOQ+sccy4Zw37u4i3dpdDhVUThMm2QsCsqpGZKFSwKt06+WC7AdIbKhpjoNTPwL1R8KjB6e4fTiXlxOO1Gr4ww8fsUark8USH0UId7roZp18+vjNLGkzBeXgb+MJNSk+MZOQDoYk+vJMakv5FIZy3CzgOSvsscMTcogbatLpD+cngWGw8EcGe8i4mHoAdB9UvbD/7RzmVx2GNblbVNz2Y1m2PxkjRo0CDF3qS2L748znhYrJoeH8smhD2rRzYfeky69arPRBlldgRdsKRc2Kbfc4xiQ+MseV2jcZFJh7ULSyKw35XTPSEqQEz72YkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XFepkEKPMPiaIv2WvOYN+xxGutMPFJj2Qkk3QhSLJ7o=;
+ b=SxLCTd+0ilhLsNDA7G145WbbDO8iMtL1e5yc2ajZovz9/bpZwgkPDGkr5LNFwka95C3vuI3if29f/WyfOWS+CXVxesHjgii2WULF0jMaI31mSp0xfDTX05eu28i6l7gmdYZRFotLt7AXIjTxis3AWwelvy6M/5Fo2jtdR5KKsjyYx0sB+zKd4GRqTujv0LdRBrft80QB+7y6rimeAOGWM04s60eXEU0XNV/ezIINH/Zo+KY20RhTMq2pdAtt391VstNN8ynJuxSFbVVCHS8OCglYgdWQoHHPQFIp42cMD8zZsVsbumd3UMf91nSEVJfmo0k3qY7Eo6PW1VjDmIvdjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XFepkEKPMPiaIv2WvOYN+xxGutMPFJj2Qkk3QhSLJ7o=;
+ b=uSMTnp2HTpoHMoh99sgRwJhp0gpp1GsEwoIzRjNhnhRe71JiuJTH7QI4cZfrFC/oe9wC5YXZg6hjWD8AXF/OMTLZf15eOpXFEJIk30s86/uudXQIXj7gcyXtUJyyHEopOrsCm1qgf+hCn/RSf0ERbxY9k+3wcoItkBLBogC0QdLlTmbxxmqLFWsumi6hiHQQNAqKu1NLqs8AA3JXb5XWsdjhU7L8R9f4t6F0K7HgvfVMxX+WtsvE3L2LCnQvJSdq0iPuNL8ONOSQy5pCMsjPcsXHkpp1nnwnLsF/oCIJ3XgfrU0mHxHiCzzIYMf2IenbF7SqMUH7BnJ1mM2799e9tQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
+ by PA1PR04MB10721.eurprd04.prod.outlook.com (2603:10a6:102:489::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 06:13:22 +0000
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:13:21 +0000
+From: shengjiu.wang@oss.nxp.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	shawnguo@kernel.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com,
-	vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com,
-	dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [net-next, v4 00/10] add features to bnge
-Date: Mon, 28 Sep 2026 11:42:57 +0530
-Message-ID: <20260928061307.1172344-1-vikas.gupta@broadcom.com>
-X-Mailer: git-send-email 2.52.0
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linuxppc-dev@lists.ozlabs.org
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Chancel Liu <chancel.liu@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Subject: [PATCH v6 5/5] ASoC: fsl_easrc: expose individual DAIs per conversion path
+Date: Mon, 28 Sep 2026 14:17:56 +0800
+Message-Id: <20260928061756.1844185-1-shengjiu.wang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d6::10) To PAXPR04MB9351.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|PA1PR04MB10721:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f6b7060-ef53-44d1-47ea-08df1d2798b9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|366016|23010399003|921020|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	a9+2FvGyDOLZihCt+sj1iD9xovDaKHr7zwE1J1QXy9dBcTxjWXsqg50hSL0FGu+C0PdJOzHxjxGJ/yeOKEmdeTNf2ApKqWtom4bc6vyc1PnPyB8J1mbAA/SYPmYuuco2kZRz+tVPdRrMy7UW0/iVOoeKDtRtemFUEWdH70TtllqiiPfTtIRoLrCZfAdwYNt1lj/qj5i9xLX0+jCWdTeSjvSN1TPcTWHDlOM1Jf+yRdD3gOtMU8IsGL5pMkyCebzr2JDLYLpInH1WBHoE4Q9bM0VXcXbePiH0wGg7aAUtNS4oR5SwPkMMO837HZmnxlxNv5/doMthHxeFf1YjAiUdGDF9iM7zqTK3Wj6/uh+Rmj/aRbp2SXTULTp5HQIU4/gwUZ/Jtp35vNrdxBNkH9NJAicPxXzg5gZYYphMHF2N+grRYleTLqUy8pUbKnKh3JbidlazHEe5cM8ox7oYRfWmgMUwh649lQoVpp9omAFQhb9nGV2Wd2RgRUaLZ8UiyHSapLsbrUREAH0DT18mhsQcQXAWvWn/mfZ6DCCzR0d9tN4HtieHZkTFJQyAJeOZmcEDyJNxhSQvl6VQS0A5ZGpmJRnXXCQLX8Z/EdLdvptxsT7uzD/R60Fwnp7HpjOWXk6qSQHqR2L0nRF+41EQX5WSb05Zd/Rp5PerVD7522kzeEP/Vfqke+di8MrU3jviFtmg36oHcYjhWd5kRBXlNKVGjw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(366016)(23010399003)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S/77vvvWWI+h2zk1PGFRpOf1GzORdL+FoWZKh2RKUoh6dVq90hTW0Ic1TnME?=
+ =?us-ascii?Q?jPZk5sKqs8Opm2Q2BlXJHlFFHuC1499aghZPV7LoLvL21vCL+L5HTa57S6WO?=
+ =?us-ascii?Q?LGLrK/mEZOZCJHvWolG1z635VgkKINh5BTcFdU1VCxdiXWRCH0FbSdLeyAM6?=
+ =?us-ascii?Q?kxNIrsrz0QXREK4AOAFjRmZ6eH3PCFQIN7ATTutLxtsHRLqU+KVuKoc9X2Dl?=
+ =?us-ascii?Q?B5eizfYf5ZVIVrTIq9MDKWWZvQ5tRa2V//MtkaXrYxzeEy2ogy5fUlXWlMsN?=
+ =?us-ascii?Q?ALXLksRv4xn0Plv1CyRZXTAWGquLUEOnUGN2szfHUYVKP7rt3gqTSiIO78Xx?=
+ =?us-ascii?Q?m+QuwF4+jojnE3pyr8V8fYKRKfkwe7QGZSmOIKB/SvOLg/25y14oJ20AZVv6?=
+ =?us-ascii?Q?sFDhxDIwylGy8HXhGjluT/xgj+XWf9+KV3Ua/gXyQ0/ApKTvHBNLmE/lJi0O?=
+ =?us-ascii?Q?ObC4wAZYZMyd/OEVeg/mapyz0zECNAatWopeg5vBPIghk3k/HjP3RqvqsX6e?=
+ =?us-ascii?Q?EbTU5sFBr7t8Rb6JSr6CO+is70Vy32ejnGUGwv4Bt06uheK7v95sUAUc8J6Z?=
+ =?us-ascii?Q?SK0ByVusYQM4Zu0OjHO3eFX1ZcHFOo6ZFPzYghgRSZu0PRr5DEh7J+pTg27A?=
+ =?us-ascii?Q?6MyrhFXHu1/8LKEQPgab9EpuIM7zAjRE5L40MDpjminhBBTbAw2z6jFN2Vro?=
+ =?us-ascii?Q?mwm/CURwUvUaA59dQ7v7bCshCjjITuo4+B+zNcSZwcVApbFNi8F2UK/x+3Cm?=
+ =?us-ascii?Q?CpU8ZWhrxgDWqXFmCa0gLM96PxOl56biaJqHEiNZ1/HJqKko63lxYhgyjn0K?=
+ =?us-ascii?Q?LCFvp2o11phas1QkRfEi53w9L3rQCilx8KTskAm6YkMPt+khnDXouUtGPhe/?=
+ =?us-ascii?Q?4+8lw4iA9DSr8dPu++RBwUgRt1kt1EBOoFkgwe8iidjIsD78TwEENX6uuj6M?=
+ =?us-ascii?Q?rYuGzV//C1EVb2YX159iAjajF3CvZmH3ZL1lFePUXR8+yttzaW8EyOutv7RA?=
+ =?us-ascii?Q?YPyK9wCsAM21GU2g0xbA21wL23g7daO+fJRESMcyWJWNfZmmD4diR7VUHOhx?=
+ =?us-ascii?Q?G5XzNmXlPFWjG+R9pAK95Jt8PqHFXai3u33k+xLxbITJrHFCxnus+YZJTLpu?=
+ =?us-ascii?Q?gLuiNSX0vT4uQ5cMNW51ujWwTU76XYLSw5J7XsSiKZi0QdSUBY6Gu66lvpOa?=
+ =?us-ascii?Q?EB0Ac6olihOEHjZsBx6RbDP2s6A1iIf2/lFUgG2wYT+xsOkU/0PJx84x83UY?=
+ =?us-ascii?Q?AFlH6TzI701YySCV2RHAVXoab07FSVNZZZPnsHyygvCGdURwTr0aHnxARD8V?=
+ =?us-ascii?Q?D+Y/OIAQAXprpr+qC6GmuPHy1yfmoZTVIxp7sH2LKY8gXHH2D5ve8YZJ8YKT?=
+ =?us-ascii?Q?+XgmjSs2fcQQlXTLy9qbfB6Q8CC4EC5+6R0gAg35FvnQbMNsmVpFv47E6il8?=
+ =?us-ascii?Q?Pxq1y4bgasY2h/limbOYR2Qq59bwrBWu/XQdqhDDXsAdxYyRQnUrsJ5560r2?=
+ =?us-ascii?Q?nk1gF/8gXHOwPVx/HkTuU2mly+jPO+hC1aBxRsuNec4vSRmwuVshGFhLhQ4r?=
+ =?us-ascii?Q?9Sp50nfwuFEBfmUh4fEsb8FqjUpyZ4G4gqKvKOj/munBYw9AGiwkdEX7k5qS?=
+ =?us-ascii?Q?/iBnk5kF/V9xPPUZS7yd/AHRvd85GESqbC06MmKo+FYRaURWqNNh4EPQWPIB?=
+ =?us-ascii?Q?kgEs6e3kCheYeOXiPmRtmLfrzbguUNI7p95gxPbobzURgUVjJxk3dWpsBvoL?=
+ =?us-ascii?Q?EtKyhJnwErXXxn8JZFd9dyaBdZ4ld48aZ9tmPeJXTBG9JLCXMW9w?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f6b7060-ef53-44d1-47ea-08df1d2798b9
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:13:21.7350
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qqI6xTAXyoKcCKvLi3Lk5yCgBP3JZZtNdStLZu/iQkdfCKfbP/KMFbPdnBrQlalKaxPLH9FjQhVPnA/cpzlBhIDN5/fTxjyZnFjX8m0HJmp30awihBYh1e2H9KiAYM55
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10721
 
-Hi,
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-This series adds ntuple filter, RSS context, and flow steering
-support to bnge driver.
-Patch 1 is a pure refactor (no functional change) that relocates the
-filter and VNIC related code into the appropriate files. Patch 7 drops
-the refcount usage from L2 filters, also with no functional change.
-The subsequent patches then add the ethtool commands for configuring 
-ntuple flows and RSS contexts.
+The i.MX EASRC hardware supports four independent conversion contexts
+(A, B, C, D). The driver previously registered a single DAI with generic
+stream names "ASRC-Playback" and "ASRC-Capture", which prevents
+multiple independent conversion paths from being used simultaneously.
 
-Thanks,
-Vikas
+Replace the single fsl_easrc_dai instance with an array of four DAI
+drivers to allow up to four independent conversion paths to be active
+at the same time:
 
-v3-v4:
-    - Addressed comments from Sashiko
-      https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917064548.773334-1-vikas.gupta%40broadcom.com
-      https://sashiko.dev/#/patchset/20260917064548.773334-1-vikas.gupta%40broadcom.com
-    - The patch count drops to 10 now that the HSI patches have been merged.
+  easrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
+  easrc-1 -- ASRC1-Playback / ASRC1-Capture
+  easrc-2 -- ASRC2-Playback / ASRC2-Capture
+  easrc-3 -- ASRC3-Playback / ASRC3-Capture
 
-v2->v3:
-   - Build fix.
-   - Addressed comments from Sashiko
-    https://sashiko.dev/#/patchset/20260908093053.2596020-1-vikas.gupta%40broadcom.com
-    Below Sashiko comments are not valid:
-     Patch-8: 
-                Comment under bnge_toeplitz().
-                 Explanation: bnge_toeplitz() is not used for aRFS.
-     Patch-9:
-                Comment regarding bnge_clear_usr_fltrs().
-                 Explanation:
-                  Both bnge_clear_usr_fltrs() (only invoked while the
-                  interface is down) and bnge_grxclsrule() execute
-                  under the netdev instance lock, so they are
-                  serialized and never touch the filter list at the 
-                  same time.
-      Patch-10: 
-                Comment "Does this direct dereference of the MAC
-                header need a linearization ...".
-                 Explanation: ndo_rx_flow_steer runs on the RX path
-                after eth_type_trans(), which already accesses and
-                pulls the Ethernet header.
+easrc-0 retains the original generic stream names to preserve backward
+compatibility with existing machine drivers and board configurations.
+Each DAI retains the same channel, rate and format capabilities as the
+original, including IEC958 subframe support on the capture side. Update
+the devm_snd_soc_register_component() call to register all four DAIs.
 
-                Comment Related to bnge_cfg_ntp_filters().
-                 Explanation:
-                   bnge_cfg_ntp_filters() runs from bnge_sp_task(),
-                   which holds the netdev instance lock while executing.
-v1->v2:
-   - Build fixes.
-   - Addressed comments from Sashiko
-   https://sashiko.dev/#/patchset/20260814011435.194631-1-vikas.gupta%40broadcom.com
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+---
+ sound/soc/fsl/fsl_easrc.c | 112 +++++++++++++++++++++++++++++++-------
+ 1 file changed, 92 insertions(+), 20 deletions(-)
 
-
-Vikas Gupta (10):
-  bnge: restructure VNIC and filter code
-  bnge: add NTUPLE/ARFS VNIC
-  bnge: add helper functions for multi RSS contexts
-  bnge: add RXFH ethtool support
-  bnge: add ethtool support to manage RSS contexts
-  bnge: remove refcount from L2 filter
-  bnge: add NTUPLE filter infrastructure
-  bnge: add NTUPLE filter support in ethtool
-  bnge: add aRFS flow steering ndo support
-  bnge: add cpu_rmap support for IRQ affinity
-
- drivers/net/ethernet/broadcom/bnge/Makefile   |    4 +-
- drivers/net/ethernet/broadcom/bnge/bnge.h     |   19 +-
- .../net/ethernet/broadcom/bnge/bnge_ethtool.c | 1035 +++++++++++++++++
- .../net/ethernet/broadcom/bnge/bnge_filter.c  |  684 +++++++++++
- .../net/ethernet/broadcom/bnge/bnge_filter.h  |  126 ++
- .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |  156 ++-
- .../ethernet/broadcom/bnge/bnge_hwrm_lib.h    |    8 +
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  |  479 +++++---
- .../net/ethernet/broadcom/bnge/bnge_netdev.h  |   89 +-
- .../net/ethernet/broadcom/bnge/bnge_resc.c    |  121 +-
- .../net/ethernet/broadcom/bnge/bnge_resc.h    |    1 +
- .../net/ethernet/broadcom/bnge/bnge_vnic.c    |  291 +++++
- .../net/ethernet/broadcom/bnge/bnge_vnic.h    |   92 ++
- 13 files changed, 2801 insertions(+), 304 deletions(-)
- create mode 100644 drivers/net/ethernet/broadcom/bnge/bnge_filter.c
- create mode 100644 drivers/net/ethernet/broadcom/bnge/bnge_filter.h
- create mode 100644 drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
- create mode 100644 drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-
+diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+index 4401c4e100b3..5d715bc07357 100644
+--- a/sound/soc/fsl/fsl_easrc.c
++++ b/sound/soc/fsl/fsl_easrc.c
+@@ -1589,27 +1589,99 @@ static const struct snd_soc_dai_ops fsl_easrc_dai_ops = {
+ 	.hw_free	= fsl_easrc_hw_free,
+ };
+ 
+-static struct snd_soc_dai_driver fsl_easrc_dai = {
+-	.playback = {
+-		.stream_name = "ASRC-Playback",
+-		.channels_min = 1,
+-		.channels_max = 32,
+-		.rate_min = 8000,
+-		.rate_max = 768000,
+-		.rates = SNDRV_PCM_RATE_KNOT,
+-		.formats = FSL_EASRC_FORMATS,
++static struct snd_soc_dai_driver fsl_easrc_dai[] = {
++	{
++		.name = "easrc-0",
++		.playback = {
++			.stream_name = "ASRC-Playback",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS,
++		},
++		.capture = {
++			.stream_name = "ASRC-Capture",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
++		},
++		.ops = &fsl_easrc_dai_ops,
+ 	},
+-	.capture = {
+-		.stream_name = "ASRC-Capture",
+-		.channels_min = 1,
+-		.channels_max = 32,
+-		.rate_min = 8000,
+-		.rate_max = 768000,
+-		.rates = SNDRV_PCM_RATE_KNOT,
+-		.formats = FSL_EASRC_FORMATS |
+-			   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
++	{
++		.name = "easrc-1",
++		.playback = {
++			.stream_name = "ASRC1-Playback",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS,
++		},
++		.capture = {
++			.stream_name = "ASRC1-Capture",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
++		},
++		.ops = &fsl_easrc_dai_ops,
++	},
++	{
++		.name = "easrc-2",
++		.playback = {
++			.stream_name = "ASRC2-Playback",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS,
++		},
++		.capture = {
++			.stream_name = "ASRC2-Capture",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
++		},
++		.ops = &fsl_easrc_dai_ops,
++	},
++	{
++		.name = "easrc-3",
++		.playback = {
++			.stream_name = "ASRC3-Playback",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS,
++		},
++		.capture = {
++			.stream_name = "ASRC3-Capture",
++			.channels_min = 1,
++			.channels_max = 32,
++			.rate_min = 8000,
++			.rate_max = 768000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_EASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
++		},
++		.ops = &fsl_easrc_dai_ops,
+ 	},
+-	.ops = &fsl_easrc_dai_ops,
+ };
+ 
+ static const struct snd_soc_component_driver fsl_easrc_component = {
+@@ -2234,7 +2306,7 @@ static int fsl_easrc_probe(struct platform_device *pdev)
+ 	regcache_cache_only(easrc->regmap, true);
+ 
+ 	ret = devm_snd_soc_register_component(dev, &fsl_easrc_component,
+-					      &fsl_easrc_dai, 1);
++					      fsl_easrc_dai, ARRAY_SIZE(fsl_easrc_dai));
+ 	if (ret) {
+ 		dev_err(dev, "failed to register ASoC DAI\n");
+ 		goto err_pm_disable;
 -- 
-2.52.0
+2.34.1
 
