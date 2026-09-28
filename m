@@ -1,129 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD324BF926;
-	Mon, 28 Sep 2026 12:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F68E3FB7EB;
+	Mon, 28 Sep 2026 12:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597339; cv=none; b=eRsWpy6McbPHKVv3i1OIrPRixRoinIl674y9dfr0ndDDx4Pp6IJKCxKa1JOHEjg/QyMZI8lRZIiUQ6eQM6uPrYeRpKLa/HVvwuy3lh99jOM/SKm1mEX3e98ii+9FRVrROzEslJXIe+I+ImFrMTo5+ivjUxtbVAOiez8+AWt0dPM=
+	t=1790597353; cv=none; b=fRMYfoqVMgE0u2/eDMawk7xUqSGg9t3OTgJ1UhIL/tjWeOt8s+tQgah21/zTLrC2nIHssr2vL5JLaQltQpa7lDFblEL6CLaaHwm8EliuByNfIpx5QbFDXX/HCIv+28pAv9EkhC60pD86PNKO5OmKm8iUbKjeT0uajQUtd+ks/u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597339; c=relaxed/simple;
-	bh=I/X7zDAH3d79GH3YbYswz8+jkA0kWSzuDmxnJgbF1Kg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UPoD/ABSQtKirpEtXv2xxfD9XMVr3yQIeaMymq8d5/7ivCJMLgKNuQsfctmnXY8QUoRO29HBncxe8RTdRfBwbaiZ2geMq0iElaYTcw5i1BnLPerlTJ32UQtHZKbvM/yZ4s/H7SndKtKitdPipM/dLbopSjip7BzhHyv4KQmqrEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DK/DhmZE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790597353; c=relaxed/simple;
+	bh=ZhtTiN8KD7+PCBVbMunI3SXyiYpT/PgLcIE1Jvorxr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kAjGiSWAbHo1gwvZnf7XyARt296W5zzecHDMBOS2Gm2hj5YrvGAg2bWNR2oLWIaOZG3y7vIq2Vz9pjpsarB5bR6jpdyOwKaooR645MqfL7vhfgIWPflkDMxrHzz8cFESKZPNCi3JIR+BNsC5hzq8GibsATCP3No8Po+74i8h2Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRF4/Ta6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DK/DhmZE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7CE1F000FF;
-	Mon, 28 Sep 2026 12:08:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRF4/Ta6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141DA1F000FF;
+	Mon, 28 Sep 2026 12:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597338;
-	bh=flBS/IV2cTEEpYFIE9hkK0/gJv363zv18xBTvbduC1Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DK/DhmZE5PxjjfiTysNrAMQsD0tPfbAlK4N0oGiIoKpm38aVEaVy4jAC1Y+K6ec4O
-	 IHihgKxwhcgEQbMwynntS1fJakS8jaWRXcnkQ6ZPuWLd9u1hAHxvQ/ohwFAkbdRlY/
-	 rwgISzCsiwPvL9fX/0Dvrq9/ZLHGjgYxVIN2OzWRbioTSr3hjdaoaL3Yu6xvbcyGDS
-	 oLJhM7NBnxMup0u+/pPwdJzHPb19xd05lEGC/VIZzLlMnYyowqUgQvss4lUJre4ZW7
-	 oHiDaBdfqwJUfUjnKUNON2bn+UlTXjhpRRR8qBxzHlZxV74PLDGNsaTSkWP6cx46iO
-	 usPjeC9PiMZrQ==
-Message-ID: <ae606df5-7d14-47b4-8569-fe47321bfac7@kernel.org>
-Date: Mon, 28 Sep 2026 14:08:51 +0200
+	s=k20260515; t=1790597351;
+	bh=scWuw41pwIEFku2HqRpmbw+maa4pAQ5w7f1wOR2IJkU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cRF4/Ta6JCrgzQdhqPlqV2OKD/4glovbpqU7vwvjk8W4MChlu/SDB4gEStviUDEgU
+	 gfnFwPvZeTe+oVI817NmzReLyKHYJ7J8JNHz2LYv8sI0QLSHzYkxgyx+nW2NO6nmJW
+	 Ey6iU5I4/0G8akK0KNy7XDyGZLz7GNj7yT4g5O/tqtyualkJwsB/ElYRNqcLAQhWva
+	 o4rOcVjMLCpMWE1BiCTXivUay+PNk+xnBygm/iUftC8t8E3+2wo4Smf8T2aqN3+jVI
+	 S1UIwPPPJf+dqnzEr+x3Cc5ckm/KWW1EcOLSfIhNi2nIanBeeb8JhqOD/zgJDaw0hI
+	 a+Y18RQQLD7bQ==
+Date: Mon, 28 Sep 2026 13:09:08 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
+ fwnode owner is rejected
+Message-ID: <20260928-conscious-spectral-manul-19bc10@sudeepholla>
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: check MREMAP_DONTUNMAP mlock accounting
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260928111055.482136-1-azpijr@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260928111055.482136-1-azpijr@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 
-On 9/28/26 13:10, Jose A. Perez de Azpillaga wrote:
-> MREMAP_DONTUNMAP keeps the source VMA in place, but clears its mlock flags
-> for the whole VMA while setting them on the destination VMA.  Two cases
-> leak mm->locked_vm as a result:
+On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
->  - an unfaulted mlock-on-fault VMA moved behind itself self-merges, so the
->    single resulting VMA loses the flags without the accounting being
->    dropped;
+> When multiple devices share the same fwnode (e.g. the SCMI bus creates
+> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+> the first device registered becomes the fwnode owner (fwnode->dev, set in
+
+This has been rejected in the past. Apart from the trigger in -next,
+anything else has changed ?
+
+> device_add()). If that owner never binds -- for example its driver returns
+> -ENODEV because it is blocklisted on this SoC, or because its driver is
+> not compiled in at all -- then driver_bound() is never called for it, so
+> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+> are never run for the fwnode. The child fwnode supplier links (pin group
+> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+> consumer of those child nodes defers probe forever.
 > 
->  - a partial mremap() moves only part of the range, leaving the pages which
->    are not moved accounted as locked in a VMA whose flags were cleared.
+> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
+> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+> the vendor "pinctrl-imx" device binds successfully. Because
+> dev->fwnode->dev still points at the rejected "pinctrl" device,
+> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+> controllers wait forever for their pinctrl suppliers.
 > 
-> Add three cases to the MREMAP_DONTUNMAP selftest which mlock() the source
-> VMA, with and without MLOCK_ONFAULT, perform the operation and check that
-> VmLck comes back to zero once everything is unmapped.  Each case runs in
-> its own process, so it starts from a clean mm with VmLck at zero and a
-> failure cannot propagate to the cases which follow.
+> Fix this in two places:
 > 
-> Verified on x86_64: the three cases fail on v7.3-rc5 and pass on
-> mm-unstable with the fixes from the "mm/mremap: fix two issues with
-> MREMAP_DONTUNMAP" series applied.
+> 1. In really_probe() failure path: when the driver definitively rejects
+>    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
+>    called. If the rejected device is the fwnode owner, it either
+>    transfers ownership to an already-bound sibling (and runs the
+>    purge/pickup on its behalf) or clears ownership so the next sibling
+>    to bind can re-acquire it.
 > 
-> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+>    unowned (!fwnode->dev) or when the current owner has no driver at
+>    all (!fwnode->dev->driver, meaning the driver was never compiled in
+>    or loaded as a module). This covers the case where probe rejection
+>    never happens because no driver ever matches.
+> 
+> fwnode->dev is not serialized by a lock; instead every writer only ever
+> touches a fwnode->dev it already owns (== dev, as device_del() does when
+> it clears ownership) or one that is currently unowned (== NULL, as
+> device_add() does when it claims ownership). This patch follows the same
+> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+> when this device is the current owner; device_links_driver_bound() only
+> claims fwnode->dev when it is NULL or when the current owner has no
+> driver (and therefore cannot be in the process of binding).
+> 
+> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
->  tools/testing/selftests/mm/mremap_dontunmap.c | 273 +++++++++++++++++-
+> This issue is triggered by 
+> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
+> in linux-next next-20260925.
+> 
+> But I think this is a fix to
+> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> 
 
-@Lorenzo, could something like this also be implemented (maybe with less churn)
-in the vma.c selftests?
+Does dropping i.MX specials from list of devices solves the problem ?
+I am more than happy to drop i.MX special in the code and let you
+sort the pinmux mess you guys have created.
+
+And also I remember you creating situation disabling cpufreq in the cmdline.
+Will that be ever used on those i.MX platforms ?
+
+I am not against the patch if others are OK.
 
 -- 
-Cheers,
-
-David
+Regards,
+Sudeep
