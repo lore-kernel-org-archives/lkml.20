@@ -1,157 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8375397935;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790631760; cv=none; b=DZb/EU2uyYfVKsVBy1JS+G5pcwEN4kmdqzLI8qDDi/jolbmaMlD67boly6jODJmNW7pdJK38YEgyFD3/TX7/mW4fSMG83UGBLUqYH1SNu9IC5kK2oH1fgLYc4Y7TfyYWaItBKgfZG/cvRsVKyXOMqH/fxvbC9zduNmQO1vekPFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790631760; c=relaxed/simple;
-	bh=4VB9v04bJL+PlFYsbzdEYOrFIWgouYSbyR4VTShgUrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GgPjH7vuqmsrDc01mVaMha9nqP92M3v5356E58k3GGDnDoMA+wLuNJhoq+imKDC8KTI2YXD/++4yyDgtu3cmCZm39AsS3XE0Ubk2kIOKjjWbit2jroFzQMyLp51yk/wbAHccN5MI8Cn1PsaDGFLmNkgfWvidV/x32hK115PtAGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZz+ww/S; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9947F4FDA70
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790631816; cv=pass; b=HFxCqK2S7YeFjznKZtmHG49s2TnmBogIjVjSFD5HfIxfezAtZpquG6OO1QIG2KgRAGwaOksCdHHqa09hFDhwFxFQJRHkRae+Fv6G6QXU5LEREUS/F3AkZqIrgaT3SSWImx3MztCwKxLlEDyv0M5CyJUQjIK+Qkx22Eld66rJD8M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790631816; c=relaxed/simple;
+	bh=uxXHa2WIztnT4HhW7pDRg1DvGrnilnU0CK36R7LnMwQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pLFfWXiaFZlV7S+W5UJsgKI4DB0ZNq+iBQryVyEda+lqh5TDjfCXW0tOWJEAi+opK5MQCGpYK+f5/s4aVgTP37sTk1Asn3rixIlo6vlVf6QoJ0AgD/VbVxnE4KKpo9/MLH+1rvz+9uFAAhykG4n4XduhNPNoJvm2JNhVntc09ec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VJXiyqwy; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZz+ww/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6F222C2BCB3;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790631760;
-	bh=4VB9v04bJL+PlFYsbzdEYOrFIWgouYSbyR4VTShgUrk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kZz+ww/SJr9iWwJcHuL5Qi7SSQSNew6v9ltumHFf3P/wTeRkmKPVBXCwrIE2mQOVr
-	 gulvIizTpJbsmkQ8ak+ch4uA61HD3nmjI6sFZ7oc1ziCTY+j2w8ifZF8imBeHu1NV6
-	 foiWKTiGkD9HHDljcWVF02KKznB/Qd+5cCC3P4uGoQ5i1qxliXDcM0fzwUK2+nGxrx
-	 l+CAiv82bC2VPyalgjGcUVmNqI7HQcbLA8a9WFjKpbbiheoaEBNc05Ml+03GYZ7NVU
-	 nriD5n27zK/gyUrb/Wvd7lXQAmbKJncv6dfBSpHjEmPKpRb93XxQejU2AkwuHdrNrd
-	 8DTPZ0DQSRS3w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BDC3CA5FA1;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 28 Sep 2026 23:42:39 +0200
-Subject: [PATCH] media: venus: core: look up static codec nodes among
- children only
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VJXiyqwy"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so105181cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:43:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790631813; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hAqzeys+udi2/04eQEC/dIyh85PJp3qWTQjIU4I9dA1sm6z9v5MYvdjhuQXD2OTxBG
+         wDZWDCLEW31Ob2cyEgp7gQSAVAkAGp3h2/s0nge3LE3V7dhOEesKGwwYR/CF4zQXXjFo
+         tbO1zc4kSE05a18lEe3UkE9RtQZnlrbpRIEXLTWQIylorm9dFk8FKdZa0iHsPqATHynb
+         1+5kmhAEJoCgnvvyFh34L7YBcadgUK6v3mQEX/L0kBwspjVo8FBn9wCnFDAo8/siiP0X
+         9yqDr4UHJGbJ1e9D2aSTFq0HoLINFG89gWXsz43s3edgRn6fVbeSppB2LjkGm/oZ1PHc
+         DV2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zq6u8NSORsqGMSwXt2PUCa3ICMXA5cI5C7VtQ6r/oCY=;
+        fh=sQJ+J7IYiPa1bKqx36zxgiw1DpTp3Bq9qv6QikVN1MI=;
+        b=syhTXa8PXnG7BOeOiUDnQhRmWCV1TdKx9jRUDkZMwtuxZIcohOZI/Tnf5APRSuj05p
+         q0SSi7Lzxbi+kCaW/+OVcfxtsOvExQdBrFRp5DRgmlhTs0HXJgxIxxLfJeMdchWuTAeq
+         CRcAeeXFp6ou9rm6092lpjZRravOS5ZHUTU3J/aKgUxYhOKLhQVt5W99YIZ/3iX/vWrP
+         ba3wS6u8csq7IXEUmxh3H+s97C+znxry3F1ZnR5WBZgRQP6kNYhVMXs8/d0Vj+c3v9Bb
+         XieQZYm6b76PCJXzhUp420FHxihLMbTmftHZIXy0ZW19o++x8Oi5rWH/qwDwV3S5M+/P
+         4ISQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790631813; x=1791236613; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zq6u8NSORsqGMSwXt2PUCa3ICMXA5cI5C7VtQ6r/oCY=;
+        b=VJXiyqwy+FAksPkGbEJAwQP8WyLKyPML1t2GTpjSuZ5ogWkE9Bw+CPzPZgl3mgaGNU
+         I73Gm2p0T9CK+b7mz+u5PHTjlcZxBi3TIqCbiBgNpjd2UJV87VgPL5JONorQ3Oqc7CLD
+         thRULVoB+JBAsN2yyvcjNGCgH/RJdP8HVKgciUdy366KDiQvBkf/IP6hO/hH04disejF
+         6E2ZBf6Bp4Onegpt7wISUWFdLeGALGYNUKr5xoFkv6zcorqUOoEwdB4PFlzujxOihCw5
+         a4Sv2qcRvLDJkmWwZBNyxEj1/TzJzraHixxZhwGevTz7gdScETPIIgwp9CwlrSXhTnDR
+         2R3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790631813; x=1791236613;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zq6u8NSORsqGMSwXt2PUCa3ICMXA5cI5C7VtQ6r/oCY=;
+        b=BdY4LYuv3Tu5nJKaustgN3ClAaSCHQBSdXjf3v1nPG4XDr4noOFtZoviDhiQN1Lc9Q
+         229dft/SjTvdcdUssAWMggDtdfxA9Dpa5CUKLdVmDyvNH389XfSwx5dJoieovwoqJmlE
+         Nsz3uyqhNmWIOkT3AsBFxJdv41g3dDXKgyGI0/8N0XeNE0mBEkvaXhuVFtr1/e9TrIGc
+         22JXjvlLOK77CS+Dx9ADRac4fVPbEeaVMmyTbsfNCZC/uZq0E4NPjojknjIa+jPE7ytg
+         a27xB4+T11EO/g8CH5B99Z8RVqARWVy/s8PYy8CNW/Jste46NvIkFWfjKqks+unZR4zd
+         xMpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwi0hV6cWNybzCoKep60v+WBLOT5A6ZSMIlvmZkfVhYYkU9GWcpTiTdCXuyUhebrwaRsswW+ddN1UzFPBc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHyCAPEhmh2vhQoSArjT1GB1ZhTOGjmIIVtwbBhunnGUq/nj+U
+	dDwgeq1OlVrvMvcTsiBIqpgaI+NToYJ4NWxfgqAeaxz/dhoIyS59XdoZ3I0fcjCQDyMneufo1/E
+	AnkRp9Vjze/iPd7QxHC/y37/hKbQAZqzEfY0v7ONm
+X-Gm-Gg: AYBFou0yeGtN9xF/SoLV/U4fHLM9NFkq+SkV6QJzRmqHFT4Y9ZS4icdq50pYZhZJ+No
+	tKX4W9XIHti22iT95bIE/dnvn5RMAYTfrSlJEp0+Rs1PABpKOyMrclbjlAyPjUwGFd/qN9dSyRt
+	iJVW4ULQIw/4zvSN6DcG6cEc50DgAA6uHoV6tYCGOxbY74vDaQigI0hS251NPb2JczQ4l72IfjJ
+	vcRL49V8ZPNJQLvtXgZBpu9KykCzSiRcSVdW1GSfQlgnYH8PFl31GWQ81EBEiT5gHfRP4Al8gwp
+	4R2a0YG8pYHZrn9p0FJNGmS3YzKTXs4UU2Xz4fOmRhJmRRYpCZG5wllFwFYjofNi0ZZ72YpCRBv
+	nenw3GxJwQIgWvLuCCrU/
+X-Received: by 2002:ac8:59cf:0:b0:517:5e32:2d14 with SMTP id
+ d75a77b69052e-5335a1ee1camr910641cf.10.1790631812598; Mon, 28 Sep 2026
+ 14:43:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-venus-of-node-ref-v1-1-7579fb84445a@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqEMAyF4VeRrCegUby9yuBCazrGRSuNiiC+u
- 9VZfgfOf4JyEFZokxMC76LiXUT2ScBMvfsxyhgNlFKZNlTjzm5T9BadHxkDWxzKpirI2p5MDvG
- 3xFGOt/nt/tZtmNmsTwiu6wZ1+qSNdQAAAA==
-X-Change-ID: 20260928-venus-of-node-ref-b69742ffa2c3
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Dan Carpenter <error27@gmail.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2898; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=RcEQpaG3qjApty1CwkPYZ1bGIKgYZo3g8YmCYVk3/4g=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqut9PZoi6wYMcLOhfMI1e5kaNX46iKGzyTx1nP
- /n41g8T/veJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarrfTwAKCRBgAj/E00kg
- cpIfD/9JrB03HWtW4Pd/RAJ2kwg5SKWnrlnqaHQI0mzpYp1J5FWrh+/c2hXbsgOVsdErI/zBmhL
- hhYx4dpZ6wzxj2bHf7w/1NxxCoYavZL2ghxwFT9Qpo6b9qCA0uwARacGTn2Lx9qzEthgnc07I3m
- 5MGKYnZp9zDvTlWFf3tN6WtPrNkOoPoAQonOdcI3SsBPvOMq+Qlj6Sj3chZCG/pu436lbwSKGiV
- e1Bc9VVxEJd/FJDz1C4SsLWDvod4EKgb98nz9HAaFvBwdP+cMDjQv1tUxMl7+nzqvqZP4mjqDCX
- 2nk3iKR4BQFX0PwDZlEAtC5nu3GLWoPlZLFNDCetVxsIA1z/DkRVxgeHxLNa3vxs2/H+s6bv9G7
- 7aM3ziOiBt/OaC55UW+SaA5qluyvbkMOW46q02GebeCZGNrDpuuGl+ph2l5F66XzBEqihyXynyT
- 2t4zIU8jRg4QT9OpTNht2U9r2qYip4TiDvyP6bP8uu1etzn86pmV6iXoFFf56RrC2OqAIfntn/7
- jwRX1jN47BrdUe5Pu6aNYlIpFATh349Y5aTOEzAMc5royKIcVJDinwlB+FpR+Uyr4sxH32OUzUm
- QdRVyOihfNK5iyBGYEOZi6kLMjvxEH5M2Qt4VYRE5Ro3ApooRp28mZaii9YI8IGKH5h4sojBb9t
- xq+UNf3NU4IryNA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+References: <20260928010227.1903673-1-michalpl2003@gmail.com> <20260928010227.1903673-4-michalpl2003@gmail.com>
+In-Reply-To: <20260928010227.1903673-4-michalpl2003@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 28 Sep 2026 14:43:21 -0700
+X-Gm-Features: AclHuK9fVr94fSWHmMdmC0x4TwWwZQ06SsleQuOajbCBbXd937esFBpLzMS7qJM
+Message-ID: <CAP-5=fVe=VxnxypQYNt1h-s+3=Me8D_fpBL3LD1Eeb1cGvUc3g@mail.gmail.com>
+Subject: Re: [PATCH 3/5] perf symbol: Grow the Rust demangle buffer geometrically
+To: Michal Pluta <michalpl2003@gmail.com>
+Cc: acme@kernel.org, namhyung@kernel.org, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Heidelberg <david@ixit.cz>
+On Sun, Sep 27, 2026 at 6:02=E2=80=AFPM Michal Pluta <michalpl2003@gmail.co=
+m> wrote:
+>
+> When a demangled Rust name doesn't fit in the provided buffer,
+> dso__demangle_sym() adds 32 bytes to it and formats the name again from
+> the start.  The number of attempts grows with the length of the output,
+> so the total work is quadratic.  Names with deeply nested generic types
+> need many attempts, leading to noticeable slowdowns in larger programs.
+>
+> Double the buffer instead, reaching the maximum buffer limit exactly
+> rather than stopping 32 bytes early.  The demangled names are
+> unchanged.
+>
+> Add a test for a symbol whose expansion exceeds the bound.
+>
+> Signed-off-by: Michal Pluta <michalpl2003@gmail.com>
+> ---
+>  tools/perf/tests/demangle-rust-v0-test.c | 12 ++++++++++++
+>  tools/perf/util/symbol.c                 | 10 ++++++++--
+>  2 files changed, 20 insertions(+), 2 deletions(-)
+>
+> diff --git a/tools/perf/tests/demangle-rust-v0-test.c b/tools/perf/tests/=
+demangle-rust-v0-test.c
+> index ee4ddb61174b..d1e0636d73bc 100644
+> --- a/tools/perf/tests/demangle-rust-v0-test.c
+> +++ b/tools/perf/tests/demangle-rust-v0-test.c
+> @@ -69,6 +69,18 @@ static int test__demangle_rust(struct test_suite *test=
+ __maybe_unused, int subte
+>                 free(buf);
+>         }
+>
+> +       /*
+> +        * A symbol with more lifetimes bound than fit in the largest buf=
+fer
+> +        * must fail to demangle rather than give a truncated name.
+> +        */
+> +       buf =3D dso__demangle_sym(/*dso=3D*/NULL, /*kmodule=3D*/0, "_RINv=
+C1a1fFGZZZZZZ_EuE");
+> +       if (buf) {
+> +               pr_debug("FAILED: symbol larger than the buffer limit dem=
+angled to %zu bytes\n",
+> +                        strlen(buf));
+> +               ret =3D TEST_FAIL;
+> +               free(buf);
+> +       }
+> +
+>         return ret;
+>  }
+>
+> diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
+> index 3cb42805a82f..1a52bc2980a0 100644
+> --- a/tools/perf/util/symbol.c
+> +++ b/tools/perf/util/symbol.c
+> @@ -2737,29 +2737,35 @@ char *cxx_demangle_sym(const char *str __maybe_un=
+used, bool params __maybe_unuse
+>  }
+>  #endif /* !HAVE_CXA_DEMANGLE_SUPPORT */
+>
+> +/* Buffer limit for a demangled Rust symbol name. */
+> +#define RUST_DEMANGLE_MAX_LEN (1024 * 1024)
+> +
+>  char *dso__demangle_sym(struct dso *dso, int kmodule, const char *elf_na=
+me)
+>  {
+>         struct demangle rust_demangle =3D {
+>                 .style =3D DemangleStyleUnknown,
+>         };
+>         char *demangled =3D NULL;
+> +       size_t buf_len;
 
-venus_add_video_core() checks whether the decoder or encoder node is
-already present in the device tree with of_find_node_by_name(). That
-function drops a reference on the node it starts from and searches the
-rest of the whole tree rather than the children of that node, so every
-probe drops two references on the video-codec node that the driver
-never took.
+It seems changing the scope of this variable is unnecessary.
 
-Once the node's refcount reaches zero, which on SDM845 happens on the
-first unload of venus_core, of_node_release() complains about a bad
-of_node_put() and the node's sysfs directory is gone; the next probe
-then crashes while attaching the dynamic child nodes:
+>
+>         /*
+>          * We need to figure out if the object was created from C++ sourc=
+es
+>          * DWARF DW_compile_unit has this, but we don't always have acces=
+s
+>          * to it...
+>          */
+>         if (!want_demangle((dso && dso__kernel(dso)) || kmodule))
+>                 return demangled;
+>
+>         rust_demangle_demangle(elf_name, &rust_demangle);
+>         if (rust_demangle_is_known(&rust_demangle)) {
+>                 /* A rust mangled name. */
+>                 if (rust_demangle.mangled_len =3D=3D 0)
+>                         return demangled;
+>
+> -               for (size_t buf_len =3D roundup_pow_of_two(rust_demangle.=
+mangled_len * 2);
+> -                    buf_len < 1024 * 1024; buf_len +=3D 32) {
+> +               for (buf_len =3D min_t(size_t, roundup_pow_of_two(rust_de=
+mangle.mangled_len * 2),
+> +                                    RUST_DEMANGLE_MAX_LEN);
+> +                    buf_len <=3D RUST_DEMANGLE_MAX_LEN;
+> +                    buf_len *=3D 2) {
 
-  OF: ERROR: of_node_release() detected bad of_node_put() on /soc@0/video-codec@aa00000
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-  ...
-  kernfs_find_and_get_ns+0x24/0x80
-  safe_name+0x48/0xd8
-  __of_attach_node_sysfs+0x58/0x118
-  __of_attach_node+0x8c/0x170
-  __of_changeset_entry_apply+0xe8/0x178
-  __of_changeset_apply_entries+0x50/0x1e0
-  of_changeset_apply+0x54/0xc0
-  venus_add_dynamic_nodes+0xb4/0xe0 [venus_core]
-  venus_probe+0x2f4/0x3c0 [venus_core]
+Thanks for digging into this problem and exploring a fix! Previously,
+we guessed the demangled length was twice the mangled length, then
+added 32 bytes for each retry. These were numbers I pulled out of thin
+air, so I'm glad you've found them to be wrong :-). Could we estimate
+the initial demangled size better? Could you get data from Bevy and
+Typst? I'm a little concerned that a demangled symbol of say just over
+2KB might require 4KB with this change, instead of 2KB + 32bytes.
 
-Use of_get_child_by_name(), which only looks at the direct children,
-where static codec nodes live, and leaves the parent's refcount alone.
+Thanks!
+Ian
 
-Assisted-by: LLM
-Fixes: 687bfbba5a1c ("media: venus: Add support for static video encoder/decoder declarations")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Closes: https://lore.kernel.org/all/aAuqgiSxrh24-L-D@stanley.mountain/
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Unloading and reloading venus_core crashes on SDM845: every probe drops
-two references on the video-codec node through of_find_node_by_name().
-
-Tested on Pixel 3 (SDM845) with ten unload/reload cycles, decoding after
-each one.
----
- drivers/media/platform/qcom/venus/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae75..3e69fc7ea3c79 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -301,17 +301,17 @@ static int venus_add_video_core(struct venus_core *core, const char *node_name,
- 	struct of_changeset *ocs = core->ocs;
- 	struct device *dev = core->dev;
- 	struct device_node *np, *enp;
- 	int ret;
- 
- 	if (!node_name)
- 		return 0;
- 
--	enp = of_find_node_by_name(dev->of_node, node_name);
-+	enp = of_get_child_by_name(dev->of_node, node_name);
- 	if (enp) {
- 		of_node_put(enp);
- 		return 0;
- 	}
- 
- 	np = of_changeset_create_node(ocs, dev->of_node, node_name);
- 	if (!np) {
- 		dev_err(dev, "Unable to create new node\n");
-
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260928-venus-of-node-ref-b69742ffa2c3
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+>                         char *tmp =3D realloc(demangled, buf_len);
+>
+>                         if (!tmp)
+> --
+> 2.43.0
+>
