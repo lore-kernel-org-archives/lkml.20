@@ -1,138 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F61945D18C;
-	Mon, 28 Sep 2026 07:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C20645D925;
+	Mon, 28 Sep 2026 07:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580505; cv=none; b=L1xY9A0p1UR5hqZsZSum/fdKpjR+JFA46YKj4EDSgWsoSXAj+TbIAGgEGJECq9JAjpMAa8M0pnCaBoJx0zoQ+5QrSfEPJsA4FTY0wW8v5Nhunxo1tVyZPKg/BXTNMf4f4Cygs/KYoUAakzZr7h1PtP/7+g6Yqe8V33QHMNu3bVc=
+	t=1790580516; cv=none; b=q6jfGWmQIiU/VcGltA12153oL+xi7EPrxni3BF2LfbYZwV/4A7l83WsMBdFTupXyWft5YxzoICSf+/AWGFwIUCJBAj0/lgSUkGnCg8kyPNZmoKW7EJq9Vl+sbcAxEljjlnIHM4jMxydmTKTToDcKNRCgRvsDL/3OUH3brAXThxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580505; c=relaxed/simple;
-	bh=csRyCxe/qJkiN65GCK4ubCkbvG2vCXI+W2GLfeoaQhM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ix+Lp5mXzyOIj4Yl5cVqHQW3pEsu+nd0S6jRIEipjIVzlOYdNmyc7LHTcgRyR7txhaNmGMfjHeuUiaTuT1K7xg6QZCH+Hwt+Cewg3F3rLJo4WLkwc0/dnQ8xhqeZM1vYqbA0dAn1NWj159wDc0q6om9hGUHGh6fPim0xoeZSGnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dkt6xH2J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790580516; c=relaxed/simple;
+	bh=m1u8QkGLW0KIqQ+GoIAPkeqJktyRU9Kn3cqAXDDFtFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k4ePiaMKHSrk/Ayx6VP7PIOaM6jAzXOLA4VQgMKE5BFlbLHEaWbIz1LUrQswCKH5rLZt8dDGMvG6DB69binPDHEL5l0InDyCidlkdarWWOxgvGN445fmuiubLKKeFdqtVQ+BfRIFTaEkdbvz8jQIpr0pH8poEiWTqSDkiJjMN4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l5Wi5KkV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XBMuDDRQ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dkt6xH2J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF2B1F000FF;
-	Mon, 28 Sep 2026 07:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790580501;
-	bh=+LksHqZozTtq7yO6KkjuEVP0ofhwJNDCQXPtObKD/1k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Dkt6xH2JXFEogH+25ymBukI9dCfxA3hNo12nOX8K2n5a6a4QY62Q+ke8no/A5HEVB
-	 qZ/L/nhs6YtNxqoHfgLG/Sf2dgwVZrYX0LSF4B9KXmr+XJcClAUwyIu5ELJKVvR+s8
-	 n/2gaj3xYxQWF8eiji3ZzJMe9XyxijisYWdV6bSTlX7mWI7PrQOY+SkCFPa3Ya5Xhl
-	 Cp9NLzhGBwux1m6QmGi1Wd1JYxXgtzvHpZnD4pjRp59Mo9zpbYS6NBLwVZLIyEl71R
-	 fp/89MDqsFlPFFStUrxWH+ltvJYMqlt9WzAZ4YlEs5MMHdOMEHPBy24QJ6zAyFygMI
-	 PGgXai9Hc1Zxw==
-Message-ID: <655c509e-318f-48bc-8183-2b1274dd05ac@kernel.org>
-Date: Mon, 28 Sep 2026 09:28:08 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l5Wi5KkV";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XBMuDDRQ"
+Date: Mon, 28 Sep 2026 09:28:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790580510;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
+	b=l5Wi5KkV34SIYibgi7B1IIstb/CHwUtXk9ntnhluuJEfQl1OT9Jea26ThlOFLanwk8jFDB
+	Zti8t4ScB5D0u77XW0o4XoikwtgWgBxJ58pMV+VwObaKQ7b81scqrrMQi1/+NINz2GF6nz
+	Hu/hsGc6nTil/mW7lKd5RZyMj2NFmiSXl9IGyaZmDVNgg/ObHdBpsyZGXOLbiRFo6l+bgH
+	rDk5p6ciBzOm2XFphPfOtHtExMARfCs4l2HjIfP0v27qG18/QrsT3MdsWgNwv2W1FIc/67
+	ysOcpAqywlSDq3HwzpDmYFTi5kg59oiQlSONUWpHPMOMo6uBKSvzDrtGQjaGYQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790580510;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
+	b=XBMuDDRQqjW8J464HX5I9r7EJFwcjgmNayJJ5ouWzp00LpyydwKh3mImP13GgXqwP0h/RO
+	s6R4E0RpBI0IHRAw==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/4] firmware: raspberrypi: Add support for the
+ tryboot mode
+Message-ID: <stvm3nzpcde6ukl35wfnukyztp7r2n2yuzjwu4brrumomzemfa@kazuwkb75e77>
+References: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/13] mm/sparse: remove SECTION_MARKED_PRESENT
-To: David Carlier <devnexen@gmail.com>
-Cc: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org,
- baolin.wang@linux.alibaba.com, baoquan.he@linux.dev,
- brendan.jackman@linux.dev, dakr@kernel.org, driver-core@lists.linux.dev,
- gregkh@linuxfoundation.org, hannes@cmpxchg.org, jan.kiszka@siemens.com,
- kasong@tencent.com, kbingham@kernel.org, liam@infradead.org,
- linux-cxl@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- mhocko@suse.com, osalvador@suse.de, qi.zheng@linux.dev, rafael@kernel.org,
- rppt@kernel.org, shakeel.butt@linux.dev, surenb@google.com,
- vbabka@kernel.org, weixugc@google.com, yuanchu@google.com, ziy@nvidia.com,
- devel@lists.crash-utility.osci.io
-References: <20260921-b4-sparsemem_cleanups-v2-10-54d81d65e125@kernel.org>
- <20260927192013.144672-1-devnexen@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260927192013.144672-1-devnexen@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
 
-On 9/27/26 21:20, David Carlier wrote:
-> On Mon, Sep 21, 2026 at 09:59:02PM +0200, David Hildenbrand (Arm) wrote:
->>  enum {
->> -	SECTION_MARKED_PRESENT_BIT,
->>  	SECTION_HAS_MEM_MAP_BIT,
->>  	SECTION_IS_ONLINE_BIT,
->>  	SECTION_IS_EARLY_BIT,
+Hi,
+
+Just a gentle ping on this series.
+
+Are there any outstanding comments, or is there anything else needed from my
+side to move this forward? I would ideally like to get this picked up before the
+next merge window.
+
+On Fri, Sep 04, 2026 at 09:46:48AM +0200, Gregor Herburger wrote:
+> This adds support for the tryboot mode on Raspberry Pis. As there is no
+> documentation other than the downstream implementation [0] the
+> implementation is based on this.
 > 
-> Hi David,
-
-Hi!
-
+> I tested this on Raspberry Pi 5 and therefore I only added the
+> properties to this devicetree. But afaik this should work on all
+> Raspberry Pis. I will add it to the correspondings dts if I get some
+> hardware to test it.
 > 
-> It seems dropping SECTION_MARKED_PRESENT_BIT shifts the other section flags down
-> one bit. crash hardcodes SECTION_HAS_MEM_MAP as (1UL << 1) in
-> pfn_to_map(), so it now tests SECTION_IS_ONLINE: offline and
-> ZONE_DEVICE sections no longer resolve to a struct page. makedumpfile
-> only checks bit 0 and is fine.
-
-Thanks. To be expected when relying on kernel internals.
-
-Which makes me wonder why makedumpfile
-(https://github.com/makedumpfile/makedumpfile) not require any such information.
-
+> [0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
 > 
-> Keep bit 0 reserved, or export the bits via vmcoreinfo?
-We could export it, or crash can simply detect the change based on the kernel
-version. I remember the latter was done in makedumpfile in the past (although we
-export it).
+> ---
+> Changes in v4:
+> - fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
+> - Rebase onto v7.3-rc1
+> - Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
+> 
+> Changes in v3:
+> - fix use-after-free error by using devm_add_action_or_reset
+> - ensure endianness of magic byte
+> - refactor reboot mode registration into separate function
+> - Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
+> 
+> Changes in v2:
+> - Remove unnecessary reboot_mode_unregister().
+> - dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
+> - Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
+> 
+> ---
+> Gregor Herburger (4):
+>       firmware: raspberrypi: reorder rpi_firmware_property_tag enum
+>       dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
+>       firmware: raspberrypi: Add reboot mode support
+>       arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
+> 
+>  .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
+>  .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
+>  drivers/firmware/Kconfig                           |  2 ++
+>  drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
+>  include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
+>  5 files changed, 60 insertions(+), 15 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260623-rpi-tryboot-4292c92b0727
+> 
 
-I can send a separate patch to export it.
-
+Best regards,
 -- 
-Cheers,
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
-David
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
+
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
