@@ -1,252 +1,195 @@
-Received: from mail-m49239.qiye.163.com (mail-m49239.qiye.163.com [45.254.49.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9C748986D;
-	Mon, 28 Sep 2026 08:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E37F48BD51
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585456; cv=none; b=KIq4v1lsUbfEAcIFLvdqTk9kRZqVj4ErmqRohtEf/V4zxZ91VEWnFldDro6XDRnF4KSWgfzISTGUwOsRhfTc8JhdbwjYojcEZIyrE6aG6xftBXaQkJF4XP5+9v8ljfNOanxn5qGKmjutnI448qC/XPh2x2szsq57+7hjBlAqLqc=
+	t=1790585457; cv=none; b=P+jZb6f478xQAIkxPgCmSYZKAhKn/Q84S9OVdOYIsQsStNnFtjF2TZusMs3WlegtxC20CYKEc1DHqF7OreOZC7w5aAt3adjRoAja5jEeLI5/fKZi1av5E4gtDh5mfOZN+LyvlSmvZ8jPDdOvfOa2DQDwvrMnmgiV/L9506NukIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585456; c=relaxed/simple;
-	bh=oo20zR64edegC3SG3BdC/JJ3ioFPI6co7ckcrZks2qY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jL24GYkm7jg9+zyj0OF1nhfZnnoEUprmb2+6Qhscf2hrbm050w1KNP17ytsXAixs8KxF22Lr0LlXPTxOyr0l7wmsn5Q072TcSf0yxenOYy984DxupMxfdJwvTh2jPiTF63r3pS25VVkYiofl1OAcPCC1F+BtySmW/EfGkZ3jYbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=i9W2wGYK; arc=none smtp.client-ip=45.254.49.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790585457; c=relaxed/simple;
+	bh=ksMx5jUd01eto0BA4SnkhzEOtLlkbUgiTZg+BUNu+Fg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IEw2SxueGpoS+jy2ytw6OpIRr9D9PAFaGOSkv80b2GjdOj/3Jz4jD0Vt+eX7bxkaNwdCLzkOe+ZYXb/dzof1unbZcR3J5M6xszXrYAH+bkyfgo994ovX0cYkxQH24B18pcnWqsoYVoTnJf2jQRi2NcyvuLewefl92qfjclwZ0r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FGv9l0YP; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="i9W2wGYK"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398eae;
-	Mon, 28 Sep 2026 16:15:15 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
-Date: Mon, 28 Sep 2026 16:14:15 +0800
-Message-Id: <20260928081418.3605775-12-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
-References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FGv9l0YP"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so16701495e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:50:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790585452; x=1791190252; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pNftRw2tWysHYpxWpyBTAFrax0w98I7jfRta/SXIr50=;
+        b=FGv9l0YPV6swPbT+QAEDl7I3K1FQK6/wYasCUr4UQkISPjzdDIKjMNXxsPVsuQVhuj
+         djZr8xBzAkrbCd+23MruqKpz2ecP3j1SoYXoryYQd4NpAVYfI7jox5wii8XUSo+S4tvn
+         IP5sjOjr3nMRtrobRP0X0l4pQCXrFcmy88/T2gBwioVVrcAyOQsR2xOxIerwf/quV/bJ
+         1SUA96wgg6wf7ReYcfQcwQ9F8RywgZmOscylHoLC7jsxLuTEg8YV5H9MVHffKlwqbtpL
+         cyoELp81v+v1putb/EB1cStM464D69WnxcW3fvaDgMfnrHiAoL5BakMGjXNc17do6M92
+         Uwew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790585452; x=1791190252;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pNftRw2tWysHYpxWpyBTAFrax0w98I7jfRta/SXIr50=;
+        b=u/ksFdHvRNF0lDkVZZ7eqHB73CwfGF2YIg/S/sYjVcowhnphmcFzCddlcIMgkOBByy
+         rsTPS20bKu3JC0Q4db5s7MwOpCq6Em1OhQ8Xmw/NQwxap+2DCYbSpwCY3S5nn3ksi9Gz
+         oC6fK3ZIL94ADd7GRRqV7BXCb0L12UcrlXNeeri/f9mTfs5NIwb9avbih+y3QvNvAwpE
+         cxvFB/k1mA9jvUfaWVEHsTuzrTQHHWUpZAgKkxgh0RFbst5wjzRwvAVlMN7WhmJTaUSE
+         PdIPznDno7IppQEUHpN2OuvUN6z978kHIeDSUjjWEdKR5TM/TLw0yyyvU1er76szI1I2
+         3RTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbTTuhCg71FgqBv6fWM96O1gEVUwmcfUg0BG1B/fZ6tUfXHSHvmIdwitkuVYHXhoqLsVJul3CArb21HZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz/V3LzB97CF+vcZe1hYP2Azb2oeygarB8dTXi1NbLMaNGhorm
+	ECoRVsL7vXZJPNYr6e49gpIUuedP198TJwTV7B83vHGPc7MxAWahh3ncFDjLPxZldD0=
+X-Gm-Gg: AYBFou0aYpULfOS+szeuc+Lz7FjcNwv4ghvCyhPjknLMYpGaGSOuTORRQGKAKZLawfM
+	fbaLMilKBF6iCLYvDvG77pZTupXgUbsCY1vBLje5qzRuU9uEAZt4I69S8fpg8pCXgdEEjmQMYxu
+	vHOAmGCDYh8tK5qsOuW6ZUddnJko6cZz91M8c4rUxFbbcix6ZVL4GKRP1YFu7lkR6Dg+2nzoG8B
+	du3XDuSsxms1+zSXTXJAHTpo8PGDA9MXdPVzJcRPrh7sJOAcpC8uSA883kdNxfzSnvsMiny86Jt
+	a1aVm5jJP9KC+h3bOntKkH+iD9oG3Iyin1lecS9jg6bTR6Umdy9aNCDe4aWWbRZ36gWlANDzrBi
+	S3KemnPUNlvbvKpADWZlT/TuXI5QuXQrI7QivV5Wijkj23bV00EXVBygXxjbZ2MYSjiV1psEQFa
+	0aBP0TkI/mIeOA2bmxEKcDDmaWz4QUSNZCjIDyaX4s0ARaBHxslqb74cJdD8wrf53Tqud5lQUdG
+	OiAbEOGRfEw91PAJu4lCAhUVS2M9eSKV9rxzMR4nZ9ERJ//AnGP78OxOuDUJOo=
+X-Received: by 2002:a05:600c:6085:b0:49c:eb04:1c49 with SMTP id 5b1f17b1804b1-49fe66cccd4mr219278595e9.13.1790585452000;
+        Mon, 28 Sep 2026 01:50:52 -0700 (PDT)
+Received: from localhost (p200300f65f19a904b8075b4cf431dac8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:b807:5b4c:f431:dac8])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a001778312sm295599625e9.8.2026.09.28.01.50.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:50:51 -0700 (PDT)
+Date: Mon, 28 Sep 2026 10:50:50 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Bradley Morgan <brads@mainlining.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] Add TAINT_DRIVER_OVERRIDE for usage of
+ driver_override
+Message-ID: <aromsiCXLfGRRTFC@monoceros>
+References: <cover.1790495516.git.u.kleine-koenig@baylibre.com>
+ <01d7a085e56b860e83b65c96ff3dd86c4498804b.1790495516.git.u.kleine-koenig@baylibre.com>
+ <DLQ0BIYP96RN.Z0L5I17RQMRQ@kernel.org>
+ <DLQ0HUM8AV99.3DNY5MRA2AZSO@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e7151b5c03a8kunm323e2b5437cf7b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSE8aVhgaSR1PGUlCSEJCSFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pOTE5VSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=i9W2wGYKXGV2T4isZVlWgnjW8rWtA678+S3YvACjHBDDYhjS6UrRHGQSlYLQJnX6ahGJWCsKslg21Q9bxQLm779HpsVH5oeaFGi9/ItpNoROmSlXGDBPcNSuL1cwZzs3apoDp1Yzzix5u8tRvMnXcBj+tk5qPdcnwhyfJdBLmQE=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=j11Dmmvwc4sMN9cMfiaTCR0rnZ/rVwqt5MGQa88GIlk=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="akr7ood6yiztdqxp"
+Content-Disposition: inline
+In-Reply-To: <DLQ0HUM8AV99.3DNY5MRA2AZSO@kernel.org>
 
-The DRM bridge core provides a standard next_bridge field in struct
-drm_bridge for chaining downstream bridges. Use dp->bridge.next_bridge
-consistently inside the analogix_dp driver and drop the separate
-dp->plat_data->next_bridge field.
 
-The next bridge is now resolved in analogix_dp_aux_done_probing(): for
-Exynos platforms with legacy display-timings a display mode bridge is
-created and used directly, skipping the endpoint lookup; otherwise the
-remote endpoint bridge (panel or bridge) is looked up via
-of_drm_get_bridge_by_endpoint().
+--akr7ood6yiztdqxp
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/2] Add TAINT_DRIVER_OVERRIDE for usage of
+ driver_override
+MIME-Version: 1.0
 
-The reference returned by of_drm_get_bridge_by_endpoint() is transferred
-to bridge->next_bridge, and an explicit reference is taken for the
-devm-managed display mode bridge; the bridge core automatically puts
-bridge->next_bridge at bridge destroy time, pairing with both.
+On Sun, Sep 27, 2026 at 12:03:54PM +0200, Danilo Krummrich wrote:
+> On Sun Sep 27, 2026 at 11:55 AM CEST, Danilo Krummrich wrote:
+> > On Sun Sep 27, 2026 at 10:03 AM CEST, Uwe Kleine-K=F6nig wrote:
+> >> Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
+> >> userspace manually messes with devices and drivers") introduced a taint
+> >> for usage of bind/unbind sysfs files that manually trigger driver probe
+> >> and remove respectively.
+> >>
+> >> For drivers that do their resource management correctly (which is also
+> >> needed for module unloading) bind and unbind for matching devices are
+> >> not critical operations. The thing that makes bind and unbind unsafe is
+> >> that drivers can be forced on devices that originally don't match using
+> >> driver_override. The result is that e.g. of_device_get_match_data()
+> >> returns NULL despite all .of_match_table entries having a non-NULL
+> >> .driver_data member which yields a NULL pointer exception for several
+> >> drivers. And given that after setting a driver_override a manual bind =
+is
+> >> only one way a driver can be bound to an unexpected device, a separate
+> >> taint for such an override is justified.
+> >>
+> >> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> >> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+> >> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> >
+> > Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> > Link: https://lore.kernel.org/driver-core/DLIL9H50MALI.3JROXYEEUM3KU@ke=
+rnel.org/
 
-Suggested-by: Heiko Stuebner <heiko@sntech.de>
-Link: https://lore.kernel.org/all/5609825.iZASKD2KPV@diego/
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 44 +++++++++----------
- drivers/gpu/drm/exynos/exynos_dp.c            | 15 +------
- include/drm/bridge/analogix_dp.h              |  1 -
- 3 files changed, 23 insertions(+), 37 deletions(-)
+I came up with the idea on my own, but ok, will add that reference.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 38857508d939..853b6a6a7fe4 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -21,6 +21,7 @@
- #include <linux/platform_device.h>
- 
- #include <drm/bridge/analogix_dp.h>
-+#include <drm/bridge/of-display-mode-bridge.h>
- #include <drm/display/drm_dp_aux_bus.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-@@ -32,6 +33,8 @@
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-+#include <video/of_display_timing.h>
-+
- #include "analogix_dp_core.h"
- #include "analogix_dp_reg.h"
- 
-@@ -909,7 +912,7 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	struct analogix_dp_device *dp = to_dp(bridge);
- 	enum drm_connector_status status = connector_status_disconnected;
- 
--	if (dp->plat_data->next_bridge)
-+	if (dp->bridge.next_bridge)
- 		return connector_status_connected;
- 
- 	if (!analogix_dp_detect_hpd(dp))
-@@ -930,8 +933,8 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
- 		return -EINVAL;
- 	}
- 
--	if (dp->plat_data->next_bridge) {
--		ret = drm_bridge_attach(dp->encoder, dp->plat_data->next_bridge, bridge,
-+	if (dp->bridge.next_bridge) {
-+		ret = drm_bridge_attach(dp->encoder, dp->bridge.next_bridge, bridge,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dp->dev, "failed to attach following panel or bridge (%d)\n", ret);
-@@ -1655,37 +1658,34 @@ struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp)
- }
- EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
- 
--static void analogix_dp_put_bridge(void *data)
--{
--	drm_bridge_put(data);
--}
--
- static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
- {
- 	struct analogix_dp_device *dp = to_dp(aux);
- 	struct analogix_dp_plat_data *plat_data = dp->plat_data;
-+	struct drm_bridge *bridge = &dp->bridge, *next_bridge;
- 	int port = plat_data->dev_type == EXYNOS_DP ? 0 : 1;
--	int ret;
-+
-+	if (plat_data->dev_type == EXYNOS_DP && of_get_display_timings(dp->dev->of_node)) {
-+		next_bridge = devm_drm_of_display_mode_bridge(dp->dev, dp->dev->of_node,
-+							      DRM_MODE_CONNECTOR_eDP);
-+		if (IS_ERR(next_bridge))
-+			return PTR_ERR(next_bridge);
-+		bridge->next_bridge = drm_bridge_get(next_bridge);
-+
-+		return component_add(dp->dev, plat_data->ops);
-+	}
- 
- 	/*
- 	 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
- 	 * valid panel or bridge nodes. The driver should go on for the
- 	 * driver-free bridge or the DP mode applications.
- 	 */
--	plat_data->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node,
--							       port, 0);
--	if (IS_ERR(plat_data->next_bridge)) {
--		if (PTR_ERR(plat_data->next_bridge) == -ENODEV)
--			plat_data->next_bridge = NULL;
-+	bridge->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node, port, 0);
-+	if (IS_ERR(bridge->next_bridge)) {
-+		if (PTR_ERR(bridge->next_bridge) == -ENODEV)
-+			bridge->next_bridge = NULL;
- 		else
--			return PTR_ERR(plat_data->next_bridge);
--	}
--
--	if (plat_data->next_bridge) {
--		ret = devm_add_action_or_reset(dp->dev, analogix_dp_put_bridge,
--					       plat_data->next_bridge);
--		if (ret)
--			return ret;
-+			return PTR_ERR(bridge->next_bridge);
- 	}
- 
- 	return component_add(dp->dev, plat_data->ops);
-diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
-index 82c238829921..b1e130278ecc 100644
---- a/drivers/gpu/drm/exynos/exynos_dp.c
-+++ b/drivers/gpu/drm/exynos/exynos_dp.c
-@@ -14,12 +14,10 @@
- #include <linux/of_graph.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
--#include <video/of_display_timing.h>
- #include <video/of_videomode.h>
- #include <video/videomode.h>
- 
- #include <drm/bridge/analogix_dp.h>
--#include <drm/bridge/of-display-mode-bridge.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
-@@ -161,14 +159,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
- 	 */
- 	platform_set_drvdata(pdev, dp);
- 
--	if (of_get_display_timings(dev->of_node)) {
--		dp->plat_data.next_bridge = devm_drm_of_display_mode_bridge(dp->dev,
--									dp->dev->of_node,
--									DRM_MODE_CONNECTOR_eDP);
--		if (IS_ERR(dp->plat_data.next_bridge))
--			return PTR_ERR(dp->plat_data.next_bridge);
--	}
--
- 	/* The remote port can be either a panel or a bridge */
- 	dp->plat_data.dev_type = EXYNOS_DP;
- 	dp->plat_data.power_on = exynos_dp_poweron;
-@@ -179,10 +169,7 @@ static int exynos_dp_probe(struct platform_device *pdev)
- 	if (IS_ERR(dp->adp))
- 		return PTR_ERR(dp->adp);
- 
--	if (dp->plat_data.next_bridge)
--		return component_add(&pdev->dev, &exynos_dp_ops);
--	else
--		return analogix_dp_finish_probe(dp->adp);
-+	return analogix_dp_finish_probe(dp->adp);
- }
- 
- static void exynos_dp_remove(struct platform_device *pdev)
-diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-index 6033137b651e..f152ca8c3218 100644
---- a/include/drm/bridge/analogix_dp.h
-+++ b/include/drm/bridge/analogix_dp.h
-@@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
- 
- struct analogix_dp_plat_data {
- 	enum analogix_dp_devtype dev_type;
--	struct drm_bridge *next_bridge;
- 	struct drm_encoder *encoder;
- 	struct drm_connector *connector;
- 	const struct component_ops *ops;
--- 
-2.34.1
+> >> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+> >> index c51ad96d4de4..7d5dc016a457 100644
+> >> --- a/drivers/base/bus.c
+> >> +++ b/drivers/base/bus.c
+> >> @@ -513,6 +513,7 @@ static ssize_t driver_override_store(struct device=
+ *dev,
+> >>  {
+> >>  	int ret;
+> >> =20
+> >> +	add_taint_module(NULL, TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
+> >>  	ret =3D __device_set_driver_override(dev, buf, count);
+> >
+> > There are buses (such as SPI) which unfortunately have to call
+> > __device_set_driver_override() directly.
+> >
+> > I think it would be better to move the taint into __device_set_driver_o=
+verride()
+> > and properly document the purpose of __device_set_driver_override().
+>=20
+> Of course I meant to say to create a new forwarding function for this pur=
+pose,
+> such that we do not taint for device_set_driver_override().
 
+What is the rationale to exclude device_set_driver_override()?
+
+For the dynamic spi device creation I like it to trigger the taint. For
+sound/soc/samsung/i2s.c it looks as if device_set_driver_override() is
+just the lazy way to make the created device bind and there is no reason
+to stick to normal binding. And why does it call device_attach()?
+Shouldn't that trigger automatically after platform_device_add()?
+Also in drivers/slimbus/qcom-ngd-ctrl.c the call to
+device_set_driver_override() seems redundant.
+
+> Maybe device_store_driver_override() or device_set_driver_override_store(=
+)?
+>=20
+> > It only exists as SPI and AP are a bit special; both print "\n" when
+> > driver_override is not set, whereas all other buses (and thus the drive=
+r-core)
+> > produce "(null)\n" in this case. I.e. it should never get any new users.
+
+I guess it's API and thus hardly changable, but I like "\n" better, and
+if it's only because "(null)" might be a driver name and there is no way
+to distinguish the situation after
+
+	echo '(null)' > driver_override
+
+=66rom the normal state.
+
+Best regards
+Uwe
+
+--akr7ood6yiztdqxp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq6KmcACgkQj4D7WH0S
+/k4tNggAkYtGcQAPyu8XTaClLG0gxNYnKAAmDN9QKId+ihiRZzuPUBAUg2aq5JFd
+atIgGOszQ7cAqkGYZwudUgNJSpcRAPViCFkD55CdU+Sos6yQPplGBBnfj8fBcvF5
+MH+9+rtZwxxQOxpldtK2QdvIO7Wp4Zb2Hflf19aH/97OjqqUC+7psxDrf8q0Iulx
+M6pa+FHu60G4Pecn2C1pTAsoMCB2T+5H/8TFVDgi0IHqT3RgGd5Zde3YdKiQ6eQ/
+g4qTol5GLxjr07cyPhaKsCAVaH+QYVNN4aEfskOs2cDSKFyt9eiNgP3Ftc2OgaUs
+fEqVVNKz567R3lt3Dj2QXxwWi+aLhQ==
+=LCur
+-----END PGP SIGNATURE-----
+
+--akr7ood6yiztdqxp--
