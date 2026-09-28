@@ -1,155 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9DA4D4890;
-	Mon, 28 Sep 2026 13:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732E4D5988;
+	Mon, 28 Sep 2026 13:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603984; cv=none; b=h+ekie34IMOp5KlQgqsapNlOdcU5Ec0nIQeXmXYeuqMbeWnQOkQmNzAjgf6frUHT/FoecxXM3ffFMdP7s8nnNnkr6N0s5OGNEdIv3Ys+0po8e7igwT/eLCpVBVaEY4wOTxuZofXXTgIYXPITuLMBVPlaqEq9e6zoAVt0799Vvic=
+	t=1790603991; cv=none; b=JYtZXn8llU8QxMOPtoES+oYxopBuhdPNmO8yBXmJgRQEQ0nWwpC064LiUpzPIsije/LQiZO0nk7w+2rVw6vfqP6tjQ0HgmfyZEe8DskHnLDC+/qhBEyQIwsgkU4ew8+sjE8bJHV7CPe5TwLoCxpVkp2cRgnFQ86sTWaMOC8r3Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603984; c=relaxed/simple;
-	bh=C2Fe0MYJaMj1TO9k6t/S2y+fSC0s2SJC8TTMFZGWn+I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QH7SOFT3qdnLcaW94KjA9EOggoP3ly0DjbpvUCShnuUCryLiurQCajF2D9FA7lv47Ani0rE/mGzAyhU7I424k7MpRMGG41cF7SgiWMxrF10z1OIsdvI3Xn0ABkq8Qc7JRPy9ueuKmnrnazluWty2LNeK6ISmeyTwIxj5XXm/V9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HM7jNw8T; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790603991; c=relaxed/simple;
+	bh=oK3jZxxDr0BnpPbmFCjbTWLPyFqxlCPZlscEIjM9pLE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S8F/yFLeuO7dMwy/0D1cu0lB2Th70+tw0UKMg2NAuij6W6EOegS/4lLHQsE7Vfv0TpwF+XrR8TkxlmRc4WMkZU+hFHbOh6Hba/IS5PNTC1oVPSyJbJLQbXRC6mqVJUzX7UFZlBqz/vKJqRkaAu8Ugly7qwoY/VK2e2+tl/B8lig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L9/V6OAd; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HM7jNw8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 441BAC2BCB3;
-	Mon, 28 Sep 2026 13:59:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790603984;
-	bh=C2Fe0MYJaMj1TO9k6t/S2y+fSC0s2SJC8TTMFZGWn+I=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=HM7jNw8TzG5zPMXw3FdSiEBUHY8DjZWU6dAUMHqUXW8yCoJL0aqvRHEw20SPWaUHZ
-	 pIqxJhMwP92V+Kgm5Kc7jZcdSi8radfI2hvDKp8Gf6QoHX2v6EoZRv/bAJ3DJSC4h0
-	 mW6x3PUAz6k045tXkNsjsxOnJ5T4kuszep/viVpwh3qWIPz0KOzaP9gWUUFfsE7oAE
-	 lw2zUMa1TLAoNgMb5BUCDVy+x6zOMxaxdBqDj/yXpnoa88GL7vE1xVXafLaDiWTiQv
-	 kW92oqn05AgVZGfI7F7hSAB5Ut2rIneKziU3lo47Ub+IWLUbQbxdEcwC6bcyHC8mlx
-	 r16gI2St0HPNA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2050CCA5FA2;
-	Mon, 28 Sep 2026 13:59:44 +0000 (UTC)
-From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
-Date: Mon, 28 Sep 2026 07:59:44 -0600
-Subject: [PATCH v3] usb: gadget: u_serial: fix NULL deref in gs_close()
- after failed open
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L9/V6OAd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790603989; x=1822139989;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oK3jZxxDr0BnpPbmFCjbTWLPyFqxlCPZlscEIjM9pLE=;
+  b=L9/V6OAdRpBgIHePdL1yvqJHwBC1ciijAs3Ampwh8qlkofok3OHt9GzS
+   ZSarOR2zOnCXrlmq5cTgbCThUTH3HyLgiqkoVZ5oksc07nEGH+GFmQVvz
+   141uWvBtDw7DQh8mLiKRqAFyuFSu8yyNDZfP7uJ36vuHzXzSnPz3OfN+V
+   7bqc67qQh9E76Q70HoJ62Y/t7JwPu5mHn6I29qtyWUftNEYjNGBly0Ogg
+   eamw2UE+roqgv9K7CwOIBuxYEJ0IPyfhCrbRqF3TXFn7PF53TMP6ZeYs+
+   8YiG+zG9Ljv+JdvjDRpKhAaVXiwS9KlsbQU8cMKidlEvg3YvER+durc/M
+   A==;
+X-CSE-ConnectionGUID: g8d3cCE6SFypsKZJOJrp5g==
+X-CSE-MsgGUID: HN8kgLkCSXyQ5zkto8qrHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90068800"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90068800"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:59:49 -0700
+X-CSE-ConnectionGUID: NEJqQGimT4C8rbhoiu06Zg==
+X-CSE-MsgGUID: rI73WS/oRnSCECNXKNG0Fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="301354197"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 28 Sep 2026 06:59:47 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id C369A99; Mon, 28 Sep 2026 15:59:46 +0200 (CEST)
+Date: Mon, 28 Sep 2026 15:59:46 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Carlo D'Ambrosio <carlo.dambrosio@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] usb: typec: ucsi: Acer Aspire 16 AI reports connector 2
+ while num_connectors=1
+Message-ID: <arpy0gdTPc1YhKHr@black.igk.intel.com>
+References: <18c22d05-af53-4d94-b6ff-91441adc65c2@gmail.com>
+ <48e56ed1-d8ef-4d26-8c18-9bb0fa2e5a7a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-u_serial-gs-close-null-v3-1-c688d93b4c49@gotenna.com>
-X-B4-Tracking: v=1; b=H4sIAM9yumoC/4XNTQ7CIBAF4Ks0rB0D9I+68h7GGFqGlqSCgZZom
- t5d2pUujLN7L3nfLCSgNxjIKVuIx2iCcTaF/JCRbpC2RzAqZcIpr2jDKMy3bSFH6AN0owsIdh5
- HkILKIq/SoSBp/PCozXOHL9eUBxMm51/7n8i29i8ZGTBoZImiEC1Tuj33bkJr5bFzd7KhkX9Av
- P4J8QS1CpUua41Npb+hdV3fFR+/WQcBAAA=
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Kuen-Han Tsai <khtsai@google.com>, 
- Prashanth K <prashanth.k@oss.qualcomm.com>, 
- syzbot+97aa71f55869d71bc94a@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Brian Ellis <brianellis@gotenna.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790603983; l=3583;
- i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
- bh=nr2XdxRa87a7C3jXAfs1qnHiC4oajvF4Zv7whfXEp2I=;
- b=oKEpgUrb7WdSJkn86FX4RSIJG9R8343giM8IgMStYsDjHMhKgDLamU5C6ftPzv5J6BZELP1Xu
- IEiJ4vNdg8rDIrRtDYWvA4A5bZ3kTM2srfH0O8zB97UKE8JroeJp73l
-X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
- pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
-X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
- auth_id=1022
-X-Original-From: Brian Ellis <brianellis@gotenna.com>
-Reply-To: brianellis@gotenna.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <48e56ed1-d8ef-4d26-8c18-9bb0fa2e5a7a@gmail.com>
 
-From: Brian Ellis <brianellis@gotenna.com>
+On Sun, Sep 27, 2026 at 09:04:09PM +0200, Carlo D'Ambrosio wrote:
+> Hello,
+> 
+> I did one additional A/B trace which seems to explain why the notification
+> storm persists.
+> 
+> Starting from a clean Windows -> Fedora boot, I traced
+> |ucsi_notify_common()|and |ucsi_acpi_async_control()|and connected the
+> charger to the lower USB-C port, which behaves normally.
+> 
+> The first event was:
+> 
+> |NOTIFY CCI=0x20000002 connector=1 num_connectors=1 CONTROL
+> command=0x0000000000010012|
+> 
+> |0x12|is |UCSI_GET_CONNECTOR_STATUS|, with connector 1 encoded in the
+> command.
+> 
+> This was followed by:
+> 
+> |NOTIFY CCI=0x80000900 CONTROL command=0x0000000000030004 NOTIFY
+> CCI=0x20000000|
+> 
+> From |ucsi.h|, |0x04|is |UCSI_ACK_CC_CI|, bit 16 is
+> |UCSI_ACK_CONNECTOR_CHANGE|, and bit 17 is |UCSI_ACK_COMMAND_COMPLETE|.
+> Therefore |0x00030004|is:
+> 
+> |ACK_CC_CI | ACK_CONNECTOR_CHANGE | ACK_COMMAND_COMPLETE|
+> 
+> So for the valid connector-1 notification, Linux performs the expected
+> |GET_CONNECTOR_STATUS(1)|and subsequently acknowledges the connector change.
+> 
+> In contrast, when the upper USB-C port triggers the problem, the trace is
+> only:
+> 
+> |NOTIFY CCI=0x20000004 connector=2 num_connectors=1 NOTIFY CCI=0x20000004
+> connector=2 num_connectors=1 ...|
+> 
+> approximately every 570 ms, with *no calls at all to
+> |ucsi_acpi_async_control()|*during the loop.
+> 
+> This matches |ucsi_notify_common()|: because connector 2 is greater than
+> |ucsi->cap.num_connectors|(1), |ucsi_connector_change()|is not called, so
+> the normal connector-change handling/acknowledgement path is never entered.
+> 
+> Also, to correct an interpretation I was considering earlier: |0x20000004|is
+> *ACK_COMPLETE + connector 2*, not ERROR + connector 2
+> (|UCSI_CCI_ACK_COMPLETE|is bit 29; |UCSI_CCI_ERROR|is bit 30).
+> 
+> This seems to leave two separate questions:
+> 
+> 1. Why does the PPM expose |num_connectors=1|via GET_CAPABILITY while
+>    the upper physical USB-C port generates connector-change indicator 2?
+> 2. Independently, should Linux do anything to acknowledge/drop an
+>    out-of-range connector-change notification to prevent a persistent
+>    notification storm, or is the current behavior intentional?
 
-gs_close() opens with
+Please report the issue to Acer if you have not yet done so. This is
+an obvious FW/PPM issue.
 
-	struct gs_port *port = tty->driver_data;
-	...
-	spin_lock_irq(&port->port_lock);
+Thanks,
 
-and never checks port.  gs_open() assigns tty->driver_data only on the
-port.count 0 -> 1 edge, so any failure earlier in gs_open() leaves it NULL,
-and tty_open() calls tty_release(), and hence ->close(), when ->open()
-fails.  Acquiring the spinlock is a write, so this faults outright rather
-than reading garbage.
-
-syzbot reproduces it on arm64 as a KASAN null-ptr-deref write at offset
-0x74, which is port_lock within struct gs_port:
-
-  BUG: unable to handle kernel paging request in gs_close
-  KASAN: null-ptr-deref Write in gs_close
-  Call trace:
-   gs_close+0xac/0x65c      drivers/usb/gadget/function/u_serial.c:698
-   tty_release+0x2c4/0xffc  drivers/tty/tty_io.c:1745
-   tty_open+0x46c/0x89c     drivers/tty/tty_io.c:2146
-
-Return early instead.  There is nothing to release when the open never got
-far enough to claim the port.
-
-Unlike the check reverted by commit f6c7bc4a6823 ("Revert "usb: gadget:
-u_serial: Add null pointer check in gs_start_io""), this is not hiding a
-race: the tty core calls ->close() for an ->open() that failed by design,
-so driver_data is legitimately unset on that path.
-
-Fixes: c1dca562be8a ("usb gadget: split out serial core")
-Reported-by: syzbot+97aa71f55869d71bc94a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=97aa71f55869d71bc94a
-Cc: stable@vger.kernel.org
-Signed-off-by: Brian Ellis <brianellis@gotenna.com>
----
-Reported by syzbot (still open, with C and syz reproducers) and hit
-independently on a downstream 6.6-adi BSP kernel, where gserial_free_line()
-clearing ports[n].port makes the same path reachable.
-
-Compile-tested against usb-linus with allmodconfig (CONFIG_USB_U_SERIAL=m).
-Not boot-tested on mainline and the syzbot reproducer has not been run here:
-the board this was hit on needs a vendor BSP device tree to boot.
----
-Changes in v3:
-- Restore the Reported-by:/Closes: syzbot tags and the KASAN trace. They were
-  dropped from v1 and v2 in error when the commit message was rewritten. The
-  report is still open, and without Closes: syzbot cannot associate this fix
-  with it.
-- Say why this differs from the check reverted in f6c7bc4a6823, since that
-  revert's reasoning is the obvious objection here.
-- Link to v2: https://lore.kernel.org/r/20260927-u_serial-gs-close-null-v2-1-bdedf57fe96f@gotenna.com
-
-Changes in v2:
-- Remove the comment above the check, rather than reword it as Prashanth
-  suggested. The commit message already explains the path that leaves
-  tty->driver_data NULL, so the comment only restated it. Happy to add a
-  reworded one instead if that is preferred.
-- Link to v1: https://lore.kernel.org/r/20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com
----
- drivers/usb/gadget/function/u_serial.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc66..892d2673e 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -695,6 +695,9 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-
----
-base-commit: be4219dd98608736e13e0b790ef742b76a13254d
-change-id: 20260910-u_serial-gs-close-null-a80a436666e8
-
-Best regards,
 -- 
-Brian Ellis <brianellis@gotenna.com>
-
-
+heikki
