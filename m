@@ -1,192 +1,190 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317894E9C25
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1233A493621
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617896; cv=none; b=lxX4g7vV0NSH2hslo1isEBX0mH/XZjsUghRvioMXXt3Ky/ogdWjgOYeVKmUtKDHE5sBQJxqpFQ3hZUAWE+Nnz+KqCX+7+pcvz8xVau6qCHw83ssDUVy7DuLPBi/qOwm1ulT9lSCpB0/bRfYS807EwpWBs1vdd3+kzk25AaKsJro=
+	t=1790617930; cv=none; b=f4z41rzzp06rrZd3hx2/KTauXG23qAiGqMaTEeIse7Efyf0xJXFEgKV+F+yfQCCB4XlDTYRI8Nh2M06Wekfb9N9yy/BLDeZHqoT5eRuQKFrPp6w5lMH55vPA0dFx6hC483QOLYKr09hNv+Rhyr7sHyiMRn7/HNKbrrisclYjsCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617896; c=relaxed/simple;
-	bh=W7NchJ2e254RzEdP3zhZH4tzirDk3Juw+MZY5PFnTE0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IDqskh+ooPYj7A45yd5qYLDnX6uWu2jcJUpFJF8fHwKPkQox2rc/DVnN6XSJaptDIIgCZHK8OeqnL6XmDrrtgqk6bUYot6NGND6OThd90MsSQi6D8wqB0ftA/kBeoK+8gFOKQWzk46tZW9a2r8dj/JS7BfKwnq6LqR2dvrBYle4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HieWitiG; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com
+	s=arc-20240116; t=1790617930; c=relaxed/simple;
+	bh=Q+vmfJG//p2Rey1KhKL5FmZQroywJtuh3/k2Uqp58iQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dn0MLKk/+NK1OOTfCqC2R1TSRPIbDvj1jNm81S3N6KNo+GSCCFJTwZ5m6njM8xEAf7uztrkImiYQ0szcsiUcsOiUDZUhBF1ynp/pBIZwQB9VGrAxuoHTFaJrekJ2PZNwS7jss827c5U9K8uObCpb6X8tkjQJqns/3LQxatGgHPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XUkKTHqQ; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HieWitiG"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so5561821a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:51:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XUkKTHqQ"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6d817a94799so692023eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:52:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790617894; x=1791222694; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+eWi/73aVgEUepz9bgjlZyaQmbZ/Qs8GDgJhCXyhWvc=;
-        b=HieWitiGYrM8yziovEgnlQhQrKo/Vbcy+MtCo14f1QCGHVTsGDT93g8OW1+Wpdn7kK
-         dAVLd7+V2BdKjYMD43iud6GaEnfpXRMUHQWTxZK36H2pRHcdrnnsOrHHSb4EMlmhN/St
-         f6pAFMPdGYcX0wGjJQiEuZkPMOG6FDMYCcXHNsgOpTE79iDrYMi7kSwehZlIJRQCREQh
-         v23906QRO4glhHkrthzhWbN6WpdfQ8zyx8Xqglm6KPIJwLNw+/FIH0oN7H40YQTAtj8X
-         4XmCuG8kQjMUDh/e/phxlypJuBvNg3MQOLDswXeG7VNwUyXgBSH3DcK72nOCGVCr3bfK
-         7W1w==
+        d=gmail.com; s=20251104; t=1790617927; x=1791222727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pJn16IjQM6K4l/OhzyI9FQr95uDpWojn7sleNnAiD6g=;
+        b=XUkKTHqQ/AcGibmiiXcgy9LqNdXQ9UeE0WJxB0lmXtEGhQazcuQdR3yPqj6oTvnz9c
+         F+rj/TNotvWGjPYT1nKeq01SK1D6+pV7zKZ1PaFxUpwPQqg6eQNp18xTrt+tMfTZ2Xir
+         GZFlTHZkbF/oRRFX+StfWf43bhHXXmkOTIQH1b2jrtzCElpvQCXsPkOLR8ZRCG4kNem4
+         MDQZd22vL3NobahCTl1Req5iNJUJKGjmkaW9m/Wp904fCaJifVkbDRVAOrvL4ay+vx+q
+         CR3Kk8xZrr70lpc8dUUn4DSZRpZOpgdZoK7Q9g5wr5g+rWMGLr00PK+fyz4VamLp7uig
+         QO7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617894; x=1791222694;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790617927; x=1791222727;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+eWi/73aVgEUepz9bgjlZyaQmbZ/Qs8GDgJhCXyhWvc=;
-        b=g2WrOmQhvR8tL8tpSfTjQutUXk2pO8nmeu+8gmxz/zpCLajMQr3fxb2I2ZI/E/2dTU
-         EXMVJrXFVGv2MNp+L0t8qgXN1dOuZG6CDelpF7l+2Y+8cvawl0B1tBtZS5VcXL1WIXFp
-         sM9fdnr42WGbPsqn8e+TEnH9MuTrUbnfbSV9Im9k0SAX7tiMC5aNTsulOOR1aX0ANM+v
-         6qYyy2iLcKO/w8jTab21v7NwPJs+Y4ZrYGXrDlr+D3GWXaiNnlfbMoXWuAHOfkrGeIBY
-         O0FCxPLHuvUP2Mb4RBn8bP/hbQZXELPJyEqJwRPY704oMl8nbQkN+tmkvPz/UvTlAseC
-         dqCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzp3J3hF73wexZUxWpQLAumL+ymzJrTl3Mk7Jjix7+6A2UVYW01YYgl+c2iyaV6BQWxzfLPVNlHJ1uMapU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCJsDzZUONLL4HwAcHOjQlKVTJvN/2MmaXiVASH1mk7hz766TW
-	ClWhKDDSnNzWF24JUrsDhmPjcHNVhF1OBZCM0IdU694U+4lJ1UrbGHxg9WoRRATqOE8d9YJLxqY
-	8+Dv0eA==
-X-Received: from pgdj8.prod.google.com ([2002:a05:6a02:5208:b0:cc7:9685:757a])
- (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4d81:b0:3a0:bf0a:c9cf
- with SMTP id 98e67ed59e1d1-3a0bf0ad149mr7941023a91.67.1790617893784; Mon, 28
- Sep 2026 10:51:33 -0700 (PDT)
-Date: Mon, 28 Sep 2026 10:51:27 -0700
-In-Reply-To: <20260928175127.1032535-1-ctshao@google.com>
+        bh=pJn16IjQM6K4l/OhzyI9FQr95uDpWojn7sleNnAiD6g=;
+        b=1Z3q/14J1SChIhv0ypAM+gDirD8tNHWHfuW0tbjmgp5Hyislh9Mss7VtIRs3kjUMMv
+         XetbTf5Z0GAvuuQKrqLSv526aYrgxiadEGZtZLVTC0/gpX2BoiQWBLfUgygo/0XR7SeU
+         6g6lwwfxHb2XIMDnejtHyiw+7QhEYp3k5HcIT481vb6gxwtHKfYYwj35jf0NBlHSqMr3
+         wL8zcpTAlPiWH33/mLa4psrhMAjM8WIONfzU7JpvWXzwefC94XCltACA1L8UtSqzSmWQ
+         EOuRwlmPomhflL7NQK3QSlpkWzsSBw4DQ4HxxTTAU9XTm797r3RgzWEH2Ogul3U2YKU/
+         880g==
+X-Forwarded-Encrypted: i=1; AKwUvBzSGCSRIGoQ+spI2jpFAdRw35lbG+aXjya2Ti6qwgZrEbxyJ3tqbD6FI8XZwoSfb+N95UypVuNaK+Qadx8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbhqtvyhsUBrXE0ZkHOV5zlpvTWyCN5FAbBneSjarKk8tMwDj9
+	5Oi0v2spoN+ZWYnoZvXGpNb92DgS6SlWhunKbcwxGEi4xgpZGK/NrrbT
+X-Gm-Gg: AYBFou04sfIgHmY43pyBgUWDhnUeRTYtryCcne13TBBD80xg0e8C2UDOH/7cfEo9QiR
+	jqUYTpMRoSELUUe5Ynvg7VRnNjI6gAgB1cg8qKFZ0mdNUUEiu6GJGE0AD0bSLyTBO6B1q34Vd0g
+	wTFjhgLDiRzZW4mgHpxQGqAc2WO+hb8E3v4aGeOWzQ0bWTHL/lt4L2j7O76uN3K4gejrKmNcCdf
+	+CDsLPQ2hE+iA45tjCmWgE8LodgrlSw7Xtk+1P9gMhUqdgmG+0NxlAU2QDwGHNLGemQXkHIwlbK
+	OkDbCEiJ+uL90m+qhFfZVVyVzHyM5R51xCIZs1ZAIy9CYu54PxYIv5dtt9IwriRi1ynX33Dt//v
+	H4rdO+eUtki42ZUp/qx998ttSSldttJt3v995vQBkorz8dJJTa6DCR3nncWgWPFpqXBKuCP6dD2
+	7sF55QSTs6IeLEljwmivU6JuudsD7dL6/VfOoa77cM0zkLpp7v2IbfuL/itj42rRB4iBVhQbXL8
+	vsbgsSizZ3WzRUDpMGuJ+0=
+X-Received: by 2002:a05:6820:1f11:b0:6cd:3fec:de75 with SMTP id 006d021491bc7-6d441c7cac0mr12797774eaf.75.1790617927580;
+        Mon, 28 Sep 2026 10:52:07 -0700 (PDT)
+Received: from cachyos-SlimIce.lan ([2607:fb90:9a26:9349::e71])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8822199cbsm5971644eaf.5.2026.09.28.10.52.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 10:52:06 -0700 (PDT)
+From: Jared Wuerzburger <jwuerz@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Samuel Dionne-Riel <samuel@dionne-riel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] iio: imu: st_lsm6dsx: Add ACPI ID SMOCF05 (Minisforum V3 / V3 SE)
+Date: Mon, 28 Sep 2026 12:50:47 -0500
+Message-ID: <20260928175049.86941-1-jwuerz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928175127.1032535-1-ctshao@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928175127.1032535-3-ctshao@google.com>
-Subject: [PATCH 2/2] perf jevents: Add NVIDIA Tegra410 uncore PCIe metrics
-From: Chun-Tse Shao <ctshao@google.com>
-To: acme@kernel.org, namhyung@kernel.org, irogers@google.com
-Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, 
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, bwicaksono@nvidia.com, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Chun-Tse Shao <ctshao@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add PCIe bandwidth metrics for the NVIDIA Tegra410 SoC. The formulas
-follow Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst:
+Hi,
 
-  AVG_RD_BANDWIDTH_IN_GBPS = RD_BYTES / ELAPSED_TIME_IN_NS
-  AVG_WR_BANDWIDTH_IN_GBPS = WR_BYTES / ELAPSED_TIME_IN_NS
+This adds the SMOCF05 ACPI ID used by the Minisforum V3 and V3 SE
+tablets for their LSM6DS3TR-C, picking up Samuel's series [1][2].
+Without it the accelerometer and gyroscope are missing unless the user
+carries a DSDT override [3].
 
-There is one PCIE PMU per socket and PCIe Root Complex (RC), named
-nvidia_pcie_pmu_<socket-id>_rc_<pcie-rc-id>, with RCs 0 to 5 in each
-socket. The metrics sum the rd_bytes/wr_bytes events of both sockets:
+Changes since v3 [4]:
+ - 1/2: convert the ACPI match table to C99 initializers instead of
+   only dropping the trailing commas (Andy).
+ - 2/2: explain in the changelog why the firmware's SLA0 matrix is not
+   used and the orientation comes from hwdb (Andy); drop the pointer
+   to the cover letter (Andy); Link: -> Closes: (Andy).
+ - Assisted-by: LLM (Andy).
 
-  lpm_pcie_bw, lpm_pcie_rd_bw, lpm_pcie_wr_bw: all RCs.
-  lpm_pcie_bw_<rc>, lpm_pcie_rd_bw_<rc>, lpm_pcie_wr_bw_<rc>: one RC.
-  lpm_pcie_loc_rd_bw_<rc>, lpm_pcie_loc_wr_bw_<rc>: one RC to local
-    CMEM, GMEM, PCIe peer and CXL memory.
-  lpm_pcie_rem_rd_bw_<rc>, lpm_pcie_rem_wr_bw_<rc>: one RC to remote
-    memory.
+A correction to the v3 cover letter: SLA0 applied via hwdb gives correct
+rotation but inverted tilt (it follows the Windows convention, see 2/2).
+The correct matrix is -1 0 0; 0 -1 0; 0 0 1. The systemd hwdb entry [5]
+was merged with SLA0 and has since been fixed [6].
 
-The per RC metrics are in the lpm_pcie_rc<rc>_bw metric groups.
+The full STS device from the V3 BIOS (1.06), identical on the V3 SE:
 
-A socket's event counts as 0 if its PMU isn't present (has_event() is
-0), e.g. on a single socket system, or if it isn't counted in the
-aggregation (source_count() is 0), e.g. the other socket's event with
---per-socket. Otherwise the metric fails to parse or is nan.
+      Device (STS)
+      {
+          Name (_HID, EisaId ("SMOCF05"))
+          Name (_CID, EisaId ("SMOCF05"))
+          Name (_UID, Zero)
+          Method (_STA, 0, NotSerialized)
+          {
+              Return (0x0F)
+          }
 
-Signed-off-by: Chun-Tse Shao <ctshao@google.com>
-Assisted-by: Gemini:gemini-3.1-pro-preview
----
- tools/perf/pmu-events/arm64_metrics.py | 68 ++++++++++++++++++++++++--
- 1 file changed, 64 insertions(+), 4 deletions(-)
+          Method (_CRS, 0, NotSerialized)
+          {
+              Name (RBUF, ResourceTemplate ()
+              {
+                  I2cSerialBusV2 (0x006A, ControllerInitiated, 0x00061A80,
+                      AddressingMode7Bit, "\\_SB.I2CD",
+                      0x00, ResourceConsumer, , Exclusive,
+                      RawDataBuffer (0x04)
+                      {
+                          0x53, 0x4C, 0x41, 0x30
+                      })
+                  I2cSerialBusV2 (0x006A, ControllerInitiated, 0x00061A80,
+                      AddressingMode7Bit, "\\_SB.I2CD",
+                      0x00, ResourceConsumer, , Exclusive,
+                      RawDataBuffer (0x04)
+                      {
+                          0x53, 0x4C, 0x47, 0x30
+                      })
+                  GpioInt (Edge, ActiveHigh, Exclusive, PullNone, 0x0000,
+                      "\\_SB.GPIO", 0x00, ResourceConsumer, ,
+                      RawDataBuffer (0x04)
+                      {
+                          0x53, 0x4C, 0x41, 0x30
+                      })
+                      {
+                          0x0009
+                      }
+              })
+              Return (RBUF) /* \_SB_.I2CD.STS_._CRS.RBUF */
+          }
 
-diff --git a/tools/perf/pmu-events/arm64_metrics.py b/tools/perf/pmu-events/arm64_metrics.py
-index b0d0651fec12..1ca3d8ddb4b7 100755
---- a/tools/perf/pmu-events/arm64_metrics.py
-+++ b/tools/perf/pmu-events/arm64_metrics.py
-@@ -2,9 +2,10 @@
- # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
- import argparse
- import os
--from typing import Optional
--from metric import (aggr_nr, d_ratio, Event, JsonEncodeMetric,
--                    JsonEncodeMetricGroupDescriptions, LoadEvents, Metric, MetricGroup)
-+from typing import List, Optional, Union
-+from metric import (aggr_nr, d_ratio, has_event, source_count, Event, Expression,
-+                    JsonEncodeMetric, JsonEncodeMetricGroupDescriptions, LoadEvents, Metric,
-+                    MetricGroup, Select)
- from common_metrics import Cycles
- 
- # Global command line arguments.
-@@ -67,7 +68,66 @@ def NvidiaT410Uncore() -> Optional[MetricGroup]:
-                    rd_cum_outs - rd_cum_outs, "1ns"),
-         ], description="NVIDIA Tegra410 DDR latency")
- 
--    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat()],
-+    def PcieBw() -> MetricGroup:
-+        # PCIE PMU, one per socket and PCIe Root Complex (RC):
-+        # AVG_{RD,WR}_BANDWIDTH = {RD,WR}_BYTES / ELAPSED_TIME
-+        loc_dst = "dst_loc_cmem=0x1,dst_loc_gmem=0x1,dst_loc_pcie_p2p=0x1,dst_loc_pcie_cxl=0x1"
-+        rem_dst = "dst_rem=0x1"
-+
-+        def SocketSum(rc: str, event: str) -> Expression:
-+            # Sum the event over both sockets. A PMU counts as 0 if it isn't
-+            # present (has_event() is 0) or isn't counted in the aggregation,
-+            # e.g. the other socket with --per-socket (source_count() is 0).
-+            def Count(e: Event) -> Expression:
-+                return Select(Select(e, source_count(e), 0), has_event(e), 0)
-+
-+            return (Count(Event(f"nvidia_pcie_pmu_0_{rc}/{event}/")) +
-+                    Count(Event(f"nvidia_pcie_pmu_1_{rc}/{event}/")))
-+
-+        # nvidia_pcie_pmu_<socket-id>_rc matches the PMUs of all RCs in the socket.
-+        rd = SocketSum("rc", "rd_bytes")
-+        wr = SocketSum("rc", "wr_bytes")
-+        metrics: List[Union[Metric, MetricGroup]] = [
-+            Metric("lpm_pcie_bw", "Total PCIe bandwidth across all Root Complexes",
-+                   d_ratio(rd + wr, interval_sec), mb_per_sec),
-+            Metric("lpm_pcie_rd_bw", "Total PCIe read bandwidth across all Root Complexes",
-+                   d_ratio(rd, interval_sec), mb_per_sec),
-+            Metric("lpm_pcie_wr_bw", "Total PCIe write bandwidth across all Root Complexes",
-+                   d_ratio(wr, interval_sec), mb_per_sec),
-+        ]
-+        for i in range(6):
-+            rc = f"rc_{i}"
-+            rc_rd = SocketSum(rc, "rd_bytes")
-+            rc_wr = SocketSum(rc, "wr_bytes")
-+            loc_rd = SocketSum(rc, f"rd_bytes,{loc_dst}")
-+            loc_wr = SocketSum(rc, f"wr_bytes,{loc_dst}")
-+            rem_rd = SocketSum(rc, f"rd_bytes,{rem_dst}")
-+            rem_wr = SocketSum(rc, f"wr_bytes,{rem_dst}")
-+            metrics.append(MetricGroup(f"lpm_pcie_rc{i}_bw", [
-+                Metric(f"lpm_pcie_bw_{i}", f"PCIe total bandwidth on Root Complex {i}",
-+                       d_ratio(rc_rd + rc_wr, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_rd_bw_{i}", f"PCIe read bandwidth on Root Complex {i}",
-+                       d_ratio(rc_rd, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_wr_bw_{i}", f"PCIe write bandwidth on Root Complex {i}",
-+                       d_ratio(rc_wr, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_loc_rd_bw_{i}",
-+                       f"PCIe local read bandwidth on Root Complex {i}",
-+                       d_ratio(loc_rd, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_loc_wr_bw_{i}",
-+                       f"PCIe local write bandwidth on Root Complex {i}",
-+                       d_ratio(loc_wr, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_rem_rd_bw_{i}",
-+                       f"PCIe remote read bandwidth on Root Complex {i}",
-+                       d_ratio(rem_rd, interval_sec), mb_per_sec),
-+                Metric(f"lpm_pcie_rem_wr_bw_{i}",
-+                       f"PCIe remote write bandwidth on Root Complex {i}",
-+                       d_ratio(rem_wr, interval_sec), mb_per_sec),
-+            ], description=f"PCIe bandwidth on Root Complex {i}"))
-+
-+        return MetricGroup("lpm_pcie_bw", metrics,
-+                           description="NVIDIA Tegra410 PCIe Root Complex bandwidth")
-+
-+    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat(), PcieBw()],
-                        description="NVIDIA Tegra410 uncore metrics")
- 
- 
+          Method (SLA0, 0, NotSerialized)
+          {
+              Name (RBUF, Package (0x03)
+              {
+                  "-1 0 0",
+                  "0 -1 0",
+                  "0 0 -1"
+              })
+              Return (RBUF) /* \_SB_.I2CD.STS_.SLA0.RBUF */
+          }
+
+          Method (SLG0, 0, NotSerialized)
+          {
+              Name (RBUF, Package (0x03)
+              {
+                  "1 0 0",
+                  "0 1 0",
+                  "0 0 1"
+              })
+              Return (RBUF) /* \_SB_.I2CD.STS_.SLG0.RBUF */
+          }
+      }
+
+Thanks to Samuel for the original series and to Andy for the reviews.
+
+[1] v1: https://lore.kernel.org/linux-iio/20251223025351.3099978-2-samuel@dionne-riel.com/
+[2] v2: https://lore.kernel.org/linux-iio/20260201225450.1649001-2-samuel@dionne-riel.com/
+[3] https://github.com/mudkipme/awesome-minisforum-v3/issues/2
+[4] v3: https://lore.kernel.org/linux-iio/20260927220559.24169-1-jwuerz@gmail.com/
+[5] https://github.com/systemd/systemd/pull/43935
+[6] https://github.com/systemd/systemd/pull/43941
+
+Jared Wuerzburger (1):
+  iio: imu: st_lsm6dsx: Use C99 initializers in ACPI match table
+
+Samuel Dionne-Riel (1):
+  iio: imu: st_lsm6dsx: Add ACPI ID SMOCF05 for LSM6DS3TR-C
+
+ drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.55.0
 
