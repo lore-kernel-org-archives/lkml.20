@@ -1,120 +1,202 @@
-Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
+Received: from mta1.migadu.com (out-130.mta1.migadu.com [95.215.58.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B617E47CA8D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629676; cv=pass; b=Tj1hYEnAjOuwCNeBCeFeX4oDtaV5gp9acS1DM4phmSkdAMForCU/TE1j5jSdIvo1cfzpk42R/uFX1eS0uyAFPktu/5nlvK5TD9vIYqmGrBOSifHlMOTQNl0TNDbcEnA5GtG2kD9/uXc/1uk1fyjdtw30w8wovrM2pAR5R3lr/Ec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629676; c=relaxed/simple;
-	bh=y6msfbNFuQcpgJ7i9i+gI5S8bcxxgxGClBG3WW+qGzE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nKxXZjfxPKfkUENyWcQi6SLyfp3Cjr2KBngBlT2Au/24ZCsciwobRAIouakbU5Mbkwqyy1SxS5mq3I+LzMZkJArE/oBOq1m/rnfdyJEhE3RhNtqwqNAMhMin6OpEk/FxP4yCmOL8YxiXSxwFlA4OfNGy/pp3k9KihJdDaKzyHAc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PiOpfAnt; arc=pass smtp.client-ip=74.125.231.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D1A491596
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790629708; cv=none; b=X64mzDhOLmu8gFC7S2XYkN9hjQSt8UXPXfI6dm0QbZZXcA53AVmsteoMW19WFmeSGXHPLZEawFEc1kL5Z4d5ag4puRnG7fXqHaRNHrnaRYpIg4ALzhDPSqjXCrnLLdJEEropwGH8xrF1N7+pQr3KTJ4VKH01oBWH4/w6cmkjjNo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790629708; c=relaxed/simple;
+	bh=Zf3Xji9VqLF6PmR8IPFviBrsGmTQrthSBFvKbmzl110=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K8zllfWz3be6gObSOWHC2coKPmNYFG2ng1RQc0RVV/3nLDGfAYxbLG0dVRfGyQm/OhDa2c/kO5mk1VPd/8AfVfP5j7DKJNcquYVozsLk6pEzPryjhyCC7WE0L/cGThnI5+UNAybR9Oy5IzdsbmPP1qoGieH45qFVkWG198FJ49I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xfK2bgQe; arc=none smtp.client-ip=95.215.58.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PiOpfAnt"
-Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-492d8c4add0so1884998fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:07:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790629673; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DenryMx+n8uegcEyr0f3VQoIwUDXf1jsFY8S7Mz21zTemjqjLNvjHY0u4ZjgdBunXA
-         LTF8FgEDJ1/H/+89GBnahQ1VXqSaqXeXWHlmZAq1mDS9Ab58rHgo/mtwaOy7eVd2sH9C
-         67HwELcyE8rS1uoAvP9dEnHQGteRAjNfxKIQ8/mxyAO110/S0Kixno167eXlokuiMuCL
-         qHy/hyHQ5NJh99zksz2mqZzyzm7lFW9IzpUHcOpbQtlr9pNEg7FI33SWOyDg+jicR3gd
-         dmbJn1Lw0QMbB6rWGasQFHhFDPPMpfvpdal0qRYkKKN6BMO4yqFadnRGK9Qnn5Az15Jp
-         qfjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=y6msfbNFuQcpgJ7i9i+gI5S8bcxxgxGClBG3WW+qGzE=;
-        fh=HSRAVrvusg8pFpDNtK39d5SV6WinhmU6YOVbRACFUUI=;
-        b=s68SzenTAYOVtf92RffNJgtKjeQtTMvhyetWU5/XoVxQqktaHxadWlZSQ9Sdgf+xZr
-         pcJxEuv2n5uMOf3h81NQp1Hxi11WK8UcG8TCfsVckkIuYUIsWy1GzPG06WOoBBieerV/
-         S3E4R3zkui/i1xxJ5XK2Nh5jVs8rTQcVl7DcbnnDLR+IbGylXl11WJvLRKDvF+rep9A/
-         s/Qc4sAdH+NLjz+/rjagj2XmxF398TR29p4BLfvxUWOtPSv+W51qSQ2zJfuAga9WKoZB
-         Ed523zAFM3mfWTmbYqn2WyHOGS9i5jju7KeChA3qwodtIqS0i7IuZHMjJuXkFDgtb+0x
-         zlvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790629673; x=1791234473; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y6msfbNFuQcpgJ7i9i+gI5S8bcxxgxGClBG3WW+qGzE=;
-        b=PiOpfAntCZ8yLPGEeKI+hyFBkvuihK4h3SMkN0//sQ4oh4MFs9l+OC7i1iAc380Uy3
-         OnZyBnCoPodHAXb34xATDT5kyc7bsLf6m4rWYCyLxpVdQ/QuvztXl4wPDjNS0NWOCAkG
-         t++l5Fb+kIoXz47wu+S4vDU1agAugdHSGWUBhvmHCMfQJ4k+mrrirm57KQBRvZ+W6I8s
-         ZFeZcEVzLL0KLbQqxKi5vm7KssnsxO4fUC8REFJNeDUgsZXClUOzJTJfOkTIehGCrUB3
-         yAhV91D13gQUb8hCJpYAumFf5s5B2ksA3H1ptMddinnH/0mqzI3q7lbWHJX3WKgBky0a
-         cjPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629673; x=1791234473;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y6msfbNFuQcpgJ7i9i+gI5S8bcxxgxGClBG3WW+qGzE=;
-        b=lRBX/GV/y4JL8JKV8ltiKb778scLyKeFn0l9CvRwpr1mwFUv/1etKYdE2G0aWOr3TF
-         0dynEbj6W1RlgfT/UUtg0jEkHgVjee7aid6pExQ+/fb3ZcQEs427np9WHM1ykjCZDxtZ
-         f1JBUxQB2u/vnXBRiqxmk0tiCh5XAcKOJxf7UAjBh5rW9U+JcxVgBA1OQYE0Su9H1Qrh
-         ADm3fMjBaUqEIwHK0Qmzb335ydF0UQz0LLVrbJ9yt9oJK2Mo0zdpYB/u0cRqLZ6xm/R2
-         rM9wlfORytTC2mmGoGtlkDTpU0AqTsFmm76FKLpZcLVWR3BI9nX/rgZnYm5/jFrRfp5h
-         Utiw==
-X-Forwarded-Encrypted: i=1; AKwUvByafHB+plo6BxzWOgeGBpg6+NEYxTL7Y1n4BkxN7Wk+K+BqaIA7p7L3LoJKG2/Gr+aI1FTO6wx5YyFejTQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA9YqO5BQiaG4XSnEmX+0EBjpOwVbztEiVGdMpjUS84+KfQpxE
-	SonT8g3rl/IiOkct3YpddBtLPWxzeaDTlupfGeM3DjxMxtnUfLf0Pn22u6nTGhRa4voikVb4FZB
-	vkgNRUiDbaYmWLzsA+qLq2EABozUKdPI=
-X-Gm-Gg: AYBFou0N+0xMj8Yjsb7zWDgv7iMMIoVdsQrKJrsacYiWkexgATGdOlN806ft38Scd98
-	V0GjqfVQXNqLXCjQzY6PAgrEHWKnjWu9LoS35+LTCzCiUkorSIEqgEIi8PamWx3IK86REj3Wx9s
-	gQdHY7K26DMTO38V3KFnK4bIGi/LNeswCoJqa7RQHkzxodkEBOasz9ZFMuUgvcObimWp3wUpTqg
-	wGbOxEmgBoKFtR7TxC8f+37umxIt0x72Yh6idZjqeQsGzkY3EAOaxf9hC0/jft8uIKwJXHX0Dkr
-	wNTre4F0JWTQFLo7w4is+HSyIbm5gmr7752GOROSh/wGftbzInW31gjk4UvcB1yIh2ifbfZoVIP
-	7uGxBGFcKQ8Xg
-X-Received: by 2002:a05:6808:198a:b0:4b3:75cb:b856 with SMTP id
- 5614622812f47-4d72a2562e9mr16552925b6e.9.1790629673450; Mon, 28 Sep 2026
- 14:07:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xfK2bgQe"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Zf3Xji9VqLF6PmR8IPFviBrsGmTQrthSBFvKbmzl110=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790629700; v=1; x=1791234500;
+ b=xfK2bgQejT1bpKK/APoEZnV45pzCzEc5ImcY5myzvFk3HQ60LRYp9GNlD7n0JbKZ7cWrW7DJ
+ VGFZF1rI3xwGhH3fQ4sohTaDADaRckWuv+FqM5KcIQIvATRqj6qlZ00QVsJSYQGUAd2kryqnnzC
+ fLNyErQmCwuMUL5Qf8U1qQ54=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 655053c7cc45b737;
+	Mon, 28 Sep 2026 21:08:19 +0000
+X-Mizu-Trace-ID: 655053c7cc45b737
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 23:08:17 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
+ range
+Message-ID: <arrVt-0ctw1cXkkW@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
+ <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+ <arpyD2CjxOqwQvx8@bombadil>
+ <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928142450.103799-1-vidhu.linux@gmail.com> <CAHp75VcW3ADQdf68Whmo7yhqu9rdi54YVYgyh5PRLPccH6aUBg@mail.gmail.com>
-In-Reply-To: <CAHp75VcW3ADQdf68Whmo7yhqu9rdi54YVYgyh5PRLPccH6aUBg@mail.gmail.com>
-From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Date: Tue, 29 Sep 2026 02:37:41 +0530
-X-Gm-Features: AclHuK8JYQr6zVy-MVLb9YJgMPw7_y1Mm2flQRhzFloJn7TG5F9PXG6HsjEjJBs
-Message-ID: <CAFqz8LL0bgOu3TKfxz0Ri=qw09wVHC68CbVS2yZZjv7oKTGwVw@mail.gmail.com>
-Subject: Re: [PATCH] iio: humidity: am2315: fix negative temperature decoding
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Siratul Islam <email@sirat.me>, Tiberiu Breana <tiberiu.a.breana@intel.com>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, skhan@linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
 
-Hi Andy,
-On Mon, Sep 28, 2026 at 9:01 PM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
+On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
+> On Mon, 28 Sept 2026 at 15:23, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > Hi Dave,
+> >
+> > thanks for your feedback! Greatly appreciated!
+> >
+> > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
+> > > Hi Richard
+> > >
+> > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> > > <richard.leitner@linux.dev> wrote:
+> > > >
+> > > > When updating the flash_duration range ensure the ceiling is at least as
+> > > > long as the exposure time is. This may cause the calculated
+> > > > flash_duration register value to be rounded up.
+> > > >
+> > > > This is done by introducing a new
+> > > > ov9282_update_ctrl_range_flash_duration() function and using them
+> > > > wherever possible.
+> > > >
+> > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > > ---
+> > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
+> > > >  1 file changed, 28 insertions(+), 19 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > > > index f728709fcf0a6..be38ecfad8c82 100644
+> > > > --- a/drivers/media/i2c/ov9282.c
+> > > > +++ b/drivers/media/i2c/ov9282.c
+> > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
+> > > >                                 NSEC_PER_USEC);
+> > > >  }
+> > > >
+> > > > +/**
+> > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
+> > > > + * @ov9282: pointer to ov9282 device
+> > > > + *
+> > > > + * This may round up the ceiling to the microseconds representation of the
+> > > > + * next flash_duration register value to make sure one can illuminate the whole
+> > > > + * exposure time long.
+> > > > + *
+> > > > + * Return: 0 if successful, error code otherwise.
+> > > > + */
+> > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> > > > +{
+> > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> > > > +
+> > > > +       if (fd_max_us < exposure_us)
+> > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> > >
+> > > Reading the driver for how it handles flash duration, it all gets a
+> > > bit convoluted. I see part of it comes from the units being usecs
+> > > whilst natively it is in lines, but we've got this slightly odd calc
+> > > and adding 1, and rounding in try_ctrl to get closest to the absolute
+> > > value.
+> >
+> > That's true. I'm also not happy with this back-and-forth conversion between
+> > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
+> > all "timing related" controls in the same unit (likely usecs). I was
+> > already playing around with that approach, but as this would break the
+> > current exporsure property I have not sent those patches...
+> >
+> > If you have any "mainline-acceptable" idea on how to do that I would
+> > definitely love to hear it ;-)
+> 
+> Sadly I think that there is a need for some of the back and forth in
+> conversions :-(
+> 
+> > > Seeing as this is the max flash_duration, is it actually limited by
+> > > the exposure, or by the frame duration? The difference between those
+> > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
+> > > you up to another 9usecs to play with. That covers any of this
+> > > rounding stuff. You can afford to always round that one down and never
+> > > clip the range below the exposure time.
+> >
+> > From a hardware perspective this isn't limited at all AFAICT. But from a
+> > "use-case" perspective a flash_duration (with a flash offset=0, which is
+> > the hard-coded default case in this driver currently) longer than the
+> > exposure time makes no sense, as it does not have any effect on the image.
+> >
+> > With this patch I want to make sure to be able to illuminate the frame
+> > during the complete exposure time, but keep the maximum as short as
+> > possible. So I was comparing/aiming this at the exposure time, not the
+> > frame duration.
+> >
+> > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
+> > time: Would a "turned-on flash" during those 25 lines have any impact on
+> > the frames brightness in your opinion?
+> > I haven't explicitely tested/measured this with hardware, but I guess
+> > this does not have any impact?
+> 
+> No, as this is a global shutter sensor I wouldn't expect the flash to
+> impact the image if a connected flash was on for more lines than the
+> exposure.
+> 
+> > Or do you mean when calculating against the frame duration the +/-1
+> > stuff can be dropped and the code would be easier to read?
+> 
+> Yes, I'm suggesting the driver handles the range of values that the
+> hardware can support correctly. Whether that helps for your image
+> quality requirements is a different question.
+> The driver can pass the buck with at least some of the rounding issues
+> to userspace, which potentially has use-case specific knowledge. And
+> it simplifies the driver in the process.
 
-> Can you use sign_extend32()?
+Talking about "range of values that the hardware can support": AFAICT
+the strobe duration is (from a sensor hardware point of view) not
+limited by the frame duration. At least I found nothing on this in the
+datasheet and a quick test on hardware also showed no correlation.
 
-I checked whether sign_extend32() can be used here, but I don't
-think itcan be applied since as per datasheet [1], The temperature value
-is sign-magnitude such that bit 15 is the sign and bits 14 to 0
-contain the magnitude. For eg., 0x8065 represents -101.
-sign_extend32(temp_raw, 15) would instead interpret 0x8065 as a
-two's-complement value, giving us -32667.
+So IMHO the real maximum flash duration range the sensor can support is
+the maximum strobe_frame_span register value.
 
-So I think the sign bit needs to be decoded explicitly by masking
-bit 15 and negating the magnitude when set.
+I'm not saying this makes any sense from a use-case perspective, but if
+we require the driver to support the hardware's maximum values wouldn't
+that be the correct approach?
 
-[1] https://cdn-shop.adafruit.com/datasheets/AM2315.pdf
+Or am I misunderstanding something?
 
-Regards,
-Vidhu Sarwal
+regards;rl
+
+> 
+> > Sorry If misunderstood your feedback somehow.
+> >
+> > >
+> > > There is reference in the docs to a different behaviour if "the
+> > > vertical blanking period is long", but with a bit to set to give
+> > > stable behaviour (0x3017 bit 1).
+> >
+> > I've read that paragraph in the datasheet, yes. But as this was not
+> > affecting my use-case I haven't included this in this series or my
+> > downstream kernel. Do you think it's worth adding support for this? Do
+> > you know of any reports complaining about this power saving feature?
+> 
+> It only matters if you allow flash duration to be significantly
+> greater than the exposure time, which I was effectively proposing.
+> 
+>   Dave
+> 
+
+[... snip ...]
