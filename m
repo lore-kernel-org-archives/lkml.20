@@ -1,91 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CCA49CF2C;
-	Mon, 28 Sep 2026 11:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B201A4A5C39;
+	Mon, 28 Sep 2026 11:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594809; cv=none; b=R8IJsC77d7E/5FYvjoRXu0uWkifNCjdyVpT8lVqlF5/Wt1TkfMvdyiVSrZTquW8aRRn61oj/NUSLJgKkE2bNg+iWQ4Xj4ItH4JpMYsVUcaR8A5NoshssabAJ0Osp+afzA5m0PTFAJgXshyzDAYI7s8txHOgGn3UtUEDTUOyapIE=
+	t=1790594818; cv=none; b=UpK3QNLovkdAiUzjcZ0d0wF0lksN/VkvBQZyedwkMfzjtAPBrwt8cg1K5zUEO04MSOqvgJaYJ4ICDSfYpRzsc5L7HXVyoFInaG5RPsg+PQ9vmdP9230lkdE3U4kWd46p070YGauzCrAoeOWb772Ex6kVdjL3pSLWoFLSjfZTKMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594809; c=relaxed/simple;
-	bh=0nQAsdI9MKQ6bi1a3Tac1SYFqN/k0GiAZO6cdT/9jQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CDcc1Oxa69+IyzuZcrSvWbV+aFGUXQrepkgLmVuLSIPtSFpNYuh4FV+UQWf1azMaQgMB2xCyFEmc27YNZsE6DxzfrcUbQWm4bSZ41+IyfG1NLFumWbWsYN8Ym2Ag+AplXDyVxGSGpC4MZLGJdk3u7fCH0kDVFk5lrkJY2wptXw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahxNhXzB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahxNhXzB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248561F00898;
-	Mon, 28 Sep 2026 11:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790594808;
-	bh=MIgiakxNIvlbIOvXbpa9aAXTvVdIjMv2YRdjshxXmZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ahxNhXzBmiYTokoVc3H9EOIJnhTiIRXS8yTi4jkl4NBTZ/Nv4WBvbWNNickZgLD1z
-	 tNTkt7Rpv9XxkYAOXiaXinGpn1TVGBrrbxanqOu9maY5zQYsCbj2Kl2WxEpMoLo6lA
-	 HyRfdH+ObdVSBA7w4w9JV+SDdnt9JSpXYy2YAyZS9KKWJSWRd9riZxE6F0W6HOVL9X
-	 2iAWSuoOVWLw3Ct8h8c7Sh+0rVPFOiRRWCfOZjZSIp8/fNo5+a2/vmeOP2Yj4rEmOJ
-	 tDEEBitSlXsbvXPDtbXy8t1DqLoOL26HqgSKvoMF/Kp/L8ROFcPMKaTrW/S34orq3w
-	 f7DQ71vdlasSw==
-Date: Mon, 28 Sep 2026 12:26:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@oss.nxp.com
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, perex@perex.cz,
-	tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Chancel Liu <chancel.liu@gmail.com>
-Subject: Re: [PATCH v6 4/5] ASoC: fsl_asrc: expose individual DAIs per
- conversion path
-Message-ID: <7be95093-1e29-45a7-9860-5605763baaf2@sirena.org.uk>
-References: <20260928061727.1844167-1-shengjiu.wang@oss.nxp.com>
+	s=arc-20240116; t=1790594818; c=relaxed/simple;
+	bh=SqqSHpTVaFTGp7yew8wil1yGbcjDwt8M5trdScYW15k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QSiOG5kfUhIjxBcXb2pT8RYkMrhd1CsQabshSSpEp3t/RTWZo6vDdIg8m+3TzP644xe5958BGH4W8siE9bvhK4wzU9ayd3b0RuRkSTMWoUAWNMa917OxJz4hu2FRpEUhx8icDCg9xA665fsDmny5y+JLl4gxfmP26rjVN3SrMFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCnYj30TrpqyExCAQ--.23692S3;
+	Mon, 28 Sep 2026 19:26:45 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgA3jnz0TrpqupcSAA--.16008S2;
+	Mon, 28 Sep 2026 19:26:44 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linusw@kernel.org,
+	brgl@kernel.org
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	songl@zju.edu.cn,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] gpio: mpsse: fix race when arming the IRQ poll worker
+Date: Mon, 28 Sep 2026 11:25:46 +0000
+Message-Id: <20260928112546.631440-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="agS6p3a5qSig1fa6"
-Content-Disposition: inline
-In-Reply-To: <20260928061727.1844167-1-shengjiu.wang@oss.nxp.com>
-X-Cookie: All is fear in love and war.
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgA3jnz0TrpqupcSAA--.16008S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?EQNgHQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhmb2J4R14AQ5aua09c1TMHWWZNzjWtWAkItiV16dpR6RS7l
+	FAOxNOXOfvatp8iSH8Sp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCrW3Aw1UXw48KFyxGFWkKrX_yoW5Xw4kpF
+	ZxKw4rGrs5JryI9Fnxuay0vry5uws5Cry2ga4xWw4xXr4akr90ya4kGr98ZF15uFykCFnx
+	Ar4DKr4xKFsxAFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
+gpio_mpsse_irq_enable() schedules a poll worker before adding it to
+priv->workers. gpio_mpsse_disconnect() can miss the worker while
+tearing down the list, after which the worker can access freed priv.
 
---agS6p3a5qSig1fa6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Publish and schedule the worker while holding irq_spin. Set dying under
+the same lock before disconnect tears down the list, so a worker created
+after teardown starts is neither published nor scheduled. Use
+kfree_rcu() for such a worker because irq_enable() runs with the IRQ
+descriptor raw lock held.
 
-On Mon, Sep 28, 2026 at 02:17:27PM +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->=20
-> The i.MX ASRC hardware supports three independent conversion pairs
-> (A, B, C). The driver previously registered a single DAI with generic
-> stream names "ASRC-Playback" and "ASRC-Capture", which prevents
-> multiple independent conversion paths from being used simultaneously.
+This issue was found by an in-house static analysis tool.
 
-This and patch 5 are not threaded with the rest of the series which
-really upsets b4 :( .  I'll fix it up but please look into your tooling
-here.
+Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/gpio/gpio-mpsse.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
---agS6p3a5qSig1fa6
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
+index a859deab2..958d74427 100644
+--- a/drivers/gpio/gpio-mpsse.c
++++ b/drivers/gpio/gpio-mpsse.c
+@@ -10,6 +10,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/gpio/driver.h>
+ #include <linux/mutex.h>
++#include <linux/rcupdate.h>
+ #include <linux/spinlock.h>
+ #include <linux/usb.h>
+ 
+@@ -24,6 +25,7 @@ struct mpsse_priv {
+ 	raw_spinlock_t irq_spin;     /* protects worker list */
+ 	atomic_t irq_type[16];	     /* pin -> edge detection type */
+ 	atomic_t irq_enabled;
++	atomic_t dying;		     /* no new workers after disconnect */
+ 	int id;
+ 
+ 	u8 gpio_outputs[2];	     /* Output states for GPIOs [L, H] */
+@@ -46,6 +48,7 @@ struct mpsse_worker {
+ 	atomic_t       cancelled;
+ 	struct list_head    list;   /* linked list */
+ 	struct list_head destroy;   /* teardown linked list */
++	struct rcu_head      rcu;   /* deferred free for dying path */
+ };
+ 
+ struct bulk_desc {
+@@ -525,10 +528,17 @@ static void gpio_mpsse_irq_enable(struct irq_data *irqd)
+ 		worker->priv = priv;
+ 		INIT_LIST_HEAD(&worker->list);
+ 		INIT_WORK(&worker->work, gpio_mpsse_poll);
+-		schedule_work(&worker->work);
+ 
+-		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
++		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin) {
++			if (atomic_read(&priv->dying)) {
++				/* irq_enable() runs under the IRQ descriptor raw lock. */
++				kfree_rcu(worker, rcu);
++				return;
++			}
++
+ 			list_add(&worker->list, &priv->workers);
++			schedule_work(&worker->work);
++		}
+ 	}
+ }
+ 
+@@ -704,6 +714,9 @@ static void gpio_mpsse_disconnect(struct usb_interface *intf)
+ {
+ 	struct mpsse_priv *priv = usb_get_intfdata(intf);
+ 
++	scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
++		atomic_set(&priv->dying, 1);
++
+ 	/*
+ 	 * Lock prevents double-free of worker from here and the teardown
+ 	 * step at the beginning of gpio_mpsse_poll
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6TvAACgkQJNaLcl1U
-h9AZrgf/VFOKxMUjK6hmwAHkqM+y0Ua45JlbNuxKyoHHyV84DmfhdqY51ofpXfuQ
-6N+x6DTT+UZJkw8xrPqdRMRhps2mxGnkl0FdOiqAe1dR/VuGMOAck7lF80PMIOxD
-CUljelqNF6bYnmr8MQ5qPzYIUn7VEcvZiirLFwT5OHfi5/x37fQUAFJ1YJFgq8MX
-fuuBv1DOxVGdXUD5MsFdkcMfd9617FupVjCOhrZFQpTzj1yEvuAnmnTCs02wF/3S
-QjBDyIaaTRdUFDag3qQ/tMKwfIJjvLDrHsp2iXwoQUdoL+Ga6f9W+QJUrBcoiu+B
-TkSZSFWED6F7dnYsXunQoC0iWlZFGg==
-=A3IY
------END PGP SIGNATURE-----
-
---agS6p3a5qSig1fa6--
