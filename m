@@ -1,290 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8560384228;
-	Mon, 28 Sep 2026 18:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C7C39060B;
+	Mon, 28 Sep 2026 18:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620153; cv=none; b=IrkroB0cRnkjhASjDNmjCA18aU1PWpgJN8ph9PfhL+Ow3RX2izoteJC37fiSuuRUAqhPUSOytFOc/Uu8+VjCy4yOwEbPkGVHB8Efiptc5M5Z33DPCq1q2DtkbD/Lqx4v0nsnxVPQ0f8+hpxwxj2FJe5VWW4Ivuu49QVJYVlB7to=
+	t=1790620200; cv=none; b=cx9a0/e/OtqDOYzXlx9tKxWiOj5h8+PdQz3djGhVj7oOMnhyr/mXWR918NaQcqxUOfdhyK2WUN5nPeReIY1wPKTK4oMNUnHOktYtu0AyIRvp9JBx1K+k35sCBVoNxkP9gOo6zk3fcA6XnnwQN8RqZPFJZu5xdk3bl2p/IcMqfkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620153; c=relaxed/simple;
-	bh=Osjfa/eweIpMNI1E+ykYc18hu2QCnuRqD2YPf2Mlhq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KgFVoX8Abr0mzbQ8JLnr/xop7nBdGrzoX2BlpfkWwMu/RxAFH7xeYCnJ8iDyFC5dbP6utbNFQOgzoL6EQUXAmqJLeifyVOQxzyuypaRyBzqZIoLAyJKj3Ui5Gybte673QkBjz+62STvhqyTNdTWcB3VKdsJ3JkyAhN3G3V+FvsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YftC3OyU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790620200; c=relaxed/simple;
+	bh=X71mzH2uZG4Zz90V/svIDvBuqeL/+Ow6zYk3jJO0vE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AK+4b9SsTcoqkq/Gq+gGUmwEJooJsQ+GP+RZOHFK+7bVkamAryoUc7u+DeyKHYs8mwQX2RpjKOgrbiIFpZv9a8BmM6hUDOMw+2NPubPj3SH3mVCIvVMAbWDXJJaQEsTfmX48+EADpr0rDIn00TRnVrkJbUwjuoFspgJNzOWDueE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jS2k2Qal; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YftC3OyU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6C91F000FF;
-	Mon, 28 Sep 2026 18:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790620151;
-	bh=kj1BuamINwdjjjhJwRV+FCBk2q11iQ2TZh9fdzQcwn0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YftC3OyUQStIa4UdGN1BE9aUd2r6Lo1h5DCsCki0FW9+Dd/XSmPmpsxQGHoSqCbwX
-	 mZjlyC2wK+Z6XaMJlP/Fuj28Lu3+B3Zss11DVOscCoQufqQMN0fLxr9sp04JlO5Ncb
-	 tVCOFWS9SS+ChrRJp3Ln8PnnscJnipahGb0j0PXKZLsrl3wqbKUMNmLYpAmqk4kIJY
-	 K/Jsx1GaAHCse9VaWu7MGqm/3b12CbcNjcVvcs06OIM+bPABw/vJ5FFFhM5hedT2lZ
-	 D3rlogLp5Tkw8CsicqKAQFHqiocUPexsIAj/R7hDOiwN6AtnlPKbK2082Fnf8+EMYh
-	 YBCPv6cHztHbw==
-Date: Mon, 28 Sep 2026 21:29:06 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Praveen Kumar Kannoju <praveen.kannoju@oracle.com>
-Cc: jgg@ziepe.ca, saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com,
-	andrew+netdev@lunn.c, davem@davemloft.net, kuba@kernel.org,
-	pabeni@redhat.com, jiri@resnulli.us,
-	kalesh-anakkur.purayil@broadcom.com, ynachum@amazon.com,
-	kees@kernel.org, mrgolin@amazon.com, parav@nvidia.com,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, anand.a.khoje@oracle.com
-Subject: Re: [PATCH] RDMA/mlx5: Add poll-EQ callback for ULP recovery
-Message-ID: <20260928182906.GX563127@unreal>
-References: <20260918100537.1214162-1-praveen.kannoju@oracle.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jS2k2Qal"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4htqbj3f3ZzKp1J;
+	Mon, 28 Sep 2026 20:29:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790620193;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4UOx5QX7kX+W5/Ie5nHMORdMpDg/AS6sI2RXKzrPs0=;
+	b=jS2k2QalraFTd0mPbabNjUw57uYZ91D6GRz16oV/j0WCmDpfNkvzn9bOGr1yZiIYm68SQH
+	vgB5Sk/EluiS7f+aY9mTPyQWE0Iz2A0+1BBfS7tLBZZV8IwPl4PzGBetgUQRru1tWBw7j/
+	fp02IAlREJhUMuIQALPKIZP5PdC+Q003lqwu+OsUDOhUoa6YswejAPJWCthXi0nFghimcI
+	QM+Shr9IEbmcYFvkn6p0vt+/EgtIELAYQMvXieD9GfJTvv0++ySREemVaMzkrQtQUe5HU8
+	vDlM0gR6QgNjebGvJKVpi9BseMl67c+xrNatzRtyZXbdwwzSeIGzG2xYr523IA==
+Message-ID: <4b82b8e9-6cf5-4f88-af10-dcbce0181d5f@mailbox.org>
+Date: Mon, 28 Sep 2026 17:07:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918100537.1214162-1-praveen.kannoju@oracle.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-3-den@valinux.co.jp>
+ <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
+ <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+ <badcd2d5-7d61-426a-86d6-000043a6aa93@mailbox.org>
+ <4fgnblug6mknuy4zq2lqeuni3dmu2f6c4mpb2qfvvyt5bpnovm@b6gundxnhr7d>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <4fgnblug6mknuy4zq2lqeuni3dmu2f6c4mpb2qfvvyt5bpnovm@b6gundxnhr7d>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: pfr94jinfo8zdyppkwf9s6rq1kxnbpz8
+X-MBO-RS-ID: dd2d6aa1575c6556ca9
 
-On Fri, Sep 18, 2026 at 10:05:37AM +0000, Praveen Kumar Kannoju wrote:
-> Some upper layer protocols, such as RDS, use mlx5 RDMA CQs whose
-> completion EQs are not shared with mlx5e queues. If an EQ notification is
-> missed for one of those CQs, the ULP can remain idle until another event
-> arrives or a driver health recovery path polls the EQ.
-> 
-> mlx5e already has a recovery path that polls a completion EQ from the tx
-> timeout handler through mlx5_eq_poll_irq_disabled(). That mechanism is
-> internal to the mlx5 core and is not reachable from RDMA ULPs such as RDS
-> when they need to recover a CQ-associated EQ.
-> 
-> Add an optional RDMA device operation, reap_eq, and an ib_reap_eq() helper
-> so ULPs can ask the provider to poll the event queue associated with a CQ.
-> Providers that do not implement the callback return -EOPNOTSUPP.
+On 9/28/26 6:20 AM, Koichiro Den wrote:
 
-I don't think this is viable. It also seems wrong for an upper-layer protocol
-(ULP) to add code to work around a bug in a kernel driver.
+Hello Den-san,
 
-Thanks
+[...]
 
+>>> That said, I agree that in general we should follow the R-Car reference manual
+>>> where possible, and your draft makes sense for that purpose. If we go that way,
+>>> I have one question: would we need a polling loop with a timeout
+>>> (PCIE_LINK_WAIT_MAX_RETRIES * PCIE_LINK_WAIT_SLEEP_MS) in
+>>> rcar_gen4_pcie_start_link(), similar to dw_pcie_wait_for_link()?
+>>
+>> This is a good point, and I think we probably shouldn't do it this way,
+>> because we can reuse the DWC core code for that purpose.
+>>
+>> How about extending the .link_up callback, and check both the SMLH/RDLH bits
+>> there (to fulfill the datasheet compliance, dw_pcie_start_link() is always
+>> followed by dw_pcie_wait_for_link() which calls the .link_up() callback) and
+>> the DEBUG1 bits (to make sure we check the current state of the link) ?
+>>
+>> That should cover all our concerns (datasheet compliance, DEBUG1 current
+>> state of link check, polling), shouldn't it ?
 > 
-> Validate the device and CQ passed to ib_reap_eq() before dereferencing the
-> callback table or provider-private CQ storage. The mlx5 callback also
-> checks that the CQ belongs to the supplied device and that the mlx5 device
-> and completion EQ are present before polling.
+> If you mean AND-ing the SMLH/RDLH check with the DEBUG1 check, that sounds
+> reasonable. We could clear the APP latches in .start_link(), before enabling
+> LTSSM, and leave them latched across .link_up() calls.
+
+Yes, that.
+
+> Thanks for the suggestion!
 > 
-> Implement the callback for mlx5 by mapping the ib_cq to the mlx5 CQ and
-> polling the CQ's completion EQ through a new exported mlx5_eq_reap()
-> helper. mlx5_eq_reap() logs the EQ state, invokes
-> mlx5_eq_poll_irq_disabled(), and reports any recovered EQEs.
+>>
+>>> P.S. I'll rebase v2 onto the latest pci/controller/dwc-rcar-gen4.
+>>
+>> Thank you, and I apologize for the inconvenience.
 > 
-> Serialize mlx5_eq_poll_irq_disabled() with a per-EQ mutex. The recovery
-> poll path disables the IRQ, runs the EQ handler, advances the EQ consumer
-> index, and updates the CI doorbell. Multiple recovery callers polling the
-> same EQ concurrently could race on that state and reap the same EQ in
-> parallel.
-> 
-> Use this only as a recovery path for missed EQ notifications. It is not a
-> normal completion polling path.
-> 
-> Signed-off-by: Praveen Kumar Kannoju <praveen.kannoju@oracle.com>
-> ---
->  drivers/infiniband/core/device.c              |  1 +
->  drivers/infiniband/hw/mlx5/main.c             | 18 ++++++++++++++
->  drivers/net/ethernet/mellanox/mlx5/core/eq.c  | 22 +++++++++++++++++
->  .../net/ethernet/mellanox/mlx5/core/lib/eq.h  |  2 ++
->  include/linux/mlx5/eq.h                       |  2 ++
->  include/rdma/ib_verbs.h                       | 24 +++++++++++++++++++
->  6 files changed, 69 insertions(+)
-> 
-> diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
-> index 7a3ed5ecac00..a0a6e4a9ed50 100644
-> --- a/drivers/infiniband/core/device.c
-> +++ b/drivers/infiniband/core/device.c
-> @@ -3016,6 +3016,7 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
->  	SET_DEVICE_OP(dev_ops, rdma_netdev_get_params);
->  	SET_DEVICE_OP(dev_ops, read_counters);
->  	SET_DEVICE_OP(dev_ops, read_comp_cntr);
-> +	SET_DEVICE_OP(dev_ops, reap_eq);
->  	SET_DEVICE_OP(dev_ops, reg_dm_mr);
->  	SET_DEVICE_OP(dev_ops, reg_user_mr);
->  	SET_DEVICE_OP(dev_ops, reg_user_mr_dmabuf);
-> diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
-> index 373ee1f42d4a..ae8d32358e82 100644
-> --- a/drivers/infiniband/hw/mlx5/main.c
-> +++ b/drivers/infiniband/hw/mlx5/main.c
-> @@ -22,6 +22,7 @@
->  #include <rdma/ib_addr.h>
->  #include <rdma/ib_cache.h>
->  #include <linux/mlx5/port.h>
-> +#include <linux/mlx5/eq.h>
->  #include <linux/mlx5/vport.h>
->  #include <linux/mlx5/fs.h>
->  #include <linux/mlx5/eswitch.h>
-> @@ -3654,6 +3655,22 @@ static void get_dev_fw_str(struct ib_device *ibdev, char *str)
->  		 fw_rev_sub(dev->mdev));
->  }
->  
-> +static int mlx5_ib_reap_eq(struct ib_device *ibdev, struct ib_cq *ibcq)
-> +{
-> +	struct mlx5_ib_dev *dev;
-> +	struct mlx5_ib_cq *cq;
-> +
-> +	if (!ibdev || !ibcq || ibcq->device != ibdev)
-> +		return -EINVAL;
-> +
-> +	dev = to_mdev(ibdev);
-> +	if (!dev->mdev)
-> +		return -ENODEV;
-> +
-> +	cq = to_mcq(ibcq);
-> +	return mlx5_eq_reap(dev->mdev, cq->mcq.eq);
-> +}
-> +
->  static int lag_event(struct notifier_block *nb, unsigned long event, void *data)
->  {
->  	struct mlx5_ib_dev *dev = container_of(nb, struct mlx5_ib_dev,
-> @@ -4642,6 +4659,7 @@ static const struct ib_device_ops mlx5_ib_dev_ops = {
->  	.query_ucontext = mlx5_ib_query_ucontext,
->  	.reg_user_mr = mlx5_ib_reg_user_mr,
->  	.reg_user_mr_dmabuf = mlx5_ib_reg_user_mr_dmabuf,
-> +	.reap_eq = mlx5_ib_reap_eq,
->  	.req_notify_cq = mlx5_ib_arm_cq,
->  	.rereg_user_mr = mlx5_ib_rereg_user_mr,
->  	.resize_user_cq = mlx5_ib_resize_cq,
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eq.c b/drivers/net/ethernet/mellanox/mlx5/core/eq.c
-> index d11ec263d53c..b5f292c1e9a7 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/eq.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eq.c
-> @@ -154,15 +154,36 @@ u32 mlx5_eq_poll_irq_disabled(struct mlx5_eq_comp *eq)
->  {
->  	u32 count_eqe;
->  
-> +	mutex_lock(&eq->poll_lock);
->  	disable_irq(eq->core.irqn);
->  	count_eqe = eq->core.cons_index;
->  	mlx5_eq_comp_int(&eq->irq_nb, 0, NULL);
->  	count_eqe = eq->core.cons_index - count_eqe;
->  	enable_irq(eq->core.irqn);
-> +	mutex_unlock(&eq->poll_lock);
->  
->  	return count_eqe;
->  }
->  
-> +int mlx5_eq_reap(struct mlx5_core_dev *dev, struct mlx5_eq_comp *eq)
-> +{
-> +	u32 eqe_count;
-> +
-> +	if (!dev || !eq)
-> +		return -EINVAL;
-> +
-> +	mlx5_core_dbg(dev, "EQ 0x%x: Cons = 0x%x, irqn = 0x%x\n",
-> +		      eq->core.eqn, eq->core.cons_index, eq->core.irqn);
-> +
-> +	eqe_count = mlx5_eq_poll_irq_disabled(eq);
-> +	if (eqe_count)
-> +		mlx5_core_warn(dev, "Recovered %d EQEs on EQ 0x%x\n",
-> +			       eqe_count, eq->core.eqn);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(mlx5_eq_reap);
-> +
->  static void mlx5_eq_async_int_lock(struct mlx5_eq_async *eq, bool recovery,
->  				   unsigned long *flags)
->  	__acquires(&eq->lock)
-> @@ -1012,6 +1033,7 @@ static int create_comp_eq(struct mlx5_core_dev *dev, u16 vecidx)
->  	INIT_LIST_HEAD(&eq->tasklet_ctx.list);
->  	INIT_LIST_HEAD(&eq->tasklet_ctx.process_list);
->  	spin_lock_init(&eq->tasklet_ctx.lock);
-> +	mutex_init(&eq->poll_lock);
->  	tasklet_setup(&eq->tasklet_ctx.task, mlx5_cq_tasklet_cb);
->  
->  	irq = xa_load(&table->comp_irqs, vecidx);
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/eq.h b/drivers/net/ethernet/mellanox/mlx5/core/lib/eq.h
-> index b1edc71ffc6d..ca019b3019aa 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/eq.h
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/eq.h
-> @@ -6,6 +6,7 @@
->  #include <linux/mlx5/driver.h>
->  #include <linux/mlx5/eq.h>
->  #include <linux/mlx5/cq.h>
-> +#include <linux/mutex.h>
->  
->  #define MLX5_EQE_SIZE       (sizeof(struct mlx5_eqe))
->  
-> @@ -46,6 +47,7 @@ struct mlx5_eq_comp {
->  	struct notifier_block   irq_nb;
->  	struct mlx5_eq_tasklet  tasklet_ctx;
->  	struct list_head        list;
-> +	struct mutex            poll_lock; /* protect recovery polling */
->  };
->  
->  static inline u32 eq_get_size(struct mlx5_eq *eq)
-> diff --git a/include/linux/mlx5/eq.h b/include/linux/mlx5/eq.h
-> index 3705a382276b..a053f9eb2614 100644
-> --- a/include/linux/mlx5/eq.h
-> +++ b/include/linux/mlx5/eq.h
-> @@ -9,6 +9,7 @@
->  #define MLX5_NUM_SPARE_EQE (0x80)
->  
->  struct mlx5_eq;
-> +struct mlx5_eq_comp;
->  struct mlx5_irq;
->  struct mlx5_core_dev;
->  
-> @@ -29,6 +30,7 @@ void mlx5_eq_disable(struct mlx5_core_dev *dev, struct mlx5_eq *eq,
->  
->  struct mlx5_eqe *mlx5_eq_get_eqe(struct mlx5_eq *eq, u32 cc);
->  void mlx5_eq_update_ci(struct mlx5_eq *eq, u32 cc, bool arm);
-> +int mlx5_eq_reap(struct mlx5_core_dev *dev, struct mlx5_eq_comp *eq);
->  
->  /* The HCA will think the queue has overflowed if we
->   * don't tell it we've been processing events.  We
-> diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-> index cb3b6163961b..aa08c7a5ea22 100644
-> --- a/include/rdma/ib_verbs.h
-> +++ b/include/rdma/ib_verbs.h
-> @@ -2542,6 +2542,7 @@ struct ib_device_ops {
->  	int (*poll_cq)(struct ib_cq *cq, int num_entries, struct ib_wc *wc);
->  	int (*peek_cq)(struct ib_cq *cq, int wc_cnt);
->  	int (*req_notify_cq)(struct ib_cq *cq, enum ib_cq_notify_flags flags);
-> +	int (*reap_eq)(struct ib_device *device, struct ib_cq *cq);
->  	int (*post_srq_recv)(struct ib_srq *srq,
->  			     const struct ib_recv_wr *recv_wr,
->  			     const struct ib_recv_wr **bad_recv_wr);
-> @@ -4296,6 +4297,29 @@ static inline int ib_req_notify_cq(struct ib_cq *cq,
->  	return cq->device->ops.req_notify_cq(cq, flags);
->  }
->  
-> +/**
-> + * ib_reap_eq - Poll the event queue associated with a CQ.
-> + * @device: Device that owns the CQ.
-> + * @cq: CQ whose associated event queue should be polled.
-> + *
-> + * Poll the device event queue associated with @cq to recover completions
-> + * after a missed event queue notification. This is an optional provider
-> + * callback.
-> + *
-> + * Return: 0 on success, %-EINVAL for invalid input, and %-EOPNOTSUPP when
-> + * unsupported.
-> + */
-> +static inline int ib_reap_eq(struct ib_device *device, struct ib_cq *cq)
-> +{
-> +	if (!device || !cq || cq->device != device)
-> +		return -EINVAL;
-> +
-> +	if (!device->ops.reap_eq)
-> +		return -EOPNOTSUPP;
-> +
-> +	return device->ops.reap_eq(device, cq);
-> +}
-> +
->  struct ib_cq *ib_cq_pool_get(struct ib_device *dev, unsigned int nr_cqe,
->  			     int comp_vector_hint,
->  			     enum ib_poll_context poll_ctx);
-> -- 
-> 2.43.7
-> 
+> No worries at all. I just hadn't caught up with your X5H series.
+> I've now rebased v2 onto next-20260925, since the series also needs
+> b43aa6a6ebe8 ("arm64: dts: renesas: r8a779f0: Add GICv3 ITS and update PCIe nodes"),
+> as noted in the cover letter.
+
+Understood.
+
+-- 
+Best regards,
+Marek Vasut
