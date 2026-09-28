@@ -1,389 +1,206 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021130.outbound.protection.outlook.com [52.101.70.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE21C4BD368
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601757; cv=none; b=H9ANtWhZOt39RVYbNnBxDclwzBZvetbSo5rf8G4zWo0+Z4TC85fY+7kqzciXX9He4PgiscgzX7EXFDFpfoRa7D78Cc/v94v2q1ph2MnSHCzp/Q43XFA3CzA6YbkdVznsRoc02GmqlIYkZ6Zaxp8vVp+Ic+YiI8ctCDeCazXWnf4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601757; c=relaxed/simple;
-	bh=E1+5UqElEpQ5P+0984SRmM5eJBgCjPMCC5ACMcP2rVs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cWymqB3G5ypVUYcEpgfrv1mytB7fJ5eNg+45NOfZpuxMg7JUua+1JYxtjip892bTU7MNUwEvX9/FsPiPkhM1sTdOnQ41zebbiBCrrXufLMAgu1iTIYFEv4dZFDOxx80C3eaUHnVyaa2wf9BmveWM7p9F8XKL78wbbEXhLpOUzZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=T96lA88M; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91D04BD374;
+	Mon, 28 Sep 2026 13:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.130
+ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790601781; cv=fail; b=g8soxfkne1lTGfF508fm9STN3lMm4Hj2DojjAlX3N4YBoJbAdjJ6sewhh4HelLKNVyULpkjH2SPRY15kVDw8zqWTdnUO3Z0WTUd36M1Fi6TL32B9BoJhCEuovuvWAWAJaX9qAJIlaI12Nm9neAL33mok+1mlHOBhQLG7EF7w7g0=
+ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790601781; c=relaxed/simple;
+	bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=A0dMRtKDd0yaGyjz7Cc0lPkcz6XiokHiJxMRUQTJuw9bKh2dnvB8hZX/mw0nqKelXhUf5lhbg5460YAxFC8RqgigcJFVHxPL8sh5TC8KUZCPUv3yZa632oFeRygZEV08xu9yhY1ExtnBV8GyRJW94udkYjLifkcGjuYZeunFhGY=
+ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=uv36a2v7; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=uv36a2v7; arc=fail smtp.client-ip=52.101.70.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="T96lA88M"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso2208959a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790601755; x=1791206555; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8RPcRKGYr1XZHwGm79pP3hdZM5YXoo/M6t9gIRk53wQ=;
-        b=T96lA88MvPoDgUMaV/YKVht+sjae4+kUJZqCnEqpvXGGLCY3UrQGtvW01nDwZBav7/
-         JAcFM5lTxFipzvh/N6hxOMdeVsFAz9E8Hqq8t+baHWpyt28MC9wcAD7ubPTFm/8VCp+F
-         GL2H3iPgHoHmvqyCbW809D+VFKxJgIHvsJ0ZE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790601755; x=1791206555;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8RPcRKGYr1XZHwGm79pP3hdZM5YXoo/M6t9gIRk53wQ=;
-        b=Qefl4GBpX5yn7GUOiMt6GqfMEOYYCZ6SIEQGIn3lz08z5RNgKq75v+ukrtn/Bi0esm
-         WNdZs+b22ZLm7lKUzYo/W4YL09gRJLdv7af2tnyEMeCOAhMhmNukcxDrEpP0Uu1S0Hgs
-         AqJ64oXhWIPlPUPSznMWNIKlMEhxD9NifB2jM7yrd2S1rGhxmJTc+ihGu7wRrEsysJdy
-         VxXkef9BXQg3ItpgwrMqMCySKE/LP/tv3ScvTOiF2l3CVgq2DPHkiTtlIFArgTd7Xn8k
-         L7bNmKocC3ZSQDOvU80OA54/M9I+jpP90XE74MGXaTvE7D2RvcoihX5YvVm6VipPVkvR
-         eJdA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTg8MA/8vSPzgeAGWyyLh+/GohrZo563a4rWASS1vpryvoQXZ5TM0jS+/tiYIhaBJp/W3856Gp37OAjHk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL35ClTzTdSKuXq+5MnYr7y2aH6wqL79cWLXZMk5LlxDsbziJSu
-	wsTG3pcttX2IAKN5imdMpMmZzMmwg2rvtZvHrXNn5D6yNZgsnD083tpOqfRLvK/Yo0E+pvxYLsj
-	U9d8=
-X-Gm-Gg: AYBFou36Cy6yw36vY9jqHSXv8PiuGpZZc/PowAwK29u90EXtZ4fjLjNMd6lxftHO5Zm
-	f2sAhb5oKonQAiMiqUBoxIM3l6EhY1u1KSn4LM9gWviEx5RcFs98eVLWFcElIcOLt1EA8zUPlRM
-	uvmkhO0imMHHeV3PS1KYEbq7dbrLfdGTbczJpvQf+YlrE0vdCH5HUSdA8l3/ibakfbgGLK/CcMz
-	Px6WUTuRn7xxUeRs6WJoI5TDmdzhNnCxRaHmOq6T+bd0jeorQlAIioIPvez7Bv551BIhjcRzXml
-	AYyeL/OUOB17nkwmGr9+DwBWiDltVj2cMW/VygdP+085dz8DrmtdyhZuiNDnt+IJCJ+XT5bbIWE
-	5HQTQMHsYs+5Ho8tPmPnhAB9UOWW29kBTKIISdW9xSDD30KgBNgnCA0N5//Ksi9tZoB/jPZCyu4
-	9Y22S/TjqnmOThwo/MN+4Gw7w1frSW5bwc1TEdVXJUY0S9dP1bQG+MsvkgmyoKNJpmzP1VqLaGx
-	ATHN18ekcgRMhVz35POgfn+Gz72WKGV24XTI7njBP5E1kQz
-X-Received: by 2002:a17:90b:37c5:b0:3a0:9640:8039 with SMTP id 98e67ed59e1d1-3a0bb59d69dmr7137507a91.30.1790601754763;
-        Mon, 28 Sep 2026 06:22:34 -0700 (PDT)
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com. [74.125.229.170])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4926a280dsm174754a91.0.2026.09.28.06.22.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 06:22:34 -0700 (PDT)
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144e32aaa1cso1708116c88.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:22:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwlj5BeLqR8LJan2J2KojqG+ZXXT3OY9JODa44tX5qh8w05KdF/E1M0YGQ/VjvE7rnz9/+4f76qy6Iv2Q0=@vger.kernel.org
-X-Received: by 2002:a05:701b:4252:10b0:143:298f:33b6 with SMTP id
- a92af1059eb24-146d096d31fmr9984470c88.46.1790601750263; Mon, 28 Sep 2026
- 06:22:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="uv36a2v7";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="uv36a2v7"
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=iQa6JufO7L3ET+3KH4qbq1scW7ihiunOw6B19Kgnkhox2pLZzbZzrE5RqRXZmPxXna2mEb0PLdPpWisUOJPNhLA3dCat+CroSTe+ePLwACnk8ftt05NLzU437XaiB3zfr2ZNNN2Ks6FL8167IFzPBuCqIBBWj06DG23q27BgbuLONOfDbJzYrrLqV7gZZZuOWOPID6rG50ZFEZjd6+raEFcmV2/u3Jv1TT/OaxxqUf3ZPbnzaPSy+dbDQpjs8nwN/t3T9CCXq+KSGCg5XqaMwiMIfk1Y1dEMmFkMmtVmhKiXNy8wlJ1ulVqFWg74dG/Y2+Q4a19FnK8FAL7Wak01ng==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+ b=Ec/g0PxYNu6jyKHLsFriaehbtteFTLQbFlIxsGdRAyHpFpGZLtHy+Phjnat6rbxC0FljE5EnuvlncOCV5nwmj9RqvMrahbmMDc23t1jNaMCS/Q0NTEzOUhHiF8h3NJsk3/x7+YaA+7hUTBn3bqK3iZM1t4KX8V7FafqLWCAhoqHeeYUuy4rkBZMgAiueFCRD7z0a9fpceru06KG4Nh38KOLC7zpa50pnBMP0oj1RhOdUSW2G535DrnIk4iWHH3dnz53qEACxyb3ciORwhz/Ss88Lwubz8TKpPQZx2Q2gxJ65qTH/Cp7GMmRAyJ86AJoaC++llPzAZh3xAUdQ66gCQg==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=gmail.com smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,2,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+ b=uv36a2v7V2kkVtuvh0L0/Vc0XvQdha20jBInlALqDLGNPlI5LKnrvvCG24dxRb3BCmhPfFenC5y2QATDSxp2ktzaek+8if8VxJZq1Savdy+Mj29EgOUKRDg+z7ygeWwn62V8Bc8R+T2n3zVjsfzh5YbfplzEx+EyHcrFF2+/A540gXxfhmRkzV1DzPFgHZRc9UELh/74I0YsrW0BzwXKQZdhR/MSornjepmKBZLSX+95Oc4TqTjaoIq6foI7Y/m32Lq9OiD54s2UxcqYQu/DExlYK052wioKoCAmi2iywdKkyWnAxw7hP/CyUVPVyIXccuBOP+VfAe4dKB7n4rPE7Q==
+Received: from PR1P264CA0081.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2cc::19)
+ by MI9PR04MB338771.eurprd04.prod.outlook.com (2603:10a6:290:87::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 13:22:56 +0000
+Received: from ZR1PEPF0000E6AD.eurprd05.prod.outlook.com
+ (2603:10a6:102:2cc:cafe::a2) by PR1P264CA0081.outlook.office365.com
+ (2603:10a6:102:2cc::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 13:22:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 52.17.62.50) smtp.mailfrom=solid-run.com; dkim=pass (signature was
+ verified) header.d=solid-run.com;dmarc=pass action=none
+ header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ ZR1PEPF0000E6AD.mail.protection.outlook.com (10.167.241.84) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Mon, 28 Sep 2026 13:22:55 +0000
+Received: from emails-4271770-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-124.eu-west-1.compute.internal [10.20.6.124])
+	by mta-outgoing-dlp-942-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 99D2580283;
+	Mon, 28 Sep 2026 13:22:55 +0000 (UTC)
+ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
+ s=arcselector01; t=1790601775;
+ b=g17XwzBftRILX7LQMpMgH4uMQIOuERppCKf2Wd/Ay2nnJXtPqH+sCrmWOa6GHjKEb5rua
+ dbofgBaF0dZLKRYycFU6GujnGeSM8ZJl2lvHyW400RPwGKxx+SCDGBKeu8ZXYnlTRWvVqRF
+ oEsExrM9mPUlnamIzClPiJONKChH0tQ=
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
+ d=checkpointcloudsec.com; s=arcselector01; t=1790601775; h=from : to :
+ subject : date : message-id : content-type : mime-version;
+ bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+ b=ciiewDN8+fe3VdDl/iQkgCuPclcqE5ZXm+RY2pLCMKOyBLpYGTmJYz3Kx2qj0t8lwaMSt
+ MxNR35rmRcB+RV3hgeUo48oUxcD7Z5G6Xuq/MOZazvcbonzDNRMNmI8IcuasV2TwE/W3QBu
+ IS555dGVkwbdrquCYG23svmVn3iDdx4=
+ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
+ arc=pass;
+ dkim=pass header.d=solid-run.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+ b=uv36a2v7V2kkVtuvh0L0/Vc0XvQdha20jBInlALqDLGNPlI5LKnrvvCG24dxRb3BCmhPfFenC5y2QATDSxp2ktzaek+8if8VxJZq1Savdy+Mj29EgOUKRDg+z7ygeWwn62V8Bc8R+T2n3zVjsfzh5YbfplzEx+EyHcrFF2+/A540gXxfhmRkzV1DzPFgHZRc9UELh/74I0YsrW0BzwXKQZdhR/MSornjepmKBZLSX+95Oc4TqTjaoIq6foI7Y/m32Lq9OiD54s2UxcqYQu/DExlYK052wioKoCAmi2iywdKkyWnAxw7hP/CyUVPVyIXccuBOP+VfAe4dKB7n4rPE7Q==
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
+ by GV1PR04MB11526.eurprd04.prod.outlook.com (2603:10a6:150:282::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 13:22:41 +0000
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 13:22:41 +0000
+From: Josua Mayer <josua@solid-run.com>
+To: Rob Herring <robh@kernel.org>, "Frank.Li@oss.nxp.com"
+	<Frank.Li@oss.nxp.com>
+CC: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "open list:ARM/FREESCALE
+ IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, "moderated
+ list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
+	<linux-arm-kernel@lists.infradead.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop
+ undocumented adi,led-polarity
+Thread-Topic: [PATCH 1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop
+ undocumented adi,led-polarity
+Thread-Index: AQHdS6BuOXbhom7Vt02XyzJSxPxhH7bfztmAgAQyxQA=
+Date: Mon, 28 Sep 2026 13:22:40 +0000
+Message-ID: <5c5422b5-f741-4139-b429-339e2531fd6b@solid-run.com>
+References: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
+ <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
+In-Reply-To:
+ <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=solid-run.com;
+x-ms-traffictypediagnostic:
+	MMZPR04MB400504:EE_|GV1PR04MB11526:EE_|ZR1PEPF0000E6AD:EE_|MI9PR04MB338771:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ef37a76-b696-448a-5e85-08df1d639bb6
+x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|18002099003|22082099003|56012099006|4143699003|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ oGeNQ3xfb3y02V9mGwXn9bZYQvZ6viYTLVkVACyLo+eDcwbu7Ik1ur1YWALNXFRcqyPMCJMMetI2qNmPOmvt2EjmWqqI/pPxreRNB6hoWWBg82P75PDgZ2ehLLDSMCFEcvl0xuw/nYlXqpMkKye0TVdoTUGOAoJsCabeX/K/MwPvSrWo9wTnCfP0uXUAuDj+534Z+NO3pLRlvNCZrlakTuLp/kLtGuUk5MgaCyjtgMsJhXz18rYHR/kpvkSiga0k6IwPJlMWxrft5dYkbI2S1jtyd3ZIest9sibJA29HE0XfAhQoF2hVaMVRzAh/UBhULnMrJ7WfT/atbvGFEXOVpqLc1vLJH8Hal427gx4Xu25KOpmXoShU1LkOwA/I3a7BLzhcrFF92PzhlXjBuS60UQ22C2IZN0tVe+hCx3E5djSOX6TTkRyKGGtYpipKfEww3y+79n/emEMalP0d8U1ao2lTKo+yE5obR8P/OXKLE005jdBYFYVIZlUhLr33eh1+a/Lq0YCvf7EfCKpj19wxaqPIUlBOwsdnghpVpIgXfICYfbTatv8gq0d5gS9qnr5so0JdXs7E762jvBoYKn2FTQYp5uJ6edf+8ooryfIbEKJt2oTMvDQhlgVdhpX2m95ZZskZCiLFqNRhdjBJqSnxq7FDfGirS7NtkdIiHVOlyK4=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(38070700021);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CD958DBE01AEF841A8FD7B6517702797@eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org> <20260928125242.GE4406@killaraus.ideasonboard.com>
-In-Reply-To: <20260928125242.GE4406@killaraus.ideasonboard.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 15:22:15 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
-X-Gm-Features: AclHuK8oVZSlYIBQO6ij5u2sY0EUmnZWXqwfIgQBb-dk-zqNmpS46gemuFgKR64
-Message-ID: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras with
- invalid uvc_version
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked:
+ smXDMosj6rzqtbqcEGMUjLPTa7pmttsY+x6Kz50OQWtf2oJyMlU81g5QzNtXlr3zJzQCGEmRcZqkvuzPGwatJBW3PNzeK3XIJGeida+IAdWZgI6/3GWnJsYa6aWkHhfYvPiTyYJwJOoI1KjGh0POiMSOeDtNbM4X2Kg6SVHccSZyCkCpNPGgyUZ9VJjk7uc74+AyLVHbivICo5pX9P2gnoigOAq4yesQITdM8TsMd8o4nNk3/zratGWxbiWueoqYKqrYnqsys/hcueolj//SradyVWyCJsLVNBa+hB126QyuimS4ioG1SEtWyg5ZCGyVN38pKJNcyVMCoeSYteoN0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB11526
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: b0b7f07244a24b948129cd060fbd4097:solidrun,office365_emails,sent,inline:1afdc295ac5b4f0bb002eabfdb1010ba
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PbSe0o0u1ZPuEBlslqEe7mslwvGSGE4W9UFk4hh0kUD0UWXarCL0V3Yui9bHxEOdgox3J5beLiuD0/4vQwBR6+Zl+AZF0A74mFkkpvaGA67b0qZvc6CDhf0mkJwE5hG93cMVc0lMz/jaUeIv4dEUT+ReL3CeLAG6HOajrN8rk/uFRhlmMS8Hekn4nGYnt0Kx/0g6xW57AeLsP/GcWCFJa+0JSm69i856S3lf+g/zS9Yw6bfngTFvqH6iPAvsL6wAPWPdnTvuq7I8eCIgYL9QB6yv6aQ/deiHRrbu/kMQ+Mfo4+qxMtoMU8/WSJip8C9i/VSiNQWuwSz0SoMro0i4GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P4RARKXE0uQbzJReiHHL9/GAiJJ7SxBYaSBDd1jGyng=;
+ b=b9fm2GUCfdcJAOvKr5QRUGiE21JFDS5weDCrRVmDSr9PT38DCnLX+gV4GpL45Dmqwqrj7WQjsOpaa+kLGJxcnOaP5cXvS9FYBv+t0Ih7Y8HKMVa09Y5EjmfVNuyms4DCvCxXCBQxkMeE5d4phh99iIBBAppR1SClDdILEkYAuQky1gYpT8xpHLfPm++ELi4QZ7Vf1hfW+oNqsvWzob7wHrTVPxTsA+mZ86cd9SBdd0hWdRakB2cQrjv2fgkpYWwiFa5HPRrhHPJqbFj8GYCUGynIcFE+xMQPuTWaU9fxg9QHzAxiTrIL39HadfekJmGNicLHvxCQKjBiHvVWsrb5PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
+ dkim=pass header.d=solid-run.com
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ ZR1PEPF0000E6AD.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	490de91a-0c68-42bc-9578-08df1d6392aa
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|35042699022|82310400026|14060799003|23010399003|36860700016|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mKoax40iFctjeS0AsOEkNcRonisY+AsUec1umY+pAZr3Z3C6YCEBKZ5ZYm7bHa1s6yG/utMA9Qz+/NfkVYKaH3HZ10sXhIphVGoih/sq6TEtr4vVovS+WnOogyGsEw8WgOd3DvgYU6aieGomyb/1YTYZtudzVlEcj46L9fo7lgKY5SJTKyukd+b2M8idtg3U13/4eMrkNr968FI2II5xrcC0gZ91bsmDilosSvDC2Cq9Hsdl/MFx5FvXaj84LzkkDI6y/VIXH/ZXdZ6YlxgWQDE/tuPr7x2OMcMwjAUCzDYtioE/N3cK2Lqs6BF1V8w5jEQ4qTz4FP0FSav00psgRF0p5IoPEafDZleBWFHxfe6sXc7VcM+5V0lfIumSpxhzxAXvp5tEx1nrXfKhurqr6DLI4gh5H1YE4BhW3K80wvXPfTFA8TV9AKBjpHEMGY5qsANZNtvlSl5oZKBNZ6cPa9RabAUa3a4wEGK+mMsFev0SeOqz/3SGCYGdhvfgE+Dcl4cLtDQIoTeAheiPabHgNCgCdg4lGFI5AElAAN6IPUyMAXdwtnTbmJsnKe3Mxjgn5vz7++JR7WNNSrcRqYJ7jU5J4WNiRLGRSZQxydvCGDOg84NYR8uiZsDMQyMhVae6aObLbTd23SW4RCCXIr2+5rr7+v1UdEVarvqdI8t7JX4=
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(35042699022)(82310400026)(14060799003)(23010399003)(36860700016)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ag8ze5rKbaO+yYZMK0k+IjGYCnkNe1Vr3mIwUsQ7fheTnCSFVQh5S9lKtGCFzTaKbo3legpecLL5dEgMAWwFqgUctT2VqqShae0oJ3y7OyHpwtZo+jjRcdVrueqyhl+ZaWgnIh4nwYunCkMD6Q6JxNezintqef3p1AlpuHphnK25wWUcHE3uiXbo+QW1SWX0UFcMpyfs+5PW9cdphtu4CIIrkvryvV+H0thfDXmavSNJoJJN0Aa+9fR7Nq4tMY2VJMTpLzSxjyBH8rwG7ni8MAtDkL19acqEaLQ1F7+hCflwshnDf2KB42PfJNsHNl1PWOTsCXrMMXkqptghsJN0pZ1+IvID5pWfr1H1nWKsRhpD/3FovOxehE2hI+dbxSMdjYjzoLLkx7YsO9F29d2BpvPsZgaQr64VNj8RZq4R91ehP+HaHK1kLPrAL/ggTYfL
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:22:55.9980
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ef37a76-b696-448a-5e85-08df1d639bb6
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E6AD.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB338771
 
-On Mon, 28 Sept 2026 at 14:52, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
-> > Currently, the driver expects that cameras properly implement the spec
-> > version that they announce, and if they fail to do so, we do not continue
-> > probing the driver.
-> >
-> > To make drivers more fun, some vendors decided to announce that they are
-> > a UVC version that they are not. Until now, we handled those cameras via
-> > quirks.
-> >
-> > Unfortunately, reality has shown us that there are more cameras out
-> > there with an invalid uvc_version than we initially predicted.
->
-> As far as I understand, this was triggered by the Avermedia GC515. Have
-> you received other reports ?
-
-I have not, but we can agree that not that many people does the extra
-mile to report to this mailing list.
-
-If multiple cameras, from different ISPs have this issue it makes me
-think that Windows is handling this uvc_version more naively than us,
-and unfortunately it is what most vendors use to validate their
-cameras.
-
-I'd rather support more cameras than fewer.
-
->
-> > This patch tries to handle these cameras with an identity crisis
-> > automatically. We still shame them in dmesg. But now they will work.
->
-> If the vendors ignored the fact that those cameras didn't work at all on
-> Linux, do you think they will read dmesg ?
-
-They wont, but distros might look into logs and keep track of warnings/logs.
-
->
-> Jokes aside, UVC version override was added in November 2020, and the
-> Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
-> see if there are any drawbacks in the implementation below that can be
-> justified by such a small number of devices.
->
-> > Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > ---
-> >  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
-> >  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
-> >  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
-> >  3 files changed, 35 insertions(+), 18 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > index e289cc71ba98..ca75f8d1ec46 100644
-> > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
-> >
-> >       case UVC_VC_PROCESSING_UNIT:
-> >               n = buflen >= 8 ? buffer[7] : 0;
-> > -             p = dev->uvc_version >= 0x0110 ? 10 : 9;
-> > -
-> > -             if (buflen < p + n) {
-> > +             if (buflen < 9 + n) {
-> >                       uvc_dbg(dev, DESCR,
-> >                               "device %d videocontrol interface %d PROCESSING_UNIT error\n",
-> >                               udev->devnum, alts->desc.bInterfaceNumber);
-> > @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
-> >               unit->processing.bControlSize = buffer[7];
-> >               unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
-> >               memcpy(unit->processing.bmControls, &buffer[8], n);
-> > -             if (dev->uvc_version >= 0x0110)
-> > +
-> > +             /*
-> > +              * We are not using bmVideoStandards, so there is no need to
-> > +              * warn the user if it is missing.
->
-> There's value in warning the user about UVC non-compliance though. I'd
-> like to see a warning that indicates the device reports an incorrect UVC
-> version.
->
-> If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
-> field. This change is therefore not needed for any devices we know
-> about, right ?
-
-We do not know if it includes the bmVideoStandards or not. Wihout
-https://lore.kernel.org/linux-media/20260928124109.GF157191@killaraus.ideasonboard.com/T/#t
-it might leaking the next control. (this is how I started working on
-the other patch).
-
-Luckily for us bmVideoStandards is not used.
-
->
-> > +              */
-> > +             if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
-> >                       unit->processing.bmVideoStandards = buffer[9+n];
-> >
-> >               uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > index 2a3b7431cc68..2f3daa920ffa 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
-> >       }
-> >  }
-> >
-> > +#define UVC_VIDEO_CTRL_MIN_SIZE 26
-> > +
-> >  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> >  {
-> >       /*
-> > @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> >        * on the protocol version.
-> >        */
-> >       if (stream->dev->uvc_version < 0x0110)
-> > -             return 26;
-> > +             return UVC_VIDEO_CTRL_MIN_SIZE;
-> >       else if (stream->dev->uvc_version < 0x0150)
-> >               return 34;
-> >       else
-> > @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> >  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >       struct uvc_streaming_control *ctrl, int probe, u8 query)
-> >  {
-> > -     u16 size = uvc_video_ctrl_size(stream);
-> >       u8 *data;
-> >       int ret;
-> >
-> > @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >                       query == UVC_GET_DEF)
-> >               return -EIO;
-> >
-> > -     data = kmalloc(size, GFP_KERNEL);
-> > +     data = kmalloc(stream->ctrl_size, GFP_KERNEL);
-> >       if (data == NULL)
-> >               return -ENOMEM;
-> >
-> >       ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
-> >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> > -             size, uvc_timeout_param);
-> > +             stream->ctrl_size, uvc_timeout_param);
-> >
-> >       if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
-> >               /*
-> > @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >               ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
-> >               ret = 0;
-> >               goto out;
-> > -     } else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
-> > +     } else if (query == UVC_GET_DEF && probe == 1 &&
-> > +                ret < UVC_VIDEO_CTRL_MIN_SIZE) {
-> >               /*
-> >                * Many cameras don't support the GET_DEF request on their
-> >                * video probe control. Warn once and return, the caller will
-> > @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >                       "Enabling workaround.\n");
-> >               ret = -EIO;
-> >               goto out;
-> > -     } else if (ret != size) {
-> > +     } else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
-> >               dev_err(&stream->intf->dev,
-> >                       "Failed to query (%s) UVC %s control : %d (exp. %u).\n",
-> >                       uvc_query_name(query), probe ? "probe" : "commit",
-> > -                     ret, size);
-> > +                     ret, stream->ctrl_size);
-> >               ret = (ret == -EPROTO) ? -EPROTO : -EIO;
-> >               goto out;
-> >       }
-> >
-> > +     if (ret != stream->ctrl_size) {
-> > +             uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
-> > +                           "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
-> > +                           uvc_query_name(query),
-> > +                           probe ? "probe" : "commit", ret,
-> > +                           stream->ctrl_size);
-> > +             stream->ctrl_size = ret;
-> > +     }
->
-> There are two other locations where uvc_version is used:
->
-> - In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
->   devices that don't report dwMaxVideoFrameSize
->
-> - In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
->   control on pre-1.50 devices
->
-> None of those are handled in this patch. Furthermore, more usage of
-> uvc_version may be needed in the future. This patch seems a bit fragile
-> to me in that regard. Could we instead detect the version and update the
-> uvc_version field ?
-
-Will send a follow-up to fix dwMaxVideoFrameSize.
-
-uvc_ctrl_filter_plf_mapping properly handes devices with invalid
-uvc_version. It automatically probes the control.
-
-I though about parsing the uvc_version, but then I realised that some
-devices might implement video_ctrl_size correctly but not filter_plf
-(or the other way around).
-So I decided that this was better.
-
->
-> Another option, given the small number of affected devices, is to just
-> merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
-
-I'd argue that 4/5 is also a nice to have.
-
->
-> > +
-> >       ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
-> >       ctrl->bFormatIndex = data[2];
-> >       ctrl->bFrameIndex = data[3];
-> > @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >       ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
-> >       ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
-> >
-> > -     if (size >= 34) {
-> > +     if (ret >= 34) {
-> >               ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
-> >               ctrl->bmFramingInfo = data[30];
-> >               ctrl->bPreferedVersion = data[31];
-> > @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> >  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> >       struct uvc_streaming_control *ctrl, int probe)
-> >  {
-> > -     u16 size = uvc_video_ctrl_size(stream);
-> >       u8 *data;
-> >       int ret;
-> >
-> > -     data = kzalloc(size, GFP_KERNEL);
-> > +     data = kzalloc(stream->ctrl_size, GFP_KERNEL);
-> >       if (data == NULL)
-> >               return -ENOMEM;
-> >
-> > @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> >       put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
-> >       put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
-> >
-> > -     if (size >= 34) {
-> > +     if (stream->ctrl_size >= 34) {
-> >               put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
-> >               data[30] = ctrl->bmFramingInfo;
-> >               data[31] = ctrl->bPreferedVersion;
-> > @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> >
-> >       ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
-> >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> > -             size, uvc_timeout_param);
-> > -     if (ret != size) {
-> > +             stream->ctrl_size, uvc_timeout_param);
-> > +     if (ret != stream->ctrl_size) {
-> >               dev_err(&stream->intf->dev,
-> >                       "Failed to set UVC %s control : %d (exp. %u).\n",
-> > -                     probe ? "probe" : "commit", ret, size);
-> > +                     probe ? "probe" : "commit", ret, stream->ctrl_size);
-> >               ret = -EIO;
-> >       }
-> >
-> > @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
-> >
-> >       atomic_set(&stream->active, 0);
-> >
-> > +     stream->ctrl_size = uvc_video_ctrl_size(stream);
-> > +
-> >       /*
-> >        * Alternate setting 0 should be the default, yet the XBox Live Vision
-> >        * Cam (and possibly other devices) crash or otherwise misbehave if
-> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> > index abcafd929c9e..8d99e857a69f 100644
-> > --- a/drivers/media/usb/uvc/uvcvideo.h
-> > +++ b/drivers/media/usb/uvc/uvcvideo.h
-> > @@ -461,6 +461,7 @@ struct uvc_streaming {
-> >       struct usb_interface *intf;
-> >       int intfnum;
-> >       u32 maxpsize;
-> > +     unsigned int ctrl_size;
->
-> That should be called video_ctrl_size, ctrl_size is ambiguous.
-Ack
->
-> >
-> >       struct uvc_streaming_header header;
-> >       enum v4l2_buf_type type;
-> > @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
-> >  #define UVC_WARN_PROBE_DEF   1
-> >  #define UVC_WARN_XU_GET_RES  2
-> >  #define UVC_WARN_QUERY_CTRL  3
-> > +#define UVC_WARN_CTRL_SIZE   4
-> >
-> >  extern unsigned int uvc_clock_param;
-> >  extern unsigned int uvc_no_drop_param;
->
-> --
-> Regards,
->
-> Laurent Pinchart
-
-
-
--- 
-Ricardo Ribalda
+QW0gMjUuMDkuMjYgdW0gMjM6MTUgc2NocmllYiBSb2IgSGVycmluZzoNCj4gT24gV2VkLCBTZXAg
+MjMsIDIwMjYgYXQgNDoxM+KAr1BNIDxGcmFuay5MaUBvc3MubnhwLmNvbT4gd3JvdGU6DQo+PiBG
+cm9tOiBGcmFuayBMaSA8RnJhbmsuTGlAbnhwLmNvbT4NCj4+DQo+PiBEcm9wIHVuZG9jdW1lbnQg
+cHJvcGVydHkgYWRpLGxlZC1wb2xhcml0eSBhbmQgYWRpLGxpbmstc3QtcG9sYXJpdHkuDQo+PiBl
+dGhlcm5ldC1waHlAMCBzdGF0dXMgaXMgZGlzYWJsZWQgYW5kIG5vIGluIHRyZWUgb3ZlcmxheSBm
+aWxlIHRvIGVuYWJsZSBpdC4NCkRyb3AgdGhlbSBvbmx5IGJlY2F1c2UgdW5kb2N1bWVudGVkIHBs
+ZWFzZSwNCnRoZSBwaHkgbm9kZSBpcyBlbmFibGVkIGJ5IGJvb3Rsb2FkZXIgZGVwZW5kaW5nIG9u
+IGJvYXJkIHZlcnNpb24uDQoNCkZvciByZWZlcmVuY2U6DQpodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9hbGwvYjZmNWZmMGYtNjVlMS00YjQ2LThmMTgtZWRmMjRhYjNjZWE1QHNvbGlkLXJ1bi5jb20v
+DQoNCkluY2x1ZGluZyBpdCBpbiB0aGUgdXBzdHJlYW0gZHRzIHdhcyBhIG1pc3Rha2UsIGRyb3Bw
+aW5nIHRoZSBwcm9wcyBpcyANCmNvcnJlY3QuDQoNClJldmlld2VkLWJ5OiBKb3N1YSBNYXllciA8
+am9zdWFAc29saWQtcnVuLmNvbT4NCg0KPj4NCj4+IEZpeGVkIGJlbG93IERUQl9DSEVDSyB3YXJu
+aW5nczoNCj4+ICAgIGFyY2gvYXJtNjQvYm9vdC9kdHMvZnJlZXNjYWxlL2lteDhtbi1zb2xpZHNl
+bnNlLW44LWNvbXBhY3QuZHRiOiBldGhlcm5ldC1waHlAMDogYWRpLGxlZC1wb2xhcml0eTogYidc
+eDAwXHgwMFx4MDBceDAxJyBpcyBub3Qgb2YgdHlwZSAnb2JqZWN0JywgJ2ludGVnZXInLCAnYXJy
+YXknLCAnYm9vbGVhbicsICdudWxsJw0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEZyYW5rIExpIDxG
+cmFuay5MaUBueHAuY29tPg0KPj4gLS0tDQo+PiBjYzogSm9zdWEgTWF5ZXIgPGpvc3VhQHNvbGlk
+LXJ1bi5jb20+DQo+PiAtLS0NCj4+ICAgYXJjaC9hcm02NC9ib290L2R0cy9mcmVlc2NhbGUvaW14
+OG1uLXNvbGlkc2Vuc2UtbjgtY29tcGFjdC5kdHMgfCAyIC0tDQo+PiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAyIGRlbGV0aW9ucygtKQ0KPiBSZXZpZXdlZC1ieTogUm9iIEhlcnJpbmcgKEFybSkgPHJvYmhA
+a2VybmVsLm9yZz4NCg0KDQo=
