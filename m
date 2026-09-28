@@ -1,68 +1,33 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9A2488DB2
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3F548E0CC;
+	Mon, 28 Sep 2026 09:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588328; cv=none; b=MUOneaNwNwLbVfYmEba/PnboqzC/g+ntisKzeJQVgJ/glpWbjFBTmDTY5MSXyazU/QjMUIMDblfrNi4FIDY0/BWjLePdGrSXjSyeFrqrAErzTySelClho7y2jqbZzPtI83UfQ8t3gXamiQmRcU/o8LtF1grNFHC3+TRhELq/3eg=
+	t=1790588349; cv=none; b=LBWwbPJqvWPc52kn7ME0xCGr7LfnbJJw5eTkHM4OVKh0NFmzBY3Ciqy0Jpp4HXgy1HWQlbuuRi2VluWzn6K7fLkvvEeePvnLED/FrZlvFFZ7u/T1IRtOmp7OBzFolVOpXpXhwwRPzydR+IxeLDSlDTHYhEk0qCg7HXymTSw/edg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588328; c=relaxed/simple;
-	bh=luQ2bVFazKl9+YnhuhIyET4vG9Aq7mT9Ni2SXuEwwsA=;
+	s=arc-20240116; t=1790588349; c=relaxed/simple;
+	bh=51+6ZFW3Ml0dab1cvW6uohfPnjsoAVVUNAs5xPj3FVg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nbpwvFG0cPCYkzI00JskRGvSWDsyZJtN6efYkXpZbHtpz/Ai/tafFczndaBFRViku6qfeGk8hciXULjbXgGya1yGXI9aj2xSJ2b7dgOFaoAcs7s8RvZLyUJCUyM+nuRcK1vb1+7J+tiSD7o7m8xqj4qbWEc+MX4kM5Ua0EyUW3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hxNIovbE; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=ryL24ruLZxmfgMOE7UrXr8e2QHvO7Pp0Tp5JPkjwFLbKWdqQTNI7unHTjb+LZ1LPyI7lCRGS24y6L+ABo5lpPsJ9J1obT0PUkKGv3sbfeqVtvXLN/+9MsMhQOxccnr1AGIodlI7Exm4uWtn9iqRPyraxMBNjfU7NR9QOdInwhKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAQd2AlY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hxNIovbE"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2aff2c45efso206382966b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790588324; x=1791193124; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fb8BRFinCtpn7ZQeoERdORliYux0ApjJy8/g8+VQKzg=;
-        b=hxNIovbEw841xLVcyKvhi/l04UCRcmqzk9j6XKN1E9wGFrbKfuoiuakKc1B6V7A/24
-         F/AUcOsFekPyKcBIOSsahM9KZg3hZwvQEsWz1TBpc2X+b1szaOw/kl+kr0I1hveVtLSH
-         Do0s5TEibiFdLfRDR+3STWcrxFzEgmf8G7/dmS6q5IBwN+9kZNEzlf1TMVe4t1M1Gyxt
-         sXCWoObXbUXK671uogj9IOYAa0eVkmPUYbhUi7SoRD7iSwl2oytsABUJOcoLeckEMNeQ
-         VkYux2J6bZC3rtc8LyhM6+CDVKl5Xvg0jpyTpZN5LTWGGgOtMpVuPF8CENR972PUsl6Q
-         PGzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588324; x=1791193124;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fb8BRFinCtpn7ZQeoERdORliYux0ApjJy8/g8+VQKzg=;
-        b=afEVJWMUgFseubIrM2R6EliFbnaeq9jHAp/2DaKtRtva916hRczPoshK0AvvXwpkh3
-         FGPQ2bB/GlPazHiIuTDCKTqUiLIiHwjcdXifkw4fM9L29be1U2DueKxUCUHmzzaZgXhC
-         FohccrkVyxn2nhNgX+T2Xvw2ZLb4d+8m89Bu/HqGTuodCPIjbexN3MuCztPbq4l61ZPX
-         pSEyzZFFIREzflhcaP67tgbYBVHi/0F1TrSbpjVDyX+0E9SSnk3scJs+Gkc6v5spNcVn
-         aK5rc9wecDJ6iGOLOrF6/RM5J0zkJ2fytdHHVizmu/fLShVbsNLbYAxagsG+k3Zt6dQH
-         b4yw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrGu7bMkHX7W5Va/OS8SKmL5QtbwPjxkFlC2s1FSgenSJV10OXxMxBdvNKHQuYTVAegWBS8WlPOGdgu04=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgOZ2wL2NGT8VjJzvQ9vexU7tHJAc6IOQlkC/YRcz2xeqMwCr8
-	TkDnftYQD5bVdUxDweAsIJyuUFtkm2EJCa7ZDEMbcSPLTzcqo9zfTsslPvy+1vFTTfA=
-X-Gm-Gg: AYBFou3byuQOPuBOI3G+Ojyem1MfdYaOWqnSlEssoHwdMH7F3AC0fuarx7T3Twe8knz
-	usBgXET50c/vvl7mEeHrJv4nZqpFizWciJz71UuzCQdqtPraAFCnAYzUCjdnKCtYt60Ae8s2Sit
-	sz5m4lZKHL/JLej7BgpLGjuy2VODHaJC5qsTr+2pgTlwE2mGxcvuEKBaD0vrJsPLo5yloqjCvQM
-	h/Cu/8/kyEypUW44wBG0yxl8tbVG5oC1cogjZnjsD2FFXkg5+hVE4nurbFMi/ojJVI58/OqAqvy
-	8vpZXHcQLtLMVNrIVej9Bwh+R25QoHpZVZXnlZnHlZk2HER3nYY5l7j1xUsXnyctVXSDpyl41KZ
-	ajI95Ii/wzCfV9rvsYG53XvUft8DWOLyw0BjGY1OEpji8AFH+bdWBGxsbY0fAXqI2LIkJG+E+Id
-	G/8r3Mn2xcQFhXCsd4SNny1h12NoNd4M4xgmn6CcBd6gwOWNL3vhx2Aya1pkMaNJpKgbWrdezR6
-	6A=
-X-Received: by 2002:a17:907:b046:10b0:c2a:ce56:dc22 with SMTP id a640c23a62f3a-c2ace56e9d3mr637313266b.47.1790588324393;
-        Mon, 28 Sep 2026 02:38:44 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm440649866b.33.2026.09.28.02.38.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 02:38:43 -0700 (PDT)
-Message-ID: <f0aa7195-9c79-4ac7-8bb0-d508927a01cf@linaro.org>
-Date: Mon, 28 Sep 2026 10:38:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAQd2AlY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641491F000FF;
+	Mon, 28 Sep 2026 09:39:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790588347;
+	bh=QT5/TA1Et+zjC7by1UQS1uKsBPM+2raJprefhFjg8no=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YAQd2AlYDbbsP5vP/THTpAO7pUQW1NaGgM8ucecNHryxArSa7gZv2gdJfUvpMAInO
+	 wzO1VFBe6tcQWbXKX63DJbwuBuXSZ8U+YILRw4UlShBYznUx2T7Xh8idG2QS8w31Cw
+	 UglHo3i9fiSjmmJWInuccd3GiasSHZnnU2iqt9/GkkGEWeAViRpuCmJSp3jCjZSMBP
+	 zsBbCTYfkcjhGvluBhJkk+pgtTMOEeYxLh7MTVjg2nZOuZ2WIvBmIFmpg3s/ZlMj9Y
+	 p75yJ5xha5l0Afxnq9GSYEUxRsOFmICEWEX6mseVtxJ9plTzWBsLm1G6qVXpomsKZQ
+	 FL7CGIyw98RLg==
+Message-ID: <7149879c-2432-4072-82e0-452f9881418c@kernel.org>
+Date: Mon, 28 Sep 2026 11:38:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,91 +35,157 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/core: Fix ITRACE start suppression for inherited
- events
-To: Leo Yan <leo.yan@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-References: <20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com>
+Subject: Re: [PATCH net-next v18 03/10] net: phylink: Register a phy_port for
+ MAC-driven SFP cages
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, davem@davemloft.net,
+ Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, Herve Codina <herve.codina@bootlin.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
+ Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+ Frank Wunderlich <frank.wunderlich@linux.dev>,
+ Pietro Ameruoso <p.ameruoso@live.it>, Aleksei Sviridkin <f@lex.la>
+References: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
+ <20260927133619.955236-4-maxime.chevallier@bootlin.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260927133619.955236-4-maxime.chevallier@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
 
-On 03/09/2026 10:35, Leo Yan wrote:
-> PMU drivers call perf_event_itrace_started() for the event that has
-> started tracing. This sets PERF_ATTACH_ITRACE in that event's
-> attach_state.
+Le 27/09/2026 à 15:36, Maxime Chevallier a écrit :
+> phy_port tracks the interfaces that a netdevice feeds into. SFP cages are
+> such ports, but so far we are only tracking the ones that are driven by
+> PHYs acting as media-converters.
 > 
-> For inherited events, however, perf_log_itrace_start() replaces the
-> child event with its parent before checking PERF_ATTACH_ITRACE. The
-> setter and checker therefore operate on different events. If the
-> parent's flag is clear, the child continues to emit ITRACE_START
-> records on subsequent schedule-ins. If the parent has already started,
-> its flag can instead suppress the child's initial record.
-
-This last part would need an earlier fixes: commit. The problem of 
-suppressing child ITRACE_START records existed since the beginning on 
-ec0d772 ("perf: Add ITRACE_START record to indicate that tracing has 
-started").
-
-Although the fixes: commit would be correct if the only problem was that 
-setting and getting are on different events.
-
+> Let's populate a phy_port for MAC driven SFP cages, handled by phylink.
 > 
-> Remove the parent substitution so that perf_log_itrace_start() checks
-> the same event that the PMU driver marks as started.
+> This phy_port represents the SFP cage itself, and not the module that
+> may be plugged into it. It's therefore not an MDI interface, so only the
+> 'interfaces' field is relevant here.
 > 
-> This is safe for tool consumers. Intel PT uses the ITRACE_START record
-> to set the current thread context. CoreSight ETM uses the record only
-> to find or create the corresponding thread. Neither decoder depends on
-> the parent event.
+> The phy_port is only populated for 'NETDEV' phylink instances, as
+> otherwise we don't have any topology to attach the port to.
 > 
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> Tested-by: Aleksei Sviridkin <f@lex.la>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-It's probably harmless to emit more ITRACE_STARTs, but it doesn't fit 
-the original purpose of why it was added. It seems to be for when 
-tracing first starts, which would be _after_ the corresponding sched 
-event. Once tracing has started you can follow the subsequent sched 
-events, so you don't need more ITRACE_START records for each child. 
-Could we not fix it by changing the setter to follow the parent event to 
-match, which would respect the original meaning?
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
-> Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
 > ---
->   kernel/events/core.c | 3 ---
->   1 file changed, 3 deletions(-)
+>   drivers/net/phy/phylink.c | 57 +++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 57 insertions(+)
 > 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index a6c8e38a311042afab6b65814a84c67b87ba929b..991ae214d46ebe8b0d9de497255f25a4ad12397f 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -10572,9 +10572,6 @@ static void perf_log_itrace_start(struct perf_event *event)
->   	} rec;
->   	int ret;
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index a7d086cdc9b2..19090916af75 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -14,6 +14,8 @@
+>   #include <linux/of_mdio.h>
+>   #include <linux/phy.h>
+>   #include <linux/phy_fixed.h>
+> +#include <linux/phy_link_topology.h>
+> +#include <linux/phy_port.h>
+>   #include <linux/phylink.h>
+>   #include <linux/rtnetlink.h>
+>   #include <linux/spinlock.h>
+> @@ -93,6 +95,7 @@ struct phylink {
+>   	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
+>   	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
+>   	u8 sfp_port;
+> +	struct phy_port *sfp_cage_port;
 >   
-> -	if (event->parent)
-> -		event = event->parent;
-> -
->   	if (!(event->pmu->capabilities & PERF_PMU_CAP_ITRACE) ||
->   	    event->attach_state & PERF_ATTACH_ITRACE)
->   		return;
-> 
-> ---
-> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
-> change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-> 
-> Best regards,
+>   	struct eee_config eee_cfg;
+>   
+> @@ -1767,6 +1770,50 @@ static void phylink_fixed_poll(struct timer_list *t)
+>   
+>   static const struct sfp_upstream_ops sfp_phylink_ops;
+>   
+> +static int phylink_create_sfp_cage_port(struct phylink *pl)
+> +{
+> +	struct phy_port *port;
+> +	int ret = 0;
+> +
+> +	if (!pl->netdev || !pl->sfp_bus)
+> +		return 0;
+> +
+> +	port = phy_port_alloc();
+> +	if (!port)
+> +		return -ENOMEM;
+> +
+> +	port->is_sfp = true;
+> +	port->is_mii = true;
+> +	port->active = true;
+> +
+> +	phy_interface_and(port->interfaces, pl->config->supported_interfaces,
+> +			  phylink_sfp_interfaces);
+> +	phy_port_update_supported(port);
+> +
+> +	ret = phy_link_topo_add_port(pl->netdev, port);
+> +	if (ret)
+> +		phy_port_destroy(port);
+> +	else
+> +		pl->sfp_cage_port = port;
+> +
+> +	return ret;
+> +}
+> +
+> +static void phylink_destroy_sfp_cage_port(struct phylink *pl)
+> +{
+> +	if (pl->netdev && pl->sfp_cage_port) {
+> +		/* The port may still be accessed under RTNL */
+> +		rtnl_lock();
+> +		phy_link_topo_del_port(pl->netdev, pl->sfp_cage_port);
+> +		rtnl_unlock();
+> +	}
+> +
+> +	if (pl->sfp_cage_port)
+> +		phy_port_destroy(pl->sfp_cage_port);
+> +
+> +	pl->sfp_cage_port = NULL;
+> +}
+> +
+>   static int phylink_register_sfp(struct phylink *pl,
+>   				const struct fwnode_handle *fwnode)
+>   {
+> @@ -1784,9 +1831,18 @@ static int phylink_register_sfp(struct phylink *pl,
+>   
+>   	pl->sfp_bus = bus;
+>   
+> +	ret = phylink_create_sfp_cage_port(pl);
+> +	if (ret) {
+> +		sfp_bus_put(bus);
+> +		return ret;
+> +	}
+> +
+>   	ret = sfp_bus_add_upstream(bus, pl, &sfp_phylink_ops);
+>   	sfp_bus_put(bus);
+>   
+> +	if (ret)
+> +		phylink_destroy_sfp_cage_port(pl);
+> +
+>   	return ret;
+>   }
+>   
+> @@ -2069,6 +2125,7 @@ EXPORT_SYMBOL_GPL(phylink_create);
+>   void phylink_destroy(struct phylink *pl)
+>   {
+>   	sfp_bus_del_upstream(pl->sfp_bus);
+> +	phylink_destroy_sfp_cage_port(pl);
+>   	if (pl->link_gpio)
+>   		gpiod_put(pl->link_gpio);
+>   
 
