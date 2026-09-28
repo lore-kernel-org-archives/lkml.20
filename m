@@ -1,56 +1,56 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360103A873D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA9D3A8740
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620032; cv=none; b=jJ5l/QHhmNX4FAjgC27d206fFrSGYqOUtTH5O3YSsIXzTwIfJ2lzWZlTMu1VCTvBJDz/rSHL+CTPNpheF9F7Xl6ZaSHuXCmXeB/PvzJyVXLO2uEU99v2ilogS4bcucWPr27ozWgI+iTraOPiN0sDSZN5XxsXXK6yVXlXHdCRHNI=
+	t=1790620033; cv=none; b=HuayQnIp9KfWjPOu+m5P9wpoiHmN4ehgzgvVra14/EZEF/O4uPOyxu5uK40gefBXGe6izECVdPjj1GB/dYN1eIdjy+SeTcoYHmcWthbWbTL4KmjtHeaNhybF/vWtoKd8Th4qmy30UXc7slkH1wBtqtfNBmU9upQobSTTNBqFCsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620032; c=relaxed/simple;
-	bh=eYlx9rY4xi33oBWxp+1MClz68XmNtr67rRY+CPdf6o4=;
+	s=arc-20240116; t=1790620033; c=relaxed/simple;
+	bh=ygkZ2NV9CzXQEBLW75S0u9VO4UGEv71W7akG3FSI7SQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TznBK2Z/RH+LN5NnQmZv0Kv6umG3oCFn3iWIL288X271g/BxIlW/7cSRPAse9qD9z41QsEj2cSvH+iDdL13CxxvXO7eenX1ZbY6jk57XRS7ujqiWBDtBEsLubZ+HJwoJXybtym28eJL7EN/5SxecIv+kO+EGsmTdxrNw7g0KQSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PBe99g09; arc=none smtp.client-ip=74.125.82.200
+	 To:Cc:Content-Type; b=lkizUGjvBkgl50h2d4sqX4rz5Te+o3j42t2s4t/DW1d09nNgDr1SfBNwwI5K76fg0NdnL92z+gUFM1YoZeZsJf8U37N/J0GCFNEOWDwaT6fBF7SiJM5ijC1u7U7gvQoFTH+pXHMgX1LZhye5Q0qqR/R5+EWnYIr2KEGnxVNJFUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uiT74FlT; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PBe99g09"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34318e88ba2so1663575eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:27:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uiT74FlT"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1438fef603cso6664197c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:27:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790620027; x=1791224827; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790620028; x=1791224828; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kqy/3L5XaLD88GGPmNwhprnBQL6pm4hmCQmXIrIfxXw=;
-        b=PBe99g09OJcqdIyMby1KrcCb0+Lr6Y76KPMC3TTXAYrk3Z+JdOgWAdjzwccZRvkU/r
-         yI30X6CBPia68UH0A4y59BPrBMGPSmpS7CX00VHEzNyANR/emya1zdx2C9gPUabWzJOs
-         Lh15i0NkPaBJaGPszyjTP/vMh76h4kk1hJzj4TXd1QQzjeUZDhVx9M2/+A/dhwkbTDp/
-         P7Z84eOCO1fv7Oc1MQZaDUtgjZIiVm8Xyksyevtql0NPpa1crqXXq3XjM+bTdkMCsXNm
-         OXRDe5WsCy5rTcMIZZDdz6E6IoYD+UBXWtQKMVVuULD3/peogJaGYjsb3UQKFfiP1YuR
-         Sg5w==
+        bh=nrFYfO1RB7wYUoxKF7HuImTU0zenJ98UxHD+fgpiL8E=;
+        b=uiT74FlTZ6+/8tLaWGrYPPuIIPRTAnRkhc6wPWktWojizzXU+YriSvo/a51yIGPWa9
+         ejpJfNVc2Z7d3+zal9FXmWbKQOLOr1NJ4b9rzPX9r4vZQHVL60IPOk3hm/oeqZQcGDdU
+         NSgaDViXG5wVQXiNqSNPcZ9T+w7UV2c2jsSAhmFGNZfZQKBsD96rWsFMP3ND1Dw5F4tD
+         wiJvYJ+KxDtAaqbY1dvUdtdEqOB93bUmd8aaBTT5nAUrb+yXshjiCrcuu0bmSACNjOD/
+         vi2pa9spRpwTSZw6MGc/MygmGgK4EWSY247zySygmQf/yBL1SqC2LuZlTfzE1kVa9n+0
+         Wj5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620027; x=1791224827;
+        d=1e100.net; s=20260707; t=1790620028; x=1791224828;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kqy/3L5XaLD88GGPmNwhprnBQL6pm4hmCQmXIrIfxXw=;
-        b=qJyTCDjHzkrq57Q22ZCucmm415TgQ2h7khap4fdVQ+QLoCvY1r/XncF249qxMz9t2s
-         gKYAUWuzLFwSSInWF3EcKOhZ9/64NzDgUylUhXXmKm/7nMe1NdUNwCUyiG4eeigCs3Xr
-         SX13AakBfNXoXiO+gxL1hVPp3YfVlS3n7o/euzm7RcVfEMLQM18fD0t63aIXSKuETJcH
-         lkSUrf6hdyrc8t5TYdAPE6CgTq4M2lJXVGlDJsnohPe6VYcy4GiUErWHaL4xGJMQYgUT
-         LGejocYSNHt4nU/k89SWYRc9fiHF5K4iVFZ5p9lfe0/ez2pgsJtYbcaoKuNKlT26TRn9
-         A7CA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1BOQDJlcqJKGPVW+bRtuSktfY01EXw5GVpYtGjVkqAj3u/lSj0GQZy0NwTVU+Gmh2Nk6Js71Q20VPfaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMyAb9sOYEODBmDaVSTffkgEiGAaqbOpNXWBuxNwNXvv/ls3Np
-	bcOyFRZWA7pRWOcOGE21SXCVO/i/zbQC2uX+Guh4jQiiKJ/Qdf4DXlw6mFBSLs1xB7fKxE20eSC
-	4gU25xSrPHA==
-X-Received: from dyoc24.prod.google.com ([2002:a05:7300:3598:b0:331:36f4:a343])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:fd8a:b0:33e:c164:b5d7
- with SMTP id 5a478bee46e88-3426f9c09a0mr10591858eec.3.1790620026229; Mon, 28
- Sep 2026 11:27:06 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:26:03 -0700
+        bh=nrFYfO1RB7wYUoxKF7HuImTU0zenJ98UxHD+fgpiL8E=;
+        b=j6c6IaViGQD6P+/KsV2UjDrEGyxQtan+QCwTHvs7/HV9ykFZ4hv9b4Y6ZH5eTHgGZQ
+         TYiC1SyxSd0Vo12sYTetgo0rvh63HOtcfKSXBVtakzzOtGZ2F/IUlzgIsbUDbLbDWZMf
+         4FDJSRyUfsugXZQ0UH3xc4qddaq4jaxk9wD7VnbEb2AICwb+dYcTMz30ecPeL0IE5vO9
+         RZP5pIyG+gWreY4q1Y+Qbc8WDrGG6+TPbzKlIEqm9iB/yHAfhd6kXnwBz8+jWcrdf2Gk
+         q9+DpENIvUWh4LGgf1u0QqNCPN138dVHQKJPsHBVUnG0inAryKVyW9IspxVZfvQJLIH5
+         7XJw==
+X-Forwarded-Encrypted: i=1; AKwUvBysf16TFEDcI+x1EdxQtGmjcrIqS2XFUcnOyUVCjvrfmQdmGhFjEZs8GKSrkcwyb1Ue1vumZT8YR8bCb7Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF0OGbrrAEBSYnS3VcxlvlkUYuZpfCM1S4zhViRRqWhvgCW6aO
+	IrPSBXHN/gKgpDlyqJ/L1XlzGXEuwT3AvqKKv/2HXxaWi3gYSYCC9S9cO3GDj6hJHaAZ9tbUxPk
+	BUTgfnCjbcA==
+X-Received: from dlbpu5.prod.google.com ([2002:a05:7022:e885:b0:144:f4b8:ee5e])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:20de:20b0:145:5c7:71bc
+ with SMTP id a92af1059eb24-146cddbcfddmr11474719c88.5.1790620028324; Mon, 28
+ Sep 2026 11:27:08 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:26:04 -0700
 In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928182605.3649015-25-irogers@google.com>
-Subject: [PATCH v6 24/26] perf test trace_btf_general: Drop --max-events=1 and
- make non-exclusive
+Message-ID: <20260928182605.3649015-26-irogers@google.com>
+Subject: [PATCH v6 25/26] perf test: Remove exclusive tag from perf trace tests
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
 	Aaron Tomlin <atomlin@atomlin.com>
@@ -73,54 +72,40 @@ Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-With --max-events=1 an unrelated event can end perf trace before the
-command's syscall is seen. Trace the whole command and grep for the
-expected line, as trace_btf_enum.sh does, and remove the exclusive tag.
+From: Namhyung Kim <namhyung@kernel.org>
 
+Now it's safe to run multiple perf trace commands at the same time.
+Let's make them non-exclusive so that they can run in parallel.
+
+  $ sudo perf test 'perf trace'
+  113: Check open filename arg using perf trace + vfs_getname          : Skip
+  114: perf trace enum augmentation tests                              : Ok
+  115: perf trace BTF general tests                                    : Ok
+  116: perf trace exit race                                            : Ok
+  117: perf trace record and replay                                    : Ok
+  118: perf trace summary                                              : Ok
+
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Link: https://lore.kernel.org/r/20250814071754.193265-6-namhyung@kernel.org
+[ irogers: Keep trace+probe_vfs_getname.sh exclusive, as without BPF every
+  perf trace opens its probe:vfs_getname* probe. ]
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/trace_btf_general.sh | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ tools/perf/tests/shell/trace_summary.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/tests/shell/trace_btf_general.sh b/tools/perf/tests/shell/trace_btf_general.sh
-index 06f4a704daf8..d1fa7c846478 100755
---- a/tools/perf/tests/shell/trace_btf_general.sh
-+++ b/tools/perf/tests/shell/trace_btf_general.sh
+diff --git a/tools/perf/tests/shell/trace_summary.sh b/tools/perf/tests/shell/trace_summary.sh
+index 273199a29a20..0e603addb2a9 100755
+--- a/tools/perf/tests/shell/trace_summary.sh
++++ b/tools/perf/tests/shell/trace_summary.sh
 @@ -1,5 +1,5 @@
  #!/bin/bash
--# perf trace BTF general tests (exclusive)
-+# perf trace BTF general tests
+-# perf trace summary (exclusive)
++# perf trace summary
  # SPDX-License-Identifier: GPL-2.0
  
- err=0
-@@ -26,7 +26,7 @@ check_vmlinux() {
- 
- trace_test_string() {
-   echo "Testing perf trace's string augmentation"
--  output="$(perf trace --sort-events -e renameat* --max-events=1 -- mv ${file1} ${file2} 2>&1)"
-+  output="$(perf trace --sort-events -e renameat* -- mv ${file1} ${file2} 2>&1)"
-   if ! echo "$output" | grep -q -E "^mv/[0-9]+ renameat(2)?\(.*, \"${file1}\", .*, \"${file2}\", .*\) += +[0-9]+$"
-   then
-     printf "String augmentation test failed, output:\n$output\n"
-@@ -37,7 +37,7 @@ trace_test_string() {
- trace_test_buffer() {
-   echo "Testing perf trace's buffer augmentation"
-   # echo will insert a newline (\10) at the end of the buffer
--  output="$(perf trace --sort-events -e write --max-events=1 -- echo "${buffer}" 2>&1)"
-+  output="$(perf trace --sort-events -e write -- echo "${buffer}" 2>&1)"
-   if ! echo "$output" | grep -q -E "^echo/[0-9]+ write\([0-9]+, ${buffer}.*, [0-9]+\) += +[0-9]+$"
-   then
-     printf "Buffer augmentation test failed, output:\n$output\n"
-@@ -47,7 +47,7 @@ trace_test_buffer() {
- 
- trace_test_struct_btf() {
-   echo "Testing perf trace's struct augmentation"
--  output="$(perf trace --sort-events -e clock_nanosleep --force-btf --max-events=1 -- sleep 1 2>&1)"
-+  output="$(perf trace --sort-events -e clock_nanosleep --force-btf -- sleep 1 2>&1)"
-   if ! echo "$output" | grep -q -E "^sleep/[0-9]+ clock_nanosleep\(0, 0, \{1,.*\}, 0x[0-9a-f]+\) += +[0-9]+$"
-   then
- 	printf "BTF struct augmentation test failed, output:\n$output\n"
+ # Check that perf trace works with various summary mode
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
