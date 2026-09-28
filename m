@@ -1,145 +1,149 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E241B4E0202
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E588C4E06D7;
+	Mon, 28 Sep 2026 15:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610607; cv=none; b=GYQtvAKOYpSTEKBppmINP0GjyTE52q5CzuQG2n3T80Pi3RAO0D6/0FBF1OgOpjhrDE/8NBI+8NGaS35DgR1t1oxKE5kW2VA/8pYnTXCfTFXgvaHKxBoZr5plQQDuO9Kij77sLPxIqPpLvQH6riwI+m8Ug6fD+E/oFYjsN1wFx3w=
+	t=1790610613; cv=none; b=Xc5lLZ+s2j//ABiY/NqC/e+Vq5Gj39pHxjzqtYdhj5SUf8JdPycC1MXczhUZIFEtXKj4Qo8wzGLW8+IehVNrHtQRNvbTE0osEqAmmhbmDVkNm02G/hV2tyvgiV7OaB1MUA//ZMpebnxriTfBAqQ6oQOJNM6aIETKJsvgAAXB8uU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610607; c=relaxed/simple;
-	bh=eK/eJ3hguVN3HC5ZratOGBwPh0MmUBHZAM2stBK3p20=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QPk1x60RI7LvkSHPCo9xF6mcNhC4+YT6WsEpbmU0yTk5vix61Zwaui14tAocFKI/UkH/RSxtLtVPC6B1itpfUXMZ/vXNL63A7DRKrEP+DYGrEYTvx4dlLXpD92aOmKjKgeY7oSQJucBQOz3t3VChVGaltMYuD+o/RjRjE0CprBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GuTsTw5F; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790610613; c=relaxed/simple;
+	bh=gd/VTPQ0nejnutKX+4KFU05hh8mfBLirUFjfVowP2fE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g3fW19885pPwtAQTo5yRKISo1/SWbQb875HbU4R/CvDPd4pgWW47obWxNOJF9iOAb3vTT7AAPB7M/s5uO7SroV1g/e8jXCM+nj2oj7OtIOgXe4awHUDmXnjLh0PutfF1mABOUppex06MxMJV5BGnSVmn1fkzQDUMyyiN95AYEh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X+avLvat; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GuTsTw5F"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso11714055e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790610604; x=1791215404; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TUupXe47hKEwtrJAakpSRuAqpv3FGIO9UcE3gl7qRpw=;
-        b=GuTsTw5FHOlnCxMbllfdMQRs2AnHKkLQmOx3jmsPoKeYSnOd9RiAwvSIWFBP4te9UK
-         Q7/pP2NIfSvfuSDzyUmq8B8gQki3oe9fyZHfjRDWSRT/Jfx+NBeOzWnNBdRZBIMZAuG7
-         MIOUAS4qOk/tfUEPEiqonEIJaM0AfxnwDnjIRZ7FqzhxC53P48nPPvjFQQRTN4S4PvC4
-         0h2ygoHyJfuYlojDMwWk9qEeBWO7B19sQkeYPQuqpI/Nw14yeFO9wX2IAehQPPhaCQtY
-         8gnek4jdQqwOWWW5VwcdsAC/D1XTplq+UpONaHcpHUOa8pwVmJB5/h2btVeXpEbvroQ5
-         ZwDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790610604; x=1791215404;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TUupXe47hKEwtrJAakpSRuAqpv3FGIO9UcE3gl7qRpw=;
-        b=VVpe4iW9zH5zJ7t8darzc3M7HoaRzn1vHG7zUjEoQxCNK0EFCi2l2oqoDG+Og/QX5Q
-         JpQGC9PCEm049+0CH2VsJmFwa4uDNwZQu0maxqLZYsrb1wyOAC8w8e0BAFlazIe8XEJ+
-         5dewWVXMc9WH0oJzWa1nz3uLsm+ENUO2dAUA/9zG1XLXusKjIRNKRvH9kk8GV0Jpf2us
-         NeQsNhsQFktMSOnBFSOTwDsHaEh1ujoTGOngyhi0rss/hk7Py3LI0ba4tzmZ3VLC+QVd
-         X4FpCr93wrDVLyhtwxYe+dQ6nTf0KMNNZ5M5vxxDQL7zFl3fdJhuVakJPMnxOAFzbhgo
-         qJug==
-X-Forwarded-Encrypted: i=1; AKwUvBx48KAO/t44UfUNQebNiB/jHkdOyY8a0yjpN8QcCHdZCv4GJXtyR03XyUpmqMsxQd2IZnyQATR7lvtYrxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n80x10gU1xJ87UVGJWwzeYvE4/srVDnycQXWA+V0XLUrtKmdYA
-	nP4sadnE4z4nomvBAiNURAtYSsgKhB38h7AWYw5qSm72SJnwparjzxIuiplq4CDJ
-X-Gm-Gg: AYBFou0IcuoW3bfWlaatGEkB7Je1dkleqQWqwjRjU4SEO3oxzd/dLXju4fVH4Sfrt5r
-	iwFvB4RdPx44JVjk4G/Xuz4UzVOAbdOvD0rBgaIPshhtHuWgBcwLLLndbKvwhDDIPq7XxcKTJVs
-	Ea+xyr177HBLkyemnwy4iqMM21taas7B/2Gluer0M60xFD/ogeNgOdPWKz3P6OnjPPoXW/cTRsl
-	zaCV5Gc1ng9Ro5RY2AfvwuztTIdIZoF4iDV1B0jLgu0azUM1E/xvn8CahVFbLl70jZxwG/zP04Z
-	pUl/OWWhAEkhovlTdPnyCIQrGXd/1oeqg7ThBU9oT8s3l4nPeUT8+CRd4BgIVL7CXZabzkc6s2w
-	HQuuoxSEJ0AIMlY0+oP+Cnmj+dLisyLBBEiSvDjrTOewiB/N1EblP2a+y1z3PAHSd1vtWh3idPx
-	yAfNyJItWWMonhtGSsslhbjAlbQPuh3iKconyR29CMaOHVGyyHynN6p2ftL7uszY2ugqcMfGMIw
-	8o9REn0Ee4q/N58xtso
-X-Received: by 2002:a05:600d:6402:10b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a00c011a5fmr9990865e9.2.1790610603593;
-        Mon, 28 Sep 2026 08:50:03 -0700 (PDT)
-Received: from penguin-ubuntu.lan ([2a00:23c6:6405:9301:5b51:b317:1deb:4845])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a354c47sm29772532f8f.15.2026.09.28.08.50.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:50:02 -0700 (PDT)
-From: Oxana Kharitonova <webprosto@gmail.com>
-To: webprosto@gmail.com
-Cc: gnoack3000@gmail.com,
-	gnoack@google.com,
-	jmorris@namei.or,
-	landlock@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	mic@digikod.net,
-	oxana@cloudflare.com,
-	paul@paul-moore.com,
-	serge@hallyn.com,
-	wangyan01@kylinos.cn,
-	utilityemal77@gmail.com
-Subject: Re: [PATCH 0/6] landlock: Add POSIX message queue scoping
-Date: Mon, 28 Sep 2026 16:47:34 +0100
-Message-ID: <20260928155002.742984-1-webprosto@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914141156.258282-1-webprosto@gmail.com>
-References: <20260914141156.258282-1-webprosto@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X+avLvat"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790610612; x=1822146612;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=gd/VTPQ0nejnutKX+4KFU05hh8mfBLirUFjfVowP2fE=;
+  b=X+avLvatX82ca+1o4/ksxz5r5AV22wBHOjIi9LKae/CsYLJRcHtEl9RG
+   C0LXT1QHGFib7DwmWBn7bCKQ73N31NB1MDCviGbAY8NiX/KDie2POoB4S
+   wXUfSUJT2bnpWo2DRT8gVPqnoFu/iWQtb4mXG6YuO9Qf2azm1qyeecYLH
+   VW7hHQZz7C8n3xe2Dqc9yVQaf8Bf7ObPjUxlpA+J2qjIZVoKa5KnooKZM
+   mYvnTnQ2cSqNB5rgzaTLrLRJjiyHBw7bQUpN2h6aHKaSOxpb5oRxSSshe
+   FuqbomOEHYzCm/bHWOb+FhBxl+zH9ojdEtYKAAtK2xqK0wNYc3+Wbwq/9
+   A==;
+X-CSE-ConnectionGUID: quTLix+DRwKlpB/bjsbanw==
+X-CSE-MsgGUID: 6WX5aAFkRkesCN392TZwEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90180052"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90180052"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 08:50:11 -0700
+X-CSE-ConnectionGUID: mRhTPVP8SRKZHlTe9jYnMQ==
+X-CSE-MsgGUID: gk+zszcbREuF+YSpRYV6vA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="275119705"
+Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.111.75]) ([10.125.111.75])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 08:50:11 -0700
+Message-ID: <1753d73f-7464-4476-9fb7-c0a12157a6ab@intel.com>
+Date: Mon, 28 Sep 2026 08:50:10 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] virt: tdx-guest: Calculate the Quote buffer size
+ safely
+To: Peter Fang <peter.fang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
+ Tony Lindgren <tony.lindgren@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Artem Bityutskiy <artem.bityutskiy@intel.com>
+References: <20260928100913.2265687-1-peter.fang@intel.com>
+ <20260928100913.2265687-4-peter.fang@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260928100913.2265687-4-peter.fang@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Günther!
+On 9/28/26 03:08, Peter Fang wrote:
+> -#define TDX_QUOTE_MAX_LEN		(GET_QUOTE_BUF_SIZE - sizeof(struct tdx_quote_buf))
+> +#define TDX_QUOTE_TOTAL_SIZE(n)		struct_size_t(struct tdx_quote_buf, data, n)
+>  
+>  /* struct tdx_quote_buf: Format of Quote request buffer.
+>   * @version: Quote format version, filled by TD.
+> @@ -314,7 +314,7 @@ static int tdx_report_new_locked(struct tsm_report *report, void *data)
+>  
+>  	out_len = READ_ONCE(quote_buf->out_len);
+>  
+> -	if (out_len > TDX_QUOTE_MAX_LEN)
+> +	if (TDX_QUOTE_TOTAL_SIZE(out_len) > GET_QUOTE_BUF_SIZE)
+>  		return -EFBIG;
 
-As promissed, I'm following up with a more complete answer.  
+Gah, this is awful. There are two different literal "data" things:
 
-On 14/09/2026 15:10, Oxana Kharitonova wrote:
-> On 21/08/2026 09:46, GÃ¼nther Noack wrote:
->> What *might* still be interesting to restrict though: While mq_open()
->> checks the READ_FILE and WRITE_FILE rights, it checks none of the
->> LANDLOCK_ACCESS_FS_MAKE_* rights -- the message queue gets still
->> created, even when the mq_open() is denied and returns with an error.
+	1. The function argument: void *data
+	2. The flexible array member: tdx_quote_buf->data[]
 
-I revisited my changes and noticed the gap you mentioned regarding
-mqueue creation. Thanks for highlighting it. I'll address it in v2.
+Worse, I think the function argument isn't even used, despite being
+passed through at least one level of static, file-local TDX calls.
 
->> To expand on Justin's comment in [1] -- it feels that there are maybe
->> still some gaps in the "lifecycle management" of these message queues
->> that might be worth thinking systematically about, because both
->> mq_unlink() and the creation of the message queue entries are
->> currently apparently not restrictable yet?  It makes me wonder whether
->> hijacking of message queue names (creating same-named queues in other
->> Landlock domains) is a problem then?  Do you have thoughts on this?
-> 
-> I need to think about it more and check how the mq_unlink works, taking
-> into account the comment from Justin and Mickaël.
-> I'll follow up with a more complete answer.
+It becomes a *total* liability since there are so many "data" names
+being tossed around.
 
-Regarding the lifecycle management of POSIX message queues, I haven’t
-found a good solution yet. I experimented with test programs, but the
-main constraints come from the POSIX message-queue semantics. A queue is
-independent of its creator’s lifetime and remains until mq_unlink() is
-called explicitly and all open descriptors are closed. Its name must be
-unique within the IPC namespace, but the same name can be reused after
-the existing queue has been unlinked.
+I just committed this:
 
-If mq_unlink() is restricted for a process, a stale queue could remain
-and that process might be unable to clean it up. This seems to be the
-concern Mickaël raised in [2]. However, Landlock restrictions apply to
-the restricted process or domain, rather than globally to the queue, so
-another process might still be able to access or unlink it if its
-permissions allow. Therefore, I don’t currently see how to restrict this
-correctly through a Landlock policy, other than documenting the
-limitation. Let me know if you have other thoughts or I'm missing
-something.
+> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=x86/tdx&id=d48b2d347105436365280a3697a265aa4d37e96c
 
->>
->> Thanks,
->> –Günther
->>
->> [1] https://lore.kernel.org/all/amKDYoOSvHMzVbKX@suesslenovo/
-
-Thanks,
-Oxana
-
-[2] https://lore.kernel.org/all/20260728.Heephie1tai3@digikod.net/
+Any reason not to keep it?
