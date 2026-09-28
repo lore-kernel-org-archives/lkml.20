@@ -1,135 +1,90 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31A23AF666;
-	Mon, 28 Sep 2026 19:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53143C1D5B;
+	Mon, 28 Sep 2026 19:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623228; cv=none; b=booYWv8WKl8xMLMjYHTSxIfkS+M8xNwEbEXr97xA9pg4yJVld17yETnv+go7y68DQd+FHRFsdpZqOno/wlLMwXOq54yUP9ABySV32h1AalBlGYQMCQOJkzupE90aWRzF86PdMaafrX1XcrW3nWiIPj9ZtECaEVxfU50ldqcme+w=
+	t=1790623270; cv=none; b=YB25ROoRX5BmWJtbvEV6kwMWnNt2EfCYIw+/ZAVDXdxKXrNuNxkr+0WJD/xuthS9NTuwmdNFPwYDVRuYbfJYU8vH/J8+Zc7Sp4vP/lEJuJbXQvqS8xsY4+28MRn7I7tIzb6WUgGR/hgkZ+wpXKEax3OZxskvyFDY52dgNgpTe+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623228; c=relaxed/simple;
-	bh=3zEPkUFxOR09IdnXs7p5QQFfZrVevbRfZuoN0pz3I+g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tdFVJTpUDBbeJBJnOkhOOxuXE4oZEGog96Uo4+E5ZMlBvYsY+WJw3dsIhtjHiLXU7LVk2U+h1SeU4ovqXyOEVjZWhk6HsUNExTRsxkzUve5JZzScV3uTgc5ich0S0rKH2SaI6Lp6DpukDyjIOmxMGjmeV3c/v+YYuoIXWi1OiH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=RqFymikj; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790623270; c=relaxed/simple;
+	bh=QasQxIRx20taz4gWUy574eMahZ48Aax1dCcVCA0xDGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o1okAk7VJ9VmFI4at1gqzTax84Dac10dmvEI/LiIHX6jcz2dI8o0JANAnYd6lprJqdCyBfnm0mPOPuczdAOSde5EY7A/PxqUouaHFrWDOeQPNuqnzYqc35XCRofyyjj0khPk9zOz6EHfG0Hf6d2YqkGyv/BPaQ2S5Vi8EF0laC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=HZxLkY+g; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RqFymikj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=XBqyVMo6pWKAr13NYV/9DY4DwxVan3yzu41fmE1Qx6w=; b=RqFymikjtUZjzYg7puqAnn+sg3
-	61FRddqIeawfj9uM+vYWtCfo1ylwmmINy9FVZ/tC3YoBr4aJbIxEXtzk8tGX7VF962W5/ko1IE4pH
-	KonoVPFwRYCXr6IMzmkpDCSMyDSAZY/zqDxV/mCwdoNoAM5tXfSzkQUN3apsLc04f+dO2/wr/GN47
-	fslxlNodhFwrFldD91LdDL0Shf4oAvq9/kpLqsB1DAq9kpr0v0pi54xZnCxJ165Dj5JiEfHoGb14+
-	XqJsHdq9vLDUgWcjCxT3dZasZuSlJQzWrvwEoI6aKbB3bzok+wGAUIx0NeBWwrnl2M9jV0GUdDAJm
-	b5C3yInA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xBGt9-00000001Pqt-0G3I;
-	Mon, 28 Sep 2026 19:19:47 +0000
-Message-ID: <99217c46-6ec4-4af6-ac14-18f814f86ba1@infradead.org>
-Date: Mon, 28 Sep 2026 12:19:44 -0700
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="HZxLkY+g"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2C32B40E01CD;
+	Mon, 28 Sep 2026 19:21:05 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id FSp33QZJmj3t; Mon, 28 Sep 2026 19:20:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790623255; bh=hWMdcqvL+ZRtnF9HF93VtM3rYEpoQymrFCVBxhuYp6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HZxLkY+g3HBVgFsl7x/przJH/+335DfjkQMtV/Oc0EPQVVPBLHk/h1dArKQ0TNnmv
+	 VEpRuTfVsg+3hNSC6AgsnYbWiRCSAZtjTC/e7Fy0irzy17LwgHdRpcc19KWmU2SN19
+	 yATTITu3W8D/Iy9BYRYs1/Apso/xFcNGsgIVbJuq9CT5dBpoMX4v2juRYQ61rJlV9z
+	 nWKhEN6wQLGqS6zntdlZZ8B3/X3Ap7GKK0cPhNqD+6qcrm+io+uB6+LgIZK2c/+bAH
+	 GOBJLarB7Eo8Uu7KgG8AbkgwT9t8P1Ud88fCfsOH3kYRqsDuh806Rlq42PZeI9VgiF
+	 UOmoejsw5wXYDrVZRkYy/1U3AMLBcwjQUYLxvtmY/jsvyIkojmkx57XcY0iJVE7mF9
+	 1QVIZ8VzEWLiff3/UyC8Ewo+JwsepS4gav2K4709gQOvb01L4prZsDjamkp1Y0WeTv
+	 4W+Nru8/8x+NvaKEw1bAZwZHsUpWPpaKDnc1vQhNjv43lPlQMNJNr4zgV5EYDdHpHl
+	 Ly2U7uT9LP+Ga5d0dQIh6pDps3Vl4Mv2QmTa+YRfKN46QtpbmLBYFpqHEC9E4xJiEa
+	 ejHjwqk46KmS8DFtW7n9s04CSuGAjxsdQxPSvtPDVkmT3K6qnGLViWXFa+pqAObgpU
+	 7LNj2QAVYPn0LRvuRGXKXpko=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A729140E00E8;
+	Mon, 28 Sep 2026 19:20:49 +0000 (UTC)
+Date: Mon, 28 Sep 2026 12:20:45 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Vishal Badole <Vishal.Badole@amd.com>, tony.luck@intel.com,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] EDAC/amd64: Mask UMC chip select to the four
+ implemented selects
+Message-ID: <20260928192045.GAarq-DbwF6-q79hXC@fat_crate.local>
+References: <20260925172639.97063-1-Vishal.Badole@amd.com>
+ <20260925172639.97063-3-Vishal.Badole@amd.com>
+ <20260925181429.GBara6BXp_J2rnvoOp@fat_crate.local>
+ <20260928143821.GB2289128@yaz-khff2.amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] kexec: Expose the crash memaction bitmap in
- debugfs
-To: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Baoquan He
- <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>,
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- James Bottomley <James.Bottomley@HansenPartnership.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Lance Yang <lance.yang@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org,
- linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev,
- linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org,
- keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
- <20260928-crash-memaction-upstream-20260921-v3-12-e511e9ee2329@jaseg.de>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-12-e511e9ee2329@jaseg.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260928143821.GB2289128@yaz-khff2.amd.com>
 
+On Mon, Sep 28, 2026 at 10:38:21AM -0400, Yazen Ghannam wrote:
+> I didn't consider this a necessary fix. But it'd be good to have it to
+> avoid noise from reports.
 
+I didn't either but what is Vishal doing to trigger this:
 
-On 9/28/26 10:18 AM, Jan Sebastian Götte wrote:
-> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
-> index 3cdc8d459ac0..b5380e16bfaf 100644
-> --- a/kernel/Kconfig.kexec
-> +++ b/kernel/Kconfig.kexec
-> @@ -204,4 +204,18 @@ config CRASH_MEMACTION
->  
->  	  If unsure, say N.
->  
-> +config CRASH_MEMACTION_DEBUGFS
-> +	bool "Expose the crash memaction bitmap in debugfs"
-> +	depends on CRASH_MEMACTION && DEBUG_FS
-> +	help
-> +	  Allow reading the live crash_memaction bitmap through
-> +      /sys/kernel/debug/crash_memaction/. The bitmap is used when
-> +      CRASH_MEMACTION is set and when a crash_memaction cmdline param is present
-> +      to tell an eventual kdump kernel about the use of certain memory pages.
-> +
-> +      Note that this is a debug interface only that gives no guarantees
-> +      whatsoever on memory consistency.
-> +
-> +	  If unsure, say N.
-> +
->  endmenu
+"Since only four csrows are allocated, a syndrome with bit 2 set decodes
+to an out-of-range csrow and trips:
 
-Please adhere to kernel coding style for Kconfig files:
+  EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)"
 
-10) Kconfig configuration files
--------------------------------
+Vishal?
 
-For all of the Kconfig* configuration files throughout the source tree,
-the indentation is somewhat different.  Lines under a ``config`` definition
-are indented with one tab, while help text is indented an additional two
-spaces.
+From reading the commit message, I still have no clue how that happens and
+what are we fixing here.
 
 -- 
-~Randy
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
