@@ -1,61 +1,58 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D77D48D890;
-	Mon, 28 Sep 2026 10:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C689A4915B1;
+	Mon, 28 Sep 2026 10:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589942; cv=none; b=u80mRCiq1FL1JWaDYRI0nrwQc9MWFIcWTgtQFiMLuFI1dLDyfgXlRGzpeMPpiSEHi7/RuhdgslAfTDf//ixkAqQtdzqJoEV6HQ2HSkgN+rwqW5PSEI0YjNcyStQMqCRkXYOYU4m0p+95PkhliHS2+a9xYb5st6q3SPBlI03JhJM=
+	t=1790589942; cv=none; b=ZRHPxTmcEM65bFdEFa0Ucuvp8j5hCttBnS03EG155dhhWr+oiRuaWhPOBsh4V4Cf8rg0QiyHxHnddV/kSisqKtspFvpqdtHStv6jbTwcVYZJSQeLb5D5wK70WuvPnLPLWB6HaNJSsv/8TLZo24qJsjeUIuxQo+JAOqsE9wQ7qq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790589942; c=relaxed/simple;
-	bh=DbOusftimddsgE8f0FZAtzebevz2Qk3DbogdBudWLZw=;
+	bh=eAgVLIhlC46EQF1H+SHN3KzrK8z8WrRCtMwu1pBAq5I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J/ZAKobKc+s1Njlm/Lz15WabbQJWF3/7819HjiZWMkWmbI2/GkDuBlrgQENgHfzJXVD0dvWzN2l2JBgxO/kcruCMImd//IZLPNhM1dErtHbGZ1Ne5EdcuTTh9X9h0tSa1GNIPjL3I7+t/K4aP1jesklBMUWpZTjWm0M02acodwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RiSNT6CK; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WXhEw2hcmaPqikAsy56DNkumfcDhuH4mLvZUtmQKvNISrPVJjWKk1tlU2iNcWvoVIKj4lBZVL2MGptpdm7DiFSkz4ShRyKCIsuafxnC2n4GoO4I2YqkvXZFGUrrS5Alkt/bzO5hT2bMRAE/wrC4iklbMxnxV7ZOuQuqoBYwTZJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOX3tfQm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RiSNT6CK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790589940; x=1822125940;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DbOusftimddsgE8f0FZAtzebevz2Qk3DbogdBudWLZw=;
-  b=RiSNT6CKDtrkIuX6WVYXPytuFo2vtjOihkTGtDJFbIZn5vX5aQUcbLsJ
-   lDg/hqjYeSh/r8TE6xd75HSN33opI4M+Ei/CMOFVsH5IZydCqJQtPj0ps
-   NqGhLMRTK3FCZZI3Kdgp8I4RU5kacP/jJvmmqOHvh9Zmimvs+OzXkZuEf
-   Upj80DUG55XRrXv6woqIyrnpqtY+ZT/RKY7KWlpRXqfWrYQLCz7aOTmCe
-   7RKKkR7jzvlJ38fMVzZ4nFyHl4OJrFRwJeXEEmsCSTx7121gyzAtGePYH
-   pOld2BsAqPoAxoJoQwTkKgWz5yjNAJUrsg1M/eL4oatv8l4Ru5gJbcBq9
-   A==;
-X-CSE-ConnectionGUID: zvnOj5vTQTif7hqidUBISA==
-X-CSE-MsgGUID: ALX4+1b1RPOTzWuCb28aXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90189872"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90189872"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 03:05:39 -0700
-X-CSE-ConnectionGUID: aBy4UDDwRbqx33zxPrbdvQ==
-X-CSE-MsgGUID: /9PeS/vcTWSUu3n5v+YZtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="273149675"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 03:05:37 -0700
-Date: Mon, 28 Sep 2026 13:05:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Bartu Alev <bartualev@gmail.com>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>,
-	Mario Limonciello <superm1@kernel.org>,
-	Hans de Goede <hdegoede@redhat.com>, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: acpi: Ignore AC adapter wakeup on ASUS FA507
-Message-ID: <aro77qeVeSdWfZ7N@ashevche-desk.local>
-References: <20260927014212.302743-1-bartualev@gmail.com>
- <20260928094156.GG106095@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOX3tfQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2451F000FF;
+	Mon, 28 Sep 2026 10:05:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790589940;
+	bh=43+YVXyrdWk5fDHV8RByct1Z4fjfr1ARLHxq905/6e8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GOX3tfQmMrYnoW34ss7TvG8kuqFbajcWZxildni27Q4qyCt3q6MdT0rIg5ciHjuIo
+	 ao/yjWenwFUosPjQn71u4WfnmotIB5tVD7Vdb70ePA6pMmmPU9jAhx2MPsmqDhZ51o
+	 W40AkISe8wpNRrkok7wLzgoO1nNuxOmV9YPC9VoK3HQgMDx0fT8KeoyyOm8zeLII7h
+	 c1Nz/8LwgohFdaLX5VydGVDUD6OHzTWOrYeKc3Xp9QIEq/O7qPdpd+7P+8A8dTOfh1
+	 IUdyrAJxVwfygYSpj3S61JrV7QpenbckymrXTLihS44x9ovfeLwJwgCejCEejqVbms
+	 TftN0U44DYYDQ==
+Date: Mon, 28 Sep 2026 12:05:38 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rudolf Marek <r.marek@assembler.cz>, Chris Snook <chris.snook@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Andreas Noever <andreas.noever@gmail.com>, 
+	Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Duncan Sands <duncan.sands@free.fr>, Chas Williams <3chas3@gmail.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
+	linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-atm-general@lists.sourceforge.net, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] drivers: Replace __MODULE_STRING() with __stringify()
+Message-ID: <aro70o5N7VoXbjsy@zenone.zhora.eu>
+References: <20260922-module-string-v1-0-c18766690185@suse.com>
+ <20260922-module-string-v1-2-c18766690185@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,50 +61,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928094156.GG106095@black.igk.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260922-module-string-v1-2-c18766690185@suse.com>
 
-On Mon, Sep 28, 2026 at 11:41:56AM +0200, Mika Westerberg wrote:
-> On Sun, Sep 27, 2026 at 04:42:12AM +0300, Bartu Alev wrote:
-> > The ASUS TUF Gaming A15 FA507 wakes from s2idle whenever the AC
-> > adapter is plugged in or unplugged.
-> > 
-> > In the CPMGPIO0 SSDT, GPIO pin 23 (0x0017) is declared in the
-> > \_SB.GPIO._AEI resource template as:
-> > 
-> >     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullNone, 0x0000,
-> >              "\\_SB.GPIO", 0x00, ResourceConsumer, ,)
-> >              { 0x0017 }
-> > 
-> > and the corresponding \_SB.GPIO._EVT handler issues a device wake
-> > notification for the AC adapter on pin 23 events:
-> > 
-> >     Case (0x17)
-> >     {
-> >         Notify (\_SB.ACAD, 0x02) // Device Wake
-> >         Sleep (0x05)
-> >         Notify (\_SB.ACAD, 0x80) // Status Change
-> >     }
-> > 
-> > Both AC plug and unplug transitions therefore trigger a spurious
-> > wakeup from s2idle. Add an ignore_wake quirk for this pin.
+Hi Petr,
+
+On Tue, Sep 22, 2026 at 03:32:22PM +0200, Petr Pavlu wrote:
+> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+> moved it to the graveyard section at the end of linux/module.h
 > 
-> I would think this is by design like that.
+> Replace the remaining uses of __MODULE_STRING() with __stringify() in
+> preparation for its removal.
+> 
+> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 
-Yep, we don't have quirks for AC adapter events, touch pad and USB are
-the majority of misbehaving cases.
+Acked-by: Andi Shyti <andi.shyti@kernel.org>
 
-With that being said, I defer this patch (you can discuss more and if
-the conclusion is to include, it may be done in the next release).
-
-> What is the issue? You unplug the device from AC with lid closed and it
-> wakes up? Userspace should put it back to sleep in these cases. In Windows
-> and ChromeOS there is something called "dark resume" that deals with this
-> but I'm not sure if generic distros have that yet.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Andi
