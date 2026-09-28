@@ -1,191 +1,223 @@
-Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160064FD26B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82204FD797
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630682; cv=none; b=U2QpdX9GyxBKB6C5ogkskYq+GnaMD4uRn0s3SEoIsQIH0d/AwTw1wbB/scsbgy2TxnVYSq1Nx/EQzT5UmA/MvzBmcbiDzkyaiTO4Vx9mcQ0/ibOmYfoX1fJ822K3k2jTBiRv7mU/xHy3afJ0iP25MU3WFZTVliLC2/NzzZhrZ4I=
+	t=1790630728; cv=none; b=vBwI9csNMlycGoxNBxeuuGZhSrc/qMbHWdSiriI0iRO3VwHCEnphHW18v1mGkmBZCxHw/wiyLYZ6BKSmwWWWQvu9LJ9QrxBUgeg7T6cJp8KxeA+fHwT5zP8QFVh7yUFHq/6dmHNvuB/lxC+V4rfkh1O+5S6tH2zZSvNDI63ny3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630682; c=relaxed/simple;
-	bh=tHs2sgJfmgDE85fTcx2pgBoS5JPEH/b+fF69L3ELRxk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oiobor5gSW5rup8nSolxSvw2Fcyi/Q6Gb59mUanKcSauinpwv92AI9QVO3uHlIR8KyNqufsEuA82UO343vUhcOj4BEk2kAxCGGt4PU4KLsFuKZNtYn2lWHx5zCfPjlZoIKbLRtAWKFTASIUhE2QG4yY8sfHrWr9/Ya5Fc2WqIxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=samcday.com; spf=pass smtp.mailfrom=samcday.com; dkim=pass (2048-bit key) header.d=samcday.com header.i=@samcday.com header.b=I4DsH1qX; arc=none smtp.client-ip=79.135.106.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=samcday.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samcday.com
+	s=arc-20240116; t=1790630728; c=relaxed/simple;
+	bh=OPEGz7mcouSpb4LDbaNSQmUrfhs39CV7EJWdYoW9pDY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LP9uUrLGbkChyvK1bkrc2hcHeD1VJWkUAy0YWc7gto5Ug5B9r9jm/Hewtk/WlNf41ExKxtGB99CmFc629yFJSj+Mh9oNLNqrJuStoJmxtxZjbZ9q5zUmi4QnEahzNstqe67/IiijZXCtV/kSociZq78t9G7nfvXYHmOQx8FS94c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=GSeC7U7d; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=samcday.com header.i=@samcday.com header.b="I4DsH1qX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samcday.com;
-	s=protonmail; t=1790630668; x=1790889868;
-	bh=dfXTJyp6yjbRu0qwVAwpSfhNYTOxDGjNF8A7PpynkKU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=I4DsH1qXQ2PQGDCXKZ8k2mbehlZKwgYCa3OehZLJ7ZEw3UdGr4v7+H08qJOgAcshf
-	 b3G1+7xQN9oK9BSWeF1GCjDc8nrBr/wdJaEEhoybDa9qozFH1X0KHBQ08lu+4UoxVo
-	 RRNrDKvAZtuw8npsoRgoktTTQD94JqSnp1MHU3NGcc0PS3AN+QWZWOR0hF8X87RQrK
-	 AcI8F9uEyimLyXQh74EnGlLJ9LMTVF+2/lswNkVBmE2MckBI3to9+oWGsETUGFlSFD
-	 3qVC/jRY+GH6Eo57z8bg470qaz6mKBMayLDfaCc/zK+YuALt39HkUKWTKehfIuceLM
-	 qkMnNw91c2+gg==
-Date: Mon, 28 Sep 2026 21:24:22 +0000
-To: Robin Murphy <robin.murphy@arm.com>
-From: Sam Day <me@samcday.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Joerg Roedel <jroedel@suse.de>, iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu/qcom: Invalidate TLB during context init
-Message-ID: <enoPRqYYUjyyM0YwlSoxShxeNJxghej7Zhq8UxzN6WtU_JZk8Vzvl0qFkczoIFpEl8y_vbytWT7A_BntCl4HtWPcHUkAi57JoKHJA64Ap1o=@samcday.com>
-In-Reply-To: <887e91bc-03a0-4977-aed6-baa2e069d9ee@arm.com>
-References: <20260928-qcom-iommu-clean-contexts-v1-1-c88fe2b4ff48@samcday.com> <887e91bc-03a0-4977-aed6-baa2e069d9ee@arm.com>
-Feedback-ID: 25366008:user:proton
-X-Pm-Message-ID: 13122422adc9c6b1bdaba4e0e81f48ea485fb758
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="GSeC7U7d"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-91415b09bf9so31530276d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:25:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790630722; x=1791235522; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+905VpPWFNsqdN9ZNh4c2Xt4scACgjmcpfbxIJWGn8g=;
+        b=GSeC7U7dLWqMojYVlfa5tAmwma7hqdkoiy/dGvZ+yEZanaw/5B8aAQMjk2jXd2/3C0
+         GxEQ8tZtpRIhpo26qYIxO84G2fhNP7fpIlvHkZf/ROksHtScu83m9qPgpxiVGnbMNIJ6
+         JCJq10jP9xvpoXUnPe1+765O4MTfcBYEzhqfT6xWTdbZghL8VJQNj+hQws88/c4ZynRB
+         axbn7ZsU3YCFrNGPclarUaR5WeMwzXZGv5skGTp7fK/thc0iMz/jdECQ46C4EfzoCRQK
+         qmJ7eknDuSfnnkgw8fA9tpIkKx/MiY8LEoRP3Y+GUSXMU3/zhtLOseiROxURlLlRNsB+
+         6N2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790630722; x=1791235522;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+905VpPWFNsqdN9ZNh4c2Xt4scACgjmcpfbxIJWGn8g=;
+        b=FB2BPCrFjyDaOEF/g2PtgZ51eQt9r819v+GoFqj4g9pBmajS3H6lwQu1QifkK0fEbM
+         I/oW2lBFMGG5xEMmGZK+yCeGPCNdh7Z/cp8UIfy+wWkFaGdhg92feu0t9m5p+/DAxDS9
+         PFgNy+pgwmHKt3cmnVey0qnP4aX65ytUNqAzKb3SLI27q4VFN1ub4xXgMZU/1pMb/IuE
+         KeC0JnFKt13ylvV6x4dCSeyOPGtv7sznTlo7+IX0ZdCvEVJS8EKNWWRlpQiEbqdd78Uq
+         zNa8+x0w4d4ti9XJAj56+BLO089yUavSZjuGCl0dzNnUaFv951WVwjaDl+NKLzxPRrIi
+         I8Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeyg1cEDU4l2MJpHavKgc2nQzxvFbPUM+oMufSlGEStuZ/mQtx2irnb2m61xnrRrfE0X1kTpPqyPhcIVM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIt99vSHIRETSdsFdKZbgPjLtnHMHdw01ibNNmQa2NMg1gJysjl
+	PFZHTb5Fi67lmNUf0tmEN0r2gthtT1pFpgzdmZpbl3AA7Jqp3NXTJf9Gcbe7sBxnz0k=
+X-Gm-Gg: AYBFou0d/09/hCunrQ2C/U52w9rECHhsDhJb90K33pbi494XWUyqbysSerbF2T38mk7
+	0Gk53P1YtpZk+GPfQquwFix2iRuozrfYgwwKi/kaSeL3343fbw+xAjAPVAvfZ2g/g3Yn+gDyaa+
+	6fMPC40sZtfOJEzXqZm7GqaWAfCv3EQqfmroPfB/sJPRH8fUbP2Wba6f5joEm8RLQ9YDpCON8jC
+	lnjrY7g/ESHVyo8XfGcIXLk3ft3yu4FL8jjVgoh/NroF0DXzAeBF8LVoz8/jMiujV351A+A5qvO
+	c6DPwMBsRRDkSXxlEPDExTXQ27iTcAl8C5L4MHOj8T1ifHqjsP/4E/uI54Gperup8J33dyfxJal
+	fWT8d3mg9RX46XRSJAFesTjN19Heqbwy7ELF9TwJh7kY9qy+Mu2l4heeHOJkSm80UktbUVk/35C
+	X18udblhMzYJiv4KZa32ur6k3lhdSCSaeuEAoHtXjdmzIlaNX7Q80Kgd4/4U9D/02LZt7dpulLC
+	BJcCqvKHaycIQ==
+X-Received: by 2002:a05:6214:8409:b0:915:ebf7:34ad with SMTP id 6a1803df08f44-915ebf735a9mr45816036d6.12.1790630721868;
+        Mon, 28 Sep 2026 14:25:21 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-915e759a989sm35062676d6.31.2026.09.28.14.25.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 14:25:21 -0700 (PDT)
+Message-ID: <1b837fecc1992e94bbe77229a2529c9eb1ac0c60.camel@ndufresne.ca>
+Subject: Re: [PATCH v10 0/3] Mediatek MT8189 JPEG support
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Jianhua Lin <jianhua.lin@mediatek.com>, mchehab@kernel.org,
+ robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, 	angelogioacchino.delregno@collabora.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, 
+	Project_Global_Chrome_Upstream_Group@mediatek.com,
+ sirius.wang@mediatek.com, 	vince-wl.liu@mediatek.com, jh.hsu@mediatek.com
+Date: Mon, 28 Sep 2026 17:25:19 -0400
+In-Reply-To: <20260720062829.7343-1-jianhua.lin@mediatek.com>
+References: <20260720062829.7343-1-jianhua.lin@mediatek.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-SM45MfqXGrobY1wEGs0I"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+
+
+--=-SM45MfqXGrobY1wEGs0I
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello Robin,
+Hi,
 
-On Monday, 28 September 2026 at 10:22 PM, Robin Murphy <robin.murphy@arm.co=
-m> wrote:
+picked, ty
 
-> On 28/09/2026 7:27 am, Sam Day via B4 Relay wrote:
-> > From: Sam Day <me@samcday.com>
-> >
-> > qcom_iommu derives each context bank's ASID from DT data, so a kernel
-> > booted via kexec reuses the same ASIDs as its predecessor.
-> >
-> > Programming a new TTBR0 doesn't discard entries the SMMU has already
-> > cached under that ASID, so these residual and stale
-> > translations/table-walks will go into effect as soon as the context is
-> > enabled again.
-> >
-> > On MSM8916 devices (I confirmed it on both a Samsung Galaxy A5 and a
-> > DragonBoard 410c) the result is MDP5 taking context faults on
-> > framebuffer IOVAs and stuck in a continuous underrun storm during scan
-> > out, if the previous kernel had itself initialized the display and
-> > programmed the SMMU.
-> >
-> > arm-smmu invalidates the whole TLB in arm_smmu_device_reset() before
-> > enabling the SMMU. qcom_iommu can't do that on these TZ-managed devices
-> > (SMMU_SCR1.GASRAE=3D1), however.
->
-> Can you not hit SMMU_CBn_TLBIALL in qcom_iommu_ctx_probe()? That would
-> seem like the logical equivalent.
+Le lundi 20 juillet 2026 =C3=A0 14:28 +0800, Jianhua Lin a =C3=A9crit=C2=A0=
+:
+> This series is based on linux-next tag next-20260707.
+>=20
+> This series depends on commit 7560349ee0d9 ("media: mediatek: jpeg:
+> support 34bits"), which introduced the `support_34bit` field in struct
+> mtk_jpeg_variant. That commit has already been merged via the media
+> tree and is present in linux-next as of next-20260707.
+>=20
+> Changes compared with v9:
+> - Patches 1/3 & 2/3 (dt-bindings: decoder & encoder):
+>   - Explicitly set `mediatek,larb: false` in the `else` branch of
+>     the `allOf` block for older SoCs to prevent incorrect configuration
+>     and ensure backward compatibility.
+>=20
+> Changes compared with v8:
+> - Patches 1/3 & 2/3 (dt-bindings: decoder & encoder):
+>   - Expand the description of the `mediatek,larb` property to explicitly
+>     explain its necessity for accurately describing the hardware topology
+>     (SMI LARB connection for memory bandwidth arbitration), independent
+>     of the IOMMU driver's implicit handling.
+>=20
+> Changes compared with v7:
+> - Patches 1/3 (dt-bindings: decoder):
+>   - In the allOf constraints, only keep maxItems: 1 in the then=20
+>     branch and minItems: 2 in the else branch; remove duplicated
+>     constraints already defined at the top level
+>=20
+> Changes compared with v6:
+> - Patches 1/3 (dt-bindings: decoder):
+>   update the existing `allOf` condition for mediatek,mt8189-jpgdec to
+>   make the 'mediatek,larb' property strictly required for MT8189 SoC.
+> - Patches 2/3 (dt-bindings: encoder):
+>   Add an `allOf` condition to enforce that the `mediatek,larb` property
+>   is strictly required when the compatible string contains
+>   mediatek,mt8189-jpgenc.
+>=20
+> Changes compared with v5:
+> - Patches 1/3 (dt-bindings: decoder):
+>   - Drop top-level minItems/maxItems for clock-names per Krzysztof's
+>     review.
+>   - Refine allOf block to strictly enforce clock constraints.
+>=20
+> Changes compared with v4:
+> - Refines the device tree bindings for JPEG decoder and encoder.
+>   - Patches 1/3 (dt-bindings: decoder):
+>     Moved the standalone compatible string mediatek,mt8189-jpgdec
+>     into the first oneOf entry along with mt2701 and mt8173, as
+>     suggested by Rob Herring. This correctly groups all independent
+>     ICs and removes the redundant items wrapper.
+>   - Patches 2/3 (dt-bindings: encoder):
+>     Applied the same logic suggested by Rob Herring to the encoder
+>     binding. Restructured the compatible property to clearly
+>     distinguish between the standalone IC (mediatek,mt8189-jpgenc)
+>     and the ICs that must fallback to mediatek,mtk-jpgenc.
+>=20
+> Changes compared with v3:
+> - The v4 is resending the cover-letter, because the v3 cover-letter was
+>   not sent successfully.
+>=20
+> Changes compared with v2:
+> - Dropped the dts patch (arm64: dts: mt8188: update JPEG encoder/decoder
+>   compatible) as it belongs to a different tree/series.
+> - Patches 1/3 (dt-bindings: decoder):
+>   - Changed the MT8189 compatible to be a standalone `const` instead of
+>     an `enum`.
+>   - Added an `allOf` block with conditional checks to enforce the single
+>     clock ("jpgdec") requirement for MT8189, while preserving the
+>     two-clock requirement for older SoCs.
+>   - Updated commit message to reflect the schema structure changes and
+>     hardware differences.
+> - Patches 2/3 (dt-bindings: encoder):
+>   - Changed the MT8189 compatible to be a standalone `const` instead of
+>     an `enum` inside the `items` list, as it does not fallback to
+>     "mediatek,mtk-jpgenc" due to 34-bit IOVA requirements.
+>   - Updated commit message to explain the standalone compatible design.
+> - Patches 3/3 (media: mediatek: jpeg):
+>   - Refined commit message for better clarity regarding 34-bit IOVA and
+>     single clock configuration.
+>=20
+> Changes compared with v1:
+> - Patches 1/4:
+>   - Updating commit message
+> - Patches 2/4, 3/4:=20
+>   - Updating commit message
+>   - Adjusted property descriptions acorrding to hardware requirements
+>   - Improved formatting for better readability and consistency
+> - Patches 4/4:
+>   - Updating commit message
+>=20
+> Jianhua Lin (3):
+>   dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible
+>     string
+>   dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible
+>     string
+>   media: mediatek: jpeg: add compatible for MT8189 SoC
+>=20
+>  .../bindings/media/mediatek-jpeg-decoder.yaml | 50 ++++++++++++++++---
+>  .../bindings/media/mediatek-jpeg-encoder.yaml | 38 +++++++++++---
+>  .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 ++++++++++++++++
+>  3 files changed, 118 insertions(+), 14 deletions(-)
 
-That sounds much more civilized, assuming it works the way we hope :) I wil=
-l
-respin the patch and test to see if SMMU_CBn_TLBIALL behaves correctly on
-my apq8016-sbc + samsung-a5u-eur.
+--=-SM45MfqXGrobY1wEGs0I
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Kind regards,
--Sam
+-----BEGIN PGP SIGNATURE-----
 
->
-> Thanks,
-> Robin.
->
-> > Instead, qcom_iommu now invalidates each context bank by ASID whilst it
-> > is still disabled, before programming it for the new domain. Secured
-> > contexts are protected by TZ so they're skipped.
-> >
-> > There's been previous discussion on the list (see link) about how to
-> > best deal with this kind of situation. This patch opts for a fix in the
-> > incoming kernel, rather than the outgoing one. This ensures newer
-> > kernels will always behave correctly, and also covers the kdump use
-> > case.
-> >
-> > Fixes: 0ae349a0f33f ("iommu/qcom: Add qcom_iommu")
-> > Link: https://lore.kernel.org/all/20240319154756.GB2901@willie-the-truc=
-k/
-> > Assisted-by: LLM
-> > Signed-off-by: Sam Day <me@samcday.com>
-> > ---
-> > Tested on my DragonBoard 410c. Starting from one unpatched kernel
-> > scanning out at 640x480 and kexecing into the same kernel at 1280x720
-> > results in context faults starting at the first IOVA past the previous
-> > kernel's mapped extent, with continuous MDP5 underruns thereafter.
-> > During this time I observed an all-blue HDMI signal. With the patch
-> > applied, the same kexec hop is free of faults, and the HDMI signal is
-> > clean throughout.
-> >
-> > Further, it was proven that kexecing into an unpatched kernel and
-> > causing the fault storm can then be resolved by subsequently kexecing
-> > into a patched kernel.
-> > ---
-> >   drivers/iommu/arm/arm-smmu/qcom_iommu.c | 32 +++++++++++++++++++++---=
---------
-> >   1 file changed, 21 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/ar=
-m/arm-smmu/qcom_iommu.c
-> > index 21d18ce67b982..a37955cd90d5e 100644
-> > --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-> > +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-> > @@ -111,23 +111,26 @@ iommu_readq(struct qcom_iommu_ctx *ctx, unsigned =
-reg)
-> >   =09return readq_relaxed(ctx->base + reg);
-> >   }
-> >
-> > +static void qcom_iommu_ctx_tlb_sync(struct qcom_iommu_ctx *ctx)
-> > +{
-> > +=09unsigned int val, ret;
-> > +
-> > +=09iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
-> > +
-> > +=09ret =3D readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
-> > +=09=09=09=09 (val & 0x1) =3D=3D 0, 0, 5000000);
-> > +=09if (ret)
-> > +=09=09dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
-> > +}
-> > +
-> >   static void qcom_iommu_tlb_sync(void *cookie)
-> >   {
-> >   =09struct qcom_iommu_domain *qcom_domain =3D cookie;
-> >   =09struct iommu_fwspec *fwspec =3D qcom_domain->fwspec;
-> >   =09unsigned i;
-> >
-> > -=09for (i =3D 0; i < fwspec->num_ids; i++) {
-> > -=09=09struct qcom_iommu_ctx *ctx =3D to_ctx(qcom_domain, fwspec->ids[i=
-]);
-> > -=09=09unsigned int val, ret;
-> > -
-> > -=09=09iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
-> > -
-> > -=09=09ret =3D readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, va=
-l,
-> > -=09=09=09=09=09 (val & 0x1) =3D=3D 0, 0, 5000000);
-> > -=09=09if (ret)
-> > -=09=09=09dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
-> > -=09}
-> > +=09for (i =3D 0; i < fwspec->num_ids; i++)
-> > +=09=09qcom_iommu_ctx_tlb_sync(to_ctx(qcom_domain, fwspec->ids[i]));
-> >   }
-> >
-> >   static void qcom_iommu_tlb_inv_context(void *cookie)
-> > @@ -270,6 +273,13 @@ static int qcom_iommu_init_domain(struct iommu_dom=
-ain *domain,
-> >   =09=09/* Disable context bank before programming */
-> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_SCTLR, 0);
-> >
-> > +=09=09/* The TLB may still hold cached and stale entries for this
-> > +=09=09 * ASID, if a previous kernel programmed the SMMU before
-> > +=09=09 * a kexec into this kernel.
-> > +=09=09 */
-> > +=09=09iommu_writel(ctx, ARM_SMMU_CB_S1_TLBIASID, ctx->asid);
-> > +=09=09qcom_iommu_ctx_tlb_sync(ctx);
-> > +
-> >   =09=09/* Clear context bank fault address fault status registers */
-> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_FAR, 0);
-> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
-> >
-> > ---
-> > base-commit: 3339792beb5fb1c9c423c544ba2fbc235e7d7f75
-> > change-id: 20260926-qcom-iommu-clean-contexts-3ccda804c08d
-> >
-> > Best regards,
->
->
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrbPwAKCRDZQZRRKWBy
+9PnDAQCv7TgjjF2tq0hzFvsEpdGPWatoaiOzm0hk0reRJRopnQD9HmGDrTgAlCm0
+1lNiRF/hRw9t61kIcl0mv3QOQl05PQo=
+=A3bH
+-----END PGP SIGNATURE-----
+
+--=-SM45MfqXGrobY1wEGs0I--
