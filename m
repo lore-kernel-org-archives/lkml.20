@@ -1,223 +1,122 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC564F3EDA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC504F3ECB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613985; cv=none; b=UfQ4z7wnm0SLozJJZBxAKhqvYp9KUODnLhPHNOS9wFQw1Mn8Df/cj1hsBVqA5PTYHApPqSdtVe4de2UT06+Q7ruU8wPuUdKHN29/anOaXIyrBJYCAoO0HBiiXCVlCAjTH6jskHnc2oTGtv8dCj8iv9QUQD0fKE6pCx3+goWS0Ow=
+	t=1790613986; cv=none; b=OPGOjlpqBUK6fMDDolswVZfpDowV2fqiK++S/WQQbQKq1G4fZ/xmHk2hr9CwJtLIA9jYKPBuc6YuhrlF/uU1WUeBo5L663kYK3Ba8xVTyVfiMJcWMiy44QDssQ+fmTbniprTUhveIlexq2bQkH65ouv9ZCBQxaJxVDgwMknuRwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613985; c=relaxed/simple;
-	bh=IRU2W/F7ydrMgwoGdU2UuwMijKY9e9YvoS9hsuSBwsA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=joKvgIU7E1RRdQeBnRM+h+St/LneiwW0TjKTkTb4E0iwJ7ZIAEn8+NZipP4HCeTaX5CrA3r1SGxECijM5bhlNvJM9KsQmq/S8WO0OZPCtVE7tuPbpAtW2zsRl9/po7XQdItj5hDbi0Y1G/5vKzeZPCPTCeDsFyj0a/x24itPlA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=B4ifmLfH; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790613986; c=relaxed/simple;
+	bh=sHeFtEdLj2VdrjXwbKpBHKXExOqIlOqU56efVgnwlto=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=agJqxYp+KUCuaUqaCANIQAXAuxfBbIHdOcPTtLf39debHk5i32++OH5vUC8LypOSq2Fa63pXBfD2C6l9gc94gmAM/71vq2umr6kcC5zCO26zxsNeeIokFp4hER6a6nV+e7ud8KyCyX/bInZ+DJoLhz5pMnRu9ANvY5lS0z7qZ+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fjQ5zZ4K; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="B4ifmLfH"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so24197655e9.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fjQ5zZ4K"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso4646364a12.2
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:46:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790613981; x=1791218781; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kBVitcn3HaXdH3tAuDPIdNFeAeEbc5tyl1/mlq5F0y8=;
-        b=B4ifmLfHelsog9yn1d225BNMcfcAHFRUGm51N5z6rWrGz+7jGXlfRmt31wmuCbIkXj
-         OOn/qJf+MJDqoB7v/DxhGZXaB+kxz1lWwjd0x5KOT20+fffs4v/4rQIwcsscbI6P7f8Q
-         1IBldWx3fy8ek31MQGyQxXKiR1CLyJYebosScbNT3XJ7pT3tEdMnjWxMvuUQWH2qKn0X
-         IONJbpPe+Oo4iPAZq53rljfBlgIwN42ouFGqaQzbWsEkzlLFsL9IU3fcwGEY85hC0b+V
-         gHfxIFhWSwiwzYW0y1Q7sn7NE9FgOLB/bIEl0XECGXLVkmaR7rpq1eJgeejZV06R6vLL
-         eCAg==
+        d=gmail.com; s=20251104; t=1790613981; x=1791218781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0WJjtMKfomHRJ13Kl4mfSx1TJ/imJHPJguTX6sa7AjA=;
+        b=fjQ5zZ4Kg32X1HnKS1Cc1tDZg5GohrBBc3FCWde0BuFjaZneSr7j0ABrTls0NaWdiU
+         mYr5mgow8k7TmHMatisnTV4u0TBt/Nllz+oOxN5ANk24nrMRMS0dXAkRaUIjdIZO0xvp
+         nc4etXtL3PBbTkCWqLlnobXIs26f4xsZwpWyNVSfzmCsotUCDaKWq5AWljYnugpCADIn
+         3fALiD0T2T5096HrULJa3kXUlOeQaBGZ2SlR0uZ+F8NoxGPXlYQ68bmSXgenz7Ryjp70
+         xiidFpZAWHjWRM8hW2JVYzoTjATRiKQcBIwngJ2RmVbLrtIiyv7IM4/awWBMJ8gXc+70
+         QH7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790613981; x=1791218781;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kBVitcn3HaXdH3tAuDPIdNFeAeEbc5tyl1/mlq5F0y8=;
-        b=fDLG9HTfyksdwifhGWzVSmAhsFyJ1CLIi5xz8bqJjToreSaqdwg+BKrFsSsh4PMifh
-         UqcBfwY2Y/bdZKKX1UIUz3+mv6H41S7WvPIH+k0UuCd9Dv0vA4GR5EftCZ8AVklSHcan
-         wcuB9j8n2CO+KLQHORou6xjtctpaenPYlUCAKXS/5XTYzXEtQ74ZR+bfM5Ogn/alqkML
-         pKt7AzZxzgr/XIF23RL2QX79vBh2uxz2z3c5wFxEOUlMYWJOxfU4l7uLcK8Pbz7blyN9
-         PjpjA8JYHFtiD523PynuYB3EP3esATwEnAE2KRJhkbXYJXKtGXX8eT0HWkjx5zGnUxyU
-         Nniw==
-X-Forwarded-Encrypted: i=1; AKwUvByDi6XphH1nt+yMWlgr/fSHsXO4od5fGun7xsEuvc2s6GAW7M9Ebd8u9mHPZC6evW4xG+UlZac0cjO4GM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMnfsp2gUxgBusakHOH5NarfrNeTIO8OJTlzRST4OUsRSR9F8J
-	J/fcxnFUlEfSeewXkkWPh9U3Cf4AEg+nlQ9yW0Uy9fu6igrgwMkt/dVwtuhqXxbhlWs=
-X-Gm-Gg: AYBFou1khsx314zLzU8zOzOwK522yzNL3bqdF2r8J2MIj5xpfF+ZC+ijUWj0PqvVxg/
-	bIhPDq5Hc9Y2Ig/KyHDB5zhtDtb+tmv3l+JsYWWGlkZEB+AndemX4iFAK+5LllYWhjjzUdQEwgM
-	GZtACZfo3yXJazJTnDrSVRCXOjR4WWat8+08YXMv54ZTDzk+nHUh0Z2UJlad4KtlpNYi3s7BfoU
-	4reoR9KkL/2dqzd4/73Tdpzp682TWLUuLs4yvRF/0RazK+TtUhjTpYWYUqTFOlqNi0+7NwEpXOd
-	nMyYY5vzmA6aBrbOoli+hHWFnbgxTq90DTumaR+UvIj9nxr+raM2wecSOaAb6o1GkO0JDt/eoFk
-	j7tfHSr2wAp7mtaLUJPkKYg1BGJipUSGQ3eWywxPbEAHAO2ZeZ4R0T09MPkBBoybVkpKkKZskP9
-	dGBSvuTkltPRI7mf0hAUgQSEBS2mOPs9GtP8fv9m8xI2JbPoEn+uHEqhG6W6jt7fdFWrs+f0VyG
-	LLBFatxm5sdYhxMrLynZ9SeUnHRv4B12GVBglsPAIsbhGzT+ENrJSDuKVPukQ==
-X-Received: by 2002:a05:600c:34c3:b0:49c:e27c:6b10 with SMTP id 5b1f17b1804b1-49fe66abcebmr238472845e9.3.1790613980612;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0WJjtMKfomHRJ13Kl4mfSx1TJ/imJHPJguTX6sa7AjA=;
+        b=kcZTK2bknux6gINvBenrbgkJxWTeNwEJdvSkyLaEQ4Ue5Ky61NtBSlJkz0cFP1TpmU
+         ATbfbiCby5osta3ntvCnT0EuojbCpm6uxkBnVSuQJmDAS/qbVhkn1+ncy/AzRRdxrHy3
+         2XWQ7mYSfgVuyrxK5Cl0/syFkAKggwcXiAHYa59D7/2SlYFWRt+WHDYvM4MP4TPhNKJ/
+         1rdmjXAyjTwIx77C8P5zAC4t9exC69McULdrL8jcjL9SD9WHX0l6r2Mz7Iq7vQ0adhW7
+         tR+cx1QA9fe9Uc+9C3cz77UL3gjU7QhcXypqtrS0wkQFSpdGqohZt8varcJxezlNst4+
+         IQ3A==
+X-Forwarded-Encrypted: i=1; AKwUvBz2JPsyNyD9BfAr3qaAhUf5XHc2RgU4EqpmxGj2hxz9zoGmPpNTUUfgttcN/n4RpJsC89YtmRilqecC7lc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjhGDIXbWDlBrI87jLw890sLLQwkl023hkLI72DDcSDLcXB+wG
+	NjfIBUgp5Yr1FNsMoWIS1ymKx1q2TsUEB5waAR+VPPdWrVc6QjBCWVOf
+X-Gm-Gg: AYBFou2op+Jt8pUsbQ8mQlbxCrjwuW+1x85HhiMnpH73Cjsqz4DQ2IcUaq8Loouo7HF
+	Tx17IgJTd6TRvavCHuNsanqKqTel0ttwDv3sXe9B5CJmZvJGh9fDC8WnlFhR35Q5G+xm0YXm0g/
+	QHZww8KIiOW3fk3OR0rl+bO0OtVliu8uYDH/SpzjIjOUT0zw68j815LUm/XoaVs2OXkSJF9RkjM
+	EVVfKV2p4eAkcl2YAHkMxSVbtu2iHmk9HkmBl+p5HYgC/nJ4XsIMh+ep4bf6/KoycLzCp5QqDvg
+	8bf9/K4Ig+X/dA02q4PNO3zOtz2lj5MNkhbfQRTRx4G2OdsfheBMbJW885Q3cBHdylrTiSwg8nt
+	RdhrUdtqBXVCQkCP3GO78bbxi/m9LxpnYGsc1/ToXovYNvmfKmFgEH5N4qRDVjYas7ixpeGtHll
+	35q9tYPOgxMgNpH0UPe8x7XVMWpYCnITOkGZJAOr1jzPebdVUlF1+Vxd6ESC84rrjWIzQ1uKhUp
+	5+3vEH7Sq4gO+2zGoNb+EyTVJhRR01sCv5QIF/0raioueqrR4ywCA1xl9Q2z6NdVZt2yV//OfSF
+	zu460SGv0yBeVGFmDUtvyxm/rwAm0kKCnUNVvA/MEueRHroWgn7e
+X-Received: by 2002:a05:6402:11d0:b0:6a9:aff5:c6e0 with SMTP id 4fb4d7f45d1cf-6aac8f07897mr10901544a12.17.1790613980945;
         Mon, 28 Sep 2026 09:46:20 -0700 (PDT)
-Received: from localhost (p200300f65f19a90433f74747aea68541.dip0.t-ipconnect.de. [2003:f6:5f19:a904:33f7:4747:aea6:8541])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a00cf9dfdbsm7840575e9.1.2026.09.28.09.46.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from [192.168.0.46] ([63.135.75.98])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dc0cddsm4422209a12.14.2026.09.28.09.46.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Mon, 28 Sep 2026 09:46:20 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] driver core: Disable driver overriding by default
-Date: Mon, 28 Sep 2026 18:46:04 +0200
-Message-ID:  <0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1790612298.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790612298.git.u.kleine-koenig@baylibre.com>
-References: <cover.1790612298.git.u.kleine-koenig@baylibre.com>
+Message-ID: <1f77d943-cc99-48d2-b6c7-a791a64d98f1@gmail.com>
+Date: Mon, 28 Sep 2026 17:46:20 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4517; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=IRU2W/F7ydrMgwoGdU2UuwMijKY9e9YvoS9hsuSBwsA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqupnQXtmetdwonLbuWV3cp3DItvNYU+nxUZMPs Drb2kiCLtqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCarqZ0AAKCRCPgPtYfRL+ TtC1B/9PRFfnE52MTB+mR2lBFxb6IxKPVxuYEvwJ7YvS1EzIcolMOKEKUVvnfEe5jXfTK5B0Cro A/zfdE8VAxurLtwvIv732TsBtjiV+Lh2n+IM85NNZZSYHjClpZzVi+EboG8XYsTe0xKfzvQN21j KeeBhZsfXDXOL69lNvmETkApIsPNMAoAreOdS5WX7Yn2OYom/6q706iW4ovd1vwPdxnifEOuHJw 56XzQg29bz0NNel3KiUl5hpgdK9hhz6iyxm0o+Wa5SkRBJFoqVTYU9D0J+QPHZViidcNNBiR+Tx yucsf5jhFsMKgqkArIKDasDwmC0a25IXdPuFRMGFSJm6qPi2
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] ALSA: usb-audio: Demote the severity of sticky
+ GET_CUR
+To: Takashi Iwai <tiwai@suse.de>
+Cc: adventureFAN@gmx.de, corbet@lwn.net, i@rong.moe,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, perex@perex.cz, rdunlap@infradead.org,
+ skhan@linuxfoundation.org, tiwai@suse.com
+References: <87h5klw6kp.wl-tiwai@suse.de>
+ <191af638-f19f-423c-8306-d96ea2b3dcad@gmail.com>
+ <87a4p14bzd.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Faaris Ansari <faaris.ansari@gmail.com>
+In-Reply-To: <87a4p14bzd.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Driver overriding is useful only in a very limited set of situations
-and then only with very few drivers that are designed to support that.
+I just tested the latest 7.3.0-rc5 which also exhibited this issue.
 
-Disallow matching via driver_override unless the driver explicitly
-allows it or the safe guard is disabled using the
-"allow_driver_override" kernel parameter.
+However, after reporting this regression separately I found it wasn't 
+related to this issue, and instead to 87a6f2fa6e6c ("ALSA: usb-audio: 
+Propagate write errors
+in generic mixer put callbacks").
 
-Implementation detail: device_match_driver_override() isn't a static
-inline any more. It grew a certain complexity (e.g. a pr_info()) and so
-was made a regular exported function.
+I reported this separately here:
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
----
- drivers/base/bus.c            | 43 +++++++++++++++++++++++++++++++++++
- include/linux/device.h        | 26 ++-------------------
- include/linux/device/driver.h |  2 ++
- 3 files changed, 47 insertions(+), 24 deletions(-)
+https://lore.kernel.org/regressions/CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com/T/#mfc03d59d61c4c46165dedde6dc23e26aff5f697d
 
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index c51ad96d4de4..d294c198ab0c 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -606,6 +606,49 @@ int bus_add_device(struct device *dev)
- 	return error;
- }
- 
-+static int __read_mostly allow_driver_override;
-+
-+static int __init allow_driver_override_setup(char *str)
-+{
-+	allow_driver_override = 1;
-+
-+	return 1;
-+}
-+__setup("allow_driver_override", allow_driver_override_setup);
-+
-+/**
-+ * device_match_driver_override() - Match a driver against the device's driver_override.
-+ * @dev: device to check
-+ * @drv: driver to match against
-+ *
-+ * Returns > 0 if a driver override is set and matches the given driver, 0 if a
-+ * driver override is set but does not match, or < 0 if a driver override is not
-+ * set at all.
-+ */
-+int device_match_driver_override(struct device *dev,
-+				 const struct device_driver *drv)
-+{
-+	guard(spinlock)(&dev->driver_override.lock);
-+	if (dev->driver_override.name) {
-+		int ret = !strcmp(dev->driver_override.name, drv->name);
-+
-+		if (ret > 0) {
-+			if (!allow_driver_override && !drv->support_driver_override) {
-+				pr_info("Suppress driver override binding. Allow %ps to do overriding or boot with allow_driver_override on cmdline\n",
-+					drv);
-+				return -1;
-+			}
-+
-+			add_taint_module(drv->owner,
-+					 TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
-+		}
-+
-+		return ret;
-+	}
-+	return -1;
-+}
-+EXPORT_SYMBOL_GPL(device_match_driver_override);
-+
- /**
-  * bus_probe_device - probe drivers for a new device
-  * @dev: device to probe
-diff --git a/include/linux/device.h b/include/linux/device.h
-index 4dac5e09b74c..a142bf384f1e 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -892,30 +892,8 @@ static inline bool device_has_driver_override(struct device *dev)
- 	return !!dev->driver_override.name;
- }
- 
--/**
-- * device_match_driver_override() - Match a driver against the device's driver_override.
-- * @dev: device to check
-- * @drv: driver to match against
-- *
-- * Returns > 0 if a driver override is set and matches the given driver, 0 if a
-- * driver override is set but does not match, or < 0 if a driver override is not
-- * set at all.
-- */
--static inline int device_match_driver_override(struct device *dev,
--					       const struct device_driver *drv)
--{
--	guard(spinlock)(&dev->driver_override.lock);
--	if (dev->driver_override.name) {
--		int ret = !strcmp(dev->driver_override.name, drv->name);
--
--		if (ret > 0)
--			add_taint_module(drv->owner,
--					 TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
--
--		return ret;
--	}
--	return -1;
--}
-+int device_match_driver_override(struct device *dev,
-+				 const struct device_driver *drv);
- 
- /**
-  * device_iommu_mapped - Returns true when the device DMA is translated
-diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
-index 29fbc01ef06f..0153cfcbe1b9 100644
---- a/include/linux/device/driver.h
-+++ b/include/linux/device/driver.h
-@@ -56,6 +56,7 @@ enum probe_type {
-  * @bus:	The bus which the device of this driver belongs to.
-  * @owner:	The module owner.
-  * @mod_name:	Used for built-in modules.
-+ * @support_driver_override: driver_override only works if this is true.
-  * @suppress_bind_attrs: Disables bind/unbind via sysfs.
-  * @probe_type:	Type of the probe (synchronous or asynchronous) to use.
-  * @of_match_table: The open firmware table.
-@@ -104,6 +105,7 @@ struct device_driver {
- 	struct module		*owner;
- 	const char		*mod_name;	/* used for built-in modules */
- 
-+	bool support_driver_override;
- 	bool suppress_bind_attrs;	/* disables bind/unbind via sysfs */
- 	enum probe_type probe_type;
- 
--- 
-2.47.3
 
+Apologies for the noise on this issue,
+
+Faaris
+
+On 28/09/2026 16:44, Takashi Iwai wrote:
+> On Fri, 25 Sep 2026 20:33:17 +0200,
+> Faaris Ansari wrote:
+>> Hi there,
+>>
+>> I am continuing to have a bug across the latest 7.2 kernels, as well
+>> as 6.18 and 6.12 LTS branches concerning hardware volume control on my
+>> Audient EVO4, that I think is related to this issue - would appreciate
+>> some guidance if not.
+> Could you verify the behavior on the latest 7.3-rc?
+> Once after confirming that the issue is addressed, we may consider
+> backporting to the older kernels.
+>
+>
+> thanks,
+>
+> Takashi
