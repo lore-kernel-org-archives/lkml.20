@@ -1,367 +1,180 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FB7378D9A;
-	Mon, 28 Sep 2026 19:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA3D5111AE;
+	Mon, 28 Sep 2026 19:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624030; cv=none; b=D5iqvkuDNUBZJfAbuLX7sDLlIyZP9j4kFg3ovPyZPb2mzq4whlCvUyc8jA+jc5Kcez/eEIYVTVqKArPCNlicNIJpZ3G2G+b1zhzCm1pzCEj8Flt8MfhdsL3CqnmFqECrHExUQ5SDW2pq2bA4TMUyO8cb08gJtNNy6yQpjvRmtnw=
+	t=1790624034; cv=none; b=baJk8Kj30GZDjI2hzOOp1yoD3/m1LSzlF2U4Q3+eP3Esi99SwaWblErR7RfPqOtVKIWgYp4Jq5uq+1IVn05YwXcuA40R6n1ew8N1AW+BUXJEKE50mXzT/vYofyGx2FMD+PzdpxlGwqYI5NwktbSksUV/6s1gjdd1HvyG0xt5eK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624030; c=relaxed/simple;
-	bh=PR9CQGF15Q2dL+ghhUUA0dWIEYjbCFewN4sf2Ee2bcY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ul1V61mBSqBkg7C0IyhclwpaVi+VOeO7D6aJQsH9fi5urriBG7E9HR85eX4QqhW66zFBFqdEacKaXNCK0hQFHePTCstwFgWAFjUaAJHyE94N/y9zfgs23XCJ0RBCTAnx+IKoRHhtHF2YznOwMlMVA0l5kBtEf4iYKvofurnc+ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Q2ffdnc1; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790624034; c=relaxed/simple;
+	bh=TZXUc+JXs+gAQXSDuFsSXyssJ3RIo/BWk+GJU57jzGU=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=qNGFJ8/wUecPjVNd6rZXUK/J1nEpN8pOrrpW4CIhCHeOboFb93uf+ExKvCTizHA+7YTcKo11zHiSp1TfJ9yBSPPFENRyFomKSSMUeOM5YhDDDqPtNTn6ljXsN7VCCEnqBUB8ZRfPHjn6MJrUJ84QPZa2cOy+LJ/A13TubezpCrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=UOoV6Jae; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Q2ffdnc1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790624033; x=1822160033;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=PR9CQGF15Q2dL+ghhUUA0dWIEYjbCFewN4sf2Ee2bcY=;
-  b=Q2ffdnc1Fq8TDPw36k99lc0Kbvx6x5yIP1d1pat6/i7X3A6Esy07QXc5
-   XQ65o8SywRf7izwK2YRajYEr6GdVa/ZAg/E2JiYlh6WnnpKKHFpTiuqRz
-   C4vEFQkiZgcVhPNQwbZqiMn0YeGiP46mFwiTV3NovseOTqi5jLibCtBiE
-   tWyF+bD1wPIhawWHNT/NP3YMaV53cRxYejKqMB5vHkDCREpCxv0TOJz7p
-   FSO4GWC/DXOov9cGnmfDy9pkClknX7GO4AMetLeOkbNeM6cCakdp+5HCP
-   iaZrl0D31RIJgj9jYAmNHHGYqP6WfZ2aCsO8aFIMhPs+IsZPGzMViyj99
-   w==;
-X-CSE-ConnectionGUID: Dz92n7h/StC1ahpkG//Uuw==
-X-CSE-MsgGUID: iIcW4kiwRFeV4msEV1PaRw==
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="63340466"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Sep 2026 12:33:52 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex02.mchp-main.com (10.10.87.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 28 Sep 2026 12:33:46 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 28 Sep 2026 12:33:43 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Mon, 28 Sep 2026 21:33:00 +0200
-Subject: [PATCH net-next v9 12/15] net: lan966x: add PCIe FDMA MTU change
- support
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="UOoV6Jae"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=rrDUFU2JQNcEGVGD0hIJffQpe0lrlcdkz1a7QhdkYVM=; b=UOoV6Jaew3ZXqVFSzrERR6EgcM
+	ajckqdQZVBGYdXIQdvGvRLlejW/Ye4XzAUR/4KA3UerQiT8dIzea9g+ZeLP+t95itoKa/K/5lqmeN
+	Qlma393Gex90P8omqNE52O3HkFfwV6XUNs3y95yplW2Ww524tL+zXdICCaKAXruyZv/IX/wlZANtT
+	nf1UY/FjtdJHr5KT05TSC/GaZE5FNxg2uW/hmRY8vHz+SDPdc7zjnyyiEIdcKjwTqX38Nd9DsJs6v
+	nA5JMf05zgTiH4tSGnj0lOhkDKm1ngcaDqNQL4soLls+U+JSsMdDXJLGFyH2U6AzUBJOy4Sl/JzQC
+	twRKQqXA==;
+Received: from [::1] (port=54962 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xBH6e-0000000DOy3-0r31;
+	Mon, 28 Sep 2026 21:33:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260928-lan966x-pci-fdma-v9-12-a17caf60f89a@microchip.com>
-References: <20260928-lan966x-pci-fdma-v9-0-a17caf60f89a@microchip.com>
-In-Reply-To: <20260928-lan966x-pci-fdma-v9-0-a17caf60f89a@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
-	<horatiu.vultur@microchip.com>, Steen Hegelund
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
- Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
-	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
-	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
- Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
-	<mohsin.bashr@gmail.com>, "Simon Horman" <horms@kernel.org>
-CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-X-Mailer: b4 0.14.3
+Date: Mon, 28 Sep 2026 21:33:41 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
+ nonce reuse
+In-Reply-To: <arqToNCxIwi9CZ--@krikkit>
+References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <arqToNCxIwi9CZ--@krikkit>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Add MTU change support for the PCIe FDMA path: on an MTU change, the
-contiguous ATU-mapped RX and TX buffers are reallocated at the new
-size, falling back to the existing buffers on failure.
+Hello Sabrina,
 
-Cap the PCIe DCB ring at 256 (FDMA_PCI_DCB_MAX): 512 DCBs would
-overflow MAX_PAGE_ORDER at jumbo MTU.
+On 2026-09-28 18:19, Sabrina Dubroca wrote:
+> The subject prefix should be "PATCH ipsec" for IPsec bugfixes.
 
-The ring must fit one MAX_PAGE_ORDER block after ATU padding, and
-db_size is handed to the FDMA in the 16-bit DCB DATAL field.
-Advertise the resulting limit in dev->max_mtu (FDMA_PCI_MAX_MTU)
-when the FDMA is in use - a switch with no "fdma" interrupt named
-uses the unconstrained register-based path instead, so the cap is
-gated on lan966x->fdma, not lan966x_is_pci() alone. On a 4KB-page,
-MAX_PAGE_ORDER=10 build this is MTU 15498; the overhead is shared
-with lan966x_fdma_get_max_frame() via FDMA_OVERHEAD.
+I will try to think about that next time.
 
-Skip the resize until lan966x_fdma_pci_init() has built the rings;
-it runs after the netdevs register and sizes them from
-DEV_MAC_MAXLEN_CFG, already programmed by the caller.
+> 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
+>> An off-by-one error in esp6_xmit() advances the IV counter before
+>> encrypting each software-GSO segment. For N segments with sequence
+>> numbers X through X+N-1, the IV counters are therefore X+1 through 
+>> X+N.
+>> The following non-GSO packet uses X+N for both its sequence number and
+>> IV counter, repeating the last segment's AES-GCM nonce under the same
+>> key.
+> 
+> I find this description very unclear. All I'm managing to understand
+> from this is "there's some situation where a packet isn't getting the
+> seqno it should". I don't know where the "+1" comes from since for GSO
+> the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
 
-Tested-by: Herve Codina <herve.codina@bootlin.com>
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
----
- .../net/ethernet/microchip/lan966x/lan966x_fdma.c  |   6 +-
- .../ethernet/microchip/lan966x/lan966x_fdma_pci.c  | 153 ++++++++++++++++++++-
- .../net/ethernet/microchip/lan966x/lan966x_main.c  |   3 +-
- .../net/ethernet/microchip/lan966x/lan966x_main.h  |  28 ++++
- 4 files changed, 181 insertions(+), 9 deletions(-)
+I tried to be as explicit as possible, but I apologize if it was not
+good enough. My understanding on the full GSO processing isn't as
+deep as yours, so here is another try at explaining.
 
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-index 2e8f786d6fee..a7940eca5df3 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-@@ -890,11 +890,7 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
- 
- int lan966x_fdma_get_max_frame(struct lan966x *lan966x)
- {
--	return lan966x_fdma_get_max_mtu(lan966x) +
--	       IFH_LEN_BYTES +
--	       SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) +
--	       VLAN_HLEN * 2 +
--	       XDP_PACKET_HEADROOM;
-+	return lan966x_fdma_get_max_mtu(lan966x) + FDMA_OVERHEAD;
- }
- 
- static int __lan966x_fdma_reload(struct lan966x *lan966x, int max_mtu)
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-index f511e7061314..758554c951c5 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-@@ -395,7 +395,7 @@ static int lan966x_fdma_pci_init(struct lan966x *lan966x)
- 	lan966x->rx.lan966x = lan966x;
- 	lan966x->rx.max_mtu = lan966x_fdma_get_max_frame(lan966x);
- 	rx_fdma->channel_id = FDMA_XTR_CHANNEL;
--	rx_fdma->n_dcbs = FDMA_DCB_MAX;
-+	rx_fdma->n_dcbs = FDMA_PCI_DCB_MAX;
- 	rx_fdma->n_dbs = FDMA_RX_DCB_MAX_DBS;
- 	rx_fdma->priv = lan966x;
- 	rx_fdma->db_size = FDMA_PCI_DB_SIZE(lan966x->rx.max_mtu);
-@@ -405,7 +405,7 @@ static int lan966x_fdma_pci_init(struct lan966x *lan966x)
- 
- 	lan966x->tx.lan966x = lan966x;
- 	tx_fdma->channel_id = FDMA_INJ_CHANNEL;
--	tx_fdma->n_dcbs = FDMA_DCB_MAX;
-+	tx_fdma->n_dcbs = FDMA_PCI_DCB_MAX;
- 	tx_fdma->n_dbs = FDMA_TX_DCB_MAX_DBS;
- 	tx_fdma->priv = lan966x;
- 	tx_fdma->db_size = FDMA_PCI_DB_SIZE(lan966x->rx.max_mtu);
-@@ -428,9 +428,156 @@ static int lan966x_fdma_pci_init(struct lan966x *lan966x)
- 	return 0;
- }
- 
-+/* Reset existing rx and tx buffers. */
-+static void lan966x_fdma_pci_reset_mem(struct lan966x *lan966x)
-+{
-+	struct lan966x_rx *rx = &lan966x->rx;
-+	struct lan966x_tx *tx = &lan966x->tx;
-+
-+	memset(rx->fdma.dcbs, 0, rx->fdma.size);
-+	memset(tx->fdma.dcbs, 0, tx->fdma.size);
-+
-+	fdma_dcbs_init(&rx->fdma,
-+		       FDMA_DCB_INFO_DATAL(rx->fdma.db_size - XDP_PACKET_HEADROOM),
-+		       FDMA_DCB_STATUS_INTR);
-+
-+	fdma_dcbs_init(&tx->fdma,
-+		       FDMA_DCB_INFO_DATAL(tx->fdma.db_size),
-+		       FDMA_DCB_STATUS_DONE);
-+
-+	lan966x_fdma_llp_configure(lan966x,
-+				   tx->fdma.atu_region->base_addr,
-+				   tx->fdma.channel_id);
-+	lan966x_fdma_llp_configure(lan966x,
-+				   rx->fdma.atu_region->base_addr,
-+				   rx->fdma.channel_id);
-+}
-+
-+/* Wake all TX queues on every port (undoes lan966x_fdma_tx_disable_netdev). */
-+static void lan966x_fdma_pci_wakeup_netdev(struct lan966x *lan966x)
-+{
-+	for (int i = 0; i < lan966x->num_phys_ports; ++i) {
-+		struct lan966x_port *port = lan966x->ports[i];
-+
-+		if (port)
-+			netif_tx_wake_all_queues(port->dev);
-+	}
-+}
-+
-+static int lan966x_fdma_pci_reload(struct lan966x *lan966x, int new_mtu)
-+{
-+	struct fdma tx_fdma_old = lan966x->tx.fdma;
-+	struct fdma rx_fdma_old = lan966x->rx.fdma;
-+	u32 old_mtu = lan966x->rx.max_mtu;
-+	int err;
-+
-+	napi_disable(&lan966x->napi);
-+	lan966x_fdma_tx_disable_netdev(lan966x);
-+	lan966x_fdma_rx_disable(&lan966x->rx);
-+	lan966x_fdma_tx_disable(&lan966x->tx);
-+
-+	lan966x->rx.max_mtu = new_mtu;
-+
-+	/* Must be NULL'ed in order to realloc them. */
-+	lan966x->rx.fdma.atu_region = NULL;
-+	lan966x->tx.fdma.atu_region = NULL;
-+
-+	lan966x->tx.fdma.db_size = FDMA_PCI_DB_SIZE(lan966x->rx.max_mtu);
-+	lan966x->tx.fdma.size = fdma_get_size_contiguous(&lan966x->tx.fdma);
-+	lan966x->rx.fdma.db_size = FDMA_PCI_DB_SIZE(lan966x->rx.max_mtu);
-+	lan966x->rx.fdma.size = fdma_get_size_contiguous(&lan966x->rx.fdma);
-+
-+	err = lan966x_fdma_pci_rx_alloc(&lan966x->rx);
-+	if (err)
-+		goto restore;
-+
-+	err = lan966x_fdma_pci_tx_alloc(&lan966x->tx);
-+	if (err) {
-+		fdma_free_coherent_and_unmap(lan966x->dma_dev,
-+					     &lan966x->rx.fdma);
-+		goto restore;
-+	}
-+
-+	/* Free and unmap old memory. */
-+	fdma_free_coherent_and_unmap(lan966x->dma_dev, &rx_fdma_old);
-+	fdma_free_coherent_and_unmap(lan966x->dma_dev, &tx_fdma_old);
-+
-+	/* Order matters: napi_enable() must precede the wakes, or a TX that
-+	 * completes first clears FDMA_INTR_DB_ENA with nothing scheduled to
-+	 * restore it, leaving RX dead until the next reload.
-+	 */
-+	napi_enable(&lan966x->napi);
-+	lan966x_fdma_rx_start(&lan966x->rx);
-+	lan966x_fdma_pci_wakeup_netdev(lan966x);
-+
-+	return err;
-+restore:
-+
-+	/* No new buffers are allocated at this point. Use the old buffers,
-+	 * but reset them before starting the FDMA again.
-+	 */
-+
-+	memcpy(&lan966x->tx.fdma, &tx_fdma_old, sizeof(struct fdma));
-+	memcpy(&lan966x->rx.fdma, &rx_fdma_old, sizeof(struct fdma));
-+
-+	lan966x->rx.max_mtu = old_mtu;
-+
-+	lan966x_fdma_pci_reset_mem(lan966x);
-+
-+	napi_enable(&lan966x->napi);
-+	lan966x_fdma_rx_start(&lan966x->rx);
-+	lan966x_fdma_pci_wakeup_netdev(lan966x);
-+
-+	return err;
-+}
-+
-+static int __lan966x_fdma_pci_reload(struct lan966x *lan966x, int max_mtu)
-+{
-+	int err;
-+	u32 val;
-+
-+	/* Disable the CPU port. */
-+	lan_rmw(QSYS_SW_PORT_MODE_PORT_ENA_SET(0),
-+		QSYS_SW_PORT_MODE_PORT_ENA,
-+		lan966x, QSYS_SW_PORT_MODE(CPU_PORT));
-+
-+	/* Flush the CPU queues. */
-+	readx_poll_timeout(lan966x_qsys_sw_status,
-+			   lan966x,
-+			   val,
-+			   !(QSYS_SW_STATUS_EQ_AVAIL_GET(val)),
-+			   READL_SLEEP_US, READL_TIMEOUT_US);
-+
-+	/* Add a sleep in case there are frames between the queues and the CPU
-+	 * port
-+	 */
-+	usleep_range(USEC_PER_MSEC, 2 * USEC_PER_MSEC);
-+
-+	err = lan966x_fdma_pci_reload(lan966x, max_mtu);
-+
-+	/* Enable back the CPU port. */
-+	lan_rmw(QSYS_SW_PORT_MODE_PORT_ENA_SET(1),
-+		QSYS_SW_PORT_MODE_PORT_ENA,
-+		lan966x, QSYS_SW_PORT_MODE(CPU_PORT));
-+
-+	return err;
-+}
-+
- static int lan966x_fdma_pci_resize(struct lan966x *lan966x)
- {
--	return -EOPNOTSUPP;
-+	int max_mtu;
-+
-+	/* Nothing to resize until fdma_pci_init() has built the rings; it
-+	 * sizes them from DEV_MAC_MAXLEN_CFG, which the caller already set.
-+	 */
-+	if (!lan966x->rx.lan966x)
-+		return 0;
-+
-+	max_mtu = lan966x_fdma_get_max_frame(lan966x);
-+	if (max_mtu == lan966x->rx.max_mtu)
-+		return 0;
-+
-+	return __lan966x_fdma_pci_reload(lan966x, max_mtu);
- }
- 
- static void lan966x_fdma_pci_deinit(struct lan966x *lan966x)
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-index de2202786826..c3afc4cc597f 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-@@ -823,7 +823,8 @@ static int lan966x_probe_port(struct lan966x *lan966x, u32 p,
- 	port->chip_port = p;
- 	lan966x->ports[p] = port;
- 
--	dev->max_mtu = ETH_MAX_MTU;
-+	dev->max_mtu = lan966x_is_pci(lan966x) && lan966x->fdma ?
-+		       FDMA_PCI_MAX_MTU : ETH_MAX_MTU;
- 
- 	dev->netdev_ops = &lan966x_port_netdev_ops;
- 	dev->ethtool_ops = &lan966x_ethtool_ops;
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-index 16bc28c8f11f..1877f1916d71 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-@@ -7,6 +7,7 @@
- #include <linux/etherdevice.h>
- #include <linux/if_vlan.h>
- #include <linux/jiffies.h>
-+#include <linux/mmzone.h>
- #include <linux/phy.h>
- #include <linux/phylink.h>
- #include <linux/ptp_clock_kernel.h>
-@@ -87,6 +88,33 @@
- #define FDMA_INJ_CHANNEL		0
- #define FDMA_DCB_MAX			512
- 
-+/* Ring must fit in one MAX_PAGE_ORDER DMA block; 512 DCBs overflows
-+ * at jumbo MTU.
-+ */
-+#define FDMA_PCI_DCB_MAX		256
-+
-+#define FDMA_OVERHEAD							\
-+	(IFH_LEN_BYTES +						\
-+	 SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) +		\
-+	 VLAN_HLEN * 2 +						\
-+	 XDP_PACKET_HEADROOM)
-+
-+/* Largest db_size keeping the ATU-padded ring inside one MAX_PAGE_ORDER
-+ * block and within the 16-bit DCB DATAL field. Inverts ALIGN(x, R) <= L
-+ * into x <= ALIGN_DOWN(L, R) to bound x directly.
-+ */
-+#define FDMA_PCI_DB_SIZE_MAX						\
-+	MIN_T(u32,							\
-+	      (ALIGN_DOWN(PAGE_SIZE << MAX_PAGE_ORDER,			\
-+			  FDMA_PCI_ATU_REGION_ALIGN) -			\
-+	       FDMA_PCI_DCB_MAX * sizeof(struct fdma_dcb)) /		\
-+	      (FDMA_PCI_DCB_MAX * FDMA_RX_DCB_MAX_DBS),			\
-+	      ALIGN_DOWN(GENMASK(15, 0), FDMA_PCI_DB_ALIGN))
-+
-+#define FDMA_PCI_MAX_MTU						\
-+	(FDMA_PCI_DB_SIZE_MAX - FDMA_OVERHEAD -				\
-+	 (ETH_HLEN + ETH_FCS_LEN))
-+
- #define SE_IDX_QUEUE			0  /* 0-79 : Queue scheduler elements */
- #define SE_IDX_PORT			80 /* 80-89 : Port schedular elements */
- 
+The bug happens after software segmentation in GSO. When a large
+amount of data needs to span across several packets, software
+segmentation splits it into N smaller skb. After this split, each
+smaller skb holding the individual packets has skb_is_gso(skb)
+returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
+that this skb resulted from a segmentation. Consequently, the skb
+goes through the increment below in esp6_xmit():
 
--- 
-2.34.1
+net/ipv6/esp6_offload.c:
+    355		if (xo->flags & XFRM_GSO_SEGMENT) {
+    356			esp.esph->seq_no = htonl(seq);
+    357
+    358			if (!skb_is_gso(skb))
+    359				xo->seq.low++;      // <<< increment here
+    360			else
+    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
+    362		}
 
+There are N calls to esp6_xmit() for all the smaller packets, and for
+each of them, the current sequence number is first written into the
+header, and then the shared counter for the next packet is
+incremented. However, the value esp.seqno used to construct the IV is
+derived from the counter value _after_ the increment. For example, if
+the last packet produced by segmentation has sequence number 100, the
+IV is constructed using counter value 101. Then, a subsequent
+ordinary packet not going through segmentation is allocated sequence
+number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
+there is no increment, and its value is constructed from value 101 as
+well. Hence the nonce repetition.
+
+The fix proposes to move the computation of esp.seqno _before_ the
+increment.
+
+> Anyway, one process nit and one question on the code:
+> 
+>> The repeated nonce allows first a passive attacker who knows partial
+>> plaintext from one packet to recover corresponding bytes from another
+>> one, and second, an active attacker to recover GCM authentication key
+>> to forge authentication tags without recovering the AES key.
+>> 
+>> Fix this by saving the complete current sequence number in esp.seqno
+>> before advancing the shared GSO sequence state.
+>> 
+>> Fixes: 3dca3f38cfb8 ("xfrm: Separate ESP handling from segmentation 
+>> for GRO packets.")
+> 
+> And if there's a crypto leak, this should probably have a "Cc: stable"
+> tag.
+
+Noted, thanks.
+
+>> Assisted-by: LLM
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  net/ipv6/esp6_offload.c | 3 +--
+>>  1 file changed, 1 insertion(+), 2 deletions(-)
+>> 
+>> diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
+>> index 2289552..05d13cc 100644
+>> --- a/net/ipv6/esp6_offload.c
+>> +++ b/net/ipv6/esp6_offload.c
+>> @@ -346,6 +346,7 @@ static int esp6_xmit(struct xfrm_state *x, struct 
+>> sk_buff *skb,  netdev_features
+>>  	}
+>> 
+>>  	seq = xo->seq.low;
+>> +	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
+>> 
+>>  	esp.esph = ip_esp_hdr(skb);
+>>  	esp.esph->spi = x->id.spi;
+>> @@ -364,8 +365,6 @@ static int esp6_xmit(struct xfrm_state *x, struct 
+>> sk_buff *skb,  netdev_features
+>>  	if (xo->seq.low < seq)
+>>  		xo->seq.hi++;
+>> 
+>> -	esp.seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
+> 
+> But then esp.seqno can have an inconsistent view of xo->seq.hi
+> compared to what esp6_output_tail/esp_output_set_esn will see
+> (xo->seq.hi++ just above this)?
+
+This looks like another bug, similar to the boundary case I described 
+here for ipv4?
+https://lore.kernel.org/all/20260925095128.446450-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+Regards,
+Jérémy
