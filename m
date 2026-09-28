@@ -1,182 +1,148 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F094E73C8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6F04E5325
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609090; cv=none; b=q02qdtzMunWAsJPft6sWkFKNO89xPnPtFWV1iRf0g4zkAzbOE5izFOyaQxEK7DRwgSaY4FP9DZU6HXaW58JFclCuCSYPdcW9JlFatBRZcAPhaUD2iT3CsCrR1SSaoC53EF2WhVSbHRqXWjDHTtEBXU/PryAROujj0ZoE+jHuhx8=
+	t=1790609101; cv=none; b=JP2AImdk+hzg0EX3s/ODIy10LI870gxlrrQZe1De5QJUTDFDk+3i8/3w8GDtYL4tfV/NZTpab5oMm0EAH3muOOEikjXfsfLdIAKD1NQbI52x7ZSztXuq134HU3JyWLWxuueSBwOTmZc/IUtSFocxamjxKJf58TyH2sbGXE+wsbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609090; c=relaxed/simple;
-	bh=yxtx1EJ3OSLAngmQ5We+tQv0+fpWAPHQncr3wp30thY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBinE4Nq9h4AKXthqStIuIrAKBw6i+g9t+UBv93NsJ/ZCrpxvnsuoqSOqTT5AXOfEnsxfUCBk3A9ywqX0IpO2twH9mQvFzfEE7zmR5k7AkdedW10oremtS4EORoLp7qey50K05TNVoKiXgXhSh+m9/0G3PJzHOtuxF05ZnR+rQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pn9ZdRYv; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790609101; c=relaxed/simple;
+	bh=/VQ3fqUhh49nLCdgEQJoV2CyAZARRzfusQcsGoOd7Fk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ux8iMf1pb5sem9ZW2D7Z0pPW8mtQqfWyw08wZez7ZtszCx1dPZpXChhcKMHoPOpNH3GlujxEBlSdb8FdtTOr105bcFewI+Z9CYpggKE3Ee1kAm4cCGxP5jFccActBiy9BpQy4MXjopgg5OHj8SfOJTieVBg9J7onRHp/NFO2nVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F+D/tIOU; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pn9ZdRYv"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd53691be5so21540515ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790609088; x=1791213888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
-        b=pn9ZdRYvlkN3EFcS92im4IWq4r9xRxvYrshv4Q1xuiS+F0Q6TInugqBpxE1cCJPEKi
-         RVnvKxFS1fBtxAP5dXGzfj1uRL/0XT/zYu7+dpWXL6cxBHyjc7qwQlhGgJyVuYtsd5Zm
-         T1z9Df90tFp8nafD49suOZVEHH3GaD7yr4IyMaP19h86GaIdOlDfE/FDPlGGEASfEkm5
-         t0QLxT1NgymuxSqRuD3XxyuCz5nnfAhOHQux10k+lL9Sd9I4/uwSmdIlwiOftk17if3l
-         AUe1qpcJPApLvztKFL4C343Ugtdx01iJQ4uHD3SlX9uzYFrBv3jRZIm2L9/Qvn7qpdD9
-         6FGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609088; x=1791213888;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
-        b=ie/X1OzaV/tPjAzo+R/COQxyeeJZkdQL2okklNXmVvZi0KeI6rGtbYDHdKReVBiL8K
-         XwX5TFK4JaWgErSo4OUIIUc07lg1ykdcf310cNPGomcc1Ee9H2C7l7DSRSRUj/aQ3ACI
-         9AAPnpJgzRYsx4Ff6NFdnLUHqT+PNGqtzRkWawd+a/4flBbcQf9vCawKcbxh5gTadNTK
-         FVOHWXGYDsTAlTn5B2qbtbGzkqo4W7MCIj5MPWHuccG1KFLs16NJQXwZ0/7inq2Vkpjk
-         u2ORHE3vdsQSxNmjw3I/5NcPap3fx5pWBnZyWzJzdE9ryDjgq3WJ+82ZZPlL8yIdWtdR
-         rHoA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1fDVGZYAyOVWmhtxdkhrPMo6aI7f4TheKfWU8npTCeqRvZAypIfR8TyntV7xCAf8veFNIBjDMut2ZZew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISsB+R7RibWxaA/7EZtMvJhyWEasfA3nPCBA68LM9AxYDKmq/0
-	KcQPm9ksXNKeY5ZgZnIzbkA2E1z7kCgYzVVuxAOZ6nXS/7fc139YNUbA
-X-Gm-Gg: AYBFou1HeCorRfTIXxG0yDGoZ7znbxFvk1atEhDC/mj6xRnNiiilqChzAlvaUiN6f3P
-	DY3iDfavERPnFxXmDIJ/Mx9Jak7C37ZZsuCWqDc0d+5HgYXwIC/O9oMwbl7TSO2ZXJSpSsr5mcU
-	/49KjxcrKKj5qz6V5bAvkv9Gbb5nSPQrhwxVVINXNswJM3gxbNGikQjP0CeaVjjJnLSzvBrqeb4
-	ksPcbJlj/bmLT5jabhanNAQDPGJg8kHfsQn1Mk/D+vaAB735rp4OPox4Ff+PL6krcPvGmIWrCyF
-	eoLUCyQDrdGIqgbBw4dThMcMDgYDUp7l66u5ciLOqVCMO8Uowfelay8SnFmJx/nxb9q9S7W1B7t
-	OjnjDLdTtwz4VjFu2tEZ8sfgUbR1Z4s4LxZGGAzIe3F2V5mY4hiLBNYIxCYv0iT/9toUWISFpi1
-	ZyhHp5GZkm+HEFcMR/g7NFOU1NWNE6XYIpgQCB4gquabt37ZosTGtAlyt5RFj7MHog7cJhpAICo
-	Gx2vNUZoTM1v/wVOELpobiqojZoBGVA++IrZrIZuVc3lDDTT6JAE6TnAbuhCV3UnTht5PzKqjYn
-	mpBvZcURDqnLq9Wqdt1H1mag0rWtwzs/NkFbC1n6qeA7JNn0TzDoFMc9H/Y=
-X-Received: by 2002:a17:903:2408:b0:2dd:c100:9435 with SMTP id d9443c01a7336-2df94c1bc19mr71037265ad.51.1790609088305;
-        Mon, 28 Sep 2026 08:24:48 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dfafe765cdsm25166465ad.33.2026.09.28.08.24.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:24:47 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org,
-	Karel Zak <kzak@redhat.com>,
-	util-linux@vger.kernel.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Vivi Rodrigo <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Rafael J Wysocki <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-Date: Mon, 28 Sep 2026 23:24:38 +0800
-Message-ID: <20260928152438.2694783-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com> <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F+D/tIOU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790609099;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/xGAD9IHLV2TQkxQUKw/DnmPiWWqzG5ITGqnf+Ikieg=;
+	b=F+D/tIOUU1tspcrvztqEDzWCflBLdqVomWUr1ZFJFU1rElBLWpruWSZeuS5b7DGbSgSMzz
+	OfqJZe46+cEz/omdJe3ud+Febajij4Ol1iCGb630Bhah1Km7gbnMZ174yjKbapZ4qJBlh/
+	aAblGELi+1fth5u6cTPN6Y7SLwU5pzo=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-554-Edda-aa9MxuKhChUsz_f9Q-1; Mon,
+ 28 Sep 2026 11:24:53 -0400
+X-MC-Unique: Edda-aa9MxuKhChUsz_f9Q-1
+X-Mimecast-MFC-AGG-ID: Edda-aa9MxuKhChUsz_f9Q_1790609092
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 73C251800635;
+	Mon, 28 Sep 2026 15:24:52 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 166BA1956047;
+	Mon, 28 Sep 2026 15:24:50 +0000 (UTC)
+Message-ID: <bd5d5869-9435-4a42-8b27-1a3b31ea41ac@redhat.com>
+Date: Mon, 28 Sep 2026 11:24:50 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] locking/rtmutex: Handle empty waiters tree in
+ try_to_take_rt_mutex()
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+ syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
+References: <20260915014222.13423-1-quchaosheng000406@163.com>
+ <20260916073356.40360-1-quchaosheng000406@163.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260916073356.40360-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi Andy,
+On 9/16/26 3:33 AM, Quchaosheng wrote:
+> The waiter branch of try_to_take_rt_mutex() reads the top waiter from the
+> lock waiters tree and passes it to rt_mutex_steal() without checking that
+> the tree still has waiters.
+>
+> rt_mutex_slowlock_block() calls try_to_take_rt_mutex() in a loop with a
+> waiter that was enqueued before the loop.  The loop drops wait_lock around
+> rt_mutex_schedule(), so another task can acquire and release the lock and
+> dequeue the waiter in the meantime.  The loop then calls
+> try_to_take_rt_mutex() again with a waiter that is no longer part of the
+> waiters tree.
+>
+> With an empty waiters tree, rt_mutex_top_waiter() returns NULL, so
+> rt_mutex_steal() dereferences a NULL rt_waiter_node and reads tree.prio at
+> offset 0x18.  syzbot reports this as a general protection fault in
+> try_to_take_rt_mutex on PREEMPT_RT:
+>
+>    general protection fault, probably for non-canonical address
+>    0xdffffc0000000003
+>    KASAN: null-ptr-deref in range [0x18-0x1f]
+>    RIP: 0010:try_to_take_rt_mutex+0x177/0xac0 kernel/locking/rtmutex.c:1138
+>    Call Trace:
+>     __rt_mutex_slowlock_locked+0x1fe5/0x25b0
+>     __rwbase_read_lock+0xc3/0x190
+>     down_read+0x132/0x200
+>     inode_lock_shared
+>     lookup_slow+0x46/0x70
+>     link_path_walk+0xd2a/0x1910
+>     path_openat+0x1ce/0x1d60
+>
+> Take the lock and skip the steal attempt when the waiters tree is empty.
+> rt_mutex_owner() was already checked above, so the lock is free and the
+> waiter is the only candidate.  rt_mutex_dequeue() already returns early for
+> a waiter that is not queued, so the skipped call is a no-op, and
+> rt_mutex_set_owner() clears the transient RT_MUTEX_HAS_WAITERS state.  The
+> waiter == NULL branch handles an empty tree the same way.
+>
+> Fixes: 48eb3f4fcfd3 ("locking/rtmutex: Implement equal priority lock stealing")
+> Reported-by: syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=917245f59371bf1d27f7
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+> v3: Add the Fixes: tag and use the wording suggested by Waiman Long.
+>      No functional change.
+>
+> v2: Reword the comment.  No functional change.
+>
+>   kernel/locking/rtmutex.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+>
+> diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+> index 4728631ae..4a6b22027 100644
+> --- a/kernel/locking/rtmutex.c
+> +++ b/kernel/locking/rtmutex.c
+> @@ -1131,6 +1131,16 @@ try_to_take_rt_mutex(struct rt_mutex_base *lock, struct task_struct *task,
+>   	if (waiter) {
+>   		struct rt_mutex_waiter *top_waiter = rt_mutex_top_waiter(lock);
+>   
+> +		/*
+> +		 * The waiter could have been dequeued while the lock was
+> +		 * dropped. In that case the waiters tree is empty and
+> +		 * top_waiter is NULL, so there is nothing to steal from.
+> +		 * Take the lock and leave the transient state to
+> +		 * rt_mutex_set_owner() below.
+> +		 */
+> +		if (!top_waiter)
+> +			goto takeit;
+> +
+>   		/*
+>   		 * If waiter is the highest priority waiter of @lock,
+>   		 * or allowed to steal it, take it over.
 
-Thanks for reading it, and for the direct feedback.
+Nit: It does not clearly state the top_waiter cannot be NULL when the 
+given waiter is NULL. So NULL check isn't required in the else branch.
 
-> if the system is under overall memory pressure, why do you care what
-> triggered the particular swap operation that is being processed?
+Anyway, the change makes sense.
 
-You're right, and that question gets at what I actually want better
-than the series does.  The goal is: when there is no memory pressure,
-swap-out may do more work, including allocating memory (compression,
-copy-on-write, filesystem-backed swap), because moving cold pages out
-to make room for page cache is what swap is for most of the time.
-Under real pressure, swap-out must not depend on that.
+Reviewed-by: Waiman Long <longman@redhat.com>
 
-The RFC was the smallest change I could think of in that direction.
-It used "who started the reclaim" as a stand-in for "is there
-pressure", and that is wrong both ways: memory.reclaim during global
-pressure may allocate, while kswapd with plenty of free memory may
-not.  Building on Kairui's suggestion in this thread (swap tiers), or
-on virtual swap, may well be the better route, and I'm looking at both
-for v3.
-
-> Why can't the kernel figure this out itself?
-
-It can: the backend knows whether its writes may allocate (zram knows
-it compresses, a filesystem knows at swapon whether the swapfile is
-copy-on-write or compressed), so it should declare that, rather than
-the administrator setting a flag.
-
-On the practical questions: v2 does nothing to balance fullness
-between areas or to empty conventional swap, and does not change OOM
-selection.  Those are fair gaps and I'll address them, or say
-explicitly what is out of scope, in v3.
-
-On the recursion question: within the reclaiming task it can't
-happen.  memory.reclaim and per-node reclaim both run with PF_MEMALLOC
-set (memalloc_noreclaim_save() in try_to_free_mem_cgroup_pages() and
-__node_reclaim()), so an allocation the backend makes in that task
-never enters direct reclaim; it either fails or, unless it passes
-__GFP_NOMEMALLOC, dips into the reserves.  Two things do need care.  A
-backend allocating there can drain the emergency reserves unless it
-passes __GFP_NOMEMALLOC or fails fast.  And work the backend hands to
-another thread, such as a filesystem or zvol worker, runs without
-PF_MEMALLOC and can enter reclaim itself; that is only safe if that
-reclaim never waits for the write the worker is meant to complete.
-
-> The remainder of the writeup is IMO somewhat incoherent.
-
-Agreed.  I cut the v1 cover letter down too far and lost the
-definitions it depended on.  v3's will start from the goal above and
-define its terms.
-
-> Adding "eligible" to a bunch of calls does nothing to explain what's
-> going on.
-
-It exists because v2 made "how much swap is free" depend on who asks.
-Reclaim itself checks free swap before scanning anonymous pages
-(can_reclaim_anon_pages(), MGLRU's get_swappiness()) and before
-allocating a slot (folio_alloc_swap()), and callers such as the GPU
-shrinkers check it before pushing objects towards swap.  With an
-offload-only area, each of those would otherwise count space that the
-calling reclaim may not use.  In v3 I'd keep get_nr_swap_pages()
-meaning "usable by ordinary reclaim", so those checks stay as they are
-and only the offload path asks for a different count.
-
-Thanks,
-Matthias
