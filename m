@@ -1,269 +1,268 @@
-Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023136.outbound.protection.outlook.com [40.107.159.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685BE4E3232
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616860; cv=none; b=f52X6ne/BUzgcXKCFKZqbQgSQGf5gfaz+kh/8ABQyB4YzniV8W3ZKQGAsIBHtGrlDTvqxkt1LUR2vPg/CjLUZC3Bfr//6fT6kkac/2Dkxm2IC8jP/wsAxOpBvwXeDsu02pHgFJSHyCNO6aQD1CXc4fsTGypZkWglRhlN1dVsbo0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616860; c=relaxed/simple;
-	bh=zVmtAsUqPSMNoqDH/7D+NMhiQ2/HTbjTJjk8eGyLuWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a4f4R2uP8S4X+katGSTj5SesOUVYpzAHT3lJlAFTgdXeVwqeSkofMgYiqf8vKLBvJTganUykdPNdXJbR1bkG15SX9YKFRoRqY3cENFoigaKQn0k9KOySUuFy16UB45l8JbG0wbTW9Cfg6/BTQxz5EIAHEgAMci0DFFtGokmHjBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dv2XO52x; arc=none smtp.client-ip=74.125.227.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113EF4DD3D1;
+	Mon, 28 Sep 2026 17:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.136
+ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790616861; cv=fail; b=f+4cXDVaPHTKcGatOHHS5IvF+6qvwFd4H71NFui9sQMTyanCT7meHtKZdlVhgeBkYb5o3+h45y+EesZCmOCK+SZSTvIDPGCHh/MXkWU9iUTlbY2HBQbPbAv46g+1nlqpWoMkvEYiyaPVGO2+/BEPjQg3wmPpxqUbu2pysC+nmWI=
+ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790616861; c=relaxed/simple;
+	bh=prZYGN10toKjxYc9bnWnf0Xmk8UBAKjBN8pgF4BsNk0=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=hX3kV9fqnUMA4Y3+G2izvU2C+FnLQRmxHTQ+AxRKBbNYT3on+15fRTri3iWXZOyyBuOElP+7k/52iQWgfTQPmJgagFLqFCcnVyGs4VgisAFf+mUsOHDuNNFrUpi+UzIr1Tn1buSzcbraV0O+xhu+CXeMJdnVjmVXlyxPu27coqk=
+ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=Uuiyk/aI; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=Uuiyk/aI; arc=fail smtp.client-ip=40.107.159.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dv2XO52x"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49b6bb21eso22304a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790616858; x=1791221658; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MM49i+L9UDpZ4v503sv48jIdzXYqrYoHmJErHUgk4sU=;
-        b=dv2XO52xe/+LtPfJYk2sir64oSyw2Da+bZuoH8LPJeJKZjjGADKLa+t8XVEW1oT9Ak
-         AAeNGvo66A5gHhPp5oaAm+L+ydJZFVDkYaxScs584uxxywaqXPD/EiJEd6RYLuo4+Q9r
-         trvZQvmlYQNy/DBD7gtjtjkxXGufbZXQd9v4oocC6egXcuTFryIgPdYVGy5gnLLhUAvW
-         MmqzW/UDA4Pvuj8SHAOpZJlNCTFSK2bpfE9j7TcVY1aEHiVwkCBaVNU8JmKEm6CzOZIb
-         ME27fKiqdZXL+EEEYlbfY4M4wR+jbhoN4f0Qqn/ezE8gEB4QyK6fhCqAWlb3+YnG40vJ
-         gI1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790616858; x=1791221658;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MM49i+L9UDpZ4v503sv48jIdzXYqrYoHmJErHUgk4sU=;
-        b=BiUt6ktiHD5CkAWUEwziHOilFwd+gxXP8a34lQaMk4NSyBgRF9b8W2sYsXiPgZhjHC
-         SYF+WEpWzjlKl+7B2ltdwa+mVvehjRPVQ1hropiex+zNir7zzjvK5GeYr81HLJqshs+1
-         fNUbpJMDmY+yWXKv4M+bZIKEwuzqDck5o1DqycYuu/Mf4xUVhYDXAto9Kdr7wOQjlxqd
-         9WF6vBT3nobJTzaFCAvcWN624qYKtRDeI+vHlbc2moYK7I5ExqXrawzt8wrkpMGjKsat
-         bpw4V0hqU5g2BQVnSd01MhQl02CLj0/P3tNP2Ylcdq84taWXMun7HVtEs9KuZPtz5OV+
-         QFrA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1n3BV3mtmgopxLBwuyvZnvuDkjbjbtj+ozp6KI0KjktjctKu+WKICP2ZkpvKV9e0sI7q2HNSMlIDJLJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKI8M7jl5M1efmTp/HfdYVIJCfYvwcsfWrcFH018Aw6H9AgWKSJ
-	QFn+MAmz0rXD8s13DQaBJrNFN+biXE/U3r1c0DfvGZiMMykLg9gGWWb/0IEB0GNky0hk6sEmERt
-	nHw5x
-X-Gm-Gg: AYBFou2TOpzeUKXOKsRK5NjPdN55SZOBw6bS5v5forvFqK9/+bN71UEYKjl6gDqzgFc
-	P7mStltW6bORGj/Elne/GTKivHiz7+ndH6lGslEIBh+SDS/LAyuHicEan/5+DUIyb50EnUUxCHt
-	2jJaNU+aAOLdRsbQ84eq17pcYAu78HAvQSJZilEnUUjHphutTTTxN+OHqig/lwN9YVilTC8BbPQ
-	Q1Dz0vyzy6juGXgoQvd6pAORshnpwfpYZiFWyn4bvEIEL3dKuW4tGrnVw9Vc2FQqK0yiNv2dv7/
-	rhcmG7aNOVZzviN3QEldjACvqniJCc4jTE7ZJ3ArsaIKQ/b7vG/MkvOksPoqcQ3cbiIrtkuFDUj
-	amIS7ClSmS6OPPWh6ANVUvu+cSPqseeh6fdzYz5+0xMLBro+uGPcYbu8765S6FgLBflFM3UP5fH
-	RBEAxfXCRX6lEfpOW+181tAOpO+ldw1i8WPDa8rnZ5r8ea9+FygudMrE0fve8QQK3la6o0s5Hrw
-	Q==
-X-Received: by 2002:a17:90b:582c:b0:3a2:b70b:9cd4 with SMTP id 98e67ed59e1d1-3a2b70bb0a5mr2230449a91.12.1790616857412;
-        Mon, 28 Sep 2026 10:34:17 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:e9da:534b:a5b3:3920])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49867a4b1sm492261a91.11.2026.09.28.10.34.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:34:16 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:34:14 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Yonghao Zhang <hyz3367@gmail.com>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: core: Fetch the auto-boot firmware only once
-Message-ID: <arqlFtvlN2LI6cT2@p14s>
-References: <20260923025855.2523147-1-hyz3367@gmail.com>
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="Uuiyk/aI";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="Uuiyk/aI"
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=s3AhvQ2dNm4ptY1P8DEd1ro4jmAuISxzVAE2C/NOUBo2NDfJly2hR7fZ1lm8+G3FrZ9NNCLj+6nUecH4jlu0UuacL4c681vzUKr3nIMX4f3CTf4Qc0pZx+SL/Ra2BMDcgHufuRoW2RJ7DbQg+JeC0NGgWQ3BjjkkLVqb35rHkVS4IVWvOBwwE9OmUUrOKL0kx8TnEmFV7JIPR8EeM5ETKtGcNisfqTOITOueTg5j3Zw1iFhmIEwu/e1p0KP9Dv4J/9dqmWXTcIlGnzBF66lHp6LFotkPKpP7ZAvaHexM9UBxl+MM62jjYBUicXhQTSxKZnai4pzbs7ZRZUH8Bk7RhQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w9j5sesU+YvuuHRISTKGnb+vq6Po7a60EBQYestP8PE=;
+ b=ySZJYzCMaQ4ANhEjyan4i1LuI4R9b5vFkcSwiBYzeEFdH5S12hZ9qtMlaIW6DAzadCwAA2hXvR/v8vFWjhZtX+snqHtYj+LA76C1h/vmm6y9QPi0VN9lHfd30PRycyHuTOd74a6QwOQzb5C2O1YXIIKty6FivONwIWyJECVUGxA+E1v6n7JaWwHCB29zUQqsdlfSO9hvSRszORah+va5vk3RBOITgkXZgea/6jd6Kgx/r4GRPJJll+fYCvFYWYiJY4Fy2hec8q44bb3tszC7U3XdB8/knOhE3TsCFOZCgs11uI34jHA6LdSHX/smKuDBEZY6H0WN3Cocw6yVyVyyrQ==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,2,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w9j5sesU+YvuuHRISTKGnb+vq6Po7a60EBQYestP8PE=;
+ b=Uuiyk/aI3K20wPJQK8JprtVJasi3kJRsJA/Wh08g8RWLDvbIuy08jDk9iFcMPzc9ZLRIeinO0dzTsq/smudHagFCTOoE1yLiuZT6srr0esoJNl5cuY421B9E4bB6dzPZGJadldr3+bRv6Xrexq0m8YWi1nUpTEYXrNQRJfaJknDCSbk8sM8fYsKG09SGyn+VWnTVy015byTmTvZDFtBa863kFyHYBDig1qSMZ74iAAog6VepqL+ochRIrgMIX+i1YMvJwzX1m7pQbf46aV8iV/bohdZDyLnw3G2IaDbKwoneenJaayS54SQ5NmtSztfnHBxGVrro8cM/5zPsTEjuKA==
+Received: from AM0P190CA0018.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::28)
+ by DU4PR04MB10744.eurprd04.prod.outlook.com (2603:10a6:10:590::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 17:34:13 +0000
+Received: from CPH1EPF0000052D.eurprd05.prod.outlook.com
+ (2603:10a6:208:190:cafe::89) by AM0P190CA0018.outlook.office365.com
+ (2603:10a6:208:190::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
+ 28 Sep 2026 17:34:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 52.17.62.50) smtp.mailfrom=solid-run.com; dkim=pass (signature was
+ verified) header.d=solid-run.com;dmarc=pass action=none
+ header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ CPH1EPF0000052D.mail.protection.outlook.com (10.167.241.168) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Mon, 28 Sep 2026 17:34:13 +0000
+Received: from emails-5343471-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-37.eu-west-1.compute.internal [10.20.5.37])
+	by mta-outgoing-dlp-942-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 02EB7805F7;
+	Mon, 28 Sep 2026 17:34:13 +0000 (UTC)
+ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
+ s=arcselector01; t=1790616853;
+ b=MlPrvTL/6CRgD/iZfFVp4oeNWxKCVgdZBUbAywxtuVa3xvFJ4hQAnBP1nEeizp+uSnbw2
+ SZSJEsgH15mGjaraqNvjAs7T96p7SW/gP0hW36fm/zoYE8EgoUH7iwyex8lWtIQTq9EOw+I
+ wrzIaPAnhz086J+Grz+WVgWL8xnQpa0=
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
+ d=checkpointcloudsec.com; s=arcselector01; t=1790616853; h=from : to :
+ subject : date : message-id : content-type : mime-version;
+ bh=w9j5sesU+YvuuHRISTKGnb+vq6Po7a60EBQYestP8PE=;
+ b=PJsaRrMyQnXRMkzkO2e9rEzW4Qp5KEU+Son79h5cSRX9HXDmbK430Q0cBAkRjeVfIkPr5
+ 6YYXYRfoPtHuLzu34xWMaL36VRt4x1LwwzOAw5+tdwrY9ZMaCtQy7Z5fYmxgpdxpt8mkaQg
+ 0BmY4XQ2OUr33TpGTVnbtkpBtxep41E=
+ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
+ arc=pass;
+ dkim=pass header.d=solid-run.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w9j5sesU+YvuuHRISTKGnb+vq6Po7a60EBQYestP8PE=;
+ b=Uuiyk/aI3K20wPJQK8JprtVJasi3kJRsJA/Wh08g8RWLDvbIuy08jDk9iFcMPzc9ZLRIeinO0dzTsq/smudHagFCTOoE1yLiuZT6srr0esoJNl5cuY421B9E4bB6dzPZGJadldr3+bRv6Xrexq0m8YWi1nUpTEYXrNQRJfaJknDCSbk8sM8fYsKG09SGyn+VWnTVy015byTmTvZDFtBa863kFyHYBDig1qSMZ74iAAog6VepqL+ochRIrgMIX+i1YMvJwzX1m7pQbf46aV8iV/bohdZDyLnw3G2IaDbKwoneenJaayS54SQ5NmtSztfnHBxGVrro8cM/5zPsTEjuKA==
+Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
+ dkim=pass header.d=solid-run.com
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
+ by GV1PR04MB9200.eurprd04.prod.outlook.com (2603:10a6:150:2b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 17:34:00 +0000
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 17:34:00 +0000
+From: Josua Mayer <josua@solid-run.com>
+Date: Mon, 28 Sep 2026 19:33:56 +0200
+Subject: [PATCH v10 05/11] arm64: dts: renesas: add support for solidrun
+ rzv2l som and hb-iiot evb
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-rzg2-sr-boards-v10-5-91752ea39cbc@solid-run.com>
+References: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com>
+In-Reply-To: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Benjamin Bara <benjamin.bara@skidata.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Jon Nettleton <jon@solid-run.com>, 
+ Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+ Yazan Shhady <yazan.shhady@solid-run.com>, 
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Josua Mayer <josua@solid-run.com>
+X-Mailer: b4 0.14.3
+X-ClientProxiedBy: FR0P281CA0270.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::16) To MMZPR04MB400504.eurprd04.prod.outlook.com
+ (2603:10a6:190:28::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923025855.2523147-1-hyz3367@gmail.com>
+X-MS-TrafficTypeDiagnostic:
+	MMZPR04MB400504:EE_|GV1PR04MB9200:EE_|CPH1EPF0000052D:EE_|DU4PR04MB10744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 570b8dbd-2f25-4d33-80a8-08df1d86b691
+X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|7416014|1800799024|52116014|376014|366016|23010399003|10070799003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 0ixFWSkTKYySF34xf6b8jCveJ4ndl1OS4/0FE+FFVOgKHhd4TqkqaUHyRmysUF+Afvx0weyRVEaX3/W1xw3FeDSqYS+tLyfYKG4G+MBNnz2OouqgCjVOsMBpK74lDb8uJ8CBXhQO8Hl2LmMcOqan62zJN8DYP7S6PiKbSuWl5ptslcGcJcHalV8jKmQmt88eYJVK5ANHy5dxnzZ/pelkyvgkVdRjx/FqxRoTiKeyEaqT2npNa5Z4QjND29XQxeY9HYawS3DklWBxzWz/mrA8tajiLSKt4CCK+bOIuGuiteoWwB7IglInyoh5uyK+vGKr2IF4x8M+EWrvwBZP8T9yo1RmCfdeP5g6beOtqAip2Qf1KlAUfu8auF96tYTaANKallzof2IcqTNJQVONblUxYIGTwgStK6+3XQDMgFglhKAs4rzNQNJb4A908CIUdofZJBumXWFTAygbvnDyS1soqrB1OE6v/4YPu+2J8pm3naK7PqLyefQRIW3FpK3Y3gava2NArCKDlpBgEseohzN18a7xU0HYi1NUm+x14kWCw8hqVmS7HWpzZ29f5pl3E9G2wgixFa6QdGjYCi7nqhm8suznUIFwuGZHVzsLcr8kGFOKZ/P+pmnvUkaAapkrfr6R
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(52116014)(376014)(366016)(23010399003)(10070799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked:
+ tnG0xenc3900wsja5w/XmyCm+3VLSJI8dYpBbSvoqXzPmSZhH+HQNchLdXxu2YbrVDex8bXobO2iX2PcSlU8Xwok9Y2CE13DiNm1pqHll6HADRy59mr8awVPGuxOaqVhEIZmXzSAOEt5Py8uUtuVpzprD4NrK4dQjQ8t2iq1QTvl3pzQYDNRDBpCkPihdwP61J3R9TZeKiS0QLR9Bk5b2/1H+D8n9Hjl1OrUkdNXhhfXXeVbp2T9Sp/LiclJzju0I5CNKGU2M4fNrcrO53TcYDEF/YOM6RRvVEexJh1Rdvoqo+jbeBkMM7H5z8O2uyLIjDCl7/2z9WjJj3OUO4Ugow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9200
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: a126b8f94bba420c8aec8abe139bbf95:solidrun,office365_emails,sent,inline:87287daded720ae2bc7e73491d419f2c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V1NUkeQku5Hqgp34RpsfJbcE0u6DAcRPGVm71QjDrvcVKejYSFwhHHiP+WoIt9zoBpMstVR2VWnyLMvsGWu5NjcUxNZIUB3r3GhDyPfj5qaLeSHysYbHoCK+hMyJkCiN2I10fCt7FTZ0wkxy0cYM6rJcbPplJD3r+wLkQyPbvacXVl/pdLAteIANEut/QS/yxyqrvhlJW8sB9Mm6YD2o+TErNSEQR+A1MLIRikQu6J78H5xEsQTeFnDttwnFEbZJMFOBFv4/DfOQFHwwxaMP5ur+34ZdOZDu8wWnRgheXJB0tXTeuK9/r7Ks1KDbeTg/zuVwto+khMnrzUJmUDbpYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w9j5sesU+YvuuHRISTKGnb+vq6Po7a60EBQYestP8PE=;
+ b=jETxJvjkgC0d0vX1piRHOmtRAlKtun2V+eGjB4KMMP0vuPMD0tR1+ymUhntb7XnSKYfBH4RsOWT50ilclL2JxU7vlh1Md7dZttTDYXY1sMIFDQseUgY7GLmJOmvo3LpVP1u+a/kYLRmonBs/DaD2VFzKg2xMfJOoCyq9rbcM+nhABrovjooYJW1OnvDVJ7+H8mLlFpGNtbU8lSVDjv/Ii4ypuVpy5kpwh5X34VeecQ2XXMNyWOaS+4dMYItm2ipvqxnrA0rmf9j8iCgepG0yRCA3eTsWvdvWLlH4rWxw/CgqmqwN4SGN/4w/nvWicrBoXRJpzAjkagV8V5LpZ3QFwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF0000052D.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	01574278-a794-4aaa-03d8-08df1d86adb2
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|35042699022|82310400026|14060799003|23010399003|36860700016|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tuG++1uuvKQ7aV8t9OMJEyplgD7+/+a8qzwaMFjadoE3QUae5HkwdqcW2a9Cu17ETLKYZKD/PV7fdwD4hhl+Lo+fR98oAU6Sv92ldFo6C5bSAlK6dWPphwiTQ9RTFG+9km2mYhktuQmw7kTiVi8sMlYLnl5MXM8QMOUvaUjR4zEHslIn5WErkFN4x+pofcaULaZ+ZPF8ScF51XLjOobD6Z9Da8Pq6SGOc1vnYZ1hxrrLZrxO1FKThRsQB8idzS7MTXCdlS6xWtIcbzT9P9B6A8XchOhcWwYSBKv627i1sbhvqwL90LA9lLRBlkJLIaIeLI6Tjsgy3HELpUxlbiVJHWKCZOi9ltT64OG/FIdTU348CDDa6wq93zao1ub+upnAusUolEKZylH6fhfClmeTg6VD6N4U+z4cIjJtGtNbm2T2nqZjxioFJwWsIa3ETggfK162NNo67i/IO4V+jwYfG6R91dFgIcuSQDshuFBaSb+JTBC2y011wQb8U6XWPgP9UnFxwI2GtcnC08v5UAiDusOssXPLsw9J6FqRlOLCWiwB5rDMV7BJXBAa/3HucwX8jxRJHVweq7NBqV29hsUCmCfG0RJpXQN4F9e3LKBWbCczBLlSZ3rWGxHm7PZztdLJAEIlh3qCVyR3IU1bw007iazVO+S8+uLgelLAT42/L4o=
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(35042699022)(82310400026)(14060799003)(23010399003)(36860700016)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7FjBOYdMPa9Z5QU490cixHYnBE7aHES3p+7RS/RmvqS3iGqw9DttzPOa/sBxrJDVOw1ouKO/XMP3ukAEuWkPJTFLPV84uCok2R56UF22pP8K4Eni7EADVT7bcvORlr86SRI7rh5OwTGnFnU7zCSprIKJuMtAYMcCCbVANg0LqFJUojl7pElPTsIq7SUItyvFPx20QMSjh3d5ISuIMPzjMAfYPmzj/JNGAwBS1iE3/Xbg5yn/pYvIlrJgouHi505+Jku5nCBBbAAVOgrEnNQ9w0ly9TTBjgmUXd2N16yoQ3gph0KTQdyRt5eXfr5pDeZVXaoiqmkLv7OXOTcsXk4Y88JLsnFrT5TDfeL4HBjjvtjPEo1E1Ye3nyIMakD6E/gGJpcVV46VFLGWUCG4IR/pD+DCxFVXh6GTJwiMRC6n+3QewBsBiB7ZtqfNnKVZ5M+w
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:34:13.4206
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 570b8dbd-2f25-4d33-80a8-08df1d86b691
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000052D.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10744
 
-Good day,
+Add support for the SolidRun RZ/V2L [1] SoM on HummingBoard IIoT [2].
 
-On Wed, Sep 23, 2026 at 10:58:55AM +0800, Yonghao Zhang wrote:
-> Auto-boot for an always-on remote processor registers an asynchronous
-> request_firmware_nowait() whose callback discards the fetched image
+The SoM features:
+- 2x 1Gbps Ethernet with PHY
+- eMMC
+- 1/2GB DDR
+- WiFi + Bluetooth
+- SDHI Mux switching between eMMC and Carrier Board
 
-The callback function is rproc_auto_boot_callback() but I don't see where the
-image fetched by request_firmware_nowait() is discarded.
+The HummingBoard IIoT features:
+- 3x USB-2.0 Type A connector
+- 2x 1Gbps RJ45 Ethernet
+- USB Type-C Console Port
+- microSD connector
+- RTC with backup battery
+- RGB Status LED
+- 1x M.2 B-Key connector with USB-2.0 + SIM card holder
+- 1x DSI Display Connector
+- GPIO header
+- 2x RS232/RS485 ports (configurable)
+- 2x CAN
 
-Otherwise I agree with this patch.
+The RZ/V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
+RZ/V2L is adding a powerful DRP-AI NPU which G2L lacks.
 
-Thanks,
-Mathieu
+Due to the similarities most code is shared, including DT overlays for
+eMMC, microSD, and RS485.
 
-> and calls rproc_boot().  rproc_boot() then fetches the very same image
-> again with a synchronous request_firmware(), so every auto-boot reads
-> the firmware image twice and allocates the buffer twice; on kernels
-> with the sysfs fallback enabled, the uevent round-trip is repeated
-> as well.
-> 
-> The asynchronous request exists only so that rproc_add() does not
-> block on the filesystem read; the image it fetches is never used.
-> The core already defers rproc_boot() to a worker for detached
-> processors (attach_work).  Reuse that worker for offline processors
-> too and drop the asynchronous firmware request: rproc_boot() fetches
-> the image exactly once and dispatches between a firmware boot and
-> an attach based on the proccessor state.  The work is renamed to
-> boot_work to match its widened role.
-> 
-> commit 400e64df6b23 ("remoteproc: add framework for controlling remote
-> processors") noted back in 2011 that "we must wait until it completes
-> before we try to unregister the device".  rproc_del() now does exactly
-> that: it waits for the boot work with cancel_work_sync(), which also
-> closes the theoretical window in which a pending attach work could
-> outlive the rproc instance.
-> 
-> The changed fallback behaviour only matters for legacy
-> configurations.  udev dropped its userspace firmware loader back in
-> 2014, as recorded in
-> Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
-> kernel has documented since commit 02c399306826 ("firmware_loader:
-> enhance Kconfig documentation over FW_LOADER") that "Linux no longer
-> relies on or uses a fallback mechanism in userspace".  Auto-boot now
-> uses the same synchronous fallback semantics as every other explicit
-> boot source (sysfs, cdev).
-> 
-> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> ---
->  drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
->  include/linux/remoteproc.h           |  4 +-
->  2 files changed, 21 insertions(+), 48 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 263e12f022ea..f329dc478170 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
->  }
->  
->  /*
-> - * take a firmware and boot it up.
-> - *
-> - * Note: this function is called asynchronously upon registration of the
-> - * remote processor (so we must wait until it completes before we try
-> - * to unregister the device. one other option is just to use kref here,
-> - * that might be cleaner).
-> + * Boot or attach the remote processor in the background, on behalf of
-> + * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
-> + * not block while the firmware image is read from storage.  rproc_boot()
-> + * dispatches on the processor state, so this covers both a firmware boot
-> + * and an attach to a processor started by another entity.
-> + *
-> + * Note: rproc_del() waits for this work to complete with
-> + * cancel_work_sync(), so the rproc instance remains valid for the
-> + * entire lifetime of this function.
->   */
-> -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
-> +static void rproc_boot_work(struct work_struct *work)
->  {
-> -	struct rproc *rproc = context;
-> +	struct rproc *rproc = container_of(work, struct rproc, boot_work);
->  
->  	rproc_boot(rproc);
-> -
-> -	release_firmware(fw);
->  }
->  
-> -static void rproc_attach_work(struct work_struct *work)
-> +static void rproc_trigger_auto_boot(struct rproc *rproc)
->  {
-> -	struct rproc *rproc = container_of(work, struct rproc, attach_work);
-> -
-> -	rproc_boot(rproc);
-> -}
-> -
-> -static int rproc_trigger_auto_boot(struct rproc *rproc)
-> -{
-> -	int ret;
-> -
-> -	if (rproc->state == RPROC_DETACHED) {
-> -		schedule_work(&rproc->attach_work);
-> -		return 0;
-> -	}
-> -
-> -	/*
-> -	 * We're initiating an asynchronous firmware loading, so we can
-> -	 * be built-in kernel code, without hanging the boot process.
-> -	 */
-> -	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> -				      rproc->firmware, &rproc->dev, GFP_KERNEL,
-> -				      rproc, rproc_auto_boot_callback);
-> -	if (ret < 0)
-> -		dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
-> -
-> -	return ret;
-> +	schedule_work(&rproc->boot_work);
->  }
->  
->  static int rproc_stop(struct rproc *rproc, bool crashed)
-> @@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
->  	rproc_create_debug_dir(rproc);
->  
->  	/* if rproc is marked always-on, request it to boot */
-> -	if (rproc->auto_boot) {
-> -		ret = rproc_trigger_auto_boot(rproc);
-> -		if (ret < 0)
-> -			goto rproc_remove_dev;
-> -	}
-> +	if (rproc->auto_boot)
-> +		rproc_trigger_auto_boot(rproc);
->  
->  	/* expose to rproc_get_by_phandle users */
->  	mutex_lock(&rproc_list_mutex);
-> @@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
->  
->  	return 0;
->  
-> -rproc_remove_dev:
-> -	cancel_work_sync(&rproc->crash_handler);
-> -	rproc_delete_debug_dir(rproc);
-> -	device_del(dev);
->  rproc_remove_cdev:
->  	rproc_char_device_remove(rproc);
->  	return ret;
-> @@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->  	INIT_LIST_HEAD(&rproc->subdevs);
->  	INIT_LIST_HEAD(&rproc->dump_segments);
->  
-> -	INIT_WORK(&rproc->attach_work, rproc_attach_work);
-> +	INIT_WORK(&rproc->boot_work, rproc_boot_work);
->  	INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
->  	spin_lock_init(&rproc->crash_handler_lock);
->  
-> @@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
->  	if (cancel_work_sync(&rproc->crash_handler))
->  		pm_relax(rproc->dev.parent);
->  
-> +	/* auto-boot may still be fetching firmware: wait for it here */
-> +	cancel_work_sync(&rproc->boot_work);
-> +
->  	__rproc_shutdown(rproc, true);
->  
->  	rproc_delete_debug_dir(rproc);
-> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> index a44368737b39..d77e24539133 100644
-> --- a/include/linux/remoteproc.h
-> +++ b/include/linux/remoteproc.h
-> @@ -231,7 +231,7 @@ enum rproc_features {
->   * @subdevs: list of subdevices, to following the running state
->   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
->   * @index: index of this rproc device
-> - * @attach_work: workqueue for attaching rproc
-> + * @boot_work: workqueue for booting rproc
->   * @crash_handler: workqueue for handling a crash
->   * @crash_handler_lock: serializes crash handler queueing and deletion
->   * @deleting: remoteproc deletion has begun
-> @@ -277,7 +277,7 @@ struct rproc {
->  	struct list_head subdevs;
->  	struct idr notifyids;
->  	int index;
-> -	struct work_struct attach_work;
-> +	struct work_struct boot_work;
->  	struct work_struct crash_handler;
->  	spinlock_t crash_handler_lock;
->  	bool deleting;
-> -- 
-> 2.34.1
-> 
+[1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
+[2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Josua Mayer <josua@solid-run.com>
+---
+ arch/arm64/boot/dts/renesas/Makefile                     | 13 +++++++++++++
+ .../boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts   | 16 ++++++++++++++++
+ 2 files changed, 29 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index e2af196e18bf6..4a0cde8cc3b7d 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -189,6 +189,19 @@ dtb-$(CONFIG_ARCH_R9A07G044) += r9a07g044l2-smarc-cru-csi-ov5645.dtbo
+ r9a07g044l2-smarc-cru-csi-ov5645-dtbs := r9a07g044l2-smarc.dtb r9a07g044l2-smarc-cru-csi-ov5645.dtbo
+ dtb-$(CONFIG_ARCH_R9A07G044) += r9a07g044l2-smarc-cru-csi-ov5645.dtb
+ 
++dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot.dtb
++dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-sr-som-emmc.dtbo
++r9a07g054l2-hummingboard-iiot-emmc-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-sr-som-emmc.dtbo
++dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-emmc.dtb
++dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-hummingboard-iiot-microsd.dtbo
++r9a07g054l2-hummingboard-iiot-microsd-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
++dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-microsd.dtb
++dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-hummingboard-iiot-rs485-a.dtbo
++r9a07g054l2-hummingboard-iiot-rs485-a-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
++dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-rs485-a.dtb
++dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-hummingboard-iiot-rs485-b.dtbo
++r9a07g054l2-hummingboard-iiot-rs485-b-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-rs485-b.dtbo
++dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-rs485-b.dtb
+ dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-smarc.dtb
+ dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-smarc-cru-csi-ov5645.dtbo
+ r9a07g054l2-smarc-cru-csi-ov5645-dtbs := r9a07g054l2-smarc.dtb r9a07g054l2-smarc-cru-csi-ov5645.dtbo
+diff --git a/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts b/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts
+new file mode 100644
+index 0000000000000..d77a6ff163bea
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Copyright 2025 Josua Mayer <josua@solid-run.com>
++ */
++
++/dts-v1/;
++
++#include "r9a07g054l2.dtsi"
++#include "rzg2l-sr-som.dtsi"
++#include "rzg2l-hummingboard-iiot.dtsi"
++
++/ {
++	compatible = "solidrun,rzv2l-hummingboard-iiot", "solidrun,rzv2l-sr-som",
++		     "renesas,r9a07g054l2", "renesas,r9a07g054";
++	model = "SolidRun RZ/V2L HummingBoard IIoT";
++};
+
+-- 
+2.51.0
+
