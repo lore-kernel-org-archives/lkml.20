@@ -1,278 +1,177 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B8C45D5D9;
-	Mon, 28 Sep 2026 07:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580783; cv=fail; b=tLsKjBKau7Rpm40gOvskPrI3GgihooplQBkcBHlhzq15ilP/4bILwme6imPt1sCP5zGxsF5CpCEFdALnrd8oegHB6+RSZqK2RBSX4R5kzY3PVmoFnejYvHikGQM54g9Y0lkCp2uPUI0aJAwt6l8dQB/Cd9CUMXzO5LZOHxe1JpE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580783; c=relaxed/simple;
-	bh=bYJEYm2UpHfX52juwPGypnaN1qSkat6uxVTbY82LBUg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=d8diUDl42usx72nsGkcb+xLZVRnHYcpM7gbf1TxOg0n5tesY8sYhdKM0wwPIrccjzHIu6UZ8UPtChtFd/x/UxlMEMwatx5vWuaEbIBD7UX2xNB2wdkxW0hMKbkYSFpNu0U+wliOBPA6ZJM9eqetn/SXXMWoC3P+guGK3+qpxTL8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=nMZ/qIpH; arc=fail smtp.client-ip=40.107.74.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3720433A02B;
+	Mon, 28 Sep 2026 07:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790580841; cv=none; b=gPw9rgZLV9yNmpyBdT0i0HAd4iHkPcWGAv7znc0ajchVZ1AcDWVXtSV7kIhOh4441dEuVrQ/pTGYhPCMXNzou2Yw+q9f37i7KiCgY4+Iw89/bGns9jUz59ETyyTY6v2S6oLsKVUAcrdgO9sFdIC6HA+gQcGbYbz+SJyDzIr9tkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790580841; c=relaxed/simple;
+	bh=EXxtTa5Npxg0/+Ir2ZMCc+dSE/qjPl4GsR04C5bWDic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TMYXP+FsEN79tc/lgh4Lq87AmFwuw4W+1DqMrllEV3iXGzdB5VwfMjIeRYT+tEMMB69GwxA/FAYNLBKxIQb98rbTUDVThWNOyk9H5ii0hyeApg3LPR9gm7StYCUUHJcGsVmLSVnqLNw70ev8osox2FjeBDts0bv5QOlA7UdhVKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYClZZp+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="nMZ/qIpH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VBGyilNTFSwk04svidTsn7VVLesp70ViSpJkiFb/Vyy1uuaE8ObgqcnNkr7w9W5Fol1dOvZ/4j5WMOyARxBnc40e2SEz1Ef2p2E1YSMaOh9hDdSGZsfG6Wx6uuGf1s5G9Lip3Nk6m6IdgiEZNCWw2UlNPYJX2smfTL/bK29hCjnKEl28P3UrmIH8tsEAiu8ekUY9F+9XCmGk5p8QxB5zmWAlFhdyKiWGAsBKrLvnEj9AL7g+uvAqGP5nHZ5gEcNNUsRP0ui1wKUpkRs2nd16tXwCw0r+A3PaGk7VJEf3XYg2UDmy2wEKmGOLwWKWuEy3/6xyC1Hk0sxdudQqkx2L6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A53cG18zaJtYVGwGodHmYQ2g/YomLHgHNNaeAeyNFHY=;
- b=LU98X5ukDVMbkQ4Rdw1kgn2Pk8B+NGIU8Sezojtx0PsCbz30HPt+/9okQQaFcZTrh+6W1S56v2cKIMgnyRp8De64YGvOFEbXoPVrocA9rxHTwYgqF4M0IF0LGtanizYv+OhfxE7rrasSdRpJHtSpPWqrIjm/LoZCdIJfSOPC5/VjlxnwsvXx12UyLWstGofP2sDrkA43PCx6eVDJsZsb7Mxdu+fKppb56+e9G+T/DRO0GMAVJd2C7q5RhsuSPzvQn+TTi0yR20ZUL7Gs3UHyP7wqfdRPRnV7hTQqb1hMlONAD3SdQ8VF30k7toDSWgwcgIeRKL96bKIm/1pBe9zxqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A53cG18zaJtYVGwGodHmYQ2g/YomLHgHNNaeAeyNFHY=;
- b=nMZ/qIpHbA0celQVUyvGudAISmZCQ8mwCQxs6kBcr2Nk4DPTZyr5GNg+wia+Hw6s38tygNuEyjDXBp6nU4Er0apI3RjbNb5Ywi4hDEkvtgQdjjS2NCdTeFddcb48/LNc/ggSrAOsluh2ql663vYEKBvquRpkA7jy1gKI8EYwiIM=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OSCPR01MB14824.jpnprd01.prod.outlook.com (2603:1096:604:3b1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 07:32:55 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 07:32:52 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: jiale yao <19888972804@163.com>
-CC: Linus Walleij <linusw@kernel.org>, Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
- match data
-Thread-Topic: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
- match data
-Thread-Index: AQHdTPMcx8CFgDS7T0eXq2w7rRWLsrbgohqAgAAGNACAAtp7cIAAGDwAgAAApUA=
-Date: Mon, 28 Sep 2026 07:32:52 +0000
-Message-ID:
- <TY3PR01MB113468365E8ADD0FC214135CD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260925133804.2231004-1-yaojiale02@163.com>
- <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
- <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com>
-In-Reply-To: <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB14824:EE_
-x-ms-office365-filtering-correlation-id: f5b063d1-fbb7-41fd-bf5b-08df1d32b4a2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|38070700021|4143699003|56012099006|5023799004|11063799006|10067099003|260925022911599003|260925021911599003|260925021311599003|22082099003|18002099003|6133799003|3023799007|13003099007;
-x-microsoft-antispam-message-info:
- k7mSjFUnlHGiZlbEdt06fINv2MO2PYcIccYdJKlHafm8ghiktabOvXmQvWo4jcV0i6qwbczJhiLESqJAplTJ90K2XTRq6y2Yd/VZClemUuc7+NVUHlSC1Jibra496HGY2Ziyp7aJAYjP3myLbt4w+nPKLDBquYx/SaOHgTLsKL7oAd3NW9OXHhfeUbgRHbAfAHqHFG+lCz2Kk++6QFfQ1IngcQbKiHjm78xhDhWtwmLOjnwF8Ywy12hH10Y/BD+eMw7kXGiePsYb8A9iq/pJKZj6Rg1bmTy3YSnQli5SzROIXWV/8Q4EgcJq+aRSIwp5jT+T7B2DEQveWHJZhvg0PbeXux15sm7RrFe5jUxjZCgPvCtf5FEcVd+ta4zkn21CIUqpJyfXiUptxnRpMYckp7YLo/roHhCYmVJ01dazD+rGcbXHZetOISYVabpJCpMmqJeOcdknHb/bywn8mIqHDmhRMPWIRpvK+Sdg5B72qKIoJNoRS5tP8hSftWU/7TSFp0zjH3LmHKjbshfIQcuxmQH6FiCUA6O7mbzJWrpaVePWABRFqnuYuWYiZQfEZVSd3QBzNN3zfnYbvv9tQpr6nlteMRev68Y+rPRhMTqYyHN04Axto3Xvm5ZLV90+EGQp3MukFBjnbK+COlafYzpdRilh2VYwUpvhuKVJuCaJdmW6vM+5Z4qIlYZWEALTcJU9+1BVTq/UwoWnWox3zSXAp8pFX2nPrcZ9z/GloApOU/M=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(4143699003)(56012099006)(5023799004)(11063799006)(10067099003)(260925022911599003)(260925021911599003)(260925021311599003)(22082099003)(18002099003)(6133799003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?8N7t4WZGAD+mpdY1GwqatAu+BBZkaQRxB25q7v109u94uyjAfXVcjGgdk4Ze?=
- =?us-ascii?Q?z9t6bKmrNG9PMK9Y8GD5+6YzxOdrhf8Wk5sqkOTULL90NyJykCMZg2OsDVy1?=
- =?us-ascii?Q?qyYBS1DADHffaAft1RX40mYwG1ca6dl9MCdxtig8Se6DUfnWrL4zcucjKvU5?=
- =?us-ascii?Q?Ed9cmSFhJuKnMYTZoO7u/+B5mIzZDBkAl1ganRRvAqJdgqzp4nHqmAwu9U9j?=
- =?us-ascii?Q?l6JSASq+f90XTyIBtTpztdtb7EKczV8jNQhBNx61wnOFMG4xHw8o99MvHWOC?=
- =?us-ascii?Q?wNywhk7X4+hbVOTi9AtR3tuAymRkiLbzFWRqW/ZaFQstjvqWp/BlpGppgiUN?=
- =?us-ascii?Q?+BtqEyKrBYZEvXrmil3hZtZmMZixN0raB23/154YnspwX9djTYdmL7QvhuIP?=
- =?us-ascii?Q?6d+yJRYFK/JNP2DIzBRKrqFkgLitX4Ca+LxbzDcR7EF2CfgvvkzNMZnwODM5?=
- =?us-ascii?Q?x7N+pouI6dBK9BHjXjHC/+ao0JYJWPIGlUgE2/74b55qUPJjNd2EOTO4MG0O?=
- =?us-ascii?Q?V4aB0oqGN49wpxWr+JzyGXXKvAGhugpA+rRmpQ8IAy8K9oPrCaHHOGt+5FrY?=
- =?us-ascii?Q?itmAEnxQiwERptm8RgxRMO0yrLBNwM8ueZmpyVaD0zFwfdCuMAPKoXFOdUAD?=
- =?us-ascii?Q?clNm1BocLJn7neU7Km+Tcp3vcAzbBrGehvQrphOO4pnnaTXmeT23Ew8P7DUS?=
- =?us-ascii?Q?/RJ9TmDijcW/guB1Qz2BOeMzQagC6O7vhNMPyPk/9h+5HN8ulEbNU0MrMjKL?=
- =?us-ascii?Q?vDFt0gADGrp8T7C9hgvHSNOqVd/UK3cIDzpjAljHyLwYpZYfZ/9PJb5rDgAt?=
- =?us-ascii?Q?lmsjuHeewAnd+S6UZlxm58J9q6YlfG37kz+ZV2PR58IxFzoWmuHQWn8PI7h9?=
- =?us-ascii?Q?aDoT5gqLXkSSkyERzHU1zvhUKXiY7ACwJkwKY/7qwwwMvCDOf6r0LeZogZxL?=
- =?us-ascii?Q?VWvVaKGxi+C2vnTlXFIwhCxOtYqlXB9QuJVuTReUfkZHRf5m66aJeFvocp1H?=
- =?us-ascii?Q?Da0VzrFdXiwbK0z8JnGwwSterqNUvTtehz/XNklODlvR8yvSVueTqmWPAWyt?=
- =?us-ascii?Q?0InOslWArfWkKscpIZiEmJh8DzQ60gQlKny82feZzoKCV/1HEEhkyjUBaUwS?=
- =?us-ascii?Q?tSCGcydHbXCsFFCLcnlhIgOp4J2B2tUuvttfmcJ0HwiALgusGZU28t18VwSI?=
- =?us-ascii?Q?F5PfrFM2p4Tt27IQq1uhG0hpKurifn+J65vheiOFYuPInKmxd0Ga2WMG4jil?=
- =?us-ascii?Q?bznN+sj3CQTZ2S9I833HAHiqFsBBRMWYEtSu23cUjiSJpw97FDxYkR45qEFa?=
- =?us-ascii?Q?RyDC80n1Vi9p7IHCAoCBEhMuOtwztHl1YmjXPQ8uKtvvn6DuUV23oSzTC/o4?=
- =?us-ascii?Q?xpCJ3iKIPHISZjLNsc00sZBV4DzgzQAYEp8QwyQUV5yzrKTpj92/cfFjITav?=
- =?us-ascii?Q?RFER/68CpuJX3hzdMXv7LGhjyGqRXuWIvPdlMaqOVwtKW1P5Tfn1GWoYZsgF?=
- =?us-ascii?Q?hB8MHW7oloV5EcpEtOMjd6bQmrq/anqBuKU85VfCpu5PRpz34X8fNFzrJQ3l?=
- =?us-ascii?Q?55KrP21gqepQIPy9SAAc7naLO/WPWJGWiKJRSSdu/zx/MpNAVirmMMj/9WKv?=
- =?us-ascii?Q?IMyqzuuOJAMB1Eg1i854b/rY/8uBexLuEDgBs6NAJaE8A1NYsuWJUGtUsDKU?=
- =?us-ascii?Q?1uEql8LWsVLY60vrRk7Eki8NvasXu8W9IuhOU1sVgYIJeDR2kcOac7xZn20/?=
- =?us-ascii?Q?Bk6CtFQnkw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYClZZp+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EED11F000FF;
+	Mon, 28 Sep 2026 07:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790580839;
+	bh=2kX1y+gkrcsHHcC9E2KZtg+MuiBNf/N48bFwpnhYoeM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NYClZZp+TxfnsyUx916D9XME2TBcY4THXSWp934cmknZE3QLC7GiCo6WydU2MbRrh
+	 BxYwMW7MeqRlcVd5ectlj6nWVemjXUix+NQ8WzqmyXc1Q8RUnkSX6f3jIHfUFoJqNY
+	 UBWkvaWQTUqY+w3UkirD8kYeoKrpohE1kwc1aPEY6+Y6VHg9hadGnzdS4c8gJWq7tc
+	 RuHpXbENaz5kcqoTiKDBoFcqWOg8/SqUP0zsGKAhMojDN9DylQnt5dNKO+GyaJvh7d
+	 saYjYQQ/k+DjVtCtcwnAGFvtPZCWI+rGm3lXeH6xO5AKWDgeT9AwD3HB0Ah6EhlJq0
+	 5C109zjzLL11A==
+Message-ID: <2782f081-b569-4be2-8649-832eca7b0475@kernel.org>
+Date: Mon, 28 Sep 2026 09:33:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5b063d1-fbb7-41fd-bf5b-08df1d32b4a2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 07:32:52.5710
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +gZ/O6NgXKNEVQgcDV5nYagm8hB5pwUdAcrN/AQXGylNbYvzD+AxBfyzG+ypF3flijhOjLaybr3WJ7wLrV2eAoUMzKQh6MwC8Wbjf7L/+KE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14824
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: rppt@kernel.org, peterx@redhat.com, surenb@google.com,
+ aarcange@redhat.com, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+ mhocko@suse.com, shuah@kernel.org, kirill@shutemov.name, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260926124145.2878520-1-donggeunyoo.kernel@gmail.com>
+ <20260926124145.2878520-2-donggeunyoo.kernel@gmail.com>
+ <20260927135439.094d75bc42414879a6e21c79@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260927135439.094d75bc42414879a6e21c79@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 9/27/26 22:54, Andrew Morton wrote:
+> On Sat, 26 Sep 2026 21:41:44 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+> 
+>> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+>> destination unchanged, so a uffd bit set on a write-protected or
+>> RWP-protected source lands in a destination VMA that was never
+>> registered for either.  Nothing clears it there, and userspace sees:
+>>
+>>  - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
+>>    while it is swapped out and after it is faulted back in.
+>>  - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
+>>    collapse scan bails on a swap entry with the uffd bit set.
+>>  - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
+>>    do_swap_page() carries the bit into the present PTE and, since the
+>>    destination isn't WP-registered, also makes it writable:
+>>
+>>    WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
+>>    Call Trace:
+>>     set_ptes+0x67/0xc0
+>>     do_swap_page+0x990/0xfe0
+>>     __handle_mm_fault+0x7d0/0xeb0
+>>     handle_mm_fault+0x9c/0x250
+>>     do_user_addr_fault+0x207/0x650
+>>     exc_page_fault+0x65/0x150
+>>     asm_exc_page_fault+0x26/0x30
+>>
+>> Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into
+>> one that isn't, on a page that is swapped out at the time.  It hasn't
+>> been seen in practice.
+>>
+>> A resident page doesn't carry the bit, because move_present_ptes() builds
+>> the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
+>> swap entry as well, then re-arm it if the destination is RWP-registered.
+>>
+>> The WP case has been there since v6.8, where UFFDIO_MOVE was added.
+> 
+> Thanks.  This is triggerable by unprivileged userspace, so can
+> reviewers please prioritize.
 
+I assume most production kernels don't have CONFIG_PAGE_TABLE_CHECK enabled in
+the config. And if enabled, not active at runtime.
 
-> -----Original Message-----
-> From: jiale yao <19888972804@163.com>
-> Sent: 28 September 2026 08:25
-> To: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Linus Walleij <linusw@kernel.org>; Andy Shevchenko <andriy.shevchenko=
-@linux.intel.com>; linux-
-> gpio@vger.kernel.org; linux-kernel@vger.kernel.org
-> Subject: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without =
-match data
->=20
-> [You don't often get email from 19888972804@163.com. Learn why this is im=
-portant at
-> https://aka.ms/LearnAboutSenderIdentification ]
->=20
-> At 2026-09-28 14:03:46, "Biju Das" <biju.das.jz@bp.renesas.com> wrote:
-> >Hi jiale yao,
-> >
-> >> -----Original Message-----
-> >> From: jiale yao <19888972804@163.com>
-> >> Sent: 26 September 2026 11:24
-> >> Subject: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
-> >> match data
-> >>
-> >> [You don't often get email from 19888972804@163.com. Learn why this
-> >> is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >>
-> >> Hi Biju,
-> >>
-> >> At 2026-09-26 18:07:14, "Biju Das" <biju.das.jz@bp.renesas.com> wrote:
-> >> >Hi,
-> >> >
-> >> >> -----Original Message-----
-> >> >> From: Jiale Yao <yaojiale02@163.com>
-> >> >> Sent: 25 September 2026 14:38
-> >> >> Subject: [PATCH] pinctrl: mcp23s08: reject devices without match
-> >> >> data
-> >> >>
-> >> >> A device bound through driver_override need not match an entry in
-> >> >> the driver tables. In that case
-> >> >> spi_get_device_match_data() returns NULL, but mcp23s08_probe()
-> >> >> later passes the result to the regmap setup and dereferences it whi=
-le setting up each device.
-> >> >
-> >> >I believe this is an invalid use case as the user trying
-> >> >driver_override and the probe returns error. Am I missing anything he=
-re?
-> >>
-> >> Yes, my commit message was not clear enough. This patch is intended
-> >> to fix a regression introduced by commit 2e44555b05c0, rather than to =
-make an unmatched device probe
-> successfully through driver_override.
-> >>
-> >> Before that commit, missing match data effectively resulted in type
-> >> 0, which fell through to the default switch case and returned -EINVAL.
-> >> Commit 2e44555b05c0 replaced the type value with an info pointer, but
-> >> the SPI path missed the corresponding NULL check before dereferencing
-> >> info->type. The I2C path preserved the previous error handling with
-> >> info->an
-> >> explicit NULL check after the same conversion.
-> >
-> >you are testing the driver with driver_override and your patch makes
-> >driver Probe failure. I do not understand the test case you are trying
-> >to achieve with driver_override.
-> >
-> >Can you please share some logs with driver_override that you planned to =
-test?
-> >
-> >Cheers,
-> >Biju
-> >
-> >>
-> >> Consequently, an unmatched device bound through driver_override used
-> >> to fail cleanly. It can now cause a NULL pointer dereference when a
-> >> valid spi-present-mask property is present. This patch restores the pr=
-evious failure behavior.
-> >>
-> >> >
-> >> >Can you please prepare a patch that makes the driver probe success
-> >> >by using driver_override Feature? Also please share some logs to see
-> >> >how it works in real device
-> >> >
-> >> >Cheers,
-> >> >Biju
->=20
->=20
-> The test is NOT intended to make an unmatched device probe successfully.
-> driver_override permits an explicit probe attempt; it does not guarantee =
-that probe must succeed.
-> The driver must still reject unsupported devices safely. The bug is that =
-it currently crashes instead of
-> returning an error.
->=20
-> I reproduced this deterministically with KASAN on arm64 QEMU.
-> The SPI device has an unmatched compatible and a valid microchip,spi-pres=
-ent-mask property, and is then
-> bound with:
->=20
-> echo mcp23s08 > /sys/bus/spi/devices/spi0.0/driver_override
-> echo spi0.0 > /sys/bus/spi/drivers/mcp23s08/bind
->=20
-> KASAN reports:
+I'd assume mostly only debug kernels have that config ever enabled. So it might
+be less problematic than it seems at first. (at least the WARNING bit)
 
-This is original issue.
-You want to now add driver_override feature.
+> 
+>> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+>> Cc: <stable@vger.kernel.org>
+> 
+> This should be whizzed into 7.3-rcX pretty promptly.
+> 
+> It's not really appropriate to give the selftest such treatment - I'm
+> never really sure how to handle that.  I guess I'll keep things as you
+> presented them - both for current -rc, [1/2] gets backported, [2/2]
+> does not.
 
-What is the log you get with your patch, probe failure?
+Make sense.
 
-Can't you make a patch for making probe working with driver_override featur=
-e
-that makes the device functional with driver_override?
+> 
+>> --- a/mm/userfaultfd.c
+>> +++ b/mm/userfaultfd.c
+>> @@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+>>  	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
+>>  	if (pgtable_supports_soft_dirty())
+>>  		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
+>> +	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+>>  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+>>  	if (userfaultfd_rwp(dst_vma))
+>>  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+>> -- 
+>> 2.53.0
 
->=20
-> KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-> pc : mcp23s08_probe+0x2f8/0x944
-> lr : mcp23s08_probe+0x190/0x944
-> Call trace:
->  mcp23s08_probe+0x2f8/0x944 (P)
->  spi_probe+0x1c0/0x2d8
->  really_probe+0x17c/0x5b8
->  __driver_probe_device+0x28c/0x350
->  device_driver_attach+0xa0/0x18c
->  bind_store+0xc4/0x13c
->  drv_attr_store+0x60/0x9c
->  sysfs_kf_write+0x170/0x1e8
->  kernfs_fop_write_iter+0x298/0x404
->  vfs_write+0x648/0x8cc
->  ksys_write+0xf0/0x1e0
->  __arm64_sys_write+0x70/0xa0
->  invoke_syscall+0x70/0x24c
->=20
->=20
-> spi_get_device_match_data() returns NULL, and mcp23s08_spi_regmap_init() =
-later dereferences info->type at
-> offset 16.
->=20
-> The patch only guarantees safety; it does not attempt to support unmatche=
-d hardware through
-> driver_override.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-If you don't want driver_override non functional
-What is the point of this patch, simply want to add some
-Code space in linux kernel?
-
+-- 
 Cheers,
-Biju
+
+David
