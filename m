@@ -1,89 +1,89 @@
 Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B08E4848A3;
-	Mon, 28 Sep 2026 08:40:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801B04349AB;
+	Mon, 28 Sep 2026 08:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584824; cv=fail; b=c2WN37STpU6diNh1ZkqK4/DB3vuNGJDH4aAetpIrnDYDbji0b9jDiQWyEv4IXxPkWf+6sMZmNsOOuO18JE9407fN4vOSTtZgffFEXTiORx5HXHdcCNPzMMMAwCw/+lXIsi1lBQRSi3J1BwCQBIWJqtWMWGDEZ07t84riKq5Vuro=
+	t=1790584835; cv=fail; b=aMaaEtZrtb5U+/tOpYJgrfA7YgUBAs+YIzgUlEtgcWXFWYTml929DFOFfMYPLVBTLlkSHhApdMLk5JeQmM8H1v1wArWHvQmYDu115CKQKjEnAwiCPg26mgkzPoVwo+9VcLpFkdxyj0zoQ14jYNDS8Owejgo401sH0g57wsBUEmo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584824; c=relaxed/simple;
-	bh=bHyrgmccRDpQFyOiDIHvX9nDdB1LAUylMxBcWzlwWOw=;
+	s=arc-20240116; t=1790584835; c=relaxed/simple;
+	bh=MToBVzGuCnJJkdcFCwbyUUt2fr/VOGBd/foVG7+gIOk=;
 	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID; b=b5i4QRvaDcQ8c5ruw9uHRQVMWG0yilHwXVZ5uWASym4ICsAWc/TKkR2lc6N58XU/wZXMFRk0Cg50THyuYuYSye0+8lj1CHtwHJSKLkAYvGxYIVkdseKcwvqzi0FqVEMAAFTB60NvODRRkXtk0LUNHLWHDJw5hWhQrILNczlcuaQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=jpnuEkN4; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=sPzzoNJM; arc=fail smtp.client-ip=148.163.154.28
+	 References:Date:Message-ID; b=Kf4rzH/sWFiwKNwEFrTFZKpAB3MUamFSDOXP8PJlyFfoTvGUm1PnddDnsh8yozZTsKC0ZU1gbHRmpJknaSlaqJd6w1JVsh9ycfqhS5Ok41zwh/f5PJZOkqNxaRCoADIVrMaeJ7/VRFhN9kOIrJtVA6BsigTNbyMuV80K7eLRlYU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=PPwjmO5X; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=pVIpPfrP; arc=fail smtp.client-ip=148.163.154.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="jpnuEkN4";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="sPzzoNJM"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="PPwjmO5X";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="pVIpPfrP"
 Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S80l0l976055;
-	Mon, 28 Sep 2026 03:40:13 -0500
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S80kX5976050;
+	Mon, 28 Sep 2026 03:40:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=GwJpyG1Ba+vc/Sb+Zo4Jf1ZgpcdN0FGRhA1MIL+pd
-	TE=; b=jpnuEkN4BOblk9AFozyo0S+2onrihoY9BFVdhK1Mjj5noBJRSlF3aARxQ
-	NC1WX/bbcP6rwKc5BUih79uoohqo53HhPOW2gCsf2pJ/+zexXwH8Z5NMoR4gwMeX
-	KCXWWYbBHuJYmDQkM4ERE9I0Q1cTfxveVEAql5fQLUbTQ68I0ScVCWivrUVlnisY
-	KtmA0Orw9T0WYKdVcyGRaoCoEySC2X4+s+m3GtXPUBaKNTPe81/bM234FHYGsctU
-	BHJj0IlQ3Z+wshkAzMEaEiVGXDxDqHgMegi2y5s/4Q72rOsEfUkcXkhwsKQTai+8
-	vlxLOfBCsQP4zxwh5HYj+OKaLQuaw==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012026.outbound.protection.outlook.com [40.93.195.26])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gxw6nvyp2-1
+	proofpoint-05-2026; bh=Map+t6Xm94//KKx5x7qls+d08aHXQwj97SUx1DrHg
+	C8=; b=PPwjmO5X8vqrticebt0QWe3KciMjQ/jk5okQfZckMhj/+3e4/jD7aAN0D
+	36hu/uWK4XEe/+Bzii5qv4ZhUzE4H4pzJ8ErJtbgeZTRqCam+nRRCNfjaCN5rsQ/
+	lwIRlb49tXJYI0XEvJmmVynHPPQ5DYDflj3ywJY+yGb0HP7HsKwTGaAWDX8TOtAz
+	ZRrQYermSx/zpPkfMWOiDjUmrG7kMBkCCH5RBrwSH0omdtZhi5t/QIAiihjkm5Vl
+	ulhsoF9EjxjhMSnvm6h5cRX7Hs9pU6CVqdpqTRjWSQ0C88h5wwi3XydrJSkqCJIk
+	jRAwcQp18/y7z4beaNP3Vq7mePOzw==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013004.outbound.protection.outlook.com [40.93.196.4])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gxw6nvyph-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 03:40:12 -0500 (CDT)
+	Mon, 28 Sep 2026 03:40:20 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vEH8uOixx4XobZU/LqQwbGvpTMS8UxBpwZc8LYzckd3IrrEcb1CyTV/BBRjeFohPKyrDpDKooefq9lliezMRjv29T2tttxuSmgaE0CwmcwaWO3pyoYDWS93CI5MOyxU9T4dEmfNmBuQuu+NcyVGCV98aNgx4W+pnXyQDmlJb/h41++khSDKS3wYQUjYd+c1ybswpctmzAYJf/w/jE4XGREyH5wackWEYkv+es5wd4wII3bw9jdv4YedrSBj7Q7IEZ9+AMXsWy2ArThDGP5mMditNMSEbXz/GEXmuehVwa5ZHxirqBoDj08WItQ7ImmzMxYGHNy4oZD8NHxtG30n53A==
+ b=uPBCfmQCrqVqbvd4NPvp1+DF48kzzwwd1HCrVTUdPzSszIjfkwvoDsQmXfGhmeWXWZF0nLKzEBFxGpIys1cDeuHYPlWrxeJDEF4qkPgA/FRWA8UU47HD2qPX9Gikwry3kURPdCCcmF9RgvrMN6hc5tYpa5r4zALBqzup3cR9V1wrugr22u5R/jn01+czmYO7nQS+vtcaWmqTH0PTS3xoI4wUZh2//jHBxZHE9v/9VGAUOo+OEquqPQyY7k2XIzwbry3uJBnT5iX6NgYOtJBBMM5JtgyI9KIVrM6jat2uOR7E7jOVq7Ibih+lRakkJJq7ZsWh+Pl3NMSjQmis6XJasA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GwJpyG1Ba+vc/Sb+Zo4Jf1ZgpcdN0FGRhA1MIL+pdTE=;
- b=G3wJHpL6qyQ75afjqX6H1kKQuzQxgDaILm9viLKGa24hYLkw38ntoT7h7PpLCOOsIpfZGIpwdXTeksoT9C3jMtgSDPIztFoTXh6Nopfby+SPNHkB5hCC6twvTeP8LJLOF/7Wq6Gu8u2SYkQ43n+671xKwC1EG6FNamDejhE0q6Jr+uXq+kc5X1KfJJRsiFE7tNZRYixPksV1b0aZBh9fcvgb8AlYx/ynuH3W24FiILNiYXQBlzOGLcH2dBH1YZg4rGlcuGJxPRhF0eAnC1vuDp0zYCigRGEd0jMqNx3iohHv1WrVBLNkqhrGtPUNdVvajmqV4bJ5I/C8rtMafk4H6w==
+ bh=Map+t6Xm94//KKx5x7qls+d08aHXQwj97SUx1DrHgC8=;
+ b=uVO5ig+Lh09+fiFOKL1dwY87JrGvM064F/sl44SOr2yxR+JNPanVSBGVUPluRqUsA9uK3DNf461M7RZrzUvz8ixRH9+q0PO0pYdFKVUoohXPnwl5vNuso/aoxyAUF0PZEhRpHyvysadhAFnvUW8upWumgYtnuslpbVCwn2BApA8QpRAO82Tz2v4wpSYpi+wa5kJoeplGdPZ/kIbHSqKkcwwe1a+M0nlRxZHDOqocK8ZLKWlMdJBzF1w05wxev+c1vwKs4qubBfnsi9cQr0HwDkGZMrqe2ZMmzOiK1rm7fN3+eU8BCF46yZGwQEpHY4InZsmDE73+d0rBzRoFT8oQ9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GwJpyG1Ba+vc/Sb+Zo4Jf1ZgpcdN0FGRhA1MIL+pdTE=;
- b=sPzzoNJMhJx9dr4u12jS+ictQylrN26qtTkkKF9aFwZ7Q7gM+ze/pMWvfNKcVB5T6vFgckvNFjnRIzzwz7D9JefJEGHYGOQc9GK/Rlvwz3mkna65RaWjKn6XI47wd/j28bLZGHARdXkb47I9dlQf+Rt/53QJHPq9qagKH8H1WSY=
-Received: from SN7PR04CA0169.namprd04.prod.outlook.com (2603:10b6:806:125::24)
- by SJ0PR10MB4749.namprd10.prod.outlook.com (2603:10b6:a03:2da::20) with
+ bh=Map+t6Xm94//KKx5x7qls+d08aHXQwj97SUx1DrHgC8=;
+ b=pVIpPfrPmC5W9E+EkZhW+Zd09UvGu1txIRjgKzlYhjgOy+gggTyNqBbHUnUFxMp9GiVoltINME1jsRjlfhPIEmI8T3k67jSgBCzju01OeC1tu+xShgMPX/gkmIMqNwijYEelt8FNq25VumnR7rBxLFq9Zr7CmFtzQl4o1tCds+o=
+Received: from MW4PR03CA0290.namprd03.prod.outlook.com (2603:10b6:303:b5::25)
+ by MW5PR10MB5807.namprd10.prod.outlook.com (2603:10b6:303:19a::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Mon, 28 Sep
- 2026 08:40:08 +0000
-Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:806:125:cafe::5e) by SN7PR04CA0169.outlook.office365.com
- (2603:10b6:806:125::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 08:40:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 08:40:17 +0000
+Received: from MWH0EPF000C6192.namprd02.prod.outlook.com
+ (2603:10b6:303:b5:cafe::3e) by MW4PR03CA0290.outlook.office365.com
+ (2603:10b6:303:b5::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
+ 28 Sep 2026 08:40:17 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ MWH0EPF000C6192.mail.protection.outlook.com (10.167.249.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 08:40:08 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 08:40:16 +0000
+Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 03:40:04 -0500
-Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:39:45 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 03:40:03 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:39:45 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 28 Sep 2026 03:40:03 -0500
+ Transport; Mon, 28 Sep 2026 03:39:45 -0500
 Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [10.24.50.130])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68S8dedh3686893;
-	Mon, 28 Sep 2026 03:39:59 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68S8dedd3686893;
+	Mon, 28 Sep 2026 03:39:41 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,8 +92,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 10/19] dmaengine: ti: k3-udma: refactor resource
- setup functions
+Subject: Re: [PATCH v10 01/19] dmaengine: ti: k3-udma: Fix sporadic crash
+ on AM62x
 From: Vignesh Raghavendra <vigneshr@ti.com>
 To: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 CC: <peter.ujfalusi@gmail.com>, <vkoul@kernel.org>, <robh@kernel.org>,
@@ -102,59 +102,59 @@ CC: <peter.ujfalusi@gmail.com>, <vkoul@kernel.org>, <robh@kernel.org>,
         <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <linux-arm-kernel@lists.infradead.org>, <vigneshr@ti.com>,
         <Frank.li@nxp.com>, <r-sharma3@ti.com>, <gehariprasath@ti.com>
-In-Reply-To: <20260928025749.1055383-11-s-adivi@ti.com>
+In-Reply-To: <20260928025749.1055383-2-s-adivi@ti.com>
 References: <20260928025749.1055383-1-s-adivi@ti.com>
- <20260928025749.1055383-11-s-adivi@ti.com>
+ <20260928025749.1055383-2-s-adivi@ti.com>
 Date: Mon, 28 Sep 2026 14:09:34 +0530
-Message-ID: <179058477460.77164.7431718785558039339.b4-review@b4>
+Message-ID: <179058477447.77164.7318036930112106591.b4-review@b4>
 X-Mailer: b4 0.16-dev
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|SJ0PR10MB4749:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d9db385-0b45-4968-e4a7-08df1d3c1a13
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6192:EE_|MW5PR10MB5807:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21c48e0c-ef53-4da3-b452-08df1d3c1ee1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|36860700016|82310400026|4143699003|6133799003|10067099003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|36860700016|82310400026|10067099003|56012099006|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	4/JK9atRDl1IAg8uU+beT2XCHgEViEn8qo1RpZINC8hFeigh+mkbTg2BfdITgk20uDBxgtgSIlLRcSK8ofTNt2NUVVDWpfHVgNyRfM5nt1lkb6blLD7nSo6SsoIBmonwJxsWFZBCfQx1bRRnyPaCcrqyxmch+AXuyl3Kh47+RoiKKmII/ZUIzqP19hiUosyIx4Y6uL9j49V+cbrHa5Rx+3cu3kzPy9ABOH08AsQpxrvBTo6HmnMvpJhML4p5ABXOe0mZQTOobOT/RoV0AVtYg/gPHlaTXRyS0bFRBq+Ke0iU/KoQtmMFk2Zko8CL7/O5v8duWqmwWP5sipElzlBFMiXY7jyXXQTta1A4e1epCSDsZHNPKyQEEntUFO/IAWmC7xIryXWjamPJzKryASLR1EVg5eqgXms/G0eM4SpogD4rkb4cub9lcfN5ty4vNQMMk++fE4BuTVklYrWWKMVrPBtP5g3RXWsmzfNayIw5v7s15sLqmxChDZu9hYU0IC6S5wsU+6OsTDDFY76NoqTI+06g/mYaEpHaHD7qzZZKAd72YHxAx5sYn1ndx2usl8jTav9e1yZ28m15xLbjZ7596YcIiR3ibdQy92/Yg+jp/srAp2uPrUh0SClV+dvt1BW+hxdMRSli+2y6qikJxX0ITmKo0Vh8ftTm/NVmYITjbNtHqPwFMXNx4XWIEuTiRGRA7r8nIZxBZucAAJXwIxAnsQ==
+	QAmPAsULDdNkRO4fOQ80bs/yCD60u3ppA47p1E6qBTIEZxzm3fOgE392hAJw9VumP5tQmHDFEbDNexGPhzzA3bYtb0YvoYc6sXJUej9p+e8EBUw1wmWWesWDhVzPogyDIvDpeyAIIgzHqLMMa4/Op08xBC+5qeBmzlN86k+KSxGHC8C2PaYaOp94Dkh0GPP3Fnt4D45rkeV4yGo615Oy7XyatXZF3OG9pk8EbOiU7G9DDdggUt1FKSDoREmofpI3piQHRG0sGf8369WhKw31G7Ojy8zlkSOrprUOWBVmGbsW6CtLe7qilxCiOdnwWH9m2JrzRUaeL+AZIsMUZcD+m6swsTVZ+0A794gyvL8OjDcyMTZez12zFvJC42+hciEvv07vH5kWKN6HukDQWawwo2NV1qONKZKSW9fhckumEwvhGRYu1DNIOnJ2AtMquRUUb2MQPNLlFf8XjCoKmoEepK8g29MJdK/eQ+Y832iqjvbVy63GDwLkXzHlyQMdAsW123GlTvqDlvEuQUxpLVOo96dCHzUmJOWjKu3+BjAtAgdlmvS3F4pg6RRBEFgqpzW6btB3xNX/GoLTapEFhk01gS64HM/7bQ4pOqsESXkCUTvMaK+lgcDN3fx/H7i2QAOF0vREK7OrZ9wNtTtfA/ODMuJcCGt3f9pYv++VXsXyWwo4KgG9p2NVFJ9tjm+Q3rmJdLlVNahJxlgK4+MVm0EnnQ==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(36860700016)(82310400026)(4143699003)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(36860700016)(82310400026)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	XQF0yiCV5YfwWFPWqv6u5BmlQj/FTIYAoMdUa4agmsEaesAFhefuPts3f01GhXHHycT9Sia004fGWNXWo1cLq8IqRsBF0AxXcgCCvsZaJV9dXx+TTsX3UxkU4t2XZiIAjM5PJuI/UrsKA5SjlcVvWHFeyNrJ0Xs1yRswINvNBTX4iENUsxegU8AgkVa5Zjk0WyPLcfxc3Z7croVzcNzp30G6SPZGtj95U5KJbOwaRMvfBS54NfW5AAvwr83DfgjdyHt9nmsJ2ed38AdMjnOnV36z1UaLCnWOrZqYpkgnQ65qRpdBoYuw/B8fJwzumwtYSca2aS7u6JqLpLS6BPFudeJSRHDdnnSWo0DAN5mg4qZwOrMNKDIsaCCc013dz+OQNnIRczGblDt55OZJdJOVGklEkLWelnL1C05stuzTbdj29g+1MWNr2XgwqO83rBzG
+	9cYqMc6D4EoPSkx8IhJAWKpd4rzvANTDwvKV3tA5aNSANU+xbYwclPEX/k81aGqJJnXac0Vc9mrUxF/RCPU8Eymo3R1FFkc9qsnNCipM266qKHS4IOBdQu7QO3DBbBjtjZg0dLLt3kA/ApwLEiwTr5d6B+AHG2uSREt45Acgt1YoA1KwVSn994IV8emQNqlhOa8VpdkI2RSzmm5EyGmyqKr12+WuaoH8Gqnkv70Y+Q/RyuewcSfXFI4RRBweUX91D6EORKIWmeFx+L2B8g6Lq0WXJapzWDKFEYodeCGqls1esNEthJRlmymOEbIteRZ2+Ecep97eoBWPBeg3PqGr2iBo/kcU/1jJenhk5hmfoWCYDIY7cQDSrhKgXUlFI9TLRFnMDE/QfFtY4AtiPbGYW07boDEyB+zt4CCrdqlbegzWim8PyJ8hfXlgV7f0PlDQ
 X-Exchange-RoutingPolicyChecked:
-	spKfHQkdv14Em7G9ha2RsZNBuy8XdU3Hd+NWhOl+VhcSDW8AGExtbrNVTtDu+Yz6dhScVF9aX1ShTimaN1ZpxFVUpq+Xb31w+n7qJgDESzfLHyNU5OpfTDKaYweH6HTzDUGJ+tNrZWtvrjUYmJh0N5Y+11SCfPcspe/+eRvtmDQkVBXSPkSjr4073hA4VzQr/2aYETN3Q2hUobxBDOD+BRxOWuvQjjqoNGwznpROwHVX6Qvutev/i3auqDId7PijLsnOArfgXXrwlfpanabRY6ZGXg9Ky31mI+Zq+PX/ZktBdCkEAw2Ae3ALRAnL76jU00EC29oupOPw3a6zUFhr6w==
+	CiZillX7QOiEWXOcS2mUcvdqEncMU+apW4G3TaCFi/XNAMyMtZXKcS/7rDGbrVFMGX9h9l7TDYLDhfIBM9waVncVj+tT2PgDqV/sKQ/jR0ZaZJMrd9CsOeA4UJBCvMzl3899YUQXJrTteMg3JAw/YA4TG7hcTEvaaGswzKc9x4GUokWitAykGOfm5d7zw6kVbkseLdvPXr/oGjSWf76io1FErk2r2BnoLfTz27KDd4TakTh5Og7IU2hGK5eIt5oR46Vplx+GvidpTbGdTJVRHvTdKEynSoljd30J/1pEcSAvGH+sP/1yugFWfBtHQtgaMUMpnViMvjnEAB1U+1hSzg==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:40:08.2188
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:40:16.1855
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d9db385-0b45-4968-e4a7-08df1d3c1a13
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21c48e0c-ef53-4da3-b452-08df1d3c1ee1
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B4.namprd05.prod.outlook.com
+	MWH0EPF000C6192.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4749
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNCBTYWx0ZWRfX5ol6R5gu0hp5
- u/3RB0rmISx76VXpVV3DEc8Lwm07uvPfpYELV23hXVLzmzwuQ9FPB6bLUdLjxWj8MexZp3/9nuK
- uhF/FJSxdO/SgNCJeYMJ+Of2OkEPPMU=
-X-Authority-Analysis: v=2.4 cv=dbkVTnXe c=1 sm=1 tr=0 ts=6aba27ec cx=c_pps
- a=d2CTHFLGvf7JoJ8RUfZBgg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5807
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNCBTYWx0ZWRfX6nuqlLdfK/3U
+ ddu+K8RNejokTCl4Vquz5yEs08EEwk7UzUn6ak3Kj8jtrvU+AQkAzBOJWfcKvo3q1/WnRFU0Y97
+ KVbjgBZeFURcg3Wb1T6003q0zkIrBhU=
+X-Authority-Analysis: v=2.4 cv=dbkVTnXe c=1 sm=1 tr=0 ts=6aba27f4 cx=c_pps
+ a=pKtxidU6TXaQx3FGc3VI+g==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
- a=CAiiH7kO6OUPDpZicL4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: E6vIgRIpG_edPQGxHUNO0BQFM7Y0bJpk
-X-Proofpoint-GUID: E6vIgRIpG_edPQGxHUNO0BQFM7Y0bJpk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNCBTYWx0ZWRfXw+QyXFWrZIu3
- hB+Re0S/6DqPtq/+6RFhoh6kRv16WiM6kkPel8PVQkPAGMTtPMIBsuhZbXXPkJwbl0Dq2KoNITO
- Y7XrShHqk1+3GF3oYOniBxqkHTQBz8e99ezmcWoRijOIkSb1ldv74B2aE2z1NBE6fvKFxVamCjt
- 2mExKHPYA/MEcEhGv2dkCjMOqQph90hwP6ISwxtea5VedE97PF72vWjeNfVI98HT2px3qEVkbfL
- ENSprIJB6ie1iwDe4N2fZ87tKzWDkBXa1XFCvjDN1sFm6a6VSr6WN5ILAQikBTlcaSncKgy5V3f
- kb5v/+TDHMqoYMGhIKRf8ndjPA4uqDpTwX/E/PAS0xqKbf6YQiVbGSUwRJ0DLG841utkpUkHQRZ
- Xt7bYh/UKHvEeMuN8S+59RTvMGcJUa8oNQRqSyz4G/jyJRPD8wX/VfJtaNTr7CzKPyyMko6kj36
- 7zhQWqCl3YcixovNucA==
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=KBxos3F8r-gWtpf3bNAA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: pqZmgSYkVA76QWuB1MdPEeLQ8U88VHIw
+X-Proofpoint-GUID: pqZmgSYkVA76QWuB1MdPEeLQ8U88VHIw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNCBTYWx0ZWRfX4jWBF1jym7Zd
+ 3jaX7hMfNDqnAbP5C8Ym8cAw7BdxPaCkLRyqsIOtBwHdOmHaKgdva4uzJlXxxTF819Ext9aMmmo
+ 9HY/Ckr8IIyfhvQ9SqiZqGzgoEmx48MJ/XBlF0NWCIcF9zduLmERku9qMLG1CFgXTh1SNJWiGtv
+ DA+qk8kAltnktY5lKByrnT4YTg5zmf+BiYsynttnuPztuUSaVk6t0h7aw0TF5rEzsLLl+W4PnZB
+ Kf1jEB1cko9H1Je5DgyNbCLoYi3mJsc2NabmBcSxZ3IaZL/yhf2qC5dpda43cffTu8pbxBPxltR
+ +FEaQJsqVaoLZGVwuVxdT6GbOHWWmJOzBeXrQ8T4gHc13yHaxNXtgAIXMi3x2wsJLqGnGBKlo22
+ YbnP/xbOnJAeBqvRj0/umRYmPDuyw53ZOp1VjJCDgwIkq025Vd/hHsT3JkZaHcbzRaRicLnobvJ
+ JwhNcABYx/NmJmPV39g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
@@ -164,168 +164,32 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280034
 
-> The implementation of setup_resources, bcdma_setup_resources and
-> pktdma_setup_resources is largely shared between all K3 UDMA variants
-> with the only major difference being SCI resources setup. So,
-> - Move the functions to k3-udma-common.c.
-> - Split SCI resource setup for bcdma and pktdma into separate functions
->   in variant specific driver (k3-udma.c).
-> - Add function pointers for setup_sci_resources in udma_dev and call
->   them as part of the actual resource setup implementations in
->   k3-udma-common.c to retain the existing functionality.
-> - Also since setup_resources call udma_setup_resources which is not
->   required for all K3 UDMA variants, Add a function pointer in udma_dev
->   and use that to call udma_setup_resources.
-> - Rename setup_resources to k3_udma_setup_resources to avoid polluting
->   global kernel namespace with generic symbol.
+> ring_init_data is declared on stack and thus can contain garbage which
+> can lead to k3_ringacc_dmarings use junk address for ringrt base leading
+> to below crash during ring pop
 > 
-> This refactor improves code reuse and maintainability across multiple
-> variants.
+> [    1.998239] cadence-qspi fc40000.spi: couldn't determine phase-detect-selector
+> [    2.532106] Unable to handle kernel paging request at virtual address ffff800081a84b98
+> [    2.540051] Mem abort info:
+> [...]
+> [    2.629987] Workqueue: events_unbound deferred_probe_work_func
+> [    2.635832] pstate: 800000c5 (Nzcv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [    2.642787] pc : k3_ringacc_ring_pop+0x48/0x94
+> [    2.647234] lr : udma_pop_from_ring+0x7c/0xb4
+> [...]
+> [    2.726250] Call trace:
+> [    2.728691]  k3_ringacc_ring_pop+0x48/0x94
+> [    2.732786]  udma_ring_irq_handler+0x34/0x218
+> [    2.737141]  __handle_irq_event_percpu+0x60/0x14c
+> [    2.741846]  handle_irq_event+0x4c/0xa8
 > 
-> No functional changes intended.
+> Fix this by explicitly initializing the variable to 0.
 > 
-> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+> Fixes: 017794739702 ("dmaengine: ti: k3-udma: Initial support for K3 BCDMA")
+> Signed-off-by: Vignesh Raghavendra <vigneshr@ti.com>
 >
-> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-common.c
-> index 34f8eab9ddb5..d0afbab01786 100644
-> --- a/drivers/dma/ti/k3-udma-common.c
-> +++ b/drivers/dma/ti/k3-udma-common.c
-> @@ -8,7 +8,9 @@
->  #include <linux/dmaengine.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/dmapool.h>
-> +#include <linux/of.h>
->  #include <linux/platform_device.h>
-> +#include <linux/soc/ti/ti_sci_inta_msi.h>
->  #include <linux/soc/ti/k3-ringacc.h>
->  
->  #include "k3-udma.h"
-> @@ -2334,5 +2336,203 @@ void bcdma_free_bchan_resources(struct udma_chan *uc)
->  }
->  EXPORT_SYMBOL_GPL(bcdma_free_bchan_resources);
->  
-> +static int bcdma_setup_resources(struct udma_dev *ud)
-> +{
-> +	int ret;
-> +	struct device *dev = ud->dev;
-> +	u32 cap;
-> +
-> +	/* Set up the throughput level start indexes */
-> +	cap = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
-> +	if (BCDMA_CAP3_UBCHAN_CNT(cap)) {
-> +		ud->bchan_tpl.levels = 3;
-> +		ud->bchan_tpl.start_idx[1] = BCDMA_CAP3_UBCHAN_CNT(cap);
-> +		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
-> +	} else if (BCDMA_CAP3_HBCHAN_CNT(cap)) {
-> +		ud->bchan_tpl.levels = 2;
-> +		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
-> +	} else {
-> +		ud->bchan_tpl.levels = 1;
-> +	}
-> +
-> +	cap = udma_read(ud->mmrs[MMR_GCFG], 0x30);
-> +	if (BCDMA_CAP4_URCHAN_CNT(cap)) {
-> +		ud->rchan_tpl.levels = 3;
-> +		ud->rchan_tpl.start_idx[1] = BCDMA_CAP4_URCHAN_CNT(cap);
-> +		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
-> +	} else if (BCDMA_CAP4_HRCHAN_CNT(cap)) {
-> +		ud->rchan_tpl.levels = 2;
-> +		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
-> +	} else {
-> +		ud->rchan_tpl.levels = 1;
-> +	}
-> +
-> +	if (BCDMA_CAP4_UTCHAN_CNT(cap)) {
-> +		ud->tchan_tpl.levels = 3;
-> +		ud->tchan_tpl.start_idx[1] = BCDMA_CAP4_UTCHAN_CNT(cap);
-> +		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
-> +	} else if (BCDMA_CAP4_HTCHAN_CNT(cap)) {
-> +		ud->tchan_tpl.levels = 2;
-> +		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
-> +	} else {
-> +		ud->tchan_tpl.levels = 1;
-> +	}
-> +
-> +	ud->bchan_map = devm_bitmap_zalloc(dev, ud->bchan_cnt, GFP_KERNEL);
-> +	ud->bchans = devm_kcalloc(dev, ud->bchan_cnt, sizeof(*ud->bchans),
-> +				  GFP_KERNEL);
-> +	ud->tchan_map = devm_bitmap_zalloc(dev, ud->tchan_cnt, GFP_KERNEL);
-> +	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
-> +				  GFP_KERNEL);
-> +	ud->rchan_map = devm_bitmap_zalloc(dev, ud->rchan_cnt, GFP_KERNEL);
-> +	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
-> +				  GFP_KERNEL);
-> +	/* BCDMA do not really have flows, but the driver expect it */
-> +	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rchan_cnt),
-> +					sizeof(unsigned long),
-> +					GFP_KERNEL);
-> +	ud->rflows = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rflows),
-> +				  GFP_KERNEL);
-> +
-> +	if (!ud->bchan_map || !ud->tchan_map || !ud->rchan_map ||
-> +	    !ud->rflow_in_use || !ud->bchans || !ud->tchans || !ud->rchans ||
-> +	    !ud->rflows)
-> +		return -ENOMEM;
-> +
-> +	if (ud->bcdma_setup_sci_resources) {
-> +		ret = ud->bcdma_setup_sci_resources(ud);
-> +		if (ret)
-> +			return ret;
-> +	}
 
-This needs to fail if ud->bcdma_setup_sci_resources is NULL for K3_UDMA_V1
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int pktdma_setup_resources(struct udma_dev *ud)
-> +{
-> +	int ret;
-> +	struct device *dev = ud->dev;
-> +	u32 cap3;
-> +
-> +	/* Set up the throughput level start indexes */
-> +	cap3 = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
-> +	if (UDMA_CAP3_UCHAN_CNT(cap3)) {
-> +		ud->tchan_tpl.levels = 3;
-> +		ud->tchan_tpl.start_idx[1] = UDMA_CAP3_UCHAN_CNT(cap3);
-> +		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
-> +	} else if (UDMA_CAP3_HCHAN_CNT(cap3)) {
-> +		ud->tchan_tpl.levels = 2;
-> +		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
-> +	} else {
-> +		ud->tchan_tpl.levels = 1;
-> +	}
-> +
-> +	ud->rchan_tpl.levels = ud->tchan_tpl.levels;
-> +	ud->rchan_tpl.start_idx[0] = ud->tchan_tpl.start_idx[0];
-> +	ud->rchan_tpl.start_idx[1] = ud->tchan_tpl.start_idx[1];
-> +
-> +	ud->tchan_map = devm_bitmap_zalloc(dev, ud->tchan_cnt, GFP_KERNEL);
-> +	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
-> +				  GFP_KERNEL);
-> +	ud->rchan_map = devm_bitmap_zalloc(dev, ud->rchan_cnt, GFP_KERNEL);
-> +	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
-> +				  GFP_KERNEL);
-> +	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rflow_cnt),
-> +					sizeof(unsigned long),
-> +					GFP_KERNEL);
-> +	ud->rflows = devm_kcalloc(dev, ud->rflow_cnt, sizeof(*ud->rflows),
-> +				  GFP_KERNEL);
-> +	ud->tflow_map = devm_bitmap_zalloc(dev, ud->tflow_cnt, GFP_KERNEL);
-> +
-> +	if (!ud->tchan_map || !ud->rchan_map || !ud->tflow_map || !ud->tchans ||
-> +	    !ud->rchans || !ud->rflows || !ud->rflow_in_use)
-> +		return -ENOMEM;
-> +
-> +	if (ud->pktdma_setup_sci_resources) {
-> +		ret = ud->pktdma_setup_sci_resources(ud);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-This needs to fail if ud->bcdma_setup_sci_resources is NULL for K3_UDMA_V1
+Please add your Signed-off-by as well
 
 -- 
 Vignesh
