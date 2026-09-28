@@ -1,195 +1,250 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600FE356760
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE0133A6F2;
+	Mon, 28 Sep 2026 03:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790566772; cv=none; b=BW+ufRUSUEb1+8ef66mCGdKpxwC75/WREimfRRq1FK5Dmm4UZVnRv9/EjCsfedoOT+6HiEL+Ht5cZV713fcp22U/FHzcpaLHCYcQZcc89fjsuZwr0/lCVq0d4065uPJuqUqkih7hHSHijO9A5nNYVexb+OAp05+0jRa+O+KgfQc=
+	t=1790566797; cv=none; b=t7hk2SjryFYhxsXvJUwuxG9Q0Dnvb73JFtLI0cvRRZRZMajg94mbw+UsRJxZFLu8GssgstAOa9gEyK7NZzSId9DkK0cInpmjlWF7+h//RnBBV2R0+dPnNMclWm0eozGZjzOhGb9Le0KhXzIvV7OX65pibbwdZKyy5qbKtRQuFGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790566772; c=relaxed/simple;
-	bh=kxs2ChAqdr9Vuh0TMe9O9iozN0Jgi4CBJP2zi/0AXXo=;
+	s=arc-20240116; t=1790566797; c=relaxed/simple;
+	bh=wAMMCyp5TfDEMDYqWktmw2U7qML9DPECCl4ABlXnjWc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZZgi4ezdUyKjWpI3+FQ78NGLdEM0obfuTg9G0bo4jBSjTxGUVRnI9QKpGBQKMn9ugbHOa8Io1MTqq8OgZUHCI8d0NchjDudFsTiYp+dU6vIG9UInRaFawU+EUhK+Loz62alD5c1tUrzAk2aWkAkVjV/ELhF2WrS8KweEiYj5zXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wg2Jd4ck; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wg2Jd4ck"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790566770; x=1822102770;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=kxs2ChAqdr9Vuh0TMe9O9iozN0Jgi4CBJP2zi/0AXXo=;
-  b=Wg2Jd4ck46n6Dt2BGX7jLo/NQCsDp5hUQ2cb/SXmdkjdP7Dv7WzBTf6x
-   mhN1cABAQqm+2AOVjZGlBleb0z4agjvIZZxrybvW/xM5XDYkYrXYlSQAH
-   G2ke8r0XuHH3UycYFTV0rALFady3efAtNnNrWnm5NqqIg2+AZ/EFzK0EL
-   wozhGjJ1TgaoBf0YT48MtX3yc7NCqFksq10I+ysAwfKNuoWc2GgL8LTZt
-   IH0gnjXycyDkTGzipQzvNCrzG4Sug1qhYVfqQAAVtBvg19/rdW5LlQpK8
-   PES0k1t3zISC97cPbebotvnIHXzU2zZ1W3dQ4tySAB+Lg0iwpS2eWbCYu
-   w==;
-X-CSE-ConnectionGUID: i7sFxcShQgujXJNEtN2ADw==
-X-CSE-MsgGUID: NyO73dPISVC0sAx1HJE3Dw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101917233"
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
-   d="scan'208";a="101917233"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 20:39:30 -0700
-X-CSE-ConnectionGUID: k4IcTJoxRLKGv6gIHP+/zw==
-X-CSE-MsgGUID: fglChjFPSKGpQVO2jrvXlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
-   d="scan'208";a="283004119"
-Received: from allen-box.sh.intel.com ([10.239.48.101])
-  by fmviesa005.fm.intel.com with ESMTP; 27 Sep 2026 20:39:28 -0700
-From: Lu Baolu <baolu.lu@linux.intel.com>
-To: Joerg Roedel <joro@8bytes.org>
-Cc: Guanghui Feng <guanghuifeng@linux.alibaba.com>,
-	Zhenzhong Duan <zhenzhong.duan@intel.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 9/9] iommu/vt-d: Fix IQE handling to cover all descriptors in submission range
-Date: Mon, 28 Sep 2026 11:27:22 +0800
-Message-ID: <20260928032722.2868623-10-baolu.lu@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928032722.2868623-1-baolu.lu@linux.intel.com>
-References: <20260928032722.2868623-1-baolu.lu@linux.intel.com>
+	 MIME-Version; b=BJztI/VA7bR7z9EU4EUg4NXvuCBNu2GwO354/aXC6DaKwLnNnYBElSEQ9x5T5DtN/TW3v1XVGF/q6sbPRFRqieUnckIoAMDIbYVfnzLQYkDqM2pprcwtvVZfgUT1QAQHMpjDstf+ua6I0nRC2QPVjXsLFDfvgtFtz/MSzvRQwM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: zesmtpgz9t1790566743tb1bb5d6e
+X-QQ-Originating-IP: KFm5g+qhLkAUu8wM7uDU3cCGy3YX6HqL9aYUIifj6/E=
+Received: from nic-Precision-5820-Tower ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 28 Sep 2026 11:39:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8139908005162700617
+EX-QQ-RecipientCnt: 11
+From: Dong Yibo <dong100@mucse.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dong100@mucse.com,
+	yaojun@mucse.com
+Subject: [PATCH net-next v14 4/5] net: rnpgbe: Add receive mode support
+Date: Mon, 28 Sep 2026 11:38:59 +0800
+Message-ID: <6E780505C6AAB4EB+20260928033859.1033428-1-dong100@mucse.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <0A4D45AD9F6A0F14+20260928033701.1033196-1-dong100@mucse.com>
+References: <0A4D45AD9F6A0F14+20260928033701.1033196-1-dong100@mucse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: MNJPayNksrvk7s4X2fMrwQe1pIXd0tuCZhb9VEvvN1FESFpl+jLVG63e
+	5FwcEaL3dp0syvZsHTZNW1vCkpNOMxdzepEIamrhBh1LR1unfiNY839YA5bS4GkGvYj4oW4
+	TkIVMzLHu2XV0pvjMwFOQiqg6Ghxs4QDsD/k05yv1LZD1Kyy+CMhsdzwKs0MCH49DQFHL1p
+	4oZG3l3wJsiCuk2gF+kuA8JZyc82scKKej5W5ul8IX/ep0yOdCpZbxQhNrcomL+3DyeeKjh
+	bJtPolq6eKpBmf8BoT0bUpv9FtTqPaMl/b7rO4MswcqQvA7uKp/aSF8dcvTZcAtp07u9hgj
+	aVhknk9lx7dVQAaSHBPSi+8DvU/2IYxkxcH7OAyK2BchRt7jaegtb+MtIta4bfOabJgkBbX
+	KPrUQm3jApkz00g8XETuHKF2fOfQ6K6ZdR9l//MGXWPRQQWjpInV5+Il+Utf2+IhF+AelU1
+	6HUP9bx4V2+sJOuSCVPzZm7rbMfOoaOfrVDFrqKTAZY1Hh8EeWk+h2KXF1pzKHj2SbKzs2u
+	xTqf5imdSD7D+iHVzxhKSqdbTBm3lviVgw5sY9P71ifyeER6YQ9KyoyxXDfU24S0ogF6FB7
+	vI6W1l0fXCgyrqKSuVYSowPSTo/JCGtS1ZkUM+bbU4QyFSLz18j1XOBJn4d69BU/78FNbPb
+	GlfTcX+zhEevgeIf093JzT7iga9H666AI26K2D/aqMFWE4dgo7O2SJdENsMh3dUE4nwOEoz
+	JV4VeLV3kMNDJ4oESBo3f68S6XgTnqmy10Pei6aJK6Vlw7u786cZMoogpG6BaIWwIDAuBGO
+	zKylAip5UfpgWb/B6DFYNLPYNrCaYQKVACAVHaGvR5n1CC6byom4TLWOcBm+jKDE/4bYkFO
+	6s8zbsMgb/JAf5JCrcg4tofDIJYebZKEeqROP5BVHihWN9LFiaje7Ad0a9+BR5yVlUQzTxL
+	1Ir77TnIuMfCzevGHHMqKFLmmy6P3rRxeyvFCHI9oPYRZ9+DwD0xDekSER2+2cbx6tlZPh0
+	9hsPiojlZIOYhRuEuvhjsv6Fos2sKpJbiAdF/IY+X+NBfsM16pBR93+VTKe477e/LZTXm8I
+	LTar0OFD3KjP0zxHASu+tunjGkWO1OQv8e38gQIKqJo
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Add chip-level receive filtering and the ndo_set_rx_mode callback.
 
-When an Invalidation Queue Error (IQE) occurs, hardware halts fetching
-and IQH points at the faulting descriptor. The previous code only
-checked whether IQH matched the first descriptor index of the current
-submission, missing faults on any other descriptor within the batch.
+Program the primary and additional unicast addresses into the available
+RAR entries, and use the 4096-bit multicast hash table for multicast
+addresses. Advertise RAR-based secondary unicast filtering to the
+networking core, so it does not force promiscuous mode for a non-empty
+secondary unicast list. Fall back to accepting all unicast addresses if
+the RAR table is exhausted, and handle IFF_PROMISC and IFF_ALLMULTI
+through the chip-level filter control register.
 
-Expand the check to cover the entire submission range [index, wait_index],
-accounting for circular wrap-around.
-
-Furthermore, after detecting IQE, the old recovery only replaced the
-single faulting slot with a copy of the wait descriptor and immediately
-returned -EINVAL. This left two problems:
-
-  a) Hardware resumed fetching and could hit another invalid descriptor
-     in the same abandoned batch, raising a second IQE that no submitter
-     would claim — permanently deadlocking the queue.
-
-  b) The caller reclaimed all batch slots (QI_FREE) while hardware might
-     still be asynchronously processing descriptors from that batch,
-     allowing concurrent overwrite and descriptor corruption.
-
-Fix both by introducing qi_drain_remaining_descs(): upon IQE detection,
-overwrite the stranded slots in [IQH, wait_index) with fenced no-op wait
-descriptors, resubmit the wait descriptor at wait_index, clear IQE, and
-spin until hardware signals QI_DONE (with DMAR_OPERATION_TIMEOUT). This
-guarantees hardware has fully drained the batch before the caller
-reclaims slots.
-
-Fixes: 8a1d82462540 ("iommu/vt-d: Multiple descriptors per qi_submit_sync()")
-Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+Signed-off-by: Dong Yibo <dong100@mucse.com>
 ---
- drivers/iommu/intel/dmar.c | 70 ++++++++++++++++++++++++++++++++------
- 1 file changed, 60 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  1 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_chip.c   | 75 +++++++++++++++++++
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h | 15 ++++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   | 12 ++-
+ 4 files changed, 100 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08cd20..6377ba97a9ea 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -1344,6 +1344,49 @@ static void qi_dump_fault(struct intel_iommu *iommu, u32 fault)
- 	       (unsigned long long)desc->qw1);
- }
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
+index 84e8b058aff4..d017bd94cf88 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
+@@ -233,6 +233,7 @@ int rnpgbe_send_notify(struct mucse_hw *hw,
+ 		       bool enable,
+ 		       int mode);
+ int rnpgbe_init_hw(struct mucse_hw *hw, int board_type);
++void rnpgbe_set_rx_mode(struct net_device *netdev);
  
-+static int qi_drain_remaining_descs(struct intel_iommu *iommu, int head,
-+				    int wait_index)
+ /* Device IDs */
+ #define PCI_VENDOR_ID_MUCSE               0x8848
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+index 291e77d573fe..4e2835b71f32 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+@@ -149,3 +149,78 @@ int rnpgbe_init_hw(struct mucse_hw *hw, int board_type)
+ 
+ 	return 0;
+ }
++
++static void rnpgbe_set_rar(struct mucse_hw *hw, u32 index, const u8 *addr)
 +{
-+	struct q_inval *qi = iommu->qi;
-+	int shift = qi_shift(iommu);
-+	struct qi_desc wait_desc = {};
-+	struct qi_desc nop_desc = {};
-+	cycles_t start;
++	u32 rar_low, rar_high;
 +
-+	nop_desc.qw0 = QI_IWD_FENCE | QI_IWD_TYPE;
-+
-+	wait_desc.qw0 = QI_IWD_STATUS_DATA(QI_DONE) | QI_IWD_PRQ_DRAIN |
-+			QI_IWD_STATUS_WRITE | QI_IWD_FENCE | QI_IWD_TYPE;
-+	wait_desc.qw1 = virt_to_phys(&qi->desc_status[wait_index]);
-+
-+	while (head != wait_index) {
-+		memcpy(qi->desc + (head << shift), &nop_desc, 1 << shift);
-+		head = (head + 1) % QI_LENGTH;
-+	}
-+
-+	WRITE_ONCE(qi->desc_status[wait_index], QI_IN_USE);
-+	memcpy(qi->desc + (wait_index << shift), &wait_desc, 1 << shift);
-+
-+	/*
-+	 * Order the descriptor rewrites before the writel() that restarts
-+	 * the fetch engine.
-+	 */
-+	wmb();
-+
-+	writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
-+
-+	start = get_cycles();
-+	while (READ_ONCE(qi->desc_status[wait_index]) != QI_DONE) {
-+		if (DMAR_OPERATION_TIMEOUT < (get_cycles() - start)) {
-+			pr_err("Timeout draining invalidation queue after IQE\n");
-+			return -ETIMEDOUT;
-+		}
-+		cpu_relax();
-+	}
-+
-+	return 0;
++	/* The RAR stores the Ethernet address in reverse byte order. */
++	rar_low = (u32)addr[5] | ((u32)addr[4] << 8) |
++		  ((u32)addr[3] << 16) | ((u32)addr[2] << 24);
++	rar_high = (u32)addr[1] | ((u32)addr[0] << 8) |
++		   RNPGBE_RX_RAR_VALID;
++	mucse_hw_wr32(hw, RNPGBE_RX_RAR_HIGH(index),
++		      rar_high & ~RNPGBE_RX_RAR_VALID);
++	mucse_hw_wr32(hw, RNPGBE_RX_RAR_LOW(index), rar_low);
++	mucse_hw_wr32(hw, RNPGBE_RX_RAR_HIGH(index), rar_high);
 +}
 +
- static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
- {
- 	u32 fault;
-@@ -1366,18 +1409,25 @@ static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
- 	 * is cleared.
- 	 */
- 	if (fault & DMA_FSTS_IQE) {
-+		int head_idx, ret;
++static void rnpgbe_clear_rar(struct mucse_hw *hw, u32 index)
++{
++	mucse_hw_wr32(hw, RNPGBE_RX_RAR_HIGH(index), 0);
++	mucse_hw_wr32(hw, RNPGBE_RX_RAR_LOW(index), 0);
++}
 +
- 		head = readl(iommu->reg + DMAR_IQH_REG);
--		if ((head >> shift) == index) {
--			struct qi_desc *desc = qi->desc + head;
-+		head_idx = (head >> shift) % QI_LENGTH;
++void rnpgbe_set_rx_mode(struct net_device *netdev)
++{
++	u32 mcast_hash[RNPGBE_RX_MCAST_HASH_ENTRIES] = {};
++	u32 mcast_ctrl = RNPGBE_RX_UCAST_TABLE_EN;
++	u32 filter_ctrl = RNPGBE_RX_FILTER_BCAST;
++	struct netdev_hw_addr *ha;
++	struct mucse_hw *hw;
++	struct mucse *mucse;
++	int rar = 1;
++	u16 hash;
++	int i;
 +
-+		/*
-+		 * The faulting descriptor can be anywhere within the current
-+		 * submission's range [index, wait_index]. Since the queue is
-+		 * circular, this submission may wrap around QI_LENGTH
-+		 * (index > wait_index in that case), so check both the
-+		 * non-wrapped and wrapped cases of the range.
-+		 */
-+		if (index <= wait_index ?
-+		    (head_idx >= index && head_idx <= wait_index) :
-+		    (head_idx >= index || head_idx <= wait_index)) {
-+			ret = qi_drain_remaining_descs(iommu, head_idx, wait_index);
-+			if (ret)
-+				return ret;
++	mucse = netdev_priv(netdev);
++	hw = &mucse->hw;
++
++	/* RAR 0 always holds the interface's primary unicast address. */
++	rnpgbe_set_rar(hw, 0, netdev->dev_addr);
++
++	netdev_for_each_uc_addr(ha, netdev) {
++		if (rar == RNPGBE_RX_RAR_ENTRIES) {
++			filter_ctrl |= RNPGBE_RX_FILTER_UCAST_ALL;
++			break;
++		}
++
++		rnpgbe_set_rar(hw, rar, ha->addr);
++		rar++;
++	}
++
++	for (; rar < RNPGBE_RX_RAR_ENTRIES; rar++)
++		rnpgbe_clear_rar(hw, rar);
++
++	if (netdev->flags & IFF_PROMISC) {
++		filter_ctrl |= RNPGBE_RX_FILTER_UCAST_ALL |
++			       RNPGBE_RX_FILTER_MCAST_ALL;
++	} else if (netdev->flags & IFF_ALLMULTI) {
++		filter_ctrl |= RNPGBE_RX_FILTER_MCAST_ALL;
++	} else {
++		/* MTA type 0 uses ((addr[4] << 8) | addr[5]) & 0xfff. */
++		netdev_for_each_mc_addr(ha, netdev) {
++			hash = ((ha->addr[4] & 0xf) << 8) | ha->addr[5];
++			mcast_hash[hash >> 5] |= BIT(hash & 0x1f);
++		}
++
++		if (!netdev_mc_empty(netdev))
++			mcast_ctrl |= RNPGBE_RX_MCAST_HASH_EN;
++	}
++
++	for (i = 0; i < RNPGBE_RX_MCAST_HASH_ENTRIES; i++)
++		mucse_hw_wr32(hw, RNPGBE_RX_MCAST_HASH(i), mcast_hash[i]);
++
++	mucse_hw_wr32(hw, RNPGBE_RX_MCAST_CTRL, mcast_ctrl);
++	mucse_hw_wr32(hw, RNPGBE_RX_FILTER_CTRL, filter_ctrl);
++}
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
+index dc869051c8fa..3f103f93ac30 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
+@@ -26,5 +26,20 @@
+ #define RNPGBE_DMA_AXI_EN              0x0010
+ #define RNPGBE_TX_MIN_PKT_LEN          33
  
--			/*
--			 * desc->qw2 and desc->qw3 are either reserved or
--			 * used by software as private data. We won't print
--			 * out these two qw's for security consideration.
--			 */
--			memcpy(desc, qi->desc + (wait_index << shift),
--			       1 << shift);
--			writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
- 			pr_info("Invalidation Queue Error (IQE) cleared\n");
- 			return -EINVAL;
- 		}
++#define MUCSE_ETH_OFF(_n)              (0x10000 + (_n))
++#define RNPGBE_RX_RAR_LOW(_n)          MUCSE_ETH_OFF(0xa000 + 4 * (_n))
++#define RNPGBE_RX_RAR_HIGH(_n)         MUCSE_ETH_OFF(0xa400 + 4 * (_n))
++#define RNPGBE_RX_MCAST_HASH(_n)       MUCSE_ETH_OFF(0xac00 + 4 * (_n))
++#define RNPGBE_RX_FILTER_CTRL          MUCSE_ETH_OFF(0x9110)
++#define RNPGBE_RX_MCAST_CTRL           MUCSE_ETH_OFF(0x9114)
++#define RNPGBE_RX_RAR_VALID            BIT(31)
++#define RNPGBE_RX_FILTER_BCAST         BIT(10)
++#define RNPGBE_RX_FILTER_UCAST_ALL     BIT(9)
++#define RNPGBE_RX_FILTER_MCAST_ALL     BIT(8)
++#define RNPGBE_RX_MCAST_HASH_EN        BIT(4)
++#define RNPGBE_RX_UCAST_TABLE_EN       BIT(3)
++/* The final two of the 32 hardware RAR entries are reserved for NCSI. */
++#define RNPGBE_RX_RAR_ENTRIES          30
++#define RNPGBE_RX_MCAST_HASH_ENTRIES   128
+ #define RNPGBE_MAX_QUEUES 8
+ #endif /* _RNPGBE_HW_H */
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+index 21fa78c59e5b..73ee81f8b516 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+@@ -43,6 +43,10 @@ static int rnpgbe_configure(struct mucse *mucse)
+ 	if (err)
+ 		return err;
+ 
++	netif_addr_lock_bh(mucse->netdev);
++	rnpgbe_set_rx_mode(mucse->netdev);
++	netif_addr_unlock_bh(mucse->netdev);
++
+ 	return rnpgbe_configure_rx(mucse);
+ }
+ 
+@@ -140,9 +144,10 @@ static netdev_tx_t rnpgbe_xmit_frame(struct sk_buff *skb,
+ }
+ 
+ static const struct net_device_ops rnpgbe_netdev_ops = {
+-	.ndo_open       = rnpgbe_open,
+-	.ndo_stop       = rnpgbe_close,
+-	.ndo_start_xmit = rnpgbe_xmit_frame,
++	.ndo_open        = rnpgbe_open,
++	.ndo_stop        = rnpgbe_close,
++	.ndo_start_xmit  = rnpgbe_xmit_frame,
++	.ndo_set_rx_mode = rnpgbe_set_rx_mode,
+ 	.ndo_get_stats64 = rnpgbe_get_stats64,
+ };
+ 
+@@ -234,6 +239,7 @@ static int rnpgbe_add_adapter(struct pci_dev *pdev,
+ 	}
+ 
+ 	netdev->netdev_ops = &rnpgbe_netdev_ops;
++	netdev->priv_flags |= IFF_UNICAST_FLT;
+ 	rnpgbe_sw_init(mucse);
+ 	err = rnpgbe_reset_hw(hw);
+ 	if (err) {
 -- 
-2.43.0
+2.50.1
 
