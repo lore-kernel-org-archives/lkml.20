@@ -1,81 +1,93 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58AAF4E50CA;
-	Mon, 28 Sep 2026 15:08:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081AB4E4C51;
+	Mon, 28 Sep 2026 15:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608121; cv=none; b=hMVtKm6mfdiwkY25YBmg7xgHZhcxaIadB7CGsn05y4Ry+J+00Epmnh8lofd7CXbdVVA7cMlg1ML05GKnby2iL4msC8y1eakjlu7t45fN2Pgv3q5mV2D5LfDIZ4/mwQQ1nmzw/rF2YyVpchGBsSUdJXCZsVg/66GaoyKsmEgdPFY=
+	t=1790608134; cv=none; b=cQ5Tq39XUC/E/ucJTuEE7DjKU9ycmX5TOECeVcz4UrW4RSsTxC00CRP3aLme8BbC+WK+fbqwNQRjd5p/C5jTgC5IQx4lMgCLCMlS5lTnYUEb8n01Ot7nQWhQ7s+7lBY5rz8icd270bhdkBL6zmygDEbLuun0Juy3UOSbLPvjsec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608121; c=relaxed/simple;
-	bh=3VZr6MDWsDpzNsxFdLUEyGm21yc/UVToMdFZiG+TJog=;
+	s=arc-20240116; t=1790608134; c=relaxed/simple;
+	bh=2xkGA8aZKLllhVVJE91IdJDwl7ahKvtTwSPbi3DRxe4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q5VsO/I1Gjk0zYSFTVSDH5WIwA20LB350OLDu+MvoR8OxlS1JGHMeeuvyctFmleNgT63mvV98Ez4bYhcfx5B9MXgmMRnsxkamEUHE+xf83Vi/1uUXryHlUzxsZLZUMLOD3pxnbl3sZEC7I1oRrOOGODMDkT2pwi9GOrnLh/VCUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cNy/ix7N; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cK7uZjmwnPRmY8wys3C4BB/k3JOtKag1uMA4qHtbD2wMLpCjIlMYZkdvs40h5mCYNHjD0y1i1u8HghBqcEVk3FlBC1MhGt9dq6X1W0g9CzeOUBkic268t1GYnFwSiywilh1KUQHqa5oS7s1ibL9Uth+cq5j0XGzOPc7aodMfV38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrIN7/Fe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cNy/ix7N"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 194AD1655;
-	Mon, 28 Sep 2026 08:08:35 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A4E23F763;
-	Mon, 28 Sep 2026 08:08:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790608118; bh=3VZr6MDWsDpzNsxFdLUEyGm21yc/UVToMdFZiG+TJog=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cNy/ix7NniUBTAB0Lh+OcuWewevCXUiS6DxpuII7eOhS2jmCdDqzSQSu9YcEocwIC
-	 ojumWGLgfcdpqKF8XxT/0B0Y30tqMXHaGhdhCi2qIHP4guq0dJfTPCk/vFHyTSy3u/
-	 87DomGIsze/VZw2kZTmBENQBzk5/hZPbOS3KDZSU=
-Date: Mon, 28 Sep 2026 16:08:27 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>, Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 12/29] arm64: sysreg: Convert SPSR_ELx to automatic
- register generation
-Message-ID: <arqC65oRDWQ6GdXb@arm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-13-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrIN7/Fe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E681F000FF;
+	Mon, 28 Sep 2026 15:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790608132;
+	bh=v+86pY99f9Mrk7cH2S6hh0JxWIlKV8Q01gKUQP1sGWY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LrIN7/Fe/DLtQMb4ZNm93wXqsYFbgZeElpI+rGtZ5FEkbyc08On+5BqSICFngypW0
+	 Wn9r4L2c/HF0KZQ7YslHfXuHYGlPfwwdIW5cXwsawmYrOf7laDvSRI6o1UvU66SkTj
+	 Bowb75sMWKbVFCVdSw/ux/c6UddG0982SuKxFtH/XjiFy5fKm8tbW2J1/OCHMLE4c7
+	 BPMAr247e92qEKeQYtyEWtUedJhYtjxlkFWMVRH3kLjYsxrm89A6Ita0sfWwSaYvoD
+	 iVFXNE6CAou63jcv59q4fVednKg66VZhM2P6DJFBC8LlKVYY0/L6RlyKRa+o6lXRwE
+	 amU0fgU9l+z7g==
+Date: Mon, 28 Sep 2026 16:08:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Steam Lin <STLin2@winbond.com>, Santhosh Kumar K <s-k6@ti.com>
+Subject: Re: [PATCH 0/4] spi: spi-mem/mtd: spinand: Prevent SPI NAND
+ continuous reads on am65/am62
+Message-ID: <38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk>
+References: <20260326-winbond-v7-0-rc1-cadence-cont-read-v1-0-0d626e1dfb2b@bootlin.com>
+ <878qa7dzke.fsf@bootlin.com>
+ <87mrt177km.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UW2x+p4caSA0vA8C"
+Content-Disposition: inline
+In-Reply-To: <87mrt177km.fsf@bootlin.com>
+X-Cookie: All is fear in love and war.
+
+
+--UW2x+p4caSA0vA8C
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918133107.1042730-13-seiden@linux.ibm.com>
 
-On Fri, Sep 18, 2026 at 03:30:49PM +0200, Steffen Eiden wrote:
-> Convert SPSR_EL{1, 2, 12} to automatic register generation as per
-> DDIO616 2026-06. No functional change.
+On Mon, Sep 28, 2026 at 04:51:21PM +0200, Miquel Raynal wrote:
 
-What's this document? DDI0616 is the SME spec (also s/DDIO/DDI0/ -
-replace letter O with zero). Maybe use DDI0601 (system registers spec)
-or the Arm ARM, DDI0487.
+> It seems like the spi bits have not been applied, can you check if you
+> can still apply them? Without these, people using this controller with
+> continuous read capable devices may observe spurious issues hard to
+> debug (due to the CS possibly not being kept asserted during long reads,
+> leading to the continuous read being cancelled by the SPI NAND).
 
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+No, they don't apply to even v7.3-rc1.  I didn't see the immutable
+branch mentioned in:
+
+   https://lore.kernel.org/r/1FyLxEwWqNFzX@sirena.co.uk
+
+yet?
+
+--UW2x+p4caSA0vA8C
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6gv4ACgkQJNaLcl1U
+h9DudQf7BuWfGWihFlF2YkdCUNB4BRnTbzaO30+LUfjJ7Qwcy3qf7sS/X3hyPTuH
+WtJoIY+UOpk5OE3Jl1PuBbcZqV8cWokcXCwQCtHp/hROw1fLEHQH0UiKqABUe88C
+2x3PINQRmgINaSiImDEPzH+8epIU8d7v2TGEUwcXdNA7JAkFUZQrDoInDMeF+vDp
+68O14Y5djmpT3WLf53E0W0RtUXwAlyCz8v2/VcUs+EoOTaR+PzAkiF8+ef/Tuibp
+sYzA+bEMbBeqPegks8mItzFKIJA90Tflv+aVISYFkoJD7dC9BPCZVD3lIg7a0G5q
+CYlhzRU4XF+6P5DoHPLccd3TbHFP/w==
+=hVRM
+-----END PGP SIGNATURE-----
+
+--UW2x+p4caSA0vA8C--
