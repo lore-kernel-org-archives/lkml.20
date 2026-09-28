@@ -1,68 +1,68 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010068.outbound.protection.outlook.com [52.101.56.68])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010012.outbound.protection.outlook.com [52.101.85.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4141F49AA38
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A162149C4B2
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591489; cv=fail; b=obq0pcMiYwf5GQTZtR98ttJiKCn7HRJIBxNAfV790IIFzfGleBEBF9ZyPvl5cIHjXMEmyhvPMQl7ObJtMtZmIwIuOC12EzMB0sQzzMmQc2NHhjbSEjtkBCUqiCEJriCi1DipN831AZehhw16Ke9K/Myj7jabY5xbGElzjt/aRMw=
+	t=1790591490; cv=fail; b=GNiXJxASmv7xWL3zQM5iUM0Ls3nTxsq/V/7Brpk7xntVOJ7Oywo2b5aFT+lN6R1J2x4Ig3Je/whsWHZsbSN8sGRC7HSkZLW9B1Qxz5d4Ed3lElaRCX7Wei8zs2bXkwTX3w3VkJqaTXD6WJulmS6bP0eT7ea9s5yLPT+7/tUUZ8M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591489; c=relaxed/simple;
-	bh=iqglLZaV31JjSDroYuKpr+cK7tUETwS+L/7nWvrKobo=;
+	s=arc-20240116; t=1790591490; c=relaxed/simple;
+	bh=m49M8r0e/2sknWRFbT0smn7NmSLPO4qlSIe/FyAVW/M=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qTzkV9oReD0WlSETgv0t86pI97DwQDFv+svgyWtbDig+2G6otORyW9ofXPYOTz3GfcFy7nxS6XLZxcbZhNBs4V9E4eaNREBPiqfguYAZP1O9Dc2tgJ08sG0mar0xPz9wqnJDXnyKF0JJipxO3zCQtL8NeOnvu8Uh0DlxWcY/mts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Xm2L6Z7o; arc=fail smtp.client-ip=52.101.56.68
+	 MIME-Version:Content-Type; b=jWjOwYod4oswcKi9CDAAbYw911+3+cZ4sx0svR/vcFN7meDEFIJ+jN9GcLmZXFC2UeuOqyEsZ9WkdjYbUw0iEMkH4OwkOA837+dvxk220FjIIVfg4R3wR+crfji4Fo/p3ZhysPTUC35fKM/t/tABWGI44ShgUsMawMoKzIn/pvg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Znq/gdII; arc=fail smtp.client-ip=52.101.85.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Xm2L6Z7o"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Znq/gdII"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wSqNsxPfcdeTkA8oCyKN3b3WzZeeLz98YtST8vLTdwNC8dxNsOGKa72I6xdutU1evmZKTLpS2JHMiI6z42Id68PpbAfMUKq5BLex0zpFiGoq87IX8suDk36uiASOFx9lTMsxXIycM9G6WnLbo1mKCggYiXnglmyXi5HIM+G9Z/VkJefr4IINXfuKwozynC5aIEfQeeaemIPvKjbX1W9jwgyLVea1ZzoThA3BULi8F18ep0teoq3JuPsE74n+I/mSb7QGCe91mgvwvUUhWQ9ZoDND/QXUrdkE0zF33Q44emysVtaAKNGe7pPLoanT3PI8uoVz9jfbnlHOFj5ScKOpLA==
+ b=DIwmHIry8hXblPF72Gap2HhgYXH/MhuRh+UxhzdSTptIfJwGBM5touAXQy7/blGbgE2Rizqa10nnYsJ5Bu1eB6wsJJU3BKRyrSgw7R3Ej4lkYo9NveeN/zDXhMZE/wD/lM0h7ldVNnfI5v5GMqvdCPV2UvPO4mI1+UaLVb8p2LISw87vT8K/Oqv59/SNkW+O9OY4V+iDVPnhJyzqfk43MT/EuA5JQjPOLngVe2Yhp2TOU6yjePjB3sq2tHoDGTe4MNMEdhfHEY/x1WRftrycv2gEg1pPnoQW699HIS2rXLt0W+U6dPiNDkHcfPgWGhurDDsvcNzyBxZECTm3dqLzVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zHCxX0dn44GV5FZg3WHO33TmdX1AE1ka1zOeELEyZRE=;
- b=XFzKFymN8h1kN8zWRc+3yrKraZ3VfvVwkK9OYIvYfJpN8rXqCvPjBdsqYGqhh3tQdyPgSUAkKMKhIXrbcnqBWifr+fxxzn51JpitzszZ27ASZbAJVy4slRpe83Vkasb+NJV7F8k6DEjxraEIRpKxp/r3sD3cI4TW3b7+xjvzjnS053DQXvFD5gkbSwxHEOma2wIrKJRYneKyVELQ+EXiAqRIZm/yo1CjCqYPAU0jNLjOvYyqaEt/GUT7zTaALynTJoQHJCq3MKKp8cYq4UfvYFmWPCjOdEqlThZcFn76mVNiu7oORz47we9n5zvGkr41bukIUFDq+Z8L6FkL6gdzfA==
+ bh=aaFoyoMa8tiG2c741tDI11auumP92MoRSjf/69P7PbU=;
+ b=HmdtVjK79uOI537tAUnuoY2kWEdncyZ/na/AxjIJg7KjljLZU4hoLqkB3f7Ty3YO+kJRQRUJlQ+v7HFMH73kRVetR9fgSSt3tdmIAYkMlPmEqZWVY4j5h5XF9uZXjZYNtHX96nqu+8YwyP32W6BDvNTOAwZnK2dA4Wf5o70h7+LbI1VErULw1UQBgruKOvVMVGST36TfVVA9l+EVkopxI4DAgY91tg7CnpkQUZZP3YOy8Ect7HpXg7GAjCoSHevSCoC8NSwiVmkSZzTHabP8ohRhEswngnhFD+TNFRpTHBZfFZ/ES4MLgKWu93xOOjWHM5gsYS9cDvb2dBTQAheepA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zHCxX0dn44GV5FZg3WHO33TmdX1AE1ka1zOeELEyZRE=;
- b=Xm2L6Z7oAy5tZSIRt5m4f5zZ47sbozx/aSv5dLrSK3MRtD+3Ihz1/uyOeIaKXneHTRqk9rWBm7ekOMI11m49r64TQFOsEqWFDo+TF2VfB36m7GAzP39xlv10hFw0Ym/I6cO6TSk+M4IIPpmtE1qlDgxeo5vgpi0VJLwon4PocCMrcpAutcvmWETXYAqzN2pobG7o5SIfh3h80EOLIObVugCj8ClQzyionGwHH6GtN9dFuoTkBOFJIQ+XvzrAMrfYIZTPAnkXAd7QVceuHKPV5xFhKU7jMlX+DgNVHVCJtPBk5OOCnMRb7qv4HFW1DQ68D11YOPrzNKsasCqWeIuW8A==
-Received: from BN9PR03CA0128.namprd03.prod.outlook.com (2603:10b6:408:fe::13)
- by MW4PR12MB6732.namprd12.prod.outlook.com (2603:10b6:303:1ea::11) with
+ bh=aaFoyoMa8tiG2c741tDI11auumP92MoRSjf/69P7PbU=;
+ b=Znq/gdIIE/SE8A48wTHmkUADGYDUXbGv0X6ebIcL8OtaW/AD5GdkUVy6DYu8y0SH0zgFfk9q4NeWBa2Zmni11IfUy5BjMb2yCZAtN/kEHj58Zw1tQ1uJnmgkFbKanbnDQFm/KIYRI4zZo2tSA7KdVlO3/j+OWoE68+AmfDahudygVk6bdRTFwYIbjOZDrbRzx53uP73pvE69meGSogX+yXNTvYcrlfkpxbKBFnBAlujuz/oVtVq+r6aQcHkdwD8nZ9kGsmLuV0+Fzr5Vnv5DzptPlRmVoT8p5oia7b/ENQjSuYiH7uUxke49V7y76bRn71Zu18Eq4oC/QjJIWqKJXw==
+Received: from SJ0PR03CA0058.namprd03.prod.outlook.com (2603:10b6:a03:33e::33)
+ by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 10:31:21 +0000
-Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::b) by BN9PR03CA0128.outlook.office365.com
- (2603:10b6:408:fe::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 10:31:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 10:31:15 +0000
+Received: from MWH0EPF000C6195.namprd02.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::5) by SJ0PR03CA0058.outlook.office365.com
+ (2603:10b6:a03:33e::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 10:31:15 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000C6195.mail.protection.outlook.com (10.167.249.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:31:21 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:31:14 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:31:06 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:30:57 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:31:05 -0700
+ 2026 03:30:57 -0700
 Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:30:57 -0700
+ Sep 2026 03:30:49 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH v3 16/31] gpu: nova-core: gsp: factor out NVKV payload conversion
-Date: Mon, 28 Sep 2026 13:28:19 +0300
-Message-ID: <a35b63a24653a753c16efee63e3e762645e43ef0.1790580105.git.zhiw@nvidia.com>
+Subject: [PATCH v3 15/31] gpu: nova-core: vgpu: add VRAM slot allocator
+Date: Mon, 28 Sep 2026 13:28:18 +0300
+Message-ID: <668bb06e6fa996314d27b048e1df286b2795173f.1790580105.git.zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
 References: <cover.1790580105.git.zhiw@nvidia.com>
@@ -93,137 +93,256 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|MW4PR12MB6732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f1cd068-91b9-41bb-d2fb-08df1d4ba385
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6195:EE_|CH3PR12MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bcfceb7-73cb-43e8-d00c-08df1d4b9fbc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|11063799006|6133799003|10067099003|56012099006|22082099003|18002099003|3023799007;
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|7416014|36860700016|11063799006|56012099006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	g4CnBeoff+/+XCV+ZbjJBUEdqhSl8BxgJh74VIWGzFNK/W4Ai5wo36xNVinM/fRIUTHjsDr4y2Ft/7yiHbIZNcRyN2d7ShJqvR98inkVe7qfIEyv+xCGGYvx8UQ8MU0WN89SffPiYGyZ01EtOmHYEiz5qky5OXtOUxn9JF+OVT44MO4JfMD0YpJ4S3tG1fpJVQG8cGqHzTqXQyBT0lSZRhvWxC1/hDQ4jsr3gPjhS7kLLsirNONsgGG8MBeoGcLxTOiglTgWc8+xdgchuUW+q20Dfbp51JDTWXISrTJAma2Y+woAyaNahymdWXH3Rbuf4rI3rmpqbi+UZVTD1N2dLAOPu0oKH9MdXUVSCodGaf5M9UO+bwIVnArDVkaX9mnBJ/jWW/l1pts1q0IPp7SC/AhoHt73KbAv1SC/op8a4n5DwbS2YzyuoEF+kOW7w8BbUKGFKhEej4z8wIYntyhqAKeDIzo1zuLcvc4I1wwW3eeRxudDntQVvovyfBQN6rT3/YMJbYz5uw19llz/KXDscrUQjtpUM6epFm1MYV0XwUTrkkjcE9iYF8P9m/FWZTvVugY1N2MZUihOyqSrUbBCbxr0I/CmmzC5T2TgzWTkAyxuEBxSz37Vg5/v28x6vcxrW8QpvlzIGO8ncxCFgY8B0ZCx1/B4y5qoP6kbLG4/LEO0a7Y6PvcL+S+gLDs0aOISTD9op/Kp/PjeCp7U5vrKyA==
+	Ysibx/liZmH0nNrMlAiuqrPr6OBvNxGlr9GqYPEFuuYSxFCS/1XPJGHsGSsMKkCV+xyahP4Ww80Jy7MJTZSnXY63J+wAtu+6ubvr+mviETnNu2zqZZh8s3+WLnHXQzZqJLr4ULKfnoQJEAoCbToWjZqgfOCLGJB/wukcmDoj2IOZYltQkHe9pPvFb3vYKhhZKFQRhF/+FMiqN9Qvo8Bp2/9FZfUJYuZQB3zqzNe2vhC8vkqer8zZNGG4OBbu0GiFdpzHxyl9ir6crriS6SMF6fJaBixTzIdXMT0ES6Wz6KxGcC+lV3Zj4DGYm/KtUP3qMCgdLVSO72B44fMrcWBLux0/0sksIaf8GxeZ5DZvWLELYwG8jlYWLCFcQwANfXkzgJxh5vn/jhnuv1VwTmmbWT6C5tZOgMVjv2m7/j79/RbALPo3R5R+6Y/wSzOD4aPx0Hq2hlzRtc+tKRgrtu4iK0ZuYEyJc97bR/6Cj9jc56VYa2pcbPfGsybU/ZiNQldUx2iax0fu5bLk+EKtuF8kJPVsm3fTD/rSpNxBViO365jUeXd2THkV2GjLo+evrQdTG8svPpOZ9kqB+b/cbjULHDmtHTjDxeb5yKGHMrMKGv5Ot1ahc6tsH+JmYzgcPcOP3LsgHqsXdEkNwji8s3PVyZqjyNAnHzbYJGWfHcTnKE6SukMdC8yCLtQP42IdrL+/+V7MCyA301E7NkcNyIWi3g==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(11063799006)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(7416014)(36860700016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	RUyxmP1SoiqWzkjSZ7Chn2ghHAcJssNSV1HF7HpAMuRG4iPZizStMiVkUyP3l0gnTKkenPZUw0jLSa1+6wNAC2o/q9tSK+okrcISCddobSpS36ZfXRhMw1job/WzqXxfJ2UGimP0P5keQ3trhsBguSXjRKp3TPmBOBFgWs/7n/5LTcDtCzBN6BqccOYbdZh9+Fjvbql8fTU+JXVkbkW9cOp8ptYsv6A3dSVBgZcsbaudH6MoHjPeh5i328Ssp/nWc4wFQldlDtWNlZSIoLqhmL9Pi1v8wCM+bbflR6EKENwxTE5OczgPNODcsLLrd0vf3jQstUjl3ia99eSEt7Onj9U+jX3Ea/o0F5NMtgkuXWWPz0JJZdDzPO/lGBNC/tG/YzanFto1LpEuD3bPrnIKxYY2TDMZfu+HQ10cca4mcf/1vomq89nmjIx8ghYLv28M
+	bfvIkiEeyovfUyK/rQur/wdJ/jWVLwXhmeDMPUYiMnRRpHpQEqFlCKXE6L+ZIXwftVuy4iqEIFNp89bzKSd1Z2hCjgP0pSEQeJLmXjIWOiA1xe9AGzqbVqlzPmHx+UlmqbULz2t958y3TuD3ssKBa4QDOMUutoM7Yy/94JtuyjKpIy8lgbdVJowD9oMgvW9KAJpFrwCbffEPrR8pYF2eFo6dBOu1ohE0siOCQYwaAiHxcMY5OmkO07m6Mbx4LB7bhCJDqgeqOPHcuQ3mQ8ZLGmW6kI1FC3eFqp8nrEiTkXZ/GeGJKxkIpaJCF/40M9+ksFMUktDWx8NvuLNFDWNJPi0qjzs1X7hyRUONOib9pX+Qic+vM0qx3DuF/winy35HONb1OlFUAVRgW7puOLpMcoyd/0LfwiA6ZqN6OXHrlOFbgIh5UkdCLhaMH0bk54GX
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:31:21.1309
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:31:14.8570
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f1cd068-91b9-41bb-d2fb-08df1d4ba385
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bcfceb7-73cb-43e8-d00c-08df1d4b9fbc
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A9.namprd04.prod.outlook.com
+	MWH0EPF000C6195.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6732
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
 
-Both GSP initialization and vGPU property queries decode their replies as
-NVKV streams.
+From: Alok Kumar <alkumar@nvidia.com>
 
-Move the byte-to-word conversion helper into the NVKV module and make
-that module accessible to the vGPU firmware interface.
+A vGPU type specifies the guest VRAM and GSP plugin management-heap
+sizes for each instance. Allocating these regions independently fragments
+VRAM and does not preserve a stable layout for the vGPU type.
 
-No functional change is intended.
+Add a standalone slot allocator that reserves one exact VRAM range and
+tracks assignments in a shared, mutex-protected bitmap. Validate the
+vGPU type's layout and reject an allocation request whose layout differs
+from the active pool.
 
+Lay out all guest VRAM slots first and all management-heap slots
+second, pairing them by bitmap index. Require the guest VRAM stride and
+pool base to satisfy the required VMMU-segment alignment.
+
+Return an owned slot that clears its bitmap entry on drop. Keep the
+bitmap alive while slots exist and release the entry if constructing
+the VRAM regions fails. Require users to stop device accesses and remove
+mappings before dropping a slot.
+
+Signed-off-by: Alok Kumar <alkumar@nvidia.com>
+Co-developed-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp.rs          |  2 +-
- drivers/gpu/nova-core/gsp/commands.rs | 17 ++--------------
- drivers/gpu/nova-core/gsp/nvkv.rs     | 28 +++++++++++++++++++++++++++
- 3 files changed, 31 insertions(+), 16 deletions(-)
+ drivers/gpu/nova-core/vgpu.rs      |   1 +
+ drivers/gpu/nova-core/vgpu/vram.rs | 181 +++++++++++++++++++++++++++++
+ 2 files changed, 182 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/vgpu/vram.rs
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 3dbc37a3b35b..25b4bf6eb848 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -28,7 +28,7 @@
- pub(crate) mod cmdq;
- pub(crate) mod commands;
- mod fw;
--mod nvkv;
-+pub(crate) mod nvkv;
- mod regs;
- 
- pub(crate) use fw::{
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 97e32f81a39b..742e46efd413 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -22,6 +22,7 @@
-             GMCAPI_CMD_GSP_SUSPEND, //
-         },
-         nvkv::{
-+            nvkv_words,
-             Decoder,
-             Encodable,
-             EncodedStream,
-@@ -30,7 +31,6 @@
-         },
-         GspBootContext, //
-     },
--    sbuffer::SBufferIter,
-     vgpu::VgpuState, //
+diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
+index 5cd82adeb0f8..1402e37541b7 100644
+--- a/drivers/gpu/nova-core/vgpu.rs
++++ b/drivers/gpu/nova-core/vgpu.rs
+@@ -21,6 +21,7 @@
  };
  
-@@ -132,20 +132,7 @@ pub(crate) fn gsp_init(
- ///   or omits a required key, or the FIFO engine count exceeds the supported table capacity.
- /// - `ENOMEM` if the words or the decoded regions cannot be allocated.
- fn decode_gsp_init_reply(payload_0: &[u8], payload_1: &[u8]) -> Result<GspStaticInfo> {
--    const WORD_SIZE: usize = size_of::<u64>();
--
--    let len = payload_0.len() + payload_1.len();
--    if len % WORD_SIZE != 0 {
--        return Err(EINVAL);
--    }
--
--    let mut words = KVVec::with_capacity(len / WORD_SIZE, GFP_KERNEL)?;
--    let mut bytes = SBufferIter::new_reader([payload_0, payload_1]);
--    for _ in 0..len / WORD_SIZE {
--        let mut word = [0u8; WORD_SIZE];
--        bytes.read_exact(&mut word)?;
--        words.push(u64::from_le_bytes(word), GFP_KERNEL)?;
--    }
-+    let words = nvkv_words(payload_0, payload_1)?;
+ mod hal;
++mod vram;
  
-     let decoder = Decoder::new(&words, UnknownKeyPolicy::Ignore);
-     let mut schema = GspInitResponseSchema::default();
-diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
-index e7a9549919fb..05b1ba5a4f39 100644
---- a/drivers/gpu/nova-core/gsp/nvkv.rs
-+++ b/drivers/gpu/nova-core/gsp/nvkv.rs
-@@ -27,6 +27,34 @@
- };
- use zerocopy::Immutable;
- 
-+use crate::sbuffer::SBufferIter;
+ /// vGPU state detected during GPU construction.
+ #[derive(Debug, Clone, Copy)]
+diff --git a/drivers/gpu/nova-core/vgpu/vram.rs b/drivers/gpu/nova-core/vgpu/vram.rs
+new file mode 100644
+index 000000000000..65e6a945ea6f
+--- /dev/null
++++ b/drivers/gpu/nova-core/vgpu/vram.rs
+@@ -0,0 +1,181 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+/// Joins the two halves of a wrapped payload into the `u64` words an NVKV stream is made of.
-+///
-+/// # Errors
-+///
-+/// - `EINVAL` if the combined length is not a whole number of words.
-+/// - `ENOMEM` if the buffer cannot be allocated.
-+pub(crate) fn nvkv_words(payload_0: &[u8], payload_1: &[u8]) -> Result<KVVec<u64>> {
-+    const WORD_SIZE: usize = size_of::<u64>();
++//! VRAM slot allocation for vGPU instances.
 +
-+    // Each byte slice is at most `isize::MAX` bytes, so their sum fits in `usize`.
-+    let len = payload_0.len() + payload_1.len();
-+    if len % WORD_SIZE != 0 {
-+        return Err(EINVAL);
-+    }
++use kernel::{
++    bitmap::BitmapVec,
++    prelude::*,
++    sync::{
++        new_mutex,
++        Arc,
++        Mutex, //
++    }, //
++};
 +
-+    let mut words = KVVec::with_capacity(len / WORD_SIZE, GFP_KERNEL)?;
-+    let mut bytes = SBufferIter::new_reader([payload_0, payload_1]);
-+    for _ in 0..len / WORD_SIZE {
-+        let mut word = [0u8; WORD_SIZE];
-+        bytes.read_exact(&mut word)?;
-+        words.push(u64::from_le_bytes(word), GFP_KERNEL)?;
-+    }
++use crate::mm::{
++    vram::{
++        VramBlock,
++        VramRegion, //
++    },
++    GpuMm, //
++};
 +
-+    Ok(words)
++const VRAM_SLOT_MIN_ALIGN: u64 = 4096;
++
++#[derive(Clone, Copy, PartialEq)]
++pub(super) struct VgpuVramLayout {
++    pub(super) type_id: u32,
++    pub(super) max_slots: u32,
++    pub(super) fb_size: u64,
++    pub(super) heap_size: u64,
++    pub(super) fb_align: u64,
 +}
 +
- mod encode;
- pub(crate) use encode::*;
- 
++impl VgpuVramLayout {
++    fn validated(mut self) -> Result<Self> {
++        if self.max_slots == 0 || self.fb_size == 0 || self.heap_size == 0 {
++            return Err(EINVAL);
++        }
++        self.fb_align = core::cmp::max(self.fb_align, VRAM_SLOT_MIN_ALIGN);
++        if !self.fb_align.is_power_of_two() {
++            return Err(EINVAL);
++        }
++        if self.fb_size & (self.fb_align - 1) != 0
++            || self.heap_size & (VRAM_SLOT_MIN_ALIGN - 1) != 0
++        {
++            return Err(EINVAL);
++        }
++        Ok(self)
++    }
++}
++
++/// Slot bitmap shared by the allocator and its outstanding slots.
++#[pin_data]
++struct SlotBitmap {
++    #[pin]
++    used: Mutex<BitmapVec>,
++}
++
++impl SlotBitmap {
++    fn new(count: usize) -> Result<Arc<Self>> {
++        let used = BitmapVec::new(count, GFP_KERNEL)?;
++        Arc::pin_init(
++            pin_init!(Self {
++                used <- new_mutex!(used),
++            }),
++            GFP_KERNEL,
++        )
++    }
++
++    fn alloc(self: &Arc<Self>) -> Result<Slot> {
++        let mut used = self.used.lock();
++        let index = used.next_zero_bit(0).ok_or(ENOSPC)?;
++        used.set_bit(index);
++        Ok(Slot {
++            bitmap: self.clone(),
++            index,
++        })
++    }
++
++    fn is_empty(&self) -> bool {
++        self.used.lock().last_bit().is_none()
++    }
++}
++
++/// A slot that clears its bitmap entry on drop.
++struct Slot {
++    bitmap: Arc<SlotBitmap>,
++    index: usize,
++}
++
++impl Drop for Slot {
++    fn drop(&mut self) {
++        let mut used = self.bitmap.used.lock();
++        debug_assert_eq!(used.next_bit(self.index), Some(self.index));
++        used.clear_bit(self.index);
++    }
++}
++
++/// A VRAM slot that clears its bitmap entry when dropped.
++///
++/// All device accesses and mappings of its regions must end before dropping the slot.
++/// Clearing the entry locks a sleeping mutex, so dropping the slot may sleep.
++#[must_use]
++#[expect(dead_code)]
++pub(super) struct VgpuVramSlot {
++    pub(super) fbmem: VramRegion,
++    pub(super) mgmt_heap: VramRegion,
++    _slot: Slot,
++}
++
++pub(super) struct VgpuVramSlotAllocator {
++    backing: Arc<VramBlock>,
++    layout: VgpuVramLayout,
++    fb_region_size: u64,
++    slot_bitmap: Arc<SlotBitmap>,
++}
++
++#[expect(dead_code)]
++impl VgpuVramSlotAllocator {
++    pub(super) fn new(mm: &GpuMm<'_>, layout: VgpuVramLayout) -> Result<Self> {
++        let layout = layout.validated()?;
++        let max_slots = u64::from(layout.max_slots);
++        // Keep guest VRAM slots contiguous so each starts at `fb_align`;
++        // interleaving page-aligned heaps could misalign later slots.
++        let fb_region_size = layout.fb_size.checked_mul(max_slots).ok_or(EINVAL)?;
++        let heap_region_size = layout.heap_size.checked_mul(max_slots).ok_or(EINVAL)?;
++        let pool_size = fb_region_size.checked_add(heap_region_size).ok_or(EINVAL)?;
++
++        let slot_bitmap = SlotBitmap::new(usize::try_from(layout.max_slots).map_err(|_| EINVAL)?)?;
++        let backing = mm.alloc_vram_range(0..pool_size, VRAM_SLOT_MIN_ALIGN)?;
++        if !backing.address().is_multiple_of(layout.fb_align) {
++            return Err(EINVAL);
++        }
++
++        Ok(Self {
++            backing,
++            layout,
++            fb_region_size,
++            slot_bitmap,
++        })
++    }
++
++    pub(super) fn matches_layout(&self, layout: VgpuVramLayout) -> Result<bool> {
++        Ok(self.layout == layout.validated()?)
++    }
++
++    pub(super) fn alloc(&mut self, layout: VgpuVramLayout) -> Result<VgpuVramSlot> {
++        if !self.matches_layout(layout)? {
++            return Err(EBUSY);
++        }
++
++        let slot = self.slot_bitmap.alloc()?;
++        let index = u64::try_from(slot.index).map_err(|_| EINVAL)?;
++
++        let fb_size = self.layout.fb_size;
++        let fb_offset = fb_size.checked_mul(index).ok_or(EINVAL)?;
++        let fb_end = fb_offset.checked_add(fb_size).ok_or(EINVAL)?;
++
++        let heap_size = self.layout.heap_size;
++        let heap_slot_offset = heap_size.checked_mul(index).ok_or(EINVAL)?;
++        let heap_offset = self
++            .fb_region_size
++            .checked_add(heap_slot_offset)
++            .ok_or(EINVAL)?;
++        let heap_end = heap_offset.checked_add(heap_size).ok_or(EINVAL)?;
++
++        let fbmem = self.backing.region(fb_offset..fb_end)?;
++        let mgmt_heap = self.backing.region(heap_offset..heap_end)?;
++
++        Ok(VgpuVramSlot {
++            fbmem,
++            mgmt_heap,
++            _slot: slot,
++        })
++    }
++
++    pub(super) fn is_empty(&self) -> bool {
++        self.slot_bitmap.is_empty()
++    }
++}
