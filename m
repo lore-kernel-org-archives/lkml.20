@@ -1,177 +1,217 @@
-Received: from mta0.migadu.com (out-101.mta0.migadu.com [91.218.175.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041CF4657E5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48746D56E;
+	Mon, 28 Sep 2026 07:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582018; cv=none; b=RuHGvtvTyzpacsIRMbaircI+c6FIX65yVFPbWqPi8pMTz6TXBJzH6g9rrlprQWz7d/vF8EQkwhFNrya94hGe5AzcSqkgciDGsiWp1Fxg5a5J2YDnvgFUhMLRvyyLEHuEj44bpQLu5yvcNcZYdEhFGb7TdNVr70tK/L/up2cTZi0=
+	t=1790582021; cv=none; b=oKck8HD4azOQxK8A45Wnh2HvgXSUknJDWW5RH8Vt7QoyevbrHBSOMcaLU1mh8Uq9ekrX+3XlX2takQM0dlcel83xLZSMYQM+LIWPa/JEefylwWcP9vd4qoZ8ZNVH0HBKu7w7JSQgJxc4k0jwxT2HyG2XlnSQlF83rXUzjumpwYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582018; c=relaxed/simple;
-	bh=x3WMAdU7v2xOwvDw5UnpvkArCsclVz5hu2BtfPFJsK8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nlEaR1wlayUaUvRvKpfEoDyJv1M0y2fQ/WPTmklsoHLTLWskAN/kFsdgAIqDb+6zRzz71N920PGmRddFon3e1JsstDGF3tYG0MQEeJ1HyHy1db9U1YtQ4HjPkZkeVrDw/BE586i5S+z8sXjCQzl5NwhL/+0Hu1RflPnEAerL4nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xclf2Hdb; arc=none smtp.client-ip=91.218.175.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790582021; c=relaxed/simple;
+	bh=rLMemcTGjmm8SHWfRqw2bH6bqVNgymdng9wGI6zJmgc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hzefQpFh5OvOMxTp6o0L/ovNboX9HObz/J/pQYTTg76He+mEsyvF72D5nlayU0vmBkjGIkZWH3oftsOzfBk4KAyQtTKeniTy4oQp3hgCOqjN9Zx7nmbTOO/KZD5GxxMYcBXjzg1lgvhyjP2YTax0l+C5uIXTDdyn62Ruim8t71A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGCvmFyh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xclf2Hdb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x3WMAdU7v2xOwvDw5UnpvkArCsclVz5hu2BtfPFJsK8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790582014; v=1; x=1791186814;
- b=xclf2HdbdjLddQV+h9XXRYKMZ+7FvhD3YGt9mQxHoGpQBLzWTR3GvtkvURL2VDsbnznrUcY3
- 7Pxk/ZyWvSE9IiiTJpk5NCqcL8J2sebu6ax2knSML3wd2KiYKPCavf70i6ZALEB0/+xApzRO9cg
- Vyjb80Z0diT4Km/xzBREBPkw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b286a94d12dec277;
-	Mon, 28 Sep 2026 07:53:34 +0000
-X-Mizu-Trace-ID: b286a94d12dec277
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <300d6ff2-78dd-4f7e-81f1-ca98a620292d@linux.dev>
-Date: Mon, 28 Sep 2026 15:53:26 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGCvmFyh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7642E1F000FF;
+	Mon, 28 Sep 2026 07:53:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790582019;
+	bh=rm8mvrgOXmhM8P747mp7fE4w601Zhc6br4KrfkiHnWs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZGCvmFyhnKyA42mxO7fiS3BI8EwGUSGuFYfELzG+raisLWdMcGUxOPT9O++/aB0/J
+	 JATY+PYgTLVXVn8T1oyzmoZzMKFU7xSLj4VeNTK3/wOFtMuuklhN7tG3/DMy4iRv4E
+	 zqh4y+pvoFheD7SeJyngH5x76f81dPsa7cPBU2y6rWyF4QIjNM03LRKHUGtv1lWiiO
+	 8msTJbiES8KeGG7n3ArtXzXeM7Q+FmYEIXObcc73O/9vh9yaF+LBi3senIaZh8ogc2
+	 RJWEEJbOzfSxqtPEI4Qqsb+IkdMQgKmpwKin4OSKpkqPjZoXjyZVMEpbpmDzJS8q6Z
+	 e+11BOMosayUA==
+Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+From: netdev-bot+sashiko@kernel.org
+To: kyle.switch@motor-comm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, jie.han@motor-comm.com
+Date: Mon, 28 Sep 2026 07:53:37 +0000
+Message-ID: <179058201796.3145.3820811818247443890@kernel.org>
+In-Reply-To: <20260924075048.4060414-2-kyle.switch@motor-comm.com>
+References: <20260924075048.4060414-2-kyle.switch@motor-comm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 2/2] cgroup/cpuset: Remove CS_CPU_EXCLUSIVE
- handling code from v2
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20260927215319.382422-1-longman@redhat.com>
- <20260927215319.382422-3-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260927215319.382422-3-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 5
 
-On 9/28/2026 5:53 AM, Waiman Long wrote:
-> As the is_cpu_exclusive() function is only used for DEADLINE shrink
-> test with v1 there is no need to have the CS_CPU_EXCLUSIVE flag set on
-> valid partition root anymore. Remove update_partition_exclusive_flag()
-> and other CS_CPU_EXCLUSIVE flag handling code in cpuset.c.
-> 
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c | 52 ++++--------------------------------------
->   1 file changed, 4 insertions(+), 48 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 104fe10c336d..4a915da37bb3 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1174,25 +1174,6 @@ enum partition_cmd {
->   static void update_sibling_cpumasks(struct cpuset *parent, struct cpuset *cs,
->   				    struct tmpmasks *tmp);
->   
-> -/*
-> - * Update partition exclusive flag
-> - *
-> - * Return: 0 if successful, an error code otherwise
-> - */
-> -static int update_partition_exclusive_flag(struct cpuset *cs, int new_prs)
-> -{
-> -	bool exclusive = (new_prs > PRS_MEMBER);
-> -
-> -	if (exclusive && !is_cpu_exclusive(cs)) {
-> -		if (cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 1))
-> -			return PERR_NOTEXCL;
-> -	} else if (!exclusive && is_cpu_exclusive(cs)) {
-> -		/* Turning off CS_CPU_EXCLUSIVE will not return error */
-> -		cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 0);
-> -	}
-> -	return 0;
-> -}
-> -
->   /*
->    * Update partition load balance flag and/or rebuild sched domain
->    *
-> @@ -1248,11 +1229,9 @@ static void reset_partition_data(struct cpuset *cs)
->   
->   	lockdep_assert_held(&callback_lock);
->   
-> -	if (cpumask_empty(cs->exclusive_cpus)) {
-> +	if (cpumask_empty(cs->exclusive_cpus))
->   		cpumask_clear(cs->effective_xcpus);
-> -		if (is_cpu_exclusive(cs))
-> -			clear_bit(CS_CPU_EXCLUSIVE, &cs->flags);
-> -	}
-> +
->   	if (!cpumask_and(cs->effective_cpus, parent->effective_cpus, cs->cpus_allowed))
->   		cpumask_copy(cs->effective_cpus, parent->effective_cpus);
->   }
-> @@ -2028,19 +2007,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   	if (!adding && !deleting && (new_prs == old_prs))
->   		return 0;
->   
-> -	/*
-> -	 * Transitioning between invalid to valid or vice versa may require
-> -	 * changing CS_CPU_EXCLUSIVE. In the case of partcmd_update,
-> -	 * validate_change() has already been successfully called and
-> -	 * CPU lists in cs haven't been updated yet. So defer it to later.
-> -	 */
-> -	if ((old_prs != new_prs) && (cmd != partcmd_update))  {
-> -		int err = update_partition_exclusive_flag(cs, new_prs);
-> -
-> -		if (err)
-> -			return err;
-> -	}
-> -
->   	/*
->   	 * Change the parent's effective_cpus & effective_xcpus (top cpuset
->   	 * only).
-> @@ -2063,9 +2029,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   
->   	spin_unlock_irq(&callback_lock);
->   
-> -	if ((old_prs != new_prs) && (cmd == partcmd_update))
-> -		update_partition_exclusive_flag(cs, new_prs);
-> -
->   	if (adding || deleting) {
->   		cpuset_update_tasks_cpumask(parent, tmp->addmask);
->   		update_sibling_cpumasks(parent, cs, tmp);
-> @@ -2942,10 +2905,6 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   	if (alloc_tmpmasks(&tmpmask))
->   		return -ENOMEM;
->   
-> -	err = update_partition_exclusive_flag(cs, new_prs);
-> -	if (err)
-> -		goto out;
-> -
->   	if (!old_prs) {
->   		/*
->   		 * cpus_allowed and exclusive_cpus cannot be both empty.
-> @@ -3009,13 +2968,10 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   	}
->   out:
->   	/*
-> -	 * Make partition invalid & disable CS_CPU_EXCLUSIVE if an error
-> -	 * happens.
-> +	 * Make partition invalid if an error happens.
->   	 */
-> -	if (err) {
-> +	if (err)
->   		new_prs = -new_prs;
-> -		update_partition_exclusive_flag(cs, new_prs);
-> -	}
->   
->   	spin_lock_irq(&callback_lock);
->   	cs->partition_root_state = new_prs;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Nice.
+- [Medium] The new binding
+  Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml redefines…
+- [Low] The patch adds `M: Kyle Switch <kyle.switch@motor-comm.com>` as a
+  second maintainer for the whole existing MOTORCOMM PHY DRIVER section…
+- [Low] The `reg` description in motorcomm,yt8824.yaml gives its address
+  rule in terms of 'internal mode' and 'external mode'.
+- [Low] (Discarded as a false positive in the final series state.) The
+  concern was that no in-tree code reads the required `phy-mode` or uses…
+- [Low] motorcomm,yt8824.yaml says the package `reg` is 'fixed at 9' in
+  internal mode, but the schema does not enforce it.
+- [Low] (Discarded as a false positive.) The concern was that the example
+  (member PHYs at 4..7, package reg 9) contradicts the 'base + 4' rule.
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+--
+
+dt-bindings: net: Document Motorcomm YT8824 PHY package
+
+This commit adds a devicetree binding for the Motorcomm YT8824, a package
+of four Ethernet PHYs. The binding is built on ethernet-phy-package.yaml.
+The commit also updates the MOTORCOMM PHY DRIVER section in MAINTAINERS
+with the new file and a new maintainer.
+
+> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> new file mode 100644
+> index 000000000000..fd62b309e7ff
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> @@ -0,0 +1,69 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - motorcomm,yt8824-package
+> +  phy-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ internal, 10g-qxgmii ]
+
+[Severity: Medium]
+Would a vendor-prefixed property fit better here than phy-mode?
+
+ethernet-controller.yaml defines phy-mode as the interface type between
+the MAC and the PHY:
+
+  phy-mode:
+    $ref: "#/properties/phy-connection-type"
+
+This binding gives phy-mode its own string type and enum on the package
+node and uses it to pick the package operating mode. In the driver patch
+later in this series, yt8824_phy_package_probe_once() reads it only to
+choose between the internal and external init/reset sequences:
+
+  res = of_get_phy_mode(np, &priv->interface_mode);
+
+qcom,qca807x.yaml has a similar PHY package and uses a vendor property
+for the same purpose:
+
+  qcom,package-mode:
+    ...
+    $ref: /schemas/types.yaml#/definitions/string
+    enum:
+      - qsgmii
+      - psgmii
+
+writing-bindings.rst also asks for a vendor prefix on device-specific
+property names.
+
+This value on the package node also duplicates the MAC's phy-mode, which
+phylink already passes to the PHY as phydev->interface. Can the two
+disagree? The YT8824 driver never looks at phydev->interface.
+
+phy-mode is also listed under required, so every YT8824 DT will carry it.
+Changing its name or meaning after merge would break those DTs.
+
+> +  reg:
+> +    description:
+> +      The absolute MDIO address of the YT8824 shared top extend
+> +      register block.
+> +      For internal mode, this is fixed at 9;
+> +      For external mode it is (base MDIO address of the four
+> +      member PHYs) + 4.
+> +      Note that this is NOT the base ID of the first member PHY.
+
+[Severity: Low]
+Which phy-mode value does "external mode" mean? The phy-mode enum above
+only allows internal and 10g-qxgmii. The text never says that the base + 4
+rule applies to phy-mode = "10g-qxgmii".
+
+That can only be worked out from the driver patch later in the series,
+which treats any mode other than PHY_INTERFACE_MODE_INTERNAL as external.
+
+The value matters. of_phy_package_join() stores this reg as
+shared->base_addr, and ytphy_read_top_ext() and ytphy_write_top_ext()
+reach the top block at that address.
+
+[Severity: Low]
+Could the schema enforce the "fixed at 9" rule for internal mode? No
+allOf/if block ties reg to phy-mode, so a node with phy-mode = "internal"
+and reg = <5> still passes dt_binding_check and dtbs_check.
+
+Something along these lines would cover it:
+
+  allOf:
+    - if:
+        properties:
+          phy-mode:
+            const: internal
+      then:
+        properties:
+          reg:
+            const: 9
+
+With the driver added later in the series, a wrong reg value is used
+directly at runtime:
+
+of_phy_package_join()
+  phy_package_join(phydev, base_addr, ...)
+
+ytphy_write_top_ext()
+  __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, ...)
+
+In that case, writes to the top block would go to the wrong MDIO device.
+The schema can't express the external base + 4 rule, but it can express
+the internal-mode constant.
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e3ce77c839b0..ed7af1bd9521 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18409,8 +18409,10 @@ F:	drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
+>  
+>  MOTORCOMM PHY DRIVER
+>  M:	Frank <Frank.Sae@motor-comm.com>
+> +M:	Kyle Switch <kyle.switch@motor-comm.com>
+
+[Severity: Low]
+This line makes Kyle Switch a second maintainer of the whole MOTORCOMM PHY
+DRIVER section. That section also covers drivers/net/phy/motorcomm.c and
+motorcomm,yt8xxx.yaml, not just the new binding.
+
+The commit message only says:
+
+  Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+
+It doesn't mention the maintainer change, and there's no Acked-by from the
+current maintainer.
+
+Could this be split into its own patch, or at least be described in the
+changelog?
 
 -- 
-Best regards
-Ridong
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924075048.4060414-1-kyle.switch%40motor-comm.com
