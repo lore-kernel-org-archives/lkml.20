@@ -1,111 +1,125 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2791C3033EB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFC419CCF5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790570330; cv=none; b=FvMts4oYraIO41vYU3GRVzJIjpWiP2e3QY3S3tURC4ybbF1c+xw+ZZpXPc5z2rr8yupoH6tMu41PF/0qhwDUie/807N3dz1sRgunUoyBFEVmPX1edOMphtM8FJmTMhQjpr+YGHgHuXx8MkMvJsWyF5tAN281/utMtQD1QjSlexE=
+	t=1790570430; cv=none; b=eweso0qBbei0kOe/AlEi99vJ7q8TDfFPddmF6ZP/GxxSAQttoe+1byuZ7h/8GFuBwKKEc2eFehqIx2BDC8zxXoXdjcVBVrRYMqLn3zUL6YEy/YDkR8DROhyjjDobp438xfSwAUV6Gp/dRyRO1xIE3QUtguo0WdF643QUnfmJGw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790570330; c=relaxed/simple;
-	bh=oYMPXUg5FRpTGpq/VChufToWIT8D2XYBNz1jqWQZd14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FWkg+roYcroZ3Jl1OsAJvMcRLHFenO6YquGMUP5Rn5InPSAtsOSfwpB3/7b9DJs94pkz5d9qzewddnMdCwuiDKv4mwdSn1w2R/FvAVvONwkzQCQbaEmX1Hkhij5Qu5LQ2JEWjRGu3PTrafxzAQ7LCoDdsPYCElQ2xjVCn+2+5l8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q+S9GrTH; arc=none smtp.client-ip=74.125.229.169
+	s=arc-20240116; t=1790570430; c=relaxed/simple;
+	bh=ZyJlgK2kDWR3C9TbduJX74lPU1kiQGhl4K9ex08siEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SMndb/hIQa+7rCeldh1uWUZsSzFjsNHfo0VqhrHlcVQSSOlcta6QvBg8s+uThhoQQDzjHlve17+Nv7ldFuY3oE/MxyotGwY6emDgY5ja1XQ+iHZ2JU7oi6dRK9QRKusiLsRT1exqzrrWWIfK8bvD4lrdMTfospkXVBHy0vhbdCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W621x2cB; arc=none smtp.client-ip=74.125.224.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q+S9GrTH"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-148c3a4733fso90132c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:38:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W621x2cB"
+Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-66e56a1fe8aso1333656d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:40:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790570328; x=1791175128; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S9YFNOM35bVSfIS9/7AW72GbBEe1YCeVTQopxAj3TL0=;
-        b=Q+S9GrTHakmOPeFFNUbWxnb7iokwjTb6dKNPNxocRySVeYxMcySNBHP5pWjMFfqFeI
-         T1U3iRA9w5c2Isj9IZeQ/ZMvmxMK0eYpmgbQW6Jpq/mvQkc45mDAnebvBTfG5xnwvLWt
-         nFAia4LO2aYxcG/cwwftKzqy1RznYw7grjJ3GAwHISrkG+32oME39aG1suLcC+cnsP3e
-         8pCLXvmcix9WlPRnA5Hwx1haoQrW0GqjFM6vNZb3uzy3HMAiq/xmHLbssbRKT1ndq9c6
-         +qS50F2g8mvn0rXZIlJOeFImlPbKbq/FnZIrOKRs7kHf9qtGT1dLv6StiEsDCMVzxnmJ
-         DVjQ==
+        d=gmail.com; s=20251104; t=1790570427; x=1791175227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KnkJG/BFuPflYXbPqzI6CXrDjqgOy9NIeRkK6DTXM0E=;
+        b=W621x2cBXhPUH8QpJ2nm8mhiNztL73PPiZeBhNpsL0UIKbk10KfCJXJWtRwyJztBt9
+         QRTI/MDKUQ5b8ea7lNSOzYdk8+hhKGfFrTZiRGhbM5GvJrelZUCilBLel5PGlHX1BLvf
+         uuAmgvvd5R8GooIMyOzHc7OBFR2E3845jHRSV0El2I+xmKzQHXdgkgZmXiicVO9vV14U
+         PfBiRXNUV6qlp6NtNbBxfpFWV22TdfVZ2N2ipUDy7osg3EA5JBUe3or1duxCr4G1gXQk
+         8pv3uTUqdnjOHyhHU+6selfR/fqo31J+L/uQmM3WqmEYfCzNA2AXM65229V2U9ppQJ7S
+         TgCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790570328; x=1791175128;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S9YFNOM35bVSfIS9/7AW72GbBEe1YCeVTQopxAj3TL0=;
-        b=h9xa4kQOhTG2z7BtPnSdQcLcx8fhRxf+wrh/DQQeAdYcQKR3GP87zcqCmZ7ke+HDU/
-         qoiMTVQWuOkAGTQ8LqzME6ELkusqsNF2jl4PrJtIlUX2yWPNxAUQxZn2QWbKE97PHa69
-         vScuAh2sPpwXURaNBGaau/oARb11EuihBJ9A8Gea/5smi/3DT4TPY0wEQzcp0S2n02Uo
-         wdNk2vfCRUR+f9C6m9IUZfAfglyiCZnsaWVicNq7UbN0iq55xenR9NhhtYiSGXHrKyMY
-         CBLW8HRgRfDxX52PlDHrmtdwsafyrQq81h26HKTa6ZtAi7bK6hIItthvvp1yPsAYngtH
-         lmhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAhe+RRsGbSCOrY1pMX5kTVvCybxatSFv+5g/Ls8LqoKc+D0WOsb9prLFG2p8NXmVK88+582xFpTtBOZg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mE7GvdCOE8VpWPdsnfz8KY8VtWkriANgGOqvvb913V3e2q0FPC
-	orayKT0k7rAFB12mZ/wmFUL4guO9bfeIrApfD7OLbfUKBrCKkdCIFMek
-X-Gm-Gg: AYBFou3g+ofF8nwAjiTeGg94YcsteK7AlXv4yGBayZTiORs1H0Fe03UDS5GrJYUau8J
-	4xWQge3uWnx/wZ0UYuI1tz+bIt6//NXHsDhO8A92R8G7La0UwVaVgseSVx04cnJSEPZjuYE04ne
-	mxI6JkXR/gjTWSxLutVlibqPWgbSXeozjqHn2QXTyfvxTBKck1g421DZA02oBlNwSuZ6l9VWRbY
-	ZjVJZVzKrV7jyZ9D8Ej70HnQlKzZSG+UbXu/ltsvAMK/qu+Xf+15RSBqa0Rae11inibHXOEShaU
-	ETLwpAqqc4l8R+cHYmZeXVqVk+AjYixU6t4UOHUA77SNr/yZsLwmyNDC/SYmeF9/J+XU8VH501x
-	7T9OHYyldPvKnqXbRkfiIcuK2FmPy0PANcDJg+6uJuoFy/htzrRkYLBvNqa7vT4wzMVSadBOpcP
-	aefPIBTqvLroBi0oEpdlC4XGBCgkHDkok6tpRn+F1XbrYl21prGIt2+VsX5JHfr9Om7lVsJ7zwc
-	HlMCgnvPipJ5Sgwrgk5AlYbFBBQ9Ce06NTknYJX1g==
-X-Received: by 2002:a05:7022:b048:10b0:144:e658:94f with SMTP id a92af1059eb24-146d0f33db2mr8902859c88.43.1790570328080;
-        Sun, 27 Sep 2026 21:38:48 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:526d:2f94:503b:aada])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm16358758c88.17.2026.09.27.21.38.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 21:38:47 -0700 (PDT)
-Date: Sun, 27 Sep 2026 21:38:43 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
-	Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	phone-devel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] Input: s6sy761 - fix resume ordering and restore
- sensing
-Message-ID: <arnvS7Hk7uIKKLrZ@google.com>
-References: <20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz>
+        d=1e100.net; s=20260707; t=1790570427; x=1791175227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KnkJG/BFuPflYXbPqzI6CXrDjqgOy9NIeRkK6DTXM0E=;
+        b=2pfoW6rVAO2g33cd/CaqN3LNyfBOTKGt20mqJ8Bd2ElvqzqqtxXJ5BoHneROdma+9G
+         CfxjqVE3odYj9egdRg5u5+mEsg5ntFd5NDNg6ByD9k67snsH+h9nLcQVJQS7AjP9qlvm
+         Se7CiQXAsc8Z44HmllCLwJr1AqpXp2Lvhm55ErSl/Pxg8sr07bJrVlKhf1a6X2deHgci
+         3v6f8fJqrMQnEpamCQa2GLcg3vJEFG4uVWVzexncYcS5YJQDuROLY2hfuZnzsL+APrLZ
+         DrjkuYM4PEy30uyYqKqke8hH6zS5O5ieY1iUmmSNdk7ywXs96vzvFsF0v4CB4NJxmj3K
+         oj/w==
+X-Forwarded-Encrypted: i=1; AKwUvBw0W4V3loACW8XS3W23Nnjn8G/TNGy9Ypf3Ljz06Q0rpSJemO5l0BQJny+Ewwix7ImVE2VJtxrQBFpmRc8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJMnHdmUm3r1+8uCjDu7PmN+Uw7sWPwAYAFlfO8bs/C9cjN67/
+	k+dvbYs9BAN/4D3qiYxrGshNA9jwdpcOf99ZqzwFl9BhHVI5J6c53jpHFDEZ0wHBe6vQYg==
+X-Gm-Gg: AYBFou0KQ/nRqr6Yj6JMPpNM+z7MGAZJGHUVsJkO3xPIJ9ZSWJtHykD0mqR5KRfg2jP
+	jpF2jkSWGqXF0pxKFYQmVJCoF2MWeXxWYyMOmVvege5fJt3YrZZl5/YMypW+7sjQh/qSAchVQ+Q
+	gsYTiSasX7ocr2WXb7OMbBV51Ga2zbGA3z6xneR/zJaae+ciU0QJB9RmC6zHXMaOYXSkjMAesML
+	u/bt68yU7KJH78flb+z4QsTjnTz2yzWRDpB7iwYC+A/onIA/H7jDt9kZp6QeUmBdy2Wl1ACzEQ6
+	9UnRn1IBvxcduUB9NKDW1nUDvseResvFU5nAcKIufgcG5CLZBnqnVVnGmDgstDuKRKhtIP40bF7
+	pNmaTdrHO9Ijde2B/0jezzxRsjQEYWHBXKVQFCosiTWyrbA2bhUfn/t4MnCALeqJnSoiZMDIazL
+	izfRwnwaZzx69YiAfU+LXwnC9/OeyFzFN1zAm+AxP/n6XtcZIkCtIJhTiIPw+2s7b5R0nRIl1s9
+	NDRTqbS3kIHIaRsCnXy7jbvUVdtWKQh1YT+0Q63de1C4DUe1cBD
+X-Received: by 2002:a05:690c:6609:b0:8a6:b4f4:7339 with SMTP id 00721157ae682-8a870638d9dmr35527787b3.35.1790570427627;
+        Sun, 27 Sep 2026 21:40:27 -0700 (PDT)
+Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:7139:eae7:b25b:5d54])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a85ec40be3sm38503747b3.0.2026.09.27.21.40.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 27 Sep 2026 21:40:26 -0700 (PDT)
+From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: usb: ax88172a: improve MAC address read error handling
+Date: Mon, 28 Sep 2026 00:40:11 -0400
+Message-ID: <20260928044011.63926-1-xinsheng.zhu.ny@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 10:26:47PM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> System suspend powers the controller off and resume powers it back on,
-> but the resume path enables the interrupt before s6sy761_power_on()
-> checks the boot. The firmware raises its boot-complete event on the
-> interrupt line, the threaded handler consumes it, s6sy761_power_on()
-> then reads an empty event and resume fails with -ENODEV, skipping the
-> touch function setup:
-> 
-> s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
-> 
-> Power the chip on first and only then unmask the interrupt. Once resume
-> completes the boot handshake the chip comes back with sensing off, as
-> at probe where input_open() turns it on, so the touchscreen stays dead
-> after resume. Send SENSE_ON again when the input device is open.
-> 
-> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-> the touch function and sense status match the pre-suspend state.
-> 
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+When retrieving the MAC address, ax88172a_bind() checks the return
+value of asix_read_cmd() against ETH_ALEN to detect short reads.
+Commit c28d9a285668 ("ax88172a: fix ax88172a_unbind() failures") added
+an -EIO assignment to ensure that this failure path returns a negative
+error code, even when asix_read_cmd() returns a non-negative short-read
+length.
 
-Applied, thank you.
+Short-read handling was subsequently added to asix_read_cmd() by commit
+920a9fa27e78 ("net: asix: add proper error handling of usb read errors").
+The helper now converts short reads to -ENODATA while preserving
+negative errors from the underlying USB read operation.
 
+The MAC address short-read check in ax88172a_bind() is therefore
+redundant now, and overwriting the return value with -EIO is no longer
+necessary to ensure that the failure path returns a negative error code.
+
+Check only for negative return values and remove the -EIO assignment
+to preserve the error returned by asix_read_cmd() through the existing
+cleanup path.
+
+Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+---
+ drivers/net/usb/ax88172a.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/net/usb/ax88172a.c b/drivers/net/usb/ax88172a.c
+index 6b14bce2a552..f5036451f086 100644
+--- a/drivers/net/usb/ax88172a.c
++++ b/drivers/net/usb/ax88172a.c
+@@ -173,9 +173,8 @@ static int ax88172a_bind(struct usbnet *dev, struct usb_interface *intf)
+ 
+ 	/* Get the MAC address */
+ 	ret = asix_read_cmd(dev, AX_CMD_READ_NODE_ID, 0, 0, ETH_ALEN, buf, 0);
+-	if (ret < ETH_ALEN) {
++	if (ret < 0) {
+ 		netdev_err(dev->net, "Failed to read MAC address: %d\n", ret);
+-		ret = -EIO;
+ 		goto free;
+ 	}
+ 	eth_hw_addr_set(dev->net, buf);
+
+base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
 -- 
-Dmitry
+2.54.0 (Apple Git-157)
+
