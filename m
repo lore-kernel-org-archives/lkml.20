@@ -1,81 +1,50 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B1D4E4C20
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FD5C36F8F7;
+	Mon, 28 Sep 2026 17:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616466; cv=none; b=ASgdT1t1vDIaMJR+fXQcR+Jhx9X1gLTqmtKFfqSuQbI9vZLI1ujczDwxB+KyGpdRFjN+SyQ+LOIn+EmZkPQYGzzv4AC80YQvIJ2S30XAzEk8GRq1bQ/CWdVRHd2zaC8FvH3uvYtd2z4XgCAAFy6PetRmNskI6jYXb3mpcq8vQaQ=
+	t=1790616518; cv=none; b=krhiwZCWwhi8dRDS0+2AR+T4eeE7kA4z6N5WE2lKGU5PWzeB8ILxM+dHxPer42ZsixUf/FK1Nu328TORoi5hX3J81ZTax262uwIKCyNWC0+I7/sbmjoa/GVwMFVyHDSQoMMzrP1+uTxYLqiCVQq5SQVFSc8KP7CTNVWPVZ8fRXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616466; c=relaxed/simple;
-	bh=v0Tvegi3Y0r41uqGe1gwF29EUW2tl7b6bRd3HIgumbg=;
+	s=arc-20240116; t=1790616518; c=relaxed/simple;
+	bh=NOwlg1fLIhsJpwRRWJEx28YKpYmKtZ7WGDsI1WtfweU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TFgdwqt2QFMeyprww47z2mMXdZN0bJ3/0HcMGY8JCz3+ZuBKBXwzbFBFd6U/kRGsU8PMWrdR0YPiy/Tmq1dqMuGDpMt9MDyxaHUgfAxox9WJ68+Lfu1Y8w8kfAGP09c9wEntIBvf/MPnJM7IvTesfGW+QwQxEo5dHwbAd5nX/hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jBZY1H6g; arc=none smtp.client-ip=74.125.230.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=jJCnP9lWKVGEAg5TiEWRj4/9PGIzcaqc7lUvzTjAvL6x//QWM87ueAiICAsZVsiGghmLbWyXU5/rNfPmN/RpDXbIloeyB6AjZplHSk/3hC8KJyexAXwsDCeSU5sDXx7X6+8wNHM7vn274bbQs4ZPdBxF2AXLw9jC/Xy/dVH/3oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JYxAo8jR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jBZY1H6g"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91784fbb60dso885416d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790616463; x=1791221263; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
-        b=jBZY1H6gJrJU2t5Mpv8+BExTazX70+SEqM5JxB+NaEfWB1/kscdowjDaaFcK64C4bq
-         oNu8NgcPKadq9dJ3ulXRwtuhjjy7Cfc2svmgLDWLgu9N0l3Hc6WgLwhZo0/HReMBjjwn
-         mvZ+QqayPkHNjlESUWva+E5fOEMWHiHvechPjhhk54vrOmavltX01sdnIK2UwKd1nwlt
-         5nuLz9QSpOO7DPkds1TLIPxZQQqJIyK3wDF+D6LCJiP6ZOR4+9ZYPG2VLcZNaeWGjE5n
-         9N1LTpYiSr94lCEbI//a58ok2AcRFbDMviwqGwRCHz0BMS30PxAITO3XcWb/n9V/usfX
-         tDQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790616463; x=1791221263;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
-        b=Dv7jNpRpfpUL9D/QjHEr23pqheTrYMPlvZ/SC/87567dXQT5+rGW0Yw+fg/0SL9pko
-         vSB98VWhY5dw+fqFe88jbVz0iZnQWkpMz/loUAsvT0qlPFlR8nXqQt1+wULQkbNc9rBU
-         JTmvBnBf/jtEvG/YXsfyG8853RM5t9l+lgLFnVey5JKBvvhkq2bkTEjBT5XqR3b83/Qk
-         mxaEQ+0HoZdyDgqNiPZgsnNE65dnzFEbhJSXSKieMqvNi0L3d5AOkQMMuNfgUn3UOgIS
-         MvdrWq6w4BU96CacjWTFHzJ8hCuVm30mgvFVXjhkEFKHRAk0j4fL0TdfsPsecRp0LQKU
-         Thrg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6IO9nihZ1W0PvQWc1prVvtkLbkR7qzvJXZGiaXDtR8ehBSNT55bDFjcS2znycuLaV7dpVFY/7xO5N/10=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyAljw6x9Hz2kvLiqUDEEoz9WHa3ufRvrA6EZeMXG5q/tVc1sU
-	H934XY9HF17bAL44a0nxl1p4IjPoH8gr6FrK6U2ehYeR460DYudRyuAn3WISUcMOHQU=
-X-Gm-Gg: AYBFou2/iiKqDllLRox0YojdA4gwKRZ0CaRfs352m5byG3eHtzFg/cCtzvg8530MBWm
-	n3CrZlpiU7BnuesfNnDRThcjoT6544RG/zY4/LnqB1WUdnPCUVOlDzAW7U8yDO7Z3L/Rb+wx0j3
-	B1FC9g8kLx1dGWjRuMuwWFpE7NRnpwlqVZp33VQBXnwRbfSjR99OLmamKdeoiOkb0F1WB76VemG
-	oyBx9Hn9YhaZu6xkRNmbnnNO4eOoJzuwhHyUg5UYOZDB7HtDy/ipp+JGE4idWfs4gu4iwSbW3tc
-	YLMAv/HOrGWWLQwI47sqWQUjWggpSbGm0CiXSwxLArUIA22dsS37nfrsyKJeEQPrjynjSHen3G7
-	SZdD5J3/a/TwixlM+kaF8Z/z/+FG1GhsThTZrXt0H4LgHoKFyI+mLX5kS46uqE6dIcWGyMl6ZGx
-	o/owoGwcpLxA5KBSqkUO/0tNy0pDlPOr7WvdjRwL+WlhDS
-X-Received: by 2002:a05:6214:ca2:b0:915:e892:d932 with SMTP id 6a1803df08f44-915e892f966mr81063516d6.3.1790616463265;
-        Mon, 28 Sep 2026 10:27:43 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9144b6335f6sm57161666d6.11.2026.09.28.10.27.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:27:42 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xBF8f-00000007NXN-3v3H;
-	Mon, 28 Sep 2026 14:27:41 -0300
-Date: Mon, 28 Sep 2026 14:27:41 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	"open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-Subject: Re: [PATCH] iommu/amd: Make PerfOpt compulsory for APUs in identity
-Message-ID: <20260928172741.GJ163130@ziepe.ca>
-References: <20260928045050.955165-1-superm1@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JYxAo8jR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4497D1655;
+	Mon, 28 Sep 2026 10:28:32 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B4EC3F763;
+	Mon, 28 Sep 2026 10:28:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790616515; bh=NOwlg1fLIhsJpwRRWJEx28YKpYmKtZ7WGDsI1WtfweU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JYxAo8jR8/FlcEOgF0lfNeAhVBe1YM6gGqbAJOGgGoAcD5TwzeszFXE3Luz4YDa0X
+	 Ii/FE5eavzr3+dGKMrbQA2TWWA6/IxxcwbgeXhtUiWM9WbdL+yBH7ESoJ6RA3MNwWo
+	 qBK3Y8YEHYJu6sms16eIB8qUYi/47RJEbNZY0ywA=
+Date: Mon, 28 Sep 2026 18:28:21 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
+	Gareth Stockwell <Gareth.Stockwell@arm.com>
+Subject: Re: [PATCH v19 4/7] firmware: arm_rmm: Add support for SRO
+Message-ID: <arqjteW-Y5u2XX2r@arm.com>
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-5-suzuki.poulose@arm.com>
+ <arozNIQ-fQ0XQViI@arm.com>
+ <4fabad44-280f-40e6-95bb-49011cd2f185@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,72 +53,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928045050.955165-1-superm1@kernel.org>
+In-Reply-To: <4fabad44-280f-40e6-95bb-49011cd2f185@arm.com>
 
-On Sun, Sep 27, 2026 at 11:50:50PM -0500, Mario Limonciello (AMD) wrote:
-> PerfOpt is only a feature usable by integrated GPUs and only in identity
-> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
-> an integrated GPU in an APU is in identity. Re-use the heuristic in
-> amd_iommu_def_domain_type() to make this decision.
+On Mon, Sep 28, 2026 at 11:13:39AM +0100, Suzuki K Poulose wrote:
+> On 28/09/2026 10:28, Catalin Marinas wrote:
+> > On Thu, Sep 24, 2026 at 02:51:58PM +0100, Suzuki K Poulose wrote:
+> > > +long rmi_sro_memxfer_execute(struct rmi_sro_state *sro, gfp_t gfp)
+> > > +{
+> > > +	struct arm_smccc_1_2_regs *regs = &sro->regs;
+> > > +	bool cancelled = false;
+> > > +	unsigned long sro_handle;
+> > > +
+> > > +	rmi_smccc_invoke(regs);
+> > > +
+> > > +	sro_handle = regs->a1;
+> > > +	while (RMI_RESULT_STATUS(regs->a0) == RMI_INCOMPLETE) {
+> > > +		bool can_cancel = RMI_RESULT_CAN_CANCEL(regs->a0) == RMI_OP_CAN_CANCEL;
+> > > +		int ret = 0;
+> > > +
+> > > +		switch (RMI_RESULT_MEMREQ(regs->a0)) {
+> > > +		case RMI_OP_MEM_REQ_NONE:
+> > > +			rmi_op_continue(sro_handle, RMI_CONTINUE_KEEP_GOING,
+> > > +					regs);
+> > > +			break;
+> > > +		case RMI_OP_MEM_REQ_DONATE:
+> > > +			ret = rmi_sro_donate(sro, sro_handle, regs->a2, regs,
+> > > +					     gfp);
+> > > +			break;
+> > > +		case RMI_OP_MEM_REQ_RECLAIM:
+> > > +			ret = rmi_sro_reclaim(sro, sro_handle, regs);
+> > > +			break;
+> > > +		default:
+> > > +			WARN_ON_ONCE(1);
+> > > +			ret = -ENXIO;
+> > > +			break;
+> > > +		}
+> > 
+> > Another thing I came across while looking whether we can defer the
+> > activation. It seems that the spec (I_JVYCH) lists some SROs as
+> > PE-bound. Nothing here or in rmi_sro_execute() disables migration and
+> > the memory allocation paths can even sleep with GFP_KERNEL.
 > 
-> This drops quite a bit of compatibility glue.  There was a refcounting
-> system, exported symbols, and device attach/detach logic.  By just setting
-> it immediately it's a lot more straightforward.
+> No, this is not required. I agree this is confusing. I will get it
+> clarified.
 > 
-> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
->  drivers/iommu/amd/amd_iommu.h              |   2 +-
->  drivers/iommu/amd/amd_iommu_types.h        |   3 -
->  drivers/iommu/amd/init.c                   |   3 +-
->  drivers/iommu/amd/iommu.c                  | 234 ++++-----------------
->  include/linux/amd-iommu.h                  |  11 -
->  8 files changed, 48 insertions(+), 268 deletions(-)
+> So, there are two different sources for the SRO contexts. One is a global
+> pool and the other an Object.
+> 
+> e.g., For an RMI operation on an Object, SRO context can be the object
+> itself (e.g., REC_CREATE, REALM_ACTIVATE etc.)
+> 
+> However, when there is no reliable object for the command (e.g.,
+> RMI_GRANULE_RANGE_DELEGATE), the RMM must allocate a context from
+> the global pool. Now, the "PE" in there comes from a recommendation
+> to the RMM implementations, that the global pool size must depend on
+> the number of PEs on the system. This doesn't mean that the SRO
+> handles are only bound to those PEs. I will get this clarified
+> in the RMM spec.
 
-Diffing across the originals to net them out it is much smaller:
+This part of the spec needs rewriting, not clarifying. No matter how
+hard you try, there's no way you can read it as a "global pool". For
+example:
 
- 5 files changed, 122 insertions(+), 1 deletion(-)
+D_GZLMRA	SRO context is bound to one of the following:
+		  - A PE
+		  - An RMM object
 
-And I think this is much better , but I have a few questions
+And take a random command:
 
-Why is this setting and clearing perf_opt in dev_data?
+B4.5.2 RMI_DPT_L0_CREATE command
+	Create a Level 0 DPT.
+	The RMI_DPT_L0_CREATE command may initiate a Stateful RMI
+	Operation whose context is bound to the current PE.
 
-I expect probe to make a determination if this device has the special
-path and if so then there should be a permanent flag in the dev_data.
+"bound to the current PE" pretty clearly shows the intention was to
+disable preemption. It also doesn't say what happens when this pool is
+exhausted (presumably it returns RMI_BLOCKED).
 
-Based on that flag amd_iommu_def_domain_type() can return identity to
-override things
+TBH, that's a pretty significant change for a bet3/4 release, though
+arguably it can be seen as a relaxation. Code that relies on disabling
+preemption should still work (somewhat, assuming the global pool is at
+least the number of PEs and the host plays nicely to complete or cancel
+all SROs).
 
-When the driver does an identity attachment it would enable the
-perfopt and write out the right DTE for it.
+That said, such pool is a limited resource and we need some way to probe
+its size if we want to do something smarter in the kernel, like a
+semaphore to ensure we don't randomly fail because of an RMM limitation.
+I don't really see how the number of PEs is relevant to this global
+pool sizing, it's not that we limit the realms we can start to the
+online CPUs.
 
-Whenever the driver removes that identity it would disable the
-perf_opt. These points are all marked out in the attach function flow
-you don't need another variable to keep track, or the funny logic to
-block things. All you want is an attached identity domain that is
-"optimized".
-
-Release goes to blocked which should already disable it, so no need to
-disable it again in amd_iommu_release_device()
-
-The repeated pattern is a bit much:
-+       if (dev_data->perfopt) {
-+               if (WARN_ON(amd_iommu_perfopt_clear(iommu)))
-+                       dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
-+                               iommu->index);
-
-Clear should probably just do the warn on and not return any error
-code. It is never OK to allow this to fail..
-
-I'm also scratching my head a bit why the global register needs to be
-set/unset like this? Does that global bit completely bypass the iommu
-for a single special device? With no way to discover from FW which BDF
-is the special device? If this is the right guess please document this
-in a comment around __perfopt_write (and again that's awful, ACPI
-should have a pointer to the special device so the OS can understand
-this)
-
-Jason
+-- 
+Catalin
