@@ -1,141 +1,159 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD744F7CC5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE54D4E4C34
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628847; cv=none; b=SJqERIHUpKmnVaK2uppbyHAob3D+Nk9qyMnP48XishZSkdINz/89IOhKMTJKNnCnl8ahNigoqnSnjKMiV5bb+MzHod7J17tqGqaaygs6+/iQghix62A5sevhg4NoKXmqDkqLJzbAk/H0MmcJjlDAKE/zFdcBOz4Zz8jolfg/IpY=
+	t=1790628907; cv=none; b=Rb99W9lwrHL79KiVl3s3QUl9x1BIeaairiRz0r0Icr3KBjqST+VZRJgr4mNE2UZcRR8w+LfQyVv7uuKwCMMcQYQqZB2olZUvCnKYL9KS/qSYpiDedjONmT9wDT3wmxMy1ObIPogYh4nE+4Juoga1ZcxbZwVnwJCYBXF1X4gI45A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628847; c=relaxed/simple;
-	bh=p4z8FqgH2wRH3DNXfLP/C8tVgznBcTgSwV5kisQHgOU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oWAaiGYPYetgFcNnpBY78un3ZmEVzMuIDzTdKM8KA284AZdmYyQ3sHARhgl7UUq/Bny6k0FCeOBg4+BGT9A3R+JA+OrRMm+5wseKvfpEWwyws/ICxNnEczYLjP530drdiMNAzdAhrPvuP/vz93lPUGxZz/d+9z2hwKPxgfqTGdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nizLRGAa; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790628907; c=relaxed/simple;
+	bh=Gsni/OUxA6Ij7SagrkgqJOG5js2KISCrkYNODquWIb0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WTVnuWmsJyzUf2S6POAYyBbvNT//hmVfYtQPIOu9gMj35uTDr0PTUm7LGbPIal7aIc5ow7QViGVq7wO8TvjSH97FaOWTmu6NQckX201acQFVCc/eqJ/o0X0g3n9htdhG6kBrxUCjxEUlC2/J4fQfX2xP7CAMV/A+EZdeEaWpTUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LK9EKoGT; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nizLRGAa"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso11722555e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:54:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LK9EKoGT"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so19443345e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:55:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790628844; x=1791233644; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MoftrO08HwDktpofinrTBCoRJxn64c18AOQxxmnppJw=;
-        b=nizLRGAaKFUMCIahkZZE2GItc1v6vkpzHOzS/r8qI487Td6UTZcGg7REC555U9QtyX
-         axizRcFPBZ6Lv5TYF102D2O1EDk/AdN3kkdXDKGwjHK7dok1oSa+qrAnAj5rM3uYg2+s
-         0QX9P+BRWYZj3N+9ReyoD87Go57wyskAS7KdvL6431DLvoX4V2u/bo5lBv+Y1QXY0yy3
-         /JE+5rV1jtMeCcQaPLPDZu1K+ELrv8L+WoSwIttqlheGpoZ+gX0SjBdBFDedGGOk7B8Q
-         mZscQevshL2fGEbhAnD9mpcAqUWSorJyhn3lZoTUF0w9tuN8uMNaX9s2DLeTpNl2tToh
-         RsiA==
+        d=linaro.org; s=google; t=1790628904; x=1791233704; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pZc96VEoN3/pZiTvd3D//LSSDMavgTBbuqhxg2bO6kc=;
+        b=LK9EKoGTq6KzvGuq5zBwBgpPpGbfF1IKscBd8PDHB8P5cUr52liiYh7zso5hNbhp65
+         1y51Qyvt+sBd8XNJnqMMTBDsllvOm/xJFUh53Bhqa0TCMtifVrzrAm8o58wZOP/E/Xxr
+         8DyPMV3ymaQGG4e+A2ZujqUn8NZZa757sZ4OEd3xDo7XcZgZxuX6EChyEEVrhacC4coN
+         hHzDna8mlLiaM75zwYb0clTo7uLYah5SdhHr/jvJB/m7ZHJ9+l9oXqAWH+bC4u8sAOe7
+         aTWUzaHGnrIMP6U1r24BAjYBJOs6jCuQHXBrJUtzZf5Z5Wl317utvk3VZ0qdt6Pgm5kv
+         IJGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790628844; x=1791233644;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MoftrO08HwDktpofinrTBCoRJxn64c18AOQxxmnppJw=;
-        b=xMX1XgbdZaqhLkgDzJ3A//y5AOZlg5gGYkLTmB/0Am7TUD+kHQz83RXc2lNXn0TCcX
-         O4UFhX0ZElomwVqmRj/6b+paFtgoyEgr3gWEa6hijyzU1/Mcw5TbRFLZDj2meEq6MxeY
-         xXzpS1yR97IamWgE/mhRlXKZ9z5u9hz+nK8SHT4CeiiyN8detW2ICp4lABWaLxvwFR6S
-         T9cyEJmIyVhQBtTxCGxnAqY/xm20hZiju1ADwOmiSyMQtERkrpM8KJ04vawl/eiqKcxc
-         7MW1zPbR64ISn+E/iI0QsGx1p5b0LRXlcPwGt+CcEx78VPH3FXnWeSY7ODn9f6Dfp1LF
-         1Lqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzH21r9iitXERV6891VCL6yh4NbWkusmfR/BmrjZce+5fWaqy69gyfSvSMH5NCjSt2PObZDTMdgPLt6YIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mp7PXBhhC1qDEG7SuIDDvwLzvFRwAEVenTD8Aj2SZDCpKa0IYO
-	styplBCgYssHoco8oRxyy6W5GYTdVvUOdQXpKlGKelmPSljR9MeSJi4m
-X-Gm-Gg: AYBFou1r3nZ+II3tHD6gMylLyMSs/LG1+BsbaCI3VTJc43DC8lLd91V96MTh56mq5+W
-	9E6ZVu6Jj8t91Jbim6FMT7dQMjBq+S/gXzlHbLdoHnB4NePQMWTPMyHohch6qegnKImARTOrE2v
-	kxsc2JwJthlIiGMOhFg9k3OkdgKatrIQ6Rt9E0Cpg5X4hecm7tDMSu8K3RZ0rJKw0zI+ReCTEVv
-	9ThO2qkx9/lmsKZGIkc/Y+2UhW3PBjEmHW0u5DF+K52HEOpHC3rXhP5qHSe2RljvohXf990gwBV
-	w/+p4RLANZyvvBMepxvZ0byxtzdoJDyQPIjSFOGqmPozXjR2ax8k4Lk4zPisWKAUSgE/KRpBJdB
-	AClY4ZOwZcDx0/nhgDoJu6ghhUGAGdyEoiwu6ter1oag55wfjwNL6CUs4tCzN6ylVp+Od8HSqTQ
-	SY9fHcQEFMwNkL3RoTPqeY4/W5h6CFceCqfrwcGnKPtIew+IczfYUILuo1A8GrNDAbXfFoQhHey
-	dSOz4Wv2ZIjID8MSRvZdp01ePfDxpLJMuDc3tLzYk1dT4VjEJbY/1RNnAdAGsRwR6Bwzv5KYih0
-	iXOKjA6nIaIoIQLQCbB1Buot0m+tKVWBLDIFhcVW0bZSyAagKdAp513vNTMs16b/kNasKrCv+bs
-	HX4G2x6l5CDE=
-X-Received: by 2002:a05:600c:8a1a:20b0:49f:f0bd:1e40 with SMTP id 5b1f17b1804b1-49ff0bd1ea8mr133111765e9.23.1790628843492;
-        Mon, 28 Sep 2026 13:54:03 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0f66cfsm21210805e9.14.2026.09.28.13.54.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 13:54:03 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Matt Johnston <matt@codeconstruct.com.au>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] net: mctp: Make KUnit tests depend on flow support
-Date: Mon, 28 Sep 2026 22:53:52 +0200
-Message-Id: <20260928205352.30502-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260925192510.93840-1-kmehltretter@gmail.com>
-References: <20260925192510.93840-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20260707; t=1790628904; x=1791233704;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pZc96VEoN3/pZiTvd3D//LSSDMavgTBbuqhxg2bO6kc=;
+        b=HUdl672FD0MLFRPXpNrc8IHYhbFlS3GgR1rF0vQ0vC2y4wQoQBlwsMKrHVJibBxLiX
+         3cHeXqe1/MyyTqaqfAvzgTHH1JDW/ub4N/fPaGYzQOUw9IPCIGDAFZFxHRXiSNny6dqr
+         KUYq3DGqWvNkP+rZ3ApcRQDsnz6biG7uQY34Ub5v0k6cdJrKAByQFoY3fLcyfkakaV9b
+         ySbDSLz1P2QwGWMduxDsXXnxciouuwAJVFqLgO5VoJZ3MWItQ3oq8RS2BkUxiGvSjj4z
+         dMn4dwAqohga/DA4lI5INdpTeALWINFHTXC8miDiX0jhmN8bluC+xmvOPQuyxf1xb2Rl
+         jJSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtvgI5VdZLZOxOBcIuBDvR4PdxYkT11g3lGLa5I3ZHPJDbi3MXtmScm/6arioNL+xkYc6ieEjEthMn9Yc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWWnFTOj7vHTM6a/wBvYH/nq+w+f7xOHryZxQo8Kb2NYAZU3hi
+	x26ygsJie09AG9lhDNLGGd87PL05qxy9XDiOURodwhMVw1HmdcpCkZSzJ+G193YvkCFEngJBcYr
+	/Q7leQ38=
+X-Gm-Gg: AYBFou3feBTEDKJvJew6v6dmiNf7qUcEnnU0kiYvMU3X+uQIDlD1BhYf6Yv9d7dbvjK
+	ws+o3yVjQl1RRd+fDfrRi/hj6ViisPMZTItKPSrqjdiCcXGlAvsitl4kZLSIa3OVTMn8UsXU18e
+	GoFGEwMSMgRA2YLG0rWH2j5kmsn92ya0I+RCAEYRiryZLvmuYdxh1hxIvGuZ3KDt9QUPmlYysIb
+	qEgZ6R/MWIDTn+F5XgrnVYJoMIwbpz6y2iHNGK4h7SWRJ52GPSR+2Yqh9Ujh7M4mFFU++Ydf05h
+	Xix3hdhIjxfgu31C8f3zwuLr3VWdSTp183ioH/uei3TJ0N/l13JKDAbtsweimHdn5Nh0FVUG8IZ
+	fmzZAVfPxknLe3RDZdCJJCqTlLYBlBgRxbmN9Z39nbbYmX2oDJ1TC8soW7hxllSBqrC+SP4+seG
+	+DNBH5L6NHiMCUueF0m5EJADbhKJdjs6gcBjt1JvHmE2j2f9abGVyPW0Z52qxk3RR/Op7s2n31i
+	O7ULbKcv0P3OPNoqM/aNeei02sDOEHUnQ5okuWnW9RsbwfiFKbMJjdcdnXZvWtpSsDGAjTM
+X-Received: by 2002:a05:600c:8718:b0:49c:fc6c:be08 with SMTP id 5b1f17b1804b1-49ff06f8316mr175925425e9.31.1790628904029;
+        Mon, 28 Sep 2026 13:55:04 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfec703sm18042045e9.6.2026.09.28.13.55.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:55:03 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH v2 0/2] Initial Exynos850 ACPM support for exynos-acpm
+Date: Mon, 28 Sep 2026 21:55:01 +0100
+Message-Id: <20260928-exynos850-acpm-firmware-support-v2-0-717acef9469a@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACXUumoC/4WOwQ6CMBBEf4Xs2SUtBUVO/ofxUGHRTaStW0SI4
+ d9F9O7xTSYz7wWRhClClbxAaODI3i2QbRKor9ZdCLlZGDKVbVWhM6Rxcj6WhUJbhw5blu5phTA
+ +QvDSo7LU2jbXKj9vYVkJQi2P68Px9GWh+2M56r8hnG0krH3XcV8lwy41KHUBn+6VY+9lWuUGv
+ ZZ/Huavx6BRoSmLslH7HeXGHG7srPjUywVO8zy/AVlusXL7AAAA
+X-Change-ID: 20260512-exynos850-acpm-firmware-support-0aefaf4104b6
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-samsung-soc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Alexey Klimov <alexey.klimov@linaro.org>
+X-Mailer: b4 0.14.3
 
-MCTP_TEST selects MCTP_FLOWS, which also enables SKB_EXTENSIONS when no
-transport requires them. Enabling tests should not silently enable
-additional kernel functionality.
+This series adds support for the Exynos850 SoC to the Samsung ACPM
+firmware IPC driver.
 
-Make the tests depend on MCTP_FLOWS instead, following the dependency
-rule in Documentation/dev-tools/kunit/style.rst.
+The Exynos850 contains an APM co-processor that handles IPC messages for
+clocks, power, thermal management, and PMIC control. While it uses the
+same underlying ACPM communication machinery and protocols set as
+the GS101, the exact implementation details vary between the two SoCs.
 
-This keeps the full flow-test coverage: the suite is available only
-when flow support is enabled, for example by the I2C transport.
+Those protocol-specific differences will be managed individually by the
+corresponding protocol drivers. However, a dedicated compatible string
+is still required for the core IPC driver because the Exynos850 firmware
+utilizes a different initialisation data base offset.
 
-Fixes: 109a5331143d ("net: mctp: tests: Test that outgoing skbs have flow data populated")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+First patch updates the google,gs101-acpm-ipc dt-bindings to include the
+new "samsung,exynos850-acpm-ipc" compatible string and adds clocks
+descriptions for clocks that can be controlled via ACPM or by Linux
+directly.
+
+Second patch adds the corresponding match data, base offset, and clock
+device name to the exynos-acpm firmware driver.
+
+There is a dependency for driver changes on clk-acpm exynos850 series
+which seems to be accepted/merged:
+https://lore.kernel.org/linux-samsung-soc/20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org/
+
+With this series I expect for ACPM firmware DT node to be:
+firmware {
+	acpm_ipc: power-management {
+		compatible = "samsung,exynos850-acpm-ipc";
+		#clock-cells = <1>;
+		mboxes = <&ap2apm_mailbox>;
+		shmem = <&apm_sram>;
+		clocks = <&cmu_cpucl0 CLK_FOUT_CPUCL0_PLL>,
+			 <&cmu_cpucl1 CLK_FOUT_CPUCL1_PLL>;
+		clock-names = "cpucl0", "cpucl1";
+	};
+};
+
+and further add cpufreq support on top of these clocks.
+
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
 Changes in v2:
-- Depend on MCTP_FLOWS instead of removing the selection, as Jeremy
-  requested, to retain full flow-test coverage.
-- Rebase onto current net-next (014d795c7383).
+- Re-worked bindings update by adding clocks descriptions and hence
+  re-wording the commit message and adding constraints for clocks
+  and not yet implemented pmic support;
+- Rebased and re-tested with cpufreq;
+- Link to v1: https://lore.kernel.org/r/20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org
 
-v1: https://lore.kernel.org/r/20260925192510.93840-1-kmehltretter@gmail.com/
-Review: https://lore.kernel.org/r/8edc4e71edceb124e2dca233cddb75e198b53a51.camel@codeconstruct.com.au/
+---
+Alexey Klimov (2):
+      dt-bindings: firmware: google,gs101-acpm-ipc: document Exynos850 compatible
+      firmware: samsung: acpm: add Exynos850 support
 
-Validation on net-next 014d795c7383: x86_64 GCC 15.2 builds and QEMU
-run. Both MCTP suites pass all 80 cases, including both flow tests,
-with no skips. Kconfig checks cover flow support on/off,
-KUNIT_ALL_TESTS on/off and a module I2C transport.
+ .../bindings/firmware/google,gs101-acpm-ipc.yaml   | 54 +++++++++++++++++++++-
+ drivers/firmware/samsung/exynos-acpm.c             | 10 ++++
+ include/dt-bindings/clock/samsung,exynos850-acpm.h | 21 +++++++++
+ 3 files changed, 84 insertions(+), 1 deletion(-)
+---
+base-commit: 5a956dde5526a634dca7ccad27c051ebcc306089
+change-id: 20260512-exynos850-acpm-firmware-support-0aefaf4104b6
 
- net/mctp/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/mctp/Kconfig b/net/mctp/Kconfig
-index d8d3413a37f7..e64d4f7ef6aa 100644
---- a/net/mctp/Kconfig
-+++ b/net/mctp/Kconfig
-@@ -14,7 +14,7 @@ menuconfig MCTP
- 
- config MCTP_TEST
-         bool "MCTP core tests" if !KUNIT_ALL_TESTS
--        select MCTP_FLOWS
-+        depends on MCTP_FLOWS
-         depends on MCTP=y && KUNIT=y
-         default KUNIT_ALL_TESTS
- 
-
-base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
+Best regards,
 -- 
-2.39.5 (Apple Git-154)
+Alexey Klimov <alexey.klimov@linaro.org>
+
