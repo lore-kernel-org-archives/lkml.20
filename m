@@ -1,154 +1,163 @@
-Received: from mta0.migadu.com (out-191.mta0.migadu.com [91.218.175.191])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3936F901
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0493930FF36;
+	Mon, 28 Sep 2026 09:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587491; cv=none; b=PLz58f3gumbmWjKx3peNOg255pi1SlpJ2wMgYrjGahOc6y+apDeu+jYVUBotuqu5a7ofnBVbthzpVSyZpy9qlJ/qOxCF8x73vGsrYo5Zf/LSStIDCMhHRIOywgmSdpYlPW8g/pfvK/EAc4O9lVglPyR+1X+Y6se3z8oVELSTFmY=
+	t=1790587580; cv=none; b=s1qAwUi1LXQYUJiVkS+EXXTLdKlOM+uxSsdQqW89LtDADB3Zf3bG8it2crwd+JnwaWPO1EVv7G/jXWYYcT6kgPq+kmHZYoc6Ql+ApHuevwRnaZ1UMR9YPjbyXP24EIgrbyRCq7vdPr7Vnkz2X5nMhLjqTp61RwT7KTxM/T6JGkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587491; c=relaxed/simple;
-	bh=HxNwpHe0nHsH16nYk3/3aMin7+3c9bVF1RTMSXmtCuE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hZhffIalhy1RXvEz2ELK8zALZK5kJ02H3SyjrnPVE+cnjIluXiVJP3np/c0pIgkn39T90SZyD1jz63eq80wi+1RFMmCYeJJBUNIKLyYw6MYex4MbcKd2pcrafBlEllPs9ouuPYeo3083sJoiISWxCRTTMIi91QGAFQC/Pv5XoQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QPhpoxYS; arc=none smtp.client-ip=91.218.175.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790587580; c=relaxed/simple;
+	bh=BqXixSJM2wxVIE8VLmqDLfVq25fTtS+NGlMKrjAztIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lMRANMIGGyUDnt/4jKBhQRZqhdxe25FXZs7mTjXVA2qhg3L3/2HT7ppyDr386HEO3EZ1HVAMLIeo45zK71bfH7izixUHoH/WMOabFzagTHRhM3dqpdnxjKx6+QxOhM2yQT4wKaXwj79vYQkaz/jC/Eo4FuUEFWN7x09oo02x7WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OivBuJr6; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QPhpoxYS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HxNwpHe0nHsH16nYk3/3aMin7+3c9bVF1RTMSXmtCuE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790587486; v=1; x=1791192286;
- b=QPhpoxYSjKH3PdIbQuHd94yXAuuXcYNXhuJTievVvLsgidgeUB6Yx2iezKBuTOKxyeDE6X8C
- tE3Db+9hGuHrexhPl0s3XjqckRVyyc9zhe5J0gcQGS9mT2llMs9HHZEkI8EH13kzls2BARAOelb
- FAq1eZnqnLccQzLfhNa3pDFY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c7b60c04c93c979;
-	Mon, 28 Sep 2026 09:24:46 +0000
-X-Mizu-Trace-ID: 9c7b60c04c93c979
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8531bc11-b191-42c0-829d-36f831f6288e@linux.dev>
-Date: Mon, 28 Sep 2026 17:24:38 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OivBuJr6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790587580; x=1822123580;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BqXixSJM2wxVIE8VLmqDLfVq25fTtS+NGlMKrjAztIc=;
+  b=OivBuJr6DqES6TLRF9+vrxU/i1f6UOAD1vSp2Gp21Dd6BY+FmHSl2s3s
+   hXsaUmdtcZAjJpPisqcozFy/Z9mYnOUAANNnnLONXHkeWQzUO6wNt/Kgb
+   e8+8y5RZxK/EWHdA2T3kQQVmEimNTx5Y+OYzkfPu5OjEPPk3agJpL1PIQ
+   IHP3YD8bhX/xELJagLr82ib4lYFdT1yqjQhoshkbHy+BPI4KuxO2LAtAh
+   oeDbLixFuf2dTEw0DB6gauDlk7U0kvXuFJIQ1LNS3FerZsaCAzIePNHG9
+   tcKS5yBI7jkvoNKQuL7TWdhCFFNICK3p3lSx2tWWwavFRtFXjVuZTLo1W
+   g==;
+X-CSE-ConnectionGUID: P/4lCNdgTS2Z5qAFhnAsvA==
+X-CSE-MsgGUID: mK2AgWmhQJGzz1LU0u6WEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90325204"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90325204"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:26:19 -0700
+X-CSE-ConnectionGUID: IH7GfTYzQfqWd07e9NVZ8A==
+X-CSE-MsgGUID: +ztMo0lMRG6XmY91CGeTcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="304491448"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:26:16 -0700
+Date: Mon, 28 Sep 2026 12:26:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt sharing
+Message-ID: <aroytGH8u-gGFYvq@ashevche-desk.local>
+References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
+ <20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 2/6] LoongArch: KVM: Guard against NULL irqchip in irq
- injection
-To: Bibo Mao <maobibo@loongson.cn>, gaosong@loongson.cn,
- zhaotianrui@loongson.cn
-References: <20260927075240.3007947-1-cui.tao@linux.dev>
- <20260927075240.3007947-3-cui.tao@linux.dev>
- <4b4aba4a-c609-93f5-51e8-3b70a8baf6ad@loongson.cn>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <4b4aba4a-c609-93f5-51e8-3b70a8baf6ad@loongson.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-
-在 2026/9/28 12:14, Bibo Mao 写道:
+On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:
+> Adding support for sharing interrupt line with other device requires the
+> interrupt handler to handle runtime PM suspension properly, ignoring the
+> irq if the device is suspended (maybe even off). And while at it, we use
+> the PM reference to ensure we do not get suspended while processing an irq.
 > 
+> In order to prevent the chip from raising irq while suspended (that is when
+> using fixed regulator, where suspend just means setting the device in
+> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
+> then restores the value again when resuming.
 > 
-> On 2026/9/27 下午3:52, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> The irqfd injection path dispatches through the irq routing table
->> without the kvm_arch_irqchip_in_kernel() gate that protects
->> KVM_IRQ_LINE: kvm_set_pic_irq() and kvm_arch_set_irq_inatomic() call
->> pch_pic_set_irq(kvm->arch.pch_pic, ...) and pch_msi_set_irq() calls
->> eiointc_set_irq(kvm->arch.eiointc, ...) directly, so a routing entry
->> that outlives the corresponding in-kernel irqchip dereferences a NULL
->> (or, before the previous patch, a freed) device.
->>
->> Make pch_pic_set_irq(), eiointc_set_irq() and dmsintc_set_irq()
->> tolerate a NULL device.
->>
->> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> ---
->>   arch/loongarch/kvm/intc/dmsintc.c | 3 +++
->>   arch/loongarch/kvm/intc/eiointc.c | 5 ++++-
->>   arch/loongarch/kvm/intc/pch_pic.c | 3 +++
->>   3 files changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
->> index 63072595c01b..e27f448bb54f 100644
->> --- a/arch/loongarch/kvm/intc/dmsintc.c
->> +++ b/arch/loongarch/kvm/intc/dmsintc.c
->> @@ -70,6 +70,9 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
->>       unsigned int irq, cpu;
->>       struct kvm_vcpu *vcpu;
->>   +    if (!kvm->arch.dmsintc)
->> +        return -EINVAL;
->> +
-> There is kvm->arch.dmsintc checking in its caller function pch_msi_set_irq().
+> The scoped_guard in mma8452_runtime_suspend() is changed to a plain
+> mutex_lock() instead, both to prevent mixing guards and goto, but also to
+> ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
+> way up to disabling the device as much as possible.
 > 
->>       irq = (addr >> AVEC_IRQ_SHIFT) & AVEC_IRQ_MASK;
->>       cpu = (addr >> AVEC_CPU_SHIFT) & kvm->arch.dmsintc->cpu_mask;
->>       if (cpu >= KVM_MAX_VCPUS)
->> diff --git a/arch/loongarch/kvm/intc/eiointc.c b/arch/loongarch/kvm/intc/eiointc.c
->> index fe0a1918f26f..c68f9033638a 100644
->> --- a/arch/loongarch/kvm/intc/eiointc.c
->> +++ b/arch/loongarch/kvm/intc/eiointc.c
->> @@ -112,8 +112,11 @@ static inline void eiointc_update_sw_coremap(struct loongarch_eiointc *s,
->>   void eiointc_set_irq(struct loongarch_eiointc *s, int irq, int level)
->>   {
->>       unsigned long flags;
->> -    unsigned long *isr = (unsigned long *)s->isr;
->> +    unsigned long *isr;
->>   +    if (!s)
->> +        return;
-> When is it possible that parameter s is NULL? There is kvm_arch_irqchip_in_kernel() checking in kvm_send_userspace_msi().
+> With that in place, it is safe to add the IRQF_SHARED flag.
 > 
->> +    isr = (unsigned long *)s->isr;
->>       spin_lock_irqsave(&s->lock, flags);
->>       level ? __set_bit(irq, isr) : __clear_bit(irq, isr);
->>       eiointc_update_irq(s, irq, level);
->> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->> index 62c09b5f3937..88666425d800 100644
->> --- a/arch/loongarch/kvm/intc/pch_pic.c
->> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->> @@ -48,6 +48,9 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
->>   {
->>       u64 mask = BIT(irq);
->>   +    if (!s)
->> +        return;
->> +
-> When is it possible that parameter s is NULL? I think that when in kernel irqchip is removed, there is no way to inject line IRQ in kernel side.
-> 
+> Keep in mind that the device by default is using push-pull for the irq pin,
+> which might require additional hardware design to allow interrupt sharing.
 
-Thanks for looking into this.
+...
 
-You're right. I rechecked the lifetime rules after your comments, and
-my reasoning for this patch was flawed.
+> +	pm_status = pm_runtime_get_if_active(dev);
+> +	if (pm_status == 0)
+> +		/* device is powered down */
+> +		return IRQ_NONE;
 
-I had assumed an irqfd could remain active after the corresponding
-in-kernel irqchip had been removed. In fact, that state is not
-reachable. The irqchip devices are not destroyed during the lifetime
-of a running VM, and during VM teardown irqfds are released before
-the irqchip devices are destroyed. For DMSINTC, the rollback path is
-already guarded by `pch_msi_set_irq()`.
+> +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
+> +		/* runtime PM was disabled, possibly suspending */
+> +		return IRQ_HANDLED;
 
-So these NULL checks are not protecting a real execution path. I'll
-drop this patch in the next revision.
+This is very interesting part. I bet this will be the first driver using this.
+A big question "why?"
 
-Thanks,
-Tao
+> +	/*
+> +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
+> +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
+> +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
+> +	 * not enabled), and we can/must assume device is active.
+> +	 */
+> +
+>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+>  	if (src < 0)
+> -		return IRQ_NONE;
+> +		goto out_runtime_put;
+>  
+>  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
+> -		return IRQ_NONE;
+> +		goto out_runtime_put;
+>  
+>  	if (src & MMA8452_INT_DRDY) {
+>  		iio_trigger_poll_nested(indio_dev->trig);
+> @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>  		ret = IRQ_HANDLED;
+>  	}
+>  
+> +out_runtime_put:
+> +	if (pm_status > 0)
+> +		pm_runtime_put_autosuspend(dev);
+> +
+>  	return ret;
+>  }
 
-> Regards
-> Bibo Mao
->>       spin_lock(&s->lock);
->>       if (level)
->>           s->irr |= mask; /* set irr */
->>
-> 
+...
+
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+
+I don't see the respective _dont_use_autosuspend() call anywhere.
+
+...
+
+I am wondering how many of the above possible scenarios you were able to test.
+
+...
+
+P.S.  I bet you can now make a presentation "PM runtime in Linux and
+why it is so hard."
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
