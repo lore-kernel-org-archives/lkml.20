@@ -1,142 +1,162 @@
-Received: from mail-lr2-f9.google.com (mail-lr2-f9.google.com [74.125.230.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0873CAA31
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.73
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790639253; cv=pass; b=bhFK0+E6GiG9rmnGmJWeFLUgcFECfE5QkO3YPLwLfCCWIp3IXxWdYloqC9WWn9N9IH7dr9bqfs+DEe7s8oSDpowNCjFKCWJTYU1ATfcjcLH8xGxHtF/d4fUXs2KcYxC+xX8Qz8fUE7sK88AhH3vmsEIQpSLJwKM8Aib7ysTha6M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790639253; c=relaxed/simple;
-	bh=PKkFOvqcQ6CJt5LViyUXFqT4PMweECyFbUUz6nxIhNU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=J4d0zqQ47aPi41k9DoOowXIHibZXMOFe9k39qM3HWdpNSDLG8ZaS9GigSD0iF7CDVzYcEd5pI9mOpRonO/Kw6dhJKCLVOgshYdpX9v0fha8VJLZJ7mV7HEnbPsB0XChq01kpUIF0UnwZZx1tHjATARnXImmE47a8V3+leeHKWR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tpnu/7wc; arc=pass smtp.client-ip=74.125.230.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E054915A0;
+	Mon, 28 Sep 2026 23:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790639312; cv=none; b=M67C2aKRAMnFPbFhUNt5XNoFkIzJq1max141HtZGVSSHXM6QKczRO/7Xe/qxJUFWVPiK1TrJ6P3SZ5OxO5bVRiC+PzLvCOUx4yaDdtVWi3Y/eQXT3musvPWb12cdmY8EfY29djgEAj72FrzfUHVm84dPcRagDiqosp0wLGRXUZc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790639312; c=relaxed/simple;
+	bh=u2L4I9ls9fqhodjGeRwrNu8STpkn6Q7ciISU01WaIig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vAbeIoD18TKQe2wHIYwg0AOZtB9DtcKUIyr1FxBXSoqa2uRb2/91da82Vd+/oyBhbClQU4MrzX0kAE8MNVbSbX445xSXllsBoPcVvgyzSdBksx8TrT+ugRcC/3Ni3q/4UXVtzMzTHPn+Y9rYhiWPsvIdwWTnt2QVcI5Y8y+OzQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=CnurNAfI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YIwVqipS; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tpnu/7wc"
-Received: by mail-lr2-f9.google.com with SMTP id 38308e7fff4ca-3a6525e763aso25323041fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:47:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790639249; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ar6yCbw6BVPgSYUNTkVpvXsF8XfsJuvV6uT1TSay50yaWbOsoodT5G2sFLzT0UYBEJ
-         Bhq8OTgm0weDbe2rKlULBeyjcXDdiu5t0jTicpSpGr1vyKNVyLPSrba0jjJthQwsaoFH
-         b32w8BOfzwJITG30x6MDyx4HeTVfbRs8pxLbDWgr5HSlUc77ZMfuLzqmw5cIlTilwuA1
-         hNhbzTr8mb6fALMznUFbNy5ZPYtoMyQE1H1slb1FTjQlofHmiFt6czcq8YrrQj+mF7yF
-         T+3h3Cl79xsx7XU9NKEWP3tx91SoQ/WMzPtLiIDbCSudsZ1c73wQ1FG5nO9DXfohedQI
-         Ia5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=kktNpcQhFnLY7FMHvhh7GhkBerBwwXBFR8Fu8KD4q2k=;
-        fh=er76zvFXjCjSv4KHUxRlOntQt1yEoK/nXUQzy6fuyeY=;
-        b=QElM/y5ri0dgaHgERZyIOFXdlxBLM9QrZ0tAhgP2gqGYxk+xn2vTb85fvIlig0iT3A
-         5HBbyZwV4EgFokbZ9byatVZiJYLKJ0DIHMIIQG8G1Kdkxg+QDnk6mdeMD86+fphFpAlb
-         xJkKEMJm1nZmbzrOs9HI3kRkF0M5FpNIFM74pCaSLyr9HcI99I6k4RhOPrn78j4Y1eEV
-         A9hbftggs0vNl15jbpyayJdB5OFownptqZ47lmGQ7JUcHaj73EckIMA0cvNEqt0Wz07/
-         pUpom8PeYXJjWacC4wREdupKudnApltAl2cqvup8Vzxy9ToUNyrQpn1XphDiWIUt1mh4
-         OYUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790639249; x=1791244049; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kktNpcQhFnLY7FMHvhh7GhkBerBwwXBFR8Fu8KD4q2k=;
-        b=Tpnu/7wcffRL7zcKPFRXWxeN619eQ/h+GkvnB/KjCsn/qVlgCuIkt06zVnJO2g3d6H
-         +W7w/7EAm+i1bIMCd0btVgt9CHab9p/n93dziOoy0id0CW6tevqkdk2ek4iYvtfQmInC
-         drJfWk7kRC2o+LCdqf77mfsV+dtXYgnQFClhW4h4FAYaJHut8wBYYZ/4IBwLZDxb8eqF
-         Jxwa91PO30XNVdDGSc+tDtZ3BCb9sRCoVbJNyvPFeEZ9uKqBKmB7XCnqkxE5WTBaaRtL
-         EauMgLXIMBJEctFYAQMcTy++p2qzccw1+PAyIzFK8RcxvRO0bl41AURLw9h8oRWzcfuu
-         JJzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790639249; x=1791244049;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kktNpcQhFnLY7FMHvhh7GhkBerBwwXBFR8Fu8KD4q2k=;
-        b=0b9k5Jtq5sj1T9osJV/VdbNbjv9gF45BTjhl3wyhE+gO5gCycRJWnIudZw3hQDptOe
-         jEQ3YKYBW1LVkYn7Awp2S+LPRJaDTJPYaoVheeVbL2D2QSZ6nTweijfZP8J5Lk37DLXY
-         XHb7GjjyYKKRUOpxhs9m0/7Dm3DK3yh2dHzF1+OJoOPjPzveMtANcr4CBTvr42CW1pmc
-         +acqsgM3YAWktBLaoh+f4md28T3R15CctnYh8vo/SygaZQ5NLqeEhTC2xq79yDFtJvAd
-         eLfRN2lRpJYw3FSAegTHRKErM4otGF22B8uAlQRbZ8hpiACCio4aYKv4sA2f0BbjfEvk
-         eSXg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsAQSyGGITDxGRrH2zOe1c71lWISpNEJIEnqjXva+AlyzG1SnzXBshA9Dp2UZi9EYGIR5AGj3fZsYJzXo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQPBUXzLE48ANKoYSUfpoohyuzVej6eLxTHe7xNxOL4IGqIjWq
-	El431bbTtnwktN0oFZyBifkEDWOhoohBRdvJz0iGXkH7m673qNhutaiC4rIRbc6rfSFYm6PHqxX
-	20GM+GBkvrx7344Ia3hB3JDTjTZuDQyMr+35BNKPokw==
-X-Gm-Gg: AYBFou0SvDB+gDVYFhjF4PzFJFZxt3vLeEGbF6JEmeMqxLYuWE0lK6AxgoIYkG+Z63v
-	MK7aSRxEA3xPibOR6PLiqtObjjiBwM5z0mJCousMK2Jg+JrPvtyjcHJLVsGQP/vO82zldAEwCDR
-	YliGoCTRTACFOCm0RFtHhQ20kgWeY1gUVAd8PTK/1KbhQkDL9neuGEawr+T1X9C9q0JX6eV9SUQ
-	CGrDnP9cre/NvI4fn9MxBx0U27b3KtUzmUEn6tOWR7frscrgOTET6+KHvZEdAvf4/0r1YZ7HOiY
-	ZyVIBL6JBv8yzOPgTw+m2Fc67CDgHBT6KoIN6mlentp/sWLaW2CXsxhb+k9AanVcC/bHbUKgiBn
-	CFl3NraDbgfP+gQOyW3KFx0YDtXO9u/VFq/YKm+ah6yfKxIKpDePfb/Jk8anRT6gKU/AP4a8=
-X-Received: by 2002:a05:6512:3d1f:b0:5b8:eca8:c9bc with SMTP id
- 2adb3069b0e04-5b8eca8cb2amr3494172e87.64.1790639249428; Mon, 28 Sep 2026
- 16:47:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="CnurNAfI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YIwVqipS"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 0F34F1400067;
+	Mon, 28 Sep 2026 19:48:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 28 Sep 2026 19:48:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1790639308; x=1790725708; bh=PHc340C/0RqxgJEdu6mza0gSoVBGf47y
+	Y8pgWaWeaw8=; b=CnurNAfIvtzGpbeyD/IDt8lyUxY3gUPmFI41Qffp+OJp3EGS
+	y/+4GOC0FzRMjDM3gWy9AEqrNHO1L8CYAnSnzJHSy1HEbd3VZT6ST0Pgt6cXO7qI
+	NhfLtIvU1srEioF5sw8PGOLEle2wIsBh3yygB+6cYfQU5xjmyLAgZMmeNcHl/yfW
+	AAlTiNnkaJymasYL6zfOGewl6oj8HkHfl2VdhpZlWf9HNNL2nkYCC99gCa/OGFsD
+	BipNkLvBv95uBOKWZdderIslROGDern2uZbLMNa6ff8Sii3J2XptvXd1zjUfNCeI
+	LwQJ90k+CkYmI0oJB4bMa6KDMOTd4gCnuwugSg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790639308; x=
+	1790725708; bh=PHc340C/0RqxgJEdu6mza0gSoVBGf47yY8pgWaWeaw8=; b=Y
+	IwVqipSMYFIDoxvkjPJat1or8rZ4kPgLu4E1zAzQ2evpjOcZcv6uuTJTSuVV6ySo
+	ZSKMeMa48+3z0ruh5FShko7tl2M6BF5lXRGjRfg5cgJs0PLRxwLaTWBntzoXCLIb
+	PszN3znFV+qZS9pfrjhDkdSmE0j6+oTrEolefhRQlg1iqYGpSBVPdi6i1i9qQwpi
+	85Z0Hza3v11gwdgFo6WNbdrIghhRZVdl76IHnGqC9VnQbAbqVptgvK5S2w+/GqiJ
+	4udE51Rmz/xe1oTHIX7rbHsm+vmi7+8mYK0gsTgMTMrPY0Q1ymzpcDWn0S8brWpj
+	c3mbmkqeDBmC9B8XgaYfg==
+X-ME-Sender: <xms:yvy6au5C5wnKYlz6sjzDAmdhgSpakUvk7UVtlrUi0bE2UL8LIrvOdw>
+    <xme:yvy6ah-zTmfwTZXhKokR79TzLofR4R4f6KQAyGG9A1lSsy7XFhmZDmJGVHOzZdpBQ
+    mmhKRvLBEvKLiQ3MT-gfvsPA_RmvbPdaYjLZ4yUEJFQtQOgM8vFU1JI>
+X-ME-Received: <xmr:yvy6atV53iffwnO6xc8WwOENCAr9vMHalIQ-NfgaE-FD8rXeAz1JviFR6lWH>
+X-ME-Proxy-Cause: dmFkZTE7D7OQUEfd0QuENU6vRNXRggQ5ZujLkrqjuYUFhDJpZyOL5+Hh6JkNCdmsGKSa8Z
+    tcOvgUwt9PnAeQWoPjp8NF2ijYHaiiLhDcOuuhxjTxbhxZyigkf94/mg6hj2bmVN9jGxLz
+    OvKKmu073HxKpUVVTQgaT8PweQr+ONu3P1gvCNojENpDUCg6l/0hOVNeuR75JtG2sGlSqw
+    lexxnc47ai0Xuqdp5xHoBZT9KVZdFgdXGhLBQNymOUMCPB72hzziJztJfiSNdnauruLa/L
+    pojKJ5msFndPBQLoAJTjWnw0LfnTfHR7rdR2ULS19sogb+D3q0oL12nmHobUDIYl9jRTNW
+    0tENKq+E1BX51Ha+yAWvjYFjNODsVQH0kMimk3SZ3GA92VaMCjut9BwQfNF87aafnYfWxt
+    8atPrkX9MXk3tqMxXh1NJodfi7eyeCR1laCHmdHe/6u4mwwY9DH2VkPyCuua8hMpMAarYc
+    0+Zdw8NYsSsBx2bJffDvAKYiORFsIJYqXeLyyCEGcczbGHlMtbVkHt24FC6T1QGBeWoSo3
+    9U5OhxKqek6pu7UvezG5Nyxjzr8dvBS29E1HbVMODAKg3QHSXChxDloZtyH+Ly2Pkh9Vxu
+    pKsnJJIXenVl7x4fY6hw6/eZKehLU1nnCwD6eckudsR4Fgykszm2hMR1YV/Q
+X-ME-Proxy: <xmx:yvy6aso49G9HW69Rr00fFudxOzkbhM6eyKgFRlMvC8WD_bINqY42Og>
+    <xmx:yvy6avlnxi_aC2jP_yq_nh9I0Pigzb7q4bHf1x4OXMFaBVLKBxJ7Mw>
+    <xmx:yvy6as0YWdVyjV0HCrwcX0X_GM76gzC-rzMVMXW6l9fq5_EtIIqo-g>
+    <xmx:yvy6asRLcq4p3mbsQv6TwOVWrabBfHlkzmP0oYMzyh3b3FWgQM9g2Q>
+    <xmx:zPy6amkCNSjq7oKjMI9fXHNKTK0wPf9Owa6eY5dJKqsLaR94sDL1Bz9N>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 19:48:26 -0400 (EDT)
+Date: Tue, 29 Sep 2026 01:48:23 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
+ nonce reuse
+Message-ID: <arr8x3a9Vqkg-ooM@krikkit>
+References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <arqToNCxIwi9CZ--@krikkit>
+ <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: omer zalman <omerzalman42@gmail.com>
-Date: Mon, 28 Sep 2026 19:47:16 -0400
-X-Gm-Features: AclHuK-rFtYVxaOMu8tZIfEWz9N96mhXsYtoyzsMuSE0Ff6gY74Pp-6FzffbAP0
-Message-ID: <CAGLNFZe6h6qAVvM0p0vHdLttOmx88j-owchgKBawopCBdw__sA@mail.gmail.com>
-Subject: [PATCH] scripts: macro_checker: match complete argument identifiers
-To: akpm@linux-foundation.org
-Cc: sunjunchao2870@gmail.com, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000623c5d065c93b091"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
 
---000000000000623c5d065c93b091
-Content-Type: text/plain; charset="UTF-8"
+2026-09-28, 21:33:41 +0200, Jérémy Jean wrote:
+> On 2026-09-28 18:19, Sabrina Dubroca wrote:
+> > 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
+> > > An off-by-one error in esp6_xmit() advances the IV counter before
+> > > encrypting each software-GSO segment. For N segments with sequence
+> > > numbers X through X+N-1, the IV counters are therefore X+1 through
+> > > X+N.
+> > > The following non-GSO packet uses X+N for both its sequence number and
+> > > IV counter, repeating the last segment's AES-GCM nonce under the same
+> > > key.
+> > 
+> > I find this description very unclear. All I'm managing to understand
+> > from this is "there's some situation where a packet isn't getting the
+> > seqno it should". I don't know where the "+1" comes from since for GSO
+> > the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
+> 
+> I tried to be as explicit as possible, but I apologize if it was not
+> good enough. My understanding on the full GSO processing isn't as
+> deep as yours, so here is another try at explaining.
+> 
+> The bug happens after software segmentation in GSO. When a large
+> amount of data needs to span across several packets, software
+> segmentation splits it into N smaller skb. After this split, each
+> smaller skb holding the individual packets has skb_is_gso(skb)
+> returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
+> that this skb resulted from a segmentation. Consequently, the skb
+> goes through the increment below in esp6_xmit():
+> 
+> net/ipv6/esp6_offload.c:
+>    355		if (xo->flags & XFRM_GSO_SEGMENT) {
+>    356			esp.esph->seq_no = htonl(seq);
+>    357
+>    358			if (!skb_is_gso(skb))
+>    359				xo->seq.low++;      // <<< increment here
+>    360			else
+>    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
+>    362		}
+>
+> There are N calls to esp6_xmit() for all the smaller packets, and for
+> each of them, the current sequence number is first written into the
+> header, and then the shared counter for the next packet is
+> incremented. However, the value esp.seqno used to construct the IV is
+> derived from the counter value _after_ the increment.
 
-The checker uses substring membership to decide whether a macro
-argument is used. In '#define dummy(x) max(1, 2)', the x in 'max'
-hides an unused parameter. Match the argument at identifier
-boundaries so this simple false negative is reported.
+Ok, I see now. One call to validate_xmit_xfrm() that calls
+skb_gso_segment() and feeds those N non-GSO skbs to ->xmit one by one.
 
-Signed-off-by: Omer Zalman <omerzalman42@gmail.com>
+In that case, the seqno used in the IV wouldn't match the one that the
+peer will reconstruct using the bottom 32b of seqno present in the
+header, and it would never manage to decrypt anything we sent.
 
-The exact git-format-patch file is attached because Gmail's web
-composer removes tabs from inline diffs.
+But luckily, it seems commenting out the memcpy(iv, seqno) line has no
+effect (I think that's because all algorithms rely on either seqiv or
+echainiv).
 
---000000000000623c5d065c93b091
-Content-Type: application/octet-stream; 
-	name="06-macro-checker-argument-identifiers.patch"
-Content-Disposition: attachment; 
-	filename="06-macro-checker-argument-identifiers.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mulwd90c0>
-X-Attachment-Id: f_mulwd90c0
+> For example, if
+> the last packet produced by segmentation has sequence number 100, the
+> IV is constructed using counter value 101. Then, a subsequent
+> ordinary packet not going through segmentation is allocated sequence
+> number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
+> there is no increment, and its value is constructed from value 101 as
+> well. Hence the nonce repetition.
 
-RnJvbSAwMmIwMWEyMTJhMzc4NWRiMzIzNmExMWI0NDc1MWZmOWIyNmRjNDUwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBPbWVyIFphbG1hbiA8b21lcnphbG1hbjQyQGdtYWlsLmNvbT4K
-RGF0ZTogU3VuLCAyNyBTZXAgMjAyNiAwODo0MToxMCAtMDQwMApTdWJqZWN0OiBbUEFUQ0hdIHNj
-cmlwdHM6IG1hY3JvX2NoZWNrZXI6IG1hdGNoIGNvbXBsZXRlIGFyZ3VtZW50IGlkZW50aWZpZXJz
-ClRvOiBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPgpDYzogSnVsaWFu
-IFN1biA8c3VuanVuY2hhbzI4NzBAZ21haWwuY29tPiwgbGludXgta2VybmVsQHZnZXIua2VybmVs
-Lm9yZwoKRnJvbTogT21lciBaYWxtYW4gPG9tZXJ6YWxtYW40MkBnbWFpbC5jb20+CgpUaGUgY2hl
-Y2tlciB1c2VzIHN1YnN0cmluZyBtZW1iZXJzaGlwIHRvIGRlY2lkZSB3aGV0aGVyIGEgbWFjcm8K
-YXJndW1lbnQgaXMgdXNlZC4gSW4gJyNkZWZpbmUgZHVtbXkoeCkgbWF4KDEsIDIpJywgdGhlIHgg
-aW4gJ21heCcKaGlkZXMgYW4gdW51c2VkIHBhcmFtZXRlci4gTWF0Y2ggdGhlIGFyZ3VtZW50IGF0
-IGlkZW50aWZpZXIKYm91bmRhcmllcyBzbyB0aGlzIHNpbXBsZSBmYWxzZSBuZWdhdGl2ZSBpcyBy
-ZXBvcnRlZC4KClNpZ25lZC1vZmYtYnk6IE9tZXIgWmFsbWFuIDxvbWVyemFsbWFuNDJAZ21haWwu
-Y29tPgotLS0KIHNjcmlwdHMvbWFjcm9fY2hlY2tlci5weSB8IDUgKysrLS0KIDEgZmlsZSBjaGFu
-Z2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc2NyaXB0
-cy9tYWNyb19jaGVja2VyLnB5IGIvc2NyaXB0cy9tYWNyb19jaGVja2VyLnB5CmluZGV4IGJhNTUw
-OTguLmE5NzFlNGMgMTAwNjQ0Ci0tLSBhL3NjcmlwdHMvbWFjcm9fY2hlY2tlci5weQorKysgYi9z
-Y3JpcHRzL21hY3JvX2NoZWNrZXIucHkKQEAgLTQ3LDEwICs0NywxMSBAQCBkZWYgY2hlY2tfbWFj
-cm8obWFjcm9fbGluZSwgcmVwb3J0KToKICAgICAgICAgICAgIGlmICIuLi4iIGluIGFyZzoKICAg
-ICAgICAgICAgICAgICByZXR1cm4KICAgICAgICAgZm9yIGFyZyBpbiBhcmd1bWVudHM6Ci0gICAg
-ICAgICAgICBpZiBub3QgYXJnIGluIG1hY3JvX2RlZiBhbmQgcmVwb3J0ID09IEZhbHNlOgorICAg
-ICAgICAgICAgdXNlZCA9IHJlLnNlYXJjaChyJ1xiJyArIHJlLmVzY2FwZShhcmcpICsgcidcYics
-IG1hY3JvX2RlZikKKyAgICAgICAgICAgIGlmIG5vdCB1c2VkIGFuZCByZXBvcnQgPT0gRmFsc2U6
-CiAgICAgICAgICAgICAgICAgcmV0dXJuCiAgICAgICAgICAgICAjIGlmIHRoZXJlIGlzIGEgY29y
-cmVjdCBtYWNybyB3aXRoIHRoZSBzYW1lIG5hbWUsIGRvIG5vdCByZXBvcnQgaXQuCi0gICAgICAg
-ICAgICBpZiBub3QgYXJnIGluIG1hY3JvX2RlZiBhbmQgaWRlbnRpZmllciBub3QgaW4gY29ycmVj
-dF9tYWNyb3M6CisgICAgICAgICAgICBpZiBub3QgdXNlZCBhbmQgaWRlbnRpZmllciBub3QgaW4g
-Y29ycmVjdF9tYWNyb3M6CiAgICAgICAgICAgICAgICAgcHJpbnQoZiJBcmd1bWVudCB7YXJnfSBp
-cyBub3QgdXNlZCBpbiBmdW5jdGlvbi1saW5lIG1hY3JvIHtpZGVudGlmaWVyfSIpCiAgICAgICAg
-ICAgICAgICAgcmV0dXJuCiAK
---000000000000623c5d065c93b091--
+I don't think that happens? The other packet will go through ->xmit
+too and use the wrong seqno too.
+
+-- 
+Sabrina
