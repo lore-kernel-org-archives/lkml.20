@@ -1,192 +1,291 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011053.outbound.protection.outlook.com [52.101.65.53])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC7B4C6F1E;
-	Mon, 28 Sep 2026 12:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597135; cv=fail; b=QF9Pk4qaVYcBfV285UVyRu0AFB1OOrzeDGm4MGUrir20fWj5U62gyXwaz5rm3gpJQ9tvMWurQIMcUiH6CRMuqm3cdDerMtXCJF54XJBaiUiHFuumIp/oG/0wSEcS4bQfY2OIEeqYT+2ZBw3z1HBr0x4pi0wU6+kWY7TKRg8T4jY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597135; c=relaxed/simple;
-	bh=6ltMxs5ugNW9WsLBqqoW2ka3tuBuTXrxBIAhixuRtlw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=Ispx+qB8PUpQaQTuuK1HafLYErQfAdJRBuY6VTePu4LEzSqo79u2BmI80x66EI9ntbloBYEuplnv3KJkrJShl4bd75aMsZp2UXGe4K8c4xngTuUkhPPFyNlKJR3tipJ4NbwOGKz37pZyY717QjFNh7sbfM66UbAIKVTjVkk+f+I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=F9GPUxnI; arc=fail smtp.client-ip=52.101.65.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D615049CF28;
+	Mon, 28 Sep 2026 12:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790597161; cv=none; b=ppAnPffWL/57fzqVG+YzE72WT+CZhfOU/HsX3kDjPaCzV+4QS668CINJ1IMEAKdEiyE/v/Ro1kdhrDO44CrqS3bMFCVCSWIA5bNZDPC+w1ttikcyqTjkmccUnr9M3OBQcx9FssKW1NwugPTU3BQRhodZkfGeQ4mzgrgrKIxsoL8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790597161; c=relaxed/simple;
+	bh=A9V4pbu5h7ab/1ykkp0OIsq+kCP60ETlvv8m6UoUE88=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mVOvMHb/IueSbp47McxxVy4GPw0QkFVyunB2XJ13gcKuFP8BtSulxYcT1qhDeaK5i+cpN/v/bEz5nBkko/QCrLlqKttaIz1YhuCWvCCJHwH09Dp61Iz2jIa8GcGX5HDv0yPrkO9/zATPywNSUTW+guInR/hGSXu+yp/Fk9+bCZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TCCDprzJ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="F9GPUxnI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tFpvIC7lpxiCRsmhlOHLV5ljzumX7d0NBOzv23T1VZ0aSIBBSWkT7hoBUIiMQHRW7p3x5ndswJA30i/RfeQOJCN1BRdkPF2eFgpHAIJnpg0Pk9cdUH2fzQko0ig+Zr8RgwTi0VHqsw4KyX3JVGU3bWTjLjNG1n/g+pQBhdHMxuBGc+DyRyBB3OtHF/SGFI5PGAuPPDpA0AjxLZ4kEnYx/eMssAZBxhS0lKvXrww1BCua0gZiLYXA6RTiNAQYTOskw9oVO5eBPmM2OJkEw27hZMoc9KxuNJojtJQ1a46+PIYztDQwMWzqHN8L/Mc/IHYhnToXjeB9QJ3PQ2btdIba/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fO9mwHyWTgjrWDFFJX/oZb2iDhMcT3FiaFT0yRxaHfA=;
- b=s/eAy6os+gyUcxJDzrvcAmSX2N3iTGLBzZCyhMAuzvaZ0/4go32eSbx6eAamFb9bAlGEnnLsZxO9+fTNTCEMhJu64BTSqnPtfzuJw/OlkP/kL/c309vs4pZucbgDsh2P4xPmKp+HXGOD2pU9X5+t3pkP16LJEHEd+hO7IU9xRXvQAPvUpGvhEwF+Z0bc0AGjJbNY9XJY7RIElyEGQGRRuoBz4nebOgyu+Q8s0Ob6gTuIUlpXDeHg6wU6aBfPaSY7MnJkG2D0RSyVqEgrlqxiiCGLQ1H2gXYe4hVYb2me82rcBiZyCQZhiCDigG0EaU4WdPOO2ZTeeoxwI1rW9cV4yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fO9mwHyWTgjrWDFFJX/oZb2iDhMcT3FiaFT0yRxaHfA=;
- b=F9GPUxnI8IDcLdvObBR2CKsRaeeFsaAD1Zgpb55IEx9mWfJrjnsgODfAs+AzDGXazGe1v/QUpiiNW11VExtfw6bfXBwWXPM3j9pqTV1TMBoOxalnXxmHhr+9jIBozqwCnP42wNWCRgtIFehKY3z+KaCQQkCcK0ur1+MEbhBmx3M=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- (2603:10a6:158:401::5df) by DU0PR02MB9537.eurprd02.prod.outlook.com
- (2603:10a6:10:41d::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 12:05:25 +0000
-Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- ([fe80::9ac:6f90:5998:69d6]) by GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- ([fe80::9ac:6f90:5998:69d6%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 12:05:25 +0000
-From: Henrik Grimler <henrik.grimler@axis.com>
-Date: Mon, 28 Sep 2026 14:04:53 +0200
-Subject: [PATCH 7/7] ARM: dts: axis: artpec6: add empty lines before empty
- queue nodes
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-artpec6-cleanup-v1-7-e3b75e10acc6@axis.com>
-References: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
-In-Reply-To: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
-To: Jesper Nilsson <jesper.nilsson@axis.com>, 
- Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- Henrik Grimler <henrik@grimler.se>, 
- Henrik Grimler <henrik.grimler@axis.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1181;
- i=henrik.grimler@axis.com; h=from:subject:message-id;
- bh=6ltMxs5ugNW9WsLBqqoW2ka3tuBuTXrxBIAhixuRtlw=;
- b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqulf3LyD0FrBy9e4uG0kMRhz0B0KDajR+LGayu
- wUgiY+ehvmJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCarpX9wAKCRCwB25JC3Fh
- a57OB/98jx0rwB+AJLTtu2pDxLkMWW1ma/q1BQCrgxin7aTWVv0Rob9+MvEuV6pfK8Zht3EXO29
- fO4TFh48cHwU4Lxz/NvCpjnO2jDbiyn9PCJmS5zVkmDNRU6ZizkJxNQOuRo5hLTwhVGlFLhrVHT
- 3r/HO/hV92TGXJr/aR0PevYJbclrI3hP+8seUj9VIrc9OHUATtmhEx/6roVPXI5SbByZz1GzbWU
- kXUVtT10Kwn/jEePdeLqz0LU4t++5hhXgX1gkACG83tFwtseBZWC2G7H2+pOWsnqQheMj3f/Aqe
- uj1NLaf82C7tankL7Deazbji1aEqmuCz3OsAO4Ss391My2R8
-X-Developer-Key: i=henrik.grimler@axis.com; a=openpgp;
- fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
-X-ClientProxiedBy: GVX0EPF0005F6CB.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:401::65b) To GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- (2603:10a6:158:401::5df)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TCCDprzJ"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBa4ai824443;
+	Mon, 28 Sep 2026 12:04:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=NCIXR0
+	Hs9RwjT7rq+PiaxtNUAk0tz5yF4FzPUq4siPY=; b=TCCDprzJrsGWb3BiDfno8s
+	p0DfGH898yK51mcnul2/CUF1ZzOh2rLJUntPENGJ+o7S8LeKpNAN7N+8FtkyirAo
+	lLYMJctv3hwSyFAeyMw+PLx/Rpw7QTlBhJORnlr1BZFeTjF7Lf+gixXLe39Edq6/
+	9nbL4GS+HH5Y8FsSAMlNrGGRFjmbl+ivLmzVXiOCTKTWc8fLEB8DMZ97OE78/ND+
+	wIG5Mmo2kM0ftctCKDoEBAbmEUAG1pGnDvKq9mYQ4ZkmmjljfAU5wqrf1vo3nNiL
+	RsqFrjsWbmrEBZAtEOzgNPQpKR+HgNMIi+R03Rn12ibDGLQ938h29PoyuHCJmOBA
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk128w-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:04:19 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHrjS076685;
+	Mon, 28 Sep 2026 12:04:18 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhd1mx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:04:18 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SC4GcB49938724
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 12:04:16 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 49A9220040;
+	Mon, 28 Sep 2026 12:04:16 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 91AB72004B;
+	Mon, 28 Sep 2026 12:04:11 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.95])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 12:04:11 +0000 (GMT)
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+        Matthew Wilcox <willy@infradead.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
+        Daniel Gomez <da.gomez@kernel.org>,
+        Pankaj Raghav <pankaj.raghav@linux.dev>, Theodore Tso <tytso@mit.edu>,
+        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>
+Subject: [RFC PATCH v4 10/12] xfs: Implement RWF_NOSERIAL to parallelize RWF_WRITETHROUGH writes
+Date: Mon, 28 Sep 2026 17:33:11 +0530
+Message-ID: <6503684dc469fc75724393242184358d520ea4f4.1790596383.git.ojaswin@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1790596383.git.ojaswin@linux.ibm.com>
+References: <cover.1790596383.git.ojaswin@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PPFBD14D17F4:EE_|DU0PR02MB9537:EE_
-X-MS-Office365-Filtering-Correlation-Id: a975e405-fa81-4769-7a42-08df1d58c767
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	V4pOJlCnIxW34GiIq/deC5iPFczyHBfH/vAnVlb/MKEDEP5n1+fIfBKJRtKNaFqQvtlg2jCIUd4caElepbK5WTtCAFVXyGf+ZkCNHrWG6HDaIhjp5hCUFn2cxGs5rUzevwsT+ZY3334RKbIgrybshj3L4qcFI2OkibJqIzYMbIWMsNjZlG89h5GSQjEGkRkENn3GJR5KE1mzAGgTguaABbmXiX33pmc9izQW13Z8xML+WYetTKJLM0EZ5f6+caaWwiQMtDGuAjXHZS/V1SSRGVWgRs+RSTz+jVKNN6u8nTmmU6AyTQIzRSOf1mZLXU137ny3AAgq305B1053duD1wX/CCaJCiMVQg6RcryMDf38sMtmYysBykmEt67bCTMGcFoV9JVP9Ty+R2GUxegNGf2lM1n7Xh4elBTot3w+dTvWtYfqWVv6yESLwCEAP1MN46ta2NWQ/9cLrJ0GWY4Q0V8xREfqWwaVGSedpziNPgU/bk6eRxcU0QjUxwn5KH4T9ABjZOorHak1Melnx14KzLDhqL8dRa1bee7GeeHeCX+2171d5mpKjriUuuPvSJvl5ngtnectEvQH7pLC6fuxy6baPDjlt3mUD3nVdfpHpDMVPeBA7YFN2HyaZeGvtW366BD29erLnDJ9PN2NdRre9xirsD+btwr1ITVfitjfN8n4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PPFBD14D17F4.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZmFXM295c3NMVEErUTRsZkhtMDhZZkJzVDFMUGdTSGxQendDZUZMMmRTbVFD?=
- =?utf-8?B?d2FUOVNxZXhHQldneHF3YzJ5djhzUUlIYk1ZMlA3Ymo4cnMxa3hRM1FhSFVp?=
- =?utf-8?B?T2Q2c3VVa08vbkd6T2l5Q1VqejFVQUhaVjlkdFN2bGNyOVR1bmNHUkpYYUxk?=
- =?utf-8?B?dlAwVjg0K1V4dVFaMkRySmU2T3pGajFXUHVYSEV1aWhEckhZLzlyV3daMEN5?=
- =?utf-8?B?TDliUVFwMTU2UG0rRzhldm1BTkJDWDZxU0ZuSTVURk5tNGJJV1E2N3BQakNi?=
- =?utf-8?B?OW94S1kxNENvUWZFcDBXTDVWeU9PMDYvRnlidHdaaEJmREV1b0w2Z290Nlhq?=
- =?utf-8?B?bjlqSUtRSGgvYk5wVzJWbWo4KzA2VllLUHFkUWpKYzh2V0dDMDQ2VVN4a0NQ?=
- =?utf-8?B?VWpTZkk1SDJWUmI3WmpYVmlXTUVhNUV1eVJsdzBYOFhTZzZ2RTZxY1dwQSth?=
- =?utf-8?B?c1FDcVBaYzE0Q2dIaFdQRklWU0pLRGZiTjVMYzJRUHkxakdWRVNna083SDRG?=
- =?utf-8?B?ZTQ5eXViUXFGV2JYb053S1c1Zm8vVWsxNnRqNmNLYjhvd0pFZktaenIzT2E5?=
- =?utf-8?B?Zy9HcjMyUkNkZ011bnFSaXBHR1FxU3FJdWRyWnREcTVjb0ZCc3l1VUZUc3BV?=
- =?utf-8?B?SldkUWNFLzUyTldneXFheVBQOGJaV2tsakFaZ1M1S0l0dElLMzVPRWRZNVdR?=
- =?utf-8?B?amZiWHp5UmozdGxwcjFjL25CcGowbGJLUXJUVlhnYjFOdGpReU5sTGdOWkI0?=
- =?utf-8?B?U0FHNzFWQXE3dERBeVdxeUNNNXR4N0liMHVEWHFDMXorR2NTL01UVWtBcXdM?=
- =?utf-8?B?bjZ2ZDlMdGlzcjFTZExtSTlhdzVUR29KSkNkSE9takZIUTBPWXJaYytZbW9t?=
- =?utf-8?B?cXpLRjMvZ2hLTDFraEFSNEhFZ1RGaWVna2ZlNlM4ZXl4UEN2RndvazNJekFV?=
- =?utf-8?B?L2trUVNldEozallaTlJVUnJEUUVqQkZRZmVJWXJqQnhhOGwyWE01eFR1ajF5?=
- =?utf-8?B?N2FTOXdMOXJjTklRK2w4RDVUNDVzYWliV0hXWkgrMU1TN1dQb3dmN3RIZjdW?=
- =?utf-8?B?amY5THJiODg3YktqOGxHekR0TTRhZXg4c2xUSUJhR3VUZmVoaytFUGlRQ0dp?=
- =?utf-8?B?V0wxamU3TDljcUhwdzREVW5KZ1dRdUVGbGZodnBLQmUwdyt6enRTUlBwa2d3?=
- =?utf-8?B?RUY3eENtUjI0VGoxM0ZnVHhWYXNaOTZwL3ZoT29QT2VEc3FIYlNKNzJNeEJM?=
- =?utf-8?B?NTd5VGRRSExiaXFaK2kyZTljS1pVeDRlSm0rWnRnNVluT1U1S2Iwak5VV1Fl?=
- =?utf-8?B?dEdQQnRtb2lnV2l2Mko4WW90VUVxL0lPdDFCejdKdmJTQ25UZDZ4YWpCaDlP?=
- =?utf-8?B?TjF3TXQzOFNJbnlCdFJodEpzQ3U2eCt2VFBhM1lVdVdadnVXbFovVmgyYndp?=
- =?utf-8?B?b1pUWS9uczNWbXRXYUF5dU5wcm0vN0h2VnNwTXZLTmNVSWlSQ3c0M0VKYUho?=
- =?utf-8?B?dVQ4ai9MOWcxYzBGdmpQUnJjZjNwUzlVdVVvVHZ4dUZXVEtENktJM1BsSG1s?=
- =?utf-8?B?Mmp4aUh3akV0eUVYM1NJSUhrdlJRbFUyaHJsMm9MQ3RreFBOeFQ0MXNLaXBB?=
- =?utf-8?B?TEwxMzc3TWwybS9CNTFreklubldCcGlOUi94eHdLdEdvcXkyUXFMSklXM1Fa?=
- =?utf-8?B?MC9lUkI4NXNialRPV0xmS0w2aGpUeTBITjJ3WVU2elRmOGwwaEFhMXR6VFA3?=
- =?utf-8?B?WFBjWVRRRktHQndnUmgweExhS3F6MzNCa2h0a1d2ZmlablhQVXJVWFk0U1Rh?=
- =?utf-8?B?dW9iVDhDUUVIbjVmc0c1VEdxQ29mdVVwOE5ZUGJRb2FxMS9kcTN5elE4UUlX?=
- =?utf-8?B?eFZ3ZXVOay9GQnJnM2FFUHE3cHFXRGZ2OGR5NzZOZXdwWkZtSGpxT25NcVBH?=
- =?utf-8?B?SDRUOWRUVnZXb1R0NlA0RCs4VERqU3B2RU5BYm95SUJZRVVPNzJKU0VYbzhk?=
- =?utf-8?B?M0l3R21mbmMwTnFja3c1TVRkWFpmQ3dLOE9KMkZYK3dWaUFQMkFIVmUvUW1j?=
- =?utf-8?B?L21lbi9UcytRWEpvREE2ZjBCN3NsZTl3Wk1BZEkxdkZuRlJ0MGN4VHpNclBV?=
- =?utf-8?B?SmRLRHVCa3oxem94dXlXMTJxTHJCZVQ3SjRCQ2N4dmNtT1hIOWFNdGE4WWhB?=
- =?utf-8?B?cU94UWhsRUR4KzU4eDFOQWZCR0haNWJJamcvMnhzY3hDL2wvLzBHUTNKOHpu?=
- =?utf-8?B?Rmw4V0JkQkdDdDV3VEtXdFhXak03RTM5cVVhOEM2NW5pUFlnMXNPRzhCSDBY?=
- =?utf-8?B?c004Znl5MFdFampZN1ByTVFCOFlFU1MvakdGYUNiTm93WC8rSmwzUT09?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a975e405-fa81-4769-7a42-08df1d58c767
-X-MS-Exchange-CrossTenant-AuthSource: GV2PPFBD14D17F4.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:05:25.3354
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U4/9hWpwPHGl1siWRrPiM+BS4LXJGt7PIRSkNh4tsmWNeUZKKW0cNlYx5CCbpd6vgGw1/6I/yd4mkbEkSRhXuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB9537
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: rbFL-4xRFsTynGGcC5o_AFrPPoAnm0ek
+X-Proofpoint-GUID: czNHwlDBvkAmDd0aNLajzXAhI8YcO-nS
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX/kkxyLuyqH8c
+ fwL5pa63SFtfWhkfyo/0jjVr8V3L689JTjLx6h1PLFKUOnCen8kWAS3Nr0PxrgZjW9ur0BU18nb
+ 5IKfZOMdSPdgfsd4t1Kr6InfjnQvzpc=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6aba57c3 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=7CW_VmIZYsy9TsuLaD4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfXw21nDKiTZzoh
+ sWh8kzUMvfdxsqcdqVjqUtKq40zKlWV3gbj19oyd6e3fJATfkKJaUKNGd8XdWT8NhtnHK42qn3Z
+ WrcHI6H4oXX1vuJgYtBxwN6aYjQzVXSCKT6dm/emA9HE4leQtIcaaImvZTTJ8wCNUOAGjRfnNQ3
+ cTevKMS8p2tTLnnwapgNQZt1JRYZhsHDPemRpqGWcgGw8unIURigNCNBvAVJwhPvhG++1WCCD5n
+ 9rBuJOocy45Fqnc3x1TmVc79dFN5nAsc0e8OLGeBG6w/1TZNVqkSvICL+buIAN6frctSGX2Jbu5
+ SsfG4XXCFh0cPNAOag/UrYtaTlGdfCZD1PBjlkCANDOyiwNq9i29Z8FTzTImFe0Hn2JY6wyE3sC
+ 7/oZOTkZ2E2gGQ+A/yJx1QRBo5Zlu5ZNzKCRmaMn1n6/i+D7SWn3yUsG1KESvMjDA2CqjIZMLDL
+ iHXbHlKf78sVVpE0JYQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280046
 
-For better readability child nodes should be preceded by an empty
-line, and closing braces should be on their own line. Both issues are
-reported by dt-check-style in strict mode, e.g.
+In xfs, buffered writethrough writes take an exclusive inode lock
+similar to regular buffered write path. However, since writethrough also
+submits the write under the inode lock, the increased critical section
+really hurts performance when we have parallel writers writing to the
+same file.
 
-  axis/artpec6.dtsi:212: [required-blank-lines] child node must be preceded by a blank line
-  axis/artpec6.dtsi:321: [node-close-alone] closing brace must be on its own line
+To mitigate this, implement RWF_NOSERIAL flag which allows us to perform
+the write under a shared inode lock, instead of an exclusive lock. This
+gives significant performance boost to single file, multiple writer
+workloads at the cost of losing write-write serialization and read-write
+serialization guarantees which XFS has historically provided.
 
-Updated the dts to use preferred style.
+Let's look at each of the guarantees and what changes with the NOSERIAL
+flag:
 
-Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+Write-write guarantee:
+
+Image 2 writers trying to write the same 3 folios. One is write As to
+all 3 folios (denoted by AAA) and the other is writing BBB. Then under
+exclusive lock the final state of the 3 folios could only be either AAA
+or BBB.
+
+However, with NOSERIAL writes, we could end up with mixed data in the
+3 folios, like AAB, ABA, BAA etc. Note that this mixing will always
+happen at the inter folio level, data contained within the same folio
+will not be mixed as it is protected by the folio lock.
+
+Read-write guarantee:
+
+In XFS, reads also take a shared lock, however they don't take a folio
+lock when copying from the folio to the user buffer. Due to the shared
+lock of read and exclusive lock of write, we are able to guarantee that
+the read always reads either completely old data or completely new data.
+
+However, with the NOSERIAL flag, writethrough will take a shared lock for
+writes, ie a read can race with a write which is still in middle of
+copying data to the folio, hence the read can read a mix of old and new
+data.
+
+Despite the above changes in behavior, there might be applications
+who would be okay to lose the guarantees because of the nature of their
+workloads for example, if they never have multiple readers/writes doing
+IO to the same range in the file. Such applications would benefit
+significantly by using NOSERIAL writes.
+
+Below are some fio performance numbers of RWF_WRITETHROUGH with and without
+NOSERIAL writes.
+
+** Multiple writes, single file (Pure overwrites, DSYNC) **
+  Fio Workload:
+    libaio, buffered randwrite, bs=4k, size=2G (pre written), O_DSYNC
+    iodepth=32
+
+  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
+     1        350           392         +12.0%
+     2        526           798         +51.7%
+     4        597          1591        +166.5%
+     8        630          1839        +191.9%
+    16        570          1836        +222.1%
+
+** Multiple writes, single file (Preallocated file, sync_file_range) **
+  Fio Workload:
+    libaio, buffered randwrite, bs=16k, size=5G (fallocated)
+    sync_file_range=wait_before,write:16
+
+  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
+     1       1099          1279        +16.4%
+     2       1482          2456        +65.7%
+     4       2065          2479        +20.1%
+     8       1778          2500        +40.6%
+    16       1787          2508        +40.3%
+
+* Multiple writes, single file (Truncated file, DSYNC) *
+  Fio Workload:
+    libaio, buffered randwrite, bs=4k, size=6.5G (truncated), O_DSYNC
+    iodepth=32
+
+  numjobs  baseline BW  RWF_NOSERIAL BW  Δ%
+     1        78            80         +2.6%
+     2        97            88         -9.3%
+     4       100            96         -4.0%
+     8       109            97        -11.0%
+    16       106           107         +0.9%
+
+Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 ---
- arch/arm/boot/dts/axis/artpec6.dtsi | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ fs/xfs/xfs_file.c | 57 ++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 51 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm/boot/dts/axis/artpec6.dtsi b/arch/arm/boot/dts/axis/artpec6.dtsi
-index c9f671fd685a..6044a378c5b0 100644
---- a/arch/arm/boot/dts/axis/artpec6.dtsi
-+++ b/arch/arm/boot/dts/axis/artpec6.dtsi
-@@ -323,13 +323,19 @@ stmmac_axi_setup: stmmac-axi-config {
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index 3e25baca22c2..ef3265f3b6b6 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -508,6 +508,45 @@ xfs_file_write_checks(
+ 	return kiocb_modified(iocb);
+ }
  
- 			mtl_rx_setup: rx-queues-config {
- 				snps,rx-queues-to-use = <1>;
--				queue0 {};
++STATIC ssize_t
++xfs_file_writethrough_checks(
++	struct kiocb		*iocb,
++	struct iov_iter		*from,
++	unsigned int		*iolock,
++	struct xfs_zone_alloc_ctx *ac)
++{
++	struct inode		*inode = iocb->ki_filp->f_mapping->host;
++	size_t			orig_count = iov_iter_count(from);
++	xfs_fsize_t		isize = i_size_read(inode);
++	ssize_t		error;
 +
-+				queue0 {
-+				};
- 			};
++restart:
++	error =  xfs_file_write_checks(iocb, from, iolock, ac);
++	if (error < 0)
++		return error;
++
++	if (*iolock == XFS_IOLOCK_EXCL)
++		return 0;
++
++	 /* Extending IO needs exclusive lock for i_size change */
++	if (iocb->ki_pos + iov_iter_count(from) > isize)
++		goto upgrade_excl;
++
++	return 0;
++
++upgrade_excl:
++	xfs_iunlock(XFS_I(inode), *iolock);
++	*iolock = XFS_IOLOCK_EXCL;
++	error = xfs_ilock_iocb(iocb, *iolock);
++	if (error) {
++		*iolock = 0;
++		return error;
++	}
++	iov_iter_reexpand(from, orig_count);
++	goto restart;
++
++}
++
+ static ssize_t
+ xfs_zoned_write_space_reserve(
+ 	struct xfs_mount		*mp,
+@@ -1108,23 +1147,29 @@ xfs_file_buffered_write(
+ 	unsigned int		iolock;
  
- 			mtl_tx_setup: tx-queues-config {
- 				snps,tx-queues-to-use = <2>;
--				queue0 {};
--				queue1 {};
-+
-+				queue0 {
-+				};
-+
-+				queue1 {
-+				};
- 			};
- 		};
+ write_retry:
+-	iolock = XFS_IOLOCK_EXCL;
++	if (iocb->ki_flags & IOCB_NOSERIAL)
++		iolock = XFS_IOLOCK_SHARED;
++	else
++		iolock = XFS_IOLOCK_EXCL;
+ 	ret = xfs_ilock_iocb(iocb, iolock);
+ 	if (ret)
+ 		return ret;
  
-
+-	ret = xfs_file_write_checks(iocb, from, &iolock, NULL);
+-	if (ret)
+-		goto out;
+-
+ 	trace_xfs_file_buffered_write(iocb, from);
+ 	if (iocb->ki_flags & IOCB_WRITETHROUGH) {
++		ret = xfs_file_writethrough_checks(iocb, from, &iolock, NULL);
++		if (ret)
++			goto out;
+ 		ret = iomap_file_writethrough_write(iocb, from,
+ 						    &xfs_writethrough_ops, NULL);
+-	} else
++	} else {
++		ret = xfs_file_write_checks(iocb, from, &iolock, NULL);
++		if (ret)
++			goto out;
+ 		ret = iomap_file_buffered_write(iocb, from,
+ 						&xfs_buffered_write_iomap_ops,
+ 						&xfs_iomap_write_ops, NULL);
++	}
+ 
+ 	/*
+ 	 * If we hit a space limit, try to free up some lingering preallocated
 -- 
-2.43.0
+2.55.0
 
