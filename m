@@ -1,149 +1,95 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDA94582CC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48917359A91
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790579121; cv=none; b=C5f8kDTzNEXpKDTYM3wVAI5T7OjGrPW0mz1A89u3QHXA22TOFxGkPF1GgfobZIvGpyiMgJntkXxYFUul5wtOZu70NBRHdT3R80lSi7DdgLG4gAMBumEgWRKq8nWIyJZPDTkh+Jlb/AkRqDm6m5z3oz9tXb/T3zty0KabIhdELMM=
+	t=1790579320; cv=none; b=Hj9e/fLJwA71uZYTE1kLBob2iUqF4GDW6/q4Lad5Uq1pJj1m8uI2tpBazYOhGQ3gRkA6QsNiKMoGXDnrtnXZsrrd8iPzUn1C2fmRYMIBV42S84LgWX5qCW+dsqC/WdZBozj9mUPSM3ipyZhBDU0zOfodf0qfYAFIkmQl+8NjwJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790579121; c=relaxed/simple;
-	bh=7yWrYCjRlcBrzi4nT3qt5n1tPD6yOFXGRb4bNe5DRbk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BWBY4hGQR58rMfz2ViAqMWc+TH1FfUaOHoQHW1GBACMMSq41ijmR0kO+YiweNsmQ6LVWwenfW/ot7dGVA2x93PNcaacZDMqvboko7G0eRdFrstoScsyFi7BiC4344Y9E+EfIoTtnflYK+1W+3diE4AmzxuAjEa/8CU6wK2DDO4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWVDffkW; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790579320; c=relaxed/simple;
+	bh=0xDlVduU4hrgBdUxeYlZyqUTEfvXnn3AobBD9qGWMCA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N8K5nZLoe6DH27Y1Of65eWBgFrGvBygZN3zlTpicYLQLGLOZJeEc8ksgo527ZZ+uMWFlPFWrehpW5yyGLlQLUiZHSITYnsuTbIigA0dyMNh/SB4z81O+CJ5kCt8JIx/R+1SyqZuDFUvuymur7KtGXfulQgiThXGC64GvbpmPoDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JBxG0FWB; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWVDffkW"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so1625006c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:05:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790579118; x=1791183918; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NaWk7vWFivX+dxtJi64qprK3NUUcpha4PML/mDC6+0w=;
-        b=eWVDffkWhASJ5Vi50PyZg5jfNpRN+wClp3zG3Tw5os9iQ7xXc3niN6ljy4lYSKR1bJ
-         IPF6XVTenLnn5JhNxKWgmGsS3CG/Im0g/WirSyOCGzIwK/o5zKEookcVZSn2KSbsa4xI
-         qELqZZN0t+uxYkgWp27xGqTbgH+PZ8Cg/VqaQ2Lhnz0c1YwEMkJ5AyZuDayqNue948vX
-         4c7A3GF8yJMkVBjJZPIfRHNf8j0IdtUruOHmWGkygSWHA3wYLJgG1nCQHX6pr2NYl/lw
-         AU8QUH7F0aOG61cIl42kERxthj55etK1Y/4mSxiZBS8lCw8fBs9FcrB/m26PvuTNQreF
-         sirg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790579118; x=1791183918;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NaWk7vWFivX+dxtJi64qprK3NUUcpha4PML/mDC6+0w=;
-        b=Fy6KHczh2Vcj38RsUAYN8P5g/UiELP7nBq7hrJHi6yfLvNpCyrqP2ea90kBL6Ta/CD
-         FUjcCM6BkSvldYclWXrjLx4UDkteCQI/Nj1sOq/+p1/c2pXLSQMLqkztOYzzV6iX/1sb
-         D2BpPlZcMlSDGmNDZtxz1psgyD1EEh8p3WIqZ/rh8PwF7x3uVuENT4P132xPBsR4m2ix
-         DygyhmGR1wpFjo1TRhbPJR13MdPutttjzUgE1wqKSu2b7CILgu11G2EEnhyyfU+wJ1Cp
-         MyNnUo86uQhfW7etK0ztefCM/VtXuYF7rDsK0Qcqhyn3mRc3MHyMpfqqofyGFN5fVpF0
-         K4CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrM73+0O5qH+/DIPSD6byjdM+PG24RILinvcue0s4W2tpgMg5KUMxECBL+chCtdEKU54JKzkEr4d2FhWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPnUtJRhhYRT8yMWM9Cg/I1ZiWzk48Cfe6qmUwaG7gRFBdLm0a
-	kT3OEw3upmdlrvwnqtz0Y4RLOxDHEZRLaRSGrLjb0OYkUy3X+FnqtqaC
-X-Gm-Gg: AYBFou1SkooEStOqGjn3ksu6AcMU7YjUP8vFLxrTtgzAPpyBJrGISMRTapID206/G2W
-	EWCWGqDb6QRlt5b21Ox8xqB7WEwl8XkOvkk/2Xx4sZg+funW0HoyjVoxJMRJWCAROyNIrk5MhlK
-	m4C2OkDGsAhgDWeoDwJXfQ+9OFJXWdQAfDiV34gJhtpEfCeVuDHjEjqtfiZ/cQ2q43l+/xoGafL
-	m+GxaYprnOQXqSSKqhil+vriMsWXbmiAQuZDDOnGW2IpuX2t/tBpCZRikstcdG87QSdu/tJGEZ8
-	4lLuQ4mYLRFjZcSzhBeOKvJ6ucx7aU2LEuFi+LNXN6ACZYNLMAPy1OChfZL/7McgdEeUJruuKUH
-	1kydJFJYhh2+IUaycvrQZgTBRAKJyBkhKwu9rh5OFtvtQTicOJHJYakwHpzWhJltCuhKa7/iiSW
-	MWyXz/7UF+Q78ofzStLR0ofz5LsSHDnzlQ7+vgp08Dr2bLrzA1Z+QFz+H0lrznu3Od7o1rPGzkc
-	nc=
-X-Received: by 2002:a05:7022:ea86:b0:144:c128:4c4d with SMTP id a92af1059eb24-146d077b6a9mr6920103c88.38.1790579117618;
-        Mon, 28 Sep 2026 00:05:17 -0700 (PDT)
-Received: from wujing.localdomain ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14a7c03ece2sm900781c88.16.2026.09.28.00.05.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 00:05:17 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Mon, 28 Sep 2026 15:05:10 +0800
-Subject: [PATCH] KVM: x86: Clear CR3[63:32] on SMM entry from long mode
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JBxG0FWB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9FFC91A0FD3;
+	Mon, 28 Sep 2026 07:08:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 70197601BD;
+	Mon, 28 Sep 2026 07:08:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 88D19102F1E71;
+	Mon, 28 Sep 2026 09:08:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790579315; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=vrQRdPS/JvmvyyxNJDkzkMrivGAml0IYdINFKAT2zRo=;
+	b=JBxG0FWBPGPOqjjeTJWY8LWaHlyTCmDMv0Pc26bn9+iRnDwwCBcXqYLHAE2J5/yacjiFyN
+	KklGujyW0t8II/QtyJiZAMiNhjYcBVRohFx5HsmG97FLV8uAtWahg3o2DlcPIE9JIh183+
+	StVrwHyCuevj0vJ4Vywg+5sisurNEEx88M9769kA+mXVaxJpn860pMR7rerzWtRkp/StL+
+	aBmESiaEppEcB/5MeEsucBP6vvuj+pm9S37tXq6ojsu/5EGd1e7d35C7zB8FBwpXJ/QXQm
+	DEX6XcqyF5RRD+qAiSnYgVjdTdmwWY83TPZrlNCz/1UFk9td3hhgfX9ctDi2Cw==
+Message-ID: <189e048f-d04a-4440-bf65-166c747ed6cf@bootlin.com>
+Date: Mon, 28 Sep 2026 09:08:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: keep the NAPI_DISABLE flag while napi is
+ disabled
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Stanislav Fomichev <sdf.kernel@gmail.com>, thomas.petazzoni@bootlin.com,
+ =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260926194714.648819-1-maxime.chevallier@bootlin.com>
+ <20260927154142.656700c6@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260927154142.656700c6@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrDtgEqjGq5QuUjvRQWLDjIoQv
- HuDy7f4v4CSMCkMTQGhg5V/a4V5NDDOYZ0I+VsNtrXP1tselyOhpoSjONxzJsEPb4q+Nz6YYKN
- zHdQ4C0U+7/HrfV1/1Kn2pWgAAAA=
-X-Change-ID: 20260928-kvm-smm-cr3-upper-bits-9819a1a2f337
-To: Sean Christopherson <seanjc@google.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-enter_smm() clears CR0.PG and EFER.LMA/LME but leaves CR3 as-is, so a
-64-bit guest whose page tables live above 4GiB enters SMM with
-CR3[63:32] != 0 while outside of long mode.  Bare-metal SVM accepts that
-state, but Hyper-V's emulation of VMRUN for a nested hypervisor rejects
-it as an invalid VMCB, and the vCPU dies on the very first instruction
-of the SMI handler:
 
-  KVM: entry failed, hardware error 0xffffffff
-  EIP=00008000 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=1 HLT=0
-  CS =f900 7bff9000 ffffffff 00809300
-  CR0=00050032 CR2=2a91044a CR3=77681000 CR4=00000000
-  EFER=0000000000000000
 
-QEMU prints only CR3[31:0] here; the CR3 saved in SMRAM for this vCPU
-was 0x277681000.  All vCPUs that failed had a CR3 above 4GiB, while the
-one vCPU whose CR3 was below 4GiB entered SMM without issue.
+On 9/28/26 00:41, Jakub Kicinski wrote:
+> On Sat, 26 Sep 2026 21:47:13 +0200 Maxime Chevallier wrote:
+>> This seems to be more general than stmmac though, there are lots of
+>> drivers that create the napi instances in .probe(), so they still live
+>> outside of .open()/.close(). It was verified by running the following on
+>> an mvneta board :
+> 
+> Not sure this works, you assume ownership if DISABLE is set but we set
+> it to start the shutdown, not once we stopped the poller.
+> 
+> We've been tempted to "fix" this multiple times. I'd prefer to fix
+> drivers.
 
-This reproduces reliably when booting a Windows 11 guest (8GiB of RAM)
-with Secure Boot OVMF, i.e. with SMM enabled, in KVM on WSL2 on an AMD
-host.
+There's 2 classes of problems then
 
-With paging disabled outside of long mode, only CR3[31:0] is
-reachable: a MOV to CR3 can only write 32 bits, and the SMI handler
-must load its own CR3 before enabling paging.  RSM restores the full
-CR3 from the SMRAM state-save area, which was written before this point.
-Clear the upper 32 bits so that the resulting SMM entry state passes
-Hyper-V's VMRUN consistency checks.
+- drivers that create a napi instance but don't use it even when
+admin up (stmmac, I think it used to be the case for i40e looking
+at the history). Fixing the driver makes sense then
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- arch/x86/kvm/smm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+- drivers that add napi instances at .probe() time, in which
+case setting threaded to 1 -> 0 when the interface is admin down
+is always going to hang. There's quite a few of them :
 
-diff --git a/arch/x86/kvm/smm.c b/arch/x86/kvm/smm.c
-index f623c5986119..3955fa4e9ad9 100644
---- a/arch/x86/kvm/smm.c
-+++ b/arch/x86/kvm/smm.c
-@@ -361,6 +361,17 @@ void enter_smm(struct kvm_vcpu *vcpu)
- 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_LM))
- 		if (kvm_x86_call(set_efer)(vcpu, 0))
- 			goto error;
-+
-+	/*
-+	 * CR3 is unmodified on SMM entry, but with paging disabled and outside
-+	 * of long mode, bits 63:32 are unreachable and RSM restores the full
-+	 * value from SMRAM.  Clear them, as a CR3 above 4GiB with EFER.LMA=0
-+	 * fails VMRUN consistency checks when KVM runs nested under Hyper-V.
-+	 */
-+	if (kvm_read_cr3(vcpu) >> 32) {
-+		vcpu->arch.cr3 = (u32)vcpu->arch.cr3;
-+		kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
-+	}
- #endif
- 
- 	vcpu->arch.cpuid_dynamic_bits_dirty = true;
+git grep -p netif_napi_add | grep probe | wc -l
+75
 
----
-base-commit: eb3f4b7426cfd2b79d65b7d37155480b32259a11
-change-id: 20260928-kvm-smm-cr3-upper-bits-9819a1a2f337
+So at least 75 drivers call netif_napi_add from their probe
+functions.
 
-Best regards,
--- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+Maxime
