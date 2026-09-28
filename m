@@ -1,61 +1,77 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F7F4AE8C1;
-	Mon, 28 Sep 2026 11:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3EB4A33E3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595652; cv=none; b=OgR/GVAByGh9f62K+4hjhszOdycqjR0e3YCsweKtKm0o37Akx5ciH10//9sP/bIAKTLn7o8FT2/JlYOsgrOxl5Yl3Hk3fyvNc4bNyye/X7Qj2EWF6OQrryzphQIOXeXjVSAcsx0Y8XJPUK9Ll66KXYqRHCw1MUHeKeW4ifBZC44=
+	t=1790595674; cv=none; b=g93GU68/cLVMALKjPITDIL/xmG2bHg7BxKQTUXeXOeG2QX4XiuRZYZ+UjNYRZ3+RMXn4dtpn+I80hKWDb/uhLWfaCnWYaXTVfcYMW/jSPXG4Zi4S0D43q2UwB0+MC7T6LDjNa75KtYOFIu3nRKOSaKDGDYKShlXS2u2JRE+lQC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595652; c=relaxed/simple;
-	bh=41C/W5I+zBwP/HhINRYUvLUTN9x900SlAsyUpSp3MJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OLWz23iPMHv66MoVlNAWhUBOFnx5yOKdzIfDw64bbV90qS0ZYCUMVEVWx9PHgoDSECLo0j4zjvgjFa3o1gTNOiTwPiE4ypiBBKWWd2KeLNz2n3gA9OctR7QpZPa4y5n4Us90vKYf5/+ENwKwIcWrYdrvxlxtYfpRuSZq0eYfgUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=lw6ocwZM; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
+	s=arc-20240116; t=1790595674; c=relaxed/simple;
+	bh=Kr9UONxjjUxn99JTOIoxfwCjuJCGfL3FExK5H8HcP8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MVsHP7plDqyXjMAyh55jxMuwwJbhaoy2UMBpu5VfB7sAPBIcOvpqa/Ml3ptHuFUXyAW/DHEHqgbnkAyuERa0+XZUuzmV6FOLDbLaBe8RAIdzllql4NPl4n6YK4lAPaB7tOPEchktjWM3SeGzb5faRo6vz4WcWoQ5Jz9nV44VllU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1K+mSoy; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="lw6ocwZM"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4htfWd23HmzMlmh;
-	Mon, 28 Sep 2026 13:40:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790595645;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SEK6m5MZoKagAlACy8AlMncwCp90x2a6zeXLHLK/l+8=;
-	b=lw6ocwZMH0juNEBXHzna2HgkuDEGX3NmRmo0TYJivDpSGugQLcnbcmSeSTdWB1MfI4+xtZ
-	CtMcWunMlYu9IYUFsTz1Fh6ofBP7R9Aw0k7OzTN7xSX7uot9ZijKHlZoyRgAZl07j2ooBR
-	4Wfysw9uPp6cJfIqPFHHHqXwkUJyxm4yQnq0U0+aezgSHbAt0h3W32EMD/xl4sTDUfmTHX
-	bLgyEIZVh050QWfs2cD41GhfNMqexoWOXRx+k1rjtVJngLkg8rpAHAYKhzvmJodzo7JPFL
-	AjZ4JmYdeWXb53b7UVibLwnpg1Wlj8WTOHM45Z5qZomSjLXv7dxZsPWg0vCldA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of mail@alexanderkoch.net designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=mail@alexanderkoch.net
-From: Alexander Koch <mail@alexanderkoch.net>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Khanh Le <khanh.le.xr@renesas.com>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1K+mSoy"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb76ef1d0so26110161cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:41:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790595672; x=1791200472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H/A1kxT3a/jj/laCahxthkPsj2Zg7yYryLCMeaOi3cY=;
+        b=R1K+mSoyF89rzjPsRVWRJsp7eN4IRM5hSkPCr2W5fObQEb6ReBkFX7EoeF9iT+U6Cz
+         jXrKSTknR3AJerL8vvVCaXJxKFk9OLucdrZOP0sdes+p801Oo6IGgRkOig1+ixI2nerh
+         5tGSHH3MFGv2WtmT49HwuYMV5LEdpIGyY9siFIvMiaaJ8qHP45pV0TsiM4WvCoBEUXbE
+         guGSCddw9Atn+KWVGmrYI3YrYIIhNkYmkx+HJgbdAtdD6So0zlagLjdIZoticbGMUfVJ
+         iCR2CuT4MjU+XqNL9KedmzDTCZjb0gWvC6Wy1jnbR1PGxd1DQToP8T/7C42ZJjiMNDAP
+         6g0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790595672; x=1791200472;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H/A1kxT3a/jj/laCahxthkPsj2Zg7yYryLCMeaOi3cY=;
+        b=TYyQFaVBxKasssAqm8HWmrNMJFB7lX2H0lw/KoCZ/BIJNU2OzcP73/ynPlYdoKAs5W
+         X4peJQL80LPsoUYvKt4HGb7Hiq9U+y1o6aZqD6juOeD9tQm7cLE4FzQMg3KskKIlCimv
+         VuoLUCffgY+PsXE1VEJrZCXLR3deRxJIdqv2A2E8vi3zikk7VQJIuiJGPT6FZ46kwuwO
+         WCtVS9B/0zB88rZJSRDTjCxqLFa87KuDbiWHnIu8jSPwZ5OCpWGdqPHAjC8ytc/crNKY
+         wbdRtsHOM+WqdwP8IeI7sjFMbaf1Ip01lzv6Tj2n8T6PPEIVhCGdphAQ2goWbEW8iZfj
+         r8sw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1Qxnh7oMyt8dTVa2/7QUOJPAyrtZ502FDUl8FNL0aV3wya3Puj279cUTKtZ7Gs5fMlLd1ib6dsJVIitY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQR0ZZo6K80ZW6IuP2TEQesm63Sv3RPKekLIzG3TeQ5DCNo3ap
+	uKabofUY13wBqZT6ZsRC/UQ9PGy5tGmwoxgqCnlamcL3nuUETE1JHpsx
+X-Gm-Gg: AYBFou2GNOXGKOZQRBPgxt4IwdAw0XnhCFNYwF7ehHvc+xiY70u87meSwqGUUAWS5ME
+	pHEzYNsidkLbApRhht3tUrdlzOIVtdfchXeGj06nK+7F64twAR34Tgy2q0emSjeTjL6B3YBJg/b
+	15zAR+us/K8Z/Q2S9U2UcbaJ03MvgL4vDLbBZGMyt6CfbZYJxlnNlZMrN7DbzcXwQtz/z5KGN9b
+	dddUWkQCc5dZXzWehEFX/eeXafxVS7L8aXAncRxHoJo+RFSxUWeGmVVUrVtjZ62OLdWvLgQc0dl
+	1OkuBNwudjg8SScRxmhgUC5cCbyWFH1rEvPn+TWcLHLGkxdHgGN+7836ttwjWk8XWsiLMuJus6l
+	nn6K+BbzXVkqA8YZT1OWZldFw7tVHcBCayTilS2GlSWIPq42BXNE4TFQG2ABGTIiBSn78RB71tf
+	4Qq6ZofrBVHKbsTMPHVlwj+4r4UDyoaQ+fZ3/C67Z7GgT6z2Z44eRccFf677HldX4r8lvnB402b
+	VQKwwlBKu0RRNuyjxaMTUDA9F51ZbVZK8NII5PQ3gR+etm/ozUK1kQ=
+X-Received: by 2002:a05:622a:1c06:b0:531:172f:79e3 with SMTP id d75a77b69052e-5330b6ef781mr196045581cf.53.1790595671868;
+        Mon, 28 Sep 2026 04:41:11 -0700 (PDT)
+Received: from Z-System.tailddad04.ts.net (c-68-83-199-219.hsd1.mi.comcast.net. [68.83.199.219])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322132f3dsm60937351cf.8.2026.09.28.04.41.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:41:11 -0700 (PDT)
+From: Zac Lanzon <lanzonza@gmail.com>
+To: linux-hwmon@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Edward Blair <edward.blair@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alexander Koch <mail@alexanderkoch.net>
-Subject: [PATCH 2/2] SoC: dt-bindings: asahi-kasei,ak4619: Add PDN GPIO support
-Date: Mon, 28 Sep 2026 13:40:19 +0200
-Message-ID: <20260928114019.1441752-3-mail@alexanderkoch.net>
-In-Reply-To: <20260928114019.1441752-1-mail@alexanderkoch.net>
-References: <20260928114019.1441752-1-mail@alexanderkoch.net>
+	Zac Lanzon <lanzonza@gmail.com>
+Subject: [PATCH v2 0/2] hwmon: (asus_rog_ryujin) Ryujin III pump control source
+Date: Mon, 28 Sep 2026 07:41:04 -0400
+Message-ID: <cover.1790512964.git.lanzonza@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,49 +79,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4htfWd23HmzMlmh
 
-Add documentation for optional property that enables operation of the
-'PDN' pin during initialization:
+v2: patch 2: compute the elapsed time with an unsigned subtraction so a
+jiffies wrap on 32-bit cannot cause a long sleep (found by Sashiko).
+Patch 1 unchanged.
+v1: https://lore.kernel.org/linux-hwmon/20260927120927.72810-1-lanzonza@gmail.com/
 
-    codec@10 {
-        compatible = "asahi-kasei,ak4619";
-        reg = <0x10>;
-        pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;  // <--
-        #sound-dai-cells = <0>;
-    };
+The RYUJIN III pump either runs at the duty set over USB or is handed
+to its internal controller, which follows the PWM of the motherboard
+header its 4-pin cable is plugged into. Byte 2 of the set cooler duty
+command selects which. The driver sends 1 there with every duty write,
+so a pwm2 write takes the pump away from its internal controller, and
+after power-on a pwm1 write of the reported 40% leaves the pump at full
+speed. Patch 1 fixes both. Patch 2 adds pwm1_enable to switch between
+the two and to report which one is in control.
 
-Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
----
- .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml     | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Patch 1 fixes a user-visible bug and applies to v7.3-rc4 as well as to
+hwmon-next. On v7.3-rc4 the driver does not bind the base RYUJIN III
+360, whose ID is only in hwmon-next, so there patch 1 changes behavior
+for the EXTREME, EVA and WHITE EDITION, none of which I could test.
+Edward Blair's analysis of the WHITE EDITION firmware shows the same
+pump control source. Patch 2 is a new feature for hwmon-next.
 
-diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-index d412531ef9a2..3c7754351e8a 100644
---- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-+++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-@@ -34,6 +34,12 @@ properties:
-     $ref: audio-graph-port.yaml#
-     unevaluatedProperties: false
- 
-+  pdn-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO controlling the AK4619 PDN input pin. Used during driver
-+      probing to power up the codec.
-+
- required:
-   - compatible
-   - reg
-@@ -49,6 +55,8 @@ examples:
-             compatible = "asahi-kasei,ak4619";
-             reg = <0x10>;
- 
-+            pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;
-+
-             clocks = <&rcar_sound>;
-             clock-names = "mclk";
- 
+Tested on a RYUJIN III 360, firmware AURJ2-S750-0108, with out-of-tree
+builds of drivers/hwmon/asus_rog_ryujin.c on 7.0.0-34-generic:
+hwmon-next 9edd5ab2656 as is, with patch 1, and with both patches. The
+pump cable is on AIO_PUMP (nct6799 pwm7, set by hand for the tests); it
+was on CPU_FAN at the time of the first comments in the linked issue.
+Pump rpm at header 50% / 80%, then the reported source:
+
+                                  before       patch 1      patches 1-2
+a  on header, pwm2 = 40%          1710/1710 1  2100/3060 0  2100/3060 0
+b  on header, pwm1 = 40%          1725/1740 1  1740/1740 1  1725/1740 1
+c  pwm1 = 60%, then 40%           2460, 1740   2460, 1740   2460, 1740
+d  then pwm2 = 40%                1740/1740 1  1740/1740 1  1740/1740 1
+e1 reload with the pump on USB    1740/1740 1  1740/1740 1  1740/1740 1
+   then pwm2, pwm1 = 40%          1740, 1740   1755, 1740   1740, 1740
+e2 reload with the pump on header 2160/3090 0  2160/3090 0  2160/3090 0
+   then pwm2 = 40%                1740/1740 1  2130/3090 0  2130/3090 0
+   then pwm1 = 60%                2475 1       2460 1       2460 1
+f  pwm1_enable = 2                                          2130/3090 0
+   pwm1_enable = 1                                          1740/1740 1
+   pwm1_enable = 0, 3                                       -EINVAL
+
+"On header" is the state after EC 1A 00 28 1E, which leaves the pump on
+its internal controller. The internal fan followed pwm2 in every column
+(40%: 1545 to 1590 rpm).
+
+Written back to back, 2 runs each, final state:
+
+  pwm1 = 60%, pwm2 = 40% (patch 1)    source 1, pump 60%, fan 40%
+  pwm1 = 40%, pwm1 = 60% (patch 1)    source 1, pump 60%
+  pwm1_enable = 2, pwm1 = 60%         source 1, pump 60%
+  pwm1_enable = 1, 2, 1               source 1
+  pwm1 = 60%, pwm1_enable = 2         source 0
+
+The failure in the linked issue needs the power-on state, which a USB
+reset does not bring back, so it was measured from power-on (PSU
+switched off), once per column, with the header at 100%. Source,
+byte 9 of the status report (the duty the pump runs at) and pump rpm:
+
+                           before         patch 1        patches 1-2
+  no write yet             0  100  3570   0  100  3570   0  100  3570
+  pwm2 = 40%               1  100  3570   0  100  3570   0  100  3570
+  pwm1 = 40% (reported)    1  100  3570   1   40  1710   1   40  1710
+  pwm1 = 60%               1   60  2430
+  pwm1 = 40%               1   40  1725
+  pwm1_enable = 2                                        0  100  3585
+
+The patches 1-2 column above was measured with v1 of patch 2. v2 only
+changes how the wait before a source change is computed, and that wait
+does not apply to the first source change after the driver loads.
+
+The two writes that patch 1 sends for a pwm1 write of the reported duty
+reached the requested duty in all 19 trials, 9 with raw commands and 10
+through the driver.
+
+The commit in the Fixes: tag, cd258aca0dc4, first appeared in v7.3-rc1.
+
+Zac Lanzon (2):
+  hwmon: (asus_rog_ryujin) Fix pump control source on the Ryujin III
+  hwmon: (asus_rog_ryujin) Add pwm1_enable for the Ryujin III pump
+
+ Documentation/hwmon/asus_rog_ryujin.rst |  10 ++
+ drivers/hwmon/asus_rog_ryujin.c         | 164 +++++++++++++++++++++++-
+ 2 files changed, 171 insertions(+), 3 deletions(-)
+
+
+base-commit: 9edd5ab2656f040d726b5388f49ceac10bb2944f
 -- 
-2.55.0
+2.53.0
 
