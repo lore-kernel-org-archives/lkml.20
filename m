@@ -1,148 +1,232 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260E64FC32D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628910; cv=none; b=OU+cCGUDz5U8tB0xfSZsAc68Jtkp1/7aXEvT8J24u6/5E5mPidEslgiMezSWg9orMiw5+UmPNFOLEYFNeoMiIVSz7JlXx9Qson5tyWPUNITDU+Yl6QdZlsGvPU92yWX0YbB1DK0yhU+GtnBDxoxMaliLGw437vc4BymhQgopGCQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628910; c=relaxed/simple;
-	bh=wR8JJ2pL5QeRqlJm3/ZAagrZ56dstDg3U9pOmu4dPTQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sOacWqs0DGjwVr9301DIsFzSKkPJnLdqiLBWpJd0CtxI5YjxouEpPUmKG/MWZijDW8RWcZ3QajJlTxFe3DK/aNwjyLorGAh8p3v0c8tcLO9t+7Qe3H9safoI4K4HaxVSadgyxAAHOYEgyZUJ2+Rv9P77Ka/L71NxWi/lgZN7C60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yPNj8Ep5; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4134F5DE8
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790628942; cv=pass; b=qY9f44WcMWdNCbHokpYcoH6l+/fZ7QXSYhlorh+xU02g/vRPsSmb2iCcgUl+WPQCl0aftHAai59P7LmdQOGWmdVgkjAZThn8YMNL9y3P5uy5/MX4fcCX6PcX+3vlvZmx/IOufpPGVpB8sOgB6HMOpD/c2+34USeAx63ppzXgV/0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790628942; c=relaxed/simple;
+	bh=3n31R1q5bjvZ0KOlhCAA2oNAtOjib+ZsHvh84olKglA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eLKDLDnmRL0P1eYHKDeaqiXroGySGz9vdM64kfk77hjlMOP34YhtzAna3vDwK7uDPJ8aT14fNiS7R9pEBt0gaGTzBgR5hNePRyy25ThpS4AQSKCf3rrtCEhYV9CEFDc4uG419tRt+NGqArE4xzAOs+EKGtbcFNcZz0AvCMOrR3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=K+jDxopu; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yPNj8Ep5"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so26716445e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:55:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="K+jDxopu"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so3385ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:55:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790628940; cv=none;
+        d=google.com; s=arc-20260327;
+        b=laaJN7uvH76+KrOXGWod5XSpb8UPrK70XTemncXNxFjyjfKOcDiOLxZeA0sIUlwXon
+         MPnYRCbKZdmFI+pHjwkjZ8mEA5+6k5fd+xq5IjeGuYom9qLjWzsLEGbVwFDmy4GB1Zxm
+         edrStr9+8fK1AYleXw5VVmDQyeDZ2cb8VmSfX1HcgMbvBbjeESWzU4J0mdGGGjXa+H/y
+         hy4N/p7ws5dUWdWkwMihlWA8LWdeQGPIlxNl42ULbzCKfaZNioEENMR/+qIAjgIveDDg
+         eW33/pefL53WijbkONIAHsfb+s+zMBFzbaAAwAH2R4Vtc6URbiuXMTdqBbfNptaohtPO
+         NW2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3Di/osfCPEWXpW4kbTcMFoaZ0V7qUOUR3BDk+OqgiJk=;
+        fh=bfh503ONtu4S90ObBm8TiTIIhQ3nsDb/mrh8Rj1k8kk=;
+        b=ZaY2MxFf6NzwyB/IIqSuTmczdshU0AWSe/4zGjnRJdsc27RkTu/6m5pW2ykuWtWQKj
+         /L7TZNKEQONmoliF47FmXWB8SBLJ58+rk5heEkNQao9sqcvvj0bu5HqZgjrP8XIbGYPz
+         qWZPWlQVKkfplMcI7i2aqbwAjcKGxthxq1Zk2dyxPbT8j/GMIPwPOaRruNF5uX4Ljq9z
+         qbXq7Zd/8slddHcTRwFWAQY9PlJbF31PAJgzXMHEvCH/8mXWUTG8pBObCH+TAiY0PO6m
+         rCWzi35Y5H6BnCPS7GoRZoKEYo+/s1GE/W251gZD4nTi/HPRrcbGMu/4Efzle1RgZapB
+         hnsg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790628906; x=1791233706; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I4XMMwg0nXpx6NtPrekOPsMuFobBMMqkvCqEzIOlP2s=;
-        b=yPNj8Ep5tFFOCx8rv6P8kPqc0jLtrlU3OBNKMOGJFL5vJyvAV2z8zTuQlggnjE6+dE
-         91SeNOss9P/f1lqeKlXGh+2ozsD99VHq0ivCxFzWXA9fl7ijCT69+UT0sFdSQ7ZkzZ93
-         N7lIzILVtRUvSYZ8uZcKlvQyiTAvfQlOXXYePUBmF6G+eliKp6HPqXH+C/VVTnTGxgDR
-         XVL9jBKB9ezaO/93W3+dsG31IOXLJTDXlI1Q0btfimQ3MYIVDcLONeFVOTE41ru7nqMl
-         rId+ynHEZb/nGgO0+vnNnJ4IENS10jVglxcg9S7rHab/M2vaxUPBagU1F0qWDtsLmHLd
-         oQMg==
+        d=google.com; s=20251104; t=1790628940; x=1791233740; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3Di/osfCPEWXpW4kbTcMFoaZ0V7qUOUR3BDk+OqgiJk=;
+        b=K+jDxopuUMpcfCOGOiDCwKufpWzIA5nP+pAZ19qHNFHbnqCUTD5h+5xd32xAPklMwj
+         UEOhCI8T/dJt//XoLFILJP6OMAnD50pMpaWzDNHjESGPEtZQN9UKq+fg/dXjqtMylH4h
+         srOJSbyJnRZWHq36eLZhWfqiZJd991Adco2KEw3j0YbQPdtIv0fKuWHTFCGIK5AHhxd5
+         UMB+gBxC2NG5XvM/OvDRdjoUpMf7RRZczBUbRcAn/FAMAvllGrleKEzT86p1+MEFYuui
+         9Wpdo8vIcHdm7EH0JrIEV8TLHDtpwMaYkHpA4Zj2Lu1prhAVQFWWnCZXiGaO8mo1dwIi
+         d7HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790628906; x=1791233706;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790628940; x=1791233740;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I4XMMwg0nXpx6NtPrekOPsMuFobBMMqkvCqEzIOlP2s=;
-        b=JkmbJYWJx/DTayY86YgaSNShgyoSz2J2KfMZsqK6V0Q+x4XBp/y6I19rNHlAo4LcR9
-         90CYbrTdHph3jr91+cKdSHCT4ptnFcdrRh8fOMlxvFHS6MP7Sw97K0YhlXeMkABam58q
-         T/ZKYA94JHeVETt02Dq91g3nNkLTPugVBacnqM78yicRGV1+yyRK6OOI6QUlMZxmEt5x
-         dyitwQevFlwm9oTI8vJZ4lOjBIFRv6fM4jqMX128JsgZ/2TFuRP2EA1ROjl+pfMbw6S0
-         sPDKFx/0BgWcIURvln2HYgyIJGKm95EWL7llj8XDcD+OPMEXsVSsTmGe65+XIJXlKded
-         veyw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0LaTVWuBvq28TJ9DjGunw23uQ0sETeyMh5OALlytjco54EoYihhSV2Ex5J9/e8v1VsR5xO73aZ3gi2ws=@vger.kernel.org
-X-Gm-Message-State: AFuF++lN9Z0ipdxX5pr7s7ICb5QiFFZy0r+fRwPKRXlTeQN2o/6qLZWQ
-	vAS2wdnzFfA5xXiUkPTrOEKD9SwwZtEgt5hLF1cpCGA4q2AWbp6EJNgYRCaqAG3FbRujsxeb9C2
-	/LIT0Mrc=
-X-Gm-Gg: AYBFou1gprE/6dnuw2VLY1163kWYb/WmJoGSmo8l9FVkPls155G61fVrc9b6/BVBrhv
-	mIhkbHm6qATfgl29ZazYPZ/qANNTxYWqherYpMCrGN4q+EF2SOaEEDrhlkqpuzGiTvohbobwQB/
-	DbkgstscgbqJKg8hAe22KwO3Igh4Ed1HYt0iQkZlEfyXV03zAVRxVTRoDE/9s6Korw3jYbaNfcN
-	ZsVCoHN8FRFgZmqpcR6WfxiccYW5ksEQ8zzkHGRdhV97ojSfgDS8gX4MVeSSdZVygyyZ6EG3NEK
-	KCaLjYUdWro8KaKGSechClZqz+I1LcwvmS9uLXYtAu+eYjDlyiIkjT7xq0nclpK3fn29ApQBNRB
-	iIOBmAmGvwj4ll0pk/B9GYHxendZV8EYKXx1aQnck7lTo2vguMY+hYwPuLcfHE8F3gc4yJnlpQI
-	kECrkiEbBhIpgt6CbHQaMOH6bT5JHO5OjCPp1DyXY/tSWLfmOwESgGnJPkhZZuJPM52YvFMagbi
-	1teRRBbcagdOC06x0GFzJb5ZnnQ/QZOoJeGIdsWwj+5UbQgPPbeUz3kDp2AJw==
-X-Received: by 2002:a05:600c:4f44:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4a0023f8d93mr97168395e9.2.1790628906389;
-        Mon, 28 Sep 2026 13:55:06 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfec703sm18042045e9.6.2026.09.28.13.55.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:55:05 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Mon, 28 Sep 2026 21:55:03 +0100
-Subject: [PATCH v2 2/2] firmware: samsung: acpm: add Exynos850 support
+        bh=3Di/osfCPEWXpW4kbTcMFoaZ0V7qUOUR3BDk+OqgiJk=;
+        b=pQaeJhSfz/wMt49YogIHTONgCngK4aIa/DAxqd8PWlbs11wLdEa4/38zImho4mT1yd
+         tyYN1MPkMrl0XTOV1d+7uC85MVBFtcxEyRF2mpBTy51F4HVF03loXgMGsK4L774/QZG+
+         Q9xxMRk7cy/N+gZn3u1LvT7uY283nIJbpeTLUMAezw2Zl5KGHboTvUcJTe8s0ffWYzwq
+         axT1JBKZPMGqU0fKjZGz1aBrTBYn1Tff9nPruU6mLltA2yZPQ0OuB+Mhkw1wnU2MEjCX
+         Thw+xvs0sJFjVuMz+tGu8MOKzrHIPmnq/Ha5TiKPHnqyqiOGtvOUEX3JhtR+5fNexorB
+         aweg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+YuDfpaoGDvHHGrod5XuQkGTGhC/6dvzmsnvAwH/hcE/YmI7m30Z/j9omsCFcmnlf+8HD+erGosPfxFA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ90LPvS5B9LfAf0sgUo5MQk3VlDXI+KS2/HSYeYdQEgqlLxhn
+	I7FW7S8Hx3LYo/uS006496ZSoqK93htYyLwKx7tMwfcPIIjJND+CkvrtjiTZSTHLuHnCH9rooRe
+	kjxaUCMORyIYcLdR+/q1sCIYHexVrCPpG9aojfO2h
+X-Gm-Gg: AYBFou2CNaBwgaj3f8WcRNfF8UK+EJwQ1WD/pFc7oeP1Hcz/AjQ5DhyHumotld0fdB/
+	Uvl6j8r6QaUcloVhiWczOAwTskkkN8rpHkinZlC12Y08OjfD3GUDUYxpFZ3XC551FOtmjwbY6z1
+	zWnVEkjwYSVDDje8JKwj6IsgWn/GAK8nfg7mseSjDJUqylgb/HwqT5zbPHu/Cy2HPCBXVzgc9BY
+	XbFZnO0g335Rfl2izE6AEP9vUc4MetqVBlvbH5lHWg9rBU83xe9juBLrw9G755eNnyS8Oc2XZow
+	OZcxqUtVJx3hAUYPQZfp30LsF0qwCP+GkhVz27zR7bu0Avj5RjDrQnqBjPSltKBXonqO2S4xOAB
+	y2IsWt9FRIg==
+X-Received: by 2002:a17:903:2b0d:b0:2c9:d89f:fd98 with SMTP id
+ d9443c01a7336-2e2c608146fmr841065ad.1.1790628939146; Mon, 28 Sep 2026
+ 13:55:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-exynos850-acpm-firmware-support-v2-2-717acef9469a@linaro.org>
-References: <20260928-exynos850-acpm-firmware-support-v2-0-717acef9469a@linaro.org>
-In-Reply-To: <20260928-exynos850-acpm-firmware-support-v2-0-717acef9469a@linaro.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Alexey Klimov <alexey.klimov@linaro.org>
-X-Mailer: b4 0.14.3
+References: <20260928075237.3055101-1-irogers@google.com> <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
+In-Reply-To: <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 28 Sep 2026 13:55:26 -0700
+X-Gm-Features: AclHuK-dtSVT1mH9aZeJKzJgzy2nTzF4fmex-CfS4tf9B4F3lhykLCmzMg5EDA0
+Message-ID: <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
+ storage, and LRU shrinking
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Exynos850 SoC contains an APM co-processor. Communication
-with this hardware block is established using the ACPM protocol,
-which handles IPC messages for clocks, power, thermal management,
-and PMIC control.
+On Mon, Sep 28, 2026 at 12:45=E2=80=AFPM Alireza Haghdoost <haghdoost@uber.=
+com> wrote:
+>
+> On Mon, Sep 28, 2026 at 12:52=E2=80=AFAM Ian Rogers <irogers@google.com> =
+wrote:
+> >    annotations. Saves 48 bytes per struct symbol (two rb_nodes) and pro=
+vides
+> >    cache-friendly binary search (bsearch) and callback-based iteration.
+>
+> Hi Ian,
+>
+> Thanks for posting this and for Cc'ing me. I built it on edd8a9fe2eca0,
+> the same base as the v3 series I sent last week, and compared it with
+> v3 in eager mode (today's behavior) and with --lazy-load-symbols.
+>
+> All runs use perf script --no-inline --max-stack 127
+> -F comm,tid,time,ip,sym,dso, with one warm-up and three runs; the
+> median is shown below. Peak anon is the maximum RssAnon from
+> /proc/PID/status, sampled every 10 ms.
+>
+> 1) Production: 120 s cgroup profile of a storage service on an 80-CPU
+>    host (perf record -a -g -F 99 -G <cgroup>). 54k samples, 11 DSOs,
+>    5% of lines [unknown].
+>
+>                   time     max RSS    peak anon
+>    v3 eager      4.5 s    386 MiB     314 MiB
+>    v3 lazy       3.7 s    151 MiB      80 MiB
+>    this series  95.9 s    309 MiB     275 MiB
+>
+> 2) A sample fixture from my v3 cover letter, a worst case with 73% of
+>    lines [unknown]:
+>
+>                   time     max RSS
+>    v3 eager      3.2 s    334 MiB
+>    v3 lazy       1.9 s    106 MiB
+>    this series 205.3 s    449 MiB
+>
+> Most of the time goes to reloading. On the fixture, a profile shows it
+> under map__find_symbol() -> dso__load() -> dso__load_sym(). After each
+> shrink, the first miss in a shrunk DSO re-parses its whole symtab, and
+> addresses that resolve to [unknown] miss every time.
+>
+> The peak is still set by dso__load(), since the whole symtab is
+> materialized before a shrink can run. That is the main blocker for us
+> running perf script at scale: we can't bound how much memory it will
+> use, so we have to contain it with memory.max, and then the profiling
+> job fails with an OOM kill instead of degrading.
 
-Add the "samsung,exynos850-acpm-ipc" compatible string along with
-its associated match data. This includes the specific initialisation
-data base offset (which differs from the GS101 offset) and the
-"exynos850-acpm-clk" device name required to properly instantiate
-the clock provider.
+Hi Alireza, and thanks for the feedback! I'll see what can be done
+about dso__load in v2.
 
-Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- drivers/firmware/samsung/exynos-acpm.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+> For continuous profiling, a degraded profile is still useful. We build
+> our view statistically, aggregating many profiles across hosts and
+> time, so some frames reported as [unknown] in the DSOs that hit the cap
+> only add a little noise, and the cap reports when it was hit. A lost
+> profile is worse: the OOM kill removes all its samples and wastes the CPU
+> and memory already spent. A bounded, reported degradation, like perf reco=
+rd
+> --max-size, is the trade-off I'd recommend.
 
-diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 942a2e9f02f5..5a16665e941b 100644
---- a/drivers/firmware/samsung/exynos-acpm.c
-+++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -39,6 +39,7 @@
- #define ACPM_POLL_TIMEOUT_US		(100 * USEC_PER_MSEC)
- #define ACPM_TX_TIMEOUT_US		500000
- 
-+#define ACPM_EXYNOS850_INITDATA_BASE	0x7000
- #define ACPM_GS101_INITDATA_BASE	0xa000
- 
- /**
-@@ -876,6 +877,11 @@ struct acpm_handle *devm_acpm_get_by_phandle(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(devm_acpm_get_by_phandle);
- 
-+static const struct acpm_match_data acpm_exynos850 = {
-+	.initdata_base = ACPM_EXYNOS850_INITDATA_BASE,
-+	.acpm_clk_dev_name = "exynos850-acpm-clk",
-+};
-+
- static const struct acpm_match_data acpm_gs101 = {
- 	.initdata_base = ACPM_GS101_INITDATA_BASE,
- 	.acpm_clk_dev_name = "gs101-acpm-clk",
-@@ -886,6 +892,10 @@ static const struct of_device_id acpm_match[] = {
- 		.compatible = "google,gs101-acpm-ipc",
- 		.data = &acpm_gs101,
- 	},
-+	{
-+		.compatible = "samsung,exynos850-acpm-ipc",
-+		.data = &acpm_exynos850,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, acpm_match);
+I don't disagree. Fwiw, a C++ memory allocation failure inside my
+company's code base is a runtime abort. In perf, many code paths
+return -ENOMEM or NULL. I wanted to see how far we could get with a
+"shrunk" set of data inside perf as even if we fix memory allocation
+around symbols, other code paths can still fail.
 
--- 
-2.51.0
+> The bound also matters before a profile starts. perf runs next to
+> production workloads, so we have to plan its memory up front: pick a
+> host with enough headroom and size the job's reservation, without
+> pushing those sensitive workloads into memory reclaim. Without a bound
+> we can't do that.
 
+I'm still not massively sold on having explicit bounds. It reminds me
+of old and often seemingly arbitrary numbers like the number of rows
+or columns in a spreadsheet. That said, perf has a similar problem
+with exhausting file descriptors. As long as the default is
+"unlimited," I'm okay with some attempts to limit size, but we should
+implement obvious garbage collection as I hope this series introduces.
+
+> The output of your series matches current eager loading except for a few
+> frames, and there I think your series is right. For example, a sample ins=
+ide
+> nft_do_chain [nf_tables] is printed as dca_sysfs_exit [dca].
+> symbols__fixup_end() extends the last symbol of a module to
+> roundup(end + 4096, 4096), which overlaps the next module when it starts
+>  in the next page. The rb-tree lookup can then return the stretched symbo=
+l,
+> while your bsearch picks the right one. This comes from bacefe0c7b77b;
+> I can send a separate fix that clamps the end to the next symbol's start.
+
+That's surprising as no behavioral change was intended. That then
+leads to the question of which symbol is right and whether a latent
+bug is being fixed or a new one introduced. Oh what fun :-)
+
+> A few questions:
+>
+> - Which workloads did you have in mind? I'd expect the shrinking to
+>   help most with perf top and long perf report sessions, which I
+>   haven't measured. I'm happy to run those on the same hosts if you
+>   have a setup you'd like me to use.
+
+So most of my experience with excessive memory usage has come from
+perf top, which seems to leak memory and consume all your RAM before
+long. That is expected since no DSO is currently unloaded. I'm hoping
+the shrinking process can be generic.
+
+> - Would you consider a finer-grained reload? The index in my patch 5/6
+>   keeps a 24-byte entry per symbol, so a miss after a shrink could
+>   materialize one symbol instead of re-parsing the symtab. The pieces
+>   could fit together: your container and refcounting, the index for
+>   reload, and a byte cap for the peak. If the maintainers prefer your
+>   container first, I'm happy to rebase my v4 onto struct symbols.
+
+Definitely. I was more focused on the reference counting aspect.
+Things like the policy around shrinking can be amended as needed, I
+just wanted to establish a policy so the patches made sense. I think
+lazier loading, shrinking, .. all make sense for things to be faster
+and use less RAM.
+
+> - The cover letter says patch 3 saves 48 bytes per symbol (two
+>   rb_nodes). At edd8a9fe2eca0, struct symbol has one rb_node, and the
+>   name index is already a struct symbol ** array on the DSO. Am I
+>   missing a second node?
+
+No, I'll fix this mistake.
+
+Thanks,
+Ian
+
+> Thanks,
+> Alireza
