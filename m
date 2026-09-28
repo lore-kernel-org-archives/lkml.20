@@ -1,50 +1,38 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E588C4E06D7;
-	Mon, 28 Sep 2026 15:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AAE32B113;
+	Mon, 28 Sep 2026 15:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610613; cv=none; b=Xc5lLZ+s2j//ABiY/NqC/e+Vq5Gj39pHxjzqtYdhj5SUf8JdPycC1MXczhUZIFEtXKj4Qo8wzGLW8+IehVNrHtQRNvbTE0osEqAmmhbmDVkNm02G/hV2tyvgiV7OaB1MUA//ZMpebnxriTfBAqQ6oQOJNM6aIETKJsvgAAXB8uU=
+	t=1790610639; cv=none; b=Ovte9tPxUzSZi0RV7CS2B+tltWpkT/5VI1NinhY00u0+5xsW6xBWVkXAXttgkRPSEzBqEdH7iHTsLuQaOVCpktauDwDnRxGqP04HnZZhDOUVY7xXf+abFLKkPzzMYsSQOuA9QRKZBHTSFkmgW/7X1og6eojUtknD45uLLkhu7PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610613; c=relaxed/simple;
-	bh=gd/VTPQ0nejnutKX+4KFU05hh8mfBLirUFjfVowP2fE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g3fW19885pPwtAQTo5yRKISo1/SWbQb875HbU4R/CvDPd4pgWW47obWxNOJF9iOAb3vTT7AAPB7M/s5uO7SroV1g/e8jXCM+nj2oj7OtIOgXe4awHUDmXnjLh0PutfF1mABOUppex06MxMJV5BGnSVmn1fkzQDUMyyiN95AYEh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X+avLvat; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790610639; c=relaxed/simple;
+	bh=vT/LIk0b+YMJzIqUIMAUC6xNlwwKuEFAYoFiLiApMGw=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=VcnMCiaMDsQT9Tri+tKBLWiFWeVUXEUrgT/V72vDogvzIFJu++eGbYyHYCFOyJLT3CSdBe1+ajGMgWEq2SxydR73Ob2H8vbz6s3OKVKCm8PeRriFuqJVMNgya9qRIznDJVFhqGzxe32NzVoOWekrpO1DbzO/PGGc5msUwAx3/2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=AO5vxrXS; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X+avLvat"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790610612; x=1822146612;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=gd/VTPQ0nejnutKX+4KFU05hh8mfBLirUFjfVowP2fE=;
-  b=X+avLvatX82ca+1o4/ksxz5r5AV22wBHOjIi9LKae/CsYLJRcHtEl9RG
-   C0LXT1QHGFib7DwmWBn7bCKQ73N31NB1MDCviGbAY8NiX/KDie2POoB4S
-   wXUfSUJT2bnpWo2DRT8gVPqnoFu/iWQtb4mXG6YuO9Qf2azm1qyeecYLH
-   VW7hHQZz7C8n3xe2Dqc9yVQaf8Bf7ObPjUxlpA+J2qjIZVoKa5KnooKZM
-   mYvnTnQ2cSqNB5rgzaTLrLRJjiyHBw7bQUpN2h6aHKaSOxpb5oRxSSshe
-   FuqbomOEHYzCm/bHWOb+FhBxl+zH9ojdEtYKAAtK2xqK0wNYc3+Wbwq/9
-   A==;
-X-CSE-ConnectionGUID: quTLix+DRwKlpB/bjsbanw==
-X-CSE-MsgGUID: 6WX5aAFkRkesCN392TZwEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90180052"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90180052"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 08:50:11 -0700
-X-CSE-ConnectionGUID: mRhTPVP8SRKZHlTe9jYnMQ==
-X-CSE-MsgGUID: gk+zszcbREuF+YSpRYV6vA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="275119705"
-Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.111.75]) ([10.125.111.75])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 08:50:11 -0700
-Message-ID: <1753d73f-7464-4476-9fb7-c0a12157a6ab@intel.com>
-Date: Mon, 28 Sep 2026 08:50:10 -0700
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="AO5vxrXS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=EcatbeX8pT4mVPK6BtLsmrFUIWcm+3T6irC1kikWPR4=; b=AO5vxrXSpbuxrRe1o/Rwqoj9+l
+	ZpvZj/1lkh9zWIRW26x0izwnq9XN8z/XAVRabdlg8WdIT97E3U6wo0FnI0WvtxkyU0WMDHdgMurBx
+	dv+Bg39Xo+FlH+NFh9HVpqB1k6iVC0wjn9a0T4Eq72xh0tfJfiUFSaZUYsA9tiFjAXYpV9jnQSwU3
+	NMBNGdodHI3Ukh16lorAVFbQMJfVDioDgaL40BZ4wO/wwiesBez0UxAnPNSlVjrCd6Gc+QIZzOF6I
+	BGkWg1grtc5tbZIn6jrmXNQtR/jMq4OYVbP7gW0TscEWs+l5blvP8DxMkE9IfcPs1KtV9VAA59vZP
+	x/eYP9kQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xBDcS-00000002TTV-0wIr;
+	Mon, 28 Sep 2026 09:50:21 -0600
+Message-ID: <62fbc3dc-421e-40f2-8f9e-d28a706cf64d@deltatee.com>
+Date: Mon, 28 Sep 2026 09:50:05 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,98 +40,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] virt: tdx-guest: Calculate the Quote buffer size
- safely
-To: Peter Fang <peter.fang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260928100913.2265687-1-peter.fang@intel.com>
- <20260928100913.2265687-4-peter.fang@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260928100913.2265687-4-peter.fang@intel.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Christoph Hellwig <hch@lst.de>
+Cc: Breno Leitao <leitao@debian.org>, Andreas Hindborg
+ <a.hindborg@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>, Lee Duncan <lduncan@suse.com>,
+ Hannes Reinecke <hare@suse.com>, Nicholas Bellinger <nab@linux-iscsi.org>,
+ linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+References: <20260926092148.128937-1-runyu.xiao@seu.edu.cn>
+ <20260926092148.128937-4-runyu.xiao@seu.edu.cn>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260926092148.128937-4-runyu.xiao@seu.edu.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: runyu.xiao@seu.edu.cn, hch@lst.de, leitao@debian.org, a.hindborg@kernel.org, sagi@grimberg.me, kch@nvidia.com, kbusch@kernel.org, mkp@kernel.org, lduncan@suse.com, hare@suse.com, nab@linux-iscsi.org, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 3/4] nvmet: avoid recursive configfs open for passthru
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On 9/28/26 03:08, Peter Fang wrote:
-> -#define TDX_QUOTE_MAX_LEN		(GET_QUOTE_BUF_SIZE - sizeof(struct tdx_quote_buf))
-> +#define TDX_QUOTE_TOTAL_SIZE(n)		struct_size_t(struct tdx_quote_buf, data, n)
->  
->  /* struct tdx_quote_buf: Format of Quote request buffer.
->   * @version: Quote format version, filled by TD.
-> @@ -314,7 +314,7 @@ static int tdx_report_new_locked(struct tsm_report *report, void *data)
->  
->  	out_len = READ_ONCE(quote_buf->out_len);
->  
-> -	if (out_len > TDX_QUOTE_MAX_LEN)
-> +	if (TDX_QUOTE_TOTAL_SIZE(out_len) > GET_QUOTE_BUF_SIZE)
->  		return -EFBIG;
 
-Gah, this is awful. There are two different literal "data" things:
 
-	1. The function argument: void *data
-	2. The flexible array member: tdx_quote_buf->data[]
+On 2026-09-26 03:21, Runyu Xiao wrote:
+> nvmet_passthru_enable_store() runs as a configfs store callback while
+> configfs holds the item frag_sem. Passthru enable used filp_open() on the
+> configured controller path, so a path into configfs could re-enter
+> __configfs_open_file() and try to acquire the same semaphore again.
+> 
+> Use configfs_file_open() so the path is resolved before opening,
+> configfs-backed paths are rejected, and the resolved path is opened with
+> file_open_root() while retaining the normal open-time permission and
+> security checks.
+> 
+> Fixes: cae5b01a2afc ("nvmet: introduce the passthru configfs interface")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Assisted-by: LLM Codex
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Worse, I think the function argument isn't even used, despite being
-passed through at least one level of static, file-local TDX calls.
+The problem and solution make sense to me, thanks.
 
-It becomes a *total* liability since there are so many "data" names
-being tossed around.
-
-I just committed this:
-
-> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=x86/tdx&id=d48b2d347105436365280a3697a265aa4d37e96c
-
-Any reason not to keep it?
+Reviewed-by: Logan Gunthorpe <logang@deltataee.com>
