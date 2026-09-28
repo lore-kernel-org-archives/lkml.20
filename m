@@ -1,173 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648F54B7A46
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:04:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC7D4B8260;
+	Mon, 28 Sep 2026 12:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597043; cv=none; b=XUhgBCxndJp6Ew7x2sC1TgY0bH4Jf10Djao4m+z59k7jjsrI3H81icGJ9c7lJmxN+vhBFnjgVdEhOn25CswLftu0i4gQtREXJirklUW7JS+/c0C4XyBl8bg+KUqaBRhH4V0upcwzXZGD8CjCSCDx8QcFtdlc9XRxwJSckhaxGz4=
+	t=1790597044; cv=none; b=Lv85mkLZEP13aBpGBcNlYycyPOJmgwi2N+gv3Y8GkHAPX9U1Sh1SLBlgXC8TxYfc83KCSoWWzL95LsM7VgDBZT2UCaQkU8b8N7+LHoiSHLqMwFVV1ugpdr8rNjFhn9gaZnccYvyYwSShUBZZ4QT6R5a0sMXA6fYdA54awuh/ZCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597043; c=relaxed/simple;
-	bh=jy72iasHnfKddlcOYxf+IcRC+lcD4eJn3QGeZClcQb4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hm1O1Mek+XKzs3+EhBqsZB39vbuW9svXopsLULd1bNBKVAg/Qs4Tfgi4ATVAQUSFk7vOFfYPosWN6Y00v72+T5u8lJyTfH2+t30U8TpqNEJittSjJBPc91ZOtc7GhDwTgXUbE6BE1vy2LI6lXMCN0Fo7HKKfDfASBIe/Sz0V1A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fqrf3Z9A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790597044; c=relaxed/simple;
+	bh=W59qrVbm7k4cR5jhTZh/JOnJSdO7tRvTmtmCiPogzDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iwg3qMr6ng0umFjb3x+MP2ApU0NAidjNIMCAlmfpQK1DpnXBzKeaxostMIfkHDgO5n4m1FpJ/QmMcN8NK0yQ4jXIInVx4Lq+yrFKHmUv4fWPiO+XjhXavkAQJ0zHSbx3S/sxp/umvcqeLZVB2p87DUj2W7v1nYyWHJuO1BMaN/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mRJwI6Mh; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fqrf3Z9A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277F61F000FF;
-	Mon, 28 Sep 2026 12:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597042;
-	bh=l8P10dL4hMXu7vX0PWvRPQhhCrae/q3zz2jG9lav8OI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Fqrf3Z9AmsyYalf4WIQtZIPDGFskCtQzDdeFUQFvnbt0e21AGt/iyUow0pjpj0Bcq
-	 ZS3nJaMPUOuGKS2S/SNBSiIP0OEcCr3gNEees9i23odqtTKLLKZxPnhq/XLrfsh74h
-	 QuLdyCZgL3fmgASjt4IGH6RtBeetD9G5Is5QdBdLipE0Rs06j6I6z8K/Fd3B2epO7R
-	 Ins8DCY161m4xyPwJd97FrtiJXQNyFKZEe3/wlqssvSOPcu3EoqgsLYguzOuMAbbcX
-	 6GiJtbJrIZZhZxq8k3OPkYqeU2QgpuGifd5IGeYAKhxUobamdknzGW2rDzjaqWPRCF
-	 +3E3AhbIvYiSg==
-Message-ID: <abd32250-6ba1-443b-b8e4-7772bcdd325a@kernel.org>
-Date: Mon, 28 Sep 2026 14:03:53 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mRJwI6Mh"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZW223971195;
+	Mon, 28 Sep 2026 12:03:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=UPrT8PQRwKFYocNOz
+	dGCoruRwlJo+jhllToPk78w6Qw=; b=mRJwI6MhuRRVCv4eYXKFL5hRHURKCG+Vr
+	IFkY+2QjfQYbI+nbv7z+YxOjTU8IdKbUrj3jJGZg5857b956vGh5y/a+CTBPXYmQ
+	4J1Iq/kq5Cu6SHXdpHtvrO0Z0uuMEMQ4kIUwJAss6BnUSC8AJvCyJa3BZnd/I6sT
+	Kqb2JCqrfwmZUPL6dFGKqLkRGIbdj+56q3HsStpruXT1EaAbw25+yHafgFXZ6iWv
+	/W0MYBFAsHvEzAlbFDqEPm/BhSEX61vzmBREwCoCXIsjJGp9NpMohPNydjnsQbDz
+	Ng5gvqMFQBqT18AEENhjmY2yVgEO/suduQkhitoLbP2QHn+qn6b6w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe0v2t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:03:28 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHXdf027129;
+	Mon, 28 Sep 2026 12:03:27 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxrrw5616-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:03:27 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SC3PcF11207118
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 12:03:25 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 98EFE20043;
+	Mon, 28 Sep 2026 12:03:25 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DF67F20040;
+	Mon, 28 Sep 2026 12:03:20 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.95])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 12:03:20 +0000 (GMT)
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+        Matthew Wilcox <willy@infradead.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
+        Daniel Gomez <da.gomez@kernel.org>,
+        Pankaj Raghav <pankaj.raghav@linux.dev>, Theodore Tso <tytso@mit.edu>,
+        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>
+Subject: [RFC PATCH v4 01/12] xfs: reexpand iter to original count when upgrading to excl ILOCK
+Date: Mon, 28 Sep 2026 17:33:02 +0530
+Message-ID: <c11cc6fcf1e4f591b3b537c2146d594f5965487b.1790596383.git.ojaswin@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1790596383.git.ojaswin@linux.ibm.com>
+References: <cover.1790596383.git.ojaswin@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/12] mm/collapse: declare the collapse interface in
- collapse.h
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
- <20260916093145.4022188-12-kirill@shutemov.name>
- <63f49a8b-cabf-4b93-a7e2-76b62c463a90@kernel.org>
- <arU8w9qDCvKod7PO@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <arU8w9qDCvKod7PO@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba5790 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=6jV8uY8xD7bpsU2DslwA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX28VdEaHGb8Km
+ yS5Vi4dq2fW60Z4UnerhNQ6wM56dYgeyxuh2nW755aW1X+8LODUYWTS6AXKVKeKYJAVh+W9lalf
+ vFoyTcPvy0yq7EdXJO1sJ5/tmcpn0lQ=
+X-Proofpoint-ORIG-GUID: YNVLW5hGbG0aAVPqOH93EEeN_KZYshBc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX3Fb88wBxXVML
+ Ts/ECfXnvbjO6rc3IYYItgYSicJWBiOxZaKU3JPbHpejyP1qEiMtXCL07dU/Af7NLOuwIZq8ZC9
+ 4uUtX5rMoLH/Mhlo3Dq2dXxlWFszWCIzHnhB76OyVC8Nm1HPCiZ+X+V4UioeBgb+PWq5CuceoKk
+ biw2z5GcckxqfalbZy446yR37oBqSKdn4IxfrIKSaQ+EzFPN/5yW9mea6vGiI2IwhOT+dLx9Rhq
+ xsWNxk72l14CSK2dRHjwD//fr44xxvSuaSW9EsWeRpugLB8D3rUI2CAT1iT4EMDovAocKlM054M
+ khhFSweBArz9Mf45BpuhdSn1XtYqyh2xnNBacP8gEMwTeHG8nAlV9zSZc2qsdXKIR6BhOhtT8wV
+ B7sMvXF7m7FYolJ+cE0XJckr9Wo1hzfcHEDw4vySL4laeNhqPWUfRa0hm2FLR7XGy0QCUVu5Gyx
+ oN+c7aZLTS0jRnOyOsw==
+X-Proofpoint-GUID: z8O8q2NLobKGJbo2TX7Si6d9-UpkKZhC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280046
 
-On 9/24/26 17:22, Kiryl Shutsemau wrote:
-> On Wed, Sep 23, 2026 at 03:34:11PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/16/26 11:31, Kiryl Shutsemau wrote:
->>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->>>
->>> A collapse takes four calls:
->>>
->>>   - collapse_control_init() - set up the control a caller carries;
->>>   - collapse_scan_pmd() - scan one PTE table, under mmap_lock;
->>>   - collapse_run_pmd() - collapse what the scan found, no mmap_lock;
->>
->> As discussed, having a single collapse_pmd() function might be cleaner if that's
->> easily possible.
-> 
-> Answered on patch 9: the two calls are the point.
-> 
->>>   - collapse_control_release() - done with the control.
->>
->> And as discussed, I hope we can just get rid of a release function that's not
->> actually supposed to release anything right now (unless I was missing an update
->> in one of the patches).
-> 
-> Will remove in v4.
-> 
->>> All four are static in khugepaged.c, as are collapse_possible_orders(),
->>> which says what a VMA allows, and the revalidate a caller needs once a
->>> collapse has given the mmap_lock up.  No other file can ask for a collapse
->>> without them.
->>>
->>> Declare them in collapse.h, with a comment stating the order they are
->>> called in and who holds the lock over each step.  Each function says
->>> what it needs and what it does where it is defined.
->>>
->>> hugepage_vma_revalidate() becomes collapse_vma_revalidate(): it is part of
->>> what a collapse offers now, not a helper of the daemon.
->>
->> Is it just me or is collapse_vma_revalidate() an odd part of this interface?
->>
->> You'd expect a matching function that performs the initial validation on a given
->> vma.
->>
->> Maybe we should have a
->>
->> 	orders = collapse_vma_validate(vma)
->>
->> that really just wraps collapse_possible_orders(), an expose that instead to the
->> collapse users?
->>
->> So they'd use collapse_vma_validate() to then call collapse_vma_revalidate()
->> after temporarily dropping the mmap lock?
-> 
-> collapse_vma_revalidate() re-checks what the scan ran under: a VMA at
-> the address, anonymous if the scan went that way, covering the PMD
-> range, allowing this order.
-> 
-> A collapse_vma_validate() could bundle what the callers check before a
-> scan, for the sake of symmetry. Feels like overkill to me.
+In xfs_file_write_checks() when we upgrade to an exclusive lock, we
+correctly redo the write checks, but we should also reexpand the iter to
+the original count incase it was trimmed. This is because a parallel
+truncation/expansion, in the window where inode was unlocked, could have
+changed the isize so its good to recalculate limits based on the original
+count.
 
+Also, s/count/orig_count/ while we are at it to better indicate its purpose
 
-I much rather have a consistent collapse_* interface than mixing in other weird
-functions.
+Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+---
+ fs/xfs/xfs_file.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-I saw that you already sent a v4 (too fast ...) so I might complain about the
-same thing there once more and we'd end up with the same discussion there once
-more. Which is expected when people don't wait for replies.
-
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index d8202da15aca..d53a329b6a58 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -450,7 +450,7 @@ xfs_file_write_checks(
+ 	struct xfs_zone_alloc_ctx *ac)
+ {
+ 	struct inode		*inode = iocb->ki_filp->f_mapping->host;
+-	size_t			count = iov_iter_count(from);
++	size_t			orig_count = iov_iter_count(from);
+ 	bool			drained_dio = false;
+ 	ssize_t			error;
+ 
+@@ -482,6 +482,7 @@ xfs_file_write_checks(
+ 			*iolock = 0;
+ 			return error;
+ 		}
++		iov_iter_reexpand(from, orig_count);
+ 		goto restart;
+ 	}
+ 
+@@ -496,7 +497,7 @@ xfs_file_write_checks(
+ 	 * the slow path when we are at or beyond the current EOF.
+ 	 */
+ 	if (iocb->ki_pos > i_size_read(inode)) {
+-		error = xfs_file_write_zero_eof(iocb, from, iolock, count,
++		error = xfs_file_write_zero_eof(iocb, from, iolock, orig_count,
+ 				&drained_dio, ac);
+ 		if (error == 1)
+ 			goto restart;
 -- 
-Cheers,
+2.55.0
 
-David
