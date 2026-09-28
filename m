@@ -1,137 +1,209 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-wr2-f27.google.com (mail-wr2-f27.google.com [74.125.225.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696AD2F12A1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599114; cv=none; b=kf1Aa/5JS/0yFrultzD1NSqIZ6eTgj7W19QzEFChduyJuK/m7+aaJg7/bndN7vE5QUSMqZYinY/qOIEEZSWGnlE1sRZL46boiNScQwunCih8nkEXwzFaLwxoK5UjSVhsgEo3PHIFdQpQAjfQwwoqG3cHg5VmulcaZUch3RN0vKM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599114; c=relaxed/simple;
-	bh=eGWh/UwqM5JjiDpOuyETKfrpirh9r6j0dXiN+aB0t5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O21ACHD9n6VOxyvkqhmos38xsY3oQsvreYLP+96MKiIU/UKiUCNxdv5d08q1mZFQUdhMmGIzkgoFs2zT/iaHqJPzjjxJm9BfhErC0mkJOJUDvF8IiMxLTBpuALMoEOgZMj1aIlEKCMSOwSOMef9CXm7oA/azfcBOScG5Qn/1c90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q1/oRNTo; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882E528B4E2
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.91
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599147; cv=pass; b=OUbpVZ9Bif4talI48MyfaPXTTUI7w2JplGL38ygT3xBesCGSfKInI6Gghtw/m+b7bjgNSNM26JBtsdHaGqD43bqY+uXClg8swZJMbx49uxXaXEP6VvtPEkI6YaEC9aVL9GwLqRaMREzVyqbcBstGeqEIIB+AazloEf6m17YXGkg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599147; c=relaxed/simple;
+	bh=DR3g9bGNtZFpf0xFNaanuycRzVRv1O6/PdQwaVpb92k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y8nVmKcpnYLR0Q5nd65vAI73GSIIaTIvcL2s/QseaXiVmFJaQ0ej2ebLFCBkqJ7kH/oAEj/YuPleNVBKU985MbCQU1yvCmf7Rv1Bvu5LXRoYWkFYFozi49xLpV4f3ZDM5kfsKLYxJFCGRmhxfjfY9yB+vVaGpgzV81Mo3TvCdJo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l7plmV5f; arc=pass smtp.client-ip=74.125.225.91
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q1/oRNTo"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a8038a9f10so3922674a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:38:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l7plmV5f"
+Received: by mail-wr2-f27.google.com with SMTP id ffacd0b85a97d-4843796e373so1689366f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:39:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790599144; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RsgPEpEYjl9gxL2V0spbzFPwxwDi/tls9eDbHgI1gu++7HReobEcub8v5jHQJ0uC1+
+         FMJLC9ZDgj3FLT7NvhJVCmAobXdiqnlqgE2M2gyBx3e+sVqZDKWXMJcpUygvrjKA0Rtd
+         hDH3euylrLN/5wsETy9EWMxM8gOo9QaeLqa09dg47artvYV1si6vvfT3RQn+JxLZTbyd
+         d2FcLpZ42hzQrjXYtr86fEYeDH4Czy8xh3SEOP1jE4PjU9kQ7rPWs4HvpUi81kpjXLP+
+         8whWRNCeP/LcVuubQcuLDUNphSg0oanmB78X9Y4UPBz3bWpuo+WQqy+buOHL/pvzjN76
+         Jtvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DR3g9bGNtZFpf0xFNaanuycRzVRv1O6/PdQwaVpb92k=;
+        fh=RgY2LQxWOWzlIKfCXhTjQoWnH1H9I3+Hf8W9G/kGUjs=;
+        b=KZD76pfXd2nlQeL7mW6qokCFcxJTfZytz2OA6hC6Vl1O4Xxw0JLU/wiVRAyc3Vf/Vd
+         ELmm1LXPJM72uASrhtL2BqifRnROXCQT6//YCtFB2PwtZMO2Sf/Z4DNklyoNgkAo1xwM
+         +C8lA8uFAOGV2T244jV6vMo/riMsWDv9ECMbiMS+mSJj0XmaAs4cbdw85N1qvy0tt0I5
+         9Ixj9c/vbMWJYNOxHfEAJBg/1sYmZpd1WA6iZy6sKop5w+kLU7D0pYQ45WYgiFIZb8qH
+         HXX4H1igi4BMJyTg5bQs00AWuR7fpAprsB5JliU/j8IZRDpi8G2jqe1lgJ3X5snaXfDt
+         pJjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790599112; x=1791203912; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D+buAjiyG4ncBlcUW+2BpEu2Hb7PWv2fVmuPggXs8iY=;
-        b=Q1/oRNToeLjB/9+ZiUDBqmLg4/4RpqYLTtQ3dtXFDHve+P2i6Be+Cjdnjop5o4S2aO
-         tLpsTT23t3hhZ3IIfs5jKsgJy/p00J9L2yu9AMlm2X64pOa7t42qP2MhjqCxtK3DlIBk
-         6jIqrg9l1JxC1X+HDtcI6ZEum0K98OWiYvMtZ+7XVBqSwl08uYZmdpYdnUF5+JeJswQC
-         I7ejwGVG2om/2wfhDq7zxe1F0AJE6E3Ud65hGwPCt4hbpZFdjASSSksBiOqWAeC7P27s
-         FYRWN/BzrRf+owoBRsmpu5H75+UUa63nNCr67uvPvJDE42b473gAw5Vd1gECetw00LjV
-         oFbA==
+        d=gmail.com; s=20251104; t=1790599144; x=1791203944; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DR3g9bGNtZFpf0xFNaanuycRzVRv1O6/PdQwaVpb92k=;
+        b=l7plmV5fKwZ9PSQKJEmlTz0kRbxPB6UbjFGJL+ySee8T69iIeGtU+DxVeE79XGNqUy
+         LuWr46y/XOzOwedoDKBE9vgohQTOa27GeNAPPwhjt8Z1KegP1429TJiWLgPVfn+LhnIG
+         ZP+YJytIkWa7X22gV92qlzrXZb94bycTi293bnb8CoAJJbQOPQhozf6zrZa1a3PhE30A
+         YdrHppdyEwGzg1BP/rbdyf9Zl+PvS+/tl3sQIElvJBnfFCPPaw+O9kr3jwPH/AbdH84N
+         XEH5sE8E85ieHj6d5vJt+6jflRvUKbLLt0xB9v7+3AYrRyBJ73h64GCR3R4Mh05D4RGN
+         xhGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790599112; x=1791203912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D+buAjiyG4ncBlcUW+2BpEu2Hb7PWv2fVmuPggXs8iY=;
-        b=V/4a2o/0QXFFuSEYL71J5BBZe6WR+tyF6qAHoT/Vypftb2b6WoyRsiZFSwraKHh6mK
-         +8Uo+OeUYgn/zBC8Hpjvdzs3BTIwqNUMlmFtVPZQtYiRn4gwxuEMrsP63PyE7CjaAT27
-         an4ncYRuv1XOEv2vtwTrNxaSUeMrePJABqI1LsGdmwXVQk6IjFUTAb7A/wSXIJ04vJaj
-         60CxZ1qjLKr1ROSQu94h3urnMGu2cJ3TPN0DeDYdxJBHzjVu4K1+tTgp/d00TnDCXhEW
-         xxerjRVlbWQBCjP7VUov0kvz2AwDh5XAr7oLFDtYr0KPsuHDSRiaX703zceAOY2o1f5Q
-         q7JA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLA7K5RLiSC2wIuFF8OG39SXhsnKoNQZQ93Ql2gEGM+6mMW9YTxEYM2lJxMrDCFAuvkFEsfO8BLNzsouc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfInnSulHYf/t6iBySG6vmiFdDcVvHgrN1EjVTQKaNf9I8qCAs
-	MO1tugKTnq+j0Di1fTbUQFV3hhwdzAq1uEo8Rc3KxTmlU/UeVBdingRe
-X-Gm-Gg: AYBFou0jjClrD+Q8t6igIasLv/b9c8JaAhEqNnrOrZgSswWAh+jO+UixXI5VZ8s/TwE
-	cYbgAnTogpeQWlhYkDwXKf5IswnkLGnlOLDcpeqXj9jhFcosOiebuIbRfIIxvW9hk4nfU6ptp/K
-	oABiEe/FLmcXdtW/A/JY6/Ovec6aSFbDX1ZVictkcDQ0Kmbks43QHk0etEV2iHnWgQutHBefGJr
-	ANmLuzuNkEffCVzifuaztC4nmHdIoJw0duI06KLIULHojeLSTIu2cg2tNMK8txzBeGKroib4b0n
-	3NiVHMDuu76D9ewNMGlDEOgEazewDhr7TIH32YzcPkXgwPrsMiWkpTW88KusGKnnRNxVFUoGk3A
-	B4m0BxVXsm4f/Z+nsNlGNrH53BTzlboBAvEaMrxLWuR4omCVXxixPkPx93REZjZboz0Ul6N6uqx
-	imw4bGvsrp0ZteB/fr3UIUzLD4fwcgxDRM7cYX4VrWj7pAfdx5sFAWp9Z5fE51Sk6nQaflwW4IM
-	S0+sSOXJhdAG/ytHQ==
-X-Received: by 2002:a17:907:97c3:b0:c25:9102:ed with SMTP id a640c23a62f3a-c2ac2311b07mr1040138666b.5.1790599111445;
-        Mon, 28 Sep 2026 05:38:31 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dd69d4f65sm161462966b.22.2026.09.28.05.38.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 05:38:30 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v5] net: e1000: fix warning in iounmap on probe failure
-Date: Mon, 28 Sep 2026 15:38:13 +0300
-Message-ID: <20260928123814.2605-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1790599144; x=1791203944;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DR3g9bGNtZFpf0xFNaanuycRzVRv1O6/PdQwaVpb92k=;
+        b=ErbAW1fs0PIBrosdA3EpO1ak6SHzHmbONe3FmXSwjpPlgQewwqb9dwXs5L++/o+XY1
+         sweIcYFSoHDD6ax/fjOzLwZXAaVl4z0uZRmr93lqzHnUbDEIMelVhtWHioSFDBQRoq/h
+         yRGmCMpSK/3iqa/Bpj0oKkNTn4cmGgko32ASFDLdi9JT+OMhQD32H4hISdkwPUcja+xX
+         yGemw/a4x8bE3D/RWVFYFR3D18TKNjY+/QiYbTRsxMU194rdAFx2aLVfvAlp/YwAEUYK
+         u00Oo6Nr7TSzNDHVp/Xu8EyWiL/xBQ4lmQ/KAOoKZFrZsE0piUyP4+Yir63+p0euE1yS
+         xQ1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxMCo/pAqugR3Qr1RTuZ/4ljhE0SkVVM89e7y/NYRewcYwzAXymzDL27HD/tivGd39lzHxAd7DS2CyBrr0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIabjzIkekaQor+Uhlr0eMt7Cel5RpR17wVDKfRg3BBrbXfIFPL
+	fabNrH2ytymnTVp1mUOl6AVyKtsrGxH+UJDQ0bCBn3yqrVMSSlAYFa4pRXtfULgCUl2TZ2BAbNN
+	9whW/p8144SBfjGaHVJjsKs7Ev5u592Q=
+X-Gm-Gg: AYBFou27j8LYtJU4tIOSSZ9APqR8b3pJVwsQLtVkKsIzhfPDjEdlO0Hi2iO78F58Cr5
+	5t+vKO+E59Nt74bcaPqPtdcmuNieJVPiJ3YVALXanvL0leRiqsz5nB/suubfcIAhDjpqmagcvMn
+	xav2l1N864RRBR5XqVoyMs8wuRyfyeuR+24vqRrsiwlAFUNJcX9qwZl4T3bs8G9V59PWO3GaFMU
+	lY2m70cNTEyYURYDEq1C8MZ60hPUkCAs6OuJvRMMKZt9olCYJopSXRL1i6NvSHAfan4wgZ5pAyd
+	ke+1Doej9kG2oLLF8+eId4YnEs48C/rdzNJRl+e/tfH6Ew789AnxAvUl6rG98zMuItgN4EwuXAo
+	nYlsLSzpkIb5pvJVrRyRW+gBrVUY=
+X-Received: by 2002:a5d:5850:0:b0:488:8132:1425 with SMTP id
+ ffacd0b85a97d-48881321709mr15591817f8f.17.1790599143518; Mon, 28 Sep 2026
+ 05:39:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <aqjpYHbZ14A8xRtK@fedora> <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4> <CAKEwX=PXRB35bUL1=O4Bgx9A7aD4izZZ3dcEcCuMBBhBrMv7fg@mail.gmail.com>
+ <arbTTKE6nYWlNCLd@KASONG-MC4>
+In-Reply-To: <arbTTKE6nYWlNCLd@KASONG-MC4>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 28 Sep 2026 13:38:49 +0100
+X-Gm-Features: AclHuK-lq27s41PviCE5Zcm-NPp3FDhb-jdltfQx3nihLbWFQzzSVs0yJpd5MbI
+Message-ID: <CAKEwX=MPrgkJdzAc-xjuz57nC2Rd7MrVkFzvorBpn1kV600iXQ@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, Rik van Riel <riel@surriel.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In e1000_probe(), the error unwinding path at err_sw_init unconditionally
-calls iounmap(hw->ce4100_gbe_mdio_base_virt). On non-CE4100 hardware,
-hw->ce4100_gbe_mdio_base_virt remains NULL.
-Passing NULL to iounmap() triggers a WARN_ON_ONCE on x86 architectures.
-Furthermore, on CE4100 hardware, if probe fails before or during
-MDIO mapping, ce4100_gbe_mdio_base_virt is also NULL.
+On Fri, Sep 25, 2026 at 9:26=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+>
+> On Fri, Sep 25, 2026 at 09:54:25AM +0800, Nhat Pham wrote:
+> > On Fri, Sep 25, 2026 at 6:15=E2=80=AFAM Kairui Song <ryncsn@gmail.com> =
+wrote:
+> > >
+> > > On Tue, Sep 22, 2026 at 09:44:37PM +0100, Chris Li wrote:
+> > > > It seems you are talking about a different topic: the vswap chargin=
+g issue.
+> > > > There is a golden rule that we should follow: don't break existing
+> > > > users. At least with the same persistence, this rule should apply
+> > > > universally.
+> > > > In the swap tiers discussion, the UAPI was such a big deal that we
+> > > > couldn't implement new UAPI. On the other hand here we argue for
+> > > > liberally changing user-space visible behavior.
+> > > >
+> > > > BTW, I already shared that changing swap counter charging will brea=
+k
+> > > > our and others' existing deployments.
+> > >
+> > > Hi all
+> >
+> > Hi Kairui,
+> >
+> > Thank you for your thoughtful response! Lots of food for thought for me=
+ :)
+>
+> Hi Nhat, thanks for the reply!
+>
+> > >
+> > > Just for reference. Maybe a seperate counter, tiering, is a better id=
+ea
+> > > than changing the swap counter?
+> >
+> > I think memory.swap.* is never meant to be used as the "offloaded
+> > footprint". It is incidentally correct, because of architectural
+> > limitations: zswap/swap cache/zero page usage leads to real
+> > consumption of real resources (physical swapfile).
+>
+> It's not that "incidentally" I think? TGhe defination from the function
+> level seems pretty clear, folio_alloc_swap -> charge. A logical
+> limitation.
+>
 
-Fix this by adding a NULL pointer check before calling iounmap() on
-hw->ce4100_gbe_mdio_base_virt. iounmap(hw->hw_addr) remains unconditional
-because every code path reaching err_sw_init occurs after hw->hw_addr has
-been successfully mapped.
+I don't think so. It's just that until now, architecturally, physical
+swap is always required, regardless of the state a swapped out page is
+in (whether it's in swap cache, in zswap, or already wrriten out to
+disk). So folio_alloc_swap() gets you a physical swap slot, which you
+need to charge. That changes when a "swap slot" can now be virtual.
 
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
-Fixes: 13acde8fffc0 ("e1000: cleanup CE4100 MDIO registers access")
-Cc: stable@vger.kernel.org
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
-v5:
-  - Updated commit message and changelog to accurately describe the NULL pointer
-    check implemented in the diff.
-  - Fixed subject string in the Fixes: tag to match commit 13acde8fffc0.
-v4:
-  - Actually include the code changes (v3 was sent un-staged by mistake)
-v3:
-  - Switched from pointer null-checks to checking hw->mac_type == e1000_ce4100
-  - Removed redundant check for hw->hw_addr since it cannot be NULL here
-  - Added missing Cc: stable tag and Closes tag
-v2:
-  - Expanded commit message to answer reviewer questions (reproduction details)
-  - Added appropriate Fixes tags
+memcg folks can explain better than I can, but cgroupv2 is meant to
+isolate concrete physical resources, because physical resources are
+often limited/static, and can therefore be contended. As Johannes
+commented, that's sort of why memsw was not ported to cgroupv2 - it's
+not an actual "physical" resource, but rather just a logical quantity
+(that's useful to reason about). You can also find this quote in the
+documentation that explicitly spells out that cgroupv2 is meant for
+physical resources:
 
- drivers/net/ethernet/intel/e1000/e1000_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+"For trusted jobs, on the other hand, a combined counter is not an
+intuitive userspace interface, and it flies in the face of the idea
+that cgroup controllers should account and limit specific physical
+resources. Swap space is a resource like all others in the system, and
+that=E2=80=99s why unified hierarchy allows distributing it separately."
 
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-index d7f5c6f16142..d7e279b739b8 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-@@ -1227,7 +1227,8 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kfree(adapter->rx_ring);
- err_dma:
- err_sw_init:
--	iounmap(hw->ce4100_gbe_mdio_base_virt);
-+	if (hw->ce4100_gbe_mdio_base_virt)
-+		iounmap(hw->ce4100_gbe_mdio_base_virt);
- 	iounmap(hw->hw_addr);
- err_ioremap:
- 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
--- 
-2.47.3
+So I don't think memory.swap is meant to represent "offloaded
+footprint". I mean even in the current state, that conceptualization
+is already shaky - a page in swap cache is resident in memory. If you
+mincore() that page, it's reported as resident. It's not offloaded.
+But it's counted towards memory.swap because memory.swap tracks
+physical swap usage, and swap cache page, despite being resident,
+still occupies physical swap (until vswap is in the picture).
 
+A really good analogy would be virtual vs physical memory. Correct me
+if I'm wrong, but I believe we do not charge/limit virtual memory
+usage at the cgroup level (at least in v2)?
+
+I think it is fair to expose useful counters that users can monitor and act
+upon. We have a bunch of such counters (anon/file usage, thp usage,
+etc). But virtual swap usage is not a resource that can create
+contention or isolation issue independently of the backend it take. I
+don't think it should be handled/charged similar to (or together with)
+physical swap!
