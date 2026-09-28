@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A524638737B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750F438C2D1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619986; cv=none; b=P2C8ZjajFP0o1hC1Yj79Q5pRqt1LdjTBp7gQMNg1AA4fOkk6yjdGgsRV8lIPlhw4DvM8Z6uYU/sXduihXYtqZ1RHbTd7EvIgfgDCLJEGXQH9vSb/UXQfyDC3O/vNQqDeiY3Mnbi3KGyS1xLiMmXpIERp3R0Mant3a6zE19wtKWw=
+	t=1790619986; cv=none; b=MeSr0S8lsZEEQXfWmzIYVWzK0jt19Q/XchhkuSZHgXxtLdFaJ79a6TqHoh4QliS5QZFIsMrjadIJvX/oQAP7wdZadbZ+0oinrmab+AGgNj1VVyWMemIdu7ifDaWLCo1+r+/oZ19v2OElu6OyLXrYVVzMnhqR7c/EIA2CIww+oHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790619986; c=relaxed/simple;
-	bh=w3NlFEyvJzAZZmgJDlvt3CnOvZGGYsCxvh+RIGdOzFY=;
+	bh=OTGqkvF7CObOWjaDlCrLeEVWJIgfXoeSy4z3eQH1DQk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=D2qL9hA+TO5o01qiFTYnPFjMdIFBNHb8edzzc8zKGlTf4Ke+pFb/2B29sM01dTeeQADNZRJwQ3utbEfalyU3y9YCGyxZLlCwJZhpsFfjjnGkmnrHPjt0bpANbCgizkDv5npewZuYa9tSR24jKFP90o4ZPrLuHyQF46wgGn0t2DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nHe7fEQo; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=L/S1e4mBDkVhHaSn0hyp7QqNDVPGP1HW1qr0cdPM1zbiU6CH6DFMdnvxC2juQvOHu39EJAN7edt6G3M5TEl8Imh0UzvGDhsvGhUimfd9Zk/RK7vAnObg32TcUoOxEBFLKFu69DhqpMaTj8X9pI+VmA6AsQsg7f7YME/dhOA07/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GMBZVytM; arc=none smtp.client-ip=74.125.82.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nHe7fEQo"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-349ffa249bdso1707860eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GMBZVytM"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14383177746so7013669c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790619983; x=1791224783; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790619984; x=1791224784; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZqU6q1a737Hr+IBPpKcss3zkg1I0C64fANCvsqa/Of4=;
-        b=nHe7fEQot5OwPIm+JpavhH9XGAGuxsMB1fGql5RYCvdrlpmbMqVE0WGVykuGrcrjos
-         Sr9YVJ1GDpI9jt7lD6a5rZTHNtHFT+P8Tj5VRLEGLTe7GF/TOj6OadyvuC4dogESsyyH
-         rSnwOPp+W+Y0s2lLPUkPStVBGqCbhtJVa1zWjB5hP+C9kDCvuejLArYfug40IPC0CT4D
-         DryMvCOfKIlLkO4Guksf8LF0Kx59qb4KuMtpbzsiRf0Vj8Bt4k1XhYVkxTvQIVGUCZic
-         EgJNKlcnswgEQlPRePBGpIVVdK8yPnlGgvAJ+VpSplJEdeq0njJlm+InhlRaqbP4R7SH
-         iz3Q==
+        bh=LRBtK9kiySExwfhGGRen2OSbXppmAN9zPrV3gmDAXVc=;
+        b=GMBZVytMZIIqRYMkJzgvmUwvgUt/oaKdXbFGwtZGd8JxSxiifSCxz4IRXpYnOLRknu
+         /MQfXf6QQnxsZ/f+JPXrsKg0pIfWrct3b0BpLIqqbNCDZNoKvIy0h1Xzt3frYxod9JRl
+         92yAr1AZlGgZoLNNeqjiAtdhZbXiCASt99L3AnmmCy/SVkGxzFCmndm3AdVUcNxMVS20
+         Jd3sBpHY+eZWvxyGd7n4bpEINL1H3wrr+qUHw4JJhb84Zi3q9H+aXIhhYfE+3jdF8yDG
+         EHa+Cj/mzlH4OFDs87mw35dEbb1rqk5fayPWHBrZ21Nm6rncGqwsHQsT8zmk8kiKUTiv
+         n/Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790619983; x=1791224783;
+        d=1e100.net; s=20260707; t=1790619984; x=1791224784;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZqU6q1a737Hr+IBPpKcss3zkg1I0C64fANCvsqa/Of4=;
-        b=yareN/Z639/P2rNeTW4erqo8y/jhgQaOsT09Rn27keFo9oRDaWZuAOrlA+wuHw4nZa
-         aGxMQmDq0Ck6L9EYb0FHc3qDURHlBnir7ZyVNE+RqZG5MiZHnJN4naHxlRwty6Cllbxa
-         CJI5VXECKU3j21SRlPlo0mSjZ+OtJnLlXA4ivarMqJNbsIzb42SwibD0ukv7H1+5HBuV
-         YMU+UhQn5xe75XkmXdEwDPOom6BozscfKae7wx9A7Tg5bJMa5hC/llXiHo1s5m8+wQFu
-         asoTh3yGamqNB0QswvBqpI0HdRIyWANcrXitw5LuZUg758X5+CVpub52KZNDEWSIIhjq
-         n7DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxV3/8RAJw1hNBWWjDt/BCPvOXF8Vj9zdQKtBY+joLtX1yltFkQaVpQCeZl/uXsFAhowa+W6Kahjl00Fr0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxQELTENgWAcyI2oV+QZdood8ShYpsxZEcsAfH4WSnGUeF1gy9
-	BlLzc921BlHlnftsiMrnYX2hMvk64mpEMewDSH5JUGqBIqr9FAp9kpUEjXiCxZffxSiQW9gUdCT
-	hqXRhimVMtQ==
-X-Received: from dlbep6.prod.google.com ([2002:a05:7022:1086:b0:144:c2f8:c025])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:5f12:b0:139:d82f:2fdd
- with SMTP id a92af1059eb24-146ce1aa79fmr9930472c88.8.1790619982141; Mon, 28
- Sep 2026 11:26:22 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:25:43 -0700
+        bh=LRBtK9kiySExwfhGGRen2OSbXppmAN9zPrV3gmDAXVc=;
+        b=UxQancytJci7XoU1N/7KsWj8odthlHbCTi9Nbe379kANRKZgMqcFDkZFuTm873n9oS
+         tKxpVt8mUUFPsSi++9JPw/E0Wjsw5Gd/NtjeHYiDLEvKnz8EuKxzGayPA43EEIKMkye8
+         dQL3oc1T1VI471klZ4xFMDw9cp8MKoX7P5I1Pt4txhhM7ZFhWjZ9e4trqPSx2QUfjJZF
+         IBFdPLEN+GEL91Lvi5fSVQvRaltFrZV1i7whTqsLUuY+6Rfs9ke7/l7WbqgSu5A7iXc/
+         eAcb0HtAFdUpZ+NQSLEhD+dUWX0RrlCoeWXeZ5RRrh0wnq7R/e3E9Aq1wYyK7OCIt/GG
+         R7Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6kqV7rvJzdTxJ58DOppT5ewZ49o14Q3cGbmvYkLITSxHFjP7IXHfB0ixGuY09p9BvWeNV36JAbvNvFv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGmQzvHuYpYCeg4qu2wGY8D+bjpL1ddN9ebbi5+Dl+fhqOcIxv
+	YU45KZ3LCGBLT5PMJJCSb7o1VuCT0iZ9t/3Wl6Ux1OgpJET7Y0g1It5anM/2gnzDjzNHjE/1+Ge
+	3vu1oBlZyKg==
+X-Received: from dlbrx24.prod.google.com ([2002:a05:7022:1718:b0:149:d37b:308a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4241:10b0:147:9ad0:cf10
+ with SMTP id a92af1059eb24-1479ad0d20cmr9735324c88.47.1790619984195; Mon, 28
+ Sep 2026 11:26:24 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:25:44 -0700
 In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928182605.3649015-5-irogers@google.com>
-Subject: [PATCH v6 04/26] perf trace: Bounds check augmented arguments before
- reading them
+Message-ID: <20260928182605.3649015-6-irogers@google.com>
+Subject: [PATCH v6 05/26] perf trace: Bound the fixed size augmented argument beautifiers
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
 	Aaron Tomlin <atomlin@atomlin.com>
@@ -73,125 +72,198 @@ Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-syscall_arg__scnprintf_buf() and syscall_arg__scnprintf_augmented_string()
-trust the augmented arg's size, so a bad one reads out of bounds:
+The timespec, sockaddr and perf_event_attr beautifiers read a fixed size
+type from the payload without checking its size. The sockaddr payload is
+addrlen bytes and the perf_event_attr payload is attr.size bytes, both
+chosen by the tracee.
 
-  #3 0x4c0fa0 in syscall_arg__scnprintf_buf builtin-trace.c:1955
-  #4 0x4c2f3d in syscall_arg_fmt__scnprintf_val builtin-trace.c:2632
-  #5 0x4c33ae in syscall__scnprintf_args builtin-trace.c:2722
-  #6 0x4c43d3 in trace__sys_enter builtin-trace.c:3094
-  #7 0x4c7865 in trace__handle_event builtin-trace.c:4013
+Check the payload with syscall_arg__augmented_args_valid(). Pass its size
+to the address family printers, which also bounds the AF_LOCAL path that
+needn't be NUL terminated. Like the kernel, accept an AF_INET6 address
+without sin6_scope_id, RFC 2133's 24 bytes. Copy the perf_event_attr into
+a zero padded local, as perf_event_attr___scnprintf() reads a whole
+struct.
 
-Move the check in btf_struct_scnprintf() to a helper,
-syscall_arg__augmented_args_valid(), and use it in both. When the check
-fails, syscall_arg__scnprintf_filename() now falls back to vfs_getname or
-the pointer.
-
-Reported-by: Arnaldo Carvalho de Melo <acme@kernel.org>
-Closes: https://lore.kernel.org/linux-perf-users/arJ-gpzqOHk-gF8T@x2/
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-trace.c       | 23 ++++++++++++++---------
- tools/perf/trace/beauty/beauty.h | 17 +++++++++++++++++
- 2 files changed, 31 insertions(+), 9 deletions(-)
+ tools/perf/trace/beauty/perf_event_open.c | 31 ++++++--------
+ tools/perf/trace/beauty/sockaddr.c        | 49 +++++++++++++++++------
+ tools/perf/trace/beauty/timespec.c        |  2 +-
+ 3 files changed, 51 insertions(+), 31 deletions(-)
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index c39de91140a0..85db74965280 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -1139,14 +1139,11 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
- 	LIBBPF_OPTS(btf_dump_opts, dump_opts);
- 	LIBBPF_OPTS(btf_dump_type_data_opts, dump_data_opts);
+diff --git a/tools/perf/trace/beauty/perf_event_open.c b/tools/perf/trace/beauty/perf_event_open.c
+index 6315b46bcdf0..bfdf322c6ede 100644
+--- a/tools/perf/trace/beauty/perf_event_open.c
++++ b/tools/perf/trace/beauty/perf_event_open.c
+@@ -81,33 +81,28 @@ static size_t perf_event_attr___scnprintf(struct perf_event_attr *attr, char *bf
  
--	if (arg == NULL || arg->augmented.args == NULL || arg->augmented.size < (int)sizeof(*augmented_arg) ||
-+	if (!syscall_arg__augmented_args_valid(arg, type->size) ||
- 	    arg->fmt == NULL || !arg->fmt->from_user)
- 		return 0;
- 
- 	augmented_arg = arg->augmented.args;
--	if (augmented_arg->size <= 0 || augmented_arg->size > arg->augmented.size - (int)sizeof(*augmented_arg) ||
--	    (size_t)augmented_arg->size < type->size)
--		return 0;
- 
- 	dump_data_opts.compact	  = true;
- 	dump_data_opts.skip_names = !arg->trace->show_arg_names;
-@@ -1904,12 +1901,18 @@ static void thread__set_filename_pos(struct thread *thread, const char *bf,
- static size_t syscall_arg__scnprintf_augmented_string(struct syscall_arg *arg, char *bf, size_t size)
+ static size_t syscall_arg__scnprintf_augmented_perf_event_attr(struct syscall_arg *arg, char *bf, size_t size)
  {
- 	struct augmented_arg *augmented_arg = arg->augmented.args;
--	size_t printed = scnprintf(bf, size, "\"%.*s\"", augmented_arg->size, augmented_arg->value);
-+	size_t printed;
-+	int consumed;
+-	struct perf_event_attr *attr = (void *)arg->augmented.args->value;
++	const struct augmented_arg *augmented_arg = arg->augmented.args;
+ 	struct perf_event_attr local_attr;
++	size_t copied = (size_t)augmented_arg->size;
+ 
+-	/*
+-	 * augmented_raw_syscalls.bpf.c (shipped with perf) copies
+-	 * PERF_ATTR_SIZE_VER0 bytes when the tracee passes size=0,
+-	 * but leaves the size field as 0.  The payload size is
+-	 * guaranteed by perf's own BPF program, not externally
+-	 * controllable.  Copy to a local so we can fix up size
+-	 * without writing to the potentially read-only augmented
+-	 * args buffer.
+-	 */
+-	if (!attr->size) {
+-		memcpy(&local_attr, attr, PERF_ATTR_SIZE_VER0);
+-		memset((void *)&local_attr + PERF_ATTR_SIZE_VER0, 0,
+-		       sizeof(local_attr) - PERF_ATTR_SIZE_VER0);
++	/* Zero pad, as the tracee's attr may be smaller than perf's. */
++	if (copied > sizeof(local_attr))
++		copied = sizeof(local_attr);
 +
-+	if (!syscall_arg__augmented_args_valid(arg, 0))
++	memcpy(&local_attr, augmented_arg->value, copied);
++	memset((void *)&local_attr + copied, 0, sizeof(local_attr) - copied);
++
++	/* The BPF program copies PERF_ATTR_SIZE_VER0 bytes for size 0. */
++	if (!local_attr.size)
+ 		local_attr.size = PERF_ATTR_SIZE_VER0;
+-		attr = &local_attr;
+-	}
+ 
+-	return perf_event_attr___scnprintf(attr, bf, size,
++	return perf_event_attr___scnprintf(&local_attr, bf, size,
+ 					   trace__show_zeros(arg->trace));
+ }
+ 
+ size_t syscall_arg__scnprintf_perf_event_attr(char *bf, size_t size, struct syscall_arg *arg)
+ {
+-	if (arg->augmented.args)
++	if (syscall_arg__augmented_args_valid(arg, PERF_ATTR_SIZE_VER0))
+ 		return syscall_arg__scnprintf_augmented_perf_event_attr(arg, bf, size);
+ 
+ 	return scnprintf(bf, size, "%#lx", arg->val);
+diff --git a/tools/perf/trace/beauty/sockaddr.c b/tools/perf/trace/beauty/sockaddr.c
+index a17a27ac2a6f..b4b188879598 100644
+--- a/tools/perf/trace/beauty/sockaddr.c
++++ b/tools/perf/trace/beauty/sockaddr.c
+@@ -2,6 +2,7 @@
+ // Copyright (C) 2018, Red Hat Inc, Arnaldo Carvalho de Melo <acme@redhat.com>
+ 
+ #include "trace/beauty/beauty.h"
++#include <stddef.h>
+ #include <sys/socket.h>
+ #include <sys/types.h>
+ #include <sys/un.h>
+@@ -10,36 +11,57 @@
+ #include "trace/beauty/generated/sockaddr.c"
+ DEFINE_STRARRAY(socket_families, "PF_");
+ 
+-static size_t af_inet__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++static size_t af_inet__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
+ {
+ 	struct sockaddr_in *sin = (struct sockaddr_in *)sa;
+ 	char tmp[16];
++
++	if (sa_size < sizeof(*sin))
 +		return 0;
 +
-+	printed = scnprintf(bf, size, "\"%.*s\"", augmented_arg->size, augmented_arg->value);
- 	/*
- 	 * So that the next arg with a payload can consume its augmented arg, i.e. for rename* syscalls
- 	 * we would have two strings, each prefixed by its size.
- 	 */
--	int consumed = sizeof(*augmented_arg) + augmented_arg->size;
-+	consumed = sizeof(*augmented_arg) + augmented_arg->size;
+ 	return scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin->sin_port),
+ 			 inet_ntop(sin->sin_family, &sin->sin_addr, tmp, sizeof(tmp)));
+ }
  
- 	arg->augmented.args = ((void *)arg->augmented.args) + consumed;
- 	arg->augmented.size -= consumed;
-@@ -1922,7 +1925,7 @@ static size_t syscall_arg__scnprintf_filename(char *bf, size_t size,
+-static size_t af_inet6__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++static size_t af_inet6__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
  {
- 	unsigned long ptr = arg->val;
+ 	struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *)sa;
+-	u32 flowinfo = ntohl(sin6->sin6_flowinfo);
++	u32 flowinfo;
+ 	char tmp[512];
+-	size_t printed = scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin6->sin6_port),
+-				   inet_ntop(sin6->sin6_family, &sin6->sin6_addr, tmp, sizeof(tmp)));
++	size_t printed;
++
++	/* RFC 2133's version, which the kernel accepts, lacks sin6_scope_id. */
++	if (sa_size < offsetof(struct sockaddr_in6, sin6_scope_id))
++		return 0;
++
++	flowinfo = ntohl(sin6->sin6_flowinfo);
++	printed = scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin6->sin6_port),
++			    inet_ntop(sin6->sin6_family, &sin6->sin6_addr, tmp, sizeof(tmp)));
+ 	if (flowinfo != 0)
+ 		printed += scnprintf(bf + printed, size - printed, ", flowinfo: %lu", flowinfo);
+-	if (sin6->sin6_scope_id != 0)
++	if (sa_size >= sizeof(*sin6) && sin6->sin6_scope_id != 0)
+ 		printed += scnprintf(bf + printed, size - printed, ", scope_id: %lu", sin6->sin6_scope_id);
  
+ 	return printed;
+ }
+ 
+-static size_t af_local__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++static size_t af_local__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
+ {
+ 	struct sockaddr_un *sun = (struct sockaddr_un *)sa;
+-	return scnprintf(bf, size, ", path: %s", sun->sun_path);
++	size_t path_size;
++
++	if (sa_size <= offsetof(struct sockaddr_un, sun_path))
++		return 0;
++
++	/* The path needn't be NUL terminated. */
++	path_size = sa_size - offsetof(struct sockaddr_un, sun_path);
++	if (path_size > sizeof(sun->sun_path))
++		path_size = sizeof(sun->sun_path);
++
++	return scnprintf(bf, size, ", path: %.*s", (int)path_size, sun->sun_path);
+ }
+ 
+-static size_t (*af_scnprintfs[])(struct sockaddr *sa, char *bf, size_t size) = {
++static size_t (*af_scnprintfs[])(struct sockaddr *sa, size_t sa_size, char *bf, size_t size) = {
+ 	[AF_LOCAL] = af_local__scnprintf,
+ 	[AF_INET]  = af_inet__scnprintf,
+ 	[AF_INET6] = af_inet6__scnprintf,
+@@ -47,7 +69,9 @@ static size_t (*af_scnprintfs[])(struct sockaddr *sa, char *bf, size_t size) = {
+ 
+ static size_t syscall_arg__scnprintf_augmented_sockaddr(struct syscall_arg *arg, char *bf, size_t size)
+ {
+-	struct sockaddr *sa = (struct sockaddr *)&arg->augmented.args->value;
++	const struct augmented_arg *augmented_arg = arg->augmented.args;
++	struct sockaddr *sa = (struct sockaddr *)&augmented_arg->value;
++	size_t sa_size = (size_t)augmented_arg->size;
+ 	char family[32];
+ 	size_t printed;
+ 
+@@ -55,14 +79,15 @@ static size_t syscall_arg__scnprintf_augmented_sockaddr(struct syscall_arg *arg,
+ 	printed = scnprintf(bf, size, "{ .family: %s", family);
+ 
+ 	if (sa->sa_family < ARRAY_SIZE(af_scnprintfs) && af_scnprintfs[sa->sa_family])
+-		printed += af_scnprintfs[sa->sa_family](sa, bf + printed, size - printed);
++		printed += af_scnprintfs[sa->sa_family](sa, sa_size, bf + printed, size - printed);
+ 
+ 	return printed + scnprintf(bf + printed, size - printed, " }");
+ }
+ 
+ size_t syscall_arg__scnprintf_sockaddr(char *bf, size_t size, struct syscall_arg *arg)
+ {
 -	if (arg->augmented.args)
-+	if (syscall_arg__augmented_args_valid(arg, 0))
- 		return syscall_arg__scnprintf_augmented_string(arg, bf, size);
++	/* The family printers check the rest of the payload. */
++	if (syscall_arg__augmented_args_valid(arg, sizeof(sa_family_t)))
+ 		return syscall_arg__scnprintf_augmented_sockaddr(arg, bf, size);
  
- 	if (!arg->trace->vfs_getname)
-@@ -1938,13 +1941,15 @@ static size_t syscall_arg__scnprintf_filename(char *bf, size_t size,
- static size_t syscall_arg__scnprintf_buf(char *bf, size_t size, struct syscall_arg *arg)
+ 	return scnprintf(bf, size, "%#lx", arg->val);
+diff --git a/tools/perf/trace/beauty/timespec.c b/tools/perf/trace/beauty/timespec.c
+index b14ab72a2738..8da0b28be0af 100644
+--- a/tools/perf/trace/beauty/timespec.c
++++ b/tools/perf/trace/beauty/timespec.c
+@@ -14,7 +14,7 @@ static size_t syscall_arg__scnprintf_augmented_timespec(struct syscall_arg *arg,
+ 
+ size_t syscall_arg__scnprintf_timespec(char *bf, size_t size, struct syscall_arg *arg)
  {
- 	struct augmented_arg *augmented_arg = arg->augmented.args;
--	unsigned char *orig = (unsigned char *)augmented_arg->value;
- 	size_t printed = 0;
-+	unsigned char *orig;
- 	int consumed;
+-	if (arg->augmented.args)
++	if (syscall_arg__augmented_args_valid(arg, sizeof(struct timespec)))
+ 		return syscall_arg__scnprintf_augmented_timespec(arg, bf, size);
  
--	if (augmented_arg == NULL)
-+	if (!syscall_arg__augmented_args_valid(arg, 0))
- 		return 0;
- 
-+	orig = (unsigned char *)augmented_arg->value;
-+
- 	for (int j = 0; j < augmented_arg->size; ++j) {
- 		bool control_char = orig[j] <= MAX_CONTROL_CHAR || orig[j] >= MAX_ASCII;
- 		/* print control characters (0~31 and 127), and non-ascii characters in \(digits) */
-diff --git a/tools/perf/trace/beauty/beauty.h b/tools/perf/trace/beauty/beauty.h
-index 0f4801c61a5b..1cd307328bb2 100644
---- a/tools/perf/trace/beauty/beauty.h
-+++ b/tools/perf/trace/beauty/beauty.h
-@@ -124,6 +124,23 @@ struct syscall_arg {
- 
- unsigned long syscall_arg__val(struct syscall_arg *arg, u8 idx);
- 
-+/* Is there a whole augmented arg left with at least @need bytes of payload? */
-+static inline bool syscall_arg__augmented_args_valid(struct syscall_arg *arg, size_t need)
-+{
-+	const struct augmented_arg *augmented_arg;
-+
-+	if (arg == NULL || arg->augmented.args == NULL ||
-+	    arg->augmented.size < (int)sizeof(*augmented_arg))
-+		return false;
-+
-+	augmented_arg = arg->augmented.args;
-+	if (augmented_arg->size < 0 ||
-+	    augmented_arg->size > arg->augmented.size - (int)sizeof(*augmented_arg))
-+		return false;
-+
-+	return (size_t)augmented_arg->size >= need;
-+}
-+
- size_t syscall_arg__scnprintf_strarray_flags(char *bf, size_t size, struct syscall_arg *arg);
- #define SCA_STRARRAY_FLAGS syscall_arg__scnprintf_strarray_flags
- 
+ 	return scnprintf(bf, size, "%#lx", arg->val);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
