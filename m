@@ -1,132 +1,80 @@
-Received: from mail.barrensea.org (mail.barrensea.org [198.12.121.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C799236F91F;
-	Mon, 28 Sep 2026 18:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.12.121.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF4376466;
+	Mon, 28 Sep 2026 18:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618650; cv=none; b=arydvmOcQeuCoDwsS8yskgm/xJ63A4DIru0EiHffPVE5ajEOLGbeGMSL9fMuyJaw7TRS795Cy7c+znizJVWi0hHGYDbcfs2s3yS7kYMu5LONEENs6hkJWWmqpa6E1SsxK/tUEbBeVwXf/QRkm4DWyopJfEO0NvZCMt/vyA/bJgo=
+	t=1790618655; cv=none; b=V24jLY2vUtdNaOGTe4YKUevrtISqTHt/Xz+BpIDjqEIHHc5TOwh1RGO/o0Z1W12+9eEW91zW0c9VTi9xX626QERyB+mJilADn0uCN3NDiDfSfoJRpWBYG1lu3xNcmvwe+0e90/q4YkQuM77RC5JFyIUt7nahvAX6pfGyOol6dvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618650; c=relaxed/simple;
-	bh=Qvw5ZGZAbhbHVH8Am9oUhYPqUm/T6DPi6GOhqeeYFHs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=S0mfvTcRpKTa30y+KrOlzRT4yXdAL6IIK0NfuZHpvzyPa4yn5Fjzy94QcZoLediT8yFgTxTstncArNhR3Cu7woRqAwN/exLh1lDgwlh9QJ5XcSbDEXnx+yk+9scXHDlusc9QMWrWCiyyK/z7KXPIu9cGZDaaCBGDEI1SpPdJGD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=barrensea.org; spf=pass smtp.mailfrom=barrensea.org; dkim=pass (2048-bit key) header.d=barrensea.org header.i=@barrensea.org header.b=RX2pPdoy; arc=none smtp.client-ip=198.12.121.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=barrensea.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barrensea.org
+	s=arc-20240116; t=1790618655; c=relaxed/simple;
+	bh=Zm1ZvYYOTuQ3ScOHQ7pIKzUfv4/g7hN/0crXo96RuGA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZL1F+No+XuHhblYjOKkXDl5m2wPZ5P6zWl9Cp7z0DDxiYTKhq93fIqNV5kfKaWTssfwzPM9wRsS8IC+RWUd8Af9WhDLURj9FGplBzCx9i6VVrjIoWmlY/RsGlH+jAV4mbJ3Wk3okOuUIU+kyRBrSnHoZbJs4vOcgGX+nu3mVIcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGJbMF8n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=barrensea.org header.i=@barrensea.org header.b="RX2pPdoy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=barrensea.org;
-	s=mail; t=1790618185;
-	bh=Qvw5ZGZAbhbHVH8Am9oUhYPqUm/T6DPi6GOhqeeYFHs=;
-	h=From:To:Cc:Subject;
-	b=RX2pPdoyeYSrCZ2B44ZrwtKTYyDlEbNIrBLwEYrKvQvVlNsVds+D6riftckueFvvT
-	 mDjY9ORfxciZ3ROrqUOI+F47xZoUz2sQl65M7UZWM5QGMrfpkCluKekUC55p9JdRum
-	 lLKmScgiRmnpnovzTn3242eT6k+6fYJpvZm9aqfUPrHFjuLZxMhKW3Lrd/voGYXW3Q
-	 p8U/z2PmNilkHF7kKSC9SrgU5m0S3C3KnGQk6ds2ol7p47pA3W8JiBU/AtyIpYdpeB
-	 7OCNUXAOfYC6jleab0DHSPREJnJenEl2wVX4VKtfdAZz7ACGy36WXt5emU/Ff1RoXs
-	 xkJggv7h2O6Xw==
-From: Yifei Yao <donplat@barrensea.org>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Hans de Goede <hansg@kernel.org>,=?utf-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,platform-driver-x86@vger.kernel.org,linux-kernel@vger.kernel.org,donplat@barrensea.org
-Subject: [PATCH] uniwill: Add support for MECHREVO WUJIE Series 15 X Pro
-Date: Tue, 29 Sep 2026 01:56:19 +0800
-Message-ID: <87bj9htg3g.fsf@barrensea.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGJbMF8n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682061F000FF;
+	Mon, 28 Sep 2026 18:04:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790618653;
+	bh=Zm1ZvYYOTuQ3ScOHQ7pIKzUfv4/g7hN/0crXo96RuGA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jGJbMF8n7bcIQZiTn9RDUXb8IanJtLkNsZmHKna6T83BQoN+26fYS2G2okDl2MPya
+	 PcN0XM/ontOUv4E3k++ARPjPXLbFBmfANvUWhgeO5a539SWdA2ULMjfohteKV1y0xc
+	 6umSP1i+NadDHLoophmTeFdLrCzv9OgMHHTo4YZlzFnu8cNrFLhv2mWu7FqjalvmgX
+	 Lor+y7KbUtuVqLjSpw3OKYPNOplV7I2JM/L8KUcI23kDqKODMpnwEEyXHVg1Dq+Xar
+	 EnjXJtnvNU1rofcEIOcMUxaI9snofrIri1B8tN6ZVMCQax/NuLkvEhsigE68AHCrVH
+	 N3VclxkSozUjw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump
+ callbacks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Baoquan He" <baoquan.he@linux.dev>, "Andrew Morton" <akpm@linux-foundation.org>, "Petr
+ Mladek" <pmladek@suse.com>, "Mike Rapoport" <rppt@kernel.org>, "Pasha
+ Tatashin" <pasha.tatashin@soleen.com>, "Dave Young" <ruirui.yang@linux.dev>, "Zack
+ Rusin" <zack.rusin@broadcom.com>, "Pratyush Yadav" <pratyush@kernel.org>
+Cc: "Jonathan Corbet" <corbet@lwn.net>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "Ajay
+ Kaher" <ajay.kaher@broadcom.com>, virtualization@lists.linux.dev, "Ingo
+ Molnar" <mingo@redhat.com>, linux-kernel@vger.kernel.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, "Joel Granados" <joel.granados@kernel.org>, kexec@lists.infradead.org, linux-doc@vger.kernel.org, "Alexey
+ Makhalov" <alexey.makhalov@broadcom.com>, "Eugenio Perez" <eperezma@redhat.com>, "H.
+ Peter Anvin" <hpa@zytor.com>, "John Ogness" <john.ogness@linutronix.de>, "Bo
+ Gan" <bo.gan@broadcom.com>, "Michael Kelley" <mhklinux@outlook.com>, "Borislav
+ Petkov" <bp@alien8.de>, "Ian Forbes" <ian.forbes@broadcom.com>, x86@kernel.org, "Stephen
+ Brennan" <stephen.s.brennan@oracle.com>, "Kees Cook" <kees@kernel.org>, "Dave
+ Hansen" <dave.hansen@linux.intel.com>, "Randy Dunlap" <rdunlap@infradead.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Thomas Gleixner" <tglx@kernel.org>, "Maaz
+ Mombasawala" <maaz.mombasawala@broadcom.com>, "Shuah Khan" <skhan@linuxfoundation.org>, "Brennan
+ Lamoreaux" <brennan.lamoreaux@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, "Sergey
+ Senozhatsky" <senozhatsky@chromium.org>
+In-Reply-To: <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
+References: <cover.1790014793.git.zack.rusin@broadcom.com>
+ <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 18:04:09 +0000
+Message-Id: <20260928180411.682061F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="=-=-="
 
---=-=-=
-Content-Type: text/plain
+> Selected crash callbacks should not require running every panic notifier
+> before kdump. Add a separate atomic chain with an at-most-once dispatch
+> helper, and invoke it before panic reaches the kmsg dumpers.
+>=20
+> The helper permits another call from the crash path without repeating
+> callbacks or recursing into them. Document that callbacks may run in NMI
+> context, with other CPUs running and the kexec lock held.
+>=20
+> Link: https://lore.kernel.org/r/aquttpMVKX8e6zGB@pathway.suse.cz
+> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 
-Add support for the MECHREVO WUJIE Series 15 X Pro (WUJIE
-Series-X5SP4NAG).
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-I have tested the Uniwill features on my laptop: the RGB keyboard
-backlight works correctly and supports a maximum brightness level of 4.
-The secondary fan only starts when the system load and performance
-level increase. AC auto boot and USB powershare also work correctly.
-The Super key and CPU temperature reporting work correctly, with
-temperatures reported in millidegrees Celsius.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790014793.gi=
+t.zack.rusin@broadcom.com?part=3D1
 
-This machine does not have an NVIDIA GPU; it uses an AMD GPU.
-
-Translated from Chinese to English using a machine translator.
-
-
---=-=-=
-Content-Type: text/x-patch
-Content-Disposition: inline;
- filename=0001-uniwill-Add-support-for-MECHREVO-WUJIE-Series-15-X-P.patch
-
-From e746b686ab2e7814e59c1e23b5525f8c022563c8 Mon Sep 17 00:00:00 2001
-From: Yifei Yao <donplat@barrensea.org>
-Date: Tue, 29 Sep 2026 01:29:09 +0800
-Subject: [PATCH] uniwill: Add support for MECHREVO WUJIE Series 15 X Pro
-
-Add support for the MECHREVO WUJIE Series 15 X Pro (WUJIE
-Series-X5SP4NAG).
-
-* drivers/platform/x86/uniwill/uniwill-acpi.c: Add
-series_x5sp4nag_descriptor and DMI matching.
-
-Signed-off-by: Yifei Yao <donplat@barrensea.org>
----
- drivers/platform/x86/uniwill/uniwill-acpi.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-index 7a2eeaec4c96..d0fde42c46d7 100644
---- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-+++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-@@ -2712,6 +2712,19 @@ static struct uniwill_device_descriptor lapkc71f_descriptor __initdata = {
- 	.lightbar_max_brightness = 200,
- };
- 
-+static struct uniwill_device_descriptor series_x5sp4nag_descriptor __initdata = {
-+	.features = UNIWILL_FEATURE_FN_LOCK |
-+		    UNIWILL_FEATURE_SUPER_KEY |
-+		    UNIWILL_FEATURE_CPU_TEMP |
-+		    UNIWILL_FEATURE_PRIMARY_FAN |
-+		    UNIWILL_FEATURE_SECONDARY_FAN |
-+		    UNIWILL_FEATURE_KEYBOARD_BACKLIGHT |
-+		    UNIWILL_FEATURE_AC_AUTO_BOOT |
-+		    UNIWILL_FEATURE_USB_POWERSHARE,
-+	.kbd_led_single_color = false,
-+	.kbd_led_max_brightness = 4,
-+};
-+
- /*
-  * The featuresets below reflect somewhat chronological changes:
-  * 1 -> 2: UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL is added to the EC firmware.
-@@ -2996,6 +3009,14 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
- 		},
- 		.driver_data = &tux_featureset_4_descriptor,
- 	},
-+	{
-+		.ident = "MECHREVO WUJIE Series 15 X Pro",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "MECHREVO"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "WUJIE Series-X5SP4NAG"),
-+		},
-+		.driver_data = &series_x5sp4nag_descriptor,
-+	},
- 	{
- 		.ident = "TUXEDO InfinityBook Pro 14/15 Gen9 Intel/Commodore Omnia-Book 15 Gen9",
- 		.matches = {
--- 
-2.55.0
-
-
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-
-DQotLSANCkRvbmp1YW5QbGF0aW51bSwgWWlmZWkgWWFvIDxkb25wbGF0QGJhcnJlbnNlYS5vcmc+
-DQpHUEc6IDFDOUUgRUVFNSA0QzhFIEQ1QTggMzAzOSAgMUM4NyBBOUY2IDg2MzIgRDI1OSA0MEU2
-DQrmu6HloILlha7nvo7kurog5b+954us5LiO5L2Z5YWu55uu5oiQDQo=
---=-=-=--
