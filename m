@@ -1,221 +1,297 @@
-Received: from GVAP278CU002.outbound.protection.outlook.com (mail-switzerlandwestazon11010003.outbound.protection.outlook.com [52.101.188.3])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011007.outbound.protection.outlook.com [52.101.57.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43C5395AF7;
-	Mon, 28 Sep 2026 18:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.188.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57CD37A4B8;
+	Mon, 28 Sep 2026 18:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620919; cv=fail; b=tNACV9MITr6Z9ZmGu20Nf7WgkYM9486YTDdotGGVj+AJnqmGv0pC6ZZFOlD0NL/aMOBGZjt7Fe8IWXv486+OBAaZWzpP53gTETxMeNmHbzx/uYSkI/Dxr3KVSCkXQVmKn/G5FzaOwo9FlzbBOV5WtaSYcbimrI+5ZI2kQaQPD4w=
+	t=1790620941; cv=fail; b=qxpd5ug1mvNBHBdhQf6AmlokPxkTF7ukuM6MLqqyGndFx9um3YjDCj6sxBtpRPVlYhuBZv1DEo/L7tI3cgSH7BrXXOj2shLSdqqzvcZX4gkWCMYh8qjCnK4NJS0zVuK/EJbV7KD5mX9GN7bImHw71shO5dOugktO/iY97VWmxqY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620919; c=relaxed/simple;
-	bh=zYhg2kTqIjOtqGEQj+Qrq23KGCTk3AblGIEylIHV374=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=BzZ1R+x4JL6iBAjzjRy3jk2tY1zK08TraUtXww1fstWbVd/+m+0RcQYRAh8tgm+TZVsyGVnoTxNaJRnyHo2MkOKGrrt2+UjLI/pFQzbSVlcmj6KrfQTTRV/0hq1nB4ehFDwkHbXbnqePdOjFwIboMZihWqj4H1+HF6PFJDv+kaU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=fwYJTH4D; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=fwYJTH4D; arc=fail smtp.client-ip=52.101.188.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cern.ch
+	s=arc-20240116; t=1790620941; c=relaxed/simple;
+	bh=moHRUrQU9dkd1SK1Eh7d1ZqdaPtEtg+jnYRUQ49g0d0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TwLudH8mNSknee4JkXY9IBjyXGvZpCJfRZbTnS+WSWBySbjNOv83Ple4cdzf+4FJdKVeablGCZDk5ey67/SEn30OlTH/Q99SUIhkSF0Gl7ucUs3r34vZQI71XezBl4xo/FqNGSTxTiKE7oU2makC883WO43LbKc03D8zziCueWM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Xsnunmu6; arc=fail smtp.client-ip=52.101.57.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="fwYJTH4D";
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="fwYJTH4D"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Xsnunmu6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXuIFYazN9Nm64cdhBFMHeNabf8ihx0QKVweUNwwsYQiLQlKNnFj6mgacvKplQAB1iQ9GRcX09POtZNB3ndmkZnMUylrYCNXiyhlVdKB96r0sQd89pBrmMQKFc+AmyHbRJEOpMwdpGhqd39lDb0kv3ixLuN3dBNBK3HKZiLqACk2oVcuwgNYNaamB/nHPfKAWIWreR1RFDs3I8ShxDNbWGOupYnZ0+Gbpm21ZYNvNQKER25DvNXDzpT4qedCBmvP6YkELV4sIntQzvpdamBT0YYHQf9uEFnDHSHlj81WpZejXbo6G48OqQwvx+ki5IgOhDJmNbbR+smD88lbU/+KBQ==
+ b=REgsPZX7zyLkNEsz1ziiO/XYFUWAm/EgLNwvjcAaDqi+MfRjHtNxiUU9MvHcqlV6q8FEL0LO9CUGCMaxbdGzVVljldVhFBqsglqVdk6uKHgSmdHol/Tdk2YQFW/0am2DQZvJYFrHrDpXAVyOopOwD4SBYMIV2OyPE+8WN2FwW0JmEpc2jIhYo/oFLo6hGCYFfCSCHJopinwkyYkAlD5b544JtRkCv1O6BFKSGW/bRsi/a5cxLK9sjhFvfpnQFv2hUb6gv54x7nHR8c+T3qugPSYAEvsUOsAabUDV9oOMaWcTHrATMkIKoNswWhwhZQRyj4+OoQapXzdaB+s4XImY8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oUPcY/Q0DOKluJ61jeltm6KzKJdyR21guvHmBJgSarw=;
- b=sirfTUsthEhtNUeiu403GBmfvk1+wowf2nWao/ktwOdK7XrJ1AuMGKCoRWhUhbdkKZ9eJUmJUDuBT5jgjdSr1VQAMpjsTYTvii0DFTRLWxJKmgoDBAp+DjuVoVjAnt7GgfUYQOzXl02F8mKBjQa2Mlr82T1eM4OgC2Lq27ukjViO5pN4tEOHjq6rQN3ahwgLYCzp1X/XpEM4hZKmesLsjSRfmXxEtpd4klTSUUGiuAODbzsObLvIPhhpDOKGJnO4tN9lG89pRAmIyGSbOVk2LpMd/mKRLYVkKbrfPQb8Em2oR+cVSczkZ8w6f9CbIfDOCmfDt1ivq27Y+j5jvgJmXA==
+ bh=SDmKiv6ogXsm/U8FHSGLKv2tvJOX9s6Avgiic4wBT2A=;
+ b=HPP9nXkroMgQ80AqwTxIs2d0wysCb49q1QDKKJQKb+Rz7KVEcR+7hZKvgCUONN8xpO9kYKjZWicbnab2FhKnj5KsXLfP2nUENNgvf8peJI9znd7O2GCMJ/a0yQ9FDbL9cL+mECA4OVOtuBmGkthqnzKnNG6MuMEMJI+BqvlbrBvmrTivfMI8em9RZcudb40YAxBfF38ZUKpb5TpQZZUeBaavDfMFxBqqz3k/mQ5wXzXtbjCD9qd14wnn0oIqUPnxUakunI0mC36vELHF0ebYcMaxbxHQchDlf/w0kj04Hg9HGxfsT7ZmieO03/4afpF23Yf4XdAPjpC4xFa5M4oNgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 20.208.138.155) smtp.rcpttodomain=gmail.com smtp.mailfrom=cern.ch; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=cern.ch; dkim=pass
- (signature was verified) header.d=cern.ch; arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
+ 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oUPcY/Q0DOKluJ61jeltm6KzKJdyR21guvHmBJgSarw=;
- b=fwYJTH4DpesRJ9b/n33+WmSs4Jwd3EfTYxeLH+c/zDviwy2/5HidmG9S/7h9jBs7HR9b9LoK22xXLbuDIehkq8b2RNvj5WJpRKIL+5VoclAdAv819Aj+Cs4dlcuojnnMgyyVpxH9qiNXIw4mZAnPgFQ8QljuVQnFT6rmhPaKmBA=
-Received: from DUZPR01CA0294.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b7::13) by ZR3P278MB1511.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:8e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 18:41:51 +0000
-Received: from DB1PEPF000509E6.eurprd03.prod.outlook.com
- (2603:10a6:10:4b7:cafe::78) by DUZPR01CA0294.outlook.office365.com
- (2603:10a6:10:4b7::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 18:41:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 20.208.138.155) smtp.mailfrom=cern.ch; dkim=pass (signature was verified)
- header.d=cern.ch;dmarc=pass action=none header.from=cern.ch;
-Received-SPF: Pass (protection.outlook.com: domain of cern.ch designates
- 20.208.138.155 as permitted sender) receiver=protection.outlook.com;
- client-ip=20.208.138.155; helo=mx3.crn.activeguard.cloud; pr=C
-Received: from mx3.crn.activeguard.cloud (20.208.138.155) by
- DB1PEPF000509E6.mail.protection.outlook.com (10.167.242.56) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Mon, 28 Sep 2026 18:41:50 +0000
-Authentication-Results-Original: auth.opendkim.xorlab.com;	dkim=pass (1024-bit
- key; unprotected) header.d=cern.ch header.i=@cern.ch header.a=rsa-sha256
- header.s=selector1 header.b=fwYJTH4D
-Received: from ZR1P278CU001.outbound.protection.outlook.com (mail-switzerlandnorthazlp17012054.outbound.protection.outlook.com [40.93.85.54])
-	by mx3.crn.activeguard.cloud (Postfix) with ESMTPS id EA3F77EBED;
-	Mon, 28 Sep 2026 20:41:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oUPcY/Q0DOKluJ61jeltm6KzKJdyR21guvHmBJgSarw=;
- b=fwYJTH4DpesRJ9b/n33+WmSs4Jwd3EfTYxeLH+c/zDviwy2/5HidmG9S/7h9jBs7HR9b9LoK22xXLbuDIehkq8b2RNvj5WJpRKIL+5VoclAdAv819Aj+Cs4dlcuojnnMgyyVpxH9qiNXIw4mZAnPgFQ8QljuVQnFT6rmhPaKmBA=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=cern.ch;
-Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:5d::11)
- by ZR5P278MB1763.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:b0::18) with
+ bh=SDmKiv6ogXsm/U8FHSGLKv2tvJOX9s6Avgiic4wBT2A=;
+ b=Xsnunmu6QoasPZ2fkDZs8+FXr9/4jRzmXe/cfvuEpdvddhHuunFwnef1K/Rw8+6YDYG/VwC2pIJK3Pc0eaP7AqOoXe9do5cciFOT8ltNLhoxy8lprnu3cUk4jRCcWFYCIk4HQVcHUxNEMKycy98rq2DjgzHZJqCFdJ1kkkIjDfE=
+Received: from PH7PR17CA0016.namprd17.prod.outlook.com (2603:10b6:510:324::19)
+ by CY8PR12MB8214.namprd12.prod.outlook.com (2603:10b6:930:76::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 18:41:46 +0000
-Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- ([fe80::79ac:8d79:4b56:709c]) by ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- ([fe80::79ac:8d79:4b56:709c%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 18:41:46 +0000
-Message-ID: <6f2e0c22-0be6-4daa-8ab3-28d92f41197b@cern.ch>
-Date: Mon, 28 Sep 2026 20:41:45 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
- Edge devicetrees
-To: Antheas Kapenekakis <kapenekakis@gmail.com>
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, marcus@nazgul.ch, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
- abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
- kirill@korins.ky
-References: <20260920184148.31541-1-mstoretv@cern.ch>
- <20260920184148.31541-4-mstoretv@cern.ch>
- <CAGwozwGzw1CE03kbWJaV7iC=1o0QXg9PpreTunenm-vHPe515A@mail.gmail.com>
-Content-Language: en-US
-From: Maxim Storetvedt <mstoretv@cern.ch>
-In-Reply-To: <CAGwozwGzw1CE03kbWJaV7iC=1o0QXg9PpreTunenm-vHPe515A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ZR0P278CA0131.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::10) To ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:5d::11)
+ 2026 18:42:13 +0000
+Received: from SN1PEPF00036F41.namprd05.prod.outlook.com
+ (2603:10b6:510:324:cafe::89) by PH7PR17CA0016.outlook.office365.com
+ (2603:10b6:510:324::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 18:42:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF00036F41.mail.protection.outlook.com (10.167.248.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 18:42:12 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 13:42:10 -0500
+Received: from xhdsuragupt40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 13:42:08 -0500
+From: Suraj Gupta <suraj.gupta2@amd.com>
+To: <radhey.shyam.pandey@amd.com>, <andrew+netdev@lunn.ch>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <michal.simek@amd.com>
+CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net v4] net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
+Date: Tue, 29 Sep 2026 00:12:07 +0530
+Message-ID: <20260928184207.2361931-1-suraj.gupta2@amd.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	ZR2P278MB1053:EE_|ZR5P278MB1763:EE_|DB1PEPF000509E6:EE_|ZR3P278MB1511:EE_
-X-MS-Office365-Filtering-Correlation-Id: bae061a2-8cda-45c0-d9ee-08df1d9028dc
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|CY8PR12MB8214:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1706c8ac-84fc-4ea4-44f3-08df1d9035f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|376014|7416014|786006|1800799024|19092799006|23010399003|10067099003|11063799006|56012099006|3023799007|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 2K4ZaD+TN0PoAzzH+xxNThiZkKkVUlJGgi1/ayxbLgEyLJ43fSVpPtiOPhqf+1pY/yGPYPnO21+pYaFm/KoCVusLIrj/ERv8hxjB24rL7x/vf6/z+hpovjZMvmv2FGZqMPAh89AwNsvEWKtdbiVgHvi6RpebTs5dIF13PW8FKVmZrX7w9ozzijZTad5jDqQSqY4Om9cVW6E2xgvdoEzcamGBltJ7I9vN+7MCpCBj6rsRbUnNGbpbpcJ9oei2vW4ToMnF/XLEb+BBKS1+FWWFZD8crnM+++2oplHLT1AgaEHYXp9IO9VlcXq640QNGJoGHikE3CnkoQSISa0dPoQI4Vw2Rw3VpU9nczFiuOegUoRRMbw1ruO1ozcUf84eTnJSXjdnmTXfR3a4X2sGuuzSzAtXaN/rqDivpr5M64WRv6yF0vddWc7OUgYn7TSxL/lvuiGZ+nXQavF2ceaB3JnSRhYYEXV8sF1m+BhXumkTa0KXD+ljk3qBHvDoi5B3MWi6sWmZo1tEawLvbKfeK3VEGMWDXsnixH7QGhprWCkC8ociaEYMiuCn9LDipOAeeJOxl9vSkNxX+uQkt+umOued/O6bA+Lc6nipzQeWbcxgKhdHIL2C09ed2kSQlJRPSPVw
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(786006)(1800799024)(19092799006)(23010399003)(10067099003)(11063799006)(56012099006)(3023799007)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- zF08BHQHiafBkLIglp082DcYIcmRYlpJ7ZCqEchIOMZ9llQViS3/mnkP9MTqRFuYmz7u18QSJVGjbB93Macf7TDZOEG/bMlvdQxRNa1DCNofy2V6oIhPQCryLQLqHTPmt0BLM28+z7VwxjhftRCU6RBu7Ls4qMiUDjzNzaRjLMal4arVyYXqZQyorEhjNVPKARcyUzGbn/mVuoLlrRsPFASo+6wh0n3krsoa2RiO5ojkiTSawvSoVAvtPbobaxmWx8MY/t/BI5titYVy85oRT3X1f4t6gDvkaq5n5RHb4tPNdHe8Z0vM8E6pNTCDRg/5SSnLrfJtsBRxA+Xbm9O6NQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR5P278MB1763
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB1PEPF000509E6.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c8691491-f7d7-4c80-4a13-08df1d90260e
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|35042699022|23010399003|786006|82310400026|36860700016|14060799003|376014|1800799024|30052699003|19092799006|10067099003|11063799006|3023799007|18002099003|22082099003|56012099006|4143699003|13003099007;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|10067099003|3023799007|11063799006|56012099006|18002099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	fFYBKCSIHiwOv/0p6sP2Se1kGIBK3U3hL/0N15df+nb5e/gDiKubb+LEmVJ+kZ9sosjVfTfNjGHc9C8c51pPPL+qozR67jIX+B3GRJPs6krHkiI/Rr0nROWfnPbo1QkKmafpENDFv36/bX5jK/mhGphkvpCz580ldL+t6f1/R0ppLNw0gJwW+c28I96m3JGEMsFuRrOKvNnBLOOAcFKGKR40P7SEi4OmKigwv3o/5hru4tjHw6IKAc0LZvBG4V4y3zkqUzjLnV3HkDrM4XczZoH7DFWWsxsvgFlGqmvcB9+gvIjs7ZEte7KKgJFMyw+Nbfjh6luq041GdIy0Fqy+iMKmMSmXwiMxMoT4O7safbh/SxHatNbnORyUT+1qYCWoKPp6C69Tyj4UOf2Vwwhsf4k2dD24FbpSexVWmG0r9PLDqM9QRKruX7rI8vp9RfrAK1sOaFobpHQeQqo0bOEt8E62GZUh0zVlogJL0j5u4SZxFAkq/8Tx+oJBQbNfWhiaM29+7cdY4dlvPX8Qe4w8jKqrkUkVUiGNYFIzSE7JYatTCEGJLM3ha7aAKL8oCBUNTPAkFXIpOOo6g+c+AMPQhXsmLxrizk250J5lvp9PFjQ7j1pBb80GOXtVz5YaYPfoYel6L6F2W5yzhmWrWEIDwg==
+	uy4GgBPYLMZ8DblJNJRF3hCAeQz4emjmiU2jsTzk3ZlCbLslJw6Bc/EpHNf0L+y/iyv2KJE+NR80NoJ+Y0h8B0XSwy/Fmnvl/FXLnkcKnLIbZG71b0Iuk3KoAp8iVnc0xpfxvd6HRoQ2l+FbKSM5AtA8JrcGW9rwesud8jxviSQkGp6F8K/7b1ErhBoYOsLzNTamDqG+qYFzeTQlCPrBwAmTa6N+gvn2xKiQCMuJni14vrq3Jlfnd3WotcVUp/eGpLblZN9cfKdRJUi9Mj2E+/N2ilmWMVi2skHhL3W/XxsGNl5UKERFn71qFatgm/4jZJiUeEAuYDq8qmMXS/C11onybhAzR5TefeN6fiiSEROYbtfJrVX99qhv4NYkPFNb0JXUzDC9Zcf5R052cBiXKW1j7YPuHN9rPx6qjX27jcRjS2LaRnciJY9apNPRA/QMvQE635BFXrFh8X8arxSyUSoWm4l1YRMFkZm1o25HbJTXHZXpdd+T87/4/sBhsY8s+iDegiPZ+fk8C3JDeKVtJB2Neim5NdkHSE/JsrVCQksyNiDos90giJ9m6nW+6vncAzX0RsVcVtMs+P2/56JMSgv3fuicDWDQEhAkGHNofG/uYH15lqf7yonOZSbh5tULNDjMXpgUSJnAebHxYnSqSZnJ0AM4xh+WNcFxSuvuOVA=
 X-Forefront-Antispam-Report:
-	CIP:20.208.138.155;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx3.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(35042699022)(23010399003)(786006)(82310400026)(36860700016)(14060799003)(376014)(1800799024)(30052699003)(19092799006)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(56012099006)(4143699003)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(10067099003)(3023799007)(11063799006)(56012099006)(18002099003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	RNws36UKg/UUzSk76XAHEfCG3X2VvbtyjXadAWF/KmCX6CA6GCthg95ugxmnwaIF21DnPPRncuH4ENcb3ZIDlrae1246ZZSRBCG39TvfxR7EtP7qJ5dUuJqdoTTL7zLZC937aHcjLO8qns0n24D+sZwkn1iSQBl1nWzOtaw5VLak5fy6J+4NiBFnlY6potWiK6jedZ5Fk/UlQEUfnoJihGsdLnYkA+jp4ZLdZcRS/bLkW/YcleHogci5O8R29o8i5v7hvY+svz/Fi9zfKqNh3pzyK0MvXepV8+0AvManBMwMeLHzMBDepFmAa/REHiG0DFvYnNZqy8ZENs2xnsgc1LGpCRydbXhiDQJo0kjN8/41j1pcruYgmuzS1SQL4OklvxZN5oq6cOvlJ3W3IZefhOoJe9bWDXz2JI2gYoqxBo831zUKBdnF8IM3Hm+dk3ZY
-X-OriginatorOrg: cern.ch
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 18:41:50.6691
+	57KbSdoqh2+j3pQ4uyGrQ/C0PnLr9uVaLWnP1UAWjgw1+1srEQJ6CV0oVLPhH0Ierx7CL9J5JOiqDqTkyQcx72kS/7gkzw7ZsmBC7oK+mFilPE1PrzDqXSd79TxEe/r8953kC3ve2Wf0UrKVogn9beEaQBylGBOdNWE6MFb+cY8UkXf+/ns6gGQd+R4WN73UzYykU6vzPGnTyAt2nACgqeTFhX2bR6b6v1GoXk2uXeaMZ7ZT6+t5u9lOyHci5580u1lOJkX2fbn3zV43B5DyOoLa8KCdtZPP5cZYFfYzKqu/z2sCL5Bpa/BbEP0GmMKJGdYOZIIhJk9+6YfteKsjiNHYxexu4zWbo1FimilZTI3WCzoYrXzXt87VABHvJCf243PN3Gmg10eGCsJeLjB6STOqnLguMTbFd+GVwB6/uaoRCpsQuD3cjeQp2ePQLf6R
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 18:42:12.7095
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bae061a2-8cda-45c0-d9ee-08df1d9028dc
-X-MS-Exchange-CrossTenant-Id: c80d3499-4a40-4a8c-986e-abce017d6b19
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[20.208.138.155];Helo=[mx3.crn.activeguard.cloud]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1706c8ac-84fc-4ea4-44f3-08df1d9035f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509E6.eurprd03.prod.outlook.com
+	SN1PEPF00036F41.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR3P278MB1511
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8214
 
+In the dmaengine path the driver pre-submits RX buffers and holds
+in-flight TX buffers whose SKBs are DMA-mapped by the driver and freed
+only in the completion callbacks. On ndo_stop() dmaengine_terminate_sync()
+aborts these descriptors without running their callbacks, and the driver
+then frees only the ring shells, leaking every SKB still owned by the
+engine and its DMA mapping on each ifdown. With 128 RX buffers pre-posted
+per channel, the mapping leak can eventually exhaust a limited IOMMU
+aperture.
 
-On 9/28/26 18:44, Antheas Kapenekakis wrote:
-> On Sun, 20 Sept 2026 at 20:41, Maxim Storetvedt <mstoretv@cern.ch> wrote:
->>
->> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
->>
->> These use a common dtsi derived from nodes that were able to work on Linux
->> from the initial Galaxy Book4 Edge DTS by Marcus:
->>
->> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
->>
->> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
->>
->> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
-> 
-> Links go in the bottom, Based-on-a-patch is not a thing, you may add a
-> Coby as noted in a parallel thread.
-> 
->> as well as a few more adjustments on top of that again to get additional features working.
->> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
-> 
-> Hi Maxim,
-> I tested this series on a kernel with various other backports on two
-> european (norwegian market) galaxy book4 edges.
-> 
-> Specifically, the 14in NP940XMA and the 15.6in (not 16) NP750XQB.
-> Specifically, the later is an X1Plus variant that came out a year
-> later with cheaper components. It does not work properly on either on
-> them. I was hoping that at least the 14in model would work as is but
-> no.
-> 
-> My test devices have proprietary Samsung battery controllers
-> (ENE-KB9058) and type C controllers (Samsung EmuEC). Also the speaker
-> amplifiers are different. So the battery reporting, audio, and USB C
-> ports do not work at all using your DTs. The TPM does not bind either
-> but you do not claim that it does. At least they got me to boot and
-> for that I am grateful.
-> 
-> Other stuff also does not work, but I am just listing the main ones.
-> 
-> I suggest you change the -14/-16 suffixes on both models with
-> something more specific.
-> 
-> The prior patches in the series look fine to my eyes. I did not A/B
-> test them, just pulled them in.
-> 
-> Best,
-> Antheas
-> 
+Clear the slot's skb in the TX and RX callbacks so a non-NULL skb marks a
+slot that still owns a live, DMA-mapped buffer, and on stop unmap and free
+every such buffer.
 
-Hi Antheas,
+axienet_dma_rx_cb() runs from the DMA tasklet and re-arms the RX ring on
+each completion, so it can race axienet_stop(): a completion may submit a
+fresh buffer after dmaengine_terminate_sync() has returned, leaving the
+channel armed with a buffer the teardown then frees while the engine may
+still write into it (dma_release_channel() does not stop it either). Add a
+lock that axienet_dma_rx_cb() holds across the @stopping check and the
+resubmit, and axienet_stop() holds to set @stopping before terminating.
+Once @stopping is set no callback can arm a new buffer, and any armed just
+before is aborted by the terminate, so teardown only frees buffers the
+engine no longer owns.
 
-Thanks for giving it a test! I think we both have the (almost) same
-device, and your experience on the 14" NP940XMA (NO) probably mirrors
-that of my NP940XMA (IT).
+Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+---
+Changes in v4:
+- Use plain accesses to @stopping under rx_submit_lock and drop the now
+  redundant READ_ONCE()/WRITE_ONCE() on the dmaengine path (Simon Horman).
 
-USB-C should already work for this SKU with the patch DT, but not USB-C
-hotplug (yet). For now, everything is just left as already set up by the
-firmware, so peripherals plugged in after boot will not be detected.
-Everything inserted before boot, and hotplug on USB hubs, should still
-be fine. Could you give it a try on your device?
+Changes in v3:
+- Serialize RX descriptor resubmission in axienet_dma_rx_cb() against the
+  stop with a dedicated rx_submit_lock, replacing the bare
+  READ_ONCE/WRITE_ONCE @stopping fence (reported by the netdev Sashiko
+  AI bot).
+- Update the commit message to describe the race and its fix.
 
-Battery state monitoring should also be with the same caveats on both
-these devices, going via a separate protocol over I2C instead of
-following the other X1Es. There is a separate battery driver for this,
-and also other useful patches (like the webcam and kb backlight)
-downstream. For now at least, only the features listed in the cover are
-included here, but our repo linked there has pointers to the other
-relevant patches needed for now.
+Changes in v2:
+- Free outstanding TX/RX buffers on the dmaengine stop path (the original
+  fix), and drop the redundant dmaengine_synchronize() calls that
+  followed dmaengine_terminate_sync() (Jakub Kicinski).
 
-On that topic, you will also find links to devicetrees for the X1P42100
-Book4 Edge there (via Ciscobugger). This might not be the same X1P SKU,
-but could also be worth a try.
+v3: https://lore.kernel.org/netdev/20260924085441.74012-1-suraj.gupta2@amd.com/
+v2: https://lore.kernel.org/netdev/20260917100525.250952-1-suraj.gupta2@amd.com/
+v1: https://lore.kernel.org/netdev/20260910141946.3017164-1-suraj.gupta2@amd.com/
+---
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |  7 ++-
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 51 +++++++++++++++----
+ 2 files changed, 47 insertions(+), 11 deletions(-)
 
-Cheers,
--Max
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+index fcd3aaef27fc..c63d99686d0b 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+@@ -523,8 +523,9 @@ struct skbuf_dma_descriptor {
+  * @stats_work: Work for reading the hardware statistics counters often enough
+  *              to catch overflows.
+  * @dma_err_task: Work structure to process Axi DMA errors
+- * @stopping:   Set when @dma_err_task shouldn't do anything because we are
+- *              about to stop the device.
++ * @stopping:   Set when we are about to stop the device: makes @dma_err_task
++ *              a no-op (legacy DMA path) and fences RX descriptor
++ *              resubmission in axienet_dma_rx_cb() (dmaengine path).
+  * @tx_irq:	Axidma TX IRQ number
+  * @rx_irq:	Axidma RX IRQ number
+  * @eth_irq:	Ethernet core IRQ number
+@@ -545,6 +546,7 @@ struct skbuf_dma_descriptor {
+  * @tx_ring_tail: TX skb ring buffer tail index.
+  * @rx_ring_head: RX skb ring buffer head index.
+  * @rx_ring_tail: RX skb ring buffer tail index.
++ * @rx_submit_lock: Protects RX ring resubmission vs teardown in dmaengine path.
+  */
+ struct axienet_local {
+ 	struct net_device *ndev;
+@@ -626,6 +628,7 @@ struct axienet_local {
+ 	int tx_ring_tail;
+ 	int rx_ring_head;
+ 	int rx_ring_tail;
++	spinlock_t rx_submit_lock;
+ };
+ 
+ /**
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 782f903d318f..c846aede1bd8 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -881,6 +881,7 @@ static void axienet_dma_tx_cb(void *data, const struct dmaengine_result *result)
+ 	u64_stats_update_end(&lp->tx_stat_sync);
+ 	dma_unmap_sg(lp->dev, skbuf_dma->sgl, skbuf_dma->sg_len, DMA_TO_DEVICE);
+ 	dev_consume_skb_any(skbuf_dma->skb);
++	skbuf_dma->skb = NULL;
+ 	netif_txq_completed_wake(txq, 1, len,
+ 				 CIRC_SPACE(lp->tx_ring_head, lp->tx_ring_tail, TX_BD_NUM_MAX),
+ 				 2);
+@@ -1171,6 +1172,7 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 						       &meta_max_len);
+ 	dma_unmap_single(lp->dev, skbuf_dma->dma_address, lp->max_frm_size,
+ 			 DMA_FROM_DEVICE);
++	skbuf_dma->skb = NULL;
+ 
+ 	if (IS_ERR(app_metadata)) {
+ 		if (net_ratelimit())
+@@ -1193,10 +1195,17 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 	u64_stats_update_end(&lp->rx_stat_sync);
+ 
+ rx_submit:
++	spin_lock(&lp->rx_submit_lock);
++	if (lp->stopping) {
++		spin_unlock(&lp->rx_submit_lock);
++		return;
++	}
++
+ 	for (i = 0; i < CIRC_SPACE(lp->rx_ring_head, lp->rx_ring_tail,
+ 				   RX_BUF_NUM_DEFAULT); i++)
+ 		axienet_rx_submit_desc(lp->ndev);
+ 	dma_async_issue_pending(lp->rx_chan);
++	spin_unlock(&lp->rx_submit_lock);
+ }
+ 
+ /**
+@@ -1541,6 +1550,7 @@ static int axienet_init_dmaengine(struct net_device *ndev)
+ 	lp->tx_ring_head = 0;
+ 	lp->rx_ring_tail = 0;
+ 	lp->rx_ring_head = 0;
++	lp->stopping = false;
+ 	lp->tx_skb_ring = kzalloc_objs(*lp->tx_skb_ring, TX_BD_NUM_MAX);
+ 	if (!lp->tx_skb_ring) {
+ 		ret = -ENOMEM;
+@@ -1752,20 +1762,42 @@ static int axienet_stop(struct net_device *ndev)
+ 		free_irq(lp->rx_irq, ndev);
+ 		axienet_dma_bd_release(ndev);
+ 	} else {
++		struct skbuf_dma_descriptor *skbuf_dma;
++
++		spin_lock_bh(&lp->rx_submit_lock);
++		lp->stopping = true;
++		spin_unlock_bh(&lp->rx_submit_lock);
++
+ 		dmaengine_terminate_sync(lp->tx_chan);
+-		dmaengine_synchronize(lp->tx_chan);
+ 		dmaengine_terminate_sync(lp->rx_chan);
+-		dmaengine_synchronize(lp->rx_chan);
+-
+-		for (i = 0; i < TX_BD_NUM_MAX; i++)
+-			kfree(lp->tx_skb_ring[i]);
+-		kfree(lp->tx_skb_ring);
+-		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++)
+-			kfree(lp->rx_skb_ring[i]);
+-		kfree(lp->rx_skb_ring);
+ 
+ 		dma_release_channel(lp->rx_chan);
+ 		dma_release_channel(lp->tx_chan);
++
++		/* Unmap and free any buffer the terminate did not reclaim, so it
++		 * is not leaked; a non-NULL skb marks such a slot.
++		 */
++		for (i = 0; i < TX_BD_NUM_MAX; i++) {
++			skbuf_dma = lp->tx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_sg(lp->dev, skbuf_dma->sgl,
++					     skbuf_dma->sg_len, DMA_TO_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->tx_skb_ring);
++
++		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++) {
++			skbuf_dma = lp->rx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_single(lp->dev, skbuf_dma->dma_address,
++						 lp->max_frm_size, DMA_FROM_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->rx_skb_ring);
+ 	}
+ 
+ 	netdev_reset_queue(ndev);
+@@ -3071,6 +3103,7 @@ static int axienet_probe(struct platform_device *pdev)
+ 
+ 	spin_lock_init(&lp->rx_cr_lock);
+ 	spin_lock_init(&lp->tx_cr_lock);
++	spin_lock_init(&lp->rx_submit_lock);
+ 	INIT_WORK(&lp->rx_dim.work, axienet_rx_dim_work);
+ 	lp->rx_dim_enabled = true;
+ 	lp->rx_dim.profile_ix = 1;
+-- 
+2.25.1
+
