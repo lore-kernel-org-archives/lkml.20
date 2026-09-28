@@ -1,135 +1,216 @@
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012062.outbound.protection.outlook.com [40.107.200.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A0F3CFF51;
-	Mon, 28 Sep 2026 21:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629560; cv=none; b=hb0X7SESd11jsHl0dFQis4Eu84X2x3byuVTU18HjjPhh/zZlfGa0GmlsWsmQUbE2+EiOZQ6yBrJ+Bm2EAgkmlJ0GXh27s3QFpkyUbkYa2RYOVyZicU/9x1HRgYM0m5+wfz87cNW0tHzWJz74X+TZb12j74cNkVxAzOnbCgWfhz8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629560; c=relaxed/simple;
-	bh=wuUohBGbBXVSwT1F9oeyOYlWlZvZjHrxx80qx8HHdKc=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M9eUGwDaMT8i6NJH41b5JkwXiJRwy7lGGOxtaMPsZ83JwNMtwal7XlGtX+p/1GJ0bbDHHxiDCE1Qh3kgabWZ9/Ear1bHS1QdrBXFykxDwREwlXvKUYNskzkcrr7lR7F2+OsGsY9mYmIpOHlkcZ0Sw84qwBGcAsOE+eivu1uNLkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ky1E9bM5; arc=none smtp.client-ip=52.42.203.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A8937E5C5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790629587; cv=fail; b=M9hgetMPFMhpy2OQsMOEH0FNLx4w1G8B5nq4Z1bD1qtgKa5oc9s60hMPPi5i3UtPbx/W4oweW0tKXlpebBkr0VFDqLkjcNKBG5DZNNA1Ft6Jt7xHhSHRNAqjI0Cm6YFaVhyfegRA9NhFo4s4scBisTmkSbL2Jxo3j5N5YZSoWWo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790629587; c=relaxed/simple;
+	bh=/EAfzxm0JBmCsneu3waBJN+JAHIPfUgejLY6z7WoLs0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=u91/1oYW1nfnLOBkRFofqKb7iJGsSGy6jXR3Ff2cpmoYX7HDC7EhR4CtbrhHphAX1DSzPnBQeN1g0fS0zhsqhL/bcE+3myFGHA0JBmt5VltjM9YhKYbvKKFDj8cDBs1TAmXiM5gBmXdmr7LUhf3FPEv7qFSjADIGus3cQ4SnSYY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DXJ18O4l; arc=fail smtp.client-ip=40.107.200.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ky1E9bM5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790629558; x=1822165558;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=tNvKZbvCsCLtftmndSEfAYbnBNeVdMmjscu91WBu6mY=;
-  b=ky1E9bM5d17K+Xmau6PkP8Ti5VJDP5xatiR+mAVj+DW/J2hpcL2SeAw0
-   QI2xyImbNllu5DZAPedwIbU1U0OO11VIhMTZVcL5btycrqGRXi0IZeunf
-   ObWRYFLCB0A2D1nys92S3UMqQHahyZS28k7i+ctodjmhHiJ7rAnwUPi4K
-   /deicXgMn3lh0nTAEEgWHAo7A+nJrWAWnde5x7GC6qXfh77txfvkfax/d
-   oPpLwv4/0lyAq/VFNt5nZiKKwirZqxfVx87KXKxYQUMyCul2gQq5K0RvE
-   SRdYP+4P/G7Sb8Pbe+euKwSUJd6V0HbqedYaOXmD31hfOX4k8XpfJvEjc
-   Q==;
-X-CSE-ConnectionGUID: 5pmLN4V2R+G43Ca+EuE9Fw==
-X-CSE-MsgGUID: qj+ylq7qRTGk3cBUw90ouQ==
-X-IronPort-AV: E=Sophos;i="6.27,129,1787011200"; 
-   d="scan'208";a="29899893"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:05:58 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:10223]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.18:2525] with esmtp (Farcaster)
- id 106b90de-cb53-4848-b400-37e7ebe7ecb4; Mon, 28 Sep 2026 21:05:57 +0000 (UTC)
-X-Farcaster-Flow-ID: 106b90de-cb53-4848-b400-37e7ebe7ecb4
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 28 Sep 2026 21:05:57 +0000
-Received: from dev-dsk-hagan-1f-c6b5e25f.us-east-1.amazon.com (172.19.159.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 28 Sep 2026 21:05:56 +0000
-From: "Craig I. Hagan" <hagan@amazon.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
-	<przemyslaw.kitszel@intel.com>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Fabio Sabai
-	<sabfabio@amazon.com>, Matt Vollrath <tactii@gmail.com>
-Subject: [PATCH iwl-net v3] e1000e: restore jumbo config after DMoff exit
-Date: Mon, 28 Sep 2026 21:05:52 +0000
-Message-ID: <20260928210552.13266-1-hagan@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
-References: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DXJ18O4l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EZpxrUM+8M21+6WMlDtKgvvCi9W2xc+YFjlSroxOVoR+a8wMRQRWaa2kCP9IOCtCKTQzWV37PNt1o0+AptBFNofv5soBQRDSO//JSegItvh2TSuMYnf2C9QXng5TXGDP7nrgv6tTMhn/mamROcX4NlCr7OqFXeqlKaCVn3ervZUuAUVhalGRUbeizx0W7zCB+BSSHCjiJrJiVTI253PneSA6frWKKyZnmDqaVXHip1QdVi+TSj5cL3xbih3ZPyBd+BOwnFD2tm0xYjrPTfm1iuwSK2TpjWo2bXF98aLdGSXXP6rv+te1QiK0Qm2e3psUcTGAQqi3a5SaJWGvrQq4aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c+aGxl0OO6IV7leY0OvR9PRpkTMqGNcYq1ZULnED4MQ=;
+ b=JfduAIs3kr+7+BA2pGgTxYYkw20FbFveSAnrOl+g1vymkMU3ikTYDyqttVd6C5QtDChg92iKZ6Ve/78QgtVO3aIfh4aKh2/hrK1gCxnC/Rh2cjVvszaekY825C/GHpGokuIGihUAwSX5jkeecjs6IzMR1boFCXUkQLAvKqN9DlRv3IIi20MtCLWzkRjsW/8axekLmwtQqEGYJ6elLnKLPUnYFPbEGQ4JcxgnpBWZyvaWVF3ATmfU8MA9GBdx/OaCm6S+4kbbthIBiiaNDMVCTTdT9Xf4+AGYTS1lRjes/Tci+lajQlk7izg1SHg7Rw9t6sBoyPttwJZ+MtaLqaDobg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c+aGxl0OO6IV7leY0OvR9PRpkTMqGNcYq1ZULnED4MQ=;
+ b=DXJ18O4lAETTHupuF7xCbwGre67JW5xddiwdGB00NEPUvmOKiOoI304misnCzrcE5Mv/cvv6Jm16d2QVr9cuUbd2AqVS8qYL2z239IAOoysGmn2r5N6sleFhAydlaMgYBo+4xmSiKTKBEkW4YLdxqVoGgopv24+A048o7ngGqD0=
+Received: from BN9PR03CA0750.namprd03.prod.outlook.com (2603:10b6:408:110::35)
+ by DS0PR12MB7852.namprd12.prod.outlook.com (2603:10b6:8:147::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 21:06:22 +0000
+Received: from LV8PEPF0000006B.namprd03.prod.outlook.com
+ (2603:10b6:408:110:cafe::5b) by BN9PR03CA0750.outlook.office365.com
+ (2603:10b6:408:110::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Mon,
+ 28 Sep 2026 21:06:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ LV8PEPF0000006B.mail.protection.outlook.com (10.167.248.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 21:06:22 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 16:06:21 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 16:06:20 -0500
+Message-ID: <c5da23b0-1552-b601-78e9-602e4140297d@amd.com>
+Date: Mon, 28 Sep 2026 14:06:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC003.ant.amazon.com (10.13.139.231) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V0 14/21] accel/amdxdna: Fix fence timeline name and
+ context allocation
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <yidong.zhang@amd.com>
+ <20260926013448.3840921-1-yidong.zhang@amd.com>
+ <20260926013448.3840921-15-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260926013448.3840921-15-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000006B:EE_|DS0PR12MB7852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e03f478-2da2-4faa-5bce-08df1da45975
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|10067099003|11063799006|3023799007|18002099003|56012099006|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	KN9x1uq26IEvcoofahLnSxVRq0D+bRxy+ipwZnOgQ7RY1NzRV4k8sh5hozR98KLRg6GSwK1LGfPhYp5kvTzDgclNmERDHdAa9zKIG+1PnHItknbv+sLnFPGBaTX+jVaWzaoJdkcF/BgKeSLy3DVAzeWbowWEjwej6knCrsE3c1gGAVcV/hUhuIhM8DiA45whGwyhcMrKldmYAYjoOqgY/laQWaAFPl9DIb6NoV9mHrgQft2b3FAMuAnO/J33xFZByih7Dxm78krrBEmWSnRV64F3oslsyuCm0yUbYTqmuZv7DvIorm+XA1lX6nHwCvIlXtiHJAEnpyxSGCLSES9ajNodoY8EE7wP/PN5w2erGLfy1YCQyMV/r41uck6PMpr5Ti4jgK6jpK+50bKNfWOR/0274gDmHHbO0IrhgB67EakxiXi/ZGz8PDXFXyrd3dsACF0/u/lzYh/wCKpOfd7rqUfeAQqJmxRDr9frNcGQBtmYzJUoyqxM+Kr2HDDnYXowVezS2sLdgbEQw+4hMHY6ecz41PKKyatPuBkG2Lk4/SR8oEH1VR/5pkpapSG7e8chhLEEC6dz/UGHneQT6UJevj+XJv0fC4DQlPuK/tdfFD+Jeqz/1QiC7hRk5evTCHZD917antRxozXyHDsSixO4trd174DpgIbhCvOal7vNgjq657Sv6KvHrJkDrhxHrVbThkGhylvbCQc7jYvnKUWqPw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(10067099003)(11063799006)(3023799007)(18002099003)(56012099006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	k+ZTmBYfnfUlCzO0zYffInUdM26G0TjoPv8vzpzu13mdYCxPiB5ojgNAuuqnSg5gtrhC7Fme7DZ7wnExEQUf45iEA+lTGtd8Td/1vXtRmHY+HBxqFgaQEU3gdmHYOwPzg82Kweqb4y6NyQfaJ5INBxJkk41wOwto1PWhtpNEB3CcT4vtt4HFjmkIFohDbKO7PbZ5AoosgleslGcyPDkeHGWvGwDJSGjdnsez6FoBIODXfzV7YMp3KoZ1YckpgNzZpoMVLA6CfCrC9BSf0VosRWGJT/iRtEHzJ8v6YSU0nh/9xz1K+6EFLkMli4BETLflcCcL855k96X1Pls0Io0euuvBqOXBdD8HFkI7c6JdwOnrvAALSMEgCHFLuJVD5BoyEsZ1Icc1mKqNR3yKj4CCn0JflmlJAipQ5+y6udpp8cqMHRjkNsrXpfpneqx8+URH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 21:06:22.2180
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e03f478-2da2-4faa-5bce-08df1da45975
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000006B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7852
 
-On an I219 (pch_spt+) at jumbo MTU, after a link partner reset (e.g. a
-switch reboot) the interface can come back up unable to pass traffic until
-it is manually reset. Observed on I219-LM (8086:15b7) at MTU 9000.
 
-When the MAC exits the DMoff state on link-up, the watchdog resets only
-the PHY. A bare PHY reset does not re-run the jumbo-frame workaround
-(e1000_lv_jumbo_workaround_ich8lan), so the jumbo configuration is left
-unapplied and traffic stalls. This was seen with NIC runtime PM disabled;
-if runtime PM were enabled, the device should go through a full reset on
-resume, avoiding this issue.
+On 9/25/26 18:34, David Zhang wrote:
+> This is part of the fix to align BO reservation locking and fence
+> management with aie2.
+>
+> Fences published into BO reservation objects via dma_resv_add_fence()
+> can outlive the hardware context (e.g. when a BO is exported as a
+> dma-buf and imported by another process). Using hwctx->name for the fence
+> timeline name risks a use-after-free once the hwctx is destroyed.
+> Switch timeline name to dev_name() which is backed by the device that
+> outlives any individual context.
+>
+> Additionally, allocate a unique fence context via
+> dma_fence_context_alloc(1) for each job fence so that dma_resv_add_fence()
+> does not evict a prior in-flight job's fence from a shared BO's
+> reservation object when multiple jobs touch the same BO. Also guard
+> hwctx_fini call in amdxdna_hwctx_destroy_rcu() against NULL ops.
 
-Request a full reset (FLAG_RESTART_NOW) instead of the bare PHY reset when
-the MAC exits DMoff, so the normal reset path re-applies the jumbo-frame
-configuration.
+Is this aie4 kernel submission specific? aie2 does not publish this fence.
 
-Fixes: def4ec6dce39 ("e1000e: PCIm function state support")
-Cc: stable@vger.kernel.org
-Reported-by: Fabio Sabai <sabfabio@amazon.com>
-Closes: https://github.com/systemd/systemd/issues/25925
-Suggested-by: Matt Vollrath <tactii@gmail.com>
-Reviewed-by: Matt Vollrath <tactii@gmail.com>
-Tested-by: Matt Vollrath <tactii@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Craig I. Hagan <hagan@amazon.com>
----
-v3: Correct the Fixes: tag to def4ec6dce39 ("e1000e: PCIm function
-    state support"), which introduced the DMoff-exit bare PHY reset;
-    2e7256f12cdb only added a pre-condition. This lets stable reach
-    the affected trees (v5.3+, including 5.4/5.10). Add Reviewed-by/
-    Tested-by from Matt Vollrath.
-v2: Rework per review: request a full reset on DMoff exit so the
-    jumbo-frame workaround is re-applied (root cause identified by
-    Matt Vollrath); drop the diagnostic e_info. v1:
-    https://lore.kernel.org/netdev/20260923235832.473-1-hagan@amazon.com/
+If it does not fix any existing issue, please describe it clearly.
 
- drivers/net/ethernet/intel/e1000e/netdev.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> The corresponding AIE4 command submission BO locking and fence
+> attachment logic is implemented in a subsequent patch ("accel/amdxdna:
+> Implement AIE4 command packet building and submission").
+>
+> Co-developed-by: Max Zhen <max.zhen@amd.com>
+> Signed-off-by: Max Zhen <max.zhen@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 29 ++++++++++++++++++++++-------
+>   1 file changed, 22 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index 888e857ec558..6ca7774150d5 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -25,7 +25,7 @@
+>   struct amdxdna_fence {
+>   	struct dma_fence	base;
+>   	spinlock_t		lock; /* for base */
+> -	struct amdxdna_hwctx	*hwctx;
+> +	struct device		*dev;
+>   };
+>   
+>   static const char *amdxdna_fence_get_driver_name(struct dma_fence *fence)
+> @@ -39,7 +39,14 @@ static const char *amdxdna_fence_get_timeline_name(struct dma_fence *fence)
+>   
+>   	xdna_fence = container_of(fence, struct amdxdna_fence, base);
+>   
+> -	return xdna_fence->hwctx->name;
+> +	/*
+> +	 * Use device name rather than hwctx name: the fence is published into
+> +	 * BO reservation objects via dma_resv_add_fence() and can outlive the
+> +	 * hwctx (e.g. when a BO is exported as a dma-buf and imported by
+> +	 * another process). The device outlives any individual context, so
+> +	 * dev_name() is safe to call at any point during the fence's lifetime.
+> +	 */
+> +	return dev_name(xdna_fence->dev);
+>   }
+>   
+>   static const struct dma_fence_ops fence_ops = {
+> @@ -55,9 +62,17 @@ static struct dma_fence *amdxdna_fence_create(struct amdxdna_hwctx *hwctx)
+>   	if (!fence)
+>   		return NULL;
+>   
+> -	fence->hwctx = hwctx;
+> +	fence->dev = hwctx->client->xdna->ddev.dev;
+>   	spin_lock_init(&fence->lock);
+> -	dma_fence_init(&fence->base, &fence_ops, &fence->lock, hwctx->id, 0);
+> +	/*
+> +	 * Part of the fix to align BO reservation locking and fence
+> +	 * management with AIE2: each job fence needs a unique context so
+> +	 * dma_resv_add_fence() does not evict a prior job's fence from a
+> +	 * shared BO's reservation object when two in-flight jobs touch
+> +	 * the same BO. The corresponding AIE4 command submission locking
+> +	 * and fence attachment is implemented in aie4_cmd_submit().
+> +	 */
+> +	dma_fence_init(&fence->base, &fence_ops, &fence->lock, dma_fence_context_alloc(1), 0);
+>   	return &fence->base;
+>   }
+>   
+> @@ -81,13 +96,13 @@ static void amdxdna_hwctx_release_expanded_heap(struct amdxdna_hwctx *hwctx)
+>   static void amdxdna_hwctx_destroy_rcu(struct amdxdna_hwctx *hwctx,
+>   				      struct srcu_struct *ss)
+>   {
+> -	struct amdxdna_client *client = hwctx->client;
+> -	struct amdxdna_dev *xdna = client->xdna;
+> +	struct amdxdna_dev *xdna = hwctx->client->xdna;
+>   
+>   	synchronize_srcu(ss);
+>   
+>   	/* At this point, user is not able to submit new commands */
+> -	xdna->dev_info->ops->hwctx_fini(hwctx);
+> +	if (xdna->dev_info->ops->hwctx_fini)
+> +		xdna->dev_info->ops->hwctx_fini(hwctx);
 
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 844f31ab3..df7da86a8 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -5264,9 +5264,11 @@ static void e1000_watchdog_task(struct work_struct *work)
- 					usleep_range(10000, 20000);
- 					pcim_state = er32(STATUS);
- 
--					/* Checking if MAC exited DMoff state */
--					if (!(pcim_state & E1000_STATUS_PCIM_STATE))
--						e1000_phy_hw_reset(&adapter->hw);
-+					/* MAC exited DMoff; do a full reset. */
-+					if (!(pcim_state & E1000_STATUS_PCIM_STATE)) {
-+						adapter->flags |= FLAG_RESTART_NOW;
-+						goto link_up;
-+					}
- 				}
- 			}
- 
--- 
-2.47.3
+This seems unrelated. Please remove from the patch.
 
+Lizhi
+
+>   
+>   	amdxdna_hwctx_release_expanded_heap(hwctx);
+>   	kfree(hwctx->name);
