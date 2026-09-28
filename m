@@ -1,242 +1,155 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C09C4E3251;
-	Mon, 28 Sep 2026 15:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8DF367F26
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611156; cv=none; b=KoAXywmsV8cHio5qaRhL3UUo7CW7pm/gNczxxv1MYGNv1W1jNm+4yIgUcCzFIKuf9BoS8mk9U9D12pcQzfX/+UitHKqqzHlcHsyCmbEBOE73ArdZqPhq76ptjCgoO8KdF/iO7QA0vqE+AAGpTr5xywyyPnv/gijy0RxyMFMFjNA=
+	t=1790611241; cv=none; b=QMl/3o4ryG/aoJGZPUFEQhcpqtvgnLFfEFgge2VMIrsYrQKEeYZusPvxJ9povS2AVbUlVkH/CVUwRby8F9LM3yl7d1cofz+JOJT0ULCXQtDXQ4sh3W3L0Y7+s1j8QdxldGAV4MeTMRUT4uiOvbuLKgF208BHrW3dmiQF3T9kNqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611156; c=relaxed/simple;
-	bh=P1+wSs09M4+Rmt4pIQXGQrymxZQipMIHSKSKNSTU/w8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GyC3HNSCwrUQR2eVKUkcmJvCTpsyYwBv8XUiuIXUDlu76c25vkpa7DDvfLF8Lnfttt1xysxmgbSW4EEDX0gqJuuIOBGmqi0DK6/PkOQJE5+H/a8rMVWDRdRH+42VmgY05W7cCEsNubC0qOWU5pruQ1Zf6+UnTE5dM+knGDohjtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1zJbhrRC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SD7Gxcs3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Gmy/4yge; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ichGRTBG; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790611241; c=relaxed/simple;
+	bh=Gk2xkJZGPeVEKBCrhgUGRQs7SjKsgX5bshchPAfWK4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LpxTFkusfayzk/RpD1iNuuv/MrONUI850Bnj5VhNvrjJJ8nMxxjoDFrrH4Zis4Z6Fnqc/haIVduBFD63FO66k2hhbO+NuyfgzUVlCRAX1BJ6DEiBbewlYMxc//nRirz4h0dBWEKZIvDrh4gPdn7ieqSRmKfj7t89EVWYAc0uBU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xxh5DmGQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1zJbhrRC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SD7Gxcs3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Gmy/4yge";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ichGRTBG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 824C31FB44;
-	Mon, 28 Sep 2026 15:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790611148; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jQzK3qibP9ZbHrE3wwgSsj44IpxQtwYXGrqH8cMiYSc=;
-	b=1zJbhrRCZBnKjbyinEH0H8cWMfBX7G9lB75GSfa50OD8ieAOQgss10dSIaCt20q4UzAx02
-	XmLEbaCURzXG/SgeUgCaX6OXP2qVuQcPxctsvE0GPY0zyj6+ajiPWgueXEUi3T1BfRemaW
-	cbpr0sEaPNiPSKhS4utRgiueW9fYLrs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790611148;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jQzK3qibP9ZbHrE3wwgSsj44IpxQtwYXGrqH8cMiYSc=;
-	b=SD7Gxcs3BgOYfySukbLWakOtDDPOiBudsuHK/ti0kKjFGtLytoglb9WfAksbcaE53Xaim+
-	s0bsrY0uBfsq39Dg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Gmy/4yge";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ichGRTBG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790611144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jQzK3qibP9ZbHrE3wwgSsj44IpxQtwYXGrqH8cMiYSc=;
-	b=Gmy/4yge6WV6X1iRc0v5DOJZvQStbGTZyK6q5nVzruqgFSM4XsoA8bM7WLxN1R0yYFZvhf
-	NQDyCWZ/bgPq9J9zkIOiBLX/g3jDku3NQDz7m7y21q+CZeXWBremZFREEExk8OvmVp14ML
-	oejnOcWlHlmaUPFBopbJNUTUqhF7scg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790611144;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jQzK3qibP9ZbHrE3wwgSsj44IpxQtwYXGrqH8cMiYSc=;
-	b=ichGRTBG3xPvRWAHSHe9pkD9t0TNTpHJaniHrpKZWUABrAmUI8OgLu81LBWxMKw1BdRJ/L
-	ufTyP4q/F1Xab1Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E4A9133F3;
-	Mon, 28 Sep 2026 15:59:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ssn7BciOumqmXAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 15:59:04 +0000
-Date: Mon, 28 Sep 2026 17:59:03 +0200
-Message-ID: <878q4l4baw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: ROJOX <rojoxoficial@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xxh5DmGQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD4E1F000FF;
+	Mon, 28 Sep 2026 16:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790611239;
+	bh=W6eGbi4h94EROe2FvU3gHfkuY65w4Ck4RppvNoXrrGo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xxh5DmGQ/V3AQE5TqtcfppYnymChdn1KQezAimXBQ9NzTpf38wanjTsUBcC2xsLrB
+	 q3KAfjYz1hS7deetbUlAEh9Zf1COn4l5weayXaOtUZRUEQArEm+EQUJKRZeX2jjygk
+	 +jK5SW8f2MLqPoH/psACmui9jhQ0GzcFtyBOrDF7XMtkjpjdnwVsjnhE5GgSu/fkSW
+	 b+xDgGf2/+3ctlnoS2A+TI/NVHC5aM3suqBzpv8WwpKN1mul8+9f2YMQVAEi9oFAYl
+	 g3sjtfF5W6v2T6AXD1LK0P2IZTJ63llfRU7UpNIl2Qz3D3CTWYbR1IKx7FXS3berQ3
+	 GmdI+zzMw9oeQ==
+Date: Mon, 28 Sep 2026 17:00:37 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Seongjun Hong <hsj0512@snu.ac.kr>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [RFC] ALSA: hda: clarify unsol_event locking across driver unbind
-In-Reply-To: <CAP8ibudQFpGuCo+Z97ozKySft0dZ40DWAqf4tUMEe2vrbtu6jA@mail.gmail.com>
-References: <CAP8ibudQFpGuCo+Z97ozKySft0dZ40DWAqf4tUMEe2vrbtu6jA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: Re: [PATCH 2/2] tools/mm/slabinfo: report percpu sheaves and barn
+ statistics
+Message-ID: <arqNTeIsjXCcYyxp@thinkstation>
+References: <20260927-tools-mm-update-slabinfo-v1-0-a4ea0d4dc136@snu.ac.kr>
+ <20260927-tools-mm-update-slabinfo-v1-2-a4ea0d4dc136@snu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: 824C31FB44
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927-tools-mm-update-slabinfo-v1-2-a4ea0d4dc136@snu.ac.kr>
 
-On Fri, 25 Sep 2026 04:57:13 +0200,
-ROJOX wrote:
+On Sun, Sep 27, 2026 at 05:57:28AM +0000, Seongjun Hong wrote:
+> Since commit 2d517aa09bbc ("slab: add opt-in caching layer of percpu
+> sheaves") sysfs provides the statistics of sheaf and barn, but slabinfo
+> did not utilize this information. Display perf, API, and sheaf allocation
+> counters on slabinfo report(-r).
 > 
-> Hi,
+> Example slabinfo report output:
 > 
-> Could you advise on the lifetime and locking contract for
-> hdac_driver::unsol_event() relative to codec driver unbind?
+> 	$ slabinfo -r kmalloc-1k
 > 
-> In current torvalds/linux, snd_hdac_bus_process_unsol_events() looks up a
-> codec in bus->caddr_tbl under bus->reg_lock, checks codec->registered, and
-> then drops reg_lock. It subsequently reads codec->dev.driver and dispatches
-> drv->unsol_event(codec, res), without taking a codec device reference or
-> device_lock in that interval:
+> 	Sheaf capacity             12 objects
 > 
-> https://github.com/torvalds/linux/blob/165768bb70265b5c38cf0b73fafd75be235f8b14/sound/hda/core/bus.c#L173-L189
+> 	Sheaf Perf Counter    Success     Fail
+> 	--------------------------------------------------
+> 	Barn get                    4       43
+> 	Barn put                    4        0
+> 	RCU sheaf free             34        0
 > 
-> Separately, driver-core unbind acquires the device lock and calls the remove
-> path while that lock is held. The HDA reset path can initiate this through
-> device_release_driver():
-> 
-> https://github.com/torvalds/linux/blob/165768bb70265b5c38cf0b73fafd75be235f8b14/drivers/base/dd.c#L1315-L1374
-> https://github.com/torvalds/linux/blob/165768bb70265b5c38cf0b73fafd75be235f8b14/sound/hda/common/codec.c#L1799-L1810
-> 
-> This appears to permit the following source-level ordering:
-> 
-> unsol worker                         unbind task
-> ------------                         -----------
-> lookup codec under reg_lock
-> drop reg_lock
-> read codec->dev.driver
-> enter unsol_event()
->                                      acquire device_lock
->                                      invoke remove
->                                      tear down private state
-> callback continues using private state
+> 	Sheaf API Counter        Fast     Slow
+> 	--------------------------------------------------
+> 	Prefill                     0        0
+> 	Return                      0        0
 
-Usually the HD-audio controller driver calls snd_hdac_bus_exit() at
-its remove callback (or via the destructor invoked from there), and it
-does cancel_work_sync() for the unsol event worker.
+You mean "Prefilled Sheaf API Counter"?
 
-I thought the removal of codec->dev.driver happened after the
-driver_detach(), so at that point, isn't the device object itself
-still alive?
+> 	Sheaf Objects/Allocations
 
-Or maybe I haven't followed the flow completely yet.  If the issue is
-real, just taking the codec's device reference around the call would
-be the easiest solution, I guess.
+This doesn't make sense to me.
+
+Perhaps should be separated into
+"Sheaf Allocation/Free" and
+"Sheaf Refill/Flush" ?
 
 
-thanks,
+> 	--------------------------------------------------
+> 	Objects flushed to slabs             0
+> 	Objects refilled into sheaves      516
+> 	Sheaves allocated                    7
+> 	Sheaves freed                        0
+> 	Oversize sheaves for prefill         0
+> 
+> Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+> ---
+>  tools/mm/slabinfo.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+> 
+> diff --git a/tools/mm/slabinfo.c b/tools/mm/slabinfo.c
+> index 84359d628f2e..dbc72582ffab 100644
+> --- a/tools/mm/slabinfo.c
+> +++ b/tools/mm/slabinfo.c
+> @@ -574,6 +582,39 @@ static void slab_stats(struct slabinfo *s)
+>  	}
+>  }
+>  
+> +static void sheaf_stats(struct slabinfo *s)
 
-Takashi
+Perhaps let's fold this into slab_stats()?
+I'm not sure why this should be in a separate function.
+These files are part of SLUB_STATS files, that are related to sheaves.
 
+-- 
+Cheers,
+Harry / Hyeonggon
 
-> I do not see the worker taking the device lock or another explicit
-> binding/private-state lifetime reference before dispatch. If the callback
-> uses state destroyed by the remove path, the unlocked dispatch therefore
-> appears able to overlap that teardown.
-> 
-> The codec/device object lifetime, driver binding lifetime, and
-> driver-private state lifetime are distinct here: get_device() alone would
-> pin the first, but would not by itself prevent unbind or preserve private
-> state.
-> 
-> The legacy HDA wrapper additionally checks shutdown and system-PM state
-> before calling the codec callback, but those checks do not appear to drain
-> a callback that has already passed them:
-> 
-> https://github.com/torvalds/linux/blob/165768bb70265b5c38cf0b73fafd75be235f8b14/sound/hda/common/bind.c#L42-L52
-> 
-> I also found the older unsolicited queue-index synchronization fix,
-> c637fa151259c0f74665fde7cba5b7eac1417ae5. That appears to address queue
-> consistency rather than this binding/private-state lifetime interval.
-> 
-> I tested one scratch proof candidate, not a proposed patch. It synchronizes
-> address-table lookup/removal, obtains a codec device reference while the
-> entry is protected, drops reg_lock, takes device_lock, revalidates the
-> current binding and codec registration state, and dispatches the callback
-> while that lock is held.
-> 
-> That closes the ordinary callback-versus-remove schedule in a deterministic
-> model, and the modified HDA objects build cleanly in a scratch Ubuntu
-> 7.0.0-34.34 source tree. However, hdac_driver::unsol_event() currently does
-> not document callback-under-device_lock or reentry restrictions, so I am
-> not assuming that this is the correct fix.
-> 
-> Could you please clarify:
-> 
-> 1. Is HDA core expected to serialize unsol_event() against unbind by holding
->    the codec device_lock through dispatch, or is there another existing
->    lifetime guarantee intended here?
-> 
-> 2. If that lock context is acceptable, should the callback contract prohibit
->    recursively taking the same device lock and synchronous same-codec
->    unbind/reset/reprobe? I found no direct same-codec teardown call in the
->    audited in-tree callback bodies, but indirect and out-of-tree behavior is
->    not established.
-> 
-> 3. Would callback-under-device_lock conflict with expected HDA runtime-PM or
->    system-PM behavior? My source review did not establish a generic contract
->    for this.
-> 
-> 4. For an event queued before unbind/rebind, is it expected to be deliverable
->    to the newly bound driver, or should it be discarded across the
->    binding/reset boundary?
-> 
-> This came up while auditing HDA/CS8409 codec lifetime behavior; the question
-> is about the generic HDA unsolicited-callback contract.
-> 
-> No runtime crash has been reproduced. This is based on source/lifetime
-> analysis and deterministic concurrency modeling, not a runtime stress test.
-> I may be missing an existing lifetime guarantee or invariant, and would
-> appreciate correction.
-> 
-> The source snapshot checked is torvalds/linux master at
-> 165768bb70265b5c38cf0b73fafd75be235f8b14. No patch is proposed or attached.
-> 
-> Thanks,
-> Rojox
-> iMac19,2 Linux audio project
+> +{
+> +	if (!s->sheaf_capacity)
+> +		return;
+> +
+> +	printf("\nSheaf capacity       %8u objects\n", s->sheaf_capacity);
+> +
+> +	printf("\nSheaf Perf Counter    Success     Fail\n");
+> +	printf("--------------------------------------------------\n");
+> +	printf("Barn get             %8lu %8lu\n",
+> +		s->barn_get, s->barn_get_fail);
+> +	printf("Barn put             %8lu %8lu\n",
+> +		s->barn_put, s->barn_put_fail);
+> +	printf("RCU sheaf free       %8lu %8lu\n",
+> +		s->free_rcu_sheaf, s->free_rcu_sheaf_fail);
+> +
+> +	printf("\nSheaf API Counter        Fast     Slow\n");
+> +	printf("--------------------------------------------------\n");
+> +	printf("Prefill              %8lu %8lu\n",
+> +		s->sheaf_prefill_fast, s->sheaf_prefill_slow);
+> +	printf("Return               %8lu %8lu\n",
+> +		s->sheaf_return_fast, s->sheaf_return_slow);
+> +
+> +	printf("\nSheaf Objects/Allocations\n");
+> +	printf("--------------------------------------------------\n");
+> +	printf("Objects flushed to slabs      %8lu\n", s->sheaf_flush);
+> +	printf("Objects refilled into sheaves %8lu\n", s->sheaf_refill);
+> +	printf("Sheaves allocated             %8lu\n", s->sheaf_alloc);
+> +	printf("Sheaves freed                 %8lu\n", s->sheaf_free);
+> +	printf("Oversize sheaves for prefill  %8lu\n",
+> +		s->sheaf_prefill_oversize);
+> +}
+> +
+>  static void report(struct slabinfo *s)
+>  {
+>  	if (strcmp(s->name, "*") == 0)
+> @@ -613,6 +654,7 @@ static void report(struct slabinfo *s)
+>  	show_tracking(s);
+>  	slab_numa(s, 1);
+>  	slab_stats(s);
+> +	sheaf_stats(s);
+>  }
