@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C648648A2D8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A619484228
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586854; cv=none; b=hER158yvPgGgL2/KquLgO3Zq8ghelzEFTpCY8Hpwy1S3TEo6A/Q1Zw4zLde8X5KQKGUlndyhm/H77bAOcQlKckzi+TeYF2Kt4r/OlnjUxaqNIEiEvVfdUt0y/4vJRs9LP3O88u914A9ZMx/aLJfHULyd9xGYhY5TSNnUxtVl65o=
+	t=1790586953; cv=none; b=TRZN6nlx8lljTDlBXCQmeBK9E2DOxDMZ8y6mfxUCLslGWRvPBq3Onbrvzr5gc3qoJK57/xqUcqkPX96nk2M/+pXYkGzlA1aezgQdcpRpEtpDbCzrgja0qTNg+iTm7uULOPH8lC2ZcE0U2TuJ5IPi1RkTCo8ld7VWvMnMQLBhUUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586854; c=relaxed/simple;
-	bh=1/BRcfIJFa/qC7oqq6HsmjAP7pPrWxTpVEek1viLASI=;
+	s=arc-20240116; t=1790586953; c=relaxed/simple;
+	bh=JHjweW4tKjJzdlaIpmKAFsqozfRQUWPcEqdfjwpoddk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=scImHV6e/9v1cUs6TS8me5qORGloU6G94vaj9SvGh8ZXbAUiLPtBlP3nbQIbXASo2tWU84RpRolIZbWhdXOGyzO8ypB2wv1ueBCTyAtQkbOpTDDdFAYNneQNbRc98xzy6DGxp+yKbpy92rpSCtdfNwTXXTNSnwy8TYS5ilhOPsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCN9NmS3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=rODWp2TFAOWa1Tys05Zm2wROUnmXEv0eP4+AxDw3E1enYjXhRUxzZIOZcBR6Os1xM6OellyCZ9SV8nuCwYKxtdNcwxs458o9irhnlRxdILS6O/znoF7vX/y1JaOWCzrfqP5URSc5fSeJlnSouCMzjVDlHsQjVqsiiXbSUXcwONU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QmWLroh8; arc=none smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCN9NmS3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE7B1F000FF;
-	Mon, 28 Sep 2026 09:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790586853;
-	bh=ojbopmmPdRq/zC/UNBXyGoZ8LTFlDLR7fEeeqgcm29E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UCN9NmS3qDbL/ypLkWhgpQEUgaZ4gIGG221Wvzif/dNp8eyiOSruzJowP8cP4pGFM
-	 14MqP4+FI2MUDZPI3gOzpTrMdGAkfw2O+19mcqK3Seb3Eo0jFpe80JS8YW1c6x8aXC
-	 u1k7LD3qLH/vDSBkX8kvu4uevFpj9agKp4H7WHYVUcsjAUFa+i/y3n1U5qpSNXMb4l
-	 XaLBkmIHOZ9IDkwYn39br9fJBSdvYc/8HtRZcFJoiS28pFCpghc2b7EJYOlKx73fbN
-	 RfATo7vhTs5x24kuA9ETBFJATiCEaWFvbYQvDJoSr34yiscNvuPtVduFQZKAdPcxCm
-	 szeHHvmBGEIEA==
-Message-ID: <21abd60c-e71b-40ed-9506-853d4485cf4b@kernel.org>
-Date: Mon, 28 Sep 2026 11:14:08 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QmWLroh8"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6fa788e6so1337152a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:15:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790586950; x=1791191750; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/rEuFHJDtEaYDRIoBn4eFmTqqB11z/QrLz8Ps7ePt5c=;
+        b=QmWLroh8z5u4qAU/NBLXVMZUSwH6fM52h9L5UUqM6VcfrO28VlU6MHE2bh3ucis/OX
+         zjEplXeiko3PjrZL4lPphY2Ra32NV+RMoDp+f5RaqqB7N2B5esuKsowsef9vOH82bwES
+         hVotGwYYVt73p8TjHSBVB8E9dN4QgU3fSZgAxaoyGizuiLwFG1N1N/zHuPUPh7HG8snQ
+         SazAqgYjWOww80RAYGRDBOA4utPE1RlBFdHj9Ve1nvQWNNm5alvazVu71jL53BYM3qA0
+         tJiiZWpR7Dk0JGGOPjFBtetH514hDi9nEPGqpnAN6qZ4soww36abdh+UHP0Mlj6k7Y/c
+         hs3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790586950; x=1791191750;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/rEuFHJDtEaYDRIoBn4eFmTqqB11z/QrLz8Ps7ePt5c=;
+        b=NXoH41vPXNkCmVgtY2jBWo8PIULPpY4Wbdorw205+1gfWXWDFGEYXJKEIwFQtzq+Hy
+         1q7QrLSmT8k9Mzf8drd5nIKx6QIdT9PH4j429ZgapkGV0JAfL8rKJ5B/ReyvKCQdqCRB
+         sRaMPyFin8+jCxUa0aOkLe+R/Spxm2knUWoEGNRy/77kPh56YMCnbd854cHr0MQfGPMN
+         FqlB6ulByr9v0WfPI6fjn4mMZcypqLeD4PHhfW0TEwFEl9t4/DbON17CKGc7Od2Pm0nb
+         MWWNruy++dR1HJL8aK5E8DSpMf5riqmJ46JXVDo+XUmvT2ty7gsl4lUyy6HZ5CLD3bpJ
+         88cA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7+7nNaqKMvfTFFgE/YZlUB0khOgJesiUnqFzJExxhlcdgE/DsP0Q7TbRJiuz4W3Xi1M8oTU4wi+oTzRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhbtL+GEhVrvkLI/Tf9GwGr4/gOdTiHpp5hdkxskAx4JJe14cU
+	82f29/dKOWsWIwnKBsjix9aX4UBhkeBatSP38Pw9uVXHoqKZrtGRCi4rbe3fBAIBV/c=
+X-Gm-Gg: AYBFou3sV9kSR4kOQ39eGeyMhz2IDxoge2tK6jCcM4Tlzls7L2tpZt3yOoh3XETlCfO
+	oaq6sQp5zuLza/TuvSx1l/hKcrb4G7eXtFgCM1x5daawTQjw9GVKvVDesoL9WAZI8BqW/lvdZsa
+	Ch5b3y6sFhaQwyIHOjoTfFgOJmdyzBmeTCrShdU0LvuE0Ne67ZwbqEUbQMfzXKIlGwyelhsl2Ap
+	weMOuNdbObkRKAhc4x+ixA/ZUSq2LO7ZSqt4HIJpKObvHhOz3qw/90rESN1KBQsSGLugoJGdkYC
+	fxyVTBKmrdwLE+SCtp6q0lPHcZZQNEnqtuN5Po2HcgRUCJtigJFF+zOpuJeDKq5bqXmt6ajXvYG
+	7FV9eaDD75zG8WCCHQ60acc1W976lluDQBO3deZiZKFsdz61ulv24oFytYA7zoRcdZ2B7A121sx
+	dBZd5pxvEPiZdr4G3cP0hxa8KnRysUDTEHx535RqhU/zppQXmOrxMuH8+psyotkComtF4YY1oYx
+	VE=
+X-Received: by 2002:a17:907:6ea3:b0:c26:1649:47af with SMTP id a640c23a62f3a-c2ac53cb0afmr1026470866b.37.1790586950002;
+        Mon, 28 Sep 2026 02:15:50 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2de21a6349sm77293766b.21.2026.09.28.02.15.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 02:15:48 -0700 (PDT)
+Message-ID: <8bc8b276-bc4e-4a6d-b770-5b02c79946d4@linaro.org>
+Date: Mon, 28 Sep 2026 10:15:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,116 +70,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Carlier <devnexen@gmail.com>, Dave Young <ruirui.yang@linux.dev>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
- <arovLO37djQderTB@MiWiFi-R3L-srv>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] perf build: Improve fix for "argument list too long"
+ error
+To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Cc: Gregory CLEMENT <gregory.clement@bootlin.com>,
+ =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Markus Mayer <mmayer@broadcom.com>
+References: <20260928-perf-orphan-args-v1-1-8cacf784621e@bootlin.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <arovLO37djQderTB@MiWiFi-R3L-srv>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260928-perf-orphan-args-v1-1-8cacf784621e@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 11:11, Baoquan He wrote:
-> On 09/28/26 at 10:48am, David Hildenbrand (Arm) wrote:
->> The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
->> needs similar information (although still relying on
->> SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
->>
->> Let's just export the value instead, so tools that work on vmcoreinfo
->> will not have to guess.
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->> Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
->> SECTION_MARKED_PRESENT and further cleanups" [1]
->>
->> This patch can go in independently. It would be preferable if both
->> go into the same kernel release ;)
->>
->> [1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
->> ---
->>  kernel/vmcore_info.c | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
->> index 5a417f8a922a..7833a36064a8 100644
->> --- a/kernel/vmcore_info.c
->> +++ b/kernel/vmcore_info.c
->> @@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
->>  	VMCOREINFO_STRUCT_SIZE(mem_section);
->>  	VMCOREINFO_OFFSET(mem_section, section_mem_map);
->>  	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
->> +	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
->>  	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
->>  #endif
->>  	VMCOREINFO_STRUCT_SIZE(page);
+
+
+On 28/09/2026 09:55, Benoît Monin wrote:
+> The orphaned pmu-events JSON files are passed to the shell via
+> `echo "$^"`, which puts the whole list into a single argument. With
+> a long enough output directory path and enough files, exec'ing
+> /bin/sh fails with:
 > 
-> It would be good to add one section in
-> Documentation/admin-guide/kdump/vmcoreinfo.rst, e.g
+>    make[5]: /bin/sh: Argument list too long
+>    make[5]: *** [pmu-events/Build:228: prune_orphans] Error 127
 > 
-> SECTION_HAS_MEM_MAP
-> -------------------
+> This only happens with out-of-tree builds, when setting O= to a
+> relatively long path.
 > 
-> Indicates a memory section has struct page array (mem_map). User-space
-> tools should read this value but not hardcode it since the bit position
-> could change between kernel versions.
+> To reproduce, build once with JEVENTS_ARCH=all, then rebuild with
+> a smaller JEVENTS_ARCH without cleaning first, so the leftover files
+> become orphans. Using nds32 (which leaves ~1100 orphans), an output
+> path of only ~70 characters is already enough to trigger it:
+> 
+>    OUT=/any/long/path (at least 70 characters)
+>    make -C tools/perf JEVENTS_ARCH=all   O=$OUT -j$(nproc)
+>    make -C tools/perf JEVENTS_ARCH=nds32 O=$OUT -j$(nproc)
+> 
+> Express the orphan file list as paths relative to $(OUT_DIR) by
+> stripping the common prefix and restoring it with printf, the same
+> approach used in scripts/Makefile.clean, so the shell arguments stay
+> short.
+> 
+> Fixes: b6712d91f8f5 ("perf build: Prevent "argument list too long" error")
+> Suggested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+> Tested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
-I'm not particularly happy about having core-kernel defines documented in
-kdump/vmcoreinfo.rst, though?
+Reviewed-by: James Clark <james.clark@linaro.org>
 
-If it would be something vmcoreinfo special, sure. But not for basic defines.
-
-"See the kernel source code" is really what anybody using this should be doing?
-
--- 
-Cheers,
-
-David
