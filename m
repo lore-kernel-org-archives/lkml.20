@@ -1,91 +1,83 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3FF4BE424;
-	Mon, 28 Sep 2026 14:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE3D4DA9A7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604993; cv=none; b=fnA5Xe009LXR8QMmwFkY2DZSVjUFq3/WeKxccU6FugXTrt48nfxF+Xdf2zskSKw7PhI4BUnhqa6dKXAzwt1fDVtk2yiQ+dRnABKnZYs5bIG2C3QO1x1sVDLcrIX5vJzLQAolNy1lMp3TDIEa9wHkWJSl5nBMMJRXcnc9HkqTZXc=
+	t=1790605073; cv=none; b=aT3jvK1GfF9WC1qcNQCeW33s0RdwjG1m2x4SyHeBeU/t96DW+JUy4AAvKrMkD9do//X1nKH20me/bEqrbkF3y9LEA1c7QZJ1ZDdoH+YNSCNZZfeoIHrVpAJgTli3BffU05xUTLy4hIx9gcVqujyx2tG70gddIhxmRc8Jb48tEy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604993; c=relaxed/simple;
-	bh=QbZ5UsXrWS0owgzj5i50hnc+v3PF+lldVQgfA/R/4ZQ=;
+	s=arc-20240116; t=1790605073; c=relaxed/simple;
+	bh=D2//y+zWUZ6eFjK/x9NzKFW0BnNMu6Nlh5/iRwYrEcs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EkV22eipdthk7IAfFlSPIaikg443N7kmzw6BKlcexYQkQhy/6RT6jHvpY/l6t4KKObYK6mvRIvT9N8MQSNYIVqGuHlVZrwP1p+u74XMyKuvQWBuy6PyzMwPibNo4XQFGo2/C6BeCWcWAvBeFnpPRE27HLcqBzCnIFen8q4BBITg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WbDo8fIe; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hsxmf0xEymzoSd1KR7UIcDMgFkcbrWGSucjYjPieriPKtRcwZCahmSYwXf3M59j2uukp/WRAm8u3mognNRt1Q7yDv0yiKkl6PXRnfAnpS/4zNyFkVZYpIdJ9ex2U3ly96Y1+g5rr93sqw7YWcrO+RAKWODVX1/wyJ3/N7v/uM5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkT6T6Y9; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WbDo8fIe"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZwWd3971640;
-	Mon, 28 Sep 2026 14:16:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:sender:subject:to; s=pp1; bh=AhCRB9NLLW8bdkoAECwyNoY
-	+xY+rBOaD+BK919XDM0M=; b=WbDo8fIeaTKnBfjK/pVvpw/oChstda5C+Yb1tvz
-	XgMWR9NLexh9wlD4QGlbRttOz5xFIUcCHBALQZ0yKwInkbf+KeaNeplwHZ//whbw
-	OqxQ7Za+DrUsyQuDFefQpniEAnX7BzX9b5Ql7V6hT9JqgjEzQReqcCidznpPiLr4
-	V0X+5ErzjrOtOiX7JYZbz+xV6QWteo5+X8BMrwvw6omOQhCKUkdactsmDPSSjvZ6
-	MFlk6/nGS8yMsBuOv0OZoEcBHg/s9e/2H42TeCo2pDVPyPVH9GCLfT2/IgzETLIt
-	ha96CONDR3QJRJYetRJX5sd01ThkMUqZB3X1k6nfa1cXEkQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe1hqg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 14:16:06 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHtjM076695;
-	Mon, 28 Sep 2026 14:16:06 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhdg4v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 14:16:06 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SEFxuh32637348
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 14:15:59 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 72A242004D;
-	Mon, 28 Sep 2026 14:15:59 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 55A3D2005A;
-	Mon, 28 Sep 2026 14:15:59 +0000 (GMT)
-Received: from vela (unknown [9.111.89.89])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 28 Sep 2026 14:15:59 +0000 (GMT)
-Received: from brueckner by vela with local (Exim 4.99.5)
-	(envelope-from <brueckner@linux.ibm.com>)
-	id 1xBC98-0000000C3I8-3ejc;
-	Mon, 28 Sep 2026 16:15:58 +0200
-Date: Mon, 28 Sep 2026 16:15:58 +0200
-From: Hendrik Brueckner <brueckner@linux.ibm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 23/29] KVM: s390: Add basic arm64 kvm module
-Message-ID: <arp2njz3Dro0sQ6Z@linux.ibm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-24-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkT6T6Y9"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3115c4451c8so2475786eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790605071; x=1791209871; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n1xwnLEC8y1A7VnXJXruluUIMCpMITxsOOOYMVDzt2M=;
+        b=IkT6T6Y9+toBLQ3J5E/0FhnrkoUw1EtWhpw1wV0vSjbNZZhbHrguIeeW7aTSSokEUi
+         Kv7xFhM4tLAWSwRYgjHTcyuNl/SPo74drKm/lzdfuEr9KFLV6zcVafgAYivnN3mJBWI0
+         9cw5/ib9V3wlXpI+9eGkljZz2s3tdhanvUcNzHJQ7EkTdiklvVT0NeADOYWkQqeYiIoR
+         5/11KvA5btsHHq9Uzyh3iLPUS/diZygoDKXo+LdiYg5adRRIpdTU7agbjB8wFlpLBFIO
+         rmnOqrurihUR8pphLsXSEj2V0RM35fpcQj6QhOQz9S1FsIua4FmDxzsN3WAIAhIUdBPN
+         d+pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790605071; x=1791209871;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n1xwnLEC8y1A7VnXJXruluUIMCpMITxsOOOYMVDzt2M=;
+        b=Ga82tt5uBbR2kGT7kDrnXR4r/KKpdyOC/ih+5RwR+oHJMrgHZG8TqHxPQ6JD6x0Spz
+         +jOoRUHnF4Czobj9jxyKSL9esIuv9efyb2fKtIRiiZKyT/DoZIiqkik6gVs92bDEGVcg
+         7PScQ0I4wcQ6Fv25F36Uqy8u26xaN0Kwrgegr99f/dsxKw4+hhjgAlSSaanB/S1gG2rT
+         hPQY1WpzIPeGxst5fbpGhRonIhV+ciMhS4WzdOwLgznsAXEYTjEhKvvqI4ba+rp69e2/
+         +u/b266vZ1j+fjitUlWMXkxSg9D6kUo2xEYLAZTZIIxK6nkq3iXIoz1DfXxpDKMRgs9r
+         IEOw==
+X-Forwarded-Encrypted: i=1; AKwUvByqakKC0ldR2PhezwwUagodOBFnnZVg2zrFwBdEBftBiIe/7yfWEn/k9x5YQgus3mrojwbblOTyv3qHE0U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkN20owv7Zi8VDC8YRnF2zWNqDnrDI+504TPB2RyPsVvg9+A3d
+	CJSKuwUCOKt1NjTtQUDPPt956EcIZmY7xX/W5vTOer4oLOpvO6sMbA/j
+X-Gm-Gg: AYBFou2G4WK3zzuP1RK9EtSI8rOOjgoh/lD6ZbKWlrnNGg+d1pUT4NypcDekGLMmoJo
+	WYkyD5aYcg5Z9e4KMMkD169YoRJ5IXuTJ7UGWBi6XiMYbQN21K/2dVGaEDfkvozQrP1j2bHqQC5
+	Z8sFmXf2RyGLWMsuZJAbnAS3imvZ5/aY85KrWC5buIlc8PIC/Z7g7X0+8EHiPKQ3W67btdesCTk
+	5+Ykpuvmf2k+t4Hngbu3ZA0dWE854f8JFR2ry/8puxNvc86qWEkxDqSZPNmrBrDK9unaSrXcRgC
+	9gx9CUsPa5K3brvLGdKyd+298VWumpLEKVhKgC3lWeccscMxe4dHPe2s4kt8EFJhOh8wbix86Wh
+	CCYPSlWflntcITbufLb/PcXLVlbRM89ptuDsdeyDw183PlAa7BWvCL6p+fNUrTqEX8rGi2ipVPb
+	lJoW3djHii9m/BiUjtBOExD3B7mIxg8mPDf+QlJat87Be0bh0ON65umpGai/v1eIoWJdsCaLmOE
+	Hk4mgDlgYnc
+X-Received: by 2002:a05:693c:80cf:b0:347:7d10:4c7 with SMTP id 5a478bee46e88-3477d10a211mr3099391eec.15.1790605069659;
+        Mon, 28 Sep 2026 07:17:49 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm29107917eec.0.2026.09.28.07.17.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:17:49 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 28 Sep 2026 07:17:47 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Christian Lamparter <chunkeey@googlemail.com>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Nikita Shubin <nikita.shubin@maquefel.me>,
+	Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+Message-ID: <6cde225a-3ea9-4ba1-935e-8e2b56d39f3a@roeck-us.net>
+References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
+ <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
+ <3334ba64-2f0b-4e66-9a3b-84f46af70212@roeck-us.net>
+ <eb76f982-d29a-41b4-a5ae-61ce486f4839@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,67 +86,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918133107.1042730-24-seiden@linux.ibm.com>
-Sender: Hendrik Brueckner <brueckner@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba76a7 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=nnIaaF498kqO1bEHNMIA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NiBTYWx0ZWRfX72hKPbHn0oBk
- RVFuvBqH8UHPWEoKzXdQr64GJWDGGWKnIO1MVn7goXs69X8xC7jB4YwC1auPz/wXgY+NIiJmji4
- d2xLMIzsZPnbCNiU1IPsNlQcBk50BGk=
-X-Proofpoint-ORIG-GUID: c8k90I_35h1vfDy12bjJ-4_B4O-n2PNu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NiBTYWx0ZWRfX6cPRFJGxV5Ug
- TAb9cNc5k7WfJCqfLczGDe5HlTRxPb4/jrOu3EyqNFsXiIXGE/HTuUQWdIlsPCB0lyUVd9ijXGK
- qrkARkw5fH5VyeBdLrYhaxLZ7HEZJNw2FMXASvcymwIkuVHt7IiIGR3KZB3l6+lzE+7CAbGjzG2
- 3HjsWMAQp0EgYWgXjqplQGXaouXCHjnM4HLI5S/fIDehHStPOKdeDOsMYXUyVOdX2XadHW4ssU2
- XY82J2DcaQDjianPr97X326Q21kz6kvzfoDn+QIeW3SFViYyExlRCwwlJD+QT9AtrNul/nKFGm/
- zP02XnFqeHjAqDTQJUjG7ijPg45l5Qs19aZaLW6wbbBMjTLBa66EJZYiFauL+kFRkFcZtQ4jm8S
- paXA0duaRBpGf0gY/k7Lqy/jtAI2xhiNBzXOi8F3cpvQ01wt8Fln72L34jmpDg2doVfTq6T1HVh
- 2zGyVeJyg0a5Tx+qyoA==
-X-Proofpoint-GUID: gQs0JtJQ3bmijgSPG4xGjgWcJAErDcqK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1011 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280056
+In-Reply-To: <eb76f982-d29a-41b4-a5ae-61ce486f4839@gmail.com>
 
-On Fri, Sep 18, 2026 at 03:31:00PM +0200, Steffen Eiden wrote:
-> Add basic code for the new arm64 on s390 KVM implementation.
-> Add kernel module boilerplate code and trivial functions.
-> Add tracing scaffolding.
+On Sat, Sep 26, 2026 at 11:22:39AM +0200, Christian Lamparter wrote:
+> Hi,
 > 
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> ---
->  arch/s390/kvm/arm64/arm.c   | 147 ++++++++++++++++++++++++++++++++++++
->  arch/s390/kvm/arm64/arm.h   |  44 +++++++++++
->  arch/s390/kvm/arm64/guest.c |  92 ++++++++++++++++++++++
->  arch/s390/kvm/arm64/trace.h |  18 +++++
->  4 files changed, 301 insertions(+)
->  create mode 100644 arch/s390/kvm/arm64/arm.c
->  create mode 100644 arch/s390/kvm/arm64/arm.h
->  create mode 100644 arch/s390/kvm/arm64/guest.c
->  create mode 100644 arch/s390/kvm/arm64/trace.h
+> On 9/25/26 11:19 PM, Guenter Roeck wrote:
+> > On Fri, Sep 25, 2026 at 08:03:06PM +0200, Christian Lamparter wrote:
+> > > On 9/24/26 10:53 PM, Ridham Khurana wrote:
+> > > > temp1_input_show() drops the low bits of the temperature register by
+> > > > dividing the raw value (raw / 32 on the LM70). These bits are not part
+> > > > of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+> > > > return some of them as 1, and the TMP125 fills them with copies of the
+> > > > temperature LSB. Division rounds toward zero, so a negative temperature
+> > > > with any of these bits set is reported one LSB too high.
+> > > > 
+> > > > For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+> > > > driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+> > > > the driver reports as -24750.
+> > > > 
+> > > > Use an arithmetic right shift instead, which drops the low bits and
+> > > > rounds down. tmp421 had a similar problem with negative values, fixed
+> > > > by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
+> > > > values").
+> > > 
+> > > For the TMP125 yes:
+> > > 
+> > > Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
+> > > 
+> > > 
+> > > > Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+> > > > Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+> > > > Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+> > > > Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+> > > > ----
+> > > I wrote a little test program by hand (see below) and ran it on x64.
+> > > No idea if different archs behave differently or if
+> > > a clever unsafe math optimizing compiler flag will
+> > > convert the  "/ 32" to a " >> 5" but I doubt that...
+> > > 
+> > > ---
+> > > tmp125: raw:7ec0 tmp125_proposed: -2500 tmp125_now: -2500
+> > > tmp125: raw:7eff tmp125_proposed: -2250 tmp125_now: -2000  <--- loss of percision
+> > > tmp125: raw:7f00 tmp125_proposed: -2000 tmp125_now: -2000
+> > > tmp125: raw:7f3f tmp125_proposed: -1750 tmp125_now: -1500  <--- more
+> > > tmp125: raw:7f40 tmp125_proposed: -1500 tmp125_now: -1500
+> > > tmp125: raw:7f7f tmp125_proposed: -1250 tmp125_now: -1000  <--- and this
+> > > tmp125: raw:7f80 tmp125_proposed: -1000 tmp125_now: -1000
+> > > tmp125: raw:7fbf tmp125_proposed:  -750 tmp125_now:  -500  <--- also bad
+> > > tmp125: raw:7fc0 tmp125_proposed:  -500 tmp125_now:  -500
+> > > tmp125: raw:7fff tmp125_proposed:  -250 tmp125_now:     0  <--- ouch
+> > > tmp125: raw:   0 tmp125_proposed:     0 tmp125_now:     0
+> > > tmp125: raw:  3f tmp125_proposed:   250 tmp125_now:   250
+> > > tmp125: raw:  40 tmp125_proposed:   500 tmp125_now:   500
+> > > tmp125: raw:  7f tmp125_proposed:   750 tmp125_now:   750
+> > > tmp125: raw:  80 tmp125_proposed:  1000 tmp125_now:  1000
+> > > tmp125: raw:  bf tmp125_proposed:  1250 tmp125_now:  1250
+> > > tmp125: raw:  c0 tmp125_proposed:  1500 tmp125_now:  1500
+> > > tmp125: raw:  ff tmp125_proposed:  1750 tmp125_now:  1750
+> > > tmp125: raw: 100 tmp125_proposed:  2000 tmp125_now:  2000
+> > > tmp125: raw: 13f tmp125_proposed:  2250 tmp125_now:  2250
+> > > tmp125: raw: 140 tmp125_proposed:  2500 tmp125_now:  2500
+> > > 
+> > 
+> > Sorry, you lost me with the above. Are you suggesting that the patch is
+> > correct, that it is only correct for TMP125, or something else ?
+> > 
+> > Guenter
 > 
-> diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-> new file mode 100644
-> index 000000000000..8b056fc836d7
-> --- /dev/null
-> +++ b/arch/s390/kvm/arm64/arm.c
+> Ok, I guess the same thing happend to me now too?
+> 
+> Is there something specific you want to hear? My reasoning is that I wrote that
+> cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+> 
+> I definitely wasn't aware that / 32 screws the with the rouding result for negative
+> integers and >> 5 wasn't. For unsigned compilers actually replace the divison when
+> the divisor is a 2^x constant on their own. You can find so many threads/topics about
+> that explaining why (basically pick your favourite).
+> 
+> https://softwareengineering.stackexchange.com/questions/209678/why-does-division-and-multiplication-by-2-use-the-shift-operator-rather-than-div
+> https://stackoverflow.com/a/27052650
+> ...
+> 
+> It's been too long to remember what went through my head back then, but I knew that
+> replacing / 32 with >> 5 is a common optimization because the bitshift operation is
+> faster than spooling up the hardware dividers. But it would have looked funny when
+> all the other conversion codes (especially the LM70s. Because it's almost identical...
+> except the LM70 has the sign-bit at D15 and hence the raw value can be directly cast
+> to a s16 type). So definitly that >> 5 was on my mind.
+> 
+> Now, I was surprised to hear that / 32 and >> 5 differ for negative numbers and I wanted
+> to find out and the experiment tells me: yes, it's true.
+> 
+> Do you get the same result? What if you replace the function with the other
+> LM/TMP implementation?
+> 
+> But I have the suspicion, this doesn't answer your question, or does it?
+> 
 
-[..]
+I asked, or tried to ask, what I thought is a simple question: Is the
+patch correct or not ? You could have answered with "it is correct" or
+with "it is not correct (possibly augmented with 'and this is the
+reason')". I don't see either in your reply.
 
-> +static int __init kvm_s390_arm64_init(void)
-> +{
-> +	if (!sclp.has_aef)
-> +		return -ENXIO;
+So, no, I don't think you answered my question. I'll just assume that
+the patch is correct, to be fixed up again later if needed.
 
-I suggest to use -ENODEV here to be consistent with s390 kvm module.
-The arm64 module also return -ENODEV when not available.
+Guenter
