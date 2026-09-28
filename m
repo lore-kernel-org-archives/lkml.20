@@ -1,89 +1,89 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F31B376A07;
-	Mon, 28 Sep 2026 02:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9DC370D69;
+	Mon, 28 Sep 2026 02:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790564370; cv=fail; b=cuYqUkRqxtAK1wyAj51R2ZUK+rzwR7CZHejzE8vc8sx2RmcytMgQnBKq3uYf1OwpDM/SD6hyDlHnVLiOsZt5jxXc5r1N2Yg9apXMc64mlB7Ime0HbV/XuC7S/2hbYkgxmvIvYr8bzZt0OyjL9o0G+hqWVrjJ5VoUS5VE0GyKFmU=
+	t=1790564385; cv=fail; b=mQjOj3Q9utBelk40ge+MZHBmwMBnffd/VtmRPfvvybwLylVusZ3P8EBkwZ2fV4PMumzSr0d9nypu606O2i6huj81O3m5+6hjXLfSOCGzhJCVY1XMGDDsvjhgltLAnINuBIScOoUWEe9dc0nCrI8r7JQYSZJZapV66sGHPu/z+Y8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790564370; c=relaxed/simple;
-	bh=NKs96bFDGRUwGUx17Y/gdXO7sxNdXAeMS2yTBLYBaAs=;
+	s=arc-20240116; t=1790564385; c=relaxed/simple;
+	bh=hfx9tyedLuwQpWQzmyhpCVk7zXwPKahSmmir+wIDops=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MdX2CIr979/FnJ+h5UQSajZIl/+faN+MWFsJEzgqhJUlNjEH+fhcxDmsV+x9wKjQQ3Bn1Xenxc/RPS8b/YBQQ5W8uTMOSdkhlvdw6g00KCBGt2/lswJIjihvrDhtc6UB7GVy0L/txoBdx9RWSRcbdqSkU2srnTgeQKoeqN8MYcQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=UEnPVBgT; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=lIJAZUK3; arc=fail smtp.client-ip=148.163.150.75
+	 MIME-Version:Content-Type; b=TL/qR57wX9GykVtijkL0H5VmaLkz9AVU31iZR7VUtcOfXAKMUkQU6g8mcexL45c3EVeGH+A9jtPAmSVmUHHvTqyhpy69/BQRLSRx6lSeynHzDK9Kn4669RBzqqGQjM7D7rOV13HDFuhltvLkQKZYZ2lR0dFrIBqirsQThxxQPF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=KGtxZYJt; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=B4i+WxJ9; arc=fail smtp.client-ip=148.163.154.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="UEnPVBgT";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="lIJAZUK3"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68RNiAXg3706250;
-	Sun, 27 Sep 2026 21:59:19 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="KGtxZYJt";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="B4i+WxJ9"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RLD7Jp2806166;
+	Sun, 27 Sep 2026 21:59:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=a15/C6QzRzzsL5TYHeYHQt/0QQVuGNSGXjd2F6SNL
-	CQ=; b=UEnPVBgTB+3fh1g4rrl28YxaC6UE0ZOVxSstuWLnzSGeFhvDyHtNv4t2t
-	NMyfXgOBsU/g+9TVtqlKP7jNqnfNMVV9BHJadO4/NzKT6629JENuPk/ya3Pc1Pl+
-	SllWCJ22RBzmia81kpMaVJIEVfMIsjrKBbuWRBIls/DGzm5aXUCvVCYPCl8j1Ahi
-	jreN4pS76bKjBr+xGdaxvwhXdaIC/yoy8IP5gOWo4IF9kcW823VSSlgSBgjIlUC+
-	RfRQ2wir6oYC8W6WzGYRDKX+kbOJkGkyulC8DyQIILBOt7qHkOxnc+4O9o+zfTjz
-	y//E6p3DqSbMTtlmC5iFB5AcmAE3g==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011026.outbound.protection.outlook.com [40.93.194.26])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gy00nb1sj-1
+	proofpoint-05-2026; bh=oWMlIJVgWFG1s20YaWxHB9JpHlwzpEvZrR2JSB+RB
+	zE=; b=KGtxZYJtRYZ2Uf/+tDys44HcSq5gk2A2dGsGtvvX6e2Jj3naBqcAM82LP
+	8kdSo0DNalROxjxvGD55Ka/MXanYGS65kPE8pr+cccNbhGIuCUvi0Ug4gjNRCfO2
+	MDcuoBCrK4AltXrINikB4xvl1j+IHX8qIyuk84iHb8AW5t1c/9FFQyAVwcC/6Zgh
+	mas+iCSzY2BINKDy2V5SNEK8/PB85f88BW1uDrxnPoqx53ETVdXJYEUZ/NefMRmW
+	CLrREs/dFp8QUcM0Z65Hm7nCHu0Fo2jJzrKHRBURu+WbTbjz2J8od5lL/sR8RvrT
+	4ZECKQNScoSfozWsgiuUnLAWYQzzw==
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gxwe5kfsu-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 27 Sep 2026 21:59:18 -0500 (CDT)
+	Sun, 27 Sep 2026 21:59:34 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e6gQW9ncN/3NPLqgYsPz7sLbLm3Q2NmVJuyiW4a30LiYyUBhyM/9udOpzHXT6C7tsDSdbdQtO7t+2MEHs7Yx+tSvsagIfvF+ub4Z4ywOSP5FFxLUEp04GfOnN9KfnQGmlkgZtIQrXDQ1xu1uekvEJOYl38HTHTIPV6trPXWPtDPPHsYfpCeeG+LVFB8xC0ImkV8g1Bs+6xRSrcUgtN9X2ZOKo1Me2/qlb0Fsy9b5ZendB6ArTJsE/cqZz/l4+9sAgelLDluktZSOhekcVI+r6eNkXV9cRAf7Xw1T5sK6l2AKRWDVSP8c0+CccsRTJAh2TtKmGdjVKcj5hy23Dbt1xA==
+ b=r1+CpSwg1+4m89Zc6N8of4mJxV3FNfRaAE94n7yjpj8NQ2lieeDcK/IFafJJpt0sjaPcLNZ8v9163tXjcXPvPr+/tQqWo4d/AwrKav2h9lJDocsOkeGGDnbtAaAOApg5809bG7+Kdd8jpsGMTrgKRzhNVoqbJ/m764uRnp28carIFjwPqQPi5XxCxFAmHxyoBvB6tk9HRj1wmtP8SSfnATOTCssiV63uODNj84ZGMv6+hTSTzrv/lYc8QvtIcLFT/J90qdEeithgvoyKLB575zw8VtP7zu5BwgXgrC23CUMGEAkh4MKvfnFAc6VrCQfmw5g0lG9pniIRtzOGaeidCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a15/C6QzRzzsL5TYHeYHQt/0QQVuGNSGXjd2F6SNLCQ=;
- b=Dahme1AiFVRKTQ0eSyJqP75kLk8oO1cyP6uHabcHRJWlDMYfanLYYsZGsFqaQvQzFC/VG4vwKe0jcwuE+2wfWoQcta63/MolFkDYNWl0mCC8S9u9Ak2xs5MrU0lseej53IyNbDwO7oXVEokTCJH1zZLLQ8skllBgqvpegm+MhDoHJT8mI0G0o1zXqB27VOlVqhSTeApg4Gq8q+ZbOPVwROrNHgmCdMQyihAv4mYIYE8WZKaV6KC/pG+yQCYmuSgPH2ed6qmvIjj8fqqXBw74it6NWz9z+R/mH8YILgXZfhtP9W8nhPt6QkYFZawZy56s952i1HyPvfxv0wpTebpl+w==
+ bh=oWMlIJVgWFG1s20YaWxHB9JpHlwzpEvZrR2JSB+RBzE=;
+ b=hG2FLPh1XGEu5L/KlnetlPUuFkqKxRVul8hX5OnnydhfdiTkBjFjLR32uXEaPFQlFkdS3cylyB467wNdRxu+YAO6VBDx14CT6tBAfVPSES4jphjGcmZQQ6LK8h5CWKWzg1vSnOGa1qLNGHbArn2f8EP/qpydAOmA8lAkihxbtRTIgugxvhFDSV0OuDwp8r827DJ2Dgn/2O4GAPnJqd0FX8xN7XxURFR+T9RNqOCxNyLaTA9M27NliiI6Pk18ZfrgalDYbd1Lgni8rKY9dzwMM6d67KfOVBZ/Nq8+r8AI662k1Smf5JlyJlX+bF7CZCBkYWFcjhRug2dBWNnm1lD8Sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=nxp.com smtp.mailfrom=ti.com; dmarc=pass
+ 198.47.23.195) smtp.rcpttodomain=nxp.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
  (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a15/C6QzRzzsL5TYHeYHQt/0QQVuGNSGXjd2F6SNLCQ=;
- b=lIJAZUK3qOrHI1rgxE/oSorzbu/afr1UgoL/DhsJGpLwz/tsR5A1veo6jRPf8ybKyg9UTJFdW2BK7CfaXJDw0rQsWVU0gH1qnQf4UPC9vvZh+snybxKOEWPzfhTCD/8gmzxTZzeSS9c7rlaIWBv2wAfr17FxmRTg16FmJVKWUnE=
-Received: from DS1PR04CA0002.namprd04.prod.outlook.com (2603:10b6:8:44f::16)
- by LV8PR10MB7751.namprd10.prod.outlook.com (2603:10b6:408:1e6::17) with
+ bh=oWMlIJVgWFG1s20YaWxHB9JpHlwzpEvZrR2JSB+RBzE=;
+ b=B4i+WxJ9FcqHd0iaX7cC5TQr77PmZegwvpgnzb+acRK+M9ud4elHUqvF34YXU7cOjAtbuOa+LMQOkhcCz6tZ2BoX1gu95LYnBYBnC3Y4JK/g3Sw5FLKrnb8lnoSGbdV5vWDGxOQSIuG46ZqcE8epD1K2MN/izqzZH5QfH3+kIeI=
+Received: from SJ0PR05CA0177.namprd05.prod.outlook.com (2603:10b6:a03:339::32)
+ by CH3PR10MB6904.namprd10.prod.outlook.com (2603:10b6:610:145::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Mon, 28 Sep
- 2026 02:59:13 +0000
-Received: from DS2PEPF000061C4.namprd02.prod.outlook.com
- (2603:10b6:8:44f:cafe::97) by DS1PR04CA0002.outlook.office365.com
- (2603:10b6:8:44f::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 02:59:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 02:59:31 +0000
+Received: from SJ5PEPF000001ED.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::60) by SJ0PR05CA0177.outlook.office365.com
+ (2603:10b6:a03:339::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Mon, 28
+ Sep 2026 02:59:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- DS2PEPF000061C4.mail.protection.outlook.com (10.167.23.71) with Microsoft
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ5PEPF000001ED.mail.protection.outlook.com (10.167.242.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 02:59:12 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 02:59:30 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 21:58:45 -0500
-Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 21:59:04 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 21:58:45 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 21:59:04 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 27 Sep 2026 21:58:45 -0500
+ Transport; Sun, 27 Sep 2026 21:59:04 -0500
 Received: from uda0498651.dhcp.ti.com (uda0498651.dhcp.ti.com [10.24.51.254])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68S2vqqH2256662;
-	Sun, 27 Sep 2026 21:58:40 -0500
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68S2vqqL2256662;
+	Sun, 27 Sep 2026 21:58:59 -0500
 From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 To: <peter.ujfalusi@gmail.com>, <vkoul@kernel.org>, <robh@kernel.org>,
         <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nm@ti.com>,
@@ -92,9 +92,9 @@ To: <peter.ujfalusi@gmail.com>, <vkoul@kernel.org>, <robh@kernel.org>,
         <linux-arm-kernel@lists.infradead.org>, <vigneshr@ti.com>,
         <Frank.li@nxp.com>, <s-adivi@ti.com>
 CC: <r-sharma3@ti.com>, <gehariprasath@ti.com>
-Subject: [PATCH v10 10/19] dmaengine: ti: k3-udma: refactor resource setup functions
-Date: Mon, 28 Sep 2026 08:26:16 +0530
-Message-ID: <20260928025749.1055383-11-s-adivi@ti.com>
+Subject: [PATCH v10 14/19] dt-bindings: dma: ti: Add K3 PKTDMA V2
+Date: Mon, 28 Sep 2026 08:26:20 +0530
+Message-ID: <20260928025749.1055383-15-s-adivi@ti.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260928025749.1055383-1-s-adivi@ti.com>
 References: <20260928025749.1055383-1-s-adivi@ti.com>
@@ -108,570 +108,265 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C4:EE_|LV8PR10MB7751:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8b7b5b1-091c-419c-7d2f-08df1d0c79d4
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001ED:EE_|CH3PR10MB6904:EE_
+X-MS-Office365-Filtering-Correlation-Id: eec7329d-45d8-4192-0b25-08df1d0c8478
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|82310400026|36860700016|921020|3023799007|6133799003|10067099003|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|921020|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	1xz587+ImIll6OQYKCJ8VCPa7nx8+KCau6+5mNgz26QIuV75XLsvIEsGGvuKH/Uqk6o7ca42AqLFozqUR0EaZJREmBFejEMHL10U49AjXHbo3KvyIo6J3pZu6d2MVNGUi4Bas0fIHVLlrL3YrrfUuXXgcRR84ZFymYMaY6RyUkzIct+zWPtZeC8kD0oVn+l31i8rwuQYDD9q3nuDEVEjUazCJFZKvyVIXbvLOc8OVy4oArTUGl9q9ypTzBfK03HD9O66gjwxdFt+FwkiXf/DsVl9fTxjJmHQyU42oajyQ36JiPFCtfrl6I4HeJyn/zgWw67PFQ8NdCj2I9/zELZRS24NA3WCwS1IGsCmSxLXGr9MOXuy+7r5GgEf+IwUNscZ2Tv8CBAPSZzfsvapplMzIdoIABh+u0JT7r0uqQwv4jLHcBcLNT4ThwtOhfK7trTtgOPfnR2N0gGwyRqJZT1B7TNpdyfAF7w9thF+eK/Jc5v/4rfZux1TEZwN1/CySuTCtSqzoyT/pfd3y5ZD43ptNPdyZ+Nl3r2csEMmsqq5fBIlCmCUZyGVmqS6hrTLT+7Yx0Sz2fUJazaG6UpbiXEOJi5X4buPpBc866Xtwza7EULLy4UWJT58m51DC4EfGd3NcHcUbkSu+5ZQCTR8akltJhBAw0Sq43LxO8WclWecK8/QRSKVwQp7HLmWIMX9X37Qs0sxfADXtBOe7YMPJDf7TEho+cOHU+YuHVv2LsXW11tIe8Dok8kh8a/t97DBzZEv
+	tu9PSKftq3kXxvnMSSGnk1h2d0eqlgOnD8lsODGbPgo7asVzy3rWZTiEriuwbDEWqYZGywkz3usAG++t0SUNE8yNe70EkcvLIWctjR3rIaCjmz2Su4hmTRKEfurRJWR+c2hTwbPce9ROCVn+X9Vnyvo/cgHaT6QQGia+a6Q/SHn4aNSNQ9n4opyR8gx10wFBy+89Y8yx3fdOvTWBmPhD5rZFgTe1wHMen8/JyQmgwWjMvjcMnr1s0Tn8d+0PGcRvqdcnUfYVNkX3q3g/3NZkn9Vie7sx6AZMH7gUM4jo5PEMD93to2/pafs73QBzgIvyrjquP/WBKNQivyNV6VV9rqHzUQ/nxRVDOVHyzzE0c+fckAvzE4JtpVwdhYJ4p9rXKtGpUs/T3mQtXQAfZs3IpIPaq7bHOSIlrDk3k+XZwugU3uQfJr0XRGpiElniyOrZax2EC9LK9OnGnl+DDbq2TpWOGVKoM8nKTPT1b1NteTKQvinyHINeQqbHavlKHpiHcM/lH8R4P3DmExz9GQxTjyqi3zU8nVEa4rkGCYNZRvdj4Zw8YaexA36JKo/ucfNor59i6hADjhxvJsuDANbGTYWBLx1b0qRplydaG5L5V3rALhlY2gLZhUabfDVR61vM1eAoOheFToCWG2+H90n3LI50z+TIdtb5AdkpkfYLER8VoKp8Dx46fsDjjnri9ewA
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(82310400026)(36860700016)(921020)(3023799007)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(921020)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	YpnQbxhUinOrP69vUOpUx/wclUl7SDFXWd0zqzqyOZFUxwYp5eIFrNVTweAdM3eQdg143c6XMR+vs2H9Jdzfv4qcjQ5wzCjsTgr4Ov7HlnAkXg18FWrg1/FEA/CPDpxhGLq7orbSWa984JFpF0htydRcaXgEhVEZgevibIfJ3dH3KBwwLk0UlOjZDnZvs6cCTTPF831trSwhGyKWDydUh4d2D05zSkgF+AoH4urXqKO97xLK4M1+k+7KfWfYayA757wMUVmzBoFjIhcVi3pwFFY22Mhm7bTblDaKm3eI/EMqTXoVaTbQsLNt/RaBqHrGBD0PLmcjHyF+0wi+mxSsI8FkWsnN11kAllqWRZTIW9kpAA248YHlzt3syZzIEGuIZQ+5kOPlUkKL1VAd7xzRfY+MFxwdR8IB6D/cCczPrVC1uyLn9IFzTEnVeUFNo83F
+	2LuWXxWyaTgy9DPGyAlU+dOpD3l1b+gG8WI21p4eiX2AbkV0mj+R1klqlqgBYtKetbwTBqYHKEquAgePKt7TCXZ7JoRsLkgLcl7mECqhBGYtqJUVEEnlYSFfJXzll+cEsLCvr4i2c2KeRK6OUgWS2FCVSqQnlnU7ZPtSQCSaayp7iqeAp/IYxM7a5gGc4Xbe7PFF+WcLLDVuADs74YIvnN8NeOoNrDpCU+1LH8er4K1MVoYbo7MW1P/kbYqvlDyWlY8JHle9nm4oY1S0tzvUca6q89QYX1olH4Acc0lmn12D5SswYVfSLEQ6ttY77I53RUd0QfrAVFQ4Gzl0TWJjcvxq3OTo6OVnTgfsbcXEpUBD0Re0zfznMjShVv59YinDzmcsjiqXtrNWVdkiWEeF77P5m2BQH5hn9QZ3iUMIcD7iDDxH9iiU8T0df0n1xGWG
 X-Exchange-RoutingPolicyChecked:
-	EmkBjcjVa59W3a8tg5qJ87MbZejVvbzYAHcFQ26nW2R5yy0PsqQA+md6jR9eTVIlCtwUHWydLY419vdRyRXvRnCl5NtP66RlcIDi62B2n/Ts27NeFKQNiIXrC7lDMACQpIX0Qn4+9/YZc0hL3A7cMmJ59dBaIpP1hc1JL+6Q7m+64sghlspfvJLb+1iyGzK3OfR5bG8vInkMjY3Ef/Oa74c/jytAmOk5qd3yOn0QYkAyxIDhdxa4Z5neyyD2mRw9UZxFwHiDj+aHnz1vnwG/b/CAy4x8agifwQ1CQN2HJLfuIgR3v9/+EWX0YdXFYfPLYESDEIzj1ZyBUg6KH+e4Zg==
+	gdpjHaIhhCEboYfGV6+HyQXIH8dm48vIWA4bhkV4SQiMlnYRERVuvh1NXKJr978UcsfLjzLCseU6rIogjeB5wqJhUFkgL/n1Tljh2kZ2shtXEECq4fPCvDQ7mBNc7AyIHHNrwlWZ902Gtw9HOF6ZyOkcmJoV8dg0TbAGXmf0Y8DWI7sF/1GyHRPpQMHZUOxAJ8s1mVXiQPk7DgVsRtX3owBCnXBOQcXGOzC7O3V0pTB5r4o17lCHJqyOIaM3244wrvogyvFm6FoSceziQPbALXQHgMNU0IENEf1XXbtNSC/R+n51d4EgREgZHKljftHdhPGMJhMnzglEbu37vV7vnA==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 02:59:12.9707
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 02:59:30.7932
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8b7b5b1-091c-419c-7d2f-08df1d0c79d4
+X-MS-Exchange-CrossTenant-Network-Message-Id: eec7329d-45d8-4192-0b25-08df1d0c8478
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C4.namprd02.prod.outlook.com
+	SJ5PEPF000001ED.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR10MB7751
-X-Proofpoint-GUID: D37xmGs4QpdVXIqIroOklIqkKuOOJgAM
-X-Authority-Analysis: v=2.4 cv=fKysTpae c=1 sm=1 tr=0 ts=6ab9d807 cx=c_pps
- a=HGE+/hAEzspoXCOliImplg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=I_B2hWj7ayHADsQg9NcA:9
-X-Proofpoint-ORIG-GUID: D37xmGs4QpdVXIqIroOklIqkKuOOJgAM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAxMSBTYWx0ZWRfX7ze5nzbEDma3
- BA52pUvyoScm1zp5mfqoVKrFEF/BZYj0DnThHaHaqGTeje42LKQthJz+iIYAhjziZlc7kEfBeqh
- mNVVqp7pHKGq7B45zVPFObZuGIndNHU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAxMSBTYWx0ZWRfXyYAfV7HkbXkh
- fwnB/ZCjiOLdh7jsMJLWFnzuduNUmzbrG3Bne+9tcPBqkUqgsDfxwG12IeH5LRWuAjl082Pcgg5
- pJqBO/21fwfxbx9+RProJ0m4vKdxaJxVKYIGL0BmXC3tfCFq+RhLy1qIgHTot1+V+JafSNgyslz
- BWPSan3udXJErUQRi1kw/PHnOXjfwk3Y0UTJwKEuxjW/xVJUgXGIaAXm+bkzkehh9lBTD1KyTGo
- mwvGU07MwocicwtHEosjnV6ZMD84rRbrI22gxfncC1Pvjv5zKJirUnvz3kxn26188X5EUp7dxvb
- Xmtc7Cmbb0bRiCRyBbvVwoHkAAMRPZC5akp1julENUQa3pvEohqHp+/fatRzSLfnVJMZ5EVfral
- cb0pX5s0dqyEqaOxyA58M0csUEpRgo4sY0IYogAhz/j7U51mOXT7Vm3rhbVUASRrCEbELK4NTDG
- YQtbMxDqZH5HK1Qwsvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB6904
+X-Authority-Analysis: v=2.4 cv=aeP0Dhot c=1 sm=1 tr=0 ts=6ab9d816 cx=c_pps
+ a=ubRrNrA1i3DLWGMHTGxaeQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=gEfo2CItAAAA:8 a=sozttTNsAAAA:8
+ a=3biYmkHrlXwTjyWc3LcA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAxMSBTYWx0ZWRfXy5GxwZqVSQ3l
+ KMEWCRPQNRMJN/GDsvhcdLTvD26Ei1VxeLtU/3EUjwl0IdyZ1PPuDsv369H5y4HA/sjsrTkTLY3
+ lN6z9yIq8TVx95lje4/hZUJxS7geuiw+Rovf73d3xel+V3WQOJwHhMgMOduruZpW2gcElsdOkfe
+ yro2Lp+vqNXJLTdT/Q4mqk9k4GThUSgDq50adxuAiS5Tm371hq7gI8sWX3Mi8lL0XMCT9/dOqa6
+ +XGukTt8j8H7Id8hfyv0xloLxS9GTMor4O1BdnAeocUaSHZStP0qm7MSbKUU+SwELyPyWPPJWgf
+ sbp7CDvtZra0nv4/T3Uo7XMaQGD9iaWKuDX4CqszV5xA/BJpCAsITEgJumaIkJFG8DcookO39x8
+ cDSatiK8G7TEvMRERIWtXdstDr31Drwzinj0QkgXzZYjBpmv8EHJ+lBw06udasUKIfw3mw9H1TW
+ 3ghxgmvLWnjB/cg5X/g==
+X-Proofpoint-ORIG-GUID: 2KA_KFw-dH2PQRDREmI2Lk2tBK7Zt49r
+X-Proofpoint-GUID: 2KA_KFw-dH2PQRDREmI2Lk2tBK7Zt49r
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAxMSBTYWx0ZWRfX6IMvoH+dO9PR
+ XaFU1QsLw2EIgGdUoZZv3Q+Xnrrm3CVXYdKVVDtM4grgshfNyPW5GapoPxbM65imoZkl3wxDCKY
+ 5FeEhqzGBMx4PXJ2GIUp1NGkTTPrYpY=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 adultscore=0 phishscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0 clxscore=1015
+ adultscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280011
 
-The implementation of setup_resources, bcdma_setup_resources and
-pktdma_setup_resources is largely shared between all K3 UDMA variants
-with the only major difference being SCI resources setup. So,
-- Move the functions to k3-udma-common.c.
-- Split SCI resource setup for bcdma and pktdma into separate functions
-  in variant specific driver (k3-udma.c).
-- Add function pointers for setup_sci_resources in udma_dev and call
-  them as part of the actual resource setup implementations in
-  k3-udma-common.c to retain the existing functionality.
-- Also since setup_resources call udma_setup_resources which is not
-  required for all K3 UDMA variants, Add a function pointer in udma_dev
-  and use that to call udma_setup_resources.
-- Rename setup_resources to k3_udma_setup_resources to avoid polluting
-  global kernel namespace with generic symbol.
+New binding document for Texas Instruments K3 Packet DMA (PKTDMA) V2.
 
-This refactor improves code reuse and maintainability across multiple
-variants.
-
-No functional changes intended.
+PKTDMA V2 is introduced as part of AM62L.
 
 Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 ---
- drivers/dma/ti/k3-udma-common.c | 200 ++++++++++++++++++++++++++++++++
- drivers/dma/ti/k3-udma.c        | 184 ++---------------------------
- drivers/dma/ti/k3-udma.h        |   6 +
- 3 files changed, 213 insertions(+), 177 deletions(-)
+ .../bindings/dma/ti/ti,am62l-dmss-pktdma.yaml | 189 ++++++++++++++++++
+ 1 file changed, 189 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-pktdma.yaml
 
-diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-common.c
-index 34f8eab9ddb57..d0afbab01786f 100644
---- a/drivers/dma/ti/k3-udma-common.c
-+++ b/drivers/dma/ti/k3-udma-common.c
-@@ -8,7 +8,9 @@
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmapool.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/soc/ti/ti_sci_inta_msi.h>
- #include <linux/soc/ti/k3-ringacc.h>
- 
- #include "k3-udma.h"
-@@ -2334,5 +2336,203 @@ void bcdma_free_bchan_resources(struct udma_chan *uc)
- }
- EXPORT_SYMBOL_GPL(bcdma_free_bchan_resources);
- 
-+static int bcdma_setup_resources(struct udma_dev *ud)
-+{
-+	int ret;
-+	struct device *dev = ud->dev;
-+	u32 cap;
+diff --git a/Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-pktdma.yaml b/Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-pktdma.yaml
+new file mode 100644
+index 0000000000000..caeacd4cf5ab3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-pktdma.yaml
+@@ -0,0 +1,189 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2026 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dma/ti/ti,am62l-dmss-pktdma.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/* Set up the throughput level start indexes */
-+	cap = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
-+	if (BCDMA_CAP3_UBCHAN_CNT(cap)) {
-+		ud->bchan_tpl.levels = 3;
-+		ud->bchan_tpl.start_idx[1] = BCDMA_CAP3_UBCHAN_CNT(cap);
-+		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
-+	} else if (BCDMA_CAP3_HBCHAN_CNT(cap)) {
-+		ud->bchan_tpl.levels = 2;
-+		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
-+	} else {
-+		ud->bchan_tpl.levels = 1;
-+	}
++title: Texas Instruments K3 DMSS PKTDMA V2
 +
-+	cap = udma_read(ud->mmrs[MMR_GCFG], 0x30);
-+	if (BCDMA_CAP4_URCHAN_CNT(cap)) {
-+		ud->rchan_tpl.levels = 3;
-+		ud->rchan_tpl.start_idx[1] = BCDMA_CAP4_URCHAN_CNT(cap);
-+		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
-+	} else if (BCDMA_CAP4_HRCHAN_CNT(cap)) {
-+		ud->rchan_tpl.levels = 2;
-+		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
-+	} else {
-+		ud->rchan_tpl.levels = 1;
-+	}
++maintainers:
++  - Sai Sree Kartheek Adivi <s-adivi@ti.com>
 +
-+	if (BCDMA_CAP4_UTCHAN_CNT(cap)) {
-+		ud->tchan_tpl.levels = 3;
-+		ud->tchan_tpl.start_idx[1] = BCDMA_CAP4_UTCHAN_CNT(cap);
-+		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
-+	} else if (BCDMA_CAP4_HTCHAN_CNT(cap)) {
-+		ud->tchan_tpl.levels = 2;
-+		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
-+	} else {
-+		ud->tchan_tpl.levels = 1;
-+	}
++description:
++  The PKTDMA V2 is intended to perform similar functions as the packet mode
++  channels of K3 UDMA-P. PKTDMA V2 only includes Split channels to service
++  PSI-L based peripherals.
 +
-+	ud->bchan_map = devm_bitmap_zalloc(dev, ud->bchan_cnt, GFP_KERNEL);
-+	ud->bchans = devm_kcalloc(dev, ud->bchan_cnt, sizeof(*ud->bchans),
-+				  GFP_KERNEL);
-+	ud->tchan_map = devm_bitmap_zalloc(dev, ud->tchan_cnt, GFP_KERNEL);
-+	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
-+				  GFP_KERNEL);
-+	ud->rchan_map = devm_bitmap_zalloc(dev, ud->rchan_cnt, GFP_KERNEL);
-+	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
-+				  GFP_KERNEL);
-+	/* BCDMA do not really have flows, but the driver expect it */
-+	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rchan_cnt),
-+					sizeof(unsigned long),
-+					GFP_KERNEL);
-+	ud->rflows = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rflows),
-+				  GFP_KERNEL);
++  The peripherals can be PSI-L native or legacy, non PSI-L native peripherals
++  with PDMAs. PDMA is tasked to act as a bridge between the PSI-L fabric and the
++  legacy peripheral.
 +
-+	if (!ud->bchan_map || !ud->tchan_map || !ud->rchan_map ||
-+	    !ud->rflow_in_use || !ud->bchans || !ud->tchans || !ud->rchans ||
-+	    !ud->rflows)
-+		return -ENOMEM;
++allOf:
++  - $ref: /schemas/dma/dma-controller.yaml#
 +
-+	if (ud->bcdma_setup_sci_resources) {
-+		ret = ud->bcdma_setup_sci_resources(ud);
-+		if (ret)
-+			return ret;
-+	}
++properties:
++  compatible:
++    const: ti,am62l-dmss-pktdma
 +
-+	return 0;
-+}
++  reg:
++    items:
++      - description: Packet DMA Control & Status
++      - description: Channel Realtime
++      - description: Ring Realtime
 +
-+static int pktdma_setup_resources(struct udma_dev *ud)
-+{
-+	int ret;
-+	struct device *dev = ud->dev;
-+	u32 cap3;
++  reg-names:
++    items:
++      - const: gcfg
++      - const: chanrt
++      - const: ringrt
 +
-+	/* Set up the throughput level start indexes */
-+	cap3 = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
-+	if (UDMA_CAP3_UCHAN_CNT(cap3)) {
-+		ud->tchan_tpl.levels = 3;
-+		ud->tchan_tpl.start_idx[1] = UDMA_CAP3_UCHAN_CNT(cap3);
-+		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
-+	} else if (UDMA_CAP3_HCHAN_CNT(cap3)) {
-+		ud->tchan_tpl.levels = 2;
-+		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
-+	} else {
-+		ud->tchan_tpl.levels = 1;
-+	}
++  "#dma-cells":
++    const: 2
++    description: |
++      cell 1: Flow ID for the peripheral
++        This is the hardware flow index assigned to the peripheral. TX and RX
++        flow indices are mixed across the valid range. For XYMF peripherals
++        (SPI, CRC32) each chip-select/FIFO has a distinct flow ID; use the
++        flow ID for the specific direction and chip-select being requested.
 +
-+	ud->rchan_tpl.levels = ud->tchan_tpl.levels;
-+	ud->rchan_tpl.start_idx[0] = ud->tchan_tpl.start_idx[0];
-+	ud->rchan_tpl.start_idx[1] = ud->tchan_tpl.start_idx[1];
++        Please refer to the device documentation for the flow map.
 +
-+	ud->tchan_map = devm_bitmap_zalloc(dev, ud->tchan_cnt, GFP_KERNEL);
-+	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
-+				  GFP_KERNEL);
-+	ud->rchan_map = devm_bitmap_zalloc(dev, ud->rchan_cnt, GFP_KERNEL);
-+	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
-+				  GFP_KERNEL);
-+	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rflow_cnt),
-+					sizeof(unsigned long),
-+					GFP_KERNEL);
-+	ud->rflows = devm_kcalloc(dev, ud->rflow_cnt, sizeof(*ud->rflows),
-+				  GFP_KERNEL);
-+	ud->tflow_map = devm_bitmap_zalloc(dev, ud->tflow_cnt, GFP_KERNEL);
++      cell 2: ASEL value for the channel
 +
-+	if (!ud->tchan_map || !ud->rchan_map || !ud->tflow_map || !ud->tchans ||
-+	    !ud->rchans || !ud->rflows || !ud->rflow_in_use)
-+		return -ENOMEM;
++  interrupts:
++    maxItems: 78
++    description:
++      Interrupts for DMA channels.
 +
-+	if (ud->pktdma_setup_sci_resources) {
-+		ret = ud->pktdma_setup_sci_resources(ud);
-+		if (ret)
-+			return ret;
-+	}
++  interrupt-names:
++    minItems: 78
++    maxItems: 78
++    items:
++      pattern: "^(t|r)x-([0-9]|1[0-3]|1[6-9]|2[0-9]|3[0-9]|4[0-7]|6[4-9]|7[0-9]|9[6-9]|10[0-9]|11[01])$"
++    description:
++      The name of the interrupt corresponding to the DMA flow.
++      TX flows use the "tx-" prefix, RX flows use the "rx-" prefix.
 +
-+	return 0;
-+}
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#dma-cells"
++  - interrupts
++  - interrupt-names
 +
-+int k3_udma_setup_resources(struct udma_dev *ud)
-+{
-+	struct device *dev = ud->dev;
-+	int ch_count, ret;
++unevaluatedProperties: false
 +
-+	switch (ud->match_data->type) {
-+	case DMA_TYPE_UDMA:
-+		if (!ud->udma_setup_resources)
-+			return -EINVAL;
-+		ret = ud->udma_setup_resources(ud);
-+		break;
-+	case DMA_TYPE_BCDMA:
-+		ret = bcdma_setup_resources(ud);
-+		break;
-+	case DMA_TYPE_PKTDMA:
-+		ret = pktdma_setup_resources(ud);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
 +
-+	if (ret)
-+		return ret;
++    dma-controller@485c0000 {
++        compatible = "ti,am62l-dmss-pktdma";
++        reg = <0x485c0000 0x4000>,
++              <0x48900000 0x80000>,
++              <0x47200000 0x100000>;
++        reg-names = "gcfg", "chanrt", "ringrt";
 +
-+	ch_count  = ud->bchan_cnt + ud->tchan_cnt + ud->rchan_cnt;
-+	if (ud->bchan_cnt)
-+		ch_count -= bitmap_weight(ud->bchan_map, ud->bchan_cnt);
-+	ch_count -= bitmap_weight(ud->tchan_map, ud->tchan_cnt);
-+	ch_count -= bitmap_weight(ud->rchan_map, ud->rchan_cnt);
-+	if (!ch_count)
-+		return -ENODEV;
++        #dma-cells = <2>;
 +
-+	ud->channels = devm_kcalloc(dev, ch_count, sizeof(*ud->channels),
-+				    GFP_KERNEL);
-+	if (!ud->channels)
-+		return -ENOMEM;
-+
-+	switch (ud->match_data->type) {
-+	case DMA_TYPE_UDMA:
-+		dev_info(dev,
-+			 "Channels: %d (tchan: %u, rchan: %u, gp-rflow: %u)\n",
-+			 ch_count,
-+			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
-+						       ud->tchan_cnt),
-+			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
-+						       ud->rchan_cnt),
-+			 ud->rflow_cnt - bitmap_weight(ud->rflow_gp_map,
-+						       ud->rflow_cnt));
-+		break;
-+	case DMA_TYPE_BCDMA:
-+		dev_info(dev,
-+			 "Channels: %d (bchan: %u, tchan: %u, rchan: %u)\n",
-+			 ch_count,
-+			 ud->bchan_cnt - bitmap_weight(ud->bchan_map,
-+						       ud->bchan_cnt),
-+			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
-+						       ud->tchan_cnt),
-+			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
-+						       ud->rchan_cnt));
-+		break;
-+	case DMA_TYPE_PKTDMA:
-+		dev_info(dev,
-+			 "Channels: %d (tchan: %u, rchan: %u)\n",
-+			 ch_count,
-+			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
-+						       ud->tchan_cnt),
-+			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
-+						       ud->rchan_cnt));
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return ch_count;
-+}
-+EXPORT_SYMBOL_GPL(k3_udma_setup_resources);
-+
- MODULE_DESCRIPTION("Texas Instruments K3 UDMA Common Library");
- MODULE_LICENSE("GPL v2");
-diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-index 21978f17e327f..9a261747c8709 100644
---- a/drivers/dma/ti/k3-udma.c
-+++ b/drivers/dma/ti/k3-udma.c
-@@ -2083,7 +2083,7 @@ static const char * const range_names[] = {
- 	[RM_RANGE_TFLOW] = "ti,sci-rm-range-tflow",
- };
- 
--static int udma_setup_resources(struct udma_dev *ud)
-+int udma_setup_resources(struct udma_dev *ud)
- {
- 	int ret, i, j;
- 	struct device *dev = ud->dev;
-@@ -2245,74 +2245,13 @@ static int udma_setup_resources(struct udma_dev *ud)
- 	return 0;
- }
- 
--static int bcdma_setup_resources(struct udma_dev *ud)
-+static int bcdma_setup_sci_resources(struct udma_dev *ud)
- {
- 	int ret, i, j;
- 	struct device *dev = ud->dev;
- 	struct ti_sci_resource *rm_res, irq_res;
- 	struct udma_tisci_rm *tisci_rm = &ud->tisci_rm;
- 	const struct udma_oes_offsets *oes = &ud->soc_data->oes;
--	u32 cap;
--
--	/* Set up the throughput level start indexes */
--	cap = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
--	if (BCDMA_CAP3_UBCHAN_CNT(cap)) {
--		ud->bchan_tpl.levels = 3;
--		ud->bchan_tpl.start_idx[1] = BCDMA_CAP3_UBCHAN_CNT(cap);
--		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
--	} else if (BCDMA_CAP3_HBCHAN_CNT(cap)) {
--		ud->bchan_tpl.levels = 2;
--		ud->bchan_tpl.start_idx[0] = BCDMA_CAP3_HBCHAN_CNT(cap);
--	} else {
--		ud->bchan_tpl.levels = 1;
--	}
--
--	cap = udma_read(ud->mmrs[MMR_GCFG], 0x30);
--	if (BCDMA_CAP4_URCHAN_CNT(cap)) {
--		ud->rchan_tpl.levels = 3;
--		ud->rchan_tpl.start_idx[1] = BCDMA_CAP4_URCHAN_CNT(cap);
--		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
--	} else if (BCDMA_CAP4_HRCHAN_CNT(cap)) {
--		ud->rchan_tpl.levels = 2;
--		ud->rchan_tpl.start_idx[0] = BCDMA_CAP4_HRCHAN_CNT(cap);
--	} else {
--		ud->rchan_tpl.levels = 1;
--	}
--
--	if (BCDMA_CAP4_UTCHAN_CNT(cap)) {
--		ud->tchan_tpl.levels = 3;
--		ud->tchan_tpl.start_idx[1] = BCDMA_CAP4_UTCHAN_CNT(cap);
--		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
--	} else if (BCDMA_CAP4_HTCHAN_CNT(cap)) {
--		ud->tchan_tpl.levels = 2;
--		ud->tchan_tpl.start_idx[0] = BCDMA_CAP4_HTCHAN_CNT(cap);
--	} else {
--		ud->tchan_tpl.levels = 1;
--	}
--
--	ud->bchan_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->bchan_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--	ud->bchans = devm_kcalloc(dev, ud->bchan_cnt, sizeof(*ud->bchans),
--				  GFP_KERNEL);
--	ud->tchan_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->tchan_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
--				  GFP_KERNEL);
--	ud->rchan_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->rchan_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
--				  GFP_KERNEL);
--	/* BCDMA do not really have flows, but the driver expect it */
--	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rchan_cnt),
--					sizeof(unsigned long),
--					GFP_KERNEL);
--	ud->rflows = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rflows),
--				  GFP_KERNEL);
--
--	if (!ud->bchan_map || !ud->tchan_map || !ud->rchan_map ||
--	    !ud->rflow_in_use || !ud->bchans || !ud->tchans || !ud->rchans ||
--	    !ud->rflows)
--		return -ENOMEM;
- 
- 	/* Get resource ranges from tisci */
- 	for (i = 0; i < RM_RANGE_LAST; i++) {
-@@ -2476,51 +2415,13 @@ static int bcdma_setup_resources(struct udma_dev *ud)
- 	return 0;
- }
- 
--static int pktdma_setup_resources(struct udma_dev *ud)
-+static int pktdma_setup_sci_resources(struct udma_dev *ud)
- {
- 	int ret, i, j;
- 	struct device *dev = ud->dev;
- 	struct ti_sci_resource *rm_res, irq_res;
- 	struct udma_tisci_rm *tisci_rm = &ud->tisci_rm;
- 	const struct udma_oes_offsets *oes = &ud->soc_data->oes;
--	u32 cap3;
--
--	/* Set up the throughput level start indexes */
--	cap3 = udma_read(ud->mmrs[MMR_GCFG], 0x2c);
--	if (UDMA_CAP3_UCHAN_CNT(cap3)) {
--		ud->tchan_tpl.levels = 3;
--		ud->tchan_tpl.start_idx[1] = UDMA_CAP3_UCHAN_CNT(cap3);
--		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
--	} else if (UDMA_CAP3_HCHAN_CNT(cap3)) {
--		ud->tchan_tpl.levels = 2;
--		ud->tchan_tpl.start_idx[0] = UDMA_CAP3_HCHAN_CNT(cap3);
--	} else {
--		ud->tchan_tpl.levels = 1;
--	}
--
--	ud->rchan_tpl.levels = ud->tchan_tpl.levels;
--	ud->rchan_tpl.start_idx[0] = ud->tchan_tpl.start_idx[0];
--	ud->rchan_tpl.start_idx[1] = ud->tchan_tpl.start_idx[1];
--
--	ud->tchan_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->tchan_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--	ud->tchans = devm_kcalloc(dev, ud->tchan_cnt, sizeof(*ud->tchans),
--				  GFP_KERNEL);
--	ud->rchan_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->rchan_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--	ud->rchans = devm_kcalloc(dev, ud->rchan_cnt, sizeof(*ud->rchans),
--				  GFP_KERNEL);
--	ud->rflow_in_use = devm_kcalloc(dev, BITS_TO_LONGS(ud->rflow_cnt),
--					sizeof(unsigned long),
--					GFP_KERNEL);
--	ud->rflows = devm_kcalloc(dev, ud->rflow_cnt, sizeof(*ud->rflows),
--				  GFP_KERNEL);
--	ud->tflow_map = devm_kmalloc_array(dev, BITS_TO_LONGS(ud->tflow_cnt),
--					   sizeof(unsigned long), GFP_KERNEL);
--
--	if (!ud->tchan_map || !ud->rchan_map || !ud->tflow_map || !ud->tchans ||
--	    !ud->rchans || !ud->rflows || !ud->rflow_in_use)
--		return -ENOMEM;
- 
- 	/* Get resource ranges from tisci */
- 	for (i = 0; i < RM_RANGE_LAST; i++) {
-@@ -2631,80 +2532,6 @@ static int pktdma_setup_resources(struct udma_dev *ud)
- 	return 0;
- }
- 
--static int setup_resources(struct udma_dev *ud)
--{
--	struct device *dev = ud->dev;
--	int ch_count, ret;
--
--	switch (ud->match_data->type) {
--	case DMA_TYPE_UDMA:
--		ret = udma_setup_resources(ud);
--		break;
--	case DMA_TYPE_BCDMA:
--		ret = bcdma_setup_resources(ud);
--		break;
--	case DMA_TYPE_PKTDMA:
--		ret = pktdma_setup_resources(ud);
--		break;
--	default:
--		return -EINVAL;
--	}
--
--	if (ret)
--		return ret;
--
--	ch_count  = ud->bchan_cnt + ud->tchan_cnt + ud->rchan_cnt;
--	if (ud->bchan_cnt)
--		ch_count -= bitmap_weight(ud->bchan_map, ud->bchan_cnt);
--	ch_count -= bitmap_weight(ud->tchan_map, ud->tchan_cnt);
--	ch_count -= bitmap_weight(ud->rchan_map, ud->rchan_cnt);
--	if (!ch_count)
--		return -ENODEV;
--
--	ud->channels = devm_kcalloc(dev, ch_count, sizeof(*ud->channels),
--				    GFP_KERNEL);
--	if (!ud->channels)
--		return -ENOMEM;
--
--	switch (ud->match_data->type) {
--	case DMA_TYPE_UDMA:
--		dev_info(dev,
--			 "Channels: %d (tchan: %u, rchan: %u, gp-rflow: %u)\n",
--			 ch_count,
--			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
--						       ud->tchan_cnt),
--			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
--						       ud->rchan_cnt),
--			 ud->rflow_cnt - bitmap_weight(ud->rflow_gp_map,
--						       ud->rflow_cnt));
--		break;
--	case DMA_TYPE_BCDMA:
--		dev_info(dev,
--			 "Channels: %d (bchan: %u, tchan: %u, rchan: %u)\n",
--			 ch_count,
--			 ud->bchan_cnt - bitmap_weight(ud->bchan_map,
--						       ud->bchan_cnt),
--			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
--						       ud->tchan_cnt),
--			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
--						       ud->rchan_cnt));
--		break;
--	case DMA_TYPE_PKTDMA:
--		dev_info(dev,
--			 "Channels: %d (tchan: %u, rchan: %u)\n",
--			 ch_count,
--			 ud->tchan_cnt - bitmap_weight(ud->tchan_map,
--						       ud->tchan_cnt),
--			 ud->rchan_cnt - bitmap_weight(ud->rchan_map,
--						       ud->rchan_cnt));
--		break;
--	default:
--		break;
--	}
--
--	return ch_count;
--}
--
- static int udma_probe(struct platform_device *pdev)
- {
- 	struct device_node *navss_node = pdev->dev.parent->of_node;
-@@ -2747,6 +2574,9 @@ static int udma_probe(struct platform_device *pdev)
- 	ud->decrement_byte_counters = udma_decrement_byte_counters;
- 	ud->psil_pair = navss_psil_pair;
- 	ud->psil_unpair = navss_psil_unpair;
-+	ud->udma_setup_resources = udma_setup_resources;
-+	ud->bcdma_setup_sci_resources = bcdma_setup_sci_resources;
-+	ud->pktdma_setup_sci_resources = pktdma_setup_sci_resources;
- 
- 	ret = udma_get_mmrs(pdev, ud);
- 	if (ret)
-@@ -2876,7 +2706,7 @@ static int udma_probe(struct platform_device *pdev)
- 	INIT_LIST_HEAD(&ud->ddev.channels);
- 	INIT_LIST_HEAD(&ud->desc_to_purge);
- 
--	ch_count = setup_resources(ud);
-+	ch_count = k3_udma_setup_resources(ud);
- 	if (ch_count <= 0)
- 		return ch_count;
- 
-diff --git a/drivers/dma/ti/k3-udma.h b/drivers/dma/ti/k3-udma.h
-index 329df7eb156b2..d64b670d42490 100644
---- a/drivers/dma/ti/k3-udma.h
-+++ b/drivers/dma/ti/k3-udma.h
-@@ -357,6 +357,9 @@ struct udma_dev {
- 			 u32 dst_thread);
- 	int (*psil_unpair)(struct udma_dev *ud, u32 src_thread,
- 			   u32 dst_thread);
-+	int (*udma_setup_resources)(struct udma_dev *ud);
-+	int (*bcdma_setup_sci_resources)(struct udma_dev *ud);
-+	int (*pktdma_setup_sci_resources)(struct udma_dev *ud);
- };
- 
- struct udma_desc {
-@@ -679,6 +682,9 @@ struct udma_bchan *__udma_reserve_bchan(struct udma_dev *ud, enum udma_tp_level
- struct udma_tchan *__udma_reserve_tchan(struct udma_dev *ud, enum udma_tp_level tpl, int id);
- struct udma_rchan *__udma_reserve_rchan(struct udma_dev *ud, enum udma_tp_level tpl, int id);
- 
-+int udma_setup_resources(struct udma_dev *ud);
-+int k3_udma_setup_resources(struct udma_dev *ud);
-+
- /* Direct access to UDMA low lever resources for the glue layer */
- int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
- int xudma_navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
++        interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 362 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 366 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 367 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 371 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 374 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 375 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 378 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 379 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 322 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 323 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 322 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 323 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 322 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 323 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 322 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 323 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 326 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 326 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 326 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 326 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 334 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 335 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 334 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 335 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 334 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 335 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 334 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 335 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 500 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 501 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 502 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 503 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 504 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 505 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 506 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 507 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 508 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 509 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 510 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 511 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 512 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 484 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 485 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 486 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 487 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 488 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 489 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 490 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 491 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 492 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 493 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 494 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 495 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 496 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 497 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 498 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 499 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "rx-0", "tx-1", "rx-2", "tx-3", "rx-4",
++                          "tx-5", "rx-6", "tx-7", "rx-8", "tx-9",
++                          "rx-10", "tx-11", "rx-12", "tx-13",
++                          "rx-16", "tx-17", "rx-18", "tx-19",
++                          "rx-20", "tx-21", "rx-22", "tx-23",
++                          "rx-24", "tx-25", "rx-26", "tx-27",
++                          "rx-28", "tx-29", "rx-30", "tx-31",
++                          "rx-32", "tx-33", "rx-34", "tx-35",
++                          "rx-36", "tx-37", "rx-38", "tx-39",
++                          "rx-40", "tx-41", "rx-42", "tx-43",
++                          "rx-44", "tx-45", "rx-46", "tx-47",
++                          "tx-64", "tx-65", "tx-66", "tx-67",
++                          "tx-68", "tx-69", "tx-70", "tx-71",
++                          "tx-72", "tx-73", "tx-74", "tx-75",
++                          "tx-76", "tx-77", "tx-78", "tx-79",
++                          "rx-96", "rx-97", "rx-98", "rx-99",
++                          "rx-100", "rx-101", "rx-102", "rx-103",
++                          "rx-104", "rx-105", "rx-106", "rx-107",
++                          "rx-108", "rx-109", "rx-110", "rx-111";
++    };
 -- 
 2.54.0
 
