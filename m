@@ -1,172 +1,156 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F254AA579;
-	Mon, 28 Sep 2026 11:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7DC4AAC76;
+	Mon, 28 Sep 2026 11:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595413; cv=none; b=Vx6VlJcZcN4Sqs9JyhkKDWqzKGGMwRbHOH3ILD77z0wue0t0L19vCwUVH53EqW4aYub6qCIdeJ0oaTBFXKS7E32bfYQ2DWMOlpBY1e7qVdTI0EXFLtgnOygIRpNu5il/Fd9Bm9BhPh5OFy1RWcEUo2GFX3g18+GZEgMqiSt0qVE=
+	t=1790595430; cv=none; b=rT82YZKGMRryG4WsRHrnn6wcGrvXG/Q556Ec07IblLPrea1nYrOWdiITe9FvAqNiuSTgEuV65o8N+lRZJ/TMVLjygniqghGyN1GgF+9sLWv0O7vrOuhVJThcQISxnyJS83o9aLZX6HdKTc49PQGqN/tAle73eaTfG6gYFId/PsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595413; c=relaxed/simple;
-	bh=T5IbdwHsw/qD2EPA4qspcbLgg6+Q2R18K4Hca4xmGAI=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=kNV18FcQ3w6Li3rK91zJWaK1NvkF5qF21nLIq72m2Cg1CTWf6Jq7Nn95YwBgaBAlVa5ind0hGP/F3/y69O3Bx9D/r5i35wAkMqOvqBEGGTxKf6uQkFnTPM0BOqVBQR5h7tgqdLCP0AIFdbgvGPJc+wAw43FFiElUMZQ3RmTCPI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=A6miKgX7; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1790595430; c=relaxed/simple;
+	bh=DBXOe2w5R1yU1cFL2hrwXsgnLTMEXw1Ce0nNIBfa+dg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=srwldbVc8EU9RMrpi0HTgCE8iKLUqfOD44ImST9uVsAsxTdWlYJUkiC7ihqC8zE8YlRdBrj8hQVlUeZjewBnOc+Y4+LymMW3HeK5XXQBq8jkWb549hljf794eXsVCWhz1muJazho52YAieq7xovtW9kr1f48v4lUqoD0O01Sy0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=09Yic5Lf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cGWovZt+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BgpoxU4T; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OYRKnH7v; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="A6miKgX7"
-Received: from smtpclient.apple (unknown [IPV6:240e:305:1b9d:c000:658d:22e4:fce7:420c])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5ac1a9f;
-	Mon, 28 Sep 2026 19:36:40 +0800 (GMT+08:00)
-From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="09Yic5Lf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cGWovZt+";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BgpoxU4T";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OYRKnH7v"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 811C321BE9;
+	Mon, 28 Sep 2026 11:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0nFpVwW8Qb/XKdtGxEQ6doda0NPGIRUjGdQoWdYK2Y=;
+	b=09Yic5Lf9xNV01mU9wW6gIeLRsLUI2to36YdUJpxnGra+1NqW7YojmT8IOJTABdcCY01xX
+	s33/lxIiVUii2dxYTEkWjS/nbUDuKJKYBryEVHKZB09brki3sen74VX8gzfBmKSgSlQpnY
+	TqvEGnbw/LYxF4AR4qz8hi9t5MA15Ro=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595422;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0nFpVwW8Qb/XKdtGxEQ6doda0NPGIRUjGdQoWdYK2Y=;
+	b=cGWovZt+c9MbWCdaVctbcbVuSw8IDOn8aV/RyQbK1n1OtFuQPVCxdIAmXfccxROyQWbhMT
+	KQ8cs5qtZIpPmgCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=BgpoxU4T;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=OYRKnH7v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0nFpVwW8Qb/XKdtGxEQ6doda0NPGIRUjGdQoWdYK2Y=;
+	b=BgpoxU4TkSdoKeS6GrTEK0eHqEFsNMEOwaPg6j9uoHJkFM+jj038eZ+SnPPvAJKjmtvMEs
+	7RvvRrhSP8t6zT/CzKqb6oY3WSQMHK8N/hw9AmggoME5lU05CcwkPA3wpQXKoZ/U46AcDQ
+	4jyxYR7rbianj7doZ7BQCj5RpC1RRWM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595418;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0nFpVwW8Qb/XKdtGxEQ6doda0NPGIRUjGdQoWdYK2Y=;
+	b=OYRKnH7vg7N6VaNUFfxSMelDIEltqszHZ6uPXO4jj05tWHSyBYhu3C7VtVP9GWS80QCi9A
+	spYIC7j5cQU8PQDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3B106133F3;
+	Mon, 28 Sep 2026 11:36:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id itXtBFpRumoPRgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:36:58 +0000
+Date: Mon, 28 Sep 2026 13:36:57 +0200
+Message-ID: <87v77p6206.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tarun Noonemunthala <ntarun2000@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP ENVY 13-aq1xxx
+In-Reply-To: <20260923094014.58867-1-ntarun2000@gmail.com>
+References: <20260923094014.58867-1-ntarun2000@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: [PATCH] ceph: bound the mon command wait
-Message-Id: <7412F740-8826-4790-8BEC-A590DB2BC2E4@stu.pku.edu.cn>
-Date: Mon, 28 Sep 2026 19:36:30 +0800
-Cc: ceph-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-To: Ilya Dryomov <idryomov@gmail.com>,
- Alex Markuze <amarkuze@redhat.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-HM-Tid: 0aa0e7cd833703a1kunmf2fcd2451f9292
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0pOVh4ZSxpPSh4fTktOTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUhLTkFKGUIfQRhLS0tBTU5DH0FJSR5PQR0YHkxBT0
-	lLGFlXWRYaDxIVHRRZQVlPS0hVSktJSE5DQ1VKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=A6miKgX7OzTI5CY4V5dDBmqXRySp2CFYQoCBiD8wHLF+Oq4KdzRUVacZfODfltptUSluGh+XA/iNnCMP4L9KEaro/9hhJSTRMttOxUiaZdY2dLyAMjLqrH9kCyJBl1qVR+2JLjPHM6WfNK4zr4SMhZAZ9svb/0AuklXUWlRkU1c=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=TvKf7SSMp0T++430PIKppvqUMsgRV/+IYvLvPLLFBgI=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 811C321BE9
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-ceph_update_snap_trace() reacts to a corrupted snap trace by fencing
-the mount and blocklisting the client through ceph_monc_blocklist_add().
-That issues the "osd blocklist add" mon command and waits for the reply
-synchronously, from the messenger dispatch path, with session->s_mutex
-held.  Dispatch runs in a kworker, where no signal will ever arrive,
-and the wait has no timeout: a monitor that doesn't reply leaves that
-worker asleep holding the mutex for good.  ceph_cap_release_work() and
-anything else queued behind the session mutex pile up on it, and the
-WARN(1, "...do remount to continue") that is supposed to tell the admin
-to remount sits after the wait and never runs.
+On Wed, 23 Sep 2026 11:40:14 +0200,
+Tarun Noonemunthala wrote:
+> 
+> The HP ENVY Laptop 13-aq1xxx (PCI SSID 103c:86ad) uses an ALC285 codec
+> with two speaker pairs: front (pin 0x14) and bottom (pin 0x17).
+> 
+> The BIOS leaves pin 0x14 as [N/A] ("not connected"), so the generic
+> parser never enables the front pair and only the bottom speakers are
+> audible.  The vendor driver (RTKVHD64.sys) programs that pin with the
+> value 0x90170150 and runs the HP amplifier initialization, which is
+> already implemented in the driver as ALC285_FIXUP_HP_GPIO_AMP_INIT.
+> 
+> Add a board fixup that applies the pin configuration for 0x14 and chains
+> to the existing amplifier init fixup.
+> 
+> The pin value was recovered from the vendor driver's own configuration
+> data.  The patch and this changelog were prepared with an AI coding
+> assistant (see the Assisted-by tag below); the change was reviewed and
+> tested by the submitter on the affected machine.
+> 
+> Tested on an HP ENVY 13-aq1xxx by rebuilding snd-hda-codec-alc269 from
+> the Fedora 7.1.10 source and loading it: the codec now reports
+> "line_outs=2 (0x14/0x17)", pin 0x14 comes up as an output (Pin-ctls
+> 0x40) with its amplifier unmuted, and both speaker pairs play.
+> 
+> Assisted-by: OpenCode:deepseek-v4.1-flash checkpatch
+> Signed-off-by: Tarun Noonemunthala <ntarun2000@gmail.com>
 
-Bound the mon command wait with CEPH_MONC_PING_TIMEOUT (30s).  That is
-already how long an unanswered monitor keepalive may last before the
-session is reopened.  On timeout the existing error handling takes
-over: the blocklist failure is reported, the warning is issued and the
-mount stays fenced, so the admin can remount as intended.
+Applied now.  Thanks.
 
-The blocked worker on the unpatched kernel, trimmed:
 
-INFO: task kworker/0:1:11 blocked for more than 10 seconds.
-Workqueue: ceph-msgr ceph_con_workfn
-Call Trace:
- <TASK>
- __schedule+0x1850/0x4a80
- schedule+0x7a/0x1f0
- schedule_timeout+0x217/0x250
- __wait_for_common+0x2af/0x460
- wait_for_completion_interruptible+0x1f/0x40
- wait_generic_request+0x1f/0x270
- do_mon_command+0x4b6/0x600
- ceph_monc_blocklist_add+0x88/0x1a0
- ceph_update_snap_trace+0x222/0x3420
- ceph_con_process_message+0x1e5/0x270
- [...]
- </TASK>
-
-INFO: task kworker/0:0:9 blocked for more than 10 seconds.
-Workqueue: ceph-cap ceph_cap_release_work
- mutex_lock+0xce/0xe0
- [...]
-
-With the watchdog set to panic this ends in "Kernel panic - not
-syncing: hung_task: blocked tasks"; with the production defaults it
-just stays there.  With this patch the same run prints:
-
-ceph: [client 1]: error -5
-ceph: [client 1]: failed to blocklist ...: -110
-[client.1] ceph_update_snap_trace do remount to continue after corrupted =
-snaptrace is fixed
-WARNING: fs/ceph/snap.c:926 at ceph_update_snap_trace+0x2d1/0x3420
-
-(thirty seconds after the snap trace error) and the pending requests
-on the fenced mount fail instead of hanging.
-
-Verified on 7.3-rc4-00537-ga3ff15db6820 with only this change applied:
-the blocklist failure and the warning arrive thirty seconds after the
-snap trace error, and the blocked worker returns.  An unresponsive
-monitor plus a corrupted snap trace used to wedge the mount for good;
-when the wait expires the blocklist attempt returns -ETIMEDOUT, the
-warning fires and the mount stays fenced until remount.
-
-Fixes: a68e564adcaa6 ("ceph: blocklist the kclient when receiving =
-corrupted snap trace")
-Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
----
- net/ceph/mon_client.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
-
-diff --git a/net/ceph/mon_client.c b/net/ceph/mon_client.c
-index c56457378d00e..435c7f851ab26 100644
---- a/net/ceph/mon_client.c
-+++ b/net/ceph/mon_client.c
-@@ -705,6 +705,24 @@ static int wait_generic_request(struct =
-ceph_mon_generic_request *req)
- 	return ret;
- }
-=20
-+static int wait_generic_request_timeout(struct ceph_mon_generic_request =
-*req,
-+					unsigned long timeout)
-+{
-+	long ret;
-+
-+	dout("%s greq %p tid %llu\n", __func__, req, req->tid);
-+	ret =3D =
-wait_for_completion_interruptible_timeout(&req->completion,
-+							timeout);
-+	if (ret =3D=3D 0)
-+		ret =3D -ETIMEDOUT;
-+	if (ret < 0) {
-+		cancel_generic_request(req);
-+		return ret;
-+	}
-+
-+	return req->result; /* completed */
-+}
-+
- static struct ceph_msg *get_generic_reply(struct ceph_connection *con,
- 					 struct ceph_msg_header *hdr,
- 					 int *skip)
-@@ -1006,7 +1024,14 @@ int do_mon_command_vargs(struct ceph_mon_client =
-*monc, const char *fmt,
- 	send_generic_request(monc, req);
- 	mutex_unlock(&monc->mutex);
-=20
--	ret =3D wait_generic_request(req);
-+	/*
-+	 * ceph_monc_blocklist_add() runs from messenger dispatch, in a
-+	 * kworker, with session->s_mutex held.  No signal arrives =
-there.
-+	 * CEPH_MONC_PING_TIMEOUT is how long an unanswered monitor
-+	 * keepalive may last before the session is reopened; use that
-+	 * so this worker cannot sleep for good.
-+	 */
-+	ret =3D wait_generic_request_timeout(req, =
-CEPH_MONC_PING_TIMEOUT);
- out:
- 	put_generic_request(req);
- 	return ret;
---=20
-2.43.0=
+Takashi
