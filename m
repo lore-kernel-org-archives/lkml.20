@@ -1,402 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285384F393D;
-	Mon, 28 Sep 2026 17:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333834EFFD7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615583; cv=none; b=oKJ4WHpV3M2MKY3MdgQ2zJntCVvoIrsBXZr6L6TRZ80ttoC0Q6PHvO/uWkwVkuAkvcCTwbkXPQkqc+XJMAvsJnOo6xio3Lbx/lzhivaVt2PKPxslO9D2lGsHbOE/cEN3xXRJox+pfTjlwgqnk1WkNUJ2Cn4T7I5ezEcRY/qy7iI=
+	t=1790615615; cv=none; b=omG3DnkIkTZmswvD1+A9slbHb98bDiQz5Gmy1ObZYieF81X94qh9ZLCj0q/Y0bFzbMvYilrqTnhYjERK3VcMAdMM64HCKU567URvVY7bUsYUIZHYmS1U4gYSg1naIsWt3uy9LoWClS7Bem+lMTdfT4/gctNEB4B1XyoIG5AjGWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615583; c=relaxed/simple;
-	bh=zOGLU3H0NGHkfdaXervuB3EenEC66RQFAoVPr1ydiiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m+hpRkJ4uAOwOvCVyO4jwK8H/oK+qwkyLSSABChtQJZVe9DbScPrQjA+QbvoBAohQuushop/MqUKeQnk8/J6HFspBiZ47MsPoA/uc4e3qLSs/8YHHjQVP+zXfEH2sEXXnOFBnOTF3J232DenMvEXIFsul9tCybWusAWWM2FKcNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/K1sYER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790615615; c=relaxed/simple;
+	bh=XHxU/KK74RPc0kjSTKlbcrcV9V1wAktMhhVZ1zefMa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aY4cJmIC4F4n4SkN6Wb4KsZRds7GiqV3ny34z5GsZR3pG9EvVFvmfujRdY+U+saRCAa9Tfh7xW/USxtnZY5cP2oIDzTiNPqGAiEvSykfhaGIaYyQ9R2qwUiJjcc5EZQ/gWjSQ9OmuPfotvDYOpMMzZC4kaNewkImmQxo8IiKdQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QdEAZ+5l; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/K1sYER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569761F00898;
-	Mon, 28 Sep 2026 17:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790615580;
-	bh=Yo4OmuVy0iOUrX0dIs9Yx9vGKkVpATes0ESTIMMsU30=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k/K1sYERKMH9O/Iurjjr8ZNsCJiP7sl5h3k6HHARj7rVPpXTd7yiqIFep5KR6SrWe
-	 M0wCdSbWXyR7fX5rJbiaAUWeImvd1Illg6xSaOirK41WZUpV1+DXckWC2k/7DhlR61
-	 fHGX0miEaHAlDnux7oshDf2cUprJsvip7+tsNl4wyHhC1EBAxSB0SEey85E2ejGdJB
-	 Pp9kW3Pd5YLQAb/PitCK3jkdxpNfEJteoozF+6th2KASr3QU9wF9AAlFpKWS5FuQUr
-	 +FV1IHRe6wT6vLi3q5jmtJeL9YsvOJqYA/fICyjQN0ENHmoTcvpx40wRo0+87FfMWq
-	 JbgE6H474Qpjw==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QdEAZ+5l"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so31623175e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790615612; x=1791220412; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P7b9T1NGzSIvXERiQY1++9mhso0lw76tkEZqq9P3l/A=;
+        b=QdEAZ+5l/R0BgZZ2voaG/n8050hTzTqV3tdGs5bvAjsYOHz3+X+cRJYjpfRzDbUixh
+         7Z/cl3L7B9d6J8FzVTLP1a/rV6YX2UDRJU75UFdCypzpD7hMdgytir63dFx9vuVBTZtA
+         hNOu+jWDBYNlug0YSGDV+uyZFkvbzkK9j/ZZ/d0Lx4M5eAK4VuVFUPQLHHAZ9bdEWldt
+         idBQ3PzSYfy+XflWP/6V7N5fRiJsrhx0Y3LEkqcC23L3noveF9ASr1sHjoQp+X6GAqeJ
+         UpdooAeD5G9Obww5ZHtfV+jU5zmw9VhP1o68C+u0OqSYVyo4IZVnniuWrETHLT6JjwNl
+         VGyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790615612; x=1791220412;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P7b9T1NGzSIvXERiQY1++9mhso0lw76tkEZqq9P3l/A=;
+        b=n6jNOqhMyCi8NHAHmOgyONs+ggbxwZy4Gy1XHIevDd9uRvaNAMa29BI580r6OTfvZX
+         AEkcUX3u0gJ+78R+NPfYlUlDukI02c0pLsAdH+JujBiT5ycMadzrl6knMRHLhdTnGhmm
+         HWBx4lTRgF5WetS7VBnUGCjouPZvV/f/TcofCsPlsg8pH9EDmSr9OGYiQe215Y+A6QSM
+         U5GJ/IektHbGvGj6EXlASN+a1+CjuM0StO0VoTgyUqfrnsXE3n0iDUOGMun/nEUkvEmI
+         su8jZYm4S4XCFt0PCX5S6ZzgkNbSPCVT/vgFo/w2xFYvRZTE03XylZa/fBKHo4qSs1JM
+         lSaA==
+X-Forwarded-Encrypted: i=1; AKwUvByiY4JVkzx85pFyRa+YyIs4gJ5fkC6cmge8nnf2jO5edNN4MuwF/ZEU5bM2+UrmRutfQdGTMv1r3k3v6VM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLpVB9voj971wugYl00KUfeVb65KfsucOopZ0YyvoZfBesdTlZ
+	zZvjgRGiWZon+HYzE8j+wljlu7TBHfZDRT0NBrmdAKSxT4p8Qm1gi8Q=
+X-Gm-Gg: AYBFou0Qy0gt6cf0+EwftUOKaPfoejWfqlpzV3kfcfHmz2kImQ4nrMbE1jWSUZ/lJrF
+	7i4hcjJMMkELdbG8y+hni/e5rRa7Kpi5Yw/58a5uSt2TThyK6A9gJQZhD0eqFtMAWG7LMfGYdhM
+	ggTNRiZhFSWk40shevU2tASLana0haOh0pt/KzHJ5JoHxGkkzg2C+gGFinkv97wFTlhoOJ1jsaG
+	gyZ0RLFSkh4FEAgFMxZ2Z22skh7Nc312F09Iy1+82oajG8QXQp9Fc5uYJ2kUFDVNny/d4+Ngf8N
+	WVEftv7CoJrjSySmOaNgQO6BxXmoCH0MmB4F7JEt6Lcqx6apRbdAg9897olTb78whZ/UkXciA40
+	zAYBaooZ6U4vuHQOm+wmKR5p6/a3zJPyctHpeuZsb7MCfe5yzBYXZlBz68ByO4KDOPz+dcJGh1W
+	5C9CZlyUrzS8AUDv2ry5HE+gL9Jly88B46I9zoBvwioVGfMx82kChHIudJ3YTSugJxZAORiWWrS
+	bKNhXs3Q7JtDutrSIHl696ifXdZtvTbiR3I+jK7Qakv6vQ4
+X-Received: by 2002:a05:600c:34d4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49fe66d1279mr209796045e9.10.1790615612284;
+        Mon, 28 Sep 2026 10:13:32 -0700 (PDT)
+Received: from localhost.localdomain ([31.223.84.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe0ea4sm6947525e9.3.2026.09.28.10.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 10:13:31 -0700 (PDT)
+From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 4/4] perf test: Add false_sharing workload exhibiting cross-CPU false sharing
-Date: Mon, 28 Sep 2026 19:12:44 +0200
-Message-ID: <20260928171244.2437283-5-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928171244.2437283-1-acme@kernel.org>
-References: <20260928171244.2437283-1-acme@kernel.org>
+	syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com,
+	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+Subject: [PATCH v2] Input: fix potential use-after-free in input_devices_seq_show
+Date: Mon, 28 Sep 2026 20:11:08 +0300
+Message-ID: <20260928171306.59206-1-habilerenturker@hotmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+The input_devices_seq_show() function accesses the input_dev structure
+while holding input_mutex. However, the device can still be freed
+concurrently, leading to a use-after-free.
 
-Add a 'perf test -w false_sharing' workload that hammers one shared
-struct from several CPUs, shaped as a TCP connection: a read-mostly
-identity (five-tuple) shares a cacheline with per-packet rx counters
-(the false-sharing line), a second line has packet-path private tx and
-congestion control counters, and a third the connection config.
+Fix this by taking a reference to the input device in
+input_devices_seq_start() and dropping it in input_devices_seq_stop().
 
-The packet path runs in the main thread and up to four lookup threads
-hash the five-tuple and pull the config, reading one volatile shared
-instance directly so the accesses are PC-relative and resolvable by the
-data type profiler.
-
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Reported-by: syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f
+Tested-by: Habil Eren Türker <habilerenturker@hotmail.com>
+Signed-off-by: Habil Eren Türker <habilerenturker@hotmail.com>
 ---
- tools/perf/tests/builtin-test.c               |   1 +
- tools/perf/tests/shell/data_type_profiling.sh |   9 +-
- tools/perf/tests/tests.h                      |   1 +
- tools/perf/tests/workloads/Build              |   2 +
- tools/perf/tests/workloads/false_sharing.c    | 240 ++++++++++++++++++
- 5 files changed, 251 insertions(+), 2 deletions(-)
- create mode 100644 tools/perf/tests/workloads/false_sharing.c
+Changes in v2:
+- Added Reported-by and Closes tags for the Syzbot report.
+- No functional changes.
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index d2f594921e25bda9..98134b1c74cf80f4 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -175,6 +175,7 @@ static struct test_workload *workloads[] = {
- 	&workload__context_switch_loop,
- 	&workload__deterministic,
- 	&workload__callchain,
-+	&workload__false_sharing,
+ drivers/input/input.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index cf6fecea7..14a95e816 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -1051,6 +1051,7 @@ static __poll_t input_proc_devices_poll(struct file *file, poll_table *wait)
+ static void *input_devices_seq_start(struct seq_file *seq, loff_t *pos)
+ {
+ 	struct input_seq_state *state = seq->private;
++	void *v;
+ 	int error;
  
- #ifdef HAVE_RUST_SUPPORT
- 	&workload__code_with_type,
-diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-index a916c410274aa888..57203e0e5f857540 100755
---- a/tools/perf/tests/shell/data_type_profiling.sh
-+++ b/tools/perf/tests/shell/data_type_profiling.sh
-@@ -8,8 +8,8 @@ set -e
- # data type profiling manifestation
+ 	error = mutex_lock_interruptible(&input_mutex);
+@@ -1061,7 +1062,11 @@ static void *input_devices_seq_start(struct seq_file *seq, loff_t *pos)
  
- # Values in testtypes and testprogs should match
--testtypes=("# data-type: struct Buf" "# data-type: struct buf")
--testprogs=("perf test -w code_with_type" "perf test -w datasym")
-+testtypes=("# data-type: struct Buf" "# data-type: struct buf" "# data-type: struct net_conn")
-+testprogs=("perf test -w code_with_type" "perf test -w datasym" "perf test -w false_sharing")
+ 	state->mutex_acquired = true;
  
- err=0
- perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-@@ -59,6 +59,9 @@ test_basic_annotate() {
- 
-     "xC")
-     index=1 ;;
+-	return seq_list_start(&input_dev_list, *pos);
++	v = seq_list_start(&input_dev_list, *pos);
++	if (v)
++		input_get_device(container_of(v, struct input_dev, node));
 +
-+    "xFS")
-+    index=2 ;;
-   esac
++	return v;
+ }
  
-   # Under 'set -e' a bare failing command aborts the script through the EXIT
-@@ -114,6 +117,8 @@ test_basic_annotate Basic Rust
- test_basic_annotate Pipe Rust
- test_basic_annotate Basic C
- test_basic_annotate Pipe C
-+test_basic_annotate Basic FS
-+test_basic_annotate Pipe FS
+ static void *input_devices_seq_next(struct seq_file *seq, void *v, loff_t *pos)
+@@ -1077,6 +1082,17 @@ static void input_seq_stop(struct seq_file *seq, void *v)
+ 		mutex_unlock(&input_mutex);
+ }
  
- cleanup
- exit $err
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 9c96f33483d14356..f379620069d34f3a 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -250,6 +250,7 @@ DECLARE_WORKLOAD(jitdump);
- DECLARE_WORKLOAD(context_switch_loop);
- DECLARE_WORKLOAD(deterministic);
- DECLARE_WORKLOAD(callchain);
-+DECLARE_WORKLOAD(false_sharing);
- 
- #ifdef HAVE_RUST_SUPPORT
- DECLARE_WORKLOAD(code_with_type);
-diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-index 048e371eb63e3164..18fceddccb56c013 100644
---- a/tools/perf/tests/workloads/Build
-+++ b/tools/perf/tests/workloads/Build
-@@ -14,6 +14,7 @@ perf-test-y += jitdump.o
- perf-test-y += context_switch_loop.o
- perf-test-y += deterministic.o
- perf-test-y += callchain.o
-+perf-test-y += false_sharing.o
- 
- ifeq ($(CONFIG_RUST_SUPPORT),y)
-     perf-test-y += code_with_type.o
-@@ -29,3 +30,4 @@ CFLAGS_inlineloop.o       = -g -O2
- CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-+CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-diff --git a/tools/perf/tests/workloads/false_sharing.c b/tools/perf/tests/workloads/false_sharing.c
-new file mode 100644
-index 0000000000000000..12e10d10b87e0d77
---- /dev/null
-+++ b/tools/perf/tests/workloads/false_sharing.c
-@@ -0,0 +1,240 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * False-sharing demo for data type profiling, shaped as a TCP
-+ * connection: a read-mostly identity shares a cacheline with per-packet
-+ * rx counters (the false-sharing line), a second line has packet-path
-+ * private tx and congestion control counters, and a third the connection
-+ * config.
-+ *
-+ * With a 'perf mem record' of this workload the profiler shows accesses
-+ * to different members of the same cacheline, which the CTF stream lets
-+ * pahole flag as false sharing on line 0.
-+ */
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include <linux/compiler.h>
-+#include "../tests.h"
-+
-+struct net_conn {
-+	/* cacheline 0: identity (read-mostly) + rx counters (per packet) */
-+	uint32_t	saddr;		/*   0 */
-+	uint32_t	daddr;		/*   4 */
-+	uint16_t	sport;		/*   8 */
-+	uint16_t	dport;		/*  10 */
-+	uint8_t		state;		/*  12: 1 == ESTABLISHED */
-+	uint8_t		protocol;	/*  13: 6 == TCP */
-+	uint16_t	__pad0;		/*  14 */
-+	uint64_t	bytes_rx;	/*  16: every packet */
-+	uint64_t	packets_rx;	/*  24: every packet */
-+	uint32_t	rx_queue;	/*  32: backlog depth, fluctuates */
-+	uint8_t		__pad1[24];	/*  36..59 */
-+	uint32_t	last_ack;	/*  60: written per ACK */
-+	/* cacheline 1: tx + congestion control (packet-path private) */
-+	uint64_t	bytes_tx;	/*  64: every packet */
-+	uint64_t	packets_tx;	/*  72: every packet */
-+	uint32_t	cwnd;		/*  80: on every ACK */
-+	uint32_t	ssthresh;	/*  84: on loss */
-+	uint32_t	rtt_us;		/*  88: on every ACK */
-+	uint32_t	retrans;	/*  92: on timeout */
-+	uint32_t	__pad2[8];	/*  96..127 */
-+	/* cacheline 2: config, set at setup, read by everybody */
-+	uint16_t	mss;		/* 128 */
-+	uint8_t		snd_wscale;	/* 130 */
-+	uint8_t		rcv_wscale;	/* 131 */
-+	uint32_t	keepalive_int;	/* 132 */
-+	uint32_t	mark;		/* 136: firewall mark */
-+	uint32_t	priority;	/* 140: traffic class */
-+	uint32_t	__pad3[12];	/* 144..191 */
-+} __attribute__((aligned(64)));
-+
-+/* Volatile so every iteration really loads and stores. */
-+static volatile struct net_conn conn;
-+/* Keeps the reader checksums alive after the threads join. */
-+static volatile unsigned long fs_sink;
-+
-+static volatile sig_atomic_t done;
-+
-+struct fs_reader {
-+	pthread_t	thread;
-+	int		cpu;
-+	unsigned long	sum;
-+	char		__pad[64 - sizeof(pthread_t) - sizeof(int) - sizeof(unsigned long)];
-+} __attribute__((aligned(64)));
-+
-+static void sighandler(int sig __maybe_unused)
++static void input_devices_seq_stop(struct seq_file *seq, void *v)
 +{
-+	done = 1;
++	struct input_seq_state *state = seq->private;
++
++	if (v)
++		input_put_device(container_of(v, struct input_dev, node));
++
++	if (state->mutex_acquired)
++		mutex_unlock(&input_mutex);
 +}
 +
-+static void pin_to_cpu(int cpu)
-+{
-+	cpu_set_t set;
-+
-+	/* There may be no second CPU in a restricted cpuset. */
-+	if (cpu < 0)
-+		return;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	/* Best effort: in a restricted cpuset this fails and the thread runs unpinned. */
-+	pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-+}
-+
-+/*
-+ * Connection lookup, as a load balancer or 'ss' scrape would do it: the
-+ * reads go straight to the global, this file is built -O0 and a local
-+ * pointer would be reloaded from a stack slot, a form the data type
-+ * resolver does not track.
-+ */
-+static void *reader_fn(void *arg)
-+{
-+	struct fs_reader *r = arg;
-+	unsigned long sum = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-reader");
-+	pin_to_cpu(r->cpu);
-+
-+	while (!done) {
-+		sum += conn.saddr + conn.daddr + conn.sport + conn.dport +
-+		       conn.state + conn.protocol;
-+		sum += conn.mss + conn.snd_wscale + conn.rcv_wscale +
-+		       conn.keepalive_int + conn.mark + conn.priority;
-+	}
-+	r->sum = sum;
-+	return NULL;
-+}
-+
-+static int false_sharing(int argc, const char **argv)
-+{
-+	double sec = 2.0;
-+	int nreaders = 0, nr_allowed = 0, err = 1;
-+	int *allowed = NULL, nallowed = 0, ncpus;
-+	cpu_set_t set;
-+	struct fs_reader *readers = NULL;
-+	int i, writer_cpu;
-+	unsigned long n = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-writer");
-+	if (argc > 0)
-+		sec = atof(argv[0]);
-+	if (!(sec > 0.0)) {
-+		fprintf(stderr, "Error: seconds (%f) must be > 0\n", sec);
-+		return 1;
-+	}
-+	if (argc > 1)
-+		nreaders = atoi(argv[1]);
-+
-+	/*
-+	 * A connection that just got established: identity and config fixed
-+	 * from here on, counters at zero.
-+	 */
-+	conn.saddr = 0x0a000001;	/* 10.0.0.1 */
-+	conn.daddr = 0x0a000002;	/* 10.0.0.2 */
-+	conn.sport = 54321;
-+	conn.dport = 443;
-+	conn.state = 1;			/* ESTABLISHED */
-+	conn.protocol = 6;		/* TCP */
-+	conn.mss = 1448;
-+	conn.snd_wscale = 7;
-+	conn.rcv_wscale = 7;
-+	conn.keepalive_int = 7200;
-+	conn.cwnd = 10;
-+	conn.ssthresh = 65535;
-+	conn.rtt_us = 50;
-+
-+	/* Pin against the allowed set, restricted cpusets still spread the threads. */
-+	ncpus = sysconf(_SC_NPROCESSORS_CONF);
-+	if (sched_getaffinity(0, sizeof(set), &set) == 0) {
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (!CPU_ISSET(i, &set))
-+				continue;
-+			nr_allowed++;
-+		}
-+		allowed = malloc(nr_allowed * sizeof(int));
-+		if (allowed == NULL) {
-+			fprintf(stderr, "Error: malloc failed for CPU list\n");
-+			return 1;
-+		}
-+		for (i = 0; i < ncpus && i < CPU_SETSIZE; i++) {
-+			if (CPU_ISSET(i, &set))
-+				allowed[nallowed++] = i;
-+		}
-+	}
-+	if (nreaders <= 0) {
-+		/* By default leave one CPU for the packet path, up to 4 readers. */
-+		nreaders = nallowed > 1 ? nallowed - 1 : 1;
-+		if (nreaders > 4)
-+			nreaders = 4;
-+	}
-+
-+	signal(SIGINT, sighandler);
-+	signal(SIGALRM, sighandler);
-+
-+	readers = calloc(nreaders, sizeof(*readers));
-+	if (readers == NULL) {
-+		fprintf(stderr, "Error: calloc failed for %d readers\n", nreaders);
-+		goto out;
-+	}
-+	for (i = 0; i < nreaders; i++) {
-+		int cpu = nallowed > 1 ? allowed[(i + 1) % nallowed] : -1;
-+
-+		readers[i].cpu = cpu;
-+		if (pthread_create(&readers[i].thread, NULL, reader_fn, &readers[i])) {
-+			fprintf(stderr, "Error: failed to create reader %d\n", i);
-+			done = 1; // Ensure started threads terminate.
-+			nreaders = i;
-+			goto out_join;
-+		}
-+	}
-+	writer_cpu = nallowed > 0 ? allowed[0] : -1;
-+	if (nallowed == 1)
-+		fprintf(stderr, "Warning: single CPU allowed, no cross-CPU traffic expected\n");
-+	if (writer_cpu >= 0)
-+		pin_to_cpu(writer_cpu);
-+
-+	/*
-+	 * The packet path: receive, acknowledge, transmit, repeat; every 64th
-+	 * packet simulates a loss so ssthresh/retrans get sampled too.
-+	 */
-+	if (sec < 1.0) {
-+		useconds_t usecs = (useconds_t)(sec * 1000000.0);
-+
-+		ualarm(usecs > 0 ? usecs : 1, 0);
-+	} else
-+		alarm((unsigned int)sec);
-+	while (!done) {
-+		conn.bytes_rx += conn.mss;
-+		conn.packets_rx++;
-+		conn.rx_queue = (uint32_t)(n & 0x3f);
-+		conn.last_ack = (uint32_t)n;
-+		conn.bytes_tx += conn.mss;
-+		conn.packets_tx++;
-+		conn.cwnd = 10 + (n & 15);
-+		conn.rtt_us = 50 + (n & 7);
-+		if ((n & 63) == 0) {
-+			conn.ssthresh = conn.cwnd / 2;
-+			conn.retrans++;
-+		}
-+		n++;
-+	}
-+	err = 0;
-+out_join:
-+	for (i = 0; i < nreaders; i++) {
-+		if (readers[i].thread) {
-+			pthread_join(readers[i].thread, /*retval=*/NULL);
-+			fs_sink += readers[i].sum;
-+		}
-+	}
-+	fs_sink += (unsigned long)(conn.bytes_rx + conn.bytes_tx + n);
-+	free(readers);
-+out:
-+	free(allowed);
-+	return err;
-+}
-+
-+DEFINE_WORKLOAD(false_sharing);
+ static void input_seq_print_bitmap(struct seq_file *seq, const char *name,
+ 				   unsigned long *bitmap, int max)
+ {
+@@ -1151,7 +1167,7 @@ static int input_devices_seq_show(struct seq_file *seq, void *v)
+ static const struct seq_operations input_devices_seq_ops = {
+ 	.start	= input_devices_seq_start,
+ 	.next	= input_devices_seq_next,
+-	.stop	= input_seq_stop,
++	.stop	= input_devices_seq_stop,
+ 	.show	= input_devices_seq_show,
+ };
+ 
 -- 
-2.55.0
+2.47.3
 
