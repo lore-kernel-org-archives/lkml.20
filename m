@@ -1,178 +1,158 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCED258EDA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790573050; cv=pass; b=Yu5cpzdTvlmHetTUnUi4Vsgz7ZuT0IF64Uj8xroHBHBgg1djuiAO0vWogZHQUe6ysm/cagCH4h0Aj2rOeNkIqdrt83PpTv4oBGRvmy6A6kJS31XXfBzuHMpneHiiBRyfx0PaUGCXBVc0uFCdyOH0PaY9X6wiLebFJ1LWTMaYNOA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790573050; c=relaxed/simple;
-	bh=W7axueZRrhaT48qqYWzpPitRQKOTeoZ+sTUZeBMTWsw=;
-	h=From:In-Reply-To:MIME-Version:Date:Message-ID:Subject:To:Cc:
-	 Content-Type; b=XAUM7YatXJQgoOIKkfwlnuQM+Dk1dTB3eIla+e6US8LSkPd4GtBYbZQuY9j3OZDLdOroB1L9616S+mzThE6FxoeTH7M+0E+afsb3DMS2ijm6iZRZ7Ph2kM/0W277fDK/LgzurYai1uNG/lHJxmG/sQljSnx9dYeWD1R/DkLGxdg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KkHCFwIu; arc=pass smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A13258EDA
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790573059; cv=none; b=MZpsyE7TRpi7OcwLQ+a8sNvhg7lwoj0t0/RIW2QfGEEfuwTzmHjKXmrxMmu7KQhp4zpgZ3YNG8PngFDVVvwyn/lghaOHVLycOo+6eSBb4iThtVLQLNVMUext+0H4eDL/5lSdJyTtIr+Ygio4z+8jRYgOs6nJvJ/xmgx8nVqTNXc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790573059; c=relaxed/simple;
+	bh=OW3IsxBl6tCqKKAnstBEUrLHOa6AKWtDkVy2NAn8chY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WHhoVoOK2WB2+MJhfZzr6XxMDis21qoSNqcX6WHHTPbkpIvqgmib5GBhglDr2j9E5iduFu4r7QLN/c2b1eGWe5RDTadMiJI0KNwE2+b3ji98FdDHq6HQWu3j+YYlq2qg9nQ1v3LHeELW4WCPw3AQfOQei7dQyN2KUKUCCq2KztY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kG1rWeNN; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KkHCFwIu"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-914351b2f5aso26673576d6.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:24:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790573047; cv=none;
-        d=google.com; s=arc-20260327;
-        b=URwGGwAl4JGipVbTEfpKC0ss4jP5064aql83opbNIwCs4moI2ytSZ0/fjsXjR17EXb
-         ViA4CfhM22uS/RYEcW/g6R9zKamneQSAPI0Q7pKL8POC0w1zhfHpRe7zNWLTH2MniVRE
-         kCay1v9Ntm9/NE0A8+8gY1hZEU/eoqIw2V1rwn0L92SND+/M+6/5xn6NYYuIudiUHc1C
-         zNi7R7Lib3S5SCheMhEGQBejrYwDz+5y/7slcm+VaCdetaHGzultQIqa/zvYIZDxJvzU
-         XeDnPsKhVnt8cku75zP63TJdWwK5tHxiEAlfBh3pLVjwzGpWPfQWKayx2v+9fe0qGX75
-         PEwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:in-reply-to:from
-         :dkim-signature;
-        bh=FSUAgom6ClfwbocQ8Hvkd64BKo/2JRKTu5CIvXmRMWI=;
-        fh=kikfhgLv8FAXihF7RXCv0FXx99CexWrxuL4sYgvxcM4=;
-        b=szPUaaI8AzG0uV27aAcSSNfQV0e8HM2mmNllnnurHq+iugEFS7eQxBl9jrXvEJ5Xhg
-         7o/Nn2EurWuJnuCyE0Jkjmsdir//YmQkm84F8CZVHD9Cn87cGXliBhEMLITcoOgjPGka
-         Y7cEDpjzInXJbeEPNJaS+2lMMKlvrSkS2Chxo4Hbkf15xdscgBNwK+mt6H4AQMf53ye3
-         4j4PnfeMd/CMOalxy/1K0Ka+2yDRWyAxl8lJPcGdhWAuYfBIk+0umEPQR8d3YxmdEQ99
-         DvV6bNVas6nVaaHks/aYhbPQHSjy2saXc14DBmKrxCEaHKQ3Cs9PaulZvQPY4LtspQTc
-         M5pw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kG1rWeNN"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab18so2982739c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:24:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790573047; x=1791177847; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:in-reply-to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FSUAgom6ClfwbocQ8Hvkd64BKo/2JRKTu5CIvXmRMWI=;
-        b=KkHCFwIugNG8Q/JXcV5rC+Jayxc1F5nqNCVENfc42oUuxoVKyivIJXA6j42je251uh
-         ImequQITNqdm6SgiwOPZKWOMM3Kst4Tzb7xwMHRsw4ts6oXLHJZuQk+YNKnxh1MT2hA4
-         pbxzR+PZ8mZOLb6+vjdTxrveKNRQYCrwcZaMLjtrTxTgu6Jkt/HJcx//s+wboWU2V7kn
-         A8Sa3OPudEZvww0sfZkCqa/KFzKvZzfCx0qyhtyo4+CVi2WSQQzzqe2sHhE0NTsSMcv3
-         e9QMKMv5ZBk6GQLTjuU+Kkhz94KOFM3v7z8zStkTi2uZfF2WO2rH4cikyfAA+1M6lUfb
-         68CQ==
+        d=gmail.com; s=20251104; t=1790573057; x=1791177857; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CcMHtJq/SKFUMlfzan7qThpVdoDXAq0IWpnhSiUtUuM=;
+        b=kG1rWeNN94iz/oRwmPRjYsa+KaOoclyv2dWKUpy+QHdSMayLY4TM8cyl6AJ3a9fnlB
+         VjtwOE0hGiUBmUSmaHIl4h3Kg87XBX0W53XEpLO7xvQ6z9yCQD5yWisMlLLLBNzV5+U/
+         iHr4PTaRx6yvstCQmIKw03Onbss087HDAK1+hL6ehF7nKaNQ8oifPgP9ossCHqgXwfql
+         hGNagzrf7t8+IWieI0GQr8k95sRAD0otVRKx12YPqCHBJZRJhsoSG/mwM/tEoNmKML0H
+         rR1dT8eyjb/lWuImWsWZ50fOBe57vluOnENmIXHW/Xgs0q+YJ7U5suyRLb2Q7rYTyRE2
+         V/ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790573047; x=1791177847;
-        h=content-type:cc:to:subject:message-id:date:mime-version:in-reply-to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FSUAgom6ClfwbocQ8Hvkd64BKo/2JRKTu5CIvXmRMWI=;
-        b=uu5NkN/9vpwGH8iPv4OL0OlT4oURPRAZN000y5ntgKOVcVZUVGSoQA7P7fJankzvas
-         xSF/icRvuKCp8dWOIS2a/S7UZC9oKe01OmuZVTk7N0gV4oluGc4C6KrTUU736NBozzFC
-         MMKu8jJAixBSdNNBtxrn7H9uIvUZZ3HRKFQCc3IgzNo0NfDXP7mN9ppzC23bQ6m9ZDWR
-         +pW2pRETjqMv3KWGiiL9mVkjohhhRJBYybIuOqeC1abYbc7z2wRp5nRfe80FpTxGSitb
-         KbP1x1ULip+J9WcCUg/XoIcURpLhwxI0qe0Q0g8O1vG2mR+YAc9mnhWWbuhGqeD5B3uf
-         STTg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0bqKjhL7rKfAOL+lrQ27wTOrkyyqjswAsoDZ3rZkPtEM5DmTQMgWI9CGqhH9/BiiY+k0YsnBFw1kVHAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJo8HHyaOMlSI5ClVoqF7W8NxL4F88UFAsu5PqSgpBlQPiMyk5+
-	IKK/eJSa9brYM6kLIS4HLiTFS6XwTLghCMtgXUAUpPXGfmuL+YMwM6voUZLP8gnjywlJn2QzDUa
-	+F3pQij0zmkihA+CZNeQLzNN7m5KVKkvkMIK5mMxb
-X-Gm-Gg: AYBFou1HR6pWvRETN0uca1YTfVImwPX5XmKHOcdypnKZdCMMiY9hsQ+eRO7Ikcrs9y/
-	xyzIhLe7MKpUR8AXzAuY1fJotLVcPXvcL55+MnPvZRVHQV/7YZteoWekQM8ueXnskvLDVtj4ITV
-	kjNy+IQt7KtpqBK/dZvACwxjivCs0I98xnc7dmeeUs9L8AK9zUjJ5PQCXBQBOCDWMJnr95ZDUEY
-	BIceaMASrltX03C7QZy0MhSAU+MUCcnBwQ5yAsDTN9UL1yCRWeaYKdZW3V85LV6sZFfvtgl2KVW
-	e+6O77ORDywJecobRg2sxuIgmFrmTgRGPs3AvxtTeycorgHMmtW/QVKyFVmUejjP1osbeb5K2yu
-	w8Gobr5fFzg==
-X-Received: by 2002:a05:6214:5345:b0:910:3453:505d with SMTP id
- 6a1803df08f44-9142f8f69a4mr164488216d6.31.1790573046662; Sun, 27 Sep 2026
- 22:24:06 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 27 Sep 2026 22:24:05 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 27 Sep 2026 22:24:05 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260907132055.26696-1-zhoujinmeng@bytedance.com> (message from
- Jinmeng Zhou on Mon,  7 Sep 2026 21:20:55 +0800)
+        d=1e100.net; s=20260707; t=1790573057; x=1791177857;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CcMHtJq/SKFUMlfzan7qThpVdoDXAq0IWpnhSiUtUuM=;
+        b=XErFopF0nxF+DcEguuu1/uwhWb04MMDimEOsytQ+2VUyCBcE1PrOzmKaJ67EovF+ja
+         us8XwmXbeaxeO5pWsEeuglynn1Qqw0jyi/4ws6izGLpE/ll44x1bEKLnwVxr4jItW/Gs
+         wY/KVtt0oZD8mLa/Xi8Ojzw9zEM1O2ih+6DjeZ3oaw24GdZeKGJdzBYk7zsQbQOEqfcl
+         /nxBrIdBmsjcOhzgRSJyQo6j3QbxANGZLwgYqQMxZXYQ9udRf5LEZx4tVfdfEoMwDjj5
+         JYrn0KxqDwtdmFvyq4sbmN4wFoTh32+F45GHvGcsf6wIzdu9Mje7tSbr01Qd+eF8Kf6r
+         s2Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBycv6YMgb6kO2TE9eecPR1I4FUsubgcfpguTloVDcLKsUwwoEX79Tp24reKSnCWMnULkk5clBZbKixOaQw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4XRPvx88DTtDG2mwMPKj3Pzsey2ibrTJ/zF5r9EsOKp/w04/m
+	Q3i6zbAN2pKo+KNvs/Hw05TauqTfj9O1ZOPOqTpo/gLSASY3SCa2zZDaYuoJdznT
+X-Gm-Gg: AYBFou0HjNN4YeBGcHg/Nry0FctGW+5K1dhOOCZRTjrqLNudRxeudHwBot7o7h20D1V
+	za4HH/wtG/dgIGT9DyZ5itieRVXWTcJwLgeKiOE2DXX5p0F65rCXiPllX5u/uqVZoiJ/c0sW3qB
+	205ClieIfz/3SYwctTKPkxzE/sz58yI28zIM3Rzn6mYrGJ9SAvNhhlX+mg8RwvsVPq/w8US+zwI
+	tHisPEkSEqqEZk9g6RtrcCbNakF5HIlIO35s62vIWFPotLECn92KR/Qm0rYXBjBJtpFndy5KtOM
+	Jgj1njGk5fHpwhUQz91/CyI+d4UJGzaO+YuziZFBJuw1uIJmyNPy6XRBS7pY3gREKz4XL3mDvx2
+	uBSgZyIuYMzGDX1LoViJjyXm4BHKG4W+v4gdJfx8vv9ARbqHTk+NjOBwPLD4aGw8nN2qlZqdBEs
+	p0LboyuK+KJjVvyKB39MzG4O3vfi6bSlOpAI2SenBpzLWQ2myXMOdPZEwxHSxInwWJ9ACeRBPav
+	CrscYv5mMf9SPAxJGZSzv1AnRc8OPi1eo5OWKLIQndhZnaXE9s=
+X-Received: by 2002:a05:701b:4346:b0:144:ed03:7c6a with SMTP id a92af1059eb24-146ce680bf8mr9028371c88.15.1790573057171;
+        Sun, 27 Sep 2026 22:24:17 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:526d:2f94:503b:aada])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-146bb6551d9sm14745215c88.9.2026.09.27.22.24.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 22:24:15 -0700 (PDT)
+Date: Sun, 27 Sep 2026 22:24:13 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: microsoft: cancel the rumble work on removal
+Message-ID: <arn5XTGp7XIOmdB2@google.com>
+References: <20260927011220.4193-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 27 Sep 2026 22:24:05 -0700
-X-Gm-Features: AclHuK8WOXn4uKOxOQYa2ZuB88hz03DSLUKDlBeo924q-8b9bdy1WbZFMN4BZbY
-Message-ID: <CAEvNRgEvbCB_y23odHurRnhA7Fxo5oWYwrFyMy9+r6fFSCRw1Q@mail.gmail.com>
-Subject: Re: [PATCH] mm/hugetlb: fix subpool minimum reservation rollback
-To: Jinmeng Zhou <jinmengzhou22@gmail.com>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, 
-	akpm@linux-foundation.org, mawupeng1@huawei.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, zhoujinmeng@bytedance.com, 
-	stable@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927011220.4193-1-danishkhateeb03@gmail.com>
 
-Jinmeng Zhou <jinmengzhou22@gmail.com> writes:
+Hi Danish,
 
-> When a reservation request is partially covered by a subpool minimum and
-> the remaining global reservation fails, the error path first calls
-> hugepage_subpool_put_pages() for the subpool-backed portion. It removes the
-> failed global portion from used_hpages only afterwards.
->
-> hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
-> should be restored. Since used_hpages still includes the global portion, it
-> can remain at or above min_hpages and prevent that restoration. It then
-> reports the subpool reservation as releasable, causing
-> hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
->
-> This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
-> size=10M,min_size=8M. After a successful three-page reservation, a two-page
-> reservation which needed one subpool page and one global page failed with
-> -ENOMEM. HugePages_Rsvd incorrectly dropped from four to three even though
-> the subpool minimum was still four pages.
->
-> Roll back the failed global portion from used_hpages first, so that
-> hugepage_subpool_put_pages() evaluates the minimum reservation against the
-> current usage and returns the correct global adjustment.
->
-> Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+On Sat, Sep 26, 2026 at 08:12:20PM -0500, Danish Khateeb wrote:
+> Commit 1cfc77a64b71 ("HID: microsoft: move FF initialization to
+> .input_configured()") removed ms_remove_ff() along with ms_init_ff(),
+> and with it the only cancel_work_sync() of ff_worker. Nothing waits for
+> the rumble work any more before devres frees struct ms_data and the
+> report buffer that the work fills in.
+> 
+> Removing the device queues the work itself: hid_hw_stop() unregisters
+> the input device, and if an effect is playing, input_ff_flush() stops
+> it through ms_play_effect(). The work usually runs before remove()
+> returns, but nothing guarantees it.
+> 
+> Cancel the work again after hid_hw_stop(), when the input device is gone
+> and nothing can queue it any more. Initialize it in ms_probe(), so that
+> it can be cancelled for devices without force feedback too.
+> 
+> Fixes: 1cfc77a64b71 ("HID: microsoft: move FF initialization to .input_configured()")
+> Assisted-by: LLM
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 > ---
->  mm/hugetlb.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 785772845795..3e3cda181e72 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -6808,15 +6808,6 @@ long hugetlb_reserve_pages(struct inode *inode,
->
->  out_put_pages:
->  	spool_resv = chg - gbl_reserve;
-> -	if (spool_resv) {
-> -		/* put sub pool's reservation back, chg - gbl_reserve */
-> -		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
-> -		/*
-> -		 * subpool's reserved pages can not be put back due to race,
-> -		 * return to hstate.
-> -		 */
-> -		hugetlb_acct_memory(h, -gbl_resv);
-> -	}
->  	/* Restore used_hpages for pages that failed global reservation */
->  	if (gbl_reserve && spool) {
->  		unsigned long flags;
-> @@ -6826,6 +6817,15 @@ long hugetlb_reserve_pages(struct inode *inode,
->  			spool->used_hpages -= gbl_reserve;
->  		unlock_or_release_subpool(spool, flags);
->  	}
-> +	if (spool_resv) {
-> +		/* put sub pool's reservation back, chg - gbl_reserve */
-> +		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
-> +		/*
-> +		 * subpool's reserved pages can not be put back due to race,
-> +		 * return to hstate.
-> +		 */
-> +		hugetlb_acct_memory(h, -gbl_resv);
-> +	}
->  out_uncharge_cgroup:
->  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
->  					    chg * pages_per_huge_page(h), h_cg);
+> 
+> Notes:
+>     Tested in QEMU on a next-20260925 KASAN kernel with uhid devices bound
+>     to hid-microsoft: an Xbox Wireless Controller (BT 045e:0b13) destroyed
+>     while a rumble effect was playing and its evdev node was open (20
+>     cycles), a Natural Ergonomic 4000 (no force feedback, 5 cycles), then
+>     rmmod. Tracing shows the removal queuing ff_worker. There are no
+>     warnings with or without this patch: I could not reproduce the
+>     use-after-free, as the work always ran before remove() returned. A W=1
+>     build is clean.
+> 
+>  drivers/hid/hid-microsoft.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+> index a7d3493a6141..1b527954937d 100644
+> --- a/drivers/hid/hid-microsoft.c
+> +++ b/drivers/hid/hid-microsoft.c
+> @@ -335,7 +335,6 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
+>  		return 0;
+>  
+>  	ms->hdev = hdev;
+> -	INIT_WORK(&ms->ff_worker, ms_ff_worker);
+>  
+>  	ms->output_report_dmabuf = devm_kzalloc(&hdev->dev,
+>  						sizeof(struct xb1s_ff_report),
+> @@ -358,6 +357,7 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		return -ENOMEM;
+>  
+>  	ms->quirks = quirks;
+> +	INIT_WORK(&ms->ff_worker, ms_ff_worker);
+>  
+>  	hid_set_drvdata(hdev, ms);
+>  
+> @@ -384,7 +384,11 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  }
+>  static void ms_remove(struct hid_device *hdev)
+>  {
+> +	struct ms_data *ms = hid_get_drvdata(hdev);
+> +
+>  	hid_hw_stop(hdev);
+> +	/* Unregistering the input device stops rumble, which queues the work */
+> +	cancel_work_sync(&ms->ff_worker);
 
-This fixes out_put_pages in hugetlb_reserve_pages() on a mount that
-specifies both min_size and max_size, and does not introduce any further
-bugs AFAICT.
+I think this is too late: by this time the hardware is shut off so if
+the work is still running and tries to access the hardware there may be
+failures.
 
-Tested-by: Ackerley Tng <ackerleytng@google.com>
+I think I will add support for "slow" effect playback to memoryless
+handling so that the drivers do not need to worry about managing their
+private work items.
 
-Further details at [1].
+Thanks.
 
-[1] https://lore.kernel.org/all/CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com/
+-- 
+Dmitry
