@@ -1,215 +1,264 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4314B44C6
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:15:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7324B95C3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601325; cv=pass; b=F8elJ8HWgoIR/kaZq4XbBnOKF6l6YbiRUuP7THoU0VwpjNLF5t2ckneomb5iQHtPAjCaddX9H6uE7VDeapU2CTcezIa5FX0JuBbhRFOJeOxxX6vCzO5alPI394AnjOwbRO68f/wWVYDWP7eMfaJsVff7FmyCpCf3D5CadaKfQoo=
+	t=1790601359; cv=pass; b=ipQO73FHD6WBSyvybPdPyGT/akNYW1ahBr5npqN3oI5LjD6805qNtjj5HF1PdPxMX6WhOAhQ2BcRfX0lezOvoRRSBUF06ultljUzV+K8A00cPQJl5qcGUK3JkCVlwxkHW+2jKWW4oYFLgoApDhJf/iB3g05f236LT2sbqSxoXog=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601325; c=relaxed/simple;
-	bh=1+J6CEcuD/ehR2uQMHAPS7Wf/xRgrfM23BUbghLVVEg=;
+	s=arc-20240116; t=1790601359; c=relaxed/simple;
+	bh=RYNnodyGj2H4ZDL9Nl1Q9njPA0WoMAdmfxHZpNUl6v0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kyN4f8Y+95soBqx4CbqAl6tpapdvb/8R0ZSwD1Py82kW0tJm6nySPKt2ujDrj3UbDRLZ2MYHIQYYchynUpEiQ4zezOWUl4OrWqTQgfAeU5aLBuACmfI3TU6hq+oh/ESzi5J0Cxhb3fr+986uPTlRwL1LLUA/iAosTB0qrpVnsNQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=WmS2MC6s; arc=pass smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	 To:Cc:Content-Type; b=bQhCzY2KLjhtsXDQpVxUTs/Duj8uDqqdbVSqFHRZgmD6rJL53E1v6znodRpEnjOE3blxESHoXQK7sTJbEkCNKCoJSy3jbxPkc4/gA1Xs5JGb+1+2V2A9XzfGhRz2sLNaOtVWU6Oeu1tAW4LxC7lFDr22KRc0gyJmiL61QfISWlY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XbTp5OQb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gwzB9ILM; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="WmS2MC6s"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c72bd8a017so1851638eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:15:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790601322; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XbTp5OQb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gwzB9ILM"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAbBe1450723
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:15:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	N4n5cIJubYf0152q28FSh/pocYyVNa6tYRLNKG8jP7g=; b=XbTp5OQbKoXax8+1
+	TbIP6VO4B0jP0m6BbYqkq48DBQBCjunQwA6pGwmTeLGH3Pj60TPsImezhof+zWfP
+	/VsPH0cVPoEpWhcrK/R/cua0TmwJSNVSqdoLdRc9fT/IYhO8+Axt+7I3xeWol4Vo
+	Prvzc+SSKnJbGNEhsJ80lxMyvdWfVFdsoRsuERJK74v5SBssh+8Y3dY4iM/7l7qt
+	RQMd9Qxn1s3dM4O3zogtAR6OMsdrAXLGptIQRf4vquBT+ArIR/beCvPD2CAwuAqB
+	8VRHA3ERN4sJCNat4XEmOZt2LcuL4da+zOZhjjzWeX2TfFjVMnlEUA3EZ4jcVCg5
+	MAXutQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjkxhjc3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:15:56 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8814b6716d3so1287686b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:15:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790601356; cv=none;
         d=google.com; s=arc-20260327;
-        b=JLRITp/rQ7PI3BEXPYn5TKGjkTxeC2HD5B/nPc0hzd0wrbK0WNBuhcfIhLCn313qLa
-         bFjw3YSt4LmHi1oDo0XMJZ+7YU2EyVxaBgfVBcUtBxBIzYP7eIVIHCKgQRPuUt7UWSru
-         USxIc7O9AnmuNOHx0YJZSbq0hFRbJQyGEqpu3LA29hr+0OiR6CrBkIAh1woWumN5y0QT
-         kHTjxMa0n5EG+jBEFDfj5LHXqniC5teLWn5SYAqPdX5GCVLee+fBMJ/G/jMMKL2wjE4r
-         2WdusTNzsGtxZkTclZpp0Kva3JUBtZBN9/oCnFTsgLGdZ9g+DPDdJQDF6RHjhghDA2Cb
-         2Zpw==
+        b=XovLFe5r06aK246S3YADrAAjVGg2lmrRBAGVY8PFDiEpqAEzFMSSPXn9sKBP42oJrt
+         GxR7x/J4k+oehptfUDq8Q3HmjA0EP9j+HQLRp1LkQaqcKbVX9oYzbqIN/v/zNtmE3C90
+         Pa62vgbDpX8G2ZEe/a06S52Q2nnbPLkiK/YDBbFwlYwXZoEIrYtHbQJDf0bDG4U8R9yD
+         Xz0VHr5X7s50A2F6731lC22Iu676YwW1D0+v+mxdrYik7fhevvLJGyhYIGRISbpeLyio
+         bjPsSRwNRM7YjWUYLYqIgMe3u4/x7aaRqmNSUoVPUH9XZoxUvgCGDC00Zw/OpLOgy3h2
+         ZoYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fGgI1r2PIxpAhy+XynqUn+DjOJ88MU8PW7eA+FniYzY=;
-        fh=/U8A3SFngQ9UQvq3+oWSAnWxSPpZ3CLu6NK8i/jAEgc=;
-        b=cipElUv2ZhcQHVTVNBYHMmzzgJNVq+sTIY2MfF3opGQKiLyNhXoQxI3prnSXffH6ox
-         z+0Zj9as0Jo6byhsalKo7hATyoUjUhG6E+DNhC4sqGZAAodLBN4a9DRv+QQdxJ8+mKwz
-         8UGEVjlslD40nwHbfpmJU1nV5fn2/EgW7nD38DksfTEOIyZo5TuHGrD5QMmVO2i/nOt2
-         vQsXndBC63bojHgukgyfZ6t9h4nOXPO6l8472aLC5Z/anmKOxZOxwieWYTqMLIFPnYt6
-         6Ry45yOdxj8tH3n/QyAVMUko+SjxdsXTxmIOaLfDbe/R4Qx9iF88GS1k6qpOKjUYMlCp
-         /NVA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=N4n5cIJubYf0152q28FSh/pocYyVNa6tYRLNKG8jP7g=;
+        fh=hQSYNodaS7TUrPGLEH7f2FTei0gy1ngEkMjEDdl2AIA=;
+        b=QAjPzie0rCucG9XARjJdidD2l8Y4kYTVY3jx6rmqlbhxgGMnwe0zK0lxfWuHYP/Xvw
+         5+r85SP4K8WNKSMWU6JC/VUWhYwePOxXj3lyTeFRKFU1nPOZsjS0YnDOYzgCRHm/ZLLV
+         FFXumtg6R5r+Jg4tEcEVPDtMGziy4USFHJtiYWfdqAPzIq0Mke0K8lhK2sgbSp5ayGNj
+         1/skjIFMbZhs3SICm45Au0HujFMfdxatXmxrt158NgeEYyBYY1JkeSWAWa9AGvk4DbWn
+         L75JExf3XCKRURowYk3n1YZ/7nVQAhYMXL2McvLIRa9r6usOI9oa/r8kuG9j2NaMyD0m
+         0JLA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1790601322; x=1791206122; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fGgI1r2PIxpAhy+XynqUn+DjOJ88MU8PW7eA+FniYzY=;
-        b=WmS2MC6s/LqSV5ivoex9+OhjYlnXLNcKuBQw5oYX+JqXdvGfq+Ij2+tISbJ75zX3Fz
-         EyqbId32xSOyS+DANdOr9PoiR4iUb2XtjC2imRbtNQHFdvsO3jAjPoYIofZDFouNEW5u
-         btPbsGNi64c+vzheKOYrR3Z3ht8SUUce5QWsRyCjHSXeDdEr4/O5IJqjrk23LHNUPrcv
-         9/RxntCWvkQbPup4kKrtaToM/dJeobxHW/TeiPd9JYg+8yrMv5BB0IoZg490m+v6Ftgm
-         eiyQMscMGIsKtx6aOxaDDMfFnJIc4eknRouokMR4hRSBXDQYrKuXHW8FpBnkqqNl2VVe
-         WpBA==
+        d=oss.qualcomm.com; s=google; t=1790601356; x=1791206156; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N4n5cIJubYf0152q28FSh/pocYyVNa6tYRLNKG8jP7g=;
+        b=gwzB9ILMfzSoSOjJ08ZBSTSncUQt3BtTIaRrl/xccPwhqlQX/pL4mRumhw3OgDWNUu
+         jgUe9C0AzrmJ8ECkiY3CJ4WENXiF+dJl4Ft0I+8445W9FQ5Y3KtcPbn2+C6q2zWhPw9D
+         w8N1Lgon2n0jYOpWBLnPl2x5QlVKCPN2XS4bkKH8uTkke212+rKSGdfDvOAd/WrP0V0h
+         D3faRoS8Zt+13pwONGvEvt4oBDMf3pO+Uldl01Q4MPJKLL7NYRVWZoREztcPgZXvRuN2
+         surG55g0NDD35nEyR9Pxd4vixuxHPkpndfQHLD/j1qPY4RNoBg22b58R4rvA6JJJ4rtf
+         aqTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790601322; x=1791206122;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fGgI1r2PIxpAhy+XynqUn+DjOJ88MU8PW7eA+FniYzY=;
-        b=pedzZrj3Lt+An5k/mohq3L1e/5hznhctXQSCx/vXiDG6ldthUCU2qEQU0s0iqAXQJv
-         kNotbWMkel5Zgf1+2CEuSnqcLXDsuDhXpgvbLEb7xFODam1CK3xzyGKynuN9Ysb1h4Zk
-         lqz48nViwfvFoAy95LWya4NloUFEIT+9AI37If3xsp/3Rp+0UhP7eBwLYmmNh4etiI0S
-         D7LkZkx3NGnr+WDy15QZsUYMdsGNUpJ1xxiZV2ENgbUCTMBAeEvFENyN+mntRon270dL
-         KDhCc+Wj/A4s6y7vPduwbCISXnTmp0BXkd6Ta5iFi6rJDt44APLOyHHu3sSVZfg05VmZ
-         qEQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzi4j7sbMMgPMfPqjhsGZK7Ptis7rWE+VscI+wD3vgy43+RM348gBwfjm92agK+UAq7m3KAhSeQdWkIITM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k27I8u0nn3MqBb5WAffrObwf3VScI5tozsoCPPNi2xJeo2hZAb
-	kTRuEnXnz+kLJpS73Pk4IK6PiCj45JxHJ5FxJcNyeoKEiEXfTipLzI8y+q5kzT7246+rK8NipRL
-	elktblsSNAem9oLRQdg28BpOqbpQsmvo5egCZFJzC9w==
-X-Gm-Gg: AYBFou3ZbakaxhwrBEhCNsZBNjNM/P0ZRRtX8IejzdDMuzSe2/yEs2PqYB7MUFSUk3o
-	fKSwP460MVom7M4pL2txQ/DRTrnea9J2eeivWfNuuaWLAv6BTp8rVnf1mSX4H712bwDgcRETv9u
-	H5ifyLfuIw43QmiNg9YP4m7qv/8JRQUA2ydKOTjzizC1lU3c/KfukKDMCzKyJQRjdI5/JYbFO1t
-	dRB92f7eAXXxyNhnfHWduv1hhZbh6yhQFhHJtsOmFh6EoljjqJ+vXumKppO1JE4FxA5iQmZf6Lj
-	wySUfXz802vRkdS53Ut34dLBnryRfbJfFgez/i9DFPi/nnVlKoxBP+UyNRXK9bQMDkxgwa7id61
-	9XRhFrHrytk/LLtlwikmVijJpUQ6fFRkct2p5Qqz8AUdPo3NLFrYsG987HJ7qd2B563jBlWUP9D
-	jT+dwocA==
-X-Received: by 2002:a05:6820:80c8:b0:6cd:3fbd:1d63 with SMTP id
- 006d021491bc7-6d4414bc5bcmr13187384eaf.77.1790601322241; Mon, 28 Sep 2026
- 06:15:22 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790601356; x=1791206156;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N4n5cIJubYf0152q28FSh/pocYyVNa6tYRLNKG8jP7g=;
+        b=pc78tNQTB0mqwTnalHXNlEa/8Fss2gnil4k1F5J2I69XPQHqwIiR7SWDr7Jg3tHG53
+         jIlMj8Y4g4S95CzEJKCslYMZCeCwKXfhf0bY3TW+ha44/B9bN9D4zt21qtH3Jj5jCdyZ
+         /dl+nZSGTCSvWjypKXjlAAnCHxMDkFG8x3+tTKvWvlDsVTdHeodL+Q+wyV37MN/H/4Sy
+         IrWj5O7QWFJt48hQc6bE3IDfxhKc9M0wllfpYNRMIJGAfcoACZwMOkGjdQ74wHZghfZO
+         pO083bQBfQ3ynMLzO1f9t1orFVCXKg24V+6MrVd5wAMKYOX7mNLBQdEUX8osJ8IFfeC0
+         EdYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz16lQPQM9B2ciNm3QNC85kqDezkQWIHd/qdEI+DGDLd+6df//L40BHhMF9uIApQqGr4gfbwOvU+0k5y3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++k99y5eumoe01z5Ff7KDoYRdE1BIxM9EB1Za6yMPI+F3gv7LQIr
+	YVeSUEDWkYqNsoFoG8jZiVqTWw4kPBfoOoXH3AU5Q7QK9gxSf89pqUvh6BewRfqVov2UJPDtDg0
+	7PwmAjTa/iIgmk5M2cko8OAWhjb6x5/STEmK5TfSON6cEpGHiO400/1iMQuiAoLzgTG00CwvsyT
+	y+qhudPYx5GCFUOVQz+xRXONz8Wy9SXO0zRixtJTaD/A==
+X-Gm-Gg: AYBFou1R1Cx539Q3wKM9/HrrnM5VOL5qZJhOYStScSfmyjRmIXy7KZXhlqHxk2FNMX3
+	VQB90R6TOmCOh5tNWeAsZykcTDYtHqJx6ZN/vwCAiOgvtN+QYTAkWNrxxwb89rdCSNAT9zx2jWc
+	kLn/8xjRghLAtaYFM/s6NUGPrGaHHu2iQE9KV5w8X+KwqKPH1kVx+TI6m59Q==
+X-Received: by 2002:a05:6a00:2a0f:b0:874:705d:f640 with SMTP id d2e1a72fcca58-87e9b89660dmr9757093b3a.34.1790601355538;
+        Mon, 28 Sep 2026 06:15:55 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2a0f:b0:874:705d:f640 with SMTP id
+ d2e1a72fcca58-87e9b89660dmr9757075b3a.34.1790601355104; Mon, 28 Sep 2026
+ 06:15:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-5-f520af59df1b@linux.dev>
-In-Reply-To: <20260914-ov9282-fixes-v1-5-f520af59df1b@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 28 Sep 2026 14:15:05 +0100
-X-Gm-Features: AclHuK99UY9stHVhncg5huByX9eFWKgLDpC1O8vPS1rGUFOwjdnON6O_5QMpRf4
-Message-ID: <CAPY8ntB6hoUMCr7v6E5soWzh+CDuSsdy_bJPStxk=b8mfEzN5w@mail.gmail.com>
-Subject: Re: [PATCH 05/10] media: i2c: ov9282: add refresh of missing ranges
- on a mode change
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923174711.1283986-1-briannorris@chromium.org>
+ <20260923104031.v2.3.I383681b22c12d7caee976cb91aa90d1a94d4a591@changeid>
+ <CAPx+jO_1qYnN37diVN1=PA0xGa0iSBfXD_uqgSdFpTn4t0zJiw@mail.gmail.com> <arVWVA3lks7SopQH@google.com>
+In-Reply-To: <arVWVA3lks7SopQH@google.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 15:15:43 +0200
+X-Gm-Features: AclHuK8aZhiycUM7FNAEkB4H-JU_VDrs399BqS11JuG1Exo3d6B2KC32ckC6HkA
+Message-ID: <CAPx+jO_A684fd8SJML9NEmsGzNx2Ge3-mWyQcyjgGP2S5aX1jQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/8] PM: runtime: Misc improvements to runtime_pm.rst
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-doc@vger.kernel.org,
+        linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+        Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Doug Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: oZWm4jez0-rrWBEiMX8kzDSy8zOGg046
+X-Proofpoint-ORIG-GUID: oZWm4jez0-rrWBEiMX8kzDSy8zOGg046
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1MiBTYWx0ZWRfX+dFzsRuTB3gN
+ WTbSW/Lg6KRx0LktERT0JGj0kdTUe87xt8tRMx/sNz7Rfd32QpabOzzNuA/TnOIe18gxZIjhGby
+ bDE1ppdgH8w41sk6ckfoMNbXRevtiIA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1MiBTYWx0ZWRfXxb5K9/hZPiWD
+ /XpSDYk8f0bCOOag5fJwznTJ1IgDrSTiCmsP1JKcsCxL5+9Rcx8KuSb9Rl2Ey97KcULV1DNqtEi
+ pfEXjstZqCy8rfO5mfU9IJRvnk3mEFTy3pPzaSxd4POkH7ZE/gHGRZILpGpWyQDCp2lM0qZdUcc
+ 3ypbYAmdlCuQW+EoHZdhMFq2f6VqwhUjhI0EGXYUKD4hzAZWCkG4VuG7RwgPqCrOA+FbsFVRswS
+ Z/089ZSYZpYt1JSBpgQMFsYEJqooMgStCJbOuWoUNBk2vwy5h/hbyTfltwlnMpwCUCmtLufsRqw
+ ntl6iOB0etPpjPNVfRnHOFjHVdREdbkL707jyDrEmEH6o0aTQiRcnRoVSQHpznTz6OpN7ZSJE7R
+ rsj6cDpJJ2LFAOYzhKpgjF7pumMQ4xUZjs1NHAjfo/kbDw9RSNEsaAhY/Cjpb/PkftVpBNtbT/7
+ aGiOA6R2PbObdFsZUxQ==
+X-Authority-Analysis: v=2.4 cv=QZfzLcbv c=1 sm=1 tr=0 ts=6aba688c cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=cm27Pg_UAAAA:8 a=cMkGN2WWBoTvdrordToA:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280052
 
-Hi Richard
+On Thu, Sep 24, 2026 at 6:56=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> On Thu, Sep 24, 2026 at 04:01:00PM +0200, Ulf Hansson wrote:
+> > On Wed, Sep 23, 2026 at 7:47=E2=80=AFPM Brian Norris <briannorris@chrom=
+ium.org> wrote:
+> > > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power=
+/runtime_pm.rst
+> > > index 39fdeeda7a1e..352cdaf0650d 100644
+> > > --- a/Documentation/power/runtime_pm.rst
+> > > +++ b/Documentation/power/runtime_pm.rst
+>
+> > > @@ -315,7 +319,10 @@ removal of their drivers.
+> > >
+> > >  Drivers in ->remove() callback should undo the runtime PM changes do=
+ne
+> > >  in ->probe(). Usually this means calling pm_runtime_disable(),
+> > > -pm_runtime_dont_use_autosuspend() etc.
+> > > +pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can us=
+e
+> > > +devm_pm_runtime_enable() during probe, which automatically takes car=
+e of
+> > > +calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() u=
+pon driver
+> > > +detachment.
+> >
+> > As I have stated in earlier discussions at LKML, the
+> > devm_pm_runtime_enable() API is not entirely easy to use correctly by
+> > drivers. It means that pm_runtime_disable() gets called at some point
+> > *after* the ->remove() callback has been invoked, which can cause
+> > problems, unless the driver's ->remove() callback has managed things
+> > correctly.
+>
+> Yeah. And I think it's rare for drivers to have done a thorough job. A
+> rare exception: I found commit 2d90ecdfa326 ("ASoC: rockchip: i2s: Use
+> managed hclk and runtime PM cleanup") an interesting outlier -- it adds
+> an additional devres teardown to power things off afterward.
+>
+> OTOH, between v1 and v2, I chose to tweak one of the Examples to avoid
+> devm, precisely because it was committing (or hinting at) these kinds of
+> mistakes.
+>
+> > My point is, the above makes it sounds like it's easy to switch to the
+> > devm managed version, while it certainly isn't that straight forward.
+>
+> Right, I said as much in the cover letter too:
+>
+> (possible future work)
+> <quote>
+>  * Adjust the way devm_pm_runtime_enable() works, specifically for
+>    remove()/teardown. Currently, this is very hard to use correctly --
+>    some common driver patterns may assume that a device will tear down
+>    while RPM_SUSPENDED; but that's not actually guaranteed. Notably,
+>    this makes some of the "Examples" section fairly tricky/subtle.
+> </quote>
 
-On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> ov9282_update_controls() updates the pixel rate, hblank and vblank, but
-> currently misses the exposure range and flash_duration. Both are dependent
-> on the line time and therefore the pixel format.
+I think having some examples that *don't* use devm_pm_runtime_enable()
+would make better sense, as it would show what is needed to take care
+of things correctly.
 
-The exposure control is dependent on vblank / frame height, not the line time.
+Stating that there is devm_pm_runtime_enable() available would of
+course be fine too, but in that context, I think we should point out
+that the user really needs to address the ordering problems that get
+introduced when using it.
 
-> Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
-> before the call so the refresh and any nested s_ctrl see the incoming
-> format.
 >
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  drivers/media/i2c/ov9282.c | 39 ++++++++++++++++++++++++++++++++++-----
->  1 file changed, 34 insertions(+), 5 deletions(-)
+> Would this be a good moment to pass this possibility by you? What if we
+> taught the teardown to force a device back to RPM_SUSPENDED? Something
+> like:
 >
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 4c88de1965171..e64d8343c18e9 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -557,6 +557,8 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
->  {
->         u32 hblank_min;
->         s64 pixel_rate;
-> +       u32 exposure_us;
-> +       u32 lpfr;
->         int ret;
+>     static void pm_runtime_disable_action(void *data)
+>     {
+>             pm_runtime_dont_use_autosuspend(data);
+>             pm_runtime_disable(data);
 >
->         ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
-> @@ -577,8 +579,22 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
->         if (ret)
->                 return ret;
+>             // New code:
+>             if (pm_runtime_status_suspended(data)) {
+>                     int (*callback)(struct device *);
+>                     int ret;
 >
-> -       return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-> -                                       mode->vblank_max, 1, mode->vblank);
-> +       ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-> +                                      mode->vblank_max, 1, mode->vblank);
-> +       if (ret)
-> +               return ret;
-> +
-> +       lpfr = ov9282->vblank_ctrl->val + mode->height;
-> +       ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
-> +                                      lpfr - OV9282_EXPOSURE_OFFSET,
-> +                                      OV9282_EXPOSURE_STEP,
-> +                                      OV9282_EXPOSURE_DEFAULT);
+>                     callback =3D GET_CALLBACK(data, runtime_suspend);
+>                     ret =3D callback ? callback(data) : 0;
+>                     if (ret)
+>                             return;
+>
+>                     pm_runtime_set_suspended(data);
+>             }
+>     }
 
-I would have expected that this should be handled by the first clause
-in ov9282_set_ctrl where if vblank is changed it updates exp_ctrl.
-That's how many drivers handle it.
+pm_runtime_reinit() is already taking care of some of the above.
 
-Looking closer they tend to set an explicit vblank on mode change
-though, and it is that which triggers the set_ctrl.
-There has been previous debate as to whether changing mode should
-reset blanking to give a defined frame rate. Memory says that Sakari
-was in favour of doing that, but I can't find the thread.
-Sashiko also flagged on a previous patchset of mine that if the
-previous mode happened to have had vblank adjusted to be the same as
-the new default value that the new mode selects, then the control
-handler framework won't call set_ctrl(VBLANK), and so the exposure
-range (depending on mode height and VBLANK) won't get updated.
+Moreover, we have pm_runtime_force_suspend(), which may fit well for
+some cases, but not for all.
 
-All a little messy, so I can be persuaded that there are enough holes
-in the current driver that the easiest solution is just to update the
-control ranges here if you say that set_ctrl(VBLANK) doesn't get
-called in this case.
+>
+> > Not sure what that means for the documentation though. :-)
+>
+> Well, I don't feel like the part you quoted is a problem. IMO, it's
+> totally fair to mention relevant APIs even if they're hard to use --
+> there is no part of the runtime PM that is easy to use!
 
- Dave
+Right.
 
-> +       if (ret)
-> +               return ret;
-> +
-> +       exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, exposure_us,
-> +                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
->  }
 >
->  /**
-> @@ -855,10 +871,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
->                 framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
->                 *framefmt = fmt->format;
->         } else {
-> +               const struct ov9282_mode *old_mode = ov9282->cur_mode;
-> +               u32 old_code = ov9282->code;
-> +
-> +               /*
-> +                * Commit before refreshing the ranges. ov9282_update_controls()
-> +                * and the nested ov9282_set_ctrl() calls it triggers derive the
-> +                * frame length and the line time from cur_mode and code, so
-> +                * they have to describe the incoming format, not the outgoing
-> +                * one.
-> +                */
-> +               ov9282->cur_mode = mode;
-> +               ov9282->code = code;
-> +
->                 ret = ov9282_update_controls(ov9282, mode, fmt);
-> -               if (!ret) {
-> -                       ov9282->cur_mode = mode;
-> -                       ov9282->code = code;
-> +               if (ret) {
-> +                       ov9282->cur_mode = old_mode;
-> +                       ov9282->code = old_code;
->                 }
->         }
+> But I'm definitely trying to make things easier too. Ideally, we can do
+> something like the above to make it easier to use. But if we
+> can't...well, I guess I can try to document pitfalls better -- possibly
+> in the Examples section, or maybe an extra note in the above quoted
+> area.
 >
->
-> --
-> 2.53.0
->
->
+> Thanks for looking,
+> Brian
+
+Np, I will try to help the best I can. I certainly appreciate the work
+you are doing here!
+
+Kind regards
+Uffe
