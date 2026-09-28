@@ -1,152 +1,143 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD183749E1;
-	Mon, 28 Sep 2026 15:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9114CC61B;
+	Mon, 28 Sep 2026 15:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610275; cv=none; b=LQT3ybQ3MrwNuqAAuR0CXQPgMfiL7pyg+UbAbS68rgYfU+16FTW6MkkfqzagY6mQJywE51qI7EFzYXop1I94zYNf9bJkkBSGx69yj36L6PazXaSKoA+pCHS9fiK8ByR0/6sz5rhcYvfzK7AMJbFAA+N5OoFCiTGBYgpX+U2zlKE=
+	t=1790610371; cv=none; b=Wlq/Nc02cIBc+tqurkSaCJYysrEJNnF7pznmgT8GArmzj3SXngFdNk5VSa4Dz5F2AilCRck/WBSf5BG+NPFLmD/geIPRzd7L5Twl3vbeTK/vM1CWZm13Q7KAAMfLSrHpo5cw3BJ075MW9CbmZTfUnaEiULHLfWwTgr7Z3C9UchM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610275; c=relaxed/simple;
-	bh=oYWLIsPpqRNEKyCnKZmjGH5wmdT2PKiWTIaG8ec8SKs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ER3uuB0/MUEZvV12l2ubhRLkXCygNXkAIodC2OYrC9WJiG0XKpjiK/uCZN2WzGBbA1C8mhAGofr8wtrrbs7QHSp9LtW+RIusk9D1qogoKfX+ACts98NJR68OPkGx8hRBo0Ns1pijT9+TSdUJgKNRoiHM+kn8KR2VGXykTFm/j2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=r0WDKSQo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=elMEMkmW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tqXvzdiw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=d70GCo3P; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790610371; c=relaxed/simple;
+	bh=N5Ohrv3V+NnMgyUJTBdJmbYNr4yprKAMIjPlSO/ztSc=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=mtPjZWmukZY73atdI5Ezt2x394bvQjeUk8cLCXEBOVK7N4ELfXcOC1TuaR3DjwJ6fzmIB7d9daEb372dkit1G/k1Aigl7Y3LjNeXXC5WB53vPgHMJSuaXdfeys/bb30cuL3V/nxy/DtZcoCR8L1InRe9OF/zJpNM2uvCKvCOD30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbJJsok6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="r0WDKSQo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="elMEMkmW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tqXvzdiw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d70GCo3P"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EC40A1F8AA;
-	Mon, 28 Sep 2026 15:44:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790610268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N+UMqJ91GA2KmTLJhEVSIC0BWDdfIpZX/6WQAsX4jHE=;
-	b=r0WDKSQocXNG+NqIw+zvGp2sFHXGeo20E1DSCbASxeC8VpnKZ5UTYEajBZ/6J3+/zobmBP
-	3VVhZ/qbUjmQA24Me/06VjRNAN7SSTKFaAV47Fw7GBH4UWKUgEFeSJ6kqzF0R8JDdq4ClK
-	Ju/Ak6+rVmVD9F0OFD8zcg9XMZcyrug=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790610268;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N+UMqJ91GA2KmTLJhEVSIC0BWDdfIpZX/6WQAsX4jHE=;
-	b=elMEMkmWTnFEkqQSU9Z+t2+HyJAwEjMl5i1igxQj6P/95sZk1maTzwoQn0Mw7MvjyadwqW
-	KKVU3nDr7Y8yMkDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tqXvzdiw;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=d70GCo3P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790610263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N+UMqJ91GA2KmTLJhEVSIC0BWDdfIpZX/6WQAsX4jHE=;
-	b=tqXvzdiwXN1nPQebdFy97n5RvsGwYhriYREA6sebhSxaTAs/VQZFDynzI/1dpYqswpk1Ky
-	R1fP4kl9159vJmMjQKfuxuIzrP4CRIq58bkvnJAIWeh10X0e6htx1yQO64jahmmhp0dn9d
-	+epL2V6xnpIfJH6Qpk2RcrcwcBTvST8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790610263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N+UMqJ91GA2KmTLJhEVSIC0BWDdfIpZX/6WQAsX4jHE=;
-	b=d70GCo3Pm4Bs0N92EpPtLzYXvG1SZZF0AGTsIzmlaIJ7tR881NxyiNoqhBkuLxWD4lG2bM
-	PuuBJ04VX13/ndBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A91C133F3;
-	Mon, 28 Sep 2026 15:44:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id j3BrE1eLumo+TQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 15:44:23 +0000
-Date: Mon, 28 Sep 2026 17:44:22 +0200
-Message-ID: <87a4p14bzd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Faaris Ansari <faaris.ansari@gmail.com>
-Cc: tiwai@suse.de,
-	adventureFAN@gmx.de,
-	corbet@lwn.net,
-	i@rong.moe,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	tiwai@suse.com
-Subject: Re: [PATCH 0/4] ALSA: usb-audio: Demote the severity of sticky GET_CUR
-In-Reply-To: <191af638-f19f-423c-8306-d96ea2b3dcad@gmail.com>
-References: <87h5klw6kp.wl-tiwai@suse.de>
-	<191af638-f19f-423c-8306-d96ea2b3dcad@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbJJsok6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01051F000FF;
+	Mon, 28 Sep 2026 15:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790610369;
+	bh=1pa9vC5Lbo6L0EX98csRUk8Kmp6D4AGsfQlmAkk15TY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=bbJJsok6gwM8UjEgMXy7k1eRABFk1R1ghWgNu5gAFqsE8tR2Nt7OguyLvBsWm0i+5
+	 /RGf8rjKBDNc+ZSeQLOQ/8Yi9Vdb5yBlpn9U8l/Zb4YuuwlLigeOo3EyjLWhMi0gY8
+	 PVJ8XDGGtpwv20rh7AlZBD7iYlHQ9GpqXXpzeTxsw1yvEXd4ylMa+79ig4QZTqxUbh
+	 7aHJjplizCB8E0L0NAgbNaf+WxVC9T86Ul8O5NyYMDErphpgHd5PEhI8yaTBkUfZiI
+	 SINQrOJBgRBrMa9412RBpZ/9IRGXrs+OomBu9BVUVJewCztUvqct6JMJ/0xQbJ+Z0A
+	 34735Hu5TWwZw==
+Content-Type: multipart/mixed; boundary="===============5141152035541028834=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: EC40A1F8AA
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	FREEMAIL_CC(0.00)[suse.de,gmx.de,lwn.net,rong.moe,vger.kernel.org,perex.cz,infradead.org,linuxfoundation.org,suse.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+Message-Id: <714f119d120fb9ba4aa7e82af621edb7bc97813a760c9dd2cb5363c55b7365a9@mail.kernel.org>
+In-Reply-To: <20260928150121.1712559-2-tjmercier@google.com>
+References: <20260928150121.1712559-2-tjmercier@google.com>
+Subject: Re: [PATCH bpf-next v7 1/2] bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
+From: bot+bpf-ci@kernel.org
+To: tjmercier@google.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,mykyta.yatsenko5@gmail.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,tjmercier@google.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 28 Sep 2026 15:46:08 +0000 (UTC)
 
-On Fri, 25 Sep 2026 20:33:17 +0200,
-Faaris Ansari wrote:
-> 
-> Hi there,
-> 
-> I am continuing to have a bug across the latest 7.2 kernels, as well
-> as 6.18 and 6.12 LTS branches concerning hardware volume control on my
-> Audient EVO4, that I think is related to this issue - would appreciate
-> some guidance if not.
+--===============5141152035541028834==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Could you verify the behavior on the latest 7.3-rc?
-Once after confirming that the issue is addressed, we may consider
-backporting to the older kernels.
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index 53c99fe4f176..5db11a21ce98 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+
+[ ... ]
+
+> @@ -828,8 +861,12 @@ static __always_inline void *__htab_lru_map_lookup_elem(struct bpf_map *map,
+>  	struct htab_elem *l = __htab_map_lookup_elem(map, key);
+>
+>  	if (l) {
+> -		if (mark)
+> -			bpf_lru_node_set_ref(&l->lru_node);
+> +		if (mark) {
+> +			struct htab_elem_lru *l_lru =
+> +				container_of(l, struct htab_elem_lru, elem);
+> +
+> +			bpf_lru_node_set_ref(&l_lru->lru_node);
+> +		}
+>  		return htab_elem_value(l, map->key_size);
+>  	}
+>
+
+[ ... ]
+
+> @@ -1310,16 +1349,19 @@ static long htab_map_update_elem(struct bpf_map *map, void *key, void *value,
+>
+>  static void htab_lru_push_free(struct bpf_htab *htab, struct htab_elem *elem)
+>  {
+> +	struct htab_elem_lru *l = container_of(elem, struct htab_elem_lru, elem);
+> +
+>  	check_and_cancel_fields(htab, elem);
+>  	bpf_map_dec_elem_count(&htab->map);
+> -	bpf_lru_push_free(&htab->lru, &elem->lru_node);
+> +	bpf_lru_push_free(&htab->lru, &l->lru_node);
+>  }
+>
+
+[ ... ]
+
+> @@ -1500,15 +1543,18 @@ static long __htab_lru_percpu_map_update_elem(struct bpf_map *map, void *key,
+>  		goto err;
+>
+>  	if (l_old) {
+> -		bpf_lru_node_set_ref(&l_old->lru_node);
+> +		struct htab_elem_lru *l_old_lru =
+> +			container_of(l_old, struct htab_elem_lru, elem);
+> +
+> +		bpf_lru_node_set_ref(&l_old_lru->lru_node);
+>
+>  		/* per-cpu hash map can update value in-place */
+>  		pcpu_copy_value(htab, htab_elem_get_ptr(l_old, key_size),
+
+[ ... ]
+
+> @@ -2505,7 +2551,10 @@ static void *htab_lru_percpu_map_lookup_elem(struct bpf_map *map, void *key)
+>  	struct htab_elem *l = __htab_map_lookup_elem(map, key);
+>
+>  	if (l) {
+> -		bpf_lru_node_set_ref(&l->lru_node);
+> +		struct htab_elem_lru *l_lru =
+> +			container_of(l, struct htab_elem_lru, elem);
+> +
+> +		bpf_lru_node_set_ref(&l_lru->lru_node);
+>  		return this_cpu_ptr(htab_elem_get_ptr(l, map->key_size));
+>  	}
+>
+> @@ -2521,7 +2570,10 @@ static void *htab_lru_percpu_map_lookup_percpu_elem(struct bpf_map *map, void *k
+>
+>  	l = __htab_map_lookup_elem(map, key);
+>  	if (l) {
+> -		bpf_lru_node_set_ref(&l->lru_node);
+> +		struct htab_elem_lru *l_lru =
+> +			container_of(l, struct htab_elem_lru, elem);
+> +
+> +		bpf_lru_node_set_ref(&l_lru->lru_node);
+>  		return per_cpu_ptr(htab_elem_get_ptr(l, map->key_size), cpu);
+>  	}
+>
+
+This isn't a bug, but would a small helper keep these call sites to one
+line, matching the pcpu accessors this patch adds? Each site now repeats
+the same container_of(l, struct htab_elem_lru, elem) boilerplate followed
+by bpf_lru_node_set_ref(). The patch adds htab_elem_get_ptr_to_pptr() and
+htab_elem_set_ptr_to_pptr() for the pcpu variant, but open-codes the
+container_of for the LRU variant at every site.
 
 
-thanks,
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Takashi
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36441357391
+--===============5141152035541028834==--
