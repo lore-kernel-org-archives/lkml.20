@@ -1,185 +1,247 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFCE3033E1;
-	Mon, 28 Sep 2026 13:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603264; cv=none; b=RxAB68KZPhd36bLrp+9HdnMPKdWrlCN/fwClO9Pm5cNC2syy4b2Am3raPP6t0vjovpplHc+qnFz0+aa6FcQDUknBOoT5qrIYGTWVqWTEw0p2Q2is3zoa8UyjNLWm/Ok0ljoXao1i7BaANap3cRQml/xtXJQIzQQBVv9DuMagexc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603264; c=relaxed/simple;
-	bh=TdVrV+XoStnJHbbdcVolHs0UuEHkirus5Mdxuy/jvY8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=rjiGUBEoo4b2FtEdCYlSFEI9huaJ8fM0zGFtNAVcKzQs/taQqP6g8JzoXWvRo+HcanKg1mPEh/QXJj7jA8vgNcg4fhbg5O1ZcZ/S9EiN2M8gRpvrxJl8mAVjVaADbblDVyU2oZDWkTOdOvv+ci4nw1uasv1ua7JG4a/W8mi+i94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=tXESBM8Y; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6050E4D1787
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790603276; cv=pass; b=A1W5WTxkTWICYx7cRleyiG/EQyln68qB0OdRoShcYVAb2eku3+NWO3JEn6UxTfBj2OK1i3qz0k+TX73PWFJsSmWgLoVKeDpsSqPulTDN6l4+4ExUE9pKN7R7GpOcuhZOT0jFFmdqjCNWc2PLby7WUVUGhNTkBfCvTyBpVB5nq58=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790603276; c=relaxed/simple;
+	bh=vqwrq4AvcZJ2abX6krO6C4SuPYik1iuIHeJAHjg/rEA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tbFaoTkvQveCuVvyfQZ85DC5BCJOkV0UpCtmSXaSMn3wGxwqsf+zpJEB1UNvcM0ZFLJ8Wj/KaH1CgVxICTb/4EQMvUS6zVSDSHqd6a/rAKAiJNLCYb/KCgB6u14MMSlMpXVuPH08u6WaeLKIjtxOKoRTNJw7KEB3iNMsEnHOjak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=URSdom+1; arc=pass smtp.client-ip=74.125.231.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="tXESBM8Y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=WaPXt9W8ERF/Z/EHBhvmEv9MDXT+s5lvbmV4Y5KaIMo=; b=tXESBM8YW0rRFBU9XH/usc/ipN
-	9PDFH0HnDTj8lY4vQBrYf45bbJ0w2VVIZmLwN0ao2Wd/CTsAGTKk5aFUTsKvWvSlfpjbs2CRfI/k6
-	74XLbTMKWm7kGlWqF6vfijKMp66rGiZ9uDJFSalld6blD9ihd2ZDkQj3xcWFq0rP5eqs=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xBBhe-000000006c9-1WVR;
-	Mon, 28 Sep 2026 09:47:34 -0400
-Date: Mon, 28 Sep 2026 09:47:33 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-Cc: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
- <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <tobias.gannert@ziehl-abegg.de>, <joachim.knorr@ziehl-abegg.de>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 RESEND] serial: sc16is7xx: fix TX gap caused by kfifo
- circular buffer wrap-around
-Message-Id: <20260928094733.09482cd6d6565588e2ecd267@hugovil.com>
-In-Reply-To: <20260928085559.3341419-1-paultyson.mbewe@ziehl-abegg.de>
-References: <418f9ae5-8827-475c-b465-1271a784fbf1.bc56e27e-ecd8-43ae-bb87-75bfd472a28d.58f59cf9-4c99-4e79-8e3b-28e6fccd454d@emailsignatures365.codetwo.com>
-	<20260928085559.3341419-1-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="URSdom+1"
+Received: by mail-oo2-f36.google.com with SMTP id 006d021491bc7-6d7530420abso1143482eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:47:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790603273; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VVMtH3TxZbPwPlZ4AgWZM2KAZvzoIM2OL7sDirGMfu8IGSXHdHsLgasQrSi2Sj+WmS
+         QVKzX15LmnqAon610P605pnQ8Z8sNTlQ/HL8CE3V8+O5yZxsGgSIlOCcwad7L8C7j7lR
+         J+CFY+oxsat6F5/0qzAv3bV/Vvhf4dhHQGTR4AZ+1koRjXGJuhxCTyfzYP804/hrKz3+
+         SsRpwg2Vf8rgbBi9QQnySQgJOvxfbGEI3iBEp37qcbXZLQ0GqvMaZd4m+b8+TEKVLh8o
+         3X83PAIXI5Hi4mSV4XQdcE3s8dcQQSDjJC5hRnTw7eNc5NmxZaN/qTpGdLtp+x66u7do
+         MfYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=dZ9Tkd5ktyo3J81zP2ExpIdndNhoj9/lF2//YUfachQ=;
+        fh=xIW6w1K2cxs0OvrOyKc9mst2o/n/rFpVh61Om8RT3tM=;
+        b=AB6vpa50MIAK14n6ZkabRgLHsZTZa5pd9tmousIXzjHnJm8zxEQlARb+G306DxMiqs
+         k14Ch/7bxrOyxgaMnvvB/4p62lTqBU702BCnzziEhFjgALo67UIAb21Zf5LITMlgQvs6
+         SnuwmOkXSXcojBO44RnRN3BbdnDdYmDYRQbuCQNdCsON+/MKZ3nFuR9EZWc41bqDacP2
+         mWXJqGlYxFL7obLLopD2ZMd7oxs/Se/+et5PzhatcPt0FJjOVw/0zAIzorLEARjRvGub
+         i3b7mdhrFNmPp5k2emWZPK/maMlMYxKLIbQI2V6GrnqwRsgTl41Lor678sCwsajEJghE
+         O42w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1790603273; x=1791208073; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dZ9Tkd5ktyo3J81zP2ExpIdndNhoj9/lF2//YUfachQ=;
+        b=URSdom+1yNGeeLBc/n1R3F3hAPY7VAytnggUjiW5JWlTHjpjngAm+FsjTUMS8Wylq+
+         kHZr+WGdZsS18Od3Y81p9hs3f1x6LHigcmrEbkBnSjiP/XWzpBmIuCLX/2dn9Axx9t6m
+         myZaIVssuhO5AJZ9v+sN4t6zMOB+GM6WlKlLnEuITF017L1CuHDB0MXW5RPVJqtE0Plw
+         k+ztNV54xvnVxQOvLMMTG8anDzfzdgQAw0kOEe7n0CHPAW6FWrIYqh/VFFpyeBH1H/l/
+         YDrQzrLkAlizSEU5tTKi6jZsLF7cl97kWlaneF0vulqx/egDgmsyU0oC2wq4ejN8cFur
+         f3Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790603273; x=1791208073;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dZ9Tkd5ktyo3J81zP2ExpIdndNhoj9/lF2//YUfachQ=;
+        b=qFMVXmjV2lFwGKs7DunPWpi9Uj3FFr905uB4N00azOuzmGwvtH2/WqaZIluIQmg7oA
+         sPi2umLIs1Bhf7GfTJkxtXh3cmqd9ThwJcpAOCGs/k6FYULprkYij0JjKuqInqZHa5xq
+         CNeC1mxyZpvjqwl02Ae0WLV9VZby09fcTwCvJVU8ZQ6P/2cLVBpjiDGTeVDuikixRMds
+         byRFtTl9JHxMMYEZ8jolBohWbCi/mNyoi2hV4+4vnEw8mhCcxIxVqHaW/DzS4TY4J4QV
+         rxrCxqzaqpwW+Rx1N7p3TidLCPGTcI2WD/RIPCQ40OhR9fZteRP3NzO131KFS7Q1lkDD
+         xIpg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqlbX22YXCbp5+mP96e7ORWdJNjOwq6+jm0dEebyfuuOdn1vrlf9FfI1cMOC4xdSR3q2Fl/vQwSx6W2mg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kL/5tJraMKXQC2d7ibGJE43p1bMwt9fmjOE01txvejzbcA9lem
+	lWZE/PomnflLiPUZv4bYrNxC4LkD7s9GaDoaqWVkQi42MoB2geM/m96ytqhft8dl1KoJ5o+NEEb
+	TE+crFA7pWC6A1XVyVIwIqP3b6kM78ODCG8GrK+R4Jg==
+X-Gm-Gg: AYBFou29CiLFMXZ3DJUq8PnP+fdoy2WVzMSNOBbg6T033vp7olcZtZrrtkqrdTCznYX
+	eSBwpks0dNHG1sS0fC7rJHU9VtD0E5Fl3VIo6MXdJVZJeZtOclnxlseuyPQjluSJ50Taj4fHcBH
+	axtZLsNEkwVAWAKSjIctM9k5Ggp+BkEk+vtBsTu7GiO/TFH6juJhwtuUOP0dfUi5+crXGYeeY+L
+	QSjxdT9Lt7bPki2t+BI8rNoHTsIwjKoqryVeJyUQ0XK5gjYzQuBLr3RAiKtDLc2yE+V7dlTvDzA
+	12xXrsciDsqVZ+RstQ6BashGMrNnLONIdmzEl4k0Dcxo9dPm8bGqxQFTMq7x1fc+0iAhohXk+XD
+	BmyORRsE0K4UWGFSo2CESsScz9H028I/0lixceK49jpcdovUXfx+Dw6NcYTcz7cVQSwkI0nM=
+X-Received: by 2002:a05:6820:4b8b:b0:6c7:af50:b2f2 with SMTP id
+ 006d021491bc7-6d43ff69b7dmr12278487eaf.45.1790603272980; Mon, 28 Sep 2026
+ 06:47:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 28 Sep 2026 14:47:36 +0100
+X-Gm-Features: AclHuK8pf6-cx8P7G1yInVrVxs_aGDLokGG09KZxdH-V88I3QFPMTofnHPAuxCw
+Message-ID: <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control range
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Paul,
+Hi Richard
 
-On Mon, 28 Sep 2026 10:55:59 +0200
-Paul Mbewe <paultyson.mbewe@ziehl-abegg.de> wrote:
-
-> kfifo_out_linear_ptr() returns only one contiguous linear segment of the
-> xmit kfifo. When transmit data wraps around the end of the kfifo, only
-> the first segment up to the buffer end is sent. The remaining data at
-> the start of the kfifo is not sent until the next TX interrupt fires,
-> resulting in a visible mid-frame TX gap on the wire.
-> 
-> The resulting gap is unintended: data remains queued in the xmit kfifo,
-> but the hardware TX FIFO drains empty before the remaining segment is
-> sent. Such gaps can break timing-sensitive serial protocols such as
-> Modbus RTU.
-> 
-> Modbus RTU requires a message to be transmitted as a continuous stream.
-> For baud rates above 19200, the Modbus Serial Line guide recommends a
-> fixed 750 us inter-character timeout. On the tested 115200-baud system,
-> oscilloscope measurements showed mid-frame gaps exceeding that value.
-> Receivers using the recommended timeout may therefore discard the
-> incomplete message.
-> 
-> The incomplete transfer also causes unnecessary TX interrupts: instead
-> of using all available hardware TX FIFO space in one go, the driver
-> requires an extra interrupt to send the remaining segment after the
-> wrap.
-> 
-> After the tty xmit buffer was converted to a kfifo, the driver used
-> uart_fifo_out() to copy data into a linear staging buffer, allowing a
-> transfer to span the kfifo wrap-around boundary. Commit 133f4c00b8b2
-> ("serial: sc16is7xx: fix TX fifo corruption") replaced uart_fifo_out()
-> with a single kfifo_out_linear_ptr() call to remove the shared TX/RX
-> buffer. Since kfifo_out_linear_ptr() exposes only one contiguous
-> segment, that change lost the wrap-around handling.
-> 
-> Fix this by calling kfifo_out_linear_ptr() in a loop, advancing through
-> all contiguous segments until the available hardware TX FIFO space is
-> exhausted or the xmit kfifo is empty.
-> 
-> This fixes the kfifo wrap-around gap independently of the stale-TXLVL
-> refill issue.
-> 
-> Tested on SC16IS752 over SPI driving RS-485 at 115200 baud 8N1 on an
-> i.MX6ULL-based board. Oscilloscope measurements confirmed mid-frame
-> breaks at the kfifo wrap-around boundary before the fix; no such breaks
-> were observed afterward.
-> 
-> Fixes: 133f4c00b8b2 ("serial: sc16is7xx: fix TX fifo corruption")
-> Cc: stable@vger.kernel.org
-> Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-> Reviewed-by: Joachim Knorr <joachim.knorr@ziehl-abegg.de>
-> Link: https://lore.kernel.org/linux-serial/20260623112225.82386-2-paultyson.mbewe@ziehl-abegg.de/
-> Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> When updating the flash_duration range ensure the ceiling is at least as
+> long as the exposure time is. This may cause the calculated
+> flash_duration register value to be rounded up.
+>
+> This is done by introducing a new
+> ov9282_update_ctrl_range_flash_duration() function and using them
+> wherever possible.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 > ---
-> Changes in v2:
->   - Corrected the Modbus RTU timing description for baud rates above 19200
->   - Distinguished the xmit kfifo from the hardware TX FIFO
->   - Clarified that this fixes one independent TX gap source
->   - Corrected the introducing-commit history for direct kfifo access
->   - Removed the max310x comparison
->   - Addressed Hugo Villeneuve's review: clarified that multiple segments
->     are sent, scoped tail to the loop, and added the requested blank line
-> 
->  drivers/tty/serial/sc16is7xx.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-> index 7107a0fb1e7b..fa7805d2cde2 100644
-> --- a/drivers/tty/serial/sc16is7xx.c
-> +++ b/drivers/tty/serial/sc16is7xx.c
-> @@ -652,7 +652,6 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
->          struct tty_port *tport = &port->state->port;
->          unsigned long flags;
->          unsigned int txlen;
-> -       unsigned char *tail;
->  
->          if (unlikely(port->x_char)) {
->                  sc16is7xx_port_write(port, SC16IS7XX_THR_REG, port->x_char);
-> @@ -677,9 +676,19 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
->                  txlen = 0;
->          }
->  
-> -       txlen = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> -       sc16is7xx_fifo_write(port, tail, txlen);
-> -       uart_xmit_advance(port, txlen);
-> +       /* Handle circular buffer wrap-around by sending multiple segments */
-> +       while (txlen > 0 && !kfifo_is_empty(&tport->xmit_fifo)) {
-> +               unsigned char *tail;
-> +               unsigned int to_send;
+>  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
+>  1 file changed, 28 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index f728709fcf0a6..be38ecfad8c82 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
+>                                 NSEC_PER_USEC);
+>  }
+>
+> +/**
+> + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
+> + * @ov9282: pointer to ov9282 device
+> + *
+> + * This may round up the ceiling to the microseconds representation of the
+> + * next flash_duration register value to make sure one can illuminate the whole
+> + * exposure time long.
+> + *
+> + * Return: 0 if successful, error code otherwise.
+> + */
+> +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> +{
+> +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
 > +
-> +               to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> +               if (!to_send)
-> +                       break;
+> +       if (fd_max_us < exposure_us)
+> +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+
+Reading the driver for how it handles flash duration, it all gets a
+bit convoluted. I see part of it comes from the units being usecs
+whilst natively it is in lines, but we've got this slightly odd calc
+and adding 1, and rounding in try_ctrl to get closest to the absolute
+value.
+Seeing as this is the max flash_duration, is it actually limited by
+the exposure, or by the frame duration? The difference between those
+is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
+you up to another 9usecs to play with. That covers any of this
+rounding stuff. You can afford to always round that one down and never
+clip the range below the exposure time.
+
+There is reference in the docs to a different behaviour if "the
+vertical blanking period is long", but with a bit to set to give
+stable behaviour (0x3017 bit 1).
+
+You've far more experience with how this sensor handles the strobe
+outputs though.
+
+  Dave
+
 > +
-> +               sc16is7xx_fifo_write(port, tail, to_send);
-> +               uart_xmit_advance(port, to_send);
-> +               txlen -= to_send;
-> +       }
->  
->          uart_port_lock_irqsave(port, &flags);
->          if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
+> +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
+> +                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +}
+> +
+>  /**
+>   * ov9282_update_controls() - Update control ranges based on streaming mode
+>   * @ov9282: pointer to ov9282 device
+> @@ -555,7 +578,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+>  {
+>         u32 hblank_min;
+>         s64 pixel_rate;
+> -       u32 exposure_us;
+>         u32 lpfr;
+>         int ret;
+>
+> @@ -590,9 +612,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+>         if (ret)
+>                 return ret;
+>
+> -       exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> -       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, exposure_us,
+> -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +       return ov9282_update_ctrl_range_flash_duration(ov9282);
+>  }
+>
+>  /**
+> @@ -605,11 +625,9 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+>   */
+>  static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
+>  {
+> -       u32 exposure_us = ov9282_exposure_to_us(ov9282, exposure);
+>         int ret, ret_hold;
+>
+> -       dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
+> -               exposure, exposure_us, gain);
+> +       dev_dbg(ov9282->dev, "Set exp %u, analog gain %u", exposure, gain);
+>
+>         ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
+>         if (ret)
+> @@ -623,9 +641,7 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
+>         if (ret)
+>                 goto error_release_group_hold;
+>
+> -       ret = __v4l2_ctrl_modify_range(ov9282->flash_duration,
+> -                                      0, exposure_us, 1,
+> -                                      OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +       ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+>
+>  error_release_group_hold:
+>         ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
+> @@ -660,11 +676,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                  * Ensure the flash duration range is also updated on powered
+>                  * down sensors.
+>                  */
+> -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
+> -                                              ov9282_exposure_to_us(ov9282,
+> -                                                                    ctrl->val),
+> -                                              1,
+> -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+>                 if (ret)
+>                         return ret;
+>                 break;
+> @@ -674,10 +686,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                  * duration. Therefore recalculate the flash duration range
+>                  * here.
+>                  */
+> -               exposure = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
+> -                                              exposure, 1,
+> -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+>                 if (ret)
+>                         return ret;
+>                 break;
+>
 > --
-> 2.43.0
-> 
-> _______________________________________ 
-> 
-> ZIEHL-ABEGG 
-> 
-> Executive Board: Joachim Ley (Chairman), Marco Altherr, Wolfgang Mayer
-> Supervisory Board: Dennis Ziehl (Chairman) 
-> 
-> Court of Registry: District Court Stuttgart HRB 746188
-> Company Seat: K&#xFC;nzelsau, Germany 
-> 
-> Der Inhalt dieser E-Mail und/oder jegliche Anh&#xE4;nge k&#xF6;nnen vertrauliche Mitteilungen enthalten und sind ausschlie&#xDF;lich f&#xFC;r den bezeichneten Adressaten bestimmt.
-> Wenn Sie nicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein sollten, so beachten Sie bitte, dass jede Form der Kenntnisnahme, Ver&#xF6;ffentlichung,
-> Vervielf&#xE4;ltigung oder Weitergabe des Inhalts dieser E-Mail einschlie&#xDF;lich Anh&#xE4;ngen unzul&#xE4;ssig ist.
-> Wir bitten Sie, sich in diesem Fall mit dem Absender der E-Mail in Verbindung zu setzen. 
-> 
-> The content of this e-mail and/or attachments may contain confidential information and is intended solely for the named recipient.
-> If you are not the intended recipient of this e-mail or on its distribution list, please note that any type of disclosure, publication,
-> copying or distribution of the content of this e-mail including attachments is strictly forbidden.
-> In this case, we would kindly ask you to notify the sender of the e-mail.
-
-It seems you keep sending your patches with that signature, which you
-can't do on public kernel mailing lists, and that is why Greg deleted
-your previous patch submission.
-
--- 
-Hugo Villeneuve
+> 2.53.0
+>
+>
