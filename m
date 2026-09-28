@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
+Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F5F2D0C89
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE17C4E73C4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609164; cv=none; b=hAn/yiX+/yQaQI9PQ5Qt8q5v90nLgHMyUlClK/6/JbA4JrFWkpH+Mmi0VQYhkYI4ONJQ4BLbwJioa2eVHNueN2W2goueJsZVx/9js2nPKRbqbh+v/N/6FkcGkw4WedyNaJeoCP5zP+VGc36Lk5hsge06sGX6mF8DcJNO3YiXZ4c=
+	t=1790609162; cv=none; b=hdVdiWN/hDcA4T3UBALZjzRfSYtIcJwa/7c/MPpe497bs4/8eAFo27FZFvsXu8jn1ixIamDAeXc2h5RquqQRfTUcwdmm4gTaY5VwlMi9fX+IxXg0L2vFUjGQI8b22jYMJxWOEaqGOfTmpDUdawZYX9NhQD6g7FX53UJaarUbgfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609164; c=relaxed/simple;
-	bh=TZTf+tvw3LUL1bGKJNCtbY5lbMJJlJLgbm/WT+dWO1Q=;
+	s=arc-20240116; t=1790609162; c=relaxed/simple;
+	bh=bVUARLRy/2fo3UIM94OcGSR9nBrrgL4zvU6NywPOORo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RsZPks6G/RbTgX+WpJIpjB3N4hULxdxOp0rOCggAc//pNQ1jiy6v5erbT7A6DBY59qnXiYqf2LecHoE31jcHa7OR+AQr5oZYDS1gbQKVCqetQXM51uxcdwcmvsrX9u9PYOd2NsoMH1JCFSMhVKw9gFdn2NMZC8O8r1wA2reA778=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j39hHouN; arc=none smtp.client-ip=95.215.58.68
+	 MIME-Version; b=o72PDVrnMBjZ/d6sI3Xi+gwDbSBC2zCN7B4/+edxK2eK/jvhfjgYjiax1SHcAyYFaJvH8Bccqr1yGPG3iIDH5Y4fR53qCI6ZtRZMw7nBvQChkdPTFcWYoCpAJVpNi0YsbQ+ROn8doRLjS5EAZsVKSwD+6mBjZ370gRFKY4TPsVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AWA6If2b; arc=none smtp.client-ip=95.215.58.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j39hHouN"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AWA6If2b"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TZTf+tvw3LUL1bGKJNCtbY5lbMJJlJLgbm/WT+dWO1Q=;
+DKIM-Signature: a=rsa-sha256; bh=bVUARLRy/2fo3UIM94OcGSR9nBrrgL4zvU6NywPOORo=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790609158; v=1; x=1791213958;
- b=j39hHouNIEU2yuKOVqgJ/b5WTHD3VCn2N/TV7RiFcgKtAwxZQYx6UaMbz6W6l1DDgAH7c45E
- pRb4USg6MeAVAi9xr8LrFMmnOgo6tz4EmtnetlhS3x4L/SHK4JI1iuZN1rPi6QDpxxUye20dhfT
- wP9tY0bNqKn4BKlryWHQGatE=
+ t=1790609156; v=1; x=1791213956;
+ b=AWA6If2b3TNQzX8/jZxQaLbPI/2hiuoeTJjhynJ0u5sGo/EJbyyH5TJFCVeE+tmQDIbkLaef
+ QxN/onuFnSrIkpxj/5TJ0OZZKW4q8BKdI5h3hXrAw5WGa3ZmzjEgsGTAWWpBF7zJCslPtd0MoWB
+ DSGaKycEBHpTRI0S4P1QXxTU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5cf54109416d45bb;
-	Mon, 28 Sep 2026 15:25:57 +0000
-X-Mizu-Trace-ID: 5cf54109416d45bb
+Received: by smtp.migadu.com with ESMTPS id e326ca226933ccf1;
+	Mon, 28 Sep 2026 15:25:56 +0000
+X-Mizu-Trace-ID: e326ca226933ccf1
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -47,9 +47,9 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	kvm@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 07/10] Documentation: KVM: Fix the name of KVM_ARM_SET_COUNTER_OFFSET
-Date: Mon, 28 Sep 2026 16:25:04 +0100
-Message-Id: <20260928152507.2116110-8-fuad.tabba@linux.dev>
+Subject: [PATCH v1 05/10] KVM: arm64: selftests: Test AT S12E1R with an invalid VTCR_EL2.SL0
+Date: Mon, 28 Sep 2026 16:25:02 +0100
+Message-Id: <20260928152507.2116110-6-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260928152507.2116110-1-fuad.tabba@linux.dev>
 References: <20260928152507.2116110-1-fuad.tabba@linux.dev>
@@ -61,28 +61,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The KVM_ARM_SET_COUNTER_OFFSET section of api.rst names the ioctl
-KVM_ARM_SET_CNT_OFFSET, which doesn't exist.
+Check that AT S12E1R with SL0 set to 3 on 4K pages, an invalid starting
+level without FEAT_TTST (which KVM doesn't expose to an L1 guest),
+reports a stage-2 level 0 Translation fault in PAR_EL1. KVM used to
+retry the AT forever instead, so without the fix the test hangs. An out
+of range T0SZ isn't tested, since the architecture lets an
+implementation clamp it instead.
 
-Fixes: 1935d34afaebe ("KVM: arm64: Document KVM_ARM_SET_CNT_OFFSETS and co")
+Assisted-by: LLM
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- Documentation/virt/kvm/api.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/kvm/arm64/at.c | 28 ++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index fabb1d4bf8f8d..e5efdc56f3d29 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -6265,7 +6265,7 @@ set to 0s by userspace.
+diff --git a/tools/testing/selftests/kvm/arm64/at.c b/tools/testing/selftests/kvm/arm64/at.c
+index ce5d312ef6baa..61fd217f724bd 100644
+--- a/tools/testing/selftests/kvm/arm64/at.c
++++ b/tools/testing/selftests/kvm/arm64/at.c
+@@ -73,12 +73,40 @@ static void test_at(bool expect_fault)
+ 	test_at_insn(S1E1W, expect_fault);
+ }
  
- This capability indicates that userspace is able to apply a single VM-wide
- offset to both the virtual and physical counters as viewed by the guest
--using the KVM_ARM_SET_CNT_OFFSET ioctl and the following data structure:
-+using the KVM_ARM_SET_COUNTER_OFFSET ioctl and the following data structure:
++/* 4K granule with SL0 == 3 and no FEAT_TTST is a stage-2 level 0 Translation fault */
++static void test_at_s12_bad_sl0(void)
++{
++	u64 vtcr = FIELD_PREP(VTCR_EL2_SL0_MASK, 3) | FIELD_PREP(VTCR_EL2_T0SZ_MASK, 24);
++	u64 sctlr = read_sysreg_s(SYS_SCTLR_EL12);
++	u64 par;
++
++	/* Disable stage 1, so the stage-2 fault is on the output address, not a table walk */
++	write_sysreg_s(sctlr & ~SCTLR_ELx_M, SYS_SCTLR_EL12);
++	write_sysreg(vtcr, vtcr_el2);
++	sysreg_clear_set(hcr_el2, 0, HCR_EL2_VM);
++	isb();
++
++	__at(OP_AT_S12E1R, TEST_ADDR);
++	isb();
++	par = read_sysreg(par_el1);
++
++	sysreg_clear_set(hcr_el2, HCR_EL2_VM, 0);
++	write_sysreg(0, vtcr_el2);
++	write_sysreg_s(sctlr, SYS_SCTLR_EL12);
++	isb();
++
++	__GUEST_ASSERT((par & SYS_PAR_EL1_F) && (par & SYS_PAR_EL1_S) &&
++		       FIELD_GET(SYS_PAR_EL1_FST, par) == ESR_ELx_FSC_FAULT_L(0),
++		       "AT S12E1R: expected stage-2 level 0 translation fault (par: %lx)", par);
++}
++
+ static void guest_code(void)
+ {
+ 	sysreg_clear_set(tcr_el1, TCR_HA, 0);
+ 	isb();
  
- ::
+ 	test_at(true);
++	test_at_s12_bad_sl0();
  
+ 	if (!SYS_FIELD_GET(ID_AA64MMFR1_EL1, HAFDBS, read_sysreg(id_aa64mmfr1_el1)))
+ 		GUEST_DONE();
 -- 
 2.39.5
 
