@@ -1,133 +1,254 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D144DEC22
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E4D4DEC23
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605943; cv=none; b=mwVy70Sgb/nqojfR2muwstdY9viskiwTYIkGPaFwoiuyjYYIgwh6LrXn8ui4cJWEoG/lP3TF3zmABrTwzddTSZ0h+1c7MLEq8F5YaDtKMV9Riw+sbbKVngolu+TAEhvDEKiHiMRoxMDssvvOqLDbRhK1j8M3IuC3MaTHMmvXI8A=
+	t=1790605947; cv=none; b=k9KmxsmJIrUUy6r0i41Gk9CqU4+myjD+YHzKdo8ZuJVu/qGrqGq+09JsqCYDob3GBgVNqLgN783HyajIJu3qtyPG1yH0j34vVCFSv+4DO2lQDmF4t+0RYzyDQeBhlfTPCo4ibp2+tTpJ1E2S78yaXZDJm7B1zP4rUkvnOMfdiLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605943; c=relaxed/simple;
-	bh=4xsFsq6UI1uMBaGJq5oiBxB4qejVSgh74V4L6/cQvzY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XQ272sLj0g4JM+YT92eYMHhn5n2Thd4p4DM+krT35LCROZamHGbFFkmVkxnn3Gj/vGccKT8FTBfRF0yBwMArVqoXVdRODLhc/8Nt3djLVw9GVbpQmhy7xvSmaFikywt3OVAfhHNr2Lj6OpThIIV9I+Mw/15zAZR/d1hpDuZbtIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oabPQtPd; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790605947; c=relaxed/simple;
+	bh=H5GiHK6ztFKrLa7xReiffciw7VCa8JM2dUKAkH6u0T4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGzZw2IiDnilTzpR5XuzA05/GMZYoCxuVew1/i9zkTzuUTxj2P2ZbDlmFIZQONcyzY9aUlBM2Fx/0x7EwjnOiVBsf2ocEbEG/6MFdrRlvhFYR05cGV+T4pSwYAZEryuKwKAlElqiiFX8DLVglPoV0h2u1a/8Co2Ef5oNR8Q7Q5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WEJVLUt6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nd9nqcgn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oabPQtPd"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f80e3f72so1454327e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:32:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WEJVLUt6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nd9nqcgn"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBA7pE481577
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/O
+	SLFJMMjU=; b=WEJVLUt6Qgndx5YiL7HpWyG8kpXQW6l5olRaMN4FmaJtiSAMI7T
+	3yv/pOhRBpkLZyiKRu0CfqCIbDxYg1vdaHIBC73J9OOf/tSqGMkuhLADt8b5ShH5
+	BBBWHHl4A3D2+X1ObB3j0llCuQrJgtg29SJEBbeGast4A4kD2OXm+BAihAAGIShA
+	BgZ0QlwUae0plvs6QYFxdtCn8m2+kcG9SqUn7P3XW5f+co5y7bdt6hJLhfJIzh9X
+	c4ISX9iTXWVvLjlGbhpAY9jv8e/3I4XsnmtFwE/KWcOm9EtiAQ4z5l6gsYcoSSMt
+	F177KeS7x4cTW3Fi7Mbg/muDcB24nsKEd8A==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt11ut8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:15 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7b2f700b30bso633928137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790605930; x=1791210730; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/VflUiPNajJnp0ayxU8tq6LKcc1Q82tg7jHSnkHrkjs=;
-        b=oabPQtPdHPZh/N6BPkRoRzoaDx2aXUofRIKFqCZj5MLG1UOlbat/PLIOHth8UqJIBp
-         TCoY3e/ArdbcaNQsct0oGgR4GggntoUsJW7hgXrRO2ww2qfAGln2iib5yVKJ7SJNvtWC
-         0zuwGLl5ibjxrp5l3kZc4itELt54mHEeQHf2E=
+        d=oss.qualcomm.com; s=google; t=1790605935; x=1791210735; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/OSLFJMMjU=;
+        b=Nd9nqcgnv0CT9fXwQYW587aubsB/MDnQb12lUquON69Zw1l2R+wzyHAw7hnc4hUZ+E
+         pV7vX+u6diDlqmbUe4OsN+7r0OPofOK4lspxDBZyaZfI3g7uEsNK9t9j64fPR01xvfWz
+         gMcm8oMhd3ZE+Yd6wBmWmDh5L2Rm4bShf3Z21VNF55jyY1V78Kw+eJe7f9Cqh+O1ZB8J
+         ac4A0qoBFwu+lWMriN+6brfJtuL85p5GfX5Kuf7+AoBft3JTwOqq6uk5w8Nb5CEsXpqc
+         K0jzntnMC2QTBJiqgxUbe5XCWXJ31/psRxz6cCSrRiF3Tkq2MSCjP0ha8u5B7Gf78oK1
+         RmIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605930; x=1791210730;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/VflUiPNajJnp0ayxU8tq6LKcc1Q82tg7jHSnkHrkjs=;
-        b=zxZTpnxcgB4wK0/9XXiKOr/7pzhvBMXk4w1mCpqBZm9NOOGYRFw/VEM4/NvRzgA5J7
-         gwWz0jCizWIie293XCKC44t9s8bYBrnz+db8uhEeGMbDcYF+AWmxGfKIU0cNQ6RLHWLb
-         zXukeRRh3KM/D4z0bE1vwjzkGZHo67rk83di6gtyuEFUDU96BmleOaDXhPXfMgaUwaOX
-         b/s19t+SfXtnrEHKfWxu3Ym/sF/uX4zH9WiLcljs4RuOhYEKvAhaIJHfmNDIWhTzE52c
-         jt2FkLFGHjLR8r2xjHykfVFgZ/TCdqxl/N2OjM63cUR66yn7J6ZH6jEtdQIBjpbA/FDl
-         J61A==
-X-Forwarded-Encrypted: i=1; AKwUvByNf6Z82rnG0PcxEfm1+2Kx+RqIGyOLMv/2Z09j7HbiWxASrz8FJllkFlU6zU//qRgCQ41IHzkba1vFd9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGYhIwCvBgCu7pt967dE1j42LC9y4gEeI72NDcXb5KeT4M8Pg4
-	M6FhmrsXu9urDgboq470uFT/EGK78ImA1GpH7JtG/G+ZNLjr4N9Q7jo8xuXBl5/lahYKJeuGSCz
-	c9DQ=
-X-Gm-Gg: AYBFou3/R6HaigfMx2S0Q/OPA6JdQKfzg6zgGEP57zJDCWWr9mP/yTINrS5OVIyNilY
-	zklu9wla96UpGM+DTImRtLZFJ8YbIhTdwGLNqHItF9hyhQMvKuWkmdsP9hNh4fDxCIabC8R5Wyc
-	e9B0SqjmDI2JYDBUgSwN6Vk3APJ4jDbDz6uhvBoCqUOO9Fe38tKVHZkkazKRAnM1Br4+FNnOEx8
-	ecK+DS9YNPhCQs9B8LHYKUq4yMvxbKoquLSE8K5LQSUB1l7XORobMFBNhmueBXJcvmqUNZ9CXJP
-	l8UP40NmXqnHFlLGngFntkXQlgfcNJ2JiESKJJmRqGg9X5h3tV9kCsUii3O7exCFKy+U0uflkVB
-	+M5m8NyPiDgvF0kLCwfqK9zjfHz4y9PITPKh5007O/OVnhGd74XX5uT17aiNmptzjPHkuHEjUIN
-	5jQjhZJ1cpkOgESII0smYlO0WuP6diKkkOsHnOuSxjuCeXxBDz+b0pvD1Ru1LkZKR07YSGDVraN
-	lhrqWZfdQUAhdKRPNP7pjmJ6I+aT4Z2bIvP1QaYMcOxJ3hsBg==
-X-Received: by 2002:ac2:4646:0:b0:5b6:67b3:9f74 with SMTP id 2adb3069b0e04-5b8df0d4463mr3705125e87.5.1790605930461;
-        Mon, 28 Sep 2026 07:32:10 -0700 (PDT)
-Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.08
+        d=1e100.net; s=20260707; t=1790605935; x=1791210735;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/OSLFJMMjU=;
+        b=NRTgi0y80uQHJpjeL8rW7psKnIQd1ROtPtYI9fy+AgDQA6DvEaknd0hbxOpLiHrVXN
+         dODF1XyTSBZu+Qwr53BOgRUwXFcth/Vo54hQcd+gS0uN+zJ1nu7y0ZhpQegg4Xq5GOY5
+         83DvSIuuViOvVw7BvBTBHNhzD11Rp8XbrR8yUzi3vO0Rl+RU+Bz+XozaQ61fxp39qCJR
+         4VusAzWAInxmQu8cURJT0VSQJoY5VOrYeC/0jkczxf49Lx7dXoF69sLYSF8NvI/SjUeP
+         DYaItk1al6qXbZObeC/lVJJLt6pAH2jdeRAGIOiK4vTw6U6QXaL5N83EgJ/jpc+mOTQU
+         /DSA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2hYQ/Z6HOvvnQqq+xwGKUpfHwTqJLUTkZknPuXBQwH+2YUrX546aM+t3OTFYC5zrjFpp8lRyu+cv0C64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6vRbAneT2pygtC9e0Tn1kr06ImF7+FSbpwyxpyL8jPCPH2r3G
+	YzYcmnPJwSLSea2j6IMGvh1rtryFh7XaX/9gRxhNRgCncGtZWssQrRYejdBYnfFkgSAsUkS43q7
+	TVGb//SzjEaEECGpWbxrH036wh01aQffYQg6TBgB8r+Oux/6M6K7UMh4avisOcwP60SA=
+X-Gm-Gg: AYBFou2ll6fg9c8/0aZOShow2IihnjrEPhMzgT2tMHYXEI5I3VKyPF6Hq/7FW3DW51B
+	CLqdbO/08QzwQ/ClyxN9OX/NdUryhWkxRWWYm91HjPf+NMTZ/vDib9TfFco3FSbJtvAJqkgRi6D
+	tXOHlFZGnfIzwvaDJVjzeQc5EwPsfA87PjHZS2EautZBUCxRhjJhxdcGJDnHh58fn9UnSNPWFNy
+	MzaAyxZCKQs0Dc1avYRIgI9c81VsPM5WdG2oD4DY51Q+G4fkYPFxYSZctuWsFYk5dNgsaWd7PZy
+	y1EX1kQR/KB38lAvmanrL4BTPvhMFj1UoQ7VjJW4nNZkd9cyed3DESQyUaDkWRhDg8UVIcXkJUh
+	4dr5XGdsWq97dy61TKsvJ1or+Ysz9TPisnBgsAw==
+X-Received: by 2002:a05:6102:c03:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7b390445334mr1520453137.30.1790605934789;
+        Mon, 28 Sep 2026 07:32:14 -0700 (PDT)
+X-Received: by 2002:a05:6102:c03:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7b390445334mr1519697137.30.1790605875667;
+        Mon, 28 Sep 2026 07:31:15 -0700 (PDT)
+Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bcadbsm292389266b.72.2026.09.28.07.31.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:32:09 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Subject: [PATCH v4 0/5] media: uvcvideo: Automatically handle invalid
- uvc_versions
-Date: Mon, 28 Sep 2026 14:31:59 +0000
-Message-Id: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
+        Mon, 28 Sep 2026 07:31:14 -0700 (PDT)
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+To: iommu@lists.linux.dev, kvm-riscv@lists.infradead.org, kvm@vger.kernel.org,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: tomasz.jeznach@linux.dev, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
+        palmer@dabbelt.com, tglx@kernel.org, anup@brainfault.org,
+        atish.patra@linux.dev, fangyu.yu@linux.alibaba.com,
+        zhangzhanpeng.jasper@bytedance.com, zong.li@sifive.com
+Subject: [RFC PATCH v3 00/14] iommu/riscv: Add irqbypass support
+Date: Mon, 28 Sep 2026 16:30:59 +0200
+Message-ID: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGB6umoC/33MTQ6CMBCG4auQrq2ZtsOfK+9hXGA7hS4A00qjI
- dzdwkoNcflN5nlnFsg7CuyUzcxTdMGNQxp4yJjumqEl7kzaTIIsoIaST1HzSH794w0ZshpVhZp
- YEndP1j232uWadufCY/SvLR7Fet3vRMEFV0iYG0uAhs6682Pvpv44+patqSg/uBDfXHLgqs6tL
- G+AiHqHqz9cJV4AKlmZqgFjfviyLG8EGPfBJwEAAA==
-X-Change-ID: 20260907-uvc-version-aedefc4384ce
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Ricardo Ribalda <ribalda@chromium.org>, 
- Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX/8JWEeOx2Tp7
+ PmoJ6H0BkdAx070QzVE4iHxQ8QxcoLqAxKGoIHA3BuLTztR4mDXydpnp03ql4nCsvavcvn0Yc/B
+ /axaH7NXsIdEh3/x5nZhiSvzvDHpA2EFy7nXKv4I7vj0QZApuXo2SBZ68LVMEKdaZmRaPWG4Ygt
+ MgW+fj/p5t7nEsGE4GwY/0BzxKQP+YQt1d/HvbHnCgpOFinchx8n945smIlqz4LNCXTGIfwscrj
+ anHFG3oJYjtfq+zsQDHYd30rOjbSdmq+js/O+15p8riYgiUg1PwGgqc6bnBrPwpZadb/0X+AbXX
+ FXyR26/d+ZkPZsmIqYRzvid2SVA8ln/mEgfZ40NfcmGvhhZ4T/j1eAyrnVKSKTdDTN08AkWadHc
+ Qy5GQWgNsmA14LFF+3ouqVn6tDyyX6fGEfWaVYbEyrb+KBhLA76G+lA/amZJG4zouzbNv8IKHvR
+ WFxcCqFJwcGphRCnxdA==
+X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba7a6f cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=bDdBU3oEAAAA:8 a=EUspDBNiAAAA:8 a=SRrdq9N9AAAA:8
+ a=JbFp9CTg7fNynJPQWhgA:9 a=ODZdjJIeia2B_SHc_B0f:22 a=DN7SgORnOiO7RqxRx1GC:22
+X-Proofpoint-ORIG-GUID: ckWXGJU599opZKUUabdOFC5Ion5bWyz1
+X-Proofpoint-GUID: ckWXGJU599opZKUUabdOFC5Ion5bWyz1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX3hDXiTI1NO2/
+ 0j5ohj+74IKn+bmmmuo611wUWrm8zOTN/CCxFcj5Oy/P02aAb3PtgznyZQf3VlwvoS/ADOtjE6I
+ 94DCL9HivP385ZD56G0LydIXzKeJhd8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280057
 
-This series changes the way we handle invalid uvc_versions. Instead of
-just failing it will try to continue probing.
+This series adds the RISC-V IOMMU side of IRQ bypass, allowing MSIs from
+assigned devices to be delivered directly to guest IMSIC interrupt files.
+It uses the IOMMU's flat MSI page table to translate guest IMSIC addresses
+to their host backing, with support for both hardware guest interrupt
+files (VS-files) and memory-resident interrupt files (MRIFs).
 
-Now that we are at it fix the way we handle device warnings.
+It has been a year since v2[1], and much of the design and implementation
+has changed. Host MSI remapping, IOMMU_DMA, and VFIO enablement have been
+split into a prerequisite series[3]. This posting contains only the
+IOMMU/IRQ-side support. The KVM patches will be posted separately: they
+are currently a minimal client for testing this interface, with further
+work needed for general device assignment.
 
-Thanks!
+The design evolved while considering two-stage guests in the discussions
+with Jason on v4 of the host MSI-remapping series[2]. With a guest vIOMMU,
+the address in the device's MSI message may be any guest IOVA which the
+guest's first-stage page tables map to a guest IMSIC GPA. The hypervisor
+cannot determine the target vCPU simply by decoding that IOVA. Instead,
+the intended hardware path is:
 
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
-Changes in v4:
-- Handle invalid dwMaxVideoFrameSize.
-- ctrl_size -> video_ctrl_size
-- CTRL_SIZE->VERSION
-- Link to v3: https://lore.kernel.org/r/20260911-uvc-version-v3-0-604328d8a0dd@chromium.org
+  Guest MSI IOVA -> S1 -> guest IMSIC GPA -> MSI table -> VS-file or MRIF
 
-Changes in v3:
-- Move uvc_video_ctrl_size to uvc_video_init()
-- Fixes for uvc_warn_once
-- Remove bmVideoStandardParsing parsing
-- Link to v2: https://lore.kernel.org/r/20260911-uvc-version-v2-0-395f27b0444c@chromium.org
+An MSI-table match completes the translation; addresses outside the MSI
+pattern use the ordinary second-stage page tables. With S1 Bare, the
+device uses the guest IMSIC GPA directly. Populating the MSI table with
+all guest IMSIC targets allows guest changes to S1 mappings or interrupt
+affinity without corresponding MSI-table updates. When a vCPU's host
+backing changes, the hypervisor updates the entry for that guest IMSIC
+GPA, leaving the device message and guest S1 mapping unchanged.
 
-Changes in v2:
-- Add quirk for Avermedia
-- Change the way the compliance error message is printed and cache
-  ctrl_size
-- Link to v1: https://lore.kernel.org/r/20260907-uvc-version-v1-1-34e45dfe04de@chromium.org
+The MSI table belongs to the second-stage IOMMU domain and is shared by
+all devices attached to it. RISC-V requires second-stage translation to
+be enabled when using the MSI table. This is separate from host MSI
+remapping, which uses ordinary page-table mappings prepared by the common
+DMA-IOMMU/iommufd code and composed by the IMSIC driver.
 
----
-Ricardo Ribalda (5):
-      media: uvcvideo: uvc_warn should warn not info
-      media: uvcvideo: Use uvc_warn_once when it make sense
-      media: uvcvideo: Automatically handle cameras with invalid uvc_version
-      media: uvcvideo: Do not parse bmVideoStandards
-      media: uvcvideo: Force UVC version for Avermedia GC515
+A per-IOMMU interrupt-remapping irqdomain, installed as the MSI parent of
+eligible devices at probe time, provides the irq_set_vcpu_affinity()
+entry point. The IRQ hierarchy remains stable across IOMMU domain changes.
+The callback obtains the device from the MSI descriptor and operates on
+its currently attached second-stage domain. The irqdomain has no private
+per-IRQ mapping state or MSI table of its own.
 
- drivers/media/usb/uvc/uvc_driver.c | 17 ++++++++----
- drivers/media/usb/uvc/uvc_video.c  | 56 ++++++++++++++++++++++++--------------
- drivers/media/usb/uvc/uvcvideo.h   |  6 ++--
- 3 files changed, 52 insertions(+), 27 deletions(-)
----
-base-commit: 58348f64125e9a3e44d3abb275ca7f4e6c9641e5
-change-id: 20260907-uvc-version-aedefc4384ce
+The affinity protocol supplies an owner, the guest IMSIC address pattern
+and mask, and the complete set of guest targets. The first forwarded IRQ
+populates the table and installs its configuration in every attached
+device context. Further IRQs share that table after checking the owner
+and address layout. A separate target-update command changes a guest
+IMSIC's backing without changing per-IRQ forwarding state. The last IRQ
+to stop forwarding removes the table configuration from the devices.
 
-Best regards,
+The main changes since v2 are therefore:
+
+- Separate host MSI remapping from guest IRQ bypass, and use second-stage
+  domains for the guest MSI tables
+- Replace per-IRQ MSI-entry mapping and reference counting with complete
+  guest-topology setup, domain-wide table lifetime, and individual target
+  updates. This is intended to accommodate guest-controlled S1 mappings.
+- Add IOMMU-side MRIF support alongside hardware guest interrupt files.
+- Move the KVM client out of this series
+
+This remains an RFC, particularly for the relationship between the IRQ
+hierarchy and the domain-owned MSI table. Jason raised the alternative of
+a per-VM irqdomain owning the table[2]; the arrangement proposed here
+keeps the IRQ hierarchy stable and ties the mappings to the S2 domain
+shared by the devices.
+
+The dependency stack is based on linux-iommu/next at 634706fe6e36, with:
+
+- "iommu/riscv: Enable MSI remapping, IOMMU_DMA and VFIO" v6[3].
+- Fangyu's "iommu/riscv: Add hardware dirty tracking for second-stage
+  domains" RFC v4[4], which also supplies second-stage domain allocation
+  and page-table support.
+
+The branch below contains all of the above, this series, and the minimal
+KVM IRQ-bypass client:
+
+  https://github.com/jones-drew/linux/commits/riscv/iommu-irqbypass-rfc-v3-kvm/
+
+Testing requires userspace to select a second-stage domain, for example
+by allocating an iommufd HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT. The
+corresponding kvmtool branch is available here:
+
+  https://github.com/jones-drew/kvmtool/commits/iommufd-nested-rfc-v1/
+
+LLM-based coding assistants were used during development for code
+exploration, patch review, test execution, and drafting and editing
+commit messages and this cover letter. I reviewed and finalized all
+resulting code and text. Per-patch Assisted-by tags are omitted in
+light of the ongoing discussion about simplifying coding-assistant
+attribution.
+
+Thanks,
+drew
+
+[1] https://lore.kernel.org/all/20250920203851.2205115-20-ajones@ventanamicro.com/
+[2] https://lore.kernel.org/all/20260820214150.545737-3-andrew.jones@oss.qualcomm.com/
+[3] https://lore.kernel.org/all/20260925151659.419512-1-andrew.jones@oss.qualcomm.com/
+[4] https://lore.kernel.org/all/20260915032828.11250-1-fangyu.yu@linux.alibaba.com/
+
+Andrew Jones (14):
+  iommu/riscv: Allocate MSI tables for second-stage domains
+  iommu/riscv: Prepare domain bonds for outer locking
+  iommu/riscv: Serialize MSI table publication with domain attachment
+  iommu/riscv: Reject live S2 replacement with forwarded IRQs
+  iommu/riscv: Derive the IOMMU from the device in IODIR updates
+  iommu/riscv: Cache the programmed device context
+  iommu/riscv: Prepare MSI table updates for interrupt remapping
+  irqchip/riscv-imsic: Define IOMMU IRQ bypass protocol
+  genirq/msi: Provide DOMAIN_BUS_MSI_REMAP
+  iommu/riscv: Add IRQ domain for interrupt remapping
+  iommu/riscv: Prepare info->domain for concurrent RCU access
+  iommu/riscv: Prepare interrupt remapping for IRQ bypass
+  iommu/riscv: Validate IRQ forwarding requests
+  iommu/riscv: Implement IRQ forwarding
+
+ drivers/iommu/riscv/Makefile            |   1 +
+ drivers/iommu/riscv/iommu-bits.h        |  27 ++
+ drivers/iommu/riscv/iommu-ir.c          | 505 ++++++++++++++++++++++++
+ drivers/iommu/riscv/iommu.c             | 352 +++++++++++++++--
+ drivers/iommu/riscv/iommu.h             |  56 +++
+ drivers/irqchip/irq-msi-lib.c           |   8 +-
+ drivers/irqchip/irq-riscv-imsic-state.c |   6 +
+ include/linux/irqchip/riscv-imsic.h     |  60 +++
+ include/linux/irqdomain_defs.h          |   1 +
+ 9 files changed, 974 insertions(+), 42 deletions(-)
+ create mode 100644 drivers/iommu/riscv/iommu-ir.c
+
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+2.43.0
