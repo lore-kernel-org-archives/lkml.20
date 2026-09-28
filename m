@@ -1,104 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2324EFFD7;
-	Mon, 28 Sep 2026 17:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617367; cv=none; b=ryGZ2qND0RTF2weIzCoXP2Qvs7i4BLRWZrqDOnPoxoyMEZgDZ/pifXTkKlCxHA5cR6AZEV6Piw4KMv4NhBMdE32GtGAAgBlzhczsBxXpHrL0Te37n2KwsWrI8HrlKUDZ5PH4sxO1M2J8XXAqDhUJImYzXcyhN644PDgC2sxNNBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617367; c=relaxed/simple;
-	bh=UgHcAAifO+PHlPWDmTFaARyXgKchbIalMKJEuI385eU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rckXGCLOR3lK9VAp2GXboWjurS5zcySjD2gE8zQQI9IK+GxDUk5LH7y7jW5LJSmjQAsz45czzDBVUOWIWFPwVM21Yjg2DAm8qHVij8392En8pwWPB0ubOuclgCUXuclaQ2CuA06efnWoJuPQRxErI7zkyb0RhPUSOcyp0tzUj7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EB8i0e3+; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9052E34887B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790617381; cv=pass; b=mOuhvAzRzqe3ERmKJQlhmpnIGWgOaywkXEMPEaTIW5zb9fZj/abS/wDGHOSfZ9ZRu27nI0FY6Qd7wCT6mHFgEhgtvb0weI3v/FkhumfsAPakiL8RmDh+i5j7JPuQdfnv57mqcr9ip5OXvcL6VWSGoqExdcCJ5fU7p+sxjxXMdJw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790617381; c=relaxed/simple;
+	bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qFiP3W5+4GjfscyByt2gp5cTjtmh0IEwQHpH7bRJoIqMWaIoLJ/+Br2+PfHZ0y2bEesufsbBLV5Eb5JJIUBnYDgKecICntPrG9s0NLhmqCG2K8JVA+F/6/U2mV9wc7Ow4G2HEQ7rx6tW1X72i5K9VGC8Tzz8THhYdqgZoCjH/vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BiydTQbP; arc=pass smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EB8i0e3+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7C946C2BCB3;
-	Mon, 28 Sep 2026 17:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790617367;
-	bh=UgHcAAifO+PHlPWDmTFaARyXgKchbIalMKJEuI385eU=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=EB8i0e3+Ed8JLPfEzPYn+cbwZkkTk4CzMkCh9F6dJ2SdAaV2QNzLhOuvc+upJESWt
-	 Wv63hhzvv0+ykebE4T1nUfni4uzEEYBl+7WYXmIUgYgjPG+9pZkJ0OBFKGS2aOj3NV
-	 ekycbXz3g41WjA1Xla51HdBXGlK+XztcoL7oZLTuelMxyQLMD5VLRZaHf8W3KMBgdT
-	 DUmhXyo2MSM8sRsfnXpE42uT/ktT9Qmyn+bWzATuaTNLZ2NjkeTzz8kqXvDr53kYiB
-	 dk+8V5xP/+GZPzArh2VyghmmOWDGgxNVFFi2x33HuaGDESngcrhBqrCwpFjcxPq655
-	 Kt5i1luCAFREw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58DB3CA5FA6;
-	Mon, 28 Sep 2026 17:42:47 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Subject: [PATCH 0/2] clk: qcom: sdm660: keep USB across suspend, give
- mdss_axi_clk its parent
-Date: Mon, 28 Sep 2026 14:41:42 -0300
-Message-Id: <20260928-sdm660-clk-fixes-v1-0-5d5bb84e3258@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BiydTQbP"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91782a91a3aso2641036d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:43:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790617379; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kJuE7xpJj10hF4GNaPCJOARtSW+rS66LKU8eDDXOhG8M2TnoQZWEmG1ezP+ekgb27V
+         USSCTZKgMErEYHXXbKhZltzc8yfeBzb+9JXmpSO5hXriYvtcdFYVBylEnGhAxxMY138p
+         akULxvn1JqjIdPQiXX6wKiq9WCrUu3XIiYvsVcPR4kmurhwuXRNM7MwNXWOXMV2YYIa5
+         /HwUAgDoKhNCgVzC83EaUl8J4EAzER5HRe8wDY0T7fR8jovdTF9wb0UheHpUBVBsDe0W
+         /66frMvvL6PG45ooWdjMpvvHTfpnunAVK80QTYVwsdc9GrjnbQfi4uHMhoiOkAIpAS7o
+         cM7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
+        fh=03GyLBFPTvrx+1IX489GAp64BkfSusc6EyiTsvFP4OU=;
+        b=JFNcqgLhNMHvNU/7/7AMwm3KlFjuYiMVrFTOJ1HeiN/efgnSNlx4RflJpYBwuwW7X7
+         2l+yLJo3bTBbyCVbfytHv9sU2V6bxH0IkNsvPipGTH7TcN0EuThxSwAD5xPZhLw7x4aD
+         1XtvcRM4kYJNrfx1ShHQHo2XLIANUtyYKjulqSAdpXTuh6ycGQH01BX/IvmQ4jsB7ABC
+         krFZa3YtorXspOQ7L+/pxkG/8dhRrt7awsAxLpgU/njTPcCqKmoPoiVJmN26gHgH2YF6
+         B61RgcoyROP22/WGKMhOjSK4reFBo8fkwjx7MmEH0zSU4byCwylc9++iHFw0j57VC6F2
+         ad+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790617379; x=1791222179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
+        b=BiydTQbPOeAdEz0U+bzGEnx/hSE1k6ewf4aMRoMI/2XZlXpRXLQclvnvxsqPdEQG/l
+         h00rCmCFEAO7p6193k7t3r5BZ1/uO5vFJ5jRnNpc6euCKQQlYo9cFwDBrPle58+YUDCs
+         RnFFe7BesbeSIbde3fl4loiPTl6ckapSOxjdF/Hm62pwMLuubtuuu0w/cUqYRZwH4RkB
+         WAnf4uaBNuRDmMPQ4pP7M7m6qetqPjewMQqqtS5yhRLeQp0p+0YmTq8SVNnDv20jZdL7
+         9rJ1N8jll8Y1mcwGYYgd4ydjInK4EFedd6RZAYWyRalLFLG9X01Vmslp3yvMjQCC+VDS
+         /rYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617379; x=1791222179;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
+        b=2Hudry1yUJVjfBYK4oejDIxZleh7TBZhYI0mVw/U7QHobGzbpN5DOhYln35tOfHcc1
+         CxFZ0NPPRcAxX7IDNt+OR8qTLeZrKpFxF+kiWf3ugE6cqJSU+Z5icA4OH+Xf0OJJ869U
+         rJLZOgr5uMZrqND4MKSYAMpciCS6tpgRnPmyno5U5FpPku+3Plvvbtc90Cuk8Ha1J2YP
+         7qZnKEZ6gF5jNAvy5IpsA5TJpYrv7cCUfxmumPn4fH30ZzBpoeAQivWAMdNo8MWk+wAV
+         a85up0nIUQ/4ZBJ6N7TR/pdC+Mg6HuNN2cTYOP6jC3fAhtUxYw98sOnA1Gyq5EfWgq5+
+         /v3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxB5vcHwyu5fxxKbz1j7Ueehk9DoTvxZBtNdEyuhPYFyzXN3ZQRj22DA9oZUtSI8HNMPuCu2LyOEeftdW4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVyYdHKpX3O06Ea4oVJF/u6hWJj7vM8rjB5v+pVeLz8s1fzOzn
+	njNKhk7p16Q2BNNpB4s9+V6O27SFL99Rftpuu68fRN0HFdD/112MQ2Z7BtWuPfY7BH5UC0PX7N7
+	BzqremtADUFSfUKte/0nkmcahP4rmaQ4JHamA+W4B
+X-Gm-Gg: AYBFou1fVvcTknm6LPRABsPbBBrr7MzTuEVcdNpokOO0uP5ff8xI3yPkRiD0LjN7sni
+	zFIkjD9OXD3G5xZI+fGVF+ymy7mkPoZBZ4uR/A1GNUmcu7TZLmy50mnsNQy5oX9tmoeJ/9x4rwc
+	UE3uNJnpRwibnnCzoW6WLw0uacZJcEFghoL9HMi8esQOGLR16ynDRDv9NDzB8oGbEgQqbqO0dRp
+	bO+0W8QMbTCNtRtNES6AndmQ/CMQu3zxH2hHjO7lb0OJEYtYYzbplhDHTCJzSQuuVfmPasWpbxA
+	Pp0Gb5XFrLr2rftGwkRtCpF2rzARtmBdgc92v33/q2S4Xu0XLLLOv1tGsCRYEJDhQl/Eqv/GpuD
+	Ght6zzReKUNzXcUaWAeBXdqutgIk4TSUnGBohVYmOyg==
+X-Received: by 2002:a05:6214:21a9:b0:910:2f02:8c46 with SMTP id
+ 6a1803df08f44-9143222edc2mr218567806d6.14.1790617378675; Mon, 28 Sep 2026
+ 10:42:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSyML3eKUXDMzA93knGzdtMyK1GJdSwvTFHPjNMsUAwtjJaC2gqJUsAR
- QV3QshF9cmpSVmlwCMkepthYAAAW52nQAAAA=
-X-Change-ID: 20260928-sdm660-clk-fixes-985d73f9d083
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
- Martin Botka <martin.botka@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790617365; l=1346;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=UgHcAAifO+PHlPWDmTFaARyXgKchbIalMKJEuI385eU=;
- b=oSW+5Bw6ht+5p4LJMdS/Dwc0QdWnJhTto3uB59qRWjjNWyLbnT6t1rBf8u8VA9XhT0z/1TAso
- /wUQA6IgrC7AmBVuUO9SH4evIaq+RPSKJxhgh5cTIlftM73kNKUF3An
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+References: <6a73d174.5aeeccc9.207e63.000c.GAE@google.com> <6ab29768.514bccd6.255447.001e.GAE@google.com>
+ <6ab8c8cb.e548f532.1ca396.0037.GAE@google.com> <arjO9qbNdbvdi7ao@gmail.com>
+In-Reply-To: <arjO9qbNdbvdi7ao@gmail.com>
+From: Pimyn Girgis <pimyn@google.com>
+Date: Mon, 28 Sep 2026 13:42:47 -0400
+X-Gm-Features: AclHuK-qpUM45iPuLgTgCnMsb-qo1Qn6VReor2uYb0e5oZPZ4T_26Jl9lysMnJ4
+Message-ID: <CAJWNTGzZ5=bBUzsAhaLLqNE0J3a_tj9BB0OvHhOaaWR8xn9S3g@mail.gmail.com>
+Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
+ (2)
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>, 
+	davem@davemloft.net, dhowells@redhat.com, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, linux-afs@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, marc.dionne@auristor.com, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two independent fixes to the SDM660 clock controllers, found while
-bringing up the Motorola Moto X4 (payton, SDM630).
+On Sun, Sep 27, 2026 at 4:14=E2=80=AFAM Jose A. Perez de Azpillaga
+<azpijr@gmail.com> wrote:
+>
+> I just don't understand why it is failing... :(
 
-The first keeps the USB GDSC in retention across system suspend, as
-msm8996, msm8998 and sm6375 already do. Switching it off loses the
-DWC3 glue's QSCRATCH configuration, and USB does not come back after
-resume.
+Hi Jose,
 
-The second sets num_parents on mdss_axi_clk. Without it the branch is
-registered with no parent, reports 0 Hz, and enabling it takes no
-reference on axi_clk_src.
+For future reference, you can send the patch as a text file attachment
+with the `#syz test:` command instead, which will avoid any parsing
+issues.
 
-Tested on a Motorola Moto X4 (XT1900-6) with the sdm660-mainline 7.2.3
-tree, where its board file lives. Without the first patch the USB
-gadget is gone after an RTC-woken suspend; with it, it re-enumerates
-over repeated cycles. With the second, clk_summary shows mdss_axi_clk
-at 384 MHz under axi_clk_src instead of 0 Hz with no parent. Both
-apply unchanged to next-20260928.
-
----
-Fabricio Akio (2):
-      clk: qcom: gcc-sdm660: Keep the USB GDSC in retention
-      clk: qcom: mmcc-sdm660: set num_parents on mdss_axi_clk
-
- drivers/clk/qcom/gcc-sdm660.c  | 3 ++-
- drivers/clk/qcom/mmcc-sdm660.c | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
----
-base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-change-id: 20260928-sdm660-clk-fixes-985d73f9d083
-
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
-
-
+--=20
+=E2=B2=A0=E2=B2=9F=E2=B2=93=E2=B2=99=E2=B2=8F=E2=B2=9B =E2=B2=84=E2=B2=89=
+=E2=B2=B1=E2=B2=A3=E2=B2=85=E2=B2=93=E2=B2=9F=E2=B2=A5 - Pimyn Girgis
+Software Engineer
+Kernel Dynamic Analysis
+pimyn@google.com
