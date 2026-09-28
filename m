@@ -1,149 +1,179 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010002.outbound.protection.outlook.com [52.101.69.2])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10153DB647;
-	Mon, 28 Sep 2026 13:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600429; cv=fail; b=eZ7Dh3yGMlLmgZ4qKVlUV9H5o1nGlgOoLlE8ZLRC0l/b0pZZXg1ZBiN3Qrump2uG/3WpiH2K4th3d5OzA15r3wkkESn5I1CUxpdU8+S1Zltc4f5X9SdHgJ2IIo6tNapUAiFly49FU2j4nTgNB+6O91mzpe18dDL4vj/1VN1mHnM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600429; c=relaxed/simple;
-	bh=oHMk2OMakzJnNJVNu8fyQrux2D78LD6ktSHwt2U/OUg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ReDS6d0P8CZXKvVj1tkfflQnyZNWf0yT35M28rJXONQF3yKTop2KmRK0n4UcxS3drfhOtDfu2sv2Ql5+at+8UXRI9+gvA6x+sEq8rcnvu8T+l/sw/eUzUjTdJGJvz99ontV7E51qInQ07c7lb0Dq4Rr2tWECWSXSgIQ/pOtDbcI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=fpMjWpvu; arc=fail smtp.client-ip=52.101.69.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C503DC87B;
+	Mon, 28 Sep 2026 13:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790600435; cv=none; b=Gyckz3sC/n7suP5oDX2Vi9ThxQdjJzMc2tLnQDxnkd9PSBsnEKpElZGDP6Vrpc28MuzsnVDOipueqEXSk1KoDBGZcXBHODsP+FPQog4I9ZmTP7biyEdVMep+WTe6YguVvoQGOyIyKbluL69qLJqpGkBwfXhUiyXwjkFkC+WrGVU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790600435; c=relaxed/simple;
+	bh=0ji0m/7TpVUZJeEnAvLR1aKypQLulQY/QfB/5mfR66U=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dCt0brk9Nz+kSSAFtn48CLoXpJL62e06FL/MNF3t5gT/LWzIPJffS7PFR0Amn66PgizA4i+xL5ByaPTExoEWAxr92K34QM3SO1N5hch3BiBFz2u5f38TgG3Ij54FnyppjIZtLRvBLJOmvN0yvdXsxdlltfORSXZS9s2FdDo9kCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=efault@gmx.de header.b=fcFd6Mcs; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="fpMjWpvu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=guKsYDubjePw6/6d3aehjADY/19Pv5+rTM8HsHmmkW0O0sFpTte/ixfeEruwQOoNaWI39rfvfFIt2u+toQQ9fmP4thBWuJMcVMPy6c0IO/Z6dD7kUFMqh7CCZBEtXn9bvtknQV6bF39afDoSrborvqAGboxvRao6DeKVjHVzLuv8bbg5YMVz3VAUA3DzCtLuwMKlyOWr8BaHvfd89Ly+Qq5v/PPwJvY6Qiuc12PoWaDRAYqWiH/4F+wQMYkhFOhUb0HHPJylftcs6/rWiLpe2K7zhcfTVkdFjp4Q4jX58JMfd4U4CepQoXCpH7UBFrhgy2aIYBoixDAEPZ20PjE4Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lBLgGttSgxfalRM4bR47Cm41a6bKQMOdXvQw811URU0=;
- b=w2WsYy4mbmoFdleux9DwOVAmklP7MMZfs2zhmovmeoHzoRtOTReDdEuXrP98XCK4O1AeWsrni6Vf7XfpnoK5gywOipuVehQxqPcfm4tqSDvL8rNhHpefyq4eNSTWCvtbz4FijgZcYKgsm/gDA/F/XkqkCVCqUmkdSKW3JVy6iB3HMO5YMVvhZcU5BHThlamorRdqvGIjntnkzgpl62k6g6/QimDEzKWPdbVgeCdk85pPhvz7V3rPWacXZTwqQAcmnE0D3XsuVLeQriY1dfLt91LfYW62+udOmGahjJuz+SwXc/uJSwvlv+R2W5+QKD5+n/AKocZyd+ADRSON5bMuIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lBLgGttSgxfalRM4bR47Cm41a6bKQMOdXvQw811URU0=;
- b=fpMjWpvuDDkCiqGV2/Dpoay2rUnanI43RbvyLOUhJ+AeeU0hscwn3eSzL5aV50aMQO8X1Lunk3EzXBOGn56Easez2QsrXJkZilDZ0s0JndS7ViWNnzpjj5o1IPPTeGuH6OpBaNpTDSBUJzOn6VHgNnrfvWRM6LiYrX/IVyft5LAItnB2VaM8AuStBrx2hPlcJLcYQMH20/nO1lmbrEdVaiNkV6mVRdKD0JR4w8BYVSOgfgNft/jMOz7kDEzXhljEfor9GO900rhi1bh2VblsG34z4UzYwNdOKfgSZW+wKPZuwuLlMjOStG5uOOLLsdplHQBE0P3E46GgZDhQQXtQiQ==
-Received: from DB8P191CA0022.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::32)
- by DB8PR10MB3864.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:165::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 13:00:24 +0000
-Received: from MAD0EPF000008BF.eurprd04.prod.outlook.com
- (2603:10a6:10:130:cafe::85) by DB8P191CA0022.outlook.office365.com
- (2603:10a6:10:130::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 13:00:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MAD0EPF000008BF.mail.protection.outlook.com (10.167.241.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 13:00:23 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 15:06:15 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 15:00:22 +0200
-Message-ID: <4f15d071-bc7a-4b7d-8ecd-68a7db2708fe@foss.st.com>
-Date: Mon, 28 Sep 2026 15:00:21 +0200
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=efault@gmx.de header.b="fcFd6Mcs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1790600410; x=1791205210; i=efault@gmx.de;
+	bh=YAXNPyYicVcBhKqsD1VcCjlEC2QfNeAe0Jk7ZO+USv8=;
+	h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=fcFd6Mcsvn0HotrW1JbzaJipB2uaZe1IfncghthKkkAAqy/4iE4R0IM0zJyRQsfu
+	 Hd58+/cjh5rSRgJ6TtvH8LkMPM6zuS+wtegxIyp/BeYso9QRXcApDJ8fproG40Jnc
+	 ZxXBxA4VwADA2B4KE0ssm30IMHaNAYNY6DMLU2/BaraKsls8HkmbUvaa1b8fwA4Rh
+	 9t98xxRG1jtwvvAVSb5U0wpZ/vKm6pYv39gsCboXXYe52VN1dI9e/wbGiejg6++CH
+	 SU8Vx+mWboFGL08gS64IGbx9HNHyGq9NkVOTtOze6buW3Eo4+POti0tlLUFD463v0
+	 B+D/QAQ8HE/kcQb0KA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVN6t-1xKhCv2HoN-00LaQL; Mon, 28
+ Sep 2026 15:00:10 +0200
+Message-ID: <4d4f5fdee4d1f462ba3490a6b3921006285e7fcc.camel@gmx.de>
+Subject: Re: [REGRESSION] [PATCH v3 7/7] sched/eevdf: Move to a single
+ runqueue
+From: Mike Galbraith <efault@gmx.de>
+To: Chen Yu <yu.c.chen@intel.com>, kprateek.nayak@amd.com
+Cc: Aishwarya Rambhadran <aishwarya.rambhadran@arm.com>, Peter Zijlstra	
+ <peterz@infradead.org>, mingo@kernel.org, longman@redhat.com, 
+	chenridong@huaweicloud.com, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, 	dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, 	vschneid@redhat.com, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, 	cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jstultz@google.com, 	qyousef@layalina.io,
+ Ryan Roberts <ryan.roberts@arm.com>, chen.yu@linux.dev
+Date: Mon, 28 Sep 2026 15:00:04 +0200
+In-Reply-To: <arnbKNWNIIEcQ0a-@chenyu-dev>
+References: <20260605105513.354837583@infradead.org>
+	 <20260605124052.227463677@infradead.org>
+	 <bd81bbec-ee59-401a-bec6-116196ad3a34@arm.com>
+	 <arQCykkkCnADu5ek@chenyu-dev>
+	 <128e93ca1424630546e39f9e9c1377f8185f7644.camel@gmx.de>
+	 <arnbKNWNIIEcQ0a-@chenyu-dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: st: add digital temperature sensor on
- stm32mp25
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260924192259.20517-1-mateusz.nowicki@posteo.net>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260924192259.20517-1-mateusz.nowicki@posteo.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008BF:EE_|DB8PR10MB3864:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4881372a-c0aa-4132-d119-08df1d6075d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ZSWSpiRn7WE7PlzLwBTHRC6kxfRwCpvjIpkAex7tZDhiA/1ecjBoJv4D0E+alUuydEIWygJIHUOCjjkJEpknx/Swk13ERwaFFe23nvrgB2x2i7m45rnU/6N6Gg3F/WX7dEGpw/T7TK1M70y8hkLDf7UuNbZq070IRq4pXLK2ekgVz3CTy8BW2hc0flmsO4t1lAhMeii8+JQkNjrpuLD0FN4ZaFd5LwSnqVaRzXiwKI9m+nXTsLeKzqpiMQ8KIPuvihZziCNzuULHuAhEtqVQ95QT+ER9ZhMpWYU0Iqm/dl5VCbfb4h4okOM0wt3Yi4BTG8XlTzVJ6eHioOT9tdqzPsmNezgTWYRC8dNBN3WYq4lv6lypExdh+XwtZK+mrzefMykkMviJnlEOo2IkQzncyjN1eeTez8pzuw1hNHfIWoAKthM9bdan3BQyKHV42jivIHgJkk3BF6H3cwwMCOvpJ6tbhii6sApewfIp3Eg0tBVh+0l/qzOU5zrv9c6DBBwd3djOGqgRTqTEYsVBUUKe7gYyMujIRuseko6tEYOI/4qlL2RSXkr/zGAic/AGnDPjHcOxgpfN3AQ8rP/UyvmBXN6DlV0rmPt9xIYUVDyJ72GuzB+OMuCg/qBZeBsctp13sJqDyJy3XRgPfyIhiiuRUWTCvAtoenDMyONzkCEQsOveVu1wMjOFFmtLNkpoLJ8+3+t+MsynhRis2eqKX7ATag==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rlKxrMxrVnAY9Al7/Wf83aCSm9ikMimdLMq0UfT975Z7KR6WFUfknnmKwbxA1b1IKfKED1B2VqA++i34iSpsFxM4duFgGEswGaey6VG3JOoxmRrl82dZJLZTQ6WfurwYtnvyftjzhbWUjmw6quz4sJuERpPc+MEXbiTEIyX+Egvi+CgDYTDkn/rfKIZzSewbC5e4icMB4TV6dWEnlAnRQ6QA9nnZu3Ae1OFvY8yAygQ0IP8dsbHodmUZY0DTSaX9C+BzuxpaotkxeACwhwyxkX/mb/J9R+Yr8RR8EFk0ljsf3StsVCV+eb/gt2LQmlxRT9Pa+e85Mh5UvNQrHMdINLEjFYDj+IexRgD29rqLp5Equ/IoMLY2T8nyi9KMsMbjsxR9G8weYmUVPhJoSvCPfS30OqYbYEH8pUCggPugaGhpxjlsxj43zymM0Fy93OvC
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:00:23.9698
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4881372a-c0aa-4132-d119-08df1d6075d6
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008BF.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3864
+X-Provags-ID: V03:K1:KUUPpKNXiKaXxpr5TCfYnbGZgGReCwKZl8TJDsOn10FYsPmYo2E
+ 8avXXY8zGppimPpHwpm1Rlh8iig+/oaLZJENSS6MOjoLceMhKKz2YfWHQTphT9NyeuFxojf
+ lfzA5y3aur1vvww0FzBiUdbRBhKXhfol0/YGrDu/rhKffJ0E4LTTLfamT5X3Jy3Gu/x2DJc
+ J0q6ZfRhM+qQhmvesQ3tw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:68HU/8K76ik=;CEjxExAdS33Sh03NX1XGf+QbKYf
+ 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
+ KF8aGuZ2dXpIstTfsC113+nXWGmRo+5
 
-Hi Mateusz
+On Mon, 2026-09-28 at 11:12 +0800, Chen Yu wrote:
+>=20
+> According to my test last week, stacking the waker and wakee on the same =
+CPU brings
+> a big improvement on my machine, iff the memory bandwidth is saturated. B=
+y comparison,
+> if the memory bandwidth is low, stacking the wakee on top of the waker ca=
+uses harm.
 
-On 9/24/26 21:23, Mateusz Nowicki wrote:
-> This series describes the digital temperature sensor (DTS) of the
-> STM32MP25, a Moortec MR75203 PVT controller, and enables its hwmon
-> driver in the arm64 defconfig. Thermal zones will follow in a separate
-> series once this one is applied.
-> 
-> Tested on the STM32MP257F-DK. Temperature sensor 1 follows the CPU
-> load. Two voltage monitor channels, in0 and in2, read about 815 mV. The
-> other 14 read 1 mV.
-> 
-> Questions for ST:
-> - The process detector and voltage monitor blocks are not in the
->    reference manual. Are they at offsets 0x180 and 0x400, as found on
->    the board? The downstream kernel places the process detector at
->    0x200, where no register responds on the DK.
-> - Which supplies are connected to the voltage monitor channels? With
->    this information, moortec,vm-active-channels could be added.
-> 
-> Mateusz Nowicki (2):
->    arm64: dts: st: add digital temperature sensor on stm32mp251
->    arm64: defconfig: enable Moortec MR75203 PVT controller
-> 
->   arch/arm64/boot/dts/st/stm32mp251.dtsi | 15 +++++++++++++++
->   arch/arm64/configs/defconfig           |  1 +
->   2 files changed, 16 insertions(+)
-> 
-> 
-> base-commit: 2f92d900f262a16c8ae02daf53ae2910d07185f5
+Ditto CPU wise.  The impact of even modest waker/wakee concurrency is
+considerable.  For much of netperf, the post-wakeup tail becomes a CPU
+service latency injection for the wakee when unnecessarily stacked.=20
+While cache misses sting, those hurt.
 
-Applied on stm32-next.
+As box approaches saturation, stacking of somewhat synchronous stuff
+becomes a better bet.  Aiming for having only waker's tail between
+wakee and CPU has decent chance of being a winner in a box full of
+wider obstacles.
 
-regards
-Alex
+	-Mike
