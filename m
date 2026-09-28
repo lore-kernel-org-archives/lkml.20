@@ -1,48 +1,55 @@
 Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBE34F5E16
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A89A4F7CC5;
+	Mon, 28 Sep 2026 20:50:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628656; cv=none; b=J0mpItATSrGVtUzh1+8pjpAuslr6ZCS4w66V2oEjv9v7/bbXhMJwBLcOeKLTJQdRhQMLGENi7BK4bZj6BiqGTgxkeTYrNB4aUeDKllt6y6hkoIJs4EhvAaNS4xl7yCp3Pn8u5B20EebCH2q6MoNeyfNgTmO8JgKvuc7JrVDSDFw=
+	t=1790628656; cv=none; b=M9TWbbE/l++Y0CBVsQd32/YevVJtbSdiaxfDL0kPZAmKWsEEt/FYQnJqOJm6MbHFiLHqkQdOP4hV1Y51SMJ/OzzRd2B7stQSvUxeWRmdFNMYMOQMHb12W/P/hCRQTdp0iaoyZBPNDmHJbCRy3AtEreWzHFaxS4l+AuJ9eZ7ys1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790628656; c=relaxed/simple;
-	bh=7Oo6CjkgyeadWPVdHdSjHs4jmR9XEagio7pV7BczRBs=;
+	bh=gnssPAE5e9jERJdPqsG71tW7kOYJmhAmcMvHNkQs47A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F8SY5UsU/dnVOCKFhtHx4RegQgTMN6D14H709CcBy88OVU3ir+b9K7yxrWT1V9DN4WuK8X12WYnwzrOlFDfAuNOlQ89RhraDDm29NRiV1jFesWlj6AB3nC1d7H+X3Uy28S12Tyc/+fxXfCoAaCCA7SHxtmgQFs+nasH7JPNKzZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=Pupotxnd; arc=none smtp.client-ip=195.154.119.183
+	 MIME-Version; b=Y2aPagmWqlcReyZjIaQ72zoR3KJjIeZPwv72Ebvx+OAGi1jsa9z6aHg5CDCwpuM4lIr62v7Jf4LMWPgansbnfXLwXx/c4jzTXBM4fATwnr7M2/2h1heoj4qWIuCFqp9E3a3lo9Xyy3Bb31PS4yoliDVMfbnHI2gPQ5LtpVnlaR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=NVJpd55R; arc=none smtp.client-ip=195.154.119.183
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="Pupotxnd"
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="NVJpd55R"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
 	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
 	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=KX61QIrNDMGQZNkhbujvGPtXrkJ/uJvb5+zoWtNRHjk=; b=PupotxndoUuSa+pFDde4WTWN4P
-	tEarGnKKUwRirrBPpXIvvUYSgG5ZlZIiifTlXalzhldJOcA1F6oFPdTBb6saCrMiHrv0YBgrJ36pV
-	GmpkfSH5Tftd8tQ2qsMgSpJ74D+57kBVIIQqHYlnaGpPN2NIOsbl18s4C5RD1RioWE9OeavQ7Ka/t
-	gbQVdK9AmOc+tGluBeHUvLCUEwtPJDVUN0PusBMSnfn1TkWHMdx1tgrraUHAjpKMSpjoV3hukQErW
-	1/cvYey3t71jE/vLQ/Lne40VDmME9FvZqrrXJuHmeZrodJHv9f7B7swYyZ+76R5PliH3/ZokLguW8
-	DQRhssOg==;
+	bh=9J2seGKRWZVNJ1p8+AjKgKsDACjOYKsJmiv89i7OaIc=; b=NVJpd55RrTEoL6kRHTynZMWYU+
+	kq801L3939AzaWSNCAxxuB65PN8V5OO7r9uPv5i1AHLd7Kk9sfRwkUUH3P6vcdT55ersl0v9FHFZI
+	ecwyu36UbcAeVjrxWMCDesa5oc+ONwLHSSgqkqWibAb+6DQ/o5GMYVtHTUniDANhnRaJMxxLSCZ+t
+	/+YIwqEfXXk6fJFGdG8sQzwxfJJQ93me744Tg8msRKqFZwXN+glg26bW+3L93/am9eLMG2+XtxfeB
+	AvJUbhQOdMWp3e9bKhjKR1Equpgol70ncGxV2HFD9/mE782NWrulHATndUCgDLHKE1+jIfWHzhpjv
+	xI2qW+6A==;
 Received: from authenticated user
 	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <aurelien@aurel32.net>)
-	id 1xBIJI-0000000F7qj-1t8K;
-	Mon, 28 Sep 2026 22:50:52 +0200
+	id 1xBIJH-0000000F7qf-2GWC;
+	Mon, 28 Sep 2026 22:50:51 +0200
 From: Aurelien Jarno <aurelien@aurel32.net>
 To: linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
 	Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>
 Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE)
-Subject: [PATCH v5 5/5] riscv64: defconfig: Enable BT and WLAN support for SpacemiT K3 Pico-ITX board
-Date: Mon, 28 Sep 2026 22:49:10 +0200
-Message-ID: <20260928205012.3689405-6-aurelien@aurel32.net>
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
+Subject: [PATCH v5 3/5] riscv: dts: spacemit: k3: add rfkill node for Bluetooth on Pico-ITX board
+Date: Mon, 28 Sep 2026 22:49:08 +0200
+Message-ID: <20260928205012.3689405-4-aurelien@aurel32.net>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928205012.3689405-1-aurelien@aurel32.net>
 References: <20260928205012.3689405-1-aurelien@aurel32.net>
@@ -54,44 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SpacemiT K3 Pico-ITX board has a RTL8852BE Bluetooth and WLAN
-controller connected through PCIe and USB. For the WLAN part, enable
-CFG80211, MAC80211, RTW89 and RTW89_8852BE as modules. For the
-Bluetooth, enable CONFIG_BT and CONFIG_BT_HCIBTUSB as modules.
+On the K3 Pico-ITX board, by default the GPIO pin that connects to the
+RTL8852BE Bluetooth enable signal is driven low, resulting in
+impossibility to use Bluetooth. Add a DT node to expose it as an RFKILL
+device, which lets the Bluetooth driver or userspace toggle it as
+required.
 
-Both also require RFKILL and RFKILL_GPIO.
-
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
 Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
 ---
- arch/riscv/configs/defconfig | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305d5511b..1bc79ba2ee649 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -100,6 +100,12 @@ CONFIG_NET_CLS_CGROUP=m
- CONFIG_NETLINK_DIAG=y
- CONFIG_CGROUP_NET_PRIO=y
- CONFIG_CAN=m
-+CONFIG_BT=m
-+CONFIG_BT_HCIBTUSB=m
-+CONFIG_CFG80211=m
-+CONFIG_MAC80211=m
-+CONFIG_RFKILL=m
-+CONFIG_RFKILL_GPIO=m
- CONFIG_NET_9P=y
- CONFIG_NET_9P_VIRTIO=y
- CONFIG_PCI=y
-@@ -143,6 +149,8 @@ CONFIG_DWMAC_THEAD=m
- CONFIG_MICREL_PHY=y
- CONFIG_MICROSEMI_PHY=y
- CONFIG_MOTORCOMM_PHY=y
-+CONFIG_RTW89=m
-+CONFIG_RTW89_8852BE=m
- CONFIG_INPUT_MOUSEDEV=y
- CONFIG_INPUT_EVDEV=y
- CONFIG_KEYBOARD_GPIO=y
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index 5aa6fa89cab58..d3f256dffb4fd 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -43,6 +43,13 @@ reg_aux_vcc5v: regulator-aux-vcc5v {
+ 		regulator-max-microvolt = <5000000>;
+ 		regulator-always-on;
+ 	};
++
++	rfkill-usb-bt {
++		compatible = "rfkill-gpio";
++		label = "rfkill-usb-bt";
++		radio-type = "bluetooth";
++		shutdown-gpios = <&gpio 0 30 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &i2c2 {
 -- 
 2.53.0
 
