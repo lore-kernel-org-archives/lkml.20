@@ -1,263 +1,131 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDC34CA787
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602970; cv=pass; b=tj60umUBPAS6A/z1G5Repnc7uSsezgalipihZLNGu0DPlo2F6Ob78v3N+rHEphGu4Abm4NTxzLnovwAO2evR9DpugG7MT0zmSR7fLHMHI30gZePSwusXBC/m+/dF3b4soQhVTEO42iNL3GtAevIJrl4sIP46sAo4rpG6boHtDww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602970; c=relaxed/simple;
-	bh=/nDI86/KM+ocuhtUm25HoH+LB5OX5lxCX1zJ59Hdx0k=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B3D4D1788
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790602991; cv=none; b=qwFWrxBnbreNjiaT5D5oTWDbdH0+n5TBeRd8+s7VpeC30cuOV6pAngWONpz9/AXdKVus9pONAVnbQwE2AMDNsunpk5jWf2NTIK+IHSNISRJiZVkvhhyTQhpyr/uRaOFVLgt72y2QVsTBAgSNiR+QM1CCCmXNTB4NK5BXcLlGXmc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790602991; c=relaxed/simple;
+	bh=LAfG9aZjGdrhKCf/58E+Lupe9Ivg/F16AB6VzU/JCk0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A89ZLhV+hOFWk9XdSUN8MNpk4XVw1qR3VYhSd9hmsQTmD/5/3OEP1Wllpp5HTrgGs9UBS5Sgn1CWiuJGGfly0GlTVbvCNui6fomblxx2FRjLu2dzuR9p0LNsbFOcqgkjYntD77h65itvEzbAaFM8+Lq5XUn2ZAxTrvqh6oSIRQI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=QS25UlXO; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	 To:Cc:Content-Type; b=bGSUlTllFvji/jCqBF16LFgeF9c5bf46vrS1eIlPeqaPO9Q95KjtS/RPkY0NIyCjIihYl7wL5UkxChKFTMqDFnXm4TdKOjkfYAXutS9FhfmEJL9aDDsQzPGSl0gtwrl4K+vu1eJZd9KKGVJTMkymyoagwYTdoaOxjgxYDasVr4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqgwPDhN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="QS25UlXO"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1661148f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:42:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790602966; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M+oqh54hqhUvFcFtO8U78OCg0uoaQgKeJG/7SC6sWa/CU+Kx+/8vJeVVxdmW5DswV7
-         lAkaSTG0ZaITatXi5EN7igvAtl+I6zfNhkuaPFOSL/VXZCPfoZ3N5vEaz777NChZxBlJ
-         dmgwN6nX2PcgaKi1yzBnCE6nD7lVfWJQR3LzqZoA0CpQKrO8uO364AyeegR6byZZiirT
-         BjI9/NXfVnJiTsPJMUPc3P1ZpvoUJyKTwt13EdYiVXezHeLzvu6R0EGURMlJ07ywIh9A
-         ZYjLp4U984CwCLB5eMpF9ZQK6O1ZlKqmKIYQZgiinyf82tTKsAKtXm/fIqdcS7niRqxx
-         eyYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VoieX7gEf9mbaFA2GdnHRYMTOfTM4g2UWo3J9oxSSuw=;
-        fh=BBIUolmwWqe74JyaMWufe9OQ6n125WMlqzid8wEuO5U=;
-        b=LHsr6oEhSyPzfsPNkb3EvymoVnL67JJgtZ70ioADtTxVgR9U5mXaenC9a48X9ZYlnS
-         9/jdgJBpH+J9EjpBtmosi8l8dy+GxgmSuXk01xqLJgEXocin237ziiEig2lMkq57WwY8
-         APDL6/bGgKg/RMfXkH9zbxGm857f585aUaO385ow+YDg4g3neTceMyQso/F17sgRFW9N
-         g5QHIg9S6WT4NBUXCLybQhb3vGxIb1yE3pxuwnKBfa6vvLLYGgYkUNtnYq5Rjo5c2IIu
-         CwmJzGSM3twcUHzTvpEC/Jv0l40BCjzy/H7xuAGawmRZiW+w/EiFZaxWtcrseHJKKvf5
-         F2jA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790602966; x=1791207766; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VoieX7gEf9mbaFA2GdnHRYMTOfTM4g2UWo3J9oxSSuw=;
-        b=QS25UlXOULfXTZ5yFVEi5uYs7XD9DCFLgGZqQCwrYtxy5rbuCbKZGeR7/Vhs9uXuxu
-         CoDgftKPzHnPE5nZ3eRgOyvEgSG1yyUSXKCWHZoa5FCi9pluZVKMoh6coj62AFANV/9B
-         2C8ANBIEL4LAICbZyZ0Z0pQoFJWE3ejQZK+yv/wWoclw8/4AIBD/Htr6lejSoifFliRC
-         mnaUTjtU/lkT4mPxXSW+aWgG9CP8WzpFqW0mO0u7vW+FWNwy9tMNTogAYn3q7LTWGIRg
-         LOCz0+OzuecRlUvDlfy7iO9Gk635BYOqOvPgOVdn6I4AhLZaQw+ZEYhlxJQfM9DXDUG7
-         H0gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602966; x=1791207766;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VoieX7gEf9mbaFA2GdnHRYMTOfTM4g2UWo3J9oxSSuw=;
-        b=1XOeOrfCBxfvF+IoYwPC5viJ+ld0S0F+U8T8XuYhc9WDUY8fkS3AsrYdyly7UCYk1x
-         kuA+2WB0WDshedsq9B/qz9rH2PIJlMeHl43Z8NEL0PA6hHDIOxgnMnE1mzbUQ8zsnC6T
-         BLku3V7ehyxNmb8TRJMB5pDaBvHmkcmLiw5ZJIJVXt9xQzVHQgyHtz2FXcNw6mF0qTC2
-         lwZiAREG5XD4A99F5TrnQ5uuXAzaVJm61Vq8m74A5niUnORuCAJKw+S9NkiReDcJZm58
-         WF6ZX225pCqDwGuepQIqyMFjj0CmLcdnRs7h9RGdmMarUPOA2krNdMxBXwcHsSf17eUV
-         g6YQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywG1w+GFUJXorkQBN9oXxBGBS/jy9PePzhL+w/7BkkEzCq5zkN08aHqwxw35J11fIbewxU4afI82Ra0yw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK98v+zb6sXED/eD8dvAnPkcvlePrzELX7Irmj0KXRWDAvPX5a4
-	Jn0NEjL6Dke8+dOif3xksaDMyIYaVZH1lVT3/Fm5d+3PSIVK6KpW+dKlgF6RC9wH6K6SSAUbuYJ
-	YBoaDvbgeSE3JgAB+AtewiWOMWLzHLqaQJ1HmNlXz7Q==
-X-Gm-Gg: AYBFou3OHe0AHvFGA0kq2S6gdjtMTfuafuy+w+p1LARI9XXzRPw6dR+lY4AX3lSC3xg
-	pJPaDX7XzKutLp91KILrqfqiwvoIeCSnYBN+e4elDnEzqbZU0/cVbwt7caTPgj3vtJyj5A6AHAz
-	+V6Po7KhMsTH6DhYkICDUxga4RtxxPQ5mz7spo1gyfBZSRckCrJMn7CdeNebHNUs1kVRB9veJqz
-	6z1CD33bMzSV0VduOdfoCvB5sO/RZKc6N8XcCQy38f0TN63vQ7hdgO/4UhK/F8M1YKa0HywQPAW
-	fPwInxloWjOefb+EFYBe8zlNDKtgNDsKLn9c9LiE//eHvMGw8teU196UyHflMXoehxR2Q+U4zFZ
-	wX2PpOMUCJ0U749McinN0qNfBLSLWKzh3AH/YlUMynqQatNf8DxOt0jlzAEwvBZUHs5WxpmwYVc
-	0=
-X-Received: by 2002:a5d:5d0e:0:b0:488:7f1d:2735 with SMTP id
- ffacd0b85a97d-4887f1d288amr19321423f8f.57.1790602965883; Mon, 28 Sep 2026
- 06:42:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqgwPDhN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDEE1F000FF
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:43:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790602988;
+	bh=KhMGxUvRlRgkjraFBvxRRPukh6cwxdgVureX0v0+n4g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XqgwPDhN/UCUkPF09xSf+JZzOnf+JLMeW+aF1DWSWGeSSdZjF0vTWKEoP/AZNss0x
+	 h2sggBfT0YCdHVdVc5t7BYeqx6OLpqdhTjx3xECXnFs9ofzNp+LzrHGSGNUVKzjgxy
+	 258QZwNIGi8BmRKb/Mt6XU4QHgD4uefN1BBXMmLtPMQenLPh2fc28zI5nOKnBDP6XJ
+	 GMDWgbwE2Iq+42tslszYitegdOoW4H0bHHZzz1gCYD5U5xMlXELp0Z2mH/As4gfK+5
+	 yroTVB5B+ukJzW/NA2d9lfFaXMoZLUD9J83TkGD8V/rG61Yhi7HuvX5tuI2G6rbVSO
+	 SVNptfreJTUEA==
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac768bda6aso1619744a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:43:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzqG7VWlfFzYzV50jMqUPumxQwR7ro3TIeZ9HjLAVI0jtQxL4ij61h3l+cAf9tsappsIpHkZCQ3mxe9/D4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5Nkrghu7ai8KuAJn9pztLc/9dll/ZjrljV1CsHP5q4wwdp5c1
+	UjxpQW0drDYJDMjDxXTK0EpCtoPPxHwWWrpDe3Bhkma7LWb/aAdRcJ6z5qxZJkcQ1HJtDBYBd2Z
+	yO7gHWrHITpnlPi4SR4E3EezlNIr+NeI=
+X-Received: by 2002:a05:6402:52d6:b0:6ac:9a44:d412 with SMTP id
+ 4fb4d7f45d1cf-6ac9a451421mr453774a12.7.1790602987498; Mon, 28 Sep 2026
+ 06:43:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928094739.2605-1-cp0613@linux.alibaba.com> <20260928094739.2605-3-cp0613@linux.alibaba.com>
-In-Reply-To: <20260928094739.2605-3-cp0613@linux.alibaba.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Mon, 28 Sep 2026 19:12:33 +0530
-X-Gm-Features: AclHuK-74TWd3BjhOYFsGW8F1pliz-aGiiWKp_r2qgxigINlZVJkaGpvr4QoqNI
-Message-ID: <CAAhSdy0n7P+UP8M7pge7PHp_aifSsxqcsh8ahTEYjfUO8wengw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] perf tsc: Replace the compile-time TSC support check
- with a weak hook
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: acme@kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	james.clark@linaro.org, leo.yan@linux.dev, john.g.garry@oracle.com, 
-	will@kernel.org, mike.leach@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
-	guoren@kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20260923084802.29508-1-zhaoqunqin@163.com>
+In-Reply-To: <20260923084802.29508-1-zhaoqunqin@163.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 28 Sep 2026 21:42:56 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7+oXvoFbY1TDyRhYCgLXncRWNzpWrEBxpm6rwb_u8g5Q@mail.gmail.com>
+X-Gm-Features: AclHuK9T9s7VHBe8CzWdrIsP39KtE45HD6piVqFEHQ4lotnnM54AAYzrWUKy_1w
+Message-ID: <CAAhV-H7+oXvoFbY1TDyRhYCgLXncRWNzpWrEBxpm6rwb_u8g5Q@mail.gmail.com>
+Subject: Re: [PATCH v8 0/2] mfd: loongson-se: Add multi-node support and fix
+ miscellaneous issues
+To: Qunqin Zhao <zhaoqunqin@163.com>
+Cc: lee@kernel.org, zhaoqunqin@loongson.cn, linux-kernel@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-crypto@vger.kernel.org, mfd@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 3:18=E2=80=AFPM Chen Pei <cp0613@linux.alibaba.com>=
- wrote:
->
-> The "TSC support" subtest of the "Convert perf time to TSC" test decides
-> whether the architecture is covered by matching compiler macros for
-> x86_64, i386 and arm64.  That list has to be edited for every new
-> architecture, and it can drift apart from the set of architectures that
-> really provide a counter: util/tsc.c already ships a weak rdtsc() which
-> an architecture overrides with a strong definition when it has one.
->
-> Add a weak arch__rdtsc_supported() next to the weak rdtsc(), let the
-> test query it instead of the macros, and have x86, arm64 and riscv
-> override it in the file where they implement rdtsc().  Support is then
-> declared next to the counter it describes, and a caller can tell a stub
-> apart from a real counter without keeping its own copy of the macro
-> list.  This follows the pattern of the other optional per-architecture
-> hooks in util/ such as get_cpuid_str().
->
-> x86 and arm64 keep the same behaviour, and riscv starts running the
-> subtest because it gained rdtsc() in the previous patch.
->
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+For the whole series,
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-LGTM from RISC-V perspective.
-
-Reviewed-by: Anup Patel <anup@brainfault.org>
-
-Regards,
-Anup
-
-> ---
->  tools/perf/arch/arm64/util/tsc.c    |  5 +++++
->  tools/perf/arch/riscv/util/tsc.c    |  5 +++++
->  tools/perf/arch/x86/util/tsc.c      |  5 +++++
->  tools/perf/tests/perf-time-to-tsc.c | 12 +-----------
->  tools/perf/util/tsc.c               |  9 +++++++++
->  tools/perf/util/tsc.h               |  1 +
->  6 files changed, 26 insertions(+), 11 deletions(-)
+On Wed, Sep 23, 2026 at 4:48=E2=80=AFPM Qunqin Zhao <zhaoqunqin@163.com> wr=
+ote:
 >
-> diff --git a/tools/perf/arch/arm64/util/tsc.c b/tools/perf/arch/arm64/uti=
-l/tsc.c
-> index cc85bd9e73f1..fd7fba50d0a6 100644
-> --- a/tools/perf/arch/arm64/util/tsc.c
-> +++ b/tools/perf/arch/arm64/util/tsc.c
-> @@ -19,3 +19,8 @@ u64 rdtsc(void)
+> From: Qunqin Zhao <zhaoqunqin@loongson.cn>
 >
->         return val;
->  }
-> +
-> +bool arch__rdtsc_supported(void)
-> +{
-> +       return true;
-> +}
-> diff --git a/tools/perf/arch/riscv/util/tsc.c b/tools/perf/arch/riscv/uti=
-l/tsc.c
-> index 7cc4710ac38c..312b0c755439 100644
-> --- a/tools/perf/arch/riscv/util/tsc.c
-> +++ b/tools/perf/arch/riscv/util/tsc.c
-> @@ -17,3 +17,8 @@ u64 rdtsc(void)
+> - Patch 1 introduces the multi-node platform support.
 >
->         return val;
->  }
-> +
-> +bool arch__rdtsc_supported(void)
-> +{
-> +       return true;
-> +}
-> diff --git a/tools/perf/arch/x86/util/tsc.c b/tools/perf/arch/x86/util/ts=
-c.c
-> index 3a439e4b12d2..6c01e96b5c2e 100644
-> --- a/tools/perf/arch/x86/util/tsc.c
-> +++ b/tools/perf/arch/x86/util/tsc.c
-> @@ -17,6 +17,11 @@ u64 rdtsc(void)
->         return low | ((u64)high) << 32;
->  }
+>   v6-v8: no changes
+>   v5: Clear pending interrupts with S2LINT_CL before requesting IRQs,
+>        and move S2LINT_EN to after all interrupt handlers are registered.
+>   v4: Safely handling shared interrupt handler returns.
+>   v3: Using shared interrupts (IRQF_SHARED) instead of manually
+>       iterating through all devices to check for interrupts.
 >
-> +bool arch__rdtsc_supported(void)
-> +{
-> +       return true;
-> +}
-> +
->  /*
->   * Derive the TSC frequency in Hz from the /proc/cpuinfo, for example:
->   * ...
-> diff --git a/tools/perf/tests/perf-time-to-tsc.c b/tools/perf/tests/perf-=
-time-to-tsc.c
-> index f8f71fdd32b1..c91e22d93b53 100644
-> --- a/tools/perf/tests/perf-time-to-tsc.c
-> +++ b/tools/perf/tests/perf-time-to-tsc.c
-> @@ -22,16 +22,6 @@
->  #include "tests.h"
->  #include "util/sample.h"
+> - Patch 2 focuses on structural and error-path hardening for the
+>   pre-existing baseline code. This includes resolving critical issues
+>   discovered by the Sashiko Automation system such as: completion
+>   race conditions, missing engine completion initialization, spinlock
+>   held with interrupts disabled for up to 10 ms, EPROBE_DEFER
+>   handling, DMA buffer overflow validation, interrupt cleanup on
+>   probe failure, and device removal ordering.
 >
-> -/*
-> - * Except x86_64/i386 and Arm64, other archs don't support TSC in perf. =
- Just
-> - * enable the test for x86_64/i386 and Arm64 archs.
-> - */
-> -#if defined(__x86_64__) || defined(__i386__) || defined(__aarch64__)
-> -#define TSC_IS_SUPPORTED 1
-> -#else
-> -#define TSC_IS_SUPPORTED 0
-> -#endif
-> -
->  #define CHECK__(x) {                           \
->         while ((x) < 0) {                       \
->                 pr_debug(#x " failed!\n");      \
-> @@ -49,7 +39,7 @@
->  static int test__tsc_is_supported(struct test_suite *test __maybe_unused=
-,
->                                   int subtest __maybe_unused)
->  {
-> -       if (!TSC_IS_SUPPORTED) {
-> +       if (!arch__rdtsc_supported()) {
->                 pr_debug("Test not supported on this architecture\n");
->                 return TEST_SKIP;
->         }
-> diff --git a/tools/perf/util/tsc.c b/tools/perf/util/tsc.c
-> index ebf289bf6b9d..815621b1d112 100644
-> --- a/tools/perf/util/tsc.c
-> +++ b/tools/perf/util/tsc.c
-> @@ -113,6 +113,15 @@ u64 __weak rdtsc(void)
->         return 0;
->  }
+>   v8:
+>        - Remove the poll_lock added in v7
 >
-> +/*
-> + * An architecture that implements rdtsc() with a real counter should ov=
-erride
-> + * this, so that users of the counter can tell a stub apart from support=
-.
-> + */
-> +bool __weak arch__rdtsc_supported(void)
-> +{
-> +       return false;
-> +}
-> +
->  size_t perf_event__fprintf_time_conv(union perf_event *event, FILE *fp)
->  {
->         struct perf_record_time_conv *tc =3D (struct perf_record_time_con=
-v *)event;
-> diff --git a/tools/perf/util/tsc.h b/tools/perf/util/tsc.h
-> index 57ce8449647f..83e76b207365 100644
-> --- a/tools/perf/util/tsc.h
-> +++ b/tools/perf/util/tsc.h
-> @@ -25,6 +25,7 @@ int perf_read_tsc_conversion(const struct perf_event_mm=
-ap_page *pc,
->  u64 perf_time_to_tsc(u64 ns, struct perf_tsc_conversion *tc);
->  u64 tsc_to_perf_time(u64 cyc, struct perf_tsc_conversion *tc);
->  u64 rdtsc(void);
-> +bool arch__rdtsc_supported(void);
->  u64 arch_get_tsc_freq(void);
+>   v7:
+>        - Re-enable the interrupt under dev_lock in loongson_se_poll()
+>          instead of poll_lock, so both the mask and re-enable of
+>          SE_S2LINT_EN are protected by the same lock and cannot race
+>        - Wait for controller command completion with a bounded
+>          non-interruptible wait so a pending signal cannot leave the
+>          controller running while DMA buffers are torn down
+>        - Validate the id argument in loongson_se_init_engine() to
+>          reject engine 0 and out-of-bounds indices
+>        - Drop the redundant init_completion() in
+>          loongson_se_init_engine() now that probe() initializes all
+>          engine completions
+>   v6:
+>        - Mask the target interrupt, clear pending status, and
+>          reinitialize the completion under dev_lock before issuing a
+>          command, re-enabling the interrupt after triggering
+>        - Keep the original engine_init_lock scope instead of the
+>          broader cmd_lock mutex
+>        - Reuse loongson_se_send_controller_cmd() in the STOP path and
+>          register the stop handler before loongson_se_init()
+>        - Correct the dmam_size validation formula
+>   v5: Fix all issues reported by Sashiko analysis:
+>        - Initialize engine completions in probe to avoid NULL deref
+>        - Use cmd_lock mutex for command serialization, drop spin_lock_irq
+>        - Add reinit_completion to controller and engine command paths
+>        - Fix EPROBE_DEFER handling in platform_irq_count()
+>        - Validate dmam_size against minimum required size
+>        - Disable IRQs in probe error path after init failure
+>        - Add loongson_se_stop() devres cleanup with proper ordering
+>        - Use non-interruptible wait for STOP command
+>   v4: new patch
 >
->  size_t perf_event__fprintf_time_conv(union perf_event *event, FILE *fp);
+> Qunqin Zhao (2):
+>   mfd: loongson-se: Add multi-node support
+>   mfd: loongson-se: Fix miscellaneous issues
+>
+>  drivers/mfd/loongson-se.c       | 119 ++++++++++++++++++++++++++++----
+>  include/linux/mfd/loongson-se.h |   1 +
+>  2 files changed, 106 insertions(+), 14 deletions(-)
+>
+>
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 > --
-> 2.50.1
->
+> 2.47.2
 >
