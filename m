@@ -1,228 +1,238 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E5533DEC8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6334D9F9B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.203
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612265; cv=pass; b=jgJzC8RttjDP2/nrjEwmYU3ZQbLT6HkJCgx2PjnWGk+p6wWYhn4XU6NHv4B31PKi3fKGNDFr0D0O5lsWYH2VbDSOq62tRyp4w7DCikpZS1XScV/gk2Cw0/kJ0bcdoZc5SjtnSV6302GZ/X9Yww2mOjaA00TAbdrHuSgCDkPpkSA=
+	t=1790612273; cv=pass; b=kj/sg+sjUlqiyRffXxKCbF4OlTwpcsmGOOXhF/3jFCoPWlwUp/3XmEAH41L4rpN7HoPsCWfBwklDVDI/crQVaymKWf0Ra0udjwLPgpjRTRzmSEMGYNJrCxW2L5SFQTtdZhpPxeIBLgFCbFeNKgRCCnL0KlO1yvQy9HovhKDCQ8E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612265; c=relaxed/simple;
-	bh=rzg4EdYDzl86KXke+y/jDjzliVS85GGQGbd/09qMqYU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J0Cbe4sB74EBL9l2CXtICt9PE3NrofOjXpRKOf9R74/7reD3JxF7RvRcOIu09q9kugn4ZIF97cAu9k6ZErqpok7fVMpHW4P3WpcVKfSseAOb7TFYCkxkKRkbkavLWSfi+8yzXLaItIlqVPQgVCaPLKYXLc0j1R3siy58TRgy7kA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bi20cZ6f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WZ+5fATl; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790612273; c=relaxed/simple;
+	bh=/9u3l8tvroAWhsZ3+bgszRdYGfDaF3Zw4nAXDtkGKNI=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WOH3O36uRLo7wp/XLXcn6lYlUou18XhiTHESOMtmQ1103/hu/1TVtGEAERmSoey4AaKO0/aRyXvPZ6h67cadzKI0feZU5lC9V613VIDO0KqPzx7p1Yw1wXeotuD3UE2lbn3ps9884FxRrOvnrepsKjpDDIalno9KS39JJiDLAl0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T7K4jm22; arc=pass smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bi20cZ6f";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WZ+5fATl"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdvlq1908612
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:17:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZPG9/h412pdnG6FSVrrR7JhkCyfchpuJdtkMOSDic+A=; b=Bi20cZ6fwwUWrbpt
-	a+Jf3Joqsq1wPQmmfSoOfR1hMJyArBHC42oglSaXxYtYKBB1i5IiKWNCevloVb9o
-	BKqMy5BThScgvlptiEqjd8x5WJLlLtpwfBw5GfLpiCnmeXl5WGVHzcAdxxcX9dyw
-	QuV9rhVUh1vCCZHDHSNgXeL0NEKvglbUmwuhrm8FVfsNNAZXIpmgzUl3llyIXe9y
-	XXmwN9Vpkj3H4XAMwdNZMZSlAQFrk5e2nIAhNI5UhcYaPFL8EMntToXkAnrQ3ZPI
-	NGsc5iVv29WINfCjpU76pOETnKY/cfkMCipVDt0NcjRLJ/RO4oeDh9UcQmaHOA8q
-	N/ottA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjkxjd1t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:17:43 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so2451605a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:17:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790612262; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T7K4jm22"
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c650fea78aso1487265b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:17:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790612270; cv=none;
         d=google.com; s=arc-20260327;
-        b=FG4J0x19ztnJ1z8nJJmMsgGFtOizjHKPn0eEUu9ccryCHdqsXogYIgFsZvguRY7Ar3
-         2HkTFW5NIhoifb2+qS74FMPwtqXWqZJIO7e5mlRUPS8j7Dv5Tu4c0xJC+EJezDSwdsMU
-         1qawX0fmumpf4aPPQCaDIIxwN1O/8itmKWKwNEvRzldULzjLg8RRib0dy7eF9WIntCMy
-         c1dODIq6IspPQZiL00TrYOs+t1dQDz809hXc8CInh7IxQuK09SpVnYBeptWHa6lE5Ytm
-         oK9I8+0X53xQA7SGbAEH4NknK0SUub6rzsOXj3hCMI6OF1z9J45mu6HoBBlv1I4DIyFD
-         X9Hg==
+        b=WonmRJQSk158OexvDR5XBLpnV1SSXL3eZ/zVzPoSjwgIda/0bLiDsHXsp0vyoJsJ0D
+         uE57G6lRRpJ352IfxYO6EyVCLnVn4B/Trg0BqWR7LkDtV8u4W2PnmXnT2a9HmAdWrB4m
+         NqCzMf3KyT18zVh1eaOtjxb/Mcgy+GYnL1am03w/CiM9g6bAMqisa20dn82WeEn7Snzj
+         ax/rotEK8RxbYYViQdEq0Do+2N4AYNRUdinCftvGKkbSX6qmjF0RhmM3GYToMK6GeAgK
+         6dDU+2gCRfLgMYRvS/edgXXkls8akTv5UZtGEClYUWIPgA9uybykXVkghB4mFYmfZtQr
+         YbvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZPG9/h412pdnG6FSVrrR7JhkCyfchpuJdtkMOSDic+A=;
-        fh=w3FgNb9jY/WrmCvPusqViSz1vmgA2S1WKuBqcZdD/NA=;
-        b=QOFgF9jJN07pCup4IdUlH7Wj9Y+ZH5F4QOwPfLKnh+BoPmkx3htClFL5+z8p4V8T2C
-         ETA5fff1vCTO8lfAPw6IuF3qE8/au9MM7+iIoZPF/TinME9tB9au+KCDM9HOTHt0sStS
-         MvZ3i/CF2XIvq+HOfR7ZL1Qh37zhBjv2s/3gQ1//alDge/vr8hSH+hsRu9+OqseMOBtf
-         aNx5nGVHP0/B3N9qm9zRJ75E6jCBiI3K45joMu51U2V9z+Nqxjo69EYelTPmPPFGRx0t
-         3W131dfCfNMjCUeHzMFWL2COK3Ml838H+qlSfI6SSO6tTUEuyKQup8NCbf4OmvP6jTwc
-         biDw==;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        fh=p+QK46WpXAQmziN6W+qjUHmayFan+sbhXstS4MGZ404=;
+        b=hd3wqcn9HuZD4ul5UVdJbHLcMEAlry6lpMVrFgqpg6dPZ0wA7Sxc1LRG0eyLyFWIeJ
+         Xq8T6SC4ZizixLu4sMRNItl34147/6hsASNz3AqR5mdKiXuVeTJJL1kYeeRSR5DEXCCc
+         0KWYO7JNPq/8B10nrAwbBtQsg0SV9mI61XIJ0X54fs4rZPXuh7wtRpXIBZocOy2q47ij
+         T5aPylMaE9u28sXCFAPbrA1929FVwlPBiZkbdRqnsdzK97iJj1lwrVWxUfhmp0FsUqzt
+         WC00t5lqiH24R/zH8AzxgdRdj8j4gn2xAP0sWpt4MWaH7pvtfpDv4caAVhVN/blaVPI+
+         xe+w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790612262; x=1791217062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZPG9/h412pdnG6FSVrrR7JhkCyfchpuJdtkMOSDic+A=;
-        b=WZ+5fATlhsrQIOCZnr2TqDhqQpYzaTMoD+omPWSjG95ho0OD73z8E8g6K0LEhLKn92
-         yxqzlhKInvg+80eaN2bBJK5trnTc3yEbn3lQG6zeJikNamvkam6r6EaNjlIaqtMadUWe
-         cVj2++Sb4UQppqYFGsind3ldwtxZzwLea6wos28VJVf2WgpWfhzm2hr+T87WFQ/HxqtQ
-         YZtv9MPb6kI6/Kp3LMmYGU5h75D1O1YaKzbmw1Guswv5ZPcfmVerOh4URrDA4KW8gnzZ
-         VYxstUL4zfUqWkz2urh7LIm0ND4pUBIFgC7DTJER1DnmKwV1T0uTTGz5dFNII1VHObK1
-         Rrcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790612262; x=1791217062;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790612270; x=1791217070; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZPG9/h412pdnG6FSVrrR7JhkCyfchpuJdtkMOSDic+A=;
-        b=rFfjLKpsVmox6XDKProPwBTH+qw6tiiapgqTv0MX3HuQ6MHv8+SyVBuV7i17YcRuK3
-         B4LIBskTsn0UzZox4t348T0z9Yw9+CpL7aF+pmO4o2PYhLrZLMbtcG4JdsSIeBnq8I2P
-         GoDRxfMxixJyjltryCNnBwyJv9dOO/vsfyiuzn9lc7ldVvzgZTpRN/5FCjcNaDgk9ckA
-         OvVFdnom7qCGIqpwv97rVKdNyW0TBA0LMaWhzN/e43U7NZ4Eu/raFbTH95ClKjrWFuF8
-         Ylm2nA9LVl5cLqb7rAw2d3osK1KUQYDT3+G70/+MQb718TDwz7S3JUYRsj4RetQWmGMW
-         nnvw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqJchm36j3YJiFF2A6VCUW6eKxDY4cOphZ/zeC00KRewwfnrarCwzY1+wEHTblVpTTCee2yEius8dnlU8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZ1Gv42s4y4GYYmO4IHl8tdT/uxEUYvdomZH0+FV8CIeHvMBmt
-	RZ9g/UcVowTrz2DzUdb06wTuDAUKNYt3CFp3wO6897uVeS5GNIqZtbUMYe10HBn9RImcb9RFSGR
-	agUnJK6k5qLlcKAENvXbf/2qD3LA1mnDHNn4GWGcTPYW1QiRKrM9wlMzs37emqTg/y2eplJDbx0
-	0w9vk41p04omjLdz8SwBRoSVHqhOAtndSftAd/3iV1rjpF7u3lZzxy
-X-Gm-Gg: AYBFou2Bg6ARUYzG76Ih7JxlVxoybSzIBnvYGuq/oVNkNumknmb2G4jJUBefoP5s9Q+
-	Q5CiEd5evRsgXcH2xd9nv2iqdlzw4vuLjNiCfD40Ls6HDVwWWU15r0Eb/fZwM7k8M9BdeniF8AV
-	XlF03fIgU2hF9rUMh9gN1Qa0buM80kbZfJmnqhBQCvddgmDHFb/JQA1AZHLg==
-X-Received: by 2002:a17:90b:3c45:b0:3a4:77fe:d478 with SMTP id 98e67ed59e1d1-3a477fed600mr2010794a91.25.1790612262290;
-        Mon, 28 Sep 2026 09:17:42 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c45:b0:3a4:77fe:d478 with SMTP id
- 98e67ed59e1d1-3a477fed600mr2010764a91.25.1790612261755; Mon, 28 Sep 2026
- 09:17:41 -0700 (PDT)
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        b=T7K4jm22TTyshae2BQw2pmgbgDt009kzc7b+aCWAh8Hox6+IZGJj6DdNnXUrZ0QsAG
+         tZi7G6g5N6nh3qbbAKiiz6Okzwq+beTf+vJKN2KsupZ8hFJkyANbpJcBmH5dsfMo2nwK
+         O6y//GA1tld7ZsZlAVQsIHvEUB7gZwOThyYqWlAb5I+4pYTq0IArU0OdhlqjYLMwtFbi
+         DYIzmEQ147pZ6XMqa8PlZGY4iEBiIfmhGw+C2eyU63x4lw+cx6CbUJOqyMcSWWfS28KE
+         kUXT2N2hNv/LVY8iiYwofbaX9b10gvafyjUlpBWlaTcnQmKspGzZkzAdXfvHPv7+L2w7
+         31nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612270; x=1791217070;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        b=y9Ia9VGm9gq/BFQaNpFMYclbfqRfmsXmzeYOl/5Q+I6YAfyo1USJ9Eoy8Fu26WRdTO
+         8CTlRrzEY51SOnGzIRJ/DK744M09RdDK8PO+gcmT7JDj3WYrIkyOsdW/nuTamYK4A3dM
+         U0a749Px7wosy8qop+0uD1Z3C0hm291etCOSvuqOU68/H3sK4JP6upkyEE4KRka7VN2x
+         Y0RVV1b2/zrLbuzE/OJyG2oFtJF8UViuoUAysY3Yi8U0TWubWrAJL9TAadroTZxDLjF+
+         nSppX2LwjDDKfMybhF8eHXWaw6CDHqC7JKJTdEVELBrNFMiB4/4pxuKiKhG6JI45iMPg
+         gbRA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6+l9fS0Um8gr6pPAw6nknYPC2T0nMxk4so/223cBhOdAiaXzEdv7gG/iUP/T4TFdJUsPzmKu1ZhgOs94=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSbJFJ7RtuPpEW5opNKwvXFhi50Hm9vLnDgTnrpcjYG2Wqto1V
+	2e2gnh/+77oPYjNzUacdtnNsmExm/AM0W0J7e5J76h93GFVobxhPug3IBsi4c9Q1Ma2niePvxPu
+	z80iL2f9m9QK6xXzgmxgnto65WSCuvqY/DNODaaJa/zeqfOk=
+X-Gm-Gg: AYBFou09/8rDhziZRAw/a2R2XIha66cewvV1JdEM84Iz4uRX1Yem3eEm064xgYD0CRo
+	+X0/y618MrM4qRKoaa+bkYDjPQ7ZfPQLfUqpPS12jbh+c+Lwu02HAkzDG5cPJhsLebj6FYV/N5j
+	7HWYrbaCK1raOpY6PI7u3n3hZjnj4qL7GNmotNjxaNGTeSHqa7nI6xNQEy4e6i2vBNXe+xiAnz6
+	wdzfaI64saYp6wxXb+QQFczYtsVMnzckotwZY9PB/3A0UNUAYKP4UaVoXxbmTlLuZmbgpODUy47
+	O+Usj71vna0KYYJsQehxE69/9d9Ht7L5YlYJmMcQBbihPhthRZL7EPJjqgrGjZ8SjAAt3nnfQ7A
+	kt/BE2z0dHA==
+X-Received: by 2002:a05:6808:180f:b0:4ea:f4ab:dad7 with SMTP id
+ 5614622812f47-4eaf4abde31mr3114576b6e.43.1790612270217; Mon, 28 Sep 2026
+ 09:17:50 -0700 (PDT)
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 16:17:49 +0000
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 16:17:49 +0000
+From: Aveline Noir <jm5905938@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+References: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921191326.2146363-1-sanderson@brivo.com>
-In-Reply-To: <20260921191326.2146363-1-sanderson@brivo.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 18:17:27 +0200
-X-Gm-Features: AclHuK_h-ClRM0tgPWKnM-eRAvfXYVsbs7ZT5xtGlCXk84AjgUs2ZbGoR93rbsU
-Message-ID: <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
-Subject: Re: [PATCH] mmc: meson-gx: Convert host->lock to raw spinlock
-To: Sean Anderson <sanderson@brivo.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        linux-arm-kernel@lists.infradead.org,
-        Jerome Brunet <jbrunet@baylibre.com>, linux-kernel@vger.kernel.org,
-        linux-amlogic@lists.infradead.org
+Date: Mon, 28 Sep 2026 16:17:49 +0000
+X-Gm-Features: AclHuK8BjruCpIs-y-znTwRHy4UbPVU7NoASXj59drlp5sgPwJENTSFHMkI16G0
+Message-ID: <CANOyQmHF-gjvnLqTGEVBcU6+AWj5ha+7tJhE2E_Cv9aj-gRXdA@mail.gmail.com>
+Subject: [PATCH v2 2/2] HID: picolcd: Avoid framebuffer last-close deadlock
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, deller@gmx.de, 
+	simona@ffwll.ch, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: Fzz4MIURneY58odLlg073_9khV8LCnWZ
-X-Proofpoint-ORIG-GUID: Fzz4MIURneY58odLlg073_9khV8LCnWZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX6wgn+SpgQm7c
- mw0RsMcUe+vvYJZ7oWutjzYg2O8RwQ9SlkLiNZIpqUvyLTBypKBwOidxanw9T2g6lxCFF85/bfz
- Tsoedj0oLV+ajURq7bkKjEexuZs/HHo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX6vlwp6M7Eurj
- qejN22Q1T53ZDId7T/PnPVW/Cg72Z5KatJSehQRoPI4Zo05kBJ5aY1rNJtCbYW7QE6pR4NbonUj
- eh4CwQ73j70dwn02so3OPLiZuxmXfCADP/Levm/1KW2ofofG3PToXVOu2XAEMzZQ3/HCNEQvTB/
- 9MhUoL9ghOy3A8kwrTl0B138pjtAUWEVB8Avk+fgJ10J+ZAcqrxprmcYJidziEPtfj0QyJUVDGx
- BsY25Ofd30lQD5PywybPS3AmAi4JVhWH4h6+HxcwryisoWeEjrUq0O4Ef1o3eZu41kgp+xkoClm
- 6PAsytu/J8Gzdmafxw7kmb8uALS7mKTlRZEzjgMNJlGH+GkVKWJJ30XEZLzG3JlD0t4IFZ/u03E
- +XJYxoe2Q2T/bT7AFnGojTkCSer7m5Q+Ks61IB+XE24JM1yMrPHnPI9oIuM2fu2k7jPa+mXG3Tc
- 65WrR6BZ1/QLFt8gchg==
-X-Authority-Analysis: v=2.4 cv=QZfzLcbv c=1 sm=1 tr=0 ts=6aba9327 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=GX7wjADfAAAA:8 a=PBpPEWVgUkDHuXiRGYoA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280064
 
-On Mon, Sep 21, 2026 at 9:14=E2=80=AFPM Sean Anderson <sanderson@brivo.com>=
- wrote:
->
-> The primary handler for IRQF_ONESHOT interrupts is always run without
-> threading, even on PREEMPT_RT. Therefore, we must use a raw spinlock,
-> which will never sleep (even on PREEMPT_RT).
+Closing the last framebuffer descriptor can deadlock against PicoLCD's
+deferred update worker. fb_release() holds info->lock while waiting for
+deferred work, and picolcd_fb_update() takes the same lock. Lockdep
+reports the cycle through deferred-work completion and fbdefio_state->lock.
+Repeated framebuffer open/write/close with concurrent device destruction
+reproduces the hang in a PREEMPT_RT QEMU guest.
 
-Sorry, but I don't quite understand the above. Are you saying that
-IRQF_ONESHOT only works with raw spinlocks?
+Use a private update mutex in the deferred worker instead of info->lock.
+Take it in picolcd_set_par() as well to preserve serialization of pixel
+format conversion and framebuffer updates. Initialize it before exposing
+the framebuffer.
 
-Kind regards
-Uffe
+The test with the preceding output-request fix hung in the first round
+and reported a circular locking dependency. With this change, all five
+rounds completed, including 29 successful framebuffer write cycles and
+concurrent LCD, backlight, two LED and UHID destroy operations, without
+BUG/WARNING. The original syzkaller reproducer and persistent-open
+framebuffer tests also passed again. These are bounded virtual-device
+tests; physical hardware and suspend/resume remain untested.
 
->
-> Fixes: 066ecde6d826 ("mmc: meson-gx: add SDIO interrupt support")
-> Signed-off-by: Sean Anderson <sanderson@brivo.com>
-> ---
->
->  drivers/mmc/host/meson-gx-mmc.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-=
-mmc.c
-> index 694bb443d5f3f..d5365c0404cb9 100644
-> --- a/drivers/mmc/host/meson-gx-mmc.c
-> +++ b/drivers/mmc/host/meson-gx-mmc.c
-> @@ -176,7 +176,7 @@ struct meson_host {
->
->         bool needs_pre_post_req;
->
-> -       spinlock_t lock;
-> +       raw_spinlock_t lock;
->  };
->
->  #define CMD_CFG_LENGTH_MASK GENMASK(8, 0)
-> @@ -953,10 +953,10 @@ static irqreturn_t meson_mmc_irq(int irq, void *dev=
-_id)
->         cmd =3D host->cmd;
->
->         if (status & IRQ_SDIO) {
-> -               spin_lock(&host->lock);
-> +               raw_spin_lock(&host->lock);
->                 __meson_mmc_enable_sdio_irq(host->mmc, 0);
->                 sdio_signal_irq(host->mmc);
-> -               spin_unlock(&host->lock);
-> +               raw_spin_unlock(&host->lock);
->                 status &=3D ~IRQ_SDIO;
->                 if (!status)
->                         return IRQ_HANDLED;
-> @@ -1112,9 +1112,9 @@ static void meson_mmc_enable_sdio_irq(struct mmc_ho=
-st *mmc, int enable)
->         struct meson_host *host =3D mmc_priv(mmc);
->         unsigned long flags;
->
-> -       spin_lock_irqsave(&host->lock, flags);
-> +       raw_spin_lock_irqsave(&host->lock, flags);
->         __meson_mmc_enable_sdio_irq(mmc, enable);
-> -       spin_unlock_irqrestore(&host->lock, flags);
-> +       raw_spin_unlock_irqrestore(&host->lock, flags);
->  }
->
->  static void meson_mmc_ack_sdio_irq(struct mmc_host *mmc)
-> @@ -1225,7 +1225,7 @@ static int meson_mmc_probe(struct platform_device *=
-pdev)
->         if (ret)
->                 goto err_init_clk;
->
-> -       spin_lock_init(&host->lock);
-> +       raw_spin_lock_init(&host->lock);
->
->         if (host->dram_access_quirk) {
->                 /* Limit segments to 1 due to low available sram memory *=
-/
-> ---
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-> branch: meson_mmc_raw
->
-> --
-> 2.53.0
->
+Fixes: 3efc61d95259 ("fbdev: Fix invalid page access after closing
+deferred I/O devices")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+---
+ drivers/hid/hid-picolcd.h    |  2 ++
+ drivers/hid/hid-picolcd_fb.c | 33 ++++++++++++++++++++++-----------
+ 2 files changed, 24 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/hid/hid-picolcd.h b/drivers/hid/hid-picolcd.h
+index 846a8ceb95..33e6654ca0 100644
+--- a/drivers/hid/hid-picolcd.h
++++ b/drivers/hid/hid-picolcd.h
+@@ -115,6 +115,8 @@ struct picolcd_data {
+ struct picolcd_fb_data {
+ 	/* Framebuffer stuff */
+ 	spinlock_t lock;
++	/* Deferred I/O runs while fbdefio_state->lock is held. */
++	struct mutex update_lock;
+ 	struct picolcd_data *picolcd;
+ 	u8 update_rate;
+ 	u8 bpp;
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index c17104fd60..258c7c4fa2 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -231,7 +231,8 @@ static void picolcd_fb_update(struct fb_info *info)
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	struct picolcd_data *data;
+
+-	mutex_lock(&info->lock);
++	/* fb_release() flushes this work while holding info->lock. */
++	mutex_lock(&fbdata->update_lock);
+
+ 	spin_lock_irqsave(&fbdata->lock, flags);
+ 	data = !fbdata->ready ? fbdata->picolcd : NULL;
+@@ -258,11 +259,11 @@ static void picolcd_fb_update(struct fb_info *info)
+ 				spin_lock_irqsave(&fbdata->lock, flags);
+ 				data = fbdata->picolcd;
+ 				spin_unlock_irqrestore(&fbdata->lock, flags);
+-				mutex_unlock(&info->lock);
++				mutex_unlock(&fbdata->update_lock);
+ 				if (!data)
+ 					return;
+ 				hid_hw_wait(data->hdev);
+-				mutex_lock(&info->lock);
++				mutex_lock(&fbdata->update_lock);
+ 				n = 0;
+ 			}
+ 			spin_lock_irqsave(&fbdata->lock, flags);
+@@ -277,13 +278,13 @@ static void picolcd_fb_update(struct fb_info *info)
+ 		spin_lock_irqsave(&fbdata->lock, flags);
+ 		data = fbdata->picolcd;
+ 		spin_unlock_irqrestore(&fbdata->lock, flags);
+-		mutex_unlock(&info->lock);
++		mutex_unlock(&fbdata->update_lock);
+ 		if (data)
+ 			hid_hw_wait(data->hdev);
+ 		return;
+ 	}
+ out:
+-	mutex_unlock(&info->lock);
++	mutex_unlock(&fbdata->update_lock);
+ }
+
+ static int picolcd_fb_blank(int blank, struct fb_info *info)
+@@ -332,17 +333,24 @@ static int picolcd_set_par(struct fb_info *info)
+ {
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	u8 *tmp_fb, *o_fb;
++	int ret = 0;
++
++	mutex_lock(&fbdata->update_lock);
+ 	if (info->var.bits_per_pixel == fbdata->bpp)
+-		return 0;
++		goto out;
+ 	/* switch between 1/8 bit depths */
+-	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8)
+-		return -EINVAL;
++	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8) {
++		ret = -EINVAL;
++		goto out;
++	}
+
+ 	o_fb   = fbdata->bitmap;
+ 	tmp_fb = kmalloc_array(PICOLCDFB_SIZE, info->var.bits_per_pixel,
+ 			       GFP_KERNEL);
+-	if (!tmp_fb)
+-		return -ENOMEM;
++	if (!tmp_fb) {
++		ret = -ENOMEM;
++		goto out;
++	}
+
+ 	/* translate FB content to new bits-per-pixel */
+ 	if (info->var.bits_per_pixel == 1) {
+@@ -369,7 +377,9 @@ static int picolcd_set_par(struct fb_info *info)
+
+ 	kfree(tmp_fb);
+ 	fbdata->bpp = info->var.bits_per_pixel;
+-	return 0;
++out:
++	mutex_unlock(&fbdata->update_lock);
++	return ret;
+ }
+
+ static void picolcdfb_ops_damage_range(struct fb_info *info, off_t
+off, size_t len)
+@@ -506,6 +516,7 @@ int picolcd_init_framebuffer(struct picolcd_data *data)
+
+ 	fbdata = info->par;
+ 	spin_lock_init(&fbdata->lock);
++	mutex_init(&fbdata->update_lock);
+ 	fbdata->picolcd = data;
+ 	fbdata->update_rate = PICOLCDFB_UPDATE_RATE_DEFAULT;
+ 	fbdata->bpp     = picolcdfb_var.bits_per_pixel;
+-- 
+2.55.0
