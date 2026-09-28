@@ -1,239 +1,546 @@
-Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com [209.85.210.226])
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30653B9DA2
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AE445DF43
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629301; cv=none; b=bXxXiO0XmsVl0XFN+Xl8E3y2cN9LyRd0iQ9MO3ab9Wlr2Q2M2Oyw8MP5iDXPEMrCP+V5nHetJKPgtYwhqJNnkfMvPuEwq0pfNoI/tqYyiEbNzVmNQoH9Me4LMRvu9xOmrWiBoUkJSNWz4chYCC/bnvkb8ilhVMcS3BM13obG98c=
+	t=1790629317; cv=none; b=uCdqJ5VfMxz+qSU9PEgo2bYyZFYGh49IaTUQEuxgDypyxXmPpyzEtBhx5LuzTtni2FSSDnCeowavTeP01KcuUdTQrvjzWA0jm8ItlQdflcMh2AGTseukQEVOQi8SUXi2KocrEhz991cLQ0mzBbevgqfqJ/1hKPWUmDWvO9R7gQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629301; c=relaxed/simple;
-	bh=wRIkyMkbSnfEhs+ZibyDEOFKYrA7ABCSvFNxDEbJyK0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GYvQ3Ly4d+d4JlfNKH9Soxjq367dAfCQI2HKK8W7Um5Ua7HsjyvAurK2MKkskA0jRmGzzOZHFABuxagR55GwnCCeb3VoNSk6bzOJ1L2xg1XvXxlfOFOcJoF8saRjP3uTtH/vbVDwdpnrfSZ1JRX1ET1KsMbA5H3VbTEK2Ce39JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=LP0AfY/q; arc=none smtp.client-ip=209.85.210.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790629317; c=relaxed/simple;
+	bh=aqVo3BOcv+klIIAlFks9tIXlbtqM31fa2bf5dHDLv70=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=lu+stX1TG75JZRsfKK0IXF+ca0UUlsDEH+w35nztvhNBAMdfkYzDyaumHEqdQaVwZ2p5IPbhuK4ieHaZaLqG2vN2BEWjVtNQl7c7VnG7KSVvq45Z0A+lfTqOpzcQp0Nx6OreYUZDljhrKAk7WiABZnMG6AVVmKE+tmI0bELtSjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vd8MBCaY; arc=none smtp.client-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="LP0AfY/q"
-Received: by mail-pf1-f226.google.com with SMTP id d2e1a72fcca58-8806e7e8601so472055b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:01:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629299; x=1791234099;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r/f0EhJaW89Pc5dZFapwAcNl6CiAA1mN/VnrvfHlm6s=;
-        b=znudjWVThVy+4KSgICyiADKeui6l3EeEbkjpUFfzN3IBm5ty0zeE27r3JA9/GQEobi
-         /7L9AmGESdNqtIcWjo3yTxVBxYE+VhEJx/ZCJsDS5q0WqBpONH6lm8kgKm3Uf8IF9XO7
-         sdV0nnVabLgey0mNvpb4c08Tms6fgtlq4kSjtagnfB5wzgvf/G/kLKA11Qeg9NWFp2TE
-         iM04MaABO7789/12kwQx3bZ3YAF4iBUuTPQ5kD6Mvxsf6n5Wg7l7im1ZES4WV6oiGBrF
-         J7XSeCEKcPcX8a6FM+jhznJrBHgrknReAyG6L72tJg8ze3mDw27C01N257wtvASvLy3I
-         U8Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGyOGxlWzWQvne9WvGHAp8W6DLBRHnuND64tzVEMuDmdqLLz/lMoFYfQBAWDiLGUTWHN2ibjdBSE3uCD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nz7yDjrQ/Jf2KHcDv4kInaPiybeXxcI6nlfq/BjXSYZc8Nx+3c
-	3PFMLLcEa5WjbN/H47LVny6GfRyzKgnSxalILbmDRlsa/pyS7dcd9T/eg8HGxRY8Uw5m1iG7ZVp
-	PjIMMO1/btvsEWid20zMK9n6udZ29zj+qoK+LJbKc/owEIs1RH70u9xQaP+gIpwhW1Qp/Wvqdo6
-	vElyoipePsZKmtogWIJ2DGW6vFBqDSpNUzw6ll6qa/AK/4rObQb9JnEGeEm/0AzQDLEYtGYv9y0
-	tFI2U1qHzkYItasjLk=
-X-Gm-Gg: AYBFou3KUlLpRucKi8PDS/0zV3x6g4WmNbZ1iwp/P3rMTAmMV0VHQAusM2yHl4/nRIA
-	xNhc9N+4R5oXKKcvLYis9PGVCAOzJqu/GWgT8NSx4E7KeCseGKrsd8bOWTcfheW4GWbkF6Rs0BI
-	z1l4cHQVqJpRP+/1SzydWZq02PHGoJWDq7+2JPGwIfrHgaiPct4Vbedf2ibINe6kYMBvosPySN+
-	1HUugMqEBCO1Norcuxr1Odvl/6J4xsD1te4ICkeS1lpRc7IFPZ7nWToT0FBkgileABVIgbviJDo
-	YatplzP9pKkOo1E2QaKdAfWkWfcsu2CuXLmtF5Cwfn2jizdCgLptyitv6LIT7NNgxOi/PaEec2X
-	1fj9dtUi3/ooaPZ/5Kx+CCXZrRM8EIN8biJlaXCVkgX+rxI5KJNLuwQEz0Y7CPUCJbKsV9/W67k
-	iI8GRG23O+zMACXz4C9ZDBD7fcJxMSkE3KYrV8YQ==
-X-Received: by 2002:a05:6a00:ab0d:b0:874:706d:8577 with SMTP id d2e1a72fcca58-87e9f054077mr11669868b3a.31.1790629298906;
-        Mon, 28 Sep 2026 14:01:38 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-87ff6da80a0sm5670614b3a.0.2026.09.28.14.01.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 28 Sep 2026 14:01:38 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c29466736e3so338727466b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:01:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vd8MBCaY"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1431ba79941so3255696c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:01:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790629297; x=1791234097; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790629312; x=1791234112; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:mime-version:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kKWT8inMWguc1Y3h7AS4GY52a3WZwbqDnRuRo++dn+Q=;
+        b=Vd8MBCaYSPuA1uABSqU6dS8cHucknv6es+r77+pkLy4pexqWZsCPQKUCKQBWIjUga8
+         N8qfNq0v4t9bA8J54UajV7UybY1SYOJEZedmxET+X7m2luNlGOqpeBdC0dCE4c9kdRIq
+         VkSvMZ60kwn9R510F6OANf9cvM1Y8slxoAQGt5ebcdxSAmALs/ql8sRcaQxyKOMFPeNM
+         UJ7FIvtYdOCg86s0kSdu7QqCpKJU8mclHFW0rJ/gJ9g4o5mLi6g4ivyWWuIq8k3A5CUS
+         XmSk/XLfOuLFsE93tbc3QrgtJ8AM1YNxvGp/68vKtA+X84xXZhnd4+7Itf26kZRN9hbR
+         K0ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790629312; x=1791234112;
+        h=content-type:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r/f0EhJaW89Pc5dZFapwAcNl6CiAA1mN/VnrvfHlm6s=;
-        b=LP0AfY/qGUuTUQtVqgVszo6oUFK6ENoJVHBzupkO8qNhJUkTjsSnNFBOALmw0280J/
-         Hm6kKlgY3GqAY9Bja7GMavZiaMdULIqJVU6RDzEKjPRHFxnd9Mxwo3HG8HteK7hxVR++
-         wyfoLeV128ZRjPXT6ecvUFoEVsmxdqkH2HbgY=
-X-Forwarded-Encrypted: i=1; AKwUvBxtKmj9NU9Vyn8gjC7wTvG0ZdDrdpb+dqeVB2yUI6yJB1bIonjzN8tP1ovtJ8bH/fAhUL7IoEtdOzRkLPU=@vger.kernel.org
-X-Received: by 2002:a17:907:c614:20b0:c2d:d9f4:2c85 with SMTP id a640c23a62f3a-c2dd9f42eaamr223975966b.41.1790629296789;
-        Mon, 28 Sep 2026 14:01:36 -0700 (PDT)
-X-Received: by 2002:a17:907:c614:20b0:c2d:d9f4:2c85 with SMTP id
- a640c23a62f3a-c2dd9f42eaamr223974666b.41.1790629296414; Mon, 28 Sep 2026
- 14:01:36 -0700 (PDT)
+        bh=kKWT8inMWguc1Y3h7AS4GY52a3WZwbqDnRuRo++dn+Q=;
+        b=fxyYvOaaQKOndyaY7MGYbV6BpwoZ+h4jrUb6ROH2dpAN/9uQhvac2/2kFcbODgUIT+
+         ITe9xcj7J6YF4Z/6GxQTYtkiaZoMrTpkwBs1TNWFM9JiOITt8a7PBocOgYpo3rQqtqAP
+         f+WpzwtX91aO4rwFQu+NtlbQuCFO290XLFDOW2tDyxdk3XJukE7zyLMO5ILzI2ZDlkjl
+         tWQGIfCCOjQ8vZbFv1BbGYa1DFxi5l5Waa/UieH4SVXCJHl5Wr0XNdL7c2hVLluKuyrT
+         lPzW9d4TlX/lBCKLMW6n9jHNQ2zSw7Di7rwfyLqJt+pEuPcsobXY79DpKtXdjGEMWNnG
+         qbOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXjXT81r/kfbxEo1JNu+2SQ2nDFN8fsDdNHQyAN9CkWYqzbCcV6UYJSwVNy5MNTwmNtE5Ivbnu3XrBhpw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lw4wyxpkhVowBLh1+/WzrZLpGZQnAbRHM4Ol/uIftVFDa+cUSw
+	NdAWXgFmRtKhGNIefJVmNlqOOkSGJJMKe4/G5OVxEf6egqio/trSIdyCW9Mpdk/U8dhjbylTC/M
+	hf2r1JXFKZw==
+X-Received: from dlbsw8.prod.google.com ([2002:a05:7022:3a88:b0:145:9130:6444])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7023:881:b0:143:297c:276c
+ with SMTP id a92af1059eb24-146d03a10e5mr11194611c88.33.1790629310369; Mon, 28
+ Sep 2026 14:01:50 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:01:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260928131458.1012180-1-vnagare@redhat.com>
-In-Reply-To: <20260928131458.1012180-1-vnagare@redhat.com>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Mon, 28 Sep 2026 14:01:24 -0700
-X-Gm-Features: AclHuK-LLZxY-7zBIpHr84SeFAGdZgSZVV4ExNQKznc8Jir7zMPJ2Pq3fUuX6Jw
-Message-ID: <CACKFLikzTgx_2cDdxFeKLJpdDt9iVxL8FG5NMXQgYQbeBk8FPA@mail.gmail.com>
-Subject: Re: [PATCH net] bnxt_en: don't leave an XDP program installed when
- the open fails
-To: Vaibhav Nagare <nagarevaibhav@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vaibhav Nagare <vnagare@redhat.com>, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000002ca977065c915f0b"
-
---0000000000002ca977065c915f0b
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928210144.3925224-1-irogers@google.com>
+Subject: [PATCH v1 1/2] perf test: Add per-test timeout support
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>, 
+	Dmitrii Dolgov <9erthalion6@gmail.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 6:15=E2=80=AFAM Vaibhav Nagare <nagarevaibhav@gmail=
-.com> wrote:
+When a test hangs in 'perf test', the entire test run hangs and makes it
+difficult to inspect output from other tests.
 
-> Restore the previous program when the open fails and release it only
-> once the change has been committed.  The ring and feature configuration
-> is left as computed for the rejected program; the device stays down on
-> this path, and reconciling it is left for a separate change.
->
-> Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Add a new TEST_TIMEOUT result category and a per-test timeout (default
+60 seconds, configurable via '-t'/'--timeout', with 0 to disable). When
+'-F' ('--dont-fork') is specified, timeouts are disabled.
 
-> @@ -435,8 +433,16 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_=
-prog *prog)
->         bnxt_set_tpa_flags(bp);
->         bnxt_set_ring_params(bp);
->
-> -       if (netif_running(dev))
-> -               return bnxt_open_nic(bp, true, false);
-> +       if (netif_running(dev)) {
-> +               rc =3D bnxt_open_nic(bp, true, false);
-> +               if (rc) {
-> +                       WRITE_ONCE(bp->xdp_prog, old);
-> +                       return rc;
-> +               }
-> +       }
-> +
-> +       if (old)
-> +               bpf_prog_put(old);
+To enforce the timeout:
+- Place each forked test child into its own process group via
+  setpgid(0, 0) in the child and setpgid(pid, pid) in the parent so any
+  subprocesses spawned by shell or workload tests can be terminated
+  together.
+- Arm an ITIMER_REAL periodic timer with a SIGALRM handler (using
+  SA_RESTART so /proc status reads in check_if_command_finished() are
+  not interrupted by EINTR while poll()/usleep() waits still wake up).
+- Check elapsed child runtimes against test_timeout in finish_test() and
+  finish_tests_parallel(), sending SIGTERM first and escalating to
+  SIGKILL after 1 second if the child process group has not exited.
+- Report timed out tests in red ('TIMEOUT!'), track and display them in
+  the test summary, and emit '<error message="TIMEOUT" type="timeout">'
+  counted under the 'errors' attribute in JUnit XML output.
+- Document '-t'/'--timeout' and '-F'/'--dont-fork' in perf-test.txt.
 
-As mentioned in your commit message, the driver's internal ring state
-and the XDP program state may be out-of-sync at this point.  I think
-bad things can happen if the next open succeeds.  Ideally, we want to
-get everything back in sync.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/Documentation/perf-test.txt |   7 +-
+ tools/perf/tests/builtin-test.c        | 179 ++++++++++++++++++++++---
+ tools/perf/tests/tests.h               |   7 +-
+ 3 files changed, 174 insertions(+), 19 deletions(-)
 
---0000000000002ca977065c915f0b
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+diff --git a/tools/perf/Documentation/perf-test.txt b/tools/perf/Documentation/perf-test.txt
+index 859df74e62ef..16d940e8d221 100644
+--- a/tools/perf/Documentation/perf-test.txt
++++ b/tools/perf/Documentation/perf-test.txt
+@@ -45,10 +45,15 @@ OPTIONS
+ 	Run each test the given number of times, by default once. This
+ 	option can be useful to determine if a test is flaky.
+ 
++-t::
++--timeout::
++	Timeout for each forked test in seconds, by default 60 seconds. Specify
++	0 to disable the timeout. Ignored when -F/--dont-fork is used.
++
+ -F::
+ --dont-fork::
+ 	Do not fork child for each test, run all tests within single process, this
+-	sets sequential mode.
++	sets sequential mode and disables the per-test timeout.
+ 
+ --dso::
+ 	Specify a DSO for the "Symbols" test.
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index d2f594921e25..451d98d7edad 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -11,8 +11,11 @@
+ #include <execinfo.h>
+ #endif
+ #include <setjmp.h>
++#include <signal.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ 
+ #include "util/config.h"
+ 
+@@ -60,6 +63,8 @@ static bool sequential;
+ static unsigned int runs_per_test = 1;
+ /* Number of lines to include in failure snippet. */
+ static unsigned int failure_snippet_lines = 10;
++/* Timeout per test in seconds (0 for no timeout). */
++static unsigned int test_timeout = 60;
+ const char *dso_to_test;
+ const char *test_objdump_path = "objdump";
+ static const char *workload_control;
+@@ -330,8 +335,11 @@ struct child_test {
+ 	struct strbuf err_output;
+ 	int result;
+ 	bool done;
++	bool timed_out;
++	bool sigkill_sent;
+ 	struct timespec start_time;
+ 	struct timespec end_time;
++	struct timespec timeout_time;
+ };
+ 
+ static jmp_buf run_test_jmp_buf;
+@@ -359,12 +367,21 @@ static int run_test_child(struct child_process *process)
+ 	struct child_test *child = container_of(process, struct child_test, process);
+ 	int err;
+ 
++	/*
++	 * Place the forked test into its own process group (pgid == pid) so
++	 * that any subprocesses it spawns (e.g. shell tests running via
++	 * system() and their child perf/workload processes) inherit this
++	 * process group. On timeout or interruption, signaling -pid kills the
++	 * entire test process tree without leaving orphaned background
++	 * processes or affecting the parent perf process and other tests.
++	 */
++	setpgid(0, 0);
+ 	close_parent_fds();
+ 
+ 	err = sigsetjmp(run_test_jmp_buf, 1);
+ 	if (err) {
+ 		/* Received signal. */
+-		err = err > 0 ? -err : -1;
++		err = TEST_FAIL;
+ 		goto err_out;
+ 	}
+ 
+@@ -378,20 +395,31 @@ static int run_test_child(struct child_process *process)
+ 
+ 	check_leaks();
+ err_out:
+-	fflush(NULL);
+ 	for (size_t i = 0; i < ARRAY_SIZE(signals); i++)
+ 		signal(signals[i], SIG_DFL);
++	if (err == TEST_FAIL) {
++		/*
++		 * Wait for any spawned child processes (such as shell scripts
++		 * running trap cleanup handlers on SIGTERM) to finish before
++		 * exiting.
++		 */
++		while (waitpid(-1, NULL, 0) > 0 || errno == EINTR)
++			;
++	}
++	fflush(NULL);
+ 	return -err;
+ }
+ 
+-#define TEST_RUNNING -3
++#define TEST_RUNNING -4
+ 
+ static struct pollfd *global_pfds;
+ static size_t *global_pfd_indices;
+ static unsigned int summary_tests_passed;
+ static unsigned int summary_subtests_passed;
+ static unsigned int summary_tests_skipped;
++static unsigned int summary_tests_timed_out;
+ static unsigned int summary_tests_failed;
++static struct strbuf summary_timed_out_tests_buf = STRBUF_INIT;
+ static struct strbuf summary_failed_tests_buf = STRBUF_INIT;
+ 
+ static int strbuf_addstr_safe(struct strbuf *sb, const char *s);
+@@ -507,6 +535,18 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 			color_fprintf(debug_file(), PERF_COLOR_YELLOW, " Skip\n");
+ 	}
+ 		break;
++	case TEST_TIMEOUT:
++		summary_tests_timed_out++;
++		if (test_suite__num_test_cases(t) > 1)
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d.%1d: %s\n",
++				    curr_suite + 1, curr_test_case + 1,
++				    test_description(t, curr_test_case));
++		else
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d: %s\n",
++				    curr_suite + 1,
++				    test_description(t, curr_test_case));
++		color_fprintf(debug_file(), PERF_COLOR_RED, " TIMEOUT!\n");
++		break;
+ 	case TEST_FAIL:
+ 	default:
+ 		summary_tests_failed++;
+@@ -532,7 +572,11 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 		strbuf_addf(&junit_xml_buf,
+ 			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
+ 			    escaped_class, escaped_test, elapsed);
+-		if (result != TEST_OK && result != TEST_SKIP) {
++		if (result == TEST_TIMEOUT) {
++			strbuf_addf(&junit_xml_buf,
++				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
++				    escaped_err);
++		} else if (result != TEST_OK && result != TEST_SKIP) {
+ 			strbuf_addf(&junit_xml_buf,
+ 				    "      <failure message=\"FAILED\">\n%s\n      </failure>\n",
+ 				    escaped_err);
+@@ -561,7 +605,7 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 
+ static const char * const fail_keywords[] = {
+ 	"error", "fail", "segv", "abort",
+-	"signal", "fatal", "panic", "corrupt", NULL
++	"signal", "fatal", "panic", "corrupt", "timeout", NULL
+ };
+ 
+ static const char *find_next_keyword(const char *str, size_t max_len, size_t *kw_len)
+@@ -748,6 +792,47 @@ static void print_test_failure_snippet(FILE *fp, const char *buf)
+ 	free(line_lens);
+ }
+ 
++static void cmd_test_alarm_handler(int sig __maybe_unused)
++{
++}
++
++static void check_child_timeout(struct child_test *child, const struct timespec *now)
++{
++	double elapsed;
++	pid_t pid;
++
++	if (!test_timeout || !child || child->done || child->process.finished)
++		return;
++
++	pid = child->process.pid;
++	if (pid <= 0)
++		return;
++
++	if (!child->timed_out) {
++		elapsed = (now->tv_sec - child->start_time.tv_sec) +
++			  (now->tv_nsec - child->start_time.tv_nsec) / 1000000000.0;
++		if (elapsed >= test_timeout) {
++			child->timed_out = true;
++			child->timeout_time = *now;
++			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
++				  test_timeout, child->suite_num + 1,
++				  child->test_case_num + 1, pid);
++			kill(-pid, SIGTERM);
++			kill(pid, SIGTERM);
++		}
++	} else if (!child->sigkill_sent) {
++		elapsed = (now->tv_sec - child->timeout_time.tv_sec) +
++			  (now->tv_nsec - child->timeout_time.tv_nsec) / 1000000000.0;
++		if (elapsed >= 1.0) {
++			child->sigkill_sent = true;
++			pr_debug3("Sending SIGKILL to timed out test %d.%d (pid %d)\n",
++				  child->suite_num + 1, child->test_case_num + 1, pid);
++			kill(-pid, SIGKILL);
++			kill(pid, SIGKILL);
++		}
++	}
++}
++
+ static void finish_test(struct child_test **child_tests, int running_test, int child_test_num,
+ 		int width)
+ {
+@@ -797,6 +882,12 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 			  .events = POLLIN | POLLERR | POLLHUP | POLLNVAL,
+ 			},
+ 		};
++		if (test_timeout > 0) {
++			struct timespec now;
++
++			clock_gettime(CLOCK_MONOTONIC, &now);
++			check_child_timeout(child_test, &now);
++		}
+ 		if (perf_use_color_default) {
+ 			int running = 0;
+ 
+@@ -837,10 +928,14 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 					err_done = false;
+ 					buf[len] = '\0';
+ 					strbuf_addstr_safe(&err_output, buf);
++				} else if (pfds[0].revents & (POLLHUP | POLLERR | POLLNVAL)) {
++					close(err);
++					err = -1;
++					child_test->process.err = -1;
+ 				}
+ 			}
+ 		}
+-		if (err_done)
++		if (err_done || child_test->timed_out)
+ 			err_done = check_if_command_finished(&child_test->process);
+ 	}
+ 	/* Drain any remaining data from the pipe. */
+@@ -859,6 +954,8 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 	}
+ 	/* Clean up child process. */
+ 	ret = finish_command(&child_test->process);
++	if (child_test->timed_out)
++		ret = TEST_TIMEOUT;
+ 	child_test->process.pid = 0;
+ 	if (child_test->err_output.len > 0) {
+ 		struct strbuf merged = STRBUF_INIT;
+@@ -872,7 +969,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 	}
+ 	if (verbose > 1)
+ 		fprintf(stderr, "%s", err_output.buf);
+-	else if (verbose == 1 && ret == TEST_FAIL)
++	else if (verbose == 1 && (ret == TEST_FAIL || ret == TEST_TIMEOUT))
+ 		print_test_failure_snippet(stderr, err_output.buf);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &end_time);
+@@ -1018,6 +1115,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 	while (next_to_print < num_tests) {
+ 		size_t running_count = 0;
+ 		size_t p;
++		struct timespec now;
+ 
+ 		while (next_to_print < num_tests &&
+ 		       (!child_tests[next_to_print] || child_tests[next_to_print]->done))
+@@ -1027,6 +1125,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			break;
+ 
+ 		num_pfds = 0;
++		if (test_timeout > 0)
++			clock_gettime(CLOCK_MONOTONIC, &now);
+ 
+ 		for (i = next_to_print; i < num_tests; i++) {
+ 			struct child_test *child = child_tests[i];
+@@ -1034,6 +1134,9 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			if (!child || child->done)
+ 				continue;
+ 
++			if (test_timeout > 0)
++				check_child_timeout(child, &now);
++
+ 			if (!check_if_command_finished(&child->process))
+ 				running_count++;
+ 
+@@ -1097,6 +1200,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 					child->process.err = -1;
+ 				}
+ 				child->result = finish_command(&child->process);
++				if (child->timed_out)
++					child->result = TEST_TIMEOUT;
+ 				child->process.pid = 0;
+ 				clock_gettime(CLOCK_MONOTONIC, &child->end_time);
+ 				child->done = true;
+@@ -1141,7 +1246,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 
+ 			if (verbose > 1)
+ 				fprintf(stderr, "%s", child->err_output.buf);
+-			else if (verbose == 1 && child->result == TEST_FAIL)
++			else if (verbose == 1 &&
++				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
+ 				print_test_failure_snippet(stderr, child->err_output.buf);
+ 
+ 			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
+@@ -1218,14 +1324,20 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
+ 		(*child)->process.stdout_to_stderr = 1;
+ 	}
+ 	(*child)->process.no_exec_cmd = run_test_child;
++	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
++	err = start_command(&(*child)->process);
++	if (err)
++		return err;
++	/*
++	 * Also set the child's process group in the parent to avoid a race if
++	 * the parent signals -pid before the child executes setpgid(0, 0).
++	 */
++	setpgid((*child)->process.pid, (*child)->process.pid);
+ 	if (sequential || pass == 2) {
+-		err = start_command(&(*child)->process);
+-		if (err)
+-			return err;
+ 		finish_test(child, /*running_test=*/0, /*child_test_num=*/1, width);
+ 		return 0;
+ 	}
+-	return start_command(&(*child)->process);
++	return 0;
+ }
+ 
+ /* State outside of __cmd_test for the sake of the signal handler. */
+@@ -1245,6 +1357,14 @@ static void print_tests_summary(void)
+ 	pr_info("Passed main tests : %u\n", summary_tests_passed);
+ 	pr_info("Passed subtests   : %u\n", summary_subtests_passed);
+ 	pr_info("Skipped tests     : %u\n", summary_tests_skipped);
++	if (summary_tests_timed_out > 0) {
++		color_fprintf(debug_file(), PERF_COLOR_RED, "Timed out tests   : %u\n",
++			      summary_tests_timed_out);
++		pr_info("List of timed out tests:\n");
++		pr_info("%s", summary_timed_out_tests_buf.buf);
++	} else {
++		color_fprintf(debug_file(), PERF_COLOR_GREEN, "Timed out tests   : 0\n");
++	}
+ 	if (summary_tests_failed > 0) {
+ 		color_fprintf(debug_file(), PERF_COLOR_RED, "Failed tests      : %u\n",
+ 			      summary_tests_failed);
+@@ -1265,12 +1385,15 @@ static void print_tests_summary(void)
+ 				unsigned int total = summary_tests_passed +
+ 						     summary_subtests_passed +
+ 						     summary_tests_skipped +
++						     summary_tests_timed_out +
+ 						     summary_tests_failed;
+ 				fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+ 				fprintf(fp, "<testsuites>\n");
+ 				fprintf(fp,
+-					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" skipped=\"%u\">\n",
+-					total, summary_tests_failed,
++					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\">\n",
++					total,
++					summary_tests_failed,
++					summary_tests_timed_out,
+ 					summary_tests_skipped);
+ 				fprintf(fp, "%s", junit_xml_buf.buf);
+ 				fprintf(fp, "  </testsuite>\n");
+@@ -1288,6 +1411,7 @@ static void print_tests_summary(void)
+ 		}
+ 	}
+ 	strbuf_release(&junit_xml_buf);
++	strbuf_release(&summary_timed_out_tests_buf);
+ 	strbuf_release(&summary_failed_tests_buf);
+ }
+ 
+@@ -1327,12 +1451,27 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 			pr_debug3("Killing %d pid %d\n",
+ 				  child_test->suite_num + 1,
+ 				  child_test->process.pid);
++			kill(-child_test->process.pid, err);
+ 			kill(child_test->process.pid, err);
+ 		}
+ 		goto err_out;
+ 	}
+ 	signal(SIGINT, cmd_test_sig_handler);
+ 	signal(SIGTERM, cmd_test_sig_handler);
++	if (!dont_fork && test_timeout > 0) {
++		struct sigaction sa = {
++			.sa_handler = cmd_test_alarm_handler,
++			.sa_flags = SA_RESTART,
++		};
++		struct itimerval timer = {
++			.it_interval = { .tv_sec = 1, .tv_usec = 0 },
++			.it_value = { .tv_sec = 1, .tv_usec = 0 },
++		};
++
++		sigemptyset(&sa.sa_mask);
++		sigaction(SIGALRM, &sa, NULL);
++		setitimer(ITIMER_REAL, &timer, NULL);
++	}
+ 
+ 	/*
+ 	 * In parallel mode pass 1 runs non-exclusive tests in parallel, pass 2
+@@ -1430,6 +1569,12 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 		for (size_t x = 0; x < num_tests; x++)
+ 			finish_test(child_tests, x, num_tests, width);
+ 	}
++	if (!dont_fork && test_timeout > 0) {
++		struct itimerval timer = {};
++
++		setitimer(ITIMER_REAL, &timer, NULL);
++		signal(SIGALRM, SIG_DFL);
++	}
+ 	print_tests_summary();
+ 	free(global_pfds);
+ 	free(global_pfd_indices);
+@@ -1762,6 +1907,8 @@ int cmd_test(int argc, const char **argv)
+ 		    "Run the tests one after another rather than in parallel"),
+ 	OPT_UINTEGER('r', "runs-per-test", &runs_per_test,
+ 		     "Run each test the given number of times, default 1"),
++	OPT_UINTEGER('t', "timeout", &test_timeout,
++		     "Timeout for each test in seconds, default 60s (0 to disable)"),
+ 	OPT_STRING('w', "workload", &workload, "work", "workload to run for testing, use '--list-workloads' to list the available ones."),
+ 	OPT_STRING(0, "record-ctl", &workload_control, "fifo:ctl-fifo[,ack-fifo]",
+ 		   "Write enable to the fifo just before running the workload and disable after, with optional ack from ack-fifo"),
+@@ -1824,8 +1971,10 @@ int cmd_test(int argc, const char **argv)
+ 		return 0;
+ 	}
+ 
+-	if (dont_fork)
++	if (dont_fork) {
+ 		sequential = true;
++		test_timeout = 0;
++	}
+ 
+ 	symbol_conf.priv_size = sizeof(int);
+ 	symbol_conf.try_vmlinux_path = true;
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 9c96f33483d1..2de66dc2e701 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -6,9 +6,10 @@
+ #include "util/debug.h"
+ 
+ enum {
+-	TEST_OK   =  0,
+-	TEST_FAIL = -1,
+-	TEST_SKIP = -2,
++	TEST_OK      =  0,
++	TEST_FAIL    = -1,
++	TEST_SKIP    = -2,
++	TEST_TIMEOUT = -3,
+ };
+ 
+ #define TEST_ASSERT_VAL(text, cond)					 \
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-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
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCB6ZWOT
-B5LJ0iTpCQvWHCR96b7oxm6S74i1j7LPhg1V1jAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjA5MjgyMTAxMzdaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBB/UuaImP/4LsVBryy8JLyrdLgJrQpsh62J7G+SARy
-z+OWI3wtnchWDVqLp2aaDPPcoPvz3/KaLbiX2taJ/rGsDgkgFILrLndBI9CKOOn+8xJaV9DVv97/
-ihhl8cdBBEiEQM33mlMfZaeC46jhq0mHatLJV/pbYPD6ZxX8f540ytpBoOIbju+iU2hUkksVuYsP
-C55sF2+6VNDOTvjmhtNNmSH+DErAQGL5KXdnKaxwWbwEtrxUKUF7W8MQFxFSzyYSONFYb+ejY4Fj
-Dyj/r2oait0Js1d0vdW8KFS0WYLOwWeDwIt35Wg7EBRh0NSNUZHkqXyEGzRfZdSwztjBw3yX
---0000000000002ca977065c915f0b--
