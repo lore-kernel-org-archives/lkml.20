@@ -1,218 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253D546EF6A;
-	Mon, 28 Sep 2026 08:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8F346D2B4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582628; cv=none; b=Z5Ilf+fkAxgYg0myUfOKsGIUNa1G/ufsNcKhOt9Fy5pMGjwuE1rfkWk/dza/KRtcoYz2A9F6wsYqVbDkcm8htWE/BSBzFptvdt6v/dMeR7A2knFTA/y5MpYC8Hxx/KdhY5XgfaG/6lOPRblQdKGk6Dn1fQOdVeKYQ81Vmm0gFAA=
+	t=1790582629; cv=none; b=OJ7fKD+9tr+/YN+ezzE5ssRaBWSpoe9NxTepA5DDV0ZMevYLU/4x2Nq/8IvH7gDBxDDJFRRMgZtitnXuUNozY3ar1q99AtRJp3cyUvVWlM1JYmvHBfQYXedwWGOU59eo9j+kDOUPA8j9AwKJ+fCUkpHb7xPb2f7Zhb8DUXNUNKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582628; c=relaxed/simple;
-	bh=ZPV5p+j4KPjhk3iffSJAn2mihUCwMaMbCnf1VocEA1Y=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kj3+PwNB9hKARJl83bJOIoMSPKjr+klT83eZuRk0vTbHk6g3RcGaFSkyOchV0+IbgKTMPvHeldSo1Y97Y5jJiReAJ3edlWnawxbiEJP07uUgxT1b/kMvPAX/yjixpxmC78XUKUSGkhnwKsbWYxMr2f0YMxwLz347KTVEfBVotmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQwmu5tZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790582629; c=relaxed/simple;
+	bh=GtPKEtkWKuhpySHNHIyHNubstmFh+KJEjwtqiEYln5A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=Y0AILkubzyFtAHf/hZAABzMATqVS1dKkqgyQ/FD+D7+LIa2qcTCVll9554KkcDKMVlSeReBVA2T9UbGCeWcc/xTVAj1dlYfN622LAbHOtvD0X55TFWT/uP0Bl952KmAjwSUn6njw0xz6nawrT5AEEDbhQv/BJLEIO7X+IflkITI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jqYfBJ33; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQwmu5tZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94FD1F000FF;
-	Mon, 28 Sep 2026 08:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790582624;
-	bh=wpKB8NWNIG9HI9GTo75J4nfgoxYdt8QoZF0s8fE5gFw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fQwmu5tZ++pPdx978y8XvVOELXuIhncUvhyxzvE3O28BzUdCEfshtgvu6Ynzj9ine
-	 bnC73Rzfo9sFCCL8gc8PvojoDaVGNcVeAjQXndfnduOZcKzV6AXEW/mppLXuwcgbli
-	 jDY2o76gvQzgaJ4E3zxjgnrWuYvCgick5VE2SEqzgpazPxoFnRBCLcicVatAGSQ8+a
-	 WbmRCmUD+U+2PA+bVTY2WzNpmeJh2Tfo8ZKfSVMMf2LtlFj0S6cAI8kNTtktL010mt
-	 t0+XXepyA6wezn0wGw/geaZ6Ijhfi0Sv/L0vKPTg1w7yPWhw8yQ1QtDF9a5bMhC5hU
-	 2feqsY/CYFnsg==
-Subject:
- Re: [PATCH net-next v2 7/7] net: stmmac: mediatek: add support for MT8189 SoC
-From: netdev-bot+sashiko@kernel.org
-To: louisalexis.eyraud@collabora.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, richardcochran@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, biao.huang@mediatek.com,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Mon, 28 Sep 2026 08:03:42 +0000
-Message-ID: <179058262236.3145.17042342965998808468@kernel.org>
-In-Reply-To: <20260924-dwmac-mediatek-mt8189-v2-7-430bd74d5ef9@collabora.com>
-References: <20260924-dwmac-mediatek-mt8189-v2-7-430bd74d5ef9@collabora.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jqYfBJ33"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=GtPKEtkWKuhpySHNHIyHNubstmFh+KJEjwtqiEYln5A=; b=j
+	qYfBJ33uPBM17j1vTF9awn46ZDr/aHZkJ7u6c22ANzoYDL9DVZBA0ySwzXSTnXke
+	aABNI7dLmpc85ircfFpOdM6g2TAvybj7PjlQGqYD0+UrpwNmVy+vEcHZOYMFixm7
+	GQPQ4rT4YD3sMQM1ahnHALeUf25jdvDH5+6aLkith8=
+Date: Mon, 28 Sep 2026 16:02:47 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Heming Zhao" <heming.zhao@suse.com>
+Cc: "Joseph Qi" <joseph.qi@linux.alibaba.com>,
+	"Andrew Morton" <akpm@linux-foundation.org>,
+	"Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: validate extent list in filecheck repair
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <aroZaYiB-DUxFyLs@p15>
+References: <20260926131848.3379842-1-yaojiale02@163.com>
+ <744a70bd-5455-421f-a37d-1c0a63f54b60@linux.alibaba.com>
+ <aroZaYiB-DUxFyLs@p15>
+X-NTES-SC: AL_Qu2SAvmTvU0t4SeQYekcn08ShO49XMOyvfoi2YFTc+gGmTzU3j0if1JyFELowOyzNySDujGrVSdF5ct2e7h6JeGqFpsnAqSGE5/CRRLWYg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-ID: <6e19a760.6fea.1a0e709b376.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:iCgvCgD3H4gnH7pqkIJPAA--.50504W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQcaVGq6HyeN0gAA3z
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 (2) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] On MT8189, the driver and the DT binding disagree about MAC-
-  sourced RMII.
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  mediatek_dwmac_probe() ignores the return value of…
-- [Medium] This problem wasn't introduced by this patch, but
-  mediatek_dwmac_clks_config(enabled=true) leaks clock enables.
-
---
-
-net: stmmac: mediatek: add support for MT8189 SoC
-
-This adds MT8189 support to the MediaTek dwmac glue driver. MT8189 reuses
-the MT8195 pericfg programming callbacks, with a different register
-offset, 180ps delay stage dividers, a shorter clock list and the TX clock
-output enable feature.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 36599dc33b14..f07c331b029f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-
-[ ... ]
-
-> @@ -124,6 +131,10 @@ static const char * const mt8195_dwmac_clk_l[] = {
->  	"axi", "apb", "mac_cg", "mac_main", "ptp_ref"
->  };
->  
-> +static const char * const mt8189_dwmac_clk_l[] = {
-> +	"mac_main", "ptp_ref"
-> +};
-
-[Severity: Medium]
-How is RMII with the MAC providing the reference clock meant to work on
-MT8189?
-
-The MT8189 binding added earlier in this series ("dt-bindings: net:
-mediatek-dwmac: add support for MT8189 SoC") limits clock-names to exactly
-these two entries:
-
-    clock-names:
-      items:
-        - const: mac_main
-        - const: ptp_ref
-
-However, it still allows mediatek,rmii-clk-from-mac for this compatible.
-The tx/rx-delay-ps descriptions also mention the MT8189 RMII interface.
-
-If a board sets mediatek,rmii-clk-from-mac, mediatek_dwmac_clk_init()
-always requests a clock that the binding does not permit:
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:mediatek_dwmac_clk_init() {
-    ...
-	if (plat->rmii_clk_from_mac) {
-		plat->rmii_internal_clk = devm_clk_get(plat->dev, "rmii_internal");
-		if (IS_ERR(plat->rmii_internal_clk))
-			ret = PTR_ERR(plat->rmii_internal_clk);
-    ...
-}
-
-So a DT that passes schema validation fails to probe. A DT that supplies
-rmii_internal, and so would probe, fails schema validation.
-
-The new variant also reuses mt8195_set_interface() and mt8195_set_delay().
-These program MT8195_RMII_CLK_SRC_INTERNAL and the RMII_TXC/RMII_RXC delay
-path, so the driver seems to treat this mode as supported.
-
-Should the MT8189 binding gain an optional rmii_internal clock? Or should
-the binding and the driver reject mediatek,rmii-clk-from-mac for MT8189
-with a clear error?
-
-[ ... ]
-
-> @@ -495,6 +506,21 @@ static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
->  			   reg_val);
->  }
->  
-> +static const struct mediatek_dwmac_variant mt8189_gmac_variant = {
-> +	.dwmac_set_phy_interface = mt8195_set_interface,
-> +	.dwmac_set_delay = mt8195_set_delay,
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. Now that
-MT8189 uses mt8195_set_delay(), can it cause trouble that
-mediatek_dwmac_probe() ignores the return value of mediatek_dwmac_init()?
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:mediatek_dwmac_probe() {
-    ...
-	mediatek_dwmac_common_data(pdev, plat_dat, priv_plat);
-	mediatek_dwmac_init(&pdev->dev, priv_plat);
-
-	ret = mediatek_dwmac_clks_config(priv_plat, true);
-    ...
-}
-
-With phy-mode = "gmii", stmmac_get_phy_intf_sel() returns
-PHY_INTF_SEL_GMII_MII. That passes the check in mediatek_dwmac_init(), and
-mt8195_set_interface() writes CTRL0. mt8195_set_delay() then reaches:
-
-	default:
-		dev_err(plat->dev, "phy interface not supported\n");
-		return -EINVAL;
-
-CTRL1 and CTRL2 are never written, but probe still goes on into
-stmmac_dvr_probe() and succeeds.
-
-The error is also ignored for phy modes that mediatek_dwmac_init() rejects
-up front. In that case the device probes with the pericfg interface
-registers never programmed.
-
-Should probe fail when mediatek_dwmac_init() returns an error?
-
-> +	.dwmac_fix_mac_speed = mt8195_fix_mac_speed,
-> +	.clk_list = mt8189_dwmac_clk_l,
-> +	.num_clks = ARRAY_SIZE(mt8189_dwmac_clk_l),
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but does
-mediatek_dwmac_clks_config() leak the bulk clock enables when the
-rmii_internal clock fails to enable?
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:mediatek_dwmac_clks_config() {
-    ...
-		ret = clk_bulk_prepare_enable(variant->num_clks, plat->clks);
-		...
-		ret = clk_prepare_enable(plat->rmii_internal_clk);
-		if (ret) {
-			dev_err(plat->dev, "failed to enable rmii internal clk, err = %d\n", ret);
-			return ret;
-		}
-    ...
-}
-
-That path has no clk_bulk_disable_unprepare(). mediatek_dwmac_probe() also
-returns the error directly, without reaching err_drv_probe:
-
-	ret = mediatek_dwmac_clks_config(priv_plat, true);
-	if (ret)
-		return ret;
-
-On MT8189 this leaves mac_main and ptp_ref prepared and enabled. The devm
-bulk get cleanup only drops the clock references. The same leak can
-happen through the clks_config callback on resume.
-
-On MT8189 this needs a DT that sets mediatek,rmii-clk-from-mac and also
-supplies an rmii_internal clock, which the MT8189 binding does not allow.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9%40collabora.com
+VGhhbmtzIGZvciB0aGUgcmV2aWV3LiBJIGFncmVlIHRoYXQgdGhpcyBzaG91bGQgYmUgdHJlYXRl
+ZCBhcyBhbgpleHRlbnNpb24gb2Ygb25saW5lIGZpbGVjaGVjayByYXRoZXIgdGhhbiBhIGZpeCBm
+b3IgZDU2YThmMzJlNGM2LgoKSSB3aWxsIHByZXBhcmUgYSB2MiB3aXRoIHRoZSBmb2xsb3dpbmcg
+Y2hhbmdlczoKCi0gRHJvcCB0aGUgRml4ZXMgYW5kIHN0YWJsZSB0YWdzIGFuZCBkZXNjcmliZSB0
+aGUgY2hhbmdlIGFzIGFkZGl0aW9uYWwKICAgZmlsZWNoZWNrIHZhbGlkYXRpb24uCi0gRXh0cmFj
+dCB0aGUgZXhpc3RpbmcgZXh0ZW50LWxpc3QgY2hlY2tzIGZyb20KICAgb2NmczJfdmFsaWRhdGVf
+aW5vZGVfYmxvY2soKSBpbnRvIGEgc21hbGwgc2hhcmVkIGhlbHBlciBpbnN0ZWFkIG9mCiAgIGR1
+cGxpY2F0aW5nIHRoZW0uCi0gUmVtb3ZlIGVudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzLgot
+IEtlZXAgdGhlIHJlcGFpciBwb2xpY3kgdW5jaGFuZ2VkOiByZWplY3QgYW4gaW52YWxpZCBsX2Nv
+dW50LCB3aGlsZQogICBhbGxvd2luZyB0aGUgZXhpc3RpbmcgY29kZSB0byBjbGFtcCBsX25leHRf
+ZnJlZV9yZWMgdG8gbF9jb3VudC4KClRoYW5rcywKSmlhbGUKCgpBdCAyMDI2LTA5LTI4IDE1OjM5
+OjE0LCAiSGVtaW5nIFpoYW8iIDxoZW1pbmcuemhhb0BzdXNlLmNvbT4gd3JvdGU6Cj5PbiBNb24s
+IFNlcCAyOCwgMjAyNiBhdCAwOTozMzoxMkFNICswODAwLCBKb3NlcGggUWkgd3JvdGU6Cj4+IAo+
+PiAKPj4gT24gOS8yNi8yNiA5OjE4IFBNLCBKaWFsZSBZYW8gd3JvdGU6Cj4+ID4gb2NmczJfZmls
+ZWNoZWNrX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKCkgZG9lcyBub3QgdmFsaWRhdGUgdGhlIGVtYmVk
+ZGVkCj4+ID4gZXh0ZW50IGxpc3QsIHdoaWxlIG9jZnMyX2ZpbGVjaGVja19yZXBhaXJfaW5vZGVf
+YmxvY2soKSBvbmx5IGNsYW1wcwo+PiA+IGxfbmV4dF9mcmVlX3JlYyB0byBsX2NvdW50LiAgVGhl
+IG5vcm1hbCBpbm9kZSByZWFkIHBhdGggcmVxdWlyZXMgbF9jb3VudAo+PiA+IHRvIGJlIG5vbi16
+ZXJvLCBsaW1pdHMgaXQgdG8gdGhlIG51bWJlciBvZiBleHRlbnQgcmVjb3JkcyB0aGF0IGZpdCBp
+biB0aGUKPj4gPiBpbm9kZSwgYW5kIHJlcXVpcmVzIGxfbmV4dF9mcmVlX3JlYyBub3QgdG8gZXhj
+ZWVkIGxfY291bnQuCj4+ID4gCj4+ID4gV2l0aG91dCB0aGUgc2FtZSBjaGVja3MsIGZpbGVjaGVj
+ayBjYW4gcmVwb3J0IFNVQ0NFU1Mgd2hpbGUgbGVhdmluZyBhbgo+PiA+IGludmFsaWQgZXh0ZW50
+IGxpc3Qgb24gZGlzay4gIEEgbGF0ZXIgcmVhZCB0aHJvdWdoIHRoZSBub3JtYWwgaW5vZGUKPj4g
+PiB2YWxpZGF0aW9uIHBhdGggcmVqZWN0cyB0aGUgaW5vZGUgYW5kIG1ha2VzIHRoZSBmaWxlc3lz
+dGVtIHJlYWQtb25seS4KPj4gPiAKPj4gPiBBZGQgYSBzaGFyZWQgaGVscGVyIGZvciB0aGUgZmls
+ZWNoZWNrIHBhdGhzIHRvIGNoZWNrIHRoZXNlIGludmFyaWFudHMuCj4+ID4gVGhlIGZpbGVjaGVj
+ayB2YWxpZGF0b3Igbm93IHJlamVjdHMgYWxsIHRocmVlIGNhc2VzLiAgVGhlIHJlcGFpciBwYXRo
+Cj4+ID4gc3RpbGwgY2xhbXBzIGxfbmV4dF9mcmVlX3JlYywgYnV0IHJlZnVzZXMgdG8gcmVwYWly
+IHplcm8gb3Igb3ZlcnNpemVkCj4+ID4gbF9jb3VudCB2YWx1ZXMuCj4+ID4gCj4+ID4gRml4ZXM6
+IGQ1NmE4ZjMyZTRjNiAoIm9jZnMyOiBjaGVjay9maXggaW5vZGUgYmxvY2sgZm9yIG9ubGluZSBm
+aWxlIGNoZWNrIikKPj4gCj4+IEknZCBsaWtlIG1ha2UgdGhpcyBhcyBhIG5ldyBhYmlsaXR5IHJh
+dGhlciB0aGFuIGEgYnVnIGZpeC4KPgo+QWdyZWUKPgo+SW4gbXkgZXhwZXJpZW5jZSwgdXNlcnMg
+cnVuIG9ubGluZSBmaWxlIGNoZWNrcyBvbmx5IHdoZW4gaW5vZGUgZGF0YSBpcyBjb3JydXB0ZWQs
+Cj5vciB3aGVuIGZzY2svZGVidWdmcyBoYXMgYWxyZWFkeSByZXBvcnRlZCBhbiBpbm9kZSBpc3N1
+ZSBwcmlvciB0byB0aGUgY2hlY2suCj4KPlRoZSBGaXhlcyB0YWcgc2hvdWxkIG9ubHkgYmUgdXNl
+ZCBmb3IgdGhlIHBhdGNoIHRoYXQgZml4ZXMgdGhlIHVuaW50ZW5kZWQgcGFuaWMKPmFuZCByZWFk
+LW9ubHkgaXNzdWUgaW50cm9kdWNlZCBieSBjb21taXQgZDU2YThmMzJlNGM2Lgo+Cj4tIEhlbWlu
+Zwo+Cj4+IAo+PiA+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29t
+Pgo+PiA+IC0tLQo+PiA+ICBmcy9vY2ZzMi9pbm9kZS5jIHwgNzEgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+ID4gIDEgZmlsZSBjaGFuZ2VkLCA3MSBp
+bnNlcnRpb25zKCspCj4+ID4gCj4+ID4gZGlmZiAtLWdpdCBhL2ZzL29jZnMyL2lub2RlLmMgYi9m
+cy9vY2ZzMi9pbm9kZS5jCj4+ID4gaW5kZXggMTgwMTA3YTExMDQ2Li41NzE2OGVkMDI5MTUgMTAw
+NjQ0Cj4+ID4gLS0tIGEvZnMvb2NmczIvaW5vZGUuYwo+PiA+ICsrKyBiL2ZzL29jZnMyL2lub2Rl
+LmMKPj4gPiBAQCAtMjQ5LDYgKzI0OSw0MSBAQCBzdGF0aWMgaW50IG9jZnMyX2Rpbm9kZV9oYXNf
+ZXh0ZW50cyhzdHJ1Y3Qgb2NmczJfZGlub2RlICpkaSkKPj4gPiAgCXJldHVybiAxOwo+PiA+ICB9
+Cj4+ID4gIAo+PiA+ICtlbnVtIG9jZnMyX2V4dGVudF9saXN0X3N0YXR1cyB7Cj4+ID4gKwlPQ0ZT
+Ml9FWFRFTlRfTElTVF9PSywKPj4gPiArCU9DRlMyX0VYVEVOVF9MSVNUX1pFUk9fQ09VTlQsCj4+
+ID4gKwlPQ0ZTMl9FWFRFTlRfTElTVF9PVkVSU0laRUQsCj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElT
+VF9CQURfTkVYVF9GUkVFLAo+PiA+ICt9Owo+PiA+ICsKPj4gPiArc3RhdGljIGVudW0gb2NmczJf
+ZXh0ZW50X2xpc3Rfc3RhdHVzCj4+ID4gK29jZnMyX2NoZWNrX2V4dGVudF9saXN0KHN0cnVjdCBz
+dXBlcl9ibG9jayAqc2IsIHN0cnVjdCBvY2ZzMl9kaW5vZGUgKmRpKQo+PiA+ICt7Cj4+ID4gKwlz
+dHJ1Y3Qgb2NmczJfZXh0ZW50X2xpc3QgKmVsID0gJmRpLT5pZDIuaV9saXN0Owo+PiA+ICsJdTE2
+IGNvdW50Owo+PiA+ICsJdTE2IG5leHRfZnJlZTsKPj4gPiArCj4+ID4gKwlpZiAoIW9jZnMyX2Rp
+bm9kZV9oYXNfZXh0ZW50cyhkaSkpCj4+ID4gKwkJcmV0dXJuIE9DRlMyX0VYVEVOVF9MSVNUX09L
+Owo+PiA+ICsKPj4gPiArCWNvdW50ID0gbGUxNl90b19jcHUoZWwtPmxfY291bnQpOwo+PiA+ICsJ
+bmV4dF9mcmVlID0gbGUxNl90b19jcHUoZWwtPmxfbmV4dF9mcmVlX3JlYyk7Cj4+ID4gKwlpZiAo
+Y291bnQgPT0gMCkKPj4gPiArCQlyZXR1cm4gT0NGUzJfRVhURU5UX0xJU1RfWkVST19DT1VOVDsK
+Pj4gPiArCS8qCj4+ID4gKwkgKiBUaGUgZXhhY3QgY2FwYWNpdHkgZGVwZW5kcyBvbiBpX3hhdHRy
+X2lubGluZV9zaXplLCBhbm90aGVyCj4+ID4gKwkgKiB1bnZhbGlkYXRlZCBvbi1kaXNrIGZpZWxk
+LiBJbmxpbmUgeGF0dHJzIG9ubHkgc2hyaW5rIHRoZQo+PiA+ICsJICogbGlzdCwgc28gdGhlIG5v
+LXhhdHRyIG1heGltdW0gaXMgYSBzYWZlIHVwcGVyIGJvdW5kIHRoYXQgYQo+PiA+ICsJICogdmFs
+aWQgbF9jb3VudCBuZXZlciBleGNlZWRzLgo+PiA+ICsJICovCj4+ID4gKwlpZiAoY291bnQgPiBv
+Y2ZzMl9leHRlbnRfcmVjc19wZXJfaW5vZGUoc2IpKQo+PiA+ICsJCXJldHVybiBPQ0ZTMl9FWFRF
+TlRfTElTVF9PVkVSU0laRUQ7Cj4+ID4gKwlpZiAobmV4dF9mcmVlID4gY291bnQpCj4+ID4gKwkJ
+cmV0dXJuIE9DRlMyX0VYVEVOVF9MSVNUX0JBRF9ORVhUX0ZSRUU7Cj4+ID4gKwo+PiA+ICsJcmV0
+dXJuIE9DRlMyX0VYVEVOVF9MSVNUX09LOwo+PiA+ICt9Cj4+IAo+PiBUaGlzIHNlZW1zIGEgZHVw
+bGljYXRlZCBjaGVjayBpbiBvY2ZzMl92YWxpZGF0ZV9pbm9kZV9ibG9jaygpLgo+PiBTbyBJIHN1
+Z2d1ZXN0IGp1c3QgZXh0cmFjdCB0aGUgaGVscGVyIGZyb20gaXQgaW5zdGVhZCBvZiBkdXBsaWNh
+dGluZwo+PiBhIG5ldyBvbmUuCj4+IAo+PiBCVFcsIHNlZW1zIHdlIGRvbid0IGhhdmUgdG8gaW50
+cm9kdWNlIGVudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzLAo+PiB0byBtYWtlIHRoZSBjaGVj
+a3Mgc2ltcGxlLgo+PiAKPj4gVGhhbmtzLAo+PiBKb3NlcGgKPj4gCj4+ID4gKwo+PiA+ICAvKgo+
+PiA+ICAgKiBoZXJlJ3MgaG93IGlub2RlcyBnZXQgcmVhZCBmcm9tIGRpc2s6Cj4+ID4gICAqIGln
+ZXQ1X2xvY2tlZCAtPiBmaW5kX2FjdG9yIC0+IE9DRlMyX0ZJTkRfQUNUT1IKPj4gPiBAQCAtMTgz
+NSw2ICsxODcwLDMzIEBAIHN0YXRpYyBpbnQgb2NmczJfZmlsZWNoZWNrX3ZhbGlkYXRlX2lub2Rl
+X2Jsb2NrKHN0cnVjdCBzdXBlcl9ibG9jayAqc2IsCj4+ID4gIAkJZ290byBiYWlsOwo+PiA+ICAJ
+fQo+PiA+ICAKPj4gPiArCXN3aXRjaCAob2NmczJfY2hlY2tfZXh0ZW50X2xpc3Qoc2IsIGRpKSkg
+ewo+PiA+ICsJY2FzZSBPQ0ZTMl9FWFRFTlRfTElTVF9PSzoKPj4gPiArCQlicmVhazsKPj4gPiAr
+CWNhc2UgT0NGUzJfRVhURU5UX0xJU1RfWkVST19DT1VOVDoKPj4gPiArCQltbG9nKE1MX0VSUk9S
+LAo+PiA+ICsJCSAgICAgIkZpbGVjaGVjazogaW52YWxpZCBkaW5vZGUgIyVsbHU6IGV4dGVudCBs
+aXN0IGxfY291bnQgaXMgemVyb1xuIiwKPj4gPiArCQkgICAgICh1bnNpZ25lZCBsb25nIGxvbmcp
+YmgtPmJfYmxvY2tucik7Cj4+ID4gKwkJcmMgPSAtT0NGUzJfRklMRUNIRUNLX0VSUl9JTlZBTElE
+SU5POwo+PiA+ICsJCWdvdG8gYmFpbDsKPj4gPiArCWNhc2UgT0NGUzJfRVhURU5UX0xJU1RfT1ZF
+UlNJWkVEOgo+PiA+ICsJCW1sb2coTUxfRVJST1IsCj4+ID4gKwkJICAgICAiRmlsZWNoZWNrOiBp
+bnZhbGlkIGRpbm9kZSAjJWxsdTogZXh0ZW50IGxpc3QgbF9jb3VudCAldSBleGNlZWRzIG1heCAl
+dVxuIiwKPj4gPiArCQkgICAgICh1bnNpZ25lZCBsb25nIGxvbmcpYmgtPmJfYmxvY2tuciwKPj4g
+PiArCQkgICAgIGxlMTZfdG9fY3B1KGRpLT5pZDIuaV9saXN0LmxfY291bnQpLAo+PiA+ICsJCSAg
+ICAgb2NmczJfZXh0ZW50X3JlY3NfcGVyX2lub2RlKHNiKSk7Cj4+ID4gKwkJcmMgPSAtT0NGUzJf
+RklMRUNIRUNLX0VSUl9JTlZBTElESU5POwo+PiA+ICsJCWdvdG8gYmFpbDsKPj4gPiArCWNhc2Ug
+T0NGUzJfRVhURU5UX0xJU1RfQkFEX05FWFRfRlJFRToKPj4gPiArCQltbG9nKE1MX0VSUk9SLAo+
+PiA+ICsJCSAgICAgIkZpbGVjaGVjazogaW52YWxpZCBkaW5vZGUgIyVsbHU6IGV4dGVudCBsaXN0
+IGxfbmV4dF9mcmVlX3JlYyAldSBleGNlZWRzIGxfY291bnQgJXVcbiIsCj4+ID4gKwkJICAgICAo
+dW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2NrbnIsCj4+ID4gKwkJICAgICBsZTE2X3RvX2Nw
+dShkaS0+aWQyLmlfbGlzdC5sX25leHRfZnJlZV9yZWMpLAo+PiA+ICsJCSAgICAgbGUxNl90b19j
+cHUoZGktPmlkMi5pX2xpc3QubF9jb3VudCkpOwo+PiA+ICsJCXJjID0gLU9DRlMyX0ZJTEVDSEVD
+S19FUlJfSU5WQUxJRElOTzsKPj4gPiArCQlnb3RvIGJhaWw7Cj4+ID4gKwl9Cj4+ID4gKwo+PiA+
+ICAJaWYgKG9jZnMyX2Rpbm9kZV9oYXNfc2l6ZV93aXRob3V0X2NsdXN0ZXJzKHNiLCBkaSkpIHsK
+Pj4gPiAgCQlpZiAoU19JU0RJUihsZTE2X3RvX2NwdShkaS0+aV9tb2RlKSkpCj4+ID4gIAkJCW1s
+b2coTUxfRVJST1IsCj4+ID4gQEAgLTE4OTMsNiArMTk1NSwxNSBAQCBzdGF0aWMgaW50IG9jZnMy
+X2ZpbGVjaGVja19yZXBhaXJfaW5vZGVfYmxvY2soc3RydWN0IHN1cGVyX2Jsb2NrICpzYiwKPj4g
+PiAgCQlyZXR1cm4gLU9DRlMyX0ZJTEVDSEVDS19FUlJfVkFMSURGTEFHOwo+PiA+ICAJfQo+PiA+
+ICAKPj4gPiArCXN3aXRjaCAob2NmczJfY2hlY2tfZXh0ZW50X2xpc3Qoc2IsIGRpKSkgewo+PiA+
+ICsJY2FzZSBPQ0ZTMl9FWFRFTlRfTElTVF9PSzoKPj4gPiArCWNhc2UgT0NGUzJfRVhURU5UX0xJ
+U1RfQkFEX05FWFRfRlJFRToKPj4gPiArCQlicmVhazsKPj4gPiArCWNhc2UgT0NGUzJfRVhURU5U
+X0xJU1RfWkVST19DT1VOVDoKPj4gPiArCWNhc2UgT0NGUzJfRVhURU5UX0xJU1RfT1ZFUlNJWkVE
+Ogo+PiA+ICsJCXJldHVybiAtT0NGUzJfRklMRUNIRUNLX0VSUl9JTlZBTElESU5POwo+PiA+ICsJ
+fQo+PiA+ICsKPj4gPiAgCWlmIChsZTY0X3RvX2NwdShkaS0+aV9ibGtubykgIT0gYmgtPmJfYmxv
+Y2tucikgewo+PiA+ICAJCWRpLT5pX2Jsa25vID0gY3B1X3RvX2xlNjQoYmgtPmJfYmxvY2tucik7
+Cj4+ID4gIAkJY2hhbmdlZCA9IDE7Cj4+IAo=
