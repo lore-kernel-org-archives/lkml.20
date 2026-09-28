@@ -1,338 +1,753 @@
-Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95FDB25228D;
-	Mon, 28 Sep 2026 12:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9652D7DC6;
+	Mon, 28 Sep 2026 12:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599100; cv=none; b=O/tUMTerPo/uxaBLcCkuHZc5a7ndFCIrfY+NIjPIZWOrAHosVrdzBLhHuWMPBEouZ71Lq9nryPnIy4AeTOiXyTqkNHON1XZoFBfNe+a/Jtjvguu5XDkSdZjvvOBUYHfV3N2fvNUGRAmhdghPvBcEmkUbbCJM9/U5OlBNowTBNF8=
+	t=1790599107; cv=none; b=XL789HEI2btHECgxm5FCWyTdZUEemydF5kcNQzS1MDTY8Hbba0LaHu5/YuTfzCnKVirGNpa5o5TcMsv5SEy2Ql9niiLdl7mSWNfOb0SSfa4CA+zWQsCSTPxUbC4+1DFev08Q+9vpEFCm7xCZBRcP5kDXVYL/sLQvaCL5OUphnL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599100; c=relaxed/simple;
-	bh=JqTEbRMZt/qRoV2k/yt93V8wYd3uGIEGGN6rjnT6dFk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vk3ogaMTn11z/JAVLnbtSDtMPOzIOPyb9644iO/AhgawvEMCBk6s5FBYCqFtGHFCPnHobbBU0l6DLnE+HZSPE9SdbUtvraSaMoC9gyRUM0m//i6LO8VRdPoT8PZuLXEesdU2yqX/HABoP2pXAaTZyVdgnJOd6Ab5MTzhoUjKkJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com; spf=pass smtp.mailfrom=nebula-matrix.com; arc=none smtp.client-ip=115.124.28.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebula-matrix.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0296641-0.00568381-0.964652;FP=11986132744289129986|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=illusion.wang@nebula-matrix.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jQ6tplI_1790598764;
-Received: from localhost.localdomain(mailfrom:illusion.wang@nebula-matrix.com fp:SMTPD_---.jQ6tplI_1790598764 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 20:32:45 +0800
-From: "illusion.wang" <illusion.wang@nebula-matrix.com>
-To: dimon.zhao@nebula-matrix.com,
-	illusion.wang@nebula-matrix.com,
-	alvin.wang@nebula-matrix.com,
-	sam.chen@nebula-matrix.com,
-	netdev@vger.kernel.org
-Cc: kuba@kernel.org,
-	edumazet@google.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v30 net-next 5/8] net/nebula-matrix: dispatch: add control-level routing core infrastructure
-Date: Mon, 28 Sep 2026 20:32:30 +0800
-Message-ID: <20260928123237.88994-6-illusion.wang@nebula-matrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928123237.88994-1-illusion.wang@nebula-matrix.com>
-References: <20260928123237.88994-1-illusion.wang@nebula-matrix.com>
+	s=arc-20240116; t=1790599107; c=relaxed/simple;
+	bh=L+btqsAyxztG0Y52KiKOSdLio4lCDLaKLm/oYCRIy0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aQHVRzvhVDY6mLDIz8HQtYHc/86oKxbclvWwGBd4phIohbAiub/dv7aS0Zpy/aTbXbs+Q3E+WUg3NH6aMyNSbPfuRdKHFQT+XsnvWxVh5bj7gUgN9OlXebIXEGGRoOe+LYCoL4F/pCzBrfzcgf/F83BFEbMxCA2cL4V1zdWFMBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EH+1v7Yr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EH+1v7Yr"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4B2AB8FD;
+	Mon, 28 Sep 2026 14:36:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790598993;
+	bh=L+btqsAyxztG0Y52KiKOSdLio4lCDLaKLm/oYCRIy0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EH+1v7Yr9yzoAn5fXP9CHj7OdfVwHheUjM8kduBIUvHUFKp7P8dvyoCmMCWjgFNPG
+	 j/phm6RkkGG39vVUCjbviDBS9958kI86+Hp4cmksJtIkeygRq3CLERZDO0DUXNDzbm
+	 4ppHY6YSSlft5jKzOAzrATdfsXSOtFPRKeuFxg/c=
+Date: Mon, 28 Sep 2026 15:38:22 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Edwin Gatier <edwin.gatier@protonmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] media: uvcvideo: Force UVC version for Avermedia
+ GC515
+Message-ID: <20260928123822.GE157191@killaraus.ideasonboard.com>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
 
-From: illusion wang <illusion.wang@nebula-matrix.com>
+On Fri, Sep 11, 2026 at 01:22:29PM +0000, Ricardo Ribalda wrote:
+> The device announces itself as UVC 1.5, but it only accepts UVC 1.1
+> controls.
+> 
+> The camera can probably be handled by the automatic uvc_version handler,
+> but it is more correct to add a quirk and keep some tracking of what
+> vendors are more or less compliant. Also it might be more robust if we
+> introduce more UVC version-dependent code.
+> 
+> Bus 003 Device 021: ID 07ca:1515 AVerMedia Technologies, Inc. X'tra Go GC515
+> Negotiated speed: High Speed (480Mbps)
+> Device Descriptor:
+>   bLength                18
+>   bDescriptorType         1
+>   bcdUSB               2.00
+>   bDeviceClass          239 Miscellaneous Device
+>   bDeviceSubClass         2 [unknown]
+>   bDeviceProtocol         1 Interface Association
+>   bMaxPacketSize0        64
+>   idVendor           0x07ca AVerMedia Technologies, Inc.
+>   idProduct          0x1515 X'tra Go GC515
+>   bcdDevice            0.10
+>   iManufacturer           1 AVerMedia
+>   iProduct                2 X'tra Go GC515
+>   iSerial                 3 5313180000221
+>   bNumConfigurations      1
+>   Configuration Descriptor:
+>     bLength                 9
+>     bDescriptorType         2
+>     wTotalLength       0x03fd
+>     bNumInterfaces          4
+>     bConfigurationValue     1
+>     iConfiguration          0
+>     bmAttributes         0xc0
+>       Self Powered
+>     MaxPower              500mA
+>     Interface Association:
+>       bLength                 8
+>       bDescriptorType        11
+>       bFirstInterface         0
+>       bInterfaceCount         2
+>       bFunctionClass         14 Video
+>       bFunctionSubClass       3 Video Interface Collection
+>       bFunctionProtocol       0
+>       iFunction               0
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        0
+>       bAlternateSetting       0
+>       bNumEndpoints           1
+>       bInterfaceClass        14 Video
+>       bInterfaceSubClass      1 Video Control
+>       bInterfaceProtocol      1
+>       iInterface              0
+>       VideoControl Interface Descriptor:
+>         bLength                13
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (HEADER)
+>         bcdUVC               1.50
+>         wTotalLength       0x0059
+>         dwClockFrequency       30.000000MHz
+>         bInCollection           1
+>         baInterfaceNr( 0)       1
+>       VideoControl Interface Descriptor:
+>         bLength                18
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (INPUT_TERMINAL)
+>         bTerminalID             1
+>         wTerminalType      0x0201 Camera Sensor
+>         bAssocTerminal          0
+>         iTerminal               0
+>         wObjectiveFocalLengthMin      0
+>         wObjectiveFocalLengthMax      0
+>         wOcularFocalLength            0
+>         bControlSize                  3
+>         bmControls           0x00000000
+>       VideoControl Interface Descriptor:
+>         bLength                 9
+>         bDescriptorType        36
+>         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>         bTerminalID             2
+>         wTerminalType      0x0101 USB Streaming
+>         bAssocTerminal          0
+>         bSourceID               4
+>         iTerminal               0
+>       VideoControl Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      4 (SELECTOR_UNIT)
+>         bUnitID                 3
+>         bNrInPins               1
+>         baSource( 0)            1
+>         iSelector               0
+>       VideoControl Interface Descriptor:
+>         bLength                13
+>         bDescriptorType        36
+>         bDescriptorSubtype      5 (PROCESSING_UNIT)
+>         bUnitID                 4
+>         bSourceID               3
+>         wMaxMultiplier          0
+>         bControlSize            3
+>         bmControls     0x00000000
+>         iProcessing             0
+>         bmVideoStandards     0x00
+>       VideoControl Interface Descriptor:
+>         bLength                29
+>         bDescriptorType        36
+>         bDescriptorSubtype      6 (EXTENSION_UNIT)
+>         bUnitID                 5
+>         guidExtensionCode         {55be8e1c-2fdb-4f7a-bd8d-b9b1108d20c3}
+>         bNumControls           24
+>         bNrInPins               1
+>         baSourceID( 0)          4
+>         bControlSize            4
+>         bmControls( 0)       0xff
+>         bmControls( 1)       0xff
+>         bmControls( 2)       0xff
+>         bmControls( 3)       0x00
+>         iExtension              0
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x85  EP 5 IN
+>         bmAttributes            3
+>           Transfer Type            Interrupt
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0040  1x 64 bytes
+>         bInterval               1
+>         VideoControl Endpoint Descriptor:
+>           bLength                 5
+>           bDescriptorType        37
+>           bDescriptorSubtype      3 (EP_INTERRUPT)
+>           wMaxTransferSize       64
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        1
+>       bAlternateSetting       0
+>       bNumEndpoints           1
+>       bInterfaceClass        14 Video
+>       bInterfaceSubClass      2 Video Streaming
+>       bInterfaceProtocol      1
+>       iInterface              0
+>       VideoStreaming Interface Descriptor:
+>         bLength                            16
+>         bDescriptorType                    36
+>         bDescriptorSubtype                  1 (INPUT_HEADER)
+>         bNumFormats                         3
+>         wTotalLength                   0x0303
+>         bEndpointAddress                 0x81  EP 1 IN
+>         bmInfo                              0
+>         bTerminalLink                       2
+>         bStillCaptureMethod                 1
+>         bTriggerSupport                     0
+>         bTriggerUsage                       0
+>         bControlSize                        1
+>         bmaControls( 0)                     4
+>         bmaControls( 1)                     4
+>         bmaControls( 2)                     0
+>       VideoStreaming Interface Descriptor:
+>         bLength                            28
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
+>         bFormatIndex                        1
+>         bNumFrameDescriptors                8
+>         guidFormat                            {34363248-0000-0010-8000-00aa00389b71}
+>         bBitsPerPixel                      24
+>         bDefaultFrameIndex                  1
+>         bAspectRatioX                       0
+>         bAspectRatioY                       0
+>         bmInterlaceFlags                 0x00
+>           Interlaced stream or variable: No
+>           Fields per frame: 2 fields
+>           Field 1 first: No
+>           Field pattern: Field 1 only
+>         bCopyProtect                        1
+>         bVariableSize                     1
+>       VideoStreaming Interface Descriptor:
+>         bLength                            62
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         1
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1920
+>         wHeight                          1080
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  9
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)             83333
+>         dwFrameInterval( 1)             83416
+>         dwFrameInterval( 2)            166666
+>         dwFrameInterval( 3)            166833
+>         dwFrameInterval( 4)            200000
+>         dwFrameInterval( 5)            333333
+>         dwFrameInterval( 6)            333667
+>         dwFrameInterval( 7)            400000
+>         dwFrameInterval( 8)            416666
+>       VideoStreaming Interface Descriptor:
+>         bLength                            42
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         2
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           3840
+>         wHeight                          2160
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         333333
+>         bFrameIntervalType                  4
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            333333
+>         dwFrameInterval( 1)            333667
+>         dwFrameInterval( 2)            400000
+>         dwFrameInterval( 3)            416666
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         3
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           2560
+>         wHeight                          1440
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         4
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1280
+>         wHeight                           800
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                            38
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         5
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1280
+>         wHeight                           720
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  3
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>         dwFrameInterval( 2)            200000
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         6
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            720
+>         wHeight                           576
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         200000
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            200000
+>         dwFrameInterval( 1)            400000
+>       VideoStreaming Interface Descriptor:
+>         bLength                            42
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         7
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            720
+>         wHeight                           480
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  4
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>         dwFrameInterval( 2)            333333
+>         dwFrameInterval( 3)            333667
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         8
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            640
+>         wHeight                           480
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                             6
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 13 (COLORFORMAT)
+>         bColorPrimaries                     0 (Unspecified)
+>         bTransferCharacteristics            0 (Unspecified)
+>         bMatrixCoefficients                 0 (Unspecified)
+>       VideoStreaming Interface Descriptor:
+>         bLength                            28
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
+>         bFormatIndex                        2
+>         bNumFrameDescriptors                8
+>         guidFormat                            {43564548-0000-0010-8000-00aa00389b71}
+>         bBitsPerPixel                      24
+>         bDefaultFrameIndex                  1
+>         bAspectRatioX                       0
+>         bAspectRatioY                       0
+>         bmInterlaceFlags                 0x00
+>           Interlaced stream or variable: No
+>           Fields per frame: 2 fields
+>           Field 1 first: No
+>           Field pattern: Field 1 only
+>         bCopyProtect                        1
+>         bVariableSize                     1
+>       VideoStreaming Interface Descriptor:
+>         bLength                            62
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         1
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1920
+>         wHeight                          1080
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  9
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)             83333
+>         dwFrameInterval( 1)             83416
+>         dwFrameInterval( 2)            166666
+>         dwFrameInterval( 3)            166833
+>         dwFrameInterval( 4)            200000
+>         dwFrameInterval( 5)            333333
+>         dwFrameInterval( 6)            333667
+>         dwFrameInterval( 7)            400000
+>         dwFrameInterval( 8)            416666
+>       VideoStreaming Interface Descriptor:
+>         bLength                            42
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         2
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           3840
+>         wHeight                          2160
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         333333
+>         bFrameIntervalType                  4
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            333333
+>         dwFrameInterval( 1)            333667
+>         dwFrameInterval( 2)            400000
+>         dwFrameInterval( 3)            416666
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         3
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           2560
+>         wHeight                          1440
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         4
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1280
+>         wHeight                           800
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                            38
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         5
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1280
+>         wHeight                           720
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  3
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>         dwFrameInterval( 2)            200000
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         6
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            720
+>         wHeight                           576
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         200000
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            200000
+>         dwFrameInterval( 1)            400000
+>       VideoStreaming Interface Descriptor:
+>         bLength                            42
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         7
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            720
+>         wHeight                           480
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  4
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>         dwFrameInterval( 2)            333333
+>         dwFrameInterval( 3)            333667
+>       VideoStreaming Interface Descriptor:
+>         bLength                            34
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
+>         bFrameIndex                         8
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                            640
+>         wHeight                           480
+>         dwMinBitRate                 33554432
+>         dwMaxBitRate                268435456
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  2
+>         dwBytesPerLine                      0
+>         dwFrameInterval( 0)            166666
+>         dwFrameInterval( 1)            166833
+>       VideoStreaming Interface Descriptor:
+>         bLength                             6
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 13 (COLORFORMAT)
+>         bColorPrimaries                     0 (Unspecified)
+>         bTransferCharacteristics            0 (Unspecified)
+>         bMatrixCoefficients                 0 (Unspecified)
+>       VideoStreaming Interface Descriptor:
+>         bLength                            11
+>         bDescriptorType                    36
+>         bDescriptorSubtype                  6 (FORMAT_MJPEG)
+>         bFormatIndex                        3
+>         bNumFrameDescriptors                1
+>         bFlags                              0
+>           Fixed-size samples: No
+>         bDefaultFrameIndex                  1
+>         bAspectRatioX                       0
+>         bAspectRatioY                       0
+>         bmInterlaceFlags                 0x00
+>           Interlaced stream or variable: No
+>           Fields per frame: 1 fields
+>           Field 1 first: No
+>           Field pattern: Field 1 only
+>         bCopyProtect                        1
+>       VideoStreaming Interface Descriptor:
+>         bLength                            30
+>         bDescriptorType                    36
+>         bDescriptorSubtype                  7 (FRAME_MJPEG)
+>         bFrameIndex                         1
+>         bmCapabilities                   0x01
+>           Still image supported
+>         wWidth                           1920
+>         wHeight                          1080
+>         dwMinBitRate                314572800
+>         dwMaxBitRate                314572800
+>         dwMaxVideoFrameBufferSize     4147200
+>         dwDefaultFrameInterval         166666
+>         bFrameIntervalType                  1
+>         dwFrameInterval( 0)            166666
+>       VideoStreaming Interface Descriptor:
+>         bLength                             6
+>         bDescriptorType                    36
+>         bDescriptorSubtype                 13 (COLORFORMAT)
+>         bColorPrimaries                     0 (Unspecified)
+>         bTransferCharacteristics            0 (Unspecified)
+>         bMatrixCoefficients                 0 (Unspecified)
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x81  EP 1 IN
+>         bmAttributes            2
+>           Transfer Type            Bulk
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0200  1x 512 bytes
+>         bInterval               0
+>     Interface Association:
+>       bLength                 8
+>       bDescriptorType        11
+>       bFirstInterface         2
+>       bInterfaceCount         2
+>       bFunctionClass          1 Audio
+>       bFunctionSubClass       2 Streaming
+>       bFunctionProtocol       0
+>       iFunction               0
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        2
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      1 Control Device
+>       bInterfaceProtocol      0
+>       iInterface              0
+>       AudioControl Interface Descriptor:
+>         bLength                 9
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (HEADER)
+>         bcdADC               1.00
+>         wTotalLength       0x0026
+>         bInCollection           1
+>         baInterfaceNr(0)        3
+>       AudioControl Interface Descriptor:
+>         bLength                12
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (INPUT_TERMINAL)
+>         bTerminalID             1
+>         wTerminalType      0x0602 Digital Audio Interface
+>         bAssocTerminal          0
+>         bNrChannels             2
+>         wChannelConfig     0x0003
+>           Left Front (L)
+>           Right Front (R)
+>         iChannelNames           0
+>         iTerminal               0
+>       AudioControl Interface Descriptor:
+>         bLength                 9
+>         bDescriptorType        36
+>         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>         bTerminalID             2
+>         wTerminalType      0x0101 USB Streaming
+>         bAssocTerminal          0
+>         bSourceID               3
+>         iTerminal               0
+>       AudioControl Interface Descriptor:
+>         bLength                 8
+>         bDescriptorType        36
+>         bDescriptorSubtype      6 (FEATURE_UNIT)
+>         bUnitID                 3
+>         bSourceID               1
+>         bControlSize            1
+>         bmaControls(0)       0x03
+>           Mute Control
+>           Volume Control
+>         iFeature                0
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0
+>       iInterface              0
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       1
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0
+>       iInterface              0
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           2
+>         bDelay                  1 frames
+>         wFormatTag         0x0001 PCM
+>       AudioStreaming Interface Descriptor:
+>         bLength                11
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             1 (FORMAT_TYPE_I)
+>         bNrChannels             2
+>         bSubframeSize           2
+>         bBitResolution         16
+>         bSamFreqType            1 Discrete
+>         tSamFreq[ 0]        48000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x83  EP 3 IN
+>         bmAttributes            5
+>           Transfer Type            Isochronous
+>           Synch Type               Asynchronous
+>           Usage Type               Data
+>         wMaxPacketSize     0x00c4  1x 196 bytes
+>         bInterval               4
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         0 Undefined
+>           wLockDelay         0x0000
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b400b6f28af0 ("media: uvcvideo: Force UVC version to 1.0a for 1bcf:0b40") # When version overwritte was added
 
-Allocate dispatch management state and ops table, add ctrl_lvl bitmap
-to track control privileges, and hook init_module/deinit_module wrappers
-to resource ops.
+That doesn't seem quite right, this patch doesn't fix that commit. I
+think you can omit the Fixes tag. With that,
 
-MGT level is only enabled for Control PF. Add kerneldoc for caller
-permission constraints. Add wire ABI structures with static_assert for
-upcoming mailbox RPC.
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-Dispatch objects are devm-managed and require no explicit remove logic.
+> Reported-by: Edwin Gatier <edwin.gatier@protonmail.com>
+> Closes: https://lore.kernel.org/linux-media/CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com/T/#me584c35c4b523ac455925a1590a3de8efc354349
+> Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+>  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index adec9d1aa653..bbfc409c5167 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -2847,6 +2847,17 @@ static const struct usb_device_id uvc_ids[] = {
+>  	  .bInterfaceSubClass	= 1,
+>  	  .bInterfaceProtocol	= 0,
+>  	  .driver_info		= (kernel_ulong_t)&uvc_quirk_fix_bandwidth },
+> +	/* Avermedia GC515 */
+> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+> +				| USB_DEVICE_ID_MATCH_INT_INFO,
+> +	  .idVendor		= 0x07ca,
+> +	  .idProduct		= 0x1515,
+> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
+> +	  .bInterfaceSubClass	= 1,
+> +	  .bInterfaceProtocol	= UVC_PC_PROTOCOL_15,
+> +	  .driver_info		= (kernel_ulong_t)&(const struct uvc_device_info){
+> +		.uvc_version = 0x0110,
+> +	  } },
+>  	/* ViMicro Vega */
+>  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+>  				| USB_DEVICE_ID_MATCH_INT_INFO,
 
-Signed-off-by: illusion wang <illusion.wang@nebula-matrix.com>
----
- .../net/ethernet/nebula-matrix/nbl/Makefile   |   1 +
- .../net/ethernet/nebula-matrix/nbl/nbl_core.h |   2 +
- .../nebula-matrix/nbl/nbl_core/nbl_dispatch.c | 117 ++++++++++++++++++
- .../nebula-matrix/nbl/nbl_core/nbl_dispatch.h |  23 ++++
- .../nbl/nbl_include/nbl_def_dispatch.h        |  45 +++++++
- .../net/ethernet/nebula-matrix/nbl/nbl_main.c |   8 ++
- 6 files changed, 196 insertions(+)
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
-
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/Makefile b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-index be314b909d66..b7eebd89b4d1 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-@@ -10,4 +10,5 @@ nbl-objs +=	nbl_common/nbl_common.o \
- 		nbl_hw/nbl_resource.o \
- 		nbl_hw/nbl_interrupt.o \
- 		nbl_hw/nbl_chip.o \
-+		nbl_core/nbl_dispatch.o \
- 		nbl_main.o
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-index dd24ebec0171..4d8cea8d8ab3 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-@@ -17,12 +17,14 @@ enum {
- struct nbl_interface {
- 	struct nbl_hw_ops_tbl *hw_ops_tbl;
- 	struct nbl_resource_ops_tbl *resource_ops_tbl;
-+	struct nbl_dispatch_ops_tbl *dispatch_ops_tbl;
- 	struct nbl_channel_ops_tbl *channel_ops_tbl;
- };
- 
- struct nbl_core {
- 	struct nbl_hw_mgt *hw_mgt;
- 	struct nbl_resource_mgt *res_mgt;
-+	struct nbl_dispatch_mgt *disp_mgt;
- 	struct nbl_channel_mgt *chan_mgt;
- };
- 
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
-new file mode 100644
-index 000000000000..966fee2dec8b
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
-@@ -0,0 +1,117 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+#include <linux/device.h>
-+#include <linux/pci.h>
-+#include "nbl_dispatch.h"
-+
-+static void nbl_disp_deinit_module(struct nbl_dispatch_mgt *disp_mgt)
-+{
-+	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
-+	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
-+
-+	if (res_ops->deinit_module)
-+		res_ops->deinit_module(p);
-+}
-+
-+static int nbl_disp_init_module(struct nbl_dispatch_mgt *disp_mgt)
-+{
-+	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
-+	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
-+
-+	if (res_ops->init_module)
-+		return res_ops->init_module(p);
-+	return -EOPNOTSUPP;
-+}
-+
-+static void nbl_disp_set_ctrl_bit(struct nbl_dispatch_mgt *disp_mgt, u32 lvl)
-+{
-+	set_bit(lvl, disp_mgt->ctrl_lvl);
-+}
-+
-+static void nbl_disp_refresh_ctrl_ops(struct nbl_dispatch_mgt *disp_mgt)
-+{
-+	struct nbl_dispatch_ops *disp_ops = disp_mgt->disp_ops_tbl->ops;
-+
-+	if (test_bit(NBL_DISP_CTRL_LVL_MGT, disp_mgt->ctrl_lvl)) {
-+		disp_ops->init_module = nbl_disp_init_module;
-+		disp_ops->deinit_module = nbl_disp_deinit_module;
-+	}
-+}
-+
-+static struct nbl_dispatch_mgt *
-+nbl_disp_setup_disp_mgt(struct nbl_common_info *common)
-+{
-+	struct nbl_dispatch_mgt *disp_mgt;
-+	struct device *dev = common->dev;
-+
-+	disp_mgt = devm_kzalloc(dev, sizeof(*disp_mgt), GFP_KERNEL);
-+	if (!disp_mgt)
-+		return ERR_PTR(-ENOMEM);
-+
-+	disp_mgt->common = common;
-+	return disp_mgt;
-+}
-+
-+static struct nbl_dispatch_ops_tbl *
-+nbl_disp_setup_ops(struct device *dev, struct nbl_dispatch_mgt *disp_mgt)
-+{
-+	struct nbl_dispatch_ops_tbl *disp_ops_tbl;
-+	struct nbl_dispatch_ops *disp_ops;
-+
-+	disp_ops_tbl = devm_kzalloc(dev, sizeof(*disp_ops_tbl), GFP_KERNEL);
-+	if (!disp_ops_tbl)
-+		return ERR_PTR(-ENOMEM);
-+
-+	disp_ops = devm_kzalloc(dev, sizeof(*disp_ops), GFP_KERNEL);
-+	if (!disp_ops)
-+		return ERR_PTR(-ENOMEM);
-+
-+	disp_ops_tbl->ops = disp_ops;
-+	disp_ops_tbl->priv = disp_mgt;
-+
-+	return disp_ops_tbl;
-+}
-+
-+int nbl_disp_init(struct nbl_adapter *adapter)
-+{
-+	struct nbl_common_info *common = &adapter->common;
-+	struct nbl_dispatch_ops_tbl *disp_ops_tbl;
-+	struct nbl_resource_ops_tbl *res_ops_tbl =
-+		adapter->intf.resource_ops_tbl;
-+	struct nbl_channel_ops_tbl *chan_ops_tbl =
-+		adapter->intf.channel_ops_tbl;
-+	struct device *dev = &adapter->pdev->dev;
-+	struct nbl_dispatch_mgt *disp_mgt;
-+	int ret;
-+
-+	disp_mgt = nbl_disp_setup_disp_mgt(common);
-+	if (IS_ERR(disp_mgt)) {
-+		ret = PTR_ERR(disp_mgt);
-+		return ret;
-+	}
-+
-+	disp_ops_tbl = nbl_disp_setup_ops(dev, disp_mgt);
-+	if (IS_ERR(disp_ops_tbl)) {
-+		ret = PTR_ERR(disp_ops_tbl);
-+		return ret;
-+	}
-+
-+	disp_mgt->res_ops_tbl = res_ops_tbl;
-+	disp_mgt->chan_ops_tbl = chan_ops_tbl;
-+	disp_mgt->disp_ops_tbl = disp_ops_tbl;
-+	adapter->core.disp_mgt = disp_mgt;
-+	adapter->intf.dispatch_ops_tbl = disp_ops_tbl;
-+
-+	if (common->has_ctrl)
-+		nbl_disp_set_ctrl_bit(disp_mgt, NBL_DISP_CTRL_LVL_MGT);
-+
-+	nbl_disp_refresh_ctrl_ops(disp_mgt);
-+	return 0;
-+}
-+
-+void nbl_disp_remove(struct nbl_adapter *adapter)
-+{
-+	/* Dispatch structures are allocated via devm */
-+}
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h
-new file mode 100644
-index 000000000000..a7e5802344b4
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_DISPATCH_H_
-+#define _NBL_DISPATCH_H_
-+#include "../nbl_include/nbl_include.h"
-+#include "../nbl_include/nbl_def_channel.h"
-+#include "../nbl_include/nbl_def_resource.h"
-+#include "../nbl_include/nbl_def_dispatch.h"
-+#include "../nbl_include/nbl_def_common.h"
-+#include "../nbl_core.h"
-+
-+struct nbl_dispatch_mgt {
-+	struct nbl_common_info *common;
-+	struct nbl_resource_ops_tbl *res_ops_tbl;
-+	struct nbl_channel_ops_tbl *chan_ops_tbl;
-+	struct nbl_dispatch_ops_tbl *disp_ops_tbl;
-+	DECLARE_BITMAP(ctrl_lvl, NBL_DISP_CTRL_LVL_MAX);
-+};
-+
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
-new file mode 100644
-index 000000000000..b3398591035b
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_DEF_DISPATCH_H_
-+#define _NBL_DEF_DISPATCH_H_
-+
-+#include <linux/types.h>
-+
-+struct nbl_dispatch_mgt;
-+struct nbl_adapter;
-+enum {
-+	NBL_DISP_CTRL_LVL_MGT,
-+	NBL_DISP_CTRL_LVL_MAX,
-+};
-+
-+/**
-+ * struct nbl_dispatch_ops - dispatch control plane operation callbacks
-+ * @init_module: dispatch layer initialization, control-PF exclusive,
-+ *               caller must check has_ctrl guard
-+ * @deinit_module: dispatch layer cleanup, control-PF exclusive,
-+ *                 caller must check has_ctrl guard
-+ *
-+ * Warning: init_module/deinit_module are control-PF exclusive. The five
-+ * resource ops (cfg_msix_map, destroy_msix_map, set_mailbox_irq,
-+ * get_vsi_id, get_eth_id) are PF-only and resolve to either a local
-+ * resource call (control PF) or a mailbox RPC (non-control PF with
-+ * has_net). A function with neither has_ctrl nor has_net leaves these
-+ * pointers NULL; callers must not invoke them on such functions. VFs are
-+ * rejected by the responders with -EPERM.
-+ */
-+struct nbl_dispatch_ops {
-+	int (*init_module)(struct nbl_dispatch_mgt *disp_mgt);
-+	void (*deinit_module)(struct nbl_dispatch_mgt *disp_mgt);
-+};
-+
-+struct nbl_dispatch_ops_tbl {
-+	struct nbl_dispatch_ops *ops;
-+	struct nbl_dispatch_mgt *priv;
-+};
-+
-+int nbl_disp_init(struct nbl_adapter *adapter);
-+void nbl_disp_remove(struct nbl_adapter *adapter);
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-index e1a30b5ba0cd..bf4a5ea3e410 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-@@ -11,6 +11,7 @@
- #include "nbl_include/nbl_def_channel.h"
- #include "nbl_include/nbl_def_hw.h"
- #include "nbl_include/nbl_def_resource.h"
-+#include "nbl_include/nbl_def_dispatch.h"
- #include "nbl_include/nbl_def_common.h"
- #include "nbl_core.h"
- 
-@@ -48,7 +49,13 @@ struct nbl_adapter *nbl_core_init(struct pci_dev *pdev,
- 	ret = nbl_res_init_leonis(adapter);
- 	if (ret)
- 		goto res_init_fail;
-+
-+	ret = nbl_disp_init(adapter);
-+	if (ret)
-+		goto disp_init_fail;
- 	return adapter;
-+disp_init_fail:
-+	nbl_res_remove_leonis(adapter);
- res_init_fail:
- 	nbl_chan_remove_common(adapter);
- chan_init_fail:
-@@ -59,6 +66,7 @@ struct nbl_adapter *nbl_core_init(struct pci_dev *pdev,
- 
- void nbl_core_remove(struct nbl_adapter *adapter)
- {
-+	nbl_disp_remove(adapter);
- 	nbl_res_remove_leonis(adapter);
- 	nbl_chan_remove_common(adapter);
- 	nbl_hw_remove_leonis(adapter);
 -- 
-2.47.3
+Regards,
 
+Laurent Pinchart
