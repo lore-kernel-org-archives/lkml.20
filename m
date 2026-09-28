@@ -1,29 +1,33 @@
-Received: from mail1.nectarine.be (hip.nectarine.be [185.213.22.185])
+Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B73378D74;
-	Mon, 28 Sep 2026 07:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.213.22.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E94378D74;
+	Mon, 28 Sep 2026 07:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790581030; cv=none; b=WiwT2YPZ0LiA4zJ2eUu77HaOj3kiuIhwNRlo8pgp/TQkJZRIUOg0zaM5k1DbwQMQGeTvpPCCr9G1ds5CQmoxxhCYw5VE2b49lhXXur+HkBQkIrBZr++eW+zCxCwencOn5HNkuzx7H+R9EhRlmwCZvo6b8LRXWy6jVQs/Ypvwg1A=
+	t=1790581110; cv=none; b=nx5Ew41UrY5CofM2aGIUQxaRqsMr+rH/629Xi7OUG7txp+K+Cyo7cSXpMRDruzBPxCqItt+KKZoLyvqNiyXcsQTdykfPoL9NfQ9BxIJyDI5B5KR/dXEmQeRjj3lsj79Obx771oNHD/vC0VumNtA+9HdEE8fJ3AzVSRstEsDrYOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790581030; c=relaxed/simple;
-	bh=1jAsz6EiBgb/ZwkMPYRS1MwuvKAbkkHDr/aokCGi6J4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZzjyTw/zLP8Pe483QKj7q4CynehdCm+ts5r/sEv5t8yIKObxJ42ydcOFTa4ZzfGgHRFqb4zM3LliE6XZudwMniomMs14zJ+W5po4v0OaqFpAtIl/tP41rviDJBd2sXJBC8KPB8f44NhiazJxXfvV4QNdxVh6BaeqYhLPdwNkWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainez.net; spf=pass smtp.mailfrom=brainez.net; arc=none smtp.client-ip=185.213.22.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainez.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brainez.net
-From: Nicolas Brainez <nicolas@brainez.net>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nicolas Brainez <nicolas@brainez.net>,
-	stable@vger.kernel.org
-Subject: [PATCH] efistub/x86: Fix the size type of the Apple properties protocol
-Date: Mon, 28 Sep 2026 09:28:32 +0200
-Message-ID: <20260928072832.25399-1-nicolas@brainez.net>
+	s=arc-20240116; t=1790581110; c=relaxed/simple;
+	bh=jVcqCKU5zTUvfsIKAoJvhNJYA6QeuaFWc7N0JkdGGVc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cSm9ka7151qvS7AMbWQSn+Z3EJu+AX3NnSxjjszOWKBelg6W1GJ+mmimXIoPG37yjbKnxi2AiaFTVt/efc0UkcESj5tjx8VkXOrvjXN9mOZFk1TBDZ8iDfDE52hY++mdwx5A/jNDJTSDdTqH4+uzLM0jL8e5eTLqj5w5Y5rNgCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=TjGYINvJ; arc=none smtp.client-ip=220.181.50.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="TjGYINvJ"
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <linux-cxl@vger.kernel.org>
+CC: Dan Williams <djbw@kernel.org>, Alison Schofield
+	<alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, Dave
+ Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>, Jonathan
+ Cameron <jic23@kernel.org>, Shiju Jose <shiju.jose@huawei.com>,
+	<linux-kernel@vger.kernel.org>, Yili Zhang <zhangyili01@baidu.com>
+Subject: [PATCH] cxl/edac: Bounds-check ECS threshold index from device
+Date: Mon, 28 Sep 2026 15:35:53 +0800
+Message-ID: <20260928073553.85669-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -31,93 +35,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc7.internal.baidu.com (172.31.50.51) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1790580971;
+	bh=Zl4E/aYn1t375C3H+aryoKKOOtUTLLMUaeolh52NgaA=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=TjGYINvJdRFg2HyhWcDLFak8QaYn4O9M3higQisG4UgEJ01/6RI2iZ9SGkhr8jA2G
+	 115ZsOrDpiFEj+w32X2+drpl2xYdJkPjN57NW2GHrVDiCzH+86Qo2ntxxlcPOQKCsg
+	 Lu8+dRKSG0a545VTwlc6AbHJE1r8GqJLZWUjUAo7+eSHHOfkykUk+Mg38nH3jSEn68
+	 8+rMgkQHX2B2oUpqgCy00Efz4FeRwFHNAtgw7Kvw11oif65njyZVBJsgE3XC8ee6Yn
+	 kh1Ycvom6COsK78dYDYnFlTwTxFKMTTXvvFcBeyiSs9WHqeMtbEfSxQdyIIgAgN9vZ
+	 BQH2bM+IPpkSQ==
 
-The size argument of the get(), set() and get_all() methods of the
-Apple device properties protocol is a UINTN, not a u32. The reverse
-engineered declaration added by commit 58c5475aba67 ("x86/efi: Retrieve
-and assign Apple device properties") uses u32, and
-retrieve_apple_device_properties() passes the address of a u32 on the
-stack to get_all(). 64-bit Apple firmware writes 8 bytes through that
-pointer, so the upper half of the store lands on whatever the compiler
-placed next to the variable. OpenCore's
-Include/Apple/Protocol/DevicePathPropertyDatabase.h declares the same
-methods with UINTN, and a u32 canary placed right after the u32 size
-is zeroed by both get_all() calls on a Mac mini 2018 (Macmini8,1).
+cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
+device-supplied ECS config word and uses it to
+index ecs_supp_threshold[], which only has 6 elements. A device reporting
+index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
+value is then returned to userspace via the EDAC 'threshold' sysfs
+attribute (small info leak and wrong reported threshold).
 
-With clang and CONFIG_EFI_MIXED=n, the neighbour is the protocol
-pointer p: the first get_all() call zeroes its low half, the second
-call jumps through the corrupted pointer, and the machine powers off
-before printing anything. A GCC build leaves padding in that slot, and
-a clang build with CONFIG_EFI_MIXED=y places the setup_data pointer
-there; neither crashes, so the bug went unnoticed since 2016. Talos
-Linux, which builds its kernel with clang, reported it on several Mac
-generations.
+Return 0 for indices outside the table.
 
-Declare the size as unsigned long, as the stub does for every other
-UINTN. No mixed mode argument mapping is needed: 32-bit firmware
-writes the low 32 bits of the zero-initialised value, and the upper
-half stays zero across both calls.
-
-Tested on a Macmini8,1 with v6.18.51, clang 22.1.8 and LLD,
-CONFIG_EFI_MIXED=n, booted as EFI/BOOT/BOOTX64.EFI: the machine powers
-off without the patch and boots with it. Builds with clang and GCC,
-with and without CONFIG_EFI_MIXED. Mixed mode was not boot tested (no
-32-bit EFI Mac at hand).
-
-Claude Code assisted with reading the disassembly, writing the debug
-patches and drafting this changelog; the tests ran on the hardware
-above.
-
-Fixes: 58c5475aba67 ("x86/efi: Retrieve and assign Apple device properties")
-Cc: stable@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>
-Link: https://github.com/siderolabs/talos/issues/13231
-Link: https://github.com/siderolabs/talos/issues/13579
-Assisted-by: LLM
-Signed-off-by: Nicolas Brainez <nicolas@brainez.net>
+Fixes: 85fb6a16ad14 ("cxl/edac: Add CXL memory device ECS control feature")
+Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
 ---
- drivers/firmware/efi/libstub/efistub.h  | 8 +++++---
- drivers/firmware/efi/libstub/x86-stub.c | 2 +-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ drivers/cxl/core/edac.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index fd91fc15e..1002c17a8 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -838,15 +838,17 @@ union apple_properties_protocol {
- 		unsigned long version;
- 		efi_status_t (__efiapi *get)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
--					     efi_char16_t *, void *, u32 *);
-+					     efi_char16_t *, void *,
-+					     unsigned long *);
- 		efi_status_t (__efiapi *set)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
--					     efi_char16_t *, void *, u32);
-+					     efi_char16_t *, void *,
-+					     unsigned long);
- 		efi_status_t (__efiapi *del)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
- 					     efi_char16_t *);
- 		efi_status_t (__efiapi *get_all)(apple_properties_protocol_t *,
--						 void *buffer, u32 *);
-+						 void *buffer, unsigned long *);
- 	};
- 	struct {
- 		u32 version;
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index cef32e2c8..87e142cae 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -158,7 +158,7 @@ static void retrieve_apple_device_properties(struct boot_params *boot_params)
- 	efi_guid_t guid = APPLE_PROPERTIES_PROTOCOL_GUID;
- 	struct setup_data *data, *new;
- 	efi_status_t status;
--	u32 size = 0;
-+	unsigned long size = 0;
- 	apple_properties_protocol_t *p;
+diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+index b321971fef58..73335b980b11 100644
+--- a/drivers/cxl/core/edac.c
++++ b/drivers/cxl/core/edac.c
+@@ -633,6 +633,9 @@ static u16 cxl_get_ecs_threshold(u8 log_cap, u16 config)
+ {
+ 	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
  
- 	status = efi_bs_call(locate_protocol, &guid, NULL, (void **)&p);
++	if (index >= ARRAY_SIZE(ecs_supp_threshold))
++		return 0;
++
+ 	return ecs_supp_threshold[index];
+ }
+ 
 -- 
-2.47.3
+2.27.0
 
