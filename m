@@ -1,130 +1,133 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2F935DA4C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790558283; cv=pass; b=knAoowYZ5go5zAd1b2qGJQMUgPVm8iIpiVjfRD+EM6QurJcWLZNlHfzxdHdoPjiJ1o15jiAUJnGJo3IfXixZ7PG1Fv2963n6GfD/5NFLVt2MzNnJqXPBY8KOgQFz7hazCflsnmTTsBLYPt9FML5BSbyOy1VzBeacCvWDD7Nytb4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790558283; c=relaxed/simple;
-	bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F4E3644C9
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790558302; cv=none; b=jjG+6yX7MuFE84eA0r6rNoXmc0FJAB/Wg3BPBm1ubNg/yvm9TLstp4y4yrbFPlOXr+AbhymD0LV1fO1RD0rHMHZlmPzkMlIwIlbaOljqTDQdTjqrU0I4u1GFrgvypYjJOj9TBdj8V1BuxrD2MN6xqaPTJDvpH24/aYtRGWGkFBk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790558302; c=relaxed/simple;
+	bh=PdrNDQOCBv9Wg5hE6jv+1bfhcXsylvoaCMakOXlldRI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z/6LutKY5aEPDTXZFO9hrFR+g17OMifMy0RRtElV7sZxDrCDIEi3nLVENc/Mz4fOo2oHGbbKGKfhsYPLsxkur4AJlC4hrYc47ibngZ/E38NbEuRP+9FPexkuZNh5Dla4u0D1FiaJnOXOsffMH9dupKUuAcE8d33Pt48zdQzW4EY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JGKI6jg3; arc=pass smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=ui54YQsq1lV6slXoaW2yBlIXutcR7cC/C+rUY1FJokeGyJ1STOEiCBuhEXfc32KV3/NUb+UMsmRGTvZWFg1iW5nKvxBHWPVgh3m2+ucPJ9jkJ8hxw5Thc6yBw+oMJTPRPvuy6LwhjYJTuG43LnV0onqLhwPStgzC3HSrubw5PDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMcGBYf7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JGKI6jg3"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso345758a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:17:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790558276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G/sBgxUq9SUAPmH++e/jfmDBlgCX/ss2X08IPfCbKalPAOQxKLIH2Fnf05NVw5KUVO
-         6KQ5HaBTofUgHjKiwFLr88K6EBXQnR2a+MUC1fdBswFJ92kewhudIL1gGQ3P+M5Qcm8J
-         kUS+BBc/RLRZW/+G4kwVyRKlkKd16ZfqL4FVyEhLjOkdYrlY8+N3r8OHEKoSiaEU9iRC
-         Lg802nUs+48ToWv/1+oIGkCx0Y9QbKS4Oi33x4LU7w7OccHr2zrnZCBvJA5O7c+0dJk9
-         xO3UEOLUqG8Es46kthx0ZlrXG7z+ayP07vUi23AxcmUoIkP7uMyjL5455WossnJD0Pu7
-         WpXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        fh=vpn9RzwiRiAN0yPkc99AeP8hwSQokFRq+vkkHamd4qw=;
-        b=Oez2fOj+eRHtW5IojeTjXAw4nkp3kBEEEW/QZprZ/Pgf3w3OwiFleDTZwr9sIuItBT
-         eEXOOXs2nfGb6bGwAgorAHzpBFMChn2DzUoIOcZEU9T6s2whdB5oBnWRp8GavBzHPJn0
-         yaJkjm1l65cXZ7lkTWdil4zk7vP7dR85VP78e+8Kh/AnvRNFQYLZpztJn/RjTcmM/qhe
-         6Elj26YS9YzYBJ+tZfKaTrV19qdAqLYwmH9VTFrarq/zVCXFpv66zD20haDFpyx3aimi
-         QZF/oR5m+9lxn211t7C2Isr3jNfXodTSvPyPSWwhJ5I9TlbGKvAgRvTGsGpNMKFBXrQZ
-         Nphg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790558276; x=1791163076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        b=JGKI6jg32qU7HvvlSYoxFjnAvByO+mb43g3GWBjUljo+LbdH8TCg/qZlan0cz0AYUK
-         TuzS6cwINsUtf+EVB8QQC3JROVY2K6RkKqcMkH01GAdG3EbIsqR06ZVNaqnowGLGJs3c
-         kdL4LJA51u3244uNESzs8J3djYiq1FDkkGNucwPkkuPD7l4Eyn+j+NcOVxmLa7nTjyKK
-         xm+LjCTUpx/MNBG1ybaRFLKke8q+/58UPs2nqR8K+InKNrWfqOFrMtnL84nGGSyc9dvf
-         stQ0QaXg4V1wk4NN3aFWpkta1JH+I/vH986ITm4d/f30QCd6iAKyHj6bo4afoaiuBV3u
-         XHHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790558276; x=1791163076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        b=AlaxKKANp39ly9uC3R2IbXiw6zGXCJQ4OrBIH+MNR9QSJviB3f6+F1eV3G8O2CcXHH
-         vDjBzcJMA9VmfUbDK9IzjO10Frd5zgarz/HpmwF6Gkj2mYx2JFj331MRVDhgj3ZbD8hX
-         B9fxhaMnsoDZckg92n0dIsBQcKges6a4UMZJHFewYFBAYKK1yMGMTs6OeXtUwlCCYVjU
-         UztQBsayROinAD7mD0k9Nf88pTz8H8W8yGCMRidHvI53mFncXj+rDVrwJ10jJVQ+WqNZ
-         ML61xtMH4rnSyI9WShaEJZuWk4F7DEsKvPoZDVLaAqPbglb4bmeYymK3bJB63r7QKj+t
-         GMPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzenq5h+pDk2GrjJDV3QziDrc7Yd4a0Ytbce4bCODO973G8unrFHQFHmk7rmGPn63D6MtnMHErLTlupZuI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBnk0MJvKl1cNDM1xVEzDyDPYOXyWud68xQF9UnlA3bkyneNcZ
-	wRhJwh9CErVGnYOMKf47R2kdXzVhMVeapCJ9kcT83V93zrke+nHg1rJSGmGW9/+a+ccCdkztm1u
-	H3iieMQFq1iF+HG8dvC0wu6TbJZGAaLc=
-X-Gm-Gg: AYBFou2ZSMPCYbVepp6PA/YLR02c9D0sOhWIZlACgZfO1aMZgQ2OTfuKgE6kXEWbWlU
-	fHxeU2L1JJ9S6DJQoJl2AKxeBopB3RukTup48NjuZpfRVImz81nCq0OtstpEb8D0ZxbH1mWqpF3
-	tG+KtiBPxr3kapmejucv6Eld4/kYhc5Nef5RZuGUtBQ8psBf45sZvHr/p7gzsNqtrpge/+UN6Y2
-	EIdXZX+S5t4TmRXhiow/BB35sNSNw5Z/WNXlifNGRfNr9jUyxgdr7Wj3RkN7909eEywi7GxLNWj
-	cLDEQKAKPKzNXfYUEln1tFat6axvVHFB9KX0W3V2CKuyIj0+XqFk7dUucKMdNScmGQdiwmBZ/Jl
-	1oyoI2HPa0gwX
-X-Received: by 2002:a17:90b:4b89:b0:3a0:cc3f:b93a with SMTP id
- 98e67ed59e1d1-3a0cc3fcbf8mr4139825a91.0.1790558275492; Sun, 27 Sep 2026
- 18:17:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMcGBYf7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488FF1F00898
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790558290;
+	bh=GeSgmECTKuaHk2+F7oGmV2w3CiTIst6U8AwDjonsHaI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cMcGBYf76yqYpZ9sQKYtcmVuUMn8uo6Zc7rHTHrTNOnyiLl8c6gBo4tqVCpOB/4XA
+	 6c4kDp5oY8dIfhTBNtXr+bKRNl83w+Y7wkaSDPYy+xDJHIBaaF3A2/wNIcTdajLjMc
+	 E/qIvUxcjFQtGVylSWr33Y1yINdYHQ1MxfSnaqAM82Bk8CepWzdafczOz71I0pd2i3
+	 FGrHWoMLAPw+joZR8C2gzOhgpEa9dEEUrSeeUZ85hSE4KDUKhoZALNv72yniZuqU44
+	 1dgownxL+7kNaYLONEbhxUHl88ij/LDI2mCScuGKvcipkFBq1jBgpHn0soX0jTctA6
+	 RIsG7xt/Z/N6w==
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaea178c96so2766104a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:18:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8073h/Zg3SOt3tX6VK7dsRL7R0VC+cXgpJd97jQQKuid6sGR3nZ7D+KMe4G3wVlo+zpPer9eXXPRJEXg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMqjMN3Loy1uT8CAngd2g0F7cDCU70eHt40X/qR8tKG6nYSTpZ
+	en4ifYlWWjUFWCGjQqg9oJFr8UZttT5QOWWOzUvBRMwI0osSqssenpNsbO7OqRcsc4/J+6NieMo
+	psAvxKNN6lJ1srNbCFid00QasnthtJAdeGBKP14iCTg==
+X-Received: by 2002:a05:6402:535a:20b0:6aa:e9b6:411d with SMTP id
+ 4fb4d7f45d1cf-6aae9b643e6mr4835243a12.35.1790558289196; Sun, 27 Sep 2026
+ 18:18:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807112818.958190-1-kimjw04271234@gmail.com>
- <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com> <apcj7xrcIhEw7lCl@google.com>
-In-Reply-To: <apcj7xrcIhEw7lCl@google.com>
-From: Jinu Kim <kimjw04271234@gmail.com>
-Date: Mon, 28 Sep 2026 10:17:42 +0900
-X-Gm-Features: AclHuK8uKM50viEvYvH7gJtUCOdNx9kwbsg5nfa3655kxX2O_gRVG_nRjZ7rjkE
-Message-ID: <CAH+3ta7zvKzX=8nQeDSE3rz1i81=C5mSCRiXtQuoKkKcw=M58A@mail.gmail.com>
-Subject: Re: [PATCH] KVM: x86: Use active memslots for the per-vCPU MMIO cache
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, security@kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-3-hebaoquan@kylinos.cn>
+In-Reply-To: <20260916101929.149106-3-hebaoquan@kylinos.cn>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 15:17:58 -1000
+X-Gmail-Original-Message-ID: <CACePvbUD7rQ1=638nzku7mdu08BK0cg1aEX+2jJT+WDJ4PUV0w@mail.gmail.com>
+X-Gm-Features: AclHuK9lbaxxfRu9uT3RykRdEUPVHrPVty2eqURRDIMaSXYeT4wqg8fVhgKsuec
+Message-ID: <CACePvbUD7rQ1=638nzku7mdu08BK0cg1aEX+2jJT+WDJ4PUV0w@mail.gmail.com>
+Subject: Re: [PATCH v3 02/14] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sean, Paolo,
-
-Thank you again for confirming that this patch was on your list.
-
-I know I already followed up earlier this month, but as a few weeks have
-passed and I haven't seen any further updates, I thought I'd send a
-gentle ping.
-
-When you have a chance, could you please let me know if there is any
-update, or if anything else is needed from my side?
-
-Thanks,
-Jinu
-
-2026=EB=85=84 9=EC=9B=94 2=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 4:13, Se=
-an Christopherson <seanjc@google.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+On Wed, Sep 16, 2026 at 12:19=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
+wrote:
 >
-> On Tue, Sep 01, 2026, Jinu Kim wrote:
-> > Hi Sean, Paolo,
-> >
-> > A friendly ping on this patch.
-> > I originally sent this on August 7, which was fairly late in the 7.2
-> > release cycle, so I held off on pinging during the remainder of the
-> > cycle and the 7.3 merge window.
-> > Now that 7.3-rc1 is out, could you please take a look when you get a ch=
-ance?
-> > Please let me know if you'd prefer that I resend or rebase the patch.
+> Add CONFIG_XSWAP Kconfig option for extendable swap device support.
+> It depends on SWAP && 64BIT && ZSWAP, since xswap devices are backed by
+> zswap, and on SYSFS, which is currently the only way to create one.
 >
-> No RESEND is necessary, this is already on my list of things to grab (or =
-to make
-> sure Paolo grabs).
+> Add three fields to struct swap_info_struct under CONFIG_XSWAP:
+> - cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
+> - nr_clusters_max: total number of clusters in the xswap address space
+> - nr_clusters_mapped: number of clusters currently mapped (lazy grow)
+> These fields enable lazy vmalloc-based dynamic cluster management.
+>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+
+Can you fold this with the following patch? At least the struct
+members should go with the next patch.
+
+It seems nobody use those data structures in this patch anyway. So
+this patch alone has no visible value add, other than adding the
+config file.
+
+Chris
+
+> ---
+>  include/linux/swap.h | 5 +++++
+>  mm/Kconfig           | 9 +++++++++
+>  2 files changed, 14 insertions(+)
+>
+> diff --git a/include/linux/swap.h b/include/linux/swap.h
+> index b4331ca4759a..b7882aac1eab 100644
+> --- a/include/linux/swap.h
+> +++ b/include/linux/swap.h
+> @@ -242,6 +242,11 @@ struct swap_info_struct {
+>         signed char     type;           /* strange name for an index */
+>         unsigned int    max;            /* size of this swap device */
+>         struct swap_cluster_info *cluster_info; /* array, one entry per c=
+luster */
+> +#ifdef CONFIG_XSWAP
+> +       struct vm_struct        *cluster_vm;    /* VM_SPARSE area for clu=
+ster_info */
+> +       unsigned long           nr_clusters_max;/* total clusters in the =
+xswap address space */
+> +       unsigned long           nr_clusters_mapped; /* currently mapped c=
+luster count */
+> +#endif
+>         struct list_head free_clusters; /* free clusters list */
+>         struct list_head full_clusters; /* full clusters list */
+>         struct list_head nonfull_clusters[SWAP_NR_ORDERS];
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index c180d40cd671..5d6c7845c422 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
+>         default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
+>         default ""
+>
+> +config XSWAP
+> +       bool "Extendable (virtual) swap device"
+> +       depends on SWAP && 64BIT && ZSWAP && SYSFS
+> +       help
+> +         Adds support for extendable swap devices (xswap) that decouple
+> +         PTE swap entries from physical backing storage. The cluster_inf=
+o
+> +         array is backed by a sparse vmalloc area that grows and shrinks
+> +         on demand, avoiding static pre-allocation overhead.
+> +
+>  config ZSMALLOC
+>         tristate
+>
+> --
+> 2.54.0
+>
