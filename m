@@ -1,114 +1,125 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5A05038F9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E38E3815DF;
+	Mon, 28 Sep 2026 23:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790638000; cv=none; b=aEtmTh4g4FCzsqsx+9n3Tvq12NkD5UUFtBZHm7VA0jU4f9Pws6xFqgUJ5VT1cl+xXpWA+5khrt5xVr777TMRxQuJeoRGQpYXXbQHiaF0FG2S6DJxPscOyM8fE4DQFjMTEiitco+hyfTNba20E3bIpPGp3KNzhpUsp9Ap+K7klcI=
+	t=1790638104; cv=none; b=WnRCQ4ciUWMXTxic0FFI5t0tbvzcaWHE5l3ozCBW78WRdD3ZbqY2+L2IGDfgsqypt5MrwRerWLHuxNTpUOB4UQ4UnzrKzyYwFPDzeX2HDwShn9Dw7+D3lVPmWvq+LyHhHFj7wAtREJEJ1nrgN48LUVa3CpnGbgAXK4cvKcH9970=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790638000; c=relaxed/simple;
-	bh=ImnVREnlEeFJR7B7Mod3ObpgEIQ6gLW4hGB0JEWUNA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Aa2xuwIbRC3tv4YW/rEE2IFry3F+uagYRd4RHJd1Jqk2aRGhA2woAYWx0gXDOo65PEEl6I0odHiHMtTqLw7gGKMBbOwnYjFdRm/Lq++QNLbH6IGC9btCoBi2LkOpFPHgbcv/586GghrqXlvtPOVqbuAbUZ1SdWsU4UC68U42ggg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ir+lmguz; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790638104; c=relaxed/simple;
+	bh=YutVHJG0sZy7YrGij8d8zLfjEvsbc5uRWluQnIWAHEo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PWOtWekp3NpIKZddgxhuvqIn2v9S7fooQ0UZ2GVuIS1FRrK2bT6i2ajFSv2Qybo853AgxTSUY3g+fF8hBVQySYBOAt0p/po6GTWQbNz+yqy4IAeBWjgFeZ+XKHKdWPfWiUwNMmnab+TJVK8Fj7uzQTVo5eG+KR0b+ZHKlYJdS6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVpgVMkQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ir+lmguz"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-988b3922341so333135241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:26:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790637997; x=1791242797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ImnVREnlEeFJR7B7Mod3ObpgEIQ6gLW4hGB0JEWUNA0=;
-        b=ir+lmguzHOe9JLjA1c0mRFFY2lST9x/SCwugLMptIJ8xoYqfRNqd8OWalaMtZc6nVP
-         NeGocSbA8bsvif7kX4+RirSeUpz7i4nCRksdkFNdmvrlrIswS8FclATXr3VL1SQCAM2K
-         YQNA7WuHiq8BMGNGKCDVO30NXD4lwHqJPoLHWbX4wyLtbmIT/ODG/Bl5T39B9DBccRPP
-         QuLrYmWuciz1uk8px+OElDoJDGeCUmBo1Nnct2j1fnryEDIGvpvjRYWbXUpUaEXUTOEa
-         HZ4v72RHQovqSVkBHqM5LbiRdvYzm1Y1fVS3JIQTs0gvFiUtqkLPscD7fqVyA3TClS57
-         TWGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790637997; x=1791242797;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ImnVREnlEeFJR7B7Mod3ObpgEIQ6gLW4hGB0JEWUNA0=;
-        b=INq7AWIbCRnIf/zwcHVAuDoXtX4W6xsFEERapDmBz5qa5zLCXCP1Rqfr8dDV8j6rOX
-         O6datmgxYnBZS3Yur90yXp+BFaPjw4fyxwv6SRdK06OSBSR7px2tDnl6gxA7thDivBGa
-         A/MBkIs+bIDw7XDgXl4NKWWnQ9nCvOeFmTze6nWQGz9mcHdPcGOORtuJL6hTbChHRlsP
-         EgGY+gOb2SwSBZFw1KjRpSIH36QbJ4ld+qWojp02SQAOnbcwvV/m6reMv/CCawFjItou
-         YkBf3CqfOPWvfoexi8jwUns0QgawSDKXQ+J/JMY6iPoKv5yk3iAsKskkU/P7Tvtlor+C
-         sUdg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/OgJoiTSWdWRjQ2xnwK2HH8hgmES9FOC/ZsWZnVKrbX3g9dtD/bFHeIVsFJFnkMW6egBfSrP7lh+lXpM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7iaMP96w4N9iejXzHHtyqwcxjMNPHvJJSKN8pkKA8CSY++6Da
-	kyl7dE/1i5TLG3m27O3aotqdK5qN7HXO7s4uV9vaWjmX13/plCBMX3bj
-X-Gm-Gg: AYBFou1Tjrt67dyptOd+oJMnnzFxE2inXA1kOWo4Y7X/c8CxsVnGOfSfd3E4jyMuhud
-	vx0Bp4KgpDKVX5GvRUCceb6MEagttKfATj0XSwtPAgNIj2obSqmXegjvn8pZiGcJ7mv62zFTb77
-	65/xXpCKgII2CCYQ/k5dVn1dk8We9JL0uPBlnvrXiBANPk0P8o0TXQYMtKJAFPH71aVGyrvGhwf
-	HpRJqCNHvZWtkpCNK0HZY1/TpnXFr/jC5nnbYQhbsHRN1ZcNcslbvqn6QHnoj0eUxIOjIdOezAJ
-	p7m6l7V6sAwkaqcbZ/ZZzYnjndryoeGHeU/P7cZr9EG2Og5r4/lmszJOqYflAOFZ7GCUxepVrvE
-	aYhReuLa7vOi5v+2N7ZwkjxHYsuzbNo6WPohFU7W53rpaxWhgS46AEkcvg01eMMFlSlTRei+Q8v
-	OD3Iut4okwXyqS3q0a/iEuxv9Du/XlicFjNyS69Hm4amsS+7BROiWY5O9Kqnn92kq3X2iM5vXcg
-	1E0e6/ab5+OVnqp80/h2LPSW4Myr/QGPkTZqbEAiFJEjLN7tRXBcOazUu6XJLhR
-X-Received: by 2002:a05:6102:f0c:b0:7a7:198a:c2c5 with SMTP id ada2fe7eead31-7b1d74b3a82mr2945563137.35.1790637997372;
-        Mon, 28 Sep 2026 16:26:37 -0700 (PDT)
-Received: from ?IPV6:2803:9800:a0a8:8014:618c:a663:bfd0:635e? ([2803:9800:a0a8:8014:618c:a663:bfd0:635e])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b159055sm11172269137.3.2026.09.28.16.26.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 16:26:36 -0700 (PDT)
-Message-ID: <595cf557-e386-4ca3-b8ea-2ce7fe160018@gmail.com>
-Date: Mon, 28 Sep 2026 20:26:33 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVpgVMkQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770821F000FF;
+	Mon, 28 Sep 2026 23:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790638103;
+	bh=YCK46affos81d8aICOHNKYT/US3ZEkCXaLZboaoPCAQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SVpgVMkQqjporxpG0TbdmbxYZEdDwbkX8AodyOeL2/pn0nCLsLgLEUURkeCQv3c94
+	 N6Lp+MTCphYa8S2oNLJts1/RUcW57tIzgD/i4FGE0PbALfE0AvSushgXBydWZEh0iW
+	 f+2Dgy04YrxY5Bl85Xh8mUWFwW0doeDFxXFQoq2Rp8PDNL0ehrdXMY5HSL1coL1IMj
+	 LOv1RvybgDz89UX4VqBCTTxqU0mcnC91/C4FQuJL6mY+5bDWyPm7xNnH22lmf1xpON
+	 VWyPqHzXOEjy6nPg4luz4i/+uhoR0OhjitZ36w1OyAc6k5QSboYCcd2z071zg0dyQr
+	 pNoLTa3uSEPZg==
+Date: Tue, 29 Sep 2026 01:28:20 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Luca Weiss <luca@lucaweiss.eu>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org, konradybcio@kernel.org, 
+	stephan.gerhold@linaro.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5 5/5] i2c: qcom-cci: Enforce the required CCI clock rate
+Message-ID: <arrymkYqBOzLrgnV@zenone.zhora.eu>
+References: <20260927-cci-clk-fix-v5-0-4cd498559ae5@oss.qualcomm.com>
+ <20260927-cci-clk-fix-v5-5-4cd498559ae5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14
- platform profile values
-To: Chris Taraszka <chris@miget.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, Armin Wolf <W_Armin@gmx.de>,
- Mingyou Chen <qby140326@gmail.com>
-References: <20260928153902.139956-1-chris@miget.com>
- <5430348c-8ff3-c31a-927f-321b2cf94883@linux.intel.com>
- <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com>
-Content-Language: en-US
-From: Matias Civadda <matias.civadda2342001@gmail.com>
-In-Reply-To: <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927-cci-clk-fix-v5-5-4cd498559ae5@oss.qualcomm.com>
 
-Hi Chris,
+Hi Loic,
 
-No problem, your proposal works for me. Please CC me when you send
-the series so I can test the shared changes and base my TM2107 v3
-on your generic patch.
+...
 
-Thanks,
-Matias
+> @@ -318,7 +319,7 @@ static const struct hw_params *cci_get_hw_params(struct cci *cci, int mode)
+>  	unsigned long rate = clk_get_rate(cci->cci_clk);
+>  	int ri = cci_clk_rate_idx(rate);
+>  
+> -	if (ri >= 0 && mode <= cci->data->max_mode && cci_hw_params[ri][mode].thigh)
+> +	if (ri >= 0 && mode <= cci->data->max_mode)
 
-> Thanks, makes sense.
->
-> Matias, one thing I ran into when trying your generic part on the
-> Xiaomi Book Pro 14: its values are sparse (0x02, 0x03, 0x04, 0x09,
-> 0x0a) and 0x02 and 0x0a both mean low-power. With a profile array
-> indexed by the firmware value, the unused slots read back as
-> PLATFORM_PROFILE_LOW_POWER (0), and the reverse lookup for low-power
-> finds index 0, which this firmware ignores.
->
-> So I'd suggest {value, profile} pairs for the shared part. I have that
-> as a standalone patch on pdx86/for-next, with only the profile table
-> in the quirk struct, so your response layout and AC check handling
-> would go on top in your TM2107 patch. If that works for you I'll send
-> it as v2 together with the Xiaomi entry, and you can base your v3 on
-> it. If you'd rather own the generic patch, that's fine too, I'll
-> rebase the Xiaomi part on yours.
->
+why are you removing the .thigh check here?
+
+>  		return &cci_hw_params[ri][mode];
+>  
+>  	return NULL;
+
+...
+
+> +static int cci_set_core_rate(struct cci *cci)
+> +{
+> +	struct device *dev = cci->dev;
+> +	unsigned long rate;
+> +	int ret;
+> +
+> +	ret = cci_get_required_rate(cci, &rate);
+> +	if (ret) {
+> +		dev_err(dev, "no CCI clock rate satisfies all masters\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = dev_pm_opp_set_rate(dev, rate);
+> +	if (ret) {
+> +		dev_warn(dev, "CCI clock could not be set to %lu Hz\n", rate);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * Sanity: The hw_params timings are only valid at the exact
+> +	 * expected rate, verify what landed on the hardware.
+> +	 */
+> +	if (clk_get_rate(cci->cci_clk) != rate)
+> +		dev_warn(dev, "CCI clock is not at expected %lu Hz\n", rate);
+> +
+> +	return 0;
+> +}
+> +
+>  static int __maybe_unused cci_suspend_runtime(struct device *dev)
+>  {
+>  	struct cci *cci = dev_get_drvdata(dev);
+> @@ -678,6 +739,19 @@ static int cci_probe(struct platform_device *pdev)
+>  		return dev_err_probe(dev, PTR_ERR(cci->cci_clk),
+>  				     "failed to get CCI clock\n");
+>  
+> +	ret = devm_pm_opp_set_clkname(dev, "cci");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to set CCI OPP clk\n");
+> +
+> +	/* OPP table is optional */
+> +	ret = devm_pm_opp_of_add_table(dev);
+> +	if (ret && ret != -ENODEV)
+> +		return dev_err_probe(dev, ret, "failed to add OPP table\n");
+> +
+> +	ret = cci_set_core_rate(cci);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to set CCI clock rate\n");
+
+The error logging is a bit messed up here: you either print here
+or in cci_set_core_rate(). Besides why is a warning there and an
+error here? I would just print error in cci_set_core_rate() and
+return here.
+
+Andi
+
+> +
