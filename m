@@ -1,77 +1,146 @@
-Received: from zxbjcas.zhaoxin.com (zxbjcas.zhaoxin.com [124.127.214.139])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6534E4848B2;
-	Mon, 28 Sep 2026 08:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.127.214.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8E12931E9;
+	Mon, 28 Sep 2026 08:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585424; cv=none; b=E7BWum/WdEyFrQ0z2LLeOkpQJXFs1SoNGwR3Hz/9ebHL0kqNqH4+RxeG1o/3EIhh9OJdXc7NDaJRHip+Na97MIKo27QraMYpuR7hAVZ3CJ+uxQW5yKG5G6JU0E8/rF3WO3syRzSfhB8IEt1/t6uGtOIRIGiRQedqaqsgpTZ4oFA=
+	t=1790585424; cv=none; b=YSVNQvOF7kdgOjd6+pKnLgjmLGCaEZosXHGPptmwrKf6wCt3fof2mjrHJ+R87TJm574eYHy3cEwlKeNdwZYKlNfGVtQDMsrWFvkd9oSrfvJOTNv54zuTqmS+J3CWMi/UcWtFFZmKbrQ9ClSoGkTSlYSoqhTlouFJxys9u5gDeCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790585424; c=relaxed/simple;
-	bh=C5GDaLXktEPtefgGKegcE6hqUiQsl/W8y0ysgY8wxpE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r+hPTJrawGVFsOKBpgm+cupI9wMPCuudBJfrN1XIADRx463CfoIx3kUyDU7Ca0t+5jZMfsrb89OqCe8B2XCWgheJJHdkBmEwyVP67yaEO7Y3WxtLoWOU3aBYtPknAJplA/Mp4oWZ9pB7Wfp5CYq+XzQ+9ifJZm3vU35jRYelg9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=124.127.214.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (zxmail.zhaoxin.com [10.28.208.166])
-	by zxbjcas.zhaoxin.com with ESMTP id 68S8mgRA083540;
-	Mon, 28 Sep 2026 16:48:42 +0800 (GMT-8)
-	(envelope-from WeitaoWang-oc@zhaoxin.com)
-Received: from l440.zhaoxin.com (l440.zhaoxin.com [10.29.8.13])
-	by zhaoxin.com (8.30) with ESMTPdb53bc35b7cf779f6b95a27134ef50f4
-	Mon, 28 Sep 2026 16:48:41 +0800
-X-Eyou-Smtpauth: weitaowangoc@zhaoxin.com
-X-Eyou-EnvelopeSender: WeitaoWang-oc@zhaoxin.com
-X-Eyou-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <WeitaoWang-oc@zhaoxin.com>
-To: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        den@valinux.co.jp, linux-kernel@vger.kernel.org
-Cc: WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
-        stable@vger.kernel.org
-Subject: [PATCH] x86/apic/msi: Fix MSI interrupt affinity configuration
-Date: Tue, 29 Sep 2026 00:48:39 +0800
-Message-Id: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.32.0
+	bh=7xqsvgBUdY0jvRKC//ezf518jUci4xRkjMuj7wAJTI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=um25eGTusDMjs+On1Z1DBngrkyc8RRjkCG744MAro7VL2CoQYeaM0u3iaNc5b8IiPXg57B3B63O+dPHPGbvRGzhTPblOdjIET92Iij2PB0Oo2Ro4g0PSh8BITssGU/lRq9W4R+P4xHMLaW8yIzMEerI34T+MWPjpx9fgPqNjznw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEK97vav; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEK97vav"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07EE51F000FF;
+	Mon, 28 Sep 2026 08:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790585422;
+	bh=Xux5ZPoLqrz1mbftErEicTW9loRDj4oR9SfIqryQVFI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iEK97vavCrO6FGamvL6w7E2I1MX2GZCebpDkO0cMSJDvo5xQ2vNNjADjci6TP8N29
+	 b8f5WsNIuHiiAVePejbUiD2f14ejjCMal/GCUjIpIQcT74Gun81v7NHdK2Qm42IMCn
+	 7yrkD2JQqZC3M8VbYDcqxuGS8IbhDUEdbAyK4k0BgbhaG1CS5D+9XqaUVVL7X0I6o7
+	 fReqiFglUmaWiN2BlAbXClfp2HnuyMig/dz67ReP7rtvxpERkOiDkfJTJ/t/SPpeS1
+	 7uKDXsEYc3REZnADw9w8J+97lG7Kzs/sY9a6AjOEiFY2bkpohtKyBzjjxopxg2+1jP
+	 x6teGcrUOIaqg==
+Message-ID: <9009312f-0ffb-4425-ab82-1eb7e52a4646@kernel.org>
+Date: Mon, 28 Sep 2026 10:50:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:zxbjcas.zhaoxin.com 68S8mgRA083540
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/13] mm/sparse: remove SECTION_MARKED_PRESENT
+To: Dave Young <ruirui.yang@linux.dev>
+Cc: David Carlier <devnexen@gmail.com>, akpm@linux-foundation.org,
+ axelrasmussen@google.com, baohua@kernel.org, baolin.wang@linux.alibaba.com,
+ baoquan.he@linux.dev, brendan.jackman@linux.dev, dakr@kernel.org,
+ driver-core@lists.linux.dev, gregkh@linuxfoundation.org, hannes@cmpxchg.org,
+ jan.kiszka@siemens.com, kasong@tencent.com, kbingham@kernel.org,
+ liam@infradead.org, linux-cxl@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, osalvador@suse.de,
+ qi.zheng@linux.dev, rafael@kernel.org, rppt@kernel.org,
+ shakeel.butt@linux.dev, surenb@google.com, vbabka@kernel.org,
+ weixugc@google.com, yuanchu@google.com, ziy@nvidia.com,
+ devel@lists.crash-utility.osci.io, kexec@lists.infradead.org,
+ Baoquan He <baoquan.he@linux.dev>
+References: <20260921-b4-sparsemem_cleanups-v2-10-54d81d65e125@kernel.org>
+ <20260927192013.144672-1-devnexen@gmail.com>
+ <655c509e-318f-48bc-8183-2b1274dd05ac@kernel.org> <aroezLexo1WoeYI7@darkstar>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aroezLexo1WoeYI7@darkstar>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
-quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
-For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
-race. Maskable MSI interrupts use the direct path to update configuration
-info. However, the current code logic is the opposite as only maskable
-MSI interrupts will enable reservation mode.
+On 9/28/26 10:01, Dave Young wrote:
+> Cced kexec list.
+> 
+> On Mon, Sep 28, 2026 at 09:28:08AM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/27/26 21:20, David Carlier wrote:
+>>>
+>>> Hi David,
+>>
+>> Hi!
+>>
+>>>
+>>> It seems dropping SECTION_MARKED_PRESENT_BIT shifts the other section flags down
+>>> one bit. crash hardcodes SECTION_HAS_MEM_MAP as (1UL << 1) in
+>>> pfn_to_map(), so it now tests SECTION_IS_ONLINE: offline and
+>>> ZONE_DEVICE sections no longer resolve to a struct page. makedumpfile
+>>> only checks bit 0 and is fine.
+>>
+>> Thanks. To be expected when relying on kernel internals.
+>>
+>> Which makes me wonder why makedumpfile
+>> (https://github.com/makedumpfile/makedumpfile) not require any such information.
+>>
+>>>
+>>> Keep bit 0 reserved, or export the bits via vmcoreinfo?
+>> We could export it, or crash can simply detect the change based on the kernel
+>> version. I remember the latter was done in makedumpfile in the past (although we
+>> export it).
+>>
+>> I can send a separate patch to export it.
+> 
+> Thanks David.   Checking kernel internals via kernel version is not a good idea
+> due to the downstream kernels.
 
-Fixes: ef8dd01538ea ("genirq/msi: Make interrupt allocation less convoluted")
-Cc: stable@vger.kernel.org
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
----
- arch/x86/kernel/apic/msi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch at:
 
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3e79db..da5f44a80313 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
- 	 * - The interrupt is not yet started up
- 	 * - The new destination CPU is the same as the old destination CPU
- 	 */
--	if (!irqd_can_reserve(irqd) ||
-+	if (irqd_can_reserve(irqd) ||
- 	    cfg->vector == old_cfg.vector ||
- 	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
- 	    !irqd_is_started(irqd) ||
+https://lore.kernel.org/r/20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org
+
 -- 
-2.32.0
+Cheers,
 
+David
