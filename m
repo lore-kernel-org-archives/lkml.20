@@ -1,68 +1,86 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB204EFFB9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BDF4DA553
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613611; cv=none; b=A5rfPKwSmqiAhLD7rXaJVOrJgey7jZf+Wx9P1Bzq5LKUzq+fSQl30K0Pc6dDUUhgnhc+Ue0VhnY/STh9xIRzG83XtwJHeCY011qPWSqwJDvV+qjNw1exWogyHm9Jlv2LYS1XgJzTc50JCA8Kjv1QesZHjTVfHrIv8SYTPLYszZY=
+	t=1790613671; cv=none; b=E13+LqItTf8C6cDXmuVL/zzZOG3EDT9/tKINQvFzPmgIpPrwjLZg0jA6CRueGv2TOcX/EsMwuStPd64Off79EZdxjl5e5XOPQNcMMPlTheaZ3+1NJFgOUzVATZeorTWszsZj/5+d0WaduIeK43Ij0c+9jwFDIIGR8MFvESd69mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613611; c=relaxed/simple;
-	bh=vFT+byoG5tituWWCkgZk7bZhiSIfXMG4mT4Z8agsgCk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=uVM2ArQYmYDlnxk2qj6BSir+p7Km2dxRu5233delmdJXWgKIK7IKfFUpRI2tYrVNjTvxsu1+V/PHD/F7/fQdeg1xg0oFtZM1BMPEtbQJd7JZV8lk7KxIWvXkBvEfBBOuzRDLlv+T/xM1P2M7St+sQy7tVggvuv9/K46lmtHcVXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TkeCuhfj; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790613671; c=relaxed/simple;
+	bh=b7wbpm7186exrmEXMnpKBlh8UDpja69phnBSq3imT24=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QHbt47nEIqoXoPGfY6eJnGxpc2gbV2oAjqiinHcJYQLIQxHSjjCqLtkZKjlKGt7ENgS3aYs2VUIwD4QYfNsfmO/ofHhfByD5vOokEYK5BztuJBCL70R7lmx0XeX2LFqyux7ZTKqOCld1eCoxOYM+Vqs1VAOZlJGUNVU2WKY/mrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g4P9827M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dy0XPEzZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TkeCuhfj"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso5376755e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:40:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g4P9827M";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dy0XPEzZ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdsa6378836
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:41:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6c+vR2Xl2NMRz0OkFfpsOTaX2BCXiS4GI9DqBySoalE=; b=g4P9827Mh66irkRl
+	91ExcjOaJCPoK54PQkY+q5QCdcS/izq0X1WKAEZ7B1VaMNnRLYlJ9NiyQ20olTBD
+	EsZ0JRuEmtOHGDOXwWFoc4wl/mrO7bVZ45smjU7KnCjktw8hzuZvnMf/ej4UXRBb
+	b75ibyiFtDPW4N5uVWHk2F/OPjVgofazhbOB2/DOAH56kRa7/XMpMTdMhuzGnwY9
+	578dCAU6Y2eL+UVwNdGc5I/cBK/w+7EywvG4QWrr6qGpqgadUFMskkITzv7pbLJu
+	5IzfXbOigin1qWC4LTtpVv6CMk0zJHXFvlIa2jEwU7XnHU8fMBur87OfZmkIqOyv
+	BPbgiA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyqx395cc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:41:08 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7b731e00834so978746137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790613606; x=1791218406; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FZUYNBRcOcwahT/HwUn9HlQGjcQyMs/osOqncN2KOUo=;
-        b=TkeCuhfjkZgJXpRz+7dw+KLxAlHDQDolB9ucCcJZBInB1GJlxrd9CirvHHp+bnO3Wr
-         jxSZwt5ep3G3MK5DHQyzniDo/vOmgBdNd74oz9fYLiksU95OcTCing2TNS2DcIwI4w86
-         3J0wZmPsGpRLefg2lNLfYw41bPwMs1LyASURn1/J+Q4gGSlb6ahahCxBhsR7N6xTLbVA
-         qPPTV3RhPqMz4xHIW+fZw5LVXxx+CWzAUdzD9Cc9F9q39X2xCgo6rU1CW8/KEpQYMuKq
-         owhAzoSqJIHtSBRw0oAUukQMQehPgeHyo5WkJfsIaYCABbhP8u0I/1Wis5QEdUBG0qVI
-         Wqnw==
+        d=oss.qualcomm.com; s=google; t=1790613668; x=1791218468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6c+vR2Xl2NMRz0OkFfpsOTaX2BCXiS4GI9DqBySoalE=;
+        b=Dy0XPEzZvZWgKWJ1iAN8jgrwAMsYA1Rm1beoPKp2LxwT5w2tlWJRtqmuqU/UW+4cCz
+         Mk3nri5YlSwc7sOoo/mxbbOhobT6H6W7vqGsjIkKV8Mjp/N/LRm9eELhupW2MWwS/vgK
+         cMYYqcKpUbTD4WEpfHJQejK/FHvW/F3B7twNNWrI5zQgFgivjxprV7rSH2Ufcgi30b0M
+         BXjvf0Wv1FIB1lr1/OAKQZ1i69ZMCiJ60fRdVFgrXA2o5kxF49YXn17CFdVWy+IPt4hS
+         fc5BCvrPsPTcMTUYLUGjcCDtbZARGaSJkkBahw6RuuAPYNHD4ikaBiWG2CHRpQR5jymG
+         LeAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790613606; x=1791218406;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FZUYNBRcOcwahT/HwUn9HlQGjcQyMs/osOqncN2KOUo=;
-        b=keuRdatoX64dLo3veNvu81DdZyeTto0ZpsswDJuVOO5xXNvyqr008971Aptq4WnO74
-         AZyw88cRJoBH5nUgX4PVQwT6TbzeR4dcKAlNIPG/KXkTWiB5w6XVBnoQcp9h2//9anUr
-         i45WHBnsyVqDzcLkUD6JhsYRArUopb+209O2+PDTPqiv0MatKeoI7gexafe0d1eE5z2b
-         1ysJeoQWuKyWhMA0tuhPk/fohKDrhlgx6mw2FAD7i80iNT9l9Qid1VSyCTWpcvyu+hQI
-         49phDzRujW44YrLrOPYhfTYr5rhECzJKnq2Sa+VpsSeqog2X7m3iHwORPMrvF678i03j
-         RzBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMeScQJeD8NLJdMJsb34BUliACW7PvUV7v49Oxnwg0E0eUx70FEK5tl85ki6fWmLpYBFQEgpwpZSjNjG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndAIHw68j6NDLh+IGISDx0+ORjSuphh7paCtOMtwZ5m+Y/mNcR
-	FS7J8Gv8mkbvglxBeXzwpDxzE2ILafIx3Pvz/E8wr0S/AXGa6lDtBlAl7YCvQhVsw3o=
-X-Gm-Gg: AYBFou3iQtlEj1D2Jpw+22HcAKjAqjAr6oROKbjTr5J6M73F8K/1PQC7Q+wmBKXK7LD
-	ua/N14arAmouOXp1cUV6e2Unrvxc53kA9wR0CEDdzChqqNGvodBwKY0kde+efGPjeIT9X3JsePE
-	8ICg6zrgccpMNRyCVxnDz6JdoNx3pGjIfQ3M6V4F8AJ7IzCS+Nde6aUx8uTkupE/Dw3N9ET8Q8S
-	ObPpN29ZG7TZNddk60GW/GzRmpJBRnRGsQHik7LSC0iRppmjdgwCx+T65hHpxVxzwCrfaIfZW/I
-	XhLX7M4hX+L/NGC7pCSKl7DAJhUg2g2fIDTjpVNY+Tv/HK+M0pDWsSPYNyXQUl5JSvRBmWjqZN8
-	frl64EKGFjKDMbu7kxm4dL/YRF8/CPag13SBb6nQOjqx8jdc/pYJl5/Qm6h64iRgNdY7JDsLa3H
-	qkvd18fc3wP1YYQVRM5cKLOQw+JgDoIhYJMIfOyITRao3W0nlO/d+iQTQcPOM2dIKpj4CMKGTx2
-	FV6JvHZDYN9k3bSAzqksOOEbMN7yZqkH96Bzp5ZmpD6qdI=
-X-Received: by 2002:a05:600c:4e12:b0:49c:fc6e:a3df with SMTP id 5b1f17b1804b1-49fe66f82d8mr225035645e9.30.1790613606106;
-        Mon, 28 Sep 2026 09:40:06 -0700 (PDT)
-Received: from [192.168.27.65] (82-64-67-166.subs.proxad.net. [82.64.67.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0ea071sm3637265e9.9.2026.09.28.09.40.00
+        d=1e100.net; s=20260707; t=1790613668; x=1791218468;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6c+vR2Xl2NMRz0OkFfpsOTaX2BCXiS4GI9DqBySoalE=;
+        b=fxbQ9I6xnG9dC4ZBWSR/8HWZGxbLm0uPE5a39R4s4NGl7DA8CMBcf+kk5zae6o68KK
+         Jw/iM/xoibG4knUd7ZnfxQaXtLoH4IfIksGJEEGCsl9pVxqFfs06fUx6YJxy4wNfRllL
+         ijuyrYYuKiuXAZDzDugJalnBgwqBY5f0obySY0sLwGNXk2+6sz/0kQXmKQaMs8695F+q
+         AmFw9e22ieUq4HNkC+3a5gIyp5p21NL7cNQrKY/Qi2o7uLUu6JOoLOHN+hRj+G2YSlU2
+         ir3ch5gjfjscwqzT5gdpyrem4DoYgfOA4+2UvIz6rrQmaWiUmyoFSJ6ODwDl0C5FQXxl
+         iu2w==
+X-Gm-Message-State: AFq9FYLquzpcsAMeiyrEqJbDeJ5W4XEUOoINNcud5945IRpsRTNqxgEE
+	Dw1rctDhKQwuBBjNOM2Ar9JmNX1ZgGxOTnLnhCR0d2KS7z/5lY6sdycTEo+H8UOoOnhvmL7d2xn
+	OSDBwqmPo30qdOyRaGpIu8DTEsc8pjtTyRrO3SkSGPRnxwLs8My3AUxn+/Jnf6eObSno=
+X-Gm-Gg: AYBFou0odR9b+EcQRZdwWE6TsKQ/EFoXx2QeC4dEHi9GLhG79vPmS65mVrOi1+b/ynL
+	op3tVq8jRzCDmZhn8ILW0IU7Uv1/QGNJeAFKwuNWJWBHrLFa2RyLL6XLlCPB/hNar9UN/4GlIsy
+	2lacuxPPgG1ckvdrwqOHcbWMDY3T1bx4803Q3aGMO2GaRBpuM4NBpgT69+MregloVrTsI2NZTLf
+	z5EG10PEzEYFG91zIWrbQMDjTz37ll8LUJo696HtORsXMAKxGoo9adjNYeV/zWY1FFcS3p5hBYG
+	Jhe6NEkTzfHn5bYVfEp057ObzTNEyRvDhxu6mEg1/Bg2ybdHX61oT7NN+SRc5HHRzTT3nRODV6f
+	5gw6iS0MJ/P+otBYgyQ==
+X-Received: by 2002:a05:6102:5613:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7af1ecf76c6mr5100074137.27.1790613667727;
+        Mon, 28 Sep 2026 09:41:07 -0700 (PDT)
+X-Received: by 2002:a05:6102:5613:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7af1ecf76c6mr5100048137.27.1790613666989;
+        Mon, 28 Sep 2026 09:41:06 -0700 (PDT)
+Received: from [192.168.10.46] ([37.167.7.199])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a2acb4dsm28397941f8f.0.2026.09.28.09.41.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 09:40:05 -0700 (PDT)
-Message-ID: <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
-Date: Mon, 28 Sep 2026 18:39:58 +0200
+        Mon, 28 Sep 2026 09:41:06 -0700 (PDT)
+Message-ID: <d009d500-e938-490f-8375-f016a2494984@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 18:41:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,167 +88,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+Subject: Re: [PATCH] thermal: gov_power_allocator: Use common error handling
+ code in power_allocator_bind()
+To: Markus Elfring <Markus.Elfring@web.de>, linux-pm@vger.kernel.org,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Lukasz Luba
+ <lukasz.luba@arm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+References: <a3dc82f0-7333-465d-85b4-8034b1591442@web.de>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <a3dc82f0-7333-465d-85b4-8034b1591442@web.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NiBTYWx0ZWRfXyDyggpyPhvDO
+ /py2G6pj4sIH194TQvoFvlhIHUZOtouPwUnTFRso6H4FYEZddUF3c5kR3Ny0J6vLud9EZtuJ0Tc
+ QES8ligP0ifshTFXelcH5dfe/4jiMHboNg1pyO96L9G5PBTLis3wwE5qjVR/x2nplUSYp28WdWs
+ HtH3y4/AB6traCizdj1lL7XHLwV7Unmw1ahMeVBA9k0/H8OKcQrnAvNro4hlgbqfmR7g3cbbZsc
+ uAs0JHTMhjyjJOdl4Q0If2uk/OotjCDtm8c5Vhu+N5AdIURWX88rXPopXoFy5Jhxvpv3OyRR5/M
+ rsXeu6b55kC4Q7P7VP5n2WAtt8sFo3Z9ZeSVqpGDNkYJJB7pN1ZtlaRQdP6jdv3L4iUzzCDvvQj
+ JpzsBsDE51rZuh+3+tWW79a8MxSP/yojSURmlcnR7DT+YZfJRKdbJqJFmLO97FCfEJjtndTpaUt
+ bffKUrkVWc76EKW1iuA==
+X-Authority-Analysis: v=2.4 cv=f7jdl+yM c=1 sm=1 tr=0 ts=6aba98a4 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=K71sKCzDSiMJbZmyObbiAA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=FP58Ms26AAAA:8 a=HHdwwCC6DbPLjSqiHdUA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: pbGRKgKK41yAndwsp5_wY60XjnjgoGMm
+X-Proofpoint-GUID: pbGRKgKK41yAndwsp5_wY60XjnjgoGMm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NiBTYWx0ZWRfX+WKni00Q4eQS
+ WF2hZFVpWksWuupgwZAZ6dls2WghUB0xKyNsNno58C9t8HnRC1SvR0Lqo3bF6GcPwZrpFaMA7ue
+ KLkOT4MqxSAR72qnN7uqLw6uFKnlEzQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280066
 
-Hi,
-
-On 9/28/26 18:22, Maxime Ripard wrote:
-> Hi,
+On 6/10/26 11:30, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Wed, 10 Jun 2026 11:20:37 +0200
 > 
-> Panels in general, and MIPI-DSI panels in particular, are pretty
-> difficult to support and require pretty much a panel driver for each
-> panel produced. Most of them are pretty simple, and require an opaque
-> initialization sequence that is usually poorly documented.
+> Adjust labels so that a bit of exception handling can be better reused
+> at the end of this function implementation.
 > 
-> This creates a tension between OEMs and distros because OEMs will
-> typically get a new panel to react to a sourcing issue during
-> production, and thus need some swift turnaround between getting their
-> new panel and it being operational in the OS. Distributions on the other
-> hand can take years to ship a kernel with that new panel driver.
+> This issue was detected by using the Coccinelle software.
 > 
-> To solve this, I followed the example of HID-BPF and wrote a panel
-> driver that will rely on BPF programs to perform the panel
-> initialization. That way, we can ship the programs separately from the
-> kernel, and with a different lifecycle. If this driver is accepted, the
-> plan is to have a userspace component started by udev to identify and
-> load the right BPF program for the panels found on the device.
-
-This is kind of late for serious applications except if we manage to
-solve the bootloader to Linux display engine transition.
-
-> 
-> This driver is fully functional and works with both 5" and 7" Touch
-> Display 2 panels for the RaspberryPi. However, it breaks away from the
-> typical panel driver in multiple ways:
-> 
-> - BPF programs can only be loaded by userspace. This leaves us with two
->    choices:
-> 
->    * We prevent the driver from loading until the script itself is
->      loaded. This has the side effect of preventing any other output to
->      be used until the initramfs is ran at the earliest, and possibly
->      ever if the loader isn't installed for example.
-
-This adds a dependency on user-space behavior and if somehow the
-initramfs doesn't load for a reason we won't have a way to display
-an error.
-
-> 
->    * Or we probe the driver all the time, but only report it as connected
->      once a program has been registered. This is somewhat unconventional,
->      but allows the other outputs to be functional, *and* allows the user
->      to force the output if their panel doesn't require any
->      initialization or during debugging. I chose this solution.
-
-Both options are not really great...
-
-> 
-> - It's not a panel driver, but a bridge one, which is also pretty
->    unconventional. This is required because panel drivers don't have
->    access to a detect callback that is required for the above, but I also
->    think that the recent work from Luca blurs the line from panels and
->    bridges and we'll end up going that road anyway.
-
-On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
-the panel and the DDIC. So being a bridge is fine, but in a general way we lack
-a proper way to describe the display/panel/monitor independently of the DDIC.
-
-At first glance it's a nice driver, but moving the timings into a blob moves something
-into possible proprietary binaries with possible closed licence and distribution
-restriction so it's a downgrade for the same of bringing up a panel faster.
-
-I'll review further and comment.
-
-> 
-> Let me know what you think,
-> Maxime
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 > ---
-> Maxime Ripard (6):
->        dt-bindings: display: Add panel-mipi-dsi-bpf generic panel binding
->        drm/panel: Add generic MIPI-DSI panel driver with BPF init sequences
->        drm/panel: dsi-bpf: Add BPF program build infrastructure and helper header
->        drm/panel: dsi-bpf: Add Raspberry Pi 7-inch panel BPF program
->        drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
->        [DO NOT MERGE] arm64: dts: broadcom: Add Raspberry Pi ILI9881C DSI panel overlays
-> 
->   .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++
->   arch/arm64/boot/dts/broadcom/Makefile              |   8 +
->   .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         |  22 +
->   .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         |  22 +
->   .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  |  65 +++
->   drivers/gpu/drm/panel/Kconfig                      |   3 +
->   drivers/gpu/drm/panel/Makefile                     |   1 +
->   drivers/gpu/drm/panel/bpf/Kconfig                  |  28 ++
->   drivers/gpu/drm/panel/bpf/Makefile                 |  10 +
->   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-core.c    | 452 +++++++++++++++++++++
->   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-kfuncs.c  | 278 +++++++++++++
->   drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi-ops.c | 242 +++++++++++
->   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.c   |   4 +
->   .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.h   | 246 +++++++++++
->   drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi.h     | 264 ++++++++++++
->   drivers/gpu/drm/panel/bpf/progs/Makefile           |  93 +++++
->   .../panel/bpf/progs/Raspberrypi__dsi-5inch.bpf.c   | 266 ++++++++++++
->   .../panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c   | 271 ++++++++++++
->   .../gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h   |  95 +++++
->   19 files changed, 2554 insertions(+)
-> ---
-> base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-> change-id: 20260928-drm-mipi-dsi-panel-ebpf-d78b72a9c47f
-> 
-> Best regards,
-
+Applied, thanks
