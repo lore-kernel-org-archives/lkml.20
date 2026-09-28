@@ -1,94 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A453D413F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9F83DDAF7;
+	Mon, 28 Sep 2026 13:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600705; cv=none; b=lVBr1LbLVpf6jlR48N76zneIcdJtX10sLAFPd31/mk6aRhti465T4iKYLSnbzEL24lcEP26EZhLwJoQYR44Lb+8D9VNW2eRRvWBAPYAW2jE2ZCWpItojBl5WFtpvo2RmLsE1yvAIEk7denSyQbMvmdIPOxa5CwIpKzkChHrUDi0=
+	t=1790600709; cv=none; b=b5FHJQIi6hG5E8CMilMFEVT1lnteGYRFA1krG6PyPd4vVY7SlRpyD/RqCFjQ1hIU/xpm7W2PmbFcI7DUOs3kr6jFqN4qALZJ8DvPdZO5TaUr39u48k5/El0przTZsc/Ub76UvOwmRHHnHfQZ5XjrS1eOutRvsyEvM36Ivgj1bKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600705; c=relaxed/simple;
-	bh=52j8945jlWgUfs7EXbllgzvVcw8lTaTuRBWLQUFKmCM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gc/ATgVX2gOYQn92lo3YDtyDscn4T1piKaWpb2NZRuYfR62ASgSvrNG8/5SixfDnNg98FHpxUqmnlw8s9ItGGxyuetIdEoDrdK3gPQzEbJvtxALs69yOVwx7zH2EEsg3S1WmNqFiaxEIbeg7yPjIFMMGAiq123KyOwvIacklbBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avR42vum; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790600709; c=relaxed/simple;
+	bh=65+7vKuEvhuWFc/lEOTdpPleihYib6cFiBpcE5AQo5U=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/ZZSkYESX45VN2nrGo6w35nae/E0r+Jk4E3+E8zxlkX2MR7uqdbjvXmJ3sOaJi1OzT+H6dJZm8YgN937f3I+laNt85nyq0uGA/w75sib2whJzoF2VMPjvTyuE7OP7IoXtBwpvSp6V8FXm8VHGkw/ICAVYMKCjRAnhiqAm7SvQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vmHxp/Jz; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avR42vum"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2F91F0089F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790600704;
-	bh=auF1PGZG5FeNj0rD11SzUL3le7hplnl5FCbwZHCGXog=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=avR42vummbxAYHr8lyLj8YiH5LjxJQD912LYbEWoe6zyGuvhlgWsSiOrRiLgPwwUY
-	 ikkHL/h23xI+2DyIj97vMtLCXkqayBHl+RmU0mE7zC7nH7UHcHQHtD86gS/hqSyCuW
-	 eGtHCpdL7wqrAtwiweZt6akw6LKRm+xYn6bmxUfw4ORjIZ2L0pKRhpNnEEXmdpVw3R
-	 1hAMFN5LoW/Fs8X54sqGhwYprmdMI8JSE8/0jES9Cs2ekxw1Ut77kIzC793+BKDXFp
-	 eCMKhakENvdXMOxVcymVsYJkylXosRJ/Pr+ZqYxMhilMuXIdf7L5icvUCtVaOoBcNM
-	 Yuh4E7fdGgMYg==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dc50c6eccso168099466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:05:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxTgO32aM9xCoe8LgwG/yKYgtWag0heHr5t5j5+sDO47Uj0Yg8k+6C+rbvpQvzCQmjQux0ZxP190641Dnc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlIfUSUYLGp7enRejn+lupz+tza3LsppBUU+p1q350ITqzyke4
-	YmVvpomxd5j43g+zqwjuLCWb6BvXMk3ADKK3cjKmK60FDQYfzspgzVXxW/v2D46JEKIZ+Z1Q7By
-	GLr0Ow13tSXuhAoW7DnEhEZ6ut0dY/A==
-X-Received: by 2002:a17:907:9616:b0:c29:5d41:dfe8 with SMTP id
- a640c23a62f3a-c2ac25d87efmr1120379466b.43.1790600702883; Mon, 28 Sep 2026
- 06:05:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vmHxp/Jz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790600708; x=1822136708;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=65+7vKuEvhuWFc/lEOTdpPleihYib6cFiBpcE5AQo5U=;
+  b=vmHxp/JzfPy6TPF10/tru6+vygchPGZhUIPvB2639XW1TQivJ1qJHQSC
+   IaMZKYW+YunDwk4auC1ionPeMIEqO8w3hskpL1zZCzEuUaFxRRJnfnqGy
+   nUQAPKVjvlR44HYFQ+v5c/yD0JY7XuHlotUAR9um1wRhH+qPyDUzpZSfJ
+   5Ao+fizIbET6JDOdKksxRL5Mhc91PwO3IsZJcc8S5bM48Ne6EdSkiCRrb
+   25KMTm7yGvcrxMM3749gcxZoA+tjIydf+ugPlTF/gpd6sg+HfQahIPc8k
+   QxozldBjWi9RiX2ApDg2jiKfoCBjdi4d65+f7DpI1lYOgk9YmXBwDdAm1
+   Q==;
+X-CSE-ConnectionGUID: iXTAp/08Sci8x7ZxUFv50w==
+X-CSE-MsgGUID: hNDEykj2RiuvUDcZN6ZVLw==
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="295665390"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Sep 2026 06:04:00 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 28 Sep 2026 06:03:58 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 28 Sep 2026 06:03:56 -0700
+Date: Mon, 28 Sep 2026 15:03:55 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Quentin Freimanis <quentin@q-lab.dev>
+CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
+ Cochran" <richardcochran@gmail.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: sparx5: skip ptp deinit if init was skipped
+Message-ID: <20260928130355.jxs4iqcd6jfoxezp@DEN-DL-M70577>
+References: <20260928044542.29287-1-quentin@q-lab.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924-ti-tps6586x-v4-0-6c7a8fb8b646@gmail.com> <20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com>
-In-Reply-To: <20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 28 Sep 2026 08:04:51 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLhhJYP9yP5i55dvBMUr_jqLr3CUvQrvdt__uYPJVNSHw@mail.gmail.com>
-X-Gm-Features: AclHuK9QEJ4uOQxPljBhZckKlXzAHfCFvrVCDh-aLNseE1t90L9tpQanxTIxWOs
-Message-ID: <CAL_JsqLhhJYP9yP5i55dvBMUr_jqLr3CUvQrvdt__uYPJVNSHw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] regulator: dt-bindings: nvidia,tegra-regulators-coupling:
- Convert to DT schema
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@avionic-design.de>, Lee Jones <lee@kernel.org>, 
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Laxman Dewangan <ldewangan@nvidia.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
-	daniel.baluta@gmail.com, simona.toaca@nxp.com, mfd@lists.linux.dev, 
-	Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260928044542.29287-1-quentin@q-lab.dev>
 
-On Wed, Sep 23, 2026 at 5:04=E2=80=AFPM Bhargav Joshi <j.bhargav.u@gmail.co=
-m> wrote:
->
-> Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
-> Set additionalProperties true as this is shared schema.
->
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------=
----
->  .../nvidia,tegra-regulators-coupling.yaml          | 74 ++++++++++++++++=
-++++++
->  2 files changed, 74 insertions(+), 65 deletions(-)
+Hi Quentin,
 
-[...]
+> sparx5_ptp_init() returns early on the base lan969x variants
+> because they do not have the SPX5_FEATURE_PTP flag. It also returns early
+> when no "ptp" interrupt is described. Unbinding the driver then causes a
+> NULL pointer dereference when cleaning up uninitialized tx_skbs queues:
+> 
+>     Unable to handle kernel NULL pointer dereference at virtual address
+>     0000000000000008
+>     Call trace:
+>     skb_queue_purge_reason+0x68/0x120 (P)
+>     sparx5_ptp_deinit+0x64/0xc0
+>     mchp_sparx5_remove+0x38/0x70
+>     platform_remove+0x20/0x30
+>     device_remove+0x4c/0x80
+> 
+> Before per-port tx_skbs were added, a NULL dereference would have happened
+> when calling ptp_clock_unregister() on the never-registered PTP clocks.
+> 
+> Fix by returning early in sparx5_ptp_deinit() if PTP is not used.
+> 
+> Fixes: 0933bd04047c ("net: sparx5: Add support for ptp clocks")
+> Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
 
-> +examples:
-> +  - |
-> +    pmic {
-> +        regulators {
-> +            core_vdd_reg: core {
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Tested-by: Daniel Machon <daniel.machon@microchip.com>
 
-Drop the example. It is incomplete and is not validated by anything.
+Thanks!
 
-With that,
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
-Rob
+/Daniel
