@@ -1,109 +1,131 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA694ABBCC;
-	Mon, 28 Sep 2026 11:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B258F4B0E22;
+	Mon, 28 Sep 2026 11:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595943; cv=none; b=SkxrcOpOGo5OxbNkeOnqwPOTSX8yRGKSvyvbQxgXKdoCwojNooVCQ828Onb3675vN42OBekjozxg4NqTNRLtGMQ3J1jd2ohGgDKZ3JO4JY+4uS63+yjODxdohD47fbOWZ0Rf/RMuF6UHshYIqA8OTghoafL1340XXoH9udbLPEQ=
+	t=1790595959; cv=none; b=WDCQRF0fmFzhktsNRuSRREcAGLO6nAkwm7kwTUlUicGdJF/UurSq4qBPWxyrqe2mmQJpQ5fHATPkZkwlggiTDBV1yQWJfArBLaePI7EOSGmj104mkL6grt07J/CM4/fXb8lylKfXvilg4fAkftG/QhN9CM/zBKvRjgOo7I9c7hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595943; c=relaxed/simple;
-	bh=e+52jJ9jaL3CmNOBgW6VBGnbc1ROvbMtnuuxRgQ5TcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GQXc6D+J4e2+AKVs83Ik4lXawyVsZGODsY1yY+UxYthI91wtgvhgCg44JbmnJFtmb/zql6a6DPLc33NZyuIMn3QHB1yk7PrwiZJi1R64AJOwd+ZuJ3bxtveVtp61wFXo/RU8HQy07pwIrcuuh1CPgbrHehzoaJlRuoV6jqldOTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=l05XfVCO; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790595959; c=relaxed/simple;
+	bh=xzrXrhwrYA/nGNzNh844W+Q0tLQx5FRyl+iZGxYVkBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mzp9mmrSOf3JESUQGxeyaiD8NxW45PauQ8903fpdqDjfNNTXI1TedABXv4hwZAoz2I/VFvDIw4CcSr+C/CGnfIbQ8PQl6DlHf2XUnSBJuPa3/6f54kqSf0stOOTgQ61nu/ldOSsz2YRF+LDGTuRsAzdaMCp2RhzWiZp4gGl1lMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SV6prVxK; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="l05XfVCO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=z2vdG/ru8rw1Y5ayEWt8P3IH0H9UUvdg+EVu0ifmHCE=; b=l05XfVCOFvsk9DdwzUCAsnavXx
-	PJO1n1k0F9xm4SEFbbmjUhhQK63SKyApZsdpzEY5RB+fpBBNxTJwzqESP6kTSv5J6N66COgaDQcfZ
-	o0vlA5aRL2RjNSwftywHozraCEogY9FOGiCmHQPbXjrbk9P73Qb+mHtufFr9AaJyUtvVcvVuPl+oF
-	QCL4awUXjwwGTDj8p4pR78dQo8TTXtkgvNaFRnNGezTpeQTJSftzaaE4mbq6mGC2fq9L1xID+ApWD
-	amIGNKryYAeC+JWIMu68jQ/jx1AqpLDyEYf8vsE+VRZpZqeabfFmHLR35EJOperLZyUQEOk2RJl91
-	HnYeO3hQ==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9ne-000M8U-33;
-	Mon, 28 Sep 2026 13:45:39 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9nd-0007Qc-1D;
-	Mon, 28 Sep 2026 13:45:38 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Richard Zhu <hongxing.zhu@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof =?utf-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] PCI: imx6: Use dev_err_probe
-Date: Mon, 28 Sep 2026 13:45:36 +0200
-Message-ID: <3441664.44csPzL39Z@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260619112535.1127850-1-alexander.stein@ew.tq-group.com>
-References: <20260619112535.1127850-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SV6prVxK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790595956; x=1822131956;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xzrXrhwrYA/nGNzNh844W+Q0tLQx5FRyl+iZGxYVkBk=;
+  b=SV6prVxKVkhE48Il1vfsC9PMpd8r5j/J7/cpGqSkYq5YNIyS6iX965I3
+   We/cZqII3f7wgW/bto7eJJ27QSTx9ZjmRgz6bkMaCm4tFCtKy/H1fSeEx
+   kiNCwrXx+C0TT3bKE5qzIKzILKPs91iSpvdobQ0bq5fwJEAiQPV13mc1m
+   Q/mZp3xNo4lzeEUFOrWhvQnNNVHcoJFPzdMJh/+6bHDsEf64L/i194GDm
+   ASQ3VZMQqB86CHCwJqSv+DQaK4zmJWMUwm9SFTOK+JwMWm+YnV5IwQPrK
+   cDrVpg+T0XCdHpT9Uc0ULqBbikDBHNZx2WGLH0HXEz0CQSGOJ6YUaQfvH
+   g==;
+X-CSE-ConnectionGUID: E37x8rWRStebksC1RClmVQ==
+X-CSE-MsgGUID: W3mJMpBdQYyY2Hvvng2+6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="94006862"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="94006862"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:45:55 -0700
+X-CSE-ConnectionGUID: 6dylwVTGSwK9zi9Wt0d6nw==
+X-CSE-MsgGUID: q38WUgFKT5qpN1xOcVWNQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="275070954"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa009.jf.intel.com with ESMTP; 28 Sep 2026 04:45:53 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 4A16799; Mon, 28 Sep 2026 13:45:52 +0200 (CEST)
+Date: Mon, 28 Sep 2026 13:45:52 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-usb@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Song Li <songl@zju.edu.cn>
+Subject: Re: [PATCH] usb: typec: ucsi: yoga-c630: unregister EC notifier
+ before UCSI teardown
+Message-ID: <arpTcLdnyuZ83bLs@black.igk.intel.com>
+References: <20260923074828.489562-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923074828.489562-1-fanwu01@zju.edu.cn>
 
-Hi,
+On Wed, Sep 23, 2026 at 07:48:28AM +0000, Fan Wu wrote:
+> Both yoga_c630_ucsi_remove() and the probe error path call
+> ucsi_unregister() while the EC notifier is still registered.
+> ucsi_unregister() frees the connector array, so an EC event (USB, HPD or
+> UCSI) arriving before yoga_c630_ec_unregister_notify() makes
+> yoga_c630_ucsi_notify() run on freed memory: typec_set_orientation() on the
+> freed port and ucsi_connector_change() queuing work in the freed connector
+> array. USB and HPD events do not depend on the UCSI notification-enable
+> state, so the disable command ucsi_unregister() sends to the EC does not
+> close this window.
+> 
+> Fix this by unregistering the EC notifier before ucsi_unregister() in both
+> paths, restoring the teardown ordering from before the error and remove
+> paths were reworked. blocking_notifier_chain_unregister() waits for a
+> running callback, so once it returns the EC interrupt thread can no longer
+> reach the UCSI instance and ucsi_unregister() can tear the connectors down
+> undisturbed.
+> 
+> The callback is also the only external source that requeues the connector
+> work, so the cancel_work_sync() calls in ucsi_unregister() can no longer
+> race with a new connector-change event.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 168c3896f32e ("usb: typec: ucsi: yoga-c630: fix error and remove paths")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Am Freitag, 19. Juni 2026, 13:25:33 CEST schrieb Alexander Stein:
-> pci_pwrctrl_power_on_devices() might return -EPROBE_DEFER resulting in
-> an error message. Use dev_err_probe to silence this non-error message.
->=20
-> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-
-Is there anything missing after receiving Frank's r-b?
-
-Thanks and best regards
-Alexander
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
 > ---
->  drivers/pci/controller/dwc/pci-imx6.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controll=
-er/dwc/pci-imx6.c
-> index 98e1db751132a..b7a502e9a1c59 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1381,7 +1381,7 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
-> =20
->  	ret =3D pci_pwrctrl_power_on_devices(dev);
->  	if (ret) {
-> -		dev_err(dev, "failed to power on pwrctrl devices\n");
-> +		dev_err_probe(dev, ret, "failed to power on pwrctrl devices\n");
->  		goto err_pwrctrl_destroy;
->  	}
-> =20
->=20
+>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
+> index 1be18d1..59738dc 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
+> @@ -296,7 +296,9 @@ static int yoga_c630_ucsi_probe(struct auxiliary_device *adev,
+>  	return 0;
+>  
+>  err_ucsi_unregister:
+> +	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
+>  	ucsi_unregister(uec->ucsi);
+> +	goto err_destroy;
+>  
+>  err_unregister:
+>  	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
+> @@ -311,8 +313,8 @@ static void yoga_c630_ucsi_remove(struct auxiliary_device *adev)
+>  {
+>  	struct yoga_c630_ucsi *uec = auxiliary_get_drvdata(adev);
+>  
+> -	ucsi_unregister(uec->ucsi);
+>  	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
+> +	ucsi_unregister(uec->ucsi);
+>  	ucsi_destroy(uec->ucsi);
+>  }
+>  
 
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
-
+-- 
+heikki
