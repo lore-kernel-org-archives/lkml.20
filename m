@@ -1,123 +1,881 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1426C5013AE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E54D4F68D5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790632497; cv=none; b=JwyHT7PVtifuiGnvrQhtmEkretzQQMkprJpBfS6P3/QYdCh57b6MkT2xLaPRA//7jGpq3p9SsjUruI2j8Sz1CwrFucDySOnaNKBqAmSO8yEAxplYvcK9qJYv3fLFm3znn4n+rRpGWH/I5G39A2Mgf+/yCIYFJY90mv9wZNX/SmE=
+	t=1790632491; cv=none; b=rezYAsQTpnqsF94GXD28leVcw0WOl3YDaeSQuCzvdB9FGwSd79QGJtwZyPViCT35eH3KKPXLWmGprd9FxGkCXaKNYKvzK3ztgbuXzjFUmKJn2nx7N2vLuUooDHFZPD1GcRoZGL2LvXx6w5ka+rCkWQUoEj0okWAuPu3JkZ4OWIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790632497; c=relaxed/simple;
-	bh=jCL4z3TqXM8kEezxfX4y2YEX2K7cxLQC5MpNZiieyno=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=U104WofkbBuiT9rxUNZGWBTsfnqa8QrwTSoqOQOG63dG9BcnfcfgwBNsxOdpaUmbGAj7LsLQ0A0maX7IUnMfyCKeWq59n3JOI9fg4Y9/n39e7Hj+E/EwoFsWaUnsLZAnmi24SnITWPcz77+pG2S4zRINOr4pnBKxVrA+GahNCrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=OKynxuW+; arc=none smtp.client-ip=34.2.90.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="OKynxuW+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790632491; bh=zO5q4LkqU9FGSgnhhTg/0N9HuMtDades8t3AQLFFfCI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=OKynxuW+wBRX9cQ39oE+03ybphcQH6/5yJQ5APWbVQqzHBVrcgW0GHpFgsyxUjT3GrtWjSS9D5fcWSfVN6o81y/bZaj1okZyLSPjKHCbIw8FqYa91tES+OXkUJKU1+9mq0fR4Wvp0H0j2wz7q3lSdveMkFKUWoKBkQD3msmRYw9+stv/Jf9RuGXq6ll4co+OTg6iQwGdBAOTBj1TbdRaT4zflOp7mud9M36myLo+fZI3HQ9BKYCi9SVTzN/DLc12uiIJNDHmf/d1KlT3ye+TbtzDEpWyxtWn8ss6xtC/exzVhrG70UW21Y1UMZzGzij53nUhX6+e3ceu/4O9OoWrUQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790632491; bh=Cnx9IoA8YsoWFYObYmBbbjthH5LUXDOW+qGCM8TIoxZ=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=N1a7LQ7lEQOPCyM6OZIe+7roqdyBk/WSPtOMd59q1Ne3Dhu4L/N4GxejSv/XDKVjR9eCR3baQ7VkgJQKzqgPsodPPnlTdqhxa4nP9xv4OSMxKPbhxFUn5OIQnqAckzsncdRdVWSrlYW2DsO0Q/RNOHqhtoNETn8jqA6Hn26ch3htMje0bR2EtCU0qyYSSJQfqV9uhNwFfLR92IIxxwqQshvbzXOaDG1MoBthevnWpJLQKAKyO/lQ73R5vglxhCFODs/fqUvT86UDxVI/emyv+w4GrafqcCeHQPFlzkoQQ1dggHdumuIEr9uTX/kPYc3Iqw165j0OGQM44IZXCs7nZA==
-X-YMail-OSG: aOYKTKYVM1lcMskE9FR4cSeG_dSVaLo.GDeuGvOcus1mP_A3brvWve7YZFCFoNp
- Rdqps.ILl_LMvoG7IUrbm4ELF6joC2aMObWg6pX1xYCg5mzlFl3.JZ0LWeIN55ntX1lYO4I6gHbS
- iW9SWB3tnA2iA2AtdG8FGxW50Z6AQKWXmbxcgQxGIf_xwl7FyRR.qtAgZOAPFHr1d6mmXMSxmCyq
- P1PT6jpKEqTTcP.BsLV6eWagmMLDahyILVjHkSTS3m8XDMDSDGaCSp4RH9_eTbNpWWQ7zOw8D.Y.
- 9ei0kqN.2xbhurA9uUfV2pF5B81VpbPUjP9MHhwUvJMWwRnfTgXhI_Pl.202VUCsbYin27kB9NwK
- UA07kfLJKTGMd4KKCjk0pcsxaHFXDMDO1pCGU5Pd8avgdmBAWmZtzFbzeG4eAacVJFhJ.S3BSLPJ
- ytPiAi0XwayS0hiGJR4nO_JizMRoNzuRJBzWCk_rCRLINPDGopKAXDclUDWk06hMsK5UoTwsBPik
- I3.3nnvAu5OzttZcte5Uu60zJBsHD8mWHe2kmphDQUG_Fqeo57iexvE2WKi1NfX89NltMwVKPoym
- STERXQDFiLTGiPGQoBGtSTyKpQ94RYqtTyVMrv9wJgglXgwPwSD9dJjfeDPaLqv314Plt69GVHBa
- bDyNlL.TaO0gGOJ4v8V7c_X40QyaoufBSsWXfLTqONkusUEnv7eLOJrwMqYUGjP13stftNCdIOYM
- Mv5oHeb1QzjtUvs.wfMKxxq0wyrFlrqwdJgVdlVlV8YZ.7zN8rOfSJj4n1LRfMQmAdEwwB4W6qS2
- V9yJZkflZDZUROcsek29FqENROpH3tNidji6gntWhhDsHA9hJgGGvL8o1ifUYSMJO3wgrf8B4Ihl
- 7Yg26TFZufNbhRlM3v9mfqfkidPk3wUPh3CDEH5CLUIqA555tT88wI9uDsZxY7ksMUoN3vrGne5l
- 6jeG_c.j.PIqGnaPVhSyLhlYuJ8VdGoAc_uXxuMBGEHTzmZAv_AdVHXkDuuUmK96gyECYRbef6x7
- ih2nKV154lHSgZSK4Rg8ziFmQw_.oYJucTTUirxINr_UfP9kn0VDrSDARUsnqOp6qyJCFreRczvr
- _rNwlftcwkze7GMKlckOnYu_4qRTPv8bWDU.Si5dhSrW8QxKlds0f204cZQp_Ele3S5X3Esa0pWj
- YJOYRL9i6mJqLZfX4rM1tHDples79BSu3CYDGA2aKICFjBE24eeeAw7WDkQi.0kCGBhoJSuCuqiq
- OCAa.85eysZlV.3PX3u94f9tDvPC2VtvJTTnfBvubmv8kfoGneXdJOXYf23KEOOBnkpPHYdbrc0F
- nqZrgRZ_g9ZqI9b1bOX5KG.nrOx.l.VbE1BbUZzzRfmFCdHkJdDw2ZyVcQFVMQbA8FZKl0iNORQX
- qDNA_QaTAwzOOT3JJTx333ALnxtRwp9FGYlDXzMcsDyjEd51xRwZmZfPOE0QeplFRstghx0kWxx6
- e_lRr6vUtFhZseQ2UrdW_jairz0PkBpgIZkOxfJ6Bvq42eJ1kdvmTEf0X_kpLdPn2YnNfGnTlZUf
- _C0Y95cc9VcCNHmejyBsog3fWMr92MKb0njUeAQg4Kf14J.kWBDXizMiJrwIYIjnd8VtmBPk8ENB
- 8gVCWcmuY82OKwUQFLniTczIoxMNepF1v1pZ2LiFNJUclYwYoBad82Ai1TeG99bCKuLN5QGOcTJK
- ODa6j4P_vnfYIYluvryVHqOcoXrlaQTbw94HxZIBZfNhP7l8H3mb3xd8DbLa1o.X1aaJqUvaq5rO
- OCFfOscHpoURrgBODpFjy6Vt5JTaL0i61ReO9BneF.AxXD6Z5qBBpjvr3LgtpQHI3ifg8gj9RuxJ
- Yb1OAQF8yjEJlnoSR3QXKbPNR9tohDwN3PCJocmk93W1mRvae_4Z9Y3cszB7h75W1HD.Rh6LlIfv
- kOKYMqmpRITGsk1PKOkmmyGfu1FGgeXLFwlDOWzrGIpVSZ89nk7aRl9tGTK4ybLmZN606uQD2Ogo
- h700sfyTpO.NN8GbtRfcutDGO9Z3bWiIJi.VuCl1M.cJ9JMdakojlQL8V
-X-Sonic-MF: <m.abubakar365@yahoo.com>
-X-Sonic-ID: 4587f15b-2661-4a40-a739-321f1891aa3a
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-101 with HTTP; Mon, 28 Sep 2026 21:54:51 +0000
-Received: from dip75.lsn.bf1.yahoo.com ([67.195.177.84])
-          by hello (SMTP) with SMTP ID 76ff639862f4e2dcd2f1f2eb210a11ab;
-          Mon, 28 Sep 2026 21:54:45 +0000 (UTC)
-From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	m.abubakar365@yahoo.com
-Subject: [PATCH v4 0/2] iio: pressure: add Sensirion SDP31 driver
-Date: Tue, 29 Sep 2026 02:54:20 +0500
-Message-ID: <20260928215422.3720-1-m.abubakar365@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1790632491; c=relaxed/simple;
+	bh=JL0I9mGCNP1eoe5HY3kKjgnn2k5sgqxkQG0eeUkzPRk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ey8uD5Dv0lS0wW/1eViOV/ukWhOKSiF/RtXdRreArbYV+WJWYK/KVYP7I1lNX+5JJpInnDG7HTRUVoU+uvGMbBCRo/+xTOMS19ouzmqoa+k6SZ8seyb4Vr5kc9wjbuftwg7I8CgjvDljPNsKRslhsSfUPxJj4WlpNbFF8HyMQ+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4eb04c0e1feso1017650b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:54:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790632486; x=1791237286;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AGuWMQVNJkqzybSFtScz87JfUnceIBwo6HsR+SfsLkI=;
+        b=KK6piLeDoatoX6UrlRhhPoR2XAJyPvtFXwMaVGRKcZ8vlYexdBXiE2HLkiz+jsS3Dx
+         HNaP16OkpETOWBJauCZrUb7+g1skTdJN90Es8A7jrsWf/oREa1Hp+fqGRzhwHRWfJCXF
+         1LlEEGjUN0gc/TEW02JbZLwscwDzSSKH3rihcw2mk+jC+A8EiMmAFWPXybYoX8MpCbEY
+         wvOLcbu//yiOQpEhD+Fr4hUfUyy7IhYU30nXZqjhQQW0jpK76owY1aiQAWwTWQzW/EN8
+         isv9aVec8tjzIQNbH0jNZvQIsrtBZTxHdDjYmUeMGOQZRqeYsyTHPW4BlUEgMubgNIUV
+         Q9KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuLjC9WCFEjB5Pu01zJLWhThX16VFzsZc6ZH59PMibnMYWljsIrdV7R39bk+XfxDprtSX3xhldOhyEw4w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwNB4dBETHfng+irjGsBBL/egpwgYxBtRWrR1PRqxdPrdl6GuE
+	1LFHUpnMKmW5APvOwrZxE9Df9Y/tOUMSVDE/yG49zUYJ9QX279QOTBfpDmYR5x2ux8e6W3dcRUU
+	OwajZ03R5C+6l/gdYaqt4FKugUpxOSyai0zhDeXrm/JFQLr8i+94zvt00jFg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20260928215422.3720-1-m.abubakar365.ref@yahoo.com>
+X-Received: by 2002:a05:6808:19a8:b0:4b2:b653:87ff with SMTP id
+ 5614622812f47-4dc57e2ab22mr11846885b6e.7.1790632486246; Mon, 28 Sep 2026
+ 14:54:46 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:54:46 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abae226.69bd487b.a6f8c.000b.GAE@google.com>
+Subject: [syzbot] [usb-storage?] INFO: task hung in usb_stor_scan_dwork
+From: syzbot <syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, stern@rowland.harvard.edu, 
+	syzkaller-bugs@googlegroups.com, usb-storage@lists.one-eyed-alien.net
+Content-Type: text/plain; charset="UTF-8"
 
-This series adds support for the Sensirion SDP3x family of differential
-pressure sensors (SDP31, SDP32 and SDP33), I2C devices that also report
-temperature.
+Hello,
 
-The SDP3x uses a completely different I2C command protocol from the
-already supported SDP500, so extending the sdp500 driver does not make
-sense.
+syzbot found the following issue on:
 
-Patch 1 adds the device tree binding.
-Patch 2 adds the IIO driver, which exposes differential pressure and
-temperature channels and validates each measurement using the sensor's
-CRC-8 checksum. The scale factor is read from the sensor at runtime, so
-the SDP31, SDP32 and SDP33 (which differ only in range) are all supported.
-Tested on an SDP31 wired to the I2C bus of a Raspberry Pi 4.
+HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1185f2c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=30552b4cbe99d6d91306
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12e2a605580000
 
-Changes since v3:
-- dt-bindings: support the whole SDP3x family (sdp31/sdp32/sdp33) and
-  describe the optional interrupt line.
-- driver: for a normal measurement read only the pressure and temperature
-  words (6 bytes); read the scale factor once at probe.
-- driver: add sdp32/sdp33 to the match tables and report the matched part
-  name.
-- driver: add a file header with the datasheet link and drop comments that
-  only restated the code.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/5670fe387ce2/disk-fd179f8a.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/42f36294b5d0/vmlinux-fd179f8a.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ad08d8d69714/bzImage-fd179f8a.xz
 
-v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
-v2: https://lore.kernel.org/linux-iio/20260920164533.31988-1-m.abubakar365@yahoo.com/
-v3: https://lore.kernel.org/linux-iio/20260926154118.5471-1-m.abubakar365@yahoo.com/
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com
 
-Muhammad Abu Bakar (2):
-  dt-bindings: iio: pressure: add Sensirion SDP31
-  iio: pressure: add Sensirion SDP31 driver
+INFO: task kworker/0:0:9 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:0     state:D stack:25984 pid:9     tgid:9     ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable usb_stor_scan_dwork
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task syz.5.17:5894 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.5.17        state:D stack:25856 pid:5894  tgid:5894  ppid:5754   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ device_lock include/linux/device.h:1104 [inline]
+ usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x131/0x160 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ do_int80_emulation+0x198/0x500 arch/x86/entry/syscall_32.c:166
+ asm_int80_emulation+0x1a/0x20 arch/x86/include/asm/idtentry.h:598
+RIP: 0023:0xf71475ab
+RSP: 002b:00000000f752f58c EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 00000000f752f650
+RDX: 0000000000080100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+INFO: task syz.1.18:5895 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.1.18        state:D stack:26728 pid:5895  tgid:5895  ppid:5760   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ device_lock include/linux/device.h:1104 [inline]
+ usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x131/0x160 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ do_int80_emulation+0x198/0x500 arch/x86/entry/syscall_32.c:166
+ asm_int80_emulation+0x1a/0x20 arch/x86/include/asm/idtentry.h:598
+RIP: 0023:0xf71e75ab
+RSP: 002b:00000000f75cf58c EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 00000000f75cf650
+RDX: 0000000000080100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+INFO: task kworker/0:6:5896 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:6     state:D stack:25248 pid:5896  tgid:5896  ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable usb_stor_scan_dwork
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task kworker/0:7:5897 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:7     state:D stack:26632 pid:5897  tgid:5897  ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable usb_stor_scan_dwork
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task syz.3.20:5904 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.3.20        state:D stack:26880 pid:5904  tgid:5904  ppid:5768   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ device_lock include/linux/device.h:1104 [inline]
+ usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x131/0x160 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ do_int80_emulation+0x198/0x500 arch/x86/entry/syscall_32.c:166
+ asm_int80_emulation+0x1a/0x20 arch/x86/include/asm/idtentry.h:598
+RIP: 0023:0xf71275ab
+RSP: 002b:00000000f750f58c EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 00000000f750f650
+RDX: 0000000000080100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+INFO: task syz.2.19:5908 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.2.19        state:D stack:26520 pid:5908  tgid:5908  ppid:5763   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ device_lock include/linux/device.h:1104 [inline]
+ usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x131/0x160 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ do_int80_emulation+0x198/0x500 arch/x86/entry/syscall_32.c:166
+ asm_int80_emulation+0x1a/0x20 arch/x86/include/asm/idtentry.h:598
+RIP: 0023:0xf71775ab
+RSP: 002b:00000000f755f58c EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 00000000f755f650
+RDX: 0000000000080100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+INFO: task syz.4.21:5909 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.4.21        state:D stack:26888 pid:5909  tgid:5909  ppid:5765   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ device_lock include/linux/device.h:1104 [inline]
+ usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1443/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x131/0x160 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ do_int80_emulation+0x198/0x500 arch/x86/entry/syscall_32.c:166
+ asm_int80_emulation+0x1a/0x20 arch/x86/include/asm/idtentry.h:598
+RIP: 0023:0xf71575ab
+RSP: 002b:00000000f753f58c EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 00000000f753f650
+RDX: 0000000000080100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+INFO: task kworker/0:10:5910 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:10    state:D stack:26080 pid:5910  tgid:5910  ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable usb_stor_scan_dwork
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task kworker/0:12:5921 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:12    state:D stack:27616 pid:5921  tgid:5921  ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable usb_stor_scan_dwork
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7376
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings
 
- .../iio/pressure/sensirion,sdp31.yaml         |  48 ++++
- MAINTAINERS                                   |   6 +
- drivers/iio/pressure/Kconfig                  |  11 +
- drivers/iio/pressure/Makefile                 |   1 +
- drivers/iio/pressure/sdp31.c                  | 241 ++++++++++++++++++
- 5 files changed, 307 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
- create mode 100644 drivers/iio/pressure/sdp31.c
+Showing all locks held in the system:
+locks held by kworker/0:0/9: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900000e7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807cf70ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by kworker/0:1/10: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888029f641d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff888029f641d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff888033c871d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff888033c871d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88805b8b51a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88805b8b51a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff888077458ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by pr/ttyS0/16: 2, last CPU#1:
+ #0: ffffffff8ec36538 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
+ #0: ffffffff8ec36538 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
+ #0: ffffffff8ec36538 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x30/0x60 kernel/printk/printk.c:291
+ #1: ffffffff9ad432d8 (&port_lock_key){-.-.}-{3:3}, at: __uart_port_lock_irqsave include/linux/serial_core.h:613 [inline]
+ #1: ffffffff9ad432d8 (&port_lock_key){-.-.}-{3:3}, at: univ8250_console_device_lock+0x67/0xc0 drivers/tty/serial/8250/8250_core.c:413
+locks held by kworker/1:1/30: 3, on CPU#1:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90000a57c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807baa4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by khungtaskd/32: 1, last CPU#0:
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6871
+locks held by kworker/0:2/987: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900049f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900049f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900049f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900049f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88807ef1e1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88807ef1e1d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807fbf81a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807fbf81a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807a670ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by kworker/1:2/1209: 6, on CPU#1:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900052cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900052cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900052cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900052cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888029ecf1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff888029ecf1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff8880358f71d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff8880358f71d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff888029a281a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff888029a281a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807baa4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by klogd/4973: 1, last CPU#0:
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: sock_def_readable+0xae/0x550 net/core/sock.c:3665
+locks held by kworker/0:3/5350: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900036b7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900036b7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900036b7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900036b7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a0371d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a0371d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff8880226b21d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff8880226b21d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807a9631a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807a9631a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807c5c0ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by getty/5376: 2, on CPU#0:
+ #0: ffff888036c240a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
+ #1: ffffc9000322b2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
+locks held by udevd/5694: 4, on CPU#1:
+ #0: ffff888022350bd8 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888032938080 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff888034b781e8 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff888034b781e8 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff8880226b21d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff8880226b21d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by kworker/1:3/5741: 6, on CPU#1:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003977c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003977c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003977c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003977c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a1921d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a1921d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88805c8d61d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88805c8d61d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff888034d4e1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff888034d4e1a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88805cbc0ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by kworker/0:4/5748: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003947c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003947c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003947c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003947c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888029ffa1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff888029ffa1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff8880226b01d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff8880226b01d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807ab941a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807ab941a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807a6d4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by udevd/5759: 4, on CPU#1:
+ #0: ffff888078590ab8 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff88805a616080 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff88807ba07698 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff88807ba07698 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88801dbda1d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88801dbda1d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by udevd/5764: 4, on CPU#0:
+ #0: ffff88807889b3f8 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888071e3bc80 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff8880346ff1e8 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff8880346ff1e8 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff888033c871d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff888033c871d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by udevd/5767: 4, on CPU#1:
+ #0: ffff88807889b1b8 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888071ced480 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff888035707968 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff888035707968 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88807ef1e1d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88807ef1e1d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by kworker/1:4/5833: 6, on CPU#1:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900032a7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900032a7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900032a7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900032a7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a28d1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a28d1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88805b3181d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88805b3181d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88805c8dc1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88805c8dc1a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff888035e30ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by kworker/1:5/5851: 6, on CPU#1:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003237c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003237c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003237c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003237c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a1d01d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a1d01d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88807e53b1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88807e53b1d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807b7eb1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807b7eb1a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88805cbc4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by kworker/1:7/5880: 3, on CPU#1:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003177c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003177c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003177c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003177c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888035e30ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by syz.5.17/5894: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.1.18/5895: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by kworker/0:6/5896: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003167c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003167c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003167c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003167c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807c5c0ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by kworker/0:7/5897: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003157c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003157c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003157c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003157c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807a670ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by syz.3.20/5904: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by kworker/0:8/5905: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003647c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003647c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003647c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003647c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a06e1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a06e1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88807e03b1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88807e03b1d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807ab921a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807ab921a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807cf70ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by udevd/5907: 4, on CPU#0:
+ #0: ffff888078590518 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff8880339f4480 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff888034b42d28 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff888034b42d28 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88807e03b1d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88807e03b1d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by syz.2.19/5908: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.4.21/5909: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by kworker/0:10/5910: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003607c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003607c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003607c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003607c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888077458ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by kworker/0:12/5921: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003117c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003117c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003117c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003117c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807a6d4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by kworker/0:13/5922: 6, on CPU#0:
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880222ad540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900020dfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900020dfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900020dfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900020dfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88802a2071d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802a2071d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88801dbda1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88801dbda1d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #4: ffff88807e5901a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807e5901a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+ #5: ffff88807d604ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: ene_ub6250_probe+0x34e/0x5f0 drivers/usb/storage/ene_ub6250.c:2360
+locks held by udevd/5937: 4, on CPU#0:
+ #0: ffff88807d3e6098 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888057349880 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff8880580d8878 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff8880580d8878 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff8880358f71d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff8880358f71d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by udevd/5941: 4, on CPU#1:
+ #0: ffff88807b687758 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff88805b777c80 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff8880299a4e18 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff8880299a4e18 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88807e53b1d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88807e53b1d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by kworker/0:16/6014: 3, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900033d7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900033d7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900033d7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900033d7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807d604ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by syz.8.24/6016: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.0.26/6017: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.9.25/6024: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by udevd/6025: 4, on CPU#1:
+ #0: ffff88802a0e2098 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888073d95080 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff888029cb2b48 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff888029cb2b48 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88805b3181d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88805b3181d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by syz.7.23/6026: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by udevd/6027: 4, on CPU#1:
+ #0: ffff888032a21f38 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xa4/0xca0 fs/seq_file.c:183
+ #1: ffff888032ad9080 (&of->mutex#2){+.+.}-{4:4}, at: kernfs_seq_start+0x5d/0x420 fs/kernfs/file.c:165
+ #2: ffff8880747fd878 (kn->active#30){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff8880747fd878 (kn->active#30){.+.+}-{0:0}, at: kernfs_seq_start+0xb2/0x420 fs/kernfs/file.c:166
+ #3: ffff88805c8d61d8 (&dev->mutex){....}-{4:4}, at: device_lock_interruptible include/linux/device.h:1109 [inline]
+ #3: ffff88805c8d61d8 (&dev->mutex){....}-{4:4}, at: manufacturer_show+0x26/0xa0 drivers/usb/core/sysfs.c:142
+locks held by syz.6.22/6029: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by kworker/1:11/6041: 3, on CPU#1:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003ec7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003ec7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003ec7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003ec7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88805cbc0ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by kworker/1:12/6042: 3, on CPU#1:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90003ed7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003ed7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003ed7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90003ed7c40 ((work_completion)(&(&us->scan_dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88805cbc4ef0 (&us_interface_key[i]){+.+.}-{4:4}, at: usb_stor_scan_dwork+0xec/0x2c0 drivers/usb/storage/usb.c:987
+locks held by syz.5.27/6115: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.2.29/6129: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.1.28/6130: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.3.30/6131: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.4.31/6132: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.8.32/6191: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.6.33/6202: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.7.34/6221: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.0.36/6222: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.9.35/6223: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.5.37/6240: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.2.38/6261: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.3.40/6307: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.1.39/6308: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.4.41/6309: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.8.42/6327: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.6.43/6344: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.9.46/6418: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by kworker/u8:8/6424: 4, last CPU#0:
+ #0: ffff8880297a5140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880297a5140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880297a5140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880297a5140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900057afc40 ((work_completion)(&(&forw_packet_aggr->delayed_work)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900057afc40 ((work_completion)(&(&forw_packet_aggr->delayed_work)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900057afc40 ((work_completion)(&(&forw_packet_aggr->delayed_work)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900057afc40 ((work_completion)(&(&forw_packet_aggr->delayed_work)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88805ab4e9c8 (&hard_iface->bat_iv.ogm_buff_mutex){+.+.}-{4:4}, at: batadv_iv_ogm_schedule+0xd4/0xfc0 net/batman-adv/bat_iv_ogm.c:1010
+ #3: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #3: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #3: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: batadv_iv_ogm_slide_own_bcast_window net/batman-adv/bat_iv_ogm.c:870 [inline]
+ #3: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: batadv_iv_ogm_schedule_buff net/batman-adv/bat_iv_ogm.c:949 [inline]
+ #3: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: batadv_iv_ogm_schedule+0x41f/0xfc0 net/batman-adv/bat_iv_ogm.c:1011
+locks held by syz.0.45/6425: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.7.44/6426: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.5.47/6433: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz.2.48/6434: 1, on CPU#1:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz-executor/6460: 1, last CPU#0:
+ #0: ffffffff8eeac770 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
+ #0: ffffffff8eeac770 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_read_lock+0x27/0x60 include/linux/srcu.h:305
+locks held by syz-executor/6462: 2, on CPU#0:
+ #0: ffffffff907aa7b0 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff907aa7b0 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff907aa7b0 (&ops->srcu#2){.+.+}-{0:0}, at: rtnl_link_ops_get+0x23/0x250 net/core/rtnetlink.c:595
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_lock net/core/rtnetlink.c:80 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_nets_lock net/core/rtnetlink.c:366 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_newlink+0xc10/0x1c30 net/core/rtnetlink.c:4219
+locks held by syz.1.49/6464: 1, on CPU#0:
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #0: ffff88802a0ac1d8 (&dev->mutex){....}-{4:4}, at: usbdev_open+0x151/0x770 drivers/usb/core/devio.c:1054
+locks held by syz-executor/6468: 2, on CPU#1:
+ #0: ffffffff8f9bbbe8 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8f9bbbe8 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8f9bbbe8 (&ops->srcu#2){.+.+}-{0:0}, at: rtnl_link_ops_get+0x23/0x250 net/core/rtnetlink.c:595
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_lock net/core/rtnetlink.c:80 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_nets_lock net/core/rtnetlink.c:366 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_newlink+0xc10/0x1c30 net/core/rtnetlink.c:4219
+locks held by syz-executor/6487: 2, last CPU#0:
+ #0: ffffffff907aae78 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff907aae78 (&ops->srcu#2){.+.+}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff907aae78 (&ops->srcu#2){.+.+}-{0:0}, at: rtnl_link_ops_get+0x23/0x250 net/core/rtnetlink.c:595
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_lock net/core/rtnetlink.c:80 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_nets_lock net/core/rtnetlink.c:366 [inline]
+ #1: ffffffff90254e00 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_newlink+0xc10/0x1c30 net/core/rtnetlink.c:4219
 
--- 
-2.43.0
+=============================================
 
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 32 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name:
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
