@@ -1,179 +1,292 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C7848FF63
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E5A489889
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588315; cv=pass; b=ePPhyNlGBhvGGaesCIguqAT7PNMWrV266l2Dj+Xy0Ek3fWtivhvSQ5fIEZipU0pio3q0QqTqkWuO1FpHr+k4AfiAJZUV4WXCyHttn61/FwtGyKQaJErlLKOjHpDzAIWd+Z/vVxMDYLnG6OdYXYv5bPh1NLPqJWjzB8jMBJGaxWw=
+	t=1790588326; cv=pass; b=Eubg5ypLzT4dduFUexBbNfCoTcuaON01I6UaZ5rsS+W21Qw5OenCWwq1MWTP4CtyTeV8jYsNIvxVzPawUOEsjItbF9rvsZ7IxRH39pPpB51ZbWYhZA1ulfPmIrhbrgXtZPmdnqrRvVBreSbdkkTYhsHael8buMQs8uwo3ZCo8xM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588315; c=relaxed/simple;
-	bh=/RX3rQHRs9PtVs0cxd9dcGbugZQcOH3eLVd4N7Lge0M=;
+	s=arc-20240116; t=1790588326; c=relaxed/simple;
+	bh=gb6048TDzYlgycuIW+LHs5ZmNznTudpMWjLZxgLAZuo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jUkaZRVjLfTM9v+7ermmMoBQ8OLdtPz2lhTTJNbWkMFem75BVmkJPOLFA8Qy1SWhIiTejxZP4Yuj6G1HoYGg2XmCQCBtZuuvILhcS3a4wNR0jnRdlM7VK5WZQ1QrW4OiWxfWWcEhS8zYd8x5sPBH6eu5b0o5xk7frWmiZS8gEOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kwJD3Va0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bxj/cd3e; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=GZTLljbae9gqAYGW+qLJm4YZOolxxY8sMbv/W2kq3HE/TglNn4NyQr5hGjQmROc4K6oWLBwVfrAtfM2I3Bm/ewG1l6KP+VuZnLbPAm7FvlPHtNllScpC/C+017TJLVIYsCs/lS+0STVQYhhAlOTASPuIJV1LTwjE1BfNQ0We0D0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g1gMmZZ0; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kwJD3Va0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bxj/cd3e"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9M9iU322594
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:38:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=BPiJa4wM+ql2ke3koOa4WOH6
-	Ghoz+qC0PRzupT+f3yw=; b=kwJD3Va0p6p5enT0D3F3QW2FS+/bFJnN68ccCr9W
-	Q+1+DSMYW14B0hTklTg+c6mDONXWr4OqWLfUVM8argAU8VcezIUI0s5s3ABCtsgP
-	bl2b++U5ziLih/EyXrczhdYME3yJAb1iAzf0tOm6U6Vrrt/v5kqqgIrh4z/X8N92
-	RUqjIOBDLzA+opLFdf14PxwCBCBAkHw4grj7VjPBka3UBeqJUZV9QKgoI7KIWfl6
-	E8hOANSrM3RyFLSDLlmvArez18dtXrYQMLjF6JlKY1Qk3pxWwKjs/1t4A9KeERzC
-	Jxh1k2i9CWC1SbHAz60ALxd2Pl8gJ5wdQdfHLrQfnSlppg==
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq1gwg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:38:32 +0000 (GMT)
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-88322409239so39299967b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:38:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790588312; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g1gMmZZ0"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so3292278a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:38:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790588322; cv=none;
         d=google.com; s=arc-20260327;
-        b=T5tyyZQp72log4JrCY/a1mamn0PVXzXL42c2L2nY2d4PBxMz262f9s52lgfj94BKqm
-         +1PtyfTgbddovPZIyDgeZiStI1skHbt8k5pQ/KpRH2k8WmAkWooKSiBT4o2o5nLZIuS9
-         A0UstRIle0OHD9G4T3d+f3ORumklk0yCAH/I6/Ds0u96EqQT6HbOYc6IFxuOipNtirZK
-         5Ctp6QQl1kklFlGUStalFkIo4P0Dtuag339m3cJRbWl2x7WZKWXLWnYaZRBVmie66Iwp
-         2tsBaHaa6XoS7RCxM/+auHGYaFyFc4jkIHpTFJvj6WwOobF3+e9+vXHVFcGmZHwX7T78
-         TmQg==
+        b=XcAe0DBUl+9BGtWauieHxl76zkNNDuC7Wyyzm/cCI1e4khC+2NsMQUyp8+QXNTzB0h
+         LZcjG5x1NqcVRrJOoP+Rnm0Q0/Tn5IlBOwaOH6dO/eO008T+hrR9/cfNDQeEOATIErjo
+         wvmeAfucelynWyS2fUZl5ma5DFMVJqb1DNvMEg2y+BIK8Y0pK0dwUQv0qwI0k0KCdUPt
+         a0hbkSiozLuxI0onyHHY5xrLWagZFDQrQVIrF2IG0h0wNB6pzHJab4IPBcSf5eJj9o7e
+         l1vL1x0GhABxI9+CAfRZ6PdM1CH0Sa8F/scWKvijFRRHv2cWua3DZLUpLZ9UUVN+go69
+         cuow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=BPiJa4wM+ql2ke3koOa4WOH6Ghoz+qC0PRzupT+f3yw=;
-        fh=O0n5Bgdi2UOAkHVCmX0Ki31vg9b38StdEdzFbE9Uxls=;
-        b=Rv7fJMVan1hf1JrRgM7jNWx6sD31h69TKu7p23mMeQHMwx3chNT/0ihpZmmGd7N2Cm
-         QLdOnLbGW9oboAFv67Nk55iDBtWVaTKNUuemGWiczP1hc0Ci0ow7isOoV7sA/gGQu9Or
-         ID3Hw+aP+b0sUVmdsXInvg8JZ70g1nuRjS268kpZTSbyFpKLtsQz0HGjDRGW7Ho81EYg
-         hn6F6WPTcx7S7cJxGH5GE/GZNbd/LN9EVXoU4ZY1PujSTpg94Gg63EYvMhMKpdwSsFzO
-         YjcQ9Bpzy7sKPTqwBwcCPxxmyf27LuslxYfFdfWOEkVkemax3AhoEJgKpcfwrsSeVBoc
-         3b2g==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hKDPUtqRH0gCyeriwhHpNabxiyuB4wCzvkW0lk6SNbg=;
+        fh=VKq7lFwFgUHFhGPxxMkiNCGS0EJc8oI6isBO8gWFwE0=;
+        b=cVTwwvIHyn5ZGWunU0aUttxJbdMdixJtEUtF0VKKBOiwbYhaiYXe242iFahCafl9r9
+         Uy8hRV8NiqnSwBYKfVqqUa5W7fmtbfuJeekxhL06aoT9q99CUUZaOQDnB0gBiyObhPz2
+         JrBJn2rDKwYMChPTDm+i5XJMjmFg31xJCXDDIENZcXo213tau9Alfjdy/o0Fg0Q4kbUW
+         H555cOqFYRCtAbYXJczvmyRfQhpuGK83XC3Lg9w55Fh3Tazt4jAlYB2bSiZd2fPBisYm
+         DJMjhH6dRceHbG283rzwAQ738YHyYg0YPp5Er+78k0IAKlf7w58Ddcn0VBAj4AYe5gJx
+         LZ2Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790588312; x=1791193112; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BPiJa4wM+ql2ke3koOa4WOH6Ghoz+qC0PRzupT+f3yw=;
-        b=Bxj/cd3e11QO/RButch5Czc30+iQc4YBze6Xa1XufUwLBohcfiocW1+Cd3JCwDjMbs
-         XTiKKrase7Efj5wCi1irQgSaKEttPeLRnDDz9wBZf8N/tYj2psfr98BwWCralCECJ9eG
-         i+yzTF39+OjyG0IBDYZokRVXf25OzXVZXQk9xGqRC19bsRlUrdt4e7KDCShZHo6oE+4N
-         CqX7SYu0C0yJ0AsihW/SaLq/mba4+x56sh0DxlsATAI16yrsJbF2vvUqHKgQsGgkxuf8
-         4F7aaEkkY/8mgK8A0PU9POFp9zC61JVXLY4cuvr+v6WpIfOLjseg+diAnqumiOHNFLjU
-         dkEQ==
+        d=gmail.com; s=20251104; t=1790588322; x=1791193122; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hKDPUtqRH0gCyeriwhHpNabxiyuB4wCzvkW0lk6SNbg=;
+        b=g1gMmZZ0CSMxiEmpNtJwcyO8y7TxMBgQk5+V3AL5gGDdT720hAXgp69f15UyC2KSUg
+         D4L0Uk8xiptJ1xjpi80ksAOamOCsQqpqpB5yaRsbHmr4baznpRIGVD0S0M62rZn1rgv1
+         IZQqY+hg7CULmw99YA8ODSORJnRPhoUI8Cq6AjYpbUKPNjJrBbs6Ex+8L1+8QAmHluHI
+         uFI7EHD20AE/lQlTzfqeKVoUjFqmxvxsXeODOEURcVq1TCpA7kxf0ZM5jxdKEPadNSDe
+         hWf5jeayxlRLeabZljZmElcdVrw+jYy8q1QJuJ/TXnFLS51797y4H5p6KNZWYf7hZFkI
+         w3Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588312; x=1791193112;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BPiJa4wM+ql2ke3koOa4WOH6Ghoz+qC0PRzupT+f3yw=;
-        b=cRbGk8hkI8akYG4ErAT03VHQdsrwksqLv+6xrhiGz2V4UlS3teL/LdwHDVUOftx91+
-         kZYdLLmE7zm5PsIXqNT/KHzorIGhtdM0N6WUyvLr7eOpAmlRoToD7QTaNFmycUIFv0Iv
-         ehZPf+jcgDF560jDt2GoWoDVBFpRWprs3g+VgqaZ1g+ufAqE2a4Vu8t/iT6kS9S8PiJd
-         GOPYcQZ0/doI6vy+uZXuBZ9YGVa8XeG3k7ldHf4JEmpnlzIzJx0qvU+y5NLfBFxBPVQ8
-         x3VF2nSssp5NTII//6Wcf25yNy7YG4hIdU4uLkCM5SIz+E2t8O96eSienPPNbWjbr8PP
-         RWEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTo1nGEWiswJUMNH/CDYwRGbx/dnsgXKZfGTWQHXYj/YkFSWK6eLjPvGmPCxK6i8ieGvziEOXYa3GHtZ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQQBVQV5+HJDV4mpMQOm6baplnU3KnLntYvRVqFZ0G7YcG8dmv
-	lvw169FEGy7LtpYiby9pBy7LaxJwuS0pQX1pcA1hRUx0OcU9YbrXb20oN7kN7KN5bPzzs+znJVm
-	SHRJDjT0NLzkEmpZ25Ar/otEPrQf/ojr1BrwpPDj45puwmFC6sTILfExOFbzA23EeT0wOh0FuTZ
-	TRKpopXsMaaJSdad3BAkuuKdqsvDAbKFaLbVKwNuHUuw==
-X-Gm-Gg: AYBFou03lLHtDdL29rrDT/dyUU1WQ6PB42oEx5Gydgi+48iyqRuVejYWTyvytxILNO0
-	VShWIN78cGO5zfhPqelMd/b7L8cSVvZbvwOfmq5NHGDKy+fe4mtfkFL6HxK3fyHh0lP8vqgHgZu
-	My6kdI3GHzag90350uNMA3ZHbcv3wQTXutFJkyUUM4Jb7tL9D/St/SpT0/rxw=
-X-Received: by 2002:a05:690c:92:b0:89a:63da:cbe3 with SMTP id 00721157ae682-8a649f6fd99mr67447637b3.41.1790588311732;
-        Mon, 28 Sep 2026 02:38:31 -0700 (PDT)
-X-Received: by 2002:a05:690c:92:b0:89a:63da:cbe3 with SMTP id
- 00721157ae682-8a649f6fd99mr67447477b3.41.1790588311305; Mon, 28 Sep 2026
- 02:38:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790588322; x=1791193122;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hKDPUtqRH0gCyeriwhHpNabxiyuB4wCzvkW0lk6SNbg=;
+        b=tPzzlBq/33tm3Uv/pimL3CXimM2UUW0aoqTc98J2DRgFpbAdgv6qBmwIVRCqo7CSn+
+         i4G6alJ9XC7COf/cvHZLEpPjlSbWu9iNyPYjmVrlXXC4Ni/KGdS/d47lQ09vCz0r6EkU
+         ZJA8GGHuhKDdmffXIDTwEWlplp5XgPiNQbgnjaw5f5a9shNK9Io7F6O23osVAdCqeVq/
+         M8nh8AejIXoYguE5YZDt5wGcD20vLISVGKnZfE/IpN74g4zshZ7AJRbgQ+qpiwiWMgr0
+         mqlsvWm21eIM9QKgbSLsWiNy/46QRYuNbebxG9dfwjSk3jyskkOU8d90Pa8+hmPYGW2W
+         VApw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBaAe33WrpCFA1znyuMDgUCtkiUuUjAOgSbuOSKXoV0Or3EsbOemuYi8f4rhfnGVh2s6TnNBYm6KJ7rJg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx/jN0T1CiibhNPwLLx0KV43JACaKBUOWyq7X/l0pmWztHsBVC
+	wJCGMJNfkUqfjjIbsWKRaOXz5zDG7WaXUDiWdxuj5G5gflUXrsontARYYgr7+2iXRKkfg3gmZGC
+	+bq2scIqrkoHOHcO+Gcclf+d0BGOoDsuj51MyeFY=
+X-Gm-Gg: AYBFou0ZSVJt6ixRru2FpIygdlElSVaoSEzc4nAcUTViLHS3UoRkuGHd0T8IulcyTxI
+	qlh29//HZIWwOAcinfCwGodvE3qKDLu9hmqEsJAcoy+6J/9+D24Q+RgfoJ06EzllEtOl0vmqFoP
+	WG9moZ7u+cA53k2nKXAP5/tA7SADSOL5Km7oaaBG78yr24SUL5UHiVULb4nyQCxIyEXHUS7Goa2
+	ycLzaPa9+YGDkIhh/NhxWUethskouPKR7NlTxn4bJb+f3YWestLMacyh+KThvGfudUvwaAq0Xhp
+	21AGg8HypSeKWChZKZn0b9Fc8yHSHtu7SUTXWnANBm9NIIt+TnEEhM2i
+X-Received: by 2002:a05:6402:2112:b0:6ac:73f8:2e5a with SMTP id
+ 4fb4d7f45d1cf-6ac73f831f7mr2844331a12.41.1790588321442; Mon, 28 Sep 2026
+ 02:38:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
- <20260923-b4-qaif-shikra-audio-v7-4-d5b6f056568e@oss.qualcomm.com> <arOe2yA4KOvhYqRb@sirena.co.uk>
-In-Reply-To: <arOe2yA4KOvhYqRb@sirena.co.uk>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 15:08:19 +0530
-X-Gm-Features: AclHuK8ozZ4LOVya0q4te54vm9li9qjkifPcUO5lK9UE0weRjOvI69Wxbge_Uuk
-Message-ID: <CAC-tS8ASR899SH45=mbr+8z6xcOBoRgYJWXfXXER9CUXdYCOrw@mail.gmail.com>
-Subject: Re: [PATCH v7 04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT
- parsing and platform init
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260927141437.1432584-1-russ@har.mn> <20260928014357.2285448-1-russ@har.mn>
+In-Reply-To: <20260928014357.2285448-1-russ@har.mn>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 28 Sep 2026 11:38:30 +0200
+X-Gm-Features: AclHuK_FhmfwqFXI5b-5yRrCn8vRB0dEKaDQXuuiyccQhL2aHv2Nq8mRUxiiswc
+Message-ID: <CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
+Subject: Re: [PATCH v2] fuse: add inode generation number support
+To: Russell Harmon <russ@har.mn>
+Cc: miklos@szeredi.hu, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, fuse-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bernd Schubert <bernd@bsbernd.com>, 
+	Luis Henriques <luis@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-ORIG-GUID: meJp9NvPUs7F5EMoiIeY_r5IEJ9Imw8M
-X-Proofpoint-GUID: meJp9NvPUs7F5EMoiIeY_r5IEJ9Imw8M
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzOCBTYWx0ZWRfX3+P374iXRA2t
- 8kZ0cHn6kS3TRQNPTXTsfVj8s38IYkqtrD4jLEyFInW1Ppo4at8Nd55W6iEJ/oxuhVZZ3bqB7qd
- XwMUfAnj9jVEHYvXmCPowGUiDZK3SY8=
-X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba3598 cx=c_pps
- a=g1v0Z557R90hA0UpD/5Yag==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=RlkvObwyMWO3Bv68wiAA:9 a=QEXdDO2ut3YA:10
- a=MFSWADHSvvjO3QEy5MdX:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzOCBTYWx0ZWRfX7lnP2bDekQmC
- lsA2E34olKCsps5+vOwWFEC8Idhqvx93jQSYPGXVazc5/mrOnYfmJje/A/B3ROApGmZlecnSqVr
- 8s6phBoGuQpqVYwVxSQHONnRFl4+wGGw/Q7earMb/DufakiZLzVPzm6TyPCnEurO/sHlSLtKjMc
- tShz1dlThTeEul+unRTFRtC9e7AHA47ZJ5nFh6I49E/X+HgRII9gyjETd4dCXw/tXo+UdGwJ162
- NNV+KkzsUpTdk1BvlqgSQTtV52AECt6nfNwgjuDvoBz8Sf+8yJxN2ksVH9dsYmvaucJFMlitIEB
- Xkupfq3j+AWWIFCyv0QFObKL3Gswr7/f+5/OXBQu1Nhhgq07Im82alYv5X0HNB07o7UjANeot8D
- 5KVEhL715Exb2WoPat9qlIADTWIuVsznjPlnjt5Rq8RAjgpfOHH/K682lERHl0Fjr1hQDtwmnJ8
- /KLoKfUSXMusN/6pSrw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280038
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Sep 28, 2026 at 3:44=E2=80=AFAM Russell Harmon <russ@har.mn> wrote:
+>
+> This patch adds support for propagating the inode generation number from
+> the FUSE server to the kernel.
+
+Incomplete statement.
+Without the mention of GETATTR/SETATTR this is a misleading statement.
+
+> This is useful for exporting FUSE
+> filesystems over NFS, where the generation number is used to detect
+> stale file handles (ESTALE) when inodes are recycled.
+
+How exactly does it help?
+I am not trying to troll you, I am really curious. how?
+
+Context: I have been trying to improve FUSE NFS export support for a while
+I have built a library that provides reliable NFS export for FUSE passthrou=
+gh fs
+for specific backing file system types [1].
+
+[1] https://github.com/amir73il/libfuse/tree/libfuse_passthrough/passthroug=
+h
+
+It is broadly understood that real NFS export support requires extending th=
+e
+FUSE protocol to identify objects using file handles and Luis has
+already started
+with this work [2]
+
+[2] https://lore.kernel.org/linux-fsdevel/20260225112439.27276-1-luis@igali=
+a.com/
+
+So my question is, what does adding generation id to GETATTR/SETATTR
+improve for FUSE filesystem writers that wish to export their filesystem to=
+ NFS?
 
 >
-> > +     /*
-> > +      * The sync, lane and frame configuration and the MI2S bit clock are
-> > +      * shared by both directions of an AIF. Concurrent playback and
-> > +      * capture on the same interface are therefore expected to use a
-> > +      * compatible format, rate and slot configuration.
-> > +      */
+> Key changes:
+> - Bump FUSE protocol version to 7.47.
+> - Repurpose the unused `dummy` field in `struct fuse_attr_out` as
+>   `generation`.
+> - Add a `FUSE_ATTR_GENERATION` INIT flag with which the filesystem opts
+>   into the kernel consuming that field. Gating on the protocol minor
+>   version alone would break existing filesystems: the minor version only
+>   reflects the library, not whether the individual filesystem fills the
+>   field, and a zero there would look like a generation change for any
+>   filesystem that reports nonzero generations in LOOKUP.
+> - Update `fuse_change_attributes` and related functions to accept and set
+>   `inode->i_generation`.
+> - Populate `i_generation` from `LOOKUP`, `GETATTR`, and `READDIRPLUS`
+>   responses.
+> - Detect nodeid recycling on `GETATTR` and `SETATTR` responses via
+>   `fuse_stale_inode()`, the same check already used by the `LOOKUP` and
+>   `READDIRPLUS` paths, and mark the inode bad (EIO) instead of merging
+>   the recycled file's attributes into the existing, possibly still-open,
+>   inode.
+> - Update `fuse_get_dentry` to validate the generation number against the
+>   file handle, returning ESTALE on mismatch.
+> - Maintain backward compatibility: without `FUSE_ATTR_GENERATION` the
+>   generation field in attr replies is ignored.
 >
-> What enforces this?
-Both directions share the bit clock and slot width, so rate and sample
-bits must match on concurrent streams. Would adding symmetric_rate and
-symmetric_sample_bits to the AIF DAI entries work?
+> Verification:
+> Tested with a QEMU harness in fuse-generation-qemu against a patched
+> libfuse (FUSE_CAP_ATTR_GENERATION, fuse_reply_attr_with_generation) and
+> its passthrough_ll example reporting real backing-filesystem generation
+> numbers. The suite verifies that:
+> 1.  The generation from `LOOKUP` reaches `name_to_handle_at()` file
+>     handles and matches the backing filesystem's FS_IOC_GETVERSION.
+> 2.  `open_by_handle_at()` succeeds for a valid handle and fails with
+>     ESTALE for a handle whose generation does not match, both while the
+>     inode is cached and after cache eviction.
 
+1 and 2 should work on upstream FUSE right?
+This is something worth mentioning.
 
-> > +             case SND_SOC_DAIFMT_I2S:
-> > +                     cfg->sync_mode = QAIF_AIF_SYNC_MODE_LONG;
-> > +                     cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
-> > +                     cfg->invert_sync = true;
-> > +                     break;
+> 3.  When a `GETATTR` reply reports a new generation for a cached inode
+>     (inode recycling), the kernel marks the inode bad: fstat() on an
+>     open fd fails with EIO, while a fresh path lookup recovers and
+>     pre-recycling file handles fail with ESTALE.
+
+How did the inode recycle happen with passtrhough_ll which keeps
+open fds for fuse inodes?
+Something is missing from this test report.
+If you just used a mock filesystem which makes no sense in the real world
+then the value of this change is questionable.
+
 >
-> Does this line up with the clock inversion in set_fmt()?
-invert_sync for I2S is set at probe via DT parse but the INV_MASK
-switch in set_fmt() could incorrectly clear it. Will fix it in the
-next version.
--Harendra
+> Signed-off-by: Russell Harmon <russ@har.mn>
+> Assisted-by: Gemini:gemini-3.1
+> ---
+> v2:
+> - Bump FUSE_KERNEL_MINOR_VERSION to 47 to match the new 7.47 changelog
+>   entry (v1 added the entry but left the minor at 46).
+>
+> v1: https://lore.kernel.org/all/20260927141437.1432584-1-russ@har.mn/
+>
+>  Documentation/filesystems/fuse/fuse.rst | 32 +++++++++++++++++++++++++
+>  fs/fuse/dir.c                           | 21 +++++++++++-----
+>  fs/fuse/fuse_i.h                        | 10 ++++++--
+>  fs/fuse/inode.c                         | 23 ++++++++++++------
+>  fs/fuse/readdir.c                       |  2 +-
+>  include/uapi/linux/fuse.h               | 11 +++++++--
+>  6 files changed, 81 insertions(+), 18 deletions(-)
+>
+> diff --git a/Documentation/filesystems/fuse/fuse.rst b/Documentation/file=
+systems/fuse/fuse.rst
+> index 0fbd5a03fdc9..f67bc9fc6316 100644
+> --- a/Documentation/filesystems/fuse/fuse.rst
+> +++ b/Documentation/filesystems/fuse/fuse.rst
+> @@ -49,6 +49,38 @@ using the sftp protocol.
+>  The userspace library and utilities are available from the
+>  `FUSE homepage: <https://github.com/libfuse/>`_
+>
+> +NFS export support
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +FUSE filesystems can be exported via NFS if the filesystem daemon suppor=
+ts it.
+> +For reliable NFS export, the filesystem should provide a unique inode
+> +generation number for each inode. This generation number is used by the
+> +NFS server to distinguish between different file instances that may
+> +share the same inode number (e.g. after an inode number is reused).
+> +
+> +The inode generation number is provided by the filesystem daemon in the
+> +following messages:
+> +
+> +- `FUSE_LOOKUP`
+> +- `FUSE_GETATTR` (see below)
+> +- `FUSE_SETATTR` (see below)
+> +- `FUSE_READDIRPLUS`
+> +- `FUSE_CREATE` / `FUSE_TMPFILE` / `FUSE_MKNOD` / `FUSE_MKDIR` / `FUSE_S=
+YMLINK` / `FUSE_LINK`
+> +
+> +A daemon that keeps the generation number in its `FUSE_GETATTR` and
+> +`FUSE_SETATTR` replies (the `generation` field of `fuse_attr_out`,
+> +protocol 7.46) must announce this by setting `FUSE_ATTR_GENERATION` in
+> +its `FUSE_INIT` reply flags. When the flag is negotiated, the kernel
+> +compares the generation in every getattr/setattr reply against the
+> +cached inode: a mismatch means the daemon has reused the node ID for a
+> +different file, and the cached inode is marked bad (subsequent
+> +operations on it fail with EIO). Without the flag, the field is ignored
+> +and the generation is only taken from lookup-type replies, preserving
+> +the behavior of existing filesystems.
+> +
+> +If the filesystem daemon does not provide a generation number, the kerne=
+l
+> +will use a default value of 0.
+> +
+
+On the one hand, I still need to understand the value of reporting generati=
+on
+in GETATTR/SETATTR.
+
+On the other hand, I do see the value in the server negotiating at init tim=
+e the
+fact that "Generation values are reliable".
+
+What happens today is that NFS exporting is allowed for all FUSE filesystem=
+s
+regardless of the reliability of generation id, so after inode evict
+and recycle,
+an NFSv3 client  that had access to inode X.Y may get access to a completel=
+y
+different file or even a directory with inode X.Y, where X is the recycle n=
+odeid
+and Y is an unreliable generation provided by the server.
+
+The problem is that FUSE does not require opt-in for NFS export, it only
+allows servers to opt-out of NFS export (FUSE_NO_EXPORT_SUPPORT).
+
+So what can be done given a declaration of the server that generation
+is reliable?
+
+One option is to set a non-zero uuid/fsid to the fuse filesystem.
+This will allow exporting the fuse filesystem without the opt-in uuid/fsid=
+=3D
+in /etc/exports.
+This will also allow setting fanotify FAN_MARK_FILESYSTEM watches
+on this fuse filesystem, whose file handles could be trusted to be a genuin=
+e
+unique identity of the filesystem objects.
+
+But if we take this route, it is better to take it one step further
+and allow the
+server to determine the filesystem uuid/fsid during negotiation.
+
+In any case, I am not convinced there is value in doing all this
+without extending
+the protocol with LOOKUP_HANDLE/LOOKUPX lookup by file handle, so if you
+have compelling use cases, please spell them out.
+
+Thanks,
+Amir.
