@@ -1,135 +1,371 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f26.google.com (mail-wr2-f26.google.com [74.125.225.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE0447CA84;
-	Mon, 28 Sep 2026 13:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601246; cv=none; b=UkKX71lKlg66er6t+m/Z/QzgMM4P++gxP/ZG61rzttGtL3iGwCaFTHBwjofF8GSEenXqwT6AiMi3tH6v5W5lPv1caZsk4shGrGHLDxEvigseMKVfEvG6fC6LtEzpU9Q9eCGcwfsZcxwscLJvfj13NAc1qEq1FjON7KwxFLFnXhE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601246; c=relaxed/simple;
-	bh=GocJgfuPT72cKEg3bm4osv0OZxD7cy1wWgciX0EOcvs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=doEpeXrfaa3LN5RsW7rquIbWhK4DjCjsWRvzo6OkZDAOy3pfDSADWA7LadTZhT3dL/tQ5s9EXoe/b/jkxAysHRLd9iyJXIVgc0a3+WJLBzyiClq7Xllx/pxJuX/07otLSxw4lSEMyJcgvjqikrbcem9oooe0Al+pxD+DhIt5W7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=pass smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=ExWJaAtM; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87E548641B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790601268; cv=pass; b=pvcCATQEPx5JBdDRaKrCWjr4JHwpI+DQJ92WRGifoi9P7/ksFBp2fPpi9pfVdldAuayPdkONR/xrTzmh3GnkF11+tUuPKGdj7a/CdRoi/Bvxk7BlMgsIVdVq7WseB6Z8lTwSqGM8VzgJ99Wev3ONqjjrDaSIiSMx/cdz6rfmX1Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790601268; c=relaxed/simple;
+	bh=vfndy+IDUfkE9mXtuiZaF5XqfBavVAoEu/YwMmCRbbE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bXyISm4m2QMXksz2gM6thMQoMG8GxHlYKhODKC3HVBWs5WfOMZW0ehptOlf3hIQuPHV4g4/ksNOYKSRaVFMSfLpQviJ6nmB7u3S3zBc7pV4r0Z2SWG68O+ILTYiULkhsUjQZGXkY8Z9mPFfFVt1r5LN+65JZ6wu5KBGukKXmZLc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OpKaoU2Z; arc=pass smtp.client-ip=74.125.225.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="ExWJaAtM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1790601235; bh=GocJgfuPT72cKEg3bm4osv0OZxD7cy1wWgciX0EOcvs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ExWJaAtM1Fy5UfZ4xwuGWHuQ4QMLxL/2jmOGmxO5CEOQkhqxAhJjvpyBKpiWMbAG3
-	 wMvUBAJVwLSYA5dzkeucvIjO8vnur3Z6rDbKXTrtXHW+7DojcKm3hJ7K+YBr09Q/PC
-	 ZOcneFc/Y8Egw9thUymlIRNrpo0m/mhDF3HNv9FnJkztInSjC9FjpBhEzcDUXtERPJ
-	 YAIApugXnSvBvKe10y4UmIalohDLU+FK7KheIDrVpaz3AKWh73Za5Pn8vomsP5XGzu
-	 +1dhRpF/sJ+qfmxzyyfPEJ0C3RQfi8EFfcMkQv9NrGYIhZNoJlj5/+r9gwEqWfPHt+
-	 6Y1QPbhP99/Ng==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 291DFA57; Mon, 28 Sep 2026 08:13:55 -0500 (CDT)
-Date: Mon, 28 Sep 2026 08:13:55 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: "Andrew G. Morgan" <morgan@kernel.org>, paul@paul-moore.com,
-	jmorris@namei.org, pjw@kernel.org, tglx@kernel.org,
-	peterz@infradead.org, debug@rivosinc.com, broonie@kernel.org,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [RFC PATCH] security: Allow dropping bounding set process-wide
-Message-ID: <arpoE6UN7xuv87qR@hallyn.com>
-References: <20260922095816.1191799-1-ruanjinjie@huawei.com>
- <arK0cT7CGb3Khy69@hallyn.com>
- <CACmP8UK5wGZmBTRVBOm2_ZGhpFG-jWpihvUNxrcrgXr5K2GYEw@mail.gmail.com>
- <araGY/FhiKu61l5v@hallyn.com>
- <26ec4edf-8eb4-4153-8e17-7f67376f13a8@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OpKaoU2Z"
+Received: by mail-wr2-f26.google.com with SMTP id ffacd0b85a97d-4843f22dc83so2553428f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:14:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790601265; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mvf3w8NidfD6YyBMuitoqBIIbEwUV0V/CiKaGfSxAcAcuoaDbGRgB9O6kG51ZTR1Je
+         wOVle26v41mMcYmzrlVUKcCceyvIPEBMYhRcslOxxwpLracnqxxRFOVECB5gQhCnpBpf
+         5gyz1XOg+1LID9a7XGRtxZQvY9dC9g1XIHzOMm+29WBeiQ5Ya6hAHWo5zrSrUJshDuzB
+         GqdrqlgNDOSDpQRW1DA6reoQAMblYZi0yc3yp/gik0AnsA+Dx4JWgOAG0cbl8oV4aB8l
+         A5CBB2gxnEhyMI+TvUA6mz1TesMI7lc6h8u4x1h8KKPP9JT2EtFOSNkpESbc3sr58H7w
+         qFPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vND3fTgxqxSE2NFt08zJwdsstzk03d+XxBDIXeJX5tM=;
+        fh=3j3/CISZPKM9SRD82uV7bDRzIjUxmObRo7WhchHXIf4=;
+        b=r7LApo0qTyj2Qym8VQNbANV4epi6Di2ugB5IPYdZ+tgZK8Fw1ine2G7xRGSVU+Fuvt
+         vJBAI1cJNHsEcZO10sAl8V3NIQNfl03mU3TUGhVmLJRYuP9bXBLWSVSfe4Xux97LE3Ek
+         7rzkqDqZt00aKTukpv66/dtpZT2rzbf+Kzgc7XNaMBWAqK+lcLNIe5X2BZflHvcEekMz
+         yPi4k87yIm/D6R7OGw7hrpHg5ggmDo5UGR4cgmgrFOCvwkKKmGT/y2OJ+EkWeLOQM57/
+         LnEvLhO5+Wl+aTgOs3mLF3Ns3CVHrcapFEPhHsWustwGLV3HagazMneZndU66nK/kthD
+         m6TQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790601265; x=1791206065; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vND3fTgxqxSE2NFt08zJwdsstzk03d+XxBDIXeJX5tM=;
+        b=OpKaoU2Z6cmRpoczjGMgHx7ZZimb5w3OKZ4j/HHfZ6tbXX4WrmuZb8C4jKHj8sJloG
+         2l+LtIhuKDCACd73WolFjdg8G7g/fAe5IAVUzrRgV5mhCZCuI3Ao2xHG0GQBNRtZkaev
+         HzbFFRlKfA1edEwRf/2dqhIo9DOBANufJMAx1AkHHdAWhgpRQzteq8bhzJmSjL3qftBE
+         qzfgA4z4S0GLWzE0M8UCxIdombbBOg5CizgqM8j90wpPVFXZCX4mUUc0zYTrundI7/Ms
+         1VxEHJsXXLucWmX/c41VZBGB66AOMOqIou6zdAB/h8WhyoqHxLv5HgmOLhlVTmswFOsq
+         hnug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790601265; x=1791206065;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vND3fTgxqxSE2NFt08zJwdsstzk03d+XxBDIXeJX5tM=;
+        b=ZERdAoDBhzegBPfH4jboBTEhssetWvcLIcJxFIaXRJHv964cYj77Y2zm2wweKbDGbF
+         Y4kVdvLbhiplHaZxgsjEe+dQXFsdaOPcsBRA5MrdHrYB0OUSWapOGivfhEfgBje4KWoO
+         NOkcDrnWrhR7sdrCcs2q/m5drZeniO1TwgEctw28+TmgDfVEc5anDynRUFlLTsy9jX6+
+         Hr2N8G1dXZrA1rEZaeotuXG3vJX3/q9fYlpbM/czt56JDxWbir6IsGhko77xELSh7JYI
+         E50UDNWwshtZp95hxMRJP+l0dZ7LO23zcKHDkMyLPxtCFWunruhcqx478yHh1/2m3GyM
+         dm9g==
+X-Forwarded-Encrypted: i=1; AKwUvByIHpLtBmSXO8KRbhgP3kU382W7SHjl0xBcLziHLDvve0d0zPLEGPyjybZA/9UINBHcdEL44+hlWGC8Bfs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNSwKCfEDdzE4QAavE6+/dLMVZ9pvQXLw+hB55OXh98shp1Gv9
+	qNMf8YW3R7RffFy75lONJEkKUrWUNwHsqVinFeNvS3D0MAQ7d0dKWNVHfe52k0AJqhbZlkKsnoa
+	QyIyd9cFqHTNJT1o4vIPO7Z7lYxdCTAo=
+X-Gm-Gg: AYBFou1f1qRq7SZzlNitLb74PUkmxzMLZONkPypw+XCWdCHH8ZDd/4M8gXaUrmDx4w7
+	yG4IB3V9NE8XPrUBcNNuqsc9vew4PoKz/wLAL6Iifz0nkHtVTS9s4HhPbOjy3C65LTSp4X2oa/p
+	GHWm8xOJPtT3QoymRphOANOzRbQWHJoQrnDPYZ9AyZ2BmXQ1BX4SdaEAh3Coht9LRcv2S5sNpSk
+	yH1iThvjJuOzuzDP/4AVUqnUrSAnPNIvYMFCiK17SEzFvyNAdUamV4mFBkeNgdm8E2tgfHOB5o8
+	rNEpuoz4LatvOOCQzniHC5ntMnC3JyZOktEDG0we8rPfPSGw8CIYAsSub5W4p9/wNk/MQgFRdYi
+	SHXRu98oDBTCOEo7j1Be0DqBj6xxU
+X-Received: by 2002:a05:6000:4545:b0:488:7f5f:7caf with SMTP id
+ ffacd0b85a97d-4887f5f7e22mr10175659f8f.23.1790601264546; Mon, 28 Sep 2026
+ 06:14:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <26ec4edf-8eb4-4153-8e17-7f67376f13a8@huawei.com>
+References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
+ <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
+ <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
+ <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+ <CAKEwX=M8pJUYhmADfvdk+09O53EROyDRC+_b05vtimQE5VN=qQ@mail.gmail.com> <CACePvbWTZgbL7U-hrgV=V0egHZ13EqMCOsUbnKTcLvqnv85zUA@mail.gmail.com>
+In-Reply-To: <CACePvbWTZgbL7U-hrgV=V0egHZ13EqMCOsUbnKTcLvqnv85zUA@mail.gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 28 Sep 2026 14:14:09 +0100
+X-Gm-Features: AclHuK-P2g4Mc8ezdcRMnTDUO5s7E9DvQD4Qr_QNwMbU-IG7-Wm7IdyixU-UHR4
+Message-ID: <CAKEwX=M1tc5fLSgxbq9S9TU1AKJWtRZA0AwGQZgNXJ_76hThFg@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+To: Chris Li <chrisl@kernel.org>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
+	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, riel@surriel.com, gourry@gourry.net, 
+	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
+	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 11:10:14AM +0800, Jinjie Ruan wrote:
-> 
-> 
-> 在 2026/9/25 22:34, Serge E. Hallyn 写道:
-> > Jinjie, could you reproduce your timing experiments against the
-> > SetProc code?
-> 
-> Hi Serge, the test result is as below:
+On Sat, Sep 26, 2026 at 8:02=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+>
+> On Fri, Sep 25, 2026 at 8:04=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wro=
+te:
+> >
+> > On Thu, Sep 24, 2026 at 5:44=E2=80=AFPM Chris Li <chrisl@kernel.org> wr=
+ote:
+> > >
+> > > On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com>=
+ wrote:
+> > > >
+> > > > On Wed, Sep 23, 2026 at 2:18=E2=80=AFAM Chris Li <chrisl@kernel.org=
+> wrote:
+> > > > >
+> > > > >
+> > > > > There are too many swap_is_vswap() in this series. It fragments t=
+he
+> > > > > code path, making things harder to reason about. Esepcially aroun=
+d
+> > > > > locks. I count 22 in this patch alone.
+> > > > >
+> > > > > I consider this the biggest drawback of this series. This
+> > > > > fragmentation of the code path.
+> > > >
+> > > > This will mirror my response at [1], but I'm responding here for th=
+e
+> > > > record and for your convenience.
+> > >
+> > > Thank you. Really appriciate that.
+> > >
+> > > > It is needed because vswap *is* a special device, with its own
+> > > > requirements. If you don't special case-it, you'd get undesirable
+> > > > behaviors.
+> > >
+> > > Ack, that is why I am against making it a special device. That is the
+> > > whole idea behind xswap. It is just normal swap device implemented vi=
+a
+> > > swap_ops just like ext4 is a file system implemnet on top of VFS.
+> > >
+> > > > Let's take Baoquan's patch series as an example.  It treats the xsw=
+ap
+> > > > device as just another swap device, without any special considerati=
+on
+> > > > for it. Which creates several problem:
+> > >
+> > > That is a careful design choice. Keep in mind that design choice
+> > > usually has pros and cons.
+> > >
+> > > I will follow your feedback here.
+> > >
+> > > > 1. At allocation time, cgroups that disable zswap might get an xswa=
+p
+> > > > slot, because you don't do any check that the device you allocating
+> > > > the swap slots for is xswap. At swap_writeout() time, it is *stuck*=
+ -
+> > > > we already do the unmapping step, so we cannot reclaim the page.
+> > > >
+> > > > Ironically a physical swapfile backend could have bailed us out her=
+e,
+> > > > but it's not in that patch series yet :)
+> > >
+> > > I am not sure I follow. Are you referring to the uncompressible pages
+> > > that xswap would have to reject?
+> > >
+> > > One way to address that is for xswap to just bite the bullet and stor=
+e
+> > > the uncompressible pages within xswap. That way it will stay out of
+> > > the reclaim LRU. Zswap also stores some uncompressible pages. The las=
+t
+> > > time I checked, it was unfortunately not able to serve my case but
+> > > perfect for yours.
+> >
+> > Not even that. Say you have two kind of workloads in the same host:
+> > workload enables disk swap but disable zswap (zswap.max =3D 0), and
+> > workload that wants zswap. Let's even ignore writeback for now.
+> >
+> > You add 2 "swap devices" to the system: xswap and NVME swapfile.
+> >
+> > At swap allocation time, xswap patch series does not check carefully
+> > which swap device is being used, so you might get an xswap slot for
+> > the cgroup that disables zswap. You're stuck at swap_writeout() time.
+> > You can't undo it anymore, and you don't even support the physical
+> > swapfile backend to fallback.
+>
+> The xswap is to be used with the swap.tiers. So at the swap.tiers it
+> selects xswap or SSD swap. Will that solve your problem?
 
-Thanks!
+I mean, we're having that problem right now, no? :)
 
-> |   method      |   Description                                       |
-> | ------------- | --------------------------------------------------- |
-> | baseline	| Per-cap syscall.AllThreadsSyscall6(PR_CAPBSET_DROP),|
-> |               |   the original gVisor implementation                |
-> | dropbound	| libcap cap.DropBound() (library API, per-thread)    |
-> | SetProc	| cap.IABGetProc() + SetVector(Bound) + SetProc()     |
-> | SetProc-min	| Minimal IAB with the read overhead removed: NewIAB()|
-> |               |  + SetVector(Bound) + SetProc()                     |
-> | mask	        | prctl(PR_CAPBSET_DROP_MASK, lo, hi)                 |
-> 
-> All variants uniformly drop all 41 caps (cap_last_cap = 40), and both
-> the success rate and dropped are verified.
-> 
-> Sampling scale:
-> - Patched guest, 8 vCPU: 2 boots × 21 runs = 42 runs/point, 1050 samples
-> total;
-> - Patched guest, 32 vCPU: 21 runs per point, 525 samples total.
-> 
-> Mean in µs bucketed by actual thread count (sample count in parentheses)
-> 
-> ## 8 vCPU (42 samples per point)
-> 
-> method	     8–15	16–31	      32–63	   64–95
-> baseline    3258.9(41)	6955.9(43)   10303.9(84)   14394.3(42)
-> dropbound   3356.3(41)	5048.1(43)   9914.3(84)	   16837.1(42)
-> SetProc	    3365.4(41)	6255.4(43)   10179.4(84)   16799.8(42)
-> SetProc-min 3485.0(41)	5603.9(43)   10533.2(84)   15146.8(42)
-> mask	    68.2(42)	92.3(42)     224.2(84)	   433.7(42)
-> 
-> ## 32 vCPU (21 samples per point)
-> 
-> method	      8–15	 16–31	       32–63	      64–95
-> baseline     8422.4(20)	 8491.8(22)   17814.2(42)    21612.6(21)
-> dropbound    5235.5(21)	 7568.9(21)   17350.8(42)    21205.5(21)
-> SetProc	     5540.8(21)	 8159.2(21)   17920.5(42)    22168.3(21)
-> SetProc-min  5582.8(20)	 7907.7(22)   15136.0(42)    22334.5(21)
-> mask	     114.6(21)	 181.8(21)    428.5(42)      684.7(21)
-> 
-> So IAB.SetProc is not an optimization. Like the gVisor baseline, it
 
-Oh, I could be wrong, but I didn't think Andrew meant that it was
-an optimization.  Rather, it was correct, and possibly complicated
-or fragile enough that it belongs more in userspace than kernel.
+>
+> >
+> >
+> > >
+> > > > Vswap both has swapfile backend, AND allows you to bypass it if the
+> > > > cgroup disables zswap. Both involves a bit of swap_is_vswap() check=
+,
+> > > > but I think it's worth it :)
+> > >
+> > > If xswap needs the lower tier it can allocate for one. I don't think
+> > > xswap should need to have swap_is_xswap() there. Also xswap does not
+> > > have all the baggage of zswap.writeback enable interface.
+> >
+> > But that's my point. As of now, it does not. Unless you merge the
+> > other RFC series, which brings it to roughly the same size as what I'm
+> > doing here.
+>
+> It is cleaner because it avoids the dual personality issue. It also
+> paves the way to enable writingback from one swap tier to another.
+> That is heading to the right directions.  The vswap writeback only
+> serves zswap, not others.
 
-Looking forward to seeing the updated design.
+Writing back from one swap tier to another doesn't exist right now. I
+have not even seen a coherent design to support writeback among swap
+tiers. You're just delivering pie-in-the-sky.
 
-> issues one PR_CAPBSET_DROP per capability on every thread
-> (syscall.AllThreadsSyscall); averaged over multiple repeated groups, it
-> is on the same order of magnitude as the baseline, or even slower.
-> 
-> > 
-> > On Tue, Sep 22, 2026 at 07:10:11PM -0700, Andrew G. Morgan wrote:
-> >> The https://pkg.go.dev/kernel.org/pub/linux/libs/security/libcap/cap#IAB.SetProc
-> >> already handles this for the whole process. It can be run from main()
-> >> if you need it to happen early, and it will track down all of the
-> >> threads in the runtime.
-> >>
-> >> To Serge's point, I am also curious what benefit there is from doing
-> >> it more quickly. After all, this is pretty much a one-time function
-> >> request for any executable.
-> >>
-> >> FYI The "sendmail capabilities bug" reference is written up here:
-> >> https://sites.google.com/site/fullycapable/thesendmailcapabilitiesissue
-> >>
-> >> Cheers
-> >>
-> >> Andrew
+The RFC you mentioned is not writeback between tiers. If you think it
+does, then maybe you should read it again, It's from a very specific
+swap device (xswap, with zswap backend), to a swapfile. Here is what
+it does: add an array to store indirection (physical swap entry) to
+clusters, and update that array when we need to do backend transfer.
 
-thanks,
--serge
+Does that ring a bell? That's because it's the exact same mechanism as
+vswap (without proper attribution - not even Suggested-by). If
+anything, it's actually a bit less coherent, because you can set xswap
+to be lower priority than physical swapfile.
+
+Vswap does not have that, because vswap is not an ordinary swap
+device. It's implementing the concept of virtualization (the "V" in
+VFS, if you want to make that analogy), made optional to reduce
+overhead when indirection is not needed. That gives you all the
+machinery you need for backend transfer: a centralized virtualized
+layer, where you can update the backend, without having to go and
+chase down all the external references - no PTE walk needed.
+
+>
+> The biggest hurdle is the user API. One of Johannes's biggest
+> objections is that it lacks writeback support and perhaps more. Now
+> the writeback RFC is available. Let's re-evaluate what is possible.
+> The swap.tier series has been out for a year now.
+
+See above. But transferring between tier is still not a solved problem.
+
+>
+> If it is the same but does not have the 33 swap_is_vswap() fragmented
+> dual personality issue, I see that is a reason to choose that path
+> instead. What do you say?
+
+The problem is the interface and the charging question. We have put
+out our objections to it, and so far we have not been satisfied with
+the defence.
+
+>
+> >
+> > > >
+> > > > Maybe instead of just grepping for swap_is_vswap() and throw your h=
+and
+> > > > at the complexity, read the code and try to understand why it's
+> > > > necessary first, then propose simplifications if you have good idea=
+s
+> > > > in minds.
+> > >
+> > > Yes, I already read your code I decide that most of the
+> > > swap_is_vswap() should not be needed if taking a proper swap_ops
+> > > approach. I wanted to offer you the chance to work closely with me to
+> > > achieve that, but you did not follow that suggestion.
+> > >
+> > > Quote from my old email:
+> > > https://lore.kernel.org/all/CACePvbX+3tO91BmRwaLqf3Xia32GCemt3W8tayEr=
+G81BYLgrzA@mail.gmail.com/
+> > >
+> > > "I am happy to spend some time working with you to discuss the generi=
+c
+> > > adopted version of vswap, if you are open to it. Or if you don't want
+> > > to waste time on it. I can have someone else or myself come up with
+> > > the generic adopted version of vswap for you to review, which I prefe=
+r
+> > > less."
+> > >
+> > > Anyway, Baoquan's xswap writeback patch series is out. I suggest
+> > > following and improving that series instead.
+> > >
+> > > > > This is questionable. A vswap device does not go through swap on.
+> > > > >
+> > > > > This changes the behavior where swap devices always go through sw=
+ap on/off.
+> > > > >
+> > > > > I wish the swap device went through swap on to be able to start s=
+wapping.
+> > > > >
+> > >
+> > > >
+> > > > What usecase would necessitate the need for swapon/swapoff interfac=
+e?
+> > > > Other than just trying to shoehorn it to an existing interface?
+> > >
+> > > I like universal interfaces. Your vswap will break the /etc/fstab. Th=
+e
+> > > current suggestion for xswap using sysfs will break that as well.
+> > > I would like to keep the /etc/fstab interface working, including
+> > > support for UUIDs for swap devices, etc.
+> >
+> > "Universal interfaces" is not a use case. None of the thing you list
+> > out here is a use case. It's an interface, but you have not
+> > constructed a single use case to justify all of that.
+>
+> We don't have to go throgh the universal interface to resolve the 33
+> swap_is_vswap(). It seems there is an alternative now. We can take the
+> xswap route to eventually solve all your problems.
+> >
+> > > I am very concerned that vswap will start kicking in without me
+> > > explicitly enabling it. That changes the previous user-visible
+> > > behavior. It breaks my mental model. Please take this feedback
+> > > seriously.
+> >
+> > I mean, there's a knob for it. How can it start kicking in without
+> > your enablement?
+>
+> Please correct me if I am wrong; here is my understanding from you:
+>
+> vswap is off by default because of that knob. You turn it on and it
+> starts zswap.
+> Two questions here:
+> 1) Is your knob compatible with the existing /etc/fstab where people
+> use it to enable swap devices, including with UUIDs, etc.?
+
+If they don't turn it on, their code works as is. Their existing
+/etc/fstab exhibits no behavioral change.
+
+What you're asking is us *enrolling* in that same interface. And my
+question is what does that interface give us? I already pointed out
+multiple ways where that interface's generality shoots the user in the
+foot.
+
+> 2) When you enable the knob, do some unit test and disable the knob
+> again. Does the vswap go through the same path as swap off so no usage
+> of vswap exists on the system?
+
+It's a boottime parameter.
+
+Why would you care about swapoff? What use case does it serve?
+
+>
+> That is the existing use case I have in mind.
+
+You're describing an interface, again. It's still not a use case.
+
+I can promise that it won't break /etc/fstab if vswap is off. - if it
+does then it's a bug and I can fix it.
+
+>
+> Code maintainability is also a consideration when choosing which
+> technical solutions to move forward with, when there are alternatives
+> to provide solutions to the same problem.
+
+I already pointed out how xswap's design *creates* problem, including
+userspace problem. You just handwaved it away with "let the users
+shoot themselves in the foot". I disagree with that philosophy.
