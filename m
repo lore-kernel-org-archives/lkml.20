@@ -1,280 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2108.outbound.protection.partner.outlook.cn [139.219.146.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246C31D5174;
-	Mon, 28 Sep 2026 08:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584355; cv=none; b=UXexJS7OTYOY4g2KpikMqMqwveK8/Aiai1ap5SFBrqyb1QHcsa7sZtPCqIotF4ArhAmHItPuo836IphA4z+x7HzIEj9/xlq1ZQcPxrnIcLtYCVva56gRCtew2gedAZeKzRz0KwULuLufyKeX7KZMnwZqlp6UlDN0uRap5jncMac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584355; c=relaxed/simple;
-	bh=8Rzb4LGl41qz/oojsGab9S7CbEXwysTMVMHpJeJcgUs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EuTIOCaQvdxDyEoyzHJ1mBtkEZ7z6mQq+2wM3VSi4aI9TodKP6zW1O+Nssk4wVFNGC8Br4WR2kI8FvHvdvTniB58vw5b+xRzlRSf6bfhqMHoCSaTvt5ib4JnVokhttqYvYz3atYnYtizPsGBc/yk8YkV6y9f8bWpR262838Pmiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbUZRQj4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbUZRQj4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485191F000FF;
-	Mon, 28 Sep 2026 08:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790584353;
-	bh=ucIq64lQ1n1AilFNl69re6AfXcJaIAEZ5EtAjXOOsyo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SbUZRQj4Osj/vsusqpdiXMgUc7bPdAYHFVORnml1cPSKpEcvlfb266VY3kcixbKJi
-	 sdyxcwdFBUtKy/9JXdm1Gaelz6FT6cpXPW3OlmmUcd+/pqLtIXXacG1UsemHkAH8e8
-	 ZZ9uN2O7dCS2HthWiLxlF8CUWgCNlsmMr+mgl3jD6vDDj851Z6x75mkJ66UDRA1NR/
-	 cKWq3bqBPyABPQdol5q23kmgcpK83tf/OnXXoMTfSfvYOpsgtfLr/1iU9jlE38Pgtz
-	 ExahByOJ3Oqor1PRA8vRQZJ6n1seDxMJZdK2et2j5ZRsyx/viJ1o/2gT+twlfozkC0
-	 kwOcMioZ/rBEQ==
-Subject:
- Re: [PATCH net] octeontx2-af: fix partial NIX Tx scheduler queue allocation
-From: netdev-bot+sashiko@kernel.org
-To: rkannoth@marvell.com
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- sgoutham@marvell.com, andrew+netdev@lunn.ch, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com
-Date: Mon, 28 Sep 2026 08:32:32 +0000
-Message-ID: <179058435280.3145.10954316639683713234@kernel.org>
-In-Reply-To: <20260924082128.1944674-1-rkannoth@marvell.com>
-References: <20260924082128.1944674-1-rkannoth@marvell.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7A92F7F02;
+	Mon, 28 Sep 2026 08:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790584365; cv=fail; b=MYRrVYVcU1tVakmL3UFWRPCFVnNbfhoI6S0G68Jnh40fmx86XyhC+ALjJm+UTyANBpGZXt2Z3FGcH71ProfhyJCXpX5wsnaN+v+HiiyrKC2LTDFF07G/6vFozUifbxj+GS3ICmFPhS7MenueGuxI2bjZiKol6tKtZVIMACC0+nk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790584365; c=relaxed/simple;
+	bh=LlT/MIC73/v0Qxezs6qD/QLOui9rTfBWsAC/KN7Xol0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IBemgQVbZQA4df9bCh6k76DC7vd83Zl6ExIrE4Lf6SUapVhIy0hvq/p0LxtMTYG5A06Z6W8pwBiZITzzittfwJePNQUv9FpzTuvaxW4IHfCuXKyDI5UdhmLd9XZRsSZ0DUXbJvodzt/DwrXMjXooIE8C2pKOi5ELqXsq2CrCjcY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X6BHHbjxAs++3q5omKIfD7S9jlEN5Bpo7x7mLzca0OGkelW+4Qa7K53XQx0OutY8AUOFWPOlJKPqWQP3Q5iezSSGRUgeTnYS4j03riDKNEU9X6iOsvW5cHeaUcneC+56VN5z1fhj/Q0P17xU8tVPAjjtxD7X9lP3FsytOdRwcqVZIBhzdNGfS078sKIKDMxM4snO4LzGtIwLOePuqsSNtuCOwnMIDVXpYn7Jx5IEa6OuPnWXZKvNdtH+nEk0faNcd4gwhAw11neCgj3xfbjFdHm4fi/J7fe3cFDVI3X4U8KMhxWZJVGo2b4u30PayVM89moTdZKZaXNcLbnZLRctqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6tAXXHusuwSKwLJ7p+ySIvWx+VrLOwSAyv1EyC8Zl+M=;
+ b=dr9q/ZKnqWpT409CdHP/sPSYE6NcId/mVYiVc89WuAnEei3qWWFRej8RwxoYSe/fDaMdXIcgBOnqnVSIsPv/UMFacBsynOI5SL/jOf8MXTYQ0fWO85NcTY+o7gXLCfdSDZlQSGbopO3jMFKNJkb2t+8cqX9efYNemrUS2MBMscQIqoybhCPTf4OlQf4KBF6GdDjHII51Naa59yolu8WV/IGeghL1Hpq68avoPH1btHwzoYrjXK5k2iwSjVfW7EcRT/NVtmffOLlvRR+kJaEB9jXYNjYNEkGD5ZbaK3+BVqEdx2cJ1LEM9K4Rus8JQD7X+TeGIbdQynt8tCZqXDExQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1236.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 08:00:36 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.022; Mon, 28 Sep 2026 08:00:36 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 1/6] dt-bindings: peci: Add StarFive JHB100 PECI controller
+Date: Mon, 28 Sep 2026 00:59:51 -0700
+Message-Id: <20260928075956.62298-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
+References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0022.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::34) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1236:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c927467-dbc9-405a-39d9-08df1d36945a
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|52116014|7416014|366016|376014|38350700014|10067099003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	2g4vJzbxw2Ff27y7om/o0GK2x59ka04UGm+6XhEXr4C1IkIqcTCSnZLIKnG4eAxnPp6OyKp0Ak5Cjb7+v5ZAIBijLU3Zw96qTOTX1BQaIIPZs8xo9vsZ/zcfTfefqG0UTNoiRSod2Dbrd7iyvG3UQMq9/LVc5Y3O/a7qLnOUIVymQvNjVYRK3oyM7hdXtsTIFVAl0+SfUmsZsdaXeBl9bB2ww74EJJ4+S+RsiqWFxwssL9HFi/OMHIex7bRSyQN7z3wOzhO29BaiW8fGRpeVY/PhAtiD9Kh00LuBhen30E8KnObg83y384XwjuWrfd4sT6YLO2Q2mri84GQFIf9ScMnp9OTorBQeMVHS7X9yji+hu7MhZTKUX2s0jATR/IouTCdMjuHc0f25yyHk/Z0RX3jlN6/qWPZtq5qE+3Hyc0QBlFpXjl/S7i+jLdRoNvCSdSpMfnUjDsDJ+jDswubYdsek229GGgzHJnxAK9IXtkG0cqXzlQg99CceLz3U2zX7XxvS2jDDZpfUc6fuEzBc2io/za2M7Tnex/NFQTCNBz5rB7Di7XIyjK6Uw7YemJFs
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(7416014)(366016)(376014)(38350700014)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2ZOs7l8JkS7tpmpia4JxMdHWFXSP9AHyKGYSuO+4i4P84KDcJ8KwSAe5MBDM?=
+ =?us-ascii?Q?p+y0A3xjdIoQ70cZsYhE06mXiyFwSKuHRzn+2EGXnAbHk+r27GIny/BWbg/1?=
+ =?us-ascii?Q?+A+N9aXrFQ1UHGUuU8oEzN0B1JPRQo0YgnFtVHJWwzSOrNwyV1rTrnkNlAmX?=
+ =?us-ascii?Q?oAW6j+DSLyagm3wJobeGdds7+fAlPc5G0dukRQNczdthIp114Ul1oIdgBbY4?=
+ =?us-ascii?Q?6fQNKOMrFhF8CqduHYsvZyiZvEfLC0lMnY4dv5tIRYwnRpQCZYiwKxH0886m?=
+ =?us-ascii?Q?xAZMknZ9Ut4iDhqmvm2pn1P5jjQqRJm8vL4JS9UyL4It/6wotBleW64qd3CB?=
+ =?us-ascii?Q?JzJzw4ndF28khn8/9hHP7HG/k2IotcV0jUoE6XB1wbxMiKxH88JR8oiNYB9e?=
+ =?us-ascii?Q?ldznxuVv6zWbvWooiQunOzBKKcsMq/y1fUKoSdcTvIk5UFaor7hiQmUMehDd?=
+ =?us-ascii?Q?DAdezE4HuffUYeAa03lNv1L1MalkbalweoYUtrbSlrg4h1vQnvyLUM1BH+qO?=
+ =?us-ascii?Q?8+L8YZa3SMp8K2OJ7cup7JaJHx5n7xwA+3f2dkPpt+3SN7ycsG4GFZawpaZp?=
+ =?us-ascii?Q?dNPX3QhuoU9S42PDyJGZslLJtjTX7p3T6tp6JLg8SYty/cslkXshgyGllpWq?=
+ =?us-ascii?Q?luyfEvkEahZyeaF66cyv9jy4brAizoIpgMQAwfZZVd12Eq4nmLLNfA29icFB?=
+ =?us-ascii?Q?YehMElWRKaUqRAUOGQX33YWi8dU5JLuoULzsVBdagiZqqruKVmB5GQ7lMebZ?=
+ =?us-ascii?Q?IN+TgMFd+BlwYfzGpJK/tlXOrq2IhmsEdQ15wO/nKfL2vSu9wBmTbEh5XIEr?=
+ =?us-ascii?Q?Vllkjq984X1Ms8SqK6ULGqbAdDzw6P/g0S7qvovPsTkWIDXK4IPixxKQSSey?=
+ =?us-ascii?Q?0QfQuUmA+l1T4pc1SYaF7p3dTT5bkjIlKiB35sXoFXjjTtdFaCUUxHX4mBIF?=
+ =?us-ascii?Q?0bz+gP/NMX0TCAQiK8jAoJ7THH5r4fGexAGfJqfFFgB5js14iv6A3Om9HkBe?=
+ =?us-ascii?Q?43zb474E5kKoZWvdvXfQ0xXHCygsESiVQRO6Z9RyqF3XWx2+qDJ8+//AWTid?=
+ =?us-ascii?Q?f4iMjHR6yTz0CFyo0earEINpYaAIYqePq6NifZpRlMGtzoCf7azubqJKiVSB?=
+ =?us-ascii?Q?flKBvzcJCajZxRPH4CfQgeaz1CItkReSJypZpTbqQX4rAQ3R6Reu5Jf9e8UN?=
+ =?us-ascii?Q?sfVyVuNiyKif/GJCFiuI02nEJy3aszm7niTF7OqwBi2Vz4+4SE+JHnb8lCkz?=
+ =?us-ascii?Q?F1f2ySaDEToT0LcVJQ1Lj0isOgGV+aiD88WLBgz+pwvNgI9Romg5DhTx9t/W?=
+ =?us-ascii?Q?IKjqxGvq3ktDKyFCPPHEi8B7kF1qkp94Sy1AvYutjPIDNxnKHQvyxipOwUr+?=
+ =?us-ascii?Q?XAJQHNRb2RCkvdHLRXiQmhP2sETrrRoMvJUUx5XQ7w5vkHei15Mus8v3bcxZ?=
+ =?us-ascii?Q?E7oJO3dd0i4LIo9A7+dcR4rkfbGcUf0WYWJAc3aykaYywb7JIwh2F6hyV4ls?=
+ =?us-ascii?Q?QHtE5x79cTKN+a1n7KROBaR2Y2l5sUnIkqKc5bP+rt15mti2swOEc1FnL3gX?=
+ =?us-ascii?Q?zF8JWoVl1Qwq+5eP56mU9yr6+wuUw7BZnj5GBzGJzAp+uP7Gyb426SPqDOXo?=
+ =?us-ascii?Q?KtWdGlYhl/s0mrbzbqnrfJsqp5mQ8sK3i3s8GMeMj0nS9C9EheRgEJMZGIpL?=
+ =?us-ascii?Q?7hD1fiFFsSVsmLnqY3sKvQewgZJKqURWNAnv5tHLiRA9tyEKi6ruemfwOMKA?=
+ =?us-ascii?Q?2wqhbAlEM0or9oFL5bqpXAx+cVWB+e6RjhNZZqdTnOeATfbdmM6/?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c927467-dbc9-405a-39d9-08df1d36945a
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:00:36.5153
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O58rz/AqO9DJb5lprLLxol/GhyNeel6MAO6IEu7FrOwNXX8T9aI3/1hyFsZ81bL+nkvlBjCZwPv3X1cM9Y/+D42Az6aKXiK4zKI18vFkm8BxhNbTbsbYGg9eodWGpBQe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1236
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Add device tree bindings for the Platform Environment Control Interface
+(PECI) controller found on StarFive JHB100 SoC.
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 1
+Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
+Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../bindings/peci/starfive,jhb100-peci.yaml   | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch says it fixes nix_txsch_alloc() 'return[ing] success
-  after allocating fewer Tx scheduler queues than requested'.
-- [High] The new rollback in nix_txsch_alloc() (rvu_nix.c:2289-2293)
-  takes its loop bounds (rsp->schq_contig[lvl] and rsp->schq[lvl], both…
-- [Medium] The new `if (nix_txsch_alloc(...)) goto err;` inside the per-
-  level loop of rvu_mbox_handler_nix_txsch_alloc() (rvu_nix.c:2356-2357)…
-- [Low] The commit message says nix_txsch_alloc() 'could return success
-  after allocating fewer Tx scheduler queues than requested, or after…
-
---
-
-octeontx2-af: fix partial NIX Tx scheduler queue allocation
-
-This patch makes nix_txsch_alloc() return an error when it cannot satisfy
-a Tx scheduler queue request, and clears the bitmap bits it set for the
-failing level. rvu_mbox_handler_nix_txsch_alloc() then returns
-NIX_AF_ERR_TLX_ALLOC_FAIL when that happens.
-
-> nix_txsch_alloc() could return success after allocating fewer Tx
-> scheduler queues than requested, or after failing to allocate a
-> queue under the fixed topology mapping.
-
-[Severity: Low]
-Can either of these happen when the requester is well behaved?
-
-nix_txsch_alloc() has one caller, rvu_mbox_handler_nix_txsch_alloc(). That
-caller first runs nix_check_txschq_alloc_req() on every level, and it holds
-rvu->rsrc_lock across both loops.
-
-For the fixed mapping, the pre-check already does this:
-
-drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c:nix_check_txschq_alloc_req() {
-    ...
-		schq = start + (pcifunc & RVU_PFVF_FUNC_MASK);
-		if (end <= txsch->schq.max && schq < end &&
-		    !test_bit(schq, txsch->schq.bmap))
-			free_cnt = 1;
-		else
-			free_cnt = 0;
-    ...
-}
-
-That rejects the same idx >= (end - start) || test_bit() condition that
-now returns -ENOMEM.
-
-For the non-fixed mapping, the pre-check uses rvu_rsrc_free_count() and
-rvu_rsrc_check_contig(). These do the same bitmap search that the
-allocation does. Bits are only set inside nix_txsch_alloc(), so the full
-request should always be satisfied.
-
-As far as I can tell, the new failure paths only run if the peer changes
-the shared mailbox request between the check and the allocation. Could the
-commit message describe that case? And is the Fixes: tag still
-appropriate, given that it suggests a user-visible bug for normal callers?
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> index 153eb57bad06..28e70bae51ca 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> @@ -2195,12 +2195,14 @@ static int nix_check_txschq_alloc_req(struct rvu *rvu, int lvl, u16 pcifunc,
->  	return 0;
->  }
->  
-> -static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
-> -			    struct nix_txsch_alloc_rsp *rsp,
-> -			    int lvl, int start, int end)
-> +static int nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
-> +			   struct nix_txsch_alloc_rsp *rsp,
-> +			   int lvl, int start, int end)
->  {
-> +	int want_contig = rsp->schq_contig[lvl];
->  	struct rvu_hwinfo *hw = rvu->hw;
->  	u16 pcifunc = rsp->hdr.pcifunc;
-> +	int want = rsp->schq[lvl];
->  	int idx, schq;
-
-[ ... ]
-
-> @@ -2277,6 +2279,22 @@ static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
->  		/* Update how many were allocated */
->  		rsp->schq[lvl] = idx;
->  	}
-> +
-> +	if ((want_contig && !rsp->schq_contig[lvl]) || (want && !rsp->schq[lvl]))
-> +		goto err;
-
-[Severity: High]
-Does this catch a short non-contiguous allocation? The check only fires
-when rsp->schq[lvl] is zero. If 0 < idx < want after the non-contiguous
-loop, nix_txsch_alloc() still returns 0. That is the "fewer Tx scheduler
-queues than requested" case the commit message says it fixes.
-
-The caller does not check again. Its reset loops are bounded by the
-requested count, not the allocated count:
-
-drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c:rvu_mbox_handler_nix_txsch_alloc() {
-    ...
-		for (idx = 0; idx < req->schq[lvl]; idx++) {
-			schq = rsp->schq_list[lvl][idx];
-			if (!(TXSCH_MAP_FLAGS(pfvf_map[schq]) &
-			    NIX_TXSCHQ_CFG_DONE))
-				pfvf_map[schq] = TXSCH_MAP(pcifunc, 0);
-			nix_reset_tx_linkcfg(rvu, blkaddr, lvl, schq);
-    ...
-}
-
-On a short allocation, this loop reads rsp->schq_list[lvl][] slots that
-were never filled in. Those are usually zero, but the peer can write them.
-The loop then resets linkcfg, shaping and schedule for those queue
-indices. If CFG_DONE is not set, it also assigns pfvf_map ownership to
-pcifunc. The queue may belong to another PF or VF.
-
-On the PF side, otx2_qos_txschq_alloc() in nic/qos.c copies only
-rsp->schq[lvl] queue IDs but keeps cfg->schq[] at the requested counts.
-otx2_qos_txschq_fill_cfg_schq() then gives stale IDs to the extra child
-nodes.
-
-A short allocation can happen if the requester raises req->schq[lvl] in
-the shared mailbox after nix_check_txschq_alloc_req() reads it and before
-the handler reads it again here:
-
-		rsp->schq[lvl] = req->schq[lvl];
-
-Should the check require rsp->schq[lvl] == want and
-rsp->schq_contig[lvl] == want_contig? Should the reset loops in the
-handler use the allocated rsp counts instead of the req counts?
-
-> +
-> +	return 0;
-> +
-> +err:
-> +	for (idx = 0; idx < rsp->schq_contig[lvl]; idx++)
-> +		clear_bit(rsp->schq_contig_list[lvl][idx], txsch->schq.bmap);
-> +
-> +	for (idx = 0; idx < rsp->schq[lvl]; idx++)
-> +		clear_bit(rsp->schq_list[lvl][idx], txsch->schq.bmap);
-
-[Severity: High]
-Is it safe to take both the loop bounds and the clear_bit() indices from
-rsp here?
-
-The response message is not a private copy. otx2_mbox_alloc_msg_rsp()
-places it at mdev->mbase + tx_start + ... . For the AF's own VFs,
-mdev->mbase is the ioremap_wc() BAR4 region shared with the VF, and the
-AF processes the message directly in that memory.
-
-Nothing limits rsp->schq[lvl] or rsp->schq_contig[lvl] to
-MAX_TXSCHQ_PER_FUNC. Nothing checks the list entries against
-txsch->schq.max either.
-
-A peer that rewrites these fields before the rollback runs could cause
-two problems:
-
-  - A larger rsp->schq[lvl] makes the loop read past the schq_list row.
-
-  - clear_bit() can run on any u16 index, up to 65535. That writes past
-    the end of the kmalloc'd txsch->schq.bmap. It can also clear bits for
-    queues owned by other functions, which then get allocated twice.
-
-The peer can also force this err path. nix_check_txschq_alloc_req()
-validates req->schq_contig[lvl]. The handler then reads it again into
-rsp->schq_contig[lvl], and nix_txsch_alloc() reads it again from rsp. If
-the value is raised in between, bitmap_find_next_zero_area() fails and
-execution goes to err.
-
-The existing reset loops in the handler already index pfvf_map[schq] with
-values from rsp->schq_list. This rollback adds another write target to
-that same pattern.
-
-Could the allocated counts and indices be kept in kernel-private storage
-for the rollback? Alternatively, they could be checked against
-MAX_TXSCHQ_PER_FUNC and txsch->schq.max before use.
-
-> +
-> +	rsp->schq_contig[lvl] = 0;
-> +	rsp->schq[lvl] = 0;
-> +	return -ENOMEM;
->  }
->  
->  int rvu_mbox_handler_nix_txsch_alloc(struct rvu *rvu,
-> @@ -2335,7 +2353,8 @@ int rvu_mbox_handler_nix_txsch_alloc(struct rvu *rvu,
->  			end = txsch->schq.max;
->  		}
->  
-> -		nix_txsch_alloc(rvu, txsch, rsp, lvl, start, end);
-> +		if (nix_txsch_alloc(rvu, txsch, rsp, lvl, start, end))
-> +			goto err;
-
-[Severity: Medium]
-Does this goto leak the queues already allocated for levels 0..lvl-1?
-
-For those earlier levels, nix_txsch_alloc() has already set their bits in
-txsch->schq.bmap. The reset loops have also set pfvf_map[schq] to
-TXSCH_MAP(pcifunc, 0) and reset their hardware config. The err label only
-does this:
-
-err:
-	rc = NIX_AF_ERR_TLX_ALLOC_FAIL;
-exit:
-	mutex_unlock(&rvu->rsrc_lock);
-
-The requesters treat a non-zero rc as "nothing allocated" and return.
-These include otx2_qos_txschq_alloc(), otx2_txsch_alloc() and
-otx2_pfc_txschq_alloc_one(). They never learn the queue IDs from the
-earlier levels, so they cannot release them with NIX_TXSCH_FREE.
-
-Those queues stay allocated to pcifunc until nix_txschq_free() runs at LF
-teardown, and each retry can leak more. Before this patch nothing could
-fail after the pre-check, so this error path is new.
-
-The commit message also says the patch will "roll back any partially
-allocated queue indices on error", but here only the failing level is
-rolled back.
-
->  
->  		/* Reset queue config */
->  		for (idx = 0; idx < req->schq_contig[lvl]; idx++) {
-
+diff --git a/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml b/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
+new file mode 100644
+index 000000000000..761eb9aa4adf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/peci/starfive,jhb100-peci.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JHB100 PECI Controller
++
++maintainers:
++  - Changhuang Liang <changhuang.liang@starfivetech.com>
++  - Mason Huo <mason.huo@starfivetech.com>
++
++allOf:
++  - $ref: peci-controller.yaml#
++
++properties:
++  compatible:
++    enum:
++      - starfive,jhb100-peci
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  cmd-timeout-ms:
++    minimum: 1
++    maximum: 1000
++    default: 1000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    peci-controller@11c60000 {
++      compatible = "starfive,jhb100-peci";
++      reg = <0x11c60000 0x400>;
++      interrupts = <222>;
++      clocks = <&per3crg 34>;
++      resets = <&per3crg 3>;
++      cmd-timeout-ms = <1000>;
++    };
++...
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924082128.1944674-1-rkannoth%40marvell.com
+2.25.1
+
