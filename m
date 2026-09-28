@@ -1,302 +1,222 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4A54E50D5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608165; cv=none; b=ETYVbC8zQHuLH8RSVtDjLG30KccZGdUA2nT7NJxtOIkZ9T+6azp4GmTdhSjSZy7Todxxd4gO3lhNvsd5mYL27SmTAoCFIo153WZRVtj1ytkVcyx4yfOWjVUR9FIcQC1pDYeKK/1SbRw1qE4CYKwfmBibZY3scgVIhk0wd9guQLg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608165; c=relaxed/simple;
-	bh=V128fD04ij55ZxJr3/qfR5fWUCfstwSbaVgWF34gnn8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=daR5iRadFg2OC+7FT9TvdA0Ir8I3dyDezxAQ4VFUHi8gT8o1eLdjUg3pebdfWDj/0JWs+JSv8bifsHaL+TP2XvlIjWTqxEjoioNt5yYhitrQHPniTrjZCFYpbMfDH9vZV1Ww9Cdm6oEFxQKVEghWzN9JSu7lLPFx+g3hBa7q0AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSfTL2b5; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC174E021E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790608208; cv=pass; b=FJ+8v5LuCMXvN5J9NTHtMYte2b+gnglP1wwsWBu8eADvlRwyUknP5UhOFwLmMxosd9kLL07qLkYy+mgGsjMjN5mcf9LP/Yru8fNUUh2EohJfP7rYhz63U7BcOCs4LskU/v51MaGMbLp2RpMgY4qFBYnbcyEHNQK7FsHGSVqrKUk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790608208; c=relaxed/simple;
+	bh=4FCRUAOy4qGBOqPeEKjQNXGdyxQDtJohZrPEliiduGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uvex1ZY4X3xHW5wg0PlmKeMaE6s2PeGQpxNJCRln2ACSpl5pW2PpfP9S2Cna68UjQg4LSUvcOcBQLPqnQpzAXirhpveGRi/4xUrinHaVRlTKNmBjTJfiL2OuUwRXDzOzvjZcvwHcJJs7v48itGSpYF7xXxWUHyg4eAFfniAeTRU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vcD01ljV; arc=pass smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSfTL2b5"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso324561266b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:09:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vcD01ljV"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49e65a8f70eso72125e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:10:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790608204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qB8a1Fs4MR36hqe+XeEv30sVTfWMRJgZvs2zB9OAFzwUFlzDU591Q8/kCjlXWyUHio
+         2slqiFDzpGxWUynC6uDoh7YdFyhSlKXfw3jTUoSlGqG8z0R+ClXAWliG82XC9vc3hADX
+         tR9+EaZn5CLPc6H/uF8WIDGIxqa9eE6PI5o83xlrQYQyzO7otfjjd2x9HGZYmlfPAt98
+         V7jxGMOlGTCiSqz2lwBUqdLGkZtsv4X/tMYs2WruJEBbn3c622FbkgFTa8+1dgS5jxvH
+         aKF/qHmXmAsGBh98PczTEd/1zF5cyQhC/7faQf3HIkRJJM22TP1fN2Ur0IQ2+p+/xFzs
+         5mJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SOdnKdZSsp21Wh1GtsWQOZQyXk9VHFHxURgHVJL/kIM=;
+        fh=gu3W4uxJTNRy3rZ7t2lfG8NWofHILQvYNYTmKQfN2Yo=;
+        b=P1CGAhVGd9ohzwBsK2SWPsDSB63eXArSkTCDXvv7J7+rDpEy2DkMOr7pNhFa91VcWJ
+         hi7Qk7HZaCJJA5TIpYuWOlu1u8ujd8C6fsy0EZGpiwQDAM0I6Wpo7kOsAcIf70pbi4+e
+         mEmaYJ8X7hNv73gyS2EkwHdWbnzZ2VGdljH1JfS9pOdyLwo7dbgj82Zl5GMwhjIAgz6O
+         zo91eFL0383tZn4xCokvCIjRSoqR53fLeyhuzwiiN8o0uwbax0V9P/3YnjLlJihntRwi
+         voEaaF1CyFSD8AqPW8OdoCpYhM3AWCZnzhOAiPalyWaDIIPCypc4sYY6EVOtsV+bHoiA
+         Qohw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790608161; x=1791212961; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
-        b=HSfTL2b5KQ+6ZIkApzMXSqRHvMcHEhRbILvfNcEJDpptYcJ8RDebTZjLyi/Wu+a1Q8
-         nGjTcp0dFfHqjzkJIann+OD5Pmyk4pd0YAygbIOJS9LqWOg96m/hLnFG0fACfOhiWoIk
-         WQcXMNKbCR/vMnHe/dBKF01UqN+IPUtZxex8DsHebepjNZm7RsTBL4OluB+4R6BEMyeT
-         SflCyzexbVh2F0bpB9tH+LeWmVC4r6YZU/6UjfBtC4vZduLj4daDdlcCZ0XTcsIL4f/L
-         ot1U4xxeLguh60AaICyWOIehp89YVvja7wPqLsIj3DeAYuGAUoi2GFdEEXVOLgWhiW6e
-         kORw==
+        d=google.com; s=20251104; t=1790608204; x=1791213004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SOdnKdZSsp21Wh1GtsWQOZQyXk9VHFHxURgHVJL/kIM=;
+        b=vcD01ljVTnzDGl70Y8e0CSiQ9y0wIOrAootNzIkwEEMcYlvk+3+R4y+g1KLvafXUt2
+         vTllTS31s3X/OvCoVmTGKUCiRBonRh2dnjj192BacWrPq+L+FMbGfO7vCgDvix7PSb6G
+         jdu2A5QvD9cUiUSVeT254vnw/dRXJdoUKU/5sMBchmwP6bzf/Inn6DtKak3Qc7pG2Faf
+         yZkt3jpNdn6w4eGnTdaCnRx8bmjPTjDr9ZhLQRBm4h2e4q2+YTxj638cvrnAH8xs6VSo
+         aHNeR0k21IHr78aLDbXe0V/jI0YzCdYqs6anfe1Mmat0M3HP9HEYNRzYPvQapltj+Umm
+         gs/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608161; x=1791212961;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
-        b=zTVv6LwTmhy9ZPE5WDtFtqwmJSdP/3QYlRn3QbBN3QJLou3I6HfMZBExN30CSl1M2L
-         jVHOxXbIz4XWrU7MkLhE2H1tpjrpexV3jrSqwndPCwrlNfEVkVnnE4yDBMrWIRCjI5aN
-         e9sJgda54vKkOvnfBaknpMHWS2kqa0+mdpvmGzapjeYJvj2G/BysagRzrDrV2uNWJaqa
-         7BthQDYDj7TwpzotvmctOPuq2eI2U64uh9+C6UVpxR0a+CZIfzfz8wOV0PXmS1SVoifH
-         0AHb2wzWE/aj3BGluxrXaZHgJizfLmgGUhN1XS1hJvpuY3jaL79cEfGk+KomM28DOY2o
-         2BIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9ZxTyjH0D5k0pUQmbJcpgQFj7XDXha7Zeg2ratSm08tFECLmqle8m4g+QA+ThGf/iHzLzlQiQ7fUml7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndXlddiFicK2BiBUisnKh9juM4kzJlSCBfJ8tCsufPPvVDBfWY
-	/U1LX5wCTLkquF8IZl9Ee5FhE2ywIeDN1qsgY7wVgPHJbW9vWu5b3k55
-X-Gm-Gg: AYBFou23fz8SF/QQmAQ07Fp5xZubPlwaAa9BtN/LH+zmxHGs2htMd2bxyoquf7EeOoJ
-	eKZl1OK6+4KrUQ+wOTYn6YjJxInjuqVUk3lzOV0yl5gUi2gHJTYDBZ1CcwqOLQFW0qsjMquJGLp
-	OYVS+GL9/9v0whE8bNQ5GcR2EvRXT7cN6APUa7rBljxNBS8FLJQDDOOxX5hOLVcUr+irLtQGHtd
-	jvBJQ1PzDAiiPaTSu+dsWzOs5WHp4biywV61ufMLj0dxdggzW2xHXLiTkNP8dcgNyhEPOrm9Vgp
-	XoRJPARyxMGz3P8nxbSMpUQLk196IxURRu6K/JipiZE8G+hbDohjNW0tyAcPAaE1iL9wAEXs+bb
-	A4CAV0y+PlhXwTqjj1jVcZj01UpD7j2YPlgrGUYC8n+++sB4PTE/02/Y5QDBGXTB9s/EuCHuQQY
-	cJFNU8Jov5JZeUNyJeEb3/v9L5Zv2XbueKgig=
-X-Received: by 2002:a17:907:c602:10b0:c2b:4142:2db1 with SMTP id a640c23a62f3a-c2b41424722mr392606866b.40.1790608160979;
-        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbfde3194sm297220266b.4.2026.09.28.08.09.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 28 Sep 2026 17:09:18 +0200
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-modules@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-Message-ID: <arqDHnBFGKQZm7VU@milan>
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
- <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
- <arpK2bQrrUMvEvTP@milan>
+        d=1e100.net; s=20260707; t=1790608204; x=1791213004;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SOdnKdZSsp21Wh1GtsWQOZQyXk9VHFHxURgHVJL/kIM=;
+        b=ll6+JH9ngMaR6vlz7hxRhz84S1JzEKmIl0Zuwftkc290P2pMaY7WNPuVFUx8JagU+J
+         u0n8XdqfN6ugedSZY8Fw4fyeSVZ6qtVzW8AHCHEWO4/UxVGXcAak9GRvPw4IfldjqlsC
+         pGVVrtCXqngwCiYJVq+O1/48bPlSfLRAi8ChFiDdCVdGzrsQLWfyJUzoHSJuhCBoo4fJ
+         TGQeRFRZXwIFJ89RfqLCibrL1eka5CiZHW//qg31faDQIPzRfFe2HGSsuKcRhswK7Qim
+         qjEoQSiIZf12pGhKSjPRm3olc90EjDxsudMtDSzA/C9KLEqzXc1btFGUL4K7Sd7tZows
+         gdcg==
+X-Forwarded-Encrypted: i=1; AKwUvByHy1HclLsjuVtx8kRzd9wPeL2cf52LfyJWUeeSHnJSAILLNfdQQC4dBMlJyEWv/VmuTet7U6ZPh9pHu7M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHWjp9AX8PyZ9fFcTge22b8JXGZ4v6ncrBrEippZhktpKw5tNc
+	EFhZRM9wSa9s8roZ6sT1/gN0v1TGquTj6HxjQWPkD05hVUDXenOqgOrP1OCY7FifMLtFP05gi4p
+	+AnJhSr69KjaMVXtmugmmSL/Tss4ubwHgsPy/3Ou+
+X-Gm-Gg: AYBFou3d7kfbhJeqqUpr3VN8kFxK4tZEsZaiXliRf9NEuN7xD5cPETUg02lPb4qrYpT
+	QSfE+Rbb+gIESxHK61EZq4vvEwJuAc+D8P0FygJhXll/1aOVisZMuMhVq6DXG4QURxXb/GAGPOw
+	E2jr6XErPpqFkir3r+EXwqbpYBdB0cX8REJBPDYLzeullRu/GyzXarH23rYEWjVDuc/0tjoJ4ua
+	idLEgu2JG6+j/e8tKJ3BmXnPjaJWFfhpK2l0MhsJrE7CaJYM3LTtwB3VMaGLBYtGx2pCz8E00+K
+	aL2g/YKjQmZbD5u0W95doosV3DAYSvCFn/l3/YG0ZONxECAY4poD9UZGA80BNiaOEDH5wVYgO5y
+	9UhK3oRdmYQ/IeF1EUClDzc7any72yurC6Szkf8q0u/7fSQ==
+X-Received: by 2002:a7b:c049:0:b0:49d:21ee:1d7c with SMTP id
+ 5b1f17b1804b1-49ff9060be0mr2197165e9.14.1790608204011; Mon, 28 Sep 2026
+ 08:10:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arpK2bQrrUMvEvTP@milan>
+References: <20260926054205.28933-1-sebastian.chlad@suse.com>
+In-Reply-To: <20260926054205.28933-1-sebastian.chlad@suse.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 28 Sep 2026 17:09:51 +0200
+X-Gm-Features: AclHuK-UI-y0iD6O63glrzneLIs_6v53JO-jYanPzVVSviUMa6FZaP0zTiAkdhs
+Message-ID: <CABdmKX27xqreLSwf0u7F=abmVNEKhMFj95WjJVQP=+QZsWH5WA@mail.gmail.com>
+Subject: Re: [PATCH] selftests: memcg: Don't hang in the inotify tests without IN_DELETE_SELF
+To: Sebastian Chlad <sebastianchlad@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <shuah@kernel.org>, Sebastian Chlad <sebastian.chlad@suse.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 01:09:13PM +0200, Uladzislau Rezki wrote:
-> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
-> > Hi Suren、David、Lorenzo
-> > 
-> > On 2026/9/17 09:12, Hao Ge wrote:
-> > > Hi Suren
-> > > 
-> > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
-> > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
-> > >>>
-> > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>
-> > >>>> Hi Suren
-> > >>>>
-> > >>>> Thanks for you review.
-> > >>>>
-> > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>>>
-> > >>>>>> The reservation is already stored in the maple tree when
-> > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
-> > >>>>>> module, so nothing releases the entry. Release it and roll
-> > >>>>>> module_tags.size back. Without the rollback a concurrent load that
-> > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
-> > >>>>>> vm_module_tags_populate() and write to unmapped memory.
-> > >>>>>>
-> > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
-> > >>>>>> retry to populate the same range would BUG on them, so undo them,
-> > >>>>>> but only if vmap actually ran.
-> > >>>>>>
-> > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-> > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> > >>>>>
-> > >>>>> If a patch fixes two other patches, it likely needs to be split so
-> > >>>>> that each part fixes one patch only. But read on please. I'm not sure
-> > >>>>> if one of the fixes is correct.
-> > >>>>>
-> > >>>>
-> > >>>> Kept them in one patch because they only make sense together.
-> > >>>>
-> > >>>> After a failed populate the reservation is released and the
-> > >>>> size rolled back, so the next load takes the same gap and calls
-> > >>>> vm_module_tags_populate() again, and that retry would trip over
-> > >>>> the PTEs the failed vmap left behind.
-> > >>>>
-> > >>>> Without the rollback a load that already passed needs_section_mem()
-> > >>>> just reuses the gap, skips populate and writes to unmapped memory.
-> > >>>> So splitting them leaves each half broken.
-> > >>>
-> > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
-> > >>> completely separate patch with vmap_pages_range() doing cleanup
-> > >>> itself.
-> > >>>
-> > > 
-> > > I think I get where you're coming from now.
-> > > Thanks for taking the time to explain.
-> > > 
-> > >>>>
-> > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > >>>>>> Cc: stable@vger.kernel.org
-> > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> > >>>>>> ---
-> > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
-> > >>>>>>  1 file changed, 10 insertions(+)
-> > >>>>>>
-> > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
-> > >>>>>> --- a/mm/alloc_tag.c
-> > >>>>>> +++ b/mm/alloc_tag.c
-> > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
-> > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
-> > >>>>>>                         release_pages_arg arg = { .pages = next_page };
-> > >>>>>>
-> > >>>>>> +                       /*
-> > >>>>>> +                        * vmap_pages_range() only runs once all pages were
-> > >>>>>> +                        * allocated, and it may have installed some mappings
-> > >>>>>> +                        * before failing. Undo them.
-> > >>>>>
-> > >>>>> If vmap_pages_range() failed to map the range, why should we need to
-> > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
-> > >>>>> would argue that vmap_pages_range() should be undoing these partial
-> > >>>>> mappings itself before returning the error.
-> > >>>>>
-> > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
-> > >>>
-> > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
-> > >>> only possible reason I can think of is performance but I can't imagine
-> > >>> a failure to map is a performance-critical case.
-> > >>>
-> > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
-> > >>
-> > >> Huh, my gmail thinks you are still at your previous companies :)
-> > >>
-> > > 
-> > > I manually fixed it on the mailing list for this thread.
-> > > 
-> > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
-> > >>> mapping when it fails?
-> > >>>
-> > >>>
-> > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
-> > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-> > >>>> so I did the same here.
-> > >>>>
-> > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
-> > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
-> > >>>> the current behaviour for now.
-> > >>>
-> > >>> Yeah, I understand it would require a deeper cut but if that's the
-> > >>> right way to handle this we might as well do that. Let's see what MM
-> > >>> folks think.
-> > >>>
-> > > 
-> > > Sounds good to me. Let's wait and hear what the MM folks say.
-> > > 
-> > 
-> > I just looked into the call sites for __vmap_pages_range.
-> > And I found there's a bug in one vmalloc caller [1].
-> > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
-> > __vmap_pages_range. If there are leftover PTE mappings,
-> > this can trigger a BUG(); [2]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
-> > 
-> Indeed the below code is incomplete:
-> 
-> <snip>
-> 	/*
-> 	 * page tables allocations ignore external gfp mask, enforce it
-> 	 * by the scope API
-> 	 */
-> 	flags = memalloc_apply_gfp_scope(gfp_mask);
-> 	do {
-> 		ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
-> 				page_shift, nested_gfp);
-> 		if (nofail && (ret < 0))
-> 			schedule_timeout_uninterruptible(1);
-> 	} while (nofail && (ret < 0));
-> 	memalloc_restore_scope(flags);
-> <snip>
-> 
-> and it should be fixed. As the __vmap_pages_range() can actually fail
-> and leave some installed mappings, we have to perform some cleanups
-> on failure or on repeat(if nofail is true).
-> 
-> Below code:
-> 
-> +			/*
-> +			 * vmap_pages_range() only runs once all pages were
-> +			 * allocated, and it may have installed some mappings
-> +			 * before failing. Undo them.
-> +			 */
-> +			if (nr == more_pages)
-> +				vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
-> 
-> we can use but we need to check if partially mapped space is not an
-> issue for the vunmap_range(). And it looks like it is not.
-> 
-> <snip>
-> @@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
->         do {
->                 ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
->                                 page_shift, nested_gfp);
-> -               if (nofail && (ret < 0))
-> -                       schedule_timeout_uninterruptible(1);
-> +               if (ret < 0) {
-> +                       /*
-> +                        * __vmap_pages_range() may have installed some mappings
-> +                        * before failing. Undo them before returning or retrying.
-> +                        */
-> +                       vunmap_range(addr, addr + size);
-> +                       if (nofail)
-> +                               schedule_timeout_uninterruptible(1);
-> +               }
->         } while (nofail && (ret < 0));
->         memalloc_restore_scope(flags);
-> <snip>
-> 
-And looking further. If the __vmap_pages_range()/__vmap_pages_range_noflush()
-and friends fail, a proper cleanups should be done inside, IMO.
+On Sat, Sep 26, 2026 at 7:42=E2=80=AFAM Sebastian Chlad
+<sebastianchlad@gmail.com> wrote:
 
-But i am checking callers and see that some do some not:
+Hi,
 
-<snip hooks.c>
-	__vunmap_range_noflush(
-		vmalloc_shadow(start),
-		vmalloc_shadow(start + clean * PAGE_SIZE));
-	__vunmap_range_noflush(
-		vmalloc_origin(start),
-		vmalloc_origin(start + clean * PAGE_SIZE));
-<snip hooks.c>
+> test_memcg_inotify_delete_file() and test_memcg_inotify_delete_dir()
+> wait for IN_DELETE_SELF with a blocking read() on the inotify fd. On a
+> kernel that does not send IN_DELETE_SELF for kernfs files and
+> directories, the read() never returns and test_memcontrol hangs until
+> it is killed by the kselftest timeout. The remaining tests do not run
+> and no result is reported for the inotify tests.
+>
+> Wait for the first event with poll() and a timeout. If IN_DELETE_SELF
+> does not arrive in time, report it and fail the test instead of
+> blocking, so that test_memcontrol completes and the remaining results
+> are reported.
 
-kmsan_ioremap_page_range() it does clean ups;
-kmsan_vmap_pages_range_noflush() looks like does not care in shadow.c;
-__vmalloc_area_node() as noted, it is broken as there is a BUG() on next try if nofail;
-pcpu_map_pages() it does cleanups.
-...
+But this polls for every read() through read_event(), not just IN_DELETE_SE=
+LF.
 
-and so on.
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Sebastian Chlad <sebastian.chlad@suse.com>
+> ---
+>  .../selftests/cgroup/test_memcontrol.c        | 27 ++++++++++++++++---
+>  1 file changed, 23 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/tes=
+ting/selftests/cgroup/test_memcontrol.c
+> index 0ed82347044e..c00420acc9a1 100644
+> --- a/tools/testing/selftests/cgroup/test_memcontrol.c
+> +++ b/tools/testing/selftests/cgroup/test_memcontrol.c
+> @@ -11,6 +11,7 @@
+>  #include <sys/types.h>
+>  #include <unistd.h>
+>  #include <sys/inotify.h>
+> +#include <poll.h>
+>  #include <sys/socket.h>
+>  #include <sys/wait.h>
+>  #include <arpa/inet.h>
+> @@ -1655,10 +1656,20 @@ static int test_memcg_oom_group_score_events(cons=
+t char *root)
+>         return ret;
+>  }
+>
+> +#define INOTIFY_TIMEOUT_MS 5000
+> +
+>  static int read_event(int inotify_fd, int expected_event, int expected_w=
+d)
+>  {
+> +       struct pollfd pfd =3D { .fd =3D inotify_fd, .events =3D POLLIN };
+>         struct inotify_event event;
+>         ssize_t len =3D 0;
+> +       int ret;
+> +
+> +       ret =3D poll(&pfd, 1, INOTIFY_TIMEOUT_MS);
+> +       if (ret =3D=3D 0)
+> +               return -ETIMEDOUT;
 
---
-Uladzislau Rezki
+This mixes -1 with -ETIMEDOUT. The lack of consistency for error
+handling is kinda weird.
+
+> +       if (ret < 0)
+> +               return -1;
+>
+>         len =3D read(inotify_fd, &event, sizeof(event));
+>         if (len < (ssize_t)sizeof(event))
+> @@ -1678,7 +1689,7 @@ static int test_memcg_inotify_delete_file(const cha=
+r *root)
+>  {
+>         int ret =3D KSFT_FAIL;
+>         char *memcg =3D NULL;
+> -       int fd, wd;
+> +       int fd, wd, err;
+>
+>         memcg =3D cg_name(root, "memcg_test_0");
+>
+> @@ -1701,7 +1712,11 @@ static int test_memcg_inotify_delete_file(const ch=
+ar *root)
+>         free(memcg);
+>         memcg =3D NULL;
+>
+> -       if (read_event(fd, IN_DELETE_SELF, wd))
+> +       err =3D read_event(fd, IN_DELETE_SELF, wd);
+> +       if (err =3D=3D -ETIMEDOUT)
+> +               fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
+> +                       INOTIFY_TIMEOUT_MS);
+> +       if (err)
+>                 goto cleanup;
+>
+>         if (read_event(fd, IN_IGNORED, wd))
+> @@ -1723,7 +1738,7 @@ static int test_memcg_inotify_delete_dir(const char=
+ *root)
+>  {
+>         int ret =3D KSFT_FAIL;
+>         char *memcg =3D NULL;
+> -       int fd, wd;
+> +       int fd, wd, err;
+>
+>         memcg =3D cg_name(root, "memcg_test_0");
+>
+> @@ -1746,7 +1761,11 @@ static int test_memcg_inotify_delete_dir(const cha=
+r *root)
+>         free(memcg);
+>         memcg =3D NULL;
+>
+> -       if (read_event(fd, IN_DELETE_SELF, wd))
+> +       err =3D read_event(fd, IN_DELETE_SELF, wd);
+> +       if (err =3D=3D -ETIMEDOUT)
+> +               fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
+> +                       INOTIFY_TIMEOUT_MS);
+> +       if (err)
+>                 goto cleanup;
+>
+>         if (read_event(fd, IN_IGNORED, wd))
+
+This IN_IGNORED case now fails silently while IN_DELETE_SELF prints a
+timeout error message. What about moving the error message up into
+read_event? That would address the comment about inconsistent return
+values too.
