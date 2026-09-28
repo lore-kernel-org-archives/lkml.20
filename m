@@ -1,164 +1,282 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8415C4F7CC5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE92736B91D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790625413; cv=none; b=X2GgQmR8fDJB7jfzd5tjgI2YiyYL1MF5Rn9fGsErPh3d4WOnlo/eXgJf1snmFnbek77UfLw7xiu9kpw2ylJBQgDd25MZa0u6gUJwUM33d7nfVhGxgjvafUA7W0WeVQkzOYS9i4OJv9E9dastbunFkob2pBB7UVI5gd8JICqflgo=
+	t=1790625505; cv=none; b=fOitRlAnuo7pJ+aPxDQzv9hlqFLjrSJBLKP4fCqBX/fHjQdRaOz1TibRApAuscn0NIgMv9Ps8k5XVvj0FYetlqNv8+FsOpU3eM99eBsSfo996SeaOuQcH6uYh5mcQa0gg9hZedprgKjK/UH9L32OEJuROtjuUM1wpVelfCpvqus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790625413; c=relaxed/simple;
-	bh=vRo+mo/h92iXA1isnqSpqSzHaDD4+V9lhZPq2yH7Sy8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kgfT3FZ+qI2nq/I83YkvJkPRqRSe5VedaSi5+JfMcYSrEA6EFRlsgoNJJct7E0GyTdsDmeny/qOR8RX76A61jj3UYaFbMnP8QOhMcCvO0L8964ZEXMeZzFUDsEOBG8BntZ0zuYc+Tl45LapCt0KUfflLPgMe2mutRkWRLgohmHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=EoxIpCnR; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790625505; c=relaxed/simple;
+	bh=nJKy7awCkFp/0wGYOmaZwSfsBINwkG2voD/p7fCsBKw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g6HEJ2CCkVC68SsKDEcdlIqnxMw4TpLa9/TYPQ1HzMovsqFCJ0wELJ0LqmJ9wF/Q8il0zb7YjTRgS7vUsZRTMhA3rViQmxk7iMHev1r10VDSMkomsJdr+QnGVz6rlwx10NWyqntM9Dj720zX+nOcYMB8GRhc4MAbomeMKNwGqRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFSRprLP; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="EoxIpCnR"
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c57d36d37so296153285a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:56:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFSRprLP"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6aaf28a86b9so467042a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:58:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790625401; x=1791230201; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qwTlmF74tysZPa3wLxs88tpebyN4z4d+xJbescqXPNk=;
-        b=EoxIpCnRuxwX0jveR2ugAuYLvlCfHOZtB1Dk4Qnw4HQgo3dCVg4Xf1mXh61dCYPA3M
-         mZKLjw2y6X8wAdWeBMFhTFXBrMUV3xjpFnru7ZO5gX+npBcVl21SS8vsxhxQtkyUA1hT
-         ZNry0cEXorUTJ5ZUUmDgDgcVtsrLiBlgLy5WXWonBU031xPGftQHwWp7c5y6CeKBLpbs
-         kAADbDg7JMqrsDCegTvmvQ1Eq23/iVouRQabDVEjoG9OkKYmPMhUl+XMg4ld8H/CBRA4
-         +oesopa+B1QiyFA3neIKpwVSSxoubQ2wuroBsix+HVTwl2PG4FWX1IPUR99NT/arK3SI
-         YIZg==
+        d=gmail.com; s=20251104; t=1790625500; x=1791230300; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C+OXTYGXO6d9n5BGvoI6nm++IQBLucvtvGGFoxL0/Zg=;
+        b=HFSRprLPPXv1ubmA+eoaPzU6aIv2+jRUdhrzWkAmOiZGrxjTXjJLK6pEoQV/zh91nX
+         0jJOmx+X9PX9/OaQmY8W1UmzfeSTKAihR8UeesDPl+j+WnKYNpyYEHuMjKlaxsdKHkyD
+         GGKjDZsuve+D6D0ttGmw5yxQubxNcMw+MvlEsAIb4LW9HgU5rB7657WaahWW/JzpJKWZ
+         lhb3qZa/sprzgxzhfa+3I6Xhx/+mz60lMsTG7LJH4OyCixgbDPhHzPAXhDQDdBG1mtfR
+         JGPWOpB1hMlirK+NOPahEtl4jtn+He/dRpysso63B8HIUmjbDtN+Jy0TqJhYZtXhjWKd
+         KqAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790625401; x=1791230201;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qwTlmF74tysZPa3wLxs88tpebyN4z4d+xJbescqXPNk=;
-        b=I+2xuxyaW1tJZIH30GyZM2chCCvZ0Vycuw/WlN3/dpp8fK/m+6ccfNVqSwEM/Rta0Y
-         HxpZw+LAPQVoxVS/HtpMEEyf3Y2ZgbiRPW76U2RnEcptbKZFfosrcvkIEjNsNZ/IXR6f
-         RhpI4lNLHKbuvHcg1K+v2QjfhWZoFv5qLn0GjaVzytYgHVaa3tARC8wifVcW9EhV4Xhq
-         dzBRcZplt3vBVIE1h0OdQgfnb+zdvyxYAcUW+P3Pdy+cNUJ88k86uEGiCkJvWsPVA1ZS
-         1y7Dng3eo3TbfE5EflL2UqDkFUAiDPkUPAFqryPxqGmtbAENf8KawmxWtrXu79qzkiP0
-         bsIg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5tSBKOHQKvU99La/7Rnz/xWrT4eikORsj5Pm4nLUaviy8OA3UmQJ4WONGM2aovCHYzkOFTldBce88ZbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYVvHfPHvEoaSJue3a0Tj+ZErNvhKWWgsZpP9ongxXABk4z4uy
-	XgHGg6R9taiOdvBzZ3GYCT/X7EvcV9G0EtlCzYIAQ/tk1mBRMo+p0lG/FFJOocABrNY=
-X-Gm-Gg: AYBFou3F8Q0ejkPQA4kHlRh7WPrbuSYXaepsfDZezmod509uPV47tf1M0L8b2D9eqp4
-	NGGxpIKvfE6GBhDxRz6V/NIq9zKev88mCpNwceXa74tvMmBTFvUWrN97/6t1w52SfKu0A1zuRzC
-	bWoUMjPXhV3bYvAXvtro7py1c+Vpt/HhK+cx2eRVurWP5Bdb5ax0xuNi+nWTV9MtAgnTQx5hp9C
-	AGDUjekkNYwSniOFjw2x3scOQu6X83OxM8222NOYGc2CSMEJJ87vYDCHUYTz4x0IbCg5eVy/byW
-	p6HvPNlpadhX5POfjRfaZGDWwLa/cm+52hOk2gAnIYz0SVlqLo+6UY2TSsJ5IxKKhLrJqdJrdvs
-	gYNp0UsQma/5MFi+GH2liHSJ8OAXh4L/kboi9nJ9hTk2IlXxClwmloUTX7MT/uidtsEyP4C/cHK
-	xKZQ/cyznpPn1YLoLFpdT43ZQuS4zWQrjgo6eYEYWIXHRsXrE4YOkEFmXnnmTLR9dBa63EvI/Ap
-	CNGnlNmUMkqEg==
-X-Received: by 2002:a05:620a:404c:b0:939:e735:c50e with SMTP id af79cd13be357-93c43cc2b53mr2141972085a.13.1790625400740;
-        Mon, 28 Sep 2026 12:56:40 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a2bafsm87853036d6.7.2026.09.28.12.56.39
+        d=1e100.net; s=20260707; t=1790625500; x=1791230300;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=C+OXTYGXO6d9n5BGvoI6nm++IQBLucvtvGGFoxL0/Zg=;
+        b=yJaiIbUh6hrKb01weoXyqFAGFuVxMtT5qaBy/c/+f6l5LHN1f0WM3HcZ4dGJhvzw23
+         3hEtUAOSFHDG6HPhKHJglJu/+60+ogRDu1a/W0LvJYUABC4xEAkKKt+2HJCLYm8+5Cf+
+         sZSNw5knRSSUJ3QE/+BkH+9pA8Vg6JAA2BRJkem5v1EP71hPGhn0ENGdQ1hNTPCnJ9zB
+         jdIzG4cA1jjnX/7OFpwPEf6Up7PtzqECdVGFII3US6CDZ3wT/+Bqzk9giabIv5UOEG3X
+         omxBpq9ePEuGAKgxmoEjw8IERi17yDpqppNC6vooM/SnOQ2falRPigB1Gk3+TirXSFXt
+         nKGA==
+X-Gm-Message-State: AFq9FYJdIFtdjZ40We/dzsqyir6BSmxOpS24Ps4ywMbcx36v9I3Le4QM
+	eu/l6d0r6xKe1i6Fqcki6C8lSHlKkepTWaaesxXuKxOigorr+m9DYfPm
+X-Gm-Gg: AYBFou2ZS5dtNNzcA5C7L00SrU/oTf8A2DGBLF0w1v2hdnX3J47CEBF0Fg2cv2JSFms
+	ge02npo2jsPxoAoKrHRsABzJttemlO+nZexcPnEi2R0qB3Xt4+TvLlO+BoTSygdyQT5mWjUday2
+	54/0iZpdnXq8f+SjHCsZSjiRLPa18Z0Osgd5MlxCMHZBOvAKk8+/wccvnexEThvLSMgaIyXbvs9
+	5JqewHXndoX68EiHBoPviM+WuZVqktripH/z42FntdavEqMDELxQs5kTQ+KbGZPk8kRzmKguspc
+	Z9YpA5Whwuh1yW8rlTiJhs2TwAYnhY9HAuyFsw/G9oI/dHCGPPXlGPqFgldxlO/RgWoXnli9oLK
+	DbVNK5KayQKYBdT/Jk3FP4OiTvmFqXgCr8bKuZOmzKkGqAF8Y5ntabGD3TN+9dxElIMcuQDiLG6
+	W2Nqw/T52crr+AFCo5aYR11VJdOxqIElAQ0JPJ0og82W13MCocORG643nsUM8QSS8LNv1jmE9HE
+	tIz
+X-Received: by 2002:a05:6402:a311:b0:6ac:8181:3194 with SMTP id 4fb4d7f45d1cf-6aca864ab72mr156498a12.15.1790625500281;
+        Mon, 28 Sep 2026 12:58:20 -0700 (PDT)
+Received: from localhost ([2a0d:3341:c720:cc08:a530:2329:7a50:d26a])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dd5e49sm4524355a12.19.2026.09.28.12.58.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:56:40 -0700 (PDT)
-Message-ID: <038a8200d4491261d728874da2db82f00e10bd29.camel@ndufresne.ca>
-Subject: Re: [PATCH v6 1/9] media: v4l2-common: Fix P010 format info
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Nas Chung <nas.chung@chipsnmedia.com>, mchehab@kernel.org, 
-	hverkuil@xs4all.nl, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, 	shawnguo@kernel.org, s.hauer@pengutronix.de
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-imx@nxp.com, 
-	linux-arm-kernel@lists.infradead.org, jackson.lee@chipsnmedia.com, 
-	lafley.kim@chipsnmedia.com, marek.vasut@mailbox.org
-Date: Mon, 28 Sep 2026 15:56:38 -0400
-In-Reply-To: <20260624072043.238-2-nas.chung@chipsnmedia.com>
-References: <20260624072043.238-1-nas.chung@chipsnmedia.com>
-	 <20260624072043.238-2-nas.chung@chipsnmedia.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-bMG5akiRB3PaSzMQ1vw4"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Mon, 28 Sep 2026 12:58:19 -0700 (PDT)
+From: Denys Romaniuk <chiffathefoxx@gmail.com>
+Date: Mon, 28 Sep 2026 22:58:07 +0300
+Subject: [PATCH v2] mfd: max77705: Mark PASS2 revision as supported
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260928-max77705-pass2-supported-v2-1-c04f3932c182@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6DIBQFr2JY9zeAUNKueo/GBSgoTRXCV2Njv
+ HvRpssuJ3lvZiVok7dIbsVKkp09+jBk4KeC1J0eWgu+yUw45Rd6ZSX0elFKUQlRI3LAKcaQRtu
+ AoFIyw51TzJF8j8k6vxzqR/VlnMzT1uPu2xedxzGk99Ge2b77ZcT/zMyAgRaydNQwYbi+t732r
+ 3MdelJt2/YBHwrZ89IAAAA=
+X-Change-ID: 20260913-max77705-pass2-supported-40551b2ff71f
+To: Chanwoo Choi <cw00.choi@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ Denys Romaniuk <chiffathefoxx@gmail.com>
+X-Mailer: b4 0.16.0
 
+The existing driver takes a safe approach and only probes on tested
+MAX77705 revisions. The only tested revision at the time was
+PASS3. PASS2 chips are present in the Samsung Galaxy S10/S10+/S10e
+devices.
 
---=-bMG5akiRB3PaSzMQ1vw4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Testing on the S10 and S10+ shows the driver operates correctly on
+PASS2: interrupts are registered and fire, bind and unbind release the
+I2C device cleanly, and the charger and fuel gauge report plausible
+values, charging the battery to the same voltage as the vendor kernel,
+haptic feedback works.
 
-Le mercredi 24 juin 2026 =C3=A0 16:20 +0900, Nas Chung a =C3=A9crit=C2=A0:
-> V4L2_PIX_FMT_P010 is a 10-bit 4:2:0 semi-planar format, but its
-> v4l2_format_info() entry described a 4:2:2 layout with a half-width
-> chroma plane. Correct bpp and vdiv to match P010's real layout,
-> consistent with the other semi-planar formats.
->=20
-> Fixes: 5374d8fb75f3 ("media: Add P010 video format")
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+Link: https://lore.kernel.org/all/20251023131732.GN475031@google.com/
+Signed-off-by: Denys Romaniuk <chiffathefoxx@gmail.com>
+---
+The base commit is from the for-mfd-next branch in
+[git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git].
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+# Test Results
+Second revision MAX77705 can be found on Exynos 9820 devices, such as
+Samsung Galaxy S10/S10+/S10e. Eric mentioned that S22 also features this
+revision, but I don't have it at hand to verify. My tests cover S10
+and S10+ devices. The tests should be exhaustive and prove the
+driver is operating correctly. Please let me know if there are other
+tests I can run to make sure everything is ok.
 
-Also picked, ty
+## Device Tree
+DT nodes relevant to the MAX77705 driver that I used for testing can be
+found in my private u-boot tree:
+- [https://github.com/chiffathefox/u-boot/blob/dc584dd2fcdcd3b5234a3e2629651928b722e5f5/dts/upstream/src/arm64/exynos/exynos9820-common.dtsi#L184]
+- [https://github.com/chiffathefox/u-boot/blob/dc584dd2fcdcd3b5234a3e2629651928b722e5f5/dts/upstream/src/arm64/exynos/exynos9820-common.dtsi#L15]
+- [https://github.com/chiffathefox/u-boot/blob/dc584dd2fcdcd3b5234a3e2629651928b722e5f5/dts/upstream/src/arm64/exynos/exynos9820-beyond1lte.dts#L35]
+- [https://github.com/chiffathefox/u-boot/blob/dc584dd2fcdcd3b5234a3e2629651928b722e5f5/dts/upstream/src/arm64/exynos/exynos9820-beyond2lte.dts#L35]
 
-> ---
->  drivers/media/v4l2-core/v4l2-common.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
-ore/v4l2-common.c
-> index 65db7340ad38..4de8aa3ef7d2 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -323,7 +323,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
-ormat)
->  		{ .format =3D V4L2_PIX_FMT_NV20,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bpp_div =
-=3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
->  		{ .format =3D V4L2_PIX_FMT_NV24,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
->  		{ .format =3D V4L2_PIX_FMT_NV42,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> -		{ .format =3D V4L2_PIX_FMT_P010,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
-> +		{ .format =3D V4L2_PIX_FMT_P010,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
->  		{ .format =3D V4L2_PIX_FMT_P012,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> =20
->  		{ .format =3D V4L2_PIX_FMT_YUV410,  .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 4, .vdiv =3D 4 },
+## Interrupts
+Interrupts are correctly registered and fire on both devices:
+```
+/home/user # grep -i max /proc/interrupts
+  97:        687          0          0          0          0          0          0          0  gpa1                6 Level     max77705
+  98:          0          0          0          0          0          4          0          0  max77705            0 Edge      max77705-charger
+  99:          0          0          0          0          0          2          0          0  max77705-charger    6 Edge      chgin-irq
+ 100:          0          0          0          0          0          2          0          0  max77705-charger    7 Edge      aicl-irq
+ 110:          0          0          0          0          0        683          0          0  max77705            2 Edge      max170xx_battery
+```
 
---=-bMG5akiRB3PaSzMQ1vw4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+## Bind/unbind
+The driver correctly binds and unbinds. I can communicate with the
+device after unbinding the driver, so it's releasing the i2c correctly:
+```
+/home/user # echo 1-0066 > /sys/bus/i2c/drivers/max77705/unbind
+/home/user # i2cget -y 1 0x66 0x00
+0x15
+/home/user # i2cget -y 1 0x66 0x01
+0x02
+/home/user # echo 1-0066 > /sys/bus/i2c/drivers/max77705/bind
+[ 1481.988830] max77705-rgb: Failed to locate of_node [id: -1]
+[ 1481.989191] max77705-charger: Failed to locate of_node [id: -1]
+[ 1481.989549] platform max77705-haptic: DMA mask not set
+[ 1481.990762] input: max77693-haptic as /devices/platform/soc@0/15d600c0.usi/15d60000.i2c/i2c-1/1-0066/max77705-haptic/input/input2
+```
 
------BEGIN PGP SIGNATURE-----
+## Sensors
+Sensors report realistic values when charging/discharging. Temperature
+sensors are broken. On S10 battery temperature is always reported as
+-20 deg Celsius, and on S10+ it sometimes changes when I reboot into an
+Android kernel. Seems like downstream kernel is the one responsible for writing
+the temperature measurements into that register, but it doesn't happen for me
+on my S10. Downstream kernel is reporting the same temperature as
+mainline for both devices.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrGdgAKCRDZQZRRKWBy
-9GsIAQD157B5+yx05js7VShECkIRRKuZFpkaapJRCcZGE091YAEA7bUrfvGnymk8
-65ItzDCQxEdR13vz+niUH1vG8TVs0g0=
-=uMFh
------END PGP SIGNATURE-----
+S10:
+```
+/home/user # sensors max77705-isa-0000 max170xx_battery-isa-0000
+max77705-isa-0000
+Adapter: ISA adapter
+VBYP_REG:      4.58 V
+VSYS_REG:      4.29 V
+IIN_REG:     466.00 mA
+ISYS_REG:    233.00 mA (avg =  +0.25 A)
 
---=-bMG5akiRB3PaSzMQ1vw4--
+max170xx_battery-isa-0000
+Adapter: ISA adapter
+in0:           4.28 V  (min =  +3.00 V, max =  +4.26 V)
+                       (avg =  +4.28 V)
+ERROR: Can't get value of subfeature temp1_min: Can't read
+ERROR: Can't get value of subfeature temp1_max: Can't read
+temp:         -20.0°C  (low  =  +0.0°C, high =  +0.0°C)  ALARM (LOW, HIGH)
+curr1:       253.00 mA (avg =  +0.24 A)
+
+/home/user # cat /sys/class/hwmon/hwmon1/device/status
+Charging
+```
+
+S10+:
+```
+/home/user # upower -d
+Device: /org/freedesktop/UPower/devices/battery_max170xx_battery
+  native-path:          max170xx_battery
+  power supply:         yes
+  updated:              Fri Sep  4 23:18:43 2026 (27 seconds ago)
+  has history:          yes
+  has statistics:       yes
+  battery
+    present:             yes
+    rechargeable:        yes
+    state:               charging
+    warning-level:       none
+    energy:              7.84905 Wh
+    energy-empty:        0 Wh
+    energy-full:         9.85235 Wh
+    energy-full-design:  13.2593 Wh
+    voltage-min-design:  3.35 V
+    energy-rate:         0.474233 W
+    voltage:             4.10625 V
+    charge-cycles:       150
+    time to full:        4.2 hours
+    percentage:          74%
+    temperature:         30.8 degrees C
+    capacity:            74.3052%
+    technology:          lithium-ion
+    icon-name:          'battery-full-charging-symbolic'
+  History (rate):
+    1788563923	0.474	charging
+    1788563893	0.352	charging
+    1788563863	0.983	discharging
+
+Device: /org/freedesktop/UPower/devices/line_power_max77705_charger
+  native-path:          max77705-charger
+  power supply:         yes
+  updated:              Fri Sep  4 21:24:00 2026 (6910 seconds ago)
+  has history:          no
+  has statistics:       no
+  line-power
+    warning-level:       none
+    online:              yes
+    icon-name:          'ac-adapter-symbolic'
+
+Device: /org/freedesktop/UPower/devices/DisplayDevice
+  power supply:         yes
+  updated:              Fri Sep  4 23:18:43 2026 (27 seconds ago)
+  has history:          no
+  has statistics:       no
+  battery
+    present:             yes
+    state:               charging
+    warning-level:       none
+    energy:              7.84905 Wh
+    energy-full:         9.85235 Wh
+    energy-rate:         0.474233 W
+    charge-cycles:       N/A
+    time to full:        4.2 hours
+    percentage:          74%
+    icon-name:          'battery-full-charging-symbolic'
+
+Daemon:
+  daemon-version:  1.91.0
+  on-battery:      no
+  lid-is-closed:   no
+  lid-is-present:  no
+  critical-action: PowerOff
+```
+
+## Charging
+Mainline driver charges the battery to the same voltage as downstream,
+which happens to be 4333 mV on my S10+.
+When charging wirelessly, the device accepts charge, and sensors
+correctly report the charge current, but the driver reports battery
+state as 'Discharging'.
+Since the driver doesn't support Fast Charging, charging wirelessly is
+faster than using a cable.
+
+Changes in v2:
+- Use plain && in if() as Lee Jones suggested.
+- Use real name.
+- Link to v1: https://patch.msgid.link/20260914-max77705-pass2-supported-v1-1-a453f0b14b2a@gmail.com
+---
+ drivers/mfd/max77705.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/max77705.c b/drivers/mfd/max77705.c
+index e98c76d6b699..2e9b81f26414 100644
+--- a/drivers/mfd/max77705.c
++++ b/drivers/mfd/max77705.c
+@@ -105,7 +105,7 @@ static int max77705_i2c_probe(struct i2c_client *i2c)
+ 		return -ENODEV;
+ 
+ 	pmic_rev = pmic_rev_value & MAX77705_REVISION_MASK;
+-	if (pmic_rev != MAX77705_PASS3)
++	if (pmic_rev != MAX77705_PASS2 && pmic_rev != MAX77705_PASS3)
+ 		return dev_err_probe(dev, -ENODEV, "Rev.0x%x is not tested\n", pmic_rev);
+ 
+ 	/* Active Discharge Enable */
+
+---
+base-commit: 5a5f978cf3cd2f50b9e123f851f5c6577519ee89
+change-id: 20260913-max77705-pass2-supported-40551b2ff71f
+
+Best regards,
+--  
+Denys Romaniuk <chiffathefoxx@gmail.com>
+
