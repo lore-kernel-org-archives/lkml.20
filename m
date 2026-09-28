@@ -1,128 +1,150 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C645421221
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C7974195A1;
+	Mon, 28 Sep 2026 13:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601098; cv=none; b=CybEBQrsNnsr27OM6397i1le5atZM/MSI+mgpJJvScRQL2bUlNzSML8UKnebLIkKT8PxZiG7FMgwk2H5Rv01u9batPpCi8TNpqOt0JngFY5Z1DTliJVC6e1ZjCxsrDtYTNENsW2BLqu+OuONOOmLl5YBTo30l+OWb1cvw7YjCyA=
+	t=1790601127; cv=none; b=hfvjLD1mUtYieZqkax09rq2hh2tQl0Hq4i/kU1Itt9EGR7hqlkdpm7l2duPJZn4/9EeW/SwcV+hGdnbOXrpgKXi/ThRrRp9evbg6H9Z7qxX/KrvgzC+vTODuHtqCfgf1q58v3e7f3LOpacmTThmFK1LVNsm2IRWV6hxQAv8XKgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601098; c=relaxed/simple;
-	bh=RN2xk2/pj5/I3BQINoAJtu1yiJdf8GVNnSA4MnW2dNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mNRJLIv/TAP3vlYvRlGUe48ckQtZrHmJghCHVGG4L4ENWwqEICBZ3VUre09Gg+q/sGiAizLirQQsDy5oJpTG6iNs/xRdoF5DG+yk51HGI4dUUBopYQm5LSm6HuPF+mBXG7uHGzY6kFJ71JfY5G0yk2Fhz8csXqZizVNeJoS67Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dm3ggQEG; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790601127; c=relaxed/simple;
+	bh=qARXK5luvst6TAFL4jAEw2OrBYm6ac8q5l9d2gaTyoI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JnZso9aTpjJbEcmKUi/LyHJFN0IQLNhJJRRAV4Zop7yGDvTi/9f4pbjAfCnPoKCGxnOlfHv6JVSDHn4umvsGxXv7FJUE5MIleQ20sH/9c0oE6YU7whOEJi3pQTRuDS0G3KwhT1xyoq4wwUHfwj0SVYwQDviFdudGwjkltG3I+W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=METk7VeL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dm3ggQEG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790601096;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=U1oksysxdIEOFzBPfANmMTd4+i/t9FKmSwmS/c9F7Hk=;
-	b=Dm3ggQEGuMs+qHzsT+9kqKlRyAZPJHL58hsotx2b8LSKx31YFp+cz0oALHnvKavSgSxQcW
-	HyvWSyLfU/v+JIrhzOCgH3vP7PimwMrY1t17Q3xBYGKU+uBZjDwdY/osBOn5nG5FeSid+v
-	hPWJiOC/B+w4okfPTrGSVOTALvHH5Ps=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-151-nhfxfn3VNHmacMGaCHo8xA-1; Mon,
- 28 Sep 2026 09:11:30 -0400
-X-MC-Unique: nhfxfn3VNHmacMGaCHo8xA-1
-X-Mimecast-MFC-AGG-ID: nhfxfn3VNHmacMGaCHo8xA_1790601089
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3EFFB190F985;
-	Mon, 28 Sep 2026 13:11:29 +0000 (UTC)
-Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 124F91800473;
-	Mon, 28 Sep 2026 13:11:27 +0000 (UTC)
-From: Luiz Capitulino <luizcap@redhat.com>
-To: sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: rppt@kernel.org,
-	sayalip@linux.ibm.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6.12.y] selftests/mm: hugepage-mremap: fix mapping alignment
-Date: Mon, 28 Sep 2026 09:11:17 -0400
-Message-ID: <20260928131117.231700-1-luizcap@redhat.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="METk7VeL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 533E31655;
+	Mon, 28 Sep 2026 06:12:00 -0700 (PDT)
+Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE63B3F763;
+	Mon, 28 Sep 2026 06:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790601123; bh=qARXK5luvst6TAFL4jAEw2OrBYm6ac8q5l9d2gaTyoI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=METk7VeL7FwsyTZ8S6FYEwMaMolu9SL5gg4JMZJsCAms92flWQLNTO0HCiIMZ6cfw
+	 qXRx0RjbLUZdADGQpCoYLhb8BCNpJ0xcQFrbQ/jqAgP2/WoFXV2uaPsd8MpcvdyxML
+	 mmDDNJ6/WsrqTFMR7q06quekokzYF9NS/iDNscJ0=
+Message-ID: <845ef1a3-8d85-4007-aa2c-05e59e79afcd@arm.com>
+Date: Mon, 28 Sep 2026 14:11:42 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: mtu3: Fix double dereference in TP_printk
+To: linux-usb@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, chunfeng.yun@mediatek.com,
+ gregkh@linuxfoundation.org, rostedt@goodmis.org, paulmck@kernel.org,
+ mark.rutland@arm.com
+References: <20260922103756.104846-1-vladimir.murzin@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20260922103756.104846-1-vladimir.murzin@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-commit a914785f6349da754e1226420bf4e51961956769 upstream.
+Hi All,
 
-When running the HugeTLB kselftest suite on arm64 with 64K base pages,
-this test always fails:
+Gentle ping... spat is still present in v7.3-rc5
 
-  # -------------------------
-  # running ./hugepage-mremap
-  # -------------------------
-  # TAP version 13
-  # 1..1
-  # # Map haddr: Returned address is 0x7eaa40000000
-  # # Map daddr: Returned address is 0x7daa40000000
-  # # Map vaddr: Returned address is 0x7faa40000000
-  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-  # # Planned tests != run tests (1 != 0)
-  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-  # [FAIL]
-  not ok 1 hugepage-mremap # exit=1
-  # NOTE: These hugetlb tests provide minimal coverage.  Use
-  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-  #       hugetlb regression testing.
-  # SKIP ./uffd-wp-mremap
+Cheers
+Vladimir
 
-The problem is that the default HugeTLB page size on such systems is
-512 MiB and 'length' is not aligned to the page size. This causes
-uffd_register() to fail as 'length' is 10 MiB and not aligned to the
-HugeTLB page size.
-
-On upstream this was fixed by a914785f6349 ("selftests/mm: hugetlb-mremap:
-add setup of HugeTLB pages") as that commit aligns 'length' to the
-default HugeTLB page size as part of what it's doing. Since this commit
-is part of a 50+ patch series, we backport only the 'length' alignment
-bits to fix the test.
-
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
----
- tools/testing/selftests/mm/hugepage-mremap.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
-index 3070484f9ed0..42dd4eeba52b 100644
---- a/tools/testing/selftests/mm/hugepage-mremap.c
-+++ b/tools/testing/selftests/mm/hugepage-mremap.c
-@@ -87,6 +87,7 @@ static void register_region_with_uffd(char *addr, size_t len)
- 
- int main(int argc, char *argv[])
- {
-+	unsigned long hugepage_size;
- 	size_t length = 0;
- 	int ret = 0, fd;
- 
-@@ -104,7 +105,12 @@ int main(int argc, char *argv[])
- 	else
- 		length = DEFAULT_LENGTH_MB;
- 
-+	hugepage_size = default_huge_page_size();
-+	if (!hugepage_size)
-+		ksft_exit_skip("Could not detect default hugetlb page size\n");
-+
- 	length = MB_TO_BYTES(length);
-+	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
- 	fd = memfd_create(argv[0], MFD_HUGETLB);
- 	if (fd < 0)
- 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
--- 
-2.55.0
+On 9/22/26 11:37, Vladimir Murzin wrote:
+> Paul reported kernel splat:
+> 
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] ------------[ cut here ]------------
+> [    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
+> [    0.000000] Modules linked in:
+> [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
+> [    0.000000] Hardware name: linux,dummy-virt (DT)
+> [    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [    0.000000] pc : test_double_dereference+0x144/0x14c
+> [    0.000000] lr : test_double_dereference+0x144/0x14c
+> [    0.000000] sp : ffffc80aa7633bf0
+> [    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
+> [    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
+> [    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
+> [    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
+> [    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
+> [    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
+> [    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
+> [    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
+> [    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
+> [    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
+> [    0.000000] Call trace:
+> [    0.000000]  test_double_dereference+0x144/0x14c (P)
+> [    0.000000]  trace_event_raw_init+0x37c/0x5d8
+> [    0.000000]  event_init+0x34/0xc0
+> [    0.000000]  trace_event_init+0xec/0x588
+> [    0.000000]  trace_init+0x24/0x6e0
+> [    0.000000]  start_kernel+0x4a0/0x8ec
+> [    0.000000]  __primary_switched+0x88/0x90
+> [    0.000000] irq event stamp: 0
+> [    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] ---[ end trace 0000000000000000 ]---
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
+> 
+> Which also observed by Mark and myself.
+> 
+> The splat it result of new check introduced by b5cc230af5e5 ("tracing:
+> Warn when an event dereferences a pointer in TP_printk()") which
+> correctly catches issue with %pad dereferencing the address saved in
+> the ring buffer. TP_fast_assign() logic gets executed when the
+> tracepoint is triggered, however the TP_printk() is executed when the
+> user reads the trace buffer which could be seconds, minutes, hours,
+> days, even months later and nothing guarantee that __entry->gpd_ring
+> pointer will still be pointing to what it was when it was recorded.
+> 
+> Fix the issue by capturing immediate value of gpd_ring.dma when trace
+> point is triggered.
+> 
+> Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> Tested-by: Mark Rutland <mark.rutland@arm.com>
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+> Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> ---
+>  drivers/usb/mtu3/mtu3_trace.h | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> index 89870175d635..9aaa167d69c1 100644
+> --- a/drivers/usb/mtu3/mtu3_trace.h
+> +++ b/drivers/usb/mtu3/mtu3_trace.h
+> @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__field(unsigned int, flags)
+>  		__field(unsigned int, direction)
+>  		__field(struct mtu3_gpd_ring *, gpd_ring)
+> +		__field(dma_addr_t, gpd_ring_dma)
+>  	),
+>  	TP_fast_assign(
+>  		__assign_str(name);
+> @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__entry->flags = mep->flags;
+>  		__entry->direction = mep->is_in;
+>  		__entry->gpd_ring = &mep->gpd_ring;
+> +		__entry->gpd_ring_dma = mep->gpd_ring.dma
+>  	),
+>  	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+>  		__get_str(name), usb_ep_type_string(__entry->type),
+>  		__entry->maxp, __entry->slot,
+>  		__entry->mult, __entry->maxburst,
+> -		__entry->gpd_ring, &__entry->gpd_ring->dma,
+> +		__entry->gpd_ring, &__entry->gpd_ring_dma,
+>  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+>  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
+>  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
+> -- 2.34.1
+> 
 
