@@ -1,306 +1,324 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D4F3115BC;
-	Mon, 28 Sep 2026 11:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593347; cv=none; b=MmOc4zYKMm0DRXF9W5W5f5o2x2srkV1qW4BXzz1RrIKAijvCAXDTh35U56GJsXmVV4SkhcAdiBSGj9C3mQCgkUNEkOMm6B/5v7+nDZaZZW5JJy9af4AxgFzaYDAsQo/DP4eEU3XJKcBLTD6+dmA08VZE2gX1XarcGoTFRA7nEt8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593347; c=relaxed/simple;
-	bh=vDM3Jsc4s2Pcenh8iO1OuupcO/tSGDTEI7SgHoe5a50=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=byLpeRrB+goYvi9UEfZAwRd9kGxJ7365B+ZnskgtUqSiRnasBcxR9w5JWCQmxM6jPYDS7x0Fj1ViLai3Q6StfuaMkJHgMGKeXlAMsjTa280RWJGyCMayz/IqX7nsCgalnYKBMmiRKS1pO+ymgnzIKzc/fqkPIkCns48ZNJjbX8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RO5T5IGF; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55571415F08
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790593358; cv=pass; b=pkNnwnuZlkoaS5deH9YaVIb/ntyA1Rx3CKMzzqso0Dgt7w3OUqT8ocCSPTdRyR8fRZpRJpevgs0uzn7G8SWBoZ3OTzeGhdIU+6naBMOmzGb24YFWM5DmNVgsgOu8r3ZZtJNYuHTROXNf4qlKKxPCxm5LzR69sTMBezboRot0wag=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790593358; c=relaxed/simple;
+	bh=UPfxV8PVdA7O2nD4lGvgJiDAq5TA4QePgxk+3BbaSLk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FJER1xvGLxAg1mFAs0JgpBI6UfmoBCkHYMWcRTffiRZ373/wWSGNcgwyHNfSblhSCx2y6XAgr9h7aXYijxHhiHF5Vh1szYDjL/6M6F8RthAmPpjc9O2MGqk4KvCp8502q14eT8F6Y178pfKTEpMz1cptjowaKYu12j0ZrxwsMyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=R0SlybOZ; arc=pass smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RO5T5IGF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790593350; x=1822129350;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=vDM3Jsc4s2Pcenh8iO1OuupcO/tSGDTEI7SgHoe5a50=;
-  b=RO5T5IGFE4/2AJCdyHAmU/qqBxvHRx3EAmAnHcUXw/qSSz00ogPOPZad
-   dNniuk3ZBZYy4OC8Nx6vGQURsT9AhbXNWfTHwYHLGS7BpdJEtq2a+en4R
-   rsPk0nWrOpnoqeEABv56r/I5kE3kF81d6e7Pc0uofVqkzrv8ClBtU4bRf
-   dZqoXUa0zejejJQ3PlgjnufJ9kfvvKeI0Q3EWkilIxV4pCz5mfOZuwle4
-   NhL8Kk1TMlWYlpBuXqtMD4Dy7vPYI9pSb/I1LqkqUTBhISNaFh2qHVs4u
-   L+t7sUn7PR/bHmSZP+4BzM4lk70mO+HGV11L5ozh36BrZ7IGI1Dn0Xo0J
-   g==;
-X-CSE-ConnectionGUID: bFAJbgXdQXa3H8oQWgtrFg==
-X-CSE-MsgGUID: 7FAlnek9R5ygFrSu1nO9/w==
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="231363130"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:02:29 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Mon, 28 Sep 2026 04:02:23 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 28 Sep 2026 04:02:18 -0700
-Date: Mon, 28 Sep 2026 13:02:18 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<horms@kernel.org>, <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v8 13/15] net: lan966x: add PCIe FDMA XDP support
-Message-ID: <20260928110218.ktlj26jtyakuywio@DEN-DL-M70577>
-References: <20260924-lan966x-pci-fdma-v8-13-201c7b707d8b@microchip.com>
- <179036955220.2160803.7046320782670912992@kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="R0SlybOZ"
+Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d8709e0e13so423121eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:02:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790593355; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DJgcNsSpPofQDBRU6cnmzsOWIqjlpWmkmWohKQaE1H2VRQAwiNZg4zKuDzV9TQJRaD
+         6TSADoZ80GuFjznmondW3ih+e5sWZR6sKPYdLWi07I88ydQ2M1SlZHgHIvRoJaQKHppF
+         mH4Rrl162MnAAMlU5+JprwdzMyFUPNllX1chZLpkeUPhbThDrtbV0sFabZjjgCn9QLCl
+         YvESUi6nPSJkBfcMfICsFrPn2NVBjPmmMBRrvjZoLFrSJSgZfH/9k+luD0nvWeIgnmpt
+         QtmlUB5BPB7sCGb2EJ/5dbUmtDrzzqBBjCaWmEgXyRG2PlETK239oJvF9gwlXN3rusyM
+         Xy4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eFLcfE6x5L57ZS16MpOasRd49TlwCzdeHjNICeg3bso=;
+        fh=zKxMmWBR4gGZ43z70bDpfmtYc9vJw99uOtJ+iKME87c=;
+        b=CeAepWOd0P79rTbT/xWy/TClz/N6M93QNmP1dYAhYVsjvEmDw2mkgvJ21vmtd18lTQ
+         irHyumUd9Zhk6FcYstFWksugch9NiW/v1DaHBcZJvCSpIbPPUaJoptWEbJ4B2ol3OLUj
+         SfyE4FKHNbsTfW3SPSUfW8VnnrVdiLAE4jv6tSF3DKRus8+F418G0Gg4/9aoJcIe3n9B
+         TnV7zWoGj+WcsQZGd0ppogAfxJhC5cpdxlNAicyOz8as1jcc3y4ySj9RyqVJL/28AKuX
+         daH7KLfz6N+uZphuTWR7c75lOEuWyB0pX0HWNLSzNkwXb6XqxZI3J8gWk4cjBG0oh/H2
+         m7Eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1790593355; x=1791198155; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eFLcfE6x5L57ZS16MpOasRd49TlwCzdeHjNICeg3bso=;
+        b=R0SlybOZ4DeG8QcveDayidAsfqa9SkJLp320yBs0s1rfcYo6WcpKRFrJIFRyPpuz95
+         v0LTiO9z4SO/1jmE1VGKJLpGxMzqRyrHXmo2HeNu3vzQTJOJv/9mhglOV/4fnZ31P2iP
+         Ne/5ymq+Xv6z52w+axrUqUOA9MIq5Cm4ne1Iq2LPgq0M15/pZIkiBZ8h2ukEq9w490Fs
+         u5lSyh17sgsKLhxuEENNcuOt0Y/P0d5lgfj0hh2OZqyozr7UECCflskqt4Fqt1KIhXnM
+         GoNvX6QCRDcEP4oAcvD6Cu4HDX/B20Huwmi+zzpOHMXELznK+eBKu8qXchZp904s2/5x
+         3quw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790593355; x=1791198155;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eFLcfE6x5L57ZS16MpOasRd49TlwCzdeHjNICeg3bso=;
+        b=BZoA4wp6rZEaWXqmkQ5CP25O0bWffomgGodrQno+6bSeurJYxC2tB8mBQi9KwWn1D7
+         LLGImIvOBLA97ifTv0pxX+snLDTaGwf/aiHyztMSIzKdn5yXRGkGUrTfy36KwAhHkC0X
+         tHrIB/aSNQ9bTFDsUcZUXChvFYyT4gWM5of2aZIGym6+MUuyX0LSobY3zAUlZ4rI+GDv
+         BwycZkS/WlcOUP4FWg1iTGACF1KZXPrfmi/jjnWOqwhlnlwa0Mne9cJuZ2DcSIYfHPZn
+         ILbKC8FMvC83+xTF99X5wILkigajhe750kJbtgpIzy4+5JvX5p3AJxUlwZQJrMV4g0DV
+         26Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfsjNuigRU4GvXud5hJQ9o2mSI74CaGK6XqdMDpxUiP/jtq9gxgW6NKNaYh0mf902022z/H70x8+DvcpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSvZ2E+oWQKc9rvaymW1XcAKS6UPOMutV6MYztLjwIDL75rwu3
+	ukdLpDfVL0MdZRFiBUotJKOTcynCpAUOFzfNa/yk3II+82W7bTFK0B6X1XJxUmyjnn1WQG28EOH
+	TZ+G+qjJgcVw4DRS/LCHRpKyZs0ZBEsjz08YXg/VZZw==
+X-Gm-Gg: AYBFou2ntxG0FBKAxrOKpDST2e4unO141/YY7+EHAtSSf76AZjt+s3ftECO3iGfM5ZX
+	m2cIsvvfLkVSBVPewHpTu25XNf6HpbWii0QXqf9ZvT/Wmx5TIS4dROwDN5imnqeJIfuX/Bu0Zac
+	GLW2oJu7OZPjwPJ/oMlYixlkv7zqXIwdJup5QnsSq4OjEhdwZ8Gofo+PeGebiJ+jppnQj5bQxri
+	nnc9J7YbyTZ71bZise2mNEZow5pYt6QXRPwjddUm7SoXDl+FRWLViPfx3iVfFlDX7xHKUWUgf8d
+	f2VTGr2waD1n9xmLaVDK6iKVQITtsbMv9KmfhzY174B3OoTYP81HrUvRnzKT/nUQ3/fREdFAxqb
+	/GVR/tJo1/akbmXUx6POMNytaAZe5cscS/omUXyaaiLv3xkHqL0h54JTt5nvLqBC+W206Zwg=
+X-Received: by 2002:a05:6820:1c8e:b0:6d9:277d:79e0 with SMTP id
+ 006d021491bc7-6d9277d7cccmr2206566eaf.50.1790593354819; Mon, 28 Sep 2026
+ 04:02:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179036955220.2160803.7046320782670912992@kernel.org>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev> <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
+ <aronEaoCLJo0h2Ni@bombadil>
+In-Reply-To: <aronEaoCLJo0h2Ni@bombadil>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 28 Sep 2026 12:02:18 +0100
+X-Gm-Features: AclHuK86JhubYiVm1DkPM_tU117-YonJUhZ9DKD1L8O27pgHgLiiAxEtuTqB3Iw
+Message-ID: <CAPY8ntAUQY_kFRVKGUZJzOD3ygPQqtirTAC21giKuLmBaph5zw@mail.gmail.com>
+Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure time calculation
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 1 � High: 0 � Medium: 2 � Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Critical] Use-after-free and double free on the PCIe RX path when an
->   XDP program shrinks a frame.
-> - [Medium] On the PCIe path the driver accepts XDP but cannot handle
->   XDP_REDIRECT, and the bond driver cannot tell.
-> - [Medium] In lan966x_fdma_pci_napi_poll(), a poll that consumes all
->   FDMA_PCI_DCB_MAX (256) RX descriptors never re-arms any of them.
-> 
-> --
-> 
-> net: lan966x: add PCIe FDMA XDP support
-> 
-> This commit adds basic XDP support (XDP_PASS, XDP_DROP, XDP_TX) to the
-> lan966x PCIe FDMA path. The IFH and FCS are stripped before the program
-> runs, and the pointer and length from after XDP are passed on to skb
-> construction or to a new memcpy-based XDP_TX routine.
-> lan966x_xdp_setup() now accepts programs on PCIe and skips the page_pool
-> reload there.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > index 7185e65dda435..216e9cbcd1580 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> 
-> [ ... ]
-> 
-> > +static int lan966x_xdp_pci_run(struct lan966x_port *port, void *data,
-> > +                            u32 data_len, void **xdp_data, u32 *xdp_len)
-> > +{
-> 
-> [ ... ]
-> 
-> > +     act = bpf_prog_run_xdp(xdp_prog, &xdp);
-> > +
-> > +     *xdp_data = xdp.data;
-> > +     *xdp_len = xdp.data_end - xdp.data;
-> > +
-> > +     switch (act) {
-> > +     case XDP_PASS:
-> > +             return FDMA_PASS;
-> > +     case XDP_TX:
-> > +             return lan966x_fdma_pci_xmit_xdpf(port, *xdp_data, *xdp_len) ?
-> > +                    FDMA_DROP : FDMA_TX;
-> > +     default:
-> > +             bpf_warn_invalid_xdp_action(port->dev, xdp_prog, act);
-> > +             fallthrough;
-> 
-> [Severity: Medium]
-> What happens here when the PCIe port is a bond slave?
-> 
-> The PCIe ports use the same lan966x_port_netdev_ops as the platform
-> ports, so both .ndo_bpf and .ndo_xdp_xmit are set. bond_xdp_set() looks
-> only at those pointers and never reads xdp_features:
-> 
-> drivers/net/bonding/bond_main.c:bond_xdp_set() {
->     ...
->                 if (!slave_dev->netdev_ops->ndo_bpf ||
->                     !slave_dev->netdev_ops->ndo_xdp_xmit) {
->     ...
-> }
-> 
-> This patch removes the -EOPNOTSUPP return for PCIe in
-> lan966x_xdp_setup(), so a bond with a lan966x PCIe slave can now install
-> its program on that slave. For bond slaves, bpf_prog_run_xdp() can then
-> turn XDP_TX into XDP_REDIRECT:
-> 
-> net/core/filter.c:xdp_master_redirect() {
->     ...
->         if (slave && slave != xdp->rxq->dev) {
->                 ri->tgt_index = slave->ifindex;
->                 ri->map_id = INT_MAX;
->                 ri->map_type = BPF_MAP_TYPE_UNSPEC;
->                 return XDP_REDIRECT;
->     ...
-> }
-> 
-> It can also return XDP_ABORTED when the master is down.
-> 
-> This switch has no XDP_REDIRECT case. Would those frames go to the
-> default branch, log a "Driver unsupported" warning and be dropped?
-> Nothing calls xdp_do_redirect(), so the redirect info set by
-> xdp_master_redirect() would never be used.
+Hi Richard
 
-Re-raise of dismissed issue in v7.
-
-> 
-> [ ... ]
-> 
-> >  static struct sk_buff *lan966x_fdma_pci_rx_get_frame(struct lan966x_rx *rx,
-> > -                                                  u64 src_port)
-> > +                                                  u64 src_port, void *data,
-> > +                                                  u32 data_len)
-> >  {
-> 
-> [ ... ]
-> 
-> > -     memcpy(skb->data,
-> > -            fdma_dataptr_virt_addr_contiguous(fdma,
-> > -                                              fdma->dcb_index,
-> > -                                              fdma->db_index),
-> > -                                              data_len);
-> > +     memcpy(skb->data, data, data_len);
+On Mon, 28 Sept 2026 at 09:56, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> Hi Dave,
+>
+> thanks for your feedback!
+>
+> On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
+> > Hi Richard
 > >
-> >       skb_put(skb, data_len);
+> > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> > <richard.leitner@linux.dev> wrote:
+> > >
+> > > ov9282_exposure_to_us() divided the line length by the pixel rate con=
+trol,
+> > > which is the MIPI rate and not the clock HTS is counted in.
 > >
-> >       skb->dev = lan966x->ports[src_port]->dev;
-> > -     skb_pull(skb, IFH_LEN_BYTES);
-> > -
-> > -     skb_trim(skb, skb->len - ETH_FCS_LEN);
+> > It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
+> > the MIPI rate. Many drivers do conflate the two.
 > >
-> >       skb->protocol = eth_type_trans(skb, skb->dev);
-> 
-> [Severity: Critical]
-> Can this lead to a use-after-free when an XDP program shrinks the frame?
-> 
-> data_len is now the length from after XDP, returned by
-> lan966x_xdp_pci_run(). bpf_xdp_adjust_tail() and bpf_xdp_adjust_head()
-> let it shrink to ETH_HLEN. Take a 14-byte frame with h_proto 0x8100
-> that returns XDP_PASS. eth_type_trans() then leaves skb->len == 0 and
-> skb->protocol == ETH_P_8021Q.
-> 
-> Now suppose src_port is in bridge_mask and IGMP/MLD redirect is enabled
-> in ANA_CPU_FWD_CFG. lan966x_port_mc_set() enables it when multicast
-> snooping is on, and snooping is on by default. In that case the code
-> after this point reaches:
-> 
-> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_hw_offload() {
->     ...
->         if (eth_type_vlan(skb->protocol)) {
->                 skb = skb_vlan_untag(skb);
->                 if (unlikely(!skb))
->                         return false;
->         }
->     ...
+> > However I did notice a couple of weeks back that pixel_rate is
+> > incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
+> > readout).
+> >
+> > <quote> Actually I see the problem. In the hardware the pixel rate for =
+8 bit
+> > is scaled by the change of PLL2 multiplier from 0x50 to 0x60 =3D x1.2.
+> > The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =3D
+> > 0.96, so my 96% of speed would be spot on. The use of link frequency
+> > in computing pixel rate is totally bogus as they are on independent
+> > PLLs </quote>
+>
+> So I guess I should also get rid of the pixel rate pre-processor
+> calculation which depends on the link frequency?
+>
+> Is it OK with you to just hard-code them?
+>
+> #define OV9282_PIXEL_RATE_10BIT   160000000
+> #define OV9282_PIXEL_RATE_8BIT    192000000
+>
+> AFAICT it should be possible to calculate the PLL1 pix clk from the input
+> clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
+> would prefer to not add this to this series. If it's desired and possible
+> from your point of view, I can tackle this in a future series.
+
+I'm happy for them to be hard coded, possibly with a comment that the
+pixel rate is derived from the PLL2 clock tree. For 10bit readout, the
+whole PLL config is exactly the same as the sample PLL configuration
+given in the datasheet (table 2-10 for me with datasheet v1.53). 8bit
+readout changes the PLL2 multiplier.
+
+The registers initially looked pretty close to the CCS standard and so
+possible to use the ccs-pll helpers, except the dividers support /1.5
+and /2.5 in places so I don't think it can be used as-is (PLL1 prediv
+is set to /1.5 in the current setup).
+
+Whilst feasible, if no one has had a use case needing an alternate
+input clock rate in 5 years since the ov9282 driver was merged (Aug
+2021), then there's little point in jumping through hoops to
+accommodate a theoretical future user who may never surface. I'd save
+yourself the effort.
+
+> >
+> > If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
+> > the current 200000000), does that solve your problem without
+> > recomputing things?
+>
+> Thanks for the explanation above. I guess you're right, the link freq/mip=
+i
+> rate should not be in there. I've just ran a quick test and it should be
+> fine with that change.
+
+Great. If just correcting the pixel rate solves the problem, then it's
+better not to complicate the calculations in other places
+unnecessarily.
+
+> As i would like to keep the ov9282_line_time_ns() function, what's your
+> take on the following implementation? Would that be OK for a v2?
+>
+> static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> {
+>         u64 hts =3D ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+>         return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
 > }
-> 
-> pskb_may_pull(skb, VLAN_HLEN + 2) fails in skb_vlan_untag(), so it
-> frees the skb with kfree_skb() and returns NULL. lan966x_hw_offload()
-> only returns a bool, so the caller still holds the freed pointer:
-> 
->                 if (!lan966x_hw_offload(lan966x, src_port, skb))
->                         skb->offload_fwd_mark = 0;
->         }
-> 
->         skb->dev->stats.rx_bytes += skb->len;
-> 
-> The freed skb is then returned to lan966x_fdma_pci_napi_poll(), which
-> passes it to napi_gro_receive(). Would that be a use-after-free followed
-> by a double free?
-> 
-> The problem in lan966x_hw_offload() is older. Before this patch it could
-> not be reached, because skbs were built from the hardware length and the
-> MAC drops runts. The frame contents can also come from the network, for
-> example when a decap program uses adjust_head on a minimum-size outer
-> frame.
 
-A VLAN-tag frame arrives on a bridged port, with IGMP/MLD snooping enabled. That
-same port has an XDP program that shrinks the frame to ETH_HLEN and returns
-XDP_PASS. AFAICT, yes, that will result in UAF.
+I have no issue with having a helper for the flash calculations.
 
-Agree that the problem is lan966x_hw_offload, which can potentially free the
-skb, without letting the caller know. This function is pre-existing and used in
-the platform path, but the UAF can never happen there, because the frame length
-is guarded, and the post-program length is not used at all.
+  Dave
 
-Since there is no live bug in the platform path today, this should, IMO, be a
-preparatory commit in this series, that refactors the lan966x_hw_offload()
-function to let the caller know the skb was freed.
-
-> 
-> [ ... ]
-> 
-> > @@ -312,8 +430,17 @@ static int lan966x_fdma_pci_napi_poll(struct napi_struct *napi, int weight)
-> >                        */
-> >                       fdma_dcb_advance(fdma);
-> >                       continue;
-> > +             case FDMA_TX:
-> > +                     fdma_dcb_advance(fdma);
-> > +                     continue;
-> > +             case FDMA_DROP:
-> > +                     fdma_dcb_advance(fdma);
-> > +                     continue;
-> >               }
-> 
-> [Severity: Medium]
-> What happens if one poll consumes all 256 (FDMA_PCI_DCB_MAX) RX
-> descriptors?
-> 
-> Every result path calls fdma_dcb_advance(), which wraps at n_dcbs. After
-> 256 frames, dcb_index is back at the value saved in dcb_reload. The
-> re-arm loop at the end of lan966x_fdma_pci_napi_poll() then runs zero
-> times:
-> 
->         while (dcb_reload != fdma->dcb_index) {
->                 old_dcb = dcb_reload;
->                 dcb_reload++;
->                 dcb_reload &= fdma->n_dcbs - 1;
-> 
-> So none of the consumed DCBs are re-armed, and they all keep
-> FDMA_DCB_STATUS_DONE. With a budget above 256, fdma_has_frames() stays
-> true and the same frames are processed again in the same call. With a
-> budget of exactly 256, the next poll processes them again.
-> 
-> Would this deliver stale frames twice, run XDP on them again, and resend
-> the XDP_TX frames?
-> 
-> Only the budget bounds the loop. __napi_busy_loop() passes the socket's
-> SO_BUSY_POLL_BUDGET straight to napi_poll(), and that value can be up to
-> U16_MAX with CAP_NET_ADMIN. The ring can fill completely, because the
-> hardware fills the last DCB before it stops on the invalid nextptr.
-> 
-> This loop was added by the earlier "net: lan966x: add PCIe FDMA support"
-> commit in this series. This patch extends it with the XDP_TX and
-> XDP_DROP results, and it does not seem to be fixed later in the series.
-> The platform lan966x_fdma_napi_poll() has the same pattern with 512
-> DCBs.
-
-Re-raise of dismissed issue in v7.
-
-> 
-> --
-> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-lan966x-pci-fdma-v8-0-201c7b707d8b%40microchip.com
-
-pw-bot: cr
+> thanks!
+>
+> regards;rl
+>
+> >
+> >   Dave
+> >
+> > [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbi=
+nSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
+> > The original reporter did come back to me and acknowledge he was using
+> > the downstream Rockchip driver which is doing the wrong thing.
+> >
+> > > The right
+> > > clock is PLL2's system clock. With the PLL2 dividers left at their re=
+set
+> > > values the chain
+> > >
+> > > SYS_CLK =3D XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sy=
+s_div
+> > >         =3D    24  /    1     /    3    * loop_div /     4       /   =
+ 2
+> > >
+> > > collapses to SYS_CLK =3D loop_div MHz.
+> > >
+> > > Fix this by introducing a new static function to calculate the curren=
+t
+> > > line time and use it in ov9282_exposure_to_us().
+> > >
+> > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > ---
+> > >  drivers/media/i2c/ov9282.c | 46 ++++++++++++++++++++++++++++++++++++=
++---------
+> > >  1 file changed, 37 insertions(+), 9 deletions(-)
+> > >
+> > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > > index c10b2e205834e..3f83a6cf338d8 100644
+> > > --- a/drivers/media/i2c/ov9282.c
+> > > +++ b/drivers/media/i2c/ov9282.c
+> > > @@ -10,10 +10,12 @@
+> > >  #include <linux/delay.h>
+> > >  #include <linux/i2c.h>
+> > >  #include <linux/math.h>
+> > > +#include <linux/math64.h>
+> > >  #include <linux/module.h>
+> > >  #include <linux/pm_runtime.h>
+> > >  #include <linux/regmap.h>
+> > >  #include <linux/regulator/consumer.h>
+> > > +#include <linux/time64.h>
+> > >
+> > >  #include <media/v4l2-cci.h>
+> > >  #include <media/v4l2-ctrls.h>
+> > > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4=
+l2_subdev *subdev)
+> > >         return container_of(subdev, struct ov9282, sd);
+> > >  }
+> > >
+> > > +/**
+> > > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
+> > > + * @ov9282: pointer to ov9282 device
+> > > + *
+> > > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe =
+frame span
+> > > + * are counted in PLL2's system clock. We assume the PLL2 dividers a=
+re at their
+> > > + * reset values, so the formula reduces to SYS_CLK =3D loop_div MHz.
+> > > + *
+> > > + * Return: line time in nanoseconds.
+> > > + */
+> > > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> > > +{
+> > > +       u32 hts =3D ov9282->cur_mode->width + ov9282->hblank_ctrl->va=
+l;
+> > > +       u32 sclk_rate_mhz =3D ov9282->code =3D=3D MEDIA_BUS_FMT_Y10_1=
+X10 ?
+> > > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
+> > > +
+> > > +       /*
+> > > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
+> > > +        */
+> > > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_r=
+ate_mhz);
+> > > +}
+> > > +
+> > > +/**
+> > > + * ov9282_exposure_to_us() - Convert an exposure register value to m=
+icroseconds
+> > > + * @ov9282: pointer to ov9282 device
+> > > + * @exposure: exposure register value to convert
+> > > + *
+> > > + * Return: microsecond represenation of the given exposure register =
+value.
+> > > + */
+> > > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure=
+)
+> > > +{
+> > > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
+> > > +                      NSEC_PER_USEC);
+> > > +}
+> > > +
+> > >  /**
+> > >   * ov9282_update_controls() - Update control ranges based on streami=
+ng mode
+> > >   * @ov9282: pointer to ov9282 device
+> > > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 =
+*ov9282,
+> > >                                         mode->vblank_max, 1, mode->vb=
+lank);
+> > >  }
+> > >
+> > > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure=
+)
+> > > -{
+> > > -       /* calculate exposure time in =C2=B5s */
+> > > -       u32 frame_width =3D ov9282->cur_mode->width + ov9282->hblank_=
+ctrl->val;
+> > > -       u32 trow_us =3D frame_width / (ov9282->pixel_rate->val / 1000=
+000UL);
+> > > -
+> > > -       return exposure * trow_us;
+> > > -}
+> > > -
+> > >  /**
+> > >   * ov9282_update_exp_gain() - Set updated exposure and gain
+> > >   * @ov9282: pointer to ov9282 device
+> > >
+> > > --
+> > > 2.53.0
+> > >
+> > >
