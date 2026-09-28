@@ -1,336 +1,145 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9AF49E130
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947A33DD866
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609897; cv=none; b=lGmD7i54dccUD1BfN5oWkR0OyTsYUQIN8F6hXU3+BHjqlxRyfBcyzjmIHbLi2nEZNN49E8+lovK2G9WtZWs7qWjHXsykwdoL5BkoRV+xe6yPCyyFXmwTLkVwl24Xh7ApBRCwiUIwPRqwbQjtK6jYNNzu2my/NNan9oNZ6kczovY=
+	t=1790609904; cv=none; b=dJqeCORO/r/MgyQGhLaAIgjiRZEDrMfsSOcBwM4ZyWhnE6kmVBz/9gciv4V72pLCSIqhEIFTVskaOiBlU5k8bbGuCPu4PtUwFqUcogBpxUpigFonXNL/9NHcqTyMKJaJYIimCCbG3Ify+dd0ZQMY/0TkfzuXNdPoSQgzEZ3zh7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609897; c=relaxed/simple;
-	bh=9k6aKeFH/U4QRbtuTqsqn81V8AHXY2i67dKc1sEBKCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ew9vq4ies9kALoLSgXZFyCQerOD6sesdackrl+cMzI2fgKP2RhFyFrUnrHB3B8klUsY5HfEtmYLD5bqfg3Pa41oAJUVtAdEoxYG0lYHhIZLG+Wz+qmS+5pOL/VyFYotZyYN6Dl1TNOwoqx9sVv1MJ/IqZpqLaFXzZ1vBoRSGplY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gsr+kq6S; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LKAnJVNH; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=euolCOmJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=NBSYNFWL; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790609904; c=relaxed/simple;
+	bh=XhEbxzOTRkAmA5AexQM2CcjEUVdr2JxncxkriFM2HX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pWLZ08PaM6J0rfHFiQ2kkOsGjJ+hl26xkvGzUlPEWjY8feOW3oll2WfIIGcHRHrm8b6m+i9EojO9O9xgRGCthJ48/5o0E7BySyGnJo6O0VLGshXA3+K/M4IO8J4whTB4aF1/EA1hUfUA3459yp9NUIfBp5ur06OUmGWwddp4L20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=s9qKBBN0; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gsr+kq6S";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LKAnJVNH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="euolCOmJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NBSYNFWL"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3842321BBF;
-	Mon, 28 Sep 2026 15:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790609888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p1mVNj3GmuQmUn8QUDG5rPJ6I+BRzW4FmaeJ4FUK+B8=;
-	b=gsr+kq6SdRJgCYqSY1CTkAP7tbA2ngDvfros0fFzvN2azAhw9NnnELOksc5Qh/ufQcQHcY
-	yYgZrxcIQWguRnfTQRnYB5lfQZlSWgKojQfkmL5APF4U45PxEbYOIyydPtrqREcswDu/Wo
-	MLd2/prnMZhgDhkH35Z8lbLcKLqsnXU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790609888;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p1mVNj3GmuQmUn8QUDG5rPJ6I+BRzW4FmaeJ4FUK+B8=;
-	b=LKAnJVNHviA6OFWe4pqnUpGpl500RvpMg+m+JvYqS6Zxfwwbm361ETWwBVTyfRKSpvrP4q
-	3QJ9wuUmKvcHbZBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=euolCOmJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NBSYNFWL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790609884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p1mVNj3GmuQmUn8QUDG5rPJ6I+BRzW4FmaeJ4FUK+B8=;
-	b=euolCOmJ4qejES4tqXBlRkgahEWxgMANsJSKJbFr5by6+hd87KtOSQ+skTpJSvpzE3qDhW
-	DDBVcuo4IS3VMjd5Qhe7Dw0k9e42DI3Kd20zE7R17Dydk6A0XTK+Kn4PPP0ZqO55DkwhH6
-	0PsVZXwH1oPXKMzmQd5lPziSnBbuQLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790609884;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p1mVNj3GmuQmUn8QUDG5rPJ6I+BRzW4FmaeJ4FUK+B8=;
-	b=NBSYNFWLMeT7LxCo5F0fowqyomTCgeT3AD6gISlAtbmtXplgR1v6B7906z5jUlZovv8QoB
-	fSB0+gSSCCmcrKAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6A2B133F3;
-	Mon, 28 Sep 2026 15:38:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id am0/GNqJumoQRwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 28 Sep 2026 15:38:02 +0000
-Date: Mon, 28 Sep 2026 16:37:52 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Pan Deng <pan.deng@intel.com>
-Subject: Re: [PATCH] mm/vma: don't remove VMA from rmap if pgoff unchanged
-Message-ID: <arqI5QB5tUr8dd_r@pedro-suse.tail5790ac.ts.net>
-References: <20260925-speed-up-inplace-rmap-v1-1-babc48ce7c83@kernel.org>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="s9qKBBN0"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so14994495ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790609900; x=1791214700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
+        b=s9qKBBN0P5zcG5NxoFfmNpEfVwphwCsncEedOTPag7aJzDILn5m5itkvczaXAib0cL
+         jA3TFPk07PbKNrbAHs12Z6ISAmsizc0hQoE4oqZMW7y9Of8vDTfrVhk4SG4mx39VLPdU
+         5cPYqvx2oy4Ki2YDLhxbLxd1QQNUYamsFBBwaVqiKtalhKPG4QF046LWh8B6b3DA08FZ
+         au19WPsKQHlYNYlZEMKG04pCJOXjBo8/nUg+f/RlFE0gJx6OBGFBjb3DZWvQWlBx0HqR
+         k7kexMJOwuVWWjLsIPHOH6KKF8Di0cDTZ+COl8/uYstdDvWOQKwA5LqoV/NDpHlpBWdE
+         2aQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790609900; x=1791214700;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
+        b=UHQ0q+EBKybaAT4JUXcEXf3be0WQBPT4QkQB3yb4FljhdmEqAZUc3SGQrmV8pbkyxX
+         jK0S3n4jrT0t84v5LXkna5xOP0/fSSZ1SeWeZyl8GIoLtxVgmC9xqHYTt65ertkTfFDz
+         +yHhrW2NqQW8aZ8FeZmYDFFtSp/ytx+i+TQikkTqQLQ/kZot9zUkRRsX//rYwhjczQtJ
+         MJi5umZ9cri8cflqYhkSyb+x/+C2ezZl164zHBA+Gwjmj61Z2FKhu/qBKsDTPHoNdxl8
+         rYl0hEVHRgkpY7dI/+3gJajIROEjlIN5YJCVGku5HtbtSLqub/6OjePWLHUwNd/FW9Di
+         0sxQ==
+X-Gm-Message-State: AFq9FYK+uxzWN558IRE0ULFSYCmTtTnBQt/I2i9dLg5HrrFFCmtogvBT
+	60ODMPCST/6etc4oxyrio41MBPaoZPKViVKGL/wWzHEfg19mL0r1SSoyFfvSbMI3Lgc=
+X-Gm-Gg: AYBFou1ialvVJ3nxhrYLShVSNDqK3Jk1FH3kyWTjicmJlpuEmls2f4gE+Le9znfrOqD
+	2rd86OKsr1DpuEiNdmpeSHculHHrdtFy8d7yQ8PpD06v+j2b2PWYxLawzXhfv9b2lGI1Y6nzqEW
+	4vAH3MkW0cL6t5uoCuEZTJUwjBFL2Eu51e097tSNLoS++kU47rJdPEW02zb/4wrYwx5IQCqNHcP
+	kuPcuEX2g/4X4nT7zf0yu+Vqu+8yKuZLT8+LaBxyirNXsH3DQ273bGAazo9pFjc13yfEV5eU9tu
+	w1ZxVojp1ra3zAif7u1JQXzhCsxQF7lAPHBB7WhB+mhC/GkPaUWhKDzFU6UVI71fUP/TzUbsFal
+	clyZbnUN0a8njPwO1iBkifYgV2MgT2BWu0m3CyQQ8bGiFDKtw6FfrYkOLAT9NGVZ4umt/V/1WkR
+	FdwEEUluitElRv2nc0+Gq/mXDxF089mIynT2PNeOGf43pCK5s0p83VdZVDWt+c1s3flvfsNub6m
+	ZF/NdaOj3JUCtVJrsOrBQ==
+X-Received: by 2002:a17:902:ebca:b0:2df:9e2d:8629 with SMTP id d9443c01a7336-2df9e2d8cf3mr52153435ad.16.1790609900356;
+        Mon, 28 Sep 2026 08:38:20 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d08e:5326:b1b4:da35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbc951sm44209335ad.8.2026.09.28.08.38.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 08:38:19 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: linux-nvme@lists.infradead.org,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme-rdma: don't complete a request after a bogus remote invalidation
+Date: Tue, 29 Sep 2026 00:38:11 +0900
+Message-ID: <20260928153811.1466359-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-speed-up-inplace-rmap-v1-1-babc48ce7c83@kernel.org>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3842321BBF
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,intel.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,pedro-suse.tail5790ac.ts.net:mid];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 07:32:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> When updating a VMA, vma_prepare() unconditionally removes it from its rmap
-> interval trees under the rmap lock, and vma_complete() reinserts it before
-> releasing the lock.
-> 
-> This is wholly unnecessary if its page offset (file rmap) or anonymous page
-> offset (anon rmap) is unchanged.
-> 
-> So, track whether they will change in the newly introduced
-> vp->anon_pgoff_unchanged and vp->pgoff_unchanged fields, and use them to
-> determine whether to remove the VMA or not.
-> 
-> The rmap lock keeps things safe as no rmap walks can concurrently occur
-> during the operation.
-> 
-> Additionally, some architectures (arm, parisc, nios2, csky) have dcache
-> flush rmap walkers which take only flush_dcache_mmap_lock(), which is
-> likewise held across the operation.
-> 
-> It's also necessary to keep the rb_subtree_last field updated in the
-> interval tree so implement anon_rmap_tree_update_inplace() and
-> mapping_rmap_tree_update_inplace() to do that.
-> 
-> This is done in vma_complete(), after the VMA's range has been updated, so
-> in the interim the field may be invalid. However, given the locks described
-> above, this cannot be observed until after the state is corrected.
-> 
-> The anonymous rmap is keyed on anon_vma_chains not VMAs, so in those
-> instances anon_rmap_tree_update_vma_inplace() iterates over
-> vma->anon_vma_chain, invoking anon_rmap_tree_update_inplace() on each one.
-> 
-> For the anon rmap case, with CONFIG_DEBUG_VM_RB set, avc->cached_vma_last
-> is also updated in anon_rmap_tree_update_inplace().
-> 
-> When performing a VMA shrink or a split where the VMA is the lower one, the
-> page offset cannot change, so set the flags unconditionally in these cases.
-> 
-> When merging VMAs the page offset is unchanged only in some cases, so
-> update init_multi_vma_prep() to set the flags only if the page offsets
-> remain the same.
-> 
-> These changes ultimately result in less rmap lock contention.
+When a remote invalidation names an rkey that is not the one we handed out
+for this request, nvme_rdma_process_nvme_rsp() logs and schedules error
+recovery, then falls through to nvme_rdma_end_request().  The request is
+completed with req->mr never invalidated, and nvme_rdma_unmap_data() hands
+it back with ib_mr_pool_put(), which only puts it on a list.  The rkey
+stays valid and still maps the pages the completed read filled, so a
+controller that sent the bogus invalidation can write into those pages
+after pread() has returned.
 
-I think this asks for numbers?
+Return instead, the way the local invalidation path below already does,
+and leave the request for error recovery to cancel.
 
-> 
-> Reported-by: Pan Deng <pan.deng@intel.com>
-> Closes: https://lore.kernel.org/linux-mm/20260924054301.2330822-1-pan.deng@intel.com/
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  include/linux/mm.h                |  3 +++
->  mm/interval_tree.c                | 33 ++++++++++++++++++++++++++++++++
->  mm/vma.c                          | 40 ++++++++++++++++++++++++++++++++++-----
->  mm/vma.h                          |  2 ++
->  tools/testing/vma/include/stubs.h |  8 ++++++++
->  5 files changed, 81 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 6e71eaa4af3f..94c2eb055716 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4357,6 +4357,8 @@ void mapping_rmap_tree_insert_after(struct vm_area_struct *vma,
->  				    struct address_space *mapping);
->  void mapping_rmap_tree_remove(struct vm_area_struct *vma,
->  			      struct address_space *mapping);
-> +void mapping_rmap_tree_update_inplace(struct vm_area_struct *vma);
-> +
->  struct vm_area_struct *
->  mapping_rmap_tree_iter_first(struct address_space *mapping,
->  			     pgoff_t pgoff_start, pgoff_t pgoff_last);
-> @@ -4374,6 +4376,7 @@ void anon_rmap_tree_insert(struct anon_vma_chain *avc,
->  			   struct anon_vma *anon_vma);
->  void anon_rmap_tree_remove(struct anon_vma_chain *avc,
->  			   struct anon_vma *anon_vma);
-> +void anon_rmap_tree_update_inplace(struct anon_vma_chain *avc);
->  struct anon_vma_chain *
->  anon_rmap_tree_iter_first(struct anon_vma *anon_vma,
->  			  pgoff_t pgoff_start, pgoff_t pgoff_last);
-> diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-> index 7bbbf15cfbf0..eafde5d12ef5 100644
-> --- a/mm/interval_tree.c
-> +++ b/mm/interval_tree.c
-> @@ -64,6 +64,21 @@ void mapping_rmap_tree_remove(struct vm_area_struct *vma,
->  	__mapping_rmap_tree_remove(vma, &mapping->i_mmap);
->  }
->  
-> +/**
-> + * mapping_rmap_tree_update_inplace() - Update file rmap tree to reflect an
-> + * in-place change in a VMA's size.
-> + * @vma: The VMA whose size has changed.
-> + *
-> + * The file rmap lock must be held.
-> + *
-> + * Invalid to do so if @vma->vm_pgoff has changed.
-> + */
-> +void mapping_rmap_tree_update_inplace(struct vm_area_struct *vma)
-> +{
-> +	/* Propagate all the way up the tree. */
-> +	__mapping_rmap_tree_augment.propagate(&vma->shared.rb, NULL);
-> +}
-> +
->  struct vm_area_struct *
->  mapping_rmap_tree_iter_first(struct address_space *mapping,
->  			     pgoff_t pgoff_start, pgoff_t pgoff_last)
-> @@ -111,6 +126,24 @@ void anon_rmap_tree_remove(struct anon_vma_chain *avc,
->  	__anon_rmap_tree_remove(avc, &anon_vma->rb_root);
->  }
->  
-> +/**
-> + * anon_rmap_tree_update_inplace() - Update anon rmap tree to reflect an
-> + * in-place change in the size of @avc's VMA.
-> + * @avc: The anon_vma_chain whose VMA's size has changed.
-> + *
-> + * The anon rmap root lock must be held.
-> + *
-> + * Invalid to do so if the VMA's anonymous pgoff has changed.
-> + */
-> +void anon_rmap_tree_update_inplace(struct anon_vma_chain *avc)
-> +{
-> +#ifdef CONFIG_DEBUG_VM_RB
-> +	avc->cached_vma_last = avc_last_pgoff(avc);
-> +#endif
-> +	/* Propagate all the way up the tree. */
-> +	__anon_rmap_tree_augment.propagate(&avc->rb, NULL);
-> +}
-> +
->  struct anon_vma_chain *
->  anon_rmap_tree_iter_first(struct anon_vma *anon_vma,
->  			  pgoff_t pgoff_start, pgoff_t pgoff_last)
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 077e23694143..8b333ec0c958 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -201,8 +201,15 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
->  	if (vp->file)
->  		vp->mapping = vma->vm_file->f_mapping;
->  
-> -	if (vmg && vmg->skip_vma_uprobe)
-> +	if (!vmg)
-> +		return;
-> +
-> +	if (vmg->skip_vma_uprobe)
->  		vp->skip_vma_uprobe = true;
-> +	if (vma_start_pgoff(vma) == vmg_start_pgoff(vmg))
-> +		vp->pgoff_unchanged = true;
+Fixes: 3ef0279bb0031 ("nvme-rdma: Check remotely invalidated rkey matches our expected rkey")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+Reproduced on soft-RoCE (rxe), two nodes.  The target is modified to answer
+one request with the rkey of another request that is still in flight, and
+then to write 0xBD through the rkey the initiator has just reported as
+bogus.  The NVMETHOSTILE lines are that scaffolding and are not part of
+this patch.  The namespace holds 0x5A and the reader re-checks its buffer
+after pread() has returned.
 
-file_pgoff_unchanged perhaps? since we're distinguishing.
+initiator:
+  nvme nvme0: Bogus remote invalidation for rkey 0x35f4
+target:
+  nvmet_rdma: NVMETHOSTILE forcewr POST LEAKED rkey=0x35f4 addr=0xffff88807ffdd000 len=4096 ret=0 n=1
+  nvmet_rdma: NVMETHOSTILE forcewr DONE ACCEPTED n=1
+initiator:
+  BCHECK[B] CORRUPT iter=350 poll=0ms pre_clean=1 off=0 p1_bytes=4096 p0_bytes=61440
+  BCHECK[B] DONE iters=392 clean_p0=392 ioerr=0 CORRUPT_HITS=1 POST_COMPLETION=1
 
-In any case, I would prefer if we moved this logic to mm/interval_tree.c, or
-any rmap-related header. I don't love opencoding rmap tree assumptions this
-deep in vma.c code. WDYT?
+pre_clean=1 is the buffer intact at the instant pread() returned, and
+p0_bytes=61440 is the remainder of it still holding 0x5A.  0x35f4 is the
+rkey the initiator reported as bogus and the rkey the target then wrote
+through.  With this patch POST_COMPLETION stayed 0 over five runs.
 
+It is a race, so it is probabilistic rather than reliable, and every bogus
+invalidation also trips error recovery, so the corruption arrives together
+with a controller reset.  I only have rxe here; I have not checked how a
+real RoCE HCA responder treats a write through an MR the ULP has stopped
+using.  What I saw is an integrity violation on a buffer that is still
+mapped, not a use-after-free.
 
-Rest obviously looks great to me :)
+Invalidating the MR locally before completing the request, which is what
+the code did before 3ef0279bb0031, also closes it and is the other way to
+go here.
 
-> +	if (vma_start_anon_pgoff(vma) == vmg_start_anon_pgoff(vmg))
-> +		vp->anon_pgoff_unchanged = true;
->  }
->  
->  /*
-> @@ -331,6 +338,15 @@ anon_rmap_tree_post_update_vma(struct vm_area_struct *vma)
->  		anon_rmap_tree_insert(avc, avc->anon_vma);
->  }
->  
-> +static void
-> +anon_rmap_tree_update_vma_inplace(struct vm_area_struct *vma)
-> +{
-> +	struct anon_vma_chain *avc;
-> +
-> +	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
-> +		anon_rmap_tree_update_inplace(avc);
-> +}
-> +
->  /*
->   * vma_prepare() - Helper function for handling locking VMAs prior to altering
->   * @vp: The initialized vma_prepare struct
-> @@ -359,14 +375,16 @@ static void vma_prepare(struct vma_prepare *vp)
->  
->  	if (vp->anon_vma) {
->  		anon_vma_lock_write(vp->anon_vma);
-> -		anon_rmap_tree_pre_update_vma(vp->vma);
-> +		if (!vp->anon_pgoff_unchanged)
-> +			anon_rmap_tree_pre_update_vma(vp->vma);
->  		if (vp->adj_next)
->  			anon_rmap_tree_pre_update_vma(vp->adj_next);
->  	}
->  
->  	if (vp->file) {
->  		flush_dcache_mmap_lock(vp->mapping);
-> -		mapping_rmap_tree_remove(vp->vma, vp->mapping);
-> +		if (!vp->pgoff_unchanged)
-> +			mapping_rmap_tree_remove(vp->vma, vp->mapping);
->  		if (vp->adj_next)
->  			mapping_rmap_tree_remove(vp->adj_next, vp->mapping);
->  	}
-> @@ -387,7 +405,11 @@ static void vma_complete(struct vma_prepare *vp, struct vma_iterator *vmi,
->  	if (vp->file) {
->  		if (vp->adj_next)
->  			mapping_rmap_tree_insert(vp->adj_next, vp->mapping);
-> -		mapping_rmap_tree_insert(vp->vma, vp->mapping);
-> +		/* Need only propagate the change inplace. */
-> +		if (vp->pgoff_unchanged)
-> +			mapping_rmap_tree_update_inplace(vp->vma);
-> +		else
-> +			mapping_rmap_tree_insert(vp->vma, vp->mapping);
+ drivers/nvme/host/rdma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-And perhaps similar for this, hiding update vs re-insert in interval tree
-code (via a helper) sounds cleaner.
-
+diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+index 9cb811a2ce1f7..5b9b540693b51 100644
+--- a/drivers/nvme/host/rdma.c
++++ b/drivers/nvme/host/rdma.c
+@@ -1748,6 +1748,7 @@ static void nvme_rdma_process_nvme_rsp(struct nvme_rdma_queue *queue,
+ 				"Bogus remote invalidation for rkey %#x\n",
+ 				req->mr ? req->mr->rkey : 0);
+ 			nvme_rdma_error_recovery(queue->ctrl);
++			return;
+ 		}
+ 	} else if (req->mr) {
+ 		int ret;
 -- 
-Pedro
+2.43.0
+
