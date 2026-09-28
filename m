@@ -1,40 +1,40 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021109.outbound.protection.outlook.com [40.107.51.109])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020132.outbound.protection.outlook.com [52.101.225.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF7B4503EF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0291B453A4F;
 	Mon, 28 Sep 2026 06:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.109
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.132
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577843; cv=fail; b=mjovASMo2xTK+hQzyIFT5dQJn4020nTYVaiYcNZMw7v2w9vUjbGTeQ6mNxN7dky6SsZ2yPlQOOXr9mWsDyNKAcVdUHTZs7xszMfRzzq+6HMV4QQCE2pL+J3O4/oTgtLBsgFyHyturu0PacxY1qGiqdxvlBnZMsV2yO4WNf4B0WE=
+	t=1790577844; cv=fail; b=UH3N4Vwx3RS4LpMPlfKFBqIW7j2qz2D0o/BOZIn80tWXDgQKCzz6trQm13xKRUQFJzPAag2LD43jnSJYgt3Y3SnDGD7fQOMibDCsjnUE4GAh76sPNz4E97C704yDftoDNxRiWxu8pjsDuPcQVfiI0Zz235Nt6hTPm2Fv8LuV4Sw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577843; c=relaxed/simple;
-	bh=4h4C8W498SVZ91o5UXvrJ+OnASyYkBHq2UgM0wHu5qA=;
+	s=arc-20240116; t=1790577844; c=relaxed/simple;
+	bh=0RNemxBr1PDb3U7J8o+YKizI91dHt/DXL6Z9AvqXkxw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hyCI1IKTaJ3RgAXgk7kU5WtVvkaKGtSlohmIRtKxJSvAXo7qcHSxnFkfzmPryvBKo3bkhhPZlhZ7E5hJgWdgEaYGrbY07q4+f/OcKzVH692Ny/ZO3xoGrm7MDOderTjaCMGJfVtUgjwjBcp6WqrC6hKn02TwLGAfYkoanM2cCXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.109
+	 Content-Type:MIME-Version; b=ifdxbc+8ZuVoP4M2b1fIXxEkGf+ohp9MENYC4CNNPDvtSYlgS2RdVFeSRSmmR+SOD6JGPs/cWCO3fIn7rdKHGkPZQJ/uemRLjafXSei6MOZI5bnln/9aab4IZPFZroNpEKMJZ/hUq//WgB0NYYWI11zgVmG9cYz47N8cvgP34Ss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.132
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IqpL3hoaXyYT9tGaico8o41Vyq6i+c8u2aRaxC7G0ghTpM+bP4jAGXFiOZ30fWbYQ1jGNs7X9E1LLgqwrgCsl2iNQiKYTwRF+ULwLE2RE0TtONcKer2zspfn0w3nS/0FVHyNvccT3IZ2MUVpDEJPKl1zKIA2FyTua7PHmS2r3lWMlSM4F+ddNzaGVuwT2lIuETI3x8+ifuTrAXe02eq8ElIH2hBttqdbp+07i94AMfVBZyMw3Dc0OvXjLf2zPg4TTq2Ma5myeYFv8KBUTvWHsZL73fwLW4oRodQAkQpkdZhnsw+4PlY8AQgdXGSNNnoRJ2pP/oP6FcPMB/aeXnjSLQ==
+ b=wQS3X2zKgpMdwsO004A2X68IchEpkzBQUcHUW9X2Nw/MWFd+M121akEIbitN+ybz/Pgvkw41Mi4DdfOEjp7yjImjyvLQDs/KfXGNKs2xqCllo+wtZidx2gIg5jXCSwoFqsjZPM47XJzKbf1V/yzCam4RyTP+NrGPi4B3Ew9tlkxkM7EDPQexwdidJxL5ZNqbMErqYfV2EjzmZp/pso6XaLbVFdMr6av6iRwsSkxwhhoepwov3uEARk8coLOXQcx526LhjXzJgo9yd6P+5ky5t2/Xqv/7LGbPwrOZJd07RwszJIi++l2DaU4yaBN5xsyXvnmc0HPNNjPE3x8DBER/WA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NXW4KME4Si79nkjLmGsrhfI5rktl2cH3FDQ7E1vpYNY=;
- b=kUyFlNRbeFBkf0+kW+VlHPgI/nsR0nkGYz3XTvdHKg4NXKNUDmBmJ8p4R2acAZCR74JfCRUQEqkmbK4P0chyQAs21eo7+cR77gm1b9wJOOhliltUZQIk3KwkhI+WN+W+2H+dUhbnT077OV5gTWrbTAXVSenHTbz/thHUnZ6saFImyEweEA+Vb+g3WNgkumu3uFhW4ghRNGx76ZdLuV9WlvjzenAaq3H9CUdfF4pIVtyKEQE1Y3zLxktzsZo8HY6q225iuIjCDRfhvbRJTDto0pBe13431K2+Biw3Q/shEpERjxF6lx0SEvrdj8Vb646VOrT/KAgx2P01LWTfY8glZA==
+ bh=EcqVma6JmGYMMdXuV/0/KoR6ja2SZgU+Mypid0YDvRY=;
+ b=ix8/pnRfWaaTNUPJFVfjXjSoKOOBEoAHium0toL0UB+78emHwpCczVHrLEThhHXTHMizb8Rl5leJvrRoO9jczBMQKJcaRtvt5TMAzOCRww13866MFXIBPlsN/DkwpnsOS/BWPivUMDSf3yO/TFwQtD3HB6QML12q6t0gCw9/TpyuqlnsahreQos9h36HQw/pbPk0fEFNytjqnhobrneyDXSKQJ1zvJMh6fkbIcn4G5/O8/5D4q/gWfOYUpKHrzL9MAtScwTcFvnmYqM+dmGe0lYekTeA04yKuo7LIkr+faruOZ1J0M28ULEnQNfd9Tjv2sOML9lZURMQmgameo/fBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=ebytelogic.com;
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PN0P287MB0963.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:147::11) with
+ by PNWP287MB6163.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:333::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 06:43:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Mon, 28 Sep
+ 2026 06:43:58 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 06:43:56 +0000
+ 06:43:58 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: linux-media@vger.kernel.org
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -47,9 +47,9 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v3 4/5] media: qcom: camss: Take the link frequency from the CSI-2 transmitter
-Date: Mon, 28 Sep 2026 12:13:35 +0530
-Message-ID: <20260928064336.272659-5-hitesh@ebytelogic.com>
+Subject: [PATCH v3 5/5] media: qcom: camss: Create the source to CSIPHY link per endpoint
+Date: Mon, 28 Sep 2026 12:13:36 +0530
+Message-ID: <20260928064336.272659-6-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260928064336.272659-1-hitesh@ebytelogic.com>
 References: <20260928064336.272659-1-hitesh@ebytelogic.com>
@@ -65,190 +65,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN0P287MB0963:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94c6b9bf-a8eb-4ad0-343b-08df1d2bde57
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNWP287MB6163:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|10070799003|1800799024|376014|52116014|56012099006|10067099003|18002099003|22082099003|3023799007;
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|52116014|376014|23010399003|3023799007|10067099003|18002099003|22082099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	1g2Mz0JwPghFO2f++IljwZUigqgsp7Jr1N0r5VI18fdhvSwYL4c7mlrt9l8Pe3XOzgim6J2P6UK+Ca4ATe3tnub10djDS3ke8CrinWU4qrl3aKUKWHGMaHfw0J18DvzaTK5pzimW0G7KmHOf8uHIPBvCFi+5pu3ramtKvmn9H0B7aS9LqAxxB/5edcLphAoBC9Y00ZwHNUzZ60rSbw8f4yKXKzEBum2vQq4Eq/GyUipb2shXJxbytmMk/eOQEY+PZgOAd9vLF3K8NaRTS6Z0xxAXxcpXNdlGSDjV+gefnaXOsfx02YIUo3JlmkemMpTxW6theTAO0RYqN4ctepXyExjcPUX4sDd5Lwx1lyxd1+NLLN+jDYxyOEQPjqFu7O/2XtuMJxR3e9ussQhzYIdd5098vO3/FXaMU8oUFzmBRt99H/Q1brSB5yXjxawCOByQlsFdJyKwF14mTi5parjzqL2DCy3FKGwH3hvbbG/3uEtHqjlcqu1ciRv7YTtD4eP55U9nVdbx9C+yMFC76vDHpvLW3gaWjfPECw3QMo7pHQjohMVZCp6t+HwTMBNgsaUCHlQYjHXiLPRtGJeGmsipgG6Fi+vHnPw9xmZgJSc8G7UcHW4oxdgZpGUeJ92pP1KDQKME1jP3fs15bmnaz836Kycwzi5Z4bDVf+EktWcOxQY=
+	gktmIanFwmW/CL9FlRFmjfrj5W7k5pjnz/RRSMAx6eA8mssDQiTJidhyIqSr8pxdPOxD5vu/cJ3fTqog8sLnm0egTgdMIUB6aFO+PCfRmXurGd87Sj8ahSLM75t/EWXVRIsF1eT2trz8J3YqiOtl3II6TE0EKmTEFuU/NoZ8elyI0sb5B5aKZSrR32xMmAmrqsHmDdClLwUByZmkQwa6irZuAL2A8Gn3n4SgQWGRVGdXc4qslcBrmL66RRM4QCj8XBIk2DlL+25cc2/VQgsAFQ1v7o0B0DK/c1g6j1wQg8IhbOS59hQyMzynqaXP6BCSkJzXDA0y9lQEA28EiIQWQutCgC96Tdak/aK/bqS7W+oA2fqj2Rn5SMLkltHxCBPCj+T/aeLC7716sFiuTYN/MkyMsRLrXJngYzJjHQOTmoC8ZeIn6hde/Ms/2m7/y2lflTTi7r3oElSCAKx+odREZghKxlMz+6nvZZDi+HbPjuHoB+ew1LEy9AggX7Qt6uHyrUz+86QUvJ9OWJaKeP2Wk9wlScDK02rMAPJjD7KMM228OlyiXuHfTUnpzro+eBrNG4yWYCAS2XLH16YWk21fzmErdCb2T+PuA28fPD3or1xl7VHg0rPnnqtuXoZXHZKWzlWRnHKexpPo+TVF0rkaArepwdbMwSjnMU4/2FeO5hI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(1800799024)(376014)(52116014)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(52116014)(376014)(23010399003)(3023799007)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hLg3kp3aux1OAr+M3kMs7gj7vfZ7+vj7evHIYUBDjwhkUuEyAKKsqEE+yIGu?=
- =?us-ascii?Q?XwBGHnjURIoTkT7jJ1IjgAvFFTdruEFpYxP77e01j9jNX0uLDOAtER4PDoLD?=
- =?us-ascii?Q?jSSGHUtOYzL52/Khb2woaxmSF5/HhiDkxBudfe51FnW+lWsI51IdBavbsidh?=
- =?us-ascii?Q?ktNuJKwey12D3ZG4FHAbVK5a9yRNtLYOQdceJyIVjGmg8BRBjsigbXwlvUM0?=
- =?us-ascii?Q?Ej5FYm+PBzdJLRZKT4ZSAGyTNICTlK8Xb2IXZfUnFRYS4PJCy9jByiV2y7NS?=
- =?us-ascii?Q?xzZUVYoV65N3CxbbMbEo39GJqlw6/7W+9ZlapPiIfb4vLU7yQTtbQu0T9O72?=
- =?us-ascii?Q?v7VPmfbsRCDItd8LoyoCMmcXE3tHWo/TLQusewiWgBRtDtmscex62YEzDfbM?=
- =?us-ascii?Q?IEqAmpH3dNqWkw6ueA3gXjm0nei1S816nEvxljwjZGEc4JppBlSI7kcYQXDp?=
- =?us-ascii?Q?pCuqvafIrx4ztXsIVPEMyDK++EVECJ1szBqEawGaW1ITHPOyETrTD5wxdm36?=
- =?us-ascii?Q?GGjOYNK1TOCI4FF2R5+qWbWaJcydPZE23xXySgOJWJqI9wj4yqKX5LpOnomA?=
- =?us-ascii?Q?3Dm92L3qWhwg85b7ibBwSRBoE2C/pC3bcRgXym/RbfOITnFAD08zDcRWt6c3?=
- =?us-ascii?Q?7QwZwcCKsTvhXtfInkqkd74Bp2CwlpDfg+pfZZmg7+alY3I+8tpfFxTnKUMO?=
- =?us-ascii?Q?nWGHxR3WaFhVYmhSGMRUdA5QLElH+HjHk1YzxzBS5GBZNO5PUZwSEN7X7Lws?=
- =?us-ascii?Q?AzCthbjiVhrQATHfsV+WHer2jmA7ReAYNu5OGsF4OofdEIPxO2Mv/qgK1Bdf?=
- =?us-ascii?Q?ZP07Jymkv7fuey8juW2JfKzCHrWixBqr2gjWLOP2s1JxRQIdqOaoYTxoilQX?=
- =?us-ascii?Q?TGg3OW7dAMreToqEfmM9zw6RLSdbzriYLP9tIJZ8hK/DAed9BurtpXyNfUGA?=
- =?us-ascii?Q?7UkTxqD6YMwPKAPEz5VbOiyxpwaPtJEoXx6EQ1PwXghUhAV0UluUgyn6W1KR?=
- =?us-ascii?Q?yuZVcWYiiKDZulbiOU5YB0QOXlXg2/2xWk8t5o8Ntw+fWGxRwvM7zgazVnUF?=
- =?us-ascii?Q?qSrbpX3trkRMs6kl5FeoHIm0Wvnb/J3DEY4vPGw78SLzYYpVUbMGkJhICUpB?=
- =?us-ascii?Q?FskdOAeBSuxwUKKMXVOB5+HPXCTpXO7It2P90ZbHInuXShz/TNJc4WHFGOAs?=
- =?us-ascii?Q?n1oDksOLeUQMWBWytCQ3pKTB76AM2rgSHelkbK2otZrJp1fzceslJj/zJs67?=
- =?us-ascii?Q?fCWtBpWDHJxA0t7RxprAotICj26SZbLLYtF8gRzaL6Uw7xwk7v1UXhfcHQgV?=
- =?us-ascii?Q?roZAAlkNEirc00XPVpdb2kgDZwN90vWxE8GWxID9RT1kusijtmm6bxgjRpqn?=
- =?us-ascii?Q?cxYHARv6RnwgBDAlSnWQUjTfeAjtT2NwMCW5zM1UaR/YhlWVdMuUdkMEkiq1?=
- =?us-ascii?Q?21DrH1x6HAhv6Gi2uyUAtMWkILNnc7gdKeqaApG4/XDMHLpQOzroUieDUg7i?=
- =?us-ascii?Q?HD9j5dcwuNy/qYeMbG3wOd5x5tXHXkl5bm9I9lszeMlZkiD25nCQeQNUA14e?=
- =?us-ascii?Q?7mx4ctd21Kss3D2dHTZBAoxjFsTzBIrKSPaIwMaZXIVLXMi3pi0urL5CAyJm?=
- =?us-ascii?Q?j416PFK4r/L7GZecCKyXg/54HE74ktMwmISGDS12ZkjO8jGW9jQ8Ac4WvfFB?=
- =?us-ascii?Q?vzci/PuqXc0yqaNqfDVfuG9SS3TGlNdI3pg5m873kX8nRclTQO/oZD17KpHZ?=
- =?us-ascii?Q?Z4wo+PKfWmEPtjQRIHuHQe0M7anUfjSyOpc8R9PfHt6pX9214IwynQCcUQl+?=
-X-MS-Exchange-AntiSpam-MessageData-1: 2tbAUJBnSBZx8g==
+	=?us-ascii?Q?y7w0QejetIvBfDfWDo9sN/IC8OW9ieTdg7rfeN6QwdDHrX7VCL21aVgI0JQX?=
+ =?us-ascii?Q?jMGru6EKgKABj2mL2UbAF+FgyPNpFlVFEobS1pIUDkNcEuw4vB/bLqPhKtAH?=
+ =?us-ascii?Q?Fem1GWgkC+fh2JJ8jdb7vSGqg2l+VwDMWWhEm1qteYqmHMG95LfdIUSSg+OC?=
+ =?us-ascii?Q?dWmfG7OILAa51QoliUQvaGuvPV37L8qA5V7dG7e2zTagDk3C7vkoIyJB3N0p?=
+ =?us-ascii?Q?ycSTXEAeMccSrxGGiy9r1W6ZOqVq4uF/pk2yDAVTLObEVz/gJuy/ppCy4AEv?=
+ =?us-ascii?Q?cOlmhMX4ULCuHyChlutCPc8VVcu5tXr6agCr5jwptZdSOqXYozX7pJzSUcQK?=
+ =?us-ascii?Q?rCvDFe7iWDSwbHSmFdRti3l49JtGx0RANO+bQitVuDjubGe+yx4mawlIdIg6?=
+ =?us-ascii?Q?1s33Cw6vzbLd+u0l7I7mOvba8FFG+aZ+9tAYb/WLBX1sGxU9dXFYxex9I9Rq?=
+ =?us-ascii?Q?8cHa86fIqETakwKgZ/knpOmUN2wHlAKvq4BW+mGKj2ppM4pKfG5NGWlsJJWk?=
+ =?us-ascii?Q?9MpaXe4X7ZA0Dmsj+zkEzq0ui0VLpIy94MY1AkVFK3oIs7Me2doYkJTd/cYT?=
+ =?us-ascii?Q?rAjYDAINxoNgeHx1STx/4/0r9ConrknZnSnfNv2kLEK6zk1YWqClUNjCn/O7?=
+ =?us-ascii?Q?2VzCT2G8ztpQnEKE6oyJrs4XXBOoCSpr/iLeVX/CVTYsmDfIgEdtBDyKFFlX?=
+ =?us-ascii?Q?FKD+7XStOg2va66L3uqHHAQI690WY3t7PU2CMTzBAqbjCtMeMOTapAQcqA2f?=
+ =?us-ascii?Q?4WQvZMz8D/8EmxDBe1OU2YVpR5uWADol5Kz3mWjPGmt4Z8p6N7R9VghXfRnE?=
+ =?us-ascii?Q?0YyQ/K3VzsSlHvGt0aLw9diU0p05ga0tnrcWqvbbllq0moETOf/B5Jufl5mn?=
+ =?us-ascii?Q?zHbpgxG4tBo4UB/EkNOgTYIo4MYx575LrXC3hW5YdKfKAPbj4Pe/pNSdsQ0b?=
+ =?us-ascii?Q?LeGW2H6nHc9SN7nJQFYWX8bka/7nCrt1XRdQdE9DBJp877oQR02n1fSPWTXA?=
+ =?us-ascii?Q?v2fXQOPqWsMjtQYlpMPFlcM/gmgpNxq1hI3zq1OVO3F3RYpB3EbPwpqk3STm?=
+ =?us-ascii?Q?+PWl2n/BgOUK4d/vX+hj7KLU60sO9TwTqhycXW3wAP3+UJw9iVNM2tA0QgPI?=
+ =?us-ascii?Q?Vg+vrft8Y9eDMsIwykJYyd9YCnC30laBBdEGqdXt4MIBYlQbtrCs7YssH6NI?=
+ =?us-ascii?Q?3UoWLVvJ1Pgt4K7B3rtG3sTOEsE//bhEKzmU9pyjxjiYzbB5A1e4nJ0m2Tu2?=
+ =?us-ascii?Q?YlqDm+b/Hy6tVnONYkmgqaSQulAaVD29xEzvaiN5gpD4WZ4pj3/W4LLBxB7Y?=
+ =?us-ascii?Q?uYy7vrADzXdP2M9KAzefFp0D3CnFHLlgAAWg3a9tcMGANjgt0sp6V9t/i1Ku?=
+ =?us-ascii?Q?A3GRymNdvt9GndQmX+JCemFvbIO2V9taxPXH9X5vLiWH+w8e5WswPwIDwkgB?=
+ =?us-ascii?Q?sRxyw67QIQD5bPvl5If5q9HEYzrRXk8H/Hez9W7cCMmWnzYqkAkhCrIfUzeJ?=
+ =?us-ascii?Q?NiJ5quFi0r33dJa1rABX9a5aAEAwMyqHQvnnWj2C70z+G1df04nogrlQdyH1?=
+ =?us-ascii?Q?9//J/NX7psY1p4OUSXhetqNpQ/Rclu0OGDVy05I1p0xcwpK1JUOfR9XWBI9B?=
+ =?us-ascii?Q?WR0qG4g1G+MBT0mQz2b/w/A3jXZLu0W+mvuZPK2kMGGvpjckcZ94HTIiGizA?=
+ =?us-ascii?Q?t3emyDFiiv3XUSi3y2Gl8ywWhMEBj/x8qg5dMEKrsW4KYK+wkr+CxlKMk4g9?=
+ =?us-ascii?Q?NTRQjojjrQx4bAI0ZTh3SSJFgkUw+74JJZ6egTTYZ7SRQP3PyPMk0Bn8gR+J?=
+X-MS-Exchange-AntiSpam-MessageData-1: MV/omkN4uALMHg==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94c6b9bf-a8eb-4ad0-343b-08df1d2bde57
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:43:56.3128
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:43:58.8861
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jlyik3jgkLou6VemwoDS/+zRCkaV62JO5zFuHzT53fDRhvNjuGYM9Ig2MbaeOep4DQamc6dxSGN5/af/eqzLGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0P287MB0963
+X-MS-Exchange-CrossTenant-UserPrincipalName: xc81R6aYKgnobvoUESMSKC0wJ+lvxDXHTdZLmCeOkMKA6MgvZGX0JfnQMF7z62OZ95/+/Rz9ZkL5qepI6qhf4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6163
 
-camss_get_link_freq() walks the pipeline up to an entity with the
-MEDIA_ENT_F_CAM_SENSOR function and reads the link frequency there.
-The CSIPHY settle count and the CSID clock are then derived from it.
+The link from the external CSI-2 transmitter to the CSIPHY is created
+in the notifier .complete() callback by walking every registered
+subdev, reading the CSIPHY it was bound to from sd->host_priv and
+linking the subdev's first source pad to that CSIPHY.
 
-The frequency the receiver has to be programmed for is the one on the
-CSI-2 bus, which belongs to whatever drives that bus. When the sensor
-is wired straight to the CSIPHY that is the sensor, and the walk gives
-the right answer. When a CSI-2 to CSI-2 bridge sits in between, such
-as a GMSL or FPD-Link deserializer, the bridge re-times the data onto
-its own output at its own rate: it may aggregate several sensors onto
-one link, forward one sensor at a different rate, or generate a test
-pattern with no sensor at all. The sensor's rate is then not what
-arrives at the SoC, and the CSIPHY does not lock.
+This assumes one transmitter feeds exactly one CSIPHY. A GMSL
+deserializer such as the MAX9296A has two independent CSI-2 output
+ports which, on the RB3 Gen2 vision mezzanine, are wired to two
+different SoC CSIPHYs. The same subdev is then bound once per CAMSS
+port endpoint, the second .bound() overwrites host_priv, and
+.complete() creates a single link from source pad 0 to the last
+CSIPHY. The second output port is left with no link at all, so a
+second camera can never be routed to the SoC.
 
-The walk can also fail before reaching a sensor. A deserializer has
-one sink pad per serial link and the walk always follows pad 0; a
-sensor attached to any other link is never found and streaming is
-refused with "Cannot get CSI2 transmitter's link frequency".
+Move the link creation into .bound(), where both the endpoint and
+the CSIPHY are known, and resolve the transmitter's source pad from
+the endpoint fwnode with media_entity_get_fwnode_pad(). Each
+endpoint then gets its own link between the right source pad and
+the right CSIPHY.
 
-Stop the walk at the first entity that is not a CAMSS receiver, i.e.
-at the external subdev feeding the CSIPHY, and ask that pad with
-v4l2_get_link_freq(). The helper queries the transmitter through
-.get_mbus_config first and falls back to its V4L2_CID_LINK_FREQ and
-V4L2_CID_PIXEL_RATE controls, so a bridge and a bare sensor are both
-handled by the standard mechanism.
+For a subdev that does not implement .get_fwnode_pad,
+media_entity_get_fwnode_pad() falls back to the first pad matching
+the requested direction, which is exactly what the .complete() loop
+did, so ordinary single-output sensors keep the same link as before.
 
-For a sensor connected directly to a CSIPHY the transmitter is the
-sensor, so the pad found and the value returned do not change.
-camss_find_sensor_pad() is kept for camss_get_pixel_clock() and the
-frame skip query, which do want the sensor.
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 70 +++++++++++++++++++++--
- 1 file changed, 64 insertions(+), 6 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 51 ++++++++---------------
+ 1 file changed, 18 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 23f3cc30a1..327ac7b280 100644
+index 327ac7b280..cd9b66f265 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4619,24 +4619,82 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
- 	}
- }
+@@ -5224,49 +5224,34 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
+ 		container_of(asd, struct camss_async_subdev, asd);
+ 	u8 id = csd->interface.csiphy_id;
+ 	struct csiphy_device *csiphy = &camss->csiphy[id];
++	struct media_entity *input = &csiphy->subdev.entity;
++	struct media_entity *sensor = &subdev->entity;
++	int pad, ret;
  
-+/*
-+ * camss_is_receiver_subdev - Test whether a subdev is a CAMSS CSI-2 receiver
-+ * @camss: CAMSS device
-+ * @sd: Subdevice to test
-+ *
-+ * Return true for a CSIPHY or CSID belonging to @camss, false for anything
-+ * else, in particular for the external subdev transmitting to them.
-+ */
-+static bool camss_is_receiver_subdev(struct camss *camss,
-+				     struct v4l2_subdev *sd)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < camss->res->csiphy_num; i++)
-+		if (sd == &camss->csiphy[i].subdev)
-+			return true;
-+
-+	for (i = 0; i < camss->res->csid_num; i++)
-+		if (sd == &camss->csid[i].subdev)
-+			return true;
-+
-+	return false;
-+}
-+
-+/*
-+ * camss_find_transmitter_pad - Find the pad of the CSI-2 transmitter
-+ * @entity: Media entity in the current pipeline
-+ *
-+ * Walk the pipeline upstream through the CAMSS receiver subdevs and return the
-+ * source pad of the first entity that is not one of them: the CSI-2
-+ * transmitter driving the SoC.
-+ *
-+ * Return a pointer to the transmitter media pad or NULL if not found
-+ */
-+static struct media_pad *camss_find_transmitter_pad(struct media_entity *entity)
-+{
-+	struct camss *camss = container_of(entity->graph_obj.mdev,
-+					   struct camss, media_dev);
-+	struct v4l2_subdev *sd;
-+	struct media_pad *pad;
-+
-+	while (1) {
-+		pad = &entity->pads[0];
-+		if (!(pad->flags & MEDIA_PAD_FL_SINK))
-+			return NULL;
-+
-+		pad = media_pad_remote_pad_first(pad);
-+		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
-+			return NULL;
-+
-+		entity = pad->entity;
-+		sd = media_entity_to_v4l2_subdev(entity);
-+
-+		if (!camss_is_receiver_subdev(camss, sd))
-+			return pad;
+ 	csiphy->cfg.csi2 = &csd->interface.csi2;
+ 	subdev->host_priv = csiphy;
+ 
++	pad = media_entity_get_fwnode_pad(sensor, asd->match.fwnode,
++					  MEDIA_PAD_FL_SOURCE);
++	if (pad < 0) {
++		dev_err(camss->dev, "No source pad in external entity %s: %d\n",
++			sensor->name, pad);
++		return pad;
 +	}
-+}
 +
- /**
-- * camss_get_link_freq - Get link frequency from sensor
-+ * camss_get_link_freq - Get link frequency from the CSI-2 transmitter
-  * @entity: Media entity in the current pipeline
-  * @bpp: Number of bits per pixel for the current format
-- * @lanes: Number of lanes in the link to the sensor
-+ * @lanes: Number of lanes in the link to the transmitter
-  *
-  * Return link frequency on success or a negative error code otherwise
-  */
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
- 			unsigned int lanes)
- {
--	struct media_pad *sensor_pad;
-+	struct media_pad *tx_pad;
- 
--	sensor_pad = camss_find_sensor_pad(entity);
--	if (!sensor_pad)
-+	tx_pad = camss_find_transmitter_pad(entity);
-+	if (!tx_pad)
- 		return -ENODEV;
- 
--	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
-+	return v4l2_get_link_freq(tx_pad, bpp, 2 * lanes);
++	ret = media_create_pad_link(sensor, pad, input, MSM_CSIPHY_PAD_SINK,
++				    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
++	if (ret < 0) {
++		camss_link_err(camss, sensor->name, input->name, ret);
++		return ret;
++	}
++
+ 	return 0;
  }
  
- /*
+ static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
+ {
+ 	struct camss *camss = container_of(async, struct camss, notifier);
+-	struct v4l2_device *v4l2_dev = &camss->v4l2_dev;
+-	struct v4l2_subdev *sd;
+-
+-	list_for_each_entry(sd, &v4l2_dev->subdevs, list) {
+-		struct csiphy_device *csiphy = sd->host_priv;
+-		struct media_entity *input, *sensor;
+-		unsigned int i;
+-		int ret;
+-
+-		if (!csiphy)
+-			continue;
+-
+-		input = &csiphy->subdev.entity;
+-		sensor = &sd->entity;
+-
+-		for (i = 0; i < sensor->num_pads; i++) {
+-			if (sensor->pads[i].flags & MEDIA_PAD_FL_SOURCE)
+-				break;
+-		}
+-		if (i == sensor->num_pads) {
+-			dev_err(camss->dev,
+-				"No source pad in external entity\n");
+-			return -EINVAL;
+-		}
+-
+-		ret = media_create_pad_link(sensor, i, input,
+-					    MSM_CSIPHY_PAD_SINK,
+-					    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
+-		if (ret < 0) {
+-			camss_link_err(camss, sensor->name, input->name, ret);
+-			return ret;
+-		}
+-	}
+ 
+ 	return v4l2_device_register_subdev_nodes(&camss->v4l2_dev);
+ }
 -- 
 2.43.0
 
