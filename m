@@ -1,258 +1,200 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2AB3F7AAC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629212; cv=none; b=JJo9V1vaRKSVGPP5fKmCSMNiu4JRvJRjn5KJuR2cAGy4oHc8DpPgHrcgru0/8m/FO50xPBzSs7btdNV1AgCaivpgSd1i3gKokRg3S8ThEx98Us4qQJC+22Wyx8EFyERSfQpJhivBb1v3oysY0lZo7iWW8iO8GVkV1IKOTsn3xJg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629212; c=relaxed/simple;
-	bh=4LuBzUkR8PJIag45F2rrrn8Atg8tUTl5+vC4vphpMHc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AL/CzXD/iFRsfMSuqLlk+GNPsvzV1OIlVe5VsU2Kp1YdkkgnXS/Le3nDo6/URzTEDBhqSAh31lw5byP3OIxI05y0dUVc5VTGl84w9pjCWHDwU8WmssdlEsIbUBvIA+lCbbWAycRTNhZxACzXJVf50TfJkwPD0Jylv8xqBlp89pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=aqjvEhIJ; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF83379EF0;
+	Mon, 28 Sep 2026 21:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790629236; cv=fail; b=FVqTxEwptR+xOcSadSCYyMlhZiNkk9Zo/L8CTuIH4YQAQNj1f5zcoqRl4ATk3xPW0Evng0aZ6pf5HNlpDmPIBxAC0whikHUCq6EZLm9jlfkUj+lSQPXi/QwHmY+S+AulDLFLL2T9JBiV3hE5mHf0FnGv+tRVpefmOXibTz3A8Us=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790629236; c=relaxed/simple;
+	bh=UZxkA6ZMyfLG1iLEbDfgvi7fhnGugMrQMmZ0TiNSGbw=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EqITXgkvO0BwXZJv45cev+HxjDtz54N7o+O721PBYgwNF060QD7UbO7Z3kFdcw35rIcB6DdflbsTUGtU8lYetLSsvRphn28n5Wvi6ZV5MmOqSQatWPOYZ+hbuscZ8imrGgJ8cd20bj8I9j1TeYvmMdhEwBswZhEEQy9TbYVz5fk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WjrIKRaU; arc=fail smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="aqjvEhIJ"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a8496fd8c3so37607157b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:00:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790629209; x=1791234009; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=otlHemocIxoxSM0PMaZCLOGZnqEjuQVINl8oyxq3M3k=;
-        b=aqjvEhIJSSnEblSfS1OGYYMeGFnFVXckYmCIh+rCYWv0MsW3AGT27jFc93pIhcznY4
-         2j6kALtvz9APrPEUTg5AVZz1vkh/oOLW4kinIHjbJyz69JSsNdIdbRnQBrfd5Aw1XdCI
-         1M4lkUP6rha+qf+KIJTeg8VhVvzKs1rWzbpGK4bzNfjqGOp3YJAruQt3KQgzdA1xm4s7
-         5tHqxWxXYDhjtwUsIIjnsgsMSjMqZLTwxZTKScrA8xUKgCtD4e3LAkdRfEJ+7FxyKeAt
-         2A45NYRklZ8J8tz11GOWXe2TgTuVqw34sV3xAIQAO89eqfwRamvl3MbP3GCssLHSMJyr
-         YKyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629209; x=1791234009;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=otlHemocIxoxSM0PMaZCLOGZnqEjuQVINl8oyxq3M3k=;
-        b=gaJCWIxNTPyiEnPAvKXqT2vlkT01cQ/ww0T0aiFEtaVe+ZVrOItqaVco9nhw5jC1J0
-         d4sGmViA7annJop7hyGGaKJKpRh6FkTsOzRjT9WhbPZ7QCLEzSM5scS51ZfyVgHSmuBL
-         ZELqyY67NE6IwD8fK6Lh3ezUZCP2NEyyl1O4wdKYK4oS1C4XB35pFjSIJhTtuQgUNHET
-         OmxRg0CjGk9o3llBkk5MfP3PDPTrOzh3fYygzZO2LYgnf4u5W4nqLYKhODD56hSA4JTt
-         GEzGqM0qoeO+GAqITLTO+5kCZdur8v6qDcjUp7Ggt9wR0f0o2xHOTP6j2m75xeBTIuKO
-         tOfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoz+BcVnXaLHuH/S5c1ywp+HOo6+KiZWJ9EYWWlCVof162h1oIcH5W8N5xFuWpQbs7bOG+0zuBokGaSUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpsYVHDI660xN44CXog7+x22rOh3yKkRKqYhENDFBWuWRJ4Yx7
-	/zor8wMMkL/DDHnAVktIHAvERNBcwDbEfTY+GkFk0qkAUHOPcaDwWW3MI15bYV4j6dI=
-X-Gm-Gg: AYBFou0JehDeL3W3NTORNxzvxFNSRSvK7lZo8mKdfjJsH22bEVZhS5nY/XeljPKAlyh
-	5uXJSiyjheuRwdPttLVfoVv0yf+MKf+ZnW31xpV39upxj1YshSZh3rjCOozkCLbrY0bur0opLyv
-	GR1FTXWuMdNzzMkeZT9OrpfF6OjyHpRtOUdU0HEJz3TTywHgV2PrGUf2ZngcnPL3dlLJp8XzesM
-	7jOSDzibALcnuNldI5K+YXQkBqaFkGhdxVUOHaRWsc239/gFJgFCuivnzcvDYjBzJpDthkYII5w
-	fa+viNiMzgeoSMY/+VCyAPBs8rQUsJH+zh2QkoPECmu9UUpSC5ggXi2eTms9aTtz0ab/tLUfaD7
-	WHtVU9jLzg3ZeIa/2L8upVYyQ+/IevAv0HvGKswAJnEO/z/RbsEdsuiUaFRvPGh+z7V1sjFEmLW
-	mDJ0ylwNp/z5SJ7y3jqCLs21xIr4ZZwA9NeY2TTAj646exeu2GFrNq9piNkfSuHzOEeOQpUK1of
-	A0qACBgIMclW2xLF+5dlnQrmzr4arY8owrWZXLfbIMgLWtMfuzmWR5u03fv+mTjvUB1JtEhVEqN
-	C/mUon/Ztapx3fiar4Y1OBC5CtTrvH8BYXoUOw==
-X-Received: by 2002:a05:690c:600c:b0:8ab:3938:dfb7 with SMTP id 00721157ae682-8ab3938e378mr8897887b3.25.1790629209379;
-        Mon, 28 Sep 2026 14:00:09 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:9da4:6df:559d:f4cd])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860326244sm49004057b3.6.2026.09.28.14.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 14:00:08 -0700 (PDT)
-Message-ID: <c2d61b16570fb6dd6b0c4130fe4bfc707e2334b1.camel@dubeyko.com>
-Subject: Re: [PATCH 2/2] hfsplus: bound the wrapper and partition-table hops
- in hfsplus_read_wrapper()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 14:00:07 -0700
-In-Reply-To: <20260926084010.569552-3-matthias.goergens@gmail.com>
-References: <20260926084010.569552-1-matthias.goergens@gmail.com>
-	 <20260926084010.569552-3-matthias.goergens@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WjrIKRaU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790629234; x=1822165234;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=UZxkA6ZMyfLG1iLEbDfgvi7fhnGugMrQMmZ0TiNSGbw=;
+  b=WjrIKRaUidZDoYSPKCiaCiI30JhiYOAIbYA+/kK3KjKTCDQaq9xtv8gd
+   91pBtDh5ScD/DvGG6E5mRNrXqwIKMVHGhK0abnuImVDmREDg6WmgxFnTf
+   VmnJRb9RXcFRaH0IU442Cd7FgPxal6Y41LUJORtGPu85KZXfAiPaNBFJs
+   5cCpoAsW1vUsC4hIZVNFNXY2erid/oe/0e+p3PjzRe9UmGArdCeCHfkVw
+   kNLDX7qKIorpf2P0y+U2fOdDh2gMQkhejkozU1Cbz4EpsMopYgXuocAGc
+   hdHSmLQrySmwLLXeiweMBGSf+9XJPtXCPM+QrhW5STpX4uB9Sk+THns76
+   g==;
+X-CSE-ConnectionGUID: wAJ05v3pRJ6oB0SXkUbjWw==
+X-CSE-MsgGUID: mthrRlGBTI+F33fgx1QkaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90381822"
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="90381822"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 14:00:34 -0700
+X-CSE-ConnectionGUID: iGRgyUHpQCWM/dhiNgGziA==
+X-CSE-MsgGUID: Pmv8jHAYS9OaoAOmaXbKvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="274697493"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 14:00:34 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 28 Sep 2026 14:00:33 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 28 Sep 2026 14:00:33 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.13) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 28 Sep 2026 14:00:32 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PiPEh/67Z2JP5kaRdBfSNyyO+/SXrPSq2NkvtanPDdSf7FtI4VsP4B7NFxVs8eOV3r8CIQ89g1kzhOVHqnpomQKBqJXUszGtgub/7HQFWfGYMRCns5imsXoWccEfiiz7bNQ6AXwrHH0R/cyXzic3zMc0+SyqR7XATrf3DedquWP1W3E3IJ4nrRiPXJqudDh/ngIuPHbjR0TCWTtH2MbHMvLsyvdNz80y8BYVcMt9Hx/qU/taIDv1Jg18q3iuUAbe5cyd98AS9Pv+hdofClUthSmmPh8/CTTYK7Y/hiRS+kETQbQFr/x915BNbzMh3B8A3MH7WQeFBChy0w8QSII6Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NUmoMixMZJ/s/LvirIdyWxL7AVdrLyS86ODHn7WbxvE=;
+ b=fQmjg+aVuks89P1gmW744oOMTXIM/xO1rRhSsC6yJw5SjnA1QlCh/xulSwTNLI+0gO4nQFx4WAVceyF5RWwa+FwlIen9IRI241HoqBeYh55lK7vDcHksCNzdxvQRV43Z8B9buxUn69VszGKbIGTYe/3mYEPgrke+8JPaDPgffD4lh8QS08immBCWEBTB67IY5xvXhbKhWWox8SqfOpa/MhWAOdlEHk0+SEY1fxQcD6Y86sAFTa0L24EYyrSJDMchBQmTKZS4guLC3Zd2Uleb6RTcu9R/mia7JbA7O7xGaGBHQWoYZXx9E+mxxsLvwGSz+za2HyTo4Q9b+cVS42UJHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8) by LV3PR11MB8553.namprd11.prod.outlook.com
+ (2603:10b6:408:1b8::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 21:00:30 +0000
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd]) by CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 21:00:30 +0000
+Date: Mon, 28 Sep 2026 14:00:27 -0700
+From: Peter Fang <peter.fang@intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+CC: "sathyanarayanan.kuppuswamy@linux.intel.com"
+	<sathyanarayanan.kuppuswamy@linux.intel.com>, "kas@kernel.org"
+	<kas@kernel.org>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "seanjc@google.com" <seanjc@google.com>,
+	"bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, "hpa@zytor.com"
+	<hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Li, Xiaoyao"
+	<xiaoyao.li@intel.com>, "tglx@kernel.org" <tglx@kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "Bityutskiy, Artem"
+	<artem.bityutskiy@intel.com>, "tony.lindgren@linux.intel.com"
+	<tony.lindgren@linux.intel.com>
+Subject: Re: [PATCH v5 5/6] x86/tdx: Add a helper to query maximum Quote size
+Message-ID: <arrVa1hvvTwxe0ml@intel.com>
+References: <20260928100913.2265687-1-peter.fang@intel.com>
+ <20260928100913.2265687-6-peter.fang@intel.com>
+ <8c573cf624eab4c76098f1ccc21afc3e9e40849c.camel@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <8c573cf624eab4c76098f1ccc21afc3e9e40849c.camel@intel.com>
+X-ClientProxiedBy: BY3PR10CA0030.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::35) To CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB435924:EE_|LV3PR11MB8553:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3aea1505-4d8c-4902-22d3-08df1da38767
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|7416014|366016|376014|10067099003|11063799006|22082099003|18002099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: lork548MJGTU6+OH2LQGbDj1fcq07kVqkwnI02jFEV/NRSSBZiQiNO0mmBL80aEPc5maGEuX6AlFDZC5Is4UQO5MSF1qwg1ZgL+XEFtR+CfyuShYy3sCgsFeXts7TIrVtqAXBfp/5wDMGg6JqXBglPq+VVwT62W9mjeWllsjckrgUYWLl76yqmgymXKzse6b2CMSPOFy9/yjKQTwD1m1RkwaeBTFyyLLiuEKLSfzIhqqbJZHmpX3BP8hKntLMbMFHJVel422r3cQj9YX584j7rIJMNyAaZuX+9KUbwFN35aiq+52fs1tH/7ilfM+QdI7NfYix7Gjio/rjfeD0a139Ci3lmWTB/OyYS3/dypNFGjMwLOf+zw/VZeZxiSYrFXJym5H33WCaId5bFqYcV0FziwwMoIg4YYHhqWvm+RA6m8jaEb68BGOkKJzjCqB4xVB8VQzejl5uvZcKnijNmHgvH3HehoPEYdDM8VHzS+a0VgvbRUEKMdezI5y0H7bYvN4HZ2cSwiMnVETk2s5CJ3cucdhR11XVJpZCLSKdUzEo+65AB3vezixCcCSdhNQt6iu8BqrND4PewPZKsh6fRNo3xLYMTzO/+82sp2jkn2UXuHaFuSm1yV+SQkwMJPYthaoPEYlFcgb5Co2gv+OSwXlteBixxYtghvvNSHCH+erWaM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB435924.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(366016)(376014)(10067099003)(11063799006)(22082099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Yi2cFRmo4WDqSjuFCrNu4mSqJJ1ELpuqqMHxUJd+H+QPWCkhkHv6K1q2PBrY?=
+ =?us-ascii?Q?VcFhb/SxV/5gTc0jMNN5aYPppBAZZqx9Yec6XzRlNrR+yfz5Y6VTFV6uIYyQ?=
+ =?us-ascii?Q?mNLnDuPxa+v0KPDt2p+8A3It8lgWlMy1+xBP6hd4JXvjamy+dMgkTHRWeP9A?=
+ =?us-ascii?Q?9vSrBmfSI5q0xedT17p1cqM8VDnyvpaiioXkjn8KWo/EIeafgycOj1KzgV2g?=
+ =?us-ascii?Q?QgoL1UJjR+bi7PJIuHxBgZyKjkVfwWj8mYhdlDOnyQ2dw3RGB5rB8oWjSAJJ?=
+ =?us-ascii?Q?qmmvK5dBzP7FwVm4/k5iz+pRRYRtEV09pO0QXUeaf/yrzfAZAEFMGmJI0H66?=
+ =?us-ascii?Q?qHzrF5Y4ltFUwEScvmD/TDPHDKZ0MGhuzJpwh5/s0QBMMQ0Cw7Aeic/8udcW?=
+ =?us-ascii?Q?PZZveasyyKIRmttYXL1CfcDTiXyPLQXLWViBEO+mR/Quup1PEvwFM6llYx/5?=
+ =?us-ascii?Q?8LFyx67d4xVo2DBF1BunCz330cD1iDk8GohjKSkmnCEaRrQ4OBjm4RK7X2OM?=
+ =?us-ascii?Q?cy3yY5O4xCblkw1SA6gsUsjCWcEA5BwNjhxHDNgP8bZcOgwqCuCQgrdQE9xy?=
+ =?us-ascii?Q?gBN8Twikoqg+WbE7iVrXpYj1B2d6JSlAwFZov7rJtnAgwkmmWHKA8RKbtt+y?=
+ =?us-ascii?Q?hCHpT6RTa0lMkXU7NkJjY4JZ3svFBC6ZNRcCTmtXf7iXdV7zhgtsId/RcxD7?=
+ =?us-ascii?Q?jsC9mJ7QMgCszYK/FTH02yrjxLhXb9ILdSzBsikYLmfObXCSbLiICLqXcX8X?=
+ =?us-ascii?Q?z4jtyQ5l8gPosEQmIUh/CUyAeZCKOOq+xUTNmHfdUakboBGP/NDuhAq0hYlK?=
+ =?us-ascii?Q?1R2Gd2mZPWPKrj7KJ/h6DfMAbRA2jeShz/hhheIQFfaLDjfDTD87X0nDX8Tu?=
+ =?us-ascii?Q?uDQYWnt9VNADKXvWZmAGxKz0qYBQOinv52+iQVprrt5vpdoDwtMZgou1FfkG?=
+ =?us-ascii?Q?9wVKeYaVal1jtLAFPYmhVlg5JOmyLIdpFZijU7VGDHI0reY5zOuV466G0sco?=
+ =?us-ascii?Q?xOUA7YSu2CNlcaGYVArONRMWtz0Sr5srIzwcsyaDbxEX4cyO3Kker+mrvnM2?=
+ =?us-ascii?Q?MEuzB1w/xyadgHpV0eU9SqS8t9M7le53RTI4GILh0CuvLUrkjYxEKwfDkq6E?=
+ =?us-ascii?Q?MfqrSu7CvU5S12JOwBAae1UdeQCypMAH44Fr9/d7R3vNBfAmLZg14I+tv4uY?=
+ =?us-ascii?Q?ro0fMkdI1qI3K6u6weeYTrcly26qCInGhkPZHDTVRhE0Nb2kIqVF81m3vu/u?=
+ =?us-ascii?Q?S5Fvx2cYP6jt7J+ekXHBu6rM3n6slx/j7tyLsL5TXK37pNm/eKVZXbQCvFBu?=
+ =?us-ascii?Q?3+0Ei/iZXB+Y6F9JL3GlqMY1kEjetSOMWwS751yKNbsyNx/UsTHom0Jq05W7?=
+ =?us-ascii?Q?cWygNFkq6ZWb+ZKhOmGCwAGESxl5sRth42RuDxNS4PdTYFv0cJJRBS2h23Zb?=
+ =?us-ascii?Q?ZG8L443mHhwtlPpIc9HYhEfYuFcJDJ4z4ZdND6iGxo+bY0vabkTHoFHxQn3B?=
+ =?us-ascii?Q?g0IOHY1kpAhVrfGwhte4VG3TxSbjhUz4/cSQh0itPEyVE7KQfqb/fJXBL7l4?=
+ =?us-ascii?Q?UkTjjcVpuH2SiW1kkwD63TMpcNqd7nqLidAoCRp9MjMp4ndjqhGHJE0MnxzP?=
+ =?us-ascii?Q?9+muqlTQw6cp9ZEtc/JdQxuk50W0wf5ei3fmOfk8NqR8dRKLoYbKbbrpXbgo?=
+ =?us-ascii?Q?JCnF3g0yNK21mzBHH+akMRxISMITAobNirGhRje4qM5Rc2geHUqOkDq7kRdc?=
+ =?us-ascii?Q?utFYrUoshg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: KcrSEc2+T6UYjB5U8GX+bDgEsUYLg8ETOVIMgW+ml7/CueCRHAvVacR6SevQEagmcSWAgIVNUpxgDGuXT3Op7PL26uc8oC8bwbtQUdDLgFCgdNnE2Ox86/fNh5s9QPaxLy7B9Sxh4lysaqjZ5Ki+QGvSHnwsBhSE+rhqc8ch4AcpA1fLkSB5co9cSeFkY0lcXB4co4FfOduawp0GGLikWjiJ9jv1zYarBiw4iOBHTY6GVhfuhaqo/SitGHrpyJEDqjh3XBhfJMWq9cKGsXlB7YYvvyyrdEVekS4u/4+3IpMCqw1851e7oJwchi700Xn7S8q3a81QRCmVUawIIUWPTw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aea1505-4d8c-4902-22d3-08df1da38767
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB435924.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 21:00:29.9332
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XoTTzfufkIsPISNJDTR//R5tCyMzrKGSBcf+Wu9wOx757dNmaoZoLghxDr+NiF90wRemRH3ECmOhnJFnKywjbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8553
+X-OriginatorOrg: intel.com
 
-On Sat, 2026-09-26 at 16:40 +0800, Matthias Goergens wrote:
-> hfsplus_read_wrapper() rereads the volume header through a bare "goto
-> reread", following an HFS wrapper's embedded-volume descriptor or, if
-> the header matches neither signature, the partition-table fallback it
-> shares with hfs, with no bound on either.=C2=A0 A descriptor or partition
-> entry with a zero offset leaves part_start where it was, and the
-> mount
-> loops forever.
->=20
-> TN1150 ("HFS Plus Volume Format") requires a wrapper's embedded
-> volume
-> to be HFS Plus: "When an HFS Plus volume is embedded, drEmbedSigWord
-> must be kHFSPlusSigWord ('H+')".=C2=A0 So there is at most one wrapper
-> hop,
-> and Apple's hfs code, GRUB and 7-Zip all follow it once.=C2=A0 A partitio=
-n
-> map sits at the start of the raw device (previous patch), so a
-> partition-table hop only makes sense before any wrapper hop.=C2=A0 Allow
-> one
-> of each, in that order, and fail with -EINVAL otherwise.=C2=A0 A zero
-> offset
-> is caught on the second pass.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> A wrapper whose embedded-volume descriptor points back at itself
-> hangs the mount forever without this patch and fails at once with it:
->=20
-> =C2=A0 img=3Dhfsplus-wrapper-loop.img
-> =C2=A0 put() { printf "$2" | dd of=3D$img bs=3D1 seek=3D$1 conv=3Dnotrunc
-> status=3Dnone; }
-> =C2=A0 truncate --size=3D64K $img
-> =C2=A0 put $((1024 + 0x00)) '\x42\x44'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drSigWord 'BD'
-> =C2=A0 put $((1024 + 0x0a)) '\x82\x00'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drAtrb: SLOCK | SPARED
-> =C2=A0 put $((1024 + 0x14)) '\x00\x00\x02\x00'=C2=A0 # drAlBlkSiz 512
-> =C2=A0 put $((1024 + 0x7c)) '\x48\x2b'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drEmbedSigWord 'H+'
-> =C2=A0 put $((1024 + 0x7e)) '\x00\x00\x00\x64'=C2=A0 # drEmbedExtent: sta=
-rt 0,
-> count 100
-> =C2=A0 mount -o ro,loop -t hfsplus $img /mnt
->=20
-> The same partition-table entry as the hfs patch hangs an hfsplus
-> mount
-> the same way:
->=20
-> =C2=A0 img=3Dhfsplus-partmap-loop.img
-> =C2=A0 put() { printf "$2" | dd of=3D$img bs=3D1 seek=3D$1 conv=3Dnotrunc
-> status=3Dnone; }
-> =C2=A0 truncate --size=3D64K $img
-> =C2=A0 put $((512+0x00)) '\x50\x4d'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 # pmSig 'PM'
-> =C2=A0 put $((512+0x04)) '\x00\x00\x00\x01'=C2=A0 # pmMapBlkCnt 1
-> =C2=A0 put $((512+0x08)) '\x00\x00\x00\x00'=C2=A0 # pmPyPartStart 0 (self=
-)
-> =C2=A0 put $((512+0x0c)) '\x00\x00\x00\x64'=C2=A0 # pmPartBlkCnt 100
-> =C2=A0 put $((512+0x30)) 'Apple_HFS'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 # pmPartType
-> =C2=A0 mount -o ro,loop -t hfsplus $img /mnt
-> ---
-> =C2=A0fs/hfsplus/wrapper.c | 15 +++++++++++++++
-> =C2=A01 file changed, 15 insertions(+)
->=20
-> diff --git a/fs/hfsplus/wrapper.c b/fs/hfsplus/wrapper.c
-> index 30cf4fe78b3d..df8079a4d8f5 100644
-> --- a/fs/hfsplus/wrapper.c
-> +++ b/fs/hfsplus/wrapper.c
-> @@ -137,6 +137,7 @@ int hfsplus_read_wrapper(struct super_block *sb)
-> =C2=A0	struct hfsplus_wd wd;
-> =C2=A0	sector_t part_start, part_size;
-> =C2=A0	u32 blocksize;
-> +	bool part_hop_done =3D false, wrapper_hop_done =3D false;
-> =C2=A0	int error =3D 0;
-> =C2=A0
-> =C2=A0	error =3D -EINVAL;
-> @@ -172,21 +173,35 @@ int hfsplus_read_wrapper(struct super_block
-> *sb)
-> =C2=A0	case cpu_to_be16(HFSPLUS_VOLHEAD_SIG):
-> =C2=A0		break;
-> =C2=A0	case cpu_to_be16(HFSP_WRAP_MAGIC):
-> +		/*
-> +		 * The embedded volume must be HFS Plus (TN1150), so
-> a
-> +		 * second wrapper is corrupt; a descriptor pointing
-> at
-> +		 * itself would otherwise loop forever.
-> +		 */
-> +		if (wrapper_hop_done)
-> +			goto out_free_backup_vhdr;
-> =C2=A0		if (!hfsplus_read_mdb(sbi->s_vhdr, &wd))
+On Mon, Sep 28, 2026 at 11:35:11AM -0700, Edgecombe, Rick P wrote:
+> On Mon, 2026-09-28 at 03:08 -0700, Peter Fang wrote:
+> > TDX attestation report ("Quote") sizes can grow with newer crypto
+> > algorithms, so guests can no longer rely on a fixed-size buffer for the
+> > Quote.
+> > 
+> > The TDX module added a new ABI that reports the largest possible Quote
+> > size via a metadata field [1]. Add a helper to query the size instead of
+> > exposing tdg_vm_rd() directly, as it can read arbitrary metadata fields.
+> > 
+> > The reported size covers every Quote type the platform can produce,
+> > including SGX-based Quotes.
+> > 
+> > Thanks to Xu Yilun for suggesting this in an off-list discussion.
+> 
+> Suggesting what?
 
-Ditto. We need to have a proper sanity check in hfsplus_read_mdb().
+Suggesting using another helper instead of exposing tdg_vm_rd()
+directly. I'll clarify it in the next version.
 
-> =C2=A0			goto out_free_backup_vhdr;
-> =C2=A0		wd.ablk_size >>=3D HFSPLUS_SECTOR_SHIFT;
-> =C2=A0		part_start +=3D (sector_t)wd.ablk_start +
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (sector_t)wd.embed_start *
-> wd.ablk_size;
-> =C2=A0		part_size =3D (sector_t)wd.embed_count * wd.ablk_size;
-> +		wrapper_hop_done =3D true;
-> =C2=A0		goto reread;
-> =C2=A0	default:
-> =C2=A0		/*
-> =C2=A0		 * Check for a partition block.
-> =C2=A0		 *
-> =C2=A0		 * (should do this only for cdrom/loop though)
-> +		 *
-> +		 * The partition map is at the start of the device:
-> follow
-> +		 * it at most once, and not from inside a wrapper.
-> =C2=A0		 */
-> +		if (part_hop_done || wrapper_hop_done)
-> +			goto out_free_backup_vhdr;
-> =C2=A0		if (hfs_part_find(sb, &part_start, &part_size))
+> 
+> > diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> > index bcaf4180a8db..323e1efc78ea 100644
+> > --- a/arch/x86/coco/tdx/tdx.c
+> > +++ b/arch/x86/coco/tdx/tdx.c
+> > @@ -198,6 +198,22 @@ u64 tdx_hcall_get_quote(void *buf, size_t size)
+> >  }
+> >  EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
+> >  
+> > +/*
+> > + * Ask the TDX module what the largest possible Quote might be.
+> 
+> How about adding the "largest on the host platform" detail to this comment.
 
-Ditto. We need to have a proper sanity check in hfs_part_find().
+I'll do that. Thanks.
 
-Thanks,
-Slava.
-
-> =C2=A0			goto out_free_backup_vhdr;
-> +		part_hop_done =3D true;
-> =C2=A0		goto reread;
-> =C2=A0	}
-> =C2=A0
+> 
