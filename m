@@ -1,84 +1,81 @@
-Received: from mail.sysgo.com (mail.sysgo.com [159.69.174.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C199D38F624
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.174.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A36538F624;
+	Mon, 28 Sep 2026 06:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576315; cv=none; b=KR+S51GkPDp+BhqzT2pi5KZ3YsBy0aNzkttpSS7QFjuiWy1H10m9gOiQNLc7xWJBOdp3e7lwsA3P2C9cOAGKeFoIpEC/krs5QqawkBgwiDJ4KBQptCaV+0g/atBZAWEAK4BGF7KssOLseci+ok/j2rCa7hLsxf6KvTx1BgFG2pY=
+	t=1790576343; cv=none; b=B0lEx5x0Oo5cGmhP1Of9t6Kijso0AtMwgRLBvgkn+FyVXmBcICwfTbSBa3Fyd9kq2cdK0m98cnb3FPLUo2X5mwCifXdxAti2V9DTS5ieWLV//gyV1kGxAdiOy7z7cyi/PqWmLwpXPtyRLEqfrngS2ICEABjv1Gq00CkWcMC76lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576315; c=relaxed/simple;
-	bh=MBfI3S8vHgsRVnTVLpMs8zqJ64YFvIZ4Rp+VHUUMCF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bX7sQoteedEaCvACT7vKXCan7uhBiyjzs7WTMiUATjpcerCyI5PLWTwS1ol960zunPdtA6GK227UEBX7OxB+m3KvEferhbqnm7luUHmIPJ2R2qb0bhGC6j1HMu0xKjYPw5/ig8pZPjuC57FJ3zkI7765KOpQdN/KBneJcOazrag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com; spf=pass smtp.mailfrom=sysgo.com; dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b=WdA+crwM; arc=none smtp.client-ip=159.69.174.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sysgo.com
+	s=arc-20240116; t=1790576343; c=relaxed/simple;
+	bh=WBoPDWVDL/gBHGItDHKxbRlJJolO/NR6aH1US9Af/6k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FOa6HY836QAruWpEx1W55nEiNMYNr4iWvOlAO2DfYbq5EGH8ZN/nGNtTig8SHlDCZkKQxV/p6CQ8Du9ZewI2VKqRwPiyD4fJPnLriFExRHLKalSAA01ovzo02aUooWSs9145b4tRlY4Awn/+7A8jIqs0ZJGJg15Mlx7OwK2Su4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgdO79uk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b="WdA+crwM"
-Received: from mailgw.sysgo.com (localhost.localdomain [127.0.0.1])
-	by mail.sysgo.com (Proxmox) with ESMTP id 673398128F;
-	Mon, 28 Sep 2026 08:18:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sysgo.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=k1; bh=4aV56peU8WtbQLQO3SzOE2
-	om988Ek3ZV5yif2if6ZAk=; b=WdA+crwMTqb5T3FSnbqguIhirqtKbIuBucYSNb
-	QqiI36Qau7fq0M6ekJ6mBp7hiyNk5PF8Amqrkv/1c2rzsxjQMk8ynO0bpTrhP5+r
-	54vtVlVZugN8xc3KwktFCnAsDCD+2mutqpHbWHihCjL2SfM9YcuPYLOffknvS08x
-	jrdoIQO9Uqu8BzZAehhyhuuKjMvVCZJWF+sPw1olG/I9AmHzuMKWcf/NxcftrASO
-	fEfXBiL43NYpzNPfFrcVZr3Ob9s9MbhSto7iZZ4O6gU46b52tCBim72FXAhpX7QY
-	UL+phHNYCaeIE9pKcbdfKiUUEb8zcKiuFJieJLDvVJvM0RUA==
-Message-ID: <86e4b5dc-2a74-40d9-9c45-55b279bff0e2@sysgo.com>
-Date: Mon, 28 Sep 2026 09:18:23 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgdO79uk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C591F00893;
+	Mon, 28 Sep 2026 06:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790576342;
+	bh=pmMCxK5aRATey9e6Ws3o06FK77/2EVv4XDkxI4d8T+g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JgdO79ukEpfimSw3nMlru8E4PJVFRO2utaKrjfGF3TWotnydmbUAqdLGRoz7arBcs
+	 SH9UY5od1xK7YdQzWUFKiWjXZ4IOWA3DwZR0APXfnEUAI8Rt/yg7BfwA6j8mE41IWy
+	 yR7C3xBtJ1LH5YYaBaLUcJeh13++iRU3DQmmrgSawhHQjykIZbuIzTAfKXREH0QV+G
+	 pu0+9OSdz75fH5ZqzM6YcbZH7Rqy/iqAlVk8vx+bsH6jc2V0plA8oznxvo0TOQC86H
+	 DdVR7EUjAy+aXaN3idLFA04pqT/PqVu92XTKEdo1yrqZK+ggdNL0jp3g2PLq6saiPH
+	 gLng5BSHFiosA==
+Date: Mon, 28 Sep 2026 08:18:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: dongsheng liu <2509730023@qq.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Daniel Mack <daniel@zonque.org>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: leds: Convert leds-lt3593.txt to yaml format
+Message-ID: <20260928-voracious-shiny-swallow-2dbee5@quoll>
+References: <tencent_67B8796B733C275D1EF565D0D2CDB9B48306@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] printk: Remove console options before decoding the
- name
-To: Tony Lindgren <tony.lindgren@linux.intel.com>
-Cc: pmladek@suse.com, rostedt@goodmis.org, john.ogness@linutronix.de,
- senozhatsky@chromium.org, linux-kernel@vger.kernel.org
-References: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
- <20260924070153.250783-2-david.engraf@sysgo.com>
- <arTUXC9zpqZhrPTP@tlindgre-MOBL1>
-Content-Language: en-US, de-DE
-From: David Engraf <david.engraf@sysgo.com>
-In-Reply-To: <arTUXC9zpqZhrPTP@tlindgre-MOBL1>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <tencent_67B8796B733C275D1EF565D0D2CDB9B48306@qq.com>
 
-On 24.09.26 10:42 wrote Tony Lindgren:
-> On Thu, Sep 24, 2026 at 10:00:57AM +0300, David Engraf wrote:
->> This fixes a regression when a console option includes ':'. Commit
->> 7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
->> introduced console=DEVNAME:0.0 hardware style addressing by looking for a
->> colon. If the colon is part of an option the name is handled as devname
->> instead of ttyname.
->>
->> Fix by handling the options first which will add a NULL terminator to the
->> string and refactor idx handling to clean up the code (thanks to Petr
->> Mladek).
+On Tue, Sep 22, 2026 at 01:00:12PM +0800, dongsheng liu wrote:
+> Convert binding doc leds-lt3593.txt to yaml format, so that nodes using
+> the "lltc,lt3593" compatible are no longer reported by dtbs_check as:
 > 
-> Maybe clarify the above a bit to make it clear that the refactoring is
-> needed for the fix. Something like:
+>   failed to match any schema with compatible: ['lltc,lt3593']
 > 
-> Fix by handling the options first which will add a NULL terminator to the
-> string. Note that parsing the options first means that also idx parsing
-> needs changing. Handle the idx parsing by refactoring the code (thanks to
-> Petr Mladek).
+> Additional change:
+> - reference common.yaml for the LED sub-node properties.
+> - require the sub-node, matching the driver's check for exactly one child.
 > 
-> Other than that:
-> 
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+> The schema was written with the help of an LLM coding assistant, based on
+> the previous binding text and drivers/leds/leds-lt3593.c. It is validated
+> with make dt_binding_check, and against the "lltc,lt3593" node in
+> arch/arm/boot/dts/intel/pxa/pxa300-raumfeld-controller.dts.
 
-Sure I can update the description. Should I create a v4 with the updated 
-description and your review tag or how to proceed?
+Drop paragraph from commit msg.
 
-Best regards
-- David
+> 
+> Assisted-by: LLM dtschema yamllint
 
+And dtschema and yamllint here. These are not LLM tools.
+
+Regardless, I discourage usage of LLM for conversion by beginners - you
+learn not much and you repeat what we already did (these files were
+converted with LLM by Rob). If this is part of any mentorship or GSoC
+program, then it is actually forbidden in these to use LLM for
+conversions.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
