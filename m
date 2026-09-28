@@ -1,190 +1,181 @@
-Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6496843E079
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69D6356760;
+	Mon, 28 Sep 2026 06:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576801; cv=none; b=iGGb1yIFGLdITMvu/rIqDpz+q9pHwzJxXStmbz7p8n7WEXcHQkemGCtl9TpFqZFChJ9h/+dUme01oz7brsVe4+0PIt5gqppOpp7dzkrhbYxjPi/J+cF6WAOrYX99hZ9/71E1+aUvNxP3tl2bLGuETJRDXR+D20Z5zp9i1+l+YBo=
+	t=1790576836; cv=none; b=Ujc71rhN8trTTsZfIMczRDE9qYRqajkM+mAm2Gq6+0PCJrvG3IVejh2iJmNVj/z+GurvkYglb3D6bc1vrI/XdxeXNTdk6XMJwswOfImqzzNx0+17oLKgtb8OIVeY5g4YuvmEyKhylmy5AglJ4gU5WSeTs/9CwbZD7216fYPLMFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576801; c=relaxed/simple;
-	bh=NkzURNoV5IsQG2K2rc3ZLHxvbgasq40uRSu34G2EpOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P3yk0BtZYUCrVD6yefHF8Jr4SbzpUICrdWCntIH63bzmWYjVf9cwqcNFvRE+6rHQZljNg1f0XKkUoZ/xViAtaUS82fsGiE9PiMoixU9W1UKZUpGQE5zSYxaNHTgfoJV36wwFas4pX+dFQkPg9Qlgo0Bzz5Hn/r0KyO3nnnqvZ+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rQ/3lLNo; arc=none smtp.client-ip=95.215.58.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790576836; c=relaxed/simple;
+	bh=WcTHDnTmvOWE1C59mZdXUFRa8r2t2+nheTWFYpchz7Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nFpWAIMN3H6Ecx6YDSzjO5DGCKtZ2cvmDf8RuW0wP2w185VsUIrTGl0bYtkGIRk0ywbEVXGkA6aXxDIcKQuIE7HP8x/kwZfvF+dF1VikdplPDZFtyggI0Rl7Za/gKYAoqG/mnS1woBth+iyGnpYrnnOrm7QjsudL5TRj7W8ZCGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=loomeO2n; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rQ/3lLNo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NkzURNoV5IsQG2K2rc3ZLHxvbgasq40uRSu34G2EpOQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790576796; v=1; x=1791181596;
- b=rQ/3lLNoVWSTdo+ZQZAPyrJNACT1hQ2izeNwJ04woM5b3wsqPjiQz8xi/LcJRaICqvIvjOyE
- LHjmUduRRg7+LyWFXxlmczUgiYyoiTr9rDNRrioQaDGoK9hzf+ZJP7rCj5u9S43aAfh6u1w6gqd
- GO42EXWolbBW5lzFt8bv9/t0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 565be971f620d08b;
-	Mon, 28 Sep 2026 06:26:36 +0000
-X-Mizu-Trace-ID: 565be971f620d08b
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 14:26:29 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	shuah@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next 3/5] selftests: seg6: move SRv6 End PSP setup
- into its own helper
-Message-ID: <aroIlffAyMRLsJPD@fedora>
-References: <20260922-srv6_flavors_endx-v1-3-4d01c05c47b7@kylinos.cn>
- <179025107823.2160803.7801303260933899523@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="loomeO2n"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6EFDDC2BCC7;
+	Mon, 28 Sep 2026 06:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790576836;
+	bh=WcTHDnTmvOWE1C59mZdXUFRa8r2t2+nheTWFYpchz7Q=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=loomeO2nSRVAbBLtzicM08Hf/4WfIMCMKgsuyzEVofabOPj9tpiuevFNFD/n8+zml
+	 pzeWIcopCVAU6J9WQCATT9frMlnBGvmG0cCh8AKVqGmwis4RbghOJqJZHw1gONw1Bm
+	 YKCo0y9Zn4NffMn6zl9nxfSZBkz5130PyQji2covfkUlfNo7zbTOC6qjFN7DFOyiZz
+	 J2iwFeNBM1IQzqteouQsVwP9gMGzaOFiH/dtOvoYFtT07mG1PPhuUrvY0PpDldfdh4
+	 UhmX8EpFCNSEdVBc8JUTNnxhf0UkhssjLXagca2J/urmlhGRaWruaEjO3SaWoeamTR
+	 8nEW4I6MkyY3A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AD89C9832F;
+	Mon, 28 Sep 2026 06:27:16 +0000 (UTC)
+From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
+Date: Mon, 28 Sep 2026 16:27:15 +1000
+Subject: [PATCH] iommu/qcom: Invalidate TLB during context init
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179025107823.2160803.7801303260933899523@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-qcom-iommu-clean-contexts-v1-1-c88fe2b4ff48@samcday.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrCMBAF0KsMf92BGEupuYq4CJNRB0yiSZVC6
+ d2FvgO8DV2baUegDU1/1q0WBDoNBHnG8lC2hEDwzk/u4if+SM1sNecvy0tjYall0XXpfBZJcXa
+ juDlhILyb3m097utt3/9mwOBJawAAAA==
+X-Change-ID: 20260926-qcom-iommu-clean-contexts-3ccda804c08d
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Joerg Roedel <jroedel@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sam Day <me@samcday.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790576835; l=4431;
+ i=me@samcday.com; s=20240502; h=from:subject:message-id;
+ bh=dBYP37Vw4lAFJ1/z626JMlsCqPvHWtUxsdH66DNtfjA=;
+ b=DC/qs/AsRRQp10M7IFKDFE5qD0b0QaKZ7OQIDMMQU93+okhiU9MCBOUXNBxJeGaCW5GyuQmyo
+ 0R5tch/VaArCcPtPvZbTlApYW3PAyqLI9XCU6ysGOlySHjcxNjSenoa
+X-Developer-Key: i=me@samcday.com; a=ed25519;
+ pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
+X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
+ auth_id=595
+X-Original-From: Sam Day <me@samcday.com>
+Reply-To: me@samcday.com
 
-On Thu, Sep 24, 2026 at 11:57:58AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] Mid-run re-arming of the SETUP_ERR latch converts already-
->   recorded test FAILures into an overall SKIP.
+From: Sam Day <me@samcday.com>
 
-OK, I will update the commit description.
+qcom_iommu derives each context bank's ASID from DT data, so a kernel
+booted via kexec reuses the same ASIDs as its predecessor.
 
-> - [Low] setup_end_flv_psp()
->   (tools/testing/selftests/net/srv6_end_flavors_test.sh:651-670) is…
+Programming a new TTBR0 doesn't discard entries the SMMU has already
+cached under that ASID, so these residual and stale
+translations/table-walks will go into effect as soon as the context is
+enabled again.
 
-ack, I will move the ret guard to this patch.
+On MSM8916 devices (I confirmed it on both a Samsung Galaxy A5 and a
+DragonBoard 410c) the result is MDP5 taking context faults on
+framebuffer IOVAs and stuck in a continuous underrun storm during scan
+out, if the previous kernel had itself initialized the display and
+programmed the SMMU.
 
-Thanks
-Hangbin
-> 
-> --
-> 
-> selftests: seg6: move SRv6 End PSP setup into its own helper
-> 
-> This moves the End PSP policy installation out of setup() into a new
-> setup_end_flv_psp() helper, and calls that helper from
-> host_srv6_end_flv_psp_tests() with errexit enabled around it. The intent
-> is to decouple the base topology setup from the flavor-specific test case.
-> 
-> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > index 318487eda671b..56a1c5f865a77 100755
-> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > @@ -645,6 +645,12 @@ setup()
-> >  	setup_rt_local_sids 3 "1 2 4"
-> >  	setup_rt_local_sids 4 "1 2 3"
-> >  
-> > +	# testing environment was set up successfully
-> > +	SETUP_ERR=0
-> > +}
-> > +
-> > +setup_end_flv_psp()
-> > +{
-> >  	# set up SRv6 policies
-> >  	# create a connection between hosts hs-1 and hs-2.
-> >  	# The path between hs-1 and hs-2 traverses SRv6 aware routers.
-> 
-> [ ... ]
-> 
-> >  	#  - rt-1 (SRv6 End flavor PSP with SL=1)
-> >  	setup_rt_policy_ipv6 2 1 "3:noflv 4:psp 2:psp"
-> >  	setup_rt_policy_ipv6 1 2 "1:psp"
-> > -
-> > -	# testing environment was set up successfully
-> > -	SETUP_ERR=0
-> >  }
-> 
-> [Severity: Low]
-> The commit message says the split lets "each PSP test case can setup and
-> later cleanup independently", but this commit only adds the setup half.
-> setup_end_flv_psp() installs the localsid seg6local routes, the cafe::<dst>
-> H.Insert route and the proxy NDP entries through __setup_rt_policy(), and
-> nothing releases them except the global EXIT trap cleanup(), which just
-> does:
-> 
-> 	for i in ${ROUTERS}; do
-> 		nsname="$(get_rtname "${i}")"
-> 		ip netns del "${nsname}" &>/dev/null || true
-> 	done
-> 
-> Would it make sense to mention in the commit message that the matching
-> cleanup_end_flv_psp() arrives in the following patch ("selftest: seg6: add
-> explicit cleanup for SRv6 End PSP test")? As it stands the description
-> promises a teardown path that does not exist yet at this commit. There is no
-> functional problem here, since the two PSP policies are the only flavor
-> state installed and netns deletion reclaims everything.
-> 
-> >  
-> >  check_rt_connectivity()
-> > @@ -758,7 +761,13 @@ host2gateway_tests()
-> >  
-> >  host_srv6_end_flv_psp_tests()
-> >  {
-> > -	log_section "SRv6 connectivity test hosts (h1 <-> h2, PSP flavor)"
-> > +	set -e
-> > +	SETUP_ERR=1
-> > +	setup_end_flv_psp
-> > +	SETUP_ERR=0
-> > +	set +e
-> 
-> [Severity: Low]
-> Can re-arming SETUP_ERR here turn already-recorded failures into a skip?
-> 
-> By the time host_srv6_end_flv_psp_tests() runs, router_tests() and
-> host2gateway_tests() have already executed and may have set ret=1 and
-> incremented nfail:
-> 
-> 	setup
-> 	set +e
-> 
-> 	router_tests
-> 	host2gateway_tests
-> 	host_srv6_end_flv_psp_tests
-> 
-> 	print_log_test_results
-> 
-> If any ip command inside setup_end_flv_psp() fails, for example the
-> "encap seg6local action End flavors psp" route add, errexit aborts the
-> script while SETUP_ERR is still 1, and the EXIT trap takes this path in
-> cleanup():
-> 
-> 	if [ "${SETUP_ERR}" -ne 0 ]; then
-> 		echo "SKIP: Setting up the testing environment failed"
-> 		exit "${ksft_skip}"
-> 	fi
-> 
-> 	exit "${ret}"
-> 
-> so the script exits 4 (skip) instead of reaching exit ${ret} with ret=1, and
-> print_log_test_results is never reached, meaning the tests passed/failed
-> summary is lost too.
-> 
-> The final patch of this series ("selftests: seg6: add End.X PSP selftest")
-> changes the guard to also require [ "$ret" -ne "$ksft_fail" ], which removes
-> the fail-to-skip masking. Could that guard change be moved earlier in the
-> series, so the intermediate commits do not carry the masking behaviour?
-> 
-> > +
-> > +	log_section "SRv6 connectivity test hosts (h1 <-> h2, End flavor PSP)"
-> >  
-> >  	check_and_log_hs_connectivity 1 2
-> >  	check_and_log_hs_connectivity 2 1
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-srv6_flavors_endx-v1-0-4d01c05c47b7%40kylinos.cn
+arm-smmu invalidates the whole TLB in arm_smmu_device_reset() before
+enabling the SMMU. qcom_iommu can't do that on these TZ-managed devices
+(SMMU_SCR1.GASRAE=1), however.
+
+Instead, qcom_iommu now invalidates each context bank by ASID whilst it
+is still disabled, before programming it for the new domain. Secured
+contexts are protected by TZ so they're skipped.
+
+There's been previous discussion on the list (see link) about how to
+best deal with this kind of situation. This patch opts for a fix in the
+incoming kernel, rather than the outgoing one. This ensures newer
+kernels will always behave correctly, and also covers the kdump use
+case.
+
+Fixes: 0ae349a0f33f ("iommu/qcom: Add qcom_iommu")
+Link: https://lore.kernel.org/all/20240319154756.GB2901@willie-the-truck/
+Assisted-by: LLM
+Signed-off-by: Sam Day <me@samcday.com>
+---
+Tested on my DragonBoard 410c. Starting from one unpatched kernel
+scanning out at 640x480 and kexecing into the same kernel at 1280x720
+results in context faults starting at the first IOVA past the previous
+kernel's mapped extent, with continuous MDP5 underruns thereafter.
+During this time I observed an all-blue HDMI signal. With the patch
+applied, the same kexec hop is free of faults, and the HDMI signal is
+clean throughout.
+
+Further, it was proven that kexecing into an unpatched kernel and
+causing the fault storm can then be resolved by subsequently kexecing
+into a patched kernel.
+---
+ drivers/iommu/arm/arm-smmu/qcom_iommu.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+index 21d18ce67b982..a37955cd90d5e 100644
+--- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
++++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+@@ -111,23 +111,26 @@ iommu_readq(struct qcom_iommu_ctx *ctx, unsigned reg)
+ 	return readq_relaxed(ctx->base + reg);
+ }
+ 
++static void qcom_iommu_ctx_tlb_sync(struct qcom_iommu_ctx *ctx)
++{
++	unsigned int val, ret;
++
++	iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
++
++	ret = readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
++				 (val & 0x1) == 0, 0, 5000000);
++	if (ret)
++		dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
++}
++
+ static void qcom_iommu_tlb_sync(void *cookie)
+ {
+ 	struct qcom_iommu_domain *qcom_domain = cookie;
+ 	struct iommu_fwspec *fwspec = qcom_domain->fwspec;
+ 	unsigned i;
+ 
+-	for (i = 0; i < fwspec->num_ids; i++) {
+-		struct qcom_iommu_ctx *ctx = to_ctx(qcom_domain, fwspec->ids[i]);
+-		unsigned int val, ret;
+-
+-		iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
+-
+-		ret = readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
+-					 (val & 0x1) == 0, 0, 5000000);
+-		if (ret)
+-			dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
+-	}
++	for (i = 0; i < fwspec->num_ids; i++)
++		qcom_iommu_ctx_tlb_sync(to_ctx(qcom_domain, fwspec->ids[i]));
+ }
+ 
+ static void qcom_iommu_tlb_inv_context(void *cookie)
+@@ -270,6 +273,13 @@ static int qcom_iommu_init_domain(struct iommu_domain *domain,
+ 		/* Disable context bank before programming */
+ 		iommu_writel(ctx, ARM_SMMU_CB_SCTLR, 0);
+ 
++		/* The TLB may still hold cached and stale entries for this
++		 * ASID, if a previous kernel programmed the SMMU before
++		 * a kexec into this kernel.
++		 */
++		iommu_writel(ctx, ARM_SMMU_CB_S1_TLBIASID, ctx->asid);
++		qcom_iommu_ctx_tlb_sync(ctx);
++
+ 		/* Clear context bank fault address fault status registers */
+ 		iommu_writel(ctx, ARM_SMMU_CB_FAR, 0);
+ 		iommu_writel(ctx, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
+
+---
+base-commit: 3339792beb5fb1c9c423c544ba2fbc235e7d7f75
+change-id: 20260926-qcom-iommu-clean-contexts-3ccda804c08d
+
+Best regards,
+-- 
+Sam Day <me@samcday.com>
+
+
