@@ -1,156 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FD948E0E5;
-	Mon, 28 Sep 2026 09:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CF049159C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588650; cv=none; b=SqiByzjubSAsofBF226QvWVEZdpu1bYAgpSxApta33R/OEwlGFCFev+JRc4zkrNjylnKWC4RSFb+fWtiXZdZQ+KdcE8TZ9AtJXHtaDbWouELkoWbBg1QmQIj05NgQl4tbL84gVHW2ch2xX50jDpk+twqvD5IMVeqQO2YV3MPBjI=
+	t=1790588655; cv=none; b=ArQ6ntkdtOwLqXOytyMJBgcSYcW4bOup5vw1EQU4J/yl0r0NS6Jyqg9VuKG1ysetaqcnMpRdSucpPPnpV4BMcgXSbfwggAd1z+2crvfdjIo3Dq/BsqlbPaaN2I6rnv1o/nHdB9hXNZqbuPxyWpzQKoVGTH2A1gVmXAIqnkKC4J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588650; c=relaxed/simple;
-	bh=9oI1czUh0cwvr1F2T9NdXQl3oHhA/WcEE5sckh4PtQU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FyE9ZBwiHp0SOZhi6XOPQ1gwkAnfVkzt69IVsLIJmp6wn+D3eShFRDpiGlROUsYP8gtLRTbhTQ+m5JCpkpOBK8sk8onZwKX0jB6YgN/hsejH5Jp11gS1jVjjDqa38eHqPXUeCCH6aTclFHi/u47MMzpaFgQMSRZOEBhydEso4hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VpezNjq1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790588655; c=relaxed/simple;
+	bh=yDiCbrD67teRI5Xt14TjK1TJBZ5nXKLfTDyJjKsZQ5Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tDYeI7PJ0LgPpIAjwgrpRBsWjInl9gjTT9+7izyw2jRi01oi4dxQ9/WsMjSu6EDlQML2D6w5A1tW5SgVJfoOtKOeNCTd8j9Cjzb7+tC80/6keQSZa30TNGTQfUoYKOgTM2v31lPEPbu1lumQZlmKofQlJcA28VC2jZMhMwzMTEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeiF1xoW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VpezNjq1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29651F00893;
-	Mon, 28 Sep 2026 09:44:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeiF1xoW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6161B1F0089C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790588648;
-	bh=1d72FXy6Ds/mCGvDXGUr8cCY+vsQcBo1Jgmr46RzDGc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VpezNjq1C4ufk0Cx1GKX0WFllmH0CSQV6lRjpdJLjpnmpVT0FUClxKstgoK1f08vS
-	 33QINGym5FnbX9KPxJZ3O59J3hzc/5r/VsJPTGHIdPpcF436W9WjZ9NM6pwtgUUvqr
-	 e9HVmO6z3Lu0ln5NVtsvbW32+ur30AKsQxGpWJAcDElQq+WjTVD+Qibbh2Vlwuj5Ci
-	 WVz8NjDfS7FZMzwv70kglgPxbDcLj7MQQaeK1tX0cdC/ZsAHeLWmFPwVYcgDbJTRNo
-	 H7PKRL+pOxc9tcKDHMM9K3pWYwzPKPIRLMolTiov7Fdrj9a/+BzhyYZMdIJ3ENQSlV
-	 bd/S28yDRSFmQ==
-Message-ID: <b6801200-ec97-48c2-9c0b-2b929c1b1198@kernel.org>
-Date: Mon, 28 Sep 2026 11:43:59 +0200
+	s=k20260515; t=1790588654;
+	bh=yDiCbrD67teRI5Xt14TjK1TJBZ5nXKLfTDyJjKsZQ5Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VeiF1xoW0YmgdSp1I+PFdq5zWcn2Ujzgm/HHuPX2OkBdIZ71wHDl0yS5v0qopB0is
+	 0wpQoRiHucq+Qok3/3mDpOSUAH/wed3vJgOtyAsmz4drR4BItzkCpZtaM7JSzoFW1z
+	 0kAY4wIIn4pGOyXOPlQ7kzxcbDkufGYJLhgZ5Xj8goc/i4EA59bDPI8nFk7/64SZdq
+	 /uLImon+nTZFVOjyuS4FNzfSVNnRy+qTcgtv78+JBFwvsrp32fBL0PhQcVkYvvwgPt
+	 e+pA+SB3icPjj7EbtenzdseAlVrbMMRzIGYOEr0Ia4p4brdBRwM8C0RSufc57KXboP
+	 PMwR1IKDUrOWw==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2aff2c45efso206959366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:44:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxr4jiM7m8e+iR/2Z/1Hq/tkycpn8CEuRr0AaQ0rOPxI4rO0/o4Gqh+ZBw5jO7wDYC59Y1InwVFTdd7z6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++niRgDR+YwId/LN1LR5RJckRqgMLUJsEgKnwcp3IlBMQiJHvMgu
+	CxoYnl5KEWvItMcIz9lEac2oOZ9h0Wg3T1LoqxbMt+gPYkS3xmVA8PnJO+labbkunpCFNucRHgY
+	tyY+E5pI1+d1Ri5JfsWcJAcuDJj6Namc=
+X-Received: by 2002:a17:907:7289:b0:c29:52dd:317c with SMTP id
+ a640c23a62f3a-c2ac24c5d47mr1054543866b.30.1790588653269; Mon, 28 Sep 2026
+ 02:44:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v18 07/10] net: phy: phy_link_topology: Add a
- helper to retrieve ports
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, davem@davemloft.net,
- Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, Herve Codina <herve.codina@bootlin.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
- Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
- Romain Gantois <romain.gantois@bootlin.com>,
- Daniel Golle <daniel@makrotopia.org>,
- Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
- Frank Wunderlich <frank.wunderlich@linux.dev>,
- Pietro Ameruoso <p.ameruoso@live.it>, Aleksei Sviridkin <f@lex.la>
-References: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
- <20260927133619.955236-8-maxime.chevallier@bootlin.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260927133619.955236-8-maxime.chevallier@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260909115530.1924665-12-ardb+git@google.com>
+ <20260909115530.1924665-13-ardb+git@google.com> <20260909191410.GAaqGwAsCewrdVZZ0s@fat_crate.local>
+ <cee2e02b-3817-44cf-857f-62a148290367@app.fastmail.com> <aqKrhNQ3mZMs5-Dy@thinkstation>
+ <b24b9785-b790-476d-985d-e8c5405d192b@app.fastmail.com> <20260912061005.GDaqTsveevVkzxRJoI@fat_crate.local>
+ <b259aff1-1fb1-4819-88ca-9b47dac036cd@app.fastmail.com> <20260912175410.GAaqWRwnz7bHUtXYSs@fat_crate.local>
+ <862d50e1-2072-407b-882d-5e3074a3c225@app.fastmail.com> <20260913181105.GAaqbnOUDX2YNFW8iQ@fat_crate.local>
+In-Reply-To: <20260913181105.GAaqbnOUDX2YNFW8iQ@fat_crate.local>
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Mon, 28 Sep 2026 11:44:01 +0200
+X-Gmail-Original-Message-ID: <CAMZ6RqJCMt3zoDQ2iWXWJvxSifB0cV20FayX=yxoG30QdJ8aQA@mail.gmail.com>
+X-Gm-Features: AclHuK8G_5R08tF6nQfMjGGwRFyMW3SHkXEugmF7cirr7NnVpvpLiskIoE_UXNI
+Message-ID: <CAMZ6RqJCMt3zoDQ2iWXWJvxSifB0cV20FayX=yxoG30QdJ8aQA@mail.gmail.com>
+Subject: Re: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of panic()
+To: Borislav Petkov <bp@alien8.de>
+Cc: Ard Biesheuvel <ardb@kernel.org>, Kiryl Shutsemau <kirill@shutemov.name>, 
+	Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Borislav,
+
+On Sun. 13 Sept. 2026 at 20:11, Borislav Petkov <bp@alien8.de> wrote:
+> On Sun, Sep 13, 2026 at 06:35:33PM +0200, Ard Biesheuvel wrote:
+> > The reason I want to get rid of panic() is because snprintf() is going
+> > to be removed from the EFI stub.
+>
+> Ok, I'll queue it into x86/boot and give you an immutable tag it doesn't look
+> like something urgent to me.
+
+I had a look at tip/x86/boot but could not find this patch yet, nor an
+immutable tag containing it.
+
+Just checking whether it is still queued on your side, thanks!
 
 
+And, by the way:
 
-Le 27/09/2026 à 15:36, Maxime Chevallier a écrit :
-> In order to allow netlink access to phy_ports, let's add a helper to
-> retrieve them. When handling a port coming from phy_link_topology, the
-> caller must hold rtnl until it's done with it.
-> 
-> We don't really support PHY and phy_port operation on ops-locked devices
-> yet, warn when we try to do so on such an interface.
-> 
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Tested-by: Aleksei Sviridkin <f@lex.la>
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-> ---
->   drivers/net/phy/phy_link_topology.c |  8 ++++++++
->   include/linux/phy_link_topology.h   | 25 +++++++++++++++++++++++++
->   2 files changed, 33 insertions(+)
-> 
-> diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
-> index 28c5bf3a8849..214ccce23cf6 100644
-> --- a/drivers/net/phy/phy_link_topology.c
-> +++ b/drivers/net/phy/phy_link_topology.c
-> @@ -65,6 +65,14 @@ int phy_link_topo_add_port(struct net_device *dev, struct phy_port *port)
->   	struct phy_link_topology *topo;
->   	int ret;
->   
-> +	/* Ports can now be queried without rtnl for ops-locked devices, which
-> +	 * we don't support now as port retrieval is done under rtnl.
-> +	 * We don't have phy_port enabled devices yet, let's make sure
-> +	 * we are loudly warned about that when it happens.
-> +	 */
-> +	if (WARN_ON_ONCE(dev->netdev_ops && netdev_need_ops_lock(dev)))
-> +		return -EOPNOTSUPP;
-> +
->   	topo = phy_link_topo_get_or_alloc(dev);
->   	if (IS_ERR(topo))
->   		return PTR_ERR(topo);
-> diff --git a/include/linux/phy_link_topology.h b/include/linux/phy_link_topology.h
-> index 296ee514ba46..f2e493c433ff 100644
-> --- a/include/linux/phy_link_topology.h
-> +++ b/include/linux/phy_link_topology.h
-> @@ -13,6 +13,7 @@
->   
->   #include <linux/ethtool.h>
->   #include <linux/netdevice.h>
-> +#include <linux/rtnetlink.h>
->   
->   struct xarray;
->   struct phy_device;
-> @@ -71,6 +72,24 @@ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
->   	return NULL;
->   }
->   
-> +static inline struct phy_port *
-> +phy_link_topo_get_port(struct net_device *dev, u32 port_id)
-> +{
-> +	struct phy_link_topology *topo = dev->link_topo;
-> +
-> +	if (!topo)
-> +		return NULL;
-> +
-> +	/* ports in the topo are RTNL protected, but may be accessed under
-> +	 * netdev_lock for ops-locked devices. For now keep them under rtnl
-> +	 * protection, as no ops-locked devices have phy_port capabilities
-> +	 * yet.
-> +	 */
-> +	ASSERT_RTNL();
-> +
-> +	return xa_load(&topo->ports, port_id);
-> +}
-> +
->   #else
->   static inline int phy_link_topo_add_phy(struct net_device *dev,
->   					struct phy_device *phy,
-> @@ -100,6 +119,12 @@ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
->   {
->   	return NULL;
->   }
-> +
-> +static inline struct phy_port *
-> +phy_link_topo_get_port(struct net_device *dev, u32 port_id)
-> +{
-> +	return NULL;
-> +}
->   #endif
->   
->   #endif /* __PHY_LINK_TOPOLOGY_H */
-
+Yours sincerely,
+Vincent Mailhol
