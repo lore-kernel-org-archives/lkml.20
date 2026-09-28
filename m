@@ -1,153 +1,113 @@
-Received: from mail-dy2-f29.google.com (mail-dy2-f29.google.com [74.125.229.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5094EC664
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FFA4ED1A4;
+	Mon, 28 Sep 2026 19:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623420; cv=none; b=aiXvncSwV0lRNW28QUHSe2oD7rcTECWPgFNPZgceETE29sv1AHjeBNf2UjQJTyZzThS327+DSl7zTvzQ/GKPQzSc7ak3WZDmdmes6vdetUxO0G+qWSiDym0d/tF+//LcogqgXGp1k8MwIvDG3f7kLtzfd65zpB+9O3Rn4PGN/g0=
+	t=1790623433; cv=none; b=LD4E7KcUhLrHnYmX6F/iIu5XNy2SyjfKuqnkZh7jyIbJFX1UY4liXtaBiqIqvrqtumHbEKKkk1OGxUP5eRgUhTGtv93R3PTczGURiFWzwXRSxh45OJwt6r0HxCTM2wjB2T9bjJTzmwszC+PIsJmz1CDaLU8NVIqgo6mzmyyEoDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623420; c=relaxed/simple;
-	bh=Gg6LEuIxaWE+7cRK2yBBmz2ArAP14aPOU/p2x3Q6Pkk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ePlSTbus2ZF44y7DHyV4MCicyQKqK3gYiME3GN09sNA3EcMJ6uN+rgxb5eQFPy+OO6WsbA1Nnnktisvkz5Iy8zXbWhNVRu2q24+juv1aJXbs5G/jeVa622KIhff8CTb4XpYjVQ9lFRHRtfTZJrRhR5npWGi8bs/rzRFr3iy+NcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JnhWRVz7; arc=none smtp.client-ip=74.125.229.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790623433; c=relaxed/simple;
+	bh=VVOtKwa1kDM3Rb1Ue/KB2Bbfk4hVDpH2ITeTMbbz2Jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jBVY33k1/2ugLgJ7diiM5kL+4uJ8K7/RNfbxgy+yjqCzsA43jdlY0L+0R8z7iT50tc9MBjtoTft3SVgTUwj7Xmzias0YWENqylzNWisjUBNohOtIFNjNo37casYn8SYcsCYPRRuKcT8I7EV7P6CdJBnfb0HXq42shZMCPXUHtDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2TQPMzn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JnhWRVz7"
-Received: by mail-dy2-f29.google.com with SMTP id 5a478bee46e88-3427493501eso1581086eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:23:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790623418; x=1791228218; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AnZCrTRfpItZ1v/U0Z7dCGTDmXTsYFgEREK5NIBSxBA=;
-        b=JnhWRVz75vxTVY9ngbOszYowBWNCUCeKKOvEBbPinhyOWTnjySsE49B4rUyRQ5B3eA
-         6g7l8kw0oI+LBDWf6fqfNBhizj5RWFwopP1mGKEiBN9XKLUv47oE4sFv2dL/ivFrqESy
-         FexaImx2SmDvj4FRnIObb5W2//0bZ2BptOiilEWRMi3m0HUQ7NaT0jpTW72H7pSzEnPx
-         ie17y0hRhQXMe3lvWWnz5g0rd8Z31JCfRiX4/hRQAxWmylvAqTH0jqq4ySRF6JC9DzqV
-         DPznoFGca9sS1hs9xUbna5kAEsxM3ZXsRNnrscupmVcxgsuJUIUH8iR8IF6sOpJ2/6kc
-         f3JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790623418; x=1791228218;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AnZCrTRfpItZ1v/U0Z7dCGTDmXTsYFgEREK5NIBSxBA=;
-        b=xsxDr2E4a+Y3UeaeEJvl0p7K0gU+HSaIH9KZ2D5QpmZxKVJ10hEavOl2lRVH3jcpkR
-         gbqCrebXTqFzGdjVRi7zZsSVWDy09qSEBlhmFjtwIj3ZxJ9XGq+fJTo7/qyiMSzxGwle
-         60/h7c3SX/fYP62PtMIMN5+3D8Th809qE/5+5jJQ4oQ5pTfxQL/2FxzOSHzgOZAnf6JW
-         A85a4GEwDYtP6KpSmkEyr/WGF9N93qIpxqixB2vOYigSuyJ/JuRwAmxqHkAyaIZtIju6
-         uEIfb5ujgX4/TQSkZOwiu30nGrYaavhdxBXCbdsXIC+pxCm1ENI7Nh3ciqiVDSOE/ulJ
-         Ikeg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+FeR4Rki8x65fjEeoyH8PWLHpz1QzF2C8nS8w1dSt7IZ+hS9IWMnEr7+XH+tKzOMgoSmpIz6C/94IW5E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtJVBomqHfYgOb79+OtcrNYdiNPZnl372cnDtAbqy1CSgXrrkJ
-	x93CDzB2U8k9jjfu1xgdA6+ZdgZX1KZnsIFeNvhFWvjU0F5WTJxMKD6v
-X-Gm-Gg: AYBFou36vzS8qAWmwEHdoHmg7mN24Wk1w2VrlQEIRXvm+uoAxrfpv+oyjvuNnfteFk5
-	24OWJ+3rRcKqV1Fu6jEGeNqQjS1IMQxUgQuFkEHMCV58kukT6f/K+QlTm3JrPZucGe5Fs/ktpvE
-	o16tzQBaZiucidHOUiJuQh3BzPe4Ap8d1Q9x1Y1plojD6Gc2CMmkFVB2e0M+OLSx3CpY+piofwR
-	ITS9Yng+SUQkmGC7IxfpIDMZH8ZwAMYGqgns/+eKLhNQSOODHYhp6r2Smn8E0P44X2zB8O++Z8E
-	5sAsD2wQe97TpEGVcVrs4WVsFiqmLYYZLbgaVKiKxjDTFgNRZZZNneuHfOs7A4cST+Z281YATdX
-	IuB2QtlmCQoy9db5hqdT6S0owiEFZhiJAdDPAjHy9tauDkvEDzKwf4SmtpAZp4ZxpA4Vr26piiW
-	fEt1/AmZLwOQhemSwvsiicg/1+VKAOdMUcaqKZT6+Xi5cCv/jeGt6seMwemGCVyOP/3VeeZWECs
-	MG8aFI509A=
-X-Received: by 2002:a05:7301:1f15:b0:33b:5b1b:134c with SMTP id 5a478bee46e88-3427344e560mr15142029eec.38.1790623416429;
-        Mon, 28 Sep 2026 12:23:36 -0700 (PDT)
-Received: from ?IPV6:2600:6c5c:6b00:316::23? ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172de6sm48477679eec.9.2026.09.28.12.23.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 12:23:35 -0700 (PDT)
-Message-ID: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
-Date: Mon, 28 Sep 2026 15:23:33 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2TQPMzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC2E1F000FF;
+	Mon, 28 Sep 2026 19:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790623431;
+	bh=XC9uAI75CvKuRZPLoeoISogD4mGmbtSRDIY7qlsonpc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S2TQPMzn/EllqP+M3Z0R2248/Bp3GONBRTCVVPf7zRlt4R+EN5892+TQtRlua6e3f
+	 7jdXcOGHo2ck9hDViQaZ+47YsO0tNKMAeUB3dkfurdRLWNCqCKK5S2UEJZQMGc3TVA
+	 og4ic4yzipJ9jkgPYuc7JSctTdvlis5wea2Cw8bD3l4zN/YVdSap0r/2Xcjo/ynYzO
+	 V87mykkGwJkHbxFXOmWzJSz1La+uApwunG92J88izj0YMWHoJwkq1jcsw8lYw58a6c
+	 3Npx8b33duhqTPDnSKBgAldlA1C2H+xxnjF67i+hrtPA7L8e6/H3zd7DRWufIpvFBa
+	 bEzWK7qMMh0Ng==
+Date: Mon, 28 Sep 2026 20:23:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thierry Reding <thierry.reding@gmail.com>,
+	linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/2] dt-bindings: sound: tegra-ahub: Convert to
+ json-schema
+Message-ID: <d5ebde9e-29be-47ab-b74e-63a6bda079a4@sirena.org.uk>
+References: <20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com>
+ <20260928-as3722-bindings-v1-2-35f423a9f2b2@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net v2] e1000e: restore jumbo config after DMoff exit
-To: "Craig I. Hagan" <hagan@amazon.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Fabio Sabai <sabfabio@amazon.com>
-References: <20260923235832.473-1-hagan@amazon.com>
- <20260928170234.21877-1-hagan@amazon.com>
-Content-Language: en-US
-From: Matt Vollrath <tactii@gmail.com>
-In-Reply-To: <20260928170234.21877-1-hagan@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="B/XKNQtA6qkUcNe4"
+Content-Disposition: inline
+In-Reply-To: <20260928-as3722-bindings-v1-2-35f423a9f2b2@nvidia.com>
+X-Cookie: All is fear in love and war.
 
-On 9/28/26 13:02, Craig I. Hagan wrote:
-> On an I219 (pch_spt+) at jumbo MTU, after a link partner reset (e.g. a
-> switch reboot) the interface can come back up unable to pass traffic until
-> it is manually reset. Observed on I219-LM (8086:15b7) at MTU 9000.
-> 
-> When the MAC exits the DMoff state on link-up, the watchdog resets only
-> the PHY. A bare PHY reset does not re-run the jumbo-frame workaround
-> (e1000_lv_jumbo_workaround_ich8lan), so the jumbo configuration is left
-> unapplied and traffic stalls. This was seen with NIC runtime PM disabled;
-> if runtime PM were enabled, the device should go through a full reset on
-> resume, avoiding this issue.
-> 
-> Request a full reset (FLAG_RESTART_NOW) instead of the bare PHY reset when
-> the MAC exits DMoff, so the normal reset path re-applies the jumbo-frame
-> configuration.
-> 
-> Fixes: 2e7256f12cdb ("e1000e: Check the PCIm state")
 
-Wasn't this bug introduced in def4ec6dce39 ? The more recent commit seems
-like it just adds a pre-condition for the DMoff workaround. Tagging that
-commit could cause stable to miss backport to 5.10.
+--B/XKNQtA6qkUcNe4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Otherwise:
+On Mon, Sep 28, 2026 at 06:24:41PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> Convert Tegra AHUB bindings from the free-form text format to
+> json-schema.
 
-Reviewed-by: Matt Vollrath <tactii@gmail.com>
-Tested-by: Matt Vollrath <tactii@gmail.com>
+> -- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For Teg=
+ra114,
+> -  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
+> -  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub",
+> -  plus at least one of the above, where <chip> is tegra132.
 
-> Cc: stable@vger.kernel.org
-> Reported-by: Fabio Sabai <sabfabio@amazon.com>
-> Closes: https://github.com/systemd/systemd/issues/25925
-> Suggested-by: Matt Vollrath <tactii@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Craig I. Hagan <hagan@amazon.com>
-> ---
-> v2: Rework per review. Instead of the fc-latch autoneg-restart
->      approach, request a full reset on DMoff exit so the jumbo-frame
->      workaround is re-applied (root cause identified by Matt Vollrath).
->      Drop the diagnostic e_info. v1:
->      https://lore.kernel.org/netdev/20260923235832.473-1-hagan@amazon.com/
-> 
->   drivers/net/ethernet/intel/e1000e/netdev.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-> index 844f31ab3..df7da86a8 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -5264,9 +5264,11 @@ static void e1000_watchdog_task(struct work_struct *work)
->   					usleep_range(10000, 20000);
->   					pcim_state = er32(STATUS);
->   
-> -					/* Checking if MAC exited DMoff state */
-> -					if (!(pcim_state & E1000_STATUS_PCIM_STATE))
-> -						e1000_phy_hw_reset(&adapter->hw);
-> +					/* MAC exited DMoff; do a full reset. */
-> +					if (!(pcim_state & E1000_STATUS_PCIM_STATE)) {
-> +						adapter->flags |= FLAG_RESTART_NOW;
-> +						goto link_up;
-> +					}
->   				}
->   			}
->   
+This documents fallbacks...
 
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nvidia,tegra30-ahub
+> +      - nvidia,tegra114-ahub
+> +      - nvidia,tegra124-ahub
+
+=2E..but this does not.
+
+> +  resets:
+> +    minItems: 11
+> +    maxItems: 21
+> +
+> +  reset-names:
+> +    minItems: 11
+> +    maxItems: 21
+
+Ideally there'd be per-SoC constraints but meh.
+
+--B/XKNQtA6qkUcNe4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6vsAACgkQJNaLcl1U
+h9C8fQf/VYi7kxfm88EWJPHFuCQLtcS4CBbBCtFTcu+MKSeEUp3q3EdAwf00exOI
+t3x1eSrRiQJRbXmFDbr177atlbD3i5TLtDsRDO4FCEbyzwH6OYWBS0RG08V9Ua0p
+qTZ2E9NxOvbFxCLlUU1VIP2nozlGuR1HrfHfL0xSJwRUIZmZBIRG4Jr8OtNAeyo6
+6HsjRRuen/SnPiPLgJgaBLuuhQwUsZU+GLIunGAn+6/1HK0eWhpLYTwaVwyg14uR
+sS/RIv32ktYosHvh6KOB4ZxBO6OASqj9oIeyXDGbC9Vw1jlK8osOSqQm1GdZTYX7
+IMiEnjyGjPLMJfyr3trqEMCkJYREIg==
+=/iZ4
+-----END PGP SIGNATURE-----
+
+--B/XKNQtA6qkUcNe4--
