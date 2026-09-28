@@ -1,386 +1,139 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829E51E7660
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599847; cv=pass; b=TBA6SM2iwU1gK4hxD3N/VgRkqyGw77qR1cxQCGcDS0qVoBTSxK5VKGzinweFj2tk0D9aQvrVc+pTbEHLTcoxRLIb1EC6uwsjbeB1jUnvRwjSyh+V0BK9/+8B63DVnZY35m4f9B68ayWqa0C1K2XqWKnItYWtcXveNuVoYNKDgpo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599847; c=relaxed/simple;
-	bh=M+3dH1GSvevY6GhwOgUyNx+LoNjtxNBLo3OfUg6iUCQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PQ1SyRrT/dOU97A1gJwvSzdgCTMvHE6IxC+JewHPWYFzGdVTIggKSM6MRthuPyDusZwyzPK3dNDAN7z2KiajCxpnsw97eog62m6wSAQN2LXXINzglmim6e6jmjm9dhasmw+N9yNuXjIzJdnW2L2T1O2VARzrpcPdoRKsDXQp89I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=atd6iq2N; arc=pass smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="atd6iq2N"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a658b1f7b7so19497831fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:50:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790599843; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ag0CQXVEA/7Pxeb3msZd2/QVKIEsIFqKQKGMn6T0uD2K1Fjdb1v4IoOAUUW8UFaD4f
-         KxDhFIKpOy24OCxRR71sVvlG9tcZFaP2K17f0cMUlrTH43jLbmENjbfIt8dF7g5OBDgI
-         +8AWAyzPXQqOjba6SMa9hJFXbtO8SsN4Co7/LPrTybhSrdTLmHXrhm9goN/M9ANuhvXQ
-         DRi0anQH64ZNMjNOotoX4k4/0q9fBbLV+0+h0sFgH1Bk+JlhbeSRWvyKjk8eCcuVXDSk
-         PywYUD2c202JHkiH8zEH560WwssYKvHLY7XvvEa0ngcdy33ToWFxC4yKH/BRQ5FFwlu7
-         Xgqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
-        fh=3eBNzZVuFEDPdlz6MDbS9McS3B2f/SvRPDcy+xMAoYo=;
-        b=aPZGeMwz7xWKRqvbslkmXqk9DGfz7dbLmarLUNqweiUWh/zWNSlQzwR9UTtndDFwkg
-         4t9Ajo90hDWFPIUhBX5uiVEhbqviP01mMKBSqNtf7mFIpzkoijeozyi5ZO21R1WzLxyL
-         SIOWK45VskFknT6E/12TEC+3abf1YOIQRP9w3MC1z2Td48sEm4A0Wz/Pqd1elxfc7Fwo
-         oHwEaN/3YEY8fH9uKEnzccP7ltbjDc8rJZcuNof0wP7jAJtvqhfy35HN+fgeuqjBVcNu
-         Qow3Z1tsoZV5sJMdlWCSjubUkOu8KNiP523lE3r35/XNpLTI5LtQkXa240r1BRr+25/t
-         U5zw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790599843; x=1791204643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
-        b=atd6iq2NjcHVw3ptP0o5HTXFlBIw2PfckmFwXJ2JDemLyNugFVIwMuoD3HHPwugQ+Z
-         yiukOX0J72qbEsmJgdlcbM2Bc/McBkbV8Jf3Z0yP7aXk5WLMGZnjG6j1jIP/LJC6jfRU
-         feWJGQoV8KWl1lJ0poEwKbeWOM/0Cqy+UlgayU1mxwjCRRxL8NKdYT27iXRSvJ+UjasN
-         pu+/HXvvDfasCqgpDBsxtm4ep6Ig4Gg0NIpatuaqJ6VYr4agteQwOCPK4TLdcymUUmLF
-         M+TizHWCjH2VbYFXBVaI6sqAn9q1waFfml3pD0XOV/b9Z6aIzRrzv1x5EsmdtsxlHnrW
-         F3bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790599843; x=1791204643;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
-        b=u3DwBOEsCnTFQXxQYo6rrfOr/kvpNXsKeOsG2zzNq69RtP69ypLnclTHluDUKtlqUE
-         qfvScCvnTWS0pCgeIXS9fbV3lLpCh5PTtY/8/X9jjIjLktCk5JgwZ181VGx+Ba3S6izf
-         oGy8SbLA6WYblfIuhpjNcaIfqCoBnvyXgCq4msGJ96JrctlQypQKpbhX0Mw1Q8NEQK4k
-         7iJXXoG/df67HGUpF4fisfTZgiJty6htUd1/a8bLzbmde94SRE87T2kcH+oTq4j5WDfP
-         pRxVqAboOwIJuP0PZMMINUwa5bfL4ThPrgC32+oFCVxAvX7cIMgidlW+LU8lmiP9OmGu
-         vI7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwLN7LtcZ6r8ujPB3/xwW8/5DP/P3LFYKWvKYmqaq1qQVVe93r3BaKsNxrP8F+sMIktIcmFJU/jVw9nmE0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwv8OWpidL4HNttaSOQ4aq/Mpj+NnehiOSLGzDyO98ilMnVTVl
-	q5KwbWoK7N0Yaal9VPlLJhwsVx/+TgO0V/Jf3DE0TT0szUe+WJZym0rrykYNwspN467jQZUDrGn
-	oRhL8NlvsfF5nEgT7kz81m6UJI7Kpfwd8/XdQM8PzyM4=
-X-Gm-Gg: AYBFou2Waaif2pIZ+cli+k51/G1EYZawVuTMtU/br7cySZzYXVgQ4cXrEM8s3rLjwHx
-	UYe3vH8g2QJSdVo26MDdjP/5M76VZ3yyxQK8QKgtvYcTxtCm1atNpNe426wPYGA7S+08Sg+VFw6
-	eQuC6dcEvSs12AKpQRcZesAZiudAUW/wpLrZTIJXHkkjv9aJvEm7PqQhcxhffz4T91Z7nU4ZfIz
-	RapYn2svPTk2GQ7G8lSToIL2W/Q4Gwvoer2AFP23nNvAYPyuV9nPgHs2CViw3dhA8yNweSgfsqB
-	jaQeNeSJ0vffkiML+irLlkf2BRZgAV18mj3p5XJbo9XX8sznV4gg6cvpwCSMbMI1xCutc2wVC8g
-	X1LWM5vF6Fw==
-X-Received: by 2002:a05:651c:198e:b0:3a6:4917:dbbb with SMTP id
- 38308e7fff4ca-3a64917e589mr27771821fa.5.1790599843212; Mon, 28 Sep 2026
- 05:50:43 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1866A1E7660;
+	Mon, 28 Sep 2026 12:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599870; cv=none; b=DizLo8RMLWESgSCwdnLcnXr9DkIxSC5IK/LG/s3d3vXiiXv5NZJhg1ffdMXJGFNQBIahbshTvZ8+HU6ijZ/ID1WPfGTAtcgmzL3R5Sly/J1yig41kHNYd6/8Tmd0RUyVWXYHqbqIY7bTjYX9Gclwn6oAVsy/g0Al/QAIml+igKQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599870; c=relaxed/simple;
+	bh=jqBOi8RadvRg8zGzldieQe2C78fCScYRODmweJs9DpA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wf1ATlvKlv5tY+dwCnxal8RWOC7+KNOYbJ+vU2j/D9UFdVRreDGGc8QgYg0eTWPGyTukDKfMcbLK15QZ8PITgdJr5mvmlz9ZReIM9UZH+jWHTixt9Bf40lvADXyzLUVceUfsbineSv2P8GzAEPGT/hcdq6SeV/2ZgMYmW29oewY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hth4D3fkYzYQtqf;
+	Mon, 28 Sep 2026 20:50:36 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 0CAAA408D5;
+	Mon, 28 Sep 2026 20:51:02 +0800 (CST)
+Received: from [10.174.176.179] (unknown [10.174.176.179])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCHVimzYrpqZYAACA--.5312S3;
+	Mon, 28 Sep 2026 20:51:01 +0800 (CST)
+Message-ID: <6bff4ccc-1a0c-402e-af98-4f6fef94b0a9@huaweicloud.com>
+Date: Mon, 28 Sep 2026 20:50:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
- <20260928094944.815915-1-horms@kernel.org>
-In-Reply-To: <20260928094944.815915-1-horms@kernel.org>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 28 Sep 2026 20:50:30 +0800
-X-Gm-Features: AclHuK8LZn81RTv7sYp23KybCbUWmZsmLN5vA0Mzyb-pTREothGkyMtFiQbTFJc
-Message-ID: <CAANe3eTdu7fEEYiCA38+SK9Ja9kO7GY9EX2o7fg1bbwVsT4R+g@mail.gmail.com>
-Subject: Re: [PATCH net v12 1/1] llc: fix listener child socket leaks
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	stable@vger.kernel.org, vega@nebusec.ai, root@tr0jan.top
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] vt: skip screen update for DEC alignment test on
+ backgroup consoles
+To: Zizhi Wo <wozizhi@huaweicloud.com>, gregkh@linuxfoundation.org,
+ jirislaby@kernel.org, npitre@baylibre.com, linux-serial@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, yangerkun@huawei.com,
+ chengzhihao1@huawei.com
+References: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgCHVimzYrpqZYAACA--.5312S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw4DZr18tr1fAF15uryDKFg_yoW5AF1rpa
+	yFk3Wvvw1vgr4kZa1qya13XFy8CwsFqr1UurZ3AF17ZF1UZr1kuasrJa4DGrZ7X392kryf
+	A3W5Xr9Y9F1093DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-On Mon, Sep 28, 2026 at 5:50=E2=80=AFPM Simon Horman <horms@kernel.org> wro=
-te:
->
-> This is an AI-generated review of your patch. The human sending this
-> email says "I'm forwarding this as it looks legit and the forwarding
-> bot trigger seems to have timed out."
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2af99=
-49fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai?part=
-=3D1
+friendly ping...
+
+在 2026/9/5 14:43, Zizhi Wo 写道:
+> From: Zizhi Wo <wozizhi@huawei.com>
+> 
+> [BUG]
+> Recently, we encountered a KASAN warning as follows:
+> 
+> BUG: KASAN: slab-out-of-bounds in fb_pad_aligned_buffer+0x11f/0x140
+> Read of size 1 at addr ff1100015fd9f6a4 by task tty_fbcon_oob/1239
+> CPU: 7 UID: 0 PID: 1239 Comm: tty_fbcon_oob Not tainted 7.3.0-rc1 #100 PREEMPT(full)
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-4.fc41 04/01/2014
+> Call Trace:
+>   <TASK>
+>   ...
+>   kasan_report+0xf0/0x120
+>   fb_pad_aligned_buffer+0x11f/0x140
+>   ccw_putcs+0x86c/0xa80
+>   fbcon_putcs+0x338/0x410
+>   do_update_region+0x21d/0x450
+>   do_con_write+0x1e0e/0x4880
+>   con_write+0x13/0x80
+>   n_tty_write+0x374/0x1010
+>   file_tty_write.isra.0+0x404/0x7a0
+>   ...
+> 
+> reproduce:
+> 1) open /dev/tty0, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
+> op.width = 8 and op.height = 16 (visible VC1)
+> 2) open /dev/tty1, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
+> op.width = 28 and op.height = 24 (invisible VC2)
+> 3) echo 3 > /sys/devices/virtual/graphics/fbcon/rotate_all
+> 4) write EShash8(esc hash8) to tty1
+> 
+> [CAUSE]
+> All VCs render to the framebuffer. setfont only modifies the target VC's
+> font without resizing the framebuffer backing buffer (par->rotated.buf);
+> the buffer is only resized for the visible VC
+> (fbcon_do_set_font -> ... -> vc_do_resize -> update_screen). This relies on
+> the con_should_update() check performed before every update_region().
+> 
+> However, the ESC # 8 path (do_con_trol -> do_update_region) omits the
+> con_should_update() check. After changing the font size of an invisible VC,
+> do_update_region() fills using the new font size against a buffer that was
+> never resized, causing an out-of-bounds access.
+> 
+> [FIX]
+> Only push the update when the console is visible and not blanked, add
+> the con_should_update() check in the do_con_trol() like every other call
+> site of do_update_region() (update_region(), invert_screen(), ...).
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
 > ---
-> llc: fix listener child socket leaks
->
-> This patch reworks LLC listener passive-open handling. Child sockets
-> created on SABME are now freed when setup fails or when the connection
-> indication is dropped before accept(). Only SABME creates children, the
-> listener sends DM responses for other commands, pending indications count
-> against the accept backlog, and skb->dev is held for packets deferred to
-> the socket backlog.
->
-> > diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-> > index 260460d50f54c..77044720f12ff 100644
-> > --- a/net/llc/llc_conn.c
-> > +++ b/net/llc/llc_conn.c
->
-> [ ... ]
->
-> > @@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk=
-_buff *skb)
-> >                */
-> >               skb_get(skb);
-> >               skb_queue_tail(&sk->sk_receive_queue, skb);
-> > +             if (sk->sk_state =3D=3D TCP_LISTEN)
-> > +                     sk_acceptq_added(sk);
-> >               sk->sk_state_change(sk);
-> >               break;
->
-> [Severity: High]
-> This is a pre-existing issue and was not introduced by this patch. It is
-> in the same area the commit message describes, though. Can a remote peer
-> grow an unaccepted child's sk_receive_queue without bound here?
->
-> The child stays hashed while its indication waits in the listener's
-> queue. Suppose the peer sends DISC, which moves the child from NORMAL bac=
-k
-> to ADM, and then sends SABME again. llc_conn_handler() finds the child
-> and takes the non-listener branch:
->
->     skb_orphan(skb);
->     sock_hold(sk);
->     skb->sk =3D sk;
->     skb->destructor =3D sock_efree;
->
-> llc_conn_rcv(child) then handles ADM + SABME, which issues another
-> connection indication. This case queues it on the child's own
-> sk_receive_queue with no rmem or sk_rcvbuf check. The child is not
-> TCP_LISTEN, so sk_acceptq_added() does not apply either. Each queued skb
-> also holds a reference on the child.
->
-> The new sk_acceptq_is_full() check in llc_conn_rcv_sabme() limits how
-> many children are created. It does not limit how many indications build
-> up on one child, and that memory stays pinned until the application
-> accepts or closes the listener.
+>   drivers/tty/vt/vt.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+> index 8f467b22b799..901bb2ce01dc 100644
+> --- a/drivers/tty/vt/vt.c
+> +++ b/drivers/tty/vt/vt.c
+> @@ -2858,11 +2858,12 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
+>   			vc->vc_video_erase_char =
+>   				(vc->vc_video_erase_char & 0xff00) | 'E';
+>   			csi_J(vc, CSI_J_VISIBLE);
+>   			vc->vc_video_erase_char =
+>   				(vc->vc_video_erase_char & 0xff00) | ' ';
+> -			do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
+> +			if (con_should_update(vc))
+> +				do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
+>   		}
+>   		return;
+>   	case ESsetG0:	/* ESC ( */
+>   		vc_setGx(vc, 0, c);
+>   		vc->vc_state = ESnormal;
 
-Confirmed. This is a pre-existing issue and is not introduced by this patch=
-.
->
-> [ ... ]
->
-> > @@ -765,14 +768,124 @@ static struct sock *llc_create_incoming_sock(str=
-uct sock *sk,
->
-> [ ... ]
->
-> > +static int llc_conn_rcv_sabme(struct sock *sk, struct sk_buff *skb,
-> > +                           struct llc_addr *saddr,
-> > +                           struct llc_addr *daddr)
-> > +{
-> > +     struct sock *newsk;
-> > +     int rc;
-> > +
-> > +     if (sk_acceptq_is_full(sk))
-> > +             goto drop;
->
-> [Severity: Medium]
-> Can sk_ack_backlog underflow, so that this check drops every SABME from
-> then on?
->
-> The counter only goes up in llc_conn_state_process() when sk_state is
-> TCP_LISTEN at queue time. Other code resets it without looking at what is
-> still queued:
->
-> net/llc/af_llc.c:llc_ui_listen() {
->     ...
->     if (sk->sk_state !=3D TCP_LISTEN) {
->         sk->sk_ack_backlog =3D 0;
->         sk->sk_state       =3D TCP_LISTEN;
->     }
->     ...
-> }
->
-> llc_ui_connect() only rejects SS_CONNECTING. A listener with indications
-> still in sk_receive_queue can therefore call connect(), and a DM or
-> timeout then leaves it in TCP_CLOSE / SS_UNCONNECTED.
->
-> A second listen() resets sk_ack_backlog to 0 while the old indications
-> are still queued. Each accept() of one of those indications then calls
-> sk_acceptq_removed() unconditionally in llc_ui_accept().
->
-> The u32 counter wraps to 0xFFFFFFFF and sk_acceptq_is_full() stays true.
-> Later listen() calls do not reset the counter because sk_state is already
-> TCP_LISTEN. Is every new SABME then silently dropped here?
-
- Confirmed. The accept-queue counter can underflow as described.
->
-> > +
-> > +     local_bh_disable();
-> > +     newsk =3D llc_create_incoming_sock(sk, skb->dev, saddr, daddr);
->
-> [ ... ]
->
-> > @@ -786,6 +899,10 @@ void llc_conn_handler(struct llc_sap *sap, struct =
-sk_buff *skb)
-> >               goto drop;
-> >
-> >       bh_lock_sock(sk);
-> > +     if (unlikely(llc_sk_unhashed(sk)))
-> > +             goto drop_unlock;
-> > +     if (unlikely(llc_sk(sk)->state =3D=3D LLC_CONN_OUT_OF_SVC))
-> > +             goto drop_unlock;
-> >       /*
-> >        * This has to be done here and not at the upper layer ->accept
-> >        * method because of the way the PROCOM state machine works:
->
-> [Severity: Low]
-> This isn't a bug, but two comments still say the child is created in
-> llc_conn_handler(): this one, and the one in the LLC_CONN_PRIM case of
-> llc_conn_state_process() ("the newly created struct sock in
-> llc_conn_handler").
->
-> After this patch the child is only created in llc_conn_rcv_sabme(). When
-> the listener is owned by the user, that happens later from
-> llc_backlog_rcv(). Should both comments be updated?
-
-Confirmed. The comments are stale.
->
-> > @@ -795,11 +912,14 @@ void llc_conn_handler(struct llc_sap *sap, struct=
- sk_buff *skb)
-> >        * in the newly created struct sock private area. -acme
-> >        */
-> >       if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
-> > -             struct sock *newsk =3D llc_create_incoming_sock(sk, skb->=
-dev,
-> > -                                                           &saddr, &da=
-ddr);
-> > -             if (!newsk)
-> > +             if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
-> > +                     llc_listener_send_dm(sap, sk, skb, &saddr);
-> >                       goto drop_unlock;
-> > -             skb_set_owner_r(skb, newsk);
-> > +             }
-> > +             if (!sock_owned_by_user(sk)) {
-> > +                     llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
-> > +                     goto out;
-> > +             }
-> >       } else {
-> >               /*
-> >                * Can't be skb_set_owner_r, this will be done at the
-> > @@ -813,13 +933,16 @@ void llc_conn_handler(struct llc_sap *sap, struct=
- sk_buff *skb)
-> >               skb->sk =3D sk;
-> >               skb->destructor =3D sock_efree;
-> >       }
-> > -     if (!sock_owned_by_user(sk))
-> > -             llc_conn_rcv(sk, skb);
-> > -     else {
-> > +     if (sock_owned_by_user(sk)) {
-> >               dprintk("%s: adding to backlog...\n", __func__);
-> >               llc_set_backlog_type(skb, LLC_PACKET);
-> > +             /* The backlog can outlive the RCU protection of skb->dev=
-. */
-> > +             backlog_dev =3D skb->dev;
-> > +             netdev_hold(backlog_dev, NULL, GFP_ATOMIC);
-> >               if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
-> >                       goto drop_unlock;
->
-> [Severity: Critical]
-> Can a listener SABME get into the backlog here with a foreign skb->sk
-> still attached?
->
-> Before this patch, the TCP_LISTEN branch always called
-> skb_set_owner_r(skb, newsk), and that orphans the skb first.
->
-> Now, when the listener is owned by the user, the SABME skips both
-> skb_set_owner_r() and the skb_orphan() in the else branch. It goes
-> straight to sk_add_backlog().
->
-> llc_rcv() only calls skb_share_check(). A frame sent locally over veth
-> from an AF_PACKET or AF_LLC socket can therefore still carry the sender's
-> skb->sk and its sock_wfree destructor.
->
-> If the listener leaves TCP_LISTEN before the backlog drains,
-> llc_backlog_rcv() takes the non-listener branch:
->
->     } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
->         goto out_kfree_skb;
->     }
->     rc =3D llc_conn_rcv(sk, skb);
->
-> The !skb->sk test is supposed to drop these ownerless deferred SABMEs,
-> but the foreign skb->sk gets past it. llc_conn_state_process() then runs
-> the state machine on llc_sk(skb->sk), which is the sender's socket. This
-> path holds no reference on that socket, and it may not be an LLC socket
-> at all.
->
-> One way to leave TCP_LISTEN while the lock is owned is llc_ui_connect().
-> It does not reject listeners and it sets sk_state =3D TCP_SYN_SENT. At th=
-at
-> point llc->state is SETUP, which is greater than 1. The backlog is then
-> drained in llc_ui_wait_for_conn() or in release_sock().
->
-> Should the skb be orphaned before it is backlogged in the listener case?
-
-Confirmed. This is a regression introduced by the reviewed revision.
->
-> [ ... ]
->
-> > @@ -852,12 +976,33 @@ static int llc_backlog_rcv(struct sock *sk, struc=
-t sk_buff *skb)
-> >  {
-> >       int rc =3D 0;
-> >       struct llc_sock *llc =3D llc_sk(sk);
-> > +     struct net_device *dev =3D NULL;
-> >
-> >       if (likely(llc_backlog_type(skb) =3D=3D LLC_PACKET)) {
-> > -             if (likely(llc->state > 1)) /* not closed */
-> > -                     rc =3D llc_conn_rcv(sk, skb);
-> > -             else
-> > +             /* Drop the reference acquired before the skb entered the=
- backlog. */
-> > +             dev =3D skb->dev;
-> > +             if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
->
-> [ ... ]
->
-> > +                     llc_pdu_decode_sa(skb, saddr.mac);
-> > +                     llc_pdu_decode_ssap(skb, &saddr.lsap);
-> > +                     llc_pdu_decode_da(skb, daddr.mac);
-> > +                     llc_pdu_decode_dsap(skb, &daddr.lsap);
-> > +                     rc =3D llc_conn_rcv_sabme(sk, skb, &saddr, &daddr=
-);
->
-> [Severity: Medium]
-> Could this create two children for the same tuple?
->
-> While the listener is owned, llc_conn_handler() backlogs SABMEs without
-> creating a child. A retransmitted or duplicate SABME from the same peer
-> can arrive before release_sock(). It finds no child in __llc_lookup(),
-> resolves to the listener, and is backlogged as well.
->
-> When the backlog drains, each SABME reaches llc_conn_rcv_sabme(). That
-> function only checks sk_acceptq_is_full() before
-> llc_create_incoming_sock() hashes a new child. The established tuple is
-> not looked up again.
->
-> Both children reach NORMAL, send UA and queue an accept indication.
-> sk_nulls_add_node_rcu() adds at the head, so only the newest child gets
-> traffic.
->
-> The older child is still accepted by userspace but never receives frames.
-> Its sends, and its DISC on close, use the same tuple as the peer's single
-> connection.
->
-> Before this patch, getting here needed two CPUs racing on the listener
-> slock. With this patch, hitting the owned-listener window at all seems to
-> be enough.
-
-Confirmed. Duplicate deferred SABMEs can create duplicate children as descr=
-ibed.
->
-> > +                     goto out;
-> > +             } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
-> >                       goto out_kfree_skb;
-> > +             }
-> > +             rc =3D llc_conn_rcv(sk, skb);
->
-> [ ... ]
