@@ -1,72 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC372AE78;
-	Mon, 28 Sep 2026 14:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20204DA9AF;
+	Mon, 28 Sep 2026 14:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605540; cv=none; b=JY3lGMKiU5zd7R85kCywZgtW4ubkuE59c9Y04n20IW3uAUi9mIsC9Ymw2JErlcn5aGiarZTZ2NWJpJ1r905Y6hjxPLmehdJHJOWpkvBRei4JiaaFua1zY9m/rtaOjHy6ym5EroETkDeF5NSs1BhNS4VILlP5R1coX2shTmCqP8I=
+	t=1790605556; cv=none; b=gsAuTYSSfowwVrtu/IJbH5Pm4epnbC0TmnCkHidM6LIySYmJBbGNvTErvYBwBY0s/7YcGGUXw6kaXVxpxodDTREXjN93iVeX16ay8A4gtkjOepqI4dbA++QTDSR1vEpATRCjq8rJEdNT73jcF3RR8z1LlipANXCKqhfrEDSFoY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605540; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q2a+d8Yfxeg/loapKPC7lr6LdB+pMT24WkNmMNmaKHWW3fYCLqiSfLLXsrH2bmbZ/Dsh0zG/Em+zK9nkS9bDyZqTX0Toa6Td/PNqjk7J45TF+xIHjLe6xi0CVZpFjbPOQCcLAzZ1JU2fFyX7qFwSf9lABui0Xp+FtndsKc9tbrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bv3Hxxn2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790605556; c=relaxed/simple;
+	bh=E4OtNlRF+OEgy1s/cU8oXVilO2mjtnvoa9OcBCOQmcQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kKPNXipMJw7NIOS9PtqgTLSCcrEtzijmyYjJY3B2YcfssQC34oS4V49h18lo0ME35ObPplfQYxwVAsXgtXOQQY7Mewv+6o1PJ+auKYt5eJ86glmN3uimJ+FL1X5rLmn8P9ir1Q1rE5F0wVxHLGVlQBVU3Gz/jmgFJfOr3L5ciUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P07mXZIx; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bv3Hxxn2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F971F000FF;
-	Mon, 28 Sep 2026 14:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790605539;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bv3Hxxn2zU8t2doRCa71eB3yEn43k3+1ED7Sj4udMhiAEFot/1SviaoXEZI8HPhtd
-	 fNpEgmOfLtaVSL6XIagkt/wCqu12ozBboUNdKb/ItMIEGbiFSiyeiwokHQgPDkGhX4
-	 3di4tDqnUjh7JMQ0oRw+jVwf9GeE7/KPuU1DgZruuah5oLwlSXe1C5Pmrfwj0rKYJ+
-	 QfY8C1Zucey7xf/bmjrGuztZQR2NBSB1x8o/Ut8SVFWnc/2CcBLM3pzWWvGWJEZdQp
-	 ROhA6R24Zpt3MkdBACkSaHrxtYf1CtRQFXaD3KalovCaTcO8m8AMp7ydHl/qM1Ys5t
-	 panBJArBRwL3Q==
-From: netdev-bot+sinfo@kernel.org
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jamal Hadi Salim <jhs@mojatatu.com>,
- Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: sched: revert tx_queue_len on partial qdisc
- resize failure
-Date: Mon, 28 Sep 2026 14:25:38 +0000
-Message-ID: <179060553814.31693.4005617911238587252@kernel.org>
-In-Reply-To: <20260928142233.1131459-1-adrianox@gmail.com>
-References: <20260928142233.1131459-1-adrianox@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P07mXZIx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790605554; x=1822141554;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=E4OtNlRF+OEgy1s/cU8oXVilO2mjtnvoa9OcBCOQmcQ=;
+  b=P07mXZIxbAIkzlfxQaeK5yLytZUndHQxPGLisg6ks6VLFJEk3A8/BSTW
+   EY8lAcwY+CQ5VZtLtE2fM1TR7/mBpvQduVgzY4xuB25CMu9UfqXJAH4Ct
+   x4iAYf14E1ZG8bjoQOTp4rix/2r9X/bB3KqUkL+6RPZeRvtRYLHG6tDEl
+   mOfUpqdbgp9RWZm2qsJIAxZkSxQaLNMp4SbNlGgM3BTmRNJeU1rPE64qC
+   ffCqU0wtojRbNwdyhtTVc7kRZtTysghUnLOx33ociMWtgw8+7s7l7tPN1
+   Nyrly0qWoxt0KGueGGTdv4Wygpd1i4ubCLjeZAj6sM9KeW/Ro8qlYUTXj
+   A==;
+X-CSE-ConnectionGUID: E8GLGnpeShWIhkN8k9eNAw==
+X-CSE-MsgGUID: iN3ehfRRS5S0lDCxapI1UA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="107685001"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="107685001"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:25:54 -0700
+X-CSE-ConnectionGUID: zi23QJQET7+/OdM4ZQ0f4Q==
+X-CSE-MsgGUID: loOYMG02Qpa0tArkYDyiJA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="275101488"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.111.49]) ([10.125.111.49])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:25:54 -0700
+Message-ID: <14006b3b-4782-4331-a4eb-e89bfaad58c3@intel.com>
+Date: Mon, 28 Sep 2026 07:25:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 02/10] x86/virt/tdx: Convert the version metadata
+ reader
+To: Chao Gao <chao.gao@intel.com>
+Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+ "kas@kernel.org" <kas@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "tglx@kernel.org" <tglx@kernel.org>
+References: <20260918132946.76533-1-chao.gao@intel.com>
+ <20260918132946.76533-3-chao.gao@intel.com>
+ <390fc4d56769f87d91949e900262640b52b505b7.camel@intel.com>
+ <arS6D6KoPbqVBtPl@intel.com> <2042fa92-0b33-4ce2-a288-8eebda2b7305@intel.com>
+ <arpQReaF8q8ENnhv@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <arpQReaF8q8ENnhv@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On 9/28/26 04:32, Chao Gao wrote:
+> Then I would go one step further and move the mapping table into
+> get_tdx_sys_info() too, so it sits next to its only use. Using the
+> "features" metadata class as an example:
+> 
+> static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
+> {
+> 	static const struct field_mapping feature_mappings[] __initconst = {
+> 		TDX_SYSINFO_MAP_FEATURES(TDX_FIELD_TDX_FEATURES0, tdx_features0),
+> 	};
+> 	int ret = 0;
+> 
+> 	ret = ret ?: read_sys_metadata_table(version_mappings, &sysinfo->version);
+> 	...
+> 	ret = ret ?: read_sys_metadata_table(feature_mappings, &sysinfo->features);
+> 
+> 
+> version_mappings[] will be the exception and stay at file scope because
+> tdx_module_run_update() reads it as well.
+> 
+> Let me know if you disagree.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Two concerns: One, the structures are wide and the extra indentation
+might makes them too wide. Two, this separates the code from the
+function header. That might hurt function readability.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+The value of making a static variable is also lower for something that's
+const because you don't have writers.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+So I don't hate it especially for 3 lines, but I do think it generally
+looks more natural to have these at global scope.
