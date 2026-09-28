@@ -1,208 +1,81 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B764E50D5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCCBC4E36CF;
+	Mon, 28 Sep 2026 15:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608277; cv=none; b=GXK/HDnVrEj2RlOSfGuSmYYUG/mhG2xFEY+TMf+1MssQW+pPpmvcdh+jLS6/fwTC4M4DkQFr4775z9B5aVK//8HtBx3Uzi2qdeAe4i27g+FA+tmoTcCtADgbQgRecwAj5Ok7g8Yk4z5MA94uw/93VdffXbLSLQ0WXhHOcKkPIYg=
+	t=1790608294; cv=none; b=uUG9fGwlQhf/Aa/U+/JDOM6Ob0Tb+jzRW1aFd0JIq3q6FKBh8GHtJ05ykC1797xBkO5nXYVWFsjzS+TADRX/CKsH/QoXudInvqfjncy8vWxv+HetYwcCpQx7lF+W60yEXsOpkj+cuu7k+b2Qq/5bubOA2PP7yOPO8bqqOUJFRNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608277; c=relaxed/simple;
-	bh=Btgwhx0BnnAizJrXmxZMw/SLxF62CwA2ISV8PZ03L+A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=AoLDNZs+QktHRQ9kNlmz8l/piEGfZecGiUEsTG51v5bFSlWaLU3VyIGsAhWqQUet9rr3uErYY+SBhnhWCVS8iv5suObugQ2mrzFiRqTOJ6MyLmW9AnOoVW+9tPTi0sGvFTD3xQtWDtRZ94N7ovsQx67quToUU+N9lWdhD//LI08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hElgDlSu; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790608294; c=relaxed/simple;
+	bh=Hc6ZuvaXlauagEGx+TDoCIpa+OmpCGHn1bAN2lvRNK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ovnyFUsa7+sN8cKpnFqOiyImwXhYb8zGCEGlCyTU328yRbrGhv7yxdIbng1FbAto4D35z+/dIuTpMGDUAj8wze2WtO8CVNbBMHTOa2dP4C5ss+4ciJCvtnulTWlJm09fbXIfI8CnKuGiU4kW4m3WzVl6BfrcJw1nPZnaat8L1LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q/rdgTRw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hElgDlSu"
-Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-674138cbe59so2287099d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:11:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790608275; x=1791213075; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QHvMa8Hu6Y1I/qqNnl3MyJApBFjOdiC6iLmv+1VbGMM=;
-        b=hElgDlSuokS9yZy/UsRR4dQkO3sP6LXJsluhL2CVlNltYLdF7CreDDTtQFmbrGEaGG
-         c/labKYwefQrh0ZYnFs4PyRBSRbX49xpHiZE2MaX2jZSfF37hgl5u9aFL9R0WLwqt1iB
-         S3wJJGkcaGGVPUlTaYw4kSYT1NBzS2mg3P5WZ4OgfA2cpohU+c2Pkt4lcVp4KtBbrPap
-         EbefgauT9x89OUNiC7WxhcBXmLsZTSQpMiVrBM7S1LIoNFRblmUDhi3qDwEg77jF89ij
-         u5ZxOvq5Qibk5QYYYheaPBOgez7ezQEiXOfaNpIRdu0hj/j2TqBNVEIoCh0Qx7I1FTJP
-         vbOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608275; x=1791213075;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QHvMa8Hu6Y1I/qqNnl3MyJApBFjOdiC6iLmv+1VbGMM=;
-        b=2NN0McwHBaJ6c/rJQSAtDXUow65M2id6yYcSj5iNRyNVYKWSKguiLip1xVXjnkhv0v
-         mDTXaknenTIXYDHIyCeQKON/xP44pbqcdG2s7vv3xMxsImOJ+fpkrrsp5prGk4/vaKY3
-         Pgqqb3yvk5KMtYVorctY1tciCg8zkg5QeUy6DCq/QMUdN0ByIzEojkKiBTVBdUstXVrK
-         s+mlejnA7tblCcjdqjD9WQh90m9hypOJcf/B3CuMtN6MlU76ZxjfbGEX1KJCRJzE8FuX
-         h3A+nbSe+/A6DiSFduxTq+o+uzb9/facmREhGxhHv1LYq+V3OQj/SOCUVR3UysQIv/Ds
-         RDeg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+sOt80VcGFrJqqHeROjE8nBz8j8i9pFaBQ6JyoJpTB/fgAQRaZBngjXIlo2pzWzfO9GrSDsuez2GsOZg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqE2nJiR/p33ADnKc77tmDeNyJta4xZzARWJtMqs+1ckNmWjCP
-	qWT9NjLWVzmjpC5IfsAJrt4+7QQ5/cAO1iHzf0Z5le04MtxJlh0iAvxj
-X-Gm-Gg: AYBFou0nXInbTmQUN54wbgM13W8gybmZasaK6p/wxen0zKyNSB4083T2lu6Z9uixE+/
-	hLn251zLG6qeoQSensGmwULnN/BNB1vwiRULZS8B+5f3onPFunCIXzgFH/p3lm2ZXfUTRr3gvd2
-	GOYXHWahZhuVaHYpXycg1Him1G6koz/JJwO15UG33IfFxp/SzAVUabyftBH+zGm00BF77R0FaFl
-	pKW9L+2a9iHFEeoRX2EDu9uqqdbqO4I2oVvMvUw9wbZDA/qG1UaCEGV6lA5IKjMw9VU/n1g7tGB
-	PzRM8BVUSR+s7q71mt1WfUvPfudgq7tIe5l2gBLrVwrEDeSjTC5JqqZl6o0/RrnI1Ed0MGJBElF
-	UIqF5IuPNPF0p6EDDoP+6bECmDUO1C/QG+Gb2vECoYYqcVN/Ynj9WFeadYSZxI50yLNgKZiT1q0
-	P/2RrbfezMl8pdsAmRFwMheRP3SbxT3Sjt950a/HqMer9yK3hfYpnhM14r3e5aDO8moDZBM/Kxo
-	73EcLGEly+STw==
-X-Received: by 2002:a05:690e:11cd:b0:671:70d1:d6e5 with SMTP id 956f58d0204a3-672ed9737dcmr6316635d50.87.1790608274762;
-        Mon, 28 Sep 2026 08:11:14 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914399d5002sm74202116d6.48.2026.09.28.08.11.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 08:11:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q/rdgTRw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FF571758;
+	Mon, 28 Sep 2026 08:11:28 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AADD03F763;
+	Mon, 28 Sep 2026 08:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790608291; bh=Hc6ZuvaXlauagEGx+TDoCIpa+OmpCGHn1bAN2lvRNK0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q/rdgTRw0IwSGfaXeojr45nvCaK8teKmg2S6xpipCML0NkCzlkKSs1gFhpwfzSluc
+	 DBb73c42I6LDgDbqy9l2zkhq0f8wdYDcqsp/Qe2+FU3nu9Eyhmx9PLKz6SnqQoNjbf
+	 waSikuiYa0PdFkLkD6u5zq/WbdEOeOhKgHxI1tgo=
+Date: Mon, 28 Sep 2026 16:11:23 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>, Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v8 15/29] arm64: Prepare sharing arm64 headers with s390
+Message-ID: <arqDm9EGd7-rqvWp@arm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+ <20260918133107.1042730-16-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 11:11:13 -0400
-Message-Id: <DLR1NOR9UY43.3PNHOY085ZSU6@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 7/8] eth: mpnic: implement Rx queue
- allocation and cleanup
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260924-linux-mpnic-v2-7-4badc9b58b9e@gmail.com>
- <179055370676.3145.8533599239834787365@kernel.org>
-In-Reply-To: <179055370676.3145.8533599239834787365@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918133107.1042730-16-seiden@linux.ibm.com>
 
-On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] In `mpnic_stop()`
->   (drivers/net/ethernet/meta/mpnic/mpnic_netdev.c), Rx teardown frees=E2=
-=80=A6
->
-> --
->
-> eth: mpnic: implement Rx queue allocation and cleanup
->
-> This commit adds the Rx side of the mpnic queue triad: a header buffer
-> queue, a payload buffer queue and a completion queue. All three share
-> one page pool per triad. It also adds the enable/disable, fill and
-> flush paths, and adds the HPQ, PPQ and RCQ blocks to the idle wait done
-> on teardown.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_txrx.c
->> index b1fb0d3902a7a..389a9e5476c6e 100644
->> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->
-> [ ... ]
->
->> @@ -767,6 +1084,9 @@ void mpnic_wait_all_queues_idle(struct mpnic_dev *m=
-pd)
->>  		{ MPNIC_TQS_IDLE(0), MPNIC_TQS_IDLE_CNT, "TQS" },
->>  		{ MPNIC_TDE_IDLE(0), MPNIC_TDE_IDLE_CNT, "TDE" },
->>  		{ MPNIC_TCQ_IDLE(0), MPNIC_TCQ_IDLE_CNT, "TCQ" },
->> +		{ MPNIC_HPQ_IDLE(0), MPNIC_HPQ_IDLE_CNT, "HPQ" },
->> +		{ MPNIC_PPQ_IDLE(0), MPNIC_PPQ_IDLE_CNT, "PPQ" },
->> +		{ MPNIC_RCQ_IDLE(0), MPNIC_RCQ_IDLE_CNT, "RCQ" },
->>  	};
->>  	u32 non_idle_bitmap;
->>  	int err;
->> @@ -779,15 +1099,31 @@ void mpnic_wait_all_queues_idle(struct mpnic_dev =
-*mpd)
->>  				non_idle_bitmap, err);
->>  }
->> =20
->> +static void mpnic_clean_bdq(struct mpnic_ring *bdq)
->> +{
->> +	unsigned int head =3D bdq->head;
->> +
->> +	while (head !=3D bdq->tail) {
->> +		struct page *page =3D bdq->rx_buf[head];
->> +
->> +		page_pool_put_full_page(page->pp, page, false);
->
-> [Severity: Medium]
-> What happens to these Rx buffers if the idle poll times out?
-> mpnic_wait_all_queues_idle() returns void. On timeout it only logs:
->
-> 	err =3D read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
-> 				!non_idle_bitmap, 20, 500000, false, mpd,
-> 				queues, ARRAY_SIZE(queues));
-> 	if (err)
-> 		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
-> 				non_idle_bitmap, err);
->
-> mpnic_stop() then carries on with teardown either way:
->
-> 	mpnic_disable(mpn);
-> 	mpnic_wait_all_queues_idle(mpn->mpd);
-> 	mpnic_flush(mpn);
->
-> 	mpnic_reset_netif_queues(mpn);
-> 	mpnic_free_resources(mpn);
->
-> Two things happen after that:
->
->   - mpnic_flush()->mpnic_clean_bdq() gives every page still posted in
->     [head, tail) back to the page pool.
->   - mpnic_free_resources()->mpnic_free_rx_qt_resources() frees the HPQ,
->     PPQ and RCQ descriptor rings with dma_free_coherent(), then calls
->     page_pool_destroy().
->
-> Before this patch, the same timeout-and-continue path only covered Tx,
-> where the device reads host memory. Now there are DMA_FROM_DEVICE page
-> pool buffers and an RCQ that the device writes to.
->
-> If the device has not quiesced when the poll gives up, could it write
-> frame data into freed or reused pages, or write completions into the
-> freed RCQ ring?
->
-> Separately, the earlier commit "eth: mpnic: start and stop the Tx HW
-> queues" says every block a packet passes through must report idle
-> before memory is safe to free. The Rx idle table here covers HPQ, PPQ
-> and RCQ, but it has no Rx DMA engine entry to match TDE on the Tx side.
-> The only RDE registers defined are CFG, CTL and the MEM_INIT ones.
->
-> Does RCQ reporting idle guarantee that the RDE has no writes in flight?
-> If not, should an RDE idle entry be polled here as well?
->
-> This code is still the same at the end of the series, in "eth: mpnic:
-> add basic Rx handling".
->
->> +
->> +		head++;
->> +		head &=3D bdq->size_mask;
->> +	}
->> +
->> +	bdq->head =3D head;
->> +}
->
-> [ ... ]
+On Fri, Sep 18, 2026 at 03:30:52PM +0200, Steffen Eiden wrote:
+> Prepare the sharing of arm64 headers with s390 by moving definitions
+> inside headers to reduce the number of shared markers. Clean up includes
+> to further streamline the sharing of headers.
+> 
+> No functional change.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 
-Same feedback addressed in v1 series.
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
