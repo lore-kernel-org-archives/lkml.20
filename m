@@ -1,229 +1,184 @@
-Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2137.outbound.protection.partner.outlook.cn [139.219.17.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5AA3AB28C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.240
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583379; cv=none; b=FA83VgMtb6gHaAZLtti2lgrHV2gMCpBjAzsayyuIeE4IIyB54Chjk5kwuQb35vhFc5UUi5SaYZ+s4Aw0WF4ZUhnsYQUP/Savjnx6tV54PpG2IT9oK2QtLQKxFUjV0+qqkoUI/xhe4itNg1rtvNhEqI+gSEZnPzV+gStP6Zs9S0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583379; c=relaxed/simple;
-	bh=K5Q3pCElJ1kYWoQWSMWmJuaeilGdZ97iIqv2nF2D+kg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ylg7RKAKp58XR/xF+UM7x/IRcxoK09sq5PRds399744BK6KAYYBtijNCIgqoGol7wmjUe/reXdcA0GjygHkRNDuoDO0sgEsgyzD3wck6ZMAl6A9W7GNIuDYmbnTI8AQRx0wAjAoZYDYQnUmZ4kKh6P7vhF6aaPayeRYuwlOqaaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pDamGCxk; arc=none smtp.client-ip=95.215.58.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pDamGCxk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=K5Q3pCElJ1kYWoQWSMWmJuaeilGdZ97iIqv2nF2D+kg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790583376; v=1; x=1791188176;
- b=pDamGCxk5Ut/v2RRK9TMQllPrxJPqXYPyKesBGjPrlyOF7wT/tFvfgdTy27R2Qfx24TyfVrk
- ulGkkHhMk8J4fT41QFhPUjM1o2sVuRCI/MdLLOhOH/zzioiEY+KN9pfvc1L1G6WG2e+T3zoy24I
- 8s79t0dZiwRQWs8jmHvJayQ4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef3d12d70e3ed8e3;
-	Mon, 28 Sep 2026 08:16:15 +0000
-X-Mizu-Trace-ID: ef3d12d70e3ed8e3
-X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-Date: Mon, 28 Sep 2026 16:15:55 +0800
-Subject: [PATCH v4 2/2] mm/vmalloc: fix vmalloc_dump_obj cross-zone VA
- lookup
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3286348C76;
+	Mon, 28 Sep 2026 08:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790583402; cv=fail; b=S+HZ4rQXGJekYq3aCvCThqUFdgvUbaMqMm5M8ELR45e8pWds+5IWKsxXfisryFVpZhsc6fwysM0I1cjSAozlMnJTtE7DO3B6p+8CMpFsIKQmD5x1FmoJlwRFaZMNF1xyW+qcUQ9D9giY2EI+HJu4wdtZyMDUrL52KsrRzL1vGLo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790583402; c=relaxed/simple;
+	bh=/0d0e+ZRiw2zbtw9/eUE8/TFZcjiRtQh/oJjcSUljkI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AlbKbtOpvbqAJQYF/zZaywzpDpMfUzSzEe/7CSskxNY7XO2v40UFz7CUpk2fZfL2gNu+NhVzluGKwu63IoIqqvSHe6sve1co2MeJyICQkO+ZXUSWW5biRYB4vtVhYFGBXWi6StrurrPKi2XCSqhr2n1oW/LVyjo4UVSX51fE5gg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MYVHTinByLqGjWmqXsGJWAQkrPtHwSciwY6253LmNvOXx2wbHdH/KuZN4cv0h9qqKt4mTxyPO6ZQpJ1Fgs1nlK9R5keYxY1MMc4ZSgBuenLZG0cKXdxUwtevewfcdGRuKZOcIq8lCIvlwNlXUnrQXE0VM2jjTptO+4MhAj4RbdPgtppdCfLZ/6DB0mQiBZMS8LIJjM+97ru2mGrNRRifR2j9IVkTsFCW+fCQ52nCD3evgfvifwZdUKkJIODR5erIlLtPR0Oq8agLyugWzEJ4YRzupqgycKlXLDccKBNCsDIfVbhzRDK+z/BEq1i0I3NS5FHngFrR+PADd+8ZJhPIHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eliiCfz7jA1y3//f0Mcd0ap9PofRfqXBxftJ61Z8wlI=;
+ b=Ix8OXMXq4rVGIwsNpHgBurKX6LRc5qHfpvU8DtoU59WAxztylR6DRtVDYOQBQSEoOcFQwNmRKjzFla6jRVpHlYYsKLQNoRIipoLt92PMxq9ds9hVQkB5kEYOKaDRHOz/h4mP0y8jS2qPCLADNi77iu4tieuUEPKYDwpXi5uHZAtciZP3SR+llRpG2FtgA1h+0+7xJoh1wHv8m+ja+5ZkJ6oYlnThnK7+ToQvNrTtyfzXwWyuvEGax6jB0xLYu/83KwlwOkGzbUCHVq3oyKcVGQB1VHGGhmLZqIhO1UXtJ/i20YfR/lfykTO8t/ZKB70MXEHcTF9ZqyJLN3HTPtnOrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1233.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 08:00:40 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.022; Mon, 28 Sep 2026 08:00:40 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 5/6] hwmon: (peci/cputemp) Add support for Granite Rapids (GNR)
+Date: Mon, 28 Sep 2026 00:59:55 -0700
+Message-Id: <20260928075956.62298-6-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
+References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0022.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::34) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-vmalloc_dump_obj-v4-2-6f288a431edc@linux.dev>
-References: <20260928-vmalloc_dump_obj-v4-0-6f288a431edc@linux.dev>
-In-Reply-To: <20260928-vmalloc_dump_obj-v4-0-6f288a431edc@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ddfdc1d-cd20-4448-b3cd-08df1d3696c5
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|52116014|7416014|366016|376014|38350700014|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1hTyHLU8bm9bMePMek7DwOqTC7zdvKdS+ZxmfI/pf9T1UfES934byq1rfNr/OBL3ErI2f7R+3etUnmkRBYDwtjUcGJw5tayYzyghgA/8N/uw5tPr3CELyJ4d7IJaP/jh66yF0x3ueUw3kqgOmVT7NruD0gCd03vwUTEGYF0+YUcN7YQta4whF4S0KpqjeXzQ2LVSUE04aoEVGWRgVDXYe1jtUnMDuqlLJJKLXekbe/nb5CD100b2+QqHw2GO9b3yGg+mgxNUysYNozEbAXfauEAyDPDnEkrYctW33TJmubJwppTzI35rrrZABQIwg7TLprkzbjliiKoGy/rT7hF09LHkoHtl0wGfN+jbJV1kug+g4U5FveZiIbsUy4Dp+owTR8U/EKu7XqNNAjji+ZL4EE7pSzE9rhfVBV5js9kFCGN7rEumGtbQzwJmBJNd9N/yc/YCBUqJGxx6mVfYuNl3JKaRHIXdtY7G1crOqS2mPiw//JOkOEmpQ/wjmrrX2doNWpoNVO3ctHIMRNxMnz7IU3dfgBDhTBexeU92z0flKaNLK2ps2cBKP0C6rQMVyuyE
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(7416014)(366016)(376014)(38350700014)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?w3PheVRcaKpZ7fvEagOOHwSfkmk3rW9ibXl7uGkmsppVwcbyKvml2Db41Oyk?=
+ =?us-ascii?Q?0XUqNOjdE8uxxlatwVdABmHscrUOAYt9AgkrxaHzAUzDS2DMPj6xsS7b9yJq?=
+ =?us-ascii?Q?D0FbUe9op8e7idNognfu4UTWU6yR4iE2JQUZM5J8wvfPeY+4PpdFKZU2qa7g?=
+ =?us-ascii?Q?r548S+ZrWT9MZmN++Ev25A97ik8TDnj8mitQTQG3lvDrcNbmrSOaIwU8v9AW?=
+ =?us-ascii?Q?aSOqA7ErQplTErcHyTkXvylmFUOwvmYRrU3/wUtjS0i4UimZPcTMH2k+23gc?=
+ =?us-ascii?Q?dXEVf3QEZGkg8jJCxKh+e1NBqgCkeHcMAWea+bBime8O0Pi7DRxe0r4xRfgK?=
+ =?us-ascii?Q?WdGeJosULzwuyQLMAP0U8HoJdUC0dj9mIclZ52R3uuT8mVOA05jxWvELyL2q?=
+ =?us-ascii?Q?R0wn7G349R4YzL0JC7h/CUWaziFSMiRSs5fMUp+xeKnMsL0R0v8uQMuLc3eU?=
+ =?us-ascii?Q?vAaDiubQh0M+LI2V+fYyFEhh8omICV6NM5HNwp3xVAgxreKl0phG9Q1CeCGo?=
+ =?us-ascii?Q?UXEtXevQvfgCUZNP6HhwmnXFzxEK0yXyTdku+bWKWPb4yHHg8aqrFDW1bf5V?=
+ =?us-ascii?Q?N8BsJdF9H75lUAjmG/Y2H80zK7m315EIX6tkWT9ljrvCWR2/3Q3ip7f0wkQS?=
+ =?us-ascii?Q?27v8OP5fMDPODyiyyf7w1Qc4iKsLp2dpomPuciCKIlbc7qwdZZiFImTK/EKW?=
+ =?us-ascii?Q?MhVOPsCM3N1woufwTng0ECtD1AMyMigugfxhAFCuy/li4P2+iBAO+Ar4aPHu?=
+ =?us-ascii?Q?b471o2b5fvIiFP96l7ZcBuqMn9LYSEXIwnMtA9OZQcvPsCJwOIuMovbqekFs?=
+ =?us-ascii?Q?7r6EbyAP5/zS5AUzg11nI/jDutcULmP0lfn5A41bHtuga9z0IHUmpyUKCQoN?=
+ =?us-ascii?Q?WwidLpd3aatlrfGeMq8KUbSEsk9/ojItQmDok6v39ema7vCQO4KAV8xvWfSy?=
+ =?us-ascii?Q?cJTRcuSPhnISSRZqchFAxBF8PQVinIsI6dKu9NKnce97AiuSyfZhiWkK4zWM?=
+ =?us-ascii?Q?izqqWPU0hsBya1xz0OnhXfJSPhTZHPgYtokVC11O4UEqzVfZr4ZYoMXJVRAP?=
+ =?us-ascii?Q?SGAMzuVgFVfn8YSgIJWxKtGtGUqTueGudwDrEDE8fx008CRpyCLiUNuiCFSi?=
+ =?us-ascii?Q?O4QCLw30INVMkzfynNuVcfQW7Eq1J1CB79bBcwkGEIbfA/LLlzUrOnA6eFPo?=
+ =?us-ascii?Q?xqjlrAOq7L1E+x5hgfQuPZaVLnFFljGleTB6LnYmUdPvB7SnXG1hkr4bykuY?=
+ =?us-ascii?Q?sGB5Ht5rPCdBe/2aLEbUCQ26KQUlxfXO3pLUCOMSjXNbQOVNU6x4dCA+fFH0?=
+ =?us-ascii?Q?jkBj/F8Lnoo+3Dtn4Fk04PRsedFp1jFGKRmiMi6AucGuCwgkQ13yW7SQ7cUf?=
+ =?us-ascii?Q?HIY6/GuEwA4Bdg8c5LHNNg3E5whSE8YrFhNpwYqw0Rp1HnXyBfwFBKOYb/DT?=
+ =?us-ascii?Q?Hcy4FdkJFfnjGhZL6gDpcwJh/0xKVMF56DdjH8IVXCONHHnrNEtbfI9rvcf9?=
+ =?us-ascii?Q?uayO1PebCOj6x5+R0KRAZrPPI9Vj6okGMRmrxhNPCPwnQIuulehKJQ6q0hwc?=
+ =?us-ascii?Q?av5l98wiejVA614yybNlexXuhQK9B4vCVV5v/6xYxs0uygfg0sPn4ECBr6m4?=
+ =?us-ascii?Q?26Y7VtCQiJG7aSUQCABSCSQZIfFjIuJpCHW85ckRh1XeDPCWZQ8pmBclHJQ7?=
+ =?us-ascii?Q?IeYVRBU7C+Oqz8YNFFeNKxRYhuCCn1MCJQLBy7qab4EOB1Nn1k1a07cjhuuq?=
+ =?us-ascii?Q?y6Mjap4xoHKn9CHGzvJKJPITc8AEUu/lzEukXi4tfqGlmh7AWKZ3?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ddfdc1d-cd20-4448-b3cd-08df1d3696c5
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:00:40.5660
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q3U0/PijFpDTbn8Ma7Ynf8ix51w27rI1OGSnAbYgFsD5R+cpJ8PDivvk/mEIVUu/rZhaTE0CUJRW+femBwAkFMcUmwdAA/yybwhx1aB3gzeEtKam0sov/mbGVFzIDvnY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1233
 
-From: Ye Liu <liuye@kylinos.cn>
+Add Granite Rapids (GNR) CPU support to the PECI cputemp driver.
 
-vmalloc_dump_obj() searches only one vmap node (addr_to_node(addr)),
-but a vmalloc allocation may span multiple vmap zones.  The VA is
-stored in only one node's rb-tree (addr_to_node(va_start)), so an
-object pointer in a different zone than va_start maps to a different
-node and the search misses.  This affects any allocation larger than
-vmap_zone_size (64 KiB) on multi-CPU systems.
+For Granite Rapids, the resolved cores mask must be collected from each
+compute core. This implementation is relatively complex. Since we do not
+use the resolved cores information for these CPUs, we can explicitly
+state in the driver that the core mask is not supported for this model.
 
-Extract find_vmap_area_lock() from find_vmap_area() to share the
-cross-node iteration logic.  The helper supports both spin_lock and
-spin_trylock, the latter for atomic dump contexts (OOM, KASAN, RCU).
+Define new cpu_info structure for GNR with minimum PECI revision 0x42 and
+the thermal margin conversion function dts_ten_dot_six_to_millidegree().
 
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
- mm/vmalloc.c | 108 ++++++++++++++++++++++++++++++++++++-----------------------
- 1 file changed, 66 insertions(+), 42 deletions(-)
+ drivers/hwmon/peci/cputemp.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index df42d8a6f058..4f4d7453962f 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -2517,67 +2517,94 @@ static void free_unmap_vmap_area(struct vmap_area *va)
- 	free_vmap_area_noflush(va);
- }
+diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+index 457089c561b4..69c4a07b99f7 100644
+--- a/drivers/hwmon/peci/cputemp.c
++++ b/drivers/hwmon/peci/cputemp.c
+@@ -339,6 +339,18 @@ static int init_core_mask(struct peci_cputemp *priv)
+ 	u32 data;
+ 	int ret;
  
--struct vmap_area *find_vmap_area(unsigned long addr)
-+static inline int next_vmap_node_id(int i)
-+{
-+	return (i + nr_vmap_nodes - 1) % nr_vmap_nodes;
-+}
-+
-+enum vmap_lock_mode {
-+	VMAP_LOCK,
-+	VMAP_TRYLOCK,
-+};
-+
-+/*
-+ * Search for a vmap_area at @addr across all vmap nodes.  An
-+ * addr_to_node_id(addr) converts an address to a node index where
-+ * a VA is located. If VA spans several zones and passed addr is not
-+ * the same as va->va_start, what is not common, we may need to scan
-+ * extra nodes. See an example:
-+ *
-+ *      <----va---->
-+ * -|-----|-----|-----|-----|-
-+ *     1     2     0     1
-+ *
-+ * VA resides in node 1 whereas it spans 1, 2 an 0. If passed addr
-+ * is within 2 or 0 nodes we should do extra work.
-+ *
-+ * Returns the VA with @locked_vn->busy.lock held; the caller must
-+ * release it. If @mode is VMAP_TRYLOCK, nodes that cannot be locked
-+ * are skipped.
-+ */
-+static struct vmap_area *
-+find_vmap_area_lock(unsigned long addr, struct vmap_node **locked_vn,
-+		enum vmap_lock_mode mode)
- {
- 	struct vmap_node *vn;
- 	struct vmap_area *va;
- 	int i, j;
- 
-+	*locked_vn = NULL;
-+
- 	if (unlikely(!vmap_initialized))
- 		return NULL;
- 
--	/*
--	 * An addr_to_node_id(addr) converts an address to a node index
--	 * where a VA is located. If VA spans several zones and passed
--	 * addr is not the same as va->va_start, what is not common, we
--	 * may need to scan extra nodes. See an example:
--	 *
--	 *      <----va---->
--	 * -|-----|-----|-----|-----|-
--	 *     1     2     0     1
--	 *
--	 * VA resides in node 1 whereas it spans 1, 2 an 0. If passed
--	 * addr is within 2 or 0 nodes we should do extra work.
--	 */
- 	i = j = addr_to_node_id(addr);
- 	do {
- 		vn = &vmap_nodes[i];
- 
--		spin_lock(&vn->busy.lock);
--		va = __find_vmap_area(addr, &vn->busy.root);
--		spin_unlock(&vn->busy.lock);
-+		if (mode == VMAP_LOCK) {
-+			spin_lock(&vn->busy.lock);
-+		} else {
-+			if (!spin_trylock(&vn->busy.lock))
-+				continue;
-+		}
- 
--		if (va)
-+		va = __find_vmap_area(addr, &vn->busy.root);
-+		if (va) {
-+			*locked_vn = vn;
- 			return va;
--	} while ((i = (i + nr_vmap_nodes - 1) % nr_vmap_nodes) != j);
-+		}
-+
-+		spin_unlock(&vn->busy.lock);
-+	} while ((i = next_vmap_node_id(i)) != j);
- 
- 	return NULL;
- }
- 
--static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
-+struct vmap_area *find_vmap_area(unsigned long addr)
- {
- 	struct vmap_node *vn;
- 	struct vmap_area *va;
--	int i, j;
--
--	/*
--	 * Check the comment in the find_vmap_area() about the loop.
--	 */
--	i = j = addr_to_node_id(addr);
--	do {
--		vn = &vmap_nodes[i];
- 
--		spin_lock(&vn->busy.lock);
--		va = __find_vmap_area(addr, &vn->busy.root);
--		if (va)
--			unlink_va(va, &vn->busy.root);
-+	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
-+	if (va)
- 		spin_unlock(&vn->busy.lock);
- 
--		if (va)
--			return va;
--	} while ((i = (i + nr_vmap_nodes - 1) % nr_vmap_nodes) != j);
-+	return va;
-+}
- 
--	return NULL;
-+static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
-+{
-+	struct vmap_node *vn;
-+	struct vmap_area *va;
-+
-+	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
-+	if (va) {
-+		unlink_va(va, &vn->busy.root);
-+		spin_unlock(&vn->busy.lock);
++	/*
++	 * For Granite Rapids, the resolved cores mask is relatively complex to implement.
++	 * Since we do not use the resolved cores information for this CPU, the driver
++	 * explicitly does not support the core mask for this model.
++	 */
++	if (!reg) {
++		dev_dbg(priv->dev,
++			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
++			peci_dev->info.x86_vfm);
++		return -EOPNOTSUPP;
 +	}
 +
-+	return va;
- }
+ 	/* Get the RESOLVED_CORES register value */
+ 	switch (peci_dev->info.x86_vfm) {
+ 	case INTEL_ICELAKE_X:
+@@ -543,6 +555,11 @@ static const struct cpu_info cpu_emr = {
+ 	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+ };
  
- /*** Per cpu kva allocator ***/
-@@ -5278,14 +5305,11 @@ bool vmalloc_dump_obj(void *object)
- 	unsigned long nr_pages;
- 
- 	addr = PAGE_ALIGN_DOWN((unsigned long) object);
--	vn = addr_to_node(addr);
--
--	if (!spin_trylock(&vn->busy.lock))
--		return false;
- 
--	va = __find_vmap_area(addr, &vn->busy.root);
-+	va = find_vmap_area_lock(addr, &vn, VMAP_TRYLOCK);
- 	if (!va || !va->vm) {
--		spin_unlock(&vn->busy.lock);
-+		if (va)
-+			spin_unlock(&vn->busy.lock);
- 		return false;
- 	}
- 
-
++static const struct cpu_info cpu_gnr = {
++	.min_peci_revision = 0x42,
++	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
++};
++
+ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+ 	{
+ 		.name = "peci_cpu.cputemp.hsx",
+@@ -576,6 +593,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+ 		.name = "peci_cpu.cputemp.emr",
+ 		.driver_data = (kernel_ulong_t)&cpu_emr,
+ 	},
++	{
++		.name = "peci_cpu.cputemp.gnr",
++		.driver_data = (kernel_ulong_t)&cpu_gnr,
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
 -- 
 2.25.1
 
