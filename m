@@ -1,37 +1,42 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7444B1464;
-	Mon, 28 Sep 2026 11:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8FB4B1D1F;
+	Mon, 28 Sep 2026 11:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595647; cv=none; b=lIGo05P5aC+yzn4pIPj53+g500oQXKig1JOGXJJ5F4lgm20urt6cFKAqfXZgSuO2eS1UrUR+P2svk+18lDUUWj9+4mTAkD96Ggrw6mbjY5Iv7jKxIhI5QLny0KX3ajwww4eScHIWzVxYP8r0hrbNu62z1LCbBhDmyyo+nBJ1wLs=
+	t=1790595649; cv=none; b=Ng8/zpLNaGS4yNq5Xb0Lfz4WM4oV15hnHVBXTsLco/DEbhm/bj17bWxMpwn+22vuREqauWOo49iIpUC1LxI7oV+6mzVKB/0h+H/jM2IfX02cmMOnCgxIwk0iKQObLOTRbF0klBsaYaykPsXyEnxXslj5w40zR8Dnzt3WHGfgaYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595647; c=relaxed/simple;
-	bh=8ajXFaw4eyT8EQ/1gLGMUcCl6f+TZyuhS55oSOxZtZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gz8YG3UZ/PqFxBcQWOC0HJfXnbzjqXwUGqzEMNr+dcvFmfg3xDwr6FqR/dS+6yl9JOPpe0wsnZ97o2RvQmdGadCXwaWNr9Kjyyo2hMomRsCifd0V6Ims4rNE3gBJKOVW9Fes3Y7xoiRsIhYqAQMOUr8qbJFUnRmqgcR5MtvZ6Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=bPooZGY1; arc=none smtp.client-ip=80.241.56.171
+	s=arc-20240116; t=1790595649; c=relaxed/simple;
+	bh=8vB3XFFWUdcH/pqQdWO4L+HFPA1uTARGeGc4Pw2vwWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CpK66ojGQTF0fNPk6uJpVb4A8R3biIKu79XaTSiTTc0MBTDV8BzLdUGO7BnGKMn63w4I1VpgYpWsd54HDtA8lEs2LHtRd842kahUNOr2UQ9kcl7yqQXXbxqGbmbxuT1A2yFTptfH2ggULDXpn90w/Xv4xYgPVT63Amis8I4ooeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=Nd8adRgE; arc=none smtp.client-ip=80.241.56.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="bPooZGY1"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="Nd8adRgE"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4htfWV2GqpzMlV2;
-	Mon, 28 Sep 2026 13:40:38 +0200 (CEST)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4htfWY4wYtzMlsj;
+	Mon, 28 Sep 2026 13:40:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790595638;
+	s=MBO0001; t=1790595641;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=liTwmEJb8XCBJE5Cf9Q+AVlR7kHLYNSyB/hh3L71nzw=;
-	b=bPooZGY1UgHSnSvHUoQ1uwSuL+twzO73fIYwnRiXLI4RRbiwoeyjMPFrlyjsX+LXznbBEA
-	vntSyg2kH3S8s1nKpm7U1pEF0fIxYby97h5oJ898yK5GLVePaZiO+QAbRSnGF4bdqv/ZPU
-	tuCaxvLtRXTXi8dumoBV/OEt1g+fLu1nOIzJgO6IhWvt86tl0+Jrp3Oi52zoUEUdrh8WlJ
-	/MPz4t31Cnbfk4K0GsD+KbUSddU1Mb/fIIFExzuhs5oPRGr+FdWSNSYBnycQ654FRVINov
-	SWStqly2gyUOIEtZp3oR2f57NG3YIEUw/FpAhDiux/U/+phrCd2oJOKYGotD4A==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cIICblclrlCPHSjtCnaDmZAmTfS9kqVl/0EyFbrvagE=;
+	b=Nd8adRgEGDSlZlL1YkCwUxIyxTqeS3BZhzkJrznoJ7ztv7REQSTzCta9qKObLzHM9LfkmS
+	J08IOzuDU4h/tGkoUomAgPULFMm6Aaz3CoCV0+hojshBw0Lb5NVk3MLHr7qzxskvOIF1JS
+	D44l4kmtMvrfN2mpWZdw0PjSSXV6VEHsYIWpfskx2Yfu/qkFkNX2X3zCCQPsmYZ252ykry
+	R59uHK+ErM9dA9RKd69U2o/ABRION9GPHtfziDECYYAmnnF6PUmZTxSqnDssNWG+wOxuUT
+	jLGpjZcp7D9/9r8beo35QOqFF48tlXeCwl4+r0WUE7XEqdT0VwfzdWU20FuCGg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of mail@alexanderkoch.net designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=mail@alexanderkoch.net
 From: Alexander Koch <mail@alexanderkoch.net>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -46,9 +51,11 @@ Cc: linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Alexander Koch <mail@alexanderkoch.net>
-Subject: [PATCH 0/2] ASoC: codecs: ak4619: Add PDN pin handling
-Date: Mon, 28 Sep 2026 13:40:17 +0200
-Message-ID: <20260928114019.1441752-1-mail@alexanderkoch.net>
+Subject: [PATCH 1/2] ASoC: codecs: ak4619: Add optional PDN pin support
+Date: Mon, 28 Sep 2026 13:40:18 +0200
+Message-ID: <20260928114019.1441752-2-mail@alexanderkoch.net>
+In-Reply-To: <20260928114019.1441752-1-mail@alexanderkoch.net>
+References: <20260928114019.1441752-1-mail@alexanderkoch.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,38 +63,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4htfWY4wYtzMlsj
 
-The AK4619 datasheet describes the functionality of the power down (PDN)
-pin as follows:
+Add optional device tree binding that enables operation of the 'PDN' pin
+during initialization:
 
-  The AK4619 should be powered up when the PDN pin = "L". The PDN pin
-  should be set "H" after all power supplies have ramped up.
-  At that point, the reference voltage generator block (REFBLK) and LDO
-  (AVDRV) circuit are powered up and the control registers are
-  initialized. Control register settings should be no less than 10ms
-  after PDN pin = "H". [1]
+    codec@10 {
+        compatible = "asahi-kasei,ak4619";
+        reg = <0x10>;
+        pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;  // <--
+        #sound-dai-cells = <0>;
+    };
 
-The current implementation of the driver does not operate the PDN pin
-in any way, it seems to rely on external control of the pin.
+If defined, PDN is set high during driver probe, followed by a 10 ms
+delay as required before first register access [1].
 
-Improve this by adding a device tree binding to enable the driver to
-set the pin 'high' during probe. Make it optional to keep the behaviour
-for existing device trees unchanged.
+If no 'pdn-gpios' property is defined, the behaviour is unchanged.
 
-Tested on an i.MX8MM board with the AK4619 connected to GPIO1 and SSI3.
+[1] AK4619 datasheet, sec. 2 'Power-up/down Sequence', page 39
 
+Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
+---
+ sound/soc/codecs/ak4619.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-[1] AK4619 datasheet, section 2 'Power-up/down Sequence', page 39
-
-
-Alexander Koch (2):
-  ASoC: codecs: ak4619: Add optional PDN GPIO support
-  SoC: dt-bindings: asahi-kasei,ak4619: Add PDN GPIO support
-
- .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml     | 8 ++++++++
- sound/soc/codecs/ak4619.c                                 | 7 +++++++
- 2 files changed, 15 insertions(+)
-
+diff --git a/sound/soc/codecs/ak4619.c b/sound/soc/codecs/ak4619.c
+index d9c9f6b20028..f3357c1ee907 100644
+--- a/sound/soc/codecs/ak4619.c
++++ b/sound/soc/codecs/ak4619.c
+@@ -152,6 +152,7 @@
+ struct ak4619_priv {
+ 	struct regmap *regmap;
+ 	struct snd_pcm_hw_constraint_list constraint;
++	struct gpio_desc *pdn_gpio;
+ 	int deemph_en;
+ 	unsigned int playback_rate;
+ 	unsigned int sysclk;
+@@ -875,6 +876,12 @@ static int ak4619_i2c_probe(struct i2c_client *i2c)
+ 
+ 	i2c_set_clientdata(i2c, ak4619);
+ 
++	ak4619->pdn_gpio = devm_gpiod_get_optional(dev, "pdn", GPIOD_OUT_HIGH);
++	if (IS_ERR(ak4619->pdn_gpio))
++		return PTR_ERR(ak4619->pdn_gpio);
++	if (ak4619->pdn_gpio)
++		msleep(10);
++
+ 	ak4619->regmap = devm_regmap_init_i2c(i2c, &ak4619_regmap_cfg);
+ 	if (IS_ERR(ak4619->regmap)) {
+ 		ret = PTR_ERR(ak4619->regmap);
 -- 
 2.55.0
 
