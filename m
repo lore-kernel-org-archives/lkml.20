@@ -1,222 +1,190 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F7E4EB858
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611600; cv=none; b=gdWJFRvIWNVEyTf9HnRniShLKsyvrbkvLuS9wMdR9RsPxHc5DCGYHfXkW2d2q5KnJQio/qzZYUjihWZwXU5LBraJ9y/ffMkMA1PcBmf9gi2akHCjkRecnuo6GRUwOUPwAmOCtCria971gBCqifLM9I6PoYgEqtekhUG8x1UD6f8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611600; c=relaxed/simple;
-	bh=2CSyBJLnBQ9egi4b1L3g/oRU+jtPQOO8FS15QFnzYGg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zmv7MmEvgclZVXFvH2nIpUwT9nYBVAGORRrTTJLnlSo6mo/M/53R4xGecEAKnbtJ2mRl367lNjmOYJ3w72q9tBGfVYBZgn7eJYIcMzSOBlGXjTp3dzTx+vDHNAyUaLJTP03udexL0GA7aMZ5bcNrhY+FlsmLOZZ3CJ3yP36mDAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=EVSlQvXr; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DF54EA38C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790611606; cv=pass; b=UAse+w7vAhLSEM6MJXXpYLcUa9TA3/bgZqLDwLsCtGmAbpy66npmzRgqrB9LY68CrTYDs6E8ewdqf2nZosueS6GdgwNRt7lpOU3xDpU5EoM572oiMn+w+L+hylZFA/P2HEayuFwLtSI6taoSBRCDdJ7YkCAZfhQerUNAmWz6MfE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790611606; c=relaxed/simple;
+	bh=AxwspMKsVZK1XQ0X1dJ8SvYhPShfagggpXNX3D7+lkw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p8sqrY5lvcDicHNZMtoEGAPDBGd7sYt99JS8S+b/RHcmFlk0h2MqaiV4Gu3WXyl2pW1hgs74z5/HclvBGgkFI6NB10jeHWDrsQD+6T2DDnYLHl6KO4MoZEMxd4wl/6O6lAPIfg4NHhmJHQgitWzcNrv28brRDmXQczh9WlaQM/Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M5E5ZulZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YRlnwJPM; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="EVSlQvXr"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ef1d0so28203591cf.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M5E5ZulZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YRlnwJPM"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdsD6378842
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:06:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Bsxl3A6ArhrDNBtoIVBz3Hxm6FeKIX0tXSSS585UBX0=; b=M5E5ZulZAP4oNlP6
+	EtiXRsQkimO0coeymPP9xnQgROgpGWaYQowXn9Oadi0rj38qsAVXzTjuOFgau5pm
+	t93DeZOdyYrvHi58xTkHBABjEamUNnpeHNTG62CPil7fTTStxpz0aDkLtbfecKAM
+	3UDlSEwTMGkE3mLZTGc1BZkZfF0mp1WVOsHGgmTrn+ot9MemCFI66nWn0IbUtIJg
+	tZSy4RWIadrmToiStbs6FgIYzIWihhWfRSyoa3dQcWqb+0jbF4m6bO4IVqODp/cZ
+	dGMq3zCAjRCswtd5kC+07wD+V9nISDhwP24lU0jQGVt/ixvOQbDN2l/VVF9eLsst
+	LVSpjA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyqx390qb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:06:33 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so3776961a91.3
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:06:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790611593; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XkVXCrGilQ2Mf+CJA2ZbBQ5YSUhfFCLFeAUlUQza/jFbLZu58JBdJ3tzQlPcJP04Bm
+         9yC18cdEEDz5yDxVmxHS/9WRQ368O9OfDkJcgIEpZIE2Z1pfw5ZR1TQAxSr/RJQMW7X0
+         GjIhoD4Nz5NUVRWDHjRCceu1pESOX94b1hNvhcCvuM/BfTlBtqhm6VpmTmACrA84yhEX
+         fUAX5AUCZuhA9y/92zFV7ygjMDx/wWQa9sSoMUwIiX+GaTe1PVYM3B/zPxUSQQgHyu2x
+         f26ENI4/SwOEwvjzdxGIpTC+PSmmC4pK/XS6SIsTP7huZqSAYI9URTPmYxEA8kx3ZVmS
+         qpUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Bsxl3A6ArhrDNBtoIVBz3Hxm6FeKIX0tXSSS585UBX0=;
+        fh=A4/RBjtB6EOqxsJcbTZAkmTjc5Zq4RLfPlGNRJ4Yqbo=;
+        b=bdsluCZnql9ohOCxgCFgK/JxXZx9vDZUzi6B8cGB4TrpKFHC870CsKS2jaSA6/dBj8
+         DQF94nPtmGMN11yT0L5zPJOJYalkjIHSMMIuvofxhAL5YeRgUJdHHk8BJ5ZMHzBW5uV7
+         KfEMmiRm14ijEKk6e8zDyJdcdD0N4AbhJgSZnJdqBKz18YfCA4BxTsAz8R4vpODtPRZG
+         NcHvgNEVUP4KpVc6q7NYW5qJUxzhpNX5We8/7gupFN0d1WpOWhMnPonSJKfSRyVaq2Wh
+         sRHH08jqSBGn01uOwH3caEfsxy4cK76YXAhUJ+HieYsEbwRMt2PA+5jCcPNDZp8FvAq1
+         H5rA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790611590; x=1791216390; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b5yDEa+qmbJcJyachLPJtnHNQFVXhnEpOITBm0Nx5uM=;
-        b=EVSlQvXrO1sEM8uB0RYgysEF0Lkd8xo0+a0/5AbYYzca0o2lj0NZKZdzdRyfkdJ0Ck
-         lW4TVGhFsqECTNlkfjH1dX6AQ4hzB6quLscbrehui0NUD7GWPhQdOHbFhyCFlaU7pCp4
-         wuIV/vQz16drp38aQjgyvwTKZJghYmUqMr08i4+mOrkL1knhC4zhB2lkh7mFvOLFnP2T
-         X2Dv67ethFS4a/PSIwgorDvKLp9A7of0V9Q7arc53Mc6pGDMtQc2hFxyaaMia+5eGbBl
-         8A9HUYWHStZrhgriTgw7dnWdP+X8Y+JWmUZixs3Dy8kg6y/sdX0ocu6wWB6FBH6b/lb5
-         +Tlg==
+        d=oss.qualcomm.com; s=google; t=1790611593; x=1791216393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bsxl3A6ArhrDNBtoIVBz3Hxm6FeKIX0tXSSS585UBX0=;
+        b=YRlnwJPM843OPEp7IQ/+gvYPbTFbRHkvhu67xcpzhdr1cNWWejIrmpqdHYJmFvk4Ib
+         /Q4R0TUKCeWsxx/VHY8y7vLwWh76tywzmxNgW2iWIJ/dfuqHVBFA4GiuFfBu8dd/2Uyf
+         VEmCy8I1sV4UmzxuuZQYpCDldO6uLUWfdH+UX1S9JHzc+tq8899biEt0JK1jiAZI5Ibx
+         5NVSYwyp0wq1J5SBJpSa02M68shY71PDdzUBABqewepYr5Pacmb8WuTIVL8BAtxdD6TD
+         MeGNUZix6pEc3RA7vbxXIvb2hgSe/PINEtdcQntsHTx7VBg+XlKA7jwoa5B79T4MZ/Ml
+         GRlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790611590; x=1791216390;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790611593; x=1791216393;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b5yDEa+qmbJcJyachLPJtnHNQFVXhnEpOITBm0Nx5uM=;
-        b=QdiB9XEdL401MzcmH8yqZasVN/i+hgzEWHVA75MdOgATYgCM8f1mRmmhyhuknE5TrK
-         SvZjqqeDYaFLaEO25qzJKN2SBa2c1jyqlrZgIibSDY2HG+9jr6VUh9O15lJLVEKkrMdZ
-         PAXgUYwMJnE+HT2ZBWgyUQBsQVKYK9gpFBIwSHzPSAaMtBncvbvk+mKOtgrJaZhfM986
-         E16MEeFD9vMjiBgOPhurRTCkPRp58Iq7qeQzJghDnnGbuWFIY1TTuX+L6REtgCEXQhVC
-         YNnz199EeCsW1j3Jf6Wy3qXERpf8VXofCY6atHW8nmXoL6L5qMyCTVcsV5QFJFh03ms5
-         q2dA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6zS/NI2OF+NBQ85kBgdB+hT3Ha+Ks8/1LS+P2eDG+DmqW68NrRPZwwpcDlZWVOlsLLGWNmxzlijB1G+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7V6tXgIdIqNXqBiBQpDaU/EPIk4KY/+vaju1Cj7Sg3YQSjoov
-	sVRUUNKdUnshJnAQHsaGajBAtXrFboE918T0zfT9xwiDqpnRX0zg6RIYAC9erLSmfI0=
-X-Gm-Gg: AYBFou3gcF8Qfrm8RUewRDk7nc0gjXX+VWIiGOiRjHM0odJjgExkNKd4iCPhcuNJySo
-	zuORI/9X40fisS0ikWuUuCNfZWYAttUVAn7ffMRDaD8+lHyk3i3wJUjkX74tXpMhahhs7rZDXoD
-	MHcdGR5n3yPw8kng67QGPBOCpW7akRrsbngb6txA4jkWB8fQWuaxccS7JcvEJtD6lUqtHZB0JeH
-	6GfjuA6lfe5t4qHKJWpkm+Kft/OS3Y6Wnmi+dYktPBk2ffGWRsd60IyWe/2NkifbPpBkLAiAZLo
-	tJTqkE0oRg8xOXxOpoLjZKKbbOXpuUfZZqQW0R5wS0oFkI0VYljX07VLo0LfL277JMwgxv0lDiI
-	37rYierqoJZpUxGGTm8FKGD//zzLcrUQ5ERYNcGVZL5m/CLdMGUMV/y5+XINdrmssXy6dGI8Yr+
-	wyGB5W/5fpxrMdbSfamCU7g0cAqxl1nJ5K/PbuDtYdKkJ74n6d/Tg0dtJpKNKHsY4ISGlhGqZoo
-	sX5AFojM/g6Lko=
-X-Received: by 2002:a05:622a:4814:b0:52f:b9ad:9dad with SMTP id d75a77b69052e-5330b68c2cbmr215268241cf.36.1790611589603;
-        Mon, 28 Sep 2026 09:06:29 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.255])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332240fc16sm66398251cf.27.2026.09.28.09.06.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:06:28 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 28 Sep 2026 16:00:43 +0000
-Subject: [PATCH 7/9] ublk: mark queues and command in one cancel_mutex hold
+        bh=Bsxl3A6ArhrDNBtoIVBz3Hxm6FeKIX0tXSSS585UBX0=;
+        b=gJKTu/M7UVDlPaNjaQNb1f5SW8CMIJtZ1tG0qcMagzeC0hIK6ivVlGPIJpTS6vt3a3
+         usnzVMoO75LbF7HLNqQhHl0HMgk/zEwXUuZb9ad41ZDWtoHncFaj+624nHV1ZxUGaOzV
+         AmVngH/PinJLqWRHdAnLJ3t6r9VlhvtCCu4xyWTZbTmQVP4Hh4Prh4JUf2yN0UcnNhyZ
+         ii8XRV7ob3+nYJTXL5sEApAxvmHqAJI5G6i9+svhxEm5+8Icozreo8Ylumw+hOvrjxQS
+         BRVXUE8NGIKY5MWza1WictvMgVl2tlQxiAkyG23WhAWjKqE/d40NqWDh2ioBcepK0e9I
+         ymCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxO4Klv3hKbyr0X8tG5M5dtetWcuCGW4dkcf+fO+KB3C9qvGombUIlG0aFcwMADJCWATZ0dkf3oLZJ72Zs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaggsZfGLxiyRYSauRb8XpVrN7mS6iGfKzvc6Cpae1jp1YX1Wd
+	wCpqz+7P8ew1JTeEzJtfgUJ2xyVza/ObhGkWfg9J+BNHTfg0qwZzt4jFMv7DhoeEwL+u9H+SeFl
+	PBTiVQbjjcJ4w6HW3ZrOnxHeYL/hpkXYgQh0olOwV9KyadBW0qNskiQDa53JKsY0kNiQhF9wfFE
+	UzgSEC0X8Y6UwNV1C0Y5rOhI5f2SeB+HESANY8dwnTYg==
+X-Gm-Gg: AYBFou3qyGS5oIzgaFgSAC9dPmjx+qQ3vzuA63BK2j5Wy+A3NKaPj8hSiN/bLF7o+r1
+	Xd4inFAjQMNcDPX3kX5XHC5zBHC5u4VwQAzPybpLJYwhoQLgtFdOFRq/0/Jf6J7fy6yuy+kGzKf
+	Yz2S6IiS/OsEnMtqg4Tv6C7Fplq2hLPCKYYlHgdQ5HPhk=
+X-Received: by 2002:a17:90b:3e44:b0:3a0:e247:3ad3 with SMTP id 98e67ed59e1d1-3a0e2474be8mr3602118a91.40.1790611592592;
+        Mon, 28 Sep 2026 09:06:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e44:b0:3a0:e247:3ad3 with SMTP id
+ 98e67ed59e1d1-3a0e2474be8mr3602106a91.40.1790611592087; Mon, 28 Sep 2026
+ 09:06:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-ublk-cancel-stop-v1-7-4a4360232a46@toxicpanda.com>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-In-Reply-To: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
- Caleb Sander Mateos <csander@purestorage.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790611254; l=4510;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=2CSyBJLnBQ9egi4b1L3g/oRU+jtPQOO8FS15QFnzYGg=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QNrk8/Xv0BB8awotM3ZWJl80COQrBAS7HLpoXrEosgWgnjPvJXPANlN0swBi1IO/75Z3SsW7jQq
- LRtP5v80Ugg4=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+References: <20260917101750.2146473-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917101750.2146473-1-vulab@iscas.ac.cn>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 18:06:20 +0200
+X-Gm-Features: AclHuK82ucEdSmeT-bQHmbw_Uh16I1-7A4GMKqZ9onj_bi2194OPKgUaCmdLCEY
+Message-ID: <CAPx+jO8Jef67qM2nvZKO77=H7P5EAAQQq-LfpFxCuUmhi+xiUg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: core: Fix OF node leak in mmc_add_card()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: hansg@kernel.org, linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+        s.hauer@pengutronix.de, ulfh@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX8+fqRc+9RHS5
+ fE9cn6hK9CB5Qeky6pyz07o76RvjB4iunCZyGKjDuNt2eEHj2+monSTIuEjg9abM4MhUHpx/bC1
+ qSUucYjihzn8wxLinKyxCvaIFAGPRpjScOV8qNsd8lEwTrDC6uoURkyGKe9NjdycZRgizlMt2ge
+ sG63iQ592eqMegZQmw+JnCYPTwwdfCiGTDSyGxO5D6JL/5oQ+iAtjX8XemtWzLuZ0YF5K45WL9i
+ NCAH9yWknxC9F8V1cfBGusb/8VwhGKJj8uvIzOVrxGaPHq6Mh0l2Rt4ciTo1Dsl1tcFNGMx9QVB
+ cUWgK23NqJPEgZ4rmWEQqBlt/6CB9/WCT8rmIB4lk3jY8m/L8yYTsPis2qIaonkVKufpn0N2r1S
+ QC1k4yHFyxjqr8ACH6ftRgC8Tht8TTaFxMAPHr1/Mkv/3+C61TqHhxXUNZgzoX7X0xXAHWFaDlp
+ 9eMA8/jg0Iqi7MqvsXg==
+X-Authority-Analysis: v=2.4 cv=f7jdl+yM c=1 sm=1 tr=0 ts=6aba9089 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8 a=PUCtf4xQaR7MHDhmUGEA:9
+ a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: qF-cH7CYkohpFuqodMLJQM0O6n8-pAhP
+X-Proofpoint-GUID: qF-cH7CYkohpFuqodMLJQM0O6n8-pAhP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfXwugVxE1ZDhWc
+ zwZZR+FUUKZWpmp1WMkHo+0EcrDjBKZ+tSsulhy4u7Ctwj8/VNbA9kb0ON0zz/GAZ/b2aOajlYv
+ ICxVNBiCGXKHOZpiFcQfxrjvp5ZQqYo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280064
 
-ublk_queue_rq() dispatches a request to a NULL io->cmd and the kernel
-oopses when the last FETCH of a queue runs in the middle of
-ublk_uring_cmd_cancel_fn(), which drops cancel_mutex between marking
-the queues and marking the command:
+On Thu, Sep 17, 2026 at 12:18=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> w=
+rote:
+>
+> mmc_add_card() stores the OF node returned by
+> mmc_of_find_child_device() in card->dev.of_node before calling
+> device_add().  That node carries a reference which is normally
+> released in mmc_remove_card(), but only when the card has been
+> marked present.  If device_add() fails, mmc_card_set_present() is
+> never reached and the cleanup of the failed attach cannot release
+> the node, so the reference is leaked.
+>
+> Release the reference on the device_add() failure path.
+>
+> Fixes: 25185f3f31c9 ("mmc: Add SDIO function devicetree subnode parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-    cancel callback                 last FETCH of the queue
-    ublk_start_cancel()
-      queues marked canceling
-      cancel_mutex dropped
-                                    ublk_mark_io_ready()
-                                      queue is ready
-                                      no canceled command found
-                                      ->canceling = false
-    ublk_cancel_cmd()
-      UBLK_IO_FLAG_CANCELED set
-      io->cmd = NULL, command done
+We have already a commit that takes care of this ("08b54e16d547 mmc:
+core: Fix OF node reference leak on card add failure")
 
-ublk_queue_reset_io_flags() takes cancel_mutex for the ready
-transition, so once the callback holds it across both steps the
-transition comes either before or after them.
+Kind regards
+Uffe
 
-Move the locking of cancel_mutex from ublk_start_cancel() to its two
-callers, and have ublk_uring_cmd_cancel_fn() claim the command with
-ublk_claim_cmd() before it drops the mutex. The command is completed
-after the unlock.
-
-ublk_start_cancel() holds a reference on the disk, and dropping it used
-to come after the unlock. Keep it that way by returning the reference to
-the caller, the last put runs disk_release() and that should not happen
-under cancel_mutex.
-
-Fixes: 728cbac5fe21 ("ublk: move device reset into ublk_ch_release()")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- drivers/block/ublk_drv.c | 39 +++++++++++++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 99ac56d36dd0..18046e2bf753 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2748,11 +2748,15 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
- 		ublk_abort_batch_queue(ub, ubq);
- }
- 
--static void ublk_start_cancel(struct ublk_device *ub)
-+/*
-+ * Returns the disk reference it took.  The caller drops it after
-+ * cancel_mutex, the last put ends up in disk_release().
-+ */
-+static struct gendisk *ublk_start_cancel(struct ublk_device *ub)
-+	__must_hold(&ub->cancel_mutex)
- {
- 	struct gendisk *disk = ublk_get_disk(ub);
- 
--	mutex_lock(&ub->cancel_mutex);
- 	if (ub->canceling)
- 		goto out;
- 
-@@ -2774,8 +2778,7 @@ static void ublk_start_cancel(struct ublk_device *ub)
- 		ublk_set_canceling(ub, true);
- 	}
- out:
--	mutex_unlock(&ub->cancel_mutex);
--	ublk_put_disk(disk);
-+	return disk;
- }
- 
- /*
-@@ -2900,8 +2903,13 @@ static void ublk_batch_cancel_fn(struct io_uring_cmd *cmd,
- 	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
- 	struct ublk_batch_fetch_cmd *fcmd = pdu->fcmd;
- 	struct ublk_queue *ubq = pdu->ubq;
-+	struct ublk_device *ub = ubq->dev;
-+	struct gendisk *disk;
- 
--	ublk_start_cancel(ubq->dev);
-+	mutex_lock(&ub->cancel_mutex);
-+	disk = ublk_start_cancel(ub);
-+	mutex_unlock(&ub->cancel_mutex);
-+	ublk_put_disk(disk);
- 
- 	ublk_batch_cancel_cmd(ubq, fcmd, issue_flags);
- }
-@@ -2926,7 +2934,10 @@ static void ublk_uring_cmd_cancel_fn(struct io_uring_cmd *cmd,
- {
- 	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
- 	struct ublk_queue *ubq = pdu->ubq;
-+	struct io_uring_cmd *claimed;
- 	struct task_struct *task;
-+	struct ublk_device *ub;
-+	struct gendisk *disk;
- 	struct ublk_io *io;
- 
- 	if (WARN_ON_ONCE(!ubq))
-@@ -2935,15 +2946,27 @@ static void ublk_uring_cmd_cancel_fn(struct io_uring_cmd *cmd,
- 	if (WARN_ON_ONCE(pdu->tag >= ubq->q_depth))
- 		return;
- 
-+	ub = ubq->dev;
- 	task = io_uring_cmd_get_task(cmd);
- 	io = &ubq->ios[pdu->tag];
- 	if (WARN_ON_ONCE(task && task != io->task))
- 		return;
- 
--	ublk_start_cancel(ubq->dev);
--
-+	/*
-+	 * Mark the queues and the command in one cancel_mutex section, so
-+	 * that a queue getting ready meantime either finds the command
-+	 * canceled or clears ->canceling first and gets marked again here.
-+	 * Complete it outside, ublk_claim_cmd()'s other callers have to.
-+	 */
-+	mutex_lock(&ub->cancel_mutex);
-+	disk = ublk_start_cancel(ub);
- 	WARN_ON_ONCE(io->cmd != cmd);
--	ublk_cancel_cmd(ubq, pdu->tag, issue_flags);
-+	claimed = ublk_claim_cmd(ubq, pdu->tag);
-+	mutex_unlock(&ub->cancel_mutex);
-+	ublk_put_disk(disk);
-+
-+	if (claimed)
-+		io_uring_cmd_done(claimed, UBLK_IO_RES_ABORT, issue_flags);
- }
- 
- static inline bool ublk_queue_ready(const struct ublk_queue *ubq)
-
--- 
-2.55.0
-
+> ---
+>  drivers/mmc/core/bus.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/mmc/core/bus.c b/drivers/mmc/core/bus.c
+> index be5cf338bdeb..4d862d9bab23 100644
+> --- a/drivers/mmc/core/bus.c
+> +++ b/drivers/mmc/core/bus.c
+> @@ -379,8 +379,11 @@ int mmc_add_card(struct mmc_card *card)
+>         device_enable_async_suspend(&card->dev);
+>
+>         ret =3D device_add(&card->dev);
+> -       if (ret)
+> +       if (ret) {
+> +               of_node_put(card->dev.of_node);
+> +               card->dev.of_node =3D NULL;
+>                 return ret;
+> +       }
+>
+>         mmc_card_set_present(card);
+>
+> --
+> 2.34.1
+>
