@@ -1,76 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A733F329A;
-	Mon, 28 Sep 2026 19:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7853E40FB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624444; cv=none; b=HKDiWrBjoqN0satliiGVRRpwSvmnSI1t2zJ4zdxY1ri/JPrwgcQrjIhDYkT7E0xxWkV3Y4yroaLIZ2VY10ntsHXBz5/wNcxhA67L8rzLO0UpHhGrHXT5lMDhmNCGSZ3SuCcx6xh1GUwXsB3glD2dMcmOWMM1cIlxYYcIDk7DySk=
+	t=1790624494; cv=none; b=A4SMK9jAqqhdK+nJoMcco+4A7RPDcBCwQkrpEwGIrUwb8HxhhJqNMPj3d7cevESYytUrWrlU9KjnteCWiUoDZo44SvXey/LFmp2r4lP/4E8IxNM+N46OJZ/X9/hGPRRKAF2XTtFJeNh3u3m+bUb6uhaqYpN+Wgz0wJSebJpP9YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624444; c=relaxed/simple;
-	bh=/I9wUT/a73DZNkgR89ROR/d5RaFiBXsxQ84PJp2nN+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mDF2Mtdbd/+PeO9ZIOzV/r3ivdw00vRO/T6hOmwCuDSCXqoT9Q3maBOoR27a0zKSYpJMCBKKbtUT9KNKUTT23TfNuezMhTDHzynvKzv3tAGQSxIk6ByAGVP8hSMIBBahEBp7KLCzYAGul4QojIaWy8PXS2wUIfpmjlOzpApbzH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCUiQEZq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCUiQEZq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3571F000FF;
-	Mon, 28 Sep 2026 19:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790624442;
-	bh=3xpCepZjbk+HPBWZeIYa5wSUCmkpTH/xFwZRA1DPzs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WCUiQEZqAHXeH0TFJUhzCGOiPvcDLKRZg/GVrD+nKhPWAtqTKMbr4MimTSDO+i3gm
-	 xlz0JQNzt1YMbtwRqxEwWLJ+V2KmpaDDayS7074IOTJ1rdz5fzIFiMSV+UslzcquDe
-	 m+6yJhM7/3QhJDz+4orooBWkWk2qmWDeokuvZIocc5nZ99cMVoTRvBbAIeVpCHXVuX
-	 pZqq3FMdNi5gbdBXKRw69XwX7TSwlP5Cb7AMM6RNYUZi3cYOFYB/gQQydEU8cuJrtL
-	 6mGMdz5LtmmFiL13e9kXpowStoYrkVXVo0jn1mfhSrTUPVfKNXYzP26eTIhGPFK4Yz
-	 4iHQwnUFTz4mg==
-Date: Mon, 28 Sep 2026 14:40:40 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, krzk+dt@kernel.org,
-	lorenzo.bianconi@oss.qualcomm.com, bhelgaas@google.com,
-	abelvesa@kernel.org, gregkh@linuxfoundation.org,
-	konradybcio@kernel.org, andersson@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, devicetree@vger.kernel.org,
-	arnd@arndb.de, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: misc: introduce pci1179,0220.yaml
-Message-ID: <179062444007.434716.14459027711381979772.robh@kernel.org>
-References: <20260918152659.413268-1-elder@riscstar.com>
- <20260918152659.413268-2-elder@riscstar.com>
+	s=arc-20240116; t=1790624494; c=relaxed/simple;
+	bh=igbiI04Xvhk7YawMFY5L+lMPd1dL5HaPYU2VeX+vk08=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=h1eEf62dvSMmDLKsHKkU7N11Vf7ziKiZz0ta+CXE03sUepmCkfdxRgHZyA+yPILDBblMTyhtHyVBJ5wF9hNGraNlV9/isnkikletzIwShHci/YNQIGHvOFSPP28GeT0BLquoVPc0i44HWy2utRDxNs1ZxwkRH7jn2dJhm6VFuGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b26d8d2498so5679533b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:41:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790624491; x=1791229291;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WhC/AiPsvX7sAIQK8MFKaiafgpDl/ZKIcUAkTRAJ2cg=;
+        b=XanyCEtVqvZqKZmN/xofT57uyC4/+XZEngNc54T9TdaikHX7WoU8LMSmRPwCMFYrUZ
+         jGmfHCtga0MLlnNNa4WzjOZzd0wPilv3sbvRSluPfMaNKZLCFrmRStaNePU4LjuQDLQ0
+         5NjzzQta3nRT4Mg02Pvw4KgI6NRAiF4PErSqSzIEt/mCZB+g9y/lHMFoNLvHgTOCviEV
+         p3/zV5cw19WnrLYqldViJ4wl+UqhRVHQGCSCQ4dz+JFVGHT+D0PlbnUmcdAC+eLU0cKq
+         g7zwZCn0+Qs37/9Vt5o3ssflOutbV9v4SzyG431nHiFO057Epv6Xs7T3zLBS3+u1ANxX
+         9rRg==
+X-Forwarded-Encrypted: i=1; AKwUvByjaAIzRtvnrv+IPzXaX8T/K2cXIQJ9pokH+Ie5hUE4liaeCmMkdp7ctbzemOZxfTIo/4cs4Rz1cRiEKPI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwiUBtAQQU3BGPP5FhKAB6s4995E5J5CMULpetAysLgxc3fexF
+	2zBO/jklMQOAk2yxvgxjeS/ZsFs25Vrzu/8Nnm/Pahl8xpIYmz7MpCVbMh3v7jrPD2c6OfaLYei
+	c8d3HkpoAu8+oJsAkxPrfkFBQXWxpj2ci6lDsd/JPRDfw7YjbZRYOqCM3ZTs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918152659.413268-2-elder@riscstar.com>
+X-Received: by 2002:a05:6808:f06:b0:4b9:e5fa:8904 with SMTP id
+ 5614622812f47-4d72cd31708mr15583967b6e.23.1790624491377; Mon, 28 Sep 2026
+ 12:41:31 -0700 (PDT)
+Date: Mon, 28 Sep 2026 12:41:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abac2eb.3654fce1.1bec97.0000.GAE@google.com>
+Subject: [syzbot] [net?] WARNING in __skb_flow_dissect (8)
+From: syzbot <syzbot+9408fbe0e6452a12e9ab@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    e8e60d3ddd25 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=14800605580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=375776a45e10c065
+dashboard link: https://syzkaller.appspot.com/bug?extid=9408fbe0e6452a12e9ab
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12800605580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=138b2605580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ca9fd6dc9b6c/disk-e8e60d3d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/690b32d87cdf/vmlinux-e8e60d3d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/35db39da550c/Image-e8e60d3d.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9408fbe0e6452a12e9ab@syzkaller.appspotmail.com
+
+tipc: Started in network mode
+tipc: Node identity ac14143b, cluster identity 4711
+tipc: New replicast peer: 10.1.1.0
+------------[ cut here ]------------
+WARNING: net/core/flow_dissector.c:1131 at __skb_flow_dissect+0x910/0x5368 net/core/flow_dissector.c:1126, CPU#1: syz.0.17/4912
+Modules linked in:
+CPU: 1 UID: 0 PID: 4912 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : __skb_flow_dissect+0x910/0x5368 net/core/flow_dissector.c:1126
+lr : __skb_flow_dissect+0x910/0x5368 net/core/flow_dissector.c:1126
+sp : ffff800094906200
+x29: ffff800094906700 x28: 0000000000000000 x27: 0000000000000002
+x26: 0000000000000000 x25: ffff0000d05fd3c0 x24: dfff800000000000
+x23: 0000000000000000 x22: 1ffff0001114beb7 x21: ffff800088a5f5b0
+x20: 0000000000000000 x19: ffff700012920c58 x18: 00000000ffffffff
+x17: ffff8000863d2120 x16: ffff8000863d32f4 x15: ffff80008a707000
+x14: 000000000064059a x13: 0000000000000009 x12: 0000000000000009
+x11: 00000000d6794b26 x10: 0000000000000003 x9 : 0000000000000400
+x8 : 0000000000000000 x7 : ffff800084c05fcc x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff800084c05fe8
+x2 : 0000000000000001 x1 : ffff0000c46c9d80 x0 : 0000000000000000
+Call trace:
+ __skb_flow_dissect+0x910/0x5368 net/core/flow_dissector.c:1126 (P)
+ __skb_get_hash_net+0xe0/0x29c net/core/flow_dissector.c:1903
+ skb_get_hash include/linux/skbuff.h:1663 [inline]
+ seg6_make_flowlabel+0xcc/0x1ec net/ipv6/seg6_iptunnel.c:132
+ __seg6_do_srh_encap+0x320/0xbf4 net/ipv6/seg6_iptunnel.c:161
+ seg6_do_srh+0x4b4/0xa44 net/ipv6/seg6_iptunnel.c:431
+ seg6_output_core+0x164/0x688 net/ipv6/seg6_iptunnel.c:681
+ seg6_output+0x44/0x1ac net/ipv6/seg6_iptunnel.c:744
+ lwtunnel_output+0x3d0/0x664 net/core/lwtunnel.c:356
+ dst_output include/net/dst.h:470 [inline]
+ ip_local_out+0x110/0x148 net/ipv4/ip_output.c:131
+ iptunnel_xmit+0x50c/0xd38 net/ipv4/ip_tunnel_core.c:97
+ udp_tunnel_xmit_skb+0x220/0x348 net/ipv4/udp_tunnel_core.c:187
+ tipc_udp_xmit+0x75c/0x9c0 net/tipc/udp_media.c:202
+ tipc_udp_send_msg+0x214/0x374 net/tipc/udp_media.c:274
+ tipc_bearer_xmit_skb+0x260/0x3b0 net/tipc/bearer.c:576
+ tipc_enable_bearer net/tipc/bearer.c:366 [inline]
+ __tipc_nl_bearer_enable+0xc90/0xfb0 net/tipc/bearer.c:1048
+ tipc_nl_bearer_enable+0x2c/0x48 net/tipc/bearer.c:1057
+ genl_family_rcv_msg_doit+0x1e4/0x2d4 net/netlink/genetlink.c:1114
+ genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+ genl_rcv_msg+0x43c/0x620 net/netlink/genetlink.c:1209
+ netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2575
+ genl_rcv+0x38/0x50 net/netlink/genetlink.c:1218
+ netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+ netlink_unicast+0x600/0x7f8 net/netlink/af_netlink.c:1364
+ netlink_sendmsg+0x648/0x948 net/netlink/af_netlink.c:1919
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg+0xc8/0x17c net/socket.c:815
+ ____sys_sendmsg+0x3d0/0x6c8 net/socket.c:2713
+ ___sys_sendmsg+0x198/0x224 net/socket.c:2767
+ __sys_sendmsg+0x158/0x204 net/socket.c:2799
+ __do_sys_sendmsg net/socket.c:2804 [inline]
+ __se_sys_sendmsg net/socket.c:2802 [inline]
+ __arm64_sys_sendmsg+0x88/0x9c net/socket.c:2802
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+irq event stamp: 1573
+hardirqs last  enabled at (1572): [<ffff80008030a2b4>] __local_bh_enable_ip+0x14c/0x234 kernel/softirq.c:478
+hardirqs last disabled at (1573): [<ffff80008685dbf4>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:483
+softirqs last  enabled at (1546): [<ffff800084bb85e4>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:698
+softirqs last disabled at (1552): [<ffff8000863d31fc>] local_bh_disable include/linux/bottom_half.h:20 [inline]
+softirqs last disabled at (1552): [<ffff8000863d31fc>] tipc_udp_xmit+0xb8/0x9c0 net/tipc/udp_media.c:181
+---[ end trace 0000000000000000 ]---
+tipc: Enabled bearer <udp:syz1>, priority 10
 
 
-On Fri, 18 Sep 2026 10:26:56 -0500, Alex Elder wrote:
-> Define the binding for the Toshiba TC9564 PCI endpoint function device.
-> The third downstream PCIe switch port within this chip has an embedded
-> PCIe controller, and that implements two of these PCIe functions.
-> 
-> Multiple internal components are accessed via PCI function BARs, as
-> indicated in the diagram below.  This is facilitated by the use of the
-> devicetree pci-ep-bus mechanism, and is demonstrated in the example.
-> 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v4: - Dropped pci-ep-bus@0 node from the example
-> 
->  .../bindings/misc/pci1179,0220.yaml           | 146 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 152 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-> 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
