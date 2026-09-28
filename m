@@ -1,187 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2333535201A;
-	Mon, 28 Sep 2026 06:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC193537C8
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578243; cv=none; b=s/4u2SR0o/WTSlGDIUBuBqa8M03W6mTAg7Ymq9zqPMSURBIib3KnkYTJ+RGx/jiicYjCeDlmcWnYmc5j2xMZ8ZXIID0TKzudeHemMpUtC7v1ggDoWGCoE22rURqOeVeOSbbbOKDwdwR3aJoJxUmMvaW+GdslJCzt1kDSlkWV+qU=
+	t=1790578251; cv=none; b=WvvE/iHgjuySVXrFx44HLXgcw3Oj+HWrSKJ+1gV6j7TGvxvoHVIdQI4sPHbZ89THoQ5oyvsOJsl+4OlB39yXSdY2YTjYl9HZekU7sPl2utGRp1Dg36vFu32/ewU9K0wTFlKGbpLSS4lavjkzv4Pj7KIoQhBbcN0xmGk+Jm2Elvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578243; c=relaxed/simple;
-	bh=/PMiTRhTca/Ba2WyyagmYvvuRWbUSJVJwgY0dmft4l8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uXHAkNHNmBENkJJ37RSmK54Dz9zxdcpWnVlbdHgBj3WxmfN5C5QWbxpJtj3HwvE0HEit60EUznmpW6n8/6f32FS6C4AagfnYmO+K9FkthcqQ/lsd4bBxf40HCDCQufuP5nRgEAkDG/s+FXaJXymI3kMOSMAwIGnSGTDX/L/g7x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eL+fpo1Z; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790578251; c=relaxed/simple;
+	bh=F2fkqk+warAqlcPPl4KiiXVtBr/t+GSWodwfx0lgHlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tNHd5N7SSvfx/CSCGjIWJxn/i/7nmouBFFPiKOLrbLswuYXMO7xlYqmKQ/acz7VaqMMIESzkMoWxBro1cbAZgqojknFzIjj3hz/0v7mWd5cevKbECysHzVm6WC0qh2sP8frP/bXXMF969FWcRqI+M/dglAb0c+6/LG1ZnuYlG6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=X5vM0D1k; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eL+fpo1Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=IL
-	2EBXZ/+Q17dXypphHNBR4Qhatsa1DOCyC+1LTMRqs=; b=eL+fpo1ZAIaJC4sHvO
-	y/R7HLKkfwrcj9u9yYFY950jancOGuDfxdlaee69RcAObjJ5gQ48+BzvoHK16dr4
-	xNJamOesmqB5HDvjReDkUFSmkXdzn4b0IjTVKSUzNm0HsCB3etS9WKarvcrRpbCy
-	TzsRk7yUkflj/geYNRWtgeCmA=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD350wnDrpqY_dYBQ--.60414S2;
-	Mon, 28 Sep 2026 14:50:16 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de
-Cc: Quchaosheng <quchaosheng000406@163.com>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] can: j1939: validate the EDPO packet number
-Date: Mon, 28 Sep 2026 14:49:59 +0800
-Message-ID: <20260928065000.1749383-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="X5vM0D1k"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 898D14E41091;
+	Mon, 28 Sep 2026 06:50:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 29C566074B;
+	Mon, 28 Sep 2026 06:50:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 80AAD102F1E74;
+	Mon, 28 Sep 2026 08:50:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790578243; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fcCndR4hJBCttx8cdfopSI/TUzzp6DbkY/Fy9CVnC8Y=;
+	b=X5vM0D1kBOHu5HqWiZ2dMX/Vp9xsfJhQ55pab6Q3IvULx98hYPpBlV+sdsLkCwZpQk6E//
+	/Rh+gAfr4sLLcM5PxAaAPBBkDkYqv6YTVjONM6aN/eV34FtPgBjjr/nrRFZKi9IedGLTJZ
+	cWEQciLMZxa2OUY6jOpX3kvU0W8TETg/nNen/GLpjzmMXzYncfCBLSucZ2Zuv/4jjFcI0+
+	Fy3UKP7IzOUEmw+3Zcd4vJ6vqbw7n0YR4kO7hgI9jfwUzCOYA0xpEE/b3jDHaIk04HWos/
+	CpJ6Ve67NZgQUuVxT6HE39uDIJ6Udh40uZ9FQ2ovztLbRUmiDgJMmG36+jqzmQ==
+Message-ID: <d9d028e9-240a-4249-bc3f-c47194676fc7@bootlin.com>
+Date: Mon, 28 Sep 2026 08:50:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD350wnDrpqY_dYBQ--.60414S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1UurWrCFWrXF4rtry7Jrb_yoW7Ww4fpF
-	y3KryUGr1kArsrAw4rJrWUX34ayws3JryrJasFq3sakw45ZF45tF98tryfWayqy3s5u343
-	W3WDXwsxKr40q37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRvtC5UUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAjWTGq6DiiEmQAA35
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 00/19] net: stmmac: preserve datapath state
+ across MTU and resume failures
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Suraj Jaiswal
+ <quic_jsuraj@quicinc.com>, Richard Cochran <richardcochran@gmail.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>,
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Simon Horman <horms@kernel.org>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Richard Genoud <richard.genoud@bootlin.com>,
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
+ ZhaoJinming <zhaojinming@uniontech.com>,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>,
+ Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, stable@vger.kernel.org,
+ Rayagond Kokatanur <rayagond@vayavyalabs.com>, Ding Hui <dinghui@lixiang.com>
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi James,
 
-ETP.CM_DPO is peer controlled and its packet number is accepted without
-any validation.  It names the packet a transmission window starts at, and
-j1939_xtp_rx_dat_one() places incoming data at "dat[0] - 1 + pkt.dpo", so
-a value past the end of the message moves pkt.dpo beyond the reassembled
-buffer.
+On 9/27/26 23:59, James Hilliard wrote:
+> Keep the stmmac datapath coherent after failed MTU changes or hardware
+> resume without changing the interface's administrative state. Retain the
+> working MTU configuration for rollback, and allow ordinary down/up
+> recovery when hardware cannot be restored.
+> 
+> This revision incorporates the following previously posted fixes as
+> prerequisites:
+> 
+> - Linkui Xiao's v3 MDIO reset GPIO fix:
+>   https://lore.kernel.org/r/20260921015727.2643540-1-xiaolinkui@126.com
+> - Ding Hui's v3 DMA descriptor allocation cleanup:
+>   https://lore.kernel.org/r/20260919121436.1642724-1-dinghui1111@163.com
+> - Lorenzo Bianconi's v3 EST series, patches 2-4:
+>   https://lore.kernel.org/r/20260902-stmmac-est-reapply-after-open-v3-0-e72a6df5a7ef@oss.qualcomm.com
 
-The transfer still completes normally in that case.  With
-pkt.dpo == pkt.total, a closing ETP.DT frame with dat[0] == 0 evaluates to
-packet pkt.total - 1, which is the last in-order packet, so pkt.rx reaches
-pkt.total and the receiver emits its own EOMA.  The local loopback of that
-EOMA runs j1939_session_completed(), which asks
-j1939_session_skb_get() for offset "pkt.dpo * 7" -- one full packet past
-the end of the queued skb -- gets NULL, and passes it straight to
-j1939_sk_recv(), which dereferences oskb->sk.
+Then please wait for them to be merged.
 
-The trigger is deterministic and needs no hardware, no race and no memory
-pressure.  All of it is reachable by an unprivileged user through a
-virtual CAN interface:
+Also why are you targetting net-next now ?
 
-  ETP.CM_RTS (size 1786)  -> total = 256 packets
-  ETP.CM_DPO (packet 0)
-  ETP.DT seq 1..255       -> packets 0..254, pkt.rx = 255
-  ETP.CM_DPO (packet 256) -> pkt.dpo = 256, unvalidated
-  ETP.DT seq 0            -> packet 255 == pkt.rx, completes the transfer
+And most important, no more than 15 outstanding patches,
+this series alone goes over the limit.
 
-resulting in:
+You need to split this up, tackle the issues one at a time, even
+if the overall goal is "MTU and resume failures".
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000018
-  RIP: 0010:j1939_sk_recv+0xaf/0x150
-  Call Trace:
-   <IRQ>
-   j1939_session_completed+0x69/0x80
-   j1939_xtp_rx_eoma+0xc1/0x170
-   j1939_tp_recv+0x41b/0x4c0
-   j1939_can_recv+0x1ad/0x290
-  Kernel panic - not syncing: Fatal exception in interrupt
+As you can see there's a lot of backlog in this driver, and if you try
+to address sashiko's review by adding more patches and account for
+all "pre-existing issues", this won't work.
 
-Reject an EDPO that names a packet at or past pkt.total and abort the
-session with J1939_XTP_ABORT_BAD_EDPO_OFFSET, the SAE J1939-21 abort code
-for exactly this case.  The check has to be ">=" and not ">": pkt.total is
-a packet count, so the last valid packet is pkt.total - 1 and
-"dpo == pkt.total" is already out of range -- it is the value used by the
-trigger above.
+This series already went from a 3-ish series that was
+sent alongside the allwinner glue to 19 patches in about a week.
 
-Both roles tolerate the check because a transmitter derives the offset
-from pkt.tx_acked, which is "cts_packet - 1" with cts_packet <= pkt.total,
-so the largest value it ever announces is pkt.total - 1.
+Please think about the people who have to review that :
 
-Also guard j1939_session_completed() against a NULL skb as defense in
-depth, so that any future regression in the offset arithmetic degrades to
-a dropped message instead of a kernel panic.  The only other caller of
-j1939_session_skb_get(), j1939_simple_txnext(), already does this.
+>  39 files changed, 2390 insertions(+), 808 deletions(-)
 
-Tested on v7.3.0-rc5 under QEMU:
+Not only the quantity, but the quality of the commit logs, the changelogs
+and the comments. This really feels like the raw output of an LLM and it's
+very hard to read.
 
-  - the frame sequence above panics an unpatched kernel in
-    j1939_sk_recv() and is cleanly aborted by this patch
-  - a full 1786 byte ETP transfer between two J1939 sockets still
-    completes with the payload intact.  That transfer announces
-    pkt.total - 1 in its last EDPO, so it exercises the boundary value
-    one below the rejected one, and it runs the transmitter's own EDPO
-    through the vcan loopback as well.
-
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Assisted-by: LLM
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- net/can/j1939/transport.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5..065b4f71e 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -1243,9 +1243,18 @@ static void j1939_session_completed(struct j1939_session *session)
- 
- 	if (!session->transmission) {
- 		se_skb = j1939_session_skb_get(session);
--		/* distribute among j1939 receivers */
--		j1939_sk_recv(session->priv, se_skb);
--		consume_skb(se_skb);
-+
-+		/* The offset "pkt.dpo * 7" is not necessarily covered by a
-+		 * queued skb, e.g. when a peer names a packet past the end of
-+		 * the message in an EDPO.  j1939_simple_txnext() already
-+		 * guards its call the same way; dropping the message is
-+		 * better than handing a NULL skb to j1939_sk_recv().
-+		 */
-+		if (se_skb) {
-+			/* distribute among j1939 receivers */
-+			j1939_sk_recv(session->priv, se_skb);
-+			consume_skb(se_skb);
-+		}
- 	}
- 
- 	j1939_session_deactivate_activate_next(session);
-@@ -1823,14 +1832,34 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
- 				 struct sk_buff *skb)
- {
- 	const u8 *dat = skb->data;
-+	unsigned int dpo;
- 
- 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
- 		return;
- 
- 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
- 
-+	dpo = j1939_etp_ctl_to_packet(dat);
-+
-+	/*
-+	 * EDPO is peer controlled.  It names the packet the announced window
-+	 * starts at, and j1939_xtp_rx_dat_one() places data at
-+	 * "dat[0] - 1 + pkt.dpo", so it has to stay inside the message.  A
-+	 * value past the end moves pkt.dpo beyond the reassembled buffer and
-+	 * makes the ETP completion path look up offset "pkt.dpo * 7", which is
-+	 * no longer covered by any queued skb.
-+	 */
-+	if (dpo >= session->pkt.total) {
-+		netdev_warn(session->priv->ndev,
-+			    "%s: 0x%p: EDPO %u out of range (total %u), aborting\n",
-+			    __func__, session, dpo, session->pkt.total);
-+		j1939_session_timers_cancel(session);
-+		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
-+		return;
-+	}
-+
- 	/* transmitted without problems */
--	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
-+	session->pkt.dpo = dpo;
- 	session->last_cmd = dat[0];
- 	j1939_tp_set_rxtimeout(session, 750);
- 
+Maxime
 
