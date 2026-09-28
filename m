@@ -1,102 +1,187 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B17F37A843;
-	Mon, 28 Sep 2026 12:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E864B8DE2
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597417; cv=none; b=lWto/mLD4/SruQ/oxw5G0dgkTeFmkKtQJiVudJEvkQH7e8ck1Y9NnmY0WXVme7Ie1ZkAXfXdnQirBrlI+9MdxDWn4WuyUID2vAm5yDH5qaXM31OtAal5vkK0tNTK4WnrBg62QvtTeUiFuNAbK3C/RO8O3qhyBECtJkEsad+9JhU=
+	t=1790597423; cv=none; b=efNdKUiOSnWADpoJdlNFv28Ocd3WW0WQap/RJA+HNm8yUSn8D7YBB33Th39jj9qtL8VTj5OTUGXYr0PFSfW6yfhsU3KatpGKYY5/Y/mRl4Uk/9SLQpnLc15VDKC5kmxjHYHSnX6WjNV9Ibv/pYpXKNZ2t9Yt3ora9fYUVtHlTVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597417; c=relaxed/simple;
-	bh=4D27CAkRt6cgtziSTtRYpMnhYidbFcda7zVwvFXMXP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GaOPI0i6Ov5oGajxDk8xUHuiX5dZ9th18mJaQiFqFDiwW9+eCRzv6+e8nMQ7Kn121FFHkyNtrQ6PO30NH7EarnyC0fF2oFJsYN3Wv51m1V7z/W4xO8lHzH5pOYE6pmaSrswOaN8d47FTq30sFuaTb/uwYjFAJ4j+BXytIh/arzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=h02aj/gg; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790597423; c=relaxed/simple;
+	bh=dRu7Kn49A03hqpkganvlzxpNEYuOOLrk6BWNQL5j5yg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a9qMvmYf/Wf6z5n1IdPAer+biHEtuQqKc/J5pPiUeTP7GPHD8vTXesHhMGLVSeLdgD+p5ZIsAWKnjWdwSWGmijZRW4lKmwzcOYOSiLDbmgzwZipdGfvcg3TGGg+1vqMrIjVXj4daONzN/TPEiluz1kaQ3BpNE4wiWH4lEz1EBdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jyCQClIo; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="h02aj/gg"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AA6E25E;
-	Mon, 28 Sep 2026 14:08:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790597304;
-	bh=4D27CAkRt6cgtziSTtRYpMnhYidbFcda7zVwvFXMXP0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h02aj/ggXuRh4Rm4XDP2+QTxaMZWwU+Xm/Pm1pzSaY4qBkosYUXtFTUF3YNjyyeTw
-	 9zT64sQ5vktkhGlZRKrJ9doG0AXXPyBL6Wlnq7WRCT+60Ed0VbpuDWiDgztmNlxDke
-	 9Tq6yz1u5n/oQKA/XJJ888NWAqB030mviO+ul4lI=
-Date: Mon, 28 Sep 2026 15:10:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Edwin Gatier <edwin.gatier@protonmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH v3 2/5] media: uvcvideo: Use uvc_warn_once when it make
- sense
-Message-ID: <20260928121013.GD4406@killaraus.ideasonboard.com>
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-2-604328d8a0dd@chromium.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jyCQClIo"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so1555733a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:10:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790597422; x=1791202222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N2gttpqyYU6mN3+vG6WWAdW+b+2S6eD72/pblRbqkM0=;
+        b=jyCQClIo3AElUAT17p/0KgHrvYT2Om0M9F60+rFRfvS5uy6jckKuetSU+twm+bXrt6
+         8uyyghCQptypfw/PRpca5BDL/I3OhN/7kOAZWtFcZ8HjRtSXHyv/YapZo+Jv38+duMxm
+         6s8sCXXqPLJINgxS+Q3H/tz4FRu8Kf5WFksl3Z8P6QFgXdKj0M37QfovK3Auco/jOjMb
+         WuSK45TTsnPrRP4EucIhnoLvc+czM6Wia1Eq/QPsv7suTKCvuEZWgeEGU3bfJFeSXySD
+         C0f4OoEry1feLkS8kGu+uADBnWPx4mmfWbP7oyQv2qX1sZnvTLFYdkKXMsHqhHXRR1vY
+         2Ijg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790597422; x=1791202222;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N2gttpqyYU6mN3+vG6WWAdW+b+2S6eD72/pblRbqkM0=;
+        b=m8m2BS5j9DSYJ37u+Od9OhWE2jFNIl8VBNgs+ysg/fpziUG/+axVwXHGyFREo5p0VQ
+         KbkbdnrVjEzD4gHwCXK743j5YKKOebeAGkfxn4WqVaBPoY1gWBgi3Vjqp+PmEhke8tlO
+         3mxG/oohr40k/hQScyyYIE42ASTsx0k/usSaf8l6SekbCYfpXHb0q7h1i0VnYBE+x2+v
+         cqKSuWaiChtbsn589bLZqKlECiKx1TQmceiVKzDCqHOzvoGsjmIkgnMBjd+pUXlOkkBg
+         UkqCKyH5ol6rBib8IMWKecFYt1nyYhSgX2MqQZbe2RCUojSS5LsKa6rcRgwpk7gaeYFF
+         xV+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxYAwP9R8EvrA6a1umJ9QVNg+ZrIUmsIhAm4Km2mdZEzWHHbwtW0ShFQq5uV92DBYqNdWtAa5crbjKNroc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8xNU5qaWLAYomtwJv1tHEGdaNn9h0yTwj8yZa3NNYpkX0s/F0
+	2tuTLNTmuS2nyC/EOOOEJF1Prg7eImgyc2AxzjncjAyvXpizj2YHnN0E
+X-Gm-Gg: AYBFou0/5pznY1HwsZJpOtB010DuT7zZFxUSPd1fhINpIoUcinUevMPvfAHdDYBonlT
+	p4YL2Kfq7aqq5yjxkdxq4jJYdFLWy/18CQ82Gzyy1zscp0X7NSWtLyTypAL84ZJMQdNoW+AlFWf
+	9dqz8lXBn6//ppQeS1wJac12yVfAa875RxXK+v/rcJ8WlAoI89IjddabLObZ2hFzuruOdS2x51F
+	dpu6sJmZ7cez1MRkooZjXN2VTFUBI7AP5lPSYk5FFHVx6oBWuPMOmS1okIbSVFtskSN7xh700kg
+	3L+6jHa7mbznAN/6GiKuZJdJcQEh/b0fqSWGD7eVnsxvZ7uviW9WWmV/OWid2UBP3FhTPQt3nEs
+	nicjGvr+4Ir3PQhf9jerh7XO0GnNl8MlMHBDFiL/QG4GUjiNxNZRbcmMp/JIHsZcfRVUlb1vn+V
+	UcFBh0eE29xJJdr80Zl8Pbf2ZlJt08dFSwj1uEMi+xQ0opt8vAqVBVrady+YLeiTAUC9CiXEObO
+	ZND9c5W0rz9x0cXdnXr53ihLvDy9A==
+X-Received: by 2002:a05:6a20:2d2a:b0:3dd:a196:69df with SMTP id adf61e73a8af0-3de26f28bffmr7894235637.58.1790597421493;
+        Mon, 28 Sep 2026 05:10:21 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf85551sm4001370b3a.40.2026.09.28.05.10.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 05:10:21 -0700 (PDT)
+Message-ID: <e3b38169-dc4a-4a42-8a42-b017ecff73d4@gmail.com>
+Date: Mon, 28 Sep 2026 20:10:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-uvc-version-v3-2-604328d8a0dd@chromium.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/31] ext4: skip block allocation for holes in the
+ data submission path
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>, Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+ djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+ chengzhihao1@huawei.com, yangerkun@huawei.com, wangkefeng.wang@huawei.com,
+ yukuai@fnnas.com
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-10-yi.zhang@huaweicloud.com>
+ <arpDP43MIAGjaWYx@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <arpDP43MIAGjaWYx@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 01:22:26PM +0000, Ricardo Ribalda wrote:
-> If there are multiple cameras in the system affected by a compliance
-> error now we only show an error message for one of them.
+On 9/28/2026 6:36 PM, Ojaswin Mujoo wrote:
+> On Thu, Sep 03, 2026 at 08:35:21PM +0800, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> When ext4_map_blocks() is called from the data submission path and I/O
+>> end extent conversion path (EXT4_GET_BLOCKS_IO_SUBMIT), it should not
+>> allocate blocks if the lookup returns a hole.
+>>
+>> The writeback path can legitimately encounter dirty ranges that map to
+>> holes. For example, when a folio straddles i_size and the tail beyond
+>> i_size is dirtied via a mmap write. Allocating blocks for such ranges is
+>> wrong because there is no data to write back, the dirty bits should
+>> simply be discarded without submitting I/O. This prepares for the
+>> buffered iomap writeback conversion, mirrors the existing buffer_head
+>> writeback path, where mpage_add_bh_to_extent() skip unmapped buffers and
+>> ext4_bio_write_folio() clears their dirty bits.
 > 
-> Use uvc_warn_once() to print an error message per device.
+> Looks good, checking the iomap vs bh head logic. If we consider
+> a 1k bs FS with 4k page size, with hte following ops:
 > 
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 2 +-
->  drivers/media/usb/uvc/uvcvideo.h  | 1 +
->  2 files changed, 2 insertions(+), 1 deletion(-)
+>    ftruncate(fd, 0);
+>    pwrite(fd, buf, 1024, 0);
+>    map = mmap(NULL, 1024, PROT_WRITE, MAP_SHARED, fd, 0);
+>    map[0] = 'a';  ---->  mkwrite allocates 1 block and dirties the whole
+>                          page
+>    ftruncate(fd, 10000);
 > 
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a4399f..2a3b7431cc68 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -95,7 +95,7 @@ int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->  	 */
->  	if (ret > 0 && query != UVC_GET_INFO) {
->  		memset(data + ret, 0, size - ret);
-> -		dev_warn_once(&dev->intf->dev,
-> +		uvc_warn_once(dev, UVC_WARN_QUERY_CTRL,
+> Here both non-iomap path (ext4) and iomap path (xfs) will allocate a
+> single block but both will mark the whole page range dirty in bh/ifs.
+> 
+> In both iomap and ext4, while writeback, we skip bhs which are holes,
+> and we clear dirty on them as well.. The only difference is that in
+> iomap xfs_map_blocks() shall detect a hole and inform about the hole but
+> in ext4, we filter holes out before the map block call.
 
-I thought about submitting a patch for this when I read 1/5 :-)
+Yeah. In the writeback path, almost all of the work is done by a single
+call to ext4_map_blocks() now. This makes the writeback code look very
+simple and clear. :)
 
-The only other usage of dev_warn_once() in the driver logs bad access to
-the privacy control from userspace, which doesn't need to be logged per
-device.
+> 
+> So with this change we will be closer to iomap's behavior. Looks good
+> althought it's unfortunate that IO_SUBMIT has yet another implicit
+> behavior added to it's scope :)
+> 
+> Feel free to add:
+> 
+> Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> 
+>>
+>> In the ioend extent conversion path, holes are also not expected because
+>> we should wait for folio writeback before punching hole. If one is
+>> encountered, it likely indicates a failure in the concurrency
+>> protection, so ext4_map_blocks() returns zero, and we keep warning and
+>> bail out with -EINVAL to surface the failure rather than continuing
+>> conversion on torn data. Atomic writes in
+>> ext4_convert_unwritten_extents_atomic() already bail out similarly.
+> 
+> Ahh that's right we do bail out but we don't seem to be returning an
+> error in the atomic write path. I think ideally that would be the right
+> thing to do. I'll fix it, thanks!
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Indeed, thanks for fixing this.
 
->  			      "UVC non compliance: %s control %u on unit %u returned %d bytes when we expected %u.\n",
->  			      uvc_query_name(query), cs, unit, ret, size);
->  		return 0;
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index a80406f20beb..abcafd929c9e 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
->  #define UVC_WARN_MINMAX		0
->  #define UVC_WARN_PROBE_DEF	1
->  #define UVC_WARN_XU_GET_RES	2
-> +#define UVC_WARN_QUERY_CTRL	3
->  
->  extern unsigned int uvc_clock_param;
->  extern unsigned int uvc_no_drop_param;
+Yi.
 
--- 
-Regards,
+> 
+> Regards,
+> ojaswin
+> 
+>>
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+>> ---
+>>   fs/ext4/inode.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+>> index 7a5c74af8ff3..2881596bff8b 100644
+>> --- a/fs/ext4/inode.c
+>> +++ b/fs/ext4/inode.c
+>> @@ -825,6 +825,13 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>>   			map->m_flags |= EXT4_MAP_MAPPED;
+>>   			goto out_handle;
+>>   		}
+>> +	} else if (retval == 0) {
+>> +		/*
+>> +		 * Do not allocate blocks for holes in the context of
+>> +		 * data submission path.
+>> +		 */
+>> +		if (!map->m_flags && (flags & EXT4_GET_BLOCKS_IO_SUBMIT))
+>> +			goto out_handle;
+>>   	}
+>>   
+>>   	if (!handle) {
+>> -- 
+>> 2.52.0
+>>
 
-Laurent Pinchart
