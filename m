@@ -1,137 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A714EC673;
-	Mon, 28 Sep 2026 17:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4004EC653;
+	Mon, 28 Sep 2026 17:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617001; cv=none; b=J2nIX2rCMzHAS02Nb1AyUzq7yH9HNicwBVQ3+tF87WRkeNi8Dd/3PY38SBLsEUhdljQi89UFk8ZcUuDkBDrMibIY+coAb1aZWD8eoQQFITCgfH2ZPExSQ9Gw0IQ3EVX0XQVhy0N1BqJc5G9FHnWyrIAw870uhau0GG+SLbH0mlM=
+	t=1790617009; cv=none; b=OL3MS7IAYloP9Ye5qtakpxsBfv5ee4FdlUJTFO4ZRXumcAo/fAbO0ocIIOA659+sqaOhwN1Je36L0v0RrcnoWePoQykn7bqKUgA6F0zZFHhT51F3RNSWiW5S6xHONxZUaU7E9nv7Ai+3i/zOuDuwiVWHTqJaOYDoJfxA7JiD6eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617001; c=relaxed/simple;
-	bh=i6o4iwa+hxpDJwxlO5GTa38fuInhR3UBYSCwzs+8duE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JiGBRHTts4y8b/LbHCAAu6Igu4wXqh5g8gOgHPMfjivE+3+bDDmfz8uUvtsTxfVitneeJ0+Iz45kJWRkDWy3qkfbZkpT+r+02NacoUiubUj0OGhd6qCGUs4QuCubLFr6/XjrtXHptEw+IPWjt4RjZ03crwOH0BIjSIzMAMysUuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdVMt+Fz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790617009; c=relaxed/simple;
+	bh=mWiDXp9cBL2bV3GI3t1gQgk/lSAycgALIomUQLzG9Fg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=br2N4wFOQjf/RtAN13jsKAMSx6tjwLWTkiHvoY5o277ZcT8qInzKokD+kg1lFh+CBizCnmPUAxL4cLWigSlyAbQ2bMQmKci1PwqOcFekmfrjllYTFsvCbMn4bQpUBKRzN6QGEGwfzIz+WDb9KE5tYU/E705DO5KsandvT6JMJBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=DsuOKrL4; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdVMt+Fz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B211F000FF;
-	Mon, 28 Sep 2026 17:36:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790617000;
-	bh=xXafi02ZLO1Y0xc1WsCP1jTVPyy0rIJ0X6evEJWG+Cs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CdVMt+Fzf8G8t9rbknnGaVrM5SS+D6vf8+Yoh8W6ZNN6HA8AwFKbWq4iAqfZXz+Ft
-	 d6MVIyxwinfxhUDgeSbx7Dog/6xDVinP9/nnAQpm3L3BeHj6F2w9uLhGMX0RIwqRFp
-	 ow0hYfT1lH9zRieXdzWZTFJ3OuwSjepCBV16JWZsA0vXLvh1ZOhMNs5F+OsbJov4tp
-	 Rvcjcg0CXhk62W2ijvnpQb0dh5CrMyp0hQ+z20rlXdt1LlRtr6DDTzOnq5FPBrwN13
-	 /j0jojUVX3IMJsrMgcEwhZ5ROe55Wv7PFan2FBHF9O9li/r2rx/qWmXuyEF8Ks1t22
-	 NGObYvk9JQFvQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/12] lib, kexec: Add a secret pool for key material
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rob Herring" <robh@kernel.org>, "Barry Song" <baohua@kernel.org>, "Matthew
- Brost" <matthew.brost@intel.com>, "Zi Yan" <ziy@nvidia.com>, "David Howells" <dhowells@redhat.com>, "Dev
- Jain" <dev.jain@arm.com>, "David Hildenbrand" <david@kernel.org>, "Herbert
- Xu" <herbert@gondor.apana.org.au>, "Andrew Morton" <akpm@linux-foundation.org>, "Benjamin
- Marzinski" <bmarzins@redhat.com>, "Michal Hocko" <mhocko@suse.com>, "Johannes
- Weiner" <hannes@cmpxchg.org>, =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>, "Mark
- Rutland" <mark.rutland@arm.com>, "Kiryl Shutsemau" <kas@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "James Morris" <jmorris@namei.org>, "Rik
- van Riel" <riel@surriel.com>, "Usama Arif" <usama.arif@linux.dev>, "Mikulas
- Patocka" <mpatocka@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Randy Dunlap" <rdunlap@infradead.org>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Byungchul Park" <byungchul@sk.com>, "Paul
- Moore" <paul@paul-moore.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "David
- S. Miller" <davem@davemloft.net>, "Peter Xu" <peterx@redhat.com>, "Jonathan
- Corbet" <corbet@lwn.net>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Harry
- Yoo" <harry@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Arnd
- Bergmann" <arnd@arndb.de>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Oscar
- Salvador" <osalvador@suse.de>, "Pedro Falcato" <pfalcato@suse.de>, "Gregory
- Price" <gourry@gourry.net>, "Mimi Zohar" <zohar@linux.ibm.com>, "Saravana
- Kannan" <saravanak@kernel.org>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Baoquan
- He" <baoquan.he@linux.dev>, "Jann Horn" <jannh@google.com>, "Serge E.
- Hallyn" <serge@hallyn.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Muchun
- Song" <muchun.song@linux.dev>, "Suren Baghdasaryan" <surenb@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Alistair Popple" <apopple@nvidia.com>, "Jarkko
- Sakkinen" <jarkko@kernel.org>, "Ryan Roberts" <ryan.roberts@arm.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "James Bottomley" <James.Bottomley@HansenPartnership.com>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Alasdair Kergon" <agk@redhat.com>, "Will
- Deacon" <will@kernel.org>, "Nico Pache" <nico.pache@linux.dev>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Dave Young" <ruirui.yang@linux.dev>, "Ying
- Huang" <ying.huang@linux.alibaba.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kexec@lists.infradead.org, keyrings@vger.kernel.org, robh@kernel.org, linux-doc@vger.kernel.org, conor+dt@kernel.org, dm-devel@lists.linux.dev, linux-mm@kvack.org, linux-integrity@vger.kernel.org, devicetree@vger.kernel.org, driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, "Eric
- Biggers" <ebiggers@kernel.org>, linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org, linux-arch@vger.kernel.org
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-2-e511e9ee2329@jaseg.de>
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
- <20260928-crash-memaction-upstream-20260921-v3-2-e511e9ee2329@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 17:36:35 +0000
-Message-Id: <20260928173636.78B211F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="DsuOKrL4"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4htpQR4MdLz1XM4TB;
+	Mon, 28 Sep 2026 17:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1790617002; x=1793209003; bh=mWiDXp9cBL2bV3GI3t1gQgk/
+	lSAycgALIomUQLzG9Fg=; b=DsuOKrL4tCvJ6BdYwGNj+70yh64TRLaVuOf+HGwC
+	keIf9tAuxCFGbE+YTHKYv9hpn7uQSlbTGpZKvaKTtvtq7EmN1GB/fI0olmEkost5
+	iqOrc5+/euh8b1/q6AhoQS+0xuFeA6FOSHe87gXy11Z2EZnGZNK0TeunBO7UYKaF
+	Zi1v6vzr+3HfVLg0d7sQYMtpeKnmYP8KyDnCV6Fhrcjz5vgzfVjlZIcBIa2GC5br
+	NqT/0YFtXEq/+I7zqr+dwlcemYvQ0FllJUo2TgAXsFfx2WRX6pj4FqJKnDw198fV
+	IP6HgN0mpGFm1Mrjr0pg7UJW2cFIaLw2g0kj5yhCoGH0sA==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id kPp6LyesfQg7; Mon, 28 Sep 2026 17:36:42 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4htpQH08Jwz1XM4Sx;
+	Mon, 28 Sep 2026 17:36:38 +0000 (UTC)
+Message-ID: <9c6ab443-051a-47dd-80c7-3b023cc29d68@acm.org>
+Date: Mon, 28 Sep 2026 10:36:37 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] scsi: bfa: Use snprintf() in
+ bfa_fcs_fabric_nsymb_init()
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>, anil.gurumurthy@qlogic.com,
+ sudarsana.kalluru@qlogic.com, James.Bottomley@HansenPartnership.com,
+ mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, morbo@google.com, kees@kernel.org,
+ justinstitt@google.com, codemender-patching+linux@google.com
+References: <20260928090031.712418-1-nikitash.mariiaw@gmail.com>
+ <20260928090031.712418-2-nikitash.mariiaw@gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260928090031.712418-2-nikitash.mariiaw@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] lib/secret_pool: fallback to shared kmalloc inadvertently marks en=
-tire pages as secret
---
+On 9/28/26 2:00 AM, Mariia Nikitash wrote:
+> In preparation for removing the deprecated strlcat() API[1], replace the
+> chained string copies with a single snprintf() call.
 
-commit 774a436bfd0576d919ce17b831096d5b8c8dbbb5
-Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
-
-lib, kexec: Add a secret pool for key material
-   =20
-Key material allocated with kmalloc() shares its slab pages with
-unrelated allocations. crash_memaction marks memory at page granularity,
-so smaller objects in shared slab pages can't cleanly be marked or
-unmarked. This commit adds a secret pool built on kmem_buckets to
-hold such keys in marked pages.
-
-> diff --git a/lib/secret_pool.c b/lib/secret_pool.c
-> new file mode 100644
-> index 0000000000000..62954847091a0
-> --- /dev/null
-> +++ b/lib/secret_pool.c
-> @@ -0,0 +1,27 @@
-[ ... ]
-> +void *secret_pool_alloc_node(size_t size, gfp_t flags, int node)
-> +{
-> +	void *p =3D kmem_buckets_alloc_node_track_caller(secret_pool, size,
-> +						       flags, node);
-> +
-> +	crash_memaction_mark(p, size, CRASH_MEMACTION_SECRET);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this unconditionally mark the allocation even if it falls back to a sh=
-ared
-kmalloc page?
-
-The commit message notes that if the secret pool is used before its initcall
-runs or if pool creation fails, allocations will fall back to ordinary kmal=
-loc
-caches.
-
-Because crash_memaction_mark() operates at page granularity, wouldn't calli=
-ng
-it on a shared kmalloc page inadvertently mark the entire page (and unrelat=
-ed
-kernel objects sharing it) as a secret?
-
-In the event of a crash, could this cause the kdump kernel to wipe or exclu=
-de
-these shared pages, potentially destroying crash data?
-
-> +
-> +	return p;
-> +}
-> +EXPORT_SYMBOL_GPL(secret_pool_alloc_node);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-crash-mema=
-ction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de?part=3D2
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
