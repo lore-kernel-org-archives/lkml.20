@@ -1,86 +1,80 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3338E3ACF02
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95754349A5;
+	Mon, 28 Sep 2026 06:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577093; cv=none; b=T6X4NUiFlhWuMJMG0FjKlzq5GHIEz9sQlm+iemfhumE3Z8zVuJabk5POKZ11hb8P+sAdeIbKXYiBuhNmQQC5te7Mh778xL3MWaxcgB2+RQRZocNhg3GHBCLr+w6tEJ45bHiUTL5E5n5zkKHJTTfLUaHDn6dGV7gw6Ad8HrJBylE=
+	t=1790577113; cv=none; b=oirYbygwhRqKu7c3amwFFD77YfBHJzaLpZF0yrNHhL1I2QceA5X8c9l/gWOtLz4ubCzTcoOrVkODfttnGHwOO92GIeOooPXkMSR/YXhLAzrCgPxXah6y/XIc5syJWvSiqdubsf+WtqFTJZ0p6Esa3E2A8z2N7nPCuySoJaVX+fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577093; c=relaxed/simple;
-	bh=MOM6rh/VxJomDENxVfQZur4f9xuvpadnAtBuvABwyE4=;
+	s=arc-20240116; t=1790577113; c=relaxed/simple;
+	bh=9Il285388BxybXTDxTH1+2t+t53nD/PZTdFKZGc8FA8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O4wrihrmcKVBFQ5+6exKnocLZov5lC0oVOtiAlCCkiDSs6GiL6RFv8rrR+S9EHLQWHdX80vht4xDIEQSQXMY13Sa/2hVr3C+0UzCAn/RVgNZBVUEenyr4SirtYmcFT6wZ73T1fnxCxelUvmXU+yCqb7uHh0BWPkvOaBbzendgLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MNd9Xezb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EJxSSPHS; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=cxs/cKMDYAEYuQ9Nb1dSRrj5dbZaOk5REOozZn0Wre/e0n33xln6QPYesWe8kpAkcitAxhvr54AvqdBYMjaLAm3LVsU/9RyFvWYabzMa4YA/sNyNWI6LdqZFlrF2RnMKO7Y0Xoq6F8PHiRHDwdXDWUG2UZDRPmYaOX+FVxI6sLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PGxSZnNt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ABLGZDmA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RTpY1fyP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YXDKyG7u; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MNd9Xezb";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EJxSSPHS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790577090;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PGxSZnNt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ABLGZDmA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RTpY1fyP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YXDKyG7u"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6513221D31;
+	Mon, 28 Sep 2026 06:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790577105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
-	b=MNd9XezbQaZMqJrmMWhoavDRmqVILpkvdNXQYIoWYXfYsdCXBCtQAclA0IEEkzdsgB2l6Y
-	Jx8ssdP2DBI2rr1yi8lrYmOhUrm0rCS+CtAZQw+wgWVTKGUvyZOw+W0FE0Zlus75U2qKKX
-	JapxM1gvrP38/IeIWyCT50RyRbIq+Oc=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-1-HkpdfJmCMd6sM3e3FuM_4w-1; Mon, 28 Sep 2026 02:31:28 -0400
-X-MC-Unique: HkpdfJmCMd6sM3e3FuM_4w-1
-X-Mimecast-MFC-AGG-ID: HkpdfJmCMd6sM3e3FuM_4w_1790577087
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4888382a9e9so1352416f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790577087; x=1791181887; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
-        b=EJxSSPHStMa9+bvS3vTz2+/esNzdKte7p++b8ozRIb1wSbLv0G6TrmOY2J9Wc6vGpF
-         9w4SnP1UJ8bbGXjkLeFnTDl2+6rks36HRs5ZLHTb9kICYsYwKfQJ8oCGzBwurcz9EjF7
-         D6JJlO9TgcYA7jYG44Su394ufnvGsAFjoRAYRA5KLpbDctFVg7Ii4t8ToSt2+/OE4ziR
-         w0CIPUL0otglsyXHj1g9UiF1+N4EHnlHqIww0/isBEgGYrB6D1pKi7uo2ST6Jp3BzOrx
-         SeUNRnNzxLN80wFsCTh8HEZ7WK69XohfOcnTBMTJq01EplU4l2CSUWg8wUcq1oV1AyoO
-         jtDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790577087; x=1791181887;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
-        b=nEm6AYzdpzTX2tEXz2R0XUajGwiS4Nw3+sSOFZOFik2R5ILNlTUHaaGqJGtUtsvzMV
-         RGTRkLC32RmUHou3kZYekkpoARjagCSgUttkIEvK0qO0QhvYeYCVOtzM2KLD0zCf3Ixa
-         fPNZHkwisrWt/OvWnldUyOKfZwqDDmWQVQIpd7DgPY3urEfEYImi03m4zKV1BuA+X5vd
-         hfPvT9GHB4N7ojz9hxkfLQMrS7YNvQ2ubLZkR2zrPhhG+VW/yH7I0JDxfegACOVMBjOr
-         cMTRshONlxHvX8axD8VE8XChuA8J2joOBFQfqrV6Xba6wv1uOGxKyS5E0LVKUJEceFL3
-         qqgA==
-X-Forwarded-Encrypted: i=1; AKwUvBygO0o/6sGixI1FxTm/Nnb7pH1owDMV7pnwnQn+p3hfLu2goZwdwJNXBY0nZVqX4zRNn9JtJC9dDnh7JrE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJSGkVeWmMkr1CXcEp8VkNED0cf98c5rO+pckemv8XT3XriqRU
-	cZZhxopKTrQqrerMM3UIp//k1UAFaw3TP3xw8LsWIQtRlJ0fdOG7iMM/TL/da1gZQeGb2uqgOpy
-	KMs7GMXwEjQlpUb7Wmd1fPSzwEP/7M86FZDsoKWzk6xiurl5wfoe1RIk9R3Vl5TAvug==
-X-Gm-Gg: AYBFou3RWPYbsNjtP12kw3rqG1HpvDidPPZPFRELUm26atqjqYEVOLjNUeKxzQ9Fw/+
-	L92IislxJR5ntYFRwBubTkTLO9eJvsAKGxJx9QamLldX07nv8OcyVSP5GhZzeCTlqCuWzbu5wux
-	bzt+xwtIkSgqvmwsGz9VLGelPbltP1j7hMID0ZwqC36OJCItfZkqYk1pzeMN9de/vxFFhdsQlsD
-	+ndMwXLM1KopxJk8pm2LsfHcXZ1KkMyhocX677IORB52ZBsNgr2xQcDkIRnHBDYMt2NgQpU3oiQ
-	fyb96oQruBy3tj+sWD/6hW/BY/wU0qdmImPBdAGm9HQDNUxYMBySQhNrgKUPI8zcJe0I2XaU01I
-	y5flspGDHnSSfkgoVSXHrtkxMSNqVs93BChq4mGgtc28=
-X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr64209905e9.18.1790577086651;
-        Sun, 27 Sep 2026 23:31:26 -0700 (PDT)
-X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr64209625e9.18.1790577086278;
-        Sun, 27 Sep 2026 23:31:26 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:e10:ef90:d92c:7e4a:47e6:1b23? ([2a01:e0a:e10:ef90:d92c:7e4a:47e6:1b23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017656cesm110644755e9.3.2026.09.27.23.31.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 23:31:25 -0700 (PDT)
-Message-ID: <f49cbe7d-79b1-44a3-bc26-9182284a74d6@redhat.com>
-Date: Mon, 28 Sep 2026 08:31:24 +0200
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=PGxSZnNtJLiZ/ZJFkoLz58FtMKW99QZPDqNVsDvMoFRWHNJ1mvX8xCIQZsawXALCNsr3p8
+	J3zLKGw6LtSfa/Mup528JvdJBVYWSR9KHam/jFPXOJCu5rhphU/ESrjOwbh133vaWxxEEz
+	4WgdABxtwNrB+i/eoXU7lPHkZ7ViSl0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790577105;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=ABLGZDmAIOgZQT6P2ak1da6ELiW1C6dFzqx52k9DezRSSddkBpRkRN2sL65KGHnz9cuwtF
+	6QtHlclj6yKIdzCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790577101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=RTpY1fyPsjdZQlvQAEP2IV/0L7wujxktcmMHjtZskaY68baNv8DZGJ3G1dZC6nt0IqKV3l
+	sfwy1eSk7gg24rOtfZRih+vzIN96vYEU7UzA1sMterSRdqaos4akzXo/inRYatTMMpMS+T
+	3wzMkRGNQKwmfgrWDaEvczGsM59IVL0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790577101;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=YXDKyG7u8F6YWdZyuZJ3xKHtmHRf6spUbbDLENJB/SXNeI6UTrTXo4/wxJEuRkL8+0OAW2
+	xl9bnjCqv+ty8XAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0701A133F3;
+	Mon, 28 Sep 2026 06:31:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7RUqKMwJumpOfwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 06:31:40 +0000
+Message-ID: <21221a01-2533-44e0-881e-8225cd63fe02@suse.de>
+Date: Mon, 28 Sep 2026 08:31:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,84 +82,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] hwrng: virtio - use snprintf() in probe_common()
-To: Thorsten Blum <blum@kernel.org>, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: virtualization@lists.linux.dev, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260926055853.4868-3-blum@kernel.org>
- <20260926055853.4868-4-blum@kernel.org>
+Subject: Re: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails, not
+ just on -EAGAIN
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
 Content-Language: en-US
-From: Laurent Vivier <lvivier@redhat.com>
-Autocrypt: addr=lvivier@redhat.com; keydata=
- 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
-In-Reply-To: <20260926055853.4868-4-blum@kernel.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[ca23c8570669ead78867];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,syzkaller.appspotmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,appspotmail.com:email,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url,suse.com:url]
+X-Spam-Flag: NO
 
-On 9/26/26 07:58, Thorsten Blum wrote:
-> While the current code works correctly, replace the unbounded sprintf()
-> with the safer snprintf() to follow secure coding best practices.
-> 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+Hi
+
+Am 27.09.26 um 09:54 schrieb Nguyen Ngoc Thang:
+> __drm_fb_helper_initial_config_and_unlock() calls
+> drm_client_modeset_probe() first, which already fills in each
+> mode_set->mode/num_connectors for every connected output, and only
+> afterwards calls drm_fb_helper_single_fb_probe() to create
+> fb_helper->fb and wire it into those mode_sets via
+> drm_setup_crtcs_fb().
+>
+> If drm_fb_helper_single_fb_probe() fails with anything other than
+> -EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
+> bails out before drm_setup_crtcs_fb() runs and before setting
+> fb_helper->deferred_setup. The client is left with mode_sets that
+> have a mode and connectors but mode_set->fb == NULL, and nothing
+> marks this fb_helper as needing a retry.
+>
+> __drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
+> when fb_helper->deferred_setup is set, so a later .restore() call
+> (drm_lastclose() on process exit, in this report) commits the stale
+> mode_set through drm_client_modeset_commit() ->
+> drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
+> which hits WARN_ON(!set->fb).
+>
+> Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
+> failure, not just -EAGAIN, so restore keeps skipping the commit until
+> a later hotplug event successfully re-probes and re-populates
+> mode_set->fb. The real error code is still returned to the caller
+> unchanged.
+>
+> Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
+> Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Thanks a lot for the fix.
+
+Best regards
+Thomas
+
 > ---
->   drivers/char/hw_random/virtio-rng.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-> index 5b1b23b5596a..f9982217247d 100644
-> --- a/drivers/char/hw_random/virtio-rng.c
-> +++ b/drivers/char/hw_random/virtio-rng.c
-> @@ -162,7 +162,7 @@ static int probe_common(struct virtio_device *vdev)
->   		err = index;
->   		goto err_ida;
->   	}
-> -	sprintf(vi->name, "virtio_rng.%d", index);
-> +	snprintf(vi->name, sizeof(vi->name), "virtio_rng.%d", vi->index);
->   	init_completion(&vi->have_data);
+> Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
+> a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
+> idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
+> lands on a different card minor than in the syzbot report since other
+> drivers (vgem/vkms/bochs-drm) register first, but retargeting the
+> reproducer's open() at gud's actual minor reproduces it directly on the
+> very first probe:
+>
+>    gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
+>    gud 1-1:1.0: [drm] No compatible format found
+>    gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
+>    ------------[ cut here ]------------
+>    !set->fb
+>    WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
+>
+> On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
+> warns and then continues, committing an active CRTC/plane with a NULL
+> framebuffer, which escalates into a NULL-pointer dereference and a fatal
+> kernel panic a few lines later in our runs. With this patch applied, the
+> same gud probe failure (ret=-22) still happens every time as expected, but
+> restore() no longer commits the stale mode_set: no warning, no panic,
+> clean shutdown across repeated runs.
+>
+>   drivers/gpu/drm/drm_fb_helper.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index d4664ed468b2..0817b639b3fa 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
 >   
->   	vi->hwrng = (struct hwrng) {
-> 
+>   	ret = drm_fb_helper_single_fb_probe(fb_helper);
+>   	if (ret < 0) {
+> -		if (ret == -EAGAIN) {
+> -			fb_helper->deferred_setup = true;
+> +		/* modesets are probed but fb_helper->fb isn't; defer restore too */
+> +		fb_helper->deferred_setup = true;
+> +		if (ret == -EAGAIN)
+>   			ret = 0;
+> -		}
+>   		mutex_unlock(&fb_helper->lock);
+>   
+>   		goto err_drm_fb_helper_release_info;
 
-Reviewed-by: Laurent Vivier <lvivier@redhat.com>
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
