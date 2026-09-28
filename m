@@ -1,26 +1,26 @@
 Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021105.outbound.protection.outlook.com [40.107.51.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B701C49AA22;
-	Mon, 28 Sep 2026 10:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1DD49AA56;
+	Mon, 28 Sep 2026 10:23:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.105
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590985; cv=fail; b=m6GxoyQP0mSjRRV794xLbmPqp3fa6U4ItMABRD9wHpjGbYq2SX88yYkZVO7wXwga30Hg2/v+itE5nnPKAvnafGcm+HNOvB9Xh9TnXpB8XZ1fy3SwJ1x3e75ctIUFjY23NN/J9qTBfWVeQ5t7VX9HIxS4nMQx3lS4Vj7M5EmPNAA=
+	t=1790590988; cv=fail; b=ib1PsbO1WKXKYgNy/YICNrZaXNP1kM0vdDnGbDr5/RbgBZ7bDwFfV1WIWuv2Qi+siTLXycZ2GwYURTiFFeoLBCYv2IBv6u118/Fcdp/U4vdfVybn8t7+/bUZQOIPZrLTrAruDU70jQHGRA0Vn8frl9I2E5qvrHpWRrXweq6dfTI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590985; c=relaxed/simple;
-	bh=s5RJfnVijL7NATKK59Dk0qP0QAwTnfK75THPXI8OEps=;
+	s=arc-20240116; t=1790590988; c=relaxed/simple;
+	bh=Oo7rxCLCUKM5Feyknh5ybAj41e1uZvWnI/ju2hMhTqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sxd0dXhhdMB9bXPvsvb+SigP4MWcWtHeLdz9QhQs9jZ0mAU7/WT0TwceGmYqv7U8PCYbfmNjqUaVaGf151sHwsHj8EuDegjAj6DIEbl1t4IFdn7VQELPqpdFMip+O4SagNiGP3JdWuJEUitWPYGo/8n7eyLhqayZ/Oje0pE7vPk=
+	 Content-Type:MIME-Version; b=BoNF2IXsQ5fxyyk1bo5LYzJQab6DWDR7hAj5Vy3LAenY0bSNosdCp1lgbW2sTVIKrdaf4hQTB7MLYVaBNhNMQvG82wKjlNTbyq+U+ZycTKcpG0YETCNxHpxdbmvQCfm6UEzD2SOOjXChoQZPYPQE7CHK5BmeaE5HAj9i75Judp4=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TKZ+Xuk276bz48Y+BWAWP7/Afl4hx4Wh+ySJnJrZmFtzBGdluuQGeE9xe8d9jJzfoeg5yqjJtaeDWjV4q3QZ3sPypTXr1lXtUqq98uzlQTx1nvT3fPN2c8Zw5q6TmQrUZsTYcr5V15eytzZ10N1BcfbnmFRPvZN1x7JHdrlW7Q9yzwp7w3pVEU+PMi+xSgMPs/39gaRX5IQwXsWxUgMSQXxy1LVcDVSnyV2VPXppkXULiJ4IdXOoBdfE9YnGlYfriCK5634eYh41NwFiJ/ICJhBUxSigqoGuNNOAqBBNQfOx6+u2GmOJE5VF4MbGTqvJGZVxD8THLZYheF4XE6NP8g==
+ b=J3v6y4vAAHBcF+2v+zIjuMZJButZuWhuDVNcafa0RQypR/p3d3nveNm7++LQT7DNGvoKyQiKGNU9d7fouVGmnlI+uY/fQ7iiWOy8AywpW345v4gu+D1XRqd4dBCU9m8RrsPLe0XjN5hzhvfVBfydlhHViHuCqk5NqZi4dIcar4yHKsP9jKt8BdpNSVbchnq9eHtVceMUb21H+Yn+S/vWInyScYnH5LqgWGYC8pQSbqAZ+lDp8qrnWn8EbBXSWJ9JhRCJwqG81GJb1NCdqXZFUzm91x1vgdjEMA3PjipQjduP8XNkqhEDrym+Ak2Q8BfwK6yKnr9AyPgan29cntvLXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hZk52hNgETBIzbjMYjTHS22xdRTb072cI9SprWlxAqk=;
- b=oKJLTbVk2bReBiZo9TMtZtl/oxj3CJ/9g+A4rdN7zobKF1ZPe9Gwu0rQVGsBIhpj9PLBbuOgMz4C9qqJqYL4oaxBoD9MwNZ782Zmt+1jBij0UIRfKnKCVVKQiEstX3cs0cgh1kDXz99tsJ6XSyGzBkl5nhT6/n4NA28lksZFjDT6nFu+9tiOxZHtBtbbEHosthEb9oTb9P+IpGXirejJ7zWggKmy33wEJTF6x7vK4Kr6wL0MHPFAe+N6gTz4NqdOBRzakkhWvulYPClAyiIhc5u+vnNzeYQ3XZY3JyHkUfVW7yx+8iOFlx/CI2RMGgPbkMoQ4FnsKCqTmxL+e019sQ==
+ bh=/SKf5W5i1EhiZsuWkDMijEPNiuBJuxK2EntiQFy9/ek=;
+ b=Yx+EtiLK1SYwGBWYeWvyhse4s63d/xGIdAHB9xq05mq8mT5eKHCIKQGPFR+7QP86dQNz8XWKk6RODkIDfGI9lA6ZMYb1GD4PdpNqFRGdbotYN+AQRNeRc3z50yx47HdOwYAXVZBWl7GrHF0Rk/rTMmVcTP1gYdQ5ZGpiqm1HADCdp93/ZIpeZ3pVr1hx0w0QSlMBtPhumrMIZa7XeKoTKhO3DyB6PhL7zlkbWMcv4yrG0rxvzNrlOyPBq1oEj6CMjqS38E8ZNoSPPgrvJQO6PoyglV/R3dbvGkZX/6scqUxMl7Dk6WrE0l0VRw2ESFY/NSRQ2h5FXUBH2VTt2pofYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by MAUP287MB6171.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:226::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
- 2026 10:22:59 +0000
+ 2026 10:23:01 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 10:22:59 +0000
+ 10:23:01 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: linux-media@vger.kernel.org
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -47,9 +47,9 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v4 4/5] media: qcom: camss: Take the link frequency from the CSI-2 transmitter
-Date: Mon, 28 Sep 2026 15:52:36 +0530
-Message-ID: <20260928102237.533341-5-hitesh@ebytelogic.com>
+Subject: [PATCH v4 5/5] media: qcom: camss: Create the source to CSIPHY link per endpoint
+Date: Mon, 28 Sep 2026 15:52:37 +0530
+Message-ID: <20260928102237.533341-6-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260928102237.533341-1-hitesh@ebytelogic.com>
 References: <20260928102237.533341-1-hitesh@ebytelogic.com>
@@ -66,291 +66,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB6171:EE_
-X-MS-Office365-Filtering-Correlation-Id: c87e94c8-972b-4f82-d448-08df1d4a787a
+X-MS-Office365-Filtering-Correlation-Id: 7b2a8a64-d981-4229-86c7-08df1d4a79cc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|52116014|376014|10070799003|23010399003|1800799024|3023799007|10067099003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	CcfSYepuAap3KHLAdlkA2AOe+ULY+OFURIf7wSo8Mh7nWUOPUjks6X18tq2xlYj78jk7VjqXB8o2ub3wsPJ2oGcYcIZqlAIG6k4kh3ePqygU0VcheahVX1iPl+g6Hii+bEkEETCy3UwEV2rjmj+INaPKuKEDeegOEhAKXhG+wGSOhmASi+WipPAiOoV7LcQIW78+cVxovBV6OJGZYaiV83uqch+j3zw0R3EqZBNTID1phJ6jIeZRLTSZqF3u1Pae+AGJ2BkOlNmkt/5LSyK3nIUU8BKdyfiXJaQr4rkl90ADthxEoVMzB4DBP9IPe77kLDFWzg+OlxJPi6mKOq7FM23WgenBB7eMdtd9xeb/7gQiFiy0WMz8jRLEOZyr6J6dC+aU78rBRxpF7+rlR8l/tx4DcFQ5pLOW3G/vLRSB8zGpADAo2SX+5PYjRIk4ZaC8OMS0D4DYfrp5RGucgzTjGZnth77FM0LmiGM9fHh3fh9PB0pqIlhaczkpKAasMTFSKGFGWSSNy/ykIcESnNzhCistdEzFsDgWJvx7Cm7OuOnM42jRUij0PFApQrGKNBbT2KkhrKj3Veb+ANXtgUDkd8jiDTfGLBEFCObZt6DEnzrZz+/YzJ2anIgeDv8Xv49UO+j6u1zN/EWEBJHsjq/nvgDhlrg5Ju29a7VbvDXr35k=
+	V2OfTAtGCsBevcN+A+nDqOGpoyvWzHs/2urzVhow34o48GyuS/I3dJ7GKVwUklJ72TnoQq10SbPPn+IlEZDpSvhsbf7tTHEkTZ6SVSKndegX6b2N13+sh02dVkMLKBtuKZXasPetf+2TCPWtt8NWPT7gAqhJtokQkhCbAqSiCyReSPicdmExV5BxV1IKXSfK6rZJgkfAnzG+4z4xn3KwqTHVAxMiSP6UJ70RlegcsZrpPQw5knAgQpmc3z9CdimWby8tEiVmodHTV1XpvWis8Pw111urtWGWmIvng2DpVPBZNNhpJ9+2f+4IJAYzIr0B6B4ihYoQyQv/0simXWId7033XC96kjMqWuVzArg5gmCXfaQbuypxVO7rZqd+xYlxQLVfNadDVjSKs/bhd9sYcOkA9kGHc+lfgMmh90Kxw4Q/z1wVk7gwysmEQCkxIO0VtIiXW6ge2h7uLj8QV/E663CqmjCM1rnCbJuC4yR+3mgIcaFRCvCReus43xOTG8ry+Aa0+F7qgffvRUc//qN2Wv7mj7ISj1RqmWN7A81MFncX6u53CIYRMQHWzQ03vnXxxup/fqUlAJIATjXq+bklqF6c0O9avn6qfwlQdmrHtMekgLq3hO/3NwG3CeEpT0fWgVe+vqi1nGTtIKSb1KX5OxL6I228QgDJS0VLiq1b+RM=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(10070799003)(23010399003)(1800799024)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?gNTrivYREP5zG6VsU3xvKJE1H90tofK8jvGnTk4DjrwUwSm8ivbSiT78tDwS?=
- =?us-ascii?Q?d4AoDL9dDwX7IlTwzjnXdY8nejVNYAv5hqKnvFIIjf7Un5K578oq8NCf8Qkf?=
- =?us-ascii?Q?EVB5ocnvao3MQUBepFGCdkgNUMDrPf/IgGzaEFvLLzhITj2o0nuYVC80dxO0?=
- =?us-ascii?Q?pq2REcndRxfXgCm9ErCRBy41YyZDdypP/fbKKI9ceIC1Mq6YcSz2akzwwTz8?=
- =?us-ascii?Q?Onucsm2o2QB99yPlug7V7ph10S0HFXE4zGwynE3wJbr/GYybhYsPqcRRGqvq?=
- =?us-ascii?Q?LULY5Y7moSRoMu62wUuSGvNxI1NlrfNUG11VPDnxJwytsFfKU7pGzQYc2G3P?=
- =?us-ascii?Q?wXzVOACn8hdMEc5r1qSHYEXYaUoqYNew9PcNdJufWuTgoiCe+UhIHUbkuvBz?=
- =?us-ascii?Q?gjoYCxW/pfsd/NOt2Zw4hX2SAAaSd/zftx2Z1/IyFY9aaK00sMPYYBq9OaZg?=
- =?us-ascii?Q?9ohOtJ1lAy/yYLMSq6tGku2nsSNAoiUVyoURbjAAGZhc3xsBhVUUNt930/ml?=
- =?us-ascii?Q?sVkBIAUL/62KoEZP5XapTDgsQeKcmoLx2keAUUO1zH93UBzvCYqN+H7j9STh?=
- =?us-ascii?Q?m1waoVaHjVAb/IoDA7GZGwqrbvzlerVR/odrpML3Q1d+JQ/z0qOd/EHlrbVQ?=
- =?us-ascii?Q?sHGI/GPjHsfVc7h4Iu4d8LblTR3WxGmiiq0MD93GpjmtWCntTupgiOBEd4Xd?=
- =?us-ascii?Q?1dhGiohdb8VRwsaZ6krsse46pYNcyLrNz/DZ/h59W8cCJLzpUNfFsv8aY/Of?=
- =?us-ascii?Q?mlXqKQz3eTVLLeebiKMRyGUi/O5srtpwTRt2E7X7LJVFYg9LF1/Ji29w1UiX?=
- =?us-ascii?Q?bVjlHAGERpqdw4kf9iI7HqvPIjCO1Himwrd4u60LlyV8wHSDU6NbrrWwIMBK?=
- =?us-ascii?Q?eGwk3r50WpHMd+fb1OVDM8zWoOyjhrJSv7EfxZrxHg/TSTpEFMR/9M/3Xiqw?=
- =?us-ascii?Q?0QBg/jy0zj/BVsY+k9WwiFraUlteydGWz9H9YOkZij9EY2qDHT8S3SJ9bKVF?=
- =?us-ascii?Q?PWiGlk049ezWfKQE9K+JHSqQlp4jqUdT5JdQIjxs4Q22ywIC5j4wQ6H78FMj?=
- =?us-ascii?Q?uHy/tTJ37po3UNnNVSqRUddfmJZMXHA2gBPAaOn6I6ght+RHn4hh85Y7RNzg?=
- =?us-ascii?Q?+c30WawhGriDyBrGwZDdIebeweWTMpwuXwVpHEATLbWNYA0T9MbIIFweYVnw?=
- =?us-ascii?Q?xgjmf7RufNwIxGGvte4wyiQGerrDHZlL8QAnL/wPfEjl8WYoL0PnJNDM5ufp?=
- =?us-ascii?Q?mpeoA+q3urhO3Uo95lLS1EFlW+/Gw/Af2AesRc3pmp3OjdW+F4NgKEBwoXyu?=
- =?us-ascii?Q?I3nwPq/j2CMxhkQaA4G2Ky0MrAtN2CdMDvXoT3+xZlslm0ZLW66TWBAK67OF?=
- =?us-ascii?Q?v3tjA5om1ohJW0PWtQVlvJw0jtlUiqjRp9q2G6zy/udZbwveddIp/0T7ZQsm?=
- =?us-ascii?Q?6O5KJPXcQEdn75XoRbjauTEWfaBw+UjzGHdXhUDYUVrrh/Z5iLDoIY+Olvww?=
- =?us-ascii?Q?WBv9w9f+RydjGvTV0WTMeB+88ASP7lSVmrcAIJoxfIM0hzvylwggx7ufdFDo?=
- =?us-ascii?Q?KnZ3MkEovV1/Cys7NeX6E7uKAXkwqKKbai3vITAwok+Y3E5GSNx5ZdZRkIiC?=
- =?us-ascii?Q?D24Z3HkFQz8w+DZjX9G/N3EaCwpWYDIrsfoD1pnKvZMVefIq9pwI3RFSCCBS?=
- =?us-ascii?Q?ALdcgN7A2My7B8p1duFfeLv++QjQ8+6HJ/5sllSTjO99I0izTxX/a+ca57hG?=
- =?us-ascii?Q?5VCiB6tVpL52gBCif+NDzenJddwRktkRRLlv3rSzP4y9uurAQdKf7EgIDzBz?=
-X-MS-Exchange-AntiSpam-MessageData-1: vO0rgEMw9yJYxA==
+	=?us-ascii?Q?gZ22UPuv4L7cq/mG9h8+1HkbAuacigX8v3Dp3z0lh+uFLKoJ7eo3pmmIiTfp?=
+ =?us-ascii?Q?H6uBjDOFmEJqUugdzNyn3fd/r/FnzOdtq1H0tSbXw/SViRLQ/syQ6vAI6gHJ?=
+ =?us-ascii?Q?AEtl+JyT8UKQ0DREnMH5Kgakjpg7oiIlbIH6RbmTAJAbFl3SguWEuC4gt7se?=
+ =?us-ascii?Q?w9pFtXjkaHJbBpeb6gq3S0jxqMem9PrS1P4LEa3s9OVWbnlTuIX8P7wT0Qs0?=
+ =?us-ascii?Q?/N69xtrK+hGDHbTf6MYwaJc8LNOuschJr2gz9UKrbPJpZ+a8tyNdnYJNDVjW?=
+ =?us-ascii?Q?por8IXG7KElTMiI412L3uHSje92MoIM6LMeg2E6YnhRuHCp3dhtYEmoGxeyy?=
+ =?us-ascii?Q?MiEPoCrvSCeIqpwjlDRLTz9ZLpUxIWZvGv91SVBoIXipIpNhL/TlCjuWtaGJ?=
+ =?us-ascii?Q?tRupQvwVJr+6CyzbojHi9/FebU/zpozjVvoUujtWIXLsD/e2GI6gRR2/rRQG?=
+ =?us-ascii?Q?4KfYdbg/j1ZqSzqE0krnaLQJ5rth/PWBQHDaYfu0Vo1UKfkcTdHDwttBcWFl?=
+ =?us-ascii?Q?PWEvgis9JjXNewd2kXynT6y7ZYqcrOGGsrysaaTl2tDTJzJa0Vgys8ig9CYl?=
+ =?us-ascii?Q?87idS78ifJBVeLgAhbUNptX1MvGZSomcB9Tv5bEnyFmYGzmj+ImBYdFmZpvR?=
+ =?us-ascii?Q?eppOhSQr8+lN4/5rZv0mSCPyW+5BIbOkWIsdDIwA+OcpssvI9dE1qxO+zGLi?=
+ =?us-ascii?Q?2xEi9S0Lvcbo+J5/X+/XXpIcVsnUJMZQgQlThJ/iYHLnpfm8qTdIBIY3/C8W?=
+ =?us-ascii?Q?DfgYCkSBTzvGPcuzIhRfyEJypMC+QfJIU0+g2X3u+2JfZHH51sImLF4H2uOS?=
+ =?us-ascii?Q?YxiefaqBT0sq/UOIRVGWJaVhPzmi3F7j82rQtP3W+SGAGgDE6TkvjBn8pyjr?=
+ =?us-ascii?Q?js8NQReaOQiVDy4zlYMRD6sfju3I7D6SAtKmO5zrLYCW+KE13fLVeSnXBsM3?=
+ =?us-ascii?Q?ZthW9pHeyJ8OHZaCd3RvxYkpoEtvpN5abXlt6X7a+YBDe0T2/Tt1ANG/UGp9?=
+ =?us-ascii?Q?kqyUkZohvV0HInNlgUDEsK7icsFCDqjCH1SJaQfDXU8MURqb1knXs+aYmsB6?=
+ =?us-ascii?Q?wfyA+GTZolW7y4Ob2ko9FQGIdGeFHmP0DdJBcnGtycu9eIId6qMcl2tsGfBf?=
+ =?us-ascii?Q?0kAamjLSlICmxTgnS9gOZZYuzEBfWecMjCllnx1q5KWGuucH6SU8hPhbsAjK?=
+ =?us-ascii?Q?m2tn0hMXI4t2NV02dX/AcF2yrF/EmfEBjXmEwqnhD/CkKipgFUlPvR0cL+lg?=
+ =?us-ascii?Q?zKsy4We9y26h9n5jbHXVFvvfBaIBmpBBFFyGe7dbbpzZWH55zI3lfqQ4+x7c?=
+ =?us-ascii?Q?3zsPj7VwcMgmy/K1z8Gt6IDiPu6LK/gyE7owgt/E1E6+8coqyrwMWjpKtGWI?=
+ =?us-ascii?Q?3sd8d5hg0VIKwbTYK9H/KXtijscI7ogTxC84/buRBLUTyk8DKj7l2cUWgOd4?=
+ =?us-ascii?Q?vGNndmQTScUHoFdIY0SOd7KmsgvlIj6Ib7OUJ63AFJMXbf6QauHjswBIju5j?=
+ =?us-ascii?Q?TuI2KZOB7rEnA590e3/PL1pFut9XibM44cVgYeIpgC7nq8KJAs81HFLRedzq?=
+ =?us-ascii?Q?2ehrwnJ1K21jx5SP04SQzB16anTFwJdtYpMbPrLGQ4OCzbohNK9ke/+JSiCc?=
+ =?us-ascii?Q?YZcZ02crvVHlUpzTp6ilq4BXTSKE5pE9qW7sm0124tFVOnJqJWLOy6+94y4G?=
+ =?us-ascii?Q?NGiNYrcP1eEQ5YluKiqx9X6IYeTo4phci+SCPdRTtgfUlMo5k2XB29+wHkBp?=
+ =?us-ascii?Q?FhrRpbaa27r8foQzoMEgKr/UDwLj0N89ZZKHmEJD/8gOqeJWkzS32xbPAvJS?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9NSz7Ni2RNKKnQ==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c87e94c8-972b-4f82-d448-08df1d4a787a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2a8a64-d981-4229-86c7-08df1d4a79cc
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:22:59.7235
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:23:01.8964
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MU4ThzlyKNXxnAzftQCZE4/EPumsK+Klsa4OgcyE07v7EzMzlSVl0zm69Xq9Z2JuW4nYuUdxCLyaHKco2maMaQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSdkuP3f5Kmr/8sFWrTmXwBkJHyj8d+6d+0VU5fOs1MA9CW4l0Nv098qwiOPr0nSMQb0UQC4c8TI3a4uUX4cng==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB6171
 
-camss_find_sensor_pad() walks the pipeline up to an entity with the
-MEDIA_ENT_F_CAM_SENSOR function, and camss_get_link_freq() reads the
-link frequency there. The CSIPHY settle count and the CSID clock are
-then derived from it.
+The link from the external CSI-2 transmitter to the CSIPHY is created
+in the notifier .complete() callback by walking every registered
+subdev, reading the CSIPHY it was bound to from sd->host_priv and
+linking the subdev's first source pad to that CSIPHY.
 
-The frequency the receiver has to be programmed for is the one on the
-CSI-2 bus, which belongs to whatever drives that bus. When the sensor
-is wired straight to the CSIPHY that is the sensor, and the walk gives
-the right answer. When a CSI-2 to CSI-2 bridge sits in between, such
-as a GMSL or FPD-Link deserializer, the bridge re-times the data onto
-its own output at its own rate: it may aggregate several sensors onto
-one link, forward one sensor at a different rate, or generate a test
-pattern with no sensor at all. The sensor's rate is then not what
-arrives at the SoC, and the CSIPHY does not lock.
+This assumes one transmitter feeds exactly one CSIPHY. A GMSL
+deserializer such as the MAX9296A has two independent CSI-2 output
+ports which, on the RB3 Gen2 vision mezzanine, are wired to two
+different SoC CSIPHYs. The same subdev is then bound once per CAMSS
+port endpoint, the second .bound() overwrites host_priv, and
+.complete() creates a single link from source pad 0 to the last
+CSIPHY. The second output port is left with no link at all, so a
+second camera can never be routed to the SoC.
 
-The walk can also fail before reaching a sensor. A deserializer has
-one sink pad per serial link and the walk always follows pad 0; a
-sensor attached to any other link is never found and streaming is
-refused with "Cannot get CSI2 transmitter's link frequency".
+Move the link creation into .bound(), where both the endpoint and
+the CSIPHY are known, and resolve the transmitter's source pad from
+the endpoint fwnode with media_entity_get_fwnode_pad(). Each
+endpoint then gets its own link between the right source pad and
+the right CSIPHY.
 
-Replace the helper with camss_find_transmitter_pad(), which stops at
-the first entity that is not a CAMSS receiver, i.e. at the external
-subdev feeding the CSIPHY, and ask that pad with v4l2_get_link_freq().
-The helper queries the transmitter through .get_mbus_config first and
-falls back to its V4L2_CID_LINK_FREQ and V4L2_CID_PIXEL_RATE controls,
-so a bridge and a bare sensor are both handled by the standard
-mechanism.
+For a subdev that does not implement .get_fwnode_pad,
+media_entity_get_fwnode_pad() falls back to the first pad matching
+the requested direction, which is exactly what the .complete() loop
+did, so ordinary single-output sensors keep the same link as before.
 
-For a sensor connected directly to a CSIPHY the transmitter is the
-sensor, so the pad found and the values returned do not change
-anywhere. Only a bridge setup sees a difference, and there the two
-other users of the old helper now describe the hardware better as
-well:
-
- - camss_get_pixel_clock() reads V4L2_CID_PIXEL_RATE, which for the
-   same reason as the link frequency belongs to the device driving the
-   bus.
- - the g_skip_frames query in vfe_enable_output_v2() and its gen1
-   counterpart is a sensor operation. A bridge does not implement it,
-   so the call fails and frame_skip stays 0, which is what already
-   happens today whenever the walk cannot reach a sensor.
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- .../platform/qcom/camss/camss-vfe-gen1.c      |  8 +--
- drivers/media/platform/qcom/camss/camss-vfe.c |  8 +--
- drivers/media/platform/qcom/camss/camss.c     | 64 ++++++++++++++-----
- drivers/media/platform/qcom/camss/camss.h     |  2 +-
- 4 files changed, 57 insertions(+), 25 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 51 ++++++++---------------
+ 1 file changed, 18 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-index d84a375e33..8827b51694 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-@@ -170,7 +170,7 @@ static int vfe_enable_output(struct vfe_line *line)
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output = &line->output;
- 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
--	struct media_pad *sensor_pad;
-+	struct media_pad *tx_pad;
- 	unsigned long flags;
- 	unsigned int frame_skip = 0;
- 	unsigned int i;
-@@ -180,10 +180,10 @@ static int vfe_enable_output(struct vfe_line *line)
- 	if (!ub_size)
- 		return -EINVAL;
- 
--	sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
--	if (sensor_pad) {
-+	tx_pad = camss_find_transmitter_pad(&line->subdev.entity);
-+	if (tx_pad) {
- 		struct v4l2_subdev *subdev =
--			media_entity_to_v4l2_subdev(sensor_pad->entity);
-+			media_entity_to_v4l2_subdev(tx_pad->entity);
- 
- 		v4l2_subdev_call(subdev, sensor, g_skip_frames, &frame_skip);
- 		/* Max frame skip is 29 frames */
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index d20cd4dfb9..a2ff6ae503 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -507,15 +507,15 @@ int vfe_enable_output_v2(struct vfe_line *line)
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output = &line->output;
- 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
--	struct media_pad *sensor_pad;
-+	struct media_pad *tx_pad;
- 	unsigned long flags;
- 	unsigned int frame_skip = 0;
- 	unsigned int i;
- 
--	sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
--	if (sensor_pad) {
-+	tx_pad = camss_find_transmitter_pad(&line->subdev.entity);
-+	if (tx_pad) {
- 		struct v4l2_subdev *subdev =
--			media_entity_to_v4l2_subdev(sensor_pad->entity);
-+			media_entity_to_v4l2_subdev(tx_pad->entity);
- 
- 		v4l2_subdev_call(subdev, sensor, g_skip_frames, &frame_skip);
- 		/* Max frame skip is 29 frames */
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 23f3cc30a1..42d8654fd0 100644
+index 42d8654fd0..c58306e574 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4594,13 +4594,44 @@ void camss_disable_clocks(int nclocks, struct camss_clock *clock)
+@@ -5198,49 +5198,34 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
+ 		container_of(asd, struct camss_async_subdev, asd);
+ 	u8 id = csd->interface.csiphy_id;
+ 	struct csiphy_device *csiphy = &camss->csiphy[id];
++	struct media_entity *input = &csiphy->subdev.entity;
++	struct media_entity *sensor = &subdev->entity;
++	int pad, ret;
+ 
+ 	csiphy->cfg.csi2 = &csd->interface.csi2;
+ 	subdev->host_priv = csiphy;
+ 
++	pad = media_entity_get_fwnode_pad(sensor, asd->match.fwnode,
++					  MEDIA_PAD_FL_SOURCE);
++	if (pad < 0) {
++		dev_err(camss->dev, "No source pad in external entity %s: %d\n",
++			sensor->name, pad);
++		return pad;
++	}
++
++	ret = media_create_pad_link(sensor, pad, input, MSM_CSIPHY_PAD_SINK,
++				    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
++	if (ret < 0) {
++		camss_link_err(camss, sensor->name, input->name, ret);
++		return ret;
++	}
++
+ 	return 0;
  }
  
- /*
-- * camss_find_sensor_pad - Find the media pad via which the sensor is linked
-- * @entity: Media entity to start searching from
-+ * camss_is_receiver_subdev - Test whether a subdev is a CAMSS CSI-2 receiver
-+ * @camss: CAMSS device
-+ * @sd: Subdevice to test
-+ *
-+ * Return true for a CSIPHY or CSID belonging to @camss, false for anything
-+ * else, in particular for the external subdev transmitting to them.
-+ */
-+static bool camss_is_receiver_subdev(struct camss *camss,
-+				     struct v4l2_subdev *sd)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < camss->res->csiphy_num; i++)
-+		if (sd == &camss->csiphy[i].subdev)
-+			return true;
-+
-+	for (i = 0; i < camss->res->csid_num; i++)
-+		if (sd == &camss->csid[i].subdev)
-+			return true;
-+
-+	return false;
-+}
-+
-+/*
-+ * camss_find_transmitter_pad - Find the pad of the CSI-2 transmitter
-+ * @entity: Media entity in the current pipeline
-  *
-- * Return a pointer to sensor media pad or NULL if not found
-+ * Walk the pipeline upstream through the CAMSS receiver subdevs and return the
-+ * source pad of the first entity that is not one of them: the CSI-2
-+ * transmitter driving the SoC.
-+ *
-+ * Return a pointer to the transmitter media pad or NULL if not found
-  */
--struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
-+struct media_pad *camss_find_transmitter_pad(struct media_entity *entity)
+ static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
  {
-+	struct camss *camss = container_of(entity->graph_obj.mdev,
-+					   struct camss, media_dev);
-+	struct v4l2_subdev *sd;
- 	struct media_pad *pad;
+ 	struct camss *camss = container_of(async, struct camss, notifier);
+-	struct v4l2_device *v4l2_dev = &camss->v4l2_dev;
+-	struct v4l2_subdev *sd;
+-
+-	list_for_each_entry(sd, &v4l2_dev->subdevs, list) {
+-		struct csiphy_device *csiphy = sd->host_priv;
+-		struct media_entity *input, *sensor;
+-		unsigned int i;
+-		int ret;
+-
+-		if (!csiphy)
+-			continue;
+-
+-		input = &csiphy->subdev.entity;
+-		sensor = &sd->entity;
+-
+-		for (i = 0; i < sensor->num_pads; i++) {
+-			if (sensor->pads[i].flags & MEDIA_PAD_FL_SOURCE)
+-				break;
+-		}
+-		if (i == sensor->num_pads) {
+-			dev_err(camss->dev,
+-				"No source pad in external entity\n");
+-			return -EINVAL;
+-		}
+-
+-		ret = media_create_pad_link(sensor, i, input,
+-					    MSM_CSIPHY_PAD_SINK,
+-					    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
+-		if (ret < 0) {
+-			camss_link_err(camss, sensor->name, input->name, ret);
+-			return ret;
+-		}
+-	}
  
- 	while (1) {
-@@ -4613,34 +4644,35 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
- 			return NULL;
- 
- 		entity = pad->entity;
-+		sd = media_entity_to_v4l2_subdev(entity);
- 
--		if (entity->function == MEDIA_ENT_F_CAM_SENSOR)
-+		if (!camss_is_receiver_subdev(camss, sd))
- 			return pad;
- 	}
+ 	return v4l2_device_register_subdev_nodes(&camss->v4l2_dev);
  }
- 
- /**
-- * camss_get_link_freq - Get link frequency from sensor
-+ * camss_get_link_freq - Get link frequency from the CSI-2 transmitter
-  * @entity: Media entity in the current pipeline
-  * @bpp: Number of bits per pixel for the current format
-- * @lanes: Number of lanes in the link to the sensor
-+ * @lanes: Number of lanes in the link to the transmitter
-  *
-  * Return link frequency on success or a negative error code otherwise
-  */
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
- 			unsigned int lanes)
- {
--	struct media_pad *sensor_pad;
-+	struct media_pad *tx_pad;
- 
--	sensor_pad = camss_find_sensor_pad(entity);
--	if (!sensor_pad)
-+	tx_pad = camss_find_transmitter_pad(entity);
-+	if (!tx_pad)
- 		return -ENODEV;
- 
--	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
-+	return v4l2_get_link_freq(tx_pad, bpp, 2 * lanes);
- }
- 
- /*
-- * camss_get_pixel_clock - Get pixel clock rate from sensor
-+ * camss_get_pixel_clock - Get pixel clock rate from the CSI-2 transmitter
-  * @entity: Media entity in the current pipeline
-  * @pixel_clock: Received pixel clock value
-  *
-@@ -4648,15 +4680,15 @@ s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
-  */
- int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock)
- {
--	struct media_pad *sensor_pad;
-+	struct media_pad *tx_pad;
- 	struct v4l2_subdev *subdev;
- 	struct v4l2_ctrl *ctrl;
- 
--	sensor_pad = camss_find_sensor_pad(entity);
--	if (!sensor_pad)
-+	tx_pad = camss_find_transmitter_pad(entity);
-+	if (!tx_pad)
- 		return -ENODEV;
- 
--	subdev = media_entity_to_v4l2_subdev(sensor_pad->entity);
-+	subdev = media_entity_to_v4l2_subdev(tx_pad->entity);
- 
- 	ctrl = v4l2_ctrl_find(subdev->ctrl_handler, V4L2_CID_PIXEL_RATE);
- 
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8ac..1560ad0dc5 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -167,7 +167,7 @@ void camss_add_clock_margin(u64 *rate);
- int camss_enable_clocks(int nclocks, struct camss_clock *clock,
- 			struct device *dev);
- void camss_disable_clocks(int nclocks, struct camss_clock *clock);
--struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
-+struct media_pad *camss_find_transmitter_pad(struct media_entity *entity);
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
- 			unsigned int lanes);
- int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
 -- 
 2.43.0
 
