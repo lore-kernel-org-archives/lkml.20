@@ -1,62 +1,64 @@
 Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D865E3C342B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:43:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658F34582E4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790581384; cv=none; b=Lqc+NCemorvVfFPTLXBhb6fEJT32qZIePOJIfR7MtfGw/d3Laf/qBE+8RS/YHdmVxnB+7AMVSpi62Mvd4m/eydCoHqZvtqIhBloj6Jt1zlxl09/srW19jo+FdpNb79nlYrbV3+3adHymQBMSxkmPBbq37K77h95axOPPNR3S4J0=
+	t=1790581386; cv=none; b=AIW9kHX+FX/H+zeOuJ41703QiRLDnba3rnZTdVMdj/nwcHTXTc4aYh7afXv2toXAS2I29QCVxgL/LmDIeAJw3Kr9KFocWKUXZdsYgJWqdN4LM9IlTZSTcTLw8toDAoKModpres222z9EMoFavO7v5+sABeaQAfB7iv22vKX4En8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790581384; c=relaxed/simple;
-	bh=lmGXDbYVJ4P/Gl0CZ3e6mbtv65rIVdEbeZHx2e/i/nM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I7JDRTIxVm5/de0NhHKbZB3BLjuFXWOMAiOK22hshA0qIkUrWX5oip5ktPwDNQSpiupQ0Z/CsJAJu7m01DP2diCIVsZl7YjhW5Sfde4VvxjKsV7zb+DdQppk+blXa3Chskmhas3AcnbSsxhoP4N1R8wNk6FkAc6AjiwNM1cAyY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=omOS5BWk; arc=none smtp.client-ip=74.125.228.170
+	s=arc-20240116; t=1790581386; c=relaxed/simple;
+	bh=/maAuU2cXcoFwqqh1i1IM9+QsiGNydJTSLLtQ4YaIVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Aw201EDpbRSrPes5o5FW9dcxtRMfu0LmoK7LxzqnTgUFgrcsY8frUWK4yk7woHiqgVRBl/BP8sbdzp9sThqijkdgBC7VprTuoUAOSJD8qG94F8fwHvQceD4PZ0eTh++pVYitO5a9awCU8lXqhTwUToWY/GUwo8X8KjOvhZaeOsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUR5AGA+; arc=none smtp.client-ip=74.125.228.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="omOS5BWk"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570a3030so183232966b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:43:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUR5AGA+"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2bca99f463so116407866b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:43:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790581381; x=1791186181; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FP+gLOszNdkYTUHyCbw8OXVGoIovDektjO/Dfou+tRs=;
-        b=omOS5BWkwlX4ewc3ESkuJOiefR/2MFY+cgnUQOv/0FEsbULfyVzGRlBGMi4rgoUPVw
-         ppqu/uqYXOTFL5RKgOdUMioQ3hGdbQvMpJjYw1p3rUUye6pjdnn0MCFafNKuGhiHeAEv
-         HWH8QmfRzWiVRv27mJ/rLPujU71W1aFWvoKaWz66r5GwFp4A/w1MQBJB8pWPDANBZEqJ
-         iaxltmCCvLJN8YQstdAVyJJuIXPhitUF8qNby2w0Jz23ldS3OnoW/cEJxAmGF3MTaqUt
-         ZfjoGLDjXnGPmkm8MVd4A0Kpnk5DrhQDRkYuRcBgHa3/yPv3dMI6Aj9VYaUjHTLTtQt4
-         Oy1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790581381; x=1791186181;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790581383; x=1791186183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FP+gLOszNdkYTUHyCbw8OXVGoIovDektjO/Dfou+tRs=;
-        b=BNzpAobqO2Wn/Cn8b024zh33IWATkTHIvdPfIrT+nA6GLrKQYmo7VTTEhYt4R8gu6x
-         FG17TkI8wKQhiNv7Mldbs+U4HKNUasM3DJgvAenCnetIUOXEnzpT7ysHlnosCK0blje/
-         MoWRMaQtWbzIoMYdTKvmSpRpf2Ro3T1u1L61l5fcmHxZebAgT1IYLsqs4Of448wfgafB
-         zKuWs9QfgGe6/OapcxGpLRLeX0tF+3rDmpP7nKRsGruRd5PFrWyQ9b48vRcWUgkhIAsV
-         c5GVjEvK2yM9xRYRefhZoBySfuLCA6xrDYjs3lM8TtmkAsGzPLAMhyDtirS2zUwNH26t
-         ytTg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3wnV6bCIzedDWV0V/6OghgBVLMzIvjFAFJL8dAv3cdDv3gZmvPE8l+LUsC41ijGN1AMIzgMhvUBlvJcA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKohNP+DQwNaXdM9Nxiln468W/sl6Dg88kOS5i2o+yLCnGIFcPc
-	I39gcvSN+behc4UWD24+VLouSRuB0wX93M76+C0uwLmGkDPpmw2EUNv1
-X-Gm-Gg: AYBFou1sVJDjhHI3IonPCVLdtIVUUzgNEesosa7z3BAdKO1kbwVD6IvBETCsPu20pH7
-	l1rpzMDrFDKAfX1WYTbJsnGDOlGfEpDxLfT5T+LSFZ6cKLS8GLHoxms4RpCF2tBVScpA/Ay/aZ6
-	TFaRB8fUWICdOMjP4xVMZK8oauyFDl//ZZA1gHuQhusbvqAsKUk60KSPT4jSn9oD9te9/5oOzhH
-	Dww0j3HeKSzKJjLOQKzYTNZvZ7m7NLxGCYXgAbhhmxiV04saa0n2tNNknBa9mFp3BgX1TAtvuGa
-	YnQqO3IeJODLi78z+auWiNr2eXdHWmc/s82bij/oT4J9Op6FqYgLNqXvkrQUn23r1wlMWv+/QMQ
-	QEQLecqR6lMCyL2Mti/3QopFw6N8fFumH9B6GSv5NlNTU79dCy91aHu0PMnK5wBmqxuLfaY+04b
-	l27erfszIYNhL3YutqaFinbfCJtkwcnIx8xReInALDLV/kaniFpueqMD3LUEov3bGwWBtzMkjmZ
-	ZESMyPYfG9jEuLP23V+F75/E/sDjt7vzl8EmLbw
-X-Received: by 2002:a17:907:1888:b0:c26:19de:9ae3 with SMTP id a640c23a62f3a-c2ac25ed786mr991954666b.34.1790581380877;
-        Mon, 28 Sep 2026 00:43:00 -0700 (PDT)
+        bh=qVqZK+W1DXYcQ0YoEfl36Lg8eRThXM+jLhpeG8h+ECI=;
+        b=cUR5AGA+miLrEE2G/6NFvPGarixvkqyRitS4D1Vov57qRy18esCGwFXUN6vCCbXuhy
+         VF2ZHdWW7rQGDUSWp2uRSEc3uAVaZUaf8Yx9uJj+VepT92YZ+ScPot9lbGpGoeDVexmo
+         eU/cg/TdhsRoy0VbW1l0s7let4w/zgMTo9Dz+ylREKmUXl26N/VxjzJ/7vAfgPD2FiFz
+         lxYhsoZxd1LNNdCj4e83LpQtZZB8kIDRdABD4rvBdKiDj4wxqAzXxyLWQgVQOgiRgjJa
+         nDeNtZmbBHvQaBIZXe2uYgHZty38wXMU0fMiSimIXuFYbq7O3kPmR0fLkax8Y3kzb4gJ
+         PvnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790581383; x=1791186183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qVqZK+W1DXYcQ0YoEfl36Lg8eRThXM+jLhpeG8h+ECI=;
+        b=HWcuKiui+3gDI4HCdVmkZxlmI0V6/WZsSVgYszybpnniO1214MLAu0vHyPgimqYtOD
+         zR2iFl1XwVKpY0Tqpr0ayTaDvN7cycSChIJvQLlGZn0wDqepg0GamiSw0Gcvfb3i2jBt
+         xFMOXjOLW6d8mNrUaqVw+JB1OMk70cYKKaX/v7ul+cikb86svOvRUfiTSmcgmsGixf4V
+         NNCVxRGPsrGjmGw4PGz1VLRKHkylleIkeMLmu3bfP+F5fxmEP0CCrijeEHnljNjQ1Pp9
+         CgGUhb/zkoA69eQZS0JgsjcSZqd8fDcx6sUZCS5+J3K2nXw15LvzglkaY9Fi4nEDPhLU
+         FnYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwabnGavwPnt2JGqRZDlZ1Aj/xfd/M/PfojvfaGRNEmXz4zZXcNRncTGw7LfLFGXJvx+u8T90W+jeWRuT8=@vger.kernel.org
+X-Gm-Message-State: AFuF++miJNjnwy6c+M8vN3LpTk6uMkczN8Xgp7lTTLa/gyxb+GNK7Pu3
+	6+q4FcOqN5Ng8HmXP6t5LFXmKrEN+C2icL15BwPZmBPo6u1M5Z/idSX2
+X-Gm-Gg: AYBFou1Y5zyXa6Zvg+YVLgivVrYg6FhvkawBYwoEITH5YnYvLdXYgJMr3jV2iCKCymt
+	9ag6kO/I6vHycUQ0eoYFeT8L09ylgh3j0AvPBM4gUnqx6WAKDrGYFBnhBZFTBRnTFkZDYN004YE
+	TirlwCwXdX0E1YP8X8oml2bEQtJu5ytn8HsaIuMFghTdeDCX3sRksupMs5zz5opseiZ3wU8eBAd
+	6WdG6iosd9vRvC2ar1Kskf6DXJJSgfoXeua6gVK4tYPY8scY0qQGF1C/WJ+Y25zhXHIi8lfAY1E
+	U/oAd7uWfpNDGxrU0HFRPtpusvaFUDu+qjqib47sRsFN8dDvtiyUBwcmM4FqiO9G0Qhj6IV+MmD
+	mRlCp9EQCKBVdKPwi/Vg7biTP7kvmqL7piYagtTnCC79SG1c5Bulp9mgVLwFw7xLbobXbLkMmBc
+	sRCBD9jydxpA5GVg0oU2ZP1tCZ+yRfd1iIHRRwmp0h0E20a9UWFCyIEYpTGEgTKrU0ZsxhzYLRx
+	xrtcApfWcidcdW83uLCo2Q9BiAmp99i034dmPE3
+X-Received: by 2002:a17:907:6c17:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2ac21f98famr1081946266b.5.1790581382548;
+        Mon, 28 Sep 2026 00:43:02 -0700 (PDT)
 Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76ac760sm419415166b.39.2026.09.28.00.42.59
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76ac760sm419415166b.39.2026.09.28.00.43.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 00:43:00 -0700 (PDT)
+        Mon, 28 Sep 2026 00:43:02 -0700 (PDT)
 From: Sagi Maimon <maimon.sagi@gmail.com>
 To: netdev@vger.kernel.org
 Cc: radhey.shyam.pandey@amd.com,
@@ -72,10 +74,12 @@ Cc: radhey.shyam.pandey@amd.com,
 	vadim.fedorenko@linux.dev,
 	richardcochran@gmail.com,
 	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next v2 0/2] net: axienet: allow instantiation without a device tree
-Date: Mon, 28 Sep 2026 10:42:54 +0300
-Message-ID: <20260928074256.462345-1-maimon.sagi@gmail.com>
+Subject: [PATCH net-next v2 1/2] net: axienet: use device_property and fwnode APIs for probe-time config
+Date: Mon, 28 Sep 2026 10:42:55 +0300
+Message-ID: <20260928074256.462345-2-maimon.sagi@gmail.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260928074256.462345-1-maimon.sagi@gmail.com>
+References: <20260928074256.462345-1-maimon.sagi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,50 +88,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ADVA TimeCard X2 is a PCIe timing card driven by ptp_ocp.  Its FPGA
-contains an AXI Ethernet MAC with an AXI DMA engine.  The plan discussed
-on netdev [1] is for ptp_ocp to register the MAC as a child platform
-device described by a software node, so that this driver runs it rather
-than a copy in ptp_ocp; Vadim Fedorenko agreed that a platform device is
-the way to go.
+axienet_probe() reads its configuration exclusively through the of_*
+API, so the driver can only be instantiated from a device tree node.
 
-These two patches are what axienet needs for that, apart from one more
-change - letting the DMA device differ from the platform device - which
-has no user without ptp_ocp and will be posted together with the ptp_ocp
-patches:
+The ADVA TimeCard X2 is a PCIe timing card, driven by ptp_ocp, whose
+FPGA contains an AXI Ethernet MAC with an AXI DMA engine.  ptp_ocp is
+going to register the MAC as a child platform device described by a
+software node, so that this driver runs it rather than a copy in
+ptp_ocp.  That needs the probe-time configuration to be readable from a
+software node.
 
-1/2 reads the probe-time configuration through the device_property and
-    fwnode APIs, so it can come from a software node.  No change for
-    device tree users.
-2/2 adds a MODULE_ALIAS, so a device registered by name autoloads the
-    module.
+Convert only the lookups such a caller needs: "xlnx,rxmem", which probe
+requires; "phy-mode"; the MAC address; and the PHY connection, which is
+where phylink finds a "fixed-link" child.  On a device tree this is a
+no-op: device_property_read_u32() dispatches to the of_* implementation
+when dev->fwnode is an OF node, phylink_of_phy_connect() is a wrapper
+around phylink_fwnode_phy_connect(), and device_get_phy_mode() and
+device_get_mac_address() are thin fwnode wrappers around the same
+lookups.  device_get_mac_address() also keeps the "mac-address" nvmem
+cell fallback that of_get_mac_address() has.
 
-Both were tested on the X2 with a local ptp_ocp change.
+Note that device_get_phy_mode() returns the mode as a positive value
+rather than through an out parameter, so the error test changes from
+"if (ret)" to "if (ret < 0)".
 
-[1] https://lore.kernel.org/netdev/CAMuE1bHr84n5LKcj02HmMR5XefPtvQ-UEJAx7+UKfYvRgS0eDg@mail.gmail.com/
+Everything else stays on the OF API.  "xlnx,txcsum", "xlnx,rxcsum" and
+"xlnx,switch-x-sgmii" are optional, and "xlnx,phy-type" is deprecated in
+favour of "phy-mode".  Without an OF node each of those lookups finds
+nothing, exactly as for a device tree node that leaves them out: no
+checksum offload, no runtime SGMII/1000BASE-X switching and a
+fall-through to "phy-mode".  The "dmas" test likewise selects the
+built-in AXI DMA engine.  The "axistream-connected", "pcs-handle" and
+"phy-handle" phandle lookups stay too: a caller without an OF node takes
+neither branch, getting its DMA registers from its own platform
+resources, and it cannot use the SGMII and 1000BASE-X modes, which need
+a PCS.
 
-Changes in v2:
-- 1/2: convert only the four lookups a software node provides:
-  xlnx,rxmem, phy-mode, the MAC address and the PHY connection.
-  xlnx,switch-x-sgmii and the deprecated xlnx,phy-type stay OF only, as
-  Andrew asked, and so do xlnx,txcsum, xlnx,rxcsum and the "dmas" test,
-  which the X2 does not use either.
-- 1/2: v1's hardware test was not re-run.  The X2's software node sets
-  none of the lookups that went back to OF, so each finds nothing with
-  either version.
-- 2/2: unchanged.
-- v1: https://lore.kernel.org/netdev/20260927073843.346910-1-maimon.sagi@gmail.com/
+No functional change intended.
 
-Sagi Maimon (2):
-  net: axienet: use device_property and fwnode APIs for probe-time
-    config
-  net: axienet: add a MODULE_ALIAS for platform instantiation
+Tested on the X2 with a local ptp_ocp change, with CONFIG_OF disabled
+and enabled: the interface probes with its configuration read from the
+software node and passes traffic.  No device tree board was available,
+so the claim that this is a no-op for device tree users rests on the
+dispatch described above.
 
- .../net/ethernet/xilinx/xilinx_axienet_main.c | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
+Assisted-by: LLM sparse
+Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+---
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-
-base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 782f903d318f..0f2170af9b10 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -33,6 +33,7 @@
+ #include <linux/of_irq.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/skbuff.h>
+ #include <linux/math64.h>
+ #include <linux/phy.h>
+@@ -1671,7 +1672,7 @@ static int axienet_open(struct net_device *ndev)
+ 	ret = axienet_device_reset(ndev);
+ 	axienet_unlock_mii(lp);
+ 
+-	ret = phylink_of_phy_connect(lp->phylink, lp->dev->of_node, 0);
++	ret = phylink_fwnode_phy_connect(lp->phylink, dev_fwnode(lp->dev), 0);
+ 	if (ret) {
+ 		dev_err(lp->dev, "phylink_of_phy_connect() failed: %d\n", ret);
+ 		return ret;
+@@ -2898,7 +2899,7 @@ static int axienet_probe(struct platform_device *pdev)
+ 	 * Here we check for memory allocated for Rx/Tx in the hardware from
+ 	 * the device-tree and accordingly set flags.
+ 	 */
+-	ret = of_property_read_u32(pdev->dev.of_node, "xlnx,rxmem", &lp->rxmem);
++	ret = device_property_read_u32(&pdev->dev, "xlnx,rxmem", &lp->rxmem);
+ 	if (ret)
+ 		return dev_err_probe(&pdev->dev, ret,
+ 				     "failed to read xlnx,rxmem property\n");
+@@ -2930,9 +2931,10 @@ static int axienet_probe(struct platform_device *pdev)
+ 			return -EINVAL;
+ 		}
+ 	} else {
+-		ret = of_get_phy_mode(pdev->dev.of_node, &lp->phy_mode);
+-		if (ret)
++		ret = device_get_phy_mode(&pdev->dev);
++		if (ret < 0)
+ 			return ret;
++		lp->phy_mode = ret;
+ 	}
+ 	if (lp->switch_x_sgmii && lp->phy_mode != PHY_INTERFACE_MODE_SGMII &&
+ 	    lp->phy_mode != PHY_INTERFACE_MODE_1000BASEX) {
+@@ -3060,7 +3062,7 @@ static int axienet_probe(struct platform_device *pdev)
+ 		dev_info(&pdev->dev, "Ethernet core IRQ not defined\n");
+ 
+ 	/* Retrieve the MAC address */
+-	ret = of_get_mac_address(pdev->dev.of_node, mac_addr);
++	ret = device_get_mac_address(&pdev->dev, mac_addr);
+ 	if (!ret) {
+ 		axienet_set_mac_address(ndev, mac_addr);
+ 	} else {
 -- 
 2.47.0
 
