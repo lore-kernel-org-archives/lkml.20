@@ -1,98 +1,108 @@
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31B81A681B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C9E54705E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560790; cv=none; b=AhKSvPxjQSAMvsRviAiNnLJ3tUMxHcoefDInWTftqr6XqyeCDreNLcVNP9RNoS7KFVqNiLQ9t3r6lMD4/UGD3Gsxtjrlh8RNre43CFRFRAaJhP7K7WKJE6owthtvJHYDV0k3yEj3qbUQixHUHpr+S435u9+ypZh5MdhY5X/4q40=
+	t=1790560829; cv=none; b=Bj1IxV9mjCqKYaQQr3y1AL3u/KjQ/59IHh7fVtv0u7bbbjOHnByDUChp5wZrMmCmXP0q8xx6zqKqy634G9vbht7zLIlxTaW3cgP27aVR43NU/XFur53qxAGVxJbl+eTfE15tqGzSsoqElAP8Ze+6mOzIbGZVCHeLVby1pccNlCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560790; c=relaxed/simple;
-	bh=BcqFNljILjUCpRPkdS11OgSUczWkfuZ6jLqgRCapH/U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cU8Jwqsg+T7VaORDsimTlcyInVUPqAgdsj7XFAtetuQNLEIyAC03wTzOe+rCY7a2gG8zjbUnYccgh8sbHJH/owZljFhmY03wLYq3B8ncKfo6WgUz+XvSfIciJEwmE/oEZIAUpkHs1SWkwn+1LF3kisNjFbzfOKrOLndFGKSjuis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uElmx2Qu; arc=none smtp.client-ip=91.218.175.121
+	s=arc-20240116; t=1790560829; c=relaxed/simple;
+	bh=A7C0cOCHyZT7e0S8ER1YNxiejjnfhDrIw0iXWc1d5FA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DbT9ax+6g/IM7HGE+QWol1ZKCOPxWAFWtZRfiyDmdcxg4DOu84/hatpbmv8xIgqjwWvWCRVCcbWDVPTVp0/s8/kqF8f1xagBZxeoXtOyJbYXWV0/xjG719q6RMJvchQQIdFT6lpZeD54RmVLdiO3wggPUbBmGoM33lw2GuBn6O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kxzs2OD/; arc=none smtp.client-ip=95.215.58.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uElmx2Qu"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kxzs2OD/"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BcqFNljILjUCpRPkdS11OgSUczWkfuZ6jLqgRCapH/U=;
+DKIM-Signature: a=rsa-sha256; bh=A7C0cOCHyZT7e0S8ER1YNxiejjnfhDrIw0iXWc1d5FA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790560786; v=1; x=1791165586;
- b=uElmx2QurfqyOBKvVv01kL0GN9zGPkXnf6SJYkbAl1EmIrE5DScIEK6w8GFWLZB8CFXbXkrY
- sDWlS6JocYM9T976nT3Mc9pvDCu7aM+4NgwIvB+nTy0ugAiogEk96kDKqow7fM6hNj++5I0W2HV
- LqoTNJX7I/WGo9C6SQ93x8aw=
+ t=1790560826; v=1; x=1791165626;
+ b=kxzs2OD/GQJviPN5EPN1qE0XDGxqyZZxMILTIoT5zXGI4ycEIp44drbm3DpRXdthtBPHrLgv
+ K7f4WOWdlLxYemeYDGbiKjIDSPh0SyfNt6PrGCYVxiUR6wf7jnYZRiiejsm4vEIGG7NQOL2JRGz
+ l6O1e+QHR1xWZgJBZzWdC2Uc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8140d4f261078bf9;
-	Mon, 28 Sep 2026 01:59:46 +0000
-X-Mizu-Trace-ID: 8140d4f261078bf9
+Received: by mta11.migadu.com with ESMTPS id 32a33e1614fb5b9e;
+	Mon, 28 Sep 2026 02:00:25 +0000
+X-Mizu-Trace-ID: 32a33e1614fb5b9e
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <5b775a0f-322c-45f2-939c-ad508490b4ff@linux.dev>
-Date: Mon, 28 Sep 2026 09:59:39 +0800
+Date: Mon, 28 Sep 2026 10:00:14 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: =?iso-8859-1?Q?Asbj=F8rn_Sloth_T=F8nnesen?= <ast@fiberby.net>
+Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Danielle Ratson <danieller@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: Re: [PATCH net-next v2 9/9] netlink: specs: fix incorrect
+ name-prefixes
+Message-ID: <arnJFLyI-idCF_OB@fedora>
+References: <20260925213918.204767-1-ast@fiberby.net>
+ <20260925213918.204767-10-ast@fiberby.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] mm/mm_init: add zone mismatch warning during page
- init
-To: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
-References: <20260924075259.2013039-1-songmuchun@bytedance.com>
- <20260924075259.2013039-7-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260924075259.2013039-7-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925213918.204767-10-ast@fiberby.net>
 
-
-
-On 9/24/26 3:52 PM, Muchun Song wrote:
-> For vmemmap-optimized sections, tail struct pages may be backed by
-> shared vmemmap pages. Those shared pages must carry the same page zone
-> ID as the struct pages initialized for the section.
+On Fri, Sep 25, 2026 at 09:39:12PM +0000, Asbjørn Sloth Tønnesen wrote:
+> Fix two invalid name-prefixes in the specs:
 > 
-> Warn in __init_single_page() if the shared tail page has a different
-> page_zone_id(), which would indicate inconsistent initialization.
+> - It's PHY_UPSTREAM_MAC, not PHY_UPSTREAMMAC.
+> - It's PHY_UPSTREAM_PHY, not PHY_UPSTREAMPHY.
+> - It's OVPN_MODE_P2P, not OVPN_MODEP2P.
+> - It's OVPN_MODE_MP, not OVPN_MODEMP.
 > 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> CC: Andrew Lunn <andrew@lunn.ch>
+> CC: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
 > ---
-> v2:
-> - New patch.
-> ---
->   mm/mm_init.c | 3 +++
->   1 file changed, 3 insertions(+)
-
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
+> Note for Sashiko/Clashiko: Targeting net-next, so no "Fixes" tag.
 > 
-> diff --git a/mm/mm_init.c b/mm/mm_init.c
-> index 1650d6bc1211..bd02e8d06965 100644
-> --- a/mm/mm_init.c
-> +++ b/mm/mm_init.c
-> @@ -609,6 +609,9 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
->   	if (!is_highmem_idx(zone))
->   		set_page_address(page, __va(pfn << PAGE_SHIFT));
->   #endif
-> +	VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)) &&
-> +			page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=
-> +			page_zone_id(page));
->   }
->   
->   #ifdef CONFIG_NUMA
+>  Documentation/netlink/specs/ethtool.yaml | 2 +-
+>  Documentation/netlink/specs/rt-link.yaml | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/netlink/specs/ethtool.yaml b/Documentation/netlink/specs/ethtool.yaml
+> index 6868eb473478..a66594ad9e73 100644
+> --- a/Documentation/netlink/specs/ethtool.yaml
+> +++ b/Documentation/netlink/specs/ethtool.yaml
+> @@ -99,7 +99,7 @@ definitions:
+>      enum-name: phy-upstream
+>      header: linux/ethtool.h
+>      type: enum
+> -    name-prefix: phy-upstream
+> +    name-prefix: phy-upstream-
+>      entries: [mac, phy]
+>    -
+>      name: tcp-data-split
+> diff --git a/Documentation/netlink/specs/rt-link.yaml b/Documentation/netlink/specs/rt-link.yaml
+> index e3a4b4e7e5ef..81b58633911d 100644
+> --- a/Documentation/netlink/specs/rt-link.yaml
+> +++ b/Documentation/netlink/specs/rt-link.yaml
+> @@ -842,7 +842,7 @@ definitions:
+>    -
+>      name: ovpn-mode
+>      enum-name: ovpn-mode
+> -    name-prefix: ovpn-mode
+> +    name-prefix: ovpn-mode-
+>      type: enum
+>      entries:
+>        - p2p
+> -- 
+> 2.55.0
+> 
 
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
