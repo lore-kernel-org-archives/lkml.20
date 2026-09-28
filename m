@@ -1,82 +1,110 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F71426419
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171904562BA;
+	Mon, 28 Sep 2026 07:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790579939; cv=none; b=a74Vo/+WaduRe1VI8mooINRKbVihwggqS2Qwskja9p43BR77knslFvCgoB4ITXADSoAYOc2mIBhqNCcDPPNU2MHRDAirLomB2qs/Jx8erlO2P0X58DpArN7ijKOzYtfsU2X87taAS0w3oQZI0RwuuMCfJIIhyhWT3/KzGVFYzqA=
+	t=1790579943; cv=none; b=souEHTJEm84JOI8CIVn004PtZM3o3RksuLYjR8f2Z4VKNcDN6ZlaWV4dS3G8MHU0ZcxzFGfTAlktfjDbKf6HAthcILjetNHaHNzAGrY/OkXUkhXThyTYqa7nei8dPExp33qskGBRjFwnWBCa4Hpiv+O6OJ7qLeqY63UlwN/nTwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790579939; c=relaxed/simple;
-	bh=kHIINSvSubOC+f5ChAlO6oBCool9yMy7/Q1zFXdnT2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pKG6/12EbsrLg9Pioro1NqpfECgYayNij7y3rkrtej4NQHEhw/sIbwRnCXjs539FxJCgEZGyshrnw1aqndMck+xHDpj1lAs5+Yn41I2Hma0DvFWtsPLf7p6DjGc1+1VuNUmt7b9Ft+dMhrYD7Edf4MVx0SK2s2LXTDXOjL0J3DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ITUSOQjF; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790579943; c=relaxed/simple;
+	bh=UhVS0akn+Jl8C9DbJ5WDstlLhSobDu5TWXDGIgrUEwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pO+Xsd7zMa7k/FU8x6ojaqRcOsHsXgbiBGmtHS/NqZJqzd1HccFhAjHbYbSi9u7pmuc/OgjEAKzv/3DGkYb25egU9CXgy+Aw77fmU0TDgFuuDomG2kVOv3t6VqonRjgGQtf53OcHcNb4Eq8Krt1mwXHee3aklHu6Yc95m2E4eX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ViQ5lRbs; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ITUSOQjF"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 57B504E41089;
-	Mon, 28 Sep 2026 07:18:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 21E58601BD;
-	Mon, 28 Sep 2026 07:18:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A879E102F1E76;
-	Mon, 28 Sep 2026 09:18:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790579933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=9ev1RphJmOUwTwyP1Zq1ADAaAbeAIOq+4OhI9af6F6U=;
-	b=ITUSOQjF8Or/MddMYmkAfGrRpGJFB+t50R0v/RALVTMUn6bdVFoa6B02oRNTTSgva9y3H0
-	HuXtZpygzofKnNumRcfAg6UvmvoklYRh76irvYhx3nJIcTuq/SG8qC8mxHs6afUYK1jAjO
-	4Y6kNsjEc2uJxbN6uERvaVuZUPJ4wuNdOY+Gx8TMvlPYmc9G5Of4x9/o9EEwQ6OVTjt6Ax
-	BPTgEmiZzDgg0eU/lRCOMVfZW38i99XzpDQCzErX9u4CXSlmrxzOTZWWtDnty9+oVrlYvq
-	1DixhozDTnTuU1dqgfO7IAtopMgaI2lyl7o73Xb6AaLpyxZaGKVLT39xkodqhg==
-Message-ID: <2cd3b581-2f8f-4e46-a487-a03a3c45a8cf@bootlin.com>
-Date: Mon, 28 Sep 2026 09:18:46 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ViQ5lRbs"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790579937; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=sc03rBU1KC3f+hwPJ9gDyEIPoJ5n74UzjR2h9IbzYgg=;
+	b=ViQ5lRbsIkKpps4dfzDxAiyh1GnX0PuS+0UJ6bvp0eWUBMdkyw4WyJw8gQV+9wD4tyRVxjuuKXFqiOBmdHjk0Aa4sjAid60jpBMTFx1bFbJ5zHdYEOdnMjRYJtFfchD5ZL4cG1xU2RA1cNKd//HDubTFOio0qGZy2P8zktSYSms=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R321e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBjcVOx_1790579933;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBjcVOx_1790579933 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 28 Sep 2026 15:18:56 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	shuah@kernel.org,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v3 2/4] selftests/bpf: Enable gotox tests for riscv64
+Date: Mon, 28 Sep 2026 15:18:43 +0800
+Message-ID: <20260928071845.2432-3-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928071845.2432-1-cp0613@linux.alibaba.com>
+References: <20260928071845.2432-1-cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: stmmac: Don't set or get RSS parameters when not
- supported
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
- Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>,
- thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260926093343.292181-1-maxime.chevallier@bootlin.com>
- <20260927154603.47253d19@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260927154603.47253d19@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 00:46, Jakub Kicinski wrote:
-> On Sat, 26 Sep 2026 11:33:41 +0200 Maxime Chevallier wrote:
->> The RSS kselftests fail on stmmac, and this is partly due to the driver
->> reporting bogus data for the RSS ops :
->>
->>  - ethtool -x reports an indirection table and a key while the hardware
->>    doesn't have any of that
->>  - ethtool -X fails with -EINVAL.
-> 
-> this is net-next material
+The riscv64 JIT now supports the gotox instruction and jump tables, so
+run the tests in verifier_gotox.c on riscv64 too, mirroring what was done
+for arm64 and powerpc.
 
-Fair, I'll iterate with Nicolai's fix.
+The guard is 64-bit only because the RV32 JIT does not implement gotox.
 
-Thanks,
+Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Acked-by: Björn Töpel <bjorn@kernel.org>
+---
 
-Maxime
+Changes since v2:
+- Unchanged.
+
+Changes since v1:
+- Collapse the multi-line #endif marker to a single line.
+
+ tools/testing/selftests/bpf/progs/verifier_gotox.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/progs/verifier_gotox.c b/tools/testing/selftests/bpf/progs/verifier_gotox.c
+index f5a9878c7b8d..96a9d914930e 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_gotox.c
++++ b/tools/testing/selftests/bpf/progs/verifier_gotox.c
+@@ -6,7 +6,9 @@
+ #include "bpf_misc.h"
+ #include "../../../include/linux/filter.h"
+ 
+-#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || defined(__TARGET_ARCH_powerpc)
++#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || \
++	defined(__TARGET_ARCH_powerpc) || \
++	(defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64)
+ 
+ #define DEFINE_SIMPLE_JUMP_TABLE_PROG(NAME, SRC_REG, OFF, IMM, OUTCOME)	\
+ 									\
+@@ -580,6 +582,6 @@ nop_%=:								\
+ 	: __clobber_all);
+ }
+ 
+-#endif /* __TARGET_ARCH_x86 || __TARGET_ARCH_arm64 || __TARGET_ARCH_powerpc*/
++#endif /* gotox: x86, arm64, powerpc, riscv64 */
+ 
+ char _license[] SEC("license") = "GPL";
+-- 
+2.50.1
+
