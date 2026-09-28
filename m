@@ -1,106 +1,108 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412EA473C6D;
-	Mon, 28 Sep 2026 08:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 205802F7F02;
+	Mon, 28 Sep 2026 08:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584387; cv=none; b=Fy9RMBLssWAfy5Bz5ruo7qqMYsR9XOGQk47fDYmq+9JOh4Z5GN7+1T+4r6QIFyCd+MqSNhgenXbD2yTpV+w4l0c0M7RjhbHzSml4ytuL+iY4smhJk7iIvYLqyUzle3xz+A03n47TUonWR167dp/pcFq0ybSRHHv199FGJhDSt0Y=
+	t=1790584388; cv=none; b=jQBsGH16MadSVRLRJOoQg+RM/VzwAjTz5vX68YRQBdk2S9O5Dof3ceze/u7BL7GVb6/62SHWhDLwE26TJca7Q5ItzZsqpioyPvE0FPxVXmw8c3si54tP5LO4UOwWdtH5GhlsXBO5XNnPQbJYJeUFc4VlnfOCqgUfsh1SzjVwwOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584387; c=relaxed/simple;
-	bh=dPQiJZRjfltzxHJi5k9HU87/LqeEBeKq9w573KqY3SI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aAeVHBTUtYmB284qh9IRDs3pDty6kiF7LgRb4MA08yio5VPEqgfAvXvubCf/uksZlorU+TjtZhlhfwBWK3y208jBBHi3xoExkk31OEnPv02uFPBHfZvdQlsNKXqY+NgKlxSBUO1vk3KRviMNSYlWjc7Awr4xa/ApyRXypPtPEpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=qZHnr2GI; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790584388; c=relaxed/simple;
+	bh=0RpbMTfn+gvvZIjyJ2+TQQ0qDMnKXcFVGLXk6A3d0UQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qUQwFyC3t2Zn6ku1VLoEwrH9Js/vmzndZkz7bkUG5VrILgHF6X21ipAZhN1S72P+w2hnMagb2C3dggrnD+xy3Ll41CbxWeQapbA6LQE7T5+askmCDhZlWaxUiNPEu1tfzczxiOmb5QRpHZ2ix787UnLRSSup0bjKzT/OnU94utc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TTDVUvqi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="qZHnr2GI"
-Received: from smtp1.mailbox.org (unknown [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4htZM10m9RzKvhy;
-	Mon, 28 Sep 2026 10:33:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790584381; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dPQiJZRjfltzxHJi5k9HU87/LqeEBeKq9w573KqY3SI=;
-	b=qZHnr2GII/3uXBtgXhk9jwe1cKSNnnxbS1eS0cUNSfxgvLUx0tdxWEI3/YaMPnq5pqdjTl
-	0pLd+FSsXbJl37nBHb0y7m8KXaqXkeE/QW3Jlw/QhJfyZxSaOls+h39hYAvx2brTTcqRTZ
-	EsCb+b4kG1+ZHZsuoSuxjT2fOZwrNxQGMipPN7+RIm1grTE02NhaRtQcRtqVka5pBi0QGU
-	aO9Iz1yAfPThuBJFAM40Lg6jpLwDOLJl6HdHcgql/BDT1L7jtYUTsvOy7QEw5y31Tx0n9N
-	od2Jaxa9JV1CTI80iRAiE8t+7JMJwYE3PQoZPFV67UmsSz53C6Fl15T++Ozqsg==
-Message-ID: <a44b26ceb273f0cdfc04a4391040c08386b31e01.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
- reference
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: phasta@kernel.org, Gary Guo <gary@garyguo.net>, Alice Ryhl	
- <aliceryhl@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, 	linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 10:32:54 +0200
-In-Reply-To: <DLQSQE8ZXLY1.1XFW8PGSDLICT@kernel.org>
-References: <20260925081958.3048112-2-phasta@kernel.org>
-	 <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
-	 <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
-	 <f0248d1529378ab8be957009a93a0a73ee74bafb.camel@mailbox.org>
-	 <DLOILT0V4HCX.31L2PE7YIAKY3@kernel.org>
-	 <ab1241777ac432666bb1564d875211bf142a6398.camel@mailbox.org>
-	 <DLOKSGU61PUG.WSZBN04H0A2Q@kernel.org>
-	 <37a2858a4687e4d9bbe0aba4c1861b96875c4ed7.camel@mailbox.org>
-	 <DLQSQE8ZXLY1.1XFW8PGSDLICT@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TTDVUvqi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D7631570;
+	Mon, 28 Sep 2026 01:33:03 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 123093F86F;
+	Mon, 28 Sep 2026 01:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790584386; bh=0RpbMTfn+gvvZIjyJ2+TQQ0qDMnKXcFVGLXk6A3d0UQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TTDVUvqi1Ach8JNeWYAQJzsHxtfM+Zm7SeLtsWf7onhpa9/BLw9LzQDp+q8Mgqvmm
+	 5TL8sQbTz+WRHPda5DtK4ix6y58CAOCtq/ODuXOb0MtDTXpec5/yVd+rCIo1kSob7r
+	 8NkR4SRjZX0TqJaR2hdy0syFhhkwn7nthkuBHaBM=
+Date: Mon, 28 Sep 2026 09:33:03 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] perf/core: Fix ITRACE start suppression for inherited
+ events
+Message-ID: <20260928083303.GA14479@e132581.arm.com>
+References: <20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 1xuw3zyrf31yye8ku3bcs35ptp84s696
-X-MBO-RS-ID: ac8c0f2cdd2425f6d3a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com>
 
-On Mon, 2026-09-28 at 10:11 +0200, Danilo Krummrich wrote:
-> On Mon Sep 28, 2026 at 9:52 AM CEST, Philipp Stanner wrote:
-> > > > So I suppose we agree that a warning is fine. It won't fire in JQ
-> > > > anyways, but might benefit others.
-> > >=20
-> > > What scenario are you thinking of?
-> >=20
-> > Drivers doing "rather questionable" things, like we've seen a great
-> > many times already ;)
-> >=20
-> > Note that the dma_fence backend fires a WARN_ON if a fence is freed
-> > unsignaled, too, for the same reason.
-> >=20
-> > Life finds a way.
->=20
-> I'd rather you engage with the arguments I made above and give a concrete
-> example of how it "might benefit others", instead of resorting to know-it=
--all
-> platitudes.
+On Thu, Sep 03, 2026 at 10:35:12AM +0100, Leo Yan wrote:
+> PMU drivers call perf_event_itrace_started() for the event that has
+> started tracing. This sets PERF_ATTACH_ITRACE in that event's
+> attach_state.
+> 
+> For inherited events, however, perf_log_itrace_start() replaces the
+> child event with its parent before checking PERF_ATTACH_ITRACE. The
+> setter and checker therefore operate on different events. If the
+> parent's flag is clear, the child continues to emit ITRACE_START
+> records on subsequent schedule-ins. If the parent has already started,
+> its flag can instead suppress the child's initial record.
+> 
+> Remove the parent substitution so that perf_log_itrace_start() checks
+> the same event that the PMU driver marks as started.
+> 
+> This is safe for tool consumers. Intel PT uses the ITRACE_START record
+> to set the current thread context. CoreSight ETM uses the record only
+> to find or create the corresponding thread. Neither decoder depends on
+> the parent event.
+> 
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
+> Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
 
-Stating that I cannot know nor conceive all possible patterns and
-misbehaviors is quite literally me acknowledging that I do *not* "know
-it all".
+Gentle ping ...
 
-With this patch I was just trying to accommodate your post-merge
-request for replacing pr_ with dev_err() or WARN_ON. If you think
-neither is actually necessary, that's also fine by me.
-
-
-P.
+> ---
+>  kernel/events/core.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index a6c8e38a311042afab6b65814a84c67b87ba929b..991ae214d46ebe8b0d9de497255f25a4ad12397f 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -10572,9 +10572,6 @@ static void perf_log_itrace_start(struct perf_event *event)
+>  	} rec;
+>  	int ret;
+>  
+> -	if (event->parent)
+> -		event = event->parent;
+> -
+>  	if (!(event->pmu->capabilities & PERF_PMU_CAP_ITRACE) ||
+>  	    event->attach_state & PERF_ATTACH_ITRACE)
+>  		return;
+> 
+> ---
+> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+> change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
+> 
+> Best regards,
+> -- 
+> Leo Yan <leo.yan@arm.com>
+> 
