@@ -1,377 +1,185 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362EF3368B0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED5F44684B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578182; cv=none; b=JQTtK4UWN2ii5zyHHv8dOdjb8RE7uqUu1zyXzdCXPYfi7N/5nDmAYPizcZvL65cBwfTTYfgvvBTiUo/4gEpyK5YgeKmhQUjcCZ6tg/UMwZH6Mw3vRt2BtKy+HNH6umxLmvvx0UGhvrJg3rXxMgLLqZQu8lwjzjaAvYK97lHQjLY=
+	t=1790578224; cv=none; b=c18ITOdhO7ne3B6riJxc0dVSxjCKmu1x2JnI4HiLLi9CwjxdxUHYMS+otaIC4JWLYgyJ+zIP7Wzsm4VE+A+ihE5wTkP9NI5lQovPk9dyNVnnma6G0hwZOpxGs2NMcA/4sknZig4lB3Rq6W2ke15V/vkD8seHGz/394YRNPTvDSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578182; c=relaxed/simple;
-	bh=QyPkaLVei5yR2Z/4twuIycirH7HuAo+N4abNDpttkfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ps8QVmHXAMIqn8OxQta0aqNWXo90p8IwnOMSvhNQqdpxYy9WmTb9UStHPvVZSCOl7lbuFHsP1Xs8iFqOSiMed8sdL7Gd6+4HJgX56aolPUGQNBPTLt1ndXnxbD937Faq6b8Nyrqw3NkOiFVfXHPX4H5UPuTAy4yDAMy2s1sgWMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j7aAMb0c; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790578224; c=relaxed/simple;
+	bh=GCgrWcGSYCDY9mnbDQEO1hABrtGS7fG1AJ/ZSwmQZpo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=erW6CxMngZwX89vgbKbkwI9JTTOmQsmhduLSwxe3uuSe5SzzRgosEeWj56HUjXFSFeP3a8XoibsqBbU3ZCN+tnv3sORmLPgrwpoOzmUiSWDznirTtVqpWPlQCEIEMrfWQSgzgt9cPr+M2BDmQBsx+A7WuFZ3vkTlNYyJxRPq5lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LwYh32Uw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hD8ZqKld; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j7aAMb0c"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b388ead5b1so541140137.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:49:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LwYh32Uw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hD8ZqKld"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S6dIeu446503
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:50:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4OUbyzBVRks7k0WbMnD+M/l6sliOO4VjgKoS0xSBAbg=; b=LwYh32UwulbZf+IO
+	jFpCE09jsSD2szNPg9DkANXz9m8kUMETxG9LCYtzMzFpv7lXFMdde9yaKbrwB8TJ
+	7mGM3a4wiI+DpvtiWB5qINf/U8sPmxkjCx1rDH1dVdNrjesQJ3qeY77zovnS4CFU
+	8cn37vAhe7RtJrXWeHGG8uZyDhGYByHmyaHEMeFm2geFxnhczHnnUj8dRWe19S7k
+	XP+XmRukowi/i3NrMXGm4tULmhijwPT3ALAlZcwO0WFWknGQKXpaGR6cPfe6jCmk
+	l5uPUVagub5ceP9pvs9B2iVuUe3cah7FIslcRPpFSKoUPCKTdmU890NSDPMqYkU5
+	r+wmvQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyk5mr18n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:50:22 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86936089a00so127273b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:50:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790578180; x=1791182980; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jlXzJVUfhTz5P1BiBtR2RSw8kerRuIevFT30L5kQNGw=;
-        b=j7aAMb0cmD+kpk9e2P4j7rge/xVcgtzv5ssVTciGpntQXgBcXSLg1ednHm21RG45BA
-         3uzdjOCZsWRnHNHIxJM0yV2MXYx1bF9YWlipzXrZNHUPiszorGP2xsvkpkY7XuZ5ZxDS
-         679wr/nxKitttfhsgu2B3vdtuTX0HHEKQWb4bu0VfA3Tu6z84D3XdoYBM23W8FWxyoMp
-         2j+hqNiOxd/qoxIh9nby4rosPklmZMzhonEpuz5B9ZbDXOAKIP1E5GsTH906QrOJlcHi
-         k4EVdl1fbNuAwrSjgEsr0NsC+V3iDTck3rhmSyhWgDANHOsW/gKbTxBuoNHWHgHlCQxx
-         TdRQ==
+        d=oss.qualcomm.com; s=google; t=1790578221; x=1791183021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4OUbyzBVRks7k0WbMnD+M/l6sliOO4VjgKoS0xSBAbg=;
+        b=hD8ZqKldyR1ArE4b8KLiKOK6WFyxnUNHVzYtECA1q6UwutDdfgW1vdEpIJ1W03CddH
+         U+WDeAoG21RIwygFzX6uYxdp47jpZd7QJIDtWSIT0KlFwReoO9xMeRP3Feaodj+gQ7X/
+         IE9FVBiIbNY96uqqJUPYYnrJHEwiyhqFEpfcz1XrsFVihIHwiYt1mU7UKwFNW1/XUfmo
+         s8ZacX5pqOgJOqHE+dITxOlHyXI6xi6IjM8BQHCYyJzzfQRGKbEa7EJBABoUfmFFVtuz
+         liDokYdl3kjvcXmjVKjOeW6Ud3/Ta9KVvHEtXH0qdgSZfZZ6XcXKahorMMUiIfl3Tcho
+         wUsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790578180; x=1791182980;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790578221; x=1791183021;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jlXzJVUfhTz5P1BiBtR2RSw8kerRuIevFT30L5kQNGw=;
-        b=0uVSUMOJCXHwmrPeCvfsWtAuxJTDp0JqxLxqUdqy+rhILQjK5tlkrdUczaDKeWyRIH
-         14KcGr6XLnULUUt3+dpjRzcnpNyxUHWpFJl9cDYVbsP1tWg6QW2htlCt5Evap/5IhPUo
-         y+JxumcQT5EePkLmF6yy2Fkl7XpZxPkoXHuc7qYuIFN0bcaNalQLqY/qB6KSpu0pjnj4
-         ereTcOKq8bColE36NGF6dq7v/Km9T1ntDJo17mVy2EcVCKcP3lpBB4cj7u4Jf+2k3H/P
-         BfMCxf2bEPi7c4Tvu6ngAc1R3/8ja4owxou5uRLshEp1eh9CIBiW3x/hSIfYKavYD1Fq
-         ZKdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfBu+t9mMDARx45Qw9GTElNaAuy4bVTvixMBQMLoc7A9OmCLdwhhinuhwVPE7h+xtkwCyp7DifR/mb8Hg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYn58TVQAFf8gxVdM/DyPaxAUTJQIroPCz4Jr3xomjqeoluKJF
-	gt5Iy63tBpFDaAtqNNCwTD/yrYmeB9csR9TrQT8SqF7Z0+lzUlnJFMsR
-X-Gm-Gg: AYBFou1gS/0rTnCmrc6HmMN0Zz4XN67rAyZ13T5fppRJy4gUkA5aw7WJy3EgVswq266
-	W2vcD515lxJOrVe2Hrv6jqX3Xoc4lg7uCWB6m4sqzroqTaZwcPZRI+R71fx+66L84LWWCepD+1S
-	G3cZrxSTpSF6GB0qpgS0c6AcpH2hvpwhSB1E4rPzwF9EV8y0iV9XViThEKIzOFqgemohSUGANmL
-	8WxHL0J4z5guyUimMdlFXEi2mBlPTh6/j/w7kPl7FL+a6ccfVOmI2zsvOSyKouOFnFe2WvEjOqG
-	FwVXhV+r+sc2SJw2fdN8Qdfjnsgo7IB+CAfOZVtZc8B7XDrgVfL6rF4G7LG09fTXWeKuhVTRfbN
-	Be1jXnqAnr0gVexE388yYLqj4Wf0sLD9FP2fyoAI+eYv5U7U5hB3J221ZQU5cI7rIvbjF7cJ3tK
-	2Db7B8CFE/CVgvefMwGE2nvMElRmvQZOo3RQQ8WLJanl091t+ltsk7WzAeimauaH52s3I/DdzoN
-	Vgna8BnFV22Gbu63xl3X3K2NLcel91Qcwqyfw==
-X-Received: by 2002:a05:6102:534a:b0:7b4:7095:fe15 with SMTP id ada2fe7eead31-7b470960932mr1035043137.24.1790578179972;
-        Sun, 27 Sep 2026 23:49:39 -0700 (PDT)
-Received: from tutebook.tail57d09c.ts.net ([2803:9800:a0a8:8014:618c:a663:bfd0:635e])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b398ee8b75sm8404923137.2.2026.09.27.23.49.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:49:38 -0700 (PDT)
-From: TuteMthCD <matias.civadda2342001@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: W_Armin@gmx.de,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] platform/x86: bitland-mifs-wmi: Fix TM2107 profile handling
-Date: Mon, 28 Sep 2026 03:49:18 -0300
-Message-ID: <20260928064918.80526-1-matias.civadda2342001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=4OUbyzBVRks7k0WbMnD+M/l6sliOO4VjgKoS0xSBAbg=;
+        b=cAIj+bXV6zWqPDZCIwJidBoInjmrrrtSSMzgiIijFgJqOHFcwcbF7MP7JR11WbYjQd
+         R00do9xndiRXgKIlGFAxnBraCXpSxdy6pMOe183BOs6I5DfdBahCWasY8HZN8mqTOvc+
+         a7moDDPxNY1QUA4HHvv4FjxkMy7/ehiTdrQR+eHi0Wrn7jaatpiUSpd5MXFESsea2Twc
+         GDlkXk2LErTK1wZ77VfjWQh+rc5Rkv/AY38GDs9BnWh8wFoKHn2TVjwyogjAqTNn4so2
+         6cngLuufAK3QllayyrcivzF2saKXNnZ26Atj8aQkxnRi0XxNd0psFZcQiT23umwo483I
+         BRvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMnR2L+cJBmq57SZoWFn5SWld+P0peYGxszmr/9mA+Q8SQr+RoNPGUbEQyqG+KpkHRLjUSG3ydPybW0xU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqFhwR04kx29wH0Jm2bTu/s1vlZDJsofrnT48fjUE9KSTfZsZ2
+	UbcHb7pT532/sUn8hyCTALQ0tDb8e/LkpZztR3yOmSapM5z8gtogZwEDUeiqtXz2Qzx1AYA7gRz
+	kcAlovf++qLwPa3n1ONCHo5n8qxF6mx8IovePykM0ud0Wlt+60b5cysPNKuJJJtIY8Hk=
+X-Gm-Gg: AYBFou0/ZBq5q4r8ELDKwkAwHo3kDllE0J8TuaByzMYivtl5703sv8rFteeDBivxBj9
+	nJ8opRotCE1BdqjmHYB1uT8QKy5ZzDXsHf9QmqVyXuGRphMKi72YUproZCcq1u0f9EbUC++5kwZ
+	t/jSg6PwUTiWoG9eS2fVCS5u9a4xx/8pn6/2+ugMnCChNC0S54N8roNyAHtcXE/n7Ns7fDwHn4x
+	8v91Jq45o+zi2kJG14O6lrwbp+0okkkXNYiJfzKoyECzmZtgsC1mRqRkWpxiR7oRxsmrqfsTYWG
+	+I6mVLjy+hyvfPt+8CxvBOX5x+9N6eA1QZXYPo9CVS08FEmKi7pIuEzwF6zWV+UhevIRABG591W
+	LGsl2RerlIlMatPXfIbm0LJXo
+X-Received: by 2002:a05:6a00:1488:b0:882:4ef4:8eb with SMTP id d2e1a72fcca58-8824ef40e06mr5035240b3a.1.1790578221272;
+        Sun, 27 Sep 2026 23:50:21 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1488:b0:882:4ef4:8eb with SMTP id d2e1a72fcca58-8824ef40e06mr5035201b3a.1.1790578220721;
+        Sun, 27 Sep 2026 23:50:20 -0700 (PDT)
+Received: from [10.239.132.150] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fe81f2290sm3633951b3a.5.2026.09.27.23.50.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 23:50:20 -0700 (PDT)
+Message-ID: <9760cdc5-a2e5-4522-8e2f-3daba8331883@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 14:50:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: arm-smmu: Document GPU SMMU on Qualcomm
+ Maili SoC
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Will Deacon
+ <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260830-maili-gpu-smmu-v1-1-253e1108ce82@oss.qualcomm.com>
+From: "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260830-maili-gpu-smmu-v1-1-253e1108ce82@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: F6vXPuVdZCGeqbu05QlbczJew4ASL82o
+X-Proofpoint-GUID: F6vXPuVdZCGeqbu05QlbczJew4ASL82o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyNyBTYWx0ZWRfX/loSgV9Im9AB
+ jre8V9AQ9m6Os/UShKnE6LP6sU69/oHKp5N+C3GJmk8TMrzmKW/Cm+qdq+tCLSOO4Uen8TJyqI2
+ Pwpn5+ta2/rElIbztcb2h9gDhYfd8JmFzRm85CPu2USKU0t1fPzdNIY5uKW5KYZeDjoCfaXF0b6
+ wG9cj40XzLm201ZJcKi2DDdFlvNp9U5Pl4MtWjeqgnQpet4mhlTA1LCpN/HWc1Qp+n8fr3AM8bx
+ AfgwfsdIKZbBjkHUjOBRt1EgI6SJIS8wN6rqhsLrYQZqAi7P5f5u4HcWpoMPkSxTQtlawTZkiF7
+ 8ovUnFSr5SfY17O5dfhyWb7ANEnJ2L6yrK2UpjTCvi8GmOtDxzk16vxSGu6AwUX5kSJPQia1O+F
+ bjcva6bttbrfw1kw1E59oiBgRsW1YH/+it8hr1rkMDzncXGNZVzWncKHI2Dq8rdll6E/EmwmBSN
+ 7ZLjkM92zdehI7VAALw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyNyBTYWx0ZWRfX9mdXVG9+DjJ6
+ El06J/alAyLkcj0aXWXnNB1WbLhAywQKH0iMMsL06zCDFQEt7aavEDxQI32z7z2eXK8wIoeFfG3
+ evAS3efIXN8RMWxQPRQiS/LW+Y9eqFk=
+X-Authority-Analysis: v=2.4 cv=asYnmiZV c=1 sm=1 tr=0 ts=6aba0e2e cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oR-CnN3JeSK-wwzircoA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 clxscore=1011 adultscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280027
 
-On the TIMI Redmi Book Pro 14 2022 (TM2107), the MIFS WMI response uses
-a different layout from the one currently assumed by the driver.
-This causes profile reads to fail or report an incorrect profile.
+On 8/31/2026 10:44 AM, Jingyi Wang wrote:
+> Document GPU SMMU which uses "hlos" vote clock on Qualcomm Maili SoC.
+> 
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> index ffa33b7f4a96..187710fcc567 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> @@ -101,6 +101,7 @@ properties:
+>                - qcom,glymur-smmu-500
+>                - qcom,hawi-smmu-500
+>                - qcom,kaanapali-smmu-500
+> +              - qcom,maili-smmu-500
+>                - qcom,milos-smmu-500
+>                - qcom,qcm2290-smmu-500
+>                - qcom,qcs615-smmu-500
+> @@ -579,6 +580,7 @@ allOf:
+>                  - qcom,glymur-smmu-500
+>                  - qcom,hawi-smmu-500
+>                  - qcom,kaanapali-smmu-500
+> +                - qcom,maili-smmu-500
+>                  - qcom,sm8750-smmu-500
+>              - const: qcom,adreno-smmu
+>              - const: qcom,smmu-500
+> 
+> ---
+> base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+> change-id: 20260830-maili-gpu-smmu-33d20c1f4672
+> 
+> Best regards,
 
-The response contains a 30-byte OutData field followed by a 16-bit
-Reserved field. On this model, the profile value is returned in
-OutData[2], while the return code is stored in the trailing 16-bit
-field.
+Trying to be a polite ping here to request apply since outstanding
+series are waiting for apply of this patch.
+Feel free to let us know if anything is needed here.
+Tested with below series [1] :
 
-Selecting the modes in GCommandCenter and reading the WMI response
-on this machine yielded the following values:
 
-0: performance
-1: balanced
-2: quiet
+[1]https://lore.kernel.org/lkml/20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com/
 
-Handle this model through DMI-specific driver_data, normalize its
-response layout, and map its profile values correctly. Expose only
-the three supported profiles.
+Reviewed-by: Maria Yu <aiqun.yu@oss.qualcomm.com>
 
-Require external power for performance mode, including the original
-USB-C charger, matching the behavior observed in GCommandCenter.
-Skip the adapter-type query on this model.
-
-Build-tested against pdx86/for-next with W=1. Built and tested on
-Linux 7.2.7-zen1-1-zen on a Redmi Book Pro 14 2022 (TM2107).
-Verified profile switching, performance selection with the USB-C
-charger connected, and rejection while running on battery.
-
-Link: https://lkml.iu.edu/2608.2/00163.html
-Fixes: dc1ec4fa86b2 ("platform/x86: bitland-mifs-wmi: Add new Bitland MIFS WMI driver")
-Assisted-by: LLM
-Signed-off-by: TuteMthCD <matias.civadda2342001@gmail.com>
----
-Changes since v1:
-- Rebased on pdx86/for-next.
-- Use a generic DMI table with per-model driver_data.
-- Add the DMI dependency.
-- Normalize the response layout before validating the return code
-  and function ID.
-- Correct the profile mapping using observations from GCommandCenter.
-- Expose only the three supported profiles.
-
-The previous version was mistakenly based on the commit used by my
-local Linux distribution instead of pdx86/for-next. Sorry for the
-confusion.
-
-I also collected WMI response data on Windows while switching profiles
-in GCommandCenter. I can share those results if useful.
-
-v1: https://lore.kernel.org/20260925032001.111062-1-matias.civadda2342001@gmail.com/
-
- drivers/platform/x86/Kconfig            |   1 +
- drivers/platform/x86/bitland-mifs-wmi.c | 135 +++++++++++++++++-------
- 2 files changed, 97 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 45f15f93afa7..e3351ee1dd43 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -116,6 +116,7 @@ config GIGABYTE_WMI
- config BITLAND_MIFS_WMI
- 	tristate "Bitland MIFS (MiInterface) WMI driver"
- 	depends on ACPI_WMI
-+	depends on DMI
- 	depends on HWMON
- 	depends on INPUT
- 	depends on LEDS_CLASS
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index dd1648b7de77..29e365b54c84 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -14,6 +14,7 @@
- #include <linux/dev_printk.h>
- #include <linux/device.h>
- #include <linux/device/devres.h>
-+#include <linux/dmi.h>
- #include <linux/err.h>
- #include <linux/hwmon.h>
- #include <linux/init.h>
-@@ -131,6 +132,58 @@ struct bitland_mifs_output {
- 	u8 data[28];
- } __packed;
- 
-+/* TM2107 places the return code after the function ID and payload. */
-+struct bitland_mifs_output_tm2107 {
-+	__le16 function;
-+	u8 data[28];
-+	__le16 return_code;
-+} __packed;
-+
-+struct bitland_mifs_quirks {
-+	const enum platform_profile_option *profiles;
-+	size_t num_profiles;
-+	bool return_code_at_end;
-+	bool skip_ac_type_check;
-+};
-+
-+static const enum platform_profile_option bitland_profiles[] = {
-+	[WMI_PP_BALANCED] = PLATFORM_PROFILE_BALANCED,
-+	[WMI_PP_PERFORMANCE] = PLATFORM_PROFILE_BALANCED_PERFORMANCE,
-+	[WMI_PP_QUIET] = PLATFORM_PROFILE_LOW_POWER,
-+	[WMI_PP_FULL_SPEED] = PLATFORM_PROFILE_PERFORMANCE,
-+};
-+
-+/* Values observed after selecting each mode in GCommandCenter. */
-+static const enum platform_profile_option tm2107_profiles[] = {
-+	[0] = PLATFORM_PROFILE_PERFORMANCE,
-+	[1] = PLATFORM_PROFILE_BALANCED,
-+	[2] = PLATFORM_PROFILE_LOW_POWER,
-+};
-+
-+static const struct bitland_mifs_quirks bitland_default_quirks = {
-+	.profiles = bitland_profiles,
-+	.num_profiles = ARRAY_SIZE(bitland_profiles),
-+};
-+
-+static const struct bitland_mifs_quirks bitland_tm2107_quirks = {
-+	.profiles = tm2107_profiles,
-+	.num_profiles = ARRAY_SIZE(tm2107_profiles),
-+	.return_code_at_end = true,
-+	.skip_ac_type_check = true,
-+};
-+
-+static const struct dmi_system_id bitland_mifs_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TIMI"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2107"),
-+		},
-+		.driver_data = (void *)&bitland_tm2107_quirks,
-+	},
-+	{}
-+};
-+
- struct bitland_mifs_event {
- 	u8 event_type;
- 	u8 event_id;
-@@ -154,6 +207,7 @@ struct bitland_fan_notify_data {
- 
- struct bitland_mifs_wmi_data {
- 	struct wmi_device *wdev;
-+	const struct bitland_mifs_quirks *quirks;
- 	struct mutex lock;		/* Protects WMI calls */
- 	struct led_classdev kbd_led;
- 	struct notifier_block notifier;
-@@ -180,6 +234,17 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
- 
- 	struct bitland_mifs_output *result __free(kfree) = out_buf.data;
- 
-+	if (data->quirks->return_code_at_end) {
-+		const struct bitland_mifs_output_tm2107 *raw = out_buf.data;
-+		struct bitland_mifs_output normalized = {
-+			.return_code = raw->return_code,
-+			.function = raw->function,
-+		};
-+
-+		memcpy(normalized.data, raw->data, sizeof(normalized.data));
-+		*result = normalized;
-+	}
-+
- 	switch (le16_to_cpu(result->return_code)) {
- 	case WMI_RETURN_CODE_SUCCESS:
- 		break;
-@@ -202,6 +267,7 @@ static int laptop_profile_get(struct device *dev,
- 			      enum platform_profile_option *profile)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
-+	const struct bitland_mifs_quirks *quirks = data->quirks;
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
-@@ -213,22 +279,10 @@ static int laptop_profile_get(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	switch (result.data[0]) {
--	case WMI_PP_BALANCED:
--		*profile = PLATFORM_PROFILE_BALANCED;
--		break;
--	case WMI_PP_PERFORMANCE:
--		*profile = PLATFORM_PROFILE_BALANCED_PERFORMANCE;
--		break;
--	case WMI_PP_QUIET:
--		*profile = PLATFORM_PROFILE_LOW_POWER;
--		break;
--	case WMI_PP_FULL_SPEED:
--		*profile = PLATFORM_PROFILE_PERFORMANCE;
--		break;
--	default:
-+	if (result.data[0] >= quirks->num_profiles)
- 		return -EINVAL;
--	}
-+
-+	*profile = quirks->profiles[result.data[0]];
- 	return 0;
- }
- 
-@@ -241,6 +295,10 @@ static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *da
- 	struct bitland_mifs_output output;
- 	int ret;
- 
-+	/* TM2107 accepts its USB-C charger, without an AC type query. */
-+	if (data->quirks->skip_ac_type_check)
-+		return power_supply_is_system_supplied() > 0 ? 0 : -EOPNOTSUPP;
-+
- 	/* Full-speed/performance mode requires DC power (not USB-C) */
- 	if (!power_supply_is_system_supplied())
- 		return -EOPNOTSUPP;
-@@ -263,47 +321,40 @@ static int laptop_profile_set(struct device *dev,
- 			      enum platform_profile_option profile)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
-+	const struct bitland_mifs_quirks *quirks = data->quirks;
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_SET),
- 		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
- 	};
-+	size_t i;
- 	int ret;
--	u8 val;
- 
--	switch (profile) {
--	case PLATFORM_PROFILE_LOW_POWER:
--		val = WMI_PP_QUIET;
--		break;
--	case PLATFORM_PROFILE_BALANCED:
--		val = WMI_PP_BALANCED;
--		break;
--	case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
--		ret = bitland_check_performance_capability(data);
--		if (ret)
--			return ret;
--		val = WMI_PP_PERFORMANCE;
--		break;
--	case PLATFORM_PROFILE_PERFORMANCE:
-+	for (i = 0; i < quirks->num_profiles; i++) {
-+		if (profile == quirks->profiles[i])
-+			break;
-+	}
-+	if (i == quirks->num_profiles)
-+		return -EOPNOTSUPP;
-+
-+	if (profile == PLATFORM_PROFILE_BALANCED_PERFORMANCE ||
-+	    profile == PLATFORM_PROFILE_PERFORMANCE) {
- 		ret = bitland_check_performance_capability(data);
- 		if (ret)
- 			return ret;
--		val = WMI_PP_FULL_SPEED;
--		break;
--	default:
--		return -EOPNOTSUPP;
- 	}
- 
--	input.payload[0] = val;
-+	input.payload[0] = i;
- 
- 	return bitland_mifs_wmi_call(data, &input, NULL);
- }
- 
- static int platform_profile_probe(void *drvdata, unsigned long *choices)
- {
--	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
--	set_bit(PLATFORM_PROFILE_BALANCED, choices);
--	set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
--	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
-+	struct bitland_mifs_wmi_data *data = drvdata;
-+	size_t i;
-+
-+	for (i = 0; i < data->quirks->num_profiles; i++)
-+		set_bit(data->quirks->profiles[i], choices);
- 
- 	return 0;
- }
-@@ -659,6 +710,7 @@ static int bitland_notifier_callback(struct notifier_block *nb,
- static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- {
- 	struct bitland_mifs_wmi_data *drv_data;
-+	const struct dmi_system_id *dmi_id;
- 	enum bitland_wmi_device_type dev_type =
- 		(enum bitland_wmi_device_type)(unsigned long)context;
- 	struct led_init_data init_data = {
-@@ -674,6 +726,11 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- 
- 	drv_data->wdev = wdev;
- 
-+	drv_data->quirks = &bitland_default_quirks;
-+	dmi_id = dmi_first_match(bitland_mifs_dmi_table);
-+	if (dmi_id)
-+		drv_data->quirks = dmi_id->driver_data;
-+
- 	ret = devm_mutex_init(&wdev->dev, &drv_data->lock);
- 	if (ret)
- 		return ret;
-
-base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
 -- 
-2.55.0
-
+Thx and BRs,
+Aiqun(Maria) Yu
