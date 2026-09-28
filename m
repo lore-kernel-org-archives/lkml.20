@@ -1,229 +1,228 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pz2-f24.google.com (mail-pz2-f24.google.com [74.125.228.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DDA14A60F;
-	Mon, 28 Sep 2026 12:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598588; cv=none; b=Q5mLzKMBcLJs0v3WWLEWAj9R7fNE4gOAu5GI/KV6olu9tmWvjXJ13Ay9oR4pRp2v9D2/E2yz3j4iw+BncnRfDWss2/wGE5I71VVvgsUIPWngqsHXGwWis9DA3Kg+/JpUkoPnjT8GDTEjuYbCeDcjwvD80lvXKwpjuhg8u5yRfOI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598588; c=relaxed/simple;
-	bh=op89+ZScDK45ZM/MqsArAmHRw609uQCZI0HYVALP0Mk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AuQ09gl7RQOquFDhmbYXWfzsGIZ9NYfINtdQpRVFD4oO1ySgZ0aHJP49fdn04okcgMDJUPh3sdEOcJ+EExZaFGOdAUNBm5yvbVpyx+uNuHb5E9C1nX/6f85mIsM+X8pJL+tHviaKUS0eVViXPPsTjUqqqfLg8w1lyJPVl17eee8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ULm6qVx/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hkbpztlc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MihcKZa4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IO9VdcBK; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3093E3D413F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598595; cv=pass; b=FFskxYeyyRQ8ASUPAU55/XEfFPxwaeKZo5sWTC1MRAbHWwi6vFnn8DctwwbbcUuji6Eo56CUsBNVRVAtDDCMerUx59VozpYqapjKHLdRgBmkOguMMfyKGK4QRYl60KoXPDNK+UaNrvBXFeSD8oa5mMA4AmRy9DdWGa3KESJL1xg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598595; c=relaxed/simple;
+	bh=xEL5URHcePqM5nbi5/mukI8PUvnbitE33QoPlYESpEw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lN2EXEw27x8MEvgnLXdcnkrxlrSZBHRDmJ39Cj88xbVbswcnB3zMzCf8b1EYoAQv0a7ALUHq+u1VpOHduxos5bbM6pPr9c7SlLpbwCh23kwA04Hb31aXo6gLbIPssw0NmSGd3lcE9bbVpmzbuOdgX+nlZr6vda0vQdqGdqFIDhc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=O9ts7O2W; arc=pass smtp.client-ip=74.125.228.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ULm6qVx/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hkbpztlc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MihcKZa4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IO9VdcBK"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D72E71FB68;
-	Mon, 28 Sep 2026 12:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
-	b=ULm6qVx/2mSj7XK1k95Yfs2e7GbIKiPUsZ6js+DXpx9OiCvvklih18dzaEqaZVFEmgvhxI
-	9xUGKQRt6uKG2PcTcWvK6BsHImb6bapWL4V7pQV/w92prQe8ckHZXHqnBZg3RTni1S/pC6
-	IYKDB0XfJ9nw/8zbNEokPVU8Na/R80s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598581;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
-	b=hkbpztlcJwAkYQc0AVSrdcl12/RvzHP5rcivy+UrWQt8H42S3zGHikjkLA3zj2hlR9nDmL
-	ryuofTyHnqj0xpDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
-	b=MihcKZa48mr7b8sbHqQPIdIQ0oGH70lhHLwzIlTueIyvY3/L2vBpyNHGuzSpvXJ21yttqs
-	eNBVEvq5whCArDK9GrCA6B5qZMRGaysk6psLNwAdYCoBKKufeZfun3yHTyclXA06wIsewA
-	oGF4o6Wzv1WuF8Y+arotqQ/Jy2UOL8k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598576;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
-	b=IO9VdcBKTZhDkgoGTXZu+lDsO+NDhHUvibHrYVXA4xnN9YUBNhr84QlYNZMaF7D3pGkpGm
-	qQk2Rquin0JTVEBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56FF0133F1;
-	Mon, 28 Sep 2026 12:29:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id m4//CbBdumoaewAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:29:36 +0000
-Date: Mon, 28 Sep 2026 14:29:35 +0200
-Message-ID: <87fqyt5zkg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jared Wuerzburger <jwuerz@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Samuel Dionne-Riel <samuel@dionne-riel.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
-In-Reply-To: <20260927173237.339476-1-jwuerz@gmail.com>
-References: <20260927173237.339476-1-jwuerz@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="O9ts7O2W"
+Received: by mail-pz2-f24.google.com with SMTP id 41be03b00d2f7-cc745abb731so1124988a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:29:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790598592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IWCIlLU6nl4BjIHQ+ab4J6aaAuXmQI6UHmpRUMx4KGmG/OmFX7j6bo2nwE/JUYXFB6
+         7h8BArI8311EGjtlUz5XaNmJOLZP0yGoLKJcoSo8ltKanfk5HWNfNefdFc5gG4gPXUAH
+         Jua7J30PtKTfNxAfVMkwwosOPfzo3XR/IO4AL8HSeCf1JYWKKtyw/y9KneElPkJPn97S
+         YnN5ntMjFTNuyfIW7sWS6imM3DYh+e+/4ULtLKdC6rpcHK7zEjXVRyzxyu2epVJviqSt
+         FG0Udp6BIx0t2o1bCbqeb4RAl8NLzrnUODfrT5zMb9MFS0J5VX7kxykLNNnOe9slOlXr
+         Hvzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lkBawcJZORsxZeSYcvknPN1o23VT6bn/NSzgx7OBRD0=;
+        fh=82vsYlHOG0xynIxsWa5g53jOjcPm75ZXcx2r+YiufTg=;
+        b=eunJSMAA8MZ1ZkdqZJLNN9UekeGSQ0UyZvMtqNPiSbsl/KatgLInRRmsA5GvIoGEYs
+         t/ZDpF6py8Rea7RpZxsuASmZuDFsbqYUFNhyncXr/zRAAqrLcMdtGBTPpBH7s3NX1nCm
+         Mr1JtzuOJeIJuuBNsY135esE4ZeY+e1XIGbOaGfMsN5hNWuclWJ4Y/vxXLRWr/X9/zSe
+         ueSmyIdSrfcXA4vpR21pf9J+sD4gDEsmYnOtBj4sZN++eDDiZMCwUAviiUIEJ0tGdT4T
+         3vx8c4gxy+AEJJ0d7Vj/3YcRktN56c6l+EZoFcF8s1WBaZ4CswhQzcnr2Szv7yfTsApz
+         R//A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1790598592; x=1791203392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lkBawcJZORsxZeSYcvknPN1o23VT6bn/NSzgx7OBRD0=;
+        b=O9ts7O2Wr5fi7gySwHhPrDrpQ+m4+lErPU5pHrIE++5dMfKzGxvYu2wNbU5+I/hgFS
+         ZucpOsIYfvlPnnP54mHZsaAqCkcfKLMOmj8O5SJcA5Im/vRaYtoqfrPbdq5ZQqkiQdqJ
+         27ChfsmcNXNEOvln3r5WtD5GH1vcsPdout3/+s4rRhLRFUjoNwOOzmX7LR3ge9irWduL
+         DHc2S8OwcgrJ+yv+mrznjoElhn/3zlMrqCqX3me7I6i91LTW6dWez+ga7gmVDw/LMFdo
+         8gHWD61TdNUKf+nU5IsBlZKiUBUM1Nqp0zFodK2COQcbl7IwaXAxYX3v039CNbUfl4Hc
+         VW9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790598592; x=1791203392;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lkBawcJZORsxZeSYcvknPN1o23VT6bn/NSzgx7OBRD0=;
+        b=2QNddAV/ZNhx1UPukVLalx2rTUr/ryW+8ksNvjdCj+LVGa7QsuWKwRk0hv+JgLruCS
+         mEofdJqHwPXA2T68spgpZ2/PW2wr4jWue6ww2G1FDQP7VpLXrD2F2/nSzGyZ7VwyODgi
+         qq71tUz13pl59hHw+KNqVE31dUIlCwjmR+GRYxy1r4nYFU9fFXp0fxFouRVe9bFOOBMN
+         YLHoMK67LD/82peQh0EhuOtyM43lFtvDIr0sC1xN212XsTsH2/jYBXNetElZneFoHRx7
+         eWEPrku4L0FFEDb810wZGfaWZv/4GmPzZeyBxQflParLBP8cGAdBkrgL8ZLuMw0LJ85a
+         QeQQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrnnvZcs2nMVQl2GXVO+6u0BuiW56LfI3IBnfyqFY+Jh5ARdwKVSh5TaVmvFU4/fsG6wky8GMzVWFnyTM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZmQs/U7ThP3b7UtSy8+xhqVXCnbZPs5Grx7uPgdaMEj7kbqiT
+	kv/QN8ePKeih2EBaoPwLMet6GnJPMYIZDxnjXJc3gpAd6oLbR34hORhemVVvtzUqBia6Cq3VgYr
+	BeDo6zSOuKpAU2k9j/MG2ME0/L1KFUxX6KHuTeB46Gw==
+X-Gm-Gg: AYBFou00zFCYhlSYN18L8MCnQyZCZqLE48wDA5X0sJk09gOuwdWSM1vkBXHDyce9cPn
+	DdgGzb20NqcalL9cNbOiho9khnY9jMzTqUQJhOz+9GFkxH73r+saFqLIAf2fzArUYfBnz5r6/ZX
+	5faIf1OyAa+VsIEaTVewkXUNOZfK8YQqGs64Gdb3lLDY9XH29zRXfbSOsl2e+S1p0UvwitI2rgV
+	DpaDNeajrtmdrj2HgWfPuEEld5ryMXyj28sMSK4T3hn75YTpptRax4Pp60fFtCejIZIjJbiqtoU
+	6BGw+rUrQKRnV1Oa/SvRyEfMl4zExrSIzJz44Rc/fqPUbvl4jHSrmQovKfeqKkpECNYS/vQ2jp2
+	uhASbEYNDABTs4NlYEBqKZAVrbOKdJDuMRys=
+X-Received: by 2002:a05:6a21:6f12:b0:3dd:a196:3091 with SMTP id
+ adf61e73a8af0-3de0e953993mr11609993637.65.1790598592229; Mon, 28 Sep 2026
+ 05:29:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+References: <20260922125112.2111256-1-robert.marko@sartura.hr>
+ <20260928091804.hjnabzi52kz4ktmf@DEN-DL-M70577> <CA+HBbNG2nGXpXC63AVUJX3KaqzJG+Q=-Md92eTpq7Y-O4CHMzg@mail.gmail.com>
+ <20260928110438.unoxnyymg7zwuuqk@DEN-DL-M70577>
+In-Reply-To: <20260928110438.unoxnyymg7zwuuqk@DEN-DL-M70577>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Mon, 28 Sep 2026 14:29:40 +0200
+X-Gm-Features: AclHuK_nzNTo2nwU3xgEirfWnjz5VEDaxc01jJkDIRwQ-q74rDelYXQzHvCKWN0
+Message-ID: <CA+HBbNHNdz3TpJRAYt08CnYtA081i-SXxO8ia+tbHvbcx+KAJw@mail.gmail.com>
+Subject: Re: [PATCH net-next] net: lan969x: correct RGMII port mapping index
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	Steen.Hegelund@microchip.com, netdev@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	luka.perkov@sartura.hr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 27 Sep 2026 19:32:37 +0200,
-Jared Wuerzburger wrote:
-> 
-> On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
-> internal digital microphone array never produces any audio. The DMIC
-> pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
-> jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
-> presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
-> always returns "present" (as it does on the unused, unconnected pin
-> 0x18), while the headphone jack 0x21 reports correctly.
-> 
-> The generic parser therefore sets up auto-mic switching and, believing
-> an external mic is always plugged in, permanently routes the ADC to the
-> empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
-> "Mic Jack" kcontrol reports "on" with nothing plugged in.
-> 
-> Mark pin 0x19 as having no presence detect. The parser then stops
-> auto-switching and exposes a normal "Capture Source" (Internal Mic /
-> Mic) control, which desktop audio stacks drive from their Internal
-> Microphone / Microphone ports. The existing bass speaker DAC routing is
-> kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
-> 
-> Tested on both models with the same pin config applied through a
-> snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
->  - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
->  - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
-> Both boards report the same codec SSID and the same 0x19 default. On
-> both, the internal mic records at a normal level, headphone jack
-> detection on 0x21 still switches output, and the bass routing is
-> retained (DAC1/DAC2 Playback Volume controls present). A headset mic
-> on the combo jack was not tested (none available); with this change it
-> has to be selected manually. V3 users already report that the jack mic
-> gets no input [1], which is the other symptom of the same broken
-> presence detect.
-> 
-> The patched alc269.c was build-tested with W=1 on tiwai/sound.git
-> for-linus (7.3-rc3) without new warnings.
-> 
-> The diagnosis, the fixup and this changelog were written with the help
-> of an AI coding assistant; I reviewed them and tested the change on the
-> hardware listed above.
-> 
-> Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
-> ---
->  sound/hda/codecs/realtek/alc269.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 5127a111c..2de91431f 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -4384,6 +4384,7 @@ enum {
->  	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN_HEADSET,
->  	ALC285_LENOVO_DAC_RENAME,
->  	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
-> +	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
->  };
->  
->  /* A special fixup for Lenovo C940 and Yoga Duet 7;
-> @@ -7136,6 +7137,15 @@ static const struct hda_fixup alc269_fixups[] = {
->  		.chained = true,
->  		.chain_id = ALC287_FIXUP_TXNW2781_I2C,
->  	},
-> +	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
-> +		.type = HDA_FIXUP_PINS,
-> +		.v.pins = (const struct hda_pintbl[]) {
-> +			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
-> +			{ }
-> +		},
-> +		.chained = true,
-> +		.chain_id = ALC245_FIXUP_BASS_HP_DAC
-> +	},
->  };
->  
->  static const struct hda_quirk alc269_fixup_tbl[] = {
-> @@ -8349,7 +8359,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
->  	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
->  		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
-> -	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
-> +	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
-> +		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
->  	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
->  	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
-> @@ -8579,6 +8590,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
->  	{.id = ALC236_FIXUP_LENOVO_INV_DMIC, .name = "alc236-fixup-lenovo-inv-mic"},
->  	{.id = ALC2XX_FIXUP_HEADSET_MIC, .name = "alc2xx-fixup-headset-mic"},
->  	{.id = ALC245_FIXUP_BASS_HP_DAC, .name = "alc245-fixup-bass-hp-dac"},
-> +	{.id = ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE, .name = "alc245-minisforum-v3-mic"},
->  	{.id = ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO, .name = "alc256-honor-mrb-xxx-m1020-audio"},
->  	{.id = ALC287_FIXUP_LENOVO_LEGION_AW88399, .name = "alc287-lenovo-legion-aw88399"},
->  	{}
+On Mon, Sep 28, 2026 at 1:04=E2=80=AFPM Daniel Machon
+<daniel.machon@microchip.com> wrote:
+>
+> Hi Robert,
+>
+> > On Mon, Sep 28, 2026 at 11:18=E2=80=AFAM Daniel Machon
+> > <daniel.machon@microchip.com> wrote:
+> > >
+> > > Hi Robert,
+> > >
+> > > > Currently, the lan969x_port_dev_mapping does not check for RGMII po=
+rts
+> > > > and just returns the physical port index.
+> > > >
+> > > > However, this does not work for RGMII ports as they have dedicated =
+DEVRGMII
+> > > > register space with an dedicated instance per RGMII port.
+> > > >
+> > > > So, check if requested port index is an RGMII port and return the c=
+orrect
+> > > > DEVRGMII index.
+> > > >
+> > > > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > > > ---
+> > > >  drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c | 9 ++++++=
++++
+> > > >  1 file changed, 9 insertions(+)
+> > > >
+> > > > diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.=
+c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+> > > > index f3a9c71bea36a..bf5320c7a6ca8 100644
+> > > > --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+> > > > +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+> > > > @@ -142,6 +142,15 @@ static u32 lan969x_get_dev_mode_bit(struct spa=
+rx5 *sparx5, int port)
+> > > >
+> > > >  static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int por=
+t)
+> > > >  {
+> > > > +       if (lan969x_port_is_rgmii(port)) {
+> > > > +               switch (port) {
+> > > > +               case 28:
+> > > > +                       return 0;
+> > > > +               case 29:
+> > > > +                       return 1;
+> > > > +               }
+> > > > +       }
+> > > > +
+> > > >         if (lan969x_port_is_5g(port)) {
+> > > >                 switch (port) {
+> > > >                 case 9:
+> > > > --
+> > > > 2.55.0
+> > > >
+> > >
+> > > The mapping itself is right, but as far as I can see nothing upstream
+> > > uses the returned index to access DEVRGMII. Every caller of
+> > > sparx5_port_dev_index() pairs it with sparx5_to_high_dev() or
+> > > sparx5_to_pcs_dev(), which never return TARGET_DEVRGMII. Those paths
+> > > are also never taken for RGMII ports. The code that does access
+> > > DEVRGMII, in lan969x_rgmii.c, computes its own index with
+> > > RGMII_PORT_IDX(). Sashiko, correctly points this out.
+> > >
+> > > So I don't think anything is broken today. Did you see a problem on
+> > > hardware that this fixes?
+> > >
+> > > FYI, we carry the same change downstream. But there it was added toge=
+ther with
+> > > RGMII MTU support, which reads and writes DEVRGMII_MAC_MAXLEN_CFG() u=
+sing this
+> > > index.
+> >
+> > Hi Andrew,
+> > As pointed out nothing yet is broken, hence no fixes tag.
+> >
+> > I am using it downstream as well, for the MTU change support where as
+> > you pointed out RGMII code
+> > uses it to get the correct index.
+> >
+> > So, I thought that it would be good idea to send it upstream before
+> > eventually getting around to sending
+> > the MTU change support as well.
+>
+> It wasn't clear to me that this was preparation work for a future feature=
+. As a
+> standlone patch it does nothing. IDK, to me it would make more sense to j=
+ust
+> send it together with the patchset that would actually use it.
 
-The addition to alc269_fixup_models[] is nowadays superfluous.  Unless
-you need the addition inevitably, try to avoid it.
+That is fine by me.
 
-The Assisted-by tag doesn't need to be specific, just telling
-"Assisted-by: LLM" is the preferred.
+Regards,
+Robert
 
-Last but not least, as this is correcting the existing quirk, please
-point out the commit via Fixes tag, too.
+>
+> /Daniel
+>
+> >
+> > Regards,
+> > Robert
+> >
+> > >
+> > > /Daniel
+> >
+> >
+> >
+> > --
+> > Robert Marko
+> > Staff Embedded Linux Engineer
+> > Sartura d.d.
+> > Lendavska ulica 16a
+> > 10000 Zagreb, Croatia
+> > Email: robert.marko@sartura.hr
+> > Web: www.sartura.hr
 
-Could you resubmit with those corrections?
 
 
-thanks,
-
-Takashi
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
