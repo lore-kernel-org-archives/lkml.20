@@ -1,185 +1,165 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013065.outbound.protection.outlook.com [40.93.196.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EDA46983F;
-	Mon, 28 Sep 2026 22:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634533; cv=none; b=g6uD8V66vSAYe/LxFrLbTq0VMX4Nff0wrWB7Tuou9gChkJ4dUsyr34upcB29+Vg+CknJEXpGDV4iHXBuSO1zTUoEBykRgoiUHJUSu3XUJRDhXfUcncbvpVnrvA5y9FIjhhYTnh5hefckwIJ9jJ0MV6UAMNNYHT7WyLgCr6B5XQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634533; c=relaxed/simple;
-	bh=jBMb3L296c0O+OjW5SKCRhHUGPAT24o3WEYc6pidZqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SeFQBVoKgmvxZhw7WkGNa4PgpPeK5kSGDDh8vZfKxTMUEXodyh9UsQtLqcZfApVJTpt+bdijT9LBRAolyA+QaBezcl0NEyNb1EU0mczJP1U5sJNNmdlemSwoRpMqbKxgdWauFd275hAuaqcvgZYJ//O+lJahD8HEfBvkg0QMwGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=fhJkH05o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v84oGVZ/; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3CC478842;
+	Mon, 28 Sep 2026 22:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790634578; cv=fail; b=XImhcX0TZbtlozvOvIkOUCiTxCQqObDFqTM0k2x2Lk40A3/EP5H8zhWKg2Ii3LEC5B7heaRjHwkGWfZceDEHmM4iK32pQxnU133HsDNnC2fA79ggrjnqSVu758WKrWsDUZhNDGm6Z921xitnOJa0G4gHz9nEOX7Ofsui0T32yhM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790634578; c=relaxed/simple;
+	bh=NX64wE1vnb+JJA/0t53OorDmSWgFOd3it95n76iurhE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xtdn6pBcVV3FbwERvk+b3lFUhdEPU5wVUOTnQ/VNgUjWGAzLQ6dPcrD9H5nMK+YcnPgFyIR7hrMjXxI7ob6cWR6nluJR/qWBDV594tMAGe2IGxunZeFJ1BonAWVIzia0cggCFQ6ukXG3t9kMtUB9neU8czadPQT9qCUm/be1pG0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rja9iEY8; arc=fail smtp.client-ip=40.93.196.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="fhJkH05o";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v84oGVZ/"
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.stl.internal (Postfix) with ESMTP id 28B421D000F5;
-	Mon, 28 Sep 2026 18:28:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 28 Sep 2026 18:28:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790634531;
-	 x=1790720931; bh=NUzzglyhr6LSnVy/4PTW7bzB6yZwtCHGNUPCejsAehY=; b=
-	fhJkH05ok1woYsovbmlM92S0xhvJIOHR0nvPutgPz81rVsANbS17uZWZ9s+axVph
-	1Tq9ELhbPqQg0JSFznw80MtjGljtbV5Al1/BOUo6Z+9wHUpKV0uJigG+4pBQ2HM3
-	U0iNkQcSJY7xt1x8qCF9yO6QwpkonqbfiTONWYu6KjS5kqY4iztRHuQNj2mpsmI2
-	NyuwuSqnjE+sZ6t+wD1fQcKy6gQ4tL+hkhFnN2byeEpYtlizjHPGt/PTnd5FaHvk
-	E8ZZXoeBVp9iNVaTdUB0PQPsreZ7N+AsWpepQdgI4b5rvca37H0Py/C+lqBXL+MK
-	Rk/gLZ1cCLxXBxlddsx2/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790634531; x=
-	1790720931; bh=NUzzglyhr6LSnVy/4PTW7bzB6yZwtCHGNUPCejsAehY=; b=v
-	84oGVZ/lB7MJKmFr72jrfCusu3R/Or7zgwvkxygyKT+NZXOT06Ex9vs2ChE4sziZ
-	QA2icfOcr2WTP26rlvLjuJbiTnpNB5E9PaGmF9T7B1T42xx1aSLsVaDs0IEkeh5y
-	AYpOyGBJtcwjjxjpUOB7qzrxNM000Pn5+UiPpUDMyeKPY0KyrenH9VZlAjW02JD0
-	SBApAGsvPYsLdyUZ0K+f3qfZKyClsWbAzZ6gZTCDvkrkSRED55eetbDSfK0veiBi
-	Gztmt32ONZXcJNYfSJj2s6is5InXP7hrG9nzJ7iwW5ihpnByMNz8LXC2r3n/xCVW
-	Q6tPMgYhIGcaTsIdupAjQ==
-X-ME-Sender: <xms:Iuq6apO4C2g7xkgP-685zqUJwU8WYuTK2KUOXSg2aw72xIv2Y19OaA>
-    <xme:Iuq6ahI3lJ5rqquQ1lNwuUjX0_7OuHuy3uTqW9lSKZ4OAsR6f_ld9vt5dY1faOxf6
-    nnYb8jZZF6omggG6vKb8UMCEB_GeKT5Md9IrApsQ7WEpsrwuW_VG5U>
-X-ME-Received: <xmr:Iuq6apKc5e_M1EepTZBFBQsMZdCCCUoynh_sdUXd_ub0PMDDHAFiBFBdhcxDEQ>
-X-ME-Proxy-Cause: dmFkZTFjkexj7t9P8sudggapxulSyVz1RZc2pvM3/cyjddeDx19eMQiocZet65GSKkqAn2
-    tTJdDmDhWxdtjM2+0uDTlmsqOB2+3l5ra8RhDVZZQuuZAc2jhR7UpmEEwzergnJLj0uxJc
-    RJIdgu+RNcx1w5QOWkm6LCqxApocTGNG2VU5tez/SHCNcbWxv2QtvylFZcPnI53nop6KHc
-    1FaYu+1ui4cRMHsUH00TwDB4y29mT88Ft2cCqJzXAt7sOZQlB22vFaxRviF4lEvLUbhRku
-    RR7Rje2bdC24gYdtYBSh3Kr5YLqgbZS7iy0OeOorws9kj5BGlq0MgscXwJkEZVyyhot4pA
-    O4HNxsCELSiXnrNvsqU9RcP1Not/uTzQLPToclgZDC14ytnYBmJXfoAG6zUOxHa4F7SogD
-    SaGXuvpMaoBoUR7wY3nEiiplLv2CVaoVXeH4qEAvMGGDYI6UbkeliPAmFwHlphnonZgB9+
-    CCGjQFedKAiik2RbuvoRbcjWoipvIGjikrXantn7sWMA15lxzAwd+1XdaxdhHwAAZSyDjn
-    o6LrdCiGPks29sxNkx8rHhmKE2aSdQ7Vud5Y8Rx3JQBrbLmWoH9yyfLgxNsvw/QImDkFPN
-    3d5jjaIlleTV91VKD+kxEdXzlAhq7mmCcgYh+5M8Z1JT619s5fUh+VVCSnnA
-X-ME-Proxy: <xmx:Iuq6ar4myuQmu0RpOjn_oPYyC7degT03DvKaxyx-lfQ2jMPhlxX-Lw>
-    <xmx:Iuq6ajcTvbYzLDTkNCTDBBbt_qk0fXrDRKhXu-CdhmiNWneoqxzojg>
-    <xmx:Iuq6amFtlp0KR42fxCGjsl_Bmdhkr57DBJ9NZ_73X13AvBFAUkorbA>
-    <xmx:Iuq6asRtSkCShooC4QZtfea9Z4gea0_qQetAaRClVRxmaxr-3xfwww>
-    <xmx:I-q6an_lY_7ogsD1_rldGXiteswAhuukSOB5qabQFc3u8dKRZUDQZ4D1>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 18:28:49 -0400 (EDT)
-Date: Mon, 28 Sep 2026 16:28:48 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Alex Williamson <alex@shazbot.org>, kvm <kvm@vger.kernel.org>
-Cc: Alex Williamson <alex.williamson@nvidia.com>, linux-kernel
- <linux-kernel@vger.kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian
- <kevin.tian@intel.com>, Yi Liu <yi.l.liu@intel.com>, David Matlack
- <dmatlack@google.com>
-Subject: Re: [PATCH v3] vfio: selftests: Verify a failed second open
- preserves the vf_token
-Message-ID: <20260928162848.72f6c716@shazbot.org>
-In-Reply-To: <20260925205134.3505611-1-alex.williamson@nvidia.com>
-References: <20260925205134.3505611-1-alex.williamson@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rja9iEY8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K7mePuxpKvJ40T4iHTrGP+gydBYd0yQuj60yqby5Wv+Sr0g4zU/zlVA0SKBf5qoZX2epxUNIYPnfYn9bmJRAAnmeUznSC2h0xUq37xhVlOyvsxhQzTRT2i+NX+H4ORjrh29qXzd7llzuUF3DbmQioBWV8tpy+rksWlCS2tPmlYSEI4Zmnma7+6dsblIlf5IvvdnKALL3UDNpDPlkDXAcnPEGsnJS4XbVI5S/OI2VZ1k2ccm9O5jqRjRseDAuTxapwm+y2DxsmV7VpnMZyfDfK6HmtprqUBrDmuHfjaOL51SA8AtxhGevfN4D3AkWYbPgz96XVc6/eswThMHha19GQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=412pjYRAbHCQ7VuHA6+zqc2SlC6XKCjC5ntrrH3uZLU=;
+ b=ll+Jk/gaCEsrQwgfQJckzWeRde1Pdi46UxFlbNZfzoYLu+hV9CC02IXqiGbvGbmhLFY+VXhKylP45XOAfUT3lIHCQpSSMhOnwHN9Cxbw8K6rAwh49wdXqj9RSKzP3yXXNsxqlm0YWkJ5CZXV7PVYTVL86cPOTwJq8JFqIFcWsdYZrqlQXpovuKVELlGk6Ef1fwZ1QLfMp/9vagog6zLx7w5yg7aSYdbqaXsOpJpyLG0nV0lzfhje3230jK1DhFVlQP4OWOzc1DpfcunvlllAH/DKDxmqlXWa14eTBH3MOUWJ76mcToT71zT0u/HrdY3RufqiiaUBMMxRbkblKfw8TQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=412pjYRAbHCQ7VuHA6+zqc2SlC6XKCjC5ntrrH3uZLU=;
+ b=rja9iEY8t+7ZVHg7vwKRKlv8M6DUNg6G0qb1AUmSI44qRiB0ZBkoT66icXRAX6V7hSF/5pUqXC7/3jj9qKZdz9TRKoizLD6GF6YOBlJPIuDegZW/wgxSIoL6mHIAI2OYuzEgwYqG6+ki8WDUQkkYATEw+5f/DSJhPPjWZMV85M9H0vs1Z/nfW53w361kQeDnzhnSYg834iNch/0Wq3epFsvMck6JugmCcCE8EfuhehY9clKlRGVOR/vkVHkhjyMIP1xorNzxbm/i3tEFRKNV+LLrHeci6AtBGNLi6oIrL4HqSQUX9ZN5xJcIw0S1gezXLVZ9e9LpDYOxzW6Dp08euA==
+Received: from DS7P220CA0093.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25a::17) by
+ CY8PR12MB7682.namprd12.prod.outlook.com (2603:10b6:930:85::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Mon, 28 Sep 2026 22:29:26 +0000
+Received: from DM2PEPF00003FC3.namprd04.prod.outlook.com
+ (2603:10b6:8:25a:cafe::55) by DS7P220CA0093.outlook.office365.com
+ (2603:10b6:8:25a::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 22:29:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DM2PEPF00003FC3.mail.protection.outlook.com (10.167.23.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 22:29:26 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 15:29:06 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 15:29:06 -0700
+Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 15:29:04 -0700
+Date: Mon, 28 Sep 2026 15:29:02 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, Jonathan Cameron
+	<jonathan.cameron@oss.qualcomm.com>, <joro@8bytes.org>,
+	<bhelgaas@google.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<kees@kernel.org>, <smostafa@google.com>, <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>, Eric Auger <eric.auger@redhat.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<skaestle@nvidia.com>, <mmarrid@nvidia.com>, <skolothumtho@nvidia.com>,
+	<bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/15] iommu/arm-smmu-v3: Drain in-flight fault events
+ on domain detach
+Message-ID: <arrqLmlco3TeC/lV@nvidia.com>
+References: <cover.1789446520.git.nicolinc@nvidia.com>
+ <cc7eabdd07e7705c84e30b04c85271d4ddf66055.1789446520.git.nicolinc@nvidia.com>
+ <179018862538.3334538.17643821143626392419.b4-review@b4>
+ <arRTojIlWBOF57zO@nvidia.com>
+ <20260923233920.GJ2545495@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260923233920.GJ2545495@nvidia.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC3:EE_|CY8PR12MB7682:EE_
+X-MS-Office365-Filtering-Correlation-Id: 237dd99e-df44-4c60-af30-08df1daff44a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|23010399003|10067099003|56012099006|5023799004|11063799006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	lPrWsilX3vhkjBeDJi9beTIpsPxWrIMV2feBBdMtDMosmPCJdYcMXH+P3ZRTfyT+JulbCeOZ9zV4li4JmFZEaht1z1EuqUQ9MKSAvqaQTm9HjR9Fxh/1jUtFxMAkwtMxPd2c5/ueQnLY7kCQQtqAqFbUI3M2jwW+IJshAA88+KX/fG2GPDsBIQgjMIC4UfHjOJxVc3HvwJczgPsdqCgRGM1G+3YnpKuRDgCYhS2Yjwj6utEb16UDYqdWsFlW4ygVBnodgN39fgs0c1pRKpSIM3xm0Dr0ef6VwDh0NWUAAO+eRBu1UhueUzvnNZFTqQ0D/I9cMmNtbydfyz1Tnf4kdQASl4vUCkTOEjDHvm2jSEw9RVT1PyEzy7THLGaun0S4WAAtFcbLsL+0dEXFRyBH+simJGvuPgITlGLGOh34gu5r/oCZ3a0V5jd2fYV0f0DquiDGl16IM/92K/XjsltXdepRsghIOL+gA1FVpdxKl8WSlDSYBcLJhWLaC0NdGMwMpDlvQeTFcDsIJ3UC9rW4JVnQfKA5A2RmQKnl6024KEjuw6wuo6KgObl8VEn71ltq001X43Vsb96f8Ag0I9+TJbLkm8BVb9raCtv3cL7qBBWmcQfnoWupFbhUVV6ETtFof4IE6w3Y9sgXyTCYfKNzv/JiHN4D2+TOMRlh+KRWpKMT2ecf6IDdAg1SXdd7uG0N49Wut3/MeSb8tmHVAUI8TQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sFoqOzxI5/MK9YdN5u6vw0vpMMbLqfrUMl7oBO6MNfcQeUY2MBtUAycAH4m+05sMbGdOn9oHaoyk2MCrE3fBC274rbzq3YJz86Ax8JsTr6UGHEatfzNfLWeGPEg9xYgORRWDSv/It0SIGoRF9AyZnOeUEKWWccPzHXVl3ePu2wX3hmOir3z9djvtY3iprS1gaU41OKlO9srbcUcyVyhuB/gW+hHrTg0nxePuWCMUR/+HI2w0b7u+TSAvNekzpoSyYQQo9WDnTTR7PwaKYGvPgvv+0+MxlwI+xN6N7fWfbhgHa+1ui3CW1KhhBfo5bjZwBxfk4WzVZ2vS3wqlwxElEr99JFMqjhoBVXmPhupb3JM5pcYYt0u8S4Vkl8ldcMd7R+wzxrYzmeofFzs2mXZhKjIgarvX8ut3VukHj8/JN/+w1leMijG7mKA+AYGA4M6A
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 22:29:26.3490
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 237dd99e-df44-4c60-af30-08df1daff44a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM2PEPF00003FC3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7682
 
-On Fri, 25 Sep 2026 14:51:32 -0600
-Alex Williamson <alex.williamson@nvidia.com> wrote:
+On Wed, Sep 23, 2026 at 08:39:20PM -0300, Jason Gunthorpe wrote:
+> On Wed, Sep 23, 2026 at 03:33:06PM -0700, Nicolin Chen wrote:
+> > > But I wonder if the point of this has been lost? Prior to calling the
+> > > driver attach functions the core code already changes the xarray:
+> > > 
+> > > 	curr = xa_cmpxchg(&group->pasid_array, pasid, NULL,
+> > > 			  XA_ZERO_ENTRY, GFP_KERNEL);
+> > > 
+> > > That immediately makes the threaded IRQ safe since it calls
+> > > iommu_attach_handle_get() which now fails.
+> 
+> Hmm, actually that's a sneaky cmpxchg that is only doing reserve..
+> 
+> > I am not sure about that. Looking at iommufd_hwpt_replace_device(),
+> > there can be a old_handle != NULL, in which case the cmpxchg() would
+> > not change the xarray?
+> 
+> I think this is wrong, there is no way it can work like this where the
+> attach continues to see the to-be-detached domain across the
+> flushes. No amount of flushing can fix it.
+> 
+> Somehow we broke it :\
 
-> The cdev path enforces a single open per device and rejects a second
-> bind of an already open device.  That rejection must happen before the
-> bind can mutate state shared across opens, notably the PF vf_token, so
-> that a bind which cannot complete leaves the current opener's state
-> untouched.  Before the fix in commit 258ba46543ab ("vfio: Reject a
-> second cdev open before mutating shared device state"), the second bind
-> mutated the vf_token and only then failed with -EINVAL.  It is now
-> rejected early with -EBUSY.
-> 
-> Add a regression test that binds a PF with one token, attempts a second
-> bind of the same PF with a different token, then initializes a VF with
-> the original token.  The VF init succeeds only if the rejected second
-> bind left the PF vf_token intact; a regression that clobbered it to the
-> second token would make the VF init fail.  The -EBUSY errno is checked
-> with EXPECT_EQ() so the clobber assertion still runs if the rejection
-> returns a different error.
-> 
-> This hazard is specific to the cdev/iommufd single-open path, so the
-> test runs only in iommufd mode.
-> 
-> Suggested-by: David Matlack <dmatlack@google.com>
-> Assisted-by: LLM
-> Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
-> ---
-> 
-> v3 following v2 from [1], incorporating David's suggestions to combine
-> the tests using EXPECT_EQ() rather than ASSERT_EQ() so that we still
-> test both aspects without duplicating code.  -EINVAL reference moved to
-> commit log.  Remaining patches from [1] applied to vfio next branch.
-> 
-> [1] https://lore.kernel.org/all/20260911170429.1642480-3-alex.williamson@nvidia.com/
-> 
->  .../selftests/vfio/vfio_pci_sriov_uapi_test.c | 35 +++++++++++++++++++
->  1 file changed, 35 insertions(+)
+I'm trying to fix this by replacing xa_cmpxchg() with xa_store().
 
-Applied to vfio next branch for v7.4 with resolved nit from David.
-Thanks,
+However, an asynchronous iommu_attach_handle_get() could return the
+old_handle in the iopf path, before xa_store() in the detach path:
 
-Alex
+ - If a different domain is replaced, a driver callback is invoked
+   calling synchronize_irq() and iopf_queue_flush_dev(). And this
+   closes the window on any the old_handle reference before being
+   released.
 
-> 
-> diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-> index 19d657d00b75..87f42aae340c 100644
-> --- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-> +++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-> @@ -157,6 +157,41 @@ TEST_F(vfio_pci_sriov_uapi_test, override_token)
->  	ASSERT_COND_VF_CREATION(ret);
->  }
->  
-> +TEST(failed_second_open_does_not_clobber_token)
-> +{
-> +	struct vfio_pci_device *pf = NULL, *pf_second_fd = NULL, *vf = NULL;
-> +	struct iommu *iommu;
-> +	int ret;
-> +
-> +	iommu = iommu_init("iommufd");
-> +
-> +	/* Create and bind PF using UUID_1 */
-> +	ret = device_init(pf_bdf, iommu, UUID_1, &pf);
-> +	ASSERT_EQ(ret, 0);
-> +
-> +	/*
-> +	 * Attempt to open the same PF again and bind it with a *different*
-> +	 * token (UUID_2).  This must fail with -EBUSY because the cdev path
-> +	 * only supports a single open per device.  Enforce it with EXPECT_EQ()
-> +	 * so the clobber assertion below still runs if the errno differs.
-> +	 */
-> +	ret = device_init(pf_bdf, iommu, UUID_2, &pf_second_fd);
-> +	EXPECT_EQ(ret, -EBUSY);
-> +
-> +	/*
-> +	 * Attempt to initialize a VF using the original PF token (UUID_1).
-> +	 * If the failed open above clobbered the PF's token (i.e. updated it to
-> +	 * UUID_2), this VF initialization will fail.
-> +	 */
-> +	ret = device_init(vf_bdf, iommu, UUID_1, &vf);
-> +	ASSERT_EQ(ret, 0);
-> +
-> +	device_cleanup(vf);
-> +	device_cleanup(pf_second_fd);
-> +	device_cleanup(pf);
-> +	iommu_cleanup(iommu);
-> +}
-> +
->  static void vf_teardown(void)
->  {
->  	/*
-> 
-> base-commit: bc78c90728cd74d1c7335fef786fa51968bdebad
+ - If a different handle is replaced on the same domain, the driver
+   callback is skipped. Then, the iopf path could hit UAF while the
+   old_handle being released by the detach path?
 
+To close that window, I think we might need an ABI contract for the
+second case by asking drivers to sync irq and flush the iopf queue?
+This would require to roll out driver-level changes as well.
+
+Thanks
+Nicolin
