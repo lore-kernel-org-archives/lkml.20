@@ -1,340 +1,125 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54684E73AE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5ED14E77FE;
+	Mon, 28 Sep 2026 15:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609526; cv=none; b=N5jfeUdi1ayTgFaWW9kaaHtwtkgIfrZxsLCtd8eR/AKBRCvsRfqrPietUjwilemVvLO/hIa0zXkRAwfodV02ZGAEDaY4uDMU+Q8HNxS3LVMY4YCYBxmcShRD5t7KBsxtMHzfqRVRAIV3KclJ/5fQAEQVXUvbb5/unl8Z3scAOr8=
+	t=1790609537; cv=none; b=nt9pnjxT7Vxedztdeq0e75ns8N9xrVCIV+1i6zuIiR/ntRr9CCCBEyKLeyFRrlOBnFQqgqpChPBGyxDQ37lYbYcounslSuG5DPEbc9jkPrVoCXdsJl6Z8/4xu5pI6s49uTuxSKHy4AepK5MUM+lvDMvMKv/y1iGBS/GO4pgTfNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609526; c=relaxed/simple;
-	bh=doEOg+US8J6B7U7K+soEsoXv74XX5RldXABoz5a9ZWI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=GIcbbRskT6WpMb/AQe+wQStCkiWheNgVC/hVAmFCYn6GUXQ7jPWydeB5orjj5UyH5qcWhYfSe1e9C7xQ7jPF77Yud04QpuNuoQM9TQIdRuuTA9DKkgbo5RBFb23Hxw0K7EyNm3DNjjVitIDPIekpuLq5mGS7Q6/DYMtvGJ1FQZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so5446122b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:32:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609522; x=1791214322;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FHe/DKMDMNOxBT/djogDfbAwZkWmE/D6pcai+qSiHv8=;
-        b=rP9Rzk2TyTTaO7BYPi5BTdUj7POHietMZy3zqoMU4SbUR8Few8U2zI9rhGR+ibLDuC
-         B0eOGy2lQrdcpAvy9FiRhaF/l7fOsz4bb2rSqLk+OiBspj1BiZPlx0FaqvmCUVTGtMH8
-         7ZQvE6vi0h5/9VdEi2Pnx6D/Xqv/xHtVF/ml1WSuyquY7PhdWtGrGQm1IY0cQdnMrFwO
-         fDmGHK0zeuKIW93dU02/fc1PHQXmI/v74UhOqOzJXutji4B+m6h4IBcFMhLoSwYSSj5d
-         gLsUpjhoDORhtaRdepXUbcvuLF77uoce2uGVR327K2dSaBlWH80Q64LA2kVS3QrqOx9B
-         PHBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPiT5TtWeDg/UrlThpLVhNnIUgUvigUDO4ordZFfxe38MeSyrqVfCvEh4qMGgu4w3hqBlw4f/PlbmdGq8=@vger.kernel.org
-X-Gm-Message-State: AFuF++niKkDA1Va6g1ZHS3xp0qCHPnJmRZPPt+Cux4qdA5RjeJmaKtoa
-	kCkK2yucWweipGRqOfkEAlihe1azcin5N/tpmwceS/TlBvebSE7ptImyXUzW0mSdpbD7nZXUdOz
-	e8xKdb4D+MWcWcmV7SW13JJSquAA3wDXwa8TB1c3QWOQIEpF3Sp1EVON2DFM=
+	s=arc-20240116; t=1790609537; c=relaxed/simple;
+	bh=ntpxkvkUTTw0VO100ZA1zeUxr46OPt10yDVvtgdqXfA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uhJSnQ1yJZapoHEUi6fiusaoEer1BGCcD5U4l4shFEh5kRZfs3LGOcPmqAhFYIR2dfY5rSE2hrkqhc01fCdlzKFqeDDoOjXB1nKGNd2c4+AtkJdso+Bdjbs6LhYDQKt5ykKG5hA5ucd+R+wf30hNC7ZBQL+evGUSLAJBQeEiZio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XTZvBkIS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XTZvBkIS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6F631F000FF;
+	Mon, 28 Sep 2026 15:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790609535;
+	bh=RZ9WA2ykHvGEyuJHbovdsGi/6qSj45jtXA79JrlEcCg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XTZvBkISzr474Zrpuc1T2S4Ee8SyZkMMbisMtPO+BYsJSepLkD0Ws6J4iZ5rLcWum
+	 J+yluaFVX3CFencgd9vUdPCfLHFODJKr7sPLW/0rgdpS/9tlquEGZoJPPGd96nn4qV
+	 aswPRYVOdeBbsX1+AajnQKHaCkZL4ECuvjXMLoO7CBj3SV+LAf+9u/wqdF7hQ80/OU
+	 w+roD5V7V7MJpI/IDfHufqIVDdByO/U0hFWn+SmODw/dzeU4/1KvZEoM9JyBXBxIWX
+	 YvOmVvcBXVVUqKRIlaoXskpRULOQGU1hEzOTP4ZtOsIflzCUxfK3INliI1MYw2GHd7
+	 Oy3028w/1pBKg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.phl.internal (Postfix) with ESMTP id A57C2F40068;
+	Mon, 28 Sep 2026 11:32:13 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 11:32:13 -0400
+X-ME-Sender: <xms:fYi6akmsatnwTTU1ehgcboBBVGYR8XCs09lRyFUB6fGnJPLB97C5AA>
+    <xme:fYi6av3uOGsnwrwxy1whc8gqnqYE8ocjsXTOEvr-3TLpOsWOkLLDWQUl5b-yStJ8v
+    rG73um7gCZqZoB9v6snNHVVL-vGBiqKsYhA_3KjESWUTurHpMfiWJM>
+X-ME-Received: <xmr:fYi6ak1g9AdaPJ-xEtQhzi1sp_6Ft2i648EKOMPMFWpz-t1aaAWentqrDf18>
+X-ME-Proxy-Cause: dmFkZTFv+luSSQR1rVkkY244nY3PGCdvQ4HGsOm4gQyyjHU6LnVfxNPuMl9U+fnlQzvYkD
+    B4s2ZrJsH+VJ9jBortm/ytfrL66qBDzSes0sgLOcgPz7HzOUyergtAPYur0rNAIQb2wLxl
+    LvayQYf/e+0Nxox3ythtkc2rSnpbzaqU8sIxJiU8IwGseoHHLPF2DaNSOrhqq0jkpcK/lT
+    RbLxr6EpZHBnE+lUbUa0A7gkJEetinA5jcALDVCqd3uVesAXWhiBYs0N9enpRn89++r5Ug
+    eofTicdHomr127teag8qiWQ/033tJnApSEOuMmouNkWYI2ZQ/uRKa59dwqsaWCOZ54qeKW
+    neQ7Bjm0sbgDMdJNX3s4GcDkAsgQ7iTjbq7UDx7EKyxlZPC1vYO1QlgpLU4V3MOu9mwBiX
+    oBQ4MHsXm6otMwLzVLrT3VSmrjthRPwQqHL4cIrvUNaSxY0EshF+Au2Kb8SC6cJIvvOF22
+    9UZVy8Qf8yQf8dKdtTcYMA3fAiJQbR3z8byluocoGKQCxSYPFpXWOOnzcMLWV+NdF0YLUs
+    4rhPDORQIPa0LT68ewGZYnem1QaObScGUNUj0n/dUjs5VwoqMqut12/rcycwMplBmsqnN0
+    J02hu1L+nNaA7hs4c6E3iSzYfXbuIibhXYPr427T83jm4DzPbeJymStu17ng
+X-ME-Proxy: <xmx:fYi6ahoPQrGMju6JGw_sFvwM6DUUWL7jX5h9pXVSauwh1QjekWMl5A>
+    <xmx:fYi6agifx9Fxz5rWnrbIu2EzuK0oCV28ZvpPNfvR3p5gPL_dtDZj-A>
+    <xmx:fYi6at-bzEN1ZcxUM1_GBJyJzQwLoLmHDKUlN_5GsPOr1I-BSTtZTw>
+    <xmx:fYi6asXnPEetGWabHVQ2r-qPtdev0tjNgpxX4VfZm7zIam7sDCBExg>
+    <xmx:fYi6ahBjZ57kHnC3FbinkI440bPFxkJwazUnopH90j8myaUXYPIs0Q0o>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 11:32:12 -0400 (EDT)
+Date: Mon, 28 Sep 2026 17:32:11 +0200
+From: Boqun Feng <boqun@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
+	rcu@vger.kernel.org, lkmm@lists.linux.dev
+Subject: Re: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path,
+ fallback to overflow list
+Message-ID: <arqIe2d8Koj857Kt@MacBook-0RXW5>
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
+ <20260927155134.4740-5-mathieu.desnoyers@efficios.com>
+ <arlHFVT5EzcX4d1-@MacBook-0RXW5>
+ <5c78c338-1be6-456b-b963-bcfc62748aab@efficios.com>
+ <DLQGJZK4LIAO.3TAY3HZ6PR76Z@garyguo.net>
+ <arovltfvFzv2FFjO@MacBook-0RXW5>
+ <DLQX09XGAHDL.1LSFQH13SU7XR@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1929:b0:4e8:a7db:ce65 with SMTP id
- 5614622812f47-4e8a7dbe054mr5703626b6e.53.1790609522318; Mon, 28 Sep 2026
- 08:32:02 -0700 (PDT)
-Date: Mon, 28 Sep 2026 08:32:02 -0700
-In-Reply-To: <20260928151833.GB536483@shredder>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aba8872.c6a7fab7.e5ea7.0457.GAE@google.com>
-Subject: Re: [syzbot] BUG: Address NUM::fb on device lo is missing its host route.
-From: syzbot <syzbot+57f410c9a4f8d7a441d6@syzkaller.appspotmail.com>
-To: idosch@nvidia.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLQX09XGAHDL.1LSFQH13SU7XR@garyguo.net>
 
-Hello,
+On Mon, Sep 28, 2026 at 12:32:34PM +0100, Gary Guo wrote:
+[...]
+> >> For some context, the current Rust revocable implementation uses RCU, but this
+> >> is limiting the case where it can be used. The current C revocable series in
+> >> https://lore.kernel.org/all/20260912123529.7951-1-tzungbi@kernel.org/ uses SRCU.
+> >> 
+> >> I think this use case is a good one for hazptr, in fact, I have encouraged Alvin
+> >> Sun to try it out and you can see an implementation (Rust) in here:
+> >> https://lore.kernel.org/rust-for-linux/20260326-b4-tyr-debugfs-v1-6-074badd18716@linux.dev/
+> >> Although, over the course of the year, we have been reducing the amount of
+> >> revocable usage and shifting to represent things with lifetime..
+> >> 
+> >
+> > Paul asked me for the Rust usage a few days ago, and since we moved to
+> > a lifetime based approach [1], which is better IMO, I don't think
+> > switching to hazptr will should observable difference here, especially
+> > for a real workload improvement. It's still worth trying to see how
+> > hazptr in Rust would work for this, but it's less a sufficient condition
+> > to merge hazptr from my understanding. Of course I could be wrong.
+> >
+> > [1]: https://lore.kernel.org/rust-for-linux/20260517000149.3226762-1-dakr@kernel.org/
+> 
+> What we get rid of is to use `Revocable` (or `DevRes`) to protect resources
+> where we _know_ that the resource is alive (for example, in device private data,
+> because it's teared down by driver-core on unbind).
+> 
+> However, there are cases where we can still have the `Revocable` pattern, for
+> example when a class device is exposed to userspace and the bus device is
+> unbinding. This is a pretty recurring pattern too, and cannot be handled via
+> lifetime alone. This is what motivates the C revocable series.
+> 
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Not trying to discourage switching to hazptr in `Revocable`, but I think
+the only shortcoming of RCU there is "unable to sleep while referencing
+a `Revocable`", right? Certainly hazptr can help on that but so does
+SRCU. I'm unsure hazptr can show observable advantages against SRCU
+here. But I could be wrong.
 
-SYZFAIL: failed to recv rpc
+Regards,
+Boqun
 
-SYZFAIL: failed to recv rpc
-fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
-execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
-(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
-
-
-Warning: Permanently added '[localhost]:25612' (ED25519) to the list of kno=
-wn hosts.
-2026/09/28 15:31:20 parsed 1 programs
-2026/09/28 15:31:20 serving rpc on tcp://36177
-[   47.553227][ T5746] cgroup: Unknown subsys name 'net'
-[   47.698693][ T5746] cgroup: Unknown subsys name 'cpuset'
-[   47.702860][ T5746] cgroup: Unknown subsys name 'rlimit'
-Setting up swapspace version 1, size =3D 127995904 bytes
-[   48.856439][ T5746] Adding 124996k swap on ./swap-file.  Priority:0 exte=
-nts:1 across:124996k=20
-[   51.171997][ T5752] soft_limit_in_bytes is deprecated and will be remove=
-d. Writing any value to this file has no effect. Please report your usecase=
- to linux-mm@kvack.org if you depend on this functionality.
-[   51.176597][ T5752] ebtables: xtables 32bit compat interface no longer s=
-upported in namespaces and will be removed soon.
-[   51.187163][ T5752] arp_tables: xtables 32bit compat interface no longer=
- supported in namespaces and will be removed soon.
-[   51.584025][   T46] wlan0: Created IBSS using preconfigured BSSID 50:50:=
-50:50:50:50
-[   51.584041][   T46] wlan0: Creating new IBSS network, BSSID 50:50:50:50:=
-50:50
-[   51.638990][   T38] wlan1: Created IBSS using preconfigured BSSID 50:50:=
-50:50:50:50
-[   51.639014][   T38] wlan1: Creating new IBSS network, BSSID 50:50:50:50:=
-50:50
-[   52.584253][ T5769] bridge0: port 1(bridge_slave_0) entered blocking sta=
-te
-[   52.584749][ T5769] bridge0: port 1(bridge_slave_0) entered disabled sta=
-te
-[   52.584809][ T5769] bridge_slave_0: entered allmulticast mode
-[   52.586142][ T5769] bridge_slave_0: entered promiscuous mode
-[   52.588800][ T5769] bridge0: port 2(bridge_slave_1) entered blocking sta=
-te
-[   52.588842][ T5769] bridge0: port 2(bridge_slave_1) entered disabled sta=
-te
-[   52.588899][ T5769] bridge_slave_1: entered allmulticast mode
-[   52.589826][ T5769] bridge_slave_1: entered promiscuous mode
-[   52.609061][ T5769] bond0: (slave bond_slave_0): Enslaving as an active =
-interface with an up link
-[   52.612156][ T5769] bond0: (slave bond_slave_1): Enslaving as an active =
-interface with an up link
-[   52.634772][ T5769] team0: Port device team_slave_0 added
-[   52.637853][ T5769] team0: Port device team_slave_1 added
-[   52.659595][ T5769] batman_adv: batadv0: Adding interface: batadv_slave_=
-0
-[   52.659612][ T5769] batman_adv: batadv0: The MTU of interface batadv_sla=
-ve_0 is too small (1500) to handle the transport of batman-adv packets. Pac=
-kets going over this interface will be fragmented on layer2 which could imp=
-act the performance. Setting the MTU to 1532 would solve the problem.
-[   52.659634][ T5769] batman_adv: batadv0: Not using interface batadv_slav=
-e_0 (retrying later): interface not active
-[   52.661967][ T5769] batman_adv: batadv0: Adding interface: batadv_slave_=
-1
-[   52.661981][ T5769] batman_adv: batadv0: The MTU of interface batadv_sla=
-ve_1 is too small (1500) to handle the transport of batman-adv packets. Pac=
-kets going over this interface will be fragmented on layer2 which could imp=
-act the performance. Setting the MTU to 1532 would solve the problem.
-[   52.662001][ T5769] batman_adv: batadv0: Not using interface batadv_slav=
-e_1 (retrying later): interface not active
-[   52.698031][ T5769] hsr_slave_0: entered promiscuous mode
-[   52.698964][ T5769] hsr_slave_1: entered promiscuous mode
-[   52.831553][ T5769] netdevsim netdevsim5 netdevsim0: renamed from eth0
-[   52.838068][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
-m0
-[   52.839020][ T5769] netdevsim netdevsim5 netdevsim1: renamed from eth1
-[   52.847513][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
-m1
-[   52.848454][ T5769] netdevsim netdevsim5 netdevsim2: renamed from eth2
-[   52.853584][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
-m2
-[   52.854492][ T5769] netdevsim netdevsim5 netdevsim3: renamed from eth3
-[   52.860087][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
-m3
-[   52.924459][ T5769] 8021q: adding VLAN 0 to HW filter on device bond0
-[   52.939304][ T5769] 8021q: adding VLAN 0 to HW filter on device team0
-[   52.944711][   T74] bridge0: port 1(bridge_slave_0) entered blocking sta=
-te
-[   52.945117][   T74] bridge0: port 1(bridge_slave_0) entered forwarding s=
-tate
-[   52.953389][   T74] bridge0: port 2(bridge_slave_1) entered blocking sta=
-te
-[   52.953436][   T74] bridge0: port 2(bridge_slave_1) entered forwarding s=
-tate
-[   53.267244][ T5769] 8021q: adding VLAN 0 to HW filter on device batadv0
-[   53.432851][ T5769] veth0_vlan: entered promiscuous mode
-[   53.438431][ T5769] veth1_vlan: entered promiscuous mode
-[   53.457016][ T5769] veth0_macvtap: entered promiscuous mode
-[   53.460801][ T5769] veth1_macvtap: entered promiscuous mode
-[   53.473078][ T5769] batman_adv: batadv0: Interface activated: batadv_sla=
-ve_0
-[   53.480407][ T5769] batman_adv: batadv0: Interface activated: batadv_sla=
-ve_1
-[   53.509123][   T12] netdevsim netdevsim5 netdevsim3: set [1, 0] type 2 f=
-amily 0 port 6081 - 0
-[   53.566894][   T12] netdevsim netdevsim5 netdevsim3 (unregistering): uns=
-et [1, 0] type 2 family 0 port 6081 - 0
-[   53.575956][ T5761] netdevsim netdevsim5 netdevsim1: set [1, 0] type 2 f=
-amily 0 port 6081 - 0
-[   53.655132][ T5761] netdevsim netdevsim5 netdevsim0: set [1, 0] type 2 f=
-amily 0 port 6081 - 0
-[   53.674478][   T12] netdevsim netdevsim5 netdevsim1 (unregistering): uns=
-et [1, 0] type 2 family 0 port 6081 - 0
-[   53.689000][ T5818] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 > =
-1
-[   53.689955][ T5818] Bluetooth: hci0: unexpected cc 0x1003 length: 249 > =
-9
-[   53.690417][ T5818] Bluetooth: hci0: unexpected cc 0x1001 length: 249 > =
-9
-[   53.691659][ T5818] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 > =
-4
-[   53.692196][ T5818] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 > =
-2
-[   53.737071][   T12] netdevsim netdevsim5 netdevsim0 (unregistering): uns=
-et [1, 0] type 2 family 0 port 6081 - 0
-[   54.878528][ T5840] ip_tables: xtables 32bit compat interface no longer =
-supported in namespaces and will be removed soon.
-[   54.878912][ T5840] ip6_tables: xtables 32bit compat interface no longer=
- supported in namespaces and will be removed soon.
-[   55.016366][   T12] bridge_slave_1: left allmulticast mode
-[   55.016404][   T12] bridge_slave_1: left promiscuous mode
-[   55.017015][   T12] bridge0: port 2(bridge_slave_1) entered disabled sta=
-te
-[   55.021736][   T12] bridge_slave_0: left allmulticast mode
-[   55.021756][   T12] bridge_slave_0: left promiscuous mode
-[   55.021918][   T12] bridge0: port 1(bridge_slave_0) entered disabled sta=
-te
-[   55.161216][   T12] bond0 (unregistering): (slave bond_slave_0): Releasi=
-ng backup interface
-[   55.163318][   T12] bond0 (unregistering): (slave bond_slave_1): Releasi=
-ng backup interface
-[   55.164136][   T12] bond0 (unregistering): Released all slaves
-[   55.256269][   T12] hsr_slave_0: left promiscuous mode
-[   55.258264][   T12] hsr_slave_1: left promiscuous mode
-[   55.258734][   T12] batman_adv: batadv0: Interface deactivated: batadv_s=
-lave_0
-[   55.258752][   T12] batman_adv: batadv0: Removing interface: batadv_slav=
-e_0
-[   55.260433][   T12] batman_adv: batadv0: Interface deactivated: batadv_s=
-lave_1
-[   55.260445][   T12] batman_adv: batadv0: Removing interface: batadv_slav=
-e_1
-[   55.277158][   T12] veth1_macvtap: left promiscuous mode
-[   55.277216][   T12] veth0_macvtap: left promiscuous mode
-[   55.277298][   T12] veth1_vlan: left promiscuous mode
-[   55.277352][   T12] veth0_vlan: left promiscuous mode
-[   55.467919][   T12] team0 (unregistering): Port device team_slave_1 remo=
-ved
-[   55.483319][   T12] team0 (unregistering): Port device team_slave_0 remo=
-ved
-[   55.574371][ T5449] 8021q: adding VLAN 0 to HW filter on device eth2
-[   55.834084][ T5449] 8021q: adding VLAN 0 to HW filter on device eth3
-SYZFAIL: failed to recv rpc
-fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
-execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
-(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
-[   56.022767][ T5449] 8021q: adding VLAN 0 to HW filter on device eth4
-[   56.418782][ T5449] 8021q: adding VLAN 0 to HW filter on device eth5
-
-
-syzkaller build log:
-go env (err=3D<nil>)
-AR=3D'ar'
-CC=3D'gcc'
-CGO_CFLAGS=3D'-O2 -g'
-CGO_CPPFLAGS=3D''
-CGO_CXXFLAGS=3D'-O2 -g'
-CGO_ENABLED=3D'1'
-CGO_FFLAGS=3D'-O2 -g'
-CGO_LDFLAGS=3D'-O2 -g'
-CXX=3D'g++'
-GCCGO=3D'gccgo'
-GO111MODULE=3D'auto'
-GOAMD64=3D'v1'
-GOARCH=3D'amd64'
-GOAUTH=3D'netrc'
-GOBIN=3D''
-GOCACHE=3D'/syzkaller/.cache/go-build'
-GOCACHEPROG=3D''
-GODEBUG=3D''
-GOENV=3D'/syzkaller/.config/go/env'
-GOEXE=3D''
-GOEXPERIMENT=3D''
-GOFIPS140=3D'off'
-GOFLAGS=3D''
-GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
- -ffile-prefix-map=3D/tmp/go-build4086096228=3D/tmp/go-build -gno-record-gc=
-c-switches'
-GOHOSTARCH=3D'amd64'
-GOHOSTOS=3D'linux'
-GOINSECURE=3D''
-GOMOD=3D'/syzkaller/jobs/linux/gopath/src/github.com/google/syzkaller/go.mo=
-d'
-GOMODCACHE=3D'/syzkaller/jobs/linux/gopath/pkg/mod'
-GONOPROXY=3D''
-GONOSUMDB=3D''
-GOOS=3D'linux'
-GOPATH=3D'/syzkaller/jobs/linux/gopath'
-GOPRIVATE=3D''
-GOPROXY=3D'https://proxy.golang.org,direct'
-GOROOT=3D'/usr/local/go'
-GOSUMDB=3D'sum.golang.org'
-GOTELEMETRY=3D'local'
-GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
-GOTMPDIR=3D''
-GOTOOLCHAIN=3D'auto'
-GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
-GOVCS=3D''
-GOVERSION=3D'go1.26.0'
-GOWORK=3D''
-PKG_CONFIG=3D'pkg-config'
-
-git status (err=3D<nil>)
-HEAD detached at 1e72964b011
-nothing to commit, working tree clean
-
-
-tput: No value for $TERM and no -T specified
-tput: No value for $TERM and no -T specified
-Makefile:31: run command via tools/syz-env for best compatibility, see:
-Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
-ing.md#using-syz-env
-go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
-og.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X github.com/goo=
-gle/syzkaller/prog.gitRevisionDate=3D20260817-123423"  ./sys/syz-sysgen | g=
-rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
-/prog.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X github.com/=
-google/syzkaller/prog.gitRevisionDate=3D20260817-123423"  ./sys/syz-sysgen
-make .descriptions
-tput: No value for $TERM and no -T specified
-tput: No value for $TERM and no -T specified
-Makefile:31: run command via tools/syz-env for best compatibility, see:
-Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
-ing.md#using-syz-env
-bin/syz-sysgen
-touch .descriptions
-GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
-/syzkaller/prog.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X g=
-ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260817-123423"  -o ./bi=
-n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
-mkdir -p ./bin/linux_386
-x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
-	-m32 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
-ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
-t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
-static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
-_386=3D1 \
-	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"1e72964b0111319984575e60f266d1fa0a=
-98abb5\"
-/usr/bin/ld: /tmp/ccPHEVZY.o: in function `Connection::Connect(char const*,=
- char const*)':
-executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
-KcS1_]+0x145): warning: Using 'gethostbyname' in statically linked applicat=
-ions requires at runtime the shared libraries from the glibc version used f=
-or linking
-./tools/check-syzos.sh 2>/dev/null
-[INFO] Unsupported architecture '386', skipping check.
-
-
-
-Tested on:
-
-commit:         72d3fcf8 Linux 7.3-rc5
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3Da2a10c7c0ac9ebc=
-2
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D57f410c9a4f8d7a44=
-1d6
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Deb=
-ian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D17c0f6055800=
-00
-
+> Best,
+> Gary
