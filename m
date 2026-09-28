@@ -1,177 +1,170 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012002.outbound.protection.outlook.com [40.93.195.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE44DC53E;
-	Mon, 28 Sep 2026 14:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605341; cv=fail; b=ukU+cRKL/pSqYORFftDsmvH9nfPdJeA00kiOY1k2EFGXOM5GYy7TlSuJCR2TgdSFvi8GxqgBBAQeG1VnW6YrdZBBfSqfix7VY7BMLIA6bIIaT3+6FMM5zazSDqyI2VrKI15HHRsprqAIdT6tAD7jfzz6nPpjO+VVXtxF9lRLfR0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605341; c=relaxed/simple;
-	bh=1a4zzyN6LwIKfu3u8iAkhFCBvcdWRsIJ958ZBLXIDO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=P2A3aysFy1Vdk0SjRpZ6lNR7xE2srMrjTdYb3eGlODAp/wEqLPcRVuKpqDKxOBx4vWqHyA08EaBsuUSmue0x7EpmbXJsutPtcDa8ZFcmX9m19gheiI2yuPajqEhnnnj11Cbmz/ZJyWidVlAM4Q9FgWlVFvFMK4WAkD0v2Id428o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ygg7r9LN; arc=fail smtp.client-ip=40.93.195.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC184D37B5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790605375; cv=none; b=unnx4qInZ/RYZXhvJnkhYBQPKUmLfttW3WXXA1WCkcF04XnubMug3GssYGPqf4KAO4Qk1IHchZT+gBmFC45UAI7oBPSnk92Iv23w50di4PnYy0TCSqLU/9QX64DX7uGhJOZf+KsU/jv7wZR4HDnE021aaoOQO3bFmb89AAVFFzo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790605375; c=relaxed/simple;
+	bh=YA2Wm1A4Qv7haJ3jQwkBbi+1aXa908XRcduIl6boq6A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eUTNDc785wPSdj0qzAM/O60Qr4QO5T5Fx85QvoGWAGWhcxaNHLmWmXYZOXQnL0Ii4bPKBnm791sEdtrFijsSe5utwmw6kANuJ1il4YkBGJakiWCOVvkxtFtd18I7A1bpEgafHBBA9f05ru2lnADieT7VO9TyLLuHl9d9YkLKjE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M19acIDx; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ygg7r9LN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u3x8bOw0YUuYYdCNpE5wDmI2Ix29PMaSBdOLbblkdPGeigJeEE8NRcem24tU20JwHdBzJ1pwuf3obg8kboIEoqDw6nXtR4arPAA5MP0s3hoxk9qqQssPJIn2hnWbRXCiSWTK0XMv9SE8kCAC+4+21DIImS+rINjmSVC+edNhVShGRWW2EVg8Y9HkfYxAI2rRxrH/3UB3ZOZa/Pm4WIOz5jj4r5SFf69CxFU1ly0+lfhG8z9xxESYP4bRKW1IVIApcbuOtnrDfvwk01eFg/QbnVk5zk405KG65kQ1KkeXodiuvxEy1RABW05u7voPrXT6Kt07VgrblNsxiqTBDIClEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ZbGo05kScclgtwkpcbZp5kRGBfXyfNK21M65s+2hok=;
- b=B6OoWZ4xse6jFF0D8oOI20M4JSdpxe6xVljlumMlQhcsj2tQPhuud9nXJx0isNm024edaWGPDoLBAfpjDSc9K3mX+Qwhm6/ym5NgzJhxxgDBr6RDCTzj2IdgY4eqtd/ZAan6Yed7lrRCdfvOVXakjFIU+rDcN8Ne8TrbgB7SM+9FYCY8QGY+6QxynN1INxLHQjQ09A6O3xbOf1kGA0jsEPpG90kmMnt2I3FhBBqzwogRcOD0Qien5RqXV3/+iDr0t+6s59a3i/cdZcQ/nQIb/M8cE26uEWIf/gRLuN3AS9EI5nBGTHDd57yzowhMTLzWrs0nOaUOQhoJ6wrHfOvQog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ZbGo05kScclgtwkpcbZp5kRGBfXyfNK21M65s+2hok=;
- b=ygg7r9LNcxuUhh7OgMj1BdWXp4ZyOcvc9z8a4Vz1SMyDvIzNb9vqgUsAJyhHSIc1395JzC5aLyxDi0k3mkKbCLsmd350i/gEQDttrq/+RFcf78re7psE4QXslVqjBdQD1Fr7OvfHOdsDwRHCSTmBesMo7HMjUINPch7fqfiRSD4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- DS7PR12MB8291.namprd12.prod.outlook.com (2603:10b6:8:e6::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.24; Mon, 28 Sep 2026 14:22:09 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 14:22:09 +0000
-Date: Mon, 28 Sep 2026 10:21:59 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] EDAC/amd64: Set zn_regs_v2 for all Family 1Ah models
-Message-ID: <20260928142159.GA2289128@yaz-khff2.amd.com>
-References: <20260925172639.97063-1-Vishal.Badole@amd.com>
- <20260925172639.97063-2-Vishal.Badole@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925172639.97063-2-Vishal.Badole@amd.com>
-X-ClientProxiedBy: MN0P221CA0025.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:52a::17) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M19acIDx"
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c82bb05ddaso2025740e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790605370; x=1791210170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pn16sVzXVlIUSfu9GdAYXGnqwMg1E4Z0EatyLn9hdGg=;
+        b=M19acIDxictBHbpBjz8YQkUcl4RA+F/WD7I4MvbKtqIbceVb5raax7dm/m8yisJ+0o
+         t/tClP5tFd+0zAPYOPNP7pIgc5RO7/fNWVkY/esmEGa/1x+Ewa3oaXvyf2MeMGJOv0Da
+         lw9k1W9G/ZLSA1YzdDie2k8yfyFOhLQnh8shB4BbHr0ac4+q0NxQUtXsYs0YVAU/N4TY
+         GymmgXCt1cGQz6vVM6A6Jk0Oz/8+Uzea5yzZiTuso/QwE++jq527nks0gYtFREyLdfFL
+         l2QD3a80dCLlf/B5X+sH2SzNrD5YYunLB40BBksMLRVzqfpq/rgvA96iWDnT2raBFmyv
+         Ta2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790605370; x=1791210170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pn16sVzXVlIUSfu9GdAYXGnqwMg1E4Z0EatyLn9hdGg=;
+        b=ptBeESXFph2+wWozGrn/LosxaQ6YPG9U2a4FpMECPRve/l3xJVST3GzRBaNnz5rZ77
+         wN6UcdQACUsJNJrm9Csi2xJ3yntl2wD5ctXSZ9FP1VIadG3TTXXY0+75SVoA2hjmhMY/
+         1PC1CMBBfKmy7k6os/55KGrci/NWukksvY68KugEK/lwg1I2KqUKSbE1HSTD+NS89lZR
+         xTMdeS7vMSMT2zmV3j4TLByU3dy1orpvBAFiYfvfrxLAbqVMpq5y5URoJmLXHpo37Ua2
+         g2HFgjLxRI52ERxXAplF2ybmlG6X1jbhNPKqLIh6Iy1I9pl9buxxX4SJNWS13wk1Y9FR
+         /syw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1ZPMDhwJAFbc7uGaRA5NqdaZnVZeT4HgqPvo3S2IMOHFh/fzWEq4rEYNkWmgcioUdpVL+/s+Y4pt8Ugs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXdEkRCaIKw4OtfwGMb/d2M5kpdeNoIold8Xb/o0+DHTgpEVq5
+	WCcPs6Un8QY/LnoRNcN++ymUL2NXaXj6r2lR8l5OE7c9E6D4IRKXHvS3
+X-Gm-Gg: AYBFou0g8pZuLgae0UOa2DU5X47O7zUx4eqEyBGuXZusrwedSaZGy8dUNPoSpffq/mU
+	PRERVCRRp4ouPb/djddL6r2QAqrSwNuFAhPphbF8EFW60tAjg0D3K3+BoI2dHfdBRiuQAh9bdnu
+	Pk3YlVE6cPW29XJHGHIZq/NpjnDR9BklR9B8oSmVepQJ0ZYLia4MwUZ2r5EDjeaIcWYIh65uaQn
+	+qaMxNVCSgeFsu1R4zn4Ns6pvn5aRnQsahLk8ozERn38aspmA0Jffi3u1ZBwvNs7AvcU+oT3Ed1
+	ZDwXbYpEc63ypKtQPXG9gOoVXnZ9iAkiYdF8rlhPLFiBVbbqB1aCeNb9n2r0f/2QcwwxXxqP+2h
+	pA+7gB+KuYzV/S1XKO99SHq+WSieqg34JyGM2Y/0OgagsFtqbfvQNV/GS31xIhZfFl03JmrZuyt
+	v5pylxzQXpaQ6KbAj4cSNE819758chNa8Mvnaykap9wd3bVBz+T25+Hr4jrEimJg==
+X-Received: by 2002:a05:6122:2204:b0:5c9:c60e:5cf4 with SMTP id 71dfb90a1353d-5cb0bc5ed09mr6039888e0c.18.1790605370469;
+        Mon, 28 Sep 2026 07:22:50 -0700 (PDT)
+Received: from adriano ([179.57.100.10])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde615a356sm9019144e0c.14.2026.09.28.07.22.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:22:49 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>
+Subject: [PATCH net-next] net: sched: revert tx_queue_len on partial qdisc resize failure
+Date: Mon, 28 Sep 2026 11:22:33 -0300
+Message-ID: <20260928142233.1131459-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS7PR12MB8291:EE_
-X-MS-Office365-Filtering-Correlation-Id: b85554b0-a2c3-475d-6bb4-08df1d6be199
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dVOkSYnvuDt3N1ttWRyRx67dKRWvC8N58Qc/KRuNmHRa0bZvKfKXPKUhgFJbprXD2YgSvGoWH7VbYLgHpdO/jt7B5RSxrVhwiN5ifeMehg6a7hIwUBCZgepZgleEi1BIW8r0HrQgi9RnEN7zYk0wegago1ZXr1FDtEoRHnSr9rAhQ7wjCE3lCrJyUav2uAWKG3BgxLkScHUL/IaKHZh0Gk7NJHTiHRMdlVsT1bb0FL/tEw65/p+AqwnOIYprPVV0Ut71k2G66QLvkaR/SR2Ba3xBupdjvS44P/AdGfh4hys+5PFjJCfOj8xW6WP3WIdvmsOd2r3hkJKKxchjsrDMVOPliujUB822SyHwjaJZVpptzupFVnQWF07bQbAX+AS4/blaDRemfD8UpnKJLqE264IWsb8/b5S/9D/5Objp+LpTkWvuPWb4gEiPkv4WNHyTql46F2vrggpd7OdQAkdaw64ARBDsGs8+QqIa3x43FfyWsF2XSaUX9rdHD0CV4Zul0YCRx/FrSgMuxP0Zy2dwWOnWzQycg5eCr7xz6qfCbugtESyTwbxYbEcGtjbIUNY3mKz44vJwaK4YFSqYHsteusiQZ5i5f3FZUDWJmY8hA2WVCGmSLeIKp5B0JULdRfcqU4vA7bgYt1evXCmOr+7c+1hjH72t34CRqwi7xfB19j0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?gAvfyTIDXixraN3YCaqz3Q411DjmZhY1v1kqB8zcBMwg5vpYNM0Rz5n9MvsP?=
- =?us-ascii?Q?sPMNlIbRbjj9YFqVT3CF58AwPyt92dfP6RqNb9zqljekNwqRd1GCTnif7Crv?=
- =?us-ascii?Q?aqD/dDaQqzCRUKieZ8zl4ObQAjGW7OtvXcab3f5ccwntrxZohbpB+58yn9Ty?=
- =?us-ascii?Q?zHGkGzIbMhGOXNFGoq+JB4B4V5/nnXFD3JinWX06ae+kzW7Enlr2KLUmurue?=
- =?us-ascii?Q?4iqWIRVJNE3jTfK0lfhaIR24Rcd5Iq9Ix0v9pAgIB0NcbkaYl2Deg1PjFhmq?=
- =?us-ascii?Q?1qzUYfxQcVDEtin5Jvn6ejpnZzyboDdy8vOL/Lz0SeQiWKmyiJfKL2zqT+16?=
- =?us-ascii?Q?c02Ud1Tvx/CRnx1fzKdBXX2KLqXPo22TPdfG+OqGLdA7vvACfHI8DxsUb+MR?=
- =?us-ascii?Q?oeLZJUTkRwpKPeuLusDeuxv1mQyE9CFvJ6Oggb8DEg8wM9UhICQJvSkFc3YZ?=
- =?us-ascii?Q?dfoOQagjKDMTVT/osdwAMqwJy2IUwRUL5gn/RnJ85cT7/LbKjro478po+GOn?=
- =?us-ascii?Q?T9TrHvu+oErhGDJpICOQU6GaRmbvuIx1kPijZ2NLSejOc8TGNKIsCfdVPf1R?=
- =?us-ascii?Q?fz0huHSuaaaT3Yc2q7gyU0JDZ/lkfs2PnJ2KE6ySSAFRgLEMzgflnHsMUkAU?=
- =?us-ascii?Q?0Ow8QsMa+ufaYslsbW9XgehnjzUlQdKvbe3R9qPj3fYiNpb3pRciO6Mnb6j4?=
- =?us-ascii?Q?4BM7g4TDwol5b3hkAqBje3XCjudwRe1Vg7jXVFL0yWuLnN6fbMf5/wtWrJvY?=
- =?us-ascii?Q?17/RlDukB9SxXGzN3DtZ5dJWci+ZdY0G/QnTTqizpVeaeUYAJkjqQYxsmCPG?=
- =?us-ascii?Q?uzqnm22m2cpFOhRZFvEiFvFF6EfEA+QUWzVmkUe1kzZ82nRVuEHEs3bjBMli?=
- =?us-ascii?Q?JgVQMRCdxn3ZySRcSs/y5Hhw14dyb9MwabaXcmXszeEwabmlDWuda6TMgpqi?=
- =?us-ascii?Q?H3BcW/u6g65g7ZShE9txEwKp+X9Cc1rhJ5qWyMscsVpJnhCgnONoIT3sxp4U?=
- =?us-ascii?Q?8id61ly6v7PuCLKrJU7o9pz11dCThDdZ+WYYCVqbk+htYUtzUpd1KiTNPsqD?=
- =?us-ascii?Q?XZMkIaNc2FKAuN0H6k/Vi+NIk/Mv3/EdMf1xg6YzviVem7dtItkDaSXyvTW7?=
- =?us-ascii?Q?MEdcsqsXT9QCZMDmen2AG95pqdN5b2zSlZw7jrBDDXmoz4ldI9rpOvlI5ebp?=
- =?us-ascii?Q?4cM5xRouH/Slq019BTlOpka2xyNGckqQmRkn3edtDP/JZHLa+ZKAAOpuMi15?=
- =?us-ascii?Q?j4E8UL6DvvB6IOlJmE3UP3/0wWCCon+3TIpwec8VQdLdC5OetgMOeqUORZdm?=
- =?us-ascii?Q?y7dMbnPx/8pUNgnjn6UeHqkwBRC2Tmzl9OLkoZ3BmElSjcNrlxfuTVfykGvt?=
- =?us-ascii?Q?88IV+hOqhbjOn6Bl/eyq+s2kw7ROKCsvyfRyWpyppNaKwXnoVYRWd2Kzi4nq?=
- =?us-ascii?Q?umdMPdWIs/Yc/uw7Ps2OxnVGjgCIt9iEmGPs66YgOihjVGd7ce6QsgMKyDmr?=
- =?us-ascii?Q?YtJ9aO6Idrj3/+FNzyEE1pvGpbKxZa5z2iX9gAzdsF4OdxNGe014Lw2cCwsr?=
- =?us-ascii?Q?E1KInlXJH959O+VDe//fCjvC3LsVKGY07vSp/2N9WLsly+3Yrie0NvTbucs3?=
- =?us-ascii?Q?U+l/ba+vQHsqFwGTl4K44Pqxq3BPy1ZWOrYz4OOexdFfsn+GLrmofu92aQu2?=
- =?us-ascii?Q?ZV1P2F6zRMjmD9c/hmRgA9xNAsXog54/aHjRcOIDQCIw3qXm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b85554b0-a2c3-475d-6bb4-08df1d6be199
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 14:22:09.6624
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pa5vdjxkQwWKAyuukjF7P0IqtasQrdI9GcLgPVh7kUGtqQyk1wp7iBp8bogT3xsowE3AW0MCwnp+8VxqrfsdRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8291
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 10:56:38PM +0530, Vishal Badole wrote:
-> The v2 register layout applies to every Family 1Ah model, but
-> zn_regs_v2 is set individually in each model case of the switch. All
-> currently supported models set it, so this is not a live bug; however a
-> model added later without its own case, or in a case that omits the
-> assignment, would read the UMC registers at the wrong offsets.
+Pass the old length to dev_qdisc_change_tx_queue_len() and, when a queue
+fails to resize, use it to restore the queues already handled.
 
-This parapragh should be simpler. Also, please avoid using long, run-on,
-compound sentences.
+Fixes: 48bfd55e7e41 ("net_sched: plug in qdisc ops change_tx_queue_len")
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+ include/net/sch_generic.h |  2 +-
+ net/core/dev.c            |  2 +-
+ net/sched/sch_generic.c   | 15 +++++++++------
+ 3 files changed, 11 insertions(+), 8 deletions(-)
 
-> 
-> Set zn_regs_v2 once at the Family 1Ah level so it applies to all models
-> uniformly, and drop the per-model assignments.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
-> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
-> ---
->  drivers/edac/amd64_edac.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-> index 475235c402e8..cab696be4f07 100644
-> --- a/drivers/edac/amd64_edac.c
-> +++ b/drivers/edac/amd64_edac.c
-> @@ -3887,23 +3887,19 @@ static int per_family_init(struct amd64_pvt *pvt)
->  		break;
->  
->  	case 0x1A:
-> +		pvt->flags.zn_regs_v2   = 1;
-> +
->  		switch (pvt->model) {
->  		case 0x00 ... 0x1f:
->  			pvt->max_mcs            = 12;
-> -			pvt->flags.zn_regs_v2   = 1;
-> -			break;
-> -		case 0x40 ... 0x4f:
-> -			pvt->flags.zn_regs_v2   = 1;
->  			break;
->  		case 0x50 ... 0x57:
->  		case 0xc0 ... 0xc7:
->  			pvt->max_mcs            = 16;
-> -			pvt->flags.zn_regs_v2   = 1;
->  			break;
->  		case 0x90 ... 0x9f:
->  		case 0xa0 ... 0xaf:
->  			pvt->max_mcs            = 8;
-> -			pvt->flags.zn_regs_v2   = 1;
->  			break;
->  		}
->  		break;
-> -- 
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index f35bd06a6bad..0ce97b4b2da1 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -720,7 +720,7 @@ void qdisc_class_hash_remove(struct Qdisc_class_hash *,
+ void qdisc_class_hash_grow(struct Qdisc *, struct Qdisc_class_hash *);
+ void qdisc_class_hash_destroy(struct Qdisc_class_hash *);
+ 
+-int dev_qdisc_change_tx_queue_len(struct net_device *dev);
++int dev_qdisc_change_tx_queue_len(struct net_device *dev, unsigned int old_len);
+ void dev_qdisc_change_real_num_tx(struct net_device *dev,
+ 				  unsigned int new_real_tx);
+ void dev_init_scheduler(struct net_device *dev);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f660fccfc0db..57e1fa320d53 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -10002,7 +10002,7 @@ int netif_change_tx_queue_len(struct net_device *dev, unsigned long new_len)
+ 		res = notifier_to_errno(res);
+ 		if (res)
+ 			goto err_rollback;
+-		res = dev_qdisc_change_tx_queue_len(dev);
++		res = dev_qdisc_change_tx_queue_len(dev, orig_len);
+ 		if (res)
+ 			goto err_rollback;
+ 	}
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index 6f6a6f0d5eb0..8fd0fce23cc4 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -1422,13 +1422,14 @@ void dev_deactivate(struct net_device *dev, bool reset_needed)
+ EXPORT_SYMBOL(dev_deactivate);
+ 
+ static int qdisc_change_tx_queue_len(struct net_device *dev,
+-				     struct netdev_queue *dev_queue)
++				     struct netdev_queue *dev_queue,
++				     unsigned int len)
+ {
+ 	struct Qdisc *qdisc = rtnl_dereference(dev_queue->qdisc_sleeping);
+ 	const struct Qdisc_ops *ops = qdisc->ops;
+ 
+ 	if (ops->change_tx_queue_len)
+-		return ops->change_tx_queue_len(qdisc, dev->tx_queue_len);
++		return ops->change_tx_queue_len(qdisc, len);
+ 	return 0;
+ }
+ 
+@@ -1465,7 +1466,7 @@ void mq_change_real_num_tx(struct Qdisc *sch, unsigned int new_real_tx)
+ }
+ EXPORT_SYMBOL(mq_change_real_num_tx);
+ 
+-int dev_qdisc_change_tx_queue_len(struct net_device *dev)
++int dev_qdisc_change_tx_queue_len(struct net_device *dev, unsigned int old_len)
+ {
+ 	bool up = dev->flags & IFF_UP;
+ 	unsigned int i;
+@@ -1475,13 +1476,15 @@ int dev_qdisc_change_tx_queue_len(struct net_device *dev)
+ 		dev_deactivate(dev, false);
+ 
+ 	for (i = 0; i < dev->num_tx_queues; i++) {
+-		ret = qdisc_change_tx_queue_len(dev, &dev->_tx[i]);
+-
+-		/* TODO: revert changes on a partial failure */
++		ret = qdisc_change_tx_queue_len(dev, &dev->_tx[i],
++						dev->tx_queue_len);
+ 		if (ret)
+ 			break;
+ 	}
+ 
++	while (ret && i--)
++		qdisc_change_tx_queue_len(dev, &dev->_tx[i], old_len);
++
+ 	if (up)
+ 		dev_activate(dev);
+ 	return ret;
+-- 
+2.51.0
 
-Otherwise, looks good to me.
-
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-
-Thanks,
-Yazen
