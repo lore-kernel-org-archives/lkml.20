@@ -1,207 +1,98 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83BD7386552;
-	Mon, 28 Sep 2026 18:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A42536B920
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618487; cv=none; b=i2LuM2dzCElQzjxMan/m2Hh8TRNMpol6qtBQjoBZ+9yGDI/131Wp2ldkduAUsszu24DPpOZ+J9xepKw4cKchcEt4SfhI3ltyi6S7Yh8hJ9ByCBDiLlEfHDPKWE6s9Lm6tfl23FVwhwoFuZMR3objjsHensTBFo+lwgaVUrBMXK8=
+	t=1790618542; cv=none; b=KT/vDsvcC9iTLuOGHWexLm/VHTMcdC8/x9NvnuGEPCydeaHvBB1rwh/iF6hapWi8BhPMv1kKk3SPdgP+jHTSvGwN9zPnU45lonGl/9IMSHZDJSYMvxWCMa/McEfg7vN9TSGPUexGbCXsGnruCINeucLVo9X8I/OfunTtIzeXjXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618487; c=relaxed/simple;
-	bh=2HPAqPhH9blRfCpQLNE+q8Xf2IKbzIj8ANRetpSYQZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T6udO0nxj7o3bin/ldwTv9zWwm7kvRQHP+/5rb+Q31l0Z8RT2QkSeMvoIwE1g1SlY4hyvNrswvZoEvWYnFYhGVhlHDaJrLaxQ6cniwxa+vOPXSYrpkgiDY7Q/esLzHd760NSVpKEYZbvY9CRP+VP4sPEspGxXywMViS2yhFPEbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bydlcNQt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790618542; c=relaxed/simple;
+	bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H07gBQYxhNfm8ndP1J7wD4NAwVGWWNZfcbV3n1ZajpT6O7mfoTZflNBHedaQf+sljv0UGvSltcXUF6OMGKMepWskhZoJYks6lZ7shlL1KuLOKKsZJoCkQYNxGoZBFym+bK1b/bJT+g3emlaWJa5sprVbBu5Xd+9GfZuCb6qPrgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BDf1yXCU; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bydlcNQt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E32F1655;
-	Mon, 28 Sep 2026 11:01:21 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17F093F763;
-	Mon, 28 Sep 2026 11:01:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790618484; bh=2HPAqPhH9blRfCpQLNE+q8Xf2IKbzIj8ANRetpSYQZU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bydlcNQtg7VFJiHIMPz0i9Ug2oSSFgsIjPWay630oscZP2tIekk7hRid4Z2KgnDd3
-	 Y/EYVkfQxooz6H++qoGvFAv+PbVFmCqCOBgENpU640RH4JItp9ePCG1NWk6TPmsiLJ
-	 FP+9yLwn9lku23GyxOnTzBEHBYOls89RIbmOAYZI=
-Date: Mon, 28 Sep 2026 19:01:11 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
-Message-ID: <arqrZ_Auk9BYOopa@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-6-suzuki.poulose@arm.com>
- <arZmXFw5Jw2IbAmA@arm.com>
- <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
- <araketG70TIKeNuf@arm.com>
- <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
- <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
- <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BDf1yXCU"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-8961cca9193so47623277b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790618540; x=1791223340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+        b=BDf1yXCU/sxH6HRS/FLfjGwWB6YAcICtMpov/2QewguXMK6GGd8o++p2zrJZ1ZiquA
+         LiqW2Gs6fgv8j47No8Lp04Xrrmy/bhZJskltmREudKNabO1u7fa/+HSBiE7zksyK8rNa
+         ie/TXxQiP57GYrwzcl6YEwn+hdeM3SwO7OkmPKddgaNbVVk9EFOlV+jbjvoqIO9c+7T6
+         IL9FR8mkLTb7iXDQxTUIViv0W9BgZde5pn3n7yeiu3qgUom19fpIKzk8ax1+edcbC02u
+         0XP0W9+5pd/bpwten93iSTw0tPMMd4ST6hN3+AngOirgrUajf74fGK85RTc3H1kD1t1s
+         56BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790618540; x=1791223340;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+        b=t3izRc7MX9NMsz1gVFcEHKC1CLhUlJ8fT/2OIIAP9UJthfdLJyqyy09NRRninDkL9E
+         x27vo/m4L4+2cE53QsGiORr7Yyt3jTgL4BfS/xi1rFjAkbktl9hIE0Wb5M05GgstJIIN
+         G0VOyZ8JHDAtEiu5qMa5zARraRt+neZAewTh0ws5ryv/mvtgjF1mIJn+5sTcYPUJ1d6a
+         o43aC7G47p5fvAv+zuSEzNYJZ1K4yPHgcHggg1sXSAThW7qhy3b7nxNDLpVRDf7qv5Pt
+         K9fAds6Z2yxEGwg8vjteZLHE8YAKdKYMeEdD+uRkGpwD78qA8Acn0gqo8uePV70adI7D
+         BHww==
+X-Forwarded-Encrypted: i=1; AKwUvBwU0zxkJC6+Sp3gX5XXyEe2cfJU7rh7friPe1qYTUFY2fvoS6npf3K0NHCr48/olCyqCI+1CPw9BKSMdlU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHxARGShiI3imNv9JbaY1AsbrL5Ukkd3kCnpqAhVrsXHaVlxkb
+	OZ8pTOzLf3dq4Tg7Cr5C7bpwCgNo/3znz0M7MZYW5pZsjzsSXPZpVZO+
+X-Gm-Gg: AYBFou0HUnKkjHB1FAtsVou9g/+R1pa9LwLymDNMaff/7ljKEJDw+GNWuj3Zu30Sy8V
+	F31kxVzWPK4RDCKPPwoS2c9aHuS+ryw8RI7fpXDfwKJjc4bqdUy+z7zeZbBCEvr+zSsiK0JcjaP
+	aNHXJrykDJcpVPeqwgbHQdF3FXQlsMziTGQfe4KG9Bi/UFq9wTBXelohJRnTO6v83l2Fk7Jank1
+	zXILKUCfgnKRaT1IrqO5sbRoxvoScOctdP4GPAmiohhZ6O0Hp4f4s3vHqgsisqiq4MTACpq9ARX
+	Z1PTCN0Bh0wA6mPxG+vZuv26dtt8IC6/VgVGwogsy40qIFxXNMe4kDbVe99GfeFcNsGOHAe/Dt5
+	Ar9GY1sxf7i3PbY/Ub9carTfAwA/f+FyzmUAISFOGw2OvZ0MlqUjd2iQLVOa/owPN7xopAOX+Jo
+	xGcUBVbWV+OUH/BGXjSnQGGQj7zCM2T39JuoS2UXAsUSI5Ov7dNqlK7wZ7/RN8PeT+tQ/ZiJg5L
+	Ax/eMFiT9hpjw6+MhJubrv3kfjot8NG8EYKBHs9ci/X5krNc6b10w==
+X-Received: by 2002:a05:690c:e3e1:b0:854:b86b:d206 with SMTP id 00721157ae682-8a6461b8773mr74828367b3.12.1790618539927;
+        Mon, 28 Sep 2026 11:02:19 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860326244sm47122057b3.6.2026.09.28.11.02.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 11:02:19 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: uvcvideo: generalise the XU flags fixup to all controls
+Date: Mon, 28 Sep 2026 14:02:18 -0400
+Message-ID: <20260928180218.788643-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
+References: <20260928152416.766957-1-jordan.mymail@gmail.com> <20260928152416.766957-3-jordan.mymail@gmail.com> <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 02:55:11PM +0100, Suzuki K Poulose wrote:
-> firmware: rmm: Deactivate RMM at reboot
-> 
-> Deactivate the RMM at system shutdown. This would allow a normal kexec to
-> cleanup the state and boot into a new kernel gracefully.
-> 
-> Kdump kernels need not worry about an active RMM, as long as it can
-> handle the GPF on access to the Delegated granules.
-> 
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->  arch/arm64/kernel/machine_kexec.c |  2 +
->  drivers/firmware/arm_rmm/rmi.c    | 63 ++++++++++++++++++++++++++++++-
->  include/linux/arm-rmi-cmds.h      | 10 +++++
->  3 files changed, 73 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/machine_kexec.c
-> b/arch/arm64/kernel/machine_kexec.c
-> index 8f9bc2327dc85..8f16f92a5d389 100644
-> --- a/arch/arm64/kernel/machine_kexec.c
-> +++ b/arch/arm64/kernel/machine_kexec.c
-> @@ -6,6 +6,7 @@
->   * Copyright (C) Huawei Futurewei Technologies.
->   */
-> 
-> +#include <linux/arm-rmi-cmds.h>
->  #include <linux/interrupt.h>
->  #include <linux/irq.h>
->  #include <linux/kernel.h>
-> @@ -171,6 +172,7 @@ void machine_kexec(struct kimage *kimage)
->  	BUG_ON(!in_kexec_crash && (stuck_cpus || (num_online_cpus() > 1)));
->  	WARN(in_kexec_crash && (stuck_cpus || smp_crash_stop_failed()),
->  		"Some CPUs may be stale, kdump will be unreliable.\n");
-> +	WARN(!in_kexec_crash && is_rmm_active(), "RMM is active, kexec will be
-> unreliable.\n");
-> 
->  	pr_info("Bye!\n");
-> 
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> index 51343e9d5c2a9..5b695f3155b1c 100644
-> --- a/drivers/firmware/arm_rmm/rmi.c
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -7,6 +7,7 @@
->  #include <linux/memblock.h>
->  #include <linux/memory.h>
->  #include <linux/arm-rmi-cmds.h>
-> +#include <linux/reboot.h>
->  #include <linux/slab.h>
-> 
->  #include <asm/memory.h>
-> @@ -15,6 +16,13 @@
->  /* RMM v2.0 defines RmiFeatureRegister0 to RmiFeatureRegister4. */
->  static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
->  static bool arm64_rmi_is_available;
-> +static bool arm64_rmm_active;
-> +
-> +bool is_rmm_active(void)
-> +{
-> +	return arm64_rmm_active;
-> +}
-> +EXPORT_SYMBOL_GPL(is_rmm_active);
-> 
->  /**
->   * rmi_granule_range_undelegate() - Undelegate a range of granules
-> @@ -1017,6 +1025,53 @@ bool is_rmi_available(void)
->  }
->  EXPORT_SYMBOL_GPL(is_rmi_available);
-> 
-> +static int rmi_rmm_deactivate(struct rmi_sro_state *sro)
-> +{
-> +	int ret;
-> +
-> +	if (!READ_ONCE(arm64_rmm_active))
-> +		return 0;
-> +
-> +	ret = WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
-> +	if (ret)
-> +		return ret;
-> +
-> +	WRITE_ONCE(arm64_rmm_active, false);
-> +	WRITE_ONCE(arm64_rmi_is_available, false);
-> +
-> +	return ret;
-> +}
-> +
-> +static int rmi_reboot_notifier(struct notifier_block *nb,
-> +			       unsigned long action, void *data)
-> +{
-> +	int ret;
-> +
-> +	switch (action) {
-> +	case SYS_RESTART:
-> +	case SYS_HALT:
-> +	case SYS_POWER_OFF:
-> +		break;
-> +	default:
-> +		return NOTIFY_DONE;
-> +	}
-> +
-> +	struct rmi_sro_state *sro __free(kfree) = kmalloc_obj(*sro);
-> +
-> +	if (!sro)
-> +		return -ENOMEM;
+Hi Ricardo,
 
-Nit: it needs a NOTIFY_* value.
+On Mon, 28 Sep 2026 19:50:01 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> nit: I think that the current way is to not mention the model version
+>
+> Assisted-by: LLM
 
-> +
-> +	ret = rmi_rmm_deactivate(sro);
-> +	if (ret)
-> +		pr_emerg("RMM Deactivation failed: %d\n", ret);
-> +
-> +	return NOTIFY_DONE;
-> +}
-> +
-> +static struct notifier_block rmi_reboot_nb = {
-> +	.notifier_call = rmi_reboot_notifier,
-> +};
+You are right, thanks. It should be "Assisted-by: LLM" on all four
+patches.
 
-Thinking some more about this, it's a good aim but I think it only works
-if we do a systemctl kexec that tears down the processes (including the
-VMMs). For a direct kexec -e, we happily reboot with pages still
-delegated. Now, such tear-down in the kernel is painful, I think a lot
-more work to figure out the delegated pages.
+Hans, feel free to change the tag when applying. If you would rather
+have a v4 with it fixed, let me know and I will send one right away.
 
-Also we don't cancel the kexec here even if we return an error, just
-warn and continue into the new kernel.
-
-So maybe blocking the kexec (e.g. machine_kexec_prepare()) in the first
-place would be a better option for the time being. But I'd like, if
-possible, to defer the RMM activation until the first user (still do the
-RMI probing as an initcall). If we run on RME-capable hardware and
-firmware but don't care about realms or TSM, we still get the normal OS
-functionality.
-
-If this deferring works, I'd also make memory hotplug dependent on this
-(RMM activated => no hotplug; hotplug before activation => don't
-activate the RMM). Maybe later, if we have a request for hotplug in
-ZONE_MOVABLE and we can guarantee guest_memfd doesn't allocate from
-there, we can relax this requirement.
-
-That said, we may have a problem with hibernation as well if it tries to
-read the delegated pages. I don't know how it interacts with guest_memfd
-and the non-gmem pages we delegate. Maybe cpus_are_stuck_in_kernel() is
-the right place, it prevents hibernation as well.
-
--- 
-Catalin
+Michael
