@@ -1,172 +1,280 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFF544E650
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588091; cv=none; b=s4AajVm/znxwRzjIwaLkJ4RhvSJ9fXHvFTd+hMDY6o2tzBgLW5B/SUEK4ccesLzcksBQX6aVjd76zdLOmbLrvwvlonnslgbvJZQ6sfbKu0mk+yDOev1j8zDRErfzohZhAZpSS47GhmXbDze7e8rAFdHFpTIBzHivQL0pMSxhSA8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588091; c=relaxed/simple;
-	bh=aut5EtV7EHnIQnhVgpWGAgLGS+IWWJeo0UTmCPk4f+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PZ54MZ1p3Dtc/9mA0BDVNShGzHoroFWOEzBDEXl7jYu3VWSxClE1SCTJ9RpVfRXSBZYMi9Zi3HH8FxYWWTIqGvXdJBkUjtlGR5g8+Tx1T8KXvyzzq7IxvCySIDaHg1d0UmKgcRseImVKdwin/nq5S8+D6/3wbDijeYcV09VZH1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aLkXJMxX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fABrETRy; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BEB471CE9
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790588109; cv=pass; b=d8AuFADjgnUQOjsBXevtzQZ529uhoWMO6lVaC3GTCaEeBiYv/jXhkTwQwYN7yfqH9F0XAHDP2tXC+2OG3EVX+7Ku5eTP0uV1AVeNf7PTyzWq8KgXMPSFhyjnjvCIsoEyJw+ijgtReLJAkPDv8dBpwBwrs8P/fTfSzvaIGdlCQmo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790588109; c=relaxed/simple;
+	bh=ccoxnOTnhnpq6LUQRFjL4NJ/6/zTWuObEY8FUXuRip8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pqslmf5+b8jBSBdMrmSQOg/7M/lKhxgUgD/w5Dh+r3FJ96A5I+P9kHcH9ZVolpWlbIqcUQC5kD36X7gSdxHOKTcfjQwgyebKLH6T65E5AVOr0LTRitZE/owGOCrCLYAA+UuUyBh88VUM2u29ZI3y51yx94TrMDI/3wK1AwSmlu8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KlgEBctu; arc=pass smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aLkXJMxX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fABrETRy"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9MQvc547111
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:34:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cslUYpSyi91GFkeEotZ13vFtrVwZDY/B9c/HltZgtHA=; b=aLkXJMxXbzCJ6p6Z
-	R1DN0vMl5w3AtEV36Um+luOaXUFYzgfWR2zIKCa3WBtp/4Y/sUhP276G4AgiWvys
-	3oJs/O/B/KifdYqa4l/M9QEYeYXCkIQaCBsb1f9xv+0qypcfzGc19gHVjZPGahbN
-	4fDfnc6Tt8wFluYbpc488aKZpPtjvajURfCEg+wU0zkkOsVJZuhs+Zq8Hu8HqyXz
-	M5wCl15K+5XlP6Zkv0rwloBDRvaP+B/N2lm09lneoGQPx5IeXfi3be6ARv9FLCvo
-	etyxotJivn6ZbarEhG4T38eXD/9665rybEHWBs3+qBtVtnHp3n+SFv3C8zfOpPpA
-	1BGorQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyav49tu8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:34:49 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db3b126c9fso28895775ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:34:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KlgEBctu"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dd363f57aso89767166b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:35:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790588106; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DYbvrQVubdjNgocdmOn4JlqRY+CHUgf/rnKpMWiwOCWkhSNKSPPLu86hxv+UFIkFXe
+         d4oaUF7FzSv/it37KvlYuqdVf6T2/6hGodM9SO6zvG3Oxe4SGirkDWepdda0/YLOfooc
+         pmpmY0ng+TRyKJiWNeehvdJZni/FJjpGzxNC+j+D2MS+7MVzWfDF/4w/vkvKUqGUCqKE
+         c2cDUJQwG9iUBDU8zcdefvP9lcr5g5WgwnNCMAuLtNG9Aq1KbV7oBaSMC3vLIGFAKeNM
+         syKLt0xmK/57ifxbEZXbbmV4Ly8ylVH10GOlkX8nc3h8oXjtBP436vtLsRdJmMZFJK32
+         rFcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
+        fh=dXGcnd3rpXqJT7C6Gz9i+6MRb6OgVYrpZmAWKRzgEO0=;
+        b=SpGqVyCGe9QbFEMQjk9LUETJbwFAbe9cWfeupeCwayUs8G9DDXXhjvYe21XpolnvjR
+         73WePoJ7BaMxwXafJFXp7wqxmqCrGTJ7tZl5G0rUhBBP2BaT+25JARUQaOTEdeoM+WDp
+         XM+SL35EKEH97YVA7qUCzRklg9EV+fOlq2bB1Svoll6xNzyrDdvk0VRq5cq1OwbI1kVP
+         bdeUCZDPfiXuRP/Z72xDsXgfIZO1kCgzhx+X7ZXyHpJQNMd1CmpaLfwHoVK6UsKorzA7
+         uiDpSLwFcLbYVd5mymAKzSpxeCaOFHtKQD78EgSEvcfc3OiAwa0Nzukk5htZkJ1LsXoZ
+         ljDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790588089; x=1791192889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cslUYpSyi91GFkeEotZ13vFtrVwZDY/B9c/HltZgtHA=;
-        b=fABrETRyH1MnGNahDSYgOKk96EZVbU3eRx7p34RvC7Ap+4XeC8NDRyyZ2LRr6oPO3p
-         FXzQuJ1r3csBE6YoF9OTUhRB/+l5dbNOsVOULcEAPk6tjnP0mrs2SHR+xM1fPVD63Kbh
-         T/jAlpICeJkHSeruwQ+FvglYYKp+GoipJNVrQda+1t+S6Ejbj78KP5mMXR6bflMDoKL4
-         IPXCxKoDMQYivH0YNG3xJ7bliJ+CqVtaS8FuiyP+3SHqPDxMqlVQbpVYCcYRf2SbaSh8
-         7qJCSgRNHM1aBCqcuaY46aOG3n6ff21KTq1pAQSQDVBKOxKa+GvXWtyee45vFawHMQxU
-         ZXWQ==
+        d=gmail.com; s=20251104; t=1790588105; x=1791192905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
+        b=KlgEBctu8040tRcI4JJ4z/lgw8m/xm5eAl8RMeOIXx7JpsVmJQYUqB9eMde8iISo/t
+         WIPMtGAUW7FN1hSgHRICbGUopeOII87H1k9vWr+uhhQwjlECKMiCdvhzLLZs8f6NxrkH
+         utFukPD17YPzJiQMNyKy3b7197ojQviiyZUXfg1BsEwWVp+3Yx3FlJ1tiRixN4dHodAT
+         41XPdKXcWiaH4zMiO/FkXizKAMVrpvzZfQm9DEEsoQRL4lQiVGyB6hYiAGr6IKeI6OnB
+         3pSyidg2i/6mtA25l1Go5VofvJV6+FmLMpAqVrTn9gKPBHVRsdgA23b/Fysoth7AVC33
+         bOeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588089; x=1791192889;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cslUYpSyi91GFkeEotZ13vFtrVwZDY/B9c/HltZgtHA=;
-        b=dnb1V6CWGOKORy75goLlag/ASoZwjhZWL+NNUxuVhLsaPKjJ4yP3jKUdkoIxnXNqet
-         JkGxRRnBM6w2Wypx+XtqPFYWH9IbKaFOXIIXyJZ8+/4dRXRnf7VgZGaMsx2phUVI/UrW
-         fiF2BtS1j7EMAmXFIHHkmItJwu3a7r49StjFC9yCDyONVSMCuPoeGVRzW5mC+uTAuJ98
-         DWRE5LrxixcrIS8hQLaryU/0XYWi0vfHjg/bdgZROjNxRMQtZMfnnafcrhLEqrnu/N+C
-         4ALLXs7RVnp2Y49rjekCfb5PK8sVBBb3G8ZzOoz79GS0lhpJyyCn1bHzwJIHI5F3oGJm
-         vmiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRSVexmro9gocnLN81271F4V+z7qGdE2Sj89eafqCIcdFvQJL+GDEdQX4fmXd1bBLxpcx2Ma0S2ctmhwQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbKTzLTx6nugahgUrT+fpGYlVjfGOs+6kO/mdB/FJ9u+/HopBS
-	J0yuA8y3j0lQ2pqCyXriBvpFOmcroPY3FioQJ/pr597Jj6cigH6cpCDLD6iX1AsbNGiGritKCf2
-	H/VIBK+KBIEyY65TQe2LnhXg5auqEJ/rnZwVNZvnaQ3X5G9XY9inSGH2Y5otv0v+5jgU=
-X-Gm-Gg: AYBFou3NOYB4gYI1IHJYmJvFdBVXxKGyXyTVYT6JksJhJ4G9O3FhSJClmpoqf/b2gPQ
-	RWVVNjp7rtGM5VavbM/Gsti9t5FXVsWUi+7dxuB/2LOUYn2Lrf+S0byOdmNeaO2rUdUuMVxlE8P
-	UQcTh4noY4B1co3vvt46u3HaL6gkQ0L7ArW/OqVyn/Ip9YZR50FlOGSpzAB+gosl0FIYgq5LxQP
-	lQGEhd4UgaJqTCRVD+fYNO6MB+8F2lRnGKhLEv3MXXDQWpvZPrNM6vkVchu1IFya/Am7keTR7kO
-	dUQhqI/WuYp+5U99HiXxBg5PQt3uH3DbjnNQdTHeEeZ+eio7gtmXIUvRi1KjUV/VJ+t6v4HNvF+
-	po9X5lSQnN3D1VpiSaI3+7v3EAzKWAQ==
-X-Received: by 2002:a17:90b:2649:b0:3a0:b223:683e with SMTP id 98e67ed59e1d1-3a0b2236bfbmr8129133a91.48.1790588088541;
-        Mon, 28 Sep 2026 02:34:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:2649:b0:3a0:b223:683e with SMTP id 98e67ed59e1d1-3a0b2236bfbmr8129114a91.48.1790588087871;
-        Mon, 28 Sep 2026 02:34:47 -0700 (PDT)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm19867799a91.6.2026.09.28.02.34.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 02:34:47 -0700 (PDT)
-Message-ID: <bb9b3980-141e-4ad7-ac18-6ea7b9002dfa@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 15:04:42 +0530
+        d=1e100.net; s=20260707; t=1790588105; x=1791192905;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J7NixjEGofgkN3CS5IP+1OrrpCKUq/nSVKpFmSD6AB0=;
+        b=LjJt8aDb/FA8gua9tDS+ws49HgZAM9c7wXpo9d7xy1n91RnFADE/yWs/hXl3EYkZHr
+         pbyTLr8pKmd7jwQhwvyI3pTwbXH38cuGkhx8e1YStolOnDLbgYLvjE74JJBR3+0plZNf
+         GB5F3uQEoGKX0ym2qCUk6myq3qDxA5Dr506T097o/b13Lyp9XrMR0ISzfZqRjGR73y7k
+         w2Edi9h1nw78b8Xw9fWu2NivLHW728eP5JgvXRG/zl8tfFRcUYwgX+j8K3yXAczkI6Pn
+         oYxPModvnWfe82oAyWcEoOXSmCPBAli53PMBLJY761+w2WayumzyzddvhxyLTAI7/27o
+         NI1w==
+X-Forwarded-Encrypted: i=1; AKwUvByZZXygGl8oWRFqBx3Ldpj2L7dihhk1cPtbrbfrvG36i4Ia/Q7eBB+DiLas0/ev1ZmVgYW171ANROdqAa0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5c9id2MQWTM1JvINWarNb/qKO9G5z5KuoQq8gozhtiwHBX1sJ
+	IhVKDAVgysBQKLnOrdToiZs5UVeiHcXgqxNuIn1jp4a7TJymNMDmgTs04GBK1SVzFbqlg1jADa3
+	IVB6nI3lonXarJBGlwQCdf7T1XyzfcXg=
+X-Gm-Gg: AYBFou1O2DjbR3RLMhunwUgUEBXWLSMqW0C1bgUvb8nYf25D8aDSjaGf/Pm76XgPUTX
+	SJDfj5opvTAXm/1ef5VA2L4EBpU/BHIj3wo/1PqvgUViRFhui4vAL2ufkyt5RDiyFH+7xEv8uMR
+	O8AuA+RPna3ZtDlY92etFMh5Ijrtk5Jh6edw6A6fOjmaeeGpM9jbdjK5epSyb+XPuk3KXyT/RoT
+	4c2Ji5Y5n0SMEEz9dEMGjG1rM3wsPFdAben+d5DKc+RQBkpPZTA7zgKMUsv0wUZo5JOgrP2LkIP
+	bV89PZW4Fc+JzeEHHT8FbvDME8xv68MS9fkyifpeDmA+p98BBfPpl2mFN324ZVqxsx9zXyRIyjr
+	BC45FkqL+C6U=
+X-Received: by 2002:a17:907:9445:b0:c26:19de:9adb with SMTP id
+ a640c23a62f3a-c2ac259cee2mr1036666866b.26.1790588105420; Mon, 28 Sep 2026
+ 02:35:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] Add TPM support via Qualcomm TEE TPM TA
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-        linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20260907-tpm_qcom_driver-v2-0-71a6b1752da8@oss.qualcomm.com>
- <aqyZtHynb2nuQT-P@kernel.org>
- <d555ee76-3999-4ed0-be6a-ca07354af6d4@oss.qualcomm.com>
- <araJKqHdeXstD7nR@kernel.org>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <araJKqHdeXstD7nR@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8eS_0o273kri9uZG9rwhSxbcpGxoWvsN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzOCBTYWx0ZWRfX0ITxXh1OWfla
- Ri+dCBFZHwqTL7ClesvL16o4ipOun+RUqeiTQ+JLJVRWgh2T3D30mbeTSA2mCS9KfKBdIOWnDbp
- Ueo/DkPqmKRVBli5yFuWTPpeuqF4kxXVKvMVTOf6m2JCiJGdSgHrwLaZ2JdCiPxuMeW80ndnGdA
- Pqf0lFtEKxbZxhYFN2/FZ/ZwptgnQrmZJYJKjf1bWwu5oPIBkt6QGSc+IFQuOHLok3h0/lTG0tL
- 48WFAMi8Kix46Dke655tXPwUUDGarfpHRNx9iiGjd5VL62wWhjt8HinX/P8VGZW4MkfQa0Az0BK
- n0ResBSK+JiuDNqtzsOqktARWSondQyuK3mbaLLyXHjdIyU+gwVp09XLh14gwvRXc8zTsALOIil
- mePm8ZPfDUTy/S1B/swrwAlo+fSd+3vbHuXtaPb6CZ9DvHHlu5bko5vhvoAf+DNpnOzhkUB5g8O
- TVd5d0HtQgWK7q7DlJQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzOCBTYWx0ZWRfXwuwFP4DCHVJO
- fu1tQ4WjGOOtC0pIlx2pouyn6bGxRdYhsekxLwzW4Hc+D+Ruu5fH5R1j11Cj4eca2wzAe/eDx/5
- GSjh/QKeLKdugMJLiWkfNdNsoE9rZ2g=
-X-Proofpoint-ORIG-GUID: 8eS_0o273kri9uZG9rwhSxbcpGxoWvsN
-X-Authority-Analysis: v=2.4 cv=MqLHeGae c=1 sm=1 tr=0 ts=6aba34b9 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bi0NzNZZtduFk6DORyMA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0
- adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280038
+References: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com> <20260928091144.818739-1-liuxiang.277@bytedance.com>
+In-Reply-To: <20260928091144.818739-1-liuxiang.277@bytedance.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Mon, 28 Sep 2026 17:34:27 +0800
+X-Gm-Features: AclHuK-2Am0IrJwrtO2WIF-9sUUaEeJonX73QRQrUzGpc-JcUfmwQN43Q37uOAk
+Message-ID: <CAMgjq7Agqr1FLcG3HqT_M_1s8cHc21qQKTM-JS67-3gfQ6azPQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 00/15] mm/mglru: frequency guided promotion
+ (MGLRU-FG) and flag cleanup
+To: Xiang Liu <liuxiang.277@bytedance.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Yu Zhao <yuzhao@google.com>, Barry Song <baohua@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25-09-2026 20:16, Jarkko Sakkinen wrote:
-> On Mon, Sep 21, 2026 at 02:06:43PM +0530, Kuldeep Singh wrote:
->>> Causes merge conflicts with my tree when applied with git am (actually
->>> b4 shazam).
->>
->> Jarkko, this series was sent based on tag next-20260828 after applying
->> prerequisite series[1]. Some minor Makefile/MAINTAINERS conflict was
->> observed IIRC.
->>
->> Kindly note for merge strategy, prerequisite series[1] will be merged
->> via TEE tree and current series need patch 1-5(not patch6) only as
->> prerequisite.
->>
->> To merge TPM series, it's better to pick from your tree and TEE
->> maintainer can ACK patch 1/2 for seamless integration?
-> 
-> So I'm just having trouble following so: what is the best option
-> for you? What do you want me to do? Which route you prefer?
-I took latest linux-next (based on tag next-20260925) and tried b4
-shazam and observed minor merge conflict in patch 6/6 of dependent
-series[1] in drivers/firmware/qcom/Makefile.
-Makefile conflict was easy to do as seems recently qcom-pas framework[2]
-merged which updated the Makefile.
+On Mon, Sep 28, 2026 at 5:12=E2=80=AFPM Xiang Liu <liuxiang.277@bytedance.c=
+om> wrote:
+>
+> Hi Kairui,
+>
+> I tested the complete MGLRU-FG RFC v2 series on an x86_64 machine with
+> a SATA SSD. I found that the LevelDB Scan/Get result changes with the
+> relative intensity of GET and SCAN.
+>
+> Setup: base commit 9958290885035431e2494159f555e332c3c14906, about
+> 28 GiB LevelDB, 2.5 GiB memcg, swap off, Zipf 0.99, SCAN length 10000,
+> 240 seconds warm-up plus 240 seconds measurement. Each untraced ABBA
+> sample used a fresh database copy, page-cache drop, reboot and cooldown.
+>
+> Untraced ABBA results
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Workload                  GET/SCAN   Baseline       FG     Delta
+> 1 SCAN + 3 GET                92.5    4688.62  4425.82    -5.61%
+> 4 mixed workers, 99.5/0.5    195.2    6200.60  6385.57    +2.98%
+> 1 SCAN + 7 GET               237.2    9574.97  9831.70    +2.68%
+>
+> The first workload is the original four-thread layout: one continuous
+> SCAN thread and three GET threads. The second is a custom workload in
+> which every worker chooses 99.5% GET or 0.5% SCAN per request. The third
+> keeps one continuous SCAN thread and increases GET threads to seven.
+>
+> In the original workload, FG changed GET throughput by -5.74% and SCAN
+> throughput by +6.91%. The two ABBA position pairs were -6.21% and
+> -5.00%. A separate 5 GiB memcg repeat was also negative: -9.07% and
+> -7.67%.
+>
+> Traced results
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> I ran one fresh-boot baseline/FG pair for each workload. To limit probe
+> overhead, I selected about 1/1024 of file offsets using a stable hash of
+> inode and page index.
+>
+> Initial placement of newly loaded GET folios
+> --------------------------------------------
+>
+> We tracked new file pages loaded by GET requests and recorded where
+> MGLRU initially placed each page: the oldest generation or the
+> second-oldest generation.
+>
+> Workload / kernel       Sampled   Oldest        Second-oldest
+> 1S+3G / baseline           1452    186 (12.8%)   1266 (87.2%)
+> 1S+3G / FG                 1371   1052 (76.7%)    319 (23.3%)
+> Mixed / baseline           1782    199 (11.2%)   1583 (88.8%)
+> Mixed / FG                 1662   1312 (78.9%)    350 (21.1%)
+> 1S+7G / baseline           2719    469 (17.2%)   2250 (82.8%)
+> 1S+7G / FG                 2677   2107 (78.7%)    570 (21.3%)
+>
+> For example, the original 1-SCAN/3-GET baseline run sampled 1452 newly
+> loaded GET folios. Of these, 1266 entered the second-oldest generation
+> and 186 entered the oldest. With FG, 1052 of 1371 sampled folios entered
+> the oldest generation.
+>
+> The same change appears in all three workloads: mainline places most
+> new GET folios in the second-oldest generation, whereas FG places most
+> of them in the oldest generation.
+>
+> FG promotion was active in all three workloads:
+>
+> Workload              Later GET       Moved to the promoted generation
+>                       changed gen     during reclaim scan
+> 1 SCAN + 3 GET              38              548
+> 4 mixed workers             32              558
+> 1 SCAN + 7 GET              70              936
+>
+> However, FG also removed more sampled GET folios before another GET
+> reused the same in-memory folio:
+>
+>                          Removed after one GET      Later reloaded
+> 1 SCAN + 3 GET            81.5% -> 88.4%           44.7% -> 48.6%
+> 4 mixed workers           73.4% -> 90.2%           48.3% -> 52.7%
+> 1 SCAN + 7 GET            84.5% -> 88.2%           56.2% -> 61.1%
+>
+> The arrows show baseline -> FG. "Later reloaded" means a later GET
+> demanded the same file offset after it had been removed from page cache.
+>
+> The request-level counters explain why the final results differ:
+>
+> FG change per request       GET cache miss   GET I/O wait   SCAN cache mi=
+ss
+> 1 SCAN + 3 GET                    +2.29%          +6.87%           -15.97=
+%
+> 4 mixed workers                   -5.68%          -4.19%            -6.93=
+%
+> 1 SCAN + 7 GET                    -2.89%          -0.32%            -8.26=
+%
+>
+> FG improved the SCAN side in every workload. In the original workload,
+> the GET miss and I/O increases were larger than the SCAN gain, producing
+> the 5.61% total regression. When GET was denser relative to SCAN, GET
+> misses also decreased and FG became a net win.
+>
+> My interpretation is that FG introduces a cold-start window for a new
+> GET folio:
+>
+>   first GET -> oldest generation
+>             -> a later GET promotes it, if it is still present
+>             -> otherwise reclaim removes it first
+>
+> The outcome depends on whether GET reuse arrives before the continuous
+> SCAN stream consumes the oldest generation. The trace shows that both
+> promotion and early removal occur in practice.
+>
+> This machine uses SATA, while the positive results in the cover letter
+> used NVMe. Storage latency may also change the timing among page-cache
+> insertion, LRU drain, the next GET and reclaim.
+>
+> Is this cold-start window an expected trade-off of the current design?
+> Would limited initial protection for refs=3D1 folios, or a decision based
+> on observed refault/reuse distance, be worth testing?
 
-Also, I don't think we can merge tpm series once dependent series[1]
-patch 1-5 merges. I initiated thread to atleast conclude 1-5 so that tpm
-series can be picked completely from your tree.
+Hi Xiang, thanks for testing:
 
-[1]
-https://lore.kernel.org/lkml/20260722-qcom_uefisecapp_migrate_qcomtee-v2-0-b8a8fcbe4211@oss.qualcomm.com/
-[2]
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/firmware/qcom/Makefile#n12
+Well I mentioned this in the cover letter:
 
--- 
-Regards
-Kuldeep
+=3D=3D=3D
 
+Interestingly, mainline MGLRU already beats CLRU on this one after a
+recent change in lru_gen_folio_seq that bumps new folios with refs =3D=3D 1
+to the second-oldest generation. That change accidentally gave random
+reads a higher hotness level while making sequential reads much colder:
+sequential reads involve many readahead hits, and readahead folios start
+with refs =3D=3D 0, so they're already in the oldest generation, and
+folio_mark_accessed() on a readahead hit has almost no effect on generation=
+s
+in mainline MGLRU. Meanwhile, all direct-hit (random read) folios start
+with refs =3D=3D 1 in the second-oldest generation. As a result, the scan-g=
+et
+test natively protects the "get" part and sacrifices the "scan" part.
+That's not the best solution though. It's unreliable because it depends
+on LRU drain timing, and it hurts workloads where the sequential part is
+actually hotter (any workload involving a hotter large file and many
+small cold files will be affected).
+
+=3D=3D=3D
+
+That actually mentions commit 6cbdd9726fb50. Before that commit, as I
+mentioned in an earlier RFC, the LevelDB test is doing a lot worse in
+mainline, which also matches what Tal tested in that cache_ext paper:
+https://lore.kernel.org/linux-mm/20260502-mglru-fg-v1-0-913619b014d9@tencen=
+t.com/
+
+It was like this:
+GET/SCAN LevelDB [2]:
+Classical LRU: throughput_avg: 993.64 Ops/s
+MGLRU before:  throughput_avg: 951.12 Ops/s
+MGLRU after:   throughput_avg: 1344.72 Ops/s (+41% faster)
+
+After that commit, MGLRU beats CLRU for this test, but that's a side
+effect. (And also I made the test run much longer to let both CLRU /
+MGLRU to learn the hotness info more so in V2 RFC the ops/s is higher,
+also reduced the RA window as RA window dramatically effects the
+result).
+
+6cbdd9726fb50 strongly favors the GET part, because of scan readahead:
+non-readahead random folios (GET) will not use too many RA so they
+mostly start with refs =3D=3D 1 before landing in LRU (stay in percpu
+folio batch, so also due to a time window and unstable) so they are
+put in 2nd oldest gen. Sequential reads, however, use RA heavily and
+start with refs =3D=3D 0, landing in the oldest part. This creates a
+strong bias toward reclaiming the scan part, which coincidentally
+suits that benchmark. But it is just not right, assuming sequential
+read is colder than non-sequential reads makes no sense. And it does
+caused regressions for many other tests, e.g. some data base like
+SQLite, and for example a recent report for other people:
+https://lore.kernel.org/all/20260901180704.168106-1-ehab.ababneh@intel.com/
+
+With FG, however, it will actually learn the hotness. If you check
+Tal's paper and code there is also warmup phase for any algorithm to
+take effect, so I'm already glad that with NVMe, where the warmup
+window is shorter, FG is already doing great, and even if the window
+is long, there isn't significant regression, and more like a balance
+issue. I believe this way will lead to better long-term performance.
