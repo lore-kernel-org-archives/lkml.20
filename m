@@ -1,380 +1,138 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3EC356A38
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4B6355F5F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790557990; cv=none; b=RcBiz42hk6I7mcLnxYy8Txqgg91SBf2v+5qilvLtuI8trlDmvus/VJ9CzFootvvKXfjsgR9xTHi0KMDjaeTEtkNSNQzf82dzO2XdlaMS2iZ7s/FzKa0P2YzurnHpDjqwM/h6FHmILMm+Tp7IR0NMOf1jlSiu2MRxd0FV+srNCw8=
+	t=1790557999; cv=none; b=KwTi7+WFl+RXT7KUPZW78Zl2mzt0Kl0GmRm+TVFUZyks2G1cJoToeSO0afstWRFbcMD4I8pnYTHC3mP82OS4k+oWsj7YX058zlbU4wZiqmRv71mWjB89kwcsJzg+UzbUU07OJ13hvR3uFmxtKwqHJMsTpEm2W0JqPfiL/pgzh2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790557990; c=relaxed/simple;
-	bh=mPdZ4YzmGuOuBnQtYsBkKwgPvRUheV5+DHOGIftBU1M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ys+g4Kb3HTTUuZc8Rn15alXACuZCfBBuwiNnzQD4HcI4DMmYns8IrxRQDh5OjcVGr+1MoIqQOiT6frlUeJUowdT4HjsDnB9xZj2KEEZa9fnReacAYfr/Yw8RN91WW+TifzQ1LcsShZoeqAxEBMryo8gWjOdJurobjnpaOqd9rf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XzribqFJ; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790557999; c=relaxed/simple;
+	bh=qfrFJW3AJ9iJ6i27LMZMOr/QdBCVBvO7g9eisgLV3WM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=db2x7wS7EOrGRQ/o/CPhgDw3DcrHgVgjdw2XO1XbD978/BoxxWc7dZMM/Yor0FWLiaV4bns7+25s7wCgZqXsSQqMXCygH1vXFoOU/5ghkld8GyVZRXKqSTLX0Yw42b1QJPOq1Dj3t3teHu+fAoLQX8ajeb+CougVvaXakrpz/ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NlHWVgkP; arc=none smtp.client-ip=95.215.58.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XzribqFJ"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bd71827eso1326002a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790557988; x=1791162788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BRM1Hzz4fFI0zEE+sddBQUiqJULEyEeML2sw0SaeOmI=;
-        b=XzribqFJjMXKtJTz6vkGz9OdKCWEQAjNm12j3BI8LdXM3582zQWzL7hV8brRdcm+d0
-         XjR26B3OAoEbGLPoICKgi+cgCQakGFzSUO2czypz5xQaY1bK7A7mu0xwo+eE+YGr+2cy
-         wj9kyWO2tOrCEjPModmXtul6V4Ybk+ORs0jKLcbkDm75/3wa5H/HQXV8cmjaqcviQXfS
-         Ix/yCex6HjK2BwMzHHJDv44kcTgMF7aPOY2U2eGyOR/DYysAOt5PSlvvuGx1m/pW4G9Z
-         RaZg4rlwWFMPvpZmUJwLGBvoHXugIY/ljdADrkLgiv6lS57nadHSijtaNfnjWWfNBLlv
-         X1Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790557988; x=1791162788;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BRM1Hzz4fFI0zEE+sddBQUiqJULEyEeML2sw0SaeOmI=;
-        b=nbeMT6YMiNCILAozfywQ6iQ2R3daNaIUqbL7q6DR2Y6vxLiblDwd3yQI3lvFxOmqws
-         EwBF3ClWRgyqaaTt3Dj51bc5qcN/5HCuc32leTZr9IdDl6psz59TLXR1YiWDSjYZwIHA
-         bkpaK9+UjvFnvJN8sUaADY6SPIDY4NFXsDYIFiJ9uWbH30ckFASNwmVPP5+b8SS8mHCt
-         9Yx2HKpi7apZdJamUfM6HhPEpTosWeJ/ZrEc6OVfyJG3IoTCtgkivhKXNNU6XHLVZIWR
-         Pm8F4jySaeCjRiKJItozY1cV0ViNQpP2x+2nxw7ZolL4YKIBs1XmtZby0onmAFdiI5xI
-         oW0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwLbt2kDFbIwCCTSuDbXMFo+Fg/DTOQAWuiXkmDIbaPYYWDQSGBfkdxRgJ6y3nn2/SDdQHzQF0TDXafbHU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLor/ncfg6on+n5OW+ZPwOgGkyiT3ZyIg/x0E1RX8j9UBWboKPw
-	owtXChvQnWShRa6Lt5B5p8fyl84vKe3mb6QJtolb73+iMfma1OF8AqAr
-X-Gm-Gg: AYBFou0qBgLFJFHkIACuTF31stNH8gDyxwOh+G/GyYISHJExSWrzZcBbXsoHAjUQDNN
-	0f3VmqxbNSMbAfgX6ss4UvukVjIk2EqcbguON7gIAUK1xUyLzYWmYiaUHqLYjtHy9KcNnjdFr6w
-	NTuTRRiZDnahDN7je5HIxkIqdzwrxJFykMPCYeSvg6tYDiWP+t7LBAQZRyh7q3g0nKocf58Qm+3
-	/n4RhPtxILLWuQ3/VXty+hMCmQ/GhtaLzmkVCPIZSSHrHpdFr7d0BXPDsuIF0iD0/2IzdvqXMfK
-	F75yc0SM3vkpCto68QihE926VeMk7rYrT5aCqkXymUKJOLiuBl6pR+HAeaFIpF0PTy5b05eKWh0
-	XEX24/vKWwOM1sanMMu04jg0qcJ/LM9lpQKKHFgSnXHFl8Y9qISFJiNsnTROj85G3t/WFUAkAoG
-	9xOep0rz4uXcbt/n0f/7O0ygaAwOYgwnHWPVJvvp/vfalGqaUv0nMD4TSII0U/Y/KypTKUT0EUH
-	4jAGqH5vOF7c3uMumx/ZS5h+2k=
-X-Received: by 2002:a17:90a:1149:b0:3a0:9c9d:eb0b with SMTP id 98e67ed59e1d1-3a09c9df050mr6699718a91.58.1790557987941;
-        Sun, 27 Sep 2026 18:13:07 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e7036e3bsm10425773a91.13.2026.09.27.18.13.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 18:13:06 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: lukas@wunner.de,
-	linux-cxl@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Jonathan.Cameron@huawei.com,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	bhelgaas@google.com,
-	alistair@alistair23.me,
-	djbw@kernel.org,
-	linux-pci@vger.kernel.org
-Cc: wilfred.mallawa@wdc.com,
-	a.hindborg@kernel.org,
-	gregkh@linuxfoundation.org,
-	alex.gaynor@gmail.com,
-	alistair23@gmail.com,
-	aliceryhl@google.com,
-	benno.lossin@proton.me,
-	boqun.feng@gmail.com,
-	bjorn3_gh@protonmail.com,
-	tmgross@umich.edu,
-	gary@garyguo.net,
-	ojeda@kernel.org,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v4 13/22] PCI/CMA: Add a PCI TSM CMA driver using SPDM
-Date: Mon, 28 Sep 2026 11:11:14 +1000
-Message-ID: <20260928011123.450800-14-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928011123.450800-1-alistair.francis@wdc.com>
-References: <20260928011123.450800-1-alistair.francis@wdc.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NlHWVgkP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qfrFJW3AJ9iJ6i27LMZMOr/QdBCVBvO7g9eisgLV3WM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790557994; v=1; x=1791162794;
+ b=NlHWVgkPhZoRCZ9CGCLlxD43QiA9RyrgP/Iy3XOa/eWeRterYgp6mR0xyv16yD9L2N5iFM2P
+ FW9pYBv2lB9hRDWoBQIbI6JDarQnoK6YvLdtzHdA+nRPckTbnmD2+Yx1TMl19jYXhzD9FrLmezp
+ RIeztihLUmI4XpuQPRPnOX+Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id b0d8cde6a6540824;
+	Mon, 28 Sep 2026 01:13:14 +0000
+X-Mizu-Trace-ID: b0d8cde6a6540824
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 09:13:05 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] net: pktgen: return bool from
+ __pktgen_NN_threads()
+Message-ID: <arm_BZyS7Nf8N1AP@fedora>
+References: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927135406.3969970-1-nicoyip.dev@gmail.com>
 
-From: Alistair Francis <alistair.francis@wdc.com>
+On Sun, Sep 27, 2026 at 09:54:05PM +0800, Chengfeng Ye wrote:
+> Callers of __pktgen_NN_threads() only check whether a pktgen_dev was
+> found. Returning the pointer exposes it outside the helper even though
+> neither caller uses the object itself.
+> 
+> Return bool instead and keep the pktgen_dev pointer internal to the
+> helper.
+> 
+> Suggested-by: Paolo Abeni <pabeni@redhat.com>
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v2:
+> - Rebase directly onto the current net-next tree, independently of the
+>   deferred RCU lifetime fix.
+> - Update the commit message for the current helper implementation.
+> 
+> Link: https://lore.kernel.org/netdev/20260825185313.239861-1-nicoyip.dev@gmail.com/ [v1]
+> ---
+>  net/core/pktgen.c | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
+> 
+> diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+> index 7f81aed46672..a89cb0760821 100644
+> --- a/net/core/pktgen.c
+> +++ b/net/core/pktgen.c
+> @@ -2024,11 +2024,11 @@ static const struct proc_ops pktgen_thread_proc_ops = {
+>  };
+>  
+>  /* Think find or remove for NN */
+> -static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+> -					      const char *ifname, int remove)
+> +static bool __pktgen_NN_threads(const struct pktgen_net *pn,
+> +				const char *ifname, int remove)
+>  {
+>  	struct pktgen_thread *t;
+> -	struct pktgen_dev *pkt_dev = NULL;
+> +	struct pktgen_dev *pkt_dev;
+>  	bool exact = (remove == FIND);
+>  
+>  	list_for_each_entry(t, &pn->pktgen_threads, th_list) {
+> @@ -2038,10 +2038,10 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+>  				pkt_dev->removal_mark = 1;
+>  				t->control |= T_REMDEV;
+>  			}
+> -			break;
+> +			return true;
+>  		}
+>  	}
+> -	return pkt_dev;
+> +	return false;
+>  }
+>  
+>  /*
+> @@ -2049,7 +2049,6 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+>   */
+>  static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
+>  {
+> -	struct pktgen_dev *pkt_dev = NULL;
+>  	const int max_tries = 10, msec_per_try = 125;
+>  	int i = 0;
+>  
+> @@ -2058,8 +2057,7 @@ static void pktgen_mark_device(const struct pktgen_net *pn, const char *ifname)
+>  
+>  	while (1) {
+>  
+> -		pkt_dev = __pktgen_NN_threads(pn, ifname, REMOVE);
+> -		if (pkt_dev == NULL)
+> +		if (!__pktgen_NN_threads(pn, ifname, REMOVE))
+>  			break;	/* success */
+>  
+>  		mutex_unlock(&pktgen_thread_lock);
+> @@ -3835,8 +3833,7 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+>  
+>  	/* We don't allow a device to be on several threads */
+>  
+> -	pkt_dev = __pktgen_NN_threads(t->net, ifname, FIND);
+> -	if (pkt_dev) {
+> +	if (__pktgen_NN_threads(t->net, ifname, FIND)) {
+>  		pr_err("ERROR: interface already used\n");
+>  		return -EBUSY;
+>  	}
+> -- 
+> 2.43.0
 
-Component Measurement and Authentication (CMA, PCIe r6.2 sec 6.31)
-allows for measurement and authentication of PCIe devices.  It is
-based on the Security Protocol and Data Model specification (SPDM,
-https://www.dmtf.org/dsp/DSP0274).
-
-CMA-SPDM in turn forms the basis for Integrity and Data Encryption
-(IDE, PCIe r6.2 sec 6.33) because the key material used by IDE is
-transmitted over a CMA-SPDM session.
-
-As a first step, add support for authentication via a CMA TSM driver.
-
-This was previously discusd here:
-http://lore.kernel.org/69976d7d39c60_2f4a1009@dwillia2-mobl4.notmuch
-
-By utilising a TSM driver we get a lot of the TSM driver probe policies
-"for free". Currently there is no mechanism to provide evidence to
-userspace, as the TSM system doesn't support that at the moment. That
-can be added later when support by TSM.
-
-Credits: Jonathan wrote the original proof-of-concept for a CMA implementation.
-Lukas reworked that for upstream. Wilfred contributed fixes for issues
-discovered during testing. Alistair reworked it as a TSM driver.
-
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Co-developed-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Signed-off-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Co-developed-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
----
- MAINTAINERS             |   1 +
- drivers/pci/Kconfig     |  14 ++++
- drivers/pci/Makefile    |   2 +
- drivers/pci/cma.c       | 150 ++++++++++++++++++++++++++++++++++++++++
- drivers/pci/doe.c       |   3 -
- include/linux/pci-doe.h |   4 ++
- 6 files changed, 171 insertions(+), 3 deletions(-)
- create mode 100644 drivers/pci/cma.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 424e25710ed2..c52dab8c6044 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24757,6 +24757,7 @@ L:	linux-cxl@vger.kernel.org
- L:	linux-pci@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/devsec/spdm.git
-+F:	drivers/pci/cma.c
- F:	include/linux/spdm.h
- F:	lib/rspdm/
- 
-diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-index 0c7408509ba2..0862ef69aa3f 100644
---- a/drivers/pci/Kconfig
-+++ b/drivers/pci/Kconfig
-@@ -124,6 +124,20 @@ config PCI_ATS
- config PCI_IDE
- 	bool
- 
-+config PCI_CMA
-+	bool "Component Measurement and Authentication (CMA-SPDM)"
-+	depends on RSPDM
-+	select CRYPTO_ECDSA
-+	select CRYPTO_RSA
-+	select CRYPTO_SHA256
-+	select CRYPTO_SHA512
-+	select PCI_DOE
-+	select PCI_TSM
-+	help
-+	  Authenticate devices on enumeration per PCIe r6.2 sec 6.31.
-+	  A PCI DOE mailbox is used as transport for DMTF SPDM based
-+	  authentication, measurement and secure channel establishment.
-+
- config PCI_TSM
- 	bool "PCI TSM: Device security protocol support"
- 	select PCI_IDE
-diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 41ebc3b9a518..16abfd0e17e1 100644
---- a/drivers/pci/Makefile
-+++ b/drivers/pci/Makefile
-@@ -41,6 +41,8 @@ obj-$(CONFIG_PCI_NPEM)		+= npem.o
- obj-$(CONFIG_PCIE_TPH)		+= tph.o
- obj-$(CONFIG_CARDBUS)		+= setup-cardbus.o
- 
-+obj-$(CONFIG_PCI_CMA)		+= cma.o
-+
- # Endpoint library must be initialized before its users
- obj-$(CONFIG_PCI_ENDPOINT)	+= endpoint/
- 
-diff --git a/drivers/pci/cma.c b/drivers/pci/cma.c
-new file mode 100644
-index 000000000000..6b52b129574e
---- /dev/null
-+++ b/drivers/pci/cma.c
-@@ -0,0 +1,150 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Component Measurement and Authentication (CMA-SPDM, PCIe r6.2 sec 6.31)
-+ *
-+ * Copyright (C) 2021 Huawei
-+ *     Jonathan Cameron <Jonathan.Cameron@huawei.com>
-+ * Copyright (C) 2022-24 Intel Corporation
-+ * Copyright (C) 2026 Western Digital
-+ * 	Alistair Francis <alistair.francis@wdc.com>
-+ */
-+
-+#define dev_fmt(fmt) "CMA: " fmt
-+
-+#include <linux/err.h>
-+#include <linux/pci.h>
-+#include <linux/pci-doe.h>
-+#include <linux/pci-tsm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/slab.h>
-+#include <linux/spdm.h>
-+#include <linux/tsm.h>
-+
-+#include "pci.h"
-+
-+static int pci_doe_transport(void *priv, struct device *dev,
-+			     const void *request, size_t request_sz,
-+			     void *response, size_t response_sz)
-+{
-+	struct pci_doe_mb *doe = priv;
-+
-+	return pci_doe(doe, PCI_VENDOR_ID_PCI_SIG, PCI_DOE_FEATURE_CMA,
-+		       request, request_sz, response, response_sz);
-+}
-+
-+struct pci_cma_tsm {
-+	struct pci_tsm_host host;
-+	struct spdm_state *spdm;
-+};
-+
-+static struct pci_cma_tsm *cma_tsm_from_tsm(struct pci_tsm *tsm)
-+{
-+	struct pci_tsm_host *host = container_of(tsm, struct pci_tsm_host, base_tsm);
-+
-+	return container_of(host, struct pci_cma_tsm, host);
-+}
-+
-+static struct pci_tsm *pci_cma_tsm_probe(struct tsm_dev *tsm_dev,
-+					 struct pci_dev *pdev)
-+{
-+	struct pci_cma_tsm *cma;
-+	int rc;
-+
-+	if (!pdev->doe_cma)
-+		return NULL;
-+
-+	cma = kzalloc(sizeof(*cma), GFP_KERNEL);
-+	if (!cma)
-+		return NULL;
-+
-+	rc = pci_tsm_host_constructor(pdev, &cma->host, tsm_dev);
-+	if (rc) {
-+		kfree(cma);
-+		return NULL;
-+	}
-+
-+	cma->spdm = spdm_create(&pdev->dev, pci_doe_transport, cma->host.doe_mb,
-+				PCI_DOE_MAX_PAYLOAD, NULL);
-+	if (!cma->spdm) {
-+		pci_tsm_host_destructor(&cma->host);
-+		kfree(cma);
-+		return NULL;
-+	}
-+
-+	return &cma->host.base_tsm;
-+}
-+
-+static void pci_cma_tsm_remove(struct pci_tsm *tsm)
-+{
-+	struct pci_cma_tsm *cma = cma_tsm_from_tsm(tsm);
-+
-+	spdm_destroy(cma->spdm);
-+	pci_tsm_host_destructor(&cma->host);
-+	kfree(cma);
-+}
-+
-+static int pci_cma_tsm_connect(struct pci_dev *pdev)
-+{
-+	struct pci_cma_tsm *cma = cma_tsm_from_tsm(pdev->tsm);
-+
-+	/*
-+	 * The DOE mailbox lives in the device's config space, so the device
-+	 * must be runtime-resumed for the duration of the SPDM exchange.
-+	 */
-+	PM_RUNTIME_ACQUIRE(&pdev->dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	return spdm_authenticate(cma->spdm);
-+}
-+
-+static void pci_cma_tsm_disconnect(struct pci_dev *pdev)
-+{
-+	/* SPDM state is freed in pci_cma_tsm_remove() */
-+}
-+
-+static struct pci_tdi *pci_cma_tsm_bind(struct pci_dev *pdev,
-+					struct kvm *kvm, u32 tdi_id)
-+{
-+	return ERR_PTR(-EOPNOTSUPP);
-+}
-+
-+static void pci_cma_tsm_unbind(struct pci_tdi *tdi)
-+{
-+}
-+
-+static ssize_t pci_cma_tsm_guest_req(struct pci_tdi *tdi,
-+				     enum pci_tsm_req_scope scope,
-+				     sockptr_t req_in, size_t in_len,
-+				     sockptr_t req_out, size_t out_len,
-+				     u64 *tsm_code)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct pci_tsm_ops pci_cma_tsm_ops = {
-+	.link_ops = {
-+		.probe		= pci_cma_tsm_probe,
-+		.remove		= pci_cma_tsm_remove,
-+		.connect	= pci_cma_tsm_connect,
-+		.disconnect	= pci_cma_tsm_disconnect,
-+		.bind		= pci_cma_tsm_bind,
-+		.unbind		= pci_cma_tsm_unbind,
-+		.guest_req	= pci_cma_tsm_guest_req,
-+	},
-+};
-+
-+static struct tsm_dev *pci_cma_tsm_dev;
-+
-+static int __init pci_cma_tsm_init(void)
-+{
-+	struct tsm_dev *tsm_dev;
-+
-+	tsm_dev = tsm_register(NULL, &pci_cma_tsm_ops);
-+	if (IS_ERR(tsm_dev))
-+		return PTR_ERR(tsm_dev);
-+
-+	pci_cma_tsm_dev = tsm_dev;
-+	return 0;
-+}
-+late_initcall(pci_cma_tsm_init);
-diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
-index 6a59969bd52f..1b3d6e74fbe8 100644
---- a/drivers/pci/doe.c
-+++ b/drivers/pci/doe.c
-@@ -31,9 +31,6 @@
- #define PCI_DOE_FLAG_CANCEL	0
- #define PCI_DOE_FLAG_DEAD	1
- 
--/* Max data object length is 2^18 dwords */
--#define PCI_DOE_MAX_LENGTH	(1 << 18)
--
- /**
-  * struct pci_doe_mb - State for a single DOE mailbox
-  *
-diff --git a/include/linux/pci-doe.h b/include/linux/pci-doe.h
-index bd4346a7c4e7..7540396336de 100644
---- a/include/linux/pci-doe.h
-+++ b/include/linux/pci-doe.h
-@@ -19,6 +19,10 @@ struct pci_doe_mb;
- #define PCI_DOE_FEATURE_CMA 1
- #define PCI_DOE_FEATURE_SSESSION 2
- 
-+/* Max data object length is 2^18 dwords (including 2 dwords for header) */
-+#define PCI_DOE_MAX_LENGTH	(1 << 18)
-+#define PCI_DOE_MAX_PAYLOAD	((PCI_DOE_MAX_LENGTH - 2) * sizeof(u32))
-+
- struct pci_doe_mb *pci_find_doe_mailbox(struct pci_dev *pdev, u16 vendor,
- 					u8 type);
- 
--- 
-2.55.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
