@@ -1,108 +1,95 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68484D5989
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F8D37C10A;
+	Mon, 28 Sep 2026 17:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616835; cv=none; b=oegDGCwK4s9jZH4vlD1afTJoQl/ikozGtrCRxsB05Pdm/4l3I/cDHqFRQ1JiTyG/tQvaMbvc4zmZF7grH9TxDfpOKrQpyMrPCV8kyoHgsk720ZJbBZiv4D9n9r+inncmT7bkUJQnKxYSZ9c6X0jTZT8+iViA/R+Kl8eyAtOf+v0=
+	t=1790616841; cv=none; b=ubFSA8q3FLl//2ToO3c7Vu3jbLyTtOyBR3ksITS9TaxXw1HEch4lBBF4iYZENSWZY6I1x9IRhmFAHmNEPV4t04Zb+84ZrHihnZo8c0KPxdRCtWJESG6i2dWg2M/VFRi/nCIeTBAdquxkrMFuwOiNhIN1tTXPveKf8e1YH1WiKGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616835; c=relaxed/simple;
-	bh=nlgTWbSo/WswzQFWi8ApI1E1kcgIVxLcpXdx5PRyfDs=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=lyOuptTcpaipoVb2z616bgb2auG1AXDwHTtEzvIfsfioXQtZWE5uLR6J1QUENraQVlzVKUF8oZKtQPZyzGEYNS0TUyXw0Hq3zD82Zhgd8TpKDE6qu0yVA8xl171s/61eEfrpn15AgmBgr/bKMNq4RtQjOGkIBssGdx3zjPIPsEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=oXqC6i6n; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790616841; c=relaxed/simple;
+	bh=Rv/LkB6PetOdVT/pJO5A17DkMHpW1BtDQRc+jBFVZPw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pFGMtRa/Gph6mjbQRQNbR3xv0ZrejZvv1zdnQh+ijdshtU1dcvWsFxq4nqiEWybNlRZ3oDtWVvcF5CQ7gA8PoQhkxGJvdVt5pKXm5NhUvh3sc7SFC82dK0CcG4p0RX61V96GwSDlF8kLSIhUFOM9zZaEpUhbX3J2iqS8Dild8io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXIu9dO6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="oXqC6i6n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	To:From:From:Reply-To; bh=wSQkPbxO8IC2kuhUdnJV+rtmX5/hHYXc1xtZnALlBbQ=; b=oXq
-	C6i6nfdIU5oei/4pkmqqw9VmpHhGa1of9z9AqxnipbJB924kaLxqOCs62kAffWk9RjBg9rZaaJR5r
-	GBKpxZRJ7LJB5elymQYJwT3Rg0ItMQK0ctf59RdCB2DYQ9c+XCqmE3T0kmFSIP60iT82zJnypHsDz
-	396wodWoNrIEtT2OOjf/LsEmsJRDzHgiSqRYCC7BP6ZOWTu7SMXzvnCBNgoj6p2XeLbU5QjxHiX5G
-	KUDRgVYYI0Onmqb67imgxMzxYr+cU8p5KRGTpPTRtCgHfDO8bCUERh25U8v8WBbaGV+QDkLMJ37Zu
-	VQMVDQJygt+3P5V0j8qTPyCbR5oqxuQ==;
-Received: from [179.190.179.102] (helo=toolbx)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xBFEQ-008UxH-DC; Mon, 28 Sep 2026 19:33:38 +0200
-From: Helen Koike <koike@igalia.com>
-To: rodrigo.vivi@intel.com,
-	demarchi@kernel.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	tvrtko.ursulin@igalia.com,
-	linux-kernel@vger.kernel.org,
-	kernel-dev@igalia.com,
-	koike@igalia.com
-Subject: [PATCH] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET programming
-Date: Mon, 28 Sep 2026 14:33:25 -0300
-Message-ID: <20260928173328.45024-1-koike@igalia.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXIu9dO6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E641F000FF;
+	Mon, 28 Sep 2026 17:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790616839;
+	bh=Rv/LkB6PetOdVT/pJO5A17DkMHpW1BtDQRc+jBFVZPw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EXIu9dO6xq2mXjLluKTuv30Af8CyESirOON3Mf9f2hlYpl04nw+40wD3YbPZG1tfL
+	 HmEUK5JSYhOyLVpaITSvM4ELC305cnUmqN9ksJ+i7mccp6EtQ/LsYNrSRewyr85nde
+	 fVJV76IlrsFhWqVs/3xmVmIBd5rfId8R3Lh7oVvN7+x6UaAjI/u56vaUwWNH+BzmMd
+	 5K4imrySj0RLN+5w4QO4+sSnSj9TmSjJF2l8B8t3RQ3nGTFBARSJ9FwuxizUmBvtrv
+	 QDRybDY6Goyif08lGnOWdctOSDJJJnyLsuwJCiGm2H3dSjfMBA31RN52rTusPsKHOf
+	 pnr0NyfPsRKJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/12] dm crypt: Allocate key material from the
+ secret pool
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Usama Arif" <usama.arif@linux.dev>, "Matthew Brost" <matthew.brost@intel.com>, "Byungchul
+ Park" <byungchul@sk.com>, "Harry Yoo" <harry@kernel.org>, "Dave Young" <ruirui.yang@linux.dev>, "Will
+ Deacon" <will@kernel.org>, "David Howells" <dhowells@redhat.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, "Mark Rutland" <mark.rutland@arm.com>, "Kiryl
+ Shutsemau" <kas@kernel.org>, "Dev Jain" <dev.jain@arm.com>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Mikulas Patocka" <mpatocka@redhat.com>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Peter Xu" <peterx@redhat.com>, "David S.
+ Miller" <davem@davemloft.net>, "Vlastimil Babka" <vbabka@kernel.org>, "David
+ Hildenbrand" <david@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>, "James
+ Morris" <jmorris@namei.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Jann Horn" <jannh@google.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Saravana Kannan" <saravanak@kernel.org>, "Serge
+ E. Hallyn" <serge@hallyn.com>, "Lance Yang" <lance.yang@linux.dev>, "Barry
+ Song" <baohua@kernel.org>, "Oscar Salvador" <osalvador@suse.de>, "Ying
+ Huang" <ying.huang@linux.alibaba.com>, "Randy Dunlap" <rdunlap@infradead.org>, "Mimi
+ Zohar" <zohar@linux.ibm.com>, "Muchun Song" <muchun.song@linux.dev>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "Brendan
+ Jackman" <brendan.jackman@linux.dev>, "Gregory Price" <gourry@gourry.net>, "Baolin
+ Wang" <baolin.wang@linux.alibaba.com>, "Danilo Krummrich" <dakr@kernel.org>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Mike Rapoport" <rppt@kernel.org>, "James
+ Bottomley" <James.Bottomley@HansenPartnership.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Michal
+ Hocko" <mhocko@suse.com>, "Liam R. Howlett" <liam@infradead.org>, "Rik van
+ Riel" <riel@surriel.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Nico
+ Pache" <nico.pache@linux.dev>, =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>, "Mike
+ Snitzer" <snitzer@kernel.org>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Paul Moore" <paul@paul-moore.com>, "Pedro
+ Falcato" <pfalcato@suse.de>, "Baoquan He" <baoquan.he@linux.dev>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Alasdair Kergon" <agk@redhat.com>, "Zi
+ Yan" <ziy@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>, "Rob Herring" <robh@kernel.org>, "Joshua
+ Hahn" <joshua.hahnjy@gmail.com>, "Benjamin Marzinski" <bmarzins@redhat.com>, "Jarkko
+ Sakkinen" <jarkko@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, linux-doc@vger.kernel.org, linux-mm@kvack.org, conor+dt@kernel.org, driver-core@lists.linux.dev, linux-arm-kernel@lists.infradead.org, robh@kernel.org, linux-security-module@vger.kernel.org, kexec@lists.infradead.org, keyrings@vger.kernel.org, linux-arch@vger.kernel.org, devicetree@vger.kernel.org, linux-fsdevel@vger.kernel.org, "Eric
+ Biggers" <ebiggers@kernel.org>, linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-5-e511e9ee2329@jaseg.de>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+ <20260928-crash-memaction-upstream-20260921-v3-5-e511e9ee2329@jaseg.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 17:33:55 +0000
+Message-Id: <20260928173355.B7E641F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
-by inhibit+context save mechanism since it is not part of the Engine
-Context. Thus, at restore, 0x0 is programed back to the GPU, which is
-an invalid value according to the PRM.
+> dm-crypt keeps the volume key, the IV mode seeds and, when a keyring key
+> is used, the key description in memory for as long as the target exists.
+> If the system crashes, they are left in memory and will end up in a
+> crash dump.
+>=20
+> Allocate every buffer that holds key material from the new secret pool,
+> whose backing pages are marked by crash_memaction for the kdump kernel
+> to wipe. The volume key is a flexible array at the end of struct
+> crypt_config, so the whole struct moves into the pool with it.
+>=20
+> Signed-off-by: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
 
-This causes sporadic hangs on Alder Lake when executing test
-IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
-INDIRECT_CTX for more engine classes"). Re-add the programming of
-CTX_CS_INDIRECT_CTX_OFFSET.
-
-Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Helen Koike <koike@igalia.com>
----
- drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
- drivers/gpu/drm/xe/xe_lrc.c             | 7 +++----
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-index 4ab86fc369fd..e4c7c3549735 100644
---- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-+++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-@@ -43,4 +43,7 @@
- #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
- #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
- 
-+#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
-+#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
-+
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index 35b4e8289b5f..1a0e39089a67 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1449,15 +1449,14 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
- 	finish_bo(&state);
- 	kfree(state.buffer);
- 
--	/*
--	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
--	 * varies per engine class, but the default is good enough
--	 */
- 	xe_lrc_write_ctx_reg(lrc,
- 			     CTX_CS_INDIRECT_CTX,
- 			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
- 			     /* Size in CLs. */
- 			     (state.written * sizeof(u32) / 64));
-+	xe_lrc_write_ctx_reg(lrc,
-+			     CTX_CS_INDIRECT_CTX_OFFSET,
-+			     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
- 
- 	return 0;
- }
--- 
-2.54.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-crash-mema=
+ction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de?part=3D5
 
