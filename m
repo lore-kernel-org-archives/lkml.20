@@ -1,181 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D764EDCA1;
-	Mon, 28 Sep 2026 16:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB5E4E36ED;
+	Mon, 28 Sep 2026 16:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612705; cv=none; b=UnejwnnQnjl7mLCWUBn+mn4X2ZHzQXaOtw9wuCbJ1r2i/34W3zcUyT1AET8tkmFsgVGz8Wen0P4Myl8sIrFfi9QmOktKmjSozlxM5xNwe23KuALUnAqQOashNfRalwz/QwleAwb458Kb9X4I5hDNcXmfDKI2yziZ/3vkWFiS2e4=
+	t=1790612718; cv=none; b=SD9BazptQkS9jPVaLEHSNddHwzpeG6eyoveVEOQhfzxyV563Vg9eiALSsk2ozHrV7svrOs83FLlXGg/Ii+3hyLixoOZ1tluWIwJlyQ9qVX277Zkw9xYoOCVMMpni900ED6Jh6Bh6AlE87hwJE5Sjktol7HixQ/GwiDFfv5VFd5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612705; c=relaxed/simple;
-	bh=ksO5vdNwiO16/3z2z3UhStET95CFAPW2S0pDFRnRBbg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KLgCVhllTOJofaEznwTmINLkSpxX9Cc9FZ9l5u1J7gtObESf+ACekMelW6w876qKJXJN1yW1MKr7pgfKOSbL/vq43s06z4ksWK/8wxCaVgVM9T/hfh+7kdszYWHI3bZqO87KIVWpESbTFiweO9tU+qreSeTzDOU+7P9XueXKir8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f5CHnQyN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790612718; c=relaxed/simple;
+	bh=IeXHQDuG+UlSTHrfck/KhKvmZ0Y8Fcngu2CJvdQNwxU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cNAifyXls5qHdqXtp4wxHwoeg/3veux3OWpPHnU2FxMGg8EwGs3kU+0tiFUiEryXLEbaiLVimQ0nNHyw4+XlCsKt+kfvifEA3LuF4eDiWCnkYAMbD49FdLD3M3E41kPIXMe5B3lSG1V9mSq7xfKe4m+mNILX3RajEgE1UUVIE0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=H2WJ+rIR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RpST6PYQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1WjzO2fT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gw3poFN3; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f5CHnQyN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FBCE1F00893;
-	Mon, 28 Sep 2026 16:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612702;
-	bh=9HcBleETp0MDSzH0J4NabctHRFmmeu+mI+U5rmWUvFA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=f5CHnQyNP8sbdymYVvvJ9mO57B5WXyyU7yslASru9n2q+0vhE2xzbbjqkfQweUz1Q
-	 rCyXYdGwBGU26O23WrCfbVOEIjPaHKW0HqXX4ehERrLvAJ9ynw6o/TcuLCytNJCh7d
-	 01z70s5XXw8Ij2U7iNQkOSMlLz40Tz9vJQK3a7drsu911nzGgJp5+r6sqSjjv2iaRH
-	 gLb+dox2ZgcSTpBI0EpUQn/fJWEeLydhYxb7dNXlId/Y264tOMeqR8rGlR44yJmpUd
-	 av7ME15bdqEvO0x8VfRQK4lifCv/vDRXRI4MVlovijLvyhyxvDJNwaLfy+/WEEZ+ek
-	 cdkBhpsJaVu/g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1396BCE0832; Mon, 28 Sep 2026 09:25:02 -0700 (PDT)
-Date: Mon, 28 Sep 2026 09:25:02 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Thomas Graf <tgraf@suug.ch>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Chris Mason <clm@meta.com>
-Subject: Re: [RFC PATCH 0/3] fprobe, rcu/tasks, rhashtable: Switch fprobe and
- BPF kprobe-multi to Tasks-Rude RCU
-Message-ID: <f593867e-dcef-4f68-b609-a253f489f7b8@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <179060575297.372125.10581329083761385407.stgit@devnote2>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="H2WJ+rIR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RpST6PYQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1WjzO2fT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gw3poFN3"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7C61A21D59;
+	Mon, 28 Sep 2026 16:25:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790612710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
+	b=H2WJ+rIRKkUYdsmM2JwBzqizVpVBBhyqQ+2bPRdgSUcE5FNOSCGZkwIARZUDStw/h1bU33
+	0vKxkEZ497ACbK4i4QCnsdd9pS7aPinm/CKCLXjG401MIiqL2O1XnZ4+n5RP8lsXvCa4Vn
+	lRHdeF4KqiajWXsVvorE9TkLDdZyPQ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790612710;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
+	b=RpST6PYQMSVpqo0VXsT56G5ijoG/pNR/iABjpqe7wlLau9L1KnPIipZFkheOnfWCaL6T2W
+	mJc1Q5SiN14SbkBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790612706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
+	b=1WjzO2fTMSuLHwiXvYhdYmjcHovUgPBHlbY8M43CBH/sdDKBRkhPV6JQU97KjkGyniOGV5
+	w655unPL8oPF1JvBLCsuJI2gRWW8b4L0GJaE5SNO86vmmzf4Aah05GrzQT6SlU72+BasYb
+	a/NwCepPqU7TsHZNeTX/o2WpduIH3zQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790612706;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MUzOaX8sf87HxifU7reLT1NQboWhipfuOHdlKqrfpHE=;
+	b=gw3poFN3KOKxuSGssviSZHD4S+PJzn4CXRDaEMhSqmzC3/VUYo8GlTMRWFTljwVkwlzU/m
+	Tv5PKfl1y4mmhnAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0C13133F1;
+	Mon, 28 Sep 2026 16:25:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id wQ+tL+GUumrTdwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 16:25:05 +0000
+Date: Mon, 28 Sep 2026 18:25:05 +0200
+Message-ID: <875wzp4a3i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Frank van de Pol <fvdpol@gmail.com>
+Cc: tiwai@suse.de,
+	perex@perex.cz,
+	corbet@lwn.net,
+	khan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/1] ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
+In-Reply-To: <20260925021915.78909-1-fvdpol@gmail.com>
+References: <20260925021915.78909-1-fvdpol@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179060575297.372125.10581329083761385407.stgit@devnote2>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 
-On Mon, Sep 28, 2026 at 11:29:13PM +0900, Masami Hiramatsu (Google) wrote:
-> Hi,
+On Fri, 25 Sep 2026 04:19:13 +0200,
+Frank van de Pol wrote:
 > 
-> Here is an RFC patch series which removes standard RCU read lock
-> (guard(rcu) and rcu_read_lock()) from fprobe callback paths
-> by switching fprobe and BPF multi-kprobe to Tasks-Rude RCU.
+> Hi Takashi, Jaroslav, and the ALSA community,
 > 
-> Motivation & Problem
-> ====================
+> Apologies for the long gap since v3. This is not simply v3 with the review
+> comments addressed -- I went back to the reverse engineering, and a fair
+> amount of what came out of it changed the driver structurally.
 > 
-> Currently, fprobe entry and exit callbacks (fprobe_fgraph_entry,
-> fprobe_return, and fprobe_ftrace_entry) execute in the tracing hot
-> path where preemption is disabled.
+> The patch has grown accordingly: v3 was 8 files and 1613 insertions, this is
+> 17 and 7326.  Most of that is not new logic: of the roughly 5700 added
+> lines, about 2100 are comments, 1660 are KUnit tests and generated test
+> vectors for the codec, 249 are the new jockey3.rst documentation, and only
+> about 1300 are executable code.  The rest is blank lines and Kconfig
+> plumbing.
 > 
-> However, fprobe was forced to wrap hash lookups with guard(rcu)() and
-> rcu_read_lock() because:
+> The relatively large number of comments comes from the deliberate decision
+> to include what I learned from the protocol analysis with the relevant
+> section of code.  The parts that most need explaining (the bit-plane wire
+> format, device initialization, why the URBs run for the device's whole
+> lifetime, the locking order etc.) cannot be verified by reading the code
+> alone.  ploytec_codec.c is over half comment for that reason: the DOC: block
+> deriving the format from the board's I2S and DMA geometry is effectively the
+> specification the optimized variants implement.
 > 
-> - rhashtable defers bucket table deallocation using standard RCU
-> - unregister_fprobe() and BPF waited for a standard RCU grace period
+> Previous version:
+> v3: https://lore.kernel.org/all/20260622011131.1748298-1-fvdpol@gmail.com/
 > 
-> Taking standard RCU read locks in the tracing fast path introduces
-> several drawbacks:
+> Changes v3 -> v4:
 > 
-> 1. Unnecessary Runtime Overhead:
->    Every probe hit manipulates current->rcu_read_lock_nesting with
->    memory barriers, and rcu_read_unlock() adds conditional branches
->    to check for special quiescent processing.
->    On debug kernels with CONFIG_PROVE_RCU=y or CONFIG_LOCKDEP=y,
->    this additionally acquires and releases lockdep maps on every hit,
->    introducing severe lockdep hashing overhead and tracer recursion risks.
+>  - Reworked the locking architecture around an explicit hierarchy: a
+>    process-context rate_mutex outermost, then IRQ-safe leaf spinlocks for
+>    playback, capture and MIDI that are never nested in one another.
+>    Documented in jockey3.c.
 > 
-> 2. Fragile Dependency on rcu_is_watching():
->    Standard RCU treats idle CPUs (and user-space on nohz_full CPUs) as
->    Extended Quiescent States (EQS). If a function is traced while
->    rcu_is_watching() is false, standard RCU is blind to the read-side
->    critical section. In such contexts, synchronize_rcu() does not wait
->    for the reader (risking Use-After-Free), and lockdep emits an
->    "RCU-illegal: rcu_read_lock() used while not watching!" warning.
->    To avoid this, ftrace callbacks normally require FTRACE_OPS_FL_RCU,
->    adding extra trampoline check overhead.
+>  - Fixed the capture stall after a sample-rate change, eliminating the USB
+>    device reset that recovery used to require.  The reset rate per rate
+>    change went from 19.3% to zero, with a 98k clean streak on arm64 and 61k
+>    on x86_64.
 > 
-> 3. Asymmetric Synchronization with fprobe_return():
->    fprobe_return() executes under preempt_disable_notrace() without
->    holding rcu_read_lock(). Prior to this series, unregister_fprobe()
->    only waited on synchronize_rcu(), which does NOT wait for pure
->    preempt-disabled sections, leaving a potential Use-After-Free window
->    during probe unregistration.
+>  - Rewrote the bit-plane codec: a portable reference implementation plus
+>    32-bit and 64-bit SWAR variants selected at compile time, called through a
+>    batch API at the driver's real batch sizes. Against the same machine's
+>    reference build, the optimized path measures 11.0x encode / 7.8x decode on
+>    x86_64 and 6.9x / 6.1x on arm64. KUnit tests validate all variants against
+>    an independently derived model of the wire format.
 > 
-> I've tried to fix the last UAF with simply introducing guard(rcu)()[1]
-> but Sashiko found the 2nd problem [2]. So I decided to implement this
-> series.
+>  - Added URB coalescing.  The driver used to submit one 512-byte packet per
+>    URB, fixing the completion rate at 9923/s at 44.1 kHz and 21600/s at 96
+>    kHz for as long as the device was plugged in, used or not.  N packets per
+>    URB (N a power of two, 1 to 8) are now chosen per PCM open from the
+>    requested period size.
+> 
+>  - Fixed a cold-boot initialization race. Straight after power-on the device
+>    accepts the entire init sequence, reports success on every transfer, takes
+>    playback samples, but its audio engine never starts. Bisected over 100
+>    cold boots to between 144 and 156 ms after enumeration; the driver now
+>    waits 250 ms before its first control transfer, close to the 297-308 ms
+>    the Windows driver waits.
+> 
+>  - Added a URB liveness watchdog. Every error path hangs off a URB
+>    completion, so a device that stops completing URBs produces no error, no
+>    xrun and no log line. A work item now reports either direction silent for
+>    20 ms and enters the recovery ladder on a stall onset.
+> 
+>  - Hardened handling of an unresponsive device: an EP0 error-class predicate
+>    aborts the handshake before usb_set_interface() is reached, since the USB
+>    core disables an interface's endpoints as its first action and does not
+>    re-enable them on the failure return.
+> 
+>  - Added Documentation/sound/cards/jockey3.rst
+> 
+>  - Addressed the v3 review comments.
+> 
+> 
+> Testing:
+> 
+> Validated with an automated hardware-in-the-loop framework written for the
+> purpose: probe and unbind endurance, PCM cycling, every rate in both
+> directions, period and buffer boundary matrices, duplex, xrun injection,
+> rate-change soaks, suspend/resume, USB disconnects via hub port power
+> switching, and cold-boot cycling through a network-controlled mains switch. 
+> Some of the figures above come from runs of tens of thousands of iterations.
+> 
+> Exercised on real hardware on x86_64, i386, arm64 (Raspberry Pi 4) and
+> armv6/armhf (Raspberry Pi 1B -- functional but tight at 88.2/96 kHz), with
+> x86_64 and arm64 also run under a KASAN + lockdep debug kernel.  The codec
+> KUnit suite additionally tested under UML and QEMU on i386, arm, arm64,
+> riscv and s390 (test big/little endianness).
+> 
+> 
+> Two things I would rather state than have found:
+> 
+>  - The mitigation stack around the rate-change stall is now practically
+>    dormant since the rate-change improvement.  I kept it as cheap insurance;
+>    happy to remove it.
+> 
+>  - The 250 ms settling delay in jockey3_initialize() runs on the
+>    USB hub thread.  I can move initialization off the probe path if you
+>    prefer, though that introduces complexity to avoid races.
+> 
+> 
+> I look forward to your review/feedback.
+> 
+> Best regards,
+> Frank
+> 
+> Frank van de Pol (1):
+>   ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
+> 
+>  Documentation/sound/cards/index.rst           |    1 +
+>  Documentation/sound/cards/jockey3.rst         |  249 +
+>  MAINTAINERS                                   |    8 +
+>  sound/usb/Kconfig                             |    1 +
+>  sound/usb/Makefile                            |    1 +
+>  sound/usb/jockey3/.kunitconfig                |   13 +
+>  sound/usb/jockey3/Kconfig                     |   60 +
+>  sound/usb/jockey3/Makefile                    |    7 +
+>  sound/usb/jockey3/jockey3.c                   | 4060 +++++++++++++++++
+>  sound/usb/jockey3/ploytec_codec.c             |  656 +++
+>  sound/usb/jockey3/ploytec_codec.h             |   44 +
+>  sound/usb/jockey3/ploytec_codec_kunit.c       |  871 ++++
+>  .../usb/jockey3/ploytec_codec_test_vectors.h  |  793 ++++
+>  sound/usb/jockey3/ploytec_midi.c              |   83 +
+>  sound/usb/jockey3/ploytec_midi.h              |   36 +
+>  sound/usb/jockey3/ploytec_proto.c             |  365 ++
+>  sound/usb/jockey3/ploytec_proto.h             |   78 +
+>  17 files changed, 7326 insertions(+)
+>  create mode 100644 Documentation/sound/cards/jockey3.rst
+>  create mode 100644 sound/usb/jockey3/.kunitconfig
+>  create mode 100644 sound/usb/jockey3/Kconfig
+>  create mode 100644 sound/usb/jockey3/Makefile
+>  create mode 100644 sound/usb/jockey3/jockey3.c
+>  create mode 100644 sound/usb/jockey3/ploytec_codec.c
+>  create mode 100644 sound/usb/jockey3/ploytec_codec.h
+>  create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
+>  create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
+>  create mode 100644 sound/usb/jockey3/ploytec_midi.c
+>  create mode 100644 sound/usb/jockey3/ploytec_midi.h
+>  create mode 100644 sound/usb/jockey3/ploytec_proto.c
+>  create mode 100644 sound/usb/jockey3/ploytec_proto.h
 
-Unless I am missing something subtle, Sashiko needs to be taught a
-little bit more about RCU.  Preemption-disabled regions of code really
-are valid RCU readers.  If you have a reproducer showing that this is
-not the case in some situation, that would be a bug in RCU.
+Thanks for the update.  I think overall the code would be OK, but
+the problem is that it's a way too big single patch to digest.
 
-Adding Roman Gushchin and Chris Mason on CC for their thoughts.
+Could you try to instruct LLM for splitting logically for easier
+reviews?  It could be like starting with the core probe skeleton,
+polytec core stuff, basic PCM loops, the mixer support, the MIDI
+support, kunit, documentation, something else I forgot, etc.
 
-							Thanx, Paul
 
-> [1] https://lore.kernel.org/all/179055575009.241711.6358052647499787191.stgit@devnote2/
-> [2] https://lore.kernel.org/all/20260928005114.9C9FC1F000FF@smtp.kernel.org/
-> 
-> 
-> Solution: Tasks-Rude RCU
-> ========================
-> 
-> Because fprobe callbacks already run strictly within preempt-disabled
-> contexts, we can transition fprobe and its deferred table reclamation
-> to Tasks-Rude RCU:
-> 
-> - Tasks-Rude RCU detects grace periods via schedule_on_each_cpu(),
->   forcing a schedule on every online CPU. This guarantees that all
->   preempt-disabled sections that began prior to the grace period have
->   completed before memory is reclaimed.
-> - Unlike standard RCU, Tasks-Rude RCU does not rely on dyntick-idle /
->   EQS tracking. It does NOT require rcu_is_watching() to be true and
->   does not trigger lockdep warnings in pre-RCU/idle execution paths.
-> - Within fprobe, guard(rcu)() is replaced with guard(rcu_sched_notrace)(),
->   reducing the lookup lock to pure, non-tracing preempt counter
->   increments without lockdep or RCU state manipulation.
-> 
-> Feedback and suggestions from RCU, BPF, and tracing maintainers are welcome!
-> 
-> Thank you,
-> 
-> ---
-> base-commit: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
-> 
-> Masami Hiramatsu (Google) (3):
->       rcu/tasks: Export call_rcu_tasks_rude()
->       rhashtable: Add use_tasks_rude parameter to defer bucket table free
->       fprobe: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
-> 
-> 
->  include/linux/rcupdate.h         |    6 +++
->  include/linux/rhashtable-types.h |    2 +
->  kernel/bpf/syscall.c             |    2 +
->  kernel/rcu/tasks.h               |    8 ++---
->  kernel/trace/fprobe.c            |   66 +++++++++++++++++++++-----------------
->  lib/rhashtable.c                 |    5 ++-
->  6 files changed, 54 insertions(+), 35 deletions(-)
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Takashi
