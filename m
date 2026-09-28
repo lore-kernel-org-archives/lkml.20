@@ -1,77 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5689B3859D4;
-	Mon, 28 Sep 2026 18:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169A83A4523
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620021; cv=none; b=tdTfCD2fEs66hPA/94lp/5MqfEcxM62NEZQqkEndQjujAx3FJyEfZ8+nlULpvxkxHxwJYfmb7LqmUxrtYd0LpwQIDBhOO96ZCupeua9PbyV6mw09pE1l+V5pf+8hM4/fMe1ySPJegZS/CA010CYwT+GX+tyjb1wUJcB0HFR52G8=
+	t=1790620021; cv=none; b=vCeUU+582c/pIQ02TBOmlTQKZ2/3cjJTWHcvtXq1Scp3vh2BY2Hax6PEwmkPnBmTr9ofTk8DkgRHp0M+6JX+7IODfFZisJ17jtyggQDonh8nkm2ThqSy52JhnO+gkIfL16AtVuG37PluKqhfqPKbsqKPm16KiIP9+yNhIL1VRoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790620021; c=relaxed/simple;
-	bh=A0ssjJSHEKjFlY7vJ1uT8qNAnt8roHHxq1uRpcA6jLA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBK1/6Y4RvyNL9/iOML6/WT6HfC+gcn3Y8l0WeUirof9ck4PmM6huzIiin5dn99CJs/eZ/1mASX8UPk4qi6FeN3JQcUBhYaYbrBHkfMYOZyJaVhp9ZcpW8cMhTl0AMk8tZEELBC8RuYj6zWLn7uGA0/Zz6k8cH4s6WkVXm+IhlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chb2sgtz; arc=none smtp.client-ip=100.103.45.18
+	bh=Iq83VSy+OQapYoEQ0TtGDOjJxioYnfzBx0Kzv/7Axck=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Nrjw7EyyrYIF1WayD2su38XcU2QiH1LZSQNYtlDWFFMOAoUZ8uIosD9zyXZ95cjZIkJtSwLeSWSa5ZpVypyH6VKZorucV9FNQelH/qLGetA6UezrHon3EKRzhtk0wD29LOk/n5oP3kZPTlF8vWxEjQIMbPbR5KYrswcyHDt1oOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vnoz62lA; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chb2sgtz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2B81F000FF;
-	Mon, 28 Sep 2026 18:26:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790620019;
-	bh=5VWumWvvkifyy6k7ULM1njiBaWO9+JRGvzCFB/mqVVM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=chb2sgtzjjHiteg5Fn4N+gSYrHJGxly+hk6ZPdC/1GDZUnodh9BHgTV0hmYCq7pjy
-	 01dngRTC78Y4R9xQjHGHhmcNr46422wdeNxUkq9BJe+pZuc18YVYQsz/1Kj+w0nWD4
-	 i1BD+BJxj9Ux70rJ5CoJxXA8egSa1bPPObjZ3znEbFxKrRoGTvwcgUdg1ZxS1mGOGd
-	 l+YufaubCOz/RkKgU3BSi0lAKjh8FJfY94smu9byGSPG7HJiwPT/ZVCgG9ZYztvYqL
-	 4F1k5Kvjhh4vj/49RRCqEE/xZdN6vNuqsuzvkS3vjpVwcJVmeJPjstruv/aWGPzLWl
-	 zp7FgwfQ9f5Rw==
-Date: Mon, 28 Sep 2026 13:26:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] of/overlay: don't pass the changeset's own id to
- of_overlay_remove()
-Message-ID: <20260928182658.GA185307-robh@kernel.org>
-References: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vnoz62lA"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so11558503eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790620019; x=1791224819; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8ciA1x+9O0b1rSzgdiYZqyc++5iHHSnk4az39TXa9sk=;
+        b=Vnoz62lAFGacIiIZW9fnog/Z0NOwSIdAP6d/EcWe5agJWUxmi8FGSct5r2W+fSrYyW
+         G69Do7bkGVMSdBhJuVkg1Gh7fhsSyi9NzsAOlqmJQnPafAtzvVLhKdEeJPy5jYtmsH2/
+         dXZGJ/3k0lCE4uiX3b3sjEQPdh0RBkqK67cx8ZCC5LLYzOWPS/MOajKBV+M9sZHx39tc
+         +o2DRp+S5+Ei08qUATNfYlT+pmRBfLDZ70/N86iqFilGLOmh5blkft212AU+GGhB/1lg
+         F4+VKYZSudTPr7tRlOTpM1FyDLKutTLcbWtN/XRpt2kc2DobNGXgeM6b1ZC47PSm1wUb
+         dMpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790620019; x=1791224819;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ciA1x+9O0b1rSzgdiYZqyc++5iHHSnk4az39TXa9sk=;
+        b=TCG3hDj+f0Bwpp4uRSqo2OE9nIAe6VAK1x7xUtQDoiOOlnbMwnn4xLFds73A8vyeaz
+         2pgL2mctO2toTR2lURom6TQPVoXDcp7yK8wSFnwwxNJzH4Mc4jm1+0Od/qrE2zNe1HzR
+         qbXSWKrWR6Ul8YZRYSE4wUWdHWceO19x+S2fJTyCNnhVPMFDsTuN9A9q6v6RBaRJBGSH
+         p7nUjBM6k8U+LXe3a0BsIO8SwBE0f+6hTwG1A0d7ob4pWTZ2lGjFJ02dR2fw6UveOxy6
+         0Ysdk8Xu/E/6xB47owlfnWS6DYEdLLATg+YBJK2rMgne9amkIvzLQxvr6sTl0k9o5Zjc
+         z47Q==
+X-Forwarded-Encrypted: i=1; AKwUvByCA8MSBtxCdqjg37u44d9S4zGf2UPdhqqbGwApOm17nVsK/GeMU0zmrgFW3qN1x78hhnnJ2S4xF8gVwh0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsas8MNc7e/1BmxrcCO32BFbO42cd5ed71GomeS7BhmLR8ESPw
+	Itl0QPBRLtR02uPzd9Q/KKjOndtb8pFnxc/zM+zZMoT8vQM9KWxzEPcV46KjQnwSxv4TVCOEn6k
+	ZE5EqXbXD8Q==
+X-Received: from dybdw10.prod.google.com ([2002:a05:7300:b90a:b0:33e:6144:b80b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:2324:b0:341:49cd:6815
+ with SMTP id 5a478bee46e88-342709b5850mr10120417eec.18.1790620018639; Mon, 28
+ Sep 2026 11:26:58 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:26:00 -0700
+In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai>
+Mime-Version: 1.0
+References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928182605.3649015-22-irogers@google.com>
+Subject: [PATCH v6 21/26] perf test probe_vfs_getname: Scope probe name to PID
+ and make non-exclusive
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026 at 07:28:16PM -0700, Abdurrahman Hussain wrote:
-> of_overlay_remove_all() passes &ovcs->id to of_overlay_remove(), which
-> zeroes *ovcs_id once the changeset is reverted, before calling
-> free_overlay_changeset(). Through the aliased pointer that zeroes
-> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard
-> is false and both idr_remove() and list_del() are skipped: the
-> overlay_changeset is kfree()d while still linked in ovcs_list and
-> registered in ovcs_idr.
-> 
-> Every overlay removed through of_overlay_remove_all() thus leaves a
-> dangling list node and idr entry behind. The next ovcs_list iteration
-> or idr lookup walks freed memory, and the ids are never returned to
-> the idr. Nothing in-tree calls of_overlay_remove_all() today, but it
-> is the documented API for removing every overlay in one go
-> (Documentation/devicetree/overlay-notes.rst), so any module user hits
-> this deterministically.
-> 
-> Pass a local copy of the id, like every other of_overlay_remove()
-> caller does.
+The fixed vfs_getname probe name collides between parallel tests, and the
+cleanup deletes every probe:vfs_getname* probe. Name the probe
+getname_flags_$$, match it exactly, and remove it from an exit trap. Not
+starting with vfs_getname also stops perf trace, which opens every
+probe:vfs_getname* event, from pinning it.
 
-If every caller passes a local and updating the value is not needed, 
-then we should just update the API to pass the value rather than a 
-reference.
+Remove the exclusive tag from probe_vfs_getname.sh and
+record+script_probe_vfs_getname.sh. trace+probe_vfs_getname.sh needs perf
+trace to find its probe, so it uses vfs_getname_$$ and stays exclusive.
 
-Additionally, if there are no callers we should perhaps just remove the 
-API.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ .../perf/tests/shell/lib/probe_vfs_getname.sh | 25 ++++++++++++++++---
+ tools/perf/tests/shell/probe_vfs_getname.sh   |  3 +--
+ .../shell/record+script_probe_vfs_getname.sh  | 16 +++++++++---
+ .../tests/shell/trace+probe_vfs_getname.sh    |  5 ++++
+ 4 files changed, 39 insertions(+), 10 deletions(-)
 
-Rob
+diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
+index a4230a83bcae..57a59ae7d4ae 100644
+--- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
++++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
+@@ -1,15 +1,32 @@
+ #!/bin/bash
+ # Arnaldo Carvalho de Melo <acme@kernel.org>, 2017
+ 
+-perf probe -l 2>&1 | grep -q probe:vfs_getname
++# Scoped to the pid for parallel runs, and not "vfs_getname*" so that perf
++# trace's probe:vfs_getname* wildcard doesn't open, and so pin, the probe.
++: "${vfs_getname:=getname_flags_$$}"
++
++# The probes added, including _1, _2... for inlined copies of getname_flags.
++probes_vfs_getname() {
++	perf probe -l 2>/dev/null | awk '{print $1}' |
++		grep -E "^probe:${vfs_getname}(_[[:digit:]]+)?$"
++}
++
++probes_vfs_getname > /dev/null
+ had_vfs_getname=$?
+ 
+ cleanup_probe_vfs_getname() {
+ 	if [ $had_vfs_getname -eq 1 ] ; then
+-		perf probe -q -d probe:vfs_getname*
++		local probe
++		for probe in $(probes_vfs_getname); do
++			perf probe -q -d "$probe"
++		done
+ 	fi
+ }
+ 
++# A pid scoped probe is never reused, so remove it however the test exits.
++trap cleanup_probe_vfs_getname exit
++trap 'exit 1' term int
++
+ add_probe_vfs_getname() {
+ 	add_probe_verbose=$1
+ 	if [ $had_vfs_getname -eq 1 ] ; then
+@@ -41,8 +58,8 @@ add_probe_vfs_getname() {
+ 			return 2
+ 		fi
+ 
+-		perf probe -q       "vfs_getname=${func}:${line} pathname=result->name:string" || \
+-		perf probe $add_probe_verbose "vfs_getname=${func}:${line} pathname=filename:ustring" || return 1
++		perf probe -q       "${vfs_getname}=${func}:${line} pathname=result->name:string" || \
++		perf probe $add_probe_verbose "${vfs_getname}=${func}:${line} pathname=filename:ustring" || return 1
+ 	fi
+ }
+ 
+diff --git a/tools/perf/tests/shell/probe_vfs_getname.sh b/tools/perf/tests/shell/probe_vfs_getname.sh
+index 36dc319eea0e..c40e5f3f0825 100755
+--- a/tools/perf/tests/shell/probe_vfs_getname.sh
++++ b/tools/perf/tests/shell/probe_vfs_getname.sh
+@@ -1,6 +1,5 @@
+ #!/bin/bash
+-# Add vfs_getname probe to get syscall args filenames (exclusive)
+-
++# Add vfs_getname probe to get syscall args filenames
+ # SPDX-License-Identifier: GPL-2.0
+ # Arnaldo Carvalho de Melo <acme@kernel.org>, 2017
+ 
+diff --git a/tools/perf/tests/shell/record+script_probe_vfs_getname.sh b/tools/perf/tests/shell/record+script_probe_vfs_getname.sh
+index ce20663601dc..16dbbcfc0e40 100755
+--- a/tools/perf/tests/shell/record+script_probe_vfs_getname.sh
++++ b/tools/perf/tests/shell/record+script_probe_vfs_getname.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-# Use vfs_getname probe to get syscall args filenames (exclusive)
++# Use vfs_getname probe to get syscall args filenames
+ 
+ # Uses the 'perf test shell' library to add probe:vfs_getname to the system
+ # then use it with 'perf record' using 'touch' to write to a temp file, then
+@@ -15,22 +15,30 @@ skip_if_no_perf_probe || exit 2
+ [ "$(id -u)" = 0 ] || exit 2
+ 
+ . "$(dirname "$0")/lib/probe_vfs_getname.sh"
++# shellcheck disable=SC2154 # vfs_getname is assigned in lib/probe_vfs_getname.sh
+ 
+ record_open_file() {
+ 	echo "Recording open file:"
+ 	# Check presence of libtraceevent support to run perf record
+-	skip_no_probe_record_support "probe:vfs_getname*"
++	skip_no_probe_record_support
+ 	if [ $? -eq 2 ]; then
+ 		echo "WARN: Skipping test record_open_file. No libtraceevent support"
+ 		return 2
+ 	fi
+-	perf record -o ${perfdata} -e probe:vfs_getname\* touch $file
++	# Name the probes, a "${vfs_getname}*" glob would match longer pids.
++	local events
++	events=$(probes_vfs_getname | paste -sd, -)
++	if [ -z "${events}" ] ; then
++		echo "FAIL: no ${vfs_getname} probe to record"
++		return 1
++	fi
++	perf record -o ${perfdata} -e "${events}" touch $file
+ }
+ 
+ perf_script_filenames() {
+ 	echo "Looking at perf.data file for vfs_getname records for the file we touched:"
+ 	perf script -i ${perfdata} | \
+-	grep -E " +touch +[0-9]+ +\[[0-9]+\] +[0-9]+\.[0-9]+: +probe:vfs_getname[_0-9]*: +\([[:xdigit:]]+\) +pathname=\"${file}\""
++	grep -E " +touch +[0-9]+ +\[[0-9]+\] +[0-9]+\.[0-9]+: +probe:${vfs_getname}(_[0-9]+)?: +\([[:xdigit:]]+\) +pathname=\"${file}\""
+ }
+ 
+ add_probe_vfs_getname
+diff --git a/tools/perf/tests/shell/trace+probe_vfs_getname.sh b/tools/perf/tests/shell/trace+probe_vfs_getname.sh
+index 28d3aa8a9e33..ab13801d9e99 100755
+--- a/tools/perf/tests/shell/trace+probe_vfs_getname.sh
++++ b/tools/perf/tests/shell/trace+probe_vfs_getname.sh
+@@ -10,12 +10,17 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # Arnaldo Carvalho de Melo <acme@kernel.org>, 2017
+ 
++# Exclusive as, without BPF, any perf trace opens all probe:vfs_getname* events
++# and so would pin this test's probe.
++
+ . "$(dirname $0)"/lib/probe.sh
+ 
+ skip_if_no_perf_probe || exit 2
+ skip_if_no_perf_trace || exit 2
+ [ "$(id -u)" = 0 ] || exit 2
+ 
++# shellcheck disable=SC2034 # consumed by lib/probe_vfs_getname.sh
++vfs_getname="vfs_getname_$$"
+ . "$(dirname $0)"/lib/probe_vfs_getname.sh
+ 
+ trace_open_vfs_getname() {
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
