@@ -1,70 +1,71 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F204D4E73A9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF674E534C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608786; cv=none; b=rM+H4D5o81UeLG12Fu6qdPd5M/McjxwBYwvB7axOY1xiYY8ZoWOyQZQr7ACYKz3OWeg2Cxd/HRGLJhFvGOlZuo8dUd/diPepV6KLGtRG8kvbCJZLHIVNku9sxFlDGDg25D9/M48ZOuE9h4tX/fkYQVYmtJCw4ww7jNgUMjbDeLY=
+	t=1790608796; cv=none; b=PVAPKdJ1+H6Jkzq6urc0P9up8jMTcIplz4lZrEX8yO79rJ+8Ux7v6j1+ilHikYX8IeYNOa/hrdWWcDB6uZzilqIxV497ZXEJqCA/LEY2oJ+w8tZVWagL6CP8u6cyaHmM53QKFJNdoTtjt84N66fHtzj+72R0T4GMCgDeM88MShc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608786; c=relaxed/simple;
-	bh=qFYBnXNYmhhsHxNx2COBADOmOdhhnVq5vY9GOOKIOJ8=;
+	s=arc-20240116; t=1790608796; c=relaxed/simple;
+	bh=4hBQ6kfdK8l+m9caQJD8zZXgKlYL1BsfesWiWNE6vU0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YFk2FkenPicSfvivC0XAivf7YFaUJAjgUgLJgADKXn+6IqNv/QllTTSN1BSk8vX4OPVvoJVsJKca9qrD6AKFR2qp96ST8td+TWNM8l111+7coLCbV7dLkp7kxWW+Z4gVGJLD5L9eJ1eJeTY5x8BxEjVbD1T1xDzTy7Vur1jptr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mcv3pLez; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=AeI5iJyy+oxWukf/IYCGEMu1PCXp85JHzIVxqfL+Y1Uycava41fTvz3ouqbLEkqoIWWvPRb3hJcwBDIP9bUzTMPUvRGuRHQZDFv+y/IMMkj78D+aDtz5ZJnjwDoY93WLIcrSA6xv87pH2CPiqOvQQVGgquoNY5Vz5AA8PVPBxkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sAjDAk3W; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mcv3pLez"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1287635a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:19:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sAjDAk3W"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd88a115ebso17575435ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:19:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790608784; x=1791213584; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790608795; x=1791213595; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h2+B+TCtU6LhjPX3KEHp5ZhDWyuT2oD8RctAdhdkStc=;
-        b=Mcv3pLezAFyOR8F75xJ+N1J+sl5iObide+S4U96tO+DgnijX5Dmv30l2bJPwN1+1O/
-         aDuzJbHgkNaz0lfw14o/KwYbNznQUu7xfoxAvpVI93mnAYbKzBCw1eNQDku74CY+HfZZ
-         PW4KSnS4CPVrTmns0V/auUXCoQVjg+oAMiGULt1W0MA2xWn7cLmEQSDCHD855uvtV9X3
-         gmimRXAP+b8P5tg4Y1swbLZRAvkFTJbDFLJEEFCREXen1/VjjyUloPUHnLfUPQXAU4AV
-         74V9RqUw2P+Fwuuwm6XSQxgYih2pRhfqAVjfgoKGuEwYAv6/0uviPGmqijunI+77tcYn
-         bP3g==
+        bh=EQrjkRZQeuYzERNWt13KrmtO7dHmdt8dryvfZkIliO0=;
+        b=sAjDAk3WoCaqK5yz24zQoH9g4qbtUJ56hp0GgVu73h4G1aMu5+QTzcCvureyhPcMuy
+         3a2VJp4h5XrS/Ul5WgK0emp8qWKINH4xR0isVRgVmacktZwHuv7z79OTrCHL3LRbd7vY
+         tgYAUj1VQzyU7ZzZy/idF6f9JK2i9TGtaaf3ljNc2atf5YzveV1f5GCOFnE27s4pXwWL
+         sjA+DKTZV8BovZtAiP2pPYFumeU0ayQI6uoH5GQykWH5/f884Do+RL2AYw5Gh6+JJcT4
+         2+AqFit4j/ingUD4uABr45QUkaS1pqVIPiRLKQ8FcIWHCN2X+/kBctE9nsRExTxb1DYw
+         G5Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608784; x=1791213584;
+        d=1e100.net; s=20260707; t=1790608795; x=1791213595;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h2+B+TCtU6LhjPX3KEHp5ZhDWyuT2oD8RctAdhdkStc=;
-        b=ga+OC3k5HvW/csSoA+Lvlwgk7d6wF8aQtqDl8qYFBY3Kdj6OW7NiiZRLvMq6WuSQhj
-         U+RT6sgs3KJRmmIch12kb2ziLczenJ8dqAIxszT4q7F09ZJkwtL0uO7lF+rie7/LMmQh
-         Hc1S2fSGvK9LZj5BkrYePMk4CY8ssBlxJj5Tnm0nfJrbSTPHHMVt87ho17YKVjBVR34P
-         pNC8aXvI4pCbYr9fiNqxqIZuDTZkpKHKF1TVXn4407pTDz+EIIlw5615LLjCOJ+5zfYN
-         PLZlX2lawFH6LByCNPmTh8lkUR/8zQ7QfZJP8UqK6tL90GRXA71MjghukaJyCzUOwJMF
-         LT6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByOncL6E7S47ZZSdrmIrbREZSLcRYQQI2jJfhvLJhTZqx43zZ8B9/UkdmH+7ev8zPKGUvggHWGY1he9l5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrRszhrydHf73q21eUTNnV2Oskb957rOZFh11wFd7Swv/fUB0d
-	A5hSv43eb5WJzcWoMLbX615GzZZeAMWg+72HHt1VJDdE2qyeFy1L0NY6
-X-Gm-Gg: AYBFou20LcbwO95mZleRBC8vUBI4K1Lxy1mSsj5r8o1m2BvTr6mxi47F5Wx6FLeWgtJ
-	Uo6eXI1m+tBuC9nVVVJ/hiiwa8Dnf+2KJZ8wZDxNiAB613A7w5YCCJN6KdiI8TNKzb8/GvGvOni
-	LZGdmGUlpXZS9ocAtuSo9R02M9/1iQgvOYbSLsbs+ZlxdWVpNUdtHE3YNt6t1uF0q8TpJMj1gAF
-	Ncu17049HiXEM9g3xPKbqsdBaP1hdx30NIYZaE4ijAl2bGx2068qPkbT5c5At8gvKaI7t1h2h8m
-	Ily2QcCEYqWbRf2wVY+TPglxzHKnC18/RvkJsCl2pcajs24FvJPwm5ovuUrEAVPP7/DA3Lgh7IL
-	IchPnCAum/renGMbSAKihTuuirCxHXreMy7Gk1a6tFU3Z+aM5VbERCpPgE1tH50oYNpgUYJbaSL
-	qRnxcC9DUYYjNLltD5Zp46C7UeZIq13rfNOhGMqh9H/Dgin2HZd95FTKgWer+lZSyxvFmyLMTnC
-	z7JlTQaeuIkJtwdAuUDeREfzWo4E/j2i2qQ+7X2A0PrsiPfW9p93WAEOhs726xr9c0v3QhvOIqx
-	v+PXhWQCrRhk8G4Fk81z5qwweoMthlXZgRup5xm7/kztVcbSLhpO/ohn3Os=
-X-Received: by 2002:a17:90b:3908:b0:3a0:c20b:2fdf with SMTP id 98e67ed59e1d1-3a0c20b3132mr6450444a91.17.1790608784281;
-        Mon, 28 Sep 2026 08:19:44 -0700 (PDT)
+        bh=EQrjkRZQeuYzERNWt13KrmtO7dHmdt8dryvfZkIliO0=;
+        b=aq9LzrjeOTi87v/e+wntsIsyaYjvM1y8PAaUKp7erUYC5FBBkSk2nqUGOhOCDJuDvp
+         DumE6MhvqgNith1YbPtmE/mrddkb7uYCiC1NuD1agj8CQ3sZxlafDjorWf/8XbWF+n4E
+         i/7OXCT1dZwedXMLlvLe9ZH+IGXvDN9xHoMpCv2+xlZOyfWlntRk05xoJp5YBac7bop4
+         XegOPo4c8YwqpnVJr1KEoLafirVz8SJP74uFBncGEGjTFfzrcUYCPVjaVeZ1ZpYoxKev
+         d4uQBWp2lRIIDMes6CXEHB8wopr76rkEmErLN2UEfnyLWfZpUCT7pU/sSN2T3S875dEY
+         BX5w==
+X-Forwarded-Encrypted: i=1; AKwUvBx5wvq9Bg9LK6Y6uaYDe+pZKUL1ajX+UAlKC3OlFN85PTWz80YeeRkOKpFn0VCBB8ovzp9j87RpdoO6yio=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLz93d77T39cJUCrJFeX9a3HYjIX7zk4L31PlmWfSjRre5w4a+y
+	eN8oSElAVPzPB/HijkuL/ZwXIyJUOevZ5CxWqW5sgGPiO8xWw/DUFFS154DIxHXzsKX8yw==
+X-Gm-Gg: AYBFou0qgLa+H7uOT1deQTwPxi1eAuA/Yc1MmgEiJIMdr59q/jihJGzarIVZ7UBtIXo
+	FeG1TgbdIdkxv72sYT9Zr+EpLmkupI5SDKrWZAIWuGgAOl0gNrx7t3kyrd+i0KCuPsw5pSnWOJW
+	JfJyZlbRoAcErCL3VZe4XTjfVnXQ5wKbSi4C3IcD7EJP3ogqn9Ymg+Rss8mPPXBJf75ZYEJPU0V
+	jwlhrU6Cx4eB+4KJoVaowT53g8IbOhhmefk7mo2j0/tnrCmrPL/iT8pBEIf+xJm0yS+IyDbxzCc
+	aXqmjeYXeZwb9oVq4Sz9VzqBVFD/XrAOnrubPUOAWHQHt6qQnaWf6ccMe9IofrvgyonfCYiH+vi
+	0e9qBio+pAv1TD1VwXMjT1hJJhghJkIIDHNiRG6KPE3gtrujhprFMZmYtO435/QtDAM9XwWun2a
+	8sQ3cfyJ8Nr19WAQYfieM+veo5opp4Sg4Ih+qM20KTBWDdxCLmaiMT3ENt/PVY50zo5x7D+B+mO
+	CVa9nUkmIr032wkuJLd2cdtsbt33dcoM8XwknYDPsUmxEZe9PfvVEFBw4CjG0i7Fh9+69EGnxVR
+	c1ZOFa307XDcOJcWkprTK1838/lllgdTwUCVmrCr/TlPRSbQMpvU6rTVcGk=
+X-Received: by 2002:a17:903:1987:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2df7da68a41mr101388085ad.0.1790608794891;
+        Mon, 28 Sep 2026 08:19:54 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9feddd0sm7247965a91.2.2026.09.28.08.19.36
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91423df7sm43558615ad.43.2026.09.28.08.19.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:19:43 -0700 (PDT)
+        Mon, 28 Sep 2026 08:19:54 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
+To: Kairui Song <ryncsn@gmail.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Baoquan He <baoquan.he@linux.dev>,
 	Johannes Weiner <hannes@cmpxchg.org>,
 	David Hildenbrand <david@kernel.org>,
 	Michal Hocko <mhocko@kernel.org>,
@@ -72,8 +73,6 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Kemeng Shi <shikemeng@huaweicloud.com>,
 	Nhat Pham <nphamcs@gmail.com>,
 	Yosry Ahmed <yosry@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Baoquan He <baoquan.he@linux.dev>,
 	Barry Song <baohua@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
@@ -98,13 +97,14 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	linux-pm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org
+	linux-kselftest@vger.kernel.org,
+	Kairui Song <kasong@tencent.com>
 Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-Date: Mon, 28 Sep 2026 23:19:34 +0800
-Message-ID: <20260928151934.2686418-1-matthias.goergens@gmail.com>
+Date: Mon, 28 Sep 2026 23:19:44 +0800
+Message-ID: <20260928151944.2686626-1-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arn4xOIxFRD8qY_x@infradead.org>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com> <arn4xOIxFRD8qY_x@infradead.org>
+In-Reply-To: <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com> <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -113,26 +113,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Christoph,
+Hi Kairui,
 
-> Either way block devices must be safe to be called from paging paths,
-> not just for swap but also for file system based paging.  So this is
-> a bug in the implementation, and not something worked around in the
-> swap code.
+> Just like we already have a "swappiness=" parameter in the reclaim
+> interface, perhaps adding a "swap.tier=" would be better and much
+> cleaner to achieve the same goal? Based on Youngjun's work here:
+> https://lore.kernel.org/all/20260916183437.2946306-1-youngjun.park@lge.com/
 
-Agreed that a backend used for paging has to make progress under
-pressure, and the zvol example was a poor lead.  The series isn't
-meant to excuse a backend that can deadlock; that would still be a bug
-to fix in the backend.
+Thanks, I think that's the right base.  I tried it: on top of
+Youngjun's v11, a "swap.tier=" argument to memory.reclaim is about 40
+lines.  In a VM with zram at a higher priority than a disk swap
+device, and a cgroup whose tier mask allowed only the disk, ordinary
+reclaim in that cgroup stayed on the disk, while memory.reclaim with
+"swap.tier=" pointing at zram went to zram only.
 
-What I'm after is different: backends that are correct but need
-memory to accept a write, where the better policy is to use them for
-cold-page offload when memory isn't tight and keep pressure reclaim on
-areas that don't need to allocate.  Two in-tree examples: zram
-allocates on writes and fails with -ENOMEM, with no fallback, while its
-logical size still shows free slots; and filesystem swapfiles must
-give up copy-on-write, checksums and compression today, because swap
-writes bypass the filesystem.  I'll make that the case for v3 instead.
+What it doesn't cover yet is reclaim outside any configured cgroup:
+under global pressure, a cgroup nobody configured still reached the
+zram tier.  So for v3 I'd like to add a system-wide limit on which
+tiers pressure reclaim may use, on top of the per-cgroup settings.
+I'll wait for Youngjun's v12 and build on that.
 
 Thanks,
 Matthias
