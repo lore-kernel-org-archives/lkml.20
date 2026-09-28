@@ -1,243 +1,247 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4BC316190
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC32433A9F8;
+	Mon, 28 Sep 2026 00:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553660; cv=none; b=NBYwMsGPJ9qY85DBq/liWevfxx4HxL8Eu0CTkZIC13SBilQMuKuiHte03TlE5jJI3NzrRnjErS/EK0PjATq1xBn7BmiaBpIZh6Tnux8/6nVRPSud7AgkacknVq46Be5AEtUJoZ9yhbwic6G35zEeI1EeMQK1bSd3V6UsvdQsKa0=
+	t=1790553702; cv=none; b=g8C9cUCcC8CRt0/FiONrFeCRS7FZ16V2S/LPZ7w/LrrGbd+sT6JJu9Msq46778KizWu0Qa21uiz+NOBteSmI0narJ0fn2LaGl/wLa2H/oHk2MqUOpxhZs+AhnHzQnHTIZgL3Y5//cKmJwW5tgRtS9GjE0AGZ6XQSSrC7eLR+vfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553660; c=relaxed/simple;
-	bh=xWkv0NihhCtba8cbXTsytw0F5OHSkub8FBy2TOh+/n0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tocyS5+u3BiSkckYYvG7wntIZhv8R+9vfqcXkzPaQnuSswMFqHIXmvKIg4BS4IMIEia4cxr5GT9QmOhlxhS9uxsxYeOCc+zNMWEoLKv+qy3cRvAT2robVblRgmUjh4zqvy3bWLOtyqQclVhGXnFrNUgqe8RWj40NUNcS98GHQ54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlHGzwzX; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790553702; c=relaxed/simple;
+	bh=Qxl/feIeV+jLSTC4GYXne/UCaFm+0GjpGzJkNZupFxI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eU38IkC+5p1xfr6EJOxtxWxzLBI4MCuddzgRT7L9gGMr/q55becYnogflYsFFzhXXMD+I5ZZbObGsFOmfKyN2C3CMLPHXzSpu4JJ8h+9H0h67a6FPOrFDJLQ0oDWhqo2hmj2JvhGmBAX/uKyQe39uA4Q0JvEW1kB2nMfjYXssFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITGKima2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlHGzwzX"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-14373bcc010so2072698c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790553654; x=1791158454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
-        b=JlHGzwzXcrQgKJrInmJDcWONF29/yJ5zQZsQFMI7jKts8OntGJ5IGd3ns6kdCLRe+r
-         w8dH3kBwL5f9xI6N0FgA19j10pdgz2/s8EbZb2vz4A1njy90UW2sEQ7sfgeT9ohkkpjQ
-         VrlbKsdFBQWm7epF0smaBbd/AzfNpMcp7Ywk6z0mAZa+JwP9vEzucx2jPvmKCcVHTKJ3
-         KJIvQx15E3/uFjggBswfUWW36oAB3zYSTL7EFIR5ih62MLBwVbzaEgqQnPlqicb/ZAF8
-         cTwOQOcarP88rG4fL2SA5C6jirCNWYM97h7zDPMe5zGy9kcAB9ZSGjTb4eGWyE8NRAq5
-         JOkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790553654; x=1791158454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
-        b=XtFUihbDRCbZngryqNY4TCK+8/0wlXGJo3JGkkhJQePPTtlBauNOAHJzSFzdvhsmN+
-         2q1KT2c2X9JxO8ghqhcritmy3YeQOF9NfBFHDjuGnpwKPk0JfGMv0gxDuPP+hgpc5+ji
-         HC90fO0KJF7nac6/pUZVyVKuGfSmFXU8ucfHJZFfFv/iM/wd1TVRYG86IPn75eUh/dBJ
-         bG61IrLwMnJbYGvoA9ZhUbut/Vaq/Jtl/FdC+C193JPrixeri8dd0rEUmPV+MzvRzx/E
-         n2FvJZwP/LBpLVgou8ecv9pNj6EFa3FwCWBTorz0vCjV7Mu8lz6COFFI68qVS1tQTrU0
-         s/wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5DzyEpWJul4Gi2y1Xn6NMqd468dQGbSWlXi7KKpYxrJRIfL/aDSwSzdBsxRXLzZC/zmTWm0pekf4WPxU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL1B+j9O3vMC0TIKb1DrlnhBFfX8nCzy4MBLWi3FLc8+wJtsgM
-	wt1z4Bgmhnn0Z+DP9/K3kRvCN0zf0JvB+TYhPtv8KQO1sKUIiGyfDEfr
-X-Gm-Gg: AYBFou1xXKo2bKtE4Juhb32tWrZuNBEGZF1VsHrNFoBo6T1HYIRtUHGDf/tIy9DSKO6
-	gfbOEeYIaKMzgXCekTzkjhB9lVe0fscbCxDdc0sJvlxYrrL8r/jdNlwk714Y4mChDtpbBKGHmvA
-	DTqL5Hi/aVwlgK4nzQxP6YCUnMV4I8Ypzh9A99ROG2NbaydlmpoburfejiTFKiFdMeGhFHUuWMO
-	ueP/eirKvkR9IkHN6ggl10TfV1tj3BnwG9hglYe/4LmHs9KVC8NVAM/5IMztwDLsa/dvB6+Mcbv
-	1nnAvbSXoFIAAE1WsD8bjgATbRaKJCiZjXCGMndM82pYMCKRytNyyCgX86uPOzAHlTxe3jl6oGC
-	MCxEZvR4zqG/V6WIYxgoBHJkbqA2WzlYpD0jnu8To9f/0RjvQECmtKogVryRfO434j+VE5fxnic
-	6A0OSE4YzrYAAuCl7tfkA1YuFd36omlcHAytj/lTAQJsFu23J8ahZPHduS5yBXdWyFWn6J3cUBk
-	5ZWKVOJsJmnpHPiCyQ=
-X-Received: by 2002:a05:701b:2406:b0:138:243e:ceb1 with SMTP id a92af1059eb24-146ce1a9961mr7838998c88.6.1790553654259;
-        Sun, 27 Sep 2026 17:00:54 -0700 (PDT)
-Received: from kq.cs.ucr.edu (kq.cs.ucr.edu. [169.235.27.223])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm23752109c88.6.2026.09.27.17.00.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 17:00:53 -0700 (PDT)
-From: Zhengchuan Liang <zcliangcn@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Ross Zwisler <zwisler@google.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-perf-users@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhengchuan Liang <zcliangcn@gmail.com>
-Subject: [PATCH 1/1] tracing: Require tracepoint permission for perf function filters
-Date: Sun, 27 Sep 2026 17:00:31 -0700
-Message-Id: <95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1790553331.git.zcliangcn@gmail.com>
-References: <cover.1790553331.git.zcliangcn@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITGKima2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D2D1F000FF;
+	Mon, 28 Sep 2026 00:01:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790553698;
+	bh=g2y0ROSbOBCB9Xnoeix/ZIG8/wgCNd3TevwH5Fiuvn4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ITGKima27hGECZN6ECqgYb+MHd3dJNvAzCIlzH+NDghmZQeWL18VG/nWZ4lFD4jon
+	 Hf5ZPYe5mYUSKDSDQTcesrJMbWugDUpgpkoeeNkj+sqdF8ZKpGifwKu/xSI6DAEYjT
+	 bmHtgasgpWSpS+v7tMBRwyQpa0gqpO2Hda02Uuh9thKzGqSVv5Uke4Gh91bWXCQ7u6
+	 VoftYM3vCCkeixXvyoi2yaFZK/lbu2VA8H+bQAl2kI7b+39Qe2NDiXrJT/MlPQps34
+	 uP9GgGUT8qiimFzItXCA05v0PzzLvAitAf3/bniL6jDLICFHje4iY3spobto4ZbJKZ
+	 Hn6RfFX0WV1jg==
+Subject: Re: [PATCH net-next v2 1/8] eth: mpnic: add scaffolding for Meta
+ Platforms NIC
+From: netdev-bot+sashiko@kernel.org
+To: daniel.zahka@gmail.com
+Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, dimitri.daskalakis1@gmail.com,
+ mohsin.bashr@gmail.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org
+Date: Mon, 28 Sep 2026 00:01:37 +0000
+Message-ID: <179055369730.3145.8922011696640547930@kernel.org>
+In-Reply-To: <20260924-linux-mpnic-v2-1-4badc9b58b9e@gmail.com>
+References: <20260924-linux-mpnic-v2-1-4badc9b58b9e@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Count-only perf tracepoint events can be opened without tracepoint
-permission because they do not sample raw event data. Their SET_FILTER
-ioctl still parses .function predicates. Numeric operands call
-kallsyms_lookup_size_offset(), making ioctl success an oracle for
-recovering the randomized kernel text base. Symbolic operands resolve
-hidden symbol addresses and can also match user-controlled event fields
-against those addresses.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Pass the perf origin through filter parsing and require
-perf_allow_tracepoint() before resolving either form of .function
-operand. Ordinary perf count filters and tracefs event filters retain
-their existing behavior.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
----
- kernel/trace/trace_events_filter.c | 39 ++++++++++++++++++++++--------
- 1 file changed, 29 insertions(+), 10 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..f99b0f1e32d8 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
- 	}
- }
- 
-+struct event_filter_parse_data {
-+	struct trace_event_call *call;
-+	bool from_perf;
-+};
-+
- /* Called when a predicate is encountered by predicate_parse() */
- static int parse_pred(const char *str, void *data,
- 		      int pos, struct filter_parse_error *pe,
- 		      struct filter_pred **pred_ptr)
- {
--	struct trace_event_call *call = data;
-+	struct event_filter_parse_data *parse_data = data;
-+	struct trace_event_call *call = parse_data->call;
- 	struct ftrace_event_field *field;
- 	struct filter_pred *pred = NULL;
- 	unsigned long offset;
-@@ -1686,6 +1692,12 @@ static int parse_pred(const char *str, void *data,
- 		function = true;
- 		i += len;
- 	}
-+	if (function && parse_data->from_perf) {
-+		/* Both numeric and symbolic operands resolve kernel addresses. */
-+		ret = perf_allow_tracepoint();
-+		if (ret)
-+			return ret;
-+	}
- 
- 	while (isspace(str[i]))
- 		i++;
-@@ -2205,8 +2217,13 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
- static int process_preds(struct trace_event_call *call,
- 			 const char *filter_string,
- 			 struct event_filter *filter,
--			 struct filter_parse_error *pe)
-+			 struct filter_parse_error *pe,
-+			 bool from_perf)
- {
-+	struct event_filter_parse_data data = {
-+		.call = call,
-+		.from_perf = from_perf,
-+	};
- 	struct prog_entry *prog;
- 	int nr_parens;
- 	int nr_preds;
-@@ -2232,7 +2249,7 @@ static int process_preds(struct trace_event_call *call,
- 		return -EINVAL;
- 
- 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
--			       parse_pred, call, pe);
-+			       parse_pred, &data, pe);
- 	if (IS_ERR(prog))
- 		return PTR_ERR(prog);
- 
-@@ -2281,7 +2298,8 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 		if (!filter->filter_string)
- 			goto fail_mem;
- 
--		err = process_preds(file->event_call, filter_string, filter, pe);
-+		err = process_preds(file->event_call, filter_string, filter, pe,
-+				    false);
- 		if (err) {
- 			filter_disable(file);
- 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
-@@ -2377,6 +2395,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  * @call: trace_event_call to create a filter for
-  * @filter_string: filter string
-  * @set_str: remember @filter_str and enable detailed error in filter
-+ * @from_perf: require tracepoint permission for function predicates
-  * @filterp: out param for created filter (always updated on return)
-  *           Must be a pointer that references a NULL pointer.
-  *
-@@ -2391,7 +2410,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  */
- static int create_filter(struct trace_array *tr,
- 			 struct trace_event_call *call,
--			 char *filter_string, bool set_str,
-+			 char *filter_string, bool set_str, bool from_perf,
- 			 struct event_filter **filterp)
- {
- 	struct filter_parse_error *pe = NULL;
-@@ -2405,7 +2424,7 @@ static int create_filter(struct trace_array *tr,
- 	if (err)
- 		return err;
- 
--	err = process_preds(call, filter_string, *filterp, pe);
-+	err = process_preds(call, filter_string, *filterp, pe, from_perf);
- 	if (err && set_str)
- 		append_filter_err(tr, pe, *filterp);
- 	create_filter_finish(pe);
-@@ -2418,7 +2437,7 @@ int create_event_filter(struct trace_array *tr,
- 			char *filter_str, bool set_str,
- 			struct event_filter **filterp)
- {
--	return create_filter(tr, call, filter_str, set_str, filterp);
-+	return create_filter(tr, call, filter_str, set_str, false, filterp);
- }
- 
- /**
-@@ -2476,7 +2495,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
- 		return 0;
- 	}
- 
--	err = create_filter(file->tr, call, filter_string, true, &filter);
-+	err = create_filter(file->tr, call, filter_string, true, false, &filter);
- 
- 	/*
- 	 * Always swap the call filter with the new filter
-@@ -2721,7 +2740,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
- 	if (event->filter)
- 		return -EEXIST;
- 
--	err = create_filter(NULL, call, filter_str, false, &filter);
-+	err = create_filter(NULL, call, filter_str, false, true, &filter);
- 	if (err)
- 		goto free_filter;
- 
-@@ -2868,7 +2887,7 @@ static __init int ftrace_test_event_filter(void)
- 		int err;
- 
- 		err = create_filter(NULL, &event_ftrace_test_filter,
--				    d->filter, false, &filter);
-+				    d->filter, false, false, &filter);
- 		if (err) {
- 			printk(KERN_INFO
- 			       "Failed to get filter for '%s', err %d\n",
+- [High] eth: mpnic: missing PCI BAR0 length validation leads to out-of-
+  bounds MMIO access
+
+--
+
+> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+> --- /dev/null
+> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+> @@ -0,0 +1,147 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+> +
+> +#include <linux/dma-mapping.h>
+> +#include <linux/err.h>
+> +#include <linux/module.h>
+> +#include <linux/pci.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +
+> +#include "mpnic.h"
+> +
+> +#define PCI_DEVICE_ID_META_MPNIC	0x0014
+> +
+> +static void mpnic_mmio_err(struct mpnic_dev *mpd, u32 reg)
+> +{
+> +	/* Hardware is giving us all 1's reads, assume it is gone */
+> +	WRITE_ONCE(mpd->uc_addr0, NULL);
+> +
+> +	dev_err(mpd->dev,
+> +		"Failed read (idx 0x%x AKA addr 0x%x), disabled CSR access, awaiting reset\n",
+> +		reg, reg << 2);
+> +}
+> +
+> +u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg)
+> +{
+> +	u32 __iomem *csr = READ_ONCE(mpd->uc_addr0);
+> +	u64 value;
+> +
+> +	if (!csr)
+> +		return ~0ULL;
+> +
+> +	value = readq(csr + reg);
+> +
+> +	/* If any bits are 0 value should be valid */
+> +	if (~value)
+> +		return value;
+> +
+> +	/* All ones can be a valid value, so confirm against a register
+> +	 * which never reads that way on a live device.
+> +	 */
+> +	if (reg != MPNIC_BDQ_SPARE && ~readq(csr + MPNIC_BDQ_SPARE))
+> +		return value;
+> +
+> +	mpnic_mmio_err(mpd, reg);
+> +
+> +	return ~0ULL;
+> +}
+> +
+> +static struct mpnic_dev *mpnic_alloc(struct pci_dev *pdev)
+> +{
+> +	struct mpnic_dev *mpd;
+> +
+> +	mpd = kzalloc_obj(*mpd);
+> +	if (!mpd)
+> +		return NULL;
+> +
+> +	pci_set_drvdata(pdev, mpd);
+> +	mpd->dev = &pdev->dev;
+> +
+> +	return mpd;
+> +}
+> +
+> +/**
+> + * mpnic_probe - Device initialization routine
+> + * @pdev: PCI device information struct
+> + * @ent: entry in mpnic_pci_tbl
+> + *
+> + * Return: 0 on success, negative on failure
+> + **/
+> +static int mpnic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> +{
+> +	void __iomem *uc_addr0;
+> +	struct mpnic_dev *mpd;
+> +	int err;
+> +
+> +	if (pdev->error_state != pci_channel_io_normal) {
+> +		dev_err(&pdev->dev,
+> +			"PCI device still in an error state. Unable to load...\n");
+> +		return -EIO;
+> +	}
+> +
+> +	err = pcim_enable_device(pdev);
+> +	if (err) {
+> +		dev_err(&pdev->dev, "PCI enable device failed: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(46));
+> +	if (err) {
+> +		dev_err(&pdev->dev, "DMA configuration failed: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	mpd = mpnic_alloc(pdev);
+> +	if (!mpd)
+> +		return -ENOMEM;
+> +
+> +	uc_addr0 = pcim_iomap_region(pdev, 0, MPNIC_DRV_NAME);
+> +	if (IS_ERR(uc_addr0)) {
+> +		err = PTR_ERR(uc_addr0);
+> +		dev_err(&pdev->dev, "Mapping the register file failed: %d\n",
+> +			err);
+> +		goto err_free_mpd;
+> +	}
+> +	mpd->uc_addr0 = uc_addr0;
+> +
+> +	pci_set_master(pdev);
+> +	pci_save_state(pdev);
+> +
+> +	return 0;
+> +
+> +err_free_mpd:
+> +	kfree(mpd);
+> +
+> +	return err;
+> +}
+> +
+> +/**
+> + * mpnic_remove - Device removal routine
+> + * @pdev: PCI device information struct
+> + **/
+> +static void mpnic_remove(struct pci_dev *pdev)
+> +{
+> +	struct mpnic_dev *mpd = pci_get_drvdata(pdev);
+> +
+> +	kfree(mpd);
+> +}
+> +
+> +static const struct pci_device_id mpnic_pci_tbl[] = {
+> +	{ PCI_VDEVICE(META, PCI_DEVICE_ID_META_MPNIC) },
+> +	/* required last entry */
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(pci, mpnic_pci_tbl);
+> +
+> +static struct pci_driver mpnic_driver = {
+> +	.name		= MPNIC_DRV_NAME,
+> +	.id_table	= mpnic_pci_tbl,
+> +	.probe		= mpnic_probe,
+> +	.remove		= mpnic_remove,
+> +};
+> +
+> +module_pci_driver(mpnic_driver);
+> +
+> +MODULE_DESCRIPTION("Meta Platforms Network Interface Controller");
+> +MODULE_LICENSE("GPL");
+>
+
+[Severity: High]
+mpnic_probe() maps BAR0 with pcim_iomap_region() but never checks
+pci_resource_len(pdev, 0) against the register file size the driver
+expects. pcim_iomap_region() maps whatever length the device
+advertises. A device exposing a small BAR0, including a spoofed one
+behind Thunderbolt, ends up with a mapping much shorter than the CSR
+indices in mpnic_csr.h assume.
+
+mpnic_rd64() and mpnic_wr64() compute csr + reg with no bounds check.
+The all-ones fallback in mpnic_rd64() also unconditionally does a
+readq() at csr + MPNIC_BDQ_SPARE. That is byte offset 0x10804f8,
+roughly 16.5MiB into the BAR.
+
+Nothing calls the accessors in this patch yet. Once the follow-ups
+start touching CSRs from probe, a short BAR plus a single all-ones
+read would run past the end of the ioremap. That would fault, or hit
+whatever else happens to be mapped there.
+
+Could you reject the device in probe when BAR0 is too small to hold
+the register file? For example, compare pci_resource_len(pdev, 0)
+with the end of the highest CSR the driver touches (at least
+MPNIC_BDQ_SPARE * 4 + 8) and fail with -ENODEV. What is the
+architected size of BAR0 on this device?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-linux-mpnic-v2-0-4badc9b58b9e%40gmail.com
