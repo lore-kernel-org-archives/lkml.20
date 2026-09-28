@@ -1,198 +1,182 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021143.outbound.protection.outlook.com [52.101.95.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90330418A29;
-	Mon, 28 Sep 2026 17:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617204; cv=fail; b=OWoy7G7p/nWkeyilf9Y7trQYHKH2VxalQgMewqG1ZxO+wa3HwNBEBhDooN8UiXoa9XeACixj3xpueVA0BH3Rpoyr038swmijdfSS7Sd3b1gDu/7wEoIXRwCKj7GbJTzHLhxIVhpvxS4hCQuDOOaHdQXv9J8WxVkOogMMSqMQU7Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617204; c=relaxed/simple;
-	bh=SuSI7wHRIXp483n0Jnu93lMEkiG0DXCgR57GdISZtGA=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=nUzY4mBPbHBlQUj19PNbmkdBRnumSLZeamQChUbLOxycZe6vhP+N+auS8YHNsw2fQnkh3WbNPc7b/QNc7NRecV1ENYT8BnfjnLSSS/wnTXqaDvTaIE9OlGH85wi/elqNaJC+bHN2Kf7BlLyUZ3Oop+TGmwtNRDQB4yNS+6G+poQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=PlrWdOy4; arc=fail smtp.client-ip=52.101.95.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2FE36F8E5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790617234; cv=none; b=YCJf2dbqpshkBpQqT8mtT1Ue2YLINMFT3niN4v25aGGTpviYfZPeypreOJQvvK1/MHAivevqoP2DDorH83vSxo/33zDzC5ROp54x5bCyzVownMg74LnQ0OzI5pKzYO6344ydPkY+w/qNtdGpt+LBicW25Z0mWiuJEO66Nk3z67g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790617234; c=relaxed/simple;
+	bh=nPAqJ4uD5RYEM12wOUBT/UCW6qyyWcMP/dCf/ibr9Ws=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=sOoYpKJNsB/y3iGM3DSfE+45Plx7SEDqakOj25sfxZcXfn/ERkiGPfQ1apKwr5Gfm7FkohRrtuc6QKuWGwyYLq8RqXdIaL0r1DX0eSJfj4IeDD2qp36AuWgA22SCWmsl9oXmZQ2CdfO86ajqE471jmXBxyhSiRYrGmhUpx5feOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gUioNVFq; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="PlrWdOy4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ku7kZGYg9ewDOcG/4+iveo15O1AedeR2LYNX+apvgl9H006YME8R/ItYf7Q67600wPQm2RqEF48PbB8oKKSF6UBhF4tP9UTSneaL9Rvt34hhtBzTdxHSHZQOamVDKJGJmiTKGyeaRxsnmC19rFpDAFVc0i9j9RPDkQFnlcdkiUJRRAMNH+tYYJOJicFzPCkDJj0Z8sqCdf8Wut5mUblXocCzhNkQbosY27FJxv933BfEokDJdKHTzbUOt1siz+1T9L/x3N/PPKuZRBxdX+YQKkYct4nbBPWCaOTOXDO+klWw41LjarZZ+PVSKHXQdkQRYoQRqEDgFw3Z0ikale98Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JxJS/+91w9weshBNSYqTOLIW63VifjRMMR4S8CwXFlw=;
- b=UCvt7oj5xCD92XhxfdZzuGnoIC4Cak8ucMLw3RRr8t1qdLBVhPtUz96IbhB6PIYcCUlFLvORVd0xhZG5qO/uRDpRsdJ6nmuPyu7hdXUTQE7lldZUl+lbn2fw4BBED3YUBij6cyAVimoQEZe8FLz2fbv241g1d9OBl6UjzfF5kJHIxTOO3RhggSLdnLbOtF5FGewwph06xbfQU0SiE2y7n8bFh1927cHJVyRaMtuqxHmH/cnnsjA0gq/M/DWwjkSGWfWmvBRUrywVPy8T82AbW3VNRF4cN9fiv4VYxELJZkOO1sbsSzpq4rR5gXFnR3osGTHefGGd/wkWFe7lD3hK+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JxJS/+91w9weshBNSYqTOLIW63VifjRMMR4S8CwXFlw=;
- b=PlrWdOy4eSRC4GFH/U5CouhiCVtGkNfQ1lqn50Pq2YQyCH2x++RguU5cWi50gcnIkzQWSOX+53GaO3v2VgKc1jKIS30zDbK6GJbue0SQVDVldJLICTAqlOMNo09+M2H0++PHvfO+LZrx050sy+9xrx2dA6TrBF5RaZoNPz4ySs4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWXP265MB5178.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:195::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 17:39:55 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 17:39:54 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 18:39:54 +0100
-Message-Id: <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- "Robin Murphy" <robin.murphy@arm.com>, <aliceryhl@google.com>,
- <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Matteo Kloiber"
- <kernel@matt3o12.de>
-X-Mailer: aerc 0.22.0
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
- <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
- <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
- <20260927224446.1053037-1-kernel@matt3o12.de>
- <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
-In-Reply-To: <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
-X-ClientProxiedBy: LO4P302CA0030.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c1::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gUioNVFq"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so54438a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:40:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790617233; x=1791222033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fYPTVor7lW3r9SolJqGFaqIvM2+F+nxKkoRVuMrFoD0=;
+        b=gUioNVFqCpsN6pr1xXNikPn1cja1lW7izMXnswQ+46Y1/XkIo8+jGIUeUVlNH9oGLj
+         6gdnYFrxE2VOTDEdO3wsbIULlOH0bD6lb7aIq+egctc5Q0gmEkOrs4SUvKkUnGcRbB7c
+         /9+yIrbsA9kstOH9NGmRCznE+wH1v+yZBHASp2fg6G4EKcd63heXwd88ze9zlRr0K2uL
+         IbeL+2iHxrJAuqAZ9MeRszkAPm/RHyEUBTV/EoRGVqL2u1whoHIuW7TWL1qS1MuT4oCW
+         +cn/os+1cz9r6Z6CnAGRcZJ7V162YZQgQskGN5ZNwqNW97UtW64o1UZyICx+ndxmDntM
+         +FdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617233; x=1791222033;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fYPTVor7lW3r9SolJqGFaqIvM2+F+nxKkoRVuMrFoD0=;
+        b=utEWEoFlM1kn98ZwTLGfC5ZSB2rR8auLCIF1DDgaDbewYovSAkE0hPoigznSet8qAd
+         y0idBhZAY/iR9ar5m2LwBSfbZK2zKWmtXXjJEYbOI3WNhf7cgQH/9CDyVta52WZQcBug
+         HS4sg6Xm1/d+KOmIhvLRstRZy67VDHQ+6bk7ysopORzuYm4l/wCs1WIn4ye5M8X0BwsF
+         PGOhg7Lz59ZvyOtGIpWivOJPqKoSCx9fQrkLrM6UlwfsjJ+qFxea8fuStaBJOa1ScPiQ
+         H5yfdmt6F24rlwmu3Wa5NZBHgRNBjFA6kzsBWjxw+GzgcwxYU9LlZCfVVxxsD02zYE+J
+         DOkg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRpdEbQa0PiFSDPcylAHS/LOQhf6eslekQz1GuCnic36/2Y0C02eJftuVO9RPXNs+EslH5uRdPkvQs5Ng=@vger.kernel.org
+X-Gm-Message-State: AFuF++mywO8MQW4dFXQ6lHHs3DI55PZQvhWdPEtbQdn8+N2opOtVg36O
+	fzY8LR2jlkp58mS1miwq3eGwXvctsI5RHgmht7VHyPPN8wwK//S0/ZV44SFhmmUvVY52Efh3LFO
+	4DUcpCDcUUy/EKQeaeOGTdp7gvchOx2KHxg==
+X-Received: from pgbgj4.prod.google.com ([2002:a05:6a02:4944:b0:cc7:9801:78ce])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:790b:b0:3db:887:7868 with SMTP id adf61e73a8af0-3de7cd46233mr58280637.15.1790617232335;
+ Mon, 28 Sep 2026 10:40:32 -0700 (PDT)
+Date: Mon, 28 Sep 2026 17:40:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB5178:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88a88409-acb2-4561-7fdf-08df1d8781ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10070799003|10067099003|56012099006|4143699003|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	NyFwSqBJr/fD6QoBOFC0pEqy+hxx4Y6lS4nANS9j941+JL5VllhoF6BKu9bNW30ciYUX5bmjyg4nxVg9FEct7t067Tu6lkdYqXwGZoY4iVFPjgEwyM9msQ7k3ua0P2NpbMnTuf0+WyY70a6wDbXWmgH1gm2WwHcFkX6/B0w5MvuHsbK5j8mD1U33YEwZOcdirnX17cwMUG3+rzRkThu/N0BbdLLpsSI2/pmsID4TKDpywxDmwvbweMfza68EnWa3deB3+P/DTNUC9p9P/WK7ll3LwDLA8ZUtHSldJad/9WCjbKLq+S8LcFpczF3QSqChEb6nAK+e8lmuR24ZntfRBNOaFwFS/cytYYG/WOOw5LTWGf+olX/2VwIKp/kj5DL/jRGQ/EwuRns+GpFLpdjwDJceqTYofvqd62IzFael3b5aFcUzHdJ21Qu4qft8OX9orUAuOMeS5EydDBJqrinf/j3+jgLB/aWNQptZB0Xe/7M1TU5OhuaZfuTmcSmeeQspAi5mwuKegVV9o4E4jEvz+HO9a0WVAc4SmSvBJPNqnBIU9P8iOxV76P/79oZ272j2NQEge7JxVY5sYnGZCMbGAxyQH2EFQYqSBZCQ4trNxsJnnumJ4eXKwWTfnrdrpM4R6UVDUAhk+6uSJGE5HGrVC3mXXuand6Wx3tLL9Ds7GQw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(10067099003)(56012099006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmQwNTM1cy8zY3VwTGJTd0t4MGdGbFc4a3pwUzQ2VzhJZURqWHpWb05HeG5w?=
- =?utf-8?B?V0Z1ZndzNkZNa0tRWFErc3IwOGpzdnpGSWhYMjZrVFYvOXNKWWxJcFpaNjNi?=
- =?utf-8?B?d09lOTEyZU9tUk1RNFdXSXAvblRyYzdTLzNPWGEzOGg5TmI0dS9TS1JBbUQ0?=
- =?utf-8?B?bURJM2t6bmJnK0laQy9sNDhPVlBSYUVqSFh1UU5ySjhSQitkS1hiWDMxYTFS?=
- =?utf-8?B?cG1jM21RRmtjLzdjYzNDQ3hmU1RYNms2bGlXZ2p6QXlLUTBkeFRhZ0xYRmMy?=
- =?utf-8?B?VHN2bnc4Z3BaYm8rZDJVcUhoSSs5bkxlN2FkSjlyYkZmTFRaSG9PWGJCNlVB?=
- =?utf-8?B?SjAyZ2NKNVpGbzJHWjVGVjBoTHVSRkR4bEhTNWFvaTJCVHRXWWpQY1VBOURQ?=
- =?utf-8?B?L1I0ZC94dUJZaitoc3pFTzgrYWw4ZkdBUmU1QW5lMDdqR2loeCt0YXBkT2NQ?=
- =?utf-8?B?Y3lYQ0loRHdRL2MrMUE2NFlNV1BwbjVYRE8rU3dNRHRETE9BQkVNZXI2bVJp?=
- =?utf-8?B?cDBpQThlT3FCVUZBNlNpLzdERW1VKytzbjBkUTJmUmFySXpBUDFMSFZsUnM3?=
- =?utf-8?B?L2NjSXp0KzhIMElwaUFEL1IvRld0Zk96V1VKTDFVeVNpdVhrMnZCa3VIeFFp?=
- =?utf-8?B?WHIrSkNOT2pIL3BFbHdBdFFCRytib09ZSFpIS2tIS0lDMndJWWpiT2RoeHRR?=
- =?utf-8?B?dnpiYlRSN25Wc3lUdUE2RFFQcW1mTkdxSnMzdGE3akJ0V1luZHNlcXB5enFN?=
- =?utf-8?B?WXE5Y1dDcGZ3R1dPVkk5c052Z3djTGdoTzB1MHhZcUpWMklzTjl1R0xJQ3FO?=
- =?utf-8?B?cWJNTkRnRzZrL05yb0JCQW00K0RFSzRRNjRJMlVnY1psVFk3Y1lWQ3pSUkx3?=
- =?utf-8?B?TlMzOTNwSkNFWE5GdzdGbzI3Mmk3VlRzMkFFS1Bnb3hDOTNrTUZWODdnOWph?=
- =?utf-8?B?T05xZlV0V2NJQ2lValorY1g1M1lRRHU3bmRzcnJWODlIQ0Frb3VCZk5JTHZW?=
- =?utf-8?B?YXlpNGFCcy9Bbk94OE1FOUMzM0h2VFZOa1IvaWZNWlBJSkxRY2ltUkRWN0hF?=
- =?utf-8?B?aUxucnMyY2k3UW1TSXFuU2ovZkRhNFdxNGVaZnRZRTU4K1ZnRWNZNWU1Mk1P?=
- =?utf-8?B?RTJrUjE0RzRDeUw2QTA3UUlpamNFWXRXMHhKZWMvSmg0R2xoYXQ1T2xYZG5m?=
- =?utf-8?B?aE5wVXRqR1k1UGhWUXNLeDZjNkYrUlJyMWE0MS9Uei9nRXNJM1lWS3dGWFA3?=
- =?utf-8?B?bzEycDJIbFd5Z2pNZHg0YjBWZlRRck5KYlIrMnVtbDhXT09GYm9DcnF5L3d4?=
- =?utf-8?B?V3NxaE93VnpLeDFuR1NpWXV2aTNGaDRTb3JQWG1LWmhpTW9ydzAvNHdHbUpZ?=
- =?utf-8?B?TS9yM0dxWkV1QVBzYm1VZVZUaFU0QjZNNGx3aG1haDRJNEhyODFnQldpeHN5?=
- =?utf-8?B?dXFQeXVHZitTeEZWejJpNjcvcDlycmpFZnY2M2IyNy9qSk5UODlwbTdNSG1O?=
- =?utf-8?B?Qk4wQlJPTHdDd2pkL1ZDR21TeC9aK2RzK1dpd0FvT3JRUVFPRHRmOTZ4OUM3?=
- =?utf-8?B?NEFwQndQMjNMdytkbnNhL3hBZzJ3QjdQK0pqbjNqVWpWblVpRHhXQU1tcGwz?=
- =?utf-8?B?TlNjWDljNDBtMGFzWTBYcVkyM01UdGxXVG15OWVBRHVNcGFCalh4OWNOSWxh?=
- =?utf-8?B?bklOdndBNExFYmVlbmNIZ1N1OWxCUlJtTVM5aGkvMmxlSzRMemRPVjYrTWhx?=
- =?utf-8?B?emRXalRrRmtjYk5PMk0vRXQ0U0hqbnUyWldlNDdKb3lJUkI4TVl2empTTHln?=
- =?utf-8?B?K0xTYjJaQ1dyUmliVytCd0M1SGFnMmMwejVPSzFpYjNiaDh3MkwyUklyRmFy?=
- =?utf-8?B?UmNrK1E0TGtpMGFGdkJCNmtnT3Z2VXFYc0xmV3BZNFQrWlNYcXB1L1liYWRG?=
- =?utf-8?B?ZnJDSjRNQ2pZeDIxZy9jQThEY3ZZdGxGTnhmWHk1L2pneGNab2xuQUdGVWZr?=
- =?utf-8?B?bUlkUytpMnI3ZWV5VW5UUDhNN0kzVVdiYXBWa3VjMC84WVFyd1JuV0xxMG52?=
- =?utf-8?B?V2Y1SmtzUWdBZ2Z6L3Nqc1hPcXh5ZDRDTjBUcWFONHpTRWZKRVRLTTFXcS9M?=
- =?utf-8?B?bnBHRkg3Z0JwSGF2MHdVWFBZMUtNM1h3eFh4V1JTdDFCdVNRQ3Y5YU5PcCs2?=
- =?utf-8?B?TVNwWDIzejVPMTVZQUNvbjlOMzVrTkozQVJzVC9aV001c1hNZkhsaXVVMFZC?=
- =?utf-8?B?Qm1sWDZ5V1BUMzQzSXVSM1lMSExiV1NZT0k3RkowQVA4c2o4VkdodXE5dndx?=
- =?utf-8?B?cUxWaWVxNnpRWGZheUZZamFWOXdUNFplRFErZXJuWGNmc0pjTmkrQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88a88409-acb2-4561-7fdf-08df1d8781ef
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:39:54.8548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lvKuWJyAmL8eXxVeYPZdEDCV6b8RFMx/Q2MAV4NQ2EemHv5UKXF/IedAm2bDhjJbxYw8FBU+WzXgCKxMIeK8jA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5178
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAHumumoC/43OQY7CMAwF0KugrDGKnQSSWc090CzSxm0jaIMSV
+ IFQ7z6BxYwQLFh+y//ZN1E4Ry7ia3UTmedYYppqMOuVaAc/9Qwx1CxI0lZaqaDR0MULeM4w8nh
+ kfyhgSHtsgmFrrajNU+a681D3PzUPsZxTvj6OzHif/nlolTVqoxVp44Ag+/OQwinHq58O331K/
+ ZE3bRrF3Znpqfv2l5kAoQvoXCNxh114QdQHiKoI2x0at0V0Sr0g+h9xaN8jGiR00lNLyAEDPiH LsvwC0WDYiX0BAAA=
+X-Change-Id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
+X-Mailer: b4 0.14.3
+Message-ID: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
+Subject: [PATCH v5 0/3] PCI/AER: Fix ghes_estatus_pool memory leaks in error handling
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	Jonathan Cameron <jic23@kernel.org>, 
+	"=?utf-8?q?Ilpo_J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Dave Jiang <dave.jiang@intel.com>, 
+	Shiju Jose <shiju.jose@huawei.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon Sep 28, 2026 at 4:05 PM BST, Alexandre Courbot wrote:
-> On Mon Sep 28, 2026 at 7:44 AM JST, Matteo Kloiber wrote:
->> First of all, thanks for merging my first two patches and sorry about my=
- late reply.
->>
->> What I think Alex meant and what I agree with is that the new API should=
- focus on
->> making semantic bugs harder, not to necessarily make it easier to write =
-safer
->> drivers. That being said, I think we can do both with this change.
->>
->> The key change here is that we introduce a structure that defines dma
->> parameters for a device. This structure deliberately has no default
->> implementation and new fields should be added even if they require chang=
-es for
->> all dma drivers.
-> <...>
->
-> Thanks for the detailed plan; I think it mostly makes sense.
->
-> A few details that we have discussed offline with Danilo:
->
-> - The `probe` methods should not take the `dma::Setup` token directly,
->   but rather a bus-specific struct that contains it and can be augmented
->   with other capabilities. Drivers would have to deconstruct it using
->   the `..` operator to make sure code doesn't break if we add new tokens
->   to it.
+When firmware reports PCIe Advanced Error Reporting (AER) events via ACPI
+APEI GHES (ghes_handle_aer()), it allocates a snapshot buffer from
+ghes_estatus_pool to store the aer_capability_regs registers before
+enqueuing the error record into aer_recover_ring.
 
-I was quite skeptical whether the complication of adding the dma setup toke=
-n is
-worth the effort, but the capacity struct sounds like a very nice design as=
- it's
-infinitely extensible. I can foresee that we might want to eventually get r=
-id of
-the special `Core` typestate and just replace everything with setup
-capabilities.
+aer_recover_queue() returns void, so ghes_handle_aer() cannot release that
+buffer itself; ownership is handed to the AER code, which until now freed
+it only on the fully successful path. If the record cannot be enqueued, or
+if a dequeued record cannot be mapped to a pci_dev, the allocation is
+silently leaked. Under a sustained error storm this exhausts
+ghes_estatus_pool, which then breaks GHES hardware error reporting
+system-wide.
 
-Best,
-Gary
+This series fixes both leak paths and documents the ownership rule:
 
-> - The token should not assume default parameters and only call functions
->   corresponding to parameters explicitly set; converting the token to a
->   handler means the driver acknowledged all the settings, so we should
->   not make any parameter mandatory (the doc should of course detail what
->   drivers *should* do).
->
-> With that and your plan I believe you have a solid basis to send a
-> RFC/PoC. :)
+Patch 1: aer_recover_queue() when kfifo_in_spinlocked() fails because
+         aer_recover_ring (capacity 16) is full. The rejected entry is
+         freed immediately via ghes_estatus_pool_region_free().
 
+Patch 2: aer_recover_work_func() when a dequeued entry cannot be mapped to
+         an active PCI device (pdev is NULL). The loop is restructured so
+         ghes_estatus_pool_region_free() runs unconditionally for every
+         dequeued item.
+
+Patch 3: Add a kernel-doc comment stating that aer_recover_queue() takes
+         ownership of @aer_regs, which must be allocated from
+         ghes_estatus_pool. This is documentation only, so unlike
+         patches 1 and 2 it has no Fixes: or Cc: stable tag.
+
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+---
+Changes in v5:
+- Add patch 3, a kernel-doc comment on aer_recover_queue() stating that
+  it takes ownership of @aer_regs, which must come from ghes_estatus_pool
+  (suggested by Kuppuswamy Sathyanarayanan). It is a separate patch so
+  that the two fixes stay minimal for stable backports, and because the
+  comment is only accurate once patch 2 is applied.
+- Add Kuppuswamy's Reviewed-by to patches 1 and 2. Their code is
+  unchanged from v4.
+- Still applies cleanly to pci/next (94e8d4e94266), before or after
+  Lukas' "Error reporting for AER-incapable devices" series:
+  https://lore.kernel.org/r/cover.1790531238.git.lukas@wunner.de
+- Cc Kuppuswamy Sathyanarayanan, Jonathan Cameron, Ilpo J=C3=A4rvinen and
+  Dave Jiang, plus Shiju Jose and Rafael J. Wysocki as the author and
+  committer of the commit in Fixes:.
+- Link to v4: https://lore.kernel.org/r/20260918-b4-fix-aer-memleaks-v4-0-f=
+0a2c21ed1d1@google.com
+
+Changes in v4:
+- Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as
+  well. No conflicts with the Advisory Non-Fatal Error support that landed
+  in the meantime.
+- Added missing Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption
+  when error status data has multiple sections") and Cc: stable to both
+  patches; that commit (v6.7-rc1) introduced the ghes_estatus_pool
+  allocation whose ownership these paths drop.
+- Patch 1: use braces on both arms of the if/else and fix the continuation
+  alignment (checkpatch --strict).
+- Both patches now build warning-free with W=3D1 and CONFIG_ACPI_APEI_PCIEA=
+ER=3Dy
+  (earlier revisions were only build-tested with APEI disabled, which
+  compiles neither of the modified functions).
+- Explained in both commit messages why the caller cannot free the buffer,
+  and when the missing-pci_dev path is reachable.
+- Cc: Lukas Wunner, who has been active in this code.
+- Link to v3: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v3-1-e=
+87159611933@google.com
+
+Changes in v3:
+- Resent to fix threading of the series.
+- Link to v2: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v2-1-f=
+d199b0171fd@google.com
+
+Changes in v2:
+- Refactored aer_recover_work_func() to ensure ghes_estatus_pool_region_fre=
+e()
+  is called unconditionally for every dequeued record.
+- Added Patch 1 to fix related memory leak in aer_recover_queue() on kfifo
+  buffer overflow.
+- Link to v1: https://lore.kernel.org/r/20260803183853.432459-2-rathodpriya=
+nk@google.com
+
+---
+Priyank Rathod (3):
+      PCI/AER: Fix memory leak in aer_recover_queue() on kfifo buffer overf=
+low
+      PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is m=
+issing
+      PCI/AER: Document that aer_recover_queue() takes ownership of aer_reg=
+s
+
+ drivers/pci/pcie/aer.c | 48 +++++++++++++++++++++++++++++++++++-----------=
+--
+ 1 file changed, 35 insertions(+), 13 deletions(-)
+---
+base-commit: f259f446f5198d98e13756d2cd531812a0ad3064
+change-id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
+
+Best regards,
+--=20
+Priyank Rathod <rathodpriyank@google.com>
 
