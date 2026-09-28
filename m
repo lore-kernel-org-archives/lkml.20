@@ -1,88 +1,64 @@
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com [209.85.128.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832D14F96C0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.66
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A761418361;
+	Mon, 28 Sep 2026 20:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790627004; cv=none; b=ZwOOsFm8hiECdq2EzbrPKvY2RAmsy6mnf4Qk32QN61zQ0nkwKnt1sLfm9WlriJ+m9L/FeVnR0mRLnG0BTIjv0ySkc7XKuWEF26ZlBGSLdMCWgW2rOEZQAF02vgobMrbQ8Ulhg2VvWel3grZee2szPa1Pef8TDjXY7i0xF9cTuFA=
+	t=1790627190; cv=none; b=fLqmpw+/7S8Kx6bHjJk87JRd9eoomsild8hSNj7PD42SMPyXZ1ZJIzEmZZ/aqrDoUqRtfWFGseeCervnX91dt3x9sp1hRVRTH7zdikIE+Bt2OlS99Itro33sPKaelWuSQccJHhj6Gje1PcGb6sJDDKsYcQmKS+Xqp+FAYSJ5B0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790627004; c=relaxed/simple;
-	bh=3qVnGX5rRaJCRwlcgQzeEp0Kkeac6bWfTm59GQvGhnk=;
+	s=arc-20240116; t=1790627190; c=relaxed/simple;
+	bh=JVQLPisFWV7/QWe/4PPVIK9JaRdW26lYmiMhceDhNo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ByaPoQjQOM5q0MzPFkblkhGT5g2qOFZq4zQ/sdKDIeIFtRTvXOL9G/1PPsx3VtuDVqCMx8UNbfAmzP4uocXX12qcMqa9HPDomb7TDw1qERq+VsRmZrgDsufgfTXuZnXuxvDPHXHwpqrkq9lNB2UtTZ7Bp1ajADfugtoQx2AXpfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=PhIE8MLr; arc=none smtp.client-ip=209.85.128.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	 Content-Type:MIME-Version; b=Y4gv8j2KcAn7mNbU5PYNzru+gPIkhmUWGZmbvlBFmJIodSpsmFWtj60+Pyl/sZXTP//qLMP9msLWmnoVtGtko6Ul8s6b/GRpQtgRU71kEAuSRlj6TXzoh0yWDBMY/kZbTWaqWFoE3M4G27OGdTBijRAJ/E8Bwk7Kxvmp3zW+IhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=nIc/TJxj; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="PhIE8MLr"
-Received: by mail-wm1-f66.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso3061615e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:23:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1790627001; x=1791231801; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z1fkwGoumcXsELwjWXc8Y0RIsf/dT14wb+aaMLvRjLc=;
-        b=PhIE8MLrmekDU/QOE4bV2Q8L0OykDqthq2V4TYqajzgS+tG8DAcptQogKDQNqzTmwu
-         ksW+GYFNw8/npEtnDVZ8JK0DLjAPhhNftzhdhO/SR1xD8sa3oJpcV4RuDi2bS/ugDSvi
-         VvrljkM0bxCmK0UD5CjKGLgWO8avZCTBTXGERvhUkic82Mf0e4cqU8nM1jjPCw4FdVc0
-         BLOX6Ifb3FFhYQztC7Y+aKd3qEzldayrdhbF4BRv0jKOo0gBmBfSsZmado+R/Kqk41Bj
-         5DEekzDXEFhTVo9QyzR9AAU92SE1+DeNaC5knHLbwMocaw5SXKtXrVs0+a3KXT6IIGHb
-         h8Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790627001; x=1791231801;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z1fkwGoumcXsELwjWXc8Y0RIsf/dT14wb+aaMLvRjLc=;
-        b=1OdjVMMToez3QjLa9YL9wSMvR9PO/qtufsIWIwvitGYnMvUfROXXl+PJEesHi0THMm
-         DgG6Aheq2IAmd/14R07DnyWOLI19/peCXwKi+e3O1U7e+S5ZvRRCatmwUkOs7pdgsP/E
-         yqesFuuCu/T2xkHs/9ziGkwSqjV+Glu6w+INdeskOpSkmUaXT039OuCeKMuo/PjAECTA
-         2svc3l2wG1H7qjXNzYoScnT72jkdQkumtZ9sPyWJGTsWiJc3n2mbKj8iI8MLLQQOfUpN
-         Fz3J6KVA2Fbg5fYQqMpNAqDrl2WgYGzuRXv1H8C7hPKtqUrjO4mA3IGif8PHJOS1Ds4/
-         AZBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuhXwvlus1Ia94ErWNXTC9I0MiDPzMrQaeCH+BS0DZ6KS+0MEadOLeAAv9VqAXmbfMjivvTcbK8EyXL5Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8s7r2T+6mG+yHmbB/ZSQy/OqurNuOiTlWDbCEvJbvpPEbYMfz
-	28DkWBJJ95/U4rqugPzFbNDWMqc5QVUSGi4JlReiTjESvck5ByoAAo9w9UNZH3SOMKY=
-X-Gm-Gg: AYBFou36KvmpxoB7Ea258hM1Q3RZP0YmNT6eiDZeHl0SQoeit9qK1ntnpJYAGpWIiLo
-	Av/zYi/Z5Oy4O6Tvfg3grxTR27JwW/tw+330p4hd4JO8vEbSLEXyEmO1Cg5C1wnM8yEMsxCRX0t
-	LiNq1e+F6bDW/jinfnM2aZ1qbntbkcxo/2oeCS/FMm/c0HMLY1WABEnoCUIzFxug3IyhNfSpVnc
-	oVrYBuq+ggDbb9lOzzgwCViI9iZ+uiBUQDxtm2MOy3H+DcwCGYrsjeWRj3uicengkmMV4QyUB2l
-	w8QWQhDAi6vKUKTSbR2DSTss62AsKbzianjn5XcUbngNSdx8DIZ5ctmUKtUnwIooaflpEtwnKRy
-	cCiC982K7TVv+JQc7BTmB3xENXSH2uTxF8xedNn9IjGpXHqz1MF611Co43Cz3jGUDu4cO1aeZlU
-	ShioeNB/Et7VrWNuFMQsYRYPZjUHKs7i+4n790ExgY6OLN8rK5JRxexF/MKD4ktgMzOEi//68O2
-	ib0Uh3JPsQI75PsItXaD+kYi5RDMgmMtjlaBVv+hCZC5bJZXABAn81R7LGdPeKiu1oy6uzAmdBH
-	8nNg0yIm5G4I
-X-Received: by 2002:a05:600c:6c41:b0:49d:28fc:d6a0 with SMTP id 5b1f17b1804b1-4a00d7b2adbmr4612875e9.18.1790627000712;
-        Mon, 28 Sep 2026 13:23:20 -0700 (PDT)
-Received: from localhost.localdomain ([197.51.38.79])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcdbsm29620500f8f.2.2026.09.28.13.23.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 13:23:19 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="nIc/TJxj"
+Received: from CPC-mawas-YGKSX.localdomain (unknown [70.37.26.39])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BDA6020B7166;
+	Mon, 28 Sep 2026 13:25:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BDA6020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790627136;
+	bh=IB5FNYnvJGa/0ttcxLcBPf/Z+/c+Dm6Ymm3z8YZso/0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nIc/TJxjbCuc+gs/tptP7HfgjRczgubeDSLWCoDfoB4qcfPN9ckV8gpIFFZpIPo3b
+	 upXQNrDRDF0B+lrqPE9rfFGfafMQ+l2vqxDUvtEidUsDGU+c6yCxGwlwKrBPRK/Tsl
+	 13L+1wbKcYqI19+kgscNJuqvA14AqFHuK1HAfjN8=
+From: Manish Awasthi <mawasthi@linux.microsoft.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	kotaranov@microsoft.com,
+	horms@kernel.org,
+	linux-hyperv@vger.kernel.org,
 	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	Xiang Mei <xmei5@asu.edu>,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH net v4 2/2] selftests: net: amt: check that the relay's queries bypass the amt device
-Date: Mon, 28 Sep 2026 23:23:12 +0300
-Message-ID: <20260928202312.74574-3-omar@blockcast.net>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260928202312.74574-1-omar@blockcast.net>
-References: <20260928202312.74574-1-omar@blockcast.net>
+	linux-rdma@vger.kernel.org,
+	bpf@vger.kernel.org,
+	nipun.gupta@amd.com,
+	nikhil.agarwal@amd.com,
+	gargaditya@linux.microsoft.com,
+	ernis@linux.microsoft.com,
+	kees@kernel.org,
+	paulros@microsoft.com,
+	mawasthi@microsoft.com,
+	Manish Awasthi <mawasthi@linux.microsoft.com>
+Subject: Re: [PATCH net-next 4/4] net: mana: Add support for CDX device ID 0x00C2
+Date: Mon, 28 Sep 2026 20:25:55 +0000
+Message-ID: <20260928202555.617331-1-mawasthi@linux.microsoft.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179035761944.2160803.12943182451050438147@kernel.org>
+References: <20260924173054.589291-5-mawasthi@linux.microsoft.com> <179035761944.2160803.12943182451050438147@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,79 +67,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The relay used to hand its General Queries to dev_queue_xmit() on the
-amt device, where a query could wait in a qdisc and outlive the tunnel
-it pointed to. The previous patch sends them directly from the receive
-path instead.
+thanks for review. Comments inline.
 
-Count the IGMP and MLD queries that leave the relay through amtr with
-tc flower filters on its egress, installed before the gateway comes
-up, and check that there are none. The forwarding tests before it
-already show that the gateway received its queries, since it cannot
-join without one.
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The CDX transport installs `.dev_reset = mana_cdx_dev_reset`
+>   (-> `cdx_dev_reset()`) but has no way to recover afterwards.
+> - [Low] `mana_cdx_setup_hwc_irqs()` skips IRQ affinity hints.
+> - [Low] The comment in `mana_gd_query_max_resources()` (gdma_main.c)
+>   says: "Only reset on platforms that support dynamic MSI-X allocation;…
+> 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the shared HWC
+>   bootstrap path that the new CDX transport now reaches trusts a device-…
+> 
+> --
+> 
+> net: mana: Add support for CDX device ID 0x00C2
+> 
+> This adds a CDX bus transport for MANA, built as mana_cdx.ko on top of
+> the shared gdma_core.ko, for device ID 0x00C2. It allocates the whole MSI
+> pool at probe time, limits the queue count to the available vectors,
+> restricts DMA to 32 bits, and adds a per-bus auxiliary device name prefix
+> so the CDX auxiliary devices stay separate from the PCI ones.
+> 
+> > diff --git a/drivers/net/ethernet/microsoft/mana/gdma_cdx.c b/drivers/net/ethernet/microsoft/mana/gdma_cdx.c
+> > new file mode 100644
+> > index 0000000000000..0d01e3d2f0d96
+> > --- /dev/null
+> > +++ b/drivers/net/ethernet/microsoft/mana/gdma_cdx.c
+> > @@ -0,0 +1,340 @@
+> 
+> [ ... ]
+> 
+> > +static int mana_cdx_dev_reset(struct gdma_context *gc)
+> > +{
+> > +	return cdx_dev_reset(gc->dev);
+> > +}
+> 
+> [Severity: Medium]
+> Can this reset leave the whole function unusable, with no recovery short
+> of a manual rebind?
+> 
+> mana_dealloc_queues() calls it when a TX queue still has pending_sends
+> after the drain timeout:
+> 
+> mana_tx_timeout()
+>   -> queue_reset_work
+>     -> mana_per_port_queue_reset_work_handler()
+>       -> mana_dealloc_queues()
+>         -> mana_gd_dev_reset()
+>           -> mana_cdx_dev_reset()
+>             -> cdx_dev_reset()
+> 
+This version of the driver doesn't support recovery after mana_cdx_dev_reset.
 
-Without the previous patch the new test fails (one run counted 7 IGMP
-and 6 MLD queries); with it, all of amt.sh passes.
+> The detach paths can reach mana_dealloc_queues() too.
+> 
+> drivers/cdx/controller/mc_cdx_pcol.h documents MC_CMD_CDX_DEVICE_RESET
+> like this:
+> 
+>  * After this call completes, device DMA and interrupts are quiesced, devices
+>  * logic is reset in a hardware-specific way and DMA bus mastering is disabled.
+> 
+> That resets the HWC, all EQs, the other vPorts and RDMA, but the driver
+> keeps treating all of them as live. There is no re-init path on CDX:
+> 
+> - Bus mastering is only turned on by cdx_set_master() in
+>   mana_cdx_gd_probe().
+> - MSI is only enabled in mana_cdx_setup_hwc_irqs().
+> - gdma_cdx_driver has no reset_prepare or reset_done callbacks.
+> - mana_cdx_bus_ops has no schedule_serv_work.
+> 
+> So would the HWC requests that follow (mana_disable_vport_rx(), vPort
+> object teardown, re-attach) all time out? And when
+> mana_gf_stats_work_handler() detects the HWC timeout, would its servicing
+> request just be rejected with -EOPNOTSUPP?
+> 
+The first HWC request after reset call will wait for default timeout and subsequent commands will fail after 1ms.
+A future patch will change the tx timeout recovery to reset the timeout to 0 after dev_reset for both pci and cdx.
 
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
----
- tools/testing/selftests/net/amt.sh | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+> On PCI, the same reset through pcie_flr() is backed by HWC-timeout
+> recovery through mana_pci_schedule_serv_work().
+> 
+> CDX also still advertises stall-SQ recovery to firmware through the
+> common GDMA_DRV_CAP_FLAGS1:
+> 
+> 	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
+> 
+> Without a dev_reset op, mana_gd_dev_reset() would return -EOPNOTSUPP, and
+> a stall in one queue would not reset the whole function.
+This flag represents the capability of the driver to support ndo_tx_timeout for cdx.
+> 
+> There is a second trigger. reset_store() in drivers/cdx/cdx.c calls
+> cdx_dev_reset() on a bound device, and
+> Documentation/ABI/testing/sysfs-bus-cdx says the driver gets notified.
+> With no reset_prepare/reset_done here, wouldn't a sysfs reset leave the
+> device in the same state?
+> 
+> [ ... ]
+> 
+> > +	xa_init(&gc->irq_contexts);
+> > +
+> > +	/* No IRQ affinity hint is applied here. The PCI transport spreads its
+> > +	 * vectors over the NUMA node local to the device; the CDX platforms
+> > +	 * this driver targets are single-node, so there is nothing to spread
+> > +	 * over. Affinity management can be added when a multi-node CDX host
+> > +	 * exists to validate it against.
+> > +	 */
+> 
+The support for reset_prepare/reset_done will be added in future.
 
-diff --git a/tools/testing/selftests/net/amt.sh b/tools/testing/selftests/net/amt.sh
-index 663744305..d13b20ccc 100755
---- a/tools/testing/selftests/net/amt.sh
-+++ b/tools/testing/selftests/net/amt.sh
-@@ -150,6 +150,13 @@ setup_interface()
- 	ip netns exec "${RELAY}" ip a a 10.0.0.2/24 dev relay_gw
- 	ip netns exec "${RELAY}" ip link add amtr type amt mode relay \
- 		local 10.0.0.2 dev relay_gw relay_port 2268 max_tunnels 4
-+	# Count the IGMP and MLD queries that leave the relay through its own
-+	# amt device; test_query_egress expects none.
-+	ip netns exec "${RELAY}" tc qdisc add dev amtr clsact
-+	ip netns exec "${RELAY}" tc filter add dev amtr egress pref 1 \
-+		protocol ip flower ip_proto 0x2 action pass
-+	ip netns exec "${RELAY}" tc filter add dev amtr egress pref 2 \
-+		protocol ipv6 flower ip_proto icmpv6 type 130 action pass
- 	ip netns exec "${RELAY}" ip a a 172.17.0.1/24 dev relay_src
- 	ip netns exec "${RELAY}" ip a a 2001:db8:3::1/64 dev relay_src
- 	ip netns exec "${SOURCE}" ip a a 172.17.0.2/24 dev src_relay
-@@ -246,6 +253,27 @@ test_ipv6_forward()
- 	fi
- }
- 
-+# The relay sends its General Queries straight from the receive path, in
-+# the same context that found the tunnel. A query queued on the amt device
-+# instead could outlive the tunnel it was built for. The forwarding tests
-+# above show that the gateway got its queries.
-+test_query_egress()
-+{
-+	local n4 n6
-+
-+	n4=$(ip netns exec "${RELAY}" tc -s -j filter show dev amtr egress \
-+		pref 1 | jq '[.[].options.actions[0].stats.packets // empty] | add // 0')
-+	n6=$(ip netns exec "${RELAY}" tc -s -j filter show dev amtr egress \
-+		pref 2 | jq '[.[].options.actions[0].stats.packets // empty] | add // 0')
-+	if [ "$n4" -eq 0 ] && [ "$n6" -eq 0 ]; then
-+		printf "TEST: %-60s  [ OK ]\n" "amt relay queries bypass the amt device"
-+	else
-+		printf "TEST: %-60s  [FAIL]\n" "amt relay queries bypass the amt device"
-+		echo "IGMP queries on amtr egress: $n4, MLD queries: $n6" >&2
-+		ERR=1
-+	fi
-+}
-+
- send_mcast4()
- {
- 	sleep 5
-@@ -287,6 +315,7 @@ wait $pid || err=$?
- if [ $err -eq 1 ]; then
- 	ERR=1
- fi
-+test_query_egress
- printf "TEST: %-50s" "IPv4 amt traffic forwarding torture"
- send_mcast_torture4
- printf "  [ OK ]\n"
--- 
-2.47.3
-
+> [Severity: Low]
+> Is the reason given in this comment accurate? The PCI transport does more
+> than spread over the local node. mana_irq_setup_numa_aware() skips SMT
+> siblings and puts each vector on a different physical core:
+> 
+> 	cpumask_andnot(cpus, cpus, topology_sibling_cpumask(cpu));
+> 	...
+> 	irq_set_affinity_and_hint(*irqs++, topology_sibling_cpumask(cpu));
+> 
+> mana_irq_setup_linear() also pins vector i to CPU i.
+> 
+> A single-node multi-core SoC still has cores to spread over. On CDX, the
+> EQ interrupts keep the default affinity and get no per-queue CPU
+> placement.
+> 
+> Could the comment, and the commit message, describe this difference from
+> PCI accurately?
+> 
+> [ ... ]
+> 
+> > +static int mana_cdx_setup_remaining_irqs(struct gdma_context *gc)
+> > +{
+> > +	unsigned int max_queues_vport;
+> > +
+> > +	/* mana_gd_query_max_resources() may turn MSI sharing back on and round
+> > +	 * the per-vPort queue count up to MANA_DEF_NUM_QUEUES. CDX sizes its
+> > +	 * vector pool at probe time and cannot grow it later, and the HWC
+> > +	 * vector must stay private, so give every vPort a private slice of the
+> > +	 * remaining vectors instead. gc->max_num_queues is already capped at
+> > +	 * num_msix_usable - 1 by the core.
+> > +	 */
+> > +	gc->msi_sharing = false;
+> > +	max_queues_vport = (gc->num_msix_usable - 1) / gc->num_ports;
+> 
+> [ ... ]
+> 
+> > +	gc->max_num_queues_vport = min(gc->max_num_queues, max_queues_vport);
+> 
+> [Severity: Low]
+> This isn't a bug, but after this patch the comment in
+> mana_gd_query_max_resources() in gdma_main.c is no longer accurate:
+> 
+> 	 * not before. Only reset on platforms that support dynamic
+> 	 * MSI-X allocation; on non-dyn platforms msi_sharing is
+> 	 * unconditionally true (set in mana_gd_setup_hwc_irqs).
+> 
+> CDX leaves msix_can_alloc_dyn NULL, so it is a non-dyn bus. Even so,
+> mana_cdx_setup_hwc_irqs() sets msi_sharing to false. The core may set it
+> back to true, and then mana_cdx_setup_remaining_irqs() forces it to false
+> again and overwrites max_num_queues_vport.
+> 
+> Should the core comment be updated? It may also help to document in the
+> core that a transport is expected to override msi_sharing and
+> max_num_queues_vport in setup_remaining_irqs.
+> 
+> [ ... ]
+> 
+> > +	/* gc->is_pf is intentionally left clear: this device uses the VF
+> > +	 * register layout, and the vPort and MAC filter registration that
+> > +	 * is_pf selects is not required on this bus.
+> > +	 */
+> > +
+> > +	err = mana_gd_setup(gc);
+> > +	if (err)
+> > +		goto unmap_bar;
+> 
+> [Severity: High]
+> This issue was not introduced by this patch, but the shared HWC bootstrap
+> path that CDX now enters here uses a doorbell index supplied by the device
+> without checking its bounds.
+> 
+> mana_hwc_init_event_handler() in hw_channel.c stores the 16-bit doorbell
+> directly from the EQE:
+> 
+> 	case GDMA_EQE_HWC_INIT_EQ_ID_DB:
+> 		eq_db.as_uint32 = event->details[0];
+> 		hwc->cq->gdma_eq->id = eq_db.eq_id;
+> 		gd->doorbell = eq_db.doorbell;
+> 
+> mana_hwc_establish_channel() checks cq->id against max_num_cqs, but it
+> never checks the doorbell. mana_gd_ring_doorbell() then computes the MMIO
+> address:
+> 
+> 	void __iomem *addr = gc->db_page_base + gc->db_page_size * db_index;
+> 
+> db_page_size is at least 4KB and the doorbell can be as large as 0xFFFF.
+> Could the next mana_gd_ring_eq() or mana_gd_ring_cq() then write far past
+> the ioremapped BAR0, into unmapped vmalloc space or another mapping?
+> 
+> mana_gd_register_device() already has this check for the regular
+> doorbell:
+> 
+> 	if (gc->db_page_off + gc->db_page_size * ((u64)resp.db_id + 1) > gc->bar0_size) {
+> 
+> Should the HWC path apply the same check? This affects the PCI transport
+> as well.
+> 
+> [ ... ]
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924173054.589291-1-mawasthi%40linux.microsoft.com
