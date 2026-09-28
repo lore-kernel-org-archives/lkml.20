@@ -1,163 +1,192 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0493930FF36;
-	Mon, 28 Sep 2026 09:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B4743E076
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587580; cv=none; b=s1qAwUi1LXQYUJiVkS+EXXTLdKlOM+uxSsdQqW89LtDADB3Zf3bG8it2crwd+JnwaWPO1EVv7G/jXWYYcT6kgPq+kmHZYoc6Ql+ApHuevwRnaZ1UMR9YPjbyXP24EIgrbyRCq7vdPr7Vnkz2X5nMhLjqTp61RwT7KTxM/T6JGkw=
+	t=1790587657; cv=none; b=EVTFV0SIAAr5urQpFszKlIuTUy5e9hacemnSNHM6OaNuhuZGyWa65MBI5ZF8a635GIFuJ8f1ZG4FfXdpjOaUslAVDcbejq/Loi/EDu5rr90swyES42VscdfZtJsS+geZYtgblU+dF3CpUNjeAfitKIkeN3HUfnwIjnwdIuuRgsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587580; c=relaxed/simple;
-	bh=BqXixSJM2wxVIE8VLmqDLfVq25fTtS+NGlMKrjAztIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lMRANMIGGyUDnt/4jKBhQRZqhdxe25FXZs7mTjXVA2qhg3L3/2HT7ppyDr386HEO3EZ1HVAMLIeo45zK71bfH7izixUHoH/WMOabFzagTHRhM3dqpdnxjKx6+QxOhM2yQT4wKaXwj79vYQkaz/jC/Eo4FuUEFWN7x09oo02x7WY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OivBuJr6; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790587657; c=relaxed/simple;
+	bh=ncdgJTfMV5JlicQ4RDOciZ3MJx4A6qJLeufYK6MaEsw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CZGR1HCXtsULi+BjkGnGINeYRIEfvyzHWu9GeGx7xv7sGpy4ILNTbXl978Tqn7MAEoPwYj7cOjkL4FfdRcmLrTWIe8zpcoC5Rlb8SMxAsOg/aIsE8fbMotH9g1VDL0Ej3Ou6eZG+SsoktuM5FhyPv3jQqLcl6HkkIkUdvoXNdXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=L5w0qBtG; arc=none smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OivBuJr6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790587580; x=1822123580;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BqXixSJM2wxVIE8VLmqDLfVq25fTtS+NGlMKrjAztIc=;
-  b=OivBuJr6DqES6TLRF9+vrxU/i1f6UOAD1vSp2Gp21Dd6BY+FmHSl2s3s
-   hXsaUmdtcZAjJpPisqcozFy/Z9mYnOUAANNnnLONXHkeWQzUO6wNt/Kgb
-   e8+8y5RZxK/EWHdA2T3kQQVmEimNTx5Y+OYzkfPu5OjEPPk3agJpL1PIQ
-   IHP3YD8bhX/xELJagLr82ib4lYFdT1yqjQhoshkbHy+BPI4KuxO2LAtAh
-   oeDbLixFuf2dTEw0DB6gauDlk7U0kvXuFJIQ1LNS3FerZsaCAzIePNHG9
-   tcKS5yBI7jkvoNKQuL7TWdhCFFNICK3p3lSx2tWWwavFRtFXjVuZTLo1W
-   g==;
-X-CSE-ConnectionGUID: P/4lCNdgTS2Z5qAFhnAsvA==
-X-CSE-MsgGUID: mK2AgWmhQJGzz1LU0u6WEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90325204"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90325204"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:26:19 -0700
-X-CSE-ConnectionGUID: IH7GfTYzQfqWd07e9NVZ8A==
-X-CSE-MsgGUID: +ztMo0lMRG6XmY91CGeTcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="304491448"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:26:16 -0700
-Date: Mon, 28 Sep 2026 12:26:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger <martink@posteo.de>,
-	Sean Nyekjaer <sean@geanix.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
-	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt sharing
-Message-ID: <aroytGH8u-gGFYvq@ashevche-desk.local>
-References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
- <20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="L5w0qBtG"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2b4138d3deso255107566b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:27:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1790587653; x=1791192453; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lnfSTb3zhY22AJo5+gwx3fMN3WZeStPLDrenOC9xrfM=;
+        b=L5w0qBtGbSXrGPSXGs46ZSGNmFUHrrIFU5E7nx0hiSuw+FtwUEPfyQhp5kSJH3vPfj
+         6sRl1WrGzxrLG8m4wigoBxY/3ZJ4TPkRTe1M6/dOsKUm6Ogk2Cl4SP3HQqnSoEgvWBbY
+         RHzkiW8cvsA6B+lcNL97Bd20IZRIZg/RvwJ6n3CUYRmdDK6IvG8JqzK49wE+3Y/iuI3i
+         xmDUxnOn4eNqyNuGjMHrY0oipl05ZjK1SeXm6zDfnphTzh1pJ3nzmSCEnMMHNlCWV7wb
+         xdKrHaVZUorwFhGFMGXQzwNrZ0TMVlvrEjo9pdS9j/6suxL7U4glSpzSlanwD7WRnxQu
+         G1iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790587653; x=1791192453;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lnfSTb3zhY22AJo5+gwx3fMN3WZeStPLDrenOC9xrfM=;
+        b=fLqjswBgKAI7VBC5lockANU4ooKbxKDKsDX2KBb0UuIp9KtjrvUtUAEcuAzb84G2yJ
+         /yfrO/fEwCYJyvdKDp7YKDVXNE0ESoRtPOrR7hoh8mMNh/d5UunNNguutl4Ec7nSyuJd
+         0A0DAtOjrvmFK1vo72gUWu2hxdJAPuVQN+8aa8k6uByflNh+OLGBFDq4qTURFAskK6+2
+         nbakDi3aCKZdd+hEF0ybf7ZCqFd9LhXkpsD9PB12AcPI9pvJqEviE055FB1WClHtpl64
+         MM+PWLci3mhpm26dIxYhVDzlQK6UGtJDk5/rAf/Ocf7Y4sfLVzrKJXf2cmtEOZjwbHD8
+         EutA==
+X-Forwarded-Encrypted: i=1; AKwUvByLkONOS4wmdsmdX3o8FT4/2vf6PkJUary3Yj43Z3E+BTOTZv+/r+8DUS73U3eKJndQ3P4KAWBys56UHW4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndJiE+hpH9O6Iufwpvl4lH8Pc7SVeJIDxuYLbEMOvGiaFhxFae
+	gzdyCMnmC/9HysGyLpunGQ+28aCl5x3/sOi9C3fSRaN3cIMO+K675jP+uwxzl2WFETlf
+X-Gm-Gg: AYBFou3kQkM4jmblB6CWXWHpbhFPO08finlK47PJh8arAeuaBWTXmvYRBmX+2dTYtVy
+	KOX4ynIpV2D5l6isK8cln8TmHfe3+uXrRXyXUQ2r3Mtn5lPj2PfLL725Rq0pCxMHrDz7CPzz66c
+	a2G88Ayu6ANDexXQGT5VU1J0zZr14YO45u8x8f23m8D1JVFk4wLyOWtLik7n8GWq6ikao5Nzh5e
+	Qs5hu7HQTvCG3Fjpg1XmDkIUsv6VW+loF+GBaKb5EmkJvpu7308PhUR7/Hs6vyLP+9nzi0VStVG
+	zBsyB7QXQyTf7qJ11h4oiAFBuPtMfB9aQz5ghWCsc8wNSw0JwARoZcryvv4B+Sqg4lslM8TLowb
+	vcw08YRsaiGtFhi1g5dNprejoTky9RBP0aQtWRHyuAX6r6477ov+Z6XG7c7MQCTFcfC/YeWn484
+	xvg7sZahFjG8ovPk1BxSxZVVXPbzqpboZ/XZ6OsTseSOmmxgGn8CH/saEtjQokcF8SuOvL0TqZV
+	xeCp//EtuGvTfM6LVvKgx6ySFElNtFUc4dap2gB9w==
+X-Received: by 2002:a17:906:7311:b0:c2d:ccac:c1ca with SMTP id a640c23a62f3a-c2dccacd49amr258517966b.37.1790587653104;
+        Mon, 28 Sep 2026 02:27:33 -0700 (PDT)
+Received: from [169.254.24.37] (tmo-085-169.customers.d1-online.com. [80.187.85.169])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dc8b71b4dsm205609466b.1.2026.09.28.02.27.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 02:27:32 -0700 (PDT)
+From: Andrew Halaney <andrew@amutable.com>
+Subject: [PATCH v3 00/10] net: support thread-specific pidfds for send and
+ connect
+Date: Mon, 28 Sep 2026 11:27:07 +0200
+Message-Id: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OzQ6CMBAGX4X0bJsCEdGT72E49GeBFdOSLiCG8
+ O5SNJ48zubbySyMICAQuyQLCzAhoXcb5IeEmVa5BjjajVkms0KW2ZE/fej46HDmvSLq0daWy7J
+ QKRh5hlKx7bMPUOO8W2/Vh2nUdzBDVMWFVgRcB+VMG09RKqJU/KQiTuK0RRp8eO2FUxqV35g8/
+ RszpVzykzS6tkqak1bXDoKDh/ChYdW6rm87zsf49AAAAA==
+X-Change-ID: 20260825-work-unix-passpidfd-086a1ec09e8a
+To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Oleg Nesterov <oleg@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-fsdevel@vger.kernel.org, 
+ Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Andrew Halaney <andrew@amutable.com>, 
+ Alexander Mikhalitsyn <alexander@mihalicyn.com>
+X-Mailer: b4 0.14.3
 
-On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:
-> Adding support for sharing interrupt line with other device requires the
-> interrupt handler to handle runtime PM suspension properly, ignoring the
-> irq if the device is suspended (maybe even off). And while at it, we use
-> the PM reference to ensure we do not get suspended while processing an irq.
-> 
-> In order to prevent the chip from raising irq while suspended (that is when
-> using fixed regulator, where suspend just means setting the device in
-> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
-> then restores the value again when resuming.
-> 
-> The scoped_guard in mma8452_runtime_suspend() is changed to a plain
-> mutex_lock() instead, both to prevent mixing guards and goto, but also to
-> ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
-> way up to disabling the device as much as possible.
-> 
-> With that in place, it is safe to add the IRQF_SHARED flag.
-> 
-> Keep in mind that the device by default is using push-pull for the irq pin,
-> which might require additional hardware design to allow interrupt sharing.
+SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
+the thread-group leader. The coredump server using the coredump socket
+cannot get a handle on the task that took the signal and is writing the
+coredump easily. Workloads interested in per-thread authentification
+have similar problems.
 
-...
+Add SO_PASSPIDFD_THREAD/SCM_PIDFD_THREAD and SO_PEERPIDFD_THREAD. We
+record the sending and the connecting thread in addition to the
+thread-group leader.
 
-> +	pm_status = pm_runtime_get_if_active(dev);
-> +	if (pm_status == 0)
-> +		/* device is powered down */
-> +		return IRQ_NONE;
+SO_PASSPIDFD_THREAD functions like SO_PASSPIDFD but instead of an
+SCM_PIDFD message for the thread-group leader, SCM_PIDFD_THREAD sends a
+pidfd for the specific thread. SO_PASSPIDFD / SO_PASSPIDFD_THREAD are
+independent, allowing callers to get both styles of pidfd back in their
+cmsg.
 
-> +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
-> +		/* runtime PM was disabled, possibly suspending */
-> +		return IRQ_HANDLED;
+SO_PEERPIDFD_THREAD allows to retrieve a pidfd for the specific thread
+that called connect(), listen(), or socketpair().
 
-This is very interesting part. I bet this will be the first driver using this.
-A big question "why?"
+pidfs_coredump() now also stamps the dumping thread's struct pid so a
+pidfd for that thread reports the coredump like the pidfd of the
+thread-group leader does.
 
-> +	/*
-> +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
-> +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
-> +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
-> +	 * not enabled), and we can/must assume device is active.
-> +	 */
-> +
->  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
->  	if (src < 0)
-> -		return IRQ_NONE;
-> +		goto out_runtime_put;
->  
->  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
-> -		return IRQ_NONE;
-> +		goto out_runtime_put;
->  
->  	if (src & MMA8452_INT_DRDY) {
->  		iio_trigger_poll_nested(indio_dev->trig);
-> @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->  		ret = IRQ_HANDLED;
->  	}
->  
-> +out_runtime_put:
-> +	if (pm_status > 0)
-> +		pm_runtime_put_autosuspend(dev);
-> +
->  	return ret;
->  }
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Andrew Halaney <andrew@amutable.com>
 
-...
+---
+Changes in v3:
+ - I picked this series up from Christian at his request (thanks!)
+ - Make SO_PASSPIDFD and SO_PASSPIDFD_THREAD completely independent (and
+   in doing so add SCM_PIDFD_THREAD) instead of mutually exclusive. This goes
+   against Kuniyuki's suggestion for a separate flag option, which I
+   argued the mutually exclusive nature of the prior implementation +
+   that would be confusing in v2 thread. I think with it being
+   independent things are more clear, and useful, and it matches the
+   SO_PEERPIDFD_THREAD counterpart nicely. For that reason I dropped
+   Reviewed-by tags present on the implementation / selftests patches
+   related to that.
+ - Address grammar, reverse xmas tree, sk_is_unix() feedback from
+   Kuniyuki Iwashima
+ - Collect tags
+ - Rebase on v7.3-rc5 for Christian to make shared branch for net to
+   pull from
+ - Link to v2: https://lore.kernel.org/r/20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org
 
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
+Changes in v2:
+- Fix a few documentation issues.
+- Link to v1: https://patch.msgid.link/20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org
 
-I don't see the respective _dont_use_autosuspend() call anywhere.
+---
+Christian Brauner (10):
+      pid: add helpers to operate on a struct pid array
+      af_unix: record the pid of the sending thread
+      net: add SO_PASSPIDFD_THREAD to get a thread-specific SCM_PIDFD
+      selftests/net: SO_PASSPIDFD_THREAD
+      net: turn sk_peer_pid into an array indexed by pid type
+      af_unix: record the pid of the connecting thread
+      net: add SO_PEERPIDFD_THREAD to get a thread-specific pidfd
+      selftests/net: SO_PEERPIDFD_THREAD
+      pidfs: record the coredump on the dumping thread's pid too
+      selftests/coredump: check the dumping thread's pidfd
 
-...
+ arch/alpha/include/uapi/asm/socket.h               |   4 +
+ arch/mips/include/uapi/asm/socket.h                |   4 +
+ arch/parisc/include/uapi/asm/socket.h              |   4 +
+ arch/sparc/include/uapi/asm/socket.h               |   4 +
+ fs/coredump.c                                      |  22 +-
+ fs/pidfs.c                                         |  27 +-
+ include/linux/coredump.h                           |   4 +-
+ include/linux/pid.h                                |  53 ++
+ include/linux/pid_types.h                          |   8 +
+ include/linux/pidfs.h                              |   5 +
+ include/linux/sched/signal.h                       |  18 +
+ include/linux/socket.h                             |   9 +-
+ include/net/scm.h                                  |   7 +-
+ include/net/sock.h                                 |  18 +-
+ include/trace/events/landlock.h                    |   2 +-
+ include/uapi/asm-generic/socket.h                  |   4 +
+ net/bluetooth/af_bluetooth.c                       |   6 +-
+ net/bluetooth/hci_sock.c                           |   8 +-
+ net/bluetooth/l2cap_sock.c                         |   2 +-
+ net/core/scm.c                                     |  44 +-
+ net/core/sock.c                                    | 108 ++--
+ net/unix/af_unix.c                                 |  68 +--
+ net/unix/af_unix.h                                 |   3 +-
+ tools/lib/python/kdoc/xforms_lists.py              |   1 +
+ .../selftests/coredump/coredump_socket_test.c      | 175 ++++++
+ tools/testing/selftests/coredump/coredump_test.h   |   2 +
+ .../selftests/coredump/coredump_test_helpers.c     |  49 ++
+ tools/testing/selftests/net/af_unix/Makefile       |   2 +
+ tools/testing/selftests/net/af_unix/scm_pidfd.c    | 602 +++++++++++++++++++++
+ 29 files changed, 1149 insertions(+), 114 deletions(-)
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260825-work-unix-passpidfd-086a1ec09e8a
 
-I am wondering how many of the above possible scenarios you were able to test.
-
-...
-
-P.S.  I bet you can now make a presentation "PM runtime in Linux and
-why it is so hard."
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Andrew Halaney <andrew@amutable.com>
 
