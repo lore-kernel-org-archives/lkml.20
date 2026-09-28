@@ -1,91 +1,33 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89478485945;
-	Mon, 28 Sep 2026 11:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596767; cv=fail; b=d7yoLO++gW/L0iVkywv+NJhMIadQVf7mVxwlRJr8WE42goL7VQXY/aKqHI7Rh6goXc97kNwvMYVDiQOqG7KLQouSyxXp98zh8KIS+RrEV9WKU7w4JD+dJ4KOXrc5NKJqHq5Z/5qIAquqdBFRhx7U0RVAN/eEdZD7Wnsmas9MLhE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596767; c=relaxed/simple;
-	bh=L3SsdjwXGpwKDC9AahDrZCreI9YFqaG8ruSs1cgZqPQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ttnKNDgW+ecQ2Jk22ojU8+1JMBnJE3SJZWLASCY0cq1yQwm8STrYMqbk6sJVY5hXHi+HRVGuDjl+BVGviDNTfcJzd7siLoyA4ka7a6m0ep6EOuR2g1D8sSLN+uj3maHvulklNSqLatUL1j2zuyt/YysWCNNUy3pTwWOecsn/eZw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Ylic3vqp; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=t5iXGnUz; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E39D2D3733
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790596796; cv=none; b=qqiYYzghonnHV88L0x1v8RYEox2YcdNJiVRiHwzWMHIpKoOqcIasrTg9ynFZyZ8fEXFsQi5pJ9msxjY5++y0tgbKE5bGys5ZvwHz84kltgHjA0KuCUrMUJ+GF/oqpmfm7F4lMaYgpYo6ws2p0mjhSjKZI7wynA/b0/3acFF9OD4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790596796; c=relaxed/simple;
+	bh=ONXWuGJSEhtdkBjLPYaEyIyjxeJJHaxGYoxwqBSS2gU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o3pBpyMzAU2xjq79lbjZS/nxCsz+1c8PkzR8hL0nbaVItvNgIZIVavcmwXtFVFwppSMfF3VIHLgf4FLP+sFhlJowpRCw4nimOMbCwwlR1EM9Cxh42vbY/wyy7KYndoHpVtHzAdK+qxP57FraYSNMbbP7t5NqYgXNB/oAPjKPlQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dF+dytpe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Ylic3vqp";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="t5iXGnUz"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SBAgpv1608470;
-	Mon, 28 Sep 2026 06:58:58 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=XhQmSMwK/wcXyrpDCX0vM4dlJxeQaxDAT5MvL+01a
-	l4=; b=Ylic3vqpL3IL2W4vycC2HkltNxtWRKh5C9wqK0sq8t0ncPGrak/ao4mc5
-	3GA7mtGFTr02n0fwdcVpwlguM44n8onBwXcWSqqPe2Va5J+7gpY8koee7sx9bpFm
-	cuX2M1LJJdc7pEujdRxUCpVFiFdS8ASh7aSGcQxwsJIz7em34VkWk9TE0oBao72O
-	6sh84iZaLUnr+tpDaPIlHQe6f3LMiqCjB6qIf36NG0If0XpjSO8qBqk0uduZYwrV
-	wjjRP3/0lOsbQctSTf69EOnwfh/ZBKSAEhmo02QkcQiFus/Mw0kgL83ELunJH/Sg
-	E3/MnZjrX2vySFyUx3dx8VVhHFI8A==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012064.outbound.protection.outlook.com [40.93.195.64])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2nnh3d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 06:58:58 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wmhIM9dBSsJkSGLPucjVwdjBJYj96sjMzdK8hUhFsuRUZApY9u9keTSypx+kMuPF63ZvKEHrGCmI/SY9O9jB5qH2uXl7tfn3zz9fjyt9gvM8hvA6oEv/3s8/GBjKdFWbH5FQCSR2ECBTzFgxRDtLY5t6HmCAIadlru7iB9VeRgro5BMgs2qu30e3MVxK203V5t1FsS78e4tfuNILNg0IabztG9I/m6+bTDasc8NiDaNYeMntDkmeUdyznum+1EHM6PLtwKa3iZ5Sgya0JcZ9C4iMBLo8fOZzL+ipmkwPY7ADAGfw/hDPicHEaVOy1Ed+ry2eA8A3UCtoqgmCAvKIjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XhQmSMwK/wcXyrpDCX0vM4dlJxeQaxDAT5MvL+01al4=;
- b=OWjZZAOY5NmN2tW9shu1T9WSVjczct12ClV9oOija4UXH25HpQ5FDr4qwRsqFxCw8S1RD3p8kt1fIjfTZQwZzG7AlKzhuCeGvd0TSIuA1UNPnQT25U4pv3oBKuxwtHh2Hz5DODuNVek3gaa9jv9JxgRM5rDhO8PDurq1xDxS6CGXsMVbP7ZddVAyrqrX9xKb+dP1Y1wt8yIPuG9+cX0RlQ9OURwdAXllOz3asUyRA2XyXLWXMVpPyQTSD1HbrskbfhAtHAPYt/HEPxEuFl6hzKI4q2H4V4DgDJMLQquInxZvgL471CiX1XttmQGI5Gh0lSVphwjj1d4Uyk/rayWGog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XhQmSMwK/wcXyrpDCX0vM4dlJxeQaxDAT5MvL+01al4=;
- b=t5iXGnUzgSjs3j31rMlbP4UhMnILyLAQVtlSqCfMpdKexiGZa4XxwBXew1xtKYkg70ESSacxAxTsWJPiu4mK7xr1vW6jOwOo+eJ23D20jvokyUkriQyQZy3Phu8RTWcqkhjAEgrTm1ovJYFrkpBygaktKd220GvL/Q7l7/kO6cg=
-Received: from SJ0PR13CA0174.namprd13.prod.outlook.com (2603:10b6:a03:2c7::29)
- by DM4PR10MB6232.namprd10.prod.outlook.com (2603:10b6:8:8f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Mon, 28 Sep
- 2026 11:58:52 +0000
-Received: from BY1PEPF00026956.namprd05.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::3) by SJ0PR13CA0174.outlook.office365.com
- (2603:10b6:a03:2c7::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Mon,
- 28 Sep 2026 11:58:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BY1PEPF00026956.mail.protection.outlook.com (10.167.244.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 11:58:52 +0000
-Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 06:58:36 -0500
-Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE214.ent.ti.com
- (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 06:58:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 28 Sep 2026 06:58:36 -0500
-Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SBwVj53071038;
-	Mon, 28 Sep 2026 06:58:32 -0500
-Message-ID: <a8e73216-8c65-496c-af62-497ac2108b30@ti.com>
-Date: Mon, 28 Sep 2026 17:28:31 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dF+dytpe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A5A1F000FF;
+	Mon, 28 Sep 2026 11:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790596794;
+	bh=4ubrCI8w3ULvr+Wy09kxqTTxIzrAZwKTgk0GvfF5I+Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dF+dytpedS8KF5VBOfaLwmweRWPyyB2yUP/FU4ARxQTSZ4wof0/uc3jPh/GWMyzRP
+	 +ygCwX5AHG6drGme6nPQ+Fh6dc7Sv120IAEYYBoQ38X/FVNR5ik5gPBvXQiJtLfUmv
+	 iIC784eQhwnZNYNoO6RFtg6HiwaHONlXgjWQYf5rSk0+DVMnxb4N2LFORK8C3KYGM+
+	 07PhIU4G+EwdqFZFehWixioe4APhhqEQAjfRZEu9sPx2mpYger/suHTL+UNVb5thRI
+	 1LhCH6YrFiDV8i6uGitd/mxWUaPJwbqw9f+pVrhJ33SdqNto7D8NVsDa00mzQHD7Ke
+	 Q6c+corn9bKuA==
+Message-ID: <f78d2f52-1135-425c-a3e8-460a6e80e19b@kernel.org>
+Date: Mon, 28 Sep 2026 13:59:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,127 +35,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/10] drm/tidss: Drop WARN_ON() from tidss_runtime_put()
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Devarsh Thakkar
-	<devarsht@ti.com>, Jyri Sarha <jyri.sarha@iki.fi>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: Tomi Valkeinen <tomi.valkeinen@ti.com>, <dri-devel@lists.freedesktop.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
- <20260903-tidss-pre-beagley-v1-9-93928baa8b12@ideasonboard.com>
+Subject: Re: [PATCH] drivers/char/mem: mmap readonly MAP_SHARED-/dev/zero
+ correctly
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Lance Yang <lance.yang@linux.dev>,
+ syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
+References: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
+ <9efc7bc1-8d9d-49ac-b856-003e81558411@kernel.org>
+ <20260924195826.70a87d6fb78d754bc73892cd@linux-foundation.org>
+ <95e91b4a-ca16-49a3-9a1a-5b38afa6f08d@kernel.org> <arYnXJHW-Rh4eNzt@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Swamil Jain <s-jain1@ti.com>
-In-Reply-To: <20260903-tidss-pre-beagley-v1-9-93928baa8b12@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <arYnXJHW-Rh4eNzt@gremlin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026956:EE_|DM4PR10MB6232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1566956e-eaa2-40d5-486d-08df1d57dd50
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|23010399003|36860700016|1800799024|56012099006|10067099003|6133799003|4143699003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	yUIjl5j7NKC81xQv5tJL+BFe7d7IWeqA6N3ABxocNNi2rQ6YChm3jJdrvJWo2YJgLIb/GDPoy3Q6f31oube9I4k9ChKiGtD4OeOPbCgLZGgwR76ab2kdUCt9DkLUCoKcPuqh5TwfhG3HI6R3TGCYJonv6rkQrLJoBgLhzbwnOqkl6AwwpJska5uVLYyp6fFCsMwjb06Eh9E5xnCsMq9kDmpdLWq4pQaMe4VoPOf+c+dVm2R2ggxGgf7vuaE88pnNDszxKr/P47e23L2Fg8ENrl86LSGM9l+6oPoVNt5eFPsSQlZJCYgctPMveAMbH983uKxlcobB8SljA6Q0IGWiazjvPi6cKQR4HyX+mKy4Cxk8Zp3DcVOYtQCLJjJ20QyzTUSIodCZ6VVK69GIJV8vmFvi6peykY/LsglES4dm3Rj+W1eP0Ly5Bn38vLXwmpzUFCLLOnXCxOilGQr3ocjsr5ovOPPGdbvZDXqnX8obr8wjjLSOgCyZAgsuY1MZ/TK5SZ8BpiYVAROVJh8q0epDT5Rp6bSj6Wx1Rf1BqdfOOCo6HhJfSvzSE6ElY2eW0VKVxWqJhRcC9oHBCCznDbADoLS1EVpq555eWYLsb/dHp7Ik32I0KvKyAcHc5c8xJqMKAUSi75TY4QnZ5dQ7JpRfuNIC7TlGcXuFlSTVIeYgG1CbfaLoV6Dfeo9TajWlCmUQDR2LIleFYrE+dakjIe37m1ay4vVVidbOGEJ9tcahYjH2nUup249VvY98VkrwOXME
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(23010399003)(36860700016)(1800799024)(56012099006)(10067099003)(6133799003)(4143699003)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	soXx6k1UB5xVMfz5kkWGI1PDck46W45u8xm4LUyAkQG4VMrrxM0dbhzXP8fjnR2VctGYShjdVmayn3Mz2vRpNoC6YsdF44oONQxscC6lp85pRcpE2CqjnaxCWrzqkmPlDXGIgvKd3MX0XrHfW3+A+bXM5L31dYo362vi/mV2xqa15ax2Q3v2Pte7pgBw/RQy9PsC2ERpGQxuKp2Jxv/EOu39rhD9cWddP0zIHhUrE7391KeErBxWScbnhGAZ81oL0iU8mD51G2e0iyEMZCjemY7Q29198G8+W/mIQVhW3yAqoQl521jqFU4olM8giEtf++UMzQ3g9kYfRzEMN2nibY+EOEwUJ4HdO/D1k9VOfG7F965oi5tvWYAoEF+qkQDu95GEyBG3BdUw7vqqsJBXvqhi2Wo6N5vOqwBTwULL+efMfVEk0pJu4SKiDizemV/m
-X-Exchange-RoutingPolicyChecked:
-	xYzimEWU/X/C1TeIMWlhsUp34+03p5dyXVCliVfvOQ3O5zHtLtbpPMjoIP4CKsMQT5lApKvECvhQnOdIv/iNJli8/R2iz4ZYJfDZL3atGu+GZ0KcO3gbGF7LUkJdisNjquRRXQWYt+hBG/fQocYDrZm1IKybVsr1zI/fiSMfvgDMIhUKMkis/eZddr2vMkU6ADpf32PPfKaTYiy8sRrWt0c8u4+dpeSmwllOaMOqjz7aNaKog8hq9hwprMmPwr5fq13Ky5LloRww0U0Bc68GF2KIKo+TKON7Z7C3daHuGy4zX/f2TMnJhH64VnI6PIUaI7HeOw/fS5VOopp4mm5UhA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:58:52.0966
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1566956e-eaa2-40d5-486d-08df1d57dd50
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026956.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB6232
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfXxBq22HaGj8VJ
- btSmTux6P2EAJIYXV96bmkiid1kMPkfSQQhpI76pWHwnQtfE3t5Lo+GWWCAzyGmMz9MzAsv4c9b
- d0KGBac1brQz1qLnO4RUj8HhZErrtPU=
-X-Proofpoint-ORIG-GUID: k8DINqpRMhu0zIZw52nMWnc5UZ571f3p
-X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6aba5682 cx=c_pps
- a=bXbGeLyqALV9C4BWsqKi7Q==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=P1BnusSwAAAA:8
- a=sozttTNsAAAA:8 a=a2bONkngdcLKCgN6WFIA:9 a=QEXdDO2ut3YA:10
- a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: k8DINqpRMhu0zIZw52nMWnc5UZ571f3p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfX6j2mcSQrxZQH
- X1Z6Cc8KBJo+t6joi5m2ux18BNVFyDKcgDpkLV809t8WeVUpfSp8J8w9P6MjFemPxUCmj1WcWwb
- F/GOfwTsegVq329zVcvb52evpURDTrmR6y1l4WOh69K4fBvOLtndJ70G/0pd34Y7xIb03RfQ5fF
- tvhCAdXSLbynEG8GFc2nQQXElQYHcTIn3M+6JCSrYBNtcD6cr2S5X+5UX0SBu4TpZ6M5VHalGXU
- eWGjxswoJdMQrc4aPSJfelx89f7LCf1t9yqOf+GesEUUfnV46M5p+2VsmyoxQQvEc6L/6/vlC8r
- BHrGYRmnDpVZs0MlXtsS4FuiaDG1OSReuDhKB4eeobAAHIZ8ls+Y/RSIFJIaRc87w/F8eg4JHZp
- iiSsqz5IyAlncPhupBDy1HohOo8EZpg2p6Fhh+Q0pG936GoPefKeX7Nu8r4B7sFazOb2dfIyQSV
- J1/mKNBdHKTwmOYobPw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280047
 
 
-
-On 9/3/26 17:39, Tomi Valkeinen wrote:
-> At the moment tidss driver has a WARN_ON(r < 0) for the
-> pm_runtime_put_autosuspend() return value, to catch unexpected
-> situations, and at the moment we never hit that warn. However, with the
-> upcoming change in tidss_oldi.c to change the OLDI to an auxiliary
-> device, we will get a child-parent relationship between tidss and OLDI.
 > 
-> The OLDI aux devices are children of the DSS device, so when an OLDI is
-> active, the DSS's child_count is non-zero, and
-> pm_runtime_put_autosuspend() on the DSS device returns -EBUSY. Which
-> then triggers the WARN_ON().
+> It then becomes a question about how to get readonly memory.
 > 
-> To avoid that, drop the WARN_ON. The -EBUSY is not an error, and it's a
-> normal situation with parent-child devices. Also, with a quick grep, it
-> looks like almost no driver in the kernel checks
-> pm_runtime_put_autosuspend()'s return value.
+>>
+>> We can
+>>
+>> a) Disallow allocating an anon_vma and fail gracefully. So only a shared
+>>    zeropage could ever get mapped there. Might break the s390x
+>>    mm_forbids_zeropage(). But given that's only used in hypervisors like QEMU,
+>>    unlikely.
 > 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
+> Something like:
+> 
+> 	/* about to maybe prep anon_vma */
+> 
+> 	if (!vma_cow_mapping(vma) && vma_test(vma, VMA_MAYSHARE_BIT)) {
+> 		/* don't prep anon give zero page */
+> 	}
+> 
+> ?
 
-Reviewed-by: Swamil Jain <s-jain1@ti.com>
+Something like that, but really just failing directly from anon-vma preparation
+in a !vma_cow_mapping(vma), maybe using a special error code.
 
->   drivers/gpu/drm/tidss/tidss_drv.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
-> index 5cb3e746aeb3..44b0b009c29a 100644
-> --- a/drivers/gpu/drm/tidss/tidss_drv.c
-> +++ b/drivers/gpu/drm/tidss/tidss_drv.c
-> @@ -40,10 +40,7 @@ int tidss_runtime_get(struct tidss_device *tidss)
->   
->   void tidss_runtime_put(struct tidss_device *tidss)
->   {
-> -	int r;
-> -
-> -	r = pm_runtime_put_autosuspend(tidss->dev);
-> -	WARN_ON(r < 0);
-> +	pm_runtime_put_autosuspend(tidss->dev);
->   }
->   
->   static int __maybe_unused tidss_pm_runtime_suspend(struct device *dev)
-> 
+But the less we have to hack around this special case, the better.
 
+> 
+> I think though it's surely the only case (I hope!) where you can possibly be
+> both anon (as in missing vm_ops) and !CoW? I hope? :)
+> 
+> So it feels better to fix it at the source.
+> 
+> OTOH maybe it's worth special-casing so we don't allocate on read.
+> 
+> But that brings me to c)...
+> 
+> 
+>>
+>> b) Do what Lorenzo proposes. This will allocate real memory. Someone decided to
+>>    use MAP_SHARED, for unknown reasons, so I'd assume it's unlikely that
+>>    something breaks, but you have a point.
+> 
+> I would say this patch is the right fix for the moment to fix the assert, and we
+> can chase up with other approaches afterwards.
+
+It will get backported, so we better be careful.
+
+IIUC, the real change is only for /dev/zero users that
+
+fd = open("/dev/zero", O_RDONLY);
+mmap(fd, MAP_SHARED, PROT_READ);
+
+Which is rather something odd to do indeed.
+
+Letting AI do some digging ... it says there are not known users (I don't trust
+it, but I suspect at least there are no prominent users, which makes sense ...).
+
+
+Getting shared memory when requesting MAP_SHARED does sound like the right thing
+to do ...
+
+So let's try this:
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
