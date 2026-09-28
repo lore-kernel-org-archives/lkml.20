@@ -1,156 +1,136 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5A845C6E0;
-	Mon, 28 Sep 2026 07:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1DF4562A9
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578905; cv=none; b=ObX3Z9hV5xqgGTMxkEOAl4DIWKS0IBAS/TozMyL70E6ykXjRwnim13X9m9tIx7dc2QcMb1RiW+/DQqepNaj8RqkzIr34edBcqH0sFzfgEkiB8wxalF9sUnCs3RTsKigJN4KXB26KJf4E18KaI7elFH4zwJU1CJLJiltDlk/9t8Q=
+	t=1790578934; cv=none; b=Kbby1DJYBkvQLlRGJxmfKwiqRn3rf7YfCVAYDIsMz7zcsU5o1TtWF8/yf1EpOhzp2tZJ2RhNgkKh6CQ0JJ1tgqKvTKEntCWCSKwa+ojjgu1Ue4RM3QWROeQ27SIf6VtpHI9AQC+GwLM/eS/OPCJ6jNb9nCXF4JIsbncY3XclW2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578905; c=relaxed/simple;
-	bh=ZBBKfzcfiFJhClhWr+FXbJInQlGgpZHIJK3LzPxxIRE=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=BZYLUcIFxZkIeY6NabVuiYGGXXKKzlLw6i5dMRmREZzLKpsxAZ8Su8zggqGsxeEgItybwwKorySecg8Pc9/ZmDkvg4k3ecuo8SypmeCbsgraL52bX/f+byNnk6cEk9JsQHqpvJXN9g0WEHneli3i9npyYRrzMbLmk+bW5w/MSlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JCmZRorS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Hu63YoW4; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790578934; c=relaxed/simple;
+	bh=zza9TnXjTa58vqN+CvSp3ju1UX2D2hlDXXN3AqqsBZk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=diR0KdlPczRhiG1dH/8PKp3YQT334NR1zp+Kik6/WBQ/NitKuyFESflI9N0JEeCE7l300GwsB6zl+DhFzv1z2VFD2Hecj0v0tCBDcV8XyC2LGDDNNZ4Iva3Rt1a8EAaxiOwVWng5tede9ImtUHNo23ibAB7hcH42PHfzxpNcEz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLt4zvMq; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JCmZRorS";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Hu63YoW4"
-Date: Mon, 28 Sep 2026 07:01:40 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790578902;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/L5rYmKI2T45Q6xQW/ApGtckg/5Fv5nw3Iss3e1wyoU=;
-	b=JCmZRorSe8Sx5dhSgsmLATFyZqjUtlxX9PYhBG8IRQOsUjqw8RjrAkLv/GM7xiRxmI463L
-	B9gIcvJpwP2bQwmxuDtpEvz/ND1aeWoYZaiyUn6dcf/GrRtk6hL8u2j4mQAsdjiZzJHz0g
-	08UdPY1WPzivs7w512nBEQO1BVmh/UNnKRQlAmqMh6LkCQh02eUUMEMwG3bEApq2c64G1u
-	EyQamMqg0By2UlGb9MqRhTIe6k+CKc1Rh4IarKHwFe/q/LAFL82PvqZipxbQKjOu3RQUx6
-	2kprObGigLzd7zKNNxC0thCUZaOaeZ1ERAQBMLEmdM+iDuBEccpk/el58EDF/Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790578902;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/L5rYmKI2T45Q6xQW/ApGtckg/5Fv5nw3Iss3e1wyoU=;
-	b=Hu63YoW4jXg9Gql4hfsUE1088PjZFOMOZlpv6D3iRQzjTaCUCdrADs2hoDhGm+UVO1+vOa
-	E9ikVWKUkjyLLTCg==
-From: "tip-bot2 for Andrea Righi" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: sched/core] sched/core: Drop mutex locks before proxy rescheduling
-Cc: Andrea Righi <arighi@nvidia.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260922165445.943315-2-arighi@nvidia.com>
-References: <20260922165445.943315-2-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLt4zvMq"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c20ce3c118aso426304366b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:02:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790578930; x=1791183730; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OPkNPJmzSuKsV3tYjzk5WCFitXsvoG1mbaUmgEkFosA=;
+        b=ZLt4zvMqIZ4IGgQIZPIovTA2RjGBg09wOaal7DScEU/WgnzVCgFC7WM6+vvPsaDDYv
+         C/fmdo2utPvbA8QvCzBUyyz+BcRpJjvHL+ngd7Yxt2/syI+1tviMBInt4WCe3HVjkrJO
+         Gl9QqizNBPmzQlp9w51cAG9ZAJZb4d/ceZ/k76ZlVXrIGfhEi298Z9JgrMx2mvWPVQDT
+         TSM2e0p4ew/jQ1Z1N7cGUvBj8kElXihfZlluB0dTnQsN/aCwiOSYnSt20YWwhdN+7X0o
+         yBOX/cUnb8z0DgbowQUWjwdF//OXevQALtqPNrtr2QxZL4Le01iNv3wAoSNF2OHNjUXC
+         990g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790578930; x=1791183730;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OPkNPJmzSuKsV3tYjzk5WCFitXsvoG1mbaUmgEkFosA=;
+        b=e0+lN8GjAN94K5MnUYniSF5bgFhb8gs3cFoywS10m4XGLoCoXSDDpuj5LYcWNAPNPo
+         LAzqpjuxcQOMtjtLx9e0JPg+quRssFN12xU/LPabfRrG2N81FEH8mlMmYCjpUj6FU/PX
+         InzM5JevEOvbMZ01YrWcqRpNvgz2V3jSYVcqdq5YD4RsJtDzX5i1lnEQDZDuSjzTyeG7
+         tGI+lklVW/V9IvNXAQZUJFC7Mo7YA/JbbYqBejxzM3WLOpTbFaS3wXmUeLi2JCY2Bpq3
+         uRn8GXNq40K0df5Dfge2cl78zVXArAGnm/BQJDwcJcBb56YTCzNs7amTkGQ2EBoJAQXF
+         /0Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ0f0DMMxa5FdkfSoojYFozZLT92HIWHdBr+gUNE1Thu/kt1BjVj+yvJq5h+zYZ2SKBfe4Aov6utQpc7Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2SaOCYtljkxojcVqOlFu2CUD3DfZN0XHxYxWWuh14xZKmqPeN
+	XWTxNUNf0/TFl3VRqCponJ4nbxrRlxQSVcRuMB257xylnPvltzUMxiTS3okpdA==
+X-Gm-Gg: AYBFou0I9MfGn5W9Gsy6NtzZFl0D7Ace+Wwk6LgXO9YKd2bpzOQfth9L5H5Gn0Eg9Bf
+	2RiP9wNKKr4EMMqEDiJUA2cAHAPDKHZTb85SA3lvC6L8oiEUu/CNkfJDBMvGsWXJZZBZJwTo01m
+	5Vcpzuz/h9KbJWXQbqcD3sJxcKZ/3k60HPzZ1ckg4rbKKPaW3EPczXm4CZrMhQ8L2u33iB4NIK4
+	sFvwzi8GjM/yJ2EDFdhCHwW4bNUzbn3/1zbeVHFs76V2+KTi5RglAjVt83+hrV0MLOwqkWyhpY9
+	mB/HECihj9dyAHhFdkNpuKPZRuifYqygkeGzp7teRItf6oq27rZI0vdtpx1UYuaJ8GFPTN9u4W7
+	bO6frM8LOS8Z13+xh11H9iXVBcNIZF4OsVk8epPE7AJhY2VVV91r2RJKo8C4cNH1Gr2ne0pBK0R
+	zcHV6s52f+N9sK69QOZKop4NQyfImLTWheaaMOKiAV/2Am9iDCQadED5csMufNXDTPZRtv9Gsji
+	3HF7zCcS/8FknGMkm5I+RW8Tbs=
+X-Received: by 2002:a17:907:9301:b0:c2a:b008:8cc0 with SMTP id a640c23a62f3a-c2ac2382bf4mr1095005966b.28.1790578930459;
+        Mon, 28 Sep 2026 00:02:10 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a349a0esm35536952f8f.10.2026.09.28.00.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 00:02:09 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Mon, 28 Sep 2026 09:01:53 +0200
+Subject: [PATCH] mtd: rawnand: qcom: fix read location register usage in
+ config_nand_cw_read()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179057890072.3910103.566976227943604547.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-qcom_nandc-config_nand_cw_read-fix-v1-1-98edccaaea0f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQqDMBCF4avIrB2I01bRq0gJYTLaWXRSE7AF8
+ e4NLr9/8d4BRbJKgak5IMuuRZNVdG0D/Aq2CmqsBnLUu5EIN05vb8EiIydbdL3g+euzhIiL/lD
+ Ge/+4DcF1NEAd+mSp+TqZn+f5B4jgbIN0AAAA
+X-Change-ID: 20260922-qcom_nandc-config_nand_cw_read-fix-e946537a0127
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Md Sadre Alam <md.alam@oss.qualcomm.com>
+Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-The following commit has been merged into the sched/core branch of tip:
+On QPIC v2 controllers, when the last codeword is being read, the read
+location values must be programmed into the READ_LOCATION_LAST_CW_*
+registers. Prior to commit 8c52932da5e6 ("mtd: rawnand: qcom: cleanup
+qcom_nandc driver"), the config_nand_cw_read() function did it right,
+but since then it always writes the read location values to the
+READ_LOCATION_* registers even if the actual codeword is the last one.
 
-Commit-ID:     313b652837d0541684680a7d07a95c5560441d4f
-Gitweb:        https://git.kernel.org/tip/313b652837d0541684680a7d07a95c55604=
-41d4f
-Author:        Andrea Righi <arighi@nvidia.com>
-AuthorDate:    Tue, 22 Sep 2026 18:51:40 +02:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Mon, 28 Sep 2026 08:44:38 +02:00
+Change the function to always configure the registers corresponding to
+the actual codeword to restore the correct behaviour.
 
-sched/core: Drop mutex locks before proxy rescheduling
-
-find_proxy_task() can call proxy_resched_idle() from return
-expressions inside mutex wait_lock and blocked task lock guard scopes.
-Return expressions are evaluated before scoped guards are released, so
-proxy_resched_idle() invokes scheduling-class callbacks while both raw
-spinlocks are held.
-
-Route these cases through a common label outside the guard scopes. The
-common label is required because a direct return would evaluate
-proxy_resched_idle() before guard cleanup and run the class callbacks
-under the proxy-exec locks again.
-
-This is a preparatory change to support proxy execution with sched_ext.
-
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Link: https://patch.msgid.link/20260922165445.943315-2-arighi@nvidia.com
+Cc: stable@vger.kernel.org
+Fixes: 8c52932da5e6 ("mtd: rawnand: qcom: cleanup qcom_nandc driver")
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
 ---
- kernel/sched/core.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/qcom_nandc.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ee9b443..f34e73c 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6980,7 +6980,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 		if (!READ_ONCE(owner->on_rq) || owner->se.sched_delayed) {
- 			/* XXX Don't handle blocked owners/delayed dequeue yet */
- 			if (curr_in_chain)
--				return proxy_resched_idle(rq);
-+				goto resched_idle;
- 			__clear_task_blocked_on(p, NULL);
- 			goto deactivate;
- 		}
-@@ -6992,7 +6992,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 			 * and leave that CPU to sort things out.
- 			 */
- 			if (curr_in_chain)
--				return proxy_resched_idle(rq);
-+				goto resched_idle;
- 			goto migrate_task;
- 		}
-=20
-@@ -7005,7 +7005,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 			 * case we should end up back in find_proxy_task(), this time
- 			 * hopefully with all relevant tasks already enqueued.
- 			 */
--			return proxy_resched_idle(rq);
-+			goto resched_idle;
- 		}
-=20
- 		/*
-@@ -7042,7 +7042,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 			 * So schedule rq->idle so that ttwu_runnable() can get the rq
- 			 * lock and mark owner as running.
- 			 */
--			return proxy_resched_idle(rq);
-+			goto resched_idle;
- 		}
- 		/*
- 		 * OK, now we're absolutely sure @owner is on this
-@@ -7062,6 +7062,8 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 	}
- 	return owner;
-=20
-+resched_idle:
-+	return proxy_resched_idle(rq);
- deactivate:
- 	proxy_deactivate(rq, p);
- 	return NULL;
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index d7642db2e2df..170af9f26d47 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -328,14 +328,16 @@ config_nand_cw_read(struct nand_chip *chip, bool use_ecc, int cw)
+ {
+ 	struct qcom_nand_controller *nandc = get_qcom_nand_controller(chip);
+ 	struct nand_ecc_ctrl *ecc = &chip->ecc;
+-
+ 	__le32 *reg = &nandc->regs->read_location0;
++	int reg_base = NAND_READ_LOCATION_0;
+ 
+-	if (nandc->props->qpic_version2 && qcom_nandc_is_last_cw(ecc, cw))
++	if (nandc->props->qpic_version2 && qcom_nandc_is_last_cw(ecc, cw)) {
+ 		reg = &nandc->regs->read_location_last0;
++		reg_base = NAND_READ_LOCATION_LAST_CW_0;
++	}
+ 
+ 	if (nandc->props->supports_bam)
+-		qcom_write_reg_dma(nandc, reg, NAND_READ_LOCATION_0, 4, NAND_BAM_NEXT_SGL);
++		qcom_write_reg_dma(nandc, reg, reg_base, 4, NAND_BAM_NEXT_SGL);
+ 
+ 	qcom_write_reg_dma(nandc, &nandc->regs->cmd, NAND_FLASH_CMD, 1, NAND_BAM_NEXT_SGL);
+ 	qcom_write_reg_dma(nandc, &nandc->regs->exec, NAND_EXEC_CMD, 1, NAND_BAM_NEXT_SGL);
+
+---
+base-commit: 55c5b6d5f59f59a8c98a7effc3195226cc20175c
+change-id: 20260922-qcom_nandc-config_nand_cw_read-fix-e946537a0127
+
+Best regards,
+-- 
+Gabor Juhos <j4g8y7@gmail.com>
+
