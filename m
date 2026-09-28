@@ -1,316 +1,129 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AFB373BE0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285113546FE;
+	Mon, 28 Sep 2026 17:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617669; cv=none; b=gjDPfiySQNfUGZxCv0w4zYEyNMmBzED5Kt4o3n0t43oQqKorKWQg5Is85Ly5/tRxqNxOfPCnG80s+Hgohfk69/qeZETCXw9fcrVcCah5z+/VPHtVoJUaP9zVszpJ/16knxYOhxbSTp4KTQZeyUOp8d9+QZdKuw+FvoUC5HMVFNQ=
+	t=1790617810; cv=none; b=u324aXF56Pc4Lj0xk0suXS7kMne5VW7KZSdHC2/FQLoyBLuLQ+3uGQt9W9vft0VuqUblLj9SFBlq9ylkHP77Hxjr+0mZmDq4QXCTPRQmUxi+h06aWCJ3NdnnF2ECOTH+i+8JkNbM3gxXi/MNND1zd+572awL6bW6axKJPpbegZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617669; c=relaxed/simple;
-	bh=8ZbCWYrRv1U6jzRO2vHTchWEpgALnUOoMP1moQ6jxiQ=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t8PkZJTkF+Syxi/kUULQApE9jZQEzfXdv57frU+wbLFC+IkrxnSoMXLdOA44231MHFyA53iYoqZVywaAW5x3diKKUbEzwDjR8LfhXftZgXEm24jlEfvZcROM+4qRsVQDT5pr61iZCbjq35U/bxT89ddLI/TXj9wGmy+cplWvlzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fzDMOctC; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790617810; c=relaxed/simple;
+	bh=u/E59QhchBsakfNPPqr6eKRHZdqiWw1FvCI9GEDCeFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fc/h7WXBiNx614J+45tghZv8S5GiPorXd9GsGPymd9yACZxK/j1mdZp1Ry9zxRd3ifd8EvnV0ViA8yusYieeZhyNXB4gx1x3cFvhjzVIKKWU6WBnev6q03JzoXENBbkr80Ms12XY4RNmbB7L+fXBNk5tpIc7mgLZjvUYAwK3kAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjJm0noY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fzDMOctC"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afe9fa8e0so325965066b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:47:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790617665; x=1791222465; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6pX5ypE41nzCu788KA/U3/7sCCgsDbiY8nPFhVISf1I=;
-        b=fzDMOctCuxQxWqZLQHC1TCC9xyDJxJXaaUyrIbqPy1YxNSKnsx7xnNpaDMeTn+g3Ki
-         WTam860oSkegtprS0SXCUiY1uBXCnG8pU8820AllVq4fnL2k9VaA48vXR6LgLfsC7OHx
-         /4AU6pVcjRuqaPHlAZE6DqBmaVrVa78yP0E5T9lVk2Zx69p2HQoBf3G09B74WjiE345N
-         2mJ85T30Pc/SZBc8IKy9Z0IWf70C3noUUktaVoPBMMBVj5G5EQTe8zQk0iJJ9Blr1W3q
-         7v9wyeWKo9AyP8NGG0wkoIOpsk3ZuYKBXDYeRjzQK0mFwTLUCWVilhnACZS0J/TGJRTd
-         SonQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617665; x=1791222465;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6pX5ypE41nzCu788KA/U3/7sCCgsDbiY8nPFhVISf1I=;
-        b=pvsK/vwk16Ezmp1RxvCPoY/4ekm5LLY7woTjFb6WqlDsiFv5e4pmHPsJ9+RPZAxb2U
-         gXR4hIYqqdKgyqS2F86LEIRtKqJWeWF4dDgFCTpn2KubIfDeMIqNKNiAO2YcsMgzpXIJ
-         4v1tR3AZa4zGq9AQwlMfUyfUMY/qCOSMfOAODMA2pMpW5iwpSX4UQCF7ZTrjM4Sau9oE
-         wucs7Q/kOK2aTD4/R2MXWGbSeKWjQnmJ6594G0Yle0kwwja8xqnPi7A1cnTaUMM7YzDV
-         1vkRX29G+tyYayI2sY8ofjGa2bxl1n5GTrI996C8caFzh1Jmglp6fKnrgLRD+di3uQHc
-         MlDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqK5KlOV2saAaoREf7Mdj/IhKIptJApIeFCPpe1EoFlxmslYL+/VPPo7B2FWJV1au4GU1HOuFmHbDOinA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kASW4wcarLOtQnECa88HWOoZMrBothgH4TOZB02iA/lBotBI21
-	uisuAhSlvfNjL0pcxngGheICzsSl1EkFKgHr7q/0MuTWJUM4xXJjnxu1
-X-Gm-Gg: AYBFou2VWBcX6Q5L5vKqcbUuVCdNlMKoGFFbLmMKGnvmnGIq/Fnf7lCOKCBfhslZwqH
-	9xSdYchzn4Pj9bu2a956aDF6sWVu5Tz+qYmZ2asVuyOkTpwZ49EfDXRwXrvcq42rH9ET38b9pJ7
-	t6i8OIHiEbNnm6is3dN/cETniS88A9bZJlbpc/5dkO8I6Qn4JGE07hilGtyMoV0/DfkNIrgDANh
-	6HU6n5UbsntpqnZC9kDakq4c3DWxQ+LlEvMhW4LzRnqfesUt/8ty52lj6AnT5tzebEt7zIYPC9W
-	AuhF88p05ASjGF1z36XiYuVr28hgk8oQ4GYo/ywed/C5fI2ytg7pmGtQZqGxjFZwlVqYETFsgoG
-	4AyTNrukeK6li+krFsezsXM3xt7XRbux2ifNwbvuQaiSeRzHS5YszpUS4bx2MG1YkLaPIyLZkqr
-	vV6Dg4m8yq7qRJXAiBNt0+WA4CLxd01SIph4s=
-X-Received: by 2002:a17:907:7215:b0:c2a:ad68:c70e with SMTP id a640c23a62f3a-c2ac2371dc4mr1060338666b.11.1790617665235;
-        Mon, 28 Sep 2026 10:47:45 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2de21a6349sm149417066b.21.2026.09.28.10.47.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:47:44 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 28 Sep 2026 19:47:42 +0200
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Hao Ge <hao.ge@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-modules@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-Message-ID: <arqoPs4ZplfcGmLo@milan>
-References: <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
- <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
- <arpK2bQrrUMvEvTP@milan>
- <arqDHnBFGKQZm7VU@milan>
- <CAJuCfpHuTzFBUm2uAbkFsKF85GxcqFATmKgT50AQgWkLjf7NMw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjJm0noY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F290B1F000FF;
+	Mon, 28 Sep 2026 17:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790617809;
+	bh=dJBj7jrhd8l/3+1i/MYD1Oe07SV8AbeGkY/QzpcIlXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KjJm0noY+sn5WykpEMYX/0cqYF5OZAonPsiiMo8gsrJp3dbtWXzQ+MUuPiGJZJA0x
+	 6jLqI4XrjH/ECSiSdsjKSDEcOX8VHNjxTUmFetbOQTlOnUn092Xi9vWRpAgkcyI7cV
+	 VEdR4+s8FUt72QAhYPACB1DPHc7Kdjz2uCMGh47V7dCsVAU9tDI9stHRuVWg4VowUL
+	 wsubuRL7tSu1HVvPbp8bYrkCi5Pwl78yS8X19cLVqL1XZl7poDdf3RukkTBc6rpsfh
+	 AjjBKhJEyZefMZQzGawiz22PfrG9g5f1MlSZXvtXI+fxD2E2qzuSdugjHmvJG38tDb
+	 U9iSc28s9bD3A==
+Date: Mon, 28 Sep 2026 18:49:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jan Sebastian =?utf-8?B?R8O2dHRl?= <linux@jaseg.de>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>, 
+	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kexec@lists.infradead.org, driver-core@lists.linux.dev, 
+	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+	linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
+Subject: Re: [PATCH v3 00/12] CRASH_MEMACTION: describe pages to a kdump
+ kernel (was: CRASH_WIPE_SECRETS)
+Message-ID: <arqli0H0v5qPG22z@gremlin>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpHuTzFBUm2uAbkFsKF85GxcqFATmKgT50AQgWkLjf7NMw@mail.gmail.com>
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
 
-On Mon, Sep 28, 2026 at 08:16:18AM -0700, Suren Baghdasaryan wrote:
-> On Mon, Sep 28, 2026 at 8:09 AM Uladzislau Rezki <urezki@gmail.com> wrote:
-> >
-> > On Mon, Sep 28, 2026 at 01:09:13PM +0200, Uladzislau Rezki wrote:
-> > > On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
-> > > > Hi Suren、David、Lorenzo
-> > > >
-> > > > On 2026/9/17 09:12, Hao Ge wrote:
-> > > > > Hi Suren
-> > > > >
-> > > > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
-> > > > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
-> > > > >>>
-> > > > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > > > >>>>
-> > > > >>>> Hi Suren
-> > > > >>>>
-> > > > >>>> Thanks for you review.
-> > > > >>>>
-> > > > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> > > > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > > > >>>>>>
-> > > > >>>>>> The reservation is already stored in the maple tree when
-> > > > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
-> > > > >>>>>> module, so nothing releases the entry. Release it and roll
-> > > > >>>>>> module_tags.size back. Without the rollback a concurrent load that
-> > > > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
-> > > > >>>>>> vm_module_tags_populate() and write to unmapped memory.
-> > > > >>>>>>
-> > > > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
-> > > > >>>>>> retry to populate the same range would BUG on them, so undo them,
-> > > > >>>>>> but only if vmap actually ran.
-> > > > >>>>>>
-> > > > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-> > > > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> > > > >>>>>
-> > > > >>>>> If a patch fixes two other patches, it likely needs to be split so
-> > > > >>>>> that each part fixes one patch only. But read on please. I'm not sure
-> > > > >>>>> if one of the fixes is correct.
-> > > > >>>>>
-> > > > >>>>
-> > > > >>>> Kept them in one patch because they only make sense together.
-> > > > >>>>
-> > > > >>>> After a failed populate the reservation is released and the
-> > > > >>>> size rolled back, so the next load takes the same gap and calls
-> > > > >>>> vm_module_tags_populate() again, and that retry would trip over
-> > > > >>>> the PTEs the failed vmap left behind.
-> > > > >>>>
-> > > > >>>> Without the rollback a load that already passed needs_section_mem()
-> > > > >>>> just reuses the gap, skips populate and writes to unmapped memory.
-> > > > >>>> So splitting them leaves each half broken.
-> > > > >>>
-> > > > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
-> > > > >>> completely separate patch with vmap_pages_range() doing cleanup
-> > > > >>> itself.
-> > > > >>>
-> > > > >
-> > > > > I think I get where you're coming from now.
-> > > > > Thanks for taking the time to explain.
-> > > > >
-> > > > >>>>
-> > > > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > > > >>>>>> Cc: stable@vger.kernel.org
-> > > > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> > > > >>>>>> ---
-> > > > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
-> > > > >>>>>>  1 file changed, 10 insertions(+)
-> > > > >>>>>>
-> > > > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > > > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
-> > > > >>>>>> --- a/mm/alloc_tag.c
-> > > > >>>>>> +++ b/mm/alloc_tag.c
-> > > > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
-> > > > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
-> > > > >>>>>>                         release_pages_arg arg = { .pages = next_page };
-> > > > >>>>>>
-> > > > >>>>>> +                       /*
-> > > > >>>>>> +                        * vmap_pages_range() only runs once all pages were
-> > > > >>>>>> +                        * allocated, and it may have installed some mappings
-> > > > >>>>>> +                        * before failing. Undo them.
-> > > > >>>>>
-> > > > >>>>> If vmap_pages_range() failed to map the range, why should we need to
-> > > > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
-> > > > >>>>> would argue that vmap_pages_range() should be undoing these partial
-> > > > >>>>> mappings itself before returning the error.
-> > > > >>>>>
-> > > > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
-> > > > >>>
-> > > > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
-> > > > >>> only possible reason I can think of is performance but I can't imagine
-> > > > >>> a failure to map is a performance-critical case.
-> > > > >>>
-> > > > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
-> > > > >>
-> > > > >> Huh, my gmail thinks you are still at your previous companies :)
-> > > > >>
-> > > > >
-> > > > > I manually fixed it on the mailing list for this thread.
-> > > > >
-> > > > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
-> > > > >>> mapping when it fails?
-> > > > >>>
-> > > > >>>
-> > > > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
-> > > > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-> > > > >>>> so I did the same here.
-> > > > >>>>
-> > > > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
-> > > > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
-> > > > >>>> the current behaviour for now.
-> > > > >>>
-> > > > >>> Yeah, I understand it would require a deeper cut but if that's the
-> > > > >>> right way to handle this we might as well do that. Let's see what MM
-> > > > >>> folks think.
-> > > > >>>
-> > > > >
-> > > > > Sounds good to me. Let's wait and hear what the MM folks say.
-> > > > >
-> > > >
-> > > > I just looked into the call sites for __vmap_pages_range.
-> > > > And I found there's a bug in one vmalloc caller [1].
-> > > > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
-> > > > __vmap_pages_range. If there are leftover PTE mappings,
-> > > > this can trigger a BUG(); [2]
-> > > > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
-> > > > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
-> > > >
-> > > Indeed the below code is incomplete:
-> > >
-> > > <snip>
-> > >       /*
-> > >        * page tables allocations ignore external gfp mask, enforce it
-> > >        * by the scope API
-> > >        */
-> > >       flags = memalloc_apply_gfp_scope(gfp_mask);
-> > >       do {
-> > >               ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
-> > >                               page_shift, nested_gfp);
-> > >               if (nofail && (ret < 0))
-> > >                       schedule_timeout_uninterruptible(1);
-> > >       } while (nofail && (ret < 0));
-> > >       memalloc_restore_scope(flags);
-> > > <snip>
-> > >
-> > > and it should be fixed. As the __vmap_pages_range() can actually fail
-> > > and leave some installed mappings, we have to perform some cleanups
-> > > on failure or on repeat(if nofail is true).
-> > >
-> > > Below code:
-> > >
-> > > +                     /*
-> > > +                      * vmap_pages_range() only runs once all pages were
-> > > +                      * allocated, and it may have installed some mappings
-> > > +                      * before failing. Undo them.
-> > > +                      */
-> > > +                     if (nr == more_pages)
-> > > +                             vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
-> > >
-> > > we can use but we need to check if partially mapped space is not an
-> > > issue for the vunmap_range(). And it looks like it is not.
-> > >
-> > > <snip>
-> > > @@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
-> > >         do {
-> > >                 ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
-> > >                                 page_shift, nested_gfp);
-> > > -               if (nofail && (ret < 0))
-> > > -                       schedule_timeout_uninterruptible(1);
-> > > +               if (ret < 0) {
-> > > +                       /*
-> > > +                        * __vmap_pages_range() may have installed some mappings
-> > > +                        * before failing. Undo them before returning or retrying.
-> > > +                        */
-> > > +                       vunmap_range(addr, addr + size);
-> > > +                       if (nofail)
-> > > +                               schedule_timeout_uninterruptible(1);
-> > > +               }
-> > >         } while (nofail && (ret < 0));
-> > >         memalloc_restore_scope(flags);
-> > > <snip>
-> > >
-> > And looking further. If the __vmap_pages_range()/__vmap_pages_range_noflush()
-> > and friends fail, a proper cleanups should be done inside, IMO.
-> 
-> Sounds like we are in agreement.
-> 
-> >
-> > But i am checking callers and see that some do some not:
-> >
-> > <snip hooks.c>
-> >         __vunmap_range_noflush(
-> >                 vmalloc_shadow(start),
-> >                 vmalloc_shadow(start + clean * PAGE_SIZE));
-> >         __vunmap_range_noflush(
-> >                 vmalloc_origin(start),
-> >                 vmalloc_origin(start + clean * PAGE_SIZE));
-> > <snip hooks.c>
-> >
-> > kmsan_ioremap_page_range() it does clean ups;
-> > kmsan_vmap_pages_range_noflush() looks like does not care in shadow.c;
-> > __vmalloc_area_node() as noted, it is broken as there is a BUG() on next try if nofail;
-> > pcpu_map_pages() it does cleanups.
-> > ...
-> >
-> > and so on.
-> 
-> Yeah, the callers that do the cleanup should stop doing that once the
-> vmap functions handle it themselves. I expect an overall reduction in
-> code size.
-> 
-Agree. If mapping API is called and it fails the caller should expect
-the state as it was before calling that API function, IMO.
+On Mon, Sep 28, 2026 at 07:17:48PM +0200, Jan Sebastian G�tte wrote:
+> I'm using linux on an embedded target in a Hardware Security Module-like
+> application. One requirement is that I want the system to be able to
+> quickly erase its memory when it detects physical tampering. I'm
+> approaching that by using kdump to load into a small payload that
+> instead of dumping RAM, erases RAM frmo start to end. However, writing
+> all of RAM, especially on an embedded target, is rather slow. For this
+> reason, I propose a new crash_memaction mechanism that lets the old
+> kernel indicate marked memory areas to the kdump kernel at page
+> granularity.
+
+Sorry this all seems really invasive for what seems to be a very specific
+use case.
+
+In general, with big changes like this, you should send the series as an
+RFC.
+
+Please send any future revisions of this as an RFC.
+
+The bar for a new VMA flag, a new madvise() flag, etc. is really quite
+high, and I've already noticed what looks like quite buggy code glancing
+through.
+
+And again, I really don't think your case sounds all that compelling for
+general users, given how invasive the changes are, so I strongly suggest
+you rethink your approach.
+
+In any case, as a newcomer to mm, we really ask that people start with
+smaller changes and build up gradually, a change like this really should
+only be done by somebody with an established reputation in the kernel.
+
+In general re: AI-generated code see
+https://docs.kernel.org/process/generated-content.html
+
+	If tools permit you to generate a contribution automatically, expect
+	additional scrutiny in proportion to how much of it was generated.
+
+	As with the output of any tooling, the result may be incorrect or
+	inappropriate. You are expected to understand and to be able to defend
+	everything you submit. If you are unable to do so, then do not submit the
+	resulting changes.
+
+	If you do so anyway, maintainers are entitled to reject your series without
+	detailed review.
+
+Thanks!
 
 --
-Uladzislau Rezki
+Cheers, Lorenzo
