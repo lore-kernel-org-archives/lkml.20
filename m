@@ -1,175 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792F495AD5;
-	Mon, 28 Sep 2026 16:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A0C4EBAE7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790614233; cv=none; b=tw6BsW7UvOKxDA8BVwWYyF8ltN8W9pjZ0voLtHLsKdk5bJpRRShPHEnsv+/LnqxB/sZ1SNlkrTs5JeYacJ0NPbTxUiWjVGKTdwzmlD/IJwW4lVlGiMph1VDl8wYs6tIkbQqBoZeTlesWUqe91LxZDr2iF9o9QZe2+dE6D/78Loo=
+	t=1790614252; cv=none; b=kMBDVtEZzMDp3zlo5IOiaKtskDee4Mu4p+dBuIA1tjepbrkvO486x/M5/TB2AjwTc0VqDYd6rvarNiajE+Vb19vqgxP8juSs6sM0I45aftYQaWN9TnV+WadVgU85JB6MA1rWdRSQVtpfbWBJcmBKBiExRrT5eWb+SfyBMhtDrQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790614233; c=relaxed/simple;
-	bh=+4i+mooHpWCtYPTjoYkX5hdKqn+3VqQjtQoDqOSpWPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lTySb+KnReAnfrRj6KznnGZ9a96x1vXK/1Z2Z5FoCZE1D87x4TfBBh4+q4ZGzhxGhORJ02AgL8EQjEefF2L7DEioHp/QAViBHduEtxTp1fv9QhBLujLUXMwGsuMkojwvVzU+NVwOnvegRx80EteFJmj+cFBHBZRKJemsMOupGcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYdgh326; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790614252; c=relaxed/simple;
+	bh=vn8yjXaDcpQywxawcEFzJ56V6mC0wurawB33i7t3Nog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OPT4nPApObzLj1HU3yTZ9meS+oSk5ZTl1KCRp/aTPz6xuvOoBoobWAwNsqrD1hzGXPPkPf9hzMs8QXhqN0C268z9gkRHtV0hHuZUFYTzbTf+t3EOT64YLXXK8MNaX2nKPVjicdCKKgN25j7dTF/vF5BqN6T5tpC+QyIYtDdhzHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQSwL0hS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYdgh326"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DF81F000FF;
-	Mon, 28 Sep 2026 16:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790614232;
-	bh=GjvWJLMokvI0lYXycX64nWTNbyodj4PDVqDuBm//cQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aYdgh326uZXg+jeuVpm3X71/w5sZVtmJlbPyIymgn0H9+Xq3sgFWZUPzTqunyZ8b1
-	 efTWX/t7v8qzLUbyKQIDuV8qEBnwZ0XLDywqlcpeYYiqx6ELJEEbqoTdPGt2YQwsIo
-	 b/4zahE6L2W7Ezh7JFtzrqXiDAgciLAAKkw7aPnL08eLA5BVoEGVQr5vshr0Haqp5/
-	 1tfuXIZHqNEUYJOqrFSy98s87I6UuvKos4yMI88z/zKafQQT9fJP6AXTYhfRLm8TG4
-	 eLUIayrCD/wf7sLIy5ynFua96tnrJ0eeHZqfa9PLnSg9rRqbryY9kUZlzd/LK7O+1g
-	 oRbKMwN8flRrQ==
-Date: Mon, 28 Sep 2026 17:50:28 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Eliav Farber <farbere@amazon.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>,
-	Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQSwL0hS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso24543425e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:50:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790614249; x=1791219049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EExoRMAiKw6UlbvLPHuAhjKP2otqvzD0C3mA+918bEo=;
+        b=jQSwL0hS2EcHV1LgRxw4jMItzteEvFuuQgsHdFAzOBjVhJg2dcbGBPet8YRzXTo3x6
+         HE6FZFo+1Ruhjsvq3rWb52INtVkwV9/aZ00SJw5SJoTmO8slO4K4AqAH+w09URstew49
+         KOMQ1yl8V8xbvkFCwgzzCyw6eEAOqu6V7LHRl9zdt4VPWdsdSS5xDaM5SYiLb7va4gYS
+         1Mva5JQAcE7w/2LEwKEh9AEEVaAnYpJ1ZbCM5Na5FTf8tTudJyZU733WU/gReld1N78A
+         I5u+G6jMNgyEC5At1mLlNdaL4/wl+4/ovybx5JPzJlhUKrllGe1iZIC45lskc4bwOzYU
+         lcdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790614249; x=1791219049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EExoRMAiKw6UlbvLPHuAhjKP2otqvzD0C3mA+918bEo=;
+        b=mJEU85wNcdixJTeBf9lUocsjW+qCM587lTjpKN25c8YUcPo0aY9BzKn5kiioPYeJ4l
+         xOWR5QfBigyjfWs2Yu0Ir+H75whDKfUvUouJsDw2RNVfZzjj4cLRR4aWFxch5nw5yrBX
+         mb+pByfRBaLVS6x9MwqzJP079nLSW5S3D0yTCSHtPNcQwLBCvtqus5R4nRP2/K2SqOtO
+         Upp5+262igY4tIo0O5Eh+o40KOKdCS+LoXI9xQ3b8ci3rLRXFZEamEGwB1kx2lvOCHVs
+         D9y+CWuSf1l+qPc6BL9T5EQrKhJHOjuRYo4FJmpNRSBzpkDVU53JIossrIStnJ0qxQ0u
+         1CwA==
+X-Forwarded-Encrypted: i=1; AKwUvBy57afSKuBcUADIcbbr5dfiJFAO8zEdhVus3uYPuSozB0CufnpV/I0zTkTCT+anMtRlyczWdFkIIjk2YOE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpScjQwlTm9XK9C0YAhcFVEARJci8/thNH5EIDbDnldFGHZcQQ
+	92JXGNN7obN0UMusnuWw3G546G4+YxxMD0pY2QvmFIM+zcW+8hJ47/YV
+X-Gm-Gg: AYBFou1bRkY9u6F6iHhZeHcxsUhnrTFz7TNfmYT4BY3DX8vmO1xDuTZUofasM7H7Mn9
+	HL1O/MBQstI9epaWopa6vRTKNrrp0BhlfdXDJw6jpw9eLy3JPblL6FgHtjwgHnNT+51Q5CzlIq6
+	W6aJS669GmGxtdupr94llhjMQIr0IQjbhK0Ms39BbrmCR2uK4uidkhL4nZ0eqZf3FLmzgmAYKil
+	6Jgaj4kDzroZOKSnT6E8RrJVfYVzIQ3p8p29QzzBk21J1ymf73vHuEtgJYiMFm25zcQ6qDw3RNi
+	AxG1RO3cP2d3FSDJtZefaZ/w7tJmu6dh4T/lrO2tdDZqG4dhPbI2mScvTw5PAUeEMaRAKrwZi11
+	kwrj3vO7xBR0tQpb/TOaCXrpMTaDfLW6+Oe4pYleS4y5e6TsNwORnJN/1N8CGq3x/YbmTOHJJIT
+	jAaVzU5lhZqcBO8aNW4N/oGqITkVhIsCx1yxKv5s4M4CmvPMywMqMgrBsDMC77EDAB5GiscUgG2
+	Tsc0g0q
+X-Received: by 2002:a05:600c:530e:b0:49f:bc28:e8bc with SMTP id 5b1f17b1804b1-49fe7bab945mr244219495e9.17.1790614248631;
+        Mon, 28 Sep 2026 09:50:48 -0700 (PDT)
+Received: from localhost.localdomain ([62.56.221.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm27538220f8f.35.2026.09.28.09.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 09:50:48 -0700 (PDT)
+From: Michael Freidkin <freidkin@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-media@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] dt-bindings: interrupt-controller: amazon,al-fic:
- add mask selection
-Message-ID: <20260928-kinswoman-landless-7e728feb23d2@spud>
-References: <20260927080637.27285-1-farbere@amazon.com>
- <20260927080637.27285-6-farbere@amazon.com>
+Subject: [PATCH] media: meson: vdec: size capture planes from the aligned canvas
+Date: Mon, 28 Sep 2026 19:50:45 +0300
+Message-ID: <20260928165045.642354-1-freidkin@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dW4GAycpKBku0Yy/"
-Content-Disposition: inline
-In-Reply-To: <20260927080637.27285-6-farbere@amazon.com>
+Content-Transfer-Encoding: 8bit
 
---dW4GAycpKBku0Yy/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The decoder writes a whole canvas of ALIGN(width, 32) x ALIGN(height, 32)
+(amvdec_set_canvases()) and reports bytesperline = ALIGN(width, 32), but
+get_output_size() derives sizeimage from the raw width x height.
 
-On Sun, Sep 27, 2026 at 08:06:34AM +0000, Eliav Farber wrote:
-> The block this driver calls a FIC is the generic Annapurna Labs interrupt
-> controller. It is built from groups of up to 32 triggers each; the number
-> of groups differs from one controller to another, and each group has its
-> own 0x40 register block.
->=20
-> A node in this binding describes one group, not a whole controller. reg
-> points at that group's 0x40 block, and the 32 hwirqs of the domain are
-> that group's triggers. A controller with several groups appears as several
-> nodes, and controllers cascade when a tree needs more triggers than one
-> controller has.
->=20
-> A group has one cause register and three mask registers, which decide
-> which output a set cause bit drives:
->=20
->   0x10  info mask    gates the info output
->   0x2c  error mask   gates the error output
->   0x34  fatal mask   gates the fatal output
->=20
-> The three outputs are aggregated into three separate interrupt trees
-> (info, error, fatal); mapping one event to more than one severity is
-> forbidden by the interrupt methodology, so a group belongs to exactly one
-> tree. Which output a group drives is fixed when the SoC is wired and is
-> not discoverable from any register, so it must be described in the
-> devicetree.
->=20
-> The error and fatal outputs, and their mask registers, exist only on
-> controller revisions that implement them; earlier revisions provide the
-> info output only. A controller reports its revision in the group control
-> register (bits 29-28), so the revision itself does not need to appear in
-> the devicetree and no per-revision compatible string is needed.
->=20
-> Describe which output a group drives with a new optional property,
-> amazon,al-fic-mask (info, error or fatal; default info).
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> v2: redesigned in response to Conor Dooley's review of v1.
->  - Drop the two proposed per-output compatible strings
->    (amazon,al-fic-error / amazon,al-fic-fatal). A node describes one grou=
-p,
->    and a controller reports its revision in the group control register
->    (bits 29-28), so no per-revision or per-output compatible is needed.
->  - Instead add an optional amazon,al-fic-mask property (info, error, fata=
-l;
->    default info) selecting which output a group drives. Existing
->    amazon,al-fic nodes keep behaving as before.
->  - Rewrite the commit message to describe the hardware and the group
->    granularity, and add an example fragment to the YAML, as requested.
+When the width is not a multiple of 32 the planes are too small for the
+advertised stride: for 720x360 NV12M the luma plane is 262144 bytes while
+736 * 360 = 264960 are needed (282624 for the canvas the firmware fills).
+The decoder writes past the buffer, and importing the capture dma-buf
+into DRM fails: drmModeAddFB2() returns -EINVAL, so e.g. Kodi plays the
+sound over a black screen. 1280x720 and 1920x1080 are not affected.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Size the planes from the aligned canvas the hardware actually uses.
 
-Thanks,
-Conor.
+Tested on an S905X (GXL p212) board with LibreELEC 12 (6.16.0-rc3):
+720x360 and 1920x1080 H.264 play through V4L2 m2m + DRM PRIME with no
+AddFB2 errors.
 
->=20
->  .../interrupt-controller/amazon,al-fic.yaml      | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/amazo=
-n,al-fic.yaml b/Documentation/devicetree/bindings/interrupt-controller/amaz=
-on,al-fic.yaml
-> index 26bc05dee0bc..1ebf9a427f2f 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fi=
-c.yaml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fi=
-c.yaml
-> @@ -24,6 +24,19 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> +  amazon,al-fic-mask:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Selects which of the controller's severity outputs this group driv=
-es,
-> +      and thus which mask register the driver programs. A group has one =
-cause
-> +      register and three severity outputs - info, error and fatal - each
-> +      gated by its own mask register. Each output is aggregated into a
-> +      separate interrupt tree, and a group belongs to exactly one of the=
-m.
-> +      The error and fatal outputs exist only on controller revisions that
-> +      implement them; earlier revisions provide the info output only.
-> +    enum: [info, error, fatal]
-> +    default: info
-> +
->  required:
->    - compatible
->    - reg
-> @@ -39,8 +52,9 @@ examples:
-> =20
->      interrupt-controller@fd8a8500 {
->          compatible =3D "amazon,al-fic";
-> -        reg =3D <0xfd8a8500 0x1000>;
-> +        reg =3D <0xfd8a8500 0x40>;
->          interrupt-controller;
->          #interrupt-cells =3D <2>;
->          interrupts =3D <GIC_SPI 0x0 IRQ_TYPE_LEVEL_HIGH>;
-> +        amazon,al-fic-mask =3D "error";
->      };
-> --=20
-> 2.47.3
->=20
+Fixes: 3e7f51bd9607 ("media: meson: add v4l2 m2m video decoder driver")
+Signed-off-by: Michael Freidkin <freidkin@gmail.com>
+---
+ drivers/staging/media/meson/vdec/vdec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---dW4GAycpKBku0Yy/
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarqa1AAKCRB4tDGHoIJi
-0g8zAQCd6uxhMA04J8oRUJ85aDJ/Mz4tFowRTdUT+OoKKts/ZAEAtBcvdcd0dZYE
-Slzg0Tox5+WhDqSV0zdtF97NtTZWwgc=
-=gKEZ
------END PGP SIGNATURE-----
-
---dW4GAycpKBku0Yy/--
+--- a/drivers/staging/media/meson/vdec/vdec.c
++++ b/drivers/staging/media/meson/vdec/vdec.c
+@@ -34,7 +34,7 @@
+ 
+ static u32 get_output_size(u32 width, u32 height)
+ {
+-	return ALIGN(width * height, SZ_64K);
++	return ALIGN(ALIGN(width, 32) * ALIGN(height, 32), SZ_64K);
+ }
+ 
+ u32 amvdec_get_output_size(struct amvdec_session *sess)
+--
