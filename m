@@ -1,161 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f13.google.com (mail-ed2-f13.google.com [74.125.228.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C7A4968F3;
-	Mon, 28 Sep 2026 09:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A548C3F5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586788; cv=none; b=U3swsgj1iuYTBPrdEjIliyhEENdZuIeHEH8ZeHem2cHPRrMXbWNXy0rGQeUulGTi3TMvHInvOa8wtYvj3a87LtEweI1DrunJgz+o31IU1tv8BT9GTRiATKb50GZpFxmcSQglhxikKipvYndppw8LqCwFYc9Lm2U7pRotV8vDNhE=
+	t=1790586799; cv=none; b=OpCh2ImzNZwC0iA+vqoB4rNmypcym1th2lRod7If0lIK+pNQyHQ27f9veYt5qMT8v2hrXkv43IxUPZQDODaF0mm931tAubxAWS7fZZ6LOQ9j6cQPMTJ/W90UWlklY2FsteT4QA8GUBDLcnGUMUiz7pEEc30lFjd8M02CgOJkB+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586788; c=relaxed/simple;
-	bh=nLjkDQbjdc4gFwPXd1mnrqvY6V/gqlJAueFtd5SJgks=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZqFlkZhRsIF8B8lNXSeymtrFojuYwQEv9UTv2wbBq8OJNWHpN9kwUFK1U9F+aPRgTE4kavncMGDUW2eA7h+d8eArlZOq11lEUmeKCGvQey5D/DtBV+YPxwTfN8fTpfhZZzCcMeo0RnA6WK/tfE5qk3p9al4e6GZoM2at57WuU0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EHnNQFc3; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790586799; c=relaxed/simple;
+	bh=NGlPMXq2fpdcn6udWgt1oJexI34OVAzc82/X+lQc8BQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
+	 In-Reply-To:Content-Type; b=lBKpVCD5V1v2+N3SVd2ps9XMBPHHWIoTANzu050jz3o9yzlIin+F13lzfcUz1a/r2lISXkiu3Izw5WIRz+9LPF5cuP4UuyH0gUouSEv412tgq3RYMsOO2i/EKvWQy0ZBRV0RZ1ALpkPfUQ2STqKOylHsk6uDvddvLVuZVW7QKss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VEVPhgcK; arc=none smtp.client-ip=74.125.228.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EHnNQFc3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790586787; x=1822122787;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=nLjkDQbjdc4gFwPXd1mnrqvY6V/gqlJAueFtd5SJgks=;
-  b=EHnNQFc3hhBSZz+jQoJt2AlKbGwX65gHziaZN3sFpZYQjlQ7UQNHIhRO
-   2Oi5B5N8P7FSpSvBeDR5/PX10LJ8m4qwZbkqBkl5DRquzuu8YSfAKjzXk
-   NpD3m7QaJqAfgE+Jc/oMNgMVB9ZJ19K3e+WZAI2kpW4mzLQHBNZso/JBE
-   cYyZVCIy6VEQchvTsgfxLSO7QPkCdKLYDYsvue4x++TFpECc9ln5eoXAK
-   9oMU+Hee9vNfn7yR9ByLWZ/S2Zm3e0F3JS60BVFggK3vjfOIW4OMywlJe
-   MFwNQkujZhNsSvsuAMFK36eNU41Fp+46Hc2OqG+gYxHB9EdbadUVBodfJ
-   w==;
-X-CSE-ConnectionGUID: Crv9tpIXSqKqaEI4uLPcaw==
-X-CSE-MsgGUID: gn69zcnlQR2DEd7RpuhEYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90333827"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90333827"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:13:06 -0700
-X-CSE-ConnectionGUID: UymRjMy2R0eHQKVNJEzuUg==
-X-CSE-MsgGUID: SzjokRVwRbSkWvu5HOc9YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="279725133"
-Received: from yzhao56-desk.sh.intel.com ([10.239.47.61])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:13:00 -0700
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com,
-	dave.hansen@intel.com
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	x86@kernel.org,
-	rick.p.edgecombe@intel.com,
-	kas@kernel.org,
-	tabba@google.com,
-	ackerleytng@google.com,
-	michael.roth@amd.com,
-	david@kernel.org,
-	vannapurve@google.com,
-	sagis@google.com,
-	vbabka@suse.cz,
-	thomas.lendacky@amd.com,
-	nik.borisov@suse.com,
-	pgonda@google.com,
-	fan.du@intel.com,
-	jun.miao@intel.com,
-	francescolavra.fl@gmail.com,
-	jgross@suse.com,
-	xiaoyao.li@intel.com,
-	kai.huang@intel.com,
-	binbin.wu@linux.intel.com,
-	chao.p.peng@intel.com,
-	chao.gao@intel.com,
-	farrah.chen@intel.com,
-	yan.y.zhao@intel.com
-Subject: [PATCH v4 16/17] [GMEM-DEPENDENT] KVM: TDX: Implement .gmem_prezap() hook to split S-EPT
-Date: Mon, 28 Sep 2026 17:12:27 +0800
-Message-ID: <20260928091227.15727-1-yan.y.zhao@intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20260928090729.15468-1-yan.y.zhao@intel.com>
-References: <20260928090729.15468-1-yan.y.zhao@intel.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VEVPhgcK"
+Received: by mail-ed2-f13.google.com with SMTP id 4fb4d7f45d1cf-6ab0d9260baso1807092a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:13:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790586795; x=1791191595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zrUZW93Kpo3duA4VkIX/sYF08Cc0xHufuLcywAkXwOQ=;
+        b=VEVPhgcKv6bpkh1vyZZEPdhRUsJktISv3aArYLdChcgdbZE9D0kPV/3EucxndTfrDX
+         umEdVsfu/L5yy83FC4GKchrXoQBAhbZti5idmFg8FHCAw3il+fFPIuQ15E0vKm7/DvZF
+         /aHX3sPY114e62Wifp0tL7CQmxc8aOyKDw+MUq5TmIb6e5OJyH0VvQIxgEaXvlmDSMZ3
+         PVAbvztFssgymA0thp887SkTGFL07CQ9SWUSDZ0bByC18nm9WA0lv+Kve/+TV6nX6d1V
+         /EjRz2A8TfTT7q8fxKCzICgGnlEvmCz+OAJ9LmMKrg4PhzPg8XMQ/7Z6hGTCQVoeVXxS
+         h6mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790586795; x=1791191595;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zrUZW93Kpo3duA4VkIX/sYF08Cc0xHufuLcywAkXwOQ=;
+        b=GBJ6WCYclSvTHSpTCh0a4lzqdmur7i4+naXd4VgGbWUaiBqh+66mvLfm8bXAvD4ujD
+         IsFAQxbq4cUe9WraUzjQ0Ck1gAEopa3EPufVlREYhaV38VgINPkuFOGrNIko+gGgJEz2
+         nwLouwe3R+5IRD6mCJ43mCcMWxBOmfQSAtLahuA7fFhKbRExbJFzl8IwD+ujJdlvm+yE
+         SF6nFpgP5AKQ8FX84iWb/JTTbtCPARDvZwdp4UnAnkj+Oeb5JQm2Z7sdYBOcWvN97tax
+         SB36N8yyZo1J5qVzI8vng3RkzYQtNqFAHE0Eh/rQtOeTfhSKqa+0mOHbI8u8596PMsdW
+         d5iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+oPwLdSs27Bsyj45H3nDsA45wgItdWQSEiUNNmKQs/zFypUL/342xHk1Uljk9pdzmRVoyuhqlRdT98z4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3amJD9i+PImmC3WYQwDGVrZraS1YqJXiUnuJSDCNpPeB4Ldw8
+	QqJmrwNrHchiTF25yHkNJDwsZoOSA/i663BPpQL7Wa/h72xSq1RSexfjH5CncxdFb+M=
+X-Gm-Gg: AYBFou2GxOdvRfa1EOYWRcgtZZR32+TvcvhSL7Vw8xzsnlyGVLK9P1V8WkeLo3ISVfp
+	fA6jx9PExCW4zWBeEn5TiEHKboC3zj74wfbhkmiuHGyCTNjJsXiCmYejcWTVkYn7whjVMP5o6w3
+	3i/mH5KX268+U+Nu5q0ZryJ/gxxzGpkxGhd26lU1ECWtbscs7XS2wqSJCxOXrB03fYSRp2D2mqv
+	htTjYyikj1YFdEJ0w7Z5o5vhozQOoXOg1VZFl9xKvaQ0+7dWXt9ONHfrrezEQX14MNDnzbL137X
+	tG6gea894K5QQ+V+rH83adqTZd2XaKyzTFWxkW4cWhZuaCnjsvLyz1Vr1bpfLP+psS/LU3lIwU8
+	su+ssMe2HAh6Soh+zqPlwRMxQSvn6QdTjcav7EBbDORYEN4J2Xa37Okw5+VY3uXyqqSl9g1srcZ
+	Nw+htlswtU0cufoi2qw88ekQhNRLbNe94oKFpwDj9zKoL55a1n6Bpt1wGhvaC4xlmSDQKP/ozWf
+	GeK
+X-Received: by 2002:a05:6402:2552:b0:6aa:f809:ef41 with SMTP id 4fb4d7f45d1cf-6aaf809f225mr5554167a12.3.1790586794617;
+        Mon, 28 Sep 2026 02:13:14 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dc0cddsm3868145a12.14.2026.09.28.02.13.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 02:13:13 -0700 (PDT)
+Message-ID: <efd21aac-4faf-46bc-b1ef-7791e7458cf0@linaro.org>
+Date: Mon, 28 Sep 2026 10:13:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf test: Record kcore for the CoreSight callchain test
+To: Leo Yan <leo.yan@arm.com>
+References: <20260928090644.24346-1-leo.yan@arm.com>
+Content-Language: en-US
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260928090644.24346-1-leo.yan@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Implement the .gmem_prezap() hook to split S-EPT huge mappings before
-guest_memfd zaps S-EPT, in case KVM zaps only a subset of an S-EPT huge
-mapping's range. This allows guest_memfd to precisely zap/remove S-EPT
-entries to avoid clobbering guest memory, as the lifetime of guest private
-memory is tied to the S-EPT. That is, KVM must first split a huge mapping
-so that it does not over-zap irrelevant subranges of the huge mapping,
-which could cause TD termination.
 
-Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
----
- arch/x86/kvm/Kconfig   |  1 +
- arch/x86/kvm/vmx/tdx.c | 18 ++++++++++++++++--
- 2 files changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
-index 2c3c22aeafa5..9ac79639dfba 100644
---- a/arch/x86/kvm/Kconfig
-+++ b/arch/x86/kvm/Kconfig
-@@ -147,6 +147,7 @@ config KVM_INTEL_TDX
- 	default y
- 	depends on INTEL_TDX_HOST
- 	select HAVE_KVM_ARCH_GMEM_POPULATE
-+	select HAVE_KVM_ARCH_GMEM_PREZAP
- 	help
- 	  Provides support for launching Intel Trust Domain Extensions (TDX)
- 	  confidential VMs on Intel processors.
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 5c5919b76bdd..0ecfc17e6235 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -2089,8 +2089,7 @@ static int tdx_sept_split_straddling_huge_pages_to_level(struct kvm *kvm, gfn_t
-  * per-VM cache of pre-allocated pages used to populate the Dynamic PAMT when
-  * splitting S-EPT huge pages.
-  */
--static int __maybe_unused tdx_sept_split_huge_pages(struct kvm *kvm, gfn_t start,
--						    gfn_t end)
-+static int tdx_sept_split_huge_pages(struct kvm *kvm, gfn_t start, gfn_t end)
- {
- 	guard(mutex)(&to_kvm_tdx(kvm)->pamt_cache_lock);
- 
-@@ -2103,6 +2102,20 @@ static int __maybe_unused tdx_sept_split_huge_pages(struct kvm *kvm, gfn_t start
- 	return tdx_sept_split_straddling_huge_pages_to_level(kvm, start, end, PG_LEVEL_4K);
- }
- 
-+/*
-+ * Before zapping private mappings, KVM must first split any huge mappings that
-+ * straddle the zapping range, as KVM mustn't overzap private mappings for TDX
-+ * guests, i.e. KVM must zap _exactly_ [start, end).
-+ */
-+static int tdx_gmem_prezap(struct kvm *kvm, gfn_t start, gfn_t end,
-+			   enum kvm_gfn_range_filter attr_filter)
-+{
-+	if (!(attr_filter & KVM_FILTER_PRIVATE) || !kvm_has_mirrored_tdp(kvm))
-+		return 0;
-+
-+	return tdx_sept_split_huge_pages(kvm, start, end);
-+}
-+
- void tdx_deliver_interrupt(struct kvm_lapic *apic, int delivery_mode,
- 			   int trig_mode, int vector)
- {
-@@ -3799,6 +3812,7 @@ int __init tdx_hardware_setup(void)
- 
- 	vt_x86_ops.set_external_spte = tdx_sept_set_private_spte;
- 	vt_x86_ops.free_external_spt = tdx_sept_free_private_spt;
-+	vt_x86_ops.gmem_prezap = tdx_gmem_prezap;
- 
- 	if (tdx_supports_dynamic_pamt(tdx_sysinfo))
- 		vt_x86_ops.topup_external_cache = tdx_topup_external_pamt_cache;
--- 
-2.43.2
+On 28/09/2026 10:06, Leo Yan wrote:
+> The CoreSight callchain test traces both userspace and kernel execution
+> and checks the callchain across a syscall.
+> 
+> Add --kcore to perf record to save the running kernel image alongside
+> the trace data so perf script can use it to decode the kernel trace.
+> 
+> Add a Fixes tag so the change can be backported to stable kernels and
+> improve the test reliability.
+> 
+> Fixes: ca0e19074bd6 ("perf test: Add Arm CoreSight callchain test")
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   tools/perf/tests/shell/coresight/callchain.sh | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/tests/shell/coresight/callchain.sh b/tools/perf/tests/shell/coresight/callchain.sh
+> index 13cca7dc1118..b69187f1a37f 100755
+> --- a/tools/perf/tests/shell/coresight/callchain.sh
+> +++ b/tools/perf/tests/shell/coresight/callchain.sh
+> @@ -43,7 +43,7 @@ record_trace()
+>   
+>   	mkfifo "$cf" "$af"
+>   
+> -	perf record -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
+> +	perf record --kcore -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
+>   		perf test --record-ctl fifo:"$cf","$af" -w callchain >/dev/null 2>&1 &&
+>   
+>   	# It is safe to use 'i3i' with a three-instruction interval, since the
 
+Reviewed-by: James Clark <james.clark@linaro.org>
