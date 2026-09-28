@@ -1,394 +1,480 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC2A493621
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5FE497398
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587673; cv=none; b=cdBiYZkWUrgMe+B1LUmlchCdmDjVLHdORbQ52toFe1YzYn2Xg1UTm19tq2KYS6n7UADO/Tmg2a9rw+gVfd44ejn6MqbNNVeMJFAZQsdT0gYV25hz/F3hrmUVM0xx11eTyajJx8+ckB96J2rpNbtKkhbNUhGuWVewaXLut5ZklSQ=
+	t=1790587676; cv=none; b=SYtIxJUpo6vlc87dKFxAEhQ2/EikBUgbmCk5UGhme/2nuOzg1jsA8l0cDoWtimaVKpAb5PxFhsnP+STAqYrQSkMQbEPrYXt9mBXQNRogbXYi1S/zOJfsdx7XItC5M2VI7eZNCzpWTPMiIaXBmeH5qjSxlbTCNwN9eBEgZh/X/fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587673; c=relaxed/simple;
-	bh=dGHrchG/abitpSpPzVzh/aTSFCY3Ku7xR5Cg+X5z2GU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jY1POPp7sJIlRn5Ho/Y5RyNMB+HEbj8QgiZKzd+mUcNpph5T7xrwN4t9QP9FaPm0bJmFX2kDrB9QyIWZj5KBXNN/ikbJcXdopHQUOprVh1vrNXbCIxMeqomUz4ZqvjFJzeA4SZxtjZ7PGcSGCGQ45XwvP/E4BeGSE5EjmH1Vqfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=Gause42G; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1790587676; c=relaxed/simple;
+	bh=cU7l2FxcObjimnZxenpEC6GesaHmJossHdR6O/FICG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Aoqnyn28tKJtr8l9HUKA7DEEio4JuaHxdFxeLPxMxmX6j6vFU0aqNV9cW8tK4cpUF7prtCRRYLEUf5L4lDuNaSyqcPFxHiYETCzIps1WoW6e0BKsIWpRMrCMxSmjNmAPYLQCQ4GxYVDCgwWM+JXSN1xygsVd4ZBieqKKwvkS/Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfyTCRqP; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="Gause42G"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso4382308a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:27:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfyTCRqP"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f38so11925135ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:27:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1790587667; x=1791192467; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790587671; x=1791192471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dbq2DM657UXRUZrUM+7dawOTBHr08M0XClPpfaZ9skM=;
-        b=Gause42GxbcGCxT33S8IvWnH5MBVnxzuNkdbIrEoUbdYFdjp7kXoUYURpBnZ+51CeO
-         y88LzPkoD39gJLQ/8XNkC4YFCCW74xF2PWUVSmRcRWJMsRkJ/c6hEFEyrFBUhIhFXPl9
-         nHqbzZHMJCvKtGOZboRYQwYh8fLXxg5Gw+2WYvgeKziJ/TL16AgdE11bxNoxValyAM0L
-         ASlcelH0aFTH0jzMYi7QFmTilFlgEmqvGkf92bqmEAo0p2Ij5eLiQ6ctfrFRJm80pLFf
-         QiSF70xgZxyVJJFXrXl9Dj63B2BRAaExMjyI2X2jCb4v9ylyXK0bgFLDwHEDqUOU97L0
-         26eg==
+        bh=rlyafDsCl1IhrAGqeARNosjMhSOS/EQ/6GJ4TIEqlYs=;
+        b=FfyTCRqPxA10i3427/rpvOahNiK2akEEkaYfE53pNKA4QErEmIqZi3cVp0QMq2RN0Z
+         ajze5u3sL0pN//hEaNGPxtBYrcNF370W3abGRzDQUZCBgOGOeybhPvIRppblGWaLByMc
+         7prM4VVKVUoZFAsxijrGOHn4qoupsSVaNIKZq+Bli73TLDb96Iyw508qwItbqCflYhDK
+         OGVKZbz2VpRHtN5tXZQ2yWPXBsBGGI+CitD4v0C0YDsy2J66uGQWWGAyHZn1uySEzIyT
+         GhuRZk5mnJ74pr4peHUnrPFcdAZr22KBcV34+Wo1xTfKL262OJdoIzsl7IpdhMcLgpC9
+         hYag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790587667; x=1791192467;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dbq2DM657UXRUZrUM+7dawOTBHr08M0XClPpfaZ9skM=;
-        b=azjP4x1a/KmUimQGHbMkkZ2bEO6p+EszVAC8+P5H3Jd1+uTGq5YYN/LxK5sjDVKUlo
-         iiupIlHSGp3dIkQDnWkHaZD9ES3wN9YmODZIlXvDxTj3W9HK8FA2mF8GNZ8/gZlvrfTP
-         6T5FqX1HNfC+zVasIFFDduQDLyPWUiy3uqzbk/moKGp7TaJvrruaKEdwrBd364RqcLUo
-         +lhqjNnrVn5soNLtZWG73HKbUMpWDDgW71crCoKeBuLgUN5EBwJQo4ApXwjYRXUb2kTk
-         XvKJ3vaS/0L2boZLliU41zDZ9z6+l6r79owYuh6aCr24IF5ie+cDw9O1S5NRwQceIDyX
-         2onA==
-X-Forwarded-Encrypted: i=1; AKwUvByHRe5R1sG1G6s8mW16zHxsLBOnFuV0etvo+zHEtU+Vj1i5CSBxwZ3Pe8nRYLAczO9NANlDjS/5rD/DJ7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhUeZna/v5YvB26GbD5BKa16VWBOYS9vQjjniedXOCiJcHiYne
-	jxQFFnHLTRltj9geSL8Uok0nLDDJ6Auhxh6vONHKK2lQgM83WCZe3L7OSgfjdek8zbrP
-X-Gm-Gg: AYBFou1hnqPxMCWjZIfw6R+iUqgXIoSFhWuxosfK7DY7aN0wPOUFv0AS9INO2t486w6
-	D0QsNu1qEqgmmM/+JaaUsyEaLrex5F0uu5wkyNMJ0nL5YSlXR7+Yo4ddzquCOPwgG4lkPorZyxH
-	8T1J6QDWF7sN93XQUtr4+5yBNnlpHLqOp1CHKrd/oLqaqhC8XytMhZKxC0qJQ/nmitNIjxnXoNh
-	79PAwGvyYJ79/WpNztlvtDf8oj/xb996KoFKXkljd1LQ6ePto7Cep9dAtLBZBR5jzEMODMvSAeA
-	TgXC7AIcsAHMDV++6aD6UWqbDXrYQP9BWjHjNGBC8UnEBfc0JEV1pJxPJfQA0VLdY5GNX9wAUyM
-	juwM9UUFDxL38khsxlI8+SsYfKRo6hnk1occUapF8WZr84zUY+T120bufBux7HX9+AFv3+sHhBv
-	16AoVNBwGUQqqSXkuWzn/SD8GCZlm10oSPATTw92qcKsegTzzZ8DY5oskPaibkhbi6VQR3KZbV+
-	YXmEq/tfPcqCmzXuXzIjdSfdhVsDJ1tRtWmxoMF3w==
-X-Received: by 2002:a17:907:6091:b0:c16:4df6:176b with SMTP id a640c23a62f3a-c2ac23d6040mr1047117566b.20.1790587666848;
-        Mon, 28 Sep 2026 02:27:46 -0700 (PDT)
-Received: from [169.254.24.37] (tmo-085-169.customers.d1-online.com. [80.187.85.169])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dc8b71b4dsm205609466b.1.2026.09.28.02.27.45
+        d=1e100.net; s=20260707; t=1790587671; x=1791192471;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rlyafDsCl1IhrAGqeARNosjMhSOS/EQ/6GJ4TIEqlYs=;
+        b=dYxyf4ATmzpTta0DKgSTkw0nH6H4kv3aYPrwUdLYGVy2qA7PtabPd98dCeevGI0LG7
+         TFDy9T6KFB5WSl/UwJtyxaiHjREfX0oWhWXF1CbGzuk4xSVnLNWfUe093uBDJgJE+bVe
+         wZC/uCpnp56L7xe8XnoeBUEUqVwyLQYqU7/d9AD77nm1jf++7ZdxKPDowcxWejMm8C//
+         lNpJSY4HUeZAu1TDVP4fTXi/c0oISAzZYYyqMd9PyyVF2ghIzLq1V/ZK2S0rZkOxvO1F
+         p15dAXL0pjYNHAN9Y+VhVNehZC0Dh09oeAjOv99eSxnl6MUdBG14t07xIpJvHv3j6v6j
+         yTUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLJv9Sr5FjI1d/6WXspdjroajaUsbuwr2p3cvcW6i7JtI8koFG0GY4e29t4o/WHA2ueB+F4MKTGU5SaH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgtYEyyDHMSWz/T9sgo8gJdyvHYFHx4chBLCbSJOYkYE1mh0Tm
+	5bsRjK79FQ0vnAsh7U8MND7F7HipG0IE59WJpsT4QLKsBIeJamAKpkECltWiukWI
+X-Gm-Gg: AYBFou36ohwTr851xKRd0PsczY2F5nub3twzX1cBV4tLdZOGRjOzB3RkUJnzvU9QLK0
+	fX7C3yFoiucnynYDsI2eAlxocSA4ZLE9thdhExvS1Cd77I0y5unDEvzHvPpN3lZuFTHdxwAey5m
+	AnIP1CavlkmLOYDcX2SyvOfoLMWNL0RNxgvqo1qTOdcjtGf+WMEwfPmzlRnIcYeQa50YQ8i3zi1
+	JkUs3TRmGhlqcwea7rpxy6AvLUibqTv+Mpso4F8wStjIwDr7UUmWqQTlXNtZG5zqygD6w9YGID6
+	DpGAJEJsOXZu/CdDaRDxbREY45rbS/xUx5hBazR3Ogd6u3u45SqkCVyEKVp6yqnZzjQUjpLKBKK
+	khtEemG+PUmPLMgZFeflku2RwH+w4pE2RDvspCjXgLq+fZJBMK9Y7pz9KpD5Iy4Mrv7sTnUzzG2
+	VZI3/3d10LvU4J5WvqettT+N1gs5cbs5OK83ht17FVHfIZ+qQXdq7UljKgatYdOwIvAOZ3+g==
+X-Received: by 2002:a17:902:fd8e:b0:2df:84e0:9034 with SMTP id d9443c01a7336-2df84e09909mr98438105ad.7.1790587670824;
+        Mon, 28 Sep 2026 02:27:50 -0700 (PDT)
+Received: from gmail.com ([185.220.238.43])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913e0ad0sm38657125ad.21.2026.09.28.02.27.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 02:27:46 -0700 (PDT)
-From: Andrew Halaney <andrew@amutable.com>
-Date: Mon, 28 Sep 2026 11:27:17 +0200
-Subject: [PATCH v3 10/10] selftests/coredump: check the dumping thread's
- pidfd
+        Mon, 28 Sep 2026 02:27:50 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>,
+	Gary Guo <gary@garyguo.net>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev
+Subject: Re: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path, fallback to overflow list
+Date: Mon, 28 Sep 2026 17:27:40 +0800
+Message-ID: <20260928092741.604366-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <arlHFVT5EzcX4d1-@MacBook-0RXW5>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-work-unix-passpidfd-v3-10-532018a91b21@amutable.com>
-References: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com>
-In-Reply-To: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com>
-To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Oleg Nesterov <oleg@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-fsdevel@vger.kernel.org, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Andrew Halaney <andrew@amutable.com>, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+On Sun, 27 Sep 2026 18:40:53 +0200 Boqun Feng <boqun@kernel.org> wrote:
 
-Crash from a non-leader thread and verify that the pidfd from
-SO_PEERPIDFD_THREAD on the coredump socket refers to that thread and
-reports the coredump like the thread-group leader's pidfd does.
+> On Sun, Sep 27, 2026 at 11:51:31AM -0400, Mathieu Desnoyers wrote:
+> > Introduce a "try acquire" hazard pointer fast path, which performs an
+> > early load of the address to store it into the hazard pointer slot, and
+> > then re-loads that address after a barrier to check whether it has
+> > changed meanwhile.
+> > 
+> > On comparison failure, rather than re-try, guarantee forward progress by
+> > falling back to the __hazptr_acquire slow path on failure.
+> > 
+> > The acquire slow path attempts a try-acquire for any available per-CPU
+> > slot. If that fails, it chains the backup slot into the overflow list,
+> > therefore guaranteeing forward progress for both hazard pointer
+> > read-side and synchronize:
+> > 
+> > - Readers set the wildcard, and then proceed to set the more
+> >   specific address to replace the wildcard.
+> > 
+> > - One synchronize alternates between two overflow list periods,
+> >   scanning each one while readers are added to the other period,
+> >   thus preventing a steady flow of readers from preventing
+> >   synchronize forward progress.
+> > 
+> > With this change, the scan on per-CPU slots don't need to expect a
+> > wildcard anymore, because none can be produced by readers. Wildcards are
+> > only expected within overflow lists.
+> > 
+> 
+> Ok, I was missing something, but I think it's better to call it out.
+> Wildcards can only exist in the overflow lists when the context is not
+> preemptible. In other words, there won't be a preempted readers blocking
+> the synchronize_hazptr() with a wilcard in the overflow list.
+> 
+> So no more design trade-off question from me :)
+> 
+> Regards,
+> Boqun
+> 
+> > Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> > Cc: Paul E. McKenney <paulmck@kernel.org>
+> > Cc: Boqun Feng <boqun@kernel.org>
+> > Cc: Bradley Morgan <brads@mainlining.org>
+> > Cc: Gary Guo <gary@garyguo.net>
+> > Cc: <rcu@vger.kernel.org>
+> > Cc: <lkmm@lists.linux.dev>
+> > ---
+> >  include/linux/hazptr.h |  47 +++++++++++--------
+> >  kernel/hazptr.c        | 103 ++++++++++++++++++++---------------------
+> >  2 files changed, 76 insertions(+), 74 deletions(-)
+> > 
+> > diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+> > index d1670121947a..fcf017ca2255 100644
+> > --- a/include/linux/hazptr.h
+> > +++ b/include/linux/hazptr.h
+> > @@ -29,9 +29,6 @@
+> >  /* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
+> >  #define NR_HAZPTR_PERCPU_SLOTS	4
+> >  
+> > -/* The current hazard pointer wildcard. */
+> > -extern void *hazptr_wildcard;
+> > -
+> >  /*
+> >   * Hazard pointer slot.
+> >   */
+> > @@ -190,6 +187,31 @@ void hazptr_note_context_switch(void)
+> >  	}
+> >  }
+> >  
+> > +/* Try hazard pointer protection. */
+> > +static inline
+> > +void *__hazptr_try_acquire(struct hazptr_ctx *ctx, void * const *addr_p, struct hazptr_slot *slot)
+> > +{
+> > +	void *early_addr, *addr;
+> > +
+> > +	if (unlikely(slot->addr))
+> > +		return NULL;
+> > +	early_addr = READ_ONCE(*addr_p);	/* Early load. */
+> > +	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
+> > +	/* Memory ordering: Store B before Load A. */
+> > +	smp_mb();
+> > +	addr = READ_ONCE(*addr_p);		/* Load A */
+> > +	/*
+> > +	 * Validate that address did not change between Early load and Load A.
+> > +	 * Use ptr_eq() to make sure that result from Load A is returned to the
+> > +	 * caller to preserve address dependency.
+> > +	 */
+> > +	if (unlikely(!ptr_eq(addr, early_addr))) {
+> > +		WRITE_ONCE(slot->addr, NULL);
+> > +		return NULL;
+> > +	}
+> > +	return addr;
+> > +}
+> > +
+> >  /**
+> >   * hazptr_acquire - Load pointer at address and protect with hazard pointer.
+> >   *
+> > @@ -245,24 +267,9 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+> >  	ctx->acquire_cpu = smp_processor_id();
+> >  	ctx->acquire_caller = _THIS_IP_;
+> >  #endif
+> > -	if (unlikely(slot->addr))
+> > +	addr = __hazptr_try_acquire(ctx, addr_p, slot);
+> > +	if (unlikely(!addr))
+> >  		return __hazptr_acquire(ctx, addr_p);
+> > -	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+> > -
+> > -	/* Memory ordering: Store B before Load A. */
+> > -	smp_mb();
+> > -
+> > -	/*
+> > -	 * Load @addr_p after storing wildcard to the hazard pointer slot.
+> > -	 */
+> > -	addr = READ_ONCE(*addr_p);	/* Load A */
+> > -
+> > -	/*
+> > -	 * We don't care about ordering of Store C. It will simply
+> > -	 * replace the wildcard by a more specific address. If addr is
+> > -	 * NULL, we simply store NULL into the slot.
+> > -	 */
+> > -	WRITE_ONCE(slot->addr, addr);	/* Store C */
+> >  	slot_item->ctx.ctx = ctx;
+> >  	ctx->slot = slot;
+> >  	return addr;
+> > diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+> > index 13faa5ba7677..3ca73b56a5c2 100644
+> > --- a/kernel/hazptr.c
+> > +++ b/kernel/hazptr.c
+> > @@ -13,17 +13,9 @@
+> >  #include <linux/list.h>
+> >  #include <linux/export.h>
+> >  
+> > -static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
+> > +#define HAZPTR_WILDCARD	((void *) 1UL)
+> >  
+> > -/*
+> > - * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
+> > - * hazptr_synchronize forward progress even with a steady stream of readers.
+> > - * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
+> > - * This also affects the overflow list selection: the current list used by
+> > - * readers is array[(unsigned long) hazptr_wildcard - 1].
+> > - */
+> > -void *hazptr_wildcard = (void *) 1UL;
+> > -EXPORT_SYMBOL_GPL(hazptr_wildcard);
+> > +static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the list phase flip. */
+> >  
+> >  /* The current overflow list phase. */
+> >  static unsigned int hazptr_overflow_list_phase;
+> > @@ -41,6 +33,10 @@ struct hazptr_overflow_list {
+> >   * successively iterates on both lists. Therefore, only list removals
+> >   * can cause the iteration to retry, and the number of removals is
+> >   * limited to the number of list elements.
+> > + *
+> > + * Due to the overflow list raw spin lock, the hazard pointer readers are
+> > + * blocking, starvation-free with bounded waiting, assuming bounded critical
+> > + * sections and no NMI or virtualization-induced holder preemption.
+> >   */
+> >  struct hazptr_overflow_list_flip {
+> >  	struct hazptr_overflow_list array[2];
+> > @@ -51,26 +47,12 @@ static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_fli
+> >  DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
+> >  EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
+> >  
+> > -static
+> > -void *flip_wildcard(void *wildcard)
+> > -{
+> > -	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
+> > -}
+> > -
+> >  static
+> >  unsigned int flip_list_phase(unsigned int phase)
+> >  {
+> >  	return 1 - phase;
+> >  }
+> >  
+> > -static
+> > -bool is_wildcard(void *addr)
+> > -{
+> > -	if ((unsigned long) addr == 1UL || (unsigned long) addr == 2UL)
+> > -		return true;
+> > -	return false;
+> > -}
+> > -
+> >  static
+> >  struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+> >  {
+> > @@ -96,16 +78,36 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+> >   */
+> >  void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+> >  {
+> > -	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
+> > +	struct hazptr_slot *slot;
+> >  	void *addr;
+> >  
+> >  	/*
+> > -	 * If all the per-CPU slots are already in use, fallback
+> > -	 * to the backup slot.
+> > +	 * In case we are called due to nested use of hazard pointers,
+> > +	 * try a slot protection with per-CPU slots.
+> >  	 */
+> > -	if (unlikely(!slot))
+> > -		slot = hazptr_chain_backup_slot(ctx);
+> > -	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+> > +	slot = hazptr_get_free_percpu_slot(ctx);
+> > +	if (likely(slot)) {
+> > +		addr = __hazptr_try_acquire(ctx, addr_p, slot);
+> > +		if (addr) {
+> > +			ctx->slot = slot;
+> > +			return addr;
+> > +		}
+> > +	}
+> > +
+> > +	/*
+> > +	 * The backup slot overflow list guarantees forward progress of both
+> > +	 * hazard pointer readers and synchronize:
+> > +	 *
+> > +	 * - Readers set the wildcard, and then proceed to set the more
+> > +	 *   specific address to replace the wildcard.
+> > +	 *
+> > +	 * - One synchronize alternates between two overflow list periods,
+> > +	 *   scanning each one while readers are added to the other period,
+> > +	 *   thus preventing a steady flow of readers from preventing
+> > +	 *   synchronize forward progress.
+> > +	 */
+> > +	slot = hazptr_chain_backup_slot(ctx);
+> > +	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+> >  
+> >  	/* Memory ordering: Store B before Load A. */
+> >  	smp_mb();
+> > @@ -121,20 +123,21 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+> >  	 * NULL, we simply store NULL into the slot.
+> >  	 */
+> >  	WRITE_ONCE(slot->addr, addr);	/* Store C */
+> > +
+> >  	ctx->slot = slot;
+> > -	if (!addr && hazptr_slot_is_backup(ctx, slot))
+> > +	if (!addr)
+> >  		hazptr_unchain_backup_slot(ctx);
+> >  	return addr;
+> >  }
+> >  EXPORT_SYMBOL_GPL(__hazptr_acquire);
+> >  
+> >  /*
+> > - * Perform piecewise iteration on overflow list waiting until "addr" is
+> > - * not present. Raw spinlock is released and taken between each list
+> > - * item and busy loop iteration. The overflow list generation is checked
+> > - * each time the lock is taken to validate that the list has not changed
+> > - * before resuming iteration or busy wait. If the generation has
+> > - * changed, retry the entire list traversal.
+> > + * Perform piecewise iteration on overflow list waiting until "addr" and
+> > + * wildcard are not present. Raw spinlock is released and taken between each
+> > + * list item and busy loop iteration. The overflow list generation is checked
+> > + * each time the lock is taken to validate that the list has not changed before
+> > + * resuming iteration or busy wait. If the generation has changed, retry the
+> > + * entire list traversal.
+> >   */
+> >  static
+> >  void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list, void *addr)
+> > @@ -147,13 +150,11 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+> >  retry:
+> >  	snapshot_gen = overflow_list->gen;
+> >  	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
+> > -		/* Busy-wait if node is found. */
+> > +		/* Busy-wait if addr or wildcard are found. */
+> >  		for (;;) {
+> >  			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
+> >  
+> > -			/* We don't expect wildcards in overflow list. */
+> > -			WARN_ON_ONCE(is_wildcard(load_addr));
+> > -			if (load_addr != addr)
+> > +			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
+> >  				break;
+> >  			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+> >  			cpu_relax();
+> > @@ -174,7 +175,7 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+> >  }
+> >  
+> >  static
+> > -void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+> > +void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+> >  {
+> >  	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
+> >  	unsigned int idx;
+> > @@ -182,13 +183,13 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+> >  	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+> >  		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+> >  
+> > -		/* Busy-wait if node is found. */
+> > -		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != scan_wildcard); /* Load B */
+> > +		/* Busy-wait if addr is found. */
+> > +		smp_cond_load_acquire(&item->slot.addr, VAL != addr); /* Load B */
+> >  	}
+> >  }
+> >  
+> >  static
+> > -void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+> > +void hazptr_scan_cpu_slots(void *addr)
+> >  {
+> >  	int cpu;
+> >  
+> > @@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+> >  	for_each_possible_cpu(cpu) {
+> >  		/*
+> >  		 * Scan CPU slots.
+> > -		 * Forward progress against recurring wildcards is guaranteed
+> > -		 * by scanning for one wildcard while new elements use the
+> > -		 * other wildcard value (1UL vs 2UL).
+> >  		 * Forward progress against recurring single hazard pointer
+> >  		 * values is guaranteed by the fact that a hazard pointer
+> >  		 * is not reclaimed nor reused until the scan for that hazard
+> >  		 * pointer completes, which prevents a steady flow of readers
+> >  		 * to acquire that same hazard pointer value.
+> 
+> (Not a comment to this patch, but I think it's worth bringing up)
+> 
+> I want to point out this is not true for the lockdep use case, because
+> the we need to protect a hash list deletion there, and we use the
+> address of the hash bucket there. It's proven fine in practice because
+> the readers are rare (we only call the reader is_dynamic_key() in
+> register_lock_class(), that is every time you have a new lock class to
+> register).
+> 
+> Maybe what we want to say here is that "if the users guarantee no steady
+> flow of the same hazard pointer value, we guarantee forward progress".
+> Thoughts?
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
-Signed-off-by: Andrew Halaney <andrew@amutable.com>
----
- .../selftests/coredump/coredump_socket_test.c      | 175 +++++++++++++++++++++
- tools/testing/selftests/coredump/coredump_test.h   |   2 +
- .../selftests/coredump/coredump_test_helpers.c     |  49 ++++++
- 3 files changed, 226 insertions(+)
+Thanks Mathieu, and thanks Boqun for the review.
 
-diff --git a/tools/testing/selftests/coredump/coredump_socket_test.c b/tools/testing/selftests/coredump/coredump_socket_test.c
-index 422728f632ca..ec73bb690bbc 100644
---- a/tools/testing/selftests/coredump/coredump_socket_test.c
-+++ b/tools/testing/selftests/coredump/coredump_socket_test.c
-@@ -592,6 +592,181 @@ TEST_F(coredump, socket_coredump_signal_sigsegv)
- 	wait_and_check_coredump_server(pid_coredump_server, _metadata, self);
- }
- 
-+static bool check_coredump_info(const struct pidfd_info *info, const char *what)
-+{
-+	if (!(info->mask & PIDFD_INFO_COREDUMP)) {
-+		fprintf(stderr, "%s: PIDFD_INFO_COREDUMP not set in mask\n", what);
-+		return false;
-+	}
-+
-+	if (!(info->coredump_mask & PIDFD_COREDUMPED)) {
-+		fprintf(stderr, "%s: PIDFD_COREDUMPED not set in coredump_mask\n", what);
-+		return false;
-+	}
-+
-+	if (!(info->mask & PIDFD_INFO_COREDUMP_SIGNAL) || info->coredump_signal != SIGSEGV) {
-+		fprintf(stderr, "%s: coredump_signal=%d, expected SIGSEGV=%d\n",
-+			what, info->coredump_signal, SIGSEGV);
-+		return false;
-+	}
-+
-+	if (!(info->mask & PIDFD_INFO_COREDUMP_CODE) || info->coredump_code != SEGV_MAPERR) {
-+		fprintf(stderr, "%s: coredump_code=%d, expected SEGV_MAPERR=%d\n",
-+			what, info->coredump_code, SEGV_MAPERR);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * Test: PIDFD_INFO_COREDUMP on the dumping thread's pidfd
-+ *
-+ * Crash from a non-leader thread and verify that the pidfd from
-+ * SO_PEERPIDFD_THREAD refers to that thread and reports the coredump
-+ * like the thread-group leader's pidfd from SO_PEERPIDFD does.
-+ */
-+TEST_F(coredump, socket_coredump_thread)
-+{
-+	int pidfd, ret, status;
-+	pid_t pid, pid_coredump_server;
-+	struct pidfd_info info = {};
-+	int ipc_sockets[2];
-+	char c;
-+
-+	ASSERT_TRUE(set_core_pattern("@/tmp/coredump.socket"));
-+
-+	ret = socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, ipc_sockets);
-+	ASSERT_EQ(ret, 0);
-+
-+	pid_coredump_server = fork();
-+	ASSERT_GE(pid_coredump_server, 0);
-+	if (pid_coredump_server == 0) {
-+		int fd_server = -1, fd_coredump = -1, fd_peer_pidfd = -1;
-+		int fd_thread_pidfd = -1, fd_core_file = -1;
-+		struct pidfd_info thread_info = {};
-+		int exit_code = EXIT_FAILURE;
-+
-+		close(ipc_sockets[0]);
-+
-+		fd_server = create_and_listen_unix_socket("/tmp/coredump.socket");
-+		if (fd_server < 0) {
-+			fprintf(stderr, "socket_coredump_thread: listen socket failed: %m\n");
-+			goto out;
-+		}
-+
-+		if (write_nointr(ipc_sockets[1], "1", 1) < 0) {
-+			fprintf(stderr, "socket_coredump_thread: ipc write failed: %m\n");
-+			goto out;
-+		}
-+
-+		close(ipc_sockets[1]);
-+
-+		fd_coredump = accept4(fd_server, NULL, NULL, SOCK_CLOEXEC);
-+		if (fd_coredump < 0) {
-+			fprintf(stderr, "socket_coredump_thread: accept4 failed: %m\n");
-+			goto out;
-+		}
-+
-+		fd_peer_pidfd = get_peer_pidfd(fd_coredump);
-+		if (fd_peer_pidfd < 0) {
-+			fprintf(stderr, "socket_coredump_thread: get_peer_pidfd failed\n");
-+			goto out;
-+		}
-+
-+		fd_thread_pidfd = get_peer_pidfd_thread(fd_coredump);
-+		if (fd_thread_pidfd < 0) {
-+			fprintf(stderr, "socket_coredump_thread: get_peer_pidfd_thread failed\n");
-+			goto out;
-+		}
-+
-+		if (!get_pidfd_info(fd_peer_pidfd, &info) ||
-+		    !get_pidfd_info(fd_thread_pidfd, &thread_info)) {
-+			fprintf(stderr, "socket_coredump_thread: get_pidfd_info failed\n");
-+			goto out;
-+		}
-+
-+		/* The peer is the thread-group leader, the dumping thread is not. */
-+		if (info.pid != info.tgid || thread_info.tgid != info.tgid ||
-+		    thread_info.pid == thread_info.tgid) {
-+			fprintf(stderr, "socket_coredump_thread: unexpected ids %d/%d and %d/%d\n",
-+				info.pid, info.tgid, thread_info.pid, thread_info.tgid);
-+			goto out;
-+		}
-+
-+		if (!check_coredump_info(&info, "SO_PEERPIDFD") ||
-+		    !check_coredump_info(&thread_info, "SO_PEERPIDFD_THREAD"))
-+			goto out;
-+
-+		fd_core_file = open_coredump_tmpfile(self->fd_tmpfs_detached);
-+		if (fd_core_file < 0) {
-+			fprintf(stderr, "socket_coredump_thread: core tmpfile failed: %m\n");
-+			goto out;
-+		}
-+
-+		for (;;) {
-+			char buffer[4096];
-+			ssize_t bytes_read, bytes_write;
-+
-+			bytes_read = read(fd_coredump, buffer, sizeof(buffer));
-+			if (bytes_read < 0) {
-+				fprintf(stderr, "socket_coredump_thread: core read failed: %m\n");
-+				goto out;
-+			}
-+
-+			if (bytes_read == 0)
-+				break;
-+
-+			bytes_write = write(fd_core_file, buffer, bytes_read);
-+			if (bytes_read != bytes_write) {
-+				fprintf(stderr, "socket_coredump_thread: core write %zd/%zd: %m\n",
-+					bytes_read, bytes_write);
-+				goto out;
-+			}
-+		}
-+
-+		exit_code = EXIT_SUCCESS;
-+		fprintf(stderr, "socket_coredump_thread: completed successfully\n");
-+out:
-+		if (fd_core_file >= 0)
-+			close(fd_core_file);
-+		if (fd_thread_pidfd >= 0)
-+			close(fd_thread_pidfd);
-+		if (fd_peer_pidfd >= 0)
-+			close(fd_peer_pidfd);
-+		if (fd_coredump >= 0)
-+			close(fd_coredump);
-+		if (fd_server >= 0)
-+			close(fd_server);
-+		_exit(exit_code);
-+	}
-+	self->pid_coredump_server = pid_coredump_server;
-+
-+	EXPECT_EQ(close(ipc_sockets[1]), 0);
-+	ASSERT_EQ(read_nointr(ipc_sockets[0], &c, 1), 1);
-+	EXPECT_EQ(close(ipc_sockets[0]), 0);
-+
-+	pid = fork();
-+	ASSERT_GE(pid, 0);
-+	if (pid == 0)
-+		crashing_child_thread();
-+
-+	pidfd = sys_pidfd_open(pid, 0);
-+	ASSERT_GE(pidfd, 0);
-+
-+	waitpid(pid, &status, 0);
-+	ASSERT_TRUE(WIFSIGNALED(status));
-+	ASSERT_EQ(WTERMSIG(status), SIGSEGV);
-+	ASSERT_TRUE(WCOREDUMP(status));
-+
-+	ASSERT_TRUE(get_pidfd_info(pidfd, &info));
-+	ASSERT_TRUE(!!(info.mask & PIDFD_INFO_COREDUMP));
-+	ASSERT_TRUE(!!(info.coredump_mask & PIDFD_COREDUMPED));
-+	ASSERT_EQ(info.coredump_signal, SIGSEGV);
-+
-+	wait_and_check_coredump_server(pid_coredump_server, _metadata, self);
-+}
-+
- /*
-  * Test: PIDFD_INFO_COREDUMP_SIGNAL via simple socket coredump with SIGABRT
-  *
-diff --git a/tools/testing/selftests/coredump/coredump_test.h b/tools/testing/selftests/coredump/coredump_test.h
-index ed47f01fa53c..4212656e31f0 100644
---- a/tools/testing/selftests/coredump/coredump_test.h
-+++ b/tools/testing/selftests/coredump/coredump_test.h
-@@ -27,10 +27,12 @@ FIXTURE(coredump)
- /* Shared helper function declarations */
- void *do_nothing(void *arg);
- void crashing_child(void);
-+void crashing_child_thread(void);
- int create_detached_tmpfs(void);
- int create_and_listen_unix_socket(const char *path);
- bool set_core_pattern(const char *pattern);
- int get_peer_pidfd(int fd);
-+int get_peer_pidfd_thread(int fd);
- bool get_pidfd_info(int fd_peer_pidfd, struct pidfd_info *info);
- 
- /* Inline helper that uses harness types */
-diff --git a/tools/testing/selftests/coredump/coredump_test_helpers.c b/tools/testing/selftests/coredump/coredump_test_helpers.c
-index 2a20faf9cb0a..36306069f62e 100644
---- a/tools/testing/selftests/coredump/coredump_test_helpers.c
-+++ b/tools/testing/selftests/coredump/coredump_test_helpers.c
-@@ -13,6 +13,7 @@
- #include <string.h>
- #include <sys/epoll.h>
- #include <sys/ioctl.h>
-+#include <sys/mman.h>
- #include <sys/socket.h>
- #include <sys/types.h>
- #include <sys/un.h>
-@@ -38,6 +39,10 @@ struct _fixture_coredump_data {
- 
- #define NUM_THREAD_SPAWN 128
- 
-+#ifndef SO_PEERPIDFD_THREAD
-+#define SO_PEERPIDFD_THREAD 87
-+#endif
-+
- void *do_nothing(void *arg)
- {
- 	(void)arg;
-@@ -59,6 +64,36 @@ void crashing_child(void)
- 	i = *(volatile int *)NULL;
- }
- 
-+static void *crashing_thread(void *arg)
-+{
-+	int *p;
-+
-+	(void)arg;
-+
-+	/* crash on purpose with SEGV_MAPERR */
-+	p = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE,
-+		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (p == MAP_FAILED)
-+		return NULL;
-+	munmap(p, PAGE_SIZE);
-+	*p = 0;
-+
-+	return NULL;
-+}
-+
-+void crashing_child_thread(void)
-+{
-+	pthread_t thread;
-+	int i;
-+
-+	for (i = 0; i < NUM_THREAD_SPAWN; ++i)
-+		pthread_create(&thread, NULL, do_nothing, NULL);
-+
-+	/* crash from a non-leader thread */
-+	pthread_create(&thread, NULL, crashing_thread, NULL);
-+	pause();
-+}
-+
- int create_detached_tmpfs(void)
- {
- 	int fd_context, fd_tmpfs;
-@@ -138,6 +173,20 @@ int get_peer_pidfd(int fd)
- 	return fd_peer_pidfd;
- }
- 
-+int get_peer_pidfd_thread(int fd)
-+{
-+	int fd_peer_pidfd;
-+	socklen_t fd_peer_pidfd_len = sizeof(fd_peer_pidfd);
-+	int ret = getsockopt(fd, SOL_SOCKET, SO_PEERPIDFD_THREAD, &fd_peer_pidfd,
-+			     &fd_peer_pidfd_len);
-+	if (ret < 0) {
-+		fprintf(stderr, "%s: getsockopt(SO_PEERPIDFD_THREAD) failed: %m\n", __func__);
-+		return -1;
-+	}
-+	fprintf(stderr, "%s: successfully retrieved pidfd %d\n", __func__, fd_peer_pidfd);
-+	return fd_peer_pidfd;
-+}
-+
- bool get_pidfd_info(int fd_peer_pidfd, struct pidfd_info *info)
- {
- 	int ret;
+I hit the same ordering requirement in the shared-scan
+implementation I'm working on. hazptr_promote_to_backup_slot()
+links the backup slot into the overflow list before clearing the
+per-CPU slot, so the scan has to cover all per-CPU slots before
+the overflow lists. My series carries the same ordering fix in
+the scan-kthread path.
 
--- 
-2.55.0
+For the lockdep case, I've tested the conversion with the
+wq_churn/LOCKDEP torture scenario and PROVE_LOCKING enabled.
+The hazard pointer is the hash bucket address there, so I agree
+that the forward-progress guarantee should be stated conditional
+on there being no steady flow of the same hazard pointer value.
+
+I'm also working on the scan-thread side, where concurrent
+hazptr_synchronize() callers share one scan cycle, based on 
+the scan-kthread approach from your shazptr series [1].                                                 
+[1] https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
+
+The v2 series is testing, I'll include the rcuscale results 
+in the cover letter.
+
+Thanks,
+Kunwu
+
+> 
+> The rest looks good to me.
+> 
+> Regards,
+> Boqun
+> 
+> >  		 */
+> > -		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
+> > +		hazptr_synchronize_cpu_slots(cpu, addr);
+> >  	}
+> >  }
+> >  
+> > @@ -237,7 +235,6 @@ void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
+> >  void hazptr_synchronize(void *addr)
+> >  {
+> >  	unsigned int scan_list_phase;
+> > -	void *scan_wildcard;
+> >  
+> >  	/*
+> >  	 * Busy-wait should only be done from preemptible context.
+> > @@ -251,16 +248,14 @@ void hazptr_synchronize(void *addr)
+> >  	 */
+> >  	if (!addr)
+> >  		return;
+> > +
+> >  	/* Memory ordering: Store A before Load B. */
+> >  	smp_mb();
+> >  
+> >  	guard(mutex)(&hazptr_phase_lock);
+> >  
+> >  	/* Scan per-CPU slots. */
+> > -	scan_wildcard = flip_wildcard(hazptr_wildcard);
+> > -	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
+> > -	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
+> > -	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
+> > +	hazptr_scan_cpu_slots(addr);
+> >  
+> >  	/*
+> >  	 * Scan overflow lists *after* scanning per-CPU slots. See
+> > -- 
+> > 2.43.0
+> > 
+> 
 
