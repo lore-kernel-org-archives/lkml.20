@@ -1,137 +1,105 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424823B47F1;
-	Mon, 28 Sep 2026 18:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353A83B777D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621459; cv=none; b=F0ZXGelB4w1cKyzuwzyPL/TXqz2emrd5eXy85CGuH+/FIUambHOt9z/xrdQW6QidtpR2pxrWWNwYT5hjD7Y6gmy5G/yjeRHRZZEqg4f0YahTiD3r36/Hgsqx9XzoLw8WfbJjkZqGYdbncggJfQVg/pEvNNjS5uxOXBpTbmRWDOI=
+	t=1790621502; cv=none; b=BVxQEgBqVM9faR6zLopGhem4sdvDt+v1WMB4oVOVanR4yoEELPDWDFD1nVm47DFpX4O+I1NMM35O2LO/wyMBg8zBw85D5Fk9tH0z5WwfyjUGT96+qsGwTgDsufdktDAUgK7QIWUNQ28hBHq3laOdZslN04Rx+YIjx7yaNJDA3GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621459; c=relaxed/simple;
-	bh=iFYpdYAHK6h8qOv0hPW1rsulAkmtdV2c0j/owvfdhVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J+kaBN9XiDuK1KuW0FmfPK1ojOQ0n6IXukoBQqzGe4Tipf/gVQUHc92Y/piibDX69Jbd6lsVga+VJicAhZALxBwrbOgZGeHsRCbjNYcN9+qIQPWNbiWOIByhg2aFkncRrZr6Ml/tKYx76a8b3rYgp0AzJUHt9b9Xsmn1p0Nn8l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rhraeJks; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790621502; c=relaxed/simple;
+	bh=EBmE3giO3xcXmLQHaSN3V5pizTDx2BGOStLLtNnjxWg=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=jqbsXSxf8M13wcITfhj8LA6kzlAxauZkQL0BFbR/Byr5QJL3lilDNIXt4M1JAU1sinSzmLttAcZm6eOdBza5jGyTsHRg3/NxrCALIMX+ghA14/H7r4JhckA2tGNehb8y/d4/mSDP7M+XaophY/ACCY+HmUzyvbfG7A5nhH+nsMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dr4lDOvn; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rhraeJks"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B60A98FD;
-	Mon, 28 Sep 2026 20:48:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790621338;
-	bh=iFYpdYAHK6h8qOv0hPW1rsulAkmtdV2c0j/owvfdhVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rhraeJksBfl1tcrfAKPAExKZMkNpzXmlAElFHU5nz37neRKYLNWPj3U/sI4oiMseT
-	 sqmtXDxSnZdr5RpducOSVTx39fKiaQJDE7v8s1a8sEQgMLL8JbMYhYGasGIkAVg/MI
-	 /ZXQBgx74/pZjR8197DtHudiDMS38qEagzuik6Zw=
-Date: Mon, 28 Sep 2026 21:50:48 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Kean Ren <rh_king@163.com>, linux-media@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk for Luxvisions RGB Camera
- (30c9:0122)
-Message-ID: <20260928185048.GG210522@killaraus.ideasonboard.com>
-References: <20260903081145.8382-1-rh_king@163.com>
- <CANiDSCsqZzFY+KMKGBg06vm6rGR4FMy63hd0HShiHfb+vpqyqg@mail.gmail.com>
- <20260928132407.GG4406@killaraus.ideasonboard.com>
- <CANiDSCt8kntjSh4TWFb4N-DxwEpsbqtUUTtNJ-hOuGRofz791A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dr4lDOvn"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672c2880f58so3247025d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:51:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790621496; x=1791226296; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3egM1frRs32ga506avUD6lSWm9sZ+yGf/5m9pLjd+BE=;
+        b=dr4lDOvn8cWMDpqyfLr2uUJLpSDHRtYvkaqRkfA9qIySAiiXO7TKdfE2PGyDoRxJMb
+         7k9y2wXy/hUeDqZkwDSDGj/NLr7J+szGfhgp+wMBpLbPrdCysGEONA9rTUlabh3ESGe4
+         jdI5hv/ZJfef+ywd5xGRtxMx6HDkrAvA3+Imau8QCD9O9hfdr/CZbAApR5lr7VoiF5LW
+         +Be25mEvE84oJL3yaGpXCuBsd2s7SimW65zqMxNcwCbWtDPphIBAdbKECRzHugNZRiAm
+         qkv9y50xrcd3q8MCmVAP4n1ywYBvFhKMwGGRn+P+HBQEz2B1t8v3X/puBDZtiF3IkhNj
+         uYAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790621496; x=1791226296;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3egM1frRs32ga506avUD6lSWm9sZ+yGf/5m9pLjd+BE=;
+        b=BS0LkTu3efQoc+Y0ftqJVckyz2fZPYciBl14CUlikpHm2fTDK/8ypBZaSrX/6QydPJ
+         GvSqy/VYlJueghA6iPNQfm+JR9WdSbAthlhn1ntWZsQ8533ZtdKZCnM20hDqjOM/AZth
+         Zx7greFUhyG2ZX2XT5pgMGshb5JF56Wj9SXNT/pwdgIJ59GlHi3IifIULUfj01TxR9GF
+         jDygtkETioIcuMPXeS2rqRwfJm8ISW+N1FFaanHoICx+1mEAA7XRvGGP4xbPxwlhLlUC
+         CIWQPPYsWsMi4v6DZTLYv6vmuTmAztP+M825pvQE2U+C3AtUj8ygR9Tp6ikExjOlVFTi
+         x6+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxparIopcSeVM9uZ09DBdlb+bzs/AL5f2KG4SZna7fW725pxJ/6yhwhn4PSKHdUPPvokG1sDwII1QMMhKw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzqH2JOQfmmhKUZCXqVBkNuUhTluYhR9EoBALqk6jm8SDePPa0
+	wjOkyEPbKa3WCn0EXJcRBIdMvh+rOQxlcpUzbAY9do4z3dSNX5AGyjUk
+X-Gm-Gg: AYBFou2YSIKo0jcAMsdI+zwAQRyzW7Vj3G5RON8aOj9rH6Mr2B7yTby6WonTScN6G71
+	ElSVg6dHOHQce2mmvtWet53hrXZu+JiJbUYbE7DTKSdDm0eR/R6Nearh22pjB1Imw4mzeb+X98c
+	SAFGfYbfMoZKU6zunB772hZFp0MJ8LFm5t+OrnAIhYh5ZJjpceI4gkZjkYyqBEfAwb8dXBvXld5
+	IGnlbvOgYHXyjF+dCmF/hhnX25KKZ2TtwN+gkhvsiN9qWe2IZLdS2yJTNF1auUhuJfhQDs8gYf4
+	4LqJF+IQwxXcKnv+mpwMdd2SxoRYzBJ1UVboGPuW0Y+zbd5YHc3HfDXSp7iL7O4EY3Brux2RcZG
+	v2t1mIZEQNExkcVpArM99v1NvllVLmjp4PwkNrSvF9Fdu3HbXRel8LvpWixv0zF7FO8R3yqfzZH
+	psKA5OrJErCexgIuWeRFPTULDlgSU6LyQKyT0pPVGVT3gjwDr2E67/5ornV/BosUu6tebEhng5P
+	27hWJHCvEMj/VqOLEg7H1JxDHez2S2FGiJJsG7POvsC1HPlrTuj
+X-Received: by 2002:a05:690e:138a:b0:675:398e:b887 with SMTP id 956f58d0204a3-675398eba1amr2715071d50.5.1790621495747;
+        Mon, 28 Sep 2026 11:51:35 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6755f26183fsm329917d50.18.2026.09.28.11.51.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 11:51:35 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:51:34 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Jiale Yao <yaojiale02@163.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Message-ID: <willemdebruijn.kernel.2d99358fa8ef4@gmail.com>
+In-Reply-To: <20260926162554.163197-3-yaojiale02@163.com>
+References: <20260926162554.163197-1-yaojiale02@163.com>
+ <20260926162554.163197-3-yaojiale02@163.com>
+Subject: Re: [PATCH 2/3] tun: Drain eBPF RCU callbacks on module exit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CANiDSCt8kntjSh4TWFb4N-DxwEpsbqtUUTtNJ-hOuGRofz791A@mail.gmail.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 03:32:20PM +0200, Ricardo Ribalda wrote:
-> On Mon, 28 Sept 2026 at 15:24, Laurent Pinchart wrote:
-> > On Fri, Sep 04, 2026 at 11:15:15AM +0200, Ricardo Ribalda wrote:
-> > > On Thu, 3 Sept 2026 at 10:58, Kean Ren <rh_king@163.com> wrote:
-> > > >
-> > > > The device binds cleanly but delivers no image data; USB autosuspend is
-> > > > suspending the streaming endpoint. Disable autosuspend for it.
-> > > >
-> > > > Issue found on Lenovo ThinkPad X13 (codename Zelda, Intel); confirmed
-> > > > working with this quirk.
-> > > >
-> > > Link: https://lore.kernel.org/linux-media/20260904090751.1814783-1-rh_king@163.com/T/#mf5306ef689ce38ed331a3098272cb0ac2588ed79
-> >
-> > When linking to the original thread on lore, the patch.msgid.link domain
-> > is preferred (see Documentation/process/maintainer-tip.rst). That would
-> > be
-> >
-> > Link: https://patch.msgid.link/linux-media/20260904090751.1814783-1-rh_king@163.com/
-> >
-> > Did you mean to specifically link to the descriptors though ? As they're
-> > in the same mail thread, I think the link to the patch itself should be
-> > enough. Do you prefer otherwise ?
+Jiale Yao wrote:
+> Replacing or clearing a TUN eBPF program defers its destruction to
+> tun_prog_free(). In the device teardown path, tun_free_netdev() can queue
+> this callback as a private destructor. The rcu_barrier() in
+> netdev_run_todo() runs before private destructors, so it cannot drain the
+> new callback.
 > 
-> I wanted to link the usb descriptors. I'd rather have them copy pasted
-> in to the commit message or with a link to lore
-> (For the usb descriptors I think the doc says that we have to use lore )
-
-Do you mean for links other than the original patch series ? I don't
-suppose the doc talks about USB descriptors explicitly :-)
-
-> > > > Tested-by: Kean Ren <rh_king@163.com>
-> > >
-> > > nit: I think we do not usually add the Tested-by: tag for authors. We
-> > > expect that it has been tested :)
-> >
-> > Maybe we shouldn't :-) We merge plenty of code that hasn't been tested
-> > by the author, a prime example being API refactoring. Actually, reading
-> > Documentation/, I can't see anything that explicitly approves or forbids
-> > a Tested-by tag from the author.
-> >
-> > This being said, for driver patches like these I would certainly expect
-> > the author to have tested the change.
-> >
-> > > > Signed-off-by: Kean Ren <rh_king@163.com>
-> > > > ---
-> > > >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
-> > > >  1 file changed, 9 insertions(+)
-> > > >
-> > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > > index e289cc71ba98..32bf353013a1 100644
-> > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > @@ -3216,6 +3216,15 @@ static const struct usb_device_id uvc_ids[] = {
-> > > >           .bInterfaceSubClass   = 1,
-> > > >           .bInterfaceProtocol   = 0,
-> > > >           .driver_info          = UVC_INFO_META(V4L2_META_FMT_D4XX) },
-> > > > +       /* Luxvisions Innotech Integrated RGB Camera (Lenovo laptops) */
-> > > > +       { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
-> > > > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > > +         .idVendor             = 0x30c9,
-> > > > +         .idProduct            = 0x0122,
-> > > > +         .bInterfaceClass      = USB_CLASS_VIDEO,
-> > > > +         .bInterfaceSubClass   = 1,
-> > > > +         .bInterfaceProtocol   = 0,
-> > > > +         .driver_info          = UVC_INFO_QUIRK(UVC_QUIRK_DISABLE_AUTOSUSPEND) },
-> > >
-> > > The quirks are sorted by vid:pid. Sorry I did not notice this before.
+> After the last file or persistent-device reference is released, tun can
+> therefore unload before the callback runs. Drain outstanding callbacks at
+> the end of module cleanup so they cannot execute from freed module text.
 > 
-> Can we please add this to the CI? It is a bit of a waste of time to
-> manually verify that they are properly sorted
+> Fixes: 96f84061620c ("tun: add eBPF based queue selection method")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-It's a good idea.
-
-> > I can handle this when applying.
-> >
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> >
-> > > >         /* Intel Realsense D435i depth camera */
-> > > >         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
-> > > >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-
--- 
-Regards,
-
-Laurent Pinchart
+Reviewed-by: Willem de Bruijn <willemb@google.com>
