@@ -1,91 +1,92 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7DC4CDDE3;
-	Mon, 28 Sep 2026 13:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B654CA768;
+	Mon, 28 Sep 2026 13:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602932; cv=none; b=RYCT8X1al6Mnaw2u1ZxI4TVIMD5lMcaSLSVCuBS9gzsylZYwZ3CspCzJgJIhf5kKZKJZ8gzyJ6yEOyOTRnm+hZtFKihe2sKfX8jgichZ1Pogy+awIkNcdsFyxy0XQjp+tkziIaPfZg6fnD9+mlHbCNw2nWi2J40NlWPaZgif4lM=
+	t=1790602948; cv=none; b=J15mBjypS0M0m/O/6V0LVWYRrU14q5MpAmacD+l0jSK86Ml5+GMqouQItUx7QZ62FhsZX7lCm9W73lxUOQV478m9BDAQAqjNsEi81RrnNHYjXSu96fCnHf2MVilcnNFxWTajU4MKaET6Bf19L5XM1UNV06z0w3PdwjJqCgcr3mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602932; c=relaxed/simple;
-	bh=tMntdNFlrJw1ooW6JCFNS8zExzsNbHQmLM2IrRQC+8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iDl0VqPId+IV4iNJq9eWwxDJJcKRxFlzcN98+4R5V3iolRyryqVI6hDKusgmOwfR+vZw0F41nZz7Ugnbn42YSiVOPf1ffKO4RbilK3IQW+wj2IKLVUViNk3Eac2xVuwcq4rSIFadxQC2fchT5KZHs13Kx1g+86YJUg2rQ/nFJ+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=a/YqVKu+; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790602948; c=relaxed/simple;
+	bh=aeGCqMUDP3oNAAQc9bTywwvL6D83v18n4o79xTDcXzs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Gz9CntQcoIpusoc6+l+z4/fdfjzRnmT7F19F02OfXZgAUUJn08f93bpyRK4s/BSkhkCgoNy024qqVrlZ89iPefptNPROMrzOovmlEuidzFxYNZY8K0b76LWtlGwYMo5L+Er04jWLlQEz6REJ+2lpnmJy7JWakhy+J9Q4hZVqe+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clZ/kzEw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="a/YqVKu+"
-Received: from LAPTOP-99KJFSET (unknown [58.216.104.98])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f440;
-	Mon, 28 Sep 2026 21:41:59 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: gregkh@linuxfoundation.org,
-	vz@mleia.com
-Cc: piotr.wojtaszczyk@timesys.com,
-	johan@kernel.org,
-	make24@iscas.ac.cn,
-	kees@kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] usb: gadget: lpc32xx_udc: cancel pullup work on remove
-Date: Mon, 28 Sep 2026 21:41:58 +0800
-Message-ID: <20260928134158.117-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clZ/kzEw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C821F000FF;
+	Mon, 28 Sep 2026 13:42:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790602947;
+	bh=JdEW84ERB+bc3D3EIHSALQure5xXKlxtujZk9wWEbfo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=clZ/kzEwbE/b8TLTTq1RIKUACRkpNgUzHdesSwD1jR7ERrvw9Hs0EhmXWMDqPjW44
+	 sF6LTS4klrqthuoPDhY6VQd+tonKRpXDpAARa7meXQwBq8zUAINscUgLXaID+aujAX
+	 JSPJV7JscCfcq3Q9bdvqrQDnLD2R53NmmZexTbUXVxLWTQJFKCbIhhezxmVmDNu07t
+	 vfXCRcbjAuTc9sqYgWFONiGi548zZypDmpFwECiwCQagX++m97+8VvZy/KAoUNcybd
+	 ia4788TBNY1nagxsCFwMGuysrbqzvfR4CrBLwwUOiVN7I2YLOwQ9Tqq6SA08l7OxeN
+	 OzP20ZaR8c6AQ==
+From: Mark Brown <broonie@kernel.org>
+To: Gabor Juhos <j4g8y7@gmail.com>
+Cc: Md Sadre Alam <md.alam@oss.qualcomm.com>, 
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260927-qpic-snand-drop-ecceng_to_qspi-v1-1-993e9ec1c2d4@gmail.com>
+References: <20260927-qpic-snand-drop-ecceng_to_qspi-v1-1-993e9ec1c2d4@gmail.com>
+Subject: Re: [PATCH] spi: spi-qpic-snand: drop ecceng_to_qspi() macro
+Message-Id: <179059873581.139547.13768185687130659285.b4-ty@b4>
+Date: Mon, 28 Sep 2026 13:32:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e8403a1503a1kunmf3b98a98200231
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaH04aVkMdHkoYH05CHk1KTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJSk1VSktPVUJDWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=a/YqVKu+cl/JdJzhOku1M4V7jBVYfxP8NwcttM9Gl8Z8x4FMD1Oj8R/E8SSNC9aqM8TPxSEjlpvBCoWlrU0soWlyOfHBUEZMoRyff6UieDJ924GkiKVtU3EssjxCRCf1TV3y1x19WtLMmyXNZErLNtBPgdAFbPKw/a+7L1TDufA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=hRxg82xUfOW9mDQeH10Yx//tywA8mAwY9WlS188BwMI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1109; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=aeGCqMUDP3oNAAQc9bTywwvL6D83v18n4o79xTDcXzs=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqum6+erYzbYKe7AQ3v5A6jaiPJqYRXbn5HLr+Y
+ Sp1qJ/m66OJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarpuvgAKCRAk1otyXVSH
+ 0LnsB/4gL5GTZlU+lgkraiysmj1vzCX+8Jn4f5GPc2VxtrLfpIX6Vy694sz0Q24E+df0gqCCHEk
+ OWEaaugUhzotcfkadWjJzKzS23TfOl/lVjUQplY00hE+tlo603hbyRVCMF92hXe++WX4Bucs+ck
+ uSNwM3rUGTDC+LLFZCl1twpO52sPzYi2LNEW6Rp39W+dUAvtyah66ER5MDf4ytpFnnAbqKhqBsl
+ hbh+lLnUTHTfQ2ewpeNESrLk6QLeaIXiLukptSkrxxrifo0xkaTI9Ef14MtL3JcujEq4TlUjg93
+ yoFZ0wMD9T9zCr0JYu83mWzLuT0RGLucWkyXXVVcDwUMhJg6
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Several device interrupts can queue pullup_job, whose callback accesses
-the UDC and its I2C transceiver. The IRQs are device-managed, so they
-remain registered throughout the driver remove callback, and no path
-drains work queued before the resources are released.
+On Sun, 27 Sep 2026 16:11:22 +0200, Gabor Juhos wrote:
+> spi: spi-qpic-snand: drop ecceng_to_qspi() macro
 
-Disable and synchronize all publishing IRQs, then cancel pullup_job
-before putting the I2C device and releasing the UDC resources.
+Applied to
 
-Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
- drivers/usb/gadget/udc/lpc32xx_udc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-index 044c31869cfb..0a784c9252c5 100644
---- a/drivers/usb/gadget/udc/lpc32xx_udc.c
-+++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-@@ -3184,9 +3184,15 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
- 		return;
- 	}
- 
-+	disable_irq(udc->udp_irq[IRQ_USB_LP]);
-+	disable_irq(udc->udp_irq[IRQ_USB_HP]);
-+	disable_irq(udc->udp_irq[IRQ_USB_DEVDMA]);
-+	disable_irq(udc->udp_irq[IRQ_USB_ATX]);
-+
- 	udc_clk_set(udc, 1);
- 	udc_disable(udc);
- 	pullup(udc, 0);
-+	cancel_work_sync(&udc->pullup_job);
- 
- 	device_init_wakeup(&pdev->dev, 0);
- 	remove_debug_file(udc);
--- 
-2.50.1.windows.1
+Thanks!
+
+[1/1] spi: spi-qpic-snand: drop ecceng_to_qspi() macro
+      https://git.kernel.org/broonie/spi/c/7f7400bd60c3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
