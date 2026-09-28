@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+Received: from mta0.migadu.com (out-239.mta0.migadu.com [91.218.175.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2EB443E31
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E910C448B9A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578009; cv=none; b=MKsBOBae612/wsArLC9WJ+PRhy/RidKoZO/HuqYftbWp8N2vYY3N9Go+XV1YAaqECK8KGTF2wFn+jjFgaEJ6/wzt5N73FzVP75yx1tRTcorBy9mGQU5ecF6H+N/7SSNgT4mI3Lpm/sUHKq8QdNvWdZ9er1a28HxGufnWFCnFnSc=
+	t=1790578009; cv=none; b=l9ECtInWsaUAAdWXDHLHmsFLJfOJg0iSpwDdfb6wTtSCYiinVjWTMvCsnOp0WGLK1oxBu0ms5efb50i3ju1r9ZsVfsGFyMhm6j8NNB8wN4TuCO5tLYxLw9/FL45+wcy1STw333R1iyITHL3g7fNQXwhofSOwy49QOrfeix65bIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790578009; c=relaxed/simple;
-	bh=ytdKApU5ydc5tgMMhT0OgPOrlWOEu72eXq+ptWF2rq8=;
+	bh=1jHpaWMldBRFaEmddqMc+nJNDn5a3aVbF5D1CXCVMl8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bSx6MiKj2g6xXLH5V/11/W8sBuNOt8SfV55k1b0lHdHLWFQSeZNoRC8hWH7SXClOB7yFNSSVB1NsuIX8gma4f883NNgTXJvPvJsKQgwe43FxViuKMcl5Uqu9OiLzWnG1ridkCXForafL+/Z9p1wqfSt6Zk6MuQwZI1PCcCaPy0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IigTPIOn; arc=none smtp.client-ip=95.215.58.175
+	 MIME-Version; b=pHZ/5sri37OZM9EIaNgUjUQKOpLPFLaYprRZoDkIntlcFZYZK8QxoMPqeHys5HUTc1JPL69m6gJueZaJehkh0I8GcXN4jyEtGkHOpffUm+vkavWKD6Tsym6796wLbcmIAF7BbKRQswJMMUB8m5sWtaHU2b8c+neTXHRZCcYTSE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pjYtaHUb; arc=none smtp.client-ip=91.218.175.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IigTPIOn"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pjYtaHUb"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ytdKApU5ydc5tgMMhT0OgPOrlWOEu72eXq+ptWF2rq8=;
+DKIM-Signature: a=rsa-sha256; bh=1jHpaWMldBRFaEmddqMc+nJNDn5a3aVbF5D1CXCVMl8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
  t=1790578005; v=1; x=1791182805;
- b=IigTPIOn6hYFsxJMrgRBRJhD6ZJuR8vcHF/t/WjEo9pL5WSjE97g15HU0N66rX8lg+lIKT6c
- EJzBuqGnCh7dwfFvzyQ3ZHOKf5YK7P3KM7vIVYpaHoCq0MM6s3SkSWC5G1K/Dl3xXWhfeTUw0Ut
- EriVZfRYslyyUSd2Rg9FabZM=
+ b=pjYtaHUbGZbtRJLTbDMx9FU73tPnoVbM1E3j37u158wVrYTA+z+AsiSYFRaFo3USQYdqnVEV
+ 6R6mn+jiBFB9BuJhiJuhFZYXBXjPLviZFvdZ4v9DO9aaM7oVunowqXje/m14BbBtirZjpkGRymW
+ pyfBup38iVAHFmZtfjG3tCuk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 44dc0649da117e22;
+Received: by smtp.migadu.com with ESMTPS id ffd1c6cc9a1d9028;
 	Mon, 28 Sep 2026 06:46:45 +0000
-X-Mizu-Trace-ID: 44dc0649da117e22
+X-Mizu-Trace-ID: ffd1c6cc9a1d9028
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -46,9 +46,9 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] KVM: arm64: Don't WARN on an unsupported TLBI OS from vEL1
-Date: Mon, 28 Sep 2026 07:46:40 +0100
-Message-Id: <20260928064643.3265087-2-fuad.tabba@linux.dev>
+Subject: [PATCH v2 2/4] KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
+Date: Mon, 28 Sep 2026 07:46:41 +0100
+Message-Id: <20260928064643.3265087-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260928064643.3265087-1-fuad.tabba@linux.dev>
 References: <20260928064643.3265087-1-fuad.tabba@linux.dev>
@@ -60,50 +60,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM hides TLBI OS from a guest whose ID registers don't advertise it by
-trapping the instructions: through the fine-grained traps on a CPU with
-FGT, and through HCR_EL2.TTLBOS on one with FEAT_EVT2. With FGT,
-triage_sysreg_trap() makes a trapped TLBI OS UNDEFINED. Without it, the
-instruction reaches handle_tlbi_el1(), which assumes an EL1 TLBI only
-traps from a guest at vEL2 and WARNs before checking whether the guest
-supports it. The guest still gets its UNDEF after the WARN. A VMM can
-trigger the WARN by hiding TLBI OS and having the guest execute one.
+pKVM keeps its own copy of each vCPU's HCR_EL2 at EL2, initialised with
+RW set unconditionally. Nothing stops userspace from creating a
+non-protected AArch32 VM, and with RW set, entering one of its vCPUs is
+an illegal exception return: KVM_RUN fails with KVM_EXIT_FAIL_ENTRY.
 
-Check support before the WARN.
+Clear RW for a vCPU that is AArch32 at EL1, when the CPU has AArch32
+EL1. On a CPU without it, RW stays set and the entry still fails, rather
+than EL2 switching *32_EL2 registers that are UNDEFINED there. The host
+already rejects such a vCPU, but EL2 takes the vCPU's features from the
+host and doesn't rely on that.
 
-Fixes: 0cb8aae226768 ("KVM: arm64: nv: Add handling of outer-shareable TLBI operations")
+Fixes: b56680de9c648 ("KVM: arm64: Initialize trap register values in hyp in pKVM")
 Cc: stable@vger.kernel.org
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/sys_regs.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/hyp/nvhe/pkvm.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 44aae52c473d7..0ce29ce678b08 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -4257,6 +4257,10 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
- {
- 	u32 sys_encoding = sys_insn(p->Op0, p->Op1, p->CRn, p->CRm, p->Op2);
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 459bd9eb7e4bc..62d432144d44c 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -54,6 +54,15 @@ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
+ 	else
+ 		vcpu->arch.hcr_el2 |= HCR_TID2;
  
-+	/* Without FGT, HCR_EL2.TTLBOS also traps a hidden TLBI OS from vEL1 */
-+	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
-+		return undef_access(vcpu, p, r);
++	/*
++	 * Without AArch32 EL1, leave RW set and let the entry fail with an
++	 * illegal exception return: the *32_EL2 registers EL2 would otherwise
++	 * switch are UNDEFINED there.
++	 */
++	if (vcpu_has_feature(vcpu, KVM_ARM_VCPU_EL1_32BIT) &&
++	    cpus_have_final_cap(ARM64_HAS_32BIT_EL1))
++		vcpu->arch.hcr_el2 &= ~HCR_EL2_RW;
 +
- 	/*
- 	 * If we're here, this is because we've trapped on a EL1 TLBI
- 	 * instruction that affects the EL1 translation regime while
-@@ -4279,9 +4283,6 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ 	if (vcpu_has_ptrauth(vcpu))
+ 		vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
  
- 	WARN_ON(!vcpu_is_el2(vcpu));
- 
--	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
--		return undef_access(vcpu, p, r);
--
- 	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu)) {
- 		kvm_handle_s1e2_tlbi(vcpu, sys_encoding, p->regval);
- 		return true;
 -- 
 2.39.5
 
