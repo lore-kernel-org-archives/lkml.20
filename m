@@ -1,174 +1,154 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A914E433A
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FC54E433A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611404; cv=none; b=JixCGgOv6BkbIOCECweik7v08vk9M4+ShaURHAkEQiCIIsCqqJ6YB1ur/49iIFO4SGSJrv/7qxvaV08SKnqjmWpK4kGtWZr8p1LkYxzWD8bJLzNHjGjoVXxTzOJ0z0gRd2RvFzr2+nSpqXmNP6KwcDYG86ZiJKZozjN/skN95sk=
+	t=1790611428; cv=none; b=Mo8mfTMhMK6EIMdJqFHm+zYk8jNytiGh5NZvN4uyWbXCaEHgX38EdkUBSUyUIyAcIJQ3DjBHC7bfjSJA/IrqkWJE4yLFtqioAoFtKF8zX/ku7EWH1YX+okXSiRUCaNenE0jv1uBnbIorp4IADMsqwvYzlVsPXACWR6mhe8nZTqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611404; c=relaxed/simple;
-	bh=zhxsWtMFxkMNLy0cVXpiLrIefZp4GMqj/Axxeo0tWa4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aqm0lOqMsRFESPB8jy49wOl4ZZcaUpKwbxLGvzj6bwl41+bRZkWbDVZjCwHuL7Cf3ZmKm+3Q/27uw5tyI5z8AOQdKSCatNiv07AYruzBk3Vc0dU/rbnoJLRrUYHlfymRZf2tpT+eiN/8WoAKGdT+kj4bB60qGAGHtchca7dqPuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=C7RAg0EN; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790611428; c=relaxed/simple;
+	bh=6poYT8wvzWkPYzInGtP84uQbg/EtBuWlXkrE61GqvwI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=W7ALfc8xZVA+UnNKXS8aB0La4Yc3nfeLk7QNSITyggUXQN6jh6RQMhK7jWBCBtA1l973x7xfabpQxE7aEMkz5JR3vJvF5k5Y+pE2HPp4HkXnTGPQ2lqcHk+f4UWCj7g6iRG29+s20KuPTrRiS9G4/U5qRl7xwx7OW34r94QKZuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gPizLoQw; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="C7RAg0EN"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d881so3190118d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:03:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gPizLoQw"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2df375fb9b2so33782945ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:03:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790611402; x=1791216202; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uv8hzXE4YDFWdArobAYOZWOpWqi/QMlwCECAVD9+99I=;
-        b=C7RAg0ENAA9DkVYpAiiUz3lz4DEOehejT94AupE1umo1+fjHcqkwCNvH1QrIf+4wkP
-         RDsqwqJZVh4DlT1MCHuzOLar8PxLS5zEQqJfuCL3tK7YmIxy7QPszX5mwhGYoFTXDkyf
-         VzOUk4hlz4CUmvkNK4xxHk07XnGSS7Rmq8cehBnQ3ysKD41JnTYBVqSW1PueW+zRdT7m
-         qor1Dmqg89T1umaL85wrVswe5bFA87Emm4DZ7anFTpFVlgxG3nz/Ht6LLqnWsQ34B1rM
-         MFCt1viSU24jZ/EzVk9yEHd+4gd0PpbkOgYmW80X8u0GLEza+qYbXnhs212tln2b9hPR
-         QgxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790611402; x=1791216202;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790611426; x=1791216226; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Uv8hzXE4YDFWdArobAYOZWOpWqi/QMlwCECAVD9+99I=;
-        b=mYeTBF3Y6MAWWT4le9AEkEQUGAMqXicNT+rSOw/FnZc2c2qZ8063OdkAeuflimHhAd
-         raaRUAcAOMY6dbSdtIngMSgpr2IAAGr3ZvBl2IAsrQf9uZDQDFOw1JmskPSt6QQwr597
-         N25QZUv+jqQle4rcwMpr4/nCZmUgYz1diXDxATFqUwEYPFnpe+QwomyTPjB8tmg4xk+g
-         cpNugXuzGP8WOBr/WEvZlSFQ9ghUtlsfHE5aQRvdCoQC10Vz9EACBNyfwPXWUJL4MhPu
-         ST1F6GZu3/KKbDWnVkTaol9jjNfwlHZjG3NSKNpyWdDoFoQwJYuPi7JbIi+4IrGPmf7a
-         9zAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUANQkJuyPbZlHUg5eZw8uCa3lostY5CkLclNALlUeOdiFQOTSP8ciGfcNcQrOs8N/cmbDe9oyA5WAvhU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRWUz1zv0LCijtE64RDiurPpSYVBXV6U0iytTVkhP7+YpL07yR
-	aBOz/blIBxCmwqDf+IU4jmrYi3s79ZiJbc3Uvl8lKqXVxOPb+bIEnGSjChJoiBbJ6qzNDBfJFd5
-	R5RqbrQQ=
-X-Gm-Gg: AYBFou2SsBhh2nnCVqyrKD6IL95G6CvBmr3sMqX53jNeagSPY0WoZFtm/t0Gmw/QRl+
-	Jj4hEiLWAmPfvsX3Q8lPaN6jpDFmaME1pck6zgZLlHT/vANpfBd3jmNS3XDK5kvKCqpgh70F71U
-	CcAKzfbs6i8Xu/gwmzlpl9ivesGaA08NYAiSTpKIr6Wa/5XlSzM4bwUMpDA58LlGRq6YQYel5nN
-	cYiZVPiBNUsd4vf++aAbeTqb5J6Ee5WbCTEcryZn45P5DJJDTriqayIxk2IGpVspMl+8cx/7cHK
-	hEGMDBBDLA7Owxb5KwZI6U9FcTfj90qUSaP85UC8m8qJZUtszBmobIfZ5IHfDPqMOSy+mdZN13b
-	qqoGPicGbpjol0BjY9oscmMLzua+ncZyXDbKjrkqPkNAaKOd1s2giB7G8ZQIUlJGFbpBJH4tSR4
-	5jQCMzppUX2IEBz9Qtqst5zQKJlnrF9a7tOFOsLfyV/P9tnetvN4wCTfKyTRJtNlVZgfJhTLeQ0
-	ap6lkx5+2iipSo=
-X-Received: by 2002:a05:690e:11c7:b0:675:4a9d:4a85 with SMTP id 956f58d0204a3-6754a9d4f55mr1642232d50.59.1790611401599;
-        Mon, 28 Sep 2026 09:03:21 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.245])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430df77adsm82622156d6.26.2026.09.28.09.03.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:03:19 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 28 Sep 2026 16:00:39 +0000
-Subject: [PATCH 3/9] ublk: publish io->cmd under io->lock in the commit
- paths
+        bh=MIPSTOx/1qgMkL0+FjIuD+pgiQqqd0H+a8WED9RskN4=;
+        b=gPizLoQwK4RlawtsLGzyrNK4iXihIt2wX9GpAuBj6c387A9wQfRkUcndAwG9ESexuE
+         N5WcCHtWgJ1ahIdKv5X089dZKmaQuoajHahw07zFvgh9wBOsanaDrE4fm/meTo/sz8Ed
+         9zfMrZJmEkSAHx6hcf1NAHMBeWr7+u9JKUzdxcWIwwG/W7SUDZfaEyghDjkdukhbL76i
+         yDCNCHGwjG2L8jjbuoSjdU5sj6cZYCKCxVQKugGiIytjTsh/cbYohkiqdNapsgH/QUY9
+         4ti6dndzdaJfTtti0tnYg2xzdO4Qsj/0kIc4MjAGTo11eQIY4NIjS/fBBIkSn2LjZZhJ
+         TAxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790611426; x=1791216226;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MIPSTOx/1qgMkL0+FjIuD+pgiQqqd0H+a8WED9RskN4=;
+        b=2GkSlUJdCokGwqKW3n9ytu5T9+YM+1EVjcnw8DyiLd+penL/A0x0uB972vo+BHwlpI
+         UjHQAVNgUpxL5n3Iocho2ZKojIHO68rJdF+wFMiZalVBMBbqjNuwUbZdPQLCu/OLka1N
+         hDwr9WrPskleWD9W8BoAz7DbkU9uuNcRKnLnTyxn8/9+EfcFpIgfDU/k+n8Vx8AY4JWY
+         IXNX42N4/DMbK35mON7oxHhY6c69s+TycTbp0Fyr1iwmwg+hGTcecpYNU9xnMJqRMhfW
+         hfMrNxYelcRnB8+4zHhJacyC8g40aCkKhR7MbwiKlVSyWVSloeWktAUEkHczt3QHYR5a
+         ey5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxfmDLb3sOcVXywiJGAZvUr6YVO31aa1aSvxFmI27wptiWuM6MSfp82UCIlExsvwYHGHRbieBLsfSm+hqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCFLFIfgsViSnEfqw4OPHDpVAzhw/FoBGT55ExghaeMZahSNC0
+	EMKIckw8oXI49KACKlltvAP1hOJlaUxRvAbnBFTSY4m59OzM+dvitHBRGDJPsdtmWcMutA3x6Vw
+	S/EEBPw==
+X-Received: from pgdg6.prod.google.com ([2002:a05:6a02:51c6:b0:cc7:a826:e274])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:48f:b0:3de:5e37:26b9
+ with SMTP id adf61e73a8af0-3de5e3727camr3390215637.52.1790611425928; Mon, 28
+ Sep 2026 09:03:45 -0700 (PDT)
+Date: Mon, 28 Sep 2026 09:03:45 -0700
+In-Reply-To: <20260926063721.1471741-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-ublk-cancel-stop-v1-3-4a4360232a46@toxicpanda.com>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-In-Reply-To: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
- Caleb Sander Mateos <csander@purestorage.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790611254; l=3087;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=zhxsWtMFxkMNLy0cVXpiLrIefZp4GMqj/Axxeo0tWa4=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QO0A5en96j57mWOrVyPwEj1dTuFJh8twc9kPT03FkNtjzIoQF/ah9T8LSfOgPFSTMdcKR5SC1tH
- zizyeZh9tlAA=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Mime-Version: 1.0
+References: <20260926063721.1471741-1-bestswngs@gmail.com>
+Message-ID: <arqP4TM9pRTw7SOG@google.com>
+Subject: Re: [PATCH] KVM: nVMX: Rebuild MSR bitmap after eVMCS control changes
+From: Sean Christopherson <seanjc@google.com>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhong Wang <wangzhong.c0ss4ck@bytedance.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-io->cmd shares its storage with io->req. FETCH, COMMIT_AND_FETCH and
-NEED_GET_DATA switch the io from one to the other in
-ublk_fill_io_cmd() without a lock of their own. That was fine as long
-as everything else looking at io->cmd ran under the uring_lock of the
-same ring, which is the case for the io_uring cancel callback.
+On Sat, Sep 26, 2026, Weiming Shi wrote:
+> The Enlightened MSR Bitmap shortcut reuses vmcs02's bitmap when L1 marks
+> MSR_BITMAP clean, but the bitmap also depends on execution controls in
+> CONTROL_GRP1 and CONTROL_PROC.  L1 can change either group while leaving
+> MSR_BITMAP clean, preserving stale APIC_TASKPRI passthrough for L2.
+> 
+> Reusing the bitmap after a failed rebuild is unsafe too.  The failed entry
+> disables hardware MSR bitmaps, but KVM subsequently marks the eVMCS clean,
+> allowing the next entry to reactivate the old vmcs02 bitmap.
+> 
+> Require both control groups to be clean before reusing the bitmap, and keep
+> force_msr_bitmap_recalc set until a rebuild succeeds.
+> 
+> Fixes: 502d2bf5f2fd ("KVM: nVMX: Implement Enlightened MSR Bitmap feature")
+> Cc: stable@vger.kernel.org
+> Reported-by: Zhong Wang <wangzhong.c0ss4ck@bytedance.com>
+> Assisted-by: LLM
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 
-ublk_cancel_cmd() is also called from the control path, from
-ublk_cancel_dev() with IO_URING_F_UNLOCKED, and the next patches add
-more such callers which run while the server still commits requests.
-Nothing orders their reads of io->flags and io->cmd against
-ublk_fill_io_cmd() then. A reader can find UBLK_IO_FLAG_ACTIVE set and
-still pick up the request pointer from the union.
+Fix already posted[*] and applied (I cheated a bit and sent it to Paolo off-list
+a while back).
 
-The batch commit path calls ublk_fill_io_cmd() under io->lock already.
-Do the same in the other three callers, so that io->lock covers every
-switch of the union to a command. io->lock is per io and only taken by
-the task which commits that io, so the fast path gains an uncontended
-lock in a cacheline it writes anyway.
+[*] https://lore.kernel.org/all/20260926053253.195597-7-pbonzini@redhat.com
 
-ublk_batch_prep_io() calls __ublk_fetch() with io->lock held, which
-makes the order io->lock, then ubq->cancel_lock.
+> ---
+>  arch/x86/kvm/vmx/nested.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+> index 151873407abd3..0f0e677d99482 100644
+> --- a/arch/x86/kvm/vmx/nested.c
+> +++ b/arch/x86/kvm/vmx/nested.c
+> @@ -755,13 +755,17 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
+>  		struct hv_enlightened_vmcs *evmcs = nested_vmx_evmcs(vmx);
+>  
+>  		if (evmcs && evmcs->hv_enlightenments_control.msr_bitmap &&
+> -		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_MSR_BITMAP)
+> +		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_MSR_BITMAP &&
+> +		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP1 &&
+> +		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_PROC)
+>  			return true;
+>  	}
+>  
+>  	CLASS(kvm_vcpu_map_local_readonly, m)(vcpu, gpa_to_gfn(vmcs12->msr_bitmap));
+> -	if (m.ret)
+> +	if (m.ret) {
+> +		vmx->nested.force_msr_bitmap_recalc = true;
 
-The readers move under io->lock in the next patch.
+Copy+pasting a comment I made off-list in reponse to a suggestion to fix this as
+you propose here (though you obviously caught the early return issue I pointed out):
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- drivers/block/ublk_drv.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ : Hmm, I like the idea from a "what's logical", but it's wildly unsafe.  Even if we
+ : fixed all of the paths that could cause problems (and there are a lot), the code
+ : would be extremely brittle, i.e. we'd always be at a higher risk of reintroducing
+ : the bug.
+ : 
+ : Specifically, if nested_vmx_prepare_msr_bitmap() doesn't run to completion and
+ : actually update the bitmaps, then L1 can re-run L2 in the future *without*
+ : changing the control fields, and once again consume the stale bitmap.  E.g. if
+ : CPU_BASED_USE_MSR_BITMAPS is clear, if hv_enlightenments_control.msr_bitmap is
+ : disabled, if mapping vmcs12->msr_bitmap fails, or most problematically, if
+ : anything between updating the control fields in copy_enlightened_to_vmcs12()
+ : causes KVM to bail from nested VM-Enter.  The window for that last one could be
+ : shrinked by detecting control changes in prepare_vmcs02_early(), but there would
+ : still be a bug.
+ : 
+ : In other words, the only input from L1 that can be safely consumed on-demand
+ : HV_VMX_ENLIGHTENED_CLEAN_FIELD_MSR_BITMAP, because that's L1's responsibility to
+ : get right.  For everything else, KVM needs to well and truly force an update
+ : when *KVM* detects a need to update the bitmaps.
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 50c99b28ef21..17a33539f271 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -3169,6 +3169,9 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_uring_cmd *cmd)
- {
- 	struct request *req = io->req;
- 
-+	/* io->cmd shares its storage with io->req, switch them under io->lock */
-+	lockdep_assert_held(&io->lock);
-+
- 	io->cmd = cmd;
- 	io->flags |= UBLK_IO_FLAG_ACTIVE;
- 	/* now this cmd slot is owned by ublk driver */
-@@ -3338,8 +3341,11 @@ static int ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
- 	 */
- 	mutex_lock(&ub->mutex);
- 	ret = ublk_validate_io_buf(ub, cmd, &auto_buf);
--	if (!ret)
-+	if (!ret) {
-+		ublk_io_lock(io);
- 		ret = __ublk_fetch(cmd, ub, io, q_id);
-+		ublk_io_unlock(io);
-+	}
- 	if (!ret) {
- 		ublk_apply_io_buf(ub, io, cmd, buf_addr, &auto_buf, NULL);
- 		ublk_mark_io_ready(ub, q_id);
-@@ -3496,7 +3502,9 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		if (ret)
- 			goto out;
- 		io->res = result;
-+		ublk_io_lock(io);
- 		req = ublk_fill_io_cmd(io, cmd);
-+		ublk_io_unlock(io);
- 		ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx);
- 		if (buf_idx != UBLK_INVALID_BUF_IDX)
- 			io_buffer_unregister(cmd, buf_idx, issue_flags);
-@@ -3514,7 +3522,9 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		 * uring_cmd active first and prepare for handling new requeued
- 		 * request
- 		 */
-+		ublk_io_lock(io);
- 		req = ublk_fill_io_cmd(io, cmd);
-+		ublk_io_unlock(io);
- 		io->buf.addr = addr;
- 		if (likely(ublk_get_data(ubq, io, req))) {
- 			__ublk_prep_compl_io_cmd(io, req);
+Thanks for the fix though!
 
--- 
-2.55.0
-
+>  		return false;
+> +	}
+>  
+>  	msr_bitmap_l1 = (unsigned long *)m.map.hva;
+>  
+> -- 
+> 2.55.0
+> 
+> 
