@@ -1,308 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B844A4820;
-	Mon, 28 Sep 2026 11:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8754A2A5E;
+	Mon, 28 Sep 2026 11:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594415; cv=none; b=mRf/0vhEdm9kIqNeWJ5YZK+Pdd5iW9q3Z/VouytW7ofHSk01mpS0ft/6aiTEXoRtRWRq9wc2FDJIAqxT9t+StSDWWpTqHJrRMRsATsOeoOJ9Z8/YxnOT3pfQPcGLD5KX+DX3aiiAcVP1/pAxr8GMs5Dxa137M4nokBA6fqWOWDQ=
+	t=1790594417; cv=none; b=lIocy6c4EEJkX33olFG5FenyRb0HkR2hkALui2yBAp5Roi9YvxfOKZb8w9fIk1nLJcdOv1fXkKTqHms1eiWdZpkAdN3hwab8Ts4NFCzzPYw8zLVLWbGIwAxu+tPH5Ra4zv1TXT1rRut21F235EZbu9eXSY4GH7JFPvCElhX+m1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594415; c=relaxed/simple;
-	bh=m/9dXXzylK1SrjgTUrcVbikEY6Zbzst47ERZoPzgAQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GAqw2vHxmPWvG7n3huXl6jKjL/cGY5QQ/x7seIGV5IU3DM1Znlm/S0iEnEh6IokG/gaojXqYMEr/pBF8krh2RgFa/tVsOl/GmdogYczYSKbNkwI6WLZloI+bPjgeJLUfcT4PYVo0gPKqojDMY4r48qNGWJaxT6JlVDKVrFM0y1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3WrYwco; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790594417; c=relaxed/simple;
+	bh=eVKVz8zyU/xkTeKcO8zjXPp4Q0x6ugEWp8ba6melv2o=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u92K7mdyy4xf/N2pBrowP30F5yXvRrV3byzC9lvNjMQwXVmb2ycGdQUze8E5NFx71aMXMS7x0V/uiYNE/dKZjvHNTDSDQzl3zsRCavXfujiDHsoC78z9x+K9E48RG8QTvOaOdai1qRT/b4AoEuuD54Z2iazlYzO/YRXr2GpIKdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=tub8Nfby; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3WrYwco"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCB21F00898;
-	Mon, 28 Sep 2026 11:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790594413;
-	bh=Z95hbdfgOpnr57c2fIo3qviMBbxUl2sFsECI1kVRitw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l3WrYwcoFfbFUl/xGuJmuGHuLOCxwWg0CyM7WfxheBrMSX+vbkG1gkRFcAdj8w8F2
-	 8+W0vpTcJVMcou8BpyzIC8TD5fcCtInmm/pJEAQ++a81vQ4cZYVOu4X6udBF7/i7LN
-	 Qo9K8D3r5rI82ad7RNCrbXnw6QCkK7u+02VXpPmp/QZKAnuMtbesKRxbuzzZHG3b/O
-	 uIQEQMTFLY7aL9Fn8cOc1e3lpkJjrrvLZb4mcjDKIERgg35tOPlRSv2x7WEP5xYYo1
-	 ispfjlbwPgF+hXDGxR7KHDLA6ow/YA66eOE+qh9ITe1y0nzIZUazFI7O9WuVo9OMd+
-	 1KPCxGhGgvOOQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v8 06/23] PCI/P2PDMA: Collect the path's ACS controls before deciding
-Date: Mon, 28 Sep 2026 14:19:10 +0300
-Message-ID: <20260928-fix-p2p-acs-v4-0-v8-6-404453b9c435@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
-References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="tub8Nfby"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790594420; x=1822130420;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eVKVz8zyU/xkTeKcO8zjXPp4Q0x6ugEWp8ba6melv2o=;
+  b=tub8NfbyTgyJZQwGE30zLMS/3P5O8ZDE5+uGJpJsnUfKFc2GC9Rs+73W
+   8Rd9w+PANSCcXD6mLEeTlDu0fp2hRwbk+2mPOOJrMKPSXxD/J8S0UmSau
+   RZYfpY6Rfqam6Mrm3FIL7378I4NiJ04cEc9f1gIOcV831QQZ7RddblB/y
+   gHgGtJmveLBXabLI9+vajcvIfCBYhhzJpNctWRAEhBQ07ToCBZQxAF1yO
+   /DFj7k0FPySNSVUQKlISfbCSmHKTQ6v6S7tEgmog2q1A2EyGdcMZTNtGN
+   DB7IEoy9fTX4UDdEwniCD/t3MlV5mZZONrmvBvSaJza2hH99/r3TT4l9m
+   g==;
+X-CSE-ConnectionGUID: Rcqqv1qZS4SmX2CMsJEirg==
+X-CSE-MsgGUID: dGnnbf+FQx6LrQWEDpPxLA==
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="63313098"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Sep 2026 04:20:19 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 28 Sep 2026 04:20:13 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 28 Sep 2026 04:20:04 -0700
+Date: Mon, 28 Sep 2026 13:20:00 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Quentin Freimanis <quentin@q-lab.dev>
+CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, Lars Povlsen
+	<lars.povlsen@microchip.com>, Bjarni Jonasson
+	<bjarni.jonasson@microchip.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: sparx5: make ports inherit the switch base mac
+ address type
+Message-ID: <20260928112000.uzvaqkbaapiyjd2v@DEN-DL-M70577>
+References: <20260928045012.30178-1-quentin@q-lab.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260928045012.30178-1-quentin@q-lab.dev>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+> When the switch uses a random base MAC address it does not mark each
+> port's address as random:
+> 
+>   $ dmesg | grep "MAC addr"
+>   sparx5-switch e00c0000.switch: MAC addr was not set, use random MAC
+>   $ cat /sys/class/net/eth0/addr_assign_type
+>   0
+> 
+> 0 is NET_ADDR_PERM, so userspace thinks this is a stable address. Fix by
+> tracking the base MAC address assign type in the sparx5 struct and
+> applying it to each port's netdev.
+> 
+> Fixes: f3cad2611a77 ("net: sparx5: add hostmode with phylink support")
+> Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
 
-calc_map_type_and_dist() reads each divergence port's ACS Control register
-and folds the result into running counters as it goes. Any routing property
-that depends on the kind of TLP being routed would have to be threaded
-through that code, so there is nowhere to put one without reading the
-registers again for each kind.
-
-Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
-first, then decide from it. pci_p2pdma_route() applies the same rule as
-before: a path routes directly only when both directions do.
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c | 148 +++++++++++++++++++++++++++++++++------------------
- 1 file changed, 96 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 550e6c7346ef..841c86be31bb 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -553,6 +553,80 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
- 	seq_buf_printf(buf, "%s;", pci_name(pdev));
- }
- 
-+/*
-+ * What the topology walk found out about one provider/client path. Producing
-+ * this costs a walk and one config read per divergence port, none of which
-+ * depends on the TLP being routed.
-+ *
-+ * @req_ctrl:	ACS Control of the client-side divergence port. That is the
-+ *		first port at which a Request can route toward the peer rather
-+ *		than upstream, so it is where the Request controls apply.
-+ * @cpl_ctrl:	ACS Control of the provider-side divergence port, likewise for
-+ *		the Completions travelling back.
-+ * @unreadable:	First port whose ACS Control could not be read, if any.
-+ */
-+struct pci_p2pdma_acs_path {
-+	u16 req_ctrl;
-+	u16 cpl_ctrl;
-+	struct pci_dev *unreadable;
-+};
-+
-+/*
-+ * Combine both directions into a mapping type. Only a path that routes the
-+ * Request and the Completions it generates directly can be programmed with
-+ * the peer's bus addresses.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
-+{
-+	if (path->unreadable)
-+		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+
-+	if (pci_acs_p2pdma_request(path->req_ctrl) == PCI_ACS_P2PDMA_DIRECT &&
-+	    pci_acs_p2pdma_completion(path->cpl_ctrl) == PCI_ACS_P2PDMA_DIRECT)
-+		return PCI_P2PDMA_MAP_BUS_ADDR;
-+
-+	return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+}
-+
-+/*
-+ * Name the ports that keep this path off a direct route, so that the admin
-+ * can hand them to pci=disable_acs_redir=.
-+ */
-+static void pci_p2pdma_warn_path(struct pci_dev *client,
-+				 struct pci_dev *provider,
-+				 const struct pci_p2pdma_acs_path *path,
-+				 struct pci_dev *a_child,
-+				 struct pci_dev *b_child)
-+{
-+	struct seq_buf acs_list;
-+	char buf[128];
-+
-+	if (path->unreadable) {
-+		pci_warn(client,
-+			 "ACS Control is unreadable for provider %s at %s\n",
-+			 pci_name(provider), pci_name(path->unreadable));
-+		return;
-+	}
-+
-+	seq_buf_init(&acs_list, buf, sizeof(buf));
-+	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, a_child);
-+	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, b_child);
-+
-+	/* Drop the final semicolon; the list is not empty here. */
-+	if (!seq_buf_has_overflowed(&acs_list))
-+		acs_list.buffer[acs_list.len - 1] = '\0';
-+
-+	pci_warn(client,
-+		 "ACS redirect is set between the client and provider (%s)\n",
-+		 pci_name(provider));
-+	pci_warn(client,
-+		 "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
-+		 seq_buf_str(&acs_list));
-+}
-+
- static bool cpu_supports_p2pdma(void)
- {
- #ifdef CONFIG_X86
-@@ -751,19 +825,13 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		int *dist, bool verbose)
- {
- 	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
--	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
- 	struct pci_dev *a = provider, *b = client, *bb;
- 	struct pci_dev *a_child = NULL, *b_child = NULL;
--	struct pci_dev *acs_unreadable = NULL;
-+	struct pci_p2pdma_acs_path path = {};
- 	struct pci_p2pdma *p2pdma;
--	struct seq_buf acs_list;
--	int acs_redirect_cnt = 0;
-+	bool cpu_p2pdma, host_whitelisted = false;
- 	int dist_a = 0;
- 	int dist_b = 0;
--	char buf[128];
--	u16 ctrl;
--
--	seq_buf_init(&acs_list, buf, sizeof(buf));
- 
- 	/*
- 	 * Note, we don't need to take references to devices returned by
-@@ -806,61 +874,35 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	 * branch is upstream, so redirect controls do not affect the path.
- 	 */
- 	if (a_child && b_child) {
--		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
--			state = pci_acs_p2pdma_completion(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, a_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = a_child;
--		}
--
--		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
--		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
--			state = pci_acs_p2pdma_request(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, b_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = b_child;
--		}
-+		if (!pci_acs_p2pdma_ctrl(a_child, &path.cpl_ctrl))
-+			path.unreadable = a_child;
-+		if (!pci_acs_p2pdma_ctrl(b_child, &path.req_ctrl) &&
-+		    !path.unreadable)
-+			path.unreadable = b_child;
- 	}
- 
- 	/*
- 	 * Below a shared upstream bridge, a path whose divergence ports do not
- 	 * redirect routes the request directly.
- 	 */
--	if (!acs_unreadable && !acs_redirect_cnt) {
--		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
-+	map_type = pci_p2pdma_route(&path);
-+	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
- 		goto done;
--	}
- 
--	if (verbose) {
--		/* Drop the final semicolon; the list is not empty here. */
--		if (!seq_buf_has_overflowed(&acs_list))
--			acs_list.buffer[acs_list.len - 1] = '\0';
--		if (acs_unreadable)
--			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
--				 pci_name(provider), pci_name(acs_unreadable));
--		else {
--			pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
--				 pci_name(provider));
--			pci_warn(client, "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
--				 seq_buf_str(&acs_list));
--		}
--	}
-+	if (verbose)
-+		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
- 
- 	/* An unreadable control does not establish an upstream redirect. */
--	if (acs_unreadable) {
--		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+	if (path.unreadable)
- 		goto done;
--	}
- 
- map_through_host_bridge:
--	if (!cpu_supports_p2pdma() &&
--	    !host_bridge_whitelist(provider, client, verbose)) {
-+	cpu_p2pdma = cpu_supports_p2pdma();
-+	if (!cpu_p2pdma)
-+		host_whitelisted = host_bridge_whitelist(provider, client,
-+							  verbose);
-+
-+	if (!cpu_p2pdma && !host_whitelisted) {
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
- 				 pci_name(provider));
-@@ -1193,8 +1235,9 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- {
- 	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 	struct pci_dev *pdev = to_pci_dev(provider->owner);
--	struct pci_dev *client;
- 	struct pci_p2pdma *p2pdma;
-+	unsigned long cache_index;
-+	struct pci_dev *client;
- 	int dist;
- 
- 	if (!pdev->p2pdma)
-@@ -1204,13 +1247,14 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 
- 	client = to_pci_dev(dev);
-+	cache_index = map_types_idx(client);
- 
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(pdev->p2pdma);
- 
- 	if (p2pdma)
- 		type = xa_to_value(xa_load(&p2pdma->map_types,
--					   map_types_idx(client)));
-+					   cache_index));
- 	rcu_read_unlock();
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
-
--- 
-2.55.0
-
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
