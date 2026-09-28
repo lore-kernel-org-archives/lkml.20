@@ -1,85 +1,129 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85932415B79
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF954E36FD;
+	Mon, 28 Sep 2026 17:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790614918; cv=none; b=LZglQjuTej710yQcGCTwfJmJ9LRYNju7YH4JYIDsZzB0gxCXwNU4wLjMq9r48xOolKf3Eq9jC6FQOwWh7qP8Q6s+8tYbc4A2kHNiTFqcRF4fsuZpQz/mLHOYmD/+Mn2jAJhQLWFsk7ZrUCCpQfuqKaPYj2XedoyNl2emiYGUvBE=
+	t=1790614962; cv=none; b=ijdhkgP5IklM6WlxXhUZWrvLlhSr+cUvy1WqYFIbQTFpioSpB7RXOkQkBy+YMK8WgBMYkHDXCKs6hrwJsMl940RHmKgKbFIMpCbCIx+wXyxrHinhvocQoitkZKt4yjlM8Kuj14xnF2iVujVS3FkpS1uS53TKdRP9AXMgeOX4giw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790614918; c=relaxed/simple;
-	bh=aMzM5fzvbcSHzOHJA1huRTbo8w52WJS9I3sDGwRRaqE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dpKC6A3lmpx0H0/KUS13a2F5Z4+IAxlFm1uibjQyRpSdFGLRLUbGGh8WK5yqV33LDfj1cLBch6bmiOgEWnxSndIZxwhFMQJFkS2xlp+Qo2rhg+1arqrDh0iXAo22WN4+rqiH20hHQCYgYWCugLrQA7vPl3VClVDjXlGbgo9WVXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jmna8R/M; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790614962; c=relaxed/simple;
+	bh=v8zhVjeYjrvS3PNw5JFe2GMaSJWmHxoKwtZe7MJciO0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=orIBpr/N576dmYbVJds3n1qF5GmCwkEuMep/YA6dGGsdTAvwuwrKyQCz8rd4sEiqPxouqona4EWBaqpUsepalBD4xftSLU4Pk9ANNIgdJPxyhGoxOx3oMqBvlpa97U/ioa5HEJFpQJBKLG8SNABU7QElDR4APTwqbceOLmqUF3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=fRg2Y7aI; arc=none smtp.client-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jmna8R/M"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39533bb224cso4933929a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:01:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="fRg2Y7aI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790614915; x=1791219715; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v5MkOtLdmaXNujQwpeiaeYMUIR7StZN5Q2iECEiW9FU=;
-        b=jmna8R/MwKmWsqL9annwcXlGPhnQm0L2baB9vv3hMTpLNPDZORuLkdvKxkik8+3COL
-         OhVQfHg9+n7PwqQqCFAQtO0Ou+EhNCZxAsSlFt+1iCglHmQKzkVcxtEpupFQplFRRvuq
-         6/dtHv6ngD6pF6PlSL1IgO65SwNeBAbaMrWOldE0MWxVg+j0ZS8/tYPBa9fW7ZWJTxVn
-         tVqYbgZMRsKz60Y2vifbXDgJEzobd4AMRE9suYdU7MQM5vUmKAb4u6TfpVUu/AD06Pbt
-         MOWn1T/kAYdqyQV2zXdK1pLHAy42KEp/fQDlwd0ty48hYXeP2FxWZ+QsABtfTwpJadEl
-         6KBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790614915; x=1791219715;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v5MkOtLdmaXNujQwpeiaeYMUIR7StZN5Q2iECEiW9FU=;
-        b=SgJR/t4d1YsVQRlJFgGCxP6D+Tlndvn3AA9dtpeM280tjYlKcSkW1dp96snetb9034
-         UCfl7GmcdXL2KIVP6Czh+HNQlVsmpcozJeMkJEnX124lvXmn5SfR+d0Ct0SJpy1ZxIcZ
-         h44gQ99FB1aIRDHDAfb9x9FAQOVKr/jWw7JL3NaN0FBzsPOhBSzi3UWl9q20R5wFOCiF
-         Cp25IVl00IjAvwVf/NVtycA1Pn4+M2h3L1fLAEdim0Ua8w22jxnMgBmlcvzuqPpl09A4
-         mpvc6L5gL+wdFxLSnPrtbsdLr6plr3OD9g8Nb23MnADOiAxM0LHsP8xnbZvPLAOiCOt5
-         gckg==
-X-Gm-Message-State: AFq9FYK9UoC3tHEoWun+lNHudXqU/3ytFtn90iuyKjsCxi7B2SEupZ7j
-	qMog7Vqseg0fk7uNr/C88ZE541EVuhuMMDq1DYm4co1U2oRizndYbRhkuGC3HUX9j7DoCTtdqfC
-	FSVq1ew==
-X-Received: from pgde25.prod.google.com ([2002:a05:6a02:319:b0:cc7:9ef7:92eb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:270d:b0:3a4:80bf:af6
- with SMTP id 98e67ed59e1d1-3a480bf0b5fmr1559457a91.30.1790614915254; Mon, 28
- Sep 2026 10:01:55 -0700 (PDT)
-Date: Mon, 28 Sep 2026 10:01:54 -0700
-In-Reply-To: <20260926061135.714158-1-pbonzini@redhat.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790614961; x=1822150961;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=A6WK9Y80CiMB/rsYyBjNtDkyFYNfAIuXEKudJHh0z+A=;
+  b=fRg2Y7aIsfzr/w/I/2Msxl9UGFPKHdm87efAikJi6ondNodSYG8Z7C90
+   Iv6E/sGNGu3poIMprf20Mu3yh1ixf3PfcJm1BZK11dcI4wx9rv0+3WUcD
+   lO1h7eJkvncSIcmez5c/toteXy+vCBvjsHlCp2TuPgyv2CN661M3Q4K9L
+   iN2h8H8awW5UN/G5ghRWAzL7SJxEbrPo32sIqDBOswAtrOGyivqgJJ8D+
+   Anh9V2LDWhkVyGCWG2eolrWG8DAMuuRAe8qHC2YTCGVxKr/Yl2ia+/H2I
+   Y69cbu5qIWYtIJRMd6h8if+NPVitaUwDvJgcl8I8/rvt4PUOboy/wjPGC
+   w==;
+X-CSE-ConnectionGUID: +/9tSSI3QKyOYNOTI/JyPw==
+X-CSE-MsgGUID: PdNkOt0MSl6yREab6LDRPQ==
+X-IronPort-AV: E=Sophos;i="6.27,128,1787011200"; 
+   d="scan'208";a="29851915"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 17:02:41 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:5642]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.53.187:2525] with esmtp (Farcaster)
+ id 719bb9c4-0476-426a-b2aa-bdff1f3c6d8f; Mon, 28 Sep 2026 17:02:40 +0000 (UTC)
+X-Farcaster-Flow-ID: 719bb9c4-0476-426a-b2aa-bdff1f3c6d8f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 17:02:40 +0000
+Received: from dev-dsk-hagan-1f-c6b5e25f.us-east-1.amazon.com (172.19.159.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 17:02:39 +0000
+From: "Craig I. Hagan" <hagan@amazon.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
+	<przemyslaw.kitszel@intel.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Fabio Sabai
+	<sabfabio@amazon.com>, Matt Vollrath <tactii@gmail.com>
+Subject: [PATCH iwl-net v2] e1000e: restore jumbo config after DMoff exit
+Date: Mon, 28 Sep 2026 17:02:34 +0000
+Message-ID: <20260928170234.21877-1-hagan@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260923235832.473-1-hagan@amazon.com>
+References: <20260923235832.473-1-hagan@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260926053253.195597-1-pbonzini@redhat.com> <20260926061135.714158-1-pbonzini@redhat.com>
-Message-ID: <arqdghk8eIxk1A4A@google.com>
-Subject: Re: [PATCH 00/11] KVM: fix issues with stale control fields
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA003.ant.amazon.com (10.13.139.42) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, Sep 26, 2026, Paolo Bonzini wrote:
-> > Fix two bugs where the guest could do stupid things on purpose to
-> > cause problems in the host.
-> >
-> > Patches 1-5 cover cases where actions done through VMCB control fields
-> > have to be redone if VMRUN fails.  In particular, failed VMRUNs can
-> > cause pending TLB flushes to be dropped.
-> >
-> > Patch 6 fixes a case where eVMCS execution controls can cause the
-> > host to use a stale MSR permission bitmap.  Patches 7-11 are tests
-> > for nested x2APIC; don't run them on an unpatched kernel.
-> 
-> In addition to what was reported by Sashiko, the test does not pass on
-> SVM.  Fixed as follows:
+On an I219 (pch_spt+) at jumbo MTU, after a link partner reset (e.g. a
+switch reboot) the interface can come back up unable to pass traffic until
+it is manually reset. Observed on I219-LM (8086:15b7) at MTU 9000.
 
-Thanks for cleaning up the mess!  I was definitely getting too greedy trying to
-get bonus coverage on AMD (and I've been ignoring the SVM failures in my local
-testing for an embarrasingly long time).
+When the MAC exits the DMoff state on link-up, the watchdog resets only
+the PHY. A bare PHY reset does not re-run the jumbo-frame workaround
+(e1000_lv_jumbo_workaround_ich8lan), so the jumbo configuration is left
+unapplied and traffic stalls. This was seen with NIC runtime PM disabled;
+if runtime PM were enabled, the device should go through a full reset on
+resume, avoiding this issue.
+
+Request a full reset (FLAG_RESTART_NOW) instead of the bare PHY reset when
+the MAC exits DMoff, so the normal reset path re-applies the jumbo-frame
+configuration.
+
+Fixes: 2e7256f12cdb ("e1000e: Check the PCIm state")
+Cc: stable@vger.kernel.org
+Reported-by: Fabio Sabai <sabfabio@amazon.com>
+Closes: https://github.com/systemd/systemd/issues/25925
+Suggested-by: Matt Vollrath <tactii@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Craig I. Hagan <hagan@amazon.com>
+---
+v2: Rework per review. Instead of the fc-latch autoneg-restart
+    approach, request a full reset on DMoff exit so the jumbo-frame
+    workaround is re-applied (root cause identified by Matt Vollrath).
+    Drop the diagnostic e_info. v1:
+    https://lore.kernel.org/netdev/20260923235832.473-1-hagan@amazon.com/
+
+ drivers/net/ethernet/intel/e1000e/netdev.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+index 844f31ab3..df7da86a8 100644
+--- a/drivers/net/ethernet/intel/e1000e/netdev.c
++++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+@@ -5264,9 +5264,11 @@ static void e1000_watchdog_task(struct work_struct *work)
+ 					usleep_range(10000, 20000);
+ 					pcim_state = er32(STATUS);
+ 
+-					/* Checking if MAC exited DMoff state */
+-					if (!(pcim_state & E1000_STATUS_PCIM_STATE))
+-						e1000_phy_hw_reset(&adapter->hw);
++					/* MAC exited DMoff; do a full reset. */
++					if (!(pcim_state & E1000_STATUS_PCIM_STATE)) {
++						adapter->flags |= FLAG_RESTART_NOW;
++						goto link_up;
++					}
+ 				}
+ 			}
+ 
+-- 
+2.47.3
+
