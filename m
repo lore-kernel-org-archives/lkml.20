@@ -1,154 +1,198 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66CC369224;
-	Mon, 28 Sep 2026 06:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578497; cv=none; b=bKTYzienIj/55dKfw9GKpYy53l8mdanMMuSODjqUIm/Yrp+HS+D1+vXtRD/k58UGjgxt2otujAOpLsQ7rw2oPj/KIC2sV47l8qkNEo5NcleXoXBJW2bs4KD1iukFABlOJ2C3yIEohHBhIHT9NayIH4bLa0vzvnhPwcoQFDKnh74=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578497; c=relaxed/simple;
-	bh=v0Qx0SVkWY4El4gyQblcQ7YByqNzQoPYAWg0Vjn8pto=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=StP4zlgf8ayYWz8OPMgxVHU+aeDnDDM+CKo6ZKtszrNr1AZUtaZUH7IsmqB+0GUK6LbOeqMbkbUwNgQoLXR5GzzRZHyUykx1INqI1yqkDWh6/4RCqOXw0XCYPT7w/JisNGJsPVfqlLlGJ4Lmkth4lD6NTwjQhXv4PYDJ9pqIZRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=iMvs9S9u; arc=none smtp.client-ip=117.135.210.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17319305698
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790578614; cv=pass; b=hKkXRymJFyQXPGqW0i2QACdLyS6aJnvK9yj1lJphNQckEajCRcU4szfXT/CMz1czbZUNIKdJV+zvZSmMt0dI6NnxAZLh/EVWxpVOsQ//yeOmXB/4VQvryeWUzp/sMPWHajpzXtVQ4NlFlssMT4mDy6hF4JUwrL+wYanYEgC/388=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790578614; c=relaxed/simple;
+	bh=oDVFyTgc0jEjWTx3wGakD1eVCDxa9++gL5VON22nCjs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gov5oYHf0RGoDls+zoIQG0E7DvAIHtjm/MsWmF4+dDLL0i5I2LGkyteypQn0IqsXexbrooZeZE6ZC5wGA0oPcqGe+CWGpXgpCALRSHWjG2w2d7vxuYPTLnVI0O0NK90ENvCmG+1xIpb2jHScUpYiIY5N+T3v1eBpNbc4XQUc4p0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O/IV2XUt; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="iMvs9S9u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tj
-	uFWS1aagbpSLzq2GUkwsYPzV+6jqR8uoRndtikMxo=; b=iMvs9S9ue/eMQaf7fZ
-	CAGc/m7/nd+JcrnaKa8IJtVOB4KH6Tc0RLysMI0wUBEUEnFhba+1Mn97OvXR2c9B
-	xjljVh3/KEJvSRbgYFcnbenpwmO+Ts2eFq91jp73cOAqKduKFyzLtDHMQbMh12vg
-	mywnGQPRwdYrDocudV9czPUgk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgD31_vUDrpqqwJlAg--.52624S3;
-	Mon, 28 Sep 2026 14:53:11 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH iwl-net v2 2/2] ice: release the VF MSI-X window when ice_start_vfs() fails
-Date: Mon, 28 Sep 2026 14:53:06 +0800
-Message-Id: <20260928065306.1514795-2-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260928065306.1514795-1-xiaolinkui@126.com>
-References: <20260928065306.1514795-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O/IV2XUt"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b8f42bb8a9so3721e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:56:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790578611; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HCeafhAjGZLc0314oSJvdIsHQOn++ZTfmaihWXu+ZidOZqo4XXxKHNbHQab1p3cyKF
+         715LbStCzR8vl3XY7tdvlPMk7iJArixA7t8u7RxZ5edes6BXOO0iIeDRFbCFRv2zvDor
+         TEFWNhLz/ls0e1eS/7GdqJo+gw9vCuDq1bu4BSE8s/ZX+rgTHf/cZ149V4FjiMhdREN/
+         tyD1yhy4dGGkT7vkT6l5mDn4cXEsnYZzcH/r6zTNbeN6A2a5FbGD4C0Ok/Sxl1EzQ/PI
+         hhcV8zRyTj3ztJ45hLyUhDpmoF/VUBiQhQ2S4oiUC58xTiHnR9mj5xuOKBAo/TKxVLDH
+         TJxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wAk85Ancg6OFmC+89rPAK+EUepKbCsC89fJMdetQk4k=;
+        fh=f/n4G5VCZCarBJ+f2caA5uawFDCcKOnXU5/jaeEtOHQ=;
+        b=bnfpchHl+aIMqKqoP47Rr94vLhPAWpFoyTrgQOcNW3Xek3UfFkBDqCtW0zFhOTtsxl
+         fi2r1bmRSfCDTR99YfN/ktpEfwqMfMiqplmLf5agYNBRFpkEDmrWMaHXiAUJlWPdrNzx
+         ZAmmGPSCht6sY+wC6fNC6s/4XveTz3n4+FrH9E7sXqudo6pgfaI5rRG5jQcihVZ6qhBP
+         fozxQurHsTBYdFLI/S73DwCHxoroNDpxPSXKMiEcCJdLOrjsOi8i4rVlFP8zbPpjPdzG
+         5wyu71SVMMLnJZTNqr3RIzmYD8Rdx6RDTjm0gbx107JI3WseypNXrdP5IR5acL3enEGp
+         CV9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790578611; x=1791183411; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wAk85Ancg6OFmC+89rPAK+EUepKbCsC89fJMdetQk4k=;
+        b=O/IV2XUtt5v++XKoGnEV+x35eWOPUL9sGjlf3wSWbuTO4kBPNiMaPE+IoNhhnUDGMz
+         TB+gXTjCnWA1QoK9JpR2eZlcNuu+IV04PP5cEwysiIAXsJgkqueMzO2H72bUTlLYLeLN
+         1wABQNlX7FgJ7hJo21L3fdm8pb/i1fRFwWl3NEK/1a2ma85MAlpwpSmmQ0Hg8Q0gv/F7
+         DLT5sIqWhYM2QNnLLYlpJLWQ7vHz22hBsxyVGVkh4mpKQQnti1pFL+oF+9W/3SKNQqmF
+         TdZ4UnN9T8xEI3sDbl6DYm+KcfR6FK13iVGixBZdbnuSq5rpNsJ22KIQHSqIQNdCB8oh
+         wUFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790578611; x=1791183411;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wAk85Ancg6OFmC+89rPAK+EUepKbCsC89fJMdetQk4k=;
+        b=pPtMlan+/CD8khE0ZIn/dVGosZOnO2P2H1mStWTLb6JzSODgQvQWIYQTFd33H0kUvG
+         P8xHVXFoiPRbPl4kQC2FyYw9GSv+FuWzyxqoCbhQKoX+u1uXpZo3ufSHQs51hnq3T08K
+         hmQGrtqYxKVN36p8HxfvQlZ8ils5x8AmFyawilsMipXSccQbICY0QO3uJD45bPFddTf8
+         R6v/p/RqpcHqg2rJi5VGfq6ArOcFOEr9EJOf3VoRVcBa6L7rDiRi3V6/wYdjiOM8OuKE
+         kCtbSq/AonnI60jSuFORnofahdL5/o2pti9oBf5i49MKKOqM8O1ZGFGYZXriC+cI9J75
+         lxxw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsqpwVbukzp2Podzs2FhDdOG0zm4ch1dsCmVTDr4qKeXDayoCD5Xcx8kfsS3uTi18vG5JKcmzLUj0CsMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCfYYFzcDM/nYPztubskOzVPh+oTsMcK2y0zBElmHxqwFGYeTL
+	DGEqJanH1xDl0coryUxY+TpHAnwIpoL0T60woeEzJVAJrVOSP5GGgFfxJYlRRy8oVXuzqvu6mL6
+	/aPD0VWPLw5DkDmGKVjAFJXD4qzCqj+iEBzJJ2zy4
+X-Gm-Gg: AYBFou2kBaLSmnXBPdhuXeZp+dU9MG/+rLhCK0RpDi5tLUwZBiMezWJauVgicVvYXNM
+	hHEv74LexxVJly2490yDlib0FF5rTK374dZTXuzH/kD1eFzouDbwGZ6sMiwU/Dbtuf885wcI/jE
+	OY41Z6ulaH70shoIE8wRHV+Csp+2JQXocFscCoKshKuHMsuj03AZ7lbTRjBkLy4CW2pZKulJIhq
+	8c72bqcwG4wBgCPObRxJPjMLnuhPgqcWDhonzxxqIWPVHlw4sNFm1K+GTcAZsGOMLytsy7Ilnra
+	g/QmV0TQJR/gGWY2SZMiF7yW457JAHNB8tJQl+/wrT622kLUjgoauNrbMnnySQxMbdAYdL/ydw8
+	aKvyJXuvTN2san+Q0GRuYSXo=
+X-Received: by 2002:a05:6512:3d8e:b0:5b8:c8f2:16c4 with SMTP id
+ 2adb3069b0e04-5b8ef255fa0mr155202e87.10.1790578610464; Sun, 27 Sep 2026
+ 23:56:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgD31_vUDrpqqwJlAg--.52624S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw48ZFyxZw15WFWDtw4UXFb_yoWrGryxpr
-	Wqqr15Kr4kJF48WrZ7Ww1UZFn5uaySqFW8ury0g3Zakrs8Ar1UtF1Utr12y3W8C397Ca1a
-	vw4q9w1rZr1DJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uy5lnUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBcC2Gq6DteZhAAA3N
+References: <20260908145622.2828319-1-fuad.tabba@linux.dev>
+In-Reply-To: <20260908145622.2828319-1-fuad.tabba@linux.dev>
+From: Fuad Tabba <tabba@google.com>
+Date: Mon, 28 Sep 2026 07:56:14 +0100
+X-Gm-Features: AclHuK9Nt0wxmbd5-RZTKhrKH6f7Mij28E53-dg3AuD8R3c5qE6gQbIJDKPoGaw
+Message-ID: <CA+EHjTy6+JpcdwuP3wnxK9n2iR0REM7nFgxkLaS8RAOST4KY5g@mail.gmail.com>
+Subject: Re: [PATCH v3] arm64: mpam: Document when to set arm64.nompam
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Ben Horgan <ben.horgan@arm.com>, James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
+	Marc Zyngier <maz@kernel.org>, Bradley Morgan <brads@mainlining.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Hi Catalin, Will,
 
-ice_init_vf_vsi_res() reserves the VF MSI-X window with
-ice_virt_get_irqs(), which does bitmap_set() on the PF-wide
-pf->virt_irq_tracker.bm, but nothing hands that window back when VF
-creation fails. ice_virt_free_irqs() is not called anywhere on this
-failure path: not from the release_vsi label of ice_init_vf_vsi_res(),
-not from the ice_eswitch_attach_vf() failure branch, and not from the
-teardown loop of ice_start_vfs(), which only undoes the queue mappings
-and the VF VSI. The caller does not help either, because
-err_unroll_vf_entries -> ice_free_vf_entries() -> ice_put_vf() ->
-ice_sriov_free_vf() only does mutex_destroy() and kfree_rcu().
+On Tue, 8 Sept 2026 at 15:56, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+>
+> arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
+> finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
+> firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
+> left unwritten, at reset values that are UNKNOWN, and KVM still hides
+> MPAM from the guest but no longer enables the traps that stop a guest
+> from using it. KVM never saves or restores MPAM0_EL1, MPAM1_EL1 and
+> MPAMSM_EL1, so what one guest writes reaches the next guest and the
+> host. Nor can the kernel make the EL2 writes unconditionally: they trap
+> to EL3 on the firmware the option exists for, and TRAPLOWER cannot be
+> read below EL3.
+>
+> Say so in mpam.rst, and add the rule and a pointer to the
+> kernel-parameters entry.
 
-The tracker is allocated once per PF in ice_init_virt_irq_tracker() and
-freed only in ice_deinit_virt_irq_tracker(), and ice_set_per_vf_res()
-sizes the VFs from pf->virt_irq_tracker.num_entries rather than from the
-number of free bits. So each failed "echo N > sriov_numvfs" leaks the
-window reserved for every VF that got as far as ice_init_vf_vsi_res(),
-and once the tracker is exhausted ice_virt_get_irqs() keeps returning
--ENOENT, which means SR-IOV cannot be enabled again without reloading
-the driver. The hardware and the software bookkeeping also end up
-disagreeing, because ice_dis_vf_mappings() clears
-VPINT_ALLOC/VPINT_ALLOC_PCI and re-points GLINT_VECT2FUNC of exactly
-those vectors back at the PF.
+Gentle ping on this one; it has Ben's and Bradley's R-b. I think it
+still stands regardless of the other cpufeature work going on now.
+Anything else needed for it to go in?
 
-Return the window on the failure paths, in the order ice_free_vfs()
-uses: ice_virt_free_irqs() after ice_eswitch_detach_vf() in the teardown
-loop, and right after the VF VSI is released in the two branches that
-fail before the loop can reach that VF.
+Cheers,
+/fuad
 
-The missing release is older than this change: the teardown loop has
-never returned the window. It turns into an accumulating leak because
-the tracker is now PF-wide and outlives a single SR-IOV enable.
-
-Fixes: a203163274a4 ("ice: simplify VF MSI-X managing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
-Changes in v2:
-- New patch. Returns the VF MSI-X window that ice_init_vf_vsi_res() reserves
-  when ice_start_vfs() fails. The missing release is older than the
-  representor bug that patch 1/2 fixes, so it stays a separate patch.
-  (Sashiko AI review)
-
- drivers/net/ethernet/intel/ice/ice_sriov.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index 95abc6704820..df84dbe12cba 100644
---- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-+++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -446,8 +446,10 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
- 		return -ENOMEM;
- 
- 	vsi = ice_vf_vsi_setup(vf);
--	if (!vsi)
--		return -ENOMEM;
-+	if (!vsi) {
-+		err = -ENOMEM;
-+		goto free_irqs;
-+	}
- 
- 	err = ice_vf_init_host_cfg(vf, vsi);
- 	if (err)
-@@ -457,6 +459,9 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
- 
- release_vsi:
- 	ice_vf_vsi_release(vf);
-+free_irqs:
-+	ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
-+
- 	return err;
- }
- 
-@@ -490,6 +495,8 @@ static int ice_start_vfs(struct ice_pf *pf)
- 				dev_err(ice_pf_to_dev(pf), "Failed to attach VF %d to eswitch, error %d",
- 					vf->vf_id, retval);
- 				ice_vf_vsi_release(vf);
-+				ice_virt_free_irqs(pf, vf->first_vector_idx,
-+						   vf->num_msix);
- 				goto teardown;
- 			}
- 		}
-@@ -511,6 +518,7 @@ static int ice_start_vfs(struct ice_pf *pf)
- 		mutex_lock(&vf->cfg_lock);
- 
- 		ice_eswitch_detach_vf(pf, vf);
-+		ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
- 		ice_dis_vf_mappings(vf);
- 		ice_vf_vsi_release(vf);
- 		mutex_unlock(&vf->cfg_lock);
--- 
-2.25.1
-
+>
+> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+> Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>
+> Notes:
+>     Changes since v2:
+>      - Add MPAMSM_EL1 to the registers a guest can reach (Ben).
+>      - Carry Bradley's Reviewed-by, dropped at v2 and reaffirmed there.
+>
+>     v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
+>     v2: https://lore.kernel.org/all/20260904103131.627392-1-fuad.tabba@linux.dev/
+>
+>  .../admin-guide/kernel-parameters.txt         |  3 ++-
+>  Documentation/arch/arm64/mpam.rst             | 26 +++++++++++++++++++
+>  2 files changed, 28 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd24..e6d543de3cde5 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -575,7 +575,8 @@ Kernel parameters
+>                         Set instructions support
+>
+>         arm64.nompam    [ARM64] Unconditionally disable Memory Partitioning And
+> -                       Monitoring support
+> +                       Monitoring support. Only for a machine that does not
+> +                       boot without it. See Documentation/arch/arm64/mpam.rst
+>
+>         arm64.nomte     [ARM64] Unconditionally disable Memory Tagging Extension
+>                         support
+> diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+> index 67fe515ed501c..e445f4078ee1a 100644
+> --- a/Documentation/arch/arm64/mpam.rst
+> +++ b/Documentation/arch/arm64/mpam.rst
+> @@ -87,6 +87,32 @@ The supported features are:
+>    MBWU monitors can be exposed to the user after support for more monitoring
+>    scopes is added to resctrl.
+>
+> +Command line parameters
+> +=======================
+> +
+> +arm64.nompam
+> +------------
+> +Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
+> +it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
+> +CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
+> +the MPAM system registers from the lower exception levels to EL3.
+> +Firmware must clear it, or handle the trap and emulate MPAM as disabled.
+> +Where it does neither, the CPUs still advertise MPAM in the ID registers,
+> +the kernel's MPAM register accesses trap to EL3, and the boot fails.
+> +``arm64.nompam`` exists for that firmware: it makes the kernel treat the
+> +CPUs as not implementing MPAM, so no MPAM system register is accessed.
+> +Set it only on a machine that does not boot without it.
+> +
+> +It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
+> +the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
+> +unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
+> +guests but no longer enables the traps that stop a guest from using it,
+> +so a guest may be able to read and write MPAM0_EL1, MPAM1_EL1 and
+> +MPAMSM_EL1. KVM does not save or restore them, so what one guest writes
+> +is still there when the next guest runs on that CPU, and when the host
+> +does. With MPAMEN set, EL0 and EL1 requests then carry that PARTID and
+> +PMG.
+> +
+>  Reporting Bugs
+>  ==============
+>  If you are not seeing the counters or controls you expect please share the
+> --
+> 2.39.5
+>
