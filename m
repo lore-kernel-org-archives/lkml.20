@@ -1,138 +1,188 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72B32E121;
-	Mon, 28 Sep 2026 23:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C7D32E121
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790639420; cv=none; b=XBwASZMsAAFu3OUHxrGQ9lnlmrrbpkyPV8K3q9Sb5d2jQppG4FcQSlxUkmPmGT+77JV/+NOY36xVC8TQ/2kA+e86FIbhCqMCfLnRQBiO8L7rCcz1GPdoyCTIYuF9278mQTkLRfI3nepPlWIOSI/f1aSiKxVNtOfv1h1Xagb4rUg=
+	t=1790639549; cv=none; b=ERmK5jP/b3+ZdQzaGbDwBbtg6iXu+wuT+w67TpAKnoZnB6Zc3PW0WbBrKHfMpl3cK/X11tlkgWxDBB99sZJuLS4l3V4pzJOdXRYTc96SQwJt/cHj870u5bkQ0TBEYswUQycW0zmg3INqvzXe6csM9NYeUwdmTQ56a/D8aGTtCuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790639420; c=relaxed/simple;
-	bh=yeLWxwyJTsE4BCXrz9QiRVhSSjNSbYW82lmQRE02QaM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K1etuYMUw0JzXwYmIsSatOBoRVMMOJVHgDfOXzs3QTtVV9l9HigzY8HARzT2xEKlRWg9llS8PP7mRP0/XRegAFHAgYYgD6DrzGPBCWDLMJenAbKDb7iFZZiTBna7pd4wUFsHG5RkhDujgnagR1umYsBT/PYrjk8+VgSOfxrmdIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eaf2k4nM; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790639549; c=relaxed/simple;
+	bh=CHcC2R0/FpBjIYI9QxP7NaTbRmriarLBJYrCjCRrOww=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J1W9i1JA/iXcplOkBh3Qr0mkKFAtVxG+N4/th3nRvV0yzmWpN7QO4gR3O94dpvs18Zh3oxjiEtm5+egU1SucFYY2ssJ0UxH/qYsla4Ee5O7ZiYbEUC11Eh5hQRw31cvUTRXSGtabsH0S8M2XlhTe814VUwhARJHxAFog9e9sTaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O3mpIGao; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eaf2k4nM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790639418; x=1822175418;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yeLWxwyJTsE4BCXrz9QiRVhSSjNSbYW82lmQRE02QaM=;
-  b=eaf2k4nMaGihudGkHzjSbFs1Q945ENSoLSzEyJjnWxkRKvKXjskIgFTH
-   KTl/1/IL8Cv5SNwsB+hYz8YKBukjzIwPa4RKDQHL8jFFPjWaPoqa/duYg
-   itepGVnyzeAvNiOGidm8T44BYO3QEgpX28AW8aEmX3d0kIpun8aXWXo/g
-   ZR0WGp+N3Gx90Z1GlOYzaWoQwJtOaJMvTGXvz22fmuJzEfdRyV3B3efEe
-   b1sMk6j/zNPkSQ8OZ8B/7s5x6sZdrQPc/0cA+wtatjozSytpuLD6i0HGL
-   pHmkWWKLHHiz5tE92q/jQg5oW/X0MKTBK96g4Hyw93IkYV1sEQanN1Lp/
-   Q==;
-X-CSE-ConnectionGUID: eJLnP4JSTXeE/LULi7o/Eg==
-X-CSE-MsgGUID: bc09Lup2TbaisDqxSSqZGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="93841819"
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="93841819"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 16:50:18 -0700
-X-CSE-ConnectionGUID: uJU6kZrTQUiVicpQRe1w5w==
-X-CSE-MsgGUID: zaz9qr0ZTPaGUoHUQd6epQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="283273529"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.79]) ([10.125.111.79])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 16:50:16 -0700
-Message-ID: <73faab54-a9df-4053-8012-1ee28f0b2330@intel.com>
-Date: Mon, 28 Sep 2026 16:50:15 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O3mpIGao"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790639546;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SoI2AnljE74Mg/9u9kz3KpTxax7C6jzrTY3CpPf5lp0=;
+	b=O3mpIGaofFjAKnIARCAra8UMY3EG1nd6DnTlyzQRjcZ8dnGDf7CXBFADMMsStblQyCjQL+
+	6o6Yc+FksLmvlt652WvZsLuZ+yTpZdAC7HcvuSLGAwXSav7xIyvURr7yaDjrbf7+MvMQ4/
+	PHr2NehS8ZAjH3jjedWTVIplkn/DAgI=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-531-obuXTviePuSGHQeVKy6_4g-1; Mon,
+ 28 Sep 2026 19:52:24 -0400
+X-MC-Unique: obuXTviePuSGHQeVKy6_4g-1
+X-Mimecast-MFC-AGG-ID: obuXTviePuSGHQeVKy6_4g_1790639543
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 15DEA1828A81;
+	Mon, 28 Sep 2026 23:52:23 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9F6C11800345;
+	Mon, 28 Sep 2026 23:52:20 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] cgroup/cpuset: Properly disable partition when partition state switching fails
+Date: Mon, 28 Sep 2026 19:51:59 -0400
+Message-ID: <20260928235159.515654-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cxl/acpi: Check ACPI companion before use
-To: Jiale Yao <yaojiale02@163.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260926071605.3013893-1-yaojiale02@163.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260926071605.3013893-1-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
+Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
+don't leave any housekeeping"), the partition state can be freely switched
+from "root" to "isolated" and vice versa. After that commit, the switch
+from "root" to "isolated" can fail if it exhausts all the housekeeping
+CPUs. Later on, the switch from "isolated" to "root" can also fail if
+some of the partition CPUs are boot-time isolated by "isolcpus".
 
+The partition is made invalid when the switch fails. However, the
+remote_partition flag for a remote partition can remain set and the CPUs
+from the invalidated partition aren't cleared from subpartitions_cpus.
+Fix this by properly disable the partition in this case.
 
-On 9/26/26 12:16 AM, Jiale Yao wrote:
-> Platform drivers can be forced to match devices outside their ID tables
-> through driver_override.  cxl_acpi_probe() assumes that every bound device
-> has an ACPI companion and dereferences adev->dev.bus without checking the
-> result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-> without a companion therefore causes a NULL pointer dereference.
-> 
-> This was reproduced by setting the driver override for the pcspkr platform
-> device to cxl_acpi and binding it through sysfs:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000280
->   #PF: supervisor read access in kernel mode
->   RIP: cxl_acpi_probe+0xf4/0x220
->   Call Trace:
->    platform_probe+0x4d/0x80
->    really_probe+0x106/0x370
->    device_driver_attach+0x4c/0xa0
->    bind_store+0xd0/0x100
-> 
-> Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-> companion before use") fixed the same force-binding issue in another
-> platform driver.  Check the companion before setting up the CXL root and
-> return -ENODEV when it is absent.
-> 
-> Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+In the case of remote_partition flag, it should be cleared for a
+invalidated remote partition. To be safe, the reset_partition_data() is
+now enhanced to always clear the remote_partition flag. So there is no
+need to explicitly clear remote_partition in remote_partition_disable().
 
-Applied to cxl/next:
-371c2ad16242
+On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
+and more than 16 cores, the following commands was executed after boot.
 
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Move the ACPI companion assignment immediately before its NULL check.
->     - Reorder local declarations in reverse Christmas tree order.
-> 
->  drivers/cxl/acpi.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..fb09a5ff48c1 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
->  
->  static int cxl_acpi_probe(struct platform_device *pdev)
->  {
-> -	int rc;
-> +	struct cxl_cfmws_context ctx;
-> +	struct acpi_device *adev;
->  	struct resource *cxl_res;
->  	struct cxl_root *cxl_root;
->  	struct cxl_port *root_port;
->  	struct device *host = &pdev->dev;
-> -	struct acpi_device *adev = ACPI_COMPANION(host);
-> -	struct cxl_cfmws_context ctx;
-> +	int rc;
-> +
-> +	adev = ACPI_COMPANION(host);
-> +	if (!adev)
-> +		return -ENODEV;
->  
->  	device_lock_set_class(&pdev->dev, &cxl_root_key);
->  	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
+  # cd /sys/fs/cgroup
+  # echo +cpuset > cgroup.subtree_control
+  # cat cpuset.cpus.isolated
+  10
+  # mkdir A
+  # echo 10-12 > A/cpuset.cpus
+  # echo isolated > A/cpuset.cpus.partition
+  # cat A/cpuset.cpus.partition
+  isolated
+
+Before the patch:
+
+  # echo root > A/cpuset.cpus.partition
+  # cat A/cpuset.cpus.partition
+  root invalid (partition config conflicts with housekeeping setup)
+  # cat cpuset.cpus.isolated .__DEBUG__.cpuset.cpus.subpartitions
+  10-12
+  10-12
+
+After the patch:
+
+  # echo root > A/cpuset.cpus.partition
+  # cat A/cpuset.cpus.partition
+  root invalid (partition config conflicts with housekeeping setup)
+  # cat cpuset.cpus.isolated .__DEBUG__.cpuset.cpus.subpartitions
+  10
+
+Reported-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/lkml/7f4c57b26ad120ab30adf35653f1dd94@kernel.org/
+Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cgroup/cpuset.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 4a915da37bb3..9874c25eb83c 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1229,6 +1229,7 @@ static void reset_partition_data(struct cpuset *cs)
+ 
+ 	lockdep_assert_held(&callback_lock);
+ 
++	cs->remote_partition = false;
+ 	if (cpumask_empty(cs->exclusive_cpus))
+ 		cpumask_clear(cs->effective_xcpus);
+ 
+@@ -1615,7 +1616,6 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+ 		     !cpumask_empty(subpartitions_cpus));
+ 
+ 	spin_lock_irq(&callback_lock);
+-	cs->remote_partition = false;
+ 	partition_xcpus_del(cs->partition_root_state, NULL, cs->effective_xcpus);
+ 	if (cs->prs_err)
+ 		cs->partition_root_state = -cs->partition_root_state;
+@@ -2892,6 +2892,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+ 	struct cpuset *parent = parent_cs(cs);
+ 	struct tmpmasks tmpmask;
+ 	bool isolcpus_updated = false;
++	bool disable_partition = false;
+ 
+ 	if (old_prs == new_prs)
+ 		return 0;
+@@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+ 		 */
+ 		if (((new_prs == PRS_ISOLATED) &&
+ 		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
+-		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
++		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
+ 			err = PERR_HKEEPING;
+-		else
++			disable_partition = true;
++		} else {
+ 			isolcpus_updated = true;
++		}
+ 	} else {
+ 		/*
+ 		 * Switching back to member is always allowed even if it
+ 		 * disables child partitions.
+ 		 */
++		disable_partition = true;
++	}
++out:
++	if (disable_partition) {
+ 		if (is_remote_partition(cs))
+ 			remote_partition_disable(cs, &tmpmask);
+ 		else
+ 			update_parent_effective_cpumask(cs, partcmd_disable,
+ 							NULL, &tmpmask);
+-
+ 		/*
+ 		 * Invalidation of child partitions will be done in
+-		 * update_cpumasks_hier().
++		 * update_cpumasks_hier() below.
+ 		 */
+ 	}
+-out:
++
+ 	/*
+ 	 * Make partition invalid if an error happens.
+ 	 */
+-- 
+2.55.0
 
