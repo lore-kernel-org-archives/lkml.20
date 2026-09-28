@@ -1,258 +1,198 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010015.outbound.protection.outlook.com [52.101.84.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D164BF938;
-	Mon, 28 Sep 2026 12:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597106; cv=none; b=hQpjzGiB2stXmRBzBNpxWRWAByZ9+egrqCoaD0lRtyXYGLnYTlcilAr+CdS8YW+OC5dwlNOHDwS7oOm6a6Kvo5PmtfwEDCpuj2wALeRBl6yqKmly1bC3mIEjcUmfwzYaIN8uNDZ8ztGf72iA8bM9Acmox246cRyI2I8JObuuQiI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597106; c=relaxed/simple;
-	bh=+oYLVxH/WW85w4gIY/w6DNVnL2/oF7wWEsEFmSkbbPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m+TSgmFrDiJ6F7zyPtvMpMReE2DrdkSS/yl1PXMJbX/EHQEdEuooUXKvEM1zyHOFHSr6kl7QUnSZCqQsEQLAslWKkyY1x/vPmxxL+yyLeaWsY/nbdUr9M+nFL9hThN52PVCMrcNXPJHqfuCRynRfZ1VTSc0MQTq/CFihEgYld0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gmimemSg; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7054BA1CD;
+	Mon, 28 Sep 2026 12:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790597122; cv=fail; b=qhYsEJS/pUaZdhe2spT0neZCmk+2EXgtWkNlV/0doWbBtHKANpVUjm5v4y7f8khncoIzeWe9HL5cg89NNqEq9vqrlSv9bZBMWcyVtfOgjfHx9ogzHhqN+obs4WZPBAHclj9wr1VE8pGyzV9rYrZ6m0AmQag1j5Lytfsblz5Zp0Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790597122; c=relaxed/simple;
+	bh=WmI00m8CalFN9TahTJ/mE3uZpxoU9d93oI0e+BCykns=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=HeUgnicAw+7JaE7YIaNFDQEbZtvKp45eljDE/R8UTnIuo8XSla0+XXFNwjfckb6D+1iKxb88onoLOf5/VpiSlX2dTWmGk8ulEarCK4a26xpArlzuBcEQfm2QF9p9m39oPtkbqEqymoVhrFNuYbzquM3LaIGtlK6i9qYeIaT4qwY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=cOPXkPub; arc=fail smtp.client-ip=52.101.84.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gmimemSg"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZUMD3374975;
-	Mon, 28 Sep 2026 12:04:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=HyqRC5kNYPHLFH0XB
-	9ILyvhfxANaac/7S+L5g37NXRs=; b=gmimemSgi6izGKsEGhuRZuFhMoZpFU8Y1
-	cz7FTIrJ1axei6FHj7vS1lAHNJb9ARiFBZ+iKNWhHHu8OWk56f83suRHNj4m8Et4
-	zp8b2FSNlojW/hdUNRoS++PGVXNwskukavGy+I/DObsCTgTA2eAJH8uzLhNLBF++
-	Nb/Wj/mLlOEs8hqN57QbH7pHtnyUPgfTb3XzgPcNRt0gbrhK0HTgKoYtsjVNQFWG
-	2nf8CugCKc4MetC5CjWpf3PHzldoD4I0sSNfIvPQxAgwpAiKwOi8sDLF24JJivBM
-	xe16KKCGPJ6EYuHSB/jBVxful92O/wUjBn57KtLSTaIUKvbdRRTiw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qr13qv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:04:30 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHZ7v017859;
-	Mon, 28 Sep 2026 12:04:29 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck53ce-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:04:29 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SC4R3048497076
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 12:04:27 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EAB9E20040;
-	Mon, 28 Sep 2026 12:04:26 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1064B2004B;
-	Mon, 28 Sep 2026 12:04:22 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.95])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 12:04:21 +0000 (GMT)
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: "Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
-        Daniel Gomez <da.gomez@kernel.org>,
-        Pankaj Raghav <pankaj.raghav@linux.dev>, Theodore Tso <tytso@mit.edu>,
-        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>
-Subject: [RFC PATCH v4 12/12] iomap: Handle deadlock due to repeating folios in RWF_WRITETHROUGH
-Date: Mon, 28 Sep 2026 17:33:13 +0530
-Message-ID: <5159efdec832e8179e9f689a9292f9bf47d9a0fa.1790596383.git.ojaswin@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790596383.git.ojaswin@linux.ibm.com>
-References: <cover.1790596383.git.ojaswin@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="cOPXkPub"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gf7FbCCQ78QeajbIlGkvOve4wVkaMYeVrpUpgL2b89RQmoW61gMAN4lpp7eoizAgBOHUch2IqEk9PeGPbMz0fpT5XpRxsmuryMHRbdSV1A0gHUjwBOeVxC23XgCkEChQ3VyNUluqTnkLowA9T4e6nkpTI5k1iokWsv+0Eqcb4e2IfcPyNcblQBtvkWHmI4JZGv1Pwgvt1X1qCuDR1hUo3+Y2J05fK0T7s+BvSlPUrXh+oFlhjGSyazy/yQiX2sgRRlmPRJTX1PzIoFvLbMnlOcF/kvjNkJkyXxE1MfSdFZReAkjTHQeRitosWL3cA+s8bC/xCXyOQRgrBfkC4PvwgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nokt0XJRN2+T+131qPoS12+01a2qFEAM3m08xG7EIX4=;
+ b=WlK+myXn1lgTHbMw/qP8/x69n47+2Qv2Q33f/lyF/h92+U5jFayBAijqBNz88/r4aQfsJnNAiYISAuLp8rW4kkRqxAEprifITnORQv9tzJCFOKBhdrqvwp5ulOSzAZ2t5zn3JQIr+aCjVZdvkgU5tC2UKotpURA8V8jylLoyWEOzpd6IXdGuKgT4G13Jat41HQC2xw7cysna4kYg1YuaypFftSgMc/+jQEmbG+y7PmyYMBYVU65UvTr7OOR7IBlxRgpv2P17CEVna2yRT8CjQAzjcLHb3gsQxXLRQPbqSBf5GBka5KTwWpjjIZG0OCbYK1YLUGOk9USM+QLEKeGk5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nokt0XJRN2+T+131qPoS12+01a2qFEAM3m08xG7EIX4=;
+ b=cOPXkPubxIPaQqpc6m/qQwccShrEEJrqK7Q5lFC8q/dyh2LhryVFm5K9icLBCLhtXm8//dpjjqWqVs1rKk+Fs/mE8pdM+hSoEQL0yfg7HjwC5LT+K4JTh9FioeZTok/zF6h6mQ8BFIaeIt5UHrArZlkIQEFLRqXT4OoVq7vqwWg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df) by VI0PR02MB10536.eurprd02.prod.outlook.com
+ (2603:10a6:800:1b9::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 12:05:16 +0000
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::9ac:6f90:5998:69d6]) by GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::9ac:6f90:5998:69d6%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 12:05:16 +0000
+From: Henrik Grimler <henrik.grimler@axis.com>
+Subject: [PATCH 0/7] ARM: dts: artpec: cleanup with the help of
+ dt-check-style
+Date: Mon, 28 Sep 2026 14:04:46 +0200
+Message-Id: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN5XumoC/yXMTQqDMBBA4avIrDuQRgnaq0gX+Zm0IyWGJIog3
+ t1Ul9/ivR0yJaYMr2aHRCtnnkPF89GA/erwIWRXDVJIJQbZo+lQpxLJKrQ/0mGJ2DpvWqGlMoO
+ DGsZEnrdrOr5v58VMZMv/BMdxAqdhyap2AAAA
+X-Change-ID: 20260928-b4-artpec6-cleanup-3dfb30a26b9d
+To: Jesper Nilsson <jesper.nilsson@axis.com>, 
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ Henrik Grimler <henrik@grimler.se>, 
+ Henrik Grimler <henrik.grimler@axis.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2677;
+ i=henrik.grimler@axis.com; h=from:subject:message-id;
+ bh=WmI00m8CalFN9TahTJ/mE3uZpxoU9d93oI0e+BCykns=;
+ b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqulfiFzHch4UdryP5wqfyVzY08FcRgygj6J54P
+ F1wWfpBwxCJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCarpX4gAKCRCwB25JC3Fh
+ axMBCAC3MvJEV1qhfrmfN18doBXkKsdhFGqW2BDPfy2I3CaqoxVmmprW5rR6NiwBBeCyDPc7a1u
+ dG9uWlV3UKfC28rBcQBCRDM94ayetgFH9iR7AqfhA/4BwhNEFASwX+2ic9Wf1W9p9g0pWs64Ne5
+ yG2KPRk1j5MFj1O5REhK6EJhhRMGBjicNEssWD3/0k+3xABk8FWo2MrduHI6v/bRWJPs2beU2Ty
+ QFk2G8YDRwNx9DD5V+aSbd57dLIi8NgKWILuZ2uQZcfrKLO0VJIS47XDr9ajyga+iEoYUGPVesR
+ DN8csBjE/4etNA9chfwYUXz6+ogdqt3mHk7FVq9HAtWNQjwy
+X-Developer-Key: i=henrik.grimler@axis.com; a=openpgp;
+ fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
+X-ClientProxiedBy: GVYP280CA0043.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:f9::18) To GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX7Hcy8199FWcD
- 0qaEI4Pt0WKqZGNR4/xT9/mooZCocDeTVa5b7ALw9ZXL2Tchp3aIXoJqDxsPAGnVxeh+NEH8h/D
- tayLkfAH4CHYZH7rj3NPyxUAMtdTnxrcTHFnDTgz52KIkaJFr4IPKef72qMfeNZd6CSBrb4tfQI
- C9NuPWMRRezuRxGadgnjBI+a1oMVwqmNHY3ads/6XLpLQXmPTdkoDRsSnmtyRukeX6QnkS1Dn4m
- MGB+Sf+WOyR2v46vh24Zb3OdIaQoj7u/n5Prxe7MY+q3Tt1XNDLOs2batgDuTPoOGPajHE5WUPO
- AOF4KfXzzN4U6ivoC38YjtFBsQhegkHTFEDXJjjxrPyVhzr8x4dDpussSmfXiJ0STbjA8FDPrQ5
- tnHauyo4QitRr3l5OQnAefV8UnEfi7hd3JEE5hWRjm+kT+JzAhoS3Uv18l1vmcNCY5A17NK7Ydv
- uweOQ++qTPz6oBRJ+yQ==
-X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6aba57ce cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
- a=2R8uCszOOhyw9zs8MNsA:9
-X-Proofpoint-ORIG-GUID: v_Yf_jfO8hs8Ihbv_vveFTT_qaKOJQzh
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX/e92be43pWDg
- pKwrP9OSbecgL3vUWLIwzUPXqXs4TnTtuOmuXIEZbU9rcEx7QpRKoJUUxq51R4VatcCIhTd/q8J
- qprxXlT9VxMWZCvkdIsbdhkwJgQ3YW8=
-X-Proofpoint-GUID: M937-kT0jqlXg7gmv9modnbyxNGxqvUV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280046
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PPFBD14D17F4:EE_|VI0PR02MB10536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d4d7ea3-67c2-4139-0a16-08df1d58c1ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hsWrzpd1VYdURvhR74RkjkXClVL81TpAM4AcaP19TBmEJQwJAB383DAohEZNkOFTz6ACDxvcsC4OSpLY3KynuiOBVE3kZqeFXGR9JuC0Z67whUAe2/8p7c6CMRwLIyjY1X3W3rTXeCeU082E2XiAfqRwceOFaER4Wx6xgLSyD5i1mc7xAJx1VcAM4VwlcGK8qOuJTP71A4G/wOKCgU0uzyadTRwPHq+C5XPZ0/RjmEFq9ruo5K6uYmvEJWUQglninaPspt+yLJofoGGd7WVkIs+DAdjO/w8rInOqWXxN0FcWY9zc6Lmq0bpvLYoWK8qAZxpZXWk3sH0zykF90yhE76Dp96wjuOWq/frXo1CtL/KZx/+TzmX9aodhCePCdhq6sVh59XAALzkW70e7DYXaXGdntyFOlmwNsCLkqkfZ0m5PQdfzXzPwwWe71OhA21y1N1EausMy6vplpc03FfwxWDdnXGETpYc2WIyUIFKz++F38QgLCkrGrDZKwTmqbl5CcDjxEX5gkrdLPal7D921bfVNyiiQFOvNZaTd7XW9i1E++lkdgUatyWLj9Xk0x8VNUSPUTepMbFfmuJ2UfXC8AXSE9FVhm6yMUdEyxH/6KVfWm/Aaq9QGruJTt5jltIkuiITfnb9GZozcPPlbhvFn8ESjFt7cdyYF8tZK87O2hV8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PPFBD14D17F4.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L2NCU1ZlWFNDQmsyUEpUSDBjZ0lKK1BrK3lEWHBacVpPcVhjMTl0TWMwU2hB?=
+ =?utf-8?B?M21XTXJyQ0lBNU9QM0R4cnErNzlLWU5XUlhackQ2aTFlTXFncDZVQ1Roelpa?=
+ =?utf-8?B?TUtBMkwwcDkxeDhubnFrTGV1bUJSNGwyMWhqSzROKzNtamtmYkl2L0hicjVE?=
+ =?utf-8?B?TzJyczdReUZkSGQ5ZzVkSUZlZzJGbzBTaUk3ZHVDeHIvVlA2Uy90cjJDOXln?=
+ =?utf-8?B?ODhCYmJxbWZ1aHBUWnV2L2ZtZDN6VmR4eE53d0NzbUN3ZGxnczExL2x1TTV1?=
+ =?utf-8?B?cFNWMzRrQ1M4N2w3Q29VQUh2d0taRTUzVXhZc1A3ZS9KUjZYS0VVQXBJNnA4?=
+ =?utf-8?B?TzltYjhkRHgyM1BrL0ZQYmpDOThSU2dqUkVCNm9SSHhSRnJ3U2VsWXVHcEVw?=
+ =?utf-8?B?UUdxZDZHRTNoMTYyZUJoQ1pUTGJNUHdBemloeTRYU1VUMmplRjJSb1MyMDl3?=
+ =?utf-8?B?M2NLSnQ3TVZGVHZidkJROHB4REtabGFpZGpBM3d1cHAvR1h6YzhhWDBsdCtq?=
+ =?utf-8?B?cVBrajBOZWRudHNiUlRKaHJLNGRZRG94SUlMRlc2eVJPT3g1MjY1NTVLeVJE?=
+ =?utf-8?B?TitrMEJ2VldYR3NZN1MwV3ZLSEM5ZURML3VhVmgxelpPVGpCc3hjTGEyOGd2?=
+ =?utf-8?B?NENEMm9HRFpBUHc3eC9odkkwUVhHV0RPN3ZXUG1lN2pmZnF0dlBEOGR1L3pr?=
+ =?utf-8?B?cUpjWCtxdWRQVXhGeHlrK2ZFTUFOVk1XTTUrd0Q0dWhIK0JuTG5uUHhLMWNq?=
+ =?utf-8?B?WElMdGVzVHFqL1ViR0VBbGtkanNOSytiTTNKT1hRamxlaXhwZ0MwTm4yNVpq?=
+ =?utf-8?B?WjBPYUY5em4vVVZtcW5UcUVFUjBPRU5ueXRiQlYxK0h1U3NCMUVSb3Q5dDM3?=
+ =?utf-8?B?N2Yyb1NJZDdUeCtiLzBZUXR5Uk0zOVFyT1hzRjhkMHh1Y2U0NFVlYkxGODlN?=
+ =?utf-8?B?Y3pPdUNYMkhCb3RHcE9SQXl3NFVGSzdqemdGL1J0a1cvLzVHcXFQY2YwVXNk?=
+ =?utf-8?B?QUNOaStZQTlyNkRvZXlwM1Nwb0ljdUlkN0kwVDBsNU5TZWNmMWFPdU96aHVS?=
+ =?utf-8?B?TllkV01RTlBBN1JTdURudjlhZHYyUjNEODBWem5waUdiZktZMitwTEhpRWRL?=
+ =?utf-8?B?SjJndnNEL0sxd0NENWFYUFRPOFNLRGFFTnJrcXpUVWk5cWo5MGZoL0pyVWh4?=
+ =?utf-8?B?b2ZGYzRRaDZMSHc4N09qREZ4a0xoMWJ3VkhxcHVjS2Q5anNVYXAyN0JEcnEx?=
+ =?utf-8?B?SWtHdnp6YldJVHdHelJYdHRHR2QzanE5ZnhHdm94RHROSWFUYm9TTGhpaWlN?=
+ =?utf-8?B?VncwNEwxWVhTRWJWUGU5ZGpGQ0t2K1FtclV1NGpOWGhjWFpoUTkya21ubEVm?=
+ =?utf-8?B?bnRLMFVScVJBR1pQbDFvaEd4VGpMOHUwK3V1WUpobHFNdFIxREw5WXlsUzl0?=
+ =?utf-8?B?M3Q5NmVvTEthME5SaXdYOU1vN0JLU2FrR082c3BYWjlod1R1L3VjZldzdS9U?=
+ =?utf-8?B?YkJBV3BSNkxpcnVBc3QyOHltenF3MXk0NjFuWHFWN09FRzZ3NHpKZ1lEY2du?=
+ =?utf-8?B?MGpHQnBTd0dzRGlhUDB1M1IrMFdDbVJha0phT3UxbXAvMHFFcWxiYTFCaE1w?=
+ =?utf-8?B?dGFBTGZEMFY4K1hwZlBybG03Z3RGLzVqemIyY0wxTlZkaENRUnpwRlJ0Nkg2?=
+ =?utf-8?B?RlpkdHc5VCt6ak9aSEVpZXQ3bDQxby84WWF1eVdZL3RxMCtvbWhOYW1nSmZK?=
+ =?utf-8?B?cmRJVm9kelEwMVhjakpISzVzTGZzNFQzUnFEUTJHMmg0a2RTNC9KdG5lL0No?=
+ =?utf-8?B?RThCZGFnVElhdWFFUnBnUW9iQmxIVEFuK2tTSi9CVjJ6MFdtakRXdWw1RUFv?=
+ =?utf-8?B?RjlKdXVYR1owNmFSQWZqZWh2Uy9LL0NiNnlYM3ZkeHZjcTA1Z0V2UUU1cFBM?=
+ =?utf-8?B?TXlQRzVrOGlnTmxPdHFHRHJEZ3I5UENxdHF2OVUxTWMzUVhxdlZYN2VLMVZv?=
+ =?utf-8?B?bzdsUXN0L2xMdzdBdWphMEZvZFlWRUx6M25zWHc4bzBTNWVsSU5ldUtkR0x1?=
+ =?utf-8?B?NzB4dXBjZVVhYVRGREhvL2tnWjFJWVlYUDZ0cDFHM1hvbFI1VEU0Z3VZNS9I?=
+ =?utf-8?B?QzZOYkhOSlVCOWMrY3hxSUpjQkpWeUNVeWFSK01MQjdrZ3UxVitzMys0SWZB?=
+ =?utf-8?B?TVBTa0JrOXNjT2o3bkNOcHAyQ3BPRGxpNEJjbWhxVmhGd3RDKzZWOWhjL3lz?=
+ =?utf-8?B?OFE1dG1WMDduK2ovTDByMDF0VDVFd1ljeGIzQk80MkJORGV4bDFtb3ZMNWFz?=
+ =?utf-8?B?Zk1zbDdNeGRYbWxUb2ZOTzVldlA5YlNkeGR5RkltZTdsNHVmblh5Zz09?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4d7ea3-67c2-4139-0a16-08df1d58c1ba
+X-MS-Exchange-CrossTenant-AuthSource: GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:05:15.9279
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9FOnfiMbkPUMsbOGOUK5So7LJutfmtNg5vItxHekHAUJ3ZmAA62B1Of+bQBD+1aHPFolpu4gc1t0Kl64VC8LXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR02MB10536
 
-In iomap_writethrough_iter() we might encounter repeating folios across
-multiple iterations. Repeating folios can occur if, example,
-copy_folio_from_iter_atomic() does a short copy due to userspace pages
-not faulted in. This is an issue because a previous loop might have
-started writeback on them but not yet issued the IO. In the next
-iteration trying to get the same folio with FGP_STABLE will result in a
-deadlock. Since repeating folios will always be encountered back to
-back, we can just use a simple cur != prev check to detect them.
+Fix most of the warnings that are reported by
+scripts/dtc/dt-check-style, to make the files use the preferred
+style. By doing so the files become easier to read and maintain.
 
-Use this to avoid waiting for writeback or starting writeback on folios
-we have already processed. Note that in ->endio() we might end up
-calling folio_end_writethrough() twice on the same folio which can cause
-issues with folio_xor_flags_has_waiters(). For simplicity, just change
-the folio_xor_flags_has_waiters() call to an idempotent variant.
+Sorting of nodes have been left out from this patchset, as that
+creates a huge, un-reviewable, patch. After the patches some warnings
+remain when dt-check-style (with Krzysztof's recent fixes [1]) is run
+in strict mode:
 
-Reported-by: Pankaj Raghav <pankaj.raghav@linux.dev>
-Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+  axis/artpec6.dtsi:77: [child-name-order] child node 'psci' out of name order
+  axis/artpec6.dtsi:80: [property-name] property name "psci_version" is using discouraged style
+  axis/artpec6.dtsi:82: [property-name] property name "system_reset" is using discouraged style
+  axis/artpec6.dtsi:91: [child-name-order] child node 'ext-clk' out of name order
+  axis/artpec6.dtsi:97: [child-name-order] child node 'eth-phy-ref-clk' out of name order
+  axis/artpec6.dtsi:103: [child-name-order] child node 'clkctrl' out of name order
+  axis/artpec6.dtsi:127: [child-name-order] child node 'interrupt-controller' out of name order
+  axis/artpec6.dtsi:134: [child-name-order] child node 'cache-controller' out of name order
+  axis/artpec6.dtsi:163: [child-name-order] child node 'pcie' out of name order
+  axis/artpec6.dtsi:233: [child-name-order] child node 'amba' out of name order
+  axis/artpec6.dtsi:292: [child-address-order] child node @f8010000 out of address order
+  axis/artpec6.dtsi:314: [property-name] property name "snps,wr_osr_lmt" is using discouraged style
+  axis/artpec6.dtsi:315: [property-name] property name "snps,rd_osr_lmt" is using discouraged style
+  axis/artpec6.dtsi:324: [child-name-order] child node 'rx-queues-config' out of name order
+
+Fixing these are left for the future.
+
+[1] https://github.com/krzk/linux/tree/b4/dts-style-checker-blank-lines
+
+Signed-off-by: Henrik Grimler <henrik@grimler.se>
 ---
- fs/iomap/buffered-io.c | 46 ++++++++++++++++++++++++++++++++++--------
- 1 file changed, 38 insertions(+), 8 deletions(-)
+Henrik Grimler (7):
+      ARM: dts: axis: artpec6: avoid _ in node names
+      ARM: dts: axis: artpec6: align all continued lines
+      ARM: dts: axis: artpec6: use multiple tuples in regs and ranges
+      ARM: dts: axis: artpec6: sort all properties
+      ARM: dts: axis: artpec6: add more blank lines
+      ARM: dts: axis: artpec6: put inline comments on same line as entries
+      ARM: dts: axis: artpec6: add empty lines before empty queue nodes
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 84310c786abf..69a2eccff26a 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -802,6 +802,13 @@ struct folio *iomap_get_folio(struct iomap_iter *iter, loff_t pos, size_t len)
- {
- 	fgf_t fgp = FGP_WRITEBEGIN;
- 
-+	/*
-+	 * For writethrough, we open code the FGP_STABLE logic directly in
-+	 * iomap_writhrethrough_iter() so disable it here.. See
-+	 * iomap_writethrough_iter() for details.
-+	 */
-+	if (iter->flags & IOMAP_WRITETHROUGH)
-+		fgp &= ~FGP_STABLE;
- 	if (iter->flags & IOMAP_NOWAIT)
- 		fgp |= FGP_NOWAIT;
- 	if (iter->flags & IOMAP_DONTCACHE)
-@@ -1284,12 +1291,16 @@ static void iomap_writethrough_bio_end_io(struct bio *bio)
- {
- 	struct iomap_writethrough_ctx *wt_ctx = bio->bi_private;
- 	struct folio_iter fi;
-+	struct folio *prev_folio = NULL;
- 
- 	if (bio->bi_status)
- 		cmpxchg(&wt_ctx->error, 0,
- 			blk_status_to_errno(bio->bi_status));
--	bio_for_each_folio_all(fi, bio)
--		folio_end_writeback(fi.folio);
-+	bio_for_each_folio_all(fi, bio) {
-+		if (fi.folio != prev_folio)
-+			folio_end_writeback(fi.folio);
-+		prev_folio = fi.folio;
-+	}
- 
- 	bio_put(bio);
- 	if (atomic_dec_and_test(&wt_ctx->ref))
-@@ -1384,16 +1395,13 @@ iomap_writethrough_try_submit(struct iomap_writethrough_ctx *wt_ctx,
-  * need to clear the master dirty bit.
-  */
- static void iomap_folio_prepare_writethrough(struct folio *folio, size_t off,
--					     size_t len)
-+					     size_t len, bool already_prepared)
- {
- 	bool needs_cleardirty = false, fully_written = false;
- 	u64 zero = 0;
- 	u64 tmp_off = off;
- 	struct iomap_folio_state *ifs = folio->private;
- 
--	if (folio_test_writeback(folio))
--		folio_wait_writeback(folio);
--
- 	if (folio_mkclean(folio))
- 		folio_mark_dirty(folio);
- 
-@@ -1427,7 +1435,8 @@ static void iomap_folio_prepare_writethrough(struct folio *folio, size_t off,
- 	if (needs_cleardirty)
- 		folio_clear_dirty_for_writethrough(folio);
- 	task_io_account_write(len);
--	folio_start_writeback(folio);
-+	if (!already_prepared)
-+		folio_start_writeback(folio);
- }
- 
- /**
-@@ -1444,6 +1453,17 @@ static void iomap_folio_prepare_writethrough(struct folio *folio, size_t off,
-  * Folio handling note: We might be writing through a partial folio so we need
-  * to be careful to not clear the folio dirty bit unless there are no dirty blocks
-  * in the folio after the writethrough.
-+ *
-+ * **A corner case to be careful about**
-+ *
-+ * For writethrough, we open code the stable write behavior to handle the case
-+ * where we encounter a folio that we already started writeback on but have not
-+ * yet submitted. In that case we must not wait for writeback again to avoid
-+ * deadlocking. Repeating folios can occur if, example,
-+ * copy_folio_from_iter_atomic() does a short copy due to userspace pages not
-+ * faulted in. Also, repeating folios will always be encountered back to back so
-+ * we can just use a simple cur != prev check to detect them.
-+
-  */
- static int iomap_writethrough_iter(struct iomap_writethrough_ctx *wt_ctx,
- 				   struct iomap_iter *iter, struct iov_iter *i,
-@@ -1457,6 +1477,7 @@ static int iomap_writethrough_iter(struct iomap_writethrough_ctx *wt_ctx,
- 	size_t chunk = mapping_max_folio_size(mapping);
- 	unsigned int bdp_flags = (iter->flags & IOMAP_NOWAIT) ? BDP_ASYNC : 0;
- 	unsigned int bs = i_blocksize(iter->inode);
-+	struct folio *prev_folio = NULL;
- 
- 	/* copied over based on how DIO handles these flags */
- 	if (iter->iomap.type == IOMAP_UNWRITTEN)
-@@ -1547,6 +1568,10 @@ static int iomap_writethrough_iter(struct iomap_writethrough_ctx *wt_ctx,
- 		if (mapping_writably_mapped(mapping))
- 			flush_dcache_folio(folio);
- 
-+		 /* Open coding stable write behavior, see comment on top. */
-+		if (prev_folio != folio)
-+			folio_wait_writeback(folio);
-+
- 		copied = copy_folio_from_iter_atomic(folio, offset, bytes, i);
- 		written = iomap_write_end(iter, bytes, copied, folio) ?
- 			  copied : 0;
-@@ -1584,7 +1609,10 @@ static int iomap_writethrough_iter(struct iomap_writethrough_ctx *wt_ctx,
- 		prev_len = len_aligned;
- 
- 		iomap_folio_prepare_writethrough(folio, off_aligned,
--						 len_aligned);
-+						 len_aligned,
-+						 prev_folio == folio);
-+
-+		prev_folio = folio;
- 
- 		if (!wt_ctx->nr_bvecs) {
- 			wt_ctx->bio_pos = round_down(pos, bs);
-@@ -1629,6 +1657,8 @@ static int iomap_writethrough_iter(struct iomap_writethrough_ctx *wt_ctx,
- 					&iter->iomap, wt_ops, &pending);
- 			if (status)
- 				goto submit_failed;
-+
-+			prev_folio = NULL;
- 		}
- 
- 	} while (iov_iter_count(i) && iomap_length(iter));
--- 
-2.55.0
+ arch/arm/boot/dts/axis/artpec6-devboard.dts |   9 +--
+ arch/arm/boot/dts/axis/artpec6.dtsi         | 100 ++++++++++++++++------------
+ 2 files changed, 64 insertions(+), 45 deletions(-)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260928-b4-artpec6-cleanup-3dfb30a26b9d
+
+Best regards,
+--  
+Henrik Grimler <henrik.grimler@axis.com>
 
