@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31F04E73DA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A614E7805
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609117; cv=none; b=amQRSaLuvbUZ7R2B4YHHtyKpI4Dn9Yf6K6+A/6rQrEqMElUymDTHB6lw/Tftg/OaL9AOE8iZY5o8yZ8kKiO71YMGrXDdr3rAd0L9twjYNex3f7s1bhXBF3Qrca5U0YT8xqZdRlKPaTh7KdxpZwffCEKOT2OybTkX+iIzrz9ehis=
+	t=1790609120; cv=none; b=M1FbY3NCp5IZ3IJ1IJjeE0H/5jSewMqVkyMqDcYrmn6mZqm60YoHWDpH1chRUZcc+7Py/qRicTiH4/QD9wtlfersdIYBDD82i+o2bYQv2HAOmIWdUFHnJzLdfgGcHBPQNz6H2P/HBjI5skqV70w7YMHdSYeZZp6nW2m5+VbNVSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609117; c=relaxed/simple;
-	bh=s41ieSguAC04yFXFLtnQHHE7zfUrtIP1s8AWwaR+J+o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RiAA0R1hhyW7MZjY7frMP/3kMhOXSGs6viq2fSdWFg9IbxmoF3k4LxcEAOx2blJk69UiwSn3nnjd/QF3iZEZx4iPsWgZhzD5hSqXcglTz2IKjK1XwaCzh/f5ET2A+7Ym5jo16m5Gqv9qPOuDF/rDaHxdoqnMhXNli30AamDT3/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mPkGYQvm; arc=none smtp.client-ip=95.215.58.22
+	s=arc-20240116; t=1790609120; c=relaxed/simple;
+	bh=r5HnM/f7PTKF6og9shC2Jz8ilToiTnP5/ASxGy5XQl4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=TA9/2hNCQJg26x4lx4U/N2QbkAT4gN8TiWk+TvAMLH1GvgCLQU2e6/HrQ4jf7GI7PKRRpyIJtchhgUne2CPyOgb08YLhZQbsSIN/CTYBBk+FS4k+1RVDDdOg9KDBcLWxArKswu6Uu+pornq5rc+wInZHL+bYncSG8aCW6gqMrw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o/gZV6bl; arc=none smtp.client-ip=95.215.58.27
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mPkGYQvm"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o/gZV6bl"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=s41ieSguAC04yFXFLtnQHHE7zfUrtIP1s8AWwaR+J+o=;
+DKIM-Signature: a=rsa-sha256; bh=r5HnM/f7PTKF6og9shC2Jz8ilToiTnP5/ASxGy5XQl4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790609112; v=1; x=1791213912;
- b=mPkGYQvmppfa+fOw3hQpUUbhAMtQHgRfMHtdDUXqU+WDP0rmwjdcbdOK+zR5FIijNkVO9Avq
- ETe5r6zDijFAnhBMWtLiGyI7T2Jnd2A7z91Gek0+tJqBp2WiXYY3Qg1rJuav/uSg0d3j2Qdwj8f
- fOymlSnlSXiqYPfKHUhfxSR4=
+ t=1790609117; v=1; x=1791213917;
+ b=o/gZV6bl7bWaHHpehOR7bXjmcFiuqElqRdp/NQ4ATWYamhI0y1AXh8AHXToHzc3Orm6jjyhr
+ /piCItKOYj2fQ60Xifcdt/InIPx2q98CAOi9z8+eL2VDQhFpOVrhTh9rHKXDOBB/P60NDJtDqKz
+ fMrdUY76WVOEOBzpZaBezGWw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f5f8dc529bfd712;
-	Mon, 28 Sep 2026 15:25:09 +0000
-X-Mizu-Trace-ID: 8f5f8dc529bfd712
+Received: by smtp.migadu.com with ESMTPS id 63cb18f08da356ba;
+	Mon, 28 Sep 2026 15:25:12 +0000
+X-Mizu-Trace-ID: 63cb18f08da356ba
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -46,10 +47,12 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	kvm@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 00/10] KVM: arm64: Nested stage-2 walk error handling and other small fixes
-Date: Mon, 28 Sep 2026 16:24:57 +0100
-Message-Id: <20260928152507.2116110-1-fuad.tabba@linux.dev>
+Subject: [PATCH v1 01/10] KVM: arm64: Don't WARN on SMCCC filter reserved range allocation failure
+Date: Mon, 28 Sep 2026 16:24:58 +0100
+Message-Id: <20260928152507.2116110-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260928152507.2116110-1-fuad.tabba@linux.dev>
+References: <20260928152507.2116110-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,59 +61,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+The first time userspace sets an SMCCC filter, kvm_smccc_set_filter()
+inserts the reserved architecture ranges into the maple tree and WARNs
+if that fails. The tree is empty and config_lock is held, so the only
+way it can fail is -ENOMEM. The allocation is GFP_KERNEL_ACCOUNT, so a
+memory cgroup limit is enough to hit the WARN from userspace.
 
-Small KVM/arm64 fixes that came out of reviewing Karl's SMCCC filter
-series [1], and it just kept growing.
+The WARN goes back to when the ranges were inserted at VM creation and
+the error was dropped. Since commit d34b76489ea0c ("KVM: arm64: Only
+insert reserved ranges when SMCCC filter is used") the tree is emptied
+on failure and the error reaches userspace. Drop the WARN.
 
-The first two are WARNs that userspace or a guest can trigger: the
-SMCCC filter one on an allocation failure userspace can force with a
-memory cgroup limit, which Sashiko raised [2], the nested one when an
-L1 guest programs an invalid VTCR_EL2. Patches 3 and 4 are the same
-walk's return values. With an invalid VTCR_EL2 or a stage-2 descriptor
-KVM can't read, AT S12E{0,1}{R,W} was retried forever instead of
-retiring with the fault in PAR_EL1. Reporting the unreadable descriptor
-as a Data Abort instead, for the stage-1 walks too, is a separate
-change I'll send later. Patch 5 extends the AT selftest to cover the
-SL0 case.
+Fixes: d34b76489ea0c ("KVM: arm64: Only insert reserved ranges when SMCCC filter is used")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260829055809.29AD31F000E9@smtp.kernel.org/
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/hypercalls.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The three documentation patches fix identifiers in api.rst that don't
-exist anywhere in the tree, and the last two fix selftest leaks.
-
-Based on Linux 7.3-rc3 (fd73f4a665989; also applies to torvalds/master
-fd179f8a05be3).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260829054856.70549-1-kmehltretter@gmail.com/
-[2] https://lore.kernel.org/all/20260829055809.29AD31F000E9@smtp.kernel.org/
-
-Fuad Tabba (10):
-  KVM: arm64: Don't WARN on SMCCC filter reserved range allocation
-    failure
-  KVM: arm64: nv: Don't WARN on an invalid VTCR_EL2
-  KVM: arm64: nv: Don't loop on AT S12E{0,1}{R,W} with an invalid
-    VTCR_EL2
-  KVM: arm64: nv: Return a failed stage-2 descriptor read as a fault
-  KVM: arm64: selftests: Test AT S12E1R with an invalid VTCR_EL2.SL0
-  Documentation: KVM: Fix the name of the SMCCC filter attribute
-  Documentation: KVM: Fix the name of KVM_ARM_SET_COUNTER_OFFSET
-  Documentation: KVM: Fix the name of KVM_ARM_FEATURE_ID_RANGE_IDX
-  KVM: arm64: selftests: Free the VMs in smccc_filter and psci_test
-  KVM: arm64: selftests: Free the thread arrays in vgic_lpi_stress
-
- Documentation/virt/kvm/api.rst                |  6 ++--
- arch/arm64/kvm/hypercalls.c                   |  2 +-
- arch/arm64/kvm/nested.c                       | 11 +++-----
- tools/testing/selftests/kvm/arm64/at.c        | 28 +++++++++++++++++++
- tools/testing/selftests/kvm/arm64/psci_test.c |  5 +++-
- .../selftests/kvm/arm64/smccc_filter.c        |  2 ++
- .../selftests/kvm/arm64/vgic_lpi_stress.c     |  3 ++
- 7 files changed, 45 insertions(+), 12 deletions(-)
-
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
+index b11b8821c9fbc..210a496733d0e 100644
+--- a/arch/arm64/kvm/hypercalls.c
++++ b/arch/arm64/kvm/hypercalls.c
+@@ -197,7 +197,7 @@ static int kvm_smccc_set_filter(struct kvm *kvm, struct kvm_smccc_filter __user
+ 
+ 	if (!kvm_smccc_filter_configured(kvm)) {
+ 		r = kvm_smccc_filter_insert_reserved(kvm);
+-		if (WARN_ON_ONCE(r))
++		if (r)
+ 			goto out_unlock;
+ 	}
+ 
 -- 
 2.39.5
 
