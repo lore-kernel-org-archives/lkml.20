@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C864E5038E5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C4E503BC4;
 	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634324; cv=none; b=pP6UJb7Or21Pv97ymQAfuwRTVDCD5zuLv3tDWT7g8sHjqCsc0DytqBDvhrbD0B4C+pb6Mtvlu9DXac89+TNmRUI0ulXaFtleiYctB9p1RFdN+rK+aDNwD/Oo6ItxF3o1LOD5OnF1IBhDhNuz2l4je6qyIRC3SluyJE1PcJ/43CQ=
+	t=1790634325; cv=none; b=Lx/cCWAbj5vPt3YFzkZmPEwcUvPhCHa8m8CLt0FeJyMny/zcTfrxwIQtG6sdswfC9kH3tCG2wFrcfVq3YVRFlaQi7+A0IxOCQdY/Mahv33GCtPnSaizKPe/Nh3tvE0tabAISvLODzcQz6fOPUMMktEoGddJ+EBP5Q8vBGLOW+vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634324; c=relaxed/simple;
-	bh=xCK4ZN45BBmZH4eqj3BHK8o5ZoGntyVni20+PCKEE1s=;
+	s=arc-20240116; t=1790634325; c=relaxed/simple;
+	bh=5G70E4tT/Hmu7+Ch+kV+YbYVtsOpslpBCyaStvyRUg4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r8M1peeHgbiMHlvnc1GGiEXn5pEDw7RdMV44IpzhBT7vGL8W/KSxOnL+N23/0GheOC7WQnWj7/Ngvw/7kNkBvl0/AwH9y081avf2ZRb70UHmx0Wt5Z13oTFdJzrRnbhK8xADyiCM2hVXxL1S3dexi6rwnrppEu7G4/xBdpcu/JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMVf5MXP; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=sXJOsVEcerfTCDTktJHLJWSQ1WpblBjoY6ODyNnslDPVab3y2phrKhVUPKR1jHMWwHklS1sjxvqwte/Jj77E0ANxao0C/WXgVwnfcIGkJgm3JX1Vkbx6cVRTLl4zQED73PzTTL9faYL4lpHE6tfFyRN1lQZpk9X+74YU35A0/6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2IfxhbV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMVf5MXP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B029C4AF62;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2IfxhbV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AC23AC4AF18;
 	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790634324;
-	bh=xCK4ZN45BBmZH4eqj3BHK8o5ZoGntyVni20+PCKEE1s=;
+	bh=5G70E4tT/Hmu7+Ch+kV+YbYVtsOpslpBCyaStvyRUg4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EMVf5MXPogjwHK+oWebf4kW88c9W5XGRDWJdqlJG9IlmxL9pYq3EwR4z6J8V4ticw
-	 wYejL94cQdwh61KRAHaoIUaKtj12OVACRadTgKRUCZmfdDD3iO9qIUstWCC2q4zsro
-	 2vI8XGRf1FcTyQl+PO2TaLdFw0FFcwS3s+V+5HBY9WW2fQf1Hfas8WZEp5BxmfcXDS
-	 vIr7jUNNXsLdSZHvyxWzkNilo1OW+8G3Cs5VtRIC/nEAC0BhLfLmuhdeGKDLtlOgaP
-	 j1WzdRYed9XuS5MKNkecyzmG1zKvQJV+U67E7p+T5DUdlg0HGTZ4aCaRJJX4Iehujw
-	 EKRltsLBPN2Vw==
+	b=N2IfxhbVnzIPvMT0POwtQKfHXm8BMsxEgmtVNlMQBpXqvtYpN64Ro8IM23XsWgAwf
+	 9nJVkCpjRhYcA9pp+8OUEnf/rsCUp2jucAuPbb3CpIRA8u3ML7RFiVnM2aQ8n98fRz
+	 IeCiuv1rPJaRcqtD6x7X3askAfAXfNapFJnSDWe7f6YsW+2B0ksZ0S5hcGc+t9FlsW
+	 3USma4tEHaKF7C+uabeMkzUBgLQve62bMIELY3CnlQWXXByrg2m6viJ/TJuGM7oje2
+	 Y+whDYENgi1pVof2Vgn+21A7JIIZFWLfd62CErPECbLOkd1+mW/IwJ707ysPW4usst
+	 32Nd/6jHB1y9g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77144CA5FA1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98B91CA5FAB;
 	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Mon, 28 Sep 2026 15:25:13 -0700
-Subject: [PATCH net-next v8 06/11] net: ethernet: oa_tc6: Support for
- vendor specific MMS
+Date: Mon, 28 Sep 2026 15:25:15 -0700
+Subject: [PATCH net-next v8 08/11] net: phy: ncn26000: Enable enhanced
+ noise immunity
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-s2500-mac-phy-support-v8-6-7e011aacc309@onsemi.com>
+Message-Id: <20260928-s2500-mac-phy-support-v8-8-7e011aacc309@onsemi.com>
 References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
 In-Reply-To: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
 To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
@@ -63,11 +63,11 @@ Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Jerry Ray <jerry.ray@microchip.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790634319; l=3615;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790634319; l=2644;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=NqQh5AjrG3OFsRhaNIoGIEp2Di6NevhQyuBM33Wjyoo=;
- b=/IHASgfAyLNstEy0MQHet0KBtVIdhtFtgxzgiG22gPO48XqRuVNJq26RL2w4iDgVs3Ont7orE
- ApuGKrAsV5FCTVsLuHOYvp+2kiVsEWmScGGV31KDxnlgPAdXHYDbKuN
+ bh=KYiEyA6QMxECzQjlLG+6xvr+k8/nqddocr+hkqRmZWs=;
+ b=VBk4A7jpy7HKGbYCZKmcsA0sEnYzxteVKUcS1NXGisbUJ6OXyVb1AqrhfdPnC/finBFYCoBYJ
+ 9Hj053qUTBuCX4gp1TQg+GarB0FU6QtQ+wxXQYJsZDA0ix9NzLQ4aGk
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -77,10 +77,8 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-OPEN Alliance 10BASE-T1x Serial Interface specification, table 6
-allows vendors to use any memory map select (MMS) value between
-10 and 15. This new API interface enables vendor to map one of
-thes MMS values to MDIO_MMD_VEND1.
+By setting ENI bit, noise immunity is improved and it is
+specifically meant for PLCA enabled nodes.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
@@ -93,102 +91,73 @@ changes in v7
 changes in v6
   - No change
 changes in v5
-  - no change
+  - No changes
 changes in v4
-  - no change
+  - No changes
 changes in v3
-  - no change
-changes in v2
-  - Moved the handling of vendor specific MMS mapping to separate patch
-  - new patch
+  - Moved as a separate patch
 ---
- drivers/net/ethernet/oa_tc6/oa_tc6.c         | 20 +++++++++++++++++---
- drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h |  1 +
- include/linux/oa_tc6.h                       |  1 +
- 3 files changed, 19 insertions(+), 3 deletions(-)
+ drivers/net/phy/ncn26000.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6.c b/drivers/net/ethernet/oa_tc6/oa_tc6.c
-index 5cbe049f76ef..c1774fe84ba4 100644
---- a/drivers/net/ethernet/oa_tc6/oa_tc6.c
-+++ b/drivers/net/ethernet/oa_tc6/oa_tc6.c
-@@ -250,6 +250,18 @@ static int oa_tc6_update_standard_capability(struct oa_tc6 *tc6)
+diff --git a/drivers/net/phy/ncn26000.c b/drivers/net/phy/ncn26000.c
+index 374684e11fac..b362e85c7911 100644
+--- a/drivers/net/phy/ncn26000.c
++++ b/drivers/net/phy/ncn26000.c
+@@ -36,6 +36,10 @@
+ 
+ #define TO_TMR_DEFAULT			32
+ 
++#define NCN26000_REG_PHYCFG1		0x8001
++#define NCN26000_PHYCFG1_ENI		BIT(7)
++#define NCN26000_PHYCFG1_ENI_MASK	BIT(7)
++
+ static int ncn26000_config_init(struct phy_device *phydev)
+ {
+ 	int ret = 0;
+@@ -106,6 +110,24 @@ static int ncn26000_read_status(struct phy_device *phydev)
  	return 0;
  }
  
-+/**
-+ * oa_tc6_set_vend1_mms - Add vendor specific MDIO_MMD to OA TC6 MMS
-+ * mapper value.
-+ * @tc6: oa_tc6 struct.
-+ * @mms: vendor defined MMS value for VEND1 mdio device.
++/* Intercept PLCA enable/disable request to
++ * set the proprietary, ENI mode accordingly
 + */
-+void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms)
++static int ncn26000_c45_plca_set_cfg(struct phy_device *phydev,
++				     const struct phy_plca_cfg *plca_cfg)
 +{
-+	tc6->vend1_mms = mms;
-+}
-+EXPORT_SYMBOL_GPL(oa_tc6_set_vend1_mms);
++	int ret = genphy_c45_plca_set_cfg(phydev, plca_cfg);
++	u16 eni_cfg = 0;
 +
- static __be32 oa_tc6_prepare_ctrl_header(u32 addr, u8 length,
- 					 enum oa_tc6_register_op reg_op)
++	if (ret || plca_cfg->enabled < 0)
++		return ret;
++
++	eni_cfg = (plca_cfg->enabled) ? NCN26000_PHYCFG1_ENI : 0;
++	return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
++			      NCN26000_REG_PHYCFG1,
++			      NCN26000_PHYCFG1_ENI_MASK, eni_cfg);
++}
++
+ static irqreturn_t ncn26000_handle_interrupt(struct phy_device *phydev)
  {
-@@ -577,7 +589,7 @@ static int oa_tc6_mdiobus_write(struct mii_bus *bus, int addr, int regnum,
- 				     val);
- }
- 
--static int oa_tc6_get_phy_c45_mms(int devnum)
-+static int oa_tc6_get_phy_c45_mms(struct oa_tc6 *tc6, int devnum)
- {
- 	switch (devnum) {
- 	case MDIO_MMD_PCS:
-@@ -590,6 +602,8 @@ static int oa_tc6_get_phy_c45_mms(int devnum)
- 		return OA_TC6_PHY_C45_AUTO_NEG_MMS5;
- 	case MDIO_MMD_POWER_UNIT:
- 		return OA_TC6_PHY_C45_POWER_UNIT_MMS6;
-+	case MDIO_MMD_VEND1:
-+		return tc6->vend1_mms;
- 	default:
- 		return -EOPNOTSUPP;
- 	}
-@@ -603,7 +617,7 @@ int oa_tc6_mdiobus_read_c45(struct mii_bus *bus, int addr, int devnum,
- 	int mms;
  	int ret;
- 
--	mms = oa_tc6_get_phy_c45_mms(devnum);
-+	mms = oa_tc6_get_phy_c45_mms(tc6, devnum);
- 	if (mms < 0)
- 		return mms;
- 
-@@ -621,7 +635,7 @@ int oa_tc6_mdiobus_write_c45(struct mii_bus *bus, int addr, int devnum,
- 	struct oa_tc6 *tc6 = bus->priv;
- 	int mms;
- 
--	mms = oa_tc6_get_phy_c45_mms(devnum);
-+	mms = oa_tc6_get_phy_c45_mms(tc6, devnum);
- 	if (mms < 0)
- 		return mms;
- 
-diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-index 06fe88f1ed7c..192cc2eaa041 100644
---- a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-+++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-@@ -127,6 +127,7 @@ struct oa_tc6 {
- 	u64 tx_hwtstamp_err;
- 	u8 ts_ttsc_pending;
- 	u8 ttsc_current_id;
-+	int vend1_mms;
- };
- 
- enum oa_tc6_header_type {
-diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
-index 365abdbf60d3..88e7d5491b20 100644
---- a/include/linux/oa_tc6.h
-+++ b/include/linux/oa_tc6.h
-@@ -114,5 +114,6 @@ void oa_tc6_get_ts_stats(struct oa_tc6 *tc6,
- 			 struct ethtool_ts_stats *stats);
- int oa_tc6_hwtstamp_set(struct oa_tc6 *tc6,
- 			struct kernel_hwtstamp_config *cfg);
-+void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms);
- void oa_tc6_ptp_unregister(struct oa_tc6 *tc6);
- #endif /* _LINUX_OA_TC6_H */
+@@ -156,7 +178,7 @@ static struct phy_driver ncn26000_driver[] = {
+ 		.config_aneg           = ncn26000_config_aneg,
+ 		.read_status           = ncn26000_read_status,
+ 		.handle_interrupt      = ncn26000_handle_interrupt,
+-		.set_plca_cfg          = genphy_c45_plca_set_cfg,
++		.set_plca_cfg          = ncn26000_c45_plca_set_cfg,
+ 		.get_plca_cfg          = genphy_c45_plca_get_cfg,
+ 		.get_plca_status       = genphy_c45_plca_get_status,
+ 		.soft_reset            = genphy_soft_reset,
+@@ -177,7 +199,7 @@ static struct phy_driver ncn26000_driver[] = {
+ 		.read_status		= ncn26000_read_status,
+ 		.handle_interrupt       = ncn26000_handle_interrupt,
+ 		.get_plca_cfg		= genphy_c45_plca_get_cfg,
+-		.set_plca_cfg		= genphy_c45_plca_set_cfg,
++		.set_plca_cfg		= ncn26000_c45_plca_set_cfg,
+ 		.get_plca_status	= genphy_c45_plca_get_status,
+ 		.soft_reset             = genphy_soft_reset,
+ 	},
 
 -- 
 2.43.0
