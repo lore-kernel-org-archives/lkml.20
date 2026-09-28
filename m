@@ -1,110 +1,211 @@
-Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6B535AC14
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C09B48C8DC;
+	Mon, 28 Sep 2026 09:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586677; cv=none; b=Vz82AYxbRFGp/KJhfZxYTJY/lx1p4Tt9kmJhPBvTwELf0QdCHcXeyNxuICqoftbRkAozGFnKiWDIjp9PQdLU8ZcJ3HOx6idMaQCjnEHPha51tCaF60q82rjOAW5uEhKyfNwrD8yJkZRSxpLW0AVYsw2CYlBE0hOMWo07zuse2R0=
+	t=1790586689; cv=none; b=MT1OE6Zpo6b95zyP5yJR7RLWyylh3Q+t/q4HGY9jfgLriuebJkX8jedFbJSRhH6TH9z+iGfvj8BfrPNQEaecnrdN48eeqXpUNmHeowOLdJQuJ3Eav3GSWTc2qz6tZy5/abiB1eaUcR1u51dZZhkXlqMbnnwZ08jlP5fpyKlG4uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586677; c=relaxed/simple;
-	bh=t2bV+J7yQGAh8QlD1zm5r+V9wMPmlwMAn8PlZVKY1jc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zpo2bvJRmW4VBoxxn8HoY9Rp8OfDoMsHBEb2/rNSkEe1+Zd/YF+PSUSy7Q4wq+4i+9AzaNQaCvgqBIKbr/sFWjxlhSXc/n+un/YxaI32kIo3Uth9kLcHGtRk7Jg7T04Fzl5b/AZENGNi/QwSglTWOPCrS72V4YBtso/0KeXSvA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z7mQmQQt; arc=none smtp.client-ip=91.218.175.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790586689; c=relaxed/simple;
+	bh=Emy8agkXxBnpWSZjr/X2QtMOErfNiMKF1lDR0cnFicg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A79Mgg/0j62YjfiuItgEGnDGLq0LVMokYlui8uMsnmjsDciRh2tY8ztuvSG5OQuSyxEFtTURoPDKg/dIJpPGm9mHOMryxw3EgSglhozjKPQjaLSeA/tb08OSKf1Kk5eXkRHGbVvK8+ZhNq9RwuEKY0IqJdKm25ZVduw6TO6zjrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X9Dqq5GF; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z7mQmQQt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t2bV+J7yQGAh8QlD1zm5r+V9wMPmlwMAn8PlZVKY1jc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790586673; v=1; x=1791191473;
- b=Z7mQmQQt5XEcyW4cCAXjzYJMSGaQ7aWkhSPucj68B/NzyTdvNt8m7UJDSDcZAmtwxLPuT7aH
- Ryb+/b1/nOLqGlx81w8EA9HGttWMV4QkZzTmjXVUHKA/4Y1DuxfL+nNupbGuMKV0mzwUP8iamXf
- whLA/8yc0dowa/UnFIFAzhxE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 65f31ff16b613622;
-	Mon, 28 Sep 2026 09:11:13 +0000
-X-Mizu-Trace-ID: 65f31ff16b613622
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 17:11:08 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Carlier <devnexen@gmail.com>,
-	Dave Young <ruirui.yang@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
-Message-ID: <arovLO37djQderTB@MiWiFi-R3L-srv>
-References: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X9Dqq5GF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790586688; x=1822122688;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Emy8agkXxBnpWSZjr/X2QtMOErfNiMKF1lDR0cnFicg=;
+  b=X9Dqq5GF10L62kqEt3wEvj2mJhc10zujXUVbpdwwYk+hR2rrXPBTJurT
+   2Lgxh7JhVhVkomi200u+1znOaaKU3Q/bDDwH0vInqNy/HSZreL96vHL/t
+   XfgxQFE1f48QTxgyWaIO4yAxXUrafTXmuqGc64Vtc5ZPRId+C6RBCa3jW
+   v6mOPMgbL8LwSs0+mRMmxRQVZg3P0kR/n1j/7poArHQZ/s+u7MyeCDckI
+   fRwPcqQTOgGqRFmSKF/jLRTXvRbDA0Hvinyxhak0HagobKVhsUbtqxC4n
+   HNR/tqUocENyz+KX2R1H9qm3xcSkYt81T7GzsXU8pJQVFLqQfBydPBhkk
+   A==;
+X-CSE-ConnectionGUID: d1DhoDNFR1aA+b9JD6bCbQ==
+X-CSE-MsgGUID: 3T/jluSvR8+rNRelQ3I5Og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90323398"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90323398"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:27 -0700
+X-CSE-ConnectionGUID: FGhIDbikRh2hnpgr9qePRQ==
+X-CSE-MsgGUID: BWfncxUXQHCloIXNlHTHiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="278819280"
+Received: from yzhao56-desk.sh.intel.com ([10.239.47.61])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:11:22 -0700
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@intel.com
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	x86@kernel.org,
+	rick.p.edgecombe@intel.com,
+	kas@kernel.org,
+	tabba@google.com,
+	ackerleytng@google.com,
+	michael.roth@amd.com,
+	david@kernel.org,
+	vannapurve@google.com,
+	sagis@google.com,
+	vbabka@suse.cz,
+	thomas.lendacky@amd.com,
+	nik.borisov@suse.com,
+	pgonda@google.com,
+	fan.du@intel.com,
+	jun.miao@intel.com,
+	francescolavra.fl@gmail.com,
+	jgross@suse.com,
+	xiaoyao.li@intel.com,
+	kai.huang@intel.com,
+	binbin.wu@linux.intel.com,
+	chao.p.peng@intel.com,
+	chao.gao@intel.com,
+	farrah.chen@intel.com,
+	yan.y.zhao@intel.com
+Subject: [PATCH v4 09/17] KVM: x86/mmu: Introduce hugepage_set_guest_inhibit()
+Date: Mon, 28 Sep 2026 17:10:49 +0800
+Message-ID: <20260928091049.15615-1-yan.y.zhao@intel.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20260928090729.15468-1-yan.y.zhao@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 09/28/26 at 10:48am, David Hildenbrand (Arm) wrote:
-> The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
-> needs similar information (although still relying on
-> SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
-> 
-> Let's just export the value instead, so tools that work on vmcoreinfo
-> will not have to guess.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
-> SECTION_MARKED_PRESENT and further cleanups" [1]
-> 
-> This patch can go in independently. It would be preferable if both
-> go into the same kernel release ;)
-> 
-> [1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
-> ---
->  kernel/vmcore_info.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
-> index 5a417f8a922a..7833a36064a8 100644
-> --- a/kernel/vmcore_info.c
-> +++ b/kernel/vmcore_info.c
-> @@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
->  	VMCOREINFO_STRUCT_SIZE(mem_section);
->  	VMCOREINFO_OFFSET(mem_section, section_mem_map);
->  	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
-> +	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
->  	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
->  #endif
->  	VMCOREINFO_STRUCT_SIZE(page);
+TDX requires guests to accept S-EPT mappings created by the host KVM. Due
+to the current implementation of the TDX module, if a guest accepts a GFN
+at a lower level after KVM maps it at a higher level, the TDX module will
+emulate an EPT violation VMExit to KVM instead of returning a size mismatch
+error to the guest. If KVM fails to perform page splitting in the VMExit
+handler, the guest's accept operation will be triggered again upon
+re-entering the guest, causing a repeated EPT violation VMExit.
 
-It would be good to add one section in
-Documentation/admin-guide/kdump/vmcoreinfo.rst, e.g
+To facilitate passing the guest's accept level information to the KVM MMU
+core and to prevent the repeated mapping of a GFN at different levels due
+to different accept levels specified by different vCPUs, introduce the
+interface hugepage_set_guest_inhibit(). This interface specifies across
+vCPUs that mapping at a certain level is inhibited from the guest.
 
-SECTION_HAS_MEM_MAP
--------------------
+Intentionally don't provide an API to clear KVM_LPAGE_GUEST_INHIBIT_FLAG
+for the time being, as detecting that it's ok to (re)install a huge page is
+tricky (and costly if KVM wants to be 100% accurate), and KVM doesn't
+currently support huge page promotion (only direct installation of
+huge pages) for S-EPT.
 
-Indicates a memory section has struct page array (mem_map). User-space
-tools should read this value but not hardcode it since the bit position
-could change between kernel versions.
+As a result, the only scenario where clearing the flag would likely allow
+KVM to install a huge page is when an entire 2MB / 1GB range is converted
+to shared or private.  But if the guest is accepting at 4KB granularity,
+odds are good the guest is using the memory for something "special" and
+will never convert the entire range to shared (and/or back to private).
+Punt that optimization to the future, if it's ever needed.
 
-The code change looks good to me.
+Unlike hugepage_set/test_mixed(), which are placed under
+CONFIG_KVM_VM_MEMORY_ATTRIBUTES since they are unneeded when per-VM memory
+attributes is disabled, hugepage_set/test_guest_inhibit() are invoked when
+per-gmem memory attributes is enabled, since TDX huge page support is
+intentionally enabled only when per-gmem memory attributes is enabled.
 
-> 
-> ---
-> 
-> base-commit: 57e4ac91fc62d75d84b5a03827a19ceb4094ecd9
-> 
-> change-id: 20260928-section_has_mem_map-6205dc90a09f
-> 
-> --
-> 
-> Cheers,
-> 
-> David
-> 
+Link: https://lore.kernel.org/all/a6ffe23fb97e64109f512fa43e9f6405236ed40a.camel@intel.com [1]
+Suggested-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Suggested-by: Sean Christopherson <seanjc@google.com>
+[sean: explain *why* the flag is never cleared]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
+---
+v4:
+- Explain *why* the flag is never cleared. (Sean)
+- Explain why hugepage_set/test_guest_inhibit() are not placed near to
+  hugepage_set/test_mixed().
+
+v3:
+- Use EXPORT_SYMBOL_FOR_KVM_INTERNAL().
+
+RFC v2:
+- new in RFC v2
+---
+ arch/x86/kvm/mmu.h     |  4 ++++
+ arch/x86/kvm/mmu/mmu.c | 23 +++++++++++++++++++----
+ 2 files changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index 2ae7f9ed4cf8..84a96ac94ada 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -410,4 +410,8 @@ static inline bool kvm_is_gfn_alias(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return gfn & kvm_gfn_direct_bits(kvm);
+ }
++
++void hugepage_set_guest_inhibit(struct kvm_memory_slot *slot, gfn_t gfn, int level);
++bool hugepage_test_guest_inhibit(struct kvm_memory_slot *slot, gfn_t gfn, int level);
++
+ #endif
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index a9a7c015256b..0725b92b7008 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -750,12 +750,14 @@ static bool kvm_gfn_is_lpage_allowed(struct kvm *kvm,
+ }
+ 
+ /*
+- * The most significant bit in disallow_lpage tracks whether or not memory
+- * attributes are mixed, i.e. not identical for all gfns at the current level.
++ * The 2 most significant bits in disallow_lpage track whether or not memory
++ * attributes are mixed, i.e. not identical for all gfns at the current level,
++ * or whether or not guest inhibits the current level of hugepage at the gfn.
+  * The lower order bits are used to refcount other cases where a hugepage is
+  * disallowed, e.g. if KVM has shadow a page table at the gfn.
+  */
+-#define KVM_LPAGE_MIXED_FLAG	BIT(31)
++#define KVM_LPAGE_MIXED_FLAG		BIT(31)
++#define KVM_LPAGE_GUEST_INHIBIT_FLAG	BIT(30)
+ 
+ static void update_gfn_disallow_lpage_count(const struct kvm_memory_slot *slot,
+ 					    gfn_t gfn, int count)
+@@ -768,7 +770,8 @@ static void update_gfn_disallow_lpage_count(const struct kvm_memory_slot *slot,
+ 
+ 		old = linfo->disallow_lpage;
+ 		linfo->disallow_lpage += count;
+-		WARN_ON_ONCE((old ^ linfo->disallow_lpage) & KVM_LPAGE_MIXED_FLAG);
++		WARN_ON_ONCE((old ^ linfo->disallow_lpage) &
++			     (KVM_LPAGE_MIXED_FLAG | KVM_LPAGE_GUEST_INHIBIT_FLAG));
+ 	}
+ }
+ 
+@@ -782,6 +785,18 @@ void kvm_mmu_gfn_allow_lpage(const struct kvm_memory_slot *slot, gfn_t gfn)
+ 	update_gfn_disallow_lpage_count(slot, gfn, -1);
+ }
+ 
++bool hugepage_test_guest_inhibit(struct kvm_memory_slot *slot, gfn_t gfn, int level)
++{
++	return lpage_info_slot(gfn, slot, level)->disallow_lpage & KVM_LPAGE_GUEST_INHIBIT_FLAG;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(hugepage_test_guest_inhibit);
++
++void hugepage_set_guest_inhibit(struct kvm_memory_slot *slot, gfn_t gfn, int level)
++{
++	lpage_info_slot(gfn, slot, level)->disallow_lpage |= KVM_LPAGE_GUEST_INHIBIT_FLAG;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(hugepage_set_guest_inhibit);
++
+ static void account_shadowed(struct kvm *kvm, struct kvm_mmu_page *sp)
+ {
+ 	struct kvm_memslots *slots;
+-- 
+2.43.2
+
