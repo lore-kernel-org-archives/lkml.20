@@ -1,62 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB864EDCD6;
-	Mon, 28 Sep 2026 16:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C2C2DC765;
+	Mon, 28 Sep 2026 16:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613106; cv=none; b=oTQq16Bvu6/NXF84G3rodS/pm6pij0LfdnTv8Bw1y16AmVychBwlPFOcXDsk+luIv8TCqkIYwy9KTb9qvxPcj7ksaNcbKUh0Q2/cKRMpH5QoH8cjgDsKIpNKuHJ1d7lhKZ7R/PfBNt1f2g5stijyPV/DpaicH+vMy7zxWYiljPk=
+	t=1790613123; cv=none; b=YQDW9vTpLwPSHEWhRwMIUjrFhsLcBh8ZeEVNy4WrviSWS3+jvBKPuJfBrpAhxcZAjTuwq2SnMBDVVRDlYEa2hXhrQSe1pEb9D2lhyrO0ikcsnJu3cyDD3KgiJQxcDkSpEstlJN4XP3Ajda2EZ7H4tLHcPbR7qSJgZkmmTF+4RdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613106; c=relaxed/simple;
-	bh=c541e+Yf/1TkzNRiiS1DegAycr4yZV+4QccWpKXqm8M=;
+	s=arc-20240116; t=1790613123; c=relaxed/simple;
+	bh=LSSkPt0tyd7BePBQ11bLsPWDs6ALcf5DvYsfQdZG8n4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g4HklI5uMtCyySb/MYspRWXdsewR9Tz+GdqrXvgHBOAoNQNw7eJI3u28Qg+yXv9Q0R/8HO56cU9fg8IkYt9MsCHWx1nTtqqygx/RGjy1nRUiipWpq0zkiQBun8iqiaeB477xRuyvTg/RrKIQzvX93uIcoc3WbbWIWfM1zkqJjSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggGsrxCJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t9Ck1dSRxFqej1UXacpLKTTt8ZajjeAmgb+0qe4jjL123YsyCLffLlz468GuiN9eqRBs7iRT24MT1q/miWYFLTXDEC4qYMaEf00+p6HxFzRc61h5ZtmBewanRyJWTrKStVDOh4SE/6NlFW8XzL0clI3KPGwwn4kEVPNAYxdRYzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpNXrGFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggGsrxCJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9BEA1F000FF;
-	Mon, 28 Sep 2026 16:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpNXrGFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606F91F000FF;
+	Mon, 28 Sep 2026 16:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790613105;
-	bh=5GpRpNe92QpGRvNBfRb9js65IBscjYzBPJDtk432NWo=;
+	s=k20260515; t=1790613122;
+	bh=LSSkPt0tyd7BePBQ11bLsPWDs6ALcf5DvYsfQdZG8n4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ggGsrxCJcCVfBhbDDe5wweiFa11dtdqZONL6hGceidJWjnTSl2SPFmGZXWpQDsw8f
-	 JwstrbRF5NyKr0IYJUTBIsjQ0umloPXgXRxrPnf41ADGTGCsHjwxcC2EtGuzjMlqh7
-	 BwZsjwGPT3Mi2rqSC+HiM63nVW4T7U6PW2dwo8mg4nq/52QTpy8KmrdbE1HEm9A5B4
-	 IwdWgpCTeYsGUFwuOeW2VWQy6sxN8djuyRVuAvaRyNp2nt3ZTXjb4GS+1fE0lRr3y3
-	 8mhRVYR2hewuRIRh4ohElTixJUKVTzAkUBflv1MZHyePic0en8YBJEHP98Lyxtfoof
-	 KizmyksIBKuOQ==
-Date: Mon, 28 Sep 2026 18:31:42 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Leo Yan <leo.yan@arm.com>
-Cc: John Garry <john.garry@linux.dev>, namhyung@kernel.org,
-	linux-perf-users@vger.kernel.org, will@kernel.org,
-	james.clark@linaro.org, mike.leach@arm.com, leo.yan@linux.dev,
+	b=LpNXrGFnb9HaIuC8KX+e1iSYACFonoGQ0XWZS0Jcu7fAbYY/0JFYUISitpzMeAumN
+	 kzlUFfKyoXMMm0pixrV6hJcU7BE4QZk88lJ+QiX+FPnePwDm5fyD67vn5zX22lAGqS
+	 Pj30lD989kxJg3QZwidBzL+PiG5Az2MOsktAxVPi1HH+yaMKJLUx67ebxL2/EbhTqd
+	 JttFmrpIeh7P9efWcxk0tcq4ct1PhGu7NgzjeVhiTd3ARNba+ataEd+qF1oX6paRtF
+	 nbbrjoVuFG01AlYzLZdhQoC1UmsZ3nBcZMlhpwF9hGP/bmi+ViviPcEInsV/nT2j8Q
+	 3CL+lz7I9f2MQ==
+Date: Mon, 28 Sep 2026 17:31:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: Update John Garry's address for from arm64
- perf tools
-Message-ID: <arqWbrUcrkQnHEjy@x2>
-References: <20260928151652.66499-1-john.garry@linux.dev>
- <20260928162436.GF14479@e132581.arm.com>
+Subject: Re: [PATCH v3 3/3] KVM: arm64: selftests: Check ID regs are
+ immutable after a failed run
+Message-ID: <83a389d3-6328-4762-a96f-46f9f7145b0e@sirena.org.uk>
+References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
+ <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
+ <arp7mig_PrD9Jbc7@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AAMnBzaO3gKbG6DA"
+Content-Disposition: inline
+In-Reply-To: <arp7mig_PrD9Jbc7@gremlin>
+X-Cookie: All is fear in love and war.
+
+
+--AAMnBzaO3gKbG6DA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928162436.GF14479@e132581.arm.com>
 
-On Mon, Sep 28, 2026 at 05:24:36PM +0100, Leo Yan wrote:
-> On Mon, Sep 28, 2026 at 04:16:52PM +0100, John Garry wrote:
-> > My employer e-mail address will stop working soon and I am likely to get
-> > more involved in this area in future, so update my address.
-> > 
-> > Signed-off-by: John Garry <john.garry@linux.dev>
-> 
-> Reviewed-by: Leo Yan <leo.yan@arm.com>
+On Mon, Sep 28, 2026 at 03:46:51PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Sep 01, 2026 at 07:18:50PM +0100, Mark Brown wrote:
+> > From: Fuad Tabba <fuad.tabba@linux.dev>
 
-Thanks, applied to perf-tools-next, for v7.4.
+> > Assisted-by: Antigravity:gemini-3.1-pro
 
-- Arnaldo
+> NIT: we changed the rules for the Assisted-by tag, it only needs to be
+> 'Assisted-by: LLM' now. Not a huge big deal but FYI :>)
+
+> https://docs.kernel.org/process/coding-assistants.html
+
+That's Fuad's tag not mine, I've just picked up his change verbatim.
+
+--AAMnBzaO3gKbG6DA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6lnwACgkQJNaLcl1U
+h9BSHgf/dsZOGOdrRnI26oAZQKyMEaKtzUE+S6oc46T6NARbYeekbnDVX+NeLJr3
+hKjGjgbwagGXC7mYmPcOvunoatLjeFrgga/aOwpJqB5gucMNB8O5nQtyx6OWrKH4
+Zoom+ewSdp5kuH+pVTu7IGFQQmFNbeHI3hD7SFxwInLViJaRP0NGOF/N+Rg1XhAL
+jdvpj10jddzOQ3gBHqTktod5VGImbBz2VNxcSW0EAGQ3bhQS+vm/DNmkxDksnswS
+m/Brc/kZfm1Q/UlxXODXX9fu00f98IoxU4YXCwTcmukOUc15gI+xK6JD4+XZ5UCZ
+6NpGPSsLPeWNUOcBDeV6n3fWCYmiQQ==
+=Y4zb
+-----END PGP SIGNATURE-----
+
+--AAMnBzaO3gKbG6DA--
