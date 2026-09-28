@@ -1,125 +1,192 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26C36468C13;
-	Mon, 28 Sep 2026 07:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B174E37E5E0;
+	Mon, 28 Sep 2026 08:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582382; cv=none; b=GhhEk7mDf+viflgkKQDAOk5gHzsmp8oF/z/aQgkz8s9uvS/yFyWVqAWoV+3WBcg89eeL1zCyjile5QCg6oSEC1unBbPyqpn8nveZM6+DZ/31JVu99KXnWMlzgqehWj1Hfr8+9HTb/jtfaYJWhZ5H7pK81Yb+7xA5oJ757uRbk3A=
+	t=1790582426; cv=none; b=j8sQRNg4miKmmEXiSWUI3YoEZLXDSol2Q8CVgUX8LqMMdol6uOrqlY6EOG1T2/W4bfTienZroYKnvxhhhnWOOAJI525QA53T65KrovWA4VYxZLk3jW+KUXz+lnu4VF1F7DC3Rgqh/ePDu2ZskgZ5rWdoRE/uDGMiqcQ2wD2GQV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582382; c=relaxed/simple;
-	bh=4kl2el4FpHcVHqxsS4pGEvHLvJHgWdZsn2aHeqzIC4Q=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=SakwRzNZftAS5XrdekmiWV2DTs5OvKDk6aMvQw6w6xkL+PjkP6tOR2/xkBINird3pMjaCiviaKTJ0OCiJzL16qgnk4Ntou6kq0cngyOdyHHdzPD4kMkoVBYCJudcJ6zl3CjLswONOHMFRpr2l0TALbk9PHPs/47lGJ8hKlfxam8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxvtJqHrpqU3EQAA--.48063S3;
-	Mon, 28 Sep 2026 15:59:38 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCx9cxpHrpqVP8lAA--.52959S2;
-	Mon, 28 Sep 2026 15:59:37 +0800 (CST)
-Subject: Re: [PATCH 6/6] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20260927075240.3007947-1-cui.tao@linux.dev>
- <20260927075240.3007947-7-cui.tao@linux.dev>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
-Date: Mon, 28 Sep 2026 16:01:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1790582426; c=relaxed/simple;
+	bh=l81R9WM8DbHwJewLmAs9hgH/CkQjZFifExB+Lz9BM8c=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YqHTZxUIzA+d5lGi0bbctXVJunRON6U85A9izr+V6q/RfDwZEPLnln55uirk/mHNNu0HBT6EpXIHHKTJA1RIM/bHk+H3YmptcHntbI5KNH9I91aPM1WezuQch21K7qmvRvhzD56J/beo26YFRUuvgWrB5PjkDIKJfM92i9u03Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTYqcT1U; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTYqcT1U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB92F1F000FF;
+	Mon, 28 Sep 2026 08:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790582424;
+	bh=ur90cJ6ifeUP3pY3In1pURIlIV16eVbuGZv1wN4zN8g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FTYqcT1UePh9NGYFJ6EEBOC2Mtrnw+TGYJWhLBVD5FQmZ98qJbE0aR25rv/5o2Wmb
+	 CKAcl623fnb9UB1R08UCm9Qssr0Cz9kvmf4AfTZ+i2NGC0TVp5nDsYC7yoVns9XBt8
+	 9FwEr4gdXCh+GdzvGHxvce4MTci6PLM35Om8bPy4b2gea/hr337jhjaa2R+E2oSFhD
+	 hqprh/27U8F9Oqm6y8LaeWcrIxdNDi1D+zshUuOZxgdU4wP/CQRHbezVy1GMRm5Rae
+	 uITr1ckORE7G8czke6ObVsbopuChMJj9RXyEnALrMQJ2Ui/etAiWgxRMBJ5JWDnf2i
+	 W+e0lPHOTyJaw==
+Subject: Re: [PATCH net-next 4/5] selftests: mptcp: convert iptables to
+ nftables for mptcp_sockopt.sh
+From: netdev-bot+sashiko@kernel.org
+To: matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ quanyeyang@proton.me
+Date: Mon, 28 Sep 2026 08:00:23 +0000
+Message-ID: <179058242329.3145.13094983040753478975@kernel.org>
+In-Reply-To:
+ <20260926-net-next-mptcp-misc-feat-7-4-v1-4-67af4ab37406@kernel.org>
+References:
+ <20260926-net-next-mptcp-misc-feat-7-4-v1-4-67af4ab37406@kernel.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260927075240.3007947-7-cui.tao@linux.dev>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCx9cxpHrpqVP8lAA--.52959S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7tFW3Cry8JryDKr47XF48Xwc_yoW8KF48pr
-	WrCa9xCFW8Kr129Fs7Zwn3XF1I9Fs7uw4S9a45AFyYkwn0gryrKFy8A3yDX3WDJ395AF1I
-	qr4fGa90va1UAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
-	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
-	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
-	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-On 2026/9/27 下午3:52, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-> invocation: every call overwrites pch_pic_base and registers the same
-> kvm_io_device on the MMIO bus at the new address, while
-> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
-> init, MMIO to the stale ranges computes its register offset against the
-> new base and silently reads 0 / drops writes, and the leftover bus
-> entries persist until the VM is destroyed.
-> 
-> Reject a repeated init with -EBUSY, a null address with -EINVAL, and
-> only set pch_pic_base after the bus registration succeeds so a failed
-> init does not leave the device half-initialized.  The registration
-> error is propagated instead of being replaced with -EFAULT.
-> 
-> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->   arch/loongarch/kvm/intc/pch_pic.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-> index 136211f154d4..2baf9ecf0c8a 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -285,7 +285,10 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->   	struct kvm_io_device *device;
->   	struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->   
-> -	s->pch_pic_base = addr;
-> +	if (!addr)
-> +		return -EINVAL;
-To detect repeated init, I think it will be better add a BOOL type 
-variable such ready/has_init for this. In theory device with physical 
-address 0 is possible.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> +	if (s->pch_pic_base)
-> +		return -EBUSY;
--EEXIST or 0 if it is created already?
+- [Medium] The nft/jq tool check added to mptcp_lib_check_tools()
+  (tools/testing/selftests/net/mptcp/mptcp_lib.sh:531-532) only runs…
+- [Low] In add_mark_rules()
+  (tools/testing/selftests/net/mptcp/mptcp_sockopt.sh:57-60), the…
 
-Regards
-Bibo Mao
->   	device = &s->device;
->   	/* init device by pch pic writing and reading ops */
->   	kvm_iodevice_init(device, &kvm_pch_pic_ops);
-> @@ -293,8 +296,11 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->   	/* register pch pic device */
->   	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
->   	mutex_unlock(&kvm->slots_lock);
-> +	if (ret < 0)
-> +		return ret;
->   
-> -	return (ret < 0) ? -EFAULT : 0;
-> +	s->pch_pic_base = addr;
-> +	return 0;
->   }
->   
->   /* used by user space to get or set pch pic registers */
-> 
+--
 
+selftests: mptcp: convert iptables to nftables for mptcp_sockopt.sh
+
+This commit makes mptcp_sockopt.sh use nftables instead of
+iptables/ip6tables. It creates ip/ip6 filter tables with an OUTPUT chain,
+and check_mark() now reads the drop counter through nft -j and jq. It also
+extends mptcp_lib_check_tools() to probe for nft and jq.
+
+> diff --git a/tools/testing/selftests/net/mptcp/mptcp_lib.sh b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
+> index b9d14647f4019..e65b4ebee06a6 100644
+> --- a/tools/testing/selftests/net/mptcp/mptcp_lib.sh
+> +++ b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
+> @@ -528,7 +528,7 @@ mptcp_lib_check_tools() {
+>  				exit ${KSFT_SKIP}
+>  			fi
+>  			;;
+> -		"iptables"* | "ip6tables"*)
+> +		"iptables"* | "ip6tables"* | "nft" | "jq")
+>  			if ! "${tool}" -V &> /dev/null; then
+
+[Severity: Medium]
+Is nft -V the right probe for nft here?
+
+For nft, -V prints extended build information, and only newer nftables
+releases have it. The portable version flag is -v or --version, which is
+what the other selftests use. For example, the netfilter/*.sh scripts call
+nft --version.
+
+If an older nft rejects -V, would mptcp_lib_check_tools() exit with
+KSFT_SKIP from the top-level call in mptcp_sockopt.sh?
+
+    mptcp_lib_check_tools ip nft jq
+
+That would also skip the transfer, sockopt and TCP_INQ subtests, which
+don't use nft at all.
+
+The opposite case is also a concern. check_mark() needs an nft that was
+built with JSON support:
+
+    drops=$(ip netns exec "$ns" nft -j list table "$tables" filter | \
+    ...
+    if [ -z "$drops" ] || [ "$drops" -ne 0 ]; then
+            mptcp_lib_pr_fail "got $tables $drops in ns $ns," \
+                              "not 0 - not all expected packets marked"
+            ret=${KSFT_FAIL}
+
+On an nftables build without libjansson, nft -V still exits 0 and just
+reports json: no. add_mark_rules() works, because it only uses nft -f.
+
+nft -j then fails with "JSON support not compiled-in", so drops is empty.
+The test then reports "not all expected packets marked" and sets
+KSFT_FAIL. Should a missing userspace feature give a skip here instead?
+
+The later patch in the series, "selftests: mptcp: convert iptables to
+nftables for mptcp_join.sh", keeps the same "nft" | "jq" case with the -V
+probe. So it looks like this is still present at the end of the series.
+
+Would a separate nft check match the real dependency better? For example,
+nft --version plus a JSON check such as nft -j list ruleset.
+
+>  				mptcp_lib_pr_skip "Could not run all tests without ${tool}"
+>  				exit ${KSFT_SKIP}
+> diff --git a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+> index e850a87429b61..b4e3eddc9cf21 100755
+> --- a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+> +++ b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+
+[ ... ]
+
+> @@ -49,16 +47,27 @@ add_mark_rules()
+>  	local ns=$1
+>  	local m=$2
+>  
+> -	local t
+> -	for t in ${iptables} ${ip6tables}; do
+> -		# just to debug: check we have multiple subflows connection requests
+> -		ip netns exec $ns $t -A OUTPUT -p tcp --syn -m mark --mark $m -j ACCEPT
+> -
+> -		# RST packets might be handled by a internal dummy socket
+> -		ip netns exec $ns $t -A OUTPUT -p tcp --tcp-flags RST RST -m mark --mark 0 -j ACCEPT
+> -
+> -		ip netns exec $ns $t -A OUTPUT -p tcp -m mark --mark $m -j ACCEPT
+> -		ip netns exec $ns $t -A OUTPUT -p tcp -m mark --mark 0 -j DROP
+> +	local table
+> +	for table in ip ip6; do
+> +		ip netns exec "$ns" nft -f - <<-EOF
+> +			add table $table filter
+> +			add chain $table filter OUTPUT \
+> +				{ type filter hook output priority 0; policy accept; }
+> +
+> +			# just to debug: check we have multiple subflows connection requests
+> +			add rule $table filter OUTPUT \
+> +				tcp flags & (fin | syn | rst | ack) == syn \
+> +				meta mark $m accept
+
+[Severity: Low]
+This isn't a bug, but is this comment still accurate after the conversion?
+
+With iptables every rule had implicit counters, so iptables -v -L could
+show how many subflow SYNs were sent. In nftables a rule only counts
+packets if it has an explicit counter statement, and this rule has none.
+
+Every packet this rule matches is also accepted by the later "meta
+l4proto tcp meta mark $m accept" rule, so the rule now does nothing.
+
+The commit message says:
+
+  "Counters are not added to accept rules because the test does not
+  inspect them."
+
+However, this rule was meant for manual debugging rather than for the test
+itself. Should it get a counter, or should the rule and its comment be
+removed?
+
+> +
+> +			# RST packets might be handled by a internal dummy socket
+> +			add rule $table filter OUTPUT \
+> +				tcp flags & rst == rst meta mark 0x0 accept
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926-net-next-mptcp-misc-feat-7-4-v1-0-67af4ab37406%40kernel.org
