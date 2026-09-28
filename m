@@ -1,125 +1,72 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC462EEE9E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA153749EE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:03:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.236
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790632935; cv=none; b=ibVeL6oSJKmZTL2TWNR/31S8DN9FV8T4lqDEeNgRMlsZ6tYO9dYV6Ibc/zTSRTxssHUsHr46ACXflEhl4Od6LbN2oIsztUqHO1WWut1m74UftHxeK1ZiLnw9Ad1f6soYwtaSZ/FFlGk0mh7GJhdfpeRXRQhGgczSoLMqAFPq8vw=
+	t=1790632996; cv=none; b=UiuL+6px4CPdFm7/n2kr6+qUzZaN3T4ly5aZk/HS7Cj9Jl0BVtpy2xl70ZBG9VzEAwj6MbmYfarugivSMSdIo6LvPpc8CBm+na9r1N/J2336FwAUGS/1PY6w5r2RLft2y9JYVh6V0Xiyiid5bgeDpgFYDPVMNlgLCfCh5FaS5ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790632935; c=relaxed/simple;
-	bh=6Ig6LoLG8dqDI0bTOvq0mJgHxO9RACFX4ffV/rEkhOk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CgJTiIhbeTHgYbLe4U6e9AWxbdssL02eMRn3+MZTLFJnibQQXwqLS6gJsSrv0L7ufcLZTc6Xo2TTHzTswJsXB3XdpBVM5FTrZ96wMTOiqW1tPLFsCKqULMW6gxm3D8mxl6yP21NnZjF+vIwr5og+iuvqCt2+PJ8/jxcXluTOZJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=aLfpPTFS; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790632996; c=relaxed/simple;
+	bh=UfqEC0hvhzksIoWD3A2UB8R/0PLC23wCy5su2X5T2VU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WIiObs3FIiWMZCKt9P8kerPcAP3ZOJGJaLXUlMvtv6ER1SX5NMuYu61yT6zIJdpFfUAXNEBkkHbFuQC8vK4DMMYqyDzQc7vNNPS7d/rZsQ8bbwaLeigbtAzOVGk/KJ2t72zH0xkc69Kq33Kl4dJH/91n8UqYSqv9c+yWnZ21uOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=M7DaofgO; arc=none smtp.client-ip=95.215.58.236
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="aLfpPTFS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
-	:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
-	Reply-To:Content-ID:Content-Description;
-	bh=UlGAHhy+zTWvCddnt32OzOABshfAkjc3SZ+/QN0C3Ao=; b=aLfpPTFSkmP/xP/QK0pbMJxi1J
-	eA+Uc3nbkYXSbSwTSj9PoLwJsG8wHlQNXsYbLcW8kwKeD+oprvrrzozl44yo6XQIhyH4Kk74jKg7Z
-	oBj6lgu0fdT7HJTKgGoH9ImqGpWKVcPhyAiXCeAs68J2JY1wWcAVfNT7kibwWz0rHN8F23aSvlKWZ
-	lfO8pEOi4XrkibTBLtHc/crRApoy8d4RulekfS3mHNnIGxMxXbN47RywvBUDRcoR3C20faqwJj4Lb
-	Fex+G3+U9cZ+ZXe7ZAfh0oB1HBNNqgr9KP8EWnoW+f/0Zufi5UhVRO3UiijETV1LcHQUSTD8TOrX6
-	f9LBqfSA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
-	(Exim 4.96)
-	(envelope-from <domibel@debian.org>)
-	id 1xBJQJ-007vxN-1K
-	for linux-kernel@vger.kernel.org;
-	Mon, 28 Sep 2026 22:02:11 +0000
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868cfc5c244so1111989b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:02:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzb0Cb5A4bVSzqPYov6mu8DLgHAgfm2tff+CEtzdiJ0V3neSvv6aBuU7sAUdZL/kP+944xUUfR3HYWHGC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmoLKYq5/htt0zDrK47EQzsmoyd1GOpaDgg303ZqMr1jcf70RC
-	LlmO/nNG4FkjM7BFbJ/2jRV8j80TIoJLXNqAnK3o0IEQ6Q6gJbUTniBMda76gBG6lGBiX9j1Op5
-	5HQj+bV8GLj1nqLe+zzoaNEeXC+gH8F0=
-X-Received: by 2002:a05:6a00:158e:b0:883:8fee:51f3 with SMTP id
- d2e1a72fcca58-8838fee53demr3097284b3a.2.1790632927922; Mon, 28 Sep 2026
- 15:02:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="M7DaofgO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UfqEC0hvhzksIoWD3A2UB8R/0PLC23wCy5su2X5T2VU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790632992; v=1; x=1791237792;
+ b=M7DaofgOtoKMtSSdvroZMBRl+UNaj42CsHtvUtYjmkRqeLidM/TZoVWO004pVnTJz6nwczZT
+ 2Rh0QGOtX73tMtxg+aoLQpwxui37CY2XHFjGnqAZq80KWW54vzz6w3vYibLor7abaMTabvXlLY0
+ qdKNPWA5VxIhbmFCV/TS3PlE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 538580cffdbed75c;
+	Mon, 28 Sep 2026 22:03:11 +0000
+X-Mizu-Trace-ID: 538580cffdbed75c
+X-Migadu-Flow: FLOW_OUT
+From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+To: ilya.gladyshev@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Subject: [PATCH v1] MAINTAINERS: update Ilya Gladyshev's email address
+Date: Tue, 29 Sep 2026 01:03:10 +0300
+Message-ID: <20260928220310.34883-1-ilya.gladyshev@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260528184145.384114-1-domibel@debian.org> <CGME20260928111522eucas1p1e9b3945eacb52abe425272ebca524d8f@eucas1p1.samsung.com>
- <9274543d-c569-43a6-888c-9b74d1a8c92a@samsung.com> <c54e669b-442c-4ae4-acc3-9ccba0174fca@samsung.com>
-In-Reply-To: <c54e669b-442c-4ae4-acc3-9ccba0174fca@samsung.com>
-From: Dominique Belhachemi <domibel@debian.org>
-Date: Mon, 28 Sep 2026 18:01:55 -0400
-X-Gmail-Original-Message-ID: <CAAvaLCwhfxBOJOP+QwC=P3V6PG5zQMpqg4gQdE5Di=W-E_2x+A@mail.gmail.com>
-X-Gm-Features: AclHuK9ofHZJBuqUlc7ZvZ8REp1P3kZYWHLZMj-9IE3uEaX84f8eSimevmN03nk
-Message-ID: <CAAvaLCwhfxBOJOP+QwC=P3V6PG5zQMpqg4gQdE5Di=W-E_2x+A@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/bridge: inno-hdmi: reset DDC segment pointer per
- I2C transfer
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, linux-kernel@vger.kernel.org, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Debian-User: domibel
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 7:15=E2=80=AFAM Michal Wilczynski
-<m.wilczynski@samsung.com> wrote:
->
->
->
-> On 9/27/26 10:51, Michal Wilczynski wrote:
-> >
-> >
-> > On 5/28/26 20:41, Dominique Belhachemi wrote:
-> >> The segment_addr and ddc_addr fields need to be reset per I2C transfer
-> >> to avoid stale values. The reset wasn't required on simple displays wi=
-th
-> >> only one segment, but modern displays with two or more segments end up
-> >> with corrupt EDIDs.
-> >>
-> >> This was found on a StarFive VisionFive 2 SBC.
-> >>
-> >> Signed-off-by: Dominique Belhachemi <domibel@debian.org>
-> >> ---
-> >>  drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/brid=
-ge/inno-hdmi.c
-> >> index 5fa533a4eb342..297be02bbd58d 100644
-> >> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> >> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> >> @@ -989,6 +989,10 @@ static int inno_hdmi_i2c_xfer(struct i2c_adapter =
-*adap,
-> >>
-> >>      mutex_lock(&i2c->lock);
-> >>
-> >> +    /* Reset segment_addr and ddc_addr at the start of every I2C tran=
-sfer */
-> >> +    i2c->ddc_addr =3D 0;
-> >> +    i2c->segment_addr =3D 0;
-> >> +
-> >>      /* Clear the EDID interrupt flag and unmute the interrupt */
-> >>      hdmi_writeb(hdmi, HDMI_INTERRUPT_MASK1, m_INT_EDID_READY);
-> >>      hdmi_writeb(hdmi, HDMI_INTERRUPT_STATUS1, m_INT_EDID_READY);
-> >
-> > Reviewed-by: Michal Wilczynski <m.wilczynski@samsung.com>
->
-> I was also told that there were some changes in the MAINTAINERS file
-> regarding this patch and some core people may be missing e.g Luca and
-> Maxime.
->
-> It would be best to resend with updated list of maintainers.
->
-Thanks Michal, I am adding them to Cc.
+For stability and availability reasons, use my @linux.dev address
+instead of the one at my personal domain. While at it, fix the name
+order.
 
-Best
--Dominique
+Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 72294ddfa5b7..16d0deafa723 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23037,7 +23037,7 @@ T:	git https://github.com/pkshih/rtw.git
+ F:	drivers/net/wireless/realtek/rtw89/
+ 
+ REDMIBOOK WMI DRIVERS
+-M:	Gladyshev Ilya <foxido@foxido.dev>
++M:	Ilya Gladyshev <ilya.gladyshev@linux.dev>
+ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	drivers/platform/x86/redmi-wmi.c
+-- 
+2.55.0
+
