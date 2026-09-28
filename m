@@ -1,141 +1,91 @@
-Received: from mail-m118217.qiye.163.com (mail-m118217.qiye.163.com [115.236.118.217])
+Received: from mail.nearlyone.de (mail.nearlyone.de [49.12.199.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16DE46C836;
-	Mon, 28 Sep 2026 08:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBCE3546D6;
+	Mon, 28 Sep 2026 08:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.12.199.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584241; cv=none; b=lh1RcwzuRad5qnaXcPs9sb7xb5qpqfnY3u1OMNGlqOzFZXDkR/G6Wjnw9cVGrq0ujex34w9NG+jzt0GTwAdMOykpabMYRb3hCwPRBbwJIkBIjxJkLSK6DHpaUgpbfx7P/3YyMnwwG0yRtPPaQBHVDSF2DAsM2fhDLQHZaYMDGBo=
+	t=1790584244; cv=none; b=ZRBPzojCZ2A3DMXl6hYfXQWUeTs1Hsq3DHmqOJ6owRN9jaDXskppBJzj2F/eINrKXD+SLuzTcHSRgQd8rA9UMI0sqojMQ+R1r15JmzZcM0hi1GS+vJ31Qegx9ya6Utet/spSNpLCagh1bATfdLi+vlKxDjxVgaQfwP7h55FbkQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584241; c=relaxed/simple;
-	bh=56O1+XtCbBuMpsZY03ud511WNyyJck6lK7YOl8I3S/Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Vvq0BjPYTU+rktZM+B1AnSzLT3Q6I/Vd2TazRPTJb80j08tY4v/J7aZm9Y137/KqvRjskRRlaPgv4qEONDmQUJNzWOuO0ncZZe14W2dSADPXoWSjD4s+BD6bkVKI/mpZLzdkmdFvdZZ1YmhMiTWqIPegfL7ZB5HS/+xg4/+JLDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FAHqU1AM; arc=none smtp.client-ip=115.236.118.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790584244; c=relaxed/simple;
+	bh=oQjHm7sEy+oh7SJWSJZ8N5kBh62Zvmh2K4EEsJpmSDQ=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=IlGAhprRIIKH+YHk0wG8WQj0LKIiw/MxFuM3iDkG8X7l0sV6vn0CgU/qRcsl1jW3U81xuVV8Roi2+RxRtPcG3YqaA45DAPvg7WMi+PCiWTfwF1mosoLg2P1z7gUJkyEoPAiPdlkTCrO0t3ZW7dkd3Fip1s91JLcKOv3geEuXSE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=monom.org; spf=pass smtp.mailfrom=monom.org; dkim=permerror (0-bit key) header.d=monom.org header.i=@monom.org header.b=VwnbiQF5; dkim=pass (2048-bit key) header.d=monom.org header.i=@monom.org header.b=y4WwN7GG; arc=none smtp.client-ip=49.12.199.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=monom.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=monom.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FAHqU1AM"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e7e;
-	Mon, 28 Sep 2026 16:15:09 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 06/14] drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
-Date: Mon, 28 Sep 2026 16:14:10 +0800
-Message-Id: <20260928081418.3605775-7-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
-References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+	dkim=permerror (0-bit key) header.d=monom.org header.i=@monom.org header.b="VwnbiQF5";
+	dkim=pass (2048-bit key) header.d=monom.org header.i=@monom.org header.b="y4WwN7GG"
+DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260726; d=monom.org; c=relaxed/relaxed; r=y;
+	h=Message-ID:Subject:To:From:Date; t=1790584229; bh=Z+E1mFhW1QTgJSUbNOSCRFP
+	vFVqJS8RcT7jrbS3GYek=; b=VwnbiQF5X21M3/oU488sXwZm/b6eaY1OTKFuGz3ESi0bREhwf9
+	yusv5uzf/QFTW2GzIJIS+zzT1LgnBVh+bxBQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260726; d=monom.org; c=relaxed/relaxed; r=y;
+	h=Message-ID:Subject:To:From:Date; t=1790584229; bh=Z+E1mFhW1QTgJSUbNOSCRFP
+	vFVqJS8RcT7jrbS3GYek=; b=y4WwN7GG0PjPYB2Z1i0I9oi3YdSxtyPq9fyw17sD6TFcxOGAzs
+	73Sb9MTFk5C+gNUxNUkdArYMRb4urHRYUSxD8RGHfMgyp3QOei42fXTIQwZkerQ2rJHTYDzhY7l
+	iF+Kn+gjAeL2gpTd9InbuiXIwdiabEX66LNa2kPvlnApm+pkgl59MZSLQOJmbfuU7uo+0ykTYbQ
+	WfTQBKr/qK53mbl4Up/y24FoJQ1q/n3MQskKVJeGzAifY9D/jFTbuVQSvxetBCzgs35aIn+IOro
+	kjcIt7FOwYEbe8Rg7itud7tvimR2MYeI77KBZ2bvuVW0pW5YXHmR1tOW1joTLEunUgA==;
+Date: Mon, 28 Sep 2026 10:30:28 +0200
+From: Daniel Wagner <wagi@monom.org>
+To: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org, 
+	stable-rt@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <williams@redhat.com>
+Subject: [ANNOUNCE] v6.12.111-rt21
+Message-ID: <f2e55011-72d3-48fd-b680-68421d77239c@monom.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e715032803a8kunm323e2b5437cf3f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0wdVkoZHkodS0sZHh1KTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FAHqU1AMFg6sHS+bmLPMNVPm4GWr2jNNA78d4/VKocxSkxEoUQOCbs7IHvYWMIQNEKWjnYM5uROq0b/DEZElOzLYT2ZmJ/GRUxkE69kmOofEekArRl5zc6UgrBuEmxm3OTL404gFDlrUGxuAzuYXd+O0Vw7pLnSi8RtSRPoTxug=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=uKF52fufhJOZnsTT21ImBLc4H+Rm8ECocgf/WYHaG+I=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Remove local COMMON_INT_MASK and INT_STA_MASK macros. These constants
-are only used once inside this function and bring no reuse benefit.
+Hello RT-list!
 
-Replace open-coded register writes for COMMON_INT_MASK_1~3 with
-direct writel(0) calls.
+I'm pleased to announce the 6.12.111-rt21 stable release. This is just
+an update on top of the latest upstream stable release. There are no
+RT specific changes.
 
-Leverage analogix_dp_unmute_hpd_interrupt() using the full HPD_IRQ_ALL
-mask to initialize HPD interrupt state, removing duplicated register
-handling.
+There is a bit of churn due to upstream backporting a couple of paches:
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+ 9482507381c7 ("powerpc: Add preempt lazy support")
+ 6421a07d2ff2 ("ARM: ensure interrupts are enabled in __do_user_fault()")
 
----
+and some updates on the patch context/hunk. Nothing serious.
 
-Changes in v3:
-- Replace macro HPD_IRQ with HPD_IRQ_ALL.
----
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++----------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+In my test lab, I see that x86 seem to hit higher cyclictest values
+than usual. armhf and aarch64 have reasonable numbers. I suspect,
+the stable tree introduced it but it might just be my test box.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 6ac03a1aa512..0f1406e4a5d3 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -18,12 +18,6 @@
- #include "analogix_dp_core.h"
- #include "analogix_dp_reg.h"
- 
--#define COMMON_INT_MASK_1	0
--#define COMMON_INT_MASK_2	0
--#define COMMON_INT_MASK_3	0
--#define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
--#define INT_STA_MASK		INT_HPD
--
- #define HPD_IRQ_ALL		(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
- 				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
- 
-@@ -189,23 +183,12 @@ void analogix_dp_swreset(struct analogix_dp_device *dp)
- 
- void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- {
--	u32 reg;
--
- 	/* 0: mask, 1: unmask */
--	reg = COMMON_INT_MASK_1;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
--
--	reg = COMMON_INT_MASK_2;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
--
--	reg = COMMON_INT_MASK_3;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
--
--	reg = COMMON_INT_MASK_4;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_4);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	reg = INT_STA_MASK;
--	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA_MASK);
-+	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
- }
- 
- /*
--- 
-2.34.1
+You can get this release via the git tree at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
+
+  branch: v6.12-rt-patches
+  Head SHA1: c49530ec12e3772dd6e6d7e5cc23d3512e1fdd73
+
+Or to build 6.12.111-rt21 directly, the following patches should be applied:
+
+  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.12.tar.xz
+
+  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.12.111.xz
+
+  https://www.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.111-rt21.patch.xz
+
+Signing key fingerprint:
+
+  5BF6 7BC5 0826 72CA BB45  ACAE 587C 5ECA 5D0A 306C
+
+All keys used for the above files and repositories can be found on the
+following git repository:
+
+   git://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git
+
+Enjoy!
+Daniel
 
