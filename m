@@ -1,244 +1,726 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2282D4D6C3F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606670; cv=fail; b=S0Da6naw14/65C6MsT70Rl6oFLj7VluTgng0+GQl8VmkkdW7OXF3VIQPI+yDfrDRNWs7L87tZYNBqtrBLXYJ5JavFnoGfYrpbXY6LeeOiYpTpWvY1KIp9I7Z8NjgcepRSASrcM2qBw/GzQeRdZQ5rZldJQpYHUYoMYSPt8n/IIc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606670; c=relaxed/simple;
-	bh=2VLvxYrEJCH+iSkWfUYA66HjEWBX+pJK8YOl8Z7iI4M=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pGMCK0l/+wHOKW7RnyKEPcwNehqUXINkLmHf8IHwtUpjR44Lf9LnutPui79B5sDGyhTdunWiXaQRzYc8gSVjV5BM4l9m/a6szOreQ9x0NLibo528Ao58wRAeIEUEOUFvRXUIduKUqfTXAOlm7oEc61CENtUcEJ+mkNbjsoBr3LI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q84ivCJw; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BEE440643
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790606801; cv=none; b=LZNhp2UsXHdwW5W3TgF01RgZIT12yvZDZVZ+pSMqSbNMmoK7Yy5dJJ+LJzn1VQBgD4cF2/oeDg5luXm0EfUxrvLleMwi6VFfTKkTUksibNbZmW+86lHHc/7y8y3a76116otG2Z+H2kNB8iWHovWGgeSYk4+PAWsCyT3BVApQ1Q8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790606801; c=relaxed/simple;
+	bh=Mxdsegz/f6SfW/W1yVtNzPmYxPN1DuFg9BF5rq+BMVI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=QXukgq/dKLX2yKOat9TPTpZ68LNSTflYhQ4Wuu3SEnuw28RELMWExC3460gCI2qwuUtQPywgg2h0kkRh34fC5LklQP9dL4xssIcPV4veAG/g8NXemIiWuuJD8asQAevb0N2kFTmMk7Xn+G3xRM0S4gHgmk1Co884De3S6+Jz71A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RLttq78j; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q84ivCJw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790606665; x=1822142665;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=2VLvxYrEJCH+iSkWfUYA66HjEWBX+pJK8YOl8Z7iI4M=;
-  b=Q84ivCJwd6Usu7IJF/Nc6xygceXsg7q4IFdVohEBp4LFY0AEd2Tk9hDT
-   svblGHfQCKDjN3yEHPjaPT/i76Q2UgzEdZ8QyMWU07hZ9bThaGoSFoswu
-   YFal1QHWfcylGNdTjp9uFcVDvyZNQCsxC3wAY1k4OXOuLfaQZipWDRlrG
-   y6VNKPVOHdTCDt9AYcuj2uCW2jAh6Si7yBaAPkaaHQ9NfT9VQqacmcLHb
-   TvzMPllBL7/ApY2ribAQGAcll20bjt/i4HD9Pz3FOYyvxTFsvZAVEM/MZ
-   rDqGU0DK4rO+q9CTgYdUWo5Ci1Rt5JbLsILcsdF9a3scTsATFqT7DWZcs
-   g==;
-X-CSE-ConnectionGUID: KI3fHxI5QhqIrrW+k94xnw==
-X-CSE-MsgGUID: zuMF2Kc6SNu4YBVm3cX6qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="93796110"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="93796110"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:44:20 -0700
-X-CSE-ConnectionGUID: VbuQKoOqQDCG8l5fq1OUNg==
-X-CSE-MsgGUID: b73W41l0SLuoO+pj9SwVXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="304580650"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:44:20 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 07:44:20 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 28 Sep 2026 07:44:20 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.39)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 07:44:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L6YkilstOopptoLjJmILfeMaRZlF/MJHaLEwa+EaBkfSN7QOnW4PIQkHdX371DvGLzkqxVNeAnf3FFh/3ZEXCW/zIGdz525BCUQw1VViqcQkWVnBUDr5v1fJf6P7+6E2Szzd1KK3L8a0OwUu5V3HhLaqV6yEF1DIbE+N8Lc+wv29LYXTwz2ga7omWAdc/z60WX3UCfspt6Ovsh91h5DBBFztzfbAJ5kMQz62WtpuqqsbDWO5PMcNuRVvo0ylAtR7jTSpNc+01x9Wv8b3K0up7qZbVxg/gZNr8+ruT9rUIqLP7cCeYcn7d4eegWV310ol8LyboJP8zlGNEurerG1CeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yV+ev1qoA4T647LlvKBRZb+j9ouVSMVC7ScJNmpNCnQ=;
- b=xaY4/6x0+Yc5xK8gYgc1fURV0GHuMMGgym4+jQxnOM/z4AtvWOmhOBTUp8efjow0COetx9q/9m8CzgoOf/GOS3vWaqGcKd0yxYoDb+E7U9M7tvJXR6JcVAnmxDrnliagwwuyFD2nrcCCgr1AMK45xwjf45OeIxJv/NZ5ekRWU0xmQNy+fz2k6DT2CzgCc1uNWAE0wN3A3QRbZ5bLwqPWLaWiubcCz5l/YWJ/R8RPjuLR23YOIIiwRfC4wdqboJvWYthoV0e7p8Mb+OfAmBqXo3FWlaIcNYRFoJ4dNyiCNhjNJvRVtVjbhw5dkmy6IPFWAqUigVMy/zSM5oRm9vvIxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH8PR11MB6832.namprd11.prod.outlook.com (2603:10b6:510:22c::8)
- by CH2PR11MB8780.namprd11.prod.outlook.com (2603:10b6:610:284::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 14:44:14 +0000
-Received: from PH8PR11MB6832.namprd11.prod.outlook.com
- ([fe80::63fe:d2bd:3fc9:1d08]) by PH8PR11MB6832.namprd11.prod.outlook.com
- ([fe80::63fe:d2bd:3fc9:1d08%5]) with mapi id 15.21.0451.014; Mon, 28 Sep 2026
- 14:44:14 +0000
-From: "Deng, Pan" <pan.deng@intel.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Pedro Falcato <pfalcato@suse.de>
-CC: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"liam@infradead.org" <liam@infradead.org>, "vbabka@kernel.org"
-	<vbabka@kernel.org>, "jannh@google.com" <jannh@google.com>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Li, Tianyou" <tianyou.li@intel.com>, "Guo,
- Wangyang" <wangyang.guo@intel.com>, "Zhou, Zhiguo" <zhiguo.zhou@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>
-Subject: RE: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Thread-Topic: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Thread-Index: AQHdTQJ2IWgb0v7YE0+qNmQ/GCpDurbfbz2AgAAHEACABJzHcA==
-Date: Mon, 28 Sep 2026 14:44:14 +0000
-Message-ID: <PH8PR11MB68327CAD97AC4E0B161BB997968D2@PH8PR11MB6832.namprd11.prod.outlook.com>
-References: <20260924054301.2330822-1-pan.deng@intel.com>
- <araI4WsI0XMXOR10@gremlin> <araVBBBVY-jafePL@pedro-suse.tail5790ac.ts.net>
- <arab1d8-4b3SzoI6@gremlin>
-In-Reply-To: <arab1d8-4b3SzoI6@gremlin>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR11MB6832:EE_|CH2PR11MB8780:EE_
-x-ms-office365-filtering-correlation-id: 17e6e3a4-97d2-4a7d-1908-08df1d6ef7ab
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|38070700021|56012099006|3023799007|6133799003|10067099003|11063799006|4143699003|18002099003;
-x-microsoft-antispam-message-info: zV2ZWRaRq1HIWih1brR/OOL8YUTQ6ZszzE7Yfe0454CS2ucPZc1RLEPXLL58uqG5iQyhHJ/H3fgjEadcsDn1gE4DTzz7G+9O764vo6jr5NWD4Pi/RJOSmqAev7LUfYP4bfZWQF2GO20pqgL3WWapU6XMtbfuyOBTS4hqoSlrFWB0L0+g3+pPlrlL5QLdM3WVJiumafiwCaaGIzioeVilLMbBdH2eXTGKjSILx6bdXZkRCYUnraeOzW0NUm8i1UKXTRubelgo3kpRtyQCPJxnR1ZnsDc6kW3y0M9npSGPa7MPvk6eyS2+mI4ZKVIK4OGPQau4WXenZ97BnuziDR2WKypJxpHlf7qNJFHLptijEPVxS0cmVWGtG/KkNaBnI38/QU2JO3zYSRjAFbM4vUBncZNn+7lUV1k9uDRa6gmUJFml8cOqLWDft//JV2z9gW+Xu2gA/7Cu6+xPnQPDOryJ94Bx3bFrumhQtfXtPzjcTidbIE7xMPvzJEF2C7z4BEaGqeh1hVcnp2bZMkJourrwkf552nnu1PEqJyMRTpc8sKEpZqcWFm8MC7oWpvC1W3LZFpZ8xlMvHUC+GHKdIl/wkK7XD3cbWq4KbRRo38a++U2QUUpvOrguC3q1pK/VVdUd80U6ZbkJLwr9vgNVj089GXto6vyygi6yhX/hruGLB13en1JcnxfvGoTb+ClUD5MQlwTkNk6AfDf9H3nJlqvuJbkowhFNEm+cUMe6chklTpU=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB6832.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(38070700021)(56012099006)(3023799007)(6133799003)(10067099003)(11063799006)(4143699003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l14Pe+QI/3gRmeWC19CRWcO0zEBuk/bPZMMlLC7q9sfa8bsSNv8zCchu8WIa?=
- =?us-ascii?Q?o1XPZUUBA37uy6OIZbAfO447NcBDdm5TNsBSCLVv/6OI5Ewjlu4+8APVoe3Q?=
- =?us-ascii?Q?tJJ7DDPxBqOEaMiQpwDiQUK0qMV0zLYiPMl36AGdtbEaFArliTKnfpPaZdjK?=
- =?us-ascii?Q?fkDI54595wK/JtMDzlFQYgGfQZCAl8TZr1A4uvU23K3o27voUSMVHowQCpk9?=
- =?us-ascii?Q?keW8BHsrGcZ6XYdyAMAoYCWxoLP11BGGNbwk5U3/T0w0bfZAO/1shgEkkORz?=
- =?us-ascii?Q?Awi4MteagMcGz4hFcl63Vw2UODmxKtF8uIXXuywtZ/pmY/ANgvaPq7gtQm/H?=
- =?us-ascii?Q?e/Dt7KlHWSsLp6pR6F6FINmOBUrHI9OwgT0xUuKN/YlhyGA7KQxTj+Q7SaGe?=
- =?us-ascii?Q?R+dS2fi+hrY6gBEGdaQCC4I/TNnCdd5jo5wIGYOrmLcLwbW2xPSz1NQ/hBh1?=
- =?us-ascii?Q?FqDRDGpjDieaT7txIn3RQ2x1YMSQYchxH76X5LAOoocNAe27FhhkiWXI8FBV?=
- =?us-ascii?Q?heHKPA3f1vqKHi+rS/uHCF4Uw/TLspJ88qFraZOHetOBl5RV0r1uZ0Ulj0on?=
- =?us-ascii?Q?aZL3xd5JkhWRZ/SIv5OiK6MTZ76WaNDAQXz4vU5RKMkTKX4EQI8FY1uKAaax?=
- =?us-ascii?Q?R/2Xczvw1Bh7/ysYhDgR69rKzuJ7NLnBE9ubNAj3+587GTi557dkKjg3YLUD?=
- =?us-ascii?Q?9qSD5AkBiaT6NNwQMLyhM3trNs8Tz3opDf7/AwBXNvZsaBtt6AxLwPBFqSyn?=
- =?us-ascii?Q?LfdQIUxk1CMYxrWMDGtQoLIdWVRH9RS8kZZ2ZDDy69vxlE24OlPUpzvT94vX?=
- =?us-ascii?Q?fARKLvJG70US98QFiyiaAKkCQKi91TPaT+EUzwTxaCslo5bKrimPcpk28c7f?=
- =?us-ascii?Q?z1u1NhbE9gj8d8ZhgWBHpFX6U8ORYd3jt2WEshYXSp2ozX/TqSJKY6utaCHL?=
- =?us-ascii?Q?8Ww7MR3IrthdFWAL+tBIFOAgSOlY8vfeongtvZahiVSH86b88S07D4655+tq?=
- =?us-ascii?Q?MGl7ot5Hf9Txlmg/g/AeDD05yxH+S3ZtPx3QKJ+kP7NFLC3TOF04v8c/HdMz?=
- =?us-ascii?Q?RkS/ny4nfbyEvRZ2FCveeFf3BYFrg2keA0XPlv08JAfiPaxQufmuO0e/NNST?=
- =?us-ascii?Q?Zf7sMLVIrp8MB2yh4o4m+K1EeRJ0kldKLR7oiDybRwxRwV0B4XAphJJdGBcJ?=
- =?us-ascii?Q?vlOsLdRgtO1VIVZOCHz+KY5xV3CKdnqzKZLzaYE47In+2dH8tIkOJ+dOxu/E?=
- =?us-ascii?Q?Ji73Jd6y+mgYCa2TvdygzqNw03JjIkTCN53EoiWOsISE/NA3uj2B4bFiKSHH?=
- =?us-ascii?Q?xiaND3Qd2Q+QVWYa5fw9scJwr9pWT7ggl/PrL/ROt8grVnHKTlzx4TwmaByk?=
- =?us-ascii?Q?nRrCJD7YOTXxtk5+wQRO3tgyTizQackFaSVU41Bklkb/rg693N2CUV0P1ddW?=
- =?us-ascii?Q?yten6N+vVEmFwTtjlpQUomsImlBWoFDLcbJ2mATOeeLr410aw4lR7AwgEn0w?=
- =?us-ascii?Q?YiWoBZrayYK/ZiMggdHNBSCytU+wcB9N7gLKC3dldyaNzNVk8zqFcQ4NVp/L?=
- =?us-ascii?Q?0PkKCbaxwY9EgGBhEpYWA7YLSujCFHeHsEaMK7X4gu2tnStLUiFWC36ow5dg?=
- =?us-ascii?Q?7v6+cBaAvLuaZtpNXbbLQBivje9db/VRYwNFno33FcEiSLoJmaGJIQOsDsaX?=
- =?us-ascii?Q?YFGBBJ1kcHz5qnVIKPlNmJgWf81I7fTCJpBkqEOG3Vm1gZ1e?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RLttq78j"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso320254566b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:46:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790606795; x=1791211595; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+BzQWTZX6iqBr8XFpPdn+cC/M+GkFXRiq+JKGKUAH6k=;
+        b=RLttq78jOWPm1N6+b7G/IA13FsDWGKrv5ASqkR+tpqcVhuEDrGlJLeHCR3Byv/q5CW
+         hq+OZo0TXAtaC6d5DJYKwtv+KtubXot+kIPOFYyVYfXBynoCGlCqsMqyv3oeX54JCTV3
+         sPbclve5SU0jyNBL7/egHH1txbIrzN0rASgpiaFEJ+PD33kxtrU4BHuOeLIL1/18arKj
+         xyApZXRlCXsazeIAzRXzXdVEiyZtu3YKytwEGXT75Pf45WWYUEeGJUDYAh3KEcuzoGlH
+         6rjORcNvAtnpb0xUo3nqrByJ5Pwo4vkGwwggz6t1ahzTLBaRFlACjFMWAbDit5DQeekX
+         E9mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790606795; x=1791211595;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+BzQWTZX6iqBr8XFpPdn+cC/M+GkFXRiq+JKGKUAH6k=;
+        b=IM4puhudJAntPzUL/n62NRx8F9Qf+2fXMmuAVMZXKWyVpHmzHxboLP3rTYo98yBrM1
+         IyTUTJGL8ammZyYZthp/4j714nhy+dxYS02wGEsUkKklaJRzuuGYm0zdojH+jLn3F7rs
+         EvBkf6hMJRfEbRUItzqlJQ6f7LhVD+M6YeUGIWxaGLC67QhM/jZEAXGVDb3ytGRWRnzJ
+         TXcvMGQMqPHzfmt4PjrWMzDE2BlBrm9TCdxMsTnn3LMuKAReyFkvJTPVLJdPLXlE9FDk
+         se5qw5xq1QywUVpKdxzP9rtQsMc4Azp/U+TM0hO4U18OA27stDNtUIvhFgxGFAtjRdg5
+         AOJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzf/PjgeTUHxCuUn20KktJ3yRQHpEfEUUScPKzVAz+UoxLJ/997wwIxZwATuVkgwHbUTG7rGePg/4WlaSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljSj1rybHyZLspQkhQ+6af2tI3g3lctPtDoJ+Ol642RbSM+9U+
+	+3JV1jRh7uo8NVvcgi/XCjOvy/DkCh68LkHuNPoTjFrdCu6EaPRDvp+B
+X-Gm-Gg: AYBFou3hkwqVubl5KTiunjU5gGu7tCdHLdVmnZQWCeBz6XmS2oMDOi7pkzOIwt0CY6S
+	MR/Yz0z4TToa9NSZi6R4cxdqbfXPL5p8Z5g5+gqKfgvb2WpucvAWEbk3MNso2PKTaNPHXTJJ8Rj
+	hLJRUm1foRUEgom3gAc7ps0RaLhniKNyOXps8VroLVZ9OHepYzbchc+G/CadxdE14DnHj/YOpLQ
+	u8i293ta0sDueN86Ex7NF5WHmZmLhMn+UArBP7YIvCvLjUyvNFn1RcS2QGPuC0DCLx/Ygmd3yd3
+	d5TidmsGa6V+4dTRS5PtMgY6fhBB7JiQsqyLGaum6qLrxsYDwr9hEyVnn2StSq4k6k+AzkgaT4Y
+	0T96uex+EkuZUavUVp5VHfGlSk09kVCtYyp5UlclQ5RAWSNdfrfhGdkLNi3p/1aKX44u8Fe84JG
+	sjB+KcG/G2T22nRMa/PQEBDDj/dY4mexBr2Ed1K/P9WfEA0Qq11/LPsvExrFMk/9I2JABfMSxf4
+	wI=
+X-Received: by 2002:a17:907:c71b:b0:c24:e1e9:69c with SMTP id a640c23a62f3a-c2ae9347addmr774979466b.0.1790606795319;
+        Mon, 28 Sep 2026 07:46:35 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2b769429ddsm356642866b.51.2026.09.28.07.46.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 07:46:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: LVOfk0811Iwpy7Veb8LZujQgQhWWogNPGyttDbtAwi5Ta9St0PtHynPXWThNj4Xt2fFvlGwQ6hOCsQQph80tcX3C99HNT6Dwx1n9sxJQGrlIRR3V1YouMrJYom6t1Awo3Zs1AQwufzWQ+uE7Pyt3ucEWw0AZj0U2IDSodGhfTydez5Vbrf78ft6h+stn2Ml7fKKquk3xpnt33B1c6+EPGVuGeWoIr8BH/334wjWHc+N2x20I3UHfSCmyyJNSC7TvU5c+Rcgv17ZYeMCS8PQ4zxR7nf+EUr4c7iJbIT0Gkwvuk7FNNAv8S7IJem80E45BxAXX77l6cjznc9kI9IYQIA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6832.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17e6e3a4-97d2-4a7d-1908-08df1d6ef7ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 14:44:14.8423
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Upfjdoz4s4SiSj4vUsjstdsYxhxrHAij2iSMMT5z2bUjGPPtmHvY2fKMRhTQcP5Y4+AINSseHLVU1MMFP6+z6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB8780
-X-OriginatorOrg: intel.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 10:46:31 -0400
+Message-Id: <DLR14RY3N3LF.3J84UDH79H9PS@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 4/8] eth: mpnic: implement Tx queue
+ allocation and cleanup
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260924-linux-mpnic-v2-4-4badc9b58b9e@gmail.com>
+ <179055370187.3145.16714537922103048975@kernel.org>
+In-Reply-To: <179055370187.3145.16714537922103048975@kernel.org>
 
-> -----Original Message-----
-> From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Sent: Saturday, September 26, 2026 12:09 AM
-> To: Pedro Falcato <pfalcato@suse.de>
-> Cc: Deng, Pan <pan.deng@intel.com>; akpm@linux-foundation.org;
-> liam@infradead.org; vbabka@kernel.org; jannh@google.com; linux-
-> mm@kvack.org; linux-kernel@vger.kernel.org; Li, Tianyou
-> <tianyou.li@intel.com>; Guo, Wangyang <wangyang.guo@intel.com>; Zhou,
-> Zhiguo <zhiguo.zhou@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>
-> Subject: Re: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
-> new_below=3D0 split
->=20
-> On Fri, Sep 25, 2026 at 04:43:37PM +0100, Pedro Falcato wrote:
-> > On Fri, Sep 25, 2026 at 04:27:44PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > This change skips the re-insert for that case.  vma_prepare() no lo=
-nger
-> > > > removes vp->vma from the tree; instead vma_complete() detects that =
-case
-> and
-> > > > only recomputes shared.rb_subtree_last up the ancestor chain.  Ever=
-ything
-> > > > else keeps the remove + re-insert path.
-> > >
-> > > This could really do with a diagram and a simple explanation.
-> > >
-> > > In general you should rewrite the entire commit message yourself and =
-not
-> > > use the LLM output at all.
-> >
-> > +1 on this. Even with the Assisted-by, this needs to be understandable =
-by
-> > hoomans.
->=20
-> Yes.
->=20
-> > > >
-> > > > Measured on v7.3-rc4, on a 2-socket 192C/384T system running
-> UnixBench
-> > > > execl (384 concurrent execve of the same binary), dropping the redu=
-ndant
-> > > > remove + re-insert yields ~14% higher throughput by shortening the
-> > > > i_mmap_rwsem write-side critical section during the file VMA splits=
- that
-> > > > execve performs on the shared libraries.
-> >
-> > For what it's worth, I'm vaguely accepting of a similar change, but thi=
-s needs
-> > to be _really_ well commented out, and ideally in file rmap code, _not_
-> > spaghetti'd in VMAs. The interval tree is complicated and some bits are=
- not
-> > very intuitive. This needs to be robust. Not LLM'd into existence.
-> >
-> > This also reminds me that I should reboot the sharded file rmap effort.=
-..
->=20
-> Indeed, which is why I'm treating this as a report rather than a patch.
->=20
-> A member of the core team can do the actual work.
+On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] net: mpnic: missing bounds check on hardware completion head
+>   causes NULL deref
+> - [High] net: mpnic: integer underflow in desc_cnt causes massive out-of-
+>   bounds unmaps
+> - [Low] struct mpnic_ring::deferred_meta is documented as '-1 if the
+>   doorbell is in sync with the tail', yet at this commit the rings come=
+=E2=80=A6
+>
+> --
+>
+> eth: mpnic: implement Tx queue allocation and cleanup
+>
+> This adds the Tx ring structures and the per-NAPI-vector allocation of
+> queue triads, descriptor memory and interrupts. It also adds completion
+> processing, where a single completion reports a work queue head and can
+> release many packets. The queues are not yet enabled in hardware.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> new file mode 100644
+>> index 0000000000000..853976e11b032
+>> --- /dev/null
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> @@ -0,0 +1,495 @@
+>
+> [ ... ]
+>
+>> +static void mpnic_ring_init(struct mpnic_ring *ring, u32 __iomem *doorb=
+ell,
+>> +			    int q_idx)
+>> +{
+>> +	ring->doorbell =3D doorbell;
+>> +	ring->q_idx =3D q_idx;
+>> +}
+>
+> [Severity: Low]
+> This isn't a bug at this point in the series, but the struct mpnic_ring
+> comment in mpnic_txrx.h describes deferred_meta like this:
+>
+> 	/* TWQ only, index of the metadata descriptor of the last packet
+> 	 * placed in the ring without ringing the doorbell, -1 if the
+> 	 * doorbell is in sync with the tail.
+> 	 */
+> 	s32 deferred_meta;
+>
+> mpnic_alloc_napi_vector() gets the rings from kzalloc_flex(), and
+> mpnic_ring_init() never sets deferred_meta. So the field starts at 0, not
+> -1.
+>
+> Would it make sense to set deferred_meta to -1 in mpnic_ring_init(), so t=
+he
+> field matches its comment from the start?
+>
+> Nothing reads deferred_meta in this commit. The later patch "eth: mpnic:
+> start and stop the Tx HW queues" adds mpnic_enable_twq(), which sets tail
+> and head to 0 and deferred_meta to -1 on every enable. In mpnic_open()
+> that runs before mpnic_napi_enable() and netif_tx_wake_all_queues(), so
+> this only affects the intermediate state of the series.
+>
 
-Thanks everyone for your patience and time to review this patch.
+Hmm, I guess the comment is slightly ahead of the implementation (next
+patch)... I suppose introducing deferred_meta later would probably be
+the solution, but to me that would be a bit out of place, given the
+other ring fields are really initialized in that next patch.
 
-You're right that I should not use the LLM output for commit message. As a =
-non-native speaker, I used it to generate commit message and comments to ma=
-ke it read more natively, unfortunately it had an opposite effect. I'm writ=
-ing by myself, from now on :)
+> [ ... ]
+>
+>> @@ -0,0 +1,495 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+>> +
+>> +#include <linux/bitfield.h>
+>> +#include <linux/dma-mapping.h>
+>> +#include <linux/pci.h>
+>> +#include <linux/slab.h>
+>> +
+>> +#include "mpnic.h"
+>> +#include "mpnic_netdev.h"
+>> +#include "mpnic_txrx.h"
+>> +
+>> +struct mpnic_xmit_cb {
+>> +	u32 bytecount;
+>> +	u8 desc_count;
+>> +};
+>> +
+>> +#define MPNIC_XMIT_CB(__skb) ((struct mpnic_xmit_cb *)((__skb)->cb))
+>> +
+>> +/* Leave the interrupt moderation counters alone when arming or masking=
+ */
+>> +#define MPNIC_TIM_PARAM_CFG_PRESERVE_MASK \
+>> +	(MPNIC_TIM_CTL1_UPD_IGN_LONG_EVENT_CNT | \
+>> +	 MPNIC_TIM_CTL1_UPD_IGN_LONG_TIME_CNT | \
+>> +	 MPNIC_TIM_CTL1_UPD_IGN_SHORT_TIME_CNT)
+>> +
+>> +static void mpnic_nv_irq_disable(struct mpnic_napi_vector *nv)
+>> +{
+>> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
+>> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK |
+>> +		   MPNIC_TIM_CTL1_MASK_EN | MPNIC_TIM_CTL1_MASK);
+>> +}
+>> +
+>> +static void mpnic_nv_irq_rearm(struct mpnic_napi_vector *nv)
+>> +{
+>> +	/* Rearming a single queue on a given IRQ rearms all the other
+>> +	 * queues mapped to the same IRQ.
+>> +	 */
+>> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
+>> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK | MPNIC_TIM_CTL1_MASK_EN);
+>> +}
+>> +
+>> +static void mpnic_nv_irq_trigger(struct mpnic_napi_vector *nv)
+>> +{
+>> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
+>> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK |
+>> +		   MPNIC_TIM_CTL1_MASK_EN | MPNIC_TIM_CTL1_TRIGGER);
+>> +}
+>> +
+>> +static unsigned int mpnic_desc_unused(struct mpnic_ring *ring)
+>> +{
+>> +	return (ring->head - ring->tail - 1) & ring->size_mask;
+>> +}
+>> +
+>> +static struct netdev_queue *mpnic_txring_txq(const struct net_device *d=
+ev,
+>> +					     const struct mpnic_ring *ring)
+>> +{
+>> +	return netdev_get_tx_queue(dev, ring->q_idx);
+>> +}
+>> +
+>> +static void mpnic_unmap_single_twd(struct device *dev, __le64 *twd)
+>> +{
+>> +	u64 raw_twd =3D le64_to_cpu(*twd);
+>> +
+>> +	dma_unmap_single(dev, FIELD_GET(MPNIC_TWD_ADDR, raw_twd),
+>> +			 FIELD_GET(MPNIC_TWD_LEN, raw_twd), DMA_TO_DEVICE);
+>> +}
+>> +
+>> +static void mpnic_unmap_page_twd(struct device *dev, __le64 *twd)
+>> +{
+>> +	u64 raw_twd =3D le64_to_cpu(*twd);
+>> +
+>> +	dma_unmap_page(dev, FIELD_GET(MPNIC_TWD_ADDR, raw_twd),
+>> +		       FIELD_GET(MPNIC_TWD_LEN, raw_twd), DMA_TO_DEVICE);
+>> +}
+>> +
+>> +static void mpnic_clean_twq0(struct mpnic_napi_vector *nv, int napi_bud=
+get,
+>> +			     struct mpnic_ring *ring, bool discard,
+>> +			     unsigned int hw_head)
+>> +{
+>> +	u64 total_bytes =3D 0, total_packets =3D 0;
+>> +	unsigned int head =3D ring->head;
+>> +	struct netdev_queue *txq;
+>> +	unsigned int clean_desc;
+>> +
+>> +	clean_desc =3D (hw_head - head) & ring->size_mask;
+>> +
+>> +	while (clean_desc) {
+>> +		struct sk_buff *skb =3D ring->tx_buf[head];
+>> +		unsigned int desc_cnt;
+>> +
+>> +		desc_cnt =3D MPNIC_XMIT_CB(skb)->desc_count;
+>> +		if (desc_cnt > clean_desc)
+>> +			break;
+>> +
+>> +		ring->tx_buf[head] =3D NULL;
+>> +
+>> +		clean_desc -=3D desc_cnt;
+>> +
+>> +		/* Step over the metadata descriptor */
+>> +		head++;
+>> +		head &=3D ring->size_mask;
+>> +		desc_cnt--;
+>> +
+>> +		mpnic_unmap_single_twd(nv->dev, &ring->desc[head]);
+>> +		head++;
+>> +		head &=3D ring->size_mask;
+>> +		desc_cnt--;
+>> +
+>> +		while (desc_cnt--) {
+>
+> [Severity: High]
+> What happens here if desc_count is 0 or 1? desc_cnt is an unsigned
+> int, and it is decremented twice unconditionally before the frag loop:
+> once for the metadata descriptor and once for the head descriptor.
+>
+> With desc_count =3D=3D 0 the desc_cnt > clean_desc check passes and
+> clean_desc is left unchanged. The second decrement then wraps desc_cnt
+> around to UINT_MAX. The frag loop calls mpnic_unmap_page_twd() about
+> four billion times, walking round and round the ring. Each call hands
+> whatever address and length it finds to dma_unmap_page() from softirq
+> context.
+>
+> With desc_count =3D=3D 1, mpnic_unmap_single_twd() is already applied to
+> the following slot, which does not belong to this packet. The same
+> wrap happens after that.
+>
+> desc_count lives in skb->cb and is only written by the xmit path added
+> later in the series. This relies on every skb in tx_buf carrying a
+> sane count. It also relies on hw_head never covering a packet whose
+> descriptors are still being written. A device reporting a head that
+> runs ahead of what was posted is enough to get here.
+>
+> Would it make sense to reject desc_cnt < 2 with a WARN_ON_ONCE()
+> before stepping over the metadata descriptor? Possibly
+> desc_cnt > MPNIC_MAX_SKB_DESC should be rejected as well.
+>
 
-I just saw Lorenzo has picked over this work in https://lore.kernel.org/all=
-/20260925-speed-up-inplace-rmap-v1-1-babc48ce7c83@kernel.org/. I've read th=
-rough the new patch, which extends the scope to anonymous and covers merge =
-and shrink scenario, more complete than I just sent, it is great. I fully a=
-gree that it is a very subtle and fragile part of the kernel, I did spend t=
-ime and struggled with the patch, very appreciate your help.
+Not reachable. We control the desc_count that is put into the control
+block on xmit. We know that we allocate a primary metadata desc and at
+least one dma mapped region for the skb head.
 
-One last thing, and please read it as a question rather than a request. I r=
-ead submitting-patches.rst, and it says "Reported-by" tag is intended for b=
-ugs. While I wasn't reporting a bug, so would you consider "Suggested-by" i=
-nstead (or even "co-developed-by") if you feel that describes it better? I'=
-m fine with which tag you think is accurate, and I'm not trying to reopen t=
-he decision to take the work over. Again, very appreciate your review and l=
-ooking forward to your help in the future.
+>> +			mpnic_unmap_page_twd(nv->dev, &ring->desc[head]);
+>> +			head++;
+>> +			head &=3D ring->size_mask;
+>> +		}
+>> +
+>> +		total_bytes +=3D MPNIC_XMIT_CB(skb)->bytecount;
+>> +		total_packets++;
+>> +
+>> +		napi_consume_skb(skb, napi_budget);
+>> +	}
+>> +
+>> +	if (!total_bytes)
+>> +		return;
+>> +
+>> +	ring->head =3D head;
+>> +
+>> +	if (discard)
+>> +		return;
+>> +
+>> +	txq =3D mpnic_txring_txq(nv->napi.dev, ring);
+>> +	netif_txq_completed_wake(txq, total_packets, total_bytes,
+>> +				 mpnic_desc_unused(ring),
+>> +				 MPNIC_TX_DESC_WAKEUP);
+>> +}
+>> +
+>> +static void mpnic_commit_cq_head(struct mpnic_ring *cmpl)
+>> +{
+>> +	u32 head =3D cmpl->head;
+>> +
+>> +	/* The tail shadows the last value written to the doorbell, so a
+>> +	 * completion queue which has not moved costs no MMIO write.
+>> +	 */
+>> +	if (cmpl->tail !=3D head) {
+>> +		cmpl->tail =3D head;
+>> +		writeq(head & cmpl->size_mask, cmpl->doorbell);
+>> +	}
+>> +}
+>> +
+>> +static void mpnic_clean_tcq(struct mpnic_napi_vector *nv,
+>> +			    struct mpnic_q_triad *qt, int napi_budget)
+>> +{
+>> +	struct mpnic_ring *cmpl =3D &qt->cmpl;
+>> +	__le64 *raw_tcd, done;
+>> +	u32 head =3D cmpl->head;
+>> +	s32 head0 =3D -1;
+>> +
+>> +	done =3D (head & (cmpl->size_mask + 1)) ? 0 : cpu_to_le64(MPNIC_TCD_DO=
+NE);
+>> +	raw_tcd =3D &cmpl->desc[head & cmpl->size_mask];
+>> +
+>> +	/* Walk the completion queue collecting the heads reported by NIC.
+>> +	 * Only the first work queue is enabled and no packet asks for a
+>> +	 * timestamp, so every completion is a plain head update and the
+>> +	 * descriptor type does not have to be decoded.
+>> +	 */
+>> +	while ((*raw_tcd & cpu_to_le64(MPNIC_TCD_DONE)) =3D=3D done) {
+>> +		u64 tcd;
+>> +
+>> +		dma_rmb();
+>> +
+>> +		tcd =3D le64_to_cpu(*raw_tcd);
+>> +		head0 =3D FIELD_GET(MPNIC_TCD_TYPE0_HEAD0, tcd);
+>> +
+>> +		raw_tcd++;
+>> +		head++;
+>> +
+>> +		if (unlikely(!(head & cmpl->size_mask))) {
+>> +			done ^=3D cpu_to_le64(MPNIC_TCD_DONE);
+>> +			raw_tcd =3D &cmpl->desc[0];
+>> +		}
+>> +	}
+>> +
+>> +	cmpl->head =3D head;
+>> +
+>> +	if (head0 >=3D 0)
+>> +		mpnic_clean_twq0(nv, napi_budget, &qt->sub0, false, head0);
+>> +}
+>> +
+>> +static int mpnic_poll(struct napi_struct *napi, int budget)
+>> +{
+>> +	struct mpnic_napi_vector *nv =3D container_of(napi,
+>> +						    struct mpnic_napi_vector,
+>> +						    napi);
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < nv->txt_count; i++)
+>> +		mpnic_clean_tcq(nv, &nv->qt[i], budget);
+>> +
+>> +	for (i =3D 0; i < nv->txt_count; i++)
+>> +		mpnic_commit_cq_head(&nv->qt[i].cmpl);
+>> +
+>> +	if (likely(napi_complete_done(napi, 0)))
+>> +		mpnic_nv_irq_rearm(nv);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static irqreturn_t mpnic_msix_clean_rings(int __always_unused irq, void=
+ *data)
+>> +{
+>> +	struct mpnic_napi_vector *nv =3D data;
+>> +
+>> +	napi_schedule_irqoff(&nv->napi);
+>> +
+>> +	return IRQ_HANDLED;
+>> +}
+>> +
+>> +static void mpnic_free_napi_vector(struct mpnic_net *mpn,
+>> +				   struct mpnic_napi_vector *nv)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < nv->txt_count; i++)
+>> +		mpn->tx[nv->qt[i].sub0.q_idx] =3D NULL;
+>> +
+>> +	mpnic_free_irq(nv->mpd, nv->v_idx, nv);
+>> +	netif_napi_del_locked(&nv->napi);
+>> +	mpn->napi[nv->v_idx - MPNIC_NON_NAPI_VECTORS] =3D NULL;
+>> +	kfree(nv);
+>> +}
+>> +
+>> +void mpnic_free_napi_vectors(struct mpnic_net *mpn)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++)
+>> +		if (mpn->napi[i])
+>> +			mpnic_free_napi_vector(mpn, mpn->napi[i]);
+>> +}
+>> +
+>> +static void mpnic_ring_init(struct mpnic_ring *ring, u32 __iomem *doorb=
+ell,
+>> +			    int q_idx)
+>> +{
+>> +	ring->doorbell =3D doorbell;
+>> +	ring->q_idx =3D q_idx;
+>> +}
+>> +
+>> +static int mpnic_alloc_napi_vector(struct mpnic_dev *mpd,
+>> +				   struct mpnic_net *mpn, unsigned int idx)
+>> +{
+>> +	u32 __iomem *uc_addr =3D READ_ONCE(mpd->uc_addr0);
+>> +	struct mpnic_napi_vector *nv;
+>> +	int err;
+>> +
+>> +	/* Doorbells are plain pointers into the register window, they have
+>> +	 * no way of noticing that it went away.
+>> +	 */
+>> +	if (!uc_addr)
+>> +		return -EIO;
+>> +
+>> +	nv =3D kzalloc_flex(*nv, qt, 1);
+>> +	if (!nv)
+>> +		return -ENOMEM;
+>> +
+>> +	nv->txt_count =3D 1;
+>> +	nv->mpd =3D mpd;
+>> +	nv->dev =3D mpd->dev;
+>> +	nv->v_idx =3D idx + MPNIC_NON_NAPI_VECTORS;
+>> +
+>> +	mpn->napi[idx] =3D nv;
+>> +	netif_napi_add_config_locked(mpn->netdev, &nv->napi, mpnic_poll, idx);
+>> +	netif_napi_set_irq_locked(&nv->napi,
+>> +				  pci_irq_vector(to_pci_dev(mpd->dev),
+>> +						 nv->v_idx));
+>> +
+>> +	snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
+>> +		 mpn->netdev->name, idx);
+>> +
+>> +	err =3D mpnic_request_irq(mpd, nv->v_idx, mpnic_msix_clean_rings, 0,
+>> +				nv->name, nv);
+>> +	if (err)
+>> +		goto err_napi_del;
+>> +
+>> +	mpnic_ring_init(&nv->qt[0].sub0, &uc_addr[MPNIC_TWQ_TAIL(idx, 0)], idx=
+);
+>> +	mpnic_ring_init(&nv->qt[0].cmpl, &uc_addr[MPNIC_TCQ_HEAD(idx)], idx);
+>> +	mpn->tx[idx] =3D &nv->qt[0].sub0;
+>> +
+>> +	return 0;
+>> +
+>> +err_napi_del:
+>> +	netif_napi_del_locked(&nv->napi);
+>> +	mpn->napi[idx] =3D NULL;
+>> +	kfree(nv);
+>> +	return err;
+>> +}
+>> +
+>> +int mpnic_alloc_napi_vectors(struct mpnic_net *mpn)
+>> +{
+>> +	unsigned int i;
+>> +	int err;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++) {
+>> +		err =3D mpnic_alloc_napi_vector(mpn->mpd, mpn, i);
+>> +		if (err)
+>> +			goto err_free_vectors;
+>> +	}
+>> +
+>> +	return 0;
+>> +
+>> +err_free_vectors:
+>> +	mpnic_free_napi_vectors(mpn);
+>> +
+>> +	return err;
+>> +}
+>> +
+>> +static void mpnic_free_ring_resources(struct device *dev,
+>> +				      struct mpnic_ring *ring)
+>> +{
+>> +	kvfree(ring->tx_buf);
+>> +	ring->tx_buf =3D NULL;
+>> +
+>> +	/* If size is not set there are no descriptors present */
+>> +	if (!ring->size)
+>> +		return;
+>> +
+>> +	dma_free_coherent(dev, ring->size, ring->desc, ring->dma);
+>> +	ring->size_mask =3D 0;
+>> +	ring->size =3D 0;
+>> +}
+>> +
+>> +static int mpnic_alloc_ring_desc(struct mpnic_net *mpn,
+>> +				 struct mpnic_ring *ring, u32 count)
+>> +{
+>> +	struct device *dev =3D mpn->netdev->dev.parent;
+>> +	size_t size;
+>> +
+>> +	size =3D ALIGN(array_size(sizeof(*ring->desc), count), 4096);
+>> +
+>> +	ring->desc =3D dma_alloc_coherent(dev, size, &ring->dma,
+>> +					GFP_KERNEL | __GFP_NOWARN);
+>> +	if (!ring->desc)
+>> +		return -ENOMEM;
+>> +
+>> +	ring->size_mask =3D count - 1;
+>> +	ring->size =3D size;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void mpnic_free_tx_qt_resources(struct mpnic_net *mpn,
+>> +				       struct mpnic_q_triad *qt)
+>> +{
+>> +	struct device *dev =3D mpn->netdev->dev.parent;
+>> +
+>> +	mpnic_free_ring_resources(dev, &qt->cmpl);
+>> +	mpnic_free_ring_resources(dev, &qt->sub0);
+>> +}
+>> +
+>> +static int mpnic_alloc_tx_qt_resources(struct mpnic_net *mpn,
+>> +				       struct mpnic_q_triad *qt)
+>> +{
+>> +	int err;
+>> +
+>> +	err =3D mpnic_alloc_ring_desc(mpn, &qt->sub0, mpn->txq_size);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	qt->sub0.tx_buf =3D kvzalloc_objs(*qt->sub0.tx_buf, mpn->txq_size,
+>> +					GFP_KERNEL | __GFP_NOWARN);
+>> +	if (!qt->sub0.tx_buf) {
+>> +		err =3D -ENOMEM;
+>> +		goto err_free_qt;
+>> +	}
+>> +
+>> +	err =3D mpnic_alloc_ring_desc(mpn, &qt->cmpl, mpn->txq_size);
+>> +	if (err)
+>> +		goto err_free_qt;
+>> +
+>> +	return 0;
+>> +
+>> +err_free_qt:
+>> +	mpnic_free_tx_qt_resources(mpn, qt);
+>> +	return err;
+>> +}
+>> +
+>> +static void mpnic_free_nv_resources(struct mpnic_net *mpn,
+>> +				    struct mpnic_napi_vector *nv)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < nv->txt_count; i++)
+>> +		mpnic_free_tx_qt_resources(mpn, &nv->qt[i]);
+>> +}
+>> +
+>> +static int mpnic_alloc_nv_resources(struct mpnic_net *mpn,
+>> +				    struct mpnic_napi_vector *nv)
+>> +{
+>> +	int i, err;
+>> +
+>> +	for (i =3D 0; i < nv->txt_count; i++) {
+>> +		err =3D mpnic_alloc_tx_qt_resources(mpn, &nv->qt[i]);
+>> +		if (err)
+>> +			goto err_free_qt_resources;
+>> +	}
+>> +
+>> +	return 0;
+>> +
+>> +err_free_qt_resources:
+>> +	while (i--)
+>> +		mpnic_free_tx_qt_resources(mpn, &nv->qt[i]);
+>> +	return err;
+>> +}
+>> +
+>> +void mpnic_free_resources(struct mpnic_net *mpn)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++)
+>> +		mpnic_free_nv_resources(mpn, mpn->napi[i]);
+>> +}
+>> +
+>> +int mpnic_alloc_resources(struct mpnic_net *mpn)
+>> +{
+>> +	int i, err;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++) {
+>> +		err =3D mpnic_alloc_nv_resources(mpn, mpn->napi[i]);
+>> +		if (err)
+>> +			goto err_free_resources;
+>> +	}
+>> +
+>> +	return 0;
+>> +
+>> +err_free_resources:
+>> +	while (i--)
+>> +		mpnic_free_nv_resources(mpn, mpn->napi[i]);
+>> +
+>> +	return err;
+>> +}
+>> +
+>> +int mpnic_set_netif_queues(struct mpnic_net *mpn)
+>> +{
+>> +	int i, j, err;
+>> +
+>> +	err =3D netif_set_real_num_tx_queues(mpn->netdev, mpn->num_tx_queues);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++) {
+>> +		struct mpnic_napi_vector *nv =3D mpn->napi[i];
+>> +
+>> +		for (j =3D 0; j < nv->txt_count; j++)
+>> +			netif_queue_set_napi(mpn->netdev, nv->qt[j].sub0.q_idx,
+>> +					     NETDEV_QUEUE_TYPE_TX, &nv->napi);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +void mpnic_reset_netif_queues(struct mpnic_net *mpn)
+>> +{
+>> +	int i, j;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++) {
+>> +		struct mpnic_napi_vector *nv =3D mpn->napi[i];
+>> +
+>> +		for (j =3D 0; j < nv->txt_count; j++)
+>> +			netif_queue_set_napi(mpn->netdev, nv->qt[j].sub0.q_idx,
+>> +					     NETDEV_QUEUE_TYPE_TX, NULL);
+>> +	}
+>> +}
+>> +
+>> +void mpnic_napi_disable(struct mpnic_net *mpn)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++) {
+>> +		napi_disable_locked(&mpn->napi[i]->napi);
+>> +
+>> +		mpnic_nv_irq_disable(mpn->napi[i]);
+>> +	}
+>> +}
+>> +
+>> +void mpnic_napi_enable(struct mpnic_net *mpn)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i =3D 0; i < mpn->num_napi; i++)
+>> +		napi_enable_locked(&mpn->napi[i]->napi);
+>> +
+>> +	/* Force the first interrupt on each vector to guarantee that any
+>> +	 * completions posted during bringup are processed.
+>> +	 */
+>> +	for (i =3D 0; i < mpn->num_napi; i++)
+>> +		mpnic_nv_irq_trigger(mpn->napi[i]);
+>> +
+>> +	mpnic_wrfl(mpn->mpd);
+>> +}
+>
+> [Severity: High]
+> Is hw_head used here without any check against what was actually
+> posted? It comes straight from the TCD read in mpnic_clean_tcq(), and
+> clean_desc is derived only from its distance to ring->head. It is never
+> compared with ring->tail.
+>
+> The device could report a head beyond the last descriptor the driver
+> posted, for example through a firmware bug or a completion type that
+> mpnic_clean_tcq() does not decode. clean_desc then covers slots that
+> were never filled. tx_buf comes from kvzalloc_objs(), and only the
+> metadata slot of each packet holds an skb. So ring->tx_buf[head] is
+> NULL there, and MPNIC_XMIT_CB(skb)->desc_count dereferences a NULL
+> pointer from NAPI context.
+>
+> Could clean_desc be clamped to the number of in-flight descriptors,
+> i.e. (ring->tail - head) & ring->size_mask? Alternatively, could the
+> loop bail out with a WARN_ON_ONCE() when it finds an empty tx_buf
+> slot? Ignoring a bogus completion seems preferable to taking the host
+> down.
 
-Best Regards
-Pan
+We trust the device to fill out this completion field correctly.
