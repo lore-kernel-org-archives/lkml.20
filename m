@@ -1,29 +1,30 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA57936A009
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E324582F3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593107; cv=none; b=SbbgTOde0TIaE/JiMLQp8Kdt/Uoe8r1yVFmOemk0hwUcsphCf9gVSd9Tn+BqtfXb2NzbqLSpzhiCPqRIuXfttMkUGkq/TVVg24Zoxs2RFlX1ZrT+xOCF5c4TUl1OAmv9erS0QZ00Zka0Pw1Uf/8Zv39o7YTDngyfkn4Rn+rMpYU=
+	t=1790593110; cv=none; b=OXBhs1k8FlFb3ws3YgX6kKX3KJvr/xKOa+Dhorw1u/ZyuJFE4dejmF73MkBp4S+JwDq/kEU4OQkfiYOoEVbxfp0byF7iw7AP/tOMUVBOPfuDaaPxNccnA0EgoYIbLjfd/jO3TXg93wBwJK3bhSzrnPqzkBWtck1almJA5RioVow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593107; c=relaxed/simple;
-	bh=KW6Hmi6saN1CYL4LVRN68+bMarYlaXBFP89zc5kMmrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OuOkbR0LxsUwr1Po0DCPiSADmR3pjwYRbXiAdY0JqLvK2JPRZoHmUyPY11hauu7B1IgZLrDklfzQ0q+7YiyeZZ+HAbxflIiNcrKDHtZXucKo6HPPQuhUGmQGV0hJ4yeMSL0SWTqc9V5/l95JGRX8E+lhOSVlPEK5w44tYeT9hfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=XAD1Kxzp; arc=none smtp.client-ip=115.124.30.99
+	s=arc-20240116; t=1790593110; c=relaxed/simple;
+	bh=GTKk0JqP9tTJGRaeWAM06t8Yy9fA63ANG6NVmJKdoEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a3Qtlw9ir3J2L3TPljmIIY8aFluqhvMjeZe8MnLV2mJCd17YYVK/8zxtpyX4YZAp/nXno0WIJOwm/umBoLx24/XkyECfGfbK9s5guGnqiRtB05fdXzhHsTLvgU8u0Z/MwAIe2jrSBY8NQfpwmyPnD1aalRSAPjKlMRgN8/6r0mU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xtez447v; arc=none smtp.client-ip=115.124.30.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XAD1Kxzp"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xtez447v"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1790593102; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=9Fw1B6BieJW+4LuX2pRl8ceJtWx5V06DmaPfx5oJeIA=;
-	b=XAD1KxzpLe+Lvt8qGqH02oVh3OTZ+AQlmCFYRg3uIE1MNZ3KpyBIt+69aDDo13ukhc017uAAPFpo3CHfvC/vdpv6zXLV8uWEv2b4f/slTEKlVKQvayQSeMYmprdXUmaGQC9wsltJ28vYI17TVWpuWei9SkhoDPTiA8p63YUlpY4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XBma1yU_1790593086;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XBma1yU_1790593086 cluster:ay36)
+	t=1790593105; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=DcmXusX46ZnjGCZm2P00Q/fqv8H94b2EYQaPdurCD7I=;
+	b=xtez447vZrnYRmmK6COYYgvhB72IoJhblAngHz8QchpBN2QuVYORQgwKzz9+1k8g3r7/ARBN9TOdpitetbHZVimWR/OIgepHXvenPaT8lSiUAO0xj7mCMhyyf5ErcXhUNs8vFRwAtfmNdSra9aTqYvSzKN3SfXnb7YN1jVHgcGI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XBma21L_1790593102;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XBma21L_1790593102 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 18:58:20 +0800
+          Mon, 28 Sep 2026 18:58:23 +0800
 From: Yuanhe Shu <xiangzao@linux.alibaba.com>
 To: akpm@linux-foundation.org
 Cc: xiangzao@linux.alibaba.com,
@@ -41,10 +42,12 @@ Cc: xiangzao@linux.alibaba.com,
 	muchun.song@linux.dev,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] mm: don't migrate folios containing hwpoisoned pages
-Date: Mon, 28 Sep 2026 18:58:03 +0800
-Message-ID: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+Subject: [PATCH 2/2] mm/migrate: refuse to migrate folios containing hwpoisoned pages
+Date: Mon, 28 Sep 2026 18:58:05 +0800
+Message-ID: <20260928105805.1215770-3-xiangzao@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,144 +56,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+All callers of migrate_pages() without their own poison handling -
+move_pages(2), mbind(), NUMA balancing, alloc_contig_range() (CMA)
+and long-term GUP - can race memory_failure() the same way compaction
+does (see patch 1): the migration isolates a folio and clears
+PG_lru, memory_failure() sets PG_hwpoison, then fails to pin it and
+gives up with MF_IGNORED, and the pending migration copies the
+corrupted data into a fresh folio that carries no poison marker;
+the userspace mapping ends up silently serving the corrupted copy
+with no SIGBUS.
 
-memory_failure() can end up abandoning a folio while PG_hwpoison is
-already set on it.  Two ways to get there:
+This was reproduced on v7.3-rc4-75-g62f4c998b297: an order-0 stress
+workload running madvise(MADV_HWPOISON) concurrently with
+move_pages() left the poison flag set on 8426 abandoned folios in
+a 180-second run, identified via /proc/kpageflags; 698 of them
+were subsequently migrated, and in every case the address then
+served the copied corrupted data with no SIGBUS.
 
-  1. Race: any isolator (compaction, NUMA balancing, move_pages(),
-     mbind(), CMA, long-term GUP) clears PG_lru from under
-     memory_failure(), which then fails the HWPoisonHandlable()
-     check, exhausts the get_any_page() retries and bails out with
-     MF_IGNORED - without holding any reference, but with the flag
-     set.
-  2. No race at all: the THP-split-failure path
-     (kill_procs_now() + MF_MSG_UNSPLIT_THP) leaves a large folio
-     on the LRU with a PG_hwpoisoned subpage by design.
+Refuse such migrations in the migration core, with two checks:
 
-In both cases the migrator still holds the folio on its migration
-list and migrates it like any other: the corrupted data is copied
-into a fresh folio with no poison marker, and no hwpoison PTE entry
-is installed on the way back, so the userspace mapping is silently
-redirected to the corrupted copy - no SIGBUS is ever delivered.
+- migrate_folio_unmap() checks at entry, so a folio that is already
+  poisoned when the batch reaches it fails immediately, without
+  allocating a destination folio or unmapping it.
 
-This was reproduced on v7.3-rc4-75-g62f4c998b297 (the base of
-this series): an order-0 stress workload (madvise(MADV_HWPOISON)
-racing move_pages()) left the poison flag set on 8426 abandoned
-folios in a 180-second run; 698 of them were subsequently
-migrated, and in every case the address then served the copied
-corrupted data with no SIGBUS.
+- migrate_folio_move() checks again immediately before the copy,
+  because migrate_pages_batch() unmaps a whole chunk of folios
+  before copying any of them, so a poison can land in between.  A
+  GUP-based path such as madvise(MADV_HWPOISON) takes its
+  reference while the folio is still mapped, i.e. before the
+  unmap, and memory_failure() sets PG_hwpoison before releasing
+  that reference, so a racing poison is visible by the time
+  migration reaches the copy, unless the injecting thread is
+  delayed between taking the reference and setting the flag.  A
+  hardware MCE can likewise land in the final instructions
+  between the check and the copy; on x86_64 folio_mc_copy()
+  additionally catches real-DRAM corruption at copy time.
 
-folio_mc_copy() only catches the corruption at copy time, and only
-where ARCH_HAS_COPY_MC is implemented (x86_64, PPC64; elsewhere
-copy_mc_highpage() degrades to a plain copy).  Software-injected
-poison - what MADV_HWPOISON and hwpoison-inject produce, and what
-tests and fuzzers exercise - never traps during the copy on any
-architecture.  Checking before the copy avoids the migration
-entirely, on all architectures, for real and simulated poison
-alike.
+Both checks fail with -EHWPOISON rather than -EAGAIN: -EAGAIN would
+leave the folio on the migration list and retry into the same check,
+while -EHWPOISON is a permanent failure, so the folio is put back on
+the LRU with the poison flag intact, for reclaim or a later
+memory_failure() to deal with - the same reasoning reclaim settled
+on in
+commit 9f1e8cd0b7c4 ("mm/vmscan: fix hwpoisoned large folio handling in shrink_folio_list").
+The hugetlb path gets the same two checks for symmetry and defense
+in depth: its unmap-to-copy window is single-folio and much narrower
+than the batched path, but the checks cost two bit tests.
 
-Consumers of such a folio already refuse it elsewhere,
-through the folio_contain_hwpoisoned_page() helper introduced by
-commit 5f5ee52d4f58 ("mm/hwpoison: introduce folio_contain_hwpoisoned_page() helper"):
-shmem fails writes to a poisoned folio; reclaim unmaps the
-order-0 poisoned page and skips the hwpoisoned large folios it
-cannot safely unmap
-commit 1b0449544c64 ("mm/vmscan: don't try to reclaim hwpoison folio")
-commit 9f1e8cd0b7c4 ("mm/vmscan: fix hwpoisoned large folio handling in shrink_folio_list")
-(skipping, not unmapping, after the unmap variant turned out to
-crash on large folios); memory hotplug refuses to migrate it in
-do_migrate_range(); and the THP split path refuses to read
-poisoned subpages
-commit 841a8bfcbad9 ("mm: prevent poison consumption when splitting THP").
-This series gives the remaining migrators
-the same protection - skipping and refusing only, never unmapping:
+Measured with the workload above (180-second runs; the count of
+abandoned folios varies between runs with the race rate): the
+unpatched kernel propagated 698 of 8426 abandoned folios; with
+this patch, 0 of 9711 were propagated.
 
-  patch 1: compaction, checked at the isolation point, failing
-           fast - patch 2's core check would also stop compaction's
-           migrations at migrate_pages() time, but only after the
-           avoidable isolation work
+Soft offline is unaffected: it sets the poison marker only after its
+own migration has succeeded.  Memory hotplug offlining is
+unaffected: it filters poisoned folios out before calling
+migrate_pages().  Reclaim is unaffected: poisoned folios go through
+its own unmap and skip paths, not migrate_pages().
 
-  patch 2: the migration core, covering move_pages(2), mbind(),
-           NUMA balancing, alloc_contig_range() (CMA) and long-term
-           GUP - a check at the entry of migrate_folio_unmap() (fail
-           fast, before allocating the destination) plus a second
-           check in migrate_folio_move() immediately before the
-           copy.  The pre-copy check catches poison that lands
-           between the two checks: a GUP-based injection path
-           takes its reference before the unmap, and
-           memory_failure() sets PG_hwpoison before releasing it,
-           so a racing software poison is visible by the time
-           migration is about to copy.
+A check at the copy site was previously proposed by Kaitao
+Cheng, for the hugetlb path and for move_to_new_folio(); that
+discussion stalled over the remaining race with memory_failure().
+The GUP-reference argument and the measurement above answer
+that concern for injection paths.
 
-This series was developed independently; while preparing to
-send it, we noticed that Kaitao Cheng had already proposed the
-same check for the hugetlb migration path, and in v2 for
-move_to_new_folio() [1].  That discussion stalled over the
-concern that a check can still race with memory_failure().
-Two points complete it here: the unsplit-THP state above is not
-a race at all - the entry check catches it deterministically -
-and for the race itself, the pre-copy check shrinks the window
-to the final instructions before the copy; the measurement
-below found zero leaks under adversarial load, and on copy_mc
-architectures folio_mc_copy() catches real-DRAM corruption even
-there.  The reproducer and the userspace-visible effects are
-what that thread's review asked for.
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Link: https://lore.kernel.org/r/20260707090136.52904-1-kaitao.cheng@linux.dev/
+---
+ mm/migrate.c | 41 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
 
-[1] https://lore.kernel.org/r/20260707090136.52904-1-kaitao.cheng@linux.dev/
-
-Measured results:
-
-  - order-0 race against move_pages(): the unpatched kernel
-    propagated 698 of 8426 abandoned folios; with patch 2, 0 of
-    9711 (the abandoned-folio count varies between runs with the
-    race rate).
-
-  - deterministic compaction A/B (order-4 mTHP folios brought into
-    the stable unsplit state, clean neighbors as controls): the
-    unpatched kernel migrated 16/16 poisoned folios and 16/16
-    controls; with patch 1, 0/16 poisoned folios were migrated
-    while the controls still migrated 16/16.
-
-The two patches touch different files, have no build dependency,
-and each stands on its own.
-
-No single Fixes: tag applies: the race path is as old as the
-memory_failure() retry logic meeting page isolation, and the
-unsplit-THP path has existed since commit
-5d1fd5dc877b ("mm,hwpoison: introduce MF_MSG_UNSPLIT_THP")
-(2020) - this series closes a long-standing gap rather than fixing
-a regression.  No cc:stable is proposed for the same reason;
-backports can be prepared on request if wanted.
-
-Soft offline is unaffected by both patches: it sets the poison
-marker only after its own migration has succeeded.  Out of reach
-of any check is poison landing in the final instructions before a
-copy - natively for paths that take no reference, such as a
-hardware MCE or debugfs corrupt-pfn; for a GUP-based path only if
-its injecting thread is delayed between taking the reference and
-setting the flag - or after the copy has already happened, which
-is a lost race regardless; on x86_64 folio_mc_copy()
-additionally catches real-DRAM corruption at copy time.
-
-A deterministic reproducer exists for the compaction part: fault
-order-4 mTHP folios, pin a sibling subpage of each with vmsplice,
-and inject MADV_HWPOISON on another subpage, so memory_failure()
-takes the THP-split-failure path and leaves the folio on the LRU
-with a poisoned subpage; then trigger compaction and check
-/proc/kpageflags for whether each poisoned folio moved.  It needs
-a boot configuration where order-4, not PMD-sized, folios are
-what compaction migrates.  Both this and the race workload above
-can be shared on request.
-
-Yuanhe Shu (2):
-  mm/compaction: skip folios containing hwpoisoned pages
-  mm/migrate: refuse to migrate folios containing hwpoisoned pages
-
- mm/compaction.c |  8 ++++++++
- mm/migrate.c    | 41 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 47 insertions(+), 2 deletions(-)
-
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 15b45832bcfa..bdfd490dd8e8 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -1222,6 +1222,18 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
+ 	bool locked = false;
+ 	bool dst_locked = false;
+ 
++	if (unlikely(folio_contain_hwpoisoned_page(src))) {
++		/*
++		 * The copy would propagate the corrupted data into a
++		 * fresh folio with no poison marker.  Fail permanently
++		 * so the folio is put back on the LRU for reclaim or a
++		 * later memory_failure(); it was not unmapped yet, so
++		 * there is nothing to restore.
++		 */
++		migrate_folio_undo_src(src, 0, NULL, false, ret);
++		return -EHWPOISON;
++	}
++
+ 	dst = get_new_folio(src, private);
+ 	if (!dst)
+ 		return -ENOMEM;
+@@ -1376,6 +1388,20 @@ static int migrate_folio_move(free_folio_t put_new_folio, unsigned long private,
+ 	prev = dst->lru.prev;
+ 	list_del(&dst->lru);
+ 
++	if (unlikely(folio_contain_hwpoisoned_page(src))) {
++		/*
++		 * Recheck before the copy: a poison can land while the
++		 * batch is still unmapping the rest of its chunk.  A
++		 * GUP-based path takes its reference before the unmap,
++		 * and memory_failure() sets PG_hwpoison before
++		 * releasing it, so a racing poison is visible by now;
++		 * a hardware MCE can still land in the final
++		 * instructions.
++		 */
++		rc = -EHWPOISON;
++		goto out;
++	}
++
+ 	if (unlikely(page_has_movable_ops(&src->page))) {
+ 		rc = migrate_movable_ops_page(&dst->page, &src->page, mode);
+ 		if (rc)
+@@ -1521,6 +1547,12 @@ static int unmap_and_move_hugetlb_folio(new_folio_t get_new_folio,
+ 		goto out_unlock;
+ 	}
+ 
++	if (unlikely(folio_contain_hwpoisoned_page(src))) {
++		/* Same reasoning as in migrate_folio_unmap(). */
++		rc = -EHWPOISON;
++		goto out_unlock;
++	}
++
+ 	if (folio_test_anon(src))
+ 		anon_vma = folio_get_anon_vma(src);
+ 
+@@ -1546,8 +1578,13 @@ static int unmap_and_move_hugetlb_folio(new_folio_t get_new_folio,
+ 		was_mapped = 1;
+ 	}
+ 
+-	if (!folio_mapped(src))
+-		rc = move_to_new_folio(dst, src, mode);
++	if (!folio_mapped(src)) {
++		/* Same reasoning as in migrate_folio_move(). */
++		if (unlikely(folio_contain_hwpoisoned_page(src)))
++			rc = -EHWPOISON;
++		else
++			rc = move_to_new_folio(dst, src, mode);
++	}
+ 
+ 	if (was_mapped)
+ 		remove_migration_ptes(src, !rc ? dst : src, ttu);
 -- 
 2.43.7
 
