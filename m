@@ -1,158 +1,137 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6950E27E05F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598635; cv=pass; b=fypGLSe74za/e7p16y7RF20BLz5wj6GHcZn4y5PGRhzCkcaqho2O/Mg9eajxec9KecoauaAhharP1zan/IjmywF0MVbjfP43W3hzYux53SG/Y3JmuO2/r5Ieijds/Lv+ybh2yVf+yzDyYgLCZcrgB1GAS5OQFmZEP0jt6TXjo8w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598635; c=relaxed/simple;
-	bh=huKQAayLatyglgFbqKm96EgnqJce6Ukx2wu42Xr6OGY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=etUopK4lpkW7aHO6+1yxwbyyB3D1xF3QfYiZoFPaMlz4ghdxLE6W6HPi4lpe93OIi8lt7nldmhAXoUIF/iCwScorL/uItsuk27lpQTsEHL4Q+b0bvN6zyROi/VqsrNVHklJn2arh7JcDK+dEeEB7Bit8y0M88YVxDMHf2G0tlFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=qZhw9SfX; arc=pass smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9741427E05F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598646; cv=none; b=JWUOuFKyoRsZYtZHtUqWewnPijYZjQLsg0P064tUPaka0Wt8EZGIpNc+5DJXjFr3s4AxmI+eiTL2cVyoLv9m/tAGS7pHx5/4q+xQKqHyXho8NOCP0ATsrWkx+FNOLVCywm484dpp/wlEXUFdr/Sk4K/L1stwh+S3yrwnSUKhJi4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598646; c=relaxed/simple;
+	bh=lW1sE3GkZSINChbEihYaVI4nLt96EbTsmg4AS8HyOt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LRUioL/ROGbXiZiZYPBM3A+rnGfUftGsl+3Xl3/7C0V8xElbF0IwVhYluYld9M66Lz4FZx4zx/5rUSC7aSqQ3FAuseHYw8SzVGktCThAPKuvhP/vvWSMy7WCIJrCvjy1gFMu3YxXyNtCaJPC8wvFjw57z59+qRLanYi7xv/6KVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9hjUjLl; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="qZhw9SfX"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df8bb777e4so9952605ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:30:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790598634; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CsoLrR3elb+piRMalNMNQi6vYnDOKJeBm7T4us4j7waM4I2QAiQaaVL2dnzYcgbbZ9
-         D/jISScFWf8EV7jhi5OeECCz2HYfEmJuZIGZ4TGk4YoDf66cTaacuGD/gtE5csiHOCSj
-         Z4TIKcemYhrvVEqc0VJTUJ3PB5I+Gdi3gpFBlPgU2i/CUyabSBQiHl6xqvWP6uypMalO
-         dtkCM+fJX1Y5wI+GoqySgBEmzHlCkcu/OW1P9Qazl1jPJ9f/RC/zIzsZHQeMMRPJlUbd
-         KFtIEH2q8QpOUZQCuxHLpJezNFfjPM6nrno1eNOVCEaGGjvxt1tpweJy2UNcS5uvDSMW
-         ST9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        fh=BpkAHr/kv5T0EX7GnGMoH+kk1bC2m/moulbO0Urdl8Q=;
-        b=iqzAvsPhW/5kkaSwaNc7MU0JH++tKybJMshEvFIlXFlRs1kUfxDLyIe/zbfWiv9oon
-         K7e8jr/FTVRNxU6PSNWpvs7lNT3TYtAiwBPrENvpsQwCw9+0orVSXlj3oqj8K+/FtvPQ
-         dOmBAMFk7Rtgm5A+pVaCwHjOFmkwBMkHEWzjFdAFNuRkieeuAQUwb5S676NCADJ2l/OG
-         opMsLtmJZeLuhzmP9M2Jp4KD84Zajbi8mOr69lSEi8/iwrSkKhDr1xrfXDJ6ia0DmuHV
-         DtfxWDdz96RsvoYaExpK2euFIqRaO+uYXKrGpjE+5wSLfSc1yOeebX6wroBXwqZJ7tmG
-         VifQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9hjUjLl"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc79a5bdf9fso290051a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:30:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1790598634; x=1791203434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        b=qZhw9SfXzomlQg37NZRw1Gf46SkuvQpa1N6CnCdxoIZFJp2k0xVBzXcqYZZThhROeH
-         SfRmjmxGCBGAmWrK0LNQPrTvqOquGpkS7TpdvIZQC2Jr2atdg4duBMcf6150KRFfQiVh
-         oZdFJnDL85s5C3W5/iEFSEaC22TJDPQtDQ2ZkzvBYtUQfKAjwS1DofdgR2qgqGNOfgs7
-         2OyVBIOIZ0dp6moCcgIWp5GAZbHF2MpOFofvVZg78+myDy5r2PCMokAnjmVe+NjznNhZ
-         U//VZZkqcqzP+Kf0IcBShcvIsrixiAl4sRZZNaEaIaGoIshANK2HXq5NIJVroLgcsbCE
-         8RNA==
+        d=gmail.com; s=20251104; t=1790598645; x=1791203445; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kRdJi1zk/+tXAmS2OAPRi0foJMTeGfHkadWquQLI/Ac=;
+        b=p9hjUjLlzkpxsWeUXKTamma7T+fJBZhxfPnIbfBwihp7CLqXR2hibAgUGfrvHGRNW8
+         Oo/BTzzBbSAgZ49daUH1yG9+YWkdbwOLQF4AD9Nm4wuEwdpZEenNFHSg3O258lu32QPU
+         oNu81O/C2JBoRFJGw/cAAqpcd8dOVU7EOaYSZI91iiGkdyLAy9AKGhTCo0FJarl9CJqf
+         6SkkM/PjvlKbKWrL/u/Ra4ELYhN8Dw5mvlzi3RbjplaozcFUWHoLuad9W70sQ6dbt5n+
+         tSZRDfL36Tvh6g4s+bugBYlOiuueNLsHDuW6uaL65/y/TAwGs/1fNRA60+yX97EhYm3R
+         I+Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790598634; x=1791203434;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        b=qoQNC/SD4iNFR+jHBQ/F8OqZmRyFhyAtsP92bZuf+Eg4I1aOo7qI+ryHjnkpPJIGPG
-         ddm1bwhCRL2gCg0o2kz32vebMHzpNzLJ82THRFRv82CaC9K9wqaD0SiMplr9kZSfosvM
-         nyII+JZKT55pWMJPjmuDw4kIvKaCXtee6TJuMItWhv4xoaGOVbeSaPKjdASDBzBUhffY
-         Q5no/Me25ByLtJXH+txY2Ge/Hz6iLgtNywBDGLTkk7Md8jTSdRmALdhw8S2Sw1HwBLZH
-         2YqsMV+ebAvGYTIkteVgJVtJaTHwiOQhOLwdqdGNFRdgmO87K2vSWmC9FOyTg5glvrOt
-         Sw1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw++FqeeHqM03SK7X0aYjFLC0wE4dAQKuRCnLECPBmZqBipKH/I35SyzhZ4xgY5+8ZCV8eUlZhQ4yT4ZyY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpyS0g5IN0cEivgv9QvZgg0q1ntBqXiTPeyy19cDMwvJc+oQFu
-	jhAEBVJnhrZzpArH6DcPTrQqNzGUep20+iJQGeXvIiacWaGqd6F4YpwtiKOT57Ks0z/ieWsgcLL
-	yf7lDKTbPK+2WXdOCeAhRq2fiyINzDasBhQ9FGdh/CQ==
-X-Gm-Gg: AYBFou2fQ5yZyKZWFF05vWZ6pcaHrrOdITw7lUXwxuWnS/JW8gCDHDmY/8YH+FHx7Hd
-	FkX7bAaFBRlMR1QIeNeOENI1aOzWhc0s62Y3Ps8tJOizdDd1NtMjRPMbk8GGHNo+I8n/qTkf8sl
-	Fv6K4HFvoGHrNFUJAIQ8YFOItDIO6ygWNKfk8LbWnjecBwInol2kXanR4hOK5aKsa8UAQzW21nu
-	N3ZPmSo+Yxm8f0d9F3YLQusgnJf90eVTXhvJFw49vdrzx8VcvjW7oZmIG0IyxoATlAFFb2nl3x7
-	9SYEmS5ceZWoJGVOSG7nAFh0xKrjX7ioHkZRFSx5TO4rqW/owASnBQ/tbL+a0v/ARK0MszvRQ+G
-	FzX2QOGhPWdfU/CcDHjVY+X0R+Y5LmvcFcMs=
-X-Received: by 2002:a17:902:f54a:b0:2df:736b:d7df with SMTP id
- d9443c01a7336-2df7dc59ed3mr102946795ad.42.1790598633625; Mon, 28 Sep 2026
- 05:30:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790598645; x=1791203445;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kRdJi1zk/+tXAmS2OAPRi0foJMTeGfHkadWquQLI/Ac=;
+        b=2BYdXjGN/EVGcUqwj88l6Z4GEkfqQtFlyH24XlAystRl8Mqk84WD5OcIhJGJCHti5N
+         /UHkW5GNI5b9H4ec8pZL6Mroqn+kVmVPboCleRyykTfRKfnonMe1IONzWru7tKe9ZorD
+         v2TVLbUV0NFmJAaMBitMgCWvALsh5UDfaDJLlTbceMk3Xg9DH0BTgpiwuNxwGeLkd4UV
+         C5Q3YkWLtUd+eG2HhxrjEn+DnKq+OfxmnTrmy7HP+FSYlduYwt/HguDkeLA4huuvXyNz
+         v9V4gz/D2hag5LAG8ajNvKRqCxysBX2A6MlSDmmkFjVnvjIpX7Fvln603zGZsqkDnvZA
+         QAoA==
+X-Forwarded-Encrypted: i=1; AKwUvBymfDXbh09aYNF+RcMmROLIFrq2gSvrPb/uSwef6ewux8BZluAOccTAXhVV5toT9ikL3HF5CUVH/fBLjo8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeW7xemcOR2CvgkorCP2XPQzXNpeNPJkjXPjq1yF+FXl9iKPol
+	0Av8V8M+SsrQF792BEWGpc34dSfGvXTB4uzC3Ka54po3fZPQReyHfYQ9
+X-Gm-Gg: AYBFou2j3Ad/EfYosbXuVhyk2l69a+XN/wz/halny5mbgNH+JMfN4BJd2Eo6LLZAr+T
+	dM65g46qF+TzFIFA6rYXU7J/uMOrO7NtMQNFOfhqdWMMdy403JbUfqGOepaQdCFg5tOiWwEzVUl
+	NW7OYdAy0Kuf7D+Nb+k3r05HA1zODFfkMn560tszMQBih0xzQkS4V106WLTdBOYMha2pqWHZL7S
+	mXQzyFgvBZyhVllIZm0V3haGowEzaZOdFENXcr4CW3zdFzXcGMyocNpfhyhaB4U0z2HVrfpq25K
+	2RMiXqUUR5GUE6PjE+6z4sFUIxTg4n/gK4W3stuSPlJK0n37aZ+s57E0ZD5OR49vDJltCY2bln1
+	EWN7dAPaQ6Tzoi45gnOh/aEhDQcuT9eyjEqKdy2uw8t1mRgUQpabpa+v3eEx9IoOCucZhTxVUIT
+	L4X4rrPiyqTT41kg/JeTL5mcsLcuODTSe3HB6+FL5DR74Hv3GacENc4aYn6EMUl9f1rMTHrH00/
+	wr1fGebiHdHhm3HNFfMMl5rUAwFXnYCgRivZgZj6BqtaXNb0Zn/fzme5IPCAt8A
+X-Received: by 2002:a17:90b:1dc7:b0:3a0:b7b4:b65e with SMTP id 98e67ed59e1d1-3a0b7b4bae2mr4411774a91.2.1790598644712;
+        Mon, 28 Sep 2026 05:30:44 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:92e9:2799:890f:9b5b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913ff34fsm39878305ad.37.2026.09.28.05.30.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 05:30:43 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: bhelgaas@google.com,
+	david.laight.linux@gmail.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Subject: [PATCH v2] PCI: sysfs: Reject unaligned resource I/O port accesses
+Date: Mon, 28 Sep 2026 18:00:36 +0530
+Message-ID: <20260928123036.7902-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
- <20260907132617.1198548-6-robert.marko@sartura.hr> <tl5ep4ze2e5ctv7c47jsjedvcpnibdspo5az7a73i5p7iwbivk@vbtd4rhtvroa>
-In-Reply-To: <tl5ep4ze2e5ctv7c47jsjedvcpnibdspo5az7a73i5p7iwbivk@vbtd4rhtvroa>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Mon, 28 Sep 2026 14:30:22 +0200
-X-Gm-Features: AclHuK_ApYIEoqpVKRFrihxpibz6Yiy03tz8KYmapFitKvFghmCeqBLThyFR5Fc
-Message-ID: <CA+HBbNFRufMuhuSiPnJSgSMrGMN6DeskS3kLLogwHk97oHzx1w@mail.gmail.com>
-Subject: Re: [PATCH v2 5/6] arm64: dts: microchip: ev23x71a: enable QSPI
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
-	claudiu.beznea@tuxon.dev, adrian.hunter@intel.com, 
-	aubin.constans@microchip.com, ehristev@kernel.org, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 10:09=E2=80=AFAM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
->
-> On Mon, Sep 07, 2026 at 03:25:33PM +0200, Robert Marko wrote:
-> > Enable the QSPI controller and describe the onboard SPI NOR flash.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
->
-> Missing '---'
->
-> >
-> >  .../arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/=
-arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > index 4012ea7d07bb..985ca31e74e7 100644
-> > --- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > +++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > @@ -463,6 +463,21 @@ phy27: phy@27 {
-> >       };
-> >  };
-> >
-> > +&qspi0 {
-> > +     status =3D "okay";
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "jedec,spi-nor";
-> > +             reg =3D <0>;
-> > +             spi-max-frequency =3D <100000000>;
-> > +             #address-cells =3D <1>;
-> > +             #size-cells =3D <1>;
->
-> As sashiko pointed out, #address-cells, #size-cells, should not be
-> necessary here. I dropped them and applied to microchip-dt64.
+pci_resource_io() validates that the requested port lies within the
+BAR but never checks that it is aligned to the access size. A
+pwrite64()/pread64() on a resourceN file with an odd offset and
+count=2 or count=4 reaches outw()/outl() with a misaligned address.
+On arm64 this becomes a store/load to a Device-memory mapping
+(PCI_IOBASE + port), which architecturally requires natural
+alignment, causing an alignment fault and kernel oops.
 
-Thanks,
-Will drop it from future v3 then.
+Reject misaligned 2- and 4-byte accesses before they reach the
+low-level accessor. With natural alignment enforced, an access that
+starts inside the BAR cannot extend past its end, so drop the
+port + count - 1 range check.
 
-Regards,
-Robert
->
-> Thank you,
-> Claudiu
+Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7134530b25073b4ef373
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+v2: Check alignment per access size in the case 2/case 4 branches
+    instead of using IS_ALIGNED() with a user-controlled count, and
+    drop the now-redundant port + count - 1 range check.
+    (Bjorn, David, sashiko)
+---
+ drivers/pci/pci-sysfs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+index 1f21856aac8a..8118cc6b3a61 100644
+--- a/drivers/pci/pci-sysfs.c
++++ b/drivers/pci/pci-sysfs.c
+@@ -1209,9 +1209,6 @@ static ssize_t pci_resource_io(struct file *filp, struct kobject *kobj,
+ 	if (port > pci_resource_end(pdev, bar))
+ 		return 0;
+ 
+-	if (port + count - 1 > pci_resource_end(pdev, bar))
+-		return -EINVAL;
+-
+ 	switch (count) {
+ 	case 1:
+ 		if (write)
+@@ -1220,12 +1217,16 @@ static ssize_t pci_resource_io(struct file *filp, struct kobject *kobj,
+ 			*(u8 *)buf = inb(port);
+ 		return 1;
+ 	case 2:
++		if (port & 1)
++			return -EINVAL;
+ 		if (write)
+ 			outw(*(u16 *)buf, port);
+ 		else
+ 			*(u16 *)buf = inw(port);
+ 		return 2;
+ 	case 4:
++		if (port & 3)
++			return -EINVAL;
+ 		if (write)
+ 			outl(*(u32 *)buf, port);
+ 		else
+-- 
+2.43.0
 
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
