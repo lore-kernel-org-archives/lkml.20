@@ -1,148 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E8E4D795C;
-	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B70754BD79E;
+	Mon, 28 Sep 2026 14:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604075; cv=none; b=jH5GwOUGgjreuyU2FvC8zykjGEV7CbVmawrBZiYjqzLAouvkY99XIl9nGQFgAhojZ19Y191CZ1C9SdM+s3V5tTzD9G03THcEoB/h018Clf3MY5VT1Lz+NQy+juoxKlPE5VgJ1i4Pbc2gt1mdxEzZmY7f7t6gMQz+WU97iuyNMrw=
+	t=1790604103; cv=none; b=qnmOlBd/LPZKXDuml+zFb8gdN1PurCecrbZOShO0UYlwrx7KPCAIPQFgO44S8GVh6g1AmFjGugMsZgo+srw31oz4mdMEI+N97P4uqvE3tukRFypby6W377Yx1n3UMwLP29ZPHIiWnc0NgT+/q49OMwmkM9ZrGXP/OAqNmFI4c8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604075; c=relaxed/simple;
-	bh=lbw7XDXlDheuvl3VXgTjy60ChRepI7UqLKQnA4+YE5Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rNyAQ1y0fyeYZkrBFPZXPXXvf3Nc3Aru43S+npxAUmY53cBnWZ/VXCvfRGVJ3UYTTBNVz52RLQTwlsgdHEhncjOvfss+GImwgeyvPYaDR08CIJS9xObLxTw8SYhFHYU5s0ilkamxOcWsd+XQttbche9JmqBfBTi9hZd4MTk16mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Td+XxIbv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790604103; c=relaxed/simple;
+	bh=fBXa/ueasdImeVBDgfgjheoJKCMPY8NCaFV/SF8dFPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=od5f716yias9uqULVJe2yWHEouJUySsbBcfn6LCvzAdwGT2cmA5pah9a+fbGV67TEZlqI9m1pJvtVHAiC0Px2Ueulcqm1kSNNaIrZsPJkK2aKNIOQd+bSf0mNn6oM7d6ze988ysiUmokN9x++1gzQpKXiQHILB24Hz0e8Nf/oCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Vg4/TIsX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Td+XxIbv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C055C4AF12;
-	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790604075;
-	bh=lbw7XDXlDheuvl3VXgTjy60ChRepI7UqLKQnA4+YE5Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Td+XxIbvrCniXuiL4evnvrVYuugNDdo+qkWBXEHUSitcQtjDE7Vn6wgrSkXneT50d
-	 X3o2/4cFUapX2RO3Bs2XgLRA3BTiMRKqitu1rlnD90itE5wtd5b5ej+fh2Zu1cMyb+
-	 7zLSK/PTABzvOve+B3Vf+a4jqly09SxudedKA7Qez7dBMPxRQDZCp1wNJLk2B1WNAH
-	 KTpjywUSx/tY8VOpMYvmD1qr9iGI0FpQRiaEH8yt0vGRJ1H7zDAWnA+Cmio439ORCE
-	 Xc3Zj2wxvoYH5Xlvu++Y6SHq4UCdao0snVr+cbTz8fD/kdX1EFiKU2mLlv5B5YJPlp
-	 3ny97U9/HhwwA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48D01CA5FA2;
-	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 28 Sep 2026 16:01:03 +0200
-Subject: [PATCH 1/3] crypto: caam/qi2 - algorithm priority be a parameter
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Vg4/TIsX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 993441655;
+	Mon, 28 Sep 2026 07:01:37 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 638F33F763;
+	Mon, 28 Sep 2026 07:01:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790604101; bh=fBXa/ueasdImeVBDgfgjheoJKCMPY8NCaFV/SF8dFPI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Vg4/TIsX2zSBY/VJqTduNFc8Zkia1nMyF7g2IbT/uVMxbgf5qc4QgCPb4GrrFBkHk
+	 JX+sp1wpJUJiRu+nL4m88fjnJNEGuVXrPNUy/Gl1Jyh8GtyJhLEWtfZZbwlffcIy5H
+	 Jpptuh7ALbAdmfYXzqllwFwA60Vv/MokQ/6iTL/Y=
+Date: Mon, 28 Sep 2026 15:01:26 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>, Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v8 10/29] arm64: Use proper include variant
+Message-ID: <arpzNmXfjqlKbQHh@arm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+ <20260918133107.1042730-11-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
-References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
-In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
-To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Sahil Malhotra <sahil.malhotra@nxp.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Gaurav Jain <gaurav.jain@nxp.com>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790604073; l=2919;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=FoDedHHY6DKLXx6MwRuYNgLGVMx6qX1+U5vA+e03fhk=;
- b=yzcvSTiMigoIq1oKq70QRFIIrgwFLOTSdfY/dVXJysopYds6mUgsm96EyWu1P6gkd0rEiRBpx
- b2/vlf0DyEXCRNSI/o+8YvU9kMrlm7/MZVj8x9SEN5qmkanO8sqTSe9
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918133107.1042730-11-seiden@linux.ibm.com>
 
-From: Vincent Jardin <vjardin@free.fr>
+On Fri, Sep 18, 2026 at 03:30:47PM +0200, Steffen Eiden wrote:
+> Use <> for including the sysreg header as it is not discoverable from
+> the current directory.
+> 
+> Fixes: c07d8017bceb ("arm64/sysreg: Enable automatic generation of system register definitions")
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 
-dpaa2_caam registers every skcipher, aead and ahash at a fixed priority
-of 2000.
-
-It is above the ARMv8 Crypto Extensions (200 to 300), so on any DPAA2 SoC,
-every in-kernel user of AES, SHA or GCM moves from the CPU to the SEC,
-whatever the request size.
-
-Whether the SEC should be the default or only be reached by driver name
-depends on the system, and there is no way to choose/tune it.
-
-Add a priority parameter
-  dpaa2_caam.priority=
-on the command line
-
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- drivers/crypto/caam/caamalg_qi2.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/crypto/caam/caamalg_qi2.c b/drivers/crypto/caam/caamalg_qi2.c
-index 6b47bcc16a50..dbb84a6996a2 100644
---- a/drivers/crypto/caam/caamalg_qi2.c
-+++ b/drivers/crypto/caam/caamalg_qi2.c
-@@ -28,6 +28,13 @@
- 
- #define CAAM_CRA_PRIORITY	2000
- 
-+static unsigned int priority;
-+module_param(priority, uint, 0444);
-+MODULE_PARM_DESC(priority,
-+		 "Crypto API priority of the algorithms (0: default, 2000)");
-+
-+static int cra_priority = CAAM_CRA_PRIORITY;
-+
- /* max key is sum of AES_MAX_KEY_SIZE, max split key size */
- #define CAAM_MAX_KEY_SIZE	(AES_MAX_KEY_SIZE + CTR_RFC3686_NONCE_SIZE + \
- 				 SHA512_DIGEST_SIZE * 2)
-@@ -3014,7 +3021,7 @@ static void caam_skcipher_alg_init(struct caam_skcipher_alg *t_alg)
- 	struct skcipher_alg *alg = &t_alg->skcipher;
- 
- 	alg->base.cra_module = THIS_MODULE;
--	alg->base.cra_priority = CAAM_CRA_PRIORITY;
-+	alg->base.cra_priority = cra_priority;
- 	alg->base.cra_ctxsize = sizeof(struct caam_ctx) + crypto_dma_padding();
- 	alg->base.cra_flags |= (CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY |
- 			      CRYPTO_ALG_KERN_DRIVER_ONLY);
-@@ -3028,7 +3035,7 @@ static void caam_aead_alg_init(struct caam_aead_alg *t_alg)
- 	struct aead_alg *alg = &t_alg->aead;
- 
- 	alg->base.cra_module = THIS_MODULE;
--	alg->base.cra_priority = CAAM_CRA_PRIORITY;
-+	alg->base.cra_priority = cra_priority;
- 	alg->base.cra_ctxsize = sizeof(struct caam_ctx) + crypto_dma_padding();
- 	alg->base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY |
- 			      CRYPTO_ALG_KERN_DRIVER_ONLY;
-@@ -4659,7 +4666,7 @@ static struct caam_hash_alg *caam_hash_alloc(struct device *dev,
- 	alg->cra_init = caam_hash_cra_init;
- 	alg->cra_exit = caam_hash_cra_exit;
- 	alg->cra_ctxsize = sizeof(struct caam_hash_ctx) + crypto_dma_padding();
--	alg->cra_priority = CAAM_CRA_PRIORITY;
-+	alg->cra_priority = cra_priority;
- 	alg->cra_blocksize = template->blocksize;
- 	alg->cra_alignmask = 0;
- 	alg->cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY;
-@@ -5208,6 +5215,9 @@ static int dpaa2_caam_probe(struct fsl_mc_device *dpseci_dev)
- 
- 	caam_imx = false;
- 
-+	if (priority)
-+		cra_priority = priority;
-+
- 	dev = &dpseci_dev->dev;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-
--- 
-2.43.0
-
-
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
