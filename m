@@ -1,130 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F92375F62;
-	Mon, 28 Sep 2026 18:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83BD7386552;
+	Mon, 28 Sep 2026 18:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618485; cv=none; b=raOYmeMXvaQOl+80JjB31dy1P0Y2vO4jDv1K7lgwj29AwPiBzIJ/yWiE58sc3VtAkZimrxjdluwnU/Iu93FzRMaNyGzDyCKpf1OfZHlx0pYYho4LvWytnXDGBOKfBwkU/tbdQPZbfuUWv/jRb23OsKwMIInnnLtqkIkaI4gh/2g=
+	t=1790618487; cv=none; b=i2LuM2dzCElQzjxMan/m2Hh8TRNMpol6qtBQjoBZ+9yGDI/131Wp2ldkduAUsszu24DPpOZ+J9xepKw4cKchcEt4SfhI3ltyi6S7Yh8hJ9ByCBDiLlEfHDPKWE6s9Lm6tfl23FVwhwoFuZMR3objjsHensTBFo+lwgaVUrBMXK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618485; c=relaxed/simple;
-	bh=O+78n7MmUjDJ19eWFmxdv+3gJO0CJpdsgKgngdKKqjQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MDfX18rrPLb/zbjhDRHDSdYrTwRb/dN70c6ECxW6dkF7vc3f6cjtZeJAWycazVng4frI3c8rDu1/8bDCWKVaPEZXWnHfuyxlKCaO4gLEzUogEoQAN6NOolskttQDGOSWV8MPpE+OTiwTE2X2+CyV7a+b1YeCuAzutabfOeJUcoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yrcvafud; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790618487; c=relaxed/simple;
+	bh=2HPAqPhH9blRfCpQLNE+q8Xf2IKbzIj8ANRetpSYQZU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6udO0nxj7o3bin/ldwTv9zWwm7kvRQHP+/5rb+Q31l0Z8RT2QkSeMvoIwE1g1SlY4hyvNrswvZoEvWYnFYhGVhlHDaJrLaxQ6cniwxa+vOPXSYrpkgiDY7Q/esLzHd760NSVpKEYZbvY9CRP+VP4sPEspGxXywMViS2yhFPEbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bydlcNQt; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yrcvafud"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7744F1F000FF;
-	Mon, 28 Sep 2026 18:01:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790618483;
-	bh=FqICvKR436oyLWIxH7465+Z6LW/2aaNNdeBKefqMvkI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YrcvafudCH2JTenhTS/JSlTcNcPmi/rU0bfQdzwc0aG4WxqLznpkmgeymFj94UdRG
-	 5Ab8jchI9gvo1KYP8h0OG0YG1C+FsAka1SjOVq7o5tXpJ+ZpjueQyw1UCmcFgBCuw1
-	 9k3UJCUBAWJLlP9JPbyBhuf+tzG5XJSE6ye7yqTMmbhKuQtXKVKj3MlPZMnzfOsscj
-	 hKyeb+0URImPZmeDn/chvPKe7fhCkdjlkQgga04zDKgnKQwTq0sJ0yISj5ti7KtRIW
-	 FEhoajnN/GYyIJzi6cXGlLox+EVE/aXnEJtFe/Pjb/+syZU+5/fuoW/tWcR/QUWuoG
-	 4JKLxvi8WhGZQ==
-Message-ID: <7a503739-9458-4d2a-a84f-276ebeb7b713@kernel.org>
-Date: Mon, 28 Sep 2026 13:01:20 -0500
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bydlcNQt"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E32F1655;
+	Mon, 28 Sep 2026 11:01:21 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17F093F763;
+	Mon, 28 Sep 2026 11:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790618484; bh=2HPAqPhH9blRfCpQLNE+q8Xf2IKbzIj8ANRetpSYQZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bydlcNQtg7VFJiHIMPz0i9Ug2oSSFgsIjPWay630oscZP2tIekk7hRid4Z2KgnDd3
+	 Y/EYVkfQxooz6H++qoGvFAv+PbVFmCqCOBgENpU640RH4JItp9ePCG1NWk6TPmsiLJ
+	 FP+9yLwn9lku23GyxOnTzBEHBYOls89RIbmOAYZI=
+Date: Mon, 28 Sep 2026 19:01:11 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
+Message-ID: <arqrZ_Auk9BYOopa@arm.com>
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-6-suzuki.poulose@arm.com>
+ <arZmXFw5Jw2IbAmA@arm.com>
+ <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+ <araketG70TIKeNuf@arm.com>
+ <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
+ <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
+ <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/amd: Make PerfOpt compulsory for APUs in identity
-Content-Language: en-US
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-References: <20260928045050.955165-1-superm1@kernel.org>
- <20260928172741.GJ163130@ziepe.ca>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260928172741.GJ163130@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
 
-On 9/28/26 12:27, Jason Gunthorpe wrote:
-> On Sun, Sep 27, 2026 at 11:50:50PM -0500, Mario Limonciello (AMD) wrote:
->> PerfOpt is only a feature usable by integrated GPUs and only in identity
->> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
->> an integrated GPU in an APU is in identity. Re-use the heuristic in
->> amd_iommu_def_domain_type() to make this decision.
->>
->> This drops quite a bit of compatibility glue.  There was a refcounting
->> system, exported symbols, and device attach/detach logic.  By just setting
->> it immediately it's a lot more straightforward.
->>
->> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
->> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
->>   drivers/iommu/amd/amd_iommu.h              |   2 +-
->>   drivers/iommu/amd/amd_iommu_types.h        |   3 -
->>   drivers/iommu/amd/init.c                   |   3 +-
->>   drivers/iommu/amd/iommu.c                  | 234 ++++-----------------
->>   include/linux/amd-iommu.h                  |  11 -
->>   8 files changed, 48 insertions(+), 268 deletions(-)
+On Mon, Sep 28, 2026 at 02:55:11PM +0100, Suzuki K Poulose wrote:
+> firmware: rmm: Deactivate RMM at reboot
 > 
-> Diffing across the originals to net them out it is much smaller:
+> Deactivate the RMM at system shutdown. This would allow a normal kexec to
+> cleanup the state and boot into a new kernel gracefully.
 > 
->   5 files changed, 122 insertions(+), 1 deletion(-)
+> Kdump kernels need not worry about an active RMM, as long as it can
+> handle the GPF on access to the Delegated granules.
 > 
-> And I think this is much better , but I have a few questions
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>  arch/arm64/kernel/machine_kexec.c |  2 +
+>  drivers/firmware/arm_rmm/rmi.c    | 63 ++++++++++++++++++++++++++++++-
+>  include/linux/arm-rmi-cmds.h      | 10 +++++
+>  3 files changed, 73 insertions(+), 2 deletions(-)
 > 
-> Why is this setting and clearing perf_opt in dev_data?
+> diff --git a/arch/arm64/kernel/machine_kexec.c
+> b/arch/arm64/kernel/machine_kexec.c
+> index 8f9bc2327dc85..8f16f92a5d389 100644
+> --- a/arch/arm64/kernel/machine_kexec.c
+> +++ b/arch/arm64/kernel/machine_kexec.c
+> @@ -6,6 +6,7 @@
+>   * Copyright (C) Huawei Futurewei Technologies.
+>   */
 > 
-> I expect probe to make a determination if this device has the special
-> path and if so then there should be a permanent flag in the dev_data.
+> +#include <linux/arm-rmi-cmds.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/irq.h>
+>  #include <linux/kernel.h>
+> @@ -171,6 +172,7 @@ void machine_kexec(struct kimage *kimage)
+>  	BUG_ON(!in_kexec_crash && (stuck_cpus || (num_online_cpus() > 1)));
+>  	WARN(in_kexec_crash && (stuck_cpus || smp_crash_stop_failed()),
+>  		"Some CPUs may be stale, kdump will be unreliable.\n");
+> +	WARN(!in_kexec_crash && is_rmm_active(), "RMM is active, kexec will be
+> unreliable.\n");
 > 
-> Based on that flag amd_iommu_def_domain_type() can return identity to
-> override things
+>  	pr_info("Bye!\n");
 > 
-> When the driver does an identity attachment it would enable the
-> perfopt and write out the right DTE for it.
+> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> index 51343e9d5c2a9..5b695f3155b1c 100644
+> --- a/drivers/firmware/arm_rmm/rmi.c
+> +++ b/drivers/firmware/arm_rmm/rmi.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/memblock.h>
+>  #include <linux/memory.h>
+>  #include <linux/arm-rmi-cmds.h>
+> +#include <linux/reboot.h>
+>  #include <linux/slab.h>
+> 
+>  #include <asm/memory.h>
+> @@ -15,6 +16,13 @@
+>  /* RMM v2.0 defines RmiFeatureRegister0 to RmiFeatureRegister4. */
+>  static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
+>  static bool arm64_rmi_is_available;
+> +static bool arm64_rmm_active;
+> +
+> +bool is_rmm_active(void)
+> +{
+> +	return arm64_rmm_active;
+> +}
+> +EXPORT_SYMBOL_GPL(is_rmm_active);
+> 
+>  /**
+>   * rmi_granule_range_undelegate() - Undelegate a range of granules
+> @@ -1017,6 +1025,53 @@ bool is_rmi_available(void)
+>  }
+>  EXPORT_SYMBOL_GPL(is_rmi_available);
+> 
+> +static int rmi_rmm_deactivate(struct rmi_sro_state *sro)
+> +{
+> +	int ret;
+> +
+> +	if (!READ_ONCE(arm64_rmm_active))
+> +		return 0;
+> +
+> +	ret = WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
+> +	if (ret)
+> +		return ret;
+> +
+> +	WRITE_ONCE(arm64_rmm_active, false);
+> +	WRITE_ONCE(arm64_rmi_is_available, false);
+> +
+> +	return ret;
+> +}
+> +
+> +static int rmi_reboot_notifier(struct notifier_block *nb,
+> +			       unsigned long action, void *data)
+> +{
+> +	int ret;
+> +
+> +	switch (action) {
+> +	case SYS_RESTART:
+> +	case SYS_HALT:
+> +	case SYS_POWER_OFF:
+> +		break;
+> +	default:
+> +		return NOTIFY_DONE;
+> +	}
+> +
+> +	struct rmi_sro_state *sro __free(kfree) = kmalloc_obj(*sro);
+> +
+> +	if (!sro)
+> +		return -ENOMEM;
 
-I believe you're right.  This was an artifact from the tracking I had to 
-do when it was a two driver solution.  I'll rework it.
+Nit: it needs a NOTIFY_* value.
 
-> 
-> Whenever the driver removes that identity it would disable the
-> perf_opt. These points are all marked out in the attach function flow
-> you don't need another variable to keep track, or the funny logic to
-> block things. All you want is an attached identity domain that is
-> "optimized".
-> 
-> Release goes to blocked which should already disable it, so no need to
-> disable it again in amd_iommu_release_device()
-> 
-> The repeated pattern is a bit much:
-> +       if (dev_data->perfopt) {
-> +               if (WARN_ON(amd_iommu_perfopt_clear(iommu)))
-> +                       dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
-> +                               iommu->index);
-> 
-> Clear should probably just do the warn on and not return any error
-> code. It is never OK to allow this to fail..
+> +
+> +	ret = rmi_rmm_deactivate(sro);
+> +	if (ret)
+> +		pr_emerg("RMM Deactivation failed: %d\n", ret);
+> +
+> +	return NOTIFY_DONE;
+> +}
+> +
+> +static struct notifier_block rmi_reboot_nb = {
+> +	.notifier_call = rmi_reboot_notifier,
+> +};
 
-OK.
+Thinking some more about this, it's a good aim but I think it only works
+if we do a systemctl kexec that tears down the processes (including the
+VMMs). For a direct kexec -e, we happily reboot with pages still
+delegated. Now, such tear-down in the kernel is painful, I think a lot
+more work to figure out the delegated pages.
 
-> 
-> I'm also scratching my head a bit why the global register needs to be
-> set/unset like this? Does that global bit completely bypass the iommu
-> for a single special device? With no way to discover from FW which BDF
-> is the special device? If this is the right guess please document this
-> in a comment around __perfopt_write (and again that's awful, ACPI
-> should have a pointer to the special device so the OS can understand
-> this)
-> 
-Yeah; it's only for the privileged integrated GPU to access system memory.
+Also we don't cancel the kexec here even if we return an error, just
+warn and continue into the new kernel.
 
-I'll leave a comment around it in a v2.
+So maybe blocking the kexec (e.g. machine_kexec_prepare()) in the first
+place would be a better option for the time being. But I'd like, if
+possible, to defer the RMM activation until the first user (still do the
+RMI probing as an initcall). If we run on RME-capable hardware and
+firmware but don't care about realms or TSM, we still get the normal OS
+functionality.
+
+If this deferring works, I'd also make memory hotplug dependent on this
+(RMM activated => no hotplug; hotplug before activation => don't
+activate the RMM). Maybe later, if we have a request for hotplug in
+ZONE_MOVABLE and we can guarantee guest_memfd doesn't allocate from
+there, we can relax this requirement.
+
+That said, we may have a problem with hibernation as well if it tries to
+read the delegated pages. I don't know how it interacts with guest_memfd
+and the non-gmem pages we delegate. Maybe cpus_are_stuck_in_kernel() is
+the right place, it prevents hibernation as well.
+
+-- 
+Catalin
