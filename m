@@ -1,103 +1,99 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3413B7B6E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5A03644C9;
+	Mon, 28 Sep 2026 06:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577510; cv=none; b=G9NV5PkSF5rZKKVV9IoAaFZZXU1ZJEs9njVr3hu8hir5DycQWypw3LjBqeZNnSGUWne7GEB0dyVj3YweaUIOvlwKx/jUwPvybjtwKFDhrvmebf9RlCfLzADw5hbz03+7pfXmcHvAsV/Vx/o3Rg10AuGSUdtPV6FrBK4UGowura8=
+	t=1790577509; cv=none; b=pLCpBfr3ijzZNdSp7cN2bcJkKOwpK4RNUOfJxgu90kxYqjJYwDXQejRm6doM4L4LGpUBJxFQtfGLlbpyhh3iDVWevAK18LF46bMJysvlpPVDgN0NUKO4hwReSOjvdj7Ghtwa6qKn1rVJZzRqTXFaabdscCv2YFHfL3Xn7GcxQ7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577510; c=relaxed/simple;
-	bh=5akO349ziHHQzeFqJy7Iek+neIXejMZDqEsEI4U1ydw=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ELBxDukRa7FYBvh/R+yAgCjh5XECTqfpDambEC8ZYNIm0Hp64/swMnqO60sFFBDpsFDaB4NF0itHFMVr1AGDZv7qb8EiQQzMm8wG0xu6aTJzMv42v+1bbkHeLsWtn4uaD72kv1UNbe18eNzL+wBtyzexJHFrnf1EZqKwLFQaO4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nwB23JKN; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1790577509; c=relaxed/simple;
+	bh=oab10M41cORlOaqNO3JIQuODWkcTzu++0eN5IsOiEkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kIeci7hk7W1kgWDYFVEN/CF0d8xckoE9bG36LVARm2F1BrrfHD4VNzkqzUg1NPnik8Rrqn+T+N7+xMytsWCBI9UBsVknxf1inNYeL2uRE8mN9998G+907AHn0ivinK4gqugdM98FZEUdnDpt8aU/6rsCVmbvmMB8Eq+hA66tIM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rWuYiW0s; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iCixssuX; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nwB23JKN"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso3962772a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:38:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790577508; x=1791182308; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0EJUAZOGIk1GIP9JvusI2ZWKGypYDZJOnDVNHDexwyc=;
-        b=nwB23JKNa3LXNkka0N86Hbv9um1DzzBs36tH1eY/jEzsXIF+EDL3OnOgeAz0q33fHP
-         oQN30V0igkAQLKhuUlw/p/GlUVV+ApACW9o2rf9ZO8uZ1HKNCtwfpMa/BQnE8lzQrfA8
-         YfpSi3tq/SVL5koZIKqh/02KaCHbemoLfBnRUXHyFqngomFm1Ac4q0285zkEAAvXM0QS
-         waSi+1rEn7ux3iBkO8qcODBjIFriqG2xm0Yni6tqStXSPetKcePo/wEw502nyAMoZ/4Y
-         fMKm1HBP0QAGRnvsRSwXABiWUUIhorpBECVRc7MaoVpetoLyFR6LZh3RTXeqaif485qV
-         4x9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790577508; x=1791182308;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0EJUAZOGIk1GIP9JvusI2ZWKGypYDZJOnDVNHDexwyc=;
-        b=d9W9rnrbFttAogZqSssUN+jO2DfoXM7GIPJTTKPO5sFkA/rNDU6e3OeIjdCHmEJeMF
-         1bCQwk9XX6wC9qkcAxxU9apcwSyhItMz327u/PCPUa9hvcdg4YJGsRCpO4AkjoRAFPar
-         Tx1zk3sDvPlN9tZ46fbMHc6W1l+E6+zr/8t8bFrhpGbZ0eS4LwYNf9tIKu19nFwPL9hu
-         3HiEYzBvD6pAMK46GmYkWaNIduFa2wx0YpV+namGyjg50kQQqqH+Oul7zF8eF4KPMCCw
-         VEWWITVRIF9qU08chA16GT4sdz8KOQmhib3+ZBGdHImC1bptAEauABrMR7+xYd99NcxL
-         Ml2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz35Y90K4LHT9KDIqljYISA0mmiLde0Wp3ugeziuzS8Li3SANI9KidqrVxBNBDm957B/X4av6onYbo0Kic=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYQwRE157N4kv83r34zWNY22gfSeXLbWmVn95WLDC1jv2yh+qL
-	Gm658bi/fdjT3JafH5NnVjwW3zXuPcHizMUNLk5J9xTEsDIJbR1frG1Gs1FSITToq2aBEBGlSOK
-	i
-X-Received: from pfbdk6.prod.google.com ([2002:a05:6a00:4886:b0:884:61ff:9f80])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6300:68c3:20b0:3de:140a:3e31
- with SMTP id adf61e73a8af0-3de140a43aemr6197451637.49.1790577507755; Sun, 27
- Sep 2026 23:38:27 -0700 (PDT)
-Date: Mon, 28 Sep 2026 06:38:24 +0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rWuYiW0s";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iCixssuX"
+Date: Mon, 28 Sep 2026 08:38:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790577506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oab10M41cORlOaqNO3JIQuODWkcTzu++0eN5IsOiEkw=;
+	b=rWuYiW0sOfIl39b6o8KIoPDZucRz832wEPEknuqnV3ffsqIh08vTFNJRLt2D4gQaDCeCGz
+	0yIoYKlHlcJbyhKsgEdVeC+grUizo2MuTD5cD32Ev/5EGiuz6M5VbgKWS97/KDDqlVzbgz
+	hgxD1Vui1Q0xHxkRRHqFTGdXvLkPaeqJ+8ISLxcHfdaggvjjWVB8PR8LyKvAkuMT6r5c2P
+	9HkL6UZQS7kPW0wfRhMvs4Td0xbOAtJGKUHCOTwXOQbsCE133DfA29MUcIgiLNQmM1ol0U
+	y4bBsr/XO6ICPEvx+0RutCc+MtqFFpLLrLiRWM7hV9suooZ85+q0giO8Kfw7bw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790577506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oab10M41cORlOaqNO3JIQuODWkcTzu++0eN5IsOiEkw=;
+	b=iCixssuXrvneknmIGOp4I2w9Ciyb3RZgXNROKFtxPQW0BKzdD8MHwzcz2JNJxyEZgfoehD
+	vfgEdL2tsRK9WrCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com
+Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
+ entry
+Message-ID: <20260928063824.0E3LO1vu@linutronix.de>
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-4-xiexinet@gmail.com>
+ <20260923104346.ur63K3h2@linutronix.de>
+ <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
+ <20260925082954.MYDugnDU@linutronix.de>
+ <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928063824.1386524-1-morbo@google.com>
-Subject: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
 
-The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-with the 'size' field, which represents the number of elements of
-type 'struct acpi_gpio_params' allocated for 'data'.
+On 2026-09-25 11:52:52 [+0200], Xin Xie wrote:
+=E2=80=A6
+> A veth pair is simply an in-kernel memory pipe. When a large TCP skb=20
+> arrives at prp0-peer, veth does not trigger TSO or software segmentation,
+> it simply hands over the intact skb pointer directly to prp0-int.
+>=20
+> Turning GRO off on prp0-int does not force prp0-peer to split it. I=20
+> confirmed this with ordinary TCP traffic in a VM, with GRO off on both=20
+> veth ends.
 
-To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-attribute.
+So veth. The test suite is using veth I don't remember that it was (is)
+a problem there. But then there is no TCP.
+Wouldn't it be also a problem if you attach veth interface to a bridge
+and that large TCP skb would have to leave the bridge via a physical
+port?
+This does not sound like it is limited to hsr. I think it deserves a
+helper similar to skb_linearize().
 
-Analysis of allocation, assignment, and access points shows that the
-pointer is never accessed before the count is set, which guarantees that
-this annotation is safe and will not cause runtime panics or
-false-positive bounds checks.
+> Patch 3 splits that skb before PRP assigns sequence numbers and adds
+> RCTs. Each resulting frame needs its own sequence number and RCT.
+> Ordinary non-GSO skbs skip the segmentation path.
+>=20
+> In addition, if GRO disablement fails (e.g., buggy drivers or
+> hardware-fixed GRO_HW that cannot be turned off via ethtool), Patch 3
+> also acts as a fallback defense for these edge cases.
+>=20
 
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
----
- include/linux/gpio/consumer.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consumer.h
-index fceeefd5f893..2b80cf7aa7e7 100644
---- a/include/linux/gpio/consumer.h
-+++ b/include/linux/gpio/consumer.h
-@@ -667,7 +667,7 @@ struct acpi_gpio_params {
- 
- struct acpi_gpio_mapping {
- 	const char *name;
--	const struct acpi_gpio_params *data;
-+	const struct acpi_gpio_params *data __counted_by_ptr(size);
- 	unsigned int size;
- 
- /* Ignore IoRestriction field */
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Sebastian
