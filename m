@@ -1,117 +1,196 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BBE2E22B5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E199D37206F;
+	Mon, 28 Sep 2026 12:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598250; cv=none; b=PPYqgzxMdd/9to9dGrthMr2Wif4ED5Kz4vpFw4wiAc8ZXwgiU2hzLnNzpJ92skgj7tfGFvwu6T9Gm7FoQEAUTlDd2yQHZ4q/g2PakTAa7OuD6kUgh8ZBY+s3KT/SATJGSNPCRZwIwglezUUCiBAO9Wc6dxo0AO/SNJ1gMdCP8hc=
+	t=1790598261; cv=none; b=jRlFFR2vl7YasDlmwSbN2JFhifHtCwIIb5d/8phz3cighZq+muCILXNcCj3YinZPmbrctax+Q9RLVaVHVuAHKkqPu7WdOUYnFyzkRa34yBo3GOQX/5Zvd9fMO+PVBLqxuDXhiUf7HrkMHzeteb/dlsx2CjA3Fs+jqOvtXJ1f6dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598250; c=relaxed/simple;
-	bh=ymWANid+W9QAIfsP2B7dxOZPLHb025E1MmiiKZKG/Ho=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aPoJ209fgkylUCpah4nXkEPCpjGat4q2uPET0//exq+xS2HBPnnDVH+tMDHRMYrG7vzUf4MjsE2+h8FWYDwo2IxRjYQu3c2PpGTnjUqMKsB1vC1Qm1CGLAJk9Vf4GN+5CATVsJe5SdOxBpBm0E50DmNbig3JTiNY2SuWq6f/0Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ec395so27918791cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:24:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790598248; x=1791203048;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XQP52bKkr7Y/wzuKqDsjuqgLw7VrjDizWZT0Wc7gkw4=;
-        b=ziLklsMyrRLqnC2ivl2RLOFiaUR00nbkhIalUdMbbJHjnfhWnS6SdKuS9uz0FElUEI
-         ZwYlroHuoOCdki1cxH1lYTzxVmgcivac24+1XVMO9KtynaLFfuIprg6HXGC5tLx02zzN
-         nGrP2MM8ijeUL2WO0sKSJf0oBkwfTRExX17ALwdB3Hk5w1L3Votor36y/27tcRtYTPMV
-         49nDXjm1WJTz98S0mAVyjhJi/JfK2Gjn+khyVj2nyhClgZWxipjU8KHvck1gvXlXcjN7
-         GfqCj5yZUxCL/5R4p2h8LeC23ZvVklGHmgevzMSlPZHtgl7hqGErEavAL/lvTzV8p7M4
-         jKhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy13s0k6zflkOxTdLyNgk+N/IsxB+qxA7OpH3BSr8Q5A6/wyDJwqm02M4si3FLuL6/10aTQ+6kBiEUd/7Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjh5yBoPdA+wv091Yla0XoHfTpzAxEPscIqLCKYc2TMIiZmcjZ
-	3Nr3yO1oSGp7gjTIMXE51XrhGN6TuJlgfxnvDqBPwer+7K6wJMltdydxhlN1XJIP
-X-Gm-Gg: AYBFou39kADyMtvsPYSXJDtzwBNdV4maXXF2nNXiK5qHhpI993NXWUbjvR6H82Am9GN
-	o03o4I254W7emlbvr9zx471Ne3zYB41uh2qhhxEVUClNKQ77pOrX3jVXZeu4e3d1ZsG9JJGgNQi
-	tJvmdCJgEBcBfXfz3nUOqM+5sjng4wmm2ZY6jmTAoC5Fe/j9pnbUMuu545Ss/526NVZeMYBo6Bj
-	gXWSnonPUvuh6Fv8ZjneLqT6IzIiCQZQEE1UJfTatpcE2+wPn3eZ74Kjf19I517nAhyX6sAxpB/
-	FJ09c8nXwk2Y9yhxG54qGUqxOdqBtjhqMVSwWXqJ/l+DIiMkIC+T2Ju7Zeb0JgTW0iagugoS+XJ
-	fr4orJGGR+0zULGf+b8WLlFyTavNfOsetheTC2uGlQDGlrgy/dmXLA5X3c3SKC+RbDt12KZbtVD
-	KwaJ0qqrfmFZOSDa0x1Av2gIuhcvCBpk6D0xX3AXDG4dtuB2VrE3Z3xs9QepcbPA2G0wPeoXDXF
-	64d3u6RiHuucdKJ+gg85XMyBqmLtUZh6Rarlg==
-X-Received: by 2002:a05:622a:c07:b0:533:39bc:efec with SMTP id d75a77b69052e-53339bcf3b3mr88562491cf.2.1790598247841;
-        Mon, 28 Sep 2026 05:24:07 -0700 (PDT)
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com. [74.125.230.204])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238d545sm61186681cf.17.2026.09.28.05.24.07
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 05:24:07 -0700 (PDT)
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76ec395so27918701cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:24:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx8jBFn1PXxwbIFUXc40s4l7eIR6MzLdn3Sjf6qf6QhMRec/8eWNJ/IqA6j9IDeHkEwUZh5YqLYrUxT6mA=@vger.kernel.org
-X-Received: by 2002:a05:6102:6883:b0:7a7:19aa:8a83 with SMTP id
- ada2fe7eead31-7af1ecf279bmr5070898137.30.1790597755270; Mon, 28 Sep 2026
- 05:15:55 -0700 (PDT)
+	s=arc-20240116; t=1790598261; c=relaxed/simple;
+	bh=qcyJyBseXbZS90zaOng45prybqLv9ZAZSjFBw+qb4Qk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=glfvpGzwghp6k3vlXRAacmRtqOjEvWrXcpYS/0yyHoHaqduTAOcZyHBjSp0/XNW3B8+n5RQFmm9OTgvz8v6QpWMZyvkyDH+5WnhnVQ+15IZE50E7lEy8qFwQz+DP66rdep5qyU30mvRx9XjO8SDQUstit+hBHb6BdUPSF/CBQN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLRpJa7i; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLRpJa7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE86F1F00893;
+	Mon, 28 Sep 2026 12:24:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790598259;
+	bh=XrvuQ5S7vUig/3iGGMMV/FCD0w6ruETLjU2iIyssM5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QLRpJa7ihe8BNoFi0vwJrxl93TUD/Y2GHFKJv9EZpkAA4ypzjyuZwg9Vp9WGJ/tMz
+	 yUywzyXXA2WUcgAxgZRntBsGwVrs72XaWlatZ6yJEZ/+JHnzXuRiwxfHumQHIRE7K9
+	 iUNoRiLAXQwuXZl8Fgn9snkloAK5dKCjZbtGkgTzANsrH90SVosilLNChjexSETemE
+	 akNF7SyXnho96J4elepwaYMd4sXTgC8HUvnQ0TbUFWDmrt2c5t+QeT461ij8tt7xkC
+	 TSrdlfCxsAYNwjV7+xVDUoXqt91X+3+u/VKxxvlde1iYsd+iI3ymosiypnKRzFnFut
+	 X5SloFiPx8uxQ==
+Date: Mon, 28 Sep 2026 14:24:16 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Zi-Yu Chen <zychennvt@gmail.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jacky Huang <ychuang3@nuvoton.com>, 
+	Shan-Chun Hung <schung@nuvoton.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@codeconstruct.com.au>
+Subject: Re: [PATCH v10 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
+ support
+Message-ID: <aro-QitaRwK87gdO@zenone.zhora.eu>
+References: <20260921083753.1109826-1-zychennvt@gmail.com>
+ <20260921083753.1109826-3-zychennvt@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927205501.672807-1-visitorckw@gmail.com>
-In-Reply-To: <20260927205501.672807-1-visitorckw@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 28 Sep 2026 14:15:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVcpHrxg_Kb1vpguSYbRg4CU4DxNuPAv3UqHNHZTNk33A@mail.gmail.com>
-X-Gm-Features: AclHuK85gzWq5IklKOwAQu80W0kMa7pFyTsMwsvdeVooaKjfbbGjxmEBQYgiP_k
-Message-ID: <CAMuHMdVcpHrxg_Kb1vpguSYbRg4CU4DxNuPAv3UqHNHZTNk33A@mail.gmail.com>
-Subject: Re: [PATCH v6] m68k, bpf: Add initial BPF JIT compiler support
-To: Kuan-Wei Chiu <visitorckw@gmail.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, ast@kernel.org, 
-	daniel@iogearbox.net, eddyz87@gmail.com, memxor@gmail.com, andrii@kernel.org, 
-	gerg@linux-m68k.org, rdunlap@infradead.org, martin.lau@linux.dev, 
-	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
-	bpf@vger.kernel.org, jserv@ccns.ncku.edu.tw, marscheng@google.com, 
-	eleanor15x@gmail.com, Daniel Palmer <daniel@thingy.jp>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921083753.1109826-3-zychennvt@gmail.com>
 
-Hi Kuwan-Wei,
+Hi Zi-Yu,
 
-On Sun, 27 Sept 2026 at 22:55, Kuan-Wei Chiu <visitorckw@gmail.com> wrote:
-> Add a BPF JIT compiler for the m68k architecture.
->
-> The JIT generates m68k machine code targeting m68020+ processors and
-> coldfire parts with an mmu (ISA_B/ISA_C). It excludes plain 68000/68010
-> and non-mmu coldfire processors, as it relies on 32-bit branch
-> displacements (b<cc>.l) to handle large bpf programs.
->
-> Tested with the test_bpf.ko:
-> test_bpf: Summary: 1061 PASSED, 0 FAILED, [1049/1049 JIT'ed]
-> test_bpf: test_tail_calls: Summary: 10 PASSED, 0 FAILED, [10/10 JIT'ed]
->
-> Tested-by: Daniel Palmer <daniel@thingy.jp>
-> Co-developed-by: Greg Ungerer <gerg@linux-m68k.org>
-> Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
-> Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-> ---
-> Changes in v6:
-> - Fix kconfig sort order for HAVE_EBPF_JIT.
-> - Update eBPF-JIT/arch-support.txt
+...
 
-Thanks for the update!
+> +/* Constants */
+> +#define MA35_CLKDIV_MSK		GENMASK(9, 0)
+> +#define I2C_PM_TIMEOUT_MS	5000
+> +#define STOP_TIMEOUT_MS		50
 
-Are any of the issues raised by the bpf-ci bot valid?
-Thanks!
+these two defines are the only ones without the MA35 prefix.
 
-Gr{oetje,eeting}s,
+...
 
-                        Geert
+> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
+> +					     unsigned long i2c_status)
+> +{
+> +	unsigned char byte = 0;
+> +
+> +	switch (i2c_status) {
+> +	case MA35_S_RECE_ARB_LOST:
+> +		/*
+> +		 * Arbitration lost during address transmission phase.
+> +		 * The hardware switches to Target Transmitter mode when
+> +		 * our own SLA+W is detected on the bus.
+> +		 */
+> +		i2c->err = -EAGAIN;
+> +		ma35d1_i2c_controller_complete(i2c);
+> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+All the return values of these i2c_slave_event()'s are ignored.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +		break;
+> +
+> +	case MA35_S_RECE_ADDR_ACK:
+> +		/* Own SLA+W has been receive; ACK has been return */
+> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+> +		break;
+> +
+> +	case MA35_S_TRAN_DATA_NACK:
+> +	case MA35_S_RECE_DATA_NACK:
+> +		/*
+> +		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
+> +		 * or previously addressed with own SLA address and NACK returned.
+> +		 */
+> +		break;
+> +
+
+...
+
+> +	default:
+> +		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
+> +			i2c_status);
+> +		ma35d1_i2c_restore_idle(i2c);
+> +		return IRQ_NONE;
+> +	}
+> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
+
+As far as I understood, this this is an unconditional ACK enabled
+for the next bytes received, right? In that case are we ignoring
+failed communications as above where we are supposed to send
+NACKs?
+
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +	i2c->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+> +	if (IS_ERR(i2c->regs))
+> +		return PTR_ERR(i2c->regs);
+> +
+> +	i2c->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+> +	if (IS_ERR(i2c->rst))
+> +		return dev_err_probe(dev, PTR_ERR(i2c->rst),
+> +				     "failed to get reset control\n");
+> +
+> +	ret = reset_control_deassert(i2c->rst);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
+> +
+> +	/* Setup info block for the I2C core */
+> +	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
+> +	i2c->adap.owner = THIS_MODULE;
+> +	i2c->adap.algo = &ma35d1_i2c_algorithm;
+> +	i2c->adap.quirks = &ma35d1_i2c_quirks;
+> +	i2c->adap.retries = 2;
+> +	i2c->adap.algo_data = i2c;
+> +	i2c->adap.dev.parent = &pdev->dev;
+> +	i2c->adap.dev.of_node = pdev->dev.of_node;
+> +	i2c_set_adapdata(&i2c->adap, i2c);
+> +
+> +	if (!device_property_read_u32(dev, "clock-frequency", &val)) {
+> +		if (val != 0 && val <= MEGA)
+> +			busfreq = val;
+> +	}
+> +	/* Calculate divider based on the current peripheral clock rate */
+> +	clkdiv = DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
+> +	if (clkdiv < 0 || clkdiv > 0x3ff)
+> +		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
+> +				     clkdiv);
+> +
+> +	i2c->irq = platform_get_irq(pdev, 0);
+> +	if (i2c->irq < 0)
+> +		return dev_err_probe(dev, i2c->irq, "failed to get irq\n");
+> +
+> +	platform_set_drvdata(pdev, i2c);
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, I2C_PM_TIMEOUT_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +
+> +	ret = devm_add_action_or_reset(dev, ma35d1_i2c_pm_cleanup, dev);
+> +	if (ret)
+> +		return ret;
+
+you are printing an error message everywhere, except of here.
+
+> +
+> +	writel(MA35_CTL_I2CEN | MA35_CTL_INTEN, i2c->regs + MA35_CTL0);
+> +	writel(FIELD_PREP(MA35_CLKDIV_MSK, clkdiv), i2c->regs + MA35_CLKDIV);
+> +
+> +	ret = devm_request_irq(dev, i2c->irq, ma35d1_i2c_irq, 0, dev_name(dev),
+> +			       i2c);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "cannot claim IRQ %d\n", i2c->irq);
+> +		return ret;
+> +	}
+> +
+> +	ret = devm_i2c_add_adapter(dev, &i2c->adap);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to add bus to i2c core\n");
+> +		return ret;
+
+return dev_err_probe(...)
+
+Thanks,
+Andi
+
+> +	}
+> +
+> +	dev_info(&i2c->adap.dev, "%pa MA35D1 I2C adapter registered\n",
+> +		 &res->start);
+> +	return 0;
+> +}
