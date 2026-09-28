@@ -1,440 +1,206 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613551A6823
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A361A6823;
+	Mon, 28 Sep 2026 02:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790564145; cv=fail; b=ELNZPQLqcAtoIyPajOTIMh3pWwnRGf3z21ZBiEamkfpG+jNeVGLcuSywEhlT6uSA6LfoRPuCkMfgz4N4whFfSUB8zUBqOfUij+UJHFk0QLdzkZoMuI/INrnioMR7dsPEHYpzUwdGjPPb8JXS13RnACpMKOCAf5zbpY39czynP6k=
+	t=1790564258; cv=fail; b=qtM+TsilSJKaMJ+fPkHaGXxMwHFS0NM/uNdYV2YbtKEzSbdowvwfFqWgk7MSYTYwbtuqOA3fFrsvRQAb+Mn4xGw8mhwb8WIlemWApZX1C30VzLNzpF+SKPGCfGxtmSH14tQi75IzMEIcPfebqHkz1lUSE30UxBeD11iWTvRN/dg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790564145; c=relaxed/simple;
-	bh=pLdLC6EjopzrMaSZHdIPH8913ZkhvGbYCnwkbGo2vGc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fs2zSrayZjj5OGjodLGNZRbjgQuJYupXTQc78BkpPvEtvReOk0F9VTrSzwlgxWxR9NZd3rrYJMm/ZuBNOddcLfJ+izaOr5t2dyl1Lw4cw1S7svAGh1ZySzLDn0Ng5EP76FhooDCxE7/w1jcvp0013+9T+1WHpiGlINBxcwLfdmg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=SkVXo0kS; arc=fail smtp.client-ip=52.101.85.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790564258; c=relaxed/simple;
+	bh=LIrbvkCOclnz442tubyeDPHoepObt/PBD1WJOKvxhV8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fmqIOj4TiMLjgk59TQRgYtnaQI1kWeXzIMfV368bxGVvPkTYFcx3CRphkdL8iQOZgP3QSuvBkEmqlQr1yKHhe/8SqOOEC/3XxjxMkiu3+vZP/EU5QoQW2FModLBgUeYVHRUVwwyqFuEQBb+u1eQY99oxVPEIC8B1/43J/MJaVCQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=fxO+YhP3; arc=fail smtp.client-ip=52.101.72.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="SkVXo0kS"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="fxO+YhP3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mrBw+sTFLCFjvtvOtB3eqiSe1qSdOEfB6jPp1PtnxaAWCs/PA2cKd7inBnl+k2kUxPNRAkQCMyiEYZgibp2QhCbpUmR4v4gW1IjvXw0HmfhBWCDrot15YISITxHs2DMVAv+37M0dNFaa2vBpvV2i7S/v9Xb7juVnxaCdZN9Rc09IHsNXq2/3Wzmu8i2CcAGgWQ9s4Y2tTEozyRflHsZO/sDCGc4nB4CdRccz0h63Dl0BqZH5LeIMvYqTmYf+Z8+PBkV26xVijROIUatkwWwUX4ey0DQih9rHzduY5CBGxFXrTIE4mFGaCteKjpm+gQ7F4owSksx7mTuKvwAMAcJIPg==
+ b=FJZ9kVx/LImE6rBMhx1zjIn2mU71lO5G92NFAv0sLTqgaJFddK7OfiUnnIMMLcvVSQdrQxlqHl8BTljpwUJgVe4dCxSFGxjN/lpi+I/7EpshKa6MryzauV4w59xusvCzoTtHoDcw+HAe5Ux0JSGrtDF7RgbbQHOTkbKF4KqvU28nBvbfG/h0ilqrdnkVHnU8Aqd/YpoV+8EN6NqF7rZzHz8Ngw4dwbLcbsKbSNBWmZiYuf+TnQ6ba6BKg3RYHIM5xgVpndcN95H4BZ3eb7fprmq3nz0SZUXvhNErYEePXdoHxgQFcddx4VTxX18pq5foZuLRbxzVplWiVQEf5w9I7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UyOYiwS4E0cUCDoX/OtOau/hTtclbaPEmtcej538wR4=;
- b=C7GgLCUMzelO4YX2nLWlY0Riwa8T+0bp5+EPVzbw8tkKDb40iLEkD05kYj+m/4iOATlmN2Z3uorWo7F/scMYdGnj6be65KsEl+j6FM4AXbbSWLxbenrCy8DBAtW/noy3CWGigR6qGS+7oMfr0dWgbam2SnXm9OQh27vQkM6BKzi0+e9P+OND69BHy18QcbWi7Nxy8+fKYX+rYtrb1Jv0SAAMZazZNqhgLMnu+Rb3MrrMm+iQZEB4cr+ho5bHbN029mvMnoSHtvK4oFFJ/Lir7EPx9xBEjwNalm16Sv9ArKlFLmvVI/P+fCE3KW6cDR7N8QhH4ZNbBlKrHVFBpy2IfA==
+ bh=yrbAJopO+FRE8xxHNQAairr9TpAveIw+D06s25fOpaY=;
+ b=Xn6UM6PSzcMWDVrbhYGw5quY92/94a3I1yidHoh9KlXTmuttI+55IOK8Izt1KrDCq9EQY6vmXCnjO4xbZZQX067qO+aRoytWcA7oenHEMYjIk675G+Uk6IjzJ+sXTvCtcsdFcq5LWLkS86y886dnBTh9che98uyosQsc1d6/MYgbNvG86GpSDGrH5Bi0vJhuOfO6pGHsuA+nCm06JOOWlAW7fvB3YCHKix7YA+IJmOlo5ilM5bb7jJ/9SqrU26usLxuENqfATvEJeZly2ye08XTpen9ofARCvGMFFOlih81ebBUM4BzsY6l83Ois92rmKyTHgrre6rXovps5uabj/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyOYiwS4E0cUCDoX/OtOau/hTtclbaPEmtcej538wR4=;
- b=SkVXo0kSLWkD11fxElUqZT3K/RcW/ZGOYUtxd3kczYtX91BvA6Bj/pJjSkmD/Q0ksHFEiFCySUoet4P72fkRpzvljB2QIBU5/9I7mxNoGzq6sKfvo/pS2y1VwhwKsM73xCmRuGrRJ/EWYttPooM48acFzpU1hxkBodPT2F5+XM4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH1PR12MB9575.namprd12.prod.outlook.com (2603:10b6:610:2ad::12)
- by SJ0PR12MB8616.namprd12.prod.outlook.com (2603:10b6:a03:485::20) with
+ bh=yrbAJopO+FRE8xxHNQAairr9TpAveIw+D06s25fOpaY=;
+ b=fxO+YhP3UY1Sjv5n2/Z/EaT/X+/jLjGntRAh5QLprPyG6Re0ErY5la6wLIPFDZLVJSGY36ZyyS1tRyrkpzxfltBKrsuJL4aOyT1/dOToVha8HUS92Sl6vQ2U9gi8wY0I5brcXYbWU4l71yRuw8cioiqk9//lVZPCxNC7JGroOQpfk8iky5jvbz0OR9+3joNKszXnrORis3wvVNL4gBHYhqxI3sbOhrWkajQ3KPgGPHQIQc3HtMpZpfPv/UA29IfiHJe75AHmxeT4ll16zOnisXw6BRkg/KlRqJC3TUgcIZ399rAQsQRiSTXfs3AwG4UYnEfIlAdq5EYjEr9eJDinkw==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by VI0PR04MB11024.eurprd04.prod.outlook.com (2603:10a6:800:260::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 02:55:41 +0000
-Received: from CH1PR12MB9575.namprd12.prod.outlook.com
- ([fe80::2aab:a788:44ed:f4da]) by CH1PR12MB9575.namprd12.prod.outlook.com
- ([fe80::2aab:a788:44ed:f4da%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 02:55:41 +0000
-Message-ID: <d6c409da-44b8-4c17-bba8-dc5aeee219c5@amd.com>
-Date: Sun, 27 Sep 2026 19:55:39 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] Alternate Injection: Secure Interrupt Delivery for
- SEV-SNP Guests - Guest Support
-To: Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, Jon Lange <jlange@microsoft.com>
-References: <cover.1789927246.git.huibo.wang@amd.com>
- <1a64a4fb-c14b-454f-a89c-43112b01d187@app.fastmail.com>
- <43674b3b-15a5-494c-b1de-041070b1e816@amd.com>
- <517e154d-dbdf-47f9-849f-2ee369dc832e@app.fastmail.com>
+ 2026 02:57:31 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 02:57:31 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Jiale Yao <yaojiale02@163.com>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>, Frank Li
+	<frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Fabio Estevam <fabio.estevam@freescale.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
+Thread-Topic: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
+Thread-Index: AQHdTo9o+trnCymU5EaubEECaOY+dLbjRSlw
+Date: Mon, 28 Sep 2026 02:57:31 +0000
+Message-ID:
+ <AS4PR04MB9338CC981815D950C0813AB3888D2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-3-yaojiale02@163.com>
+In-Reply-To: <20260927144741.1320558-3-yaojiale02@163.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Melody Wang <huibo.wang@amd.com>
-In-Reply-To: <517e154d-dbdf-47f9-849f-2ee369dc832e@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0180.namprd03.prod.outlook.com
- (2603:10b6:a03:338::35) To CH1PR12MB9575.namprd12.prod.outlook.com
- (2603:10b6:610:2ad::12)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|VI0PR04MB11024:EE_
+x-ms-office365-filtering-correlation-id: 748a3d8c-8b57-4101-a1f2-08df1d0c3d48
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003|38070700021;
+x-microsoft-antispam-message-info:
+ X43u8PzSRbnulvMWc5d80P0y5HqBmYWlcxKMsX7Zd7sOdOvvhRyj6C50dYF7UuyrcSNPNuspomst66/u6xVrSCrMxfqWvkp5mY7UUn/SCNniQ+Mzl1n9/izHliy4mq/EQ7kTnuA9bRX/EF5DH7tnBXiXoT/NDpBmviNiUl8gkmC1j1WPJEDaevbzPF824TIEHtKt6QtVtoIWMIEQh0tufJQdx458CWQ52GN7ye4y3R2k7re07cmXjzinjhmMAp+w3RoffoeXvNZuZXrt9KCplG5fxJR9a/sZEDG2tV0ZvECLgphVmtpC67Cf54L5uyJNmuCkWWLIRMGG1vzmILGKbxol/AQL9JJ5MN/jcjNvnjNcNZDHaJvtgd9hSGOaEFP0ytH0xBXQl38hEFCJlfOft0OyEDCi7It16Yem9ibn2Q/dkfLQujRKqSbhvASCYJP/8q+o9A0uDF0IbjW2MNaMuYhqS+6gIH6VsqGua+fCIEwb99okTcFMRo3Ltj//gw0Lioq1mGUsNSY5Lvx0zjmzPEYaGLt9bkcq+r0FcFc1bmo0oofwi2L021FI2JRsa5Be/PMnHSwobwDI5h0eukX9g3a5sPK18Z+QulMNLJxnjBNxgBtaeZl+u2qSJ4EiE72nbbxCefKrvEIFERCZw0Ta9u18EXJVqUSytGLT7fAtt3g=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?cXTBSAClx5KxrNzg43VOwUqi6Sc+WoXBGx+JztCXHmMHWR8cM+VGxTz4hiXu?=
+ =?us-ascii?Q?u07MBYwUjV/6TKxG8btqh21SOqBosIdXHjkG+Y+n9ffyR0Qbku5+kXjog1aL?=
+ =?us-ascii?Q?ENl368wYz75vtXDS+LtI5OmbdX1MxBIfISqfgcIwhTzowail3S2arAvMcfF1?=
+ =?us-ascii?Q?vXgFmFnVxp3Y8i0ZIjrFWo8/9p0ugCsg3zP3O69DGivcH5azL8HFjglgal63?=
+ =?us-ascii?Q?rM1O6fpPpvemCeUZkXrPgUA3yXAbXjaIuANz5BxqL4UST5aFSGD8CffeinRj?=
+ =?us-ascii?Q?x9wYfxEMV4btiHCT55BPGhffojhs9DkAVYad+QEGvyF+LAme76vWckIct5u7?=
+ =?us-ascii?Q?oeGwmHehDHsY6MTL3NGBcG0ltLMk98qvsUQCx14Y20fmTSXh4M3dem2xe6ci?=
+ =?us-ascii?Q?x9HA6tvLD/5zwwuDDrOolw34BZfAh9+Viq6sEJe7+2A3vfwB0x8/2iXBkq4o?=
+ =?us-ascii?Q?jYpgRfqtkQjUh8M4B/9f3lwYJy2qbGXdLGYGSZ6E0zDPM4nAEUcgVUi0YNX/?=
+ =?us-ascii?Q?muG/PLu3DZ0GU0ahyZ5Pe2foJy/5pQJl1LLJqjYjUFVc/6q6gKr6DK8yBY/D?=
+ =?us-ascii?Q?6SGa5UJDIvjZpeI2jENQzB2UNi/J6ECbCnRuI3JyI7eIWVFzJNtdrcW7wdup?=
+ =?us-ascii?Q?qQITdhGhoO+uloO+xwbvVgH5rvlPaBHWKoY3DGb56O/wSYFBOg9p/T9DNUN4?=
+ =?us-ascii?Q?tfzVgdk1e/LiaYZc/UTwvmBzi+nhMMKpYAGuvk7Nl3YbptPW9UDujdjwF5//?=
+ =?us-ascii?Q?Z5Pmxk43StWGnaYKUjEeZJg9L9li/Ak2mKuX0r8GwY+9wMKa2BTgmAnN2RNy?=
+ =?us-ascii?Q?NtOEw4HQLldrxAgxuF+GdzyowN1oSzODQg4O7lq7hZCdNiD7av2ysLqtvdz4?=
+ =?us-ascii?Q?tevdrOlvOYM8oEM+cWIrnN0xXzyHjA8hEXIDkublXaTVIOPaMDeVodA/U+4a?=
+ =?us-ascii?Q?rVjlqhcj5xA9U7UFG/5nCC0S4ZWKWMEfyyWhjVzpRA23/ZB4V/JEQoZJN/jV?=
+ =?us-ascii?Q?A8A2y4Kqb1ExRIkwjt4HZGPOni340qWIeSF86QA0Sbohxrd+kR7NFlTBaU84?=
+ =?us-ascii?Q?5FUvXI9+2+ndS/7Lm+rOXzNnGDW/aZKQecLh07wrffLB/G3jCpsQaoDrgQ7T?=
+ =?us-ascii?Q?lvi9PGu8084CG8G5ShpqvffDwyRpaecU2ky7NOeI++6LYXD5hXkFhSkSota+?=
+ =?us-ascii?Q?11vafFMJf5bwzmGZH3OMmpbN+2g86DeOL4OJkTAdhwWQpis/9GOt3HIUHSqc?=
+ =?us-ascii?Q?Doiklh0S7WYeVPmY9VO32zOMrM8OoSU5kUUIWfNU5vssBfdhXKjxRdPD6dSu?=
+ =?us-ascii?Q?K/wgOeohptYIejlURsXva0wfk1zLhjK2xwRLjc4oI7ZiqdoB+4vCSWsmLBaT?=
+ =?us-ascii?Q?SmgnzqPnB4dSJZu716chmX3yIEBclXvgF4a87NOUt4zQtzVj0JrfoSjm4R00?=
+ =?us-ascii?Q?xlgQU+A6r84o9Erqg1RSVY/afjmz11HVxuHAXP/Vvv46hfkkCwyONX21SpKP?=
+ =?us-ascii?Q?KXHqAKlkx1ci+u6zhFc8vej6K+kNta5yA3/cLase6wRq2Qm2Rvee+5Ytaf8x?=
+ =?us-ascii?Q?sqBU9mH33Og5zy8RyWHgX6w+u1/7X1O22WyMCDP12TAn9laMqnfvmWvKaEvM?=
+ =?us-ascii?Q?GyAAQFq/M0e2RyQBQC3qrYPEbRy8AW+mkRfgYPPZKoVOOBCB9V7l87Fq06Pe?=
+ =?us-ascii?Q?lwFH8fDD1ny242D8eC49eQw0KCfRtbIXCmrDygZK7DWYj9o7?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PR12MB9575:EE_|SJ0PR12MB8616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3281cfc4-b04e-45f0-a03f-08df1d0bfb41
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|4143699003|6133799003|10067099003|56012099006|5023799004|11063799006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	QjADr7J87Lrs446dBCIHmAFcIKjLP2sgEpFGlc11kjGE4Ru55GOtUHXBrGpY5cyKK67ZtVPRG6l7Dd0qZTAO947bUUr/rmucZlOpCp7epqV34PlRwIic3oeLn8StSDRaVGQ7nQ6l920I91sApHCnHzH2lQJ2qLt6FGMThZ/uDCXJnEv4NEmXh5WxJsw4nVMQF8r7f0ifdtoRaaOMS44ryPRj/rhnEhziX7qtvZp5iDD6/If3vTpPmtuvlyvQSnuGLAaTovCT37hZ4euSxVr7oCa3cMG7A/Srik+76SZftf3O5gDfp/w+eKBh4sHnlEA/+dFg5pKXTTUdWSVbej+yNAdPs5pzQdYvBaPbSnjbhHrMkSHKmipOHyYtAoWt6VR4sStbHAPU8bbGWZ0pM7oEvgQ4zd4gukel6EJl5xEZ0NMDj1JCxlQ0/nH577Vr/RFsQkbp9oGUeBDWuko9bvtsd8Yqly8CNB2/Cgsd3lerPTzgIMWtB2Do/I/tGwTZJopR7TJCrOBnUrJJan6UOq8Sl9jPluOi2jnRwkw+b+wkDBY2KJ/8LKNUCB0NaasdGkasaH1nPc2h3XMbRuY8LOP5awvAKjEW3ERlQNm1YGlOqtZERlUW1yvSfZslXz/SQXO3OozDf6CcJdqD+Y1ddsh3m0jsX5D6iYjVNPyzNDNIvU4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9575.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(4143699003)(6133799003)(10067099003)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmlHNDRjT0JLZDZxUFpNaEI2SnpJOXFlblUveUVKNlBKMEw3M1oxWm9mUkpL?=
- =?utf-8?B?TUlGRTFqZDNhL3d2R1QzYzJwQTJHY3diMUdpVzZ4LzNNcmh6ZHlFNDh3MTh1?=
- =?utf-8?B?K1J5bmdQdGhVWTZsQng5Zi92M1JxUGUveUNpVWhwMUlVN0phRTFvR241ZjBq?=
- =?utf-8?B?cmE2TmYrSXZOSEZ1ZDBFbjN6ZUVBaU5HQVhNWG5CVEZHNUpIRDZEakVpZzZp?=
- =?utf-8?B?MnBCeVl2cEh6blJjaldNYU5qdmhQLzE5eWNOOU93OS9UTGl1S2JURy9ETE1B?=
- =?utf-8?B?Z2Y0bUFvQmxnUmxPZVB0QXhwRXdsMEdFOWQ3VnRIMW9QbzVZa3paaFE5NlBX?=
- =?utf-8?B?bGt3Y3orS0h4OXJTWm5EeWtTb3lHRWt4bitKKzRRc01xMlhnS05ld09BUitL?=
- =?utf-8?B?enhwZjNVQzZuV1FsU0o4Z1YzVklzL2NZN1cydTNuU0tYditoV28yOUJJTE5o?=
- =?utf-8?B?cmxtQ3hXMFQ0MWUzMEwvZjRrbXR3aU03cU8yajBmNXZ0NGpIWGhKYkFKRDhi?=
- =?utf-8?B?US9nZExNZThucysvUHhPRDloQitxWGVnSlFZZzEwSzh1T3l5NnZva3RPd0du?=
- =?utf-8?B?SDEyZkJBcmozaGlKb0w1aTN5LzlNK3Y4NkRLSkVQbmxTUldLcGpaQzFNUjh5?=
- =?utf-8?B?ZkhxYTN4enczN2N5dVI1djlsM2J5TGhOdTEwSEhzMzl5Y3FmS1ZYUTVrTXF1?=
- =?utf-8?B?SlkzVnpJOEJjNzNrMCtzSGtteUdybGJqVy9BZmVsNVhWWkRsU3JKd2VxV05q?=
- =?utf-8?B?ZzNwNThxZkU3SjFJZ2cyWUFkT2d2enF2aU0vT0NhNHJHeE1HcVB5cE1HdVY2?=
- =?utf-8?B?TVFUSC9DSWw4TXdSUVQvMWZWNzVid1ZjYTAyejhqbU9jRVNMZWpwdHF0bUZ0?=
- =?utf-8?B?Nm9SMjZhRnJaanp0eVRwTE9kUWlWWWNkYlpXL2dPenRPMUw2YkZpNmtldm84?=
- =?utf-8?B?SVJSa3k0VTluTTF1M2Z4S3JyYlhhTWN0b0V0SGlEbFhZVzB2a1BSNGRuN1hk?=
- =?utf-8?B?RXYzQkxMSG5Nb0NWY0p4MmRWWGtjMXA5ZEFaMGF5Y0tiQU11NTh1bmpSS3Y3?=
- =?utf-8?B?WVg0TXNnMG0yNThqVUxoRWRSSE5McXVLTlJaa0VsY2dXUGJpUk5vT29Wa1pF?=
- =?utf-8?B?Z2hQbGlTMlNWWlEveEhTdFlDNkpTNVRoMDgwUFJKWXVIaTB1cTZDRzVIcUVs?=
- =?utf-8?B?aVdudElaYVJmQVgvdExOaHJSTmI5V0xqVGs4YUR1Ynp1SElzVTVSK1NXZnIr?=
- =?utf-8?B?S0xvQVNoREt1U3FGSEdJU1R2R0Y1YTI1djd5bkVnVy9MS0V5Sko0ZzZncEN1?=
- =?utf-8?B?bHovYUNoY0J5VWhWWVZieFBnMGFrbmtNSExyY09jeEFSK0dnbVFYZGN4ZVR4?=
- =?utf-8?B?RTJPUFpHWFJVMjh2Zk52VjNOdmRRaitQUmF5SEY3ZXZGcHUzdEYrblpqd0I0?=
- =?utf-8?B?c0ZZV3czMFE2ZFRHbDlFbmlUajZJdnJiTjdLaWUxbnBrMUhjd1lYWHJ3ZEcz?=
- =?utf-8?B?bThOZUNrMW5NdXBSVEVBYXpvSnNHUmdnVngxZnl1ek1OaDY5V014b0RwQ3py?=
- =?utf-8?B?TDUzRzl6K2h1ak5wMFlXek9GTmE5MExkTm0vK00xeGZXVjJzRjlJSE9tWUJE?=
- =?utf-8?B?ZnZnWnMwQU1jYXNNZVo0S3Ava05CdkFiR2U3RWs5NjRINmptQ1dpcXoyVGx5?=
- =?utf-8?B?TGFmdldUZGs5dnc1enZOeU16MUhXNHlYeVdXSU55RkgvZ1p3UFRnOHB2Vm0v?=
- =?utf-8?B?TGdRWU5GTVJRWFp2MHEzUWl3ZjBmaEJyRE01ZzRxbmxrUHoreWpxQkZ3VWty?=
- =?utf-8?B?YlR4SEJOZnhWRi9xZS9iSFpkZFBZdzF5RjNzdk5kQlJUYU8rS2tTTXF1Y3NM?=
- =?utf-8?B?VmkwTDlDRDlDbGhLaVpycUt6QTdYb2R4Q3p4NmVaUjhLY3lIMWwzRFpKemdx?=
- =?utf-8?B?ZCs0aWZuR0wxb3ZCRjBnZmlUOE1kd3FNeFk0cUlkYzJHREdPSU0yd0Qwd296?=
- =?utf-8?B?eWtlem1CelE3L3hKdWhDdkQxNDRFeEJuanAvaHYrSWdvaUUxK1ZqbXd4NHVM?=
- =?utf-8?B?TVE0OG1kdDZMOW1TREtlenpUaUZGV2xGWXdxSTRHd3BqZ013c1B1SWFtbElZ?=
- =?utf-8?B?NGxTY0k0YTVHTzdncXg3Nzk4bDhMOG1WVnlVQWR4b1UzdGQ3RythNWxDOWxY?=
- =?utf-8?B?bEsxdUViS0VVTENLcjB6cHpZSVJISFZjOWxHUWpmQTZXNUV6M1haVlAvSGR3?=
- =?utf-8?B?UytobEZCOHgvRzJRd1N0Sm1HR0tRLzFJSjJsNWs2cGdDa3ZKTUhZSzZXamFU?=
- =?utf-8?B?Tllycm5Rd2p5VVZlZkJpZ2trVFBreXRXWEhmTEowR2hIemZrNDlBdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3281cfc4-b04e-45f0-a03f-08df1d0bfb41
-X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9575.namprd12.prod.outlook.com
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 02:55:40.8959
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 748a3d8c-8b57-4101-a1f2-08df1d0c3d48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 02:57:31.4821
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ie8vjv1dFm3wryZviUMjX8qlbfvfFZoInueEiauGc9N4WvXgYisCxG3Krl5AJED8YoiG6EMbrFh4+NViCORawg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8616
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /6PGoyhcctny7GIi38xr+XlXhjAw6E5cKXF7lpWj8Fc/HASRw+pL/sK3AyIoQ9Za1CoySUY696sehtRPSFXmzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11024
 
-Hi Ard,
+> Subject: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
 
-On 9/24/26 12:06 PM, Ard Biesheuvel wrote:
-> 
-> That is not what I am suggesting.
-> 
-> What I would like to see is an abstraction implemented in OVMF that encapsulates
-> the logic that you are adding here. All the EFI stub would have to do is call
-> the protocol, nothing more.
-> 
-> After ExitBootServices() is a different matter, and actually, I think doing
-> the memory acceptance at that point was a mistake, and I'd like to fix that
-> but that is a separate discussion.
-> 
-> Before ExitBootServices(), we should not be poking MSRs directly. We should
-> be relying on the abstractions exposed by the firmware.
-> 
+Please add target tree to the subject. Since this is a fix, the target tree=
+ should be net.
 
-ok, see below what I did, I think the following is perhaps what you had 
-in mind but please let me know if that is ok this way.
+>=20
+> fec_drv_remove() frees the netdev before devres releases the managed
+> IRQs whose handlers use it as their data pointer. A late interrupt can
+> therefore access the freed netdev.
+>=20
+> Allocate the netdev with devres so that the later IRQ registrations are
+> released first during teardown.
+>=20
+> Fixes: 0d9b2ab1c376 ("fec: Use devm_request_irq()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/net/ethernet/freescale/fec_main.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/freescale/fec_main.c
+> b/drivers/net/ethernet/freescale/fec_main.c
+> index 794ec427b0ee..23e794a31ce8 100644
+> --- a/drivers/net/ethernet/freescale/fec_main.c
+> +++ b/drivers/net/ethernet/freescale/fec_main.c
+> @@ -5219,8 +5219,9 @@ fec_probe(struct platform_device *pdev)
+>  	fec_enet_get_queue_num(pdev, &num_tx_qs, &num_rx_qs);
+>=20
+>  	/* Init network device */
+> -	ndev =3D alloc_etherdev_mqs(sizeof(struct fec_enet_private) +
+> -				  FEC_STATS_SIZE, num_tx_qs, num_rx_qs);
+> +	ndev =3D devm_alloc_etherdev_mqs(&pdev->dev,
+> +				       sizeof(struct fec_enet_private) +
+> +				       FEC_STATS_SIZE, num_tx_qs, num_rx_qs);
+>  	if (!ndev)
+>  		return -ENOMEM;
+>=20
+> @@ -5480,8 +5481,6 @@ fec_probe(struct platform_device *pdev)
+>  failed_phy:
+>  	dev_id--;
+>  failed_ioremap:
 
-In there, the guest kernel will register Alternate Injection through 
-OVMF if Alternate Injection is enabled in the special sev_status MSR.
+failed_ioremap is no longer needed, please remove it.
 
-The OVMF will check if there is an SVSM present and Alternate Injection 
-is enabled or not, if yes, it will register Alternate Injection for the 
-guest kernel. Otherwise, it will not. A failure of registering Alternate 
-Injection will terminate the guest.
+> -	free_netdev(ndev);
+> -
+>  	return ret;
+>  }
+>=20
+> @@ -5522,7 +5521,6 @@ fec_drv_remove(struct platform_device *pdev)
+>  	pm_runtime_disable(&pdev->dev);
+>=20
+>  	fec_enet_deinit(ndev);
+> -	free_netdev(ndev);
+>  }
+>=20
+>  static int fec_suspend(struct device *dev)
+> --
+> 2.34.1
 
-Cc Jon Lange, the Alternate Injection spec author as an FYI.
+This patch just prevents the netdev from being freed in fec_drv_remove(),
+but fec_enet_interrupt() could still be called after the removal, and
+fec_enet_collect_events() will be called to access the registers, however,
+the ipg clk has been disabled, the registers are not accessible at that poi=
+nt,
+that is a problem.
 
------------------------------------------------------------------------
+I think the hardware interrupts should be disabled on the removal path
+and disable_irq() should be called to disable the irqs.
 
-Kernel code:
+BTW, do not repost a new version within 24 hours.
+https://elixir.bootlin.com/linux/v7.3-rc4/source/Documentation/process/main=
+tainer-netdev.rst#L15
 
-diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
-index 22637b416b46..62e50c2e71ed 100644
---- a/arch/x86/boot/compressed/sev.h
-+++ b/arch/x86/boot/compressed/sev.h
-@@ -14,7 +14,6 @@
-
-  void snp_accept_memory(phys_addr_t start, phys_addr_t end);
-  u64 sev_get_status(void);
--bool early_is_sevsnp_guest(void);
-
-  static inline u64 sev_es_rd_ghcb_msr(void)
-  {
-@@ -37,7 +36,6 @@ static inline void sev_es_wr_ghcb_msr(u64 val)
-
-  static inline void snp_accept_memory(phys_addr_t start, phys_addr_t 
-end) { }
-  static inline u64 sev_get_status(void) { return 0; }
--static inline bool early_is_sevsnp_guest(void) { return false; }
-
-  #endif
-
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index 93161b663d9b..13f2e8c009b4 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -471,6 +471,8 @@ static __always_inline void sev_es_nmi_complete(void)
-  extern int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd);
-  extern void sev_enable(struct boot_params *bp);
-
-+bool early_is_sevsnp_guest(void);
-+
-  /*
-   * RMPADJUST modifies the RMP permissions of a page of a lesser-
-   * privileged (numerically higher) VMPL.
-diff --git a/drivers/firmware/efi/libstub/efistub.h 
-b/drivers/firmware/efi/libstub/efistub.h
-index fd91fc15ec81..d65cdc8f2acd 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -177,6 +177,17 @@ void efi_set_u64_split(u64 data, u32 *lo, u32 *hi)
-   */
-  #define EFI_MMAP_NR_SLACK_SLOTS        32
-
-+typedef union sev_alt_inj_register_protocol 
-sev_alt_inj_register_protocol_t;
-+union sev_alt_inj_register_protocol {
-+       struct {
-+               efi_status_t (__efiapi * sev_register_alt_inj)
-+                       (sev_alt_inj_register_protocol_t *);
-+       };
-+       struct {
-+               u32 sev_register_alt_inj;
-+       } mixed_mode;
-+};
-+
-  typedef struct efi_generic_dev_path efi_device_path_protocol_t;
-
-  union efi_device_path_to_text_protocol {
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
-b/drivers/firmware/efi/libstub/x86-stub.c
-index 2a1fa773d241..b6e58ade4162 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -783,6 +783,36 @@ static efi_status_t exit_boot(struct boot_params 
-*boot_params, void *handle)
-         return EFI_SUCCESS;
-  }
-
-+/*
-+ * When the guest is running at VMPL2 with Alternate Injection enabled,
-+ * register Alternate Injection before ExitBootServices().
-+ */
-+static int svsm_register_alt_inj(void)
-+{
-+       efi_guid_t alt_inj_proto = OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID;
-+       sev_alt_inj_register_protocol_t *proto;
-+       efi_status_t status;
-+
-+       if (early_is_sevsnp_guest() && snp_vmpl) {
-+               if (!(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
-+                       return 0;
-+       }
-+
-+       status = efi_bs_call(locate_protocol, &alt_inj_proto, NULL, 
-(void **)&proto);
-+       if (status != EFI_SUCCESS) {
-+               efi_err("Alternate Injection registration protocol not 
-exist\n");
-+               return 1;
-+       }
-+
-+       status = efi_call_proto(proto, sev_register_alt_inj);
-+       if (status != EFI_SUCCESS) {
-+               efi_err("Alternate Injection registration protocol 
-failed\n");
-+               return 2;
-+       }
-+
-+       return 0;
-+}
-+
-  static bool sev_prepare(void)
-  {
-         u64 unsupported;
-@@ -793,6 +823,10 @@ static bool sev_prepare(void)
-                         unsupported);
-                 return false;
-         }
-+
-+       if (svsm_register_alt_inj())
-+               return false;
-+
-         return true;
-  }
-
-diff --git a/include/linux/efi.h b/include/linux/efi.h
-index aa15ff88539b..ebf7b4b9a292 100644
---- a/include/linux/efi.h
-+++ b/include/linux/efi.h
-@@ -444,6 +444,8 @@ void efi_native_runtime_setup(void);
-  #define OVMF_SEV_MEMORY_ACCEPTANCE_PROTOCOL_GUID 
-EFI_GUID(0xc5a010fe, 0x38a7, 0x4531,  0x8a, 0x4a, 0x05, 0x00, 0xd2, 
-0xfd, 0x16, 0x49)
-  #define OVMF_MEMORY_LOG_TABLE_GUID             EFI_GUID(0x95305139, 
-0xb20f, 0x4723,  0x84, 0x25, 0x62, 0x7c, 0x88, 0x8f, 0xf1, 0x21)
-
-+#define OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID 
-EFI_GUID(0x3cf00587, 0x2329, 0x4c44,  0xb1, 0x84, 0x8f, 0xd9, 0x87, 
-0x00, 0x42, 0xe0)
-+
-  typedef struct {
-         efi_guid_t guid;
-         u64 table;
----------------------------------------------------------------------
-
-OVMF code:
-
-diff --git a/OvmfPkg/AmdSevDxe/AmdSevDxe.c b/OvmfPkg/AmdSevDxe/AmdSevDxe.c
-index f10f37719527..c7f471edd838 100644
---- a/OvmfPkg/AmdSevDxe/AmdSevDxe.c
-+++ b/OvmfPkg/AmdSevDxe/AmdSevDxe.c
-@@ -24,6 +24,7 @@
-  #include <Library/PcdLib.h>
-  #include <Pi/PiDxeCis.h>
-  #include <Protocol/SevMemoryAcceptance.h>
-+#include <Protocol/SevAltInjRegister.h>^M
-  #include <Protocol/MemoryAccept.h>
-  #include <Uefi/UefiSpec.h>
-
-@@ -193,6 +194,42 @@ STATIC EDKII_MEMORY_ACCEPT_PROTOCOL 
-mMemoryAcceptProtocol = {
-    AmdSevMemoryAccept
-  };
-
-+VOID^M
-+EFIAPI^M
-+SvsmRegisterAltInj (^M
-+  VOID^M
-+  )^M
-+{^M
-+  UINT8 vector = 0x02;^M
-+  AmdSvsmSnpApicConfigEmulation(vector);^M
-+}^M
-+^M
-+/**^M
-+  Register the guest kernel with Alternate Injection.^M
-+**/^M
-+STATIC^M
-+EFI_STATUS^M
-+EFIAPI^M
-+SevRegisterAltInj (^M
-+  IN OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL  *This^M
-+  )^M
-+{^M
-+  if (This == NULL) {^M
-+    return EFI_INVALID_PARAMETER;^M
-+  }^M
-+^M
-+  if (!(AmdSvsmIsSvsmPresent() && AlternateInjectionEnabled())) {^M
-+    return EFI_UNSUPPORTED;^M
-+  }^M
-+^M
-+  SvsmRegisterAltInj ();^M
-+^M
-+  return EFI_SUCCESS;^M
-+}^M
-+^M
-+STATIC^M
-+OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL^M
-+  mSevAltInjRegisterProtocol = { SevRegisterAltInj };^M
-
-  EFI_EVENT  mDeregisterAlternateInjectionEvent = NULL;
-  /**
-@@ -355,6 +392,8 @@ AmdSevDxeEntryPoint (
-                      &mMemoryAcceptProtocol,
-                      &gOvmfSevMemoryAcceptanceProtocolGuid,
-                      &mMemoryAcceptanceProtocol,
-+                    &gOvmfSevAltInjRegisterProtocolGuid,^M
-+                    &mSevAltInjRegisterProtocol,^M
-                      NULL
-                      );
-      ASSERT_EFI_ERROR (Status);
-diff --git a/OvmfPkg/AmdSevDxe/AmdSevDxe.inf 
-b/OvmfPkg/AmdSevDxe/AmdSevDxe.inf
-index 0db38471020a..bc6c1827e649 100644
---- a/OvmfPkg/AmdSevDxe/AmdSevDxe.inf
-+++ b/OvmfPkg/AmdSevDxe/AmdSevDxe.inf
-@@ -53,6 +53,7 @@
-  [Protocols]
-    gEdkiiMemoryAcceptProtocolGuid
-    gOvmfSevMemoryAcceptanceProtocolGuid
-+  gOvmfSevAltInjRegisterProtocolGuid^M
-
-  [Guids]
-    gConfidentialComputingSevSnpBlobGuid
-diff --git a/OvmfPkg/Include/Protocol/SevAltInjRegister.h 
-b/OvmfPkg/Include/Protocol/SevAltInjRegister.h
-new file mode 100644
-index 000000000000..cd6c32384a51
---- /dev/null
-+++ b/OvmfPkg/Include/Protocol/SevAltInjRegister.h
-@@ -0,0 +1,28 @@
-+#pragma once
-+
-+#define OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID \
-+  { 0x3cf00587, \
-+    0x2329, \
-+    0x4c44, \
-+    {0xb1, 0x84, 0x8f, 0xd9, 0x87, 0x00, 0x42, 0xe0}}
-+
-+typedef struct _OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL
-+    OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL;
-+
-+/**
-+  Register the caller (guest kernel) as an Alternate Injection consumer.
-+  Wraps the SVSM registration; increments the SVSM registration counter.
-+
-+  @retval EFI_SUCCESS           Registration succeeded.
-+  @retval EFI_UNSUPPORTED       Alt-Injection not available on this 
-platform.
-+  @retval EFI_DEVICE_ERROR      SVSM call failed.
-+**/
-+typedef
-+EFI_STATUS
-+(EFIAPI *OVMF_SEV_REGISTER_ALT_INJ)(
-+  IN OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL  *This
-+  );
-+
-+struct _OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL {
-+  OVMF_SEV_REGISTER_ALT_INJ  SevRegisterAltInj;
-+};
-diff --git a/OvmfPkg/OvmfPkg.dec b/OvmfPkg/OvmfPkg.dec
-index 50de41b7fcc8..cc3fa86a30d4 100644
---- a/OvmfPkg/OvmfPkg.dec
-+++ b/OvmfPkg/OvmfPkg.dec
-@@ -213,6 +213,7 @@
-    gQemuAcpiTableNotifyProtocolGuid      = {0x928939b2, 0x4235, 0x462f, 
-{0x95, 0x80, 0xf6, 0xa2, 0xb2, 0xc2, 0x1a, 0x4f}}
-    gEfiMpInitLibMpDepProtocolGuid        = {0xbb00a5ca, 0x8ce,  0x462f, 
-{0xa5, 0x37, 0x43, 0xc7, 0x4a, 0x82, 0x5c, 0xa4}}
-    gEfiMpInitLibUpDepProtocolGuid        = {0xa9e7cef1, 0x5682, 0x42cc, 
-{0xb1, 0x23, 0x99, 0x30, 0x97, 0x3f, 0x4a, 0x9f}}
-+  gOvmfSevAltInjRegisterProtocolGuid    = {0x3cf00587, 0x2329, 0x4c44, 
-{0xb1, 0x84, 0x8f, 0xd9, 0x87, 0x00, 0x42, 0xe0}}^M
-
-  [PcdsFixedAtBuild]
-    gUefiOvmfPkgTokenSpaceGuid.PcdOvmfPeiMemFvBase|0x0|UINT32|0
-
--- 
-Thanks,
-Melody
+There are other upstream rules in maintainer-netdev.rst, please
+refer to them.
 
