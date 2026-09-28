@@ -1,210 +1,155 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013030.outbound.protection.outlook.com [40.107.159.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2D84078E4;
-	Mon, 28 Sep 2026 06:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790575640; cv=fail; b=Ur8Rp+0vUwPr5nirrRbQPI7LSyAzkZd1+lj2qbMgUkzncK8J0lLODR4oOAYWEnyBUAweHnWJ4wODfv9eFEDkU9L/IAMzIULUdza0Q79fTmVChkDjGc37fN+eAlfaGkEdDOlm6XZt7VUecLRpcsMarxO8RhhwhTRkQdRDNlTaeEs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790575640; c=relaxed/simple;
-	bh=LGsefXnwV97M5jMKiryjVM//gz+aA5zFcx+Dgxw9Cc4=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=MeIgzSyHckVACMGF3MzWv9Mvk1cftUh933UcNgpC6u94lKYPCFvIYbfiEOhCTqr4h18AJeMHH9fQMnuacSWsbZahl2hqPdWr2JId2EDj0EgUNNfB4C/6vauMyiYTQZ2hBhY5K7379lcm/EOuWB2CTfuA2i0YLvltoYRd1bfsrhY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QCABsyHq; arc=fail smtp.client-ip=40.107.159.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AF540F72E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790575649; cv=none; b=UWyWySPsZ8lHMLw0ssW9pvGhMRu4n22WVhFrL1WnmXOLOTLGBoJ21cXJhDOSRy/GQmJ6odnlD7XHW/FHLGG52Nn5P6d3t+D6gbyFBxKppXMdgfEQp7Vksk3kLRsBp5ONmthAXC8DgWIk6jOhSA2gMl2lvRn7zRitCv1XkjJvQws=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790575649; c=relaxed/simple;
+	bh=YPCJnyNJ12A9jnCHKjDKZ9NGt82rboxnhlTUuEMZZKI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OkZjxo4mLPOWNYjDS6ySCXC+ZmRUvPyd94rIksXsyKE2cNCsvMLSaQ/KQgepha/8Fvm3dwDQUzZyq1iABUX0zPqBprfVwzscOuLY+DB+tORS2bAMyC1cjX4YF9C+tXY/RYmniZq/Ad3dVEgF4F5HrKy2WCs/myoRM2Uz4do5SMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HE8y/RMo; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QCABsyHq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lNm2vTeV5M6mnoMn6oCHuyHGYQtpzFwYZmUMb73i9JGy0l8bjxfdR7Oq6g/QbacnsGZe0Wvpbcf48NdA8uwDwwQUxYtpBdGMpXsLMYKa0fCBw9QwZFoKReV+vmlMRJ83p/hHkErQ0fPT5LJAaw8glAtSLpS7FQxJUU3qIDTJZYd9uaFEAugdq0uSYKx/lTsEEWjmBRuCZzxSlJKHrrK6b1XYn8lsvT49sfmMEE3+2rG9MjEvTCaxzyYHxlyFnKS54TRywlWb7ufWkPoy98uv1wsHJ+BBE9I8QAZZwZpzO0m9vqmJtyFb8MKS+68Juq7+KcPUzbscsrrdGgPLPVMhVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wmpvPy/KMVlRk1nudC1UQv3/P20aamKSDoRln8+W8Og=;
- b=gngYpHQ+9+zGjldQvQ+xw2HH9Jym/nVSKEHokf+0d8h1VpDVFXymfS8KbpVM5PEv/3aooZezpmbOHpyG48ty1LELesjy+WP8jeFAhOvKy6QNPKFXGR1jEjy8Jb9hEa2oMwCIztedy7uZR4iWPcVDDRt5zqkVVfwCSyDql6xsNqbIqyzV237rrkJly+UKLG+hIv7huAkaJRTBorZwAbugaZc83qPX6PBaOzbC2kuCanrEOfB7JcNOaG6AbM6vpM6gPJOdYQGFC/proMDykSS7VONKcfR+7ENp1E40hRe+/D2UswlOa+spo4uPMXVRBzLLMizSpCN4Uexuc3AmturEgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wmpvPy/KMVlRk1nudC1UQv3/P20aamKSDoRln8+W8Og=;
- b=QCABsyHqLmwoUthBwUcYNxpHZs3DldsKwULyOXMiZJZS8FmNfRjNQDc5am1SHFn5Xcr9ldb5n36Te9E9vIayKfaT4vDKf6oA8iJG56w24yUojJSUn5ZKYnJ9JkPiF7Ibbjy6+bP3uzwBnWmAgTa1qqJHGpDhZsWdQ7SRdeoF/0KQMpJdC3hpjFZ0EwHQYUsc7O2xi53npds/wri6EgMgfLaYD424bkO7RIPOEz2CVUd3muwVIj2blY5s8pWwK5zXe8HUN0xVYZ0EtpKXQmS046yK1RCiXYnH2t7dvCtCSbf+sftSyYEA40THnPEfRdHxqa2mpTsh3Gz7wgycoTLJzA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
- by PA1PR04MB10721.eurprd04.prod.outlook.com (2603:10a6:102:489::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 06:07:14 +0000
-Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
- ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
- ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 06:07:14 +0000
-From: shengjiu.wang@oss.nxp.com
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	shawnguo@kernel.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linuxppc-dev@lists.ozlabs.org
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: [PATCH v6 0/5] ASoC: fsl_asrc/fsl_easrc: expose per-pair/context DAIs and fix DMA race
-Date: Mon, 28 Sep 2026 14:11:44 +0800
-Message-Id: <20260928061149.1844121-1-shengjiu.wang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA0PR01CA0061.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ac::18) To PAXPR04MB9351.eurprd04.prod.outlook.com
- (2603:10a6:102:2b6::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HE8y/RMo"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so7091015e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790575646; x=1791180446; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q+FDVerP9oAliRZl88sc0pX2EXGksgQKocsyfp2c8Zo=;
+        b=HE8y/RMoC6JzgoMeEJ0ZgCa7OUONRVZaVTy2LWqlg1UDzdAtcUHhlGOJktmc4g8J/9
+         E0CMRvExGQ/P8HsEiOwde3Y1G6m5EIa7tg+dF0xK8J5sELvG6JtYdUCjKhxaMRpe77Tq
+         6rX0njHWwFiwAu2JVy2tlqqR2IimNeFRcGAi3k2lruBbhuDmrb9FoDJ0GmBtixs0tUSt
+         f4jTK2g1n6YgWuLvf4pbIrKBFZZqAattVGlv9OvPb6h7hDz8fVr5UXTR3OcC7IguJdXL
+         FTZKFBp1+vatSoHY3/jw/8ccS9DDk34fS2iHqM2aR/f1+S9kHmqp4wPT0AwS8URbLj6I
+         U5Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790575646; x=1791180446;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q+FDVerP9oAliRZl88sc0pX2EXGksgQKocsyfp2c8Zo=;
+        b=uyOCkvsj4tdTcQPIx3YZPuvm439PY2ep7iNJx+3yLIb6I4Gh3GFjgu+SkEkGmXCbFX
+         JQ3kG3DP0KTCz4x10iFuHX015LacLHbCc5igrXVaSxd8LOq6PDXNUObX8DqO3UHGNlh0
+         IanzSrLvDFAk/cXf4ms3M9XvS8oG3LBgHMElY48qQAtCwBW8VXaGbY7WoxsZywRROya9
+         HIEQK6N9268sGu3kp3/Mvb5Vkgd6mtmjQ53Ii04JvO85MG2mFk/UC2BBV5VS85AmM9x/
+         CsI4HMYOt2IfVK5Z9EOGVnu94wDnQUaqPexlMTsr1CYt70fZatj25R6VtA2I4dwd9+jK
+         +boQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGoype4eDlrshPdJjbzz8eS1TVTPL+sqawSZE+dcFmDYe6eUDqqvyl60WrteqCkYjsGvFUazQq+MyZMpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxRM4jDBLfZMO8OONszYfKr0wAQvXywWBbLwqt3DlmMXmdT+FZ
+	PzqkIx9zbT/KTI8DE5tYIj1lyBhFidhYwh8yxuJCnPM+ShGTITPnFw7h
+X-Gm-Gg: AYBFou2lYJ/IvmqVTLvC5VFxVEraegIpn9SOW4wo5yIE5UmKgequ71rLYG0Wfx+Xjyh
+	P4reN3rQD64QJhbZ032Pr/JS/2GRr5KF2H0xoNN08ACU6EiO7GPSbSPyZbzeyKEPNKbNoxRu0vA
+	oGeiwumhJwV/87ROVvBoB7RkfH2dwtxxYKk2bBAt12UBRwbWW6+cVOGyg/rI2q6PWocTbFVpBet
+	kJ1l3O8GGi0pfwszDPpAVip15sDGyf6TwxPbhogMfknwR/QlBRNZJr0CeYancwBw091mVRnkFja
+	Ak4sjpwOltahDWCu0m27zUS4bipQwAdpfDhoxw97McEacGzNhYrYZH3CVqLM+5g3vxP731rh1/q
+	VgjAFdV00TPZzI+sYzVxR8hzMALxA1dYhXNJbOUyOsCHPFlxaJUNdNDHS8LzwWQzP1ZCT7i/Tcs
+	g67cdRsWt3+KoezD9E+tLmrOnvtIt3S7zqmb4zQ4cJ+EnWQ22Mve7N2IkajAUTQ6yxGQBlp+G17
+	0YJ4oHkAXhe9UgBtbCWLqdIna3AYT3+vMzb8u/ObqK16hZ8penoGojE8xG5xOjElaUGOKAOpLNr
+	8FyaJ3ixPrEzpbL1tvXsBPDjwoSHrsVxevCzIZUDAidGKh6i/cnwCDkt5rAB03Ncf4SnlbXkrWa
+	Bd5zL5O7RELP8gg==
+X-Received: by 2002:a05:600c:870c:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-49fe7bd0128mr202295575e9.33.1790575645445;
+        Sun, 27 Sep 2026 23:07:25 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00178bebasm122878225e9.11.2026.09.27.23.07.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 23:07:24 -0700 (PDT)
+Date: Mon, 28 Sep 2026 08:07:20 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Radu Rendec <radu@rendec.net>, Artur Rojek <contact@artur-rojek.eu>, 
+	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] irqchip/jcore-aic: Fix lost IPIs on SMP
+Message-ID: <aroDuGZBLsAw7tMS@gmail.com>
+References: <20260928035408.25871-1-kmehltretter@gmail.com>
+ <92e110eef6dac0c6ddceb6ddda1658aeeaf1f0ec.camel@physik.fu-berlin.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|PA1PR04MB10721:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bab0ec2-47bc-4c37-e52a-08df1d26bdd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|366016|23010399003|921020|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ULQiTdDN0rE7onJUQVq4l9/NJce9sPjEeHTwWowYxFfCX90gTiU7AhqsW3siFzjbQx8BugeEWnSXcVX17Eb1vdKpkkT8AErGMuvBRWSTy0B1oEo0x6RZgW7b5YzFMXOENaZeNpGqPcOhcb2KF/D6o/Q9cAHG9jJae6Nruk/yrjCJizn26Hw81Xqj2LvlKeFhK78wDY/VgE5AZoUov+Wpt29I5WV+Ld1OpXNH4D5PtVr4Zi/t/15SedIsT8N0NviPGzWo80z6SJpTCv2wqQruP+NUFt7wTSNiGrwj5mdF2fqygml4uFErgGNMqg9dw4gqEmutpH6wjOBEh8s0aNIxzRBBnIv/pfpMgAAfO5EqXBEN59WP5DMSsqTxOPE0vJ6DmnfcP+t9/MH7dcLVEtt4DUfvzcmuB+OMjS0YC9G8t2OCRZO0xXKvXxZMYziml9lITliXWFjp4kIvAataVbpuqHi+zk8Fgu7zj3cWMnQr6HtgjsgCut7gpWOvs1kl3dCttl4xUXrg2F/EyKE1DLbK79F/12jlsIWSzCTNIQa/+Q9/jFiubJcJFqymDwwxtI7V3Nd8bBqkgCEEO3nXUK7ieTQfxoCSVLzDBSg7gs5r8HyUzRCMbawVin2K9eCVR/ciwre1t0C/SNwZWAE1NLDWxmA8EWDpQ930qgkbO/uZFJOcAMPeqYUJUomMD5SYl1Eis5CHjvAAKp9Eq4OmsvRrMg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(366016)(23010399003)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?O8TEmCuzhs62Xi9L1WcdHgM8msMHQNwLEtDFdx3SoTpLqqOlepQQEl0FrFX2?=
- =?us-ascii?Q?HRtLpcNzU4yPwDd82XwVbuaReMniERujtp3LTb9fVvAQg9wHMl38/jHt4U5N?=
- =?us-ascii?Q?JGu9k9vtXn9SmlJFbsTXujyuKg1xfw6AST+UqC1AT2at0+G9zXwZpf62T4I+?=
- =?us-ascii?Q?sH68qmAUkeZp7EI5S3EX5fhtrS7hoVgSgS2Pg5KYMzDUQOXyotxADXUEPkew?=
- =?us-ascii?Q?2nqicOifPUd37hoIBFvz4vaplZgRQ5Cw+NtZ4F5t7HxpsgWweRyU82R3fsbr?=
- =?us-ascii?Q?gv3OLDNdrYs06BgE+bT6HdIk53JVLxcCpbl71i30EUDdjabX1uq2OZ3tte7f?=
- =?us-ascii?Q?qjdBhAW9uOdS3LWrRlfmTNk/aYLX1CCFrFs3sH+Dtsm3ef4zqKP3hYR/okHO?=
- =?us-ascii?Q?vzoNvLTO+x1Me+c18fs8CS9B6HMvC+RKk/T/J5enogB8UuYd6tKEJuA1E/Kg?=
- =?us-ascii?Q?oILFrZEsSEQetV66gXCCiOwDTus2PeMOUdCeWKpvcTIjVH06RFl9CMHSEiej?=
- =?us-ascii?Q?I5oTvfE9ya7xUHAoG5H5ta9uvtZ2oN0uSvrTlN48pwexQrmFHzACRiINbAn/?=
- =?us-ascii?Q?xis3WSjA+2RWjzoQb1JlaNFEIZEiaY7AY35hJ9ztUTHKm5xbaAaqHKlyx70b?=
- =?us-ascii?Q?2eNpm1YhQ2zNTloXCTQP6cdAVCIkv+ox0qQFZe8vhP6+QBxrrYXArgCAegt9?=
- =?us-ascii?Q?ZEGkWdWLIu9atco7jhTin0L+/z5IqmX/A7t6ajmy8cjjl1FIvdvqnLLJUsIy?=
- =?us-ascii?Q?5aL9BKjIJ0onPeqhpn8njJfEvWowMkj5QT3twLpLwvSW6gl96h1pgSR21LDJ?=
- =?us-ascii?Q?1q6RmHk/sZbz1Q8TqpGRwZToVJjHCc0ayUQFkwsPcjw/tkImYhRj2C67O7Gp?=
- =?us-ascii?Q?3DQRUu4nFK8IuhScgthjw82MjzFXeH17kPn0Xy/C8p2uZLq1nh6zh4PwC5GX?=
- =?us-ascii?Q?ClXEouVj2/xX61UA7UAUh3bV/cv4vzUvfQoLZLDwfS3OspUREFqNVt+vpS7w?=
- =?us-ascii?Q?znDQkgqTS1wmm/jFjm5z15tC8PhiUzzuy7XSwnqNPLSMgdgazaua0XB/j8aR?=
- =?us-ascii?Q?QAdm28f8X9g93rVr+o90oWd2NhrK/Oh+JhzoTxA8h9B5dIftN1q+Tj4kfc3D?=
- =?us-ascii?Q?ytolTbrgdAJdIWnbNc8ICa/RIUaNbjr2do8qNRNqv8z+6IiKMPrDKNpospKM?=
- =?us-ascii?Q?ZIkAHgYCjFaIyUPNKMITPtWA8dQR33lMhrIejMS00oGuA9lxDvK5R1jlEmQj?=
- =?us-ascii?Q?DOwwRFhApWKJmt3+LfY3AiKrckVIVFjByCCLlImJnUL6PiBXPyfx4CSCLxOc?=
- =?us-ascii?Q?VOWUr0izNIfbxtfHez1qb3gEokYe9+jWRA61v1H1mHpw6tbxnTJX3RV82vgG?=
- =?us-ascii?Q?6pxYRLs9k7HpLnevJoEvQLZtPGSqMZeEIm77fULY6Z18BMs2uWfU97+CiFng?=
- =?us-ascii?Q?WeSsvHyEQSBeMX5fKQSrG0Wp98V8JovUeBAgJJRQpuZ5SSDk6PEh0oX+Bqff?=
- =?us-ascii?Q?OPFakJvI5jyYri6iC1D8FZ/usNu18jL8ByU4zci/u5zs9tiubAgh32tsCJw8?=
- =?us-ascii?Q?Bp/rLeYru5/oKbHqVUiyfg/rFJBanMud+Lyxm3smSH0qZzQZpofyua+7ttLf?=
- =?us-ascii?Q?e6mIm1v+xlRuuFSEs3SX5SdIY/jWgATvi6yuFRIizAMFsFe0Gskq8UWpktFU?=
- =?us-ascii?Q?td+pzyL+zPAgcH6n80SZD/bDQ8TorFB9wi+kzE2x6bupJdCiXkAYUkK4C2NG?=
- =?us-ascii?Q?NFaSOi+qpw2R+ADIabVE09mli4L79jbYRbybpNsz41g2iiKaSGTE?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bab0ec2-47bc-4c37-e52a-08df1d26bdd6
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:07:14.6290
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1hdjQ/V68jKCh51P/jOBWrVgX+SmW5vA0FvzF+ruWjKm8wsde9STbpRzfGFYKXuQxhY3LoBRCZzPk6GAXnrVvLDUBwR/5X8qnnaoXmJk6qnimFrjlJZAhqDrytn3ha23
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10721
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <92e110eef6dac0c6ddceb6ddda1658aeeaf1f0ec.camel@physik.fu-berlin.de>
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Mon, Sep 28, 2026 at 07:57:27AM +0100, John Paul Adrian Glaubitz wrote:
+> Can you tell me what toolchain you used to build the kernel for J2?
+> 
+> Last time I tried to use the one provided by Rob Landley, the build
+> failed due to an internal compiler error so I couldn't actually build
+> a kernel to test it on my J2 Turtleboard.
+> 
 
-This series extends the i.MX ASRC and EASRC drivers to expose one DAI
-per hardware conversion pair/context, allowing multiple independent
-conversion paths to be active simultaneously.
+Hi Adrian,
 
-Patches 1-2 update the DT bindings to add a ports container so each
-conversion path can be wired independently in the audio graph.  The old
-single port property is kept but marked deprecated.
+musl.cc's sh2eb-linux-muslfdpic toolchain (GCC 11.2.1, binutils 2.37):
 
-Patch 3 moves dma_params into struct fsl_asrc_pair so each pair owns its
-own copy, and registers it with the cpu DAI using per-direction setters in
-fsl_asrc_dma_startup().  This removes the per-DAI probe callbacks from
-fsl_asrc.c and fsl_easrc.c, which are no longer needed.
+  https://musl.cc/sh2eb-linux-muslfdpic-cross.tgz
 
-Patches 4-5 expose the individual DAIs: fsl_asrc registers three DAIs
-(asrc-0/1/2) and fsl_easrc registers four (easrc-0/1/2/3).  The first
-DAI in each driver retains the original generic stream names for
-backward compatibility with existing machine drivers.
+Your ICE is probably the one in kernel/nstree.c. Since listns() went in
+(v6.19), every GCC I tried ICEs there with j2_defconfig. The 64-bit
+put_user() asm prints %T (address + 4) of an "m" operand, and GCC can
+pick an indexed address that cannot be offset. The asm needs "o".
+GCC should still error out instead of crashing, so I filed a GCC bug
+too:
 
-Changes since v5:
-- rebase to latest master of linux-next
-- add review tags
+  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=127639
 
-Changes since v4:
-- update commit message of Patch 1/5 to add all variants
-- add Frank's review tag in Patch 3/5
-- add Krzysztof's review tag in Patch 2/5
+Fix below, formal patch follows. With it, j2_defconfig with SMP=y
+builds fine with the musl.cc toolchain.
 
-Changes since v3:
-- Update commit message of Patch 1/5 to remove reduntant sentence.
-- add Frank's review tag in Patch 2/5
+Would be great if you could test on your Turtleboard!
 
-Changes since v2:
-- add ports example to original example case in yaml file as port is
-  deprecated
-- remove the label in example.
+Karl
 
-Changes since v1:
-- Patch 3 is new: moves dma_params into struct fsl_asrc_pair (one per pair)
-- Per-direction snd_soc_dai_dma_data_set_playback/capture used instead
-  of snd_soc_dai_init_dma_data to avoid clearing the other direction
-- dma_params_tx/rx removed from struct fsl_asrc; single dma_params per
-  pair suffices because each pair is unidirectional
-- per-DAI probe callbacks removed (startup now sets dma_data)
-- Cover letter and commit messages updated to reflect the above
-- DAI names changed: paira/pairb/pairc -> asrc-0/asrc-1/asrc-2,
-  ctxa/ctxb/ctxc/ctxd -> easrc-0/easrc-1/easrc-2/easrc-3; use index-based
-  naming consistent with port@N in the DT binding
-- Stream names changed: ASRCB/ASRCC/ASRCD -> ASRC1/ASRC2/ASRC3; align with
-  the index-based DAI names above
-- Binding port descriptions updated: pair A/B/C -> conversion path 0/1/2;
-  hardware-agnostic wording to match port@N numbering
-
-Shengjiu Wang (5):
-  ASoC: dt-bindings: fsl,imx-asrc: update port binding to support
-    multiple paths
-  ASoC: dt-bindings: fsl,easrc: add ports binding for multiple
-    conversion paths
-  ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
-  ASoC: fsl_asrc: expose individual DAIs per conversion path
-  ASoC: fsl_easrc: expose individual DAIs per conversion path
-
- .../devicetree/bindings/sound/fsl,easrc.yaml  |  45 +++++++
- .../bindings/sound/fsl,imx-asrc.yaml          |  43 +++++-
- sound/soc/fsl/fsl_asrc.c                      | 100 +++++++++-----
- sound/soc/fsl/fsl_asrc_common.h               |   7 +-
- sound/soc/fsl/fsl_asrc_dma.c                  |  14 ++
- sound/soc/fsl/fsl_easrc.c                     | 123 +++++++++++++-----
- 6 files changed, 262 insertions(+), 70 deletions(-)
-
--- 
-2.34.1
-
+-- >8 --
+diff --git a/arch/sh/include/asm/uaccess_32.h b/arch/sh/include/asm/uaccess_32.h
+index 5d7ddc092afd7..879d262489219 100644
+--- a/arch/sh/include/asm/uaccess_32.h
++++ b/arch/sh/include/asm/uaccess_32.h
+@@ -92,7 +92,7 @@ __asm__ __volatile__( \
+ 	".long	1b + 2, 3b\n\t" \
+ 	".previous" \
+ 	:"=&r" (err), "=&r" (x) \
+-	:"m" (__m(addr)), "i" (-EFAULT), "0" (err)); })
++	: "o" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+ #else
+ #define __get_user_u64(x, addr, err) \
+ ({ \
+@@ -116,7 +116,7 @@ __asm__ __volatile__( \
+ 	".long	1b + 2, 3b\n\t" \
+ 	".previous" \
+ 	:"=&r" (err), "=&r" (x) \
+-	:"m" (__m(addr)), "i" (-EFAULT), "0" (err)); })
++	: "o" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+ #endif
+ 
+ #define __put_user_size(x,ptr,size,retval)		\
+@@ -196,7 +196,7 @@ __asm__ __volatile__( \
+ 	".long	1b, 3b\n\t" \
+ 	".previous" \
+ 	: "=r" (retval) \
+-	: "r" (val), "m" (__m(addr)), "i" (-EFAULT), "0" (retval) \
++	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+         : "memory"); })
+ #else
+ #define __put_user_u64(val,addr,retval) \
+@@ -218,7 +218,7 @@ __asm__ __volatile__( \
+ 	".long	1b, 3b\n\t" \
+ 	".previous" \
+ 	: "=r" (retval) \
+-	: "r" (val), "m" (__m(addr)), "i" (-EFAULT), "0" (retval) \
++	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+         : "memory"); })
+ #endif
+ 
