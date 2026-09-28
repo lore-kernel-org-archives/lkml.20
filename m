@@ -1,107 +1,77 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20DB4F85B2;
-	Mon, 28 Sep 2026 17:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616132; cv=fail; b=PgJ+e9n498NYSWiJDnzWrY16Khk6cRJfy6L2YNm0j2tEm2gailxaF92I9Gyg1Yvpllj66MZ9Lh/128OixtcmHSwzdGl6lIyScHl5mastOtuKOxwYPZEcH8wdaR3P8WXDG6gEMpfjEA6PsCjQmMjvrkg24q5X1MZxZFNeVaJpQTo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616132; c=relaxed/simple;
-	bh=MjAyRjHBNfjh+Jjd+2FwNI2WsRc1cI4M8c8igUqlZEA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I98VnXRJfKA0W7TaHmAT5ud7wbAHhU1v87yG5IYkEH/0grkxmtX/3yh0Dt96Nd0P86A9sxBlGCbE6Q0VBrque8v8fO+MMYAJrNWjdUUgnB4RotecPpNLwwv/9Jsz1S0dunLrkzQmEFSi2XF6A3aqaIDUjVmRX77btuvjFmkDTOI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=RVTD/q1U; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=fbG9ZHwh; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A954F55B0;
+	Mon, 28 Sep 2026 17:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790616140; cv=none; b=iH8N74+JzH72klvwgt593/hlZDfV3cxh+j6Cq/IFhbbJdDRiytq7AwcHCwJnoQOPGfaI4q+vPshHVBi90q3aQZfEL5ZDo/P7lVuSon1ELjjL0EcHiIEhYlaIaazM0sBwrLkni5RuEs2SXrJMFz26SU8Xff+btl8KkHufbzCBgjE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790616140; c=relaxed/simple;
+	bh=mCwIZ3+dUgUMtuFYdvpTS79yJidQCFB0A/C04zisxTg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tGqRAI7BtesrvnYQt03+q+EjtU/sujq1WvzJOjHSSfyQaertaZ2oaX55FkgSFkmTTMAY2B74ZTMGIxyfZ4ssLqurAX62ihUv4kO5IAWk6w+YfyHc+AoGEvOalUix83xIPUHtF5jDhLCMpbtNQStbfWLVdyxC46JWfaBOSpb0gng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=q7z5dYxX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dZ/YLy7K; arc=none smtp.client-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="RVTD/q1U";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="fbG9ZHwh"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SFJx812095011;
-	Mon, 28 Sep 2026 12:21:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2h
-	M0=; b=RVTD/q1UbGEDixwKwYMlGFn2xQS2KF7pwYu98gxN2k1DPvpVcbB4SAGzm
-	vnE1+oRU0ksDbUESFGzqYM5TvqYDazN529PdthYgBhbbmh4q2iUpEFbn1xIqVQBC
-	fvLkMVn0lQ6hAtiBOUNg2JhBShhu4yIswYdkZCL7oaZsIdLnTi0+APoQrLkS93Td
-	bv0FQ9koLGvohoceGLAErDetgToH4CRQvrAnrBthxHDo2b7L4tzwo+VXtX1rdFSS
-	BioVmVUZKlCLPCkTJAybNr4YHYhBHneZq9yhUyuVf+Lzrgxh7dU+ucEqqlsIHcpl
-	6p+DZftVClVvTPK9uWOz83bjKlGeQ==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013003.outbound.protection.outlook.com [40.93.201.3])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2nqd8e-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:21:31 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ybeuEZnDolFPegyBb1vCMNHQx0YGO5UZcZniX/0rNlEANkG4tNFg97LAKO0wxWzvaudATtflQ20WlRNAudTm3BTtOJzIJmqvmPPTGM2NUyKTdIoh8qU1LFU4SKFlNYsuJK+Q14hwAP8d6uyD7/Z5PUaxwntEqmKdIg61TpwKsNLeZSbJ9bTnWcHrspp+/+g2pqBF34/Tf4yn+JIoTlfSo9FqLm9pG3n4hVUAwWGAGgi8D8Hxqml41SrqUXJ/NKu6vbRQ9+LZrdJ/q/+KYA7zMZTG8a4KMYG2X2D57LY+o2uxHqRLxWYetY7ab4S/280WGRiyslmMk3n58UWLdcTxDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2hM0=;
- b=Sw8Czcr5kvi8SDr+be4x4ASkajiVCKVcmczQFfg6v1xRNAAqzEJtMieGQ257bHIMgdij0m+6zPRm1jb6O9y9TBkzzKhpXw0ZJuf9OpcviRHcPKFDHCZVfJB+PAdXWVXMfOVzjHv0Yg2g7PTrf/tFJWtu8ax3iYpVj9ZlnTiY3Qlcth8CLc/mdE+KXI3a0vOL2OtPYl2KAFEw4zvoeUEBjOTqr7CYdL0krHXLM+IqEF+6JBTFTdb6hiGCKp+XHLIWrokk9W8co5R/Fphi27dE9xbHg7awoE029/x4SrevEVOdeo2zA9BLRw22dML/wGXbEMhei8keOiQuUWwZxibiUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2hM0=;
- b=fbG9ZHwhI48tmf4kx16GnBpi5TrFWO+mQzwMQjM90R75akKmoav4R4inXN6+RfRbyVKyo/QDgu3VDIPqKUIZvUhNyZC+3lPOGnPb1i2DGkzWOb15TlBQejF4RAJHzKHbHaSoXuW3YjUriw0FvbznM9eFxxEzjdcHLwACya2YhAE=
-Received: from MN2PR07CA0016.namprd07.prod.outlook.com (2603:10b6:208:1a0::26)
- by LV0PR10MB998146.namprd10.prod.outlook.com (2603:10b6:408:391::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Mon, 28 Sep
- 2026 17:21:29 +0000
-Received: from BN3PEPF00022BC4.namprd05.prod.outlook.com
- (2603:10b6:208:1a0:cafe::69) by MN2PR07CA0016.outlook.office365.com
- (2603:10b6:208:1a0::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 28 Sep 2026 17:21:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN3PEPF00022BC4.mail.protection.outlook.com (10.167.248.216) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 17:21:28 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 12:21:07 -0500
-Received: from DLEE203.ent.ti.com (157.170.170.78) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 12:21:07 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE203.ent.ti.com
- (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 28 Sep 2026 12:21:07 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SHL7gp290518;
-	Mon, 28 Sep 2026 12:21:07 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Francesco Dolcini <francesco@dolcini.it>
-CC: Nishanth Menon <nm@ti.com>,
-        Francesco Dolcini
-	<francesco.dolcini@toradex.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 0/2] arm64: dts: ti: k3-am62-verdin-[ivy|zinnia]: fix main_gpio0/main_gpio1 line names size
-Date: Mon, 28 Sep 2026 12:21:06 -0500
-Message-ID: <179061605886.2961362.11967994887250931454.b4-ty@b4>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260922152551.270845-1-francesco@dolcini.it>
-References: <20260922152551.270845-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="q7z5dYxX";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dZ/YLy7K"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailflow.phl.internal (Postfix) with ESMTP id 2C9221380062;
+	Mon, 28 Sep 2026 13:22:08 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 28 Sep 2026 13:22:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790616128;
+	 x=1790623328; bh=zqJEIjrQ6DEH0bzBdPreQIaAqWO4ZFFKb5xRcMeISvk=; b=
+	q7z5dYxXSS4OwQH4P09MZ8skwf0ROZIKytD4K9WTJOvcqGAKaQVY7LV9kjaTFa8/
+	b+6vIN2M0ako8I4F3rqI7bFCuFfzFXz9sPCu8Yb95ioGvyo2SoDHZldeZK7lWl2g
+	BoI5CXirTjOxUef/egKr8pnDiMaE9PlXhWeA7YX0CumdZ0GfMdCgwhOC4pewwVUy
+	sOqPL9ukoEXlG6qqHF17Zrr6poP44Hgi8pjwuyczT6zkJcZ321YuJyaoBsk6CG+9
+	BTG84DJqa74zda0Qw34TcOED12pTUAYr4rK+pd+Q3f5QoosgeTJb+K1UQHT0O/uR
+	YEE0N+Zaxtmpv6lQIb7wVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790616128; x=
+	1790623328; bh=zqJEIjrQ6DEH0bzBdPreQIaAqWO4ZFFKb5xRcMeISvk=; b=d
+	Z/YLy7KA1cNMiKNGi9JOv+g8awM9GxK36+H4d85rwWj78m4ZIGXh6F5mngicmceT
+	zicIWQanyZtA6DoH0zmmMhnOMKhhUlRl2lLUO6sklFLc6teqskrnTf4JaEMgEOSB
+	GvPPeRimmAybmADqeWuSY6X7be7+EEiAGLrsPM3YugMd+ULTX6W92KRdr13O9RME
+	8E+03M5IWHuYmWADzlQx92ij8Uq9/3K9pg7Yvzu9N5UanSgQsR+6xrv1l39Gzav3
+	sHqfILaBgzPtNZPpO9CHLKoMI5p3SPr+IQ17hc8ZDhnSLZfTiUlwakdkr9if9usI
+	3LVZr0CSZyZaGEkrlJz+w==
+X-ME-Sender: <xms:P6K6ajJAOBbTGHjN0v1f302S5TEF0O-JC0mxIcWzL1d1RmXDXVTTUA>
+    <xme:P6K6aqmfmb4yk7d0nJAUxfDbYKbiQrVhNwJBr1pvDBMM_ljUHlCqyZiYYhy6lwBfL
+    1XC3fkUf-A89UcfKSUOyNonQC_zUDPyKoHxo0onKAkUVxlj6HoYzmA>
+X-ME-Received: <xmr:P6K6an-teYipzq79MnIzGrPyJjl6OUslkMzliuh6yALBvx1YNJCr6YsTTHsfJ32q>
+X-ME-Proxy-Cause: dmFkZTFVchM+bTT1PKuZ7CN10fxXJIikNoVdUVFHA1eqyKMgAAVr8P6ONf1Qg916JwGLA/
+    UIAM5uyklkVrDRDmXBCinnisDlXug/Uvz0CnXEuy4xZlY+Q3iKI5V68dUZbqn8FCfsIN95
+    6KfV8L2bBYYMAysjIpjjTtDvr59SlVXR0rT3rsZ8OOWBdCzi2fs/qRsgGZhcNemn8sEAcR
+    7gOuIxy/+2FBe7o4KglohLGCDym2m4zsXZ2bZO1r7mHjauIXUwmWu2ruzm3DMO6W6IP24K
+    Wr2E/Zfjs4QhZp1KylseoV5Uqh0JkwjuRMQihg5e/hXKn9gV8Cjo7+1dG47k97NaaXBvAl
+    uBMp3yG7hqMpY6cR72TbbPzb4WDL4DwgP7Zo3tV4PW3EOMINqzVjPRxnhlRCR2Y81wlk4+
+    ZXESSP30YPIfpM771/o9ZNkbVg/dZxlwRIpz9oOZ0s1wg/mXdIciWHQWrmkL4H7eqvPZQb
+    Tk9YWXDslywLGvByrVpZBBzANl5Y65rqjjm3c3mDQHmIBNQ5pmqJvhvGbMuiD6rC7n0t6H
+    8HB71TW8JGWEV4Xt/nwJ4nBpYoZyBlgApR8qnm1eih6RoOheGF138AUQlTP7flnkNqkJsT
+    FbeZw9rnZyEXgcb05ZlFPSrfJBW0eQBLqsfqyjZixpKoGFx+VWiOTm6jZLUQ
+X-ME-Proxy: <xmx:P6K6alaoEGY1cX8M1TQRE9rIBRrjD_xsn9XyjAIsKq6rz5VRgCPyVg>
+    <xmx:P6K6akeWJ59dOSO97F1Z-FLzG9xeI6y3qrunvQXvy9dkEia3-SEQsQ>
+    <xmx:P6K6atF7sbX717xyW9Dzzz1j7Wux4dsj7mQCBMHfn8uBc2NdfsjQZw>
+    <xmx:P6K6avMPot1tr1t-Gc6S6MP68kYdoFLaIIDjEoVNkJ5VcLM2Wr4AAA>
+    <xmx:QKK6ajYh0U5SE_u3mouBLcuAd9yYFXduZ3oEXOBhbfX7rv73dCYfyv_T>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 13:21:52 -0400 (EDT)
+From: =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+Date: Mon, 28 Sep 2026 19:18:00 +0200
+Subject: [PATCH v3 12/12] kexec: Expose the crash memaction bitmap in
+ debugfs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -110,104 +80,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC4:EE_|LV0PR10MB998146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66a23331-a5f6-46ec-7912-08df1d84eed7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	lJdze6OlAALBmF60eyPXaV8/aWOf0I7fxTRrGIEqUWPhz/COJavNxOO5ENHhrpCr6q3poBTaGMPWgK0h45uTmZwTI59UsQTrzzc2VkuwWV6CD8eMxxqTKP16ByyIAzn/JcUbV21IPiOjpiGSMfGTRcO++q2HLNfBu2GRkV5dtl34VNKpzVYldWzWdH3wIbzvrjo+BSG3SVzTA/BVocEjQLJBKn2jzYnaQi/UxA79OtxhacT5dg2/7kgGqPtsSNaXR3ztAFqkKsrClS2l3+BosBXnpuYuL9xf8PbQyfGg3G/UXiD+c0GXpp5cC79UHRjzgtxLOMh8TrOyk7AQbscO+Oztd3OFf0/+pzugdsf0a+1RyB5ceT+I2aGk16hMEsAICqPt19rJV2X4Aao9pkKRpG34fXf28/iL3XkBf4K65YjzlV8SIAPV+WwbyfbjlBAml1pVrLN//r1sALodPMQes8ZVDdFeUBrr5qvR5MudfP5BsV6AsrKjhai5J8eICh5jtPNiVHcCKHMGCkiRWXdvcX1HUeVOPTbpvlGqWjO2vPUPEcYalgBb5To7EB11/XtMC8Qs/l6ieLw0nnQ4B0I668kq3H2/Wy3UfGkoyB0gm/b+dxpjiWvMfFg6NGJf5ReZDyfQ2rjaGdJ5vFw66JEtUg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	UH2KhqB9m6C8hTi869Oh74Re/AKCMoDi1wDXRTwtu05yA0zGbzTIfcMCHzSgAdddVAPHv1X1m1O4HadjUF98YtMhar7Oa1MyxW4XQ6Ah2PERs1qkJluszE9FaHpMEcmO4q5Dckm03mLYK+HrMBaSgRV0yHX+7gka8fFIgzd9vB1jpM02lGQylpE8W2PsQDg8//pr3f0XF2GftFz7nRMn4x5oLoJ+LVHZiWxE4gj0NO0wIS9jBTAxJUXSdlIyDhM3IlvduFKj7dMLhUgnAZiNxIT6pwqottAr5evThZ4owrCzwxGirbNmDK+x/68QS0ShrnCEULqNeiajyPeeKCmbOTEgArRZ86RkInU13+5A3CxHTeuJuUsuFCJFxwUiDkA67UQYYOdCrK+SMZJUiaAD1j7pIc5DeK+qA+bM5+q+wOTezumVtiDpH64IuFK4sk0o
-X-Exchange-RoutingPolicyChecked:
-	2/JNcv2zO6UZGx44nnCqbtbEqMAbUyY0iIS29jT9ea9GC2Jo50/hoflxHP6RiTYsX5XJXlv7GxnQdIDi6oEo9T3HA6dMxRbaz2M3QAElETOOxkm/YxVPyyFjqpAacpSBBV9Tu/2J6llVixMXAF+363IMo3t4/BnyuLJJjaP3klaiDYcivaQZzmui5vn6XaB5oAyMpd8Wc/4Ffb7mudkXpIDfrmIRcLhpkGxljEmAlVsKyU+/flggffBu/VP7SD0064MLtrWZ7vZau3IYYu9i+aK1I4lXyRgOOiZ+0mPBemtCM3v+gMa2tXginOW/TRCbbEyHfgdBzEnpVZLct5JLkQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:21:28.8639
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66a23331-a5f6-46ec-7912-08df1d84eed7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR10MB998146
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfX/Ky+4eyxpKE4
- 5PiGOgyQDAU8UGYGNTV6gpWrcas5ekXR2aTUHaEDBom6pvzRZaJh493ohjc8bWonBJrz8Tpcx7B
- 68VpdD+PNKSELrvaFo8auq0NB7jYcQA=
-X-Proofpoint-ORIG-GUID: 90xeyXWfpAGWklAMC0GoJpmfWEuqIES5
-X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6abaa21b cx=c_pps
- a=9JMNuyHA4Bc1wrbCcMLwMw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=m8ToADvmAAAA:8 a=o1kACPpZKAZCWsj7fAYA:9 a=QEXdDO2ut3YA:10
- a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-GUID: 90xeyXWfpAGWklAMC0GoJpmfWEuqIES5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfXzOsUtUjEYqSO
- abeC9deUONeWvv/6f0a2wAIM3cTr41OcU2b9p4XVpGnBoLA/YJbm+XiMNV8AFjq5z4fnhTwvKB2
- fNqMhxpFoVVxHnpQKMygSrrIqK82Qxrjdb72eX2plD9QGd7fgU6+rHeDETnJZMIyv7b25xevzRa
- 2to+Pr+TzZjUZvn9hgoOvNIRrappFpRP9FP0dkiMkuprB2t/HZSesMTE5m4WB4EYnxS0IV5ZZN5
- S7LCNnwKixdUbgkMw9Q3tAKCqNH6A6WBqE5q7bt3LK0hbgcgdhpYN/AFlR+82jVFYZ5bfbF6m2L
- wxtcJ1hiPb1ACE6i/AXQbrZy+Ky7mC2dEbAUpvxnEqvR+SoZqun0bhhBaQ3RF32qg/+LFDDazVO
- dQUxzSM6CN3hJ+Mo7aT3W/X34UtWv9rxkEtER/P5bnFB/nip5/uuQJTVF2cxqphE13YYYWY4sw2
- uOBIEhmAfsaVtS6ywVw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280069
+Message-Id: <20260928-crash-memaction-upstream-20260921-v3-12-e511e9ee2329@jaseg.de>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+To: Jonathan Corbet <corbet@lwn.net>,
+  Shuah Khan <skhan@linuxfoundation.org>,
+  Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
+  Saravana Kannan <saravanak@kernel.org>,
+  Andrew Morton <akpm@linux-foundation.org>,
+  Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+  Pasha Tatashin <pasha.tatashin@soleen.com>,
+  Pratyush Yadav <pratyush@kernel.org>,
+ Dave Young <ruirui.yang@linux.dev>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+  David Hildenbrand <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+  Brendan Jackman <brendan.jackman@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+  Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,
+ Alasdair Kergon <agk@redhat.com>,  Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+  Benjamin Marzinski <bmarzins@redhat.com>,
+  Herbert Xu <herbert@gondor.apana.org.au>,
+  "David S. Miller" <davem@davemloft.net>,
+ Mimi Zohar <zohar@linux.ibm.com>,  David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,  Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,  "Serge E. Hallyn" <serge@hallyn.com>,
+  James Bottomley <James.Bottomley@HansenPartnership.com>,
+  "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,  Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,  Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>,  Lance Yang <lance.yang@linux.dev>,
+  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+  Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+  Matthew Brost <matthew.brost@intel.com>,
+  Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,
+  Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+  Arnd Bergmann <arnd@arndb.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org, 
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+X-Mailer: b4 0.15.2
 
-Hi Francesco Dolcini,
+Add two files under /sys/kernel/debug/crash_memaction/. "regions" lists
+the physical ranges the bits describe and their offset and length in the
+bitmap. "bitmap" shows the raw bits as a single blob with all ranges
+concatenated. The files are root only and behind
+CONFIG_CRASH_MEMACTION_DEBUGFS.
 
-On Tue, 22 Sep 2026 17:25:47 +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> zinnia and ivy redefines gpio-line-names for main_gpio0/main_gpio1, sized
-> 87/88 entries instead of the SoC's actual 92/52 ti,ngpio. Resize both
-> arrays to match, keeping every existing label at its original index.
-> 
-> missed from previous https://lore.kernel.org/all/20260914190943.50843-1-francesco@dolcini.it/
-> 
-> [...]
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Assisted-by: Claude Opus 5 <noreply@anthropic.com>
+---
+ Documentation/mm/crash_memaction.rst |  9 ++++++
+ kernel/Kconfig.kexec                 | 14 +++++++++
+ kernel/crash_core.c                  | 59 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 82 insertions(+)
 
-I have applied the following to branch ti-k3-dts-next on [1].
-Thank you!
+diff --git a/Documentation/mm/crash_memaction.rst b/Documentation/mm/crash_memaction.rst
+index 3658bff7693c..eacda046477e 100644
+--- a/Documentation/mm/crash_memaction.rst
++++ b/Documentation/mm/crash_memaction.rst
+@@ -57,3 +57,12 @@ Limitations
+   trying to mark smaller objects, use lib/secret_pool or a similar mechanism.
+ * Memory hotplug is not supported at this time. When memory is hotplugged, the
+   newly hotplugged memory will not be included in the bitmap.
++
++Inspecting the bitmap
++=====================
++
++With ``CONFIG_CRASH_MEMACTION_DEBUGFS`` the bitmap can be read through debugfs::
++
++	# types 0x3000 page_shift 12 nr_regions 1
++	# start_pfn nr_pages offset bytes paddr
++	0x0000000000000001 0x0000000000800000 0x0 0x100000 0x0000000040000000
+diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
+index 3cdc8d459ac0..b5380e16bfaf 100644
+--- a/kernel/Kconfig.kexec
++++ b/kernel/Kconfig.kexec
+@@ -204,4 +204,18 @@ config CRASH_MEMACTION
+ 
+ 	  If unsure, say N.
+ 
++config CRASH_MEMACTION_DEBUGFS
++	bool "Expose the crash memaction bitmap in debugfs"
++	depends on CRASH_MEMACTION && DEBUG_FS
++	help
++	  Allow reading the live crash_memaction bitmap through
++      /sys/kernel/debug/crash_memaction/. The bitmap is used when
++      CRASH_MEMACTION is set and when a crash_memaction cmdline param is present
++      to tell an eventual kdump kernel about the use of certain memory pages.
++
++      Note that this is a debug interface only that gives no guarantees
++      whatsoever on memory consistency.
++
++	  If unsure, say N.
++
+ endmenu
+diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+index 6bb2f5645ca6..5eb5a5ada8e0 100644
+--- a/kernel/crash_core.c
++++ b/kernel/crash_core.c
+@@ -28,9 +28,11 @@
+ #include <linux/atomic.h>
+ #include <linux/bitmap.h>
+ #include <linux/bitops.h>
++#include <linux/debugfs.h>
+ #include <linux/jump_label.h>
+ #include <linux/overflow.h>
+ #include <linux/pfn.h>
++#include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/sysfs.h>
+@@ -66,6 +68,10 @@ static struct crash_memaction_region *crash_memaction_regions __ro_after_init;
+ static unsigned int crash_memaction_nr_regions __ro_after_init;
+ static size_t crash_memaction_note_bytes __ro_after_init;
+ 
++/* The one allocation all of the bitmaps above were carved out of. */
++static void *crash_ma_bitmap_base __ro_after_init;
++static size_t crash_ma_bitmap_size __ro_after_init;
++
+ static struct crash_memaction_note *crash_memaction_desc __ro_after_init;
+ static size_t crash_memaction_desc_bytes __ro_after_init;
+ 
+@@ -148,6 +154,8 @@ void __init crash_memaction_init(void)
+ 	if (!bits)
+ 		goto nomem;
+ 
++	crash_ma_bitmap_base = bits;
++	crash_ma_bitmap_size = total_bytes;
+ 	for (i = 0; i < nr; i++) {
+ 		regions[i].bits = bits;
+ 		bits += bitmap_size(regions[i].nr_pages);
+@@ -341,6 +349,57 @@ void crash_memaction_unmark(void *addr, size_t size)
+ }
+ EXPORT_SYMBOL_GPL(crash_memaction_unmark);
+ 
++#ifdef CONFIG_CRASH_MEMACTION_DEBUGFS
++
++static struct debugfs_blob_wrapper crash_ma_bitmap_blob;
++
++/* @paddr is what the note gives, so a vmcore can be matched to a live one. */
++static int crash_memaction_regions_show(struct seq_file *m, void *v)
++{
++	unsigned long offset = 0;
++	unsigned int i;
++
++	seq_printf(m, "# types 0x%x page_shift %u nr_regions %u\n",
++		   crash_memaction_type_mask, PAGE_SHIFT,
++		   crash_memaction_nr_regions);
++	seq_puts(m, "# start_pfn nr_pages offset bytes paddr\n");
++
++	for (i = 0; i < crash_memaction_nr_regions; i++) {
++		struct crash_memaction_region *reg = &crash_memaction_regions[i];
++		size_t bytes = bitmap_size(reg->nr_pages);
++		phys_addr_t paddr = __pa(reg->bits);
++
++		seq_printf(m, "0x%016lx 0x%016lx 0x%016lx 0x%016zx %pa\n",
++			   reg->start_pfn, reg->nr_pages, offset, bytes, &paddr);
++		offset += bytes;
++	}
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(crash_memaction_regions);
++
++static int __init crash_memaction_debugfs_init(void)
++{
++	struct dentry *dir;
++
++	if (!crash_memaction_nr_regions)
++		return 0;
++
++	dir = debugfs_create_dir("crash_memaction", NULL);
++
++	debugfs_create_file("regions", 0400, dir, NULL,
++			    &crash_memaction_regions_fops);
++
++	crash_ma_bitmap_blob.data = crash_ma_bitmap_base;
++	crash_ma_bitmap_blob.size = crash_ma_bitmap_size;
++	debugfs_create_blob("bitmap", 0400, dir, &crash_ma_bitmap_blob);
++
++	return 0;
++}
++fs_initcall(crash_memaction_debugfs_init);
++
++#endif /* CONFIG_CRASH_MEMACTION_DEBUGFS */
++
+ int crash_load_memaction(struct kimage *image)
+ {
+ 	unsigned long nr_pages, i;
 
-[1/2] arm64: dts: ti: k3-am62-verdin-ivy: fix main_gpio0/main_gpio1 line names size
-      commit: a74db73609d6e307bfcb6ef8073be2c47fb5bd9e
-[2/2] arm64: dts: ti: k3-am62-verdin-zinnia: fix main_gpio0/main_gpio1 line names size
-      commit: 9dd7a67b29e0d49c66c4785014ac3befb086fbfc
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent up the chain during
-the next merge window (or sooner if it is a relevant bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
 -- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+2.55.0
 
