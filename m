@@ -1,43 +1,50 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D8364EB8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C448463B75;
+	Mon, 28 Sep 2026 08:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585701; cv=none; b=eVxNil6oNE8X8ui+VM9YbcFbXgCNj7bY7JARiNqeUWFYZTSGNtyBE4IAvR/iDEsHT9S4Sgcvf8Nrx1ktwPSX5lHkbSskhvGySk9bKkO8xgYDqRIKLlAeVw+GxtD//6immqhLYI7GLVYT7NHSU59gSp7i8G26jK4HlrFG8CHCN50=
+	t=1790585703; cv=none; b=jAm1AhRJ2c67X+VFUayJneSIGj+Cyu60CPtiAKGq4s95AhDUjaeA2PZvh1GdOn+lUVNVRrGj+k5STLvkWZijZYJfxIWf1p4CwpxW4eemYiMy8zgfN32y6fqHyxzLiaKf3MY9bWf/iFCfyOet/1Hn1YqaELOJALtr8f+qO8ehvJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585701; c=relaxed/simple;
-	bh=sqWWb+KrOed5w2rVpp9l70Fk+QFdBHj91H1186lPvGQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Knrschn/70jn1NQnQuy+7nCilPntuqrKvZqiDuwTT3QbTPCG+CFR9/lfAwvbLo+n5sVzQMGiBkaVkt3wWn6qo2zKwbYH3f15K8rwz2YU3B/U4+a4LlGPH/CkpBAQV3zTeZUFqFRXoHjAFka98r+I7LxeEf9GfhK+sPyW1RwFpq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Bpn69TJW; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Bpn69TJW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=QQ
-	67WtE24na388y85ditoe0V9ALxaizzu0oal6aJ/IQ=; b=Bpn69TJWAwGhCDc9ka
-	v5qENsFmCjWZ3LtVn2e7qNKC9rO3uxxMI2jq8CLEinrZFiSc9umL2mSR4OFrrLOB
-	YqjC+nnOECH4U4CZih9xbYhyOl0DrsMRpif/AIJy8Pv6tvSmpEaqEBg42sT8+Ibg
-	kyurz3bYHgjZ7nJXutfuFVih8=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3t582K7pqm5HnBA--.52401S4;
-	Mon, 28 Sep 2026 16:54:18 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3 2/3] ntfs: drain in-flight DIO before buffered write fallback
-Date: Mon, 28 Sep 2026 16:54:11 +0800
-Message-Id: <20260928085412.2221055-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928085412.2221055-1-yaojiale02@163.com>
-References: <20260928085412.2221055-1-yaojiale02@163.com>
+	s=arc-20240116; t=1790585703; c=relaxed/simple;
+	bh=zYS0exigYUq22IQg4QDvpZwkR/5wj8JGezynrWm8eJw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OOq1JeKukb6BjQPdFE5wyG1SFnpZtt6rMXfdLViJyrm6EkFxE3bkGbaqvpZLnI3a/91Jy+x7t0IRa25V54WNDKkslHjAbyhAV10M2cvVH4KsOW4Xouogna25R4AmE5KEvWPCxMQBkNdFVi69ToPUHlfPopLhiB+EOM48xS7hn4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 468a8b08bb1a11f19a56ed5b684f684d-20260928
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5f76f905-f272-4885-9897-0866abdea30b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:8e3653ad3acc1044182440bce4ed7677,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 468a8b08bb1a11f19a56ed5b684f684d-20260928
+X-User: huanglu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huanglu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 89712507; Mon, 28 Sep 2026 16:54:55 +0800
+From: Lu Huang <huanglu@kylinos.cn>
+To: "Daniel J . Ogorchock" <djogorchock@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Martino Fontana <tinozzo123@gmail.com>,
+	Lu Huang <huanglu@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: nintendo: fix lost update of player LED state
+Date: Mon, 28 Sep 2026 16:54:33 +0800
+Message-Id: <20260928085433.1129896-1-huanglu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,74 +52,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t582K7pqm5HnBA--.52401S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF4kGFy5AFykKF47tr1rXrb_yoW5Jr15pr
-	ZI9Fy5Jr9rtrZ7Xrn7CF48W3WF9rZ5J3y3ZrWDXw17Cr15Gr4vga18tF1Yvr4rJF9xJrW2
-	qa1v9rykCryUZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi6nQUUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BoiXGq6Kzom7AAA3f
 
-An asynchronous direct write can remain in flight after the inode lock is
-released.  If another direct write falls back to buffered I/O while the
-first write is still pending, iomap_file_buffered_write() can dirty pages
-before the first write completes its post-I/O page cache invalidation.
-The invalidation then finds dirty pages, reports a page cache invalidation
-failure, and records -EIO in the mapping error sequence.  A later fsync()
-therefore returns -EIO.
+The player LED subcommand programs all four LEDs with a single
+value, so joycon_player_led_brightness_set() must aggregate the
+current brightness of all four LEDs and send that snapshot
+atomically. Commit 928276075f16 ("HID: nintendo: cleanup LED
+code") moved the aggregation loop out of output_mutex: if an
+update callback is preempted after reading the four states and
+another update sends its own snapshot first, the preempted
+callback later sends its stale value and silently reverts the
+completed update, leaving the hardware LED state inconsistent
+with sysfs brightness.
 
-Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
-in-flight DIO before buffered write fallback") fixed the same race in
-ext4.  NTFS has an equivalent fallback after iomap_dio_rw() returns
--ENOTBLK or a short write, but does not drain other in-flight DIO before
-dirtying the page cache.
+Move the aggregation loop back under output_mutex so reading
+the four LED states and sending the subcommand are serialized.
 
-Wait for in-flight DIO before calling iomap_file_buffered_write() in the
-fallback path.  Since NTFS supports IOCB_NOWAIT, do not enter the blocking
-fallback for such requests.  Return -EAGAIN if no bytes were written, or
-preserve the positive short-write result if the direct write made partial
-progress.
-
-A reproducer using concurrent AIO direct writes and buffered fallback
-triggered the following warning and made a subsequent fsync() return
--EIO:
-
-  Page cache invalidation failure on direct I/O.  Possible data corruption
-  due to collision with buffered I/O!
-
-Fixes: 9c87959601e8 ("ntfs: update file operations")
-Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 928276075f16 ("HID: nintendo: cleanup LED code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lu Huang <huanglu@kylinos.cn>
 ---
- fs/ntfs/file.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/hid/hid-nintendo.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 007d1614b9ac..8bbfa842889a 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -525,8 +525,21 @@ static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ssize_t written;
- 		int ret2;
+diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
+index 43e0f2aaea3b..b0d7c91490f9 100644
+--- a/drivers/hid/hid-nintendo.c
++++ b/drivers/hid/hid-nintendo.c
+@@ -2264,10 +2264,9 @@ static int joycon_player_led_brightness_set(struct led_classdev *led,
+ 		return -ENODEV;
+ 	}
  
-+		if (iocb->ki_flags & IOCB_NOWAIT) {
-+			if (!ret)
-+				ret = -EAGAIN;
-+			goto out;
-+		}
-+
- 		offset = iocb->ki_pos;
- 		iocb->ki_flags &= ~IOCB_DIRECT;
-+
-+		/*
-+		 * Prevent concurrent direct I/O and buffered I/O to the same file
-+		 * range. Wait for in-flight DIO to finish before dirtying pages.
-+		 */
-+		inode_dio_wait(file_inode(iocb->ki_filp));
-+
- 		written = iomap_file_buffered_write(iocb, from,
- 				&ntfs_write_iomap_ops, &ntfs_iomap_folio_ops,
- 				NULL);
++	mutex_lock(&ctlr->output_mutex);
+ 	for (i = 0; i < JC_NUM_LEDS; i++)
+ 		val |= ctlr->leds[i].brightness << i;
+-
+-	mutex_lock(&ctlr->output_mutex);
+ 	ret = joycon_set_player_leds(ctlr, 0, val);
+ 	mutex_unlock(&ctlr->output_mutex);
+ 
 -- 
-2.34.1
+2.25.1
 
