@@ -1,155 +1,177 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012002.outbound.protection.outlook.com [40.93.195.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7F64C1512
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605299; cv=none; b=pdI2R8IIXl12//Xfl6wr3sI6d8XwEQYiVN9wAAtA5QA/rWdK4xS9OG2XR57Df2/B2Tz93uaRRosXlVl11fqGxopB0Kz/Q3IzM90XJnoDOwgbjg8s/OgsKOjhV+9/Bls3EkgJndjGEfhB/9/HuJ+guGYuXJlYC1Eq16xSg7n4Z1Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605299; c=relaxed/simple;
-	bh=l8LnOTZIQoA0h2h21hFNgU7pEPJnhkdZGBQKHKFCzbs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Md27jjJb84pUCz3ceu2m8Y4KXhplk5hCtBtKgvTBf/9mOkT9Bae3zrT1zK0gDxmA2MZtPdFasRCW/f8F7qTpL8SeZLb82Iw9JIWqPkT20U8DSLP/VJkOPIbFXxueFpnUH4e2DtgVFiQHvu9m80vyr3aQNStF9/SasTh6GzXVHQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ec4d68543eso354879b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:21:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605297; x=1791210097;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vubk7muu+YkhKRkIvbgFvnTZh6exw+2ow1dFCKoAylI=;
-        b=uQCaPiU9+GcsssZdHn1FuHkkct9upvKvUmkmfRr0WLlx9sDxLh4DtEWWnuJwWNTPLX
-         rIxc419AawOyzgA3pS4k0/7YaLXRdjazC8wO59/RIFvs+8h98MMUtBXRf8VJl/9nYUj4
-         k/swJp1MXyxn0Ge2a9EsDv/5+H86XIPvGkN7YZS8ZS0+1SwOrXEmlBAjt/2pPsVmGrXm
-         /LmzZ5BVVTFODa7xwRK8p4dF2nleOYqfalJINC9e/aUqAH+FI5UrJ85Apr25WDWnpmsU
-         w12vW79fI4Z7kjB3OwD3iGy5+QfZYwTJy5e0x0fi+oKwG/LbQ7CrN1U4XQYuDYxAS6Ul
-         VgWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtoE6T1qz+R22N0OeYcdJt3KGv+a+sS4DLworm5GYxu/XFGKeqh81Jt2Bjn/lGDcwdYGu7SqV9ahLLTWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7H7QkuN/r8l0pj6S4AqePWXUrAJPXEYOw4Y0dWE2oslpytsHL
-	XOrsJz3zRaXRXqOhq57Ex303aStL4NgOqVafe7ylBFByWI8qcQS+YY55hZAV46K3LMiOJ17PZt8
-	+IR2KHMh9qiAprxxx67F1MGqJom90u8hqi/ldhr9lcaWeWBWGQaoBdyerrIw=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE44DC53E;
+	Mon, 28 Sep 2026 14:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790605341; cv=fail; b=ukU+cRKL/pSqYORFftDsmvH9nfPdJeA00kiOY1k2EFGXOM5GYy7TlSuJCR2TgdSFvi8GxqgBBAQeG1VnW6YrdZBBfSqfix7VY7BMLIA6bIIaT3+6FMM5zazSDqyI2VrKI15HHRsprqAIdT6tAD7jfzz6nPpjO+VVXtxF9lRLfR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790605341; c=relaxed/simple;
+	bh=1a4zzyN6LwIKfu3u8iAkhFCBvcdWRsIJ958ZBLXIDO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=P2A3aysFy1Vdk0SjRpZ6lNR7xE2srMrjTdYb3eGlODAp/wEqLPcRVuKpqDKxOBx4vWqHyA08EaBsuUSmue0x7EpmbXJsutPtcDa8ZFcmX9m19gheiI2yuPajqEhnnnj11Cbmz/ZJyWidVlAM4Q9FgWlVFvFMK4WAkD0v2Id428o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ygg7r9LN; arc=fail smtp.client-ip=40.93.195.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ygg7r9LN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u3x8bOw0YUuYYdCNpE5wDmI2Ix29PMaSBdOLbblkdPGeigJeEE8NRcem24tU20JwHdBzJ1pwuf3obg8kboIEoqDw6nXtR4arPAA5MP0s3hoxk9qqQssPJIn2hnWbRXCiSWTK0XMv9SE8kCAC+4+21DIImS+rINjmSVC+edNhVShGRWW2EVg8Y9HkfYxAI2rRxrH/3UB3ZOZa/Pm4WIOz5jj4r5SFf69CxFU1ly0+lfhG8z9xxESYP4bRKW1IVIApcbuOtnrDfvwk01eFg/QbnVk5zk405KG65kQ1KkeXodiuvxEy1RABW05u7voPrXT6Kt07VgrblNsxiqTBDIClEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8ZbGo05kScclgtwkpcbZp5kRGBfXyfNK21M65s+2hok=;
+ b=B6OoWZ4xse6jFF0D8oOI20M4JSdpxe6xVljlumMlQhcsj2tQPhuud9nXJx0isNm024edaWGPDoLBAfpjDSc9K3mX+Qwhm6/ym5NgzJhxxgDBr6RDCTzj2IdgY4eqtd/ZAan6Yed7lrRCdfvOVXakjFIU+rDcN8Ne8TrbgB7SM+9FYCY8QGY+6QxynN1INxLHQjQ09A6O3xbOf1kGA0jsEPpG90kmMnt2I3FhBBqzwogRcOD0Qien5RqXV3/+iDr0t+6s59a3i/cdZcQ/nQIb/M8cE26uEWIf/gRLuN3AS9EI5nBGTHDd57yzowhMTLzWrs0nOaUOQhoJ6wrHfOvQog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ZbGo05kScclgtwkpcbZp5kRGBfXyfNK21M65s+2hok=;
+ b=ygg7r9LNcxuUhh7OgMj1BdWXp4ZyOcvc9z8a4Vz1SMyDvIzNb9vqgUsAJyhHSIc1395JzC5aLyxDi0k3mkKbCLsmd350i/gEQDttrq/+RFcf78re7psE4QXslVqjBdQD1Fr7OvfHOdsDwRHCSTmBesMo7HMjUINPch7fqfiRSD4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ DS7PR12MB8291.namprd12.prod.outlook.com (2603:10b6:8:e6::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Mon, 28 Sep 2026 14:22:09 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 14:22:09 +0000
+Date: Mon, 28 Sep 2026 10:21:59 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Vishal Badole <Vishal.Badole@amd.com>
+Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] EDAC/amd64: Set zn_regs_v2 for all Family 1Ah models
+Message-ID: <20260928142159.GA2289128@yaz-khff2.amd.com>
+References: <20260925172639.97063-1-Vishal.Badole@amd.com>
+ <20260925172639.97063-2-Vishal.Badole@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925172639.97063-2-Vishal.Badole@amd.com>
+X-ClientProxiedBy: MN0P221CA0025.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:52a::17) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1914:b0:4ca:8d6f:4258 with SMTP id
- 5614622812f47-4d72e06ff3dmr12786028b6e.37.1790605297180; Mon, 28 Sep 2026
- 07:21:37 -0700 (PDT)
-Date: Mon, 28 Sep 2026 07:21:37 -0700
-In-Reply-To: <6a9826cf.9266084e.bf0d7.0008.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aba77f1.e548f532.1ca396.0049.GAE@google.com>
-Subject: Re: [syzbot] [dri?] [virt?] WARNING in virtio_gpu_free_object
-From: syzbot <syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com>
-To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
-	dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
-	kraxel@redhat.com, linux-kernel@vger.kernel.org, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
-	simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tao1.yu@intel.com, 
-	tzimmermann@suse.de, virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS7PR12MB8291:EE_
+X-MS-Office365-Filtering-Correlation-Id: b85554b0-a2c3-475d-6bb4-08df1d6be199
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	dVOkSYnvuDt3N1ttWRyRx67dKRWvC8N58Qc/KRuNmHRa0bZvKfKXPKUhgFJbprXD2YgSvGoWH7VbYLgHpdO/jt7B5RSxrVhwiN5ifeMehg6a7hIwUBCZgepZgleEi1BIW8r0HrQgi9RnEN7zYk0wegago1ZXr1FDtEoRHnSr9rAhQ7wjCE3lCrJyUav2uAWKG3BgxLkScHUL/IaKHZh0Gk7NJHTiHRMdlVsT1bb0FL/tEw65/p+AqwnOIYprPVV0Ut71k2G66QLvkaR/SR2Ba3xBupdjvS44P/AdGfh4hys+5PFjJCfOj8xW6WP3WIdvmsOd2r3hkJKKxchjsrDMVOPliujUB822SyHwjaJZVpptzupFVnQWF07bQbAX+AS4/blaDRemfD8UpnKJLqE264IWsb8/b5S/9D/5Objp+LpTkWvuPWb4gEiPkv4WNHyTql46F2vrggpd7OdQAkdaw64ARBDsGs8+QqIa3x43FfyWsF2XSaUX9rdHD0CV4Zul0YCRx/FrSgMuxP0Zy2dwWOnWzQycg5eCr7xz6qfCbugtESyTwbxYbEcGtjbIUNY3mKz44vJwaK4YFSqYHsteusiQZ5i5f3FZUDWJmY8hA2WVCGmSLeIKp5B0JULdRfcqU4vA7bgYt1evXCmOr+7c+1hjH72t34CRqwi7xfB19j0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gAvfyTIDXixraN3YCaqz3Q411DjmZhY1v1kqB8zcBMwg5vpYNM0Rz5n9MvsP?=
+ =?us-ascii?Q?sPMNlIbRbjj9YFqVT3CF58AwPyt92dfP6RqNb9zqljekNwqRd1GCTnif7Crv?=
+ =?us-ascii?Q?aqD/dDaQqzCRUKieZ8zl4ObQAjGW7OtvXcab3f5ccwntrxZohbpB+58yn9Ty?=
+ =?us-ascii?Q?zHGkGzIbMhGOXNFGoq+JB4B4V5/nnXFD3JinWX06ae+kzW7Enlr2KLUmurue?=
+ =?us-ascii?Q?4iqWIRVJNE3jTfK0lfhaIR24Rcd5Iq9Ix0v9pAgIB0NcbkaYl2Deg1PjFhmq?=
+ =?us-ascii?Q?1qzUYfxQcVDEtin5Jvn6ejpnZzyboDdy8vOL/Lz0SeQiWKmyiJfKL2zqT+16?=
+ =?us-ascii?Q?c02Ud1Tvx/CRnx1fzKdBXX2KLqXPo22TPdfG+OqGLdA7vvACfHI8DxsUb+MR?=
+ =?us-ascii?Q?oeLZJUTkRwpKPeuLusDeuxv1mQyE9CFvJ6Oggb8DEg8wM9UhICQJvSkFc3YZ?=
+ =?us-ascii?Q?dfoOQagjKDMTVT/osdwAMqwJy2IUwRUL5gn/RnJ85cT7/LbKjro478po+GOn?=
+ =?us-ascii?Q?T9TrHvu+oErhGDJpICOQU6GaRmbvuIx1kPijZ2NLSejOc8TGNKIsCfdVPf1R?=
+ =?us-ascii?Q?fz0huHSuaaaT3Yc2q7gyU0JDZ/lkfs2PnJ2KE6ySSAFRgLEMzgflnHsMUkAU?=
+ =?us-ascii?Q?0Ow8QsMa+ufaYslsbW9XgehnjzUlQdKvbe3R9qPj3fYiNpb3pRciO6Mnb6j4?=
+ =?us-ascii?Q?4BM7g4TDwol5b3hkAqBje3XCjudwRe1Vg7jXVFL0yWuLnN6fbMf5/wtWrJvY?=
+ =?us-ascii?Q?17/RlDukB9SxXGzN3DtZ5dJWci+ZdY0G/QnTTqizpVeaeUYAJkjqQYxsmCPG?=
+ =?us-ascii?Q?uzqnm22m2cpFOhRZFvEiFvFF6EfEA+QUWzVmkUe1kzZ82nRVuEHEs3bjBMli?=
+ =?us-ascii?Q?JgVQMRCdxn3ZySRcSs/y5Hhw14dyb9MwabaXcmXszeEwabmlDWuda6TMgpqi?=
+ =?us-ascii?Q?H3BcW/u6g65g7ZShE9txEwKp+X9Cc1rhJ5qWyMscsVpJnhCgnONoIT3sxp4U?=
+ =?us-ascii?Q?8id61ly6v7PuCLKrJU7o9pz11dCThDdZ+WYYCVqbk+htYUtzUpd1KiTNPsqD?=
+ =?us-ascii?Q?XZMkIaNc2FKAuN0H6k/Vi+NIk/Mv3/EdMf1xg6YzviVem7dtItkDaSXyvTW7?=
+ =?us-ascii?Q?MEdcsqsXT9QCZMDmen2AG95pqdN5b2zSlZw7jrBDDXmoz4ldI9rpOvlI5ebp?=
+ =?us-ascii?Q?4cM5xRouH/Slq019BTlOpka2xyNGckqQmRkn3edtDP/JZHLa+ZKAAOpuMi15?=
+ =?us-ascii?Q?j4E8UL6DvvB6IOlJmE3UP3/0wWCCon+3TIpwec8VQdLdC5OetgMOeqUORZdm?=
+ =?us-ascii?Q?y7dMbnPx/8pUNgnjn6UeHqkwBRC2Tmzl9OLkoZ3BmElSjcNrlxfuTVfykGvt?=
+ =?us-ascii?Q?88IV+hOqhbjOn6Bl/eyq+s2kw7ROKCsvyfRyWpyppNaKwXnoVYRWd2Kzi4nq?=
+ =?us-ascii?Q?umdMPdWIs/Yc/uw7Ps2OxnVGjgCIt9iEmGPs66YgOihjVGd7ce6QsgMKyDmr?=
+ =?us-ascii?Q?YtJ9aO6Idrj3/+FNzyEE1pvGpbKxZa5z2iX9gAzdsF4OdxNGe014Lw2cCwsr?=
+ =?us-ascii?Q?E1KInlXJH959O+VDe//fCjvC3LsVKGY07vSp/2N9WLsly+3Yrie0NvTbucs3?=
+ =?us-ascii?Q?U+l/ba+vQHsqFwGTl4K44Pqxq3BPy1ZWOrYz4OOexdFfsn+GLrmofu92aQu2?=
+ =?us-ascii?Q?ZV1P2F6zRMjmD9c/hmRgA9xNAsXog54/aHjRcOIDQCIw3qXm?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b85554b0-a2c3-475d-6bb4-08df1d6be199
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 14:22:09.6624
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pa5vdjxkQwWKAyuukjF7P0IqtasQrdI9GcLgPVh7kUGtqQyk1wp7iBp8bogT3xsowE3AW0MCwnp+8VxqrfsdRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8291
 
-syzbot has found a reproducer for the following issue on:
+On Fri, Sep 25, 2026 at 10:56:38PM +0530, Vishal Badole wrote:
+> The v2 register layout applies to every Family 1Ah model, but
+> zn_regs_v2 is set individually in each model case of the switch. All
+> currently supported models set it, so this is not a live bug; however a
+> model added later without its own case, or in a case that omits the
+> assignment, would read the UMC registers at the wrong offsets.
 
-HEAD commit:    72d3fcf802c4 Linux 7.3-rc5
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=168a2ac9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=118a2ac9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1324e325580000
+This parapragh should be simpler. Also, please avoid using long, run-on,
+compound sentences.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-72d3fcf8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/57f8c24b5f88/vmlinux-72d3fcf8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6587a00eaa7f/bzImage-72d3fcf8.xz
+> 
+> Set zn_regs_v2 once at the Family 1Ah level so it applies to all models
+> uniformly, and drop the per-model assignments.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+> ---
+>  drivers/edac/amd64_edac.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+> index 475235c402e8..cab696be4f07 100644
+> --- a/drivers/edac/amd64_edac.c
+> +++ b/drivers/edac/amd64_edac.c
+> @@ -3887,23 +3887,19 @@ static int per_family_init(struct amd64_pvt *pvt)
+>  		break;
+>  
+>  	case 0x1A:
+> +		pvt->flags.zn_regs_v2   = 1;
+> +
+>  		switch (pvt->model) {
+>  		case 0x00 ... 0x1f:
+>  			pvt->max_mcs            = 12;
+> -			pvt->flags.zn_regs_v2   = 1;
+> -			break;
+> -		case 0x40 ... 0x4f:
+> -			pvt->flags.zn_regs_v2   = 1;
+>  			break;
+>  		case 0x50 ... 0x57:
+>  		case 0xc0 ... 0xc7:
+>  			pvt->max_mcs            = 16;
+> -			pvt->flags.zn_regs_v2   = 1;
+>  			break;
+>  		case 0x90 ... 0x9f:
+>  		case 0xa0 ... 0xaf:
+>  			pvt->max_mcs            = 8;
+> -			pvt->flags.zn_regs_v2   = 1;
+>  			break;
+>  		}
+>  		break;
+> -- 
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+Otherwise, looks good to me.
 
-Console: switching to colour dummy device 80x25
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#2: syz.0.17/5926
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bd0 kernel/locking/mutex.c:821, CPU#2: syz.0.17/5926
-Modules linked in:
-CPU: 2 UID: 0 PID: 5926 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x94b/0x1bd0 kernel/locking/mutex.c:821
-Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c0 10 00 00 44 8b 05 e8 55 71 05 45 85 c0 75 13 48 8d 3d ac 61 74 05 48 c7 c6 c0 f6 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
-RSP: 0018:ffffc900043f7b30 EFLAGS: 00010246
-RAX: 0000000000000003 RBX: ffff888100b551c0 RCX: 1ffffffff228b180
-RDX: 0000000000000000 RSI: ffffffff8beff6c0 RDI: ffffffff914897d0
-RBP: ffffc900043f7ca0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888027028b60
-FS:  0000555564139500(0000) GS:ffff8880d5d4f000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000001b32f24008 CR3: 00000000296f3000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- virtio_gpu_remove_from_restore_list drivers/gpu/drm/virtio/virtgpu_object.c:70 [inline]
- virtio_gpu_free_object+0xec/0x280 drivers/gpu/drm/virtio/virtgpu_object.c:106
- drm_gem_object_free+0x60/0xa0 drivers/gpu/drm/drm_gem.c:1164
- kref_put include/linux/kref.h:65 [inline]
- __drm_gem_object_put include/drm/drm_gem.h:562 [inline]
- drm_gem_object_put include/drm/drm_gem.h:575 [inline]
- drm_gem_object_put include/drm/drm_gem.h:572 [inline]
- drm_client_buffer_delete drivers/gpu/drm/drm_client.c:201 [inline]
- drm_client_buffer_delete+0x1d8/0x270 drivers/gpu/drm/drm_client.c:185
- drm_fbdev_shmem_fb_destroy+0xc5/0x110 drivers/gpu/drm/drm_fbdev_shmem.c:67
- put_fb_info drivers/video/fbdev/core/fbmem.c:61 [inline]
- put_fb_info+0xb8/0xf0 drivers/video/fbdev/core/fbmem.c:56
- fb_release+0x13e/0x190 drivers/video/fbdev/core/fb_chrdev.c:381
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f1e7cf9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fffb76db628 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007fffb76db710 RCX: 00007f1e7cf9e159
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 000000000000e123 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000001b32320000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f1e7d225fac R14: 00007f1e7d225fa8 R15: 00007f1e7d225fa0
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
-   4:	38 d0                	cmp    %dl,%al
-   6:	7c 08                	jl     0x10
-   8:	84 d2                	test   %dl,%dl
-   a:	0f 85 c0 10 00 00    	jne    0x10d0
-  10:	44 8b 05 e8 55 71 05 	mov    0x57155e8(%rip),%r8d        # 0x57155ff
-  17:	45 85 c0             	test   %r8d,%r8d
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d ac 61 74 05 	lea    0x57461ac(%rip),%rdi        # 0x57461cf
-  23:	48 c7 c6 c0 f6 ef 8b 	mov    $0xffffffff8beff6c0,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	e9 1b f8 ff ff       	jmp    0xfffff850
-  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
-  3c:	4c 89 e7             	mov    %r12,%rdi
-  3f:	e8                   	.byte 0xe8
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Thanks,
+Yazen
