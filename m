@@ -1,209 +1,407 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566A24E534C;
-	Mon, 28 Sep 2026 15:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06734E80BD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610843; cv=none; b=qBb00aoOMsPvApruijzdoc+zfmbl76lQNyt/itGnWHt4zTbMudAYjfuv0FfxLt8p0WTDcsIQfe4x2g9rTsd5XVtMCOExCBxJSBYzGDNoBng1FSqrGIvKEiOVeFtctcxt67OykiFWiRy6MdDHRh2s0XE7P8RtMM+dNpMfDxXW4L8=
+	t=1790610848; cv=none; b=tPZA8Fu5+LDL4b4atUiRuCYyf2fIc2z+LqbzJUfQFH+7vi/00konbPfCCTlWo212CowXzy2AOweL19sHHiNyv7xUwRm70vgm3qykFvcFhwgIaSTem1y8qRBv8hkzCA84/4JwUuBhgX41m2HU2LWoKwlg3Kuew3OkXo4YbmjWenU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610843; c=relaxed/simple;
-	bh=NVtFynJ8KsAw/2yx2bGvGlsPGSZ1qQhJI4ugZ9fGnz8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XOCxNqbpkHEu7SsMOtOwzYYvL+POFr2TbuJ/iRRuDzgaPwXPNKKlIakDNj7Q6/vFYSZ6h/56TmSvcTHmff8hkYJ/RukbCaLmxgvRZXwYAKYgw7cYPkFXECvlR1fZU75nKzWCbIkOH4wGixaFcNFxFRZdLY1gF/GauKyu6fq4JVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nEd9jI6m; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790610848; c=relaxed/simple;
+	bh=nGRBvZ1IbcJ9flvuRg4eNXnjGJw7itSnW5hZmBIjqIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nTjSxFIhsgaNncUMWHexZ9htNuYgr7NvNdZ4/+LCu2z1GLfZTdZXi3VkO/cOMYiF6Dioz/IHxwlj61ZdmN3XhPKk/iZV+NGKXqLnW6AZYx4GkbzlXZasoFn0ZaUFLu0G5Z7kELghXx6vjzRPz0BNU+38hu+62PXOfwItXJrVoLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQQGSKpF; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nEd9jI6m"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5URZ3815523;
-	Mon, 28 Sep 2026 15:53:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=VLDc/l
-	lN13lUZSgqW0UV1cwNBVNzFn5mHU9k0O/KgSI=; b=nEd9jI6mJthJmt59GZ8Kg2
-	olIXgtmbDEDVIYzBSsFY3XyzFr4ySb3NkgNnNGYfo3oltuNPllNxdG0gHQLlsH/H
-	QZoOuCijUG/J5k4vOZEyk1gXekcKeEFo3EAojEcsTXmHIb60R/myKzXIs1VJo6XQ
-	O0e9abItDpT483haENdm/PWnP8kaAn5lGJ2lt3B/0a1S8YL3mswQPuLv+f94IAWw
-	U/FEJ/MMx7t6Pq3Y04W82qohdcCfdBn3FthHjlY1/zMJhZgeMtZBRBazw2kBd3MX
-	rz+p51nORDPbcN08PZ12mrq4x27L6+iEAh4fh3DRxOQbf6bmhmioF34lSOysvwsQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qr2e8q-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 15:53:40 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEleoc252320;
-	Mon, 28 Sep 2026 15:53:39 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck5y4h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 15:53:38 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SFrY9941615810
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 15:53:35 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA9B02004B;
-	Mon, 28 Sep 2026 15:53:34 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D302B20040;
-	Mon, 28 Sep 2026 15:53:33 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.81.16])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 15:53:33 +0000 (GMT)
-Message-ID: <1e3b65b3-0c21-466f-ae09-8426eeacb97d@linux.ibm.com>
-Date: Mon, 28 Sep 2026 17:53:33 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQQGSKpF"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7b3311c9bso663287a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:54:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790610844; x=1791215644; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0J1YH5odqV0iWslsDrfPs2abhmn/SWHUbgbnWQikAKc=;
+        b=aQQGSKpFgIxuxGCWWQPyUkLA8LhwXiDCqqqbkBKY1QaYyJ8NVYWANvlah19otrjpAF
+         O0oc+zWeZ2XyUc0a6K2BfGkpIYlZwuOQbN2eOmTaQaTeWXuxfKtNhZqY2k10nhG/6oZm
+         UznwygLFM2iiebRBOqwn+w1esbRAzji9Nwuz+ZzlHswUErW03gh2EBoVbIQPxUH6j6JB
+         InL2HHWO05YRtUtPzKDKKbsI6aSWRx8FAUy3b5TStg7dhqzm2zptJR7udgf/4AdQFUJY
+         ZhgpC66dgd+H7Kpsl0FQI4XhFF2ryNQMNl6govhCMyVmxhKHIuSw+qUt13dYQ02XFVkN
+         Rztw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790610844; x=1791215644;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0J1YH5odqV0iWslsDrfPs2abhmn/SWHUbgbnWQikAKc=;
+        b=xerPQavixuGQKL2BRIU9uxYHnm2Aohew2CgCs/uLPu9FAGMJ08jdazSISlQrvmz9KW
+         AP5h2qJD2S4sKE2J9gMu06zBogkigH/cvWULNTx4n7U06MHwltBbzYTDKNqh/VY0vQv/
+         +KI2+OlC5OoR2PG3s0YOp+DXV8QR/Ym0Gi69E3NBLj+Twdzn8agWlsJmxFXHYp3WdVEZ
+         pB0InOUxU4pRIL+c+Qy5Em/jAFSakg0rWUqNMUoYcCjOIBZkY8tfAndoPrdDFBrCcVef
+         ZsyHtcsI3dSVW4hKLWiCGkPnS7D5ZxHrOKniR3jhuWZNwSKBX5lJETW2s8sW6hC81TLq
+         OlOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwR+4tz7TizhygJij8aCvw2zSdF9UfKZFu/mW9TrqsVfFbnMIRHyQ4jD0W2jOvt4p2nnhxxFWXKMVT+xeA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGM6V0NgFfiOo3kZ6pZj57P0LeWdE9gpzryddWNhI6CDHBl0zH
+	Oyg0mfQ+MchVWztjNuvxdoBBEP3dM0qdZAvNO/ecv5e+xkmG2xLZ9orJ
+X-Gm-Gg: AYBFou3vZDO1kQuN2dn8934owhQqjavl2y2oKiNYjXWf4SbbXSsjeqQFbX0XgSKJQYc
+	joZORQN+RLy0HVKvRQc7LaOFEhFSpXmhNBqa7MEl3VBagMlQ4+8W9jWn7MD8aFfUVpUQTPFdJ4m
+	BkkArDsJy2ie3JtWcX+sg+1Si9rNfDujoXuGEJoCmld4kqakxA8M831Iqnexmbqeo2aTmGM/Rin
+	Vqw9FWHz6jjlOzS+CU7YBP1Hh+qOhMa2AZZoBlPCF52dr7DWX5ai1i2wsAUfFl9zUOUqu1Bi/Y7
+	eS1bZbK6TrZinbe/0zDrg1mKaBTRo5I3aDyv7jUwe31C8XjQHfwIUy3OzKTYugcYdXJTQ0z2nLk
+	WFhraxBG1fG4iYfkJfCxwhZIcQeSSfMVkKtOHG0P6PcQz1LcP8Dqhbwya2vLsFWkMhB/5rd9Xoj
+	sHwVn2VK/fj1QFC9MKXZBjcMlgaPhaQp0NT0cJo4Iu0YwlvQ4YAumNn+EknztI7mGOktRkPpwyn
+	JtHZPXIxSDpc/z1VHyHDphkxA==
+X-Received: by 2002:a17:90b:3c05:b0:3a0:e5ed:ef99 with SMTP id 98e67ed59e1d1-3a0e5edf00bmr5548850a91.45.1790610843642;
+        Mon, 28 Sep 2026 08:54:03 -0700 (PDT)
+Received: from localhost.localdomain ([43.224.245.233])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986a1905sm44269a91.13.2026.09.28.08.54.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 08:54:03 -0700 (PDT)
+From: Dongliang Qin <cccccccccccc777777@gmail.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bob Pearson <rpearsonhpe@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/4] RDMA/rxe: Reserve MR state during MW binding
+Date: Mon, 28 Sep 2026 23:53:49 +0800
+Message-ID: <20260928155351.3222978-3-cccccccccccc777777@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928155351.3222978-1-cccccccccccc777777@gmail.com>
+References: <20260928155351.3222978-1-cccccccccccc777777@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 20/29] s390: Introduce Start Arm Execution instruction
-To: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter
- <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik
- <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-21-seiden@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20260918133107.1042730-21-seiden@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2MiBTYWx0ZWRfX5IOLAQ1ypl/K
- KjNK6PnfBVYS+0nkqmog3tLJpLvxJM6ZvyCspTl/9oHY1E9yENoXvgUQS+8ZXERc/4ljr1ktcj6
- iz4G0b/EXOQtOrHCJAIjGiPzF+tVFbH5BtqIi3lqIyNvAaJGaTDCY2mPXe09meD6w5bpTYpLvtv
- 1ypIa2begl4Ea/LrNmnqEdxhApFy+a6cuHTlrAkU95ZTwOw2PIUJzBmoKs2fxLtyEj+iVfq+pBl
- fd7DCSmcI0AdXSDpH5o5cdv8ocb+/Wdpgn482HGS18WYvp/IL+1OUZj2MeyGNndj2qV3oZH04uQ
- 0+8WEJvxb6UdG9jjbcrAn92uN9UVwAiuEDxYHj8/uAxyZ/AjqV6qIRDfWiHBGKgCYlsrD0DduK4
- pTZktwRhz67/tOw/rFH0sJuQWh4yvC+m6hZhO7dA7pBJRM57JpohUYGoTS5aqY39RvV42hNBdzq
- WKciGdET8taUIQn19NQ==
-X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6aba8d84 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=d-oHUx1cmsw_BqqcsnMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: gCzI-DYnJRIhG47JVwT8pS87k7M5ioA0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2MiBTYWx0ZWRfX7aoz/WWt3x7T
- DYX5ffMGEY+FCJVk12ryEWaSnJhmoUQm9TXcQt+3yrU1dRmvkORfRYxlzk3wN0rZufi3Oyg4PT4
- xUZUKelvJfcv+VQc3FZeYFE/dp8dDHM=
-X-Proofpoint-GUID: p67iJAw6OpNowhkMyzhw4cZIAv9bM6SL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1011 spamscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280062
+Content-Transfer-Encoding: 8bit
 
+MR invalidation, fast registration, reregistration, and deregistration
+only test num_mw before changing MR state. A concurrent type-2 MW bind
+can increment num_mw after that test and leave an MW bound to an MR
+that is being destroyed.
 
+Reserve num_mw == -1 while the MR state is changing, and allow binds
+only while num_mw is nonnegative. This keeps the MW binding count and
+MR lifetime synchronized without adding a new object.
 
-On 9/18/26 15:30, Steffen Eiden wrote:
-> The Start Arm Execution (SAE) instruction is the centerpiece for
-> executing arm64 (KVM) guests on s390. Its purpose is, similar to SIE, to
-> enable accelerated execution of arm64 virtual machines. SAE expects the
-> physical address of a control block as the only argument.
-> 
-> The host is responsible to save & restore
->   - GPRs 0-13
->   - access register 0-15
-              ^^^^^^^^
-              registers>   - breaking event register (BEAR)
->   - vector/floating point registers
-> between SAE executions to guarantee host consistency.
-> 
-> GPRs and BEAR are save and restores in the asm functions. The other
-                     ^^^^^^^^^^^^^^^^^
-                     saved and restored
+An unprivileged user with access to the device can use this race to corrupt
+kernel memory and escalate privileges.
 
-> register are handled in within C code. Access registers are handled in a
-   ^^^^^^^^             ^^
-   registers            not needed probably?
+A concurrent bind and deregistration reproducer made KASAN report:
 
-> later patch and SVEs will be handled when they are introduced in a
-> future series. Most arm64 registers are handled by a satellite block
-> called save_area. Some registers, frequently used by hypervisors, are
-> placed into the SAE control block itself.
-> 
-> Enlighten asm/kvm_host_types.h for the new header variant. The new
-> header is chosen instead of asm/kvm_host_s390_types.h if KVM_S390_ARM64
-> is defined.
-> 
-> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
-> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> ---
->   arch/s390/include/asm/asm-prototypes.h       |   1 +
->   arch/s390/include/asm/kvm_host_arm64_types.h | 124 +++++++++++++++++++
->   arch/s390/include/asm/kvm_host_types.h       |   4 +
->   arch/s390/include/asm/sae.h                  |  58 +++++++++
->   arch/s390/include/asm/stacktrace.h           |   5 +
->   arch/s390/kernel/asm-offsets.c               |   1 +
->   arch/s390/kernel/entry.S                     |  22 ++++
->   arch/s390/tools/opcodes.txt                  |   3 +
->   8 files changed, 218 insertions(+)
->   create mode 100644 arch/s390/include/asm/kvm_host_arm64_types.h
->   create mode 100644 arch/s390/include/asm/sae.h
+BUG: KASAN: slab-use-after-free in rxe_mr_copy+0xd5/0x3d0
+Read of size 1 at addr ff11000105d217b0 by task kworker/u16:3/44
+Workqueue: rxe_wq do_work
+Call Trace:
+ rxe_mr_copy+0xd5/0x3d0
+ rxe_receiver+0x1b50/0x3ed0
+ do_work+0xbb/0x250
+ process_one_work+0x412/0x780
+ worker_thread+0x341/0x5b0
+ kthread+0x1b8/0x210
 
-[...]
-    > +#if IS_ENABLED(CONFIG_KVM)
-> +/*
-> + * __sae64a calling convention:
-> + * %r2 pointer to sae control block physical address
-           ^^^^^^^^^^ I guess it's just a physical address and not a
-                      pointer to it?
+Freed by task 1151:
+ kasan_save_stack+0x33/0x60
+ kfree+0x17c/0x450
+ rxe_mr_cleanup+0x3c/0x90
+ __rxe_cleanup+0x145/0x1e0
+ rxe_dereg_mr+0x4e/0x110
+ ib_dereg_mr_user+0xa4/0x1a0
+ ib_uverbs_ioctl+0x12f/0x1c0
 
-                      ^^^ sometimes it's called "sae", sometimes "SAE" -
-                          it would be nice to have some consistency> + */
-> +SYM_FUNC_START(__sae64a)
-> +	stmg	%r6,%r14,__SF_GPRS(%r15)	# store kernel registers
+Fixes: 32a577b4c3a9 ("RDMA/rxe: Add support for bind MW work requests")
 
-Strictly speaking we don't need to save %r14, but I guess you do this
-for unwinding?
+Cc: stable@vger.kernel.org
+Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
+---
+ drivers/infiniband/sw/rxe/rxe_loc.h   |  4 ++
+ drivers/infiniband/sw/rxe/rxe_mr.c    | 70 +++++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_mw.c    | 44 +++++++++--------
+ drivers/infiniband/sw/rxe/rxe_verbs.c | 13 ++++-
+ 4 files changed, 105 insertions(+), 26 deletions(-)
 
-> +	STBEAR	__SF_SAE_BEAR(%r15)		# save breaking event address register
-> +	.insn	rre,0xb9a50000,%r2,0		# Start Arm Execution
-> +	LBEAR	__SF_SAE_BEAR(%r15)		# restore breaking event address register
-> +	lmg	%r6,%r14,__SF_GPRS(%r15)	# restore kernel registers
-> +	xgr	%r0,%r0				# clear guest registers to
-> +	xgr	%r1,%r1				# prevent speculative use
-> +	xgr	%r2,%r2
-> +	xgr	%r3,%r3
-> +	xgr	%r4,%r4
-> +	xgr	%r5,%r5
-> +	BR_EX	%r14
-> +SYM_FUNC_END(__sae64a)
-> +EXPORT_SYMBOL(__sae64a)
-> +#endif
-[...]
+diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
+index 2cbec92566f70..5e95e5c5e32d6 100644
+--- a/drivers/infiniband/sw/rxe/rxe_loc.h
++++ b/drivers/infiniband/sw/rxe/rxe_loc.h
+@@ -72,6 +72,10 @@ enum resp_states rxe_mr_do_atomic_op(struct rxe_mr *mr, u64 iova, int opcode,
+ enum resp_states rxe_mr_do_atomic_write(struct rxe_mr *mr, u64 iova, u64 value);
+ struct rxe_mr *lookup_mr(struct rxe_pd *pd, int access, u32 key,
+ 			 enum rxe_mr_lookup_type type);
++int rxe_mr_get_mw(struct rxe_mr *mr);
++void rxe_mr_put_mw(struct rxe_mr *mr);
++bool rxe_mr_reserve_mw_state(struct rxe_mr *mr);
++void rxe_mr_release_mw_state(struct rxe_mr *mr);
+ int mr_check_range(struct rxe_mr *mr, u64 iova, size_t length);
+ int advance_dma_data(struct rxe_dma_info *dma, unsigned int length);
+ int rxe_invalidate_mr(struct rxe_qp *qp, u32 key);
+diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
+index 71d9ea4772890..4dc5b7405832f 100644
+--- a/drivers/infiniband/sw/rxe/rxe_mr.c
++++ b/drivers/infiniband/sw/rxe/rxe_mr.c
+@@ -721,6 +721,53 @@ struct rxe_mr *lookup_mr(struct rxe_pd *pd, int access, u32 key,
+ 	return mr;
+ }
+ 
++/*
++ * num_mw counts the MWs bound to an MR. The value -1 is reserved while
++ * the MR is changing state so that a new MW binding cannot race with
++ * invalidation, fast registration, or deregistration.
++ */
++int rxe_mr_get_mw(struct rxe_mr *mr)
++{
++	int old;
++
++	if (!rxe_get(mr))
++		return 0;
++
++	old = atomic_read(&mr->num_mw);
++	do {
++		if (old < 0)
++			goto err_put;
++	} while (!atomic_try_cmpxchg(&mr->num_mw, &old, old + 1));
++
++	if (mr->state != RXE_MR_STATE_VALID) {
++		atomic_dec_return(&mr->num_mw);
++		rxe_put(mr);
++		return 0;
++	}
++
++	return 1;
++
++err_put:
++	rxe_put(mr);
++	return 0;
++}
++
++void rxe_mr_put_mw(struct rxe_mr *mr)
++{
++	atomic_dec_return(&mr->num_mw);
++	rxe_put(mr);
++}
++
++bool rxe_mr_reserve_mw_state(struct rxe_mr *mr)
++{
++	return atomic_cmpxchg(&mr->num_mw, 0, -1) == 0;
++}
++
++void rxe_mr_release_mw_state(struct rxe_mr *mr)
++{
++	atomic_xchg(&mr->num_mw, 0);
++}
++
+ int rxe_invalidate_mr(struct rxe_qp *qp, u32 key)
+ {
+ 	struct rxe_dev *rxe = to_rdev(qp->ibqp.device);
+@@ -743,7 +790,7 @@ int rxe_invalidate_mr(struct rxe_qp *qp, u32 key)
+ 		goto err_drop_ref;
+ 	}
+ 
+-	if (atomic_read(&mr->num_mw) > 0) {
++	if (!rxe_mr_reserve_mw_state(mr)) {
+ 		rxe_dbg_mr(mr, "Attempt to invalidate an MR while bound to MWs\n");
+ 		ret = -EINVAL;
+ 		goto err_drop_ref;
+@@ -752,11 +799,16 @@ int rxe_invalidate_mr(struct rxe_qp *qp, u32 key)
+ 	if (unlikely(mr->ibmr.type != IB_MR_TYPE_MEM_REG)) {
+ 		rxe_dbg_mr(mr, "Type (%d) is wrong\n", mr->ibmr.type);
+ 		ret = -EINVAL;
+-		goto err_drop_ref;
++		goto err_release;
+ 	}
+ 
+ 	mr->state = RXE_MR_STATE_FREE;
++	rxe_mr_release_mw_state(mr);
+ 	ret = 0;
++	goto err_drop_ref;
++
++err_release:
++	rxe_mr_release_mw_state(mr);
+ 
+ err_drop_ref:
+ 	rxe_put(mr);
+@@ -777,23 +829,26 @@ int rxe_reg_fast_mr(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+ 	u32 key = wqe->wr.wr.reg.key;
+ 	u32 access = wqe->wr.wr.reg.access;
+ 
++	if (!rxe_mr_reserve_mw_state(mr))
++		return -EINVAL;
++
+ 	/* user can only register MR in free state */
+ 	if (unlikely(mr->state != RXE_MR_STATE_FREE)) {
+ 		rxe_dbg_mr(mr, "mr->lkey = 0x%x not free\n", mr->lkey);
+-		return -EINVAL;
++		goto err_release;
+ 	}
+ 
+ 	/* user can only register mr with qp in same protection domain */
+ 	if (unlikely(qp->ibqp.pd != mr->ibmr.pd)) {
+ 		rxe_dbg_mr(mr, "qp->pd and mr->pd don't match\n");
+-		return -EINVAL;
++		goto err_release;
+ 	}
+ 
+ 	/* user is only allowed to change key portion of l/rkey */
+ 	if (unlikely((mr->lkey & ~0xff) != (key & ~0xff))) {
+ 		rxe_dbg_mr(mr, "key = 0x%x has wrong index mr->lkey = 0x%x\n",
+ 			key, mr->lkey);
+-		return -EINVAL;
++		goto err_release;
+ 	}
+ 
+ 	mr->access = access;
+@@ -801,8 +856,13 @@ int rxe_reg_fast_mr(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+ 	mr->rkey = key;
+ 	mr->ibmr.iova = wqe->wr.wr.reg.mr->iova;
+ 	mr->state = RXE_MR_STATE_VALID;
++	rxe_mr_release_mw_state(mr);
+ 
+ 	return 0;
++
++err_release:
++	rxe_mr_release_mw_state(mr);
++	return -EINVAL;
+ }
+ 
+ void rxe_mr_cleanup(struct rxe_pool_elem *elem)
+diff --git a/drivers/infiniband/sw/rxe/rxe_mw.c b/drivers/infiniband/sw/rxe/rxe_mw.c
+index 04f795adacf53..82e9fef89b6c3 100644
+--- a/drivers/infiniband/sw/rxe/rxe_mw.c
++++ b/drivers/infiniband/sw/rxe/rxe_mw.c
+@@ -136,33 +136,39 @@ static int rxe_check_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe,
+ 	return 0;
+ }
+ 
+-static void rxe_do_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe,
+-		      struct rxe_mw *mw, struct rxe_mr *mr, int access)
++static int rxe_do_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe,
++			  struct rxe_mw *mw, struct rxe_mr *mr, int access)
+ {
+ 	u32 key = wqe->wr.wr.mw.rkey & 0xff;
+ 
+-	mw->rkey = (mw->rkey & ~0xff) | key;
+-	mw->access = access;
+-	mw->state = RXE_MW_STATE_VALID;
+-	mw->addr = wqe->wr.wr.mw.addr;
+-	mw->length = wqe->wr.wr.mw.length;
++	if (mw->ibmw.type == IB_MW_TYPE_2 && !rxe_get(qp))
++		return -EINVAL;
++
++	if (mr && !rxe_mr_get_mw(mr)) {
++		if (mw->ibmw.type == IB_MW_TYPE_2)
++			rxe_put(qp);
++		return -EINVAL;
++	}
+ 
+ 	if (mw->mr) {
+-		rxe_put(mw->mr);
+-		atomic_dec(&mw->mr->num_mw);
++		rxe_mr_put_mw(mw->mr);
+ 		mw->mr = NULL;
+ 	}
+ 
+-	if (mw->length) {
++	if (mr)
+ 		mw->mr = mr;
+-		atomic_inc(&mr->num_mw);
+-		rxe_get(mr);
+-	}
++
++	mw->rkey = (mw->rkey & ~0xff) | key;
++	mw->access = access;
++	mw->state = RXE_MW_STATE_VALID;
++	mw->addr = wqe->wr.wr.mw.addr;
++	mw->length = wqe->wr.wr.mw.length;
+ 
+ 	if (mw->ibmw.type == IB_MW_TYPE_2) {
+-		rxe_get(qp);
+ 		mw->qp = qp;
+ 	}
++
++	return 0;
+ }
+ 
+ int rxe_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+@@ -213,7 +219,9 @@ int rxe_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+ 	if (ret)
+ 		goto err_unlock;
+ 
+-	rxe_do_bind_mw(qp, wqe, mw, mr, access);
++	ret = rxe_do_bind_mw(qp, wqe, mw, mr, access);
++	if (ret)
++		goto err_unlock;
+ err_unlock:
+ 	spin_unlock_bh(&mw->lock);
+ err_drop_mr:
+@@ -250,8 +258,7 @@ static void rxe_do_invalidate_mw(struct rxe_mw *mw)
+ 	/* valid type 2 MW will always have an MR pointer */
+ 	mr = mw->mr;
+ 	mw->mr = NULL;
+-	atomic_dec(&mr->num_mw);
+-	rxe_put(mr);
++	rxe_mr_put_mw(mr);
+ 
+ 	mw->access = 0;
+ 	mw->addr = 0;
+@@ -336,8 +343,7 @@ void rxe_mw_cleanup(struct rxe_pool_elem *elem)
+ 		struct rxe_mr *mr = mw->mr;
+ 
+ 		mw->mr = NULL;
+-		atomic_dec(&mr->num_mw);
+-		rxe_put(mr);
++		rxe_mr_put_mw(mr);
+ 	}
+ 
+ 	if (mw->qp) {
+diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
+index 3864284522ebc..8553c8402c619 100644
+--- a/drivers/infiniband/sw/rxe/rxe_verbs.c
++++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
+@@ -1337,6 +1337,11 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	}
+ 
++	if (!rxe_mr_reserve_mw_state(mr)) {
++		rxe_err_mr(mr, "mr has mws bound\n");
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	if (flags & IB_MR_REREG_PD) {
+ 		rxe_put(old_pd);
+ 		rxe_get(pd);
+@@ -1346,6 +1351,8 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 	if (flags & IB_MR_REREG_ACCESS)
+ 		mr->access = access;
+ 
++	rxe_mr_release_mw_state(mr);
++
+ 	return NULL;
+ }
+ 
+@@ -1401,13 +1408,15 @@ static int rxe_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
+ 	struct rxe_mr *mr = to_rmr(ibmr);
+ 	int err, cleanup_err;
+ 
+-	/* See IBA 10.6.7.2.6 */
+-	if (atomic_read(&mr->num_mw) > 0) {
++	/* See IBA 10.6.7.2.6. Leave num_mw set to -1 for destruction. */
++	if (!rxe_mr_reserve_mw_state(mr)) {
+ 		err = -EINVAL;
+ 		rxe_dbg_mr(mr, "mr has mw's bound\n");
+ 		goto err_out;
+ 	}
+ 
++	mr->state = RXE_MR_STATE_INVALID;
++
+ 	cleanup_err = rxe_cleanup(mr);
+ 	if (cleanup_err)
+ 		rxe_err_mr(mr, "cleanup failed, err = %d\n", cleanup_err);
+-- 
+2.43.0
