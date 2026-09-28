@@ -1,143 +1,146 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9E33B42D7
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6323909AE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578317; cv=none; b=rZhMOz7y6GaE3e5miGHBMWLM3uUBR9skSeIpX7E1QUT5aC+VtpX6ruS8jkEcgMTlZ6eeC/Ocnmq92VNY/5nJ4Ds3BizuV7fkWEf7LG7i3Sr+dOPa2IcqrWlXzLYXSCEDGhbuw7izTxfLFGxi4fJmLdhcUJttKimOeBhuuagYWHc=
+	t=1790578343; cv=none; b=dH3lMdwEVsn9YkIgW2SSa6ZI0tVnjt+Cr4akgMbTc+W2Bj5iYYGgGb7imSoeP9CZyYTAnWAoH2XYZapcJDIJ/7Feh2KYdCqXL424oTrHCgC5WZzLIFnAxeZrhKR97Cw4AHrytiYiFfCvn1gP3xtS/7ab4361abVOgWyLJhFXuJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578317; c=relaxed/simple;
-	bh=g7HnC8uqTbvUXOf7grJy5hvESCLtvv+JmLFCJtRKpUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QPgfQczzlUq19T33BipOT6AVyjK/V/lelkiBcHWMxHuLhCiKosufdK0gP+YYTjGnMfMDzAYF5czsHyBswxVIEnNtQEjhz4dTtosrx7S2ElxFCZa+Oxakm74xONNIb3KcCxjYg1qufzJlROyBdLkdCFqFjgbce/Sd1HWZbKsgVTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DHi9qyRu; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790578343; c=relaxed/simple;
+	bh=+qFFDBKT9icpOA509PxeK49mkOaj8au1jPX2+vSCPHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jR+tGyHyHD7yZwOrstoQ/z1gt23Sswvq7c5NYbxJsKT4Z3/OBHtwvWTpoiPCTjPKBoGz6Sx2Z5KANSG441J+CN19550YuyUdxxZXYvvrWkiuxXaaV10uC8mG+mpBlIMeX8dmIg6mgDa4fZKkrfSCn3YFd32b4EqJ99QZmILUGvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHgWkaQt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DHi9qyRu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jB
-	tlJDFKscNKWnzPzGWEgbYNeA/nKaim8x499cdrdZA=; b=DHi9qyRur8Y+DzgPTr
-	dzEYfVv36KLnfN8bx6UhBu60sJO0fS0JuyUnDGI57T/mX2FE6412pLyfh4+pqvb9
-	kAgpISUkP+SWJ9EdlEbcHlI2+wxfP0b+uLi+3CsFPl/jALKk7AAgCCMKwijOHc5C
-	5gaG+kldfuGDIdh83mnqglRWI=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338lcDrpqNj3_BA--.62282S2;
-	Mon, 28 Sep 2026 14:51:09 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Ian Bridges <icb@fastmail.org>
-Cc: Quchaosheng <quchaosheng000406@163.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	syzbot+3942dc5563ea8b96bbbe@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Russ Weight <russ.weight@linux.dev>
-Subject: Re: [RFC PATCH] firmware_loader: fix use-after-free in fw_load_sysfs_fallback()
-Date: Mon, 28 Sep 2026 14:50:51 +0800
-Message-ID: <20260928065053.1750765-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ajSGzHwRxkT2rVMZ@dev>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHgWkaQt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538711F000FF;
+	Mon, 28 Sep 2026 06:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790578342;
+	bh=SLXV/Cg00f6WCYQp25Dw7LaF99vpemY8DU7m4VnwaGM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jHgWkaQta7QyqouZdTn+ObiRaW41vPBjM+OQ/K17MKZfiafOZ9YU3EyNdsQhw1IbG
+	 j7IFiyCxZiMg4HL4rXUcxVivOh0qC6BKLKgLFGtT9cT5wJOEOdntoaZ9hXDnik2dc2
+	 O13sUr7tg9oPldbfZl92hEfnLYIcVfY/JJtUhnoVIzQr1AlDFvPF/s/3sZCVYpqQeJ
+	 a6Oft4IaQh345KESFmv9tsvYv+T0YhcItc9mb1dN+yYOA/c9IRzvrZtaTEb27a8pPe
+	 QRBVelVtataaFIVMNB8HHZ04hZYhLtU7ZysS1mdwCHA/HRDS3Bo8ei5o/FhTusz0Wj
+	 hGIZFpgV8n9rw==
+Date: Mon, 28 Sep 2026 12:20:04 +0530
+From: Naveen N Rao <naveen@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>, 
+	Manali Shukla <manali.shukla@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Robert Richter <rrichter@amd.com>, 
+	Christian Ludloff <ludloff@gmail.com>
+Subject: Re: [PATCH v5] x86/apic: Use EILVT register count from APIC_EFEAT
+Message-ID: <aroJFq8GxwZNhqk8@blrnaveerao1>
+References: <20260925161706.1619042-1-naveen@kernel.org>
+ <20260926003833.GCarcUCXmT6B5hfSBV@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD338lcDrpqNj3_BA--.62282S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyUKr1DXr1DWrW7Gw4UJwb_yoWrJw13pF
-	WSqFnxKr4DuryrWrykZr4UZFyrZws3CayrGr1rG3WI9an8Zr9IqryxKw4q9F15urs3C3WY
-	yFWjgwn7JryDX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU_UUUUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB3jWWq6Dl2JVQAA34
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926003833.GCarcUCXmT6B5hfSBV@fat_crate.local>
 
-Hello Ian,
+On Fri, Sep 25, 2026 at 05:38:33PM -0700, Borislav Petkov wrote:
+> On Fri, Sep 25, 2026 at 09:47:06PM +0530, Naveen N Rao (AMD) wrote:
+> > Future AMD processors will be increasing the number of EILVT registers.
+> > Rather than hardcoding the maximum EILVT register count and using that
+> > everywhere, introduce a variable in 'struct apic' to track the EILVT
+> > register count.
+> > 
+> > The number of EILVT registers is exposed through the extended APIC
+> > Feature Register (APIC_EFEAT) bits 23:16 on platforms that support the
+> > AMD Extended APIC Register space (X86_FEATURE_EXTAPIC).  Use this to
+> > initialize the count and fall back to the current default from AMD
+> > family 0x10 (APIC_EILVT_NR_AMD_10H, which is 4) otherwise. Since this
+> > value is no longer a compile-time constant, update eilvt_offsets to be
+> > dynamically allocated.
+> > 
+> > Drop the now-redundant APIC_EILVT_NR_MAX macro. Other than during EILVT
+> > register offset allocation (which now uses apic->eilvt_regs_count), that
+> > macro was being used in the IBS driver for determining the EILVT offset
+> > for AMD family 0x10 since the EILVT offsets were not assigned by the
+> > BIOS. Switch that to use APIC_EILVT_NR_AMD_10H, which reflects the
+> > correct EILVT register count for that family.
+> > 
+> > Note: because the EILVT register count is now derived from APIC_EFEAT,
+> > it is possible that the register count is less than 4 (1 or 0 even) on
+> > some AMD K8 parts (rather than the previous default of 4), which should
+> > more accurately reflect the correct EILVT register count on those parts.
+> 
+> Please, do not talk about *what* the patch is doing in the commit message
+> - that should be obvious from the diff itself. Rather, concentrate on the
+> *why* it needs to be done and why your patch exists.
+> 
+> It is perfectly fine to explain non-trivial aspects of the code the patch is
+> touching but do not regurgitate what it does.
 
-I went through the two syzbot reports this targets (kernfs_get and
-__kernfs_new_node) and I agree with your analysis.  device_add() is not
-serialized against the removal of the requesting device, and
-get_device() in request_firmware_nowait() keeps only the struct device
-alive, not the kernfs nodes behind dev->kobj.sd.  The window is real.
+I thought I have explained the why. What am I missing?
 
-Unfortunately I think the patch as posted cannot go in as-is:
-device_lock(parent) around device_add() deadlocks for any driver that
-requests firmware from its probe function, which is the common case
-rather than an edge case.
+Perhaps you are saying paragraph 2 is not needed? Though I fail to see 
+how it can hurt (it does clarify why the fallback is the value that it 
+is).
 
-Why: ->probe() already runs with the device mutex held.
+> 
+> Also, that second note about clamping it:
+> 
+> https://sashiko.dev/#/patchset/20260925161706.1619042-1-naveen%40kernel.org
+> 
+> does sound relevant.
 
-  __device_attach()
-      device_lock(dev);                     <- device mutex taken
-      bus_for_each_drv(... __device_attach_driver)
-          driver_probe_device() -> really_probe()
-              drv->probe(dev)               <- driver probe
+I had addressed this in the cover note on the previous version and 
+didn't repeat it here:
+https://lore.kernel.org/all/cover.1788425679.git.naveen@kernel.org/
 
-A driver that calls request_firmware() from there reaches
+  3. Need to clamp the maximum EILVT register count to prevent incorrect 
+     MMIO accesses: this is not an issue since all offsets being 
+     programmed are appropriately clamped at the source.
 
-  _request_firmware()
-      firmware_fallback_sysfs()
-          fw_load_from_user_helper()
-              fw_load_sysfs_fallback()
-                  device_lock(parent)       <- parent == that same dev
+> 
+> The first one, OTOH, is a very good example of a confused LLM:
+> 
+> "The APIC ExtLvtCnt (XLC) field represents the maximum EILVT index..."
+> 
+> Apparently, it couldn't download the APM.
+> 
+> :-P
 
-and takes the mutex it is already holding.  Linux mutexes are not
-recursive (see the semantics list in include/linux/mutex_types.h), so it
-self-deadlocks.  Both the synchronous and the nowait path end up in
-fw_load_sysfs_fallback(), so both are affected.
+Oh yeah, and no amount of me calling this out explicitly in the commit 
+log seemed to help. See patch 2 here, where I added that it is the 
+actual count:
+https://lore.kernel.org/all/39d39c3b91d174f4090fb954c6690edae9ed8295.1784619898.git.naveen@kernel.org/
 
-I measured this rather than reasoning about it.  Two kernels, same
-config (CONFIG_PROVE_LOCKING + CONFIG_DEBUG_MUTEXES), same initramfs.  I
-wrote a scratch platform driver whose ->probe() has the same shape as
-softing_pdev_probe() -> softing_card_boot() -> softing_load_fw() ->
-request_firmware() (drivers/net/can/softing/softing_fw.c:153), and made
-it print mutex_is_locked(&dev->mutex) before requesting firmware.
+Sashiko review of that:
+https://sashiko.dev/#/patchset/cover.1784619898.git.naveen@kernel.org
 
-Without the patch, the probe reports the mutex is held and then completes:
+> 
+> 
+> > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
+> > Tested-by: Manali Shukla <manali.shukla@amd.com>
+> > Tested-by: Bharata B Rao <bharata@amd.com>
+> 
+> Are you sure they tested your new version so quickly?
 
-  fwlockdep-test: probe: mutex_is_locked(&dev->mutex) = 1
-  fwlockdep-test: Falling back to sysfs fallback for: fwlockdep/does-not-exist.bin
-  fwlockdep-test: probe: request_firmware returned -110      <- returned
+No, and I never claimed they did. If anything, I have called this out 
+explicitly as part of the changelog:
+  - Pick up Bharata's Tested-by, and retain Manali's tag since the change
+    is minimal
 
-With your RFC applied verbatim, the same probe reaches the fallback and
-never comes back:
+Retaining their tags was a deliberate decision on my part knowing the 
+tests they are doing and that they would not be exercizing the fallback 
+path, which this version changes.
 
-  fwlockdep-test: probe: mutex_is_locked(&dev->mutex) = 1
-  fwlockdep-test: Falling back to sysfs fallback for: fwlockdep/does-not-exist.bin
-  (no further output; guest had to be killed after 320s)
+I'm absolutely ok to drop that, but no, I didn't claim they tested this 
+version.
 
-The host run timed out (qemu exit 124) and the guest never reached the
-"request_firmware returned" line, so the 60s firmware timeout never even
-expires - the task is stuck on the mutex, not waiting for userspace.
 
-Some directions that might work instead:
-
-a) Keep a reference on the parent's kernfs node / directory rather than
-   on the struct device, so the node cannot be freed while device_add()
-   uses it.  The fallback device currently holds the parent device, and
-   device_del() tears the kobject hierarchy down independently of that
-   reference, which is the asymmetry to close.
-
-b) Have device_del()-side teardown and the fallback device_add()
-   synchronize on something that is not the device mutex, since the
-   mutex is already held by every probe-context caller.
-
-c) Detect the teardown after device_add() and unwind, which would stop
-   the crash without mutual exclusion, though it leaves the kernfs node
-   lifetime question open.
-
-I have not written a patch for this.  I would rather help get yours into
-shape than file a competing one.  Raising the deadlock now seems better
-than having a maintainer spend a review cycle on the RFC and hit it.
-
-If you still have the dummy_hcd + Raw Gadget harness you mentioned, that
-would be very useful for validating whichever direction we pick against
-the actual crash.  Happy to dig into one of these with you.
-
-Thanks,
-Quchaosheng
+- Naveen
 
