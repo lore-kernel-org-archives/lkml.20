@@ -1,191 +1,116 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26EE498920
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F46D30EF9A;
+	Mon, 28 Sep 2026 10:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590537; cv=none; b=c+QPXcaRQGP9KuFq0ufOGj1CXUsoGMsb0Vh96S90o203FwJitEBwSr6VhyhZhZ9W9oZTInLHgtFKM6nJhE41DhyKLgJCZHgmCeqKwOrgT+S28ANBHFYltQ6CsDznejltRu77T+utblPWssS6tEfkigEwnoxuJyoBGTx+FEHv6yY=
+	t=1790590567; cv=none; b=b6FkxRcy80cBd7camMyxFEKwbJ2ejdgC8j4IhImFBXaOBT7Rc8fSREfvWgQGpBkp4RC6a7tJ1RVVlhoxJ7hX+53Y36YegUO0wJPvn7FshFY1Wccbq1D58NLy2qVYGsxUwLj2Ep9v49AppFciU7IOZFHMevGtYHZeCO5rmLNEdKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590537; c=relaxed/simple;
-	bh=2sH0Z1b1DEsr+Upk37SxQ2YStDHN0yVwwbQc9S7oe9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXzi7M0MhdW820wjsdbZhCcrQc4J/VMMOgYld0ZatLkxtDunKIPcJDNOEDqOxqs9wm9nSiRZKQyVeoYLSbI4++vY8FzEVpe5xUc0tl5eULyeXkBpxFmeGoG/kfwijMNOnGEoxSVoqZk6UpJEzXp9VlpjF+nAXDatzmta9BCXmkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qbgtaWZV; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790590567; c=relaxed/simple;
+	bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i3XuuAcMtrbBMZJMH9pUYi+c+ydBMqaRDprA6zqI0YEL707ILTipCILMSMzvhnLJ7Lndb+UB3fTtS7haOosYFAVPGTG+q4ocEEiYiiQh7gEa/hm0Zy/7MEsFSE1nHcjcbgKLCNZZB/OlqlpMLPtrGjAG33fs0/DVgjpYuD0snvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qj293lBg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qbgtaWZV"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9ZbSY801872;
-	Mon, 28 Sep 2026 10:15:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=I9YWgdp3mCbRCKvgPqLXG3NX489SEVw7ADOKm78t1
-	t0=; b=qbgtaWZVNmU+C9w65tTS5Pguk/4bpNIvUIJp7XS8LC0ZKTNlDaAA6lSmk
-	YNj9VTPiHNYYYAsblB5OOjKycMbvmbqlfcymSVPTYfNvJZ0vVt3Kzn4wWXIWM2Ve
-	e5D0zVz6+n3btd6nleC58PakY83B2IGESl27nLE6io5WUfInVu49R6jml1CMXI/B
-	lun1BKQ+zJOanQ/yIUZrwaymnFvnAXVRjwh0z9c0fOuloOheBv24FGEGSJ9oYBwS
-	ttWB8jvElfVGeEEhGAXMuDNmid6i6dbncO9QA8v/ddb+cDkl4FhU/mVa071JgbH7
-	eO8fXLNE3c5AAgkEVRXEsLkmlmFwQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j50pwf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 10:15:22 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9HXTe4136558;
-	Mon, 28 Sep 2026 10:15:21 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhcpq1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 10:15:21 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SAFHX545089218
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 10:15:17 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5D3D82006C;
-	Mon, 28 Sep 2026 10:15:17 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2D90520067;
-	Mon, 28 Sep 2026 10:15:14 +0000 (GMT)
-Received: from shivang.bl1-in.ibm.com (unknown [9.123.12.247])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 10:15:13 +0000 (GMT)
-From: Shivang Upadhyay <shivangu@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: mkchauras@gmail.com, adityag@linux.ibm.com, adri.vero.dev@gmail.com,
-        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        shivangu@linux.ibm.com, sourabhjain@linux.ibm.com,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>
-Subject: [PATCH v5] ppc/fadump: collect dump when CPU_STATE_DATA is less than reserved
-Date: Mon, 28 Sep 2026 15:46:46 +0530
-Message-ID: <20260928101646.415278-1-shivangu@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qj293lBg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E42F1595;
+	Mon, 28 Sep 2026 03:16:01 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C36183F86F;
+	Mon, 28 Sep 2026 03:16:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790590564; bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=Qj293lBg/6b843xYXIk9YO/DL5ZlcuD8zBJGerZdZts+ENqsUVJep4w+Pc6KlwNJj
+	 nyWECdxejVewrMEYaQiMLr6lXZE+ra/3nb/mQeRs+c2ubsQmD8OFwQlfyDFmFqeQrz
+	 xKnzNC2CzPiDqaIAxo9yZSeKOCIuFOPJOIzGhrzQ=
+From: Leo Yan <leo.yan@arm.com>
+Date: Mon, 28 Sep 2026 11:15:51 +0100
+Subject: [PATCH v2] perf test: Record kcore for the CoreSight callchain
+ test
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfX2b48/DL15AVO
- jzH79/Zwynf/gq+61IdT4tnToAbC+JtgbzY0595NkqNPVqTDhigKOGYqgJEo1vPMoLL/k+4zvfd
- PceXFiCYYaN7+a3Z82Wlm1RkuLoH4J8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MCBTYWx0ZWRfX6pUbEtvL3F1O
- 1Yj1A18VxDGB49ABy+XS0r78bprRvZ/nz79L/EHzn+txHEwJYd7Tq7Hug/veAkI6D3lWuJJWnQt
- racSi4RS6MgAOHMMd8zJGothNdXwHuSJqAEbxd6tiIxn0jviIowDaolkWp2l+HlF0YvcgYebp5K
- MIkLYYL6dPkQaXS862B3r1wdI2C/Y04Xwm+/F+NuQZ1aSUgbonXcXSCMeX04vCl6BiBSdDG8YGP
- tbdP3gw2x4Uz+EOzu9G4e2Kgo8toh9w9ZPXXv/feJpiAkgTwwPQcXf2Yel/ZNE7wdpE5EEU5uMV
- VVpu+WTmECM5vQaZZKUUiuJBbHiT6pf59+WfbQ65fYReCZW/ll1V3NDnlsU4ptLQ6CBu1o9JMp8
- rP5uy08oBlORk/tXFilks6CpkhBLMsBoj2lBww5Siy2d6/fvFpuzqn9x0My8Vt54xHE2kHC9MKc
- 6Tf+5ql5Zw4Vn8GTBlw==
-X-Proofpoint-GUID: 16hvucQr_i2I5bML6FhShkO-5lFkN0ou
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6aba3e3a cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=rhl6VPSXp8Npg8hTsXYA:9
-X-Proofpoint-ORIG-GUID: Z-8AifYGZ8GNAAvGoHw_VknlqIwA3DPd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280040
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-perf_cs_etm_callchain_test_add_kcore-v2-1-24fff6fab009@arm.com>
+X-B4-Tracking: v=1; b=H4sIAFY+umoC/x2N0QqDMAwAf0XyvIIWJna/MkYoaaphrkpSZCD++
+ 8oeD467E4xV2ODRnaB8iMlWGvhbB7TEMrOT1Bh878c++MntrBnJkOsHKa5rs6RgZasYU8I3bco
+ uh5GnMOQw0B1aalfO8v1vnq/r+gGBWobudgAAAA==
+X-Change-ID: 20260928-perf_cs_etm_callchain_test_add_kcore-f96e891f91c5
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790590562; l=1896;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
+ b=PBLAJZQTz4UAxqKrLyv3CqWD4tY8pyLYcqZhXfLSXqr1Oaz+AT7oVouvPfS9f4nU0Vezdmpw/
+ 96D3DunWinYB0n/QnueUdjkNQgEPoW4JEGspaRGqwiD5ogGg8Fr8j/Z
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-During Fadump in Qemu VM, when maxcpus value is set to more than current
-cpus, following failure is observed.
+The CoreSight callchain test traces both userspace and kernel execution
+and checks the callchain across a syscall.
 
-    [    0.045806] [      T1] rtas fadump: Dump taken by platform is
-        incomplete (0)
+Add --kcore to perf record to save the running kernel image alongside
+the trace data so perf script can use it to decode the kernel trace.
+If kcore is not available, the test will be skipped.
 
-This is because the CPU_STATE_DATA is allocated for maxcpus, while the
-data is only filled for current cpus. As per current implementation
-of Fadump, dumped_bytes and source_len for a region have to match,
-Which is failing for qemu's case, Even tough the dumped bytes are
-reported correctly for only the current cpus. After this /proc/vmcore
-generatition also fails.
+Add a Fixes tag so the change can be backported to stable kernels and
+improve the test reliability.
 
-Allowing dumped_bytes to be lesser than or equal to allocated length, for
-CPU_STATE_DATA Fadump region.
-
-Reported-by: Anushree Mathur <anushree.mathur@linux.vnet.ibm.com>
-Closes: https://lore.kernel.org/all/5e66daf4-3f55-4044-94a5-4f50bb040849@linux.ibm.com/T/#u
-Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
+Fixes: ca0e19074bd6 ("perf test: Add Arm CoreSight callchain test")
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
+Changes in v2:
+- Add check /proc/kcore and skip test if absent.
 
-Changelog:
-v5:
-    - rebase to master
-    - fixed error message to incomplete/corrupted based on dumped size.
-
-v4: https://lore.kernel.org/all/20260828094942.2439404-1-shivangu@linux.ibm.com/
-    removed extra blank line.
-
-v3: https://lore.kernel.org/all/20260827075803.2240934-1-shivangu@linux.ibm.com/
-    removed extra variable.
-
-v2: https://lore.kernel.org/all/20260826125626.2108771-1-shivangu@linux.ibm.com/
-    Only allowing lesser size for CPU_STATE_DATE Fadump region.
-
-v1: https://lore.kernel.org/qemu-devel/20260429065127.366813-1-shivangu@linux.ibm.com/
-
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- arch/powerpc/platforms/pseries/rtas-fadump.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ tools/perf/tests/shell/coresight/callchain.sh | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/platforms/pseries/rtas-fadump.c b/arch/powerpc/platforms/pseries/rtas-fadump.c
-index 3bb4ac2ab6cc..9b9e09f3d900 100644
---- a/arch/powerpc/platforms/pseries/rtas-fadump.c
-+++ b/arch/powerpc/platforms/pseries/rtas-fadump.c
-@@ -459,6 +459,8 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
- 	/* Check if the dump data is valid. */
- 	for (int i = 0; i < be16_to_cpu(fdm_active->header.dump_num_sections); i++) {
- 		int type = be16_to_cpu(fdm_active->rgn[i].source_data_type);
-+		uint64_t bytes_dumped = be64_to_cpu(fdm_active->rgn[i].bytes_dumped);
-+		uint64_t source_len = be64_to_cpu(fdm_active->rgn[i].source_len);
- 		int rc = 0;
+diff --git a/tools/perf/tests/shell/coresight/callchain.sh b/tools/perf/tests/shell/coresight/callchain.sh
+index 13cca7dc11184002e3ddc058c0d0ffa1c458c483..43ad90bc30345efdd40ba4649ceeb435a1781a4b 100755
+--- a/tools/perf/tests/shell/coresight/callchain.sh
++++ b/tools/perf/tests/shell/coresight/callchain.sh
+@@ -30,6 +30,11 @@ skip_if_system_is_not_ready()
+ 		return 2
+ 	}
  
- 		switch (type) {
-@@ -469,10 +471,20 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
- 				pr_err("Dump taken by platform is not valid (%d)\n", i);
- 				rc = -EINVAL;
- 			}
--			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len) {
--				pr_err("Dump taken by platform is incomplete (%d)\n", i);
++	[ -e /proc/kcore ] || {
++		echo "[Skip] /proc/kcore is not available" >&2
++		return 2
++	}
 +
-+			/*
-+			 * Make sure that dump is collected for entire region.
-+			 * CPU_STATE_DATA region is allowed to dump less than allocated space.
-+			 */
-+			if (!(bytes_dumped == source_len ||
-+			(type == RTAS_FADUMP_CPU_STATE_DATA && bytes_dumped <= source_len))) {
-+				pr_err("Dump taken by platform is %s (%d)\n",
-+					(bytes_dumped < source_len ? "incomplete" : "corrupted"), i);
-+				pr_debug("type -> %d, bytes_dumped -> %llx, source_len -> %llx\n",
-+					 type, bytes_dumped, source_len);
- 				rc = -EINVAL;
- 			}
-+
- 			if (rc) {
- 				pr_warn("Region type: %u src addr: 0x%llx dest addr: 0x%llx\n",
- 					be16_to_cpu(fdm_active->rgn[i].source_data_type),
-@@ -482,7 +494,7 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
- 			}
- 			break;
- 		case RTAS_FADUMP_PARAM_AREA:
--			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len ||
-+			if (bytes_dumped != source_len ||
- 			    fdm_active->rgn[i].error_flags != 0) {
- 				pr_warn("Failed to process additional parameters! Proceeding anyway..\n");
- 				fadump_conf->param_area = 0;
+ 	return 0
+ }
+ 
+@@ -43,7 +48,7 @@ record_trace()
+ 
+ 	mkfifo "$cf" "$af"
+ 
+-	perf record -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
++	perf record --kcore -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
+ 		perf test --record-ctl fifo:"$cf","$af" -w callchain >/dev/null 2>&1 &&
+ 
+ 	# It is safe to use 'i3i' with a three-instruction interval, since the
+
+---
+base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
+change-id: 20260928-perf_cs_etm_callchain_test_add_kcore-f96e891f91c5
+
+Best regards,
 -- 
-2.54.0
+Leo Yan <leo.yan@arm.com>
 
