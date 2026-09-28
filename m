@@ -1,115 +1,367 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D04E30FF36
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587198; cv=pass; b=oekz9ISUB/2tYXPmMoqgKTdzsuwFSybKt420WLNV7BThc0o7mDqu1BPEK6M5iouEysFIiSn4LOP8X32sP1iC5k5eekBVpZdAfIV5StCyG+rVgzE6Qg6rTornW9P7p9AFGp4y37SHwRd0ffqlxsLmhF9UQ3+Hn6qKg8lBYOGr79M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587198; c=relaxed/simple;
-	bh=kNNTZdNo9rMeYPIlppeyIuQw9iUN3f9leJevelva1Lw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZOTJogTG/qf7YdfZOmPFTPNsrFOyUVYStv7S5gPa+wV/nCJ/HnY+gO/6is6ppjxSZt5JrOut40FvXT8jpCK+/cz1hGyQGFAobDM3RcexyNxjO/6va8/JVu7Dp81w6pNO34DNhmYAOnbGFXBzWZpJ0ZXRohcKB2ap+KDm0Bx8Wf0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BdZ9GVvG; arc=pass smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870DA48C411
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790587224; cv=none; b=rmandoIch6pFKFjEgLUnI4x3OxL5i4Mvrp0wPeNvZM8+pb5QF2oZkK9ug5oX/fcphEv4IQj58k/N14v7/c/d++MsT+3anBIqpg0m5mF4NamuC9EkLrr1uC4sAPzZJ8nPqllaAtJ1Rfb3EIS68M76colPdheYuTKFZic6ijj0r8Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790587224; c=relaxed/simple;
+	bh=uasoGoYoPVbK+iktKB40nZwLV0x6mFQqIZDqKhweGPw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZZcxTdqf9uji3sUpTBrgMdNXALyTTQOMuDqywtF4mjapIyiLUUSon8H41Cc8hPf5G8HayjwUD9Tm1W16uuvLasYyovSCu2wKLtKTJadmintbdyKMwlFf8lgYwc5XTUSSyhKKTrtNpmSoP3AXINYX01Rw5FXXvF8VMGpQUd4PB6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mFxrWkle; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OsM0OgrH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BdZ9GVvG"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-6755a6109c1so5453d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:19:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790587196; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XCe2Nc1eZIGHvPUFGkSLoudsfyfREBIGxwpO84ngW+Zb8PLRpRI2T7WwPHcoLG3ENa
-         cllWkfE4gHJF/5BDW0KNq9tjWbA/EL8GSxwm4u4dtA5XKptf6Nx5bhogSaT0t0/bml4V
-         b+1JzuEdJoYf+mHnx9yGAvTCINX83uq1WXINwl3ghBs2WLbPlo8Euvuoa1CxKMeZLbPz
-         SyEK2y/odpvCyr/n4jtZdXhnTeED/cLJ371HefJrIr92SKZZi/yZ2qenMZV5xBztL7KS
-         5sCH6dB8k8vBcq+vqF3GzAePxu42w8qPYdBCKGEOfpy3F/4mDtnR98VXJuOG0PFtxAlx
-         lB0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kNNTZdNo9rMeYPIlppeyIuQw9iUN3f9leJevelva1Lw=;
-        fh=zQeemLdkMfTgiSj38DX75Fg5dNplpVs+HuKyLTGfpnM=;
-        b=svt/9n965RqeW37+hD4Emf/B7QzfnLWf0dPdpsTXgneDDgDVB/gfzV4c7UoJ19joZi
-         YBhMaWgCTPOD7MjtDLEUkQI/VA2EmEEtqSd+eD2U923c3ZProS1i18j01Rp+of3OPocj
-         vHhGrNXfRn9q8lW9kq/azKPyJF11IbdOCqMcMZwvSFjwaLkqNCZHB7MjR1HzzIoLQDoq
-         0PQpcG5usH+eD1gpBvrgK5mwk6o9itMylKyzdIDyh4QFnl9Z7Mm7CJkgdtBcooonXqVy
-         F9+lWsOmk6xPOCOL865uavXt/6U2f2L+rrA1ZLCYoiCNKd09BjXO/ZX9PJBfYEIslzg2
-         2jcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mFxrWkle";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OsM0OgrH"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9KFnG1600013
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:20:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6APy/FJPv3eP8lr9ePw0W/ywIKRGll5HV1Kv9F7Oq8U=; b=mFxrWkleKWSscBQa
+	NxAP7ie9s61riB4pD3SG265YM4HgyiP5NsPM/+SDClSqxRkg/bP9avwMVPqpxqC9
+	60/zLsUOFmX3Gq+4WG5yt3gAZd7T+C048G+B3nhrUIjxf94lFRn6yypexJe5ylkX
+	xg8FZJMNy67HBarUF0it6IlEcxi8tOHGJa0f5RMuIaTdxBfCiVb2vNeyz8L4TspF
+	WvfPkmkfawlsnhaX8wYfvRYSHTe9nLIHm6EngMx3hfsDAZkpq30V3QBhb7e/7i6X
+	WsU+aXWb1OHtGShNJd3Kd3RLhTgOt0hJ2F7H0cjM+1WU+vX7pW/mDWJupbxbgP/3
+	QZJdKg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynb6g1nd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:20:20 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cec4226c70so21460255ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790587196; x=1791191996; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790587219; x=1791192019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kNNTZdNo9rMeYPIlppeyIuQw9iUN3f9leJevelva1Lw=;
-        b=BdZ9GVvG8lO7hUf0wMTknnYf002UTIyVncj5oMHCLg8peEf/Qii9nXOgRlal7yC+BL
-         rdYFJY5wq5vZL4CgkuDRXxVui4XA5EZ/L9LZ+R1HNlInXEvBtsL+tdOLLVqyEYt2Rc0P
-         NfTwQrXEMALMQTyIL3oxlAaBENC/jjyu1JD17iRJa9niQM5uy5pQAG5qy+3pN8YzLdUc
-         bKsdkGQ0b8mNb3lUzq15NwEyrJwjCYLtMxACVVM9YxvzbTVTnbeclmlsnI2Nlj5rjgJi
-         xdaXz1QcmLBRrokqOh2D6z1WQ65qiZVu3dS/OW1JzluDeb2GHGvgj0oCwKr0x/YNZxxu
-         GOHg==
+        bh=6APy/FJPv3eP8lr9ePw0W/ywIKRGll5HV1Kv9F7Oq8U=;
+        b=OsM0OgrHMp8DtoYAg6oYxGQvkjV+w47YDmPb0TUKQoGHSbVYiZQ49rGIz7DArL8jlm
+         C6jwEKfHMpsLPJA//mURK00IRayNeOwjMwqQUv6CMxaJYSU310poVzxUFQARnmwtEuC2
+         KDufqD4tnTA7Pi2p7UCnAdf9SQFzPf5J2my7EzPuph+p5PeOcYr4vQOKt1BuF9xWddCP
+         CqkF8z0hyJuXoTYX30/pWBBHeIoz0H/HaFyolaMqsEeLMQ7IJ6WD6duAOB6qFEqrQfDJ
+         SK2AUt55Esy+PaUEhXnCmBWAtks4rXiYAKI9jxRwLZ8gNCKWZKT+LErLM6tAr72f7u5+
+         Cdgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790587196; x=1791191996;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kNNTZdNo9rMeYPIlppeyIuQw9iUN3f9leJevelva1Lw=;
-        b=Q+SSjR3evfXE8COJ8AVA32pvH7rZ54+Qpa3nrd0Os+gCdUKzxfYjBZOl2PyVDXo1Kc
-         nHariSlexLSdeLhf+GMfDbOi/brPBoYZdk5RuIJQD3Xzt6NHcRnrmRfz1904cwW4i8gF
-         eOaSdlIil8bGLcP+TI6Q0jt2Y2sRjhUekAkax3ExffXfoL3UAgoOo+A+5Dil8aGs5B6q
-         WjjITWM57d/W4n39CRgTVFVyk06SbA34bWXM3SJG/Xo22IAceFvzY2Zbi13KtBf9ttig
-         giGBL/n7s6dVxgO2VcKarsGJa9VB0nf7wo0mT+rbpnpmkHqmQf3aCOuqyglDBagAiG3U
-         kz4g==
-X-Forwarded-Encrypted: i=1; AKwUvByt1X1/O3OsokgVYXrXzpyydLe0A3BjALjRvOKu0BElf77ajFRnUei0TtdgkzNasygCGH8FqzwXGs/Nk/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDcd1f1iQ6vBYEXQS3/7l5Rdmc3y5YL4XHON5akPb9VEKpurxD
-	KM8G5TDSTElv7vH82u2O7jPRQuGSoOaP1vB3vDxJa6l8+elaTENkFYxGFxndMO9H2TNVeZvQzyl
-	JhHVpEn+gAsdJmkQukuD+DHz/tzlgoag=
-X-Gm-Gg: AYBFou1zyTqJmmd+wCT4nWvF3UvloEvGFK/jntfUhY6U93XajQpq7zCYKv8vjLydnuU
-	5B8VKq3dXK+fRwcvj8T6igdWt7lTU0JnzK87J96rU2cEg5MHM8WbNm/Y1KEbsD2E9d+ThAvXDG2
-	KrtuOvK5W1mvCNfGULTME5gwvrhQJlVfiH6tpauN6jDweQgWgNf812ZvBUsCdwbd51hqew9Wk48
-	H1MlXt0gkDT49V6tvQRbvn0JCnFi7Pcv3fcUee0wZJoUeMM1BN/mFHMpeH8kf09djlfeLz5SAw/
-	oH066Z/sbFhXETUOka99fDXPau7MgmKQnRh3tg4HRvMP558ngOi7duVjO4W/D9mVhDU=
-X-Received: by 2002:a05:690e:4089:b0:674:aae3:8528 with SMTP id
- 956f58d0204a3-674aae388damr2080262d50.37.1790587195700; Mon, 28 Sep 2026
- 02:19:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790587219; x=1791192019;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6APy/FJPv3eP8lr9ePw0W/ywIKRGll5HV1Kv9F7Oq8U=;
+        b=QgBGxUvbMSZn0Dy3Ldp38rqg0KvmcD4k0h26y27oaLJmRAY8Mxogii5Q2idtiNIQDZ
+         Ekj4amFFx6jejlwgnufOVwcOEyDKm0fknkkmHhAmVe6I4FijW4acyaytKwjauZ4Yu5a4
+         GBB9l1ZH6+WKOz11769Ja55fMoAnxF1C/qm7xJxVovuWsWRrsx1uLBK107+PI6Jrxkz8
+         Je+pdIBO+AMsuPowUsBplRpKmENZSe2fa1RFr/g4M46E6pL/xNwFBc81+wFx2Z/uynyQ
+         TSjYQZqTik0HCGdvwkwdsXBNE9pRwVh0U8xBoH85dytCsNclSgqzIfhv/74rM0ITLXv7
+         8SKg==
+X-Forwarded-Encrypted: i=1; AKwUvBytJ0kjy279A18v4ba32MqRC8+BboACEYN4tOV4pDnQdStTFRMUduk6CiB5Mkyv9sepRjVL8ghSTBJcndw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqlBdIrcxhbdgpxZ+Cz+dUGZYiTtf6E1RwYEX2y7aFNkwrMXm6
+	yrzdsOtVQaxbaxFkOg6gaFhVdBe4iluzTMvyAcUqtqOJWI/4+Rj1rtZgXj2Tn05s7jGP4v4+Pz7
+	gsOpiP2hr3eHitlE6JRBEsczJ87jHAK3O8icpYDcHzJFSODAPV/PzHLtTr3l1sHE49+E=
+X-Gm-Gg: AYBFou2F9LteBs524e7eJSM9hyqYOo/wr7DuJxw+ILRSEItUQirheHayOYCkhCqq25S
+	kbO10Ob3XXwAIwYz6yIj+84Ab+H9s2QIuatAeYhp4prfs/HIg0MsAsvUS8h7UHZF6NYcFRb8jjA
+	bvrJPCAb8jGKKzAyOzcQ5gNW9Djds3Ba3TY3TU3G5lUpe+D6mc5rwBDoQ+dlgyJN0MMl/+k0SMd
+	0OOm/fm9/a7gSoLlN+TTjdRGUXDGaMLsM42tzPk8ZWVsvvrJg1Sc0ex9J653gAsBm9HfrsRugCM
+	+8J8alBUwc3llXfNLAaW/5Digul+a1zQoVGWwYRohFXeQZiy60qMAl4wETYNRd/TVTJl4mz9Eyx
+	st3g5C7nATiq6xz04l/k1I+8X3vacuBtUkqLFsE34G1FO19lBVwmZEzrMjZ5IYVjN06S7u8DLJe
+	QgYmr9dUNjtQw8gQVRZdc=
+X-Received: by 2002:a17:902:c40e:b0:2dd:c0ff:e72e with SMTP id d9443c01a7336-2df7e0069ecmr90039105ad.64.1790587219054;
+        Mon, 28 Sep 2026 02:20:19 -0700 (PDT)
+X-Received: by 2002:a17:902:c40e:b0:2dd:c0ff:e72e with SMTP id d9443c01a7336-2df7e0069ecmr90038865ad.64.1790587218449;
+        Mon, 28 Sep 2026 02:20:18 -0700 (PDT)
+Received: from [10.79.116.56] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91461d43sm37574575ad.75.2026.09.28.02.20.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 02:20:18 -0700 (PDT)
+Message-ID: <4095827e-dbbb-4ab9-8610-1bc317aa096f@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 14:50:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927-pvr-fixes-a-v1-0-7f5b18ab989a@gmail.com>
- <20260927-pvr-fixes-a-v1-2-7f5b18ab989a@gmail.com> <661f8ddfda9f5cb3f0c23d4594fa912b9ef2e2ff.camel@imgtec.com>
-In-Reply-To: <661f8ddfda9f5cb3f0c23d4594fa912b9ef2e2ff.camel@imgtec.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Mon, 28 Sep 2026 18:19:43 +0900
-X-Gm-Features: AclHuK-TWrdXWb66WfcrQ4B5bq2__80Eb9x9toN9UFV7dUY5ijmxw7Myy-UKG4E
-Message-ID: <CAKbEznvPCFpf-HqD95v_8dZSZna3BPNZcrHjUZReBHToROPROA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/imagination: Fix pvr_mmu_map_sgl() overwriting
- its own error
-To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
-Cc: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>, 
-	"airlied@gmail.com" <airlied@gmail.com>, Alessio Belle <Alessio.Belle@imgtec.com>, 
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
-	"mripard@kernel.org" <mripard@kernel.org>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
-	"imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] KVM: arm64: selftests: Check a feature hidden in
+ an ID register is UNDEF
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+        Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose
+ <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Quentin Perret <qperret@google.com>,
+        Vincent Donnefort <vdonnefort@google.com>,
+        Wei-Lin Chang <weilin.chang@arm.com>, Fuad Tabba <tabba@google.com>,
+        linux-kernel@vger.kernel.org
+References: <20260928064643.3265087-1-fuad.tabba@linux.dev>
+ <20260928064643.3265087-5-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>
+In-Reply-To: <20260928064643.3265087-5-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNyBTYWx0ZWRfX2k5lJ7iVuiKG
+ CoywX1uPVwl7S669d0lSky6vhV4O0H8C/hbHYjRMbHC79dC/m/YRU1G106KkdPKE6HD6Kwdgzvs
+ OvBBcUG0s1BmZQd4D8Obn5w3TCDiMchu0rewHM4yg469iHbW+ndh6b/CLwwjCO+Q5PDN9lItz8v
+ VzEQb2R1aqR5TEAuJzDkc1jppr0YneAr25mG8xn/UjnuwwDFOm7dRATMLznIMWOxKLu12IqwbOD
+ lZO6GkoV/ETnmn5iD3Rlx/fRboL2pxuaOp1X8LLTvq75/zYhgq2JL5FN4Y3hsnS8uAP4KTs86V1
+ 3f/mgfb9E3FzASXUCQ1XREUN8L1zhZLLnU1HS1KtMCDHL5aZDnXTBsya4OSWHgvec1bjuTpn+3C
+ ofV8ocilk0d9TI3kIGW35DkE7RyXgrl4/HTCkgV4IGfwHHSWsMRYq5t26Sqk3fp2iQzA5ewSp5J
+ V68ccdzRgMNr8Pm9k3w==
+X-Authority-Analysis: v=2.4 cv=K+e3jCWI c=1 sm=1 tr=0 ts=6aba3154 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=396Fl0Eq_38yRDxh:21 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=AnUhwBZesh3cMlnU-2sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNyBTYWx0ZWRfX9icDDyfzstuD
+ 9pyg01d5bYQ7r9qQpTag8FU4nDorY145g/SEExjAVQnh83z/HE2UGvN1XjfP7RLGVvR6+qLt2Vk
+ o2BHus1w7DKLU9f4QCZl5A2yPSnssNI=
+X-Proofpoint-ORIG-GUID: NOWqkKPm3KuT4pfuDNQ7K0ZYNXI-L55Z
+X-Proofpoint-GUID: NOWqkKPm3KuT4pfuDNQ7K0ZYNXI-L55Z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280037
 
-Hi, Thanks for pointing that out, I should have rechecked the tree before
-sending v2.
-Sorry for the noise!
 
-
-> This issue is recently fixed under
-> https://patchwork.freedesktop.org/patch/755273/. Please have a look.
+On 28-09-2026 12:16 pm, Fuad Tabba wrote:
+> Userspace can hide a feature from a guest by clearing its field in a
+> writable ID register, and KVM then makes the feature's instructions
+> UNDEFINED in the guest by trapping or disabling them. No selftest checks
+> that.
 >
-
---
-Thanks,
-Gyeyoung
+> Add a test that runs the instruction of each of TLBI OS, MOPS, TCR2_EL1
+> and FPMR once with its field as advertised and once with it cleared, and
+> expects an UNDEF only when cleared. A feature the vCPU doesn't advertise
+> is skipped, as is hidden TLBI OS on a CPU with neither FGT nor
+> FEAT_EVT2, where KVM can't trap it.
+>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>   tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+>   .../selftests/kvm/arm64/hidden_features.c     | 184 ++++++++++++++++++
+>   2 files changed, 185 insertions(+)
+>   create mode 100644 tools/testing/selftests/kvm/arm64/hidden_features.c
+>
+> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+> index 96bab7002d39e..864fdca7f362e 100644
+> --- a/tools/testing/selftests/kvm/Makefile.kvm
+> +++ b/tools/testing/selftests/kvm/Makefile.kvm
+> @@ -194,6 +194,7 @@ TEST_GEN_PROGS_arm64 += arm64/vgic_v5
+>   TEST_GEN_PROGS_arm64 += arm64/vpmu_counter_access
+>   TEST_GEN_PROGS_arm64 += arm64/no-vgic
+>   TEST_GEN_PROGS_arm64 += arm64/idreg-idst
+> +TEST_GEN_PROGS_arm64 += arm64/hidden_features
+>   TEST_GEN_PROGS_arm64 += arm64/kvm-uuid
+>   TEST_GEN_PROGS_arm64 += access_tracking_perf_test
+>   TEST_GEN_PROGS_arm64 += arch_timer
+> diff --git a/tools/testing/selftests/kvm/arm64/hidden_features.c b/tools/testing/selftests/kvm/arm64/hidden_features.c
+> new file mode 100644
+> index 0000000000000..194d746e7605e
+> --- /dev/null
+> +++ b/tools/testing/selftests/kvm/arm64/hidden_features.c
+> @@ -0,0 +1,184 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * hidden_features - Check that a feature's instruction runs in the guest when
+> + * its ID register field is advertised, and is UNDEFINED when userspace clears
+> + * the field.
+> + *
+> + * Copyright (c) 2026 Google LLC
+> + * Author: Fuad Tabba <fuad.tabba@linux.dev>
+> + */
+> +#include "kvm_util.h"
+> +#include "processor.h"
+> +#include "test_util.h"
+> +
+> +static volatile bool undef;
+> +
+> +static void guest_tlbi_os(void)
+> +{
+> +	/* tlbi vmalle1os */
+> +	asm volatile("sys #0, c8, c1, #0\n\tdsb ish\n\tisb" ::: "memory");
+> +}
+> +
+> +static void guest_mops(void)
+> +{
+> +	register u64 *d asm("x0");
+> +	register u64 n asm("x1");
+> +	register u64 s asm("x2");
+> +	u64 buf[8];
+> +
+> +	d = buf;
+> +	n = sizeof(buf);
+> +	s = 0;
+> +	/* setp [x0]!, x1!, x2; setm; sete */
+> +	asm volatile(".inst 0x19c20420\n\t.inst 0x19c24420\n\t.inst 0x19c28420"
+> +		     : "+r"(d), "+r"(n) : "r"(s) : "cc", "memory");
+> +}
+> +
+> +static void guest_tcr2(void)
+> +{
+> +	read_sysreg_s(SYS_TCR2_EL1);
+> +}
+> +
+> +static void guest_fpmr(void)
+> +{
+> +	read_sysreg_s(SYS_FPMR);
+> +}
+> +
+> +struct feature {
+> +	const char *name;
+> +	u64 id_reg;
+> +	u64 mask;
+> +	u8 shift;
+> +	u64 min;
+> +	void (*insn)(void);
+> +	bool (*trappable)(struct kvm_vcpu *vcpu);
+> +};
+> +
+> +/* Without FGT, KVM traps a hidden TLBI OS only through HCR_EL2.TTLBOS (FEAT_EVT2). */
+> +static bool tlbi_os_trappable(struct kvm_vcpu *vcpu)
+> +{
+> +	u64 mmfr0 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR0_EL1));
+> +	u64 mmfr2 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR2_EL1));
+> +
+> +	return SYS_FIELD_GET(ID_AA64MMFR0_EL1, FGT, mmfr0) >= ID_AA64MMFR0_EL1_FGT_IMP ||
+> +	       SYS_FIELD_GET(ID_AA64MMFR2_EL1, EVT, mmfr2) >= ID_AA64MMFR2_EL1_EVT_TTLBxS;
+> +}
+> +
+> +#define FEATURE(n, reg, field, min_val, fn, trap)		\
+> +{								\
+> +	.name		= n,					\
+> +	.id_reg		= SYS_##reg,				\
+> +	.mask		= reg##_##field##_MASK,			\
+> +	.shift		= reg##_##field##_SHIFT,		\
+> +	.min		= reg##_##field##_##min_val,		\
+> +	.insn		= fn,					\
+> +	.trappable	= trap,					\
+> +}
+> +
+> +static const struct feature features[] = {
+> +	FEATURE("TLBI OS", ID_AA64ISAR0_EL1, TLB, OS, guest_tlbi_os, tlbi_os_trappable),
+> +	FEATURE("MOPS", ID_AA64ISAR2_EL1, MOPS, IMP, guest_mops, NULL),
+> +	FEATURE("TCR2_EL1", ID_AA64MMFR3_EL1, TCRX, IMP, guest_tcr2, NULL),
+> +	FEATURE("FPMR", ID_AA64PFR2_EL1, FPMR, IMP, guest_fpmr, NULL),
+> +};
+> +
+> +static void guest_code(const struct feature *feat)
+> +{
+> +	undef = false;
+> +	feat->insn();
+> +	GUEST_SYNC(undef);
+> +	GUEST_DONE();
+> +}
+> +
+> +static void guest_undef_handler(struct ex_regs *regs)
+> +{
+> +	undef = true;
+> +	regs->pc += 4;
+> +}
+> +
+> +static bool run(const struct feature *feat, bool hide)
+> +{
+> +	struct kvm_vcpu *vcpu;
+> +	struct kvm_vm *vm;
+> +	struct ucall uc;
+> +	bool got = false;
+> +	u64 val;
+> +
+> +	vm = vm_create_with_one_vcpu(&vcpu, (void *)guest_code);
+> +	vm_init_descriptor_tables(vm);
+> +	vcpu_init_descriptor_tables(vcpu);
+> +	vm_install_sync_handler(vm, VECTOR_SYNC_CURRENT, ESR_ELx_EC_UNKNOWN, guest_undef_handler);
+> +	vcpu_args_set(vcpu, 1, feat);
+> +
+> +	if (hide) {
+> +		val = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg));
+> +		vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg), val & ~feat->mask);
+> +	}
+> +
+> +	for (;;) {
+> +		vcpu_run(vcpu);
+> +		switch (get_ucall(vcpu, &uc)) {
+> +		case UCALL_SYNC:
+> +			got = uc.args[1];
+> +			break;
+> +		case UCALL_ABORT:
+> +			REPORT_GUEST_ASSERT(uc);
+> +			break;
+> +		case UCALL_DONE:
+> +			kvm_vm_free(vm);
+> +			return got;
+> +		default:
+> +			TEST_FAIL("Unknown ucall %lu", uc.cmd);
+> +		}
+> +	}
+     Return missing?
+> +}
+> +
+> +static void probe_feature(const struct feature *feat, bool *present, bool *trappable)
+> +{
+> +	struct kvm_vcpu *vcpu;
+> +	struct kvm_vm *vm;
+> +	u64 val;
+> +
+> +	vm = vm_create_with_one_vcpu(&vcpu, NULL);
+> +	val = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg));
+> +	*present = ((val & feat->mask) >> feat->shift) >= feat->min;
+> +	*trappable = !feat->trappable || feat->trappable(vcpu);
+> +	kvm_vm_free(vm);
+> +}
+> +
+> +int main(void)
+> +{
+> +	const struct feature *feat;
+> +	bool present, trappable;
+> +	int i;
+> +
+> +	test_disable_default_vgic();
+> +
+> +	ksft_print_header();
+> +	ksft_set_plan(ARRAY_SIZE(features) * 2);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(features); i++) {
+> +		feat = &features[i];
+> +
+> +		probe_feature(feat, &present, &trappable);
+> +		if (!present) {
+> +			ksft_test_result_skip("%s advertised, not supported\n", feat->name);
+> +			ksft_test_result_skip("%s hidden, not supported\n", feat->name);
+> +			continue;
+> +		}
+> +
+> +		if (run(feat, false))
+> +			ksft_test_result_fail("%s advertised, UNDEF\n", feat->name);
+> +		else
+> +			ksft_test_result_pass("%s advertised\n", feat->name);
+> +
+> +		if (!trappable)
+> +			ksft_test_result_skip("%s hidden, not trappable\n", feat->name);
+> +		else if (run(feat, true))
+> +			ksft_test_result_pass("%s hidden\n", feat->name);
+> +		else
+> +			ksft_test_result_fail("%s hidden, no UNDEF\n", feat->name);
+> +	}
+> +
+> +	ksft_finished();
+> +}
