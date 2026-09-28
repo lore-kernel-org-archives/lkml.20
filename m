@@ -1,154 +1,143 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010066.outbound.protection.outlook.com [52.101.201.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A3A3BED44;
-	Mon, 28 Sep 2026 20:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790625830; cv=fail; b=pqspdi3c+gvjL18Lq49eSxXthFSbpVovWuqFus2iEHMuhp+fY7XyjnzO0gkCtts1/WHdMBogSDsBOHhb4LpGm2u5lLTgkgC3EdrYVNfT6Rzsd8ExVVDfxJs7f1qITjCaSRY8D72bGZwa9hCqH1atY0y+q3rUXuqDRy11i5V55Eo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790625830; c=relaxed/simple;
-	bh=U+rhP/zmWLmVs4puuZ1ePGX1pJArnQ80affbWfd+CUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gAptUrHH/MSVZMLb4WDDWua5A4xtB6LdpOqB6rb5wyhodRTxeG4HnOFn6w8oG0Uj3uGLFUVk0Npk6zKRLww3g+A+GzcUeSO2tNCyBs71Be/I6pf6lWzn3JzrGMVk+LpD89QWwj7idlJd2PCr/2QdTri2+IqHx3pDG/BWUcHY5uw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B7FawByd; arc=fail smtp.client-ip=52.101.201.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D243C13FD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790625878; cv=none; b=MMRwi6DXOLq8if61mOZNjW9RYBq3/vqTwFxebw0d+EAk0Sq8IVKx+pLoUGJx0HRUZBPXSdpy1pscOO50IFzMjuXTVFJ6N1K2mpasn0H3K95dkvt9LeqYx5MqoWnaqDa31nTXxlN2oR5BvMDGRiPanO6K9grRZsK8zYBE0lMeaZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790625878; c=relaxed/simple;
+	bh=mGWrvxsX8lrPlLCLyf7nQzJOfcRfXFgTzw68i6z7WBU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gcpUvB7PXqDcIC+ZBwEF0XePNOZQTp+OOwn0qX5942tfddPDQGXaB962tkbEwRxdP7gmgC1GJyNsQaVcPDIqeQgA2/RqXNghOe0KBCgESuAsuZBh0ctJjVLDmNZSoWtowc7qW5Ih8Yrzivg34+iH51wH0lr+lsWxEep+hAV3Bmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hfVF7kpm; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B7FawByd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H152+PzD95A/yM8SRqEObsM34ui2imYbjR9+WVQ4sbDP0BwPhKn4VTrLbZFk6ah64txfQQVbCoX+rruAZ1hOaIcxTQiHZ1gR18h58hDlU39jLSPrdDDER1IgpNFRoGR7tEgL/6v/97i0m9q9YlwqjI1XqsW3htu1RoTfdBNk2fv5VI5rusegxTFtmcLvud6yaFfIfZR8KpuVE47IO/KR9a+/8oMWK8mvvyWGG8ra5XKOiLXHEn7pYOrBiuYiv1Qf+OGGcQiJ3GXqiBq/aLSW+bfRELwFsvn2bZyi7zRG4LAFnZp1sL2WEB410JpHroiGOUwpbLYPM1Ka6m+q0uafRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9dn+LqE+iTyFapqvYwTB2zMllBePmXsr+aY6IJxxp2k=;
- b=qhNO5qIo51JQiyxiu4C9ERLw0qp3UqWouiGsNucio5RIWXW+j6pV+xeNp0pdM1Xq5Z+qy8mXD3kMBwac3favFDuWESu0WWRXOvKPVo86oSKjiI59YQ2K1p9AEpX/URvY4cq5+nJnxapcwNpV0Ey0iKwVowGqB6/71IRPjajIj40AbXL5MvIHJ6AWJ/1CDQMirXxL04Bpo9N7y5RrDQNkWjnlmP839FegufIRdfoqTP8KV5tAfyeFJhnt3Ozkd9Kstv47bEsNaKL74JWcXQCzBNP0lBVGpYoV7TDUmKmqi9jVSnJFxFzA5Gp1q7hOMpaI5tSjB0h4HdAY0mKnc2CHqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9dn+LqE+iTyFapqvYwTB2zMllBePmXsr+aY6IJxxp2k=;
- b=B7FawBydjb+iF8hWO7mWQd9kCy2ozop4fisBa5iL7zaAshIsrW8d/bgujxKbXMBROUkt8hBkEZGVJN6x7wbZA/8oaDJQrPvvcDlWU4PVI2qmDGXTaZlumvycIv8HRlq1UQsTJJz3Po8Kf+QU/A7Yeb4/R7U0Yak0B6aGqOvi2Go=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- BL1PR12MB5923.namprd12.prod.outlook.com (2603:10b6:208:39a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 20:03:45 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 20:03:43 +0000
-Date: Mon, 28 Sep 2026 16:03:34 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Vishal Badole <Vishal.Badole@amd.com>, tony.luck@intel.com,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] EDAC/amd64: Mask UMC chip select to the four
- implemented selects
-Message-ID: <20260928200334.GD2289128@yaz-khff2.amd.com>
-References: <20260925172639.97063-1-Vishal.Badole@amd.com>
- <20260925172639.97063-3-Vishal.Badole@amd.com>
- <20260925181429.GBara6BXp_J2rnvoOp@fat_crate.local>
- <20260928143821.GB2289128@yaz-khff2.amd.com>
- <20260928192045.GAarq-DbwF6-q79hXC@fat_crate.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928192045.GAarq-DbwF6-q79hXC@fat_crate.local>
-X-ClientProxiedBy: BN0PR04CA0103.namprd04.prod.outlook.com
- (2603:10b6:408:ec::18) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hfVF7kpm"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf02so1792913a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:04:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790625876; x=1791230676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JKicZ5bi43c1yeiD8nNabIN5IXqdf1SL8KmkbB+hKXg=;
+        b=hfVF7kpmu/Tm+VZaBjXyPaAg5NN1We8NItq+q/oxEFH3gr6IXc3B1r6Bcs4QZ+HSvC
+         oMUCJteKfG+/SJYjeDQhaq86JM5vYkQYzqPSLtgXbt0vi5w4dqQCmhqEn4Gfqb+B8TSN
+         U3M5yuK/zAw97zLZzHXRCllaBP/xuztFoMKMTa/TrNdlQZpwgWPyr4a+7mVn7O5PrpMe
+         qqabcqWdJa6ks2Y0it8m05Ylajqz+O6b7vjcp41SY9hCxsCaPOZkl//4KO5uM3KhwwGd
+         KkoZ0WE4p0cJNlMGfBMgZGVnmAIH1bXqh5GfXXdWimr0np7OXnM61oKDUJ3jWTUdg8CJ
+         KpIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790625876; x=1791230676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JKicZ5bi43c1yeiD8nNabIN5IXqdf1SL8KmkbB+hKXg=;
+        b=gnhW6lAHmAndsdKBnnkrGzrSYPMfKLYfUjIjm0YpFXgm8klmD7qSeKMoYthZr8n4sm
+         l0m8bZULMF/5DchXybblln4RdU6cIDUr5grreKMcW/ITlxwWv7psVe2CGboQ5zewVptd
+         IcyB+4gm/h+L04ep+dUn2xFw2T46lGj42jWEKW67Pq24L1OS4hzRtyzIjttytJAMMl2N
+         wSYS9tBBTdd4XOm9ycs6DAho55rYsAWBebLfTaUDDv1NrtGtLkmmw5rpFQcmjTg2ktJ5
+         5HwvEloDU0huB6gJIB+iWdj7VRgskg2pVHiLTpzye0W83hxyrL/tiaQ7jvx3Tl3XBL3Y
+         +QEA==
+X-Gm-Message-State: AFq9FYKtwr4bEDXkd2F9s5Aj76aFQnDmeVqXcyJqBn3tfxyincdXz9rv
+	+fqrgFtwEpMy95ZAuYxE02PfiUY9Agf8vZaxd6Jtj6E5v0l0Y2L3tOzy
+X-Gm-Gg: AYBFou1zSRoeFHAGaXpRLBLPrT4Tu6vj9rDQSg3h8apTil0VIe8Rczz3fiqB0UztWVP
+	TQysN/uknc1nN6X+I6T4w7BWjE4omtoOuTgQ9R9Q64onWcUMV8BT97YhO1jhwp+7gvD1PVDvqBA
+	nMxfSHjSzcnwS2OWQqfvcGTpr+Xx80WG1iWhhbeNf2RSRbnmIXFjs8DYRGGeTPM7i3G8cO1W3lO
+	d3FA6XA5IuN7lK5a2+K92tZqD3C9u0RDxDZnglKgBwQd0zrxKRdUy13TkHo+uLHgd/tdP/b/DsX
+	VbpXd9MBF54dfiXwSrJiBK+pc8hdGZKLWnGbUXR89p+/+8Lq3jr93l1Vwekc9oHIkXOPcW5a4kY
+	O56JPLgajlrKt6ShmMhpdFna0YvOYIuMIcR2s87DuglkiYvQOxC/RVnru4Qtd8QdDXy80bHOZXF
+	ub4NNy+q11YmwU5I5W19TdqpERJN3rn5ZeOLtS3ixzZZk2zcuC8zknLN4fEWf/u2vb7cduPQ7vQ
+	u2j1muOkJrJuzsJLfHJ54aygUTMwFOFkVo=
+X-Received: by 2002:a17:90b:35c6:b0:3a4:96f7:583e with SMTP id 98e67ed59e1d1-3a496f769b1mr739588a91.60.1790625875522;
+        Mon, 28 Sep 2026 13:04:35 -0700 (PDT)
+Received: from nineveh.sos.local ([131.191.24.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498057a62sm1049038a91.13.2026.09.28.13.04.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:04:34 -0700 (PDT)
+From: Jeremy Bingham <jbingham@gmail.com>
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	brauner@kernel.org,
+	jkoolstra@xs4all.nl,
+	jack@suse.cz,
+	djwong@kernel.org,
+	hch@infradead.org,
+	viro@zeniv.linux.org.uk,
+	Jeremy Bingham <jbingham@gmail.com>
+Subject: [PATCH v1 0/1] minix: unify the v1 and v2/v3 itree code paths
+Date: Mon, 28 Sep 2026 13:04:25 -0700
+Message-ID: <cover.1790359547.git.jbingham@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|BL1PR12MB5923:EE_
-X-MS-Office365-Filtering-Correlation-Id: de12c771-f2bb-4217-a724-08df1d9b98fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|11063799006|6133799003|22082099003|18002099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gHo0WFjBTlGnneT2uQhHWdJpI1qp6S/6CttAhVMRataqSasw+ftF5xYa0bTMvtntNNsoYuP/noD3XprapRYyyzguN49GQDuLwCrxvoPTAKiHEzu4XKWg5iygNB28zHIUdEpgDgVIZacUVJVsbnBwJCn5aHo3CzP2D0tGYSSWM/YudDerSe/KI2cBCBRGDbsqYcnSUC7wqQI1rTvqMOT/enXwSFEI1U63p9tFDS5AmBnuRxB1tcjorg3fHjQOK6Muvx31nbu1lIbHXjVsHxouXwr4P+Ypr9MLkAfVrYMAOpy6Op5yz0S3bMgiWNP078iDyMl4Cxj4BS9tgvZ58BY4V39PPVsOc0DUvFSNN/TlLTr2d9wA/jC7JzCjYSRoEhFI/2FF8+Xh8/P7P1Mn2OGtLbzCopjIWnV0qmsV/Qs+DhE8igFnLxpmGtRZFGPCmW1XK91fzUUHAjr5oPnsKZl/gwMcXiRZAkUZsiXdZDEr1a5/9roea6DorkFe38ZR1s7Qrr14uZK2PsXlRelq6Siw0KXeC6d5nE7OszxCxo38/vUFMW8hikEiS0TDF5kvnqCdGt2/9NTmT/hdYFRejPUMc0PKb1+pR7sXZT3gcG5s2LQUeQXkQqkqedER2ZKRZVT56OT4Fp4jbBhWdf6HgFGkax+rtB7ZRCAQpyUstRdemLg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?b9SJCl5f0unG8pSyioxipmwdiljf1dV5ZksI4O384NlmsKxGrtnhdRNLl11o?=
- =?us-ascii?Q?xckFaC7PKi6VhaYxMx7YQsgt/v9sk+8bffFIInB/RG4JRU4vK7cuD3tfkvdV?=
- =?us-ascii?Q?895BVA6iGx2jSaIaJAQ/i9piQYBviU9zLmkGBdAhx0wiy1tjC4mvLAcludSc?=
- =?us-ascii?Q?z4VFQt6Gx4K6TFiUNPwVWUhnjxdT8AvVatDnSwMXteoMGU8Bmq/batkkPqvL?=
- =?us-ascii?Q?UyaGuRzpv64nBQlH2zSMTkau7sPwe08bSp6MBqxfkDi20kml47nOJteQcggV?=
- =?us-ascii?Q?pD/cpTqwdTmXvs7VbUR7Oz50c9/G03dwMIYFNwWTEOFQHGy4TYd5VIAQ+5hA?=
- =?us-ascii?Q?pHEZqTuSDK0YD6VrK69p4XFJQD/GNqXJs/91NqXKqqTJ8Ofc5W5qIHV6R9XN?=
- =?us-ascii?Q?6Vl7OHHATKWbxNKMNME60lvifbcKm1ANRlQ56sXflrW5WEsDk/szAVIGSv7v?=
- =?us-ascii?Q?eBUHaIYkGS8MEzL+5lObLiHG7knvyuExOyoHwEwpUB5lQkdn6Uk8o7p+rLrg?=
- =?us-ascii?Q?aUuL/oW6ReDKu+u/zZu1g3tEUz2NOD5lfbX3r750Pmx4T+JUdRE9jNEDsBra?=
- =?us-ascii?Q?TY/f7btV5gMGs8Q4Mu0n16Zxc1i5vlMI/xoC9UcT112jk8UoZ8uNSkgf3zJf?=
- =?us-ascii?Q?mzuzy1f6HRWp5jrxKrLpzVl1aMYJsi2XePg3ZeNKllyc0yYf9tIe+zy3RdRV?=
- =?us-ascii?Q?L2cVm30jw7kF7cOMMMbeqC04Y7YwwfWTfF6M/qjPHJ3zBhzW6FlIph9a46+/?=
- =?us-ascii?Q?yA0GThIsokDIXRBOx2cwaSeS5GUenivlDIUrZxVhQNBxjj4aOVnAIdD+354h?=
- =?us-ascii?Q?82acwpo5YyYtFIzyfQI0IDf/TYE9hO3LUTT/XM5Ag4J8HMtodJ9okjRH6yfu?=
- =?us-ascii?Q?btIrdX316rN9iMKiVVh4QJaKdqcGklOXcYj0CS9aY0WM/VlrRWzLJ9X3698w?=
- =?us-ascii?Q?jWQv/dYI09wKN0RqSh4MNf4gkSDAG/TcRC1IjQt3K+JgdaWyfN/QAcEL7LOf?=
- =?us-ascii?Q?TT9HmCwhUD4jVvYXrPgXqkiPXSXv5XxCoUoXdv5Rt8RGJoseXzX3q7ULKzsU?=
- =?us-ascii?Q?jt89jGp6XtWpXBPY6CWUlLgNAGYsMadzIfkfIKEYqs0dp6qdfMXB0a3WW/ta?=
- =?us-ascii?Q?tAoPOLrnxvGozWzW7uBFQHiBO/f4S0hg/cLPiQtcdxVIFSwKVEFIe/qW35qC?=
- =?us-ascii?Q?P/0iKCsj/eXGNt+sGYE8oqyoDHbA5zHR4waZO295mJXz8oB3APzM57iWrCDX?=
- =?us-ascii?Q?9xyVx6luiMxIsCZaAziEJ1w+RvFyP1rhkhLdcFajl/Mh7gbjqwLjgJe1nvF9?=
- =?us-ascii?Q?81h1ahn9c2wbACTSv+r94U2R5rIIs3gqA+X6fV8/+VWKrvJZvF5L12xb54Wc?=
- =?us-ascii?Q?Kzt4rH0UVEUaMjyRoX/0iuMelOc/h4NaqETEeucDL7oSsJibhuy5QHscnY9G?=
- =?us-ascii?Q?ZDgISb4q2f63pI9lJfKp0KpVDRvp/+e/eDAbMU8ZrGt/WV2Dw7zgrpgtfNzV?=
- =?us-ascii?Q?JBePpGwC32g2V/v1eXQRe20uhzYud5eEzJ8M0iiijtNftb94jFP7ntgELgxW?=
- =?us-ascii?Q?UGofq/Y8fxN65p1ti3fBevAuh29aFdk8zLMMScdFADWAoTvKJ2cWMx9k9U2m?=
- =?us-ascii?Q?9qbeldBD6IV8pC6b+gbALea8s9S6HEtVjumThVe1XnB7j6fhuhSmHge2Io6o?=
- =?us-ascii?Q?BUVU9B4tNfjig8jw4s5vOcSeffbpaLlOzDk5wIVYNsql5dDI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de12c771-f2bb-4217-a724-08df1d9b98fa
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 20:03:43.6302
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z6jzY5D0/+FmF/niDohl4Qzrn1YEVGDZf/3KOcB8Bnc8CAj6fW5tD3sqMn44zVAlz1L4AYv4Y1fl8MLWNomtuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5923
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 12:20:45PM -0700, Borislav Petkov wrote:
-> On Mon, Sep 28, 2026 at 10:38:21AM -0400, Yazen Ghannam wrote:
-> > I didn't consider this a necessary fix. But it'd be good to have it to
-> > avoid noise from reports.
-> 
-> I didn't either but what is Vishal doing to trigger this:
-> 
-> "Since only four csrows are allocated, a syndrome with bit 2 set decodes
-> to an out-of-range csrow and trips:
-> 
->   EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)"
-> 
-> Vishal?
-> 
-> From reading the commit message, I still have no clue how that happens and
-> what are we fixing here.
-> 
+For as far back as the git history goes and then some, minix's itree
+functions have been split across three files: itree_v1.c, itree_v2.c,
+and itree_common.c. The first two of these files had defines, types, static
+helper functions, and some wrapper functions tailored for version 1 and
+versions 2 and 3 of the Minix file systems respectively. Each of these
+files then included itree_common.c.
 
-There are a couple of cases that trip this.
+The reason for this odd arrangement is that there are some stark
+differences between version 1 and versions 2 and 3 of the Minix fs.
+Version 1 has doubly indirect blocks and 16 bit block pointers, while
+versions 2 and 3 have trebly indirect blocks and 32 bit block pointers.
+By having the separate itree_v1.c and itree_v2.c files that then
+included itree_common.c, DIRECT, DEPTH, block_t, and Indirect could be
+defined differently for the two broad types of Minix filesystems while
+sharing the bulk of their code because the same code in itree_common.c
+would be treated differently by the preprocessor and compiler depending
+on which file included it. In other words, DEPTH could mean 3 or 4
+depending on if it had been included from itree_v1.c or itree_v2.c.
 
-1) Newer hardware where 'bit 2' is redefined. For example, it could mean
-'sub-channel' or something else relevant. In that case, a real error
-would be decoded incorrectly.
+Christoph Hellwig theorized that minix has this unusual arrangement
+because this code was written at a time when the branch predictors were
+much worse than today. This makes sense to me, at least as much sense as
+can be expected, and I agree with him that modern CPUs should be able to
+handle a branch for the two cases lower down in the code. At this point,
+the possible performance boost for a historic filesystem that is at best
+unlikely to be being used in production anywhere should not outweigh the
+benefits for readability and maintainability that unifying the itree
+code paths would bring.
 
-2) Some hardware error injection methods that use arbitrary values. This
-is like the 'error simulation' we do in the mce-inject module where we
-can write something to the registers.
+This patch was verified against the minix xfstests-dev branch[1] used
+for verifying the minix iomap patches. After applying this patch, the
+minix tests have the same results as the baseline: v1 and v3 outright
+fail generic/472 (a swapfile test), while v2 passes. This does not
+include the collection of tests skipped by xfstests because minix will
+never, ever be able to pass them because of limitations inherent to the
+filesystems. Functionally, the minix module is identical before and
+after the patch is applied.
 
-So the patch is a fix for #2 today, and it is a preemptive fix for #1.
+This file unavoidably lands as one relatively large patch, but it ended
+up not breaking down well into smaller chunks that would still build a
+working kernel.
 
-Thanks,
-Yazen
+[1]: https://github.com/ctdk/xfstests-dev/tree/minix
+
+Jeremy Bingham (1):
+  minix: consolidate itree* files into one itree.c file
+
+ fs/minix/Makefile       |   2 +-
+ fs/minix/inode.c        |  38 +--
+ fs/minix/itree.c        | 672 ++++++++++++++++++++++++++++++++++++++++
+ fs/minix/itree_common.c | 374 ----------------------
+ fs/minix/itree_v1.c     |  67 ----
+ fs/minix/itree_v2.c     |  75 -----
+ fs/minix/minix.h        |  26 +-
+ 7 files changed, 702 insertions(+), 552 deletions(-)
+ create mode 100644 fs/minix/itree.c
+ delete mode 100644 fs/minix/itree_common.c
+ delete mode 100644 fs/minix/itree_v1.c
+ delete mode 100644 fs/minix/itree_v2.c
+
+-- 
+2.47.3
+
