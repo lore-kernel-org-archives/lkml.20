@@ -1,85 +1,85 @@
 Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D6E4B1B56
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9A54B1CF1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596018; cv=pass; b=G63nizvyVYwoIIClLTNIO7ojWsWvh/cDt47nJ3U7hNKSg8/2PZYVHQQhJgFdltZWJBGC9h0CB1gjpeWJ6v9cOsSvXQUDheAorAdaSS5iQwSvQJRt/MJc3mvmTeW5vSQoUR9dCr0FJxqUVlubu9hnIt04T+AsLBSwHldhp5iWpYc=
+	t=1790596022; cv=pass; b=nnYG4ER8VvIHnfiftL3+X+WINNQwEcltL8RGbrPLT7Lfj1xPCAzpidUuZchy4lnzXRm31MbfMDu4SOt3OhdeAg8ICGGJwhTA9BcYOKRijK4LBZDjBMoV9sFdF9EUli1Zw9yH1VMvG2tiMqdpCUc0wh+mjlka3wo+dtoKHtHdQb8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596018; c=relaxed/simple;
-	bh=TAkv1EiTIHzH7s4Ic/6KxfJfuBew5rdbjm529OpwC8s=;
+	s=arc-20240116; t=1790596022; c=relaxed/simple;
+	bh=/9u3l8tvroAWhsZ3+bgszRdYGfDaF3Zw4nAXDtkGKNI=;
 	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M9oOQRIL4cssbIb3uWnRQO5+NSlxH8yed1kWwMWySkZdE343t4yPtkkDBBIeLBeHiGa+dLYMFS4e/hgtLAVu+OkKkb0S+H0tgLY7H535DCp0lvOqkCRVdNMhK3tnmY4eJiDHb9l7oBIxq+IoyNgmugfmODyiMpvbg5zjGj/7ATA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kxbw77U5; arc=pass smtp.client-ip=74.125.231.202
+	 To:Cc:Content-Type; b=N0Tu1QvMQyCdGTBO7jLOdcNcsYO+67yjNNPNThQW3o1n16QVhc0GAseH9+Bqh7qq9ojYpoteE9kV089QULDANKHxvyDTMvakiVyDO23AYOLRoN1apT+3d1CAWXb+scphLO9LkTr2m9fGqVqWMhcKe24e/dNVJYgB3Qjs5OJi/NI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGDQkEJ8; arc=pass smtp.client-ip=74.125.231.202
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kxbw77U5"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so283003b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:46:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790596014; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGDQkEJ8"
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so283024b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:47:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790596020; cv=none;
         d=google.com; s=arc-20260327;
-        b=UY7WTFHznq317jmZR/hbgpPcAv2NQc0s9coOfXzE3QHuXdyT2/MVeuDUEfCh7Qe2YD
-         RhMVcCjg/GSBJAIsvcysHRTqrDkCMDZ2UZdlfvR11Gh4cdT374NnIOELWDywPgpRbIeP
-         od+KIVe7YfGuqNxl1h9EmnvP9ytEMP4YsYiUrdEhjAGYqSsJlABeg/cUNOa2JZdm99QD
-         Jaw16L+ZKCjPx6pbbNmlI47RfHnJprSQ+jgKqKUhWcPL0DoekJTLoOZQ2kKOTGmUcK7E
-         saXYVm0J5o2BjFjAE8n8crGNnLs8jfSy53rkhWM1AjqC07c3lsxpLqTZOAUsOyRPGQno
-         pdfg==
+        b=qt2ss9kvKA7T/ykmpPA60SnGgib9NV6EHGJp5LSneC6hkvIrzkUfkc3oyfJOQQvpyc
+         IDmdTuoKAcY41W/GkFftt7Bm/wYOI5g4wrFx0vuZrdhKK11FnNf4XIPKFHSlJS8fMc49
+         zHrubBS7H8s1hkcz7R76o9o6taJVitvXEfKGyJbrryHGOaeBnflP+ag84GArU/m8QrET
+         8NkkwCt1M10mamkYeO5m85HfMmsGRRFCUFddYj9HUSwTc+MMIf6nEyND2bK45ZAWZrnV
+         Hno4ob9wI59AK6UhuMk5uhyeqs0wNIJT7mXTddQvj5a4sm+R0d/+bM6gXBXHrK/xdyh5
+         Q0oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
          :from:dkim-signature;
-        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
-        fh=6fF6EQ+I4FX4VSFyboRLF+J+Gb/B9Cbv862pdDchMkk=;
-        b=RXF2SjrftfPH9Tuzxoh1oKw0lKGeZOAUD0B6AHLSM2nRW9djJ0ASVTbdx0/rBQU1uu
-         qvjbH5yzsHXmK4JyCu16SKxTf8r3JKF90eAphspYYcck89Q8eBqN4p+aSJUPBp6vUfAb
-         kQi5h99AI5msvhg+NKRv5q/4e/YtxL0UvrRoHzvZmmFOf7hxFVt5fIIw4Wzf2dFSOnfu
-         FmcD1w9ExHToI8/PIpGw1DURyV7eZglcCkb4BqBWdQzyo7AcYD9OqUKaeybr1fwzNOvC
-         SxvbndGjWHl0WZ3TtJosCLg+BqWPPh6Ti3DieUq+iDzGtvjTLi0RHyxhDzT+W3EENNBT
-         4OyA==;
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        fh=Xasi1iwovznvot/003BSXkTW1/4czi8KVy1D7rn2RgY=;
+        b=sVNpA1NK2f1J4jYjhP/AgVvPBVX7rNh+Cy83ETTzwXBDbjigW+GTs3u2MvQybiFHp4
+         WEj6hgUjrgYoxpuPzIXDoGRIujFV/B+2CJe96rCeznXRx4ZIcGRgyc1fhGIG/P93HIX9
+         x3YIicGnODGRQS8TKCBY4hrb3IlyvzNiQMIGYTVROR6SE2lMMhu3IymMUjqg6+8oIzRt
+         YNA11FJopZ/szgOD1jX1wgE8mlTXv53XKS9dJn4JZqjJmQe4gftxAtPf7PG8Zu/36X+x
+         XdloK07PTkLcqrirbRjWCYPlKcZrA/pOx+DxdN4tfPlATShBGG7vdudD2NoCD15XBw6G
+         3y2g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790596014; x=1791200814; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790596020; x=1791200820; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:mime-version:references
          :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
-        b=Kxbw77U5tHmPyxIyb7qFHh+ulGgh06qbviRBIDw9cfJnRHKgPZVD7aZdsNkvAqGt6J
-         4lDCX2GEZKvI0s8ZBSbU59CSG89l9BNzcaaDB+t7IhlbtGpNtLnMQYTYZDspwnaiGRG6
-         M7YSjMQ71/cxJOLmIF1RK7oh3ExYGkH7hUFYYdIga8sDk1Gg7lQbp62vG8s5lmAAqCRQ
-         7aOrtOjuUhnzzG+2sHIkfLDbiKotrZwMW/yUzhQFUrC8ZUATnDobem2yxgTwoB/VovUd
-         aDPUIjTJfNwR3qtU161qrfXmAiigMSPGNZW1TAlabUMw5GMHfZQ4pq2DdfcCNh1QS13t
-         Qm7g==
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        b=RGDQkEJ8DdhtpsyqKWS8r4pferyNJ1qbWLQpUXxqE9gXWNojvrdiMWbxfi0Qd+jWap
+         q8ReyeUQrpo2PqbKoP9TdsLmAsMOUZRYfH530+qHDqsAFZ/FUChOKj7JIUmlnfe9mbH1
+         97P8XsB3FEG4Cnmitg8dK4OH2ApcoFpGZlUigUmhWbAS1vMk9AwykT58/6WwgaeyYmCJ
+         xioMvo0DXneYJ5eaGESJGKCSBs9hPWmLb2c9YsJu6wNRzBfXJA9Ax1KFATkEGv+Ac0j0
+         fdLsEwNKz0qneQLDNCdwdgWJ94LmnfvrAFsY0kl/ym5n9Ct0gAAaEVvCf7N3aH32+BY0
+         peGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790596014; x=1791200814;
+        d=1e100.net; s=20260707; t=1790596020; x=1791200820;
         h=content-type:cc:to:subject:message-id:date:mime-version:references
          :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8q22gsWgg1PAfQFYRgiVxIZbPdMGkykBouJXoalgYbI=;
-        b=I29DtFpgy5Ikc4ZqiooQFbctwbLXPhn8pBn59ZenSpGcWOwTxJTPkIvW/ihXqjL7bp
-         sIQlN19vRxNoOLdMm/UFp8P2u4p7pxOD++Dd3gj0aq4hrj09/JZ8DTB//H93MMXpCAQR
-         eoZEcnrPNUKlYtBFJPEPhl+QzakudT+JIeoU966p65UcktMCF0dMVW2hG7/Qka3Ndow7
-         SRD5Q3c7PXpbuF8Pn3dPPZInYdpzKduEhaJ3S5zh8XS/Y0MS9MdNdEgfZ3iN1KrRbZPA
-         6aGhz7yulBiiCpxds6wIV+47QFg+f4r/qwLDkriP4az39mgkCC+2oZ03hl48yy5fP7vj
-         HMfA==
-X-Forwarded-Encrypted: i=1; AKwUvByewDjGqIcZgh+OemRpa/yQedU9397IRazw/0mUFJuoNjyehZFjhWima51FVXVXVLH9ZALfuAXuQ9cVLsg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1o7SINwCkRxuTb1Y8/l3mxKckV5UFCNJtgDaamNqEebP2lCs+
-	4E/mU17wi/32GFsHyYWdpf0xWKJxmO57yL0feg54tHLxRW8P77MHZcXznCE/sqOaUsTPEORG51I
-	DH2lo3ZZ34VPGqnRYGN0pycDmlqcBwdE=
-X-Gm-Gg: AYBFou1V1ylNaqOcIamHdLITksjAvrKvwAHV4tLiaBpwHHl96lLdhj145Ugm3Igc3Fo
-	hE79RR+0qmyg/GF17mpoxJWkofSygjkEvC7oC8CHB7LkcHxjt7do20Tmzv6YWJR0Yc/uBbwl9vO
-	91BzJq0twDZBjTC/b4lDDcZoo6JRYookXQ20XKhFilUKkkX44XK07bailr/3QnGc4JsrGax/nd1
-	Ec/MjddsJ8VjjBhEFhuBhKyrqBKS0vMsQCpkwsuSrDzF39rnd7RPbabjstNytElYFyMxSWw9RMY
-	RxiNQ3n+dZJ6Er6CkuRFVrYs83ZBwNlcLmeJWq6kAMulusvJKP16O2CAKMPBp2Ibw1UUbwaJLHq
-	7V3ZeotpsDOP3tGVTtf45
-X-Received: by 2002:a05:6808:8983:10b0:4e4:4b49:3a31 with SMTP id
- 5614622812f47-4e44b7707bfmr4005856b6e.2.1790596014276; Mon, 28 Sep 2026
- 04:46:54 -0700 (PDT)
+        bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+        b=EF0To4QMII2rYAjS22QYbzwgOd2CcafGmD7EGiAQzzEvKZh82aJWmjyPbUi02EIUjW
+         1KavemWLFYsGTdwS2aJjrn5QNBFIPTi22xFww+nAJgXLw/9XXAN3gBsbeMRkMxiuxKgT
+         uXS/ofEb/8nrpGzH73dWV2m7yKd4RGwn3c4vbFJtTDkHKX6euNE02bI0G6ZMRXAe79pq
+         UnCykE5RrXHkjC0w++G00fl5Ytj9CJu8NB2YcsVgj9mtgaIt5iFyk1nc9GsVb+c7Qnuv
+         ZtVv/vqzyUmcacB07YdMtRk7H7aAHRxrrW75o2WLtN77sSpCDAaoypdJaXC+a8R1KejI
+         1bcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgIC/6ve5yG6U+Cmb8QlFMfRo+W8HyXDQsHTBNH16fOtYadmNKOjeE277lGXJ42BVhM9rswyC2Y/HqlMk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ/zUkZqN6qrKkm61OVpXSOW5SFoJKV5oEEdbkImUHP9Ad/LcB
+	SzuEgykfzF3mGoUFeVf2a3NadCF6GHKfQJPQ+HA52XiBEXr6DghvsY+/EcMHjza9fnUsv0NBV1k
+	dIqjbGCfYiWtSjaUhlFacXzjt4NMbXi4=
+X-Gm-Gg: AYBFou04Zhnkby57sY62MvKsXsJmnPzwEDpNzZlB+PatSI0gLJT7shyRc0duG6hTfhs
+	2b7Sk7aakFmuXlrcZzqPxYqMtpJDNu9taL8Txd4g7mpsjQ3TiBoBIXi2Bpmx43/QTkbpDyGu0B4
+	GrfqH7fCymqA9mcEre/PeDV6+m7xo29zKoLHDj3paPCPdW5JB+Kyjc3ZsFRwO8njF2mgBRDocAJ
+	Ev4qNV2vKxIEXUmiLGqZDEluf1eyspCoVOGqqIAk7GM6B2zl15kkc36TCBRxfUu1YBemAzit1Gn
+	PmEc2IXK69H65GgWpEOssphIqqOnEFTPtXI87Js42fC5PouRIBjiP5Zz5qnoCRD4dZxpJYvYn3/
+	jOiDsSyaJnA==
+X-Received: by 2002:a05:6808:4fe1:b0:4e9:429e:d9a7 with SMTP id
+ 5614622812f47-4e9429edd08mr3795446b6e.49.1790596019638; Mon, 28 Sep 2026
+ 04:46:59 -0700 (PDT)
 Received: from 578479312649 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 13:46:53 +0200
+ HTTPREST; Mon, 28 Sep 2026 13:46:58 +0200
 Received: from 578479312649 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 13:46:53 +0200
+ HTTPREST; Mon, 28 Sep 2026 13:46:58 +0200
 From: Aveline Noir <jm5905938@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
@@ -90,427 +90,150 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 28 Sep 2026 13:46:53 +0200
-X-Gm-Features: AclHuK-LgVtdD9OWC6wM2fRx3Dbg6SSDnvXWs7wRBZWuJE8GQkEcKnTTVIRDDCs
-Message-ID: <CANOyQmGkGwSkwUj-NOKzhQ_mgapoqqoOLaqXaGAjWK8jiknarQ@mail.gmail.com>
-Subject: [PATCH 1/2] HID: picolcd: Move output requests out of spinlocked sections
+Date: Mon, 28 Sep 2026 13:46:58 +0200
+X-Gm-Features: AclHuK_kufxbmR3rqUnxgcHL0HxOsXbK2RSoAj85Izv9mkp5_zAOdC4beU5raZY
+Message-ID: <CANOyQmH1zm86uwt55Ueg50sBkiKHxXc7oJqNO3x_64qc5sE4Vg@mail.gmail.com>
+Subject: [PATCH 2/2] HID: picolcd: Avoid framebuffer last-close deadlock
 To: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
 	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, bigeasy@linutronix.de, 
-	linux-rt-devel@lists.linux.dev
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, deller@gmx.de, 
+	simona@ffwll.ch, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 
-Creating a PicoLCD through UHID triggers a sleeping-in-invalid-context
-warning in picolcd_set_contrast() on PREEMPT_RT. hid_hw_request() can
-allocate with GFP_KERNEL and wait for a reply through __hid_request(),
-but the driver invokes it while holding data->lock. The same pattern
-exists in the other output paths.
+Closing the last framebuffer descriptor can deadlock against PicoLCD's
+deferred update worker. fb_release() holds info->lock while waiting for
+deferred work, and picolcd_fb_update() takes the same lock. Lockdep
+reports the cycle through deferred-work completion and fbdefio_state->lock.
+Repeated framebuffer open/write/close with concurrent device destruction
+reproduces the hang in a PREEMPT_RT QEMU guest.
 
-Serialize output report updates and requests with a separate mutex.
-Keep the spinlock for status and pending replies shared with raw_event(),
-and drop it before submitting requests. Serialize the failed-state
-transition with output requests during removal.
+Use a private update mutex in the deferred worker instead of info->lock.
+Take it in picolcd_set_par() as well to preserve serialization of pixel
+format conversion and framebuffer updates. Initialize it before exposing
+the framebuffer.
 
-Use the blocking LED callback and protect LED state updates with the
-report mutex. Move framebuffer reset outside fbdata->lock so the new
-mutex is never acquired under that spinlock.
+The test with the preceding output-request fix hung in the first round
+and reported a circular locking dependency. With this change, all five
+rounds completed, including 29 successful framebuffer write cycles and
+concurrent LCD, backlight, two LED and UHID destroy operations, without
+BUG/WARNING. The original syzkaller reproducer and persistent-open
+framebuffer tests also passed again. These are bounded virtual-device
+tests; physical hardware and suspend/resume remain untested.
 
-In a PREEMPT_RT QEMU guest, the original syzkaller reproducer triggered
-six sleep warnings with the baseline module and none with this change
-during a four-second run (214 iterations). Five rounds each of concurrent
-LCD, backlight, two LED and UHID destroy operations, with and without
-persistent-open framebuffer writes, completed without BUG/WARNING.
-Physical hardware and suspend/resume have not been tested.
-
-Fixes: d881427253da ("HID: use hid_hw_request() instead of direct call
-to usbhid")
-Reported-by: syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=912222e4cb82423535fa
+Fixes: 3efc61d95259 ("fbdev: Fix invalid page access after closing
+deferred I/O devices")
 Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
- drivers/hid/hid-picolcd.h           |  2 ++
- drivers/hid/hid-picolcd_backlight.c |  7 ++---
- drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++++++----------
- drivers/hid/hid-picolcd_fb.c        | 23 ++++++++-------
- drivers/hid/hid-picolcd_lcd.c       |  7 ++---
- drivers/hid/hid-picolcd_leds.c      | 31 +++++++++++--------
- 6 files changed, 69 insertions(+), 47 deletions(-)
+ drivers/hid/hid-picolcd.h    |  2 ++
+ drivers/hid/hid-picolcd_fb.c | 33 ++++++++++++++++++++++-----------
+ 2 files changed, 24 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/hid/hid-picolcd.h b/drivers/hid/hid-picolcd.h
-index 57c9d0a675..846a8ceb95 100644
+index 846a8ceb95..33e6654ca0 100644
 --- a/drivers/hid/hid-picolcd.h
 +++ b/drivers/hid/hid-picolcd.h
-@@ -102,6 +102,8 @@ struct picolcd_data {
- 	/* Housekeeping stuff */
+@@ -115,6 +115,8 @@ struct picolcd_data {
+ struct picolcd_fb_data {
+ 	/* Framebuffer stuff */
  	spinlock_t lock;
- 	struct mutex mutex;
-+	/* Serialize updates to output reports and their HID requests. */
-+	struct mutex report_mutex;
- 	struct picolcd_pending *pending;
- 	int status;
- #define PICOLCD_BOOTLOADER 1
-diff --git a/drivers/hid/hid-picolcd_backlight.c
-b/drivers/hid/hid-picolcd_backlight.c
-index 4b43b64537..9fe27437d2 100644
---- a/drivers/hid/hid-picolcd_backlight.c
-+++ b/drivers/hid/hid-picolcd_backlight.c
-@@ -23,19 +23,18 @@ static int picolcd_set_brightness(struct
-backlight_device *bdev)
- {
- 	struct picolcd_data *data = bl_get_data(bdev);
- 	struct hid_report *report = picolcd_out_report(REPORT_BRIGHTNESS, data->hdev);
--	unsigned long flags;
-
- 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
- 		return -ENODEV;
-
-+	mutex_lock(&data->report_mutex);
- 	data->lcd_brightness = bdev->props.brightness & 0x0ff;
- 	data->lcd_power      = bdev->props.power;
--	spin_lock_irqsave(&data->lock, flags);
- 	hid_set_field(report->field[0], 0,
- 		      data->lcd_power == BACKLIGHT_POWER_ON ? data->lcd_brightness : 0);
--	if (!(data->status & PICOLCD_FAILED))
-+	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
- 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
--	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
- 	return 0;
- }
-
-diff --git a/drivers/hid/hid-picolcd_core.c b/drivers/hid/hid-picolcd_core.c
-index d73e97c8b8..9d6bf75aba 100644
---- a/drivers/hid/hid-picolcd_core.c
-+++ b/drivers/hid/hid-picolcd_core.c
-@@ -77,7 +77,7 @@ struct picolcd_pending *picolcd_send_and_wait(struct
-hid_device *hdev,
-
- 	if (!report || !data)
- 		return NULL;
--	if (data->status & PICOLCD_FAILED)
-+	if (READ_ONCE(data->status) & PICOLCD_FAILED)
- 		return NULL;
- 	work = kzalloc_obj(*work);
- 	if (!work)
-@@ -89,23 +89,27 @@ struct picolcd_pending
-*picolcd_send_and_wait(struct hid_device *hdev,
- 	work->raw_size   = 0;
-
- 	mutex_lock(&data->mutex);
--	spin_lock_irqsave(&data->lock, flags);
-+	mutex_lock(&data->report_mutex);
- 	for (i = k = 0; i < report->maxfield; i++)
- 		for (j = 0; j < report->field[i]->report_count; j++) {
- 			hid_set_field(report->field[i], j, k < size ? raw_data[k] : 0);
- 			k++;
- 		}
-+	spin_lock_irqsave(&data->lock, flags);
- 	if (data->status & PICOLCD_FAILED) {
--		kfree(work);
--		work = NULL;
--	} else {
--		data->pending = work;
--		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
- 		spin_unlock_irqrestore(&data->lock, flags);
--		wait_for_completion_interruptible_timeout(&work->ready, HZ*2);
--		spin_lock_irqsave(&data->lock, flags);
--		data->pending = NULL;
-+		mutex_unlock(&data->report_mutex);
-+		mutex_unlock(&data->mutex);
-+		kfree(work);
-+		return NULL;
- 	}
-+	data->pending = work;
-+	spin_unlock_irqrestore(&data->lock, flags);
-+	hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
-+	mutex_unlock(&data->report_mutex);
-+	wait_for_completion_interruptible_timeout(&work->ready, HZ*2);
-+	spin_lock_irqsave(&data->lock, flags);
-+	data->pending = NULL;
- 	spin_unlock_irqrestore(&data->lock, flags);
- 	mutex_unlock(&data->mutex);
- 	return work;
-@@ -224,18 +228,21 @@ int picolcd_reset(struct hid_device *hdev)
- 	if (!data || !report || report->maxfield != 1)
- 		return -ENODEV;
-
-+	mutex_lock(&data->report_mutex);
- 	spin_lock_irqsave(&data->lock, flags);
- 	if (hdev->product == USB_DEVICE_ID_PICOLCD_BOOTLOADER)
- 		data->status |= PICOLCD_BOOTLOADER;
-
--	/* perform the reset */
--	hid_set_field(report->field[0], 0, 1);
- 	if (data->status & PICOLCD_FAILED) {
- 		spin_unlock_irqrestore(&data->lock, flags);
-+		mutex_unlock(&data->report_mutex);
- 		return -ENODEV;
- 	}
--	hid_hw_request(hdev, report, HID_REQ_SET_REPORT);
- 	spin_unlock_irqrestore(&data->lock, flags);
-+	/* perform the reset */
-+	hid_set_field(report->field[0], 0, 1);
-+	hid_hw_request(hdev, report, HID_REQ_SET_REPORT);
-+	mutex_unlock(&data->report_mutex);
-
- 	error = picolcd_check_version(hdev);
- 	if (error)
-@@ -268,7 +275,6 @@ static ssize_t picolcd_operation_mode_store(struct
-device *dev,
- 	struct picolcd_data *data = dev_get_drvdata(dev);
- 	struct hid_report *report = NULL;
- 	int timeout = data->opmode_delay;
--	unsigned long flags;
-
- 	if (sysfs_streq(buf, "lcd")) {
- 		if (data->status & PICOLCD_BOOTLOADER)
-@@ -283,11 +289,15 @@ static ssize_t
-picolcd_operation_mode_store(struct device *dev,
- 	if (!report || report->maxfield != 1)
- 		return -EINVAL;
-
--	spin_lock_irqsave(&data->lock, flags);
-+	mutex_lock(&data->report_mutex);
-+	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
-+		mutex_unlock(&data->report_mutex);
-+		return -ENODEV;
-+	}
- 	hid_set_field(report->field[0], 0, timeout & 0xff);
- 	hid_set_field(report->field[0], 1, (timeout >> 8) & 0xff);
- 	hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
--	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
- 	return count;
- }
-
-@@ -537,6 +547,7 @@ static int picolcd_probe(struct hid_device *hdev,
-
- 	spin_lock_init(&data->lock);
- 	mutex_init(&data->mutex);
-+	mutex_init(&data->report_mutex);
- 	data->hdev = hdev;
- 	data->opmode_delay = 5000;
- 	if (hdev->product == USB_DEVICE_ID_PICOLCD_BOOTLOADER)
-@@ -603,9 +614,11 @@ static void picolcd_remove(struct hid_device *hdev)
- 	unsigned long flags;
-
- 	dbg_hid(PICOLCD_NAME " hardware remove...\n");
-+	mutex_lock(&data->report_mutex);
- 	spin_lock_irqsave(&data->lock, flags);
- 	data->status |= PICOLCD_FAILED;
- 	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
-
- 	picolcd_exit_devfs(data);
- 	device_remove_file(&hdev->dev, &dev_attr_operation_mode);
-@@ -630,6 +643,7 @@ static void picolcd_remove(struct hid_device *hdev)
- 	picolcd_exit_keys(data);
-
- 	mutex_destroy(&data->mutex);
-+	mutex_destroy(&data->report_mutex);
- 	/* Finally, clean up the picolcd data itself */
- 	kfree(data);
- }
++	/* Deferred I/O runs while fbdefio_state->lock is held. */
++	struct mutex update_lock;
+ 	struct picolcd_data *picolcd;
+ 	u8 update_rate;
+ 	u8 bpp;
 diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
-index 8c28e982e0..c17104fd60 100644
+index c17104fd60..258c7c4fa2 100644
 --- a/drivers/hid/hid-picolcd_fb.c
 +++ b/drivers/hid/hid-picolcd_fb.c
-@@ -91,7 +91,6 @@ static int picolcd_fb_send_tile(struct picolcd_data
-*data, u8 *vbitmap,
- 		int chip, int tile)
- {
- 	struct hid_report *report1, *report2;
--	unsigned long flags;
- 	u8 *tdata;
- 	int i;
+@@ -231,7 +231,8 @@ static void picolcd_fb_update(struct fb_info *info)
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	struct picolcd_data *data;
 
-@@ -102,9 +101,9 @@ static int picolcd_fb_send_tile(struct
-picolcd_data *data, u8 *vbitmap,
- 	if (!report2 || report2->maxfield != 1)
- 		return -ENODEV;
-
--	spin_lock_irqsave(&data->lock, flags);
--	if ((data->status & PICOLCD_FAILED)) {
--		spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_lock(&data->report_mutex);
-+	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
-+		mutex_unlock(&data->report_mutex);
- 		return -ENODEV;
- 	}
- 	hid_set_field(report1->field[0],  0, chip << 2);
-@@ -133,7 +132,7 @@ static int picolcd_fb_send_tile(struct
-picolcd_data *data, u8 *vbitmap,
-
- 	hid_hw_request(data->hdev, report1, HID_REQ_SET_REPORT);
- 	hid_hw_request(data->hdev, report2, HID_REQ_SET_REPORT);
--	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
- 	return 0;
- }
-
-@@ -187,13 +186,16 @@ int picolcd_fb_reset(struct picolcd_data *data, int clear)
- 	struct hid_report *report = picolcd_out_report(REPORT_LCD_CMD, data->hdev);
- 	struct picolcd_fb_data *fbdata = data->fb_info->par;
- 	int i, j;
--	unsigned long flags;
- 	static const u8 mapcmd[8] = { 0x00, 0x02, 0x00, 0x64, 0x3f, 0x00,
-0x64, 0xc0 };
-
- 	if (!report || report->maxfield != 1)
- 		return -ENODEV;
-
--	spin_lock_irqsave(&data->lock, flags);
-+	mutex_lock(&data->report_mutex);
-+	if (READ_ONCE(data->status) & PICOLCD_FAILED) {
-+		mutex_unlock(&data->report_mutex);
-+		return -ENODEV;
-+	}
- 	for (i = 0; i < 4; i++) {
- 		for (j = 0; j < report->field[0]->maxusage; j++)
- 			if (j == 0)
-@@ -204,7 +206,7 @@ int picolcd_fb_reset(struct picolcd_data *data, int clear)
- 				hid_set_field(report->field[0], j, 0);
- 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
- 	}
--	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
-
- 	if (clear) {
- 		memset(fbdata->vbitmap, 0, PICOLCDFB_SIZE);
-@@ -232,9 +234,10 @@ static void picolcd_fb_update(struct fb_info *info)
- 	mutex_lock(&info->lock);
+-	mutex_lock(&info->lock);
++	/* fb_release() flushes this work while holding info->lock. */
++	mutex_lock(&fbdata->update_lock);
 
  	spin_lock_irqsave(&fbdata->lock, flags);
--	if (!fbdata->ready && fbdata->picolcd)
--		picolcd_fb_reset(fbdata->picolcd, 0);
-+	data = !fbdata->ready ? fbdata->picolcd : NULL;
- 	spin_unlock_irqrestore(&fbdata->lock, flags);
-+	if (data)
-+		picolcd_fb_reset(data, 0);
-
- 	/*
- 	 * Translate the framebuffer into the format needed by the PicoLCD.
-diff --git a/drivers/hid/hid-picolcd_lcd.c b/drivers/hid/hid-picolcd_lcd.c
-index 318f19eac0..a1fdbfdfde 100644
---- a/drivers/hid/hid-picolcd_lcd.c
-+++ b/drivers/hid/hid-picolcd_lcd.c
-@@ -27,17 +27,16 @@ static int picolcd_set_contrast(struct lcd_device
-*ldev, int contrast)
- {
- 	struct picolcd_data *data = lcd_get_data(ldev);
- 	struct hid_report *report = picolcd_out_report(REPORT_CONTRAST, data->hdev);
--	unsigned long flags;
-
- 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
- 		return -ENODEV;
-
-+	mutex_lock(&data->report_mutex);
- 	data->lcd_contrast = contrast & 0x0ff;
--	spin_lock_irqsave(&data->lock, flags);
- 	hid_set_field(report->field[0], 0, data->lcd_contrast);
--	if (!(data->status & PICOLCD_FAILED))
-+	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
- 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
--	spin_unlock_irqrestore(&data->lock, flags);
-+	mutex_unlock(&data->report_mutex);
- 	return 0;
+ 	data = !fbdata->ready ? fbdata->picolcd : NULL;
+@@ -258,11 +259,11 @@ static void picolcd_fb_update(struct fb_info *info)
+ 				spin_lock_irqsave(&fbdata->lock, flags);
+ 				data = fbdata->picolcd;
+ 				spin_unlock_irqrestore(&fbdata->lock, flags);
+-				mutex_unlock(&info->lock);
++				mutex_unlock(&fbdata->update_lock);
+ 				if (!data)
+ 					return;
+ 				hid_hw_wait(data->hdev);
+-				mutex_lock(&info->lock);
++				mutex_lock(&fbdata->update_lock);
+ 				n = 0;
+ 			}
+ 			spin_lock_irqsave(&fbdata->lock, flags);
+@@ -277,13 +278,13 @@ static void picolcd_fb_update(struct fb_info *info)
+ 		spin_lock_irqsave(&fbdata->lock, flags);
+ 		data = fbdata->picolcd;
+ 		spin_unlock_irqrestore(&fbdata->lock, flags);
+-		mutex_unlock(&info->lock);
++		mutex_unlock(&fbdata->update_lock);
+ 		if (data)
+ 			hid_hw_wait(data->hdev);
+ 		return;
+ 	}
+ out:
+-	mutex_unlock(&info->lock);
++	mutex_unlock(&fbdata->update_lock);
  }
 
-diff --git a/drivers/hid/hid-picolcd_leds.c b/drivers/hid/hid-picolcd_leds.c
-index 6b505a7535..c6ae8ace1d 100644
---- a/drivers/hid/hid-picolcd_leds.c
-+++ b/drivers/hid/hid-picolcd_leds.c
-@@ -29,10 +29,9 @@
- #include "hid-picolcd.h"
-
-
--void picolcd_leds_set(struct picolcd_data *data)
-+static void picolcd_leds_set_locked(struct picolcd_data *data)
+ static int picolcd_fb_blank(int blank, struct fb_info *info)
+@@ -332,17 +333,24 @@ static int picolcd_set_par(struct fb_info *info)
  {
- 	struct hid_report *report;
--	unsigned long flags;
-
- 	if (!data->led[0])
- 		return;
-@@ -40,14 +39,19 @@ void picolcd_leds_set(struct picolcd_data *data)
- 	if (!report || report->maxfield != 1 || report->field[0]->report_count != 1)
- 		return;
-
--	spin_lock_irqsave(&data->lock, flags);
- 	hid_set_field(report->field[0], 0, data->led_state);
--	if (!(data->status & PICOLCD_FAILED))
-+	if (!(READ_ONCE(data->status) & PICOLCD_FAILED))
- 		hid_hw_request(data->hdev, report, HID_REQ_SET_REPORT);
--	spin_unlock_irqrestore(&data->lock, flags);
- }
-
--static void picolcd_led_set_brightness(struct led_classdev *led_cdev,
-+void picolcd_leds_set(struct picolcd_data *data)
-+{
-+	mutex_lock(&data->report_mutex);
-+	picolcd_leds_set_locked(data);
-+	mutex_unlock(&data->report_mutex);
-+}
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	u8 *tmp_fb, *o_fb;
++	int ret = 0;
 +
-+static int picolcd_led_set_brightness(struct led_classdev *led_cdev,
- 			enum led_brightness value)
- {
- 	struct device *dev;
-@@ -59,20 +63,23 @@ static void picolcd_led_set_brightness(struct
-led_classdev *led_cdev,
- 	hdev = to_hid_device(dev);
- 	data = hid_get_drvdata(hdev);
- 	if (!data)
--		return;
-+		return -ENODEV;
-+	mutex_lock(&data->report_mutex);
- 	for (i = 0; i < 8; i++) {
- 		if (led_cdev != data->led[i])
- 			continue;
- 		state = (data->led_state >> i) & 1;
- 		if (value == LED_OFF && state) {
- 			data->led_state &= ~(1 << i);
--			picolcd_leds_set(data);
-+			picolcd_leds_set_locked(data);
- 		} else if (value != LED_OFF && !state) {
- 			data->led_state |= 1 << i;
--			picolcd_leds_set(data);
-+			picolcd_leds_set_locked(data);
- 		}
- 		break;
- 	}
-+	mutex_unlock(&data->report_mutex);
-+	return 0;
++	mutex_lock(&fbdata->update_lock);
+ 	if (info->var.bits_per_pixel == fbdata->bpp)
+-		return 0;
++		goto out;
+ 	/* switch between 1/8 bit depths */
+-	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8)
+-		return -EINVAL;
++	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8) {
++		ret = -EINVAL;
++		goto out;
++	}
+
+ 	o_fb   = fbdata->bitmap;
+ 	tmp_fb = kmalloc_array(PICOLCDFB_SIZE, info->var.bits_per_pixel,
+ 			       GFP_KERNEL);
+-	if (!tmp_fb)
+-		return -ENOMEM;
++	if (!tmp_fb) {
++		ret = -ENOMEM;
++		goto out;
++	}
+
+ 	/* translate FB content to new bits-per-pixel */
+ 	if (info->var.bits_per_pixel == 1) {
+@@ -369,7 +377,9 @@ static int picolcd_set_par(struct fb_info *info)
+
+ 	kfree(tmp_fb);
+ 	fbdata->bpp = info->var.bits_per_pixel;
+-	return 0;
++out:
++	mutex_unlock(&fbdata->update_lock);
++	return ret;
  }
 
- static enum led_brightness picolcd_led_get_brightness(struct
-led_classdev *led_cdev)
-@@ -87,7 +94,7 @@ static enum led_brightness
-picolcd_led_get_brightness(struct led_classdev *led_c
- 	data = hid_get_drvdata(hdev);
- 	for (i = 0; i < 8; i++)
- 		if (led_cdev == data->led[i]) {
--			value = (data->led_state >> i) & 1;
-+			value = (READ_ONCE(data->led_state) >> i) & 1;
- 			break;
- 		}
- 	return value ? LED_FULL : LED_OFF;
-@@ -122,7 +129,7 @@ int picolcd_init_leds(struct picolcd_data *data,
-struct hid_report *report)
- 		led->brightness = 0;
- 		led->max_brightness = 1;
- 		led->brightness_get = picolcd_led_get_brightness;
--		led->brightness_set = picolcd_led_set_brightness;
-+		led->brightness_set_blocking = picolcd_led_set_brightness;
+ static void picolcdfb_ops_damage_range(struct fb_info *info, off_t
+off, size_t len)
+@@ -506,6 +516,7 @@ int picolcd_init_framebuffer(struct picolcd_data *data)
 
- 		data->led[i] = led;
- 		ret = led_classdev_register(dev, data->led[i]);
-@@ -159,5 +166,3 @@ void picolcd_exit_leds(struct picolcd_data *data)
- 		kfree(led);
- 	}
- }
--
--
+ 	fbdata = info->par;
+ 	spin_lock_init(&fbdata->lock);
++	mutex_init(&fbdata->update_lock);
+ 	fbdata->picolcd = data;
+ 	fbdata->update_rate = PICOLCDFB_UPDATE_RATE_DEFAULT;
+ 	fbdata->bpp     = picolcdfb_var.bits_per_pixel;
 -- 
 2.55.0
