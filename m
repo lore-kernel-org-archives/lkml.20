@@ -1,119 +1,177 @@
-Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+Received: from mail-wm2-f4.google.com (mail-wm2-f4.google.com [74.125.225.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9687A3546C1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6245637C109
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582054; cv=none; b=Yy4QdUqwE8H+iEBmfnptauQqyQRzFtj+Dnz41WoNI8vfqHKqBIk6xbOnlAVOhL2kORTNz/TBRnT/8rlgQc9wYESTC6/S+9FAfwqPWg94mADT6s7Paca9HSqF3ap6lrmJIS5v7RKwn2gocT/W67CX9Hmcc1TMDC4ITocrFVwPV0I=
+	t=1790582106; cv=none; b=MCnCIic85vIgDy6NNc85IwnpcodJM9jDec6pNMnhwj7rWKcYfLGRV1BxXyNk+nOzeu2XgLSYQf2ojQEG8EEjHpJyajMl75a+CFgq/lOUrus5LdIbS4jBCTgeGEdRM3tslGS4tMKnXkGdKBl03Kb8b/5pTbHMf+2DGtF0Ahrz0Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582054; c=relaxed/simple;
-	bh=YPSRlgdGLBWI7xYZ3+zmloVtjuS+CrLqrr2jRlpVAMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EcDTohiIYXxhFHzLkwNc6haaZVnkRYm8/QijwlmyDzHZK2pPmA5/ynulvxMBeGwqVrBtKGGxzLoH3DcUMrFKTMisy0yLv4hgXKU7NgPwdVTiaWVrJX1asSo76JbgU42tjEVCnrCRUMW8naYZRw0pNDY9oWFM4fxGnXuGkV3QDiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AkiZqcVz; arc=none smtp.client-ip=91.218.175.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790582106; c=relaxed/simple;
+	bh=b8alYS8//PbcHqgx8jRmmDZzchvUgilx76oq+rn8QMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MxTZYMkrpGIhsUuyD7HYlHVz2607hSE5wYRfkQOu4yX+Tnb3uFX/l4VuBdKBZRNzJtd95uqOWol0gl+N61l5XTR524yZXyyH8lBSnWU+0auBTHQsOhtrkvH7582WHinneJQGfsFY6r8jvPFHQ4kAxFNeAj04BrV6XrIVAW3P2D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=a3DrdT6Z; arc=none smtp.client-ip=74.125.225.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AkiZqcVz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YPSRlgdGLBWI7xYZ3+zmloVtjuS+CrLqrr2jRlpVAMA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790582050; v=1; x=1791186850;
- b=AkiZqcVzGB3tvcHd+odi9h1RcPsZzgPwfQ8T0SsWUEjWXJeSybg3YItQMPaBiWYvjLiHxceW
- /Mhs6IIwC36QOcD4NaYPlNODXBFzKGL/g9SD4SPPABUTkbfxn4b8gSbGinTKDQzmUIKVYr/TMR+
- jTG8thJ0L1NKa1UtYWifZBmw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a32e607d171bb71;
-	Mon, 28 Sep 2026 07:54:10 +0000
-X-Mizu-Trace-ID: 9a32e607d171bb71
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 09:54:08 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/10] media: i2c: ov9282: update flash_duration range
- even when powered down
-Message-ID: <aroc9bgzdPns60fG@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-4-f520af59df1b@linux.dev>
- <CAPY8ntAyYq_54Yvo1uC=LBepmqLma8mz_rYTmsm62LzHkixX7A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="a3DrdT6Z"
+Received: by mail-wm2-f4.google.com with SMTP id 5b1f17b1804b1-49cd71f9909so7923445e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:55:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790582102; x=1791186902; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=31XUkSRJuqJIxbyoM09CJAfu/QARGMWZ93NvtWQGmao=;
+        b=a3DrdT6ZD4ThIMfFpURBub57KClHU3uQAjzWuaMsUo/PnyMxV0LN82P1aOvaSIeNVU
+         cOVcVgXSY2SBad0Cxeu8hOfL85eIeUQ3faRNAxqqxgx1RBj+p/OZk/7eunMTh4x9rwWu
+         /oK6rb0k4Oi2DZ4PgX5gKaVaUIpt85VG2/PzIUO7ETSdQlqKYILWqncuweeO2umthmiL
+         /ov28wI+O+16GiZVCXAgjY5NWFOzy+lSWYoguoQh6wfUEv1QKqOdhmbkOG/4DStTYmqd
+         7lo5F+MmQ/lep9PKBPjmzNJsG3uyIEyYXh0gfJ4IF9hktscqUaTe7jh9TN9IM8Jdc6py
+         yOCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790582102; x=1791186902;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=31XUkSRJuqJIxbyoM09CJAfu/QARGMWZ93NvtWQGmao=;
+        b=qx/Z9HTPHl5eR6vUhAo43WJhoQRPcgNAqsMq6rjX/h/SGw6frARaXfpjdeyJJr1mju
+         CrxdgZDOryDxIUSZlpt9uzIV3KUKF6OAv6SpT2jMz8lp+ZtPiRDLOvWnNk6lJuGMjKXJ
+         SKt6HEL7Pa+0lqz0kHgMY/Uuex/f6aqVHnOrifCdvIuP2pi19tgairJMzawOyUBThJOz
+         JtQtm0dPNEFBp/I4cbg4rv+WOmWONMi9T0L2mqDZ8bYWmVnb/C6LzchNUgR79SAcFlnb
+         C0ri3OTRSFTV9eR1Cwil5LR44X7+NtEgfNh00TPd8csB2s0djtpvroofPXZcvejwmRhG
+         Rhqw==
+X-Forwarded-Encrypted: i=1; AKwUvByoIl6JvW/g+6XkifgjTmpor/OpOr+ZZMqckPIE/3yMDU0WDA6Yi4vvU0WSG4robemp9/+lmL7h5bI0m/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzxWajh96LagSFcdbEGav+uMnrmHJSRl/WozxS+Z+XMSKT7MZZ
+	CPFfjzRiQMAUW+hkL5c5ZKb1jNvuGwDpIYeBRMbhYVOO9STeBfHZXQOdRp0UKGv7bk4=
+X-Gm-Gg: AYBFou3wWlrn6OC4Tyee1ouUwSzHJIidspwLNfAbzOglaQ3uvYwrf91A0kvvyW9LfY+
+	OR04MmWThIOoKme/dMO6tVanq7gR072z7HeMLDodJi4kG3VPC0eXjI1opDbeG7X3fpx6l8Vm9EJ
+	ZrGT0o6tuPjNca5P8oS0ccnGb+SYzqJW3oXEna9qGrbgN4taBslJNauxve5EgwhdHYVvJ0Vsi36
+	RYvNIyNi2UEoa5VehBb5WhzKfUGiXUdAjwwozk74ScRksmlPioVR3Frg6QwMqR8kpCpL6sS9OxT
+	smxKih3s4fGDqe5tsLzXzqfUEc9Y1NHgPdz9qgkQLx/1exPjnPZtehRmDjrYv0LoCJ+dIYdqGM1
+	9fe4x3AnWfN/R7CfoSByVy3yuwSS8bX0mIDP9OHal5QqoPkak4vbQeforeaYADwrnm6O1E291Er
+	+X6OZ35bGs5tkoUw3v5fb9vgXIO0cdKxriiE5iG0oomIzPruKlZZnV1mN3cFOUgcknmWeH8XB0x
+	SQTK3YLxgsnJ05GofYi3r23TgUsJ+ABifArkFe4CHk=
+X-Received: by 2002:a05:600c:8719:b0:49e:6c11:c4fc with SMTP id 5b1f17b1804b1-49fe66c8a5amr224841855e9.7.1790582102485;
+        Mon, 28 Sep 2026 00:55:02 -0700 (PDT)
+Received: from [192.168.0.38] (static-246-51-231-77.ipcom.comunitel.net. [77.231.51.246])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00178bebasm128950675e9.11.2026.09.28.00.55.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 00:55:02 -0700 (PDT)
+Message-ID: <c2f3dd05-97a8-43c8-9825-46f62cb5d41e@suse.com>
+Date: Mon, 28 Sep 2026 09:55:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntAyYq_54Yvo1uC=LBepmqLma8mz_rYTmsm62LzHkixX7A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] wifi: brcmfmac: Add per-board clm_blob firmware
+ binaries
+To: Benjamin Drung <benjamin.drung@canonical.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org
+References: <20260923203739.2560527-1-benjamin.drung@canonical.com>
+ <20260923203739.2560527-2-benjamin.drung@canonical.com>
+Content-Language: en-US, ca-ES, es-ES
+From: Matthias Brugger <mbrugger@suse.com>
+Autocrypt: addr=mbrugger@suse.com; keydata=
+ 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
+ PVrr2NoUqi/bxI8fFQJD1jVj8K0=
+In-Reply-To: <20260923203739.2560527-2-benjamin.drung@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Dave,
-thanks for your feedback!
 
-On Thu, Sep 17, 2026 at 11:38:22AM +0100, Dave Stevenson wrote:
-> Hi Richard
+
+On 23/09/2026 22:37, Benjamin Drung wrote:
+> On Ubuntu 26.10 these firmware file are missing inside the initrd when
+> including the brcmfmac kernel module:
 > 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > The flash_duration range update sat inside ov9282_update_exp_gain(), which
-> > ov9282_set_ctrl() only reaches after the pm_runtime_get_if_in_use() early
-> > return. So with the sensor idle the ceiling kept whatever value it had
-> > when it last streamed. Therefore setting exposure before flash_duration
-> > while the sensor is powered down may clamp flash_duration against an
-> > outdated exposure.
-> >
-> > Fix this by moving the range update before the power check.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index 90a0fe542ce4a..4c88de1965171 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -645,6 +645,19 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
-> >                 if (ret)
-> >                         return ret;
-> >                 break;
-> > +       case V4L2_CID_EXPOSURE:
-> > +               /*
-> > +                * Ensure the flash duration range is also updated on powered
-> > +                * down sensors.
-> > +                */
-> > +               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
-> > +                                              ov9282_exposure_to_us(ov9282,
-> > +                                                                    ctrl->val),
-> > +                                              1,
-> > +                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +               if (ret)
-> > +                       return ret;
-> > +               break;
+> ```
+> /usr/lib/firmware/brcm/brcmfmac43430-sdio.raspberrypi,3-model-b.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43430b0-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43436-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-a-plus.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-b-plus.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-compute-module.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,500.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,4-compute-module.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,400.clm_blob.zst
+> ```
 > 
-> This hasn't removed the __v4l2_ctrl_modify_range call from
-> ov9282_update_exp_gain(), so the range gets updated twice if the
-> sensor is powered on.
-
-I will take a look at it and adapt it for v2 accordingly.
-
-regards;rl
-
+> Commit 885f256f61f9 ("brcmfmac: Add clm_blob firmware files to modinfo")
+> added clm_blob firmware binaries, but did not add them for per-board
+> firmware binaries. So add a similar glob for the per-board firmware
+> binaries.
 > 
->   Dave
+> Bug-Ubuntu: https://launchpad.net/bugs/2168109
+> Signed-off-by: Benjamin Drung <benjamin.drung@canonical.com>
+
+Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+
+> ---
+>   drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> >         }
-> >
-> >         /* Set controls only if sensor is in power on state */
-> >
-> > --
-> > 2.53.0
-> >
-> >
+> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> index 381801af3ac9..3cff0f1fe25f 100644
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> @@ -631,6 +631,7 @@ MODULE_FIRMWARE(BRCMF_FW_DEFAULT_PATH "brcmfmac*-sdio.*.txt");
+>   
+>   /* per-board firmware binaries */
+>   MODULE_FIRMWARE(BRCMF_FW_DEFAULT_PATH "brcmfmac*-sdio.*.bin");
+> +MODULE_FIRMWARE(BRCMF_FW_DEFAULT_PATH "brcmfmac*-sdio.*.clm_blob");
+>   
+>   static const struct brcmf_firmware_mapping brcmf_sdio_fwnames[] = {
+>   	BRCMF_FW_ENTRY(BRCM_CC_43143_CHIP_ID, 0xFFFFFFFF, 43143),
+
