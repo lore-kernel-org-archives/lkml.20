@@ -1,165 +1,217 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013044.outbound.protection.outlook.com [40.107.201.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3278E4ABBCF;
-	Mon, 28 Sep 2026 11:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595618; cv=fail; b=KmYV7n+Kal1OHh1spcRfZyfen6wX9sBvYpmG9t2zBSdy3OMr904OVqz9d9/Mb6S4r2aXdCEC4fCp+UWgMMgzgbXn7HH5boLsbPnJCXES3DLHFnJ7ezFhbBf1ExJJhw6NFSANMl78t+j3xVmrF6ekZPvat7WyaDZSrhWAErbD1C4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595618; c=relaxed/simple;
-	bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ofi8MGFXz+bu7MffFLwnKN+rtnh8at7zBypQxXDcbQI+FQq96xy77+8HdZ99XAQl1iWz+Oz2eamCGXabg2QqlN1O1780QNL/CyBZchMx5e86AYC33dYgIpXOSJVm/PyRg5sXsVAguk1ciwMW++RbcmSDaTGW2RY1By3nmg7KWbo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kz2gu6+C; arc=fail smtp.client-ip=40.107.201.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132A94AB3D4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790595630; cv=none; b=SGxzt+ajgANu+vpfOR1RH34syQUDHFQvbtsLrdYnlBqPJ+VEMZ8VEQTt2aNG8drqV9T+rOPH8e/siKxX1Nz7Di+XhFWP1sc0ymuCIHJm+9c8UpPTWiq+GB2/T1nWpjz1wotD6qN3byumt+bH3vu3P6wlEUG91K0ts3YHnr4mABQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790595630; c=relaxed/simple;
+	bh=Lzr5bEcyEtqxOcsi0a6Wx4YdU9NF9pl4pgfrg72dBeU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HMzG4fJj2GtIni81hH2tRztFLH0j4gqPQ9I6GQwl7y/iR+DC6vKBkb0Mt6IoU1ljAhKWXA2GnHInHKciSEtELhkdv93v0P/L14XgueSVk9M8bjlCfzq9BLDm0noeVApmm8UMn0CkwleShRo6OA41CCmm5Ui9ygu0x4xxUlnUhNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=URGaXcjk; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kz2gu6+C"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XE3/5be1VWM4CZSPn9p5OKVFM59b35KAznzVWP7fMXc/Xa/Vx12DDZdq0XyTJaHPX4OwPCtYYfmeVWVgwbmxkOQPhQKxkXdKkcUDNI+3UCYojPWpXczsCqq3IgAeK8+RDoqjciK2GwqBYSYk7iJWNM6dHpzfrfauTTS2TAXQSHD41n5HK1/4gWTCs9dbilQzmzzR813uwMP0zPJKwnb+lpN6EeBWx8ru45qhFbzc6awSuotFGizK+ST7u/XKWqvVlEzQx0mOjx4SGEKX7QJmgJ7rR6Pa3KH/6dAUWAukYzKpm5IuntfNOIcKopmKiXe5LZ1GYa22s+i0IuHrApk6Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
- b=LsrgJA5ZpPWV8Lxv6Fb9AgzQt/qrbVCG3VmYm0JeNcxowAyB6RLcD0fghYgARhUfmlBiDvF9QoHoRQpQ/virRBPrstmyk4zXuUVppMrY0wwsgJgJen+JyUazrhtTIXMmPTfGgo5/+owvbhY8irNLGS3kugBcTyd7DBCjKuarAFCu7TT2uSycIWvaRxLL7gSxAZJwTGgwPcB0OxW3Zb8OZfpDqgOPn1i3CM+mPrMM/uYMDohXTwms9bao1zR0w/BCm7PKma/q+FJ1c8ww2oQZeUI4BaZEivDF2tlrUs1KztihakQ0LgZqehH+rqcSkXmn8gy5G+HbWW5geNfj8lngEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
- b=kz2gu6+CxxT4qOgR7ZxIq2DlGtLdTApuXYCD9xxa8nt85dVh3N+6pfTQ00Eo3/bSW+6NnbsI+y0hlXvJAESpQ5+R9YbwluhfhkKhXueibIFzuE4ZNGkZN7ZE7PFlvwqFue0+X7Jpw5nqmmmU5fCWaVVjCdZRE47n1Jm3M0p/vjdDdJaLZmnRkFeHL0pGBSS1lMMXlgy4W39jHABak3kLjdwQMg7kY4APzlZDxrWn0kQGNRcKndASgAmEJICr2mbbrm7bihzh1e6wEr3MA7IbarWhV5+BFUZ9/3zimDM8Jd9MVolN1E0mFx5vPDpTMvTMKi5ufhCt6fTSOvir2KntoA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA1PR12MB7568.namprd12.prod.outlook.com (2603:10b6:208:42c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 11:40:11 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 11:40:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 20:40:08 +0900
-Message-Id: <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
- a sub-module
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
- <20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
- <20260928122015.3df66b3e@inno-dell>
-In-Reply-To: <20260928122015.3df66b3e@inno-dell>
-X-ClientProxiedBy: OS7PR01CA0191.jpnprd01.prod.outlook.com
- (2603:1096:604:250::10) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="URGaXcjk"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-14380910258so695181c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:40:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790595628; x=1791200428; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xOrrX4VASxwxOHIje5fqVHmltt8bEneArNzq9Pnrg3Y=;
+        b=URGaXcjkTBf7gnd63ov5D8Xti1JAlEd7m6aJVQQlZiEpmRoBLZsKj+qCyMJQhFTpwj
+         hIrN3g6nnLoHfB+GJm7W+Z6VAkQ2GbXZe4rWAdF5w66MaS/aMa2z9f/ar0M7IFtohf+H
+         DJYClU3ZFJLSTONZY16xMJEjrt51BTPW/2ObGLFew2/63e3ZkO7sQUgDzkoaU4wIW3wV
+         BP+P5qVP4F5Sqd6TYciM1YuF2Kjm/REl3oesCSB3cH1lOp31Ih2tgUBJb9PDTC06Xn+j
+         Po5ryvYm/l0QQb48WhPUCC06jrhliBERXbQRydYRWoyCdjMe9fY4lHERZbO+J+CUGGK4
+         u7gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790595628; x=1791200428;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xOrrX4VASxwxOHIje5fqVHmltt8bEneArNzq9Pnrg3Y=;
+        b=BLTm5JVOWTdRrrdtqfHyKXmDGqjoGzJ+4mIaJ0ZWRwZ9Gw0ARIVxZVldrinvG7cOTc
+         vIh3z9IOG784gh4XR6tCgD4N22R7boZa02rYdkpEslpNHHZwvQ4e+sYN9jiTL8cdTYTi
+         CM2YlzhFVshWwbgp//kPtd9d2/HakuoKQ3LPxo9ezX6HC6bTKq9Y6OTqB6qvE+MKT+tp
+         MHf+ckUSkboG9FLlILSrQAEj/oFnirRLisJgXSLEUbhxyqvuAnlVq4UgL6Tf8pH/qGDq
+         O1HQm+cngsg3FA6sBQEOOXk1ZLH8WJD56EFwhXK88CJx0n93lqRpL4izQp5B1x05cOlB
+         tltA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8zmP2yfE5zRBK/mhpAE8Pb7C4Lcw7Cr2ng6Dl4yBN3yAFU10tBmgXUSav4QDlOjUYpvoWYx0uZD7s8h0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWgGN0cHtoGit8/xdqMulhozjpWapwKtHlUFvVpIDgKgQk9ebw
+	2urCxDCNBFqyASME0rJBJvijRnSupft5xRfd9jxUj9n4DKGzCC8mexe9
+X-Gm-Gg: AYBFou0gpYoGlcCXbOHcUwAXKWifo/zj8qjiFXmv6HJ3AIayZX+BYPhBgzE7glnLlTp
+	VyltpAMDTl+qPRwFXwGEyYGCs4pf8spXi//YKD1qksXQlUnoJMcI51v+xQM5VGoT2r/nazkOWTL
+	6qDMyMQXK4Tr0z3kr8KoXoNnHJmlktJBYSfpryXZqAz5Wt8L7rEQBplXK9nri3Spq/uHwYxGupw
+	Iswg+RepZ834ZDrR/bKKyInBv8E4RA1IN2V2mZ+rbB5hCHfHSLZ+mN4sGkqyeglpOoPtBtTu+ww
+	/YQ7AWkVWD0HfrXDRFflOcVp86v2PlLg41cLtUomQPuJ32PW0xoPOvaFZv14bwfpH8H1xP9TbUT
+	d+bMxQid5fSoDVUjxxneGp0dPOWjMenwhsnHB6VuQdtkyuCw0OF60F8pvJfI4DCOwbBabvyAUyM
+	C/lX6CcuHulXPu0RTlFYzN0QCMQqSgpPJZM3l0y1EocJxFVJUfDoaaxQ7+A+Ka9EppLvR/2/WNh
+	a+W8g==
+X-Received: by 2002:a05:701b:2902:b0:143:56f8:dc5 with SMTP id a92af1059eb24-146cfec877bmr9086036c88.23.1790595628009;
+        Mon, 28 Sep 2026 04:40:28 -0700 (PDT)
+Received: from [127.0.1.1] ([47.88.22.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c3f8sm24289375c88.3.2026.09.28.04.40.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:40:27 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Mon, 28 Sep 2026 19:40:21 +0800
+Subject: [PATCH] ext4: fix shrinker scan budget accounting in
+ ext4_es_scan()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB7568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|10067099003|11063799006|3023799007|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	vCQOPlTEevDGJdOe3Q1vIuY87zR5KZSrRySkLVmJu938idMhSCpYOqDifItF86p1JlWRTA7TQmWQcELYvBkuG1dk8v+7HJnxH8pckwiwoeM5il5uGu+HxNgDul2mQUTkaCm3fVBZoeBoNdYhLdt3aLr5ATR6yqniZcicHSBi8Au/bnv/16sg1a4Bx/zSnY5sSLzfNd0BiQBorMKv+0PdzIHKASW4KeeqNjFcukb/EwdBelYWoW7L+TQXmSd2aY0dVDRa7FpsLc/xGrcOqUgacVrHLl0QEXv9qNMqtIjREhoAfmvXfysVyPXiArru6UdT9AY4ZY9EaH8ld98qJ7XeXv85GLpuxayhEtvZVoPjfSUdkM3BAUCuMSXU2dyvmKI8oav1zwnsn8Q6TSN2iKn9EhO7IbTCdXq2JbFB6uwvdH8Tahn8VO13zFnCeSsgMeUswmKsNiLTjoU5fWM2lVHsG402qSXvk5jkH5HXloFKpmIlckfwJ05aSyGd3YCAf7CTV2oc0/HNoxiV5lY56QMCtykEFrq/Bssy9/Dg2hsatvz3ScDRk3mDFPXLga68Hm/tbEAMYdH+0wxiyV6yCQcuLx2iK2o5JA4bOpK+rp1ZvAOZ/eBBx3Wliiv2VbvjQufDWrKbK7qngW5QR7cKE1FHEyj/RcbQEi7Ui+V5y0R9PIc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WXBndE9teFVSMXR4VTR5dXFwK0J4V2hBdExlcGtkRmhXck5PYVJZVlpPUVk0?=
- =?utf-8?B?elFEMDNwSWNkeG1KcXB1Ulo1U1NjdFJ2dXRVUDNnRnl3R2FWRVlRT1lzT0kz?=
- =?utf-8?B?cS95Qjc3QVd6c25QZHk4SVc4a0kvcUFldkIxYkhhZFBTM0NXU3JSSlViMkRh?=
- =?utf-8?B?cVh6QzJGY21HMXJISHJxQ1dZQkxXS0tlOWxGWUJXc2FCcEV1UVdSdTdlaDIx?=
- =?utf-8?B?U2RIV3R2NXFETU82cnFRNHcrZGV3anZzRVJEczNqUmJ2WlRlRjBBM1QwT3Y4?=
- =?utf-8?B?RTdReUlTVjBDMTVieTkvR01IaFhTaStxWmFMMmRmV04vMm83TjVmanVTeDJq?=
- =?utf-8?B?V1hlRFRicnoxV3RsSFNvK0VwNkZ1Yk9aUnhyWlZVcDluS0NPRkRMeERQYWtM?=
- =?utf-8?B?UXMzYWJHY1ZuMDhxVDMwa3NRWUxINWRxTXpGRmNteWNWRFNDWXM5SUw4NGNW?=
- =?utf-8?B?bkVOZ0FGVDdkVEtHZDQ1eDhYbnVxSWJJUEFUU1pLZW9XNFJ5bTBDbWV6VEtU?=
- =?utf-8?B?ZTJqMFlvSUNMQTY2UG9pRk1sODgveTBHLzFoZGE2QThzbmNtR2d5WWdseXEz?=
- =?utf-8?B?NFRhaVBtcjRya09WZTJZcHFxQXhxMlord1hGZWFrZnNxbTZWbHZHZi94RnBZ?=
- =?utf-8?B?S3VYeHBNOUYxVzZJZnJPMS96YldKZ1hUZTlabXhmczBmWjM3d3k2OUE5dUFk?=
- =?utf-8?B?dGpOblkzZ3RMMFNiSVdTWU4yYnp5NlhMOWN4ZGJlVE14U3NITlc2OFlYY1NR?=
- =?utf-8?B?L3h0Z2tGT3Z1TURaenBkaGMwd3NXZTZFWVRhRzBtcXFJd0pPY0hIbkJKUVVH?=
- =?utf-8?B?LzZueXBMNHNtczY2NWgrd05JYUZ2eHpHbzJRN2pxS2dqWllIOXljU2ZiWGNl?=
- =?utf-8?B?TUZMZ2s0QlFoVDk2QW5XblhDSElyM2FHN25EOXpMZjVwZkpZN0VtZ2FrSnZ3?=
- =?utf-8?B?cUNWTFoxazV1ejgyc2crd3YvdHhFakc0TXA0RFJRK1M5MWtjRjhrd3lSbUdU?=
- =?utf-8?B?ZzN0Z0ZLNFVIOG9GT05uOE11amJQdEFmSW5VaGJsRDlSY3pab0FyWTJBME1i?=
- =?utf-8?B?MS9UUTY0Rzc1V1doYURsbGNyd1lTaElhWFBURHVCZEZIMzRhd2dBS242Vmdr?=
- =?utf-8?B?NnlxaTI0aURhZ1JsZ2tqOTZRdmlVTjRXYVdPQ0xJRXdTMUtPT3NvTk9hMkNz?=
- =?utf-8?B?UHZqTHluMHVBV2tIU3pwWjdSZ3V6VGRUNGNIakh4cjQ1OWFtTmc5TXdjMFc3?=
- =?utf-8?B?MzhPWHVEcUFmekxqR2lEV1kyMDFwVE8xbHVYNUhJNXFLK3NCdGo4SlU0V0xV?=
- =?utf-8?B?RkJKbm9lYldrTHRDY3JmaDc2endmd3lyUjdjNXdwLzFHTm9VRS9BblhHanBk?=
- =?utf-8?B?L1I3dDcvK09FYUlzMWpnYlVCVTJCbk43MUFpcXRlQnVDYXNjajI2RTVwM3A2?=
- =?utf-8?B?TzUvRW5FdUxpYVdpemJWOHE4cTlkNUxjWUcrQ0g5bytZb3hzeklSZjZ5Qnh6?=
- =?utf-8?B?TXNya0Zwbkg5K0VONDBRNE0weVI4cGNtRldybmpVY1g2bHlhM05obUtxTHFF?=
- =?utf-8?B?UW1Zd2t4QmRaNTA1WThiNjNoQ2dwNFJZTXdoZWw4QU1xa0RWUVJFVHl1OWhv?=
- =?utf-8?B?MmUzSDlmbE5tR3VvdVdLSzEyVDJwQjNlcVYxUkNaSS9oanBvQU5GeTFWUFZW?=
- =?utf-8?B?ZVdvbFQxeVY0RS9CQ2NRM0tYZjh6UXdrSVM5NGtmTXY1U25qanBxWDA3NFIx?=
- =?utf-8?B?VnNkZ1krNU9NRlVYUW96ZkpNekxaTlpiV2oxRytJTnVHenNaWXprcmREb3Rl?=
- =?utf-8?B?WjM0QzVibExZMHdRQlJvMEhCZXRSNTVIT0NHYnpBb1JoakxpSUpFdzY0WWpy?=
- =?utf-8?B?emI4dFQzZ0FtTnNadlVSdTNyOHE1Ym91ZzF4eldvKzhqRUIxakUyWmt0cHdv?=
- =?utf-8?B?MlgrcXl2VWY1UnRNQithVTh5cEdnQk44dFJRN1g2eWZadFE5R05EdDl0NE1r?=
- =?utf-8?B?TnR2amtvZDl3QWw5bXlsYmZXejVkWnRVQnJTS0syVS9pR1YzeUlOWHlaOVpy?=
- =?utf-8?B?anJFWjBVM1d6dEJxWEsxYnV0Nm81WjhubmtHd0ZOZUdWZEptWmlUUWxhU01M?=
- =?utf-8?B?VGZPL0pqdWxrM1JJYWp6T0NhcldLSzJFSFYxdndlazdYd3lYbDZ2NFF1SmVW?=
- =?utf-8?B?eGJKaE5ScFRlTDFVVElhbnRxNXpzUHpDT2xXa1JIeDRuYjBrQUFuQVg1MHNF?=
- =?utf-8?B?SWZnQnpDV29HbGxVelk2TVBObW5UMVZuZUVhdWplWlhlL3lJZ1JSSE8rbTBB?=
- =?utf-8?B?bHhwSjljbXMzRGRpcWRGSTlwTktkbHcyMWlhWHVLV05UY2UzbVhhc3FNZGR3?=
- =?utf-8?Q?jKs3DAKcXrPyam2g8ODCo0mMMaB7nXIOExmsmleOhoodo?=
-X-MS-Exchange-AntiSpam-MessageData-1: MHrNUGRDERzIQw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:40:11.6426
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EyTsFNjw9ihtPBaEfvd2K7TQd05sxBvMjLrMkxTQWyYPBd1JQX0DeEDkmmdAbiWlDYVXlqkJjIr6KEdk4gkZ3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7568
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-fix-ext4-es-scan-nr-scanned-v1-1-91d88228b0c8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACVSumoC/x2MSQqAMAwAvyI5G6ilrl8RD6VNNZcojYgg/t3ia
+ RgY5gGlzKQwVQ9kulh5lyJNXUHYvKyEHIuDNbYzox0w8Y10nw5JUYMXlPxTKGLrU29651IXIpT
+ Dkank/31e3vcDq4kNiG0AAAA=
+To: Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
-> On Sun, 27 Sep 2026 22:46:25 +0900
-> Alexandre Courbot <acourbot@nvidia.com> wrote:
->
->> Move the types and code related to RPC commands into the
->> `rpc` sub-module, and update their users to reference them from their
->> new location.
->>=20
->> This is a pure move commit, with no functional change intended.
->>=20
->
-> Hi Alex:
->
-> What would be the plan for commands.rs in the future after the movement?
-> I was adopting the similar code structures (fw.rs/command.rs) for vGPU
-> manager's RPCs and GSP plugin RPCs, e.g. having RPC typed code and
-> function handler(wrapper)s, it would be nice that I can align with the
-> idea accordingly.
+The extents_status shrinker's count_objects() callback,
+ext4_es_count(), reports the number of shrinkable extent_status
+objects via a percpu counter. do_shrink_slab() reads this count
+exactly once per invocation and derives a one-shot scan budget
+(total_scan) from it, then repeatedly calls scan_objects() in
+fixed-size batches until that budget is exhausted.
 
-Can you point me to the the structure you have if it is posted? (sorry,
-too many series in-flight and I cannot find where it is ^_^;)
+ext4_es_scan() never updates sc->nr_scanned, even though
+include/linux/shrinker.h documents that "the callee should track
+its actual progress" in that field. Because sc->nr_scanned defaults
+to sc->nr_to_scan before every call, do_shrink_slab() always
+believes a full batch was examined, regardless of what __es_shrink()
+actually did. When __es_shrink() hits an empty sbi->s_es_list and
+returns immediately having examined nothing, do_shrink_slab() has
+no way to tell "there was nothing to scan" from "a full batch was
+scanned and none of it was freeable". It keeps calling scan_objects()
+until the original, one-shot total_scan budget is drained, even
+though the shrinkable list emptied out long before that budget was
+used up.
 
-If you add vGPU RPC commands then I guess somewhere like
-`gsp/commands/rpc/vgpu.rs` would be a good place for them. But let's
-wait until this series is approved before settling on a design - moving
-code around is easy anyway.
+Make __es_shrink() report the number of extent_status objects it
+actually examined through a new nr_scanned output parameter, derived
+from the existing per-extent nr_to_scan counter that es_reclaim_extents()
+already decrements as it walks the tree. Have ext4_es_scan() copy this
+value into sc->nr_scanned, and return SHRINK_STOP once nr_scanned comes
+back as zero, since that only happens when sbi->s_es_list was already
+empty and no further calls in this reclaim pass can make progress.
+
+Tested by fallocate(2)-ing 10000 4K files (to populate the shrinker
+with reclaimable unwritten extents without also exercising the
+extent_status "referenced" second-chance path, which needs a
+separate two-pass accounting of its own) and triggering
+"echo 2 > /proc/sys/vm/drop_caches", while tracing the
+ext4_es_shrink* tracepoints:
+
+                      total scan_objects()   calls with
+                      calls                  nr_shrunk == 0
+  before this patch   429                    189 (44%)
+  after this patch    165                    1 (0.6%)
+  after (rerun)        242                    1 (0.4%)
+
+nr_skipped stayed at 0 throughout every run, confirming the wasted
+calls came from the stale one-shot budget racing ahead of the real
+list state, not from the existing precached/trylock skip paths.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ fs/ext4/extents_status.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 6e4a191e82191..05ded0c018e08 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -184,7 +184,7 @@ static int __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
+ 			      struct extent_status *prealloc);
+ static int es_reclaim_extents(struct ext4_inode_info *ei, int *nr_to_scan);
+ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+-		       struct ext4_inode_info *locked_ei);
++		       struct ext4_inode_info *locked_ei, int *nr_scanned);
+ static int __revise_pending(struct inode *inode, ext4_lblk_t lblk,
+ 			    ext4_lblk_t len,
+ 			    struct pending_reservation **prealloc);
+@@ -1670,7 +1670,7 @@ void ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
+ }
+ 
+ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+-		       struct ext4_inode_info *locked_ei)
++		       struct ext4_inode_info *locked_ei, int *nr_scanned)
+ {
+ 	struct ext4_inode_info *ei;
+ 	struct ext4_es_stats *es_stats;
+@@ -1679,6 +1679,7 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+ 	int nr_to_walk;
+ 	int nr_shrunk = 0;
+ 	int retried = 0, nr_skipped = 0;
++	int orig_nr_to_scan = nr_to_scan;
+ 
+ 	es_stats = &sbi->s_es_stats;
+ 	start_time = ktime_get();
+@@ -1738,6 +1739,8 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+ 		nr_shrunk = es_reclaim_extents(locked_ei, &nr_to_scan);
+ 
+ out:
++	*nr_scanned = orig_nr_to_scan - nr_to_scan;
++
+ 	scan_time = ktime_to_ns(ktime_sub(ktime_get(), start_time));
+ 	if (likely(es_stats->es_stats_scan_time))
+ 		es_stats->es_stats_scan_time = (scan_time +
+@@ -1774,15 +1777,30 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
+ {
+ 	struct ext4_sb_info *sbi = shrink->private_data;
+ 	int nr_to_scan = sc->nr_to_scan;
+-	int ret, nr_shrunk;
++	int ret, nr_shrunk, nr_scanned;
+ 
+ 	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+ 	trace_ext4_es_shrink_scan_enter(sbi->s_sb, nr_to_scan, ret);
+ 
+-	nr_shrunk = __es_shrink(sbi, nr_to_scan, NULL);
++	nr_shrunk = __es_shrink(sbi, nr_to_scan, NULL, &nr_scanned);
++	sc->nr_scanned = nr_scanned;
+ 
+ 	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+ 	trace_ext4_es_shrink_scan_exit(sbi->s_sb, nr_shrunk, ret);
++
++	/*
++	 * es_stats_shk_cnt is a percpu counter, so count_objects() can report
++	 * a stale/approximate value that is still positive even though
++	 * sbi->s_es_list is actually empty by the time we get here. When that
++	 * happens __es_shrink() returns immediately having examined nothing
++	 * (nr_scanned == 0). Without SHRINK_STOP, do_shrink_slab() has no way
++	 * to tell "nothing was there" from "nothing was scanned yet" and will
++	 * keep calling us with the same stale freeable count until its scan
++	 * budget for this priority level is exhausted one batch at a time.
++	 */
++	if (nr_scanned == 0)
++		return SHRINK_STOP;
++
+ 	return nr_shrunk;
+ }
+ 
+
+---
+base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
+change-id: 20260928-fix-ext4-es-scan-nr-scanned-5af70744f6cd
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
