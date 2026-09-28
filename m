@@ -1,106 +1,163 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38A54E9C35;
-	Mon, 28 Sep 2026 17:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A394F3EC2;
+	Mon, 28 Sep 2026 17:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615970; cv=none; b=Y62wCYk6M3PZ91zYuthGl9whIXPrB5nKp819PoZX0C4tOBoW4m7fPOjuAgJ3WJOMg7plueEbYElAqqKduNsOV94+LYqGQLl/EnG1ZfejYFQxq+nzOAjooL0UPdr6yLxREskJqznFFDztQR3A7Gb+ouTzgaolh8Va+zbIAOu3Kvs=
+	t=1790615975; cv=none; b=QPGozTF+cCxy2cjuSP6peNSx72UfLSUnucUbRdeF9sPyK7QAo051uwzOzYvdPzizhlg1t6jStLWLWMqXoefCY6rSD7r8llUGojEGfSZVC8t68qGsD1wo2xeBQj0vXWl8722eglBEEb6mV0TJSoaTWec+GAf6UXRZqrJyoqpOBWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615970; c=relaxed/simple;
-	bh=H08XxfjU8+mr0Iz1TEtY8Xc2pff39+BjlRm12m9n7+M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SRO8msNSX0g4MUK4mgegJK0ABgrt08Lq7bv6pnyMyg9ZzxlpbPuQdHLARxD9njvz/LlansH+UPA+rb3c3HLdgY9Gws0MwCq+EunvibXx+yyAu1CH2HSv7h+7EAshrO0jeCQzoCMNykAg8WOnyrzpq2QgLIlziX2bsruYMOKeUxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0dKAqV3N; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790615975; c=relaxed/simple;
+	bh=ISqd1PexAHm0kyzLpESabsVM06131NVUMbnYv3SCsC8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RMLAP4z+KVJn/b6pPUVBGxhyMd3+WanaSJtD7LCsKFg98ne2i+vKsqV/eOltDER6d14EieEHAVWTdlNH7vjVVEPqrlg5pEmEskgXWyW/8uPNcz/qLvMiSKDrgLiWWc1ERYhSd8qDRQaJ8plsQO2LSRTdHlNu8YcVt1NobLuUoXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=Xn2F/Bee; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RmLDyIsj; arc=none smtp.client-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0dKAqV3N"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=3FVaKbDiYk4u7VSrQ05eP5FO1po2GZJQdT5CKehQq1w=; b=0dKAqV3NrfVvnDh614huaPuBfE
-	RHJ6aVDujUvbOQkb2O6k85yZX3fIojrINSgvjP9XWsTSyCXOAZcVkCdWs0UbbxHskQYQY2+rXOxjK
-	RYyTWvuwlEwCjBM6SwHRDPh95i7TL8Lf/SHelCNhyPxcYRAy5YwQo+MQkRtWAH/V6aZA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xBF0Y-007lHA-7P; Mon, 28 Sep 2026 19:19:18 +0200
-Date: Mon, 28 Sep 2026 19:19:18 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Sagi Maimon <maimon.sagi@gmail.com>
-Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com,
-	michal.simek@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux@armlinux.org.uk, vadim.fedorenko@linux.dev,
-	richardcochran@gmail.com
-Subject: Re: [PATCH net-next v2 1/2] net: axienet: use device_property and
- fwnode APIs for probe-time config
-Message-ID: <f89024c3-0c71-4976-893d-656e154858d8@lunn.ch>
-References: <20260928074256.462345-1-maimon.sagi@gmail.com>
- <20260928074256.462345-2-maimon.sagi@gmail.com>
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="Xn2F/Bee";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RmLDyIsj"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id 3819B138050C;
+	Mon, 28 Sep 2026 13:19:31 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 28 Sep 2026 13:19:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790615971;
+	 x=1790623171; bh=uneboma/He5NY712qSn+vkKH9VLe/Cb1KqO8Cgbtg6s=; b=
+	Xn2F/Bee2z6el8igxd45eG5wNR3NTrKx7+cMDXdvBagHejvMQ3l2B7xoMDOi9tbv
+	bmOai/bWCJXgQ+8FZ/MIddhy0zYXzhBbanH2mxuHc8QosuY4W8JiMP32EgCpQNkr
+	Yus2uclL3ku6O7zRGgEK+MAuyQD0pQHCEF8swZb/H8O2HrPYlBbMwLvyqGZKS3Jl
+	PusYIKbSPFOL110nj4ceQI78Y5dYwDs79Xo0zqWaxTkRteg6joLAhQ353UlE0Eij
+	x7tE8hVpGVOWGn3LDMHxw6lYG1eA+Hb+3jlNebmsj6uRn+pqMxYqdXO1VbAQo3y1
+	cvnEY6u9S6yjH6CE7K3ezg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790615971; x=
+	1790623171; bh=uneboma/He5NY712qSn+vkKH9VLe/Cb1KqO8Cgbtg6s=; b=R
+	mLDyIsjulzLIsTwhRMi0Y8pi3oNM/uK6t1tFueteHaAp2PQV6ZJnqI8MMbFXxLCP
+	O8b6xvGyE3q1wE+kLOAVQ8ae5i+YEcumlA4iyJUZUQdIbNLhG+/laDPiLcjyEq7G
+	OerP/50s2I/1C6OOeoEzFNgHc+ypOrPXoVlUA821ZWTYhy8B2iZDjovtwiEX03kl
+	0hohRTpk0Wxmffqx4xEOPBHa+aBfXK9AmU6cdmLJPzVqbojT7MuftNBq6N9nbvA6
+	XaxG1IpqYx9b0qbzz2Nd1Wi13Hf7pRY47+jT3T5kQbAAe1GYhcSsqKAf8379EyyV
+	mVTNcl8tATt9OsqjzQDWA==
+X-ME-Sender: <xms:oqG6akz_t_NO5OQBDb9ttMWsMnqn7AY4tbbx4GGKRtwzWbhB7JWHdA>
+    <xme:oqG6artZp4tzP0Ns9p7PItzsybQZRH0NgokjY1zt8AnVEL37BJo9tEZGQmH56GOsF
+    dT4vAkjW-zF0y8TtKilHSrGfujQK-i_QqsM8Bkc9Zqi2NkTDsUEVXY>
+X-ME-Received: <xmr:oqG6aikTFlGCBNwtgNyl556uB9m9tUporo9_2rYIo-Q959DayGUzMck1qpmfLrJf>
+X-ME-Proxy-Cause: dmFkZTE/22e7clbyNdHwn0HCBx+H3lsiFyo6QkPV6dpSn20/QyCOxtHNd7QTmx6b7eJ6RH
+    b7MD0YK3xmhVFW7pHJl/jJiaLCtzwYaWJ6VBcJNMtYB/lM8rXCQqoyXJAKc1Q+3NTJHLRu
+    Q+616RIwRjK3mn/tprgeZTxr9VaE0UGr12rr0RgYUziHPYN8WsIu22gnQm98Dq7NFgLEYb
+    bOn/3mv6ye0r5zsmXTZhHlWNyOVRZl7FwJjAmuaSy3Z2MGyz8Xby78ZPjGLjvAF+o1XCsp
+    YM5+7QijkJtemWRQaETyS2I23TsNHUOR4KF7C0sS19NgtEnCYopA0Qb1idGIqDD/y3bADx
+    xRU4viQI6KJSw8q5mlwZtBEc0ssyEq5m2pBX9vtZm1x4BknR2LEptfHY85GS+fDNvix4gY
+    7KSs25IBd7mTFsOBM4oeGwrKZn7tHV2mU6Lx2n9+HpPSJuxygANxQ52D2fB8CRAZY8xEJ7
+    HjaT3/3gywZt0jGF/7GuvB9dQYMx/Z619uzsZwfJdJKFCLiVR/khsnerLC9mx1Xp6nLWCR
+    6smPwWlZwgXj56Nw2D3J2DNcbksR+eBw4vu0EK753rWvj+zVGnaMQy+RoJcaZVWqasYsfx
+    /5b4TjmoopI39a+8sRxSiX0DvGSb4mD5JElNjPTWLqifji1U4yiV+MKYODmA
+X-ME-Proxy: <xmx:oqG6arittnioN3DLHsayzIWeuevkbgi_c00u8crZZkBOn3QJcTf6MQ>
+    <xmx:oqG6agHtBatmdR3EF5qifCfYs_5Mo7wsCcsuqa9yb0eaowtZ88cfEA>
+    <xmx:oqG6agOFv8Qri8cKFdDvtZDh0Vq8v7tJe4vSDLnoiH5j1TT3wsV6sw>
+    <xmx:oqG6aj3m9rglGLVtkHKbdslitarg2WO4XrwWeHx7c7JjXpEKLlB5cA>
+    <xmx:o6G6amD-XKs1zcTn4v0Jkglq701b2vCXV_LIcW5qh8psE-RWxjBqgIoH>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 13:19:16 -0400 (EDT)
+From: =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+Date: Mon, 28 Sep 2026 19:17:52 +0200
+Subject: [PATCH v3 04/12] arm64: Enable the crash memaction registry
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928074256.462345-2-maimon.sagi@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260928-crash-memaction-upstream-20260921-v3-4-e511e9ee2329@jaseg.de>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+To: Jonathan Corbet <corbet@lwn.net>,
+  Shuah Khan <skhan@linuxfoundation.org>,
+  Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
+  Saravana Kannan <saravanak@kernel.org>,
+  Andrew Morton <akpm@linux-foundation.org>,
+  Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+  Pasha Tatashin <pasha.tatashin@soleen.com>,
+  Pratyush Yadav <pratyush@kernel.org>,
+ Dave Young <ruirui.yang@linux.dev>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+  David Hildenbrand <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+  Brendan Jackman <brendan.jackman@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+  Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,
+ Alasdair Kergon <agk@redhat.com>,  Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+  Benjamin Marzinski <bmarzins@redhat.com>,
+  Herbert Xu <herbert@gondor.apana.org.au>,
+  "David S. Miller" <davem@davemloft.net>,
+ Mimi Zohar <zohar@linux.ibm.com>,  David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,  Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,  "Serge E. Hallyn" <serge@hallyn.com>,
+  James Bottomley <James.Bottomley@HansenPartnership.com>,
+  "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,  Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,  Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>,  Lance Yang <lance.yang@linux.dev>,
+  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+  Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+  Matthew Brost <matthew.brost@intel.com>,
+  Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,
+  Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+  Arnd Bergmann <arnd@arndb.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org, 
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+X-Mailer: b4 0.15.2
 
-On Mon, Sep 28, 2026 at 10:42:55AM +0300, Sagi Maimon wrote:
-> axienet_probe() reads its configuration exclusively through the of_*
-> API, so the driver can only be instantiated from a device tree node.
-> 
-> The ADVA TimeCard X2 is a PCIe timing card, driven by ptp_ocp, whose
-> FPGA contains an AXI Ethernet MAC with an AXI DMA engine.  ptp_ocp is
-> going to register the MAC as a child platform device described by a
-> software node, so that this driver runs it rather than a copy in
-> ptp_ocp.  That needs the probe-time configuration to be readable from a
-> software node.
-> 
-> Convert only the lookups such a caller needs: "xlnx,rxmem", which probe
-> requires; "phy-mode"; the MAC address; and the PHY connection, which is
-> where phylink finds a "fixed-link" child.  On a device tree this is a
-> no-op: device_property_read_u32() dispatches to the of_* implementation
-> when dev->fwnode is an OF node, phylink_of_phy_connect() is a wrapper
-> around phylink_fwnode_phy_connect(), and device_get_phy_mode() and
-> device_get_mac_address() are thin fwnode wrappers around the same
-> lookups.  device_get_mac_address() also keeps the "mac-address" nvmem
-> cell fallback that of_get_mac_address() has.
-> 
-> Note that device_get_phy_mode() returns the mode as a positive value
-> rather than through an out parameter, so the error test changes from
-> "if (ret)" to "if (ret < 0)".
-> 
-> Everything else stays on the OF API.  "xlnx,txcsum", "xlnx,rxcsum" and
-> "xlnx,switch-x-sgmii" are optional, and "xlnx,phy-type" is deprecated in
-> favour of "phy-mode".  Without an OF node each of those lookups finds
-> nothing, exactly as for a device tree node that leaves them out: no
-> checksum offload, no runtime SGMII/1000BASE-X switching and a
-> fall-through to "phy-mode".  The "dmas" test likewise selects the
-> built-in AXI DMA engine.  The "axistream-connected", "pcs-handle" and
-> "phy-handle" phandle lookups stay too: a caller without an OF node takes
-> neither branch, getting its DMA registers from its own platform
-> resources, and it cannot use the SGMII and 1000BASE-X modes, which need
-> a PCS.
-> 
-> No functional change intended.
-> 
-> Tested on the X2 with a local ptp_ocp change, with CONFIG_OF disabled
-> and enabled: the interface probes with its configuration read from the
-> software node and passes traffic.  No device tree board was available,
-> so the claim that this is a no-op for device tree users rests on the
-> dispatch described above.
-> 
-> Assisted-by: LLM sparse
-> Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+Select ARCH_SUPPORTS_CRASH_MEMACTION on arm64.
 
-Lets see what the AI reviewer says about this, but it looks O.K. to me:
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Assisted-by: Claude Opus 5 <noreply@anthropic.com>
+---
+ arch/arm64/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 54c344d39830..4894a5cc11ac 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1720,6 +1720,9 @@ config ARCH_SUPPORTS_KEXEC_HANDOVER
+ config ARCH_SUPPORTS_CRASH_DUMP
+ 	def_bool y
+ 
++config ARCH_SUPPORTS_CRASH_MEMACTION
++	def_bool y
++
+ config ARCH_DEFAULT_CRASH_DUMP
+ 	def_bool y
+ 
 
-    Andrew
+-- 
+2.55.0
+
