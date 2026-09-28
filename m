@@ -1,187 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B924E36CF
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1298F4E01E1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607629; cv=none; b=oTlMeFboLrl7qwdMuDvKLX0dieRE/Mf593OQjat+Ofp1NvMLJnt5fyxNLmG2dPsV14hEGd1QPwnjgiplZPWufrwLRCfpQs5Nh96N8Frx6nwD50k4GbO8KcQ14YW/9Q33QahAa5IpGhaJnGqGynb3PNOttSaJz8z7AbXnxRut5nU=
+	t=1790607661; cv=none; b=YHszPLUR6xnV86xpL9Bb6w2wRS7oRoEVBEb7kZeSdGrTcvZi/+rvib+BjkpP0YImxBSWY6NCEgjwx40ATN8tvdvjdpNbrBY4QiUSvyxr5XgGUYWvPMiZ8p9dzBcbl/hkdCL+vxRTRd4/S8L2Ld6+WpbG7A9SObSO9u1lKK0d2II=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607629; c=relaxed/simple;
-	bh=FarrX1AXajp0rcAMMevqe1ADxQNLZJK0VOe0E5fUEKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GZsFrVbExMBcF4RZzFdCUZp0zo7QkRLSYcZ2tykdGq0oyDLf5/6E1f5czJo0hHAiAFp9JmPsFQs6f4BRCzP+rWA4j+uwuxj+x3bD0jPIdzjPjHG5sc6N3fTjzGO05/iKZuufaBUAvQ3SIyws1EsIpw/wvPOt94bfKS2IF+PFIGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ThqJkgJg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kVUhd8t6; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790607661; c=relaxed/simple;
+	bh=GXO6lAFxoFQEwQkkMLCI0y+cMQX6YMSHGHt+/E1eEYo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=td5J0OktmFWTjbeXlNIm7OjEXJ7PjrHSlnf71ltCiG44W4V+zEl7nqQ3CSmxsimY7pO9A3qL1iE8KIx2lAqO0IOwuUTDuNPniZie4z+oaUslXyP3sAt9X+kvoKAOyXTylsw4h280246eUKRjMb1aRXfZijC3gR5EUfaf1lWc620=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBpHsL39; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ThqJkgJg";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kVUhd8t6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790607626;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eLs8yZfJYGp54djsbn71UyAfwiNLWW6mOvXDf6yGk6E=;
-	b=ThqJkgJgSY+RQS7XyVRXqEsqQW5RDy5O0dZgNFj29grhRAP3RY059NKK/xUkXJJ7wjz6jd
-	vonHaPV5wFPAVhYDIR52zR7RfqxZrAT21NnawyhJ6KOZc3Akuhy6QmSFg9DO34Kgky1mkX
-	V7DY3gWyOqIAVgU6VjWQBlu85yUiprw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-375-_69SQ4KpMdSggDVtSZiOzw-1; Mon, 28 Sep 2026 11:00:22 -0400
-X-MC-Unique: _69SQ4KpMdSggDVtSZiOzw-1
-X-Mimecast-MFC-AGG-ID: _69SQ4KpMdSggDVtSZiOzw_1790607621
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48589603501so2123854f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:00:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBpHsL39"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso11320945e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790607621; x=1791212421; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eLs8yZfJYGp54djsbn71UyAfwiNLWW6mOvXDf6yGk6E=;
-        b=kVUhd8t63D+j3O51VASIOK0p2f7DLjaWKg1FZ/wrkFTfosbtaAz9e3KZrWFAdVnpnk
-         fdsEl8YlwVYUHNmLal+tuOzBsMV5JPIFPXRIvunCbhIFsE+ZTqJdbyNhRIbzvx83amZb
-         3yMzFjV/TyZZXOBJokYzd6F7wAky/tQQW9NXcWnIfLukZtX6u0d7MpXHOJo60qOw4zUh
-         O425Mw0y8qV3OoLE5485BVMrjtNdU/YYXavj5UjK0dkKo+xhaGPYpF+wdi+XsNhMpkLI
-         aeJSg9TzT0SZTI/b/iW3tGFjtjSuN3+M6FX3dZrPHuDKgnPc7eFRwvYWjyjTBq6z+Gyb
-         oWjw==
+        d=gmail.com; s=20251104; t=1790607656; x=1791212456; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
+        b=rBpHsL39O+k1l9AUYeSXFOO3t+89j+XWHx09xnFuyUjXdsG9Z5q6AJQVwnwRB88Mo3
+         1C+K6IxYtpiGJ24Xpec/jbR48xYBnw9uiql4QOinM7ccOLoqpv+oO4EkqKcvOEKcNzpP
+         bJdcNVDAcVtzdNbMbr3gnuAIpH5GunfomdsNp93WNzpliSmpY+kAFTXcj+N8C8t7togX
+         XbGwS52OqhH7ApSlregjT7eo9VQKZNRwBAivFTuYBNU42f0VKmi0kAcI8bjMfKZnX9/D
+         1BPe7rWmoEZfpxZ4oDgewgtIg7PUhAeE3TyJC+ruhP+9+qcp3fVn/VhyAp5MoKyOybXt
+         z0Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790607621; x=1791212421;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eLs8yZfJYGp54djsbn71UyAfwiNLWW6mOvXDf6yGk6E=;
-        b=FORrQXSj8CPhMfYjab+F7kh8ZRWim88v2juTES7SJHdQTQR2ruDfkZ2mUCqy76ryr2
-         lO0JrV485tWyzs59lP5kCi3xVp3Os2toSHF0EEllQV21bF4hPuNWcOcZ8zvEy24baZGc
-         W9CNmwqmIlM4A6bBHUP0/wEQg0ShMpSrogy3p57A0b1Vxgy/gyYKqF80SwVoq2RLK6Ay
-         52DoV7gZxaAgg010i7WzuPs0EvUHVohDT9qsUvHrZSZVUHsKQR/51Yr+U11Eh4eanvwW
-         HKQylV9X9SojXA2m+8Djn/2XWzH2SoJtM74TK6efo2GjMVhCoFifUXYJF7BEEMy3n84r
-         XEdg==
-X-Forwarded-Encrypted: i=1; AKwUvByBQnlGbAQbViwCjx/NFVJYUf/WYmW+QSJCaldIhFND92zCreVZ6+A4P/DcYujsYLh3tpRibIeMjoTaA00=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjGasNRYbNzYUeSLjWIX/bjrRgtAR1bPBKFzO6PwtPz9pZ6Ejp
-	zBgNkxiGQJMKKi2WzhuiB8tHtYO727YiCxJJVE9WNaUQXDCwbstavAP8iVDiKcfjRuC7KDytQc6
-	PNVtVPtGWbkdZMXEM+0v80N6I//2nsTv5mhY5AKcCTNTJZkxbBKZiVx7LOfbJ2tfi1g==
-X-Gm-Gg: AYBFou24w0sOvw26+uiPrtf59b4II5rT233Vu4M4y8RGkSuAUScaZqS68NfFLGQXxXG
-	FoAKI9HvkDiNLjPZyr4rqdObm7vr9DngquHkUZy1UcxVUPVyTWX8b9sJ7bcyrtSH5tGtvN3NzVd
-	CqjHKQFbzw4q0yuX3QSRfN7/Cq5OvSLnRmzOBTUGeN5gp7FTIq+X5MAbXF/stwkUO/cn3hulXgJ
-	hK1H7Xc5rnj+p1+yflbJFVOwB/NRmmnoXe5QCFghXSvyHVYNSoQZOxSGPVo2lTfj2NBABT//GpK
-	BMiWGBbqPV+A5T+qKauSpHuxO3qFznurwH81yOxgkMtB+FPpNuaRACjyTg8gYi87cQXMVWdQrKe
-	lEbc=
-X-Received: by 2002:a05:6000:4b0a:b0:488:823d:507b with SMTP id ffacd0b85a97d-488823d5296mr15209784f8f.52.1790607621232;
-        Mon, 28 Sep 2026 08:00:21 -0700 (PDT)
-X-Received: by 2002:a05:6000:4b0a:b0:488:823d:507b with SMTP id ffacd0b85a97d-488823d5296mr15209714f8f.52.1790607620571;
-        Mon, 28 Sep 2026 08:00:20 -0700 (PDT)
-Received: from sgarzare-redhat ([5.179.146.191])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28558683f8f.12.2026.09.28.08.00.19
+        d=1e100.net; s=20260707; t=1790607656; x=1791212456;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
+        b=IvUSFb9lSMc2Q3AOZLsUzbdYjj2dK1Eu9r15WUcb98eBzJjIQfTw105oNUL/95opQ9
+         jVlVhihxXRpcgXXsaqDy69ghsRSK15IUQAiyI2LNwY5imyfHXpldPm8zf7HYSs3wZ+U6
+         XvyFiJdW8jzLJ4CwaSJ+8FDmE2FoOgQaWirL2twL4+teqe1Q4KFYxgk861Vg6gQ53NTC
+         1gE2U96bmvIyDpdqGRo3rOh6Ezq1tv2jmCTk6cXwYNAM69rlYeGajY5MeSopnrJoX675
+         5fkVF0HRd1VSSqXDnAbuC2phO1z70CfbN+wYvrWso2Qzazz7NmQvUb/Zg0+uJf500iLx
+         Ql3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7V/AyOw0GX+/S4OH5+NNgG/ez0kWJquSOwHCOA9M8Y5OvYJ84Orlr7yldr97Wk5ftR3ha7tUEbTQNSow=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+Wx+UCcWyVT+iFXhWP34cMzDy5DpbxSiFhapVHwc0YDYTBIb2
+	gZPBLNSLHcuGxC98XTP+uSSYe0dcKNT0Jd9tCdVNguhhOqTuogiW6mGq
+X-Gm-Gg: AYBFou0Z/zwlEyv5Y4w8ZaJZ68HsGmY6hSkydDCeCBhXrCNo1XJQwJHel8y/ll7yTZc
+	iMzjvIuZxZnebYCsSmM09N/pIFmKyATLmP10ByxiHNpU4MUsCEu7+NitKsxP4M8YXHxqW27SD7b
+	P7h+jXoCkmHokLIge0AS8MP9c5BXtqEoKB5wWGa7ca5oyhgWjjRm+RCojehv53gpYjbbPyu5RKv
+	v1YW4hIIu1xwqs+6vN54JffjWg+14i7gyeakT3Sn32nWMn1WSJgL+f5AlGZTaQqYI+UrmzfgCe0
+	H/no514+pGlltx3WpGC6cqTBcO6z1vAqQN1t8idTBjwwT/EzuQCH8m05HS5krf61Ey4qC48co8W
+	BygA4Pl5JwePMMDPMJjWwORMADZ0K/YeBGY7DHcGthxuz61cUFchZBi8jLDlcKV6YdPMJGRxeYh
+	apuQAzDTcW+kN+lR5Tu9m7ivftssXwNuozRlB+YhL4uevUocR9/NgxSvQyWxpGd0v2vXUgfS3xs
+	9ghD01gX36hu28Kh0Wh/pP5V5QByLPRghg+uCKQ3pE31rs6Iw8LuxxlpRR7x4Zp5wsRcpE4KWBV
+	J0v5U0yrn7CXdWRtDtr+IthgHC49+yULi1XRgTyFIN9voqC0
+X-Received: by 2002:a05:600c:3b05:b0:4a0:321:6ddd with SMTP id 5b1f17b1804b1-4a003217170mr61722025e9.34.1790607655941;
+        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm151777245e9.15.2026.09.28.08.00.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:00:19 -0700 (PDT)
-Date: Mon, 28 Sep 2026 17:00:12 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: netdev@vger.kernel.org, bobbyeshleman@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/2] vsock: report pending receive data to
- io_uring
-Message-ID: <arqAF53k2arP4enr@sgarzare-redhat>
-References: <20260923184008.153541-1-devnexen@gmail.com>
- <20260923184008.153541-2-devnexen@gmail.com>
+        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
+From: Franz Schnyder <fra.schnyder@gmail.com>
+Date: Mon, 28 Sep 2026 17:00:46 +0200
+Subject: [PATCH] arm64: dts: freescale: imx95-aquila: Enable I2C_3_DSI1 on
+ Clover board
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923184008.153541-2-devnexen@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-imx95-aquila-clover-enable-lpi2c8-v1-1-9a9755acb8cf@toradex.com>
+X-B4-Tracking: v=1; b=H4sIAB2BumoC/yXNQQ6CMBBG4auQWTsJHYNQr2JclPqrY2rBVggJ4
+ e5WXX6b91bKSIpMx2qlhFmzDrHA7CrydxdvYL0Uk9RyqK10rM/FNuxekwbHPgwzEiO6PoDDqOI
+ 7RmvMvoE10gqVzphw1eX3OJ3/zlP/gH9/w7RtH2AAF+uFAAAA
+X-Change-ID: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Antoine Gouby <antoine.gouby@toradex.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Franz Schnyder <franz.schnyder@toradex.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 23, 2026 at 07:40:07PM +0100, David Carlier wrote:
-> AF_VSOCK stream receives never fill msghdr.msg_inq, so io_uring cannot set
-> IORING_CQE_F_SOCK_NONEMPTY and retries a multishot receive even after the
-> queue has been drained.
-> 
-> Fill the hint at the common receive exit using the transport callback that
-> SIOCINQ already uses, and report 1 once the connection is finished so the
-> caller performs the receive which observes EOF, as TCP does after a FIN.
-> 
-> A vsock loopback ping-pong with io_uring multishot receive drops entries
-> into __vsock_connectible_recvmsg from 1.97 to 1.00 per delivered message,
-> and receiver CPU time by about 3% (25 runs of 50000 messages, p=0.006).
-> 
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  net/vmw_vsock/af_vsock.c | 35 +++++++++++++++++++++++++++++++++++
->  1 file changed, 35 insertions(+)
-> 
-> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> index f840498b58af..20d6f9ca6a96 100644
-> --- a/net/vmw_vsock/af_vsock.c
-> +++ b/net/vmw_vsock/af_vsock.c
-> @@ -2543,6 +2543,35 @@ static int __vsock_seqpacket_recvmsg(struct sock *sk, struct msghdr *msg,
->  	return err;
->  }
->  
-> +/* Bytes a following receive can consume, 1 if it would only see EOF, or -1
-> + * if the transport cannot tell.
-> + *
-> + * Called under the socket lock after a nonnegative stream receive, so a NULL
-> + * transport implies SOCK_DONE.
-> + */
-> +static int vsock_stream_inq_hint(struct sock *sk)
-> +{
-> +	struct vsock_sock *vsk = vsock_sk(sk);
-> +	s64 data;
-> +
-> +	if ((sk->sk_shutdown & RCV_SHUTDOWN) || !vsk->transport ||
-> +	    (sock_flag(sk, SOCK_DONE) && sk->sk_state != TCP_ESTABLISHED))
-> +		return 1;
-> +
-> +	data = vsock_stream_has_data(vsk);
-> +	if (data < 0)
-> +		return -1;
-> +	if (data > 0)
-> +		return min_t(s64, data, INT_MAX);
-> +
-> +	/* Empty but finished: keep the caller reading so it sees EOF. */
-> +	if (sock_flag(sk, SOCK_DONE) ||
-> +	    (READ_ONCE(vsk->peer_shutdown) & SEND_SHUTDOWN))
-> +		return 1;
-> +
-> +	return 0;
-> +}
-> +
->  int
->  __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
->  			    int flags)
-> @@ -2606,6 +2635,12 @@ __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
->  		err = __vsock_seqpacket_recvmsg(sk, msg, len, flags);
->  
->  out:
-> +	/* Seqpacket has_data counts messages, while io_uring treats msg_inq as
+From: Franz Schnyder <franz.schnyder@toradex.com>
 
-Do you mean vsock_stream_has_data() on SOCK_SEQPACKET doesn't return 
-bytes?
+Enable lpi2c8, which is used for the I2C_3_DSI1 signals on the Clover
+carrier board. It was left disabled by mistake in the initial commit.
 
-IMO names are confusing, but it should return number of bytes, we should 
-fix it, but of course not in this patch.
+Fixes: 3f519121e120 ("arm64: dts: freescale: imx95-aquila: Add Clover carrier board")
+Cc: stable@vger.kernel.org
+Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+---
+ arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-LGTM:
+diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+index 365bce73eddd3..07bf53240958b 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+@@ -197,6 +197,11 @@ &lpi2c5 {
+ 	status = "okay";
+ };
+ 
++/* Aquila I2C_3_DSI1 */
++&lpi2c8 {
++	status = "okay";
++};
++
+ /* Aquila SPI_1 */
+ &lpspi6 {
+ 	pinctrl-names = "default";
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+---
+base-commit: bf184a29ad1b33bd8922029eb0ca3f2866007258
+change-id: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
 
-
-> +	 * a byte length when sizing retries, so only streams report a hint.
-> +	 */
-> +	if (msg->msg_get_inq && err >= 0 && sk->sk_type == SOCK_STREAM)
-> +		msg->msg_inq = vsock_stream_inq_hint(sk);
-> +
->  	release_sock(sk);
->  	return err;
->  }
-> -- 
-> 2.55.0
-> 
+Best regards,
+--  
+Franz Schnyder <franz.schnyder@toradex.com>
 
