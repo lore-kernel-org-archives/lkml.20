@@ -1,76 +1,54 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88777363082
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2709F360ED0;
+	Mon, 28 Sep 2026 02:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790561919; cv=none; b=IxbqfcWPZsgboaViOP/HlpX/lltLdWlZqAVsYavEf00WWprOdFDGfgI4RS2WMuKfrJXzq+xSEnNRdIsnzz5Wy/0KhTKyoxIH1AOVzfqWUq08gLYmNu4rXZzD8duYdhQve7ZYSvKmGLn+ahXZJV1p8jcQ+d0t6v3i5xkU3K2RJWo=
+	t=1790562097; cv=none; b=jVAQAtqvDlU9IoYoXUe/4+5dQ44CdAevu7+r1/4fAhknaE1281NI0JsgLuvPSk9OcNEi59T0dnKx5Dh/IAkmvJE2H8gZCUr8b5JKP/i5Zxoq1NuwPcn3pcpW269AUredjceVbbFRyqOzcrkkArVawxjjCpCNtozJO0JlbV6rbg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790561919; c=relaxed/simple;
-	bh=zj4tvPqRF21upBgv6BYpTPfxCu7PxZhhGheN2EvdSp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r/CaNGqZDK/gjrCoVcmSy6u1ILSoGCqyhy6VxG+egcEkBW6QGFUPLT3GkFex8xcoPjTy2tX9ux/0g1NTX2cyc/gpmSU5LurX6W136kA3jXCWMTXT02+JRzEGENIa+PiOzwAjpM5KqQFHQUKlbKM5+clQndjnQmekenclejjzU74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ch3jHS3I; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790562097; c=relaxed/simple;
+	bh=Yg36/Y/xieRMTCy2TymSr88MYM7p0irsU849vmkCnT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oyfy84Jw1r8/nnmqRmsnbYO7icV4GEHNMBC6ymrWcmHEiewwetcMOJwfhmTcKF2guvUZWvLHHR5IcEjF4YAys6z518Awn4MT2nvZezA63VwnEPvDwJj9qc4cW2hReKam+984pq1sXksYosN2I3t8XpQNvoBGFIRrd/DM8UK4BJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=NOuwkCdG; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ch3jHS3I"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0b6200eb0so1877296a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790561918; x=1791166718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ivCY2NAlXyEyDv152Bu3AUgeth/0egS9qUPCJjLyURI=;
-        b=ch3jHS3I2QqR0atOVdE3FOI/EDS61KIzY7V5aJMaqKF7zNLMbaYvi8Mb+uF8VqvUBt
-         YYWi0l8w60ShHfz1AmfRZEXP5pfDf3Ak1OSzan9qlP2PijeNWzw9xCe9+KQ10RgmZwH+
-         pyW2uNivqIipAR/N7zPEw12SWXB9iL0SbbFwccfRsvvDYuh9eF9Lj8tn1Mbpb562VMNd
-         qbwFDQPoEO8uXSS+MyMrkbMd+gGz/UNR51GyaFJE6SA+umBzt1dv0JfQ6P57z3Hiwp48
-         49lgWqZVo3HvCQRM29Ddl1GCx7Ys9VTH4lKPuvo9eWLQ0PC0xTTYR2RyVeJnCwVplbKo
-         yhXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790561918; x=1791166718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ivCY2NAlXyEyDv152Bu3AUgeth/0egS9qUPCJjLyURI=;
-        b=ZuPh151UiLXrkbkW74wNnHZnQh4Yn/FjnfLGLr0DSqLi7v4mUfMJl90TodZOghu2wd
-         qDhwGM4NZfjJNThNrnDSAnZMx5TNb1W+QXqwFHQ7yAgqDsOjZGSNXwBDuzRgRA6YJeoq
-         h5r87MDmYRIg8zdlPKjJMM0gROuPuTJfD42mr5SLsQJysbQ4VT3+s828zF66NbaC+UYg
-         mWtmjJXc8x7PpYRFCf2VyO+QKTAWyprkmhqG/Pc0bvu3UX59VAHoaa/Vbvqvo92IF6G5
-         Ku8eyqhaoK9+qmDFuAPv4snzJDuexe72AsatCwt/Vlab+HaeNVQf0yk0wBHjgTSXHp9e
-         Jsag==
-X-Forwarded-Encrypted: i=1; AKwUvBzQJJCoDl+NJIYS6RPF1cA1wqEpL47A813qhZ7CQ305GGT0AvN6m5FTTyWwbbEmjY+JMudDr33Stmf6GQE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7vlOJBtR3sGnM9Yz5PRp8BPSsbqDnfAs8CFb6zdtzUIGdpW7/
-	VgFdXr6rTVqh8nro/JbgwYRMCoY+b22akHXVGc/3mwtTO6s0H0c36k1i
-X-Gm-Gg: AYBFou1iIVjtonXZRp0aIjYOQozYxEd7fVKgd56jAqxBMTou+h90aw7+65MgKqt351l
-	As8Ol0ugXeAX9ahVdVOax+UdV5BhgoxTFqUEecwkmVh2mrOAKfhpghpnwycsqJmFlBznqiMFOMW
-	oIXSE2m7WEy0PUmgAWRjXJTHVFtY5rw1DGn7eC5tbw86nwWozDiRIEaMuPwiPzl+E71XLbWxQsg
-	Nkczn+ylZF/q0lpggGUgM1JzL4zFjg5Sqc3ld0v61wOLHeaR6CIlhhU8SYP1D1kp3iNWCa2sEKp
-	PtRMMS6weWtbeDC7aDDdT6OQ3AXMqrdIaZbicRdPfCc91Vc69s7KPACqVKokPEPQfr2n7H+hLow
-	lC/OYwj+090BYKJetDfM/xvtW44w03rJA3BCWP1Mpt2zWsqzpzYbIg8RSDyIhHheXHrThlwD/ij
-	sI32/RqFLimlc4WGFNB0BPJrIuNFNFqcuQFaeXYGZnwmDwIzoZcm2/6/DbXAHP2JNNbPYntLCow
-	uNEOg+0zsv4fSPBlvoFoVBkJHg/VwqYQUrfA7AXGfaZhCnQe77PZ4j+8I030XAKZl1Daa3tBBqM
-	ZwP9X7pheryKZg==
-X-Received: by 2002:a17:90b:4f91:b0:3a0:3881:ead0 with SMTP id 98e67ed59e1d1-3a0bb5530femr6510033a91.11.1790561917881;
-        Sun, 27 Sep 2026 19:18:37 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm17588124a91.7.2026.09.27.19.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 19:18:37 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: thomas.weissschuh@linutronix.de,
-	Thomas Gleixner <tglx@kernel.org>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] ALSA: dummy: Move pcm_substreams check out of the loop
-Date: Mon, 28 Sep 2026 09:18:23 +0700
-Message-ID: <20260928021823.6517-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="NOuwkCdG"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790562091; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=uO5TIYKBfsawqPiNAsCntfjYc2ZcPToZ1eaI1Kfnyk4=;
+	b=NOuwkCdGSVOCHvMRK90fuLnlA9UUXwxW9OhRlpfVuHvUkH/Kd29X6WVq5g4ARoAWrtRYGES4bV3srwpGuxA90ueyFKD5M06k32QLUsmowo3SUd579cV1uLL4F7O5nnEOrOGWgn96w0y6N3ijE6uVU1tcrtNTCa+fID1yByQ1ZZQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R691e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBgzgGN_1790562069;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBgzgGN_1790562069 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 28 Sep 2026 10:21:30 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	shuah@kernel.org,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2 0/2] bpf, riscv: Add support for indirect jumps
+Date: Mon, 28 Sep 2026 10:21:07 +0800
+Message-ID: <20260928022109.1093-1-cp0613@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -78,42 +56,53 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+The indirect jump instruction (BPF_JMP | BPF_JA | BPF_X, "gotox") and the
+BPF_MAP_TYPE_INSN_ARRAY jump tables it consumes are core features: the
+verifier accepts them on every architecture, and the x86-64, arm64 and
+powerpc JITs implement them. On riscv64 a program using gotox passes
+verification and then fails to load, because the JIT does not know the
+opcode and CONFIG_BPF_JIT_ALWAYS_ON leaves no interpreter to fall back
+onto.
 
-The pcm_substreams[dev] range check does not depend on the loop
-index. Do it once before the loop instead of on every iteration.
+This series adds the riscv64 support and turns the existing selftests on
+for that architecture.
 
-No functional change.
+Patch 1 emits "jalr zero, rd, 0" for gotox and publishes the xlated to
+jitted offsets through bpf_prog_update_insn_ptrs(), which is what fills
+in the jump table addresses. Patch 2 widens the arch guard in
+verifier_gotox.c to riscv64, the same way arm64 and powerpc were enabled.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/drivers/dummy.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Changes since v1:
+- Rebased onto bpf-next.
+- Patch 1: reword the code comment to say "shift ctx->offset[] by one".
+- Patch 2: collapse the multi-line #endif marker to a single line.
+- Added Reviewed-by/Acked-by from Björn Töpel.
 
-diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
-index 3f6bfee29986..6b0a06e5c876 100644
---- a/sound/drivers/dummy.c
-+++ b/sound/drivers/dummy.c
-@@ -1063,11 +1063,13 @@ static int snd_dummy_probe(struct platform_device *devptr)
- 			break;
- 		}
- 	}
-+
-+	if (pcm_substreams[dev] < 1)
-+		pcm_substreams[dev] = 1;
-+	if (pcm_substreams[dev] > MAX_PCM_SUBSTREAMS)
-+		pcm_substreams[dev] = MAX_PCM_SUBSTREAMS;
-+
- 	for (idx = 0; idx < MAX_PCM_DEVICES && idx < pcm_devs[dev]; idx++) {
--		if (pcm_substreams[dev] < 1)
--			pcm_substreams[dev] = 1;
--		if (pcm_substreams[dev] > MAX_PCM_SUBSTREAMS)
--			pcm_substreams[dev] = MAX_PCM_SUBSTREAMS;
- 		err = snd_card_dummy_pcm(dummy, idx, pcm_substreams[dev]);
- 		if (err < 0)
- 			return err;
+Testing
+=======
+
+Environment: QEMU virt rv64, with CONFIG_BPF_JIT=y,
+CONFIG_BPF_JIT_ALWAYS_ON=y, CONFIG_DEBUG_INFO_BTF=y; selftests
+cross-built with clang 22.
+
+- test_progs -t verifier_gotox: 27/27 subtests pass on bpf-next, 13 of
+  them executed through BPF_PROG_TEST_RUN.
+- test_progs-cpuv4 -t bpf_gotox: 14/14 subtests pass, none skipped.
+  The cpuv4 flavor is needed here because bpf_gotox gates its subtests
+  on __BPF_FEATURE_GOTOX, which clang only defines for -mcpu=v4.
+
+Chen Pei (2):
+  bpf, riscv: Add support for indirect jumps
+  selftests/bpf: Enable gotox tests for riscv64
+
+ arch/riscv/net/bpf_jit_comp64.c                  |  5 +++++
+ arch/riscv/net/bpf_jit_core.c                    | 16 ++++++++++++++--
+ .../testing/selftests/bpf/progs/verifier_gotox.c |  6 ++++--
+ 3 files changed, 23 insertions(+), 4 deletions(-)
+
 -- 
-2.43.0
+2.50.1
 
