@@ -1,726 +1,239 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BEE440643
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54801A6835;
+	Mon, 28 Sep 2026 14:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606801; cv=none; b=LZNhp2UsXHdwW5W3TgF01RgZIT12yvZDZVZ+pSMqSbNMmoK7Yy5dJJ+LJzn1VQBgD4cF2/oeDg5luXm0EfUxrvLleMwi6VFfTKkTUksibNbZmW+86lHHc/7y8y3a76116otG2Z+H2kNB8iWHovWGgeSYk4+PAWsCyT3BVApQ1Q8=
+	t=1790606822; cv=none; b=ZdyfshZxBiRnWF3oAwRjeI7N3u9yAvNvi0/79kQagg+zC3lDRHUetmauSnuElEj7FOzl20kXRW7KWWYVHuRYZZ2SWUlriUkjQYDTGwaK4JEmZ/3EUhIYVzi0HZJKTbJno7yU19BQeQz+a+SYCsosJV4t2T822N2f3FFoEAguvQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606801; c=relaxed/simple;
-	bh=Mxdsegz/f6SfW/W1yVtNzPmYxPN1DuFg9BF5rq+BMVI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=QXukgq/dKLX2yKOat9TPTpZ68LNSTflYhQ4Wuu3SEnuw28RELMWExC3460gCI2qwuUtQPywgg2h0kkRh34fC5LklQP9dL4xssIcPV4veAG/g8NXemIiWuuJD8asQAevb0N2kFTmMk7Xn+G3xRM0S4gHgmk1Co884De3S6+Jz71A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RLttq78j; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790606822; c=relaxed/simple;
+	bh=zbCPH1gp8E37CKzqvu7k6g1mdsc56Fqts1Xhj5f47ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CFPfM0PC3+QSAn8oNp3wuxyru2DaxixXDIAZUy/yGMEQ5QfusCrAdlBSQt9NWgjOA1K063PMyqhsDHEJBJgUkiqXK10tDiAiC0aE3fIYyK25a/Inv3cBmMWaa+PZaEFiW/B3Y6K7spP0XCG5DW6f4i1KEU9h0uwHy09/O9X2XR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dI22Ru21; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RLttq78j"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso320254566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790606795; x=1791211595; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+BzQWTZX6iqBr8XFpPdn+cC/M+GkFXRiq+JKGKUAH6k=;
-        b=RLttq78jOWPm1N6+b7G/IA13FsDWGKrv5ASqkR+tpqcVhuEDrGlJLeHCR3Byv/q5CW
-         hq+OZo0TXAtaC6d5DJYKwtv+KtubXot+kIPOFYyVYfXBynoCGlCqsMqyv3oeX54JCTV3
-         sPbclve5SU0jyNBL7/egHH1txbIrzN0rASgpiaFEJ+PD33kxtrU4BHuOeLIL1/18arKj
-         xyApZXRlCXsazeIAzRXzXdVEiyZtu3YKytwEGXT75Pf45WWYUEeGJUDYAh3KEcuzoGlH
-         6rjORcNvAtnpb0xUo3nqrByJ5Pwo4vkGwwggz6t1ahzTLBaRFlACjFMWAbDit5DQeekX
-         E9mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790606795; x=1791211595;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+BzQWTZX6iqBr8XFpPdn+cC/M+GkFXRiq+JKGKUAH6k=;
-        b=IM4puhudJAntPzUL/n62NRx8F9Qf+2fXMmuAVMZXKWyVpHmzHxboLP3rTYo98yBrM1
-         IyTUTJGL8ammZyYZthp/4j714nhy+dxYS02wGEsUkKklaJRzuuGYm0zdojH+jLn3F7rs
-         EvBkf6hMJRfEbRUItzqlJQ6f7LhVD+M6YeUGIWxaGLC67QhM/jZEAXGVDb3ytGRWRnzJ
-         TXcvMGQMqPHzfmt4PjrWMzDE2BlBrm9TCdxMsTnn3LMuKAReyFkvJTPVLJdPLXlE9FDk
-         se5qw5xq1QywUVpKdxzP9rtQsMc4Azp/U+TM0hO4U18OA27stDNtUIvhFgxGFAtjRdg5
-         AOJg==
-X-Forwarded-Encrypted: i=1; AKwUvBzf/PjgeTUHxCuUn20KktJ3yRQHpEfEUUScPKzVAz+UoxLJ/997wwIxZwATuVkgwHbUTG7rGePg/4WlaSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljSj1rybHyZLspQkhQ+6af2tI3g3lctPtDoJ+Ol642RbSM+9U+
-	+3JV1jRh7uo8NVvcgi/XCjOvy/DkCh68LkHuNPoTjFrdCu6EaPRDvp+B
-X-Gm-Gg: AYBFou3hkwqVubl5KTiunjU5gGu7tCdHLdVmnZQWCeBz6XmS2oMDOi7pkzOIwt0CY6S
-	MR/Yz0z4TToa9NSZi6R4cxdqbfXPL5p8Z5g5+gqKfgvb2WpucvAWEbk3MNso2PKTaNPHXTJJ8Rj
-	hLJRUm1foRUEgom3gAc7ps0RaLhniKNyOXps8VroLVZ9OHepYzbchc+G/CadxdE14DnHj/YOpLQ
-	u8i293ta0sDueN86Ex7NF5WHmZmLhMn+UArBP7YIvCvLjUyvNFn1RcS2QGPuC0DCLx/Ygmd3yd3
-	d5TidmsGa6V+4dTRS5PtMgY6fhBB7JiQsqyLGaum6qLrxsYDwr9hEyVnn2StSq4k6k+AzkgaT4Y
-	0T96uex+EkuZUavUVp5VHfGlSk09kVCtYyp5UlclQ5RAWSNdfrfhGdkLNi3p/1aKX44u8Fe84JG
-	sjB+KcG/G2T22nRMa/PQEBDDj/dY4mexBr2Ed1K/P9WfEA0Qq11/LPsvExrFMk/9I2JABfMSxf4
-	wI=
-X-Received: by 2002:a17:907:c71b:b0:c24:e1e9:69c with SMTP id a640c23a62f3a-c2ae9347addmr774979466b.0.1790606795319;
-        Mon, 28 Sep 2026 07:46:35 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2b769429ddsm356642866b.51.2026.09.28.07.46.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 07:46:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dI22Ru21"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB391F000FF;
+	Mon, 28 Sep 2026 14:46:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790606817;
+	bh=j0t2Y/8RoScbs1ozWBH/tUK6/SLvoQ34K92T2DbWczM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dI22Ru21oM811VNVARN7RQXH51/GaOm1Ypk1BOKqqCxjAYWNh5qSnrzXOSbRpw6SS
+	 kzVhJyGtP4a4C4Q6P/H6Oi/RypTbfuEmh8PChk3AIVBazqyvBBaYrgzpBINtUHNM7K
+	 3lWDpto1USFeK9JbulsBN1RFz1/kCumKwjPcswUM0I5X2aCpKM60kw1nL3TI/ay7PZ
+	 i6lZugu1+jMCRicstAVOIN5qgjJZ7DHUHq2qnQe8x5imeiuvcpSvBCPSBuzBsorDkg
+	 WZJAY9H/RdSRlGJcbSyc+ude+et38WUD2DaWcqffjwGVmvCFzgFeVetvscqmKNtB/w
+	 K1knt0vp45XSA==
+Date: Mon, 28 Sep 2026 15:46:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Peter Maydell <peter.maydell@linaro.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] KVM: arm64: selftests: Check ID regs are
+ immutable after a failed run
+Message-ID: <arp7mig_PrD9Jbc7@gremlin>
+References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
+ <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 10:46:31 -0400
-Message-Id: <DLR14RY3N3LF.3J84UDH79H9PS@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 4/8] eth: mpnic: implement Tx queue
- allocation and cleanup
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260924-linux-mpnic-v2-4-4badc9b58b9e@gmail.com>
- <179055370187.3145.16714537922103048975@kernel.org>
-In-Reply-To: <179055370187.3145.16714537922103048975@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
 
-On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
+On Tue, Sep 01, 2026 at 07:18:50PM +0100, Mark Brown wrote:
+> From: Fuad Tabba <fuad.tabba@linux.dev>
 >
-> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 1
+> Add a set_id_regs case covering ID register immutability when a vCPU's
+> first KVM_RUN fails after finalization but before
+> KVM_ARCH_FLAG_HAS_RAN_ONCE is set. The test provokes such a failure with
+> a PMUv3-enabled vCPU whose PMU is left uninitialized, then checks that
+> KVM_SET_ONE_REG on the feature and implementation ID registers, and
+> KVM_CREATE_DEVICE for a vGIC, are all rejected with -EBUSY.
 >
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
+> Assisted-by: Antigravity:gemini-3.1-pro
+
+NIT: we changed the rules for the Assisted-by tag, it only needs to be
+'Assisted-by: LLM' now. Not a huge big deal but FYI :>)
+
+https://docs.kernel.org/process/coding-assistants.html
+
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Link: https://patch.msgid.link/20260805064740.3013538-1-fuad.tabba@linux.dev
+
+LGTM so:
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  tools/testing/selftests/kvm/arm64/set_id_regs.c | 106 +++++++++++++++++++++++-
+>  1 file changed, 105 insertions(+), 1 deletion(-)
 >
-> - [High] net: mpnic: missing bounds check on hardware completion head
->   causes NULL deref
-> - [High] net: mpnic: integer underflow in desc_cnt causes massive out-of-
->   bounds unmaps
-> - [Low] struct mpnic_ring::deferred_meta is documented as '-1 if the
->   doorbell is in sync with the tail', yet at this commit the rings come=
-=E2=80=A6
+> diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> index 7429a1055df5..10849d21c0dd 100644
+> --- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> +++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> @@ -13,6 +13,7 @@
+>  #include "kvm_util.h"
+>  #include "processor.h"
+>  #include "test_util.h"
+> +#include "vgic.h"
+>  #include <linux/bitfield.h>
+>
+>  enum ftr_type {
+> @@ -803,6 +804,107 @@ static void test_reset_preserves_id_regs(struct kvm_vcpu *vcpu)
+>  	ksft_test_result_pass("%s\n", __func__);
+>  }
+>
+> +/*
+> + * ID registers must stay immutable even when a vCPU's first KVM_RUN fails
+> + * after finalization but before KVM_ARCH_FLAG_HAS_RAN_ONCE is set.
+> + */
+> +static void test_idreg_frozen_after_failed_run(void)
+> +{
+> +	static const u32 imp_id_regs[] = {
+> +		SYS_MIDR_EL1,
+> +		SYS_REVIDR_EL1,
+> +		SYS_AIDR_EL1,
+> +	};
+> +	struct kvm_vcpu_init init;
+> +	struct kvm_vcpu *vcpu;
+> +	struct kvm_vm *vm;
+> +	int r;
+> +
+> +	if (!kvm_has_cap(KVM_CAP_ARM_PMU_V3)) {
+> +		ksft_print_msg("PMUv3 unsupported, cannot fail the first run\n");
+> +		ksft_test_result_skip("%s\n", __func__);
+> +		return;
+> +	}
+> +
+> +	/* Skip the default vGIC so the KVM_CREATE_DEVICE gate is reachable. */
+> +	test_disable_default_vgic();
+> +
+> +	vm = vm_create(1);
+> +	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
+> +	kvm_get_default_vcpu_target(vm, &init);
+> +	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
+> +	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
+> +	kvm_arch_vm_finalize_vcpus(vm);
+> +
+> +	/*
+> +	 * A PMUv3 vCPU left without PMU init is rejected by
+> +	 * kvm_arm_pmu_v3_enable(), which runs after sysreg finalization.
+> +	 */
+> +	r = _vcpu_run(vcpu);
+> +	TEST_ASSERT(r < 0 && errno == EINVAL,
+> +		    "first KVM_RUN should fail post-finalization: r=%d errno=%d",
+> +		    r, errno);
+
+Ah nice determinate way of triggering the issue.
+
+> +
+> +	/*
+> +	 * Feature ID registers: use values that would have been accepted before
+> +	 * finalization, so that a rejection means the registers are final
+> +	 * rather than the value being invalid.
+> +	 */
+> +	for (int i = 0; i < ARRAY_SIZE(test_regs); i++) {
+> +		const struct reg_ftr_bits *ftr_bits = test_regs[i].ftr_bits;
+> +		u64 reg = KVM_ARM64_SYS_REG(test_regs[i].reg);
+> +		u64 val = vcpu_get_reg(vcpu, reg);
+> +
+> +		for (int j = 0; ftr_bits[j].type != FTR_END; j++) {
+> +			u64 ftr = (val & ftr_bits[j].mask) >> ftr_bits[j].shift;
+> +			u64 safe = get_safe_value(&ftr_bits[j], ftr);
+> +			u64 new_val;
+> +
+> +			if (safe == ftr)
+> +				continue;
+> +
+> +			new_val = (val & ~ftr_bits[j].mask) |
+> +				  (safe << ftr_bits[j].shift);
+> +
+> +			r = __vcpu_set_reg(vcpu, reg, new_val);
+> +			TEST_ASSERT(r < 0 && errno == EBUSY,
+> +				    "%s write after failed first run: r=%d errno=%d",
+> +				    ftr_bits[j].name, r, errno);
+> +			TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
+> +		}
+> +
+> +		/* A write matching the finalized value is still accepted. */
+> +		vcpu_set_reg(vcpu, reg, val);
+> +	}
+> +
+> +	/*
+> +	 * The VM-wide implementation ID registers are gated separately. Bit 0
+> +	 * is within the writable mask of all three, so flipping it is a change
+> +	 * KVM would otherwise accept.
+> +	 */
+
+Nice.
+
+> +	for (int i = 0; i < ARRAY_SIZE(imp_id_regs); i++) {
+> +		u64 reg = KVM_ARM64_SYS_REG(imp_id_regs[i]);
+> +		u64 val = vcpu_get_reg(vcpu, reg);
+> +
+> +		r = __vcpu_set_reg(vcpu, reg, val ^ 1);
+
+Ah literally a flip.
+
+> +		TEST_ASSERT(r < 0 && errno == EBUSY,
+> +			    "implementation ID reg write after failed first run: r=%d errno=%d",
+> +			    r, errno);
+> +		TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
+> +	}
+> +
+> +	/* Creating an in-kernel irqchip would change the ID registers too. */
+> +	if (kvm_supports_vgic_v3()) {
+> +		r = __kvm_create_device(vm, KVM_DEV_TYPE_ARM_VGIC_V3);
+> +		TEST_ASSERT(r < 0 && errno == EBUSY,
+> +			    "vGIC creation after failed first run: r=%d errno=%d",
+> +			    r, errno);
+
+I guess in general it's making sure - where there should now be finalisation on
+reg setting that this is actually enforced?
+
+> +	}
+> +
+> +	kvm_vm_free(vm);
+> +	ksft_test_result_pass("%s\n", __func__);
+> +}
+> +
+>  int main(void)
+>  {
+>  	struct kvm_vcpu *vcpu;
+> @@ -828,7 +930,7 @@ int main(void)
+>
+>  	ksft_print_header();
+>
+> -	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
+> +	test_cnt = 4 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
+>  	for (i = 0; i < ARRAY_SIZE(test_regs); i++)
+>  		for (j = 0; test_regs[i].ftr_bits[j].type != FTR_END; j++)
+>  			test_cnt++;
+> @@ -847,5 +949,7 @@ int main(void)
+>
+>  	kvm_vm_free(vm);
+>
+> +	test_idreg_frozen_after_failed_run();
+> +
+>  	ksft_finished();
+>  }
 >
 > --
+> 2.47.3
 >
-> eth: mpnic: implement Tx queue allocation and cleanup
->
-> This adds the Tx ring structures and the per-NAPI-vector allocation of
-> queue triads, descriptor memory and interrupts. It also adds completion
-> processing, where a single completion reports a work queue head and can
-> release many packets. The queues are not yet enabled in hardware.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_txrx.c
->> new file mode 100644
->> index 0000000000000..853976e11b032
->> --- /dev/null
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->> @@ -0,0 +1,495 @@
->
-> [ ... ]
->
->> +static void mpnic_ring_init(struct mpnic_ring *ring, u32 __iomem *doorb=
-ell,
->> +			    int q_idx)
->> +{
->> +	ring->doorbell =3D doorbell;
->> +	ring->q_idx =3D q_idx;
->> +}
->
-> [Severity: Low]
-> This isn't a bug at this point in the series, but the struct mpnic_ring
-> comment in mpnic_txrx.h describes deferred_meta like this:
->
-> 	/* TWQ only, index of the metadata descriptor of the last packet
-> 	 * placed in the ring without ringing the doorbell, -1 if the
-> 	 * doorbell is in sync with the tail.
-> 	 */
-> 	s32 deferred_meta;
->
-> mpnic_alloc_napi_vector() gets the rings from kzalloc_flex(), and
-> mpnic_ring_init() never sets deferred_meta. So the field starts at 0, not
-> -1.
->
-> Would it make sense to set deferred_meta to -1 in mpnic_ring_init(), so t=
-he
-> field matches its comment from the start?
->
-> Nothing reads deferred_meta in this commit. The later patch "eth: mpnic:
-> start and stop the Tx HW queues" adds mpnic_enable_twq(), which sets tail
-> and head to 0 and deferred_meta to -1 on every enable. In mpnic_open()
-> that runs before mpnic_napi_enable() and netif_tx_wake_all_queues(), so
-> this only affects the intermediate state of the series.
 >
 
-Hmm, I guess the comment is slightly ahead of the implementation (next
-patch)... I suppose introducing deferred_meta later would probably be
-the solution, but to me that would be a bit out of place, given the
-other ring fields are really initialized in that next patch.
-
-> [ ... ]
->
->> @@ -0,0 +1,495 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/* Copyright (c) Meta Platforms, Inc. and affiliates. */
->> +
->> +#include <linux/bitfield.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/pci.h>
->> +#include <linux/slab.h>
->> +
->> +#include "mpnic.h"
->> +#include "mpnic_netdev.h"
->> +#include "mpnic_txrx.h"
->> +
->> +struct mpnic_xmit_cb {
->> +	u32 bytecount;
->> +	u8 desc_count;
->> +};
->> +
->> +#define MPNIC_XMIT_CB(__skb) ((struct mpnic_xmit_cb *)((__skb)->cb))
->> +
->> +/* Leave the interrupt moderation counters alone when arming or masking=
- */
->> +#define MPNIC_TIM_PARAM_CFG_PRESERVE_MASK \
->> +	(MPNIC_TIM_CTL1_UPD_IGN_LONG_EVENT_CNT | \
->> +	 MPNIC_TIM_CTL1_UPD_IGN_LONG_TIME_CNT | \
->> +	 MPNIC_TIM_CTL1_UPD_IGN_SHORT_TIME_CNT)
->> +
->> +static void mpnic_nv_irq_disable(struct mpnic_napi_vector *nv)
->> +{
->> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
->> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK |
->> +		   MPNIC_TIM_CTL1_MASK_EN | MPNIC_TIM_CTL1_MASK);
->> +}
->> +
->> +static void mpnic_nv_irq_rearm(struct mpnic_napi_vector *nv)
->> +{
->> +	/* Rearming a single queue on a given IRQ rearms all the other
->> +	 * queues mapped to the same IRQ.
->> +	 */
->> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
->> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK | MPNIC_TIM_CTL1_MASK_EN);
->> +}
->> +
->> +static void mpnic_nv_irq_trigger(struct mpnic_napi_vector *nv)
->> +{
->> +	mpnic_wr64(nv->mpd, MPNIC_TIM_CTL1(nv->qt[0].cmpl.q_idx),
->> +		   MPNIC_TIM_PARAM_CFG_PRESERVE_MASK |
->> +		   MPNIC_TIM_CTL1_MASK_EN | MPNIC_TIM_CTL1_TRIGGER);
->> +}
->> +
->> +static unsigned int mpnic_desc_unused(struct mpnic_ring *ring)
->> +{
->> +	return (ring->head - ring->tail - 1) & ring->size_mask;
->> +}
->> +
->> +static struct netdev_queue *mpnic_txring_txq(const struct net_device *d=
-ev,
->> +					     const struct mpnic_ring *ring)
->> +{
->> +	return netdev_get_tx_queue(dev, ring->q_idx);
->> +}
->> +
->> +static void mpnic_unmap_single_twd(struct device *dev, __le64 *twd)
->> +{
->> +	u64 raw_twd =3D le64_to_cpu(*twd);
->> +
->> +	dma_unmap_single(dev, FIELD_GET(MPNIC_TWD_ADDR, raw_twd),
->> +			 FIELD_GET(MPNIC_TWD_LEN, raw_twd), DMA_TO_DEVICE);
->> +}
->> +
->> +static void mpnic_unmap_page_twd(struct device *dev, __le64 *twd)
->> +{
->> +	u64 raw_twd =3D le64_to_cpu(*twd);
->> +
->> +	dma_unmap_page(dev, FIELD_GET(MPNIC_TWD_ADDR, raw_twd),
->> +		       FIELD_GET(MPNIC_TWD_LEN, raw_twd), DMA_TO_DEVICE);
->> +}
->> +
->> +static void mpnic_clean_twq0(struct mpnic_napi_vector *nv, int napi_bud=
-get,
->> +			     struct mpnic_ring *ring, bool discard,
->> +			     unsigned int hw_head)
->> +{
->> +	u64 total_bytes =3D 0, total_packets =3D 0;
->> +	unsigned int head =3D ring->head;
->> +	struct netdev_queue *txq;
->> +	unsigned int clean_desc;
->> +
->> +	clean_desc =3D (hw_head - head) & ring->size_mask;
->> +
->> +	while (clean_desc) {
->> +		struct sk_buff *skb =3D ring->tx_buf[head];
->> +		unsigned int desc_cnt;
->> +
->> +		desc_cnt =3D MPNIC_XMIT_CB(skb)->desc_count;
->> +		if (desc_cnt > clean_desc)
->> +			break;
->> +
->> +		ring->tx_buf[head] =3D NULL;
->> +
->> +		clean_desc -=3D desc_cnt;
->> +
->> +		/* Step over the metadata descriptor */
->> +		head++;
->> +		head &=3D ring->size_mask;
->> +		desc_cnt--;
->> +
->> +		mpnic_unmap_single_twd(nv->dev, &ring->desc[head]);
->> +		head++;
->> +		head &=3D ring->size_mask;
->> +		desc_cnt--;
->> +
->> +		while (desc_cnt--) {
->
-> [Severity: High]
-> What happens here if desc_count is 0 or 1? desc_cnt is an unsigned
-> int, and it is decremented twice unconditionally before the frag loop:
-> once for the metadata descriptor and once for the head descriptor.
->
-> With desc_count =3D=3D 0 the desc_cnt > clean_desc check passes and
-> clean_desc is left unchanged. The second decrement then wraps desc_cnt
-> around to UINT_MAX. The frag loop calls mpnic_unmap_page_twd() about
-> four billion times, walking round and round the ring. Each call hands
-> whatever address and length it finds to dma_unmap_page() from softirq
-> context.
->
-> With desc_count =3D=3D 1, mpnic_unmap_single_twd() is already applied to
-> the following slot, which does not belong to this packet. The same
-> wrap happens after that.
->
-> desc_count lives in skb->cb and is only written by the xmit path added
-> later in the series. This relies on every skb in tx_buf carrying a
-> sane count. It also relies on hw_head never covering a packet whose
-> descriptors are still being written. A device reporting a head that
-> runs ahead of what was posted is enough to get here.
->
-> Would it make sense to reject desc_cnt < 2 with a WARN_ON_ONCE()
-> before stepping over the metadata descriptor? Possibly
-> desc_cnt > MPNIC_MAX_SKB_DESC should be rejected as well.
->
-
-Not reachable. We control the desc_count that is put into the control
-block on xmit. We know that we allocate a primary metadata desc and at
-least one dma mapped region for the skb head.
-
->> +			mpnic_unmap_page_twd(nv->dev, &ring->desc[head]);
->> +			head++;
->> +			head &=3D ring->size_mask;
->> +		}
->> +
->> +		total_bytes +=3D MPNIC_XMIT_CB(skb)->bytecount;
->> +		total_packets++;
->> +
->> +		napi_consume_skb(skb, napi_budget);
->> +	}
->> +
->> +	if (!total_bytes)
->> +		return;
->> +
->> +	ring->head =3D head;
->> +
->> +	if (discard)
->> +		return;
->> +
->> +	txq =3D mpnic_txring_txq(nv->napi.dev, ring);
->> +	netif_txq_completed_wake(txq, total_packets, total_bytes,
->> +				 mpnic_desc_unused(ring),
->> +				 MPNIC_TX_DESC_WAKEUP);
->> +}
->> +
->> +static void mpnic_commit_cq_head(struct mpnic_ring *cmpl)
->> +{
->> +	u32 head =3D cmpl->head;
->> +
->> +	/* The tail shadows the last value written to the doorbell, so a
->> +	 * completion queue which has not moved costs no MMIO write.
->> +	 */
->> +	if (cmpl->tail !=3D head) {
->> +		cmpl->tail =3D head;
->> +		writeq(head & cmpl->size_mask, cmpl->doorbell);
->> +	}
->> +}
->> +
->> +static void mpnic_clean_tcq(struct mpnic_napi_vector *nv,
->> +			    struct mpnic_q_triad *qt, int napi_budget)
->> +{
->> +	struct mpnic_ring *cmpl =3D &qt->cmpl;
->> +	__le64 *raw_tcd, done;
->> +	u32 head =3D cmpl->head;
->> +	s32 head0 =3D -1;
->> +
->> +	done =3D (head & (cmpl->size_mask + 1)) ? 0 : cpu_to_le64(MPNIC_TCD_DO=
-NE);
->> +	raw_tcd =3D &cmpl->desc[head & cmpl->size_mask];
->> +
->> +	/* Walk the completion queue collecting the heads reported by NIC.
->> +	 * Only the first work queue is enabled and no packet asks for a
->> +	 * timestamp, so every completion is a plain head update and the
->> +	 * descriptor type does not have to be decoded.
->> +	 */
->> +	while ((*raw_tcd & cpu_to_le64(MPNIC_TCD_DONE)) =3D=3D done) {
->> +		u64 tcd;
->> +
->> +		dma_rmb();
->> +
->> +		tcd =3D le64_to_cpu(*raw_tcd);
->> +		head0 =3D FIELD_GET(MPNIC_TCD_TYPE0_HEAD0, tcd);
->> +
->> +		raw_tcd++;
->> +		head++;
->> +
->> +		if (unlikely(!(head & cmpl->size_mask))) {
->> +			done ^=3D cpu_to_le64(MPNIC_TCD_DONE);
->> +			raw_tcd =3D &cmpl->desc[0];
->> +		}
->> +	}
->> +
->> +	cmpl->head =3D head;
->> +
->> +	if (head0 >=3D 0)
->> +		mpnic_clean_twq0(nv, napi_budget, &qt->sub0, false, head0);
->> +}
->> +
->> +static int mpnic_poll(struct napi_struct *napi, int budget)
->> +{
->> +	struct mpnic_napi_vector *nv =3D container_of(napi,
->> +						    struct mpnic_napi_vector,
->> +						    napi);
->> +	int i;
->> +
->> +	for (i =3D 0; i < nv->txt_count; i++)
->> +		mpnic_clean_tcq(nv, &nv->qt[i], budget);
->> +
->> +	for (i =3D 0; i < nv->txt_count; i++)
->> +		mpnic_commit_cq_head(&nv->qt[i].cmpl);
->> +
->> +	if (likely(napi_complete_done(napi, 0)))
->> +		mpnic_nv_irq_rearm(nv);
->> +
->> +	return 0;
->> +}
->> +
->> +static irqreturn_t mpnic_msix_clean_rings(int __always_unused irq, void=
- *data)
->> +{
->> +	struct mpnic_napi_vector *nv =3D data;
->> +
->> +	napi_schedule_irqoff(&nv->napi);
->> +
->> +	return IRQ_HANDLED;
->> +}
->> +
->> +static void mpnic_free_napi_vector(struct mpnic_net *mpn,
->> +				   struct mpnic_napi_vector *nv)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < nv->txt_count; i++)
->> +		mpn->tx[nv->qt[i].sub0.q_idx] =3D NULL;
->> +
->> +	mpnic_free_irq(nv->mpd, nv->v_idx, nv);
->> +	netif_napi_del_locked(&nv->napi);
->> +	mpn->napi[nv->v_idx - MPNIC_NON_NAPI_VECTORS] =3D NULL;
->> +	kfree(nv);
->> +}
->> +
->> +void mpnic_free_napi_vectors(struct mpnic_net *mpn)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++)
->> +		if (mpn->napi[i])
->> +			mpnic_free_napi_vector(mpn, mpn->napi[i]);
->> +}
->> +
->> +static void mpnic_ring_init(struct mpnic_ring *ring, u32 __iomem *doorb=
-ell,
->> +			    int q_idx)
->> +{
->> +	ring->doorbell =3D doorbell;
->> +	ring->q_idx =3D q_idx;
->> +}
->> +
->> +static int mpnic_alloc_napi_vector(struct mpnic_dev *mpd,
->> +				   struct mpnic_net *mpn, unsigned int idx)
->> +{
->> +	u32 __iomem *uc_addr =3D READ_ONCE(mpd->uc_addr0);
->> +	struct mpnic_napi_vector *nv;
->> +	int err;
->> +
->> +	/* Doorbells are plain pointers into the register window, they have
->> +	 * no way of noticing that it went away.
->> +	 */
->> +	if (!uc_addr)
->> +		return -EIO;
->> +
->> +	nv =3D kzalloc_flex(*nv, qt, 1);
->> +	if (!nv)
->> +		return -ENOMEM;
->> +
->> +	nv->txt_count =3D 1;
->> +	nv->mpd =3D mpd;
->> +	nv->dev =3D mpd->dev;
->> +	nv->v_idx =3D idx + MPNIC_NON_NAPI_VECTORS;
->> +
->> +	mpn->napi[idx] =3D nv;
->> +	netif_napi_add_config_locked(mpn->netdev, &nv->napi, mpnic_poll, idx);
->> +	netif_napi_set_irq_locked(&nv->napi,
->> +				  pci_irq_vector(to_pci_dev(mpd->dev),
->> +						 nv->v_idx));
->> +
->> +	snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
->> +		 mpn->netdev->name, idx);
->> +
->> +	err =3D mpnic_request_irq(mpd, nv->v_idx, mpnic_msix_clean_rings, 0,
->> +				nv->name, nv);
->> +	if (err)
->> +		goto err_napi_del;
->> +
->> +	mpnic_ring_init(&nv->qt[0].sub0, &uc_addr[MPNIC_TWQ_TAIL(idx, 0)], idx=
-);
->> +	mpnic_ring_init(&nv->qt[0].cmpl, &uc_addr[MPNIC_TCQ_HEAD(idx)], idx);
->> +	mpn->tx[idx] =3D &nv->qt[0].sub0;
->> +
->> +	return 0;
->> +
->> +err_napi_del:
->> +	netif_napi_del_locked(&nv->napi);
->> +	mpn->napi[idx] =3D NULL;
->> +	kfree(nv);
->> +	return err;
->> +}
->> +
->> +int mpnic_alloc_napi_vectors(struct mpnic_net *mpn)
->> +{
->> +	unsigned int i;
->> +	int err;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++) {
->> +		err =3D mpnic_alloc_napi_vector(mpn->mpd, mpn, i);
->> +		if (err)
->> +			goto err_free_vectors;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_free_vectors:
->> +	mpnic_free_napi_vectors(mpn);
->> +
->> +	return err;
->> +}
->> +
->> +static void mpnic_free_ring_resources(struct device *dev,
->> +				      struct mpnic_ring *ring)
->> +{
->> +	kvfree(ring->tx_buf);
->> +	ring->tx_buf =3D NULL;
->> +
->> +	/* If size is not set there are no descriptors present */
->> +	if (!ring->size)
->> +		return;
->> +
->> +	dma_free_coherent(dev, ring->size, ring->desc, ring->dma);
->> +	ring->size_mask =3D 0;
->> +	ring->size =3D 0;
->> +}
->> +
->> +static int mpnic_alloc_ring_desc(struct mpnic_net *mpn,
->> +				 struct mpnic_ring *ring, u32 count)
->> +{
->> +	struct device *dev =3D mpn->netdev->dev.parent;
->> +	size_t size;
->> +
->> +	size =3D ALIGN(array_size(sizeof(*ring->desc), count), 4096);
->> +
->> +	ring->desc =3D dma_alloc_coherent(dev, size, &ring->dma,
->> +					GFP_KERNEL | __GFP_NOWARN);
->> +	if (!ring->desc)
->> +		return -ENOMEM;
->> +
->> +	ring->size_mask =3D count - 1;
->> +	ring->size =3D size;
->> +
->> +	return 0;
->> +}
->> +
->> +static void mpnic_free_tx_qt_resources(struct mpnic_net *mpn,
->> +				       struct mpnic_q_triad *qt)
->> +{
->> +	struct device *dev =3D mpn->netdev->dev.parent;
->> +
->> +	mpnic_free_ring_resources(dev, &qt->cmpl);
->> +	mpnic_free_ring_resources(dev, &qt->sub0);
->> +}
->> +
->> +static int mpnic_alloc_tx_qt_resources(struct mpnic_net *mpn,
->> +				       struct mpnic_q_triad *qt)
->> +{
->> +	int err;
->> +
->> +	err =3D mpnic_alloc_ring_desc(mpn, &qt->sub0, mpn->txq_size);
->> +	if (err)
->> +		return err;
->> +
->> +	qt->sub0.tx_buf =3D kvzalloc_objs(*qt->sub0.tx_buf, mpn->txq_size,
->> +					GFP_KERNEL | __GFP_NOWARN);
->> +	if (!qt->sub0.tx_buf) {
->> +		err =3D -ENOMEM;
->> +		goto err_free_qt;
->> +	}
->> +
->> +	err =3D mpnic_alloc_ring_desc(mpn, &qt->cmpl, mpn->txq_size);
->> +	if (err)
->> +		goto err_free_qt;
->> +
->> +	return 0;
->> +
->> +err_free_qt:
->> +	mpnic_free_tx_qt_resources(mpn, qt);
->> +	return err;
->> +}
->> +
->> +static void mpnic_free_nv_resources(struct mpnic_net *mpn,
->> +				    struct mpnic_napi_vector *nv)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < nv->txt_count; i++)
->> +		mpnic_free_tx_qt_resources(mpn, &nv->qt[i]);
->> +}
->> +
->> +static int mpnic_alloc_nv_resources(struct mpnic_net *mpn,
->> +				    struct mpnic_napi_vector *nv)
->> +{
->> +	int i, err;
->> +
->> +	for (i =3D 0; i < nv->txt_count; i++) {
->> +		err =3D mpnic_alloc_tx_qt_resources(mpn, &nv->qt[i]);
->> +		if (err)
->> +			goto err_free_qt_resources;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_free_qt_resources:
->> +	while (i--)
->> +		mpnic_free_tx_qt_resources(mpn, &nv->qt[i]);
->> +	return err;
->> +}
->> +
->> +void mpnic_free_resources(struct mpnic_net *mpn)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++)
->> +		mpnic_free_nv_resources(mpn, mpn->napi[i]);
->> +}
->> +
->> +int mpnic_alloc_resources(struct mpnic_net *mpn)
->> +{
->> +	int i, err;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++) {
->> +		err =3D mpnic_alloc_nv_resources(mpn, mpn->napi[i]);
->> +		if (err)
->> +			goto err_free_resources;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_free_resources:
->> +	while (i--)
->> +		mpnic_free_nv_resources(mpn, mpn->napi[i]);
->> +
->> +	return err;
->> +}
->> +
->> +int mpnic_set_netif_queues(struct mpnic_net *mpn)
->> +{
->> +	int i, j, err;
->> +
->> +	err =3D netif_set_real_num_tx_queues(mpn->netdev, mpn->num_tx_queues);
->> +	if (err)
->> +		return err;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++) {
->> +		struct mpnic_napi_vector *nv =3D mpn->napi[i];
->> +
->> +		for (j =3D 0; j < nv->txt_count; j++)
->> +			netif_queue_set_napi(mpn->netdev, nv->qt[j].sub0.q_idx,
->> +					     NETDEV_QUEUE_TYPE_TX, &nv->napi);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +void mpnic_reset_netif_queues(struct mpnic_net *mpn)
->> +{
->> +	int i, j;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++) {
->> +		struct mpnic_napi_vector *nv =3D mpn->napi[i];
->> +
->> +		for (j =3D 0; j < nv->txt_count; j++)
->> +			netif_queue_set_napi(mpn->netdev, nv->qt[j].sub0.q_idx,
->> +					     NETDEV_QUEUE_TYPE_TX, NULL);
->> +	}
->> +}
->> +
->> +void mpnic_napi_disable(struct mpnic_net *mpn)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++) {
->> +		napi_disable_locked(&mpn->napi[i]->napi);
->> +
->> +		mpnic_nv_irq_disable(mpn->napi[i]);
->> +	}
->> +}
->> +
->> +void mpnic_napi_enable(struct mpnic_net *mpn)
->> +{
->> +	int i;
->> +
->> +	for (i =3D 0; i < mpn->num_napi; i++)
->> +		napi_enable_locked(&mpn->napi[i]->napi);
->> +
->> +	/* Force the first interrupt on each vector to guarantee that any
->> +	 * completions posted during bringup are processed.
->> +	 */
->> +	for (i =3D 0; i < mpn->num_napi; i++)
->> +		mpnic_nv_irq_trigger(mpn->napi[i]);
->> +
->> +	mpnic_wrfl(mpn->mpd);
->> +}
->
-> [Severity: High]
-> Is hw_head used here without any check against what was actually
-> posted? It comes straight from the TCD read in mpnic_clean_tcq(), and
-> clean_desc is derived only from its distance to ring->head. It is never
-> compared with ring->tail.
->
-> The device could report a head beyond the last descriptor the driver
-> posted, for example through a firmware bug or a completion type that
-> mpnic_clean_tcq() does not decode. clean_desc then covers slots that
-> were never filled. tx_buf comes from kvzalloc_objs(), and only the
-> metadata slot of each packet holds an skb. So ring->tx_buf[head] is
-> NULL there, and MPNIC_XMIT_CB(skb)->desc_count dereferences a NULL
-> pointer from NAPI context.
->
-> Could clean_desc be clamped to the number of in-flight descriptors,
-> i.e. (ring->tail - head) & ring->size_mask? Alternatively, could the
-> loop bail out with a WARN_ON_ONCE() when it finds an empty tx_buf
-> slot? Ignoring a bogus completion seems preferable to taking the host
-> down.
-
-We trust the device to fill out this completion field correctly.
+--
+Cheers, Lorenzo
