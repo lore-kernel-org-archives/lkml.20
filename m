@@ -1,109 +1,115 @@
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F1D308F39
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463D4369D55;
+	Mon, 28 Sep 2026 12:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597781; cv=none; b=aiHkpMFTuRbM/mnDVZTqV6c1DzSwprQ/C3aISF4JMWPVrpCt5ujKs5PqnNbXDa/i3w/V3v2ve8d8jnMNxFolI65mbGCCX7nyEmpZ9aJsCIhGHxzbeGN+vRtYf+x4p/Ki0UapwxdgozjWYqZlokfHC0+7DLqTVifZwMjZTywPr5g=
+	t=1790597785; cv=none; b=uE1B3h6ltUgkZ2NFzqV7i9TZUNQ/33DLmJ4gPk6Amgao7EQU32rFQqJrGgkUQaqxzKDUogVsPP+06QQAWm/iRDcwpfYJy05dPF91HIj19GxMYnc80NrEqkeV100+Jxv4+j0+BYz46/GsQ1iKVr9dFX6Qjzj8taFvnO4hJ+5h7pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597781; c=relaxed/simple;
-	bh=SBXZxQa4kJjRlY2WnPdMcAzS3W7SnPaDjqV3vwwL7D4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JgQZfKKSeKj3E3UP8cc4H1h7FHugNBhsERfzixHIgQsNVp3g8MQq2KBKi+ci4HusEhizSapIguXYcG06sxLtDmoE5TaBNP7xDnE+dUAKUT+33DNRbpSoarBsFI+ni9saI5mJ3DPSZsx+iG+nDQeJB2123h87hV0wk77zKU12m6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rOciz2Z1; arc=none smtp.client-ip=95.215.58.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790597785; c=relaxed/simple;
+	bh=CIvwWP0bqGSZZNJmUwJ0WPPvV/yKpz6EAM44HziEB8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SQ6PGrbQr3ZMMu8XFGwmYlQkxLn2kofRcm+N8u2XQt02C4KGFd+juCg+lqLgZjhwji+7jxlM2VOqiIuoKulU1326fai9g1w/Y3yc63ORuHEQjHw1UuTkw5m8DVrlIkdWVSKQS94IgExUrTKxrqzNR/urTISSgR7a2jLt2J7wEVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QiAtJvLv; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rOciz2Z1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SBXZxQa4kJjRlY2WnPdMcAzS3W7SnPaDjqV3vwwL7D4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790597777; v=1; x=1791202577;
- b=rOciz2Z1sXS7Z09WXa/wUaLyGb2DtPVrs7yY6AqTX9Rg31NJ4k28KRw5oPfKkAOBYgfjBMAd
- /Z9u6AtLgJ3aMSc3Th5EU9pRXBuS6D3COfROeElLDHbQI75i6lMrALjADqfKy3ktJgGDenuG0pN
- 2KX+FLY8SmlE7b5xslbvNV0Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 15cbac2d8a85bc92;
-	Mon, 28 Sep 2026 12:16:17 +0000
-X-Mizu-Trace-ID: 15cbac2d8a85bc92
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dc059bbf-4897-4800-8468-961e6da95964@linux.dev>
-Date: Mon, 28 Sep 2026 14:16:08 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QiAtJvLv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790597783; x=1822133783;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CIvwWP0bqGSZZNJmUwJ0WPPvV/yKpz6EAM44HziEB8o=;
+  b=QiAtJvLv20sLBpDD4COR2SA48r6c9lZhrcol4yzlFmxFvuVW7IZASR4f
+   DQF+8wfS6OYy8oYB1yFlDP1Wy4Q2nguPbm9J8yrG5Y3FIXdXv6hZVyhVy
+   uOTF6NqXZo0UXAH9yugyBgmWYyOcqtJQawan5At0SkgftLOxwUE6MbtZn
+   brEHYLt8+HeByqIfSWcfNQr/vIaOi0tO3bV7WMBTTKMBdtOjy+JTxHz56
+   6XKezxsUHmPYRkj0ll1MBeLf8adVurHma5iE+iHTVI/lkQui/38vsE0Mf
+   CTEFjrrbNfV9cWg2FJNF5AoiB7257iD0MmzJ0U9VGWfkb02gFJbnPtAid
+   Q==;
+X-CSE-ConnectionGUID: E2RW7qVbQzySfEF3HdOkxQ==
+X-CSE-MsgGUID: vDZ6TvIHQTan4TEJKXmOnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90423086"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90423086"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:16:20 -0700
+X-CSE-ConnectionGUID: 7QbPy/wqSx695brhaS3o1Q==
+X-CSE-MsgGUID: 29ARU6MVSDmxoeH3JEAAeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="273177537"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa010.jf.intel.com with ESMTP; 28 Sep 2026 05:16:19 -0700
+Date: Mon, 28 Sep 2026 20:14:31 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] fpga: stratix10-soc: floor config_complete_timeout_us
+Message-ID: <arpaJ7z+hOAASQMk@yilunxu-OptiPlex-7050>
+References: <cover.1790090287.git.adrian.ho.yin.ng@altera.com>
+ <c2dce10175d54bd39fe3a9dd1a0ab783a62095f3.1790090287.git.adrian.ho.yin.ng@altera.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] RDMA/siw: Fix new_cep use-after-free in
- siw_accept_newconn()
-To: Leon Romanovsky <leon@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>
-Cc: jgg@ziepe.ca, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260916184109.2092928-1-vulab@iscas.ac.cn>
- <20260923080801.GL563127@unreal>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <20260923080801.GL563127@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c2dce10175d54bd39fe3a9dd1a0ab783a62095f3.1790090287.git.adrian.ho.yin.ng@altera.com>
 
-On 23.09.2026 10:08, Leon Romanovsky wrote:
-> On Wed, Sep 16, 2026 at 06:41:09PM +0000, Wentao Liang wrote:
->> On the error path the listening endpoint reference of new_cep is
->> dropped before the accepted socket is disassociated.  When only the
->> socket's reference remains, siw_socket_disassoc() drops that last
->> reference and frees the endpoint, leaving the subsequent
->> 'new_cep->sock = NULL' writing into freed memory.
->>
->> Tear the accepted socket down first and put the endpoint last.
->>
->> Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
->> ---
->>   drivers/infiniband/sw/siw/siw_cm.c | 10 ++++++----
->>   1 file changed, 6 insertions(+), 4 deletions(-)
+On Wed, Sep 23, 2026 at 12:02:43AM +0800, Adrian Ng Ho Yin wrote:
+> Keep info->config_complete_timeout_us configurable. of-fpga-region
+> leaves it at 0 when the DT property is absent, and usecs_to_jiffies(0)
+> makes the wait return immediately. Reconfiguration also takes ~600ms in
+> practice, so enforce S10_RECONFIG_TIMEOUT as a minimum floor while still
+> honouring any larger caller-supplied value. Note this prevents a DT
+> property from lowering the timeout below that floor.
 > 
-> I think this patch is supposed to fix it:
-> https://patch.msgid.link/r/20260604160808.30948-1-bernard.metzler@linux.dev
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> ---
+>  drivers/fpga/stratix10-soc.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 > 
-> Thanks
+> diff --git a/drivers/fpga/stratix10-soc.c b/drivers/fpga/stratix10-soc.c
+> index c16ed571630b..83590e6b405f 100644
+> --- a/drivers/fpga/stratix10-soc.c
+> +++ b/drivers/fpga/stratix10-soc.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/completion.h>
+>  #include <linux/fpga/fpga-mgr.h>
+>  #include <linux/firmware/intel/stratix10-svc-client.h>
+> +#include <linux/minmax.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/of_platform.h>
+> @@ -360,7 +361,15 @@ static int s10_ops_write_complete(struct fpga_manager *mgr,
+>  	unsigned long timeout;
+>  	int ret;
+>  
+> -	timeout = usecs_to_jiffies(info->config_complete_timeout_us);
+> +	/*
+> +	 * Keep config_complete_timeout_us configurable. of-fpga-region leaves
+> +	 * it at 0 when the DT property is absent, and usecs_to_jiffies(0)
+> +	 * makes the wait return immediately. Reconfiguration also takes
+> +	 * ~600ms in practice, so enforce S10_RECONFIG_TIMEOUT as a minimum
+> +	 * floor while still honouring any larger caller-supplied value.
+> +	 */
+> +	timeout = max(usecs_to_jiffies(info->config_complete_timeout_us),
+> +		      S10_RECONFIG_TIMEOUT);
 
-I agree with Leon.
+Basically I think config_complete_timeout_us is used in a wrong way. You
+can refer to other vendor fpga driver for reference.
 
-Thanks,
-Bernard.>
+>  
+>  	do {
+>  		reinit_completion(&priv->status_return_completion);
+> -- 
+> 2.49.GIT
 > 
->>
->> diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
->> index f7ac81c0f267..1b93963cb191 100644
->> --- a/drivers/infiniband/sw/siw/siw_cm.c
->> +++ b/drivers/infiniband/sw/siw/siw_cm.c
->> @@ -1044,14 +1044,16 @@ static void siw_accept_newconn(struct siw_cep *cep)
->>   	return;
->>   
->>   error:
->> -	if (new_cep)
->> -		siw_cep_put(new_cep);
->> -
->>   	if (new_s) {
->>   		siw_socket_disassoc(new_s);
->>   		sock_release(new_s);
->> -		new_cep->sock = NULL;
->> +		if (new_cep)
->> +			new_cep->sock = NULL;
->>   	}
->> +
->> +	if (new_cep)
->> +		siw_cep_put(new_cep);
->> +
->>   	siw_dbg_cep(cep, "error %d\n", rv);
->>   }
->>   
->> -- 
->> 2.34.1
->>
-
+> 
