@@ -1,43 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC01928505E;
-	Mon, 28 Sep 2026 02:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9966822157B;
+	Mon, 28 Sep 2026 02:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790561756; cv=none; b=Zc5Q466N1MFsTD7IkxJ4U8bn7X/M4n/Owq7jagzNe2vgYykhb0t8y/A/51WcM2NPglwSqXs0/wXi9RnlvxfN0YtWcUxnERLEPf08zaDZIDwG3/IgU0Vt5RIQf3pkIwxCQF4Ki/3Ki7xg39afBqKDyk25dYrOAN5RtMe6I/cci6k=
+	t=1790561778; cv=none; b=QgdAXb8phAk9XwvVesBldcySv3FAEDdlTDgWBk6CojHW/rHKqNzw/gkiYTMU2qPrTk/U8sr/SW3CLtUPRixK98neVcSQvFiV8ngCez2H4t2IFZr1lsfRG22QL3Dms43v0RerNs6tAZM8VKq1P2zEse6Vb0eMNgZmNYoGjNm+syM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790561756; c=relaxed/simple;
-	bh=QqPlbObt7p1QyMB9cZtQgX4h4k8BjzOYgCZnmq7UJj8=;
+	s=arc-20240116; t=1790561778; c=relaxed/simple;
+	bh=BBdBCSyd1YlVRWlY+Yu8Hm8YgDtYYWt9szJ6SRyPYMI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HFnH//+2OntTHTq+aTqFNDlSlWOf9Wdd+s/0mWkH2K9bXdvOSh0TylGsgHl1piwup/VUY9u5yzwOHZbpdsEddvWbgiO6gutmNKn8PCTxYNCgYg0EHTcG37s1tXCbE2TXDDhw6cnYDXusiRgNikmUstgCv4fA8G4kztBy71Enkjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCDjZntz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCDjZntz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872C81F000FF;
-	Mon, 28 Sep 2026 02:15:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790561754;
-	bh=m077o4nsdzgiV8efQ2GhDgYaoTiK8DDIPdUL/UgdNDU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PCDjZntzibocjTalY7pIyAFm96e0a7AgpSdLhJKgsDNSdSxsaX/JhYmRGwQ50JOeT
-	 p12pwEjQ2M8nY+Y/EwEsrSETANmTvjLnvLmhCg44ucPYH6o4PY4LS4ObUBXw1ej4JZ
-	 WD9PvyadD0oc1o9OGM8DRZJPMvqAIcQ+cq2WmX+mNPEqaA2FqxvEm5UdCu6yZrezi8
-	 vr0I7FkwmER39OBMSJc6eaxTZLjK1GsLsqjX1Eh5F3hdFoS9fmsYzqqMnRaOWm+aHV
-	 cqmfS5lEAy9Lkv7/M6YsgHxxnlVdKXgQIxPTzC4EWWQ0VzkE+yRHpCDe3lZySjKfmZ
-	 1KgKf0a+h5oFA==
-Date: Sun, 27 Sep 2026 21:15:50 -0500
-From: Bjorn Andersson <andersson@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=OGTCXXdWObF5ojdmr8rIkPdjctBFGToA8kUaSsEk2iCVQ4KxtaEPMGHpwbpr2ouw5M2N8MQEwplFKhr95pAPdWMR4qDmb0D8aieev2rCWVU52Ku0qQ7oU2TGVfiKOIvglAsBNHn9dL0YN+OVnuRIfdu5lIzkgMAgOR0fjYxL/Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B237F1F00893;
+	Mon, 28 Sep 2026 02:16:14 +0000 (UTC)
+Date: Sun, 27 Sep 2026 21:16:11 -0500
+From: bjorn@zenbook
 To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: eliza: Add CQS SoM UFS variant
-Message-ID: <arnM9pny5hIM0FaD@zenbook>
-References: <20260915-dts-qcom-eliza-add-ufs-variant-v2-0-86d72a2a8f47@oss.qualcomm.com>
- <20260915-dts-qcom-eliza-add-ufs-variant-v2-4-86d72a2a8f47@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 27/48] clk: qcom: gcc-sm6375: Use common clock
+ controller probe data
+Message-ID: <arahN4PGK53PdNI3@zenbook>
+References: <20260924-clk-qcom-rework-legacy-always-on-clocks-v2-0-1479443ee016@oss.qualcomm.com>
+ <20260924-clk-qcom-rework-legacy-always-on-clocks-v2-27-1479443ee016@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,458 +35,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-dts-qcom-eliza-add-ufs-variant-v2-4-86d72a2a8f47@oss.qualcomm.com>
+In-Reply-To: <20260924-clk-qcom-rework-legacy-always-on-clocks-v2-27-1479443ee016@oss.qualcomm.com>
 
-On Tue, Sep 15, 2026 at 03:03:30PM +0300, Abel Vesa wrote:
-> Add a new dtsi for the Eliza CQS SoM UFS variant.
-> This SoM only comes with UFS installed.
+On Thu, Sep 24, 2026 at 03:06:39PM +0300, Abel Vesa wrote:
+> Move the always-on branch register offsets into a critical_cbcrs array
+> and describe the DFS RCGs through qcom_cc_driver_data.
+> 
+> Move the configuration of GPLL10, GPLL11, GPLL8 and GPLL9 into the
+> clk_regs_configure callback. This preserves the existing ordering of
+> enabling the always-on branches before configuring these four PLLs.
 
-I am not familiar with the Eliza lineup and unfortunately these commit
-messages doesn't provide any real value. Here you're saying that you're
-adding support for the UFS-variant of the SOM, in the previous commit
-message you said "UFS EVK" - which would imply it's the carrier board
-that is different.
+I don't see the clk_regs_configure being applied and the four
+gpllNN_config definitions are dangling after this change.
 
-Please ensure that your commit messages clearly describe what's going
-on - and as the documentation states; start with the problem
-description, not the word "Add".
+(Please use "make W=1e")
+
+I'm applying the rest of the series.
 
 Regards,
 Bjorn
 
+> Using the alpha_plls array instead would configure the PLLs before the
+> CBCR enables in the common probe path.
 > 
+> Use qcom_cc_probe() to perform the common initialization instead of
+> open-coding it in the driver's probe.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi | 421 ++++++++++++++++++++++++
->  1 file changed, 421 insertions(+)
+>  drivers/clk/qcom/gcc-sm6375.c | 46 ++++++++++++++++++++++---------------------
+>  1 file changed, 24 insertions(+), 22 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi
-> new file mode 100644
-> index 000000000000..cf1cd97065b4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi
-> @@ -0,0 +1,421 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +
-> +#include "eliza.dtsi"
-> +#include "pm7550ba-eliza.dtsi"
-> +#include "pm7550-eliza.dtsi"
-> +#include "pm8550vs-d-eliza.dtsi"
-> +#include "pm8550vs-g-eliza.dtsi"
-> +#include "pmr735d-eliza.dtsi"
-> +#include "pmk8550-eliza.dtsi"
-> +
-> +/ {
-> +	clocks {
-> +		xo_board: xo-board {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <76800000>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <32764>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		bi_tcxo_div2: bi-tcxo-div2-clk {
-> +			compatible = "fixed-factor-clock";
-> +			#clock-cells = <0>;
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK>;
-> +			clock-mult = <1>;
-> +			clock-div = <2>;
-> +		};
-> +
-> +		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-> +			compatible = "fixed-factor-clock";
-> +			#clock-cells = <0>;
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-> +			clock-mult = <1>;
-> +			clock-div = <2>;
-> +		};
-> +	};
-> +
-> +	vph_pwr: regulator-vph-pwr {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "vph_pwr";
-> +		regulator-min-microvolt = <3700000>;
-> +		regulator-max-microvolt = <3700000>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+> diff --git a/drivers/clk/qcom/gcc-sm6375.c b/drivers/clk/qcom/gcc-sm6375.c
+> index 9c2acf8dc4b7..c67d4293c76b 100644
+> --- a/drivers/clk/qcom/gcc-sm6375.c
+> +++ b/drivers/clk/qcom/gcc-sm6375.c
+> @@ -3853,7 +3853,30 @@ static const struct regmap_config gcc_sm6375_regmap_config = {
+>  	.fast_io = true,
+>  };
+>  
+> +static const u32 gcc_sm6375_critical_cbcrs[] = {
+> +	0x17028, /* GCC_CAMERA_XO_CLK */
+> +	0x2b004, /* GCC_CPUSS_GNOC_CLK */
+> +	0x1702c, /* GCC_DISP_XO_CLK */
 > +};
 > +
-> +&apps_rsc {
-> +	regulators-0 {
-> +		compatible = "qcom,pm7550-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s3b>;
-> +		vdd-l2-l3-supply = <&vreg_s3b>;
-> +		vdd-l4-l5-supply = <&vreg_s2b>;
-> +		vdd-l6-supply = <&vreg_s2b>;
-> +		vdd-l7-supply = <&vreg_s1b>;
-> +		vdd-l8-supply = <&vreg_s1b>;
-> +		vdd-l9-l10-supply = <&vreg_s1b>;
-> +		vdd-l11-supply = <&vreg_s1b>;
-> +		vdd-l12-l14-supply = <&vreg_bob>;
-> +		vdd-l13-l16-supply = <&vreg_bob>;
-> +		vdd-l15-l17-l18-l19-l20-l21-l22-l23-supply = <&vreg_bob>;
-> +		vdd-s1-supply = <&vph_pwr>;
-> +		vdd-s2-supply = <&vph_pwr>;
-> +		vdd-s3-supply = <&vph_pwr>;
-> +		vdd-s4-supply = <&vph_pwr>;
-> +		vdd-s5-supply = <&vph_pwr>;
-> +		vdd-s6-supply = <&vph_pwr>;
-> +
-> +		vdd-bob-supply = <&vph_pwr>;
-> +
-> +		qcom,pmic-id = "b";
-> +
-> +		vreg_s1b: smps1 {
-> +			regulator-name = "vreg_s1b";
-> +			regulator-min-microvolt = <1850000>;
-> +			regulator-max-microvolt = <2040000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s2b: smps2 {
-> +			regulator-name = "vreg_s2b";
-> +			regulator-min-microvolt = <375000>;
-> +			regulator-max-microvolt = <2744000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s3b: smps3 {
-> +			regulator-name = "vreg_s3b";
-> +			regulator-min-microvolt = <375000>;
-> +			regulator-max-microvolt = <2744000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s4b: smps4 {
-> +			regulator-name = "vreg_s4b";
-> +			regulator-min-microvolt = <2156000>;
-> +			regulator-max-microvolt = <2400000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2b: ldo2 {
-> +			regulator-name = "vreg_l2b";
-> +			regulator-min-microvolt = <720000>;
-> +			regulator-max-microvolt = <950000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3b: ldo3 {
-> +			regulator-name = "vreg_l3b";
-> +			regulator-min-microvolt = <880000>;
-> +			regulator-max-microvolt = <912000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l4b: ldo4 {
-> +			regulator-name = "vreg_l4b";
-> +			regulator-min-microvolt = <1200000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l6b: ldo6 {
-> +			regulator-name = "vreg_l6b";
-> +			regulator-min-microvolt = <866000>;
-> +			regulator-max-microvolt = <958000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l7b: ldo7 {
-> +			regulator-name = "vreg_l7b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l8b: ldo8 {
-> +			regulator-name = "vreg_l8b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l9b: ldo9 {
-> +			regulator-name = "vreg_l9b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l10b: ldo10 {
-> +			regulator-name = "vreg_l10b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l11b: ldo11 {
-> +			regulator-name = "vreg_l11b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l12b: ldo12 {
-> +			regulator-name = "vreg_l12b";
-> +			regulator-min-microvolt = <2400000>;
-> +			regulator-max-microvolt = <3300000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l13b: ldo13 {
-> +			regulator-name = "vreg_l13b";
-> +			regulator-min-microvolt = <2700000>;
-> +			regulator-max-microvolt = <3300000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l14b: ldo14 {
-> +			regulator-name = "vreg_l14b";
-> +			regulator-min-microvolt = <3300000>;
-> +			regulator-max-microvolt = <3304000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l15b: ldo15 {
-> +			regulator-name = "vreg_l15b";
-> +			regulator-min-microvolt = <3300000>;
-> +			regulator-max-microvolt = <3304000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l16b: ldo16 {
-> +			regulator-name = "vreg_l16b";
-> +			regulator-min-microvolt = <3008000>;
-> +			regulator-max-microvolt = <3008000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l17b: ldo17 {
-> +			regulator-name = "vreg_l17b";
-> +			regulator-min-microvolt = <3104000>;
-> +			regulator-max-microvolt = <3104000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l18b: ldo18 {
-> +			regulator-name = "vreg_l18b";
-> +			regulator-min-microvolt = <2800000>;
-> +			regulator-max-microvolt = <2800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l19b: ldo19 {
-> +			regulator-name = "vreg_l19b";
-> +			regulator-min-microvolt = <3000000>;
-> +			regulator-max-microvolt = <3000000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l20b: ldo20 {
-> +			regulator-name = "vreg_l20b";
-> +			regulator-min-microvolt = <1620000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l21b: ldo21 {
-> +			regulator-name = "vreg_l21b";
-> +			regulator-min-microvolt = <1620000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l22b: ldo22 {
-> +			regulator-name = "vreg_l22b";
-> +			regulator-min-microvolt = <3200000>;
-> +			regulator-max-microvolt = <3200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l23b: ldo23 {
-> +			regulator-name = "vreg_l23b";
-> +			regulator-min-microvolt = <1650000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_bob: bob {
-> +			regulator-name = "vreg_bob";
-> +			regulator-min-microvolt = <3008000>;
-> +			regulator-max-microvolt = <3960000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +
-> +	regulators-1 {
-> +		compatible = "qcom,pm8550vs-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s1b>;
-> +
-> +		qcom,pmic-id = "d";
-> +
-> +		vreg_l1d: ldo1 {
-> +			regulator-name = "vreg_l1d";
-> +			regulator-min-microvolt = <1140000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +
-> +	regulators-2 {
-> +		compatible = "qcom,pm8550vs-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s2b>;
-> +		vdd-l3-supply = <&vreg_s2b>;
-> +
-> +		qcom,pmic-id = "g";
-> +
-> +		vreg_l1g: ldo1 {
-> +			regulator-name = "vreg_l1g";
-> +			regulator-min-microvolt = <1150000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3g: ldo3 {
-> +			regulator-name = "vreg_l3g";
-> +			regulator-min-microvolt = <1150000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +	};
-> +
-> +	regulators-3 {
-> +		compatible = "qcom,pmr735d-rpmh-regulators";
-> +
-> +		vdd-l1-l2-l5-supply = <&vreg_s3b>;
-> +		vdd-l3-l4-supply = <&vreg_s2b>;
-> +		vdd-l6-supply = <&vreg_s1b>;
-> +		vdd-l7-supply = <&vreg_s3b>;
-> +
-> +		qcom,pmic-id = "k";
-> +
-> +		vreg_l1k: ldo1 {
-> +			regulator-name = "vreg_l1k";
-> +			regulator-min-microvolt = <488000>;
-> +			regulator-max-microvolt = <912000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2k: ldo2 {
-> +			regulator-name = "vreg_l2k";
-> +			regulator-min-microvolt = <920000>;
-> +			regulator-max-microvolt = <969000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3k: ldo3 {
-> +			regulator-name = "vreg_l3k";
-> +			regulator-min-microvolt = <1080000>;
-> +			regulator-max-microvolt = <1350000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l4k: ldo4 {
-> +			regulator-name = "vreg_l4k";
-> +			regulator-min-microvolt = <960000>;
-> +			regulator-max-microvolt = <1980000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l5k: ldo5 {
-> +			regulator-name = "vreg_l5k";
-> +			regulator-min-microvolt = <866000>;
-> +			regulator-max-microvolt = <931000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l6k: ldo6 {
-> +			regulator-name = "vreg_l6k";
-> +			regulator-min-microvolt = <1100000>;
-> +			regulator-max-microvolt = <2000000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l7k: ldo7 {
-> +			regulator-name = "vreg_l7k";
-> +			regulator-min-microvolt = <720000>;
-> +			regulator-max-microvolt = <958000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
+> +static struct clk_alpha_pll *gcc_sm6375_plls[] = {
+> +	&gpll10,
+> +	&gpll11,
+> +	&gpll8,
+> +	&gpll9,
 > +};
 > +
-> +&pm7550ba_eusb2_repeater {
-> +	vdd18-supply = <&vreg_l7b>;
-> +	vdd3-supply = <&vreg_l17b>;
+> +static const struct qcom_cc_driver_data gcc_sm6375_driver_data = {
+> +	.alpha_plls = gcc_sm6375_plls,
+> +	.num_alpha_plls = ARRAY_SIZE(gcc_sm6375_plls),
+> +	.clk_cbcrs = gcc_sm6375_critical_cbcrs,
+> +	.num_clk_cbcrs = ARRAY_SIZE(gcc_sm6375_critical_cbcrs),
+> +	.dfs_rcgs = gcc_dfs_clocks,
+> +	.num_dfs_rcgs = ARRAY_SIZE(gcc_dfs_clocks),
 > +};
 > +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name = "qcom/eliza/gen71700_zap.mbn";
-> +};
-> +
-> +&remoteproc_adsp {
-> +	firmware-name = "qcom/eliza/adsp.mbn",
-> +			"qcom/eliza/adsp_dtb.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	firmware-name = "qcom/eliza/cdsp.mbn",
-> +			"qcom/eliza/cdsp_dtb.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&tlmm {
-> +	gpio-reserved-ranges = <20 4>,   /* NFC SPI */
-> +			       <111 2>,  /* WCN UART1 */
-> +			       <118 1>;  /* NFC Secure I/O */
-> +};
-> +
-> +&ufs_mem_hc {
-> +	reset-gpios = <&tlmm 185 GPIO_ACTIVE_LOW>;
-> +
-> +	vcc-supply = <&vreg_l12b>;
-> +	vcc-max-microamp = <1300000>;
-> +	vccq-supply = <&vreg_l1d>;
-> +	vccq-max-microamp = <1200000>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&ufs_mem_phy {
-> +	vdda-phy-supply = <&vreg_l6b>;
-> +	vdda-pll-supply = <&vreg_l4b>;
-> +
-> +	status = "okay";
-> +};
+>  static const struct qcom_cc_desc gcc_sm6375_desc = {
+> +	.driver_data = &gcc_sm6375_driver_data,
+>  	.config = &gcc_sm6375_regmap_config,
+>  	.clks = gcc_sm6375_clocks,
+>  	.num_clks = ARRAY_SIZE(gcc_sm6375_clocks),
+> @@ -3871,28 +3894,7 @@ MODULE_DEVICE_TABLE(of, gcc_sm6375_match_table);
+>  
+>  static int gcc_sm6375_probe(struct platform_device *pdev)
+>  {
+> -	struct regmap *regmap;
+> -	int ret;
+> -
+> -	regmap = qcom_cc_map(pdev, &gcc_sm6375_desc);
+> -	if (IS_ERR(regmap))
+> -		return PTR_ERR(regmap);
+> -
+> -	ret = qcom_cc_register_rcg_dfs(regmap, gcc_dfs_clocks, ARRAY_SIZE(gcc_dfs_clocks));
+> -	if (ret)
+> -		return ret;
+> -
+> -	/* Keep some clocks always-on */
+> -	qcom_branch_set_clk_en(regmap, 0x17028); /* GCC_CAMERA_XO_CLK */
+> -	qcom_branch_set_clk_en(regmap, 0x2b004); /* GCC_CPUSS_GNOC_CLK */
+> -	qcom_branch_set_clk_en(regmap, 0x1702c); /* GCC_DISP_XO_CLK */
+> -
+> -	clk_lucid_pll_configure(&gpll10, regmap, &gpll10_config);
+> -	clk_lucid_pll_configure(&gpll11, regmap, &gpll11_config);
+> -	clk_lucid_pll_configure(&gpll8, regmap, &gpll8_config);
+> -	clk_zonda_pll_configure(&gpll9, regmap, &gpll9_config);
+> -
+> -	return qcom_cc_really_probe(&pdev->dev, &gcc_sm6375_desc, regmap);
+> +	return qcom_cc_probe(pdev, &gcc_sm6375_desc);
+>  }
+>  
+>  static struct platform_driver gcc_sm6375_driver = {
 > 
 > -- 
 > 2.54.0
