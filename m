@@ -1,89 +1,48 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520512C2360
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8353AD535
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580350; cv=none; b=Dpux5onec02BiR4FwQYU9rmS4x3dfSlTh3/oyuuHNcZHVFZbqoUB5F7LeHVcjqPZre50S6FXcY6r7R02f1PVzHux/Vi4Xe6LYz7YJDnrTf39eKd1yddX63rPuh3sGvxpfy0bzUHR9Up01m7dJvCZFDevw0N7CqG0hAL1XWXCdgg=
+	t=1790580372; cv=none; b=A6ABenDvQo8Gyl9sytucoV9/cZHHxh20qX9QZdaUD1cGRDNoIzIPm/EzT+kS4+0c01iQJh4M3L1cDt86+1XEuoWC5h5fHBPhftG/zbNE8Bx1wuV7mY+8/VgXJq8ecvH8Xjx4p/hlAG5S4+lf1M9qac05jJDJJ1y8UgfMbHn/Bg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580350; c=relaxed/simple;
-	bh=q08SMMXYiHrB/t+BG5Y3bR6naNmrNNO29kDK3fVq4k4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oWk+XNIaRQyRtZLkjJ/9lTwuECUNHDnCRR0l6rah8SYxhwMdOi2eIbVKD3MCEwrRSyXeYTfsSfO3sE9/LjmhS2hiUSS/xlIRW4pel7IK3hl76mk5NqLkL5yQ1r6FTiKCRZlB9TENSWD/p6ugSoaZ3iyVCQ2b8c81mbY8r24x6NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxXUNGf3; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790580372; c=relaxed/simple;
+	bh=fxB36Xns6Xf7zq2y6Auh1L6JzrnCB8S6SPQxWlDfsXs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DdsJiTTS064gX95VqlosFmA2cj1dhVvqoXFQXMXlUya+7aS2QmEb9kT1g6i5eI4ri2J/M62kl5Qxrz0SNnaEkO2uh1jdmm49bBZ98hnBGEpkyODT4n2bNnL6ZPxE3A4v1wyuTS2u6T0CzGsthnJ2zlpgfs6q7BcgMxc2qkKdrEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=GW+XTNxB; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxXUNGf3"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so2468523eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:25:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="GW+XTNxB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790580348; x=1791185148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ROGDvtvh53/QQPkABiv5e4DoVYicohxxFWZJETjDQU=;
-        b=mxXUNGf3q1qj3KXBeHHYrUEtIYoOOVdlS+fsvzI1n7wpUw2qRSb/N2njJEWmcZIbaK
-         cMA7Hw8qMPFJjCKjacumBU5NvQSrdNvLF810Z2nOzw3ujVr47G5t4g+yMlvvz9WShOT4
-         sE2mTWGIp8z2vvaxuzXwwj3RwDxCkbVH+ZGvCCRAANs2bFuCOBP0rC82Are5OimLsd7s
-         t6kAnzpJZNX15TyOhqGGmfUMRcamkOwG1dxOCXjDka0ymwGFvDYNVvPAd1MYkRcfoCB6
-         24UdTctkqKP9h1hZmmsB15X5UZQ47k2fo26JxxZZYAP+0SiZpE4r8X3o0JypwLzeBzk5
-         CVnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790580348; x=1791185148;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ROGDvtvh53/QQPkABiv5e4DoVYicohxxFWZJETjDQU=;
-        b=eTtZIxf4OuUig9lJ72kL2Rv2f8icDbQz5YCWngVkvvv+ZnzykJ1cFlwbAiNk92EB1q
-         Loygkvn9CXKmJduExQRkC43COJWEcKbJw144p1WnsCTBhttAoI02ShdeJV8wxezpPGGm
-         kWAE4gLOsAFU/n07emtKQ81YXa1boxFcFit2URCEtFSQgniI3vh4//KXMPQS+jSwy89n
-         JV8IRpLKBWj0J0aUBuV4ObaSP5Ilx1a8iAxvQEZW4XaCV6A82wuBL7bNbI3V4UjipYhG
-         QdwbBy8N0xigJd9nFLe2soU6S7CIhN6M5AqfyBwliAxfhLxAn+X5aWRZke8OyysOeu8M
-         fdYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaGe8lbIUFXApIM4oHy+JiL0qJzbviz+uVgM8Xy/mdCPfO4aEVjHEYp+zUKXbBg6xhMia8tggJknsumDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJr7TRwjQbzuTIs4LWJVhnmUtNnkhsOJAC4jgE7TZN5y41GVrbq
-	WfoHvCq6Kx4kbDnnawxF+d5PBtNKIa5b0Et8tuQn53lA5tR5lYOc+lgz
-X-Gm-Gg: AYBFou1HNG9T6AoboeodFZhvjGnSKRAg/6kraZEMgLs/wzJrAF6hwz4WdsaKc57M0BH
-	xuu2u6lSke8bE3Wy1b551Z+kwCELwJV2RS5KXxHKWzyCvqau5xFD6V7nPAdzU+3YW2orKAX52ja
-	GCSW5GqxtUx0LemUoHOGkjJEIIz0AV94I1zZmT+2TduXpBvvMLkTEIn6GLIPShMgHFZEGE59ZVn
-	V7RJUioM5YDZolpNOt6PnwUtGBEZX9cC63wwYaWidbSkfuXs/aJSniNGCds17VHcYyE92iFsTtM
-	AuER/pzuZjyHxcCasQuI1TSf209BKmzf4lE+OTVbpYbFi0izkqOhp+FHVyBOEpDVB8K8C4XOTgf
-	XOOdkA+a+iQVkoYX7D6dpKxfQX7tPVLZi/i3hkAmUsgqYoURUZl2sPOLcNrEt9XlHa8JcPzMouC
-	UZflZnwhN332mV+wySggcx8DT4S6ATmyQep9NQdOoumMRhs7uffP/9TtaegCSgGAuMtp6YpRRVp
-	LqT21WcC6KqIw==
-X-Received: by 2002:a05:7301:78c6:b0:33b:edf8:1919 with SMTP id 5a478bee46e88-342707b407dmr9263412eec.13.1790580348291;
-        Mon, 28 Sep 2026 00:25:48 -0700 (PDT)
-Received: from wujing.localdomain ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145d0fc9fsm27735529eec.25.2026.09.28.00.25.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 00:25:47 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Qiliang Yuan <odys.yuan@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	kvm@vger.kernel.org,
+	d=runtimeverification.com; s=protonmail; t=1790580369; x=1790839569;
+	bh=VKEfgdRG5ytdFpLC2017ALXZ2vH/UQHrtEmUlBHOpNo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=GW+XTNxB8uzS9whZwGgDKwSA3nTFU/vI4pxFZZ1Sd1oXN0fohe00eGDUlcMYHkXYz
+	 a49bzgCgti8tsojvLCQ75ixtQ0FZSQSig1KJ2QKMu50RGciDi0T3hVqEP+b5flRrOk
+	 Q0vg6SmhyaaishNdljY1MYpv1E6LNQpkTLFj9r2TzErIFOgKKFdE4DuMCIQpRVdD8U
+	 SqhsTX00QCpEKsmcuQFPPH63C8xDyRxwCPSd1jjYH6P39C09LCgJOYZTnndOcOgRaQ
+	 iamRSjJwBO2PVUZy0zVcyGHRdMNVpUK5EKDQPy73KTFKV9i759OLAWnJs7Azmbyo6q
+	 WzKvuwm889rXg==
+X-Pm-Submission-Id: 4htXsn186Dz2ScXT
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Eric W . Biederman" <ebiederm@xmission.com>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH] KVM: x86: Clear CR3[63:32] on SMM entry from long mode
-Date: Mon, 28 Sep 2026 15:25:34 +0800
-Message-ID: <20260928072534.1987-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
-References: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
+	Natasha Klaus <natalie.klaus@runtimeverification.com>
+Subject: [PATCH 1/2] userns: reject uid_map/gid_map values that do not fit in u32
+Date: Mon, 28 Sep 2026 10:25:36 +0300
+Message-Id: <20260928072537.115668-2-natalie.klaus@runtimeverification.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
+References: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,18 +51,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-+Cc Hyper-V folks and linux-hyperv, since the failure is triggered by
-Hyper-V's handling of VMRUN for a nested (L1) hypervisor, i.e. KVM
-running on WSL2.
+map_write() parses each line written to uid_map, gid_map or projid_map
+with simple_strtoul() and stores the results in the u32 fields of
+struct uid_gid_extent. On 64-bit kernels a value above U32_MAX is
+silently truncated modulo 2^32. The coding assistant flagged this
+truncation site while reading map_write(), and I confirmed it by hand
+on a running kernel, where writing to the uid_map of a fresh user
+namespace installs a different mapping than the one requested:
 
-For the Hyper-V side: the VMRUN is rejected when the guest state has
-CR0.PG=0, EFER.LMA=0 and CR3[63:32] != 0, a combination that bare-metal
-SVM does not reject.  Is that check intentional?  If it is not, a
-Hyper-V fix would help older KVM versions as well; either way the patch
-avoids creating that state in the first place.
+  "4294967296 1000 1"  ->  installed as "0 1000 1"
+  "4294967297 1000 1"  ->  installed as "1 1000 1"
+  "4294967301 1000 1"  ->  installed as "5 1000 1"
 
-The full patch is here:
-https://lore.kernel.org/r/20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com
+The same happens to the lower_first and count fields. Only a literal of
+2^64 or more is rejected, and only because simple_strtoul() saturates
+to ULLONG_MAX, which truncates onto the (u32)-1 value map_write()
+already refuses.
 
-Thanks,
-Qiliang
+The write succeeds, so a runtime that computes ranges and gets one
+wrong ends up with a different map than it asked for and no error to
+tell it so.
+
+Parse each field with simple_strtoull() into unsigned long long locals
+and fail the write with -EINVAL if any of them exceeds U32_MAX, before
+the existing checks, which are kept unchanged and in the same order.
+On 32-bit kernels unsigned long is 32 bits wide and the truncation
+happens inside simple_strtoul() itself, so a range check on its return
+value would never fire there; that is why the values are parsed as
+unsigned long long. simple_strtoull() keeps the end pointer behaviour
+the multi-line parser relies on.
+
+This is hardening, not a security fix: the truncated values are valid
+ids and every later check still applies to them.
+
+Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Assisted-by: LLM
+---
+checkpatch warns that simple_strtoull() is obsolete. kstrtoull() does not
+fit here: the buffer holds several lines of three space-separated fields,
+and the parser relies on the end pointer to step from one field to the
+next, which kstrto*() does not provide.
+
+ kernel/user_namespace.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index 0bed462e9b2a..e7ed475c3685 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -940,6 +940,7 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+ 	struct uid_gid_map new_map;
+ 	unsigned idx;
+ 	struct uid_gid_extent extent;
++	unsigned long long first, lower_first, cnt;
+ 	char *kbuf, *pos, *next_line;
+ 	ssize_t ret;
+ 
+@@ -1001,17 +1002,17 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+ 		}
+ 
+ 		pos = skip_spaces(pos);
+-		extent.first = simple_strtoul(pos, &pos, 10);
++		first = simple_strtoull(pos, &pos, 10);
+ 		if (!isspace(*pos))
+ 			goto out;
+ 
+ 		pos = skip_spaces(pos);
+-		extent.lower_first = simple_strtoul(pos, &pos, 10);
++		lower_first = simple_strtoull(pos, &pos, 10);
+ 		if (!isspace(*pos))
+ 			goto out;
+ 
+ 		pos = skip_spaces(pos);
+-		extent.count = simple_strtoul(pos, &pos, 10);
++		cnt = simple_strtoull(pos, &pos, 10);
+ 		if (*pos && !isspace(*pos))
+ 			goto out;
+ 
+@@ -1020,6 +1021,13 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+ 		if (*pos != '\0')
+ 			goto out;
+ 
++		/* Verify the values fit in the u32 fields of the extent */
++		if (first > U32_MAX || lower_first > U32_MAX || cnt > U32_MAX)
++			goto out;
++		extent.first = first;
++		extent.lower_first = lower_first;
++		extent.count = cnt;
++
+ 		/* Verify we have been given valid starting values */
+ 		if ((extent.first == (u32) -1) ||
+ 		    (extent.lower_first == (u32) -1))
+-- 
+2.34.1
+
