@@ -1,132 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D924E06C3;
-	Mon, 28 Sep 2026 14:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBD24DEC2A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605999; cv=none; b=ukCDLkXaVEyUhERmdDshQolzRkfTf/QujNnSKFKbQrzkT0in8Cw+1nhn8um08Uiih16KFuUt0ibHuJHYEb7b/caGn8Y/bibZDE4XNfAKT5smaAKZ1Q/Q4rKSjythDMVxgNFnwZ8OmjQcyidmqMk5/p5fS03dx5xJO8mo1CNaAoY=
+	t=1790606012; cv=none; b=SnI1/Ws8dGRYhIEHNVMMakwxV2NyBBp0APUagaCk5eGjcbLM2+sPMQEU4V5/r5hkIDd5fAyVtoaOSSudNgZe5tT40YVh2R83iJrPgbcn7XW21AmH4mmUWn428Oy/tJXQNL8eLcsWnwyzTjH5TB2Lq/mSb/scTR6CSHl+jh+u3lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605999; c=relaxed/simple;
-	bh=FMkYD15CBXJtYpgLXd2y9axyzzA+/0R0ykk+aV6DwcA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JXzc2iAvwAjlzjVwAXPH3V6m5MXr2iaqY1llUQu2o49TS+8Cz6gvV1RhlkUd+uFoIn2FkOaEEVhhYJXHLfDfltF5QLKgHZ8Hv/uheA8kBLHHd0I4bSN9G/DCl0NsH2uOBoqfec+HgjrXvIgapggx1O23Z+tyuOf1kT05AJbT9iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3BB95hu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790606012; c=relaxed/simple;
+	bh=0uTsabC5p675gdS8dTrQduwvANnTEuolN/gyOQnRHEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ty4HJFeHNL/piDLGRj3UsEl5al0SXplRGBY8uIyHtrVjxyGx17GCsfwsKHYS/yoeX/mmMFv18nNx2I9x+IpVMjuCoiIZBp49lb5el5bAI8wfWGnzOgh7axHRmbqFQ/Hasa/t1v0qYNBtS16RQUol0afs1nIE7TphsD3OYJJRfz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=I9R+y7Nj; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3BB95hu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70D531F000FF;
-	Mon, 28 Sep 2026 14:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790605989;
-	bh=TmVDWZ+rpFUZvDnymCcQAVH5Y9H8d63D1FeSmyXnNfg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K3BB95huAo3BfhB10StSAVTC7z3XhZK0/qTOmUBcckJePN5FxuVazf8RS4WSXdR32
-	 VEzQqD1KqM9Rzo0Az+DBePmOayvuIfrg9TiBQiPRG6QjB8tkmnd8TubcMYqiFGgW0t
-	 WibX5qHKW54bsDePtHosZjTmIlDypEfceQ+URnwy5VgIsGfh1hiXiqFZd33Skz2BmL
-	 tm6m0mqaAlHZFczEZzezk73UNaCnM6jGnM9OWBewWRwPkK4pv0XMqYk+KTgb2ZVDAp
-	 Kcmd4t7fwoKJYOMlBtp5RB8Z/OUh7EpTwfnb9Jz9jU4zfCGYAETwyR7TeKX84hnoou
-	 DuJKcZfDiFZ6Q==
-Message-ID: <1f67ba08-ddf3-4632-a50a-6aa9c29ca1b8@kernel.org>
-Date: Mon, 28 Sep 2026 16:33:04 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="I9R+y7Nj"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2507a618e1so22615466b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790605997; x=1791210797; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SOYgIQeEiNoXJRbq0xUoG6vGFA32ScMPWVC4gTZudqg=;
+        b=I9R+y7Nj+WU3o6OKw0oSN1iJYf6lkhoA6hm7jZw6Kskvxw9UkOuEVIY6DxWWPVKV5a
+         tKstUeZHR9tVEBTxLEql8yUlXx1vFaV9QH8Dk5s1ZVi+eJWjdkpWTWgiBg3PmMmph9UN
+         fG07DQvyI55alQgMzQhbxfjHILrGNiOWIMYmzc2mYRqYNNjW7r6em46wCYRaq95BJLoK
+         IVWO+Bdv+2pXlywakjiRwogwgm48C6vk1UkoQsGRS880mqsYSfzH/qgzOWBzzNigTZJg
+         W+IdG/LsUaztUYsKOT2MWkbp33FpEHnUAA0QA0v2i7XCez+o2+2VbouvqnQYJZmKJTB/
+         fIzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790605997; x=1791210797;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SOYgIQeEiNoXJRbq0xUoG6vGFA32ScMPWVC4gTZudqg=;
+        b=J5TtLAhvj2jlEw8Zh2o81cxQeKQaFsyLoyZf07S8xhVx9e4LsYG2UuRH2zTz0oJvMP
+         NqzubXGtWBcohNmzryw5m3QARu45XPEX2mGdHKVnUPAztMOeZBN9xDoDVvK6C8KMA86x
+         6ZhcqNxFuKwPE11Fdn87x1LOcuE2RQhITvS4eYlYWH+gEaPK6fpvaIIna8QFXJZHH3+j
+         /Ffj+n/D0U6rLtewAUkQr8Pvjag3zG3+0YYEoKtMypdd+2Gi1pw4mKakn+PFLHIgqJ2n
+         4Gcy3nAQQ/W3GFbHzyUzKBg8rWHq7Q923yDCyctF3V4NjMPK64n0QDE2ju9F9l5K/Zlx
+         cPLA==
+X-Forwarded-Encrypted: i=1; AKwUvByfueqY9+iL/JejHS1J+lD3vw5Sdb0LPplAp/IehUCOIJokqAyU57rtnxVVCSLqbPT5aLaVibw3fHjZq/o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiXlm8hNLW2USYpIzDaCpj0Cj+l1AuSc5Y86vGLWtzVzsXgSCa
+	BHL9U/YMSURpHxspWZNQ3K8IaQPm+IK0j/BMZgvUOXRfP5vT8rJBFHr7ojaHznFOwcgul9k/PDJ
+	a6wkgDhUg2w==
+X-Gm-Gg: AYBFou0eVMNiUnz37qWPezQ+ymjGqgawj0Rugq1blsF9NYnunvxXK7aqazLPNzskdxK
+	PWnvvnL5K4GeUfXFkZTDuvcVa/QpuMLmdJnf53ARfuKJz48NhKlZnjYhmCl1mreoK/cSmmMk2A7
+	++/93ieazDj12nyqiQ4k8yO+MadOjAF3Lwcj4DTV18PZK+UptNJB1sf6SpyCLCQ+lVbfRiub9J1
+	4X880XZn4E4eYfxs4BPzhph5/Njxm5bJhR8PoZdZcEQBBFYy7YmBPyugd9pvi1wzpKOwwZPjjMd
+	02bjY502BymThbWEfpAEuVi6tQE7BjCUq6TDVI7fio0ymG9PYI8HHOcvIolw5O9lauvO8pxL6ya
+	Fp49GNiyj8oQmogZaVg6qJIrkZj5JoWsQNfrCMhs2VJ3ehyBVDQbmpL8MLJCqdh2ZHZZEZDRm7x
+	kjBg4trLXk/Xmv2aJtmizh9iyTvI31L7UnuGlLbETH0whTx32KmXJrGJEDKnIq+aBNWJru
+X-Received: by 2002:a17:907:3f17:b0:c16:604a:b2bd with SMTP id a640c23a62f3a-c2ac234ac2cmr1156189366b.3.1790605995252;
+        Mon, 28 Sep 2026 07:33:15 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794f224sm4832371a12.25.2026.09.28.07.33.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:33:14 -0700 (PDT)
+Date: Mon, 28 Sep 2026 22:33:11 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: yaojiale02@163.com, Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: validate extent list in filecheck repair
+Message-ID: <arp6FkHBlWtzVa64@p15>
+References: <20260926131848.3379842-1-yaojiale02@163.com>
+ <744a70bd-5455-421f-a37d-1c0a63f54b60@linux.alibaba.com>
+ <arn2x2Y688K9Js4N@p15>
+ <08d85624-7da8-4d6e-9899-765d1af2e9f4@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
-To: Bartosz Golaszewski <brgl@kernel.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Peter Tyser <ptyser@xes-inc.com>, Lixu Zhang <lixu.zhang@intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
- Mika Westerberg <westeri@kernel.org>,
- Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
- <arZRZfa7AmDxmwoJ@ashevche-desk.local>
- <20260925125433.GY106095@black.igk.intel.com>
- <araGjQoaffMhDMLz@ashevche-desk.local>
- <20260926100727.GB106095@black.igk.intel.com>
- <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
- <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
- <CAMRc=McKAR7VadTYtTfU1kAHSRidj_AdhBbDh+2zNpFWhjA2mw@mail.gmail.com>
- <CAHp75VdGwVf2pCXzmQoY5zvgSf0KsRH8hU9Qt45iZmEG0KMzCA@mail.gmail.com>
- <CAMRc=Me_sAdbqLq6s9sQ+Ti2_CfE8uHbAVqhe=PPpu8kPGkn9g@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CAMRc=Me_sAdbqLq6s9sQ+Ti2_CfE8uHbAVqhe=PPpu8kPGkn9g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <08d85624-7da8-4d6e-9899-765d1af2e9f4@linux.alibaba.com>
 
-Hi,
-
-On 28-Sep-26 16:13, Bartosz Golaszewski wrote:
-> On Mon, 28 Sep 2026 15:12:18 +0200, Andy Shevchenko
-> <andy.shevchenko@gmail.com> said:
->> On Mon, Sep 28, 2026 at 3:25 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
->>> On Mon, 28 Sep 2026 13:34:44 +0200, Andy Shevchenko
->>> <andy.shevchenko@gmail.com> said:
->>>> On Mon, Sep 28, 2026 at 2:13 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
->>>>> On Sat, 26 Sep 2026 12:07:27 +0200, Mika Westerberg
->>>>> <mika.westerberg@linux.intel.com> said:
->>>>>> On Fri, Sep 25, 2026 at 05:34:53PM +0300, Andy Shevchenko wrote:
->>>>>>> On Fri, Sep 25, 2026 at 02:54:33PM +0200, Mika Westerberg wrote:
->>>>>>>> On Fri, Sep 25, 2026 at 01:48:05PM +0300, Andy Shevchenko wrote:
->>>>>>>>> On Fri, Sep 25, 2026 at 12:22:15PM +0200, Bartosz Golaszewski wrote:
->>
->> ...
->>
->>>>>>>>>>  drivers/gpio/{ => intel}/gpio-graniterapids.c   |  0
->>>>>>>>>>  drivers/gpio/{ => intel}/gpio-novalake-events.c |  0
->>>>>>>>>
->>>>>>>>> These are interesting drivers, not sure where to put them
->>>>>>>>
->>>>>>>> IMHO they should be there too. We are maintaining them both.
->>>>>>>
->>>>>>> Do you send PRs to Bart or you just rely on him to take the patches?
->>>>>>
->>>>>> I don't expect these two drives to get too much attention, and they could
->>>>>> be contained nicely inside intel folder and that would help Bart to
->>>>>> identify that these are Intel drivers. So your bandwidth would not suffer
->>>>>> even if these two are added there. Your call.
->>>>>
->>>>> I'd like to avoid a situation where we have Andy's Intel drivers under
->>>>> drivers/gpio/intel/ and other Intel drivers under drivers/gpio/. I'd prefer
->>>>> to move all of intel GPIO drivers into drivers/gpio/intel/ and have Andy
->>>>> gather changes to them if he agrees.
->>>>
->>>> Okay, we have two parts missing:
->>>> - Nova Lake driver (I would need Adam or Mika to step in as at least a
->>>> designated reviewer for that)
->>>
->>> Acked.
->>>
->>>> - USB IO (I think we need to agree which tree it will go through, my
->>>> bet that media tree is the best), for that we need Hans' consent
->>>
->>> So far the initial commit was picked up by Greg and the other two were
->>> signed-off by me with Acks from intel people.
->>>
->>> I'd do the same thing as for nova lake: Israel, Hans and Sakari as reviewers
->>> and you queue the changes?
->>
->> I'm fine with this route as well. Since Hans replied, this all depends
->> on Sakari's answer.
+On Mon, Sep 28, 2026 at 05:56:27PM +0800, Joseph Qi wrote:
 > 
-> Does this include moving this driver under drivers/media/ as well?
+> 
+> On 9/28/26 1:18 PM, Heming Zhao wrote:
+> > On Mon, Sep 28, 2026 at 09:33:12AM +0800, Joseph Qi wrote:
+> >>
+> >>
+> >> On 9/26/26 9:18 PM, Jiale Yao wrote:
+> >>> ocfs2_filecheck_validate_inode_block() does not validate the embedded
+> >>> extent list, while ocfs2_filecheck_repair_inode_block() only clamps
+> >>> l_next_free_rec to l_count.  The normal inode read path requires l_count
+> >>> to be non-zero, limits it to the number of extent records that fit in the
+> >>> inode, and requires l_next_free_rec not to exceed l_count.
+> >>>
+> >>> Without the same checks, filecheck can report SUCCESS while leaving an
+> >>> invalid extent list on disk.  A later read through the normal inode
+> >>> validation path rejects the inode and makes the filesystem read-only.
+> >>>
+> >>> Add a shared helper for the filecheck paths to check these invariants.
+> >>> The filecheck validator now rejects all three cases.  The repair path
+> >>> still clamps l_next_free_rec, but refuses to repair zero or oversized
+> >>> l_count values.
+> >>>
+> >>> Fixes: d56a8f32e4c6 ("ocfs2: check/fix inode block for online file check")
+> >>
+> >> I'd like make this as a new ability rather than a bug fix.
+> >>
+> >>> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> >>> ---
+> >>>  fs/ocfs2/inode.c | 71 ++++++++++++++++++++++++++++++++++++++++++++++++
+> >>>  1 file changed, 71 insertions(+)
+> >>>
+> >>> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> >>> index 180107a11046..57168ed02915 100644
+> >>> --- a/fs/ocfs2/inode.c
+> >>> +++ b/fs/ocfs2/inode.c
+> >>> @@ -249,6 +249,41 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
+> >>>  	return 1;
+> >>>  }
+> >>>  
+> >>> +enum ocfs2_extent_list_status {
+> >>> +	OCFS2_EXTENT_LIST_OK,
+> >>> +	OCFS2_EXTENT_LIST_ZERO_COUNT,
+> >>> +	OCFS2_EXTENT_LIST_OVERSIZED,
+> >>> +	OCFS2_EXTENT_LIST_BAD_NEXT_FREE,
+> >>> +};
+> >>> +
+> >>> +static enum ocfs2_extent_list_status
+> >>> +ocfs2_check_extent_list(struct super_block *sb, struct ocfs2_dinode *di)
+> >>> +{
+> >>> +	struct ocfs2_extent_list *el = &di->id2.i_list;
+> >>> +	u16 count;
+> >>> +	u16 next_free;
+> >>> +
+> >>> +	if (!ocfs2_dinode_has_extents(di))
+> >>> +		return OCFS2_EXTENT_LIST_OK;
+> >>> +
+> >>> +	count = le16_to_cpu(el->l_count);
+> >>> +	next_free = le16_to_cpu(el->l_next_free_rec);
+> >>> +	if (count == 0)
+> >>> +		return OCFS2_EXTENT_LIST_ZERO_COUNT;
+> >>> +	/*
+> >>> +	 * The exact capacity depends on i_xattr_inline_size, another
+> >>> +	 * unvalidated on-disk field. Inline xattrs only shrink the
+> >>> +	 * list, so the no-xattr maximum is a safe upper bound that a
+> >>> +	 * valid l_count never exceeds.
+> >>> +	 */
+> >>> +	if (count > ocfs2_extent_recs_per_inode(sb))
+> >>> +		return OCFS2_EXTENT_LIST_OVERSIZED;
+> >>> +	if (next_free > count)
+> >>> +		return OCFS2_EXTENT_LIST_BAD_NEXT_FREE;
+> >>> +
+> >>> +	return OCFS2_EXTENT_LIST_OK;
+> >>> +}
+> >>
+> >> This seems a duplicated check in ocfs2_validate_inode_block().
+> >> So I sugguest just extract the helper from it instead of duplicating
+> >> a new one.
+> >>
+> >> BTW, seems we don't have to introduce enum ocfs2_extent_list_status,
+> >> to make the checks simple.
+> >>
+> >> Thanks,
+> >> Joseph
+> > 
+> > Hi Joseph,
+> > 
+> > The code logic is identical for ocfs2_validate_inode_block() and
+> > ocfs2_filecheck_validate_inode_block(), except for their error handling style.
+> > It seems possible to merge them into ocfs2_validate_inode_block() by adding
+> > a bool check parameter to distinguish between the two behaviors, and then remove
+> > ocfs2_filecheck_validate_inode_block().
+> > 
+> > The new code logic: replace ocfs2_error() with mlog(), and then "goto bail".
+> > At the bail label, handle the two cases separately using "if (check)".
+> > 
+> > i.e.:
+> > //adding a new parameter "check"
+> > int ocfs2_validate_inode_block(struct super_block *sb,
+> > 			       struct buffer_head *bh, bool check)
+> > 
+> > 
+> > code change from:
+> > ```
+> > 	int rc;
+> > 
+> > 	... ...
+> > 
+> > 	if (!OCFS2_IS_VALID_DINODE(di))
+> >                 rc = ocfs2_error(sb, "Invalid dinode #%llu: signature = %.*s\n",
+> > 		     (unsigned long long)bh->b_blocknr, 7,
+> >                      di->i_signature);
+> >                 goto bail;
+> >         }
+> > ```
+> > 
+> > to
+> > ```
+> > 	int rc = 0;
+> > 
+> > 	... ...
+> > 
+> > 	if (!OCFS2_IS_VALID_DINODE(di))
+> >                 mlog(sb, "Invalid dinode #%llu: signature = %.*s\n",
+> > 		     (unsigned long long)bh->b_blocknr, 7,
+> >                      di->i_signature);
+> >                 goto bail;
+> >         }
+> > 
+> > 	... ...
+> > 
+> > 	return rc;
+> > 
+> > bail:
+> > 	if (check) {
+> > 		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
+> > 	} else {
+> > 		rc = ocfs2_error(sb, "invalid dinode\n");
+> > 	}
+> > 
+> > 	return rc;
+> > }
+> > ```
+> 
+> Ummm... This may make the code messy.
+> I'd like only abtract the check condition, and let the return code and
+> log message as in its own validation function.
+> e.g. ocfs2_dinode_has_size_without_clusters().
+> 
+> Thanks,
+> Joseph
 
-It is a driver for the GPIO function of a USB MFD (auxiliary bus) device,
-so drivers/gpio seems like the right place to me ?
+Got it and agreed.
 
-Regards,
-
-Hans
-
-
+- Heming
