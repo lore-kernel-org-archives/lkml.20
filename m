@@ -1,86 +1,92 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FD54E4C55
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993C849EC77;
+	Mon, 28 Sep 2026 15:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608823; cv=none; b=EmsB1pfj4m3WivN6aLGqFXaeNZ+Cw9l5bRrzgKc4ZKaTSp+ehv3vedzDiQ6P1jvzHKvjs3BWvop+sfpx/eqkJ2MMvRk/p+ysjKp0TpSBobO3MxUEiudEl3skJW13D/a8qt4i/aR0oBtdTwp0IYtCX1PmmqhOx0jNhuyXx8Qisrc=
+	t=1790608868; cv=none; b=athOXBPH7lbLl7761UIVVT4X1d7kF8ecB27H5rqyBjnsAET5kOk5i19UD62PgXsn8fc/+gWgJ2rCfLFxNK3wdeBdL0Yw+EAHFwo/LTZs0gzq9eGO9rnipnagSrL2/PXr4BYYg04IMno4DKf36kynFhw4HKcWd/OIYLA07tbkR5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608823; c=relaxed/simple;
-	bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lDVj3AeOue3Sh7VjAHqUZceH4Sqxa1JKKXfPKDbjsIiYP9kC2cQ7JSq8/ewgUZhZqdH/d624/FQzFP9f1UgtGlTCY41jyeV6kPZjO3W/yxr0++ashvshrTe7gPVy165sam9TIKBqnU8mHTjUTgHjt7kC0auy1+dIPVVJ+1H5ybY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c734afb8deso5740784b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:20:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608821; x=1791213621;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
-        b=gdN3j2M1lh1y32rgHcV+tJfqN67apH41QnUtMgtfSktQziQcwfGuAF3beTpt0KHdPF
-         nLC2FTYKcm1LcJEHZAGee2ZqaqL/gKIDsnneF+P38hRx2fvyHGh6Xm6W17DlE8Gd17rO
-         ItjPwQ/Zun8Mgd9wscq/WQok9rq0/HZWFdF40628ITO/kEPu+xcn6L1zz+l6GcIOTvfc
-         gbrWMBouFkRqIwx6QoJW3YfJLeXAn4/VPltQreQdHPI8Ru2+ufQwMPgPh8e+qVfbWmlP
-         TB2CAj41kz8txzA37i3XNa3cs3iUVAILrKc3ns7UIbizF61vasJd89NZqOWU7fcGoyQn
-         phHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxA68koXWjYkifLrk1kgu4bzWcWbbHT93Sq/ks9x0Ct6E0CN5EAf/54e7DBXvlUcg5MXBX4XMcGYmqySdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzJmdyKI9NFODRrVOKcEq0H+8WK/XoGmpN91EufOPC1x9Egdv/
-	vd7caC/NUtZG4H06GqKzPV+jDnOGdkl4ZNCXf44KCOYrkeqri1btQ4noPCBFu9qhufsgNfv96tf
-	aIqO6A/wPw896klG3/htDGhfDnMrAY6PJYWZjcrD3CdV2Eq1BDLZ3bnY2ln8=
+	s=arc-20240116; t=1790608868; c=relaxed/simple;
+	bh=0aQ5u8Ov2JLtGuEXwA+dyKKJ1qL1E4Qz7Ycwc1XSFp8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=rvfOsU+hK4BsasQOBQznKzRuzvQIpuDpV6I8L7na3utacroLEdvKicQKADwe4xQpmh3BFfZYd/w8ot2wYq5/20S68JUZ2cEz8z1w1LyBX2ciZ1BnkPRaVvHd4ycTtINM7VYDgYhfttVeIrD3I2raniNGuHhrEqdDEi5VuaKOqKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpoEWH8e; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpoEWH8e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71281F000FF;
+	Mon, 28 Sep 2026 15:21:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790608867;
+	bh=dWD2qtdFlsNDT4Nr7cHISMWIU44LEohxuzldup8NdIs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=dpoEWH8eZRwEJykNxRmuSRfcONwM1QnpugixUo6zWhk5QRKOZJwUrBKp/M6IdzirM
+	 ETGkxOEmbQjxWapCE6OPXcssQAXVLtIrHjAj7P3nYlJyb6GWnWwLoiOI/IdQeKfkiO
+	 TPA3se/hcI+wC7WHMpFw08DBZ1HhcHJkoeYj97eGbmSedmPyMgLGkiqk9lo0vkrPtu
+	 C/5hl4soOWnHZOIHwrY/BFVru2anOv5fWILeM8gLtSY1MlWvHkjJjH60OxUg2MHCoW
+	 3xWvVc1UxTJlnegSnZwpef54ZxPEOwxmptNQii4q/0SagUAYMDve6VQ6iWn6g7jz0+
+	 q3YNMbRdWh9hg==
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com, 
+ yung-chuan.liao@linux.intel.com, kai.vehmanen@linux.intel.com, 
+ pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20260928105610.242687-1-ckeepax@opensource.cirrus.com>
+References: <20260928105610.242687-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: Intel: Add quirk to block match table for Lenovo
+ Yoga Slim 7
+Message-Id: <179060199739.139547.9316430290612675939.b4-ty@b4>
+Date: Mon, 28 Sep 2026 14:26:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f6c:b0:4e5:79ec:5bf8 with SMTP id
- 5614622812f47-4e579ec5e82mr5696827b6e.67.1790608821153; Mon, 28 Sep 2026
- 08:20:21 -0700 (PDT)
-Date: Mon, 28 Sep 2026 08:20:21 -0700
-In-Reply-To: <00000000000034ae0f05e9f94c79@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aba85b5.94408439.88f0.0000.GAE@google.com>
-Subject: Re: [syzbot] KASAN: use-after-free Read in jfs_lazycommit
-From: syzbot <syzbot+885a4f3281b8d99c48d8@syzkaller.appspotmail.com>
-To: dave.kleikamp@oracle.com, jfs-discussion@lists.sourceforge.net, 
-	kapoorarnav43@gmail.com, linux-kernel@vger.kernel.org, qianqiang.liu@163.com, 
-	shaggy@kernel.org, syzkaller-bugs@googlegroups.com, tristmd@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1152; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0aQ5u8Ov2JLtGuEXwA+dyKKJ1qL1E4Qz7Ycwc1XSFp8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBquoXfzpKQBCzeM4B9sUaWT476mdA+nMfPnl8y0
+ J7dtjW7wcqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarqF3wAKCRAk1otyXVSH
+ 0LO2B/0RpVOKN4pQRIZNelqm5bRq3/DrPnpsE6n0fbp5P/VXqLJRLxoXma4tKIlth9502D4/NI1
+ kREBOUrrf2Epk5VuNNgwRG3cm9QqlzeHiW7TLnZtGEbIKM9Tyo2XRd1n5LrFXyFU1grv7I/E7Yb
+ i91JUEQRJy9O7lal3bt8NFxMKUHtfFws+uzngNW4QF6v+CiQZ3+aCofJh7s+e5y2Ukp2p4RDlrf
+ 2tXM5MXobxnZ9IBPjBooItSZKNUlZgacLiG9i/r6ESQmWIza4HlZCfhrM4LzBfDhn7bDnnL+WHM
+ fVYtREr5jUqXi6EwtPme3BBvXSvbAhMDDMIoBYXJgj3tkzuV
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This bug is marked as fixed by commit:
-From 7e1a0b91e9efa8bec40fc5397ba6c4e683d72df0 Mon Sep 17 00:00:00 2001
+On Mon, 28 Sep 2026 11:56:10 +0100, Charles Keepax wrote:
+> ASoC: Intel: Add quirk to block match table for Lenovo Yoga Slim 7
 
-But I can't find it in the tested trees[1] for more than 90 days.
-Is it a correct commit? Please update it by replying:
+Applied to
 
-#syz fix: exact-commit-title
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Until then the bug is still considered open and new crashes with
-the same signature are ignored.
+Thanks!
 
-Kernel: Linux
-Dashboard link: https://syzkaller.appspot.com/bug?extid=885a4f3281b8d99c48d8
+[1/1] ASoC: Intel: Add quirk to block match table for Lenovo Yoga Slim 7
+      https://git.kernel.org/broonie/sound/c/c26d18964a93
 
----
-[1] I expect the commit to be present in:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-1. for-kernelci branch of
-git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-2. master branch of
-git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-3. master branch of
-git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-4. main branch of
-git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+Thanks,
+Mark
 
-The full list of 11 trees can be found at
-https://syzkaller.appspot.com/upstream/repos
