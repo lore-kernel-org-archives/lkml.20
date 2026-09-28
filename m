@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8972502D5E;
-	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7DD503915;
+	Mon, 28 Sep 2026 22:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634324; cv=none; b=Qc5qgVZ6kLj1rvguH3KcxS2zW0piIwlXJyFLgNHvPlsAIbeB2ENu5anbFA+rXj2b70fhPricpSd6cEbwzHPtAtpBaoi5K8XQLdJBCrUa9XXWz+pbxbAvMvnQ1PU2XNyXKWEIoRUv8aQ9eKOreD3QayTSkmy/bYB/+P4QnpnMpvY=
+	t=1790634325; cv=none; b=TPdWLyFWxqYhDgIl8rZj9VZZcc1PsgxgEDzxY1N5U693GZPDy/Dp/mtmMgyWGZpuopUgjJzfgznRxAs4oYv63GhMm+FDIvqAthk4s4CTskox/MxotxSm8FEe23kBvMkCo+ZVh5KuC9NfCm+tOH2VGqH0L3pjXYtFhPNxDF3arrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634324; c=relaxed/simple;
-	bh=TIDH55UISQVWfSK8IYB5dTvRd5ZzroEiVt0DyeErxMU=;
+	s=arc-20240116; t=1790634325; c=relaxed/simple;
+	bh=5bc6pfk28wmcByOW/Kr8ah3RV0BtojVxsQeAPP9E0HI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RVSySsaKQQ8b+X5egye+2MMwpLmjQz17JgfEu7vkzIRD9TQSO90QghVbiv/H4fua+5/LlGIuFkZv8jXgvA23t5I+iJHEwjH1I2U3h11aYJMpL5rc6cLt7y19iXAj7BcuWE88UYuDO+7TG/CEj7gG5laiPd8qI1HN1NpoiREvWik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHrYuCJz; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=E4UtxMG70UlCh8wddrE89ukhCItDQPDGc/L6GVon65OpEn5tAqeOnHQHx1mXkUJJBQ3LwoIZYaLU8+Ab9N0lDpDTcmTJC9Zp0+JK4K+Mb8GdCXw7d9F8OlJ2sJHiFOtDBnYRTlMa4VIfk4mh+BZGch8Peg9K3nCg8hGp/kmAcEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vBgmdBZM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHrYuCJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 60D26C4AF1A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vBgmdBZM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E206AC4AF13;
 	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790634324;
-	bh=TIDH55UISQVWfSK8IYB5dTvRd5ZzroEiVt0DyeErxMU=;
+	bh=5bc6pfk28wmcByOW/Kr8ah3RV0BtojVxsQeAPP9E0HI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=RHrYuCJz2p0VpQXldmF3HUOWmthUNW5KzxcpjMuoWjgZAU5uXkgWRHNcgg2IlxODW
-	 5EdsyEyKHzBcqS88rQSnNQkNE7px+5wVztNy9uukDw1tPauzkRarM5UnfiHs+QoE0w
-	 oVpU3F8vVk7nqfC0x/7UK6LMR3jzivWDh5SOWOYD64H7QW0ZHt+145x0U+yProv4Ub
-	 TmZtwueGCIm8wocS50yNYkpxyF88OeXICeoqCwmqfuXaqVWiDamBMQQLBHxVIEQ8Eu
-	 1qsE7R+Oqy3nW26R/Tt+YRhHlCwdqjNJ2QB6s2BJGXF4S8S3zlSm1AGYoxEP4k32lZ
-	 EqkTci0O9FHFg==
+	b=vBgmdBZM+nhrDq4pd6kK9oCdeOKTQKYurin6b581i2J18YP440W6o6ic9ZAT/1dl3
+	 gnZ9j8x1JN3FMEs8Sl5ZN7fASY6ILqcOsGYo2ThbhGJ+GQa1+o3HPZJWf2DZeax4Kh
+	 p18nsSqqr79EuQXr7S7ioPmnLYZw4IFwZWpEWvTAbFQGSep6cAWKF9JaylGFf1sENi
+	 a3vEBlEU38oTpYkiS+1KrMFkgvOQbNeU+QYo3LXrI/SkbDa4LsXqoyob1z7jE8g61L
+	 Kk+jlRkr+Ma74KwhVGqgeUZ4HCGHOLvQ0w6hYTPKjhcwUWL8idUGkel0lHmzwQUt78
+	 PkYK7BOK5xAxQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41051CA5FAE;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D026FCA5FA5;
 	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Mon, 28 Sep 2026 15:25:10 -0700
-Subject: [PATCH net-next v8 03/11] net: ethernet: oa_tc6: Move oa_tc6.c to
- its own directory
+Date: Mon, 28 Sep 2026 15:25:18 -0700
+Subject: [PATCH net-next v8 11/11] onsemi: s2500: Added selftest support to
+ onsemi's S2500 driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-s2500-mac-phy-support-v8-3-7e011aacc309@onsemi.com>
+Message-Id: <20260928-s2500-mac-phy-support-v8-11-7e011aacc309@onsemi.com>
 References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
 In-Reply-To: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
 To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
@@ -63,11 +63,11 @@ Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Jerry Ray <jerry.ray@microchip.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790634319; l=4808;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790634319; l=1480;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=RsgLNt6bDJTqfwctNnjJi2OeOVDuHYS0k6pWifryws4=;
- b=sut8mVjbaPZTt90UON3xZx/L51US11TwDCIsLUlJqCaO0VmBX4ucRJNf3nh4gbnVFFEDqMx9s
- CbhTq1THktiBgiYDBDoWRcmYWiTrOAi1FDFpdRmQrhdvVaJ7vCI9xV1
+ bh=1G0xxGdLzP5HuRKATIb1vzj6jozdw4TcGyJtI0dwg80=;
+ b=9XpdRET7UlN2MZL26nkvyywpj7rD9gHt9MwMOfS/Jem5RU3mNw/O+eu9TfqkGXPEebeBZZ3il
+ jiJFkbI1U+HBIXtx8WREg84qF1Si960MYRLdIGxZxum6pGaES3nYu93
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -77,12 +77,8 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Moving oa_tc6.c to its own directory, drivers/net/ethernet/oa_tc6. This
-will facilitate adding more files to support other features
-defined by OPEN Alliance 10BASE-T1x Serial Interface specification
-
-This patch series is adding two files, one for hardware
-timestamp related functions and one for PTP related APIs.
+Adds selftest support for onsemi S2500 MAC-PHY. Added as a separate
+patch for the ease of review.
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
@@ -92,123 +88,47 @@ changes in v8
 changes in v7
   - No change
 changes in v6
-  - No change
+  - Moved the signed off information to the correct place.
 changes in v5
   - No change
-changes in v4
-  - Removed reference to onsemi in Kconfig files
-changes in v3
-  - Moved oa_tc6.c to its own, oa_tc6 directory under ethernet.
+changes in v4:
+  - Added a selftest as a separate patch
   - First patch
 ---
- MAINTAINERS                                |  2 +-
- drivers/net/ethernet/Kconfig               | 12 +-----------
- drivers/net/ethernet/Makefile              |  2 +-
- drivers/net/ethernet/oa_tc6/Kconfig        | 16 ++++++++++++++++
- drivers/net/ethernet/oa_tc6/Makefile       |  7 +++++++
- drivers/net/ethernet/{ => oa_tc6}/oa_tc6.c |  0
- 6 files changed, 26 insertions(+), 13 deletions(-)
+ drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 64da809e4602..541ed016144d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20457,7 +20457,7 @@ M:	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/networking/oa-tc6-framework.rst
--F:	drivers/net/ethernet/oa_tc6.c
-+F:	drivers/net/ethernet/oa_tc6/oa_tc6*
- F:	include/linux/oa_tc6.h
+diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c b/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
+index 65bbcc1c7dc8..08e748d4b10c 100644
+--- a/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
++++ b/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
+@@ -5,6 +5,7 @@
+  */
  
- OPEN FIRMWARE AND FLATTENED DEVICE TREE
-diff --git a/drivers/net/ethernet/Kconfig b/drivers/net/ethernet/Kconfig
-index c2b0161d0bec..5758e0fbbca5 100644
---- a/drivers/net/ethernet/Kconfig
-+++ b/drivers/net/ethernet/Kconfig
-@@ -135,6 +135,7 @@ source "drivers/net/ethernet/netronome/Kconfig"
- source "drivers/net/ethernet/8390/Kconfig"
- source "drivers/net/ethernet/nvidia/Kconfig"
- source "drivers/net/ethernet/nxp/Kconfig"
-+source "drivers/net/ethernet/oa_tc6/Kconfig"
- source "drivers/net/ethernet/oki-semi/Kconfig"
+ #include <linux/ethtool.h>
++#include <net/selftests.h>
+ #include <linux/phy.h>
  
- config ETHOC
-@@ -147,17 +148,6 @@ config ETHOC
- 	help
- 	  Say Y here if you want to use the OpenCores 10/100 Mbps Ethernet MAC.
+ #include "s2500_hw_def.h"
+@@ -193,6 +194,8 @@ static int s2500_get_sset_count(struct net_device *ndev, int sset)
+ 	switch (sset) {
+ 	case ETH_SS_STATS:
+ 		return S2500_MAC_STATS_LEN;
++	case ETH_SS_TEST:
++		return net_selftest_get_count();
+ 	default:
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -206,6 +209,9 @@ static void s2500_get_strings(struct net_device *ndev, u32 stringset,
+ 		memcpy(buf, s2500_mac_stat_strings,
+ 		       S2500_MAC_STATS_LEN * ETH_GSTRING_LEN);
+ 		break;
++	case ETH_SS_TEST:
++		net_selftest_get_strings(buf);
++		break;
+ 	}
+ }
  
--config OA_TC6
--	tristate "OPEN Alliance TC6 10BASE-T1x MAC-PHY support" if COMPILE_TEST
--	depends on SPI
--	select PHYLIB
--	help
--	  This library implements OPEN Alliance TC6 10BASE-T1x MAC-PHY
--	  Serial Interface protocol for supporting 10BASE-T1x MAC-PHYs.
--
--	  To know the implementation details, refer documentation in
--	  <file:Documentation/networking/oa-tc6-framework.rst>.
--
- source "drivers/net/ethernet/pasemi/Kconfig"
- source "drivers/net/ethernet/pensando/Kconfig"
- source "drivers/net/ethernet/qlogic/Kconfig"
-diff --git a/drivers/net/ethernet/Makefile b/drivers/net/ethernet/Makefile
-index a306dae23bcb..e0e86c249e42 100644
---- a/drivers/net/ethernet/Makefile
-+++ b/drivers/net/ethernet/Makefile
-@@ -72,6 +72,7 @@ obj-$(CONFIG_NET_VENDOR_NETRONOME) += netronome/
- obj-$(CONFIG_NET_VENDOR_NI) += ni/
- obj-$(CONFIG_NET_VENDOR_NVIDIA) += nvidia/
- obj-$(CONFIG_LPC_ENET) += nxp/
-+obj-$(CONFIG_OA_TC6) += oa_tc6/
- obj-$(CONFIG_NET_VENDOR_OKI) += oki-semi/
- obj-$(CONFIG_ETHOC) += ethoc.o
- obj-$(CONFIG_NET_VENDOR_PASEMI) += pasemi/
-@@ -105,5 +106,4 @@ obj-$(CONFIG_NET_VENDOR_XILINX) += xilinx/
- obj-$(CONFIG_NET_VENDOR_XIRCOM) += xircom/
- obj-$(CONFIG_NET_VENDOR_SYNOPSYS) += synopsys/
- obj-$(CONFIG_NET_VENDOR_PENSANDO) += pensando/
--obj-$(CONFIG_OA_TC6) += oa_tc6.o
- obj-$(CONFIG_NET_VENDOR_ZTE) += zte/
-diff --git a/drivers/net/ethernet/oa_tc6/Kconfig b/drivers/net/ethernet/oa_tc6/Kconfig
-new file mode 100644
-index 000000000000..97345f345fb9
---- /dev/null
-+++ b/drivers/net/ethernet/oa_tc6/Kconfig
-@@ -0,0 +1,16 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# OA TC6 10BASE-T1x MAC-PHY configuration
-+#
-+
-+config OA_TC6
-+	tristate "OPEN Alliance TC6 10BASE-T1x MAC-PHY support"
-+	depends on SPI
-+	select PHYLIB
-+	help
-+	  This library implements OPEN Alliance TC6 10BASE-T1x MAC-PHY
-+	  Serial Interface protocol for supporting 10BASE-T1x MAC-PHYs.
-+
-+	  To know the implementation details, refer documentation in
-+	  <file:Documentation/networking/oa-tc6-framework.rst>.
-+
-diff --git a/drivers/net/ethernet/oa_tc6/Makefile b/drivers/net/ethernet/oa_tc6/Makefile
-new file mode 100644
-index 000000000000..f24aae852ef2
---- /dev/null
-+++ b/drivers/net/ethernet/oa_tc6/Makefile
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Makefile for OA TC6 10BASE-T1x MAC-PHY
-+#
-+
-+obj-$(CONFIG_OA_TC6) := oa_tc6_mod.o
-+oa_tc6_mod-objs := oa_tc6.o
-diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6/oa_tc6.c
-similarity index 100%
-rename from drivers/net/ethernet/oa_tc6.c
-rename to drivers/net/ethernet/oa_tc6/oa_tc6.c
 
 -- 
 2.43.0
