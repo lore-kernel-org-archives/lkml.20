@@ -1,111 +1,156 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC205012B2;
-	Mon, 28 Sep 2026 21:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790631170; cv=none; b=VjxsHQQfygZeyVJVpEBS2rIoCPsjtA8hX8WSBakE0yMS3Rrp6fkgxusHEiBQ0PbQgV2Kl8oUpreccSvkW5fbXsXp/CViMN002uq8jr77iAKONgGPfrkpsHi5HC5mlJwTrm9DKoT6DKDEnk7X4m0r/OV+VVY3FEhBEdosuHqJJMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790631170; c=relaxed/simple;
-	bh=epNoroeavcGYBU0gF0l4Ccj9MVBTx/Y5ypuGkTvRQp4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=es5Vu3FR909wG2iPnaUXNGCR32WVJ8rCtWN+GH/Le4IWHyhPgjuEGht5DBjlPMjIC0tdcRqUNSAsUJN97lTwpGQkMctWhfyx2cbj39bdFlJ/yjmCrqo2+Syww4RputEr/XYv5rMeq5IB32CQECRTQYzD2E7HtECkMQOZcxIeNGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jkF+kUhs; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C1F4F68A7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790631186; cv=pass; b=nL7R+vx58HdkVykC4Vbd351TXO2wa+zSdBG1dPuv1rNIq7HQVi3T7+bNhWuZgrs5jYP8yl6AtE2+/0AvZ4c3su7ZDLCRarseRxEsCslG2lk1LV31i4utv73PYKxyd6oxAJxj+B6rExWeeyCRSUBVkm95hVlosJFQ3wXZ2VmN0+c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790631186; c=relaxed/simple;
+	bh=EA27YKz9impM5lVK/eI8Pn+cGv629ZkPNM+KYO0C0Tg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tv2CpNsb42O7IpNBqEFOrmiuXJVSTm+WnRWR4ZY+oKyh7Fk0esxm8vciRjJwNkdl2mJDTNFPTPyo7+q9LwQCkD5mx9BiRgf1h+69Z8NWjSldHO7UVJKc/0B8tQAry7nMchIiJ8j5MUroTd9su9EU5++Wj/xB7pFpTEhT+CDiLAU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z/qoVaES; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jkF+kUhs"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4htvfd18H1z8vVc;
-	Mon, 28 Sep 2026 23:32:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790631161;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rXP4kntCRSr0u9GLCjjrcHN16qzZLRh3uXI4VNGJVtc=;
-	b=jkF+kUhsNBuDQ8l1B8GovLmQ2G6gJbB/kajiYp380+se5g6+slhn1RnbbaEK0kalnCNQl/
-	+Tc8KmRNwZSYanK95gQA+PimSycl4X7zo3uEJ0DiCkxhmvxen8VqngSzgmkykjEWXDPvWg
-	cBw0IWxlw73q9aDl1wTk5D5Hfx68voqpQ1hF7EPnOHXjmrNdX3BKJjmRm/bMzvnrF1f5J8
-	vx3ftHeM43gST5ayX/k/pdmxVh1/ahl1SI+vtOMbmDOFSXGGIWRyk6tHonljMyjerFx0S5
-	8YZz4VRzjUKop0+pg2SK8UZc6HroFLBQmITGvK0uzpvLfXPcgVDr+wiP76RXfA==
-Message-ID: <3bb47958-09e2-4726-85e3-8e5d3873840e@mailbox.org>
-Date: Mon, 28 Sep 2026 23:32:37 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z/qoVaES"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a4fbc5586so546693066b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:33:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790631181; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U/dUfB8HFwegbqOxZZsMaWxwbdjep5v3EK6qFUXbQv2pIJlejFqd2pDHpWI6zdOj1U
+         zFbwUx8UmGkix21Y7GUDWhiMZ5escTOWhwqpETWiwW9LUnWYJqzyN7PBmAmTlmy5Qfap
+         q42DtO+FsQV7nN3gYvV2oaIBpR5DwSbHnz4GiqDQHMzR+OZfXC4CG/mbtYIS/WRjYMR2
+         LTLoq+ar/tsNOyCT0dotfl8b7mlPfak1QoPfCqGajxjpn//Alkg4wKVeHboP4AKSZ9mo
+         ExK+o7pP7viVrZckaxj3RhBNDtjkWnIxPOHexRb/bk9xrF2PVeHfPMYdryprXevNwIC7
+         SiUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pgy0F69XgkRODojgxpYtLEioAZBN7GxAhb6l/0w25jw=;
+        fh=2cctWrMsXufC6iXdZY8igqIMBWYHh3EBPzReHVGPntY=;
+        b=DV4D4HyphgnllaatcTfUv1y0fEk3ULEwRMdIgFvqmyqYd5PGeByjYZFlFrQ48gT6rb
+         RrbyVeHnet1K7AK/iUNLoJ6CPd204g2ch/PIi8pJFSJ6HfTuAPRpjtq5oxFPxwqyUhij
+         cRt6jxuO4gNP8FpmAcfIw4zd5bc8J16wVNa/YH+Lx0ncB3ZWs4VxEyM7IBLFShjxmgfI
+         xgqytVg6zal8yFKz8ibE/l3D1jo9iBH1HnuHU0JjIJ7702CnStav8VbGuHChP/SFkWP6
+         iIEfyke11xvsYjSwT/aX0HcbgeIWHf52zj//YhrG9YUYeWmNKaxMJ5WaTILmkx9WY4Pm
+         SX9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790631181; x=1791235981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pgy0F69XgkRODojgxpYtLEioAZBN7GxAhb6l/0w25jw=;
+        b=Z/qoVaESgQAUcg99LiBp4xtvNuS2mCiAwcVnWvKaHFqtekjNZ0dy3AEMqMxqbunmd1
+         r5IfeVSXZF2WVFntnlifD4fRUeUu3RONK1QXXyFQT/LnPjzUFvNFjnLi1YvCGlae8wKk
+         LNpbr4RzPTOnzcCBvrNSHSBcHMMzU1Jg2SaNtlv/n85Lu1yWoTb7Zvsxvyx+HfyVqRLw
+         iMEry0mp4Lp5W/niNb/0i5nF05yqV2PTaapdFRJIDQLPeBFQXlBkoEdn1bT+FKUzW85o
+         +2BGgRLSB8cykzavEO5tjEQbyfZS3/LOgd68GH4pVE9qlR+PfWyeSDPPdf6Y+2Q1rZeK
+         NNZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790631181; x=1791235981;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pgy0F69XgkRODojgxpYtLEioAZBN7GxAhb6l/0w25jw=;
+        b=aNto7lWAxCWUl5VBv2aYjkoJeHRBHFK7c9CD1CccYS+tJa3i4PaILvI3lcOptX7wSo
+         pVGRevOyqpfildqAhuFa9vCGyUHFcgEnagQCZIQy/gue6WECvg5vHw+7GbwV6sA8y3UJ
+         N+8mUxn79nUOPv/MgiiFAis0uBo536mPlkQUkeWXn9Xjf7x5HaCpqlifDpoY/xri6t69
+         3Qm/YSFl1eSzAPsjZY07P+zUuQE0muM28RErZRD05dQ7cV3X/r/cCtlpZC6v6JJezJ8t
+         epbzNV/sYbgAdu/7moDz2QL42+KCrxUl6kOCIO53mSzSMbuLEd7a9c7Xh4hvXp12z+i4
+         BusA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/zKU+tDkIhiFh457z09GtXLLPNMmvhlm80WuyQ1xJ+8LQJIB4VLVV6W94QAYwF6v9Ut7pAWBsVphOGJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvDgs1QrMfp5Hk7IB8SKYAFLhMyaP43n510A2sMUO73KeZxg5i
+	XHnzF3NmIAqFXyl8MbMZMekZo3Xsz1NtmONG9KgU+nIBw4smRREHzXUQe62gyeAsTQ9dikV8/dY
+	kYRrzvdrjK7hBh0n7TQgvudHdmfif4vs=
+X-Gm-Gg: AYBFou16h44N7j/EMEYxkh5luIiFpCVtRhC/rPNVS+jXcplCP0AORIG2IlcOfGiVvQE
+	RsrqtYH0G20DRoRoyxmCVOlHWYKceOg06gTqnV4NJ6Gq30dRYobgpbKRLhZp4E6MFJePOOBf8Aw
+	VryVNBH1P5/rkd2AYpNR+UHPVVg9mpQaW8GjZMYdJpZ06El1iTAlh8GdTR+pW63GrwZfIknaqzI
+	vN4JA1azBWQK/RDKnCMc/krJ6AUzLcxbbr7fmKN8F+l1nNLnUXs3X6aiNR38ZXQ5yQGTud6AGj0
+	uujowun/JEz1x6iqf74J2FBhOHgise8iRzDfhyt0T+IhZOjh/jVyq9juc6xyGayxtawyZT1D1/N
+	NqFTYbvZMVWbgE2ODKSyc7XoGToftYq/NAs/q4/i8j1GG93r4hp+Uvl2fG/oPPMYHUyFym0gjJG
+	Ggmdv9Q4V0fzauBY9YF+om8XFyX0XiuDn5ys8I2O2t
+X-Received: by 2002:a17:906:6a04:b0:c2d:d89d:346a with SMTP id
+ a640c23a62f3a-c2dd89d497amr349572966b.3.1790631181365; Mon, 28 Sep 2026
+ 14:33:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
- PCIe4
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260928210155.GA2260978@bhelgaas>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260928210155.GA2260978@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: w9fowsmy3hfd6ozkkg67j5hakjag8bcx
-X-MBO-RS-ID: 2656e4effd21e824bcb
+References: <20260928200318.63383-1-meatuni001@gmail.com> <20260928200318.63383-3-meatuni001@gmail.com>
+In-Reply-To: <20260928200318.63383-3-meatuni001@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 29 Sep 2026 00:32:24 +0300
+X-Gm-Features: AclHuK9jufUluVP0aI50nLvoQUmzoRhFid92QksQpAfKio6g-wKWdy9HiOsdwUA
+Message-ID: <CAHp75VeLOAs_hZUk5aX8O0Cktj9oc0MP0QEd-eJPmA8s_6NSCA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] platform/x86: hp-bioscfg: fix non-ASCII truncation
+ in hp_get_string_from_buffer()
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hdegoede@redhat.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/28/26 11:01 PM, Bjorn Helgaas wrote:
-> On Mon, Sep 21, 2026 at 10:27:48PM +0200, Marek Vasut wrote:
->> Add support for R8A78000 (R-Car X5H) PCIe4.
->>
->> This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
->> of R-Car X5H PCIe4 are almost all the same.
->>
->> The controller initialization sequence is slightly different and is
->> factored out into controller specific callbacks, in a manner similar
->> to previous R-Car Gen4 handling.
->>
->> The controller does have a PHY attached to it, but the PHY is operated
->> by a separate PHY driver, the PHY driver instance binding is handled
->> in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
->> controller specific callbacks.
->>
->> The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
->> DT compatible string to discern R-Car X5H PCIe4 controller supported
->> by this driver, from R-Car X5H PCIe6 controller which will most likely
->> use a separate driver.
-> 
-> The gen5/pcie4 usage is confusing.
-> 
-> I often push back on things like "PCIe Gen4" because it's ambiguous
-> (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
-> something else), but it's so widely used to mean transfer rate that
-> it's hard to resist, and the best I can hope for is clarification.
-> 
-> But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
-> mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
-> is something like "PCIe Gen4, i.e., 16 GT/s"?
+On Mon, Sep 28, 2026 at 11:03=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.c=
+om> wrote:
+>
+> utf16s_to_utf8s() writes into dst, but the manual loop that follows
+> re-walks src from the start and overwrites dst with truncating casts
+> (dst[i] =3D *src), discarding the UTF-8 output. Any code point above
+> U+007F produces garbage.
+>
+> Replace both with a two-stage conversion: utf16s_to_utf8s() into a
+> scratch buffer, then string_escape_mem(ESCAPE_SPACE | ESCAPE_SPECIAL,
+> "\\\r\n\t") into dst. Passing the four characters to @only avoids
+> escaping quotes, leaving them for the existing strreplace() call.
+>
+> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7).
+>
+> Suggested-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
-Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
+> Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
-PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also 
-PCIe Gen6 core in the same SoC, but that will require a different driver 
-and different compatible string.
+Wrong tag. I have not suggested the (main) idea behind this change.
+You're not supposed to arbitrarily add some tags without respective
+consent.
 
-Since none of this shipped in any kernel version yet, would you prefer 
-some sort of rename ? I can send patches.
+> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 
--- 
-Best regards,
-Marek Vasut
+...
+
+>  #include <linux/string.h>
+> +#include <linux/string_helpers.h>
+
+You can replace string.h with string_helpers.h as the latter implies the fo=
+rmer.
+
+...
+
+>         u16 *src =3D (u16 *)*buffer;
+>         u16 src_size;
+>
+> +       char utf8_buf[MAX_BUFF_SIZE];
+
+Try to preserve reversed xmas tree order.
+
+>         u16 orig_size;
+> -       u16 size;
+> -       int i;
+> -       int conv_dst_size;
+> +       int utf8_len;
+> +       int escaped_len;
+
+--=20
+With Best Regards,
+Andy Shevchenko
