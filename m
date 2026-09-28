@@ -1,84 +1,91 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AC3331A5B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B36434B43F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560184; cv=none; b=nxxVEMoFQfcpOaqWF72irgAwViSXDrRVI+S7xFn6aQwpNbGYehKfm5pBnhi8pyrQmkMyMXYlmhcIuKYFTVfWQhYZhvpiRgjZdq6fqn6HCr/S9d0jp/EgCue83mxChHfnu6WySDykX//6GVx6aMVZ0nK6PPcSCmv/2COJJxJvMwo=
+	t=1790560209; cv=none; b=QUPqMQSaXMDta4D23fbVCAZu6ivS6SGGVQPNJ51nhYM9VPzsqfgfwEkaEgr46MFJ2W9JJP7jBoTu/dUsYbZrMUP92+gqxW4Fony81OpQ66rLn2MrWvsm5mesGdg09doJbgylxl2drxG8K/QYOXsmioS0Mm+BJfM2EOXCSd6knxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560184; c=relaxed/simple;
-	bh=AqUmf7Q4iWaz3G+9zZxSgy3N38hsPbIZJu8sLq5Tlqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gHmpyO0FR5EQzPWaf1DNkHFQKF898qsemhe+J8TCZqk81kB22p2ZwuptkNKkgrZMkEIM74kb5c+bK+hWXGR1y7uT++3puIHvvSzmDkObpOpVcoYS7oi+XiL+Nx+AthhLowKC+Fi1QoXhYtZeZsQEEd/3JFKotfkFM4DueKRD2Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lD+NA9Iu; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790560209; c=relaxed/simple;
+	bh=RAi6LaQaIERnguNa75CIILKwcfJnHB40JrzKtoc+ARQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iJ39G/SIMKjNv1miB9A8vG72qqNbzLeQOZiBxnC0+dgkcEoJncbwpo4ZYwIs0v7PLfTeXSghlt3Uz8HA/BP8NRfAO1BIguD14vFOv5PrtnLBGvV77OSCZf/9mwdNjrUWba9ZkTrX2pENKIokQ8mk6Z9Kl8mq9NR2UWBbbnK3wCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=i642vPZ6; arc=none smtp.client-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lD+NA9Iu"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790560171; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=SmJKx9IQeBrvMCfRacx1gV/ovk2JnZooxnnvNmOHKGA=;
-	b=lD+NA9IuC/8n9ETSltczL7fc2cy7pLro+5VYtk8B+ZratfwbOY9UbL9x8j9/SUUZKoCkCysrpC0UFzTeLCkXRhpc3WA6K0gpcjtdfFlQc89UYg771l/rJeNXezgfCDizNto8EmeGDSTcunPsM2QFxP1CvNt5iJjlrTINojsM+D4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fuwenxin@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XBgzThC_1790560157;
-Received: from t50b09067.sqa.eu95.tbsite.net(mailfrom:fuwenxin@linux.alibaba.com fp:SMTPD_---0XBgzThC_1790560157 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 09:49:30 +0800
-From: fuwenxin <fuwenxin@linux.alibaba.com>
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	linux-iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	joro@8bytes.org,
-	jgg@nvidia.com
-Cc: fuwenxin <fuwenxin@linux.alibaba.com>,
-	vasant.hegde@amd.com,
-	jon.grimm@amd.com,
-	yi.l.liu@intel.com,
-	kevin.tian@intel.com,
-	nicolinc@nvidia.com,
-	wnliu@google.com,
-	Guanghui Feng <guanghuifeng@linux.alibaba.com>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Vasant <Vasant.Hegde@amd.com>,
-	ming.shu@amd.com
-Subject: Re: [PATCH v5 19/24] iommu/amd: Add per-segment translate device ID pool
-Date: Mon, 28 Sep 2026 09:49:13 +0800
-Message-ID: <20260928014916.199019-1-fuwenxin@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260914184750.222939-20-suravee.suthikulpanit@amd.com>
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com> <20260914184750.222939-20-suravee.suthikulpanit@amd.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="i642vPZ6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RAi6LaQaIERnguNa75CIILKwcfJnHB40JrzKtoc+ARQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790560205; v=1; x=1791165005;
+ b=i642vPZ6AAFEMsfq6Yf1PfwOeeahFco14EV8Avqv9HTqhooaA2j0gfOA2QJG2ehTPfshwSez
+ DxNTAJZgTXcZiON6+hVgi9VPWLxcNsjHcCenEcJaFQSe9zmWQ2PzWXhqP/mTJqyDyTfZJmFWO7b
+ /zI8ptKsDVXsSm7as7JtU6EA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b6a582d4e49657da;
+	Mon, 28 Sep 2026 01:50:02 +0000
+X-Mizu-Trace-ID: b6a582d4e49657da
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <99cdc0cd-3af1-4d61-af28-47fad8657c62@linux.dev>
+Date: Mon, 28 Sep 2026 09:49:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] mm/sparse-vmemmap: support device DAX in common
+ vmemmap path
+To: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
+ <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
+References: <20260924075259.2013039-1-songmuchun@bytedance.com>
+ <20260924075259.2013039-3-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260924075259.2013039-3-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Suravee,
 
-> A translate device ID (TransDevID) is a host device-table index used
-> by hardware vIOMMU. VFCTRL guest-misc names the slot; that DTE holds
-> the nest-parent v1 table for GPA->SPA walks of guest IOMMU traffic.
 
-> Reserve PCI requestor IDs in a per-segment pool so they are not
-> used as vIOMMU translation DTEs. The device table is per-segment,
-> so the pool is too.
->
-> Add trans_devid.c with pci_seg init/fini and
-> amd_iommu_trans_devid_reserve() from probe_device(). Keep
-> reservations for the pci_seg lifetime, including after
-> amd_iommu_release_device().
+On 9/24/26 3:52 PM, Muchun Song wrote:
+> The common vmemmap population path cannot yet handle optimized Device DAX
+> mappings on its own. It uses pfn_to_zone() to find the shared tail page,
+> but Device DAX populates its vmemmap at runtime before the ZONE_DEVICE span
+> is initialized.
+> 
+> Teach the common path to use device_zone() for runtime optimized vmemmap
+> population while retaining pfn_to_zone() for early boot. This allows the
+> same path to support both early boot mappings and Device DAX.
+> 
+> The backing PFN supplied by the Device DAX-specific population path is no
+> longer used, allowing the redundant lookup and population code to be
+> removed later.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+> v2:
+> - Expand comments around slab initialization to explain zone lookup and
+>    page refcounting (suggested by Qi Zheng)
+> ---
+>   mm/sparse-vmemmap.c | 56 +++++++++++++++++++++++++--------------------
+>   1 file changed, 31 insertions(+), 25 deletions(-)
 
-Reservation only happens on the probe path, but some DTE-slot holders
-never probe, so their devids stay unreserved while
-trans_devid_find_free_locked() [patch 22] treats any xa_load()==NULL
-slot as free.
-
-One such holder is the IOMMU's own function: init.c deliberately does
-rlookup_table[iommu->devid] = NULL , so it never reaches probe_device()
- -- yet patch 13 programs the self DTE at exactly iommu->devid. 
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
 Thanks,
-fuwenxin
+Qi
+
+
+
