@@ -1,95 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2784A4582F3;
-	Mon, 28 Sep 2026 10:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC5643FD06;
+	Mon, 28 Sep 2026 10:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593115; cv=none; b=abTeuQD86s0Xb1WxZ+Sl8q4Mux5izmIXnChABpPlycbBBh5B3aFxrbWY8HJw+/4d+U9vDi7tqDZ39ai1YXcBs+TQNui4FYpeqcnfl8rZt2AXIROBqoNbKHt6UdbDQYSGwvtX+5WQBW2nNoPt6YkIvT7+ZXTgnzECLfqthYTgiDQ=
+	t=1790593178; cv=none; b=aBbjxrESiO9K32P753PxG3f2+u+5G1d0iI6UvVSOovc/7SN3r10vU/AGTiWuStBbmbHsQ5QZp1vDEpAzkpAJMQxC0ovTOPGnO4lupz/HO0vae+ZGGfs09ZkfJSWWOjfJy3+dvCVFAJhGR2MeOVH499QcrTHX19RBuJHnhY92HUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593115; c=relaxed/simple;
-	bh=c3bOooEGMlvg9xPHTnVJky5x+llKM22NeXmtLbOOyO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cdUR38Btf0gqUaN1nNICVmuCSohIRF3A+LTNzPIOhOxmUn69g9PWxFemrHXqg8IFoezzO0VYXN8PwZe2JCMB4zwStz8k0GOWvgxOBVHDCekowtd1f590QaNA0sKd84/WiIt0aUxMgJf2/2UyzqrHX4SISGBboeHB8tpXcIj60DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ns+HJAuX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593178; c=relaxed/simple;
+	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oi6J0GpkQLUHY9USoclY7+9Bk72ZE2D+7eiSdpzVda7CVxXavANo1/+ixU8XXumP5klLOCIHQr6bjclB0SrK77DqrePjP+stDbKviSU1tpGRku/5klIm9vnKp69V8/q8eqLsb+5NaSbYdHGUQ/s5UUnrfx4pbM8v1mNWZXNtYNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4Gaw+R3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ns+HJAuX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95101F0089C;
-	Mon, 28 Sep 2026 10:58:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4Gaw+R3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6E51F000FF;
+	Mon, 28 Sep 2026 10:59:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593113;
-	bh=X6BqH/yZqqamfLVukmDf/rY/Qu5OyQBwyrHbGMFypLk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ns+HJAuX8MZW2S8YIT3Le/zJN+nCV8ge55j9YedS41I99A+PRZUK6XvaZlLSyjC+8
-	 JU8YRnfm082rBhoRP7YHW6ngTNMi8IARYyvLtBDsj6O5HnKesAnfg+huj010/ndQDZ
-	 ylgLp/WSGZCTmgwonyDVpaKaKL4PvgoEl8+0oIYkL5FiL6HOIfxXIHpi6Oqb+k6OAR
-	 lH+jQdrjtPwNbHEJbGirAXXNZGPuYe1mIK+qKmZVCALDw0cO5kiOVxVifuUwQwEzMm
-	 Nt5J1/ZnwytNKmrt7kUiCIgoB04VZ0q1VpzbhGOlfcW90j6ByErEShHlCxSJc2Lqlw
-	 5Q8c2JE6hJGYA==
-Date: Mon, 28 Sep 2026 12:58:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-Message-ID: <20260928-efficient-secret-manatee-2fcca6@quoll>
-References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
- <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+	s=k20260515; t=1790593176;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T4Gaw+R3A1cyZEj+ij74KCj3J8wHQ11HbT+/c5bWxT2WWW+koE4SBJyblrf/8z2Wl
+	 niLObN1adIW6tLv1cMbHxV1tAb4QuMIPpj9TyGgyJn7zqdXYrAihGtRVvSBk8v9Vx6
+	 zsCyXq99LgCuIpM0FL03jKaiZPWYKjFwNSAjSZkUhbGD7w8jJMSSyWf8ONVRwRFOnR
+	 BNWhYu3Yvk2h/XntRzQAPM0ZikSAjirjwPtZwPNcuTQkF+L0jhqDx06Qg++A4yhF7T
+	 m9vILSOBO9WZuXSAINxkn/vlgyl94Tb/xM+Hk9qKN/CmLwP5MxW5W7xX/kT1qQ6az2
+	 x3x4OK9Sw22yA==
+From: netdev-bot+sinfo@kernel.org
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Justin Chen <justin.chen@broadcom.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bcmgenet: fix NULL dereference in set_coalesce
+ before first open
+Date: Mon, 28 Sep 2026 10:59:35 +0000
+Message-ID: <179059317562.31693.7518349114735075126@kernel.org>
+In-Reply-To: <20260928105642.856210-1-nb@tipi-net.de>
+References: <20260928105642.856210-1-nb@tipi-net.de>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
 
-On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
-> Add bindings for Amlogic hardware decoder accelerator.
-> 
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->  1 file changed, 114 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 000000000000..751043c3d9cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,114 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic Video Decode Accelerator
-> +
-> +maintainers:
-> +  - Zhentao Guo <zhentao.guo@amlogic.com>
-> +
-> +description:
-> +  The Video Decoder Accelerator present on Amlogic SOCs.
-> +  It supports stateless h264 decoding.
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    minItems: 2
+Hi!
 
-What is happening here? Previous version was different.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Best regards,
-Krzysztof
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
