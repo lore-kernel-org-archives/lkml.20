@@ -1,38 +1,38 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A1B371876
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15EE45FFB8;
+	Mon, 28 Sep 2026 07:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790581555; cv=none; b=PrLaKl6uDnwU0pLGQNp/YPzZpZ2uQnX7qzJs7Z0ERa8KIU3srMV+Kw7bOWWPjgCAoObHpFHZe9A/OjV3dlzkDc728XGmfOrqoOuZnSEeWVa+mVbC8lq4ocp/QjvNwGvMyZp+CmUyOpvGxypR72ttPuh/rPii1rl/PnA9dWuCifs=
+	t=1790581623; cv=none; b=THTNExwNtjz2yyPBsf7tGT4xQvvov+fBBXj4SVqtd+JtOJKlzu/l0QMO2/ksBvCruLzHm0RFvwk4r6s8gRhXvqaCZHt1rpSAWJuvvvdK/6JkgpIpvHbvnXLi5cHHjmooxm+AfSjrOwwCjaD2jo5biHpCE/JjKgRAUZPbYDRxOa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790581555; c=relaxed/simple;
+	s=arc-20240116; t=1790581623; c=relaxed/simple;
 	bh=3uL0OH7uoI48C0wUPDnpLShG9KGihTHNPp5zyAXkClQ=;
-	h=Date:To:From:Subject:Message-ID:MIME-Version:Content-Type; b=ojRLpXrhsr43DDOPPc1NewvPX+q+Yi5BuHE2Yziq1ELQYGOvtjiCprHgT6esyktATECGV6Y+ePOVJHl2cDvXXDFkNchJgy2VCqP1ynxCTmovzPNAOzeROTikiGFOUWRtFpAfG0ar6lN7H6mo1HxoZGod5fQEmsuXQ+w5sVVcbc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lBENiPj6; arc=none smtp.client-ip=185.70.43.16
+	h=Date:To:From:Subject:Message-ID:MIME-Version:Content-Type; b=J/1pbWH/ZIuUeuzqzEzszaxwUd41f0nXDtsXeyFj52SauJn9DYtkanaao76gPs/ed95Tcgnxz0EtNTwYm2F9DDWI4i1FFdmq5unseRIgbPT7rLk8s1mzypxEaHksSse/+tu/XU9X68B+UxEi3mnTUGIYcM5HKJefv9L767YGKWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=TjY2uBV5; arc=none smtp.client-ip=109.224.244.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lBENiPj6"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="TjY2uBV5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790581545; x=1790840745;
+	s=protonmail3; t=1790581616; x=1790840816;
 	bh=3uL0OH7uoI48C0wUPDnpLShG9KGihTHNPp5zyAXkClQ=;
 	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lBENiPj6K/JQjmtx3t7ezKZHvEEpwvOZpreM4Dpgy0KNb7+k1nEdA+8IwgIb80sJD
-	 q/IsgfHQcdghT3wo7GvhE4BnnNWDzrskf1fkQt+d0LZ93hMYFi6cYSeLIeQqS8GLwA
-	 S5JNoPk0sV9Tnpl0VtKiJSgm1i0uuyLqnbisjiGyGNDWdl5JPALDufNrsCn4k0nWjr
-	 4rJHTEA3KCxmiGdjG88ZLgDQsm7lGbZaBRyeHUd/JVVPTmKWMLVjMyNJkF6B2QBCuT
-	 nLtj1d5scdOjEXdI9eoFXvqFvV+f5schGLGTDFxlosM+PkAKNma9/4zMvA3jz4amJM
-	 cGdx7wLlKrDpg==
-Date: Mon, 28 Sep 2026 07:45:42 +0000
+	b=TjY2uBV5xbxgxCIREXPfLqaoeI8lhtialO/upkdFKbf6yEuUk8hygeRE+K8UVg/id
+	 Q6QyYMPC1kxYtm9LUADsGnjfIsIWDQqVS3MTaIKDFkyO5bYLNcYXButkfddWOAApd5
+	 87f1qx+GPuOYBzXY8YWC9nSboTTI3qo7QP861eIqciZ8R0QHAqE+qXpHmDsaEvbi6q
+	 oKWm6D0oGH0K8kwKwAjbEDCLdm59htzaJ9kt8RSuiTNsG3ZCjZfgr8G8OKTaMOJjnn
+	 zt0xiJ8lcOP6qUFgAJE5o/1LQT5WfwFmN/6KpPt7hwpQoxmhYFNDHT7CH7l+eScl6Y
+	 bIlccDHlbRzPg==
+Date: Mon, 28 Sep 2026 07:46:52 +0000
 To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, linux-mm@vger.kernel.org
 From: clkernel@pm.me
 Subject: Re: [syzbot] [block?] INFO: task hung in read_cache_folio (6) (extid 9db0864859224b833108)
-Message-ID: <6cd5b535-2750-439c-bdd5-ff86666878f6@pm.me>
+Message-ID: <8aba9733-29aa-4103-a2f9-7f047b792ad3@pm.me>
 Feedback-ID: 224698563:user:proton
-X-Pm-Message-ID: d2dedb931f15f18a8d1da155497b60c96b20a300
+X-Pm-Message-ID: 10f936aa06acafce2e352ff16b6b59257a8dc9b8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
