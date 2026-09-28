@@ -1,273 +1,149 @@
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118A44718C0;
-	Mon, 28 Sep 2026 08:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C9F47254A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583813; cv=none; b=WG98R9HTw7MaUWUaHwRi5njSw/AGd7Z7i4KLuc1MFUA36HiaUE5OLSFZe9kYiHDIWei84uh25/Zq+hOMCuV3XJChDmv66qm+VYUDG8a+NYkLVpyYQUx8isYL/t3HZASqYJAj8JCKFnOpMX+ACE6ToREhWPVjo8nD1W4lR9h6jho=
+	t=1790583818; cv=none; b=dSyNC12Xwtb6t2G6JzeQgJJfyqMhAVNfljQR9VkzWX/mtS4bDdF5k56C/gnjb6eRzEz1UNXvmptrpN5SvIwyolBYnpabnVxQ8TwId6ibiU31WJOIasD4bg3QWYJwsXtR3Q0+R6+3wTv1i+qo/14gKdqn4hlbBxzIk88bbEiSXpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583813; c=relaxed/simple;
-	bh=b4UnNVzBXrQrbzqy5NKVhmUFE0EwmAIpeYHH2Ztu9ps=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K9xwUylz6hS8m7zOSOoqpvlD/ehVSP3dOgZN2K+7ryj/etg+FA1/aa1zUcOwIv7Ao0kunxNVuHJ7q7VPuY5IVNoX4/UcIMqlRGfYUtJbJaLNWpmuPPKkrsxwzbBeGMmlBgJ4sZAe00gSqPZTeq1rPacAASzAtOnmNO20PszpwYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E7DDC3E9C7;
-	Mon, 28 Sep 2026 08:23:26 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [RFC PATCH 4/4] mm/zswap: move reclaim-driven writeback to a kworker
-Date: Mon, 28 Sep 2026 10:18:39 +0200
-Message-ID: <20260928081900.4187482-5-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928081900.4187482-1-alex@ghiti.fr>
-References: <20260928081900.4187482-1-alex@ghiti.fr>
+	s=arc-20240116; t=1790583818; c=relaxed/simple;
+	bh=KEk8M3Jr9bOSMMr4JBrAPiz9BZKVvLlMeEqrlsez2Fg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ITx9bXljFeygHe07YP9AzSDK5ZTTuDIZ7Krp+WK5JqRm4wmc9zbea55UUE3C+C3nKuLzBHvzXvJYh3LixGtsC8oHvCjX3z3BRV0FjKpqWjeeEPp+90gcoEuTzIzYXuZn5nYSSIyj8+LanMHBc1qmTLC/9yBRTamG5V44x/1Es4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=juAAtRwe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YKZAqTRw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="juAAtRwe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YKZAqTRw"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S7xMCc1010227
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:23:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KEk8M3Jr9bOSMMr4JBrAPiz9BZKVvLlMeEqrlsez2Fg=; b=juAAtRweENLBLmQl
+	+ERIaFv38jDpKH+ICBdAfD15GUU6MRom+B600xtPxx5fqSqZaWt1Uy/I0oZGBOZZ
+	7wkuxzeBpNpHsvXLSvzbk14ENd+41hpnYr6llQ6RJzBZHwwWj8AktGcrPXHt8QPk
+	pCWQj0h/BmA/DhKvBdvuA48aKs6BXeNNlEI5GWIkdDghbMLrPi7pxkQICDnwvPGz
+	i1h31ekTTmYEkHqIwCN5y5F05IkToNx5o4D0hGF49uVgTAaaiacOi7T9Nil1LGfD
+	Lsph3OvkYabzJjsNp6+48X33NzhxXjyoq847itdW6+g9C5dM7U1G9ll+kf0JFfpZ
+	zDZghA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj2s0kuh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:23:35 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c57e0436aso182266085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790583814; x=1791188614; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KEk8M3Jr9bOSMMr4JBrAPiz9BZKVvLlMeEqrlsez2Fg=;
+        b=YKZAqTRwxjR8SQgz+L0gPGn3ebMErxD9xVB5mkRTk+vgDfjMRhoVmp0AZS7z5grxIC
+         E/brlVP81rzUY3b0JKizWCtETM5y9yow9qIFaHeYjPNokHwZb7Txvb4rmgW9l9iP/8pY
+         L3A/vhXIMf/G57Vj+QM0nIyzzgcGjEp+HNYtA22AghLBVIYZJ+1/eV4BRDw0AISRMeJP
+         0lY+pA9m19vYsj20kOmu40fdXWU6e4jcr6yibNXCf/MwFF7jlYVccYQuZNHV2MusanSd
+         bILdcgzOLUKwmEqoqKq5we+W6QyWrzT36BLrDZyhEZSRTRU+eHVcCm8aHFGj45OcpzXW
+         znSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790583814; x=1791188614;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KEk8M3Jr9bOSMMr4JBrAPiz9BZKVvLlMeEqrlsez2Fg=;
+        b=GRxNxZo5zRhf3T8T47/0SD9fyBO/obW5iVxC/Pf2RzRaWKwdTGmdxddmsnKGA4yrMy
+         DHkF0GH4xMY0S5pVwIStnj3diKq+IknwFHTFAiY9tetVeg/F8jg/4iejpayuXAmQPCcL
+         hG6ctfJmLN6FjU/rwVrKJvAIsh960JE6md8iIkaA6CKl+AfCnQjRGUpoklPgsM+5HCTn
+         /pYOuDaetxNZRdHQrCJkRfhdM4gtG91Gy4qU2Z43Gbc3eI8X3E8B6tB0hQyNN5pTssQM
+         x6tmZdxtSwClFztDB/YjZVN+w9bAKzFTFumSh0IJ/e24qHemfdGRGNTf8MjueDGZOol8
+         yc7A==
+X-Forwarded-Encrypted: i=1; AKwUvBymNF3BhPsVZWBTNKA5RwAtZGG0toyWA68u9AnqoC5+hDhljQKN9OEBdqKLyD2TDpu+v2JFnCQnbbtH8EI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4rQF66/durNjPM5AgtXpeQHlmHNnmivglhzl3JN5sNSmEE/t/
+	eHSUhMONsC3sLobNq0xZ5CaBF2HzuE/xiflh2/RG2AR8Oka2p9lQhSUZ/EVCFT4B98lJmm902lB
+	wtlLYmfT55sur7A9aI3ATl2/tBs5K3Jo7DBj1xdhkD9YgS6qkxlU1AZPsBE14j2OzfSgY9QGUmk
+	o=
+X-Gm-Gg: AYBFou0bt1KG3+IajMa/M7ci4vkvzPIZM3S73u2xM46DZEY6V8KJpo4mqUaVNyYejMg
+	TvPPWwDZPMw+U1RZLaGNclKSA4D5qulijpwI//yofUhJnuruoXNK55NP4CZtG5q1M1vHeoPTPJp
+	v/y85O15plBUQeZSgqUNS+amjet9d5MbHVmH52PoC36EW38VwhENYQRrUZwLVyLCNtAX64Ykh8i
+	iHnOXShSe/h98tha9kvbTO8NEix35zADIUA7p7ottJpu//owQm0FNhCImFQIMrK/LsSS3Ky7QQw
+	tTmBKxELgPQLgdIg485IZC/5XDxqRM5L+HGjH4ofbpK8aPPiwMnsChW7JkYcmYP8YNE62GsjltN
+	JzAU1feBy3bXG3nBIVizHl9Ity8eF
+X-Received: by 2002:a05:620a:29c6:b0:939:ff11:5328 with SMTP id af79cd13be357-93c43bf14dfmr1902392785a.24.1790583814454;
+        Mon, 28 Sep 2026 01:23:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:29c6:b0:939:ff11:5328 with SMTP id af79cd13be357-93c43bf14dfmr1902389185a.24.1790583813905;
+        Mon, 28 Sep 2026 01:23:33 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a007fd1a01sm20537165e9.0.2026.09.28.01.23.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 01:23:31 -0700 (PDT)
+Message-ID: <27997939-f39a-43aa-a287-44c9f70b8a51@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 10:23:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Cause: dmFkZTF1WgxKY+Hx+MtLkqEgf14qdcr1+2vySI3bPfHY+1e8WxR121fR9tKBSxFip9SAGz/LvBdHvHURU5+G+dwzUt09iiq1wE3u/EHqAwzzEtlg4IMZOeNhPxPzSc9Uzifz6IYqgn5FLZVG9qr3g56tJJl4H8J2OgtauXWmUKBlt1IplD2RgOku62CESjw9LcQDTtUf/ICC5/zRwNwZyrFSztrjsUVnoJyVucdK2zN8x1uyIzlti9OL3wCKheHKfivkHF6geQ0S7oQQmvlhSwicKWbPULQiJ23wOo8guz3FvZd8zDnUMxN9Lnzo/rFNv/4HjE06/cnet6PfajsYTKqYCGjEoedDt074YXXB/ocETchPZ6++FXT49b8yP7OUW7y11uMMnC6bKMh8b4wMgbsl6QtihmlAPHOyzeGCNLc5kvkSpsHSCQaWDlA559xhkpX0g17VdSI3AzXGJQ3xQgLgGoagcXoTmeyzt30p4W8jizMqOqVogiv7G1UpJDN4VsT++qN+jASbIGaDIlmRb8wqCS4s48nL8gU85MuDBtxWyeYhuaNtoMUbe/Fw/DcQl5IHkIr61HxFwYnn3yqnxfXKmxHntll1p24yt9zzHioR8pllX2oT0AKwc/uO7jY0oCrhSDb00jNQBqgd1YPde/+Pn9125xji3XrHW46YOVxy8VMo9g
-X-GND-State: clean
-X-GND-Score: -100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add
+ compatible for Qualcomm Maili SoC
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Yijie Yang <yijie.yang@oss.qualcomm.com>
+References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
+ <31a59040-bb20-4cb9-9dad-a62b90a16c6f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <31a59040-bb20-4cb9-9dad-a62b90a16c6f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX5ABuYGs3bceQ
+ uVAzP4VW1e4WXkarArxDuVZb9SYTQLhr/uUYjFhbbOVJQ8DlPFnXGJ4edXvDs9Dpfw0qGPwgUNo
+ TamITiLauN06S3iMqCL1Qf4AfO0/O43Wf9tOK5/5Otn+Z6Xsx9k28R/Jur31uYEzinf3g4omwan
+ RTK+hfgNwFONeMxo+Dti0jeb9TR2qwn7pQQd5ZXc+a76XLLACCouwauv3oKpLyChmphtXzQGxRV
+ ozbrS97PHvLWShsyqMMsu1i//MjWpdzDWSrYk4Oa0e0Ag8MIl1dUskLhtVDjYezLSYxaCVeKltD
+ j8vt8t1oI9QAv9h11V5sikvDEGyIQASo+1gM6z+ZP3QQjLiN/xuZFD33sAv/pDX3O0ShfMYHGxZ
+ y0agd6z3JW2yhq83m0R3hM/8smc5geS9E1NWQuNRkC60b9NaudkgSlcQqcvDEzZeVCpMRVKkjgB
+ e93RdC93vKlfsXSjU0A==
+X-Proofpoint-ORIG-GUID: E7Epz8rktejZ1z56_fAh69TeqDNQiMHn
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX4peXWnAWUcaI
+ Mi91dJRtrlnqApFB2IgIMlmjf2nQSJmzMlawCtmhnRnRpFhd/emSJ+UCT/rFa0X0L+n8khdvzO9
+ D6WWGGWTJtbxNQVhr+MFLVO8xPCga/s=
+X-Proofpoint-GUID: E7Epz8rktejZ1z56_fAh69TeqDNQiMHn
+X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6aba2407 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=eawAJn3Fff_qTO2XkYgA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280033
 
-zswap_shrinker_scan() writes back in whatever context reclaim called it
-from: an application thread inside a page fault, or kswapd reclaiming
-for the whole node. Now that the cgroup IO controllers throttle zswap
-writeback, that context sleeps uninterruptibly until the owning cgroup's
-IO budget allows the write. Such stalls were observed on a large
-production workload.
+On 28/09/2026 09:19, Jingyi Wang wrote:
+> Tested-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 
-So defer the writeback to a kworker: each lruvec has its own work item
-on shrink_wq, which writes back what reclaim asked for, SWAP_CLUSTER_MAX
-entries at a time, while holding a reference on the memcg. The shrinker
-does not queue more work while the worker has yet to claim the previous
-one, and reports nothing freed, as nothing is until the worker runs.
+NAK
 
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
----
- include/linux/zswap.h |   4 ++
- mm/zswap.c            | 114 +++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 106 insertions(+), 12 deletions(-)
+You cannot test it. Otherwise explain me how did you execute this code.
 
-diff --git a/include/linux/zswap.h b/include/linux/zswap.h
-index 30c193a1207e..80391c440e97 100644
---- a/include/linux/zswap.h
-+++ b/include/linux/zswap.h
-@@ -4,6 +4,7 @@
- 
- #include <linux/types.h>
- #include <linux/mm_types.h>
-+#include <linux/workqueue_types.h>
- 
- struct lruvec;
- 
-@@ -22,6 +23,9 @@ struct zswap_lruvec_state {
- 	 * swapped them in.
- 	 */
- 	atomic_long_t nr_disk_swapins;
-+
-+	atomic_long_t nr_deferred_writeback;
-+	struct work_struct deferred_writeback_work;
- };
- 
- unsigned long zswap_total_pages(void);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 3b902f29ed4c..cf2dd7a5aff0 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -237,6 +237,8 @@ static inline struct xarray *swap_zswap_tree(swp_entry_t swp)
- #define zswap_pool_debug(msg, p)			\
- 	pr_debug("%s pool %s\n", msg, (p)->tfm_name)
- 
-+static void zswap_deferred_writeback_work(struct work_struct *w);
-+
- /*********************************
- * pool functions
- **********************************/
-@@ -702,7 +704,11 @@ static void zswap_lru_del(struct zswap_entry *entry)
- 
- void zswap_lruvec_state_init(struct lruvec *lruvec)
- {
--	atomic_long_set(&lruvec->zswap_lruvec_state.nr_disk_swapins, 0);
-+	struct zswap_lruvec_state *zls = &lruvec->zswap_lruvec_state;
-+
-+	atomic_long_set(&zls->nr_disk_swapins, 0);
-+	atomic_long_set(&zls->nr_deferred_writeback, 0);
-+	INIT_WORK(&zls->deferred_writeback_work, zswap_deferred_writeback_work);
- }
- 
- void zswap_folio_swapin(struct folio *folio)
-@@ -726,9 +732,15 @@ void zswap_folio_swapin(struct folio *folio)
-  *
-  * shrink_worker() must handle the case where this function releases
-  * the reference of memcg being shrunk.
-+ *
-+ * The deferred writeback workers hold a reference of the memcg too. Stop
-+ * queued ones here so they never start; running ones drop theirs when they
-+ * finish.
-  */
- void zswap_memcg_offline_cleanup(struct mem_cgroup *memcg)
- {
-+	int nid;
-+
- 	/* lock out zswap shrinker walking memcg tree */
- 	spin_lock(&zswap_shrink_lock);
- 	if (zswap_next_shrink == memcg) {
-@@ -737,6 +749,20 @@ void zswap_memcg_offline_cleanup(struct mem_cgroup *memcg)
- 		} while (zswap_next_shrink && !mem_cgroup_online(zswap_next_shrink));
- 	}
- 	spin_unlock(&zswap_shrink_lock);
-+
-+	for_each_node_state(nid, N_MEMORY) {
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
-+		struct zswap_lruvec_state *zls = &lruvec->zswap_lruvec_state;
-+
-+		/*
-+		 * Returning true means the work was pending: it will not run,
-+		 * so the reference zswap_defer_writeback() took for it has to
-+		 * be dropped here. A work item that is already executing is
-+		 * not cancelled and drops its own reference when it finishes.
-+		 */
-+		if (cancel_work(&zls->deferred_writeback_work))
-+			mem_cgroup_put(memcg);
-+	}
- }
- 
- /*********************************
-@@ -1188,25 +1214,89 @@ static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_o
- 	return ret;
- }
- 
--static unsigned long zswap_shrinker_scan(struct shrinker *shrinker,
--		struct shrink_control *sc)
-+static void zswap_deferred_writeback_work(struct work_struct *w)
- {
--	unsigned long shrink_ret;
- 	unsigned int flags = ZSWAP_SHRINK_THROTTLED;
-+	struct mem_cgroup *memcg, *old_memcg;
-+	struct zswap_lruvec_state *zls;
-+	unsigned int noreclaim_flag;
-+	struct lruvec *lruvec;
-+	unsigned long nr;
-+	int nid;
-+
-+	zls = container_of(w, struct zswap_lruvec_state,
-+			   deferred_writeback_work);
-+	lruvec = container_of(zls, struct lruvec, zswap_lruvec_state);
-+	memcg = lruvec_memcg(lruvec);
-+	nid = lruvec_pgdat(lruvec)->node_id;
-+
-+	nr = atomic_long_xchg(&zls->nr_deferred_writeback, 0);
- 
- 	if (!zswap_shrinker_enabled ||
--			!mem_cgroup_zswap_writeback_enabled(sc->memcg)) {
--		sc->nr_scanned = 0;
--		return SHRINK_STOP;
-+	    !mem_cgroup_zswap_writeback_enabled(memcg))
-+		nr = 0;
-+
-+	noreclaim_flag = memalloc_noreclaim_save();
-+	/*
-+	 * Once the memcg is offline, the IO falls back to current's memcg,
-+	 * which is wrong for a kworker.
-+	 */
-+	old_memcg = set_active_memcg(memcg);
-+	while (nr) {
-+		unsigned long nr_to_walk = min(nr, SWAP_CLUSTER_MAX);
-+		unsigned long budget = nr_to_walk;
-+
-+		list_lru_walk_one(&zswap_list_lru, nid, memcg, &shrink_memcg_cb,
-+				  &flags, &nr_to_walk);
-+
-+		if (nr_to_walk == budget)
-+			break;
-+
-+		nr -= budget - nr_to_walk;
-+
-+		if (flags & ZSWAP_SHRINK_SWAPCACHE)
-+			break;
-+
-+		cond_resched();
- 	}
-+	set_active_memcg(old_memcg);
-+	memalloc_noreclaim_restore(noreclaim_flag);
-+
-+	/* Paired with mem_cgroup_tryget_online() in zswap_defer_writeback(). */
-+	mem_cgroup_put(memcg);
-+}
-+
-+static bool zswap_defer_writeback(struct shrink_control *sc)
-+{
-+	struct lruvec *lruvec = mem_cgroup_lruvec(sc->memcg, NODE_DATA(sc->nid));
-+	struct zswap_lruvec_state *zls = &lruvec->zswap_lruvec_state;
-+	long old = 0;
-+
-+	/* Do not accumulate work: back off if the worker is lagging behind. */
-+	if (!atomic_long_try_cmpxchg(&zls->nr_deferred_writeback, &old,
-+				     sc->nr_to_scan))
-+		return false;
-+
-+	if (!mem_cgroup_tryget_online(sc->memcg))
-+		return false;
- 
--	shrink_ret = list_lru_shrink_walk(&zswap_list_lru, sc, &shrink_memcg_cb,
--		&flags);
-+	if (!queue_work(shrink_wq, &zls->deferred_writeback_work))
-+		mem_cgroup_put(sc->memcg);
-+
-+	return true;
-+}
- 
--	if (flags & ZSWAP_SHRINK_SWAPCACHE)
-+static unsigned long zswap_shrinker_scan(struct shrinker *shrinker,
-+					 struct shrink_control *sc)
-+{
-+	if (!zswap_shrinker_enabled ||
-+	    !mem_cgroup_zswap_writeback_enabled(sc->memcg)) {
-+		sc->nr_scanned = 0;
- 		return SHRINK_STOP;
-+	}
- 
--	return shrink_ret ? shrink_ret : SHRINK_STOP;
-+	/* Nothing is freed until the worker runs, so report nothing. */
-+	return zswap_defer_writeback(sc) ? 0 : SHRINK_STOP;
- }
- 
- static unsigned long zswap_shrinker_count(struct shrinker *shrinker,
-@@ -1807,7 +1897,7 @@ static int zswap_setup(void)
- 		goto hp_fail;
- 
- 	shrink_wq = alloc_workqueue("zswap-shrink",
--			WQ_UNBOUND|WQ_MEM_RECLAIM, 1);
-+			WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
- 	if (!shrink_wq)
- 		goto shrink_wq_fail;
- 
--- 
-2.53.0-Meta
-
+Best regards,
+Krzysztof
