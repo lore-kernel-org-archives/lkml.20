@@ -1,64 +1,46 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E883524BBEB;
-	Mon, 28 Sep 2026 21:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63EB24BBEB;
+	Mon, 28 Sep 2026 21:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629802; cv=none; b=iRqA+40R3Ml0yar0g0JmKAoZAlRk0bwKzt5rewEw/rgRCtxydtFrTVCRyQe/u1BJ/w9NYN4mH0LS8YuBMPnwZ5FsJqM8tNxqMjOFHUrvb5mXR5RKejeqtupHZsOdZqQTIXlrV2chIkqNG/WWXK3SL5JWvq+pTrbM1TkX/Ybubfw=
+	t=1790629808; cv=none; b=RlQpNIiHsZvOtOg1XsRj4/1LJPnS+7QVB8okk18MSR6PMvom58tM+8vsi6NJ6LIDUscFQ53ipmOUXfSkXj7CgBsFVFEhta2kgbsnGUQUZu9k9Pz1iohBmVmq996gerGF6jBpHqKdBdYSMkbSuFlucAT8OcSX5jRjIzJtwCBAtBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629802; c=relaxed/simple;
-	bh=fv4AndyObxeCV94OuxSd3evVY0mfDp6Ey1X+q/ykv4k=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i0ZG5dzZTC3HMlDajGZwcdX3oj6RYszgBsB9XEdXeHmeqtqLHzH6c6b/I0jDT93Z294MlES7rZ9y7mwqDSFKRog5jBcedCViqLspxBO/sWwPUbsmAm+ZIFqbQBE+firhKYod39iqVAiHZsQguVQTF7RT9c/s31/njnJhWtfZYZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=sA/TVTKJ; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790629808; c=relaxed/simple;
+	bh=GIYrE1pTz9/+f8wq3p19aqgX9eHhbtft9ADIzykUdys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eE5lW6TVHpc6fjmlHlAZy2WU5PvObc+k+6ojMkezktxGvsRESFy0DaWzRFrq2g/jmtdkFuL2t65USbAruE2nkMfClOhrF2DSE3mZHR10LuqWHPQWFLSMI4HffeONYb7hySn0I0ofu5VD7i+par/Q2rql+MTScUir/T3bJvqB+PA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Gm43QppQ; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="sA/TVTKJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790629800; x=1822165800;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=H8DotsXPN374HFQ8qa8EzNzUFmop24e6Vw7r0e/NuIs=;
-  b=sA/TVTKJiH3oQw2D2B9I1BkVv4HvIsPWiiixBpGZ3RXKvj8piqjTU0cg
-   K+w846dl2MtlHIUsOQpNa8QZjqdZ1epG0XmUPV3ZWS7yHlJ007yAVz/DO
-   L372/b6OjnCkspNWr2K6frt/iYn+DK5MUa0Nr94arr5FeUWM6rYfZ8tcO
-   Fp5aWKmGWiHA+40DE2p0qRqUAHL8aceTpWPSG5D2i7jFed6xK3Q4LEFoA
-   L/Q+rW5AjUX5ByHYE/ivf5wobdxnO+SYJeWQf2rCTHMlr3iJmaWSgToLS
-   c0XwyO8sUbA1D1Qa6NgwaXsx431hwMNB70qm2e7VyQ37MHR4gdFpANcZq
-   w==;
-X-CSE-ConnectionGUID: YiK4e9/uRWekaHHLoyVJ4Q==
-X-CSE-MsgGUID: PaU3CVDDTUqL8U6RB+6wLg==
-X-IronPort-AV: E=Sophos;i="6.27,129,1787011200"; 
-   d="scan'208";a="29638367"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:09:57 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:12359]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
- id ca07bd3d-573d-4268-a86f-f322f91166ed; Mon, 28 Sep 2026 21:09:57 +0000 (UTC)
-X-Farcaster-Flow-ID: ca07bd3d-573d-4268-a86f-f322f91166ed
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 28 Sep 2026 21:09:57 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 28 Sep 2026 21:09:56 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: <jarkko@kernel.org>
-CC: <graf@amazon.de>, <gunnarku@amazon.com>, <jgg@ziepe.ca>,
-	<joshlev@amazon.com>, <linux-integrity@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
-	<peterhuewe@gmx.de>, <surenkj@amazon.com>
-Subject: Re: [PATCH 2/2] tpm_crb: Raise timeouts for Amazon NitroTPM
-Date: Mon, 28 Sep 2026 21:09:53 +0000
-Message-ID: <20260928210953.29183-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <araZZzKDqzrPdY9f@kernel.org>
-References: <araZZzKDqzrPdY9f@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Gm43QppQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=0245lrNpAAWfFFBXjxyYX4pNahY2xnBykZJW+gghIuU=; b=Gm43QppQX4LKQDhK0LTr6H3miD
+	ug+ZNocsctqsIvudc3UdkWWoCGrOo9623Adc5EKbENSWD7E6t+xyReTmN59DxCckvcydxOoOnIGBX
+	jR2RqgbOZPpPr7PqCA8Q6b9soYZLl7vacyL+XcJsViR/dGKi2ujcmN+sdocu7VRzSIB1nw8SnI+5C
+	qwnKHml0u4eDThAkiSP+pqqj96jm/u3zJZGDuuR4HhTfzB/9Z2v297LAvsZvTmUX7w8FezjM++b3h
+	6Aw9MHcXq3aDJGVVJB6Y7uedoaWeGUyk6pv8jED30P0wvjNwOjHDbtpmcli1VaicUOPwqBmHM0WwC
+	PPC7NtlA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBIbt-00000001eip-2hEa;
+	Mon, 28 Sep 2026 21:10:05 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	NeilBrown <neil@brown.name>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH] VFS: d_duplicate: repair comments to avoid kernel-doc warnings
+Date: Mon, 28 Sep 2026 14:10:00 -0700
+Message-ID: <20260928211000.1539250-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,32 +48,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D033UWA003.ant.amazon.com (10.13.139.42) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Fri, Sep 25, 2026, Jarkko Sakkinen wrote:
-> On Wed, Sep 23, 2026 at 02:28:34PM +0000, Surendran Kanagaraj wrote:
-> > +/* Longest unavailability seen from NitroTPM */
-> > +#define CRB_AMZN_BUSY_TIMEOUT_MS     30000
->
-> Use TPM_CRB prefix.
+Use a typical list style for comments to prevent kernel-doc warnings:
 
-Thanks for taking time to review my patches. Will update this in v2.
+Documentation/filesystems/api-summary:20: ../fs/dcache.c:2029: ERROR: Unexpected indentation. [docutils]
+Documentation/filesystems/api-summary:20: ../fs/dcache.c:2030: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
 
-> > +	crb_apply_vendor_quirks(priv, chip);
->
-> I.e., all this complexity equals to:
->
->         if (crb_vendor_id(priv) == CRB_INTF_VID_AMZN)
->                 chip->busy_timeout_ms = CRB_AMZN_BUSY_TIMEOUT_MS;
->
-> ?
+Also, modify the spelling of "whiteout" to match all other uses in
+the kernel source tree and to be consistent on the same line.
 
-Yes. I added the table to keep vendor specific quirks out of the probe
-and could be extended without touching the probe. tpm_tis_core does
-something similar with vendor_dur_overrides. what do you think? I am
-happy to switch to the plain check if you prefer.
+Fixes: 33d76519f0cc ("VFS: add d_duplicate()")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: NeilBrown <neil@brown.name>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org
 
-Thanks,
-Surendran
+ fs/dcache.c |    7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+--- linux-next-20260928.orig/fs/dcache.c
++++ linux-next-20260928/fs/dcache.c
+@@ -2025,10 +2025,11 @@ EXPORT_SYMBOL(d_alloc);
+  * @dentry: the dentry to duplicate
+  *
+  * Some rename operations need to be combined with another operation
+- * inside the filesystem.
+- * 1/ A cluster filesystem when renaming to an in-use file might need to
++ * inside the filesystem::
++ *
++ * 1. A cluster filesystem when renaming to an in-use file might need to
+  *   first "silly-rename" that target out of the way before the main rename
+- * 2/ A filesystem that supports white-out might want to create a whiteout
++ * 2. A filesystem that supports whiteout might want to create a whiteout
+  *   in place of the file being moved.
+  *
+  * For this they need two dentries which temporarily have the same name,
