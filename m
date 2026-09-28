@@ -1,196 +1,113 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7624E01E7;
-	Mon, 28 Sep 2026 17:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FD24E77E8;
+	Mon, 28 Sep 2026 17:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616380; cv=none; b=XsIFG5HuqDeI2IZRIOkw7xCJqOf/v+VIutECa1at0Q4e86/yxirODMqgkVHGwH/4wNfjZYFczNVf8UEBrYZe1Kr4EVZRQI1jwD3rTeu0aursE6NzwQ5nv6UIucWWdZGmUrIh2t9fO+MwB1QIrYJFGtV+EZmDKfpZRyTGldCB0QI=
+	t=1790616390; cv=none; b=I8vQELuTdYQ1weGnHvo07Id/JQPs7OtXyWRLaQpQ32RaY95zWTkxDM4M0Tcm0G5A6L7GNTgdthEoawvPKt0P/X0y2jBvT64OM7XrI1DFFzZ+geBb4sSxcOhdIuSDDN6ZQRZNx8W6Nsv0wqKGLOzzawwoi+bov6qy6HoMGReCh/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616380; c=relaxed/simple;
-	bh=T7OC4nRKMqVmwsULaxUEz3joufpd8djcs976zl8/Xqs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=eaMIZTbVdiaIVUJVpxwmGLeizNarCCH+UkhDGs9ldivfmBhZWnh6lD/75977FvTSTObsW6uaoOMFfGpj27/p1ByI2SHPoXwnaLxIN5+SWVZohHW6D+UDS1mmhPcLXCeAvWe/pxwYXbxxTQEOl3kGhRtiQmKecdubexikZMaVXJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kEDemRW4; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=LZiEExpp; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790616390; c=relaxed/simple;
+	bh=a+H+MjfUL3lzqQXAOwtAg5XYBfUcFZYCT2CEOl4LhcQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PAxk/gQLTwIEFMVRiap4l1IF0USLUIutzukBHI5qXB8t4NfcFEfcqbxDg5wqVgCzN9P9mnnjDC/tie+VxVUJurqiymxG9JhBIaj4K/Wi5mou4BTTozSS+le9yOhyNCCXwyWpHW8w3b44VE069H+T76rWo/Hn3vA9zK655uSdqoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=GdcYo7OR; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kEDemRW4";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="LZiEExpp"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790616362; bh=Rq2Uefl/uDCN7yy0qsArfdj
-	su0GCBTJ02syOpjDKKZk=; b=kEDemRW4+UXB9cS1f9DM3xfwhqwsotLmJb1c13CLs/dKj4hFUh
-	YSmnhZwF4d4o6YcwFGtyLrf31AkqrbKsRnniTXgHngHhwnHFPQ7cAYCDIZ9kqnHI4LBLOhhDGA7
-	/IzNjxkBfeeka7I7MzrvQkWUBVROUkR/0SIqtThKFcvKFeROwfhXYIxmP5K/SRRq5FF02qknkcm
-	wtuQA9PgO2jZeKKRGLvXIdKvZ2Q5F79WJjgYbJub11udAmD/0B0nNcwFUHaYSqZFhN4KXkCGJHf
-	BDgfD3KJtrClVWqiJR4OP6gM4A3Ngz+9ad2J4ZC/CJ8S7wtyEN5kUvzVpwPuQsxgNUw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790616362; bh=Rq2Uefl/uDCN7yy0qsArfdj
-	su0GCBTJ02syOpjDKKZk=; b=LZiEExpp7DcwHYhootugj93yJytnQtp+LJx/MmLanZOOVipSDt
-	en8Mn2d2YcS4yvm54Sc/INR5wOmKiN8TpmDg==;
-Date: Mon, 28 Sep 2026 18:26:03 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] driver core: Disable driver overriding by default
-In-Reply-To: <0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1790612298.git.u.kleine-koenig@baylibre.com>
-References: <cover.1790612298.git.u.kleine-koenig@baylibre.com> <0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1790612298.git.u.kleine-koenig@baylibre.com>
-Message-ID: <F984EAAA-9F4F-4BB9-AD6A-E19888014738@mainlining.org>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="GdcYo7OR"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4htpBQ582Gz1XM4TB;
+	Mon, 28 Sep 2026 17:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1790616378; x=1793208379; bh=I+yk2wik621uD+oNVuuWlDCM
+	mKnUCm3MgHStGhfBNQ0=; b=GdcYo7ORQjBnK0/KP9ad/hCc8eId5Zz0oLKirrGD
+	VpnnnqWLM7W2E8SLiMk+7csFIokF6ldEadHkem2zrUNpPUS39frijyucYLHK5XdD
+	1T+rPnX2o02Pt9BvUEPpJdtsQBQcyp9n9B66ANdS9NcnJPwZYVouCiKhD4vfDYS9
+	+JZwN3qPKHOzrQBVb2ydg4H0EscqyT5mjD64wKuJonUG0JxB8vTMdmYQDNl/0sXR
+	i4qUodPvvLb56yCStA+KIJsCocVWQOiguQTuQHGDlhGwTGF0Bdvkd1KjAcv1olnO
+	7q9dierj+07977CL8EhmZ/SDg4vuMttiR6xAvqM/eHtE/Q==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 9QGnqzDpKY67; Mon, 28 Sep 2026 17:26:18 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4htpBJ54XTz1XM4Sx;
+	Mon, 28 Sep 2026 17:26:16 +0000 (UTC)
+Message-ID: <df36224b-7fcb-45c4-ab78-d7e726bfeb9d@acm.org>
+Date: Mon, 28 Sep 2026 10:26:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] loop: defer the queue limits clear to a workqueue
+To: Tao Cui <cui.tao@linux.dev>, axboe@kernel.dk, hch@lst.de,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: cuitao@kylinos.cn, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928093512.3153646-1-cui.tao@linux.dev>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260928093512.3153646-1-cui.tao@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 28 September 2026 17:46:04 BST, "Uwe Kleine-König"
-<u.kleine-koenig@baylibre.com> wrote:
->Driver overriding is useful only in a very limited set of situations
->and then only with very few drivers that are designed to support that.
->
->Disallow matching via driver_override unless the driver explicitly
->allows it or the safe guard is disabled using the
->"allow_driver_override" kernel parameter.
->
->Implementation detail: device_match_driver_override() isn't a static
->inline any more. It grew a certain complexity (e.g. a pr_info()) and so
->was made a regular exported function.
->
->Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
->---
-> drivers/base/bus.c            | 43 +++++++++++++++++++++++++++++++++++
-> include/linux/device.h        | 26 ++-------------------
-> include/linux/device/driver.h |  2 ++
-> 3 files changed, 47 insertions(+), 24 deletions(-)
->
->diff --git a/drivers/base/bus.c b/drivers/base/bus.c
->index c51ad96d4de4..d294c198ab0c 100644
->--- a/drivers/base/bus.c
->+++ b/drivers/base/bus.c
->@@ -606,6 +606,49 @@ int bus_add_device(struct device *dev)
-> 	return error;
-> }
-> 
->+static int __read_mostly allow_driver_override;
->+
->+static int __init allow_driver_override_setup(char *str)
->+{
->+	allow_driver_override = 1;
->+
->+	return 1;
->+}
->+__setup("allow_driver_override", allow_driver_override_setup);
->+
->+/**
->+ * device_match_driver_override() - Match a driver against the device's driver_override.
->+ * @dev: device to check
->+ * @drv: driver to match against
->+ *
->+ * Returns > 0 if a driver override is set and matches the given driver, 0 if a
->+ * driver override is set but does not match, or < 0 if a driver override is not
->+ * set at all.
->+ */
+On 9/28/26 2:35 AM, Tao Cui wrote:
+> @@ -1148,6 +1182,16 @@ static void __loop_clr_fd(struct loop_device *lo)
+>   	lo->lo_backing_file = NULL;
+>   	spin_unlock_irq(&lo->lo_lock);
+>   
+> +	/*
+> +	 * Invalidate any clear that was scheduled against the old backing
+> +	 * file.  Unbinding cannot race with in-flight I/O, so cancelling
+> +	 * here leaves no work item behind.
+> +	 */
 
-Nice!
+This comment is wrong - asynchronous I/O can still be in progress here.
+See also
+https://lore.kernel.org/linux-block/69960302-1535-441a-be4e-d652766d65c2@I-love.SAKURA.ne.jp/
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Should this patch perhaps be rebased on top of Tetsuo's series?
 
-I mean, others may provide nits, but I'm rarely a nit guy
+> @@ -1783,7 +1827,9 @@ static void lo_free_disk(struct gendisk *disk)
+>   		destroy_workqueue(lo->workqueue);
+>   	loop_free_idle_workers(lo, true);
+>   	timer_shutdown_sync(&lo->timer);
+> +	cancel_work_sync(&lo->clear_limits_work);
+>   	mutex_destroy(&lo->lo_mutex);
+> +	mutex_destroy(&lo->clear_limits_lock);
+>   	kfree(lo);
+>   }
 
->+int device_match_driver_override(struct device *dev,
->+				 const struct device_driver *drv)
->+{
->+	guard(spinlock)(&dev->driver_override.lock);
->+	if (dev->driver_override.name) {
->+		int ret = !strcmp(dev->driver_override.name, drv->name);
->+
->+		if (ret > 0) {
->+			if (!allow_driver_override && !drv->support_driver_override) {
->+				pr_info("Suppress driver override binding. Allow %ps to do overriding or boot with allow_driver_override on cmdline\n",
->+					drv);
->+				return -1;
->+			}
->+
->+			add_taint_module(drv->owner,
->+					 TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
->+		}
->+
->+		return ret;
->+	}
->+	return -1;
->+}
->+EXPORT_SYMBOL_GPL(device_match_driver_override);
->+
-> /**
->  * bus_probe_device - probe drivers for a new device
->  * @dev: device to probe
->diff --git a/include/linux/device.h b/include/linux/device.h
->index 4dac5e09b74c..a142bf384f1e 100644
->--- a/include/linux/device.h
->+++ b/include/linux/device.h
->@@ -892,30 +892,8 @@ static inline bool device_has_driver_override(struct device *dev)
-> 	return !!dev->driver_override.name;
-> }
-> 
->-/**
->- * device_match_driver_override() - Match a driver against the device's driver_override.
->- * @dev: device to check
->- * @drv: driver to match against
->- *
->- * Returns > 0 if a driver override is set and matches the given driver, 0 if a
->- * driver override is set but does not match, or < 0 if a driver override is not
->- * set at all.
->- */
->-static inline int device_match_driver_override(struct device *dev,
->-					       const struct device_driver *drv)
->-{
->-	guard(spinlock)(&dev->driver_override.lock);
->-	if (dev->driver_override.name) {
->-		int ret = !strcmp(dev->driver_override.name, drv->name);
->-
->-		if (ret > 0)
->-			add_taint_module(drv->owner,
->-					 TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
->-
->-		return ret;
->-	}
->-	return -1;
->-}
->+int device_match_driver_override(struct device *dev,
->+				 const struct device_driver *drv);
-> 
-> /**
->  * device_iommu_mapped - Returns true when the device DMA is translated
->diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
->index 29fbc01ef06f..0153cfcbe1b9 100644
->--- a/include/linux/device/driver.h
->+++ b/include/linux/device/driver.h
->@@ -56,6 +56,7 @@ enum probe_type {
->  * @bus:	The bus which the device of this driver belongs to.
->  * @owner:	The module owner.
->  * @mod_name:	Used for built-in modules.
->+ * @support_driver_override: driver_override only works if this is true.
->  * @suppress_bind_attrs: Disables bind/unbind via sysfs.
->  * @probe_type:	Type of the probe (synchronous or asynchronous) to use.
->  * @of_match_table: The open firmware table.
->@@ -104,6 +105,7 @@ struct device_driver {
-> 	struct module		*owner;
-> 	const char		*mod_name;	/* used for built-in modules */
-> 
->+	bool support_driver_override;
-> 	bool suppress_bind_attrs;	/* disables bind/unbind via sysfs */
-> 	enum probe_type probe_type;
-> 
->
+Is the above new cancel_work_sync() call really necessary?
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+> @@ -2140,6 +2188,12 @@ static int loop_add(int i)
+>   
+>   static void loop_remove(struct loop_device *lo)
+>   {
+> +	/*
+> +	 * Cancel early: the queue may already be in RCU-delayed freeing
+> +	 * by the time lo_free_disk() cancels the work item.
+> +	 */
+> +	cancel_work_sync(&lo->clear_limits_work);
+> +
+>   	/* Make this loop device unreachable from pathname. */
+>   	del_gendisk(lo->lo_disk);
+>   	blk_mq_free_tag_set(&lo->tag_set);
+
+Is the above new cancel_work_sync() call necessary since there is
+already an identical call in __loop_clr_fd()?
+
+Thanks,
+
+Bart.
