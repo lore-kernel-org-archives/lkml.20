@@ -1,163 +1,290 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7DD2264D9;
-	Mon, 28 Sep 2026 12:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D078282F3A;
+	Mon, 28 Sep 2026 12:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599311; cv=none; b=CAdlhJbBlqyWktUMuXtj+zsT9Uqq/0bSVu7iUTQvrxTG/IUoohunVr07sO6o/CDSr/gZiLSMh00PfxlTMOCIervSl0c6lTpIkzpCeUEMF9gKlo7BFxoDr5fgQEpkg+dVEg14lg3O/d94tohxX5HcqyI7fARj4pO40FZH1jbIidM=
+	t=1790599397; cv=none; b=bcEwaIwqAAJWADpCXEQkH4EAihrIoTapA+8V5qEGc6G2o/OGEIwjLLkn2p06sSag5e+oayhSNa8P9fcwHV6NPnhKWou/AlrJ8+NuzlQUqriF6HfWDfujap90RxihOhd60t3LQR/L0LnvTF7hF02R43sFfyR56XOv1v+IsYCA0KY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599311; c=relaxed/simple;
-	bh=nKwRYTf4ZLYZ+b7NzyvEObTFYIoUEGIT9O6G4cFQmc4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q6FpYSVQFGJlaiqfjx2kxEgYwNPCWVpQmM5ZmnlVM0jUIpt9LXvgLmyUvzM3R4aL3lwinQ8CFKVE9m3kEliAgppGPmv9eiNukhfcm+lOPnrjM4ZuYq+UGENdml1P7uAkYsGwG3L4gK3eYle+ghqT4UwdKGCbnjR7VfEnbl6bvWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lSN7ZfS0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1OP3vtHG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BYaP0Er0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jmbw2zFs; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790599397; c=relaxed/simple;
+	bh=uS5sHY5MX3ZPHyYMSIICO/B13TTbXXhRdzWlpalGKQE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fkUDKyQkCraj4KTxMucHPFdNckBTCFnM0jM5MsjXVRJVjR8/wh/meOvWrC27YZTmTtTZSO4dedpq/Op1JyEkGt/xu9EYdmyhOFli2k/3u/zMYqoWt2UdKc6zWitvLymiCEL9UoNUZxJkbx1UZD6y0ZWKu3OwdbRgGYrwJm1FDOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SMFUUz26; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lSN7ZfS0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1OP3vtHG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BYaP0Er0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jmbw2zFs"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D4B261FA99;
-	Mon, 28 Sep 2026 12:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790599304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gyQXDjjTLuOVa40FexlAa2Yg+sfzT8Wgi8Lf8pKdxYs=;
-	b=lSN7ZfS0ePw2fVEYmkZtE4Q4lvpoIjGrDK0SdBdq1ia9Lgx65eP/zXrrBlh6p1dJv2b+ST
-	BQ8OC5ObhdOvZp8wspslJc4lrr02YfyEneisZMLfBUt7zrw9VTdDwK85XHjb5do+jZg8Dh
-	up0plm7hk3YvPhmoITsIpKp1h98V0fw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790599304;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gyQXDjjTLuOVa40FexlAa2Yg+sfzT8Wgi8Lf8pKdxYs=;
-	b=1OP3vtHGmPqCkPHGCJbS6vPM34XOt+Fd5FnXm/+jiK3LUO3qAMpq57eqS0uuJjkvC7XX0J
-	5CWqDDOlibieaaAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790599299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gyQXDjjTLuOVa40FexlAa2Yg+sfzT8Wgi8Lf8pKdxYs=;
-	b=BYaP0Er0kD4ncZmxDPOZtCf97yirl6bRr4+A+w+dtQZTeo3FH6bo37PaMX7w0Nk50VeqfO
-	LKN0pWEBQd+rHqngnEjrc6ZhcqgJdssAHvb/Bh6Q2E3zSQ6beWSGEq52zGLdPOkqlK5Zw/
-	/kp44Tapttpj6NeUEiHngXEhMIAu7eA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790599299;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gyQXDjjTLuOVa40FexlAa2Yg+sfzT8Wgi8Lf8pKdxYs=;
-	b=jmbw2zFsPbjj0QfBo7OuvgmSZ07oHGf0MqwIqzhxP2JtU3Hb2iLl19W8P3fCPqk9d/3Mr8
-	oHSTPmU80Ilvl9BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8256E133F1;
-	Mon, 28 Sep 2026 12:41:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zmhYFoNgumqKCQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:41:39 +0000
-Date: Mon, 28 Sep 2026 14:41:39 +0200
-Message-ID: <878q4l5z0c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Bartosz Brom <bartosz.brom06@gmail.com>
-Cc: tiwai@suse.de,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Add mute LED quirk for HP Pavilion 15-eh3174nw
-In-Reply-To: <CAN3WbsTf=MYcGC7mCYtAvtgcwXpUQDSG6VRpmVZ-s-erCaP19A@mail.gmail.com>
-References: <CAN3WbsTf=MYcGC7mCYtAvtgcwXpUQDSG6VRpmVZ-s-erCaP19A@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SMFUUz26"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790599396; x=1822135396;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=uS5sHY5MX3ZPHyYMSIICO/B13TTbXXhRdzWlpalGKQE=;
+  b=SMFUUz26v2/bp0xz3ISswj8HdR6ajyvj3q9wOPjHVWUKz1gHWe2i3hUl
+   Jl7+uA92p0gYEkFJksnlzbZa8rnbJjBSUwePi7bKNwHYHZUSYICcG9MIY
+   QgoiszAwMxfe9WzUfWuFChMb3vVCpkxm8wQ1wEoEz3OxA/BKF12hJwEFT
+   pSkLFDjMYGEGPd48LgliD3umAEHEZjoYiEr2Y6hq0e/TxW+Q8su6mRcUD
+   KycLdcKFEkl8A7uB0kw/Uj0t6RXkLe167b4yk8/ofr4FQJ0JfZOL5oUG/
+   UFI1ndD7OhsC3QrwoO3uLhT6tJ/Uvr+o9Y6TciZdsWI+YVPVSpy1ITswZ
+   w==;
+X-CSE-ConnectionGUID: gzWKs0yiSnmkODRaCtvN2g==
+X-CSE-MsgGUID: rs2errR+SqKUhYv1MeLIKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="102667965"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="102667965"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:43:15 -0700
+X-CSE-ConnectionGUID: 20PQfys1R52FHVq7fn5Zww==
+X-CSE-MsgGUID: j1oCOuChRhKcEgFtD8WvhA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="312958792"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.73]) ([10.245.244.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:43:08 -0700
+Message-ID: <e61fcc1552447e628b7ec938ac7e4e36555ebec2.camel@linux.intel.com>
+Subject: Re: [PATCH v8 22/23] PCI/P2PDMA: Evaluate the ATS path for clients
+ with ATS enabled
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,  Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev, Tushar Dave
+ <tdave@nvidia.com>, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,  Chaitanya Kulkarni	
+ <kch@nvidia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens
+ Axboe	 <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>, Ankit Agrawal
+	 <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Sumit
+ Semwal	 <sumit.semwal@linaro.org>
+Date: Mon, 28 Sep 2026 14:43:06 +0200
+In-Reply-To: <20260928-fix-p2p-acs-v4-0-v8-22-404453b9c435@nvidia.com>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+	 <20260928-fix-p2p-acs-v4-0-v8-22-404453b9c435@nvidia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+MIME-Version: 1.0
 
-On Sat, 19 Sep 2026 13:32:28 +0200,
-Bartosz Brom wrote:
-> 
-> The HP Pavilion 15-eh3174nw with an ALC287 codec requires the
-> ALC287_FIXUP_HP_GPIO_LED fixup for its mute LED to work correctly.
-> 
-> Add subsystem ID 0x103c:0x8bc7 to the quirk table to apply the
-> existing fixup.
-> 
-> Tested on an HP Pavilion 15-eh3174nw; the mute LED now follows the
-> speaker mute state.
-> 
-> Signed-off-by: Bartosz Brom <bartosz.brom06@gmail.com>
+On Mon, 2026-09-28 at 14:19 +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+>=20
+> P2PDMA assumes every client issues Untranslated Requests. A device
+> with
+> ATS enabled may translate any address it is handed, including a bus
+> address, and Translation Blocking can reject its Translated Requests
+> on
+> a route the Untranslated answer called usable.
+>=20
+> Unless the client declared per-mapping ATS, take the Address Type
+> from
+> its ATS Enable bit. Never hand such a client bus addresses: only an
+> IOVA
+> survives translation, and whatever it issues untranslated goes
+> through
+> the host bridge, whose route must therefore be usable. Apply this
+> after
+> the cache, which keeps holding answers that depend only on the
+> topology.
+>=20
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+
 > ---
-> diff --git a/sound/hda/codecs/realtek/alc269.c
-> b/sound/hda/codecs/realtek/alc269.c
-> index 5127a111c..2956e666e 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7581,6 +7581,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->         SND_PCI_QUIRK(0x103c, 0x8bb4, "HP Slim OMEN",
-> ALC287_FIXUP_CS35L41_I2C_2),
->         SND_PCI_QUIRK(0x103c, 0x8bb6, "HP Laptop 15-fd0039nt",
-> ALC236_FIXUP_HP_15_FD0XXX),
->         SND_PCI_QUIRK(0x103c, 0x8bbe, "HP Victus 16-r0xxx (MB 8BBE)",
-> ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
-> +       SND_PCI_QUIRK(0x103c, 0x8bc7, "HP Pavilion 15-eh3174nw",
-> ALC287_FIXUP_HP_GPIO_LED),
->         SND_PCI_QUIRK(0x103c, 0x8bc8, "HP Victus 15-fa1xxx",
-> ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
->         SND_PCI_QUIRK(0x103c, 0x8bcd, "HP Omen 16-xd0xxx",
-> ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
->         SND_PCI_QUIRK(0x103c, 0x8bd4, "HP Victus 16-s0xxx (MB 8BD4)",
-> ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
-
-Unfortunately the patch isn't applicable because your mailer broke the
-spaces and the tabs.
-
-Please correct your mailer setup and resubmit (at best with git
-send-email).  If you are unsure, it'd be better to try once to send to
-yourself and verify that you can apply the patch via git-am correctly
-before actually submitting to the upstream.
-
-
-thanks,
-
-Takashi
+> =C2=A0Documentation/driver-api/pci/p2pdma.rst |=C2=A0 8 ++++++
+> =C2=A0drivers/pci/p2pdma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 50
+> +++++++++++++++++++++++++++++++--
+> =C2=A0include/linux/pci-p2pdma.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 +-
+> =C2=A03 files changed, 58 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/driver-api/pci/p2pdma.rst
+> b/Documentation/driver-api/pci/p2pdma.rst
+> index 7a7f29f455b0..bf9f96c07b58 100644
+> --- a/Documentation/driver-api/pci/p2pdma.rst
+> +++ b/Documentation/driver-api/pci/p2pdma.rst
+> @@ -40,6 +40,14 @@ A client therefore describes its traffic with
+> ``enum pci_p2pdma_tlp_flags``
+> =C2=A0and asks ``pci_p2pdma_map_type_tlp()``. ``pci_p2pdma_map_type()``
+> answers for
+> =C2=A0the default: strictly ordered Requests carrying an Untranslated
+> address.
+> =C2=A0
+> +The PCIe ATS Enable bit covers the whole device, and most devices
+> translate
+> +any address they are handed once it is set. Unless a driver has
+> declared with
+> +``pcim_p2pdma_set_ats_per_mapping()`` that its device chooses ATS
+> per mapping,
+> +that bit rather than the flags decides the Address Type, and a
+> client with ATS
+> +enabled is never handed a bus address, which it would translate as
+> though it
+> +were an IOVA. Its Translated Requests may still route directly, but
+> anything
+> +it issues untranslated reaches the host bridge, so that route has to
+> work too.
+> +
+> =C2=A0The two directions are decided independently. Translation Blocking
+> (TB),
+> =C2=A0Direct Translated P2P (DT), Request Redirect (RR) and Egress Contro=
+l
+> (EC) on
+> =C2=A0the client-side port decide the Request:
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index ae676509f9f3..ca79af2e64c7 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -1595,6 +1595,41 @@ void pcim_p2pdma_set_ats_per_mapping(struct
+> pci_dev *pdev)
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
+> =C2=A0
+> +static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev
+> *client,
+> +						unsigned int
+> tlp_flags)
+> +{
+> +	if (client->ats_enabled)
+> +		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
+> +
+> +	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
+> +}
+> +
+> +/*
+> + * A client that translates every address it is handed cannot be
+> handed a bus
+> + * address, which it would translate as though it were an IOVA. Its
+> Translated
+> + * Requests may still route directly, but a Request it issues
+> without a
+> + * translation carries the IOVA to the host bridge, so that route
+> has to work
+> + * as well.
+> + */
+> +static enum pci_p2pdma_map_type
+> +pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev
+> *client,
+> +			=C2=A0=C2=A0 bool per_mapping, enum
+> pci_p2pdma_map_type type)
+> +{
+> +	if (per_mapping || !client->ats_enabled ||
+> +	=C2=A0=C2=A0=C2=A0 type !=3D PCI_P2PDMA_MAP_BUS_ADDR)
+> +		return type;
+> +
+> +	pci_dbg(client,
+> +		"P2PDMA ACS: provider=3D%s bus address withheld; ATS
+> is enabled for the whole client\n",
+> +		 pci_name(provider));
+> +
+> +	if (cpu_supports_p2pdma() ||
+> +	=C2=A0=C2=A0=C2=A0 host_bridge_whitelist(provider, client, false))
+> +		return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+> +
+> +	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA
+> transfers
+> =C2=A0 * @provider: P2PDMA provider structure
+> @@ -1609,6 +1644,11 @@
+> EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
+> =C2=A0 * ACS routes a peer-to-peer transaction by the attributes its TLPs
+> carry, so
+> =C2=A0 * the answer depends on @tlp_flags. A caller that passes flags its
+> traffic
+> =C2=A0 * does not match gets a mapping the fabric will not deliver.
+> + *
+> + * Only a client whose driver called
+> pcim_p2pdma_set_ats_per_mapping() takes
+> + * the Address Type from @tlp_flags. For any other client its ATS
+> Enable bit
+> + * decides, and a client that translates every address it is handed
+> never gets
+> + * %PCI_P2PDMA_MAP_BUS_ADDR.
+> =C2=A0 */
+> =C2=A0enum pci_p2pdma_map_type
+> =C2=A0pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct
+> device *dev,
+> @@ -1620,6 +1660,7 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider
+> *provider, struct device *dev,
+> =C2=A0	struct pci_p2pdma *p2pdma;
+> =C2=A0	struct pci_dev *client;
+> =C2=A0	bool provider_state;
+> +	bool per_mapping;
+> =C2=A0	int dist;
+> =C2=A0
+> =C2=A0	if (!pdev->p2pdma) {
+> @@ -1639,6 +1680,9 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider
+> *provider, struct device *dev,
+> =C2=A0	cache_index =3D map_types_idx(client);
+> =C2=A0
+> =C2=A0	rcu_read_lock();
+> +	/* The declaration belongs to the client, the cache to the
+> provider. */
+> +	p2pdma =3D rcu_dereference(client->p2pdma);
+> +	per_mapping =3D p2pdma && p2pdma->ats_per_mapping;
+> =C2=A0	p2pdma =3D rcu_dereference(pdev->p2pdma);
+> =C2=A0
+> =C2=A0	if (p2pdma)
+> @@ -1646,6 +1690,8 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider
+> *provider, struct device *dev,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 cache_index));
+> =C2=A0	provider_state =3D !!p2pdma;
+> =C2=A0	rcu_read_unlock();
+> +	if (!per_mapping)
+> +		tlp_flags =3D pci_p2pdma_client_tlp_flags(client,
+> tlp_flags);
+> =C2=A0	type =3D pci_p2pdma_map_types_unpack(cached, tlp_flags);
+> =C2=A0	pci_dbg(client,
+> =C2=A0		 "P2PDMA ACS: map lookup provider=3D%s index=3D%#lx tlp-
+> flags=3D%#x cached=3D%s(%d) provider-state=3D%u\n",
+> @@ -1653,10 +1699,10 @@ pci_p2pdma_map_type_tlp(struct
+> p2pdma_provider *provider, struct device *dev,
+> =C2=A0		 pci_p2pdma_map_type_name(type), type,
+> provider_state);
+> =C2=A0
+> =C2=A0	if (type =3D=3D PCI_P2PDMA_MAP_UNKNOWN)
+> -		return calc_map_type_and_dist(pdev, client, &dist,
+> tlp_flags,
+> +		type =3D calc_map_type_and_dist(pdev, client, &dist,
+> tlp_flags,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 true);
+> =C2=A0
+> -	return type;
+> +	return pci_p2pdma_client_map_type(pdev, client, per_mapping,
+> type);
+> =C2=A0}
+> =C2=A0
+> =C2=A0void __pci_p2pdma_update_state(struct pci_p2pdma_map_state *state,
+> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+> index 543a09426a11..8d96659df9df 100644
+> --- a/include/linux/pci-p2pdma.h
+> +++ b/include/linux/pci-p2pdma.h
+> @@ -207,7 +207,8 @@ static inline struct pci_dev
+> *pci_p2pmem_find(struct device *client)
+> =C2=A0 * @dev: Client device that initiates the transfer
+> =C2=A0 *
+> =C2=A0 * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly
+> ordered
+> - * Requests that carry an Untranslated address.
+> + * Requests. Their Address Type is Untranslated unless the client
+> enables ATS
+> + * for the whole device.
+> =C2=A0 */
+> =C2=A0static inline enum pci_p2pdma_map_type
+> =C2=A0pci_p2pdma_map_type(struct p2pdma_provider *provider, struct device
+> *dev)
