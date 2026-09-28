@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BF548FF71;
-	Mon, 28 Sep 2026 09:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D272FD1B3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587980; cv=none; b=tRRI7KRCqQtkMx+NvHpepmRhvJYf8lkSbXVm6aKlw685dRWwwPmS3TOUCM7OKVJPtrK2atG8z2I0CkXfQH6g48mQXx9m6DyYJfTFgzRjY/RjGdv3nMm/+XOjH3kVO1v0TvgzEW1ULu6xMsAXq1Z1URuLlTSIsKaqtAjgac0HN6A=
+	t=1790587981; cv=none; b=bRVLfLjZJLXCKHNn8wosTOibV4cql6USEqV3Y3a00LDr+HgnxnOci6WChAnpBdygksXWVAQGVcfmdR9E1fp6PNlid5KePy2Ptl6W6LbPmnoaYwoxuYoZDQ8Hh4RaVvDZc5zRcYa2kiOaXiYnOGvOsWeEy1TbWRLB8EfGWy78FQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587980; c=relaxed/simple;
-	bh=VqDzSYpQSNfrkjs6ARAXLXtneWlNWUvN1FcGCQ1A2B0=;
+	s=arc-20240116; t=1790587981; c=relaxed/simple;
+	bh=ETo6rrudRG5VauPFMeWtsoPSY1bTtsOWTm1BHrhl+js=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E7yUa+cWN86g2dKlkHOzY1xlCXPM+mYbYf+lzbDgVhGzK0YoPnFMjmN25jiA8429K/U9gPgTKO3yYQBDZntuxNttRqNZCalWPBeRhuHcag7lSsob89DfPHWFhG9lo1jVw30Xvxi3vGACRn3au4HTsydiYBpJZRHSJDYj85C2DlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5XhMlA2; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=j+D7S7z27z0D6eXRoU1DfM/1dn6ipXWsdTLxlruhgvUpmIZq+PaXEROMYC8f6MkYUudc8vOPcNlib0DnmqmqIqOx+NPGhMgSB3ZHyrvQQV2i7dvskWhnwpRXJJ8YxoBilrLgcDcc5J66Y4PHIWjtD/t3f2787L2kZLwD/llMjUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SXb1a5V8; arc=none smtp.client-ip=91.218.175.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5XhMlA2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491FB1F000FF;
-	Mon, 28 Sep 2026 09:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790587977;
-	bh=ks6Xv+B0ZxGTUgqkdj6M5pfP6WLJp0AmA9iD9VJVSzE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G5XhMlA2Xt6ciRTgyNKGaSD3+aKUjU+Hxo0Yz8uq2zGFEAzBLcRB5SlaP3RLlm96U
-	 f+CdiFJWUr0CCeZGGXai7UQUxc3hWSYa3CyW15e1/bYHY4mrYrdwo7T3Ts4DO0S9IX
-	 zPFBQUu19GxNRj+LlVPF/ZyuPilNa2sOay/+wciQDaNBu8F3/VDnqy8+ipATyTQDUT
-	 Fw4KxKfNrLdUDU42ysjIMjvAcgY0JyI32qDUh/9xRZ432L5uSvURimNLqUUsgbBW+6
-	 Wm0/2pVBlYPJmk6p4kEnroU4Nr2iFvITyy1uGDhesbKEhP56UQAZ928IIzIpDPo48M
-	 mkvghDcWXvmug==
-Message-ID: <0f3a7511-b191-43d6-893f-6ac70726a7c9@kernel.org>
-Date: Mon, 28 Sep 2026 11:32:51 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SXb1a5V8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ETo6rrudRG5VauPFMeWtsoPSY1bTtsOWTm1BHrhl+js=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790587977; v=1; x=1791192777;
+ b=SXb1a5V8y3/3o4wUTqqyyT4lJQUh7wuhXBXSVGpP3LnGzZcEqtkj4i5hwQxt+9bpAbzeSgTU
+ +2V9Zz/G3WquoqvAnMXL4VrbcDi8SijUiGtHD3jalhhrBdn2Hk6gM/PWVZfZAZcC+l7Np1jHxUq
+ DdyYU+28bKYQszg1bV7U2kxQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a2bb7aa19e2d68f4;
+	Mon, 28 Sep 2026 09:32:57 +0000
+X-Mizu-Trace-ID: a2bb7aa19e2d68f4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b28adf8c-a147-4452-8f70-ba1db616fae8@linux.dev>
+Date: Mon, 28 Sep 2026 17:32:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,83 +38,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add Acer Swift SFA14-11
-To: Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: abelvesa@kernel.org, andersson@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org
-References: <20260928-spiffy-calm-mongoose-828a04@quoll>
- <20260928082322.10078-1-liujianfeng1994@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH-next v2 2/2] cgroup/cpuset: Remove CS_CPU_EXCLUSIVE
+ handling code from v2
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hui Peng <benquike@gmail.com>
+References: <20260927215319.382422-1-longman@redhat.com>
+ <20260927215319.382422-3-longman@redhat.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260928082322.10078-1-liujianfeng1994@gmail.com>
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20260927215319.382422-3-longman@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28/09/2026 10:23, Jianfeng Liu wrote:
-> On Mon, 28 Sep 2026 08:39:55 +0200, Krzysztof wrote:
->>> +              - acer,sfa14-11
->>
->> acer,swift-sfa14-11
->>
->> ?
+
+
+在 2026/9/28 05:53, Waiman Long 写道:
+> As the is_cpu_exclusive() function is only used for DEADLINE shrink
+> test with v1 there is no need to have the CS_CPU_EXCLUSIVE flag set on
+> valid partition root anymore. Remove update_partition_exclusive_flag()
+> and other CS_CPU_EXCLUSIVE flag handling code in cpuset.c.
 > 
-> Hi Krzysztof,
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 52 ++++--------------------------------------
+>  1 file changed, 4 insertions(+), 48 deletions(-)
 > 
-> As I mentioned in the cover leter, both Swift SFA14-11 and SFA14-11 can be
-> found in www.acer.com, but the UEFI firmware reports the Product Name as
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 104fe10c336d..4a915da37bb3 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1174,25 +1174,6 @@ enum partition_cmd {
+>  static void update_sibling_cpumasks(struct cpuset *parent, struct cpuset *cs,
+>  				    struct tmpmasks *tmp);
+>  
+> -/*
+> - * Update partition exclusive flag
+> - *
+> - * Return: 0 if successful, an error code otherwise
+> - */
+> -static int update_partition_exclusive_flag(struct cpuset *cs, int new_prs)
+> -{
+> -	bool exclusive = (new_prs > PRS_MEMBER);
+> -
+> -	if (exclusive && !is_cpu_exclusive(cs)) {
+> -		if (cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 1))
+> -			return PERR_NOTEXCL;
+> -	} else if (!exclusive && is_cpu_exclusive(cs)) {
+> -		/* Turning off CS_CPU_EXCLUSIVE will not return error */
+> -		cpuset_update_flag(CS_CPU_EXCLUSIVE, cs, 0);
+> -	}
+> -	return 0;
+> -}
+> -
+>  /*
+>   * Update partition load balance flag and/or rebuild sched domain
+>   *
+> @@ -1248,11 +1229,9 @@ static void reset_partition_data(struct cpuset *cs)
+>  
+>  	lockdep_assert_held(&callback_lock);
+>  
+> -	if (cpumask_empty(cs->exclusive_cpus)) {
+> +	if (cpumask_empty(cs->exclusive_cpus))
+>  		cpumask_clear(cs->effective_xcpus);
+> -		if (is_cpu_exclusive(cs))
+> -			clear_bit(CS_CPU_EXCLUSIVE, &cs->flags);
+> -	}
+> +
+>  	if (!cpumask_and(cs->effective_cpus, parent->effective_cpus, cs->cpus_allowed))
+>  		cpumask_copy(cs->effective_cpus, parent->effective_cpus);
+>  }
+> @@ -2028,19 +2007,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	if (!adding && !deleting && (new_prs == old_prs))
+>  		return 0;
+>  
+> -	/*
+> -	 * Transitioning between invalid to valid or vice versa may require
+> -	 * changing CS_CPU_EXCLUSIVE. In the case of partcmd_update,
+> -	 * validate_change() has already been successfully called and
+> -	 * CPU lists in cs haven't been updated yet. So defer it to later.
+> -	 */
+> -	if ((old_prs != new_prs) && (cmd != partcmd_update))  {
+> -		int err = update_partition_exclusive_flag(cs, new_prs);
+> -
+> -		if (err)
+> -			return err;
+> -	}
+> -
+>  	/*
+>  	 * Change the parent's effective_cpus & effective_xcpus (top cpuset
+>  	 * only).
+> @@ -2063,9 +2029,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  
+>  	spin_unlock_irq(&callback_lock);
+>  
+> -	if ((old_prs != new_prs) && (cmd == partcmd_update))
+> -		update_partition_exclusive_flag(cs, new_prs);
+> -
+>  	if (adding || deleting) {
+>  		cpuset_update_tasks_cpumask(parent, tmp->addmask);
+>  		update_sibling_cpumasks(parent, cs, tmp);
+> @@ -2942,10 +2905,6 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>  	if (alloc_tmpmasks(&tmpmask))
+>  		return -ENOMEM;
+>  
+> -	err = update_partition_exclusive_flag(cs, new_prs);
+> -	if (err)
+> -		goto out;
+> -
+>  	if (!old_prs) {
+>  		/*
+>  		 * cpus_allowed and exclusive_cpus cannot be both empty.
+> @@ -3009,13 +2968,10 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>  	}
+>  out:
+>  	/*
+> -	 * Make partition invalid & disable CS_CPU_EXCLUSIVE if an error
+> -	 * happens.
+> +	 * Make partition invalid if an error happens.
+>  	 */
+> -	if (err) {
+> +	if (err)
+>  		new_prs = -new_prs;
+> -		update_partition_exclusive_flag(cs, new_prs);
+> -	}
+>  
+>  	spin_lock_irq(&callback_lock);
+>  	cs->partition_root_state = new_prs;
 
-I don't understand. Your commit subject says it is Swift SFA14-11.
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-> SFA14-11, and S in SFA should have the meaning of Swift. If you think
-> acer,swift-sfa14-11 is a better one, I can update a new version with this
-> compatible string.
-I googled and for "acer SFA14-11" I see only "Acer Swift Air 14" names,
-so that is the name people see everywhere.
-
-
-Best regards,
-Krzysztof
+Thanks,
+Guopeng
