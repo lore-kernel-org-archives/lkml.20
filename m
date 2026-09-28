@@ -1,436 +1,166 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013041.outbound.protection.outlook.com [40.107.162.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56DE4F5E11;
-	Mon, 28 Sep 2026 19:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623909; cv=none; b=WHm0jcFYl7lSntW5W29GBFIlydhc69+2CwMkVJUF0V/tzFAyV9Pe2MhjjhdGD9NbTI+GR7yGacMx6vJc/UH9bbBgrhM9c2HlaatFDQ1cmpid0ilE+yhEXEoBl8HG62vOY0pCh4cemLQS+yudV9Pwxq9pS0YNYH4DMUvS9q2TUws=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623909; c=relaxed/simple;
-	bh=p4xMUAoV47rG0aYO3Inzajlrdg/yNKGrRD0rRlUK5Jc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MzeVu2j8VSK6DJlIwmAix0DyXtP8oIpPO/JvGIe2cBBdewEoHWpZ0KBsNvyk3dH9oUJ2PLPru3NflCrAOlOVj1Sj7+Naejk3DjMaJWjI6XEjjnuycsuVO8yl1GK0nodTjEHr6jOiwyAHmKa7AB5/0PMlkH6L0MwKhgbW3G8750c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=L5s4QsEb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=JATAl0I7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cLjz2rTG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HLYCJtnc; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDC04F55AB;
+	Mon, 28 Sep 2026 19:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790623929; cv=fail; b=bdRl37QWswkmaFTFjt85ZGTPVi8h1GG31EIoOV6BDGlVb5f9wrc5enOwXLJotA+blGGuB0Eoim8wpKFsHjg+7Gmlhq4ruB5BGnfhqH3JfKwobDbBxSuleHp5hcIIfJq4GZA07jOh777iTGQiYYtk/rhQWOp7HO9eBLE1+TFurzE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790623929; c=relaxed/simple;
+	bh=7GkVZu/Dfqy5Tg+fcgN9/bSxyfIB26S0mBJEGs8UUvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jXXTU7asV7z5CZszb/Ihy7xMmxVs2Pi7aNxGNOzOADf9Outb8Ipf4Kwb8Pu5BfapzKm+lDl4Txnf+rldfCAxsn3ZtWc5/eZVhf3IxPoKEozRQ5jArDOqSITfZ7XbNJntbrFomI3TnWJtO6lDrgU7NFFuMH5z1eEr7xjlbB1FeM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=oqITb3Bl; arc=fail smtp.client-ip=40.107.162.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="L5s4QsEb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JATAl0I7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cLjz2rTG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HLYCJtnc"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DF09B21B07;
-	Mon, 28 Sep 2026 19:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790623902; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lp8hvIoJ8Jqv5jVfxnkcNIiODK0r856bKYALyBJ9J64=;
-	b=L5s4QsEbUM5yiiBk+Xhx9cpcoUgPyqcP1OheRAQqezWRh0RQqfqEHjilwE31wlZq7qW3Tm
-	Dv16wldX6r9SWydvxSfetQrbFYwUZ4mJ+mrcVNDRDBqsvRyukKCw+JosEpOtCDoxjOHRqB
-	z62cnRIB0Of55fYC2pQAzqmBQln0mY8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790623902;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lp8hvIoJ8Jqv5jVfxnkcNIiODK0r856bKYALyBJ9J64=;
-	b=JATAl0I7a6OPqbtPGjBQ6sTtvBA5HmDXmQXj57likKBvvHucdchtmtgqzjpY2p1JCg1J//
-	mzZQizAYummc2PBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790623897; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lp8hvIoJ8Jqv5jVfxnkcNIiODK0r856bKYALyBJ9J64=;
-	b=cLjz2rTGFaDPu0ne0V7ZLAMl3gPYXFO9S3QYZg9VrhENI7TRO4x3FpT+nWWtrcS4wEZXp0
-	j50nL0LeoM45nakxauQ2UIA9Mgch5C6n0M1X+xzmiUB/LMjJa5p8t4cnerx5flStark503
-	QJl05nKFqUsxTRlaQRSqx9DUxm3DY2M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790623897;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lp8hvIoJ8Jqv5jVfxnkcNIiODK0r856bKYALyBJ9J64=;
-	b=HLYCJtncjLZSNZEAeLFOJRIr6Xq1NGH2j80UeHYjmLo95GGh6qJeBbdvQvlpJaIv88+IIQ
-	VrcvO+N8QZs7wMCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C55F313418;
-	Mon, 28 Sep 2026 19:31:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4RBiFn3AumpWOAAAD6G6ig:T4
-	(envelope-from <fmancera@suse.de>); Mon, 28 Sep 2026 19:31:36 +0000
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	davem@davemloft.net,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Christian Brauner <brauner@kernel.org>,
-	Qi Tang <tpluszz77@gmail.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 03/16 net-next v2] net: inet: relocate ip_generic_getfrag and guard IPv4 socket logic
-Date: Mon, 28 Sep 2026 21:29:59 +0200
-Message-ID: <20260928193046.6698-4-fmancera@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260928193046.6698-1-fmancera@suse.de>
-References: <20260928193046.6698-1-fmancera@suse.de>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="oqITb3Bl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OHRW/IbbRBun++LwS8qpitYX38ZgtR+X1PXc4NZGIPnMjhhtvu8tiEucylxK1BBASc7Zt6xYtytZW5V+atBkdIX0s8QBSquBgXiShyHVKs6qlCeEWiNAl/wmlKNcJ4YDmiXnPn01B+4S7cVr84dQTal4R3YBqt6wQfKxaANSOhf9ACcWj2hgVgqoqSrlulL31wBZLyT3Vh9CH/3MvLmDAs1kG7464eDRJS1UGWvPC6LRmp1SJfLbGR7OPzVCBD3tOEINVXz25NjyNMslqsxSu+RWzhHxGu0fj/3HPBx3fVHcjw+7lzg4LTkOC0A2rYsOfVHaQ6tTZxD4oVnSVIyfOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E1sbEkYIPQ6sA/ui2C8D954iMTF8q3qzpO3P65MOIpI=;
+ b=GlyVMODNNT2HtK3WoitKmOkkc7rTamY79piSiM5pnnbmeeIYmctPmJ//MolrjBIEUzpJoWA9Iu4UFGlTO5DBfYi6S/1EmwEtidSgJFEwXxDNhZirORraxs7tbFBbHbWb75xeQ/UFkZU9chJF8vPUMlGPrHmDNaSc7J5u5K1CxQqNjUUHMRVa0cz3MUMQRPedU13wmIzLH6enSQde3OobqLs2SfbO9DjfHJ6YkFXz/x8YG3t/GXipBnzntS++l1aFLFAJ77ic0q7vKMwY9dSZQboJfbSoEPd7wiI6cCxQD6od25vbmLWyLs8E2vUUYD5X+LKMjp6hjHa2x5JOJcrCRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E1sbEkYIPQ6sA/ui2C8D954iMTF8q3qzpO3P65MOIpI=;
+ b=oqITb3Bl9Q//HucjVLS17F2laFnXRR1SPm+cInkBuPLiYhpicxE+EOaSzJF4TCXMI/BtKP41SmfKSHLvegUrHiubFNdBxVq/nZPEu1hLVTIJqyDwSqvPeulGzMvHJ4A+HlP/2PCAD9o6azPm6klfwlxRd9dVLuzjzQ0ni6HV5tSO9EBhl0YdXDCRz2mM2kGd5vOKamwvJl7aBQnsdyOoAXpAXrWsoJBLmfy4KSS4p58tGKxx3Ptjz5ZMiZvbq4eulh/1kgq75o6uwQthPJ84qcCeL/ee79rkLQbXnetSL9k7h0oVLy6Ss2efptgZWe/B2nykXrixsXlrpL+6viH19g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
+ by AM9PR04MB8633.eurprd04.prod.outlook.com (2603:10a6:20b:43c::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 19:32:03 +0000
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 19:32:03 +0000
+Date: Mon, 28 Sep 2026 15:31:49 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Aswath Govindraju <a-govindraju@ti.com>,
+	Christoph Stoidner <c.stoidner@phytec.de>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-can@vger.kernel.org, linux-phy@lists.infradead.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH V5 3/4] dt-bindings: phy: ti,tcan104x-can: Document
+ Microchip MCP2542
+Message-ID: <arrApSK-HQwx5UVg@lizhi-Precision-Tower-5810>
+References: <20260907150420.18787-1-wahrenst@gmx.net>
+ <20260907150420.18787-4-wahrenst@gmx.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907150420.18787-4-wahrenst@gmx.net>
+X-ClientProxiedBy: PH8P222CA0021.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,redhat.com,davemloft.net,suse.de,google.com,nvidia.com,linux.dev,gmail.com,vger.kernel.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|AM9PR04MB8633:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24ce0170-27db-4b9b-2321-08df1d972a2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|23010399003|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	vlFMTBm3FYLKvC7wAyRiikSbt5d5CIUUaPGGZsZIksBtdHhaY49zKnm9c9ovkEy0JsglD7SRkArNY7k6gHnbwDbyH+dYwrJ2souN/aPsZLQqfq2B1MPlhw2zNoxM6L3BpjbhKQEg8jbm8z1khtEaGgfcHQ07qKIv2+YAirn6nkUKrr34htNz5JzAgH1Gh3xwscrn8ZSJ8HwA+dgF2X+LeJjTker45fpPSsXTuVQBelGA/mYyk4ttsrL7AzT6qkQ7gj0APBv7wtuluIBZvve3RxxwMWuu7/73aQ/or3uWPsX3zAAC39Cn9/MnAVrh+j56CDFI9EdBXMVdvZEjKADZZOUzXa0xXz2ulct1533OWmjLb7VymXuecM0rcXI4XSUEv6rcsbZLkA2n194OQrOeqoIdZO3Cb30M12Me7egrxJDNf060AQxWyTVIFIgwepugj58W9RF8aenbHBcIVwV1nSMzsow4aBb2hKBsTP6lZXRH+pAtm167qHfMYpl8TsdylBk2zzHcYyimh+WIThrXZl/JeBBB24HDx5BronczmBaB0xyUyUfW4jpPnwCto1j8AeiOJQ1l9em4FLZQCwCjF5X5ZRrEgAZ7T6WBX77DbCkWu/A6uXNzwMQoNbbiAkQk8bF4OOSXU/ELI+4LtAo4YMA/Iy4DE1a0EDnIjMOGkn4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4xV/7+PGxvNlardsDfEBjSEgb61Eg+N5z/TOXlqL35yCuxBfuJ+hlG709VEG?=
+ =?us-ascii?Q?NoMB3LVYrupXLaZK0c/HUSKmVnPbYA0O2um+FO4KOnhoFGNyqyGUoVmgR7KO?=
+ =?us-ascii?Q?jGFg+uhZEzBagzBoSzQu1BSgb5vgJ4/CzoGU8sHYJA5HzWywDwXt2GKnlhQO?=
+ =?us-ascii?Q?8N+VbWVKvMZAJd6U65tzFsvDjqj4IKcU05iv+frRImH8mWQIN4kZjNBhMps3?=
+ =?us-ascii?Q?a9wAeCi/OgmxskCsuxpVDP11DjZAy5wGEdSaoc1XEvr11QwQ+nYDGp9ntUuF?=
+ =?us-ascii?Q?4cM0QaVgyBlUd7ZvT49km3PdDZw2Xb7ZnrjLv1yt8pqbJbg9QhMtiW56jEk1?=
+ =?us-ascii?Q?oYnGU36ty3rm6ZpAX+QwOJyMQHYK9+GWlu969FsowtqBHZl+WAaDUoKdpYRX?=
+ =?us-ascii?Q?9F0r1Jmq2xIHejftV8EC6OvMiKNSDVcIi3whUxMkcUM+Uo+SuhImDE5zPcU/?=
+ =?us-ascii?Q?uKy2cFQYwkqfXAkOWtnk1E9a0yyXbqetOUfq8YmWDgF982u+21JFFp8a+U8E?=
+ =?us-ascii?Q?LSWES0/GO1iBZoeY6uWwjrXS2apVELoN13KhXCsIRZwN8BtPp1fx7aBVcE2f?=
+ =?us-ascii?Q?r0LC7ZmVmLhOhbu7HG2jwu7kElmeoF5Nj3jwm3UhTCWdbdWmlaeLa66MnHnX?=
+ =?us-ascii?Q?akg4caP2ZnCUlb1YqIAsWeWE98RMWTqSGuKLwwyHgT7xkyGsR1b2Atzs/9+i?=
+ =?us-ascii?Q?bbwi4KR37XSWEaQHLpwIcGQuZoHvSWi8ary5cPzWlRcKNhhOphhBIUAEcsBR?=
+ =?us-ascii?Q?NEqTEpT3UVDbybiuFCDVj8XIgoxMwNwECvnJbV5gyGReYJdX93E6w5m36erE?=
+ =?us-ascii?Q?2pxQ14XwubshPdM5gGZeKMK2Ew047u6YyB9XBp8GQYdYJYqnBNExi5xA4wl7?=
+ =?us-ascii?Q?3TRCXfPxZWv5pGYxE4gJBd5rtM6ELokd+Br4enR4aPG/oEq0WJ1LqyXTjz60?=
+ =?us-ascii?Q?pBBM6E4O6FFv1Lm6ZxnT5IugOxdRXq2SCLvOBOS4Fhl7NVYpOLgG/IcU/lrm?=
+ =?us-ascii?Q?8IY6rNQwrNejQBIfxflbPUEtfWXoZ96cp+BCAa0PMONZLZCtl+W/6MvTCzzb?=
+ =?us-ascii?Q?j83i8bOTh1SMUhqT1RxdGIMXjtbxOXfZt2NUrQWZdopWO6dcqKF/y+ShYMle?=
+ =?us-ascii?Q?c1hFt2rDrEJ7Vr35KboW5+0QyRyizFjqXDmZHObIAyom9zFcb6jgXpkXRfMb?=
+ =?us-ascii?Q?opUNlbe0XRUnErfQlyPfImUthYiONyOtCnfXydrR+RY/QVXWZ17GRXb0q2uC?=
+ =?us-ascii?Q?PPm/+Ea1/yatsey5grP4WoqCHYSQhHWoosogVmC0O/rlgYYbmpmau7wqL4BL?=
+ =?us-ascii?Q?bIyvsLiEq9jLeq9iu2FQxitkQ/CNkBSuoxfQRMv2F2+u0Nxuc0PMYZ7ixIhx?=
+ =?us-ascii?Q?o4P01sV4+ymv5a67CPa+qQ/fB5lYpMovHdHB1HGo4s3n0I7xS78lAWURAEgx?=
+ =?us-ascii?Q?GYCeD6UL6ZClLtesSEHPN/DESoRIDE9SSb9jbKUwO087RFS2ZpiIJh6gcPgF?=
+ =?us-ascii?Q?uis+eWsVmqNXtVCpPCWFSEzx6ddPxsAaWfiWeRCQVIJJsYA8BJ5XG96Pmi6L?=
+ =?us-ascii?Q?W5TlNlVqSPn+PwiD/gwXnRTlJNsZpuYBxkGMekEpXjAFg849rI5SBpsg8bse?=
+ =?us-ascii?Q?dSpx60rjH4YdfFD6RPfYT28iVddPdZ7Ot2ajhvtjCGwTyhTJbFgetVlJw4Ey?=
+ =?us-ascii?Q?ZjlkygPmNpIp4/G+SM69N4oL3zDG00ww+qBQvqHAw6mgZHFKSqT0vakRz8iV?=
+ =?us-ascii?Q?+FbIQCsOC7RVkRJt0Yw0G5VztaI3NUSar0dj7OzW9co2qSKWgzWy?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24ce0170-27db-4b9b-2321-08df1d972a2e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 19:32:02.9617
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YRSiDh019OeaGjTAT7oofhbokt5PeBtrMvGKDIbVCkvtXTk0ujPT+BvmwNV4ReA2h2u0mVuUKogXCXmTqV93xWCP/yZZPXu/bbsFL5lJ46OqbJtdlrM9kXz/hMZMfTRu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8633
 
-To enable compiling the INET subsystem without IPv4, shared generic
-utilities must be relocated and IPv4 socket logic must be guarded for
-CONFIG_IPV4.
+On Mon, Sep 07, 2026 at 05:04:19PM +0200, Stefan Wahren wrote:
+> The Microchip MCP2542 High-speed CAN transceiver with Sleep mode is a
+> pin-compatible alternative for the TI TCAN1042.
+>
+> Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
 
-This patch moves the generic ip_generec_getfrag() from ip_output.c to
-af_inet.c. It also introduces CONFIG_IPV4 guards around af_inet.c to
-reject IPv4-specific ioctls, protocol registrations and bind requests.
-The same guard is added to reject IPv4-mapped IPv6.
+Vinod:
 
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
----
- net/ipv4/af_inet.c   | 69 ++++++++++++++++++++++++++++++++++++++------
- net/ipv4/ip_output.c | 18 ------------
- net/ipv6/af_inet6.c  |  5 ++++
- net/ipv6/datagram.c  |  4 +--
- 4 files changed, 67 insertions(+), 29 deletions(-)
+	I have not seen this patch in linux-next, looks like you missed
+this one, only pick Patch1.
 
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index d9421ac38d78..cf00386933d6 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -129,6 +129,28 @@
- int disable_ipv6_mod;
- EXPORT_SYMBOL(disable_ipv6_mod);
- 
-+/* Keep the function here for now as it is generic, it should be moved
-+ * to a common L3 place
-+ */
-+int
-+ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
-+{
-+	struct msghdr *msg = from;
-+
-+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-+		if (!copy_from_iter_full(to, len, &msg->msg_iter))
-+			return -EFAULT;
-+	} else {
-+		__wsum csum = 0;
-+
-+		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
-+			return -EFAULT;
-+		skb->csum = csum_block_add(skb->csum, csum, odd);
-+	}
-+	return 0;
-+}
-+EXPORT_SYMBOL(ip_generic_getfrag);
-+
- /* The inetsw table contains everything that inet_create needs to
-  * build a new socket.
-  */
-@@ -426,7 +448,8 @@ int inet_release(struct socket *sock)
- 			BPF_CGROUP_RUN_PROG_INET_SOCK_RELEASE(sk);
- 
- 		/* Applications forget to leave groups before exiting */
--		ip_mc_drop_socket(sk);
-+		if (IS_ENABLED(CONFIG_IPV4))
-+			ip_mc_drop_socket(sk);
- 
- 		/* If linger is set, we don't return until the close
- 		 * is complete.  Otherwise we return immediately. The
-@@ -486,6 +509,9 @@ int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
- 	u32 tb_id = RT_TABLE_LOCAL;
- 	int err;
- 
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return -EAFNOSUPPORT;
-+
- 	if (addr->sin_family != AF_INET) {
- 		/* Compatibility games : accept AF_UNSPEC (mapped to AF_INET)
- 		 * only if s_addr is INADDR_ANY.
-@@ -968,6 +994,9 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
- 	struct ifreq ifr;
- 	struct rtentry rt;
- 
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return -EOPNOTSUPP;
-+
- 	switch (cmd) {
- 	case SIOCADDRT:
- 	case SIOCDELRT:
-@@ -1023,6 +1052,9 @@ static int inet_compat_routing_ioctl(struct sock *sk, unsigned int cmd,
- 	compat_uptr_t rtdev;
- 	struct rtentry rt;
- 
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return -EOPNOTSUPP;
-+
- 	if (copy_from_user(&rt.rt_dst, &ur->rt_dst,
- 			3 * sizeof(struct sockaddr)) ||
- 	    get_user(rt.rt_flags, &ur->rt_flags) ||
-@@ -1153,6 +1185,7 @@ static const struct net_proto_family inet_family_ops = {
- 	.owner	= THIS_MODULE,
- };
- 
-+#if IS_ENABLED(CONFIG_IPV4)
- /* Upon startup we insert all the elements in inetsw_array[] into
-  * the linked list inetsw.
-  */
-@@ -1193,6 +1226,7 @@ static struct inet_protosw inetsw_array[] =
- };
- 
- #define INETSW_ARRAY_LEN ARRAY_SIZE(inetsw_array)
-+#endif
- 
- void inet_register_protosw(struct inet_protosw *p)
- {
-@@ -1267,6 +1301,9 @@ static int inet_sk_reselect_saddr(struct sock *sk)
- 	struct ip_options_rcu *inet_opt;
- 	int err;
- 
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return -EAFNOSUPPORT;
-+
- 	inet_opt = rcu_dereference_protected(inet->inet_opt,
- 					     lockdep_sock_is_held(sk));
- 	if (inet_opt && inet_opt->opt.srr)
-@@ -1371,6 +1408,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
- 	int ihl;
- 	int id;
- 
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return ERR_PTR(-EPROTONOSUPPORT);
-+
- 	skb_reset_network_header(skb);
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
-@@ -1774,6 +1814,10 @@ static int __init init_ipv4_mibs(void)
- 	return register_pernet_subsys(&ipv4_mib_ops);
- }
- 
-+#if IS_ENABLED(CONFIG_IPV4)
-+static int ipv4_proc_init(void);
-+#endif
-+
- static __net_init int inet_init_net(struct net *net)
- {
- 	/*
-@@ -1824,8 +1868,6 @@ static int __init init_inet_pernet_ops(void)
- 	return register_pernet_subsys(&af_inet_ops);
- }
- 
--static int ipv4_proc_init(void);
--
- /*
-  *	IP protocol layer initialiser
-  */
-@@ -1870,20 +1912,25 @@ static int __init ipv4_offload_init(void)
- 
- fs_initcall(ipv4_offload_init);
- 
-+#if IS_ENABLED(CONFIG_IPV4)
- static struct packet_type ip_packet_type __read_mostly = {
- 	.type = cpu_to_be16(ETH_P_IP),
- 	.func = ip_rcv,
- 	.list_func = ip_list_rcv,
- };
-+#endif
- 
- static int __init inet_init(void)
- {
-+#if IS_ENABLED(CONFIG_IPV4)
- 	struct inet_protosw *q;
- 	struct list_head *r;
- 	int rc;
-+#endif
- 
- 	sock_skb_cb_check_size(sizeof(struct inet_skb_parm));
- 
-+#if IS_ENABLED(CONFIG_IPV4)
- 	raw_hashinfo_init(&raw_v4_hashinfo);
- 
- 	rc = proto_register(&tcp_prot, 1);
-@@ -1958,7 +2005,7 @@ static int __init inet_init(void)
- 	 */
- 
- 	ip_init();
--
-+#endif /* CONFIG_IPV4 */
- 	/* Initialise per-cpu ipv4 mibs */
- 	if (init_ipv4_mibs())
- 		panic("%s: Cannot init ipv4 mibs\n", __func__);
-@@ -1980,6 +2027,9 @@ static int __init inet_init(void)
- 	if (icmp_init() < 0)
- 		panic("Failed to create the ICMP control socket.\n");
- 
-+	if (init_inet_pernet_ops())
-+		pr_crit("%s: Cannot init ipv4 inet pernet ops\n", __func__);
-+#if IS_ENABLED(CONFIG_IPV4)
- 	/*
- 	 *	Initialise the multicast router
- 	 */
-@@ -1987,19 +2037,17 @@ static int __init inet_init(void)
- 	if (ip_mr_init())
- 		pr_crit("%s: Cannot init ipv4 mroute\n", __func__);
- #endif
--
--	if (init_inet_pernet_ops())
--		pr_crit("%s: Cannot init ipv4 inet pernet ops\n", __func__);
--
- 	ipv4_proc_init();
- 
- 	ipfrag_init();
- 
- 	dev_add_pack(&ip_packet_type);
-+#endif /* CONFIG_IPV4 */
- 
- 	ip_tunnel_core_init();
- 
--	rc = 0;
-+	return 0;
-+#if IS_ENABLED(CONFIG_IPV4)
- out:
- 	return rc;
- out_unregister_raw_proto:
-@@ -2009,12 +2057,14 @@ static int __init inet_init(void)
- out_unregister_tcp_proto:
- 	proto_unregister(&tcp_prot);
- 	goto out;
-+#endif
- }
- 
- fs_initcall(inet_init);
- 
- /* ------------------------------------------------------------------------ */
- 
-+#if IS_ENABLED(CONFIG_IPV4)
- #ifdef CONFIG_PROC_FS
- static int __init ipv4_proc_init(void)
- {
-@@ -2051,3 +2101,4 @@ static int __init ipv4_proc_init(void)
- 	return 0;
- }
- #endif /* CONFIG_PROC_FS */
-+#endif
-diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-index a24cc8ee11d3..4c6b34e70990 100644
---- a/net/ipv4/ip_output.c
-+++ b/net/ipv4/ip_output.c
-@@ -932,24 +932,6 @@ int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
- }
- EXPORT_SYMBOL(ip_do_fragment);
- 
--int
--ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
--{
--	struct msghdr *msg = from;
--
--	if (skb->ip_summed == CHECKSUM_PARTIAL) {
--		if (!copy_from_iter_full(to, len, &msg->msg_iter))
--			return -EFAULT;
--	} else {
--		__wsum csum = 0;
--		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
--			return -EFAULT;
--		skb->csum = csum_block_add(skb->csum, csum, odd);
--	}
--	return 0;
--}
--EXPORT_SYMBOL(ip_generic_getfrag);
--
- static int __ip_append_data(struct sock *sk,
- 			    struct flowi4 *fl4,
- 			    struct sk_buff_head *queue,
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index f0efdc13baf4..f220eaab085b 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -302,6 +302,11 @@ int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
- 		struct net_device *dev = NULL;
- 		int chk_addr_ret;
- 
-+		if (!IS_ENABLED(CONFIG_IPV4)) {
-+			err = -EADDRNOTAVAIL;
-+			goto out;
-+		}
-+
- 		/* Binding to v4-mapped address on a v6-only socket
- 		 * makes no sense
- 		 */
-diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-index 191c9733ff9f..079d1951405b 100644
---- a/net/ipv6/datagram.c
-+++ b/net/ipv6/datagram.c
-@@ -153,7 +153,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	int			err;
- 
- 	if (usin->sin6_family == AF_INET) {
--		if (ipv6_only_sock(sk))
-+		if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk))
- 			return -EAFNOSUPPORT;
- 		err = __ip4_datagram_connect(sk, uaddr, addr_len);
- 		goto ipv4_connected;
-@@ -186,7 +186,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	if (addr_type & IPV6_ADDR_MAPPED) {
- 		struct sockaddr_in sin;
- 
--		if (ipv6_only_sock(sk)) {
-+		if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk)) {
- 			err = -ENETUNREACH;
- 			goto out;
- 		}
--- 
-2.55.0
+Frank
 
+>  Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> index 0cf5fa21106b..1a0dc9bbe6c9 100644
+> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> @@ -18,6 +18,7 @@ properties:
+>        - items:
+>            - enum:
+>                - microchip,ata6561
+> +              - microchip,mcp2542
+>                - ti,tcan1051
+>            - const: ti,tcan1042
+>        - items:
+> --
+> 2.43.0
+>
