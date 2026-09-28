@@ -1,147 +1,198 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790634C10DC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612331; cv=pass; b=WY/cqzwh8L0xVtqXOIi7skJh9+2wHp4gB7DPVkIGeSKA9M7rSvoCETkgvLQN9oqzMnlBiDJCM60URFdRwMPVauXHSe2w6nVGPyWa8GnMXbJisHuPuSL7XWjpRHamHqYV9CX4YXdUNB6021+4oi4wokMO6Hn8UB7hOPFIUBz8erA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612331; c=relaxed/simple;
-	bh=P8sRjr0RkMYM7rfnab5lkQkzhoAkMV9RuIgjTwBX9OI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G93HFl+WrLfnjglI2XSi4rrsd4MmFRJIv9ykS55UHSqBsdzJpyeLWZ0why7/CzhkwNG0Me6kgS1T7aTOcQeFwlXw16VaEtfFvibwto3AAJ2j96ee2suDR3X9ukNwMbRFsmh1RkhS7axa9kAJJfv9XtON0+kTYwFAZ+Nadbgn75k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=brrS4kNH; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DEC4DEC23;
+	Mon, 28 Sep 2026 16:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612343; cv=none; b=PPE75geH/SThJX30B98n42uy+XLkyAJwrYLjkKtWIJ9rSAQrHiC9Q0+LqQ0TTMC6dbocgDu0rmk3jiLIByIPWd3APJn+cRyQnJbu/lidiZWSijGroYVyQtUQkFLiXmnP1vQqdXBTBxYDsMB/oSmVZWFEEn9Npm1Ao/BAJjFGw00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612343; c=relaxed/simple;
+	bh=3k52VKutc0OHAgAml/ar6iHZTaZsU9dWsG1lJC5bVRk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TU3vkUfHX59k03wYqBGsyNsk4QVZMziZNbZpBgZf5dG2KycPXP8BCmNjcw7W00Z9YsUO+J/e4XCdxnZbkS6VHFbkLyTrwh+Wl2DNnx0QQ6a9wJ92pE5oAFddmL8tSqzFd3ay8aP+gob8pMvn7JCpvv2/KeRWYABiEEGrsu/usSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=USriATBR; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="brrS4kNH"
-ARC-Seal: i=1; a=rsa-sha256; t=1790612299; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ADkYs/ZWlxn//vwV9N9LBs+0kmUH4807uixXEgVjLufqWLK0goIs4MhqM/QwvaR/1zJ+y+NVw20Gi7fusIl9DN5DNSBjy5uyk51J295fT2vqU7ouv7sdaTi5GuxqP0fKQi4c2mQa3XOtizXELCB8RyHSCCc8c2ZeI0uG6DsLOCM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790612299; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Sp0M9B/bP1jd6S7I+UWdWmITpna+tOZ70JPTfOnFT3A=; 
-	b=i7ExCdSQ/xKn6Y2q5rfnW0XOLh9Q8kZIeS1vGEe9B7fccHcSYzO7g0yZqrVglHuHLvG9Kt716zzJCRQrFpZaTAuEt0Ee5OXtT+74CVz8vEGyLCUzjlxxJgG/CWyJ5VBSLmr0/FdiwZq3g9QEGAfJhaTF+NVMT/bsOYuLxjAS+3w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790612299;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=Sp0M9B/bP1jd6S7I+UWdWmITpna+tOZ70JPTfOnFT3A=;
-	b=brrS4kNH6nPwqm1uLLtBETvHEQNU3mCmn+eSwLkH/vg1wV/uxYNX/oL2EMMg+rCS
-	6GfMOiBOdAeBw63xRra25WKs5PxcuM9RyDufxHFPfeOmGOHruYjzOYnUjlzNwIHFpE3
-	7iRYIu5FkuOrZCYz4D2QPrYkij7geW8bicb3c+E4=
-Received: by smtp.zohomail.com with SMTPS id 1790612297707333.3498687074484;
-	Mon, 28 Sep 2026 09:18:17 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 2C4A41828DF; Mon, 28 Sep 2026 18:18:13 +0200 (CEST)
-Date: Mon, 28 Sep 2026 18:18:13 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Zhang Yubing <yubing.zhang@rock-chips.com>, Frank Wang <frank.wang@rock-chips.com>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v15 1/6] phy: rockchip: usbdp: Add phy reset notification
- support
-Message-ID: <arqLbsCgz9vkr3JG@venus>
-References: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-0-9ad90a456953@collabora.com>
- <20260915-b4-rockchip-usbdp-cleanup-part3-v15-1-9ad90a456953@collabora.com>
- <zbqy5gqtmprapsqpodoohyxs6gml6swkie6fy7fxszfvtfgz6c@eae55gdmknaw>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="USriATBR"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5gZY217089;
+	Mon, 28 Sep 2026 16:18:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=VkhcCo
+	zT4giUvNq7p7/Wt7ZMMq9OSsOPTtPNjk1hgag=; b=USriATBRkAsMsPtWWy6oek
+	NWOXqPHejrHpeLDXqt2jxRLAjG6ufUszmIAXahFreyoKzt4vca1ilJ9K8xGVtmdl
+	gpAoQaw+r8rEwkJCF3cPIB3yibHXw5BS52sP1CARnZSKXMCHL2J+QXjhiwjIcui2
+	5D3+EQZ9rxa1u/uZA32hUXPw/AocxwuKKxBEpeXxvrUemMD/RpIXFEOJq7Zeb/aH
+	/35FSX1U9pANZcywB9ho/WrbJnjuiQoRr30cC5UxUZzRDMRbIbFmdnv4af9gdYvq
+	V6Q4a0R364fYRAPDTPFwkO1XArTQuwSuRlUWEjPYBQ/gfekwAXwcPEDGJ7tRZtMQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe27yc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 16:18:37 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SElUYK3181786;
+	Mon, 28 Sep 2026 16:18:36 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxtkg5vca-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 16:18:36 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SGIWbH42402262
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 16:18:32 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6DE222004B;
+	Mon, 28 Sep 2026 16:18:32 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 705D020040;
+	Mon, 28 Sep 2026 16:18:31 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.111.81.16])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 16:18:31 +0000 (GMT)
+Message-ID: <75b68915-1f7f-4172-8748-dbf06f7b1983@linux.ibm.com>
+Date: Mon, 28 Sep 2026 18:18:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y7ik32cx75s6xqrz"
-Content-Disposition: inline
-In-Reply-To: <zbqy5gqtmprapsqpodoohyxs6gml6swkie6fy7fxszfvtfgz6c@eae55gdmknaw>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.602.86
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 20/29] s390: Introduce Start Arm Execution instruction
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter
+ <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik
+ <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+ <20260918133107.1042730-21-seiden@linux.ibm.com>
+ <1e3b65b3-0c21-466f-ae09-8426eeacb97d@linux.ibm.com>
+ <20260928161546.428362-B-seiden@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20260928161546.428362-B-seiden@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba935d cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=hNaKMhA-TWiUr5-D4PQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfXxmEDTFdSqYV9
+ RJWlir3toMY4CqmNwZGlTMXDJub1/DjsXxXj24YrnMVxob2Z2FZdoG3HSMbzeDBxqXrm+yOfMjD
+ RguA50EV3jbAIy2pG2edDPHw5eag0Yo=
+X-Proofpoint-ORIG-GUID: 6RqGq_y69ZMcg2bXD8bT2m5HyIA1vn5I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX3IOLZMkE0O8X
+ LoDTpH41EcPb/lYoan1KfODFVIoIfMC3PNOZLCz+aQQX+53Tx5DJYUjQjvr6CRll3xBAyfuSTrD
+ iXf4r1C+cGFsrKWsp4KPDpbBIQ6E6LlCDPudjO7Tq8n4WRsM8mHcUWOuqiFaz0vGooKoEyOUAm7
+ M/RoDBsRXfwzvQxUVgcy6WgPH1V0LSGbzvyvmry5ciuE8r4GgBVw3+t64SWu5k2ENso7GiYOksh
+ vQVcZXHuXz85xGY6Od+vlvNSEPXiY2+QDk/Cz0LBsitOyGYA7q/SqoZ1qtuIZmHw+fhejMCzlK5
+ PQM75MeSu6RDigRMuOZCWGmUqFKACpPEmtEAVj2W2diN8qt0hCW6tfKZoHLRLrkvIDq8PZ2KIOn
+ k2lDyxcX471IozSjvqJKbQXInVeeLgMWiyGuSOpMb3FOFMxUsjBWC+vPPu9bhXCOuAW/gYsptLm
+ PWBbpiEs5i16O+ZsLHw==
+X-Proofpoint-GUID: tt4ZhA4U_MFCZP6qe9B1xUJKS1hFpSTU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280064
 
 
---y7ik32cx75s6xqrz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v15 1/6] phy: rockchip: usbdp: Add phy reset notification
- support
-MIME-Version: 1.0
 
-Hello Mani,
+On 9/28/26 18:15, Steffen Eiden wrote:
+> On Mon, Sep 28, 2026 at 05:53:33PM +0200, Ilya Leoshkevich wrote:
+>>
+>>
+>> On 9/18/26 15:30, Steffen Eiden wrote:
+>>> The Start Arm Execution (SAE) instruction is the centerpiece for
+>>> executing arm64 (KVM) guests on s390. Its purpose is, similar to SIE, to
+>>> enable accelerated execution of arm64 virtual machines. SAE expects the
+>>> physical address of a control block as the only argument.
+>>>
+>>> The host is responsible to save & restore
+>>>    - GPRs 0-13
+>>>    - access register 0-15
+>>               ^^^^^^^^
+>>               registers>   - breaking event register (BEAR)
+>>>    - vector/floating point registers
+>>> between SAE executions to guarantee host consistency.
+>>>
+>>> GPRs and BEAR are save and restores in the asm functions. The other
+>>                      ^^^^^^^^^^^^^^^^^
+>>                      saved and restored
+>>
+>>> register are handled in within C code. Access registers are handled in a
+>>    ^^^^^^^^             ^^
+>>    registers            not needed probably?
+>>
+>>> later patch and SVEs will be handled when they are introduced in a
+>>> future series. Most arm64 registers are handled by a satellite block
+>>> called save_area. Some registers, frequently used by hypervisors, are
+>>> placed into the SAE control block itself.
+>>>
+>>> Enlighten asm/kvm_host_types.h for the new header variant. The new
+>>> header is chosen instead of asm/kvm_host_s390_types.h if KVM_S390_ARM64
+>>> is defined.
+>>>
+>>> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+>>> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+>>> Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+>>> Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+>>> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+>>> ---
+>>>    arch/s390/include/asm/asm-prototypes.h       |   1 +
+>>>    arch/s390/include/asm/kvm_host_arm64_types.h | 124 +++++++++++++++++++
+>>>    arch/s390/include/asm/kvm_host_types.h       |   4 +
+>>>    arch/s390/include/asm/sae.h                  |  58 +++++++++
+>>>    arch/s390/include/asm/stacktrace.h           |   5 +
+>>>    arch/s390/kernel/asm-offsets.c               |   1 +
+>>>    arch/s390/kernel/entry.S                     |  22 ++++
+>>>    arch/s390/tools/opcodes.txt                  |   3 +
+>>>    8 files changed, 218 insertions(+)
+>>>    create mode 100644 arch/s390/include/asm/kvm_host_arm64_types.h
+>>>    create mode 100644 arch/s390/include/asm/sae.h
 
-On Sat, Sep 26, 2026 at 09:54:56AM +0200, Manivannan Sadhasivam wrote:
-> On Tue, Sep 15, 2026 at 05:32:48PM +0200, Sebastian Reichel wrote:
-> > To resolve issues with running into permanent "cmn ana lcpll lock
-> > timeout" errors after a few device replugs, add support for reset
-> > notifications, which will be handled by the DWC3 driver to gracefully
-> > handle the PHY being disabled. This avoids corrupting the controller's
-> > internal state and the PIPE interface between the USB3 controller and
-> > the PHY, thus fixing the issue.
-> >=20
-> > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > ---
-> >  drivers/phy/rockchip/phy-rockchip-usbdp.c | 19 +++++++++++++++++--
-> >  1 file changed, 17 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/ro=
-ckchip/phy-rockchip-usbdp.c
-> > index e748acdd2d31..0f39982c70b1 100644
-> > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> > @@ -1004,24 +1004,39 @@ static int rk_udphy_power_on(struct rk_udphy *u=
-dphy, u8 mode)
-> >  	}
-> > =20
-> >  	if (udphy->status =3D=3D UDPHY_MODE_NONE) {
-> > +		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
-> > +
-> > +		rk_udphy_u3_port_disable(udphy, true);
->=20
-> This change is not described in the commit message.
+[...]
+>>> +SYM_FUNC_START(__sae64a)
+>>> +	stmg	%r6,%r14,__SF_GPRS(%r15)	# store kernel registers
+>>
+>> Strictly speaking we don't need to save %r14, but I guess you do this
+>> for unwinding?
+> yes. Also, some later (unsent) patch needs this and before I forget this, let's
+> do it now.
 
-Good catch. I'm not sure when that sneaked in. I will split it into
-its own follow-up patch.
+Thanks for the clarification!
 
-FWIW these two things are a little bit interleaved:
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
-resetting the PHY results in disabled clocks, results in SError when
-dwc3 driver tries to access its registers during the PHY reset. This
-is worked around by the u3 port disabling, which reroutes the clock.
-But doing that increases the chance a lot, that the PHY does not
-start up properly again, which requires the reset notifier bits.
-
-Greetings,
-
--- Sebastian
-
---y7ik32cx75s6xqrz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmq6kz0ACgkQ2O7X88g7
-+prxFA//RkRn91TuHhTtQSrpWA0YPTIPzbvMilpCIChKhbH++hVwoksGFGltul3o
-KFh58VDd/huD1gXsKAsMPtDhQLxSgJBy0/MD7HZPhTn6duX3syly5IBaBdt0uAXN
-4ys/GBgdfPhO3I6J/6B4oX7dlqgBbMPOMr/rIf6iKhoCGlB+/H/xz69JlZDfxHOj
-IveJlSGGE7l1K3Q23rjF/tAVJRl6AocqyBSNibyTpDNb2d6nDYl+b3duqrsBcKId
-i+iibr9lLC8F3yMHGItO/qw7N7eDk9MHNAxUayRItJwf2jLLV6xfcb8JIq804Mup
-7gQbazgOa4glMZ6yFHWw/fAgfDPWSLW28FAiei15uQXuFFnuLAVgXaXrVl+1yzcb
-ui7IFIttv4mo/eFTteA337RgaH5cgvercRqarEOENfZVAMXGReVlfLi2HhT/pFMW
-7zdRRq1ylysrhLb00dp8zCaXUS+0WxV6y9WesEt3ICVDCRg22SU6AEL34kerdPt2
-95vSn314kdaFNUNV4kPvg3qQsaGlUE162AKVYHSdfHxXFwa3yyfCIk7iBRilIfrJ
-f6fUBq5glitp2VhpHZW7qoD2vzgXKRlJimggMKsr59U2XawJMe6mb2FH8kOrhkD8
-aXCRTzcXghDRMEIfkyZweT5740nurh8oYAD3OlXx234q9nEgUQg=
-=uXNM
------END PGP SIGNATURE-----
-
---y7ik32cx75s6xqrz--
+with typos fixes.
