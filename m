@@ -1,91 +1,109 @@
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B36434B43F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C72636194C;
+	Mon, 28 Sep 2026 01:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560209; cv=none; b=QUPqMQSaXMDta4D23fbVCAZu6ivS6SGGVQPNJ51nhYM9VPzsqfgfwEkaEgr46MFJ2W9JJP7jBoTu/dUsYbZrMUP92+gqxW4Fony81OpQ66rLn2MrWvsm5mesGdg09doJbgylxl2drxG8K/QYOXsmioS0Mm+BJfM2EOXCSd6knxs=
+	t=1790560223; cv=none; b=Of7KFBHpB8AVyJbGS8UF9MRv56iDGozI+lmXaGPolP6OaMCZMdLPF2OR3mj+HrqX8no/xQpNoX54knZ++lKvh+ifttYokQsG/q1WXXRRarrf2aVn/JGbQedWd6PDkaHMX07WXB6MiAHM5pWSb6EnXn/Wy0BrTYRGZGoKtoeedeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560209; c=relaxed/simple;
-	bh=RAi6LaQaIERnguNa75CIILKwcfJnHB40JrzKtoc+ARQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iJ39G/SIMKjNv1miB9A8vG72qqNbzLeQOZiBxnC0+dgkcEoJncbwpo4ZYwIs0v7PLfTeXSghlt3Uz8HA/BP8NRfAO1BIguD14vFOv5PrtnLBGvV77OSCZf/9mwdNjrUWba9ZkTrX2pENKIokQ8mk6Z9Kl8mq9NR2UWBbbnK3wCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=i642vPZ6; arc=none smtp.client-ip=91.218.175.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790560223; c=relaxed/simple;
+	bh=jPF6GWwPpqMHR2e/0rkB/E1sLSmxzcdgG8z7Tdyu79k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gMsT+D7BZ3mo/QBtUESKfiI0XF2K6uEd3mlrb8q/MKcYytc1s9mIFc0EY2QohiU4xeY3MnTwstOwB9XqDWq7T72nQH9eOa/pHE7e/oAPMbjXMyHF+M2Sm43fck4rmqWKbOAFyz34sGuMAPUH36ONHrgLSmrZpHAtJ/gmLODEKhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e65gIvrw; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="i642vPZ6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RAi6LaQaIERnguNa75CIILKwcfJnHB40JrzKtoc+ARQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790560205; v=1; x=1791165005;
- b=i642vPZ6AAFEMsfq6Yf1PfwOeeahFco14EV8Avqv9HTqhooaA2j0gfOA2QJG2ehTPfshwSez
- DxNTAJZgTXcZiON6+hVgi9VPWLxcNsjHcCenEcJaFQSe9zmWQ2PzWXhqP/mTJqyDyTfZJmFWO7b
- /zI8ptKsDVXsSm7as7JtU6EA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b6a582d4e49657da;
-	Mon, 28 Sep 2026 01:50:02 +0000
-X-Mizu-Trace-ID: b6a582d4e49657da
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <99cdc0cd-3af1-4d61-af28-47fad8657c62@linux.dev>
-Date: Mon, 28 Sep 2026 09:49:56 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e65gIvrw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790560222; x=1822096222;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jPF6GWwPpqMHR2e/0rkB/E1sLSmxzcdgG8z7Tdyu79k=;
+  b=e65gIvrwgBsmwsAutUuO00GytD969nx13ALmetwVHiarCHHe9Ve/QPDp
+   74BBFdkbLeIHyKhetlcF4HrDMEq5DLE0YV9jfG1Diwkahgb1zhoUaU/LZ
+   RoRvfCSUCuxVxAF5ZrRccDEQ0lLLT/0MTM83hqYQmrL2jLOpvQtWZV94V
+   OWcjLGrlZHxubej+YY9GxFi8omxjZ/ZME7S6a/FUpOXLDtPfxtkpCujMY
+   Xf5z2FdfKyD1i2gWtHp07+3VUJcR82Cl1pzsIg+cSD8Y2HykgVcq2TgL/
+   xKGRxvyTOMwIOod04OrY60gCY+2fa2/xSkj+nyu6phQCIpHljaxBggRMC
+   g==;
+X-CSE-ConnectionGUID: A7FDUBCCQSqKzKgty7sTRQ==
+X-CSE-MsgGUID: kSGVuqNmQGKmdLcTeDiLlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101823440"
+X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
+   d="scan'208";a="101823440"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 18:50:21 -0700
+X-CSE-ConnectionGUID: kaShKSaXTu+iHshTOi0MFA==
+X-CSE-MsgGUID: hjoB8snsSQqQVpjOxOOHnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
+   d="scan'208";a="301187851"
+Received: from pankris-x299-ud4-pro.bj.intel.com ([10.238.152.122])
+  by fmviesa002.fm.intel.com with ESMTP; 27 Sep 2026 18:50:16 -0700
+From: Kris Pan <kris.pan@intel.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	atomasov@redhat.com,
+	oliver.sang@intel.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kris Pan <kris.pan@intel.com>
+Subject: [PATCH net-next] net: iterate online nodes in skb_defer_free_flush()
+Date: Mon, 28 Sep 2026 09:47:08 +0800
+Message-ID: <20260928014708.3903028-1-kris.pan@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] mm/sparse-vmemmap: support device DAX in common
- vmemmap path
-To: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
-References: <20260924075259.2013039-1-songmuchun@bytedance.com>
- <20260924075259.2013039-3-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260924075259.2013039-3-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+skb_attempt_defer_free() only queues skbs on the current CPU's node
+(numa_node_id() of a running CPU), which is always online, so the
+flush loop never needs to visit nodes that are merely possible.
 
+for_each_node() walks node_possible_map.  On machines where the
+possible map is much larger than the online map -- e.g. a POWER10
+LPAR with 32 possible but 1 online node -- the flush loop touches 31
+cold, always-empty per-node lists on every softirq pass.
 
-On 9/24/26 3:52 PM, Muchun Song wrote:
-> The common vmemmap population path cannot yet handle optimized Device DAX
-> mappings on its own. It uses pfn_to_zone() to find the shared tail page,
-> but Device DAX populates its vmemmap at runtime before the ZONE_DEVICE span
-> is initialized.
-> 
-> Teach the common path to use device_zone() for runtime optimized vmemmap
-> population while retaining pfn_to_zone() for early boot. This allows the
-> same path to support both early boot mappings and Device DAX.
-> 
-> The backing PFN supplied by the Device DAX-specific population path is no
-> longer used, allowing the redundant lookup and population code to be
-> removed later.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
-> v2:
-> - Expand comments around slab initialization to explain zone lookup and
->    page refcounting (suggested by Qi Zheng)
-> ---
->   mm/sparse-vmemmap.c | 56 +++++++++++++++++++++++++--------------------
->   1 file changed, 31 insertions(+), 25 deletions(-)
+Use for_each_online_node() to iterate only node_online_map.  Nodes
+that go offline are drained by dev_cpu_dead() ("net: flush
+skb_defer_nodes in dev_cpu_dead()"), so the flush no longer needs to
+visit offline nodes.
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Loopback UDP throughput in a QEMU guest with 32 possible / 1 online
+nodes (bench_udp, 8 senders, interleaved runs) improves by ~5%.
 
-Thanks,
-Qi
+Fixes: 5628f3fe3b16 ("net: add NUMA awareness to skb_attempt_defer_free()")
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Suggested-by: Adrian Tomasov <atomasov@redhat.com>
+Closes: https://lore.kernel.org/oe-lkp/202512112119.5b9829a-lkp@intel.com
+Signed-off-by: Kris Pan <kris.pan@intel.com>
+---
+ net/core/dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f660fccfc0dbc..807640155e649 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6927,7 +6927,7 @@ static void skb_defer_free_flush(void)
+ 	struct skb_defer_node *sdn;
+ 	int node;
+ 
+-	for_each_node(node) {
++	for_each_online_node(node) {
+ 		sdn = this_cpu_ptr(net_hotdata.skb_defer_nodes) + node;
+ 		__skb_defer_free_flush(sdn, 1);
+ 	}
+-- 
+2.43.0
 
