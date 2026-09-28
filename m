@@ -1,132 +1,71 @@
-Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3379E332638
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD4C33A9C4;
+	Mon, 28 Sep 2026 03:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790567465; cv=none; b=otHcp2XVxFs1ZGBCZFWK08YSxYYU9Nw9l279rngcjGZ/kIUrYNW8sPCgblK3MlUmqK2nxJlUhrWuQ2yithwsk3bMAeCw7falrB46oWmT4B8Hs2IEgxJYHie1aMLmC6SNe/SGaVsp+jVzkQOaoyz7PQDeb+FHJps3l32r0qbR6KE=
+	t=1790567507; cv=none; b=o6PjZRfwgM5Q79W6wE8u7INBM0Jx+rlo/p0oY1SxttZAPorz/TqGxiKQfS+5EVe80mJD8Np/U+rvtAB1RDJCTU6DV/KBQUvzQaQviA/ZH90M/QBqWb5HVMJWXezns7tQgV8YT3rWjJCklDwu8iHL5d/5Kg4U3o7NusOnQQhOV/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790567465; c=relaxed/simple;
-	bh=qJckOsQEo+P6Q3TxXb+3mRRw8bbwMJ3dFYvm27FlOC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r98jP8gBO/qLwqsAg5kVmn4qcdT6hhDdPH+fBKemHLqW2CfAAQq4uD+5caBcNknO9YgeSatLusoQQ4mcuU6tGxvNxquBQtI3ufvfMgVkhbHrY3glZvY0A3T/vjKuz7D8PJJ7VIJdz5KGXT160HEGfGqqHBu7JTMkbPeVmo41/7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dwn5oOlV; arc=none smtp.client-ip=95.215.58.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790567507; c=relaxed/simple;
+	bh=w5lrekg+A4ufW1Ch3rwBighfKX+YYsOPl4Zg89QK7B4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P6qkMHV3qs7PO17fMwWSoZlhCJO+DcEMGaWx+nWNPayIE08eFP82fALkz9Hz7OAmrFa8PffB/645/f2OENsi0KmT+OFNOCusI3xbuQEL2HvAQ/nOO3TtyHe9ipqq2E2okgrF/cuiZOtl7OxtoPUbzEPfDA3ylBJW81CeZVNMrD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IUYxuUua; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dwn5oOlV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qJckOsQEo+P6Q3TxXb+3mRRw8bbwMJ3dFYvm27FlOC0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790567461; v=1; x=1791172261;
- b=Dwn5oOlVXwMuc8K15rBpjuuUXd/PUnWpcIXabWE2MB0spRnZquKQ4qZ4ggf1KbPFrt25VTLN
- eo+6OaSS0++mBTn1LHZF+Wv0vvWP9vM3VCRO89NSCrnIwKc+yLoFFBJxnrUr6ayg1RuqtFMlhi/
- hjbtqyYkLVFJE14eB8kBcgc4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5b926d13267ff78e;
-	Mon, 28 Sep 2026 03:51:00 +0000
-X-Mizu-Trace-ID: 5b926d13267ff78e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2f03544b-b503-4339-9b2f-234dcdb9a03e@linux.dev>
-Date: Sun, 27 Sep 2026 20:50:55 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IUYxuUua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=w5
+	lrekg+A4ufW1Ch3rwBighfKX+YYsOPl4Zg89QK7B4=; b=IUYxuUuai0ta1AL7BF
+	KXhyl+Q08jdztJMiYftrSYevV+GM+pv7zlaOHsvA1EwAChfgK6R3F3RD6ASpJoMm
+	5hYR5rbFCR6hcZvG9CQRPedd+CDOo1/2XAJM6b2lbjwnNS3pyTaCdMxlOCuifE3F
+	JRyAAfPCXG0J4yqgW2bD08FHM=
+Received: from LUOBO-DINQG8T.hobot.cc (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wBn_ww65Llq+RYpBQ--.7801S2;
+	Mon, 28 Sep 2026 11:51:24 +0800 (CST)
+From: Rui Wang <wr574332525@163.com>
+To: frank.li@oss.nxp.com
+Cc: vkoul@kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] dmaengine: dw-axi-dmac: report paused state and residue in tx_status
+Date: Mon, 28 Sep 2026 11:51:21 +0800
+Message-ID: <20260928035121.2033-1-wr574332525@163.com>
+X-Mailer: git-send-email 2.53.0.windows.2
+In-Reply-To: <arVuKmKc8XE46R9B@SMW015318>
+References: <arVuKmKc8XE46R9B@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/selftests: Fix the kernel config fragment
-To: Sasha Levin <sashal@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Shuah Khan <shuah@kernel.org>,
- David Ahern <dsahern@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: linux-rdma@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260927161655.1184153-1-sashal@kernel.org>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260927161655.1184153-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBn_ww65Llq+RYpBQ--.7801S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr43Zr1kAr18Gr1UWFWxJFb_yoW3CFg_ur
+	yv9r98Cw10vr9xGFZ0grnrZrsxJ3y293WkZws8tw1fXryUZ39rGw4Fvr92yr18KF4Dtwn8
+	ua4jqF4Svw1YgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUxpntUUUUU==
+X-CM-SenderInfo: lzuvlkittskjqv6rljoofrz/xtbC0xxR6Wq55Dz4ugAA3+
 
+Hi Frank,
 
-在 2026/9/27 9:16, Sasha Levin 写道:
-> The config fragment lists bare option names with no values:
->
->    CONFIG_TUN
->    CONFIG_VETH
->    CONFIG_DUMMY
->    CONFIG_NET_NS
->    CONFIG_RDMA_RXE
->
-> which is not valid Kconfig syntax. When the fragment is merged, for
-> example by "make kselftest-merge" or by CI systems, the lines are
-> rejected:
->
->    .config:5514:warning: unexpected data: CONFIG_TUN
->    .config:5515:warning: unexpected data: CONFIG_VETH
->    .config:5516:warning: unexpected data: CONFIG_DUMMY
->
-> and none of the options gets enabled, so the rxe tests skip or fail
-> for lack of the modules they load.
->
-> Give each option a value. The scripts load and unload tun, veth,
-> dummy and rdma_rxe with modprobe, so build those as modules.
-> RDMA_RXE also depends on INFINIBAND, and rxe_rping_between_netns.sh
-> runs rping, which needs the RDMA CM userspace interface provided by
-> INFINIBAND_USER_ACCESS, so add both.
->
-> Found by KernelCI kselftest builds.
->
-> Fixes: e01027cab38a ("RDMA/rxe: Add testcase for net namespace rxe")
-> Fixes: ecdcc8a455b7 ("RDMA/selftests: Add rxe_netns_names test")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Thu, Sep 24, 2026 at 01:38:34PM -0500, Frank Li wrote:
+> Look like possible. Caller may reuse prevous DMA buffer. But I don't know
+> how to resolve it.
 
-The fix looks correct. The existing entries in 
-tools/testing/selftests/rdma/config are
+How about pre-loading the pointer registers when programming the
+channel? In v6, axi_chan_block_xfer_start() writes the first block's
+SAR/DAR into CH_SAR/CH_DAR before setting the channel enable bit. The
+hardware reloads them with the same values once it fetches the first
+LLI, and in the window in between a reader observes the start of the
+first block, i.e. a full residue, which is the truth for a transfer
+that has not begun. A stale end-of-transfer pointer left by a previous
+run can no longer be observed, so the buffer-reuse race is closed at
+the source and tx_status stays free of special cases.
 
-not valid config fragment assignments and are rejected by kselftest-merge.
-
-Using m for the modules loaded by the RXE netns tests is appropriate,
-
-while NET_NS=y provides the required network namespace support.
-
-Adding INFINIBAND and INFINIBAND_USER_ACCESS also matches
-
-the RXE/rping runtime dependencies.
-
-Thanks a lot.
-
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-
-Zhu Yanjun
-
-> ---
->   tools/testing/selftests/rdma/config | 12 +++++++-----
->   1 file changed, 7 insertions(+), 5 deletions(-)
->
-> diff --git a/tools/testing/selftests/rdma/config b/tools/testing/selftests/rdma/config
-> index e1ff54ec0f579..1be43c4274bb8 100644
-> --- a/tools/testing/selftests/rdma/config
-> +++ b/tools/testing/selftests/rdma/config
-> @@ -1,5 +1,7 @@
-> -CONFIG_TUN
-> -CONFIG_VETH
-> -CONFIG_DUMMY
-> -CONFIG_NET_NS
-> -CONFIG_RDMA_RXE
-> +CONFIG_TUN=m
-> +CONFIG_VETH=m
-> +CONFIG_DUMMY=m
-> +CONFIG_NET_NS=y
-> +CONFIG_INFINIBAND=m
-> +CONFIG_INFINIBAND_USER_ACCESS=m
-> +CONFIG_RDMA_RXE=m
-
--- 
-Best Regards,
-Yanjun.Zhu
+Best regards,
+Rui Wang
 
