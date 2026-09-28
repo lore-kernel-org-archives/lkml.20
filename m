@@ -1,122 +1,102 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF01367F26;
-	Mon, 28 Sep 2026 16:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9053D449B03
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790614644; cv=none; b=YxBLjrVib59QAuDsuR+aqbNAgbW0LAgKZ2WDSzV4vTAeee6wpDB52bKa69Mt5odkF5X4Q4P2jBjodLH1Y2XTTgicRAEkY1xl5jG0/b04Idso3IKZNcP55cRcOM6q+JvV3KqFHZoJJX128vLfZbkB8lOAY3vhwM3C4wTY/IhaHzo=
+	t=1790614663; cv=none; b=I8Mk242zcLcx7fqmKR9XccEiwYzWqC3tRg8EU3mzweblvedLDJI/HNiNBVvSA4rag1ch47IWTujtBwFmmHZYq1ElPLncngiUsph1ql3vlrE3nq8/YMTFLipEeSmzzStFtCUZITYPKXZH9fVZhRrrkGnFiYwffF4GL2kDZ+pcaQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790614644; c=relaxed/simple;
-	bh=edQ8OKVpoBcCK5pL9fIA53ajMPlMAuSTnCrxbaGT85w=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=UVYgiV/gWNVbPJn0xFS5JTw7Xi8XGNkqu+5BQ/Om+gzknGndOt/wJX3r/dADJOuiShjiJR2OZwt5DGzeWQc4aanSBEyBYIbJr9xOGgNbQ3RyHtwRdq0R0wZZIvSQDsYjRcWcplES8+5IFpfS3MpvKIbUNCbqlomHIUE79fgvKh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=qvT2itlJ; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1790614663; c=relaxed/simple;
+	bh=n/OY102PNQOkr+cQRPgs6kcL1DdXHbQTCuyeQ/Mtw1c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XPJo0O/KuiBoldWjjGA1LrwwDgcjbJ7D0bi6X3+Npl3hAK14o5jiW2kj+J6TFDSYw0pclQSZXQbHQyWOzqrneKwE1YL8zmrx9Trdbzrez6pnrK8Zn6YrYWnbQFyt/HEGWnsXTngY4QVpdfRtrWuxVH9sT27YMDerrxnxRcUD+Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JmkelVyz; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="qvT2itlJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=E3Vil3IB8YG9zel+yDOGhB3iTU71Z7/tffn36RqQM4g=; b=qvT2itlJQP6YSTOgZ+jaIv47K6
-	GHAy2nrBsxntYICQK+PLjsOxNVRFpBT9dIwiahW7MdHg1InOrSHVcq+yu18s1ZZkYApaHJRVjPljO
-	4pdxUNCjNOd1eIlKPSVMc36B0xWkl8AiHNOc1gbxQAp0VUPFDz7h2yrmPf6cTPgS0g6SuCsI7pzzM
-	/godnXp9/1LTt/tG0FqwEEZmrbSGjnak7OX5t0ECKecKEj2plAu2c+MUflGp7yhK644dc4fToYbtr
-	dxoJTSFpevUVM95E2NMswjUgZ7Fxn2gGr+LmqFw6DrPyYVXoxSAnvt+rq4GVH0p0HcrPEFS3K1UBT
-	8d21Ffsw==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xBEfG-00000002aLo-3knH;
-	Mon, 28 Sep 2026 10:57:20 -0600
-Message-ID: <49bb5e64-4428-4133-b201-e7475fd07f1d@deltatee.com>
-Date: Mon, 28 Sep 2026 10:57:12 -0600
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JmkelVyz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n/OY102PNQOkr+cQRPgs6kcL1DdXHbQTCuyeQ/Mtw1c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790614656; v=1; x=1791219456;
+ b=JmkelVyzxQlp4zKW/UijXHNyA3c2XOgcuTyhSE632xxEa9rYX1kK8HWXGLiigmAgRQn9b56W
+ mgGusNL06FrOPKKR8ayl8sVP3G6sZ/KDXRs7dRbSXXlSAnEgQkvvrPUsX+KNP/fPaM+btj3mL+S
+ +v2GBDoMR7exyqWJ1FkJLP8c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a67dd3c566b09fd4;
+	Mon, 28 Sep 2026 16:57:36 +0000
+X-Mizu-Trace-ID: a67dd3c566b09fd4
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b8ea0ca5baso264e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:57:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxt/NkOeVzCRoHpYdaNingV0e7tNj+vrgNjj7iw6TCuRAMk8SuL+5fson0xXCeB+fMH+33TQVUFTK5IvQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7wSykCqGdhZVV6mvSH/lOYlW18Gy932SfhrNEZF/HHRZyNs2B
+	esZne0pewcyG9HULV3+qKIdVez9qqYJc+Fuq5bWDXzpQeO3ldPofHreYbVTURL5WahuEYxNgUmt
+	RSvNeEQw/ge70VC4QDQKZqNEQcfrkDig70LMI0NIr
+X-Received: by 2002:a05:6512:10cd:b0:5b8:c95d:529c with SMTP id
+ 2adb3069b0e04-5b8ef0ddd19mr213006e87.0.1790614651041; Mon, 28 Sep 2026
+ 09:57:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
- Frank Li <Frank.Li@kernel.org>
-Cc: fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260928152550.3354675-1-den@valinux.co.jp>
- <20260928152550.3354675-7-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260928152550.3354675-7-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v3 06/15] NTB: ntb_transport: Avoid losing QP link-up
- requests
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
+ <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org> <arp7mig_PrD9Jbc7@gremlin>
+In-Reply-To: <arp7mig_PrD9Jbc7@gremlin>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 28 Sep 2026 17:56:54 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTxi=BrJYMb5z9QyGd7k_Ty7x5AbMNJinB5i8GT=BD2L_w@mail.gmail.com>
+X-Gm-Features: AclHuK_NPvCKoTUsp1F5W2JZ-hpSJQcM6rQqImNAWwVW-ibb3CFddo_4yf4cCdI
+Message-ID: <CA+EHjTxi=BrJYMb5z9QyGd7k_Ty7x5AbMNJinB5i8GT=BD2L_w@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] KVM: arm64: selftests: Check ID regs are immutable
+ after a failed run
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Peter Maydell <peter.maydell@linaro.org>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Lorenzo,
 
+On Mon, 28 Sep 2026 15:46:51 +0100, "Lorenzo Stoakes (ARM)"
+<ljs@kernel.org> wrote:
+> On Tue, Sep 01, 2026 at 07:18:50PM +0100, Mark Brown wrote:
+[...]
+> > Assisted-by: Antigravity:gemini-3.1-pro
+>
+> NIT: we changed the rules for the Assisted-by tag, it only needs to be
+> 'Assisted-by: LLM' now. Not a huge big deal but FYI :>)
+>
+> https://docs.kernel.org/process/coding-assistants.html
 
-On 2026-09-28 09:25, Koichiro Den wrote:
-> ntb_netdev_open() can call ntb_transport_link_up() while the transport
-> worker is completing setup on another CPU. Concurrent transport setup
-> and a client link-up request can both read the other's flag as false and
-> leave QP link work unqueued. The QP then stays down until another link
-> event or client link-up request.
-> 
-> This is the store-buffering pattern described in
-> tools/memory-model/Documentation/recipes.txt ("Store buffering").
-> 
-> Add a full barrier between the store and load on each side.
-> 
-> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+That tag dates from way back when the format was still
+AGENT_NAME:MODEL_VERSION :)
 
-Thanks, I find smp_mb calls difficult to understand, but I think these
-are correct. I expect I ran into this problem a few times back when I
-was working on this code and had no idea the cause or how to fix it.
+[...]
+> > diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+[...]
+> > +static void test_idreg_frozen_after_failed_run(void)
+[...]
+> > +        /* Creating an in-kernel irqchip would change the ID registers too. */
+> > +        if (kvm_supports_vgic_v3()) {
+> > +                r = __kvm_create_device(vm, KVM_DEV_TYPE_ARM_VGIC_V3);
+> > +                TEST_ASSERT(r < 0 && errno == EBUSY,
+> > +                            "vGIC creation after failed first run: r=%d errno=%d",
+> > +                            r, errno);
+>
+> I guess in general it's making sure - where there should now be finalisation on
+> reg setting that this is actually enforced?
 
-I have one minor suggestion below for the comment, other than that:
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-
-
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index 51d9e9969065..d290e5869c21 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -1101,6 +1101,12 @@ static void ntb_transport_link_work(struct work_struct *work)
->  	/* Publish the link only after every QP has been set up. */
->  	atomic_set_release(&nt->link_is_up, true);
->  
-> +	/*
-> +	 * Prevent both sides from missing each other's flag. Pairs with
-> +	 * the barrier in ntb_transport_link_up().
-> +	 */
-> +	smp_mb();
-> +
-
-I don't find this comment all that easy to understand. Can we expand it
-a little? Maybe something like:
-
- Order the link_is_up store before the client_ready loads below, so
- that this path or ntb_transport_link_up() is guaranteed to see the
- other's flag. Pairs with smp_mb() in ntb_transport_link_up().
-
+Yes. The test exercises each of the userspace-facing checks that 2/3
+moves to KVM_ARCH_FLAG_ID_REGS_FINAL: set_id_reg(), set_imp_id_reg()
+and kvm_vgic_create().
 
 Thanks,
-
-Logan
-
+/fuad
