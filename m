@@ -1,2468 +1,391 @@
-Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698C825B090;
-	Mon, 28 Sep 2026 12:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532671DFDA1;
+	Mon, 28 Sep 2026 12:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598776; cv=none; b=MRWYTmRr1MCEIdh8lobFsZkhsT35oQk8xWQVWLuGCzOu9qBHBPKV5G47QLw9UKG8FDiSX4E3NVT29pepKS6HaI+gJ0rOeUAaoLW3i9EvIsoQQ8bOBLuOggaqdTtrKVQpjnV6vTSpQ+zjKivsbPRMyF5MUARhp4Z6naP39aou5NY=
+	t=1790598800; cv=none; b=U7HSeHXrDbqTYO5mdIjhDhACdrzAMQq1sXivVJR3wp7Yaj82ytspBWDFUPLTy3ROSynSE4IjgHF7cDTVB4t1zuDzEprd+P0he7RsFgGkoUGXE9I7cgX/IPwWBO7wQxCx2tzqGsrB01NeOmg6t3zO+vG2JLRkXKFhTtW1sATyDXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598776; c=relaxed/simple;
-	bh=0twPy+e+AWJNKvmS86AMjZLgD94ernu0BVx/BZfGTUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GzSNN6RWepD+sWiDxSFHInL+j96pNjU/CBFfLG/UiYzwT+Vw/bC9qtwAxPIaQ2+Hvvesld2PSnYedjgfbo9dvK5I0T09WiKtPYcwjrruHKMSyMHKXBaQfQqLs9LMZmjB4VX1ra0M6ffjpu+XSp+UMhlDVdVgU05dald2APaBShg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com; spf=pass smtp.mailfrom=nebula-matrix.com; arc=none smtp.client-ip=115.124.28.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebula-matrix.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0306048-0.00127899-0.968116;FP=16290448363446948898|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=illusion.wang@nebula-matrix.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jQ6tph6_1790598761;
-Received: from localhost.localdomain(mailfrom:illusion.wang@nebula-matrix.com fp:SMTPD_---.jQ6tph6_1790598761 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 20:32:41 +0800
-From: "illusion.wang" <illusion.wang@nebula-matrix.com>
-To: dimon.zhao@nebula-matrix.com,
-	illusion.wang@nebula-matrix.com,
-	alvin.wang@nebula-matrix.com,
-	sam.chen@nebula-matrix.com,
-	netdev@vger.kernel.org
-Cc: kuba@kernel.org,
-	edumazet@google.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v30 net-next 1/8] net/nebula-matrix: add channel layer
-Date: Mon, 28 Sep 2026 20:32:26 +0800
-Message-ID: <20260928123237.88994-2-illusion.wang@nebula-matrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928123237.88994-1-illusion.wang@nebula-matrix.com>
-References: <20260928123237.88994-1-illusion.wang@nebula-matrix.com>
+	s=arc-20240116; t=1790598800; c=relaxed/simple;
+	bh=ytGDVkmFrMzCVBW2oV2fmCr/wUuhkQuU9PFhfjxyMR4=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=M9JDvJAheFoZnt//8Xgg/RlGCu/7poBDpgpSODR8d0/yRf68mvAloTEz6YLJ+QJusIUbeiaXJrgOjIxgi7/jl7IrC63QAE19qf/1Thr0Os1TFJP+8SvQ4P+vnBBPbteBX6uMT/bfUIfR40NVR3i/k0vuH5/bCg+jdQqUyoCNsOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4htghC2DvGz8XrrJ;
+	Mon, 28 Sep 2026 20:33:15 +0800 (CST)
+Received: from njy2app03.zte.com.cn ([10.40.13.14])
+	by mse-fl1.zte.com.cn with SMTP id 68SCX66r078408;
+	Mon, 28 Sep 2026 20:33:06 +0800 (+08)
+	(envelope-from han.junyang@zte.com.cn)
+Received: from mapi (njb2app06[null])
+	by mapi (Zmail) with MAPI id mid204;
+	Mon, 28 Sep 2026 20:33:09 +0800 (CST)
+X-Zmail-TransId: 2afe6aba5e85201-22ae5
+X-Mailer: Zmail v1.0
+Message-ID: <20260928203309173h1139im2nvAFvKodp4Iav@zte.com.cn>
+In-Reply-To: <20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn>
+References: 20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn
+Date: Mon, 28 Sep 2026 20:33:09 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <han.junyang@zte.com.cn>
+To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
+        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY0IDMvM10gZGluZ2hhaTogYWRkIGFzeW5jIGV2ZW50IHF1ZXVlIGZvciBmaXJtd2FyZQogbm90aWZpY2F0aW9ucw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68SCX66r078408
+X-TLS: YES
+X-ENVELOPE-SENDER: han.junyang@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 28 Sep 2026 20:33:15 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ABA5E8B.000/4htghC2DvGz8XrrJ
 
-From: illusion wang <illusion.wang@nebula-matrix.com>
+From: Junyang Han <han.junyang@zte.com.cn>
 
-Add dedicated mailbox-based generic channel management layer for Nebula Matrix
-Ethernet adapter, implementing core inter-PF control communication capability
-between PF0 and other auxiliary PFs.
-This patch builds fundamental inter-PF communication infrastructure for
-multi-PF control plane interaction scenarios. It decouples hardware register
-operations from business control logic, with complete hardware abstraction
-and robust error recovery capabilities.
-Key features of the new channel layer include:
-- Thread-safe message handling based on xarray, supporting O(1) message
-  lookup and duplicate handler protection. Both fire-and-forget and
-  synchronous ACK-based transmission modes are supported.
-- TX slot concurrency control, returning -EAGAIN when slots are full to
-  avoid congestion and resource exhaustion. Supports 16B inline small
-  payload and 4KB max DMA-based large payload transmission.
-- Devm-managed mailbox queue resources, with one-time DMA allocation
-  during probe. Full hardware queue lifecycle management covers init,
-  runtime configuration, start, stop and teardown.
-- Dual interrupt/polling RX processing, offloading cleanup work to
-  dedicated workqueue to reduce IRQ latency. Reliable teardown logic
-  prevents invalid DMA access and message loss.
-- Isolated hw_ops layer decouples low-level hardware implementation from
-  upper channel logic. Fine-grained register locking optimizes BAR0/BAR2
-  access for stability under high stress.
-- Complete auxiliary infrastructure including per-channel state control,
-  timeout/retry recovery, and unified message pack/parse helpers for
-  consistent upper-layer calling.
+Add the event queue table and the first async event queue, fed by the
+RISC-V management core of the firmware. The queue owns one MSI-X
+vector taken from the async pool and, on interrupt, reads the event_id
+from the PF receive sub-channel of the BAR message area, maps it to
+an event type and fans it out through the per-event-type notifier
+chains of the table. The PF probe creates and tears down the queue
+through the existing IRQ pool interfaces.
 
-Signed-off-by: illusion wang <illusion.wang@nebula-matrix.com>
+The BAR message channel handshake that tells the firmware which
+vectors to signal comes with the BAR message subsystem in a later
+series; the PF side wired here is live as soon as that channel is
+enabled. Subscribers for the RISCV_READY event register on the
+notifier chains in later series as well.
+
+Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
 ---
- .../net/ethernet/nebula-matrix/nbl/Makefile   |    4 +-
- .../nbl/nbl_channel/nbl_channel.c             | 1467 +++++++++++++++++
- .../nbl/nbl_channel/nbl_channel.h             |  181 ++
- .../nebula-matrix/nbl/nbl_common/nbl_common.c |   31 +
- .../nebula-matrix/nbl/nbl_common/nbl_common.h |   14 +
- .../net/ethernet/nebula-matrix/nbl/nbl_core.h |    7 +
- .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c  |  234 +++
- .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h  |   41 +
- .../nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h     |   32 +
- .../nbl/nbl_include/nbl_def_channel.h         |  125 ++
- .../nbl/nbl_include/nbl_def_common.h          |    4 +
- .../nbl/nbl_include/nbl_def_hw.h              |   35 +
- .../nbl/nbl_include/nbl_include.h             |    3 +
- .../net/ethernet/nebula-matrix/nbl/nbl_main.c |    7 +
- 14 files changed, 2184 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h
+ drivers/net/ethernet/zte/dinghai/Makefile  |   2 +-
+ drivers/net/ethernet/zte/dinghai/en_pf.c   |  23 ++--
+ drivers/net/ethernet/zte/dinghai/en_pf.h   |   2 +
+ drivers/net/ethernet/zte/dinghai/zxdh_eq.c | 137 +++++++++++++++++++++
+ drivers/net/ethernet/zte/dinghai/zxdh_eq.h |  60 +++++++++
+ 5 files changed, 216 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.c
+ create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.h
 
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/Makefile b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-index cc060cf8bf75..04e1aa1fb4bd 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-@@ -3,5 +3,7 @@
- 
- obj-$(CONFIG_NBL) := nbl.o
- 
--nbl-objs +=	nbl_hw/nbl_hw_leonis/nbl_hw_leonis.o \
-+nbl-objs +=	nbl_common/nbl_common.o \
-+		nbl_channel/nbl_channel.o \
-+		nbl_hw/nbl_hw_leonis/nbl_hw_leonis.o \
- 		nbl_main.o
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
+diff --git a/drivers/net/ethernet/zte/dinghai/Makefile b/drivers/net/ethernet/zte/dinghai/Makefile
+index f4a8f9480291..2dc6d68cc0e1 100644
+--- a/drivers/net/ethernet/zte/dinghai/Makefile
++++ b/drivers/net/ethernet/zte/dinghai/Makefile
+@@ -4,4 +4,4 @@
+ #
+
+ obj-$(CONFIG_DINGHAI_PF) += dinghai10e.o
+-dinghai10e-y := en_pf.o zxdh_irq.o
++dinghai10e-y := en_pf.o zxdh_irq.o zxdh_eq.o
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
+index d5462ac6468f..f7400d66bc69 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.c
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
+@@ -513,7 +513,8 @@ static int zxdh_pf_irq_pools_init(struct zxdh_core_dev *zxdh_dev)
+
+ static void zxdh_pf_irq_pools_destroy(struct zxdh_pf_irq_table *pf_irq_table)
+ {
+-	zxdh_irq_pool_free(pf_irq_table->async_pool);
++	if (pf_irq_table->async_pool)
++		zxdh_irq_pool_free(pf_irq_table->async_pool);
+ }
+
+ int zxdh_pf_irq_table_init(struct zxdh_core_dev *zxdh_dev)
+@@ -544,18 +545,17 @@ void zxdh_pf_irq_table_destroy(struct zxdh_core_dev *zxdh_dev)
+ {
+ 	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
+
+-	zxdh_pf_irq_pools_destroy(table->priv);
++	if (table->priv)
++		zxdh_pf_irq_pools_destroy(table->priv);
+ 	kvfree(table->priv);
++	table->priv = NULL;
+ 	pci_free_irq_vectors(zxdh_dev->pdev);
+ }
+
++/* Fetch a vector from the async pool for one async event queue. */
+ struct zxdh_irq *zxdh_pf_async_irq_request(struct zxdh_core_dev *zxdh_dev)
+ {
+-	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
+-	struct zxdh_pf_irq_table *pf_irq_table = table->priv;
+-
+-	if (!pf_irq_table->async_pool)
+-		return NULL;
++	struct zxdh_pf_irq_table *pf_irq_table = zxdh_dev->irq_table.priv;
+
+ 	return zxdh_get_irq_of_pool(pf_irq_table->async_pool);
+ }
+@@ -614,10 +614,18 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto err_irq_table;
+ 	}
+
++	ret = zxdh_pf_eq_table_init(zxdh_dev);
++	if (ret) {
++		dev_err(&pdev->dev, "zxdh_pf_eq_table_init failed: %d\n", ret);
++		goto err_eq_table;
++	}
++
+ 	devlink_register(devlink);
+
+ 	return 0;
+
++err_eq_table:
++	zxdh_pf_eq_table_destroy(zxdh_dev);
+ err_irq_table:
+ 	zxdh_pf_irq_table_destroy(zxdh_dev);
+ err_modern_cfg:
+@@ -637,6 +645,7 @@ static void zxdh_pf_remove(struct pci_dev *pdev)
+ 	struct devlink *devlink = priv_to_devlink(zxdh_dev);
+
+ 	devlink_unregister(devlink);
++	zxdh_pf_eq_table_destroy(zxdh_dev);
+ 	zxdh_pf_irq_table_destroy(zxdh_dev);
+ 	zxdh_pf_modern_cfg_uninit(zxdh_dev);
+ 	zxdh_pf_pci_close(zxdh_dev);
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
+index af25b06160ef..8220db579111 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.h
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
+@@ -9,6 +9,7 @@
+
+ #include <linux/types.h>
+
++#include "zxdh_eq.h"
+ #include "zxdh_irq.h"
+
+ #define ZXDH_PF_VENDOR_ID	0x1cf2
+@@ -81,6 +82,7 @@ struct zxdh_core_dev {
+ 	struct pci_dev *pdev;
+ 	struct devlink *devlink;
+ 	struct zxdh_irq_table irq_table;
++	struct zxdh_eq_table eq_table;
+ 	void *priv;
+ };
+
+diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.c b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
 new file mode 100644
-index 000000000000..d2c8182c72b6
+index 000000000000..3e70f4f3063f
 --- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
-@@ -0,0 +1,1467 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
+@@ -0,0 +1,137 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/mutex.h>
-+#include <linux/bitfield.h>
-+#include <linux/pci.h>
-+#include <linux/bits.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/atomic.h>
-+#include <linux/wait.h>
-+#include "nbl_channel.h"
-+
-+static int nbl_chan_add_msg_handler(struct nbl_channel_mgt *chan_mgt,
-+				    u16 msg_type, nbl_chan_resp func,
-+				    void *priv)
-+{
-+	struct nbl_chan_msg_node_data *handler;
-+	int ret;
-+
-+	handler = kzalloc_obj(*handler, GFP_KERNEL);
-+	if (!handler)
-+		return -ENOMEM;
-+
-+	handler->func = func;
-+	handler->priv = priv;
-+
-+	/* Each msg_type is registered at most once; reject duplicates. */
-+	mutex_lock(&chan_mgt->handler_lock);
-+	ret = xa_insert(&chan_mgt->handler_xa, msg_type, handler, GFP_KERNEL);
-+	mutex_unlock(&chan_mgt->handler_lock);
-+	if (ret)
-+		kfree(handler);
-+
-+	return ret;
-+}
-+
-+static int nbl_chan_init_msg_handler(struct nbl_channel_mgt *chan_mgt)
-+{
-+	int ret;
-+
-+	ret = devm_mutex_init(chan_mgt->common->dev, &chan_mgt->handler_lock);
-+	if (ret)
-+		return ret;
-+
-+	xa_init(&chan_mgt->handler_xa);
-+
-+	return 0;
-+}
-+
-+static void nbl_chan_remove_msg_handler(struct nbl_channel_mgt *chan_mgt)
-+{
-+	struct nbl_chan_msg_node_data *handler;
-+	unsigned long msg_type;
-+
-+	mutex_lock(&chan_mgt->handler_lock);
-+	xa_for_each(&chan_mgt->handler_xa, msg_type, handler) {
-+		xa_erase(&chan_mgt->handler_xa, msg_type);
-+		kfree(handler);
-+	}
-+	mutex_unlock(&chan_mgt->handler_lock);
-+	xa_destroy(&chan_mgt->handler_xa);
-+}
-+
-+static void nbl_chan_init_queue_param(struct nbl_chan_info *chan_info,
-+				      u16 num_txq_entries, u16 num_rxq_entries,
-+				      u16 txq_buf_size, u16 rxq_buf_size)
-+{
-+	chan_info->num_txq_entries = num_txq_entries;
-+	chan_info->num_rxq_entries = num_rxq_entries;
-+	chan_info->txq_buf_size = txq_buf_size;
-+	chan_info->rxq_buf_size = rxq_buf_size;
-+	atomic_set(&chan_info->inflight_tx_cnt, 0);
-+	WRITE_ONCE(chan_info->shutdn, false);
-+	WRITE_ONCE(chan_info->active, false);
-+	WRITE_ONCE(chan_info->wait_head_index, 0);
-+	memset(chan_info->state, 0, sizeof(chan_info->state));
-+	init_waitqueue_head(&chan_info->inflight_wait);
-+}
-+
-+static int nbl_chan_init_tx_queue(struct nbl_common_info *common,
-+				  struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_chan_ring *txq = &chan_info->txq;
-+	struct device *dev = common->dev;
-+	size_t size =
-+		chan_info->num_txq_entries * sizeof(struct nbl_chan_tx_desc);
-+	u16 i;
-+
-+	txq->desc.tx_desc =
-+		dmam_alloc_coherent(dev, size, &txq->dma, GFP_KERNEL);
-+	if (!txq->desc.tx_desc)
-+		return -ENOMEM;
-+
-+	chan_info->wait = devm_kcalloc(dev, chan_info->num_txq_entries,
-+				       sizeof(*chan_info->wait), GFP_KERNEL);
-+	if (!chan_info->wait)
-+		return -ENOMEM;
-+	for (i = 0; i < chan_info->num_txq_entries; i++) {
-+		init_waitqueue_head(&chan_info->wait[i].wait_queue);
-+		WRITE_ONCE(chan_info->wait[i].status, NBL_MBX_STATUS_IDLE);
-+		WRITE_ONCE(chan_info->wait[i].acked, 0);
-+		WRITE_ONCE(chan_info->wait[i].ack_data, NULL);
-+		WRITE_ONCE(chan_info->wait[i].ack_data_len, 0);
-+		WRITE_ONCE(chan_info->wait[i].ack_err, 0);
-+		WRITE_ONCE(chan_info->wait[i].msg_type, 0);
-+		WRITE_ONCE(chan_info->wait[i].msg_index, 0);
-+		WRITE_ONCE(chan_info->wait[i].dstid, 0);
-+	}
-+
-+	txq->buf = devm_kcalloc(dev, chan_info->num_txq_entries,
-+				sizeof(*txq->buf), GFP_KERNEL);
-+	if (!txq->buf)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static int nbl_chan_init_rx_queue(struct nbl_common_info *common,
-+				  struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_chan_ring *rxq = &chan_info->rxq;
-+	struct device *dev = common->dev;
-+	size_t size =
-+		chan_info->num_rxq_entries * sizeof(struct nbl_chan_rx_desc);
-+
-+	rxq->desc.rx_desc =
-+		dmam_alloc_coherent(dev, size, &rxq->dma, GFP_KERNEL);
-+	if (!rxq->desc.rx_desc) {
-+		dev_err_ratelimited(dev,
-+				    "Allocate DMA for chan rx descriptor ring failed\n");
-+		return -ENOMEM;
-+	}
-+
-+	rxq->buf = devm_kcalloc(dev, chan_info->num_rxq_entries,
-+				sizeof(*rxq->buf), GFP_KERNEL);
-+	if (!rxq->buf)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static int nbl_chan_init_queue(struct nbl_common_info *common,
-+			       struct nbl_chan_info *chan_info)
-+{
-+	int err;
-+
-+	err = nbl_chan_init_tx_queue(common, chan_info);
-+	if (err)
-+		return err;
-+
-+	err = nbl_chan_init_rx_queue(common, chan_info);
-+
-+	return err;
-+}
-+
-+static void nbl_chan_config_queue(struct nbl_channel_mgt *chan_mgt,
-+				  struct nbl_chan_info *chan_info, bool tx)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_hw_mgt *p = chan_mgt->hw_ops_tbl->priv;
-+	struct nbl_chan_ring *ring;
-+	dma_addr_t addr;
-+	int size_bwid;
-+
-+	if (tx)
-+		ring = &chan_info->txq;
-+	else
-+		ring = &chan_info->rxq;
-+	addr = ring->dma;
-+	if (tx) {
-+		size_bwid = ilog2(chan_info->num_txq_entries);
-+		hw_ops->config_mailbox_txq(p, addr, size_bwid);
-+	} else {
-+		size_bwid = ilog2(chan_info->num_rxq_entries);
-+		hw_ops->config_mailbox_rxq(p, addr, size_bwid);
-+	}
-+}
-+
-+static int nbl_chan_alloc_all_tx_bufs(struct nbl_channel_mgt *chan_mgt,
-+				      struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_chan_ring *txq = &chan_info->txq;
-+	struct device *dev = chan_mgt->common->dev;
-+	struct nbl_chan_buf *buf;
-+	u16 i;
-+
-+	for (i = 0; i < chan_info->num_txq_entries; i++) {
-+		buf = &txq->buf[i];
-+		buf->va = dmam_alloc_coherent(dev, chan_info->txq_buf_size,
-+					      &buf->pa, GFP_KERNEL);
-+		if (!buf->va) {
-+			dev_err_ratelimited(dev,
-+					    "Allocate buffer for chan tx queue failed\n");
-+			return -ENOMEM;
-+		}
-+	}
-+
-+	txq->next_to_clean = 0;
-+	txq->next_to_use = 0;
-+	txq->tail_ptr = 0;
-+
-+	return 0;
-+}
-+
-+static void nbl_chan_cfg_qinfo_map_table(struct nbl_channel_mgt *chan_mgt,
-+					 u8 bus, u8 devid)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_hw_mgt *p = chan_mgt->hw_ops_tbl->priv;
-+	u32 pf_mask = 0;
-+	u8 func_id;
-+
-+	/*
-+	 * k_pf_mask rule: bit N == 0 means PF#N enabled, bit N == 1 masked out.
-+	 * Program mailbox QINFO entry for each hardware-active PF func_id.
-+	 *
-+	 * Note: This loop iterates over raw hardware PF func_id.
-+	 * Product constraints limit supported PF counts to contiguous sets:
-+	 * PF0 only, PF0~1, or PF0~3. Non-contiguous or unsupported PF count
-+	 * will be rejected in resource initialization logic.
-+	 */
-+	hw_ops->get_host_pf_mask(p, &pf_mask);
-+	for (func_id = 0; func_id < NBL_MAX_PF; func_id++) {
-+		if (!(pf_mask & (1 << func_id)))
-+			hw_ops->cfg_mailbox_qinfo(p, func_id, bus,
-+						  devid, func_id);
-+	}
-+}
-+
-+static int nbl_chan_alloc_all_rx_bufs(struct nbl_channel_mgt *chan_mgt,
-+				      struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_chan_ring *rxq = &chan_info->rxq;
-+	struct device *dev = chan_mgt->common->dev;
-+	struct nbl_chan_rx_desc *desc;
-+	struct nbl_chan_buf *buf;
-+	u16 i;
-+
-+	for (i = 0; i < chan_info->num_rxq_entries; i++) {
-+		buf = &rxq->buf[i];
-+		buf->va = dmam_alloc_coherent(dev, chan_info->rxq_buf_size,
-+					      &buf->pa, GFP_KERNEL);
-+		if (!buf->va) {
-+			dev_err_ratelimited(dev,
-+					    "Allocate buffer for chan rx queue failed\n");
-+			goto err;
-+		}
-+	}
-+
-+	desc = rxq->desc.rx_desc;
-+	/*
-+	 * Initially leave one RX descriptor unused so that
-+	 * next_to_clean and next_to_use can distinguish an empty
-+	 * ring from a full ring.
-+	 *
-+	 * The unused slot is replenished as RX descriptors are
-+	 * consumed and recycled.
-+	 */
-+	for (i = 0; i < chan_info->num_rxq_entries - 1; i++) {
-+		buf = &rxq->buf[i];
-+		desc[i].buf_addr = cpu_to_le64(buf->pa);
-+		desc[i].buf_len = cpu_to_le32(chan_info->rxq_buf_size);
-+		desc[i].flags = cpu_to_le16(BIT(NBL_CHAN_RX_DESC_AVAIL));
-+	}
-+
-+	rxq->next_to_clean = 0;
-+	rxq->next_to_use = chan_info->num_rxq_entries - 1;
-+	rxq->tail_ptr = chan_info->num_rxq_entries - 1;
-+
-+	return 0;
-+err:
-+	return -ENOMEM;
-+}
-+
-+static int nbl_chan_alloc_all_bufs(struct nbl_channel_mgt *chan_mgt,
-+				   struct nbl_chan_info *chan_info)
-+{
-+	int err;
-+
-+	err = nbl_chan_alloc_all_tx_bufs(chan_mgt, chan_info);
-+	if (err)
-+		return err;
-+	err = nbl_chan_alloc_all_rx_bufs(chan_mgt, chan_info);
-+
-+	return err;
-+}
-+
-+/*
-+ * The RX QINFO region is written only by config/stop paths, never by
-+ * senders (which only touch the TX QINFO region and the doorbell), so
-+ * stopping RX does not require txq_lock.
-+ */
-+static void nbl_chan_stop_rx_queue(struct nbl_channel_mgt *chan_mgt)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+
-+	hw_ops->stop_mailbox_rxq(chan_mgt->hw_ops_tbl->priv);
-+}
-+
-+/*
-+ * The TX QINFO region is also written by nbl_chan_quiesce_and_reclaim_tx()
-+ * under txq_lock, so TX stop must serialize against it via txq_lock.
-+ */
-+static void nbl_chan_stop_tx_queue(struct nbl_channel_mgt *chan_mgt)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+
-+	hw_ops->stop_mailbox_txq(chan_mgt->hw_ops_tbl->priv);
-+}
-+
-+static void nbl_chan_reset_wait_head(struct nbl_chan_info *chan_info,
-+				     struct nbl_chan_waitqueue_head *wait_head)
-+{
-+	lockdep_assert_held(&chan_info->pending_lock);
-+
-+	WRITE_ONCE(wait_head->acked, 0);
-+	WRITE_ONCE(wait_head->status, NBL_MBX_STATUS_IDLE);
-+	WRITE_ONCE(wait_head->ack_data, NULL);
-+	WRITE_ONCE(wait_head->ack_data_len, 0);
-+	WRITE_ONCE(wait_head->ack_err, 0);
-+	WRITE_ONCE(wait_head->msg_type, 0);
-+	WRITE_ONCE(wait_head->dstid, 0);
-+}
-+
-+static int nbl_chan_teardown_queue(struct nbl_channel_mgt *chan_mgt,
-+				   u8 chan_type)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
-+	struct nbl_chan_waitqueue_head *wait_head;
-+	struct work_struct *task;
-+	u16 i;
-+
-+	if (!READ_ONCE(chan_info->active)) {
-+		dev_warn(chan_mgt->common->dev, "channel not active, skip duplicate teardown\n");
-+		return 0;
-+	}
-+	/*
-+	 * Step1:
-+	 * block new sender
-+	 */
-+	mutex_lock(&chan_info->state_lock);
-+	WRITE_ONCE(chan_info->shutdn, true);
-+	task = READ_ONCE(chan_info->clean_task);
-+	WRITE_ONCE(chan_info->clean_task, NULL);
-+	mutex_unlock(&chan_info->state_lock);
-+	/*
-+	 * Step2:
-+	 * abort pending ACK waiters
-+	 *
-+	 * Poke only slots with a live waiter (status == WAITING): publish a
-+	 * synthetic (-EIO, len 0) completion and wake the owner. The slot is
-+	 * deliberately NOT reset to IDLE here - ownership stays with the
-+	 * sender, which consumes the completion and resets its own slot in
-+	 * nbl_chan_send_msg():out_clear_wait_slot under pending_lock.
-+	 *
-+	 * Resetting an owned slot here would corrupt two things:
-+	 *   - an ACKD slot whose sender is consuming the completion
-+	 *     locklessly (smp_rmb()-ordered reads) could observe torn
-+	 *     ack_data_len/ack_err pairs;
-+	 *   - nbl_chan_get_msg_id() hands out IDLE/TIMEOUT slots, so a slot
-+	 *     reset to IDLE under its live owner could be reallocated to a
-+	 *     sender admitted before shutdn was set.
-+	 *
-+	 * IDLE/TIMEOUT slots have no waiter and need no action. A late ACK
-+	 * racing this poke is serialized by pending_lock: either the real
-+	 * completion lands first (status becomes ACKD and is skipped) or
-+	 * this synthetic failure does, both are valid outcomes.
-+	 */
-+	mutex_lock(&chan_info->pending_lock);
-+	for (i = 0; i < chan_info->num_txq_entries; i++) {
-+		wait_head = &chan_info->wait[i];
-+		if (READ_ONCE(wait_head->status) != NBL_MBX_STATUS_WAITING)
-+			continue;
-+		WRITE_ONCE(wait_head->status, NBL_MBX_STATUS_ACKD);
-+		WRITE_ONCE(wait_head->ack_data_len, 0);
-+		WRITE_ONCE(wait_head->ack_err, (s32)-EIO);
-+		/* Publish completion fields before the acked flag */
-+		smp_wmb();
-+		WRITE_ONCE(wait_head->acked, 1);
-+		wake_up(&wait_head->wait_queue);
-+	}
-+	mutex_unlock(&chan_info->pending_lock);
-+
-+	/*
-+	 * Step3:
-+	 * stop the RX queue unconditionally. The RX QINFO region is written
-+	 * only by config/stop paths, never by senders (which only touch the
-+	 * TX QINFO region and the doorbell), so no txq_lock is needed. The
-+	 * RX engine must be quiesced before the rings are freed, regardless
-+	 * of TX-side state - skipping it would leave the device DMAing peer
-+	 * messages and descriptor writebacks into released coherent memory.
-+	 */
-+	nbl_chan_stop_rx_queue(chan_mgt);
-+
-+	/*
-+	 * Drain strategy mirrors mlx5 command interface teardown:
-+	 * set shutdown flag first, abort all pending waiters, then
-+	 * block until inflight_tx_cnt reaches zero.
-+	 *
-+	 * After shutdn is set every sender exits promptly at its next
-+	 * checkpoint:
-+	 *   - interrupt-driven senders wake on shutdn immediately
-+	 *     (it is part of the wait_event condition);
-+	 *   - ACK polling senders check shutdn each iteration before
-+	 *     sleeping 1000-1200us. This per-iteration check avoids
-+	 *     waiting the full 5.0-6.0s worst-case ACK timeout.
-+	 *
-+	 * The wait is deliberately unbounded: a surviving sender still
-+	 * holds txq_lock or touches chan_info (state_lock, wait[]) on its
-+	 * exit path, so returning early would let devres free the rings
-+	 * and chan_info underneath it. In practice the TX polling loop is
-+	 * bounded (NBL_CHAN_TX_WAIT_TIMES) and wedged-link MMIO reads
-+	 * eventually complete with all-1s data, so this loop terminates;
-+	 * warn periodically to keep a genuinely stuck sender diagnosable.
-+	 */
-+	while (wait_event_timeout(chan_info->inflight_wait,
-+				  atomic_read(&chan_info->inflight_tx_cnt) == 0,
-+				  msecs_to_jiffies(5000)) == 0)
-+		dev_warn(chan_mgt->common->dev,
-+			 "teardown: still waiting for %d inflight sender(s)\n",
-+			 atomic_read(&chan_info->inflight_tx_cnt));
-+
-+	/*
-+	 * Join the last exiting sender through state_lock: it drops
-+	 * inflight_tx_cnt and wakes this drain while still holding
-+	 * state_lock, so observing the counter reach zero does not prove
-+	 * the sender has finished its mutex_unlock(). Acquiring the lock
-+	 * once here guarantees no sender still holds it - mutex_unlock()
-+	 * is the sender's last touch of chan_info - before returning lets
-+	 * devres free chan_info. shutdn blocks new senders, so one
-+	 * acquire/release pair is sufficient.
-+	 */
-+	mutex_lock(&chan_info->state_lock);
-+	mutex_unlock(&chan_info->state_lock);
-+
-+	/*
-+	 * All senders have exited, so txq_lock is uncontended: plain lock.
-+	 * Take it so this is the sole writer of the TX QINFO block
-+	 * (sender-side stop/config/doorbell sequences all run under
-+	 * txq_lock).
-+	 */
-+	mutex_lock(&chan_info->txq_lock);
-+	nbl_chan_stop_tx_queue(chan_mgt);
-+	mutex_unlock(&chan_info->txq_lock);
-+
-+	/*
-+	 * Join the RX clean work before active=false and before devres
-+	 * releases the rings. IRQ is already freed and clean_task is
-+	 * cleared under state_lock, so no new instance can be queued.
-+	 */
-+	if (task)
-+		cancel_work_sync(task);
-+	WRITE_ONCE(chan_info->active, false);
-+	return 0;
-+}
-+
-+static int nbl_chan_setup_queue(struct nbl_channel_mgt *chan_mgt, u8 chan_type)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_common_info *common = chan_mgt->common;
-+	struct nbl_chan_ring *rxq = &chan_info->rxq;
-+	int err;
-+
-+	if (READ_ONCE(chan_info->active)) {
-+		dev_warn(common->dev, "channel already active, reject duplicate setup\n");
-+		return -EBUSY;
-+	}
-+	/*
-+	 * DMA resources are allocated once and released only by devres
-+	 * at device detach.  A teardown does not free them, so a second
-+	 * setup would orphan ~2 MiB of coherent DMA per channel.
-+	 */
-+	if (chan_info->dma_allocated) {
-+		dev_warn(common->dev,
-+			 "channel DMA already allocated, re-setup not supported\n");
-+		return -EBUSY;
-+	}
-+	nbl_chan_init_queue_param(chan_info, NBL_CHAN_QUEUE_LEN,
-+				  NBL_CHAN_QUEUE_LEN, NBL_CHAN_BUF_LEN,
-+				  NBL_CHAN_BUF_LEN);
-+	err = nbl_chan_init_queue(common, chan_info);
-+	if (err)
-+		return err;
-+	err = nbl_chan_alloc_all_bufs(chan_mgt, chan_info);
-+	if (err)
-+		return err;
-+	nbl_chan_config_queue(chan_mgt, chan_info, true); /* tx */
-+	nbl_chan_config_queue(chan_mgt, chan_info, false); /* rx */
-+	nbl_chan_update_tail_ptr(hw_ops, chan_mgt->hw_ops_tbl->priv,
-+				 rxq->tail_ptr, NBL_MB_RX_QID);
-+	WRITE_ONCE(chan_info->active, true);
-+	chan_info->dma_allocated = true;
-+	return 0;
-+}
-+
-+static bool nbl_chan_txq_full(struct nbl_chan_ring *txq,
-+			      u16 num_entries)
-+{
-+	return NBL_NEXT_ID(txq->next_to_use, num_entries - 1) ==
-+	       txq->next_to_clean;
-+}
-+
-+static int nbl_chan_update_txqueue(struct nbl_channel_mgt *chan_mgt,
-+				   struct nbl_chan_info *chan_info,
-+				   struct nbl_chan_tx_param *param)
-+{
-+	struct nbl_chan_ring *txq = &chan_info->txq;
-+	struct nbl_chan_tx_desc *tx_desc;
-+	struct nbl_chan_buf *tx_buf;
-+
-+	if (nbl_chan_txq_full(txq, chan_info->num_txq_entries))
-+		return -EBUSY;
-+	if (param->arg_len > NBL_CHAN_BUF_LEN - sizeof(*tx_desc))
-+		return -EINVAL;
-+	tx_desc =
-+		NBL_CHAN_TX_RING_TO_DESC(txq, txq->next_to_use);
-+	tx_buf =
-+		NBL_CHAN_TX_RING_TO_BUF(txq, txq->next_to_use);
-+	tx_desc->dstid = cpu_to_le16(param->dstid);
-+	tx_desc->msg_type = cpu_to_le16(param->msg_type);
-+	tx_desc->msgid = cpu_to_le16(param->msgid);
-+
-+	/*
-+	 * srcid field is filled by mailbox hardware after peer receives this
-+	 * packet, driver producer never writes srcid; reused descriptor slots
-+	 * will contain stale srcid value temporarily until hardware overwrites
-+	 * it.
-+	 */
-+	if (param->arg_len > NBL_CHAN_TX_DESC_EMBEDDED_DATA_LEN) {
-+		if (param->arg)
-+			memcpy(tx_buf->va, param->arg, param->arg_len);
-+		tx_desc->buf_addr = cpu_to_le64(tx_buf->pa);
-+		tx_desc->buf_len = cpu_to_le16(param->arg_len);
-+		tx_desc->data_len = 0;
-+		memset(tx_desc->data, 0, sizeof(tx_desc->data));
-+	} else {
-+		memset(tx_desc->data, 0, sizeof(tx_desc->data));
-+		memset(&tx_desc->buf_addr, 0, sizeof(tx_desc->buf_addr));
-+		if (param->arg && param->arg_len > 0)
-+			memcpy(tx_desc->data, param->arg, param->arg_len);
-+		tx_desc->buf_len = 0;
-+		tx_desc->data_len = cpu_to_le16(param->arg_len);
-+	}
-+	/* Ensure descriptor data visible to device before AVAIL flag */
-+	dma_wmb();
-+	tx_desc->flags = cpu_to_le16(BIT(NBL_CHAN_TX_DESC_AVAIL));
-+
-+	txq->next_to_use =
-+		NBL_NEXT_ID(txq->next_to_use, chan_info->num_txq_entries - 1);
-+	txq->tail_ptr++;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Quiesce the TX mailbox queue and reclaim all outstanding
-+ * descriptors.  Called from the timeout path of nbl_chan_kick_tx_ring()
-+ * with txq_lock held.
++ * ZTE DingHai Ethernet driver - event queue plumbing
++ * Copyright (c) 2022-2026, ZTE Corporation.
 + *
-+ * The device failed to fetch/complete the current descriptor within the
-+ * polling window.  We assert QUEUE_RST to stop further DMA fetches,
-+ * reclaim every descriptor between next_to_clean and next_to_use,
-+ * reset the software tail_ptr counter to match the hardware reset state,
-+ * and re-enable the queue so subsequent sends can proceed.
++ * Async event queues are the delivery path for firmware notifications:
++ * a queue owns one MSI-X vector of the async pool and fans interrupts
++ * out to the per-event-type notifier chains of the event queue table.
++ * The BAR message channel handshake that tells the firmware which
++ * vectors to signal comes with the BAR message subsystem in a later
++ * series; the PF side wired here is live as soon as that channel is
++ * enabled.
 + */
-+static void nbl_chan_quiesce_and_reclaim_tx(struct nbl_channel_mgt *chan_mgt,
-+					    struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_hw_mgt *hw_priv = chan_mgt->hw_ops_tbl->priv;
-+	struct nbl_chan_ring *txq = &chan_info->txq;
-+	struct nbl_chan_tx_desc *tx_desc;
 +
-+	/*
-+	 * Assert QUEUE_RST to stop hardware fetching new descriptors.
-+	 * stop_mailbox_txq() flushes through the mailbox BAR itself, so
-+	 * the reset has reached the device when it returns.
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/mutex.h>
++#include <linux/notifier.h>
++#include <linux/slab.h>
++
++#include "en_pf.h"
++#include "zxdh_eq.h"
++#include "zxdh_irq.h"
++
++/* PF side of the event queue table: one async EQ fed by the RISC-V
++ * management core.
++ */
++struct zxdh_pf_eq_table {
++	struct zxdh_eq_async riscv_eq;
++};
++
++/* Fetch the event_id the RISC-V core posted in the PF receive
++ * sub-channel of the BAR message area. The field lives at byte offset
++ * 2 of the 12-byte message header, so a single 32-bit read of the
++ * sub-channel start covers it.
++ */
++static u16 zxdh_eq_event_id_get(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
++	void __iomem *subchan;
++
++	subchan = pf_dev->pci_ioremap_addr[0] + ZXDH_BAR_MSG_SUBCHAN_RECV;
++
++	return ioread32(subchan) >> 16;
++}
++
++static enum zxdh_eq_event_type zxdh_eq_event_type_get(u16 event_id)
++{
++	if (event_id == ZXDH_MSG_MODULE_RISC_READY)
++		return ZXDH_EQ_EVENT_TYPE_RISCV_READY;
++
++	/* Only the RISC-V ready notification is dispatched in this
++	 * series; the remaining firmware events arrive with the BAR
++	 * message subsystem.
 +	 */
-+	hw_ops->stop_mailbox_txq(hw_priv);
-+
-+	/*
-+	 * Reclaim all outstanding descriptors between next_to_clean and
-+	 * next_to_use.  Under txq_lock there is at most one in-flight
-+	 * descriptor, but iterate the full range for robustness.
-+	 */
-+	while (txq->next_to_clean != txq->next_to_use) {
-+		tx_desc = NBL_CHAN_TX_RING_TO_DESC(txq,
-+						   txq->next_to_clean);
-+		WRITE_ONCE(tx_desc->flags, 0);
-+		txq->next_to_clean =
-+			NBL_NEXT_ID(txq->next_to_clean,
-+				    chan_info->num_txq_entries - 1);
-+	}
-+
-+	/*
-+	 * Hardware tail_ptr counter is cleared by QUEUE_RST.  Reset
-+	 * software counter to match so the next doorbell update does
-+	 * not produce a false 16-bit wrap delta.
-+	 */
-+	txq->tail_ptr = 0;
-+	txq->next_to_use = 0;
-+	txq->next_to_clean = 0;
-+
-+	/*
-+	 * Authoritative re-arm gate, evaluated while txq_lock is held:
-+	 * teardown sets shutdn before draining senders and then owns
-+	 * hardware state. If teardown started while we were stopping/
-+	 * reclaiming, leave the queue in QUEUE_RST and never program
-+	 * QUEUE_EN, otherwise the queue could be armed again pointing
-+	 * at rings that are about to be freed.
-+	 */
-+	if (READ_ONCE(chan_info->shutdn))
-+		return;
-+
-+	/* Re-enable queue with current ring base and size */
-+	nbl_chan_config_queue(chan_mgt, chan_info, true);
++	return ZXDH_EQ_EVENT_TYPE_MAX;
 +}
 +
-+static int nbl_chan_kick_tx_ring(struct nbl_channel_mgt *chan_mgt,
-+				 struct nbl_chan_info *chan_info)
++static int zxdh_eq_async_riscv_int(struct notifier_block *nb,
++				   unsigned long action, void *data)
 +{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_chan_ring *txq = &chan_info->txq;
-+	struct device *dev = chan_mgt->common->dev;
-+	int max_retries = NBL_CHAN_TX_WAIT_TIMES;
-+	struct nbl_chan_tx_desc *tx_desc;
-+	int retry_count = 0;
-+	u16 msg_type;
++	struct zxdh_eq_async *eq = container_of(nb, struct zxdh_eq_async, irq_nb);
++	struct zxdh_core_dev *zxdh_dev = eq->priv;
++	enum zxdh_eq_event_type event_type;
 +
-+	nbl_chan_update_tail_ptr(hw_ops, chan_mgt->hw_ops_tbl->priv,
-+				 txq->tail_ptr, NBL_MB_TX_QID);
++	event_type = zxdh_eq_event_type_get(zxdh_eq_event_id_get(zxdh_dev));
++	if (event_type == ZXDH_EQ_EVENT_TYPE_MAX)
++		return NOTIFY_DONE;
 +
-+	tx_desc = NBL_CHAN_TX_RING_TO_DESC(txq, txq->next_to_clean);
-+	/*
-+	 * Poll for HW to mark descriptor as USED.
-+	 * Mailbox is a low-speed control channel for management commands.
-+	 * We avoid enabling dedicated per-TX interrupt for single control
-+	 * message to reduce interrupt overhead, so use bounded polling
-+	 * with small delay instead.
-+	 */
-+	while (retry_count < max_retries) {
-+		if (READ_ONCE(chan_info->shutdn))
-+			return -ESHUTDOWN;
++	atomic_notifier_call_chain(&zxdh_dev->eq_table.nh[event_type],
++				   event_type, NULL);
 +
-+		if (le16_to_cpu(READ_ONCE(tx_desc->flags)) &
-+		    BIT(NBL_CHAN_TX_DESC_USED)) {
-+			 /*
-+			  * Order reads of other device-written descriptor
-+			  * fields after observing USED.  Matches the RX side
-+			  * pattern in nbl_chan_clean_queue().
-+			  */
-+			dma_rmb();
-+			break;
-+		}
-+
-+		retry_count++;
-+		if (retry_count == max_retries) {
-+			msg_type = le16_to_cpu(READ_ONCE(tx_desc->msg_type));
-+			dev_err_ratelimited(dev, "chan send msg type: %d timeout\n",
-+					    msg_type);
-+			/*
-+			 * Teardown may have started after the loop-top
-+			 * check on this final iteration. Do not run lock
-+			 * recovery then: it would stop/reclaim the queue
-+			 * and, without the in-quiesce gate, re-arm it.
-+			 * nbl_chan_teardown_queue() owns hardware state.
-+			 */
-+			if (READ_ONCE(chan_info->shutdn))
-+				return -ESHUTDOWN;
-+			/*
-+			 * Device failed to complete this descriptor.
-+			 * Quiesce the queue, reclaim the timed-out
-+			 * descriptor, and re-enable so future sends can
-+			 * proceed instead of stalling the ring full.
-+			 */
-+			nbl_chan_quiesce_and_reclaim_tx(chan_mgt,
-+							chan_info);
-+			return -ETIMEDOUT;
-+		}
-+		usleep_range(NBL_CHAN_TX_WAIT_US, NBL_CHAN_TX_WAIT_US_MAX);
-+	}
-+
-+	txq->next_to_clean = txq->next_to_use;
-+
-+	return 0;
++	return NOTIFY_OK;
 +}
 +
-+static void nbl_chan_recv_ack_msg(void *priv, u16 srcid, u16 msgid, void *data,
-+				  u32 data_len)
++int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev)
 +{
-+	struct nbl_channel_mgt *chan_mgt = (struct nbl_channel_mgt *)priv;
-+	struct nbl_chan_waitqueue_head *wait_head = NULL;
-+	struct device *dev = chan_mgt->common->dev;
-+	struct nbl_chan_info *chan_info =
-+		chan_mgt->chan_info[NBL_CHAN_TYPE_MAILBOX];
-+	u16 w_dstid, w_msgtype, w_msgidx;
-+	u32 *payload = data;
-+	u16 ack_msgtype = 0;
-+	u16 ack_msgid = 0;
-+	u32 ack_datalen;
-+	void *ack_data;
-+	u32 copy_len;
-+	int w_status;
-+	s32 raw_err;
-+
-+	if (READ_ONCE(chan_info->shutdn))
-+		return;
-+	if (data_len > NBL_CHAN_BUF_LEN ||
-+	    data_len < NBL_CHAN_ACK_HEAD_LEN * sizeof(u32)) {
-+		dev_err_ratelimited(dev, "Invalid ACK data_len: %u\n",
-+				    data_len);
-+		return;
-+	}
-+	ack_datalen = data_len - NBL_CHAN_ACK_HEAD_LEN * sizeof(u32);
-+	ack_msgtype = le16_to_cpu(*(__le16 *)(payload + NBL_CHAN_MSG_TYPE_POS));
-+	ack_msgid = le16_to_cpu(*(__le16 *)(payload + NBL_CHAN_MSG_ID_POS));
-+	if (FIELD_GET(NBL_CHAN_MSGID_LOC_MASK, ack_msgid) >=
-+	    chan_info->num_txq_entries) {
-+		dev_err_ratelimited(dev, "chan recv msg id: %u err\n",
-+				    ack_msgid);
-+		return;
-+	}
-+	wait_head =
-+		&chan_info->wait[FIELD_GET(NBL_CHAN_MSGID_LOC_MASK, ack_msgid)];
-+
-+	mutex_lock(&chan_info->pending_lock);
-+
-+	/* Cache repeated READ_ONCE values */
-+	w_dstid = READ_ONCE(wait_head->dstid);
-+	w_status = READ_ONCE(wait_head->status);
-+	w_msgtype = READ_ONCE(wait_head->msg_type);
-+	w_msgidx = READ_ONCE(wait_head->msg_index);
-+
-+	if (srcid != w_dstid) {
-+		mutex_unlock(&chan_info->pending_lock);
-+		dev_err_ratelimited(dev, "ACK srcid=%u != dstid=%u, rejecting\n",
-+				    srcid, w_dstid);
-+		return;
-+	}
-+	if (w_status != NBL_MBX_STATUS_WAITING) {
-+		mutex_unlock(&chan_info->pending_lock);
-+		dev_err_ratelimited(dev,
-+				    "Skip ack invalid status, wait msgtype:%u idx:%u status:%d ack msgtype:%u msgid:%u datalen:%u\n",
-+				    w_msgtype, w_msgidx, w_status,
-+				    ack_msgtype, ack_msgid, ack_datalen);
-+		return;
-+	}
-+
-+	if (w_msgtype != ack_msgtype) {
-+		mutex_unlock(&chan_info->pending_lock);
-+		dev_err_ratelimited(dev,
-+				    "Skip ack msgtype mismatch, wait msgtype:%u idx:%u ack msgtype:%u msgid:%u\n",
-+				    w_msgtype, w_msgidx, ack_msgtype,
-+				    ack_msgid);
-+		return;
-+	}
-+	if (FIELD_GET(NBL_CHAN_MSGID_INDEX_MASK, ack_msgid) != w_msgidx) {
-+		mutex_unlock(&chan_info->pending_lock);
-+		dev_err_ratelimited(dev,
-+				    "Stale ACK: expected index=%u, got msgid=%u\n",
-+				    w_msgidx, ack_msgid);
-+		return;
-+	}
-+
-+	raw_err = (s32)le32_to_cpu(*(__le32 *)&payload[NBL_CHAN_ACK_RET_POS]);
-+	if (raw_err > 0 || raw_err < -MAX_ERRNO)
-+		raw_err = -EREMOTEIO;
-+
-+	WRITE_ONCE(wait_head->ack_err, raw_err);
-+
-+	copy_len = min_t(u32, READ_ONCE(wait_head->ack_data_len), ack_datalen);
-+	if (READ_ONCE(wait_head->ack_err) >= 0 && copy_len > 0) {
-+		ack_data = READ_ONCE(wait_head->ack_data);
-+		if (!ack_data) {
-+			dev_err_ratelimited(dev, "ACK payload dropped: ack_data is NULL\n");
-+			WRITE_ONCE(wait_head->ack_data_len, 0);
-+			goto ack_done;
-+		}
-+		memcpy((char *)ack_data,
-+		       payload + NBL_CHAN_ACK_HEAD_LEN, copy_len);
-+		WRITE_ONCE(wait_head->ack_data_len, (u16)copy_len);
-+	} else {
-+		WRITE_ONCE(wait_head->ack_data_len, 0);
-+	}
-+ack_done:
-+	/* Guarantee payload data finished before acked flag visible */
-+	smp_wmb();
-+	WRITE_ONCE(wait_head->acked, 1);
-+	WRITE_ONCE(wait_head->status, NBL_MBX_STATUS_ACKD);
-+	mutex_unlock(&chan_info->pending_lock);
-+	wake_up(&wait_head->wait_queue);
-+}
-+
-+static void nbl_chan_recv_msg(struct nbl_channel_mgt *chan_mgt, void *data)
-+{
-+	struct device *dev = chan_mgt->common->dev;
-+	struct nbl_chan_msg_node_data *msg_handler;
-+	u16 msg_type, payload_len, srcid, msgid;
-+	struct nbl_chan_info *chan_info =
-+		chan_mgt->chan_info[NBL_CHAN_TYPE_MAILBOX];
-+	struct nbl_chan_tx_desc *tx_desc;
-+	void *payload;
-+	size_t avail_space;
-+	u16 data_len_fw;
-+
-+	if (READ_ONCE(chan_info->shutdn))
-+		return;
-+
-+	tx_desc = data;
-+	msg_type = le16_to_cpu(READ_ONCE(tx_desc->msg_type));
-+	dev_dbg(dev, "recv msg_type: %d\n", msg_type);
-+
-+	srcid = le16_to_cpu(READ_ONCE(tx_desc->srcid));
-+	msgid = le16_to_cpu(READ_ONCE(tx_desc->msgid));
-+
-+	if (msg_type >= NBL_CHAN_MSG_MAILBOX_MAX)
-+		return;
-+
-+	data_len_fw = le16_to_cpu(READ_ONCE(tx_desc->data_len));
-+	if (data_len_fw) {
-+		payload_len = data_len_fw;
-+
-+		if (payload_len > NBL_CHAN_TX_DESC_EMBEDDED_DATA_LEN) {
-+			dev_err_ratelimited(dev,
-+					    "data_len=%u exceeds embedded buffer size=%u\n",
-+					    payload_len,
-+					    NBL_CHAN_TX_DESC_EMBEDDED_DATA_LEN);
-+			return;
-+		}
-+		/* Small pkt: payload stored inside descriptor data[] array */
-+		payload = tx_desc->data;
-+	} else {
-+		payload_len = le16_to_cpu(READ_ONCE(tx_desc->buf_len));
-+
-+		avail_space = NBL_CHAN_BUF_LEN - sizeof(*tx_desc);
-+		if (payload_len > avail_space) {
-+			dev_err_ratelimited(dev,
-+					    "buf_len=%u exceeds external buffer size=%zu\n",
-+					    payload_len, avail_space);
-+			return;
-+		}
-+		/* Large pkt: payload follows immediately after tx_desc */
-+		payload = tx_desc + 1;
-+	}
-+
-+	msg_handler = xa_load(&chan_mgt->handler_xa, msg_type);
-+	if (!msg_handler || !msg_handler->func) {
-+		dev_err_ratelimited(dev,
-+				    "No handler for msg_type: %u (srcid=%u, msgid=%u)\n",
-+				    msg_type, srcid, msgid);
-+		return;
-+	}
-+
-+	msg_handler->func(msg_handler->priv, srcid, msgid, payload,
-+			  payload_len);
-+}
-+
-+static void nbl_chan_advance_rx_ring(struct nbl_channel_mgt *chan_mgt,
-+				     struct nbl_chan_info *chan_info,
-+				     struct nbl_chan_ring *rxq)
-+{
-+	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-+	struct nbl_chan_rx_desc *rx_desc;
-+	struct nbl_chan_buf *rx_buf;
-+	u16 next_to_use;
-+
-+	next_to_use = rxq->next_to_use;
-+	rx_desc = NBL_CHAN_RX_RING_TO_DESC(rxq, next_to_use);
-+	rx_buf = NBL_CHAN_RX_RING_TO_BUF(rxq, next_to_use);
-+
-+	/*
-+	 * Recycle the RX descriptor at next_to_use. The initial
-+	 * unused slot is intentionally recycled after the first
-+	 * RX descriptor is consumed, allowing the ring to become
-+	 * fully populated while next_to_clean tracks the consumer.
-+	 */
-+	rx_desc->buf_addr = cpu_to_le64(rx_buf->pa);
-+	rx_desc->buf_len = cpu_to_le32(chan_info->rxq_buf_size);
-+
-+	/*
-+	 * DMA Write Memory Barrier:
-+	 * Ensures all previous DMA-mapped writes (buffer address/length)
-+	 * are completed before the descriptor flags are updated.
-+	 * This prevents hardware from seeing a partially updated descriptor
-+	 * where flags are set but buffer info isn't ready yet.
-+	 */
-+	dma_wmb();
-+
-+	rx_desc->flags = cpu_to_le16(BIT(NBL_CHAN_RX_DESC_AVAIL));
-+
-+	rxq->next_to_use++;
-+	if (rxq->next_to_use == chan_info->num_rxq_entries)
-+		rxq->next_to_use = 0;
-+	rxq->tail_ptr++;
-+
-+	nbl_chan_update_tail_ptr(hw_ops, chan_mgt->hw_ops_tbl->priv,
-+				 rxq->tail_ptr, NBL_MB_RX_QID);
-+}
-+
-+static void nbl_chan_clean_queue(struct nbl_channel_mgt *chan_mgt,
-+				 struct nbl_chan_info *chan_info)
-+{
-+	struct nbl_common_info *common = chan_mgt->common;
-+	struct nbl_chan_ring *rxq = &chan_info->rxq;
-+	struct device *dev = chan_mgt->common->dev;
-+	u32 budget = NBL_CHAN_RX_CLEAN_BUDGET;
-+	struct nbl_chan_rx_desc *rx_desc;
-+	struct nbl_chan_buf *rx_buf;
-+	struct work_struct *task;
-+	bool more_work = false;
-+	u16 next_to_clean;
-+	u16 flags;
-+
-+	next_to_clean = rxq->next_to_clean;
-+	rx_desc = NBL_CHAN_RX_RING_TO_DESC(rxq, next_to_clean);
-+	rx_buf = NBL_CHAN_RX_RING_TO_BUF(rxq, next_to_clean);
-+	while (le16_to_cpu(READ_ONCE(rx_desc->flags)) &
-+	       BIT(NBL_CHAN_RX_DESC_USED)) {
-+		flags = le16_to_cpu(READ_ONCE(rx_desc->flags));
-+
-+		if (READ_ONCE(chan_info->shutdn))
-+			break;
-+		if (!(flags & BIT(NBL_CHAN_RX_DESC_WRITE)))
-+			dev_dbg(dev,
-+				"mailbox rx flag 0x%x missing NBL_CHAN_RX_DESC_WRITE\n",
-+				flags);
-+
-+		/* Make sure hardware written descriptor visible to CPU */
-+		dma_rmb();
-+		nbl_chan_recv_msg(chan_mgt, rx_buf->va);
-+		nbl_chan_advance_rx_ring(chan_mgt, chan_info, rxq);
-+		next_to_clean++;
-+		if (next_to_clean == chan_info->num_rxq_entries)
-+			next_to_clean = 0;
-+		rx_desc = NBL_CHAN_RX_RING_TO_DESC(rxq, next_to_clean);
-+		rx_buf = NBL_CHAN_RX_RING_TO_BUF(rxq, next_to_clean);
-+		if (--budget == 0) {
-+			more_work = true;
-+			break;
-+		}
-+		cond_resched();
-+	}
-+	rxq->next_to_clean = next_to_clean;
-+
-+	mutex_lock(&chan_info->state_lock);
-+	/* Prevent queue_work after teardown clears clean_task */
-+	if (READ_ONCE(chan_info->shutdn)) {
-+		mutex_unlock(&chan_info->state_lock);
-+		return;
-+	}
-+	if (common->wq && more_work) {
-+		task = READ_ONCE(chan_info->clean_task);
-+		if (task)
-+			queue_work(common->wq, task);
-+	}
-+	mutex_unlock(&chan_info->state_lock);
-+}
-+
-+static void nbl_chan_clean_queue_subtask(struct nbl_channel_mgt *chan_mgt,
-+					 u8 chan_type)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
-+
-+	nbl_chan_clean_queue(chan_mgt, chan_info);
-+}
-+
-+static int nbl_chan_get_msg_id(struct nbl_chan_info *chan_info,
-+			       u16 *msgid)
-+{
-+	int search_loc = READ_ONCE(chan_info->wait_head_index), i;
-+	struct nbl_chan_waitqueue_head *wait = NULL;
-+	int status;
-+	int next;
-+
-+	lockdep_assert_held(&chan_info->pending_lock);
-+	for (i = 0; i < chan_info->num_txq_entries; i++) {
-+		wait = &chan_info->wait[search_loc];
-+		status = READ_ONCE(wait->status);
-+		if (status == NBL_MBX_STATUS_IDLE ||
-+		    status == NBL_MBX_STATUS_TIMEOUT) {
-+			WRITE_ONCE(wait->msg_index,
-+				   NBL_NEXT_ID(wait->msg_index,
-+					       NBL_CHAN_MSG_INDEX_MAX));
-+
-+			*msgid = FIELD_PREP(NBL_CHAN_MSGID_INDEX_MASK,
-+					    wait->msg_index) |
-+				 FIELD_PREP(NBL_CHAN_MSGID_LOC_MASK,
-+					    search_loc);
-+
-+			/* Advance starting search position for next caller */
-+			next = NBL_NEXT_ID(search_loc,
-+					   chan_info->num_txq_entries - 1);
-+			WRITE_ONCE(chan_info->wait_head_index, next);
-+			return 0;
-+		}
-+
-+		search_loc = NBL_NEXT_ID(search_loc,
-+					 chan_info->num_txq_entries - 1);
-+	}
-+
-+	/*
-+	 * All tx slots are occupied. May happen under high transmit load
-+	 * or delayed remote ACK responses. Caller should retry later.
-+	 */
-+	return -EAGAIN;
-+}
-+
-+static int nbl_chan_send_msg(struct nbl_channel_mgt *chan_mgt,
-+			     struct nbl_chan_send_info *chan_send)
-+{
-+	struct nbl_common_info *common = chan_mgt->common;
-+	struct nbl_chan_waitqueue_head *wait_head = NULL;
-+	struct nbl_chan_tx_param tx_param = { 0 };
-+	int i = NBL_CHAN_TX_WAIT_ACK_TIMES;
-+	struct nbl_chan_info *chan_info =
-+		chan_mgt->chan_info[NBL_CHAN_TYPE_MAILBOX];
-+	struct device *dev = common->dev;
-+	struct work_struct *task;
-+	u16 msgid = 0;
-+	int ret;
-+
-+	if (chan_send->resp_len > NBL_CHAN_BUF_LEN) {
-+		dev_err_ratelimited(dev, "resp_len %zu exceeds max %d\n",
-+				    chan_send->resp_len, NBL_CHAN_BUF_LEN);
-+		return -EINVAL;
-+	}
-+
-+	mutex_lock(&chan_info->state_lock);
-+	if (READ_ONCE(chan_info->shutdn)) {
-+		mutex_unlock(&chan_info->state_lock);
-+		return -ESHUTDOWN;
-+	}
-+	atomic_inc(&chan_info->inflight_tx_cnt);
-+	mutex_unlock(&chan_info->state_lock);
-+
-+	tx_param.msg_type = chan_send->msg_type;
-+	tx_param.arg = chan_send->arg;
-+	tx_param.arg_len = chan_send->arg_len;
-+	tx_param.dstid = chan_send->dstid;
-+	tx_param.msgid = msgid;
-+	if (chan_send->ack) {
-+		mutex_lock(&chan_info->pending_lock);
-+
-+		ret = nbl_chan_get_msg_id(chan_info, &msgid);
-+		if (ret) {
-+			mutex_unlock(&chan_info->pending_lock);
-+			dev_err_ratelimited(dev,
-+					    "Channel tx wait head full, send msgtype:%u to dstid:%u failed\n",
-+					    chan_send->msg_type,
-+					    chan_send->dstid);
-+			goto out_clean_inflight;
-+		}
-+		wait_head =
-+			&chan_info->wait[FIELD_GET(NBL_CHAN_MSGID_LOC_MASK,
-+						   msgid)];
-+		WRITE_ONCE(wait_head->acked, 0);
-+		WRITE_ONCE(wait_head->ack_data, chan_send->resp);
-+		WRITE_ONCE(wait_head->ack_data_len, chan_send->resp_len);
-+		WRITE_ONCE(wait_head->msg_type, chan_send->msg_type);
-+		WRITE_ONCE(wait_head->msg_index,
-+			   FIELD_GET(NBL_CHAN_MSGID_INDEX_MASK, msgid));
-+		WRITE_ONCE(wait_head->dstid, chan_send->dstid);
-+
-+		WRITE_ONCE(wait_head->status, NBL_MBX_STATUS_WAITING);
-+		mutex_unlock(&chan_info->pending_lock);
-+
-+		tx_param.msgid = msgid;
-+	}
-+
-+	mutex_lock(&chan_info->txq_lock);
-+	ret = nbl_chan_update_txqueue(chan_mgt, chan_info, &tx_param);
-+	if (ret) {
-+		mutex_unlock(&chan_info->txq_lock);
-+		dev_err_ratelimited(dev,
-+				    "Channel tx queue full, send msgtype:%u to dstid:%u failed\n",
-+				    chan_send->msg_type, chan_send->dstid);
-+		if (wait_head)
-+			goto out_clear_wait_slot;
-+		goto out_clean_inflight;
-+	}
-+
-+	ret = nbl_chan_kick_tx_ring(chan_mgt, chan_info);
-+	mutex_unlock(&chan_info->txq_lock);
-+	if (ret) {
-+		if (wait_head)
-+			goto out_clear_wait_slot;
-+		goto out_clean_inflight;
-+	}
-+
-+	if (!chan_send->ack) {
-+		ret = 0;
-+		goto out_clean_inflight;
-+	}
-+
-+	if (test_bit(NBL_CHAN_IRQ_RDY, chan_info->state)) {
-+		while (!READ_ONCE(wait_head->acked)) {
-+			/*
-+			 * avoids long task blocking when interrupt mode is
-+			 * disabled mid-wait. Cannot guarantee subsequent ACK
-+			 * delivery after interrupt mask off, only prevents
-+			 * infinite blocking. Spurious timeout is possible.
-+			 */
-+			ret = wait_event_timeout(wait_head->wait_queue,
-+						 READ_ONCE(wait_head->acked) ||
-+						 READ_ONCE(chan_info->shutdn) ||
-+						 !test_bit(NBL_CHAN_IRQ_RDY,
-+							   chan_info->state),
-+						 NBL_CHAN_ACK_WAIT_TIME);
-+
-+			if (READ_ONCE(chan_info->shutdn)) {
-+				ret = -ESHUTDOWN;
-+				goto out_clear_wait_slot;
-+			}
-+			if (!test_bit(NBL_CHAN_IRQ_RDY, chan_info->state)) {
-+				ret = -EIO;
-+				goto out_clear_wait_slot;
-+			}
-+			if (ret == 0) {
-+				mutex_lock(&chan_info->pending_lock);
-+				if (READ_ONCE(wait_head->status) ==
-+				    NBL_MBX_STATUS_WAITING) {
-+					WRITE_ONCE(wait_head->status,
-+						   NBL_MBX_STATUS_TIMEOUT);
-+					WRITE_ONCE(wait_head->acked, 0);
-+					WRITE_ONCE(wait_head->ack_data, NULL);
-+					WRITE_ONCE(wait_head->ack_data_len, 0);
-+					/*
-+					 * Ensure all status/ack slot
-+					 * updates are visible before subsequent
-+					 * readers observe acked == 0
-+					 */
-+					smp_wmb();
-+					mutex_unlock(&chan_info->pending_lock);
-+					dev_err_ratelimited(dev,
-+							    "Channel waiting ack failed, message type: %d, msg id: %u\n",
-+							    chan_send->msg_type,
-+							    msgid);
-+					ret = -ETIMEDOUT;
-+					/*
-+					 * TIMEOUT slots can be reused by
-+					 * another sender. A late ACK is
-+					 * rejected by the receive path,
-+					 * which only accepts WAITING slots
-+					 * (and by the msg_index generation
-+					 * check after reallocation). The
-+					 * current sender no longer owns the
-+					 * slot, so skip the IDLE reset.
-+					 */
-+					goto out_clean_inflight;
-+				}
-+				/*
-+				 * ACK won the timeout race: between the
-+				 * final condition check and this lock the
-+				 * receiver published acked=1/ACKD and
-+				 * copied the payload into our response
-+				 * buffer. The slot is still exclusively
-+				 * ours (only IDLE/TIMEOUT slots are ever
-+				 * reallocated), so consume the completion:
-+				 * unlock and continue to the loop-bottom
-+				 * acked check, which enters the normal
-+				 * success readout and IDLE reset. Leaving
-+				 * here via the timeout path would strand
-+				 * the slot in ACKD forever, permanently
-+				 * shrinking the 256-entry pool, and would
-+				 * report a false -ETIMEDOUT for a request
-+				 * whose response already arrived.
-+				 */
-+				mutex_unlock(&chan_info->pending_lock);
-+			}
-+
-+			if (READ_ONCE(wait_head->acked))
-+				break;
-+		}
-+		if (READ_ONCE(wait_head->acked)) {
-+			/*
-+			 * Load ordering: observe acked flag before
-+			 * reading ACK payload metadata.
-+			 */
-+			smp_rmb();
-+			chan_send->ack_len = READ_ONCE(wait_head->ack_data_len);
-+			ret = READ_ONCE(wait_head->ack_err);
-+		}
-+	} else {
-+		/* Polling path for synchronous ACK */
-+		while (i--) {
-+			if (READ_ONCE(chan_info->shutdn)) {
-+				ret = -ESHUTDOWN;
-+				goto out_clear_wait_slot;
-+			}
-+
-+			mutex_lock(&chan_info->state_lock);
-+			task = READ_ONCE(chan_info->clean_task);
-+			if (common->wq && task &&
-+			    !READ_ONCE(chan_info->shutdn) &&
-+			    !work_pending(task))
-+				queue_work(common->wq, task);
-+			mutex_unlock(&chan_info->state_lock);
-+			if (READ_ONCE(wait_head->acked)) {
-+				/*
-+				 * Guarantee load order: observe acked
-+				 * flag before reading ack payload metadata.
-+				 */
-+				smp_rmb();
-+				chan_send->ack_len =
-+					READ_ONCE(wait_head->ack_data_len);
-+				ret = READ_ONCE(wait_head->ack_err);
-+				goto out_clear_wait_slot;
-+			}
-+
-+			usleep_range(NBL_CHAN_TX_WAIT_ACK_US_MIN,
-+				     NBL_CHAN_TX_WAIT_ACK_US_MAX);
-+			cond_resched();
-+		}
-+		mutex_lock(&chan_info->pending_lock);
-+		if (READ_ONCE(wait_head->status) == NBL_MBX_STATUS_ACKD) {
-+			chan_send->ack_len = READ_ONCE(wait_head->ack_data_len);
-+			ret = READ_ONCE(wait_head->ack_err);
-+			mutex_unlock(&chan_info->pending_lock);
-+			goto out_clear_wait_slot;
-+		}
-+		/*
-+		 * Polling timed out without receiving an ACK.  Transition
-+		 * the slot to TIMEOUT so nbl_chan_get_msg_id() can reuse
-+		 * it.  Must not proceed to out_clean_inflight with
-+		 * the slot still in WAITING state — that would leak the
-+		 * slot permanently and eventually exhaust the 256-entry
-+		 * channel queue.
-+		 */
-+		if (READ_ONCE(wait_head->status) == NBL_MBX_STATUS_WAITING) {
-+			WRITE_ONCE(wait_head->status, NBL_MBX_STATUS_TIMEOUT);
-+			WRITE_ONCE(wait_head->acked, 0);
-+			WRITE_ONCE(wait_head->ack_data, NULL);
-+			WRITE_ONCE(wait_head->ack_data_len, 0);
-+		}
-+		mutex_unlock(&chan_info->pending_lock);
-+		dev_err_ratelimited(dev,
-+				    "Channel polling ack failed, message type: %d msg id: %u\n",
-+				    chan_send->msg_type, msgid);
-+		ret = -ETIMEDOUT;
-+		goto out_clean_inflight;
-+	}
-+
-+out_clear_wait_slot:
-+	mutex_lock(&chan_info->pending_lock);
-+	nbl_chan_reset_wait_head(chan_info, wait_head);
-+	mutex_unlock(&chan_info->pending_lock);
-+
-+out_clean_inflight:
-+	mutex_lock(&chan_info->state_lock);
-+	if (atomic_dec_and_test(&chan_info->inflight_tx_cnt))
-+		wake_up(&chan_info->inflight_wait);
-+	mutex_unlock(&chan_info->state_lock);
-+	return ret;
-+}
-+
-+static int nbl_chan_send_ack(struct nbl_channel_mgt *chan_mgt,
-+			     struct nbl_chan_ack_info *chan_ack)
-+{
-+	size_t head_len = NBL_CHAN_ACK_HEAD_LEN * sizeof(u32);
-+	size_t data_len = chan_ack->data_len;
-+	struct nbl_chan_send_info chan_send;
-+	__le32 *tmp;
-+	size_t len;
-+	int ret;
-+
-+	if (data_len >
-+	    NBL_CHAN_BUF_LEN - sizeof(struct nbl_chan_tx_desc) - head_len)
-+		return -EINVAL;
-+
-+	len = head_len + data_len;
-+	tmp = kzalloc(len, GFP_KERNEL);
-+	if (!tmp)
-+		return -ENOMEM;
-+
-+	*(__le16 *)&tmp[NBL_CHAN_MSG_TYPE_POS] =
-+		cpu_to_le16(chan_ack->msg_type);
-+	*(__le16 *)&tmp[NBL_CHAN_MSG_ID_POS] = cpu_to_le16(chan_ack->msgid);
-+	tmp[NBL_CHAN_ACK_RET_POS] = cpu_to_le32(chan_ack->err);
-+	if (chan_ack->data && chan_ack->data_len)
-+		memcpy(&tmp[NBL_CHAN_ACK_HEAD_LEN], chan_ack->data,
-+		       chan_ack->data_len);
-+
-+	nbl_chan_fill_send_info(&chan_send, chan_ack->dstid, NBL_CHAN_MSG_ACK,
-+				tmp, len, NULL, 0, 0);
-+	ret = nbl_chan_send_msg(chan_mgt, &chan_send);
-+	kfree(tmp);
-+
-+	return ret;
-+}
-+
-+static int nbl_chan_register_msg(struct nbl_channel_mgt *chan_mgt, u16 msg_type,
-+				 nbl_chan_resp func, void *callback)
-+{
-+	return nbl_chan_add_msg_handler(chan_mgt, msg_type, func, callback);
-+}
-+
-+static bool nbl_chan_check_queue_exist(struct nbl_channel_mgt *chan_mgt,
-+				       u8 chan_type)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
-+
-+	return chan_info ? true : false;
-+}
-+
-+static void nbl_chan_register_chan_task(struct nbl_channel_mgt *chan_mgt,
-+					u8 chan_type, struct work_struct *task)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
-+
-+	mutex_lock(&chan_info->state_lock);
-+	if (!READ_ONCE(chan_info->shutdn))
-+		WRITE_ONCE(chan_info->clean_task, task);
-+	mutex_unlock(&chan_info->state_lock);
-+}
-+
-+static void nbl_chan_set_queue_state(struct nbl_channel_mgt *chan_mgt,
-+				     enum nbl_chan_state state, u8 chan_type,
-+				     u8 set)
-+{
-+	struct nbl_chan_info *chan_info = chan_mgt->chan_info[chan_type];
++	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
++	struct zxdh_pf_eq_table *priv;
++	struct zxdh_eq_async *eq;
++	int err;
 +	int i;
 +
-+	if (set)
-+		set_bit(state, chan_info->state);
-+	else
-+		clear_bit(state, chan_info->state);
-+	/*
-+	 * When clearing IRQ_RDY, wake all per-slot wait queues so
-+	 * sleeping senders observe the condition immediately and
-+	 * return -EIO instead of waiting out the 3s timeout and
-+	 * reporting -ETIMEDOUT.
-+	 */
-+	if (!set && state == NBL_CHAN_IRQ_RDY) {
-+		for (i = 0; i < chan_info->num_txq_entries; i++)
-+			wake_up_all(&chan_info->wait[i].wait_queue);
-+	}
-+}
++	priv = kvzalloc_obj(*priv, GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++	table->priv = priv;
 +
-+static struct nbl_channel_ops chan_ops = {
-+	.send_msg			= nbl_chan_send_msg,
-+	.send_ack			= nbl_chan_send_ack,
-+	.register_msg			= nbl_chan_register_msg,
-+	.cfg_chan_qinfo_map_table	= nbl_chan_cfg_qinfo_map_table,
-+	.check_queue_exist		= nbl_chan_check_queue_exist,
-+	.setup_queue			= nbl_chan_setup_queue,
-+	.teardown_queue			= nbl_chan_teardown_queue,
-+	.clean_queue_subtask		= nbl_chan_clean_queue_subtask,
-+	.register_chan_task		= nbl_chan_register_chan_task,
-+	.set_queue_state		= nbl_chan_set_queue_state,
-+};
++	mutex_init(&table->lock);
++	for (i = 0; i < ZXDH_EQ_EVENT_TYPE_MAX; i++)
++		ATOMIC_INIT_NOTIFIER_HEAD(&table->nh[i]);
 +
-+static struct nbl_channel_mgt *
-+nbl_chan_setup_chan_mgt(struct nbl_adapter *adapter)
-+{
-+	struct nbl_hw_ops_tbl *hw_ops_tbl = adapter->intf.hw_ops_tbl;
-+	struct nbl_common_info *common = &adapter->common;
-+	struct device *dev = &adapter->pdev->dev;
-+	struct nbl_channel_mgt *chan_mgt;
-+	struct nbl_chan_info *mailbox;
-+	int ret;
-+
-+	chan_mgt = devm_kzalloc(dev, sizeof(*chan_mgt), GFP_KERNEL);
-+	if (!chan_mgt)
-+		return ERR_PTR(-ENOMEM);
-+
-+	chan_mgt->common = common;
-+	chan_mgt->hw_ops_tbl = hw_ops_tbl;
-+
-+	mailbox = devm_kzalloc(dev, sizeof(*mailbox), GFP_KERNEL);
-+	if (!mailbox)
-+		return ERR_PTR(-ENOMEM);
-+	mailbox->chan_type = NBL_CHAN_TYPE_MAILBOX;
-+	chan_mgt->chan_info[NBL_CHAN_TYPE_MAILBOX] = mailbox;
-+
-+	ret = nbl_chan_init_msg_handler(chan_mgt);
-+	if (ret)
-+		return ERR_PTR(ret);
-+	ret = devm_mutex_init(common->dev, &mailbox->txq_lock);
-+	if (ret)
-+		return ERR_PTR(ret);
-+	ret = devm_mutex_init(common->dev, &mailbox->state_lock);
-+	if (ret)
-+		return ERR_PTR(ret);
-+	ret = devm_mutex_init(common->dev, &mailbox->pending_lock);
-+	if (ret)
-+		return ERR_PTR(ret);
-+	return chan_mgt;
-+}
-+
-+static struct nbl_channel_ops_tbl *
-+nbl_chan_setup_ops(struct device *dev, struct nbl_channel_mgt *chan_mgt)
-+{
-+	struct nbl_channel_ops_tbl *chan_ops_tbl;
-+	int ret;
-+
-+	chan_ops_tbl = devm_kzalloc(dev, sizeof(*chan_ops_tbl), GFP_KERNEL);
-+	if (!chan_ops_tbl)
-+		return ERR_PTR(-ENOMEM);
-+	if (!chan_ops.send_msg || !chan_ops.send_ack ||
-+	    !chan_ops.register_msg || !chan_ops.cfg_chan_qinfo_map_table ||
-+	    !chan_ops.check_queue_exist || !chan_ops.setup_queue ||
-+	    !chan_ops.teardown_queue || !chan_ops.clean_queue_subtask ||
-+	    !chan_ops.register_chan_task || !chan_ops.set_queue_state)
-+		return ERR_PTR(-EINVAL);
-+
-+	chan_ops_tbl->ops = &chan_ops;
-+	chan_ops_tbl->priv = chan_mgt;
-+
-+	ret = nbl_chan_register_msg(chan_mgt, NBL_CHAN_MSG_ACK,
-+				    nbl_chan_recv_ack_msg, chan_mgt);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return chan_ops_tbl;
-+}
-+
-+int nbl_chan_init_common(struct nbl_adapter *adap)
-+{
-+	struct nbl_channel_ops_tbl *chan_ops_tbl;
-+	struct device *dev = &adap->pdev->dev;
-+	struct nbl_channel_mgt *chan_mgt;
-+	int ret;
-+
-+	chan_mgt = nbl_chan_setup_chan_mgt(adap);
-+	if (IS_ERR(chan_mgt)) {
-+		ret = PTR_ERR(chan_mgt);
-+		goto exit;
++	eq = &priv->riscv_eq;
++	eq->priv = zxdh_dev;
++	eq->irq = zxdh_pf_async_irq_request(zxdh_dev);
++	if (IS_ERR(eq->irq)) {
++		err = PTR_ERR(eq->irq);
++		goto err_irq;
 +	}
 +
-+	chan_ops_tbl = nbl_chan_setup_ops(dev, chan_mgt);
-+	if (IS_ERR(chan_ops_tbl)) {
-+		ret = PTR_ERR(chan_ops_tbl);
-+		goto cleanup_mgt;
-+	}
++	eq->irq_nb.notifier_call = zxdh_eq_async_riscv_int;
++	err = zxdh_irq_attach_nb(eq->irq, &eq->irq_nb);
++	if (err)
++		goto err_attach;
 +
-+	adap->intf.channel_ops_tbl = chan_ops_tbl;
-+	adap->core.chan_mgt = chan_mgt;
-+	ret = nbl_common_create_wq(&adap->common);
-+	if (ret)
-+		goto cleanup_mgt;
 +	return 0;
 +
-+cleanup_mgt:
-+	nbl_chan_remove_msg_handler(chan_mgt);
-+exit:
-+	return ret;
++err_attach:
++	zxdh_irqs_release_vectors(&eq->irq, 1);
++err_irq:
++	eq->irq = NULL;
++	return err;
 +}
 +
-+void nbl_chan_remove_common(struct nbl_adapter *adap)
++void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev)
 +{
-+	struct nbl_channel_mgt *chan_mgt = adap->core.chan_mgt;
++	struct zxdh_pf_eq_table *pf_eq_table = zxdh_dev->eq_table.priv;
++	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
++	struct zxdh_eq_async *eq;
 +
-+	if (!chan_mgt)
++	if (!pf_eq_table)
 +		return;
-+	nbl_common_destroy_wq(&adap->common);
-+	/*
-+	 * All channel queues shall be torn down earlier in remove path
-+	 * to drain inflight tx workers and stop hardware before destroying
-+	 * message handler xarray.
-+	 */
-+	nbl_chan_remove_msg_handler(chan_mgt);
-+	adap->core.chan_mgt = NULL;
++
++	eq = &pf_eq_table->riscv_eq;
++
++	mutex_lock(&table->lock);
++	if (eq->irq) {
++		zxdh_irq_detach_nb(eq->irq, &eq->irq_nb);
++		zxdh_irqs_release_vectors(&eq->irq, 1);
++		eq->irq = NULL;
++	}
++	mutex_unlock(&table->lock);
++
++	mutex_destroy(&table->lock);
++	kvfree(table->priv);
++	table->priv = NULL;
 +}
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
+diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.h b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
 new file mode 100644
-index 000000000000..21cbb21946cf
+index 000000000000..ac9df4763059
 --- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
-@@ -0,0 +1,181 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
++++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
+@@ -0,0 +1,60 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
++ * ZTE DingHai Ethernet driver - event queue abstraction
++ * Copyright (c) 2022-2026, ZTE Corporation.
 + */
 +
-+#ifndef _NBL_CHANNEL_H_
-+#define _NBL_CHANNEL_H_
++#ifndef __ZXDH_EQ_H__
++#define __ZXDH_EQ_H__
 +
-+#include <linux/types.h>
-+#include <linux/xarray.h>
++#include <linux/mutex.h>
++#include <linux/notifier.h>
 +
-+#include "../nbl_include/nbl_include.h"
-+#include "../nbl_include/nbl_def_channel.h"
-+#include "../nbl_include/nbl_def_hw.h"
-+#include "../nbl_include/nbl_def_common.h"
-+#include "../nbl_core.h"
++struct zxdh_core_dev;
++struct zxdh_irq;
 +
-+#define NBL_CHAN_TX_RING_TO_DESC(tx_ring, i) \
-+	(&((((tx_ring)->desc.tx_desc))[i]))
-+#define NBL_CHAN_RX_RING_TO_DESC(rx_ring, i) \
-+	(&((((rx_ring)->desc.rx_desc))[i]))
-+#define NBL_CHAN_TX_RING_TO_BUF(tx_ring, i) (&(((tx_ring)->buf)[i]))
-+#define NBL_CHAN_RX_RING_TO_BUF(rx_ring, i) (&(((rx_ring)->buf)[i]))
++/* BAR message area: shared-memory mailbox between the driver and the
++ * firmware, split into sub-channels of 2048 bytes. Notifications from
++ * the RISC-V management core are posted to the PF receive sub-channel,
++ * one interval above the area base.
++ */
++#define ZXDH_BAR_MSG_OFFSET		0x2000
++#define ZXDH_BAR_MSG_SUBCHAN_INTERVAL	2048
++#define ZXDH_BAR_MSG_SUBCHAN_RECV	(ZXDH_BAR_MSG_OFFSET +	\
++					 ZXDH_BAR_MSG_SUBCHAN_INTERVAL)
 +
-+#define NBL_CHAN_TX_WAIT_US			100
-+#define NBL_CHAN_TX_WAIT_US_MAX			120
-+#define NBL_CHAN_TX_WAIT_TIMES			100
-+#define NBL_CHAN_TX_WAIT_ACK_US_MIN		1000
-+#define NBL_CHAN_TX_WAIT_ACK_US_MAX		1200
-+#define NBL_CHAN_TX_WAIT_ACK_TIMES		5000
-+#define NBL_CHAN_QUEUE_LEN			256
-+#define NBL_CHAN_BUF_LEN			4096
-+#define NBL_CHAN_TX_DESC_EMBEDDED_DATA_LEN	16
++/* event_id of the "RISC-V core ready" firmware notification, carried
++ * at byte offset 2 of the BAR message header.
++ */
++#define ZXDH_MSG_MODULE_RISC_READY	13
 +
-+#define NBL_CHAN_TX_DESC_AVAIL			0
-+#define NBL_CHAN_TX_DESC_USED			1
-+#define NBL_CHAN_RX_DESC_WRITE			1
-+#define NBL_CHAN_RX_DESC_AVAIL			3
-+#define NBL_CHAN_RX_DESC_USED			4
-+
-+#define NBL_CHAN_ACK_HEAD_LEN			3
-+#define NBL_CHAN_ACK_RET_POS			2
-+#define NBL_CHAN_MSG_ID_POS			1
-+#define NBL_CHAN_MSG_TYPE_POS			0
-+
-+#define NBL_CHAN_ACK_WAIT_TIME			(3 * HZ)
-+#define NBL_CHAN_RX_CLEAN_BUDGET		64
-+
-+enum {
-+	NBL_MB_RX_QID = 0,
-+	NBL_MB_TX_QID = 1,
++/* Event types the upper layers can subscribe to over the per-type
++ * notifier chains of the event queue table. The full catalogue lives
++ * in the firmware; only the ones dispatched in this series are named.
++ */
++enum zxdh_eq_event_type {
++	ZXDH_EQ_EVENT_TYPE_RISCV_READY = 0,
++	ZXDH_EQ_EVENT_TYPE_MAX,
 +};
 +
-+enum {
-+	NBL_MBX_STATUS_IDLE = 0,
-+	NBL_MBX_STATUS_WAITING,
-+	NBL_MBX_STATUS_ACKD,
-+	NBL_MBX_STATUS_TIMEOUT,
-+};
-+
-+struct nbl_chan_tx_param {
-+	enum nbl_chan_msg_type msg_type;
-+	void *arg;
-+	size_t arg_len;
-+	u16 dstid;
-+	u16 msgid;
-+};
-+
-+struct nbl_chan_buf {
-+	void *va;
-+	dma_addr_t pa;
-+	size_t size;
-+};
-+
-+struct nbl_chan_tx_desc {
-+	__le16 flags;
-+	__le16 srcid;
-+	__le16 dstid;
-+	__le16 data_len;
-+	__le16 buf_len;
-+	__le64 buf_addr;
-+	__le16 msg_type;
-+	u8 data[NBL_CHAN_TX_DESC_EMBEDDED_DATA_LEN];
-+	__le16 msgid;
-+	u8 rsv[26];
-+} __packed;
-+
-+struct nbl_chan_rx_desc {
-+	__le16 flags;
-+	__le32 buf_len;
-+	__le16 buf_id;
-+	__le64 buf_addr;
-+} __packed;
-+
-+union nbl_chan_desc_ptr {
-+	struct nbl_chan_tx_desc *tx_desc;
-+	struct nbl_chan_rx_desc *rx_desc;
-+};
-+
-+struct nbl_chan_ring {
-+	union nbl_chan_desc_ptr desc;
-+	struct nbl_chan_buf *buf;
-+	u16 next_to_use;
-+	u16 tail_ptr; /* hardware does modulo ring size internally */
-+	u16 next_to_clean;
-+	dma_addr_t dma;
-+};
-+
-+#define NBL_CHAN_MSG_INDEX_MAX 63
-+
-+#define NBL_CHAN_MSGID_INDEX_MASK GENMASK(5, 0)
-+#define NBL_CHAN_MSGID_LOC_MASK GENMASK(13, 6)
-+
-+static inline void nbl_chan_update_tail_ptr(struct nbl_hw_ops *hw_ops,
-+					    void *hw_priv, u32 tail_ptr, u8 qid)
-+{
-+	hw_ops->update_mailbox_queue_tail_ptr(hw_priv, tail_ptr, qid);
-+}
-+
-+struct nbl_chan_waitqueue_head {
-+	struct wait_queue_head wait_queue;
-+	char *ack_data;
-+	int acked;
-+	s32 ack_err;
-+	u16 ack_data_len;
-+	u16 msg_type;
-+	int status;
-+	u8 msg_index;
-+	u16 dstid;
-+};
-+
-+struct nbl_chan_info {
-+	wait_queue_head_t inflight_wait;
-+	struct nbl_chan_ring txq;
-+	struct nbl_chan_ring rxq;
-+	struct nbl_chan_waitqueue_head *wait;
-+	/*
-+	 *Protects access to the TX queue (txq) and related metadata.
-+	 *This mutex ensures exclusive access when updating the TX queue
-+	 */
-+	struct mutex txq_lock;
-+	/* Guards channel state bitmap and shutdn flag */
-+	struct mutex state_lock;
-+	/* Guards pending requests and pending work list operations */
-+	struct mutex pending_lock;
-+	struct work_struct *clean_task;
-+	u16 wait_head_index;
-+	u16 num_txq_entries;
-+	u16 num_rxq_entries;
-+	u16 txq_buf_size;
-+	u16 rxq_buf_size;
-+	DECLARE_BITMAP(state, NBL_CHAN_STATE_NBITS);
-+	u8 chan_type;
-+	atomic_t inflight_tx_cnt;
-+	bool shutdn;
-+	bool active;
-+	/*
-+	 * One-shot lifecycle flag: DMA ring/buffer allocations use devm/
-+	 * dmam and are only released at device detach.  Teardown only
-+	 * stops the hardware and clears active; it does not free memory.
-+	 * setup must never run twice on the same chan_info or the first
-+	 * allocation set would be orphaned.
-+	 */
-+	bool dma_allocated;
-+};
-+
-+struct nbl_chan_msg_node_data {
-+	nbl_chan_resp func;
++/* Asynchronous event queue delivering firmware notifications to the
++ * driver without a request/reply handshake.
++ */
++struct zxdh_eq_async {
++	struct zxdh_irq *irq;
++	struct notifier_block irq_nb;
 +	void *priv;
 +};
 +
-+struct nbl_channel_mgt {
-+	struct nbl_common_info *common;
-+	struct nbl_hw_ops_tbl *hw_ops_tbl;
-+	struct nbl_chan_info *chan_info[NBL_CHAN_TYPE_MAX];
-+	/* Serializes handler_xa registration and teardown */
-+	struct mutex handler_lock;
-+	struct xarray handler_xa;
++struct zxdh_eq_table {
++	/* Notifier chains fanned out by event type. */
++	struct atomic_notifier_head nh[ZXDH_EQ_EVENT_TYPE_MAX];
++	/* Serializes async EQ setup/teardown. */
++	struct mutex lock;
++	void *priv;
 +};
 +
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c
-new file mode 100644
-index 000000000000..ce0ed2869af4
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
++int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev);
++void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev);
 +
-+#include <linux/device.h>
-+#include "nbl_common.h"
-+
-+void nbl_common_destroy_wq(struct nbl_common_info *common)
-+{
-+	if (!common || !common->wq)
-+		return;
-+
-+	destroy_workqueue(common->wq);
-+	common->wq = NULL;
-+}
-+
-+int nbl_common_create_wq(struct nbl_common_info *common)
-+{
-+	char wq_name[32];
-+
-+	snprintf(wq_name, sizeof(wq_name), "nbl_wq_%s", pci_name(common->pdev));
-+	common->wq = alloc_workqueue(wq_name, WQ_UNBOUND, 0);
-+	if (!common->wq) {
-+		dev_err(common->dev, "Failed to alloc workqueue %s\n", wq_name);
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h
-new file mode 100644
-index 000000000000..129073b08eb9
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_COMMON_H_
-+#define _NBL_COMMON_H_
-+
-+#include <linux/types.h>
-+
-+#include "../nbl_include/nbl_include.h"
-+#include "../nbl_include/nbl_def_common.h"
-+
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-index 1cd6587a8fcb..f998a2b44e5c 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-@@ -14,13 +14,20 @@ enum {
- 	NBL_CAP_HAS_NET_BIT,
- };
- 
-+struct nbl_interface {
-+	struct nbl_hw_ops_tbl *hw_ops_tbl;
-+	struct nbl_channel_ops_tbl *channel_ops_tbl;
-+};
-+
- struct nbl_core {
- 	struct nbl_hw_mgt *hw_mgt;
-+	struct nbl_channel_mgt *chan_mgt;
- };
- 
- struct nbl_adapter {
- 	struct pci_dev *pdev;
- 	struct nbl_core core;
-+	struct nbl_interface intf;
- 	struct nbl_common_info common;
- };
- 
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-index cf40ddc45192..eeff6216e4aa 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-@@ -6,8 +6,213 @@
- #include <linux/pci.h>
- #include <linux/bits.h>
- #include <linux/io.h>
-+#include <linux/spinlock.h>
-+#include <linux/bitfield.h>
- #include "nbl_hw_leonis.h"
- 
-+static void nbl_hw_read_mbx_regs(struct nbl_hw_mgt *hw_mgt, u64 reg, u32 *data,
-+				 u32 len)
-+{
-+	u32 i;
-+
-+	if (len % 4)
-+		return;
-+	if (reg >= (u64)hw_mgt->mailbox_bar_size ||
-+	    reg + len > (u64)hw_mgt->mailbox_bar_size) {
-+		dev_err_once(hw_mgt->common->dev,
-+			     "mbx read out of range: reg=0x%llx len=%u bar_size=%pa\n",
-+			     reg, len, &hw_mgt->mailbox_bar_size);
-+		return;
-+	}
-+	for (i = 0; i < len / 4; i++)
-+		data[i] = nbl_mbx_rd32(hw_mgt, reg + i * sizeof(u32));
-+}
-+
-+static void nbl_hw_write_mbx_regs(struct nbl_hw_mgt *hw_mgt, u64 reg,
-+				  const u32 *data, u32 len)
-+{
-+	u32 i;
-+
-+	if (len % 4)
-+		return;
-+	if (reg >= (u64)hw_mgt->mailbox_bar_size ||
-+	    reg + len > (u64)hw_mgt->mailbox_bar_size) {
-+		dev_err_once(hw_mgt->common->dev,
-+			     "mbx write out of range: reg=0x%llx len=%u bar_size=%pa\n",
-+			     reg, len, &hw_mgt->mailbox_bar_size);
-+		return;
-+	}
-+	for (i = 0; i < len / 4; i++)
-+		nbl_mbx_wr32(hw_mgt, reg + i * sizeof(u32), data[i]);
-+}
-+
-+/*
-+ * Flush posted mailbox-BAR writes by reading back through the same
-+ * BAR.
-+ */
-+static void nbl_hw_flush_mbx_write(struct nbl_hw_mgt *hw_mgt, u64 reg)
-+{
-+	u32 data;
-+
-+	nbl_hw_read_mbx_regs(hw_mgt, reg, &data, sizeof(data));
-+}
-+
-+static void nbl_hw_rd_regs(struct nbl_hw_mgt *hw_mgt, u64 reg, u32 *data,
-+			   u32 len)
-+{
-+	u32 size = len / 4;
-+	u32 i;
-+
-+	if (len % 4)
-+		return;
-+	for (i = 0; i < size; i++)
-+		data[i] = rd32(hw_mgt->hw_addr, reg + i * sizeof(u32));
-+}
-+
-+static void nbl_hw_wr_regs(struct nbl_hw_mgt *hw_mgt, u64 reg, const u32 *data,
-+			   u32 len)
-+{
-+	u32 size = len / 4;
-+	u32 i;
-+
-+	if (len % 4)
-+		return;
-+	for (i = 0; i < size; i++)
-+		wr32(hw_mgt->hw_addr, reg + i * sizeof(u32), data[i]);
-+}
-+
-+static void nbl_hw_rd_regs_lock(struct nbl_hw_mgt *hw_mgt, u64 reg, u32 *data,
-+				u32 len)
-+{
-+	u32 size = len / 4;
-+	u32 i;
-+
-+	if (len % 4)
-+		return;
-+
-+	spin_lock(&hw_mgt->reg_lock);
-+
-+	for (i = 0; i < size; i++)
-+		data[i] = rd32(hw_mgt->hw_addr, reg + i * sizeof(u32));
-+	spin_unlock(&hw_mgt->reg_lock);
-+}
-+
-+static void nbl_hw_update_mailbox_queue_tail_ptr(struct nbl_hw_mgt *hw_mgt,
-+						 u16 tail_ptr, u8 txrx)
-+{
-+	/* local_qid 0 and 1 denote rx and tx queue respectively */
-+	u32 local_qid = txrx;
-+	u32 value = ((u32)tail_ptr << 16) | local_qid;
-+
-+	/* wmb for doorbell */
-+	wmb();
-+	nbl_mbx_wr32(hw_mgt, NBL_MAILBOX_NOTIFY_ADDR, value);
-+}
-+
-+static void nbl_hw_config_mailbox_rxq(struct nbl_hw_mgt *hw_mgt,
-+				      dma_addr_t dma_addr, int size_bwid)
-+{
-+	struct nbl_mailbox_qinfo_cfg_table cfg_tbl;
-+
-+	memset(&cfg_tbl, 0, sizeof(cfg_tbl));
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_RX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+
-+	cfg_tbl.data[0] = lower_32_bits(dma_addr);
-+	cfg_tbl.data[1] = upper_32_bits(dma_addr);
-+	cfg_tbl.data[2] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_SIZE_BWID_MASK,
-+				     size_bwid);
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 0) |
-+			  FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_EN_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_RX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+}
-+
-+static void nbl_hw_config_mailbox_txq(struct nbl_hw_mgt *hw_mgt,
-+				      dma_addr_t dma_addr, int size_bwid)
-+{
-+	struct nbl_mailbox_qinfo_cfg_table cfg_tbl;
-+
-+	memset(&cfg_tbl, 0, sizeof(cfg_tbl));
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+
-+	cfg_tbl.data[0] = lower_32_bits(dma_addr);
-+	cfg_tbl.data[1] = upper_32_bits(dma_addr);
-+	cfg_tbl.data[2] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_SIZE_BWID_MASK,
-+				     size_bwid);
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 0) |
-+			  FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_EN_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+}
-+
-+static void nbl_hw_stop_mailbox_rxq(struct nbl_hw_mgt *hw_mgt)
-+{
-+	struct nbl_mailbox_qinfo_cfg_table cfg_tbl;
-+
-+	memset(&cfg_tbl, 0, sizeof(cfg_tbl));
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_RX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+	/* Ensure QUEUE_RST has reached the device before caller proceeds */
-+	nbl_hw_flush_mbx_write(hw_mgt,
-+			       NBL_MAILBOX_QINFO_CFG_RX_TABLE_ADDR);
-+}
-+
-+static void nbl_hw_stop_mailbox_txq(struct nbl_hw_mgt *hw_mgt)
-+{
-+	struct nbl_mailbox_qinfo_cfg_table cfg_tbl;
-+
-+	memset(&cfg_tbl, 0, sizeof(cfg_tbl));
-+	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 1);
-+	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR,
-+			      cfg_tbl.data, sizeof(cfg_tbl));
-+	/* Ensure QUEUE_RST has reached the device before caller proceeds */
-+	nbl_hw_flush_mbx_write(hw_mgt,
-+			       NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR);
-+}
-+
-+static void nbl_hw_get_host_pf_mask(struct nbl_hw_mgt *hw_mgt, u32 *pf_mask)
-+{
-+	nbl_hw_rd_regs_lock(hw_mgt, NBL_PCIE_HOST_K_PF_MASK_REG, pf_mask,
-+			    sizeof(*pf_mask));
-+}
-+
-+static void nbl_hw_cfg_mailbox_qinfo(struct nbl_hw_mgt *hw_mgt, u16 func_id,
-+				     u8 bus, u8 devid, u8 function)
-+{
-+	u32 data = 0;
-+
-+	spin_lock(&hw_mgt->reg_lock);
-+	nbl_hw_rd_regs(hw_mgt, NBL_MAILBOX_QINFO_MAP_REG_ARR(func_id),
-+		       &data, sizeof(data));
-+	data &= ~(NBL_MAILBOX_QINFO_MAP_FUNCTION_MASK |
-+		  NBL_MAILBOX_QINFO_MAP_DEVID_MASK |
-+		  NBL_MAILBOX_QINFO_MAP_BUS_MASK |
-+		  NBL_MAILBOX_QINFO_MAP_MSIX_IDX_MASK |
-+		  NBL_MAILBOX_QINFO_MAP_MSIX_IDX_VALID_MASK);
-+	data |= FIELD_PREP(NBL_MAILBOX_QINFO_MAP_FUNCTION_MASK, function) |
-+	       FIELD_PREP(NBL_MAILBOX_QINFO_MAP_DEVID_MASK, devid) |
-+	       FIELD_PREP(NBL_MAILBOX_QINFO_MAP_BUS_MASK, bus);
-+	nbl_hw_wr_regs(hw_mgt, NBL_MAILBOX_QINFO_MAP_REG_ARR(func_id),
-+		       &data, sizeof(data));
-+	spin_unlock(&hw_mgt->reg_lock);
-+}
-+
-+static struct nbl_hw_ops hw_ops = {
-+	.update_mailbox_queue_tail_ptr = nbl_hw_update_mailbox_queue_tail_ptr,
-+	.config_mailbox_rxq = nbl_hw_config_mailbox_rxq,
-+	.config_mailbox_txq = nbl_hw_config_mailbox_txq,
-+	.stop_mailbox_rxq = nbl_hw_stop_mailbox_rxq,
-+	.stop_mailbox_txq = nbl_hw_stop_mailbox_txq,
-+	.get_host_pf_mask = nbl_hw_get_host_pf_mask,
-+	.cfg_mailbox_qinfo = nbl_hw_cfg_mailbox_qinfo,
-+
-+};
-+
- /* Structure starts here, adding an op should not modify anything below */
- static struct nbl_hw_mgt *nbl_hw_setup_hw_mgt(struct nbl_common_info *common)
- {
-@@ -23,6 +228,27 @@ static struct nbl_hw_mgt *nbl_hw_setup_hw_mgt(struct nbl_common_info *common)
- 	return hw_mgt;
- }
- 
-+static struct nbl_hw_ops_tbl *nbl_hw_setup_ops(struct nbl_common_info *common,
-+					       struct nbl_hw_mgt *hw_mgt)
-+{
-+	struct nbl_hw_ops_tbl *hw_ops_tbl;
-+	struct device *dev;
-+
-+	dev = common->dev;
-+	hw_ops_tbl = devm_kzalloc(dev, sizeof(*hw_ops_tbl), GFP_KERNEL);
-+	if (!hw_ops_tbl)
-+		return ERR_PTR(-ENOMEM);
-+	if (!hw_ops.update_mailbox_queue_tail_ptr ||
-+	    !hw_ops.config_mailbox_rxq || !hw_ops.config_mailbox_txq ||
-+	    !hw_ops.stop_mailbox_rxq || !hw_ops.stop_mailbox_txq ||
-+	    !hw_ops.get_host_pf_mask || !hw_ops.cfg_mailbox_qinfo)
-+		return ERR_PTR(-EINVAL);
-+	hw_ops_tbl->ops = &hw_ops;
-+	hw_ops_tbl->priv = hw_mgt;
-+
-+	return hw_ops_tbl;
-+}
-+
- static int nbl_pcim_request_selected_bars(struct pci_dev *pdev, u32 mask,
- 					  const char *name)
- {
-@@ -43,6 +269,7 @@ int nbl_hw_init_leonis(struct nbl_adapter *adapter)
- {
- 	resource_size_t expect_sz = NBL_MEM_BAR_TOTAL_SIZE;
- 	struct nbl_common_info *common = &adapter->common;
-+	struct nbl_hw_ops_tbl *hw_ops_tbl = NULL;
- 	struct pci_dev *pdev = common->pdev;
- 	struct nbl_hw_mgt *hw_mgt = NULL;
- 	resource_size_t bar_len;
-@@ -136,7 +363,14 @@ int nbl_hw_init_leonis(struct nbl_adapter *adapter)
- 	}
- 
- 	hw_mgt->mailbox_bar_size = bar_len;
-+	spin_lock_init(&hw_mgt->reg_lock);
- 
-+	hw_ops_tbl = nbl_hw_setup_ops(common, hw_mgt);
-+	if (IS_ERR(hw_ops_tbl)) {
-+		ret = PTR_ERR(hw_ops_tbl);
-+		goto setup_mgt_fail;
-+	}
-+	adapter->intf.hw_ops_tbl = hw_ops_tbl;
- 	adapter->core.hw_mgt = hw_mgt;
- 
- 	return 0;
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-index 1f9e509dc631..93e5c7518288 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-@@ -11,5 +11,46 @@
- #include "../../nbl_include/nbl_include.h"
- #include "../nbl_hw_reg.h"
- 
-+/*  ----------  REG BASE ADDR  ----------  */
-+/* Interface modules base addr */
-+#define NBL_INTF_HOST_PCOMPLETER_BASE		0x00f08000
-+#define NBL_INTF_HOST_PADPT_BASE		0x00f4c000
-+#define NBL_INTF_HOST_MAILBOX_BASE		0x00fb0000
-+#define NBL_INTF_HOST_PCIE_BASE			0X01504000
-+/*  --------  MAILBOX BAR2 -----  */
-+#define NBL_MAILBOX_NOTIFY_ADDR			0x00000000
-+#define NBL_MAILBOX_QINFO_CFG_RX_TABLE_ADDR	0x10
-+#define NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR	0x20
-+
-+/*  --------  MAILBOX  --------  */
-+
-+/* mailbox BAR qinfo_cfg_table */
-+#define MAILBOX_QINFO_CFG_TABLE_DWLEN	4
-+/* data[2] */
-+#define NBL_MAILBOX_QINFO_CFG_QUEUE_SIZE_BWID_MASK	GENMASK(3, 0)
-+/* data[3] */
-+#define NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK		BIT(0)
-+#define NBL_MAILBOX_QINFO_CFG_QUEUE_EN_MASK		BIT(1)
-+#define NBL_MAILBOX_QINFO_CFG_DIF_ERR_MASK		BIT(2)
-+#define NBL_MAILBOX_QINFO_CFG_PTR_ERR_MASK		BIT(3)
-+struct nbl_mailbox_qinfo_cfg_table {
-+	u32 data[MAILBOX_QINFO_CFG_TABLE_DWLEN];
-+};
-+
-+/*  --------  MAILBOX BAR0 -----  */
-+/* mailbox qinfo_map_table */
-+#define NBL_MAILBOX_QINFO_MAP_REG_ARR(func_id) \
-+	(NBL_INTF_HOST_MAILBOX_BASE + 0x00001000 + (func_id) * sizeof(u32))
-+
-+/* MAILBOX qinfo_map_table */
-+#define NBL_MAILBOX_QINFO_MAP_FUNCTION_MASK		GENMASK(2, 0)
-+#define NBL_MAILBOX_QINFO_MAP_DEVID_MASK		GENMASK(7, 3)
-+#define NBL_MAILBOX_QINFO_MAP_BUS_MASK			GENMASK(15, 8)
-+#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_MASK		GENMASK(28, 16)
-+#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_VALID_MASK	BIT(29)
-+
-+/*  --------  HOST_PCIE  --------  */
-+#define NBL_PCIE_HOST_K_PF_MASK_REG (NBL_INTF_HOST_PCIE_BASE + 0x00001004)
-+
- #define NBL_BAR2_MAX_LEN		0x300
- #endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h
-index e281109f502e..4c1bb789c465 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h
-@@ -8,6 +8,7 @@
- 
- #include <linux/types.h>
- 
-+#include "../nbl_include/nbl_def_channel.h"
- #include "../nbl_include/nbl_def_hw.h"
- #include "../nbl_include/nbl_def_common.h"
- #include "../nbl_core.h"
-@@ -26,6 +27,37 @@ struct nbl_hw_mgt {
- 	u8 __iomem *hw_addr;
- 	u8 __iomem *mailbox_bar_hw_addr;
- 	resource_size_t mailbox_bar_size;
-+	spinlock_t reg_lock; /* Protect reg access */
- };
- 
-+static inline u32 rd32(u8 __iomem *addr, u64 reg)
-+{
-+	return readl(addr + reg);
-+}
-+
-+static inline void wr32(u8 __iomem *addr, u64 reg, u32 value)
-+{
-+	writel(value, addr + reg);
-+}
-+
-+static inline void nbl_hw_wr32(struct nbl_hw_mgt *hw_mgt, u64 reg, u32 value)
-+{
-+	wr32(hw_mgt->hw_addr, reg, value);
-+}
-+
-+static inline u32 nbl_hw_rd32(struct nbl_hw_mgt *hw_mgt, u64 reg)
-+{
-+	return rd32(hw_mgt->hw_addr, reg);
-+}
-+
-+static inline void nbl_mbx_wr32(struct nbl_hw_mgt *hw_mgt, u64 reg, u32 value)
-+{
-+	writel(value, hw_mgt->mailbox_bar_hw_addr + reg);
-+}
-+
-+static inline u32 nbl_mbx_rd32(struct nbl_hw_mgt *hw_mgt, u64 reg)
-+{
-+	return readl(hw_mgt->mailbox_bar_hw_addr + reg);
-+}
-+
- #endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h
-new file mode 100644
-index 000000000000..d6faa0bc4026
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h
-@@ -0,0 +1,125 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_DEF_CHANNEL_H_
-+#define _NBL_DEF_CHANNEL_H_
-+
-+#include <linux/types.h>
-+
-+struct nbl_channel_mgt;
-+struct nbl_adapter;
-+
-+typedef void (*nbl_chan_resp)(void *, u16, u16, void *, u32);
-+
-+/*
-+ * Mailbox wire opcodes, stable wire ABI shared between driver and firmware.
-+ * Each opcode has a fixed assigned number to preserve compatibility.
-+ * ABI compatibility rules:
-+ * 1. New opcodes shall only be appended before NBL_CHAN_MSG_MAILBOX_MAX;
-+ * 2. Reordering, inserting or deleting existing enumerators breaks driver-
-+ *    firmware interoperability and must be avoided;
-+ * 3. Modifications to existing opcodes require synchronized firmware ABI
-+ *    updates.
-+ *
-+ * Only opcodes currently used by in-tree driver logic are defined here.
-+ * Unimplemented feature opcodes (KTLS, IPsec, vDPA, mirror etc.) will be
-+ * added incrementally together with their corresponding driver
-+ * implementation patches.
-+ */
-+enum nbl_chan_msg_type {
-+	NBL_CHAN_MSG_ACK = 0,
-+	/* mailbox msg end */
-+	NBL_CHAN_MSG_MAILBOX_MAX,
-+};
-+
-+enum nbl_chan_state {
-+	NBL_CHAN_IRQ_RDY,
-+	NBL_CHAN_STATE_NBITS
-+};
-+
-+struct nbl_chan_send_info {
-+	void *arg;
-+	size_t arg_len;
-+	void *resp;
-+	size_t resp_len;
-+	u16 dstid;
-+	u16 msg_type;
-+	u16 ack;
-+	u16 ack_len;
-+};
-+
-+struct nbl_chan_ack_info {
-+	void *data;
-+	int err;
-+	u32 data_len;
-+	u16 dstid;
-+	u16 msg_type;
-+	u16 msgid;
-+};
-+
-+enum nbl_channel_type {
-+	NBL_CHAN_TYPE_MAILBOX,
-+	NBL_CHAN_TYPE_MAX
-+};
-+
-+static inline void
-+nbl_chan_fill_send_info(struct nbl_chan_send_info *info,
-+			u16 dst_id, u16 msg_type,
-+			void *argument, u32 arg_length,
-+			void *response, u32 resp_length,
-+			bool need_ack)
-+{
-+	info->dstid = dst_id;
-+	info->msg_type = msg_type;
-+	info->arg = argument;
-+	info->arg_len = arg_length;
-+	info->resp = response;
-+	info->resp_len = resp_length;
-+	info->ack = need_ack;
-+}
-+
-+static inline void
-+nbl_chan_fill_ack_info(struct nbl_chan_ack_info *info,
-+		       u16 dst_id, u16 msg_type, u16 msg_id,
-+		       int err_code, void *ack_data, u32 data_length)
-+{
-+	info->dstid = dst_id;
-+	info->msg_type = msg_type;
-+	info->msgid = msg_id;
-+	info->err = err_code;
-+	info->data = ack_data;
-+	info->data_len = data_length;
-+}
-+
-+struct nbl_channel_ops {
-+	int (*send_msg)(struct nbl_channel_mgt *chan_mgt,
-+			struct nbl_chan_send_info *chan_send);
-+	int (*send_ack)(struct nbl_channel_mgt *chan_mgt,
-+			struct nbl_chan_ack_info *chan_ack);
-+	int (*register_msg)(struct nbl_channel_mgt *chan_mgt, u16 msg_type,
-+			    nbl_chan_resp func, void *callback_priv);
-+	void (*cfg_chan_qinfo_map_table)(struct nbl_channel_mgt *chan_mgt,
-+					 u8 bus, u8 devid);
-+	bool (*check_queue_exist)(struct nbl_channel_mgt *chan_mgt,
-+				  u8 chan_type);
-+	int (*setup_queue)(struct nbl_channel_mgt *chan_mgt, u8 chan_type);
-+	int (*teardown_queue)(struct nbl_channel_mgt *chan_mgt, u8 chan_type);
-+	void (*clean_queue_subtask)(struct nbl_channel_mgt *chan_mgt,
-+				    u8 chan_type);
-+	void (*register_chan_task)(struct nbl_channel_mgt *chan_mgt,
-+				   u8 chan_type, struct work_struct *task);
-+	void (*set_queue_state)(struct nbl_channel_mgt *chan_mgt,
-+				enum nbl_chan_state state, u8 chan_type,
-+				u8 set);
-+};
-+
-+struct nbl_channel_ops_tbl {
-+	struct nbl_channel_ops *ops;
-+	struct nbl_channel_mgt *priv;
-+};
-+
-+int nbl_chan_init_common(struct nbl_adapter *adapter);
-+void nbl_chan_remove_common(struct nbl_adapter *adapter);
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_common.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_common.h
-index ea646d1efc2d..26a364e3a194 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_common.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_common.h
-@@ -12,6 +12,7 @@
- #include "nbl_include.h"
- 
- struct nbl_common_info {
-+	struct workqueue_struct *wq;
- 	struct pci_dev *pdev;
- 	struct device *dev;
- 	u16 vsi_id;
-@@ -28,4 +29,7 @@ struct nbl_common_info {
- 	u8 has_net;
- };
- 
-+void nbl_common_destroy_wq(struct nbl_common_info *common);
-+int nbl_common_create_wq(struct nbl_common_info *common);
-+
- #endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-index ecbf440e4366..d87bf9d41a24 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-@@ -10,6 +10,41 @@
- 
- struct nbl_hw_mgt;
- struct nbl_adapter;
-+struct nbl_hw_ops {
-+	void (*update_mailbox_queue_tail_ptr)(struct nbl_hw_mgt *hw_mgt,
-+					      u16 tail_ptr, u8 txrx);
-+	void (*config_mailbox_rxq)(struct nbl_hw_mgt *hw_mgt,
-+				   dma_addr_t dma_addr, int size_bwid);
-+	void (*config_mailbox_txq)(struct nbl_hw_mgt *hw_mgt,
-+				   dma_addr_t dma_addr, int size_bwid);
-+	void (*stop_mailbox_rxq)(struct nbl_hw_mgt *hw_mgt);
-+	void (*stop_mailbox_txq)(struct nbl_hw_mgt *hw_mgt);
-+	/**
-+	 * get_host_pf_mask - Fetch host PF mask from firmware k_pf_mask reg
-+	 * @hw_mgt: hardware management context
-+	 * @pf_mask: output pointer for PF mask value
-+	 *
-+	 * k_pf_mask register rule:
-+	 *   bit N == 0 -> PF#N enabled; bit N == 1 -> PF#N masked out.
-+	 *   bit0 is PF0's mask bit (not reserved); PF0 can be masked but
-+	 *   the driver requires at least PF0 enabled.
-+	 *   Only 1/2/4 PFs are supported:
-+	 *     1 PF  (PF0):     mask = 0xfe
-+	 *     2 PFs (PF0,PF1): mask = 0xfc
-+	 *     4 PFs (PF0~PF3): mask = 0xf0
-+	 *   All-zero mask (0x00) means all 8 PFs enabled, which is
-+	 *   unsupported by the driver and rejected with -EINVAL.
-+	 */
-+	void (*get_host_pf_mask)(struct nbl_hw_mgt *hw_mgt, u32 *pf_mask);
-+
-+	void (*cfg_mailbox_qinfo)(struct nbl_hw_mgt *hw_mgt, u16 func_id,
-+				  u8 bus, u8 devid, u8 function);
-+};
-+
-+struct nbl_hw_ops_tbl {
-+	struct nbl_hw_ops *ops;
-+	struct nbl_hw_mgt *priv;
-+};
- 
- int nbl_hw_init_leonis(struct nbl_adapter *adapter);
- void nbl_hw_remove_leonis(struct nbl_adapter *adapter);
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
-index 14e7b19f9a4c..f2d802397d98 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
-@@ -10,6 +10,9 @@
- 
- /*  ------  Basic definitions  -------  */
- #define NBL_DRIVER_NAME					"nbl"
-+#define NBL_MAX_PF					8
-+#define NBL_NEXT_ID(id, max) (((id) + 1) % ((max) + 1))
-+
- struct nbl_func_caps {
- 	u32 has_ctrl:1;
- 	u32 has_net:1;
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-index f2552bc73293..b7c80ea54c8d 100644
---- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-@@ -8,6 +8,7 @@
- #include <linux/module.h>
- #include <linux/bits.h>
- #include "nbl_include/nbl_include.h"
-+#include "nbl_include/nbl_def_channel.h"
- #include "nbl_include/nbl_def_hw.h"
- #include "nbl_include/nbl_def_common.h"
- #include "nbl_core.h"
-@@ -38,13 +39,19 @@ struct nbl_adapter *nbl_core_init(struct pci_dev *pdev,
- 	if (ret)
- 		goto hw_init_fail;
- 
-+	ret = nbl_chan_init_common(adapter);
-+	if (ret)
-+		goto chan_init_fail;
- 	return adapter;
-+chan_init_fail:
-+	nbl_hw_remove_leonis(adapter);
- hw_init_fail:
- 	return ERR_PTR(ret);
- }
- 
- void nbl_core_remove(struct nbl_adapter *adapter)
- {
-+	nbl_chan_remove_common(adapter);
- 	nbl_hw_remove_leonis(adapter);
- }
- 
++#endif /* __ZXDH_EQ_H__ */
 -- 
-2.47.3
-
+2.27.0
