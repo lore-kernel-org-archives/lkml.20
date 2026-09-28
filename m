@@ -1,198 +1,259 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DEC4DEC23;
-	Mon, 28 Sep 2026 16:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612343; cv=none; b=PPE75geH/SThJX30B98n42uy+XLkyAJwrYLjkKtWIJ9rSAQrHiC9Q0+LqQ0TTMC6dbocgDu0rmk3jiLIByIPWd3APJn+cRyQnJbu/lidiZWSijGroYVyQtUQkFLiXmnP1vQqdXBTBxYDsMB/oSmVZWFEEn9Npm1Ao/BAJjFGw00=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612343; c=relaxed/simple;
-	bh=3k52VKutc0OHAgAml/ar6iHZTaZsU9dWsG1lJC5bVRk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TU3vkUfHX59k03wYqBGsyNsk4QVZMziZNbZpBgZf5dG2KycPXP8BCmNjcw7W00Z9YsUO+J/e4XCdxnZbkS6VHFbkLyTrwh+Wl2DNnx0QQ6a9wJ92pE5oAFddmL8tSqzFd3ay8aP+gob8pMvn7JCpvv2/KeRWYABiEEGrsu/usSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=USriATBR; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896F8296BB5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612379; cv=pass; b=IAdnuRu0Qc3UZuRljikAYt/SBLdc+kse6pNMTpa1qI5x2UWeWJUaIr0gQ97CpY1Nb4GP/tRpca1z8Y4uMnRS0aXoq2bhsV8NOqfERy58Favx67nBhz3kdShcmNkabH5XQS70VOW8X2Po5hJeUGj9dcZRnxJ7Q+J6duREy4QipeI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612379; c=relaxed/simple;
+	bh=3A9g2ap1KJjmKy6RC23Gem9WM7kWz38YTsj8k6bVAuo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cPlk8X0O3VhyroXVJn6mRkpNldmfZR/otDXWHU9HPNj/ti7HHB8U6ww7tUflsfpOLY5nA3CqfzILAyH2fxv2KXo92hfaC9/YpwENrpjIuv0zyZKHcf3QnthcJzF4xET0EAmMpSKRjTaEdaqkRp1T+Y/wy8HcUu9WogVWwbOGyiM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnMXcp3M; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="USriATBR"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5gZY217089;
-	Mon, 28 Sep 2026 16:18:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=VkhcCo
-	zT4giUvNq7p7/Wt7ZMMq9OSsOPTtPNjk1hgag=; b=USriATBRkAsMsPtWWy6oek
-	NWOXqPHejrHpeLDXqt2jxRLAjG6ufUszmIAXahFreyoKzt4vca1ilJ9K8xGVtmdl
-	gpAoQaw+r8rEwkJCF3cPIB3yibHXw5BS52sP1CARnZSKXMCHL2J+QXjhiwjIcui2
-	5D3+EQZ9rxa1u/uZA32hUXPw/AocxwuKKxBEpeXxvrUemMD/RpIXFEOJq7Zeb/aH
-	/35FSX1U9pANZcywB9ho/WrbJnjuiQoRr30cC5UxUZzRDMRbIbFmdnv4af9gdYvq
-	V6Q4a0R364fYRAPDTPFwkO1XArTQuwSuRlUWEjPYBQ/gfekwAXwcPEDGJ7tRZtMQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe27yc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 16:18:37 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SElUYK3181786;
-	Mon, 28 Sep 2026 16:18:36 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxtkg5vca-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 16:18:36 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SGIWbH42402262
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 16:18:32 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6DE222004B;
-	Mon, 28 Sep 2026 16:18:32 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 705D020040;
-	Mon, 28 Sep 2026 16:18:31 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.81.16])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 16:18:31 +0000 (GMT)
-Message-ID: <75b68915-1f7f-4172-8748-dbf06f7b1983@linux.ibm.com>
-Date: Mon, 28 Sep 2026 18:18:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnMXcp3M"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aaebf04d43so397548a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:19:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790612376; cv=none;
+        d=google.com; s=arc-20260327;
+        b=awRGHmehJiDSkJ5kw//JPqyNORseTiMRlp7UpjJyyQqs8eaIMTvZyFGZxrgQyxXoRB
+         ZDHffFRlBbYcmFvpZJ32yqQwGWvO4UubeCLsBdPWjvFv/QvtzmTjzsmLPwGE7JrAZh3D
+         OmXkWxO+stqduS0o1p8pf4MLZH/aJTVhLacEHbhA+7FLVK+ytNvf8BQMw+TgoY7ght4J
+         wbyXnWU4mv3iXj4Zxn9WkwI+mkC68uy1xGy7PPjezTD+ZbfGj/w6eBsgr7hk5wtjBR/b
+         gneF5psmUIvQr7rFu6ZKqy9d2K+9nwML09XJwnhT9rnBQYK7ugGvQ3gRYxSapK5N2XTE
+         SLZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jQvG4bGgPbdzu06KIy/TUBHX3mHhGBFPCHJQeqk8Ip4=;
+        fh=6/bj5VKVk6vn7CXQ2Bej234p6e8zEi3eXFzqXg3uOQs=;
+        b=chDVRb1pcwBUm3pOlnmsgT2NpLGN1kCgLU1CVvIYqpyPUeUNDIW1X5NyllKx1sTnh6
+         hFozWWbdeT8tbyB05g7QrJPlVfaS9cRLa9HINvUW3n5lD3nna1PI9Cc3ds3r4fEant4R
+         MX1xkE080V8iT0RpnUi0NR7GMCm4AOs1EtfeMXFlL0MQZOWKM2mwLQyLjZwLlGMIfSWA
+         sgIr0ycxz6GZ1UAHikGkBUNXw3kfXr3nIy5tvrOBMBk1WBlOaJXcCE/jLfstXz9u8vYK
+         Lh5+rikJDMgUs51FIMSiLygUvGnrSUsvoVtfbz5oL1udsPRJTMjwzuYyJLMAg8HufVeq
+         5yNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790612376; x=1791217176; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jQvG4bGgPbdzu06KIy/TUBHX3mHhGBFPCHJQeqk8Ip4=;
+        b=DnMXcp3MhI/3b4oLTbsXNyifDzuvrkD2UCHcUitFvZ0x3VCS8IUhqQs8BmKj7OuG7O
+         mFo6HnmYbslgTFt2C/QbNGFXL3lZlbmTwE310Q0Druz7SaoRlkFQCyoQj6q/wYiTRJWC
+         za1X/II2V4etC9no0oA/j4bwozoI31ZxkbPsCuREgXC1taREHZfpbHUsEE0Ozhn0xdRY
+         xbM8culW/8p72mA0oGODK3tumoW9O07c8zzk/ECIMlXEm3YDwvOhiBx+3OXSrYkb1k69
+         aCKQ5TuO4PyVtHfI2Byb+lHNMwP3MAqThJxjDUCZ6KSmCAo/1ISvZu5JL2NV6daXFo5w
+         NZ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612376; x=1791217176;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jQvG4bGgPbdzu06KIy/TUBHX3mHhGBFPCHJQeqk8Ip4=;
+        b=Frl16OJtj0vyNsyXGGaaDI7wiT6lvDQMnJWbS8s9XtZn4GzlfoK269aMp7vHEuDo32
+         5bjUbrxtjR4ayPrsjclA4uPFOKWOCnJs9+QyTuZRnd4qEv5a+E92EC0SM3FjH+Nyo5no
+         XosU70PFuGyuJf4E1yYvJp53T/C/UoeGDOwhver2gsjLiwytT6WDlMgvg4ak0+hVhfu4
+         5+AsFty4ntVfWWVG8pCjcqhhXTAYHhNuP5qMUCIxsYmRzMyrbSmc60fDMAt6DLe5W66b
+         eg8HKYnoAni/bJFdA3rSAC0MCj6/brqaFogZ3RaNVBVl7DoGp1/fH2iuzfOpsaTZkmUH
+         wU1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzqy+GDoOUKsE2BUHVG78lmA9HWbk7yKMjxvnhCVzQAn3/qlvvMQMcj1v9Heq99VzVnorcBhv3g6nn4WUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZKfmCK1Lib5lOtVm2i2de0zSXnS6GvdPpaXVpIoLhyibyUAoc
+	rjfYI/S87rqe7dpcoyRYKNj//Azc4EmdJ1iji26yTQnJE5ASzpH/YUwSEWyfaoCRsPg4AlQAIjQ
+	m99o3SVsfsKOk6kceJSNuom2HERbZswU=
+X-Gm-Gg: AYBFou3JE/MDuxE6PIirvukbmSNPkY6BTs/u6Su063xf8RUTlfh6L2DImaWGgKf+zv8
+	GGx/W8faoB/uWxF/JJ1yt+KzjmWJCjAjis3QwT7uqylYz630dr5rciA4EoFYhoaI5pH65CWDGc4
+	TEyAKHLb83aIeywERHzGYVlSskN/mySHqN3Jt9b8HkUdwW8/2tfP8INIwoIE4r9AFXdGbxp1ZiD
+	9Vu6TEPpSfCFbs/jT5F4fMNFzVhthXzTwANHIf/mvaM0VN5gkNvEAcMKOq7482A3MaKPGNEX2X7
+	DQpYIDFH9X1eQHoWLD2Le7lAoYklpRSm9AYNfZ0DvMB2NJbY/zR8u1yhpohBvOVgL7w9lloXVEz
+	bT2MiZN/bAA9WI1VJmQOysg==
+X-Received: by 2002:a05:6402:2499:b0:6aa:e107:6110 with SMTP id
+ 4fb4d7f45d1cf-6aae1f1ed13mr8401975a12.1.1790612375470; Mon, 28 Sep 2026
+ 09:19:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 20/29] s390: Introduce Start Arm Execution instruction
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter
- <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik
- <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-21-seiden@linux.ibm.com>
- <1e3b65b3-0c21-466f-ae09-8426eeacb97d@linux.ibm.com>
- <20260928161546.428362-B-seiden@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20260928161546.428362-B-seiden@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba935d cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=hNaKMhA-TWiUr5-D4PQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfXxmEDTFdSqYV9
- RJWlir3toMY4CqmNwZGlTMXDJub1/DjsXxXj24YrnMVxob2Z2FZdoG3HSMbzeDBxqXrm+yOfMjD
- RguA50EV3jbAIy2pG2edDPHw5eag0Yo=
-X-Proofpoint-ORIG-GUID: 6RqGq_y69ZMcg2bXD8bT2m5HyIA1vn5I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NCBTYWx0ZWRfX3IOLZMkE0O8X
- LoDTpH41EcPb/lYoan1KfODFVIoIfMC3PNOZLCz+aQQX+53Tx5DJYUjQjvr6CRll3xBAyfuSTrD
- iXf4r1C+cGFsrKWsp4KPDpbBIQ6E6LlCDPudjO7Tq8n4WRsM8mHcUWOuqiFaz0vGooKoEyOUAm7
- M/RoDBsRXfwzvQxUVgcy6WgPH1V0LSGbzvyvmry5ciuE8r4GgBVw3+t64SWu5k2ENso7GiYOksh
- vQVcZXHuXz85xGY6Od+vlvNSEPXiY2+QDk/Cz0LBsitOyGYA7q/SqoZ1qtuIZmHw+fhejMCzlK5
- PQM75MeSu6RDigRMuOZCWGmUqFKACpPEmtEAVj2W2diN8qt0hCW6tfKZoHLRLrkvIDq8PZ2KIOn
- k2lDyxcX471IozSjvqJKbQXInVeeLgMWiyGuSOpMb3FOFMxUsjBWC+vPPu9bhXCOuAW/gYsptLm
- PWBbpiEs5i16O+ZsLHw==
-X-Proofpoint-GUID: tt4ZhA4U_MFCZP6qe9B1xUJKS1hFpSTU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280064
+References: <20260927064036.3691962-1-nicoyip.dev@gmail.com> <DU4P189MB3750B9BEFE0E00F5D4A4D548C68D2@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+In-Reply-To: <DU4P189MB3750B9BEFE0E00F5D4A4D548C68D2@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 29 Sep 2026 00:19:24 +0800
+X-Gm-Features: AclHuK-KsexhlYTzoGQ75pENZEy3A6R0mlRGjyq0G_Ek_LXGPOJndAF3IdORBo8
+Message-ID: <CAAo+4rUEQGd0kJgMCXeJC3OorCYv120iJ0GyjaKgzKpyzNweBQ@mail.gmail.com>
+Subject: Re: [PATCH net] tipc: hold a reference to nodes found by link name
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"tipc-discussion@lists.sourceforge.net" <tipc-discussion@lists.sourceforge.net>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Jon Maloy <jmaloy@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 28, 2026 at 8:17=E2=80=AFPM Tung Quang Nguyen
+<tung.quang.nguyen@est.tech> wrote:
+>
+> >Subject: [PATCH net] tipc: hold a reference to nodes found by link name
+> >
+> >tipc_node_find_by_name() returns a node after dropping its RCU read lock
+> >without taking a reference. The LINK_SET, LINK_GET and LINK_RESET_STATS
+> >handlers then lock and access the node, racing with timer-driven cleanup=
+ of a
+> >down peer. Generic netlink serialization does not exclude the node timer=
+.
+> >
+> >The following interleaving can leave a handler using a freed node:
+> >
+> >  CPU 0: find the node under RCU and release the node read lock
+> >  CPU 1: tipc_node_timeout() clears the links and unlinks the down node
+> >  CPU 1: drop the list and timer references, queuing tipc_node_free()
+> >  CPU 0: leave the RCU read-side critical section
+> >  CPU 1: complete the grace period and free the node
+> >  CPU 0: acquire the node lock through the stale pointer
+> >
+> >LINK_SET also uses the node's media address after releasing the node loc=
+k,
+> >when passing queued packets to tipc_bearer_xmit().
+> >
+> >KASAN reported:
+> >
+> >  BUG: KASAN: slab-use-after-free in _raw_read_lock_bh+0x1d/0x40
+> >  Write of size 4 at addr ffff888112723808 by task poc/87
+> >  Call Trace:
+> >   _raw_read_lock_bh+0x1d/0x40
+> >   tipc_nl_node_set_link+0x30e/0x680
+> >   genl_family_rcv_msg_doit+0x1e0/0x2c0
+> >   genl_rcv_msg+0x419/0x6d0
+> >   netlink_rcv_skb+0x11f/0x350
+> >  Allocated by task 28:
+> >   tipc_node_create+0x9c1/0x1fa0
+> >   tipc_node_check_dest+0x121/0x11e0
+> >   tipc_disc_rcv+0xdbf/0x1430
+> >  Freed by task 87:
+> >   kfree+0x149/0x330
+> >   rcu_core+0x50a/0x1850
+> >  Last potentially related work creation:
+> >   __call_rcu_common.constprop.0+0x71/0xa10
+> >   tipc_node_timeout+0xb1b/0xe70
+> >
+>
+> Can you update your changelog with decoded stack trace ?
+> With decoded stack trace, It helps me understand how your reproducer trig=
+gers the issue.
 
+The partial decoded stack trace is attached on the changelog on v2.
+https://lore.kernel.org/netdev/179061216640.31693.424352671155791136@kernel=
+.org/T/#t
+I will send you the full KASAN report as well as the reproduction
+method in a separate private email.
 
-On 9/28/26 18:15, Steffen Eiden wrote:
-> On Mon, Sep 28, 2026 at 05:53:33PM +0200, Ilya Leoshkevich wrote:
->>
->>
->> On 9/18/26 15:30, Steffen Eiden wrote:
->>> The Start Arm Execution (SAE) instruction is the centerpiece for
->>> executing arm64 (KVM) guests on s390. Its purpose is, similar to SIE, to
->>> enable accelerated execution of arm64 virtual machines. SAE expects the
->>> physical address of a control block as the only argument.
->>>
->>> The host is responsible to save & restore
->>>    - GPRs 0-13
->>>    - access register 0-15
->>               ^^^^^^^^
->>               registers>   - breaking event register (BEAR)
->>>    - vector/floating point registers
->>> between SAE executions to guarantee host consistency.
->>>
->>> GPRs and BEAR are save and restores in the asm functions. The other
->>                      ^^^^^^^^^^^^^^^^^
->>                      saved and restored
->>
->>> register are handled in within C code. Access registers are handled in a
->>    ^^^^^^^^             ^^
->>    registers            not needed probably?
->>
->>> later patch and SVEs will be handled when they are introduced in a
->>> future series. Most arm64 registers are handled by a satellite block
->>> called save_area. Some registers, frequently used by hypervisors, are
->>> placed into the SAE control block itself.
->>>
->>> Enlighten asm/kvm_host_types.h for the new header variant. The new
->>> header is chosen instead of asm/kvm_host_s390_types.h if KVM_S390_ARM64
->>> is defined.
->>>
->>> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
->>> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
->>> Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
->>> Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
->>> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
->>> ---
->>>    arch/s390/include/asm/asm-prototypes.h       |   1 +
->>>    arch/s390/include/asm/kvm_host_arm64_types.h | 124 +++++++++++++++++++
->>>    arch/s390/include/asm/kvm_host_types.h       |   4 +
->>>    arch/s390/include/asm/sae.h                  |  58 +++++++++
->>>    arch/s390/include/asm/stacktrace.h           |   5 +
->>>    arch/s390/kernel/asm-offsets.c               |   1 +
->>>    arch/s390/kernel/entry.S                     |  22 ++++
->>>    arch/s390/tools/opcodes.txt                  |   3 +
->>>    8 files changed, 218 insertions(+)
->>>    create mode 100644 arch/s390/include/asm/kvm_host_arm64_types.h
->>>    create mode 100644 arch/s390/include/asm/sae.h
+> >Acquire a reference to the selected node with kref_get_unless_zero() bef=
+ore
+> >leaving RCU, returning NULL if the node has already been released.
+> >Release that reference on every caller exit after the last node access, =
+including
+> >transmission in LINK_SET. Keep the existing link lookup order and lockin=
+g so
+> >concurrent link removal still takes the existing error paths.
+> >
+> >Fixes: 6a939f365bdb ("tipc: Auto removal of peer down node instance")
+> >Cc: stable@vger.kernel.org
+> >Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> >---
+> > net/tipc/node.c | 7 +++++++
+> > 1 file changed, 7 insertions(+)
+> >
+> >diff --git a/net/tipc/node.c b/net/tipc/node.c index
+> >bd91378b7540..2726bee3bb40 100644
+> >--- a/net/tipc/node.c
+> >+++ b/net/tipc/node.c
+> >@@ -2424,6 +2424,8 @@ static struct tipc_node
+> >*tipc_node_find_by_name(struct net *net,
+> >               if (found_node)
+> >                       break;
+> >       }
+> >+      if (found_node && !kref_get_unless_zero(&found_node->kref))
+> >+              found_node =3D NULL;
+>
 
-[...]
->>> +SYM_FUNC_START(__sae64a)
->>> +	stmg	%r6,%r14,__SF_GPRS(%r15)	# store kernel registers
->>
->> Strictly speaking we don't need to save %r14, but I guess you do this
->> for unwinding?
-> yes. Also, some later (unsent) patch needs this and before I forget this, let's
-> do it now.
+> This checking is not optimal.
+> Try this:
+>
+> diff --git a/net/tipc/node.c b/net/tipc/node.c
+> index bd91378b7540..3e61e9106dd7 100644
+> --- a/net/tipc/node.c
+> +++ b/net/tipc/node.c
+> @@ -2421,8 +2421,11 @@ static struct tipc_node *tipc_node_find_by_name(st=
+ruct net *net,
+>                         }
+>                 }
+>                 tipc_node_read_unlock(n);
+> -               if (found_node)
+> +               if (found_node) {
+> +                       if (!kref_get_unless_zero(&found_node->kref))
+> +                               found_node =3D NULL;
+>                         break;
+> +               }
+>         }
+>         rcu_read_unlock();
+>
+> >       rcu_read_unlock();
+> >
+> >       return found_node;
+> >@@ -2507,6 +2509,7 @@ int tipc_nl_node_set_link(struct sk_buff *skb, str=
+uct
+> >genl_info *info)
+> >       tipc_node_read_unlock(node);
+> >       tipc_bearer_xmit(net, bearer_id, &xmitq, &node-
+> >>links[bearer_id].maddr,
+> >                        NULL);
+> >+      tipc_node_put(node);
+> >       return res;
+> > }
+> >
+> >@@ -2558,12 +2561,14 @@ int tipc_nl_node_get_link(struct sk_buff *skb,
+> >struct genl_info *info)
+> >               link =3D node->links[bearer_id].link;
+> >               if (!link) {
+> >                       tipc_node_read_unlock(node);
+> >+                      tipc_node_put(node);
+> >                       err =3D -EINVAL;
+> >                       goto err_free;
+> >               }
+> >
+> >               err =3D __tipc_nl_add_link(net, &msg, link, 0);
+> >               tipc_node_read_unlock(node);
+> >+              tipc_node_put(node);
+> >               if (err)
+> >                       goto err_free;
+> >       }
+> >@@ -2634,11 +2639,13 @@ int tipc_nl_node_reset_link_stats(struct sk_buff
+> >*skb, struct genl_info *info)
+> >       if (!link) {
+> >               spin_unlock_bh(&le->lock);
+> >               tipc_node_read_unlock(node);
+> >+              tipc_node_put(node);
+> >               return -EINVAL;
+> >       }
+> >       tipc_link_reset_stats(link);
+> >       spin_unlock_bh(&le->lock);
+> >       tipc_node_read_unlock(node);
+> >+      tipc_node_put(node);
+> >       return 0;
+> > }
+> >
+> >--
+> >2.43.0
+>
 
-Thanks for the clarification!
-
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
-
-with typos fixes.
+The adjustment has been adapted in v2.
