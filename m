@@ -1,78 +1,78 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167034F85BC;
-	Mon, 28 Sep 2026 19:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31004F5E04;
+	Mon, 28 Sep 2026 19:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623947; cv=none; b=iGrntFzkgFv2d1nHU2sYtBPhNWijIJz7rElqTUz+ANAO4WbWkgKxYRKc+Xpjt0gdHSnJCVNLxuYM/qsxTULG9CXlnyQ0UFw623TyFfuoIkFFiAy71tpkjBoaBg1kYw/FtXOAExGBrvYlLx7tiZZPScqp2PFdVzIuSTkhTkARQTA=
+	t=1790623951; cv=none; b=KKpGiy/CB/4VCKMo7e5lk646TrL7UBXDz3CIPFW1F6AMFVvldiQK1t7CVDsO2jvesyCvdwael40zrJ1hOQr6Y3rBhXYSiEFacEnbchBRYJstE2AKnaqb+HmeOqsiuc4WWZPLSGEj9YQ0cs5u6uxVAaY6vXvIcbh/T2/ADpCpWGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623947; c=relaxed/simple;
-	bh=kfb1dRu7liQpWDiuQJLPakDul54tIvSkuwQTdOq9Ld4=;
+	s=arc-20240116; t=1790623951; c=relaxed/simple;
+	bh=2ArWc7PKEsYEx+mNuhgkZOQUdQG2ojj+JQqjWtrHnB0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JJNroczyZk9kx+RRNh06cunOcP9OjcVcc8iypU3BdBcxfzqLJAAKhUsVVckpKMpPltYvdE/HJYf+d0uUNWiRvl0ssO2EFONGWn+LQL78Q6NhFBsqyduMhNulDEETct0rcS2BKcWOdL0ZslK7PdQV0ZS3ChiBAv6hnpjwFWnMvco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dQWM0ucV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Wmcyjv79; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XgA43nch; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=enKmJcI+; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=WmGNyXa8CHClPhnmT1+InDWWn9oEut2uoK/VuB/q+jiIRa9Iat1QjqRNxWMQo/sca/h0s4Dhcne5CUHcw3ZF7pjAOLEJjT7yV8h3xusF4HTFRKJwi/DXCgvPxHAVb1MzjWY6GUfDJyeMOkw5fSETNpYGJa8T+0K6hphTOVVxlV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HcaselTZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1NTSBWTO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nh4+NyJ8; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=awFvs/Rf; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dQWM0ucV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Wmcyjv79";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XgA43nch";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="enKmJcI+"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HcaselTZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1NTSBWTO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nh4+NyJ8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="awFvs/Rf"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B549F1F79F;
-	Mon, 28 Sep 2026 19:32:14 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 662F121BF1;
+	Mon, 28 Sep 2026 19:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790623942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JZ8h5Jzz8XpngoZnKBoT06ZAWwhOL69A3yCz3x1aRlA=;
+	b=HcaselTZPkQclKcIFmpORAAhKEsYYzXgdTIcP9iut6oCnZ8S/tLEAljCWMnF1K9WfEj0Ad
+	VjzYV/Do1UNUDziznAi2v9FPoCLdhvyLjJCRg5fs8At7Oqr59xBcO3n/VgSPmuMQhtsWlg
+	wmpgncDEYXkk5bRLAb61KguBXzmEUjI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790623942;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JZ8h5Jzz8XpngoZnKBoT06ZAWwhOL69A3yCz3x1aRlA=;
+	b=1NTSBWTOL5jM9NYam5D3QAOejgEawc9czQLxWXPx98iwWxsfK4gkSO6M0gixjus0I+eBk0
+	P5sLoZSRZVUZsZBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1790623938; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JhPJpdhIUspIJvHWCvGGYi/s/olftLeuNqqNdpTj8hk=;
-	b=dQWM0ucVggnvKTix1fBYbsSse1EAxP/SGpBKjiknRW+UodYcc+riBEulWWpB1eXk7dfoRe
-	D2UwWeidxx1/sCviYJRLTDgRKjgu020g1n11PWLQ+9V7gyjxO6g5WW0wIuiW9o0tIefzuN
-	vlkbUS/xza+QYynZJpL5ZDliXPwSouQ=
+	bh=JZ8h5Jzz8XpngoZnKBoT06ZAWwhOL69A3yCz3x1aRlA=;
+	b=nh4+NyJ8mmYRt5TqEMmBvpEHOHx8QynfIuYDVh5tkF6d2sH6+lT1yTrmIcFVZVuork2QyL
+	BVs5AW12doU92aFHUOjygAGg+ERAQglV1BkbcSd7ZtTwBK5l2mvbDE9HBGhJcAq9dUpg0Q
+	bWQeijJD4vLpXUR80o8nnQjmCZC3TWY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1790623938;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JhPJpdhIUspIJvHWCvGGYi/s/olftLeuNqqNdpTj8hk=;
-	b=Wmcyjv79dhR/htv+nN3nH6xyT25EXt9JSxg0YzJVYp66Mz4/3aW+3Z/yNRfMbY6AruyXDR
-	ZdHIxDBK97yPLcCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790623934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JhPJpdhIUspIJvHWCvGGYi/s/olftLeuNqqNdpTj8hk=;
-	b=XgA43nchgYPk2IvabLik7qva2BgiTXhhgzhmgW2RpJeT0nMSI3Jjo2+OClyW2PiwTJLbom
-	ZmAYlAIrMF4xylVni73tgLw3wOYpqngn6fwPy0F0ZCRqjEYB7X77YnsEGvQO4kWM5rJsUY
-	0t05m1TzSiQVqAVQOCBL45aiLkvQc94=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790623934;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JhPJpdhIUspIJvHWCvGGYi/s/olftLeuNqqNdpTj8hk=;
-	b=enKmJcI+v2EOMUhntk4GiBB6k3sJG4FHlVbxqXMnbsRthwL+GCkuKhJrneXyCYWNCXIEww
-	DJYlQQUVYzIuEGAw==
+	bh=JZ8h5Jzz8XpngoZnKBoT06ZAWwhOL69A3yCz3x1aRlA=;
+	b=awFvs/RfPrlCPz4TJ2/m3tybU96vNvANo4sUBSpN1B3g2esqIPnUX3pqx7AyZdXvMHygZK
+	4+IuDffXmwFtv+DA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C86A213418;
-	Mon, 28 Sep 2026 19:32:13 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9413D133F1;
+	Mon, 28 Sep 2026 19:32:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4RBiFn3AumpWOAAAD6G6ig:T12
-	(envelope-from <fmancera@suse.de>); Mon, 28 Sep 2026 19:32:13 +0000
+	id 4RBiFn3AumpWOAAAD6G6ig:T14
+	(envelope-from <fmancera@suse.de>); Mon, 28 Sep 2026 19:32:17 +0000
 From: Fernando Fernandez Mancera <fmancera@suse.de>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -81,16 +81,14 @@ Cc: horms@kernel.org,
 	edumazet@kernel.org,
 	davem@davemloft.net,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Eric Dumazet <edumazet@google.com>,
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
-	Joel Granados <joel.granados@kernel.org>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
 	Ido Schimmel <idosch@nvidia.com>,
+	Eric Dumazet <edumazet@google.com>,
+	bridge@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 11/16 net-next v2] ipv4: disable IPv4-only sysctls when CONFIG_IPV4=n
-Date: Mon, 28 Sep 2026 21:30:07 +0200
-Message-ID: <20260928193046.6698-12-fmancera@suse.de>
+Subject: [PATCH 13/16 net-next v2] net: bridge: guard ARP/RARP proxy and suppression with CONFIG_IPV4
+Date: Mon, 28 Sep 2026 21:30:09 +0200
+Message-ID: <20260928193046.6698-14-fmancera@suse.de>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260928193046.6698-1-fmancera@suse.de>
 References: <20260928193046.6698-1-fmancera@suse.de>
@@ -109,556 +107,79 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
 	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,redhat.com,davemloft.net,suse.de,google.com,nokia-bell-labs.com,icloud.com,gmail.com,nvidia.com,vger.kernel.org];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
+	ARC_NA(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com]
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-To avoid noise and unexpected problems, let's hide all the sysctls that
-are related to IPv4 only when the kernel is compiled without IPv4
-support.
+Historically, the bridge subsystem relied on CONFIG_INET to guard ARP
+and RARP proxy and suppression routines. As CONFIG_IPV4 is decoupled
+from the core stack and made optional, relying on CONFIG_INET is no
+longer accurate, as ARP and RARP are exclusively IPv4 protocols.
 
 Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
- net/ipv4/sysctl_net_ipv4.c | 407 +++++++++++++++++++------------------
- 1 file changed, 205 insertions(+), 202 deletions(-)
+ net/bridge/br_arp_nd_proxy.c | 2 +-
+ net/bridge/br_device.c       | 2 +-
+ net/bridge/br_input.c        | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index 0e7fef5973db..6096e9e4d82d 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -31,8 +31,8 @@ static int tcp_min_snd_mss_max = 65535;
- static int tcp_rto_max_max = TCP_RTO_MAX_SEC * MSEC_PER_SEC;
- static int ip_privileged_port_min;
- static int ip_privileged_port_max = 65535;
--static int ip_ttl_min = 1;
--static int ip_ttl_max = 255;
-+static int ip_ttl_min __maybe_unused = 1;
-+static int ip_ttl_max __maybe_unused = 255;
- static int tcp_syn_retries_min = 1;
- static int tcp_syn_retries_max = MAX_TCP_SYNCNT;
- static int tcp_syn_linear_timeouts_max = MAX_TCP_SYNCNT;
-@@ -48,7 +48,7 @@ static int tcp_plb_max_rounds = 31;
- static int tcp_plb_max_cong_thresh = 256;
- static unsigned int tcp_tw_reuse_delay_max = TCP_PAWS_MSL * MSEC_PER_SEC;
- static int tcp_ecn_mode_max = 5;
--static u32 icmp_errors_extension_mask_all =
-+static u32 icmp_errors_extension_mask_all __maybe_unused =
- 	GENMASK_U8(ICMP_ERR_EXT_COUNT - 1, 0);
- 
- static int tcp_min_rcvbuf = 4096;
-@@ -201,8 +201,9 @@ static int ipv4_ping_group_range(const struct ctl_table *table, int write,
- 	return ret;
+diff --git a/net/bridge/br_arp_nd_proxy.c b/net/bridge/br_arp_nd_proxy.c
+index da15f4d7c1ae..d739b8697429 100644
+--- a/net/bridge/br_arp_nd_proxy.c
++++ b/net/bridge/br_arp_nd_proxy.c
+@@ -39,7 +39,6 @@ void br_recalculate_neigh_suppress_enabled(struct net_bridge *br)
+ 	br_opt_toggle(br, BROPT_NEIGH_SUPPRESS_ENABLED, neigh_suppress);
  }
  
--static int ipv4_fwd_update_priority(const struct ctl_table *table, int write,
--				    void *buffer, size_t *lenp, loff_t *ppos)
-+static int __maybe_unused
-+ipv4_fwd_update_priority(const struct ctl_table *table, int write,
-+			 void *buffer, size_t *lenp, loff_t *ppos)
+-#if IS_ENABLED(CONFIG_INET)
+ static bool
+ br_is_neigh_suppress_enabled_vid(const struct net_bridge_port *p, u16 vid)
  {
- 	struct net *net;
- 	int ret;
-@@ -441,9 +442,9 @@ static int proc_udp_hash_entries(const struct ctl_table *table, int write,
+@@ -57,6 +56,7 @@ br_is_neigh_suppress_enabled_vid(const struct net_bridge_port *p, u16 vid)
+ 	return br_is_neigh_suppress_enabled(p, v);
  }
  
- #ifdef CONFIG_IP_ROUTE_MULTIPATH
--static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
--					  void *buffer, size_t *lenp,
--					  loff_t *ppos)
-+static int __maybe_unused
-+proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
-+			       void *buffer, size_t *lenp, loff_t *ppos)
- {
- 	struct net *net = container_of(table->data, struct net,
- 	    ipv4.sysctl_fib_multipath_hash_policy);
-@@ -456,9 +457,9 @@ static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int wri
- 	return ret;
- }
- 
--static int proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
--					  void *buffer, size_t *lenp,
--					  loff_t *ppos)
-+static int __maybe_unused
-+proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
-+			       void *buffer, size_t *lenp, loff_t *ppos)
- {
- 	struct net *net;
- 	int ret;
-@@ -492,9 +493,9 @@ static void proc_fib_multipath_hash_set_seed(struct net *net, u32 user_seed)
- 	WRITE_ONCE(net->ipv4.sysctl_fib_multipath_hash_seed.mp_seed, new.mp_seed);
- }
- 
--static int proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
--					void *buffer, size_t *lenp,
--					loff_t *ppos)
-+static int __maybe_unused
-+proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
-+			     void *buffer, size_t *lenp, loff_t *ppos)
- {
- 	struct sysctl_fib_multipath_hash_seed *mphs;
- 	struct net *net = table->data;
-@@ -636,15 +637,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec
- 	},
--	{
--		.procname	= "icmp_echo_ignore_all",
--		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE
--	},
- 	{
- 		.procname	= "icmp_echo_enable_probe",
- 		.data		= &init_net.ipv4.sysctl_icmp_echo_enable_probe,
-@@ -654,56 +646,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2		= SYSCTL_ONE
- 	},
--	{
--		.procname	= "icmp_echo_ignore_broadcasts",
--		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE
--	},
--	{
--		.procname	= "icmp_ignore_bogus_error_responses",
--		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE
--	},
--	{
--		.procname	= "icmp_errors_use_inbound_ifaddr",
--		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE
--	},
--	{
--		.procname	= "icmp_errors_extension_mask",
--		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= &icmp_errors_extension_mask_all,
--	},
--	{
--		.procname	= "icmp_ratelimit",
--		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_ms_jiffies,
--	},
--	{
--		.procname	= "icmp_ratemask",
--		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
- 	{
- 		.procname	= "icmp_msgs_per_sec",
- 		.data		= &init_net.ipv4.sysctl_icmp_msgs_per_sec,
-@@ -774,13 +716,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2		= SYSCTL_ONE,
- 	},
--	{
--		.procname	= "ip_dynaddr",
--		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
- 	{
- 		.procname	= "ip_early_demux",
- 		.data		= &init_net.ipv4.sysctl_ip_early_demux,
-@@ -811,15 +746,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2		= SYSCTL_ONE,
- 	},
--	{
--		.procname	= "ip_default_ttl",
--		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= &ip_ttl_min,
--		.extra2		= &ip_ttl_max,
--	},
- 	{
- 		.procname	= "ip_local_port_range",
- 		.maxlen		= 0,
-@@ -841,36 +767,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.mode		= 0644,
- 		.proc_handler	= proc_do_large_bitmap,
- 	},
--	{
--		.procname	= "ip_no_pmtu_disc",
--		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
--	{
--		.procname	= "ip_forward_use_pmtu",
--		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
--	{
--		.procname	= "ip_forward_update_priority",
--		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler   = ipv4_fwd_update_priority,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE,
--	},
--	{
--		.procname	= "ip_nonlocal_bind",
--		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
- 	{
- 		.procname	= "ip_autobind_reuse",
- 		.data		= &init_net.ipv4.sysctl_ip_autobind_reuse,
-@@ -880,13 +776,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.extra1         = SYSCTL_ZERO,
- 		.extra2         = SYSCTL_ONE,
- 	},
--	{
--		.procname	= "fwmark_reflect",
--		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
- 	{
- 		.procname	= "tcp_fwmark_accept",
- 		.data		= &init_net.ipv4.sysctl_tcp_fwmark_accept,
-@@ -952,37 +841,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.proc_handler	= proc_douintvec_minmax,
- 		.extra2		= &u32_max_div_HZ,
- 	},
--	{
--		.procname	= "igmp_link_local_mcast_reports",
--		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--	},
--	{
--		.procname	= "igmp_max_memberships",
--		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
--	{
--		.procname	= "igmp_max_msf",
--		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
--#ifdef CONFIG_IP_MULTICAST
--	{
--		.procname	= "igmp_qrv",
--		.data		= &init_net.ipv4.sysctl_igmp_qrv,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= SYSCTL_ONE
--	},
--#endif
- 	{
- 		.procname	= "tcp_congestion_control",
- 		.data		= &init_net.ipv4.tcp_congestion_control,
-@@ -1154,42 +1012,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.proc_handler	= proc_tfo_blackhole_detect_timeout,
- 		.extra1		= SYSCTL_ZERO,
- 	},
--#ifdef CONFIG_IP_ROUTE_MULTIPATH
--	{
--		.procname	= "fib_multipath_use_neigh",
--		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE,
--	},
--	{
--		.procname	= "fib_multipath_hash_policy",
--		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_fib_multipath_hash_policy,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_THREE,
--	},
--	{
--		.procname	= "fib_multipath_hash_fields",
--		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
--		.maxlen		= sizeof(u32),
--		.mode		= 0644,
--		.proc_handler	= proc_fib_multipath_hash_fields,
--		.extra1		= SYSCTL_ONE,
--		.extra2		= &fib_multipath_hash_fields_all_mask,
--	},
--	{
--		.procname	= "fib_multipath_hash_seed",
--		.data		= &init_net,
--		.maxlen		= sizeof(u32),
--		.mode		= 0644,
--		.proc_handler	= proc_fib_multipath_hash_seed,
--	},
--#endif
- 	{
- 		.procname	= "ip_unprivileged_port_start",
- 		.maxlen		= sizeof(int),
-@@ -1563,15 +1385,6 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.proc_handler	= proc_dointvec_minmax,
- 		.extra1		= SYSCTL_ONE
- 	},
--	{
--		.procname	= "fib_notify_on_flag_change",
--		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_TWO,
--	},
- 	{
- 		.procname       = "tcp_plb_enabled",
- 		.data           = &init_net.ipv4.sysctl_tcp_plb_enabled,
-@@ -1656,6 +1469,196 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.extra1		= SYSCTL_ONE_THOUSAND,
- 		.extra2		= &tcp_rto_max_max,
- 	},
 +#if IS_ENABLED(CONFIG_IPV4)
-+	{
-+		.procname	= "icmp_echo_ignore_all",
-+		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE
-+	},
-+	{
-+		.procname	= "icmp_echo_ignore_broadcasts",
-+		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE
-+	},
-+	{
-+		.procname	= "icmp_ignore_bogus_error_responses",
-+		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE
-+	},
-+	{
-+		.procname	= "icmp_errors_use_inbound_ifaddr",
-+		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE
-+	},
-+	{
-+		.procname	= "icmp_errors_extension_mask",
-+		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= &icmp_errors_extension_mask_all,
-+	},
-+	{
-+		.procname	= "icmp_ratelimit",
-+		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_ms_jiffies,
-+	},
-+	{
-+		.procname	= "icmp_ratemask",
-+		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec
-+	},
-+	{
-+		.procname	= "ip_dynaddr",
-+		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "ip_default_ttl",
-+		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= &ip_ttl_min,
-+		.extra2		= &ip_ttl_max,
-+	},
-+	{
-+		.procname	= "ip_no_pmtu_disc",
-+		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "ip_forward_use_pmtu",
-+		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "ip_forward_update_priority",
-+		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler   = ipv4_fwd_update_priority,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE,
-+	},
-+	{
-+		.procname	= "ip_nonlocal_bind",
-+		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "fwmark_reflect",
-+		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "igmp_link_local_mcast_reports",
-+		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+	},
-+	{
-+		.procname	= "igmp_max_memberships",
-+		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec
-+	},
-+	{
-+		.procname	= "igmp_max_msf",
-+		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec
-+	},
-+#ifdef CONFIG_IP_MULTICAST
-+	{
-+		.procname	= "igmp_qrv",
-+		.data		= &init_net.ipv4.sysctl_igmp_qrv,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= SYSCTL_ONE
-+	},
-+#endif
-+#ifdef CONFIG_IP_ROUTE_MULTIPATH
-+	{
-+		.procname	= "fib_multipath_use_neigh",
-+		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE,
-+	},
-+	{
-+		.procname	= "fib_multipath_hash_policy",
-+		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_fib_multipath_hash_policy,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_THREE,
-+	},
-+	{
-+		.procname	= "fib_multipath_hash_fields",
-+		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
-+		.maxlen		= sizeof(u32),
-+		.mode		= 0644,
-+		.proc_handler	= proc_fib_multipath_hash_fields,
-+		.extra1		= SYSCTL_ONE,
-+		.extra2		= &fib_multipath_hash_fields_all_mask,
-+	},
-+	{
-+		.procname	= "fib_multipath_hash_seed",
-+		.data		= &init_net,
-+		.maxlen		= sizeof(u32),
-+		.mode		= 0644,
-+		.proc_handler	= proc_fib_multipath_hash_seed,
-+	},
-+#endif
-+	{
-+		.procname	= "fib_notify_on_flag_change",
-+		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
-+		.maxlen		= sizeof(u8),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dou8vec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_TWO,
-+	},
-+#endif
- };
+ static void br_arp_send(struct net_bridge *br, struct net_bridge_port *p,
+ 			struct net_device *dev, __be32 dest_ip, __be32 src_ip,
+ 			const unsigned char *dest_hw,
+diff --git a/net/bridge/br_device.c b/net/bridge/br_device.c
+index ce9ea9ac3d0a..a3e5a521178f 100644
+--- a/net/bridge/br_device.c
++++ b/net/bridge/br_device.c
+@@ -69,7 +69,7 @@ netdev_tx_t br_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 				&state, &vlan))
+ 		goto out;
  
- static const struct ctl_table *ipv4_net_table_dup(struct net *net)
+-	if (IS_ENABLED(CONFIG_INET) &&
++	if (IS_ENABLED(CONFIG_IPV4) &&
+ 	    (eth_hdr(skb)->h_proto == htons(ETH_P_ARP) ||
+ 	     eth_hdr(skb)->h_proto == htons(ETH_P_RARP)) &&
+ 	    br_opt_get(br, BROPT_NEIGH_SUPPRESS_ENABLED)) {
+diff --git a/net/bridge/br_input.c b/net/bridge/br_input.c
+index 4357d78524a6..584ac6c2215c 100644
+--- a/net/bridge/br_input.c
++++ b/net/bridge/br_input.c
+@@ -166,7 +166,7 @@ int br_handle_frame_finish(struct net *net, struct sock *sk, struct sk_buff *skb
+ 	BR_INPUT_SKB_CB(skb)->brdev = br->dev;
+ 	BR_INPUT_SKB_CB(skb)->src_port_isolated = test_bit(BR_ISOLATED_BIT, &p->flags);
+ 
+-	if (IS_ENABLED(CONFIG_INET) &&
++	if (IS_ENABLED(CONFIG_IPV4) &&
+ 	    (skb->protocol == htons(ETH_P_ARP) ||
+ 	     skb->protocol == htons(ETH_P_RARP))) {
+ 		br_do_proxy_suppress_arp(skb, br, vid, p);
 -- 
 2.55.0
 
