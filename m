@@ -1,116 +1,108 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D1C3C3F75
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9852EEE9E;
+	Mon, 28 Sep 2026 22:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790636257; cv=none; b=K+RouJsbhmMzO4fZZoqndLxobGIwVZKua1pjnBm22lo7mBonOwv7G/bfaTqtWhrML24KOeVu6J2KyzwkqAj13lMnPdK0uFVEjIvFfJfF74DeIWvuUp69kjYIotaGBilYypyjPnGv27Frap7dukmiHlIW9n/um85xy4yGzGgmCgA=
+	t=1790636305; cv=none; b=JXTE1tcEkvgS/mhc4oGtf6PuUxAJz6qBnWgPwaw20yLmQl4Hwk5o1OS0ieD/Hu5TsCFclmOl7hb2qA1iTrfSPql7joWxDOF6soJk6hvloZiSogZVAmy6lOah6wWfyeuosMEvqDkmLPYvCi+p4wjn8R4eXih89kQaCqUJPKN112M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790636257; c=relaxed/simple;
-	bh=KvIECmyGNv+JyhEGbxoQPngo7GKO41e2jdsMoTW3yLQ=;
+	s=arc-20240116; t=1790636305; c=relaxed/simple;
+	bh=WxhA/YOQIyDbArHg1OAhmI05bF4EFqsmFvngwGyYoo8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CXqM6ZLxd04BjiAHk0IV1AEbyeTo0kAfpEnAUWGecszaVs+wB1kJj7p76Hrcbmhs/MCKqVMSxtcUSZQ013tmfLLPAjGExnUWc4v/eESwyqRgV7EHOnQtznWjjqPVZZT4xehTJDVzh0y93s22dYXngHrMXRugEB676jtcQmX9dCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=HTDlKs4w; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EPnDGVJt; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmvTWL7Fw/oguaE/FL+v2JsFhc4VvisO/bB9L4fjXS8hvGUj/XetCJ9ghJEkl697plb6ObXSJ8XgorNTuFjtOT7KYh6YwrRe6OVcaoXA25mq8IXM4KfLPgf1eUmGNbBITZ0080/i+HAHaJXfet6tGkYYAA1c2xfPDWG8KSggVvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mL5T2JIA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="HTDlKs4w";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EPnDGVJt"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 49109EC0079;
-	Mon, 28 Sep 2026 18:57:35 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 28 Sep 2026 18:57:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790636255; x=
-	1790722655; bh=61PkaDlZDJ7P1QuNFfmNjvqRJ9D4dCH5Jq/W/6WY35Q=; b=H
-	TDlKs4wtX3RYkQLV3izOG3gsKKqQH+XaWNYl5uReBN2lEX7PXyGVX/IXKLNqa23k
-	MHLdHW3fx+ZNMuMdxNuVhrC8GR4xUFj4YGx8mnIxbUDBrLLxgc/cNB8j2O8uVg45
-	bbw1KC5SB6e9Pxzc4flvuzLuvuhf0dmNQgYXnCObsidVl+3U4faJwckF+98CIUZ3
-	JB4i+4Id09QRD/ngr/LBeIJwxhWkJRUb2LLbRAFwaqBopodqBLuqARt99QHxkq/R
-	ajutM0badQ74bhuWdoWosLRF2p5In0wGXHvYbf6tzRSxOf18nZHJwg6peo/8f6uc
-	/9+XaiBxT+vT9XUOuxwPA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790636255; x=1790722655; bh=61PkaDlZDJ7P1QuNFfmNjvqRJ9D4dCH5Jq/
-	W/6WY35Q=; b=EPnDGVJtIgCFv1yAhA45AMr34ILU+t9vexBuqUsiRLSxXUhWry4
-	FBuIIkDTylyW3rlqmEtXQSBvp+C1DiHe9zCN72BJ99LjFmSTEmkGZr61n7TP3Fum
-	EvFb1dNqKB1hfGWQHHn3X1Y5qEDYz7xpumoweK4J7bgD579pzcuWbfyawURABh6v
-	7AHgoRzg3LRj6cN7fCpiDrp5mq3qbcvKOhRh9+4jwowmC21zcf2F0vv+SjQTAvGY
-	xGQsAxuP3+iVyXN2B6sgbnZI233i4/WdpA65WkTKyFFNF8fuEShY5Lbp/M2iQLmn
-	3I/MJC26Sn6LYFWBZN6/vTUOoxsy+t3D7Ng==
-X-ME-Sender: <xms:3_C6aoL79M7949qEVLbb64nICky69WKqL4IW9epMsQvUFeIBACZkcw>
-    <xme:3_C6amEr-PfZ0fe_T25wWBfrpl6cEZUjN8z6In4lUTanQxgxGeVK4XdG0qLEYDTBJ
-    ksVVNe1MmbYmFIg0NGFUcYwJiGzA4avRZvzRiZtTsUEofnpajr8oZI>
-X-ME-Received: <xmr:3_C6agQc1pDIge7bCe14mgsG8shLBb8baFBkZIYoBwHcLE-_BamI9JVIfZ1zk20H-fyAYbp6Zy9nTT9w1285UG2HdXIV2V4>
-X-ME-Proxy-Cause: dmFkZTF01flxN13qAheHF3RT0yqegHYRWFPtnv50THhZGirzVA/03FzZAfZZ1Kpnp6j3ip
-    JMiyPopZMYa6pYlTMvgDwkyPry0BUf26UJTfZmrecZ6ZWpDIRxId+zjB7fs4e/mw9ftXWw
-    6L0/X9ayKdiCywBn6JR58+a40NfOdQF5mADAucp6qSOqxTSGMwa+sSDbp5/kzenkKr1iGz
-    1pVAiHiDiPmJiKeOCMDth4IIgUpJwIpIdLo/Zet+71YoAyjZJQK/flZczVyypzr11g66af
-    H2ebwPkX9JtldpxD+4Qct9hyvtGMCKZjvOcfyfou+VQFe+twaLk0y1VpDQBOzgBIi+a1cN
-    LAPII0JFZY9lQDFOZEVQ3rxcx+6dbOnYXYiKcXdXrSGianp6+ePvbdlQ6d1XQ8HfVZnJqx
-    kTw7ktDqWox8Ja6EjQ9pCb7PARz1QRSZHsb8qQiArbvkgH/nf5lIF/JycStmKw/xv/hr3J
-    +TdxkLYgQ7qhmWzZOA2lrnGraSWDThflEU1bQ7256rVfv5FRhXIImmFVq4O8DTGIwB0Y7+
-    tK2S+6uCrev6n2WSn5TS9ytvdCZSmplDygccu+yUr3rnRGa3srTVrrFsbV+ALAalfPRlXv
-    exQSm9onKSNiXHA+s+DlBGwnnme5TlnTcWKX6okYDkNkYoF+HmJXLcUZCcZA
-X-ME-Proxy: <xmx:3_C6aiFxnfEpBSaedmkfRw0mV-StvjHok2WCyQBwwqc9hzK0QyvhRA>
-    <xmx:3_C6as-DrRdE0p5VUG1B_eohpaB4tFVmhcby4jUjB7N8xW7JlxWm3w>
-    <xmx:3_C6asIQ869SJtVaoFi9mo_OWcfAAdBI_vX4H6UX1WDnbPGuxf5Nxg>
-    <xmx:3_C6avZ24i5SfbtWHd1lUz14RL68AbplessnvpwzWlfNmkgkfigOOg>
-    <xmx:3_C6aq_1lh07HMPMxSq9cXcT54IdjI75GCk8RfBxjgkvQeHY9VLlQYnZ>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 18:57:34 -0400 (EDT)
-Date: Tue, 29 Sep 2026 07:57:32 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] firewire: core/cdev: use kzalloc_flex() to allocate
- structure with flexible array
-Message-ID: <20260928225732.GB25983@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20260928125718.50974-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mL5T2JIA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDF61F000FF;
+	Mon, 28 Sep 2026 22:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790636303;
+	bh=cfTQnP72O8yqoNFmdtkzTTYSL3ptcW/zrw9B4W+6/9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mL5T2JIAbu9d2imTAacgjzW7ZmK8KIw2PWCZCicBvUq42ZqylDq8vhRnlFK9JQqK1
+	 RJDTi23Gn6W+dKD5C96Mkcjwddq6xoIKAtH7BU+meta60Sj+OCObpHrCBlzz9rTB2V
+	 pIsjib0tlQHXJ7d+yzgnbaYFBePlx5V4VRGI+yW4Wx0bOvKWtGCx9AcLYlio6Twvbh
+	 pQReEvxr9S+08tYKTKsXaSdacCMOs0sgBzV0dQxr65bREHe2Sh0sJofrSyB2BUeUwO
+	 27j/H0StmEgKa/Gxpq9Tsook7DQ0p0VG3SeFhM9aprguauHNn3WilLXery2HnnCPFT
+	 p4Ns7Vbuipzgw==
+Date: Mon, 28 Sep 2026 22:58:21 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Peter Chen <peter.chen@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
+	Ze Huang <huang.ze@linux.dev>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH v3 0/8] Add SpacemiT K1 USB2.0 controllers support
+Message-ID: <20260928225821-GKA2079@kernel.org>
+References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260928125718.50974-1-o-takashi@sakamocchi.jp>
+In-Reply-To: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
 
-On Mon, Sep 28, 2026 at 09:57:14PM +0900, Takashi Sakamoto wrote:
-> Hi,
+Hi Junzhong,
+
+On 19:40 Sun 27 Sep     , Junzhong Pan wrote:
+> The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+> support, but the hardware has no internal OTG registers, the other is
+> Host only. These controllers are compatible with Chipidea USB2 driver
+> with some flags set and reset control support.
 > 
-> Some structures are defined with a trailing flexible array member to store
-> data. kmalloc_flex() and its variants are useful for allocating these
-> structures.
+> This series is based on 7.3-rc1 and has been tested on Banana Pi F3
+> development board.
 > 
-> This series replaces kmalloc() with kzalloc_flex() where appropriate.
+> A self-powered USB device/hub is needed to test the host function of the
+> dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
+> cellular module e.g.) is needed to test the host only controller.
 > 
-> Takashi Sakamoto (3):
->   firewire: core: use kzalloc_flex() to allocate structure with quadlet
->     array
->   firewire: cdev: use kzalloc_flex() to allocate structure with quadlet
->     array
->   firewire: cdev: use kzalloc_flex() to allocate structure with byte
->     array
+> ---
+> Changes in v3:
+> - collect tags
+> - merge the two dt-binding commits
+> - use local variables when acquiring devm managed clock/reset
+> - drop manual clk_disable_unprepare() from the remove path
+> - enable related drivers as modules in defconfig
+> - Link to v2: https://lore.kernel.org/r/20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com
 > 
->  drivers/firewire/core-cdev.c        | 11 ++++++-----
->  drivers/firewire/core-transaction.c |  4 ++--
->  2 files changed, 8 insertions(+), 7 deletions(-)
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> 
+> ---
+> Junzhong Pan (8):
+>       dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
+>       usb: chipidea: usb2: use devm_clk_get_optional_enabled()
+>       usb: chipidea: usb2: add optional reset support
+>       usb: chipidea: usb2: add SpacemiT K1 support
+>       riscv: dts: spacemit: add USB2.0 controller nodes for K1
+>       riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+>       riscv: dts: spacemit: enable USB2.0 controllers on OrangePi RV2
+>       riscv: defconfig: enable ChipIdea USB controller support
+> 
+>  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 15 ++++++++
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 +++++++++
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   | 28 +++++++++++++++
+>  arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 ++++++++++++++++++++++
+>  arch/riscv/configs/defconfig                       |  4 +++
+>  drivers/usb/chipidea/ci_hdrc_usb2.c                | 35 +++++++++++--------
+>  6 files changed, 123 insertions(+), 15 deletions(-)
+> ---
+The series looks good, so 
 
-Applied to for-next branch.
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-
-Regards
-
-Takashi Sakamoto
+-- 
+Yixun Lan (dlan)
