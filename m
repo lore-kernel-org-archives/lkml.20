@@ -1,112 +1,72 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3E94F68DA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85FC4EC648;
+	Mon, 28 Sep 2026 17:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616190; cv=none; b=J4ZzM/vvUEQRqUrISQz45P+au5mmq7C+shxbS+c8zZwmMWd9j/1G2mEP2mJLduSSTKJ+P6C5cQpLM23VRAZnjrXzmWtchMcbbZFExm49FPJO4ElTqI6r9dBusM5CXeOU3petYbQAreThynrqTelw8RIHIpgH3vbeP+p6BUMKuVw=
+	t=1790616197; cv=none; b=X81x7kFP0/ZTC2kJy+GWT00+6wSp5DWllac96qy/68g8H83kQJGVE1F72Ft/BsU/z4zX4EqifAb0BHSiAd5eFfxQVMJ+nQyhHBV9jJR/sK8Mx3kaTRTEcfximGvVNn5Bo5mtSt8p5wVN2gzKFPIg7ZRt0iNyHZEzvod2qt0r4qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616190; c=relaxed/simple;
-	bh=JsepccZaoDRsqiHr2im6NhlFZl/G+qeEROO6uXcLmK4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=vBGKot8dHlGjDFSVs0l2NzCDDmNT0AcPoXnh+GOJaEHn1Tt0b8S0koiqzvPFZTp/y9WF+U5LnvH8qtD/ZZ1n+LgpAu9zUD4rCg6dEebPdspVWyrfpBjKBxngAuXBn0FLecWuwqlbOvtAMQajkrYra8p9e9q1Pi3yxfauW/o10iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=R9NYcvAI; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1790616197; c=relaxed/simple;
+	bh=gT+OrgPJZrNHS/W/b5/de1OICIPAA95Fb2wjwntHdkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AZA5LeIKr/rBAGMITf4RFsA3QkJraNAoVLmp+FGQ0LCTCCig4VKG5+RqmnPbFRHmJkSLeoOly2yHVD+Ud+rLQGKIKPqCexKk1U278FA5J6fgTMfuVLizymKb8m3BWJvIiwBrf5QjO0ftCCUQkyx/Mq3J24u4AT6pY06qlVUCxUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTen8xvw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="R9NYcvAI"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 942B332C;
-	Mon, 28 Sep 2026 17:23:45 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=R9NYcvAI;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 2D7F92187;
-	Mon, 28 Sep 2026 17:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1790616172;
-	bh=IeUgEUphtSH/VtUd2ipH6B2zIMwBdGWMiZtne0L9HAI=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=R9NYcvAIiNLn5yJiemRmPsMDu7wLxIG16qg6TOzXCuPKpLU+9NsQe0UyB19bATxjk
-	 8ziEVWnPiGPhWfOEciCvhYPggFZG4ZFTR4MDFqgRii/4JZ9Mbr0Iy0IbA7bs0ivYzl
-	 52WQXpsNAdZ5WkQ4gANAzvJRqpBtBZjNuHSrYh5E=
-Received: from [192.168.95.128] (172.30.20.196) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 28 Sep 2026 20:22:51 +0300
-Message-ID: <830f54cf-1e10-47c5-8d7b-7076dd8ac026@paragon-software.com>
-Date: Mon, 28 Sep 2026 19:22:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTen8xvw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7BC01F00893;
+	Mon, 28 Sep 2026 17:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790616190;
+	bh=jV6/AlaLfqjel9+pC+3C/FULY/BS5tVg2AHLAaeTrng=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lTen8xvw2RmwCB7Ot4ABTSoCDX4SiREKddcXCsM/NsawgnRX/WwK/vA5NFNLPpDqn
+	 e+U0Kx/k6LFlb+Eg6+T25VIFHhRoeqI+dVbzSSAa2NSSD+TwaE6plhu16NsdYj8ylx
+	 qujCHTXJHRxk5GGGdMuTMfZFM9uRy+E3VTgR2VGuA7doXySYyA+7jF8pA++oClq/W9
+	 TeFZWvSP66ZkaI9HJ6UnoW8ExknRdLEe10dHxKnYb5+OFZ4GKZdj0h+Hz8Hwhdb7kA
+	 7s2ceqgWqprqbwpAZ1cSF+AcjKed8aOqTkaAMWCzs/kp8Ru+C6XPQqOxs6GmhYpAOI
+	 oeXcnwnJ2pbpQ==
+Date: Mon, 28 Sep 2026 18:23:06 +0100
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: mfd: hisilicon: Fix Hi6421 SPMI
+ compatible
+Message-ID: <20260928172306.GB2112133@google.com>
+References: <20260923191526.2206628-1-robh@kernel.org>
+ <20260924140300.GE453446@google.com>
+ <20260925121138.GB677989-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: return -ERANGE for short xattr buffers
-To: Baolin Liu <liubaolin12138@163.com>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<liubaolin12138@gmail.com>, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260709071849.2558133-1-liubaolin12138@163.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260709071849.2558133-1-liubaolin12138@163.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925121138.GB677989-robh@kernel.org>
 
-On 7/9/26 09:18, Baolin Liu wrote:
+On Fri, 25 Sep 2026, Rob Herring wrote:
 
-> From: Baolin Liu <liubaolin@kylinos.cn>
->
-> ntfs3 currently returns -ENODATA when the xattr exists
-> but the user buffer is too small.
-> Return -ERANGE instead.
->
-> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-> ---
->   fs/ntfs3/xattr.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-> index 9743a63a152e..0a19668e970d 100644
-> --- a/fs/ntfs3/xattr.c
-> +++ b/fs/ntfs3/xattr.c
-> @@ -781,7 +781,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler, struct dentry *de,
->   		if (!buffer) {
->   			err = sizeof(u8);
->   		} else if (size < sizeof(u8)) {
-> -			err = -ENODATA;
-> +			err = -ERANGE;
->   		} else {
->   			err = sizeof(u8);
->   			*(u8 *)buffer = le32_to_cpu(ni->std_fa);
-> @@ -795,7 +795,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler, struct dentry *de,
->   		if (!buffer) {
->   			err = sizeof(u32);
->   		} else if (size < sizeof(u32)) {
-> -			err = -ENODATA;
-> +			err = -ERANGE;
->   		} else {
->   			err = sizeof(u32);
->   			*(u32 *)buffer = le32_to_cpu(ni->std_fa);
-> @@ -835,7 +835,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler, struct dentry *de,
->   		if (!buffer) {
->   			err = sd_size;
->   		} else if (size < sd_size) {
-> -			err = -ENODATA;
-> +			err = -ERANGE;
->   		} else {
->   			err = sd_size;
->   			memcpy(buffer, sd, sd_size);
+> On Thu, Sep 24, 2026 at 03:03:00PM +0100, Lee Jones wrote:
+> > On Wed, 23 Sep 2026, Rob Herring (Arm) wrote:
+> > 
+> > > Use the hisilicon,hi6421-spmi compatible documented by the in-tree DTS
+> > > and matched by the Hi6421 SPMI PMIC driver.
+> > > 
+> > > Assisted-by: LLM
+> > > Fixes: dee8a4e807dc ("dt-bindings: mfd: Convert hisilicon,hi6421-pmic to DT schema")
+> > 
+> > What is this commit?  I don't see it anywhere.
+> 
+> Uhh, that's the wrong commit. I'd just drop it. This binding started off 
+> in staging. Originally the compatible was wrong, but the example was 
+> right. Then the example was 'fixed'. 
 
-Hello,
+Drop the tag or the patch?
 
-Your patch was applied, thank you.
-
-Regards,
-Konstantin
-
+-- 
+Lee Jones
