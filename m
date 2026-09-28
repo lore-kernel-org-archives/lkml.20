@@ -1,141 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483863ACA68;
-	Mon, 28 Sep 2026 14:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE154D7D2C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604204; cv=none; b=Rsf1eK1NP910H2jiIzWGbwSOBGCqlx0yZLORVqrSYgT4/hkZB/J/aJUct796f8XZM9BVbq+J2dEI5qUFIgWiM6kY35tsfy6QxrZN4Q1455fIWSm+sdEuT8uZEipmXVKEObUKgJ01ZJtgR4lLbWakzIl7wXZpm+mw5N4Prmkwsu8=
+	t=1790604218; cv=none; b=S1mbhBnOE1To/GiuBCLv8a7I7pQRzPNyK7TRvDUaYns9jyV7AlCdGvK+0DEcEJBS2AZ/hfvDjTU/zyiiLqz8w6ZGUqPRCGJMUb5mCiE7JaRvYICT79xneALi61i6I7JRXtJYieVoRp/3IWiqqTkRUSyOARZrN+8TKiJVt6iKIeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604204; c=relaxed/simple;
-	bh=yMPWpUD7arT25XYnDYE+j4USf6ZnBjfA/ulK+5UimqA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QcYgnJGkcOZBdGS2Bt20fMVCSJHa1MiXuQgtQtpAp7ORkyFqVLoJhrnOneC5g9KLQXKLPQBWzjLZ5sqP/lK+wQ83Qx0h/oTTtrN3Ryeq7t8WCcEhrW2I8tbQkvFPyAw5RS5nbQzkIBjHKT3kkflMonQ9xLtVEoEnhgfV4nJc/lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K615e+af; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790604218; c=relaxed/simple;
+	bh=nOhLwxUinnp+EKfvunI9tE5Mzri76nXjiAG6EMhp03I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ff4mEY2R749qIVUmk7nIVUZSFwoid0RiNoCB9gkgK31U/jJAgBPn2iI7Qz97VvpZYhyIcVA2hBqxDrk1uX1dE4AfgTqNiq3OPB+Rr23TiyCCl7emXt2PN7W9zsUk9npxfm3ciyFx47pnlOUswT1UL1PtLt1gIOAscEzmPavHZCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KiA18yf3; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K615e+af"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790604203; x=1822140203;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yMPWpUD7arT25XYnDYE+j4USf6ZnBjfA/ulK+5UimqA=;
-  b=K615e+af0OaYofA0SEz3q4iBAGusi8qpSnWj4dNTFPOgwlay2SuMbuuC
-   w6aWlIr7ifx+UgsKneSMBVOeQWJn0SDFQE05IwSYk7UCm8Q1HFM4dyRPk
-   MDHl01sHAO4waiLQ4FYOMqlZSfrZVAZx2bN28Cd2sEpt3eQ8JVA/D5V85
-   aFKhxQ5JCqX3+SHA4zhQBgtrU3VEg7JucEzNwy9T1ym5wtRDfI2qQuhtt
-   mJ5AUtDoBJlASIST7mImxPpPP7AtBApN/KTX8hCu4kBXxvFqtMui7jQQC
-   FIp4Nr0jOF9Jch3ZPfaR2gNteNqACWVxAAlH7WlDhesDmB6kGgqFK8F7s
-   g==;
-X-CSE-ConnectionGUID: JuYxhC36SfC5yNqxbOZTkA==
-X-CSE-MsgGUID: r9bLfXHKT2+5J9Pa06/M7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="100636289"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="100636289"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:03:18 -0700
-X-CSE-ConnectionGUID: eVBrKQ8UQpqijyDkI/GEnQ==
-X-CSE-MsgGUID: gpU7j+n1TIym1oNbgGxShQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278419916"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.111.49]) ([10.125.111.49])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:03:17 -0700
-Message-ID: <26827871-65c6-418b-9802-cfd1a5b081ec@intel.com>
-Date: Mon, 28 Sep 2026 07:03:16 -0700
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KiA18yf3"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso1068750a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:03:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790604216; x=1791209016; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OfkeIgOAr8W95/lWVVLlZKauL7pPNd1iNdfWaeJ0T6k=;
+        b=KiA18yf3dj1p8Atsm63sws8txL7FX0JiFkuaVjnH/2VzFfaf2tLGpjnnwr8S5Llkxb
+         nymLYkgmsDBCMc+EjxN4J/Z6GmW/BMP5XlZQ+XSrX+1HYoWhRc9mtEGZuzgd/CnV4b/r
+         8PSggyyw8gcvxbKSVVYfNMzptcGtRXyUEH6FU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790604216; x=1791209016;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OfkeIgOAr8W95/lWVVLlZKauL7pPNd1iNdfWaeJ0T6k=;
+        b=JJ6jG4wciXeQM/QKfJS5GcZbSSqZv23IBCkh7LmnPAnOKOdYtAIL7LFwX0U0SYAJaC
+         voJTBKt4hbqsyH6g5+riFeKZxT3TcwtxlWH4eFnov0VvXkGj6MvglF/pdtYfMondB9Hj
+         ph/0+KRlJOmwQRajic0/4fAGpG6f4+Vpy89yvbmLwTyjOK5D470cZlgze3xtwY3gDvyM
+         SitugrUcoMxs5aSCgw6XAGHdYdQJ6g1DlrjV6mXIJVW2k+d0cBgKtIeln4M+V0MjzNC3
+         DIgGwAvISJT6jKh1xbBF/dROk5RvuapG1vECw53YeAxXQ+jJvf86TUvCBGDkkoP8OTCA
+         WS+g==
+X-Forwarded-Encrypted: i=1; AKwUvBw4OrbqqJW8wmUqsc34hOy6PMvOa3piVpFrBg0Hei/3rQspMQP70ePnfHF+GZ9yb4FQlRM3jEx+AhVDHXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktaP14yi6AQVS7AOOz3IoiGHOZFQluzPawlQOGCIxxLuK2AaWJ
+	MOqX7nGI28AXf2S+IhgRF8bemIQhi+mEp20iGcX3uPZHVGctqo02APBBnqnyidlYUfDEf38a9MH
+	Jyz4=
+X-Gm-Gg: AYBFou2GE9rxi9bZClunBzmIzEy43mWDICPdPI+g/iYPjgdrNlJd5dbIToG6d4x8Dhg
+	lJi1byfK3p7Ipyt/WOwRQWuYfxFVKPJSuhuUfVah6IEzkwYaDZq4z4+qNfvK5Joovll/9ehGQPw
+	Pfbk1GBNAxwP1RhxLCXLGuiDiXTTKEtP1weycUDwKUtR3jiw5gUWynV6QMiQNZJOaV4LtkVt4r5
+	NmSwURcSAyz6RS0y5PVUY6TkCTlD2xs2JXnhte31+q2pzYhInWxBEMmsZjXGi6RnSaHwx50tURM
+	myFLIEgUrRFfM7Fvs8JYXkEsuEiBglzBn08DU23gvePrkGhzmBEEGApo8KMXUFbW2oBlfFb+NLO
+	8AxgD+V6yxRvbN2vX9sAv5YNKrW8qttafGK+X12oyQuBz4yMhPRXsMQ70n+ass6tJy2mXboDnso
+	1K9Kn+tUiUA2BudKfqf5M9ACWObNYMr4nzt6kMi3IZ7NhkPbPmmCJPisY/LbeJoRf6ygG1FNIYr
+	RUcavLUt3NhBBJWHYbP8I7izP0J8MzWuoJ1dA==
+X-Received: by 2002:a05:6a20:2d24:b0:3dd:85aa:4529 with SMTP id adf61e73a8af0-3de0e8cb4bdmr11147695637.36.1790604215529;
+        Mon, 28 Sep 2026 07:03:35 -0700 (PDT)
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com. [74.125.229.140])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a3b8d70csm2582116a12.9.2026.09.28.07.03.33
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 07:03:34 -0700 (PDT)
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so2139853c88.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:03:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwb3bcQA74yMN5r7QPXlIm+nTU887d7YIC3nTdkizYd1bCOpbNLxNJqOfE315LfuPGf7BGlXdFzVjXLbcg=@vger.kernel.org
+X-Received: by 2002:a05:701b:4186:10b0:143:5c63:23a1 with SMTP id
+ a92af1059eb24-146ce680185mr10455491c88.19.1790604211213; Mon, 28 Sep 2026
+ 07:03:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arch, mm: promote DEBUG_WX to CHECK_WX
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>,
- Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@kernel.org>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Mark Rutland <mark.rutland@arm.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Michal Hocko <mhocko@suse.com>, Nicholas Piggin <npiggin@gmail.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ritesh Harjani <ritesh.list@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Shrikanth Hegde
- <sshegde@linux.ibm.com>, Suren Baghdasaryan <surenb@google.com>,
- Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
- Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org
-References: <20260926-direct-map-verify-wx-v2-1-efcd64a6b74a@kernel.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260926-direct-map-verify-wx-v2-1-efcd64a6b74a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+ <20260928120252.GB4406@killaraus.ideasonboard.com> <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+ <20260928122450.GA166131@killaraus.ideasonboard.com> <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
+ <20260928124109.GF157191@killaraus.ideasonboard.com>
+In-Reply-To: <20260928124109.GF157191@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 16:03:15 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+X-Gm-Features: AclHuK-bAdJr7VD1Kpb9pjJeCGhtkq2oBETN-wX0NINpxgYT65DJZrat6qMDKuY
+Message-ID: <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@skynet.be>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/26/26 02:29, Mike Rapoport (Microsoft) wrote:
-...
-> With this, make generic CHECK_WX default to STRICT_KERNEL_RWX while
-> still leaving users targeting small kernels the possibility to opt-out.
+On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
+> > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart
+> > <laurent.pinchart@ideasonboard.com> wrote:
+> > >
+> > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > > > > uvc_parse_control() passes descriptor by descriptor to
+> > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > > > > buffer, not the number of bytes of that descriptor.
+> > > > > >
+> > > > > > Because of this, malformed descriptors could leak over the next
+> > > > > > descriptor, leaving malformed data in our structures.
+> > > > >
+> > > > > What issue does this fix in practice ?
+> > > >
+> > > > Look into uvc_parse_standard_control().
+> > > > Let's take the UVC_VC_HEADER
+> > > >
+> > > > Imagine we have a malformed control at the beginning of the descriptor that has:
+> > > >
+> > > > buffer[0] = 3
+> > > > buffer[2] = UVC_VC_HEADER
+> > > > buffer[3] => Beggining of next control
+> > > >
+> > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> > > >
+> > > > What does it fix in practice? It avoids that data outside the controls
+> > > > is parsed as part of the control.
+> > >
+> > > I understand that, but what does it fix in practice ? And have you
+> > > encountered a device that exhibits such a problem ?
+> >
+> > I have not encountered such devices, but even if they do not exist
+> > they are easy to emulate and use for escalation.
+>
+> That's what I'd like to understand, can this be used for any kind of
+> escalation ?
 
-Thanks for doing this, Mike. I do still think this makes a lot of sense
-to have as a default:
+It is very difficult (impossible?) to prove that something is not
+exploitable, especially as the code evolves.
+We could spend hours trying to craft a payload, plus extra time in
+future reviews whenever uvc_parse_vendor_control() changes. It is much
+safer to just enforce the correct bounds now.
 
-Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+As you said, the risk to break current hardware is low. If it happens
+tis change is small enough to make it easy to revert.
+
+>
+> > We add minimal code and solve a family of bugs. Do you think that it
+> > is a better pattern that uvc_parse_vendor_control() and
+> > uvc_parse_vendor_control() have visibility beyond the control that
+> > they are parsing?
+>
+> I'm concerned that some devices may stop working. The risk is likely
+> small though, but I'd like to understand what we get from this patch to
+> see if it's worth the risk.
+>
+> > > > > > Change the code so we pass the actual length of the descriptor to the
+> > > > > > parser.
+> > > > > >
+> > > > > > Note that this makes the existing check more strict and some devices
+> > > > > > that are wrongly parsed today will not be probed now.
+> > > > > >
+> > > > > > Cc: stable@vger.kernel.org
+> > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > > > ---
+> > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > index e289cc71ba98..429f1ab19a2a 100644
+> > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > > > > >        */
+> > > > > >
+> > > > > >       while (buflen > 2) {
+> > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > > > > +                     return -EINVAL;
+> > > > > > +
+> > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > > > > >                       goto next_descriptor;
+> > > > > >
+> > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > > > > >               if (ret < 0)
+> > > > > >                       return ret;
+> > > > > >
+> > > > > >
+> > > > > > ---
+> > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
 
 
+
+-- 
+Ricardo Ribalda
