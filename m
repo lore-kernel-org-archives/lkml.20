@@ -1,151 +1,106 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7215A397323;
-	Mon, 28 Sep 2026 20:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4286E4D37D9;
+	Mon, 28 Sep 2026 20:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628641; cv=none; b=WlPKZAY2X3mXuiMuSj70S2FZRyxkuQOzqA/ZWFrjELQCLf+yGMylTTaadlv374bFg1QgXs2+JpYp0pGmxo1C2TqZzK5lx9QmQA8L2ZEKjprOgwE3MQN2Tm3CkfPcslwvzT1KhtZ/I8N5Mm14ly3djq7zQf9EwYKIQPN2bD57SeU=
+	t=1790628656; cv=none; b=Z6MzuszUYy9bdTZNFORrhHrptH6Zntb+M6UQe/ItTylrw5AZs/kEhbG2LuAKFjM2EOC1VD6lEx//Hw3FN6F344CWYMGN8kdNNSjCcyZlcC4BUDHaMIZnJNWwZVzb18lBOBQ8wWd4ZldMnIzYN9P86vnHLQB2jAdR99WPD3IN0gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628641; c=relaxed/simple;
-	bh=MZA1dbr5+LVqky/KZLVsDh+83myNtmHWdMgcla6pXEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBlcfbIt+hdYrrq/7SswVTvv1h8U4zaNn0F2L4kcV2IhiUuD1rw5Yws1uzz+e+SCniPnEuHBRMdRymhl+eNQLYevMo1hxQN7eD5sbqIuYJJt2xuzSvYllkXzkEdn1rNj9Dhd37xcEpgYoyrC1T78qg4VhUQ6iTtk1m/koMyGLi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=B9N0Az4x; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790628656; c=relaxed/simple;
+	bh=SegqKujbacGt9BNS9my6dmF8eS1hZiOA8I+1qBjca9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T6BJCEWldfHhs7ZGh24P0VofmEZfC1fCWTGcbzlnFd5j/yuqAKEW+C9MhMfH2F9XsoIJOl4p8ZP0+GRaGyR+x62BIHSf4pgQSWWtg8bNX6vPH8IcubOVMBPLikSbDIcVFUBtQ1eSMYL9oSS6nuPvWY9vd+PVnv1S35SWMlHrq38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=YdzikDFX; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="B9N0Az4x"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2C236B07;
-	Mon, 28 Sep 2026 22:48:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790628528;
-	bh=MZA1dbr5+LVqky/KZLVsDh+83myNtmHWdMgcla6pXEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=B9N0Az4x4KH6QlYUYYoHCDEEowrRb2zeb7u4biGcju/avhD9uxsbiiWfjFTKtfSdT
-	 W22BKs2qzkS6KH95uU6CK2tDhfBB9J7+GIYXUu+Isgpb1V/ZflsyCeYZtpu4sCzO8d
-	 HMpDsyn+APK76XMPb4hz2AY3Zj325A2TTzJttT8A=
-Date: Mon, 28 Sep 2026 23:50:37 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, ribalda@chromium.org,
-	noambs2999@gmail.com, david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] media: uvcvideo: Let uvc_parse_frame() report a
- skipped frame
-Message-ID: <20260928205037.GL4406@killaraus.ideasonboard.com>
-References: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
- <20260820111556.232652-2-natalie.klaus@runtimeverification.com>
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="YdzikDFX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Content-Type:From:Reply-To:Subject:Content-ID:
+	Content-Description:In-Reply-To:References:X-Debbugs-Cc;
+	bh=KihxK1P3oy+g5YHPx1kzAUcYW62SHsTbFZU9CTfYxe8=; b=YdzikDFXBbNRK3Br3DaLrq0aLv
+	cYf5zrb8YvUPQbIGalWvvk2A9Z1+ZDoyCi33RH9hOHPTp2ctmQ/kdV4Jir3l5DU4sBlEzXgrbAYBv
+	M4WbRX0CiTCRSF1GiUT9EUKl07Aeo1mi8yveCukrK6a19WTozePNIxs0uOwnkshYU+l4eJ349AoTS
+	fF+Kdi/+1/mpumFP6FKLtxPNsPVAt9XI3PGP3rtM2giibuOsLyM/zKi3Ac/ZRpnM81a0gGEhFJ4yH
+	+adRlj4OeFDuinTiCKDb/2r2C/yG0FS0ssbKpMVMnBpBK3L9nPqSOEs6bGgDwzxEwBaLPYowRDPyI
+	UGY8ABfQ==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xBIJF-0000000F7qP-3wNI;
+	Mon, 28 Sep 2026 22:50:49 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: linux-kernel@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>
+Cc: Aurelien Jarno <aurelien@aurel32.net>,
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE:Keyword:riscv),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support:Keyword:spacemit)
+Subject: [PATCH v5 0/5] Enable Bluetooth and WiFi on K3 Pico ITX
+Date: Mon, 28 Sep 2026 22:49:05 +0200
+Message-ID: <20260928205012.3689405-1-aurelien@aurel32.net>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260820111556.232652-2-natalie.klaus@runtimeverification.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 02:15:54PM +0300, Natasha Klaus wrote:
-> uvc_parse_frame() returns the descriptor length on success and a
-> negative error code on failure, and uvc_parse_format() treats every
-> negative value as fatal for the whole streaming interface. There is no
-> way for the parser to say "this frame descriptor is unusable, but the
-> rest of the format is fine".
+This patchset enables Bluetooth through USB on the K3 Pico ITX board and
+adds the rfkill nodes for Bluetooth and WLAN so that the devices can be
+activated.
 
-On what device have you seen this occurring ? How did you test this
-patch ?
+Note that WLAN support (patch 4) is only useful with the following
+patchset, but they can be applied independently:
+- https://lore.kernel.org/spacemit/20260923015016.64069-1-inochiama@gmail.com/T/#t
 
-> Change the return convention so it can. Return 0 on success and let the
-> caller advance by buffer[0], which is the value the function returned
-> anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
-> and leave every other negative value to mean "skip this frame descriptor
-> and carry on with the next one".
-> 
-> -ENODATA is currently the only error the function can return, so the
-> skip path is unreachable until later patches add checks that use it. The
-> one behavioural change is the truncated-descriptor diagnostic, which
-> moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
-> without the DESCR debug flag. That leaves the local alts variable
-> unused, and the kernel builds -Wunused-variable as an error, so it goes
-> too.
-> 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
-> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
-> ---
-> The Cc: stable line is present without a Fixes: tag because this patch is
-> a prerequisite for 2/3 rather than a fix in its own right. Stable needs
-> both or neither: backported alone, 2/3's -EINVAL would revert to meaning
-> "discard the whole streaming interface".
-> 
-> The caller checks -ENODATA before counting the frame, per Ricardo's review.
-> Behaviour is unchanged either way, since -ENODATA is non-zero, but the fatal
-> case reads better first.
-> 
->  drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..b94fe5366e55 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  			   u32 **intervals, u8 ftype, int width_multiplier,
->  			   const unsigned char *buffer, int buflen)
->  {
-> -	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
->  	unsigned int maxIntervalIndex;
->  	unsigned int interval;
->  	unsigned int i, n;
-> @@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  	n = n ? n : 3;
->  
->  	if (buflen < 26 + 4 * n) {
-> -		uvc_dbg(dev, DESCR,
-> -			"device %d videostreaming interface %d FRAME error\n",
-> -			dev->udev->devnum, alts->desc.bInterfaceNumber);
-> -		return -EINVAL;
-> +		dev_warn(&streaming->intf->dev,
-> +			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
-> +			 buflen, 26 + 4 * n);
-> +		return -ENODATA;
->  	}
->  
->  	frame->bFrameIndex = buffer[3];
-> @@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  
->  	*intervals += n;
->  
-> -	return buffer[0];
-> +	return 0;
->  }
->  
->  static int uvc_parse_format(struct uvc_device *dev,
-> @@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
->  			ret = uvc_parse_frame(dev, streaming, format, frame,
->  					      intervals, ftype, width_multiplier,
->  					      buffer, buflen);
-> -			if (ret < 0)
-> +			if (ret == -ENODATA)
->  				return ret;
-> -			format->nframes++;
-> -			buflen -= ret;
-> -			buffer += ret;
-> +			if (!ret)
-> +				format->nframes++;
-> +			buflen -= buffer[0];
-> +			buffer += buffer[0];
->  		}
->  	}
->  
+Changes v4 (unfortunately wrongly submitted as v3) -> v5
+- rebase onto spacemit/dt-for-next
+- explain in patch1 why the change does not impact the DT schema
+  validation (reported by Sashiko)
+     
+Changes v3 -> v4
+- fully move the phy definition and the board level
+- rebase onto 7.3-rc1
+
+Changes v2 -> v3 
+ - reorder patches in a more logical order
+ - rebase on current linus/master
+ - add patch 1 to move phy definition to the board level for the "usb3d"
+   controller
+ - remove link to USB3 phys, they can't be added if the combo phy is not
+   configured accordingly - also enable Bluetooth and WLAN drivers in
+   defconfig
+
+Changes v1 -> v2
+ - Rebase on current spacemit/dt-for-next branch
+ - Collect Tested-by tag
+ - Add link to USB3 PHYs in DT now that K3 PHY support is merged
+
+
+Aurelien Jarno (5):
+  riscv: dts: spacemit: k3: move USB3 phy to board level
+  riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX
+    board
+  riscv: dts: spacemit: k3: add rfkill node for Bluetooth on Pico-ITX
+    board
+  riscv: dts: spacemit: k3: add rfkill node for WLAN on the K3 Pico-ITX
+    board
+  riscv64: defconfig: Enable BT and WLAN support for SpacemiT K3
+    Pico-ITX board
+
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 38 ++++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 63 +++++++++++++++++++-
+ arch/riscv/configs/defconfig                 |  8 +++
+ 3 files changed, 106 insertions(+), 3 deletions(-)
 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
