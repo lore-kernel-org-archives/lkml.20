@@ -1,71 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04864E36F3;
-	Mon, 28 Sep 2026 16:16:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA3D4E9C18
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612175; cv=none; b=RJIsINdak88EsAOWKcCdprDrxx2gq74xQyU0Rwl29HxHsbWyT7tq5lnzswe4C4Yoq30XSj991v9rKmyFrbNTx5a7u9XSKUrNXDPiX9jtBCRRvnAjj7nMlerFJJtvJYu5Zeb3/4jxxmduig+KXz9z6QVEFShKmcUALCQIHpMzwMU=
+	t=1790612190; cv=none; b=bChO65xQjpLrcDTkPRZBBCXc/G7kH3asa2+ZngFnr5amyI2nLKCPOjLcD5aB/WRIS1kYyrMZwmeKHK2Irp52Uz+ZM3AwDZnWwzBMqYAgJd52BEeA6lN+Mw63SOWESjQ9au2gCCH5SdtlZ24Rm5u3EOC3YNXwh3+BsUNv6BMGoJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612175; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kNpkta68rIJcmiKJ36nno++P6LAuQkx372Oa9qGLzOe1pfikvllX3KQHFTdM7a7xRvwEZaNTH+AbDTzztLqeyeZT2OD14RysneIJWifshzaCYoyM0S83E8knsX3Z2LQM1KDTsIY3h6tJQXCkmwU86EKtWuY5nXLlOVoVEMtxM4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfudVjuL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790612190; c=relaxed/simple;
+	bh=8uJKOVpW1+neIMO6pgN+ibn3QsgOgANirwbLENiBsW4=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=IcRihB5Mou66TnoWp8lHQtDR1dqIF7Yb7unaBzsg/lU36CUHL2N5Y+C5PtArrHqctJa4tmh6phKso+KZNztqM9NGmpGDJ02p5cTtWYdfn17oRQVF+StwwLLBvZHIObtZxo/1rHjSkP72u0Zsg6hd1Ejb1bcIJSkyyUuKPKW7Qls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu; spf=pass smtp.mailfrom=bitvisir.nu; dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b=MkXDwaqD; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitvisir.nu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfudVjuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D065D1F00893;
-	Mon, 28 Sep 2026 16:16:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612167;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CfudVjuLGejcxJqWgUqmmKRtuUXhI7zuNJZhE1R4GsCXfr+E9bBoG9rD/9gFGG2MK
-	 4HgvCWUimHpNisK1QJfEiG/b5uMw2mXiHGq23LdoFBDEEOu12RtxPAMJ0/1K77WTyt
-	 Rb/8OxLXEQbH//HD/IKWV65WtI5rMmARlg278H4S0SUUOs9sqQo9+jksRanp29eUmt
-	 a0N5B1YTKAKiiA6edbadfmhYz354S3kWKJP8M+6XQBu6W5MYJRGjcmpbMor6tymzua
-	 DGsgx7G09zNGIvGXazImmQKUL14h595Ktgw+nP+YM5gr61kdCfcWfINap++AfPuvjg
-	 8PUepbX+U0u7w==
-From: netdev-bot+sinfo@kernel.org
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Jon Maloy <jmaloy@redhat.com>,
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Ying Xue <ying.xue@windriver.com>,
- GhantaKrishnamurthy MohanKrishna
- <mohan.krishna.ghanta.krishnamurthy@ericsson.com>, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net v2] tipc: hold a reference to nodes found by link name
-Date: Mon, 28 Sep 2026 16:16:06 +0000
-Message-ID: <179061216640.31693.424352671155791136@kernel.org>
-In-Reply-To: <20260928161246.1895273-1-nicoyip.dev@gmail.com>
-References: <20260928161246.1895273-1-nicoyip.dev@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b="MkXDwaqD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitvisir.nu
+	; s=ds202607; h=Content-Transfer-Encoding:Content-Type:Subject:From:To:
+	MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:
+	Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=pFQGI8OdBF882zlZ54lRNZrr64/m8HKGbDXWgPEfC00=; b=MkXDwaqDWd9z9Vo6pagty9hWE1
+	R0Z30HIriYnnUi6ejKyi2/EvVKXF2TdfgqoaWVPGPsviw9KMZyt4hRYyPDZ6hGT1DTAgZy6ETeMRu
+	jcsLmJ7F5Vxg+AYZ26HFnFtlX54jq1P+uGhZ0vxmbNl6gHmKS7PsBklGrGyMDBeyPlEer8iy6XOEH
+	T5jNHNHhMxRH4QjHftKLtW1RKMo9ggxae20LfcgsVH/mWaM++oxk/lQXGC6YgRbPHSDPrAuEX2N3f
+	LPjZAkQv7pI729vbCe5om6Ip48hiqBHjx84DF6OAMg9T03cWXqVg/SIZSBXIiY0WAYTnLN5WF/1qQ
+	176DMfWA==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1xBE1S-00CasA-TD
+	for linux-kernel@vger.kernel.org;
+	Mon, 28 Sep 2026 18:16:10 +0200
+Message-ID: <35b8d4de-579c-45e1-95e2-9b5996f9882f@bitvisir.nu>
+Date: Mon, 28 Sep 2026 18:16:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitvisir.nu>
+Subject: Visir Wavelet Anisotropic Filter = No GFX Card Needed (Part of Fair
+ Pay Philosophy Unity and Low Jitter)
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi!
+3 poles, one in negative should be a wavelet anisotropic filter.
+( / 1.3 cut down pr pole)
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Used via Cache, should abolish the use of GFX Card. CPU Coming!
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+This is part of my work with Fair Pay Philosophy Unity and Low Jitter.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Intergrates well with GAI Game AI, simplifying games development, more 
+Open Source Style.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Serenity.
+https://bitvisir.nu/
+
+
+
+
+
+
