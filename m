@@ -1,217 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33762931DF;
-	Mon, 28 Sep 2026 12:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599511; cv=none; b=VmyTToljI5potNu1skXoRR6Gp+JRGQzvG90hLwdtpNKAhqEWGAofBShJTx0gOYSsZGDbrOsIXtIh1bz25lE0f7lfNWxO/dZKRKc/cJ9fqFiyRwAKJVBJRTBU1kLJhYZqmq5EvWdCDAMdwys7ba623cKal5e4LcTS8t3gxt4N9Po=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599511; c=relaxed/simple;
-	bh=G7y474POKpTi688pkhVMmEb6+e4iP1EoZlz1Mco3gPE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lqPVRXQWWQg7TgySf3D5yGp/Ba8sVM65RL79mtOSy19Ix4Z5HHujbkO1hv7WtEKbKepKrm5qacr0pL/4dJL6rrhPK6xMWLlQgangVoi5RFlMfVopGFoDTvZoaNHK2LAKNkr+wxKHOQTyK2y8S2ixLq/bcQ8H4nY5B8ic5udUF9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFkY/XTf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA2D2F9D85
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.203
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599514; cv=pass; b=u0y8DKj1sJVOCHZv1u0YUKpxr6KoAtU1zeS+6mfatNSlIyOvWgAZnexPK2Ob1Kx/se/Bv3QOwh8eDoA9bgl9njtIEQrO+DMJzRn5KavLJj2miX0aKMKSh/L2yhvK3mVWG0MysAiPBmYOw23CsbkJZwo+T0yydBNin6J5TUHjZlE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599514; c=relaxed/simple;
+	bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oJPTZB7/obUidwLfgP4ZqeTm9veTML2GpB6GUNEPsTuZM8sljg91SHfh+TxVgMCVhvrONCvpSvl8FQRFIuNlRMvgpPkhKACN2K+xDLEXLuM1HXWh1CqCa+2W9qk7zxUYL4BZ1xIcXqE6lAKUEreELdQ1wqXipbC8USPEZuGKhyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCCMf4u2; arc=pass smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFkY/XTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E731F000FF;
-	Mon, 28 Sep 2026 12:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790599509;
-	bh=C3sJZ+XGR3q3cAZQbPWld8WHZgZ0nkcap7Eqc78EZkU=;
-	h=From:To:Cc:Subject:Date;
-	b=HFkY/XTfMCifhXjwEuMml2laM88hQq2yG6mC2TBW0X2ZA4bvgmAIY6QTBurCtix7y
-	 v7ttZrniLUv4AdjhBzDdxL6zTeRjO/OpxEHbCfYN6qpwBRPtm1CctmKYf1lgVqcO9W
-	 X6KSvvljjJdX6L5JalVZyQC5b1Mj0EJFuewM+BMdsU6BwvXCVdrFMF0xLi8zxIIPcd
-	 t/8rh/H3LF4DuPpc0ls6F0m+XWqM7RRZx0X1hb49cnBjjPsXiSnK1kegIHtopwgI36
-	 oylS8mQ0usHDm8AH9RkEH47rLeIdon0pX5bVaULS1NvhiS2Kkk8KmPkGAw3hfnxR1/
-	 EpFlOm2SzD+ew==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT schema
-Date: Mon, 28 Sep 2026 07:44:46 -0500
-Message-ID: <20260928124448.3754740-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCCMf4u2"
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c1e3be1093so1250820b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:45:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790599511; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qS5s5YTSbzxMFUuXFKuLTiO4GeC8veRZ8uChKvzPNuEh4bw++R93JdZwJzt1HSKjgK
+         2jmaksiV9wzbfHMfuW5B0/FLa2w5fvKH6T+CEsfo+CmpCGzPu/F0Em1jvohNTGAmTIFG
+         dPYOw1yh4hMOrfczwxIG5iGFktvfPSg69hHeLIqeR6uevqgYtkAPz8FXKKela+Jax8YB
+         rZ6fAWZ/PVg9eFUwsnozsETX35RXfaRpd79Azuxg1erGMlsfkEVkEYu2fuwTvh3MtdrW
+         kfLVNpolEL0GPLbwYf+rUzOVa46GIunM/gWhI7otXTNt6yFsGdZ39ihsOAEsFQBaXtXT
+         kFsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
+        fh=lD7r8qNwh+p4PQAgKf5KsCcH5Z5lK+8yrzEtxPazWlk=;
+        b=NqbChxf1WtUOYFEzJioeD5v2x6FHlgPJobXlhttDOcR5Spej2XKB5QQVtwvSwZm3b/
+         zXFDDNwHNxAFyHw8KQAouM94U6J9lL/XRwYUjxcTO44SqrvXLU/ipD0mp7NZLTpRNRg+
+         KDV7MoausJRFGc4Kgf5Qj67Uq8ihgmeoKFnrPJEu+18Bd/zxa0Yi2ij0cQp80e5j67d9
+         7+SBVyUdReOreuX5W2rIWG+ATkW+xK9N64CrJ/Ub8/9jbIueYBoksZiI9B+ZyKQ2qeLS
+         VzBAebpqOEyqPZ/xYuHxBtGZ0MQnXO8QVL866E3dQCl8MPOWWxNBuhCAWTLnJVQdOfn3
+         ZT7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790599511; x=1791204311; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
+        b=WCCMf4u2AjHud1qCNQ0sC5XzY75zPL+xRzdxVkKDRUooLOnn/6Fi59ETIN+zeXyXK4
+         0Uej8Q+ZarRRRnTVJoBUY4TRiDBFGkFvvXOrzCIdPG4c2MHYlpMYsrcOhZofI40Rt8qj
+         2gs0KQY6ycDs1pH8vy96JlRoAO8nSl++eOpJUojuIrlJyj668PCdaZ+bwuMw/gElBT4q
+         tUuKVEVhNvDWZDOuaYeoYKui09K2oKxKLxLtHe6vY/HMtKnQaE+QkW9e/IYjCjccN2rL
+         SDIExMwB7ajK6iSCjdPdw/aNyDErSpvwFMt4P8szLZiv4fioYzoFIRtWJqfUNXK2oVNs
+         cLaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790599511; x=1791204311;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
+        b=x1otOkOEzCH8oe2uOY+o55dGHkhxFLfVdaTeibFh8LMXqKoKGw/Jk3Q0YgQPA8IEGL
+         a2y2SuDxB7qbO6UwOxAmqa7y4OAKykeZzdLCL8KDAqS2zJVvGcfG80zliM603WsMnG/F
+         qwjWMYl36yxb0U0PWa8zBGiDnX4te1gcS/NJhqmNqvqhNppO3LO97A7R/PZ8zrPcr8oi
+         FK1U6doc+n+ZiLz3yLbaGE3OvjjXKkFLrBqyb3rOEgOPXvXquijxX8RxXHJNKI3qtkvG
+         m5VXC0h8A8b+1uqVZipo88c2cInpnSfsyptlcYtYUNqVprjxiBqC8uIhOLstm2P8894N
+         Jj9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7nvajtcomF042VYpo6ORronxMKeHbJjaWi9hz4Cbe6GiqHLs/Ilvji2/f6+Ud9byZEnqdLdLAQDr2r6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgUsYd/IVgVL4/VVAMhGhU1nl1pH/XinYFH6o6Ydnj+YqbikIu
+	RZpAP3tC7LAyBFoONpKyKxROK49J9WaeAwhLGsA1uOvmt9Jpjhfom8Jg62GRU/rrSmLiPmSc4QL
+	CLHoWUCVV16d9SLIhEMjhIL7Z4aWtqFwJsTHV6zsR0GtxbrALxw==
+X-Gm-Gg: AYBFou3iLEFdwp9/aGz1yIz383lkH6ftoZoT+k/9iuChx+tLDauuCXuvOANxtggOyEP
+	yAYHICbUkHPUdWldDeK1e2alfrHy1tFjQsWUZOMVRPd4NFwX0HBfabgPjQDkNqrpODwy99l2fpy
+	3uq6nhwXhFL5JPxuJ3OREEFDChvpR5Gc8pquiRJNU20VxZ3gKyQrEejhE7X7x5FUSQvN0uL3QuP
+	WauxRKL+WjEnF1msG8ZamPW4Le2Rpcrm1BppRPoFUj4FGR6cQ50p8wPX8ufTBjYlzro9Oxw9Wlw
+	XMfsOAl41Q256vjt2QvAyxn8zsC4FtvjTHVs3myBcdybtVXZ8m2CGYV2IVV8IAMkyabx0ieJG62
+	tpvzSda6EqzvEjKjjBUzL
+X-Received: by 2002:a05:6808:4f2a:b0:4e8:92e5:db3b with SMTP id
+ 5614622812f47-4e8930466c9mr5061632b6e.35.1790599511413; Mon, 28 Sep 2026
+ 05:45:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
+ <CANOyQmGkGwSkwUj-NOKzhQ_mgapoqqoOLaqXaGAjWK8jiknarQ@mail.gmail.com> <20260928122822.JdtAHH3g@linutronix.de>
+In-Reply-To: <20260928122822.JdtAHH3g@linutronix.de>
+From: Jason Mike <jm5905938@gmail.com>
+Date: Mon, 28 Sep 2026 20:44:59 +0800
+X-Gm-Features: AclHuK85xEilyaFEaA6Ff-fETSVKq3q1FX0B6TRO8Aa1XTtbukC6Oiy0wX_0q1I
+Message-ID: <CANOyQmGkfZs8z2fcDa0fN508MV2aahvq4Gg41BCxUOeMqCLONg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] HID: picolcd: Move output requests out of spinlocked sections
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
+	linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
+On 2026-09-28 14:28:22 +0200, Sebastian Andrzej Siewior wrote:
 
-Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
-properties which were not documented.
+> This is not limited to PREEMPT_RT.
 
-The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
-optional.
+Right, thanks for the correction. PREEMPT_RT was only the configuration
+where I reproduced and tested the issue; the bug itself is not
+PREEMPT_RT-specific.
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v2:
- - Fix example node name to 'dma-controller'
----
- .../bindings/dma/hisilicon,k3-dma-1.0.yaml    | 87 +++++++++++++++++++
- .../devicetree/bindings/dma/k3dma.txt         | 47 ----------
- 2 files changed, 87 insertions(+), 47 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
- delete mode 100644 Documentation/devicetree/bindings/dma/k3dma.txt
+> picolcd_data::lock. The important part is that the lock is a spinlock_t.
+> Non-PREEMPT_RT builds should complain here, too.
 
-diff --git a/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-new file mode 100644
-index 000000000000..e60f2a572272
---- /dev/null
-+++ b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dma/hisilicon,k3-dma-1.0.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon K3 DMA controller
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - hisilicon,k3-dma-1.0
-+          - hisilicon,hisi-pcm-asp-dma-1.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  '#dma-cells':
-+    const: 1
-+
-+  dma-channels:
-+    description: Number of physical DMA channels supported.
-+    maximum: 32
-+
-+  dma-requests:
-+    description: Number of virtual DMA request lines supported.
-+    maximum: 32
-+
-+  dma-channel-mask:
-+    description: Bitmask of usable DMA channels.
-+
-+  dma-no-cci:
-+    type: boolean
-+    description: DMA is not coherent with the CCI.
-+
-+  dma-type:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: SoC-specific DMA type name.
-+    enum:
-+      - hi3660_dma
-+      - hi6220_dma
-+
-+  interrupt-names:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - '#dma-cells'
-+  - dma-channels
-+  - dma-requests
-+
-+allOf:
-+  - $ref: dma-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: hisilicon,k3-dma-1.0
-+    then:
-+      required:
-+        - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dma-controller@fcd02000 {
-+        compatible = "hisilicon,k3-dma-1.0";
-+        reg = <0xfcd02000 0x1000>;
-+        #dma-cells = <1>;
-+        dma-channels = <16>;
-+        dma-requests = <27>;
-+        interrupts = <0 12 4>;
-+        clocks = <&pclk>;
-+    };
-diff --git a/Documentation/devicetree/bindings/dma/k3dma.txt b/Documentation/devicetree/bindings/dma/k3dma.txt
-deleted file mode 100644
-index 10a2f15b08a3..000000000000
---- a/Documentation/devicetree/bindings/dma/k3dma.txt
-+++ /dev/null
-@@ -1,47 +0,0 @@
--* Hisilicon K3 DMA controller
--
--See dma.txt first
--
--Required properties:
--- compatible: Must be one of
---              "hisilicon,k3-dma-1.0"
---              "hisilicon,hisi-pcm-asp-dma-1.0"
--- reg: Should contain DMA registers location and length.
--- interrupts: Should contain one interrupt shared by all channel
--- #dma-cells: see dma.txt, should be 1, para number
--- dma-channels: physical channels supported
--- dma-requests: virtual channels supported, each virtual channel
--		have specific request line
--- clocks: clock required
--
--Example:
--
--Controller:
--		dma0: dma@fcd02000 {
--			compatible = "hisilicon,k3-dma-1.0";
--			reg = <0xfcd02000 0x1000>;
--			#dma-cells = <1>;
--			dma-channels = <16>;
--			dma-requests = <27>;
--			interrupts = <0 12 4>;
--			clocks = <&pclk>;
--		};
--
--Client:
--Use specific request line passing from dmax
--For example, i2c0 read channel request line is 18, while write channel use 19
--
--		i2c0: i2c@fcb08000 {
--			compatible = "snps,designware-i2c";
--			dmas =	<&dma0 18          /* read channel */
--				 &dma0 19>;        /* write channel */
--			dma-names = "rx", "tx";
--		};
--
--		i2c1: i2c@fcb09000 {
--			compatible = "snps,designware-i2c";
--			dmas =	<&dma0 20          /* read channel */
--				 &dma0 21>;        /* write channel */
--			dma-names = "rx", "tx";
--		};
--
--- 
-2.53.0
-
+Agreed. I'll update the commit message in v2 to make that explicit.
+Thanks,
+Aveline
