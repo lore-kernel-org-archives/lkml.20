@@ -1,127 +1,115 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1298F4E01E1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AAB23EAAD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607661; cv=none; b=YHszPLUR6xnV86xpL9Bb6w2wRS7oRoEVBEb7kZeSdGrTcvZi/+rvib+BjkpP0YImxBSWY6NCEgjwx40ATN8tvdvjdpNbrBY4QiUSvyxr5XgGUYWvPMiZ8p9dzBcbl/hkdCL+vxRTRd4/S8L2Ld6+WpbG7A9SObSO9u1lKK0d2II=
+	t=1790607662; cv=none; b=pVZ7SK4MiaDA/tqhLQ08QUKrXqS/pXdL736dxHwD92i9S5ZaAUurqPwkZOizj+ndSNHQEMgXDU9xV2e9uH4tLWHQa5tf2fGVmY2HO3sqqepS4k0RnuRxSFWg7Vi7g6+WUoLS5bQGsab84Dp5CamrrWR1cSDEZ/mZBuXQVpPMvKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607661; c=relaxed/simple;
-	bh=GXO6lAFxoFQEwQkkMLCI0y+cMQX6YMSHGHt+/E1eEYo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=td5J0OktmFWTjbeXlNIm7OjEXJ7PjrHSlnf71ltCiG44W4V+zEl7nqQ3CSmxsimY7pO9A3qL1iE8KIx2lAqO0IOwuUTDuNPniZie4z+oaUslXyP3sAt9X+kvoKAOyXTylsw4h280246eUKRjMb1aRXfZijC3gR5EUfaf1lWc620=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBpHsL39; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790607662; c=relaxed/simple;
+	bh=nGJsllp8L7sqYAKIQ2/Hr/XmIXmSD+YY1xB0lRGMVQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qe31ZX+JUx4z5nlEcd3NNlJlza1v4k5oU7Xa4Cl9F5e0hJkt5b4sgSYwh0QSZDV3uf+53CkoO8AfnedA7CtohXjBEH8A8Q0+b+sMVgZtul5D9VBaM8PQOgT/LnCzd/vsf+N0ZevLKy4XWs2DQ+tT5p8ZPczWzKtX0M/Kla51OJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SkkpiHM2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=mfQtQHKj; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBpHsL39"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso11320945e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:00:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SkkpiHM2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="mfQtQHKj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790607659;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vKOeRv5jdbU0/NaEiGEDb5uvk7fcRI56Q4PTcfyI8cI=;
+	b=SkkpiHM21cgnl7MQUfi5AmUBz+j+TATww0n0vZsFPfioLmHPRA8iGMADLrKN/7UvlyzQxL
+	Pw+Xp6xigHiPn0Zio5jj3J2tojL+1dDSHuz1Tgxp68gOGlIqGbXhqlEUs4hNZ0SpbEQNJz
+	4rsEOe8kBSvYDrM4IFFTi0Zt2LlGKok=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-385-7qmDrxsWPNW5-8RtS2mMCA-1; Mon, 28 Sep 2026 11:00:52 -0400
+X-MC-Unique: 7qmDrxsWPNW5-8RtS2mMCA-1
+X-Mimecast-MFC-AGG-ID: 7qmDrxsWPNW5-8RtS2mMCA_1790607651
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e635a6002so38217325e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:00:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790607656; x=1791212456; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
-        b=rBpHsL39O+k1l9AUYeSXFOO3t+89j+XWHx09xnFuyUjXdsG9Z5q6AJQVwnwRB88Mo3
-         1C+K6IxYtpiGJ24Xpec/jbR48xYBnw9uiql4QOinM7ccOLoqpv+oO4EkqKcvOEKcNzpP
-         bJdcNVDAcVtzdNbMbr3gnuAIpH5GunfomdsNp93WNzpliSmpY+kAFTXcj+N8C8t7togX
-         XbGwS52OqhH7ApSlregjT7eo9VQKZNRwBAivFTuYBNU42f0VKmi0kAcI8bjMfKZnX9/D
-         1BPe7rWmoEZfpxZ4oDgewgtIg7PUhAeE3TyJC+ruhP+9+qcp3fVn/VhyAp5MoKyOybXt
-         z0Bg==
+        d=redhat.com; s=google; t=1790607651; x=1791212451; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vKOeRv5jdbU0/NaEiGEDb5uvk7fcRI56Q4PTcfyI8cI=;
+        b=mfQtQHKjb6ErSZEeeZuQrJIvPVixHTpQ3i2rOJZsgWKJy/PxRvjZqRjA3nsZy3Hd8l
+         1noZ6Nn+D320Y3RmH08aznu+6WmNIWLaH5L2pLUMm6HM/YLKSEgv0lqPjF+wKZgKCaGO
+         MfhGhqSH8IGolDES8VcjzqASbgRv08ITUj7s8OBb9XD3N7u/cv1paHQfJx+WYfrFYc1r
+         3INiRbms+iFJ3kVDRIDOmiThd7vaXBE9HgRrscvg9Dw9ltLRG8gqYNrK8mb7o7qrqamC
+         QE9o/sGfGKuIirWPjDbKv9PtdKyoPmbw/ju2trZnCwOGJF/O/dJJBSzP7S6qHzUHxtQo
+         nr2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790607656; x=1791212456;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
-        b=IvUSFb9lSMc2Q3AOZLsUzbdYjj2dK1Eu9r15WUcb98eBzJjIQfTw105oNUL/95opQ9
-         jVlVhihxXRpcgXXsaqDy69ghsRSK15IUQAiyI2LNwY5imyfHXpldPm8zf7HYSs3wZ+U6
-         XvyFiJdW8jzLJ4CwaSJ+8FDmE2FoOgQaWirL2twL4+teqe1Q4KFYxgk861Vg6gQ53NTC
-         1gE2U96bmvIyDpdqGRo3rOh6Ezq1tv2jmCTk6cXwYNAM69rlYeGajY5MeSopnrJoX675
-         5fkVF0HRd1VSSqXDnAbuC2phO1z70CfbN+wYvrWso2Qzazz7NmQvUb/Zg0+uJf500iLx
-         Ql3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7V/AyOw0GX+/S4OH5+NNgG/ez0kWJquSOwHCOA9M8Y5OvYJ84Orlr7yldr97Wk5ftR3ha7tUEbTQNSow=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+Wx+UCcWyVT+iFXhWP34cMzDy5DpbxSiFhapVHwc0YDYTBIb2
-	gZPBLNSLHcuGxC98XTP+uSSYe0dcKNT0Jd9tCdVNguhhOqTuogiW6mGq
-X-Gm-Gg: AYBFou0Z/zwlEyv5Y4w8ZaJZ68HsGmY6hSkydDCeCBhXrCNo1XJQwJHel8y/ll7yTZc
-	iMzjvIuZxZnebYCsSmM09N/pIFmKyATLmP10ByxiHNpU4MUsCEu7+NitKsxP4M8YXHxqW27SD7b
-	P7h+jXoCkmHokLIge0AS8MP9c5BXtqEoKB5wWGa7ca5oyhgWjjRm+RCojehv53gpYjbbPyu5RKv
-	v1YW4hIIu1xwqs+6vN54JffjWg+14i7gyeakT3Sn32nWMn1WSJgL+f5AlGZTaQqYI+UrmzfgCe0
-	H/no514+pGlltx3WpGC6cqTBcO6z1vAqQN1t8idTBjwwT/EzuQCH8m05HS5krf61Ey4qC48co8W
-	BygA4Pl5JwePMMDPMJjWwORMADZ0K/YeBGY7DHcGthxuz61cUFchZBi8jLDlcKV6YdPMJGRxeYh
-	apuQAzDTcW+kN+lR5Tu9m7ivftssXwNuozRlB+YhL4uevUocR9/NgxSvQyWxpGd0v2vXUgfS3xs
-	9ghD01gX36hu28Kh0Wh/pP5V5QByLPRghg+uCKQ3pE31rs6Iw8LuxxlpRR7x4Zp5wsRcpE4KWBV
-	J0v5U0yrn7CXdWRtDtr+IthgHC49+yULi1XRgTyFIN9voqC0
-X-Received: by 2002:a05:600c:3b05:b0:4a0:321:6ddd with SMTP id 5b1f17b1804b1-4a003217170mr61722025e9.34.1790607655941;
-        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
-Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm151777245e9.15.2026.09.28.08.00.55
+        d=1e100.net; s=20260707; t=1790607651; x=1791212451;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vKOeRv5jdbU0/NaEiGEDb5uvk7fcRI56Q4PTcfyI8cI=;
+        b=DN8wRLLmC2TSTovBtH5d9m29ZLFyxd9B4tP1GnL4X7MWUF0nvP0WWxSJ72yk1z3Q4Z
+         JusmDFwOUc0Urut1RyFIkLWBaqPwOAs/Q4jWN5G4sge4ZYXFU4qkSJfvTFCclWRE5rZQ
+         yf7DTWRq5dAzbxdovjXbYAoq/njFEPorb9psv+U6zZ6JVyoLhhvWFmS7yHMfVoAwZobb
+         5y4sB86IHoZK3R5nCveMZ4OM5yOMAFW8OkjFObJs11m7eGl0HPscMbKGY+fB/BJpTPBy
+         ZseVMfY6jQoOwcjoT6IYNbzLjo5LjIzkwEo9zJ5dgaNZA55V0w63QdzdQHPRD1Gd2nvz
+         jtUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByn633hlWUjvf2T/FPn0VzlwZHl0CkZYs8DnrGAdl4U+rpXgRlcK5ISFUXdKxlRbRZeItUowNK4/x1GPso=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+DEh7DpMnrXkuw2Mi15wLhG2EYfhyCrnIXbUgSFCi9mAFmpFD
+	KQ+DYgNTON1amKiy25cz5L+bQvOanBRi9OU2U7kB05EuHxZ+MlsZj60s/Jnp5xxKEekmlQ8tIT+
+	9bFwTYvNSkyJHKqmsiK+bZNTg9nRnEYj4ekGgVIRYwY6fC6hxtvStaT4LX5QDRMTyBkY3jAdVGg
+	==
+X-Gm-Gg: AYBFou06ov/Fw6Ll/H28yL9dQD9HeJW6NO9456p2/ult58xXzq81FLXLrApTl7uHIJ4
+	y63Pw07qq+NwhVZ8+Tiswa7pfJts43UXiGW5jQlH3aIMmXzzcp6k8GBjxqQSbxkSuyeVuUKjSrC
+	AZjEU438TFBFTg+pVPYP7skwBWy3XaQ/H0flhl3Y6ZbRXvpt/qyqOA8iPW5lJEZH+r9C9YNx9V3
+	YnIh4hO4I6OKMQV8qYV9OfJ0s1Di8eZSyN8uqTNpBFQgckQhZbY+R9Rfd0jZqGAUEKHJfF0iIwr
+	f3ScA1u+m0Q/VQllQqRPzzxzoj51ErXuxiqy0CIOuptXgNnQTsyJfghhEKdN5oQtw9a7KJCULPl
+	FxsU=
+X-Received: by 2002:a05:600c:46c6:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-49ffe88e87dmr94650105e9.15.1790607651056;
+        Mon, 28 Sep 2026 08:00:51 -0700 (PDT)
+X-Received: by 2002:a05:600c:46c6:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-49ffe88e87dmr94649615e9.15.1790607650593;
+        Mon, 28 Sep 2026 08:00:50 -0700 (PDT)
+Received: from sgarzare-redhat ([5.179.146.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm151770215e9.15.2026.09.28.08.00.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
-From: Franz Schnyder <fra.schnyder@gmail.com>
-Date: Mon, 28 Sep 2026 17:00:46 +0200
-Subject: [PATCH] arm64: dts: freescale: imx95-aquila: Enable I2C_3_DSI1 on
- Clover board
+        Mon, 28 Sep 2026 08:00:49 -0700 (PDT)
+Date: Mon, 28 Sep 2026 17:00:47 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, bobbyeshleman@gmail.com, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] vsock/test: cover receive queue hints
+Message-ID: <arqBCldsgfzf1nUW@sgarzare-redhat>
+References: <20260923184008.153541-1-devnexen@gmail.com>
+ <20260923184008.153541-3-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-imx95-aquila-clover-enable-lpi2c8-v1-1-9a9755acb8cf@toradex.com>
-X-B4-Tracking: v=1; b=H4sIAB2BumoC/yXNQQ6CMBBG4auQWTsJHYNQr2JclPqrY2rBVggJ4
- e5WXX6b91bKSIpMx2qlhFmzDrHA7CrydxdvYL0Uk9RyqK10rM/FNuxekwbHPgwzEiO6PoDDqOI
- 7RmvMvoE10gqVzphw1eX3OJ3/zlP/gH9/w7RtH2AAF+uFAAAA
-X-Change-ID: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Antoine Gouby <antoine.gouby@toradex.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Francesco Dolcini <francesco@dolcini.it>, 
- Franz Schnyder <franz.schnyder@toradex.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923184008.153541-3-devnexen@gmail.com>
 
-From: Franz Schnyder <franz.schnyder@toradex.com>
+On Wed, Sep 23, 2026 at 07:40:08PM +0100, David Carlier wrote:
+> Add io_uring receive tests checking IORING_CQE_F_SOCK_NONEMPTY across a
+> partial receive, draining while the peer stays connected, EOF, a
+> nonblocking receive on an empty queue, a zero-length request, and a
+> multishot receive with provided buffers.
+> 
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  tools/testing/vsock/util.c             |   9 +
+>  tools/testing/vsock/util.h             |   1 +
+>  tools/testing/vsock/vsock_uring_test.c | 391 +++++++++++++++++++++++++
+>  3 files changed, 401 insertions(+)
 
-Enable lpi2c8, which is used for the I2C_3_DSI1 signals on the Clover
-carrier board. It was left disabled by mistake in the initial commit.
-
-Fixes: 3f519121e120 ("arm64: dts: freescale: imx95-aquila: Add Clover carrier board")
-Cc: stable@vger.kernel.org
-Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-index 365bce73eddd3..07bf53240958b 100644
---- a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-@@ -197,6 +197,11 @@ &lpi2c5 {
- 	status = "okay";
- };
- 
-+/* Aquila I2C_3_DSI1 */
-+&lpi2c8 {
-+	status = "okay";
-+};
-+
- /* Aquila SPI_1 */
- &lpspi6 {
- 	pinctrl-names = "default";
-
----
-base-commit: bf184a29ad1b33bd8922029eb0ca3f2866007258
-change-id: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
-
-Best regards,
---  
-Franz Schnyder <franz.schnyder@toradex.com>
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
