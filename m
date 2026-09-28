@@ -1,109 +1,232 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27BC3839A3;
-	Mon, 28 Sep 2026 12:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DAF3D5C12;
+	Mon, 28 Sep 2026 13:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600399; cv=none; b=fvlT3BlvIZo6TCxyODEINK7ZWVQEVRPR4VBIeFuaITJUNekD3LCAtbdXmnCVYt1+Nra3r2KlHq/mS/p09n2ErD0JPvN98VJPwDycJkRpcjIPttsJF2/QnTbP2/hfZNmaFIRTh2Q7eQtLaCztIjoCEjT8eb5HzBql7vgqLop90xo=
+	t=1790600404; cv=none; b=XCKzVkmeNn8AugBeTZ5LHHNqjey2aqN7a5vmJrr68TGscpbtBl6Mb4kGBVkKl3x7839IYH+i+wcYWWRIH6QRURi10MUtgLBFVIFHs6D94cK1VsCTuqD3SYACNjea8bI3q31iRZW16f0HPSjweypsSML7UU0dqOFd/dvqpXR5Yjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600399; c=relaxed/simple;
-	bh=ZZqnXXy1+FwVGUghP1bNR9O8KWl+oZKLZs1e+0rpo+Y=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=V5ODnfYXqveFO6AhjrfgjJuMHnBgTXdvzS6owJxgJ8FnMksPnWKQB9byfjNIOZNh/v11E7YNFXOTl9LiZ90C2sTchFfLz6oNizlBUDIFn+cOvsFO/5M4s8HIJed4OrYkSOPinpSd2LAS1Gk3lsfvJou3GYNEZaBlKWw0EcH7yNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EFi9IQuT; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EFi9IQuT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790600398; x=1822136398;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ZZqnXXy1+FwVGUghP1bNR9O8KWl+oZKLZs1e+0rpo+Y=;
-  b=EFi9IQuTF8VUPSFuJ0g9NUPRcOqVuzV/a+5ppnSfmDb82e9thpc62QrY
-   IWgOaG1Ay/y211M9sMrACVDPCGZWNmq3Ts8xBIQsMpYCJn1zAn/A+HMJs
-   tKwcC7eu2jAZR8yYHV7WIvVscH2t9MLP0MeAyYLIJytWP5rw42YKueGM+
-   HrXfng7PnE3SgKT03pabpUCHNwQJrymp5ZhTc7WaJ23ZIGGG5r5YBpLlU
-   K87nK17XfslycKBvBU50Obfi4+Pl4giMHkYw+fAE4px8P8rpgLTjNaQnd
-   FprWysI/NwkMIXNVpKTTWMPZlaBkN3U8Zu34PxHZkiYeuFVjFRrR+t7Ea
-   g==;
-X-CSE-ConnectionGUID: TKue2eRZQ7CcHITxOxDUKw==
-X-CSE-MsgGUID: twplA6Q6TQScXvBBFVuOVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90349873"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90349873"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:59:57 -0700
-X-CSE-ConnectionGUID: KI+8cUNnR1+54rg4z/kupQ==
-X-CSE-MsgGUID: pcmIGNDDSRKIpHfhWBMAHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="275170226"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.109])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:59:55 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 28 Sep 2026 15:59:51 +0300 (EEST)
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-cc: Muhammad Bilal <meatuni001@gmail.com>, Kees Cook <kees@kernel.org>, 
-    Andy Shevchenko <andy@kernel.org>, linux-hardening@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] lib/string_helpers: add ESCAPE_BACKSLASH flag to
- string_escape_mem()
-In-Reply-To: <CAHp75Vdj8qVY-hCoCxxd1Pg2JaaDjc+QgAK-G=w+Cb=FTYYJEQ@mail.gmail.com>
-Message-ID: <a2687bd9-8cf7-1d08-41fc-9d6e69b5ca17@linux.intel.com>
-References: <20260926205708.384308-1-meatuni001@gmail.com> <CAHp75Vdj8qVY-hCoCxxd1Pg2JaaDjc+QgAK-G=w+Cb=FTYYJEQ@mail.gmail.com>
+	s=arc-20240116; t=1790600404; c=relaxed/simple;
+	bh=F3r18ExGbPm4dhGR+DFniH9A9lokSPXbe7fETSHTj/U=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DgX4Sgm3OHgky/VjmKQLQ8SWGVG4H6fcMf6xQnMXG+DPc5to4c3O4uWmvtU4bWKvcMP6d5bXpm2RoQqt///RcZWQGvZ2fRXa01Ehl2sjHJvVl3Ezs+9x68xkNzateWfMNGudasjxGOZyDO5PMcBlQ8wyu92bN58+se1pLOcfQYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7cf4be08bb3c11f19a56ed5b684f684d-20260928
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:55f35981-00d2-4575-b6c9-7b287aadb6f6,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:55f35981-00d2-4575-b6c9-7b287aadb6f6,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:c9b1ec987c3220615bbed103939654c3,BulkI
+	D:260927180756KXK67MMP,BulkQuantity:2,SF:17|19|64|66|78|80|81|82|83|102|12
+	7|841|865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil
+	,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BR
+	R:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7cf4be08bb3c11f19a56ed5b684f684d-20260928
+X-User: lienze@kylinos.cn
+Received: from [192.168.3.106] [(111.193.136.161)] by mailgw.kylinos.cn
+	(envelope-from <lienze@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 490693840; Mon, 28 Sep 2026 20:59:49 +0800
+Message-ID: <b1774aea-aac7-4399-815e-19b830d883a9@kylinos.cn>
+Date: Mon, 28 Sep 2026 20:59:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1885734108-1790600391=:1168"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1885734108-1790600391=:1168
+User-Agent: Mozilla Thunderbird
+From: Enze Li <lienze@kylinos.cn>
+Subject: Re: [RFC PATCH 0/4] rust: damon: a first small step, plus a Rust prcl
+ sample
+To: SJ Park <sj@kernel.org>
+Cc: ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
+ daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
+ work@onurozkan.dev, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, damon@lists.linux.dev, linux-mm@kvack.org,
+ enze.li@gmx.com
+References: <20260927100735.41931-1-sj@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260927100735.41931-1-sj@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026, Andy Shevchenko wrote:
+Hi SJ,
 
-> On Sat, Sep 26, 2026 at 11:57=E2=80=AFPM Muhammad Bilal <meatuni001@gmail=
-=2Ecom> wrote:
-> >
-> > ESCAPE_SPECIAL escapes '\\', '\a', '\e' and '"' as one group. A caller
-> > that wants '\\' escaped but needs '"' left untouched, because it has
-> > its own handling for quotes or because quoting is not meaningful in
-> > its output, currently has no way to pull just the backslash case out
-> > of that set.
-> >
-> > Add ESCAPE_BACKSLASH, which escapes only '\\'. It can be combined with
-> > ESCAPE_SPACE, or used on its own, without pulling in ESCAPE_SPECIAL's
-> > quote and control-character handling.
->=20
-> But why? I believe it can be done in the current implementation using
-> the last argument @only (id est use the list of the characters you
-> want to escape).
+Thank you for the detailed reply.  Comments inline below.
 
-Ah, that's my fault for suggesting this and not noticing there was way to=
-=20
-negatively filter them.
+On 9/27/26 18:07, SJ Park wrote:
+> Hi Enze,
+> 
+> On Sun, 27 Sep 2026 15:28:08 +0800 Enze Li <lienze@kylinos.cn> wrote:
+> 
+>> Hi SJ, hi all,
+>>
+>> Almost a year ago, right after a memory-leak fix discussion on this list, I
+>> asked whether introducing Rust for some DAMON modules could be worth
+>> exploring as a proactive measure.  SJ's answer was positive: he was open to
+>> Rust adoption in DAMON, both in kernel and user space, and even mentioned
+>> he had been wanting to write a Rust sample DAMON module himself since LPC,
+>> but had not found the time yet [1].
+>>
+>> So, here is my attempt at making that start happen.  This RFC is
+>> intentionally small: it adds just enough Rust support for DAMON to port the
+>> proactive reclamation sample (prcl.c), and nothing more.
+> 
+> Thank you for this patch series!  Yes, I'm interested in Rust, though I didn't
+> have sufficient time to dig in yet.  I'm planning to attend Rust for Linux
+> training day [1] on next Sunday.
+> 
+> TLDR: I feel like we might need to wait or focus on module parameter support in
+> Rust, ongoing DAMON extension works before adopting Rust in DAMON.  Also, I'd
+> suggest starting with wsse, which is simpler.
 
-> > This only adds a new opt-in flag; no existing caller changes
-> > behavior.
->=20
-> No test cases --> automatically NAK.
->=20
-> ...
->=20
-> Also you missed printk() update and respective documentation.
->=20
->=20
+Agreed, and after thinking it over I am fine with deferring the series.
 
---=20
- i.
+For context, the original goal was never really the sample itself: what
+I was hoping to start was a thin Rust compatibility layer for DAMON --
+the damon.rs wrappers -- with prcl serving only as its first in-tree
+user, to validate that the wrappers are usable so that others can build
+their own DAMON-based modules on top of them.  It is therefore a bit
+unfortunate that the first step ends up blocked partly by something
+outside of DAMON, namely the lack of writable/sysfs-backed module
+parameters in Rust.
 
---8323328-1885734108-1790600391=:1168--
+That said, I understand the position and I do not think waiting is the
+wrong outcome: the parameters have no committed timeline, and the DAMON
+API reconstruction is actively changing the interfaces the wrappers
+would sit on, so starting now with a debugfs-only interface we already
+know we want to replace would just add churn to moving APIs.
+
+> 
+>>
+>> The series has four patches:
+>>
+>>    1. Generate Rust bindings for include/linux/damon.h.
+>>    2. Add thin safe wrappers in a new rust::kernel::damon module: contexts,
+>>       targets, access patterns, quotas, watermarks, schemes, plus
+>>       start/stop.  Everything FFI-related is confined to the wrappers, with
+>>       the usual SAFETY comments; error codes are returned as kernel::Result.
+>>    3. Add samples/damon/rust_prcl.rs, a Rust port of prcl.c.  It watches the
+>>       virtual address space of a target process and pages out cold regions
+>>       with the DAMOS_PAGEOUT action, same access-pattern filter as the C
+>>       version.
+> 
+> I'd suggest starting from porting wsse, because it is simplest.  By scoping
+> down to it, you could drop the wrappers for DAMOS.
+> 
+>>    4. Add a MAINTAINERS entry for the two new files.
+>>
+>> Two differences from the C sample are worth noting.
+>>
+>> First, the control interface.  The C prcl sample is driven through
+>> runtime-writable module parameters (target_pid and enabled, the latter via
+>> module_param_cb), neither of which Rust can express yet -- its module
+>> parameters are load-time only and do not show up under /sys/module/, and
+>> there is no general sysfs abstraction in mainline or the RfL rust-next
+>> tree.  The debugfs abstraction, however, already provides the safe
+>> read/write wrappers we need, so the Rust sample exposes the same two knobs
+>> under /sys/kernel/debug/rust_prcl/.  This is a temporary detour, not a
+>> design preference: the sample will be switched over to match the C
+>> interface once Rust supports sysfs-backed module parameters.
+> 
+> Do we have a timeline for module parameters support in Rust?  I'd prefer to
+> avoid use of debugfs and directly start with sysfs.
+
+I am not aware of one.  rust-next still registers Rust module
+parameters with perm 0 (load-time only).  I will keep an eye on the
+rust-for-linux list; if anyone picks it up, I would appreciate being
+Cc'd.
+
+> 
+>>
+>> Second, the functional scope.  The C sample also repeatedly reports the
+>> estimated working set size via a repeating damon_call() callback.  This
+>> initial Rust version covers only the core monitoring/reclamation path
+>> (context, target, PAGEOUT scheme, start/stop); wss reporting needs safe
+>> wrappers for damon_call() and region iteration, which will come in a
+>> follow-up series that also makes the Rust sample's output match the C
+>> one's.
+> 
+> As I abovely mentioned, I'd prefer porting wsse first, and later extend to
+> DAMOS-based samples like prcl and mtier.
+
+Noted -- when this restarts, it will be the wsse-scoped version, without
+the DAMOS wrappers, and the compatibility layer will grow around only
+what that sample actually needs.
+
+> 
+>>
+>> A quick word on the longer-term plan, so the design discussion here can
+>> happen with the destination in mind:
+>>
+>>    - Over roughly the next year, I would like to port the other two DAMON
+>>      samples (wsse and mtier) to Rust as well, and let the DAMON Rust
+>>      compatibility layer grow together with them, wrapping only what real
+>>      in-tree users need.
+>>    - Once that layer has matured, I would be happy to try Rust for the
+>>      production modules - damon/reclaim, damon/lru_sort and damon/stat.
+>>      That is a much bigger step, of course, and it only happens if SJ is
+>>      comfortable with it.  Consider it a willingness statement, not a
+>>      promise.
+> 
+> I think that's a good plan.  However, I'd like to call out we will also need to
+> make each step with good and sufficient discussions.  That is, for each step,
+> we will discuss if the previous step change was helpful and therefore make
+> sense to proceed to the next step.  If the conclusion is oppostie, we could
+> even revert the previous changes.  It would be great if we could make it driven
+> by data.
+> 
+>>
+>> Regarding the MAINTAINERS patch: I listed myself for the new files, but did
+>> not add SJ as a reviewer yet, since he mentioned limited bandwidth for Rust
+>> work in that earlier discussion.  The existing DAMON entry already covers
+>> samples/damon/, so the sample reaches him regardless; adding him to the
+>> RUST [DAMON] entry would only additionally route future changes to
+>> rust/kernel/damon.rs his way.  Happy to add the R: line if he wants it, or
+>> leave it out if he prefers.
+> 
+> I think I should at least review the patches.  Also I feel I am responsible to
+> the maintenance of the code.
+> 
+> We are extending DAMON to work for not only data access but general data
+> attributes.  I'm also planning to refactor DAMON API quite a lot in near
+> future.  Some interfaces will be added and removed.  DAMON API callers
+> including sample modules would also need to be changed a lot.  If we make the
+> Rust sample module with the current API, we may need to make changes not only
+> in C but also Rust parts.  I concern if it can introduce more breakages that
+> require unnecessarily long time to fix.  Among all, my lack of Rust
+> understanding is a big concern.
+> 
+> I understand this patch series is a kind of experiment rather than for a real
+> use case that has a hard deadline.  If I'm not incorrect, I feel like this
+> might not be the best time to start the experiment.  Could we wait until
+> fundamental parts including module parameters support in Rust and ongoing DAMON
+> reconstruction, or my learning of Rust are done and stabilized?
+
+Yes.  I will park the patches and restart once both are true:
+
+1. Rust supports writable/sysfs-backed module parameters.
+2. the DAMON API reconstruction has settled enough that wrappers can
+   target the new interfaces directly.
+
+Meanwhile I will keep working on DAMON in C as usual.
+
+Enjoy the training day, and good luck with the Rust learning.
+
+Thanks,
+Enze
+
+<...>
