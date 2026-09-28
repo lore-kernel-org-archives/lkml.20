@@ -1,147 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5837746F484;
-	Mon, 28 Sep 2026 08:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC69A37C11F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583786; cv=none; b=OAAJQRLyxlBcn+JlMTpVs9KvfXKa1W/KZPKbhg1KIEf468pmimqtohsyEmRELnPpD6pt7MpY4jDZ80kv2UNXU8HFrcPxCjs1Jq4dO/3zhxS2TnOnv6Ky6K2QbI+aP7UxCdcipG/s02JqlE9VvFUqXvG17bZgxKNpfWZzzzMO7uU=
+	t=1790583809; cv=none; b=RdmBs1H0zGCw6G4AOg+MNL+z/zyoHcjsIUHFDU4tXixVQ+1S5kYMDGyoKgHYc97sWr1thUBlHHqmBdUWd/CZDVCWtWfZ39gLG8rasx6eRLjA6zBK8V9l4sSe2OoVcq10WuZg5ZF5WDumnSETsnGuYD7RLu2tm9Av6oryLCg6nUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583786; c=relaxed/simple;
-	bh=1wocS/8MUk0c5FYoePcc+sCMjbYoo1qq/BetZNUrGpM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LTGSHrEPaIlHl08egj35eq5f9ojV8syI7cZKDnvIVu7qy7bahhZtsLKGiFLK4O0QpRT2uXnNuWROl/x671bae9fCf6J7qhkJgbAAfb5H6p+8h7S+3Yjn1y2Nzy+TIMSgqJ0Jr2cOfGz+kkipWvcdbGK43C7BQjAZ52aOll0B/L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dFCSke2w; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790583809; c=relaxed/simple;
+	bh=RqUXkvq+UXggpnZUmpB7u7ETkytsnqwUT8y6iZwRB+w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hvlECEnftT8CQi92/t6KyTgvlIcc46LnhrZqUrGdc3VVS4+/gY5Rp6ZRAcVGNVftDfm49Z/S76nMnX6owoLMKhoME3eGVgjfhcpCVotqYmLmIS1aZWRS8Q8gIRoTpYCE05VUuKn02aM11DLQKf4BexV5tDNjvbnhWscABIJo1p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwpDAi+6; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dFCSke2w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790583785; x=1822119785;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1wocS/8MUk0c5FYoePcc+sCMjbYoo1qq/BetZNUrGpM=;
-  b=dFCSke2wKSJEFP4A6p13L9R1QdcFt/uTCcSZvV7NlkZB+a9dDl9vUAP4
-   11oRMbFoyQRnHMt9Y2wbTSQRNkQgaybImTrKXNPj6xflwYKI/9HYLhiHm
-   Xv3ugrWs+KPzVTM2omrjJaVY7DV7hPyy953YrLvYwLjXILVWrhxkJtNfk
-   Ox12LUDm95smlR2Oba5khLzPhvOIT2y+e1vuZ9U2uNQOye575Ze/2Sc9y
-   PPT/uNGFqe3wtrC28Xxl7WthpycOcsfKq1BfC/dkmVTdtv2i6MxPvFXsr
-   0gzBOhUcj7D1GVYxJm7XrKwBcUaGrHDoCwFr7tQP1XU/xdnl7O8wMJLUY
-   Q==;
-X-CSE-ConnectionGUID: ExkWOPogR+CAwgdL8SewKg==
-X-CSE-MsgGUID: AXsQDLXrT4i0xV5URw6mlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108765977"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="108765977"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:23:05 -0700
-X-CSE-ConnectionGUID: U0XgYB7cQzujYAq8DGQ0OQ==
-X-CSE-MsgGUID: WlXpRSZvTRSRmYdNxQYmvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="274220575"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:23:02 -0700
-Date: Mon, 28 Sep 2026 11:22:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Weigang He <geoffreyhe2@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
- parsing channels
-Message-ID: <aroj4-Wag_kxuBxH@ashevche-desk.local>
-References: <20260926055456.3289189-1-geoffreyhe2@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwpDAi+6"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2ada3f121so181933a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:23:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790583807; x=1791188607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aCSsLPZpBQSxCmBHl7x2KeIrNsy1qqAi41MGrgkLwNo=;
+        b=XwpDAi+63NsW9c2tCeImVzzVprOgOlUt2bqsB0X/EQfBoH7OR7c3pNzxkMvoliMkFv
+         9nqNpHf2I4RxUjxJ+1laHGZHs9SvxN/+hSHtXbyhr2x+8bi3jum3/zmx+Etj44mSCCUC
+         hAKmcdAeC6sSjU3+h3IwnDs2nLsn9CnwzKHSwcUD5fKy9GAucyram4smdNRME37hR4h5
+         ldo0fKdFkj0LK/N/bdT8BADu0BFwagJIlb0Ih2biKsL+uIbV+vg8dZx+jMUsl7+zPTGR
+         WR++GbQONzpjEvCtmHbo8DfuY+7kWko6wEvq27l8B7RlYFk9yZ2tHukuD5blb9hg3VHE
+         1Ckw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790583807; x=1791188607;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aCSsLPZpBQSxCmBHl7x2KeIrNsy1qqAi41MGrgkLwNo=;
+        b=ccVfPEUAnlPTb4vTi+3iTfCxfzDs5nJrovQOH4RVsZ+OtUOa0taLs/4EVacuC+D4aX
+         tR6LGfij7v4iCEsxr13EuAGEmRjEV/cqOk+nweLRb7deF+V6iLqHcxdvsKW9/2YiZTOj
+         lNBPR/yY+wZ1fxyYPOOA0kLff3ygVZ+cJ7Hz0OhG+AXM8BawolY+psmjUkXnNyC5GLLm
+         jU3u1ezhXdaYP+AFGc+CQNGdm7rGTUjIEdmv9eswVsA1//6qobCS+h8K4NbtRpp6pT6g
+         CdVEfeRWOm1IHm3u7uCyuwJ2fralJo+RXb92jDWknawVJ8Va9CquXj89annLhQciHWPh
+         dEAg==
+X-Forwarded-Encrypted: i=1; AKwUvByi6NF0u7v7BcdrzCSgvq1pjSZ4a4YDOsD/6OJBjORbyPAPDkHwMx5e9emCGqs9H4aiyW1G394oh/2nM18=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNjfdR6nR0Yxj/RTwY+2mrZhzKEEBnQ7hZbXTQAxXbhhbjJ1ms
+	ADIg6kv4OMNw30ePTbaoQWS9zHHzdJNnXfVKNBn2bFMGCO7gYc3NvTZUphHPDs3M
+X-Gm-Gg: AYBFou0vb7QUTICzRyaL+gToI5O7RMFFM0g0ukD5H1UPpXIzgq2nJj+uWITX4tPIUdY
+	EsxQB3wnD5DVaNG7gcr269vupXmSdeV4smF/yTuQ0EsNd9EvjrleIOy926YQsVC0xDF5GqjnzvB
+	jPGFqMBw0lglqBLppBjHXqfyKsTJEjKjbDeur0yf80vmAjO4xbrEdHqsKQmrYJV/8mw6QX1ebXA
+	Ol3COa6KxPYXsivnTpHwITyO4aoohdDJUoNg7JHeDctKKDVO4LwYEdG3psM1NaiHIbpBW/CmkuG
+	16ipJ2snZ+I0ycLNG4aOraxhSVUqaN2tFXVRpzNncsvHeb4DdlzsPtMY4W5QhmjhZJgM7mi+h2n
+	n79rTfa8sXk/mnocxiVVwldgRG2eIDRNdv8EKa4LS48H7EIsUjUNL5dLwUimNt1Y+HW7EVF0sRw
+	cbBks/bSKlblQpCPSvVy6xAce+daQ7zuNj7tSeeoRdMykKv6+KvyqXqfskD8yWkH0za3b3+X8AN
+	4HiUG+UtAsC1A==
+X-Received: by 2002:a05:6a20:4306:b0:3de:4f5c:a9ad with SMTP id adf61e73a8af0-3de4f5cbe8bmr5554848637.1.1790583807126;
+        Mon, 28 Sep 2026 01:23:27 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7ae09698csm1436154a12.31.2026.09.28.01.23.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:23:26 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: krzk@kernel.org
+Cc: abelvesa@kernel.org,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liujianfeng1994@gmail.com,
+	robh@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add Acer Swift SFA14-11
+Date: Mon, 28 Sep 2026 16:23:22 +0800
+Message-ID: <20260928082322.10078-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260928-spiffy-calm-mongoose-828a04@quoll>
+References: <20260928-spiffy-calm-mongoose-828a04@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926055456.3289189-1-geoffreyhe2@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 03:54:56PM +1000, Weigang He wrote:
-> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
-> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
-> channel specs and lets ams_init_module() fill them for the AMS node and
-> each of its children, without telling it how much room is left.
-> 
-> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
-> "channel@N" child after the 10 fixed PL channels. The binding allows
-> reg values 20..50, so a PL node can have up to 31 such children, i.e.
-> up to 41 PL channels, while only 31 are budgeted for it. Together with
-> the 13 PS and 7 AMS control channels, this writes past the end of the
-> buffer. Since the modules are filled in device tree order, the fixed
-> channel blocks copied after the PL node can overflow as well.
-> 
-> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
-> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
-> far out of bounds.
-> 
-> Pass the remaining capacity down to ams_init_module() and
-> ams_get_ext_chan() and fail with -EINVAL when a module does not fit,
-> instead of writing past the buffer. Also reject reg values below 20, as
-> the binding requires.
-> 
-> Found by static analysis tool CodeQL.
+On Mon, 28 Sep 2026 08:39:55 +0200, Krzysztof wrote:
+>> +              - acer,sfa14-11
+>
+>acer,swift-sfa14-11
+>
+>?
 
-...
+Hi Krzysztof,
 
->  	fwnode_for_each_child_node(chan_node, child) {
+As I mentioned in the cover leter, both Swift SFA14-11 and SFA14-11 can be
+found in www.acer.com, but the UEFI firmware reports the Product Name as
+SFA14-11, and S in SFA should have the meaning of Swift. If you think
+acer,swift-sfa14-11 is a better one, I can update a new version with this
+compatible string.
 
-It seems better to switch to _scoped() variant at some point.
-
->  		ret = fwnode_property_read_u32(child, "reg", &reg);
-> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
-> +		if (ret || reg < 30 - AMS_PL_MAX_FIXED_CHANNEL ||
-> +		    reg > AMS_PL_MAX_EXT_CHANNEL + 30)
->  			continue;
->  
-> +		if (num_channels >= max_channels) {
-> +			fwnode_handle_put(child);
-> +			return -EINVAL;
-
--ECHRNG
-
-> +		}
-
-...
-
->  	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
-> +			return -EINVAL;
-
-ENOSPC?
-
-...
-
->  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
-> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
-> +			return -EINVAL;
-
-Ditto.
-
-...
-
->  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
-> +			return -EINVAL;
-
-Ditto.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Jianfeng
