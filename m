@@ -1,79 +1,110 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B154E7800
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F094E73C8
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609064; cv=none; b=Tj5XUMCnx4NY6Ul778okdD858rO7W6f/BdHfoTY4iUlkvH724pOJm2p4B6ejoM97f5bMMBlItSU9BL67iHaao2U+gNR1WjTrNltfX3Tmu7sRnGc6rmIIZv5v7kHxBLSH0WMKkPkCSJ7F76uCGUNqdDwr+gbyKSQHYUbbIlmydgk=
+	t=1790609090; cv=none; b=q02qdtzMunWAsJPft6sWkFKNO89xPnPtFWV1iRf0g4zkAzbOE5izFOyaQxEK7DRwgSaY4FP9DZU6HXaW58JFclCuCSYPdcW9JlFatBRZcAPhaUD2iT3CsCrR1SSaoC53EF2WhVSbHRqXWjDHTtEBXU/PryAROujj0ZoE+jHuhx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609064; c=relaxed/simple;
-	bh=dyMLIIhtRf796L1heZxwAoB97IRGUiGWE3cs34LMKBM=;
+	s=arc-20240116; t=1790609090; c=relaxed/simple;
+	bh=yxtx1EJ3OSLAngmQ5We+tQv0+fpWAPHQncr3wp30thY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b3+57cVcyru1qgIVW65b6N47KIqHJi3Ju0ZRxFRIz/aE5nNa/5wTr+lZaAFvmGkkTf8gTa0wUfLwZMmrbFXLLktp2Ao7OFovB7fQP0Ik4LSLqwPmr+K0NtQAtdXu9YvHhW0udAqG0U4awY33A3WtKN1Lozkho1Srm4hwFfm7YnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S8abMq62; arc=none smtp.client-ip=74.125.224.168
+	 MIME-Version; b=KBinE4Nq9h4AKXthqStIuIrAKBw6i+g9t+UBv93NsJ/ZCrpxvnsuoqSOqTT5AXOfEnsxfUCBk3A9ywqX0IpO2twH9mQvFzfEE7zmR5k7AkdedW10oremtS4EORoLp7qey50K05TNVoKiXgXhSh+m9/0G3PJzHOtuxF05ZnR+rQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pn9ZdRYv; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S8abMq62"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8a886df36f6so16428617b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:24:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pn9ZdRYv"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd53691be5so21540515ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:24:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790609061; x=1791213861; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790609088; x=1791213888; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f8I37KR0AOjGA5YhlZkBOHcbAFH3+6kbNF/UPG8VYmE=;
-        b=S8abMq62X9ehXXRc/tS3CqfY7rJmqjjli0Oulz6fsEu5SlUxes3GZlGkcgGvA8Nwbo
-         Dhk0A27dskW1zuHqICoobcncPe9Ve9pBlX9ROmTUykbvAZxdQhl89Lx8ct3A0yPiRxK0
-         OsWA47m+Ei+5v6hNfcCSqy95sbbftjtHUU4HAzvHZVCtglSsTO+Ril1OWdyW/xPYNv94
-         pCof8lBdoSI1Vh8aiub9eUANJM3uesCE0beHjTtO3fDgl9Rag++RQAMXVHmEjJ0CbP+A
-         rNqjWVDe69VllkhQ+l5UqPwHtT537v3hUNwzFqlCd8g+Ha7qmhoUBfArcN1ANJVnZ8wY
-         RDzw==
+        bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
+        b=pn9ZdRYvlkN3EFcS92im4IWq4r9xRxvYrshv4Q1xuiS+F0Q6TInugqBpxE1cCJPEKi
+         RVnvKxFS1fBtxAP5dXGzfj1uRL/0XT/zYu7+dpWXL6cxBHyjc7qwQlhGgJyVuYtsd5Zm
+         T1z9Df90tFp8nafD49suOZVEHH3GaD7yr4IyMaP19h86GaIdOlDfE/FDPlGGEASfEkm5
+         t0QLxT1NgymuxSqRuD3XxyuCz5nnfAhOHQux10k+lL9Sd9I4/uwSmdIlwiOftk17if3l
+         AUe1qpcJPApLvztKFL4C343Ugtdx01iJQ4uHD3SlX9uzYFrBv3jRZIm2L9/Qvn7qpdD9
+         6FGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609061; x=1791213861;
+        d=1e100.net; s=20260707; t=1790609088; x=1791213888;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f8I37KR0AOjGA5YhlZkBOHcbAFH3+6kbNF/UPG8VYmE=;
-        b=mietuzDMRI98QUjUw6DsrMo2YgQdO2V89wN8rz3Vji4lnZXxotC4zHQxMweeJsfw1s
-         7g9sq1fAYd0owEyah09mnQlXFh7dHvXMvzy81+Rcc+DSRmdRB9Pp7COIQvraUDtOogZQ
-         BVLNCxVR9Q6KSGv6xPPPp+HRA75Qd5cACPlMEZzPalHUAcRfbvA+LyScws7UW5isqYrH
-         o4nY5g1L1bcO4B1mDFma2QV8POX7nKjyKXo/3A6si/Hg9GEmkrZuZfcaZ32W0xMWVjPU
-         b/3Rguuo/iKieI1VtsPu/4yIXiRZaOxQSJXUYTYwvrynTwq5dvv/qBbZd/iW2pv/6VqZ
-         tsuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/83TMdkwCFDyqPSpMIMEnNUbx9k2LitUFYC7jfpq/4pchmRHU4JNs1OT3RsmtC+hObQrzjmzVQnszX5w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZI8fzIMpA9jA/itl/ugBa0i0auGqFlQkhHLyUqttq683CF4ZF
-	XMiNJuahF2pCDQKPnGmtcEu47cORc7A6DgvzG4m740Jw5zHr5LJDx9+Y
-X-Gm-Gg: AYBFou1B6NasUWZ/FDqoF/d8pqoW3CqZEU9RXym58+WDYSbIzm76KdSCP1+2mJKp0j1
-	H+2Irj4rme80xmg25eLcPi9baCeCMFodnf95iUQvx9B7tSNd/qDzFWL7b6Xz9mUsLV82cniRsrD
-	pjFtd18/YtkyGnoA1Krv9rFlacABbhMtOe5bknfFwvpVbkv7GIiln5lxNhCJcawlxfOgISBwLDc
-	KTRdo0YDUHLV+BzcY+zRd4Xz1jBtfZ/U04luLfwOUuMLmwOfSt4PSf4AiIUqXutrTKsGGFPLBnk
-	Xfor45UrbjQmPcv7TK2Fk1jPAaeIVSH6ppt3RdIwhc+SVfGO/Hn2Xo3EMrLkHO24yrzVoUbjiVA
-	QbIz+5EgFM9XNzef6fdzTgge8PXFzbLobUWELKOSQOWoQxSq+OsVqjsN7XMV5O6oIRcy7G1hdrR
-	6VNa0rVXWu0j04NC5KPiC5Xu9cqXtCsMZ4sjbTSSzGskErkVPUrPNXvsbTTATuVQeGLIWKCf+EK
-	qRQh4mdCvVEPcu8d2YUAXCeC3EvaoanbU3QvLppql3vlRby74Td7g==
-X-Received: by 2002:a05:690c:60c1:b0:88a:99a:6ef7 with SMTP id 00721157ae682-8a64e81107amr65370017b3.29.1790609061206;
-        Mon, 28 Sep 2026 08:24:21 -0700 (PDT)
-Received: from llmbox.. ([38.81.85.65])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f882ddsm45777777b3.21.2026.09.28.08.24.20
+        bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
+        b=ie/X1OzaV/tPjAzo+R/COQxyeeJZkdQL2okklNXmVvZi0KeI6rGtbYDHdKReVBiL8K
+         XwX5TFK4JaWgErSo4OUIIUc07lg1ykdcf310cNPGomcc1Ee9H2C7l7DSRSRUj/aQ3ACI
+         9AAPnpJgzRYsx4Ff6NFdnLUHqT+PNGqtzRkWawd+a/4flBbcQf9vCawKcbxh5gTadNTK
+         FVOHWXGYDsTAlTn5B2qbtbGzkqo4W7MCIj5MPWHuccG1KFLs16NJQXwZ0/7inq2Vkpjk
+         u2ORHE3vdsQSxNmjw3I/5NcPap3fx5pWBnZyWzJzdE9ryDjgq3WJ+82ZZPlL8yIdWtdR
+         rHoA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1fDVGZYAyOVWmhtxdkhrPMo6aI7f4TheKfWU8npTCeqRvZAypIfR8TyntV7xCAf8veFNIBjDMut2ZZew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISsB+R7RibWxaA/7EZtMvJhyWEasfA3nPCBA68LM9AxYDKmq/0
+	KcQPm9ksXNKeY5ZgZnIzbkA2E1z7kCgYzVVuxAOZ6nXS/7fc139YNUbA
+X-Gm-Gg: AYBFou1HeCorRfTIXxG0yDGoZ7znbxFvk1atEhDC/mj6xRnNiiilqChzAlvaUiN6f3P
+	DY3iDfavERPnFxXmDIJ/Mx9Jak7C37ZZsuCWqDc0d+5HgYXwIC/O9oMwbl7TSO2ZXJSpSsr5mcU
+	/49KjxcrKKj5qz6V5bAvkv9Gbb5nSPQrhwxVVINXNswJM3gxbNGikQjP0CeaVjjJnLSzvBrqeb4
+	ksPcbJlj/bmLT5jabhanNAQDPGJg8kHfsQn1Mk/D+vaAB735rp4OPox4Ff+PL6krcPvGmIWrCyF
+	eoLUCyQDrdGIqgbBw4dThMcMDgYDUp7l66u5ciLOqVCMO8Uowfelay8SnFmJx/nxb9q9S7W1B7t
+	OjnjDLdTtwz4VjFu2tEZ8sfgUbR1Z4s4LxZGGAzIe3F2V5mY4hiLBNYIxCYv0iT/9toUWISFpi1
+	ZyhHp5GZkm+HEFcMR/g7NFOU1NWNE6XYIpgQCB4gquabt37ZosTGtAlyt5RFj7MHog7cJhpAICo
+	Gx2vNUZoTM1v/wVOELpobiqojZoBGVA++IrZrIZuVc3lDDTT6JAE6TnAbuhCV3UnTht5PzKqjYn
+	mpBvZcURDqnLq9Wqdt1H1mag0rWtwzs/NkFbC1n6qeA7JNn0TzDoFMc9H/Y=
+X-Received: by 2002:a17:903:2408:b0:2dd:c100:9435 with SMTP id d9443c01a7336-2df94c1bc19mr71037265ad.51.1790609088305;
+        Mon, 28 Sep 2026 08:24:48 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dfafe765cdsm25166465ad.33.2026.09.28.08.24.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:24:20 -0700 (PDT)
-From: Michael Jordan <jordan.mymail@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
+        Mon, 28 Sep 2026 08:24:47 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Michael Jordan <jordan.mymail@gmail.com>
-Subject: [PATCH v3 4/4] media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tail 2
-Date: Mon, 28 Sep 2026 11:24:16 -0400
-Message-ID: <20260928152416.766957-5-jordan.mymail@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928152416.766957-1-jordan.mymail@gmail.com>
-References: <20260928152416.766957-1-jordan.mymail@gmail.com>
+	cgroups@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	Alejandro Colomar <alx@kernel.org>,
+	linux-man@vger.kernel.org,
+	Karel Zak <kzak@redhat.com>,
+	util-linux@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Vivi Rodrigo <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	Rafael J Wysocki <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
+Date: Mon, 28 Sep 2026 23:24:38 +0800
+Message-ID: <20260928152438.2694783-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com> <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,96 +113,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The OBSBOT Tail 2 (3564:fefc) has the same firmware defect as the
-Tiny 2: GET_INFO reports 0x03 (GET and SET, no AUTOUPDATE) for
-CT_PANTILT_ABSOLUTE, CT_PANTILT_RELATIVE and CT_ZOOM_ABSOLUTE, so
-uvcvideo returns the last value written by the host instead of the
-current one.
+Hi Andy,
 
-As on the Tiny 2, the device changes all three controls on its own
-(commanded moves, subject tracking, and zoom changed at the camera),
-GET_CUR reports the live values, and no control change events are sent
-on the interrupt endpoint.
+Thanks for reading it, and for the direct feedback.
 
-Add fixup entries restoring AUTO_UPDATE for the three controls, with
-the same flags as the Tiny 2 entries.
+> if the system is under overall memory pressure, why do you care what
+> triggered the particular swap operation that is being processed?
 
-Exposure, white balance and focus are left alone for the same reason
-as on the Tiny 2: their GET_CUR does not track the auto mode.
+You're right, and that question gets at what I actually want better
+than the series does.  The goal is: when there is no memory pressure,
+swap-out may do more work, including allocating memory (compression,
+copy-on-write, filesystem-backed swap), because moving cold pages out
+to make room for page cache is what swap is for most of the time.
+Under real pressure, swap-out must not depend on that.
 
-lsusb -v (device descriptor and Camera Terminal):
+The RFC was the smallest change I could think of in that direction.
+It used "who started the reclaim" as a stand-in for "is there
+pressure", and that is wrong both ways: memory.reclaim during global
+pressure may allocate, while kswapd with plenty of free memory may
+not.  Building on Kairui's suggestion in this thread (swap tiers), or
+on virtual swap, may well be the better route, and I'm looking at both
+for v3.
 
-  Bus 002 Device 003: ID 3564:fefc Remo Tech Co., Ltd. OBSBOT Tail 2
-  Device Descriptor:
-    bLength                18
-    bDescriptorType         1
-    bcdUSB               3.20
-    bDeviceClass          239 Miscellaneous Device
-    bDeviceSubClass         2 [unknown]
-    bDeviceProtocol         1 Interface Association
-    bMaxPacketSize0         9
-    idVendor           0x3564 Remo Tech Co., Ltd.
-    idProduct          0xfefc OBSBOT Tail 2
-    bcdDevice            4.19
-    iManufacturer           1 Remo Tech Co., Ltd.
-    iProduct                2 OBSBOT Tail 2
-    iSerial                 0
-    bNumConfigurations      1
-  [...]
-      VideoControl Interface Descriptor:
-        bLength                18
-        bDescriptorType        36
-        bDescriptorSubtype      2 (INPUT_TERMINAL)
-        bTerminalID             1
-        wTerminalType      0x0201 Camera Sensor
-        bAssocTerminal          0
-        iTerminal               0
-        wObjectiveFocalLengthMin      0
-        wObjectiveFocalLengthMax      0
-        wOcularFocalLength            0
-        bControlSize                  3
-        bmControls           0x00023e3e
-          Auto-Exposure Mode
-          Auto-Exposure Priority
-          Exposure Time (Absolute)
-          Exposure Time (Relative)
-          Focus (Absolute)
-          Zoom (Absolute)
-          Zoom (Relative)
-          PanTilt (Absolute)
-          PanTilt (Relative)
-          Roll (Absolute)
-          Focus, Auto
+> Why can't the kernel figure this out itself?
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
----
- drivers/media/usb/uvc/uvc_ctrl.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+It can: the backend knows whether its writes may allocate (zram knows
+it compresses, a filesystem knows at swapon whether the swapfile is
+copy-on-write or compressed), so it should declare that, rather than
+the administrator setting a flag.
 
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 49ea6a6bcf57..202c2c95432a 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2888,6 +2888,18 @@ static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
- 			UVC_CT_ZOOM_ABSOLUTE_CONTROL,
- 			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
- 			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
-+		{ { USB_DEVICE(0x3564, 0xfefc) }, 1,
-+			UVC_CT_PANTILT_ABSOLUTE_CONTROL,
-+			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-+			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
-+		{ { USB_DEVICE(0x3564, 0xfefc) }, 1,
-+			UVC_CT_PANTILT_RELATIVE_CONTROL,
-+			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-+			UVC_CTRL_FLAG_AUTO_UPDATE },
-+		{ { USB_DEVICE(0x3564, 0xfefc) }, 1,
-+			UVC_CT_ZOOM_ABSOLUTE_CONTROL,
-+			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-+			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
- 	};
- 
- 	unsigned int i;
--- 
-2.43.0
+On the practical questions: v2 does nothing to balance fullness
+between areas or to empty conventional swap, and does not change OOM
+selection.  Those are fair gaps and I'll address them, or say
+explicitly what is out of scope, in v3.
 
+On the recursion question: within the reclaiming task it can't
+happen.  memory.reclaim and per-node reclaim both run with PF_MEMALLOC
+set (memalloc_noreclaim_save() in try_to_free_mem_cgroup_pages() and
+__node_reclaim()), so an allocation the backend makes in that task
+never enters direct reclaim; it either fails or, unless it passes
+__GFP_NOMEMALLOC, dips into the reserves.  Two things do need care.  A
+backend allocating there can drain the emergency reserves unless it
+passes __GFP_NOMEMALLOC or fails fast.  And work the backend hands to
+another thread, such as a filesystem or zvol worker, runs without
+PF_MEMALLOC and can enter reclaim itself; that is only safe if that
+reclaim never waits for the write the worker is meant to complete.
+
+> The remainder of the writeup is IMO somewhat incoherent.
+
+Agreed.  I cut the v1 cover letter down too far and lost the
+definitions it depended on.  v3's will start from the goal above and
+define its terms.
+
+> Adding "eligible" to a bunch of calls does nothing to explain what's
+> going on.
+
+It exists because v2 made "how much swap is free" depend on who asks.
+Reclaim itself checks free swap before scanning anonymous pages
+(can_reclaim_anon_pages(), MGLRU's get_swappiness()) and before
+allocating a slot (folio_alloc_swap()), and callers such as the GPU
+shrinkers check it before pushing objects towards swap.  With an
+offload-only area, each of those would otherwise count space that the
+calling reclaim may not use.  In v3 I'd keep get_nr_swap_pages()
+meaning "usable by ordinary reclaim", so those checks stay as they are
+and only the offload path asks for a different count.
+
+Thanks,
+Matthias
