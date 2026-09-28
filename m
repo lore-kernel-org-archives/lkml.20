@@ -1,173 +1,185 @@
-Received: from mail-pz2-f17.google.com (mail-pz2-f17.google.com [74.125.228.17])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA37235839C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34DA4A0EFD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594317; cv=none; b=K0CaJ0RLPO4Nhwar8ZpojOyHACLcAkABv2ZAX5gMpTx9pnx47GBC5GotF2lr1gSJbLHDh8a/+nqLpYqp/1qRnlR5DAeD29kD6lvENVTzlrXiuw+PpF3Rpvs8tOTfivYoiQfpo9ItAFggPGVfwMyofp3453GDDIq2XnTZvDGtK5E=
+	t=1790594356; cv=none; b=rGIdcrrqljgw+rmfvzuAPPaEboTLzKbeHJkA0wQM4VnyaMu8NRxQv4u04D7xZRhyr0ELPZUAbbcLOMKgqJ6zc60ta6FaPLP2CrkMQx1zKPChZ2c/LLGIfCKj6VtYE75WVuUo7WS/D1MqBJ4AHoEXQpVsnGp70Zmut9AfOnvvRY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594317; c=relaxed/simple;
-	bh=dn8d1LoeuexluRQ27fn30ECfr4EHmxAjCOKOD2zYrxw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h4sgYVjvG50YCyUAf1wgT5jXyvXVtBDWJgJOSm3TQ3rPzODDNtrxGfH6SRoUGEUBnnsafIyXjC+tHQkf7XLSEjhTPw4HQWFyByHBs0pHe9X5M935mfiekhgwnwEPzidGmmHgnSmsVobfj0Oz7Gae84TbEpHDlgom6QvF+tJhFE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y7uo/KCd; arc=none smtp.client-ip=74.125.228.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790594356; c=relaxed/simple;
+	bh=kO3ynIq/wB6ie8eo0zrTf/NB7cypH/DrpREYSikioVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IBHIRCzP3+O6DnsCM+odDZ/wuwsrgn9nvPAIOJo20Iw7/Sw457UlQI8+xcH4mXD971f3hiYlnALjjkCa06QifaMmdl5mHnRv1voxGWwDkaDTa7jYytVUWU8ysnh247HmGMcyHfLFS7lCNYJq3cXP/DPN32vEsydGtVnuGuCLea4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QkPMsord; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y7uo/KCd"
-Received: by mail-pz2-f17.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1113918a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QkPMsord"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48881a62e09so1630068f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790594315; x=1791199115; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790594353; x=1791199153; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wpMpXaHh3gz5KgeWx3Y3cmSaE8Jl5aDPkB4FL7/nBuA=;
-        b=Y7uo/KCdydqu4hRJHV4SDJSzBFeEeyzp/Hojl/6ekW/Cf0QS/5xaBytqH2eANvPxtz
-         T6dia+GQ9S+NM6aN8yOVrKnIwbkBzX6O4tYk1YNtvpsJlFtWxt1gG3ZZ0sbe5n+DS/iy
-         jofiaMx2zrGyRnzef5ncyWD2gewMt9dyyfqdQ=
+        bh=wc84nfWgNf4LDDPo4HpZtovz6WNxAg7/CHpGE5J6vyA=;
+        b=QkPMsord9VJSackfuNx9kszICrztNypybkDjzQfhCx3uLQAzzisZ63FC1ij24rMPuz
+         PQQWTCmlABDhdeSgaGhEISAGUtv9toayM0hbPsZSR5PEr436Kri5E5CY3PfZQMmDMn8c
+         eHlxu9Dje2wpoYJ6TBT94q5XxUgK2NV6AhnJjb7vdBJbw3VncRjsOH7teYlHT1OIq4dd
+         isH0Ce1hkpppqzI+DbgyrirnHMYTJ7kFfc/daHa5yvf21uKv02Y9l0/Ex6fAle3sMpA6
+         W2jARPsqk7JMN3MV5g7PhkMexO3Ndnl+a0ZOkD6II/X3GChKi9PkptEcEs62Rkigtv3n
+         EkNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790594315; x=1791199115;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wpMpXaHh3gz5KgeWx3Y3cmSaE8Jl5aDPkB4FL7/nBuA=;
-        b=SZ78mC4e59bm6fBGjVTnHiqI/nL+Z/CD/U1wB3Kuq0HobLlGVGaq6kvNmwPM6U1DVE
-         aAO8k+w4leV2PKZWbaNujrtFmGcMrIyc9z6P1zmzvYI8dLLH41j61QhxxQbzEl+J8ujj
-         vNYy3yN1ZhSU5qM8RFNV/3KyFVahtJIwY2c02/5IZPOTGY0jrbQiA6/wgMqH4vI2iU2n
-         NB1bFjAzEfTJcgFVjVsXNvIFQ9XXYFSqUhPqo6Ze+brtdWAvmdcon9m/CW/aElsw0Xmb
-         wRprshvTBZ7h9vYIvF3ATEZHM0IB4nbrkQvVqNEDtkbBUEFcyaDHpUvcH+yTMzr1x0Q3
-         AcdA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5NsBuLVNkSPUBJQNaq6zD12oLkb+AnexM+Qpf8HZJdXxCoiHzxP634EUddz7rzOcYMaPVZDpicHQyqpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJV0oj7AkOiGRkpJmExsS8uTnNbcGFehH0igsUYNPc/owv/k6e
-	Tu4d9rFyjt2pavIskSy4DUyiQf2QJ5urArdBrmJouoxm9+iuz5WC08EfeOUfE56xyXekrZFrj/t
-	UJOE=
-X-Gm-Gg: AYBFou17IgwcVukKe70xMhaYnUXzM+2MB3Gji0+rqsUnhC7e0tv6S5UfPMjbpREaZ7i
-	hpDxel93CbS7qdmF6jg7irkgQVp+MnCTDdkKGetp9EwiQGpsICNXd0E3VSFxWV3h/kB+oPpcF8O
-	nyiK2pslYEuzEnKqYkr/MZwAYOv8J2caS/2uZJoXW4koMfn5MTc9ywPGGrZ8ZkAUiI783AkyfqF
-	Jh5ldHyGHuJV9FnLHDbcDxV6zR7P/ggYO0GBjD7VbmVsnBYYoutlAXRhx6jX5+kGhNK9tiSLg+P
-	fXZZxcnucdRcx88cv7urac5cN40SfV/KmczhNE/+QfMAU4FCiKZJWhh2x9Sx0kjGPQc4ph9edci
-	1sarExwM0mAwlEZijFinApbCs5YZ7AlVcKctMylSdgcBDmRLqliDNKKEFh4sU6CsgL6/Eo+ixdM
-	4P8ko/61009eo/DiqeSnLNFEY5/80/8+6s2gvdWzElmjXyVWbybs8bwL7wpjn7G2VP3BadrFxcf
-	x5ckRBZw+rtprdFT0EvhO37EasrfdXLT36DTQ==
-X-Received: by 2002:a17:903:1b04:b0:2d6:fd55:3a9d with SMTP id d9443c01a7336-2df7da5d1e2mr116959935ad.3.1790594314957;
-        Mon, 28 Sep 2026 04:18:34 -0700 (PDT)
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com. [74.125.229.169])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbcaa1sm40180495ad.4.2026.09.28.04.18.33
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 04:18:34 -0700 (PDT)
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-148b5c829e8so998356c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:18:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByG+gSB3vUhUkNhccryFuHP6b5BUJA/Al7bRP1BSODHCYqUYKSye2QglR3l6t9fIOvEgQMsCuOrynWv4v0=@vger.kernel.org
-X-Received: by 2002:a05:7023:a5c:10b0:144:f9e5:c355 with SMTP id
- a92af1059eb24-146d058dcb5mr9141407c88.41.1790594312280; Mon, 28 Sep 2026
- 04:18:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790594353; x=1791199153;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wc84nfWgNf4LDDPo4HpZtovz6WNxAg7/CHpGE5J6vyA=;
+        b=K+1H1mVs42Rm6H7goe0N+cAMYaJOWzqS9gTELd/Kap6RzgFWZVHNvO8vuEKPLDB78f
+         ImSj7murE06hh3r7RYs8UqcwKHiVnn1aWMdZHmOV4wpv4s9m1yIOE1+R7RibkwTI3Dt0
+         7LJDsycSHD7x63MR8zvXkEDtBZP+FCcHGDO7/fHBkfFQdqepNJtfyDbg4b3OC1OpQMsZ
+         8vSAlEHCA74rAHBOJH7R3ph72V+wCcxNILkUMeAkHa7mILutAV+MLgyCLnjTyftoI84Z
+         uhMi4nlqbMkAS/3+7lrL8kruXGDsPh/Z+N8qnBpe709RluBlPS1+7qo7TB46O5w4GHPp
+         s/Gg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVZ6hcV6teJnfcQx7MgyIPv44SXNP2OD53PmGAm2B6W6x68Y8XmBVM6wWBfgUp6L/yb/HP8I58zoPlvD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDsAwcPCo7wSJSMKn2M0M7TMKfVUZtOMV0wYqJidwVHy+8DRyU
+	UT87rqYw4XLBkzH96fKJal8X6JNbj+57U6y8dzgBNK3+3+aAWdX1nfIT
+X-Gm-Gg: AYBFou2xOkCbtQUGNG4/DwjK6PhyaCq9HCbD07R/uaEmNXNZt0bDawY9g4ryioNgUIH
+	Wq+60hqvCFgvYHjdn2y8EmI7DU9Well6nu07SHC2jdtNF+NTsn5DvVLkMhgt6JBVZi079vWNEl/
+	SbAWw7h0ZSnStS7sMz973GSPQF+o2oOXH+IUGzZpMybadS91nOMOVS3cBsBGF98gKGhdlME4VAz
+	DPn02j4TiOcN05Vi0eHFItKyZYUIeq98WMZAcUTPuEi9dO0Fw5G0eWyN+EWmAcK3TiZ1iWWKFx8
+	8t5XYrBiaPo08Nc07oPpmMxFC6KKdEx3IrXHwAgEZRlB2LEpG9hyQTYonAYluHNGYsAxTQaGdTl
+	LyCZzWc7sPLcO1JSQ8WKlnVYLq33ahGm+GYXrPYEDnfQ6x8rkQGQ5dPSl4YRv7+Ob7t7+DNGQWO
+	cXCG74bFZoLPyweNwR3ia2DZ3CdKkAbkQoyV7rNoYYiY6GiS7G65dh2gFhtRjrij8VEPX2+Ry16
+	mclagTWDtAKthx6FRfppjHHW8yoXCB2t3A0jfpEJpgtaIO2lhfs1+PeuOOgXmrkqDzAShOWewYf
+	0tTSzW1WvhZZ4tamnuiFhQKxm99CBGQghW3UQ2k7HmAd0EghHlI=
+X-Received: by 2002:a05:6000:4108:b0:488:7787:469d with SMTP id ffacd0b85a97d-4887787490dmr17106824f8f.25.1790594352582;
+        Mon, 28 Sep 2026 04:19:12 -0700 (PDT)
+Received: from localhost.localdomain (37-188-186-98.red.o2.cz. [37.188.186.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm26164969f8f.9.2026.09.28.04.19.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 04:19:11 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rong Zhang <i@rong.moe>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] leds: Add support for CZ.NIC Turris 1.x LEDs
+Date: Mon, 28 Sep 2026 13:19:05 +0200
+Message-ID: <20260928111907.72592-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-4-jordan.mymail@gmail.com> <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
- <20260927220625.629672-1-jordan.mymail@gmail.com> <CANiDSCsBbns32PGir2JCZ8Ofv9CpXgjV50k-vszmFY-jT-2WNg@mail.gmail.com>
-In-Reply-To: <CANiDSCsBbns32PGir2JCZ8Ofv9CpXgjV50k-vszmFY-jT-2WNg@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 13:18:18 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuNubuJ1RyTT4g4PORoJzEorwH6CFmcPnXrkRYccz5deg@mail.gmail.com>
-X-Gm-Features: AclHuK-4gSKCm-vdwnMIa4Lzdl68g7krqZ_yuaVHRWeczHSgnjMBQV43PvANYNU
-Message-ID: <CANiDSCuNubuJ1RyTT4g4PORoJzEorwH6CFmcPnXrkRYccz5deg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the
- OBSBOT Tiny 2
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michael
+The CZ.NIC Turris 1.x routers have eight RGB LEDs on the front panel,
+driven by the CZ.NIC CPLD firmware. arch/powerpc/boot/dts/turris1x.dts
+already describes the LED controller, but there is no driver for it, so
+Linux cannot control these LEDs.
 
-Since Hans is going to merge your series today into the uvc tree you
-should do c) instead.
+Pali posted v1 and v2 in July 2022 [1][2] and a RESEND in December 2022
+[3]. The RESEND did not address the review of v2, and Krzysztof NAKed
+the binding [4] and objected to the driver [5] for that reason. Lee
+asked Pavel whether he was happy with the user-space interface [6] and
+later reviewed the driver [7]. Pali answered part of that review [8],
+but no new version followed.
 
-Sorry for the mixed messages :)
+I am picking the series up. Most of the driver was reworked for v3;
+authorship stays with Pali as the original author. The changelog of
+each patch lists the changes and, for the review points that did not
+lead to a change, the reason.
 
-Regards!
+On the user-space interface: the global brightness follows the Turris
+Omnia driver, which already has /sys/class/leds/<led>/device/brightness
+[9]. The Turris 1.x uses the same attribute, documented in the same ABI
+entry. Marek asked in the v1 review for the index of the selected level
+[10], which is brightness_level, and Lee asked for one value per file
+instead of the eight values in one brightness_values file [7], which
+are now brightness_levels/<N>.
 
-On Mon, 28 Sept 2026 at 08:57, Ricardo Ribalda <ribalda@chromium.org> wrote:
->
-> Hi Michael
->
-> On Mon, 28 Sept 2026 at 00:06, Michael Jordan <jordan.mymail@gmail.com> wrote:
-> >
-> > Hi Ricardo,
-> >
-> > On Wed, 2 Sep 2026 08:34:34 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> > > Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> >
-> > Thanks for the reviews on v2.
-> >
-> > I have a question about how to handle a second device. I now have an
-> > OBSBOT Tail 2 (3564:fefc) and it has the same defect as the Tiny 2.
-> >
-> > Its GET_INFO bytes match the Tiny 2 control for control:
-> >
-> >   CT_PANTILT_ABSOLUTE   0x03
-> >   CT_PANTILT_RELATIVE   0x03
-> >   CT_ZOOM_ABSOLUTE      0x03
-> >   CT_ZOOM_RELATIVE      0x0f
-> >   CT_ROLL_ABSOLUTE      0x01
-> >
-> > Without a fixup entry, pan_absolute reads back the commanded target the
-> > moment it is written. With entries for 3564:fefc on top of v2, all three
-> > controls report the live value on GET_CUR, both during a commanded move
-> > and when the camera changes them on its own:
-> >
-> > - pan/tilt position and pan/tilt speed follow the gimbal under the
-> >   camera's subject tracking, with the host issuing no requests;
-> > - zoom follows a zoom change made at the camera.
-> >
-> > I checked the other AUTO_UPDATE controls the same way as for the Tiny 2.
-> > White balance and focus only echo the last SET_CUR. Exposure time reports
-> > live values until the host writes a manual exposure once, and from then
-> > on echoes that value, across a power cycle. I would leave all of those
-> > alone, as on the Tiny 2.
-> >
-> > So the change is three more table entries, identical to the Tiny 2 ones
-> > apart from the product ID. v2 still applies cleanly to media/next as of
-> > 2dcdfb625c3b, so nothing else forces a respin.
-> >
-> > Which would you prefer?
-> >
-> >  a) a v3 with the Tail 2 entries folded into 3/3;
-> >  b) a v3 with the Tail 2 entries as a new 4/4, leaving 1-3 as reviewed;
-> >  c) leave v2 as it is, and send the Tail 2 entries as a follow-up patch
-> >     once v2 is applied.
->
-> I prefer b) because c) cannot be tested by media-ci.
->
-> >
-> > I lean towards (c), so that a reviewed series is not disturbed, but I am
-> > happy to do whichever is easiest for you and Laurent. In any of the three
-> > I will include the Tail 2 lsusb -v output.
->
-> BTW, I am curious, did you hear anything back from OBSBOT?
-> Could you also report this to them?
->
-> Thanks!
->
-> >
-> > Thanks,
-> > Michael
->
->
->
-> --
-> Ricardo Ribalda
+Marek, patch 2/2 extends the brightness entry in
+Documentation/ABI/testing/sysfs-class-led-driver-turris-omnia and adds
+that file to the new MAINTAINERS entry. Could you ack that part?
+
+The series is based on leds/for-leds-next (05b4738b0078). The driver
+implements hw_offloaded() for its private trigger and sets
+hw_control_trigger, as the hardware control changes there require, so
+it does not build on mainline yet.
+
+Testing on a Turris 1.1:
+- With OpenWrt's 6.18.44 kernel, the driver as it was before that
+  adaptation, built as a module: colour and brightness, the brightness
+  level attributes including invalid writes, the timer trigger, the
+  turris1x-cpld hardware trigger, unbind and bind, and rmmod while
+  triggers ran and a level file was held open, also watched at the
+  panel. After a reboot, the CPLD registers read at the U-Boot prompt
+  still had the WiFi LED's disable bit that the shutdown handler sets,
+  and after sysrq-b, which skips the shutdown, the bit was clear. With
+  linux,default-trigger set in the device tree, the driver took those
+  LEDs over from the CPLD, and the turris1x-cpld trigger gave them back.
+- With a kernel built from leds/for-leds-next and this series, the
+  driver built in: the LEDs except the WiFi LED start under the
+  turris1x-cpld trigger, which trigger_may_offload_to_hw reports as
+  offloaded and under which reading brightness returns ENODATA. Writing
+  a brightness drops the trigger, writing multi_intensity keeps it, the
+  timer trigger works, and unbind and bind give the LEDs back to the
+  CPLD. The WiFi LED has no trigger_may_offload_to_hw. The panel showed
+  the same.
+The lines were rewrapped at 100 columns after these runs, which changes
+no object code (objdump -dr). Neither kernel had lock debugging.
+
+dt_binding_check with dtschema 2026.9 is clean and rejects a bogus
+property added to the example, dtbs_check reports no warning for the LED
+controller in turris1x.dtb, and tools/docs/get_abi.py reports no new
+warning. checkpatch --strict reports only the MAINTAINERS question on
+1/2, answered in its changelog, and a macro argument reuse check on 2/2,
+where the argument is always a literal. Built with W=1 and sparse on
+leds/for-leds-next (05b4738b0078) for powerpc, as a module and built in
+(vmlinux links), and with COMPILE_TEST for x86_64 and arm64 as a module.
+
+[1] https://lore.kernel.org/r/20220705000448.14337-1-pali@kernel.org/
+[2] https://lore.kernel.org/r/20220705155929.25565-1-pali@kernel.org/
+[3] https://lore.kernel.org/r/20221226123630.6515-1-pali@kernel.org/
+[4] https://lore.kernel.org/r/8b829332-5cd7-2910-88db-513716e0919a@kernel.org/
+[5] https://lore.kernel.org/r/d8172c80-a3a0-07f6-97ea-9130c49fab18@kernel.org/
+[6] https://lore.kernel.org/r/Y9Ozg2O41a2iijMc@google.com/
+[7] https://lore.kernel.org/r/Y/iDVlodp9sBkX9D@google.com/
+[8] https://lore.kernel.org/r/20230309203526.5hcfa2w47vqzmny6@pali/
+[9] https://lore.kernel.org/r/20230202234653.ukwpjntws3roacty@pali/
+[10] https://lore.kernel.org/r/20220705143001.7371a256@thinkpad/
+
+Pali Rohár (2):
+  dt-bindings: leds: Add CZ.NIC Turris 1.x LED controller
+  leds: Add support for Turris 1.x LEDs
+
+ .../sysfs-class-led-driver-turris-omnia       |  13 +-
+ .../testing/sysfs-class-led-driver-turris1x   |  23 +
+ .../bindings/leds/cznic,turris1x-leds.yaml    | 132 ++++
+ MAINTAINERS                                   |  10 +
+ drivers/leds/Kconfig                          |  13 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-turris-1x.c                 | 609 ++++++++++++++++++
+ 7 files changed, 798 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-led-driver-turris1x
+ create mode 100644 Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
+ create mode 100644 drivers/leds/leds-turris-1x.c
 
 
-
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
 -- 
-Ricardo Ribalda
+2.54.0 (Apple Git-157)
+
