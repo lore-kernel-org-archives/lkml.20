@@ -1,232 +1,170 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011029.outbound.protection.outlook.com [40.93.194.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0A52E7369;
-	Mon, 28 Sep 2026 12:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598990; cv=none; b=ZsBa/HZ3UlOShSLT/ORK+9p7Fwe257pP+xyHpy7s0QEMxNh4euWxGViLhW0OzLM+A/C20U+4KeE9uhbPGl9FD4rmmV9D0YBH0jj9p+fXaG0z6vWmuC6k5qrij/UDzRE3m1I/0IrVLkq+oOZRRHo8zoMXMxR6hBklBSEii7aIGGM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598990; c=relaxed/simple;
-	bh=uZraZvbQFEAbh+rjj7F1JQi75lAteRsDKCzDVpM8x5w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EMXqW85/Lhv4MeHQvKK1/owb/UNXcg38Czy0VyjuL8t6R9GTdtNTLF/zsZL7n3ZGDp05lgAWTh8TKHEos2mYYusAy2aE3zJCinDzkoUJAgG5I72eMbSaLYI4p3GemOK2d9CTPhQKZw6LuZ0fWBOh5pBsFjfOxyPOwE7aX2mH5DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SuCJne2A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ePHOP+/X; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=DvZ22CDL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QMogQ8ZY; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D90127B343
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599061; cv=fail; b=SApAGfYKEmBUd4yrny2Dk1e/eNQTa+E2mP4c4PEZMtjkBhC3OQ+B1v+epGtsnBAhSn8dvfYBBgcGxRVv9Aptom+Ftm7PFRMvcuUWVE3MS0l12/M3/enICzBYU6/RMRUNbeF8YJES6XPK4QRZnVkhHdPZBZMen8Ywn55mYzcO3nM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599061; c=relaxed/simple;
+	bh=nCT5cEJAFO0pq9y7ror5QxIagvHuNyQm58430I17IPw=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=YcSCqNCwtKwsBhu5NOqobo2gNuRgSf6cWuqPqONdBI/JS9gvCocuzB4k2+MIZoj4Myu6W/6vkLt2YkJpRh2VEwkqVRlDI4Uo1kePErLcFcUVxN73d6U5mi94EGbgeEqj3LiEh0LeWrAFgY3imgzJeomN9w9iOx84nGOza0VVvpY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=K73NmA+p; arc=fail smtp.client-ip=40.93.194.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SuCJne2A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ePHOP+/X";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DvZ22CDL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QMogQ8ZY"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C04F1FB56;
-	Mon, 28 Sep 2026 12:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
-	b=SuCJne2A1NFqCw0WbINUFgzcMGqb7GXaGjjlqG4lOJ8zD/+9/a2Gz+7TvrhjE7cVcpFho8
-	g7SpCOoGnfBO2UU8H1B5F50k20mZkdOzYNJo82TkddO5+iYOv+hBVXMrMeIlC6e8gzwW/N
-	oqHoT9itcSXRc9Xx3TaWJnYbX94p8WE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598982;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
-	b=ePHOP+/XoLJaLF7rrsvxts2i4tvI9CwCofNn35FuDWZNPaAnIY+eTYmu2hfildni8DUj2Z
-	L0TgBZd0gCPDRHCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DvZ22CDL;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QMogQ8ZY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
-	b=DvZ22CDLoshdySlRYdBfR2Ebe9DrpzHe3U1XexF7Kyidaea2p6us1KJADNDV0se83PN2AJ
-	l/8hjIB5wJSjDS4pAFZfQfXWh9ChUvFu7IU0TWUaaQb767E7rSwnROE3XkpPZaDSWzdBjX
-	G/sUvfso8rsHPq3KO3lQHa2AWT2GgW4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598978;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t7jLXsYSLYlq+lM+yZpw3+NX9DD++jf4LFnqjHkoKKA=;
-	b=QMogQ8ZYkYa2THhiNROHxbKQozSZX+KK4QbPk6t+hy6Ci2tgCxEYr3+FJ7a9WFzRhIR/OJ
-	QcA9T8KyHVMPjeCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 33ABC133F1;
-	Mon, 28 Sep 2026 12:36:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1sLHAUJfumqfAwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:36:18 +0000
-Date: Mon, 28 Sep 2026 14:36:17 +0200
-Message-ID: <87bj9h5z9a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Akhil Arul <akhilarul324@gmail.com>
-Cc: tiwai@suse.com,
-	tiwai@suse.de,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+825b7e3a03dd072c187f@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ALSA: rawmidi: give up draining output when the device stops draining
-In-Reply-To: <20260920130620.61431-1-akhilarul324@gmail.com>
-References: <87tsnng8kl.wl-tiwai@suse.de>
-	<20260920130620.61431-1-akhilarul324@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="K73NmA+p"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HHKLfXpdpy6EcTzpXHV1QMjsGoWSuWMBuylAOnURoWvav1C52IOAjWFuf3RaVncx8BkbPTtftoLUEpXolN7dKI1nIxfDyOA8YrwOcNlIHrd1Qq09XCBV5lwRzNg4wDxUtivPC4R96Cg6gInR12KiL1U62s/3AW+K4azR3/+uuMtX95TtlhI+tzhE/oF0zI3xky6ptzSfa3lTjBmPSEmIi3DpZPZkWhERBCdjtj5cvr8Jlyy2gNqV7zaT3JsCYtD1jgUJoqItyexQcg/umTj9Hr/W6BU2pghK+cgSSthef5XKs75822W3lr+yTNn9nrw+CFARnn4LykHZDd89Pigd/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nCT5cEJAFO0pq9y7ror5QxIagvHuNyQm58430I17IPw=;
+ b=AXbvKfgGRmN8V5ROBZzWdztGKkwElxpJAc/mJcMT/34xKWiDleTPkD9o1JrH9bFA2Y+EjYLZCwb7b/Ctp72q8zd4+sPtaqDXYyevVbTihIq23rAUhquSY4v+48aJm2CWrW7jicjOUuEg54JTLlnPtHwpsBzGbW1od5N99o1uredvzcmyFOXtRx4HLEJggw+WYL5koHYlAf/qkMHq6Tfaj+ne1xw0nyIQLhuvD9TB4j2rbu/jkcg2c1SPm99z87ycHM+ckKMJjnOzAm1kAmN384XGXNW1SYsq/tR7I8iE2JyKJg4fgKASdoQ9ua90v+ZFwkS9C0j5L3zruan3Ex682w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nCT5cEJAFO0pq9y7ror5QxIagvHuNyQm58430I17IPw=;
+ b=K73NmA+pn+4ITMMyvdNKDlffBt+tP+LJlehHDFgh/OrvMphBUt+nNVGxbNCxjuCrIx9itM77dls3BfSjK/GUSs57Cwj7S60X8/ZpqGSHwGarR2sW2bjPdDIE05QYAiQhr1ipyzhNM+fR/5/Wqppp0szVkHZA6Hus/o4UA1xgecdQ7ZeMzuzQ8uCnuGfE5BMTNePFQQR8ulgRABbieeGLGzAcobg0qObtOTaaVjb/fr6GDtl1gx3NzZknsIULWPofZwSt0VJR7TuFAy0bJdVuSdQkp/8gcC+AU14fz2i662aWU8bMrtHiJVFDltFcQIk8NFlSbjGqjZHDBKmWiC+LSg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY5PR12MB6454.namprd12.prod.outlook.com (2603:10b6:930:36::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 12:37:31 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 12:37:31 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 21:37:28 +0900
+Message-Id: <DLQYDYXWESOX.25VA3LP68Q2ZF@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 16/33] gpu: nova-core: move the bootloader DMEM
+ descriptor out of FWSEC
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+References: <20260918010719.1176945-1-jhubbard@nvidia.com>
+ <20260918010719.1176945-17-jhubbard@nvidia.com>
+In-Reply-To: <20260918010719.1176945-17-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0279.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c9::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8C04F1FB56
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[825b7e3a03dd072c187f];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY5PR12MB6454:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e8a4f1c-19de-448b-0974-08df1d5d434b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|376014|7416014|1800799024|3023799007|6133799003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	myBtapWbbrPeOCE1ZUU6gDcc4AuPP70zTcVnGyv12+D0J39h6FDRd2rkWkn+a1jrdV7rkRnc564rGiIcD/yQZAH+tXUiWVXWGPFB14zL8Xv7V6ZZB/+WO+aVwuB9NZWMehmVceWeS4giL5aSCIzOCbRkq3blDXxkjc3VpgzJU8czfC/+p/H9cpHOZMvM57RO65IC2CkE2qsyWscIBL4Jy5noroqMmy4dVZr6LwAv5QSIQsHSC30inyvr0AJvotAmNO7goE+BFmMgMsYht9RU5go8b+n/Vy8+vBc4btvW/oH8E4iY3FuQS+e4qiK36yz/D4hwlZrs46zPzifxALfeliOI/K2ADynqSdn8aoQbkH40vMV+IxaVxgXiRol4SrmfUmHqj7kONO7IVKMqrCpD8s5IujPCOP8S0FzjGUiiy3vNr3TyUhKbU0eTDu22ABoEzXNTYAvpLWhrTOsrW4hlVmJVTomUgsTy4VPsYUIMn8GCZAYvvN3Lm9N8VN5yTblmO3+BiM4zAu5DPlh+hs41yqfzVyUsIiKU66Uu6Vl1Fe3slyEz+sL6tLhF2yPXCRg9V203Apf7vSBKmT0h3Z8RMAdAY+FmzHv7sMEdsRmGwEOut2TDxYl67Z9dNbH88L1tgzWooWfvEDgx4Tp8Rcu/qPJzvf3EpoIw7H17BXfQfyM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(376014)(7416014)(1800799024)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?anVNekczYlc1ZkFjc1pVNWdRRFZoK3VHTFVnOHM3QkV6ZTB5VTU4WTdyeDdr?=
+ =?utf-8?B?cjVrbmEwTXd2aFY4UEZiQTZweERoSFJ0NWFDVTMxMTNjeW1qVjJVaTBnZHVI?=
+ =?utf-8?B?KzRETDVJeGJ6UE9tRXRGWUNZVjA3SlpSZHBxRkRCZk9ZU3FWaEUvRXNqRWZh?=
+ =?utf-8?B?bkhZajU2K05oM3BXa2tqdjlIaE81TFR1VHgzVWlHcUZqTUwrTzBJMkhlV0M4?=
+ =?utf-8?B?aytQM2RWYVJIQzA5OGJTNWVJTUhWUnJRYkpMeUlHMVFqVWJ1dkhTdURaZ000?=
+ =?utf-8?B?aTJwWXJkR2ZVUEd1YlEzOWNXL2F6UmF2YTZFTTJrbWJVSG83VWFNQitnNzY4?=
+ =?utf-8?B?TDUyMkpscmEyTjBiRW1mbU9rM1NCSnVwd0JhN2gxTG1aeHhRT3pSdTlSeW5X?=
+ =?utf-8?B?R1ZSUURZNkFUeFJkSzVwbC9JMDZPRzNpamlkTnVhR0dSRkVLa3NpL0dXVlpn?=
+ =?utf-8?B?ZjFJaDZXV3NuRklhOHc0eGdhRmpSaHo0cW1Nd0J3cXdRTUtWUjJldjR0Nlpp?=
+ =?utf-8?B?TVlidjlWMTI4bjg1eFhHWXVGY2NyRUdKV001ODJJVEx3RWNKNlUzam84dFM4?=
+ =?utf-8?B?SzR6SWJjQjNsZEZJOXRZS1h0SmFLbkFQMWE1WkVqWm9wWGo1eEhUVTZ0NWhK?=
+ =?utf-8?B?QlkyWTJSdCtwRmkxREpFKzhEZTZHTW15WXdqaU5TdUZicVhaK2lrRjNYcFJM?=
+ =?utf-8?B?djJpRmsvc3AyU2dDemdZdDlNK2x3OTRVb3Z0VDVROE9ueGxEcXlySkgza2lY?=
+ =?utf-8?B?K2xIRFdHSGdYRkV5TFlFcWVlZ0pLbmNpc3FqekFsZjA1aDRNblAyWjhvd0RS?=
+ =?utf-8?B?NE1YSmVVUUxVT2FRQ2hjTWtLT0hRcFByT3lzN0tXMmlqLzE3QnVnMmdEZjdr?=
+ =?utf-8?B?WkFsK0dlWUlsTGpQUGZhU0pDa3NMcVFRbmxYUHRJaWhaRi9KVkFza0NVZVlW?=
+ =?utf-8?B?L3k3OE5HZ0Y0dXllYXhCMy94Rk94b3FZZjFpSUQyVmdheVhFS0d4dDVEdnVI?=
+ =?utf-8?B?UXJ0UDgwUXdyYnB1OVhqRHRoL3QxL2FURndONDVCRW0vaFFPRDRxSmNQdm9F?=
+ =?utf-8?B?c2VQbHo0RmFGQnFFdGJjcmFYTGs3V3p2MG52ZWs4Yzh2bm44dDhzaVJTekIy?=
+ =?utf-8?B?QmRXZDVhWXRuUUhsMHc1cHVUZWxrYytSZ0lUbFFHbXRLMGNzeXV6MUVxbkJz?=
+ =?utf-8?B?RXhaMDVMVGpiVlpFSHBTZjhDT3JmbjlINVJHS3Rhanl2UEVPVEJ3RWY4bUVm?=
+ =?utf-8?B?K1JnOEIwVnAxWmlPdWh4NG1laVoraU9YM3lnN0tpRGV1S0d2b3NqZmpVelZk?=
+ =?utf-8?B?bVQ0ZUJENzlmNWxVaDJkOEhRekhsa2RGd0V6NHVHYWFHWjBhdTB3dzYwb3NJ?=
+ =?utf-8?B?S29RcWRiamp2MGxWcVhBYXhnV1JST2dMYjlnRjJvaW9KOVNETjhEdTJKNTlH?=
+ =?utf-8?B?UmJsNldRTkRFV0VCdlRWcFgyZmxSMnpYZmEzS1FmSkpZWUpGOGhyWHp4NmhZ?=
+ =?utf-8?B?TEN1UElvT2N3ZXZBMUJsZldYWHozajJ1Y2M3RS8raXVuTmtML2xweXI3VkxK?=
+ =?utf-8?B?YURqcDRzL3JwTjhHV3ZmNTRZYWplV3BQUG1UanNUTEVqcWFwcEVubkJ1dE5Z?=
+ =?utf-8?B?eXJtNWJFanZvR0pGWjBBYXJ4R0VDZTQ3VUdZcTNseW40UEpsR21nWmFTN09s?=
+ =?utf-8?B?ZitsL1BwREtyWXlGcEt0bXQvc0dDbFEwdk14Mkt5T3dMWEdBZkRUdCsvd0gx?=
+ =?utf-8?B?N0F0TDYwRWRGMnBkVjR5dzJZQmZMT1FrMmo5OGdoZ0hIelBFTzNFMVY5L3Fz?=
+ =?utf-8?B?b09ZMjRlL3NzNzByTWhRVTlzVUFDcUNZaEErUnBBVDhSenFlUHNCRDRYY2w0?=
+ =?utf-8?B?UU1mR3pxQW9keEFtS3lYYTE1emRwVDNvNXA1eDIyVTFNd1R6ZVJCUUJ1NWV0?=
+ =?utf-8?B?SzNkSmw3T202Q0tiV1E3UEdOT0pJck1WQzJZeTBlUmtCN3hLYmhFZERPekJY?=
+ =?utf-8?B?S3AySHptMWZuTmZFZ2lOeUJycnJHQlhQcVFiS2F4SVNNTDFsWWJoQjRkYkpM?=
+ =?utf-8?B?aGtjbFU1Z0dudkVzN202c0VqYk1FTkxRdEVrVWtSL3ZmWnU4ZHBFNXNvNWl5?=
+ =?utf-8?B?Ty9vWlhBaXBUWEZQN2lSeVp6V2NZVmRoMWJVMWFaclRHanZrL2t5MTNGNm44?=
+ =?utf-8?B?VVRIQWVVallFd29hRHNsL3oxTzFpOGEzV1h3SldOd1NnWmFxSDFSRmtTTitS?=
+ =?utf-8?B?dktMNDVPNjZRVWlxOTBvemVwUzdqaTlaazM2d05aQjl5V0JLWld3WnRZLzdR?=
+ =?utf-8?B?eWhjeGxwcGc1SmEvOGJBZy9ybFlyaUJUdHJFN1owTlAyVkVKbzByUXhscS9u?=
+ =?utf-8?Q?IExl8VCAA38BjRQ5d0vQ1JbbN6Aw/lwbjz+kzEs81k4RO?=
+X-MS-Exchange-AntiSpam-MessageData-1: swqhbeH/XxNsRw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e8a4f1c-19de-448b-0974-08df1d5d434b
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:37:31.1520
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jaMjAK8fIvct71Fej4LCaHpgpajFf/l3fvT9X89cN3eRadh6g5HNuBJA1QhCPyAHP7p39nmZ3NYKSjIBomhp5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6454
 
-On Sun, 20 Sep 2026 15:06:20 +0200,
-Akhil Arul wrote:
-> 
-> snd_rawmidi_drain_output() waits up to 10 seconds for the output buffer
-> to empty.  The wait is unconditional, so a substream that has stopped
-> being consumed costs the full timeout on every call.
-> 
-> The sequencer OSS emulation makes that expensive.  midisynth_unuse() runs
-> as the port unuse callback with grp->list_mutex held for write, and calls
-> snd_rawmidi_drain_output().  A single teardown closes every OSS midi port
-> of the device, so an unresponsive device exposing many ports holds the
-> rwsem for minutes.  snd_seq_port_connect() needs the same rwsem, and in
-> the OSS path it runs under register_mutex, so every other odev_open()
-> queues up behind it until the hung task detector fires:
-> 
->   INFO: task syz.4.21:6176 blocked for more than 143 seconds.
->     __mutex_lock
->     odev_open
->     chrdev_open
->     vfs_open
->     path_openat
-> 
-> Detect a stalled drain by sampling the free space instead of always
-> sleeping for the whole timeout, and give up once it has not increased for
-> a second.  A substream that is still making progress is given as long as
-> it needs, within the same overall 10 second limit as before, and each
-> wait is clipped to the remaining time so that limit is not overshot.
-> 
-> The warning is rate limited because a stalled drain is now detected much
-> more often than once per 10 seconds.
-> 
-> Closing one such device in qemu, with the syzkaller reproducer supplying
-> the gadget, took 72-103 seconds before and 9-11 seconds after.
-> 
-> Reported-by: syzbot+825b7e3a03dd072c187f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=825b7e3a03dd072c187f
-> Signed-off-by: Akhil Arul <akhilarul324@gmail.com>
-> ---
-> Went with the adaptive one in the end.
-> 
-> I tried the fixed cap first and couldn't make it stand up. buffer_size is
-> PAGE_SIZE, so 16K or 64K on arm64, and PARAMS goes to 1MiB, so any constant
-> I pick is really a guess about the buffer. Test device consuming at the
-> MIDI-1 wire rate:
-> 
->   buffer    unpatched      2*HZ cap        adaptive
->    4096     ok 1.42s       ok 1.44s        ok 1.43s
->   16384     ok 5.60s       -EIO 2.06s      ok 5.63s
->   65536     -EIO 10.06s    -EIO 2.06s      -EIO 10.06s
-> 
-> The middle row is a healthy device at full rate failing because the kernel
-> has 16K pages. That killed it for me.
-> 
-> The adaptive version keeps the 10s ceiling and only bails out when avail
-> hasn't moved for a second, so those rows stay as they are. It also happens
-> to fix the hang better than the cap did. Closing one /dev/sequencer2 with
-> the syzkaller gadget attached, three runs each:
-> 
->   unpatched   72.0s   102.7s   102.3s
->   adaptive    10.7s     8.7s    11.6s
->   2*HZ cap    18.4s    12.4s    16.5s
-> 
-> The teardown still calls the drain the same ~31 times either way, 9 to 15
-> of which time out; only the cost of each timeout moves. Hung task detector
-> at the default 120s stays quiet over three runs of about four minutes, with
-> the repro plus two threads opening /dev/sequencer2.
-> 
-> The cost is that a substream which goes quiet for a second with data still
-> queued now gets -EIO. Same device, pausing once and then resuming:
-> 
->   pause    unpatched     patched
->    950ms   ok 3.53s      ok 3.53s
->   1050ms   ok 3.83s      ok 3.84s
->   1200ms   ok 4.28s      -EIO 1.30s
->   2000ms   ok 6.68s      -EIO 1.31s
-> 
-> So it's 1.05-1.2s rather than exactly a second. The poll grid is 200ms and
-> the cutoff drifts depending on where the pause lands against it.
-> 
-> I said 400ms in my last mail. That turned out to cut off a device pausing
-> for half a second, which a real one might do, so I widened it to a second.
-> 
-> Worth saying that avail isn't monotonic here - drain doesn't gate writers,
-> it only forces the wakeup in snd_rawmidi_transmit_ack(). That's why the
-> test is whether avail increased rather than whether it reached buffer_size.
-> I checked a shared append substream with a second writer refilling it, in
-> case that read as a stall. It doesn't: avail jitters instead of sitting
-> flat, the counter keeps resetting and the drain runs the full deadline.
-> With the refill matched to the consumption rate, unpatched gives -EIO at
-> 10.07s and patched at 10.06s.
-> 
-> I couldn't find a way to bound the teardown without putting a cutoff
-> somewhere. Whether a second of silence is enough to call a device stopped
-> is your call.
-> 
-> No Fixes: tag, the 10s wait predates git.
+On Fri Sep 18, 2026 at 10:07 AM JST, John Hubbard wrote:
+> The generic falcon bootloader reads its load parameters from a
+> descriptor that the driver places in DMEM. The r000 load-and-execute
+> bootloader event carries such a descriptor, so its handler in the
+> following patch needs the descriptor type.
+>
+> The descriptor was defined in the FWSEC code, which was its only user.
+>
+> Move the definition, unchanged, into the generic bootloader module. Its
+> fields become pub(crate) so that the FWSEC code can still fill them in.
+>
+> No functional changes.
+>
+> Assisted-by: LLM
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 
-I like the idea, but the code is for the core part and non-trivial, I
-put this to for-next branch (for 7.4) now.  Thanks!
+Just one ask for this one: since the descriptor has moved, all its
+fields are now `pub(crate)`, which is not representative of how we
+actually use them as this visibility is only needed for
+`fwsec/bootloader.rs` to build its own instance.
 
+Instead, can we keep the fields private, add accessors for the few that
+we actually need to read after construction (that's `ctx_dma` only
+IIUC), and add a constructor for fwsec to use? The constructor would
+just need to take `imem_ns`, `imem_sec`, `dmem`, and the code and data
+DMA bases (the `ctx_dma` being a constant).
 
-Takashi
+This will turn the move into an actual move, while keeping more of the
+logic (construction) inside `gen_bootloader.rs`.
