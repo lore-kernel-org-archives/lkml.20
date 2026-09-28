@@ -1,132 +1,239 @@
-Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECB43546F5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BF6356A38
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790559658; cv=none; b=kh+NWoUCvNQXPOzUFzxojSVhYDsK8U2HJ3RCNuzrITwFP/ua2NtUYM0HuRWLchLDw5zsPkYEoAuZsQjHeOGTNxoTCKwCVOEe/9g5donFP0TwBrL5NsCpXxQ/gg9n8DnSWpDGIgstLi4/kWNrzB+rjgWlNhp0JrIRslpncus74/8=
+	t=1790559753; cv=none; b=PCknAN2krrmq3QxhY0oR5C0w7/ab8/6DtbPXd+QLRVKUdkTgHfZrFaQEYEwXExl5AxufMNRuXUWW5CdXmtToPk6EagJtUDashoSni9z20bLtqJZkMJDrJCTznEiK8uDr9Kh+yP0QWF5cNGZI9Wa5UsXsBqRaHoZ4o8JrgfiykUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790559658; c=relaxed/simple;
-	bh=hzHwDE34v1HLmM8SoW5+6io0DFeC9cWq420KEx5tFCc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YUYG3nhXjl9OOP1FML8zhEgP3vu78yziaJ2HNfEmNIEEnf6Yz+xseThcsL0xOJLiKs071pjg4xd/s3ykz2LOfeq6RpFSFQDvBsN6gIF6qy8lVaXRGxLu5yKj5ojgPxdOEwnyCy366Y7OHtof754I1LxJUYVU3CX757/3eQbt0dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nQxaTHE7; arc=none smtp.client-ip=95.215.58.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790559753; c=relaxed/simple;
+	bh=M2rfpd69M4leNhETTwDwZ/UhdDJ3meopIk42Ywj5DnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WPjxYovtJ9LDGbgx4hbipxAFzUQIbyEtRaBqavMQKt/zYMEJ4ii7KuJXtAPc0/CZRGLv/7YrccMU2FaXdnw5z9bMDmObQz7xkuHyIo8gTAI/TfG2EYMMQAPuY2Q9zt3CzcX403ykMF/gqIvxk9+QigX14dlDmjAowLkILygEbB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7KQ6DWP; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nQxaTHE7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hzHwDE34v1HLmM8SoW5+6io0DFeC9cWq420KEx5tFCc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790559654; v=1; x=1791164454;
- b=nQxaTHE7BjvQVVY4VZUMZCCjobGsoNBvy8YQqfjXDEe9zMAGre/xHFi3VPukhT2ZGRcMOx5o
- tjIkHaOSJhG/AXvbtpe4/Qy8UkAxdoFgiwlP+J2WLINCWLLd2hHZ3IiC1brYrVgMX2fGJjz1ChP
- GcrMBq4Q93hOab3FAMKIFGec=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 00eae308403adc8e;
-	Mon, 28 Sep 2026 01:40:54 +0000
-X-Mizu-Trace-ID: 00eae308403adc8e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <93e48fe3-d229-4870-af8a-32431d236211@linux.dev>
-Date: Mon, 28 Sep 2026 09:40:49 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7KQ6DWP"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so1135162a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:42:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790559751; x=1791164551; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dw2eDfHBpoJS0T1ZS6akDzDpDkeWdsLJ0iH9yZFxrPc=;
+        b=Q7KQ6DWPDgW5fA7dPvALFehn9y0PKdcQhnbupZuNN1N9scBNS5gVh5iNZn+d7KIgaH
+         FAVQSbJSjQJtTWibbt8e/5UTK7sCRzIeabl412STwTszSJO/0kH6fBxVGNcKYsaKD75G
+         ENFmlTHR1dk3/c8JTUPzJSGeRDx2wq4LU+Q7n+BASiYL5myIWFLE7PT4tMaK0c7PF+ro
+         hh2f0KAiPQOLD0WK/jSaNnsbGWsf+xYZNkDtAlk1n5vLaNUg8p4UX2DLJFHJFI2Dkeqx
+         tBbP/1zWissXQw3wj6XKzjFQlZMajfTrymezmsIVLl15G+mfbcQj/JdvnTMFV+C2PPwJ
+         6faw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790559751; x=1791164551;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dw2eDfHBpoJS0T1ZS6akDzDpDkeWdsLJ0iH9yZFxrPc=;
+        b=MDAbKQSDtaOA0gnjxwLieU0uS9FMi+iY53xlJSPk600rgnqyM74/CVVXGV0y+XUmaM
+         yKx3vKcGbBMC7bKI57UJABjW5f4+Hs+Jy/tyZpFrl5YFsTVuJccjpjO/Mn1j4h2iB3GN
+         96+jteypSDmLaURpURo2hyGJtOxb5FrcIRwg6wxqsVrD0dOd690oo67GSRn8NFkL3Sw1
+         VRvbjMs098o8eH0ZrzzE12aqGO1SYNtkc9qoiPtrwO+ZUw7u6JU/dNvMz0w+3NBT8YPs
+         cH5eN7W4FBrEdr+MpWzUH4gDCyHUISmAp94XB1zmXCmG/NWjpIS5pdk+ai9D9RMUE2CK
+         JT9g==
+X-Forwarded-Encrypted: i=1; AKwUvByu4PHw68fUy9h70zAvvWVJP9kq3V4USaKCs2sHC3PvE+c1cbo6vl8JtRhmVwsrz6eT762yxuKbXoPrO+s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdAPVEM8Q+pHzTRbIzKTkmP9VAy1wmhYpnatS5rYr0Zl1oBJ6e
+	E3Hl5bHhtVjLQRBTWnQSE8usCrHRIy7fxUYSs+glltr+0Wx4kcMmWPlZ
+X-Gm-Gg: AYBFou2o9vqm7AVeLni/hon0G9AgIP+uVQQN2ainKyYV9pIDo6U+Dzwgkyv9u1vZUsc
+	oWxhz51oBGf3QVEMr+OHK0ekQLqKy2QNAAk7hAOCsqDdTLRp20ycqSfg0K/1Mkd4/3FzVThNekE
+	jIMjMZfk+03IOeTQNXNRCyONmpp8Vl664AWkCto6tzhCghhs2A+zhLedb8ma77u9dyd2CTDr7U1
+	/of8gKtYStojd2QCrfOjgC9DQSFg5hVOE9h8eo5nyk77eOkp+/WAg/nOAAYAUuRGVXuKp2fN5hT
+	eEHZKZm4vgpSdps47yWhr7VBZJloyYDZ8a/Kp2AWLAk8+Sz2rbiXUaEp+ubs1tLOdPjnFycCome
+	CfOOr+BfeL5BAcT263KzKhLFByZpSsTXyWAgTAGTBusqM0g6A2bYiENddsE2LcAFkjHSR+7Lojq
+	lkux2+cGCKwq+GDcELE+L6/fEbWqv/N8Z2tnSQbQ1kb526SemAkUHvL7T/4pcg
+X-Received: by 2002:a17:90b:2749:b0:39e:5b3c:4633 with SMTP id 98e67ed59e1d1-3a0985be307mr8946287a91.21.1790559751229;
+        Sun, 27 Sep 2026 18:42:31 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e7036e3bsm10540562a91.13.2026.09.27.18.42.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 18:42:30 -0700 (PDT)
+Date: Mon, 28 Sep 2026 10:42:28 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] ntfs: reject non-resident attributes whose sizes
+ exceed their allocation
+Message-ID: <arnGBFRct0BXUFWb@hyunchul-PC02>
+References: <arMoap0ZgeORuktT@hyunchul-PC02>
+ <cover.1790417653.git.matthias.goergens@gmail.com>
+ <20260927050831.2739166-6-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] cgroup/cpuset: prevent activating local partition
- over remote one
-To: Hui Peng <benquike@gmail.com>, Waiman Long <longman@redhat.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260924042729.1908863-1-benquike@gmail.com>
- <20260924042729.1908863-3-benquike@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260924042729.1908863-3-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260927050831.2739166-6-matthias.goergens@gmail.com>
 
-
-
-On 9/24/2026 12:27 PM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") added a check in update_prstate() to reject
-> creating a top-level local partition whose cs->exclusive_cpus intersects
-> subpartitions_cpus.
+On Sun, Sep 27, 2026 at 01:08:25PM +0800, Matthias Goergens wrote:
+> ntfs_read_locked_inode(), ntfs_read_locked_attr_inode() and
+> ntfs_read_locked_index_inode() take a non-resident attribute's data_size
+> and initialized_size from disk without checking them against its
+> allocated_size.  The runlist ends at allocated_size and the read path
+> maps what lies beyond it as a hole, so a data_size larger than the
+> allocation makes reads return zeros that are not on disk, with no error.
 > 
-> However, if a top-level cgroup A1 has a child A1/A2 enabled as a remote
-> partition on a subset of its exclusive CPUs (X2-3 on A1, CX2-3:P2 on
-> A1/A2), and A1 is then set to "root" (P1, becoming "root invalid" via
-> update_prstate() because its exclusive CPUs intersect subpartitions_cpus)
-> followed by expanding its CPUs to include additional non-remote CPUs
-> (CX1-3), update_cpumask() / update_exclusive_cpumask() calls
-> validate_partition() without going through update_prstate(). Because
-> validate_partition() does not check trialcs->exclusive_cpus against
-> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
-> partition over the existing remote partition A1/A2 and triggers:
+> On a crafted volume with 4 KiB clusters where a 6144000-byte file claims
+> a data_size and initialized_size 64 KiB beyond its allocation, reading
+> the file returns 16 clusters of such zeros.  A sparse file behaves the
+> same.  A compressed file instead fails with -EIO after a burst of "Still
+> have pages left!" errors from ntfs_read_compressed_block().
 > 
->    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
+> Require 0 <= initialized_size <= data_size <= allocated_size, with
+> allocated_size a multiple of the cluster size, when the inode is read,
+> as fs/ntfs3 does in mi_enum_attr(), and fail with -EIO otherwise, which
+> marks the inode bad and the volume as having errors.  initialized_size
+> above data_size is rejected too because an extending write zeroes the
+> gap it opens only from initialized_size onwards.  An unaligned
+> allocated_size ends inside a cluster that the read path treats as past
+> the end: a crafted 66440-byte file with 4 KiB clusters reads its last
+> 904 bytes as zeros.
 > 
-> Check trialcs->exclusive_cpus against subpartitions_cpus in
-> validate_partition() when !is_partition_valid(cs), and add a regression
-> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+> Sparse and compressed attributes need no exception.  Every non-resident
+> attribute has a cluster-aligned allocated_size >= data_size, holes
+> included, on eight public test volumes (seven written by Windows, with
+> LZNT1-compressed files, a sparse $UsnJrnl:$J and a OneDrive placeholder
+> whose unnamed $DATA is one hole, and one by mkntfs), on a volume written
+> by ntfs-3g and on one written by this driver, and the patched driver
+> reads every file on them as before.  fs/ntfs3 has enforced the same
+> checks since v6.6, also without exceptions.  The layout.h comment saying
+> that data_size can exceed allocated_size for compressed and sparse
+> attributes is corrected.
 > 
-
-Was this message assisted by an LLM?
-
-It would be helpful if you could provide the reproducer as I replied earlier, so 
-that it can be understood more easily and tested.
-
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+> This also covers a non-resident attribute list, which
+> load_attribute_list() reads through ntfs_attr_iget(), and $MFT, whose
+> inode goes through ntfs_read_locked_inode() after the previous patch's
+> check.  The check was already missing in the classic driver; the Fixes
+> tag names the commit that brought that code back.
 > 
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 > ---
->   kernel/cgroup/cpuset.c                            | 4 ++++
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 6 insertions(+)
+>  fs/ntfs/inode.c  | 38 ++++++++++++++++++++++++++++++++++++++
+>  fs/ntfs/layout.h | 13 ++++++++-----
+>  2 files changed, 46 insertions(+), 5 deletions(-)
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7381fa8502e7..7c5b4a8f1f3a 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
-> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 9c97fc3f9e5ff..126c50b5a349e 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -651,6 +651,38 @@ void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
+>  	}
+>  }
+>  
+> +/*
+> + * The clusters of a non-resident attribute end at its allocated size.  Past
+> + * that there is nothing on disk to read, and past the initialized size reads
+> + * return zeros and writes zero the gap they open, so the sizes must satisfy
+> + * 0 <= initialized_size <= data_size <= allocated_size, with allocated_size
+> + * a multiple of the cluster size.
+> + *
+> + * Sparse and compressed attributes get no exception.  Windows, ntfs-3g and
+> + * this driver all count holes in allocated_size (the clusters actually in use
+> + * are in compressed_size), including for streams that are entirely a hole,
+> + * and fs/ntfs3 has applied the same check to every non-resident attribute in
+> + * mi_enum_attr() since v6.6.
+> + */
+
+Could you remove the comment above. The comment in layout.h already
+document these size relationship sufficiently, so I think that the
+duplicated explanation is unnecessary.
+
+> +static bool ntfs_non_resident_sizes_inconsistent(struct inode *vi,
+> +						 const struct attr_record *a)
+> +{
+> +	s64 allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
+> +	s64 data_size = le64_to_cpu(a->data.non_resident.data_size);
+> +	s64 initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
 > +
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->   					  trialcs->effective_xcpus))
->   		return PERR_HKEEPING;
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index b732078bf319..4a451350ad84 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -321,6 +321,8 @@ TEST_MATRIX=(
->   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
->   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
->   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
-> +	"   X2-3  CX2-3:P2  .      .  P1:CX1-3   .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
-> +								       A1:P-1|A2:P2 2-3"
->   
->   	# Local partition invalidation tests
->   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
+> +	if (initialized_size >= 0 && initialized_size <= data_size &&
+> +	    data_size <= allocated_size &&
+> +	    !ntfs_bytes_to_cluster_off(NTFS_I(vi)->vol, allocated_size))
+> +		return false;
+> +
+> +	ntfs_error(vi->i_sb,
+> +		   "Attribute 0x%x of inode 0x%llx is corrupt (initialized size %lld, data size %lld, allocated size %lld).",
+> +		   le32_to_cpu(a->type), NTFS_I(vi)->mft_no, initialized_size,
+> +		   data_size, allocated_size);
+> +	return true;
+> +}
+> +
+>  /*
+>   * ntfs_read_locked_inode - read an inode from its device
+>   * @vi:		inode to read
+> @@ -1184,6 +1216,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>  					"First extent of $DATA attribute has non zero lowest_vcn.");
+>  				goto unm_err_out;
+>  			}
+> +			if (ntfs_non_resident_sizes_inconsistent(vi, a))
+> +				goto unm_err_out;
+>  			vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
+>  			ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
+>  			ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
+> @@ -1446,6 +1480,8 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
+>  			ntfs_error(vi->i_sb, "First extent of attribute has non-zero lowest_vcn.");
+>  			goto unm_err_out;
+>  		}
+> +		if (ntfs_non_resident_sizes_inconsistent(vi, a))
+> +			goto unm_err_out;
+>  		vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
+>  		ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
+>  		ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
+> @@ -1675,6 +1711,8 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
+>  			"First extent of $INDEX_ALLOCATION attribute has non zero lowest_vcn.");
+>  		goto unm_err_out;
+>  	}
+> +	if (ntfs_non_resident_sizes_inconsistent(vi, a))
+> +		goto unm_err_out;
+>  	vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
+>  	ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
+>  	ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
+> diff --git a/fs/ntfs/layout.h b/fs/ntfs/layout.h
+> index 8f5792139d719..2de83d4ca40b9 100644
+> --- a/fs/ntfs/layout.h
+> +++ b/fs/ntfs/layout.h
+> @@ -811,14 +811,17 @@ enum {
+>   *                                  on XP SP2+.
+>   * @data.non_resident.reserved:     5 bytes for 8-byte alignment.
+>   * @data.non_resident.allocated_size:
+> - *                                  Allocated disk space in bytes.
+> - *                                  For compressed: logical allocated size.
+> + *                                  Allocated size in bytes, a multiple of
+> + *                                  the cluster size.  For compressed and
+> + *                                  sparse attributes holes count as
+> + *                                  allocated; the clusters actually in use
+> + *                                  are in compressed_size.
+>   * @data.non_resident.data_size:    Logical attribute value size in bytes.
+> - *                                  Can be larger than allocated_size if
+> - *                                  compressed/sparse.
+> + *                                  Never larger than allocated_size, also
+> + *                                  when compressed/sparse.
+>   * @data.non_resident.initialized_size:
+>   *                                  Initialized portion size in bytes.
+> - *                                  Usually equals data_size.
+> + *                                  Usually equals data_size, never larger.
+>   * @data.non_resident.compressed_size:
+>   *                                  Compressed on-disk size in bytes.
+>   *                                  Only present when compressed or sparse.
+> -- 
+> 2.55.0
+> 
 
 -- 
-Best regards
-Ridong
-
+Thanks,
+Hyunchul
