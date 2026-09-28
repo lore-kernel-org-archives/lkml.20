@@ -1,107 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D074F55C3;
-	Mon, 28 Sep 2026 21:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E883524BBEB;
+	Mon, 28 Sep 2026 21:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629713; cv=none; b=n+zxHR5sIO3GdVhdkJ/XxCDKSGtv/qho7Kv3rGebAqbMNquzwtq1xGaXtfOsxpcIN2KcDQu/kNMfmtZ1HcVehxEQ9nb/7YAtdt1OPBXBWbCGmhif3+JllxBffTl6imfgXwkEYseViLEIxRXwswpeVGADO5qTGB7ABg1CbHMaWvA=
+	t=1790629802; cv=none; b=iRqA+40R3Ml0yar0g0JmKAoZAlRk0bwKzt5rewEw/rgRCtxydtFrTVCRyQe/u1BJ/w9NYN4mH0LS8YuBMPnwZ5FsJqM8tNxqMjOFHUrvb5mXR5RKejeqtupHZsOdZqQTIXlrV2chIkqNG/WWXK3SL5JWvq+pTrbM1TkX/Ybubfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629713; c=relaxed/simple;
-	bh=ubCLZOqyKtAsDaeaTiwxQToK3l52AquCJw2Wy54Kq+w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Rl10dYh+Btyb8SCo76LWAIx6EQkrTi2PkwCdNiTD05N+L4dn7cRmKdK+GJvvKHbyMl+8bwMTAfWBB0299lJzdqj9BhRgr8ayDySGU1GABkXCrCi7F+IIbdIqbE3RLfjUDK33IBAkpgap5vj6PCRXzc0yFyZAzR08jmS4v0Wxjlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=scFcWAFP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790629802; c=relaxed/simple;
+	bh=fv4AndyObxeCV94OuxSd3evVY0mfDp6Ey1X+q/ykv4k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=i0ZG5dzZTC3HMlDajGZwcdX3oj6RYszgBsB9XEdXeHmeqtqLHzH6c6b/I0jDT93Z294MlES7rZ9y7mwqDSFKRog5jBcedCViqLspxBO/sWwPUbsmAm+ZIFqbQBE+firhKYod39iqVAiHZsQguVQTF7RT9c/s31/njnJhWtfZYZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=sA/TVTKJ; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="scFcWAFP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C41FCC2BCB3;
-	Mon, 28 Sep 2026 21:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790629712;
-	bh=ubCLZOqyKtAsDaeaTiwxQToK3l52AquCJw2Wy54Kq+w=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=scFcWAFPzVwlgk6Mfuy4dGt/T10sb3XTyF8CZvofpLpfICykWRUzpp5Nv0QPzvo5d
-	 2spSQHugSGLmjwWgUQsmrDnYCrkJiDPEYY2/oZTRMrGaQeLYWEV+22AvFUnL5X3hHj
-	 H2/xU+ojjPIcLxRjonDJN7A8Sh0xmSlEnEVdfgQ8rlk/rnt1KQLUbcdyRy29ZItgmh
-	 g6ikvlvyMCTA9y2IWYXcn+UTg5wkYrqm0WmraLOuqQgD9UUQk6F8tIX3jcNeZm8d0K
-	 SZkNDbvYk0zhz8w5TzvODjbo+7BtKL+zFUtEDyqQ7YIPl3KeOVOMG0FjWZweuT6iZZ
-	 /CWyG53GgaK7Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E792CA5FA1;
-	Mon, 28 Sep 2026 21:08:32 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 28 Sep 2026 23:08:28 +0200
-Subject: [PATCH v2] arm64: dts: lx2160a: set #pinctrl-cells on the pinmux
- node
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="sA/TVTKJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790629800; x=1822165800;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=H8DotsXPN374HFQ8qa8EzNzUFmop24e6Vw7r0e/NuIs=;
+  b=sA/TVTKJiH3oQw2D2B9I1BkVv4HvIsPWiiixBpGZ3RXKvj8piqjTU0cg
+   K+w846dl2MtlHIUsOQpNa8QZjqdZ1epG0XmUPV3ZWS7yHlJ007yAVz/DO
+   L372/b6OjnCkspNWr2K6frt/iYn+DK5MUa0Nr94arr5FeUWM6rYfZ8tcO
+   Fp5aWKmGWiHA+40DE2p0qRqUAHL8aceTpWPSG5D2i7jFed6xK3Q4LEFoA
+   L/Q+rW5AjUX5ByHYE/ivf5wobdxnO+SYJeWQf2rCTHMlr3iJmaWSgToLS
+   c0XwyO8sUbA1D1Qa6NgwaXsx431hwMNB70qm2e7VyQ37MHR4gdFpANcZq
+   w==;
+X-CSE-ConnectionGUID: YiK4e9/uRWekaHHLoyVJ4Q==
+X-CSE-MsgGUID: PaU3CVDDTUqL8U6RB+6wLg==
+X-IronPort-AV: E=Sophos;i="6.27,129,1787011200"; 
+   d="scan'208";a="29638367"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:09:57 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:12359]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
+ id ca07bd3d-573d-4268-a86f-f322f91166ed; Mon, 28 Sep 2026 21:09:57 +0000 (UTC)
+X-Farcaster-Flow-ID: ca07bd3d-573d-4268-a86f-f322f91166ed
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 21:09:57 +0000
+Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 21:09:56 +0000
+From: Surendran Kanagaraj <surenkj@amazon.com>
+To: <jarkko@kernel.org>
+CC: <graf@amazon.de>, <gunnarku@amazon.com>, <jgg@ziepe.ca>,
+	<joshlev@amazon.com>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
+	<peterhuewe@gmx.de>, <surenkj@amazon.com>
+Subject: Re: [PATCH 2/2] tpm_crb: Raise timeouts for Amazon NitroTPM
+Date: Mon, 28 Sep 2026 21:09:53 +0000
+Message-ID: <20260928210953.29183-1-surenkj@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <araZZzKDqzrPdY9f@kernel.org>
+References: <araZZzKDqzrPdY9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-for-upstream-lx2160a-pinctrl-cells-v2-1-1227b2e897d3@free.fr>
-X-B4-Tracking: v=1; b=H4sIAEvXumoC/5WNSw6CMBBAr0K6dgwdPhZX3sOwqGUqk1QgUyQYw
- t2t3MDle4v3NhVJmKK6ZpsSWjjyOCTAU6Zcb4cnAXeJFeZY5w0a8KPAe4qzkH1BWFHXuYWJBzd
- LAEchRLhgUxWFNvgwlUqhScjzekzubeKe4zzK53gu+mf/yi8aNJTeWmOLUruuu3khOntR7b7vX
- ySey0bSAAAA
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790629711; l=1258;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=MLG+A3X72Uzk7Ufcvox/+HKIq9Wjjn1mtqOgeCdt28M=;
- b=Kg5Dd4el+o3eMbJo2GVlTwYzVEDdR0ZdS9fQGXKBUZ0xTpYc1C8lDtrgVM07nHcjhgFnBKUlJ
- +PQXpdJPPEPCf6JomddSRVqbGzuQO4hkdwxruh1kqSVsU6J4+eG2jIl
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA003.ant.amazon.com (10.13.139.42) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Vincent Jardin <vjardin@free.fr>
+On Fri, Sep 25, 2026, Jarkko Sakkinen wrote:
+> On Wed, Sep 23, 2026 at 02:28:34PM +0000, Surendran Kanagaraj wrote:
+> > +/* Longest unavailability seen from NitroTPM */
+> > +#define CRB_AMZN_BUSY_TIMEOUT_MS     30000
+>
+> Use TPM_CRB prefix.
 
-The below message shows at boot time:
-  pinctrl-single 70010012c.pinmux: please update dts to use #pinctrl-cells = <2>
+Thanks for taking time to review my patches. Will update this in v2.
 
-Add missing #pinctrl-cells = <2> to fix it.
+> > +	crb_apply_vendor_quirks(priv, chip);
+>
+> I.e., all this complexity equals to:
+>
+>         if (crb_vendor_id(priv) == CRB_INTF_VID_AMZN)
+>                 chip->busy_timeout_ms = CRB_AMZN_BUSY_TIMEOUT_MS;
+>
+> ?
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Changes in v2:
-- Reword the commit message (thanks Frank Li)
-- Rebased on imx/for-next
-- Link to v1: https://lore.kernel.org/r/20260928-for-upstream-lx2160a-pinctrl-cells-v1-1-4faa8a341cdd@free.fr
----
- arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Yes. I added the table to keep vendor specific quirks out of the probe
+and could be extended without touching the probe. tpm_tis_core does
+something similar with vendor_dur_overrides. what do you think? I am
+happy to switch to the plain check if you prefer.
 
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-index bccf2d673023..2085362ab0ea 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-@@ -1536,6 +1536,7 @@ pinmux_i2crv: pinmux@70010012c {
- 			reg = <0x00000007 0x0010012c 0x0 0xc>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			#pinctrl-cells = <2>;
- 			pinctrl-single,bit-per-mux;
- 			pinctrl-single,register-width = <32>;
- 			pinctrl-single,function-mask = <0x7>;
-
----
-base-commit: 5d034f17b24642b2a764c0e3a68b4c6937c9ba75
-change-id: 20260928-for-upstream-lx2160a-pinctrl-cells-729533182b85
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+Thanks,
+Surendran
