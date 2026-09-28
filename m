@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6805401A14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2EB443E31
 	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578008; cv=none; b=SK5mRk2mtqYiLTYTVHamWx7VzGuEveIMe0EAHXMXG5fDynLOIKAFDqMRw0iFUVSrn50hZJqvDPjBBtYCfJagDMRfpBVijgy1F9qhPWjz5PaTSUPNn0LMJ9bvxmODxXzL3GZ2K1cCoDA1+C3Md8bVkDCIsA0fnMdnTkjziKhTGiE=
+	t=1790578009; cv=none; b=MKsBOBae612/wsArLC9WJ+PRhy/RidKoZO/HuqYftbWp8N2vYY3N9Go+XV1YAaqECK8KGTF2wFn+jjFgaEJ6/wzt5N73FzVP75yx1tRTcorBy9mGQU5ecF6H+N/7SSNgT4mI3Lpm/sUHKq8QdNvWdZ9er1a28HxGufnWFCnFnSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578008; c=relaxed/simple;
-	bh=6ivHM1djiyNApPfmgTiRMC+kHX/ImCj+9xjrPFQgQi4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sDWs8pXVH5R3WjzhRSJTviKk1yhcuJ/xl+4owZ5J5TbS01QuIy+GY+zq6t6KM4ZpuWgIHsPx4+KBaH5BCmVI0oe45S4jgAK0X6ZswMDGVn+uSiqdpRsqeLd4Jl3ZYjOOg4ZBDMpqx2uSKvbWSaKEpisGdkilu5FRsnjKz/k4WO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aAnQlglh; arc=none smtp.client-ip=95.215.58.171
+	s=arc-20240116; t=1790578009; c=relaxed/simple;
+	bh=ytdKApU5ydc5tgMMhT0OgPOrlWOEu72eXq+ptWF2rq8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bSx6MiKj2g6xXLH5V/11/W8sBuNOt8SfV55k1b0lHdHLWFQSeZNoRC8hWH7SXClOB7yFNSSVB1NsuIX8gma4f883NNgTXJvPvJsKQgwe43FxViuKMcl5Uqu9OiLzWnG1ridkCXForafL+/Z9p1wqfSt6Zk6MuQwZI1PCcCaPy0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IigTPIOn; arc=none smtp.client-ip=95.215.58.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aAnQlglh"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IigTPIOn"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6ivHM1djiyNApPfmgTiRMC+kHX/ImCj+9xjrPFQgQi4=;
+DKIM-Signature: a=rsa-sha256; bh=ytdKApU5ydc5tgMMhT0OgPOrlWOEu72eXq+ptWF2rq8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790578004; v=1; x=1791182804;
- b=aAnQlglhVL8NR8DwUi32fX0WPb1wl0Ov84kG0bRmcFLd96Rw9GW4BvqRo1BFn+y3NxaiRdcg
- K80AbHVpLRSkXwwcGMxQsASJTf4/LX4ModWu1+4SOun5CTEqkOS4qGnptr/ByeBW10UOXx/Ox8S
- 5xtaQ3x2m8Tj9rYarXYR190s=
+ t=1790578005; v=1; x=1791182805;
+ b=IigTPIOn6hYFsxJMrgRBRJhD6ZJuR8vcHF/t/WjEo9pL5WSjE97g15HU0N66rX8lg+lIKT6c
+ EJzBuqGnCh7dwfFvzyQ3ZHOKf5YK7P3KM7vIVYpaHoCq0MM6s3SkSWC5G1K/Dl3xXWhfeTUw0Ut
+ EriVZfRYslyyUSd2Rg9FabZM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eace2c2eb089f675;
-	Mon, 28 Sep 2026 06:46:44 +0000
-X-Mizu-Trace-ID: eace2c2eb089f675
+Received: by smtp.migadu.com with ESMTPS id 44dc0649da117e22;
+	Mon, 28 Sep 2026 06:46:45 +0000
+X-Mizu-Trace-ID: 44dc0649da117e22
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -45,10 +46,12 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] KVM: arm64: Fix HCR_EL2 for non-protected VMs in pKVM
-Date: Mon, 28 Sep 2026 07:46:39 +0100
-Message-Id: <20260928064643.3265087-1-fuad.tabba@linux.dev>
+Subject: [PATCH v2 1/4] KVM: arm64: Don't WARN on an unsupported TLBI OS from vEL1
+Date: Mon, 28 Sep 2026 07:46:40 +0100
+Message-Id: <20260928064643.3265087-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260928064643.3265087-1-fuad.tabba@linux.dev>
+References: <20260928064643.3265087-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,65 +60,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+KVM hides TLBI OS from a guest whose ID registers don't advertise it by
+trapping the instructions: through the fine-grained traps on a CPU with
+FGT, and through HCR_EL2.TTLBOS on one with FEAT_EVT2. With FGT,
+triage_sysreg_trap() makes a trapped TLBI OS UNDEFINED. Without it, the
+instruction reaches handle_tlbi_el1(), which assumes an EL1 TLBI only
+traps from a guest at vEL2 and WARNs before checking whether the guest
+supports it. The guest still gets its UNDEF after the WARN. A VMM can
+trigger the WARN by hiding TLBI OS and having the guest execute one.
 
-Changes since v1 [1]:
-- Patch 3: take a list of host bits per VM type instead of the host's
-  value minus the bits EL2 owns; drop the HCR_GPF definition (Marc).
-- Patches 2 and 3: use the HCR_EL2_* names in added lines (Marc).
-- Patches 1-3: reworded the messages, and the comment in patch 2
-  (Marc).
-- Patch 1: collected Wei-Lin's Reviewed-by.
+Check support before the WARN.
 
-In pKVM, EL2 sets a non-protected VM's HCR_EL2 in pkvm_vcpu_reset_hcr(),
-which misses the RW, TID5 and TTLBOS handling of vcpu_set_hcr(), and
-takes only TWI, TWE and VSE from the host. As a result, an AArch32 VM
-can't run, a VM can read GMID_EL1 or execute a TLBI OS its ID registers
-hide, and the host's TVM, VI and VF never reach it.
+Fixes: 0cb8aae226768 ("KVM: arm64: nv: Add handling of outer-shareable TLBI operations")
+Cc: stable@vger.kernel.org
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/sys_regs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-The second patch clears RW for an AArch32 vCPU. The third also takes
-from the host, for a non-protected VM, the bits the host varies with the
-VM's configuration or at runtime: VI, VF, TVM, TID2, TID4, TID5 and
-TTLBOS. The rest stay EL2's, and a protected VM still takes only TWI,
-TWE and VSE.
-
-The third patch depends on the first: once TTLBOS reaches the VM, a
-trapped TLBI OS from a non-nested guest hits a WARN in
-handle_tlbi_el1(), as it does without pKVM.
-
-The last patch adds a selftest that checks a feature hidden in an ID
-register is UNDEFINED in the guest. Its TLBI OS case fails in pKVM
-before the third patch.
-
-VSE still comes from the host as before. Syncing it back after delivery
-is a separate fix [2].
-
-Based on Linux 7.3-rc4 (93f51579e7df2).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260925090619.852995-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/all/20260921101030.1231605-1-fuad.tabba@linux.dev/
-
-Fuad Tabba (4):
-  KVM: arm64: Don't WARN on an unsupported TLBI OS from vEL1
-  KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
-  KVM: arm64: Use the host's HCR_EL2 for non-protected VMs in pKVM
-  KVM: arm64: selftests: Check a feature hidden in an ID register is
-    UNDEF
-
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h        |   9 +
- arch/arm64/kvm/hyp/nvhe/hyp-main.c            |   7 +-
- arch/arm64/kvm/hyp/nvhe/pkvm.c                |  25 ++-
- arch/arm64/kvm/sys_regs.c                     |   7 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/hidden_features.c     | 184 ++++++++++++++++++
- 6 files changed, 218 insertions(+), 15 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/arm64/hidden_features.c
-
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 44aae52c473d7..0ce29ce678b08 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -4257,6 +4257,10 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ {
+ 	u32 sys_encoding = sys_insn(p->Op0, p->Op1, p->CRn, p->CRm, p->Op2);
+ 
++	/* Without FGT, HCR_EL2.TTLBOS also traps a hidden TLBI OS from vEL1 */
++	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
++		return undef_access(vcpu, p, r);
++
+ 	/*
+ 	 * If we're here, this is because we've trapped on a EL1 TLBI
+ 	 * instruction that affects the EL1 translation regime while
+@@ -4279,9 +4283,6 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ 
+ 	WARN_ON(!vcpu_is_el2(vcpu));
+ 
+-	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
+-		return undef_access(vcpu, p, r);
+-
+ 	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu)) {
+ 		kvm_handle_s1e2_tlbi(vcpu, sys_encoding, p->regval);
+ 		return true;
 -- 
 2.39.5
 
