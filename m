@@ -1,101 +1,386 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65548302CC1;
-	Mon, 28 Sep 2026 12:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599797; cv=none; b=auRs3e8YgIxCEiARwRWwtYozDmpliLqOxlE6p+nArnPuGT8qpN9s3zG6AjNl8XVPqAtRFD3gMFAyMtp/UDUjyjLGskEyUZAqZfgjuqI0YBWGA0S7ZERi3jiNQHUDK3EXGIh05SRS14WztnMCQfs6a53RTwkTGXBTR3hn1uq+uKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599797; c=relaxed/simple;
-	bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VCbrsinTe3QepozQxqBjeo6JLD9PiKCdSp270wbC4xufqs+acIrkBcgJrrvvkvsBApp0+xJGURVdJxkIP+JMjsyMJOA5NfTO6MW0wEpX917caPSRZ6T2fFiSERmcGoTy92XrODeuwVTCBbqbRnYzw/cVGUUjqtEdkxK3huWqAsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JT86vmjP; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829E51E7660
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599847; cv=pass; b=TBA6SM2iwU1gK4hxD3N/VgRkqyGw77qR1cxQCGcDS0qVoBTSxK5VKGzinweFj2tk0D9aQvrVc+pTbEHLTcoxRLIb1EC6uwsjbeB1jUnvRwjSyh+V0BK9/+8B63DVnZY35m4f9B68ayWqa0C1K2XqWKnItYWtcXveNuVoYNKDgpo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599847; c=relaxed/simple;
+	bh=M+3dH1GSvevY6GhwOgUyNx+LoNjtxNBLo3OfUg6iUCQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PQ1SyRrT/dOU97A1gJwvSzdgCTMvHE6IxC+JewHPWYFzGdVTIggKSM6MRthuPyDusZwyzPK3dNDAN7z2KiajCxpnsw97eog62m6wSAQN2LXXINzglmim6e6jmjm9dhasmw+N9yNuXjIzJdnW2L2T1O2VARzrpcPdoRKsDXQp89I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=atd6iq2N; arc=pass smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JT86vmjP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790599795; x=1822135795;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
-  b=JT86vmjPqZEBOrs01+h8r1XFDB0DyRSesrIwGYuyPwKR5KcemUuPlWth
-   Z1G3IMB1JXjCT/R0pGz/8bjif5faEpZu10SoSJQp7C9EX5V9LCyigtu2W
-   3OwdbdgaJTiFoFnY+krJMXjapCUHywlx3+aqzsS3kMh+IEac8FxRUxP9Y
-   VB2DijrXpJLESuHrn+tAesZ3ZYv+4xHWaJK99Gujx4XtpUZb9pUrBFy38
-   VzrX4nR6YoByHA9EusQEfvEX9Nr/ciiijR2Dy/TtTAYskNdVRfG8Yg3bc
-   dsneN7xykxXntIjB36m+iklpRvtnSW7NJhS2Q7uC/qr693Kxu8DFp4sx+
-   g==;
-X-CSE-ConnectionGUID: Ih20ZQUTSRG0COHtO2yXIA==
-X-CSE-MsgGUID: MosLQ9wTSF2JyPI/qZ/NGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108786997"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="108786997"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:49:54 -0700
-X-CSE-ConnectionGUID: aWXxhip/QdGoIrz/iToTEQ==
-X-CSE-MsgGUID: H7DTyoqiR2O1/qHpVzrBeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="274267253"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 28 Sep 2026 05:49:52 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 181C099; Mon, 28 Sep 2026 14:49:51 +0200 (CEST)
-Date: Mon, 28 Sep 2026 14:49:51 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: amber.kao@ite.com.tw
-Cc: ite_pd@ite.com.tw, jeson.yang@ite.com.tw, Yaode.Fang@ite.com.tw,
-	gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
- alternate mode support
-Message-ID: <arpib-_yT8o6-hhg@black.igk.intel.com>
-References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
- <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
- <arJgdmA9cWLMQpzV@black.igk.intel.com>
- <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="atd6iq2N"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a658b1f7b7so19497831fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:50:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790599843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ag0CQXVEA/7Pxeb3msZd2/QVKIEsIFqKQKGMn6T0uD2K1Fjdb1v4IoOAUUW8UFaD4f
+         KxDhFIKpOy24OCxRR71sVvlG9tcZFaP2K17f0cMUlrTH43jLbmENjbfIt8dF7g5OBDgI
+         +8AWAyzPXQqOjba6SMa9hJFXbtO8SsN4Co7/LPrTybhSrdTLmHXrhm9goN/M9ANuhvXQ
+         DRi0anQH64ZNMjNOotoX4k4/0q9fBbLV+0+h0sFgH1Bk+JlhbeSRWvyKjk8eCcuVXDSk
+         PywYUD2c202JHkiH8zEH560WwssYKvHLY7XvvEa0ngcdy33ToWFxC4yKH/BRQ5FFwlu7
+         Xgqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        fh=3eBNzZVuFEDPdlz6MDbS9McS3B2f/SvRPDcy+xMAoYo=;
+        b=aPZGeMwz7xWKRqvbslkmXqk9DGfz7dbLmarLUNqweiUWh/zWNSlQzwR9UTtndDFwkg
+         4t9Ajo90hDWFPIUhBX5uiVEhbqviP01mMKBSqNtf7mFIpzkoijeozyi5ZO21R1WzLxyL
+         SIOWK45VskFknT6E/12TEC+3abf1YOIQRP9w3MC1z2Td48sEm4A0Wz/Pqd1elxfc7Fwo
+         oHwEaN/3YEY8fH9uKEnzccP7ltbjDc8rJZcuNof0wP7jAJtvqhfy35HN+fgeuqjBVcNu
+         Qow3Z1tsoZV5sJMdlWCSjubUkOu8KNiP523lE3r35/XNpLTI5LtQkXa240r1BRr+25/t
+         U5zw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790599843; x=1791204643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        b=atd6iq2NjcHVw3ptP0o5HTXFlBIw2PfckmFwXJ2JDemLyNugFVIwMuoD3HHPwugQ+Z
+         yiukOX0J72qbEsmJgdlcbM2Bc/McBkbV8Jf3Z0yP7aXk5WLMGZnjG6j1jIP/LJC6jfRU
+         feWJGQoV8KWl1lJ0poEwKbeWOM/0Cqy+UlgayU1mxwjCRRxL8NKdYT27iXRSvJ+UjasN
+         pu+/HXvvDfasCqgpDBsxtm4ep6Ig4Gg0NIpatuaqJ6VYr4agteQwOCPK4TLdcymUUmLF
+         M+TizHWCjH2VbYFXBVaI6sqAn9q1waFfml3pD0XOV/b9Z6aIzRrzv1x5EsmdtsxlHnrW
+         F3bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790599843; x=1791204643;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        b=u3DwBOEsCnTFQXxQYo6rrfOr/kvpNXsKeOsG2zzNq69RtP69ypLnclTHluDUKtlqUE
+         qfvScCvnTWS0pCgeIXS9fbV3lLpCh5PTtY/8/X9jjIjLktCk5JgwZ181VGx+Ba3S6izf
+         oGy8SbLA6WYblfIuhpjNcaIfqCoBnvyXgCq4msGJ96JrctlQypQKpbhX0Mw1Q8NEQK4k
+         7iJXXoG/df67HGUpF4fisfTZgiJty6htUd1/a8bLzbmde94SRE87T2kcH+oTq4j5WDfP
+         pRxVqAboOwIJuP0PZMMINUwa5bfL4ThPrgC32+oFCVxAvX7cIMgidlW+LU8lmiP9OmGu
+         vI7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwLN7LtcZ6r8ujPB3/xwW8/5DP/P3LFYKWvKYmqaq1qQVVe93r3BaKsNxrP8F+sMIktIcmFJU/jVw9nmE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwv8OWpidL4HNttaSOQ4aq/Mpj+NnehiOSLGzDyO98ilMnVTVl
+	q5KwbWoK7N0Yaal9VPlLJhwsVx/+TgO0V/Jf3DE0TT0szUe+WJZym0rrykYNwspN467jQZUDrGn
+	oRhL8NlvsfF5nEgT7kz81m6UJI7Kpfwd8/XdQM8PzyM4=
+X-Gm-Gg: AYBFou2Waaif2pIZ+cli+k51/G1EYZawVuTMtU/br7cySZzYXVgQ4cXrEM8s3rLjwHx
+	UYe3vH8g2QJSdVo26MDdjP/5M76VZ3yyxQK8QKgtvYcTxtCm1atNpNe426wPYGA7S+08Sg+VFw6
+	eQuC6dcEvSs12AKpQRcZesAZiudAUW/wpLrZTIJXHkkjv9aJvEm7PqQhcxhffz4T91Z7nU4ZfIz
+	RapYn2svPTk2GQ7G8lSToIL2W/Q4Gwvoer2AFP23nNvAYPyuV9nPgHs2CViw3dhA8yNweSgfsqB
+	jaQeNeSJ0vffkiML+irLlkf2BRZgAV18mj3p5XJbo9XX8sznV4gg6cvpwCSMbMI1xCutc2wVC8g
+	X1LWM5vF6Fw==
+X-Received: by 2002:a05:651c:198e:b0:3a6:4917:dbbb with SMTP id
+ 38308e7fff4ca-3a64917e589mr27771821fa.5.1790599843212; Mon, 28 Sep 2026
+ 05:50:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
+References: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
+ <20260928094944.815915-1-horms@kernel.org>
+In-Reply-To: <20260928094944.815915-1-horms@kernel.org>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 28 Sep 2026 20:50:30 +0800
+X-Gm-Features: AclHuK8LZn81RTv7sYp23KybCbUWmZsmLN5vA0Mzyb-pTREothGkyMtFiQbTFJc
+Message-ID: <CAANe3eTdu7fEEYiCA38+SK9Ja9kO7GY9EX2o7fg1bbwVsT4R+g@mail.gmail.com>
+Subject: Re: [PATCH net v12 1/1] llc: fix listener child socket leaks
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	stable@vger.kernel.org, vega@nebusec.ai, root@tr0jan.top
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 10:33:50AM +0000, amber.kao@ite.com.tw wrote:
-> On Fri, Sep 18, 2026 at XX:XX, Heikki Krogerus wrote:
-> > >  config UCSI_ITEPD
-> > > -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-> > > +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
-> > >  	depends on I2C
-> > > +	depends on DRM || !DRM
-> > > +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+On Mon, Sep 28, 2026 at 5:50=E2=80=AFPM Simon Horman <horms@kernel.org> wro=
+te:
+>
+> This is an AI-generated review of your patch. The human sending this
+> email says "I'm forwarding this as it looks legit and the forwarding
+> bot trigger seems to have timed out."
+> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2af99=
+49fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai?part=
+=3D1
+> ---
+> llc: fix listener child socket leaks
+>
+> This patch reworks LLC listener passive-open handling. Child sockets
+> created on SABME are now freed when setup fails or when the connection
+> indication is dropped before accept(). Only SABME creates children, the
+> listener sends DM responses for other commands, pending indications count
+> against the accept backlog, and skb->dev is held for packets deferred to
+> the socket backlog.
+>
+> > diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
+> > index 260460d50f54c..77044720f12ff 100644
+> > --- a/net/llc/llc_conn.c
+> > +++ b/net/llc/llc_conn.c
+>
+> [ ... ]
+>
+> > @@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk=
+_buff *skb)
+> >                */
+> >               skb_get(skb);
+> >               skb_queue_tail(&sk->sk_receive_queue, skb);
+> > +             if (sk->sk_state =3D=3D TCP_LISTEN)
+> > +                     sk_acceptq_added(sk);
+> >               sk->sk_state_change(sk);
+> >               break;
+>
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch. It is
+> in the same area the commit message describes, though. Can a remote peer
+> grow an unaccepted child's sk_receive_queue without bound here?
+>
+> The child stays hashed while its indication waits in the listener's
+> queue. Suppose the peer sends DISC, which moves the child from NORMAL bac=
+k
+> to ADM, and then sends SABME again. llc_conn_handler() finds the child
+> and takes the non-listener branch:
+>
+>     skb_orphan(skb);
+>     sock_hold(sk);
+>     skb->sk =3D sk;
+>     skb->destructor =3D sock_efree;
+>
+> llc_conn_rcv(child) then handles ADM + SABME, which issues another
+> connection indication. This case queues it on the child's own
+> sk_receive_queue with no rmem or sk_rcvbuf check. The child is not
+> TCP_LISTEN, so sk_acceptq_added() does not apply either. Each queued skb
+> also holds a reference on the child.
+>
+> The new sk_acceptq_is_full() check in llc_conn_rcv_sabme() limits how
+> many children are created. It does not limit how many indications build
+> up on one child, and that memory stays pinned until the application
+> accepts or closes the listener.
+
+Confirmed. This is a pre-existing issue and is not introduced by this patch=
+.
+>
+> [ ... ]
+>
+> > @@ -765,14 +768,124 @@ static struct sock *llc_create_incoming_sock(str=
+uct sock *sk,
+>
+> [ ... ]
+>
+> > +static int llc_conn_rcv_sabme(struct sock *sk, struct sk_buff *skb,
+> > +                           struct llc_addr *saddr,
+> > +                           struct llc_addr *daddr)
+> > +{
+> > +     struct sock *newsk;
+> > +     int rc;
+> > +
+> > +     if (sk_acceptq_is_full(sk))
+> > +             goto drop;
+>
+> [Severity: Medium]
+> Can sk_ack_backlog underflow, so that this check drops every SABME from
+> then on?
+>
+> The counter only goes up in llc_conn_state_process() when sk_state is
+> TCP_LISTEN at queue time. Other code resets it without looking at what is
+> still queued:
+>
+> net/llc/af_llc.c:llc_ui_listen() {
+>     ...
+>     if (sk->sk_state !=3D TCP_LISTEN) {
+>         sk->sk_ack_backlog =3D 0;
+>         sk->sk_state       =3D TCP_LISTEN;
+>     }
+>     ...
+> }
+>
+> llc_ui_connect() only rejects SS_CONNECTING. A listener with indications
+> still in sk_receive_queue can therefore call connect(), and a DM or
+> timeout then leaves it in TCP_CLOSE / SS_UNCONNECTED.
+>
+> A second listen() resets sk_ack_backlog to 0 while the old indications
+> are still queued. Each accept() of one of those indications then calls
+> sk_acceptq_removed() unconditionally in llc_ui_accept().
+>
+> The u32 counter wraps to 0xFFFFFFFF and sk_acceptq_is_full() stays true.
+> Later listen() calls do not reset the counter because sk_state is already
+> TCP_LISTEN. Is every new SABME then silently dropped here?
+
+ Confirmed. The accept-queue counter can underflow as described.
+>
+> > +
+> > +     local_bh_disable();
+> > +     newsk =3D llc_create_incoming_sock(sk, skb->dev, saddr, daddr);
+>
+> [ ... ]
+>
+> > @@ -786,6 +899,10 @@ void llc_conn_handler(struct llc_sap *sap, struct =
+sk_buff *skb)
+> >               goto drop;
 > >
-> > Please split this part into separate patch.
-> 
-> Hi Heikki,
-> 
-> Understood, thanks for the suggestion.
-> 
-> I will move the Kconfig prompt, help text and MODULE_DESCRIPTION
-> updates out of the DisplayPort patch, so that the IT885x/IT527x
-> support and the DisplayPort alternate mode support are separate
-> patches.
-> 
-> Would it be fine to send both patches at the same time, or would you
-> prefer that I send the DisplayPort alternate mode support after the
-> IT885x/IT527x support has been accepted?
+> >       bh_lock_sock(sk);
+> > +     if (unlikely(llc_sk_unhashed(sk)))
+> > +             goto drop_unlock;
+> > +     if (unlikely(llc_sk(sk)->state =3D=3D LLC_CONN_OUT_OF_SVC))
+> > +             goto drop_unlock;
+> >       /*
+> >        * This has to be done here and not at the upper layer ->accept
+> >        * method because of the way the PROCOM state machine works:
+>
+> [Severity: Low]
+> This isn't a bug, but two comments still say the child is created in
+> llc_conn_handler(): this one, and the one in the LLC_CONN_PRIM case of
+> llc_conn_state_process() ("the newly created struct sock in
+> llc_conn_handler").
+>
+> After this patch the child is only created in llc_conn_rcv_sabme(). When
+> the listener is owned by the user, that happens later from
+> llc_backlog_rcv(). Should both comments be updated?
 
-It does not matter to me.
+Confirmed. The comments are stale.
+>
+> > @@ -795,11 +912,14 @@ void llc_conn_handler(struct llc_sap *sap, struct=
+ sk_buff *skb)
+> >        * in the newly created struct sock private area. -acme
+> >        */
+> >       if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
+> > -             struct sock *newsk =3D llc_create_incoming_sock(sk, skb->=
+dev,
+> > -                                                           &saddr, &da=
+ddr);
+> > -             if (!newsk)
+> > +             if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
+> > +                     llc_listener_send_dm(sap, sk, skb, &saddr);
+> >                       goto drop_unlock;
+> > -             skb_set_owner_r(skb, newsk);
+> > +             }
+> > +             if (!sock_owned_by_user(sk)) {
+> > +                     llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
+> > +                     goto out;
+> > +             }
+> >       } else {
+> >               /*
+> >                * Can't be skb_set_owner_r, this will be done at the
+> > @@ -813,13 +933,16 @@ void llc_conn_handler(struct llc_sap *sap, struct=
+ sk_buff *skb)
+> >               skb->sk =3D sk;
+> >               skb->destructor =3D sock_efree;
+> >       }
+> > -     if (!sock_owned_by_user(sk))
+> > -             llc_conn_rcv(sk, skb);
+> > -     else {
+> > +     if (sock_owned_by_user(sk)) {
+> >               dprintk("%s: adding to backlog...\n", __func__);
+> >               llc_set_backlog_type(skb, LLC_PACKET);
+> > +             /* The backlog can outlive the RCU protection of skb->dev=
+. */
+> > +             backlog_dev =3D skb->dev;
+> > +             netdev_hold(backlog_dev, NULL, GFP_ATOMIC);
+> >               if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
+> >                       goto drop_unlock;
+>
+> [Severity: Critical]
+> Can a listener SABME get into the backlog here with a foreign skb->sk
+> still attached?
+>
+> Before this patch, the TCP_LISTEN branch always called
+> skb_set_owner_r(skb, newsk), and that orphans the skb first.
+>
+> Now, when the listener is owned by the user, the SABME skips both
+> skb_set_owner_r() and the skb_orphan() in the else branch. It goes
+> straight to sk_add_backlog().
+>
+> llc_rcv() only calls skb_share_check(). A frame sent locally over veth
+> from an AF_PACKET or AF_LLC socket can therefore still carry the sender's
+> skb->sk and its sock_wfree destructor.
+>
+> If the listener leaves TCP_LISTEN before the backlog drains,
+> llc_backlog_rcv() takes the non-listener branch:
+>
+>     } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
+>         goto out_kfree_skb;
+>     }
+>     rc =3D llc_conn_rcv(sk, skb);
+>
+> The !skb->sk test is supposed to drop these ownerless deferred SABMEs,
+> but the foreign skb->sk gets past it. llc_conn_state_process() then runs
+> the state machine on llc_sk(skb->sk), which is the sender's socket. This
+> path holds no reference on that socket, and it may not be an LLC socket
+> at all.
+>
+> One way to leave TCP_LISTEN while the lock is owned is llc_ui_connect().
+> It does not reject listeners and it sets sk_state =3D TCP_SYN_SENT. At th=
+at
+> point llc->state is SETUP, which is greater than 1. The backlog is then
+> drained in llc_ui_wait_for_conn() or in release_sock().
+>
+> Should the skb be orphaned before it is backlogged in the listener case?
 
-Thanks,
+Confirmed. This is a regression introduced by the reviewed revision.
+>
+> [ ... ]
+>
+> > @@ -852,12 +976,33 @@ static int llc_backlog_rcv(struct sock *sk, struc=
+t sk_buff *skb)
+> >  {
+> >       int rc =3D 0;
+> >       struct llc_sock *llc =3D llc_sk(sk);
+> > +     struct net_device *dev =3D NULL;
+> >
+> >       if (likely(llc_backlog_type(skb) =3D=3D LLC_PACKET)) {
+> > -             if (likely(llc->state > 1)) /* not closed */
+> > -                     rc =3D llc_conn_rcv(sk, skb);
+> > -             else
+> > +             /* Drop the reference acquired before the skb entered the=
+ backlog. */
+> > +             dev =3D skb->dev;
+> > +             if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
+>
+> [ ... ]
+>
+> > +                     llc_pdu_decode_sa(skb, saddr.mac);
+> > +                     llc_pdu_decode_ssap(skb, &saddr.lsap);
+> > +                     llc_pdu_decode_da(skb, daddr.mac);
+> > +                     llc_pdu_decode_dsap(skb, &daddr.lsap);
+> > +                     rc =3D llc_conn_rcv_sabme(sk, skb, &saddr, &daddr=
+);
+>
+> [Severity: Medium]
+> Could this create two children for the same tuple?
+>
+> While the listener is owned, llc_conn_handler() backlogs SABMEs without
+> creating a child. A retransmitted or duplicate SABME from the same peer
+> can arrive before release_sock(). It finds no child in __llc_lookup(),
+> resolves to the listener, and is backlogged as well.
+>
+> When the backlog drains, each SABME reaches llc_conn_rcv_sabme(). That
+> function only checks sk_acceptq_is_full() before
+> llc_create_incoming_sock() hashes a new child. The established tuple is
+> not looked up again.
+>
+> Both children reach NORMAL, send UA and queue an accept indication.
+> sk_nulls_add_node_rcu() adds at the head, so only the newest child gets
+> traffic.
+>
+> The older child is still accepted by userspace but never receives frames.
+> Its sends, and its DISC on close, use the same tuple as the peer's single
+> connection.
+>
+> Before this patch, getting here needed two CPUs racing on the listener
+> slock. With this patch, hitting the owned-listener window at all seems to
+> be enough.
 
--- 
-heikki
+Confirmed. Duplicate deferred SABMEs can create duplicate children as descr=
+ibed.
+>
+> > +                     goto out;
+> > +             } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
+> >                       goto out_kfree_skb;
+> > +             }
+> > +             rc =3D llc_conn_rcv(sk, skb);
+>
+> [ ... ]
