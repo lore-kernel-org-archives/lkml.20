@@ -1,153 +1,103 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F88486B80
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB09488D9C
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585308; cv=none; b=RwMcc99aEWMsqa2KDFVLSgTkJyCme9dKAFO22BdSwFcp3HGD65BlcB937/wScRhNmq7RujSAyT3PnzYhDk36fKAF8kfCB0d0N5T8MrAZJ6uw+qRNjcoUsrC+EwrUjr3CjwFWNnqcZBHiBsBzTxY+25TQa8OoojZb1SxPBLCpA/w=
+	t=1790585309; cv=none; b=PDNZyg+qynm5jT4xaP7SHWTpNd37TaxCYeHk01erkbgdrxetr61mS8QY+cSmFvFvyaEQjRAkj9S7/0IhDF8fb9bqBI863tOgUGXJmhrIxtTNJqdomXLK1ydwgn9vF02Q3I3b4b5A6NlUp/jgQj0T7+Bf6/3mRyucEWwMK5twmbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585308; c=relaxed/simple;
-	bh=s1sH/1IcCUCWkTuphEUbN/Is/vUMXm3bT7doJt8rKZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XJAwc+Hun6SdNtP9yh7faVRy6z0HK4BBYYUZKoJtB3+49IalLXp03G+Fh2apaaWLiL3bWtDS5HM/pWa9LO229rl9iB56WreY6liq9oGjNZHArRz79tN0gLe8lmjNftmqnfEI7MkQm9EVc2kAXB6ke+20Dy+gGxGSzp+KPZ7sgsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmSUHuyO; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790585309; c=relaxed/simple;
+	bh=4+YaRd+w8CkKUy2umZb5rtfcp72agIYLGB21NcbX/fw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Qj7o9kfGSgL9dU5ny4mZpY54zM2egFkAg4ecwoaVm+1U5sS2q3LA3Q1qvPb13UifZdaR8X96Oqe4pq04z8J/o4UCBZXs4Jqr0xKu4lQXCcd5tdj13tBeOgIDKDGgVkXdkS1cuUoIRERJqZbg1xq2b+GP6I0f3HseZcpCdKjJIC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxbySvb0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmSUHuyO"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso20127495e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:48:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790585304; x=1791190104; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DW1aw9XilMAGHwwMkE5gUpMp3JZrQpWAH61R3Ws3XHs=;
-        b=dmSUHuyO7LYFvNU6p60O9dadqqst5WT2+e8G68CWxSDA1NnzcP9OssEU9gkRR6jbh6
-         rjifG3zE8DY+g+A6qJL3gHZTAdWXoZokb79xdkYUVpfEiv2YKZ2NwE0Cqhz/MBTpDFXq
-         69+aNfL/Es00juBasCQ/H3Xki9y6/fGOPUYoX0UH9MBOah6NREFSPZ9ndEeQEkRyWcqs
-         Qy5gT4QPJnaj+uby1BskFbCz639B2FgZ5e0AMibD04J4iw63e1GP/SUA9jzhZGFbTFF6
-         WIzOWwODvRxV/aN9MnfbhBlU8GhfoTQhg88AXq4sSJ/ONUC6feXOLuoSSQgpOgkeGOto
-         KXUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790585304; x=1791190104;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DW1aw9XilMAGHwwMkE5gUpMp3JZrQpWAH61R3Ws3XHs=;
-        b=lSjR9unPtP1qDWFO3+ZRkuSL7BL4MlPXUlvb9g8mIV5BWA0DzNIOx95uj6dNcrI8tx
-         Pb6XrF0koKHp7dhiSYgNn1AzWWgobHBFI4PkyhwsKW6LESdjHtt5Ttw74IDJyhnrw9V6
-         4hg0pJCaGYOnKencQJ03k0QhbiuYbYPpflRQYH+iPZ9aRe4WSI4VHQeXZMxvxS2dqq/Q
-         2x2GRpFT6ZKip+QHpglcu0lxgegASBnxB1N+gVC8Kz1TVCOBjV6GdhvxM5BNNkmLYuy/
-         ZwcmEV3NSzc2BHlMsJ4AFLZEq4g9CX9cUrW8viBxa2aD946eHkahs9jjy0IKjznSbc3l
-         W5/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwMNYBvCNS6lpTdNN9VjbvWNaebsw3d4ZkAoH3D3SlXf47If8nZvY8yu0gWgPyV6fVByh0IHLBEJe1g9U4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5pGp0kdrfZIrTq4aL+k37BEu3lJCQAHb/JAqd/Zbxzd9peoFm
-	HGipJBe3dWunWFLKV/PHwa5Tho7iElM73+GwLnxk+0cI7UrBme9sR7ws
-X-Gm-Gg: AYBFou3QVRbSRJ8KWMOi6o8kMeD6zgniXSlv8iOEHSNk+A+C/PEvPVELIOtkznRqIJ6
-	wej/ieKf9YbBycUWGYz+Q+hpgbouxMoHScq7l7OQTlPxnJ4UoBtx2L1BVktH4ZriA5fMMQaUbFL
-	7w6oCsOIDGkAstRUZNci/PCpWGFv/gbIQp6kwi1p6qXZgOIYKjZBM+9tag15c5PIGvRxonNrITy
-	CRKbSKV5qYI4AuP9NHkbeKeNcJHYywpH7Q+LRy3vISCR3hjlgQEfuUNt2EVXIAB3bIFlxhRMzA9
-	tCvkqc9F3haWOwub+VSzQdKGFNCkQVZMGMmN3hhTItlW92ogwbXtUX6hI9f6s/Gwlxx443Xt4Kd
-	0vVt5BGjVbLzNutDJkF613Esf5XnwoYEsbwnVEBGrS0iLpJhMZGb+GLl8O244OBT9LV+3obYcV9
-	oUtXKFqQvgNpdHoypK5ZBnqgHyhSPUotRYqmYgUKxVOBA0CaoF3QfRcm5DXhKM2+9WT2EtAs4Dh
-	tBSfeMT/nMLYNAs1U6REQOKkMLketZjihFiX129wGTkRZWjz0BKYFCDFh/zJreojUmz1fMoJjGh
-	mpLo
-X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr69817225e9.18.1790585303613;
-        Mon, 28 Sep 2026 01:48:23 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017652d1sm182584705e9.5.2026.09.28.01.48.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 01:48:23 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH v3 1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
-Date: Mon, 28 Sep 2026 10:48:06 +0200
-Message-ID: <90fbd42df4f51306e57a95830d2d53873f630eb9.1790342457.git.parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790342457.git.parri.andrea@gmail.com>
-References: <cover.1790342457.git.parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxbySvb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852CC1F00893;
+	Mon, 28 Sep 2026 08:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790585306;
+	bh=yLabRzTUqOUXQwgBjet8vKJDfT/Yj93lFm/f0NXf0fg=;
+	h=From:Date:Subject:To:Cc;
+	b=hxbySvb0c5U1ddRxETp6cq1wU7L0alG6fj7LX9jUThAcqHAP6DklVfNDAiFMmhBTp
+	 oYhLfiJSG/U1KguJ1+fjQ1sKb2nDYsIbQWrj7F0SFh+zcmju3XcpqGm9ACxlqzVh81
+	 imPv3oNQC+NcUOKqwhnoyuXoxws25H6N/Md7YGEKNNT5LgJWkHODd1WsT3oLu5XcFK
+	 5BJ3edJlelICi0L81sA+IiZ+qG4Zr46Bwm3HWnhXxKOWwiW0fzHTC89ewFeVFtwAuE
+	 lzP9GtwlYiSi3CIp1y8XdnhYJU+nefUAKpLOTJYcK6OoeFYkVsdj+EM9GswkdWZXVU
+	 m2+XfPvh4HSrQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 28 Sep 2026 10:48:21 +0200
+Subject: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
+X-B4-Tracking: v=1; b=H4sIANQpumoC/yWM0QqDMAwAf0XybCEWFLtfESldjZpBVRo3BuK/G
+ 7fHg7s7QCgzCTyKAzJ9WHhdFKqygDiHZSLDgzJYtA062xqhuKvj5yA+UfIpbKaxWA/RYUA3gpZ
+ bppG/v2vX/1nez5eW9wrO8wLuHPfkdwAAAA==
+X-Change-ID: 20260928-section_has_mem_map-6205dc90a09f
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Baoquan He <baoquan.he@linux.dev>, David Carlier <devnexen@gmail.com>, 
+ Dave Young <ruirui.yang@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1383; i=david@kernel.org;
+ h=from:subject:message-id; bh=4+YaRd+w8CkKUy2umZb5rtfcp72agIYLGB21NcbX/fw=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJ2aV7fJiTZsbSSO9P1lYho1/1HHhtNdlb6H3vYUZP+J
+ +f3l3T+jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACayQJqR4QXXg8p2FVmmD+xf
+ /1VOKCn4YyydI6+dI+7/+OBywXu3JzIyXHwUXzzpx8kM0yyjE3OuRL6x11iz8KDcx813VNtro9Z
+ xsQIA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-iomap_add_to_ioend() submits the pending ioend through
-->writeback_submit() before allocating a new one for the current range.
-When the submission fails the helper completes the ioend with an error,
-but iomap_add_to_ioend() returns the error without clearing
-wpc->wb_ctx.  iomap_writepages() then submits whatever wpc->wb_ctx
-points to, so the already completed ioend is submitted a second time.
+The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
+needs similar information (although still relying on
+SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
 
-For XFS the second bio_endio() lands in xfs_end_bio(), which
-list_add_tail()s the already linked ioend into ip->i_ioend_list.  This
-corrupts the list and leaves a use-after-free/double-free window against
-the ioend completion worker.  Reproduced with a fault-injected
-->writeback_submit() failure on a reflinked XFS file with several
-CoW writeback ranges in flight: the unfixed kernel hits repeated
-"list_add double add" warnings from __list_add_valid_or_report(),
-the fixed kernel fails writeback cleanly.
+Let's just export the value instead, so tools that work on vmcoreinfo
+will not have to guess.
 
-Clear wpc->wb_ctx when ->writeback_submit() fails.  The old
-iomap_submit_ioend() cleared the context unconditionally; that clear was
-lost when submission moved to iomap_ioend_writeback_submit().  The final
-->writeback_submit() call in iomap_writepages() needs no equivalent fix:
-it is the last thing the function does before returning, and every
-caller allocates its iomap_writepage_ctx on the stack for a single call,
-so wpc->wb_ctx is never read again afterwards.
-
-Fixes: f4fa7981fa26 ("iomap: hide ioends from the generic writeback code")
-Cc: <stable@vger.kernel.org> # v6.17
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/iomap/ioend.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
+SECTION_MARKED_PRESENT and further cleanups" [1]
 
-diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
-index 7bbbb417f9152..32ae292a84cbe 100644
---- a/fs/iomap/ioend.c
-+++ b/fs/iomap/ioend.c
-@@ -246,8 +246,16 @@ ssize_t iomap_add_to_ioend(struct iomap_writepage_ctx *wpc, struct folio *folio,
- new_ioend:
- 		if (ioend) {
- 			error = wpc->ops->writeback_submit(wpc, 0);
--			if (error)
-+			if (error) {
-+				/*
-+				 * ->writeback_submit() completed the ioend
-+				 * with an error, so drop the stale context;
-+				 * iomap_writepages() would otherwise submit
-+				 * it a second time.
-+				 */
-+				wpc->wb_ctx = NULL;
- 				return error;
-+			}
- 		}
- 		wpc->wb_ctx = ioend = iomap_alloc_ioend(wpc, pos, ioend_flags);
- 	}
--- 
-2.53.0
+This patch can go in independently. It would be preferable if both
+go into the same kernel release ;)
+
+[1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
+---
+ kernel/vmcore_info.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
+index 5a417f8a922a..7833a36064a8 100644
+--- a/kernel/vmcore_info.c
++++ b/kernel/vmcore_info.c
+@@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
+ 	VMCOREINFO_STRUCT_SIZE(mem_section);
+ 	VMCOREINFO_OFFSET(mem_section, section_mem_map);
+ 	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
++	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
+ 	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
+ #endif
+ 	VMCOREINFO_STRUCT_SIZE(page);
+
+---
+
+base-commit: 57e4ac91fc62d75d84b5a03827a19ceb4094ecd9
+
+change-id: 20260928-section_has_mem_map-6205dc90a09f
+
+--
+
+Cheers,
+
+David
 
