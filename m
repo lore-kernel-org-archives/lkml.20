@@ -1,122 +1,103 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7198348BD5B;
-	Mon, 28 Sep 2026 09:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3488A486E68
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587096; cv=none; b=FMH7BRr2KmZ/jQCuYYauTWwnE3uMtdGH83gjzmhZqE+J1Td2pq8SGKo1AgYtszHBBwgB0/C+ywzt2RRjl7UGNlygzAfMAxKd4SIW+cv8qA8vahlsx/IfxrzyV/bEx5OqDbEjx/YNzk2pC4lqsfhKmE6bTlyFKaKxtbZjQGhAao0=
+	t=1790587114; cv=none; b=aVT3c9gPW5r9qbG9yswwRVJLIfx8cCCX/Nm5B5rpPX/MhLPnxuhGjmTT3OfAkZly7V441boRMp6jjZ5GczsXCi3G/ghk9MyBTscOi3JpYIMm97GHa5Z1v6rMkiDgZMf82n6vsZyCQDJWzUI1jBOJVIzLkTd9MvSSv704KbHP7xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587096; c=relaxed/simple;
-	bh=b44XUbiRQYUmDL/k+pA2FEOKYweiIA5RdOF7K3sTzhI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nyOYCJGxTbJ/1gRdWDH0O7EY7P+WCBPM9GYHTal7HKm2Uyg3DauZ7hjs9SiTuL++XakmYAtgCN4PvgxwynJA+ZAHiuROK32RqySKc1fo37TewPG+w4aNDNOyCiFGXKM+C2nPe5t/k4CoxOHxv4lFWAFf2XIAgkHkWNQpvm5L6FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=AvzYlyMi; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790587114; c=relaxed/simple;
+	bh=K099Rw5M4UKS31OhBymJo8V1Y7FIJNV2jyM3H5L2DaQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BNZ7T9A1vQxnIcwzdFXz5bkHrpHKGOHYCCZr44VeNGLWmuq8LPdgM7VTDxyUkMtpcsKlqiOtQPTNyrniNUhoo/u9R6qxt4g375wV0823wFiLdwSVKMkR1fwVcj9Th0woRKPIANMe8OC1He+WDRwMEIfPI1bQu2xndNZ66Jp4nKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=NYjivizC; arc=none smtp.client-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="AvzYlyMi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790587094; x=1822123094;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b44XUbiRQYUmDL/k+pA2FEOKYweiIA5RdOF7K3sTzhI=;
-  b=AvzYlyMiQqehsIw661p5RXFbvM3Q9TcyssQD+GnTKoIYsNCTqGJ6EwE5
-   xIumFkgJnsbqnqZ7sQGsLFyj2ACB979pp2q8lJ58emoNRvAiBmjSlpqp/
-   9xgAagcQmSRdigS5fRNlq5LJKMMGtMT4L5tmVJDI26/KcsZ/Ugrpl8bBf
-   D8+wnYdQmokzvw/VOgvFmTp3uk2SCZcaqpGS3vA4ffiWScGlQJglsJA/n
-   7xyb8mYckwtxkm8tSryJMINM9TyX9/XY9rwAtd7sjUUE2b539eK4r7OJ2
-   T6S0VA9NDx6glzY8qeV2I3dGUiOGmDJnHApq6WMRauuQGk6+2iG0hW2Cl
-   g==;
-X-CSE-ConnectionGUID: q5Ut9g5gQUS/I7W0oGo0YQ==
-X-CSE-MsgGUID: oaii23oQRuKf6L+crpEU7A==
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="231360037"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Sep 2026 02:18:08 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 28 Sep 2026 02:18:07 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 28 Sep 2026 02:18:05 -0700
-Date: Mon, 28 Sep 2026 11:18:04 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Robert Marko <robert.marko@sartura.hr>
-CC: <UNGLinuxDriver@microchip.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <Steen.Hegelund@microchip.com>,
-	<netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <luka.perkov@sartura.hr>
-Subject: Re: [PATCH net-next] net: lan969x: correct RGMII port mapping index
-Message-ID: <20260928091804.hjnabzi52kz4ktmf@DEN-DL-M70577>
-References: <20260922125112.2111256-1-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="NYjivizC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=K099Rw5M4UKS31OhBymJo8V1Y7FIJNV2jyM3H5L2DaQ=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790587109; v=1; x=1791191909;
+ b=NYjivizCFZ6Fk9wCZIqxP3LJOkCi/u23wuiOeQKWr1bJ0jO74o0NgyGVxYnepHgnKmeYJ95c
+ SwzoLQVMVDH+OS6wmsmEG/Q72nHC/kW5et+LHzT6hx8MxmxzjBj6s0sF1TYCqJe0rrCPxjPqZMz
+ yMFC6nWirYUbsE68m4735olsorS83tzc5/24b1SNUy62aXK7/B6zp804rjj77Y803gD6d3WBir5
+ rmE7OmgwyaVv/U/ifOIXUID8TvcXtSdQpT/QbLyaBfMWSiHkkrB5a17wo10z7yMIyxYHrhld4z4
+ HPeWyqzzgPTpSozch1FUifmm1XQ+jGIZlrdPYX9ZT4U9A==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f274185ece85bc57;
+	Mon, 28 Sep 2026 09:18:19 +0000
+X-Mizu-Trace-ID: f274185ece85bc57
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 17:18:16 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	alexs@kernel.org, corbet@lwn.net, Dongliang Mu <dzm91@hust.edu.cn>,
+	si.yanteng@linux.dev, skhan@linuxfoundation.org,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	rdunlap@infradead.org, baikefan@leap-io-kernel.com
+Subject: Re: [PATCH v2] docs/zh_CN: add Chinese translation for usb/ohci.rst
+Message-ID: <arow2FPuxMHjFNgb@wyuan.org>
+References: <CAMnqnYwKwb5oTFOXNJyTJk2JEL6bnq+7yENm8v8RnovBYsFVGA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922125112.2111256-1-robert.marko@sartura.hr>
+In-Reply-To: <CAMnqnYwKwb5oTFOXNJyTJk2JEL6bnq+7yENm8v8RnovBYsFVGA@mail.gmail.com>
 
-Hi Robert,
+On 2026-09-28 10:52:04 +0200, Jiaming Ouyang <jiamingouyang13@gmail.com> wrote:
 
-> Currently, the lan969x_port_dev_mapping does not check for RGMII ports
-> and just returns the physical port index.
+> [PATCH v2] docs/zh_CN: add Chinese translation for usb/ohci.rst
+
+We do not need this [PATCH] line in the email body, because the
+"Subject:" header of your email already contains the info.
+
+Or you can refer to my reply to Greg.
+
+> Translate Documentation/usb/ohci.rst into Chinese Simplified.
 > 
-> However, this does not work for RGMII ports as they have dedicated DEVRGMII
-> register space with an dedicated instance per RGMII port.
+> The translation covers OHCI driver overview, hardware protocol
+> differences (OHCI vs UHCI), improvements since 2.4 kernel,
+> queueable interrupt transfers, and non-PCI support.
 > 
-> So, check if requested port index is an RGMII port and return the correct
-> DEVRGMII index.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > ---
->  drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> index f3a9c71bea36a..bf5320c7a6ca8 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> @@ -142,6 +142,15 @@ static u32 lan969x_get_dev_mode_bit(struct sparx5 *sparx5, int port)
-> 
->  static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int port)
->  {
-> +       if (lan969x_port_is_rgmii(port)) {
-> +               switch (port) {
-> +               case 28:
-> +                       return 0;
-> +               case 29:
-> +                       return 1;
-> +               }
-> +       }
-> +
->         if (lan969x_port_is_5g(port)) {
->                 switch (port) {
->                 case 9:
-> --
-> 2.55.0
-> 
+> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
 
-The mapping itself is right, but as far as I can see nothing upstream
-uses the returned index to access DEVRGMII. Every caller of
-sparx5_port_dev_index() pairs it with sparx5_to_high_dev() or
-sparx5_to_pcs_dev(), which never return TARGET_DEVRGMII. Those paths
-are also never taken for RGMII ports. The code that does access
-DEVRGMII, in lan969x_rgmii.c, computes its own index with
-RGMII_PORT_IDX(). Sashiko, correctly points this out.
+And your sign-off should be above the three dashes.
 
-So I don't think anything is broken today. Did you see a problem on
-hardware that this fixes?
+so in general like this I guess:
 
-FYI, we carry the same change downstream. But there it was added together with
-RGMII MTU support, which reads and writes DEVRGMII_MAC_MAXLEN_CFG() using this
-index.
+| Translate Documentation/usb/ohci.rst into Chinese Simplified.
+| 
+| The translation covers OHCI driver overview, hardware protocol
+| differences (OHCI vs UHCI), improvements since 2.4 kernel,
+| queueable interrupt transfers, and non-PCI support.
+| 
+| Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+| ---
+| Changes in v2:
+| - foo
+| - bar
+| 
+| Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
+| 1 file changed, 38 insertions(+)
+|  create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
+| 
+| [...]
 
-/Daniel
+
+Hmm, how about read the SubmittingPatches file before sending out next
+version?
+
+https://docs.kernel.org/process/submitting-patches.html#the-canonical-patch-format
+
+Hope it helps.
+
+Thanks.
