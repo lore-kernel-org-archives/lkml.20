@@ -1,151 +1,223 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADCC3630A7
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577736; cv=pass; b=FdKvisu7wz0CL3qbkeRwMlmv1Ko5nGvs6gHTnzlbktZYPc7loewwNpRJfwMC3TVIbskWUO1N9pVHeXd5qkvSDC8P5CldP2qmhwPGYslyikjdas4tu45KJzRprNZigh1oK9rwGHnb1IqKkMkHMkZYiCB5WNSWWi4K2uPPUHqh8Xs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577736; c=relaxed/simple;
-	bh=hTEIRZ6c8CGBsiEY22+3KvOmCoGOgc2cqDVTYQqzn/4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cOXLQjrWkIRud6Muy08ZttM7lkl2ZxyNyKrfCQ+KBz21sFwewsDgq448H6dOST3fnnpL6h5n/Z4DD9O2tNqqpaFe8E7GsQANungsEV+4jpaFmu3pV+b5UjZB5vEL+dIvYVqjCKJvfXXP2sFIJd/J16I1qGJlPu8Pi7nWTqONTUY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hQSBRV9I; arc=pass smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453AA305698;
+	Mon, 28 Sep 2026 06:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790577750; cv=none; b=UHzoP2HR0atLT8KXcHm8tv2vPtrlJehjRmbLh3CMMr7lMYoMRaA0mdk/NK+/1zt9MpSOoK7xCQLIKjjJiMd+1AbPHA6eWyR0c5D+AZGG86rutU1a6e8mf/HVHfwGvr7x3Z/C0dbCmZWf7Ev2D6XXQ45hpHQanHBgAV43UC5wtFc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790577750; c=relaxed/simple;
+	bh=ebBeNbh1qd1uuT6dE4t8UDhbv0yLldqXdRL1Qi9pORw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GaSZ9702NmYJSw/Tc80wKwTVEDtloEwiaDX/4lqCplLJTZxkXS/hxbHviXfkh+sOzGyY32R5vfkqX/o//fdBEccdNrPB9hIKuQyMT+yv8WHuieQb62ZVHH+s8GfPpWPQi3OvpZL5eOEvNR58/OishG+jhUzc1mL/400zcDsbwHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLcNatKH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hQSBRV9I"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b8c42da963so8926e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:42:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790577732; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gX4UUfT46T/UaxH3Y1paOqEeGBnFNXJDlBrXPZvHZ2eLPZJHU7pmybE/i71TrXTnCP
-         +PBiwGcYWV7u0x/xV9Fgd+3jkT2wph+FTq3bpMm5VPjeuGmx3oNtp2Wt9vKw9QwwmjAy
-         s0bLGjfBlI1HU7PB7UznYybcAYx/1leZLXmuE+RR1CN+S6GHSF1KpSAP+k9KG2dJqxeq
-         g29NT5xRZFOXxkv0iQKs1b14AudanR9KPV52XURj0A3dh0Yt0LNLnDyTQDaO8FP1jBum
-         1EqSaqprWfRClrO9aNHK5dUoVzbyaJl9NE7oC/Da4sOW1izlL5SPyF7vxeTw9BMw9cby
-         cefg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Bf5Ra9GZUy8aIwIwYwR9PT31QHZBEGPbUTatiNyuQNw=;
-        fh=iHU15+bAfMw2FPZe6SKdRGxT6G7mX10GKwsu2IroH2I=;
-        b=aBLJV6pBte96QLyLZBc8eVSa5tGk26RdzPZeBXnnm4UouZR2w2PM/83NakkAMmuSSn
-         YcNly19/wGa90GcGy0kW6ZE21DZiDWbo8dawmKgiVbrRV/TQi4RwgR0s2N1ZqbqBGNKO
-         LoasI0cy6nwI9p3tGk9a2zC1YS4YB7giknEpkM/Xr+u7iTN5+YJ/EtBYyBL1MkZrH0Ab
-         3KmN2ZnDB4oce1uloXsNlV8eyeZSBV48V52aAMkrKUrVv2o7jWLqo8uL+BmB4tvGgX5Z
-         DCFH+7bpQoPdYNLiclRRzZSCLsML6gSjvnJ/rWYKvW+T5EHRYTr4ANzBbiLVBLPOehXc
-         LK7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790577732; x=1791182532; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bf5Ra9GZUy8aIwIwYwR9PT31QHZBEGPbUTatiNyuQNw=;
-        b=hQSBRV9IbYZlhqyPN2lL25CtIkjrQAeJ+Zh9YbRCYTwimH8PZ/nMQ70Nnkg8LsC/xr
-         73V24QmHN21NkuTwVr1hVUFZd1rALhMAZtmx7vquS6IVzDDQYhJeW0EVpxRQzYplsVaW
-         jRnbsq/0QSVJlFgu7dT8uoaX7zjBu0vH0vlwur+zzRbwpHTTd1M9xXxiU30a++wWZTzS
-         PvMud++jit1PZC7tBtqyl7l202GRpvdxwsQdYz2TFwz7f7FAphY69GC9d375dKvQmqC1
-         h1QZuILkDj/oKH6x3MoWjqH28fPZ0AsczAppsjFC3X2RVEkUtO/fhJT7R/Jiuy1hQp7i
-         vLLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790577732; x=1791182532;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Bf5Ra9GZUy8aIwIwYwR9PT31QHZBEGPbUTatiNyuQNw=;
-        b=qxpnvSOFAUF/knQG5w9ba2rvGOuTgtxS61Wd4TiZFWR4Guf0ZVVNJGOttq0X6uduOq
-         BP1mCXiJcJ/CfcAAdIqTg0EGelk8ctyATJPDtync8cQiegh1bzW5061gozVbraAqtsdE
-         n6bqY+TkiOUB3IWviHjD/WszalxG6WCMWNVTkMKxgrl1zMGcO+ydyzZrzYSBHcUu85A7
-         SaDoFDkpImlTxvLv/wDUexYJCU/mV/91RVELjet3J79gNkOwow5/jHer3VsNzId1TDhc
-         WzifEk/c5LH6cZWG6JGd80N5gekFrN6XVyXcM69OcHOmEHVGnQwx2NQF5NCChoNzgYb2
-         fhNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzypSwq7lY6QqzBcFsmPlB4/5ipA8HrubLHm3y14M/WprWDodjImqpaKzOANFY1rykHtjABcmEllM5GCp8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJEfvPXcckBeJaUSKjGyrlsyna1Gx4JR3jWceu0UwXd4iB+ed2
-	XozlHyp7ClALptIbohVPxUtwUMcCIGvT/UZJSW7sBXLMVYoaLBfB3PWuYbKscvl9243X26S8MSq
-	1N/C8ZpiPLsLsXGyL7BWmGifx/3NhXmru/p/9GMgC
-X-Gm-Gg: AYBFou2vz9+kFDC9yn40mXud1Pd93LuhOEExNVmkx/VyeBON5Ptny6beEjb5Yf1LtrE
-	lwOrO90BYUC/Kb/CmmNYYoEiPHqKJoCHRnNuxw8GvOmvUsWkhGLrRl2t+DDutNhGH4lhA/mHe6v
-	uGk4g9kTssm2T0lIlQP888D5UJoElje6NosPod87vcc3inEbcJRvTZlzMKerPxNUSgPSwBJDULz
-	RAUGUVv437K+nmDmO8lYErYodekjHW6IJEN08fllFiGOf0xVmX0fR33tPfE3btMktJwcKCUODfz
-	Pp3+43qcUgrgW9PF9RsjpzWSSWvmi+tdayOYFcDzY3jPbNCIOZE9KRopwD/FAsI39nGOBfrY/qr
-	amDUk+X29eWQ86CELUIbsQHY=
-X-Received: by 2002:a05:6512:118e:b0:5b2:a967:c0e1 with SMTP id
- 2adb3069b0e04-5b8ef0d8197mr147876e87.0.1790577731865; Sun, 27 Sep 2026
- 23:42:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLcNatKH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2761F000FF;
+	Mon, 28 Sep 2026 06:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790577748;
+	bh=PR+qD69Mmn3ee91G2H+UEY/KNwLNvbrpeNnSfIqIdhQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bLcNatKHq18iM5FnX0pSZ/JCGbahS6AtzehgZICIY6pemzoi/yOdFGNGSze2rNJPR
+	 OuPk78U9ApvKrstJav2HUFDvplZZVPdiFgMVodcntLurCjBJmGXRgatQjQZhAGRYll
+	 bCJxXmWoknGWdOyij5uLi1shhqHEA/MUwbZu7tDDbNr1Mk1aulaO/HYqqrodvD4AhM
+	 19/W2c8hXPySX5F41LPCdUoDN+t4gTlXpN+N7zoTZ0IqkBfK2y+n70rxIeIIV8eq6f
+	 OnVYhCpqzyoDOepOhLw4RoipvyFBQ2DfhnZ0oCyBGPLIx0xfaMkdpABoLozTPfUWrD
+	 cTfYFy7y0rQOQ==
+Subject: Re: [PATCH net v3 2/3] ieee802154: ca8210: prevent stack buffer
+ overflow in hwme_get_request_sync()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: h.morris@cascoda.com, alex.aring@gmail.com, miquel.raynal@bootlin.com,
+ stefan@datenfreihafen.org, david.laight.linux@gmail.com,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Mon, 28 Sep 2026 06:42:27 +0000
+Message-ID: <179057774769.3145.8753084259856546356@kernel.org>
+In-Reply-To: <20260924062244.2444225-3-benquike@gmail.com>
+References: <20260924062244.2444225-3-benquike@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-From: Fuad Tabba <tabba@google.com>
-Date: Mon, 28 Sep 2026 07:41:35 +0100
-X-Gm-Features: AclHuK-BFXQVxwev1h4oFTaX98t3AUrNTYP55S4zDU1gVDwi9bqTXCzyYzdaWQM
-Message-ID: <CA+EHjTx-MGu=Rh90WDnTWMS4=8vcOdbhR35g42BtRBy7wqXBXg@mail.gmail.com>
-Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3
- and ITS drivers
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Will Deacon <will@kernel.org>, stable@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Marc Zyngier <maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Thomas,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On Tue, 8 Sept 2026 at 15:26, Fuad Tabba <fuad.tabba@linux.dev> wrote:
->
-> Hi folks,
->
-> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
-> floating around and chasing down Sashiko's reports.
->
-> The first releases the partition node that gic_irq_get_fwspec_info()
-> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
-> on an of/irq patch of mine, and I said a fix was forthcoming [1].
->
-> The second widens the per-device MSI clamp, which truncates to zero when
-> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
-> ITS. I couldn't find an implementation that reports that maximum, so
-> this is one value at the edge rather than something anyone is hitting.
-> It carries Cc: stable because the commit it fixes was itself
-> backported, so drop the tag if you'd rather.
->
-> The third clears vpt_page once its_vpe_teardown() has freed it, so the
-> NULL guard holds if teardown runs again on the same vPE.
->
-> Based on Linux 7.3-rc2 (df2908090cda3).
+Low priority / nit picks for your consideration:
 
-Gentle ping on this one; it has R-bs from Marc, Radu and Zenghui.
-Anything else needed for it?
+- [Low] The commit message reads as if the stack overflow in
+  ca8210_get_ed()/hwme_get_request_sync() can happen at runtime.
+- [Low] The patch turns `hw_attribute_length` in hwme_get_request_sync()
+  into an in/out parameter, but the kernel-doc was not updated.
 
-Cheers,
-/fuad
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is a real
+  memory-safety race in the same sync-exchange path.
 
+--
+
+ieee802154: ca8210: prevent stack buffer overflow in hwme_get_request_sync()
+
+This patch initializes lenvar to 1 in ca8210_get_ed(). It also makes
+hwme_get_request_sync() return IEEE802154_SYSTEM_ERROR when the device
+reports an hw_attribute_length larger than the caller's buffer. The goal
+is to stop a stack overflow of the 1-byte level buffer in ca8210_get_ed().
+
+> In ca8210_get_ed(), an uninitialized u8 lenvar and a pointer to a 1-byte
+> stack buffer (u8 *level) are passed to hwme_get_request_sync(), which
+> unconditionally copies response.pdata.hwme_get_cnf.hw_attribute_length
+> bytes into hw_attribute_value without checking the caller's destination
+> buffer capacity, overflowing level on the stack when hw_attribute_length
+> exceeds 1:
 >
-> Cheers,
-> /fuad
+>   BUG: KASAN: stack-out-of-bounds in hwme_get_request_sync.constprop.0.isra.0+0xf3/0x170
+>   Write of size 16 at addr ffff888001907780 by task init/1
+
+[ ... ]
+
+> Tested in QEMU with KASAN enabled by passing an oversized
+> hw_attribute_length response into ca8210_get_ed().
 >
-> [1] https://lore.kernel.org/all/CA+EHjTx7eP_30vP47=UFk_wMAut-2uf+2DF-MZqn2SLE_k-8qg@mail.gmail.com/
->
-> Fuad Tabba (3):
->   irqchip/gic-v3: Release the partition node in
->     gic_irq_get_fwspec_info()
->   irqchip/gic-v3-its: Don't clamp nvecs to zero when id_bits is 32
->   irqchip/gic-v3-its: Clear vpt_page after freeing the pending table
->
->  drivers/irqchip/irq-gic-v3-its.c | 3 ++-
->  drivers/irqchip/irq-gic-v3.c     | 7 ++++---
->  2 files changed, 6 insertions(+), 4 deletions(-)
->
->
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> --
-> 2.39.5
->
+> Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
+> Cc: stable@vger.kernel.org
+
+[Severity: Low]
+Can this overflow actually be reached at runtime? The commit message reads
+as if it describes live stack corruption. It shows a splat from task init/1
+and carries a stable tag.
+
+hwme_get_request_sync() is static. Its only caller is ca8210_get_ed(), and
+ca8210_get_ed() is only referenced as the .ed callback in ca8210_phy_ops:
+
+	.ed = ca8210_get_ed,
+
+As far as I can tell, mac802154 never calls ops->ed. The only reference is
+the NULL check in ieee802154_alloc_hw():
+
+net/mac802154/main.c:ieee802154_alloc_hw() {
+	...
+	if (WARN_ON(!ops || !(ops->xmit_async || ops->xmit_sync) || !ops->ed ||
+	...
+}
+
+nl802154_trigger_scan() also accepts only NL802154_SCAN_ACTIVE and
+NL802154_SCAN_PASSIVE. So an energy-detection scan from userspace can't
+get there either.
+
+Even if there were a caller, the device would have to answer
+HWME_GET(HWME_EDVALUE) with hw_attribute_length > 1.
+
+Could the commit message say that the .ed op is not currently invoked, and
+that a misbehaving CA8210 would be needed? That would help maintainers
+choose between net and net-next, and decide whether a stable backport is
+needed.
+
+> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
+> index a990a0f347ad..8aa7ffeb22d7 100644
+> --- a/drivers/net/ieee802154/ca8210.c
+> +++ b/drivers/net/ieee802154/ca8210.c
+> @@ -1677,6 +1677,9 @@ static u8 hwme_get_request_sync(
+>  		return IEEE802154_SYSTEM_ERROR;
+>  
+>  	if (response.pdata.hwme_get_cnf.status == IEEE802154_SUCCESS) {
+> +		if (response.pdata.hwme_get_cnf.hw_attribute_length >
+> +		    *hw_attribute_length)
+> +			return IEEE802154_SYSTEM_ERROR;
+
+[Severity: Low]
+Should the kernel-doc for hwme_get_request_sync() be updated too?
+
+*hw_attribute_length is now read as the size of hw_attribute_value, and
+then overwritten with the copied length. That makes it an in/out
+parameter. The comment still says:
+
+ * @hw_attribute_length: Attribute length
+ ...
+ * Return: 802.15.4 status code of HWME-GET.confirm
+
+Before this patch the argument was only written, which is why
+ca8210_get_ed() could pass an uninitialized lenvar. A future caller that
+follows the kernel-doc and does the same would compare against a random
+value, and the overflow would come back.
+
+The only caller meets the new requirement with a bare "u8 lenvar = 1;".
+Nothing ties that 1 to sizeof(*level).
+
+The Return: text is now also wrong in one more case. This
+IEEE802154_SYSTEM_ERROR comes from the driver, not from the device's
+confirm, and link_to_linux_err() maps it to -EPROTO. Two older
+SYSTEM_ERROR returns had already made that text inaccurate.
+
+>  		*hw_attribute_length =
+>  			response.pdata.hwme_get_cnf.hw_attribute_length;
+>  		memcpy(
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there seems to be a race in
+the sync exchange path that this length check can't protect against.
+
+priv->sync_command_response is per-device state shared by all sync
+callers, and no lock covers it. ca8210_spi_exchange() publishes the
+caller's stack buffer, waits interruptibly with a timeout, and then clears
+the pointer:
+
+drivers/net/ieee802154/ca8210.c:ca8210_spi_exchange() {
+	...
+	if ((buf[0] & SPI_SYN) && response) { /* if sync wait for confirm */
+		reinit_completion(&priv->sync_exchange_complete);
+		priv->sync_command_response = response;
+	}
+	...
+cleanup:
+	priv->sync_command_response = NULL;
+	return status;
+}
+
+ca8210_rx_done() runs from the SPI completion callback
+ca8210_spi_transfer_complete(). It tests the pointer and then copies into
+it, with no lock:
+
+drivers/net/ieee802154/ca8210.c:ca8210_rx_done() {
+	...
+	if (buf[0] & SPI_SYN) {
+		if (priv->sync_command_response) {
+			memcpy(priv->sync_command_response, buf, len);
+			complete(&priv->sync_exchange_complete);
+	...
+}
+
+Suppose the waiter gets -ERESTARTSYS or -ETIME after ca8210_rx_done() has
+loaded the non-NULL pointer but before the memcpy. Can that memcpy then
+write into the stack frame of a caller that has already returned from
+hwme_get_request_sync()?
+
+Sync exchanges also don't appear to be serialized.
+ca8210_mlme_reset_worker() calls mlme_reset_request_sync() from a
+workqueue without rtnl, and ca8210_rx_done() queues it on
+TRANSACTION_OVERFLOW. It can run at the same time as rtnl-held
+ieee802154_ops callbacks such as set_channel or set_txpower, which also
+use the *_request_sync() helpers.
+
+Could two callers overwrite each other's response pointer, or consume each
+other's completion? One caller would get the other command's confirm. The
+other would either time out or return with its response buffer untouched,
+because hwme_get_request_sync() doesn't preset command_id.
+
+Would it make sense to serialize sync exchanges with a mutex? The handoff
+of the response buffer would also need to be synchronized against
+ca8210_rx_done(). Ideally, the confirm ID would also be checked against
+the request that was issued.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924062244.2444225-1-benquike%40gmail.com
