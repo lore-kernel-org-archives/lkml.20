@@ -1,52 +1,72 @@
-Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
+Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564F349AA46
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB66344036
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790637299; cv=none; b=Swxw7lG3YA54WH8TY2liuEzmR+VpvJtzZCFQMifoHeoCDiQKSzAoczlLu0WOu6nFhnVD/OEh3NMVdUhAd3V1sn1wYUWC1DhA8eJJrbZEHIpSnpf3hngEup4nEriCO4fKCKLnGToXh/03v2GizWJRAROTdXbEWtclolWd9sRSufQ=
+	t=1790637388; cv=none; b=d53D8kWE6SdZlrB2zkRqzIRQW2Hct/A59WyGu6jTkETjsAolZo+kqZd0eW0LkjKiiszpgdxasKoqnZ/deDU47R+bLZp3SCDaAJBZhDuzb+oHm94LpBGFt1xmPfvJGnQEZtmISljJNJ6gsO0q/nqr4XmPrrQzh3Go0lQy816196I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790637299; c=relaxed/simple;
-	bh=x+cDE8E7K0qlKzMLS59z5dej9jmxGFTWB4qeaI7YgRk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iLQNAW/dQJQPFUCphFwxpBtxVa1QmKUQFp0Pv0S1SfuUrXjjrLSW+mJqQNLCyT8LSXuswL5pBzfqss+ThU+OD+G3hlmYxAWen/rVE1fR+lHLacBfaBxoGOV9sZOehDVldUPanxQo6lQxHU0qglwzhRdTGVMl0ewo14pLY+s84t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TQR5Km6O; arc=none smtp.client-ip=91.218.175.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790637388; c=relaxed/simple;
+	bh=ZwE7ChO19MfgAKXBU8zu7lNy1ZbWO7zCUyzdgA+jEjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MWfyCTfj2bVW0w/KX45i5wnWrVZvFxCQmQAPjhsAorKR+VwcryKRoL8h9kzsuSk8f20z16nJwjFDFH+2hTcUKxzLTx9jemetL9AtMGsSsq/EJkb9FtSs9/h5lW05mHEaUXNMl8o5jkoLwHkyOIyVg1e+TsT7d1kzLM5YzdFe7bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CxiIy4P7; arc=none smtp.client-ip=74.125.230.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TQR5Km6O"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x+cDE8E7K0qlKzMLS59z5dej9jmxGFTWB4qeaI7YgRk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790637295; v=1; x=1791242095;
- b=TQR5Km6Oc1583tfmSq/sFRfgDcHnNRNrB0LbBrxC9fr93DYU8yzT0DBjF2ZsYY4ZpeHrp2i8
- WGpoiqrrVWAaG30+1VOn1Oe/rUI9dDlRe9+jedgjIc3tjkltTf2AXBkmAJUlu2BmUI+OvcaAfsT
- vJgINwM/EJz8HaTsoulC6/uQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fb08bce978942be0;
-	Mon, 28 Sep 2026 23:14:55 +0000
-X-Mizu-Trace-ID: fb08bce978942be0
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: bpf@vger.kernel.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net
-Cc: eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CxiIy4P7"
+Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-53336049862so17643911cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:16:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790637386; x=1791242186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lUQQZM+w0Mla9x5m+1e/QoZaEV04VnH4RUSmoTvL0h8=;
+        b=CxiIy4P7KuJVTL19GmGTgnRT1FuAZdiKZYLVXmx0lsXLYEz9bH8Z84GrUtY6aSTd0m
+         qUBixQTKKHrF2BYEXMSw2wG+t4xztuX+/AJ1DUz879ruTKFpaGmVFunRNKHtaJnXeAiR
+         JH+ZNL2UL1F7dLySyVD3bXP9CIPGIxWZO9+bQcS8M53BEcP9WJp7y34vnjoYam+pP1rV
+         FNguUIAevhkxUkipUB40Ft4Maflsm44LuJYq1qn7581PGzScM7xgxpk6kM/Btx9VyKPz
+         hc3OgzaXdhyVeh7Fyha+w6xfCEbiKGYjVrDFiLuPdbC4+0sKhzUqNSX12Z2zp17s4thq
+         U9cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790637386; x=1791242186;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lUQQZM+w0Mla9x5m+1e/QoZaEV04VnH4RUSmoTvL0h8=;
+        b=HSiJ7YX5q5bsS1aWwHu5I3Ei9F3Olj4pJn9XB/MLE9QrY7iHpg2u8IPcV2K/hBS+bd
+         OrZZ1TxUkJlyu5rju+Zby1UfHql6j5jufQTNxguoTYaFve3SEK3WE2DPzSabLZclTmlu
+         mtiN35t4nO51EhHlfWeQv5sBIceorrwdDi0N8Ld6fyu3tIx08dBaUWabwCrgju48DMiM
+         hTSBs92lf6dHQQzdyyzG5xGtXR3IbmFrayOfip9bZ60xCnRIIgEK4d13HI8YbWxRdtjB
+         XnWrfWtxBs8EyJ3liq+m6YqYRlfoIDHLQnuWNGZtmiy98aGRcXND/1QpOy2GwlKxwINF
+         gCFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxALDIjZlw2CdGqW0Ahue8AtdNj5kBjsomnXnTo2Aye/Q3oqZWqcoRe5LXZBAyUW30XsvkMi/F0qv168dY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/fWd/D+uxTZmkCAKaTxWKWTL12kzGKZCa87Lxg8mAK1mD/oO9
+	2trYn/gRaQtwKjrjXzQTmTMa0Tf6dQoDNhnqPvsaunY0XMz23I+m9J5z
+X-Gm-Gg: AYBFou34jaF9FmNKxwgGwIkYYzlKylMVL2IvykVs+tk093dxZjkHZR/jn0uO6zcJojn
+	TnSzHt/zCQmSFCg8CCJt8ewBa0aWOc2NHGfUbZRlCHdFcQhtLsfEOa944Xm0aSxQsytfH4zGo3+
+	yTnyeh79IDnr31JZi+h6QS2gheUAPVJG60rmCrG44zA7XJqFefrDTeXq6FrtLziiH9cae26mF25
+	EoM63pLeRdWgoV5fpM2KebiNGMX+1NN6A+KlJDArYuoaiTDS4WHg6J2K5CJyqEDWkR4GOlXkzdP
+	yErZG7Tw9WtSKSNGOJo6ueHDpzsmwpivP3Jvvs5rrA0Zv4HyFSE9KqhAegcPQs4lBcqT8MRzE3L
+	wmO01u0jJdXlAVVecIDURsOzgqYKw9Vqr00kH0hnJZjTE6q7nr9J4bw96+0tmXkwSM8fR1ibvOz
+	j4KI9yOaTjGrw/YtJ+27OjfMjel8/qkfnn8cZ0uN3oH5Zsn8GTOVyTy8Fi2HlotlbC6t77NSPD8
+	oEeO8XN/KcZSQSB+XVzV5HnVsrRZFOLBDW0H+1nA66P9bfOTsMuocDfSlE=
+X-Received: by 2002:a05:622a:6f16:20b0:533:3868:1f6d with SMTP id d75a77b69052e-53338682227mr82710961cf.59.1790637385846;
+        Mon, 28 Sep 2026 16:16:25 -0700 (PDT)
+Received: from PrestonsLaptop.rh.psu.edu ([75.102.77.182])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322132f3dsm74161621cf.8.2026.09.28.16.16.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 16:16:25 -0700 (PDT)
+From: Preston Lam <plamlam99@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v2] selftests/bpf: Fix linked_externs with bpf-gcc
-Date: Mon, 28 Sep 2026 16:14:41 -0700
-Message-ID: <20260928231441.4037097-1-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	Preston Lam <plamlam99@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add mute LED quirk for HP Laptop 15-fd2xxx
+Date: Mon, 28 Sep 2026 19:16:21 -0400
+Message-ID: <20260928231621.1672704-1-plamlam99@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,192 +75,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-test_progs-bpf_gcc fails to build:
+The HP Laptop 15-fd2xxx (PCI SSID 103c:8e43, Realtek ALC236) has a
+speaker mute LED on the F5 key and a microphone mute LED on the F8 key.
+Neither lights up, because the model has no quirk entry and only the
+generic HP vendor fallback (ALC269_FIXUP_HP_MUTE_LED) is applied.
 
-  prog_tests/linked_externs.c:17:23: error: 'struct linked_arena' has no
-      member named 'arena'
+Probing the codec with hda-verb showed how the LEDs are wired:
 
-Several problems, all from bpf-gcc not supporting address_space(1).
+ - mute LED: COEF index 0x07, bit 0, on NID 0x20 (set = LED on)
+ - mic mute LED: codec GPIO0, active low (driven low = LED on)
 
-First, the arena variables are declared with __arena, but that macro is
-for pointers -- it marks the pointee address space. The one that carries
-placement is __arena_global:
+Driving GPIO1 and GPIO2 did not light the mute LED. This wiring is
+exactly what the existing ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO fixup
+implements (COEF 0x07 bit 0 for the mute LED, GPIO0 with inverted
+polarity for the micmute LED), so use it for this model. The sibling
+HP Laptop 15-fd0xxx (103c:8dd7) already uses the same fixup.
 
-  #if defined(__BPF_FEATURE_ADDR_SPACE_CAST) && !defined(BPF_ARENA_FORCE_ASM)
-  #define __arena        __attribute__((address_space(1))) __attribute__((btf_type_tag("arena")))
-  #define __arena_global __attribute__((address_space(1)))
-  #else
-  #define __arena        __attribute__((btf_type_tag("arena")))
-  #define __arena_global SEC(".addr_space.1")
-  #endif
+Tested on this machine running Ubuntu 7.0.0-34-generic (SOF driver, the
+quirk built into snd-hda-codec-alc269 from Ubuntu's 7.0.0-34.34 source
+tree): the hda::mute and hda::micmute LEDs are created, follow the
+Master mute state and the Dmic0 capture switch respectively, and the
+F5 and F8 keys toggle them correctly. Muting the microphone also
+silences the capture stream. The LEDs also kept the correct state across
+an s2idle suspend/resume cycle (speaker muted in one run, microphone in
+another) and still responded to mute changes afterwards; long suspends
+were not tested. The desktop session was SwayFX (wlroots) with PipeWire,
+which only changes the mute state through the normal mixer controls; no
+other desktop was tried. Not tested on a mainline kernel tree directly;
+the change is only the quirk table entry.
 
-__BPF_FEATURE_ADDR_SPACE_CAST is a clang predefine. Under clang the two
-are interchangeable here, since address_space(1) both places the
-variable and is what btf_type_tag would have described. Under bpf-gcc
-__arena is only a BTF type tag, so the definitions land in .data, the
-arena map gets no initial value, and is_skel_data() in bpftool does not
-emit the typed arena member -- hence the build error. Note this is
-distinct from skel->maps.arena, which comes from SEC(".maps") and is
-always present.
+AI assistance: this patch, the hardware analysis behind it (probing the
+codec with hda-verb and choosing the existing fixup) and this commit
+message were written by Claude Code (Anthropic, model claude-sonnet-5-5).
+The submitter ran the privileged commands and reboots and reported the
+LED behavior; Claude Code ran the tests and read the kernel logs.
 
-The extern declarations need __arena_global too. Without a section, gcc
-does not place an extern in any DATASEC, so it stays a free-floating
-extern VAR rather than an entry of .addr_space.1. test_relink() only
-walks that DATASEC:
-
-    id = btf__find_by_name_kind(btf, sec_name, BTF_KIND_DATASEC);
-    ...
-        ASSERT_NEQ(btf_var(t)->linkage, BTF_VAR_GLOBAL_EXTERN, "var_resolved");
-
-so relink_arena would report OK under bpf-gcc whether or not the linker
-resolved anything -- it would not be testing the allocated-section path
-this test exists for.
-
-Second, placement alone is not enough to run the test. Dereferencing an
-arena global needs an addr_space_cast, which only clang emits:
-
-  clang:                                  bpf-gcc:
-    r1 = 0x0 ll                             r1 = 0x0 ll
-    r1 = addr_space_cast(r1, 0x0, 0x1)      r2 = *(u64 *)(r1 + 0x0)
-    r1 = *(u64 *)(r1 + 0x0)
-
-so the verifier sees a scalar and rejects the program:
-
-  4: (79) r2 = *(u64 *)(r1 +0)
-  R1 invalid mem access 'scalar'
-
-Guard the program bodies and skip the skeleton subtest, as
-arena_atomics.c already does. The variables stay unconditional so the
-arena is still populated and the skeleton still has its member. The
-fallback bodies reference the externs without dereferencing them:
-'used' is ignored on an extern, so an unreferenced one is dropped and
-.addr_space.1 loses it again.
-
-With this, bpf-gcc reports:
-
-  #217/1   linked_externs/skel_arena:SKIP
-  #217/2   linked_externs/relink_arena:OK
-  #217/3   linked_externs/relink_maps:OK
-
-with b_val present in .addr_space.1 as linkage=extern, same as clang, so
-relink_arena covers the same path in both. clang still passes all three.
-
-Fixes: 34354db1b148 ("selftests/bpf: Add linked_externs test for externs in allocated sections")
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Assisted-by: Claude:claude-sonnet-5-5
+Signed-off-by: Preston Lam <plamlam99@gmail.com>
 ---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-v2:
-- Declare the externs with __arena_global too. Without a section gcc
-  keeps them out of the .addr_space.1 DATASEC, which is the only thing
-  test_relink() inspects, so relink_arena could not fail under bpf-gcc
-  regardless of the linker (bpf-ci).
-- Link to v1: https://lore.kernel.org/bpf/20260928215110.3966357-1-vineet.gupta@linux.dev/
- .../selftests/bpf/prog_tests/linked_externs.c | 15 ++++++++++--
- .../selftests/bpf/progs/linked_arena1.c       | 24 +++++++++++++++++--
- .../selftests/bpf/progs/linked_arena2.c       |  8 +++++--
- 3 files changed, 41 insertions(+), 6 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/linked_externs.c b/tools/testing/selftests/bpf/prog_tests/linked_externs.c
-index 29358c82dc35..ff568f5cfc42 100644
---- a/tools/testing/selftests/bpf/prog_tests/linked_externs.c
-+++ b/tools/testing/selftests/bpf/prog_tests/linked_externs.c
-@@ -10,10 +10,20 @@ static void test_skel(void)
- 	struct linked_arena *skel;
- 	int err;
- 
--	skel = linked_arena__open_and_load();
--	if (!ASSERT_OK_PTR(skel, "skel_open_and_load"))
-+	skel = linked_arena__open();
-+	if (!ASSERT_OK_PTR(skel, "skel_open"))
- 		return;
- 
-+	if (skel->data->skip_tests) {
-+		printf("%s:SKIP: no addr_space_cast support in the BPF compiler\n", __func__);
-+		test__skip();
-+		goto cleanup;
-+	}
-+
-+	err = linked_arena__load(skel);
-+	if (!ASSERT_OK(err, "skel_load"))
-+		goto cleanup;
-+
- 	ASSERT_EQ(skel->arena->a_val, 1, "a_val_init");
- 	ASSERT_EQ(skel->arena->b_val, 2, "b_val_init");
- 
-@@ -28,6 +38,7 @@ static void test_skel(void)
- 	ASSERT_EQ(skel->arena->a_val, 11, "a_val");
- 	ASSERT_EQ(skel->arena->b_val, 22, "b_val");
- 
-+cleanup:
- 	linked_arena__destroy(skel);
- }
- 
-diff --git a/tools/testing/selftests/bpf/progs/linked_arena1.c b/tools/testing/selftests/bpf/progs/linked_arena1.c
-index 3e8788dec1d9..5027b4ac2887 100644
---- a/tools/testing/selftests/bpf/progs/linked_arena1.c
-+++ b/tools/testing/selftests/bpf/progs/linked_arena1.c
-@@ -10,13 +10,33 @@ struct {
- 	__uint(max_entries, 1); /* number of pages */
- } arena SEC(".maps");
- 
--long __arena a_val = 1;
--extern long __arena b_val; /* defined in linked_arena2.c */
-+/*
-+ * Dereferencing an arena global needs the compiler to emit an
-+ * addr_space_cast, which only clang does. Keep the variables so the arena
-+ * is still populated and the skeleton still has its arena member, but skip
-+ * the test elsewhere.
-+ */
-+#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
-+bool skip_tests __attribute((__section__(".data"))) = false;
-+#else
-+bool skip_tests = true;
-+#endif
-+
-+long __arena_global a_val = 1;
-+extern long __arena_global b_val; /* defined in linked_arena2.c */
- 
- SEC("syscall")
- int sum1(void *ctx)
- {
-+#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
- 	return a_val + b_val;
-+#else
-+	/*
-+	 * Reference the extern without dereferencing it, so that the relink
-+	 * test still has an extern to resolve.
-+	 */
-+	return (long)&b_val;
-+#endif
- }
- 
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/linked_arena2.c b/tools/testing/selftests/bpf/progs/linked_arena2.c
-index d0bcdf18a4b6..db37198854a3 100644
---- a/tools/testing/selftests/bpf/progs/linked_arena2.c
-+++ b/tools/testing/selftests/bpf/progs/linked_arena2.c
-@@ -4,15 +4,19 @@
- #include <bpf/bpf_helpers.h>
- #include "bpf_arena_common.h"
- 
--long __arena b_val = 2;
--extern long __arena a_val; /* defined in linked_arena1.c */
-+long __arena_global b_val = 2;
-+extern long __arena_global a_val; /* defined in linked_arena1.c */
- 
- SEC("syscall")
- int bump2(void *ctx)
- {
-+#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
- 	a_val += 10;
- 	b_val += 20;
- 	return a_val + b_val;
-+#else /* see linked_arena1.c */
-+	return (long)&a_val;
-+#endif
- }
- 
- char _license[] SEC("license") = "GPL";
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 13bc74190..caf1b801f 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7847,6 +7847,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8e37, "HP 16 Piston OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e3a, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e3b, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8e43, "HP Laptop 15-fd2xxx", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
+ 	SND_PCI_QUIRK(0x103c, 0x8e60, "HP OmniBook 7 Laptop 16-bh0xxx", ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8e61, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8e62, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
 -- 
-2.53.0-Meta
+2.53.0
 
