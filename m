@@ -1,84 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435AE385519
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FA7D37EFE3;
+	Mon, 28 Sep 2026 12:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598154; cv=none; b=fEul176vkemeWQZEsGi0N3mhwDiGLcNVAp1XSL3r6+fmVTN9mWamyjluoRyMHSZBv/3lrk4rTiuqrxcZlNfiFf8KZwRP+Y7y1qlRJ1VW8S+SBATDqaCsGlKBWSxLTBqg5M17KhFI/akJDTfnwn0kfS5NUYoPUcXlDLJ2JgwEY50=
+	t=1790598160; cv=none; b=puXDxY73hzIdZDYiYJ/NMxnoErVsC1k3q02U+Sc57VNiOBObd8Oj/7sbLGnGvhX1Q1hOAuCGOXLTeLDrNR86R4zEE8zy5rv683WvPaVR3BPkX97N08tnTgBtItOF6Gz+yZIFTgNCzGyluJlCEfNqPAVI45t0w4/o5H8Y/sM/L1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598154; c=relaxed/simple;
-	bh=CYr46wE5XAX7Y1vwDFvlJRJLa3xImyeWpZgtt6PYaaY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tq47YMELeJpYLuKDh5qFINkWc6Dfe8TncqrTBb7KCqz4aGWneKGvimfzjLKTnk9GCE1jUUAnGEhCiAYl6nrC91CeSheibHUBlN7hE33XI+83J0jmY423iLh7uulymr54uC+jq3/N8vwgy2qM57J0lCHJFDvvo5uD4rM5Ue85GpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yp5pldoC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790598160; c=relaxed/simple;
+	bh=YqYdTxNeBlZi+/azfWQ1G2jvXgUS9DTeh9xNNha/Wvk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xq0+QKIhowdEkexpj8KktvhcJMvGDJwu8L0S25RHtgaJGFxzWUBzsHwAwL8DOn2VFaQy6B2f+R0kpRdGw9fKjseF3Bh8c3Hbrq3j4IxEwgEKIZ8IFxwoTWaW6Fqpz+iZKLO7mi8Fp9X0RVpKx3ZI2hkGQcaqtycb93XHjib/XXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IOTsN3UU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yp5pldoC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1F61F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790598151;
-	bh=CYr46wE5XAX7Y1vwDFvlJRJLa3xImyeWpZgtt6PYaaY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Yp5pldoCFMC0JiPqxHh8tvKEvJMqEfjGcdYwitMww7msuDHlhnzLKPuqYuY6lT7se
-	 AHqdAuyLRQrDytmaSft8DRu++0XgkLYotdvumKjgj+KQzmjyAAa0BcG4H73IgnEspg
-	 b/b9pZQqK5CNqWN2Ko3lVBRBaaucOlBINUQldz8jS67WEaaeUqihakEe67vfUoPsSu
-	 P40c62EYrnIsRCfIoJlV1plUMP9fEE684fE5J0FDyuR2uJbkDcR4lSj3Rev7VprgWg
-	 OvHoyzhSDRxeT0h8pkIJTzoZFWNp59gMfiqHGUg0R+QTyWDJdfMWnMXZvlLI1dPmm5
-	 4KEJ6lHU8MQig==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e911e665so2218520e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:22:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByrL4PPB4EBLPJlMa+2IKnxB1Cf7kzvQC++TIJ627wzAUK+SNwxF2kGMB7kjp3t9o+qICXh9rM+tF6doE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIISoX+whQqjTFPNKCKFwmDXht+UH+EqiLjRdAMIwu/M/qZLxHJ
-	/1KWCxQcpx7Z4LlDK+uHNuWp0he97MF5EeB/nZVc400eeSLJKo4Y20TI4kBOr4ELSr80+jh6Xeb
-	V9S9OrmXbADQa2pSpWNwmdcgQHM2LiZyPekTYRW81hA==
-X-Received: by 2002:a05:6512:3c84:b0:5b8:e2de:6f67 with SMTP id
- 2adb3069b0e04-5b8e2de6feamr3570218e87.33.1790598149932; Mon, 28 Sep 2026
- 05:22:29 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 12:22:28 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 12:22:28 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260928112546.631440-1-fanwu01@zju.edu.cn>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IOTsN3UU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 433F41570;
+	Mon, 28 Sep 2026 05:22:34 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 90E813F86F;
+	Mon, 28 Sep 2026 05:22:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790598157; bh=YqYdTxNeBlZi+/azfWQ1G2jvXgUS9DTeh9xNNha/Wvk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=IOTsN3UUwyJ+fUcqsO0r7V8LIhv8FhEMvL5PNRQ9AAtbUomLDP+Vi786MDTQUb4xs
+	 X4gc4rNxMMtoFgW9Qw+KnIguPEsQ7cIBNuch13kl+q6izgXNMpROd9iMio08KKWZsF
+	 /4Ox0sC5g4QnA0oWPFApbogXCvGaaHwEqwD11SG8=
+Message-ID: <887e91bc-03a0-4977-aed6-baa2e069d9ee@arm.com>
+Date: Mon, 28 Sep 2026 13:22:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928112546.631440-1-fanwu01@zju.edu.cn>
-Date: Mon, 28 Sep 2026 12:22:28 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
-X-Gm-Features: AclHuK-nfTnJntkhEiDwnqhH1uYRFQ3P8cKjQ9tdRKoWajTwO1i7cEA4_kF9RF8
-Message-ID: <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
-Subject: Re: [PATCH v2] gpio: mpsse: fix race when arming the IRQ poll worker
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, songl@zju.edu.cn, linusw@kernel.org, brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/qcom: Invalidate TLB during context init
+To: me@samcday.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Joerg Roedel <jroedel@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260928-qcom-iommu-clean-contexts-v1-1-c88fe2b4ff48@samcday.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260928-qcom-iommu-clean-contexts-v1-1-c88fe2b4ff48@samcday.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026 13:25:46 +0200, Fan Wu <fanwu01@zju.edu.cn> said:
-> gpio_mpsse_irq_enable() schedules a poll worker before adding it to
-> priv->workers. gpio_mpsse_disconnect() can miss the worker while
-> tearing down the list, after which the worker can access freed priv.
->
-> Publish and schedule the worker while holding irq_spin. Set dying under
-> the same lock before disconnect tears down the list, so a worker created
-> after teardown starts is neither published nor scheduled. Use
-> kfree_rcu() for such a worker because irq_enable() runs with the IRQ
-> descriptor raw lock held.
->
-> This issue was found by an in-house static analysis tool.
->
-> Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+On 28/09/2026 7:27 am, Sam Day via B4 Relay wrote:
+> From: Sam Day <me@samcday.com>
+> 
+> qcom_iommu derives each context bank's ASID from DT data, so a kernel
+> booted via kexec reuses the same ASIDs as its predecessor.
+> 
+> Programming a new TTBR0 doesn't discard entries the SMMU has already
+> cached under that ASID, so these residual and stale
+> translations/table-walks will go into effect as soon as the context is
+> enabled again.
+> 
+> On MSM8916 devices (I confirmed it on both a Samsung Galaxy A5 and a
+> DragonBoard 410c) the result is MDP5 taking context faults on
+> framebuffer IOVAs and stuck in a continuous underrun storm during scan
+> out, if the previous kernel had itself initialized the display and
+> programmed the SMMU.
+> 
+> arm-smmu invalidates the whole TLB in arm_smmu_device_reset() before
+> enabling the SMMU. qcom_iommu can't do that on these TZ-managed devices
+> (SMMU_SCR1.GASRAE=1), however.
+
+Can you not hit SMMU_CBn_TLBIALL in qcom_iommu_ctx_probe()? That would 
+seem like the logical equivalent.
+
+Thanks,
+Robin.
+
+> Instead, qcom_iommu now invalidates each context bank by ASID whilst it
+> is still disabled, before programming it for the new domain. Secured
+> contexts are protected by TZ so they're skipped.
+> 
+> There's been previous discussion on the list (see link) about how to
+> best deal with this kind of situation. This patch opts for a fix in the
+> incoming kernel, rather than the outgoing one. This ensures newer
+> kernels will always behave correctly, and also covers the kdump use
+> case.
+> 
+> Fixes: 0ae349a0f33f ("iommu/qcom: Add qcom_iommu")
+> Link: https://lore.kernel.org/all/20240319154756.GB2901@willie-the-truck/
+> Assisted-by: LLM
+> Signed-off-by: Sam Day <me@samcday.com>
 > ---
+> Tested on my DragonBoard 410c. Starting from one unpatched kernel
+> scanning out at 640x480 and kexecing into the same kernel at 1280x720
+> results in context faults starting at the first IOVA past the previous
+> kernel's mapped extent, with continuous MDP5 underruns thereafter.
+> During this time I observed an all-blue HDMI signal. With the patch
+> applied, the same kexec hop is free of faults, and the HDMI signal is
+> clean throughout.
+> 
+> Further, it was proven that kexecing into an unpatched kernel and
+> causing the fault storm can then be resolved by subsequently kexecing
+> into a patched kernel.
+> ---
+>   drivers/iommu/arm/arm-smmu/qcom_iommu.c | 32 +++++++++++++++++++++-----------
+>   1 file changed, 21 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> index 21d18ce67b982..a37955cd90d5e 100644
+> --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> @@ -111,23 +111,26 @@ iommu_readq(struct qcom_iommu_ctx *ctx, unsigned reg)
+>   	return readq_relaxed(ctx->base + reg);
+>   }
+>   
+> +static void qcom_iommu_ctx_tlb_sync(struct qcom_iommu_ctx *ctx)
+> +{
+> +	unsigned int val, ret;
+> +
+> +	iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
+> +
+> +	ret = readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
+> +				 (val & 0x1) == 0, 0, 5000000);
+> +	if (ret)
+> +		dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
+> +}
+> +
+>   static void qcom_iommu_tlb_sync(void *cookie)
+>   {
+>   	struct qcom_iommu_domain *qcom_domain = cookie;
+>   	struct iommu_fwspec *fwspec = qcom_domain->fwspec;
+>   	unsigned i;
+>   
+> -	for (i = 0; i < fwspec->num_ids; i++) {
+> -		struct qcom_iommu_ctx *ctx = to_ctx(qcom_domain, fwspec->ids[i]);
+> -		unsigned int val, ret;
+> -
+> -		iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
+> -
+> -		ret = readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
+> -					 (val & 0x1) == 0, 0, 5000000);
+> -		if (ret)
+> -			dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
+> -	}
+> +	for (i = 0; i < fwspec->num_ids; i++)
+> +		qcom_iommu_ctx_tlb_sync(to_ctx(qcom_domain, fwspec->ids[i]));
+>   }
+>   
+>   static void qcom_iommu_tlb_inv_context(void *cookie)
+> @@ -270,6 +273,13 @@ static int qcom_iommu_init_domain(struct iommu_domain *domain,
+>   		/* Disable context bank before programming */
+>   		iommu_writel(ctx, ARM_SMMU_CB_SCTLR, 0);
+>   
+> +		/* The TLB may still hold cached and stale entries for this
+> +		 * ASID, if a previous kernel programmed the SMMU before
+> +		 * a kexec into this kernel.
+> +		 */
+> +		iommu_writel(ctx, ARM_SMMU_CB_S1_TLBIASID, ctx->asid);
+> +		qcom_iommu_ctx_tlb_sync(ctx);
+> +
+>   		/* Clear context bank fault address fault status registers */
+>   		iommu_writel(ctx, ARM_SMMU_CB_FAR, 0);
+>   		iommu_writel(ctx, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
+> 
+> ---
+> base-commit: 3339792beb5fb1c9c423c544ba2fbc235e7d7f75
+> change-id: 20260926-qcom-iommu-clean-contexts-3ccda804c08d
+> 
+> Best regards,
 
-Please always include the changelog between iterations of the same series. I
-have no idea what changed since v1.
-
-Bart
