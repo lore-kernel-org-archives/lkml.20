@@ -1,141 +1,109 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7203587A2;
-	Mon, 28 Sep 2026 07:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520512C2360
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580326; cv=none; b=YzVIECtAJbnY3ucJzpBQaUGsAZrrOH56j+AWcQ2kyJ7Fh5PpKEtIaaVuBQYrte1MJJjBeqE6iR5IPUnU+AFrPy5Ttkxx0pCxT6xHTOBXB2irkthMTeYTEu63JaIBB0T7zfAzfhK08wkw+k4oXI1qqFtXjAxef67+Qv7KYX6TzX4=
+	t=1790580350; cv=none; b=Dpux5onec02BiR4FwQYU9rmS4x3dfSlTh3/oyuuHNcZHVFZbqoUB5F7LeHVcjqPZre50S6FXcY6r7R02f1PVzHux/Vi4Xe6LYz7YJDnrTf39eKd1yddX63rPuh3sGvxpfy0bzUHR9Up01m7dJvCZFDevw0N7CqG0hAL1XWXCdgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580326; c=relaxed/simple;
-	bh=5wjpwfjk9XS6Kg3dTm883wzlNk8xnKw9Xa2SusPQEzA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=DmR0agCugugrUQDNX4u7QRiAFtHRaS3/moIEbkc0AJuvMUxI7J9h5ZKHk7HAnn/vf81psUAfuIji38CMgI1sqhlh2rrhrFaP4JAVvx2TX0s6qf0CmMfu4hNBETlrplNSgCNDKF8nmyaL9IR5VYna/4u1knmiDHTJ0UkWFf1esu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jDnkJjyO; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790580350; c=relaxed/simple;
+	bh=q08SMMXYiHrB/t+BG5Y3bR6naNmrNNO29kDK3fVq4k4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oWk+XNIaRQyRtZLkjJ/9lTwuECUNHDnCRR0l6rah8SYxhwMdOi2eIbVKD3MCEwrRSyXeYTfsSfO3sE9/LjmhS2hiUSS/xlIRW4pel7IK3hl76mk5NqLkL5yQ1r6FTiKCRZlB9TENSWD/p6ugSoaZ3iyVCQ2b8c81mbY8r24x6NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxXUNGf3; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jDnkJjyO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=5wjpwfjk9XS6Kg3dTm883wzlNk8xnKw9Xa2SusPQEzA=; b=j
-	DnkJjyOJ/7bVW3PUTuvhcrf1BQO3C8pI8RdvbvGDAvUfPkPMTgDyXGuwQaCaRDxW
-	wNVP6yD5wNinx9n1T1CDNAezs3tnHGnWtPjwL2X2sp6az8oKDt9F3E0odnN28ea8
-	ys07mgcotqhgTYvZ4AIrLrtKybkXeuiEYdbF9rBUD4=
-Date: Mon, 28 Sep 2026 15:24:56 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Biju Das" <biju.das.jz@bp.renesas.com>
-Cc: "Linus Walleij" <linusw@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
- match data
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260925133804.2231004-1-yaojiale02@163.com>
- <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
- <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-X-NTES-SC: AL_Qu2SAvmTv0oi4CKfZekcn08ShO49XMOyvfoi2YFTc+gGmTzU3j0if1JyFELowOyzNySDujGrVSdF5ct2e7h64iDhXktp12u9KHWk+xysuw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxXUNGf3"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so2468523eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:25:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790580348; x=1791185148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ROGDvtvh53/QQPkABiv5e4DoVYicohxxFWZJETjDQU=;
+        b=mxXUNGf3q1qj3KXBeHHYrUEtIYoOOVdlS+fsvzI1n7wpUw2qRSb/N2njJEWmcZIbaK
+         cMA7Hw8qMPFJjCKjacumBU5NvQSrdNvLF810Z2nOzw3ujVr47G5t4g+yMlvvz9WShOT4
+         sE2mTWGIp8z2vvaxuzXwwj3RwDxCkbVH+ZGvCCRAANs2bFuCOBP0rC82Are5OimLsd7s
+         t6kAnzpJZNX15TyOhqGGmfUMRcamkOwG1dxOCXjDka0ymwGFvDYNVvPAd1MYkRcfoCB6
+         24UdTctkqKP9h1hZmmsB15X5UZQ47k2fo26JxxZZYAP+0SiZpE4r8X3o0JypwLzeBzk5
+         CVnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790580348; x=1791185148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ROGDvtvh53/QQPkABiv5e4DoVYicohxxFWZJETjDQU=;
+        b=eTtZIxf4OuUig9lJ72kL2Rv2f8icDbQz5YCWngVkvvv+ZnzykJ1cFlwbAiNk92EB1q
+         Loygkvn9CXKmJduExQRkC43COJWEcKbJw144p1WnsCTBhttAoI02ShdeJV8wxezpPGGm
+         kWAE4gLOsAFU/n07emtKQ81YXa1boxFcFit2URCEtFSQgniI3vh4//KXMPQS+jSwy89n
+         JV8IRpLKBWj0J0aUBuV4ObaSP5Ilx1a8iAxvQEZW4XaCV6A82wuBL7bNbI3V4UjipYhG
+         QdwbBy8N0xigJd9nFLe2soU6S7CIhN6M5AqfyBwliAxfhLxAn+X5aWRZke8OyysOeu8M
+         fdYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaGe8lbIUFXApIM4oHy+JiL0qJzbviz+uVgM8Xy/mdCPfO4aEVjHEYp+zUKXbBg6xhMia8tggJknsumDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr7TRwjQbzuTIs4LWJVhnmUtNnkhsOJAC4jgE7TZN5y41GVrbq
+	WfoHvCq6Kx4kbDnnawxF+d5PBtNKIa5b0Et8tuQn53lA5tR5lYOc+lgz
+X-Gm-Gg: AYBFou1HNG9T6AoboeodFZhvjGnSKRAg/6kraZEMgLs/wzJrAF6hwz4WdsaKc57M0BH
+	xuu2u6lSke8bE3Wy1b551Z+kwCELwJV2RS5KXxHKWzyCvqau5xFD6V7nPAdzU+3YW2orKAX52ja
+	GCSW5GqxtUx0LemUoHOGkjJEIIz0AV94I1zZmT+2TduXpBvvMLkTEIn6GLIPShMgHFZEGE59ZVn
+	V7RJUioM5YDZolpNOt6PnwUtGBEZX9cC63wwYaWidbSkfuXs/aJSniNGCds17VHcYyE92iFsTtM
+	AuER/pzuZjyHxcCasQuI1TSf209BKmzf4lE+OTVbpYbFi0izkqOhp+FHVyBOEpDVB8K8C4XOTgf
+	XOOdkA+a+iQVkoYX7D6dpKxfQX7tPVLZi/i3hkAmUsgqYoURUZl2sPOLcNrEt9XlHa8JcPzMouC
+	UZflZnwhN332mV+wySggcx8DT4S6ATmyQep9NQdOoumMRhs7uffP/9TtaegCSgGAuMtp6YpRRVp
+	LqT21WcC6KqIw==
+X-Received: by 2002:a05:7301:78c6:b0:33b:edf8:1919 with SMTP id 5a478bee46e88-342707b407dmr9263412eec.13.1790580348291;
+        Mon, 28 Sep 2026 00:25:48 -0700 (PDT)
+Received: from wujing.localdomain ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145d0fc9fsm27735529eec.25.2026.09.28.00.25.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 00:25:47 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Qiliang Yuan <odys.yuan@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	linux-hyperv@vger.kernel.org
+Subject: Re: [PATCH] KVM: x86: Clear CR3[63:32] on SMM entry from long mode
+Date: Mon, 28 Sep 2026 15:25:34 +0800
+Message-ID: <20260928072534.1987-1-odys.yuan@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
+References: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:iCgvCgDX14lJFrpqH3JPAA--.50738W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgngG2q6Fkl-YAAA3s
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0wOS0yOCAxNDowMzo0NiwgIkJpanUgRGFzIiA8YmlqdS5kYXMuanpAYnAucmVuZXNh
-cy5jb20+IHdyb3RlOgo+SGkgamlhbGUgeWFvLAo+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
-LS0tCj4+IEZyb206IGppYWxlIHlhbyA8MTk4ODg5NzI4MDRAMTYzLmNvbT4KPj4gU2VudDogMjYg
-U2VwdGVtYmVyIDIwMjYgMTE6MjQKPj4gU3ViamVjdDogUmU6UkU6IFtQQVRDSF0gcGluY3RybDog
-bWNwMjNzMDg6IHJlamVjdCBkZXZpY2VzIHdpdGhvdXQgbWF0Y2ggZGF0YQo+PiAKPj4gW1lvdSBk
-b24ndCBvZnRlbiBnZXQgZW1haWwgZnJvbSAxOTg4ODk3MjgwNEAxNjMuY29tLiBMZWFybiB3aHkg
-dGhpcyBpcyBpbXBvcnRhbnQgYXQKPj4gaHR0cHM6Ly9ha2EubXMvTGVhcm5BYm91dFNlbmRlcklk
-ZW50aWZpY2F0aW9uIF0KPj4gCj4+IEhpIEJpanUsCj4+IAo+PiBBdCAyMDI2LTA5LTI2IDE4OjA3
-OjE0LCAiQmlqdSBEYXMiIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4gd3JvdGU6Cj4+ID5I
-aSwKPj4gPgo+PiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiA+PiBGcm9tOiBKaWFs
-ZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gPj4gU2VudDogMjUgU2VwdGVtYmVyIDIwMjYg
-MTQ6MzgKPj4gPj4gU3ViamVjdDogW1BBVENIXSBwaW5jdHJsOiBtY3AyM3MwODogcmVqZWN0IGRl
-dmljZXMgd2l0aG91dCBtYXRjaCBkYXRhCj4+ID4+Cj4+ID4+IEEgZGV2aWNlIGJvdW5kIHRocm91
-Z2ggZHJpdmVyX292ZXJyaWRlIG5lZWQgbm90IG1hdGNoIGFuIGVudHJ5IGluIHRoZQo+PiA+PiBk
-cml2ZXIgdGFibGVzLiBJbiB0aGF0IGNhc2UKPj4gPj4gc3BpX2dldF9kZXZpY2VfbWF0Y2hfZGF0
-YSgpIHJldHVybnMgTlVMTCwgYnV0IG1jcDIzczA4X3Byb2JlKCkgbGF0ZXIKPj4gPj4gcGFzc2Vz
-IHRoZSByZXN1bHQgdG8gdGhlIHJlZ21hcCBzZXR1cCBhbmQgZGVyZWZlcmVuY2VzIGl0IHdoaWxl
-IHNldHRpbmcgdXAgZWFjaCBkZXZpY2UuCj4+ID4KPj4gPkkgYmVsaWV2ZSB0aGlzIGlzIGFuIGlu
-dmFsaWQgdXNlIGNhc2UgYXMgdGhlIHVzZXIgdHJ5aW5nCj4+ID5kcml2ZXJfb3ZlcnJpZGUgYW5k
-IHRoZSBwcm9iZSByZXR1cm5zIGVycm9yLiBBbSBJIG1pc3NpbmcgYW55dGhpbmcgaGVyZT8KPj4g
-Cj4+IFllcywgbXkgY29tbWl0IG1lc3NhZ2Ugd2FzIG5vdCBjbGVhciBlbm91Z2guIFRoaXMgcGF0
-Y2ggaXMgaW50ZW5kZWQgdG8gZml4IGEgcmVncmVzc2lvbiBpbnRyb2R1Y2VkIGJ5Cj4+IGNvbW1p
-dCAyZTQ0NTU1YjA1YzAsIHJhdGhlciB0aGFuIHRvIG1ha2UgYW4gdW5tYXRjaGVkIGRldmljZSBw
-cm9iZSBzdWNjZXNzZnVsbHkgdGhyb3VnaCBkcml2ZXJfb3ZlcnJpZGUuCj4+IAo+PiBCZWZvcmUg
-dGhhdCBjb21taXQsIG1pc3NpbmcgbWF0Y2ggZGF0YSBlZmZlY3RpdmVseSByZXN1bHRlZCBpbiB0
-eXBlIDAsIHdoaWNoIGZlbGwgdGhyb3VnaCB0byB0aGUgZGVmYXVsdAo+PiBzd2l0Y2ggY2FzZSBh
-bmQgcmV0dXJuZWQgLUVJTlZBTC4KPj4gQ29tbWl0IDJlNDQ1NTViMDVjMCByZXBsYWNlZCB0aGUg
-dHlwZSB2YWx1ZSB3aXRoIGFuIGluZm8gcG9pbnRlciwgYnV0IHRoZSBTUEkgcGF0aCBtaXNzZWQg
-dGhlCj4+IGNvcnJlc3BvbmRpbmcgTlVMTCBjaGVjayBiZWZvcmUgZGVyZWZlcmVuY2luZwo+PiBp
-bmZvLT50eXBlLiBUaGUgSTJDIHBhdGggcHJlc2VydmVkIHRoZSBwcmV2aW91cyBlcnJvciBoYW5k
-bGluZyB3aXRoIGFuCj4+IGV4cGxpY2l0IE5VTEwgY2hlY2sgYWZ0ZXIgdGhlIHNhbWUgY29udmVy
-c2lvbi4KPgo+eW91IGFyZSB0ZXN0aW5nIHRoZSBkcml2ZXIgd2l0aCBkcml2ZXJfb3ZlcnJpZGUg
-YW5kIHlvdXIgcGF0Y2ggbWFrZXMgZHJpdmVyCj5Qcm9iZSBmYWlsdXJlLiBJIGRvIG5vdCB1bmRl
-cnN0YW5kIHRoZSB0ZXN0IGNhc2UgeW91IGFyZSB0cnlpbmcgdG8KPmFjaGlldmUgd2l0aCBkcml2
-ZXJfb3ZlcnJpZGUuCj4KPkNhbiB5b3UgcGxlYXNlIHNoYXJlIHNvbWUgbG9ncyB3aXRoIGRyaXZl
-cl9vdmVycmlkZSB0aGF0IHlvdSBwbGFubmVkIHRvIHRlc3Q/Cj4KPkNoZWVycywKPkJpanUgCj4K
-Pj4gCj4+IENvbnNlcXVlbnRseSwgYW4gdW5tYXRjaGVkIGRldmljZSBib3VuZCB0aHJvdWdoIGRy
-aXZlcl9vdmVycmlkZSB1c2VkIHRvIGZhaWwgY2xlYW5seS4gSXQgY2FuIG5vdyBjYXVzZSBhCj4+
-IE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSB3aGVuIGEgdmFsaWQgc3BpLXByZXNlbnQtbWFzayBw
-cm9wZXJ0eSBpcyBwcmVzZW50LiBUaGlzIHBhdGNoIHJlc3RvcmVzIHRoZQo+PiBwcmV2aW91cyBm
-YWlsdXJlIGJlaGF2aW9yLgo+PiAKPj4gPgo+PiA+Q2FuIHlvdSBwbGVhc2UgcHJlcGFyZSBhIHBh
-dGNoIHRoYXQgbWFrZXMgdGhlIGRyaXZlciBwcm9iZSBzdWNjZXNzIGJ5Cj4+ID51c2luZyBkcml2
-ZXJfb3ZlcnJpZGUgRmVhdHVyZT8gQWxzbyBwbGVhc2Ugc2hhcmUgc29tZSBsb2dzIHRvIHNlZSBo
-b3cKPj4gPml0IHdvcmtzIGluIHJlYWwgZGV2aWNlCj4+ID4KPj4gPkNoZWVycywKPj4gPkJpanUK
-CgpUaGUgdGVzdCBpcyBOT1QgaW50ZW5kZWQgdG8gbWFrZSBhbiB1bm1hdGNoZWQgZGV2aWNlIHBy
-b2JlIHN1Y2Nlc3NmdWxseS4KZHJpdmVyX292ZXJyaWRlIHBlcm1pdHMgYW4gZXhwbGljaXQgcHJv
-YmUgYXR0ZW1wdDsgaXQgZG9lcyBub3QgZ3VhcmFudGVlIHRoYXQgcHJvYmUgbXVzdCBzdWNjZWVk
-LgpUaGUgZHJpdmVyIG11c3Qgc3RpbGwgcmVqZWN0IHVuc3VwcG9ydGVkIGRldmljZXMgc2FmZWx5
-LiBUaGUgYnVnIGlzIHRoYXQgaXQgY3VycmVudGx5IGNyYXNoZXMgaW5zdGVhZCBvZiByZXR1cm5p
-bmcgYW4gZXJyb3IuCgpJIHJlcHJvZHVjZWQgdGhpcyBkZXRlcm1pbmlzdGljYWxseSB3aXRoIEtB
-U0FOIG9uIGFybTY0IFFFTVUuClRoZSBTUEkgZGV2aWNlIGhhcyBhbiB1bm1hdGNoZWQgY29tcGF0
-aWJsZSBhbmQgYSB2YWxpZCBtaWNyb2NoaXAsc3BpLXByZXNlbnQtbWFzayBwcm9wZXJ0eSwgYW5k
-IGlzIHRoZW4gYm91bmQgd2l0aDoKCmVjaG8gbWNwMjNzMDggPiAvc3lzL2J1cy9zcGkvZGV2aWNl
-cy9zcGkwLjAvZHJpdmVyX292ZXJyaWRlCmVjaG8gc3BpMC4wID4gL3N5cy9idXMvc3BpL2RyaXZl
-cnMvbWNwMjNzMDgvYmluZAoKS0FTQU4gcmVwb3J0czoKCktBU0FOOiBudWxsLXB0ci1kZXJlZiBp
-biByYW5nZSBbMHgwMDAwMDAwMDAwMDAwMDEwLTB4MDAwMDAwMDAwMDAwMDAxN10KcGMgOiBtY3Ay
-M3MwOF9wcm9iZSsweDJmOC8weDk0NApsciA6IG1jcDIzczA4X3Byb2JlKzB4MTkwLzB4OTQ0CkNh
-bGwgdHJhY2U6CiBtY3AyM3MwOF9wcm9iZSsweDJmOC8weDk0NCAoUCkKIHNwaV9wcm9iZSsweDFj
-MC8weDJkOAogcmVhbGx5X3Byb2JlKzB4MTdjLzB4NWI4CiBfX2RyaXZlcl9wcm9iZV9kZXZpY2Ur
-MHgyOGMvMHgzNTAKIGRldmljZV9kcml2ZXJfYXR0YWNoKzB4YTAvMHgxOGMKIGJpbmRfc3RvcmUr
-MHhjNC8weDEzYwogZHJ2X2F0dHJfc3RvcmUrMHg2MC8weDljCiBzeXNmc19rZl93cml0ZSsweDE3
-MC8weDFlOAoga2VybmZzX2ZvcF93cml0ZV9pdGVyKzB4Mjk4LzB4NDA0CiB2ZnNfd3JpdGUrMHg2
-NDgvMHg4Y2MKIGtzeXNfd3JpdGUrMHhmMC8weDFlMAogX19hcm02NF9zeXNfd3JpdGUrMHg3MC8w
-eGEwCiBpbnZva2Vfc3lzY2FsbCsweDcwLzB4MjRjCgoKc3BpX2dldF9kZXZpY2VfbWF0Y2hfZGF0
-YSgpIHJldHVybnMgTlVMTCwgYW5kIG1jcDIzczA4X3NwaV9yZWdtYXBfaW5pdCgpIGxhdGVyIGRl
-cmVmZXJlbmNlcyBpbmZvLT50eXBlIGF0IG9mZnNldCAxNi4KClRoZSBwYXRjaCBvbmx5IGd1YXJh
-bnRlZXMgc2FmZXR5OyBpdCBkb2VzIG5vdCBhdHRlbXB0IHRvIHN1cHBvcnQgdW5tYXRjaGVkIGhh
-cmR3YXJlIHRocm91Z2ggZHJpdmVyX292ZXJyaWRlLgoKQ2hlZXJzLApKaWFsZQoKPj4gPgo+PiA+
-Pgo+PiA+PiBSZWplY3QgZGV2aWNlcyB3aXRob3V0IG1hdGNoIGRhdGEgYmVmb3JlIHJlYWRpbmcg
-ZGV2aWNlIHByb3BlcnRpZXMuCj4+ID4+Cj4+ID4+IEZpeGVzOiAyZTQ0NTU1YjA1YzAgKCJwaW5j
-dHJsOiBtY3AyM3MwODogU2ltcGxpZnkKPj4gPj4gcHJvYmUoKS9tY3AyM3MwOF9zcGlfcmVnbWFw
-X2luaXQoKSIpCj4+ID4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMu
-Y29tPgo+PiA+PiAtLS0KPj4gPj4gIGRyaXZlcnMvcGluY3RybC9waW5jdHJsLW1jcDIzczA4X3Nw
-aS5jIHwgMiArKwo+PiA+PiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+PiA+Pgo+
-PiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtbWNwMjNzMDhfc3BpLmMK
-Pj4gPj4gYi9kcml2ZXJzL3BpbmN0cmwvcGluY3RybC1tY3AyM3MwOF9zcGkuYwo+PiA+PiBpbmRl
-eCBiYWNlYmNmZjY3ZWYuLjkyNjAzNGZjZDUxMiAxMDA2NDQKPj4gPj4gLS0tIGEvZHJpdmVycy9w
-aW5jdHJsL3BpbmN0cmwtbWNwMjNzMDhfc3BpLmMKPj4gPj4gKysrIGIvZHJpdmVycy9waW5jdHJs
-L3BpbmN0cmwtbWNwMjNzMDhfc3BpLmMKPj4gPj4gQEAgLTE0Niw2ICsxNDYsOCBAQCBzdGF0aWMg
-aW50IG1jcDIzczA4X3Byb2JlKHN0cnVjdCBzcGlfZGV2aWNlICpzcGkpCj4+ID4+ICAgICAgdTgg
-djsKPj4gPj4KPj4gPj4gICAgICBpbmZvID0gc3BpX2dldF9kZXZpY2VfbWF0Y2hfZGF0YShzcGkp
-Owo+PiA+PiArICAgIGlmICghaW5mbykKPj4gPj4gKyAgICAgICAgICAgIHJldHVybiAtRU5PREFU
-QTsKPj4gPj4KPj4gPj4gICAgICByZXQgPSBkZXZpY2VfcHJvcGVydHlfcmVhZF91OChkZXYsICJt
-aWNyb2NoaXAsc3BpLXByZXNlbnQtbWFzayIsICZ2KTsKPj4gPj4gICAgICBpZiAocmV0KSB7Cj4+
-ID4+IC0tCj4+ID4+IDIuMzQuMQo+PiAKPj4gQ2hlZXJzLAo+PiBKaWFsZQo=
++Cc Hyper-V folks and linux-hyperv, since the failure is triggered by
+Hyper-V's handling of VMRUN for a nested (L1) hypervisor, i.e. KVM
+running on WSL2.
+
+For the Hyper-V side: the VMRUN is rejected when the guest state has
+CR0.PG=0, EFER.LMA=0 and CR3[63:32] != 0, a combination that bare-metal
+SVM does not reject.  Is that check intentional?  If it is not, a
+Hyper-V fix would help older KVM versions as well; either way the patch
+avoids creating that state in the first place.
+
+The full patch is here:
+https://lore.kernel.org/r/20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com
+
+Thanks,
+Qiliang
