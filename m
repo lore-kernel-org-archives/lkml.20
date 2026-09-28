@@ -1,146 +1,119 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48EB4BF944
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC194349BC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603510; cv=none; b=Zx+0P46iRCf+o8a/+6k9dPhkPJB5Azy0y+0znvGhl9EuaoqnkLUWnRX57ZJPt0JgjiqHnw15/TeiohWY5kHDvLESGGjnApFlDKp3NqXQoui2MT6+HR2hlwUv83pxhnDi5g2IWcYSwxw+in7wR+5djlfr/TDejvFcfxZwfmHqVIw=
+	t=1790603529; cv=none; b=e5isgResDwk+csIjt1frs/RMWI/5gvGLyR2CCmtbuJzHHwfzNcvcaDX1Mhxh8HaI5/v50EiaY0jXAZ/91O3dfMFWpGsXZ0KUFZQ/svm+1ivQnbfznaQ4zmBRE6zsMFNpW7Q3t8194C1+3SyijBWX8qyZqrie26jJUgKpnK05Wmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603510; c=relaxed/simple;
-	bh=gcCH/ImF2avN/BEXcJAAzwFIO1x1X7GsiP5n3c/8JK8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=isocmlueRg4Nui+cfzLdN9zKEoQnEdEEQLduytojlyhAeJdgNy1jSuruiiqO73KH+pWGYrWH3a5Y5z3EC14sKHF0AR/OYwR9G3uDjlYKF55aAtSEUtK1vXauqWXyrzn7w7hX3ZF9xPydhja75K7Q0ClEE0mh58a8kzZ7mETvrL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PMzswL8C; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790603529; c=relaxed/simple;
+	bh=h9nhueiW90n/PQeZv1y1n3cikpJCagd1jp/6ZlWFcBA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UtEGpF+d1PulmBzpLiClZRlPLenWAr/8b60qhIAG+JaTbUOeIp5Xka5yU0ct3DR5a3Jw+i14r3YEnrUycSb9RWTmb1elSgwfn4ovsPzVwJ9bUaVdrfYhFnCtKqEwfszaBRg6k3n3MzXswx6PhDQP/Dl1HVDutSnkVsZKhQENiw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A150Iwbo; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PMzswL8C"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341fe27b718so3008120eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A150Iwbo"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so436926666b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:52:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790603508; x=1791208308; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ONrDgBKVsUbMcgTyeE/kjmsO78+gt+LAoKwNAqLrInw=;
-        b=PMzswL8CmE1K5WlKHVI0h858Tf2HQUgFZxStQ3H1AfPI9fmcEsBM5Il1C0p7kfGING
-         6kcFhqCye0lveFgCHm0C9MVzy/LOBTNHRq4Gux8tgWB/rZJhmJpLCTyoVOVNmQjS4ics
-         0gIKyMQeoT1byXRIw+DIeMbxK+tqb0hidhKvjkVUnilmtwk+IA3GuYeN1jklgbL8ZBVU
-         CiC1nZQ0oMVVoSN4jrKgC1A5lKb4PS4l3GlpROr8LcGjQp7y0x/3AkUSq7kIfenZb9OU
-         7iDPkztvHgpNC5F/zfR4wBIJfbHfE4Pdeio16KH5vataxyAlFWEss1mOov3YeRC3+Ry/
-         XgUQ==
+        d=linaro.org; s=google; t=1790603525; x=1791208325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l4Wj4baECg7d15XvpDd5zrHb67qSLbXRWYAn4x6e368=;
+        b=A150Iwbo2tFLqNR91CwrGuMs1Txsm0dgch3PlDvZXlMKCaUp7hGMkBGp2whOXTbPOW
+         r7ZXgwBg1Z14dOJu4EFgPRmmbnRpzirtiu6vr1jy40V6pOcvWRSFqHNKl+C9LpxFhK1O
+         HGhKkEx4lLZTAEMl71bKfppNZSrSCQorjk+P85Hz1OrdhvQ0iphaPhta02DGIgQH6wiX
+         xV3sczBExnpvdOpIx/JQSeh3VQuCvLGKsJ9V/ILvyrhKvuSAZdsBGXkojjfqwNCTAcru
+         2PByzPs/dfVPm35N5Cy3hy1XFVuaQrPYEgq32x1TB/WSVjLsI9VkhqHgaQkAifgepRsT
+         bMog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790603508; x=1791208308;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790603525; x=1791208325;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ONrDgBKVsUbMcgTyeE/kjmsO78+gt+LAoKwNAqLrInw=;
-        b=L/4bCZyQ8xXl7Ju7wjQjQPp/pJgP9YlzbUt5fwUdChXJge9NVKxaVbwPMEqYFBiBp4
-         k6wzmSLyobMvCdBcwFIdjaJSfqdNMvzMS65PN+2W/fo7scfzVYsQuaxjBppcTFg+k5fa
-         KX3SetCKWACQxevrxnv3qEAwEdiCo7UvtCWpbG07kJU6WOXEInx8T7pqqSudwOWAXLPW
-         y62fYXfnwh9GRh8qIKYeaLSnXCRxpoLragCQXNWj2IAP1D/N5yJ0Y26HTaKmhqUrfuXw
-         2Vj7CZwAPLIRPEyCMwHb2ivzfmcZbcIYB3DIch0Svzb4XvMu26BPzat1fH8Pl+uOM6P9
-         SdHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzH1Kwbh5nH/i7wTZXin3hMrUVAtBOis5mbC+6bhmMv7wfyM2VBrG4csIrDm8wmW7ArcBOvL0UidlUKG3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDdFOMw3jOfeifuXzXfiP1pePbrsfbN4nSQQqZ1kBWuCvlUWG5
-	7ki0EqG3iinpzGH1j/opR8QudgV7H/kqjkF5BEhNrGbhss06wQjo0hA3
-X-Gm-Gg: AYBFou1eUePqYENP0DHgJUaWen03+XN/rw1qgaMibxkypEHUzZKPbl7G+/IO7r8tfuP
-	QaRwz8GM3/qMtxgX4FjXS42ZpGFHGoByCEjKd5oBWo8bdDBrk7nYMNx25D9V1S5GdsKR85Y4ctw
-	vAc5C2ZOGj2d5YewvoGpOm2pdCJhPbuJO8V/EDfSPOh9dhDz65g06Qh7pvvjNJOflXDG/EFxIAQ
-	5JRRE0fHFD1zw1mn1TTVMG09YIW29PW/ZGliiS5MlMd62K4qXEhJWZIUEqLsLhxRF4xdUae5ybF
-	g2Ujm8zPHh92YiiiZJmrLLE8IXzumUe605fAzj+Sc3z4ydDLs3g5J0EreqXVX5jxrNlUBNmsUkV
-	eNTivE+7c1gXcOw4AvuB7WP7mSaIeX2LodD+kSYGo2leFCuT/dHO8Xky2JJ2igpJ4Q8fuTTgXWM
-	xmybvMRHUFflCWpQqWhwSQwb2cMZAY0f7QeWRa1D8HM8z12xl7ajYMGr2H4w6c2zhQEp72/2Juu
-	aFGAdZfuLsU/VU8
-X-Received: by 2002:a05:7301:b89:b0:343:ba1b:9b55 with SMTP id 5a478bee46e88-343ba1c13acmr7303784eec.40.1790603507758;
-        Mon, 28 Sep 2026 06:51:47 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3475546c982sm6634166eec.5.2026.09.28.06.51.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:51:47 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shawn Tu <shawnx.tu@intel.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: hi556: fix power leak on remove while runtime-active
-Date: Mon, 28 Sep 2026 20:51:40 +0700
-Message-Id: <20260928135140.2354361-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        bh=l4Wj4baECg7d15XvpDd5zrHb67qSLbXRWYAn4x6e368=;
+        b=FcqrdcX85GF6uf7qSpYnAyrV6KJm5eFUGwekB6z7sm9RVEBwV8p1Af28ikuQCQAAjZ
+         SmlcbjdQg00TywWqfCpu7/xet/PPGOxsslxz3Xtgzfopmuc5xSjkgt46HhzFnaCgqRq2
+         9x2QkkKnaJwi1xe+ydawLClVPPlrDUgxpZcTxSwt5EE67rOppSUFN07sBe3JDJkx7WGO
+         FWcIisZG/rMVfSuivr/a78LS37vku5JjTrP5dyopHU4Nc1ynU8beJKTI042WNS+8Yv5i
+         fhH6/ZFMh6HYpv5BS5yxsgLOlTLacf+wHddUq20x6x1aQ6beaHGe1/Gj/mEnQcoYm0LP
+         Zu7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwAVYlUB6dF/cks8ptWnaznmdoC7liywtczV5ATl4sHnfWsjx2jBUyDcxfhR6PxlEOQ/MsKybeuktAbWqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOKyv7Jp8vNxl4nkOFjSqDJWsdz39xt6ODCUwJ4QUG9ijCM337
+	HfvMi/sQLE3XdyFIZRbB3ZpADJJf3kZlkyw3t0QY5Z576he1jmK0VGLpx5F3Qum2qCk=
+X-Gm-Gg: AYBFou1RQK0Unc2afE/8Ds4NFmsWYNzslHe6YzQH6syUNGzBGK7duZDOvXPLmzyFSMA
+	JtxoTQe+VQCQ6/NazxTUvJyJVJ/JP88XMx7oNuxIm58zBWjur2DwNqye23RUvj1o1eB0HUah1G9
+	K9fQBebsXy0jquS4ETH+QEslw9Xpiqpd/czfou4b6NPrwqzLPZrQefKYB51lhcjH632v08UDvgO
+	G4TykAviStHptq4MYrJaSRV58JGsh/Z0l5GZc4hSxMoX9LAp3oFpEb2Ng5lEbBUC3D4KmGfFWmq
+	bU3HZKNZwikQWfR091e431lQDRYcWpBCB5RWEEXIZLWXP525TjmfZUn5VjEWZODVRX5STcd+dtc
+	bjPfcddkm56e0ziGO9QVxh/lO8pGdgph5Q/DhBSZXl3RbDWeW5ldQJWYoB2L+dYFbxxW6e9LSt2
+	RizHJHXWiiTwKKVHy6FarrpU8wR/1zLlPIoh1H2NkJSaGlYdal3lLw0f5REFgWPf6lhQutgeQ4E
+	8Q=
+X-Received: by 2002:a17:907:d14:b0:c29:c07f:c0c8 with SMTP id a640c23a62f3a-c2ae979eef6mr776208966b.3.1790603525476;
+        Mon, 28 Sep 2026 06:52:05 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bcadbsm285069566b.72.2026.09.28.06.52.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 06:52:05 -0700 (PDT)
+Message-ID: <79e7cb39-b4af-4ac9-b72b-b01872603cff@linaro.org>
+Date: Mon, 28 Sep 2026 14:52:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf python: Fix arm-cs-trace-disasm type error
+To: Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928-james-perf-mypy-cs-disasm-v1-1-1bda909475ce@linaro.org>
+ <20260928134642.GE14479@e132581.arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260928134642.GE14479@e132581.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-hi556_remove() calls pm_runtime_disable() but never hi556_suspend().
-pm_runtime_disable() only blocks future auto suspend/resume, it
-doesn't force a final one -- if unbound while hi556_set_stream() is
-holding an outstanding PM reference (removed while still streaming),
-the device stays genuinely active with regulators/clock enabled
-forever after.
 
-probe()'s own error path already shows the right pairing (calls
-hi556_suspend() when powered on). Do the same in remove(), guarded by
-pm_runtime_status_suspended() so the common already-suspended case
-isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Moved remove() after suspend()/resume()'s definitions since it now
-calls them directly.
+On 28/09/2026 14:46, Leo Yan wrote:
+> On Mon, Sep 28, 2026 at 01:58:09PM +0100, James Clark wrote:
+>> The perf sample dso_bid getter returns a string or None, matching its
+>> Optional[str] annotation. Attempting to decode it as bytes causes mypy
+>> to report union-attr errors, even though this was behind a conditional
+>> that checked for bytes type.
+>>
+>> Use the string directly, retaining the fallback for an unknown build ID.
+>>
+>> This fixes the following build error:
+>>
+>>    python/arm-cs-trace-disasm.py:266: error: Item "None" of "str | None" has no attribute "decode"  [union-attr]
+>>
+>> Fixes: 279b402e5143 ("perf python: Port arm-cs-trace-disasm to perf module")
+>> Assisted-by: Codex:GPT-6-Astra
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+> 
+> Thanks for the fix:
+> 
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
+> 
+> Just curious, have you run this script and compare the result with old
+> one? Seems to me, the build pass is insufficient, we should run a small
+> test to ensure the result to keep same.
+> 
+> Thanks,
+> Leo
 
-Fixes: e62138403a84 ("media: hi556: Add support for Hi-556 sensor")
-Assisted-by: LLM
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
- drivers/media/i2c/hi556.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+Yep the test still passes. I assume the "if isinstance(sample.dso_bid, 
+bytes)" part was just dead code.
 
-diff --git a/drivers/media/i2c/hi556.c b/drivers/media/i2c/hi556.c
-index de573cee4451..45d1366c6d5a 100644
---- a/drivers/media/i2c/hi556.c
-+++ b/drivers/media/i2c/hi556.c
-@@ -1264,18 +1264,6 @@ static int hi556_check_hwcfg(struct device *dev)
- 	return ret;
- }
- 
--static void hi556_remove(struct i2c_client *client)
--{
--	struct v4l2_subdev *sd = i2c_get_clientdata(client);
--	struct hi556 *hi556 = to_hi556(sd);
--
--	v4l2_async_unregister_subdev(sd);
--	media_entity_cleanup(&sd->entity);
--	v4l2_ctrl_handler_free(sd->ctrl_handler);
--	pm_runtime_disable(hi556->dev);
--	mutex_destroy(&hi556->mutex);
--}
--
- static int hi556_suspend(struct device *dev)
- {
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-@@ -1316,6 +1304,20 @@ static int hi556_resume(struct device *dev)
- 	return 0;
- }
- 
-+static void hi556_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct hi556 *hi556 = to_hi556(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(hi556->dev);
-+	if (!pm_runtime_status_suspended(hi556->dev))
-+		hi556_suspend(hi556->dev);
-+	mutex_destroy(&hi556->mutex);
-+}
-+
- static int hi556_probe(struct i2c_client *client)
- {
- 	struct hi556 *hi556;
--- 
-2.25.1
 
