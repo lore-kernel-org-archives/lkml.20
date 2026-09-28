@@ -1,83 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFD249552D;
-	Mon, 28 Sep 2026 09:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2754734F3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589476; cv=none; b=JFIQCsyr6OF0gXbQ9dGzKIaP7G5dxtADWs5iTyHSkZtXkiHGiU4HxpwCXE6aQ8qljOEOyig4UmeumsP75VuI+h2ml8tBVOqj8pK/vjsud4YKslQskiX9MfGa47zFzbY5uZECv4Dmpee2XzwPrngDqnKzXJEAKg9wLpBs0dowz1E=
+	t=1790589497; cv=none; b=KrmQFHWdCrQjZDX5BbVRMyxcmCO4MTnloXf9gE2v9TiVKA5Yrrgfa+BIVR1bUzso8uzcDb7QjciakiStsR/IIiwIxV6KxiUCJ/XHu9lls+Nobjua7/Q/SjR535Cre10RBmWkqjA3KxL8HHaKbOrhOQmA4I5ujVpYEhi98CseqBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589476; c=relaxed/simple;
-	bh=gahcTOLE0N8cyBxKfVjqf2G88KQ6EJwfzOvB67dQrv8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J/LMdfO9OfPqeiQ3301Hxit+WNpIJYqJZzW8PoljZfpElkkBGpQb1Nk1sQkgMZDDgo4uN6cP8y6fXGtcwSEYmbAx+vmuMiEfx5JOTgxAbSBiVcGfhvVJq8F60af6iE039sjR73IYMdnAFaGDFfGFcf2hWaFtmnAt9sOhfrxJWEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhBP8ZQ7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589497; c=relaxed/simple;
+	bh=w+XDQEuSmmCLDdOKBYyjss6Q+r0YkdsA0ILjvX1Irq8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
+	 In-Reply-To:Content-Type; b=PXHjWTvw0HOdQLcdbJc2/MehdxmaqTUdt/KdXOzWn4v1nYRgaDu54MV5VUMFRWBtHbdu/PmdjnHlxQVhr/fp73CVT1fqY4zlfEtwhWYx5cYrdmDGvmUw7A479agmFwly62RuF5yQ9yGyxdUtcvdoNjSlm7u1qPD44tj87wLxgr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tm4VDNWb; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhBP8ZQ7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59DEE1F00893;
-	Mon, 28 Sep 2026 09:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589473;
-	bh=gahcTOLE0N8cyBxKfVjqf2G88KQ6EJwfzOvB67dQrv8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZhBP8ZQ7bV12wp22rpbYfnlD1HVau+UWZu8/dgQBY6zOsChjmQkcEWj/u7b+8W1Yu
-	 8ZD2XM4g2irbOb0k7JpUHTxoNfwS+CqQjvhUDW6cdvsrsy8H9DbOGUWPWreMsFH21c
-	 QN/dIes4q2CaXdIsQXBETt3JUUuMvit/pEiwHp6Y8e72LqVHLiH8wtLaEaoR214y5L
-	 19D/Wfv+SNxNo92bJ5CzE2H1SO8sQWWoEyFxLelUc9MzDCjmkccV+iYRHQFAJ3blgq
-	 dF25608NJaGJFrUNb09PsQtW5dUI6k11I9Ijk90qLW36hpCLqpH5rNxIzQQ3n6WgY0
-	 FB+lguVG3lIfw==
-Date: Mon, 28 Sep 2026 10:57:47 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-Message-ID: <aro6APF7jwSAvohf@gremlin>
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
- <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
- <aq1noAdz9U3tXH_Y@gremlin>
- <aro5L-W-439tTICi@milan>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tm4VDNWb"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790589485; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=O3LNSAVKlF8HCZnjI0h5qpvfepDzzCP/jy0v1v5d07I=;
+	b=tm4VDNWb9m71Q/K3AZgsArnUB8ZnJGzMJDOTrMpC4pGHsB4UkIgXkYUDKp6hdCVlgBHTgpFP2zc+WRdDaexbRT66c0TN09qRkL+UnSka5VbiraHIiXBgWwmdz3Z1noJGCEHhipaLPljTBKAdXJBEgBtiJs96PpcqiezNuOkYukU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XBlcLkk_1790589483;
+Received: from 30.221.128.216(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBlcLkk_1790589483 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 28 Sep 2026 17:58:04 +0800
+Message-ID: <159ee826-9183-4ab9-a8f3-fdac061830ed@linux.alibaba.com>
+Date: Mon, 28 Sep 2026 17:58:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aro5L-W-439tTICi@milan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: validate filecheck inode slots
+To: Jiale Yao <yaojiale02@163.com>
+References: <20260926135354.3420193-1-yaojiale02@163.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, ZhengYuan Huang <gality369@gmail.com>,
+ Heming Zhao <heming.zhao@suse.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260926135354.3420193-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 11:53:51AM +0200, Uladzislau Rezki wrote:
-> On Fri, Sep 18, 2026 at 05:35:02PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Looping in Ulad who is best placed to respond on this.
-> >
-> > Ulad could you look at the below? Thanks! :)
-...
-> > I think best person to look at this is Ulad as vmalloc is his baby :)
-> >
-> > Ulad, what do you think?
-> >
-> > Thread is at
-> > https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/ for
-> > context.
-> >
-> Uh.. I missed this. Let me check!
 
-Thanks! :)
 
->
-> --
-> Uladzislau Rezki
+On 9/26/26 9:53 PM, Jiale Yao wrote:
+> The online filecheck path reads inodes with
+> ocfs2_filecheck_validate_inode_block() instead of
+> ocfs2_validate_inode_block().  It does not check the slot fields that
+> are used as indices into arrays sized by osb->max_slots.
+> 
+> A corrupted dinode can set OCFS2_ORPHANED_FL or
+> OCFS2_DIO_ORPHANED_FL while carrying an out-of-range orphan slot.  An
+> out-of-range i_suballoc_slot can also bypass the normal validator
+> through the filecheck path.  These values can later be used to index
+> the slot-local system inode array.
+> 
+> Mirror the normal validator's slot checks in the filecheck validator.
+> Reject invalid slots in the repair path as well, since the correct
+> slot cannot be recovered.
+> 
+> Fixes: bb88131c9831 ("ocfs2: validate DIO orphan slot during inode read")
 
---
-Cheers, Lorenzo
+Don't see why blames this commit.
+
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  fs/ocfs2/inode.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 45 insertions(+)
+> 
+> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> index 180107a11046..ab82cf9146ef 100644
+> --- a/fs/ocfs2/inode.c
+> +++ b/fs/ocfs2/inode.c
+> @@ -1754,6 +1754,44 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+>  	return rc;
+>  }
+>  
+> +/*
+> + * Validate the slot fields used as indices into arrays sized by
+> + * osb->max_slots.  The filecheck path uses this validator instead of
+> + * ocfs2_validate_inode_block(), so it must enforce the same bounds.
+> + */
+> +static int ocfs2_filecheck_validate_slots(struct super_block *sb,
+> +					  struct ocfs2_dinode *di,
+> +					  unsigned long long blkno)
+> +{
+> +	struct ocfs2_super *osb = OCFS2_SB(sb);
+> +
+> +	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+> +	    (u32)le16_to_cpu(di->i_suballoc_slot) > osb->max_slots - 1) {
+> +		mlog(ML_ERROR,
+> +		     "Filecheck: invalid dinode #%llu: suballoc slot %u\n",
+> +		     blkno, le16_to_cpu(di->i_suballoc_slot));
+> +		return -OCFS2_FILECHECK_ERR_INVALIDINO;
+> +	}
+> +
+> +	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
+> +	    le16_to_cpu(di->i_orphaned_slot) >= osb->max_slots) {
+> +		mlog(ML_ERROR,
+> +		     "Filecheck: invalid dinode #%llu: orphaned slot %u\n",
+> +		     blkno, le16_to_cpu(di->i_orphaned_slot));
+> +		return -OCFS2_FILECHECK_ERR_INVALIDINO;
+> +	}
+> +
+> +	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
+> +	    le16_to_cpu(di->i_dio_orphaned_slot) >= osb->max_slots) {
+> +		mlog(ML_ERROR,
+> +		     "Filecheck: invalid dinode #%llu: DIO orphaned slot %u\n",
+> +		     blkno, le16_to_cpu(di->i_dio_orphaned_slot));
+> +		return -OCFS2_FILECHECK_ERR_INVALIDINO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+The same comments with extent list filecheck patch.
+Please abtract common helpers for this.
+
+Thanks,
+Joseph
+
+>  static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+>  						struct buffer_head *bh)
+>  {
+> @@ -1835,6 +1873,10 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+>  		goto bail;
+>  	}
+>  
+> +	rc = ocfs2_filecheck_validate_slots(sb, di, bh->b_blocknr);
+> +	if (rc)
+> +		goto bail;
+> +
+>  	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
+>  		if (S_ISDIR(le16_to_cpu(di->i_mode)))
+>  			mlog(ML_ERROR,
+> @@ -1893,6 +1935,9 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
+>  		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
+>  	}
+>  
+> +	if (ocfs2_filecheck_validate_slots(sb, di, bh->b_blocknr))
+> +		return -OCFS2_FILECHECK_ERR_INVALIDINO;
+> +
+>  	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
+>  		di->i_blkno = cpu_to_le64(bh->b_blocknr);
+>  		changed = 1;
+
